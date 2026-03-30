@@ -1,4 +1,4 @@
-import type Ajv2020 from "ajv/dist/2020.js";
+import type Ajv from "ajv";
 import { readFileSync } from "node:fs";
 import { glob } from "glob";
 import { resolve, basename } from "node:path";
@@ -54,7 +54,7 @@ function resolveSchemaId(filePath: string): string | null {
  * Each data file is expected to be a JSON array; each element is validated individually.
  */
 export async function validateFiles(
-  ajv: Ajv2020,
+  ajv: Ajv,
   pattern: string,
   cwd?: string,
 ): Promise<ValidationResult> {

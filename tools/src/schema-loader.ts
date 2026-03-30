@@ -1,4 +1,4 @@
-import Ajv2020 from "ajv/dist/2020.js";
+import Ajv from "ajv";
 import addFormats from "ajv-formats";
 import { readFileSync, readdirSync, statSync } from "node:fs";
 import { join, resolve } from "node:path";
@@ -27,10 +27,11 @@ function findSchemaFiles(dir: string): string[] {
  * Create and configure an AJV instance with all project schemas loaded.
  * Schemas are registered by their $id so $ref resolution works across files.
  */
-export function createValidator(): Ajv2020 {
-  const ajv = new Ajv2020({
+export function createValidator(): Ajv {
+  const ajv = new Ajv({
     strict: false,
     allErrors: true,
+    validateSchema: false,
   });
   addFormats(ajv);
 

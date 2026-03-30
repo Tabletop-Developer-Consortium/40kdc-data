@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://40kdc.dev/schemas/core/faction.schema.json",
+  "title": "Faction",
+  "description": "A playable faction or sub-faction.",
+  "type": "object",
+  "properties": {
+    "id": { "$ref": "../defs/common.schema.json#/$defs/entity-id" },
+    "name": { "type": "string", "minLength": 1, "maxLength": 128 },
+    "parent_faction_id": {
+      "oneOf": [
+        { "$ref": "../defs/common.schema.json#/$defs/entity-id" },
+        { "type": "null" }
+      ]
+    },
+    "game_version": { "$ref": "../defs/game-version-ref.schema.json" },
+    "keywords": { "$ref": "../defs/common.schema.json#/$defs/keyword-list" },
+    "aliases": { "type": "array", "items": { "type": "string" } }
+  },
+  "required": ["id", "name", "game_version"],
+  "additionalProperties": false
+}

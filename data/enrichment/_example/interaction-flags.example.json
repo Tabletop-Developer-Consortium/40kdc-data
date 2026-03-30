@@ -1,0 +1,19 @@
+[
+  {
+    "ability_a": "warden-shield-wall",
+    "ability_b": "ironclad-fortress-stance",
+    "interaction_type": "does-not-stack",
+    "resolution": "Only the best invulnerable save applies per the core rules.",
+    "game_version": { "edition": "10th", "dataslate": "2025-q3" },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "ability_a": "void-harvest-aura",
+    "ability_b": "dark-pact-re-roll",
+    "interaction_type": "combos",
+    "resolution": "Harvest aura grants extra attacks; Dark Pact allows re-rolls on those attacks.",
+    "disputed": false,
+    "game_version": { "edition": "10th", "dataslate": "2025-q3" },
+    "authored_by": "40kdc-community"
+  }
+]

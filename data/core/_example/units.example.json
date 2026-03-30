@@ -1,0 +1,97 @@
+[
+  {
+    "id": "warden-sergeant",
+    "name": "Warden Sergeant",
+    "faction_id": "stellar-wardens",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Warden Sergeant",
+        "M": 6,
+        "T": 4,
+        "W": 4,
+        "Sv": 3,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      { "models": 1, "cost": 80 }
+    ],
+    "keywords": ["Infantry", "Character", "Imperium", "Stellar Wardens"],
+    "faction_keywords": ["Stellar Wardens"],
+    "base_size_mm": { "shape": "round", "diameter": 32 },
+    "model_count": { "min": 1, "max": 1 },
+    "weapon_ids": ["bolt-carbine", "power-halberd"],
+    "game_version": { "edition": "10th", "dataslate": "2025-q3" },
+    "is_legend": false
+  },
+  {
+    "id": "ironclad-sentinels",
+    "name": "Ironclad Sentinels",
+    "faction_id": "stellar-wardens",
+    "role": "battleline",
+    "profiles": [
+      {
+        "name": "Ironclad Sentinel",
+        "M": 5,
+        "T": 4,
+        "W": 2,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      { "models": 5, "cost": 90 },
+      { "models": 10, "cost": 170 }
+    ],
+    "keywords": ["Infantry", "Battleline", "Imperium", "Stellar Wardens"],
+    "faction_keywords": ["Stellar Wardens"],
+    "base_size_mm": { "shape": "round", "diameter": 32 },
+    "model_count": { "min": 5, "max": 10 },
+    "weapon_ids": ["bolt-carbine", "combat-blade"],
+    "game_version": { "edition": "10th", "dataslate": "2025-q3" },
+    "is_legend": false
+  },
+  {
+    "id": "void-harvester",
+    "name": "Void Harvester",
+    "faction_id": "void-reapers",
+    "role": "monster",
+    "profiles": [
+      {
+        "name": "Full Strength",
+        "M": 10,
+        "T": 9,
+        "W": 14,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 5
+      },
+      {
+        "name": "Wounded",
+        "M": 8,
+        "T": 9,
+        "W": 14,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 5
+      }
+    ],
+    "points": [
+      { "models": 1, "cost": 220 }
+    ],
+    "keywords": ["Monster", "Chaos", "Void Reapers"],
+    "faction_keywords": ["Void Reapers"],
+    "base_size_mm": { "shape": "oval", "width": 92, "length": 120 },
+    "model_count": { "min": 1, "max": 1 },
+    "weapon_ids": ["reaper-maw", "void-tendrils"],
+    "game_version": { "edition": "10th", "dataslate": "2025-q3" },
+    "is_legend": false
+  }
+]

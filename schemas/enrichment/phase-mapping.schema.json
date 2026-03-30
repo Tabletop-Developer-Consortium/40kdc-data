@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://40kdc.dev/schemas/enrichment/phase-mapping.schema.json",
+  "title": "Phase Mapping",
+  "type": "object",
+  "properties": {
+    "source_id": { "$ref": "../defs/common.schema.json#/$defs/entity-id" },
+    "source_type": { "type": "string", "enum": ["ability", "stratagem", "enhancement", "detachment-rule", "faction-rule"] },
+    "phases": {
+      "type": "array",
+      "items": { "type": "string", "enum": ["pregame", "command", "movement", "shooting", "charge", "fight", "morale"] },
+      "uniqueItems": true,
+      "minItems": 1
+    },
+    "game_version": { "$ref": "../defs/game-version-ref.schema.json" },
+    "authored_by": { "$ref": "../defs/common.schema.json#/$defs/contributor-ref" }
+  },
+  "required": ["source_id", "source_type", "phases", "game_version"]
+}

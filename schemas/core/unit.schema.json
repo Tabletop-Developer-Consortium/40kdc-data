@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://40kdc.dev/schemas/core/unit.schema.json",
+  "title": "Unit",
+  "description": "A unit datasheet entry with stat profiles and point costs.",
+  "type": "object",
+  "properties": {
+    "id": { "$ref": "../defs/common.schema.json#/$defs/entity-id" },
+    "name": { "type": "string", "minLength": 1, "maxLength": 128 },
+    "faction_id": { "$ref": "../defs/common.schema.json#/$defs/entity-id" },
+    "role": {
+      "type": "string",
+      "enum": ["character", "battleline", "dedicated-transport", "infantry", "mounted", "beast", "vehicle", "monster", "fortification", "allied", "epic-hero"]
+    },
+    "profiles": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "description": "Profile name (e.g., 'Wounded' for degrading)" },
+          "M": { "$ref": "../defs/common.schema.json#/$defs/stat-value" },
+          "T": { "type": "integer", "minimum": 1 },
+          "W": { "type": "integer", "minimum": 1 },
+          "Sv": { "type": "integer", "minimum": 2, "maximum": 7 },
+          "invuln_sv": {
+            "oneOf": [
+              { "type": "integer", "minimum": 2, "maximum": 6 },
+              { "type": "null" }
+            ]
+          },
+          "Ld": { "type": "integer", "minimum": 2, "maximum": 10 },
+          "OC": { "type": "integer", "minimum": 0 }
+        },
+        "required": ["M", "T", "W", "Sv", "Ld", "OC"]
+      },
+      "minItems": 1
+    },
+    "points": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "models": { "type": "integer", "minimum": 1 },
+          "cost": { "type": "integer", "minimum": 0 }
+        },
+        "required": ["models", "cost"]
+      }
+    },
+    "keywords": { "$ref": "../defs/common.schema.json#/$defs/keyword-list" },
+    "faction_keywords": { "$ref": "../defs/common.schema.json#/$defs/keyword-list" },
+    "base_size_mm": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "shape": { "enum": ["round", "oval"] },
+            "diameter": { "type": "number" },
+            "width": { "type": "number" },
+            "length": { "type": "number" }
+          },
+          "required": ["shape"]
+        },
+        { "type": "null" }
+      ]
+    },
+    "model_count": {
+      "type": "object",
+      "properties": {
+        "min": { "type": "integer", "minimum": 1 },
+        "max": { "type": "integer", "minimum": 1 }
+      },
+      "required": ["min", "max"]
+    },
+    "weapon_ids": {
+      "type": "array",
+      "items": { "$ref": "../defs/common.schema.json#/$defs/entity-id" }
+    },
+    "game_version": { "$ref": "../defs/game-version-ref.schema.json" },
+    "is_legend": { "type": "boolean", "default": false }
+  },
+  "required": ["id", "name", "faction_id", "profiles", "game_version"],
+  "additionalProperties": false
+}

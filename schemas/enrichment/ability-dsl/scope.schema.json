@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://40kdc.dev/schemas/enrichment/ability-dsl/scope.schema.json",
+  "title": "Ability Scope",
+  "type": "object",
+  "properties": {
+    "range": { "type": "string", "enum": ["self", "unit", "attached", "aura-6", "aura-9", "aura-12", "aura-custom", "engagement-range", "any-visible", "any-on-battlefield"] },
+    "duration": { "type": "string", "enum": ["phase", "turn", "battle-round", "battle", "until-next-command-phase", "one-use", "permanent"] },
+    "range_inches": { "type": "number" }
+  },
+  "required": ["range", "duration"]
+}

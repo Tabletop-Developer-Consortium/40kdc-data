@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://40kdc.dev/schemas/enrichment/ability-dsl/ability.schema.json",
+  "title": "Ability DSL Entry",
+  "description": "Community-authored structured representation of what a game ability does. NOT GW text.",
+  "type": "object",
+  "properties": {
+    "ability_id": { "$ref": "../../defs/common.schema.json#/$defs/entity-id" },
+    "name": { "type": "string" },
+    "authored_by": { "$ref": "../../defs/common.schema.json#/$defs/contributor-ref" },
+    "game_version": { "$ref": "../../defs/game-version-ref.schema.json" },
+    "version": { "$ref": "../../defs/common.schema.json#/$defs/dataslate-version" },
+    "supersedes": {
+      "oneOf": [
+        { "$ref": "../../defs/common.schema.json#/$defs/dataslate-version" },
+        { "type": "null" }
+      ]
+    },
+    "unit_ids": { "type": "array", "items": { "$ref": "../../defs/common.schema.json#/$defs/entity-id" } },
+    "ability_type": { "type": "string", "enum": ["core", "faction", "detachment", "unit", "enhancement", "stratagem"] },
+    "trigger": { "$ref": "trigger.schema.json" },
+    "conditions": {
+      "oneOf": [
+        { "$ref": "condition.schema.json" },
+        { "type": "null" }
+      ]
+    },
+    "effect": { "$ref": "effect.schema.json" },
+    "scope": { "$ref": "scope.schema.json" },
+    "interactions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "ability_ref": { "$ref": "../../defs/common.schema.json#/$defs/entity-id" },
+          "type": { "type": "string", "enum": ["conflicts-with", "combos-with", "superseded-by", "requires", "replaces"] },
+          "notes": { "type": "string" }
+        },
+        "required": ["ability_ref", "type"]
+      }
+    },
+    "disputed": { "type": "boolean", "default": false },
+    "dispute_notes": { "type": "string" },
+    "community_notes": { "type": "string" }
+  },
+  "required": ["ability_id", "name", "authored_by", "game_version", "trigger", "effect", "scope"],
+  "additionalProperties": false
+}

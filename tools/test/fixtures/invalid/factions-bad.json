@@ -1,0 +1,15 @@
+[
+  {
+    "id": "INVALID ID WITH SPACES",
+    "name": "Bad Faction"
+  },
+  {
+    "name": "Missing ID Faction",
+    "game_version": { "edition": "10th", "dataslate": "2025-q3" }
+  },
+  {
+    "id": "ok-id",
+    "name": "Bad Edition",
+    "game_version": { "edition": "not-an-edition", "dataslate": "2025-q3" }
+  }
+]

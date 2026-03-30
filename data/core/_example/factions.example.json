@@ -1,0 +1,26 @@
+[
+  {
+    "id": "stellar-wardens",
+    "name": "Stellar Wardens",
+    "parent_faction_id": null,
+    "game_version": { "edition": "10th", "dataslate": "2025-q3" },
+    "keywords": ["Imperium", "Stellar Wardens"],
+    "aliases": ["Wardens"]
+  },
+  {
+    "id": "stellar-wardens-ironclad-company",
+    "name": "Stellar Wardens Ironclad Company",
+    "parent_faction_id": "stellar-wardens",
+    "game_version": { "edition": "10th", "dataslate": "2025-q3" },
+    "keywords": ["Imperium", "Stellar Wardens", "Ironclad Company"],
+    "aliases": []
+  },
+  {
+    "id": "void-reapers",
+    "name": "Void Reapers",
+    "parent_faction_id": null,
+    "game_version": { "edition": "10th", "dataslate": "2025-q3" },
+    "keywords": ["Chaos", "Void Reapers"],
+    "aliases": ["Reapers"]
+  }
+]

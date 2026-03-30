@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://40kdc.dev/schemas/defs/game-version-ref.schema.json",
+  "title": "Game Version Reference",
+  "type": "object",
+  "properties": {
+    "edition": { "$ref": "common.schema.json#/$defs/edition" },
+    "dataslate": { "$ref": "common.schema.json#/$defs/dataslate-version" }
+  },
+  "required": ["edition", "dataslate"]
+}

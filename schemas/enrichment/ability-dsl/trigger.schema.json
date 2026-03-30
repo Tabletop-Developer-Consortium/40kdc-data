@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://40kdc.dev/schemas/enrichment/ability-dsl/trigger.schema.json",
+  "title": "Ability Trigger",
+  "type": "object",
+  "properties": {
+    "phase": { "type": "string", "enum": ["pregame", "command", "movement", "shooting", "charge", "fight", "morale", "any", "opponent-shooting", "opponent-fight", "opponent-charge", "opponent-movement"] },
+    "timing": { "type": "string", "enum": ["start-of-phase", "end-of-phase", "before-roll", "after-roll", "on-activation", "on-charge-declared", "on-destroyed", "on-damage-allocated", "on-wound-allocated", "on-battle-shock", "continuous", "once-per-battle", "once-per-turn", "once-per-phase"] },
+    "type": { "type": "string", "enum": ["passive", "activated", "reactive", "aura"] },
+    "player_turn": { "type": "string", "enum": ["your-turn", "opponent-turn", "either"], "default": "either" }
+  },
+  "required": ["phase", "timing", "type"]
+}

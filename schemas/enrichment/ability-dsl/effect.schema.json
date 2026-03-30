@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://40kdc.dev/schemas/enrichment/ability-dsl/effect.schema.json",
+  "title": "Ability Effect",
+  "$defs": {
+    "effect-node": {
+      "oneOf": [
+        { "$ref": "#/$defs/single-effect" },
+        { "$ref": "#/$defs/choice-effect" },
+        { "$ref": "#/$defs/sequence-effect" }
+      ]
+    },
+    "single-effect": {
+      "type": "object",
+      "properties": {
+        "type": { "type": "string", "enum": ["stat-modifier", "roll-modifier", "re-roll", "mortal-wounds", "feel-no-pain", "invulnerable-save", "ward", "keyword-grant", "movement-modifier", "deep-strike", "fallback-and-act", "fight-first", "fight-last", "shoot-on-death", "fight-on-death", "objective-control-modifier", "leadership-modifier", "damage-reduction", "attack-restriction", "ability-grant", "cp-gain", "cp-refund", "dice-substitution", "custom"] },
+        "target": { "type": "string", "enum": ["self", "bearer", "unit", "attached-unit", "attacker", "defender", "friendly-within-aura", "enemy-within-aura", "all-friendly", "all-enemy"] },
+        "modifier": { "type": "object", "additionalProperties": true }
+      },
+      "required": ["type", "target"]
+    },
+    "choice-effect": {
+      "type": "object",
+      "properties": {
+        "type": { "const": "choice" },
+        "options": { "type": "array", "items": { "$ref": "#/$defs/effect-node" }, "minItems": 2 },
+        "choice_label": { "type": "string" }
+      },
+      "required": ["type", "options"]
+    },
+    "sequence-effect": {
+      "type": "object",
+      "properties": {
+        "type": { "const": "sequence" },
+        "steps": { "type": "array", "items": { "$ref": "#/$defs/effect-node" }, "minItems": 1 }
+      },
+      "required": ["type", "steps"]
+    }
+  },
+  "$ref": "#/$defs/effect-node"
+}

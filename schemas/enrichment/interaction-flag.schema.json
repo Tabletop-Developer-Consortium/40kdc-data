@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://40kdc.dev/schemas/enrichment/interaction-flag.schema.json",
+  "title": "Interaction Flag",
+  "type": "object",
+  "properties": {
+    "ability_a": { "$ref": "../defs/common.schema.json#/$defs/entity-id" },
+    "ability_b": { "$ref": "../defs/common.schema.json#/$defs/entity-id" },
+    "interaction_type": { "type": "string", "enum": ["conflicts", "combos", "sequencing-dependent", "stacks", "does-not-stack", "replaces"] },
+    "resolution": { "type": "string" },
+    "faq_reference": { "type": "string" },
+    "disputed": { "type": "boolean", "default": false },
+    "game_version": { "$ref": "../defs/game-version-ref.schema.json" },
+    "authored_by": { "$ref": "../defs/common.schema.json#/$defs/contributor-ref" }
+  },
+  "required": ["ability_a", "ability_b", "interaction_type", "game_version"]
+}

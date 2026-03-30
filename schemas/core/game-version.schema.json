@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://40kdc.dev/schemas/core/game-version.schema.json",
+  "title": "Game Version",
+  "type": "object",
+  "properties": {
+    "edition": { "$ref": "../defs/common.schema.json#/$defs/edition" },
+    "dataslate": { "$ref": "../defs/common.schema.json#/$defs/dataslate-version" },
+    "effective_date": { "type": "string", "format": "date" },
+    "label": { "type": "string" },
+    "supersedes": {
+      "oneOf": [
+        { "$ref": "../defs/common.schema.json#/$defs/dataslate-version" },
+        { "type": "null" }
+      ]
+    }
+  },
+  "required": ["edition", "dataslate", "effective_date"],
+  "additionalProperties": false
+}

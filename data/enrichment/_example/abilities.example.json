@@ -1,0 +1,98 @@
+[
+  {
+    "ability_id": "warden-shield-wall",
+    "name": "Shield Wall",
+    "authored_by": "40kdc-community",
+    "game_version": { "edition": "10th", "dataslate": "2025-q3" },
+    "version": "2025-q3",
+    "unit_ids": ["ironclad-sentinels"],
+    "ability_type": "unit",
+    "trigger": {
+      "phase": "any",
+      "timing": "continuous",
+      "type": "passive",
+      "player_turn": "either"
+    },
+    "conditions": null,
+    "effect": {
+      "type": "invulnerable-save",
+      "target": "unit",
+      "modifier": { "invuln_sv": 5 }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    }
+  },
+  {
+    "ability_id": "ironclad-last-stand",
+    "name": "Last Stand",
+    "authored_by": "40kdc-community",
+    "game_version": { "edition": "10th", "dataslate": "2025-q3" },
+    "version": "2025-q3",
+    "unit_ids": ["ironclad-sentinels"],
+    "ability_type": "unit",
+    "trigger": {
+      "phase": "fight",
+      "timing": "on-destroyed",
+      "type": "reactive",
+      "player_turn": "either"
+    },
+    "conditions": {
+      "type": "unit-below-half-strength"
+    },
+    "effect": {
+      "type": "fight-on-death",
+      "target": "self",
+      "modifier": {}
+    },
+    "scope": {
+      "range": "self",
+      "duration": "phase"
+    },
+    "community_notes": "Triggers before the model is removed. Attacks are resolved with the destroyed model's profile."
+  },
+  {
+    "ability_id": "void-harvest-aura",
+    "name": "Harvest Aura",
+    "authored_by": "40kdc-community",
+    "game_version": { "edition": "10th", "dataslate": "2025-q3" },
+    "version": "2025-q3",
+    "unit_ids": ["void-harvester"],
+    "ability_type": "unit",
+    "trigger": {
+      "phase": "command",
+      "timing": "start-of-phase",
+      "type": "aura",
+      "player_turn": "your-turn"
+    },
+    "conditions": null,
+    "effect": {
+      "type": "choice",
+      "options": [
+        {
+          "type": "stat-modifier",
+          "target": "friendly-within-aura",
+          "modifier": { "stat": "A", "operation": "add", "value": 1 }
+        },
+        {
+          "type": "leadership-modifier",
+          "target": "enemy-within-aura",
+          "modifier": { "stat": "Ld", "operation": "add", "value": 1 }
+        }
+      ],
+      "choice_label": "Choose one at the start of your Command phase"
+    },
+    "scope": {
+      "range": "aura-6",
+      "duration": "turn"
+    },
+    "interactions": [
+      {
+        "ability_ref": "dark-pact-re-roll",
+        "type": "combos-with",
+        "notes": "Extra attacks from Harvest Aura benefit from Dark Pact re-rolls."
+      }
+    ]
+  }
+]

@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://40kdc.dev/schemas/defs/common.schema.json",
+  "title": "40kdc Common Definitions",
+  "$defs": {
+    "entity-id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]*[a-z0-9]$",
+      "minLength": 2,
+      "maxLength": 128,
+      "description": "Kebab-case identifier"
+    },
+    "edition": {
+      "type": "string",
+      "pattern": "^\\d{1,2}(th)?$",
+      "description": "Game edition, e.g. '10th' or '11'"
+    },
+    "dataslate-version": {
+      "type": "string",
+      "pattern": "^\\d{4}-q[1-4]$",
+      "description": "Quarterly dataslate version, e.g. '2025-q3'"
+    },
+    "keyword": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64
+    },
+    "keyword-list": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/keyword" },
+      "uniqueItems": true
+    },
+    "stat-value": {
+      "description": "A stat that can be a fixed number or a dice expression",
+      "oneOf": [
+        { "type": "integer", "minimum": 0 },
+        { "type": "string", "pattern": "^\\d*[Dd]\\d+(\\+\\d+)?$" }
+      ]
+    },
+    "contributor-ref": {
+      "type": "string",
+      "description": "GitHub handle or '40kdc-community'"
+    }
+  }
+}

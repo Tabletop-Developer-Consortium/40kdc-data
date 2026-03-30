@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://40kdc.dev/schemas/core/weapon.schema.json",
+  "title": "Weapon",
+  "description": "A weapon entry with stat line.",
+  "type": "object",
+  "properties": {
+    "id": { "$ref": "../defs/common.schema.json#/$defs/entity-id" },
+    "name": { "type": "string", "minLength": 1, "maxLength": 128 },
+    "type": { "enum": ["ranged", "melee"] },
+    "range": {
+      "oneOf": [
+        { "type": "integer", "minimum": 0 },
+        { "type": "string", "const": "Melee" }
+      ]
+    },
+    "stats": {
+      "type": "object",
+      "properties": {
+        "A": { "$ref": "../defs/common.schema.json#/$defs/stat-value" },
+        "BS": {
+          "oneOf": [
+            { "type": "integer", "minimum": 2, "maximum": 6 },
+            { "type": "null" }
+          ]
+        },
+        "WS": {
+          "oneOf": [
+            { "type": "integer", "minimum": 2, "maximum": 6 },
+            { "type": "null" }
+          ]
+        },
+        "S": { "$ref": "../defs/common.schema.json#/$defs/stat-value" },
+        "AP": { "type": "integer" },
+        "D": { "$ref": "../defs/common.schema.json#/$defs/stat-value" }
+      },
+      "required": ["A", "S", "AP", "D"]
+    },
+    "keywords": { "$ref": "../defs/common.schema.json#/$defs/keyword-list" },
+    "game_version": { "$ref": "../defs/game-version-ref.schema.json" }
+  },
+  "required": ["id", "name", "type", "stats", "game_version"],
+  "additionalProperties": false
+}

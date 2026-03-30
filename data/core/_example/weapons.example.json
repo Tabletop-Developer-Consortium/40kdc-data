@@ -1,0 +1,66 @@
+[
+  {
+    "id": "bolt-carbine",
+    "name": "Bolt Carbine",
+    "type": "ranged",
+    "range": 24,
+    "stats": {
+      "A": 2,
+      "BS": 3,
+      "WS": null,
+      "S": 4,
+      "AP": 0,
+      "D": 1
+    },
+    "keywords": ["Assault"],
+    "game_version": { "edition": "10th", "dataslate": "2025-q3" }
+  },
+  {
+    "id": "power-halberd",
+    "name": "Power Halberd",
+    "type": "melee",
+    "range": "Melee",
+    "stats": {
+      "A": 4,
+      "BS": null,
+      "WS": 3,
+      "S": 5,
+      "AP": -2,
+      "D": 2
+    },
+    "keywords": [],
+    "game_version": { "edition": "10th", "dataslate": "2025-q3" }
+  },
+  {
+    "id": "reaper-maw",
+    "name": "Reaper Maw",
+    "type": "melee",
+    "range": "Melee",
+    "stats": {
+      "A": "D6+2",
+      "BS": null,
+      "WS": 3,
+      "S": 8,
+      "AP": -3,
+      "D": 3
+    },
+    "keywords": ["Devastating Wounds"],
+    "game_version": { "edition": "10th", "dataslate": "2025-q3" }
+  },
+  {
+    "id": "void-tendrils",
+    "name": "Void Tendrils",
+    "type": "ranged",
+    "range": 18,
+    "stats": {
+      "A": "2D6",
+      "BS": 4,
+      "WS": null,
+      "S": 5,
+      "AP": -1,
+      "D": 1
+    },
+    "keywords": ["Torrent"],
+    "game_version": { "edition": "10th", "dataslate": "2025-q3" }
+  }
+]

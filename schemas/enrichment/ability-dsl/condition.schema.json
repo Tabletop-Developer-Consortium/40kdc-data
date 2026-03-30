@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://40kdc.dev/schemas/enrichment/ability-dsl/condition.schema.json",
+  "title": "Ability Condition",
+  "$defs": {
+    "condition-node": {
+      "oneOf": [
+        { "$ref": "#/$defs/simple-condition" },
+        { "$ref": "#/$defs/compound-condition" }
+      ]
+    },
+    "simple-condition": {
+      "type": "object",
+      "properties": {
+        "type": { "type": "string", "enum": ["unit-below-starting-strength", "unit-below-half-strength", "unit-has-keyword", "unit-within-range-of", "model-is-leader", "target-has-keyword", "charged-this-turn", "advanced-this-turn", "remained-stationary", "is-battle-shocked", "has-lost-wounds", "opponent-unit-within-range", "within-range-of-objective", "custom"] },
+        "parameters": { "type": "object", "additionalProperties": true },
+        "negated": { "type": "boolean", "default": false }
+      },
+      "required": ["type"]
+    },
+    "compound-condition": {
+      "type": "object",
+      "properties": {
+        "operator": { "type": "string", "enum": ["and", "or", "not"] },
+        "operands": { "type": "array", "items": { "$ref": "#/$defs/condition-node" }, "minItems": 1 }
+      },
+      "required": ["operator", "operands"]
+    }
+  },
+  "$ref": "#/$defs/condition-node"
+}

@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://40kdc.dev/schemas/enrichment/timing-flag.schema.json",
+  "title": "Timing Flag",
+  "type": "object",
+  "properties": {
+    "source_id": { "$ref": "../defs/common.schema.json#/$defs/entity-id" },
+    "source_type": { "type": "string", "enum": ["ability", "stratagem", "enhancement", "detachment-rule"] },
+    "timing": {
+      "type": "string",
+      "enum": [
+        "start-of-phase", "end-of-phase",
+        "before-hit-roll", "after-hit-roll",
+        "before-wound-roll", "after-wound-roll",
+        "before-save-roll", "after-save-roll",
+        "before-damage-roll", "after-damage-roll",
+        "before-charge-roll", "after-charge-roll",
+        "before-advance-roll", "after-advance-roll",
+        "before-battle-shock", "after-battle-shock",
+        "on-unit-selected", "on-unit-destroyed",
+        "on-model-destroyed", "on-damage-allocated"
+      ]
+    },
+    "game_version": { "$ref": "../defs/game-version-ref.schema.json" },
+    "authored_by": { "$ref": "../defs/common.schema.json#/$defs/contributor-ref" }
+  },
+  "required": ["source_id", "source_type", "timing", "game_version"]
+}

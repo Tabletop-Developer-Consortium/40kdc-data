@@ -1,0 +1,23 @@
+[
+  {
+    "source_id": "warden-shield-wall",
+    "source_type": "ability",
+    "timing": "before-save-roll",
+    "game_version": { "edition": "10th", "dataslate": "2025-q3" },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "void-harvest-aura",
+    "source_type": "ability",
+    "timing": "start-of-phase",
+    "game_version": { "edition": "10th", "dataslate": "2025-q3" },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "ironclad-last-stand",
+    "source_type": "ability",
+    "timing": "on-unit-destroyed",
+    "game_version": { "edition": "10th", "dataslate": "2025-q3" },
+    "authored_by": "40kdc-community"
+  }
+]

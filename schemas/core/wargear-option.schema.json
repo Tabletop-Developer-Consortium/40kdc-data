@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://40kdc.dev/schemas/core/wargear-option.schema.json",
+  "title": "Wargear Option",
+  "description": "A weapon substitution option available to models within a unit.",
+  "type": "object",
+  "properties": {
+    "id": { "$ref": "../defs/common.schema.json#/$defs/entity-id" },
+    "unit_id": { "$ref": "../defs/common.schema.json#/$defs/entity-id" },
+    "model_constraint": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "model_name": { "type": "string", "minLength": 1 },
+            "per_n_models": { "type": "integer", "minimum": 1 },
+            "max_count": { "type": "integer", "minimum": 1 }
+          },
+          "additionalProperties": false
+        },
+        { "type": "null" }
+      ]
+    },
+    "replaces": {
+      "type": "array",
+      "items": { "$ref": "../defs/common.schema.json#/$defs/entity-id" },
+      "minItems": 1,
+      "description": "Weapon IDs being removed"
+    },
+    "replacement": {
+      "type": "array",
+      "items": { "$ref": "../defs/common.schema.json#/$defs/entity-id" },
+      "minItems": 1,
+      "description": "Weapon IDs being added"
+    },
+    "is_free": { "type": "boolean", "default": true },
+    "additional_cost": {
+      "oneOf": [
+        { "type": "integer", "minimum": 0 },
+        { "type": "null" }
+      ]
+    },
+    "game_version": { "$ref": "../defs/game-version-ref.schema.json" }
+  },
+  "required": ["id", "unit_id", "replaces", "replacement", "game_version"],
+  "additionalProperties": false
+}

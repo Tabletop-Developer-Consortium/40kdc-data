@@ -1,0 +1,25 @@
+[
+  {
+    "id": "ironclad-spearhead",
+    "name": "Ironclad Spearhead",
+    "faction_id": "stellar-wardens",
+    "detachment_rule_id": "ironclad-advance-rule",
+    "enhancement_ids": ["wardens-resolve", "shield-of-the-vanguard"],
+    "stratagem_ids": ["ironclad-advance", "hold-the-line"],
+    "restrictions": null,
+    "game_version": { "edition": "10th", "dataslate": "2025-q3" }
+  },
+  {
+    "id": "void-harvest-cult",
+    "name": "Void Harvest Cult",
+    "faction_id": "void-reapers",
+    "detachment_rule_id": null,
+    "enhancement_ids": [],
+    "stratagem_ids": [],
+    "restrictions": {
+      "required_keywords": ["Void Reapers"],
+      "notes": "All units must have the Void Reapers keyword"
+    },
+    "game_version": { "edition": "10th", "dataslate": "2025-q3" }
+  }
+]

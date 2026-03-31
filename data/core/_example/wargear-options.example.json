@@ -1,0 +1,27 @@
+[
+  {
+    "id": "sentinel-sergeant-melee-swap",
+    "unit_id": "ironclad-sentinels",
+    "model_constraint": {
+      "model_name": "Sentinel Sergeant",
+      "max_count": 1
+    },
+    "replaces": ["combat-blade"],
+    "replacement": ["power-halberd"],
+    "is_free": true,
+    "game_version": { "edition": "10th", "dataslate": "2025-q3" }
+  },
+  {
+    "id": "sentinel-heavy-weapon-swap",
+    "unit_id": "ironclad-sentinels",
+    "model_constraint": {
+      "per_n_models": 5,
+      "max_count": 2
+    },
+    "replaces": ["bolt-carbine"],
+    "replacement": ["stellar-lance"],
+    "is_free": false,
+    "additional_cost": 5,
+    "game_version": { "edition": "10th", "dataslate": "2025-q3" }
+  }
+]

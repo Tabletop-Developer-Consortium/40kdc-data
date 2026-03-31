@@ -3,64 +3,76 @@
     "id": "bolt-carbine",
     "name": "Bolt Carbine",
     "type": "ranged",
-    "range": 24,
-    "stats": {
-      "A": 2,
-      "BS": 3,
-      "WS": null,
-      "S": 4,
-      "AP": 0,
-      "D": 1
-    },
-    "keywords": ["Assault"],
+    "profiles": [
+      {
+        "name": "Bolt Carbine",
+        "range": 24,
+        "stats": { "A": 2, "BS": 3, "WS": null, "S": 4, "AP": 0, "D": 1 },
+        "keywords": ["Assault"]
+      }
+    ],
     "game_version": { "edition": "10th", "dataslate": "2025-q3" }
   },
   {
     "id": "power-halberd",
     "name": "Power Halberd",
     "type": "melee",
-    "range": "Melee",
-    "stats": {
-      "A": 4,
-      "BS": null,
-      "WS": 3,
-      "S": 5,
-      "AP": -2,
-      "D": 2
-    },
-    "keywords": [],
+    "profiles": [
+      {
+        "name": "Power Halberd",
+        "range": "Melee",
+        "stats": { "A": 4, "BS": null, "WS": 3, "S": 5, "AP": -2, "D": 2 },
+        "keywords": []
+      }
+    ],
     "game_version": { "edition": "10th", "dataslate": "2025-q3" }
   },
   {
     "id": "reaper-maw",
     "name": "Reaper Maw",
     "type": "melee",
-    "range": "Melee",
-    "stats": {
-      "A": "D6+2",
-      "BS": null,
-      "WS": 3,
-      "S": 8,
-      "AP": -3,
-      "D": 3
-    },
-    "keywords": ["Devastating Wounds"],
+    "profiles": [
+      {
+        "name": "Reaper Maw",
+        "range": "Melee",
+        "stats": { "A": "D6+2", "BS": null, "WS": 3, "S": 8, "AP": -3, "D": 3 },
+        "keywords": ["Devastating Wounds"]
+      }
+    ],
     "game_version": { "edition": "10th", "dataslate": "2025-q3" }
   },
   {
     "id": "void-tendrils",
     "name": "Void Tendrils",
     "type": "ranged",
-    "range": 18,
-    "stats": {
-      "A": "2D6",
-      "BS": 4,
-      "WS": null,
-      "S": 5,
-      "AP": -1,
-      "D": 1
-    },
-    "keywords": ["Torrent"],
+    "profiles": [
+      {
+        "name": "Void Tendrils",
+        "range": 18,
+        "stats": { "A": "2D6", "BS": 4, "WS": null, "S": 5, "AP": -1, "D": 1 },
+        "keywords": ["Torrent"]
+      }
+    ],
+    "game_version": { "edition": "10th", "dataslate": "2025-q3" }
+  },
+  {
+    "id": "stellar-lance",
+    "name": "Stellar Lance",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Standard",
+        "range": 36,
+        "stats": { "A": 1, "BS": 3, "S": 9, "AP": -3, "D": "D6" },
+        "keywords": ["Heavy"]
+      },
+      {
+        "name": "Overcharge",
+        "range": 36,
+        "stats": { "A": 1, "BS": 3, "S": 10, "AP": -4, "D": "D6+2" },
+        "keywords": ["Heavy", "Hazardous"]
+      }
+    ],
     "game_version": { "edition": "10th", "dataslate": "2025-q3" }
   }
 ]

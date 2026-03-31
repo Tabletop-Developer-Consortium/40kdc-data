@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://40kdc.dev/schemas/core/unit-composition.schema.json",
+  "title": "Unit Composition",
+  "description": "Describes the internal model-type breakdown of a unit.",
+  "type": "object",
+  "properties": {
+    "unit_id": { "$ref": "../defs/common.schema.json#/$defs/entity-id" },
+    "models": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "minLength": 1 },
+          "profile_name": {
+            "oneOf": [
+              { "type": "string", "minLength": 1 },
+              { "type": "null" }
+            ]
+          },
+          "min": { "type": "integer", "minimum": 0 },
+          "max": { "type": "integer", "minimum": 1 },
+          "default_weapon_ids": {
+            "type": "array",
+            "items": { "$ref": "../defs/common.schema.json#/$defs/entity-id" }
+          },
+          "is_leader_model": { "type": "boolean", "default": false }
+        },
+        "required": ["name", "min", "max"],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    },
+    "game_version": { "$ref": "../defs/game-version-ref.schema.json" }
+  },
+  "required": ["unit_id", "models", "game_version"],
+  "additionalProperties": false
+}

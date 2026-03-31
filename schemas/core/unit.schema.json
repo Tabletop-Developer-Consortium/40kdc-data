@@ -10,7 +10,8 @@
     "faction_id": { "$ref": "../defs/common.schema.json#/$defs/entity-id" },
     "role": {
       "type": "string",
-      "enum": ["character", "battleline", "dedicated-transport", "infantry", "mounted", "beast", "vehicle", "monster", "fortification", "allied", "epic-hero"]
+      "enum": ["character", "battleline", "dedicated-transport", "fortification", "allied", "epic-hero"],
+      "description": "Battlefield role from the datasheet header. Unit types (Infantry, Vehicle, etc.) belong in keywords."
     },
     "profiles": {
       "type": "array",
@@ -74,6 +75,35 @@
     "weapon_ids": {
       "type": "array",
       "items": { "$ref": "../defs/common.schema.json#/$defs/entity-id" }
+    },
+    "ability_ids": {
+      "type": "array",
+      "items": { "$ref": "../defs/common.schema.json#/$defs/entity-id" }
+    },
+    "transport_capacity": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "capacity": { "type": "integer", "minimum": 1 },
+            "keyword_restrictions": {
+              "oneOf": [
+                { "$ref": "../defs/common.schema.json#/$defs/keyword-list" },
+                { "type": "null" }
+              ]
+            },
+            "exclusion_keywords": {
+              "oneOf": [
+                { "$ref": "../defs/common.schema.json#/$defs/keyword-list" },
+                { "type": "null" }
+              ]
+            }
+          },
+          "required": ["capacity"],
+          "additionalProperties": false
+        },
+        { "type": "null" }
+      ]
     },
     "game_version": { "$ref": "../defs/game-version-ref.schema.json" },
     "is_legend": { "type": "boolean", "default": false }

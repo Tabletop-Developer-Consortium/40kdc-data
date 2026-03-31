@@ -17,6 +17,20 @@
       ]
     },
     "unit_ids": { "type": "array", "items": { "$ref": "../../defs/common.schema.json#/$defs/entity-id" } },
+    "faction_id": {
+      "oneOf": [
+        { "$ref": "../../defs/common.schema.json#/$defs/entity-id" },
+        { "type": "null" }
+      ],
+      "description": "For faction-type abilities, the faction this rule belongs to"
+    },
+    "detachment_id": {
+      "oneOf": [
+        { "$ref": "../../defs/common.schema.json#/$defs/entity-id" },
+        { "type": "null" }
+      ],
+      "description": "For detachment/enhancement/stratagem-type abilities, the associated detachment"
+    },
     "ability_type": { "type": "string", "enum": ["core", "faction", "detachment", "unit", "enhancement", "stratagem"] },
     "trigger": { "$ref": "trigger.schema.json" },
     "conditions": {

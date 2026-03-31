@@ -15,7 +15,14 @@
     },
     "game_version": { "$ref": "../defs/game-version-ref.schema.json" },
     "keywords": { "$ref": "../defs/common.schema.json#/$defs/keyword-list" },
-    "aliases": { "type": "array", "items": { "type": "string" } }
+    "aliases": { "type": "array", "items": { "type": "string" } },
+    "faction_rule_id": {
+      "oneOf": [
+        { "$ref": "../defs/common.schema.json#/$defs/entity-id" },
+        { "type": "null" }
+      ],
+      "description": "Reference to the faction-wide ability (e.g., Oath of Moment)"
+    }
   },
   "required": ["id", "name", "game_version"],
   "additionalProperties": false

@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://40kdc.dev/schemas/core/stratagem.schema.json",
+  "title": "Stratagem",
+  "description": "A CP-costed ability usable during specific game phases.",
+  "type": "object",
+  "properties": {
+    "id": { "$ref": "../defs/common.schema.json#/$defs/entity-id" },
+    "name": { "type": "string", "minLength": 1, "maxLength": 128 },
+    "category": {
+      "type": "string",
+      "enum": ["core", "detachment"],
+      "description": "Whether this is a universal core stratagem or tied to a specific detachment"
+    },
+    "type": {
+      "type": "string",
+      "enum": ["battle-tactic", "strategic-ploy", "epic-deed", "wargear"],
+      "description": "GW-printed stratagem category from the card"
+    },
+    "detachment_id": {
+      "oneOf": [
+        { "$ref": "../defs/common.schema.json#/$defs/entity-id" },
+        { "type": "null" }
+      ],
+      "description": "Null for core stratagems"
+    },
+    "cp_cost": { "type": "integer", "minimum": 0, "maximum": 4 },
+    "phases": { "$ref": "../defs/common.schema.json#/$defs/phase-list" },
+    "player_turn": { "$ref": "../defs/common.schema.json#/$defs/player-turn" },
+    "timing": {
+      "type": "string",
+      "enum": ["once-per-phase", "once-per-turn", "once-per-battle", "unlimited"]
+    },
+    "target_restrictions": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "required_keywords": { "$ref": "../defs/common.schema.json#/$defs/keyword-list" },
+            "excluded_keywords": { "$ref": "../defs/common.schema.json#/$defs/keyword-list" },
+            "notes": { "type": "string" }
+          },
+          "additionalProperties": false
+        },
+        { "type": "null" }
+      ]
+    },
+    "ability_id": {
+      "oneOf": [
+        { "$ref": "../defs/common.schema.json#/$defs/entity-id" },
+        { "type": "null" }
+      ]
+    },
+    "game_version": { "$ref": "../defs/game-version-ref.schema.json" }
+  },
+  "required": ["id", "name", "category", "type", "cp_cost", "phases", "player_turn", "timing", "game_version"],
+  "additionalProperties": false
+}

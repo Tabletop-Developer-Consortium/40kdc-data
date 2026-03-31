@@ -5,13 +5,8 @@
   "type": "object",
   "properties": {
     "source_id": { "$ref": "../defs/common.schema.json#/$defs/entity-id" },
-    "source_type": { "type": "string", "enum": ["ability", "stratagem", "enhancement", "detachment-rule", "faction-rule"] },
-    "phases": {
-      "type": "array",
-      "items": { "type": "string", "enum": ["pregame", "command", "movement", "shooting", "charge", "fight", "morale"] },
-      "uniqueItems": true,
-      "minItems": 1
-    },
+    "source_type": { "$ref": "../defs/common.schema.json#/$defs/source-type" },
+    "phases": { "$ref": "../defs/common.schema.json#/$defs/phase-list" },
     "game_version": { "$ref": "../defs/game-version-ref.schema.json" },
     "authored_by": { "$ref": "../defs/common.schema.json#/$defs/contributor-ref" }
   },

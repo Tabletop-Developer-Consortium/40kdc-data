@@ -40,6 +40,27 @@
     "contributor-ref": {
       "type": "string",
       "description": "GitHub handle or '40kdc-community'"
+    },
+    "phase": {
+      "type": "string",
+      "enum": ["command", "movement", "shooting", "charge", "fight"],
+      "description": "Official 10th edition game phases"
+    },
+    "phase-list": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/phase" },
+      "uniqueItems": true,
+      "minItems": 1
+    },
+    "source-type": {
+      "type": "string",
+      "enum": ["ability", "stratagem", "enhancement", "detachment-rule", "faction-rule"],
+      "description": "Type of game element that is the source of an enrichment entry"
+    },
+    "player-turn": {
+      "type": "string",
+      "enum": ["your-turn", "opponent-turn", "either"],
+      "description": "Which player's turn this applies during"
     }
   }
 }

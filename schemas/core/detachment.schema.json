@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://40kdc.dev/schemas/core/detachment.schema.json",
+  "title": "Detachment",
+  "description": "A detachment option within a faction, providing a detachment rule, enhancements, and stratagems.",
+  "type": "object",
+  "properties": {
+    "id": { "$ref": "../defs/common.schema.json#/$defs/entity-id" },
+    "name": { "type": "string", "minLength": 1, "maxLength": 128 },
+    "faction_id": { "$ref": "../defs/common.schema.json#/$defs/entity-id" },
+    "detachment_rule_id": {
+      "oneOf": [
+        { "$ref": "../defs/common.schema.json#/$defs/entity-id" },
+        { "type": "null" }
+      ]
+    },
+    "enhancement_ids": {
+      "type": "array",
+      "items": { "$ref": "../defs/common.schema.json#/$defs/entity-id" }
+    },
+    "stratagem_ids": {
+      "type": "array",
+      "items": { "$ref": "../defs/common.schema.json#/$defs/entity-id" }
+    },
+    "restrictions": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "required_keywords": { "$ref": "../defs/common.schema.json#/$defs/keyword-list" },
+            "excluded_keywords": { "$ref": "../defs/common.schema.json#/$defs/keyword-list" },
+            "notes": { "type": "string" }
+          },
+          "additionalProperties": false
+        },
+        { "type": "null" }
+      ]
+    },
+    "game_version": { "$ref": "../defs/game-version-ref.schema.json" }
+  },
+  "required": ["id", "name", "faction_id", "game_version"],
+  "additionalProperties": false
+}

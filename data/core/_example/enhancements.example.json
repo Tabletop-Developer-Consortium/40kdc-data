@@ -1,0 +1,24 @@
+[
+  {
+    "id": "wardens-resolve",
+    "name": "Warden's Resolve",
+    "detachment_id": "ironclad-spearhead",
+    "cost": 20,
+    "keyword_restrictions": ["Character", "Stellar Wardens"],
+    "exclusion_keywords": ["Epic Hero"],
+    "ability_id": "wardens-resolve-ability",
+    "is_unique": true,
+    "game_version": { "edition": "10th", "dataslate": "2025-q3" }
+  },
+  {
+    "id": "shield-of-the-vanguard",
+    "name": "Shield of the Vanguard",
+    "detachment_id": "ironclad-spearhead",
+    "cost": 15,
+    "keyword_restrictions": ["Character", "Stellar Wardens"],
+    "exclusion_keywords": null,
+    "ability_id": null,
+    "is_unique": true,
+    "game_version": { "edition": "10th", "dataslate": "2025-q3" }
+  }
+]

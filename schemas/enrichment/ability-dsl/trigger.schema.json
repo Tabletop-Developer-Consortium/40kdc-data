@@ -4,10 +4,25 @@
   "title": "Ability Trigger",
   "type": "object",
   "properties": {
-    "phase": { "type": "string", "enum": ["pregame", "command", "movement", "shooting", "charge", "fight", "morale", "any", "opponent-shooting", "opponent-fight", "opponent-charge", "opponent-movement"] },
-    "timing": { "type": "string", "enum": ["start-of-phase", "end-of-phase", "before-roll", "after-roll", "on-activation", "on-charge-declared", "on-destroyed", "on-damage-allocated", "on-wound-allocated", "on-battle-shock", "continuous", "once-per-battle", "once-per-turn", "once-per-phase"] },
+    "phase": {
+      "type": "string",
+      "enum": ["command", "movement", "shooting", "charge", "fight", "any", "pregame"],
+      "description": "The 5 core phases plus 'any' and 'pregame' for abilities that apply outside normal phase flow"
+    },
+    "timing": {
+      "type": "string",
+      "enum": [
+        "start-of-phase", "end-of-phase",
+        "before-roll", "after-roll",
+        "on-activation", "on-charge-declared",
+        "on-destroyed", "on-damage-allocated", "on-wound-allocated",
+        "on-battle-shock",
+        "continuous",
+        "once-per-battle", "once-per-turn", "once-per-phase"
+      ]
+    },
     "type": { "type": "string", "enum": ["passive", "activated", "reactive", "aura"] },
-    "player_turn": { "type": "string", "enum": ["your-turn", "opponent-turn", "either"], "default": "either" }
+    "player_turn": { "$ref": "../../defs/common.schema.json#/$defs/player-turn" }
   },
   "required": ["phase", "timing", "type"]
 }

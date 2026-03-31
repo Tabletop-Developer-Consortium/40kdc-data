@@ -1,7 +1,7 @@
 [
   {
-    "id": "no-stats",
-    "name": "Weapon Without Stats",
+    "id": "no-profiles",
+    "name": "Weapon Without Profiles",
     "type": "ranged",
     "game_version": { "edition": "10th", "dataslate": "2025-q3" }
   },
@@ -9,7 +9,12 @@
     "id": "bad-type",
     "name": "Invalid Type Weapon",
     "type": "thrown",
-    "stats": { "A": 1, "S": 3, "AP": 0, "D": 1 },
+    "profiles": [
+      {
+        "name": "Thrown",
+        "stats": { "A": 1, "S": 3, "AP": 0, "D": 1 }
+      }
+    ],
     "game_version": { "edition": "10th", "dataslate": "2025-q3" }
   }
 ]

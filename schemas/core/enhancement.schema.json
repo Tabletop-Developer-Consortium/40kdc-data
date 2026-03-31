@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://40kdc.dev/schemas/core/enhancement.schema.json",
+  "title": "Enhancement",
+  "description": "A purchasable upgrade for a character unit, provided by a detachment.",
+  "type": "object",
+  "properties": {
+    "id": { "$ref": "../defs/common.schema.json#/$defs/entity-id" },
+    "name": { "type": "string", "minLength": 1, "maxLength": 128 },
+    "detachment_id": { "$ref": "../defs/common.schema.json#/$defs/entity-id" },
+    "cost": { "type": "integer", "minimum": 0 },
+    "keyword_restrictions": { "$ref": "../defs/common.schema.json#/$defs/keyword-list" },
+    "exclusion_keywords": {
+      "oneOf": [
+        { "$ref": "../defs/common.schema.json#/$defs/keyword-list" },
+        { "type": "null" }
+      ]
+    },
+    "ability_id": {
+      "oneOf": [
+        { "$ref": "../defs/common.schema.json#/$defs/entity-id" },
+        { "type": "null" }
+      ]
+    },
+    "is_unique": { "type": "boolean", "default": true },
+    "game_version": { "$ref": "../defs/game-version-ref.schema.json" }
+  },
+  "required": ["id", "name", "detachment_id", "cost", "game_version"],
+  "additionalProperties": false
+}

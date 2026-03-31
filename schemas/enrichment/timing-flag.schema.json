@@ -5,7 +5,7 @@
   "type": "object",
   "properties": {
     "source_id": { "$ref": "../defs/common.schema.json#/$defs/entity-id" },
-    "source_type": { "type": "string", "enum": ["ability", "stratagem", "enhancement", "detachment-rule"] },
+    "source_type": { "$ref": "../defs/common.schema.json#/$defs/source-type" },
     "timing": {
       "type": "string",
       "enum": [

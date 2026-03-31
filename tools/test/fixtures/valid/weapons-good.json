@@ -3,14 +3,13 @@
     "id": "test-bolter",
     "name": "Test Bolter",
     "type": "ranged",
-    "range": 24,
-    "stats": {
-      "A": 2,
-      "BS": 3,
-      "S": 4,
-      "AP": -1,
-      "D": 1
-    },
+    "profiles": [
+      {
+        "name": "Test Bolter",
+        "range": 24,
+        "stats": { "A": 2, "BS": 3, "S": 4, "AP": -1, "D": 1 }
+      }
+    ],
     "game_version": { "edition": "10th", "dataslate": "2025-q3" }
   }
 ]

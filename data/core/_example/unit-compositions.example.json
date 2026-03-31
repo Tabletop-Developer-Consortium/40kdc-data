@@ -1,0 +1,23 @@
+[
+  {
+    "unit_id": "ironclad-sentinels",
+    "models": [
+      {
+        "name": "Sentinel Sergeant",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": ["bolt-carbine", "combat-blade"],
+        "is_leader_model": true
+      },
+      {
+        "name": "Ironclad Sentinel",
+        "profile_name": "Ironclad Sentinel",
+        "min": 4,
+        "max": 9,
+        "default_weapon_ids": ["bolt-carbine", "combat-blade"],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": { "edition": "10th", "dataslate": "2025-q3" }
+  }
+]

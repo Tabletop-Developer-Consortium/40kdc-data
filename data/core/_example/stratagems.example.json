@@ -1,0 +1,49 @@
+[
+  {
+    "id": "ironclad-advance",
+    "name": "Ironclad Advance",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "ironclad-spearhead",
+    "cp_cost": 1,
+    "phases": ["movement"],
+    "player_turn": "your-turn",
+    "timing": "once-per-turn",
+    "target_restrictions": {
+      "required_keywords": ["Stellar Wardens", "Infantry"]
+    },
+    "ability_id": null,
+    "game_version": { "edition": "10th", "dataslate": "2025-q3" }
+  },
+  {
+    "id": "hold-the-line",
+    "name": "Hold the Line",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "ironclad-spearhead",
+    "cp_cost": 1,
+    "phases": ["shooting", "fight"],
+    "player_turn": "either",
+    "timing": "once-per-turn",
+    "target_restrictions": {
+      "required_keywords": ["Stellar Wardens"],
+      "notes": "Target must be within range of an objective marker"
+    },
+    "ability_id": null,
+    "game_version": { "edition": "10th", "dataslate": "2025-q3" }
+  },
+  {
+    "id": "command-re-roll",
+    "name": "Command Re-roll",
+    "category": "core",
+    "type": "battle-tactic",
+    "detachment_id": null,
+    "cp_cost": 1,
+    "phases": ["command", "movement", "shooting", "charge", "fight"],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": { "edition": "10th", "dataslate": "2025-q3" }
+  }
+]

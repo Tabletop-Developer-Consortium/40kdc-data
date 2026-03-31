@@ -1,0 +1,31 @@
+[
+  {
+    "id": "kharn-the-betrayer",
+    "name": "Khârn the Betrayer",
+    "faction_id": "world-eaters",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Khârn the Betrayer",
+        "M": 8,
+        "T": 4,
+        "W": 5,
+        "Sv": 3,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      { "models": 1, "cost": 100 }
+    ],
+    "keywords": ["Infantry", "Character", "Epic Hero", "Grenades", "Chaos", "Khorne", "Khârn The Betrayer"],
+    "faction_keywords": ["World Eaters"],
+    "base_size_mm": { "shape": "round", "diameter": 32 },
+    "model_count": { "min": 1, "max": 1 },
+    "weapon_ids": ["plasma-pistol", "gorechild"],
+    "ability_ids": ["legendary-killer", "the-betrayer", "berzerker-frenzy"],
+    "game_version": { "edition": "10th", "dataslate": "2025-q3" },
+    "is_legend": false
+  }
+]

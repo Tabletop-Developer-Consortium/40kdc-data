@@ -12,7 +12,20 @@
     "simple-condition": {
       "type": "object",
       "properties": {
-        "type": { "type": "string", "enum": ["unit-below-starting-strength", "unit-below-half-strength", "unit-has-keyword", "unit-within-range-of", "model-is-leader", "target-has-keyword", "charged-this-turn", "advanced-this-turn", "remained-stationary", "is-battle-shocked", "has-lost-wounds", "opponent-unit-within-range", "within-range-of-objective", "custom"] },
+        "type": {
+          "type": "string",
+          "enum": [
+            "phase-is", "timing-is", "player-turn-is",
+            "unit-below-starting-strength", "unit-below-half-strength",
+            "unit-has-keyword", "unit-within-range-of",
+            "model-is-leader", "target-has-keyword",
+            "charged-this-turn", "advanced-this-turn", "remained-stationary",
+            "is-battle-shocked", "has-lost-wounds",
+            "opponent-unit-within-range", "within-range-of-objective",
+            "attack-is-type", "has-fought-this-phase",
+            "destroyed-by-attack-type", "controls-objective", "is-attached"
+          ]
+        },
         "parameters": { "type": "object", "additionalProperties": true },
         "negated": { "type": "boolean", "default": false }
       },

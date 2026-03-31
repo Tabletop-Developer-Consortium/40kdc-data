@@ -7,13 +7,7 @@
     "version": "2025-q3",
     "unit_ids": ["ironclad-sentinels"],
     "ability_type": "unit",
-    "trigger": {
-      "phase": "any",
-      "timing": "continuous",
-      "type": "passive",
-      "player_turn": "either"
-    },
-    "conditions": null,
+    "behavior": "passive",
     "effect": {
       "type": "invulnerable-save",
       "target": "unit",
@@ -32,19 +26,22 @@
     "version": "2025-q3",
     "unit_ids": ["ironclad-sentinels"],
     "ability_type": "unit",
-    "trigger": {
-      "phase": "fight",
-      "timing": "on-destroyed",
-      "type": "reactive",
-      "player_turn": "either"
-    },
-    "conditions": {
-      "type": "unit-below-half-strength"
-    },
+    "behavior": "reactive",
     "effect": {
-      "type": "fight-on-death",
-      "target": "self",
-      "modifier": {}
+      "type": "conditional",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          { "type": "phase-is", "parameters": { "phase": "fight" } },
+          { "type": "timing-is", "parameters": { "timing": "on-destroyed" } },
+          { "type": "unit-below-half-strength" }
+        ]
+      },
+      "effect": {
+        "type": "fight-on-death",
+        "target": "self",
+        "modifier": {}
+      }
     },
     "scope": {
       "range": "self",
@@ -60,28 +57,33 @@
     "version": "2025-q3",
     "unit_ids": ["void-harvester"],
     "ability_type": "unit",
-    "trigger": {
-      "phase": "command",
-      "timing": "start-of-phase",
-      "type": "aura",
-      "player_turn": "your-turn"
-    },
-    "conditions": null,
+    "behavior": "aura",
     "effect": {
-      "type": "choice",
-      "options": [
-        {
-          "type": "stat-modifier",
-          "target": "friendly-within-aura",
-          "modifier": { "stat": "A", "operation": "add", "value": 1 }
-        },
-        {
-          "type": "leadership-modifier",
-          "target": "enemy-within-aura",
-          "modifier": { "stat": "Ld", "operation": "add", "value": 1 }
-        }
-      ],
-      "choice_label": "Choose one at the start of your Command phase"
+      "type": "conditional",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          { "type": "phase-is", "parameters": { "phase": "command" } },
+          { "type": "timing-is", "parameters": { "timing": "start-of-phase" } },
+          { "type": "player-turn-is", "parameters": { "turn": "your-turn" } }
+        ]
+      },
+      "effect": {
+        "type": "choice",
+        "options": [
+          {
+            "type": "stat-modifier",
+            "target": "friendly-within-aura",
+            "modifier": { "stat": "A", "operation": "add", "value": 1 }
+          },
+          {
+            "type": "leadership-modifier",
+            "target": "enemy-within-aura",
+            "modifier": { "stat": "Ld", "operation": "add", "value": 1 }
+          }
+        ],
+        "choice_label": "Choose one at the start of your Command phase"
+      }
     },
     "scope": {
       "range": "aura-6",

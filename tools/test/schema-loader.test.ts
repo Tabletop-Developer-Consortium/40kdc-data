@@ -25,10 +25,10 @@ describe("schema-loader", () => {
     expect(ids).toContain("https://40kdc.dev/schemas/enrichment/timing-flag.schema.json");
     expect(ids).toContain("https://40kdc.dev/schemas/enrichment/interaction-flag.schema.json");
     expect(ids).toContain("https://40kdc.dev/schemas/enrichment/ability-dsl/ability.schema.json");
-    expect(ids).toContain("https://40kdc.dev/schemas/enrichment/ability-dsl/trigger.schema.json");
     expect(ids).toContain("https://40kdc.dev/schemas/enrichment/ability-dsl/condition.schema.json");
     expect(ids).toContain("https://40kdc.dev/schemas/enrichment/ability-dsl/effect.schema.json");
     expect(ids).toContain("https://40kdc.dev/schemas/enrichment/ability-dsl/scope.schema.json");
+    expect(ids).toContain("https://40kdc.dev/schemas/enrichment/resource-pool.schema.json");
   });
 
   it("can retrieve a schema by $id for validation", () => {

@@ -32,12 +32,10 @@
       "description": "For detachment/enhancement/stratagem-type abilities, the associated detachment"
     },
     "ability_type": { "type": "string", "enum": ["core", "faction", "detachment", "unit", "enhancement", "stratagem"] },
-    "trigger": { "$ref": "trigger.schema.json" },
-    "conditions": {
-      "oneOf": [
-        { "$ref": "condition.schema.json" },
-        { "type": "null" }
-      ]
+    "behavior": {
+      "type": "string",
+      "enum": ["passive", "activated", "reactive", "aura"],
+      "description": "How this ability interacts with the game flow — not a runtime predicate"
     },
     "effect": { "$ref": "effect.schema.json" },
     "scope": { "$ref": "scope.schema.json" },
@@ -57,6 +55,6 @@
     "dispute_notes": { "type": "string" },
     "community_notes": { "type": "string" }
   },
-  "required": ["ability_id", "name", "authored_by", "game_version", "trigger", "effect", "scope"],
+  "required": ["ability_id", "name", "authored_by", "game_version", "effect", "scope"],
   "additionalProperties": false
 }

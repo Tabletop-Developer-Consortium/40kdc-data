@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://40kdc.dev/schemas/enrichment/resource-pool.schema.json",
+  "title": "Resource Pool",
+  "description": "A faction's resource system (Miracle Dice, Pain tokens, Blessings dice pool, etc.).",
+  "type": "object",
+  "properties": {
+    "id": { "$ref": "../defs/common.schema.json#/$defs/entity-id" },
+    "name": { "type": "string", "minLength": 1, "maxLength": 128 },
+    "faction_id": { "$ref": "../defs/common.schema.json#/$defs/entity-id" },
+    "pool_type": {
+      "type": "string",
+      "enum": ["token", "dice-pool", "counter"]
+    },
+    "generation": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "condition": { "$ref": "ability-dsl/condition.schema.json" },
+          "amount": { "$ref": "../defs/common.schema.json#/$defs/stat-value" }
+        },
+        "required": ["condition", "amount"]
+      }
+    },
+    "max_size": {
+      "oneOf": [
+        { "type": "integer", "minimum": 1 },
+        { "type": "null" }
+      ]
+    },
+    "game_version": { "$ref": "../defs/game-version-ref.schema.json" }
+  },
+  "required": ["id", "name", "faction_id", "pool_type", "game_version"],
+  "additionalProperties": false
+}

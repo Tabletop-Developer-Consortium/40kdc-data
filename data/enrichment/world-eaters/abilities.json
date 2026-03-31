@@ -1,0 +1,238 @@
+[
+  {
+    "ability_id": "blessings-of-khorne",
+    "name": "Blessings of Khorne",
+    "authored_by": "40kdc-community",
+    "game_version": { "edition": "10th", "dataslate": "2025-q3" },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [],
+    "faction_id": "world-eaters",
+    "detachment_id": null,
+    "ability_type": "faction",
+    "behavior": "activated",
+    "effect": {
+      "type": "conditional",
+      "condition": { "type": "timing-is", "parameters": { "timing": "start-of-phase" } },
+      "effect": {
+        "type": "dice-pool-allocation",
+        "pool": { "count": 8, "die": "D6" },
+        "max_activations": 2,
+        "options": [
+          {
+            "name": "Unbridled Bloodlust",
+            "requirement": { "type": "pair", "min_value": 1 },
+            "effect": {
+              "type": "re-roll",
+              "target": "all-friendly",
+              "modifier": { "roll": "charge" }
+            }
+          },
+          {
+            "name": "Rage-Fuelled Invigoration",
+            "requirement": { "type": "pair", "min_value": 2 },
+            "effect": {
+              "type": "movement-modifier",
+              "target": "all-friendly",
+              "modifier": { "move_type": "pile-in-consolidation", "value": 6, "replaces_default": true }
+            }
+          },
+          {
+            "name": "Total Carnage",
+            "requirement": { "type": "pair", "min_value": 3 },
+            "effect": {
+              "type": "conditional",
+              "condition": {
+                "operator": "and",
+                "operands": [
+                  { "type": "destroyed-by-attack-type", "parameters": { "attack_type": "melee" } },
+                  { "type": "has-fought-this-phase", "negated": true }
+                ]
+              },
+              "effect": {
+                "type": "dice-gated",
+                "dice": "D6",
+                "threshold": 4,
+                "on_success": {
+                  "type": "fight-on-death",
+                  "target": "self",
+                  "modifier": {}
+                },
+                "on_fail": null
+              }
+            }
+          },
+          {
+            "name": "Martial Excellence",
+            "requirement": { "type": "pair", "min_value": 4 },
+            "effect": {
+              "type": "keyword-grant",
+              "target": "all-friendly",
+              "modifier": { "keyword": "Sustained Hits 1", "weapon_type": "melee" }
+            }
+          },
+          {
+            "name": "Warp Blades",
+            "requirement": { "type": "pair", "min_value": 5 },
+            "effect": {
+              "type": "keyword-grant",
+              "target": "all-friendly",
+              "modifier": { "keyword": "Lethal Hits", "weapon_type": "melee" }
+            }
+          },
+          {
+            "name": "Decapitating Strikes",
+            "requirement": { "type": "triple", "min_value": 6 },
+            "effect": {
+              "type": "conditional",
+              "condition": {
+                "operator": "and",
+                "operands": [
+                  { "type": "target-has-keyword", "parameters": { "keyword": "Infantry" } },
+                  { "type": "attack-is-type", "parameters": { "attack_type": "melee" } }
+                ]
+              },
+              "effect": {
+                "type": "keyword-grant",
+                "target": "all-friendly",
+                "modifier": { "keyword": "Devastating Wounds" }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "scope": {
+      "range": "any-on-battlefield",
+      "duration": "battle-round"
+    },
+    "community_notes": "Activated at start of each battle round. Dice are rolled once and allocated to blessings. Each blessing requires a pair (or triple for Decapitating Strikes) of dice showing the specified value or higher."
+  },
+  {
+    "ability_id": "legendary-killer",
+    "name": "Legendary Killer",
+    "authored_by": "40kdc-community",
+    "game_version": { "edition": "10th", "dataslate": "2025-q3" },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": ["kharn-the-betrayer"],
+    "faction_id": null,
+    "detachment_id": null,
+    "ability_type": "unit",
+    "behavior": "passive",
+    "effect": {
+      "type": "conditional",
+      "condition": { "type": "phase-is", "parameters": { "phase": "fight" } },
+      "effect": {
+        "type": "conditional",
+        "condition": { "type": "model-is-leader" },
+        "effect": {
+          "type": "sequence",
+          "steps": [
+            {
+              "type": "re-roll",
+              "target": "unit",
+              "modifier": { "roll": "hit", "value": 1, "attack_type": "melee" }
+            },
+            {
+              "type": "re-roll",
+              "target": "unit",
+              "modifier": { "roll": "wound", "value": 1, "attack_type": "melee" }
+            }
+          ]
+        }
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    }
+  },
+  {
+    "ability_id": "the-betrayer",
+    "name": "The Betrayer",
+    "authored_by": "40kdc-community",
+    "game_version": { "edition": "10th", "dataslate": "2025-q3" },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": ["kharn-the-betrayer"],
+    "faction_id": null,
+    "detachment_id": null,
+    "ability_type": "unit",
+    "behavior": "passive",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          { "type": "phase-is", "parameters": { "phase": "charge" } },
+          { "type": "timing-is", "parameters": { "timing": "end-of-phase" } },
+          { "type": "player-turn-is", "parameters": { "turn": "your-turn" } }
+        ]
+      },
+      "effect": {
+        "type": "conditional",
+        "condition": { "type": "model-is-leader" },
+        "effect": {
+          "type": "conditional",
+          "condition": { "type": "opponent-unit-within-range", "parameters": { "range": "engagement" }, "negated": true },
+          "effect": {
+            "type": "dice-gated",
+            "dice": "2D6",
+            "threshold": "leadership",
+            "comparison": "gte",
+            "on_success": null,
+            "on_fail": {
+              "type": "model-destruction",
+              "target": "unit",
+              "modifier": { "count": 1, "exclude_leader": true }
+            }
+          }
+        }
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "phase"
+    },
+    "community_notes": "Mandatory — not optional. Only triggers when leading a unit that failed to reach engagement range after the charge phase."
+  },
+  {
+    "ability_id": "berzerker-frenzy",
+    "name": "Berzerker Frenzy",
+    "authored_by": "40kdc-community",
+    "game_version": { "edition": "10th", "dataslate": "2025-q3" },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": ["kharn-the-betrayer"],
+    "faction_id": null,
+    "detachment_id": null,
+    "ability_type": "unit",
+    "behavior": "reactive",
+    "effect": {
+      "type": "conditional",
+      "condition": { "type": "timing-is", "parameters": { "timing": "on-destroyed" } },
+      "effect": {
+        "type": "dice-gated",
+        "dice": "D6",
+        "threshold": 2,
+        "comparison": "gte",
+        "on_success": {
+          "type": "resurrection",
+          "target": "self",
+          "modifier": {
+            "wounds_remaining": 3,
+            "placement": "closest-to-destruction",
+            "engagement_restriction": true,
+            "timing": "end-of-phase"
+          }
+        },
+        "on_fail": null
+      }
+    },
+    "scope": {
+      "range": "self",
+      "duration": "one-use"
+    }
+  }
+]

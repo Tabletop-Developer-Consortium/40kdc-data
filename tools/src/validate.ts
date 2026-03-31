@@ -39,6 +39,7 @@ const SCHEMA_MAP: Record<string, string> = {
   "timing-flags": "https://40kdc.dev/schemas/enrichment/timing-flag.schema.json",
   "interaction-flags": "https://40kdc.dev/schemas/enrichment/interaction-flag.schema.json",
   abilities: "https://40kdc.dev/schemas/enrichment/ability-dsl/ability.schema.json",
+  "resource-pools": "https://40kdc.dev/schemas/enrichment/resource-pool.schema.json",
 };
 
 /**

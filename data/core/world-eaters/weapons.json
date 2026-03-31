@@ -1,0 +1,36 @@
+[
+  {
+    "id": "plasma-pistol",
+    "name": "Plasma pistol",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Standard",
+        "range": 12,
+        "stats": { "A": 1, "BS": 3, "S": 7, "AP": -2, "D": 1 },
+        "keywords": ["Pistol"]
+      },
+      {
+        "name": "Supercharge",
+        "range": 12,
+        "stats": { "A": 1, "BS": 3, "S": 8, "AP": -3, "D": 2 },
+        "keywords": ["Pistol", "Hazardous"]
+      }
+    ],
+    "game_version": { "edition": "10th", "dataslate": "2025-q3" }
+  },
+  {
+    "id": "gorechild",
+    "name": "Gorechild",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Gorechild",
+        "range": "Melee",
+        "stats": { "A": 8, "WS": 2, "S": 7, "AP": -2, "D": 3 },
+        "keywords": []
+      }
+    ],
+    "game_version": { "edition": "10th", "dataslate": "2025-q3" }
+  }
+]

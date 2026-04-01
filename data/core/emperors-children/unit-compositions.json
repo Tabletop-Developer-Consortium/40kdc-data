@@ -1,0 +1,336 @@
+[
+  {
+    "unit_id": "chaos-land-raider",
+    "models": [
+      {
+        "name": "Chaos Land Raider",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "chaos-terminators",
+    "models": [
+      {
+        "name": "Terminator Champion",
+        "profile_name": "Chaos Terminator",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "combi-bolter",
+          "accursed-weapon"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Chaos Terminator",
+        "min": 4,
+        "max": 4,
+        "default_weapon_ids": [
+          "combi-bolter",
+          "accursed-weapon"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "sorcerer",
+    "models": [
+      {
+        "name": "Sorcerer",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "lord-exultant",
+    "models": [
+      {
+        "name": "Lord Exultant",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "lord-kakophonist",
+    "models": [
+      {
+        "name": "Lord Kakophonist",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "chaos-spawn",
+    "models": [
+      {
+        "name": "Chaos Spawn",
+        "min": 2,
+        "max": 2,
+        "default_weapon_ids": [
+          "hideous-mutations"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "daemon-prince-of-slaanesh",
+    "models": [
+      {
+        "name": "Daemon Prince of Slaanesh",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "noise-marines",
+    "models": [
+      {
+        "name": "Noise Champion",
+        "profile_name": "Noise Marine",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "sonic-blaster",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Noise Marine",
+        "min": 5,
+        "max": 5,
+        "default_weapon_ids": [
+          "sonic-blaster",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "tormentors",
+    "models": [
+      {
+        "name": "Obsessionist",
+        "profile_name": "Tormentor",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "bolt-pistol",
+          "power-sword"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Tormentor",
+        "min": 4,
+        "max": 9,
+        "default_weapon_ids": [
+          "boltgun",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "chaos-rhino",
+    "models": [
+      {
+        "name": "Chaos Rhino",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "daemon-prince-of-slaanesh-with-wings",
+    "models": [
+      {
+        "name": "Daemon Prince of Slaanesh with Wings",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "fulgrim",
+    "models": [
+      {
+        "name": "Fulgrim",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "lucius-the-eternal",
+    "models": [
+      {
+        "name": "Lucius the Eternal",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "heldrake",
+    "models": [
+      {
+        "name": "Heldrake",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "infractors",
+    "models": [
+      {
+        "name": "Obsessionist",
+        "profile_name": "Infractor",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "bolt-pistol",
+          "power-sword"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Infractor",
+        "min": 4,
+        "max": 9,
+        "default_weapon_ids": [
+          "bolt-pistol",
+          "duelling-sabre"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "maulerfiend",
+    "models": [
+      {
+        "name": "Maulerfiend",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "flawless-blades",
+    "models": [
+      {
+        "name": "Flawless Champion",
+        "profile_name": "Flawless Blades",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "bolt-pistol",
+          "blissblade"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Flawless Blade",
+        "profile_name": "Flawless Blades",
+        "min": 2,
+        "max": 5,
+        "default_weapon_ids": [
+          "bolt-pistol",
+          "blissblade"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  }
+]

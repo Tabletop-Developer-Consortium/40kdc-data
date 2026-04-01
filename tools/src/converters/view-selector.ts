@@ -51,28 +51,38 @@ export function splitIntoViews<T extends { line: string }>(
 }
 
 /**
- * Find the World Eaters view index for a shared unit.
- * Returns 0 for WE-exclusive units (single view).
+ * Find the view index for a faction's shared unit.
+ * Identifies the correct view by matching the faction's primary ability name
+ * among the Faction-type abilities in each view.
+ * Returns 0 for faction-exclusive units (single view).
  */
-export function findWEViewIndex(
-  abilities: SourceAbility[]
+export function findFactionViewIndex(
+  abilities: SourceAbility[],
+  factionAbilityName: string
 ): number {
   const views = splitIntoViews(abilities);
   if (views.length === 1) return 0;
 
   for (const view of views) {
-    const hasBlessings = view.entries.some(
+    const hasAbility = view.entries.some(
       (a) =>
         a.type === "Faction" &&
-        a.name === "Blessings of Khorne"
+        a.name === factionAbilityName
     );
-    if (hasBlessings) return view.index;
+    if (hasAbility) return view.index;
   }
 
   throw new Error(
-    `No "Blessings of Khorne" faction ability found in ${views.length} views ` +
+    `No "${factionAbilityName}" faction ability found in ${views.length} views ` +
       `for datasheet ${abilities[0]?.datasheet_id}`
   );
+}
+
+/** @deprecated Use findFactionViewIndex instead. */
+export function findWEViewIndex(
+  abilities: SourceAbility[]
+): number {
+  return findFactionViewIndex(abilities, "Blessings of Khorne");
 }
 
 /** Extract entries for a specific view index from a line-numbered array. */

@@ -1,0 +1,885 @@
+[
+  {
+    "id": "chaos-land-raider",
+    "name": "Chaos Land Raider",
+    "faction_id": "emperors-children",
+    "profiles": [
+      {
+        "name": "Chaos Land Raider",
+        "M": 10,
+        "T": 12,
+        "W": 16,
+        "Sv": 2,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 5
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 220
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Transport",
+      "Smoke",
+      "Chaos",
+      "Slaanesh",
+      "Land Raider"
+    ],
+    "faction_keywords": [
+      "Emperor’s Children"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-tracks",
+      "combi-bolter",
+      "combi-weapon",
+      "havoc-launcher",
+      "soulshatter-lascannon",
+      "twin-heavy-bolter"
+    ],
+    "ability_ids": [],
+    "transport_capacity": {
+      "capacity": 14
+    },
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "chaos-terminators",
+    "name": "Chaos Terminators",
+    "faction_id": "emperors-children",
+    "profiles": [
+      {
+        "name": "Chaos Terminator",
+        "M": 6,
+        "T": 5,
+        "W": 3,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 145
+      },
+      {
+        "models": 10,
+        "cost": 350
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Chaos",
+      "Slaanesh",
+      "Terminator",
+      "Terminator Squad"
+    ],
+    "faction_keywords": [
+      "Emperor’s Children"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 10
+    },
+    "weapon_ids": [
+      "accursed-weapon",
+      "chainfist",
+      "combi-bolter",
+      "combi-weapon",
+      "heavy-flamer",
+      "paired-accursed-weapons",
+      "power-fist",
+      "reaper-autocannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "sorcerer",
+    "name": "Sorcerer",
+    "faction_id": "emperors-children",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Sorcerer",
+        "M": 7,
+        "T": 4,
+        "W": 4,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 60
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Psyker",
+      "Grenades",
+      "Chaos",
+      "Slaanesh",
+      "Sorcerer"
+    ],
+    "faction_keywords": [
+      "Emperor’s Children"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "agonising-energies",
+      "bolt-pistol",
+      "force-weapon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "lord-exultant",
+    "name": "Lord Exultant",
+    "faction_id": "emperors-children",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Lord Exultant",
+        "M": 7,
+        "T": 4,
+        "W": 5,
+        "Sv": 3,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 80
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Grenades",
+      "Chaos",
+      "Slaanesh",
+      "Lord Exultant"
+    ],
+    "faction_keywords": [
+      "Emperor’s Children"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "bolt-pistol",
+      "close-combat-weapon",
+      "master-crafted-power-sword",
+      "phoenix-power-spear",
+      "plasma-pistol",
+      "power-fist",
+      "rapture-lash",
+      "screamer-pistol"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "lord-kakophonist",
+    "name": "Lord Kakophonist",
+    "faction_id": "emperors-children",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Lord Kakophonist",
+        "M": 6,
+        "T": 5,
+        "W": 6,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 70
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Grenades",
+      "Chaos",
+      "Slaanesh",
+      "Lord Kakophonist"
+    ],
+    "faction_keywords": [
+      "Emperor’s Children"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "close-combat-weapon",
+      "power-sword",
+      "screamer-pistol"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "chaos-spawn",
+    "name": "Chaos Spawn",
+    "faction_id": "emperors-children",
+    "profiles": [
+      {
+        "name": "Chaos Spawn",
+        "M": 10,
+        "T": 5,
+        "W": 4,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 2,
+        "cost": 70
+      }
+    ],
+    "keywords": [
+      "Beast",
+      "Chaos",
+      "Slaanesh",
+      "Chaos Spawn"
+    ],
+    "faction_keywords": [
+      "Emperor’s Children"
+    ],
+    "model_count": {
+      "min": 2,
+      "max": 2
+    },
+    "weapon_ids": [
+      "hideous-mutations"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "daemon-prince-of-slaanesh",
+    "name": "Daemon Prince of Slaanesh",
+    "faction_id": "emperors-children",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Daemon Prince of Slaanesh",
+        "M": 10,
+        "T": 10,
+        "W": 10,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 180
+      }
+    ],
+    "keywords": [
+      "Monster",
+      "Character",
+      "Chaos",
+      "Daemon",
+      "Slaanesh",
+      "Daemon Prince"
+    ],
+    "faction_keywords": [
+      "Emperor’s Children"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "hellforged-weapons",
+      "infernal-cannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "noise-marines",
+    "name": "Noise Marines",
+    "faction_id": "emperors-children",
+    "profiles": [
+      {
+        "name": "Noise Marine",
+        "M": 6,
+        "T": 5,
+        "W": 2,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 6,
+        "cost": 145
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Chaos",
+      "Slaanesh",
+      "Noise Marines"
+    ],
+    "faction_keywords": [
+      "Emperor’s Children"
+    ],
+    "model_count": {
+      "min": 6,
+      "max": 6
+    },
+    "weapon_ids": [
+      "blastmaster",
+      "close-combat-weapon",
+      "power-sword",
+      "screamer-pistol",
+      "sonic-blaster"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "tormentors",
+    "name": "Tormentors",
+    "faction_id": "emperors-children",
+    "role": "battleline",
+    "profiles": [
+      {
+        "name": "Tormentor",
+        "M": 7,
+        "T": 4,
+        "W": 2,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 85
+      },
+      {
+        "models": 10,
+        "cost": 160
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Battleline",
+      "Grenades",
+      "Chaos",
+      "Slaanesh",
+      "Tormentors"
+    ],
+    "faction_keywords": [
+      "Emperor’s Children"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 10
+    },
+    "weapon_ids": [
+      "bolt-pistol",
+      "boltgun",
+      "close-combat-weapon",
+      "meltagun",
+      "plasma-gun",
+      "plasma-pistol",
+      "power-sword",
+      "rapture-lash"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "chaos-rhino",
+    "name": "Chaos Rhino",
+    "faction_id": "emperors-children",
+    "role": "dedicated-transport",
+    "profiles": [
+      {
+        "name": "Chaos Rhino",
+        "M": 12,
+        "T": 9,
+        "W": 10,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 80
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Transport",
+      "Dedicated Transport",
+      "Smoke",
+      "Chaos",
+      "Slaanesh",
+      "Rhino"
+    ],
+    "faction_keywords": [
+      "Emperor’s Children"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-tracks",
+      "combi-bolter",
+      "combi-weapon",
+      "havoc-launcher"
+    ],
+    "ability_ids": [],
+    "transport_capacity": {
+      "capacity": 12
+    },
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "daemon-prince-of-slaanesh-with-wings",
+    "name": "Daemon Prince of Slaanesh with Wings",
+    "faction_id": "emperors-children",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Daemon Prince of Slaanesh with Wings",
+        "M": 14,
+        "T": 9,
+        "W": 10,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 215
+      }
+    ],
+    "keywords": [
+      "Monster",
+      "Fly",
+      "Character",
+      "Chaos",
+      "Daemon",
+      "Slaanesh",
+      "Daemon Prince with Wings"
+    ],
+    "faction_keywords": [
+      "Emperor’s Children"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "hellforged-weapons",
+      "infernal-cannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "fulgrim",
+    "name": "Fulgrim",
+    "faction_id": "emperors-children",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Fulgrim",
+        "M": 16,
+        "T": 11,
+        "W": 16,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 5,
+        "OC": 6
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 340
+      }
+    ],
+    "keywords": [
+      "Monster",
+      "Fly",
+      "Character",
+      "Epic Hero",
+      "Daemon",
+      "Chaos",
+      "Slaanesh",
+      "Primarch",
+      "Fulgrim"
+    ],
+    "faction_keywords": [
+      "Emperor’s Children"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "daemonic-blades",
+      "malefic-lash",
+      "serpentine-tail"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "lucius-the-eternal",
+    "name": "Lucius the Eternal",
+    "faction_id": "emperors-children",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Lucius the Eternal",
+        "M": 8,
+        "T": 5,
+        "W": 6,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 150
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Epic Hero",
+      "Chaos",
+      "Slaanesh",
+      "Lucius the Eternal"
+    ],
+    "faction_keywords": [
+      "Emperor’s Children"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "blade-of-the-laer",
+      "lash-of-torment"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "heldrake",
+    "name": "Heldrake",
+    "faction_id": "emperors-children",
+    "profiles": [
+      {
+        "name": "Heldrake",
+        "M": 20,
+        "T": 10,
+        "W": 14,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 0
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 195
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Fly",
+      "Aircraft",
+      "Chaos",
+      "Slaanesh",
+      "Daemon",
+      "Heldrake"
+    ],
+    "faction_keywords": [
+      "Emperor’s Children"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "baleflamer",
+      "hades-autocannon",
+      "heldrake-claws"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "infractors",
+    "name": "Infractors",
+    "faction_id": "emperors-children",
+    "role": "battleline",
+    "profiles": [
+      {
+        "name": "Infractor",
+        "M": 7,
+        "T": 4,
+        "W": 2,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 85
+      },
+      {
+        "models": 10,
+        "cost": 160
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Battleline",
+      "Grenades",
+      "Chaos",
+      "Slaanesh",
+      "Infractors"
+    ],
+    "faction_keywords": [
+      "Emperor’s Children"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 10
+    },
+    "weapon_ids": [
+      "bolt-pistol",
+      "duelling-sabre",
+      "plasma-pistol",
+      "power-sword",
+      "rapture-lash"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "maulerfiend",
+    "name": "Maulerfiend",
+    "faction_id": "emperors-children",
+    "profiles": [
+      {
+        "name": "Maulerfiend",
+        "M": 10,
+        "T": 10,
+        "W": 12,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 130
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Chaos",
+      "Slaanesh",
+      "Daemon",
+      "Maulerfiend"
+    ],
+    "faction_keywords": [
+      "Emperor’s Children"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "lasher-tendrils",
+      "magma-cutters",
+      "maulerfiend-fists"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "flawless-blades",
+    "name": "Flawless Blades",
+    "faction_id": "emperors-children",
+    "profiles": [
+      {
+        "name": "Flawless Blades",
+        "M": 8,
+        "T": 5,
+        "W": 3,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 3,
+        "cost": 100
+      },
+      {
+        "models": 6,
+        "cost": 200
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Grenades",
+      "Chaos",
+      "Slaanesh",
+      "Flawless Blades"
+    ],
+    "faction_keywords": [
+      "Emperor’s Children"
+    ],
+    "model_count": {
+      "min": 3,
+      "max": 6
+    },
+    "weapon_ids": [
+      "blissblade",
+      "bolt-pistol"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  }
+]

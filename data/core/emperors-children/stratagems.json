@@ -1,0 +1,810 @@
+[
+  {
+    "id": "devoted-duellists",
+    "name": "DEVOTED DUELLISTS",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "slaaneshs-chosen",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "heightened-jealousy",
+    "name": "HEIGHTENED JEALOUSY",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "slaaneshs-chosen",
+    "cp_cost": 1,
+    "phases": [
+      "fight",
+      "shooting"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "refusal-to-be-outdone",
+    "name": "REFUSAL TO BE OUTDONE",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "slaaneshs-chosen",
+    "cp_cost": 1,
+    "phases": [
+      "charge"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "sustained-by-agony",
+    "name": "SUSTAINED BY AGONY",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "carnival-of-excess",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "sycophantic-surge",
+    "name": "SYCOPHANTIC SURGE",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "carnival-of-excess",
+    "cp_cost": 1,
+    "phases": [
+      "charge"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "uncanny-reactions",
+    "name": "UNCANNY REACTIONS",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "carnival-of-excess",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "cruel-bladesman",
+    "name": "CRUEL BLADESMAN",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "peerless-bladesmen",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "deft-parry",
+    "name": "DEFT PARRY",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "peerless-bladesmen",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "incessant-violence",
+    "name": "INCESSANT VIOLENCE",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "peerless-bladesmen",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "violent-excess",
+    "name": "VIOLENT EXCESS",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "mercurial-host",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "honour-the-prince",
+    "name": "HONOUR THE PRINCE",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "mercurial-host",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "capricious-reactions",
+    "name": "CAPRICIOUS REACTIONS",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "mercurial-host",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "contemptuous-disregard",
+    "name": "CONTEMPTUOUS DISREGARD",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "court-of-the-phoenician",
+    "cp_cost": 1,
+    "phases": [
+      "fight",
+      "shooting"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "close-quarters-excruciation",
+    "name": "CLOSE-QUARTERS EXCRUCIATION",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "court-of-the-phoenician",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "euphoric-inspiration",
+    "name": "EUPHORIC INSPIRATION",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "court-of-the-phoenician",
+    "cp_cost": 1,
+    "phases": [
+      "charge"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "martial-perfection",
+    "name": "MARTIAL PERFECTION",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "coterie-of-the-conceited",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "combat-stimms",
+    "name": "COMBAT STIMMS",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "mercurial-host",
+    "cp_cost": 2,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "prideful-superiority",
+    "name": "PRIDEFUL SUPERIORITY",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "court-of-the-phoenician",
+    "cp_cost": 2,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "diabolic-majesty",
+    "name": "DIABOLIC MAJESTY",
+    "category": "detachment",
+    "type": "epic-deed",
+    "detachment_id": "slaaneshs-chosen",
+    "cp_cost": 1,
+    "phases": [
+      "fight",
+      "shooting"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "dynamic-breakthrough",
+    "name": "DYNAMIC BREAKTHROUGH",
+    "category": "detachment",
+    "type": "epic-deed",
+    "detachment_id": "rapid-evisceration",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "unshakeable-opponents",
+    "name": "UNSHAKEABLE OPPONENTS",
+    "category": "detachment",
+    "type": "epic-deed",
+    "detachment_id": "coterie-of-the-conceited",
+    "cp_cost": 1,
+    "phases": [
+      "command"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "unbound-arrogance",
+    "name": "UNBOUND ARROGANCE",
+    "category": "detachment",
+    "type": "epic-deed",
+    "detachment_id": "coterie-of-the-conceited",
+    "cp_cost": 1,
+    "phases": [
+      "fight",
+      "shooting"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "beautiful-death",
+    "name": "BEAUTIFUL DEATH",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "slaaneshs-chosen",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "vengeful-surge",
+    "name": "VENGEFUL SURGE",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "slaaneshs-chosen",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "ecstatic-slaughter",
+    "name": "ECSTATIC SLAUGHTER",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "carnival-of-excess",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "terrifying-spectacle",
+    "name": "TERRIFYING SPECTACLE",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "peerless-bladesmen",
+    "cp_cost": 1,
+    "phases": [
+      "command"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "on-to-the-next",
+    "name": "ON TO THE NEXT",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "rapid-evisceration",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "advance-and-claim",
+    "name": "ADVANCE AND CLAIM",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "rapid-evisceration",
+    "cp_cost": 1,
+    "phases": [
+      "command"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "ceaseless-onslaught",
+    "name": "CEASELESS ONSLAUGHT",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "rapid-evisceration",
+    "cp_cost": 1,
+    "phases": [
+      "charge"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "reactive-disembarkation",
+    "name": "REACTIVE DISEMBARKATION",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "rapid-evisceration",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "outflanking-strike",
+    "name": "OUTFLANKING STRIKE",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "rapid-evisceration",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "dark-vigour",
+    "name": "DARK VIGOUR",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "mercurial-host",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "cruel-raiders",
+    "name": "CRUEL RAIDERS",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "mercurial-host",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "sinuous-breach",
+    "name": "SINUOUS BREACH",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "court-of-the-phoenician",
+    "cp_cost": 1,
+    "phases": [
+      "charge",
+      "movement"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "catalytic-stimulus",
+    "name": "CATALYTIC STIMULUS",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "court-of-the-phoenician",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "protection-of-the-dark-prince",
+    "name": "PROTECTION OF THE DARK PRINCE",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "coterie-of-the-conceited",
+    "cp_cost": 1,
+    "phases": [
+      "command",
+      "movement",
+      "shooting",
+      "charge",
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "embrace-the-pain",
+    "name": "EMBRACE THE PAIN",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "coterie-of-the-conceited",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "violent-crescendo",
+    "name": "VIOLENT CRESCENDO",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "carnival-of-excess",
+    "cp_cost": 2,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "dark-apparitions",
+    "name": "DARK APPARITIONS",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "carnival-of-excess",
+    "cp_cost": 2,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "cut-down-the-weak",
+    "name": "CUT DOWN THE WEAK",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "peerless-bladesmen",
+    "cp_cost": 2,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "death-ecstasy",
+    "name": "DEATH ECSTASY",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "peerless-bladesmen",
+    "cp_cost": 2,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "armour-of-abhorrence",
+    "name": "ARMOUR OF ABHORRENCE",
+    "category": "detachment",
+    "type": "wargear",
+    "detachment_id": "coterie-of-the-conceited",
+    "cp_cost": 1,
+    "phases": [
+      "fight",
+      "shooting"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  }
+]

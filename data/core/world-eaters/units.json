@@ -1,5 +1,61 @@
 [
   {
+    "id": "forgefiend",
+    "name": "Forgefiend",
+    "faction_id": "world-eaters",
+    "profiles": [
+      {
+        "name": "Forgefiend",
+        "M": 10,
+        "T": 10,
+        "W": 12,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 165
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Chaos",
+      "Daemon",
+      "Forgefiend",
+      "Tzeentch",
+      "Khorne"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes",
+      "Thousand Sons",
+      "World Eaters"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "ectoplasma-cannon",
+      "forgefiend-claws",
+      "forgefiend-jaws",
+      "hades-autocannon"
+    ],
+    "ability_ids": [
+      "deadly-demise-d3",
+      "furious-onslaught"
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
     "id": "kharn-the-betrayer",
     "name": "Khârn the Betrayer",
     "faction_id": "world-eaters",
@@ -17,15 +73,1374 @@
       }
     ],
     "points": [
-      { "models": 1, "cost": 100 }
+      {
+        "models": 1,
+        "cost": 100
+      }
     ],
-    "keywords": ["Infantry", "Character", "Epic Hero", "Grenades", "Chaos", "Khorne", "Khârn The Betrayer"],
-    "faction_keywords": ["World Eaters"],
-    "base_size_mm": { "shape": "round", "diameter": 32 },
-    "model_count": { "min": 1, "max": 1 },
-    "weapon_ids": ["plasma-pistol", "gorechild"],
-    "ability_ids": ["legendary-killer", "the-betrayer", "berzerker-frenzy"],
-    "game_version": { "edition": "10th", "dataslate": "2025-q3" },
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Epic Hero",
+      "Grenades",
+      "Chaos",
+      "Khorne",
+      "Khârn The Betrayer"
+    ],
+    "faction_keywords": [
+      "World Eaters"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "gorechild",
+      "plasma-pistol"
+    ],
+    "ability_ids": [
+      "berzerker-frenzy",
+      "leader",
+      "legendary-killer",
+      "the-betrayer"
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "master-of-executions",
+    "name": "Master of Executions",
+    "faction_id": "world-eaters",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Master of Executions",
+        "M": 8,
+        "T": 4,
+        "W": 4,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 60
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Grenades",
+      "Chaos",
+      "Master of Executions",
+      "Khorne"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes",
+      "World Eaters"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "axe-of-dismemberment",
+      "bolt-pistol"
+    ],
+    "ability_ids": [
+      "a-worthy-skull",
+      "forwards-for-blood",
+      "leader"
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "khorne-berzerkers",
+    "name": "Khorne Berzerkers",
+    "faction_id": "world-eaters",
+    "role": "battleline",
+    "profiles": [
+      {
+        "name": "Khorne Berzerker",
+        "M": 8,
+        "T": 4,
+        "W": 2,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 10,
+        "cost": 180
+      },
+      {
+        "models": 20,
+        "cost": 360
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Battleline",
+      "Grenades",
+      "Chaos",
+      "Khorne",
+      "Berzerkers"
+    ],
+    "faction_keywords": [
+      "World Eaters"
+    ],
+    "model_count": {
+      "min": 10,
+      "max": 20
+    },
+    "weapon_ids": [
+      "bolt-pistol",
+      "chainblade",
+      "khornate-eviscerator",
+      "plasma-pistol"
+    ],
+    "ability_ids": [
+      "blood-surge",
+      "icon-of-khorne"
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "jakhals",
+    "name": "Jakhals",
+    "faction_id": "world-eaters",
+    "profiles": [
+      {
+        "name": "Jakhal",
+        "M": 7,
+        "T": 4,
+        "W": 1,
+        "Sv": 6,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 10,
+        "cost": 65
+      },
+      {
+        "models": 20,
+        "cost": 140
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Grenades",
+      "Chaos",
+      "Khorne",
+      "Jakhals"
+    ],
+    "faction_keywords": [
+      "World Eaters"
+    ],
+    "model_count": {
+      "min": 10,
+      "max": 20
+    },
+    "weapon_ids": [
+      "autopistol",
+      "chainblades",
+      "mauler-chainblade",
+      "paired-manglers",
+      "skullsmasher-and-mangler"
+    ],
+    "ability_ids": [
+      "icon-of-khorne",
+      "objective-ravaged"
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "lord-on-juggernaut",
+    "name": "Lord on Juggernaut",
+    "faction_id": "world-eaters",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Lord on Juggernaut",
+        "M": 10,
+        "T": 6,
+        "W": 7,
+        "Sv": 3,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 105
+      }
+    ],
+    "keywords": [
+      "Mounted",
+      "Character",
+      "Chaos",
+      "Khorne",
+      "Lord on Juggernaut"
+    ],
+    "faction_keywords": [
+      "World Eaters"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "bladed-horn",
+      "exalted-chainblade",
+      "plasma-pistol"
+    ],
+    "ability_ids": [
+      "aggressive-advance",
+      "crush-all-who-stand-before-us",
+      "leader"
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "daemon-prince-of-khorne-with-wings",
+    "name": "Daemon Prince of Khorne with Wings",
+    "faction_id": "world-eaters",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Daemon Prince of Khorne with Wings",
+        "M": 14,
+        "T": 9,
+        "W": 10,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 180
+      }
+    ],
+    "keywords": [
+      "Monster",
+      "Character",
+      "Fly",
+      "Chaos",
+      "Khorne",
+      "Daemon",
+      "Daemon Prince"
+    ],
+    "faction_keywords": [
+      "World Eaters"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "hellforged-weapons",
+      "infernal-cannon"
+    ],
+    "ability_ids": [
+      "bloodied-terror",
+      "deadly-demise-d3",
+      "deep-strike",
+      "swooping-predator"
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "chaos-land-raider",
+    "name": "Chaos Land Raider",
+    "faction_id": "world-eaters",
+    "profiles": [
+      {
+        "name": "Chaos Land Raider",
+        "M": 10,
+        "T": 12,
+        "W": 16,
+        "Sv": 2,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 5
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 220
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Transport",
+      "Smoke",
+      "Chaos",
+      "Land Raider",
+      "Nurgle",
+      "Slaanesh",
+      "Tzeentch",
+      "Khorne"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes",
+      "Death Guard",
+      "Emperor’s Children",
+      "Thousand Sons",
+      "World Eaters"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-tracks",
+      "combi-bolter",
+      "combi-weapon",
+      "havoc-launcher",
+      "soulshatter-lascannon",
+      "twin-heavy-bolter"
+    ],
+    "ability_ids": [
+      "assault-ramp",
+      "deadly-demise-d6"
+    ],
+    "transport_capacity": {
+      "capacity": 14
+    },
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "maulerfiend",
+    "name": "Maulerfiend",
+    "faction_id": "world-eaters",
+    "profiles": [
+      {
+        "name": "Maulerfiend",
+        "M": 12,
+        "T": 10,
+        "W": 12,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 150
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Chaos",
+      "Daemon",
+      "Maulerfiend",
+      "Slaanesh",
+      "Tzeentch",
+      "Khorne"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes",
+      "Emperor’s Children",
+      "Thousand Sons",
+      "World Eaters"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "lasher-tendrils",
+      "magma-cutter",
+      "maulerfiend-fists"
+    ],
+    "ability_ids": [
+      "deadly-demise-d3",
+      "savage-exaltation",
+      "the-scent-of-blood"
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "defiler",
+    "name": "Defiler",
+    "faction_id": "world-eaters",
+    "profiles": [
+      {
+        "name": "Defiler",
+        "M": 10,
+        "T": 10,
+        "W": 14,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 5
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 180
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Smoke",
+      "Chaos",
+      "Daemon",
+      "Defiler",
+      "Nurgle",
+      "Tzeentch",
+      "Khorne"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes",
+      "Death Guard",
+      "Thousand Sons",
+      "World Eaters"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "combi-bolter",
+      "combi-weapon",
+      "defiler-cannon",
+      "defiler-claws",
+      "defiler-scourge",
+      "havoc-launcher",
+      "reaper-autocannon",
+      "twin-heavy-bolter",
+      "twin-heavy-flamer",
+      "twin-lascannon"
+    ],
+    "ability_ids": [
+      "deadly-demise-d3",
+      "scuttling-walker",
+      "unleash-wrath"
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "heldrake",
+    "name": "Heldrake",
+    "faction_id": "world-eaters",
+    "profiles": [
+      {
+        "name": "Heldrake",
+        "M": 20,
+        "T": 9,
+        "W": 12,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 0
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 200
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Fly",
+      "Aircraft",
+      "Chaos",
+      "Daemon",
+      "Heldrake",
+      "Slaanesh",
+      "Tzeentch",
+      "Khorne"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes",
+      "Emperor’s Children",
+      "Thousand Sons",
+      "World Eaters"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "baleflamer",
+      "hades-autocannon",
+      "heldrake-claws"
+    ],
+    "ability_ids": [
+      "airborne-predator",
+      "deadly-demise-d3",
+      "hover"
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "daemon-prince-of-khorne",
+    "name": "Daemon Prince of Khorne",
+    "faction_id": "world-eaters",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Daemon Prince of Khorne",
+        "M": 10,
+        "T": 10,
+        "W": 10,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 200
+      }
+    ],
+    "keywords": [
+      "Monster",
+      "Character",
+      "Chaos",
+      "Khorne",
+      "Daemon",
+      "Daemon Prince"
+    ],
+    "faction_keywords": [
+      "World Eaters"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "hellforged-weapons",
+      "infernal-cannon"
+    ],
+    "ability_ids": [
+      "deadly-demise-d3",
+      "devastating-assault",
+      "direct-the-slaughter",
+      "lord-of-murder"
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "eightbound",
+    "name": "Eightbound",
+    "faction_id": "world-eaters",
+    "profiles": [
+      {
+        "name": "Eightbound",
+        "M": 10,
+        "T": 6,
+        "W": 3,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 3,
+        "cost": 135
+      },
+      {
+        "models": 6,
+        "cost": 270
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Chaos",
+      "Khorne",
+      "Daemon",
+      "Possessed",
+      "Eightbound"
+    ],
+    "faction_keywords": [
+      "World Eaters"
+    ],
+    "model_count": {
+      "min": 3,
+      "max": 6
+    },
+    "weapon_ids": [
+      "chainblades"
+    ],
+    "ability_ids": [
+      "beacons-of-rage",
+      "scouts-6"
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "slaughterbound",
+    "name": "Slaughterbound",
+    "faction_id": "world-eaters",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Slaughterbound",
+        "M": 10,
+        "T": 6,
+        "W": 6,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 100
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Chaos",
+      "Khorne",
+      "Daemon",
+      "Possessed",
+      "Slaughterbound"
+    ],
+    "faction_keywords": [
+      "World Eaters"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "lacerator-and-daemonic-claw"
+    ],
+    "ability_ids": [
+      "deadly-demise-d3",
+      "leader",
+      "lord-of-the-eightbound",
+      "possessed-lord",
+      "rage-eternal"
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "exalted-eightbound",
+    "name": "Exalted Eightbound",
+    "faction_id": "world-eaters",
+    "profiles": [
+      {
+        "name": "Exalted Eightbound",
+        "M": 10,
+        "T": 6,
+        "W": 3,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 3,
+        "cost": 140
+      },
+      {
+        "models": 6,
+        "cost": 280
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Chaos",
+      "Khorne",
+      "Daemon",
+      "Possessed",
+      "Exalted Eightbound"
+    ],
+    "faction_keywords": [
+      "World Eaters"
+    ],
+    "model_count": {
+      "min": 3,
+      "max": 6
+    },
+    "weapon_ids": [
+      "chainblades"
+    ],
+    "ability_ids": [
+      "deep-strike",
+      "rend-and-tear"
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "lord-invocatus",
+    "name": "Lord Invocatus",
+    "faction_id": "world-eaters",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Lord Invocatus",
+        "M": 10,
+        "T": 6,
+        "W": 8,
+        "Sv": 3,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 110
+      }
+    ],
+    "keywords": [
+      "Mounted",
+      "Character",
+      "Epic Hero",
+      "Chaos",
+      "Khorne",
+      "Lord Invocatus"
+    ],
+    "faction_keywords": [
+      "World Eaters"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "bladed-horn",
+      "bolt-pistol",
+      "cowards-bane"
+    ],
+    "ability_ids": [
+      "bloody-stampede",
+      "deep-strike",
+      "fire-riders",
+      "leader",
+      "scouts-6"
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "chaos-rhino",
+    "name": "Chaos Rhino",
+    "faction_id": "world-eaters",
+    "role": "dedicated-transport",
+    "profiles": [
+      {
+        "name": "Chaos Rhino",
+        "M": 12,
+        "T": 9,
+        "W": 10,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 85
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Transport",
+      "Dedicated Transport",
+      "Smoke",
+      "Chaos",
+      "Rhino",
+      "Nurgle",
+      "Slaanesh",
+      "Tzeentch",
+      "Khorne"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes",
+      "Death Guard",
+      "Emperor’s Children",
+      "Thousand Sons",
+      "World Eaters"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-tracks",
+      "combi-bolter",
+      "combi-weapon",
+      "havoc-launcher"
+    ],
+    "ability_ids": [
+      "deadly-demise-d3",
+      "firing-deck-2",
+      "meet-any-challenge"
+    ],
+    "transport_capacity": {
+      "capacity": 12
+    },
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "helbrute",
+    "name": "Helbrute",
+    "faction_id": "world-eaters",
+    "profiles": [
+      {
+        "name": "Helbrute",
+        "M": 9,
+        "T": 9,
+        "W": 8,
+        "Sv": 2,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 120
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Chaos",
+      "Helbrute",
+      "Nurgle",
+      "Tzeentch",
+      "Khorne"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes",
+      "Death Guard",
+      "Thousand Sons",
+      "World Eaters"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "close-combat-weapon",
+      "combi-bolter",
+      "heavy-flamer",
+      "helbrute-fist",
+      "helbrute-hammer",
+      "missile-launcher",
+      "multi-melta",
+      "plasma-cannon",
+      "power-scourge",
+      "twin-autocannon",
+      "twin-heavy-bolter",
+      "twin-lascannon"
+    ],
+    "ability_ids": [
+      "deadly-demise-1",
+      "devoted-to-destruction",
+      "frenzy"
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "chaos-predator-destructor",
+    "name": "Chaos Predator Destructor",
+    "faction_id": "world-eaters",
+    "profiles": [
+      {
+        "name": "Chaos Predator Destructor",
+        "M": 10,
+        "T": 10,
+        "W": 11,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 145
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Smoke",
+      "Chaos",
+      "Predator Destructor",
+      "Nurgle",
+      "Tzeentch",
+      "Khorne"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes",
+      "Death Guard",
+      "Thousand Sons",
+      "World Eaters"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-tracks",
+      "combi-bolter",
+      "combi-weapon",
+      "havoc-launcher",
+      "heavy-bolter",
+      "lascannon",
+      "predator-autocannon"
+    ],
+    "ability_ids": [
+      "deadly-demise-d3",
+      "punishing-suppression"
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "angron",
+    "name": "Angron",
+    "faction_id": "world-eaters",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Angron",
+        "M": 14,
+        "T": 11,
+        "W": 16,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 5,
+        "OC": 6
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 340
+      }
+    ],
+    "keywords": [
+      "Monster",
+      "Character",
+      "Fly",
+      "Epic Hero",
+      "Chaos",
+      "Khorne",
+      "Daemon",
+      "Primarch",
+      "Angron"
+    ],
+    "faction_keywords": [
+      "World Eaters"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "samniarius-and-spinegrinder"
+    ],
+    "ability_ids": [
+      "deadly-demise-d6",
+      "deep-strike",
+      "reborn-in-blood",
+      "supreme-commander",
+      "wrathful-presence"
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "chaos-predator-annihilator",
+    "name": "Chaos Predator Annihilator",
+    "faction_id": "world-eaters",
+    "profiles": [
+      {
+        "name": "Chaos Predator Annihilator",
+        "M": 10,
+        "T": 10,
+        "W": 11,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 145
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Smoke",
+      "Chaos",
+      "Predator Annihilator",
+      "Nurgle",
+      "Tzeentch",
+      "Khorne"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes",
+      "Death Guard",
+      "Thousand Sons",
+      "World Eaters"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-tracks",
+      "combi-bolter",
+      "combi-weapon",
+      "havoc-launcher",
+      "heavy-bolter",
+      "lascannon",
+      "predator-twin-lascannon"
+    ],
+    "ability_ids": [
+      "blood-hungry-annihilator",
+      "deadly-demise-d3"
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "chaos-terminators",
+    "name": "Chaos Terminators",
+    "faction_id": "world-eaters",
+    "profiles": [
+      {
+        "name": "World Eaters Terminator",
+        "M": 7,
+        "T": 5,
+        "W": 3,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 175
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Chaos",
+      "Slaanesh",
+      "Terminator",
+      "Terminator Squad",
+      "Khorne"
+    ],
+    "faction_keywords": [
+      "Emperor’s Children",
+      "World Eaters"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 5
+    },
+    "weapon_ids": [
+      "accursed-weapon",
+      "chainfist",
+      "combi-bolter",
+      "combi-weapon",
+      "heavy-flamer",
+      "paired-accursed-weapons",
+      "power-fist",
+      "reaper-autocannon"
+    ],
+    "ability_ids": [
+      "bloody-fury",
+      "deep-strike"
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "khorne-lord-of-skulls",
+    "name": "Khorne Lord of Skulls",
+    "faction_id": "world-eaters",
+    "profiles": [
+      {
+        "name": "Khorne Lord of Skulls",
+        "M": 12,
+        "T": 13,
+        "W": 24,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 8
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 505
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Titanic",
+      "Towering",
+      "Chaos",
+      "Khorne",
+      "Daemon",
+      "Lord of Skulls"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes",
+      "World Eaters"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "daemongore-cannon",
+      "gorestorm-cannon",
+      "great-cleaver-of-khorne",
+      "hades-gatling-cannon",
+      "ichor-cannon",
+      "skullhurler"
+    ],
+    "ability_ids": [
+      "deadly-demise-d6-plus-2",
+      "idol-of-blessed-blood",
+      "super-heavy-war-engine"
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "chaos-spawn",
+    "name": "Chaos Spawn",
+    "faction_id": "world-eaters",
+    "profiles": [
+      {
+        "name": "Chaos Spawn",
+        "M": 10,
+        "T": 5,
+        "W": 4,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 2,
+        "cost": 90
+      }
+    ],
+    "keywords": [
+      "Beast",
+      "Chaos",
+      "Chaos Spawn",
+      "Nurgle",
+      "Spawn",
+      "Slaanesh",
+      "Tzeentch",
+      "Mutant",
+      "Khorne"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes",
+      "Death Guard",
+      "Emperor’s Children",
+      "Thousand Sons",
+      "World Eaters"
+    ],
+    "model_count": {
+      "min": 2,
+      "max": 2
+    },
+    "weapon_ids": [
+      "hideous-mutations"
+    ],
+    "ability_ids": [
+      "feel-no-pain-5-plus",
+      "scouts-8",
+      "to-slake-its-rage"
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "goremongers",
+    "name": "Goremongers",
+    "faction_id": "world-eaters",
+    "profiles": [
+      {
+        "name": "Goremongers",
+        "M": 9,
+        "T": 4,
+        "W": 1,
+        "Sv": 6,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 8,
+        "cost": 75
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Grenades",
+      "Chaos",
+      "Khorne",
+      "Goremongers"
+    ],
+    "faction_keywords": [
+      "World Eaters"
+    ],
+    "model_count": {
+      "min": 8,
+      "max": 8
+    },
+    "weapon_ids": [
+      "autopistol",
+      "blood-harpoon",
+      "chainblade",
+      "close-combat-weapon"
+    ],
+    "ability_ids": [
+      "infiltrators",
+      "loping-speed"
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
     "is_legend": false
   }
 ]

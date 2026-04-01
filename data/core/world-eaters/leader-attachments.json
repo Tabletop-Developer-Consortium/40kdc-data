@@ -1,8 +1,62 @@
 [
   {
     "leader_id": "kharn-the-betrayer",
-    "eligible_bodyguard_ids": ["khorne-berzerkers"],
+    "eligible_bodyguard_ids": [
+      "khorne-berzerkers"
+    ],
     "max_leaders_per_unit": 1,
-    "game_version": { "edition": "10th", "dataslate": "2025-q3" }
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "leader_id": "master-of-executions",
+    "eligible_bodyguard_ids": [
+      "khorne-berzerkers"
+    ],
+    "max_leaders_per_unit": 1,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "leader_id": "lord-on-juggernaut",
+    "eligible_bodyguard_ids": [
+      "eightbound",
+      "exalted-eightbound",
+      "khorne-berzerkers"
+    ],
+    "max_leaders_per_unit": 1,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "leader_id": "slaughterbound",
+    "eligible_bodyguard_ids": [
+      "eightbound",
+      "exalted-eightbound"
+    ],
+    "max_leaders_per_unit": 1,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "leader_id": "lord-invocatus",
+    "eligible_bodyguard_ids": [
+      "eightbound",
+      "exalted-eightbound",
+      "khorne-berzerkers"
+    ],
+    "max_leaders_per_unit": 1,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
   }
 ]

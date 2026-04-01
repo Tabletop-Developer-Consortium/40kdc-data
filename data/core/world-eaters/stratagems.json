@@ -1,0 +1,706 @@
+[
+  {
+    "id": "hack-and-slash",
+    "name": "HACK AND SLASH",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "berzerker-warband",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": "hack-and-slash",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "daemonic-strength",
+    "name": "DAEMONIC STRENGTH",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "possessed-slaughterband",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": "daemonic-strength",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "brazen-contempt",
+    "name": "BRAZEN CONTEMPT",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "vessels-of-wrath",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": "brazen-contempt",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "aspire-to-infamy",
+    "name": "ASPIRE TO INFAMY",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "vessels-of-wrath",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": "aspire-to-infamy",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "overshadowed-by-none",
+    "name": "OVERSHADOWED BY NONE",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "vessels-of-wrath",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": "overshadowed-by-none",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "daemonic-fury",
+    "name": "DAEMONIC FURY",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "khorne-daemonkin",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": "daemonic-fury",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "blessing-of-burning-blood",
+    "name": "BLESSING OF BURNING BLOOD",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "khorne-daemonkin",
+    "cp_cost": 1,
+    "phases": [
+      "fight",
+      "shooting"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": "blessing-of-burning-blood",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "bloodthirsty-horde",
+    "name": "BLOODTHIRSTY HORDE",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "cult-of-blood",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": "bloodthirsty-horde",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "frenzied-resilience",
+    "name": "FRENZIED RESILIENCE",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "berzerker-warband",
+    "cp_cost": 2,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": "frenzied-resilience",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "daemonic-resistance",
+    "name": "DAEMONIC RESISTANCE",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "possessed-slaughterband",
+    "cp_cost": 2,
+    "phases": [
+      "fight",
+      "shooting"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": "daemonic-resistance",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "immortal-fury",
+    "name": "IMMORTAL FURY",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "possessed-slaughterband",
+    "cp_cost": 2,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": "immortal-fury",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "blood-offering",
+    "name": "BLOOD OFFERING",
+    "category": "detachment",
+    "type": "epic-deed",
+    "detachment_id": "berzerker-warband",
+    "cp_cost": 1,
+    "phases": [
+      "command",
+      "movement",
+      "shooting",
+      "charge",
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": "blood-offering",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "a-worthy-skull",
+    "name": "A WORTHY SKULL",
+    "category": "detachment",
+    "type": "epic-deed",
+    "detachment_id": "khorne-daemonkin",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": "a-worthy-skull-stratagem",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "bloody-vengeance",
+    "name": "BLOODY VENGEANCE",
+    "category": "detachment",
+    "type": "epic-deed",
+    "detachment_id": "cult-of-blood",
+    "cp_cost": 1,
+    "phases": [
+      "command",
+      "movement",
+      "shooting",
+      "charge",
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": "bloody-vengeance",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "brazen-idol",
+    "name": "BRAZEN IDOL",
+    "category": "detachment",
+    "type": "epic-deed",
+    "detachment_id": "cult-of-blood",
+    "cp_cost": 2,
+    "phases": [
+      "command"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": "brazen-idol",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "skulls-for-the-skull-throne",
+    "name": "SKULLS FOR THE SKULL THRONE!",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "berzerker-warband",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": "skulls-for-the-skull-throne",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "apoplectic-frenzy",
+    "name": "APOPLECTIC FRENZY",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "berzerker-warband",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": "apoplectic-frenzy",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "berzerkers-wrath",
+    "name": "BERZERKER’S WRATH",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "berzerker-warband",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": "berzerkers-wrath",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "rapid-manifestation",
+    "name": "RAPID MANIFESTATION",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "possessed-slaughterband",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": "rapid-manifestation",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "warp-stalkers",
+    "name": "WARP STALKERS",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "possessed-slaughterband",
+    "cp_cost": 1,
+    "phases": [
+      "charge",
+      "movement"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": "warp-stalkers",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "horrifying-violence",
+    "name": "HORRIFYING VIOLENCE",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "possessed-slaughterband",
+    "cp_cost": 1,
+    "phases": [
+      "command"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": "horrifying-violence",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "punish-the-craven",
+    "name": "PUNISH THE CRAVEN",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "vessels-of-wrath",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": "punish-the-craven",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "meet-force-with-force",
+    "name": "MEET FORCE WITH FORCE",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "vessels-of-wrath",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": "meet-force-with-force",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "gory-dedication",
+    "name": "GORY DEDICATION",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "vessels-of-wrath",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": "gory-dedication",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "summoned-by-slaughter",
+    "name": "SUMMONED BY SLAUGHTER",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "khorne-daemonkin",
+    "cp_cost": 1,
+    "phases": [
+      "command",
+      "movement",
+      "shooting",
+      "charge",
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": "summoned-by-slaughter",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "daemontide",
+    "name": "DAEMONTIDE",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "khorne-daemonkin",
+    "cp_cost": 1,
+    "phases": [
+      "command"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": "daemontide",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "murder-call",
+    "name": "MURDER-CALL",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "khorne-daemonkin",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": "murder-call",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "in-the-shadow-of-brass-idols",
+    "name": "IN THE SHADOW OF BRASS IDOLS",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "cult-of-blood",
+    "cp_cost": 1,
+    "phases": [
+      "fight",
+      "shooting"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": "in-the-shadow-of-brass-idols",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "fail-not-the-blood-god",
+    "name": "FAIL NOT THE BLOOD GOD",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "cult-of-blood",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": "fail-not-the-blood-god",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "endless-pursuit-of-violence",
+    "name": "ENDLESS PURSUIT OF VIOLENCE",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "goretrack-onslaught",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": "endless-pursuit-of-violence",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "smash-through",
+    "name": "SMASH THROUGH",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "goretrack-onslaught",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": "smash-through",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "aggressive-disembarkation",
+    "name": "AGGRESSIVE DISEMBARKATION",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "goretrack-onslaught",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": "aggressive-disembarkation",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "full-throttle-assault",
+    "name": "FULL-THROTTLE ASSAULT",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "goretrack-onslaught",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": "full-throttle-assault",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "unrelenting-advance",
+    "name": "UNRELENTING ADVANCE",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "goretrack-onslaught",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": "unrelenting-advance",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "fury-unleashed",
+    "name": "FURY UNLEASHED",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "goretrack-onslaught",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": "fury-unleashed",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "drawn-to-the-slaughter",
+    "name": "DRAWN TO THE SLAUGHTER",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "cult-of-blood",
+    "cp_cost": 2,
+    "phases": [
+      "command",
+      "movement",
+      "shooting",
+      "charge",
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": "drawn-to-the-slaughter",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  }
+]

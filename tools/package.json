@@ -9,6 +9,7 @@
     "validate": "tsx src/cli.ts validate-all",
     "validate:core": "tsx src/cli.ts validate-core",
     "validate:enrichment": "tsx src/cli.ts validate-enrichment",
+    "translate": "tsx src/cli.ts translate",
     "test": "vitest run"
   },
   "dependencies": {

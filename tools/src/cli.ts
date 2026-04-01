@@ -2,6 +2,7 @@ import { Command } from "commander";
 import { validateCoreCommand } from "./commands/validate-core.js";
 import { validateEnrichmentCommand } from "./commands/validate-enrichment.js";
 import { validateAllCommand } from "./commands/validate-all.js";
+import { translateCommand } from "./commands/translate.js";
 
 const program = new Command();
 
@@ -27,5 +28,11 @@ program
   .description("Validate all data files")
   .option("--reporter <mode>", "Output format: pretty or json", "pretty")
   .action(validateAllCommand);
+
+program
+  .command("translate")
+  .description("Translate ability DSL to plain English")
+  .argument("[path]", "Path to abilities.json file")
+  .action(translateCommand);
 
 program.parse();

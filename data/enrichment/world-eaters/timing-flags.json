@@ -3,28 +3,1220 @@
     "source_id": "blessings-of-khorne",
     "source_type": "faction-rule",
     "timing": "start-of-phase",
-    "game_version": { "edition": "10th", "dataslate": "2025-q3" },
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
     "authored_by": "40kdc-community"
   },
   {
     "source_id": "legendary-killer",
     "source_type": "ability",
     "timing": "before-hit-roll",
-    "game_version": { "edition": "10th", "dataslate": "2025-q3" },
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
     "authored_by": "40kdc-community"
   },
   {
     "source_id": "the-betrayer",
     "source_type": "ability",
     "timing": "end-of-phase",
-    "game_version": { "edition": "10th", "dataslate": "2025-q3" },
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
     "authored_by": "40kdc-community"
   },
   {
     "source_id": "berzerker-frenzy",
     "source_type": "ability",
     "timing": "on-unit-destroyed",
-    "game_version": { "edition": "10th", "dataslate": "2025-q3" },
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "deadly-demise-1",
+    "source_type": "ability",
+    "timing": "on-model-destroyed",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "deadly-demise-d3",
+    "source_type": "ability",
+    "timing": "on-model-destroyed",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "deadly-demise-d6",
+    "source_type": "ability",
+    "timing": "on-model-destroyed",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "deadly-demise-d6-plus-2",
+    "source_type": "ability",
+    "timing": "on-model-destroyed",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "deep-strike",
+    "source_type": "ability",
+    "timing": "start-of-phase",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "feel-no-pain-5-plus",
+    "source_type": "ability",
+    "timing": "on-damage-allocated",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "feel-no-pain-6-plus",
+    "source_type": "ability",
+    "timing": "on-damage-allocated",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "leader",
+    "source_type": "ability",
+    "timing": "start-of-phase",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "scouts-6",
+    "source_type": "ability",
+    "timing": "start-of-phase",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "scouts-8",
+    "source_type": "ability",
+    "timing": "start-of-phase",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "infiltrators",
+    "source_type": "ability",
+    "timing": "start-of-phase",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "hover",
+    "source_type": "ability",
+    "timing": "start-of-phase",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "firing-deck-2",
+    "source_type": "ability",
+    "timing": "on-unit-selected",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "icon-of-khorne",
+    "source_type": "ability",
+    "timing": "on-unit-destroyed",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "to-slake-its-rage",
+    "source_type": "ability",
+    "timing": "start-of-phase",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "assault-ramp",
+    "source_type": "ability",
+    "timing": "start-of-phase",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "airborne-predator",
+    "source_type": "ability",
+    "timing": "before-hit-roll",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "objective-ravaged",
+    "source_type": "ability",
+    "timing": "end-of-phase",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "scuttling-walker",
+    "source_type": "ability",
+    "timing": "start-of-phase",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "rend-and-tear",
+    "source_type": "ability",
+    "timing": "before-damage-roll",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "furious-onslaught",
+    "source_type": "ability",
+    "timing": "before-hit-roll",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "loping-speed",
+    "source_type": "ability",
+    "timing": "end-of-phase",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "devoted-to-destruction",
+    "source_type": "ability",
+    "timing": "before-hit-roll",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "lord-of-murder",
+    "source_type": "ability",
+    "timing": "start-of-phase",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "devastating-assault",
+    "source_type": "ability",
+    "timing": "before-hit-roll",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "supreme-commander",
+    "source_type": "ability",
+    "timing": "start-of-phase",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "idol-of-blessed-blood",
+    "source_type": "ability",
+    "timing": "start-of-phase",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "blood-hungry-annihilator",
+    "source_type": "ability",
+    "timing": "before-wound-roll",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "punishing-suppression",
+    "source_type": "ability",
+    "timing": "end-of-phase",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "blood-surge",
+    "source_type": "ability",
+    "timing": "on-damage-allocated",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "bloody-fury",
+    "source_type": "ability",
+    "timing": "before-hit-roll",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "bloodied-terror",
+    "source_type": "ability",
+    "timing": "start-of-phase",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "swooping-predator",
+    "source_type": "ability",
+    "timing": "end-of-phase",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "beacons-of-rage",
+    "source_type": "ability",
+    "timing": "before-hit-roll",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "frenzy",
+    "source_type": "ability",
+    "timing": "end-of-phase",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "super-heavy-war-engine",
+    "source_type": "ability",
+    "timing": "start-of-phase",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "the-scent-of-blood",
+    "source_type": "ability",
+    "timing": "before-charge-roll",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "savage-exaltation",
+    "source_type": "ability",
+    "timing": "before-hit-roll",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "aggressive-advance",
+    "source_type": "ability",
+    "timing": "start-of-phase",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "forwards-for-blood",
+    "source_type": "ability",
+    "timing": "before-advance-roll",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "a-worthy-skull",
+    "source_type": "ability",
+    "timing": "before-hit-roll",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "meet-any-challenge",
+    "source_type": "ability",
+    "timing": "end-of-phase",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "unleash-wrath",
+    "source_type": "ability",
+    "timing": "end-of-phase",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "bloody-stampede",
+    "source_type": "ability",
+    "timing": "end-of-phase",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "fire-riders",
+    "source_type": "ability",
+    "timing": "start-of-phase",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "crush-all-who-stand-before-us",
+    "source_type": "ability",
+    "timing": "on-unit-selected",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "direct-the-slaughter",
+    "source_type": "ability",
+    "timing": "start-of-phase",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "reborn-in-blood",
+    "source_type": "ability",
+    "timing": "start-of-phase",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "wrathful-presence",
+    "source_type": "ability",
+    "timing": "start-of-phase",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "rage-eternal",
+    "source_type": "ability",
+    "timing": "start-of-phase",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "possessed-lord",
+    "source_type": "ability",
+    "timing": "start-of-phase",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "lord-of-the-eightbound",
+    "source_type": "ability",
+    "timing": "start-of-phase",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "relentless-rage",
+    "source_type": "detachment-rule",
+    "timing": "end-of-phase",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "brazen-fury",
+    "source_type": "detachment-rule",
+    "timing": "start-of-phase",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "wrath-of-khorne",
+    "source_type": "detachment-rule",
+    "timing": "start-of-phase",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "blood-tithe",
+    "source_type": "detachment-rule",
+    "timing": "on-unit-destroyed",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "idols-of-khorne",
+    "source_type": "detachment-rule",
+    "timing": "start-of-phase",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "rush-to-the-fray",
+    "source_type": "detachment-rule",
+    "timing": "start-of-phase",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "berzerker-glaive",
+    "source_type": "enhancement",
+    "timing": "start-of-phase",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "helm-of-brazen-ire",
+    "source_type": "enhancement",
+    "timing": "start-of-phase",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "favoured-of-khorne",
+    "source_type": "enhancement",
+    "timing": "start-of-phase",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "battle-lust",
+    "source_type": "enhancement",
+    "timing": "start-of-phase",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "chosen-of-the-blood-god",
+    "source_type": "enhancement",
+    "timing": "start-of-phase",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "butcher-lord",
+    "source_type": "enhancement",
+    "timing": "start-of-phase",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "brazen-form",
+    "source_type": "enhancement",
+    "timing": "start-of-phase",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "strategic-slaughter",
+    "source_type": "enhancement",
+    "timing": "start-of-phase",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "murderous-onslaught",
+    "source_type": "enhancement",
+    "timing": "start-of-phase",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "aggressive-deployment",
+    "source_type": "enhancement",
+    "timing": "start-of-phase",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "unleash-hell-enhancement",
+    "source_type": "enhancement",
+    "timing": "start-of-phase",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "infernal-infusion",
+    "source_type": "enhancement",
+    "timing": "start-of-phase",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "icon-of-war",
+    "source_type": "enhancement",
+    "timing": "start-of-phase",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "blood-forged-armour",
+    "source_type": "enhancement",
+    "timing": "start-of-phase",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "disciple-of-khorne",
+    "source_type": "enhancement",
+    "timing": "start-of-phase",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "blade-of-endless-bloodshed",
+    "source_type": "enhancement",
+    "timing": "start-of-phase",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "malicious-vigour",
+    "source_type": "enhancement",
+    "timing": "start-of-phase",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "killing-clarity",
+    "source_type": "enhancement",
+    "timing": "on-unit-destroyed",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "frenzied-focus",
+    "source_type": "enhancement",
+    "timing": "start-of-phase",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "violent-demise",
+    "source_type": "enhancement",
+    "timing": "start-of-phase",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "archslaughterer",
+    "source_type": "enhancement",
+    "timing": "start-of-phase",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "vox-diabolus",
+    "source_type": "enhancement",
+    "timing": "on-unit-destroyed",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "avengers-crown",
+    "source_type": "enhancement",
+    "timing": "start-of-phase",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "gateways-to-glory",
+    "source_type": "enhancement",
+    "timing": "start-of-phase",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "hack-and-slash",
+    "source_type": "stratagem",
+    "timing": "on-unit-selected",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "frenzied-resilience",
+    "source_type": "stratagem",
+    "timing": "on-damage-allocated",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "blood-offering",
+    "source_type": "stratagem",
+    "timing": "on-unit-selected",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "skulls-for-the-skull-throne",
+    "source_type": "stratagem",
+    "timing": "on-unit-selected",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "apoplectic-frenzy",
+    "source_type": "stratagem",
+    "timing": "on-unit-selected",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "berzerkers-wrath",
+    "source_type": "stratagem",
+    "timing": "on-unit-selected",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "bloodthirsty-horde",
+    "source_type": "stratagem",
+    "timing": "on-unit-selected",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "bloody-vengeance",
+    "source_type": "stratagem",
+    "timing": "on-unit-destroyed",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "brazen-idol",
+    "source_type": "stratagem",
+    "timing": "on-unit-selected",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "in-the-shadow-of-brass-idols",
+    "source_type": "stratagem",
+    "timing": "on-unit-selected",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "fail-not-the-blood-god",
+    "source_type": "stratagem",
+    "timing": "on-unit-selected",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "drawn-to-the-slaughter",
+    "source_type": "stratagem",
+    "timing": "on-unit-selected",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "endless-pursuit-of-violence",
+    "source_type": "stratagem",
+    "timing": "on-unit-selected",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "smash-through",
+    "source_type": "stratagem",
+    "timing": "on-unit-selected",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "aggressive-disembarkation",
+    "source_type": "stratagem",
+    "timing": "on-unit-selected",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "full-throttle-assault",
+    "source_type": "stratagem",
+    "timing": "on-unit-selected",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "unrelenting-advance",
+    "source_type": "stratagem",
+    "timing": "on-unit-selected",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "fury-unleashed",
+    "source_type": "stratagem",
+    "timing": "on-unit-selected",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "daemonic-fury",
+    "source_type": "stratagem",
+    "timing": "on-unit-selected",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "blessing-of-burning-blood",
+    "source_type": "stratagem",
+    "timing": "on-unit-selected",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "a-worthy-skull-stratagem",
+    "source_type": "stratagem",
+    "timing": "on-unit-selected",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "summoned-by-slaughter",
+    "source_type": "stratagem",
+    "timing": "on-unit-selected",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "daemontide",
+    "source_type": "stratagem",
+    "timing": "on-unit-selected",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "murder-call",
+    "source_type": "stratagem",
+    "timing": "on-unit-selected",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "daemonic-strength",
+    "source_type": "stratagem",
+    "timing": "on-unit-selected",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "daemonic-resistance",
+    "source_type": "stratagem",
+    "timing": "on-damage-allocated",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "immortal-fury",
+    "source_type": "stratagem",
+    "timing": "on-unit-selected",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "rapid-manifestation",
+    "source_type": "stratagem",
+    "timing": "on-unit-selected",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "warp-stalkers",
+    "source_type": "stratagem",
+    "timing": "on-unit-selected",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "horrifying-violence",
+    "source_type": "stratagem",
+    "timing": "on-unit-selected",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "brazen-contempt",
+    "source_type": "stratagem",
+    "timing": "on-damage-allocated",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "aspire-to-infamy",
+    "source_type": "stratagem",
+    "timing": "on-unit-selected",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "overshadowed-by-none",
+    "source_type": "stratagem",
+    "timing": "on-unit-selected",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "punish-the-craven",
+    "source_type": "stratagem",
+    "timing": "on-unit-selected",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "meet-force-with-force",
+    "source_type": "stratagem",
+    "timing": "on-unit-selected",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "authored_by": "40kdc-community"
+  },
+  {
+    "source_id": "gory-dedication",
+    "source_type": "stratagem",
+    "timing": "on-unit-selected",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
     "authored_by": "40kdc-community"
   }
 ]

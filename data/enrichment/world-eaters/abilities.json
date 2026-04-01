@@ -3,7 +3,10 @@
     "ability_id": "blessings-of-khorne",
     "name": "Blessings of Khorne",
     "authored_by": "40kdc-community",
-    "game_version": { "edition": "10th", "dataslate": "2025-q3" },
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -13,40 +16,71 @@
     "behavior": "activated",
     "effect": {
       "type": "conditional",
-      "condition": { "type": "timing-is", "parameters": { "timing": "start-of-phase" } },
+      "condition": {
+        "type": "timing-is",
+        "parameters": {
+          "timing": "start-of-phase"
+        }
+      },
       "effect": {
         "type": "dice-pool-allocation",
-        "pool": { "count": 8, "die": "D6" },
+        "pool": {
+          "count": 8,
+          "die": "D6"
+        },
         "max_activations": 2,
         "options": [
           {
             "name": "Unbridled Bloodlust",
-            "requirement": { "type": "pair", "min_value": 1 },
+            "requirement": {
+              "type": "pair",
+              "min_value": 1
+            },
             "effect": {
               "type": "re-roll",
               "target": "all-friendly",
-              "modifier": { "roll": "charge" }
+              "modifier": {
+                "roll": "charge"
+              }
             }
           },
           {
             "name": "Rage-Fuelled Invigoration",
-            "requirement": { "type": "pair", "min_value": 2 },
+            "requirement": {
+              "type": "pair",
+              "min_value": 2
+            },
             "effect": {
               "type": "movement-modifier",
               "target": "all-friendly",
-              "modifier": { "move_type": "pile-in-consolidation", "value": 6, "replaces_default": true }
+              "modifier": {
+                "move_type": "pile-in-consolidation",
+                "value": 6,
+                "replaces_default": true
+              }
             }
           },
           {
             "name": "Total Carnage",
-            "requirement": { "type": "pair", "min_value": 3 },
+            "requirement": {
+              "type": "pair",
+              "min_value": 3
+            },
             "effect": {
               "type": "conditional",
               "condition": {
                 "operator": "and",
                 "operands": [
-                  { "type": "destroyed-by-attack-type", "parameters": { "attack_type": "melee" } },
-                  { "type": "has-fought-this-phase", "negated": true }
+                  {
+                    "type": "destroyed-by-attack-type",
+                    "parameters": {
+                      "attack_type": "melee"
+                    }
+                  },
+                  {
+                    "type": "has-fought-this-phase",
+                    "negated": true
+                  }
                 ]
               },
               "effect": {
@@ -64,38 +98,65 @@
           },
           {
             "name": "Martial Excellence",
-            "requirement": { "type": "pair", "min_value": 4 },
+            "requirement": {
+              "type": "pair",
+              "min_value": 4
+            },
             "effect": {
               "type": "keyword-grant",
               "target": "all-friendly",
-              "modifier": { "keyword": "Sustained Hits 1", "weapon_type": "melee" }
+              "modifier": {
+                "keyword": "Sustained Hits 1",
+                "weapon_type": "melee"
+              }
             }
           },
           {
             "name": "Warp Blades",
-            "requirement": { "type": "pair", "min_value": 5 },
+            "requirement": {
+              "type": "pair",
+              "min_value": 5
+            },
             "effect": {
               "type": "keyword-grant",
               "target": "all-friendly",
-              "modifier": { "keyword": "Lethal Hits", "weapon_type": "melee" }
+              "modifier": {
+                "keyword": "Lethal Hits",
+                "weapon_type": "melee"
+              }
             }
           },
           {
             "name": "Decapitating Strikes",
-            "requirement": { "type": "triple", "min_value": 6 },
+            "requirement": {
+              "type": "triple",
+              "min_value": 6
+            },
             "effect": {
               "type": "conditional",
               "condition": {
                 "operator": "and",
                 "operands": [
-                  { "type": "target-has-keyword", "parameters": { "keyword": "Infantry" } },
-                  { "type": "attack-is-type", "parameters": { "attack_type": "melee" } }
+                  {
+                    "type": "target-has-keyword",
+                    "parameters": {
+                      "keyword": "Infantry"
+                    }
+                  },
+                  {
+                    "type": "attack-is-type",
+                    "parameters": {
+                      "attack_type": "melee"
+                    }
+                  }
                 ]
               },
               "effect": {
                 "type": "keyword-grant",
                 "target": "all-friendly",
-                "modifier": { "keyword": "Devastating Wounds" }
+                "modifier": {
+                  "keyword": "Devastating Wounds"
+                }
               }
             }
           }
@@ -105,39 +166,58 @@
     "scope": {
       "range": "any-on-battlefield",
       "duration": "battle-round"
-    },
-    "community_notes": "Activated at start of each battle round. Dice are rolled once and allocated to blessings. Each blessing requires a pair (or triple for Decapitating Strikes) of dice showing the specified value or higher."
+    }
   },
   {
     "ability_id": "legendary-killer",
     "name": "Legendary Killer",
     "authored_by": "40kdc-community",
-    "game_version": { "edition": "10th", "dataslate": "2025-q3" },
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
     "version": "2025-q3",
     "supersedes": null,
-    "unit_ids": ["kharn-the-betrayer"],
+    "unit_ids": [
+      "kharn-the-betrayer"
+    ],
     "faction_id": null,
     "detachment_id": null,
     "ability_type": "unit",
     "behavior": "passive",
     "effect": {
       "type": "conditional",
-      "condition": { "type": "phase-is", "parameters": { "phase": "fight" } },
+      "condition": {
+        "type": "phase-is",
+        "parameters": {
+          "phase": "fight"
+        }
+      },
       "effect": {
         "type": "conditional",
-        "condition": { "type": "model-is-leader" },
+        "condition": {
+          "type": "model-is-leader"
+        },
         "effect": {
           "type": "sequence",
           "steps": [
             {
               "type": "re-roll",
               "target": "unit",
-              "modifier": { "roll": "hit", "value": 1, "attack_type": "melee" }
+              "modifier": {
+                "roll": "hit",
+                "value": 1,
+                "attack_type": "melee"
+              }
             },
             {
               "type": "re-roll",
               "target": "unit",
-              "modifier": { "roll": "wound", "value": 1, "attack_type": "melee" }
+              "modifier": {
+                "roll": "wound",
+                "value": 1,
+                "attack_type": "melee"
+              }
             }
           ]
         }
@@ -152,10 +232,15 @@
     "ability_id": "the-betrayer",
     "name": "The Betrayer",
     "authored_by": "40kdc-community",
-    "game_version": { "edition": "10th", "dataslate": "2025-q3" },
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
     "version": "2025-q3",
     "supersedes": null,
-    "unit_ids": ["kharn-the-betrayer"],
+    "unit_ids": [
+      "kharn-the-betrayer"
+    ],
     "faction_id": null,
     "detachment_id": null,
     "ability_type": "unit",
@@ -165,17 +250,40 @@
       "condition": {
         "operator": "and",
         "operands": [
-          { "type": "phase-is", "parameters": { "phase": "charge" } },
-          { "type": "timing-is", "parameters": { "timing": "end-of-phase" } },
-          { "type": "player-turn-is", "parameters": { "turn": "your-turn" } }
+          {
+            "type": "phase-is",
+            "parameters": {
+              "phase": "charge"
+            }
+          },
+          {
+            "type": "timing-is",
+            "parameters": {
+              "timing": "end-of-phase"
+            }
+          },
+          {
+            "type": "player-turn-is",
+            "parameters": {
+              "turn": "your-turn"
+            }
+          }
         ]
       },
       "effect": {
         "type": "conditional",
-        "condition": { "type": "model-is-leader" },
+        "condition": {
+          "type": "model-is-leader"
+        },
         "effect": {
           "type": "conditional",
-          "condition": { "type": "opponent-unit-within-range", "parameters": { "range": "engagement" }, "negated": true },
+          "condition": {
+            "type": "opponent-unit-within-range",
+            "parameters": {
+              "range": "engagement"
+            },
+            "negated": true
+          },
           "effect": {
             "type": "dice-gated",
             "dice": "2D6",
@@ -185,7 +293,10 @@
             "on_fail": {
               "type": "model-destruction",
               "target": "unit",
-              "modifier": { "count": 1, "exclude_leader": true }
+              "modifier": {
+                "count": 1,
+                "exclude_leader": true
+              }
             }
           }
         }
@@ -194,24 +305,33 @@
     "scope": {
       "range": "unit",
       "duration": "phase"
-    },
-    "community_notes": "Mandatory — not optional. Only triggers when leading a unit that failed to reach engagement range after the charge phase."
+    }
   },
   {
     "ability_id": "berzerker-frenzy",
     "name": "Berzerker Frenzy",
     "authored_by": "40kdc-community",
-    "game_version": { "edition": "10th", "dataslate": "2025-q3" },
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
     "version": "2025-q3",
     "supersedes": null,
-    "unit_ids": ["kharn-the-betrayer"],
+    "unit_ids": [
+      "kharn-the-betrayer"
+    ],
     "faction_id": null,
     "detachment_id": null,
     "ability_type": "unit",
     "behavior": "reactive",
     "effect": {
       "type": "conditional",
-      "condition": { "type": "timing-is", "parameters": { "timing": "on-destroyed" } },
+      "condition": {
+        "type": "timing-is",
+        "parameters": {
+          "timing": "on-destroyed"
+        }
+      },
       "effect": {
         "type": "dice-gated",
         "dice": "D6",
@@ -233,6 +353,4609 @@
     "scope": {
       "range": "self",
       "duration": "one-use"
+    }
+  },
+  {
+    "ability_id": "deadly-demise-1",
+    "name": "Deadly Demise 1",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [],
+    "faction_id": null,
+    "detachment_id": null,
+    "ability_type": "core",
+    "behavior": "reactive",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "timing-is",
+        "parameters": {
+          "timing": "on-model-destroyed"
+        }
+      },
+      "effect": {
+        "type": "dice-gated",
+        "dice": "D6",
+        "threshold": 6,
+        "comparison": "gte",
+        "on_success": {
+          "type": "mortal-wounds",
+          "target": "enemy-within-aura",
+          "modifier": {
+            "amount": 1,
+            "range_inches": 6
+          }
+        },
+        "on_fail": null
+      }
+    },
+    "scope": {
+      "range": "aura-6",
+      "duration": "phase"
+    }
+  },
+  {
+    "ability_id": "deadly-demise-d3",
+    "name": "Deadly Demise D3",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [],
+    "faction_id": null,
+    "detachment_id": null,
+    "ability_type": "core",
+    "behavior": "reactive",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "timing-is",
+        "parameters": {
+          "timing": "on-model-destroyed"
+        }
+      },
+      "effect": {
+        "type": "dice-gated",
+        "dice": "D6",
+        "threshold": 6,
+        "comparison": "gte",
+        "on_success": {
+          "type": "mortal-wounds",
+          "target": "enemy-within-aura",
+          "modifier": {
+            "amount": "D3",
+            "range_inches": 6
+          }
+        },
+        "on_fail": null
+      }
+    },
+    "scope": {
+      "range": "aura-6",
+      "duration": "phase"
+    }
+  },
+  {
+    "ability_id": "deadly-demise-d6",
+    "name": "Deadly Demise D6",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [],
+    "faction_id": null,
+    "detachment_id": null,
+    "ability_type": "core",
+    "behavior": "reactive",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "timing-is",
+        "parameters": {
+          "timing": "on-model-destroyed"
+        }
+      },
+      "effect": {
+        "type": "dice-gated",
+        "dice": "D6",
+        "threshold": 6,
+        "comparison": "gte",
+        "on_success": {
+          "type": "mortal-wounds",
+          "target": "enemy-within-aura",
+          "modifier": {
+            "amount": "D6",
+            "range_inches": 6
+          }
+        },
+        "on_fail": null
+      }
+    },
+    "scope": {
+      "range": "aura-6",
+      "duration": "phase"
+    }
+  },
+  {
+    "ability_id": "deadly-demise-d6-plus-2",
+    "name": "Deadly Demise D6+2",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [],
+    "faction_id": null,
+    "detachment_id": null,
+    "ability_type": "core",
+    "behavior": "reactive",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "timing-is",
+        "parameters": {
+          "timing": "on-model-destroyed"
+        }
+      },
+      "effect": {
+        "type": "dice-gated",
+        "dice": "D6",
+        "threshold": 6,
+        "comparison": "gte",
+        "on_success": {
+          "type": "mortal-wounds",
+          "target": "enemy-within-aura",
+          "modifier": {
+            "amount": "D6+2",
+            "range_inches": 6
+          }
+        },
+        "on_fail": null
+      }
+    },
+    "scope": {
+      "range": "aura-6",
+      "duration": "phase"
+    }
+  },
+  {
+    "ability_id": "deep-strike",
+    "name": "Deep Strike",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [],
+    "faction_id": null,
+    "detachment_id": null,
+    "ability_type": "core",
+    "behavior": "activated",
+    "effect": {
+      "type": "movement-modifier",
+      "target": "unit",
+      "modifier": {
+        "move_type": "deep-strike",
+        "value": 0,
+        "replaces_default": false
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    }
+  },
+  {
+    "ability_id": "feel-no-pain-5-plus",
+    "name": "Feel No Pain 5+",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [],
+    "faction_id": null,
+    "detachment_id": null,
+    "ability_type": "core",
+    "behavior": "passive",
+    "effect": {
+      "type": "feel-no-pain",
+      "target": "self",
+      "modifier": {
+        "threshold": 5
+      }
+    },
+    "scope": {
+      "range": "self",
+      "duration": "permanent"
+    }
+  },
+  {
+    "ability_id": "feel-no-pain-6-plus",
+    "name": "Feel No Pain 6+",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [],
+    "faction_id": null,
+    "detachment_id": null,
+    "ability_type": "core",
+    "behavior": "passive",
+    "effect": {
+      "type": "feel-no-pain",
+      "target": "self",
+      "modifier": {
+        "threshold": 6
+      }
+    },
+    "scope": {
+      "range": "self",
+      "duration": "permanent"
+    }
+  },
+  {
+    "ability_id": "leader",
+    "name": "Leader",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [],
+    "faction_id": null,
+    "detachment_id": null,
+    "ability_type": "core",
+    "behavior": "passive",
+    "effect": {
+      "type": "ability-grant",
+      "target": "self",
+      "modifier": {
+        "grant_type": "leader-attachment"
+      }
+    },
+    "scope": {
+      "range": "self",
+      "duration": "permanent"
+    }
+  },
+  {
+    "ability_id": "scouts-6",
+    "name": "Scouts 6\"",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [],
+    "faction_id": null,
+    "detachment_id": null,
+    "ability_type": "core",
+    "behavior": "activated",
+    "effect": {
+      "type": "movement-modifier",
+      "target": "unit",
+      "modifier": {
+        "move_type": "scouts",
+        "value": 6,
+        "replaces_default": false
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "one-use"
+    }
+  },
+  {
+    "ability_id": "scouts-8",
+    "name": "Scouts 8\"",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [],
+    "faction_id": null,
+    "detachment_id": null,
+    "ability_type": "core",
+    "behavior": "activated",
+    "effect": {
+      "type": "movement-modifier",
+      "target": "unit",
+      "modifier": {
+        "move_type": "scouts",
+        "value": 8,
+        "replaces_default": false
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "one-use"
+    }
+  },
+  {
+    "ability_id": "infiltrators",
+    "name": "Infiltrators",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [],
+    "faction_id": null,
+    "detachment_id": null,
+    "ability_type": "core",
+    "behavior": "activated",
+    "effect": {
+      "type": "movement-modifier",
+      "target": "unit",
+      "modifier": {
+        "move_type": "infiltrators",
+        "value": 0,
+        "replaces_default": false
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    }
+  },
+  {
+    "ability_id": "hover",
+    "name": "Hover",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [],
+    "faction_id": null,
+    "detachment_id": null,
+    "ability_type": "core",
+    "behavior": "activated",
+    "effect": {
+      "type": "movement-modifier",
+      "target": "self",
+      "modifier": {
+        "move_type": "hover",
+        "value": 0,
+        "replaces_default": false
+      }
+    },
+    "scope": {
+      "range": "self",
+      "duration": "turn"
+    }
+  },
+  {
+    "ability_id": "firing-deck-2",
+    "name": "Firing Deck 2",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [],
+    "faction_id": null,
+    "detachment_id": null,
+    "ability_type": "core",
+    "behavior": "passive",
+    "effect": {
+      "type": "attack-restriction",
+      "target": "unit",
+      "modifier": {
+        "restriction_type": "firing-deck",
+        "max_models": 2
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    }
+  },
+  {
+    "ability_id": "icon-of-khorne",
+    "name": "Icon of Khorne",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [
+      "khorne-berzerkers",
+      "jakhals"
+    ],
+    "faction_id": "world-eaters",
+    "detachment_id": null,
+    "ability_type": "unit",
+    "behavior": "passive",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "timing-is",
+        "parameters": {
+          "timing": "on-unit-destroyed"
+        }
+      },
+      "effect": {
+        "type": "sequence",
+        "steps": [
+          {
+            "type": "resource-gain",
+            "target": "self",
+            "modifier": {
+              "pool_id": "blessings-of-khorne-pool",
+              "amount": 1
+            }
+          },
+          {
+            "type": "stat-modifier",
+            "target": "self",
+            "modifier": {
+              "stat": "blessings-dice",
+              "operation": "add",
+              "value": 1
+            }
+          }
+        ]
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "phase"
+    }
+  },
+  {
+    "ability_id": "to-slake-its-rage",
+    "name": "To Slake its Rage",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [
+      "chaos-spawn"
+    ],
+    "faction_id": null,
+    "detachment_id": null,
+    "ability_type": "unit",
+    "behavior": "passive",
+    "effect": {
+      "type": "ability-grant",
+      "target": "unit",
+      "modifier": {
+        "grant_type": "advance-and-charge"
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    }
+  },
+  {
+    "ability_id": "assault-ramp",
+    "name": "Assault Ramp",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [
+      "chaos-land-raider"
+    ],
+    "faction_id": null,
+    "detachment_id": null,
+    "ability_type": "unit",
+    "behavior": "passive",
+    "effect": {
+      "type": "ability-grant",
+      "target": "unit",
+      "modifier": {
+        "grant_type": "charge-after-disembark"
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    }
+  },
+  {
+    "ability_id": "airborne-predator",
+    "name": "Airborne Predator",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [
+      "heldrake"
+    ],
+    "faction_id": null,
+    "detachment_id": null,
+    "ability_type": "unit",
+    "behavior": "passive",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "target-has-keyword",
+        "parameters": {
+          "keyword": "Fly"
+        }
+      },
+      "effect": {
+        "type": "roll-modifier",
+        "target": "self",
+        "modifier": {
+          "roll": "hit",
+          "operation": "add",
+          "value": 1
+        }
+      }
+    },
+    "scope": {
+      "range": "self",
+      "duration": "permanent"
+    }
+  },
+  {
+    "ability_id": "objective-ravaged",
+    "name": "Objective Ravaged",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [
+      "jakhals"
+    ],
+    "faction_id": null,
+    "detachment_id": null,
+    "ability_type": "unit",
+    "behavior": "passive",
+    "effect": {
+      "type": "ability-grant",
+      "target": "unit",
+      "modifier": {
+        "grant_type": "sticky-objectives"
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    }
+  },
+  {
+    "ability_id": "scuttling-walker",
+    "name": "Scuttling Walker",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [
+      "defiler"
+    ],
+    "faction_id": null,
+    "detachment_id": null,
+    "ability_type": "unit",
+    "behavior": "passive",
+    "effect": {
+      "type": "movement-modifier",
+      "target": "self",
+      "modifier": {
+        "move_type": "move-through",
+        "value": 4,
+        "replaces_default": false
+      }
+    },
+    "scope": {
+      "range": "self",
+      "duration": "permanent"
+    }
+  },
+  {
+    "ability_id": "rend-and-tear",
+    "name": "Rend and Tear",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [
+      "exalted-eightbound"
+    ],
+    "faction_id": null,
+    "detachment_id": null,
+    "ability_type": "unit",
+    "behavior": "passive",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "operator": "or",
+        "operands": [
+          {
+            "type": "target-has-keyword",
+            "parameters": {
+              "keyword": "Monster"
+            }
+          },
+          {
+            "type": "target-has-keyword",
+            "parameters": {
+              "keyword": "Vehicle"
+            }
+          }
+        ]
+      },
+      "effect": {
+        "type": "stat-modifier",
+        "target": "self",
+        "modifier": {
+          "stat": "D",
+          "operation": "add",
+          "value": 1,
+          "attack_type": "melee"
+        }
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "phase"
+    }
+  },
+  {
+    "ability_id": "furious-onslaught",
+    "name": "Furious Onslaught",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [
+      "forgefiend"
+    ],
+    "faction_id": null,
+    "detachment_id": null,
+    "ability_type": "unit",
+    "behavior": "passive",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "unit-within-range-of",
+        "parameters": {
+          "range": 18,
+          "target_type": "closest-eligible"
+        }
+      },
+      "effect": {
+        "type": "re-roll",
+        "target": "self",
+        "modifier": {
+          "roll": "hit",
+          "attack_type": "ranged"
+        }
+      }
+    },
+    "scope": {
+      "range": "self",
+      "duration": "permanent"
+    }
+  },
+  {
+    "ability_id": "loping-speed",
+    "name": "Loping Speed",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [
+      "goremongers"
+    ],
+    "faction_id": null,
+    "detachment_id": null,
+    "ability_type": "unit",
+    "behavior": "reactive",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          {
+            "type": "opponent-unit-within-range",
+            "parameters": {
+              "range": 9
+            }
+          },
+          {
+            "type": "opponent-unit-within-range",
+            "parameters": {
+              "range": "engagement"
+            },
+            "negated": true
+          }
+        ]
+      },
+      "effect": {
+        "type": "movement-modifier",
+        "target": "unit",
+        "modifier": {
+          "move_type": "reactive-move",
+          "value": "D6",
+          "replaces_default": false
+        }
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "phase"
+    }
+  },
+  {
+    "ability_id": "devoted-to-destruction",
+    "name": "Devoted to Destruction",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [
+      "helbrute"
+    ],
+    "faction_id": null,
+    "detachment_id": null,
+    "ability_type": "unit",
+    "behavior": "passive",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "unit-has-keyword",
+        "parameters": {
+          "keyword": "dual-melee"
+        }
+      },
+      "effect": {
+        "type": "stat-modifier",
+        "target": "self",
+        "modifier": {
+          "stat": "A",
+          "operation": "add",
+          "value": 2,
+          "attack_type": "melee"
+        }
+      }
+    },
+    "scope": {
+      "range": "self",
+      "duration": "permanent"
+    }
+  },
+  {
+    "ability_id": "lord-of-murder",
+    "name": "Lord of Murder",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [
+      "daemon-prince-of-khorne"
+    ],
+    "faction_id": null,
+    "detachment_id": null,
+    "ability_type": "unit",
+    "behavior": "passive",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "unit-within-range-of",
+        "parameters": {
+          "range": 3,
+          "target_type": "friendly-infantry",
+          "keyword": "World Eaters"
+        }
+      },
+      "effect": {
+        "type": "ability-grant",
+        "target": "self",
+        "modifier": {
+          "grant_type": "lone-operative"
+        }
+      }
+    },
+    "scope": {
+      "range": "self",
+      "duration": "permanent"
+    }
+  },
+  {
+    "ability_id": "devastating-assault",
+    "name": "Devastating Assault",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [
+      "daemon-prince-of-khorne"
+    ],
+    "faction_id": null,
+    "detachment_id": null,
+    "ability_type": "unit",
+    "behavior": "passive",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "charged-this-turn"
+      },
+      "effect": {
+        "type": "keyword-grant",
+        "target": "self",
+        "modifier": {
+          "keyword": "Devastating Wounds",
+          "weapon_type": "melee",
+          "weapon_name": "hellforged weapons"
+        }
+      }
+    },
+    "scope": {
+      "range": "self",
+      "duration": "turn"
+    }
+  },
+  {
+    "ability_id": "supreme-commander",
+    "name": "Supreme Commander",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [
+      "angron"
+    ],
+    "faction_id": null,
+    "detachment_id": null,
+    "ability_type": "unit",
+    "behavior": "passive",
+    "effect": {
+      "type": "ability-grant",
+      "target": "self",
+      "modifier": {
+        "grant_type": "must-be-warlord"
+      }
+    },
+    "scope": {
+      "range": "self",
+      "duration": "permanent"
+    }
+  },
+  {
+    "ability_id": "idol-of-blessed-blood",
+    "name": "Idol of Blessed Blood",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [
+      "khorne-lord-of-skulls"
+    ],
+    "faction_id": null,
+    "detachment_id": null,
+    "ability_type": "unit",
+    "behavior": "passive",
+    "effect": {
+      "type": "stat-modifier",
+      "target": "self",
+      "modifier": {
+        "stat": "blessings-dice",
+        "operation": "add",
+        "value": 1
+      }
+    },
+    "scope": {
+      "range": "any-on-battlefield",
+      "duration": "permanent"
+    }
+  },
+  {
+    "ability_id": "blood-hungry-annihilator",
+    "name": "Blood-hungry Annihilator",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [
+      "chaos-predator-annihilator"
+    ],
+    "faction_id": null,
+    "detachment_id": null,
+    "ability_type": "unit",
+    "behavior": "passive",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          {
+            "type": "unit-within-range-of",
+            "parameters": {
+              "range": 18,
+              "target_type": "closest-eligible"
+            }
+          },
+          {
+            "type": "attack-is-type",
+            "parameters": {
+              "attack_type": "ranged"
+            }
+          },
+          {
+            "operator": "or",
+            "operands": [
+              {
+                "type": "target-has-keyword",
+                "parameters": {
+                  "keyword": "Monster"
+                }
+              },
+              {
+                "type": "target-has-keyword",
+                "parameters": {
+                  "keyword": "Vehicle"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "effect": {
+        "type": "sequence",
+        "steps": [
+          {
+            "type": "re-roll",
+            "target": "self",
+            "modifier": {
+              "roll": "wound"
+            }
+          },
+          {
+            "type": "re-roll",
+            "target": "self",
+            "modifier": {
+              "roll": "damage"
+            }
+          }
+        ]
+      }
+    },
+    "scope": {
+      "range": "self",
+      "duration": "permanent"
+    }
+  },
+  {
+    "ability_id": "punishing-suppression",
+    "name": "Punishing Suppression",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [
+      "chaos-predator-destructor"
+    ],
+    "faction_id": null,
+    "detachment_id": null,
+    "ability_type": "unit",
+    "behavior": "activated",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          {
+            "type": "phase-is",
+            "parameters": {
+              "phase": "shooting"
+            }
+          },
+          {
+            "type": "player-turn-is",
+            "parameters": {
+              "turn": "your-turn"
+            }
+          }
+        ]
+      },
+      "effect": {
+        "type": "roll-modifier",
+        "target": "defender",
+        "modifier": {
+          "roll": "hit",
+          "operation": "subtract",
+          "value": 1
+        }
+      }
+    },
+    "scope": {
+      "range": "any-visible",
+      "duration": "until-next-command-phase"
+    }
+  },
+  {
+    "ability_id": "blood-surge",
+    "name": "Blood Surge",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [
+      "khorne-berzerkers"
+    ],
+    "faction_id": null,
+    "detachment_id": null,
+    "ability_type": "unit",
+    "behavior": "reactive",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          {
+            "type": "phase-is",
+            "parameters": {
+              "phase": "shooting"
+            }
+          },
+          {
+            "type": "player-turn-is",
+            "parameters": {
+              "turn": "opponent-turn"
+            }
+          },
+          {
+            "type": "is-battle-shocked",
+            "negated": true
+          },
+          {
+            "type": "opponent-unit-within-range",
+            "parameters": {
+              "range": "engagement"
+            },
+            "negated": true
+          }
+        ]
+      },
+      "effect": {
+        "type": "movement-modifier",
+        "target": "unit",
+        "modifier": {
+          "move_type": "blood-surge",
+          "value": "D6+2",
+          "replaces_default": false
+        }
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "phase"
+    }
+  },
+  {
+    "ability_id": "bloody-fury",
+    "name": "Bloody Fury",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [
+      "chaos-terminators"
+    ],
+    "faction_id": null,
+    "detachment_id": null,
+    "ability_type": "unit",
+    "behavior": "passive",
+    "effect": {
+      "type": "sequence",
+      "steps": [
+        {
+          "type": "conditional",
+          "condition": {
+            "operator": "and",
+            "operands": [
+              {
+                "type": "attack-is-type",
+                "parameters": {
+                  "attack_type": "ranged"
+                }
+              },
+              {
+                "type": "unit-within-range-of",
+                "parameters": {
+                  "target_type": "closest-eligible"
+                }
+              }
+            ]
+          },
+          "effect": {
+            "type": "re-roll",
+            "target": "self",
+            "modifier": {
+              "roll": "hit",
+              "attack_type": "ranged"
+            }
+          }
+        },
+        {
+          "type": "conditional",
+          "condition": {
+            "type": "unit-within-range-of",
+            "parameters": {
+              "target_type": "closest-eligible"
+            }
+          },
+          "effect": {
+            "type": "re-roll",
+            "target": "self",
+            "modifier": {
+              "roll": "charge"
+            }
+          }
+        }
+      ]
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    }
+  },
+  {
+    "ability_id": "bloodied-terror",
+    "name": "Bloodied Terror",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [
+      "daemon-prince-of-khorne-with-wings"
+    ],
+    "faction_id": null,
+    "detachment_id": null,
+    "ability_type": "unit",
+    "behavior": "activated",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "timing-is",
+        "parameters": {
+          "timing": "start-of-phase"
+        }
+      },
+      "effect": {
+        "type": "leadership-modifier",
+        "target": "enemy-within-aura",
+        "modifier": {
+          "operation": "battle-shock-test",
+          "bonus_if_below_half": -1
+        }
+      }
+    },
+    "scope": {
+      "range": "engagement-range",
+      "duration": "phase"
+    }
+  },
+  {
+    "ability_id": "swooping-predator",
+    "name": "Swooping Predator",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [
+      "daemon-prince-of-khorne-with-wings"
+    ],
+    "faction_id": null,
+    "detachment_id": null,
+    "ability_type": "unit",
+    "behavior": "activated",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "phase-is",
+        "parameters": {
+          "phase": "movement"
+        }
+      },
+      "effect": {
+        "type": "dice-gated",
+        "dice": "6D6",
+        "threshold": 4,
+        "comparison": "gte",
+        "on_success": {
+          "type": "mortal-wounds",
+          "target": "defender",
+          "modifier": {
+            "amount": 1,
+            "per_success": true
+          }
+        },
+        "on_fail": null
+      }
+    },
+    "scope": {
+      "range": "any-visible",
+      "duration": "phase"
+    }
+  },
+  {
+    "ability_id": "beacons-of-rage",
+    "name": "Beacons of Rage (Aura)",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [
+      "eightbound"
+    ],
+    "faction_id": null,
+    "detachment_id": null,
+    "ability_type": "unit",
+    "behavior": "aura",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          {
+            "type": "attack-is-type",
+            "parameters": {
+              "attack_type": "melee"
+            }
+          },
+          {
+            "type": "target-has-keyword",
+            "parameters": {
+              "keyword": "Monster"
+            },
+            "negated": true
+          },
+          {
+            "type": "target-has-keyword",
+            "parameters": {
+              "keyword": "Vehicle"
+            },
+            "negated": true
+          }
+        ]
+      },
+      "effect": {
+        "type": "sequence",
+        "steps": [
+          {
+            "type": "roll-modifier",
+            "target": "friendly-within-aura",
+            "modifier": {
+              "roll": "hit",
+              "operation": "add",
+              "value": 1
+            }
+          },
+          {
+            "type": "conditional",
+            "condition": {
+              "type": "unit-below-half-strength"
+            },
+            "effect": {
+              "type": "roll-modifier",
+              "target": "friendly-within-aura",
+              "modifier": {
+                "roll": "wound",
+                "operation": "add",
+                "value": 1
+              }
+            }
+          }
+        ]
+      }
+    },
+    "scope": {
+      "range": "aura-6",
+      "duration": "permanent"
+    }
+  },
+  {
+    "ability_id": "frenzy",
+    "name": "Frenzy",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [
+      "helbrute"
+    ],
+    "faction_id": null,
+    "detachment_id": null,
+    "ability_type": "unit",
+    "behavior": "reactive",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "operator": "or",
+        "operands": [
+          {
+            "type": "phase-is",
+            "parameters": {
+              "phase": "shooting"
+            }
+          },
+          {
+            "type": "phase-is",
+            "parameters": {
+              "phase": "fight"
+            }
+          }
+        ]
+      },
+      "effect": {
+        "type": "choice",
+        "options": [
+          {
+            "type": "shoot-on-death",
+            "target": "self",
+            "modifier": {
+              "restriction": "attacker-only"
+            }
+          },
+          {
+            "type": "fight-on-death",
+            "target": "self",
+            "modifier": {
+              "restriction": "attacker-only"
+            }
+          }
+        ],
+        "choice_label": "Shoot or fight back"
+      }
+    },
+    "scope": {
+      "range": "self",
+      "duration": "phase"
+    }
+  },
+  {
+    "ability_id": "super-heavy-war-engine",
+    "name": "Super-heavy War Engine",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [
+      "khorne-lord-of-skulls"
+    ],
+    "faction_id": null,
+    "detachment_id": null,
+    "ability_type": "unit",
+    "behavior": "passive",
+    "effect": {
+      "type": "sequence",
+      "steps": [
+        {
+          "type": "movement-modifier",
+          "target": "self",
+          "modifier": {
+            "move_type": "move-through",
+            "value": 4,
+            "replaces_default": false
+          }
+        },
+        {
+          "type": "movement-modifier",
+          "target": "self",
+          "modifier": {
+            "move_type": "move-through-tall",
+            "value": 0,
+            "replaces_default": false
+          }
+        }
+      ]
+    },
+    "scope": {
+      "range": "self",
+      "duration": "permanent"
+    }
+  },
+  {
+    "ability_id": "the-scent-of-blood",
+    "name": "The Scent of Blood",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [
+      "maulerfiend"
+    ],
+    "faction_id": null,
+    "detachment_id": null,
+    "ability_type": "unit",
+    "behavior": "passive",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "unit-below-starting-strength"
+      },
+      "effect": {
+        "type": "sequence",
+        "steps": [
+          {
+            "type": "roll-modifier",
+            "target": "self",
+            "modifier": {
+              "roll": "charge",
+              "operation": "add",
+              "value": 1
+            }
+          },
+          {
+            "type": "conditional",
+            "condition": {
+              "type": "unit-below-half-strength"
+            },
+            "effect": {
+              "type": "roll-modifier",
+              "target": "self",
+              "modifier": {
+                "roll": "charge",
+                "operation": "add",
+                "value": 1
+              }
+            }
+          }
+        ]
+      }
+    },
+    "scope": {
+      "range": "self",
+      "duration": "permanent"
+    }
+  },
+  {
+    "ability_id": "savage-exaltation",
+    "name": "Savage Exaltation",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [
+      "maulerfiend"
+    ],
+    "faction_id": null,
+    "detachment_id": null,
+    "ability_type": "unit",
+    "behavior": "passive",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          {
+            "type": "attack-is-type",
+            "parameters": {
+              "attack_type": "melee"
+            }
+          },
+          {
+            "type": "unit-below-starting-strength"
+          }
+        ]
+      },
+      "effect": {
+        "type": "sequence",
+        "steps": [
+          {
+            "type": "roll-modifier",
+            "target": "self",
+            "modifier": {
+              "roll": "hit",
+              "operation": "add",
+              "value": 1
+            }
+          },
+          {
+            "type": "conditional",
+            "condition": {
+              "type": "unit-below-half-strength"
+            },
+            "effect": {
+              "type": "roll-modifier",
+              "target": "self",
+              "modifier": {
+                "roll": "wound",
+                "operation": "add",
+                "value": 1
+              }
+            }
+          }
+        ]
+      }
+    },
+    "scope": {
+      "range": "self",
+      "duration": "permanent"
+    }
+  },
+  {
+    "ability_id": "aggressive-advance",
+    "name": "Aggressive Advance",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [
+      "lord-on-juggernaut"
+    ],
+    "faction_id": null,
+    "detachment_id": null,
+    "ability_type": "unit",
+    "behavior": "passive",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "model-is-leader"
+      },
+      "effect": {
+        "type": "sequence",
+        "steps": [
+          {
+            "type": "stat-modifier",
+            "target": "unit",
+            "modifier": {
+              "stat": "M",
+              "operation": "set",
+              "value": 10
+            }
+          },
+          {
+            "type": "movement-modifier",
+            "target": "unit",
+            "modifier": {
+              "move_type": "move-through-terrain",
+              "value": 0,
+              "replaces_default": false
+            }
+          }
+        ]
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    }
+  },
+  {
+    "ability_id": "forwards-for-blood",
+    "name": "Forwards, for Blood!",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [
+      "master-of-executions"
+    ],
+    "faction_id": null,
+    "detachment_id": null,
+    "ability_type": "unit",
+    "behavior": "passive",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "model-is-leader"
+      },
+      "effect": {
+        "type": "sequence",
+        "steps": [
+          {
+            "type": "re-roll",
+            "target": "unit",
+            "modifier": {
+              "roll": "advance"
+            }
+          },
+          {
+            "type": "re-roll",
+            "target": "unit",
+            "modifier": {
+              "roll": "blood-surge"
+            }
+          }
+        ]
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    }
+  },
+  {
+    "ability_id": "a-worthy-skull",
+    "name": "A Worthy Skull",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [
+      "master-of-executions"
+    ],
+    "faction_id": null,
+    "detachment_id": null,
+    "ability_type": "unit",
+    "behavior": "passive",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "target-has-keyword",
+        "parameters": {
+          "keyword": "Character"
+        }
+      },
+      "effect": {
+        "type": "sequence",
+        "steps": [
+          {
+            "type": "re-roll",
+            "target": "self",
+            "modifier": {
+              "roll": "hit",
+              "attack_type": "melee"
+            }
+          },
+          {
+            "type": "re-roll",
+            "target": "self",
+            "modifier": {
+              "roll": "wound",
+              "attack_type": "melee"
+            }
+          },
+          {
+            "type": "cp-gain",
+            "target": "self",
+            "modifier": {
+              "amount": 1,
+              "trigger": "destroy-character"
+            }
+          }
+        ]
+      }
+    },
+    "scope": {
+      "range": "self",
+      "duration": "permanent"
+    }
+  },
+  {
+    "ability_id": "meet-any-challenge",
+    "name": "Meet Any Challenge",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [
+      "chaos-rhino"
+    ],
+    "faction_id": null,
+    "detachment_id": null,
+    "ability_type": "unit",
+    "behavior": "reactive",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          {
+            "type": "phase-is",
+            "parameters": {
+              "phase": "movement"
+            }
+          },
+          {
+            "type": "player-turn-is",
+            "parameters": {
+              "turn": "opponent-turn"
+            }
+          },
+          {
+            "type": "opponent-unit-within-range",
+            "parameters": {
+              "range": 9
+            }
+          }
+        ]
+      },
+      "effect": {
+        "type": "ability-grant",
+        "target": "unit",
+        "modifier": {
+          "grant_type": "reactive-disembark"
+        }
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "phase"
+    }
+  },
+  {
+    "ability_id": "unleash-wrath",
+    "name": "Unleash Wrath",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [
+      "defiler"
+    ],
+    "faction_id": null,
+    "detachment_id": null,
+    "ability_type": "unit",
+    "behavior": "reactive",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          {
+            "type": "phase-is",
+            "parameters": {
+              "phase": "movement"
+            }
+          },
+          {
+            "type": "player-turn-is",
+            "parameters": {
+              "turn": "opponent-turn"
+            }
+          },
+          {
+            "type": "opponent-unit-within-range",
+            "parameters": {
+              "range": 12
+            }
+          }
+        ]
+      },
+      "effect": {
+        "type": "choice",
+        "options": [
+          {
+            "type": "shoot-on-death",
+            "target": "self",
+            "modifier": {
+              "restriction": "eligible-only"
+            }
+          },
+          {
+            "type": "ability-grant",
+            "target": "self",
+            "modifier": {
+              "grant_type": "reactive-charge",
+              "no_charge_bonus": true
+            }
+          }
+        ],
+        "choice_label": "Shoot at or charge the arriving unit"
+      }
+    },
+    "scope": {
+      "range": "self",
+      "duration": "phase"
+    }
+  },
+  {
+    "ability_id": "bloody-stampede",
+    "name": "Bloody Stampede",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [
+      "lord-invocatus"
+    ],
+    "faction_id": null,
+    "detachment_id": null,
+    "ability_type": "unit",
+    "behavior": "reactive",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "charged-this-turn"
+      },
+      "effect": {
+        "type": "dice-gated",
+        "dice": "D6",
+        "threshold": 2,
+        "comparison": "gte",
+        "on_success": {
+          "type": "mortal-wounds",
+          "target": "defender",
+          "modifier": {
+            "amount_table": [
+              {
+                "roll": "2-3",
+                "amount": 1
+              },
+              {
+                "roll": "4-5",
+                "amount": "D3"
+              },
+              {
+                "roll": "6",
+                "amount": "D3+3"
+              }
+            ]
+          }
+        },
+        "on_fail": null
+      }
+    },
+    "scope": {
+      "range": "engagement-range",
+      "duration": "phase"
+    }
+  },
+  {
+    "ability_id": "fire-riders",
+    "name": "Fire Riders",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [
+      "lord-invocatus"
+    ],
+    "faction_id": null,
+    "detachment_id": null,
+    "ability_type": "unit",
+    "behavior": "passive",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "model-is-leader"
+      },
+      "effect": {
+        "type": "sequence",
+        "steps": [
+          {
+            "type": "ability-grant",
+            "target": "unit",
+            "modifier": {
+              "grant_type": "deep-strike"
+            }
+          },
+          {
+            "type": "movement-modifier",
+            "target": "unit",
+            "modifier": {
+              "move_type": "move-through",
+              "value": 0,
+              "replaces_default": false
+            }
+          }
+        ]
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    }
+  },
+  {
+    "ability_id": "crush-all-who-stand-before-us",
+    "name": "Crush All Who Stand Before Us",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [
+      "lord-on-juggernaut"
+    ],
+    "faction_id": null,
+    "detachment_id": null,
+    "ability_type": "unit",
+    "behavior": "activated",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "phase-is",
+        "parameters": {
+          "phase": "fight"
+        }
+      },
+      "effect": {
+        "type": "movement-modifier",
+        "target": "unit",
+        "modifier": {
+          "move_type": "extended-pile-in",
+          "value": 3,
+          "replaces_default": true
+        }
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "phase"
+    }
+  },
+  {
+    "ability_id": "direct-the-slaughter",
+    "name": "Direct the Slaughter",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [
+      "daemon-prince-of-khorne"
+    ],
+    "faction_id": null,
+    "detachment_id": null,
+    "ability_type": "unit",
+    "behavior": "activated",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "unit-within-range-of",
+        "parameters": {
+          "range": 12,
+          "target_type": "friendly",
+          "keyword": "World Eaters"
+        }
+      },
+      "effect": {
+        "type": "cp-refund",
+        "target": "self",
+        "modifier": {
+          "amount": 1,
+          "trigger": "stratagem-used"
+        }
+      }
+    },
+    "scope": {
+      "range": "aura-12",
+      "duration": "battle-round"
+    }
+  },
+  {
+    "ability_id": "reborn-in-blood",
+    "name": "Reborn in Blood",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [
+      "angron"
+    ],
+    "faction_id": null,
+    "detachment_id": null,
+    "ability_type": "unit",
+    "behavior": "reactive",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "timing-is",
+        "parameters": {
+          "timing": "start-of-phase"
+        }
+      },
+      "effect": {
+        "type": "conditional",
+        "condition": {
+          "type": "timing-is",
+          "parameters": {
+            "timing": "on-unit-destroyed"
+          }
+        },
+        "effect": {
+          "type": "resurrection",
+          "target": "self",
+          "modifier": {
+            "wounds_remaining": 8,
+            "placement": "deep-strike",
+            "cost": "triple-6-blessings",
+            "timing": "next-movement-phase"
+          }
+        }
+      }
+    },
+    "scope": {
+      "range": "self",
+      "duration": "battle"
+    }
+  },
+  {
+    "ability_id": "wrathful-presence",
+    "name": "Wrathful Presence",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [
+      "angron"
+    ],
+    "faction_id": null,
+    "detachment_id": null,
+    "ability_type": "unit",
+    "behavior": "activated",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "timing-is",
+        "parameters": {
+          "timing": "start-of-phase"
+        }
+      },
+      "effect": {
+        "type": "ability-grant",
+        "target": "self",
+        "modifier": {
+          "grant_type": "wrathful-presence-selection"
+        }
+      }
+    },
+    "scope": {
+      "range": "self",
+      "duration": "battle-round"
+    }
+  },
+  {
+    "ability_id": "rage-eternal",
+    "name": "Rage Eternal",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [
+      "slaughterbound"
+    ],
+    "faction_id": null,
+    "detachment_id": null,
+    "ability_type": "unit",
+    "behavior": "activated",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          {
+            "type": "model-is-leader"
+          },
+          {
+            "type": "phase-is",
+            "parameters": {
+              "phase": "command"
+            }
+          },
+          {
+            "type": "player-turn-is",
+            "parameters": {
+              "turn": "your-turn"
+            }
+          }
+        ]
+      },
+      "effect": {
+        "type": "resurrection",
+        "target": "unit",
+        "modifier": {
+          "count": 1,
+          "model_type": "bodyguard",
+          "wounds_remaining": "full"
+        }
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "phase"
+    }
+  },
+  {
+    "ability_id": "possessed-lord",
+    "name": "Possessed Lord",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [
+      "slaughterbound"
+    ],
+    "faction_id": null,
+    "detachment_id": null,
+    "ability_type": "unit",
+    "behavior": "activated",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "timing-is",
+        "parameters": {
+          "timing": "start-of-phase"
+        }
+      },
+      "effect": {
+        "type": "sequence",
+        "steps": [
+          {
+            "type": "stat-modifier",
+            "target": "self",
+            "modifier": {
+              "stat": "A",
+              "operation": "add",
+              "value": 3,
+              "attack_type": "melee"
+            }
+          },
+          {
+            "type": "keyword-grant",
+            "target": "self",
+            "modifier": {
+              "keyword": "Devastating Wounds",
+              "weapon_type": "melee"
+            }
+          }
+        ]
+      }
+    },
+    "scope": {
+      "range": "self",
+      "duration": "phase"
+    }
+  },
+  {
+    "ability_id": "lord-of-the-eightbound",
+    "name": "Lord of the Eightbound",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [
+      "slaughterbound"
+    ],
+    "faction_id": null,
+    "detachment_id": null,
+    "ability_type": "unit",
+    "behavior": "passive",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "is-attached",
+        "parameters": {
+          "keyword": "Possessed"
+        }
+      },
+      "effect": {
+        "type": "sequence",
+        "steps": [
+          {
+            "type": "ability-grant",
+            "target": "self",
+            "modifier": {
+              "grant_type": "deep-strike"
+            }
+          },
+          {
+            "type": "ability-grant",
+            "target": "self",
+            "modifier": {
+              "grant_type": "scouts-6"
+            }
+          }
+        ]
+      }
+    },
+    "scope": {
+      "range": "self",
+      "duration": "battle"
+    }
+  },
+  {
+    "ability_id": "relentless-rage",
+    "name": "Relentless Rage",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [],
+    "faction_id": "world-eaters",
+    "detachment_id": "berzerker-warband",
+    "ability_type": "detachment",
+    "behavior": "passive",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "charged-this-turn"
+      },
+      "effect": {
+        "type": "sequence",
+        "steps": [
+          {
+            "type": "stat-modifier",
+            "target": "unit",
+            "modifier": {
+              "stat": "A",
+              "operation": "add",
+              "value": 1,
+              "attack_type": "melee"
+            }
+          },
+          {
+            "type": "stat-modifier",
+            "target": "unit",
+            "modifier": {
+              "stat": "S",
+              "operation": "add",
+              "value": 2,
+              "attack_type": "melee"
+            }
+          }
+        ]
+      }
+    },
+    "scope": {
+      "range": "any-on-battlefield",
+      "duration": "turn"
+    }
+  },
+  {
+    "ability_id": "brazen-fury",
+    "name": "Brazen Fury",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [],
+    "faction_id": "world-eaters",
+    "detachment_id": "possessed-slaughterband",
+    "ability_type": "detachment",
+    "behavior": "reactive",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          {
+            "type": "phase-is",
+            "parameters": {
+              "phase": "shooting"
+            }
+          },
+          {
+            "type": "player-turn-is",
+            "parameters": {
+              "turn": "opponent-turn"
+            }
+          },
+          {
+            "type": "unit-has-keyword",
+            "parameters": {
+              "keyword": "Possessed"
+            }
+          }
+        ]
+      },
+      "effect": {
+        "type": "movement-modifier",
+        "target": "unit",
+        "modifier": {
+          "move_type": "brazen-fury",
+          "value": "D6",
+          "replaces_default": false
+        }
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "phase"
+    }
+  },
+  {
+    "ability_id": "wrath-of-khorne",
+    "name": "Wrath of Khorne",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [],
+    "faction_id": "world-eaters",
+    "detachment_id": "vessels-of-wrath",
+    "ability_type": "detachment",
+    "behavior": "activated",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "timing-is",
+        "parameters": {
+          "timing": "start-of-phase"
+        }
+      },
+      "effect": {
+        "type": "ability-grant",
+        "target": "all-friendly",
+        "modifier": {
+          "grant_type": "vessel-of-wrath-selection"
+        }
+      }
+    },
+    "scope": {
+      "range": "any-on-battlefield",
+      "duration": "battle-round"
+    }
+  },
+  {
+    "ability_id": "blood-tithe",
+    "name": "Blood Tithe",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [],
+    "faction_id": "world-eaters",
+    "detachment_id": "khorne-daemonkin",
+    "ability_type": "detachment",
+    "behavior": "passive",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "timing-is",
+        "parameters": {
+          "timing": "on-unit-destroyed"
+        }
+      },
+      "effect": {
+        "type": "dice-gated",
+        "dice": "D6",
+        "threshold": 3,
+        "comparison": "gte",
+        "on_success": {
+          "type": "resource-gain",
+          "target": "self",
+          "modifier": {
+            "pool_id": "blood-tithe-pool",
+            "amount": 1
+          }
+        },
+        "on_fail": null
+      }
+    },
+    "scope": {
+      "range": "any-on-battlefield",
+      "duration": "battle"
+    }
+  },
+  {
+    "ability_id": "idols-of-khorne",
+    "name": "Idols of Khorne",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [],
+    "faction_id": "world-eaters",
+    "detachment_id": "cult-of-blood",
+    "ability_type": "detachment",
+    "behavior": "activated",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          {
+            "type": "phase-is",
+            "parameters": {
+              "phase": "command"
+            }
+          },
+          {
+            "type": "player-turn-is",
+            "parameters": {
+              "turn": "your-turn"
+            }
+          }
+        ]
+      },
+      "effect": {
+        "type": "ability-grant",
+        "target": "all-friendly",
+        "modifier": {
+          "grant_type": "idol-selection"
+        }
+      }
+    },
+    "scope": {
+      "range": "any-on-battlefield",
+      "duration": "until-next-command-phase"
+    }
+  },
+  {
+    "ability_id": "rush-to-the-fray",
+    "name": "Rush to the Fray",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [],
+    "faction_id": "world-eaters",
+    "detachment_id": "goretrack-onslaught",
+    "ability_type": "detachment",
+    "behavior": "passive",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "timing-is",
+        "parameters": {
+          "timing": "start-of-phase"
+        }
+      },
+      "effect": {
+        "type": "sequence",
+        "steps": [
+          {
+            "type": "roll-modifier",
+            "target": "unit",
+            "modifier": {
+              "roll": "charge",
+              "operation": "add",
+              "value": 1
+            }
+          },
+          {
+            "type": "keyword-grant",
+            "target": "unit",
+            "modifier": {
+              "keyword": "Lance",
+              "weapon_type": "melee"
+            }
+          }
+        ]
+      }
+    },
+    "scope": {
+      "range": "any-on-battlefield",
+      "duration": "turn"
+    }
+  },
+  {
+    "ability_id": "berzerker-glaive",
+    "name": "Berzerker Glaive",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [],
+    "faction_id": "world-eaters",
+    "detachment_id": "berzerker-warband",
+    "ability_type": "enhancement",
+    "behavior": "passive",
+    "effect": {
+      "type": "sequence",
+      "steps": [
+        {
+          "type": "stat-modifier",
+          "target": "bearer",
+          "modifier": {
+            "stat": "A",
+            "operation": "add",
+            "value": 1,
+            "attack_type": "melee"
+          }
+        },
+        {
+          "type": "stat-modifier",
+          "target": "bearer",
+          "modifier": {
+            "stat": "D",
+            "operation": "add",
+            "value": 1,
+            "attack_type": "melee"
+          }
+        }
+      ]
+    },
+    "scope": {
+      "range": "self",
+      "duration": "permanent"
+    }
+  },
+  {
+    "ability_id": "helm-of-brazen-ire",
+    "name": "Helm of Brazen Ire",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [],
+    "faction_id": "world-eaters",
+    "detachment_id": "berzerker-warband",
+    "ability_type": "enhancement",
+    "behavior": "passive",
+    "effect": {
+      "type": "damage-reduction",
+      "target": "self",
+      "modifier": {
+        "amount": 1
+      }
+    },
+    "scope": {
+      "range": "self",
+      "duration": "permanent"
+    }
+  },
+  {
+    "ability_id": "favoured-of-khorne",
+    "name": "Favoured of Khorne",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [],
+    "faction_id": "world-eaters",
+    "detachment_id": "berzerker-warband",
+    "ability_type": "enhancement",
+    "behavior": "passive",
+    "effect": {
+      "type": "re-roll",
+      "target": "self",
+      "modifier": {
+        "roll": "blessings",
+        "max_rerolls": 2
+      }
+    },
+    "scope": {
+      "range": "any-on-battlefield",
+      "duration": "permanent"
+    }
+  },
+  {
+    "ability_id": "battle-lust",
+    "name": "Battle-lust",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [],
+    "faction_id": "world-eaters",
+    "detachment_id": "berzerker-warband",
+    "ability_type": "enhancement",
+    "behavior": "passive",
+    "effect": {
+      "type": "sequence",
+      "steps": [
+        {
+          "type": "re-roll",
+          "target": "unit",
+          "modifier": {
+            "roll": "charge"
+          }
+        },
+        {
+          "type": "conditional",
+          "condition": {
+            "type": "unit-has-keyword",
+            "parameters": {
+              "keyword": "Unbridled Bloodlust active"
+            }
+          },
+          "effect": {
+            "type": "roll-modifier",
+            "target": "unit",
+            "modifier": {
+              "roll": "charge",
+              "operation": "add",
+              "value": 1
+            }
+          }
+        }
+      ]
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    }
+  },
+  {
+    "ability_id": "chosen-of-the-blood-god",
+    "name": "Chosen of the Blood God",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [],
+    "faction_id": "world-eaters",
+    "detachment_id": "cult-of-blood",
+    "ability_type": "enhancement",
+    "behavior": "passive",
+    "effect": {
+      "type": "stat-modifier",
+      "target": "self",
+      "modifier": {
+        "stat": "aura-range",
+        "operation": "add",
+        "value": 3
+      }
+    },
+    "scope": {
+      "range": "self",
+      "duration": "permanent"
+    }
+  },
+  {
+    "ability_id": "butcher-lord",
+    "name": "Butcher Lord",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [],
+    "faction_id": "world-eaters",
+    "detachment_id": "cult-of-blood",
+    "ability_type": "enhancement",
+    "behavior": "passive",
+    "effect": {
+      "type": "ability-grant",
+      "target": "self",
+      "modifier": {
+        "grant_type": "attach-to-jakhals-goremongers"
+      }
+    },
+    "scope": {
+      "range": "self",
+      "duration": "permanent"
+    }
+  },
+  {
+    "ability_id": "brazen-form",
+    "name": "Brazen Form",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [],
+    "faction_id": "world-eaters",
+    "detachment_id": "cult-of-blood",
+    "ability_type": "enhancement",
+    "behavior": "passive",
+    "effect": {
+      "type": "sequence",
+      "steps": [
+        {
+          "type": "stat-modifier",
+          "target": "self",
+          "modifier": {
+            "stat": "T",
+            "operation": "add",
+            "value": 1
+          }
+        },
+        {
+          "type": "feel-no-pain",
+          "target": "self",
+          "modifier": {
+            "threshold": 5
+          }
+        }
+      ]
+    },
+    "scope": {
+      "range": "self",
+      "duration": "permanent"
+    }
+  },
+  {
+    "ability_id": "strategic-slaughter",
+    "name": "Strategic Slaughter",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [],
+    "faction_id": "world-eaters",
+    "detachment_id": "cult-of-blood",
+    "ability_type": "enhancement",
+    "behavior": "passive",
+    "effect": {
+      "type": "ability-grant",
+      "target": "all-friendly",
+      "modifier": {
+        "grant_type": "redeploy-jakhals-goremongers",
+        "max_units": 3
+      }
+    },
+    "scope": {
+      "range": "any-on-battlefield",
+      "duration": "one-use"
+    }
+  },
+  {
+    "ability_id": "murderous-onslaught",
+    "name": "Murderous Onslaught",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [],
+    "faction_id": "world-eaters",
+    "detachment_id": "goretrack-onslaught",
+    "ability_type": "enhancement",
+    "behavior": "passive",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "timing-is",
+        "parameters": {
+          "timing": "start-of-phase"
+        }
+      },
+      "effect": {
+        "type": "ability-grant",
+        "target": "unit",
+        "modifier": {
+          "grant_type": "no-overwatch-against"
+        }
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "turn"
+    }
+  },
+  {
+    "ability_id": "aggressive-deployment",
+    "name": "Aggressive Deployment",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [],
+    "faction_id": "world-eaters",
+    "detachment_id": "goretrack-onslaught",
+    "ability_type": "enhancement",
+    "behavior": "passive",
+    "effect": {
+      "type": "ability-grant",
+      "target": "unit",
+      "modifier": {
+        "grant_type": "scouts-9-transport"
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "one-use"
+    }
+  },
+  {
+    "ability_id": "unleash-hell-enhancement",
+    "name": "Unleash Hell",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [],
+    "faction_id": "world-eaters",
+    "detachment_id": "goretrack-onslaught",
+    "ability_type": "enhancement",
+    "behavior": "passive",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "phase-is",
+        "parameters": {
+          "phase": "shooting"
+        }
+      },
+      "effect": {
+        "type": "ability-grant",
+        "target": "unit",
+        "modifier": {
+          "grant_type": "vehicle-sustained-hits-1"
+        }
+      }
+    },
+    "scope": {
+      "range": "aura-6",
+      "duration": "phase"
+    }
+  },
+  {
+    "ability_id": "infernal-infusion",
+    "name": "Infernal Infusion",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [],
+    "faction_id": "world-eaters",
+    "detachment_id": "goretrack-onslaught",
+    "ability_type": "enhancement",
+    "behavior": "passive",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "timing-is",
+        "parameters": {
+          "timing": "start-of-phase"
+        }
+      },
+      "effect": {
+        "type": "ability-grant",
+        "target": "unit",
+        "modifier": {
+          "grant_type": "fights-first"
+        }
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "phase"
+    }
+  },
+  {
+    "ability_id": "icon-of-war",
+    "name": "Icon of War",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [],
+    "faction_id": "world-eaters",
+    "detachment_id": "khorne-daemonkin",
+    "ability_type": "enhancement",
+    "behavior": "passive",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "unit-within-range-of",
+        "parameters": {
+          "range": 6,
+          "target_type": "friendly",
+          "keyword": "Blood Legions"
+        }
+      },
+      "effect": {
+        "type": "ability-grant",
+        "target": "friendly-within-aura",
+        "modifier": {
+          "grant_type": "blessings-of-khorne"
+        }
+      }
+    },
+    "scope": {
+      "range": "aura-6",
+      "duration": "permanent"
+    }
+  },
+  {
+    "ability_id": "blood-forged-armour",
+    "name": "Blood-Forged Armour",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [],
+    "faction_id": "world-eaters",
+    "detachment_id": "khorne-daemonkin",
+    "ability_type": "enhancement",
+    "behavior": "passive",
+    "effect": {
+      "type": "sequence",
+      "steps": [
+        {
+          "type": "stat-modifier",
+          "target": "self",
+          "modifier": {
+            "stat": "Sv",
+            "operation": "set",
+            "value": 2
+          }
+        },
+        {
+          "type": "conditional",
+          "condition": {
+            "type": "timing-is",
+            "parameters": {
+              "timing": "on-unit-destroyed"
+            }
+          },
+          "effect": {
+            "type": "resource-gain",
+            "target": "self",
+            "modifier": {
+              "pool_id": "blood-tithe-pool",
+              "amount": 1
+            }
+          }
+        }
+      ]
+    },
+    "scope": {
+      "range": "self",
+      "duration": "permanent"
+    }
+  },
+  {
+    "ability_id": "disciple-of-khorne",
+    "name": "Disciple of Khorne",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [],
+    "faction_id": "world-eaters",
+    "detachment_id": "khorne-daemonkin",
+    "ability_type": "enhancement",
+    "behavior": "passive",
+    "effect": {
+      "type": "ability-grant",
+      "target": "self",
+      "modifier": {
+        "grant_type": "attach-to-daemons-deep-strike"
+      }
+    },
+    "scope": {
+      "range": "self",
+      "duration": "permanent"
+    }
+  },
+  {
+    "ability_id": "blade-of-endless-bloodshed",
+    "name": "Blade of Endless Bloodshed",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [],
+    "faction_id": "world-eaters",
+    "detachment_id": "khorne-daemonkin",
+    "ability_type": "enhancement",
+    "behavior": "passive",
+    "effect": {
+      "type": "sequence",
+      "steps": [
+        {
+          "type": "stat-modifier",
+          "target": "self",
+          "modifier": {
+            "stat": "A",
+            "operation": "add",
+            "value": 1,
+            "attack_type": "melee"
+          }
+        },
+        {
+          "type": "stat-modifier",
+          "target": "self",
+          "modifier": {
+            "stat": "S",
+            "operation": "add",
+            "value": 1,
+            "attack_type": "melee"
+          }
+        },
+        {
+          "type": "stat-modifier",
+          "target": "self",
+          "modifier": {
+            "stat": "D",
+            "operation": "add",
+            "value": 1,
+            "attack_type": "melee"
+          }
+        },
+        {
+          "type": "resource-gain",
+          "target": "self",
+          "modifier": {
+            "pool_id": "blood-tithe-pool",
+            "amount": 1,
+            "trigger": "auto-on-melee-destroy"
+          }
+        }
+      ]
+    },
+    "scope": {
+      "range": "self",
+      "duration": "permanent"
+    }
+  },
+  {
+    "ability_id": "malicious-vigour",
+    "name": "Malicious Vigour",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [],
+    "faction_id": "world-eaters",
+    "detachment_id": "possessed-slaughterband",
+    "ability_type": "enhancement",
+    "behavior": "passive",
+    "effect": {
+      "type": "stat-modifier",
+      "target": "self",
+      "modifier": {
+        "stat": "brazen-fury-move",
+        "operation": "set",
+        "value": 6
+      }
+    },
+    "scope": {
+      "range": "self",
+      "duration": "permanent"
+    }
+  },
+  {
+    "ability_id": "killing-clarity",
+    "name": "Killing Clarity",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [],
+    "faction_id": "world-eaters",
+    "detachment_id": "possessed-slaughterband",
+    "ability_type": "enhancement",
+    "behavior": "passive",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "timing-is",
+        "parameters": {
+          "timing": "on-unit-destroyed"
+        }
+      },
+      "effect": {
+        "type": "dice-gated",
+        "dice": "D6",
+        "threshold": 4,
+        "comparison": "gte",
+        "on_success": {
+          "type": "cp-gain",
+          "target": "self",
+          "modifier": {
+            "amount": 1
+          }
+        },
+        "on_fail": null
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    }
+  },
+  {
+    "ability_id": "frenzied-focus",
+    "name": "Frenzied Focus",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [],
+    "faction_id": "world-eaters",
+    "detachment_id": "possessed-slaughterband",
+    "ability_type": "enhancement",
+    "behavior": "passive",
+    "effect": {
+      "type": "roll-modifier",
+      "target": "unit",
+      "modifier": {
+        "roll": "hit",
+        "critical_on": 5
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    }
+  },
+  {
+    "ability_id": "violent-demise",
+    "name": "Violent Demise",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [],
+    "faction_id": "world-eaters",
+    "detachment_id": "possessed-slaughterband",
+    "ability_type": "enhancement",
+    "behavior": "passive",
+    "effect": {
+      "type": "sequence",
+      "steps": [
+        {
+          "type": "stat-modifier",
+          "target": "self",
+          "modifier": {
+            "stat": "deadly-demise-threshold",
+            "operation": "set",
+            "value": 2
+          }
+        },
+        {
+          "type": "stat-modifier",
+          "target": "self",
+          "modifier": {
+            "stat": "deadly-demise-amount",
+            "operation": "set",
+            "value": "D3+1"
+          }
+        }
+      ]
+    },
+    "scope": {
+      "range": "self",
+      "duration": "permanent"
+    }
+  },
+  {
+    "ability_id": "archslaughterer",
+    "name": "Archslaughterer",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [],
+    "faction_id": "world-eaters",
+    "detachment_id": "vessels-of-wrath",
+    "ability_type": "enhancement",
+    "behavior": "passive",
+    "effect": {
+      "type": "sequence",
+      "steps": [
+        {
+          "type": "stat-modifier",
+          "target": "self",
+          "modifier": {
+            "stat": "AP",
+            "operation": "improve",
+            "value": 1,
+            "attack_type": "melee"
+          }
+        },
+        {
+          "type": "conditional",
+          "condition": {
+            "type": "unit-has-keyword",
+            "parameters": {
+              "keyword": "Vessel of Wrath"
+            }
+          },
+          "effect": {
+            "type": "stat-modifier",
+            "target": "self",
+            "modifier": {
+              "stat": "D",
+              "operation": "add",
+              "value": 1,
+              "attack_type": "melee"
+            }
+          }
+        }
+      ]
+    },
+    "scope": {
+      "range": "self",
+      "duration": "permanent"
+    }
+  },
+  {
+    "ability_id": "vox-diabolus",
+    "name": "Vox-Diabolus",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [],
+    "faction_id": "world-eaters",
+    "detachment_id": "vessels-of-wrath",
+    "ability_type": "enhancement",
+    "behavior": "passive",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "timing-is",
+        "parameters": {
+          "timing": "on-unit-destroyed"
+        }
+      },
+      "effect": {
+        "type": "dice-gated",
+        "dice": "D6",
+        "threshold": 4,
+        "comparison": "gte",
+        "on_success": {
+          "type": "cp-gain",
+          "target": "self",
+          "modifier": {
+            "amount": 1
+          }
+        },
+        "on_fail": null
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    }
+  },
+  {
+    "ability_id": "avengers-crown",
+    "name": "Avenger's Crown",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [],
+    "faction_id": "world-eaters",
+    "detachment_id": "vessels-of-wrath",
+    "ability_type": "enhancement",
+    "behavior": "passive",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          {
+            "type": "destroyed-by-attack-type",
+            "parameters": {
+              "attack_type": "melee"
+            }
+          },
+          {
+            "type": "has-fought-this-phase",
+            "negated": true
+          }
+        ]
+      },
+      "effect": {
+        "type": "dice-gated",
+        "dice": "D6",
+        "threshold": 2,
+        "comparison": "gte",
+        "on_success": {
+          "type": "fight-on-death",
+          "target": "self",
+          "modifier": {}
+        },
+        "on_fail": null
+      }
+    },
+    "scope": {
+      "range": "self",
+      "duration": "phase"
+    }
+  },
+  {
+    "ability_id": "gateways-to-glory",
+    "name": "Gateways to Glory",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [],
+    "faction_id": "world-eaters",
+    "detachment_id": "vessels-of-wrath",
+    "ability_type": "enhancement",
+    "behavior": "passive",
+    "effect": {
+      "type": "movement-modifier",
+      "target": "self",
+      "modifier": {
+        "move_type": "move-through",
+        "value": 0,
+        "replaces_default": false
+      }
+    },
+    "scope": {
+      "range": "self",
+      "duration": "permanent"
+    }
+  },
+  {
+    "ability_id": "hack-and-slash",
+    "name": "Hack and Slash",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [],
+    "faction_id": "world-eaters",
+    "detachment_id": "berzerker-warband",
+    "ability_type": "stratagem",
+    "behavior": "activated",
+    "effect": {
+      "type": "stat-modifier",
+      "target": "unit",
+      "modifier": {
+        "stat": "AP",
+        "operation": "improve",
+        "value": 1,
+        "attack_type": "melee"
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "phase"
+    }
+  },
+  {
+    "ability_id": "frenzied-resilience",
+    "name": "Frenzied Resilience",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [],
+    "faction_id": "world-eaters",
+    "detachment_id": "berzerker-warband",
+    "ability_type": "stratagem",
+    "behavior": "activated",
+    "effect": {
+      "type": "feel-no-pain",
+      "target": "unit",
+      "modifier": {
+        "threshold": 5
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "phase"
+    }
+  },
+  {
+    "ability_id": "blood-offering",
+    "name": "Blood Offering",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [],
+    "faction_id": "world-eaters",
+    "detachment_id": "berzerker-warband",
+    "ability_type": "stratagem",
+    "behavior": "activated",
+    "effect": {
+      "type": "ability-grant",
+      "target": "unit",
+      "modifier": {
+        "grant_type": "sticky-objective-on-death"
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "phase"
+    }
+  },
+  {
+    "ability_id": "skulls-for-the-skull-throne",
+    "name": "Skulls for the Skull Throne!",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [],
+    "faction_id": "world-eaters",
+    "detachment_id": "berzerker-warband",
+    "ability_type": "stratagem",
+    "behavior": "activated",
+    "effect": {
+      "type": "ability-grant",
+      "target": "unit",
+      "modifier": {
+        "grant_type": "bonus-blessings-roll"
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "phase"
+    }
+  },
+  {
+    "ability_id": "apoplectic-frenzy",
+    "name": "Apoplectic Frenzy",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [],
+    "faction_id": "world-eaters",
+    "detachment_id": "berzerker-warband",
+    "ability_type": "stratagem",
+    "behavior": "activated",
+    "effect": {
+      "type": "ability-grant",
+      "target": "unit",
+      "modifier": {
+        "grant_type": "advance-and-charge"
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "turn"
+    }
+  },
+  {
+    "ability_id": "berzerkers-wrath",
+    "name": "Berzerker's Wrath",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [],
+    "faction_id": "world-eaters",
+    "detachment_id": "berzerker-warband",
+    "ability_type": "stratagem",
+    "behavior": "activated",
+    "effect": {
+      "type": "stat-modifier",
+      "target": "unit",
+      "modifier": {
+        "stat": "blood-surge-auto-max",
+        "operation": "set",
+        "value": 1
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "phase"
+    }
+  },
+  {
+    "ability_id": "bloodthirsty-horde",
+    "name": "Bloodthirsty Horde",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [],
+    "faction_id": "world-eaters",
+    "detachment_id": "cult-of-blood",
+    "ability_type": "stratagem",
+    "behavior": "activated",
+    "effect": {
+      "type": "keyword-grant",
+      "target": "unit",
+      "modifier": {
+        "keyword": "Sustained Hits 1",
+        "weapon_type": "melee"
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "phase"
+    }
+  },
+  {
+    "ability_id": "bloody-vengeance",
+    "name": "Bloody Vengeance",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [],
+    "faction_id": "world-eaters",
+    "detachment_id": "cult-of-blood",
+    "ability_type": "stratagem",
+    "behavior": "activated",
+    "effect": {
+      "type": "ability-grant",
+      "target": "unit",
+      "modifier": {
+        "grant_type": "deadly-demise-on-destruction"
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "phase"
+    }
+  },
+  {
+    "ability_id": "brazen-idol",
+    "name": "Brazen Idol",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [],
+    "faction_id": "world-eaters",
+    "detachment_id": "cult-of-blood",
+    "ability_type": "stratagem",
+    "behavior": "activated",
+    "effect": {
+      "type": "ability-grant",
+      "target": "unit",
+      "modifier": {
+        "grant_type": "extra-idol-activation"
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "until-next-command-phase"
+    }
+  },
+  {
+    "ability_id": "in-the-shadow-of-brass-idols",
+    "name": "In the Shadow of Brass Idols",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [],
+    "faction_id": "world-eaters",
+    "detachment_id": "cult-of-blood",
+    "ability_type": "stratagem",
+    "behavior": "activated",
+    "effect": {
+      "type": "damage-reduction",
+      "target": "unit",
+      "modifier": {
+        "amount": 1
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "phase"
+    }
+  },
+  {
+    "ability_id": "fail-not-the-blood-god",
+    "name": "Fail Not the Blood God",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [],
+    "faction_id": "world-eaters",
+    "detachment_id": "cult-of-blood",
+    "ability_type": "stratagem",
+    "behavior": "activated",
+    "effect": {
+      "type": "sequence",
+      "steps": [
+        {
+          "type": "re-roll",
+          "target": "unit",
+          "modifier": {
+            "roll": "hit",
+            "value": 1,
+            "attack_type": "melee"
+          }
+        },
+        {
+          "type": "conditional",
+          "condition": {
+            "type": "unit-within-range-of",
+            "parameters": {
+              "range": 6,
+              "target_type": "friendly-monster"
+            }
+          },
+          "effect": {
+            "type": "re-roll",
+            "target": "unit",
+            "modifier": {
+              "roll": "wound",
+              "value": 1,
+              "attack_type": "melee"
+            }
+          }
+        }
+      ]
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "phase"
+    }
+  },
+  {
+    "ability_id": "drawn-to-the-slaughter",
+    "name": "Drawn to the Slaughter",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [],
+    "faction_id": "world-eaters",
+    "detachment_id": "cult-of-blood",
+    "ability_type": "stratagem",
+    "behavior": "activated",
+    "effect": {
+      "type": "resurrection",
+      "target": "unit",
+      "modifier": {
+        "count": "full-unit",
+        "model_type": "jakhals",
+        "placement": "battlefield-edge"
+      }
+    },
+    "scope": {
+      "range": "any-on-battlefield",
+      "duration": "phase"
+    }
+  },
+  {
+    "ability_id": "endless-pursuit-of-violence",
+    "name": "Endless Pursuit of Violence",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [],
+    "faction_id": "world-eaters",
+    "detachment_id": "goretrack-onslaught",
+    "ability_type": "stratagem",
+    "behavior": "activated",
+    "effect": {
+      "type": "ability-grant",
+      "target": "unit",
+      "modifier": {
+        "grant_type": "embark-after-fight"
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "phase"
+    }
+  },
+  {
+    "ability_id": "smash-through",
+    "name": "Smash Through",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [],
+    "faction_id": "world-eaters",
+    "detachment_id": "goretrack-onslaught",
+    "ability_type": "stratagem",
+    "behavior": "activated",
+    "effect": {
+      "type": "sequence",
+      "steps": [
+        {
+          "type": "movement-modifier",
+          "target": "unit",
+          "modifier": {
+            "move_type": "move-through",
+            "value": 0,
+            "replaces_default": false
+          }
+        },
+        {
+          "type": "mortal-wounds",
+          "target": "defender",
+          "modifier": {
+            "amount": 1,
+            "per_model_passed": true
+          }
+        }
+      ]
+    },
+    "scope": {
+      "range": "self",
+      "duration": "phase"
+    }
+  },
+  {
+    "ability_id": "aggressive-disembarkation",
+    "name": "Aggressive Disembarkation",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [],
+    "faction_id": "world-eaters",
+    "detachment_id": "goretrack-onslaught",
+    "ability_type": "stratagem",
+    "behavior": "activated",
+    "effect": {
+      "type": "ability-grant",
+      "target": "unit",
+      "modifier": {
+        "grant_type": "early-disembark-and-charge"
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "turn"
+    }
+  },
+  {
+    "ability_id": "full-throttle-assault",
+    "name": "Full-Throttle Assault",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [],
+    "faction_id": "world-eaters",
+    "detachment_id": "goretrack-onslaught",
+    "ability_type": "stratagem",
+    "behavior": "activated",
+    "effect": {
+      "type": "ability-grant",
+      "target": "unit",
+      "modifier": {
+        "grant_type": "disembark-after-advance-charge"
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "turn"
+    }
+  },
+  {
+    "ability_id": "unrelenting-advance",
+    "name": "Unrelenting Advance",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [],
+    "faction_id": "world-eaters",
+    "detachment_id": "goretrack-onslaught",
+    "ability_type": "stratagem",
+    "behavior": "activated",
+    "effect": {
+      "type": "movement-modifier",
+      "target": "self",
+      "modifier": {
+        "move_type": "reactive-move",
+        "value": 6,
+        "replaces_default": false
+      }
+    },
+    "scope": {
+      "range": "self",
+      "duration": "phase"
+    }
+  },
+  {
+    "ability_id": "fury-unleashed",
+    "name": "Fury Unleashed",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [],
+    "faction_id": "world-eaters",
+    "detachment_id": "goretrack-onslaught",
+    "ability_type": "stratagem",
+    "behavior": "activated",
+    "effect": {
+      "type": "ability-grant",
+      "target": "unit",
+      "modifier": {
+        "grant_type": "reactive-disembark-and-charge"
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "phase"
+    }
+  },
+  {
+    "ability_id": "daemonic-fury",
+    "name": "Daemonic Fury",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [],
+    "faction_id": "world-eaters",
+    "detachment_id": "khorne-daemonkin",
+    "ability_type": "stratagem",
+    "behavior": "activated",
+    "effect": {
+      "type": "keyword-grant",
+      "target": "friendly-within-aura",
+      "modifier": {
+        "keyword": "Lethal Hits",
+        "weapon_type": "melee"
+      }
+    },
+    "scope": {
+      "range": "aura-6",
+      "duration": "turn"
+    }
+  },
+  {
+    "ability_id": "blessing-of-burning-blood",
+    "name": "Blessing of Burning Blood",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [],
+    "faction_id": "world-eaters",
+    "detachment_id": "khorne-daemonkin",
+    "ability_type": "stratagem",
+    "behavior": "activated",
+    "effect": {
+      "type": "feel-no-pain",
+      "target": "unit",
+      "modifier": {
+        "threshold": 4
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "phase"
+    }
+  },
+  {
+    "ability_id": "a-worthy-skull-stratagem",
+    "name": "A Worthy Skull",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [],
+    "faction_id": "world-eaters",
+    "detachment_id": "khorne-daemonkin",
+    "ability_type": "stratagem",
+    "behavior": "activated",
+    "effect": {
+      "type": "resource-gain",
+      "target": "self",
+      "modifier": {
+        "pool_id": "blood-tithe-pool",
+        "amount": 1
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "phase"
+    }
+  },
+  {
+    "ability_id": "summoned-by-slaughter",
+    "name": "Summoned by Slaughter",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [],
+    "faction_id": "world-eaters",
+    "detachment_id": "khorne-daemonkin",
+    "ability_type": "stratagem",
+    "behavior": "activated",
+    "effect": {
+      "type": "ability-grant",
+      "target": "unit",
+      "modifier": {
+        "grant_type": "summon-daemons-on-death"
+      }
+    },
+    "scope": {
+      "range": "any-on-battlefield",
+      "duration": "phase"
+    }
+  },
+  {
+    "ability_id": "daemontide",
+    "name": "Daemontide",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [],
+    "faction_id": "world-eaters",
+    "detachment_id": "khorne-daemonkin",
+    "ability_type": "stratagem",
+    "behavior": "activated",
+    "effect": {
+      "type": "resurrection",
+      "target": "friendly-within-aura",
+      "modifier": {
+        "count": "variable",
+        "model_type": "blood-legions"
+      }
+    },
+    "scope": {
+      "range": "aura-6",
+      "duration": "phase"
+    }
+  },
+  {
+    "ability_id": "murder-call",
+    "name": "Murder-call",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [],
+    "faction_id": "world-eaters",
+    "detachment_id": "khorne-daemonkin",
+    "ability_type": "stratagem",
+    "behavior": "activated",
+    "effect": {
+      "type": "movement-modifier",
+      "target": "unit",
+      "modifier": {
+        "move_type": "teleport-redeploy",
+        "value": 0,
+        "replaces_default": false
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "phase"
+    }
+  },
+  {
+    "ability_id": "daemonic-strength",
+    "name": "Daemonic Strength",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [],
+    "faction_id": "world-eaters",
+    "detachment_id": "possessed-slaughterband",
+    "ability_type": "stratagem",
+    "behavior": "activated",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "attack-is-type",
+        "parameters": {
+          "attack_type": "melee"
+        }
+      },
+      "effect": {
+        "type": "stat-modifier",
+        "target": "unit",
+        "modifier": {
+          "stat": "S",
+          "operation": "add",
+          "value": 2,
+          "attack_type": "melee"
+        }
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "phase"
+    }
+  },
+  {
+    "ability_id": "daemonic-resistance",
+    "name": "Daemonic Resistance",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [],
+    "faction_id": "world-eaters",
+    "detachment_id": "possessed-slaughterband",
+    "ability_type": "stratagem",
+    "behavior": "activated",
+    "effect": {
+      "type": "feel-no-pain",
+      "target": "unit",
+      "modifier": {
+        "threshold": 4
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "phase"
+    }
+  },
+  {
+    "ability_id": "immortal-fury",
+    "name": "Immortal Fury",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [],
+    "faction_id": "world-eaters",
+    "detachment_id": "possessed-slaughterband",
+    "ability_type": "stratagem",
+    "behavior": "activated",
+    "effect": {
+      "type": "ability-grant",
+      "target": "unit",
+      "modifier": {
+        "grant_type": "fight-on-death"
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "phase"
+    }
+  },
+  {
+    "ability_id": "rapid-manifestation",
+    "name": "Rapid Manifestation",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [],
+    "faction_id": "world-eaters",
+    "detachment_id": "possessed-slaughterband",
+    "ability_type": "stratagem",
+    "behavior": "activated",
+    "effect": {
+      "type": "movement-modifier",
+      "target": "unit",
+      "modifier": {
+        "move_type": "deep-strike-close",
+        "value": 6,
+        "replaces_default": true
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "phase"
+    }
+  },
+  {
+    "ability_id": "warp-stalkers",
+    "name": "Warp Stalkers",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [],
+    "faction_id": "world-eaters",
+    "detachment_id": "possessed-slaughterband",
+    "ability_type": "stratagem",
+    "behavior": "activated",
+    "effect": {
+      "type": "movement-modifier",
+      "target": "unit",
+      "modifier": {
+        "move_type": "move-through",
+        "value": 0,
+        "replaces_default": false
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "phase"
+    }
+  },
+  {
+    "ability_id": "horrifying-violence",
+    "name": "Horrifying Violence",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [],
+    "faction_id": "world-eaters",
+    "detachment_id": "possessed-slaughterband",
+    "ability_type": "stratagem",
+    "behavior": "activated",
+    "effect": {
+      "type": "leadership-modifier",
+      "target": "enemy-within-aura",
+      "modifier": {
+        "operation": "battle-shock-test",
+        "bonus_if_below_half": -1
+      }
+    },
+    "scope": {
+      "range": "engagement-range",
+      "duration": "phase"
+    }
+  },
+  {
+    "ability_id": "brazen-contempt",
+    "name": "Brazen Contempt",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [],
+    "faction_id": "world-eaters",
+    "detachment_id": "vessels-of-wrath",
+    "ability_type": "stratagem",
+    "behavior": "activated",
+    "effect": {
+      "type": "damage-reduction",
+      "target": "unit",
+      "modifier": {
+        "amount": 1
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "phase"
+    }
+  },
+  {
+    "ability_id": "aspire-to-infamy",
+    "name": "Aspire to Infamy",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [],
+    "faction_id": "world-eaters",
+    "detachment_id": "vessels-of-wrath",
+    "ability_type": "stratagem",
+    "behavior": "activated",
+    "effect": {
+      "type": "sequence",
+      "steps": [
+        {
+          "type": "roll-modifier",
+          "target": "unit",
+          "modifier": {
+            "roll": "hit",
+            "operation": "add",
+            "value": 1,
+            "attack_type": "melee"
+          }
+        },
+        {
+          "type": "keyword-grant",
+          "target": "unit",
+          "modifier": {
+            "keyword": "Lance",
+            "weapon_type": "melee"
+          }
+        }
+      ]
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "phase"
+    }
+  },
+  {
+    "ability_id": "overshadowed-by-none",
+    "name": "Overshadowed by None",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [],
+    "faction_id": "world-eaters",
+    "detachment_id": "vessels-of-wrath",
+    "ability_type": "stratagem",
+    "behavior": "activated",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "unit-within-range-of",
+        "parameters": {
+          "range": "engagement",
+          "target_type": "character"
+        }
+      },
+      "effect": {
+        "type": "re-roll",
+        "target": "unit",
+        "modifier": {
+          "roll": "wound",
+          "attack_type": "melee"
+        }
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "phase"
+    }
+  },
+  {
+    "ability_id": "punish-the-craven",
+    "name": "Punish the Craven",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [],
+    "faction_id": "world-eaters",
+    "detachment_id": "vessels-of-wrath",
+    "ability_type": "stratagem",
+    "behavior": "activated",
+    "effect": {
+      "type": "ability-grant",
+      "target": "unit",
+      "modifier": {
+        "grant_type": "heroic-intervention-on-fallback"
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "phase"
+    }
+  },
+  {
+    "ability_id": "meet-force-with-force",
+    "name": "Meet Force with Force",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [],
+    "faction_id": "world-eaters",
+    "detachment_id": "vessels-of-wrath",
+    "ability_type": "stratagem",
+    "behavior": "activated",
+    "effect": {
+      "type": "movement-modifier",
+      "target": "unit",
+      "modifier": {
+        "move_type": "pile-in-special",
+        "value": "D6+2",
+        "replaces_default": true
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "phase"
+    }
+  },
+  {
+    "ability_id": "gory-dedication",
+    "name": "Gory Dedication",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [],
+    "faction_id": "world-eaters",
+    "detachment_id": "vessels-of-wrath",
+    "ability_type": "stratagem",
+    "behavior": "activated",
+    "effect": {
+      "type": "ability-grant",
+      "target": "unit",
+      "modifier": {
+        "grant_type": "sticky-objective-melee-kill"
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "phase"
     }
   }
 ]

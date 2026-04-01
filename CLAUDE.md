@@ -98,6 +98,15 @@ Entity IDs are the interoperability contract. If two tools use
   from this repo for form validation. Changes here affect the editor's forms.
 - **Consortium site**: https://tabletop-developer-consortium.github.io
 
+## Data Sources
+
+- **army-assist** (`~/army-assist/src/assets/json/`): Normalized JSON extracted
+  from community datasources. Used as source for mechanical data (stats, points,
+  keywords, weapons). Contains UUID-based entity IDs. Shared units appear with
+  per-faction "views" — select the view whose faction ability matches the target
+  faction's faction rule. Run `npx tsx tools/src/convert-world-eaters.ts` to
+  regenerate core data from this source.
+
 ## Commit Style
 
 - Conventional commits: `feat:`, `fix:`, `chore:`, `docs:`, `test:`.

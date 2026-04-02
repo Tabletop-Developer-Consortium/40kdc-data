@@ -1,0 +1,2832 @@
+[
+  {
+    "ability_id": "leader",
+    "name": "Leader",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "ability-grant",
+      "target": "unit",
+      "modifier": {
+        "ability_id": "leader"
+      }
+    },
+    "scope": {
+      "range": "attached",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "lord-of-poxes"
+    ],
+    "ability_type": "core",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "gift-of-poxes",
+    "name": "Gift of Poxes",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "stat-modifier",
+      "target": "unit",
+      "modifier": {}
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "lord-of-poxes"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive",
+    "community_notes": "auto-generated stub — needs manual authoring. Original: Add 3\" to the range of this model’s Contagion Range"
+  },
+  {
+    "ability_id": "shroud-of-disease",
+    "name": "Shroud of Disease",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          {
+            "type": "phase-is",
+            "parameters": {
+              "phase": "shooting"
+            }
+          },
+          {
+            "type": "is-attached"
+          }
+        ]
+      },
+      "effect": {
+        "type": "attack-restriction",
+        "target": "self",
+        "modifier": {
+          "restriction": "targeting-range-limit",
+          "range": 18
+        }
+      }
+    },
+    "scope": {
+      "range": "aura-custom",
+      "duration": "permanent",
+      "range_inches": 18
+    },
+    "unit_ids": [
+      "lord-of-poxes"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "deadly-demise-d3",
+    "name": "Deadly Demise D3",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "dice-gated",
+      "dice": "D6",
+      "threshold": 6,
+      "comparison": "gte",
+      "on_success": {
+        "type": "mortal-wounds",
+        "target": "enemy-within-aura",
+        "modifier": {
+          "count": "D3",
+          "range": 6
+        }
+      },
+      "on_fail": null
+    },
+    "scope": {
+      "range": "aura-6",
+      "duration": "one-use"
+    },
+    "unit_ids": [
+      "defiler"
+    ],
+    "ability_type": "core",
+    "behavior": "reactive"
+  },
+  {
+    "ability_id": "daemonforge",
+    "name": "Daemonforge",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "stat-modifier",
+      "target": "unit",
+      "modifier": {}
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "defiler"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive",
+    "community_notes": "auto-generated stub — needs manual authoring. Original: Once per Fight phase, one unit from your army with this ability can be targeted with the Counter-offensive Stratagem for OCP, even if you have already"
+  },
+  {
+    "ability_id": "scuttling-walker",
+    "name": "Scuttling Walker",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "movement-modifier",
+      "target": "self",
+      "modifier": {
+        "type": "move-over-terrain"
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "defiler"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "barrage-of-filth",
+    "name": "Barrage of Filth",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "phase-is",
+        "parameters": {
+          "phase": "shooting"
+        }
+      },
+      "effect": {
+        "type": "ability-grant",
+        "target": "unit",
+        "modifier": {
+          "ability_id": "benefit-of-cover"
+        }
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "phase"
+    },
+    "unit_ids": [
+      "defiler"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "feel-no-pain-6",
+    "name": "Feel No Pain 6+",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "feel-no-pain",
+      "target": "unit",
+      "modifier": {
+        "threshold": 6
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "defiler"
+    ],
+    "ability_type": "core",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "destroyer-of-futures",
+    "name": "Destroyer of Futures",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "roll-modifier",
+      "target": "unit",
+      "modifier": {
+        "roll": "hit",
+        "operation": "set",
+        "value": 5,
+        "context": "overwatch"
+      }
+    },
+    "scope": {
+      "range": "aura-9",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "defiler"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "unleash-wrath",
+    "name": "Unleash Wrath",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "ability-grant",
+      "target": "self",
+      "modifier": {
+        "ability_id": "reactive-overwatch"
+      }
+    },
+    "scope": {
+      "range": "aura-12",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "defiler"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "feel-no-pain-5",
+    "name": "Feel No Pain 5+",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "feel-no-pain",
+      "target": "unit",
+      "modifier": {
+        "threshold": 5
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "chaos-spawn"
+    ],
+    "ability_type": "core",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "mind-breaking-mutations-aura",
+    "name": "Mind-breaking Mutations (Aura)",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "stat-modifier",
+      "target": "unit",
+      "modifier": {}
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "chaos-spawn"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive",
+    "community_notes": "auto-generated stub — needs manual authoring. Original: While an enemy unit (excluding VEHICLE units) is within 3\" of this unit, subtract 1 from the Objective Control characteristic of models in that enemy "
+  },
+  {
+    "ability_id": "deadly-demise-1",
+    "name": "Deadly Demise 1",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "dice-gated",
+      "dice": "D6",
+      "threshold": 6,
+      "comparison": "gte",
+      "on_success": {
+        "type": "mortal-wounds",
+        "target": "enemy-within-aura",
+        "modifier": {
+          "count": "1",
+          "range": 6
+        }
+      },
+      "on_fail": null
+    },
+    "scope": {
+      "range": "aura-6",
+      "duration": "one-use"
+    },
+    "unit_ids": [
+      "chaos-spawn"
+    ],
+    "ability_type": "core",
+    "behavior": "reactive"
+  },
+  {
+    "ability_id": "scouts-6",
+    "name": "Scouts 6\"",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "movement-modifier",
+      "target": "unit",
+      "modifier": {
+        "type": "scouts",
+        "distance": 6
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "one-use"
+    },
+    "unit_ids": [
+      "chaos-spawn"
+    ],
+    "ability_type": "core",
+    "behavior": "activated"
+  },
+  {
+    "ability_id": "lethal-ichor",
+    "name": "Lethal Ichor",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "phase-is",
+        "parameters": {
+          "phase": "fight"
+        }
+      },
+      "effect": {
+        "type": "mortal-wounds",
+        "target": "defender",
+        "modifier": {
+          "count": "1"
+        }
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "chaos-spawn"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "scuttling-horrors",
+    "name": "Scuttling Horrors",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "movement-modifier",
+      "target": "unit",
+      "modifier": {
+        "type": "reactive-move",
+        "trigger": "enemy-ends-move-nearby"
+      }
+    },
+    "scope": {
+      "range": "aura-9",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "chaos-spawn"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "regenerating-monstrosities",
+    "name": "Regenerating Monstrosities",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "resurrection",
+      "target": "self",
+      "modifier": {
+        "count": "3",
+        "type": "wounds"
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "chaos-spawn"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "scouts-8",
+    "name": "Scouts 8\"",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "movement-modifier",
+      "target": "unit",
+      "modifier": {
+        "type": "scouts",
+        "distance": 8
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "one-use"
+    },
+    "unit_ids": [
+      "chaos-spawn"
+    ],
+    "ability_type": "core",
+    "behavior": "activated"
+  },
+  {
+    "ability_id": "to-slake-its-rage",
+    "name": "To Slake its Rage",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "ability-grant",
+      "target": "unit",
+      "modifier": {
+        "ability_id": "charge-after-advance"
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "chaos-spawn"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "malicious-calculations",
+    "name": "Malicious Calculations",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "is-attached"
+      },
+      "effect": {
+        "type": "roll-modifier",
+        "target": "unit",
+        "modifier": {
+          "roll": "all",
+          "operation": "ignore-modifiers"
+        }
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "tallyman"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "sevenfold-chant",
+    "name": "Sevenfold Chant",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "cp-gain",
+      "target": "self",
+      "modifier": {
+        "amount": 1
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "tallyman"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "infiltrators",
+    "name": "Infiltrators",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "movement-modifier",
+      "target": "unit",
+      "modifier": {
+        "type": "infiltrate"
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "one-use"
+    },
+    "unit_ids": [
+      "poxwalkers"
+    ],
+    "ability_type": "core",
+    "behavior": "activated"
+  },
+  {
+    "ability_id": "curse-of-the-walking-pox",
+    "name": "Curse of the Walking Pox",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "stat-modifier",
+      "target": "unit",
+      "modifier": {}
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "poxwalkers"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive",
+    "community_notes": "auto-generated stub — needs manual authoring. Original: Each time a POXWALKER model in this unit makes an attack that destroys an enemy model (excluding MONSTER and VEHICLE models). after this unit has reso"
+  },
+  {
+    "ability_id": "deep-strike",
+    "name": "Deep Strike",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "deep-strike",
+      "target": "unit",
+      "modifier": {}
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "lord-of-contagion"
+    ],
+    "ability_type": "core",
+    "behavior": "activated"
+  },
+  {
+    "ability_id": "vector-of-disease",
+    "name": "Vector of Disease",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "is-attached"
+      },
+      "effect": {
+        "type": "keyword-grant",
+        "target": "unit",
+        "modifier": {
+          "keywords": [
+            "Sustained Hits 1"
+          ]
+        }
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "lord-of-contagion"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "unholy-resilience",
+    "name": "Unholy Resilience",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "ability-grant",
+      "target": "unit",
+      "modifier": {
+        "ability_id": "once-per-battle-special"
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "one-use"
+    },
+    "unit_ids": [
+      "lord-of-contagion"
+    ],
+    "ability_type": "unit",
+    "behavior": "activated"
+  },
+  {
+    "ability_id": "annihilator",
+    "name": "Annihilator",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "phase-is",
+        "parameters": {
+          "phase": "shooting"
+        }
+      },
+      "effect": {
+        "type": "re-roll",
+        "target": "unit",
+        "modifier": {
+          "roll": "damage",
+          "condition": "any-fail"
+        }
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "chaos-predator-annihilator"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "metalophagic-infection",
+    "name": "Metalophagic Infection",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "phase-is",
+        "parameters": {
+          "phase": "shooting"
+        }
+      },
+      "effect": {
+        "type": "mortal-wounds",
+        "target": "defender",
+        "modifier": {
+          "count": "d3"
+        }
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "chaos-predator-annihilator"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "ensorcelled-annihilation",
+    "name": "Ensorcelled Annihilation",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "phase-is",
+        "parameters": {
+          "phase": "shooting"
+        }
+      },
+      "effect": {
+        "type": "sequence",
+        "steps": [
+          {
+            "type": "re-roll",
+            "target": "unit",
+            "modifier": {
+              "roll": "hit",
+              "condition": "any-fail"
+            }
+          },
+          {
+            "type": "re-roll",
+            "target": "unit",
+            "modifier": {
+              "roll": "damage",
+              "condition": "any-fail"
+            }
+          }
+        ]
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "chaos-predator-annihilator"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive",
+    "community_notes": "auto-generated, partial"
+  },
+  {
+    "ability_id": "blood-hungry-annihilator",
+    "name": "Blood-hungry Annihilator",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "phase-is",
+        "parameters": {
+          "phase": "shooting"
+        }
+      },
+      "effect": {
+        "type": "sequence",
+        "steps": [
+          {
+            "type": "re-roll",
+            "target": "unit",
+            "modifier": {
+              "roll": "wound",
+              "condition": "any-fail"
+            }
+          },
+          {
+            "type": "re-roll",
+            "target": "unit",
+            "modifier": {
+              "roll": "damage",
+              "condition": "any-fail"
+            }
+          }
+        ]
+      }
+    },
+    "scope": {
+      "range": "aura-custom",
+      "duration": "permanent",
+      "range_inches": 18
+    },
+    "unit_ids": [
+      "chaos-predator-annihilator"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive",
+    "community_notes": "auto-generated, partial"
+  },
+  {
+    "ability_id": "destructor",
+    "name": "Destructor",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "phase-is",
+        "parameters": {
+          "phase": "shooting"
+        }
+      },
+      "effect": {
+        "type": "stat-modifier",
+        "target": "unit",
+        "modifier": {
+          "stat": "AP",
+          "operation": "add",
+          "value": -1
+        }
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "chaos-predator-destructor"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "hail-of-corrosive-disease",
+    "name": "Hail of Corrosive Disease",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "phase-is",
+        "parameters": {
+          "phase": "shooting"
+        }
+      },
+      "effect": {
+        "type": "stat-modifier",
+        "target": "unit",
+        "modifier": {
+          "stat": "AP",
+          "operation": "add",
+          "value": -1
+        }
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "phase"
+    },
+    "unit_ids": [
+      "chaos-predator-destructor"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "ensorcelled-destruction",
+    "name": "Ensorcelled Destruction",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          {
+            "type": "phase-is",
+            "parameters": {
+              "phase": "shooting"
+            }
+          },
+          {
+            "type": "target-has-keyword",
+            "parameters": {
+              "keyword": "A"
+            }
+          }
+        ]
+      },
+      "effect": {
+        "type": "stat-modifier",
+        "target": "unit",
+        "modifier": {
+          "stat": "AP",
+          "operation": "add",
+          "value": -1
+        }
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "chaos-predator-destructor"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "punishing-suppression",
+    "name": "Punishing Suppression",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "phase-is",
+        "parameters": {
+          "phase": "shooting"
+        }
+      },
+      "effect": {
+        "type": "roll-modifier",
+        "target": "attacker",
+        "modifier": {
+          "roll": "hit",
+          "operation": "subtract",
+          "value": 1
+        }
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "chaos-predator-destructor"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive",
+    "community_notes": "defensive ability (skipped for damage calc)"
+  },
+  {
+    "ability_id": "explosive-blight",
+    "name": "Explosive Blight",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "stat-modifier",
+      "target": "unit",
+      "modifier": {}
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "foetid-bloat-drone-with-heavy-blight-launcher"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive",
+    "community_notes": "auto-generated stub — needs manual authoring. Original: In your Shooting phase, each time this model makes an attack that destroys an enemy unit, before removing the last model in that unit from play, roll "
+  },
+  {
+    "ability_id": "spore-laced-shock-waves",
+    "name": "Spore-laced Shock Waves",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "phase-is",
+        "parameters": {
+          "phase": "shooting"
+        }
+      },
+      "effect": {
+        "type": "mortal-wounds",
+        "target": "defender",
+        "modifier": {
+          "count": "d3"
+        }
+      }
+    },
+    "scope": {
+      "range": "aura-6",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "plagueburst-crawler"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "foul-infusion",
+    "name": "Foul Infusion",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "is-attached"
+      },
+      "effect": {
+        "type": "keyword-grant",
+        "target": "unit",
+        "modifier": {
+          "keywords": [
+            "Lethal Hits"
+          ]
+        }
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "biologus-putrifier"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "extraction-of-fresh-disease",
+    "name": "Extraction of Fresh Disease",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "phase-is",
+        "parameters": {
+          "phase": "fight"
+        }
+      },
+      "effect": {
+        "type": "objective-control-modifier",
+        "target": "unit",
+        "modifier": {
+          "operation": "add",
+          "value": 6
+        }
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "biologus-putrifier"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "infused-with-the-blessings-of-nurgle",
+    "name": "Infused with the Blessings of Nurgle",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "phase-is",
+        "parameters": {
+          "phase": "shooting"
+        }
+      },
+      "effect": {
+        "type": "ability-grant",
+        "target": "defender",
+        "modifier": {
+          "ability_id": "post-attack-debuff"
+        }
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "plague-marines"
+    ],
+    "ability_type": "unit",
+    "behavior": "activated"
+  },
+  {
+    "ability_id": "icon-of-despair-aura",
+    "name": "Icon of Despair (Aura)",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "leadership-modifier",
+      "target": "enemy-within-aura",
+      "modifier": {
+        "operation": "worsen",
+        "value": 1
+      }
+    },
+    "scope": {
+      "range": "aura-6",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "plague-marines"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "tainted-narthecium",
+    "name": "Tainted Narthecium",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "is-attached"
+      },
+      "effect": {
+        "type": "resurrection",
+        "target": "unit",
+        "modifier": {
+          "count": "1",
+          "type": "models"
+        }
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "plague-surgeon"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "inflamed-infections",
+    "name": "Inflamed Infections",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          {
+            "type": "phase-is",
+            "parameters": {
+              "phase": "fight"
+            }
+          },
+          {
+            "type": "unit-below-half-strength"
+          }
+        ]
+      },
+      "effect": {
+        "type": "roll-modifier",
+        "target": "unit",
+        "modifier": {
+          "roll": "hit",
+          "operation": "crit-on",
+          "value": 5
+        }
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "phase"
+    },
+    "unit_ids": [
+      "plague-surgeon"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive",
+    "community_notes": "defensive ability (skipped for damage calc)"
+  },
+  {
+    "ability_id": "death-guard-defenders",
+    "name": "Death Guard Defenders",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "ability-grant",
+      "target": "self",
+      "modifier": {
+        "ability_id": "lone-operative"
+      }
+    },
+    "scope": {
+      "range": "aura-6",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "daemon-prince-of-nurgle"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "fevered-strategist",
+    "name": "Fevered Strategist",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "cp-refund",
+      "target": "self",
+      "modifier": {
+        "amount": 1
+      }
+    },
+    "scope": {
+      "range": "aura-12",
+      "duration": "one-use"
+    },
+    "unit_ids": [
+      "daemon-prince-of-nurgle"
+    ],
+    "ability_type": "unit",
+    "behavior": "activated"
+  },
+  {
+    "ability_id": "miasma-of-pestilence-aura",
+    "name": "Miasma of Pestilence (Aura)",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "phase-is",
+        "parameters": {
+          "phase": "shooting"
+        }
+      },
+      "effect": {
+        "type": "ability-grant",
+        "target": "unit",
+        "modifier": {
+          "ability_id": "benefit-of-cover"
+        }
+      }
+    },
+    "scope": {
+      "range": "aura-6",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "daemon-prince-of-nurgle"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive",
+    "community_notes": "defensive ability (skipped for damage calc)"
+  },
+  {
+    "ability_id": "silent-bodyguard",
+    "name": "Silent Bodyguard",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "is-attached"
+      },
+      "effect": {
+        "type": "feel-no-pain",
+        "target": "unit",
+        "modifier": {
+          "threshold": 4
+        }
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "deathshroud-terminators"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "death-approaches",
+    "name": "Death Approaches",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "stat-modifier",
+      "target": "unit",
+      "modifier": {}
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "deathshroud-terminators"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive",
+    "community_notes": "auto-generated stub — needs manual authoring. Original: In your Movement phase, when this unit is set up on the battlefield using the Deep Strike ability, it can be set up anywhere on the battlefield that i"
+  },
+  {
+    "ability_id": "virulent-aura",
+    "name": "Virulent Aura",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          {
+            "type": "phase-is",
+            "parameters": {
+              "phase": "shooting"
+            }
+          },
+          {
+            "type": "is-attached"
+          }
+        ]
+      },
+      "effect": {
+        "type": "re-roll",
+        "target": "unit",
+        "modifier": {
+          "roll": "wound",
+          "condition": "any-fail"
+        }
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "lord-of-virulence"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "blight-bombardment",
+    "name": "Blight Bombardment",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "phase-is",
+        "parameters": {
+          "phase": "shooting"
+        }
+      },
+      "effect": {
+        "type": "re-roll",
+        "target": "unit",
+        "modifier": {
+          "roll": "hit",
+          "condition": "natural-1"
+        }
+      }
+    },
+    "scope": {
+      "range": "aura-custom",
+      "duration": "phase",
+      "range_inches": 30
+    },
+    "unit_ids": [
+      "lord-of-virulence"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive",
+    "community_notes": "defensive ability (skipped for damage calc)"
+  },
+  {
+    "ability_id": "hovering-death",
+    "name": "Hovering Death",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "fallback-and-act",
+      "target": "unit",
+      "modifier": {}
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "foetid-bloat-drone"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "sickening-vitality",
+    "name": "Sickening Vitality",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "is-attached"
+      },
+      "effect": {
+        "type": "re-roll",
+        "target": "unit",
+        "modifier": {
+          "roll": "charge",
+          "condition": "any-fail"
+        }
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "noxious-blightbringer"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "tocsin-of-misery-aura",
+    "name": "Tocsin of Misery (Aura)",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "unit-below-starting-strength"
+      },
+      "effect": {
+        "type": "leadership-modifier",
+        "target": "enemy-within-aura",
+        "modifier": {
+          "test": "battle-shock"
+        }
+      }
+    },
+    "scope": {
+      "range": "aura-9",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "noxious-blightbringer"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "horrifying-visage",
+    "name": "Horrifying Visage",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "leadership-modifier",
+      "target": "enemy-within-aura",
+      "modifier": {
+        "test": "battle-shock"
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "daemon-prince-of-nurgle-with-wings"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "enfeebling-miasma",
+    "name": "Enfeebling Miasma",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "stat-modifier",
+      "target": "unit",
+      "modifier": {}
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "daemon-prince-of-nurgle-with-wings"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive",
+    "community_notes": "auto-generated stub — needs manual authoring. Original: While an enemy unit (excluding MONSTERS and VEHICLES) is within 6\" of this model, each time that unit is selected to Fall Back, models in that enemy u"
+  },
+  {
+    "ability_id": "putrescent-fog",
+    "name": "Putrescent Fog",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "attack-restriction",
+      "target": "enemy-within-aura",
+      "modifier": {
+        "restriction": "reinforcement-denial",
+        "range": 12
+      }
+    },
+    "scope": {
+      "range": "aura-12",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "miasmic-malignifier"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "diseased-cover",
+    "name": "Diseased Cover",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "phase-is",
+        "parameters": {
+          "phase": "shooting"
+        }
+      },
+      "effect": {
+        "type": "ability-grant",
+        "target": "unit",
+        "modifier": {
+          "ability_id": "benefit-of-cover"
+        }
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "miasmic-malignifier"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "fortification",
+    "name": "Fortification",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "phase-is",
+        "parameters": {
+          "phase": "shooting"
+        }
+      },
+      "effect": {
+        "type": "roll-modifier",
+        "target": "attacker",
+        "modifier": {
+          "roll": "hit",
+          "operation": "subtract",
+          "value": 1
+        }
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "miasmic-malignifier"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive",
+    "community_notes": "defensive ability (skipped for damage calc)"
+  },
+  {
+    "ability_id": "dark-ascension-aura",
+    "name": "Dark Ascension (Aura)",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "stat-modifier",
+      "target": "unit",
+      "modifier": {}
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "helbrute"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive",
+    "community_notes": "auto-generated stub — needs manual authoring. Original: While a friendly HERETIC ASTARTES unit is within 6\" of this model, each time that unit makes a Dark Pact, until the end of the phase, weapons equipped"
+  },
+  {
+    "ability_id": "devoted-to-destruction",
+    "name": "Devoted to Destruction",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "stat-modifier",
+      "target": "unit",
+      "modifier": {
+        "stat": "A",
+        "operation": "add",
+        "value": 2
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "helbrute"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "diseased-malice",
+    "name": "Diseased Malice",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "target-has-keyword",
+        "parameters": {
+          "keyword": "AFFLICTED"
+        }
+      },
+      "effect": {
+        "type": "roll-modifier",
+        "target": "unit",
+        "modifier": {
+          "roll": "wound",
+          "operation": "add",
+          "value": 1
+        }
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "helbrute"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "froth-spattered-frenzy",
+    "name": "Froth-spattered Frenzy",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "stat-modifier",
+      "target": "unit",
+      "modifier": {
+        "stat": "A",
+        "operation": "add",
+        "value": 2
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "helbrute"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "terrifying-assault",
+    "name": "Terrifying Assault",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "phase-is",
+        "parameters": {
+          "phase": "fight"
+        }
+      },
+      "effect": {
+        "type": "leadership-modifier",
+        "target": "enemy-within-aura",
+        "modifier": {
+          "test": "battle-shock"
+        }
+      }
+    },
+    "scope": {
+      "range": "aura-9",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "helbrute"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "frenzy",
+    "name": "Frenzy",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "stat-modifier",
+      "target": "unit",
+      "modifier": {}
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "helbrute"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive",
+    "community_notes": "auto-generated stub — needs manual authoring. Original: In your opponent’s Shooting phase, and in the Fight phase, each time an enemy unit targets this model, after that unit has finished making its attacks"
+  },
+  {
+    "ability_id": "tank-hunters",
+    "name": "Tank Hunters",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "phase-is",
+        "parameters": {
+          "phase": "shooting"
+        }
+      },
+      "effect": {
+        "type": "sequence",
+        "steps": [
+          {
+            "type": "roll-modifier",
+            "target": "unit",
+            "modifier": {
+              "roll": "hit",
+              "operation": "add",
+              "value": 1
+            }
+          },
+          {
+            "type": "roll-modifier",
+            "target": "unit",
+            "modifier": {
+              "roll": "wound",
+              "operation": "add",
+              "value": 1
+            }
+          }
+        ]
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "myphitic-blight-haulers"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive",
+    "community_notes": "auto-generated, partial"
+  },
+  {
+    "ability_id": "deadly-demise-d6",
+    "name": "Deadly Demise D6",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "dice-gated",
+      "dice": "D6",
+      "threshold": 6,
+      "comparison": "gte",
+      "on_success": {
+        "type": "mortal-wounds",
+        "target": "enemy-within-aura",
+        "modifier": {
+          "count": "D6",
+          "range": 6
+        }
+      },
+      "on_fail": null
+    },
+    "scope": {
+      "range": "aura-6",
+      "duration": "one-use"
+    },
+    "unit_ids": [
+      "mortarion"
+    ],
+    "ability_type": "core",
+    "behavior": "reactive"
+  },
+  {
+    "ability_id": "lord-of-the-death-guard",
+    "name": "Lord of the Death Guard",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "ability-grant",
+      "target": "unit",
+      "modifier": {
+        "ability_id": "once-per-round-special"
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "mortarion"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "host-of-plagues",
+    "name": "Host of Plagues",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "mortal-wounds",
+      "target": "defender",
+      "modifier": {
+        "count": "d3"
+      }
+    },
+    "scope": {
+      "range": "aura-6",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "mortarion"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "supreme-commander",
+    "name": "Supreme Commander",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "attack-restriction",
+      "target": "self",
+      "modifier": {
+        "restriction": "must-be-warlord"
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "mortarion"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "gift-of-contagion-psychic",
+    "name": "Gift of Contagion (Psychic)",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          {
+            "type": "is-attached"
+          },
+          {
+            "type": "target-has-keyword",
+            "parameters": {
+              "keyword": "A"
+            }
+          }
+        ]
+      },
+      "effect": {
+        "type": "keyword-grant",
+        "target": "unit",
+        "modifier": {
+          "keywords": [
+            "Sustained Hits 1"
+          ]
+        }
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "malignant-plaguecaster"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "pestilent-fallout-psychic",
+    "name": "Pestilent Fallout (Psychic)",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "stat-modifier",
+      "target": "unit",
+      "modifier": {}
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "malignant-plaguecaster"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive",
+    "community_notes": "auto-generated stub — needs manual authoring. Original: In your Shooting phase, after this model has shot, select one enemy INFANTRY unit hit by one or more of those attacks made with its Plague Wind. Until"
+  },
+  {
+    "ability_id": "firing-deck-2",
+    "name": "Firing Deck 2",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "ability-grant",
+      "target": "unit",
+      "modifier": {
+        "ability_id": "firing-deck",
+        "capacity": 2
+      }
+    },
+    "scope": {
+      "range": "self",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "chaos-rhino"
+    ],
+    "ability_type": "core",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "self-repair",
+    "name": "Self Repair",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "resurrection",
+      "target": "self",
+      "modifier": {
+        "count": "1",
+        "type": "wounds"
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "chaos-rhino"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "fire-support",
+    "name": "Fire Support",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "phase-is",
+        "parameters": {
+          "phase": "shooting"
+        }
+      },
+      "effect": {
+        "type": "re-roll",
+        "target": "unit",
+        "modifier": {
+          "roll": "wound",
+          "condition": "any-fail"
+        }
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "phase"
+    },
+    "unit_ids": [
+      "chaos-rhino"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "assault-vehicle",
+    "name": "Assault Vehicle",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "ability-grant",
+      "target": "unit",
+      "modifier": {
+        "ability_id": "transport-disembark-modifier"
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "chaos-rhino"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "sorcerous-support",
+    "name": "Sorcerous Support",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "phase-is",
+        "parameters": {
+          "phase": "shooting"
+        }
+      },
+      "effect": {
+        "type": "sequence",
+        "steps": [
+          {
+            "type": "roll-modifier",
+            "target": "unit",
+            "modifier": {
+              "roll": "hit",
+              "operation": "add",
+              "value": 1
+            }
+          },
+          {
+            "type": "roll-modifier",
+            "target": "unit",
+            "modifier": {
+              "roll": "wound",
+              "operation": "add",
+              "value": 1
+            }
+          }
+        ]
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "phase"
+    },
+    "unit_ids": [
+      "chaos-rhino"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive",
+    "community_notes": "auto-generated, partial"
+  },
+  {
+    "ability_id": "meet-any-challenge",
+    "name": "Meet Any Challenge",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "movement-modifier",
+      "target": "unit",
+      "modifier": {
+        "type": "reactive-move",
+        "trigger": "enemy-ends-move-nearby"
+      }
+    },
+    "scope": {
+      "range": "aura-9",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "chaos-rhino"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "assault-ramp",
+    "name": "Assault Ramp",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "ability-grant",
+      "target": "unit",
+      "modifier": {
+        "ability_id": "transport-disembark-modifier"
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "chaos-land-raider"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "blinding-spray",
+    "name": "Blinding Spray",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "phase-is",
+        "parameters": {
+          "phase": "fight"
+        }
+      },
+      "effect": {
+        "type": "fight-first",
+        "target": "unit",
+        "modifier": {}
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "phase"
+    },
+    "unit_ids": [
+      "foul-blightspawn"
+    ],
+    "ability_type": "unit",
+    "behavior": "activated"
+  },
+  {
+    "ability_id": "putrefying-stink",
+    "name": "Putrefying Stink",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "stat-modifier",
+      "target": "unit",
+      "modifier": {}
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "foul-blightspawn"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive",
+    "community_notes": "auto-generated stub — needs manual authoring. Original: Enemy models cannot start or end an Advance move within 9\" of this model."
+  },
+  {
+    "ability_id": "unclean-icon",
+    "name": "Unclean Icon",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "is-attached"
+      },
+      "effect": {
+        "type": "objective-control-modifier",
+        "target": "unit",
+        "modifier": {
+          "operation": "add",
+          "value": 1
+        }
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "icon-bearer"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "blessed-icon-of-disease",
+    "name": "Blessed Icon of Disease",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "ability-grant",
+      "target": "unit",
+      "modifier": {
+        "ability_id": "once-per-battle-special"
+      }
+    },
+    "scope": {
+      "range": "aura-12",
+      "duration": "one-use"
+    },
+    "unit_ids": [
+      "icon-bearer"
+    ],
+    "ability_type": "unit",
+    "behavior": "activated"
+  },
+  {
+    "ability_id": "destroyer-hive",
+    "name": "Destroyer Hive",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          {
+            "type": "phase-is",
+            "parameters": {
+              "phase": "fight"
+            }
+          },
+          {
+            "type": "is-attached"
+          }
+        ]
+      },
+      "effect": {
+        "type": "roll-modifier",
+        "target": "attacker",
+        "modifier": {
+          "roll": "hit",
+          "operation": "subtract",
+          "value": 1
+        }
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "typhus"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive",
+    "community_notes": "defensive ability (skipped for damage calc)"
+  },
+  {
+    "ability_id": "eater-plague-psychic",
+    "name": "Eater Plague (Psychic)",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "phase-is",
+        "parameters": {
+          "phase": "shooting"
+        }
+      },
+      "effect": {
+        "type": "mortal-wounds",
+        "target": "defender",
+        "modifier": {
+          "count": "d3"
+        }
+      }
+    },
+    "scope": {
+      "range": "aura-custom",
+      "duration": "permanent",
+      "range_inches": 18
+    },
+    "unit_ids": [
+      "typhus"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "blistering-fusillade",
+    "name": "Blistering Fusillade",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          {
+            "type": "phase-is",
+            "parameters": {
+              "phase": "shooting"
+            }
+          },
+          {
+            "type": "is-attached"
+          },
+          {
+            "type": "target-has-keyword",
+            "parameters": {
+              "keyword": "AFFLICTED"
+            }
+          }
+        ]
+      },
+      "effect": {
+        "type": "stat-modifier",
+        "target": "unit",
+        "modifier": {
+          "stat": "AP",
+          "operation": "add",
+          "value": -1
+        }
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "blightlord-terminators"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "infectious-bloodshed",
+    "name": "Infectious Bloodshed",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "keyword-grant",
+      "target": "unit",
+      "modifier": {
+        "keywords": [
+          "Sustained Hits 1"
+        ]
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "turn"
+    },
+    "unit_ids": [
+      "death-guard-possessed"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "diseased-icon",
+    "name": "Diseased Icon",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "keyword-grant",
+      "target": "unit",
+      "modifier": {
+        "keywords": [
+          "Lethal Hits"
+        ]
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "death-guard-possessed"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "possessed",
+    "name": "POSSESSED",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "ability-grant",
+      "target": "self",
+      "modifier": {
+        "ability_id": "special-embark-rule"
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "death-guard-possessed"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "nurgle-s-gift-aura",
+    "name": "Nurgle’s Gift (Aura)",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "stat-modifier",
+      "target": "enemy-within-aura",
+      "modifier": {
+        "stat": "T",
+        "operation": "subtract",
+        "value": 1
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "faction_id": "death-guard",
+    "ability_type": "faction",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "pact-of-decay",
+    "name": "Pact of Decay",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "attack-restriction",
+      "target": "self",
+      "modifier": {
+        "restriction": "army-composition-rule"
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "faction_id": "death-guard",
+    "ability_type": "faction",
+    "behavior": "passive"
+  }
+]

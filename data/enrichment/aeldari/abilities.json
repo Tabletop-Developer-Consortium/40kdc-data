@@ -1,0 +1,4624 @@
+[
+  {
+    "ability_id": "deadly-demise-2d6",
+    "name": "Deadly Demise 2D6",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "dice-gated",
+      "dice": "D6",
+      "threshold": 6,
+      "comparison": "gte",
+      "on_success": {
+        "type": "mortal-wounds",
+        "target": "enemy-within-aura",
+        "modifier": {
+          "count": "2D6",
+          "range": 6
+        }
+      },
+      "on_fail": null
+    },
+    "scope": {
+      "range": "aura-6",
+      "duration": "one-use"
+    },
+    "unit_ids": [
+      "revenant-titan"
+    ],
+    "ability_type": "core",
+    "behavior": "reactive"
+  },
+  {
+    "ability_id": "titanic-advance",
+    "name": "Titanic Advance",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "movement-modifier",
+      "target": "self",
+      "modifier": {
+        "type": "move-over-terrain"
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "revenant-titan"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "towering-wraith-construct",
+    "name": "Towering Wraith Construct",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "stat-modifier",
+      "target": "unit",
+      "modifier": {}
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "revenant-titan"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive",
+    "community_notes": "auto-generated stub — needs manual authoring. Original: Each time you target this model with a Stratagem, you must spend twice that Stratagem’s stated CP cost to do so."
+  },
+  {
+    "ability_id": "revenant-jet-pack",
+    "name": "Revenant Jet Pack",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "stat-modifier",
+      "target": "unit",
+      "modifier": {
+        "stat": "M",
+        "operation": "add",
+        "value": 8
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "phase"
+    },
+    "unit_ids": [
+      "revenant-titan"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "support-weapon",
+    "name": "Support Weapon",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "stat-modifier",
+      "target": "self",
+      "modifier": {
+        "stat": "T",
+        "operation": "set",
+        "value": 3
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "shadow-weaver-platform"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "monofilament-snare",
+    "name": "Monofilament Snare",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "phase-is",
+        "parameters": {
+          "phase": "shooting"
+        }
+      },
+      "effect": {
+        "type": "mortal-wounds",
+        "target": "defender",
+        "modifier": {
+          "count": "1"
+        }
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "shadow-weaver-platform"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "support-artillery",
+    "name": "Support Artillery",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "ability-grant",
+      "target": "unit",
+      "modifier": {
+        "ability_id": "forced-attachment"
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "shadow-weaver-platform"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "infiltrators",
+    "name": "Infiltrators",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "movement-modifier",
+      "target": "unit",
+      "modifier": {
+        "type": "infiltrate"
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "one-use"
+    },
+    "unit_ids": [
+      "striking-scorpions"
+    ],
+    "ability_type": "core",
+    "behavior": "activated"
+  },
+  {
+    "ability_id": "scouts-7",
+    "name": "Scouts 7\"",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "movement-modifier",
+      "target": "unit",
+      "modifier": {
+        "type": "scouts",
+        "distance": 7
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "one-use"
+    },
+    "unit_ids": [
+      "striking-scorpions"
+    ],
+    "ability_type": "core",
+    "behavior": "activated"
+  },
+  {
+    "ability_id": "stealth",
+    "name": "Stealth",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "roll-modifier",
+      "target": "attacker",
+      "modifier": {
+        "roll": "hit",
+        "operation": "subtract",
+        "value": 1
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "striking-scorpions"
+    ],
+    "ability_type": "core",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "mandiblasters",
+    "name": "Mandiblasters",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          {
+            "type": "phase-is",
+            "parameters": {
+              "phase": "fight"
+            }
+          },
+          {
+            "type": "charged-this-turn"
+          }
+        ]
+      },
+      "effect": {
+        "type": "roll-modifier",
+        "target": "unit",
+        "modifier": {
+          "roll": "hit",
+          "operation": "crit-on",
+          "value": 5
+        }
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "striking-scorpions"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "aspect-shrine-token",
+    "name": "Aspect Shrine Token",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "roll-modifier",
+      "target": "self",
+      "modifier": {
+        "roll": "any",
+        "operation": "set",
+        "value": 6,
+        "uses": 1
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "one-use"
+    },
+    "unit_ids": [
+      "striking-scorpions"
+    ],
+    "ability_type": "unit",
+    "behavior": "activated"
+  },
+  {
+    "ability_id": "leader",
+    "name": "Leader",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "ability-grant",
+      "target": "unit",
+      "modifier": {
+        "ability_id": "leader"
+      }
+    },
+    "scope": {
+      "range": "attached",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "eldrad-ulthran"
+    ],
+    "ability_type": "core",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "diviner-of-futures",
+    "name": "Diviner of Futures",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "cp-gain",
+      "target": "self",
+      "modifier": {
+        "amount": 1
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "eldrad-ulthran"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "doom-psychic",
+    "name": "Doom (Psychic)",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "roll-modifier",
+      "target": "unit",
+      "modifier": {
+        "roll": "wound",
+        "operation": "add",
+        "value": 1
+      }
+    },
+    "scope": {
+      "range": "aura-custom",
+      "duration": "until-next-command-phase",
+      "range_inches": 18
+    },
+    "unit_ids": [
+      "eldrad-ulthran"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "deadly-demise-1",
+    "name": "Deadly Demise 1",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "dice-gated",
+      "dice": "D6",
+      "threshold": 6,
+      "comparison": "gte",
+      "on_success": {
+        "type": "mortal-wounds",
+        "target": "enemy-within-aura",
+        "modifier": {
+          "count": "1",
+          "range": 6
+        }
+      },
+      "on_fail": null
+    },
+    "scope": {
+      "range": "aura-6",
+      "duration": "one-use"
+    },
+    "unit_ids": [
+      "wraithlord"
+    ],
+    "ability_type": "core",
+    "behavior": "reactive"
+  },
+  {
+    "ability_id": "psychic-guidance",
+    "name": "Psychic Guidance",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "stat-modifier",
+      "target": "self",
+      "modifier": {
+        "stat": "Ld",
+        "operation": "set",
+        "value": 6
+      }
+    },
+    "scope": {
+      "range": "aura-12",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "wraithlord"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "fated-hero",
+    "name": "Fated Hero",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "target-has-keyword",
+        "parameters": {
+          "keyword": "A"
+        }
+      },
+      "effect": {
+        "type": "sequence",
+        "steps": [
+          {
+            "type": "re-roll",
+            "target": "unit",
+            "modifier": {
+              "roll": "hit",
+              "condition": "natural-1"
+            }
+          },
+          {
+            "type": "re-roll",
+            "target": "unit",
+            "modifier": {
+              "roll": "wound",
+              "condition": "natural-1"
+            }
+          }
+        ]
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "wraithlord"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive",
+    "community_notes": "auto-generated, partial"
+  },
+  {
+    "ability_id": "deadly-demise-d3",
+    "name": "Deadly Demise D3",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "dice-gated",
+      "dice": "D6",
+      "threshold": 6,
+      "comparison": "gte",
+      "on_success": {
+        "type": "mortal-wounds",
+        "target": "enemy-within-aura",
+        "modifier": {
+          "count": "D3",
+          "range": 6
+        }
+      },
+      "on_fail": null
+    },
+    "scope": {
+      "range": "aura-6",
+      "duration": "one-use"
+    },
+    "unit_ids": [
+      "wave-serpent"
+    ],
+    "ability_type": "core",
+    "behavior": "reactive"
+  },
+  {
+    "ability_id": "wave-serpent-shield",
+    "name": "Wave Serpent Shield",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "phase-is",
+        "parameters": {
+          "phase": "shooting"
+        }
+      },
+      "effect": {
+        "type": "roll-modifier",
+        "target": "attacker",
+        "modifier": {
+          "roll": "wound",
+          "operation": "subtract",
+          "value": 1
+        }
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "wave-serpent"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive",
+    "community_notes": "defensive ability (skipped for damage calc)"
+  },
+  {
+    "ability_id": "word-of-the-phoenix-psychic",
+    "name": "Word of the Phoenix (Psychic)",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "stat-modifier",
+      "target": "unit",
+      "modifier": {}
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "yvraine"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive",
+    "community_notes": "auto-generated stub — needs manual authoring. Original: While this model is leading a unit, in your Command phase, roll one D6: on a 2+, D3+1 destroyed Bodyguard models (excluding SUPPORT WEAPON models) are"
+  },
+  {
+    "ability_id": "herald-of-ynnead",
+    "name": "Herald of Ynnead",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "phase-is",
+        "parameters": {
+          "phase": "fight"
+        }
+      },
+      "effect": {
+        "type": "re-roll",
+        "target": "unit",
+        "modifier": {
+          "roll": "wound",
+          "condition": "natural-1"
+        }
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "phase"
+    },
+    "unit_ids": [
+      "yvraine"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive",
+    "community_notes": "defensive ability (skipped for damage calc)"
+  },
+  {
+    "ability_id": "servant-of-the-whispering-god",
+    "name": "Servant of The Whispering God",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "stat-modifier",
+      "target": "unit",
+      "modifier": {}
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "yvraine"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive",
+    "community_notes": "auto-generated stub — needs manual authoring. Original: If your army includes YVRAINE, it cannot include any EPIC HERO units (excluding YNNARI units). If your army includes any EPIC HERO units (excluding YN"
+  },
+  {
+    "ability_id": "piratical-raiders",
+    "name": "Piratical Raiders",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "sequence",
+      "steps": [
+        {
+          "type": "keyword-grant",
+          "target": "unit",
+          "modifier": {
+            "keywords": [
+              "Lethal Hits"
+            ]
+          }
+        },
+        {
+          "type": "keyword-grant",
+          "target": "unit",
+          "modifier": {
+            "keywords": [
+              "Precision"
+            ]
+          }
+        }
+      ]
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "corsair-voidscarred"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive",
+    "community_notes": "auto-generated, partial"
+  },
+  {
+    "ability_id": "mistshield",
+    "name": "Mistshield",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "invulnerable-save",
+      "target": "self",
+      "modifier": {
+        "invuln_sv": 4
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "corsair-voidscarred"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive",
+    "community_notes": "defensive ability (skipped for damage calc)"
+  },
+  {
+    "ability_id": "faolchu",
+    "name": "Faolchú",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "keyword-grant",
+      "target": "unit",
+      "modifier": {
+        "keywords": [
+          "Ignores Cover"
+        ]
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "corsair-voidscarred"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "channeller-stones",
+    "name": "Channeller Stones",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "damage-reduction",
+      "target": "self",
+      "modifier": {
+        "reduction": "to-zero"
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "corsair-voidscarred"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive",
+    "community_notes": "defensive ability (skipped for damage calc)"
+  },
+  {
+    "ability_id": "crystal-matrix",
+    "name": "Crystal Matrix",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "re-roll",
+      "target": "self",
+      "modifier": {
+        "roll": "hit",
+        "condition": "any-fail",
+        "uses": 1
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "fire-prism"
+    ],
+    "ability_type": "unit",
+    "behavior": "activated"
+  },
+  {
+    "ability_id": "superlative-strategist",
+    "name": "Superlative Strategist",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "stat-modifier",
+      "target": "unit",
+      "modifier": {}
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "autarch"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive",
+    "community_notes": "auto-generated stub — needs manual authoring. Original: While this model is leading a unit, you can re‐roll Advance rolls made for that unit, and you can re‐roll any rolls made for that unit while it is per"
+  },
+  {
+    "ability_id": "path-of-command",
+    "name": "Path of Command",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "cp-refund",
+      "target": "self",
+      "modifier": {
+        "amount": 1
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "one-use"
+    },
+    "unit_ids": [
+      "autarch"
+    ],
+    "ability_type": "unit",
+    "behavior": "activated"
+  },
+  {
+    "ability_id": "aspect-training",
+    "name": "Aspect Training",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "is-attached"
+      },
+      "effect": {
+        "type": "fight-first",
+        "target": "unit",
+        "modifier": {}
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "autarch"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "tormentors",
+    "name": "Tormentors",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "phase-is",
+        "parameters": {
+          "phase": "fight"
+        }
+      },
+      "effect": {
+        "type": "leadership-modifier",
+        "target": "enemy-within-aura",
+        "modifier": {
+          "test": "battle-shock"
+        }
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "ynnari-incubi"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "assured-destruction",
+    "name": "Assured Destruction",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "phase-is",
+        "parameters": {
+          "phase": "shooting"
+        }
+      },
+      "effect": {
+        "type": "sequence",
+        "steps": [
+          {
+            "type": "re-roll",
+            "target": "unit",
+            "modifier": {
+              "roll": "hit",
+              "condition": "any-fail"
+            }
+          },
+          {
+            "type": "re-roll",
+            "target": "unit",
+            "modifier": {
+              "roll": "wound",
+              "condition": "any-fail"
+            }
+          },
+          {
+            "type": "re-roll",
+            "target": "unit",
+            "modifier": {
+              "roll": "damage",
+              "condition": "any-fail"
+            }
+          }
+        ]
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "fire-dragons"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive",
+    "community_notes": "auto-generated, partial"
+  },
+  {
+    "ability_id": "tactical-acumen",
+    "name": "Tactical Acumen",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          {
+            "type": "phase-is",
+            "parameters": {
+              "phase": "shooting"
+            }
+          },
+          {
+            "type": "is-attached"
+          }
+        ]
+      },
+      "effect": {
+        "type": "movement-modifier",
+        "target": "unit",
+        "modifier": {
+          "type": "shoot-and-scoot"
+        }
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "turn"
+    },
+    "unit_ids": [
+      "asurmen"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "hand-of-asuryan",
+    "name": "Hand of Asuryan",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "keyword-grant",
+      "target": "unit",
+      "modifier": {
+        "keywords": [
+          "Devastating Wounds"
+        ]
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "phase"
+    },
+    "unit_ids": [
+      "asurmen"
+    ],
+    "ability_type": "unit",
+    "behavior": "activated"
+  },
+  {
+    "ability_id": "stormblades",
+    "name": "Stormblades",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "objective-control-modifier",
+      "target": "unit",
+      "modifier": {
+        "sticky": true
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "storm-guardians"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "crewed-platform",
+    "name": "Crewed Platform",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "stat-modifier",
+      "target": "unit",
+      "modifier": {}
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "storm-guardians"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive",
+    "community_notes": "auto-generated stub — needs manual authoring. Original: When the last Storm Guardian model in this unit is destroyed, any remaining Serpent’s Scale Platform models in this unit are also destroyed."
+  },
+  {
+    "ability_id": "serpent-shield",
+    "name": "Serpent shield",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "invulnerable-save",
+      "target": "self",
+      "modifier": {
+        "invuln_sv": 5
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "storm-guardians"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive",
+    "community_notes": "defensive ability (skipped for damage calc)"
+  },
+  {
+    "ability_id": "structural-collapse",
+    "name": "Structural Collapse",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "target-has-keyword",
+        "parameters": {
+          "keyword": "TITANIC"
+        }
+      },
+      "effect": {
+        "type": "re-roll",
+        "target": "unit",
+        "modifier": {
+          "roll": "damage",
+          "condition": "any-fail"
+        }
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "d-cannon-platform"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "runes-of-battle-psychic",
+    "name": "Runes of Battle (Psychic)",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "keyword-grant",
+      "target": "unit",
+      "modifier": {
+        "keywords": [
+          "Ignores Cover"
+        ]
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "warlock-skyrunners"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "psychic-communion-psychic",
+    "name": "Psychic Communion (Psychic)",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "stat-modifier",
+      "target": "unit",
+      "modifier": {
+        "stat": "S",
+        "operation": "add",
+        "value": 1
+      }
+    },
+    "scope": {
+      "range": "aura-6",
+      "duration": "phase"
+    },
+    "unit_ids": [
+      "warlock-skyrunners"
+    ],
+    "ability_type": "unit",
+    "behavior": "activated"
+  },
+  {
+    "ability_id": "deep-strike",
+    "name": "Deep Strike",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "deep-strike",
+      "target": "unit",
+      "modifier": {}
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "lhykhis"
+    ],
+    "ability_type": "core",
+    "behavior": "activated"
+  },
+  {
+    "ability_id": "empyric-ambush",
+    "name": "Empyric Ambush",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "stat-modifier",
+      "target": "unit",
+      "modifier": {}
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "lhykhis"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive",
+    "community_notes": "auto-generated stub — needs manual authoring. Original: While this model is leading a unit, that unit is eligible to declare a charge in a turn in which it used its Flickerjump ability."
+  },
+  {
+    "ability_id": "whispering-web",
+    "name": "Whispering Web",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "phase-is",
+        "parameters": {
+          "phase": "shooting"
+        }
+      },
+      "effect": {
+        "type": "ability-grant",
+        "target": "defender",
+        "modifier": {
+          "ability_id": "post-attack-debuff"
+        }
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "turn"
+    },
+    "unit_ids": [
+      "lhykhis"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive",
+    "community_notes": "defensive ability (skipped for damage calc)"
+  },
+  {
+    "ability_id": "lone-operative",
+    "name": "Lone Operative",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "attack-restriction",
+      "target": "self",
+      "modifier": {
+        "restriction": "cannot-be-targeted-unless-closest-or-within-12"
+      }
+    },
+    "scope": {
+      "range": "self",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "death-jester"
+    ],
+    "ability_type": "core",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "death-is-not-enough",
+    "name": "Death is Not Enough",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "phase-is",
+        "parameters": {
+          "phase": "shooting"
+        }
+      },
+      "effect": {
+        "type": "leadership-modifier",
+        "target": "enemy-within-aura",
+        "modifier": {
+          "test": "battle-shock"
+        }
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "death-jester"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "cruel-amusement",
+    "name": "Cruel Amusement",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "phase-is",
+        "parameters": {
+          "phase": "shooting"
+        }
+      },
+      "effect": {
+        "type": "sequence",
+        "steps": [
+          {
+            "type": "keyword-grant",
+            "target": "unit",
+            "modifier": {
+              "keywords": [
+                "Sustained Hits 3"
+              ]
+            }
+          },
+          {
+            "type": "keyword-grant",
+            "target": "unit",
+            "modifier": {
+              "keywords": [
+                "Precision"
+              ]
+            }
+          },
+          {
+            "type": "keyword-grant",
+            "target": "unit",
+            "modifier": {
+              "keywords": [
+                "Ignores Cover"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "phase"
+    },
+    "unit_ids": [
+      "death-jester"
+    ],
+    "ability_type": "unit",
+    "behavior": "activated",
+    "community_notes": "auto-generated, partial"
+  },
+  {
+    "ability_id": "flip-belt",
+    "name": "Flip Belt",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "movement-modifier",
+      "target": "unit",
+      "modifier": {
+        "type": "ignore-vertical"
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "death-jester"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "travelling-players",
+    "name": "Travelling Players",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "attack-restriction",
+      "target": "self",
+      "modifier": {
+        "restriction": "army-composition-rule"
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "death-jester"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "piratical-hero",
+    "name": "Piratical Hero",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "is-attached"
+      },
+      "effect": {
+        "type": "sequence",
+        "steps": [
+          {
+            "type": "roll-modifier",
+            "target": "unit",
+            "modifier": {
+              "roll": "hit",
+              "operation": "add",
+              "value": 1
+            }
+          },
+          {
+            "type": "keyword-grant",
+            "target": "unit",
+            "modifier": {
+              "keywords": [
+                "Sustained Hits 1"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "prince-yriel"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive",
+    "community_notes": "auto-generated, partial"
+  },
+  {
+    "ability_id": "prince-of-corsairs",
+    "name": "Prince of Corsairs",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "stat-modifier",
+      "target": "unit",
+      "modifier": {}
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "prince-yriel"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive",
+    "community_notes": "auto-generated stub — needs manual authoring. Original: After both players have deployed their armies, if this unit is on the battlefield (or any TRANSPORT it is embarked within is on the battlefield), sele"
+  },
+  {
+    "ability_id": "inevitable-death",
+    "name": "Inevitable Death",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "stat-modifier",
+      "target": "unit",
+      "modifier": {}
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "the-yncarne"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive",
+    "community_notes": "auto-generated stub — needs manual authoring. Original: Once in each of your opponent’s turns, if this model is on the battlefield when another friendly AELDARI unit is destroyed, just after removing the la"
+  },
+  {
+    "ability_id": "ethereal-form",
+    "name": "Ethereal Form",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "resurrection",
+      "target": "self",
+      "modifier": {
+        "count": "d3",
+        "type": "wounds"
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "the-yncarne"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "avatar-of-the-whispering-god",
+    "name": "Avatar of The Whispering God",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "stat-modifier",
+      "target": "unit",
+      "modifier": {}
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "the-yncarne"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive",
+    "community_notes": "auto-generated stub — needs manual authoring. Original: If your army includes THE YNCARNE, it cannot include any EPIC HERO units (excluding YNNARI units). If your army includes any EPIC HERO units (excludin"
+  },
+  {
+    "ability_id": "branching-fates-psychic",
+    "name": "Branching Fates (Psychic)",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "is-attached"
+      },
+      "effect": {
+        "type": "roll-modifier",
+        "target": "self",
+        "modifier": {
+          "roll": "any",
+          "operation": "set",
+          "value": 6,
+          "uses": 1
+        }
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "farseer-skyrunner"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "misfortune-psychic",
+    "name": "Misfortune (Psychic)",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "roll-modifier",
+      "target": "unit",
+      "modifier": {
+        "roll": "wound",
+        "operation": "subtract",
+        "value": 1
+      }
+    },
+    "scope": {
+      "range": "aura-custom",
+      "duration": "until-next-command-phase",
+      "range_inches": 18
+    },
+    "unit_ids": [
+      "farseer-skyrunner"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "fights-first",
+    "name": "Fights First",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "fight-first",
+      "target": "unit",
+      "modifier": {}
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "solitaire"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "blitz",
+    "name": "Blitz",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "stat-modifier",
+      "target": "unit",
+      "modifier": {
+        "stat": "A",
+        "operation": "add",
+        "value": 3
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "turn"
+    },
+    "unit_ids": [
+      "solitaire"
+    ],
+    "ability_type": "unit",
+    "behavior": "activated"
+  },
+  {
+    "ability_id": "blur-of-movement",
+    "name": "Blur of Movement",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "ability-grant",
+      "target": "unit",
+      "modifier": {
+        "ability_id": "charge-after-advance"
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "solitaire"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "path-of-damnation",
+    "name": "Path of Damnation",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "attack-restriction",
+      "target": "self",
+      "modifier": {
+        "restriction": "cannot-be-warlord"
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "solitaire"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "harvester-of-souls",
+    "name": "Harvester of Souls",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          {
+            "type": "phase-is",
+            "parameters": {
+              "phase": "shooting"
+            }
+          },
+          {
+            "type": "is-attached"
+          }
+        ]
+      },
+      "effect": {
+        "type": "mortal-wounds",
+        "target": "defender",
+        "modifier": {
+          "count": "d3"
+        }
+      }
+    },
+    "scope": {
+      "range": "aura-6",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "maugan-ra"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "face-of-death",
+    "name": "Face of Death",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "phase-is",
+        "parameters": {
+          "phase": "shooting"
+        }
+      },
+      "effect": {
+        "type": "leadership-modifier",
+        "target": "enemy-within-aura",
+        "modifier": {
+          "test": "battle-shock"
+        }
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "maugan-ra"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "raid-and-run",
+    "name": "Raid and Run",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "phase-is",
+        "parameters": {
+          "phase": "fight"
+        }
+      },
+      "effect": {
+        "type": "fallback-and-act",
+        "target": "unit",
+        "modifier": {}
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "corsair-skyreavers"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "fleet-of-foot",
+    "name": "Fleet of Foot",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "stat-modifier",
+      "target": "unit",
+      "modifier": {}
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "guardian-defenders"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive",
+    "community_notes": "auto-generated stub — needs manual authoring. Original: This unit can perform the Fade Back Agile Manoeuvre without spending a Battle Focus token to do so. It can do so even if other units have done so in t"
+  },
+  {
+    "ability_id": "deadly-demise-d6-6",
+    "name": "Deadly Demise D6+6",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "dice-gated",
+      "dice": "D6",
+      "threshold": 6,
+      "comparison": "gte",
+      "on_success": {
+        "type": "mortal-wounds",
+        "target": "enemy-within-aura",
+        "modifier": {
+          "count": "D6+6",
+          "range": 6
+        }
+      },
+      "on_fail": null
+    },
+    "scope": {
+      "range": "aura-6",
+      "duration": "one-use"
+    },
+    "unit_ids": [
+      "phantom-titan"
+    ],
+    "ability_type": "core",
+    "behavior": "reactive"
+  },
+  {
+    "ability_id": "flawless-poise",
+    "name": "Flawless Poise",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "fallback-and-act",
+      "target": "unit",
+      "modifier": {}
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "phantom-titan"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "molten-form",
+    "name": "Molten Form",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "damage-reduction",
+      "target": "unit",
+      "modifier": {
+        "reduction": "half"
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "avatar-of-khaine"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive",
+    "community_notes": "defensive ability (skipped for damage calc)"
+  },
+  {
+    "ability_id": "the-bloody-handed-aura",
+    "name": "The Bloody-Handed (Aura)",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "roll-modifier",
+      "target": "friendly-within-aura",
+      "modifier": {
+        "roll": "charge",
+        "operation": "add",
+        "value": 1
+      }
+    },
+    "scope": {
+      "range": "aura-6",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "avatar-of-khaine"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "scouts-9",
+    "name": "Scouts 9\"",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "movement-modifier",
+      "target": "unit",
+      "modifier": {
+        "type": "scouts",
+        "distance": 9
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "one-use"
+    },
+    "unit_ids": [
+      "war-walkers"
+    ],
+    "ability_type": "core",
+    "behavior": "activated"
+  },
+  {
+    "ability_id": "crystalline-targeting",
+    "name": "Crystalline Targeting",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "phase-is",
+        "parameters": {
+          "phase": "shooting"
+        }
+      },
+      "effect": {
+        "type": "stat-modifier",
+        "target": "unit",
+        "modifier": {
+          "stat": "AP",
+          "operation": "add",
+          "value": -1
+        }
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "phase"
+    },
+    "unit_ids": [
+      "war-walkers"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "aethersense-psychic",
+    "name": "Aethersense (Psychic)",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "stat-modifier",
+      "target": "unit",
+      "modifier": {}
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "kharseth"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive",
+    "community_notes": "auto-generated stub — needs manual authoring. Original: Enemy units that are set up on the battlefield from Reserves cannot be set up within 12\" of this model."
+  },
+  {
+    "ability_id": "fury-of-the-void-psychic",
+    "name": "Fury of the Void (Psychic)",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          {
+            "type": "phase-is",
+            "parameters": {
+              "phase": "shooting"
+            }
+          },
+          {
+            "type": "target-has-keyword",
+            "parameters": {
+              "keyword": "RIVEN"
+            }
+          }
+        ]
+      },
+      "effect": {
+        "type": "stat-modifier",
+        "target": "unit",
+        "modifier": {
+          "stat": "S",
+          "operation": "add",
+          "value": 1
+        }
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "turn"
+    },
+    "unit_ids": [
+      "kharseth"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "mindshock-pod-aura-psychic",
+    "name": "Mindshock Pod (Aura, Psychic)",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "stat-modifier",
+      "target": "unit",
+      "modifier": {}
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "hemlock-wraithfighter"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive",
+    "community_notes": "auto-generated stub — needs manual authoring. Original: While an enemy unit is within 9\" of this model, subtract 1 from Battle-shock and Leadership tests taken for that unit."
+  },
+  {
+    "ability_id": "deadly-demise-d6",
+    "name": "Deadly Demise D6",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "dice-gated",
+      "dice": "D6",
+      "threshold": 6,
+      "comparison": "gte",
+      "on_success": {
+        "type": "mortal-wounds",
+        "target": "enemy-within-aura",
+        "modifier": {
+          "count": "D6",
+          "range": 6
+        }
+      },
+      "on_fail": null
+    },
+    "scope": {
+      "range": "aura-6",
+      "duration": "one-use"
+    },
+    "unit_ids": [
+      "wraithknight"
+    ],
+    "ability_type": "core",
+    "behavior": "reactive"
+  },
+  {
+    "ability_id": "titanic-strides",
+    "name": "Titanic Strides",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "stat-modifier",
+      "target": "unit",
+      "modifier": {}
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "wraithknight"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive",
+    "community_notes": "auto-generated stub — needs manual authoring. Original: Each time this model makes a Normal, Advance or Fall Back move, it can move through models (excluding TITANIC models) and sections of terrain features"
+  },
+  {
+    "ability_id": "point-blank-devastation",
+    "name": "Point‐blank Devastation",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "stat-modifier",
+      "target": "unit",
+      "modifier": {}
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "wraithknight"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive",
+    "community_notes": "auto-generated stub — needs manual authoring. Original: Each time this model’s heavy wraithcannon or suncannon targets a unit within half range, you can re‐roll the dice to determine the number of attacks m"
+  },
+  {
+    "ability_id": "scattershield",
+    "name": "Scattershield",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "damage-reduction",
+      "target": "unit",
+      "modifier": {
+        "reduction": 1
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "wraithknight"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive",
+    "community_notes": "defensive ability (skipped for damage calc)"
+  },
+  {
+    "ability_id": "eviscerating-fly-by",
+    "name": "Eviscerating Fly-by",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "mortal-wounds",
+      "target": "defender",
+      "modifier": {
+        "count": "1"
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "ynnari-reavers"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "grav-talon",
+    "name": "Grav-talon",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "keyword-grant",
+      "target": "unit",
+      "modifier": {
+        "keywords": [
+          "lance"
+        ]
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "ynnari-reavers"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "cluster-caltrops",
+    "name": "Cluster caltrops",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "stat-modifier",
+      "target": "unit",
+      "modifier": {}
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "ynnari-reavers"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive",
+    "community_notes": "auto-generated stub — needs manual authoring. Original: Each time you roll to inflict wounds using this unit’s Eviscerating Fly-by ability, you can re-roll one D6 for each model in this unit equipped with c"
+  },
+  {
+    "ability_id": "grenade-pack-flyover",
+    "name": "Grenade Pack Flyover",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "mortal-wounds",
+      "target": "defender",
+      "modifier": {
+        "count": "1"
+      }
+    },
+    "scope": {
+      "range": "aura-9",
+      "duration": "turn"
+    },
+    "unit_ids": [
+      "swooping-hawks"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "war-construct",
+    "name": "War Construct",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "fallback-and-act",
+      "target": "unit",
+      "modifier": {}
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "wraithguard"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "burning-lance",
+    "name": "Burning Lance",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "stat-modifier",
+      "target": "unit",
+      "modifier": {}
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "fuegan"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive",
+    "community_notes": "auto-generated stub — needs manual authoring. Original: While this model is leading a unit, add 6\" to the Range characteristic of Melta weapons equipped by models in that unit."
+  },
+  {
+    "ability_id": "unquenchable-resolve",
+    "name": "Unquenchable Resolve",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "resurrection",
+      "target": "self",
+      "modifier": {
+        "type": "revive-on-first-death",
+        "trigger": "dice-roll"
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "fuegan"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "storm-of-blades",
+    "name": "Storm of Blades",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "is-attached"
+      },
+      "effect": {
+        "type": "keyword-grant",
+        "target": "unit",
+        "modifier": {
+          "keywords": [
+            "Sustained Hits 1"
+          ]
+        }
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "ynnari-succubus"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "empowered-by-death",
+    "name": "Empowered by Death",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          {
+            "type": "phase-is",
+            "parameters": {
+              "phase": "fight"
+            }
+          },
+          {
+            "type": "unit-below-starting-strength"
+          }
+        ]
+      },
+      "effect": {
+        "type": "fight-first",
+        "target": "unit",
+        "modifier": {}
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "phase"
+    },
+    "unit_ids": [
+      "ynnari-succubus"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "extreme-mobility",
+    "name": "Extreme Mobility",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "movement-modifier",
+      "target": "unit",
+      "modifier": {
+        "type": "ignore-vertical"
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "shining-spears"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "shimmershield",
+    "name": "Shimmershield",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "invulnerable-save",
+      "target": "self",
+      "modifier": {
+        "invuln_sv": 4
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "shining-spears"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive",
+    "community_notes": "defensive ability (skipped for damage calc)"
+  },
+  {
+    "ability_id": "way-of-the-blade",
+    "name": "Way of the Blade",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "is-attached"
+      },
+      "effect": {
+        "type": "fight-first",
+        "target": "unit",
+        "modifier": {}
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "the-visarch"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "yvraine-s-champion",
+    "name": "Yvraine’s Champion",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "is-attached"
+      },
+      "effect": {
+        "type": "feel-no-pain",
+        "target": "unit",
+        "modifier": {
+          "threshold": 4
+        }
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "the-visarch"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "reavers-of-the-void",
+    "name": "Reavers of the Void",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "re-roll",
+      "target": "unit",
+      "modifier": {
+        "roll": "hit",
+        "condition": "natural-1"
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "corsair-voidreavers"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "sonic-destruction",
+    "name": "Sonic Destruction",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "phase-is",
+        "parameters": {
+          "phase": "shooting"
+        }
+      },
+      "effect": {
+        "type": "stat-modifier",
+        "target": "unit",
+        "modifier": {
+          "stat": "AP",
+          "operation": "add",
+          "value": -1
+        }
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "vibro-cannon-platform"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "fog-of-dreams-psychic",
+    "name": "Fog of Dreams (Psychic)",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "stat-modifier",
+      "target": "unit",
+      "modifier": {}
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "shadowseer"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive",
+    "community_notes": "auto-generated stub — needs manual authoring. Original: While this model is leading a unit, that unit can only be selected as the target of a ranged attack if the attacking model is within 18\"."
+  },
+  {
+    "ability_id": "treacherous-illusion-psychic",
+    "name": "Treacherous Illusion (Psychic)",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "keyword-grant",
+      "target": "unit",
+      "modifier": {
+        "keywords": [
+          "hazardous"
+        ]
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "shadowseer"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "whirling-death",
+    "name": "Whirling Death",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "is-attached"
+      },
+      "effect": {
+        "type": "movement-modifier",
+        "target": "unit",
+        "modifier": {
+          "type": "ignore-vertical"
+        }
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "phase"
+    },
+    "unit_ids": [
+      "jain-zar"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "storm-of-silence",
+    "name": "Storm of Silence",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "target-has-keyword",
+        "parameters": {
+          "keyword": "CHARACTER"
+        }
+      },
+      "effect": {
+        "type": "re-roll",
+        "target": "unit",
+        "modifier": {
+          "roll": "wound",
+          "condition": "any-fail"
+        }
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "jain-zar"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "flickerjump",
+    "name": "Flickerjump",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "mortal-wounds",
+      "target": "defender",
+      "modifier": {
+        "count": "1"
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "turn"
+    },
+    "unit_ids": [
+      "warp-spiders"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "inescapable-accuracy",
+    "name": "Inescapable Accuracy",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "phase-is",
+        "parameters": {
+          "phase": "shooting"
+        }
+      },
+      "effect": {
+        "type": "roll-modifier",
+        "target": "unit",
+        "modifier": {
+          "roll": "all",
+          "operation": "ignore-modifiers"
+        }
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "dark-reapers"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "sadistic-raiders",
+    "name": "Sadistic Raiders",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "objective-control-modifier",
+      "target": "unit",
+      "modifier": {
+        "sticky": true
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "ynnari-kabalite-warriors"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "phantasm-grenade-launcher",
+    "name": "Phantasm grenade launcher",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "stat-modifier",
+      "target": "unit",
+      "modifier": {}
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "ynnari-kabalite-warriors"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive",
+    "community_notes": "auto-generated stub — needs manual authoring. Original: The bearer’s unit has the GRENADES keyword."
+  },
+  {
+    "ability_id": "polychromatic-camouflage",
+    "name": "Polychromatic Camouflage",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "stat-modifier",
+      "target": "unit",
+      "modifier": {}
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "voidweaver"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive",
+    "community_notes": "auto-generated stub — needs manual authoring. Original: This unit can only be selected as the target of a ranged attack if the attacking model is within 18\"."
+  },
+  {
+    "ability_id": "target-acquisition",
+    "name": "Target Acquisition",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "phase-is",
+        "parameters": {
+          "phase": "shooting"
+        }
+      },
+      "effect": {
+        "type": "ability-grant",
+        "target": "unit",
+        "modifier": {
+          "ability_id": "benefit-of-cover"
+        }
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "phase"
+    },
+    "unit_ids": [
+      "shroud-runners"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "runes-of-fortune-psychic",
+    "name": "Runes of Fortune (Psychic)",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "stat-modifier",
+      "target": "unit",
+      "modifier": {}
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "warlock"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive",
+    "community_notes": "auto-generated stub — needs manual authoring. Original: Each time an enemy unit declares a charge, if one or more units with this ability are selected as a target of that charge, subtract 2 from the Charge "
+  },
+  {
+    "ability_id": "titanic-agility",
+    "name": "Titanic Agility",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "stat-modifier",
+      "target": "unit",
+      "modifier": {}
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "wraithknight-with-ghostglaive"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive",
+    "community_notes": "auto-generated stub — needs manual authoring. Original: Each time this model makes a Normal, Advance or Fall Back move, it can move through models and terrain features. When doing so, it can move within Eng"
+  },
+  {
+    "ability_id": "no-escape",
+    "name": "No Escape",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "attack-restriction",
+      "target": "enemy-within-aura",
+      "modifier": {
+        "restriction": "anti-fallback"
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "ynnari-wyches"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "protect-psychic",
+    "name": "Protect (Psychic)",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "is-attached"
+      },
+      "effect": {
+        "type": "roll-modifier",
+        "target": "attacker",
+        "modifier": {
+          "roll": "wound",
+          "operation": "subtract",
+          "value": 1
+        }
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "warlock-conclave"
+    ],
+    "ability_type": "unit",
+    "behavior": "reactive",
+    "community_notes": "defensive ability (skipped for damage calc)"
+  },
+  {
+    "ability_id": "guide-psychic",
+    "name": "Guide (Psychic)",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "roll-modifier",
+      "target": "unit",
+      "modifier": {
+        "roll": "hit",
+        "operation": "add",
+        "value": 1
+      }
+    },
+    "scope": {
+      "range": "aura-custom",
+      "duration": "until-next-command-phase",
+      "range_inches": 18
+    },
+    "unit_ids": [
+      "farseer"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "monofilament-web",
+    "name": "Monofilament Web",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "stat-modifier",
+      "target": "unit",
+      "modifier": {}
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "night-spinner"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive",
+    "community_notes": "auto-generated stub — needs manual authoring. Original: In your Shooting phase, after this model has shot, if one or more of those attacks made with its doomweaver scored a hit against an enemy unit, until "
+  },
+  {
+    "ability_id": "indomitable-strength-of-will",
+    "name": "Indomitable Strength of Will",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "stat-modifier",
+      "target": "unit",
+      "modifier": {}
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "autarch-wayleaper"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive",
+    "community_notes": "auto-generated stub — needs manual authoring. Original: While this model is leading a unit, each time you spend a Battle Focus token to enable that unit to perform an Agile Manoeuvre, roll one D6: on a 3+, "
+  },
+  {
+    "ability_id": "bladestorm",
+    "name": "Bladestorm",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "keyword-grant",
+      "target": "unit",
+      "modifier": {
+        "keywords": [
+          "Sustained Hits 1"
+        ]
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "dire-avengers"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "acrobatic",
+    "name": "Acrobatic",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "ability-grant",
+      "target": "unit",
+      "modifier": {
+        "ability_id": "charge-after-advance"
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "howling-banshees"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "fire-support",
+    "name": "Fire Support",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "phase-is",
+        "parameters": {
+          "phase": "shooting"
+        }
+      },
+      "effect": {
+        "type": "re-roll",
+        "target": "unit",
+        "modifier": {
+          "roll": "wound",
+          "condition": "any-fail"
+        }
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "turn"
+    },
+    "unit_ids": [
+      "falcon"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "swift-demise",
+    "name": "Swift Demise",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "phase-is",
+        "parameters": {
+          "phase": "shooting"
+        }
+      },
+      "effect": {
+        "type": "re-roll",
+        "target": "unit",
+        "modifier": {
+          "roll": "hit",
+          "condition": "natural-1"
+        }
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "windriders"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "choreographer-of-war",
+    "name": "Choreographer of War",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "stat-modifier",
+      "target": "unit",
+      "modifier": {}
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "troupe-master"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive",
+    "community_notes": "auto-generated stub — needs manual authoring. Original: While this model is leading a unit, each time a model in that unit makes a Pile‐in or Consolidation move, it can move up to 6\" instead of up to 3\". In"
+  },
+  {
+    "ability_id": "cegorach-s-favour",
+    "name": "Cegorach’s Favour",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "phase-is",
+        "parameters": {
+          "phase": "fight"
+        }
+      },
+      "effect": {
+        "type": "sequence",
+        "steps": [
+          {
+            "type": "re-roll",
+            "target": "unit",
+            "modifier": {
+              "roll": "hit",
+              "condition": "natural-1"
+            }
+          },
+          {
+            "type": "roll-modifier",
+            "target": "unit",
+            "modifier": {
+              "roll": "wound",
+              "operation": "add",
+              "value": 1
+            }
+          }
+        ]
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "troupe-master"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive",
+    "community_notes": "auto-generated, partial"
+  },
+  {
+    "ability_id": "path-of-the-outcast",
+    "name": "Path of the Outcast",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "movement-modifier",
+      "target": "unit",
+      "modifier": {
+        "type": "reactive-move",
+        "trigger": "enemy-ends-move-nearby"
+      }
+    },
+    "scope": {
+      "range": "aura-9",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "rangers"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "skyhunter",
+    "name": "Skyhunter",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          {
+            "type": "phase-is",
+            "parameters": {
+              "phase": "shooting"
+            }
+          },
+          {
+            "type": "target-has-keyword",
+            "parameters": {
+              "keyword": "A"
+            }
+          }
+        ]
+      },
+      "effect": {
+        "type": "sequence",
+        "steps": [
+          {
+            "type": "roll-modifier",
+            "target": "unit",
+            "modifier": {
+              "roll": "hit",
+              "operation": "add",
+              "value": 1
+            }
+          },
+          {
+            "type": "roll-modifier",
+            "target": "unit",
+            "modifier": {
+              "roll": "wound",
+              "operation": "add",
+              "value": 1
+            }
+          }
+        ]
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "crimson-hunter"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive",
+    "community_notes": "auto-generated, partial"
+  },
+  {
+    "ability_id": "firing-deck-11",
+    "name": "Firing Deck 11",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "ability-grant",
+      "target": "unit",
+      "modifier": {
+        "ability_id": "firing-deck",
+        "capacity": 11
+      }
+    },
+    "scope": {
+      "range": "self",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "ynnari-raider"
+    ],
+    "ability_type": "core",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "aethersails",
+    "name": "Aethersails",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "stat-modifier",
+      "target": "unit",
+      "modifier": {
+        "stat": "M",
+        "operation": "add",
+        "value": 6
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "phase"
+    },
+    "unit_ids": [
+      "ynnari-raider"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "hallucinogen-grenades",
+    "name": "Hallucinogen Grenades",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "stat-modifier",
+      "target": "unit",
+      "modifier": {}
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "starfangs"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive",
+    "community_notes": "auto-generated stub — needs manual authoring. Original: At the start of your opponent’s Shooting phase, this unit can use this ability. If it does, select one AELDARI INFANTRY unit from your army visible to"
+  },
+  {
+    "ability_id": "acrobatic-grace",
+    "name": "Acrobatic Grace",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "roll-modifier",
+      "target": "attacker",
+      "modifier": {
+        "roll": "hit",
+        "operation": "subtract",
+        "value": 1
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "skyweavers"
+    ],
+    "ability_type": "unit",
+    "behavior": "reactive",
+    "community_notes": "defensive ability (skipped for damage calc)"
+  },
+  {
+    "ability_id": "overlord",
+    "name": "Overlord",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          {
+            "type": "unit-below-starting-strength"
+          },
+          {
+            "type": "is-attached"
+          }
+        ]
+      },
+      "effect": {
+        "type": "re-roll",
+        "target": "unit",
+        "modifier": {
+          "roll": "wound",
+          "condition": "natural-1"
+        }
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "ynnari-archon"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "reborn-mastermind",
+    "name": "Reborn Mastermind",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "cp-refund",
+      "target": "self",
+      "modifier": {
+        "amount": 1
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "one-use"
+    },
+    "unit_ids": [
+      "ynnari-archon"
+    ],
+    "ability_type": "unit",
+    "behavior": "activated"
+  },
+  {
+    "ability_id": "shadow-field",
+    "name": "Shadow Field",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "invulnerable-save",
+      "target": "self",
+      "modifier": {
+        "type": "shadowfield",
+        "fragile": true
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "ynnari-archon"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive",
+    "community_notes": "defensive ability (skipped for damage calc)"
+  },
+  {
+    "ability_id": "cloudstrider",
+    "name": "Cloudstrider",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "is-attached"
+      },
+      "effect": {
+        "type": "movement-modifier",
+        "target": "unit",
+        "modifier": {
+          "type": "redeploy-to-reserves"
+        }
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "turn"
+    },
+    "unit_ids": [
+      "baharroth"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "cry-of-the-wind",
+    "name": "Cry of the Wind",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "stat-modifier",
+      "target": "unit",
+      "modifier": {}
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "baharroth"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive",
+    "community_notes": "auto-generated stub — needs manual authoring. Original: Each time this model is set up on the battlefield, until the end of the turn, each time this model makes a ranged attack, a successful unmodified Hit "
+  },
+  {
+    "ability_id": "malevolent-souls",
+    "name": "Malevolent Souls",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "phase-is",
+        "parameters": {
+          "phase": "fight"
+        }
+      },
+      "effect": {
+        "type": "fight-on-death",
+        "target": "self",
+        "modifier": {}
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "wraithblades"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "forceshield",
+    "name": "Forceshield",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "invulnerable-save",
+      "target": "self",
+      "modifier": {
+        "invuln_sv": 4
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "wraithblades"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive",
+    "community_notes": "defensive ability (skipped for damage calc)"
+  },
+  {
+    "ability_id": "dance-of-death",
+    "name": "Dance of Death",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "phase-is",
+        "parameters": {
+          "phase": "fight"
+        }
+      },
+      "effect": {
+        "type": "sequence",
+        "steps": [
+          {
+            "type": "re-roll",
+            "target": "unit",
+            "modifier": {
+              "roll": "hit",
+              "condition": "natural-1"
+            }
+          },
+          {
+            "type": "roll-modifier",
+            "target": "unit",
+            "modifier": {
+              "roll": "wound",
+              "operation": "add",
+              "value": 1
+            }
+          }
+        ]
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "phase"
+    },
+    "unit_ids": [
+      "troupe"
+    ],
+    "ability_type": "unit",
+    "behavior": "reactive",
+    "community_notes": "defensive ability (skipped for damage calc)"
+  },
+  {
+    "ability_id": "firing-deck-6",
+    "name": "Firing Deck 6",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "ability-grant",
+      "target": "unit",
+      "modifier": {
+        "ability_id": "firing-deck",
+        "capacity": 6
+      }
+    },
+    "scope": {
+      "range": "self",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "ynnari-venom"
+    ],
+    "ability_type": "core",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "lithe-embarkation",
+    "name": "Lithe Embarkation",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "phase-is",
+        "parameters": {
+          "phase": "fight"
+        }
+      },
+      "effect": {
+        "type": "ability-grant",
+        "target": "self",
+        "modifier": {
+          "ability_id": "special-embark-rule"
+        }
+      }
+    },
+    "scope": {
+      "range": "aura-6",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "ynnari-venom"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "harassment-fire",
+    "name": "Harassment Fire",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "phase-is",
+        "parameters": {
+          "phase": "shooting"
+        }
+      },
+      "effect": {
+        "type": "roll-modifier",
+        "target": "attacker",
+        "modifier": {
+          "roll": "hit",
+          "operation": "subtract",
+          "value": 1
+        }
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "vyper"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive",
+    "community_notes": "defensive ability (skipped for damage calc)"
+  },
+  {
+    "ability_id": "spiritseer",
+    "name": "Spiritseer",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "ability-grant",
+      "target": "self",
+      "modifier": {
+        "ability_id": "lone-operative"
+      }
+    },
+    "scope": {
+      "range": "aura-6",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "spiritseer"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "spirit-mark",
+    "name": "Spirit Mark",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "keyword-grant",
+      "target": "unit",
+      "modifier": {
+        "keywords": [
+          "Sustained Hits 1"
+        ]
+      }
+    },
+    "scope": {
+      "range": "aura-6",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "spiritseer"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "tears-of-isha-psychic",
+    "name": "Tears of Isha (Psychic)",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "resurrection",
+      "target": "self",
+      "modifier": {
+        "count": "d3",
+        "type": "wounds"
+      }
+    },
+    "scope": {
+      "range": "aura-6",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "spiritseer"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "rapid-embarkation",
+    "name": "Rapid Embarkation",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "phase-is",
+        "parameters": {
+          "phase": "fight"
+        }
+      },
+      "effect": {
+        "type": "ability-grant",
+        "target": "self",
+        "modifier": {
+          "ability_id": "special-embark-rule"
+        }
+      }
+    },
+    "scope": {
+      "range": "aura-6",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "starweaver"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "skyfire",
+    "name": "Skyfire",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "movement-modifier",
+      "target": "unit",
+      "modifier": {
+        "type": "reactive-move",
+        "trigger": "enemy-ends-move-nearby"
+      }
+    },
+    "scope": {
+      "range": "aura-custom",
+      "duration": "permanent",
+      "range_inches": 24
+    },
+    "unit_ids": [
+      "firestorm"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "strafing-run",
+    "name": "Strafing Run",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          {
+            "type": "phase-is",
+            "parameters": {
+              "phase": "shooting"
+            }
+          },
+          {
+            "type": "target-has-keyword",
+            "parameters": {
+              "keyword": "A"
+            }
+          }
+        ]
+      },
+      "effect": {
+        "type": "roll-modifier",
+        "target": "unit",
+        "modifier": {
+          "roll": "hit",
+          "operation": "add",
+          "value": 1
+        }
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "phoenix"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "deadly-demise-d6-2",
+    "name": "Deadly Demise D6+2",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "dice-gated",
+      "dice": "D6",
+      "threshold": 6,
+      "comparison": "gte",
+      "on_success": {
+        "type": "mortal-wounds",
+        "target": "enemy-within-aura",
+        "modifier": {
+          "count": "D6+2",
+          "range": 6
+        }
+      },
+      "on_fail": null
+    },
+    "scope": {
+      "range": "aura-6",
+      "duration": "one-use"
+    },
+    "unit_ids": [
+      "vampire-hunter"
+    ],
+    "ability_type": "core",
+    "behavior": "reactive"
+  },
+  {
+    "ability_id": "hover",
+    "name": "Hover",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "stat-modifier",
+      "target": "self",
+      "modifier": {
+        "stat": "M",
+        "operation": "set",
+        "value": 20
+      }
+    },
+    "scope": {
+      "range": "self",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "vampire-hunter"
+    ],
+    "ability_type": "core",
+    "behavior": "activated"
+  },
+  {
+    "ability_id": "titan-hunter",
+    "name": "Titan Hunter",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "phase-is",
+        "parameters": {
+          "phase": "shooting"
+        }
+      },
+      "effect": {
+        "type": "re-roll",
+        "target": "unit",
+        "modifier": {
+          "roll": "damage",
+          "condition": "any-fail"
+        }
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "vampire-hunter"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "into-the-foe",
+    "name": "Into the Foe",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "ability-grant",
+      "target": "unit",
+      "modifier": {
+        "ability_id": "transport-disembark-modifier"
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "turn"
+    },
+    "unit_ids": [
+      "vampire-raider"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "cloudbreakers",
+    "name": "Cloudbreakers",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "stat-modifier",
+      "target": "unit",
+      "modifier": {
+        "stat": "M",
+        "operation": "add",
+        "value": 6
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "phase"
+    },
+    "unit_ids": [
+      "wasp-assault-walker"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "skyleap",
+    "name": "Skyleap",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "movement-modifier",
+      "target": "unit",
+      "modifier": {
+        "type": "redeploy-to-reserves"
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "corsair-skyreaver-band"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "the-path-least-travelled",
+    "name": "The Path Least Travelled",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "stat-modifier",
+      "target": "unit",
+      "modifier": {}
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "amallyn-shadowguide"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive",
+    "community_notes": "auto-generated stub — needs manual authoring. Original: If your army includes this model, after both players have deployed their armies and determined who has the first turn, you can select one Rangers or S"
+  },
+  {
+    "ability_id": "psytronome-shaper",
+    "name": "Psytronome Shaper",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "resurrection",
+      "target": "self",
+      "modifier": {
+        "count": "d3",
+        "type": "wounds"
+      }
+    },
+    "scope": {
+      "range": "aura-6",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "bonesinger"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "way-of-the-shaper-psychic",
+    "name": "Way of the Shaper (Psychic)",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "is-attached"
+      },
+      "effect": {
+        "type": "feel-no-pain",
+        "target": "unit",
+        "modifier": {
+          "threshold": 6
+        }
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "bonesinger"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "bonesinger",
+    "name": "Bonesinger",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "is-attached"
+      },
+      "effect": {
+        "type": "ability-grant",
+        "target": "self",
+        "modifier": {
+          "ability_id": "lone-operative"
+        }
+      }
+    },
+    "scope": {
+      "range": "aura-6",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "bonesinger"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "reckless-abandon",
+    "name": "Reckless Abandon",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "cp-refund",
+      "target": "self",
+      "modifier": {
+        "stratagem": "fire-overwatch-or-heroic"
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "corsair-cloud-dancer-band"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "reaver-band",
+    "name": "Reaver Band",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "movement-modifier",
+      "target": "unit",
+      "modifier": {
+        "type": "reactive-move",
+        "trigger": "enemy-ends-move-nearby"
+      }
+    },
+    "scope": {
+      "range": "aura-9",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "corsair-reaver-band"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "battle-focus",
+    "name": "Battle Focus",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "stat-modifier",
+      "target": "unit",
+      "modifier": {}
+    },
+    "scope": {
+      "range": "any-on-battlefield",
+      "duration": "permanent"
+    },
+    "faction_id": "aeldari",
+    "ability_type": "faction",
+    "behavior": "passive",
+    "community_notes": "auto-generated stub — needs manual authoring. Original: If your Army Faction is ASURYANI, at the start of the battle round, you receive a number of Battle Focus tokens based on the battle size, as shown in "
+  }
+]

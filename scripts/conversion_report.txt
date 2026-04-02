@@ -1,0 +1,361 @@
+================================================================================
+CONVERSION REPORT
+================================================================================
+Total abilities processed:       5593
+  Converted (high confidence):    1703  (30.4%)
+  Converted (partial):             107  (1.9%)
+  Stubbed (needs manual work):     287  (5.1%)
+  Skipped (defensive):             235  (4.2%)
+  Skipped (no description):       1278  (22.8%)
+
+Wrote abilities.json for 22 factions
+Preserved hand-authored: world-eaters
+
+================================================================================
+UNCONVERTED ABILITIES (needs manual authoring)
+================================================================================
+Total unconverted: 287
+
+Faction: adepta-sororitas (12 abilities)
+  - Acts of Faith ((faction rule)): "If your Army Faction is ADEPTA SORORITAS, each unit from your army with this ability can perform one Act of Faith per phase. This is done using Miracle dice.
+Gaining Miracle Dice: If your Army Faction..."
+  - Consecrated Ground (Battle Sanctum): "When this Fortification is set up, all parts of it must be set up within 1" of another part. Friendly Adepta Sororitas Infantry models can be set up or end any type of move on top of the floor section..."
+  - Denuncia oratory (Celestian Insidiants): "Each time the bearer’s unit’s quarry is destroyed, you can select a new unit from your opponent’s army to be its quarry...."
+  - Extremis Trigger Word (Arco-flagellants): "Each time this unit is selected to fight, you can choose to invoke its extremis trigger word. If you do, until the end of the phase, arco-flails equipped by models in this unit have an Attacks charact..."
+  - Healing Tears (Saint Celestine): "While this unit contains a Celestine model, in your Command phase, if this unit is below its Starting Strength, either one destroyed Geminae Superia model or up to D3 other Bodyguard models are return..."
+  - Litany of Deeds (Imagifier): "Each time you gain a Miracle dice as the result of an ADEPTA SORORITAS unit or model from your army being destroyed, if that unit or model was destroyed within 12" of this model, you can re-roll the r..."
+  - Miraculous Intervention (Saint Celestine): "The first time this unit’s Celestine model is destroyed, roll one D6 at the end of the phase. On a 2+, set that Celestine model back up on the battlefield, as close as possible to where it was destroy..."
+  - Recount the Deeds of the Saints (Aestred Thurga and Agathae Dolan): "While this unit is leading a unit and contains an Agathe Dolan model, each time that unit destroys an enemy unit, you gain 1 Miracle dice. When that Agathae Dolan model is destroyed, you gain D3 Mirac..."
+  - Relics of the Matriarchs (Triumph of Saint Katherine): "At the start of the battle round, select up to two of the abilities in the Relics of the Matriarchs section. Until the start of the next battle round, this model has those abilities...."
+  - Simulacrum Imperialis (Sanctifiers): "At the end of your Command phase, for each objective marker you control that has one or more units from your army with this ability within range of it, roll one D6: on a 4+, you gain 1 Miracle dice sh..."
+  - Solemn Procession (Triumph of Saint Katherine): "Each time you gain 1 Miracle dice at the start of the battle round, if this model is on the battlefield, do not roll one D6 to determine the value of that Miracle dice; it has a value of 6...."
+  - Stirring Rhetoric (Dialogus): "While this model is leading a unit, each time that unit performs an Act of Faith, the value of one of the Miracle dice used in that Act of Faith is first changed to a 6...."
+
+Faction: adeptus-astartes (32 abilities)
+  - Aerial Deployment (Thunderhawk Transporter): "If this model starts the game in Hover mode and in Strategic Reserves, it can be set up in the Reinforcements step of your first, second or third Movement phase, regardless of any mission rules...."
+  - Aura of Fervour (Aura) (The Sanguinor): "While a friendly ADEPTUS ASTARTES unit is within 6" of this model, you can re-roll Battle-shock and Leadership tests taken for that unit...."
+  - Author of the Codex (Roboute Guilliman): "At the Start of your Command phase, select two Author of the Codex abilities. Until the start of your next Command phase, this model has those abilities...."
+  - Bestial Rage (Wulfen Dreadnought): "Each time an enemy unit is selected to shoot, after that unit has shot, if this model lost one or more wounds as a result of those attacks, this model can make a Bestial Rage move. To do so, roll one ..."
+  - Cerebrex Logic Engine (Caanok Var): "■ At the start of the Declare Battle Formations step, you can select one ADEPTUS ASTARTES INFANTRY unit from your army. Until the end of the battle, that unit gains the Scouts 6" ability.
+
+■ After bot..."
+  - Chapter Master of the Raven Guard (Aethon Shaan): "At the start of the Declare Battle Formations step, if your army includes AETHON SHAAN and KAYVAAN SHRIKE, until the end of the battle, your KAYVAAN SHRIKE unit loses its Lone Operative ability and it..."
+  - Designer’s Note (Drop Pod): "The highlighted portions of this model are the only parts that are considered to make up its hull. Models can be set up or end a move on any part of this model that is not highlighted in red. If any m..."
+  - Driven by Fury (Death Company Dreadnought): "In your opponent’s Shooting phase, each time an enemy unit has shot, if this model was hit by one or more of those attacks, it can make a Driven by Fury move. To do so, roll one D6 and add 2 to the ro..."
+  - Fire and Redeploy (Javelin Attack Speeder): "In your Shooting phase, each time this model has shot, if it is not within Engagement Range of any enemy units, it can make a Normal move of up to D6". If it does, until the end of the turn, this mode..."
+  - Glory of Ultramar (Victrix Honour Guard): "In your opponent’s Shooting phase, each time an enemy unit has shot, if any models from this unit were destroyed as a result of those attacks, this unit can make a Surge move. To do so, roll one D6: m..."
+  - Hunting Hounds (Fenrisian Wolves): "While this unit is within 6" of one or more friendly SPACE WOLVES CHARACTER models (excluding WULFEN models), if this unit is not Battle‑shocked, models in it have an Objective Control characteristic ..."
+  - Inspiring Commander (Darnath Lysander): "If you include this model in your army, until the end of the battle, non-CHARACTER models in TERMINATOR ASSAULT SQUAD and TERMINATOR SQUAD units from your army have an Objective Control characteristic..."
+  - Last Survivor (Lieutenant with Combi-weapon): "This model cannot be selected as your WARLORD...."
+  - Let Loose the Wolves (Wolf Guard Headtakers): "At the start of the Declare Battle Formations step, split this unit into two units, one containing all of its HEADTAKERS models and one containing all of its HUNTING WOLVES models, with new Starting S..."
+  - Martial Honour (Crusade Ancient): "The first time a model in this model’s unit makes a melee attack that destroys one or more enemy units, until the end of the battle, while this model’s unit is not Battle-shocked, add 5 to this model’..."
+  - Master of Deceit (Captain in Phobos Armour): "After both players have deployed their armies, if your army includes one or more models with this ability, you can select up to three friendly ADEPTUS ASTARTES INFANTRY units and redeploy all of those..."
+  - Master of the Fleet (Uriel Ventris): "During the Declare Battle Formations step, if your army includes this model, select one PHOBOS, GRAVIS or TACTICUS ADEPTUS ASTARTES INFANTRY unit from your army. That unit gains the Deep Strike abilit..."
+  - Meteoric Descent (Inceptor Squad): "In your Movement phase, when this unit is set up on the battlefield using the Deep Strike ability, it can perform a meteoric descent. If it does, this unit can be set up anywhere on the battlefield th..."
+  - Omni-scramblers (Infiltrator Squad): "Enemy units that are set up on the battlefield from Reserves cannot be set up within 12" of this unit...."
+  - Overcharged Engines (Baal Predator): "You can re‐roll Advance rolls made for this model...."
+  - Righteous Zeal (Crusader Squad): "In your opponent’s Shooting phase, each time an enemy unit has shot, if any models in this unit were destroyed as a result of those attacks, this unit can make a Righteous Zeal move. To do so, roll on..."
+  - Sagas ((faction rule)): "Each Detachment rule in Codex Supplement: Space Wolves includes a Saga you can complete, with additional effects that apply once you have done so...."
+  - Skilled Riders (Suboden Khan): "Each time a model in this model’s unit makes a Normal, Advance, Fall Back or Charge move, it can move horizontally through terrain features...."
+  - Stabilised Disembarkation (Repulsor): "In your opponent’s Shooting phase, each time an enemy unit is selected to shoot, after that unit has shot, if any of those attacks targeted this TRANSPORT, it can use this ability. If it does, any uni..."
+  - Strategium Command (Wardens of Ultramar): "After both players have deployed their armies, if this unit is on the battlefield (or any TRANSPORT it is embarked within is on the battlefield) select up to three ADEPTUS ASTARTES units from your arm..."
+  - Temple Relics (Chaplain Grimaldus): "In your Command phase, if this unit contains one or more Cenobyte Servitor models, select one Temple Relics ability (see Temple Relics section). Until the start of your next Command phase, this unit’s..."
+  - Terror Troops (Aura) (Reiver Squad): "While an enemy unit (excluding MONSTERS and VEHICLES) is within 3" of one or more units with this ability, subtract 1 from the Objective Control characteristic of models in that enemy unit...."
+  - Thunderhawk (Thunderhawk Gunship): "This model has a transport capacity of 30 ADEPTUS ASTARTES INFANTRY or ADEPTUS ASTARTES MOUNTED models. Each JUMP PACK, WULFEN, GRAVIS or TERMINATOR model takes up the space of 2 models. Each CENTURIO..."
+  - Transfixing Gaze (Aura, Psychic) (Chief Librarian Mephiston): "While an enemy unit is within 6" of this model, each time that unit is selected to Fall Back, it must take a Leadership test. If that test is failed, that unit must Remain Stationary this phase instea..."
+  - Unstoppable Champion (Watch Captain Artemis): "The first time this model is destroyed, roll one D6 at the end of the phase. On a 2+, set this model back up on the battlefield, as close as possible to where it was destroyed and not within Engagemen..."
+  - Vengeance of the Omnissiah (Techmarine): "If a friendly ADEPTUS ASTARTES VEHICLE model is destroyed within 12" of this model, until the end of the battle, this model’s Omnissian power axe has an Attacks characteristic of 7...."
+  - Vivispectrum (Apothecary Biologis): "If this model’s unit destroys an enemy unit as the result of a melee attack, until the end of the battle, this model has an Objective Control characteristic of 9...."
+
+Faction: adeptus-custodes (1 abilities)
+  - Jump Packs (Venatari Custodians): "This unit cannot embark within a VENERABLE LAND RAIDER...."
+
+Faction: adeptus-mechanicus (9 abilities)
+  - Aerial Deployment (Archaeopter Transvector): "If this model starts the game in Hover mode and in Strategic Reserves, it can be set up in the Reinforcements step of your first, second or third Movement phase, regardless of any mission rules...."
+  - Canticles of the Omnissiah (Belisarius Cawl): "At the start of your Command phase, select one of the abilities in the Canticles of the Omnissiah section. Until the start of your next Command phase, this model has that ability...."
+  - Mindlock (X-101): "While a Tech-Priest model is leading this model’s unit, improve the Ballistic Skill and Weapon Skill characteristics of this model’s weapons by 1...."
+  - Network Override (Servitor Battleclade): "While this unit contains one or more TECH-PRIEST models, this unit is:
+
+■ Eligible to perform an Action in a turn in which it Advanced.
+■ Eligible to shoot in a turn in which it started an Action...."
+  - Neurostatic Interference (Aura) (Sicarian Infiltrators): "While an enemy unit is within 6" of this unit, each time a Battle-shock or Leadership test is taken for that unit, subtract 1 from that test. While this unit is within 6" of one or more friendly ADEPT..."
+  - Rad-saturation (Aura) (Skitarii Vanguard): "While an enemy unit (excluding VEHICLE units) is within 3" of this unit, subtract 1 from the Objective Control characteristic of models in that unit...."
+  - Ride the Thermals (Pteraxii Skystalkers): "In your Shooting phase, after this unit has shot, if it is not within Engagement Range of one or more enemy units, it can do one of the following:
+
+■ Make a Normal move of up to 6".
+■ Make a Normal mo..."
+  - Scuttling Walker (Onager Dunecrawler): "Each time this model makes a Normal, Advance or Fall Back move, it can move through friendly MONSTER and VEHICLE models and sections of terrain features that are 4" or less in height...."
+  - Vengeance for the Omnissiah (Tech-Priest Enginseer): "If a friendly ADEPTUS MECHANICUS VEHICLE model is destroyed within 12" of this model, until the end of the battle, this model’s Omnissian axe has an Attacks characteristic of 6...."
+
+Faction: aeldari (28 abilities)
+  - Aethersense (Psychic) (Kharseth): "Enemy units that are set up on the battlefield from Reserves cannot be set up within 12" of this model...."
+  - Avatar of The Whispering God (The Yncarne): "If your army includes THE YNCARNE, it cannot include any EPIC HERO units (excluding YNNARI units). If your army includes any EPIC HERO units (excluding YNNARI units), it cannot include THE YNCARNE...."
+  - Battle Focus ((faction rule)): "If your Army Faction is ASURYANI, at the start of the battle round, you receive a number of Battle Focus tokens based on the battle size, as shown in the table below.-Each time one of the triggers sho..."
+  - Burning Lance (Fuegan): "While this model is leading a unit, add 6" to the Range characteristic of Melta weapons equipped by models in that unit...."
+  - Choreographer of War (Troupe Master): "While this model is leading a unit, each time a model in that unit makes a Pile‐in or Consolidation move, it can move up to 6" instead of up to 3". In addition, it does not need to end that move close..."
+  - Cluster caltrops (Ynnari Reavers): "Each time you roll to inflict wounds using this unit’s Eviscerating Fly-by ability, you can re-roll one D6 for each model in this unit equipped with cluster caltrops...."
+  - Crewed Platform (Storm Guardians): "When the last Storm Guardian model in this unit is destroyed, any remaining Serpent’s Scale Platform models in this unit are also destroyed...."
+  - Cry of the Wind (Baharroth): "Each time this model is set up on the battlefield, until the end of the turn, each time this model makes a ranged attack, a successful unmodified Hit roll scores a Critical Hit...."
+  - Empyric Ambush (Lhykhis): "While this model is leading a unit, that unit is eligible to declare a charge in a turn in which it used its Flickerjump ability...."
+  - Fleet of Foot (Guardian Defenders): "This unit can perform the Fade Back Agile Manoeuvre without spending a Battle Focus token to do so. It can do so even if other units have done so in the same phase, and doing so does not prevent other..."
+  - Fog of Dreams (Psychic) (Shadowseer): "While this model is leading a unit, that unit can only be selected as the target of a ranged attack if the attacking model is within 18"...."
+  - Hallucinogen Grenades (Starfangs): "At the start of your opponent’s Shooting phase, this unit can use this ability. If it does, select one AELDARI INFANTRY unit from your army visible to and within 36” of this unit: until the end of the..."
+  - Indomitable Strength of Will (Autarch Wayleaper): "While this model is leading a unit, each time you spend a Battle Focus token to enable that unit to perform an Agile Manoeuvre, roll one D6: on a 3+, you gain 1 Battle Focus token...."
+  - Inevitable Death (The Yncarne): "Once in each of your opponent’s turns, if this model is on the battlefield when another friendly AELDARI unit is destroyed, just after removing the last model in that unit, you can remove this model f..."
+  - Mindshock Pod (Aura, Psychic) (Hemlock Wraithfighter): "While an enemy unit is within 9" of this model, subtract 1 from Battle-shock and Leadership tests taken for that unit...."
+  - Monofilament Web (Night Spinner): "In your Shooting phase, after this model has shot, if one or more of those attacks made with its doomweaver scored a hit against an enemy unit, until the start of your next turn, that enemy unit is pi..."
+  - Phantasm grenade launcher (Ynnari Kabalite Warriors): "The bearer’s unit has the GRENADES keyword...."
+  - Point‐blank Devastation (Wraithknight): "Each time this model’s heavy wraithcannon or suncannon targets a unit within half range, you can re‐roll the dice to determine the number of attacks made...."
+  - Polychromatic Camouflage (Voidweaver): "This unit can only be selected as the target of a ranged attack if the attacking model is within 18"...."
+  - Prince of Corsairs (Prince Yriel): "After both players have deployed their armies, if this unit is on the battlefield (or any TRANSPORT it is embarked within is on the battlefield), select up to three AELDARI units from your army and re..."
+  - Runes of Fortune (Psychic) (Warlock): "Each time an enemy unit declares a charge, if one or more units with this ability are selected as a target of that charge, subtract 2 from the Charge roll...."
+  - Servant of The Whispering God (Yvraine): "If your army includes YVRAINE, it cannot include any EPIC HERO units (excluding YNNARI units). If your army includes any EPIC HERO units (excluding YNNARI units), it cannot include YVRAINE...."
+  - Superlative Strategist (Autarch): "While this model is leading a unit, you can re‐roll Advance rolls made for that unit, and you can re‐roll any rolls made for that unit while it is performing an Agile Manoeuvre...."
+  - The Path Least Travelled (Amallyn Shadowguide): "If your army includes this model, after both players have deployed their armies and determined who has the first turn, you can select one Rangers or Shroud Runners unit from your army and redeploy tha..."
+  - Titanic Agility (Wraithknight with Ghostglaive): "Each time this model makes a Normal, Advance or Fall Back move, it can move through models and terrain features. When doing so, it can move within Engagement Range of enemy models, but cannot end that..."
+  - Titanic Strides (Wraithknight): "Each time this model makes a Normal, Advance or Fall Back move, it can move through models (excluding TITANIC models) and sections of terrain features that are 4" or less in height. When doing so:
+
+■ ..."
+  - Towering Wraith Construct (Revenant Titan): "Each time you target this model with a Stratagem, you must spend twice that Stratagem’s stated CP cost to do so...."
+  - Word of the Phoenix (Psychic) (Yvraine): "While this model is leading a unit, in your Command phase, roll one D6: on a 2+, D3+1 destroyed Bodyguard models (excluding SUPPORT WEAPON models) are returned to that unit with their full wounds rema..."
+
+Faction: agents-of-the-imperium (10 abilities)
+  - Backroom Deals (Rogue Trader Entourage): "If your army contains one or more units with this ability, during the Declare Battle Formations step, select one of those units. While the selected unit is leading a unit, models in that unit have the..."
+  - Dead‐shot (Vindicare Assassin): "Each time this model makes a ranged attack, when selecting targets for that attack, you can ignore the Lone Operative ability...."
+  - Etheric Emergence (Culexus Assassin): "In your Movement phase when this model is set up on the battlefield using the Deep Strike ability, it can perform an etheric emergence. If it does, this model can be set up anywhere on the battlefield..."
+  - Frenzon (Eversor Assassin): "This model is eligible to shoot and declare a charge in a turn in which it Advanced...."
+  - Inquisitorial Henchmen (Inquisitorial Agents): "If your Army Faction is not AGENTS OF THE IMPERIUM, then for each INQUISITOR unit you include in your army, you can include one INQUISITORIAL AGENTS unit in your army that does not count towards the n..."
+  - Navy Bodyguard (Voidsmen-at-Arms): "If your Army Faction is not AGENTS OF THE IMPERIUM, then for each VOIDFARERS CHARACTER unit you include in your army, you can include one VOIDSMEN-AT-ARMS unit in your army that does not count towards..."
+  - Simulacrum Imperialis (Sanctifiers): "At the end of your Command phase, for each objective marker you control that has one or more units from your army with this ability within range of it, roll one D6: on a 4+, you gain 1 Miracle dice sh..."
+  - Unstoppable Champion (Watch Captain Artemis): "The first time this model is destroyed, roll one D6 at the end of the phase. On a 2+, set this model back up on the battlefield, as close as possible to where it was destroyed and not within Engagemen..."
+  - Warrant of Trade (Rogue Trader Entourage): "If your army includes one or more units with this ability, after both players have deployed their armies, select up to D3 IMPERIUM BATTLELINE units from your army and redeploy them. When doing so, you..."
+  - that redeploy units, roll off (Janus Draik): "the winner chooses who redeploys units first...."
+
+Faction: astra-militarum (24 abilities)
+  - Aerial Deployment (Arvus Lighter): "If this model starts the game in Hover mode and in Strategic Reserves, it can be set up in the Reinforcements step of your first, second or third Movement phase, regardless of any mission rules...."
+  - Close-range Titan Killer (Doomhammer): "Each time this model’s magma cannon targets an enemy MONSTER or VEHICLE unit, that target is always considered to be within half range of that weapon...."
+  - Command Rod (Militarum Tempestus Command Squad): "While the bearer is leading a unit, that unit can be affected by up to two different Orders at the same time...."
+  - Death Befitting An Officer (Leman Russ Commander): "When this model is destroyed, roll one D6: on a 2+, do not remove it from play – it can, after the attacking model’s unit has finished making its attacks, shoot as if it were your Shooting phase and a..."
+  - Deathstrike Missile (Deathstrike): "In your Shooting phase, each time this model is selected to shoot, if it has not shot with its Deathstrike missile this battle, you can do one of the following in addition to resolving this model’s ra..."
+  - Demolition Gear (Ratlings): "The bearer’s unit has the GRENADES keyword...."
+  - Deployment (Aegis Defence Line): "When this model is set up, it will consist of 1 platform section, up to 5 shield sections, up to 2 broken shield sections and up to 2 end sections. All sections must be connected to each other to form..."
+  - Earthshaker Rounds (Basilisk): "In your Shooting phase, after this model has shot, if one or more of those attacks made with its earthshaker cannon scored a hit against an enemy Infantry unit, until the start of your next Shooting p..."
+  - Emplacement Platform (Aegis Defence Line): "Friendly ASTRA MILITARUM INFANTRY models can be set up or end any type of move on top of the platform section of this FORTIFICATION...."
+  - Grim Determination (Krieg Command Squad): "While this unit contains an OFFICER, you can target this unit with Stratagems even while it is Battle-shocked and Orders issued to this unit do not cease to affect this unit if it becomes Battle-shock..."
+  - Loner (Sly Marbo): "This model cannot be selected as your WARLORD...."
+  - Lord Castellan (Ursula Creed): "While this model is leading a unit, that unit can be affected by up to two different Orders at the same time...."
+  - Master Vox (Militarum Tempestus Command Squad): "Each time the OFFICER in the bearer’s unit issues an Order, it can issue it to an eligible unit up to 24" away...."
+  - Meteoric Descent (Elysian Drop Sentinel): "When this model is set up on the battlefield using the Deep Strike ability, it can perform a meteoric descent. If it does, this model can be set up anywhere on the battlefield that is more than 3" hor..."
+  - Mindlock (Quartermaster Cadre Squad): "While this unit contains a Quartermaster Revenant model, improve the Weapon Skill characteristic of this unit's Medical scalpels by 1...."
+  - Orders (Cadian Castellan): "This OFFICER can issue up to 2 Orders to REGIMENT units...."
+  - Outflank (Salamander Scout Vehicle): "When this model arrives from Strategic Reserves, it can be set up within your opponent’s deployment zone (all other restrictions still apply)...."
+  - Political Overwatch (Commissar): "While another OFFICER model is in the same unit as this model, you can re-roll Battle-shock tests taken for that unit...."
+  - Precision Drop (Tempestus Aquilons): "In your Movement phase, when this unit is set up on the battlefield using the Deep Strike ability, it can perform a precision drop. If it does, this unit can be set up anywhere on the battlefield that..."
+  - Primed and Ready (Death Korps Grenadier Squad): "In your Shooting phase, you can select one unit from your army with this ability as the target of the Grenade Stratagem for 0CP, provided that unit has not already been the target of that Stratagem th..."
+  - The Collegiate Astrolex (Lord Solar Leontus): "After both players have deployed their armies, select up to three ASTRA MILITARUM units from your army and redeploy them. When doing so, you can set those units up in Strategic Reserves if you wish, r..."
+  - Tough To Kill (Lord Marshal Dreir): "The first time this model is destroyed, roll one D6 at the end of the phase. On a 2+, set this model back up on the battlefield as close as possible to where it was destroyed and not within Engagement..."
+  - Vengeance for the Omnissiah (Tech-Priest Enginseer): "If a friendly ADEPTUS MECHANICUS VEHICLE model is destroyed within 12" of this model, until the end of the battle, this model’s Omnissian axe has an Attacks characteristic of 6...."
+  - Vox-net (Rogal Dorn Commander): "Each time this model issues an Order, it can issue it to an eligible unit up to 12" away...."
+
+Faction: chaos-daemons (21 abilities)
+  - A Gory Path (Bloodmaster): "Each time this model’s unit Consolidates, it can move up to 6" instead of up to 3"...."
+  - Bounding Assault (Pox Riders): "Each time this unit ends a Charge move, until the end of the turn, Pox Rider plagueswords equipped by models in this unit have the [LANCE] ability...."
+  - Daemon Lord of Nurgle (Aura) (Great Unclean One): "While a friendly NURGLE LEGIONES DAEMONICA unit is within 6" of this model, add 1 to the Toughness characteristic of models in that unit...."
+  - Deluge of Nurgle (Aura) (Rotigus): "While an enemy unit is within 6" of this model, subtract 2 from the Move characteristic and subtract 1 from the Objective Control characteristic of models in that unit...."
+  - Discordant Disruption (Aura) (Infernal Enrapturess): "While an enemy PSYKER unit is within 12" of this model, Psychic weapons equipped by models in that unit have the [HAZARDOUS] ability...."
+  - Emissary of the Plague God (Aura) (Scabeiathrax The Bloated): "While a friendly Nurgle Legiones Daemonica unit is within 6" of this model, you can re-roll Battle-shock tests taken for that unit...."
+  - Emissary of the Prince of Excess (Aura) (Zarakynel): "While a friendly Slaanesh Legiones Daemonica unit is within 6" of this model, you can re-roll Battle-shock tests taken for that unit...."
+  - Feculent Despair (Aura, Psychic) (Poxbringer): "While an enemy unit is within 6" of this model, each time that unit takes a Battle-shock test, subtract 1 from that test...."
+  - Formless Horror (The Changeling): "Each time an enemy unit wishes to select this model as the target of an attack, that unit must first take a Battle-shock test. If that test is failed, in addition to being Battle-shocked, that enemy u..."
+  - Greater Daemon of Khorne (Aura) (Skarbrand): "While a friendly KHORNE LEGIONES DAEMONICA unit is within 6" of this model, that unit is within your army’s Shadow of Chaos...."
+  - Greater Daemon of Nurgle (Aura) (Rotigus): "While a friendly NURGLE LEGIONES DAEMONICA unit is within 6" of this model, that unit is within your army’s Shadow of Chaos...."
+  - Greater Daemon of Slaanesh (Aura) (Keeper of Secrets): "While a friendly SLAANESH LEGIONES DAEMONICA unit is within 6" of this model, that unit is within your army’s Shadow of Chaos...."
+  - Greater Daemon of Tzeentch (Aura) (Lord of Change): "While a friendly TZEENTCH LEGIONES DAEMONICA unit is within 6" of this model, that unit is within your army’s Shadow of Chaos...."
+  - Grotesque Regeneration (Beasts of Nurgle): "At the end of each phase, if a Beasts of Nurgle model in this unit has lost any wounds but is not destroyed, that model regains all of its lost wounds...."
+  - Instrument of Chaos (Daemonettes): "Add 1 to Charge rolls made for the bearer’s unit...."
+  - Prince of Darkness (Aura) (Daemon Prince of Chaos): "While a friendly LEGIONES DAEMONICA unit is within 6" of this model, models in that unit have the Stealth ability...."
+  - Scuttling Walker (Soul Grinder): "Each time this model makes a Normal or Advance move, it can move over friendly MONSTER and VEHICLE models and terrain features that are 4" or less in height as if they were not there...."
+  - Seed the Garden of Nurgle (Horticulous Slimux): "At the end of your Movement phase, if this model is within one AREA TERRAIN Feature, until the end of the battle, that AREA TERRAIN feature is considered to be within your army’s Shadow of Chaos...."
+  - Shadow of Khorne (Aura) (Skull Altar): "The area of the battlefield within 6" of this FORTIFICATION is considered to be within your army’s Shadow of Chaos. In addition, while a friendly KHORNE LEGIONES DAEMONICA unit is within 6" of this FO..."
+  - Shroud of Flies (Aura) (Feculent Gnarlmaw): "While a friendly NURGLE LEGIONES DAEMONICA unit is within 6" of this FORTIFICATION, models in that unit have the Stealth ability...."
+  - Split (Pink Horrors): "Each time a PINK HORROR or BLUE HORROR model in this unit is destroyed, after the attacking unit has finished making its attacks, if this unit is not destroyed, roll one D6 for that model. On a 4+, if..."
+
+Faction: chaos-knights (4 abilities)
+  - Dread Dominion (Aura) (Knight Despoiler): "While a friendly WAR DOG model is within 9" of this model, improve that WAR DOG model’s Leadership and Objective Control characteristics by 1...."
+  - Grav-pinned (Chaos Questoris Knight Styrix): "In your Shooting phase, after this model has shot, if an enemy INFANTRY unit was hit by one or more of those attacks made with a graviton crusher, until the end of your opponent’s next turn, that enem..."
+  - Shock Charge (Chaos Cerastus Knight Lancer): "You can target this model with the Tank Shock Stratagem for 0CP, and can do so even if you have already targeted a different unit with that Stratagem this phase...."
+  - Super-heavy Walker ((faction rule)): "Each time a model with this ability makes a Normal, Advance or Fall Back move, it can move through models (excluding TITANIC models) and sections of terrain features that are 4" or less in height. Whe..."
+
+Faction: chaos-space-marines (22 abilities)
+  - Bestial Raiders (Fellgor Beastmen): "If this unit starts the game in Strategic Reserves, it can be set up in the Reinforcements step of your first, second or third Movement phase, regardless of any mission rules. If this unit is in Strat..."
+  - Chaos Icon (Dark Commune): "Each time the bearer’s unit takes a Leadership test for the Dark Pacts ability, you can re-roll that test...."
+  - Cruel Hunter (Chaos Lord with Jump Pack): "While this model is leading a unit, each time that unit Piles In or Consolidates, each model in that unit can move up to 6" instead of up to 3"...."
+  - Daemonforge (Defiler): "Once per Fight phase, one unit from your army with this ability can be targeted with the Counter-offensive Stratagem for OCP, even if you have already targeted a different unit with that Stratagem thi..."
+  - Dark Ascension (Aura) (Helbrute): "While a friendly HERETIC ASTARTES unit is within 6" of this model, each time that unit makes a Dark Pact, until the end of the phase, weapons equipped by models in that unit gain both abilities confer..."
+  - Enforcer (Renegade Enforcer): "This model's unit is eligible to declare a charge in a turn in which it Fell Back...."
+  - Fearsome (Aura) (Raptors): "While an enemy unit is within 6" of this unit, each time that enemy unit takes a Battle-shock or Leadership test, subtract 1 from the result...."
+  - Feculent Despair (Aura, Psychic) (Sorcerer On Palanquin Of Nurgle): "While an enemy unit is within 6" of this model, each time that unit takes a Battle-shock test, subtract 1 from that test...."
+  - Fiery Faith (Cultist Firebrand): "While this model is leading a unit, you can re-roll Leadership tests taken for that unit...."
+  - Fleet Command (Masters of the Maelstrom): "After both players have deployed their armies, if this unit is on the battlefield (or any TRANSPORT it is embarked within is on the battlefield) select up to three HERETIC ASTARTES units from your arm..."
+  - Forwards, for Blood! (Master of Executions): "While this model is leading a unit, you can re-roll Advance rolls made for that unit and each time that unit makes a Blood Surge move, you can re-roll the D6 used to determine how far models in that u..."
+  - Frenzy (Helbrute): "In your opponent’s Shooting phase, and in the Fight phase, each time an enemy unit targets this model, after that unit has finished making its attacks, this model can either shoot or fight, but when r..."
+  - Howling Horde (Accursed Cultists): "Each time an enemy unit has shot, if one or more models from this unit were destroyed as a result of those attacks, this unit can make a Horde move. To do so, roll one D6: this unit can be moved a num..."
+  - Idol of Blessed Blood (Khorne Lord of Skulls): "At the start of the battle round, if this model is on the battlefield, when you make a Blessings of Khorne roll, roll one additional D6...."
+  - Infernal Speed (Sorcerer On Steed Of Slaanesh): "While this model is leading a unit, change the Move characteristic of models in that unit to 14"...."
+  - Malevolent Locus (Aura) (Noctilith Crown): "While a friendly HERETIC ASTARTES unit is within 9" of this FORTIFICATION, improve that unit’s Leadership characteristic by 1...."
+  - Mind-breaking Mutations (Aura) (Chaos Spawn): "While an enemy unit (excluding VEHICLE units) is within 3" of this unit, subtract 1 from the Objective Control characteristic of models in that enemy unit...."
+  - Super-heavy War Engine (Khorne Lord of Skulls): "Each time this model makes a Normal, Advance or Fall Back move, it can move through models (excluding TITANIC models) and sections of terrain features that are 4" or less in height. When doing so it c..."
+  - The Scent of Blood (Maulerfiend): "Each time this model declares a charge that targets one or more units below Starting Strength, add 1 to the Charge roll. If one or more of the targets of that charge are Below Half-strength, add 2 to ..."
+  - Warmaster (Abaddon the Despoiler): "In your Command phase, select one Warmaster ability. Until the start of your next Command phase, this model has that ability...."
+  - Warp Strike (Warp Talons): "At the end of the Fight phase, if this unit destroyed one or more enemy units this phase and is not within Engagement Range of one or more enemy units, you can remove this unit from the battlefield an..."
+  - Wracking Agonies (Psychic) (Sorcerer): "In your Shooting phase, after this model has shot, select one INFANTRY unit hit by one or more of those attacks made with its Agonising Energies. Until the start of your next turn, that unit is wracke..."
+
+Faction: death-guard (11 abilities)
+  - Curse of the Walking Pox (Poxwalkers): "Each time a POXWALKER model in this unit makes an attack that destroys an enemy model (excluding MONSTER and VEHICLE models). after this unit has resolved its attacks, you can return one destroyed POX..."
+  - Daemonforge (Defiler): "Once per Fight phase, one unit from your army with this ability can be targeted with the Counter-offensive Stratagem for OCP, even if you have already targeted a different unit with that Stratagem thi..."
+  - Dark Ascension (Aura) (Helbrute): "While a friendly HERETIC ASTARTES unit is within 6" of this model, each time that unit makes a Dark Pact, until the end of the phase, weapons equipped by models in that unit gain both abilities confer..."
+  - Death Approaches (Deathshroud Terminators): "In your Movement phase, when this unit is set up on the battlefield using the Deep Strike ability, it can be set up anywhere on the battlefield that is more than 6" horizontally away from all Afflicte..."
+  - Enfeebling Miasma (Daemon Prince of Nurgle with Wings): "While an enemy unit (excluding MONSTERS and VEHICLES) is within 6" of this model, each time that unit is selected to Fall Back, models in that enemy unit must take Desperate Escape tests. When doing s..."
+  - Explosive Blight (Foetid Bloat-Drone with Heavy Blight Launcher): "In your Shooting phase, each time this model makes an attack that destroys an enemy unit, before removing the last model in that unit from play, roll a D6, adding 1 to the result if that unit is Affli..."
+  - Frenzy (Helbrute): "In your opponent’s Shooting phase, and in the Fight phase, each time an enemy unit targets this model, after that unit has finished making its attacks, this model can either shoot or fight, but when r..."
+  - Gift of Poxes (Lord of Poxes): "Add 3" to the range of this model’s Contagion Range..."
+  - Mind-breaking Mutations (Aura) (Chaos Spawn): "While an enemy unit (excluding VEHICLE units) is within 3" of this unit, subtract 1 from the Objective Control characteristic of models in that enemy unit...."
+  - Pestilent Fallout (Psychic) (Malignant Plaguecaster): "In your Shooting phase, after this model has shot, select one enemy INFANTRY unit hit by one or more of those attacks made with its Plague Wind. Until the end of your opponent’s next turn, that unit i..."
+  - Putrefying Stink (Foul Blightspawn): "Enemy models cannot start or end an Advance move within 9" of this model...."
+
+Faction: drukhari (13 abilities)
+  - Archon’s Retinue (Hand of the Archon): "If this unit has a Leader unit attached to it during the Declare Battle Formations step, that Leader unit gains the Scouts 7" ability...."
+  - Cluster caltrops (Reavers): "Each time you roll to inflict wounds using this unit’s Eviscerating Fly-by ability, you can re-roll one D6 for each model in this unit equipped with cluster caltrops...."
+  - Devoted to Pain (Talos): "If a model in this unit is equipped with 2 macro‑scalpels, those weapons have the [TWIN‑LINKED] ability...."
+  - Experimental Enhancements (Wracks): "In the Fight phase, when you select this unit to fight, you can spend 1 Pain token to Empower this unit. Each time you do, select one of the following to apply to this unit until the end of the phase:..."
+  - Fade Away (Mandrakes): "At the end of your opponent’s Fight phase, if this unit is not within Engagement Range of one or more enemy units, you can spend 1 Pain token to Empower this unit. Each time you do, remove this unit f..."
+  - Kabalite Icon (Kabalite Warriors): "While the bearer’s unit is not Battle‑shocked, add 1 to the bearer’s Objective Control characteristic...."
+  - Onslaught (Drazhar): "While this model is leading a unit, each time a model in that unit makes a Pile‑in or Consolidation move, it can move up to 6" instead of up to 3"...."
+  - Pain Adept (Haemonculus): "In your Command phase, if one or more models from your army with this ability are on the battlefield, roll one D6: on a 4+, you gain 1 Pain token...."
+  - Phantasm Grenade Launcher (Hellions): "The bearer’s unit has the SMOKE and GRENADES keywords...."
+  - Precognisant (Lady Malys): "If your army includes this model, after both players have deployed their armies, select up to three DRUKHARI units from your army and redeploy them. When doing so, you can set those units up in Strate..."
+  - Swooping Descent (Scourges with Shardcarbines): "In your Movement phase, you can spend 1 Pain token to Empower this unit. While Empowered, each time a model in this unit is set up on the battlefield using the Deep Strike ability, it can be set up an..."
+  - Torture Device (Talos): "Each time this unit destroys an enemy unit, you gain 1 additional Pain token...."
+  - Vanguard of the Dark City (Raider): "At the start of your Command phase, select one of the abilities in the Vanguard of the Dark City section (see below) for this model. Until the start of your next Command phase, this model has that abi..."
+
+Faction: emperors-children (6 abilities)
+  - Daemon Primarch of Slaanesh (Fulgrim): "At the start of your opponent’s Command phase, select one of the abilities in the Daemon Primarch of Slaanesh section (see below). Until the start of your opponent’s next Command phase, this model has..."
+  - Daemonic Patrons (Flawless Blades): "Each time this unit is selected to fight, it can call upon daemonic patrons. If it does, until the end of the phase, each time a model in this unit makes an attack, an unmodified Wound roll of 3+ scor..."
+  - Mind-breaking Mutations (Aura) (Chaos Spawn): "While an enemy unit (excluding VEHICLE units) is within 3" of this unit, subtract 1 from the Objective Control characteristic of models in that enemy unit...."
+  - Serpentine (Fulgrim): "Each time this model makes a Normal, Advance or Fall Back move, it can move over sections of terrain features that are 4" or less in height...."
+  - The Scent of Blood (Maulerfiend): "Each time this model declares a charge that targets one or more units below Starting Strength, add 1 to the Charge roll. If one or more of the targets of that charge are Below Half-strength, add 2 to ..."
+  - Wracking Agonies (Psychic) (Sorcerer): "In your Shooting phase, after this model has shot, select one INFANTRY unit hit by one or more of those attacks made with its Agonising Energies. Until the start of your next turn, that unit is wracke..."
+
+Faction: genestealer-cults (10 abilities)
+  - Cloaked Assassin (Sanctus): "If this model is equipped with a Sanctus bio-dagger, enemy units cannot use the Fire Overwatch Stratagem to shoot at this model...."
+  - Cult Infiltration (Nexos): "At the start of each player’s Command phase, if this model is on the battlefield, you can select one of your Cult Ambush markers that is on the battlefield and has not been moved this turn and move it..."
+  - Decoys and Misdirection (Primus): "If your army includes one or more models with this ability, after both players have deployed their armies, select up to three GENESTEALER CULTS units from your army and redeploy them. When doing so, y..."
+  - Flare launcher (Achilles Ridgerunners): "The bearer’s unit has the SMOKE keyword and you can target it with the Smokescreen Stratagem for 0CP...."
+  - Outrider Gangs (Atalan Jackals): "Each time you use the Cult Ambush ability to set this unit back up on the battlefield, in addition to the normal rules, all of its models must be set up wholly within 9" of a battlefield edge and at l..."
+  - Primed and Ready (Reductus Saboteur): "In your Shooting phase, you can select one model from your army with this ability as the target of the Grenade Stratagem for 0CP, provided that model has not already been the target of that Stratagem ..."
+  - Regenerating Gene-mass (Abominant): "The first time this model is destroyed, roll one D6 at the end of the phase. On a 2+, set this model back up on the battlefield as close as possible to where it was destroyed and not within Engagement..."
+  - Spotter (Achilles Ridgerunners): "The bearer’s ranged weapons have a Ballistic Skill characteristic of 3+...."
+  - Tectonic Fragdrill (Tectonic Fragdrill): "Friendly Genestealer Cult Infantry models can be set up or end any type of move on top of the floor sections of this Fortification...."
+  - Underground Egress (Tectonic Fragdrill): "Each time one of your Cult Ambush markers is removed as the result of an enemy unit ending any kind of move within 9" of it, you can instead move that marker so that it is wholly within 9" of this For..."
+
+Faction: grey-knights (2 abilities)
+  - Gate of Infinity ((faction rule)): "If your Army Faction is GREY KNIGHTS, at the end of your opponent’s Fight phase, you can select a number of units (see below) from your army that are on the battlefield (excluding units that are withi..."
+  - Haloed in Soulfire (Psychic) (Brotherhood Librarian): "While this model is leading a unit, that unit can only be selected as the target of a attack if the attacking model is within 18"...."
+
+Faction: imperial-knights (4 abilities)
+  - Grav-pinned (Questoris Knight Styrix): "In your Shooting phase, after this model has shot, if an enemy INFANTRY unit was hit by one or more of those attacks made with a graviton crusher, until the end of your opponent’s next turn, that enem..."
+  - Martial Pride (Knight Gallant): "Each time this unit Consolidates, models in it can move an additional 3" provided your unit can end that move within Engagement Range of one or more enemy units...."
+  - Shock Charge (Cerastus Knight Lancer): "You can target this model with the Tank Shock Stratagem for 0CP, and can do so even if you have already targeted a different unit with that Stratagem this phase...."
+  - Super-heavy Walker ((faction rule)): "Each time a model with this ability makes a Normal, Advance or Fall Back move, it can move through models (excluding TITANIC models) and sections of terrain features that are 4" or less in height. Whe..."
+
+Faction: leagues-of-votann (3 abilities)
+  - Computational Mastermind (Memnyr Strategist): "At the end of your Command phase, before you determine if units from your army have Hostile Acquisition or Fortify Takeover, for each objective marker you control that has one or more models with this..."
+  - Seized Opportunity (Kâhl): "Once per phase, one model from your army with this ability can use it when its unit destroys an enemy unit. If it does, you gain 1YP...."
+  - Unhinged Vengeance (Buri Aegnirssen): "In your opponent’s Shooting phase, each time an enemy unit has shot, if this model lost one or more wounds as a result of those attacks, this model can make a Vengeance move. To do so, roll one D6 and..."
+
+Faction: necrons (19 abilities)
+  - Accelerator Mandible (Canoptek Macrocytes): "At the start of the Fight phase, select one friendly CANOPTEK unit within 3" of this unit. Until the end of the phase, improve the Weapon Skill characteristic of models in that unit by 1...."
+  - Atomic Energy Manipulator (Illuminor Szeras): "At the end of the Fight phase, if this model destroyed one or more models this phase, until the end of the battle, add 3" to the range of its Mechanical Augmentation ability (to a maximum of 12")...."
+  - Canoptek Swarm (Canoptek Spyders): "In your Command phase, select one friendly CANOPTEK SCARAB SWARM unit within 6" of this unit. One destroyed model is returned to that CANOPTEK SCARAB SWARM unit for each SPYDER model in this unit...."
+  - Chittering Swarm (Canoptek Scarab Swarms): "While an enemy unit is within Engagement Range of this unit, subtract 1 from the Objective Control characteristic of models in that enemy unit (to a minimum of 1). While this unit is within 6" of one ..."
+  - Deployment (Convergence of Dominion): "When this unit is first set up on the battlefield, its models do not have to be set up in Unit Coherency. Instead, each model must be set up wholly within 12" of one other model from its unit. From th..."
+  - Eternity Gate (Monolith): "In the Reinforcements step of your Movement phase, you can select one NECRONS INFANTRY unit from your army that is either in Reserves or on the battlefield (if you select the latter, remove that unit ..."
+  - Nanoscarab Reanimation Beam (Aura) (Canoptek Reanimator): "While a friendly NECRONS unit is within 3" of this model, each time that unit’s Reanimation Protocols activate, that unit reanimates an additional D3 wounds...."
+  - Obelisk Node Control (Geomancer): "While this model is within range of an objective marker you control, enemy units that are set up on the battlefield from Reserves cannot be set up within 12" of this model...."
+  - Powers of the C’tan (Tesseract Vault): "In your Shooting phase, when this model is selected to shoot, first select up to two different C’tan Powers weapons. Until the end of the phase, this model is equipped with those weapons in addition t..."
+  - Quantum Invader (Night Scythe): "This model can be set up in the Reinforcements step of your first, second or third Movement phase, regardless of any mission rules...."
+  - Shadowloom (Tomb Blades): "The bearer has the Stealth ability...."
+  - Surrogate Hosts (Trazyn the Infinite): "At the start of your Command phase, if this model is on the battlefield, you can select one other friendly NECRONS INFANTRY CHARACTER model on the battlefield (excluding SKORPEKH LORD and EPIC HERO mo..."
+  - Tectonic Reverberations (Geomancer): "In your Movement phase, you can select one enemy unit within 18" of and visible to this model. Until the start of your next Movement phase that enemy unit is pinned. While a unit is pinned, subtract 2..."
+  - The Lord’s Will (Lord): "While this model is leading a unit, you can target that unit with Stratagems even when it is Battle-shocked...."
+  - The Silent King (The Silent King): "While a friendly NECRONS unit is within 6" of this unit’s Szarekh model, improve that unit’s Leadership characteristic by 1...."
+  - Their Number is Legion (Necron Warriors): "Each time this unit’s Reanimation Protocols activate, you can re-roll the dice to see how many wounds are reanimated...."
+  - Triarch Abilities (The Silent King): "At the start of the battle round, select one Triarch ability. Until the start of the next battle round, this unit has that ability...."
+  - Triarchal Menhirs (The Silent King): "If this unit’s Szarekh model is destroyed, all of this unit’s remaining Triarchal Menhir models are also destroyed...."
+  - Tunnelling Horrors (Ophydian Destroyers): "At the end of your opponent’s turn, if this unit is not within Engagement Range of one or more enemy units, you can remove this unit from the battlefield. In the Reinforcements step of your next Movem..."
+
+Faction: orks (10 abilities)
+  - Aerial Deployment (Chinork Warkopta): "If this model starts the game in Strategic Reserves, it can be set up in the Reinforcements step of your first, second or third Movement phase, regardless of any mission rules...."
+  - Bodyguard (Boyz): "If this unit has a Starting Strength of 20, you can attach up to two Leader units to it instead of one (but only if one of those is a WARBOSS unit). If you do, and this unit is destroyed, the Leader u..."
+  - Gun-crazy Show-offs (Flash Gitz): "Each time a model in this unit targets the closest eligible target with its snazzgun, until the end of the phase, that weapon has an Attacks characteristic of 4...."
+  - Outflank (Warbuggies): "When this unit arrives from Strategic Reserves, it can be set up within your opponent’s deployment zone (all other restrictions still apply)...."
+  - Shokk Tunnel (Shokkjump Dragsta): "Each time this model is selected to Advance, you can remove it from the battlefield and set it up again anywhere on the battlefield that is more than 9" horizontally away from all enemy models instead..."
+  - Shokk-boosta (Big Mek): "You can re‐roll Advance rolls made for this model’s unit. In addition, each time this model’s unit makes a Normal, Advance or Fall Back move, models in that unit can move through models and terrain fe..."
+  - Sneaky Gitz (Kommandos): "Enemy units cannot use the Fire Overwatch Stratagem to shoot at this unit...."
+  - Thundering Stampede (Beastboss on Squigosaur): "While this model is leading a unit, add 1 to Charge rolls made for that unit...."
+  - Waaagh! Effigy (Aura) (Stompa): "While a friendly ORKS unit is within 12" of this model, each time you take a Battle‑shock test for that unit, add 1 to that test...."
+  - ’Ard Case (Battlewagon): "Add 2 to the bearer’s Toughness characteristic, but it no longer has the Firing Deck ability...."
+
+Faction: tau-empire (18 abilities)
+  - Air Caste Colossus (Manta): "Each time you target this model with a Stratagem, you must spend three times that Stratagem’s stated CP cost to do so...."
+  - Bodyguard (Kroot Carnivores): "If this unit has a Starting Strength of 20, you can attach up to two Leader units to it instead of one, provided those Leaders are not duplicates (e.g. you cannot attach two WAR SHAPERS to this unit)...."
+  - Droneport (Tidewall Droneport): "Each time this FORTIFICATION is selected to shoot, its drone defenders weapon will target and resolve attacks against every enemy unit that is an eligible target to this FORTIFICATION...."
+  - Grav-inhibitor Drone (Pathfinder Team): "Each time an enemy unit selects the bearer’s unit as the target of a charge, subtract 2 from the Charge roll (this is not cumulative with any other negative modifiers to that Charge roll)...."
+  - Gun Drone (Crisis Fireknife Battlesuits): "The bearer is equipped with the following ranged weapon:..."
+  - Hunting Hounds (Kroot Hounds): "While this unit is within 12" of one or more friendly KROOT CHARACTER models, the Objective Control characteristic of models in this unit is 1...."
+  - Independent Power (Commander Farsight): "If your army includes COMMANDER FARSIGHT, it cannot include any ETHEREAL units. If your army includes any ETHEREAL units, it cannot include COMMANDER FARSIGHT...."
+  - Jammer Array (Darkstrider): "Enemy units that are set up on the battlefield from Reserves cannot be set up within 12" of this model...."
+  - Kroot Ambush (Kroot Trail Shaper): "After both players have deployed their armies, you can redeploy this model’s unit and one other friendly KROOT unit. When doing so, any of those units can be placed into Strategic Reserves, regardless..."
+  - MV15 Gun Drone (The Twin Lance): "The bearer is equipped with 1 twin pulse blaster...."
+  - Marker Drone (Crisis Fireknife Battlesuits): "The bearer’s unit has the MARKERLIGHT keyword and can act as an Observer unit for another unit even if it Advanced this turn...."
+  - Missile Drone (Riptide Battlesuit): "The bearer is equipped with the following ranged weapon:..."
+  - Outflank (Tx42 Piranha): "When this unit arrives from Strategic Reserves, it can be set up within your opponent’s deployment zone (all other restrictions still apply)...."
+  - Photon Casters (Xv9 Hazard Battlesuits): "In your Shooting phase, after this unit has shot, if an enemy Infantry unit was hit by one or more of those attacks, until the end of your opponent’s next turn, that enemy unit is stunned. While a uni..."
+  - Pulse Accelerator Drone (Pathfinder Team): "Add 6" to the Range characteristic of pulse carbines equipped by models in the bearer’s unit...."
+  - Recon Drone (Pathfinder Team): "The bearer is equipped with 1 drone burst cannon and the bearer’s unit has the Infiltrators ability...."
+  - Thunderous Pounce (Knarloc Riders): "Each time this unit ends a Charge move, until the end of the turn, Knarloc beak and talons equipped by models in this unit have the [LANCE] ability...."
+  - Titan Hunter (AX-1-0 Tiger Shark): "This model’s twin heavy rail cannon and seeker missiles have the [ANTI-TITANIC 3+] ability while targeting a unit within half range...."
+
+Faction: thousand-sons (18 abilities)
+  - Aetherstride (Psychic) (Daemon Prince of Tzeentch with Wings): "In your Movement phase, when this model is set up on the battlefield using the Deep Strike ability, it can perform an aetherstride. If it does:
+■ It can be set up anywhere on the battlefield that is m..."
+  - Arch-Sorcerer of Tzeentch (Psychic) (Ahriman): "Each time this model attempts a Ritual, add 1 to the Psychic test result...."
+  - Binding Tendrils (Psychic) (Exalted Sorcerer on Disc of Tzeentch): "In your Shooting phase, after this model has shot, select one enemy INFANTRY unit hit by one or more of those attacks made with Arcane Fire. Until the start of your next turn, that unit is ensnared. W..."
+  - Daemonforge (Defiler): "Once per Fight phase, one unit from your army with this ability can be targeted with the Counter-offensive Stratagem for OCP, even if you have already targeted a different unit with that Stratagem thi..."
+  - Dark Ascension (Aura) (Helbrute): "While a friendly HERETIC ASTARTES unit is within 6" of this model, each time that unit makes a Dark Pact, until the end of the phase, weapons equipped by models in that unit gain both abilities confer..."
+  - Frenzy (Helbrute): "In your opponent’s Shooting phase, and in the Fight phase, each time an enemy unit targets this model, after that unit has finished making its attacks, this model can either shoot or fight, but when r..."
+  - Glamour of Tzeentch (Aura, Psychic) (Daemon Prince of Tzeentch): "While a friendly THOUSAND SONS INFANTRY unit is within 6" of this model, models in that unit have the Stealth ability...."
+  - Herd banner (Tzaangors): "While the bearer’s unit is within range of one or more objective markers you control, improve the Leadership characteristic of models in the bearer’s unit by 1...."
+  - Illusions of Tzeentch (Psychic) (Exalted Sorcerer on Disc of Tzeentch): "While this model is leading a unit, that unit can only be selected as the target of a ranged attack if the attacking model is within 18"...."
+  - Immaterial Flare (Aura) (Mutalith Vortex Beast): "While a friendly THOUSAND SONS PSYKER model is within 6" of this model, each time that model Channels the Warp, add 1 to the Psychic test result. This is not cumulative with any other modifiers to the..."
+  - Lord of the Planet of the Sorcerers (Psychic) (Magnus the Red): "This model can attempt up to two Rituals per turn instead of one, and each time this model attempts a Ritual, add 2 to the Psychic test result...."
+  - Mind-breaking Mutations (Aura) (Chaos Spawn): "While an enemy unit (excluding VEHICLE units) is within 3" of this unit, subtract 1 from the Objective Control characteristic of models in that enemy unit...."
+  - Sacrificial Blessing (Tzaangor Shaman): "While this model is leading a unit, in your Shooting phase and the Fight phase, each time that unit is selected to shoot or fight, this model can use this ability. If it does, select one Bodyguard mod..."
+  - Scryer of Fates (Psychic) (Ahriman): "If your army includes this model, after both players have deployed their armies, you can select up to three THOUSAND SONS units from your army and redeploy them. When doing so, you can set those units..."
+  - Spirit Snare (Daemon Prince of Tzeentch): "Each time a friendly THOUSAND SONS PSYKER model with the Cabal of Sorcerers ability is destroyed while within 9" of one or more models with this ability, select one of those models with this ability: ..."
+  - The Scent of Blood (Maulerfiend): "Each time this model declares a charge that targets one or more units below Starting Strength, add 1 to the Charge roll. If one or more of the targets of that charge are Below Half-strength, add 2 to ..."
+  - Unearthly Power (Magnus the Red): "At the start of the battle round, select one of the abilities in the Crimson King section. Until the start of the next battle round, this model has that ability...."
+  - Wracking Agonies (Psychic) (Sorcerer): "In your Shooting phase, after this model has shot, select one INFANTRY unit hit by one or more of those attacks made with its Agonising Energies. Until the start of your next turn, that unit is wracke..."
+
+Faction: tyranids (10 abilities)
+  - Aggressive Leader‑beast (Tyranid Prime with Lash Whip): "In your opponent’s Shooting phase, each time an enemy unit has shot, if any models from this unit were destroyed as a result of those attacks, this unit can make a Surge move. To do so, roll one D6: m..."
+  - Bio-minefield (Spore Mines): "Enemy units cannot start or end an Advance move within 6" of this unit...."
+  - Blistering Assault (Carnifexes): "Each time an enemy unit is selected to shoot, after that unit has shot, if any models from this unit lost one or more wounds as a result of those attacks, this unit can make a Blistering Assault move...."
+  - Disruption Bombardment (Barbgaunts): "In your Shooting phase, after this unit has shot, select one enemy INFANTRY unit hit by one or more of those attacks. Until the end of your opponent’s next turn, that enemy unit is disrupted. While a ..."
+  - Domination of the Hive Mind (Aura) (The Swarmlord): "While a friendly TYRANIDS unit is within 9" of this model, that unit is within your army’s Synapse Range...."
+  - Enhanced Toxic Miasma (Malanthrope): "While this model is leading a unit, the range of that unit's Foul Spores Aura ability is increased to 9"...."
+  - Neurocytes (Neurogaunts): "While this unit is within Synapse Range of a friendly TYRANIDS unit (excluding NEUROGAUNT units), it has the SYNAPSE keyword...."
+  - Parasitic Infection (Parasite of Mortrex): "Each time an INFANTRY model is destroyed by an attack made with this model’s barbed ovipositor, after this model has finished making its attacks, you can add one new RIPPER SWARMS unit to your army co..."
+  - Psychic Terror (Psychic) (Neurotyrant): "If one or more Neurotyrants from your army are on the battlefield when you unleash the Shadow in the Warp, subtract 1 from the Battle-shock test each enemy unit on the battlefield must take as a resul..."
+  - Subterranean Tunnels (Trygon): "In your Movement phase, when this model is set up on the battlefield using the Deep Strike ability, it can use a subterranean tunnel. If it does, this model can be set up anywhere on the battlefield t..."
+

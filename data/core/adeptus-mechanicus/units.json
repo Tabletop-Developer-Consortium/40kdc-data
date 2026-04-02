@@ -1,0 +1,1820 @@
+[
+  {
+    "id": "archaeopter-stratoraptor",
+    "name": "Archaeopter Stratoraptor",
+    "faction_id": "adeptus-mechanicus",
+    "profiles": [
+      {
+        "name": "Archaeopter Stratoraptor",
+        "M": 20,
+        "T": 9,
+        "W": 10,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 0
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 185
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Aircraft",
+      "Fly",
+      "Imperium",
+      "Skitarii",
+      "Archaeopter Stratoraptor"
+    ],
+    "faction_keywords": [
+      "Adeptus Mechanicus"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-hull",
+      "cognis-heavy-stubber",
+      "heavy-phosphor-blaster",
+      "twin-cognis-lascannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "onager-dunecrawler",
+    "name": "Onager Dunecrawler",
+    "faction_id": "adeptus-mechanicus",
+    "profiles": [
+      {
+        "name": "Onager Dunecrawler",
+        "M": 8,
+        "T": 10,
+        "W": 11,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 7,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 155
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Imperium",
+      "Skitarii",
+      "Smoke",
+      "Onager Dunecrawler"
+    ],
+    "faction_keywords": [
+      "Adeptus Mechanicus"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "cognis-heavy-stubber",
+      "daedalus-missile-launcher",
+      "dunecrawler-legs",
+      "eradication-beamer",
+      "icarus-array",
+      "neutron-laser",
+      "twin-onager-heavy-phosphor-blaster"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "kataphron-destroyers",
+    "name": "Kataphron Destroyers",
+    "faction_id": "adeptus-mechanicus",
+    "profiles": [
+      {
+        "name": "Kataphron Destroyers",
+        "M": 5,
+        "T": 6,
+        "W": 3,
+        "Sv": 3,
+        "invuln_sv": 6,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 3,
+        "cost": 105
+      },
+      {
+        "models": 6,
+        "cost": 210
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Imperium",
+      "Cult Mechanicus",
+      "Kataphron",
+      "Destroyers"
+    ],
+    "faction_keywords": [
+      "Adeptus Mechanicus"
+    ],
+    "model_count": {
+      "min": 3,
+      "max": 6
+    },
+    "weapon_ids": [
+      "close-combat-weapon",
+      "cognis-flamer",
+      "heavy-grav-cannon",
+      "kataphron-plasma-culverin",
+      "phosphor-blaster"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "cybernetica-datasmith",
+    "name": "Cybernetica Datasmith",
+    "faction_id": "adeptus-mechanicus",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Cybernetica Datasmith",
+        "M": 6,
+        "T": 4,
+        "W": 3,
+        "Sv": 2,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 35
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Imperium",
+      "Legio Cybernetica",
+      "Tech-Priest",
+      "Cybernetica Datasmith"
+    ],
+    "faction_keywords": [
+      "Adeptus Mechanicus"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "mechanicus-pistol",
+      "power-fist"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "ironstrider-ballistarii",
+    "name": "Ironstrider Ballistarii",
+    "faction_id": "adeptus-mechanicus",
+    "profiles": [
+      {
+        "name": "Ironstrider Ballistarii",
+        "M": 10,
+        "T": 7,
+        "W": 7,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 85
+      },
+      {
+        "models": 2,
+        "cost": 170
+      },
+      {
+        "models": 3,
+        "cost": 255
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Smoke",
+      "Imperium",
+      "Skitarii",
+      "Ironstrider Ballistarii"
+    ],
+    "faction_keywords": [
+      "Adeptus Mechanicus"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 3
+    },
+    "weapon_ids": [
+      "ironstrider-feet",
+      "twin-cognis-autocannon",
+      "twin-cognis-lascannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "tech-priest-manipulus",
+    "name": "Tech-Priest Manipulus",
+    "faction_id": "adeptus-mechanicus",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Tech-Priest Manipulus",
+        "M": 6,
+        "T": 4,
+        "W": 4,
+        "Sv": 2,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 60
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Imperium",
+      "Cult Mechanicus",
+      "Tech-Priest",
+      "Manipulus"
+    ],
+    "faction_keywords": [
+      "Adeptus Mechanicus"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "magnarail-lance",
+      "omnissian-staff",
+      "transonic-cannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "sydonian-dragoons-with-radium-jezzails",
+    "name": "Sydonian Dragoons with Radium Jezzails",
+    "faction_id": "adeptus-mechanicus",
+    "profiles": [
+      {
+        "name": "Sydonian Dragoons with Radium Jezzails",
+        "M": 10,
+        "T": 7,
+        "W": 7,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 55
+      },
+      {
+        "models": 2,
+        "cost": 100
+      },
+      {
+        "models": 3,
+        "cost": 150
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Smoke",
+      "Imperium",
+      "Skitarii",
+      "Sydonian",
+      "Dragoons with Radium Jezzails"
+    ],
+    "faction_keywords": [
+      "Adeptus Mechanicus"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 3
+    },
+    "weapon_ids": [
+      "ironstrider-feet",
+      "phosphor-serpenta",
+      "radium-jezzail"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "belisarius-cawl",
+    "name": "Belisarius Cawl",
+    "faction_id": "adeptus-mechanicus",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Belisarius Cawl",
+        "M": 8,
+        "T": 8,
+        "W": 10,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 210
+      }
+    ],
+    "keywords": [
+      "Monster",
+      "Character",
+      "Epic Hero",
+      "Imperium",
+      "Tech-Priest",
+      "Cult Mechanicus",
+      "Belisarius Cawl"
+    ],
+    "faction_keywords": [
+      "Adeptus Mechanicus"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "arc-scourge",
+      "cawls-omnissian-axe",
+      "mechadendrite-hive",
+      "solar-atomiser"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "servitor-battleclade",
+    "name": "Servitor Battleclade",
+    "faction_id": "adeptus-mechanicus",
+    "profiles": [
+      {
+        "name": "Servitor Underseer",
+        "M": 6,
+        "T": 4,
+        "W": 2,
+        "Sv": 4,
+        "invuln_sv": 6,
+        "Ld": 7,
+        "OC": 1
+      },
+      {
+        "name": "Combat Servitor",
+        "M": 6,
+        "T": 4,
+        "W": 1,
+        "Sv": 4,
+        "invuln_sv": 6,
+        "Ld": 8,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 9,
+        "cost": 60
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Imperium",
+      "Cult Mechanicus",
+      "Servitor Battleclade",
+      "Tech-Priest"
+    ],
+    "faction_keywords": [
+      "Adeptus Mechanicus"
+    ],
+    "model_count": {
+      "min": 9,
+      "max": 9
+    },
+    "weapon_ids": [
+      "dataspikes",
+      "heavy-arc-rifle",
+      "heavy-bolter",
+      "incendine-igniter",
+      "mechanicus-pistol",
+      "meltagun",
+      "phosphor-blaster",
+      "servo-claw"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "fulgurite-electro-priests",
+    "name": "Fulgurite Electro-Priests",
+    "faction_id": "adeptus-mechanicus",
+    "profiles": [
+      {
+        "name": "Fulgurite Electro-Priests",
+        "M": 6,
+        "T": 3,
+        "W": 1,
+        "Sv": 7,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 70
+      },
+      {
+        "models": 10,
+        "cost": 140
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Imperium",
+      "Cult Mechanicus",
+      "Electro-Priests",
+      "Fulgurite"
+    ],
+    "faction_keywords": [
+      "Adeptus Mechanicus"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 10
+    },
+    "weapon_ids": [
+      "electroleech-stave"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "skorpius-disintegrator",
+    "name": "Skorpius Disintegrator",
+    "faction_id": "adeptus-mechanicus",
+    "profiles": [
+      {
+        "name": "Skorpius Disintegrator",
+        "M": 10,
+        "T": 10,
+        "W": 12,
+        "Sv": 2,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 165
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Imperium",
+      "Skitarii",
+      "Smoke",
+      "Skorpius Disintegrator"
+    ],
+    "faction_keywords": [
+      "Adeptus Mechanicus"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-hull",
+      "belleros-energy-cannon",
+      "cognis-heavy-stubber",
+      "disruptor-missile-launcher",
+      "ferrumite-cannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "sydonian-skatros",
+    "name": "Sydonian Skatros",
+    "faction_id": "adeptus-mechanicus",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Sydonian Skatros",
+        "M": 8,
+        "T": 4,
+        "W": 4,
+        "Sv": 4,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 50
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Imperium",
+      "Skitarii",
+      "Sydonian",
+      "Skatros"
+    ],
+    "faction_keywords": [
+      "Adeptus Mechanicus"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "mechanicus-pistol",
+      "radium-jezzail",
+      "skatros-transuranic-arquebus",
+      "sydonian-feet"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "sicarian-infiltrators",
+    "name": "Sicarian Infiltrators",
+    "faction_id": "adeptus-mechanicus",
+    "profiles": [
+      {
+        "name": "Sicarian Infiltrator",
+        "M": 8,
+        "T": 4,
+        "W": 2,
+        "Sv": 4,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 75
+      },
+      {
+        "models": 10,
+        "cost": 155
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Imperium",
+      "Skitarii",
+      "Sicarian",
+      "Infiltrators"
+    ],
+    "faction_keywords": [
+      "Adeptus Mechanicus"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 10
+    },
+    "weapon_ids": [
+      "flechette-blaster",
+      "power-weapon",
+      "stubcarbine",
+      "taser-goad"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "archaeopter-transvector",
+    "name": "Archaeopter Transvector",
+    "faction_id": "adeptus-mechanicus",
+    "profiles": [
+      {
+        "name": "Archaeopter Transvector",
+        "M": 20,
+        "T": 9,
+        "W": 10,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 0
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 150
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Aircraft",
+      "Transport",
+      "Fly",
+      "Imperium",
+      "Skitarii",
+      "Archaeopter Transvector"
+    ],
+    "faction_keywords": [
+      "Adeptus Mechanicus"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-hull",
+      "cognis-heavy-stubber-array"
+    ],
+    "ability_ids": [],
+    "transport_capacity": {
+      "capacity": 11,
+      "exclusion_keywords": [
+        "Jump Pack"
+      ]
+    },
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "skitarii-vanguard",
+    "name": "Skitarii Vanguard",
+    "faction_id": "adeptus-mechanicus",
+    "role": "battleline",
+    "profiles": [
+      {
+        "name": "Skitarii Vanguard",
+        "M": 6,
+        "T": 3,
+        "W": 1,
+        "Sv": 4,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 10,
+        "cost": 95
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Battleline",
+      "Imperium",
+      "Skitarii",
+      "Vanguard"
+    ],
+    "faction_keywords": [
+      "Adeptus Mechanicus"
+    ],
+    "model_count": {
+      "min": 10,
+      "max": 10
+    },
+    "weapon_ids": [
+      "alpha-combat-weapon",
+      "arc-rifle",
+      "close-combat-weapon",
+      "mechanicus-pistol",
+      "plasma-caliver",
+      "radium-carbine",
+      "transuranic-arquebus"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "tech-priest-dominus",
+    "name": "Tech-Priest Dominus",
+    "faction_id": "adeptus-mechanicus",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Tech-Priest Dominus",
+        "M": 6,
+        "T": 4,
+        "W": 4,
+        "Sv": 2,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 65
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Imperium",
+      "Cult Mechanicus",
+      "Tech-Priest",
+      "Dominus"
+    ],
+    "faction_keywords": [
+      "Adeptus Mechanicus"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "eradication-ray",
+      "macrostubber",
+      "omnissian-axe",
+      "phosphor-serpenta",
+      "volkite-blaster"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "pteraxii-skystalkers",
+    "name": "Pteraxii Skystalkers",
+    "faction_id": "adeptus-mechanicus",
+    "profiles": [
+      {
+        "name": "Pteraxii Skystalker",
+        "M": 12,
+        "T": 4,
+        "W": 2,
+        "Sv": 4,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 75
+      },
+      {
+        "models": 10,
+        "cost": 150
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Fly",
+      "Jump Pack",
+      "Grenades",
+      "Imperium",
+      "Skitarii",
+      "Pteraxii",
+      "Skystalkers"
+    ],
+    "faction_keywords": [
+      "Adeptus Mechanicus"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 10
+    },
+    "weapon_ids": [
+      "close-combat-weapon",
+      "flechette-blaster",
+      "flechette-carbine",
+      "taser-goad"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "kataphron-breachers",
+    "name": "Kataphron Breachers",
+    "faction_id": "adeptus-mechanicus",
+    "profiles": [
+      {
+        "name": "Kataphron Breachers",
+        "M": 5,
+        "T": 7,
+        "W": 3,
+        "Sv": 3,
+        "invuln_sv": 6,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 3,
+        "cost": 160
+      },
+      {
+        "models": 6,
+        "cost": 320
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Imperium",
+      "Cult Mechanicus",
+      "Kataphron",
+      "Breachers"
+    ],
+    "faction_keywords": [
+      "Adeptus Mechanicus"
+    ],
+    "model_count": {
+      "min": 3,
+      "max": 6
+    },
+    "weapon_ids": [
+      "arc-claw",
+      "heavy-arc-rifle",
+      "hydraulic-claw",
+      "torsion-cannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "sicarian-ruststalkers",
+    "name": "Sicarian Ruststalkers",
+    "faction_id": "adeptus-mechanicus",
+    "profiles": [
+      {
+        "name": "Sicarian Ruststalker",
+        "M": 8,
+        "T": 4,
+        "W": 2,
+        "Sv": 4,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 80
+      },
+      {
+        "models": 10,
+        "cost": 165
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Imperium",
+      "Skitarii",
+      "Sicarian",
+      "Ruststalkers"
+    ],
+    "faction_keywords": [
+      "Adeptus Mechanicus"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 10
+    },
+    "weapon_ids": [
+      "transonic-blades",
+      "transonic-blades-and-chordclaw",
+      "transonic-razor-and-chordclaw"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "technoarcheologist",
+    "name": "Technoarcheologist",
+    "faction_id": "adeptus-mechanicus",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Technoarcheologist",
+        "M": 6,
+        "T": 4,
+        "W": 3,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 45
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Imperium",
+      "Cult Mechanicus",
+      "Tech-Priest",
+      "Technoarcheologist"
+    ],
+    "faction_keywords": [
+      "Adeptus Mechanicus"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "mechanicus-pistol",
+      "servo-arc-claw"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "corpuscarii-electro-priests",
+    "name": "Corpuscarii Electro-Priests",
+    "faction_id": "adeptus-mechanicus",
+    "profiles": [
+      {
+        "name": "Corpuscarii Electro-Priests",
+        "M": 6,
+        "T": 3,
+        "W": 1,
+        "Sv": 7,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 65
+      },
+      {
+        "models": 10,
+        "cost": 130
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Imperium",
+      "Cult Mechanicus",
+      "Electro-Priests",
+      "Corpuscarii"
+    ],
+    "faction_keywords": [
+      "Adeptus Mechanicus"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 10
+    },
+    "weapon_ids": [
+      "electrostatic-gauntlets"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "serberys-raiders",
+    "name": "Serberys Raiders",
+    "faction_id": "adeptus-mechanicus",
+    "profiles": [
+      {
+        "name": "Serberys Raider",
+        "M": 12,
+        "T": 4,
+        "W": 2,
+        "Sv": 4,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 3,
+        "cost": 60
+      },
+      {
+        "models": 6,
+        "cost": 120
+      }
+    ],
+    "keywords": [
+      "Mounted",
+      "Imperium",
+      "Skitarii",
+      "Serberys Raiders"
+    ],
+    "faction_keywords": [
+      "Adeptus Mechanicus"
+    ],
+    "model_count": {
+      "min": 3,
+      "max": 6
+    },
+    "weapon_ids": [
+      "cavalry-sabre-and-clawed-limbs",
+      "galvanic-carbine",
+      "mechanicus-pistol"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "sydonian-dragoons-with-taser-lances",
+    "name": "Sydonian Dragoons with Taser Lances",
+    "faction_id": "adeptus-mechanicus",
+    "profiles": [
+      {
+        "name": "Sydonian Dragoons with Taser Lances",
+        "M": 10,
+        "T": 7,
+        "W": 7,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 65
+      },
+      {
+        "models": 2,
+        "cost": 130
+      },
+      {
+        "models": 3,
+        "cost": 195
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Smoke",
+      "Imperium",
+      "Skitarii",
+      "Sydonian",
+      "Dragoons with Taser Lances"
+    ],
+    "faction_keywords": [
+      "Adeptus Mechanicus"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 3
+    },
+    "weapon_ids": [
+      "phosphor-serpenta",
+      "taser-lance"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "serberys-sulphurhounds",
+    "name": "Serberys Sulphurhounds",
+    "faction_id": "adeptus-mechanicus",
+    "profiles": [
+      {
+        "name": "Serberys Sulphurhound",
+        "M": 12,
+        "T": 4,
+        "W": 2,
+        "Sv": 4,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 3,
+        "cost": 55
+      },
+      {
+        "models": 6,
+        "cost": 110
+      }
+    ],
+    "keywords": [
+      "Mounted",
+      "Imperium",
+      "Skitarii",
+      "Serberys Sulphurhounds"
+    ],
+    "faction_keywords": [
+      "Adeptus Mechanicus"
+    ],
+    "model_count": {
+      "min": 3,
+      "max": 6
+    },
+    "weapon_ids": [
+      "cavalry-arc-maul",
+      "clawed-limbs",
+      "mechanicus-pistol",
+      "phosphor-blast-carbine",
+      "phosphor-pistol",
+      "sulphur-breath"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "tech-priest-enginseer",
+    "name": "Tech-Priest Enginseer",
+    "faction_id": "adeptus-mechanicus",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Tech-Priest Enginseer",
+        "M": 6,
+        "T": 4,
+        "W": 3,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 55
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Imperium",
+      "Cult Mechanicus",
+      "Tech-Priest",
+      "Enginseer"
+    ],
+    "faction_keywords": [
+      "Adeptus Mechanicus"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "mechanicus-pistol",
+      "omnissian-axe",
+      "servo-arm"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "skitarii-marshal",
+    "name": "Skitarii Marshal",
+    "faction_id": "adeptus-mechanicus",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Skitarii Marshal",
+        "M": 6,
+        "T": 3,
+        "W": 3,
+        "Sv": 4,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 35
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Imperium",
+      "Skitarii",
+      "Marshal"
+    ],
+    "faction_keywords": [
+      "Adeptus Mechanicus"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "control-stave",
+      "mechanicus-pistol"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "skorpius-dunerider",
+    "name": "Skorpius Dunerider",
+    "faction_id": "adeptus-mechanicus",
+    "role": "dedicated-transport",
+    "profiles": [
+      {
+        "name": "Skorpius Dunerider",
+        "M": 12,
+        "T": 9,
+        "W": 11,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 85
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Transport",
+      "Dedicated Transport",
+      "Imperium",
+      "Skitarii",
+      "Smoke",
+      "Skorpius Dunerider"
+    ],
+    "faction_keywords": [
+      "Adeptus Mechanicus"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-hull",
+      "cognis-heavy-stubber-array"
+    ],
+    "ability_ids": [],
+    "transport_capacity": {
+      "capacity": 12,
+      "exclusion_keywords": [
+        "Jump Pack"
+      ]
+    },
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "kastelan-robots",
+    "name": "Kastelan Robots",
+    "faction_id": "adeptus-mechanicus",
+    "profiles": [
+      {
+        "name": "Kastelan Robots",
+        "M": 6,
+        "T": 9,
+        "W": 7,
+        "Sv": 2,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 2,
+        "cost": 180
+      },
+      {
+        "models": 4,
+        "cost": 360
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Imperium",
+      "Legio Cybernetica",
+      "Kastelan Robots"
+    ],
+    "faction_keywords": [
+      "Adeptus Mechanicus"
+    ],
+    "model_count": {
+      "min": 2,
+      "max": 4
+    },
+    "weapon_ids": [
+      "close-combat-weapon",
+      "heavy-phosphor-blaster",
+      "incendine-combustor",
+      "kastelan-fist",
+      "kastelan-phosphor-blaster",
+      "twin-kastelan-fist",
+      "twin-kastelan-phosphor-blaster"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "pteraxii-sterylizors",
+    "name": "Pteraxii Sterylizors",
+    "faction_id": "adeptus-mechanicus",
+    "profiles": [
+      {
+        "name": "Pteraxii Sterylizor",
+        "M": 12,
+        "T": 4,
+        "W": 2,
+        "Sv": 4,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 80
+      },
+      {
+        "models": 10,
+        "cost": 160
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Fly",
+      "Jump Pack",
+      "Imperium",
+      "Skitarii",
+      "Pteraxii",
+      "Sterylizors"
+    ],
+    "faction_keywords": [
+      "Adeptus Mechanicus"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 10
+    },
+    "weapon_ids": [
+      "flechette-blaster",
+      "phosphor-torch",
+      "pteraxii-talons",
+      "taser-goad"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "archaeopter-fusilave",
+    "name": "Archaeopter Fusilave",
+    "faction_id": "adeptus-mechanicus",
+    "profiles": [
+      {
+        "name": "Archaeopter Fusilave",
+        "M": 20,
+        "T": 9,
+        "W": 10,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 0
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 160
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Aircraft",
+      "Fly",
+      "Imperium",
+      "Skitarii",
+      "Archaeopter Fusilave"
+    ],
+    "faction_keywords": [
+      "Adeptus Mechanicus"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-hull",
+      "cognis-heavy-stubber-array"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "skitarii-rangers",
+    "name": "Skitarii Rangers",
+    "faction_id": "adeptus-mechanicus",
+    "role": "battleline",
+    "profiles": [
+      {
+        "name": "Skitarii Ranger",
+        "M": 6,
+        "T": 3,
+        "W": 1,
+        "Sv": 4,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 10,
+        "cost": 85
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Battleline",
+      "Imperium",
+      "Skitarii",
+      "Rangers"
+    ],
+    "faction_keywords": [
+      "Adeptus Mechanicus"
+    ],
+    "model_count": {
+      "min": 10,
+      "max": 10
+    },
+    "weapon_ids": [
+      "alpha-combat-weapon",
+      "arc-rifle",
+      "close-combat-weapon",
+      "galvanic-rifle",
+      "mechanicus-pistol",
+      "plasma-caliver",
+      "transuranic-arquebus"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "terrax-pattern-termite",
+    "name": "Terrax-pattern Termite",
+    "faction_id": "adeptus-mechanicus",
+    "role": "dedicated-transport",
+    "profiles": [
+      {
+        "name": "Terrax-pattern Termite",
+        "M": 8,
+        "T": 10,
+        "W": 14,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 2
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Dedicated Transport",
+      "Imperium",
+      "Terrax-pattern Termite",
+      "Transport",
+      "Vehicle"
+    ],
+    "faction_keywords": [
+      "Adeptus Mechanicus"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "combi-bolter",
+      "heavy-flamer",
+      "termite-drill",
+      "terrax-melta-cutter",
+      "twin-volkite-charger"
+    ],
+    "ability_ids": [],
+    "transport_capacity": {
+      "capacity": 12,
+      "exclusion_keywords": [
+        "Jump Pack"
+      ]
+    },
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "x-101",
+    "name": "X-101",
+    "faction_id": "adeptus-mechanicus",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "X-101",
+        "M": 6,
+        "T": 3,
+        "W": 3,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 8,
+        "OC": 0
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Character",
+      "Epic Hero",
+      "Imperium",
+      "Infantry",
+      "X-101"
+    ],
+    "faction_keywords": [
+      "Adeptus Mechanicus"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "grav-gun",
+      "hydraulic-claw"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "secutarii-hoplites",
+    "name": "Secutarii Hoplites",
+    "faction_id": "adeptus-mechanicus",
+    "profiles": [
+      {
+        "name": "Secutarii Hoplites",
+        "M": 6,
+        "T": 3,
+        "W": 1,
+        "Sv": 5,
+        "invuln_sv": 4,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Imperium",
+      "Infantry",
+      "Secutarii Hoplites",
+      "Skitarii"
+    ],
+    "faction_keywords": [
+      "Adeptus Mechanicus"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "alpha-close-combat-weapon",
+      "arc-lance",
+      "archeotech-pistol"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "secutarii-peltasts",
+    "name": "Secutarii Peltasts",
+    "faction_id": "adeptus-mechanicus",
+    "profiles": [
+      {
+        "name": "Secutarii Peltasts",
+        "M": 6,
+        "T": 3,
+        "W": 1,
+        "Sv": 5,
+        "invuln_sv": 6,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Imperium",
+      "Infantry",
+      "Secutarii Peltasts",
+      "Skitarii"
+    ],
+    "faction_keywords": [
+      "Adeptus Mechanicus"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "alpha-close-combat-weapon",
+      "archeotech-pistol",
+      "close-combat-weapon",
+      "galvanic-caster"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  }
+]

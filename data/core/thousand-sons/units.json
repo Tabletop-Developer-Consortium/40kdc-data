@@ -1,0 +1,1496 @@
+[
+  {
+    "id": "helbrute",
+    "name": "Helbrute",
+    "faction_id": "thousand-sons",
+    "profiles": [
+      {
+        "name": "Helbrute",
+        "M": 8,
+        "T": 9,
+        "W": 8,
+        "Sv": 2,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 110
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Chaos",
+      "Tzeentch",
+      "Helbrute"
+    ],
+    "faction_keywords": [
+      "Thousand Sons"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "close-combat-weapon",
+      "heavy-flamer",
+      "helbrute-fist",
+      "helbrute-hammer",
+      "helbrute-plasma-cannon",
+      "inferno-combi-bolter",
+      "missile-launcher",
+      "multi-melta",
+      "power-scourge",
+      "twin-autocannon",
+      "twin-inferno-heavy-bolter",
+      "twin-lascannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "mutalith-vortex-beast",
+    "name": "Mutalith Vortex Beast",
+    "faction_id": "thousand-sons",
+    "profiles": [
+      {
+        "name": "Mutalith Vortex Beast",
+        "M": 10,
+        "T": 10,
+        "W": 13,
+        "Sv": 4,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 4
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 170
+      }
+    ],
+    "keywords": [
+      "Monster",
+      "Chaos",
+      "Tzeentch",
+      "Mutant",
+      "Mutalith Vortex Beast"
+    ],
+    "faction_keywords": [
+      "Thousand Sons"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "betentacled-maw",
+      "mutalith-claws",
+      "warp-vortex"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "chaos-land-raider",
+    "name": "Chaos Land Raider",
+    "faction_id": "thousand-sons",
+    "profiles": [
+      {
+        "name": "Chaos Land Raider",
+        "M": 10,
+        "T": 12,
+        "W": 16,
+        "Sv": 2,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 5
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 220
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Transport",
+      "Smoke",
+      "Chaos",
+      "Tzeentch",
+      "Land Raider"
+    ],
+    "faction_keywords": [
+      "Thousand Sons"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-tracks",
+      "havoc-launcher",
+      "inferno-combi-bolter",
+      "inferno-combi-weapon",
+      "soulshatter-lascannon",
+      "twin-inferno-heavy-bolter"
+    ],
+    "ability_ids": [],
+    "transport_capacity": {
+      "capacity": 14
+    },
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "tzaangor-shaman",
+    "name": "Tzaangor Shaman",
+    "faction_id": "thousand-sons",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Tzaangor Shaman",
+        "M": 10,
+        "T": 4,
+        "W": 4,
+        "Sv": 5,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 60
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Mounted",
+      "Character",
+      "Fly",
+      "Psyker",
+      "Chaos",
+      "Tzeentch",
+      "Mutant",
+      "Tzaangor Shaman"
+    ],
+    "faction_keywords": [
+      "Thousand Sons"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "baleful-devolution",
+      "force-stave"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "chaos-spawn",
+    "name": "Chaos Spawn",
+    "faction_id": "thousand-sons",
+    "profiles": [
+      {
+        "name": "Chaos Spawn",
+        "M": 8,
+        "T": 5,
+        "W": 4,
+        "Sv": 4,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 2,
+        "cost": 65
+      }
+    ],
+    "keywords": [
+      "Beast",
+      "Chaos",
+      "Tzeentch",
+      "Mutant",
+      "Chaos Spawn"
+    ],
+    "faction_keywords": [
+      "Thousand Sons"
+    ],
+    "model_count": {
+      "min": 2,
+      "max": 2
+    },
+    "weapon_ids": [
+      "hideous-mutations"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "sorcerer",
+    "name": "Sorcerer",
+    "faction_id": "thousand-sons",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Sorcerer",
+        "M": 6,
+        "T": 4,
+        "W": 4,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 80
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Psyker",
+      "Grenades",
+      "Chaos",
+      "Tzeentch",
+      "Sorcerer"
+    ],
+    "faction_keywords": [
+      "Thousand Sons"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "force-weapon",
+      "inferno-bolt-pistol",
+      "pandaemonic-delusion",
+      "prosperine-khopesh"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "chaos-vindicator",
+    "name": "Chaos Vindicator",
+    "faction_id": "thousand-sons",
+    "profiles": [
+      {
+        "name": "Chaos Vindicator",
+        "M": 9,
+        "T": 11,
+        "W": 11,
+        "Sv": 2,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 185
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Smoke",
+      "Chaos",
+      "Tzeentch",
+      "Vindicator"
+    ],
+    "faction_keywords": [
+      "Thousand Sons"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-tracks",
+      "demolisher-cannon",
+      "havoc-launcher",
+      "inferno-combi-bolter",
+      "inferno-combi-weapon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "chaos-rhino",
+    "name": "Chaos Rhino",
+    "faction_id": "thousand-sons",
+    "role": "dedicated-transport",
+    "profiles": [
+      {
+        "name": "Chaos Rhino",
+        "M": 12,
+        "T": 9,
+        "W": 10,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 90
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Transport",
+      "Dedicated Transport",
+      "Smoke",
+      "Chaos",
+      "Tzeentch",
+      "Rhino"
+    ],
+    "faction_keywords": [
+      "Thousand Sons"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-tracks",
+      "havoc-launcher",
+      "inferno-combi-bolter",
+      "inferno-combi-weapon"
+    ],
+    "ability_ids": [],
+    "transport_capacity": {
+      "capacity": 12
+    },
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "ahriman",
+    "name": "Ahriman",
+    "faction_id": "thousand-sons",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Ahriman",
+        "M": 10,
+        "T": 4,
+        "W": 6,
+        "Sv": 3,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 100
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Ahriman",
+      "Mounted",
+      "Character",
+      "Epic Hero",
+      "Fly",
+      "Psyker",
+      "Chaos",
+      "Tzeentch"
+    ],
+    "faction_keywords": [
+      "Thousand Sons"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "black-staff-of-ahriman",
+      "inferno-bolt-pistol",
+      "transmogrifying-blast"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "rubric-marines",
+    "name": "Rubric Marines",
+    "faction_id": "thousand-sons",
+    "role": "battleline",
+    "profiles": [
+      {
+        "name": "Aspiring Sorcerer",
+        "M": 6,
+        "T": 4,
+        "W": 3,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 2
+      },
+      {
+        "name": "Rubric Marine",
+        "M": 6,
+        "T": 4,
+        "W": 2,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 100
+      },
+      {
+        "models": 10,
+        "cost": 190
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Battleline",
+      "Chaos",
+      "Tzeentch",
+      "Rubricae",
+      "Rubric Marines",
+      "Psyker"
+    ],
+    "faction_keywords": [
+      "Thousand Sons"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 10
+    },
+    "weapon_ids": [
+      "close-combat-weapon",
+      "force-weapon",
+      "inferno-bolt-pistol",
+      "inferno-boltgun",
+      "malefic-curse",
+      "soulreaper-cannon",
+      "warpflame-pistol",
+      "warpflamer"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "infernal-master",
+    "name": "Infernal Master",
+    "faction_id": "thousand-sons",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Infernal Master",
+        "M": 6,
+        "T": 4,
+        "W": 4,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 95
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Grenades",
+      "Psyker",
+      "Chaos",
+      "Tzeentch",
+      "Infernal Master"
+    ],
+    "faction_keywords": [
+      "Thousand Sons"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "fires-of-the-abyss",
+      "force-weapon",
+      "inferno-bolt-pistol"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "tzaangor-enlightened",
+    "name": "Tzaangor Enlightened",
+    "faction_id": "thousand-sons",
+    "profiles": [
+      {
+        "name": "Enlightened",
+        "M": 10,
+        "T": 4,
+        "W": 2,
+        "Sv": 5,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 3,
+        "cost": 45
+      },
+      {
+        "models": 6,
+        "cost": 90
+      }
+    ],
+    "keywords": [
+      "Mounted",
+      "Fly",
+      "Chaos",
+      "Tzeentch",
+      "Mutant",
+      "Tzaangor Enlightened"
+    ],
+    "faction_keywords": [
+      "Thousand Sons"
+    ],
+    "model_count": {
+      "min": 3,
+      "max": 6
+    },
+    "weapon_ids": [
+      "autopistol",
+      "chainsword",
+      "divining-spear"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "tzaangor-enlightened-with-fatecaster-greatbows",
+    "name": "Tzaangor Enlightened with Fatecaster Greatbows",
+    "faction_id": "thousand-sons",
+    "profiles": [
+      {
+        "name": "Enlightened",
+        "M": 10,
+        "T": 4,
+        "W": 2,
+        "Sv": 5,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 3,
+        "cost": 55
+      },
+      {
+        "models": 6,
+        "cost": 110
+      }
+    ],
+    "keywords": [
+      "Mounted",
+      "Fly",
+      "Chaos",
+      "Tzeentch",
+      "Mutant",
+      "Tzaangor Enlightened",
+      "Tzaangor Enlightened with Fatecaster Greatbows"
+    ],
+    "faction_keywords": [
+      "Thousand Sons"
+    ],
+    "model_count": {
+      "min": 3,
+      "max": 6
+    },
+    "weapon_ids": [
+      "close-combat-weapon",
+      "fatecaster-greatbow"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "scarab-occult-terminators",
+    "name": "Scarab Occult Terminators",
+    "faction_id": "thousand-sons",
+    "profiles": [
+      {
+        "name": "Scarab Occult Sorcerer",
+        "M": 5,
+        "T": 5,
+        "W": 4,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      },
+      {
+        "name": "Scarab Occult Terminator",
+        "M": 5,
+        "T": 5,
+        "W": 3,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 180
+      },
+      {
+        "models": 10,
+        "cost": 360
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Terminator",
+      "Chaos",
+      "Tzeentch",
+      "Rubricae",
+      "Scarab Occult",
+      "Psyker"
+    ],
+    "faction_keywords": [
+      "Thousand Sons"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 10
+    },
+    "weapon_ids": [
+      "force-weapon",
+      "heavy-warpflamer",
+      "hellfyre-missile-rack",
+      "inferno-combi-bolter",
+      "malefic-curse",
+      "prosperine-khopesh",
+      "soulreaper-cannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "magnus-the-red",
+    "name": "Magnus the Red",
+    "faction_id": "thousand-sons",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Magnus the Red",
+        "M": 14,
+        "T": 11,
+        "W": 16,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 5,
+        "OC": 6
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 435
+      }
+    ],
+    "keywords": [
+      "Monster",
+      "Magnus the Red",
+      "Character",
+      "Epic Hero",
+      "Fly",
+      "Daemon",
+      "Primarch",
+      "Psyker",
+      "Chaos",
+      "Tzeentch"
+    ],
+    "faction_keywords": [
+      "Thousand Sons"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "blade-of-magnus",
+      "gaze-of-magnus",
+      "tzeentchs-firestorm"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "chaos-predator-destructor",
+    "name": "Chaos Predator Destructor",
+    "faction_id": "thousand-sons",
+    "profiles": [
+      {
+        "name": "Chaos Predator Destructor",
+        "M": 10,
+        "T": 10,
+        "W": 11,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 130
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Smoke",
+      "Chaos",
+      "Tzeentch",
+      "Predator Destructor"
+    ],
+    "faction_keywords": [
+      "Thousand Sons"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-tracks",
+      "havoc-launcher",
+      "inferno-combi-bolter",
+      "inferno-combi-weapon",
+      "inferno-heavy-bolter",
+      "lascannon",
+      "predator-autocannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "defiler",
+    "name": "Defiler",
+    "faction_id": "thousand-sons",
+    "profiles": [
+      {
+        "name": "Defiler",
+        "M": 8,
+        "T": 10,
+        "W": 14,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 5
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 165
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Daemon",
+      "Smoke",
+      "Chaos",
+      "Tzeentch",
+      "Defiler"
+    ],
+    "faction_keywords": [
+      "Thousand Sons"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "defiler-cannon",
+      "defiler-claws",
+      "defiler-scourge",
+      "havoc-launcher",
+      "inferno-combi-weapon",
+      "reaper-autocannon",
+      "twin-heavy-flamer",
+      "twin-inferno-heavy-bolter",
+      "twin-lascannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "daemon-prince-of-tzeentch-with-wings",
+    "name": "Daemon Prince of Tzeentch with Wings",
+    "faction_id": "thousand-sons",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Daemon Prince of Tzeentch with Wings",
+        "M": 13,
+        "T": 9,
+        "W": 10,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 170
+      }
+    ],
+    "keywords": [
+      "Monster",
+      "Character",
+      "Daemon",
+      "Fly",
+      "Psyker",
+      "Chaos",
+      "Tzeentch",
+      "Daemon Prince"
+    ],
+    "faction_keywords": [
+      "Thousand Sons"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "dark-blessing",
+      "hellforged-weapons",
+      "infernal-cannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "tzaangors",
+    "name": "Tzaangors",
+    "faction_id": "thousand-sons",
+    "profiles": [
+      {
+        "name": "Tzaangor",
+        "M": 6,
+        "T": 4,
+        "W": 1,
+        "Sv": 6,
+        "invuln_sv": 6,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 10,
+        "cost": 70
+      },
+      {
+        "models": 20,
+        "cost": 160
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Chaos",
+      "Tzeentch",
+      "Mutant",
+      "Tzaangors"
+    ],
+    "faction_keywords": [
+      "Thousand Sons"
+    ],
+    "model_count": {
+      "min": 10,
+      "max": 20
+    },
+    "weapon_ids": [
+      "autopistol",
+      "chainsword",
+      "tzaangor-blades"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "sekhetar-robots",
+    "name": "Sekhetar Robots",
+    "faction_id": "thousand-sons",
+    "profiles": [
+      {
+        "name": "Sekhetar Robots",
+        "M": 8,
+        "T": 6,
+        "W": 4,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 2,
+        "cost": 80
+      },
+      {
+        "models": 4,
+        "cost": 160
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Chaos",
+      "Tzeentch",
+      "Sekhetar Robots"
+    ],
+    "faction_keywords": [
+      "Thousand Sons"
+    ],
+    "model_count": {
+      "min": 2,
+      "max": 4
+    },
+    "weapon_ids": [
+      "close-combat-weapon",
+      "heavy-warpflamer",
+      "hellfyre-missile-rack",
+      "power-claw",
+      "pyreflux-meltagun",
+      "warpflame-projector"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "exalted-sorcerer-on-disc-of-tzeentch",
+    "name": "Exalted Sorcerer on Disc of Tzeentch",
+    "faction_id": "thousand-sons",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Exalted Sorcerer on Disc of Tzeentch",
+        "M": 10,
+        "T": 4,
+        "W": 6,
+        "Sv": 3,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 100
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Mounted",
+      "Character",
+      "Fly",
+      "Grenades",
+      "Psyker",
+      "Chaos",
+      "Tzeentch",
+      "Exalted Sorcerer"
+    ],
+    "faction_keywords": [
+      "Thousand Sons"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "arcane-fire",
+      "force-weapon",
+      "inferno-bolt-pistol",
+      "prosperine-khopesh"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "maulerfiend",
+    "name": "Maulerfiend",
+    "faction_id": "thousand-sons",
+    "profiles": [
+      {
+        "name": "Maulerfiend",
+        "M": 10,
+        "T": 10,
+        "W": 12,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 120
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Daemon",
+      "Chaos",
+      "Tzeentch",
+      "Maulerfiend"
+    ],
+    "faction_keywords": [
+      "Thousand Sons"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "lasher-tendrils",
+      "magma-cutter",
+      "maulerfiend-fists"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "exalted-sorcerer",
+    "name": "Exalted Sorcerer",
+    "faction_id": "thousand-sons",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Exalted Sorcerer",
+        "M": 6,
+        "T": 4,
+        "W": 5,
+        "Sv": 3,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 80
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Grenades",
+      "Psyker",
+      "Chaos",
+      "Tzeentch",
+      "Exalted Sorcerer"
+    ],
+    "faction_keywords": [
+      "Thousand Sons"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "astral-blast",
+      "force-weapon",
+      "inferno-bolt-pistol",
+      "prosperine-khopesh"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "sorcerer-in-terminator-armour",
+    "name": "Sorcerer in Terminator Armour",
+    "faction_id": "thousand-sons",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Sorcerer in Terminator Armour",
+        "M": 5,
+        "T": 5,
+        "W": 5,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 85
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Psyker",
+      "Terminator",
+      "Chaos",
+      "Tzeentch",
+      "Sorcerer"
+    ],
+    "faction_keywords": [
+      "Thousand Sons"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "force-weapon",
+      "gaze-of-hate",
+      "inferno-combi-bolter",
+      "inferno-combi-weapon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "chaos-predator-annihilator",
+    "name": "Chaos Predator Annihilator",
+    "faction_id": "thousand-sons",
+    "profiles": [
+      {
+        "name": "Chaos Predator Annihilator",
+        "M": 10,
+        "T": 10,
+        "W": 11,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 130
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Smoke",
+      "Chaos",
+      "Tzeentch",
+      "Predator Annihilator"
+    ],
+    "faction_keywords": [
+      "Thousand Sons"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-tracks",
+      "havoc-launcher",
+      "inferno-combi-bolter",
+      "inferno-combi-weapon",
+      "inferno-heavy-bolter",
+      "lascannon",
+      "predator-twin-lascannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "forgefiend",
+    "name": "Forgefiend",
+    "faction_id": "thousand-sons",
+    "profiles": [
+      {
+        "name": "Forgefiend",
+        "M": 8,
+        "T": 10,
+        "W": 12,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 130
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Daemon",
+      "Chaos",
+      "Tzeentch",
+      "Forgefiend"
+    ],
+    "faction_keywords": [
+      "Thousand Sons"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "ectoplasma-cannon",
+      "forgefiend-claws",
+      "forgefiend-jaws",
+      "hades-autocannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "heldrake",
+    "name": "Heldrake",
+    "faction_id": "thousand-sons",
+    "profiles": [
+      {
+        "name": "Heldrake",
+        "M": 20,
+        "T": 9,
+        "W": 12,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 0
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 215
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Aircraft",
+      "Fly",
+      "Daemon",
+      "Chaos",
+      "Tzeentch",
+      "Heldrake"
+    ],
+    "faction_keywords": [
+      "Thousand Sons"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "baleflamer",
+      "hades-autocannon",
+      "heldrake-claws"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "daemon-prince-of-tzeentch",
+    "name": "Daemon Prince of Tzeentch",
+    "faction_id": "thousand-sons",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Daemon Prince of Tzeentch",
+        "M": 9,
+        "T": 10,
+        "W": 10,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 180
+      }
+    ],
+    "keywords": [
+      "Monster",
+      "Character",
+      "Daemon",
+      "Psyker",
+      "Chaos",
+      "Tzeentch",
+      "Daemon Prince"
+    ],
+    "faction_keywords": [
+      "Thousand Sons"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "dark-blessing",
+      "hellforged-weapons",
+      "infernal-cannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  }
+]

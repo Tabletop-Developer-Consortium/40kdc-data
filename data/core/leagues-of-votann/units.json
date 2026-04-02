@@ -1,0 +1,1146 @@
+[
+  {
+    "id": "memnyr-strategist",
+    "name": "Memnyr Strategist",
+    "faction_id": "leagues-of-votann",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Memnyr Strategist",
+        "M": 5,
+        "T": 5,
+        "W": 4,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 45
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Memnyr Strategist"
+    ],
+    "faction_keywords": [
+      "Leagues of Votann"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "autoch-pattern-bolt-pistol",
+      "close-combat-weapon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "einhyr-hearthguard",
+    "name": "Einhyr Hearthguard",
+    "faction_id": "leagues-of-votann",
+    "profiles": [
+      {
+        "name": "Einhyr Hearthguard",
+        "M": 5,
+        "T": 5,
+        "W": 2,
+        "Sv": 2,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 135
+      },
+      {
+        "models": 10,
+        "cost": 270
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Exoarmour",
+      "Einhyr Hearthguard"
+    ],
+    "faction_keywords": [
+      "Leagues of Votann"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 10
+    },
+    "weapon_ids": [
+      "concussion-gauntlet",
+      "etacarn-plasma-gun",
+      "exoarmour-grenade-launcher",
+      "graviton-hammer",
+      "plasma-blade-gauntlet",
+      "volkanite-disintegrator"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "grimnyr",
+    "name": "Grimnyr",
+    "faction_id": "leagues-of-votann",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Grimnyr",
+        "M": 5,
+        "T": 5,
+        "W": 4,
+        "Sv": 4,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      },
+      {
+        "name": "CORV",
+        "M": 5,
+        "T": 5,
+        "W": 1,
+        "Sv": 4,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 3,
+        "cost": 65
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Psyker",
+      "Grimnyr"
+    ],
+    "faction_keywords": [
+      "Leagues of Votann"
+    ],
+    "model_count": {
+      "min": 3,
+      "max": 3
+    },
+    "weapon_ids": [
+      "ancestral-ward-stave",
+      "ancestral-wrath",
+      "autoch-pattern-bolter",
+      "close-combat-weapon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "hernkyn-pioneers",
+    "name": "Hernkyn Pioneers",
+    "faction_id": "leagues-of-votann",
+    "profiles": [
+      {
+        "name": "Hernkyn Pioneers",
+        "M": 12,
+        "T": 6,
+        "W": 3,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 3,
+        "cost": 80
+      },
+      {
+        "models": 6,
+        "cost": 160
+      }
+    ],
+    "keywords": [
+      "Mounted",
+      "Grenades",
+      "Fly",
+      "Hernkyn",
+      "Pioneers"
+    ],
+    "faction_keywords": [
+      "Leagues of Votann"
+    ],
+    "model_count": {
+      "min": 3,
+      "max": 6
+    },
+    "weapon_ids": [
+      "bolt-revolver",
+      "bolt-shotgun",
+      "hylas-rotary-cannon",
+      "ion-beamer",
+      "magna-coil-autocannon",
+      "plasma-knife"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "cthonian-earthshakers",
+    "name": "Cthonian Earthshakers",
+    "faction_id": "leagues-of-votann",
+    "profiles": [
+      {
+        "name": "Cthonian Earthshakers",
+        "M": 4,
+        "T": 6,
+        "W": 6,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 2,
+        "cost": 110
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Artillery",
+      "Cthonian",
+      "Earthshakers"
+    ],
+    "faction_keywords": [
+      "Leagues of Votann"
+    ],
+    "model_count": {
+      "min": 2,
+      "max": 2
+    },
+    "weapon_ids": [
+      "autoch-pattern-bolt-pistol",
+      "breacher-ordnance",
+      "plasma-picks",
+      "tremor-shells"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "kapricus-carrier",
+    "name": "Kapricus Carrier",
+    "faction_id": "leagues-of-votann",
+    "role": "dedicated-transport",
+    "profiles": [
+      {
+        "name": "Kapricus Carrier",
+        "M": 12,
+        "T": 7,
+        "W": 7,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 75
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Fly",
+      "Transport",
+      "Dedicated Transport",
+      "Hernkyn",
+      "Kapricus",
+      "Carrier"
+    ],
+    "faction_keywords": [
+      "Leagues of Votann"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-hull",
+      "magna-coil-autocannon",
+      "twin-magna-coil-autocannon"
+    ],
+    "ability_ids": [],
+    "transport_capacity": {
+      "capacity": 5
+    },
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "ironkin-steeljacks-with-heavy-volkanite-disintegrators",
+    "name": "Ironkin Steeljacks with Heavy Volkanite Disintegrators",
+    "faction_id": "leagues-of-votann",
+    "profiles": [
+      {
+        "name": "Ironkin Steeljack",
+        "M": 5,
+        "T": 6,
+        "W": 3,
+        "Sv": 2,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 3,
+        "cost": 85
+      },
+      {
+        "models": 6,
+        "cost": 170
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Ironkin Steeljacks",
+      "Ironkin Steeljacks with Heavy Volkanite Disintegrators"
+    ],
+    "faction_keywords": [
+      "Leagues of Votann"
+    ],
+    "model_count": {
+      "min": 3,
+      "max": 6
+    },
+    "weapon_ids": [
+      "autoch-pattern-bolter",
+      "heavy-volkanite-disintegrator",
+      "plasma-knife",
+      "plasma-sword"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "hekaton-land-fortress",
+    "name": "Hekaton Land Fortress",
+    "faction_id": "leagues-of-votann",
+    "profiles": [
+      {
+        "name": "Hekaton Land Fortress",
+        "M": 10,
+        "T": 12,
+        "W": 16,
+        "Sv": 2,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 5
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 240
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Transport",
+      "Hekaton Land Fortress"
+    ],
+    "faction_keywords": [
+      "Leagues of Votann"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-wheels",
+      "cyclic-ion-cannon",
+      "heavy-magna-rail-cannon",
+      "hekaton-warhead",
+      "matr-autocannon",
+      "sp-heavy-conversion-beamer",
+      "twin-bolt-cannon",
+      "twin-ion-beamer"
+    ],
+    "ability_ids": [],
+    "transport_capacity": {
+      "capacity": 14
+    },
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "buri-aegnirssen",
+    "name": "Buri Aegnirssen",
+    "faction_id": "leagues-of-votann",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Buri Aegnirssen",
+        "M": 5,
+        "T": 6,
+        "W": 5,
+        "Sv": 3,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 95
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Epic Hero",
+      "Buri Aegnirssen"
+    ],
+    "faction_keywords": [
+      "Leagues of Votann"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "autoch-pattern-bolt-pistol",
+      "bane"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "brokhyr-iron-master",
+    "name": "Brôkhyr Iron-master",
+    "faction_id": "leagues-of-votann",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Brôkhyr Iron-master",
+        "M": 5,
+        "T": 5,
+        "W": 4,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      },
+      {
+        "name": "Ironkin Assistant",
+        "M": 5,
+        "T": 5,
+        "W": 1,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      },
+      {
+        "name": "E-COG",
+        "M": 5,
+        "T": 5,
+        "W": 1,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 75
+      }
+    ],
+    "keywords": [
+      "Character",
+      "Infantry",
+      "Brôkhyr",
+      "Iron-master"
+    ],
+    "faction_keywords": [
+      "Leagues of Votann"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 5
+    },
+    "weapon_ids": [
+      "autoch-pattern-bolt-pistol",
+      "close-combat-weapon",
+      "graviton-hammer",
+      "graviton-rifle",
+      "las-beam-cutter",
+      "manipulator-arms",
+      "plasma-torch"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "berehk-stornbrow",
+    "name": "Berehk Stornbröw",
+    "faction_id": "leagues-of-votann",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Berehk Stornbröw",
+        "M": 6,
+        "T": 6,
+        "W": 5,
+        "Sv": 5,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 110
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Epic Hero",
+      "Cthonian",
+      "Berehk Stornbröw"
+    ],
+    "faction_keywords": [
+      "Leagues of Votann"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "kromloks-revenge",
+      "warforge-gauntlets"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "ironkin-steeljacks-with-melee-weapons",
+    "name": "Ironkin Steeljacks with Melee Weapons",
+    "faction_id": "leagues-of-votann",
+    "profiles": [
+      {
+        "name": "Ironkin Steeljack",
+        "M": 5,
+        "T": 6,
+        "W": 3,
+        "Sv": 2,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 3,
+        "cost": 85
+      },
+      {
+        "models": 6,
+        "cost": 170
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Ironkin Steeljacks",
+      "Ironkin Steeljacks with Melee Weapons"
+    ],
+    "faction_keywords": [
+      "Leagues of Votann"
+    ],
+    "model_count": {
+      "min": 3,
+      "max": 6
+    },
+    "weapon_ids": [
+      "autoch-pattern-bolter",
+      "concussion-gauntlet",
+      "plasma-sword"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "uthar-the-destined",
+    "name": "Ûthar the Destined",
+    "faction_id": "leagues-of-votann",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Ûthar the Destined",
+        "M": 5,
+        "T": 5,
+        "W": 5,
+        "Sv": 3,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 95
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Epic Hero",
+      "Kâhl",
+      "Ûthar the Destined"
+    ],
+    "faction_keywords": [
+      "Leagues of Votann"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "blade-of-the-ancestors",
+      "volkanite-disintegrator"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "hernkyn-yaegirs",
+    "name": "Hernkyn Yaegirs",
+    "faction_id": "leagues-of-votann",
+    "profiles": [
+      {
+        "name": "Hernkyn Yaegir",
+        "M": 6,
+        "T": 5,
+        "W": 1,
+        "Sv": 5,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 10,
+        "cost": 90
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Grenades",
+      "Hernkyn",
+      "Yaegirs"
+    ],
+    "faction_keywords": [
+      "Leagues of Votann"
+    ],
+    "model_count": {
+      "min": 10,
+      "max": 10
+    },
+    "weapon_ids": [
+      "apm-launcher",
+      "bolt-revolver",
+      "bolt-shotgun",
+      "close-combat-weapon",
+      "magna-coil-rifle",
+      "plasma-knife"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "einhyr-champion",
+    "name": "Einhyr Champion",
+    "faction_id": "leagues-of-votann",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Einhyr Champion",
+        "M": 5,
+        "T": 5,
+        "W": 5,
+        "Sv": 2,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 70
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Exoarmour",
+      "Einhyr Champion"
+    ],
+    "faction_keywords": [
+      "Leagues of Votann"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "autoch-pattern-combi-bolter",
+      "darkstar-axe",
+      "mass-hammer"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "brokhyr-thunderkyn",
+    "name": "Brôkhyr Thunderkyn",
+    "faction_id": "leagues-of-votann",
+    "profiles": [
+      {
+        "name": "Brôkhyr Thunderkyn",
+        "M": 5,
+        "T": 6,
+        "W": 2,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 3,
+        "cost": 80
+      },
+      {
+        "models": 6,
+        "cost": 160
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Exoframe",
+      "Brôkhyr",
+      "Thunderkyn"
+    ],
+    "faction_keywords": [
+      "Leagues of Votann"
+    ],
+    "model_count": {
+      "min": 3,
+      "max": 6
+    },
+    "weapon_ids": [
+      "bolt-cannon",
+      "close-combat-weapon",
+      "graviton-blast-cannon",
+      "sp-conversion-beamer"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "arkanyst-evaluator",
+    "name": "Arkanyst Evaluator",
+    "faction_id": "leagues-of-votann",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Arkanyst Evaluator",
+        "M": 5,
+        "T": 5,
+        "W": 4,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 65
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Arkanyst Evaluator"
+    ],
+    "faction_keywords": [
+      "Leagues of Votann"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "close-combat-weapon",
+      "transmatter-inverter"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "kapricus-defenders",
+    "name": "Kapricus Defenders",
+    "faction_id": "leagues-of-votann",
+    "profiles": [
+      {
+        "name": "Kapricus Defenders",
+        "M": 12,
+        "T": 7,
+        "W": 7,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 70
+      },
+      {
+        "models": 2,
+        "cost": 140
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Fly",
+      "Hernkyn",
+      "Kapricus",
+      "Defenders"
+    ],
+    "faction_keywords": [
+      "Leagues of Votann"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 2
+    },
+    "weapon_ids": [
+      "armoured-hull",
+      "hylas-rotary-cannon",
+      "magna-rail-cannon",
+      "twin-magna-coil-autocannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "cthonian-beserks",
+    "name": "Cthonian Beserks",
+    "faction_id": "leagues-of-votann",
+    "profiles": [
+      {
+        "name": "Cthonian Beserks",
+        "M": 6,
+        "T": 6,
+        "W": 1,
+        "Sv": 5,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 100
+      },
+      {
+        "models": 10,
+        "cost": 200
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Cthonian",
+      "Beserks"
+    ],
+    "faction_keywords": [
+      "Leagues of Votann"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 10
+    },
+    "weapon_ids": [
+      "concussion-maul",
+      "heavy-plasma-axe",
+      "mole-grenade-launcher",
+      "twin-concussion-gauntlet"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "sagitaur",
+    "name": "Sagitaur",
+    "faction_id": "leagues-of-votann",
+    "role": "dedicated-transport",
+    "profiles": [
+      {
+        "name": "Sagitaur",
+        "M": 12,
+        "T": 9,
+        "W": 9,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 90
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Transport",
+      "Dedicated Transport",
+      "Sagitaur"
+    ],
+    "faction_keywords": [
+      "Leagues of Votann"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-wheels",
+      "hylas-beam-cannon",
+      "l7-missile-launcher",
+      "matr-autocannon",
+      "sagitaur-missile-launcher",
+      "twin-bolt-cannon"
+    ],
+    "ability_ids": [],
+    "transport_capacity": {
+      "capacity": 6
+    },
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "kahl",
+    "name": "Kâhl",
+    "faction_id": "leagues-of-votann",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Kâhl",
+        "M": 5,
+        "T": 5,
+        "W": 4,
+        "Sv": 3,
+        "invuln_sv": 4,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 65
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Kâhl"
+    ],
+    "faction_keywords": [
+      "Leagues of Votann"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "autoch-pattern-combi-bolter",
+      "forgewrought-plasma-axe",
+      "mass-gauntlet",
+      "volkanite-disintegrator"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "hearthkyn-warriors",
+    "name": "Hearthkyn Warriors",
+    "faction_id": "leagues-of-votann",
+    "role": "battleline",
+    "profiles": [
+      {
+        "name": "Hearthkyn Warrior",
+        "M": 5,
+        "T": 5,
+        "W": 1,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 10,
+        "cost": 100
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Battleline",
+      "Grenades",
+      "Hearthkyn Warriors"
+    ],
+    "faction_keywords": [
+      "Leagues of Votann"
+    ],
+    "model_count": {
+      "min": 10,
+      "max": 10
+    },
+    "weapon_ids": [
+      "autoch-pattern-bolt-pistol",
+      "autoch-pattern-bolter",
+      "close-combat-weapon",
+      "etacarn-plasma-beamer",
+      "hylas-auto-rifle",
+      "hylas-rotary-cannon",
+      "ion-blaster",
+      "l7-missile-launcher",
+      "magna-rail-rifle",
+      "plasma-knife",
+      "theyns-melee-weapon",
+      "theyns-pistol"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  }
+]

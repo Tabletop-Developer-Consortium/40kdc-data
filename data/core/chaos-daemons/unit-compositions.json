@@ -1,0 +1,1036 @@
+[
+  {
+    "unit_id": "soul-grinder",
+    "models": [
+      {
+        "name": "Soul Grinder",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "daemon-prince-of-chaos-with-wings",
+    "models": [
+      {
+        "name": "Daemon Prince of Chaos with Wings",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "daemon-prince-of-chaos",
+    "models": [
+      {
+        "name": "Daemon Prince of Chaos",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "rotigus",
+    "models": [
+      {
+        "name": "Rotigus",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "the-masque-of-slaanesh",
+    "models": [
+      {
+        "name": "The Masque of Slaanesh",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "daemonettes",
+    "models": [
+      {
+        "name": "Alluress",
+        "profile_name": "Daemonette",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "slashing-claws"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Daemonette",
+        "min": 9,
+        "max": 9,
+        "default_weapon_ids": [
+          "slashing-claws"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "nurglings",
+    "models": [
+      {
+        "name": "Nurglings",
+        "min": 3,
+        "max": 6,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "bloodmaster",
+    "models": [
+      {
+        "name": "Bloodmaster",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "tranceweaver",
+    "models": [
+      {
+        "name": "Tranceweaver",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "burning-chariot",
+    "models": [
+      {
+        "name": "Burning Chariot",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "pink-horrors",
+    "models": [
+      {
+        "name": "Iridescent Horror",
+        "profile_name": "Pink Horror",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "coruscating-flames"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Pink Horror",
+        "min": 8,
+        "max": 8,
+        "default_weapon_ids": [
+          "coruscating-flames"
+        ],
+        "is_leader_model": false
+      },
+      {
+        "name": "Brimstone Horror",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "coruscating-flames"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "infernal-enrapturess",
+    "models": [
+      {
+        "name": "Infernal Enrapturess",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "plaguebearers",
+    "models": [
+      {
+        "name": "Plagueridden",
+        "profile_name": "Plaguebearer",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "plaguesword"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Plaguebearer",
+        "min": 9,
+        "max": 9,
+        "default_weapon_ids": [
+          "plaguesword"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "keeper-of-secrets",
+    "models": [
+      {
+        "name": "Keeper of Secrets",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "shalaxi-helbane",
+    "models": [
+      {
+        "name": "Shalaxi Helbane",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "seekers",
+    "models": [
+      {
+        "name": "Heartseeker",
+        "profile_name": "Seeker",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "slashing-claws",
+          "lashing-tongues"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Seeker",
+        "min": 4,
+        "max": 9,
+        "default_weapon_ids": [
+          "slashing-claws",
+          "lashing-tongues"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "syllesske",
+    "models": [
+      {
+        "name": "Syll’Esske",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "screamers",
+    "models": [
+      {
+        "name": "Screamers",
+        "min": 3,
+        "max": 6,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "bloodletters",
+    "models": [
+      {
+        "name": "Bloodreaper",
+        "profile_name": "Bloodletter",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "hellblade"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Bloodletter",
+        "min": 9,
+        "max": 9,
+        "default_weapon_ids": [
+          "hellblade"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "lord-of-change",
+    "models": [
+      {
+        "name": "Lord of Change",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "changecaster",
+    "models": [
+      {
+        "name": "Changecaster",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "feculent-gnarlmaw",
+    "models": [
+      {
+        "name": "Feculent Gnarlmaw",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "great-unclean-one",
+    "models": [
+      {
+        "name": "Great Unclean One",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "bloodcrushers",
+    "models": [
+      {
+        "name": "Bloodcrusher",
+        "min": 3,
+        "max": 6,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "fiends",
+    "models": [
+      {
+        "name": "Fiend",
+        "min": 3,
+        "max": 6,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "skarbrand",
+    "models": [
+      {
+        "name": "Skarbrand",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "belakor",
+    "models": [
+      {
+        "name": "Be’lakor",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "horticulous-slimux",
+    "models": [
+      {
+        "name": "Horticulous Slimux",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "contorted-epitome",
+    "models": [
+      {
+        "name": "Contorted Epitome",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "poxbringer",
+    "models": [
+      {
+        "name": "Poxbringer",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "fateskimmer",
+    "models": [
+      {
+        "name": "Fateskimmer",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "hellflayers",
+    "models": [
+      {
+        "name": "Hellflayers",
+        "min": 1,
+        "max": 2,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "plague-drones",
+    "models": [
+      {
+        "name": "Plague Drone",
+        "min": 3,
+        "max": 6,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "bloodthirster",
+    "models": [
+      {
+        "name": "Bloodthirster",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "exalted-flamer",
+    "models": [
+      {
+        "name": "Exalted Flamer",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "skullmaster",
+    "models": [
+      {
+        "name": "Skullmaster",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "epidemius",
+    "models": [
+      {
+        "name": "Epidemius",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "karanak",
+    "models": [
+      {
+        "name": "Karanak",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "spoilpox-scrivener",
+    "models": [
+      {
+        "name": "Spoilpox Scrivener",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "tormentbringer",
+    "models": [
+      {
+        "name": "Tormentbringer",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "skulltaker",
+    "models": [
+      {
+        "name": "Skulltaker",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "rendmaster-on-blood-throne",
+    "models": [
+      {
+        "name": "Rendmaster on Blood Throne",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "skull-altar",
+    "models": [
+      {
+        "name": "Skull Altar",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "sloppity-bilepiper",
+    "models": [
+      {
+        "name": "Sloppity Bilepiper",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "kairos-fateweaver",
+    "models": [
+      {
+        "name": "Kairos Fateweaver",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "blue-horrors",
+    "models": [
+      {
+        "name": "Iridescent Horror",
+        "profile_name": "Blue Horror",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "coruscating-flames"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Blue Horror",
+        "min": 9,
+        "max": 9,
+        "default_weapon_ids": [
+          "coruscating-flames"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "the-blue-scribes",
+    "models": [
+      {
+        "name": "The Blue Scribes",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "the-changeling",
+    "models": [
+      {
+        "name": "The Changeling",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "fluxmaster",
+    "models": [
+      {
+        "name": "Fluxmaster",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "flamers",
+    "models": [
+      {
+        "name": "Flamer",
+        "min": 3,
+        "max": 6,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "beasts-of-nurgle",
+    "models": [
+      {
+        "name": "Beasts of Nurgle",
+        "min": 1,
+        "max": 2,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "flesh-hounds",
+    "models": [
+      {
+        "name": "Flesh Hound",
+        "min": 5,
+        "max": 10,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "skull-cannon",
+    "models": [
+      {
+        "name": "Skull Cannon",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "scabeiathrax-the-bloated",
+    "models": [
+      {
+        "name": "Scabeiathrax The Bloated",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "zarakynel",
+    "models": [
+      {
+        "name": "Zarakynel",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "aetaosraukeres",
+    "models": [
+      {
+        "name": "Aetaos'rau'keres",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "anggrath-the-unbound",
+    "models": [
+      {
+        "name": "An'ggrath The Unbound",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "giant-chaos-spawn",
+    "models": [
+      {
+        "name": "Giant Chaos Spawn",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "herald-of-slaanesh-on-steed-of-slaanesh",
+    "models": [
+      {
+        "name": "Herald Of Slaanesh On Steed Of Slaanesh",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "furies",
+    "models": [
+      {
+        "name": "Furies",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "pox-riders",
+    "models": [
+      {
+        "name": "Pox Riders",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "plague-toads",
+    "models": [
+      {
+        "name": "Plague Toads",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "spined-chaos-beast",
+    "models": [
+      {
+        "name": "Spined Chaos Beast",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  }
+]

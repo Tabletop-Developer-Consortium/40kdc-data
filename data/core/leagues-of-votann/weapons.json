@@ -1,0 +1,1990 @@
+[
+  {
+    "id": "autoch-pattern-bolt-pistol",
+    "name": "Autoch-pattern bolt pistol",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Autoch-pattern bolt pistol",
+        "range": 12,
+        "stats": {
+          "A": 1,
+          "S": 4,
+          "AP": 0,
+          "D": 1,
+          "BS": 4
+        },
+        "keywords": [
+          "Pistol"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "close-combat-weapon",
+    "name": "Close combat weapon",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Close combat weapon",
+        "range": "Melee",
+        "stats": {
+          "A": 1,
+          "S": 3,
+          "AP": 0,
+          "D": 1,
+          "WS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "etacarn-plasma-gun",
+    "name": "EtaCarn plasma gun",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "EtaCarn plasma gun",
+        "range": 24,
+        "stats": {
+          "A": 1,
+          "S": 7,
+          "AP": -3,
+          "D": 2,
+          "BS": 3
+        },
+        "keywords": [
+          "Rapid Fire 1"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "exoarmour-grenade-launcher",
+    "name": "Exoarmour grenade launcher",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Exoarmour grenade launcher",
+        "range": 24,
+        "stats": {
+          "A": "D3",
+          "S": 3,
+          "AP": 0,
+          "D": 1,
+          "BS": 3
+        },
+        "keywords": [
+          "Blast"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "volkanite-disintegrator",
+    "name": "Volkanite disintegrator",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Volkanite disintegrator",
+        "range": 24,
+        "stats": {
+          "A": 3,
+          "S": 5,
+          "AP": 0,
+          "D": 1,
+          "BS": 3
+        },
+        "keywords": [
+          "Devastating Wounds"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "concussion-gauntlet",
+    "name": "Concussion gauntlet",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Concussion gauntlet",
+        "range": "Melee",
+        "stats": {
+          "A": 2,
+          "S": 8,
+          "AP": -2,
+          "D": 2,
+          "WS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "plasma-blade-gauntlet",
+    "name": "Plasma blade gauntlet",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Plasma blade gauntlet",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 6,
+          "AP": -2,
+          "D": 1,
+          "WS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "graviton-hammer",
+    "name": "Graviton hammer",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Graviton hammer",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 9,
+          "AP": -1,
+          "D": 3,
+          "WS": 4
+        },
+        "keywords": [
+          "Anti-monster 3+",
+          "Anti-vehicle 3+"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "ancestral-wrath",
+    "name": "Ancestral Wrath",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Witchfire",
+        "range": 24,
+        "stats": {
+          "A": 3,
+          "S": 6,
+          "AP": -2,
+          "D": "D3",
+          "BS": 3
+        },
+        "keywords": [
+          "Psychic"
+        ]
+      },
+      {
+        "name": "Focused witchfire",
+        "range": 24,
+        "stats": {
+          "A": 6,
+          "S": 6,
+          "AP": -2,
+          "D": "D3",
+          "BS": 3
+        },
+        "keywords": [
+          "Hazardous",
+          "Psychic"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "autoch-pattern-bolter",
+    "name": "Autoch-pattern bolter",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Autoch-pattern bolter",
+        "range": 24,
+        "stats": {
+          "A": 2,
+          "S": 4,
+          "AP": 0,
+          "D": 1,
+          "BS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "ancestral-ward-stave",
+    "name": "Ancestral ward stave",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Ancestral ward stave",
+        "range": "Melee",
+        "stats": {
+          "A": 2,
+          "S": 7,
+          "AP": -1,
+          "D": "D3",
+          "WS": 3
+        },
+        "keywords": [
+          "Psychic"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "bolt-revolver",
+    "name": "Bolt revolver",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Bolt revolver",
+        "range": 12,
+        "stats": {
+          "A": 1,
+          "S": 5,
+          "AP": 0,
+          "D": 1,
+          "BS": 4
+        },
+        "keywords": [
+          "Pistol"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "bolt-shotgun",
+    "name": "Bolt shotgun",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Bolt shotgun",
+        "range": 18,
+        "stats": {
+          "A": 2,
+          "S": 5,
+          "AP": 0,
+          "D": 1,
+          "BS": 4
+        },
+        "keywords": [
+          "Assault"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "magna-coil-autocannon",
+    "name": "Magna-coil autocannon",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Magna-coil autocannon",
+        "range": 24,
+        "stats": {
+          "A": 3,
+          "S": 7,
+          "AP": -1,
+          "D": 2,
+          "BS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "hylas-rotary-cannon",
+    "name": "HYLas rotary cannon",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "HYLas rotary cannon",
+        "range": 24,
+        "stats": {
+          "A": 6,
+          "S": 6,
+          "AP": -1,
+          "D": 1,
+          "BS": 4
+        },
+        "keywords": [
+          "Sustained Hits 1"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "ion-beamer",
+    "name": "Ion beamer",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Ion beamer",
+        "range": 18,
+        "stats": {
+          "A": "D3+1",
+          "S": 8,
+          "AP": -2,
+          "D": 1,
+          "BS": 4
+        },
+        "keywords": [
+          "Blast"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "plasma-knife",
+    "name": "Plasma knife",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Plasma knife",
+        "range": "Melee",
+        "stats": {
+          "A": 2,
+          "S": 4,
+          "AP": -2,
+          "D": 1,
+          "WS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "breacher-ordnance",
+    "name": "Breacher ordnance",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Breacher ordnance",
+        "range": 24,
+        "stats": {
+          "A": "D6+1",
+          "S": 10,
+          "AP": -1,
+          "D": 2,
+          "BS": 5
+        },
+        "keywords": [
+          "Blast",
+          "Heavy",
+          "Indirect Fire"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "tremor-shells",
+    "name": "Tremor shells",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Tremor shells",
+        "range": 36,
+        "stats": {
+          "A": "D6+4",
+          "S": 6,
+          "AP": -1,
+          "D": 1,
+          "BS": 5
+        },
+        "keywords": [
+          "Blast",
+          "Heavy",
+          "Indirect Fire"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "plasma-picks",
+    "name": "Plasma picks",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Plasma picks",
+        "range": "Melee",
+        "stats": {
+          "A": 4,
+          "S": 5,
+          "AP": -2,
+          "D": 1,
+          "WS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "twin-magna-coil-autocannon",
+    "name": "Twin magna‑coil autocannon",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Twin magna‑coil autocannon",
+        "range": 24,
+        "stats": {
+          "A": 3,
+          "S": 7,
+          "AP": -1,
+          "D": 2,
+          "BS": 4
+        },
+        "keywords": [
+          "Twin-linked"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "armoured-hull",
+    "name": "Armoured hull",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Armoured hull",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 6,
+          "AP": 0,
+          "D": 1,
+          "WS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "heavy-volkanite-disintegrator",
+    "name": "Heavy volkanite disintegrator",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Heavy volkanite disintegrator",
+        "range": 24,
+        "stats": {
+          "A": 6,
+          "S": 6,
+          "AP": -1,
+          "D": 1,
+          "BS": 4
+        },
+        "keywords": [
+          "Devastating Wounds"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "autoch-pattern-bolter",
+    "name": "Autoch-pattern bolter",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Autoch-pattern bolter",
+        "range": 24,
+        "stats": {
+          "A": 2,
+          "S": 4,
+          "AP": 0,
+          "D": 1,
+          "BS": 4
+        },
+        "keywords": [
+          "Pistol"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "plasma-knife",
+    "name": "Plasma knife",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Plasma knife",
+        "range": "Melee",
+        "stats": {
+          "A": 2,
+          "S": 6,
+          "AP": -2,
+          "D": 1,
+          "WS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "plasma-sword",
+    "name": "Plasma sword",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Plasma sword",
+        "range": "Melee",
+        "stats": {
+          "A": 6,
+          "S": 6,
+          "AP": -2,
+          "D": 1,
+          "WS": 3
+        },
+        "keywords": [
+          "Sustained Hits 1"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "cyclic-ion-cannon",
+    "name": "Cyclic ion cannon",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Cyclic ion cannon",
+        "range": 24,
+        "stats": {
+          "A": "D6+2",
+          "S": 7,
+          "AP": -2,
+          "D": 2,
+          "BS": 4
+        },
+        "keywords": [
+          "Blast"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "matr-autocannon",
+    "name": "MATR autocannon",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "MATR autocannon",
+        "range": 24,
+        "stats": {
+          "A": 6,
+          "S": 7,
+          "AP": -1,
+          "D": 2,
+          "BS": 4
+        },
+        "keywords": [
+          "Assault",
+          "Sustained Hits 1"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "twin-bolt-cannon",
+    "name": "Twin bolt cannon",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Twin bolt cannon",
+        "range": 36,
+        "stats": {
+          "A": 3,
+          "S": 6,
+          "AP": -1,
+          "D": 2,
+          "BS": 4
+        },
+        "keywords": [
+          "Sustained Hits 2",
+          "Twin-linked"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "twin-ion-beamer",
+    "name": "Twin ion beamer",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Twin ion beamer",
+        "range": 18,
+        "stats": {
+          "A": "D3+1",
+          "S": 8,
+          "AP": -2,
+          "D": 1,
+          "BS": 4
+        },
+        "keywords": [
+          "Blast",
+          "Twin-linked"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "sp-heavy-conversion-beamer",
+    "name": "SP heavy conversion beamer",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "SP heavy conversion beamer",
+        "range": 24,
+        "stats": {
+          "A": 4,
+          "S": 10,
+          "AP": -2,
+          "D": 4,
+          "BS": 4
+        },
+        "keywords": [
+          "Conversion",
+          "Lethal Hits"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "heavy-magna-rail-cannon",
+    "name": "Heavy magna-rail cannon",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Heavy magna-rail cannon",
+        "range": 30,
+        "stats": {
+          "A": 2,
+          "S": 18,
+          "AP": -4,
+          "D": "D6+4",
+          "BS": 4
+        },
+        "keywords": [
+          "Devastating Wounds",
+          "Heavy"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "hekaton-warhead",
+    "name": "Hekaton warhead",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Hekaton warhead",
+        "range": 36,
+        "stats": {
+          "A": "D6+3",
+          "S": 7,
+          "AP": -2,
+          "D": 2,
+          "BS": 4
+        },
+        "keywords": [
+          "Blast",
+          "One Shot"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "armoured-wheels",
+    "name": "Armoured wheels",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Armoured wheels",
+        "range": "Melee",
+        "stats": {
+          "A": 6,
+          "S": 8,
+          "AP": 0,
+          "D": 1,
+          "WS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "autoch-pattern-bolt-pistol",
+    "name": "Autoch‑pattern bolt pistol",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Autoch‑pattern bolt pistol",
+        "range": 12,
+        "stats": {
+          "A": 1,
+          "S": 4,
+          "AP": 0,
+          "D": 1,
+          "BS": 2
+        },
+        "keywords": [
+          "Pistol"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "bane",
+    "name": "Bane",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Sweep",
+        "range": "Melee",
+        "stats": {
+          "A": 10,
+          "S": 6,
+          "AP": -2,
+          "D": 1,
+          "WS": 2
+        },
+        "keywords": []
+      },
+      {
+        "name": "Strike",
+        "range": "Melee",
+        "stats": {
+          "A": 5,
+          "S": 12,
+          "AP": -3,
+          "D": 3,
+          "WS": 2
+        },
+        "keywords": [
+          "Precision"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "graviton-rifle",
+    "name": "Graviton rifle",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Graviton rifle",
+        "range": 18,
+        "stats": {
+          "A": 3,
+          "S": 5,
+          "AP": -1,
+          "D": 3,
+          "BS": 3
+        },
+        "keywords": [
+          "Anti-monster 3+",
+          "Anti-vehicle 3+"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "las-beam-cutter",
+    "name": "Las-beam cutter",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Las-beam cutter",
+        "range": 6,
+        "stats": {
+          "A": 1,
+          "S": 6,
+          "AP": -3,
+          "D": 1,
+          "BS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "autoch-pattern-bolt-pistol",
+    "name": "Autoch-pattern bolt pistol",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Autoch-pattern bolt pistol",
+        "range": 12,
+        "stats": {
+          "A": 1,
+          "S": 4,
+          "AP": 0,
+          "D": 1,
+          "BS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "plasma-torch",
+    "name": "Plasma torch",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Plasma torch",
+        "range": "Melee",
+        "stats": {
+          "A": 1,
+          "S": 6,
+          "AP": -3,
+          "D": 2,
+          "WS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "manipulator-arms",
+    "name": "Manipulator arms",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Manipulator arms",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 3,
+          "AP": 0,
+          "D": 1,
+          "WS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "kromloks-revenge",
+    "name": "Kromlôk’s Revenge",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Graviton strikes",
+        "range": "Melee",
+        "stats": {
+          "A": 4,
+          "S": 10,
+          "AP": -2,
+          "D": 4,
+          "WS": 2
+        },
+        "keywords": [
+          "Anti-monster 3+",
+          "Anti-vehicle 3+"
+        ]
+      },
+      {
+        "name": "Plasma sweeps",
+        "range": "Melee",
+        "stats": {
+          "A": 8,
+          "S": 7,
+          "AP": -2,
+          "D": 2,
+          "WS": 2
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "warforge-gauntlets",
+    "name": "Warforge Gauntlets",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Warforge Gauntlets",
+        "range": "Melee",
+        "stats": {
+          "A": 2,
+          "S": 6,
+          "AP": -2,
+          "D": 1,
+          "WS": 2
+        },
+        "keywords": [
+          "Extra Attacks"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "concussion-gauntlet",
+    "name": "Concussion gauntlet",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Concussion gauntlet",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 10,
+          "AP": -2,
+          "D": 2,
+          "WS": 4
+        },
+        "keywords": [
+          "Lethal Hits"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "volkanite-disintegrator",
+    "name": "Volkanite disintegrator",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Volkanite disintegrator",
+        "range": 24,
+        "stats": {
+          "A": 3,
+          "S": 5,
+          "AP": 0,
+          "D": 1,
+          "BS": 2
+        },
+        "keywords": [
+          "Devastating Wounds"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "blade-of-the-ancestors",
+    "name": "Blade of the Ancestors",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Blade of the Ancestors",
+        "range": "Melee",
+        "stats": {
+          "A": 5,
+          "S": 6,
+          "AP": -3,
+          "D": 2,
+          "WS": 2
+        },
+        "keywords": [
+          "Devastating Wounds"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "magna-coil-rifle",
+    "name": "Magna-coil rifle",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Magna-coil rifle",
+        "range": 24,
+        "stats": {
+          "A": 1,
+          "S": 5,
+          "AP": -2,
+          "D": 2,
+          "BS": 4
+        },
+        "keywords": [
+          "Ignores Cover",
+          "Precision"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "apm-launcher",
+    "name": "APM launcher",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "APM launcher",
+        "range": 24,
+        "stats": {
+          "A": 1,
+          "S": 6,
+          "AP": -2,
+          "D": "D6",
+          "BS": 4
+        },
+        "keywords": [
+          "Anti-monster 3+",
+          "Anti-vehicle 3+"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "close-combat-weapon",
+    "name": "Close combat weapon",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Close combat weapon",
+        "range": "Melee",
+        "stats": {
+          "A": 1,
+          "S": 4,
+          "AP": 0,
+          "D": 1,
+          "WS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "autoch-pattern-combi-bolter",
+    "name": "Autoch-pattern combi-bolter",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Autoch-pattern combi-bolter",
+        "range": 24,
+        "stats": {
+          "A": 4,
+          "S": 4,
+          "AP": 0,
+          "D": 1,
+          "BS": 2
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "mass-hammer",
+    "name": "Mass hammer",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Mass hammer",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 12,
+          "AP": -3,
+          "D": "D6+1",
+          "WS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "darkstar-axe",
+    "name": "Darkstar axe",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Darkstar axe",
+        "range": "Melee",
+        "stats": {
+          "A": 6,
+          "S": 6,
+          "AP": -3,
+          "D": 2,
+          "WS": 2
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "bolt-cannon",
+    "name": "Bolt cannon",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Bolt cannon",
+        "range": 36,
+        "stats": {
+          "A": 3,
+          "S": 6,
+          "AP": -1,
+          "D": 2,
+          "BS": 4
+        },
+        "keywords": [
+          "Sustained Hits 2"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "graviton-blast-cannon",
+    "name": "Graviton blast cannon",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Graviton blast cannon",
+        "range": 24,
+        "stats": {
+          "A": 3,
+          "S": 5,
+          "AP": -2,
+          "D": 3,
+          "BS": 4
+        },
+        "keywords": [
+          "Anti-monster 3+",
+          "Anti-vehicle 3+"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "sp-conversion-beamer",
+    "name": "SP conversion beamer",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "SP conversion beamer",
+        "range": 24,
+        "stats": {
+          "A": 2,
+          "S": 7,
+          "AP": -2,
+          "D": 3,
+          "BS": 4
+        },
+        "keywords": [
+          "Conversion",
+          "Lethal Hits"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "close-combat-weapon",
+    "name": "Close combat weapon",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Close combat weapon",
+        "range": "Melee",
+        "stats": {
+          "A": 2,
+          "S": 4,
+          "AP": 0,
+          "D": 1,
+          "WS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "transmatter-inverter",
+    "name": "Transmatter inverter",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Half charge",
+        "range": 12,
+        "stats": {
+          "A": 3,
+          "S": 8,
+          "AP": -1,
+          "D": 1,
+          "BS": 2
+        },
+        "keywords": [
+          "Rapid Fire 1"
+        ]
+      },
+      {
+        "name": "Full charge",
+        "range": 18,
+        "stats": {
+          "A": 3,
+          "S": 8,
+          "AP": -2,
+          "D": 2,
+          "BS": 2
+        },
+        "keywords": [
+          "Hazardous",
+          "Rapid Fire 2"
+        ]
+      },
+      {
+        "name": "Overcharge",
+        "range": 24,
+        "stats": {
+          "A": 3,
+          "S": 8,
+          "AP": -3,
+          "D": 3,
+          "BS": 2
+        },
+        "keywords": [
+          "Hazardous",
+          "Overcharge",
+          "Rapid Fire 3"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "magna-rail-cannon",
+    "name": "Magna‑rail cannon",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Magna‑rail cannon",
+        "range": 24,
+        "stats": {
+          "A": 1,
+          "S": 14,
+          "AP": -4,
+          "D": "D3+3",
+          "BS": 4
+        },
+        "keywords": [
+          "Devastating Wounds",
+          "Heavy"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "hylas-rotary-cannon",
+    "name": "HYLas rotary cannon",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "HYLas rotary cannon",
+        "range": 24,
+        "stats": {
+          "A": 6,
+          "S": 6,
+          "AP": -1,
+          "D": 2,
+          "BS": 4
+        },
+        "keywords": [
+          "Sustained Hits 1"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "mole-grenade-launcher",
+    "name": "Mole grenade launcher",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Mole grenade launcher",
+        "range": 18,
+        "stats": {
+          "A": "D6",
+          "S": 5,
+          "AP": -1,
+          "D": 1,
+          "BS": 5
+        },
+        "keywords": [
+          "Blast",
+          "Indirect Fire"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "heavy-plasma-axe",
+    "name": "Heavy plasma axe",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Heavy plasma axe",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 7,
+          "AP": -2,
+          "D": 3,
+          "WS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "concussion-maul",
+    "name": "Concussion maul",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Concussion maul",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 5,
+          "AP": -2,
+          "D": 3,
+          "WS": 4
+        },
+        "keywords": [
+          "Anti-monster 3+",
+          "Anti-vehicle 3+"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "twin-concussion-gauntlet",
+    "name": "Twin concussion gauntlet",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Twin concussion gauntlet",
+        "range": "Melee",
+        "stats": {
+          "A": 4,
+          "S": 9,
+          "AP": -2,
+          "D": 2,
+          "WS": 4
+        },
+        "keywords": [
+          "Twin-linked"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "hylas-beam-cannon",
+    "name": "HYLas beam cannon",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "HYLas beam cannon",
+        "range": 24,
+        "stats": {
+          "A": 2,
+          "S": 12,
+          "AP": -3,
+          "D": "D6+1",
+          "BS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "l7-missile-launcher",
+    "name": "L7 missile launcher",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Focused",
+        "range": 36,
+        "stats": {
+          "A": 1,
+          "S": 9,
+          "AP": -2,
+          "D": "D6",
+          "BS": 4
+        },
+        "keywords": []
+      },
+      {
+        "name": "Blast",
+        "range": 36,
+        "stats": {
+          "A": "D6",
+          "S": 4,
+          "AP": 0,
+          "D": 1,
+          "BS": 4
+        },
+        "keywords": [
+          "Blast"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "sagitaur-missile-launcher",
+    "name": "Sagitaur missile launcher",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Sagitaur missile launcher",
+        "range": 36,
+        "stats": {
+          "A": 2,
+          "S": 10,
+          "AP": -3,
+          "D": 3,
+          "BS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "armoured-wheels",
+    "name": "Armoured wheels",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Armoured wheels",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 6,
+          "AP": 0,
+          "D": 1,
+          "WS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "forgewrought-plasma-axe",
+    "name": "Forgewrought plasma axe",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Forgewrought plasma axe",
+        "range": "Melee",
+        "stats": {
+          "A": 4,
+          "S": 5,
+          "AP": -2,
+          "D": 2,
+          "WS": 2
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "mass-gauntlet",
+    "name": "Mass gauntlet",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Mass gauntlet",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 8,
+          "AP": -3,
+          "D": 3,
+          "WS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "ion-blaster",
+    "name": "Ion blaster",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Ion blaster",
+        "range": 18,
+        "stats": {
+          "A": 1,
+          "S": 5,
+          "AP": -2,
+          "D": 1,
+          "BS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "theyns-pistol",
+    "name": "Theyn’s pistol",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Theyn’s pistol",
+        "range": 12,
+        "stats": {
+          "A": 1,
+          "S": 8,
+          "AP": -2,
+          "D": 1,
+          "BS": 4
+        },
+        "keywords": [
+          "Pistol"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "hylas-auto-rifle",
+    "name": "HYLas auto rifle",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "HYLas auto rifle",
+        "range": 24,
+        "stats": {
+          "A": 3,
+          "S": 6,
+          "AP": -1,
+          "D": 1,
+          "BS": 4
+        },
+        "keywords": [
+          "Assault",
+          "Rapid Fire 3"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "hylas-rotary-cannon",
+    "name": "HYLas rotary cannon",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "HYLas rotary cannon",
+        "range": 24,
+        "stats": {
+          "A": 6,
+          "S": 6,
+          "AP": -1,
+          "D": 1,
+          "BS": 5
+        },
+        "keywords": [
+          "Heavy",
+          "Sustained Hits 1"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "l7-missile-launcher",
+    "name": "L7 missile launcher",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Focused",
+        "range": 24,
+        "stats": {
+          "A": 1,
+          "S": 9,
+          "AP": -2,
+          "D": "D6",
+          "BS": 4
+        },
+        "keywords": []
+      },
+      {
+        "name": "Blast",
+        "range": 24,
+        "stats": {
+          "A": "D6",
+          "S": 4,
+          "AP": 0,
+          "D": 1,
+          "BS": 4
+        },
+        "keywords": [
+          "Blast"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "etacarn-plasma-beamer",
+    "name": "EtaCarn plasma beamer",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "EtaCarn plasma beamer",
+        "range": 18,
+        "stats": {
+          "A": 1,
+          "S": 8,
+          "AP": -3,
+          "D": 2,
+          "BS": 4
+        },
+        "keywords": [
+          "Sustained Hits D3"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "magna-rail-rifle",
+    "name": "Magna-rail rifle",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Magna-rail rifle",
+        "range": 18,
+        "stats": {
+          "A": 1,
+          "S": 12,
+          "AP": -3,
+          "D": "D3+3",
+          "BS": 5
+        },
+        "keywords": [
+          "Devastating Wounds",
+          "Heavy"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "theyns-melee-weapon",
+    "name": "Theyn’s melee weapon",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Theyn’s melee weapon",
+        "range": "Melee",
+        "stats": {
+          "A": 2,
+          "S": 5,
+          "AP": -2,
+          "D": 2,
+          "WS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  }
+]

@@ -1,0 +1,709 @@
+[
+  {
+    "id": "symbiotic-destruction",
+    "name": "SYMBIOTIC DESTRUCTION",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "brood-brothers-auxilia",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "gene-twisted-muscle",
+    "name": "GENE-TWISTED MUSCLE",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "biosanctic-broodsurge",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "hyper-metabolic-vigour",
+    "name": "HYPER-METABOLIC VIGOUR",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "biosanctic-broodsurge",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "stimulated-bio-surge",
+    "name": "STIMULATED BIO-SURGE",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "biosanctic-broodsurge",
+    "cp_cost": 1,
+    "phases": [
+      "charge"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "devoted-crew",
+    "name": "DEVOTED CREW",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "outlander-claw",
+    "cp_cost": 1,
+    "phases": [
+      "fight",
+      "shooting"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "close-range-shoot-out",
+    "name": "CLOSE-RANGE SHOOT-OUT",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "outlander-claw",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "deft-manoeuvring",
+    "name": "DEFT MANOEUVRING",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "outlander-claw",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "hyperferocity",
+    "name": "HYPERFEROCITY",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "final-day",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "avenge-the-star-children",
+    "name": "AVENGE THE STAR CHILDREN",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "final-day",
+    "cp_cost": 1,
+    "phases": [
+      "fight",
+      "shooting"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "divine-imperative",
+    "name": "DIVINE IMPERATIVE",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "final-day",
+    "cp_cost": 1,
+    "phases": [
+      "charge"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "frenzied-devotion",
+    "name": "FRENZIED DEVOTION",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "xenocreed-congregation",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "coordinated-trap",
+    "name": "COORDINATED TRAP",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "host-of-ascension",
+    "cp_cost": 2,
+    "phases": [
+      "fight",
+      "shooting"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "primed-and-readied",
+    "name": "PRIMED AND READIED",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "host-of-ascension",
+    "cp_cost": 2,
+    "phases": [
+      "fight",
+      "shooting"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "saintly-paroxysm",
+    "name": "SAINTLY PAROXYSM",
+    "category": "detachment",
+    "type": "epic-deed",
+    "detachment_id": "biosanctic-broodsurge",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "vengeance-for-the-martyr",
+    "name": "VENGEANCE FOR THE MARTYR!",
+    "category": "detachment",
+    "type": "epic-deed",
+    "detachment_id": "xenocreed-congregation",
+    "cp_cost": 1,
+    "phases": [
+      "fight",
+      "shooting"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "in-the-shadow-of-iron",
+    "name": "IN THE SHADOW OF IRON",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "brood-brothers-auxilia",
+    "cp_cost": 1,
+    "phases": [
+      "command",
+      "movement",
+      "shooting",
+      "charge",
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "regimental-reinforcements",
+    "name": "REGIMENTAL REINFORCEMENTS",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "brood-brothers-auxilia",
+    "cp_cost": 1,
+    "phases": [
+      "fight",
+      "shooting"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "suppress-and-overwhelm",
+    "name": "SUPPRESS AND OVERWHELM",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "brood-brothers-auxilia",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "a-dark-network",
+    "name": "A DARK NETWORK",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "brood-brothers-auxilia",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "evasive-vanguard",
+    "name": "EVASIVE VANGUARD",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "biosanctic-broodsurge",
+    "cp_cost": 1,
+    "phases": [
+      "command",
+      "movement",
+      "shooting",
+      "charge",
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "bio-horror-revelation",
+    "name": "BIO-HORROR REVELATION",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "biosanctic-broodsurge",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "along-shadowed-trails",
+    "name": "ALONG SHADOWED TRAILS",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "outlander-claw",
+    "cp_cost": 1,
+    "phases": [
+      "command",
+      "movement",
+      "shooting",
+      "charge",
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "rapid-feint",
+    "name": "RAPID FEINT",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "outlander-claw",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "encircling-the-prey",
+    "name": "ENCIRCLING THE PREY",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "outlander-claw",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "psi-surge",
+    "name": "PSI SURGE",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "final-day",
+    "cp_cost": 1,
+    "phases": [
+      "command",
+      "movement",
+      "shooting",
+      "charge",
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "darting-attacks",
+    "name": "DARTING ATTACKS",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "final-day",
+    "cp_cost": 1,
+    "phases": [
+      "charge",
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "resistance-tunnels",
+    "name": "RESISTANCE TUNNELS",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "final-day",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "tireless-fervour",
+    "name": "TIRELESS FERVOUR",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "xenocreed-congregation",
+    "cp_cost": 1,
+    "phases": [
+      "charge"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "transcendent-celerity",
+    "name": "TRANSCENDENT CELERITY",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "xenocreed-congregation",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "the-path-of-anguish",
+    "name": "THE PATH OF ANGUISH",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "xenocreed-congregation",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "tunnel-crawlers",
+    "name": "TUNNEL CRAWLERS",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "host-of-ascension",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "lying-in-wait",
+    "name": "LYING IN WAIT",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "host-of-ascension",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "return-to-the-shadows",
+    "name": "RETURN TO THE SHADOWS",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "host-of-ascension",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "a-deadly-snare",
+    "name": "A DEADLY SNARE",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "host-of-ascension",
+    "cp_cost": 1,
+    "phases": [
+      "charge"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "acceptable-losses",
+    "name": "ACCEPTABLE LOSSES",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "brood-brothers-auxilia",
+    "cp_cost": 2,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "the-downtrodden-rise",
+    "name": "THE DOWNTRODDEN RISE",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "xenocreed-congregation",
+    "cp_cost": 2,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  }
+]

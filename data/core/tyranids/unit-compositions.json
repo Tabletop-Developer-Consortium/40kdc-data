@@ -1,0 +1,853 @@
+[
+  {
+    "unit_id": "trygon",
+    "models": [
+      {
+        "name": "Trygon",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "mawloc",
+    "models": [
+      {
+        "name": "Mawloc",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "tyranid-warriors-with-ranged-bio-weapons",
+    "models": [
+      {
+        "name": "Tyranid Prime",
+        "profile_name": "Tyranid Warrior",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "devourer",
+          "scything-talons"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Tyranid Warrior",
+        "min": 2,
+        "max": 5,
+        "default_weapon_ids": [
+          "devourer",
+          "scything-talons"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "winged-hive-tyrant",
+    "models": [
+      {
+        "name": "Winged Hive Tyrant",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "harridan",
+    "models": [
+      {
+        "name": "Harridan",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "norn-emissary",
+    "models": [
+      {
+        "name": "Norn Emissary",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "winged-tyranid-prime",
+    "models": [
+      {
+        "name": "Winged Tyranid Prime",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "von-ryans-leapers",
+    "models": [
+      {
+        "name": "Von Ryan’s Leapers",
+        "min": 3,
+        "max": 6,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "hierophant",
+    "models": [
+      {
+        "name": "Hierophant",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "the-swarmlord",
+    "models": [
+      {
+        "name": "The Swarmlord",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "exocrine",
+    "models": [
+      {
+        "name": "Exocrine",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "venomthropes",
+    "models": [
+      {
+        "name": "Venomthropes",
+        "min": 3,
+        "max": 6,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "tyranid-warriors-with-melee-bio-weapons",
+    "models": [
+      {
+        "name": "Tyranid Prime",
+        "profile_name": "Tyranid Warrior",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "prime-talons"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Tyranid Warrior",
+        "min": 2,
+        "max": 5,
+        "default_weapon_ids": [
+          "dual-boneswords"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "spore-mines",
+    "models": [
+      {
+        "name": "Spore Mines",
+        "min": 3,
+        "max": 6,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "tyrannocyte",
+    "models": [
+      {
+        "name": "Tyrannocyte",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "ripper-swarms",
+    "models": [
+      {
+        "name": "Ripper Swarms",
+        "min": 1,
+        "max": 3,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "biovores",
+    "models": [
+      {
+        "name": "Biovores",
+        "min": 1,
+        "max": 3,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "deathleaper",
+    "models": [
+      {
+        "name": "Deathleaper",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "hyperadapted-raveners",
+    "models": [
+      {
+        "name": "Ravener Prime",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "ravener-claws-and-talons"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Ravener",
+        "profile_name": "Raveners",
+        "min": 4,
+        "max": 4,
+        "default_weapon_ids": [
+          "ravener-claws-and-talons"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "norn-assimilator",
+    "models": [
+      {
+        "name": "Norn Assimilator",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "sporocyst",
+    "models": [
+      {
+        "name": "Sporocyst",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "tyrannofex",
+    "models": [
+      {
+        "name": "Tyrannofex",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "neurolictor",
+    "models": [
+      {
+        "name": "Neurolictor",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "psychophage",
+    "models": [
+      {
+        "name": "Psychophage",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "zoanthropes",
+    "models": [
+      {
+        "name": "Zoanthrope",
+        "min": 3,
+        "max": 6,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "broodlord",
+    "models": [
+      {
+        "name": "Broodlord",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "harpy",
+    "models": [
+      {
+        "name": "Harpy",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "parasite-of-mortrex",
+    "models": [
+      {
+        "name": "Parasite of Mortrex",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "tyrant-guard",
+    "models": [
+      {
+        "name": "Tyrant Guard",
+        "min": 3,
+        "max": 6,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "screamer-killer",
+    "models": [
+      {
+        "name": "Screamer-Killer",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "mucolid-spores",
+    "models": [
+      {
+        "name": "Mucolid Spores",
+        "min": 1,
+        "max": 2,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "hormagaunts",
+    "models": [
+      {
+        "name": "Hormagaunts",
+        "min": 10,
+        "max": 20,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "genestealers",
+    "models": [
+      {
+        "name": "Genestealers",
+        "min": 5,
+        "max": 10,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "toxicrene",
+    "models": [
+      {
+        "name": "Toxicrene",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "pyrovores",
+    "models": [
+      {
+        "name": "Pyrovores",
+        "min": 1,
+        "max": 3,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "neurotyrant",
+    "models": [
+      {
+        "name": "Neurotyrant",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "termagants",
+    "models": [
+      {
+        "name": "Termagants",
+        "min": 10,
+        "max": 20,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "tyranid-prime-with-lash-whip",
+    "models": [
+      {
+        "name": "Tyranid Prime with Lash Whip",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "hive-guard",
+    "models": [
+      {
+        "name": "Hive Guard",
+        "min": 3,
+        "max": 6,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "barbgaunts",
+    "models": [
+      {
+        "name": "Barbgaunts",
+        "min": 5,
+        "max": 10,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "neurogaunts",
+    "models": [
+      {
+        "name": "Neurogaunt",
+        "min": 11,
+        "max": 22,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "hive-crone",
+    "models": [
+      {
+        "name": "Hive Crone",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "tervigon",
+    "models": [
+      {
+        "name": "Tervigon",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "old-one-eye",
+    "models": [
+      {
+        "name": "Old One Eye",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "maleceptor",
+    "models": [
+      {
+        "name": "Maleceptor",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "carnifexes",
+    "models": [
+      {
+        "name": "Carnifexes",
+        "min": 1,
+        "max": 2,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "hive-tyrant",
+    "models": [
+      {
+        "name": "Hive Tyrant",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "gargoyles",
+    "models": [
+      {
+        "name": "Gargoyles",
+        "min": 10,
+        "max": 20,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "haruspex",
+    "models": [
+      {
+        "name": "Haruspex",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "lictor",
+    "models": [
+      {
+        "name": "Lictor",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "raveners",
+    "models": [
+      {
+        "name": "Raveners",
+        "min": 5,
+        "max": 5,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "dimachaeron",
+    "models": [
+      {
+        "name": "Dimachaeron",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "sky-slasher-swarms",
+    "models": [
+      {
+        "name": "Sky-slasher Swarms",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "malanthrope",
+    "models": [
+      {
+        "name": "Malanthrope",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  }
+]

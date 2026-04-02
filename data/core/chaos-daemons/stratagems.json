@@ -1,0 +1,706 @@
+[
+  {
+    "id": "sheathed-in-brass",
+    "name": "SHEATHED IN BRASS",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "blood-legion",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "draught-of-terror",
+    "name": "DRAUGHT OF TERROR",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "daemonic-incursion",
+    "cp_cost": 1,
+    "phases": [
+      "fight",
+      "shooting"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "the-realm-of-chaos",
+    "name": "THE REALM OF CHAOS",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "daemonic-incursion",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "daemonic-invulnerability",
+    "name": "DAEMONIC INVULNERABILITY",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "daemonic-incursion",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "seeping-virulence",
+    "name": "SEEPING VIRULENCE",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "plague-legion",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "fever-visions",
+    "name": "FEVER VISIONS",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "plague-legion",
+    "cp_cost": 1,
+    "phases": [
+      "fight",
+      "shooting"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "murkshadows",
+    "name": "MURKSHADOWS",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "plague-legion",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "death-denied",
+    "name": "DEATH DENIED",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "shadow-legion",
+    "cp_cost": 1,
+    "phases": [
+      "command"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "encroaching-darkness",
+    "name": "ENCROACHING DARKNESS",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "shadow-legion",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "pyrogenesis",
+    "name": "PYROGENESIS",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "scintillating-legion",
+    "cp_cost": 1,
+    "phases": [
+      "fight",
+      "shooting"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "cavalcade-of-blades",
+    "name": "CAVALCADE OF BLADES",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "legion-of-excess",
+    "cp_cost": 1,
+    "phases": [
+      "charge"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "overwhelming-excess",
+    "name": "OVERWHELMING EXCESS",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "legion-of-excess",
+    "cp_cost": 1,
+    "phases": [
+      "fight",
+      "shooting"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "shade-path",
+    "name": "SHADE PATH",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "shadow-legion",
+    "cp_cost": 2,
+    "phases": [
+      "charge"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "archagonists",
+    "name": "ARCHAGONISTS",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "legion-of-excess",
+    "cp_cost": 2,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "blood-begets-skulls",
+    "name": "BLOOD BEGETS SKULLS",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "blood-legion",
+    "cp_cost": 1,
+    "phases": [
+      "charge"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "wrath-undeniable",
+    "name": "WRATH UNDENIABLE",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "blood-legion",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "gore-hungry-onslaught",
+    "name": "GORE-HUNGRY ONSLAUGHT",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "blood-legion",
+    "cp_cost": 1,
+    "phases": [
+      "charge",
+      "movement"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "skulls-beget-blood",
+    "name": "SKULLS BEGET BLOOD",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "blood-legion",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "corrupt-realspace",
+    "name": "CORRUPT REALSPACE",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "daemonic-incursion",
+    "cp_cost": 1,
+    "phases": [
+      "command"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "warp-surge",
+    "name": "WARP SURGE",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "daemonic-incursion",
+    "cp_cost": 1,
+    "phases": [
+      "charge"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "denizens-of-the-warp",
+    "name": "DENIZENS OF THE WARP",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "daemonic-incursion",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "rot-and-renewal",
+    "name": "ROT AND RENEWAL",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "plague-legion",
+    "cp_cost": 1,
+    "phases": [
+      "charge",
+      "movement"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "plague-of-woes",
+    "name": "PLAGUE OF WOES",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "plague-legion",
+    "cp_cost": 1,
+    "phases": [
+      "command"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "spiteful-demise",
+    "name": "SPITEFUL DEMISE",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "shadow-legion",
+    "cp_cost": 1,
+    "phases": [
+      "command",
+      "movement",
+      "shooting",
+      "charge",
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "channelled-wrath",
+    "name": "CHANNELLED WRATH",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "shadow-legion",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "binding-shadow",
+    "name": "BINDING SHADOW",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "shadow-legion",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "impossible-eclipse",
+    "name": "IMPOSSIBLE ECLIPSE",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "scintillating-legion",
+    "cp_cost": 1,
+    "phases": [
+      "command",
+      "movement",
+      "shooting",
+      "charge",
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "flickering-reality",
+    "name": "FLICKERING REALITY",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "scintillating-legion",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "fateborne-nightmares",
+    "name": "FATEBORNE NIGHTMARES",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "scintillating-legion",
+    "cp_cost": 1,
+    "phases": [
+      "charge",
+      "movement"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "ficklefire",
+    "name": "FICKLEFIRE",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "scintillating-legion",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "delirium-unmade",
+    "name": "DELIRIUM UNMADE",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "scintillating-legion",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "thieves-of-pain",
+    "name": "THIEVES OF PAIN",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "legion-of-excess",
+    "cp_cost": 1,
+    "phases": [
+      "command",
+      "movement",
+      "shooting",
+      "charge",
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "sensory-excruciation",
+    "name": "SENSORY EXCRUCIATION",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "legion-of-excess",
+    "cp_cost": 1,
+    "phases": [
+      "command"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "phantasmal-longing",
+    "name": "PHANTASMAL LONGING",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "legion-of-excess",
+    "cp_cost": 1,
+    "phases": [
+      "charge",
+      "movement"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "fools-flight",
+    "name": "FOOL’S FLIGHT",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "blood-legion",
+    "cp_cost": 2,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "foetid-resurgence",
+    "name": "FOETID RESURGENCE",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "plague-legion",
+    "cp_cost": 2,
+    "phases": [
+      "command"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  }
+]

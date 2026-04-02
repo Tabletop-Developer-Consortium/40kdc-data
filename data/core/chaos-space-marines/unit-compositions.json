@@ -1,0 +1,1530 @@
+[
+  {
+    "unit_id": "heretic-astartes-daemon-prince",
+    "models": [
+      {
+        "name": "Heretic Astartes Daemon Prince",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "heretic-astartes-daemon-prince-with-wings",
+    "models": [
+      {
+        "name": "Heretic Astartes Daemon Prince with Wings",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "sorcerer-in-terminator-armour",
+    "models": [
+      {
+        "name": "Sorcerer in Terminator Armour",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "nemesis-claw",
+    "models": [
+      {
+        "name": "Nemesis Champion",
+        "profile_name": "Nemesis Claw",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "bolt-pistol",
+          "accursed-weapon"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Nemesis Claw",
+        "min": 4,
+        "max": 9,
+        "default_weapon_ids": [
+          "bolt-pistol",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "sorcerer",
+    "models": [
+      {
+        "name": "Sorcerer",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "dark-commune",
+    "models": [
+      {
+        "name": "Cult Demagogue",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "autopistol",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Blessed Blade",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "close-combat-weapon"
+        ],
+        "is_leader_model": false
+      },
+      {
+        "name": "Mindwitch",
+        "profile_name": "Cult Demagogue",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "close-combat-weapon"
+        ],
+        "is_leader_model": false
+      },
+      {
+        "name": "Iconarch",
+        "profile_name": "Cult Demagogue",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "close-combat-weapon"
+        ],
+        "is_leader_model": false
+      },
+      {
+        "name": "Accursed Mutant",
+        "profile_name": "Blessed Blade",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "close-combat-weapon"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "master-of-possession",
+    "models": [
+      {
+        "name": "Master of Possession",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "obliterators",
+    "models": [
+      {
+        "name": "Obliterators",
+        "min": 2,
+        "max": 2,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "lord-discordant-on-helstalker",
+    "models": [
+      {
+        "name": "Lord Discordant on Helstalker",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "chaos-terminator-squad",
+    "models": [
+      {
+        "name": "Terminator Champion",
+        "profile_name": "Chaos Terminator",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "combi-bolter",
+          "accursed-weapon"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Chaos Terminator",
+        "min": 4,
+        "max": 9,
+        "default_weapon_ids": [
+          "combi-bolter",
+          "accursed-weapon"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "cultist-firebrand",
+    "models": [
+      {
+        "name": "Cultist Firebrand",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "chaos-land-raider",
+    "models": [
+      {
+        "name": "Chaos Land Raider",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "possessed",
+    "models": [
+      {
+        "name": "Possessed",
+        "min": 5,
+        "max": 10,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "traitor-enforcer",
+    "models": [
+      {
+        "name": "Traitor Enforcer",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "autopistol",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Traitor Ogryn",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "close-combat-weapon"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "dark-apostle",
+    "models": [
+      {
+        "name": "Dark Apostle",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "bolt-pistol",
+          "accursed-crozius"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Dark Disciple",
+        "min": 2,
+        "max": 2,
+        "default_weapon_ids": [
+          "close-combat-weapon"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "chaos-spawn",
+    "models": [
+      {
+        "name": "Chaos Spawn",
+        "min": 2,
+        "max": 2,
+        "default_weapon_ids": [
+          "hideous-mutations"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "chaos-predator-annihilator",
+    "models": [
+      {
+        "name": "Chaos Predator Annihilator",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "venomcrawler",
+    "models": [
+      {
+        "name": "Venomcrawler",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "havocs",
+    "models": [
+      {
+        "name": "Havoc Champion",
+        "profile_name": "Havoc",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "bolt-pistol",
+          "accursed-weapon"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Havoc",
+        "min": 4,
+        "max": 4,
+        "default_weapon_ids": [
+          "lascannon",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "noctilith-crown",
+    "models": [
+      {
+        "name": "Noctilith Crown",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "raptors",
+    "models": [
+      {
+        "name": "Raptor Champion",
+        "profile_name": "Raptor",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "bolt-pistol",
+          "accursed-weapon"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Raptor",
+        "min": 4,
+        "max": 9,
+        "default_weapon_ids": [
+          "bolt-pistol",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "defiler",
+    "models": [
+      {
+        "name": "Defiler",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "chaos-predator-destructor",
+    "models": [
+      {
+        "name": "Chaos Predator Destructor",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "chosen",
+    "models": [
+      {
+        "name": "Chosen Champion",
+        "profile_name": "Chosen",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "bolt-pistol",
+          "accursed-weapon"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Chosen",
+        "min": 4,
+        "max": 9,
+        "default_weapon_ids": [
+          "bolt-pistol",
+          "accursed-weapon"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "traitor-guardsmen-squad",
+    "models": [
+      {
+        "name": "Traitor Sergeant",
+        "profile_name": "Traitor Guardsman",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "laspistol",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Traitor Guardsman",
+        "min": 9,
+        "max": 9,
+        "default_weapon_ids": [
+          "lasgun",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "heldrake",
+    "models": [
+      {
+        "name": "Heldrake",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "chaos-vindicator",
+    "models": [
+      {
+        "name": "Chaos Vindicator",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "forgefiend",
+    "models": [
+      {
+        "name": "Forgefiend",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "warpsmith",
+    "models": [
+      {
+        "name": "Warpsmith",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "chaos-lord-in-terminator-armour",
+    "models": [
+      {
+        "name": "Chaos Lord in Terminator Armour",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "red-corsairs-raiders",
+    "models": [
+      {
+        "name": "Corsair Champion",
+        "profile_name": "Red Corsair",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "bolt-pistol",
+          "accursed-weapon"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Red Corsair",
+        "min": 4,
+        "max": 9,
+        "default_weapon_ids": [
+          "boltgun",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "master-of-executions",
+    "models": [
+      {
+        "name": "Master of Executions",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "accursed-cultists",
+    "models": [
+      {
+        "name": "Torment",
+        "min": 1,
+        "max": 3,
+        "default_weapon_ids": [
+          "hideous-mutations"
+        ],
+        "is_leader_model": false
+      },
+      {
+        "name": "Mutant",
+        "min": 5,
+        "max": 13,
+        "default_weapon_ids": [
+          "blasphemous-appendages"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "helbrute",
+    "models": [
+      {
+        "name": "Helbrute",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "chaos-lord-with-jump-pack",
+    "models": [
+      {
+        "name": "Chaos Lord with Jump Pack",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "cultist-mob",
+    "models": [
+      {
+        "name": "Cultist Champion",
+        "profile_name": "Cultist",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "autopistol",
+          "brutal-assault-weapon"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Cultist",
+        "min": 9,
+        "max": 19,
+        "default_weapon_ids": [
+          "autogun",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "chaos-lord",
+    "models": [
+      {
+        "name": "Chaos Lord",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "chaos-bikers",
+    "models": [
+      {
+        "name": "Biker Champion",
+        "profile_name": "Chaos Biker",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "bolt-pistol",
+          "accursed-weapon"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Chaos Biker",
+        "min": 2,
+        "max": 5,
+        "default_weapon_ids": [
+          "combi-bolter",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "warp-talons",
+    "models": [
+      {
+        "name": "Warp Talon Champion",
+        "profile_name": "Warp Talon",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "warp-talon-claws"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Warp Talon",
+        "min": 4,
+        "max": 9,
+        "default_weapon_ids": [
+          "warp-talon-claws"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "fellgor-beastmen",
+    "models": [
+      {
+        "name": "Fellgor Mangler",
+        "profile_name": "Fellgor Beastman",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "autopistol",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Fellgor Beastman",
+        "min": 9,
+        "max": 9,
+        "default_weapon_ids": [
+          "autopistol",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "maulerfiend",
+    "models": [
+      {
+        "name": "Maulerfiend",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "chaos-rhino",
+    "models": [
+      {
+        "name": "Chaos Rhino",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "legionaries",
+    "models": [
+      {
+        "name": "Aspiring Champion",
+        "profile_name": "Legionary",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "bolt-pistol",
+          "accursed-weapon"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Legionary",
+        "min": 4,
+        "max": 9,
+        "default_weapon_ids": [
+          "boltgun",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "red-corsairs-reave-captain",
+    "models": [
+      {
+        "name": "Red Corsairs Reave-Captain",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "masters-of-the-maelstrom",
+    "models": [
+      {
+        "name": "Katar Garrix",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "close-combat-weapon"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "The Enforcer",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "close-combat-weapon"
+        ],
+        "is_leader_model": false
+      },
+      {
+        "name": "Corsair",
+        "profile_name": "Katar Garrix",
+        "min": 3,
+        "max": 3,
+        "default_weapon_ids": [
+          "boltgun",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "vashtorr-the-arkifane",
+    "models": [
+      {
+        "name": "Vashtorr the Arkifane",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "huron-blackheart",
+    "models": [
+      {
+        "name": "Huron Blackheart",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "haarken-worldclaimer",
+    "models": [
+      {
+        "name": "Haarken Worldclaimer",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "abaddon-the-despoiler",
+    "models": [
+      {
+        "name": "Abaddon the Despoiler",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "fabius-bile",
+    "models": [
+      {
+        "name": "Fabius Bile",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "xyclos-needler",
+          "chirurgeon"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Surgeon Acolyte",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "close-combat-weapon"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "cypher",
+    "models": [
+      {
+        "name": "Cypher",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "khorne-lord-of-skulls",
+    "models": [
+      {
+        "name": "Khorne Lord of Skulls",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "dreadclaw-drop-pod",
+    "models": [
+      {
+        "name": "Dreadclaw Drop Pod",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "greater-blight-drone",
+    "models": [
+      {
+        "name": "Greater Blight Drone",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "hell-blade",
+    "models": [
+      {
+        "name": "Hell Blade",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "blood-slaughterer",
+    "models": [
+      {
+        "name": "Blood Slaughterer",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "chaos-deimos-predator",
+    "models": [
+      {
+        "name": "Chaos Deimos Predator",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "decimator",
+    "models": [
+      {
+        "name": "Decimator",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "hell-talon",
+    "models": [
+      {
+        "name": "Hell Talon",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "kharybdis-assault-claw",
+    "models": [
+      {
+        "name": "Kharybdis Assault Claw",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "chaos-thunderhawk",
+    "models": [
+      {
+        "name": "Chaos Thunderhawk",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "kytan-ravager",
+    "models": [
+      {
+        "name": "Kytan Ravager",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "greater-brass-scorpion",
+    "models": [
+      {
+        "name": "Greater Brass Scorpion",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "mutilators",
+    "models": [
+      {
+        "name": "Mutilators",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "gellerpox-infected",
+    "models": [
+      {
+        "name": "GELLERPOX MUTANTS",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "negavolt-cultists",
+    "models": [
+      {
+        "name": "Negavolt Cultists",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "renegade-plague-ogryns",
+    "models": [
+      {
+        "name": "Renegade Plague Ogryns",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "mutoid-vermin",
+    "models": [
+      {
+        "name": "Mutoid Vermin",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "rogue-psyker",
+    "models": [
+      {
+        "name": "Rogue Psyker",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "sorcerer-on-bike",
+    "models": [
+      {
+        "name": "Sorcerer On Bike",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "sorcerer-on-disc-of-tzeentch",
+    "models": [
+      {
+        "name": "Sorcerer On Disc Of Tzeentch",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "sorcerer-on-palanquin-of-nurgle",
+    "models": [
+      {
+        "name": "Sorcerer On Palanquin Of Nurgle",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "sorcerer-on-steed-of-slaanesh",
+    "models": [
+      {
+        "name": "Sorcerer On Steed Of Slaanesh",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "chaos-lord-on-palanquin-of-nurgle",
+    "models": [
+      {
+        "name": "Chaos Lord On Palanquin Of Nurgle",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "chaos-lord-on-steed-of-slaanesh",
+    "models": [
+      {
+        "name": "Chaos Lord On Steed Of Slaanesh",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "chaos-lord-on-juggernaut",
+    "models": [
+      {
+        "name": "Chaos Lord On Juggernaut",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "chaos-lord-on-disc-of-tzeentch",
+    "models": [
+      {
+        "name": "Chaos Lord On Disc Of Tzeentch",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "chaos-lord-on-bike",
+    "models": [
+      {
+        "name": "Chaos Lord On Bike",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "renegade-enforcer",
+    "models": [
+      {
+        "name": "Renegade Enforcer",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "renegade-ogryn-brutes",
+    "models": [
+      {
+        "name": "Renegade Ogryn Brutes",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "renegade-heavy-weapons-squad",
+    "models": [
+      {
+        "name": "Renegade Heavy Weapons Squad",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "renegade-ogryn-beast-handler",
+    "models": [
+      {
+        "name": "CHAOS MAULER HOUND",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  }
+]

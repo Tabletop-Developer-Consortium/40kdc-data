@@ -1,0 +1,2883 @@
+[
+  {
+    "id": "ghost-ark",
+    "name": "Ghost Ark",
+    "faction_id": "necrons",
+    "role": "dedicated-transport",
+    "profiles": [
+      {
+        "name": "Ghost Ark",
+        "M": 10,
+        "T": 9,
+        "W": 14,
+        "Sv": 3,
+        "invuln_sv": 4,
+        "Ld": 7,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 115
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Fly",
+      "Transport",
+      "Dedicated Transport",
+      "Ghost Ark"
+    ],
+    "faction_keywords": [
+      "Necrons"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-bulk",
+      "gauss-flayer-array"
+    ],
+    "ability_ids": [],
+    "transport_capacity": {
+      "capacity": 10
+    },
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "seraptek-heavy-construct",
+    "name": "Seraptek Heavy Construct",
+    "faction_id": "necrons",
+    "profiles": [
+      {
+        "name": "Seraptek Heavy Construct",
+        "M": 10,
+        "T": 12,
+        "W": 24,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 10
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 540
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Titanic",
+      "Towering",
+      "Seraptek Heavy Construct"
+    ],
+    "faction_keywords": [
+      "Necrons"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "singularity-generator",
+      "synaptic-obliterator",
+      "titanic-forelimbs",
+      "transdimensional-projector"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "triarch-praetorians",
+    "name": "Triarch Praetorians",
+    "faction_id": "necrons",
+    "profiles": [
+      {
+        "name": "Triarch Praetorians",
+        "M": 10,
+        "T": 5,
+        "W": 2,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 90
+      },
+      {
+        "models": 10,
+        "cost": 180
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Fly",
+      "Triarch",
+      "Praetorians"
+    ],
+    "faction_keywords": [
+      "Necrons"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 10
+    },
+    "weapon_ids": [
+      "particle-caster",
+      "rod-of-covenant",
+      "voidblade"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "necron-warriors",
+    "name": "Necron Warriors",
+    "faction_id": "necrons",
+    "role": "battleline",
+    "profiles": [
+      {
+        "name": "Necron Warriors",
+        "M": 5,
+        "T": 4,
+        "W": 1,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 10,
+        "cost": 90
+      },
+      {
+        "models": 20,
+        "cost": 200
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Battleline",
+      "Necron Warriors"
+    ],
+    "faction_keywords": [
+      "Necrons"
+    ],
+    "model_count": {
+      "min": 10,
+      "max": 20
+    },
+    "weapon_ids": [
+      "close-combat-weapon",
+      "gauss-flayer",
+      "gauss-reaper"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "canoptek-macrocytes",
+    "name": "Canoptek Macrocytes",
+    "faction_id": "necrons",
+    "profiles": [
+      {
+        "name": "Canoptek Macrocytes",
+        "M": 8,
+        "T": 3,
+        "W": 1,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 8,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 85
+      }
+    ],
+    "keywords": [
+      "Beasts",
+      "Fly",
+      "Canoptek",
+      "Macrocytes"
+    ],
+    "faction_keywords": [
+      "Necrons"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 5
+    },
+    "weapon_ids": [
+      "atomiser-beam",
+      "claws",
+      "gauss-scalpel",
+      "tesla-caster"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "technomancer",
+    "name": "Technomancer",
+    "faction_id": "necrons",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Technomancer",
+        "M": 10,
+        "T": 4,
+        "W": 4,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 80
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Fly",
+      "Cryptek",
+      "Technomancer"
+    ],
+    "faction_keywords": [
+      "Necrons"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "staff-of-light"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "night-scythe",
+    "name": "Night Scythe",
+    "faction_id": "necrons",
+    "profiles": [
+      {
+        "name": "Night Scythe",
+        "M": 20,
+        "T": 9,
+        "W": 12,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 0
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 145
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Aircraft",
+      "Fly",
+      "Transport",
+      "Night Scythe"
+    ],
+    "faction_keywords": [
+      "Necrons"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-bulk",
+      "twin-tesla-destructor"
+    ],
+    "ability_ids": [],
+    "transport_capacity": {
+      "capacity": 1
+    },
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "overlord",
+    "name": "Overlord",
+    "faction_id": "necrons",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Overlord",
+        "M": 5,
+        "T": 5,
+        "W": 6,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 85
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Noble",
+      "Overlord"
+    ],
+    "faction_keywords": [
+      "Necrons"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "overlords-blade",
+      "staff-of-light",
+      "tachyon-arrow",
+      "voidscythe"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "royal-warden",
+    "name": "Royal Warden",
+    "faction_id": "necrons",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Royal Warden",
+        "M": 5,
+        "T": 5,
+        "W": 4,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 50
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Royal Warden"
+    ],
+    "faction_keywords": [
+      "Necrons"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "close-combat-weapon",
+      "relic-gauss-blaster"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "canoptek-doomstalker",
+    "name": "Canoptek Doomstalker",
+    "faction_id": "necrons",
+    "profiles": [
+      {
+        "name": "Canoptek Doomstalker",
+        "M": 8,
+        "T": 8,
+        "W": 12,
+        "Sv": 3,
+        "invuln_sv": 4,
+        "Ld": 8,
+        "OC": 4
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 140
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Canoptek",
+      "Doomstalker"
+    ],
+    "faction_keywords": [
+      "Necrons"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "doomsday-blaster",
+      "doomstalker-limbs",
+      "twin-gauss-flayer"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "immortals",
+    "name": "Immortals",
+    "faction_id": "necrons",
+    "role": "battleline",
+    "profiles": [
+      {
+        "name": "Immortals",
+        "M": 5,
+        "T": 5,
+        "W": 1,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 70
+      },
+      {
+        "models": 10,
+        "cost": 150
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Battleline",
+      "Immortals"
+    ],
+    "faction_keywords": [
+      "Necrons"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 10
+    },
+    "weapon_ids": [
+      "close-combat-weapon",
+      "gauss-blaster",
+      "tesla-carbine"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "cryptothralls",
+    "name": "Cryptothralls",
+    "faction_id": "necrons",
+    "profiles": [
+      {
+        "name": "Cryptothralls",
+        "M": 5,
+        "T": 4,
+        "W": 3,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 8,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 2,
+        "cost": 60
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Cryptothralls"
+    ],
+    "faction_keywords": [
+      "Necrons"
+    ],
+    "model_count": {
+      "min": 2,
+      "max": 2
+    },
+    "weapon_ids": [
+      "scouring-eye",
+      "scythed-limbs"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "orikan-the-diviner",
+    "name": "Orikan the Diviner",
+    "faction_id": "necrons",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Orikan the Diviner",
+        "M": 5,
+        "T": 4,
+        "W": 4,
+        "Sv": 4,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 80
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Epic Hero",
+      "Cryptek",
+      "Chronomancer",
+      "Orikan the Diviner"
+    ],
+    "faction_keywords": [
+      "Necrons"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "staff-of-tomorrow"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "tesseract-vault",
+    "name": "Tesseract Vault",
+    "faction_id": "necrons",
+    "profiles": [
+      {
+        "name": "Tesseract Vault",
+        "M": 8,
+        "T": 12,
+        "W": 24,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 7,
+        "OC": 8
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 425
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Titanic",
+      "Fly",
+      "Towering",
+      "Tesseract Vault"
+    ],
+    "faction_keywords": [
+      "Necrons"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-bulk",
+      "tesla-spheres"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "tomb-blades",
+    "name": "Tomb Blades",
+    "faction_id": "necrons",
+    "profiles": [
+      {
+        "name": "Tomb Blades",
+        "M": 12,
+        "T": 5,
+        "W": 2,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 3,
+        "cost": 75
+      },
+      {
+        "models": 6,
+        "cost": 150
+      }
+    ],
+    "keywords": [
+      "Mounted",
+      "Fly",
+      "Tomb Blades"
+    ],
+    "faction_keywords": [
+      "Necrons"
+    ],
+    "model_count": {
+      "min": 3,
+      "max": 6
+    },
+    "weapon_ids": [
+      "close-combat-weapon",
+      "particle-beamer",
+      "twin-gauss-blaster",
+      "twin-tesla-carbine"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "psychomancer",
+    "name": "Psychomancer",
+    "faction_id": "necrons",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Psychomancer",
+        "M": 5,
+        "T": 4,
+        "W": 4,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 55
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Cryptek",
+      "Psychomancer"
+    ],
+    "faction_keywords": [
+      "Necrons"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "abyssal-lance"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "lokhust-heavy-destroyers",
+    "name": "Lokhust Heavy Destroyers",
+    "faction_id": "necrons",
+    "profiles": [
+      {
+        "name": "Lokhust Heavy Destroyers",
+        "M": 8,
+        "T": 6,
+        "W": 4,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 55
+      },
+      {
+        "models": 2,
+        "cost": 110
+      },
+      {
+        "models": 3,
+        "cost": 165
+      }
+    ],
+    "keywords": [
+      "Mounted",
+      "Fly",
+      "Destroyer Cult",
+      "Lokhust Heavy Destroyers"
+    ],
+    "faction_keywords": [
+      "Necrons"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 3
+    },
+    "weapon_ids": [
+      "close-combat-weapon",
+      "enmitic-exterminator",
+      "gauss-destructor"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "skorpekh-destroyers",
+    "name": "Skorpekh Destroyers",
+    "faction_id": "necrons",
+    "profiles": [
+      {
+        "name": "Skorpekh Destroyers",
+        "M": 8,
+        "T": 6,
+        "W": 3,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 3,
+        "cost": 90
+      },
+      {
+        "models": 6,
+        "cost": 180
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Destroyer Cult",
+      "Skorpekh Destroyers"
+    ],
+    "faction_keywords": [
+      "Necrons"
+    ],
+    "model_count": {
+      "min": 3,
+      "max": 6
+    },
+    "weapon_ids": [
+      "skorpekh-hyperphase-weapons"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "convergence-of-dominion",
+    "name": "Convergence of Dominion",
+    "faction_id": "necrons",
+    "profiles": [
+      {
+        "name": "Convergence of Dominion",
+        "M": 0,
+        "T": 9,
+        "W": 7,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 8,
+        "OC": 0
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 60
+      },
+      {
+        "models": 2,
+        "cost": 120
+      },
+      {
+        "models": 3,
+        "cost": 180
+      }
+    ],
+    "keywords": [
+      "Fortification",
+      "Vehicle",
+      "Convergence of Dominion"
+    ],
+    "faction_keywords": [
+      "Necrons"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 3
+    },
+    "weapon_ids": [
+      "transdimensional-abductor"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "skorpekh-lord",
+    "name": "Skorpekh Lord",
+    "faction_id": "necrons",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Skorpekh Lord",
+        "M": 8,
+        "T": 7,
+        "W": 7,
+        "Sv": 3,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 90
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Destroyer Cult",
+      "Skorpekh Lord"
+    ],
+    "faction_keywords": [
+      "Necrons"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "enmitic-annihilator",
+      "flensing-claw",
+      "hyperphase-harvester"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "deathmarks",
+    "name": "Deathmarks",
+    "faction_id": "necrons",
+    "profiles": [
+      {
+        "name": "Deathmarks",
+        "M": 5,
+        "T": 5,
+        "W": 1,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 60
+      },
+      {
+        "models": 10,
+        "cost": 120
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Deathmarks"
+    ],
+    "faction_keywords": [
+      "Necrons"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 10
+    },
+    "weapon_ids": [
+      "close-combat-weapon",
+      "synaptic-disintegrator"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "triarch-stalker",
+    "name": "Triarch Stalker",
+    "faction_id": "necrons",
+    "profiles": [
+      {
+        "name": "Triarch Stalker",
+        "M": 8,
+        "T": 8,
+        "W": 12,
+        "Sv": 3,
+        "invuln_sv": 4,
+        "Ld": 7,
+        "OC": 4
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 110
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Triarch",
+      "Stalker"
+    ],
+    "faction_keywords": [
+      "Necrons"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "heat-ray",
+      "heavy-gauss-cannon-array",
+      "particle-shredder",
+      "stalkers-forelimbs"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "imotekh-the-stormlord",
+    "name": "Imotekh the Stormlord",
+    "faction_id": "necrons",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Imotekh the Stormlord",
+        "M": 5,
+        "T": 5,
+        "W": 6,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 100
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Epic Hero",
+      "Noble",
+      "Imotekh the Stormlord"
+    ],
+    "faction_keywords": [
+      "Necrons"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "gauntlet-of-fire",
+      "staff-of-the-destroyer"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "obelisk",
+    "name": "Obelisk",
+    "faction_id": "necrons",
+    "profiles": [
+      {
+        "name": "Obelisk",
+        "M": 8,
+        "T": 13,
+        "W": 24,
+        "Sv": 2,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 8
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 300
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Titanic",
+      "Fly",
+      "Towering",
+      "Obelisk"
+    ],
+    "faction_keywords": [
+      "Necrons"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-bulk",
+      "tesla-sphere"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "canoptek-reanimator",
+    "name": "Canoptek Reanimator",
+    "faction_id": "necrons",
+    "profiles": [
+      {
+        "name": "Canoptek Reanimator",
+        "M": 8,
+        "T": 6,
+        "W": 6,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 8,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 75
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Canoptek",
+      "Reanimator"
+    ],
+    "faction_keywords": [
+      "Necrons"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "atomiser-beam",
+      "reanimators-claws"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "catacomb-command-barge",
+    "name": "Catacomb Command Barge",
+    "faction_id": "necrons",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Catacomb Command Barge",
+        "M": 10,
+        "T": 8,
+        "W": 9,
+        "Sv": 3,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 120
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Character",
+      "Fly",
+      "Catacomb Command Barge"
+    ],
+    "faction_keywords": [
+      "Necrons"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "gauss-cannon",
+      "overlords-blade",
+      "staff-of-light",
+      "tesla-cannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "lokhust-destroyers",
+    "name": "Lokhust Destroyers",
+    "faction_id": "necrons",
+    "profiles": [
+      {
+        "name": "Lokhust Destroyers",
+        "M": 8,
+        "T": 6,
+        "W": 3,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 40
+      },
+      {
+        "models": 2,
+        "cost": 60
+      },
+      {
+        "models": 3,
+        "cost": 90
+      },
+      {
+        "models": 6,
+        "cost": 180
+      }
+    ],
+    "keywords": [
+      "Mounted",
+      "Fly",
+      "Destroyer Cult",
+      "Lokhust Destroyers"
+    ],
+    "faction_keywords": [
+      "Necrons"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 6
+    },
+    "weapon_ids": [
+      "close-combat-weapon",
+      "gauss-cannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "lychguard",
+    "name": "Lychguard",
+    "faction_id": "necrons",
+    "profiles": [
+      {
+        "name": "Lychguard",
+        "M": 5,
+        "T": 5,
+        "W": 2,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 85
+      },
+      {
+        "models": 10,
+        "cost": 170
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Lychguard"
+    ],
+    "faction_keywords": [
+      "Necrons"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 10
+    },
+    "weapon_ids": [
+      "hyperphase-sword",
+      "warscythe"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "monolith",
+    "name": "Monolith",
+    "faction_id": "necrons",
+    "profiles": [
+      {
+        "name": "Monolith",
+        "M": 8,
+        "T": 13,
+        "W": 22,
+        "Sv": 2,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 8
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 400
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Titanic",
+      "Fly",
+      "Towering",
+      "Monolith"
+    ],
+    "faction_keywords": [
+      "Necrons"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "death-ray",
+      "gauss-flux-arc",
+      "particle-whip",
+      "portal-of-exile"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "overlord-with-translocation-shroud",
+    "name": "Overlord with Translocation Shroud",
+    "faction_id": "necrons",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Overlord with Translocation Shroud",
+        "M": 5,
+        "T": 5,
+        "W": 6,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 85
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Noble",
+      "Overlord",
+      "Overlord with Translocation Shroud"
+    ],
+    "faction_keywords": [
+      "Necrons"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "overlords-blade"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "canoptek-scarab-swarms",
+    "name": "Canoptek Scarab Swarms",
+    "faction_id": "necrons",
+    "profiles": [
+      {
+        "name": "Canoptek Scarab Swarms",
+        "M": 10,
+        "T": 2,
+        "W": 4,
+        "Sv": 6,
+        "invuln_sv": null,
+        "Ld": 8,
+        "OC": 0
+      }
+    ],
+    "points": [
+      {
+        "models": 3,
+        "cost": 40
+      },
+      {
+        "models": 6,
+        "cost": 80
+      }
+    ],
+    "keywords": [
+      "Swarm",
+      "Fly",
+      "Canoptek",
+      "Scarab Swarms"
+    ],
+    "faction_keywords": [
+      "Necrons"
+    ],
+    "model_count": {
+      "min": 3,
+      "max": 6
+    },
+    "weapon_ids": [
+      "feeder-mandibles"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "canoptek-wraiths",
+    "name": "Canoptek Wraiths",
+    "faction_id": "necrons",
+    "profiles": [
+      {
+        "name": "Canoptek Wraiths",
+        "M": 10,
+        "T": 6,
+        "W": 4,
+        "Sv": 3,
+        "invuln_sv": 4,
+        "Ld": 8,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 3,
+        "cost": 110
+      },
+      {
+        "models": 6,
+        "cost": 220
+      }
+    ],
+    "keywords": [
+      "Beasts",
+      "Fly",
+      "Canoptek",
+      "Wraiths"
+    ],
+    "faction_keywords": [
+      "Necrons"
+    ],
+    "model_count": {
+      "min": 3,
+      "max": 6
+    },
+    "weapon_ids": [
+      "particle-caster",
+      "transdimensional-beamer",
+      "vicious-claws",
+      "whip-coils"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "trazyn-the-infinite",
+    "name": "Trazyn the Infinite",
+    "faction_id": "necrons",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Trazyn the Infinite",
+        "M": 5,
+        "T": 5,
+        "W": 6,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 75
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Epic Hero",
+      "Noble",
+      "Trazyn the Infinite"
+    ],
+    "faction_keywords": [
+      "Necrons"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "empathic-obliterator"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "lokhust-lord",
+    "name": "Lokhust Lord",
+    "faction_id": "necrons",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Lokhust Lord",
+        "M": 8,
+        "T": 6,
+        "W": 6,
+        "Sv": 3,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 80
+      }
+    ],
+    "keywords": [
+      "Mounted",
+      "Character",
+      "Fly",
+      "Destroyer Cult",
+      "Lokhust Lord"
+    ],
+    "faction_keywords": [
+      "Necrons"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "lords-blade",
+      "staff-of-light"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "ctan-shard-of-the-nightbringer",
+    "name": "C’tan Shard of the Nightbringer",
+    "faction_id": "necrons",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "C’tan Shard of the Nightbringer",
+        "M": 10,
+        "T": 11,
+        "W": 16,
+        "Sv": 3,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 4
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 370
+      },
+      {
+        "models": 1,
+        "cost": 325
+      }
+    ],
+    "keywords": [
+      "Monster",
+      "Character",
+      "Epic Hero",
+      "Fly",
+      "C’tan Shard of the Nightbringer"
+    ],
+    "faction_keywords": [
+      "Necrons"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "gaze-of-death",
+      "scythe-of-the-nightbringer"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "flayed-ones",
+    "name": "Flayed Ones",
+    "faction_id": "necrons",
+    "profiles": [
+      {
+        "name": "Flayed Ones",
+        "M": 5,
+        "T": 4,
+        "W": 1,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 60
+      },
+      {
+        "models": 10,
+        "cost": 120
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Flayed Ones"
+    ],
+    "faction_keywords": [
+      "Necrons"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 10
+    },
+    "weapon_ids": [
+      "flayer-claws"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "annihilation-barge",
+    "name": "Annihilation Barge",
+    "faction_id": "necrons",
+    "profiles": [
+      {
+        "name": "Annihilation Barge",
+        "M": 10,
+        "T": 8,
+        "W": 9,
+        "Sv": 3,
+        "invuln_sv": 4,
+        "Ld": 7,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 105
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Fly",
+      "Annihilation Barge"
+    ],
+    "faction_keywords": [
+      "Necrons"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-bulk",
+      "gauss-cannon",
+      "tesla-cannon",
+      "twin-tesla-destructor"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "illuminor-szeras",
+    "name": "Illuminor Szeras",
+    "faction_id": "necrons",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Illuminor Szeras",
+        "M": 8,
+        "T": 8,
+        "W": 9,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 165
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Epic Hero",
+      "Cryptek",
+      "Illuminor Szeras"
+    ],
+    "faction_keywords": [
+      "Necrons"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "eldritch-lance",
+      "impaling-legs"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "nekrosor-ammentar",
+    "name": "Nekrosor Ammentar",
+    "faction_id": "necrons",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Nekrosor Ammentar",
+        "M": 10,
+        "T": 8,
+        "W": 9,
+        "Sv": 3,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 185
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Epic Hero",
+      "Destroyer Cult",
+      "Nekrosor Ammentar"
+    ],
+    "faction_keywords": [
+      "Necrons"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "blade-tail",
+      "enmitic-disintegrators",
+      "unmaker-gauntlet"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "canoptek-tomb-crawlers",
+    "name": "Canoptek Tomb Crawlers",
+    "faction_id": "necrons",
+    "profiles": [
+      {
+        "name": "Canoptek Tomb Crawlers",
+        "M": 5,
+        "T": 4,
+        "W": 3,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 8,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 2,
+        "cost": 50
+      }
+    ],
+    "keywords": [
+      "Beasts",
+      "Canoptek",
+      "Tomb Crawlers"
+    ],
+    "faction_keywords": [
+      "Necrons"
+    ],
+    "model_count": {
+      "min": 2,
+      "max": 2
+    },
+    "weapon_ids": [
+      "claws",
+      "transdimensional-isolator",
+      "twin-gauss-reaper"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "ophydian-destroyers",
+    "name": "Ophydian Destroyers",
+    "faction_id": "necrons",
+    "profiles": [
+      {
+        "name": "Ophydian Destroyers",
+        "M": 10,
+        "T": 5,
+        "W": 3,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 3,
+        "cost": 80
+      },
+      {
+        "models": 6,
+        "cost": 160
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Destroyer Cult",
+      "Ophydian Destroyers"
+    ],
+    "faction_keywords": [
+      "Necrons"
+    ],
+    "model_count": {
+      "min": 3,
+      "max": 6
+    },
+    "weapon_ids": [
+      "ophydian-hyperphase-weapons"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "plasmancer",
+    "name": "Plasmancer",
+    "faction_id": "necrons",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Plasmancer",
+        "M": 5,
+        "T": 4,
+        "W": 4,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 55
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Cryptek",
+      "Plasmancer"
+    ],
+    "faction_keywords": [
+      "Necrons"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "plasmic-lance"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "doomsday-ark",
+    "name": "Doomsday Ark",
+    "faction_id": "necrons",
+    "profiles": [
+      {
+        "name": "Doomsday Ark",
+        "M": 10,
+        "T": 9,
+        "W": 14,
+        "Sv": 3,
+        "invuln_sv": 4,
+        "Ld": 7,
+        "OC": 5
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 200
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Fly",
+      "Doomsday Ark"
+    ],
+    "faction_keywords": [
+      "Necrons"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-bulk",
+      "doomsday-cannon",
+      "gauss-flayer-array"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "hexmark-destroyer",
+    "name": "Hexmark Destroyer",
+    "faction_id": "necrons",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Hexmark Destroyer",
+        "M": 8,
+        "T": 5,
+        "W": 5,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 75
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Destroyer Cult",
+      "Hexmark Destroyer"
+    ],
+    "faction_keywords": [
+      "Necrons"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "close-combat-weapon",
+      "enmitic-disintegrator-pistols"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "ctan-shard-of-the-void-dragon",
+    "name": "C’tan Shard of the Void Dragon",
+    "faction_id": "necrons",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "C’tan Shard of the Void Dragon",
+        "M": 10,
+        "T": 11,
+        "W": 16,
+        "Sv": 3,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 4
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 355
+      },
+      {
+        "models": 1,
+        "cost": 320
+      }
+    ],
+    "keywords": [
+      "Monster",
+      "Character",
+      "Epic Hero",
+      "Fly",
+      "C’tan Shard of the Void Dragon"
+    ],
+    "faction_keywords": [
+      "Necrons"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "canoptek-tail-blades",
+      "spear-of-the-void-dragon",
+      "voltaic-storm"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "ctan-shard-of-the-deceiver",
+    "name": "C’tan Shard of the Deceiver",
+    "faction_id": "necrons",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "C’tan Shard of the Deceiver",
+        "M": 8,
+        "T": 11,
+        "W": 16,
+        "Sv": 3,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 4
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 350
+      },
+      {
+        "models": 1,
+        "cost": 295
+      }
+    ],
+    "keywords": [
+      "Monster",
+      "Character",
+      "Epic Hero",
+      "Fly",
+      "C’tan Shard of the Deceiver"
+    ],
+    "faction_keywords": [
+      "Necrons"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "cosmic-insanity",
+      "golden-fists"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "doom-scythe",
+    "name": "Doom Scythe",
+    "faction_id": "necrons",
+    "profiles": [
+      {
+        "name": "Doom Scythe",
+        "M": 20,
+        "T": 9,
+        "W": 12,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 0
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 230
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Aircraft",
+      "Fly",
+      "Doom Scythe"
+    ],
+    "faction_keywords": [
+      "Necrons"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-bulk",
+      "heavy-death-ray",
+      "twin-tesla-destructor"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "geomancer",
+    "name": "Geomancer",
+    "faction_id": "necrons",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Geomancer",
+        "M": 8,
+        "T": 4,
+        "W": 4,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 75
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Cryptek",
+      "Geomancer"
+    ],
+    "faction_keywords": [
+      "Necrons"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "tremorglaive"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "the-silent-king",
+    "name": "The Silent King",
+    "faction_id": "necrons",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Szarekh",
+        "M": 8,
+        "T": 10,
+        "W": 16,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 6
+      },
+      {
+        "name": "Triarchal Menhir",
+        "M": 8,
+        "T": 10,
+        "W": 5,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 3,
+        "cost": 400
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Epic Hero",
+      "Triarch",
+      "Character",
+      "The Silent King"
+    ],
+    "faction_keywords": [
+      "Necrons"
+    ],
+    "model_count": {
+      "min": 3,
+      "max": 3
+    },
+    "weapon_ids": [
+      "annihilator-beam",
+      "armoured-bulk",
+      "sceptre-of-eternal-glory",
+      "scythe-of-dust",
+      "staff-of-stars"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "chronomancer",
+    "name": "Chronomancer",
+    "faction_id": "necrons",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Chronomancer",
+        "M": 5,
+        "T": 4,
+        "W": 4,
+        "Sv": 4,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 65
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Cryptek",
+      "Chronomancer"
+    ],
+    "faction_keywords": [
+      "Necrons"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "chronomancers-stave"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "transcendent-ctan",
+    "name": "Transcendent C’tan",
+    "faction_id": "necrons",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Transcendent C’tan",
+        "M": 8,
+        "T": 11,
+        "W": 16,
+        "Sv": 3,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 4
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 355
+      },
+      {
+        "models": 1,
+        "cost": 315
+      }
+    ],
+    "keywords": [
+      "Monster",
+      "Character",
+      "Fly",
+      "Transcendent C’tan"
+    ],
+    "faction_keywords": [
+      "Necrons"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "crackling-tendrils",
+      "seismic-assault"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "canoptek-spyders",
+    "name": "Canoptek Spyders",
+    "faction_id": "necrons",
+    "profiles": [
+      {
+        "name": "Canoptek Spyders",
+        "M": 5,
+        "T": 7,
+        "W": 6,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 8,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 75
+      },
+      {
+        "models": 2,
+        "cost": 150
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Fly",
+      "Canoptek",
+      "Spyders"
+    ],
+    "faction_keywords": [
+      "Necrons"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 2
+    },
+    "weapon_ids": [
+      "automaton-claws",
+      "particle-beamer"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "tomb-citadel-walls",
+    "name": "Tomb Citadel Walls",
+    "faction_id": "necrons",
+    "profiles": [
+      {
+        "name": "Ghost Ark",
+        "M": 0,
+        "T": 13,
+        "W": 50,
+        "Sv": 2,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 0
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Fortification",
+      "Titanic",
+      "Tomb Citadel",
+      "Vehicle"
+    ],
+    "faction_keywords": [
+      "Necrons"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "gauss-exterminator",
+      "twin-tesla-destructor"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "sentry-pylon",
+    "name": "Sentry Pylon",
+    "faction_id": "necrons",
+    "profiles": [
+      {
+        "name": "Ghost Ark",
+        "M": 0,
+        "T": 8,
+        "W": 10,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 0
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Fortification",
+      "Sentry Pylon",
+      "Vehicle"
+    ],
+    "faction_keywords": [
+      "Necrons"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "focused-death-ray",
+      "gauss-exterminator",
+      "heat-cannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "night-shroud",
+    "name": "Night Shroud",
+    "faction_id": "necrons",
+    "profiles": [
+      {
+        "name": "Night Scythe",
+        "M": 20,
+        "T": 9,
+        "W": 14,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 0
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Aircraft",
+      "Fly",
+      "Night Shroud",
+      "Vehicle"
+    ],
+    "faction_keywords": [
+      "Necrons"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-bulk",
+      "twin-tesla-destructor"
+    ],
+    "ability_ids": [],
+    "transport_capacity": {
+      "capacity": 1
+    },
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "gauss-pylon",
+    "name": "Gauss Pylon",
+    "faction_id": "necrons",
+    "profiles": [
+      {
+        "name": "Ghost Ark",
+        "M": 0,
+        "T": 12,
+        "W": 22,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 0
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Fortification",
+      "Gauss Pylon",
+      "Titanic",
+      "Towering",
+      "Vehicle"
+    ],
+    "faction_keywords": [
+      "Necrons"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "gauss-annihilator",
+      "tesla-arc"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "anrakyr-the-traveller",
+    "name": "Anrakyr The Traveller",
+    "faction_id": "necrons",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Anrakyr The Traveller",
+        "M": 5,
+        "T": 5,
+        "W": 6,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Anrakyr the Traveller",
+      "Character",
+      "Epic Hero",
+      "Infantry",
+      "Noble"
+    ],
+    "faction_keywords": [
+      "Necrons"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "tachyon-arrow",
+      "warscythe"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "vargard-obyron",
+    "name": "Vargard Obyron",
+    "faction_id": "necrons",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Vargard Obyron",
+        "M": 5,
+        "T": 5,
+        "W": 5,
+        "Sv": 2,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Character",
+      "Epic Hero",
+      "Infantry",
+      "Vargard Obyron"
+    ],
+    "faction_keywords": [
+      "Necrons"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "warscythe"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "lord",
+    "name": "Lord",
+    "faction_id": "necrons",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Lord",
+        "M": 5,
+        "T": 5,
+        "W": 4,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Character",
+      "Infantry",
+      "Lord",
+      "Noble"
+    ],
+    "faction_keywords": [
+      "Necrons"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "lords-blade",
+      "staff-of-light"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "nemesor-zahndrekh",
+    "name": "Nemesor Zahndrekh",
+    "faction_id": "necrons",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Nemesor Zahndrekh",
+        "M": 5,
+        "T": 5,
+        "W": 6,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Character",
+      "Epic Hero",
+      "Infantry",
+      "Nemesor Zahndrekh",
+      "Noble"
+    ],
+    "faction_keywords": [
+      "Necrons"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "staff-of-light"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  }
+]

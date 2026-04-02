@@ -1,0 +1,508 @@
+[
+  {
+    "unit_id": "reavers",
+    "models": [
+      {
+        "name": "Arena Champion",
+        "profile_name": "Reaver",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "splinter-pistol",
+          "bladevanes"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Reaver",
+        "min": 2,
+        "max": 5,
+        "default_weapon_ids": [
+          "splinter-pistol",
+          "bladevanes"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "cronos",
+    "models": [
+      {
+        "name": "Cronos",
+        "min": 1,
+        "max": 2,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "succubus",
+    "models": [
+      {
+        "name": "Succubus",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "hellions",
+    "models": [
+      {
+        "name": "Helliarch",
+        "profile_name": "Hellion",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "splinter-pistol",
+          "stunclaw"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Hellion",
+        "min": 4,
+        "max": 9,
+        "default_weapon_ids": [
+          "splinter-pods",
+          "hellglaive"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "venom",
+    "models": [
+      {
+        "name": "Venom",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "scourges-with-shardcarbines",
+    "models": [
+      {
+        "name": "Solarite",
+        "profile_name": "Scourge",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "blast-pistol",
+          "power-weapon"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Scourge",
+        "min": 4,
+        "max": 4,
+        "default_weapon_ids": [
+          "shardcarbine",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "kabalite-warriors",
+    "models": [
+      {
+        "name": "Sybarite",
+        "profile_name": "Kabalite Warrior",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "splinter-pistol",
+          "power-weapon"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Kabalite Warrior",
+        "min": 9,
+        "max": 9,
+        "default_weapon_ids": [
+          "splinter-rifle",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "raider",
+    "models": [
+      {
+        "name": "Raider",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "lelith-hesperax",
+    "models": [
+      {
+        "name": "Lelith Hesperax",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "razorwing-jetfighter",
+    "models": [
+      {
+        "name": "Razorwing Jetfighter",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "scourges-with-heavy-weapons",
+    "models": [
+      {
+        "name": "Solarite",
+        "profile_name": "Scourge",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "blast-pistol",
+          "power-weapon"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Scourge",
+        "min": 4,
+        "max": 4,
+        "default_weapon_ids": [
+          "shardcarbine",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "talos",
+    "models": [
+      {
+        "name": "Talos",
+        "min": 1,
+        "max": 2,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "wracks",
+    "models": [
+      {
+        "name": "Acothyst",
+        "profile_name": "Wrack",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "stinger-pistol",
+          "power-weapon"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Wrack",
+        "min": 4,
+        "max": 9,
+        "default_weapon_ids": [
+          "twin-torturers-tools"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "haemonculus",
+    "models": [
+      {
+        "name": "Haemonculus",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "archon",
+    "models": [
+      {
+        "name": "Archon",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "lady-malys",
+    "models": [
+      {
+        "name": "Lady Malys",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "ravager",
+    "models": [
+      {
+        "name": "Ravager",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "wyches",
+    "models": [
+      {
+        "name": "Hekatrix",
+        "profile_name": "Wych",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "splinter-pistol",
+          "power-weapon"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Wych",
+        "min": 9,
+        "max": 9,
+        "default_weapon_ids": [
+          "splinter-pistol",
+          "hekatarii-blade"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "hand-of-the-archon",
+    "models": [
+      {
+        "name": "Kabalite Agents",
+        "min": 10,
+        "max": 10,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "voidraven-bomber",
+    "models": [
+      {
+        "name": "Voidraven Bomber",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "drazhar",
+    "models": [
+      {
+        "name": "Drazhar",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "incubi",
+    "models": [
+      {
+        "name": "Klaivex",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "demiklaives-single-blade"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Incubi",
+        "min": 4,
+        "max": 9,
+        "default_weapon_ids": [
+          "klaive"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "mandrakes",
+    "models": [
+      {
+        "name": "Nightfiend",
+        "profile_name": "Mandrake",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "baleblast",
+          "glimmersteel-blade"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Mandrake",
+        "min": 4,
+        "max": 9,
+        "default_weapon_ids": [
+          "baleblast",
+          "glimmersteel-blade"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "reaper",
+    "models": [
+      {
+        "name": "Reaper",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "raven-strike-fighter",
+    "models": [
+      {
+        "name": "Raven Strike Fighter",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  }
+]

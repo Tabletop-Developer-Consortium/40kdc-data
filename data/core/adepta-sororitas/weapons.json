@@ -1,0 +1,2676 @@
+[
+  {
+    "id": "bolt-pistol",
+    "name": "Bolt pistol",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Bolt pistol",
+        "range": 12,
+        "stats": {
+          "A": 1,
+          "S": 4,
+          "AP": 0,
+          "D": 1,
+          "BS": 3
+        },
+        "keywords": [
+          "Pistol"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "inferno-pistol",
+    "name": "Inferno pistol",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Inferno pistol",
+        "range": 6,
+        "stats": {
+          "A": 1,
+          "S": 8,
+          "AP": -4,
+          "D": "D3",
+          "BS": 3
+        },
+        "keywords": [
+          "Melta 2",
+          "Pistol"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "ministorum-hand-flamer",
+    "name": "Ministorum hand flamer",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Ministorum hand flamer",
+        "range": 12,
+        "stats": {
+          "A": "D6",
+          "S": 4,
+          "AP": 0,
+          "D": 1,
+          "BS": null
+        },
+        "keywords": [
+          "Ignores Cover",
+          "Pistol",
+          "Torrent"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "plasma-pistol",
+    "name": "Plasma pistol",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Standard",
+        "range": 12,
+        "stats": {
+          "A": 1,
+          "S": 7,
+          "AP": -2,
+          "D": 1,
+          "BS": 3
+        },
+        "keywords": [
+          "Pistol"
+        ]
+      },
+      {
+        "name": "Supercharge",
+        "range": 12,
+        "stats": {
+          "A": 1,
+          "S": 8,
+          "AP": -3,
+          "D": 2,
+          "BS": 3
+        },
+        "keywords": [
+          "Hazardous",
+          "Pistol"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "hallowed-mace",
+    "name": "Hallowed mace",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Hallowed mace",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 4,
+          "AP": -1,
+          "D": 2,
+          "WS": 3
+        },
+        "keywords": [
+          "Lethal Hits"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "spear-of-the-faithful",
+    "name": "Spear of the faithful",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Spear of the faithful",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 5,
+          "AP": -2,
+          "D": 2,
+          "WS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "anointed-halberd",
+    "name": "Anointed halberd",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Anointed halberd",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 5,
+          "AP": -2,
+          "D": 1,
+          "WS": 3
+        },
+        "keywords": [
+          "Sustained Hits 1"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "heavy-bolter",
+    "name": "Heavy bolter",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Heavy bolter",
+        "range": 36,
+        "stats": {
+          "A": 3,
+          "S": 5,
+          "AP": -1,
+          "D": 2,
+          "BS": 3
+        },
+        "keywords": [
+          "Sustained Hits 1"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "mortifier-flamer",
+    "name": "Mortifier flamer",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Mortifier flamer",
+        "range": 12,
+        "stats": {
+          "A": "D6",
+          "S": 5,
+          "AP": 0,
+          "D": 1,
+          "BS": null
+        },
+        "keywords": [
+          "Ignores Cover",
+          "Torrent",
+          "Twin-linked"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "twin-penitent-buzz-blades",
+    "name": "Twin penitent buzz-blades",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Twin penitent buzz-blades",
+        "range": "Melee",
+        "stats": {
+          "A": 4,
+          "S": 10,
+          "AP": -3,
+          "D": 2,
+          "WS": 3
+        },
+        "keywords": [
+          "Sustained Hits 1",
+          "Twin-linked"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "twin-penitent-flails",
+    "name": "Twin penitent flails",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Twin penitent flails",
+        "range": "Melee",
+        "stats": {
+          "A": 8,
+          "S": 5,
+          "AP": -1,
+          "D": 1,
+          "WS": 3
+        },
+        "keywords": [
+          "Sustained Hits 1",
+          "Twin-linked"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "penitent-buzz-blade",
+    "name": "Penitent buzz-blade",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Penitent buzz-blade",
+        "range": "Melee",
+        "stats": {
+          "A": 4,
+          "S": 10,
+          "AP": -3,
+          "D": 2,
+          "WS": 3
+        },
+        "keywords": [
+          "Sustained Hits 1"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "penitent-flail",
+    "name": "Penitent flail",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Penitent flail",
+        "range": "Melee",
+        "stats": {
+          "A": 8,
+          "S": 5,
+          "AP": -1,
+          "D": 1,
+          "WS": 3
+        },
+        "keywords": [
+          "Sustained Hits 1"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "blessed-halberd",
+    "name": "Blessed halberd",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Blessed halberd",
+        "range": "Melee",
+        "stats": {
+          "A": 5,
+          "S": 5,
+          "AP": -2,
+          "D": 2,
+          "WS": 2
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "holy-eviscerator",
+    "name": "Holy eviscerator",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Holy eviscerator",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 6,
+          "AP": -2,
+          "D": 2,
+          "WS": 2
+        },
+        "keywords": [
+          "Sustained Hits 1"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "power-weapon",
+    "name": "Power weapon",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Power weapon",
+        "range": "Melee",
+        "stats": {
+          "A": 4,
+          "S": 4,
+          "AP": -2,
+          "D": 2,
+          "WS": 2
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "bolt-pistol",
+    "name": "Bolt Pistol",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Bolt Pistol",
+        "range": 12,
+        "stats": {
+          "A": 1,
+          "S": 4,
+          "AP": 0,
+          "D": 1,
+          "BS": 2
+        },
+        "keywords": [
+          "Pistol"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "plasma-pistol",
+    "name": "Plasma pistol",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Standard",
+        "range": 12,
+        "stats": {
+          "A": 1,
+          "S": 7,
+          "AP": -2,
+          "D": 1,
+          "BS": 2
+        },
+        "keywords": [
+          "Pistol"
+        ]
+      },
+      {
+        "name": "Supercharge",
+        "range": 12,
+        "stats": {
+          "A": 1,
+          "S": 8,
+          "AP": -3,
+          "D": 2,
+          "BS": 2
+        },
+        "keywords": [
+          "Hazardous",
+          "Pistol"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "palatine-blade",
+    "name": "Palatine blade",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Palatine blade",
+        "range": "Melee",
+        "stats": {
+          "A": 4,
+          "S": 4,
+          "AP": -2,
+          "D": 2,
+          "WS": 2
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "holy-fire",
+    "name": "Holy fire",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Holy fire",
+        "range": 12,
+        "stats": {
+          "A": "D6",
+          "S": 6,
+          "AP": -1,
+          "D": 2,
+          "BS": null
+        },
+        "keywords": [
+          "Ignores Cover",
+          "One Shot",
+          "Torrent"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "plasma-gun",
+    "name": "Plasma gun",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Standard",
+        "range": 24,
+        "stats": {
+          "A": 1,
+          "S": 7,
+          "AP": -2,
+          "D": 1,
+          "BS": 4
+        },
+        "keywords": [
+          "Rapid Fire 1"
+        ]
+      },
+      {
+        "name": "Supercharge",
+        "range": 24,
+        "stats": {
+          "A": 1,
+          "S": 8,
+          "AP": -3,
+          "D": 2,
+          "BS": 4
+        },
+        "keywords": [
+          "Hazardous",
+          "Rapid Fire 1"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "ministorum-flamer",
+    "name": "Ministorum flamer",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Ministorum flamer",
+        "range": 12,
+        "stats": {
+          "A": "D6",
+          "S": 5,
+          "AP": 0,
+          "D": 1,
+          "BS": null
+        },
+        "keywords": [
+          "Ignores Cover",
+          "Torrent"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "meltagun",
+    "name": "Meltagun",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Meltagun",
+        "range": 12,
+        "stats": {
+          "A": 1,
+          "S": 9,
+          "AP": -4,
+          "D": "D6",
+          "BS": 4
+        },
+        "keywords": [
+          "Melta 2"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "burning-hands",
+    "name": "Burning hands",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Burning hands",
+        "range": "Melee",
+        "stats": {
+          "A": 1,
+          "S": 6,
+          "AP": -2,
+          "D": 3,
+          "WS": 2
+        },
+        "keywords": [
+          "Devastating Wounds"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "close-combat-weapon",
+    "name": "Close combat weapon",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Close combat weapon",
+        "range": "Melee",
+        "stats": {
+          "A": 2,
+          "S": 3,
+          "AP": 0,
+          "D": 1,
+          "WS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "death-cult-blades",
+    "name": "Death Cult blades",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Death Cult blades",
+        "range": "Melee",
+        "stats": {
+          "A": 4,
+          "S": 4,
+          "AP": -2,
+          "D": 1,
+          "WS": 2
+        },
+        "keywords": [
+          "Precision"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "sanctifier-melee-weapon",
+    "name": "Sanctifier melee weapon",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Sanctifier melee weapon",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 3,
+          "AP": 0,
+          "D": 1,
+          "WS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "arco-flails",
+    "name": "Arco-flails",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Arco-flails",
+        "range": "Melee",
+        "stats": {
+          "A": 4,
+          "S": 5,
+          "AP": 0,
+          "D": 1,
+          "WS": 4
+        },
+        "keywords": [
+          "Sustained Hits 1"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "condemnor-bolt-pistol",
+    "name": "Condemnor bolt pistol",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Condemnor bolt pistol",
+        "range": 12,
+        "stats": {
+          "A": 1,
+          "S": 4,
+          "AP": 0,
+          "D": 1,
+          "BS": 3
+        },
+        "keywords": [
+          "Anti-psyker 4+",
+          "Devastating Wounds",
+          "Pistol"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "null-mace",
+    "name": "Null mace",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Null mace",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 4,
+          "AP": -1,
+          "D": 1,
+          "WS": 3
+        },
+        "keywords": [
+          "Anti-psyker 4+",
+          "Devastating Wounds"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "blessed-sword",
+    "name": "Blessed sword",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Blessed sword",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 4,
+          "AP": -2,
+          "D": 2,
+          "WS": 3
+        },
+        "keywords": [
+          "Lethal Hits"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "virge-of-admonition",
+    "name": "Virge of admonition",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Virge of admonition",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 6,
+          "AP": -2,
+          "D": 3,
+          "WS": 4
+        },
+        "keywords": [
+          "Anti-psyker 4+",
+          "Devastating Wounds"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "boltgun",
+    "name": "Boltgun",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Boltgun",
+        "range": 24,
+        "stats": {
+          "A": 1,
+          "S": 4,
+          "AP": 0,
+          "D": 1,
+          "BS": 3
+        },
+        "keywords": [
+          "Rapid Fire 1"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "close-combat-weapon",
+    "name": "Close combat weapon",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Close combat weapon",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 3,
+          "AP": 0,
+          "D": 1,
+          "WS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "bolt-pistols",
+    "name": "Bolt pistols",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Bolt pistols",
+        "range": 12,
+        "stats": {
+          "A": 6,
+          "S": 4,
+          "AP": 0,
+          "D": 1,
+          "BS": 2
+        },
+        "keywords": [
+          "Pistol"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "relic-weapons",
+    "name": "Relic weapons",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Relic weapons",
+        "range": "Melee",
+        "stats": {
+          "A": 18,
+          "S": 5,
+          "AP": -2,
+          "D": 1,
+          "WS": 2
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "chainsword",
+    "name": "Chainsword",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Chainsword",
+        "range": "Melee",
+        "stats": {
+          "A": 4,
+          "S": 3,
+          "AP": 0,
+          "D": 1,
+          "WS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "power-weapon",
+    "name": "Power weapon",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Power weapon",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 4,
+          "AP": -2,
+          "D": 1,
+          "WS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "neural-whips",
+    "name": "Neural whips",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Neural whips",
+        "range": "Melee",
+        "stats": {
+          "A": 4,
+          "S": 3,
+          "AP": -1,
+          "D": 1,
+          "WS": 3
+        },
+        "keywords": [
+          "Anti-infantry 4+"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "penitent-eviscerator",
+    "name": "Penitent eviscerator",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Penitent eviscerator",
+        "range": "Melee",
+        "stats": {
+          "A": 2,
+          "S": 6,
+          "AP": -2,
+          "D": 2,
+          "WS": 4
+        },
+        "keywords": [
+          "Sustained Hits 1"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "dialogus-staff",
+    "name": "Dialogus staff",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Dialogus staff",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 4,
+          "AP": 0,
+          "D": 1,
+          "WS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "mace-of-the-righteous",
+    "name": "Mace of the righteous",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Mace of the righteous",
+        "range": "Melee",
+        "stats": {
+          "A": 4,
+          "S": 5,
+          "AP": -2,
+          "D": 2,
+          "WS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "immolation-flamers",
+    "name": "Immolation flamers",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Immolation flamers",
+        "range": 18,
+        "stats": {
+          "A": "2D6",
+          "S": 6,
+          "AP": -1,
+          "D": 1,
+          "BS": null
+        },
+        "keywords": [
+          "Ignores Cover",
+          "Torrent"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "twin-heavy-bolter",
+    "name": "Twin heavy bolter",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Twin heavy bolter",
+        "range": 36,
+        "stats": {
+          "A": 3,
+          "S": 5,
+          "AP": -1,
+          "D": 2,
+          "BS": 3
+        },
+        "keywords": [
+          "Sustained Hits 2",
+          "Twin-linked"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "twin-multi-melta",
+    "name": "Twin multi-melta",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Twin multi-melta",
+        "range": 18,
+        "stats": {
+          "A": 2,
+          "S": 9,
+          "AP": -4,
+          "D": "D6",
+          "BS": 3
+        },
+        "keywords": [
+          "Melta 2",
+          "Twin-linked"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "hunter-killer-missile",
+    "name": "Hunter-killer missile",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Hunter-killer missile",
+        "range": 48,
+        "stats": {
+          "A": 1,
+          "S": 14,
+          "AP": -3,
+          "D": "D6",
+          "BS": 2
+        },
+        "keywords": [
+          "One Shot"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "armoured-tracks",
+    "name": "Armoured tracks",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Armoured tracks",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 6,
+          "AP": 0,
+          "D": 1,
+          "WS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "chirurgeons-tools",
+    "name": "Chirurgeon’s tools",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Chirurgeon’s tools",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 3,
+          "AP": 0,
+          "D": 1,
+          "WS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "fidelis",
+    "name": "Fidelis",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Fidelis",
+        "range": 36,
+        "stats": {
+          "A": 3,
+          "S": 6,
+          "AP": -1,
+          "D": 2,
+          "BS": 2
+        },
+        "keywords": [
+          "Sustained Hits 1"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "paragon-missile-launcher",
+    "name": "Paragon missile launcher",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Prioris",
+        "range": 36,
+        "stats": {
+          "A": 2,
+          "S": 9,
+          "AP": -2,
+          "D": "D6",
+          "BS": 2
+        },
+        "keywords": []
+      },
+      {
+        "name": "Sanctorum",
+        "range": 36,
+        "stats": {
+          "A": "2D6",
+          "S": 4,
+          "AP": 0,
+          "D": 1,
+          "BS": 2
+        },
+        "keywords": [
+          "Blast"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "lance-of-illumination",
+    "name": "Lance of Illumination",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Sweep",
+        "range": "Melee",
+        "stats": {
+          "A": 10,
+          "S": 5,
+          "AP": -1,
+          "D": 1,
+          "WS": 2
+        },
+        "keywords": [
+          "Devastating Wounds"
+        ]
+      },
+      {
+        "name": "Strike",
+        "range": "Melee",
+        "stats": {
+          "A": 5,
+          "S": 8,
+          "AP": -2,
+          "D": 3,
+          "WS": 2
+        },
+        "keywords": [
+          "Devastating Wounds"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "combi-weapon",
+    "name": "Combi-weapon",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Combi-weapon",
+        "range": 24,
+        "stats": {
+          "A": 1,
+          "S": 4,
+          "AP": 0,
+          "D": 1,
+          "BS": 4
+        },
+        "keywords": [
+          "Anti-infantry 4+",
+          "Devastating Wounds",
+          "Rapid Fire 1"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "condemnor-boltgun",
+    "name": "Condemnor boltgun",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Condemnor boltgun",
+        "range": 24,
+        "stats": {
+          "A": 1,
+          "S": 4,
+          "AP": 0,
+          "D": 1,
+          "BS": 3
+        },
+        "keywords": [
+          "Anti-psyker 2+",
+          "Devastating Wounds",
+          "Precision",
+          "Rapid Fire 1"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "heavy-bolter",
+    "name": "Heavy bolter",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Heavy bolter",
+        "range": 36,
+        "stats": {
+          "A": 3,
+          "S": 5,
+          "AP": -1,
+          "D": 2,
+          "BS": 4
+        },
+        "keywords": [
+          "Heavy",
+          "Sustained Hits 1"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "ministorum-heavy-flamer",
+    "name": "Ministorum heavy flamer",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Ministorum heavy flamer",
+        "range": 12,
+        "stats": {
+          "A": "D6",
+          "S": 6,
+          "AP": -1,
+          "D": 1,
+          "BS": null
+        },
+        "keywords": [
+          "Ignores Cover",
+          "Torrent"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "multi-melta",
+    "name": "Multi-melta",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Multi-melta",
+        "range": 18,
+        "stats": {
+          "A": 2,
+          "S": 9,
+          "AP": -4,
+          "D": "D6",
+          "BS": 4
+        },
+        "keywords": [
+          "Heavy",
+          "Melta 2"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "close-combat-weapon",
+    "name": "Close combat weapon",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Close combat weapon",
+        "range": "Melee",
+        "stats": {
+          "A": 1,
+          "S": 3,
+          "AP": 0,
+          "D": 1,
+          "WS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "chainsword",
+    "name": "Chainsword",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Chainsword",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 3,
+          "AP": 0,
+          "D": 1,
+          "WS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "power-weapon",
+    "name": "Power weapon",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Power weapon",
+        "range": "Melee",
+        "stats": {
+          "A": 2,
+          "S": 4,
+          "AP": -2,
+          "D": 1,
+          "WS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "autopistol",
+    "name": "Autopistol",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Autopistol",
+        "range": 12,
+        "stats": {
+          "A": 1,
+          "S": 3,
+          "AP": 0,
+          "D": 1,
+          "BS": 3
+        },
+        "keywords": [
+          "Pistol"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "autogun",
+    "name": "Autogun",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Autogun",
+        "range": 24,
+        "stats": {
+          "A": 1,
+          "S": 3,
+          "AP": 0,
+          "D": 1,
+          "BS": 3
+        },
+        "keywords": [
+          "Rapid Fire 1"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "novitiate-melee-weapons",
+    "name": "Novitiate melee weapons",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Novitiate melee weapons",
+        "range": "Melee",
+        "stats": {
+          "A": 2,
+          "S": 4,
+          "AP": 0,
+          "D": 1,
+          "WS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "sanctity",
+    "name": "Sanctity",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Sanctity",
+        "range": "Melee",
+        "stats": {
+          "A": 4,
+          "S": 6,
+          "AP": -2,
+          "D": 2,
+          "WS": 2
+        },
+        "keywords": [
+          "Anti-chaos 2+",
+          "Precision"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "the-outcasts-weapons",
+    "name": "The Outcast’s Weapons",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "The Outcast’s Weapons",
+        "range": "Melee",
+        "stats": {
+          "A": 6,
+          "S": 4,
+          "AP": -2,
+          "D": 1,
+          "WS": 2
+        },
+        "keywords": [
+          "Precision"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "storm-bolter",
+    "name": "Storm bolter",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Storm bolter",
+        "range": 24,
+        "stats": {
+          "A": 2,
+          "S": 4,
+          "AP": 0,
+          "D": 1,
+          "BS": 3
+        },
+        "keywords": [
+          "Rapid Fire 2"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "paragon-storm-bolters",
+    "name": "Paragon storm bolters",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Paragon storm bolters",
+        "range": 24,
+        "stats": {
+          "A": 2,
+          "S": 4,
+          "AP": 0,
+          "D": 1,
+          "BS": 3
+        },
+        "keywords": [
+          "Rapid Fire 2",
+          "Twin-linked"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "paragon-grenade-launchers",
+    "name": "Paragon grenade launchers",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Paragon grenade launchers",
+        "range": 24,
+        "stats": {
+          "A": 1,
+          "S": 9,
+          "AP": -2,
+          "D": "D3",
+          "BS": 3
+        },
+        "keywords": [
+          "Twin-linked"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "multi-melta",
+    "name": "Multi-melta",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Multi-melta",
+        "range": 18,
+        "stats": {
+          "A": 2,
+          "S": 9,
+          "AP": -4,
+          "D": "D6",
+          "BS": 3
+        },
+        "keywords": [
+          "Melta 2"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "paragon-war-blade",
+    "name": "Paragon war blade",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Paragon war blade",
+        "range": "Melee",
+        "stats": {
+          "A": 4,
+          "S": 8,
+          "AP": -2,
+          "D": 2,
+          "WS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "paragon-war-mace",
+    "name": "Paragon war mace",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Paragon war mace",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 12,
+          "AP": -1,
+          "D": 3,
+          "WS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "castigator-autocannons",
+    "name": "Castigator autocannons",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Castigator autocannons",
+        "range": 48,
+        "stats": {
+          "A": 4,
+          "S": 9,
+          "AP": -1,
+          "D": 3,
+          "BS": 3
+        },
+        "keywords": [
+          "Rapid Fire 4",
+          "Twin-linked"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "castigator-battle-cannon",
+    "name": "Castigator battle cannon",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Castigator battle cannon",
+        "range": 48,
+        "stats": {
+          "A": "D6+3",
+          "S": 10,
+          "AP": -1,
+          "D": 3,
+          "BS": 3
+        },
+        "keywords": [
+          "Blast",
+          "Ignores Cover"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "exorcist-missile-launcher",
+    "name": "Exorcist missile launcher",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Exorcist missile launcher",
+        "range": 36,
+        "stats": {
+          "A": "D6+2",
+          "S": 10,
+          "AP": -3,
+          "D": "D6",
+          "BS": 3
+        },
+        "keywords": [
+          "Indirect Fire"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "exorcist-conflagration-rockets",
+    "name": "Exorcist conflagration rockets",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Exorcist conflagration rockets",
+        "range": 36,
+        "stats": {
+          "A": "3D6",
+          "S": 6,
+          "AP": -1,
+          "D": 1,
+          "BS": 3
+        },
+        "keywords": [
+          "Blast",
+          "Ignores Cover",
+          "Indirect Fire"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "penitent-flamers",
+    "name": "Penitent flamers",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Penitent flamers",
+        "range": 12,
+        "stats": {
+          "A": "2D6",
+          "S": 5,
+          "AP": 0,
+          "D": 1,
+          "BS": null
+        },
+        "keywords": [
+          "Assault",
+          "Ignores Cover",
+          "Torrent",
+          "Twin-linked"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "twin-penitent-buzz-blades",
+    "name": "Twin penitent buzz-blades",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Twin penitent buzz-blades",
+        "range": "Melee",
+        "stats": {
+          "A": 4,
+          "S": 10,
+          "AP": -3,
+          "D": 2,
+          "WS": 4
+        },
+        "keywords": [
+          "Sustained Hits 1",
+          "Twin-linked"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "penitent-buzz-blade",
+    "name": "Penitent buzz-blade",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Penitent buzz-blade",
+        "range": "Melee",
+        "stats": {
+          "A": 4,
+          "S": 10,
+          "AP": -3,
+          "D": 2,
+          "WS": 4
+        },
+        "keywords": [
+          "Sustained Hits 1"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "penitent-flail",
+    "name": "Penitent Flail",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Penitent Flail",
+        "range": "Melee",
+        "stats": {
+          "A": 8,
+          "S": 5,
+          "AP": -1,
+          "D": 1,
+          "WS": 4
+        },
+        "keywords": [
+          "Sustained Hits 1"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "twin-penitent-flail",
+    "name": "Twin penitent flail",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Twin penitent flail",
+        "range": "Melee",
+        "stats": {
+          "A": 8,
+          "S": 5,
+          "AP": -1,
+          "D": 1,
+          "WS": 4
+        },
+        "keywords": [
+          "Sustained Hits 1",
+          "Twin-linked"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "twin-ministorum-heavy-flamer",
+    "name": "Twin Ministorum heavy flamer",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Twin Ministorum heavy flamer",
+        "range": 12,
+        "stats": {
+          "A": "D6",
+          "S": 6,
+          "AP": -1,
+          "D": 1,
+          "BS": null
+        },
+        "keywords": [
+          "Ignores Cover",
+          "Torrent",
+          "Twin-linked"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "mace-of-castigation",
+    "name": "Mace of Castigation",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Mace of Castigation",
+        "range": "Melee",
+        "stats": {
+          "A": 4,
+          "S": 6,
+          "AP": -2,
+          "D": 2,
+          "WS": 2
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "zealots-vindictor",
+    "name": "Zealot’s vindictor",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Ranged",
+        "range": 12,
+        "stats": {
+          "A": "D6",
+          "S": 5,
+          "AP": 0,
+          "D": 1,
+          "BS": null
+        },
+        "keywords": [
+          "Ignores Cover",
+          "Torrent"
+        ]
+      },
+      {
+        "name": "Melee",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 5,
+          "AP": -1,
+          "D": 2,
+          "WS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "holy-pistol",
+    "name": "Holy pistol",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Holy pistol",
+        "range": 12,
+        "stats": {
+          "A": 3,
+          "S": 4,
+          "AP": 0,
+          "D": 1,
+          "BS": 4
+        },
+        "keywords": [
+          "Pistol"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "boltgun",
+    "name": "Boltgun",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Boltgun",
+        "range": 24,
+        "stats": {
+          "A": 1,
+          "S": 4,
+          "AP": 0,
+          "D": 1,
+          "BS": 3
+        },
+        "keywords": [
+          "Assault",
+          "Rapid Fire 1"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "artificer-crafted-storm-bolter",
+    "name": "Artificer-crafted storm bolter",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Artificer-crafted storm bolter",
+        "range": 24,
+        "stats": {
+          "A": 2,
+          "S": 4,
+          "AP": 0,
+          "D": 2,
+          "BS": 3
+        },
+        "keywords": [
+          "Assault",
+          "Rapid Fire 2"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "meltagun",
+    "name": "Meltagun",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Meltagun",
+        "range": 12,
+        "stats": {
+          "A": 1,
+          "S": 9,
+          "AP": -4,
+          "D": "D6",
+          "BS": 3
+        },
+        "keywords": [
+          "Assault",
+          "Melta 2"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "ministorum-flamer",
+    "name": "Ministorum flamer",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Ministorum flamer",
+        "range": 12,
+        "stats": {
+          "A": "D6",
+          "S": 5,
+          "AP": 0,
+          "D": 1,
+          "BS": null
+        },
+        "keywords": [
+          "Assault",
+          "Ignores Cover",
+          "Torrent"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "the-ardent-blade",
+    "name": "The Ardent Blade",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Ranged",
+        "range": 12,
+        "stats": {
+          "A": "D6",
+          "S": 6,
+          "AP": -2,
+          "D": 1,
+          "BS": null
+        },
+        "keywords": [
+          "Ignores Cover",
+          "Torrent"
+        ]
+      },
+      {
+        "name": "Melee",
+        "range": "Melee",
+        "stats": {
+          "A": 5,
+          "S": 6,
+          "AP": -3,
+          "D": 2,
+          "WS": 2
+        },
+        "keywords": [
+          "Devastating Wounds"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "power-weapon",
+    "name": "Power weapon",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Power weapon",
+        "range": "Melee",
+        "stats": {
+          "A": 4,
+          "S": 4,
+          "AP": -2,
+          "D": 1,
+          "WS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "artificer-crafted-storm-bolter",
+    "name": "Artificer-crafted storm bolter",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Artificer-crafted storm bolter",
+        "range": 24,
+        "stats": {
+          "A": 2,
+          "S": 4,
+          "AP": 0,
+          "D": 2,
+          "BS": 3
+        },
+        "keywords": [
+          "Rapid Fire 2"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "meltagun",
+    "name": "Meltagun",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Meltagun",
+        "range": 12,
+        "stats": {
+          "A": 1,
+          "S": 9,
+          "AP": -4,
+          "D": "D6",
+          "BS": 3
+        },
+        "keywords": [
+          "Melta 2"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "condemnor-boltgun",
+    "name": "Condemnor boltgun",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Condemnor boltgun",
+        "range": 24,
+        "stats": {
+          "A": 1,
+          "S": 4,
+          "AP": 0,
+          "D": 1,
+          "BS": 2
+        },
+        "keywords": [
+          "Anti-psyker 2+",
+          "Devastating Wounds",
+          "Precision",
+          "Rapid Fire 1"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "inferno-pistol",
+    "name": "Inferno pistol",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Inferno pistol",
+        "range": 6,
+        "stats": {
+          "A": 1,
+          "S": 8,
+          "AP": -4,
+          "D": "D3",
+          "BS": 2
+        },
+        "keywords": [
+          "Melta 2",
+          "Pistol"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "brazier-of-holy-fire",
+    "name": "Brazier of holy fire",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Brazier of holy fire",
+        "range": 12,
+        "stats": {
+          "A": "D6",
+          "S": 6,
+          "AP": -1,
+          "D": 2,
+          "BS": null
+        },
+        "keywords": [
+          "Ignores Cover",
+          "One Shot",
+          "Torrent"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "hallowed-chainsword",
+    "name": "Hallowed chainsword",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Hallowed chainsword",
+        "range": "Melee",
+        "stats": {
+          "A": 5,
+          "S": 3,
+          "AP": -1,
+          "D": 1,
+          "WS": 2
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "blessed-blade",
+    "name": "Blessed blade",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Blessed blade",
+        "range": "Melee",
+        "stats": {
+          "A": 4,
+          "S": 6,
+          "AP": -2,
+          "D": 2,
+          "WS": 2
+        },
+        "keywords": [
+          "Lethal Hits"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "blade-of-vigil",
+    "name": "Blade of Vigil",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Blade of Vigil",
+        "range": "Melee",
+        "stats": {
+          "A": 4,
+          "S": 5,
+          "AP": -2,
+          "D": 2,
+          "WS": 2
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "scribes-staff",
+    "name": "Scribe’s staff",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Scribe’s staff",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 4,
+          "AP": 0,
+          "D": 1,
+          "WS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "hunter-killer-missile",
+    "name": "Hunter-killer missile",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Hunter-killer missile",
+        "range": 48,
+        "stats": {
+          "A": 1,
+          "S": 14,
+          "AP": -3,
+          "D": "D6",
+          "BS": 2
+        },
+        "keywords": [
+          "one shot"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "repressor-twin-heavy-flamer",
+    "name": "Repressor twin heavy flamer",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Repressor twin heavy flamer",
+        "range": 12,
+        "stats": {
+          "A": "D6",
+          "S": 6,
+          "AP": -1,
+          "D": 1,
+          "BS": null
+        },
+        "keywords": [
+          "ignores cover",
+          "torrent",
+          "twin-linked"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "heavy-flamer",
+    "name": "Heavy flamer",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Heavy flamer",
+        "range": 12,
+        "stats": {
+          "A": "D6",
+          "S": 6,
+          "AP": -1,
+          "D": 1,
+          "BS": null
+        },
+        "keywords": [
+          "ignores cover",
+          "torrent"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "storm-bolter",
+    "name": "Storm bolter",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Storm bolter",
+        "range": 24,
+        "stats": {
+          "A": 2,
+          "S": 4,
+          "AP": 0,
+          "D": 1,
+          "BS": 3
+        },
+        "keywords": [
+          "rapid fire 2"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "dozer-ram",
+    "name": "Dozer ram",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Dozer ram",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 7,
+          "AP": 0,
+          "D": 1,
+          "WS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  }
+]

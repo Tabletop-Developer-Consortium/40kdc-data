@@ -149,10 +149,23 @@ export function buildWeaponRegistry(
       const { baseName, rows: groupRows, profileNames } = group;
       const type = groupRows[0].type === "Melee" ? "melee" : "ranged";
 
+      // Skip rows with obviously corrupt source data (shifted columns)
+      const validRows = groupRows.filter((row, i) => {
+        const s = parseStatValue(row.S);
+        if (typeof s === "number" && s < 0) return false;
+        const d = parseStatValue(row.D);
+        if (type === "ranged" && d === 0 && row.D === "") return false;
+        return true;
+      });
+      if (validRows.length === 0) continue;
+      const validProfileNames = groupRows.map((row, i) => ({ row, name: profileNames[i] }))
+        .filter(({ row }) => validRows.includes(row))
+        .map(({ name }) => name);
+
       // If there's only one profile and its name matches the base name, use base name as profile name
-      const profiles = groupRows.map((row, i) => {
+      const profiles = validRows.map((row, i) => {
         const pName =
-          groupRows.length === 1 ? baseName : profileNames[i];
+          validRows.length === 1 ? baseName : validProfileNames[i];
         return buildProfile(row, pName);
       });
 

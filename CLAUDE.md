@@ -104,8 +104,8 @@ Entity IDs are the interoperability contract. If two tools use
   from community datasources. Used as source for mechanical data (stats, points,
   keywords, weapons). Contains UUID-based entity IDs. Shared units appear with
   per-faction "views" — select the view whose faction ability matches the target
-  faction's faction rule. Run `npx tsx tools/src/convert-world-eaters.ts` to
-  regenerate core data from this source.
+  faction's faction rule. Run `npx tsx tools/src/convert-faction.ts <faction-id>`
+  to regenerate core data from this source (e.g., `convert-faction.ts world-eaters`).
 
 ## Commit Style
 

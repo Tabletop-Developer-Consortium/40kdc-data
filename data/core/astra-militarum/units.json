@@ -1,0 +1,5182 @@
+[
+  {
+    "id": "scout-sentinels",
+    "name": "Scout Sentinels",
+    "faction_id": "astra-militarum",
+    "profiles": [
+      {
+        "name": "Scout Sentinels",
+        "M": 10,
+        "T": 7,
+        "W": 7,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 55
+      },
+      {
+        "models": 2,
+        "cost": 110
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Smoke",
+      "Imperium",
+      "Regiment",
+      "Squadron",
+      "Scout Sentinels"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 2
+    },
+    "weapon_ids": [
+      "autocannon",
+      "close-combat-weapon",
+      "heavy-flamer",
+      "hunter-killer-missile",
+      "lascannon",
+      "missile-launcher",
+      "multi-laser",
+      "plasma-cannon",
+      "sentinel-chainsaw"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "cadian-castellan",
+    "name": "Cadian Castellan",
+    "faction_id": "astra-militarum",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Cadian Castellan",
+        "M": 6,
+        "T": 3,
+        "W": 4,
+        "Sv": 5,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 55
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Grenades",
+      "Imperium",
+      "Officer",
+      "Cadian Castellan"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "bolt-pistol",
+      "boltgun",
+      "chainsword",
+      "close-combat-weapon",
+      "laspistol",
+      "plasma-pistol",
+      "power-fist",
+      "power-weapon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "gaunts-ghosts",
+    "name": "Gaunt’s Ghosts",
+    "faction_id": "astra-militarum",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Ibram Gaunt",
+        "M": 6,
+        "T": 3,
+        "W": 3,
+        "Sv": 4,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 1
+      },
+      {
+        "name": "Oan Mkoll",
+        "M": 6,
+        "T": 3,
+        "W": 2,
+        "Sv": 5,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 6,
+        "cost": 100
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Grenades",
+      "Imperium",
+      "Gaunt’s Ghosts",
+      "Character",
+      "Epic Hero",
+      "Officer"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 6,
+      "max": 6
+    },
+    "weapon_ids": [
+      "bolt-pistol",
+      "braggs-autocannon",
+      "corbecs-hot-shot-lascarbine",
+      "gaunts-chainsword",
+      "larkins-long-las",
+      "lascarbine",
+      "mkolls-straight-silver-knife",
+      "rawnes-lascarbine",
+      "straight-silver-knife"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "nork-deddog",
+    "name": "Nork Deddog",
+    "faction_id": "astra-militarum",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Nork Deddog",
+        "M": 6,
+        "T": 6,
+        "W": 6,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 60
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Epic Hero",
+      "Grenades",
+      "Imperium",
+      "Loyal Protector",
+      "Ogryn",
+      "Nork Deddog"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "huge-knife",
+      "ripper-gun"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "cadian-shock-troops",
+    "name": "Cadian Shock Troops",
+    "faction_id": "astra-militarum",
+    "role": "battleline",
+    "profiles": [
+      {
+        "name": "Shock Trooper",
+        "M": 6,
+        "T": 3,
+        "W": 1,
+        "Sv": 5,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 10,
+        "cost": 65
+      },
+      {
+        "models": 20,
+        "cost": 120
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Battleline",
+      "Imperium",
+      "Grenades",
+      "Regiment",
+      "Platoon",
+      "Cadian Shock Troops"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 10,
+      "max": 20
+    },
+    "weapon_ids": [
+      "bolt-pistol",
+      "chainsword",
+      "close-combat-weapon",
+      "flamer",
+      "grenade-launcher",
+      "lasgun",
+      "laspistol",
+      "meltagun",
+      "plasma-gun",
+      "sergeants-autogun"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "militarum-tempestus-command-squad",
+    "name": "Militarum Tempestus Command Squad",
+    "faction_id": "astra-militarum",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Tempestus Scion",
+        "M": 6,
+        "T": 3,
+        "W": 1,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      },
+      {
+        "name": "Tempestor Prime",
+        "M": 6,
+        "T": 3,
+        "W": 3,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 85
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Grenades",
+      "Imperium",
+      "Militarum Tempestus",
+      "Command Squad",
+      "Character",
+      "Officer"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 5
+    },
+    "weapon_ids": [
+      "bolt-pistol",
+      "close-combat-weapon",
+      "flamer",
+      "grenade-launcher",
+      "hot-shot-lasgun",
+      "hot-shot-laspistol",
+      "hot-shot-volley-gun",
+      "meltagun",
+      "plasma-gun",
+      "plasma-pistol",
+      "tempestus-dagger"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "lord-solar-leontus",
+    "name": "Lord Solar Leontus",
+    "faction_id": "astra-militarum",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Lord Solar Leontus",
+        "M": 12,
+        "T": 4,
+        "W": 8,
+        "Sv": 3,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 130
+      }
+    ],
+    "keywords": [
+      "Mounted",
+      "Character",
+      "Epic Hero",
+      "Imperium",
+      "Officer",
+      "Lord Solar Leontus"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "conquest",
+      "konstantins-hooves",
+      "sols-righteous-gaze"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "tempestus-aquilons",
+    "name": "Tempestus Aquilons",
+    "faction_id": "astra-militarum",
+    "profiles": [
+      {
+        "name": "Tempestus Aquilon",
+        "M": 6,
+        "T": 3,
+        "W": 1,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 10,
+        "cost": 100
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Grenades",
+      "Smoke",
+      "Imperium",
+      "Regiment",
+      "Militarum Tempestus",
+      "Tempestus Aquilons"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 10,
+      "max": 10
+    },
+    "weapon_ids": [
+      "bolt-pistol",
+      "chainsword",
+      "close-combat-weapon",
+      "hot-shot-lascarbine",
+      "hot-shot-laspistol",
+      "hot-shot-long-las",
+      "melta-carbine",
+      "plasma-carbine",
+      "power-weapon",
+      "sentry-flamer",
+      "sentry-grenade-launcher",
+      "sentry-hot-shot-volley-gun"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "krieg-heavy-weapons-squad",
+    "name": "Krieg Heavy Weapons Squad",
+    "faction_id": "astra-militarum",
+    "profiles": [
+      {
+        "name": "Heavy Weapons Gunner",
+        "M": 4,
+        "T": 3,
+        "W": 2,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      },
+      {
+        "name": "Fire Coordinator",
+        "M": 6,
+        "T": 3,
+        "W": 1,
+        "Sv": 5,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 4,
+        "cost": 75
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Grenades",
+      "Imperium",
+      "Regiment",
+      "Krieg Heavy Weapons Squad"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 4,
+      "max": 4
+    },
+    "weapon_ids": [
+      "close-combat-weapon",
+      "krieg-heavy-flamer",
+      "lascannon",
+      "laspistol",
+      "twin-krieg-heavy-stubber"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "ratlings",
+    "name": "Ratlings",
+    "faction_id": "astra-militarum",
+    "profiles": [
+      {
+        "name": "Ratlings",
+        "M": 6,
+        "T": 2,
+        "W": 1,
+        "Sv": 6,
+        "invuln_sv": null,
+        "Ld": 8,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 60
+      },
+      {
+        "models": 10,
+        "cost": 100
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Imperium",
+      "Ratlings"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 10
+    },
+    "weapon_ids": [
+      "close-combat-weapon",
+      "sniper-rifle",
+      "tankstopper-rifle"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "leman-russ-battle-tank",
+    "name": "Leman Russ Battle Tank",
+    "faction_id": "astra-militarum",
+    "profiles": [
+      {
+        "name": "Leman Russ Battle Tank",
+        "M": 10,
+        "T": 11,
+        "W": 13,
+        "Sv": 2,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 185
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Smoke",
+      "Imperium",
+      "Squadron",
+      "Leman Russ Battle Tank"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-tracks",
+      "heavy-bolter",
+      "heavy-flamer",
+      "heavy-stubber",
+      "hunter-killer-missile",
+      "lascannon",
+      "leman-russ-battle-cannon",
+      "multi-melta",
+      "plasma-cannon",
+      "storm-bolter"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "stormsword",
+    "name": "Stormsword",
+    "faction_id": "astra-militarum",
+    "profiles": [
+      {
+        "name": "Stormsword",
+        "M": 12,
+        "T": 13,
+        "W": 24,
+        "Sv": 2,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 8
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 465
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Smoke",
+      "Titanic",
+      "Imperium",
+      "Stormsword"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-tracks",
+      "lascannon",
+      "stormsword-siege-cannon",
+      "twin-heavy-bolter",
+      "twin-heavy-flamer"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "taurox-prime",
+    "name": "Taurox Prime",
+    "faction_id": "astra-militarum",
+    "role": "dedicated-transport",
+    "profiles": [
+      {
+        "name": "Taurox Prime",
+        "M": 12,
+        "T": 8,
+        "W": 10,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 90
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Imperium",
+      "Squadron",
+      "Transport",
+      "Dedicated Transport",
+      "Taurox Prime"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-tracks",
+      "storm-bolter",
+      "taurox-battle-cannon",
+      "taurox-gatling-cannon",
+      "taurox-missile-launcher",
+      "twin-autocannon",
+      "twin-taurox-hot-shot-volley-gun"
+    ],
+    "ability_ids": [],
+    "transport_capacity": {
+      "capacity": 12
+    },
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "field-ordnance-battery",
+    "name": "Field Ordnance Battery",
+    "faction_id": "astra-militarum",
+    "profiles": [
+      {
+        "name": "Field Ordnance Battery",
+        "M": 3,
+        "T": 5,
+        "W": 6,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 2,
+        "cost": 110
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Artillery",
+      "Grenades",
+      "Imperium",
+      "Regiment",
+      "Field Ordnance Battery"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 2,
+      "max": 2
+    },
+    "weapon_ids": [
+      "battery-close-combat-weapons",
+      "bombast-field-gun",
+      "heavy-lascannon",
+      "lasgun",
+      "laspistol",
+      "malleus-rocket-launcher"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "cyclops-demolition-vehicle",
+    "name": "Cyclops Demolition Vehicle",
+    "faction_id": "astra-militarum",
+    "profiles": [
+      {
+        "name": "Cyclops Demolition Vehicle",
+        "M": 8,
+        "T": 4,
+        "W": 4,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 8,
+        "OC": 0
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 25
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Imperium",
+      "Cyclops Demolition Vehicle"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "rogal-dorn-commander",
+    "name": "Rogal Dorn Commander",
+    "faction_id": "astra-militarum",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Rogal Dorn Commander",
+        "M": 10,
+        "T": 12,
+        "W": 18,
+        "Sv": 2,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 5
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 290
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Character",
+      "Smoke",
+      "Squadron",
+      "Imperium",
+      "Officer",
+      "Rogal Dorn Commander"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-tracks",
+      "castigator-gatling-cannon",
+      "coaxial-autocannon",
+      "heavy-bolter",
+      "heavy-stubber",
+      "meltagun",
+      "multi-melta",
+      "oppressor-cannon",
+      "pulveriser-cannon",
+      "twin-battle-cannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "leman-russ-exterminator",
+    "name": "Leman Russ Exterminator",
+    "faction_id": "astra-militarum",
+    "profiles": [
+      {
+        "name": "Leman Russ Exterminator",
+        "M": 10,
+        "T": 11,
+        "W": 13,
+        "Sv": 2,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 180
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Smoke",
+      "Imperium",
+      "Squadron",
+      "Leman Russ Exterminator"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-tracks",
+      "exterminator-autocannon",
+      "heavy-bolter",
+      "heavy-flamer",
+      "heavy-stubber",
+      "hunter-killer-missile",
+      "lascannon",
+      "multi-melta",
+      "plasma-cannon",
+      "storm-bolter"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "bullgryn-squad",
+    "name": "Bullgryn Squad",
+    "faction_id": "astra-militarum",
+    "profiles": [
+      {
+        "name": "Bullgryn",
+        "M": 6,
+        "T": 6,
+        "W": 3,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 3,
+        "cost": 100
+      },
+      {
+        "models": 6,
+        "cost": 200
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Grenades",
+      "Imperium",
+      "Ogryn",
+      "Bullgryn Squad"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 3,
+      "max": 6
+    },
+    "weapon_ids": [
+      "bullgryn-maul",
+      "close-combat-weapon",
+      "grenadier-gauntlet"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "primaris-psyker",
+    "name": "Primaris Psyker",
+    "faction_id": "astra-militarum",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Primaris Psyker",
+        "M": 6,
+        "T": 3,
+        "W": 3,
+        "Sv": 5,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 60
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Psyker",
+      "Imperium",
+      "Primaris Psyker"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "force-weapon",
+      "laspistol",
+      "psychic-maelstrom"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "cadian-heavy-weapons-squad",
+    "name": "Cadian Heavy Weapons Squad",
+    "faction_id": "astra-militarum",
+    "profiles": [
+      {
+        "name": "Cadian Heavy Weapons Squad",
+        "M": 6,
+        "T": 3,
+        "W": 2,
+        "Sv": 5,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 3,
+        "cost": 65
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Grenades",
+      "Imperium",
+      "Regiment",
+      "Cadian Heavy Weapons Squad"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 3,
+      "max": 3
+    },
+    "weapon_ids": [
+      "autocannon",
+      "heavy-bolter",
+      "lascannon",
+      "laspistol",
+      "missile-launcher",
+      "mortar",
+      "weapons-team-close-combat-weapons"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "catachan-heavy-weapons-squad",
+    "name": "Catachan Heavy Weapons Squad",
+    "faction_id": "astra-militarum",
+    "profiles": [
+      {
+        "name": "Catachan Heavy Weapons Squad",
+        "M": 6,
+        "T": 3,
+        "W": 2,
+        "Sv": 5,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 3,
+        "cost": 65
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Grenades",
+      "Imperium",
+      "Regiment",
+      "Catachan Heavy Weapons Squad"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 3,
+      "max": 3
+    },
+    "weapon_ids": [
+      "autocannon",
+      "heavy-bolter",
+      "lascannon",
+      "lasgun",
+      "missile-launcher",
+      "mortar",
+      "weapons-team-close-combat-weapons"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "hellhammer",
+    "name": "Hellhammer",
+    "faction_id": "astra-militarum",
+    "profiles": [
+      {
+        "name": "Hellhammer",
+        "M": 12,
+        "T": 13,
+        "W": 24,
+        "Sv": 2,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 8
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 420
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Titanic",
+      "Smoke",
+      "Imperium",
+      "Hellhammer"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-tracks",
+      "coaxial-autocannon",
+      "demolisher-cannon",
+      "heavy-stubber",
+      "hellhammer-cannon",
+      "lascannon",
+      "twin-heavy-bolter",
+      "twin-heavy-flamer"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "aegis-defence-line",
+    "name": "Aegis Defence Line",
+    "faction_id": "astra-militarum",
+    "profiles": [
+      {
+        "name": "Aegis Defence Line",
+        "M": 0,
+        "T": 12,
+        "W": 10,
+        "Sv": 2,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 0
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 145
+      }
+    ],
+    "keywords": [
+      "Fortification",
+      "Imperium",
+      "Aegis Defence Line"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "armoured-sentinels",
+    "name": "Armoured Sentinels",
+    "faction_id": "astra-militarum",
+    "profiles": [
+      {
+        "name": "Armoured Sentinels",
+        "M": 8,
+        "T": 8,
+        "W": 7,
+        "Sv": 2,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 65
+      },
+      {
+        "models": 2,
+        "cost": 130
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Smoke",
+      "Imperium",
+      "Regiment",
+      "Squadron",
+      "Armoured Sentinels"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 2
+    },
+    "weapon_ids": [
+      "autocannon",
+      "close-combat-weapon",
+      "heavy-flamer",
+      "hunter-killer-missile",
+      "lascannon",
+      "missile-launcher",
+      "multi-laser",
+      "plasma-cannon",
+      "sentinel-chainsaw"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "commissar",
+    "name": "Commissar",
+    "faction_id": "astra-militarum",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Commissar",
+        "M": 6,
+        "T": 3,
+        "W": 3,
+        "Sv": 5,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 30
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Imperium",
+      "Officer",
+      "Commissar"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "bolt-pistol",
+      "chainsword",
+      "plasma-pistol",
+      "power-weapon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "deathstrike",
+    "name": "Deathstrike",
+    "faction_id": "astra-militarum",
+    "profiles": [
+      {
+        "name": "Deathstrike",
+        "M": 10,
+        "T": 10,
+        "W": 11,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 145
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Artillery",
+      "Smoke",
+      "Imperium",
+      "Squadron",
+      "Deathstrike"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-tracks",
+      "deathstrike-missile",
+      "heavy-bolter",
+      "heavy-flamer",
+      "hunter-killer-missile"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "death-riders",
+    "name": "Death Riders",
+    "faction_id": "astra-militarum",
+    "profiles": [
+      {
+        "name": "Ridemaster",
+        "M": 10,
+        "T": 4,
+        "W": 2,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      },
+      {
+        "name": "Death Rider",
+        "M": 10,
+        "T": 4,
+        "W": 2,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 60
+      },
+      {
+        "models": 10,
+        "cost": 120
+      }
+    ],
+    "keywords": [
+      "Mounted",
+      "Grenades",
+      "Imperium",
+      "Regiment",
+      "Death Riders"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 10
+    },
+    "weapon_ids": [
+      "death-rider-lascarbine",
+      "frag-lance",
+      "power-sabre",
+      "savage-claws"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "artillery-team",
+    "name": "Artillery Team",
+    "faction_id": "astra-militarum",
+    "profiles": [
+      {
+        "name": "Artillery Team",
+        "M": 3,
+        "T": 7,
+        "W": 10,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 95
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Artillery",
+      "Grenades",
+      "Imperium",
+      "Regiment",
+      "Artillery Team"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "crew-close-combat-weapons",
+      "heavy-mortar",
+      "heavy-quad-launcher",
+      "lasgun",
+      "multiple-rocket-launcher",
+      "siege-cannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "leman-russ-executioner",
+    "name": "Leman Russ Executioner",
+    "faction_id": "astra-militarum",
+    "profiles": [
+      {
+        "name": "Leman Russ Executioner",
+        "M": 10,
+        "T": 11,
+        "W": 13,
+        "Sv": 2,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 170
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Smoke",
+      "Imperium",
+      "Squadron",
+      "Leman Russ Executioner"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-tracks",
+      "executioner-plasma-cannon",
+      "heavy-bolter",
+      "heavy-flamer",
+      "heavy-stubber",
+      "hunter-killer-missile",
+      "lascannon",
+      "multi-melta",
+      "plasma-cannon",
+      "storm-bolter"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "tempestus-scions",
+    "name": "Tempestus Scions",
+    "faction_id": "astra-militarum",
+    "profiles": [
+      {
+        "name": "Tempestus Scion",
+        "M": 6,
+        "T": 3,
+        "W": 1,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 70
+      },
+      {
+        "models": 10,
+        "cost": 140
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Grenades",
+      "Imperium",
+      "Regiment",
+      "Militarum Tempestus",
+      "Tempestus Scions"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 10
+    },
+    "weapon_ids": [
+      "bolt-pistol",
+      "chainsword",
+      "close-combat-weapon",
+      "flamer",
+      "grenade-launcher",
+      "hot-shot-lasgun",
+      "hot-shot-laspistol",
+      "hot-shot-volley-gun",
+      "meltagun",
+      "plasma-gun",
+      "plasma-pistol",
+      "power-fist",
+      "power-weapon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "stormlord",
+    "name": "Stormlord",
+    "faction_id": "astra-militarum",
+    "profiles": [
+      {
+        "name": "Stormlord",
+        "M": 12,
+        "T": 13,
+        "W": 24,
+        "Sv": 2,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 8
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 430
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Titanic",
+      "Smoke",
+      "Imperium",
+      "Transport",
+      "Stormlord"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-tracks",
+      "heavy-stubber",
+      "lascannon",
+      "twin-heavy-bolter",
+      "twin-heavy-flamer",
+      "vulcan-mega-bolter"
+    ],
+    "ability_ids": [],
+    "transport_capacity": {
+      "capacity": 40
+    },
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "ogryn-bodyguard",
+    "name": "Ogryn Bodyguard",
+    "faction_id": "astra-militarum",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Ogryn Bodyguard",
+        "M": 6,
+        "T": 6,
+        "W": 6,
+        "Sv": 5,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 40
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Grenades",
+      "Imperium",
+      "Loyal Protector",
+      "Ogryn",
+      "Bodyguard",
+      "Character"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "bullgryn-maul",
+      "close-combat-weapon",
+      "grenadier-gauntlet",
+      "huge-knife",
+      "ripper-gun"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "kasrkin",
+    "name": "Kasrkin",
+    "faction_id": "astra-militarum",
+    "profiles": [
+      {
+        "name": "Kasrkin",
+        "M": 6,
+        "T": 3,
+        "W": 1,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 10,
+        "cost": 110
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Grenades",
+      "Imperium",
+      "Regiment",
+      "Kasrkin"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 10,
+      "max": 10
+    },
+    "weapon_ids": [
+      "bolt-pistol",
+      "chainsword",
+      "close-combat-weapon",
+      "flamer",
+      "grenade-launcher",
+      "hot-shot-lasgun",
+      "hot-shot-laspistol",
+      "hot-shot-marksman-rifle",
+      "hot-shot-volley-gun",
+      "meltagun",
+      "plasma-gun",
+      "plasma-pistol",
+      "power-weapon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "cadian-command-squad",
+    "name": "Cadian Command Squad",
+    "faction_id": "astra-militarum",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Cadian Commander",
+        "M": 6,
+        "T": 3,
+        "W": 3,
+        "Sv": 5,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      },
+      {
+        "name": "Cadian Veteran Guardsman",
+        "M": 6,
+        "T": 3,
+        "W": 1,
+        "Sv": 5,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 65
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Grenades",
+      "Imperium",
+      "Platoon",
+      "Cadian",
+      "Command Squad",
+      "Character",
+      "Officer"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 5
+    },
+    "weapon_ids": [
+      "bolt-pistol",
+      "chainsword",
+      "close-combat-weapon",
+      "flamer",
+      "grenade-launcher",
+      "lasgun",
+      "laspistol",
+      "meltagun",
+      "plasma-gun",
+      "plasma-pistol",
+      "power-fist",
+      "power-weapon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "catachan-command-squad",
+    "name": "Catachan Command Squad",
+    "faction_id": "astra-militarum",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Catachan Commander",
+        "M": 6,
+        "T": 3,
+        "W": 3,
+        "Sv": 5,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      },
+      {
+        "name": "Veteran Guardsman",
+        "M": 6,
+        "T": 3,
+        "W": 1,
+        "Sv": 5,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 65
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Grenades",
+      "Imperium",
+      "Platoon",
+      "Catachan",
+      "Command Squad",
+      "Character",
+      "Officer"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 5
+    },
+    "weapon_ids": [
+      "bolt-pistol",
+      "boltgun",
+      "chainsword",
+      "close-combat-weapon",
+      "flamer",
+      "grenade-launcher",
+      "heavy-flamer",
+      "lasgun",
+      "laspistol",
+      "meltagun",
+      "plasma-gun",
+      "plasma-pistol",
+      "power-fist",
+      "power-weapon",
+      "sniper-rifle"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "doomhammer",
+    "name": "Doomhammer",
+    "faction_id": "astra-militarum",
+    "profiles": [
+      {
+        "name": "Doomhammer",
+        "M": 12,
+        "T": 13,
+        "W": 24,
+        "Sv": 2,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 8
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 415
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Titanic",
+      "Smoke",
+      "Imperium",
+      "Transport",
+      "Doomhammer"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-tracks",
+      "lascannon",
+      "magma-cannon",
+      "twin-heavy-bolter",
+      "twin-heavy-flamer"
+    ],
+    "ability_ids": [],
+    "transport_capacity": {
+      "capacity": 26
+    },
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "rogal-dorn-battle-tank",
+    "name": "Rogal Dorn Battle Tank",
+    "faction_id": "astra-militarum",
+    "profiles": [
+      {
+        "name": "Rogal Dorn Battle Tank",
+        "M": 10,
+        "T": 12,
+        "W": 18,
+        "Sv": 2,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 5
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 260
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Smoke",
+      "Imperium",
+      "Squadron",
+      "Rogal Dorn Battle Tank"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-tracks",
+      "castigator-gatling-cannon",
+      "coaxial-autocannon",
+      "heavy-bolter",
+      "heavy-stubber",
+      "meltagun",
+      "multi-melta",
+      "oppressor-cannon",
+      "pulveriser-cannon",
+      "twin-battle-cannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "ministorum-priest",
+    "name": "Ministorum Priest",
+    "faction_id": "astra-militarum",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Ministorum Priest",
+        "M": 6,
+        "T": 3,
+        "W": 3,
+        "Sv": 6,
+        "invuln_sv": 4,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 40
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Grenades",
+      "Imperium",
+      "Ministorum Priest"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "holy-pistol",
+      "power-weapon",
+      "zealots-vindictor"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "death-korps-of-krieg",
+    "name": "Death Korps of Krieg",
+    "faction_id": "astra-militarum",
+    "role": "battleline",
+    "profiles": [
+      {
+        "name": "Death Korps Trooper",
+        "M": 6,
+        "T": 3,
+        "W": 1,
+        "Sv": 5,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 10,
+        "cost": 65
+      },
+      {
+        "models": 20,
+        "cost": 145
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Battleline",
+      "Imperium",
+      "Grenades",
+      "Regiment",
+      "Platoon",
+      "Death Korps of Krieg"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 10,
+      "max": 20
+    },
+    "weapon_ids": [
+      "bolt-pistol",
+      "boltgun",
+      "chainsword",
+      "close-combat-weapon",
+      "flamer",
+      "grenade-launcher",
+      "lasgun",
+      "laspistol",
+      "long-las",
+      "meltagun",
+      "plasma-gun",
+      "plasma-pistol",
+      "power-weapon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "banesword",
+    "name": "Banesword",
+    "faction_id": "astra-militarum",
+    "profiles": [
+      {
+        "name": "Banesword",
+        "M": 12,
+        "T": 13,
+        "W": 24,
+        "Sv": 2,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 8
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 450
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Titanic",
+      "Smoke",
+      "Imperium",
+      "Banesword"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-tracks",
+      "lascannon",
+      "quake-cannon",
+      "twin-heavy-bolter",
+      "twin-heavy-flamer"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "wyvern",
+    "name": "Wyvern",
+    "faction_id": "astra-militarum",
+    "profiles": [
+      {
+        "name": "Wyvern",
+        "M": 10,
+        "T": 9,
+        "W": 11,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 110
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Artillery",
+      "Smoke",
+      "Imperium",
+      "Squadron",
+      "Wyvern"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-tracks",
+      "heavy-bolter",
+      "heavy-flamer",
+      "hunter-killer-missile",
+      "wyvern-quad-stormshard-mortar"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "attilan-rough-riders",
+    "name": "Attilan Rough Riders",
+    "faction_id": "astra-militarum",
+    "profiles": [
+      {
+        "name": "Rough Rider",
+        "M": 12,
+        "T": 4,
+        "W": 2,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 60
+      },
+      {
+        "models": 10,
+        "cost": 120
+      }
+    ],
+    "keywords": [
+      "Mounted",
+      "Grenades",
+      "Imperium",
+      "Regiment",
+      "Attilan Rough Riders"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 10
+    },
+    "weapon_ids": [
+      "goad-lance",
+      "hunting-lance",
+      "lasgun",
+      "laspistol",
+      "power-sabre",
+      "steeds-hooves"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "hellhound",
+    "name": "Hellhound",
+    "faction_id": "astra-militarum",
+    "profiles": [
+      {
+        "name": "Hellhound",
+        "M": 10,
+        "T": 10,
+        "W": 11,
+        "Sv": 2,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 125
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Smoke",
+      "Imperium",
+      "Squadron",
+      "Hellhound"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-tracks",
+      "chem-cannon",
+      "heavy-bolter",
+      "heavy-flamer",
+      "hunter-killer-missile",
+      "inferno-cannon",
+      "melta-cannon",
+      "multi-melta"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "leman-russ-punisher",
+    "name": "Leman Russ Punisher",
+    "faction_id": "astra-militarum",
+    "profiles": [
+      {
+        "name": "Leman Russ Punisher",
+        "M": 10,
+        "T": 11,
+        "W": 13,
+        "Sv": 2,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 150
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Smoke",
+      "Imperium",
+      "Squadron",
+      "Leman Russ Punisher"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-tracks",
+      "heavy-bolter",
+      "heavy-flamer",
+      "heavy-stubber",
+      "hunter-killer-missile",
+      "lascannon",
+      "multi-melta",
+      "plasma-cannon",
+      "punisher-gatling-cannon",
+      "storm-bolter"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "krieg-command-squad",
+    "name": "Krieg Command Squad",
+    "faction_id": "astra-militarum",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Lord Commissar",
+        "M": 6,
+        "T": 3,
+        "W": 3,
+        "Sv": 5,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 1
+      },
+      {
+        "name": "Veteran Guardsman",
+        "M": 6,
+        "T": 3,
+        "W": 1,
+        "Sv": 5,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 6,
+        "cost": 65
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Grenades",
+      "Imperium",
+      "Platoon",
+      "Krieg",
+      "Command Squad",
+      "Character",
+      "Officer"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 6,
+      "max": 6
+    },
+    "weapon_ids": [
+      "bolt-pistol",
+      "boltgun",
+      "chainsword",
+      "close-combat-weapon",
+      "flamer",
+      "grenade-launcher",
+      "lasgun",
+      "laspistol",
+      "meltagun",
+      "plasma-gun",
+      "plasma-pistol",
+      "power-fist",
+      "power-weapon",
+      "trench-club"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "sly-marbo",
+    "name": "Sly Marbo",
+    "faction_id": "astra-militarum",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Sly Marbo",
+        "M": 6,
+        "T": 3,
+        "W": 4,
+        "Sv": 5,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 55
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Epic Hero",
+      "Grenades",
+      "Imperium",
+      "Regiment",
+      "Sly Marbo"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "envenomed-blade",
+      "ripper-pistol"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "leman-russ-demolisher",
+    "name": "Leman Russ Demolisher",
+    "faction_id": "astra-militarum",
+    "profiles": [
+      {
+        "name": "Leman Russ Demolisher",
+        "M": 10,
+        "T": 11,
+        "W": 13,
+        "Sv": 2,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 190
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Smoke",
+      "Imperium",
+      "Squadron",
+      "Leman Russ Demolisher"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-tracks",
+      "demolisher-battle-cannon",
+      "heavy-bolter",
+      "heavy-flamer",
+      "heavy-stubber",
+      "hunter-killer-missile",
+      "lascannon",
+      "multi-melta",
+      "plasma-cannon",
+      "storm-bolter"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "taurox",
+    "name": "Taurox",
+    "faction_id": "astra-militarum",
+    "role": "dedicated-transport",
+    "profiles": [
+      {
+        "name": "Taurox",
+        "M": 12,
+        "T": 8,
+        "W": 10,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 75
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Imperium",
+      "Squadron",
+      "Transport",
+      "Dedicated Transport",
+      "Taurox"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-tracks",
+      "storm-bolter",
+      "twin-autocannon"
+    ],
+    "ability_ids": [],
+    "transport_capacity": {
+      "capacity": 12
+    },
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "ogryn-squad",
+    "name": "Ogryn Squad",
+    "faction_id": "astra-militarum",
+    "profiles": [
+      {
+        "name": "Ogryn",
+        "M": 6,
+        "T": 6,
+        "W": 3,
+        "Sv": 5,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 3,
+        "cost": 60
+      },
+      {
+        "models": 6,
+        "cost": 130
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Grenades",
+      "Imperium",
+      "Ogryn",
+      "Ogryn Squad"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 3,
+      "max": 6
+    },
+    "weapon_ids": [
+      "ripper-gun"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "lord-marshal-dreir",
+    "name": "Lord Marshal Dreir",
+    "faction_id": "astra-militarum",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Lord Marshal Dreir",
+        "M": 10,
+        "T": 4,
+        "W": 6,
+        "Sv": 4,
+        "invuln_sv": 4,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 100
+      }
+    ],
+    "keywords": [
+      "Mounted",
+      "Character",
+      "Epic Hero",
+      "Grenades",
+      "Imperium",
+      "Officer",
+      "Lord Marshal Dreir"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "laspistol",
+      "sabre-of-sacrifice",
+      "savage-claws"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "tech-priest-enginseer",
+    "name": "Tech-Priest Enginseer",
+    "faction_id": "astra-militarum",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Tech-Priest Enginseer",
+        "M": 6,
+        "T": 4,
+        "W": 3,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 45
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Imperium",
+      "Tech-Priest Enginseer"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "enginseer-axe",
+      "mechanicus-pistol",
+      "servo-arm"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "banehammer",
+    "name": "Banehammer",
+    "faction_id": "astra-militarum",
+    "profiles": [
+      {
+        "name": "Banehammer",
+        "M": 12,
+        "T": 13,
+        "W": 24,
+        "Sv": 2,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 8
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 420
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Titanic",
+      "Smoke",
+      "Imperium",
+      "Transport",
+      "Banehammer"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-tracks",
+      "lascannon",
+      "tremor-cannon",
+      "twin-heavy-bolter",
+      "twin-heavy-flamer"
+    ],
+    "ability_ids": [],
+    "transport_capacity": {
+      "capacity": 26
+    },
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "catachan-jungle-fighters",
+    "name": "Catachan Jungle Fighters",
+    "faction_id": "astra-militarum",
+    "role": "battleline",
+    "profiles": [
+      {
+        "name": "Jungle Fighter",
+        "M": 6,
+        "T": 3,
+        "W": 1,
+        "Sv": 5,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 10,
+        "cost": 65
+      },
+      {
+        "models": 20,
+        "cost": 120
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Battleline",
+      "Regiment",
+      "Grenades",
+      "Imperium",
+      "Platoon",
+      "Catachan Jungle Fighters"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 10,
+      "max": 20
+    },
+    "weapon_ids": [
+      "close-combat-weapon",
+      "flamer",
+      "lasgun",
+      "laspistol"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "leman-russ-commander",
+    "name": "Leman Russ Commander",
+    "faction_id": "astra-militarum",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Leman Russ Commander",
+        "M": 10,
+        "T": 11,
+        "W": 13,
+        "Sv": 2,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 235
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Character",
+      "Smoke",
+      "Squadron",
+      "Imperium",
+      "Officer",
+      "Leman Russ Commander"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-tracks",
+      "demolisher-battle-cannon",
+      "eradicator-nova-cannon",
+      "executioner-plasma-cannon",
+      "exterminator-autocannon",
+      "heavy-bolter",
+      "heavy-flamer",
+      "heavy-stubber",
+      "hunter-killer-missile",
+      "lascannon",
+      "leman-russ-battle-cannon",
+      "multi-melta",
+      "plasma-cannon",
+      "punisher-gatling-cannon",
+      "storm-bolter",
+      "vanquisher-battle-cannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "valkyrie",
+    "name": "Valkyrie",
+    "faction_id": "astra-militarum",
+    "profiles": [
+      {
+        "name": "Valkyrie",
+        "M": 20,
+        "T": 10,
+        "W": 14,
+        "Sv": 2,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 0
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 190
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Fly",
+      "Aircraft",
+      "Imperium",
+      "Transport",
+      "Valkyrie"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-hull",
+      "heavy-bolter",
+      "hellstrike-missiles",
+      "lascannon",
+      "multi-laser",
+      "multiple-rocket-pod"
+    ],
+    "ability_ids": [],
+    "transport_capacity": {
+      "capacity": 12
+    },
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "ursula-creed",
+    "name": "Ursula Creed",
+    "faction_id": "astra-militarum",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Ursula Creed",
+        "M": 6,
+        "T": 3,
+        "W": 4,
+        "Sv": 4,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 85
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Epic Hero",
+      "Imperium",
+      "Officer",
+      "Ursula Creed"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "duty-and-vengeance",
+      "power-weapon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "shadowsword",
+    "name": "Shadowsword",
+    "faction_id": "astra-militarum",
+    "profiles": [
+      {
+        "name": "Shadowsword",
+        "M": 12,
+        "T": 13,
+        "W": 24,
+        "Sv": 2,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 8
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 410
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Smoke",
+      "Titanic",
+      "Imperium",
+      "Shadowsword"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-tracks",
+      "lascannon",
+      "twin-heavy-bolter",
+      "twin-heavy-flamer",
+      "volcano-cannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "manticore",
+    "name": "Manticore",
+    "faction_id": "astra-militarum",
+    "profiles": [
+      {
+        "name": "Manticore",
+        "M": 10,
+        "T": 10,
+        "W": 11,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 165
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Artillery",
+      "Smoke",
+      "Imperium",
+      "Squadron",
+      "Manticore"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-tracks",
+      "heavy-bolter",
+      "heavy-flamer",
+      "hunter-killer-missile",
+      "storm-eagle-rockets"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "chimera",
+    "name": "Chimera",
+    "faction_id": "astra-militarum",
+    "role": "dedicated-transport",
+    "profiles": [
+      {
+        "name": "Chimera",
+        "M": 10,
+        "T": 9,
+        "W": 11,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 85
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Smoke",
+      "Imperium",
+      "Squadron",
+      "Transport",
+      "Dedicated Transport",
+      "Chimera"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-tracks",
+      "heavy-bolter",
+      "heavy-flamer",
+      "heavy-stubber",
+      "hunter-killer-missile",
+      "lasgun-array",
+      "multi-laser",
+      "storm-bolter"
+    ],
+    "ability_ids": [],
+    "transport_capacity": {
+      "capacity": 12
+    },
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "avenger-strike-fighter",
+    "name": "Avenger Strike Fighter",
+    "faction_id": "astra-militarum",
+    "profiles": [
+      {
+        "name": "Avenger Strike Fighter",
+        "M": 20,
+        "T": 9,
+        "W": 14,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 0
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 130
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Fly",
+      "Aircraft",
+      "Imperium",
+      "Avenger Strike Fighter"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-hull",
+      "avenger-bolt-cannon",
+      "heavy-stubber",
+      "lascannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "leman-russ-vanquisher",
+    "name": "Leman Russ Vanquisher",
+    "faction_id": "astra-militarum",
+    "profiles": [
+      {
+        "name": "Leman Russ Vanquisher",
+        "M": 10,
+        "T": 11,
+        "W": 13,
+        "Sv": 2,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 145
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Smoke",
+      "Imperium",
+      "Squadron",
+      "Leman Russ Vanquisher"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-tracks",
+      "heavy-bolter",
+      "heavy-flamer",
+      "heavy-stubber",
+      "hunter-killer-missile",
+      "lascannon",
+      "multi-melta",
+      "plasma-cannon",
+      "storm-bolter",
+      "vanquisher-battle-cannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "basilisk",
+    "name": "Basilisk",
+    "faction_id": "astra-militarum",
+    "profiles": [
+      {
+        "name": "Basilisk",
+        "M": 10,
+        "T": 9,
+        "W": 11,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 140
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Artillery",
+      "Smoke",
+      "Imperium",
+      "Squadron",
+      "Basilisk"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-tracks",
+      "earthshaker-cannon",
+      "heavy-bolter",
+      "heavy-flamer",
+      "hunter-killer-missile"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "baneblade",
+    "name": "Baneblade",
+    "faction_id": "astra-militarum",
+    "profiles": [
+      {
+        "name": "Baneblade",
+        "M": 12,
+        "T": 13,
+        "W": 24,
+        "Sv": 2,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 8
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 450
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Titanic",
+      "Smoke",
+      "Imperium",
+      "Baneblade"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-tracks",
+      "baneblade-cannon",
+      "coaxial-autocannon",
+      "demolisher-cannon",
+      "heavy-stubber",
+      "lascannon",
+      "twin-heavy-bolter",
+      "twin-heavy-flamer"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "krieg-combat-engineers",
+    "name": "Krieg Combat Engineers",
+    "faction_id": "astra-militarum",
+    "profiles": [
+      {
+        "name": "Krieg Engineer Watchmaster",
+        "M": 6,
+        "T": 3,
+        "W": 1,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      },
+      {
+        "name": "Krieg Combat Engineer",
+        "M": 6,
+        "T": 3,
+        "W": 1,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 60
+      },
+      {
+        "models": 10,
+        "cost": 95
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Smoke",
+      "Grenades",
+      "Imperium",
+      "Regiment",
+      "Krieg Combat Engineers"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 10
+    },
+    "weapon_ids": [
+      "autopistol",
+      "bolt-pistol",
+      "chainsword",
+      "close-combat-weapon",
+      "combat-shotgun",
+      "flamer",
+      "hand-flamer",
+      "plasma-pistol",
+      "power-weapon",
+      "trench-club"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "hydra",
+    "name": "Hydra",
+    "faction_id": "astra-militarum",
+    "profiles": [
+      {
+        "name": "Hydra",
+        "M": 10,
+        "T": 9,
+        "W": 11,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 95
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Smoke",
+      "Imperium",
+      "Squadron",
+      "Hydra"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-tracks",
+      "heavy-bolter",
+      "heavy-flamer",
+      "hunter-killer-missile",
+      "hydra-autocannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "leman-russ-eradicator",
+    "name": "Leman Russ Eradicator",
+    "faction_id": "astra-militarum",
+    "profiles": [
+      {
+        "name": "Leman Russ Eradicator",
+        "M": 10,
+        "T": 11,
+        "W": 13,
+        "Sv": 2,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 170
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Smoke",
+      "Imperium",
+      "Squadron",
+      "Leman Russ Eradicator"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-tracks",
+      "eradicator-nova-cannon",
+      "heavy-bolter",
+      "heavy-flamer",
+      "heavy-stubber",
+      "hunter-killer-missile",
+      "lascannon",
+      "multi-melta",
+      "plasma-cannon",
+      "storm-bolter"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "elysian-drop-sentinel",
+    "name": "Elysian Drop Sentinel",
+    "faction_id": "astra-militarum",
+    "profiles": [
+      {
+        "name": "Elysian Drop Sentinel",
+        "M": 10,
+        "T": 6,
+        "W": 6,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Elysian Drop Sentinel",
+      "Imperium",
+      "Regiment",
+      "Smoke",
+      "Squadron",
+      "Vehicle",
+      "Walker"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "close-combat-weapon",
+      "heavy-bolter",
+      "heavy-flamer",
+      "hunter-killer-missile",
+      "multi-melta"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "arvus-lighter",
+    "name": "Arvus Lighter",
+    "faction_id": "astra-militarum",
+    "profiles": [
+      {
+        "name": "Arvus Lighter",
+        "M": 20,
+        "T": 8,
+        "W": 8,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 0
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Aircraft",
+      "Arvus Lighter",
+      "Fly",
+      "Imperium",
+      "Transport",
+      "Vehicle"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-hull"
+    ],
+    "ability_ids": [],
+    "transport_capacity": {
+      "capacity": 12
+    },
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "tauros-assault-vehicle",
+    "name": "Tauros Assault Vehicle",
+    "faction_id": "astra-militarum",
+    "profiles": [
+      {
+        "name": "Tauros Assault Vehicle",
+        "M": 12,
+        "T": 6,
+        "W": 6,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Imperium",
+      "Mounted",
+      "Regiment",
+      "Tauros Assault Vehicle",
+      "Tauros"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-frame",
+      "heavy-flamer",
+      "hunter-killer-missile",
+      "tauros-grenade-launcher"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "hydra-platform",
+    "name": "Hydra Platform",
+    "faction_id": "astra-militarum",
+    "profiles": [
+      {
+        "name": "Hydra Platform",
+        "M": 0,
+        "T": 8,
+        "W": 8,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Artillery",
+      "Fortification",
+      "Hydra Platform",
+      "Imperium"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "close-combat-weapons",
+      "hydra-quad-autocannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "manticore-platform",
+    "name": "Manticore Platform",
+    "faction_id": "astra-militarum",
+    "profiles": [
+      {
+        "name": "Manticore Platform",
+        "M": 0,
+        "T": 8,
+        "W": 8,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Artillery",
+      "Fortification",
+      "Imperium",
+      "Manticore Platform"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "close-combat-weapons",
+      "storm-eagle-rockets"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "earthshaker-platform",
+    "name": "Earthshaker Platform",
+    "faction_id": "astra-militarum",
+    "profiles": [
+      {
+        "name": "Earthshaker Platform",
+        "M": 0,
+        "T": 8,
+        "W": 8,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Artillery",
+      "Earthshaker Platform",
+      "Fortification",
+      "Imperium"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "close-combat-weapons",
+      "earthshaker-cannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "sentinel-powerlifter",
+    "name": "Sentinel Powerlifter",
+    "faction_id": "astra-militarum",
+    "profiles": [
+      {
+        "name": "Sentinel Powerlifter",
+        "M": 8,
+        "T": 7,
+        "W": 6,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Imperium",
+      "Regiment",
+      "Sentinel Powerlifter",
+      "Smoke",
+      "Squadron",
+      "Vehicle",
+      "Walker"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "powerlifter"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "tauros-venator",
+    "name": "Tauros Venator",
+    "faction_id": "astra-militarum",
+    "profiles": [
+      {
+        "name": "Tauros Venator",
+        "M": 12,
+        "T": 6,
+        "W": 6,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Imperium",
+      "Mounted",
+      "Regiment",
+      "Tauros Venator",
+      "Tauros"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-frame",
+      "hunter-killer-missile",
+      "twin-lascannon",
+      "twin-multi-laser"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "centaur-light-carrier",
+    "name": "Centaur Light Carrier",
+    "faction_id": "astra-militarum",
+    "profiles": [
+      {
+        "name": "Centaur Light Carrier",
+        "M": 10,
+        "T": 7,
+        "W": 7,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Centaur Light Carrier",
+      "Imperium",
+      "Smoke",
+      "Squadron",
+      "Transport",
+      "Vehicle"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-tracks",
+      "heavy-stubber",
+      "hunter-killer-missile"
+    ],
+    "ability_ids": [],
+    "transport_capacity": {
+      "capacity": 6
+    },
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "storm-chimera",
+    "name": "Storm Chimera",
+    "faction_id": "astra-militarum",
+    "role": "dedicated-transport",
+    "profiles": [
+      {
+        "name": "Storm Chimera",
+        "M": 10,
+        "T": 9,
+        "W": 11,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Dedicated Transport",
+      "Imperium",
+      "Smoke",
+      "Squadron",
+      "Storm Chimera",
+      "Transport",
+      "Vehicle"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-tracks",
+      "autocannon",
+      "heavy-bolter",
+      "heavy-flamer",
+      "heavy-stubber",
+      "hunter-killer-missile",
+      "storm-bolter"
+    ],
+    "ability_ids": [],
+    "transport_capacity": {
+      "capacity": 12
+    },
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "aquila-lander",
+    "name": "Aquila Lander",
+    "faction_id": "astra-militarum",
+    "profiles": [
+      {
+        "name": "Aquila Lander",
+        "M": 20,
+        "T": 9,
+        "W": 12,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 0
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Aircraft",
+      "Aquila Lander",
+      "Fly",
+      "Imperium",
+      "Transport",
+      "Vehicle"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-hull",
+      "autocannon",
+      "heavy-bolter",
+      "multi-laser"
+    ],
+    "ability_ids": [],
+    "transport_capacity": {
+      "capacity": 12
+    },
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "vendetta-gunship",
+    "name": "Vendetta Gunship",
+    "faction_id": "astra-militarum",
+    "profiles": [
+      {
+        "name": "Vendetta Gunship",
+        "M": 20,
+        "T": 10,
+        "W": 14,
+        "Sv": 2,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 0
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Aircraft",
+      "Fly",
+      "Imperium",
+      "Transport",
+      "Vehicle",
+      "Vendetta Gunship"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-hull",
+      "heavy-bolter",
+      "vendetta-hellstrike-rack",
+      "vendetta-twin-lascannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "salamander-scout-vehicle",
+    "name": "Salamander Scout Vehicle",
+    "faction_id": "astra-militarum",
+    "profiles": [
+      {
+        "name": "Salamander Scout Vehicle",
+        "M": 12,
+        "T": 8,
+        "W": 10,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 3
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Imperium",
+      "Salamander Scout Vehicle",
+      "Smoke",
+      "Squadron",
+      "Vehicle"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-tracks",
+      "autocannon",
+      "heavy-bolter",
+      "heavy-stubber",
+      "hunter-killer-missile",
+      "storm-bolter"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "atlas-recovery-vehicle",
+    "name": "Atlas Recovery Vehicle",
+    "faction_id": "astra-militarum",
+    "profiles": [
+      {
+        "name": "Atlas Recovery Vehicle",
+        "M": 10,
+        "T": 9,
+        "W": 10,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 3
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Atlas Recovery Vehicle",
+      "Imperium",
+      "Smoke",
+      "Squadron",
+      "Vehicle"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-tracks",
+      "heavy-bolter",
+      "heavy-stubber",
+      "hunter-killer-missile",
+      "storm-bolter"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "salamander-command-vehicle",
+    "name": "Salamander Command Vehicle",
+    "faction_id": "astra-militarum",
+    "profiles": [
+      {
+        "name": "Salamander Command Vehicle",
+        "M": 12,
+        "T": 8,
+        "W": 10,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 3
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Imperium",
+      "Salamander Command Vehicle",
+      "Smoke",
+      "Squadron",
+      "Vehicle"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-tracks",
+      "heavy-bolter",
+      "heavy-flamer",
+      "heavy-stubber",
+      "hunter-killer-missile",
+      "storm-bolter"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "griffon-mortar-carrier",
+    "name": "Griffon Mortar Carrier",
+    "faction_id": "astra-militarum",
+    "profiles": [
+      {
+        "name": "Griffon Mortar Carrier",
+        "M": 10,
+        "T": 9,
+        "W": 11,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 3
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Artillery",
+      "Griffon Mortar Carrier",
+      "Imperium",
+      "Smoke",
+      "Squadron",
+      "Vehicle"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-tracks",
+      "griffon-heavy-mortar",
+      "heavy-bolter",
+      "heavy-flamer",
+      "heavy-stubber",
+      "storm-bolter"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "stygies-destroyer-tank-hunter",
+    "name": "Stygies Destroyer Tank Hunter",
+    "faction_id": "astra-militarum",
+    "profiles": [
+      {
+        "name": "Stygies Destroyer Tank Hunter",
+        "M": 10,
+        "T": 11,
+        "W": 13,
+        "Sv": 2,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 3
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Imperium",
+      "Smoke",
+      "Squadron",
+      "Stygies Destroyer Tank Hunter",
+      "Vehicle"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-tracks",
+      "heavy-stubber",
+      "hunter-killer-missile",
+      "storm-bolter",
+      "stygies-laser-destroyer"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "armageddon-pattern-medusa",
+    "name": "Armageddon-pattern Medusa",
+    "faction_id": "astra-militarum",
+    "profiles": [
+      {
+        "name": "Armageddon-pattern Medusa",
+        "M": 10,
+        "T": 9,
+        "W": 11,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 3
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Armageddon-pattern Medusa",
+      "Artillery",
+      "Imperium",
+      "Smoke",
+      "Squadron",
+      "Vehicle"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-tracks",
+      "heavy-bolter",
+      "heavy-flamer",
+      "heavy-stubber",
+      "hunter-killer-missile",
+      "medusa-siege-cannon",
+      "storm-bolter"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "valkyrie-sky-talon",
+    "name": "Valkyrie Sky Talon",
+    "faction_id": "astra-militarum",
+    "profiles": [
+      {
+        "name": "Valkyrie Sky Talon",
+        "M": 20,
+        "T": 10,
+        "W": 14,
+        "Sv": 2,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 0
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Aircraft",
+      "Fly",
+      "Imperium",
+      "Transport",
+      "Valkyrie Sky Talon",
+      "Vehicle"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-hull",
+      "heavy-bolter",
+      "hellstrike-missile",
+      "multiple-rocket-pod"
+    ],
+    "ability_ids": [],
+    "transport_capacity": {
+      "capacity": 1
+    },
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "minotaur",
+    "name": "Minotaur",
+    "faction_id": "astra-militarum",
+    "profiles": [
+      {
+        "name": "Minotaur",
+        "M": 10,
+        "T": 11,
+        "W": 18,
+        "Sv": 2,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 5
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Artillery",
+      "Imperium",
+      "Minotaur",
+      "Smoke",
+      "Squadron",
+      "Transport",
+      "Vehicle"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-tracks",
+      "minotaur-twin-earthshaker-cannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "macharius-omega",
+    "name": "Macharius Omega",
+    "faction_id": "astra-militarum",
+    "profiles": [
+      {
+        "name": "Macharius Omega",
+        "M": 9,
+        "T": 13,
+        "W": 20,
+        "Sv": 2,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 8
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Imperium",
+      "Macharius Omega",
+      "Smoke",
+      "Titanic",
+      "Vehicle"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-tracks",
+      "autocannon",
+      "heavy-bolter",
+      "heavy-flamer",
+      "heavy-stubber",
+      "hunter-killer-missile",
+      "omega-pattern-plasma-blastgun",
+      "storm-bolter"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "dominus-armoured-siege-bombard",
+    "name": "Dominus Armoured Siege Bombard",
+    "faction_id": "astra-militarum",
+    "profiles": [
+      {
+        "name": "Dominus Armoured Siege Bombard",
+        "M": 9,
+        "T": 13,
+        "W": 20,
+        "Sv": 2,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 8
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Dominus Armoured Siege Bombard",
+      "Imperium",
+      "Smoke",
+      "Titanic",
+      "Vehicle"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-tracks",
+      "autocannon",
+      "dominus-triple-bombard",
+      "heavy-bolter",
+      "heavy-flamer",
+      "heavy-stubber",
+      "hunter-killer-missile",
+      "lascannon",
+      "storm-bolter"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "gorgon-heavy-transport",
+    "name": "Gorgon Heavy Transport",
+    "faction_id": "astra-militarum",
+    "profiles": [
+      {
+        "name": "Gorgon Heavy Transport",
+        "M": 9,
+        "T": 13,
+        "W": 20,
+        "Sv": 2,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 8
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Gorgon Heavy Transport",
+      "Imperium",
+      "Smoke",
+      "Titanic",
+      "Transport",
+      "Vehicle"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "gorgon-mortar",
+      "heavy-bolter",
+      "heavy-flamer",
+      "heavy-stubber",
+      "hunter-killer-missile",
+      "landing-ramp",
+      "twin-heavy-stubber"
+    ],
+    "ability_ids": [],
+    "transport_capacity": {
+      "capacity": 30
+    },
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "arkurian-stormhammer",
+    "name": "Arkurian Stormhammer",
+    "faction_id": "astra-militarum",
+    "profiles": [
+      {
+        "name": "Arkurian Stormhammer",
+        "M": 9,
+        "T": 13,
+        "W": 24,
+        "Sv": 2,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 8
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Arkurian Stormhammer",
+      "Imperium",
+      "Smoke",
+      "Titanic",
+      "Vehicle"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-tracks",
+      "heavy-bolter",
+      "heavy-flamer",
+      "heavy-stubber",
+      "hunter-killer-missile",
+      "lascannon",
+      "multi-laser",
+      "storm-bolter",
+      "stormhammer-cannon",
+      "twin-battle-cannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "elysian-sniper-squad",
+    "name": "Elysian Sniper Squad",
+    "faction_id": "astra-militarum",
+    "profiles": [
+      {
+        "name": "Elysian Sniper Squad",
+        "M": 6,
+        "T": 3,
+        "W": 2,
+        "Sv": 5,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Elysian Sniper Squad",
+      "Grenades",
+      "Imperium",
+      "Infantry",
+      "Regiment"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "close-combat-weapon",
+      "lasgun",
+      "sniper-rifle"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "rein-and-raus",
+    "name": "Rein And Raus",
+    "faction_id": "astra-militarum",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Rein And Raus",
+        "M": 6,
+        "T": 2,
+        "W": 1,
+        "Sv": 6,
+        "invuln_sv": null,
+        "Ld": 8,
+        "OC": 1
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Character",
+      "Epic Hero",
+      "Imperium",
+      "Infantry",
+      "Rein and Raus"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "close-combat-weapon",
+      "demolition-charge",
+      "sniper-rifle",
+      "stub-pistol"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "death-rider-commissar",
+    "name": "Death Rider Commissar",
+    "faction_id": "astra-militarum",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Death Rider Commissar",
+        "M": 12,
+        "T": 4,
+        "W": 4,
+        "Sv": 4,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Character",
+      "Death Rider Commissar",
+      "Grenades",
+      "Imperium",
+      "Mounted",
+      "Officer"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "commissars-close-combat-weapon",
+      "commissars-pistol",
+      "savage-claws"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "quartermaster-cadre-squad",
+    "name": "Quartermaster Cadre Squad",
+    "faction_id": "astra-militarum",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "QUARTERMASTER REVENANT",
+        "M": 6,
+        "T": 3,
+        "W": 3,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      },
+      {
+        "name": "MEDICAE SERVITOR",
+        "M": 6,
+        "T": 3,
+        "W": 1,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 8,
+        "OC": 0
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "ALL MODELS: Infantry",
+      "Grenades",
+      "Imperium",
+      "Regiment",
+      "uartermaster Cadre Squad | QUARTERMASTER REVENANT: Character"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "medical-scalpels",
+      "quartermasters-close-combat-weapon",
+      "quartermasters-pistol"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "mukaali-riders",
+    "name": "Mukaali Riders",
+    "faction_id": "astra-militarum",
+    "profiles": [
+      {
+        "name": "Mukaali Riders",
+        "M": 8,
+        "T": 6,
+        "W": 5,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Grenades",
+      "Imperium",
+      "Mounted",
+      "Mukaali Riders",
+      "Regiment"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "chainsword",
+      "flamer",
+      "grenade-launcher",
+      "hunting-lance",
+      "laspistol",
+      "meltagun",
+      "plasma-gun",
+      "plasma-pistol",
+      "power-weapon",
+      "stomping-feet"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "sabre-weapons-battery",
+    "name": "Sabre Weapons Battery",
+    "faction_id": "astra-militarum",
+    "profiles": [
+      {
+        "name": "Sabre Weapons Battery",
+        "M": 0,
+        "T": 4,
+        "W": 4,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Artillery",
+      "Fortification",
+      "Imperium",
+      "Sabre Weapons Battery"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "close-combat-weapon",
+      "twin-autocannon",
+      "twin-heavy-bolter",
+      "twin-heavy-stubber",
+      "twin-lascannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "heavy-quad-launcher-team",
+    "name": "Heavy Quad Launcher Team",
+    "faction_id": "astra-militarum",
+    "profiles": [
+      {
+        "name": "Heavy Quad Launcher Team",
+        "M": 4,
+        "T": 5,
+        "W": 4,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Artillery",
+      "Grenades",
+      "Heavy Quad Launcher Team",
+      "Imperium",
+      "Infantry",
+      "Regiment"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "close-combat-weapons",
+      "heavy-quad-launcher"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "death-korps-grenadier-squad",
+    "name": "Death Korps Grenadier Squad",
+    "faction_id": "astra-militarum",
+    "profiles": [
+      {
+        "name": "GRENADIER",
+        "M": 6,
+        "T": 3,
+        "W": 1,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 2
+      },
+      {
+        "name": "HEAVY WEAPONS TEAM",
+        "M": 6,
+        "T": 3,
+        "W": 2,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Death Korps Grenadier Squad",
+      "Grenades",
+      "Imperium",
+      "Infantry",
+      "Platoon",
+      "Regiment"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "close-combat-weapon",
+      "flamer",
+      "grenade-launcher",
+      "heavy-flamer",
+      "heavy-stubber",
+      "hot-shot-lasgun",
+      "meltagun",
+      "plasma-gun",
+      "sergeants-close-combat-weapon",
+      "sergeants-pistol",
+      "sniper-rifle"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "heavy-mortar-team",
+    "name": "Heavy Mortar Team",
+    "faction_id": "astra-militarum",
+    "profiles": [
+      {
+        "name": "Heavy Mortar Team",
+        "M": 4,
+        "T": 5,
+        "W": 4,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Artillery",
+      "Grenades",
+      "Heavy Mortar Team",
+      "Imperium",
+      "Infantry",
+      "Regiment"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "close-combat-weapons",
+      "heavy-mortar"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  }
+]

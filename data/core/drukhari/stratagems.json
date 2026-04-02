@@ -1,0 +1,698 @@
+[
+  {
+    "id": "deadly-debut",
+    "name": "DEADLY DEBUT",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "spectacle-of-spite",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "acrobatic-display",
+    "name": "ACROBATIC DISPLAY",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "spectacle-of-spite",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "taken-alive",
+    "name": "TAKEN ALIVE",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "kabalite-cartel",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "making-a-point",
+    "name": "MAKING A POINT",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "kabalite-cartel",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "skyborne-annihilation",
+    "name": "SKYBORNE ANNIHILATION",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "skysplinter-assault",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "malicious-frenzy",
+    "name": "MALICIOUS FRENZY",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "reapers-wager",
+    "cp_cost": 1,
+    "phases": [
+      "fight",
+      "shooting"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "murderers-circus",
+    "name": "MURDERER’S CIRCUS",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "reapers-wager",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "fighting-shadows",
+    "name": "FIGHTING SHADOWS",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "realspace-raiders",
+    "cp_cost": 1,
+    "phases": [
+      "fight",
+      "shooting"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "instinctive-spite",
+    "name": "INSTINCTIVE SPITE",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "realspace-raiders",
+    "cp_cost": 1,
+    "phases": [
+      "fight",
+      "shooting"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "eager-for-the-kill",
+    "name": "EAGER FOR THE KILL",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "realspace-raiders",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "connoisseurs-of-pain",
+    "name": "CONNOISSEURS OF PAIN",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "covenite-coterie",
+    "cp_cost": 1,
+    "phases": [
+      "fight",
+      "shooting"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "a-challenge-met",
+    "name": "A CHALLENGE MET",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "spectacle-of-spite",
+    "cp_cost": 2,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "insensible-to-pain",
+    "name": "INSENSIBLE TO PAIN",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "realspace-raiders",
+    "cp_cost": 2,
+    "phases": [
+      "fight",
+      "shooting"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "tailored-toxins",
+    "name": "TAILORED TOXINS",
+    "category": "detachment",
+    "type": "epic-deed",
+    "detachment_id": "kabalite-cartel",
+    "cp_cost": 1,
+    "phases": [
+      "fight",
+      "shooting"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "enemies-without-number",
+    "name": "ENEMIES WITHOUT NUMBER",
+    "category": "detachment",
+    "type": "epic-deed",
+    "detachment_id": "kabalite-cartel",
+    "cp_cost": 1,
+    "phases": [
+      "command"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "postmortality",
+    "name": "POSTMORTALITY",
+    "category": "detachment",
+    "type": "epic-deed",
+    "detachment_id": "covenite-coterie",
+    "cp_cost": 1,
+    "phases": [
+      "command",
+      "movement",
+      "shooting",
+      "charge",
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "symphony-of-suffering",
+    "name": "SYMPHONY OF SUFFERING",
+    "category": "detachment",
+    "type": "epic-deed",
+    "detachment_id": "covenite-coterie",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "poisoners-art",
+    "name": "POISONER’S ART",
+    "category": "detachment",
+    "type": "epic-deed",
+    "detachment_id": "covenite-coterie",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "feigned-weakness",
+    "name": "FEIGNED WEAKNESS",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "spectacle-of-spite",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "preternatural-agility",
+    "name": "PRETERNATURAL AGILITY",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "spectacle-of-spite",
+    "cp_cost": 1,
+    "phases": [
+      "charge",
+      "movement"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "double-cross",
+    "name": "DOUBLE-CROSS",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "kabalite-cartel",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "deadly-deceivers",
+    "name": "DEADLY DECEIVERS",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "kabalite-cartel",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "vicious-blades",
+    "name": "VICIOUS BLADES",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "skysplinter-assault",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "wraithlike-retreat",
+    "name": "WRAITHLIKE RETREAT",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "skysplinter-assault",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "pounce-on-the-prey",
+    "name": "POUNCE ON THE PREY",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "skysplinter-assault",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "swooping-mockery",
+    "name": "SWOOPING MOCKERY",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "skysplinter-assault",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "shorten-the-odds",
+    "name": "SHORTEN THE ODDS",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "reapers-wager",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "scintillating-tempo",
+    "name": "SCINTILLATING TEMPO",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "reapers-wager",
+    "cp_cost": 1,
+    "phases": [
+      "charge",
+      "movement"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "fateful-role",
+    "name": "FATEFUL ROLE",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "reapers-wager",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "dark-harvest",
+    "name": "DARK HARVEST",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "realspace-raiders",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "enfolding-nightmare",
+    "name": "ENFOLDING NIGHTMARE",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "covenite-coterie",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "berserk-fugue",
+    "name": "BERSERK FUGUE",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "spectacle-of-spite",
+    "cp_cost": 2,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "dance-macabre",
+    "name": "DANCE MACABRE",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "reapers-wager",
+    "cp_cost": 2,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "raid-and-fade",
+    "name": "RAID AND FADE",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "realspace-raiders",
+    "cp_cost": 2,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "distillers-of-fear",
+    "name": "DISTILLERS OF FEAR",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "covenite-coterie",
+    "cp_cost": 2,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "night-shield",
+    "name": "NIGHT SHIELD",
+    "category": "detachment",
+    "type": "wargear",
+    "detachment_id": "skysplinter-assault",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  }
+]

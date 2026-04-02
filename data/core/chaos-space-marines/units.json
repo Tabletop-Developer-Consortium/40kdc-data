@@ -1,0 +1,4256 @@
+[
+  {
+    "id": "heretic-astartes-daemon-prince",
+    "name": "Heretic Astartes Daemon Prince",
+    "faction_id": "chaos-space-marines",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Heretic Astartes Daemon Prince",
+        "M": 8,
+        "T": 10,
+        "W": 10,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 165
+      }
+    ],
+    "keywords": [
+      "Monster",
+      "Character",
+      "Chaos",
+      "Daemon",
+      "Daemon Prince"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "hellforged-weapons",
+      "infernal-cannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "heretic-astartes-daemon-prince-with-wings",
+    "name": "Heretic Astartes Daemon Prince with Wings",
+    "faction_id": "chaos-space-marines",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Heretic Astartes Daemon Prince with Wings",
+        "M": 12,
+        "T": 9,
+        "W": 10,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 180
+      }
+    ],
+    "keywords": [
+      "Monster",
+      "Fly",
+      "Character",
+      "Chaos",
+      "Daemon",
+      "Daemon Prince with Wings"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "hellforged-weapons",
+      "infernal-cannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "sorcerer-in-terminator-armour",
+    "name": "Sorcerer in Terminator Armour",
+    "faction_id": "chaos-space-marines",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Sorcerer in Terminator Armour",
+        "M": 5,
+        "T": 5,
+        "W": 5,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 80
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Psyker",
+      "Chaos",
+      "Terminator",
+      "Sorcerer in Terminator Armour",
+      "Tzeentch",
+      "Sorcerer"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes",
+      "Thousand Sons"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "combi-bolter",
+      "combi-weapon",
+      "force-weapon",
+      "infernal-gaze"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "nemesis-claw",
+    "name": "Nemesis Claw",
+    "faction_id": "chaos-space-marines",
+    "profiles": [
+      {
+        "name": "Legionary",
+        "M": 6,
+        "T": 4,
+        "W": 2,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 110
+      },
+      {
+        "models": 10,
+        "cost": 190
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Psyker",
+      "Chaos",
+      "Grenades",
+      "Nemesis Claw"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 10
+    },
+    "weapon_ids": [
+      "accursed-weapon",
+      "astartes-chainsword",
+      "bolt-pistol",
+      "boltgun",
+      "close-combat-weapon",
+      "flamer",
+      "heavy-bolter",
+      "meltagun",
+      "missile-launcher",
+      "nostraman-chainblade",
+      "nostraman-chainglaive",
+      "paired-accursed-weapons",
+      "plasma-gun",
+      "plasma-pistol",
+      "power-fist"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "sorcerer",
+    "name": "Sorcerer",
+    "faction_id": "chaos-space-marines",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Sorcerer",
+        "M": 6,
+        "T": 4,
+        "W": 4,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 60
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Psyker",
+      "Grenades",
+      "Chaos",
+      "Sorcerer",
+      "Slaanesh",
+      "Tzeentch"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes",
+      "Emperor’s Children",
+      "Thousand Sons"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "bolt-pistol",
+      "force-weapon",
+      "infernal-gaze"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "dark-commune",
+    "name": "Dark Commune",
+    "faction_id": "chaos-space-marines",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Cult Demagogue",
+        "M": 6,
+        "T": 3,
+        "W": 4,
+        "Sv": 6,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 1
+      },
+      {
+        "name": "Blessed Blade",
+        "M": 6,
+        "T": 3,
+        "W": 1,
+        "Sv": 6,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 90
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Grenades",
+      "Chaos",
+      "Damned",
+      "Dark Commune",
+      "Character",
+      "Cult Demagogue"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 5
+    },
+    "weapon_ids": [
+      "autopistol",
+      "close-combat-weapon",
+      "commune-blade",
+      "commune-stave",
+      "warp-curse"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "master-of-possession",
+    "name": "Master of Possession",
+    "faction_id": "chaos-space-marines",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Master of Possession",
+        "M": 8,
+        "T": 4,
+        "W": 4,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 60
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Psyker",
+      "Chaos",
+      "Master of Possession"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "bolt-pistol",
+      "rite-of-possession",
+      "staff-of-possession"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "obliterators",
+    "name": "Obliterators",
+    "faction_id": "chaos-space-marines",
+    "profiles": [
+      {
+        "name": "Obliterators",
+        "M": 4,
+        "T": 7,
+        "W": 5,
+        "Sv": 2,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 2,
+        "cost": 160
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Chaos",
+      "Daemon",
+      "Obliterators"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes"
+    ],
+    "model_count": {
+      "min": 2,
+      "max": 2
+    },
+    "weapon_ids": [
+      "crushing-fists",
+      "fleshmetal-guns"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "lord-discordant-on-helstalker",
+    "name": "Lord Discordant on Helstalker",
+    "faction_id": "chaos-space-marines",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Lord Discordant on Helstalker",
+        "M": 14,
+        "T": 9,
+        "W": 10,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 4
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 160
+      }
+    ],
+    "keywords": [
+      "Mounted",
+      "Character",
+      "Chaos",
+      "Daemon",
+      "Lord Discordant"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "baleflamer",
+      "bladed-limbs",
+      "bolt-pistol",
+      "helstalker-autocannon",
+      "impaler-chainglaive",
+      "magma-cutter",
+      "techno-virus-injector"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "chaos-terminator-squad",
+    "name": "Chaos Terminator Squad",
+    "faction_id": "chaos-space-marines",
+    "profiles": [
+      {
+        "name": "Chaos Terminator",
+        "M": 5,
+        "T": 5,
+        "W": 3,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 180
+      },
+      {
+        "models": 10,
+        "cost": 360
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Chaos",
+      "Terminator",
+      "Chaos Terminator Squad"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 10
+    },
+    "weapon_ids": [
+      "accursed-weapon",
+      "chainfist",
+      "combi-bolter",
+      "combi-weapon",
+      "heavy-flamer",
+      "paired-accursed-weapons",
+      "power-fist",
+      "reaper-autocannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "cultist-firebrand",
+    "name": "Cultist Firebrand",
+    "faction_id": "chaos-space-marines",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Cultist Firebrand",
+        "M": 6,
+        "T": 4,
+        "W": 4,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 45
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Grenades",
+      "Chaos",
+      "Damned",
+      "Cultist Firebrand"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "balefire-pike",
+      "close-combat-weapon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "chaos-land-raider",
+    "name": "Chaos Land Raider",
+    "faction_id": "chaos-space-marines",
+    "profiles": [
+      {
+        "name": "Chaos Land Raider",
+        "M": 10,
+        "T": 12,
+        "W": 16,
+        "Sv": 2,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 5
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 220
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Transport",
+      "Smoke",
+      "Chaos",
+      "Land Raider",
+      "Nurgle",
+      "Slaanesh",
+      "Tzeentch",
+      "Khorne"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes",
+      "Death Guard",
+      "Emperor’s Children",
+      "Thousand Sons",
+      "World Eaters"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-tracks",
+      "combi-bolter",
+      "combi-weapon",
+      "havoc-launcher",
+      "soulshatter-lascannon",
+      "twin-heavy-bolter"
+    ],
+    "ability_ids": [],
+    "transport_capacity": {
+      "capacity": 12
+    },
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "possessed",
+    "name": "Possessed",
+    "faction_id": "chaos-space-marines",
+    "profiles": [
+      {
+        "name": "Possessed",
+        "M": 9,
+        "T": 6,
+        "W": 3,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 120
+      },
+      {
+        "models": 10,
+        "cost": 240
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Chaos",
+      "Daemon",
+      "Possessed"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 10
+    },
+    "weapon_ids": [
+      "hideous-mutations"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "traitor-enforcer",
+    "name": "Traitor Enforcer",
+    "faction_id": "chaos-space-marines",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Traitor Enforcer",
+        "M": 6,
+        "T": 3,
+        "W": 3,
+        "Sv": 5,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 1
+      },
+      {
+        "name": "Traitor Ogryn",
+        "M": 6,
+        "T": 6,
+        "W": 4,
+        "Sv": 5,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 2,
+        "cost": 55
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Grenades",
+      "Chaos",
+      "Damned",
+      "Character",
+      "Traitor Enforcer"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes"
+    ],
+    "model_count": {
+      "min": 2,
+      "max": 2
+    },
+    "weapon_ids": [
+      "bolt-pistol",
+      "ogryn-weapons",
+      "power-fist"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "dark-apostle",
+    "name": "Dark Apostle",
+    "faction_id": "chaos-space-marines",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Dark Apostle",
+        "M": 6,
+        "T": 4,
+        "W": 4,
+        "Sv": 3,
+        "invuln_sv": 4,
+        "Ld": 5,
+        "OC": 1
+      },
+      {
+        "name": "Dark Disciple",
+        "M": 6,
+        "T": 4,
+        "W": 1,
+        "Sv": 6,
+        "invuln_sv": 4,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 3,
+        "cost": 65
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Grenades",
+      "Chaos",
+      "Character",
+      "Dark Apostle"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes"
+    ],
+    "model_count": {
+      "min": 3,
+      "max": 3
+    },
+    "weapon_ids": [
+      "accursed-crozius",
+      "bolt-pistol",
+      "close-combat-weapon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "chaos-spawn",
+    "name": "Chaos Spawn",
+    "faction_id": "chaos-space-marines",
+    "profiles": [
+      {
+        "name": "Chaos Spawn",
+        "M": 8,
+        "T": 5,
+        "W": 4,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 0
+      }
+    ],
+    "points": [
+      {
+        "models": 2,
+        "cost": 70
+      }
+    ],
+    "keywords": [
+      "Beast",
+      "Chaos",
+      "Chaos Spawn",
+      "Nurgle",
+      "Spawn",
+      "Slaanesh",
+      "Tzeentch",
+      "Mutant",
+      "Khorne"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes",
+      "Death Guard",
+      "Emperor’s Children",
+      "Thousand Sons",
+      "World Eaters"
+    ],
+    "model_count": {
+      "min": 2,
+      "max": 2
+    },
+    "weapon_ids": [
+      "hideous-mutations"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "chaos-predator-annihilator",
+    "name": "Chaos Predator Annihilator",
+    "faction_id": "chaos-space-marines",
+    "profiles": [
+      {
+        "name": "Chaos Predator Annihilator",
+        "M": 10,
+        "T": 10,
+        "W": 11,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 135
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Smoke",
+      "Chaos",
+      "Predator Annihilator",
+      "Nurgle",
+      "Tzeentch",
+      "Khorne"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes",
+      "Death Guard",
+      "Thousand Sons",
+      "World Eaters"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-tracks",
+      "combi-bolter",
+      "combi-weapon",
+      "havoc-launcher",
+      "heavy-bolter",
+      "lascannon",
+      "predator-twin-lascannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "venomcrawler",
+    "name": "Venomcrawler",
+    "faction_id": "chaos-space-marines",
+    "profiles": [
+      {
+        "name": "Venomcrawler",
+        "M": 12,
+        "T": 9,
+        "W": 9,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 110
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Chaos",
+      "Daemon",
+      "Venomcrawler"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "excruciator-cannon",
+      "soulflayer-tendrils-and-claws"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "havocs",
+    "name": "Havocs",
+    "faction_id": "chaos-space-marines",
+    "profiles": [
+      {
+        "name": "Havoc",
+        "M": 5,
+        "T": 5,
+        "W": 2,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 125
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Chaos",
+      "Havocs"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 5
+    },
+    "weapon_ids": [
+      "accursed-weapon",
+      "astartes-chainsword",
+      "boltgun",
+      "close-combat-weapon",
+      "flamer",
+      "havoc-autocannon",
+      "havoc-heavy-bolter",
+      "havoc-lascannon",
+      "havoc-missile-launcher",
+      "havoc-reaper-chaincannon",
+      "meltagun",
+      "plasma-gun",
+      "plasma-pistol",
+      "power-fist"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "noctilith-crown",
+    "name": "Noctilith Crown",
+    "faction_id": "chaos-space-marines",
+    "profiles": [
+      {
+        "name": "Noctilith Crown",
+        "M": 0,
+        "T": 11,
+        "W": 14,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 0
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 125
+      }
+    ],
+    "keywords": [
+      "Fortification",
+      "Chaos",
+      "Noctilith Crown"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "lashing-warp-energies"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "raptors",
+    "name": "Raptors",
+    "faction_id": "chaos-space-marines",
+    "profiles": [
+      {
+        "name": "Raptor",
+        "M": 12,
+        "T": 4,
+        "W": 2,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 110
+      },
+      {
+        "models": 10,
+        "cost": 210
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Fly",
+      "Jump Pack",
+      "Grenades",
+      "Chaos",
+      "Raptors"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 10
+    },
+    "weapon_ids": [
+      "accursed-weapon",
+      "astartes-chainsword",
+      "bolt-pistol",
+      "close-combat-weapon",
+      "flamer",
+      "heavy-melee-weapon",
+      "meltagun",
+      "mutations",
+      "plasma-gun",
+      "plasma-pistol"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "defiler",
+    "name": "Defiler",
+    "faction_id": "chaos-space-marines",
+    "profiles": [
+      {
+        "name": "Defiler",
+        "M": 8,
+        "T": 10,
+        "W": 14,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 5
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 190
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Smoke",
+      "Chaos",
+      "Daemon",
+      "Defiler",
+      "Nurgle",
+      "Tzeentch",
+      "Khorne"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes",
+      "Death Guard",
+      "Thousand Sons",
+      "World Eaters"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "combi-bolter",
+      "combi-weapon",
+      "defiler-cannon",
+      "defiler-claws",
+      "defiler-scourge",
+      "havoc-launcher",
+      "reaper-autocannon",
+      "twin-heavy-bolter",
+      "twin-heavy-flamer",
+      "twin-lascannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "chaos-predator-destructor",
+    "name": "Chaos Predator Destructor",
+    "faction_id": "chaos-space-marines",
+    "profiles": [
+      {
+        "name": "Chaos Predator Destructor",
+        "M": 10,
+        "T": 10,
+        "W": 11,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 140
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Smoke",
+      "Chaos",
+      "Predator Destructor",
+      "Nurgle",
+      "Tzeentch",
+      "Khorne"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes",
+      "Death Guard",
+      "Thousand Sons",
+      "World Eaters"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-tracks",
+      "combi-bolter",
+      "combi-weapon",
+      "havoc-launcher",
+      "heavy-bolter",
+      "lascannon",
+      "predator-autocannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "chosen",
+    "name": "Chosen",
+    "faction_id": "chaos-space-marines",
+    "profiles": [
+      {
+        "name": "Chosen",
+        "M": 6,
+        "T": 4,
+        "W": 3,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 125
+      },
+      {
+        "models": 10,
+        "cost": 250
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Grenades",
+      "Chaos",
+      "Chosen"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 10
+    },
+    "weapon_ids": [
+      "accursed-weapon",
+      "bolt-pistol",
+      "boltgun",
+      "combi-weapon",
+      "paired-accursed-weapons",
+      "plasma-pistol",
+      "power-fist"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "traitor-guardsmen-squad",
+    "name": "Traitor Guardsmen Squad",
+    "faction_id": "chaos-space-marines",
+    "profiles": [
+      {
+        "name": "Traitor Guardsmen",
+        "M": 6,
+        "T": 3,
+        "W": 1,
+        "Sv": 5,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 10,
+        "cost": 70
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Grenades",
+      "Chaos",
+      "Damned",
+      "Traitor Guardsmen Squad"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes"
+    ],
+    "model_count": {
+      "min": 10,
+      "max": 10
+    },
+    "weapon_ids": [
+      "boltgun",
+      "chainsword",
+      "close-combat-weapon",
+      "corrupted-pistol",
+      "cultist-grenade-launcher",
+      "cultist-sniper-rifle",
+      "flamer",
+      "lasgun",
+      "meltagun",
+      "plasma-gun",
+      "power-weapon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "heldrake",
+    "name": "Heldrake",
+    "faction_id": "chaos-space-marines",
+    "profiles": [
+      {
+        "name": "Heldrake",
+        "M": 20,
+        "T": 9,
+        "W": 12,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 0
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 205
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Fly",
+      "Aircraft",
+      "Chaos",
+      "Daemon",
+      "Heldrake",
+      "Slaanesh",
+      "Tzeentch",
+      "Khorne"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes",
+      "Emperor’s Children",
+      "Thousand Sons",
+      "World Eaters"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "baleflamer",
+      "hades-autocannon",
+      "heldrake-claws"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "chaos-vindicator",
+    "name": "Chaos Vindicator",
+    "faction_id": "chaos-space-marines",
+    "profiles": [
+      {
+        "name": "Chaos Vindicator",
+        "M": 9,
+        "T": 11,
+        "W": 11,
+        "Sv": 2,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 185
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Smoke",
+      "Chaos",
+      "Vindicator",
+      "Tzeentch"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes",
+      "Thousand Sons"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-tracks",
+      "combi-bolter",
+      "combi-weapon",
+      "demolisher-cannon",
+      "havoc-launcher"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "forgefiend",
+    "name": "Forgefiend",
+    "faction_id": "chaos-space-marines",
+    "profiles": [
+      {
+        "name": "Forgefiend",
+        "M": 8,
+        "T": 10,
+        "W": 12,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 170
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Chaos",
+      "Daemon",
+      "Forgefiend",
+      "Tzeentch",
+      "Khorne"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes",
+      "Thousand Sons",
+      "World Eaters"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-limbs",
+      "ectoplasma-cannon",
+      "forgefiend-jaws",
+      "hades-autocannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "warpsmith",
+    "name": "Warpsmith",
+    "faction_id": "chaos-space-marines",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Warpsmith",
+        "M": 6,
+        "T": 4,
+        "W": 4,
+        "Sv": 2,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 70
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Grenades",
+      "Chaos",
+      "Warpsmith"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "flamer-tendril",
+      "forge-weapon",
+      "melta-tendril",
+      "plasma-pistol"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "chaos-lord-in-terminator-armour",
+    "name": "Chaos Lord in Terminator Armour",
+    "faction_id": "chaos-space-marines",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Chaos Lord in Terminator Armour",
+        "M": 5,
+        "T": 5,
+        "W": 6,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 85
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Chaos",
+      "Terminator",
+      "Chaos Lord",
+      "Chaos Lord in Terminator Armour"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "chainfist",
+      "combi-bolter",
+      "combi-weapon",
+      "exalted-weapon",
+      "paired-accursed-weapons",
+      "power-fist"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "red-corsairs-raiders",
+    "name": "Red Corsairs Raiders",
+    "faction_id": "chaos-space-marines",
+    "profiles": [
+      {
+        "name": "Red Corsairs Raider",
+        "M": 6,
+        "T": 4,
+        "W": 3,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 110
+      },
+      {
+        "models": 10,
+        "cost": 220
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Grenades",
+      "Chaos",
+      "Red Corsairs Raiders"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 10
+    },
+    "weapon_ids": [
+      "bolt-pistol",
+      "boltgun",
+      "hand-flamer",
+      "meltagun",
+      "power-fist",
+      "reavers-blade"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "master-of-executions",
+    "name": "Master of Executions",
+    "faction_id": "chaos-space-marines",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Master of Executions",
+        "M": 6,
+        "T": 4,
+        "W": 4,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 80
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Grenades",
+      "Chaos",
+      "Master of Executions",
+      "Khorne"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes",
+      "World Eaters"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "axe-of-dismemberment",
+      "bolt-pistol"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "accursed-cultists",
+    "name": "Accursed Cultists",
+    "faction_id": "chaos-space-marines",
+    "profiles": [
+      {
+        "name": "Mutant",
+        "M": 6,
+        "T": 4,
+        "W": 1,
+        "Sv": 6,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      },
+      {
+        "name": "Torment",
+        "M": 6,
+        "T": 4,
+        "W": 3,
+        "Sv": 6,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 8,
+        "cost": 90
+      },
+      {
+        "models": 16,
+        "cost": 195
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Chaos",
+      "Damned",
+      "Accursed Cultists"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes"
+    ],
+    "model_count": {
+      "min": 8,
+      "max": 16
+    },
+    "weapon_ids": [
+      "blasphemous-appendages",
+      "hideous-mutations"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "helbrute",
+    "name": "Helbrute",
+    "faction_id": "chaos-space-marines",
+    "profiles": [
+      {
+        "name": "Helbrute",
+        "M": 6,
+        "T": 9,
+        "W": 8,
+        "Sv": 2,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 130
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Chaos",
+      "Helbrute",
+      "Nurgle",
+      "Tzeentch",
+      "Khorne"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes",
+      "Death Guard",
+      "Thousand Sons",
+      "World Eaters"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "close-combat-weapon",
+      "combi-bolter",
+      "heavy-flamer",
+      "helbrute-fist",
+      "helbrute-hammer",
+      "helbrute-plasma-cannon",
+      "missile-launcher",
+      "multi-melta",
+      "power-scourge",
+      "twin-autocannon",
+      "twin-heavy-bolter",
+      "twin-lascannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "chaos-lord-with-jump-pack",
+    "name": "Chaos Lord with Jump Pack",
+    "faction_id": "chaos-space-marines",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Chaos Lord with Jump Pack",
+        "M": 12,
+        "T": 4,
+        "W": 5,
+        "Sv": 3,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 80
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Jump Pack",
+      "Fly",
+      "Grenades",
+      "Chaos",
+      "Chaos Lord"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "accursed-weapon",
+      "bolt-pistol",
+      "plasma-pistol",
+      "power-fist",
+      "twin-lightning-claws"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "cultist-mob",
+    "name": "Cultist Mob",
+    "faction_id": "chaos-space-marines",
+    "role": "battleline",
+    "profiles": [
+      {
+        "name": "Chaos Cultist",
+        "M": 6,
+        "T": 3,
+        "W": 1,
+        "Sv": 6,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 10,
+        "cost": 50
+      },
+      {
+        "models": 20,
+        "cost": 100
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Battleline",
+      "Grenades",
+      "Chaos",
+      "Damned",
+      "Cultist Mob"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes"
+    ],
+    "model_count": {
+      "min": 10,
+      "max": 20
+    },
+    "weapon_ids": [
+      "autopistol",
+      "bolt-pistol",
+      "brutal-assault-weapon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "chaos-lord",
+    "name": "Chaos Lord",
+    "faction_id": "chaos-space-marines",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Chaos Lord",
+        "M": 6,
+        "T": 4,
+        "W": 5,
+        "Sv": 3,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 90
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Grenades",
+      "Chaos",
+      "Chaos Lord"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "accursed-weapon",
+      "astartes-chainsword",
+      "daemon-hammer",
+      "plasma-pistol",
+      "power-fist"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "chaos-bikers",
+    "name": "Chaos Bikers",
+    "faction_id": "chaos-space-marines",
+    "profiles": [
+      {
+        "name": "Chaos Biker",
+        "M": 12,
+        "T": 5,
+        "W": 3,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 3,
+        "cost": 70
+      },
+      {
+        "models": 6,
+        "cost": 130
+      }
+    ],
+    "keywords": [
+      "Mounted",
+      "Grenades",
+      "Chaos",
+      "Chaos Bikers"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes"
+    ],
+    "model_count": {
+      "min": 3,
+      "max": 6
+    },
+    "weapon_ids": [
+      "accursed-weapon",
+      "astartes-chainsword",
+      "bolt-pistol",
+      "close-combat-weapon",
+      "combi-bolter",
+      "combi-weapon",
+      "flamer",
+      "meltagun",
+      "plasma-gun",
+      "plasma-pistol",
+      "power-fist"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "warp-talons",
+    "name": "Warp Talons",
+    "faction_id": "chaos-space-marines",
+    "profiles": [
+      {
+        "name": "Warp Talon",
+        "M": 12,
+        "T": 4,
+        "W": 2,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 125
+      },
+      {
+        "models": 10,
+        "cost": 270
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Fly",
+      "Jump Pack",
+      "Grenades",
+      "Chaos",
+      "Daemon",
+      "Warp Talons"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 10
+    },
+    "weapon_ids": [
+      "warp-claws"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "fellgor-beastmen",
+    "name": "Fellgor Beastmen",
+    "faction_id": "chaos-space-marines",
+    "profiles": [
+      {
+        "name": "Fellgor Beastmen",
+        "M": 6,
+        "T": 4,
+        "W": 1,
+        "Sv": 5,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 10,
+        "cost": 70
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Grenades",
+      "Chaos",
+      "Damned",
+      "Fellgor Beastmen"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes"
+    ],
+    "model_count": {
+      "min": 10,
+      "max": 10
+    },
+    "weapon_ids": [
+      "autopistol",
+      "bolt-pistol",
+      "chainsword",
+      "close-combat-weapon",
+      "corrupted-stave",
+      "great-weapon",
+      "plasma-pistol"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "maulerfiend",
+    "name": "Maulerfiend",
+    "faction_id": "chaos-space-marines",
+    "profiles": [
+      {
+        "name": "Maulerfiend",
+        "M": 10,
+        "T": 10,
+        "W": 12,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 130
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Chaos",
+      "Daemon",
+      "Maulerfiend",
+      "Slaanesh",
+      "Tzeentch",
+      "Khorne"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes",
+      "Emperor’s Children",
+      "Thousand Sons",
+      "World Eaters"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "lasher-tendrils",
+      "magma-cutters",
+      "maulerfiend-fists"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "chaos-rhino",
+    "name": "Chaos Rhino",
+    "faction_id": "chaos-space-marines",
+    "role": "dedicated-transport",
+    "profiles": [
+      {
+        "name": "Chaos Rhino",
+        "M": 12,
+        "T": 9,
+        "W": 10,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 75
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Transport",
+      "Dedicated Transport",
+      "Smoke",
+      "Chaos",
+      "Rhino",
+      "Nurgle",
+      "Slaanesh",
+      "Tzeentch",
+      "Khorne"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes",
+      "Death Guard",
+      "Emperor’s Children",
+      "Thousand Sons",
+      "World Eaters"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-tracks",
+      "combi-bolter",
+      "combi-weapon",
+      "havoc-launcher"
+    ],
+    "ability_ids": [],
+    "transport_capacity": {
+      "capacity": 12,
+      "exclusion_keywords": [
+        "Jump Pack"
+      ]
+    },
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "legionaries",
+    "name": "Legionaries",
+    "faction_id": "chaos-space-marines",
+    "role": "battleline",
+    "profiles": [
+      {
+        "name": "Legionary",
+        "M": 6,
+        "T": 4,
+        "W": 2,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 90
+      },
+      {
+        "models": 10,
+        "cost": 170
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Battleline",
+      "Chaos",
+      "Grenades",
+      "Legionaries"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 10
+    },
+    "weapon_ids": [
+      "accursed-weapon",
+      "astartes-chainsword",
+      "balefire-tome",
+      "bolt-pistol",
+      "boltgun",
+      "close-combat-weapon",
+      "flamer",
+      "havoc-autocannon",
+      "heavy-bolter",
+      "heavy-melee-weapon",
+      "lascannon",
+      "meltagun",
+      "missile-launcher",
+      "plasma-gun",
+      "plasma-pistol",
+      "reaper-chaincannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "red-corsairs-reave-captain",
+    "name": "Red Corsairs Reave-Captain",
+    "faction_id": "chaos-space-marines",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Red Corsairs Reave-Captain",
+        "M": 6,
+        "T": 4,
+        "W": 5,
+        "Sv": 3,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 75
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Chaos",
+      "Red Corsairs Reave-Captain"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "bolt-pistol",
+      "plasma-pistol",
+      "power-maul",
+      "power-sword"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "masters-of-the-maelstrom",
+    "name": "Masters of the Maelstrom",
+    "faction_id": "chaos-space-marines",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Katar Garrix",
+        "M": 6,
+        "T": 4,
+        "W": 4,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 1
+      },
+      {
+        "name": "The Enforcer",
+        "M": 6,
+        "T": 3,
+        "W": 3,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 115
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Epic Hero",
+      "Grenades",
+      "Chaos",
+      "Chaos Undivided",
+      "Masters of the Maelstrom"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 5
+    },
+    "weapon_ids": [
+      "absolvor-bolt-pistol",
+      "axe-of-ending",
+      "bionic-gauntlet",
+      "bolt-pistol",
+      "force-stave",
+      "laspistol",
+      "londaxi-maimer",
+      "mind-wrench",
+      "power-sabre",
+      "reductor-array"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "vashtorr-the-arkifane",
+    "name": "Vashtorr the Arkifane",
+    "faction_id": "chaos-space-marines",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Vashtorr the Arkifane",
+        "M": 12,
+        "T": 10,
+        "W": 14,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 175
+      }
+    ],
+    "keywords": [
+      "Monster",
+      "Character",
+      "Epic Hero",
+      "Fly",
+      "Chaos",
+      "Daemon",
+      "Vashtorr the Arkifane"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "vashtorrs-claw",
+      "vashtorrs-hammer"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "huron-blackheart",
+    "name": "Huron Blackheart",
+    "faction_id": "chaos-space-marines",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Huron Blackheart",
+        "M": 6,
+        "T": 5,
+        "W": 5,
+        "Sv": 3,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 120
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Epic Hero",
+      "Chaos",
+      "Chaos Undivided",
+      "Huron Blackheart"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "ranged",
+      "tyrants-claw-and-exalted-power-weapon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "haarken-worldclaimer",
+    "name": "Haarken Worldclaimer",
+    "faction_id": "chaos-space-marines",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Haarken Worldclaimer",
+        "M": 12,
+        "T": 4,
+        "W": 5,
+        "Sv": 3,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 90
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Epic Hero",
+      "Fly",
+      "Jump Pack",
+      "Chaos",
+      "Chaos Undivided",
+      "Haarken Worldclaimer"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "helspear",
+      "heralds-talon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "abaddon-the-despoiler",
+    "name": "Abaddon the Despoiler",
+    "faction_id": "chaos-space-marines",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Abaddon the Despoiler",
+        "M": 5,
+        "T": 5,
+        "W": 9,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 5,
+        "OC": 4
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 270
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Abaddon The Despoiler",
+      "Character",
+      "Epic Hero",
+      "Terminator",
+      "Chaos Undivided",
+      "Chaos"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "drachnyen",
+      "talon-of-horus"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "fabius-bile",
+    "name": "Fabius Bile",
+    "faction_id": "chaos-space-marines",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Fabius Bile",
+        "M": 6,
+        "T": 4,
+        "W": 5,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 1
+      },
+      {
+        "name": "Surgeon Acolyte",
+        "M": 6,
+        "T": 4,
+        "W": 1,
+        "Sv": 6,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 2,
+        "cost": 100
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Chaos",
+      "Chaos Undivided",
+      "Character",
+      "Epic Hero",
+      "Fabius Bile"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes"
+    ],
+    "model_count": {
+      "min": 2,
+      "max": 2
+    },
+    "weapon_ids": [
+      "chirurgeon",
+      "rod-of-torment",
+      "surgeon-acolytes-tools",
+      "xyclos-needler"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "cypher",
+    "name": "Cypher",
+    "faction_id": "chaos-space-marines",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Cypher",
+        "M": 6,
+        "T": 4,
+        "W": 5,
+        "Sv": 3,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 90
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Epic Hero",
+      "Chaos",
+      "Fallen",
+      "Cypher"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "cyphers-bolt-pistol",
+      "cyphers-plasma-pistol"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "khorne-lord-of-skulls",
+    "name": "Khorne Lord of Skulls",
+    "faction_id": "chaos-space-marines",
+    "profiles": [
+      {
+        "name": "Khorne Lord of Skulls",
+        "M": 8,
+        "T": 13,
+        "W": 24,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 8
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 450
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Titanic",
+      "Towering",
+      "Chaos",
+      "Khorne",
+      "Daemon",
+      "Lord of Skulls"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes",
+      "World Eaters"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "daemongore-cannon",
+      "gorestorm-cannon",
+      "great-cleaver-of-khorne",
+      "hades-gatling-cannon",
+      "ichor-cannon",
+      "skullhurler"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "dreadclaw-drop-pod",
+    "name": "Dreadclaw Drop Pod",
+    "faction_id": "chaos-space-marines",
+    "profiles": [
+      {
+        "name": "Dreadclaw Drop Pod",
+        "M": 12,
+        "T": 7,
+        "W": 9,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 2
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Chaos",
+      "Dreadclaw Drop Pod",
+      "Fly",
+      "Transport",
+      "Vehicle"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "blade-struts"
+    ],
+    "ability_ids": [],
+    "transport_capacity": {
+      "capacity": 12
+    },
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "greater-blight-drone",
+    "name": "Greater Blight Drone",
+    "faction_id": "chaos-space-marines",
+    "profiles": [
+      {
+        "name": "Greater Blight Drone",
+        "M": 10,
+        "T": 9,
+        "W": 10,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 3
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Chaos",
+      "Daemon",
+      "Fly",
+      "Greater Blight Drone",
+      "Nurgle",
+      "Vehicle"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "bile-maw",
+      "blightreaper-cannon",
+      "greater-plague-probe"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "hell-blade",
+    "name": "Hell Blade",
+    "faction_id": "chaos-space-marines",
+    "profiles": [
+      {
+        "name": "Hell Blade",
+        "M": 20,
+        "T": 8,
+        "W": 10,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 0
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Aircraft",
+      "Chaos",
+      "Fly",
+      "Hell Blade",
+      "Vehicle"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-hull",
+      "twin-autocannon",
+      "twin-lascannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "blood-slaughterer",
+    "name": "Blood Slaughterer",
+    "faction_id": "chaos-space-marines",
+    "profiles": [
+      {
+        "name": "Blood Slaughterer",
+        "M": 12,
+        "T": 9,
+        "W": 10,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 3
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Blood Slaughterer",
+      "Chaos",
+      "Daemon",
+      "Khorne",
+      "Vehicle",
+      "Walker"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "impaler-harpoon",
+      "slaughter-blade",
+      "twin-slaughter-blade"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "chaos-deimos-predator",
+    "name": "Chaos Deimos Predator",
+    "faction_id": "chaos-space-marines",
+    "profiles": [
+      {
+        "name": "Chaos Deimos Predator",
+        "M": 10,
+        "T": 10,
+        "W": 11,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 3
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Chaos",
+      "Deimos Predator",
+      "Smoke",
+      "Vehicle"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-tracks",
+      "combi-bolter",
+      "conversion-beam-cannon",
+      "heavy-flamer",
+      "hunter-killer-missile",
+      "infernus-cannon",
+      "lascannon",
+      "magna-melta-cannon",
+      "plasma-destroyer"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "decimator",
+    "name": "Decimator",
+    "faction_id": "chaos-space-marines",
+    "profiles": [
+      {
+        "name": "Decimator",
+        "M": 10,
+        "T": 10,
+        "W": 12,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 4
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Chaos",
+      "Daemon",
+      "Decimator",
+      "Vehicle",
+      "Walker"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "decimator-butcher-cannon",
+      "decimator-claw",
+      "decimator-conversion-beamer",
+      "hellflamer",
+      "soulburner-petard",
+      "storm-laser",
+      "twin-decimator-claws"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "hell-talon",
+    "name": "Hell Talon",
+    "faction_id": "chaos-space-marines",
+    "profiles": [
+      {
+        "name": "Hell Talon",
+        "M": 20,
+        "T": 9,
+        "W": 14,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 0
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Aircraft",
+      "Chaos",
+      "Fly",
+      "Hell Talon",
+      "Vehicle"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-hull",
+      "autocannon",
+      "havoc-launcher",
+      "twin-lascannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "kharybdis-assault-claw",
+    "name": "Kharybdis Assault Claw",
+    "faction_id": "chaos-space-marines",
+    "profiles": [
+      {
+        "name": "Kharybdis Assault Claw",
+        "M": 12,
+        "T": 11,
+        "W": 20,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 4
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Chaos",
+      "Fly",
+      "Kharybdis Assault Claw",
+      "Titanic",
+      "Transport",
+      "Vehicle"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "blade-struts",
+      "kharybdis-storm-launcher",
+      "melta-array"
+    ],
+    "ability_ids": [],
+    "transport_capacity": {
+      "capacity": 22
+    },
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "chaos-thunderhawk",
+    "name": "Chaos Thunderhawk",
+    "faction_id": "chaos-space-marines",
+    "profiles": [
+      {
+        "name": "Chaos Thunderhawk",
+        "M": 20,
+        "T": 12,
+        "W": 30,
+        "Sv": 2,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 0
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Aircraft",
+      "Chaos",
+      "Fly",
+      "Thunderhawk",
+      "Titanic",
+      "Transport",
+      "Vehicle"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-hull",
+      "hellstrike-missile-battery",
+      "lascannon",
+      "thunderhawk-heavy-cannon",
+      "turbo-laser-destructor",
+      "twin-heavy-bolter"
+    ],
+    "ability_ids": [],
+    "transport_capacity": {
+      "capacity": 30
+    },
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "kytan-ravager",
+    "name": "Kytan Ravager",
+    "faction_id": "chaos-space-marines",
+    "profiles": [
+      {
+        "name": "Kytan Ravager",
+        "M": 10,
+        "T": 12,
+        "W": 24,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 10
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Chaos",
+      "Daemon",
+      "Khorne",
+      "Kytan Ravager",
+      "Titanic",
+      "Vehicle",
+      "Walker"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "kytan-cleaver",
+      "kytan-gatling-cannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "greater-brass-scorpion",
+    "name": "Greater Brass Scorpion",
+    "faction_id": "chaos-space-marines",
+    "profiles": [
+      {
+        "name": "Greater Brass Scorpion",
+        "M": 12,
+        "T": 12,
+        "W": 26,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 10
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Chaos",
+      "Daemon",
+      "Greater Brass Scorpion",
+      "Khorne",
+      "Titanic",
+      "Vehicle",
+      "Walker"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "demolisher-cannon",
+      "hellcrusher-claws",
+      "hellmaw-flame-cannons",
+      "scorpion-cannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "mutilators",
+    "name": "Mutilators",
+    "faction_id": "chaos-space-marines",
+    "profiles": [
+      {
+        "name": "Mutilators",
+        "M": 4,
+        "T": 7,
+        "W": 4,
+        "Sv": 2,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 2
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Chaos",
+      "Daemon",
+      "Infantry",
+      "Mutilators"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "fleshmetal-weapons"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "gellerpox-infected",
+    "name": "Gellerpox Infected",
+    "faction_id": "chaos-space-marines",
+    "profiles": [
+      {
+        "name": "GELLERPOX MUTANTS",
+        "M": 5,
+        "T": 5,
+        "W": 1,
+        "Sv": 6,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      },
+      {
+        "name": "NIGHTMARE HULK",
+        "M": 5,
+        "T": 5,
+        "W": 4,
+        "Sv": 6,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Chaos",
+      "Gellerpox Infected",
+      "Infantry",
+      "Nurgle"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "belly-flamer",
+      "brutal-weapons",
+      "hideous-mutations"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "negavolt-cultists",
+    "name": "Negavolt Cultists",
+    "faction_id": "chaos-space-marines",
+    "profiles": [
+      {
+        "name": "Negavolt Cultists",
+        "M": 6,
+        "T": 3,
+        "W": 1,
+        "Sv": 7,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Chaos",
+      "Infantry",
+      "Negavolt Cultists"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "electro-goads"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "renegade-plague-ogryns",
+    "name": "Renegade Plague Ogryns",
+    "faction_id": "chaos-space-marines",
+    "profiles": [
+      {
+        "name": "Renegade Plague Ogryns",
+        "M": 5,
+        "T": 7,
+        "W": 3,
+        "Sv": 5,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Chaos",
+      "Infantry",
+      "Nurgle",
+      "Renegade Plague Ogryns"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "ogryn-plague-claws"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "mutoid-vermin",
+    "name": "Mutoid Vermin",
+    "faction_id": "chaos-space-marines",
+    "profiles": [
+      {
+        "name": "Mutoid Vermin",
+        "M": 8,
+        "T": 2,
+        "W": 1,
+        "Sv": 7,
+        "invuln_sv": null,
+        "Ld": 8,
+        "OC": 0
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Chaos",
+      "Mutoid Vermin",
+      "Nurgle",
+      "Swarm"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "diseased-claws-and-fangs"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "rogue-psyker",
+    "name": "Rogue Psyker",
+    "faction_id": "chaos-space-marines",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Rogue Psyker",
+        "M": 6,
+        "T": 3,
+        "W": 3,
+        "Sv": 5,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Chaos",
+      "Character",
+      "Infantry",
+      "Psyker",
+      "Rogue Psyker"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "chaos-stave",
+      "laspistol",
+      "psychic-strike"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "sorcerer-on-bike",
+    "name": "Sorcerer On Bike",
+    "faction_id": "chaos-space-marines",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Sorcerer On Bike",
+        "M": 12,
+        "T": 5,
+        "W": 5,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 2
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Chaos",
+      "Character",
+      "Grenades",
+      "Mounted",
+      "Psyker",
+      "Sorcerer on Bike"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "accursed-weapon",
+      "astartes-chainsword",
+      "bolt-pistol",
+      "combi-bolter",
+      "combi-weapon",
+      "force-weapon",
+      "infernal-gaze",
+      "plasma-pistol",
+      "power-fist"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "sorcerer-on-disc-of-tzeentch",
+    "name": "Sorcerer On Disc Of Tzeentch",
+    "faction_id": "chaos-space-marines",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Sorcerer On Disc Of Tzeentch",
+        "M": 12,
+        "T": 4,
+        "W": 5,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Chaos",
+      "Character",
+      "Disc of Tzeentch",
+      "Fly",
+      "Grenades",
+      "Infantry",
+      "Psyker",
+      "Sorcerer",
+      "Tzeentch"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "accursed-weapon",
+      "astartes-chainsword",
+      "bolt-pistol",
+      "combi-bolter",
+      "combi-weapon",
+      "force-weapon",
+      "infernal-gaze",
+      "plasma-pistol",
+      "power-fist"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "sorcerer-on-palanquin-of-nurgle",
+    "name": "Sorcerer On Palanquin Of Nurgle",
+    "faction_id": "chaos-space-marines",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Sorcerer On Palanquin Of Nurgle",
+        "M": 5,
+        "T": 5,
+        "W": 7,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 2
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Chaos",
+      "Character",
+      "Grenades",
+      "Infantry",
+      "Nurgle",
+      "Palanquin of Nurgle",
+      "Psyker",
+      "Sorcerer"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "accursed-weapon",
+      "astartes-chainsword",
+      "bolt-pistol",
+      "combi-bolter",
+      "combi-weapon",
+      "force-weapon",
+      "infernal-gaze",
+      "nurglings-claws-and-teeth",
+      "plasma-pistol",
+      "power-fist"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "sorcerer-on-steed-of-slaanesh",
+    "name": "Sorcerer On Steed Of Slaanesh",
+    "faction_id": "chaos-space-marines",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Sorcerer On Steed Of Slaanesh",
+        "M": 14,
+        "T": 5,
+        "W": 5,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 2
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Chaos",
+      "Character",
+      "Grenades",
+      "Mounted",
+      "Slaanesh",
+      "Sorcerer",
+      "Steed of Slaanesh"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "accursed-weapon",
+      "astartes-chainsword",
+      "bolt-pistol",
+      "combi-bolter",
+      "combi-weapon",
+      "force-weapon",
+      "infernal-gaze",
+      "lashing-tongue",
+      "plasma-pistol",
+      "power-fist"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "chaos-lord-on-palanquin-of-nurgle",
+    "name": "Chaos Lord On Palanquin Of Nurgle",
+    "faction_id": "chaos-space-marines",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Chaos Lord On Palanquin Of Nurgle",
+        "M": 5,
+        "T": 5,
+        "W": 8,
+        "Sv": 3,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 2
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Chaos Lord",
+      "Chaos",
+      "Character",
+      "Grenades",
+      "Infantry",
+      "Nurgle",
+      "Palanquin of Nurgle"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "accursed-weapon",
+      "astartes-chainsword",
+      "bolt-pistol",
+      "close-combat-weapon",
+      "combi-bolter",
+      "combi-weapon",
+      "nurglings-claws-and-teeth",
+      "paired-accursed-weapons",
+      "plasma-pistol",
+      "power-fist"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "chaos-lord-on-steed-of-slaanesh",
+    "name": "Chaos Lord On Steed Of Slaanesh",
+    "faction_id": "chaos-space-marines",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Chaos Lord On Steed Of Slaanesh",
+        "M": 14,
+        "T": 5,
+        "W": 6,
+        "Sv": 3,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 2
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Chaos Lord",
+      "Chaos",
+      "Character",
+      "Grenades",
+      "Mounted",
+      "Slaanesh",
+      "Steed of Slaanesh"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "accursed-weapon",
+      "astartes-chainsword",
+      "bolt-pistol",
+      "close-combat-weapon",
+      "combi-bolter",
+      "combi-weapon",
+      "lashing-tongue",
+      "paired-accursed-weapons",
+      "plasma-pistol",
+      "power-fist"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "chaos-lord-on-juggernaut",
+    "name": "Chaos Lord On Juggernaut",
+    "faction_id": "chaos-space-marines",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Chaos Lord On Juggernaut",
+        "M": 10,
+        "T": 6,
+        "W": 7,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 2
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Chaos Lord",
+      "Chaos",
+      "Character",
+      "Grenades",
+      "Juggernaut",
+      "Khorne",
+      "Mounted"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "accursed-weapon",
+      "astartes-chainsword",
+      "bladed-horn",
+      "bolt-pistol",
+      "close-combat-weapon",
+      "combi-bolter",
+      "combi-weapon",
+      "paired-accursed-weapons",
+      "plasma-pistol",
+      "power-fist"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "chaos-lord-on-disc-of-tzeentch",
+    "name": "Chaos Lord On Disc Of Tzeentch",
+    "faction_id": "chaos-space-marines",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Chaos Lord On Disc Of Tzeentch",
+        "M": 12,
+        "T": 4,
+        "W": 6,
+        "Sv": 3,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Chaos Lord",
+      "Chaos",
+      "Character",
+      "Disc of Tzeentch",
+      "Fly",
+      "Grenades",
+      "Infantry",
+      "Tzeentch"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "accursed-weapon",
+      "astartes-chainsword",
+      "bolt-pistol",
+      "close-combat-weapon",
+      "combi-bolter",
+      "combi-weapon",
+      "paired-accursed-weapons",
+      "plasma-pistol",
+      "power-fist"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "chaos-lord-on-bike",
+    "name": "Chaos Lord On Bike",
+    "faction_id": "chaos-space-marines",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Chaos Lord On Bike",
+        "M": 12,
+        "T": 5,
+        "W": 6,
+        "Sv": 3,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 2
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Chaos Lord on Bike",
+      "Chaos",
+      "Character",
+      "Grenades",
+      "Mounted"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "accursed-weapon",
+      "astartes-chainsword",
+      "bolt-pistol",
+      "close-combat-weapon",
+      "combi-bolter",
+      "combi-weapon",
+      "paired-accursed-weapons",
+      "plasma-pistol",
+      "power-fist"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "renegade-enforcer",
+    "name": "Renegade Enforcer",
+    "faction_id": "chaos-space-marines",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Renegade Enforcer",
+        "M": 6,
+        "T": 3,
+        "W": 3,
+        "Sv": 5,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Chaos",
+      "Character",
+      "Grenades",
+      "Infantry",
+      "Renegade Enforcer"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "autogun",
+      "enforcer-melee-weapon",
+      "enforcer-pistol",
+      "lasgun",
+      "power-fist",
+      "power-weapon",
+      "shotgun"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "renegade-ogryn-brutes",
+    "name": "Renegade Ogryn Brutes",
+    "faction_id": "chaos-space-marines",
+    "profiles": [
+      {
+        "name": "Renegade Ogryn Brutes",
+        "M": 6,
+        "T": 6,
+        "W": 3,
+        "Sv": 5,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Chaos",
+      "Infantry",
+      "Renegade Ogryn Brutes"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "ogryn-power-drill",
+      "ogryn-weapon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "renegade-heavy-weapons-squad",
+    "name": "Renegade Heavy Weapons Squad",
+    "faction_id": "chaos-space-marines",
+    "profiles": [
+      {
+        "name": "Renegade Heavy Weapons Squad",
+        "M": 6,
+        "T": 3,
+        "W": 2,
+        "Sv": 5,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Chaos",
+      "Grenades",
+      "Infantry",
+      "Renegade Heavy Weapons Squad"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "autocannon",
+      "close-combat-weapons",
+      "heavy-bolter",
+      "heavy-stubber",
+      "lascannon",
+      "missile-launcher",
+      "mortar",
+      "renegade-firearm"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "renegade-ogryn-beast-handler",
+    "name": "Renegade Ogryn Beast Handler",
+    "faction_id": "chaos-space-marines",
+    "profiles": [
+      {
+        "name": "CHAOS MAULER HOUND",
+        "M": 6,
+        "T": 4,
+        "W": 1,
+        "Sv": 6,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      },
+      {
+        "name": "OGRYN PACK MASTER",
+        "M": 6,
+        "T": 6,
+        "W": 4,
+        "Sv": 5,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Beasts",
+      "Chaos",
+      "Renegade Ogryn Beast Handler"
+    ],
+    "faction_keywords": [
+      "Heretic Astartes"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "befouled-claws-and-fangs",
+      "mauler-goad-and-ripper-claw"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  }
+]

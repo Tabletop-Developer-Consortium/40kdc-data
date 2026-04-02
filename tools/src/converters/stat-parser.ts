@@ -32,10 +32,10 @@ export function parseStatValue(s: string): number | string {
   return n;
 }
 
-/** Parse weapon range. "36\"" → 36, "Melee" → "Melee", "" → "Melee" */
+/** Parse weapon range. "36\"" → 36, "Melee" → "Melee", "" → "Melee", "N/A" → "Melee" */
 export function parseRange(s: string): number | "Melee" {
   const cleaned = s.replace(/["″]/g, "").trim();
-  if (cleaned === "" || cleaned.toLowerCase() === "melee") return "Melee";
+  if (cleaned === "" || cleaned.toLowerCase() === "melee" || cleaned === "N/A") return "Melee";
   const n = parseInt(cleaned, 10);
   if (isNaN(n)) throw new Error(`Cannot parse range: "${s}"`);
   return n;

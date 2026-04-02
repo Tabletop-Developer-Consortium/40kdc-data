@@ -1,0 +1,1499 @@
+[
+  {
+    "id": "atalan-small-arms",
+    "name": "Atalan small arms",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Atalan small arms",
+        "range": 12,
+        "stats": {
+          "A": 2,
+          "S": 4,
+          "AP": 0,
+          "D": 1,
+          "BS": 4
+        },
+        "keywords": [
+          "Pistol"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "atalan-incinerator",
+    "name": "Atalan incinerator",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Atalan incinerator",
+        "range": 12,
+        "stats": {
+          "A": "D6",
+          "S": 5,
+          "AP": -1,
+          "D": 1,
+          "BS": null
+        },
+        "keywords": [
+          "Ignores Cover",
+          "Torrent"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "mining-laser",
+    "name": "Mining laser",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Mining laser",
+        "range": 24,
+        "stats": {
+          "A": 1,
+          "S": 12,
+          "AP": -3,
+          "D": "D6+1",
+          "BS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "grenade-launcher",
+    "name": "Grenade launcher",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Krak",
+        "range": 24,
+        "stats": {
+          "A": 1,
+          "S": 9,
+          "AP": -2,
+          "D": "D3",
+          "BS": 4
+        },
+        "keywords": []
+      },
+      {
+        "name": "Frag",
+        "range": 24,
+        "stats": {
+          "A": "D3",
+          "S": 4,
+          "AP": 0,
+          "D": 1,
+          "BS": 4
+        },
+        "keywords": [
+          "Blast"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "heavy-stubber",
+    "name": "Heavy stubber",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Heavy stubber",
+        "range": 36,
+        "stats": {
+          "A": 3,
+          "S": 4,
+          "AP": 0,
+          "D": 1,
+          "BS": 4
+        },
+        "keywords": [
+          "Assault",
+          "Rapid Fire 3"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "close-combat-weapon",
+    "name": "Close combat weapon",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Close combat weapon",
+        "range": "Melee",
+        "stats": {
+          "A": 2,
+          "S": 3,
+          "AP": 0,
+          "D": 1,
+          "WS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "atalan-power-weapon",
+    "name": "Atalan power weapon",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Atalan power weapon",
+        "range": "Melee",
+        "stats": {
+          "A": 2,
+          "S": 4,
+          "AP": -2,
+          "D": 1,
+          "WS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "liberator-autostubs",
+    "name": "Liberator autostubs",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Liberator autostubs",
+        "range": 12,
+        "stats": {
+          "A": 6,
+          "S": 6,
+          "AP": -2,
+          "D": 1,
+          "BS": 2
+        },
+        "keywords": [
+          "Devastating Wounds",
+          "Pistol"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "close-combat-weapon",
+    "name": "Close combat weapon",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Close combat weapon",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 3,
+          "AP": 0,
+          "D": 1,
+          "WS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "autopistol",
+    "name": "Autopistol",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Autopistol",
+        "range": 12,
+        "stats": {
+          "A": 1,
+          "S": 3,
+          "AP": 0,
+          "D": 1,
+          "BS": 4
+        },
+        "keywords": [
+          "Pistol"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "hybrid-firearm",
+    "name": "Hybrid firearm",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Hybrid firearm",
+        "range": 24,
+        "stats": {
+          "A": 1,
+          "S": 3,
+          "AP": 0,
+          "D": 1,
+          "BS": 4
+        },
+        "keywords": [
+          "Rapid Fire 1"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "anointed-pistol",
+    "name": "Anointed pistol",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Anointed pistol",
+        "range": 12,
+        "stats": {
+          "A": 1,
+          "S": 4,
+          "AP": 0,
+          "D": 1,
+          "BS": 4
+        },
+        "keywords": [
+          "Pistol"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "heavy-stubber",
+    "name": "Heavy stubber",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Heavy stubber",
+        "range": 36,
+        "stats": {
+          "A": 3,
+          "S": 4,
+          "AP": 0,
+          "D": 1,
+          "BS": 4
+        },
+        "keywords": [
+          "Rapid Fire 3"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "mining-laser",
+    "name": "Mining laser",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Mining laser",
+        "range": 24,
+        "stats": {
+          "A": 1,
+          "S": 10,
+          "AP": -3,
+          "D": "D6+1",
+          "BS": 5
+        },
+        "keywords": [
+          "Heavy"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "seismic-cannon",
+    "name": "Seismic cannon",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Seismic cannon",
+        "range": 24,
+        "stats": {
+          "A": 2,
+          "S": 6,
+          "AP": -1,
+          "D": "D3",
+          "BS": 5
+        },
+        "keywords": [
+          "Heavy",
+          "Rapid Fire 2"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "flamer",
+    "name": "Flamer",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Flamer",
+        "range": 12,
+        "stats": {
+          "A": "D6",
+          "S": 4,
+          "AP": 0,
+          "D": 1,
+          "BS": null
+        },
+        "keywords": [
+          "Ignores Cover",
+          "Torrent"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "webber",
+    "name": "Webber",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Webber",
+        "range": 12,
+        "stats": {
+          "A": "D6",
+          "S": 2,
+          "AP": 0,
+          "D": 1,
+          "BS": null
+        },
+        "keywords": [
+          "Devastating Wounds",
+          "Torrent"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "close-combat-weapon",
+    "name": "Close combat weapon",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Close combat weapon",
+        "range": "Melee",
+        "stats": {
+          "A": 1,
+          "S": 3,
+          "AP": 0,
+          "D": 1,
+          "WS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "chainsword",
+    "name": "Chainsword",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Chainsword",
+        "range": "Melee",
+        "stats": {
+          "A": 2,
+          "S": 3,
+          "AP": 0,
+          "D": 1,
+          "WS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "power-weapon",
+    "name": "Power weapon",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Power weapon",
+        "range": "Melee",
+        "stats": {
+          "A": 1,
+          "S": 4,
+          "AP": -2,
+          "D": 1,
+          "WS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "autopistol",
+    "name": "Autopistol",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Autopistol",
+        "range": 12,
+        "stats": {
+          "A": 1,
+          "S": 3,
+          "AP": 0,
+          "D": 1,
+          "BS": 3
+        },
+        "keywords": [
+          "Pistol"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "close-combat-weapon",
+    "name": "Close combat weapon",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Close combat weapon",
+        "range": "Melee",
+        "stats": {
+          "A": 2,
+          "S": 3,
+          "AP": 0,
+          "D": 1,
+          "WS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "demolition-charges",
+    "name": "Demolition charges",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Demolition charges",
+        "range": 8,
+        "stats": {
+          "A": "D6",
+          "S": 9,
+          "AP": -2,
+          "D": 2,
+          "BS": 3
+        },
+        "keywords": [
+          "Assault",
+          "Blast",
+          "One Shot"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "remote-explosives",
+    "name": "Remote explosives",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Remote explosives",
+        "range": 24,
+        "stats": {
+          "A": "D6+3",
+          "S": 5,
+          "AP": 0,
+          "D": 1,
+          "BS": 3
+        },
+        "keywords": [
+          "Blast",
+          "Indirect Fire"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "patriarchs-claws",
+    "name": "Patriarch’s claws",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Patriarch’s claws",
+        "range": "Melee",
+        "stats": {
+          "A": 5,
+          "S": 6,
+          "AP": -2,
+          "D": 2,
+          "WS": 2
+        },
+        "keywords": [
+          "Devastating Wounds",
+          "Twin-linked"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "twin-autocannon",
+    "name": "Twin autocannon",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Twin autocannon",
+        "range": 48,
+        "stats": {
+          "A": 2,
+          "S": 9,
+          "AP": -1,
+          "D": 3,
+          "BS": 4
+        },
+        "keywords": [
+          "Twin-linked"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "demolition-charge-cache",
+    "name": "Demolition charge cache",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Demolition charge cache",
+        "range": 8,
+        "stats": {
+          "A": "D6",
+          "S": 9,
+          "AP": -2,
+          "D": 2,
+          "BS": 5
+        },
+        "keywords": [
+          "Assault",
+          "Blast",
+          "Hazardous"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "armoured-hull",
+    "name": "Armoured hull",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Armoured hull",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 6,
+          "AP": 0,
+          "D": 1,
+          "WS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "chemical-vials",
+    "name": "Chemical vials",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Chemical vials",
+        "range": 6,
+        "stats": {
+          "A": 1,
+          "S": 1,
+          "AP": -1,
+          "D": 2,
+          "BS": 3
+        },
+        "keywords": [
+          "Anti-infantry 2+"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "injector-goad",
+    "name": "Injector goad",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Injector goad",
+        "range": "Melee",
+        "stats": {
+          "A": 1,
+          "S": 2,
+          "AP": 0,
+          "D": "D3",
+          "WS": 3
+        },
+        "keywords": [
+          "Anti-infantry 2+"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "cult-claws",
+    "name": "Cult claws",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Cult claws",
+        "range": "Melee",
+        "stats": {
+          "A": 4,
+          "S": 4,
+          "AP": -1,
+          "D": 1,
+          "WS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "heavy-mining-laser",
+    "name": "Heavy mining laser",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Heavy mining laser",
+        "range": 36,
+        "stats": {
+          "A": "D3",
+          "S": 12,
+          "AP": -3,
+          "D": "D6+1",
+          "BS": 4
+        },
+        "keywords": [
+          "Blast"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "twin-heavy-stubber",
+    "name": "Twin heavy stubber",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Twin heavy stubber",
+        "range": 36,
+        "stats": {
+          "A": 3,
+          "S": 4,
+          "AP": 0,
+          "D": 1,
+          "BS": 4
+        },
+        "keywords": [
+          "Rapid Fire 3",
+          "Twin-linked"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "achilles-missile-launcher",
+    "name": "Achilles missile launcher",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Achilles missile launcher",
+        "range": 36,
+        "stats": {
+          "A": 3,
+          "S": 9,
+          "AP": -2,
+          "D": 3,
+          "BS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "heavy-mortar",
+    "name": "Heavy mortar",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Heavy mortar",
+        "range": 48,
+        "stats": {
+          "A": "D6+3",
+          "S": 6,
+          "AP": 0,
+          "D": 1,
+          "BS": 4
+        },
+        "keywords": [
+          "Blast",
+          "Indirect Fire"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "armoured-hull",
+    "name": "Armoured hull",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Armoured hull",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 5,
+          "AP": 0,
+          "D": 1,
+          "WS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "scoped-needle-pistol",
+    "name": "Scoped needle pistol",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Scoped needle pistol",
+        "range": 18,
+        "stats": {
+          "A": 1,
+          "S": 1,
+          "AP": 0,
+          "D": "D3",
+          "BS": 2
+        },
+        "keywords": [
+          "Anti-infantry 2+",
+          "Ignores Cover",
+          "Pistol"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "cult-bonesword",
+    "name": "Cult bonesword",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Cult bonesword",
+        "range": "Melee",
+        "stats": {
+          "A": 5,
+          "S": 5,
+          "AP": -2,
+          "D": 1,
+          "WS": 2
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "toxin-injector-claw",
+    "name": "Toxin injector claw",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Toxin injector claw",
+        "range": "Melee",
+        "stats": {
+          "A": 2,
+          "S": 2,
+          "AP": 0,
+          "D": "D3",
+          "WS": 2
+        },
+        "keywords": [
+          "Anti-infantry 2+",
+          "Extra Attacks"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "power-sledgehammer",
+    "name": "Power sledgehammer",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Power sledgehammer",
+        "range": "Melee",
+        "stats": {
+          "A": 4,
+          "S": 12,
+          "AP": -2,
+          "D": "D6+1",
+          "WS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "cult-sniper-rifle",
+    "name": "Cult sniper rifle",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Cult sniper rifle",
+        "range": 36,
+        "stats": {
+          "A": 1,
+          "S": 7,
+          "AP": -2,
+          "D": 3,
+          "BS": 3
+        },
+        "keywords": [
+          "Anti-psyker 2+",
+          "Heavy",
+          "Precision"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "sanctus-bio-dagger",
+    "name": "Sanctus bio-dagger",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Sanctus bio-dagger",
+        "range": "Melee",
+        "stats": {
+          "A": 6,
+          "S": 3,
+          "AP": -2,
+          "D": 2,
+          "WS": 2
+        },
+        "keywords": [
+          "Anti-infantry 3+",
+          "Precision"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "cult-sniper-rifle",
+    "name": "Cult sniper rifle",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Cult sniper rifle",
+        "range": 36,
+        "stats": {
+          "A": 1,
+          "S": 5,
+          "AP": -2,
+          "D": 3,
+          "BS": 3
+        },
+        "keywords": [
+          "Heavy",
+          "Precision"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "aberrant-weapons",
+    "name": "Aberrant weapons",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Aberrant weapons",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 7,
+          "AP": -2,
+          "D": 2,
+          "WS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "cult-claws-and-knife",
+    "name": "Cult claws and knife",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Cult claws and knife",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 4,
+          "AP": -1,
+          "D": 1,
+          "WS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "heavy-mining-tool",
+    "name": "Heavy mining tool",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Heavy mining tool",
+        "range": "Melee",
+        "stats": {
+          "A": 2,
+          "S": 5,
+          "AP": -2,
+          "D": 3,
+          "WS": 3
+        },
+        "keywords": [
+          "Anti-vehicle 4+"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "leaders-cult-weapons",
+    "name": "Leader’s cult weapons",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Leader’s cult weapons",
+        "range": "Melee",
+        "stats": {
+          "A": 5,
+          "S": 5,
+          "AP": -2,
+          "D": 1,
+          "WS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "hand-flamer",
+    "name": "Hand flamer",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Hand flamer",
+        "range": 12,
+        "stats": {
+          "A": "D6",
+          "S": 3,
+          "AP": 0,
+          "D": 1,
+          "BS": null
+        },
+        "keywords": [
+          "Ignores Cover",
+          "Pistol",
+          "Torrent"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "leaders-cult-weapons",
+    "name": "Leader’s cult weapons",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Leader’s cult weapons",
+        "range": "Melee",
+        "stats": {
+          "A": 5,
+          "S": 5,
+          "AP": -1,
+          "D": 2,
+          "WS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "metamorph-mutations",
+    "name": "Metamorph mutations",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Strike",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 5,
+          "AP": -1,
+          "D": 2,
+          "WS": 3
+        },
+        "keywords": []
+      },
+      {
+        "name": "Sweep",
+        "range": "Melee",
+        "stats": {
+          "A": 5,
+          "S": 4,
+          "AP": -1,
+          "D": 1,
+          "WS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "demolition-charges",
+    "name": "Demolition charges",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Demolition charges",
+        "range": 8,
+        "stats": {
+          "A": "D6",
+          "S": 9,
+          "AP": -2,
+          "D": 2,
+          "BS": 5
+        },
+        "keywords": [
+          "Assault",
+          "Blast",
+          "Hazardous",
+          "One Shot"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "locus-blades",
+    "name": "Locus blades",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Locus blades",
+        "range": "Melee",
+        "stats": {
+          "A": 5,
+          "S": 5,
+          "AP": -2,
+          "D": 2,
+          "WS": 2
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "clearance-incinerator",
+    "name": "Clearance incinerator",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Clearance incinerator",
+        "range": 12,
+        "stats": {
+          "A": "2D6",
+          "S": 6,
+          "AP": -1,
+          "D": 1,
+          "BS": null
+        },
+        "keywords": [
+          "Ignores Cover",
+          "Torrent"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "heavy-seismic-cannon",
+    "name": "Heavy seismic cannon",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Heavy seismic cannon",
+        "range": 24,
+        "stats": {
+          "A": 4,
+          "S": 8,
+          "AP": -2,
+          "D": "D3",
+          "BS": 4
+        },
+        "keywords": [
+          "Rapid Fire 2"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "drilldozer-blade",
+    "name": "Drilldozer blade",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Drilldozer blade",
+        "range": "Melee",
+        "stats": {
+          "A": 8,
+          "S": 10,
+          "AP": -2,
+          "D": 2,
+          "WS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "psionic-cascade",
+    "name": "Psionic Cascade",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Witchfire",
+        "range": 18,
+        "stats": {
+          "A": 1,
+          "S": 12,
+          "AP": -3,
+          "D": "D6+1",
+          "BS": 3
+        },
+        "keywords": [
+          "Ignores Cover",
+          "Psychic"
+        ]
+      },
+      {
+        "name": "Focused witchfire",
+        "range": 18,
+        "stats": {
+          "A": 2,
+          "S": 12,
+          "AP": -3,
+          "D": "D6+1",
+          "BS": 3
+        },
+        "keywords": [
+          "Hazardous",
+          "Ignores Cover",
+          "Psychic"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "cult-claws-and-talons",
+    "name": "Cult claws and talons",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Cult claws and talons",
+        "range": "Melee",
+        "stats": {
+          "A": 4,
+          "S": 4,
+          "AP": -2,
+          "D": 1,
+          "WS": 2
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "force-stave",
+    "name": "Force stave",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Force stave",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 5,
+          "AP": -1,
+          "D": "D3",
+          "WS": 3
+        },
+        "keywords": [
+          "Psychic"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "fragdrill",
+    "name": "Fragdrill",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Fragdrill",
+        "range": "Melee",
+        "stats": {
+          "A": 6,
+          "S": 12,
+          "AP": -2,
+          "D": "D6",
+          "WS": 6
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  }
+]

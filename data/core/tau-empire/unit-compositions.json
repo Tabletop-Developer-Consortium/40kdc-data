@@ -1,0 +1,900 @@
+[
+  {
+    "unit_id": "krootox-rampagers",
+    "models": [
+      {
+        "name": "Krootox Rampagers",
+        "min": 3,
+        "max": 6,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "manta",
+    "models": [
+      {
+        "name": "Manta",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "crisis-fireknife-battlesuits",
+    "models": [
+      {
+        "name": "Crisis Fireknife Shas’ui",
+        "min": 3,
+        "max": 3,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "piranhas",
+    "models": [
+      {
+        "name": "Piranhas",
+        "min": 1,
+        "max": 3,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "stealth-battlesuits",
+    "models": [
+      {
+        "name": "Stealth Shas’vre",
+        "profile_name": "Stealth Battlesuit",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "burst-cannon",
+          "battlesuit-fists"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Stealth Battlesuit",
+        "min": 4,
+        "max": 4,
+        "default_weapon_ids": [
+          "burst-cannon",
+          "battlesuit-fists"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "sun-shark-bomber",
+    "models": [
+      {
+        "name": "Sun Shark Bomber",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "kroot-farstalkers",
+    "models": [
+      {
+        "name": "Kill-Broker",
+        "profile_name": "Kroot Farstalker",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "farstalker-firearm",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Kroot Farstalker",
+        "min": 10,
+        "max": 10,
+        "default_weapon_ids": [
+          "farstalker-firearm",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": false
+      },
+      {
+        "name": "Kroot Hound",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "ripping-fangs"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "taunar-supremacy-armour",
+    "models": [
+      {
+        "name": "Ta’unar Supremacy Armour",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "pathfinder-team",
+    "models": [
+      {
+        "name": "Pathfinder Shas’ui",
+        "profile_name": "Pathfinder",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "pulse-carbine",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Pathfinder",
+        "min": 9,
+        "max": 9,
+        "default_weapon_ids": [
+          "pulse-carbine",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "strike-team",
+    "models": [
+      {
+        "name": "Fire Warrior Shas’ui",
+        "profile_name": "Fire Warrior",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "pulse-pistol",
+          "pulse-rifle",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Fire Warrior",
+        "min": 9,
+        "max": 9,
+        "default_weapon_ids": [
+          "pulse-pistol",
+          "pulse-rifle",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "the-twin-lance",
+    "models": [
+      {
+        "name": "Ri’Locai",
+        "min": 2,
+        "max": 2,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "crisis-starscythe-battlesuits",
+    "models": [
+      {
+        "name": "Crisis Starscythe Shas’ui",
+        "min": 3,
+        "max": 3,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "tiger-shark",
+    "models": [
+      {
+        "name": "Tiger Shark",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "breacher-team",
+    "models": [
+      {
+        "name": "Fire Warrior Shas’ui",
+        "profile_name": "Fire Warrior",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "pulse-blaster",
+          "pulse-pistol",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Fire Warrior",
+        "min": 9,
+        "max": 9,
+        "default_weapon_ids": [
+          "pulse-blaster",
+          "pulse-pistol",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "stormsurge",
+    "models": [
+      {
+        "name": "Stormsurge",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "tidewall-gunrig",
+    "models": [
+      {
+        "name": "Tidewall Gunrig",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "kroot-hounds",
+    "models": [
+      {
+        "name": "Kroot Hounds",
+        "min": 5,
+        "max": 10,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "ethereal",
+    "models": [
+      {
+        "name": "Ethereal",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "riptide-battlesuit",
+    "models": [
+      {
+        "name": "Riptide Battlesuit",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "commander-farsight",
+    "models": [
+      {
+        "name": "Commander Farsight",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "krootox-riders",
+    "models": [
+      {
+        "name": "Krootox Riders",
+        "min": 1,
+        "max": 3,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "commander-shadowsun",
+    "models": [
+      {
+        "name": "Commander Shadowsun",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "ghostkeel-battlesuit",
+    "models": [
+      {
+        "name": "Ghostkeel Battlesuit",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "ax-1-0-tiger-shark",
+    "models": [
+      {
+        "name": "AX-1-0 Tiger Shark",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "sky-ray-gunship",
+    "models": [
+      {
+        "name": "Sky Ray Gunship",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "vespid-stingwings",
+    "models": [
+      {
+        "name": "Vespid Strain Leader",
+        "profile_name": "Vespid Stingwing",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "neutron-blaster",
+          "stingwing-claws"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Vespid Stingwing",
+        "min": 4,
+        "max": 9,
+        "default_weapon_ids": [
+          "neutron-blaster",
+          "stingwing-claws"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "commander-in-coldstar-battlesuit",
+    "models": [
+      {
+        "name": "Commander in Coldstar Battlesuit",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "kroot-trail-shaper",
+    "models": [
+      {
+        "name": "Kroot Trail Shaper",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "tidewall-shieldline",
+    "models": [
+      {
+        "name": "Tidewall Shieldline",
+        "min": 1,
+        "max": 2,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "broadside-battlesuits",
+    "models": [
+      {
+        "name": "Broadside Shas’vre",
+        "min": 1,
+        "max": 3,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "commander-in-enforcer-battlesuit",
+    "models": [
+      {
+        "name": "Commander in Enforcer Battlesuit",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "cadre-fireblade",
+    "models": [
+      {
+        "name": "Cadre Fireblade",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "razorshark-strike-fighter",
+    "models": [
+      {
+        "name": "Razorshark Strike Fighter",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "devilfish",
+    "models": [
+      {
+        "name": "Devilfish",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "darkstrider",
+    "models": [
+      {
+        "name": "Darkstrider",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "hammerhead-gunship",
+    "models": [
+      {
+        "name": "Hammerhead Gunship",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "tidewall-droneport",
+    "models": [
+      {
+        "name": "Tidewall Droneport",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "crisis-sunforge-battlesuits",
+    "models": [
+      {
+        "name": "Crisis Sunforge Shas’ui",
+        "min": 3,
+        "max": 3,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "firesight-team",
+    "models": [
+      {
+        "name": "Firesight Team",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "kroot-carnivores",
+    "models": [
+      {
+        "name": "Kroot Trail Shaper",
+        "profile_name": "Kroot Carnivore",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "kroot-rifle",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Kroot Carnivore",
+        "min": 9,
+        "max": 19,
+        "default_weapon_ids": [
+          "kroot-rifle",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "kroot-war-shaper",
+    "models": [
+      {
+        "name": "Kroot War Shaper",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "kroot-lone-spear",
+    "models": [
+      {
+        "name": "Kroot Lone-spear",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "kroot-flesh-shaper",
+    "models": [
+      {
+        "name": "Kroot Flesh Shaper",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "tx42-piranha",
+    "models": [
+      {
+        "name": "Tx42 Piranha",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "orca-dropship",
+    "models": [
+      {
+        "name": "Orca Dropship",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "shaso-ralai",
+    "models": [
+      {
+        "name": "Shas'o R'alai",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "xv9-hazard-battlesuits",
+    "models": [
+      {
+        "name": "Xv9 Hazard Battlesuits",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "knarloc-riders",
+    "models": [
+      {
+        "name": "Knarloc Riders",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "great-knarloc",
+    "models": [
+      {
+        "name": "Great Knarloc",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "drone-sentry-turret",
+    "models": [
+      {
+        "name": "Drone Sentry Turret",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "remote-sensor-tower",
+    "models": [
+      {
+        "name": "Remote Sensor Tower",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "heavy-gun-drones",
+    "models": [
+      {
+        "name": "Heavy Gun Drones",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  }
+]

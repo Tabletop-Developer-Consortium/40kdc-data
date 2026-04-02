@@ -1,0 +1,597 @@
+[
+  {
+    "id": "passion-of-the-penitent",
+    "name": "PASSION OF THE PENITENT",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "penitent-host",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "lash-of-guilt",
+    "name": "LASH OF GUILT",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "penitent-host",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "purity-of-suffering",
+    "name": "PURITY OF SUFFERING",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "penitent-host",
+    "cp_cost": 1,
+    "phases": [
+      "fight",
+      "shooting"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "righteous-vengeance",
+    "name": "RIGHTEOUS VENGEANCE",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "hallowed-martyrs",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "shield-of-aversion",
+    "name": "SHIELD OF AVERSION",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "bringers-of-flame",
+    "cp_cost": 1,
+    "phases": [
+      "fight",
+      "shooting"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "righteous-blows",
+    "name": "RIGHTEOUS BLOWS",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "bringers-of-flame",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "rites-of-fire",
+    "name": "RITES OF FIRE",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "bringers-of-flame",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "shield-of-denial",
+    "name": "SHIELD OF DENIAL",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "champions-of-faith",
+    "cp_cost": 1,
+    "phases": [
+      "command",
+      "movement",
+      "shooting",
+      "charge",
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "to-the-heart-of-heresy",
+    "name": "TO THE HEART OF HERESY",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "champions-of-faith",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "path-of-the-righteous",
+    "name": "PATH OF THE RIGHTEOUS",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "champions-of-faith",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "bastion-of-faith",
+    "name": "BASTION OF FAITH",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "champions-of-faith",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "shield-of-faith",
+    "name": "SHIELD OF FAITH",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "army-of-faith",
+    "cp_cost": 1,
+    "phases": [
+      "command",
+      "movement",
+      "shooting",
+      "charge",
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "light-of-the-emperor",
+    "name": "LIGHT OF THE EMPEROR",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "army-of-faith",
+    "cp_cost": 1,
+    "phases": [
+      "command"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "faith-and-fury",
+    "name": "FAITH AND FURY",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "army-of-faith",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "divine-guidance",
+    "name": "DIVINE GUIDANCE",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "army-of-faith",
+    "cp_cost": 1,
+    "phases": [
+      "fight",
+      "shooting"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "cleansing-flames",
+    "name": "CLEANSING FLAMES",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "bringers-of-flame",
+    "cp_cost": 2,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "blazing-ire",
+    "name": "BLAZING IRE",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "bringers-of-flame",
+    "cp_cost": 2,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "final-redemption",
+    "name": "FINAL REDEMPTION",
+    "category": "detachment",
+    "type": "epic-deed",
+    "detachment_id": "penitent-host",
+    "cp_cost": 1,
+    "phases": [
+      "command",
+      "movement",
+      "shooting",
+      "charge",
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "divine-intervention",
+    "name": "DIVINE INTERVENTION",
+    "category": "detachment",
+    "type": "epic-deed",
+    "detachment_id": "hallowed-martyrs",
+    "cp_cost": 1,
+    "phases": [
+      "command",
+      "movement",
+      "shooting",
+      "charge",
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "boundless-zeal",
+    "name": "BOUNDLESS ZEAL",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "penitent-host",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "devout-fanaticism",
+    "name": "DEVOUT FANATICISM",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "penitent-host",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "suffering-and-sacrifice",
+    "name": "SUFFERING AND SACRIFICE",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "hallowed-martyrs",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "sanctified-immolation",
+    "name": "SANCTIFIED IMMOLATION",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "hallowed-martyrs",
+    "cp_cost": 1,
+    "phases": [
+      "command",
+      "movement",
+      "shooting",
+      "charge",
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "praise-the-fallen",
+    "name": "PRAISE THE FALLEN",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "hallowed-martyrs",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "carry-forth-the-faithful",
+    "name": "CARRY FORTH THE FAITHFUL",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "bringers-of-flame",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "suffer-not-the-unfaithful",
+    "name": "SUFFER NOT THE UNFAITHFUL",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "champions-of-faith",
+    "cp_cost": 1,
+    "phases": [
+      "fight",
+      "shooting"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "indefatigable-dedication",
+    "name": "INDEFATIGABLE DEDICATION",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "champions-of-faith",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "blinding-radiance",
+    "name": "BLINDING RADIANCE",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "army-of-faith",
+    "cp_cost": 1,
+    "phases": [
+      "fight",
+      "shooting"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "angelic-descent",
+    "name": "ANGELIC DESCENT",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "army-of-faith",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "spirit-of-the-martyr",
+    "name": "SPIRIT OF THE MARTYR",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "hallowed-martyrs",
+    "cp_cost": 2,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  }
+]

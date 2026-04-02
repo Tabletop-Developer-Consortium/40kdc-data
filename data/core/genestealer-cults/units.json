@@ -1,0 +1,1255 @@
+[
+  {
+    "id": "atalan-jackals",
+    "name": "Atalan Jackals",
+    "faction_id": "genestealer-cults",
+    "profiles": [
+      {
+        "name": "Atalan Jackal",
+        "M": 12,
+        "T": 4,
+        "W": 2,
+        "Sv": 5,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      },
+      {
+        "name": "Atalan Wolfquad",
+        "M": 12,
+        "T": 4,
+        "W": 4,
+        "Sv": 5,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 85
+      },
+      {
+        "models": 9,
+        "cost": 150
+      },
+      {
+        "models": 10,
+        "cost": 150
+      }
+    ],
+    "keywords": [
+      "Mounted",
+      "Grenades",
+      "Great Devourer",
+      "Atalan Jackals"
+    ],
+    "faction_keywords": [
+      "Genestealer Cults"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 10
+    },
+    "weapon_ids": [
+      "atalan-incinerator",
+      "atalan-power-weapon",
+      "atalan-small-arms",
+      "close-combat-weapon",
+      "grenade-launcher",
+      "heavy-stubber",
+      "mining-laser"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "kelermorph",
+    "name": "Kelermorph",
+    "faction_id": "genestealer-cults",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Kelermorph",
+        "M": 6,
+        "T": 3,
+        "W": 3,
+        "Sv": 5,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 60
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Great Devourer",
+      "Kelermorph"
+    ],
+    "faction_keywords": [
+      "Genestealer Cults"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "close-combat-weapon",
+      "liberator-autostubs"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "neophyte-hybrids",
+    "name": "Neophyte Hybrids",
+    "faction_id": "genestealer-cults",
+    "role": "battleline",
+    "profiles": [
+      {
+        "name": "Neophyte Hybrid",
+        "M": 6,
+        "T": 3,
+        "W": 1,
+        "Sv": 5,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 10,
+        "cost": 65
+      },
+      {
+        "models": 20,
+        "cost": 145
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Battleline",
+      "Grenades",
+      "Great Devourer",
+      "Neophyte Hybrids"
+    ],
+    "faction_keywords": [
+      "Genestealer Cults"
+    ],
+    "model_count": {
+      "min": 10,
+      "max": 20
+    },
+    "weapon_ids": [
+      "anointed-pistol",
+      "autopistol",
+      "chainsword",
+      "close-combat-weapon",
+      "flamer",
+      "grenade-launcher",
+      "heavy-stubber",
+      "hybrid-firearm",
+      "mining-laser",
+      "power-weapon",
+      "seismic-cannon",
+      "webber"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "clamavus",
+    "name": "Clamavus",
+    "faction_id": "genestealer-cults",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Clamavus",
+        "M": 6,
+        "T": 3,
+        "W": 3,
+        "Sv": 5,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 50
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Great Devourer",
+      "Clamavus"
+    ],
+    "faction_keywords": [
+      "Genestealer Cults"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "autopistol",
+      "close-combat-weapon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "reductus-saboteur",
+    "name": "Reductus Saboteur",
+    "faction_id": "genestealer-cults",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Reductus Saboteur",
+        "M": 6,
+        "T": 3,
+        "W": 3,
+        "Sv": 5,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 65
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Grenades",
+      "Great Devourer",
+      "Reductus Saboteur"
+    ],
+    "faction_keywords": [
+      "Genestealer Cults"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "autopistol",
+      "close-combat-weapon",
+      "demolition-charges",
+      "remote-explosives"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "patriarch",
+    "name": "Patriarch",
+    "faction_id": "genestealer-cults",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Patriarch",
+        "M": 8,
+        "T": 5,
+        "W": 6,
+        "Sv": 4,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 75
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Psyker",
+      "Great Devourer",
+      "Patriarch"
+    ],
+    "faction_keywords": [
+      "Genestealer Cults"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "patriarchs-claws"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "goliath-truck",
+    "name": "Goliath Truck",
+    "faction_id": "genestealer-cults",
+    "role": "dedicated-transport",
+    "profiles": [
+      {
+        "name": "Goliath Truck",
+        "M": 12,
+        "T": 9,
+        "W": 10,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 85
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Transport",
+      "Dedicated Transport",
+      "Great Devourer",
+      "Goliath Truck"
+    ],
+    "faction_keywords": [
+      "Genestealer Cults"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-hull",
+      "demolition-charge-cache",
+      "heavy-stubber",
+      "twin-autocannon"
+    ],
+    "ability_ids": [],
+    "transport_capacity": {
+      "capacity": 12
+    },
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "biophagus",
+    "name": "Biophagus",
+    "faction_id": "genestealer-cults",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Biophagus",
+        "M": 6,
+        "T": 3,
+        "W": 3,
+        "Sv": 5,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 50
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Great Devourer",
+      "Biophagus"
+    ],
+    "faction_keywords": [
+      "Genestealer Cults"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "autopistol",
+      "chemical-vials",
+      "injector-goad"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "acolyte-iconward",
+    "name": "Acolyte Iconward",
+    "faction_id": "genestealer-cults",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Acolyte Iconward",
+        "M": 6,
+        "T": 4,
+        "W": 3,
+        "Sv": 5,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 50
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Grenades",
+      "Great Devourer",
+      "Acolyte Iconward"
+    ],
+    "faction_keywords": [
+      "Genestealer Cults"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "autopistol",
+      "cult-claws"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "achilles-ridgerunners",
+    "name": "Achilles Ridgerunners",
+    "faction_id": "genestealer-cults",
+    "profiles": [
+      {
+        "name": "Achilles Ridgerunners",
+        "M": 12,
+        "T": 7,
+        "W": 8,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 95
+      },
+      {
+        "models": 2,
+        "cost": 170
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Great Devourer",
+      "Achilles Ridgerunners"
+    ],
+    "faction_keywords": [
+      "Genestealer Cults"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 2
+    },
+    "weapon_ids": [
+      "achilles-missile-launcher",
+      "armoured-hull",
+      "heavy-mining-laser",
+      "heavy-mortar",
+      "twin-heavy-stubber"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "primus",
+    "name": "Primus",
+    "faction_id": "genestealer-cults",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Primus",
+        "M": 6,
+        "T": 3,
+        "W": 4,
+        "Sv": 5,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 70
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Great Devourer",
+      "Primus"
+    ],
+    "faction_keywords": [
+      "Genestealer Cults"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "cult-bonesword",
+      "scoped-needle-pistol",
+      "toxin-injector-claw"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "abominant",
+    "name": "Abominant",
+    "faction_id": "genestealer-cults",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Abominant",
+        "M": 6,
+        "T": 6,
+        "W": 5,
+        "Sv": 5,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 85
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Great Devourer",
+      "Abominant"
+    ],
+    "faction_keywords": [
+      "Genestealer Cults"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "power-sledgehammer"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "nexos",
+    "name": "Nexos",
+    "faction_id": "genestealer-cults",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Nexos",
+        "M": 6,
+        "T": 3,
+        "W": 3,
+        "Sv": 5,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 60
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Great Devourer",
+      "Nexos"
+    ],
+    "faction_keywords": [
+      "Genestealer Cults"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "autopistol",
+      "close-combat-weapon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "sanctus",
+    "name": "Sanctus",
+    "faction_id": "genestealer-cults",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Sanctus",
+        "M": 6,
+        "T": 3,
+        "W": 3,
+        "Sv": 5,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 50
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Great Devourer",
+      "Sanctus"
+    ],
+    "faction_keywords": [
+      "Genestealer Cults"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "close-combat-weapon",
+      "cult-sniper-rifle",
+      "sanctus-bio-dagger"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "jackal-alphus",
+    "name": "Jackal Alphus",
+    "faction_id": "genestealer-cults",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Jackal Alphus",
+        "M": 12,
+        "T": 4,
+        "W": 4,
+        "Sv": 5,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 55
+      }
+    ],
+    "keywords": [
+      "Mounted",
+      "Character",
+      "Grenades",
+      "Great Devourer",
+      "Jackal Alphus"
+    ],
+    "faction_keywords": [
+      "Genestealer Cults"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "autopistol",
+      "close-combat-weapon",
+      "cult-sniper-rifle"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "aberrants",
+    "name": "Aberrants",
+    "faction_id": "genestealer-cults",
+    "profiles": [
+      {
+        "name": "Aberrant",
+        "M": 6,
+        "T": 6,
+        "W": 3,
+        "Sv": 5,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 135
+      },
+      {
+        "models": 10,
+        "cost": 300
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Great Devourer",
+      "Aberrants"
+    ],
+    "faction_keywords": [
+      "Genestealer Cults"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 10
+    },
+    "weapon_ids": [
+      "aberrant-weapons"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "acolyte-hybrids-with-autopistols",
+    "name": "Acolyte Hybrids with Autopistols",
+    "faction_id": "genestealer-cults",
+    "role": "battleline",
+    "profiles": [
+      {
+        "name": "Acolyte Hybrid",
+        "M": 6,
+        "T": 4,
+        "W": 1,
+        "Sv": 5,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 65
+      },
+      {
+        "models": 10,
+        "cost": 130
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Battleline",
+      "Grenades",
+      "Great Devourer",
+      "Acolyte Hybrids",
+      "Acolyte Hybrids with Autopistols"
+    ],
+    "faction_keywords": [
+      "Genestealer Cults"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 10
+    },
+    "weapon_ids": [
+      "autopistol",
+      "cult-claws-and-knife",
+      "heavy-mining-tool",
+      "leaders-cult-weapons"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "hybrid-metamorphs",
+    "name": "Hybrid Metamorphs",
+    "faction_id": "genestealer-cults",
+    "profiles": [
+      {
+        "name": "Hybrid Metamorph",
+        "M": 6,
+        "T": 4,
+        "W": 1,
+        "Sv": 5,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 70
+      },
+      {
+        "models": 10,
+        "cost": 140
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Grenades",
+      "Great Devourer",
+      "Hybrid Metamorphs"
+    ],
+    "faction_keywords": [
+      "Genestealer Cults"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 10
+    },
+    "weapon_ids": [
+      "autopistol",
+      "hand-flamer",
+      "leaders-cult-weapons",
+      "metamorph-mutations"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "acolyte-hybrids-with-hand-flamers",
+    "name": "Acolyte Hybrids with Hand Flamers",
+    "faction_id": "genestealer-cults",
+    "role": "battleline",
+    "profiles": [
+      {
+        "name": "Acolyte Hybrid",
+        "M": 6,
+        "T": 4,
+        "W": 1,
+        "Sv": 5,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 70
+      },
+      {
+        "models": 10,
+        "cost": 140
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Battleline",
+      "Grenades",
+      "Great Devourer",
+      "Acolyte Hybrids",
+      "Acolyte Hybrids with Hand Flamers"
+    ],
+    "faction_keywords": [
+      "Genestealer Cults"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 10
+    },
+    "weapon_ids": [
+      "cult-claws-and-knife",
+      "demolition-charges",
+      "hand-flamer",
+      "leaders-cult-weapons"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "locus",
+    "name": "Locus",
+    "faction_id": "genestealer-cults",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Locus",
+        "M": 6,
+        "T": 4,
+        "W": 3,
+        "Sv": 5,
+        "invuln_sv": 4,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 45
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Great Devourer",
+      "Locus"
+    ],
+    "faction_keywords": [
+      "Genestealer Cults"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "locus-blades"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "goliath-rockgrinder",
+    "name": "Goliath Rockgrinder",
+    "faction_id": "genestealer-cults",
+    "profiles": [
+      {
+        "name": "Goliath Rockgrinder",
+        "M": 12,
+        "T": 10,
+        "W": 10,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 120
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Transport",
+      "Great Devourer",
+      "Goliath Rockgrinder"
+    ],
+    "faction_keywords": [
+      "Genestealer Cults"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "clearance-incinerator",
+      "demolition-charge-cache",
+      "drilldozer-blade",
+      "heavy-mining-laser",
+      "heavy-seismic-cannon",
+      "heavy-stubber"
+    ],
+    "ability_ids": [],
+    "transport_capacity": {
+      "capacity": 6
+    },
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "benefictus",
+    "name": "Benefictus",
+    "faction_id": "genestealer-cults",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Benefictus",
+        "M": 6,
+        "T": 3,
+        "W": 3,
+        "Sv": 5,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 70
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Psyker",
+      "Great Devourer",
+      "Benefictus"
+    ],
+    "faction_keywords": [
+      "Genestealer Cults"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "close-combat-weapon",
+      "psionic-cascade"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "purestrain-genestealers",
+    "name": "Purestrain Genestealers",
+    "faction_id": "genestealer-cults",
+    "profiles": [
+      {
+        "name": "Purestrain Genestealers",
+        "M": 8,
+        "T": 4,
+        "W": 2,
+        "Sv": 5,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 75
+      },
+      {
+        "models": 10,
+        "cost": 140
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Great Devourer",
+      "Purestrain Genestealers"
+    ],
+    "faction_keywords": [
+      "Genestealer Cults"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 10
+    },
+    "weapon_ids": [
+      "cult-claws-and-talons"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "magus",
+    "name": "Magus",
+    "faction_id": "genestealer-cults",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Magus",
+        "M": 6,
+        "T": 3,
+        "W": 4,
+        "Sv": 5,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 50
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Psyker",
+      "Great Devourer",
+      "Magus"
+    ],
+    "faction_keywords": [
+      "Genestealer Cults"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "autopistol",
+      "force-stave"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "tectonic-fragdrill",
+    "name": "Tectonic Fragdrill",
+    "faction_id": "genestealer-cults",
+    "profiles": [
+      {
+        "name": "Tectonic Fragdrill",
+        "M": 0,
+        "T": 11,
+        "W": 14,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 0
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Fortification",
+      "Tectonic Fragdrill",
+      "Vehicle"
+    ],
+    "faction_keywords": [
+      "Genestealer Cults"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "fragdrill"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  }
+]

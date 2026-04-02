@@ -1,0 +1,515 @@
+[
+  {
+    "unit_id": "lord-of-poxes",
+    "models": [
+      {
+        "name": "Lord of Poxes",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "defiler",
+    "models": [
+      {
+        "name": "Defiler",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "chaos-spawn",
+    "models": [
+      {
+        "name": "Chaos Spawn",
+        "min": 2,
+        "max": 2,
+        "default_weapon_ids": [
+          "hideous-mutations"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "tallyman",
+    "models": [
+      {
+        "name": "Tallyman",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "poxwalkers",
+    "models": [
+      {
+        "name": "Poxwalkers",
+        "min": 10,
+        "max": 20,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "lord-of-contagion",
+    "models": [
+      {
+        "name": "Lord of Contagion",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "chaos-predator-annihilator",
+    "models": [
+      {
+        "name": "Chaos Predator Annihilator",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "chaos-predator-destructor",
+    "models": [
+      {
+        "name": "Chaos Predator Destructor",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "foetid-bloat-drone-with-heavy-blight-launcher",
+    "models": [
+      {
+        "name": "Foetid Bloat-Drone with Heavy Blight Launcher",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "plagueburst-crawler",
+    "models": [
+      {
+        "name": "Plagueburst Crawler",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "biologus-putrifier",
+    "models": [
+      {
+        "name": "Biologus Putrifier",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "plague-marines",
+    "models": [
+      {
+        "name": "Plague Champion",
+        "profile_name": "Plague Marine",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "bolt-pistol",
+          "plague-knives"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Plague Marine",
+        "min": 4,
+        "max": 9,
+        "default_weapon_ids": [
+          "boltgun",
+          "plague-knives"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "plague-surgeon",
+    "models": [
+      {
+        "name": "Plague Surgeon",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "daemon-prince-of-nurgle",
+    "models": [
+      {
+        "name": "Daemon Prince of Nurgle",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "deathshroud-terminators",
+    "models": [
+      {
+        "name": "Deathshroud Champion",
+        "profile_name": "Deathshroud Terminator",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "plaguespurt-gauntlet",
+          "manreaper-strike"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Deathshroud Terminator",
+        "min": 2,
+        "max": 5,
+        "default_weapon_ids": [
+          "plaguespurt-gauntlet",
+          "manreaper-strike"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "lord-of-virulence",
+    "models": [
+      {
+        "name": "Lord of Virulence",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "foetid-bloat-drone",
+    "models": [
+      {
+        "name": "Foetid Bloat-Drone",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "noxious-blightbringer",
+    "models": [
+      {
+        "name": "Noxious Blightbringer",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "daemon-prince-of-nurgle-with-wings",
+    "models": [
+      {
+        "name": "Daemon Prince of Nurgle with Wings",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "miasmic-malignifier",
+    "models": [
+      {
+        "name": "Miasmic Malignifier",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "helbrute",
+    "models": [
+      {
+        "name": "Helbrute",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "myphitic-blight-haulers",
+    "models": [
+      {
+        "name": "Myphitic Blight-haulers",
+        "min": 1,
+        "max": 2,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "mortarion",
+    "models": [
+      {
+        "name": "Mortarion",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "malignant-plaguecaster",
+    "models": [
+      {
+        "name": "Malignant Plaguecaster",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "chaos-rhino",
+    "models": [
+      {
+        "name": "Chaos Rhino",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "chaos-land-raider",
+    "models": [
+      {
+        "name": "Chaos Land Raider",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "foul-blightspawn",
+    "models": [
+      {
+        "name": "Foul Blightspawn",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "icon-bearer",
+    "models": [
+      {
+        "name": "Icon Bearer",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "typhus",
+    "models": [
+      {
+        "name": "Typhus",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "blightlord-terminators",
+    "models": [
+      {
+        "name": "Blightlord Champion",
+        "profile_name": "Blightlord Terminator",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "combi-bolter",
+          "bubotic-blade"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Blightlord Terminator",
+        "min": 2,
+        "max": 9,
+        "default_weapon_ids": [
+          "combi-bolter",
+          "bubotic-blade"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "death-guard-possessed",
+    "models": [
+      {
+        "name": "Death Guard Possessed",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  }
+]

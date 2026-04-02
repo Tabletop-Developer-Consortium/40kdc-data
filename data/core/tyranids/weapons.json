@@ -1,0 +1,2861 @@
+[
+  {
+    "id": "bio-electric-pulse",
+    "name": "Bio-electric pulse",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Bio-electric pulse",
+        "range": 12,
+        "stats": {
+          "A": 6,
+          "S": 5,
+          "AP": 0,
+          "D": 1,
+          "BS": 3
+        },
+        "keywords": [
+          "Sustained Hits 2"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "trygon-scything-talons",
+    "name": "Trygon scything talons",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Trygon scything talons",
+        "range": "Melee",
+        "stats": {
+          "A": 12,
+          "S": 9,
+          "AP": -2,
+          "D": 3,
+          "WS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "distensible-jaw",
+    "name": "Distensible jaw",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Distensible jaw",
+        "range": "Melee",
+        "stats": {
+          "A": 1,
+          "S": 5,
+          "AP": 0,
+          "D": 3,
+          "WS": 3
+        },
+        "keywords": [
+          "Anti-infantry 4+",
+          "Devastating Wounds",
+          "Extra Attacks"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "mawloc-scything-talons",
+    "name": "Mawloc scything talons",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Mawloc scything talons",
+        "range": "Melee",
+        "stats": {
+          "A": 16,
+          "S": 8,
+          "AP": -2,
+          "D": 1,
+          "WS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "devourer",
+    "name": "Devourer",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Devourer",
+        "range": 18,
+        "stats": {
+          "A": 5,
+          "S": 4,
+          "AP": 0,
+          "D": 1,
+          "BS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "deathspitter",
+    "name": "Deathspitter",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Deathspitter",
+        "range": 24,
+        "stats": {
+          "A": 3,
+          "S": 5,
+          "AP": -1,
+          "D": 1,
+          "BS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "spinefists",
+    "name": "Spinefists",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Spinefists",
+        "range": 12,
+        "stats": {
+          "A": 2,
+          "S": 4,
+          "AP": 0,
+          "D": 1,
+          "BS": 4
+        },
+        "keywords": [
+          "Assault",
+          "Pistol",
+          "Twin-linked"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "barbed-strangler",
+    "name": "Barbed strangler",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Barbed strangler",
+        "range": 36,
+        "stats": {
+          "A": "D6+1",
+          "S": 6,
+          "AP": -1,
+          "D": 1,
+          "BS": 4
+        },
+        "keywords": [
+          "Blast"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "venom-cannon",
+    "name": "Venom cannon",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Venom cannon",
+        "range": 36,
+        "stats": {
+          "A": "D3",
+          "S": 9,
+          "AP": -2,
+          "D": 2,
+          "BS": 4
+        },
+        "keywords": [
+          "Blast"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "tyranid-warrior-claws-and-talons",
+    "name": "Tyranid Warrior claws and talons",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Tyranid Warrior claws and talons",
+        "range": "Melee",
+        "stats": {
+          "A": 5,
+          "S": 5,
+          "AP": -1,
+          "D": 1,
+          "WS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "heavy-venom-cannon",
+    "name": "Heavy venom cannon",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Heavy venom cannon",
+        "range": 36,
+        "stats": {
+          "A": "D3",
+          "S": 9,
+          "AP": -2,
+          "D": 3,
+          "BS": 2
+        },
+        "keywords": [
+          "Blast"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "stranglethorn-cannon",
+    "name": "Stranglethorn cannon",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Stranglethorn cannon",
+        "range": 36,
+        "stats": {
+          "A": "D6+1",
+          "S": 7,
+          "AP": -1,
+          "D": 2,
+          "BS": 2
+        },
+        "keywords": [
+          "Blast"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "monstrous-scything-talons",
+    "name": "Monstrous scything talons",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Monstrous scything talons",
+        "range": "Melee",
+        "stats": {
+          "A": 4,
+          "S": 7,
+          "AP": -2,
+          "D": 2,
+          "WS": 2
+        },
+        "keywords": [
+          "Extra Attacks"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "monstrous-bonesword-and-lash-whip",
+    "name": "Monstrous bonesword and lash whip",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Monstrous bonesword and lash whip",
+        "range": "Melee",
+        "stats": {
+          "A": 6,
+          "S": 9,
+          "AP": -2,
+          "D": 3,
+          "WS": 2
+        },
+        "keywords": [
+          "Twin-linked"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "tyrant-talons",
+    "name": "Tyrant talons",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Tyrant talons",
+        "range": "Melee",
+        "stats": {
+          "A": 5,
+          "S": 7,
+          "AP": -2,
+          "D": 2,
+          "WS": 2
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "dire-bio-cannon",
+    "name": "Dire bio-cannon",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Dire bio-cannon",
+        "range": 48,
+        "stats": {
+          "A": "D6+6",
+          "S": 10,
+          "AP": -3,
+          "D": 3,
+          "BS": 3
+        },
+        "keywords": [
+          "Blast"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "gargantuan-scything-talons",
+    "name": "Gargantuan scything talons",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Gargantuan scything talons",
+        "range": "Melee",
+        "stats": {
+          "A": 6,
+          "S": 14,
+          "AP": -2,
+          "D": "D6",
+          "WS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "psychic-tendril",
+    "name": "Psychic Tendril",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Neuroparasite",
+        "range": 18,
+        "stats": {
+          "A": 2,
+          "S": 8,
+          "AP": -2,
+          "D": "D3",
+          "BS": 2
+        },
+        "keywords": [
+          "Precision",
+          "Psychic"
+        ]
+      },
+      {
+        "name": "Neuroblast",
+        "range": 18,
+        "stats": {
+          "A": "2D6",
+          "S": 6,
+          "AP": -2,
+          "D": 1,
+          "BS": 2
+        },
+        "keywords": [
+          "Blast",
+          "Psychic"
+        ]
+      },
+      {
+        "name": "Neurolance",
+        "range": 18,
+        "stats": {
+          "A": 2,
+          "S": 12,
+          "AP": -3,
+          "D": "D6",
+          "BS": 2
+        },
+        "keywords": [
+          "Melta 2",
+          "Psychic"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "monstrous-scything-talons",
+    "name": "Monstrous scything talons",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Monstrous scything talons",
+        "range": "Melee",
+        "stats": {
+          "A": 6,
+          "S": 9,
+          "AP": -2,
+          "D": 3,
+          "WS": 2
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "monstrous-rending-claws",
+    "name": "Monstrous rending claws",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Monstrous rending claws",
+        "range": "Melee",
+        "stats": {
+          "A": 4,
+          "S": 7,
+          "AP": -2,
+          "D": 2,
+          "WS": 2
+        },
+        "keywords": [
+          "Extra Attacks"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "prime-talons",
+    "name": "Prime talons",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Prime talons",
+        "range": "Melee",
+        "stats": {
+          "A": 6,
+          "S": 6,
+          "AP": -1,
+          "D": 2,
+          "WS": 2
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "leapers-talons",
+    "name": "Leaper’s talons",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Leaper’s talons",
+        "range": "Melee",
+        "stats": {
+          "A": 6,
+          "S": 5,
+          "AP": -1,
+          "D": 1,
+          "WS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "bio-plasma-torrent",
+    "name": "Bio-plasma torrent",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Bio-plasma torrent",
+        "range": 12,
+        "stats": {
+          "A": "3D6",
+          "S": 7,
+          "AP": -2,
+          "D": 1,
+          "BS": null
+        },
+        "keywords": [
+          "Assault",
+          "Torrent"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "lashwhip-pods",
+    "name": "Lashwhip pods",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Lashwhip pods",
+        "range": "Melee",
+        "stats": {
+          "A": 10,
+          "S": 5,
+          "AP": -1,
+          "D": 1,
+          "WS": 3
+        },
+        "keywords": [
+          "Extra Attacks"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "titanic-scything-talons",
+    "name": "Titanic scything talons",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Titanic scything talons",
+        "range": "Melee",
+        "stats": {
+          "A": 8,
+          "S": 20,
+          "AP": -2,
+          "D": "D6+1",
+          "WS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "synaptic-pulse",
+    "name": "Synaptic pulse",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Synaptic pulse",
+        "range": 18,
+        "stats": {
+          "A": "D6+3",
+          "S": 5,
+          "AP": -1,
+          "D": 2,
+          "BS": null
+        },
+        "keywords": [
+          "Psychic",
+          "Torrent"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "bone-sabres",
+    "name": "Bone sabres",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Bone sabres",
+        "range": "Melee",
+        "stats": {
+          "A": 8,
+          "S": 9,
+          "AP": -2,
+          "D": 3,
+          "WS": 2
+        },
+        "keywords": [
+          "Twin-linked"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "bio-plasmic-cannon",
+    "name": "Bio-plasmic cannon",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Bio-plasmic cannon",
+        "range": 36,
+        "stats": {
+          "A": "D6+3",
+          "S": 9,
+          "AP": -3,
+          "D": 3,
+          "BS": 3
+        },
+        "keywords": [
+          "Blast",
+          "Heavy"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "powerful-limbs",
+    "name": "Powerful limbs",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Powerful limbs",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 7,
+          "AP": 0,
+          "D": 2,
+          "WS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "toxic-lashes",
+    "name": "Toxic lashes",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Toxic lashes",
+        "range": "Melee",
+        "stats": {
+          "A": 5,
+          "S": 3,
+          "AP": 0,
+          "D": 1,
+          "WS": 3
+        },
+        "keywords": [
+          "Anti-infantry 2+"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "tyranid-warrior-claws-and-talons",
+    "name": "Tyranid Warrior claws and talons",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Tyranid Warrior claws and talons",
+        "range": "Melee",
+        "stats": {
+          "A": 6,
+          "S": 5,
+          "AP": -2,
+          "D": 1,
+          "WS": 3
+        },
+        "keywords": [
+          "Twin-linked"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "tyrannocyte-bio-weapons",
+    "name": "Tyrannocyte bio-weapons",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Tyrannocyte bio-weapons",
+        "range": 24,
+        "stats": {
+          "A": 5,
+          "S": 5,
+          "AP": -1,
+          "D": 2,
+          "BS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "flensing-whips",
+    "name": "Flensing whips",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Flensing whips",
+        "range": "Melee",
+        "stats": {
+          "A": 6,
+          "S": 7,
+          "AP": -1,
+          "D": 2,
+          "WS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "spinemaws",
+    "name": "Spinemaws",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Spinemaws",
+        "range": 6,
+        "stats": {
+          "A": 4,
+          "S": 3,
+          "AP": 0,
+          "D": 1,
+          "BS": 5
+        },
+        "keywords": [
+          "Pistol"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "chitinous-claws-and-teeth",
+    "name": "Chitinous claws and teeth",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Chitinous claws and teeth",
+        "range": "Melee",
+        "stats": {
+          "A": 6,
+          "S": 2,
+          "AP": 0,
+          "D": 1,
+          "WS": 5
+        },
+        "keywords": [
+          "Sustained Hits 1"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "spore-mine-launcher",
+    "name": "Spore Mine launcher",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Spore Mine launcher",
+        "range": 48,
+        "stats": {
+          "A": "D3",
+          "S": 6,
+          "AP": -1,
+          "D": 2,
+          "BS": 4
+        },
+        "keywords": [
+          "Blast",
+          "Devastating Wounds",
+          "Heavy",
+          "Indirect Fire"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "chitin-barbed-limbs",
+    "name": "Chitin-barbed limbs",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Chitin-barbed limbs",
+        "range": "Melee",
+        "stats": {
+          "A": 2,
+          "S": 5,
+          "AP": 0,
+          "D": 1,
+          "WS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "lictor-claws-and-talons",
+    "name": "Lictor claws and talons",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Lictor claws and talons",
+        "range": "Melee",
+        "stats": {
+          "A": 6,
+          "S": 7,
+          "AP": -2,
+          "D": 2,
+          "WS": 2
+        },
+        "keywords": [
+          "Precision"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "venom-bolt",
+    "name": "Venom bolt",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Venom bolt",
+        "range": 12,
+        "stats": {
+          "A": "D6+3",
+          "S": 6,
+          "AP": -1,
+          "D": 1,
+          "BS": null
+        },
+        "keywords": [
+          "Assault",
+          "Ignores Cover",
+          "Torrent"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "prime-claws-and-talons",
+    "name": "Prime claws and talons",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Prime claws and talons",
+        "range": "Melee",
+        "stats": {
+          "A": 6,
+          "S": 5,
+          "AP": -2,
+          "D": 2,
+          "WS": 3
+        },
+        "keywords": [
+          "Anti-monster 5+",
+          "Anti-vehicle 5+",
+          "Twin-linked"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "ravener-heavy-claws-and-talons",
+    "name": "Ravener heavy claws and talons",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Ravener heavy claws and talons",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 5,
+          "AP": -2,
+          "D": 2,
+          "WS": 3
+        },
+        "keywords": [
+          "Anti-monster 5+",
+          "Anti-vehicle 5+",
+          "Twin-linked"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "toxinjector-harpoon",
+    "name": "Toxinjector Harpoon",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Toxinjector Harpoon",
+        "range": 12,
+        "stats": {
+          "A": 2,
+          "S": 12,
+          "AP": -3,
+          "D": "D6+1",
+          "BS": 2
+        },
+        "keywords": [
+          "Harpooned"
+        ]
+      },
+      {
+        "name": "Toxinjector harpoon",
+        "range": "Melee",
+        "stats": {
+          "A": 4,
+          "S": 12,
+          "AP": -3,
+          "D": "D6+1",
+          "WS": 2
+        },
+        "keywords": [
+          "Extra Attacks"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "sporocyst-bio-weapons",
+    "name": "Sporocyst bio-weapons",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Sporocyst bio-weapons",
+        "range": 24,
+        "stats": {
+          "A": 10,
+          "S": 5,
+          "AP": -1,
+          "D": 2,
+          "BS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "fleshborer-hive",
+    "name": "Fleshborer hive",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Fleshborer hive",
+        "range": 24,
+        "stats": {
+          "A": 20,
+          "S": 5,
+          "AP": 0,
+          "D": 1,
+          "BS": 3
+        },
+        "keywords": [
+          "Heavy",
+          "Sustained Hits 1",
+          "Twin-linked"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "stinger-salvoes",
+    "name": "Stinger salvoes",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Stinger salvoes",
+        "range": 24,
+        "stats": {
+          "A": 8,
+          "S": 5,
+          "AP": 0,
+          "D": 1,
+          "BS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "acid-spray",
+    "name": "Acid spray",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Acid spray",
+        "range": 18,
+        "stats": {
+          "A": "D6+6",
+          "S": 6,
+          "AP": -2,
+          "D": 2,
+          "BS": null
+        },
+        "keywords": [
+          "Torrent"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "rupture-cannon",
+    "name": "Rupture cannon",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Rupture cannon",
+        "range": 48,
+        "stats": {
+          "A": 2,
+          "S": 18,
+          "AP": -4,
+          "D": "D6+6",
+          "BS": 3
+        },
+        "keywords": [
+          "Heavy"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "powerful-limbs",
+    "name": "Powerful limbs",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Powerful limbs",
+        "range": "Melee",
+        "stats": {
+          "A": 4,
+          "S": 8,
+          "AP": 0,
+          "D": 2,
+          "WS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "piercing-claws-and-talons",
+    "name": "Piercing claws and talons",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Piercing claws and talons",
+        "range": "Melee",
+        "stats": {
+          "A": 6,
+          "S": 6,
+          "AP": -2,
+          "D": 1,
+          "WS": 2
+        },
+        "keywords": [
+          "Precision"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "psychoclastic-torrent",
+    "name": "Psychoclastic torrent",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Psychoclastic torrent",
+        "range": 12,
+        "stats": {
+          "A": "D6",
+          "S": 6,
+          "AP": -1,
+          "D": 1,
+          "BS": null
+        },
+        "keywords": [
+          "Ignores Cover",
+          "Torrent"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "talons-and-betentacled-maw",
+    "name": "Talons and betentacled maw",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Talons and betentacled maw",
+        "range": "Melee",
+        "stats": {
+          "A": 6,
+          "S": 6,
+          "AP": -2,
+          "D": 2,
+          "WS": 3
+        },
+        "keywords": [
+          "Anti-psyker 4+",
+          "Devastating Wounds"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "warp-blast",
+    "name": "Warp Blast",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Witchfire",
+        "range": 24,
+        "stats": {
+          "A": "D3",
+          "S": 7,
+          "AP": -2,
+          "D": "D3",
+          "BS": 3
+        },
+        "keywords": [
+          "Blast",
+          "Psychic"
+        ]
+      },
+      {
+        "name": "Focused witchfire",
+        "range": 24,
+        "stats": {
+          "A": 1,
+          "S": 12,
+          "AP": -3,
+          "D": "D6+1",
+          "BS": 3
+        },
+        "keywords": [
+          "Lethal Hits",
+          "Psychic"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "chitinous-claws-and-teeth",
+    "name": "Chitinous claws and teeth",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Chitinous claws and teeth",
+        "range": "Melee",
+        "stats": {
+          "A": 2,
+          "S": 3,
+          "AP": 0,
+          "D": 1,
+          "WS": 5
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "broodlord-claws-and-talons",
+    "name": "Broodlord claws and talons",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Broodlord claws and talons",
+        "range": "Melee",
+        "stats": {
+          "A": 5,
+          "S": 6,
+          "AP": -2,
+          "D": 2,
+          "WS": 2
+        },
+        "keywords": [
+          "Devastating Wounds",
+          "Twin-linked"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "twin-stranglethorn-cannon",
+    "name": "Twin stranglethorn cannon",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Twin stranglethorn cannon",
+        "range": 36,
+        "stats": {
+          "A": "D6+1",
+          "S": 7,
+          "AP": -1,
+          "D": 2,
+          "BS": 2
+        },
+        "keywords": [
+          "Blast",
+          "Twin-linked"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "twin-heavy-venom-cannon",
+    "name": "Twin heavy venom cannon",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Twin heavy venom cannon",
+        "range": 36,
+        "stats": {
+          "A": "D3",
+          "S": 9,
+          "AP": -2,
+          "D": 3,
+          "BS": 3
+        },
+        "keywords": [
+          "Blast",
+          "Twin-linked"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "scything-wings",
+    "name": "Scything wings",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Scything wings",
+        "range": "Melee",
+        "stats": {
+          "A": 4,
+          "S": 7,
+          "AP": -1,
+          "D": 2,
+          "WS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "barbed-ovipositor",
+    "name": "Barbed ovipositor",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Barbed ovipositor",
+        "range": "Melee",
+        "stats": {
+          "A": 1,
+          "S": 3,
+          "AP": -2,
+          "D": 3,
+          "WS": 2
+        },
+        "keywords": [
+          "Anti-infantry 3+",
+          "Extra Attacks"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "clawed-limbs",
+    "name": "Clawed limbs",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Clawed limbs",
+        "range": "Melee",
+        "stats": {
+          "A": 6,
+          "S": 5,
+          "AP": -1,
+          "D": 1,
+          "WS": 2
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "scything-talons-and-rending-claws",
+    "name": "Scything talons and rending claws",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Scything talons and rending claws",
+        "range": "Melee",
+        "stats": {
+          "A": 5,
+          "S": 5,
+          "AP": -1,
+          "D": 1,
+          "WS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "bone-cleaver-lash-whip-and-rending-claws",
+    "name": "Bone cleaver, lash whip and rending claws",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Bone cleaver, lash whip and rending claws",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 5,
+          "AP": -1,
+          "D": 2,
+          "WS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "crushing-claws-and-rending-claws",
+    "name": "Crushing claws and rending claws",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Crushing claws and rending claws",
+        "range": "Melee",
+        "stats": {
+          "A": 2,
+          "S": 8,
+          "AP": -2,
+          "D": 2,
+          "WS": 4
+        },
+        "keywords": [
+          "Twin-linked"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "bio-plasmic-scream",
+    "name": "Bio-plasmic scream",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Bio-plasmic scream",
+        "range": 18,
+        "stats": {
+          "A": "D6+3",
+          "S": 8,
+          "AP": -2,
+          "D": 1,
+          "BS": 4
+        },
+        "keywords": [
+          "Assault",
+          "Blast"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "scream-killer-talons",
+    "name": "Scream-Killer talons",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Scream-Killer talons",
+        "range": "Melee",
+        "stats": {
+          "A": 10,
+          "S": 10,
+          "AP": -2,
+          "D": 3,
+          "WS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "hormagaunt-talons",
+    "name": "Hormagaunt talons",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Hormagaunt talons",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 3,
+          "AP": -1,
+          "D": 1,
+          "WS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "genestealers-claws-and-talons",
+    "name": "Genestealers claws and talons",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Genestealers claws and talons",
+        "range": "Melee",
+        "stats": {
+          "A": 4,
+          "S": 4,
+          "AP": -2,
+          "D": 1,
+          "WS": 2
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "massive-toxic-lashes",
+    "name": "Massive toxic lashes",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Ranged",
+        "range": 9,
+        "stats": {
+          "A": "2D6",
+          "S": 6,
+          "AP": -1,
+          "D": 2,
+          "BS": 3
+        },
+        "keywords": [
+          "Anti-infantry 2+"
+        ]
+      },
+      {
+        "name": "Melee",
+        "range": "Melee",
+        "stats": {
+          "A": 12,
+          "S": 6,
+          "AP": -1,
+          "D": 2,
+          "WS": 3
+        },
+        "keywords": [
+          "Anti-infantry 2+"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "flamespurt",
+    "name": "Flamespurt",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Flamespurt",
+        "range": 12,
+        "stats": {
+          "A": "D6+1",
+          "S": 6,
+          "AP": -1,
+          "D": 1,
+          "BS": null
+        },
+        "keywords": [
+          "Ignores Cover",
+          "Torrent",
+          "Twin-linked"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "psychic-scream",
+    "name": "Psychic scream",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Psychic scream",
+        "range": 18,
+        "stats": {
+          "A": "2D6",
+          "S": 5,
+          "AP": -1,
+          "D": 2,
+          "BS": null
+        },
+        "keywords": [
+          "Ignores Cover",
+          "Psychic",
+          "Torrent"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "neurotyrant-claws-and-lashes",
+    "name": "Neurotyrant claws and lashes",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Neurotyrant claws and lashes",
+        "range": "Melee",
+        "stats": {
+          "A": 6,
+          "S": 5,
+          "AP": 0,
+          "D": 1,
+          "WS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "fleshborer",
+    "name": "Fleshborer",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Fleshborer",
+        "range": 18,
+        "stats": {
+          "A": 1,
+          "S": 5,
+          "AP": 0,
+          "D": 1,
+          "BS": 4
+        },
+        "keywords": [
+          "Assault"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "termagant-devourer",
+    "name": "Termagant devourer",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Termagant devourer",
+        "range": 18,
+        "stats": {
+          "A": 2,
+          "S": 4,
+          "AP": 0,
+          "D": 1,
+          "BS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "termagant-spinefists",
+    "name": "Termagant spinefists",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Termagant spinefists",
+        "range": 12,
+        "stats": {
+          "A": 2,
+          "S": 3,
+          "AP": 0,
+          "D": 1,
+          "BS": 4
+        },
+        "keywords": [
+          "Assault",
+          "Pistol",
+          "Twin-linked"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "shardlauncher",
+    "name": "Shardlauncher",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Shardlauncher",
+        "range": 18,
+        "stats": {
+          "A": "D3",
+          "S": 5,
+          "AP": 0,
+          "D": 1,
+          "BS": 4
+        },
+        "keywords": [
+          "Blast",
+          "Heavy"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "spike-rifle",
+    "name": "Spike rifle",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Spike rifle",
+        "range": 24,
+        "stats": {
+          "A": 1,
+          "S": 4,
+          "AP": -1,
+          "D": 1,
+          "BS": 4
+        },
+        "keywords": [
+          "Heavy"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "strangleweb",
+    "name": "Strangleweb",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Strangleweb",
+        "range": 18,
+        "stats": {
+          "A": "D6",
+          "S": 2,
+          "AP": 0,
+          "D": 1,
+          "BS": null
+        },
+        "keywords": [
+          "Assault",
+          "Devastating Wounds",
+          "Torrent"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "chitinous-claws-and-teeth",
+    "name": "Chitinous claws and teeth",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Chitinous claws and teeth",
+        "range": "Melee",
+        "stats": {
+          "A": 1,
+          "S": 3,
+          "AP": 0,
+          "D": 1,
+          "WS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "rending-claw",
+    "name": "Rending claw",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Rending claw",
+        "range": "Melee",
+        "stats": {
+          "A": 4,
+          "S": 8,
+          "AP": -2,
+          "D": 3,
+          "WS": 2
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "lash-whip",
+    "name": "Lash whip",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Lash whip",
+        "range": "Melee",
+        "stats": {
+          "A": 8,
+          "S": 4,
+          "AP": -1,
+          "D": 1,
+          "WS": 2
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "scything-talons",
+    "name": "Scything talons",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Scything talons",
+        "range": "Melee",
+        "stats": {
+          "A": 6,
+          "S": 6,
+          "AP": -2,
+          "D": 2,
+          "WS": 2
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "shockcannon",
+    "name": "Shockcannon",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Shockcannon",
+        "range": 24,
+        "stats": {
+          "A": 2,
+          "S": 7,
+          "AP": -1,
+          "D": 3,
+          "BS": 3
+        },
+        "keywords": [
+          "Anti-vehicle 2+"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "impaler-cannon",
+    "name": "Impaler cannon",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Impaler cannon",
+        "range": 36,
+        "stats": {
+          "A": 4,
+          "S": 5,
+          "AP": -1,
+          "D": 1,
+          "BS": 4
+        },
+        "keywords": [
+          "Heavy",
+          "Indirect Fire"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "chitinous-claws-and-teeth",
+    "name": "Chitinous claws and teeth",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Chitinous claws and teeth",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 5,
+          "AP": 0,
+          "D": 1,
+          "WS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "barblauncher",
+    "name": "Barblauncher",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Barblauncher",
+        "range": 24,
+        "stats": {
+          "A": "D6",
+          "S": 5,
+          "AP": 0,
+          "D": 1,
+          "BS": 4
+        },
+        "keywords": [
+          "Blast",
+          "Heavy"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "chitinous-claws-and-teeth",
+    "name": "Chitinous claws and teeth",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Chitinous claws and teeth",
+        "range": "Melee",
+        "stats": {
+          "A": 1,
+          "S": 4,
+          "AP": 0,
+          "D": 1,
+          "WS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "drool-cannon",
+    "name": "Drool cannon",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Drool cannon",
+        "range": 12,
+        "stats": {
+          "A": "2D6",
+          "S": 6,
+          "AP": -1,
+          "D": 1,
+          "BS": null
+        },
+        "keywords": [
+          "Torrent"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "tentaclids",
+    "name": "Tentaclids",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Tentaclids",
+        "range": 36,
+        "stats": {
+          "A": 4,
+          "S": 7,
+          "AP": 0,
+          "D": 2,
+          "BS": 3
+        },
+        "keywords": [
+          "Anti-vehicle 4+",
+          "Devastating Wounds"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "thorax-spur",
+    "name": "Thorax spur",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Thorax spur",
+        "range": "Melee",
+        "stats": {
+          "A": 1,
+          "S": 10,
+          "AP": -3,
+          "D": "D6",
+          "WS": 3
+        },
+        "keywords": [
+          "Anti-fly 2+",
+          "Extra Attacks"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "massive-scything-talons",
+    "name": "Massive scything talons",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Sweep",
+        "range": "Melee",
+        "stats": {
+          "A": 8,
+          "S": 7,
+          "AP": -1,
+          "D": 2,
+          "WS": 3
+        },
+        "keywords": []
+      },
+      {
+        "name": "Strike",
+        "range": "Melee",
+        "stats": {
+          "A": 4,
+          "S": 9,
+          "AP": -2,
+          "D": "D6",
+          "WS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "massive-crushing-claws",
+    "name": "Massive crushing claws",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Massive crushing claws",
+        "range": "Melee",
+        "stats": {
+          "A": 4,
+          "S": 12,
+          "AP": -3,
+          "D": "D6+1",
+          "WS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "old-one-eyes-claws-and-talons",
+    "name": "Old One Eye’s claws and talons",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Sweep",
+        "range": "Melee",
+        "stats": {
+          "A": 12,
+          "S": 6,
+          "AP": -1,
+          "D": 1,
+          "WS": 3
+        },
+        "keywords": []
+      },
+      {
+        "name": "Strike",
+        "range": "Melee",
+        "stats": {
+          "A": 6,
+          "S": 14,
+          "AP": -3,
+          "D": "D6+1",
+          "WS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "psychic-overload",
+    "name": "Psychic overload",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Psychic overload",
+        "range": 18,
+        "stats": {
+          "A": "D6+3",
+          "S": 10,
+          "AP": -2,
+          "D": 3,
+          "BS": 3
+        },
+        "keywords": [
+          "Blast",
+          "Psychic"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "massive-scything-talons",
+    "name": "Massive scything talons",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Sweep",
+        "range": "Melee",
+        "stats": {
+          "A": 6,
+          "S": 7,
+          "AP": -1,
+          "D": 2,
+          "WS": 3
+        },
+        "keywords": []
+      },
+      {
+        "name": "Strike",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 9,
+          "AP": -2,
+          "D": "D6+1",
+          "WS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "deathspitters-with-slimer-maggots",
+    "name": "Deathspitters with slimer maggots",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Deathspitters with slimer maggots",
+        "range": 24,
+        "stats": {
+          "A": 6,
+          "S": 7,
+          "AP": -2,
+          "D": 1,
+          "BS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "devourers-with-brainleech-worms",
+    "name": "Devourers with brainleech worms",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Devourers with brainleech worms",
+        "range": 18,
+        "stats": {
+          "A": 12,
+          "S": 6,
+          "AP": 0,
+          "D": 1,
+          "BS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "heavy-venom-cannon",
+    "name": "Heavy venom cannon",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Heavy venom cannon",
+        "range": 36,
+        "stats": {
+          "A": "D3",
+          "S": 9,
+          "AP": -2,
+          "D": 3,
+          "BS": 4
+        },
+        "keywords": [
+          "Blast"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "stranglethorn-cannon",
+    "name": "Stranglethorn cannon",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Stranglethorn cannon",
+        "range": 36,
+        "stats": {
+          "A": "D6+1",
+          "S": 7,
+          "AP": -1,
+          "D": 2,
+          "BS": 4
+        },
+        "keywords": [
+          "Blast"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "bio-plasma",
+    "name": "Bio-plasma",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Bio-plasma",
+        "range": 12,
+        "stats": {
+          "A": "D3",
+          "S": 7,
+          "AP": -2,
+          "D": 1,
+          "BS": 4
+        },
+        "keywords": [
+          "Assault",
+          "Blast"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "spine-banks",
+    "name": "Spine banks",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Spine banks",
+        "range": 6,
+        "stats": {
+          "A": 5,
+          "S": 5,
+          "AP": 0,
+          "D": 1,
+          "BS": 4
+        },
+        "keywords": [
+          "Assault"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "carnifex-scything-talons",
+    "name": "Carnifex scything talons",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Carnifex scything talons",
+        "range": "Melee",
+        "stats": {
+          "A": 6,
+          "S": 9,
+          "AP": -2,
+          "D": 3,
+          "WS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "carnifex-extra-scything-talons",
+    "name": "Carnifex extra scything talons",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Carnifex extra scything talons",
+        "range": "Melee",
+        "stats": {
+          "A": 2,
+          "S": 9,
+          "AP": -2,
+          "D": 3,
+          "WS": 4
+        },
+        "keywords": [
+          "Extra Attacks"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "chitinous-claws-and-teeth",
+    "name": "Chitinous claws and teeth",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Chitinous claws and teeth",
+        "range": "Melee",
+        "stats": {
+          "A": 4,
+          "S": 6,
+          "AP": 0,
+          "D": 1,
+          "WS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "carnifex-crushing-claws",
+    "name": "Carnifex crushing claws",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Carnifex crushing claws",
+        "range": "Melee",
+        "stats": {
+          "A": 4,
+          "S": 12,
+          "AP": -3,
+          "D": "D6+1",
+          "WS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "blinding-venom",
+    "name": "Blinding venom",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Blinding venom",
+        "range": "Melee",
+        "stats": {
+          "A": 1,
+          "S": 3,
+          "AP": 0,
+          "D": 1,
+          "WS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "grasping-tongue",
+    "name": "Grasping tongue",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Grasping tongue",
+        "range": 12,
+        "stats": {
+          "A": 1,
+          "S": 6,
+          "AP": -2,
+          "D": "D6+1",
+          "BS": 3
+        },
+        "keywords": [
+          "Precision"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "ravenous-maw",
+    "name": "Ravenous maw",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Ravenous maw",
+        "range": "Melee",
+        "stats": {
+          "A": 14,
+          "S": 7,
+          "AP": -1,
+          "D": 2,
+          "WS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "shovelling-claws",
+    "name": "Shovelling claws",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Shovelling claws",
+        "range": "Melee",
+        "stats": {
+          "A": 4,
+          "S": 14,
+          "AP": -2,
+          "D": "D6+1",
+          "WS": 3
+        },
+        "keywords": [
+          "Extra Attacks"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "ravener-claws-and-talons",
+    "name": "Ravener claws and talons",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Ravener claws and talons",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 5,
+          "AP": -2,
+          "D": 2,
+          "WS": 3
+        },
+        "keywords": [
+          "Twin-linked"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "massive-scything-sickle-talons",
+    "name": "Massive scything sickle-talons",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Massive scything sickle-talons",
+        "range": "Melee",
+        "stats": {
+          "A": 10,
+          "S": 9,
+          "AP": -2,
+          "D": 3,
+          "WS": 3
+        },
+        "keywords": [
+          "twin-linked"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "spinemaws",
+    "name": "Spinemaws",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Spinemaws",
+        "range": 6,
+        "stats": {
+          "A": 4,
+          "S": 3,
+          "AP": 0,
+          "D": 1,
+          "BS": 5
+        },
+        "keywords": [
+          "pistol"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "claws-and-teeth",
+    "name": "Claws and teeth",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Claws and teeth",
+        "range": "Melee",
+        "stats": {
+          "A": 6,
+          "S": 2,
+          "AP": 0,
+          "D": 1,
+          "WS": 5
+        },
+        "keywords": [
+          "sustained hits 1"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "grasping-tail",
+    "name": "Grasping tail",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Grasping tail",
+        "range": "Melee",
+        "stats": {
+          "A": 4,
+          "S": 5,
+          "AP": 0,
+          "D": 2,
+          "WS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  }
+]

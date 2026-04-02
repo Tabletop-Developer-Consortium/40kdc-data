@@ -1,0 +1,583 @@
+[
+  {
+    "id": "thunderstomp",
+    "name": "THUNDERSTOMP",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "valourstrike-lance",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "drive-them-out",
+    "name": "DRIVE THEM OUT!",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "gate-warden-lance",
+    "cp_cost": 1,
+    "phases": [
+      "fight",
+      "shooting"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "steadfast-superiority",
+    "name": "STEADFAST SUPERIORITY",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "gate-warden-lance",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "marshal-the-defence",
+    "name": "MARSHAL THE DEFENCE",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "gate-warden-lance",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "titanic-bombardment",
+    "name": "TITANIC BOMBARDMENT",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "gate-warden-lance",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "virtue-of-courage",
+    "name": "VIRTUE OF COURAGE",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "spearhead-at-arms",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "exemplars-wisdom",
+    "name": "EXEMPLAR’S WISDOM",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "spearhead-at-arms",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "thin-their-ranks",
+    "name": "THIN THEIR RANKS",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "spearhead-at-arms",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "full-tilt",
+    "name": "FULL TILT",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "valourstrike-lance",
+    "cp_cost": 2,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "bonded-imperative",
+    "name": "BONDED IMPERATIVE",
+    "category": "detachment",
+    "type": "epic-deed",
+    "detachment_id": "questor-forgepact",
+    "cp_cost": 1,
+    "phases": [
+      "command"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "fortress-of-intimidation",
+    "name": "FORTRESS OF INTIMIDATION",
+    "category": "detachment",
+    "type": "epic-deed",
+    "detachment_id": "gate-warden-lance",
+    "cp_cost": 1,
+    "phases": [
+      "charge"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "let-duty-be-your-shield",
+    "name": "LET DUTY BE YOUR SHIELD",
+    "category": "detachment",
+    "type": "epic-deed",
+    "detachment_id": "spearhead-at-arms",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "courageous-stand",
+    "name": "COURAGEOUS STAND",
+    "category": "detachment",
+    "type": "epic-deed",
+    "detachment_id": "questoris-companions",
+    "cp_cost": 1,
+    "phases": [
+      "fight",
+      "shooting"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "titanic-duel",
+    "name": "TITANIC DUEL",
+    "category": "detachment",
+    "type": "epic-deed",
+    "detachment_id": "questoris-companions",
+    "cp_cost": 1,
+    "phases": [
+      "fight",
+      "shooting"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "moment-of-glory",
+    "name": "MOMENT OF GLORY",
+    "category": "detachment",
+    "type": "epic-deed",
+    "detachment_id": "questoris-companions",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "heros-tread",
+    "name": "HERO’S TREAD",
+    "category": "detachment",
+    "type": "epic-deed",
+    "detachment_id": "questoris-companions",
+    "cp_cost": 1,
+    "phases": [
+      "command"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "driven-by-the-past",
+    "name": "DRIVEN BY THE PAST",
+    "category": "detachment",
+    "type": "epic-deed",
+    "detachment_id": "questoris-companions",
+    "cp_cost": 1,
+    "phases": [
+      "charge"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "unstoppable-warrior",
+    "name": "UNSTOPPABLE WARRIOR",
+    "category": "detachment",
+    "type": "epic-deed",
+    "detachment_id": "questoris-companions",
+    "cp_cost": 2,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "run-them-through",
+    "name": "RUN THEM THROUGH!",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "valourstrike-lance",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "vow-of-retribution",
+    "name": "VOW OF RETRIBUTION",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "valourstrike-lance",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "tactical-foil",
+    "name": "TACTICAL FOIL",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "valourstrike-lance",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "machine-focus",
+    "name": "MACHINE FOCUS",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "questor-forgepact",
+    "cp_cost": 1,
+    "phases": [
+      "command"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "aggression-begets-aggression",
+    "name": "AGGRESSION BEGETS AGGRESSION",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "questor-forgepact",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "thronegheist-fury",
+    "name": "THRONEGHEIST FURY",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "questor-forgepact",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "omnissiahs-grace",
+    "name": "OMNISSIAH’S GRACE",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "questor-forgepact",
+    "cp_cost": 1,
+    "phases": [
+      "command",
+      "movement",
+      "shooting",
+      "charge",
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "vengeance-of-the-machine-cult",
+    "name": "VENGEANCE OF THE MACHINE CULT",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "questor-forgepact",
+    "cp_cost": 1,
+    "phases": [
+      "command",
+      "movement",
+      "shooting",
+      "charge",
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "lancebreaker",
+    "name": "LANCEBREAKER",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "gate-warden-lance",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "mantle-of-the-mentor",
+    "name": "MANTLE OF THE MENTOR",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "spearhead-at-arms",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "squires-of-the-hunt",
+    "name": "SQUIRES OF THE HUNT",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "spearhead-at-arms",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "rotate-ion-shields",
+    "name": "ROTATE ION SHIELDS",
+    "category": "detachment",
+    "type": "wargear",
+    "detachment_id": "valourstrike-lance",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  }
+]

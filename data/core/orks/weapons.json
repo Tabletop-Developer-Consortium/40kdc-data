@@ -1,0 +1,4474 @@
+[
+  {
+    "id": "eadbanger",
+    "name": "Eadbanger",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Eadbanger",
+        "range": 24,
+        "stats": {
+          "A": 1,
+          "S": 6,
+          "AP": -3,
+          "D": 1,
+          "BS": 4
+        },
+        "keywords": [
+          "Precision",
+          "Psychic"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "weirdboy-staff",
+    "name": "Weirdboy staff",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Weirdboy staff",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 8,
+          "AP": -1,
+          "D": "D3",
+          "WS": 3
+        },
+        "keywords": [
+          "Psychic"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "rokkit-kannon",
+    "name": "Rokkit kannon",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Rokkit kannon",
+        "range": 24,
+        "stats": {
+          "A": "D6+1",
+          "S": 9,
+          "AP": -2,
+          "D": 3,
+          "BS": 5
+        },
+        "keywords": [
+          "Blast"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "wing-missiles",
+    "name": "Wing missiles",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Wing missiles",
+        "range": 24,
+        "stats": {
+          "A": 1,
+          "S": 9,
+          "AP": -2,
+          "D": 3,
+          "BS": 5
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "twin-big-shoota",
+    "name": "Twin big shoota",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Twin big shoota",
+        "range": 36,
+        "stats": {
+          "A": 3,
+          "S": 5,
+          "AP": 0,
+          "D": 1,
+          "BS": 5
+        },
+        "keywords": [
+          "Rapid Fire 2",
+          "Twin-linked"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "nose-drill",
+    "name": "Nose drill",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Nose drill",
+        "range": "Melee",
+        "stats": {
+          "A": 4,
+          "S": 8,
+          "AP": -1,
+          "D": 2,
+          "WS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "twin-dakkagun",
+    "name": "Twin dakkagun",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Twin dakkagun",
+        "range": 18,
+        "stats": {
+          "A": 3,
+          "S": 5,
+          "AP": 0,
+          "D": 1,
+          "BS": 5
+        },
+        "keywords": [
+          "Assault",
+          "Rapid Fire 2",
+          "Twin-linked"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "slugga",
+    "name": "Slugga",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Slugga",
+        "range": 12,
+        "stats": {
+          "A": 1,
+          "S": 4,
+          "AP": 0,
+          "D": 1,
+          "BS": 5
+        },
+        "keywords": [
+          "Pistol"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "close-combat-weapon",
+    "name": "Close combat weapon",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Close combat weapon",
+        "range": "Melee",
+        "stats": {
+          "A": 2,
+          "S": 4,
+          "AP": 0,
+          "D": 1,
+          "WS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "choppa",
+    "name": "Choppa",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Choppa",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 4,
+          "AP": -1,
+          "D": 1,
+          "WS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "big-choppa",
+    "name": "Big choppa",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Big choppa",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 7,
+          "AP": -1,
+          "D": 2,
+          "WS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "power-klaw",
+    "name": "Power klaw",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Power klaw",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 9,
+          "AP": -2,
+          "D": 2,
+          "WS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "kopta-rokkits",
+    "name": "Kopta rokkits",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Kopta rokkits",
+        "range": 24,
+        "stats": {
+          "A": "D3",
+          "S": 9,
+          "AP": -2,
+          "D": 3,
+          "BS": 5
+        },
+        "keywords": [
+          "Blast",
+          "Twin-linked"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "kustom-mega-blasta",
+    "name": "Kustom mega-blasta",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Kustom mega-blasta",
+        "range": 24,
+        "stats": {
+          "A": 3,
+          "S": 9,
+          "AP": -2,
+          "D": "D6",
+          "BS": 5
+        },
+        "keywords": [
+          "Hazardous"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "spinnin-blades",
+    "name": "Spinnin’ blades",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Spinnin’ blades",
+        "range": "Melee",
+        "stats": {
+          "A": 6,
+          "S": 5,
+          "AP": 0,
+          "D": 1,
+          "WS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "burna-exhausts",
+    "name": "Burna exhausts",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Burna exhausts",
+        "range": 6,
+        "stats": {
+          "A": "2D6",
+          "S": 4,
+          "AP": 0,
+          "D": 1,
+          "BS": null
+        },
+        "keywords": [
+          "Ignores Cover",
+          "Torrent",
+          "Twin-linked"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "grot-blasta",
+    "name": "Grot blasta",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Grot blasta",
+        "range": 12,
+        "stats": {
+          "A": 1,
+          "S": 3,
+          "AP": 0,
+          "D": 1,
+          "BS": 4
+        },
+        "keywords": [
+          "Pistol"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "rivet-kannon",
+    "name": "Rivet kannon",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Rivet kannon",
+        "range": 36,
+        "stats": {
+          "A": 6,
+          "S": 8,
+          "AP": -1,
+          "D": 2,
+          "BS": 5
+        },
+        "keywords": [
+          "Assault",
+          "Rapid Fire 3"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "spiked-ram",
+    "name": "Spiked ram",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Spiked ram",
+        "range": "Melee",
+        "stats": {
+          "A": 4,
+          "S": 7,
+          "AP": -1,
+          "D": 2,
+          "WS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "urty-syringe",
+    "name": "Urty syringe",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Urty syringe",
+        "range": "Melee",
+        "stats": {
+          "A": 1,
+          "S": 2,
+          "AP": 0,
+          "D": 1,
+          "WS": 3
+        },
+        "keywords": [
+          "Anti-infantry 4+",
+          "Extra Attacks",
+          "Precision"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "kan-shoota",
+    "name": "Kan shoota",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Kan shoota",
+        "range": 36,
+        "stats": {
+          "A": 3,
+          "S": 5,
+          "AP": 0,
+          "D": 1,
+          "BS": 4
+        },
+        "keywords": [
+          "Devastating Wounds",
+          "Rapid Fire 2"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "grotzooka",
+    "name": "Grotzooka",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Grotzooka",
+        "range": 18,
+        "stats": {
+          "A": "D3+3",
+          "S": 6,
+          "AP": -1,
+          "D": 1,
+          "BS": 4
+        },
+        "keywords": [
+          "Blast",
+          "Ignores Cover"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "rokkit-launcha",
+    "name": "Rokkit launcha",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Rokkit launcha",
+        "range": 24,
+        "stats": {
+          "A": "D3",
+          "S": 9,
+          "AP": -2,
+          "D": 3,
+          "BS": 4
+        },
+        "keywords": [
+          "Blast"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "skorcha",
+    "name": "Skorcha",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Skorcha",
+        "range": 12,
+        "stats": {
+          "A": "D6",
+          "S": 5,
+          "AP": -1,
+          "D": 1,
+          "BS": null
+        },
+        "keywords": [
+          "Ignores Cover",
+          "Torrent"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "kan-klaw",
+    "name": "Kan klaw",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Kan klaw",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 8,
+          "AP": -2,
+          "D": 3,
+          "WS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "big-shoota",
+    "name": "Big shoota",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Big shoota",
+        "range": 36,
+        "stats": {
+          "A": 3,
+          "S": 5,
+          "AP": 0,
+          "D": 1,
+          "BS": 5
+        },
+        "keywords": [
+          "Rapid Fire 2"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "rokkit-launcha",
+    "name": "Rokkit launcha",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Rokkit launcha",
+        "range": 24,
+        "stats": {
+          "A": "D3",
+          "S": 9,
+          "AP": -2,
+          "D": 3,
+          "BS": 5
+        },
+        "keywords": [
+          "Blast"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "deffgun",
+    "name": "Deffgun",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Deffgun",
+        "range": 48,
+        "stats": {
+          "A": 2,
+          "S": 8,
+          "AP": -1,
+          "D": 2,
+          "BS": 6
+        },
+        "keywords": [
+          "Heavy",
+          "Rapid Fire 1"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "traktor-blasta",
+    "name": "Traktor blasta",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Traktor blasta",
+        "range": 36,
+        "stats": {
+          "A": 1,
+          "S": 10,
+          "AP": -2,
+          "D": "D6+1",
+          "BS": 5
+        },
+        "keywords": [
+          "Anti-fly 3+",
+          "Devastating Wounds"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "power-klaw",
+    "name": "Power klaw",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Power klaw",
+        "range": "Melee",
+        "stats": {
+          "A": 4,
+          "S": 9,
+          "AP": -2,
+          "D": 2,
+          "WS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "drilla",
+    "name": "Drilla",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Drilla",
+        "range": "Melee",
+        "stats": {
+          "A": 2,
+          "S": 12,
+          "AP": -3,
+          "D": 3,
+          "WS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "saddlegit-weapons",
+    "name": "Saddlegit weapons",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Saddlegit weapons",
+        "range": 9,
+        "stats": {
+          "A": 1,
+          "S": 3,
+          "AP": 0,
+          "D": 1,
+          "BS": 4
+        },
+        "keywords": [
+          "Assault"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "stikka",
+    "name": "Stikka",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Ranged",
+        "range": 12,
+        "stats": {
+          "A": 1,
+          "S": 5,
+          "AP": -1,
+          "D": 2,
+          "BS": 5
+        },
+        "keywords": [
+          "Anti-monster 4+",
+          "Anti-vehicle 4+",
+          "Assault"
+        ]
+      },
+      {
+        "name": "Melee",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 5,
+          "AP": -1,
+          "D": 2,
+          "WS": 3
+        },
+        "keywords": [
+          "Anti-monster 4+",
+          "Anti-vehicle 4+",
+          "Lance"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "squig-jaws",
+    "name": "Squig jaws",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Squig jaws",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 6,
+          "AP": -1,
+          "D": 2,
+          "WS": 4
+        },
+        "keywords": [
+          "Extra Attacks"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "big-choppa",
+    "name": "Big choppa",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Big choppa",
+        "range": "Melee",
+        "stats": {
+          "A": 4,
+          "S": 6,
+          "AP": -1,
+          "D": 2,
+          "WS": 3
+        },
+        "keywords": [
+          "Anti-monster 4+",
+          "Anti-vehicle 4+"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "big-shoota",
+    "name": "Big shoota",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Big shoota",
+        "range": 36,
+        "stats": {
+          "A": 3,
+          "S": 5,
+          "AP": 0,
+          "D": 1,
+          "BS": 4
+        },
+        "keywords": [
+          "Rapid Fire 2"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "uge-choppa",
+    "name": "Uge choppa",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Uge choppa",
+        "range": "Melee",
+        "stats": {
+          "A": 4,
+          "S": 12,
+          "AP": -2,
+          "D": 2,
+          "WS": 2
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "smasha-gun",
+    "name": "Smasha gun",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Smasha gun",
+        "range": 48,
+        "stats": {
+          "A": "D3",
+          "S": 9,
+          "AP": -3,
+          "D": 4,
+          "BS": 4
+        },
+        "keywords": [
+          "Blast"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "twin-wazbom-mega-kannon",
+    "name": "Twin wazbom mega-kannon",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Twin wazbom mega-kannon",
+        "range": 36,
+        "stats": {
+          "A": "D3",
+          "S": 12,
+          "AP": -2,
+          "D": "D6",
+          "BS": 4
+        },
+        "keywords": [
+          "Blast",
+          "Hazardous",
+          "Twin-linked"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "twin-tellyport-mega-blasta",
+    "name": "Twin tellyport mega-blasta",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Twin tellyport mega-blasta",
+        "range": 24,
+        "stats": {
+          "A": 3,
+          "S": 9,
+          "AP": -1,
+          "D": "D6+1",
+          "BS": 5
+        },
+        "keywords": [
+          "Blast",
+          "Twin-linked"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "twin-supa-shoota",
+    "name": "Twin supa-shoota",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Twin supa-shoota",
+        "range": 36,
+        "stats": {
+          "A": 4,
+          "S": 6,
+          "AP": -1,
+          "D": 1,
+          "BS": 4
+        },
+        "keywords": [
+          "Rapid Fire 2",
+          "Sustained Hits 1",
+          "Twin-linked"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "armoured-hull",
+    "name": "Armoured hull",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Armoured hull",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 6,
+          "AP": 0,
+          "D": 1,
+          "WS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "kannon",
+    "name": "Kannon",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Shell",
+        "range": 36,
+        "stats": {
+          "A": 1,
+          "S": 10,
+          "AP": -2,
+          "D": "D6",
+          "BS": 5
+        },
+        "keywords": []
+      },
+      {
+        "name": "Frag",
+        "range": 36,
+        "stats": {
+          "A": "D6+3",
+          "S": 6,
+          "AP": 0,
+          "D": 1,
+          "BS": 5
+        },
+        "keywords": [
+          "Blast"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "killkannon",
+    "name": "Killkannon",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Killkannon",
+        "range": 24,
+        "stats": {
+          "A": "D6+1",
+          "S": 9,
+          "AP": -2,
+          "D": 2,
+          "BS": 5
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "zzap-gun",
+    "name": "Zzap gun",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Zzap gun",
+        "range": 36,
+        "stats": {
+          "A": 1,
+          "S": "D6+6",
+          "AP": -3,
+          "D": 5,
+          "BS": 5
+        },
+        "keywords": [
+          "Anti-vehicle 4+"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "lobba",
+    "name": "Lobba",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Lobba",
+        "range": 48,
+        "stats": {
+          "A": "D6",
+          "S": 5,
+          "AP": 0,
+          "D": 1,
+          "BS": 5
+        },
+        "keywords": [
+          "Blast",
+          "Indirect Fire"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "tracks-and-wheels",
+    "name": "Tracks and wheels",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Tracks and wheels",
+        "range": "Melee",
+        "stats": {
+          "A": 6,
+          "S": 8,
+          "AP": 0,
+          "D": 1,
+          "WS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "deff-rolla",
+    "name": "Deff rolla",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Deff rolla",
+        "range": "Melee",
+        "stats": {
+          "A": 6,
+          "S": 9,
+          "AP": -1,
+          "D": 2,
+          "WS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "grabbin-klaw",
+    "name": "Grabbin’ klaw",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Grabbin’ klaw",
+        "range": "Melee",
+        "stats": {
+          "A": 2,
+          "S": 8,
+          "AP": -2,
+          "D": 2,
+          "WS": 3
+        },
+        "keywords": [
+          "Extra Attacks"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "wreckin-ball",
+    "name": "Wreckin’ ball",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Wreckin’ ball",
+        "range": "Melee",
+        "stats": {
+          "A": 1,
+          "S": 10,
+          "AP": 0,
+          "D": "D6",
+          "WS": 4
+        },
+        "keywords": [
+          "Extra Attacks"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "slugga",
+    "name": "Slugga",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Slugga",
+        "range": 12,
+        "stats": {
+          "A": 1,
+          "S": 4,
+          "AP": 0,
+          "D": 1,
+          "BS": 4
+        },
+        "keywords": [
+          "Pistol"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "morks-teeth",
+    "name": "Mork’s Teeth",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Mork’s Teeth",
+        "range": "Melee",
+        "stats": {
+          "A": 6,
+          "S": 6,
+          "AP": -1,
+          "D": 2,
+          "WS": 2
+        },
+        "keywords": [
+          "Precision",
+          "Twin-linked"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "kustom-mega-zappa",
+    "name": "Kustom mega-zappa",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Kustom mega-zappa",
+        "range": 36,
+        "stats": {
+          "A": "D6+3",
+          "S": 10,
+          "AP": -2,
+          "D": "D6",
+          "BS": 5
+        },
+        "keywords": [
+          "Blast",
+          "Hazardous"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "klaw-of-mork",
+    "name": "Klaw of Mork",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Sweep",
+        "range": "Melee",
+        "stats": {
+          "A": 12,
+          "S": 8,
+          "AP": -1,
+          "D": 2,
+          "WS": 3
+        },
+        "keywords": []
+      },
+      {
+        "name": "Strike",
+        "range": "Melee",
+        "stats": {
+          "A": 4,
+          "S": 18,
+          "AP": -3,
+          "D": 6,
+          "WS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "morks-roar",
+    "name": "Mork’s Roar",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Mork’s Roar",
+        "range": 36,
+        "stats": {
+          "A": 12,
+          "S": 5,
+          "AP": 0,
+          "D": 1,
+          "BS": 5
+        },
+        "keywords": [
+          "Rapid Fire 4"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "gorks-klaw",
+    "name": "Gork’s Klaw",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Sweep",
+        "range": "Melee",
+        "stats": {
+          "A": 12,
+          "S": 8,
+          "AP": -2,
+          "D": 2,
+          "WS": 2
+        },
+        "keywords": []
+      },
+      {
+        "name": "Strike",
+        "range": "Melee",
+        "stats": {
+          "A": 6,
+          "S": 14,
+          "AP": -3,
+          "D": 4,
+          "WS": 2
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "makaris-stabba",
+    "name": "Makari’s stabba",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Makari’s stabba",
+        "range": "Melee",
+        "stats": {
+          "A": 1,
+          "S": 3,
+          "AP": 0,
+          "D": 1,
+          "WS": 4
+        },
+        "keywords": [
+          "Devastating Wounds"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "rokkit-pistol",
+    "name": "Rokkit pistol",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Rokkit pistol",
+        "range": 12,
+        "stats": {
+          "A": 1,
+          "S": 9,
+          "AP": -2,
+          "D": 3,
+          "BS": 5
+        },
+        "keywords": [
+          "Pistol"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "smash-hammer",
+    "name": "Smash hammer",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Smash hammer",
+        "range": "Melee",
+        "stats": {
+          "A": 2,
+          "S": 6,
+          "AP": -2,
+          "D": 3,
+          "WS": 3
+        },
+        "keywords": [
+          "Anti-monster 4+",
+          "Anti-vehicle 4+"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "choppa",
+    "name": "Choppa",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Choppa",
+        "range": "Melee",
+        "stats": {
+          "A": 4,
+          "S": 5,
+          "AP": -1,
+          "D": 1,
+          "WS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "knucklebustas",
+    "name": "Knucklebustas",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Knucklebustas",
+        "range": "Melee",
+        "stats": {
+          "A": 5,
+          "S": 5,
+          "AP": -1,
+          "D": 1,
+          "WS": 3
+        },
+        "keywords": [
+          "Anti-monster 4+",
+          "Anti-vehicle 4+",
+          "Twin-linked"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "tankhammer",
+    "name": "Tankhammer",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Tankhammer",
+        "range": "Melee",
+        "stats": {
+          "A": 2,
+          "S": 6,
+          "AP": -2,
+          "D": 3,
+          "WS": 3
+        },
+        "keywords": [
+          "Anti-monster 4+",
+          "Anti-vehicle 4+",
+          "Devastating Wounds",
+          "Hazardous"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "deffkannon",
+    "name": "Deffkannon",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Deffkannon",
+        "range": 72,
+        "stats": {
+          "A": "3D6",
+          "S": 14,
+          "AP": -3,
+          "D": "D6",
+          "BS": 5
+        },
+        "keywords": [
+          "Blast"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "supa-gatler",
+    "name": "Supa-gatler",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Supa-gatler",
+        "range": 24,
+        "stats": {
+          "A": 20,
+          "S": 7,
+          "AP": -1,
+          "D": 2,
+          "BS": 5
+        },
+        "keywords": [
+          "Sustained Hits 1"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "supa-rokkits",
+    "name": "Supa-rokkits",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Supa-rokkits",
+        "range": 100,
+        "stats": {
+          "A": "D6",
+          "S": 12,
+          "AP": -3,
+          "D": "D6+2",
+          "BS": 5
+        },
+        "keywords": [
+          "Blast"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "mega-choppa",
+    "name": "Mega-choppa",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Sweep",
+        "range": "Melee",
+        "stats": {
+          "A": 18,
+          "S": 10,
+          "AP": -2,
+          "D": 3,
+          "WS": 3
+        },
+        "keywords": []
+      },
+      {
+        "name": "Strike",
+        "range": "Melee",
+        "stats": {
+          "A": 6,
+          "S": 24,
+          "AP": -5,
+          "D": 10,
+          "WS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "gaze-of-gork",
+    "name": "Gaze of Gork",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Squint",
+        "range": 18,
+        "stats": {
+          "A": 1,
+          "S": 12,
+          "AP": -4,
+          "D": 3,
+          "BS": 5
+        },
+        "keywords": [
+          "Sustained Hits D3"
+        ]
+      },
+      {
+        "name": "Glare",
+        "range": 24,
+        "stats": {
+          "A": "D6",
+          "S": 5,
+          "AP": 0,
+          "D": 1,
+          "BS": 5
+        },
+        "keywords": [
+          "Blast",
+          "Sustained Hits D3"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "close-combat-weapon",
+    "name": "Close combat weapon",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Close combat weapon",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 5,
+          "AP": 0,
+          "D": 1,
+          "WS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "kustom-shoota",
+    "name": "Kustom shoota",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Kustom shoota",
+        "range": 18,
+        "stats": {
+          "A": 4,
+          "S": 4,
+          "AP": 0,
+          "D": 1,
+          "BS": 5
+        },
+        "keywords": [
+          "Rapid Fire 2"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "burna",
+    "name": "Burna",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Burna",
+        "range": 12,
+        "stats": {
+          "A": "D6",
+          "S": 4,
+          "AP": 0,
+          "D": 1,
+          "BS": null
+        },
+        "keywords": [
+          "Ignores Cover",
+          "Torrent"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "big-choppa",
+    "name": "Big choppa",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Big choppa",
+        "range": "Melee",
+        "stats": {
+          "A": 4,
+          "S": 7,
+          "AP": -1,
+          "D": 2,
+          "WS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "breacha-ram",
+    "name": "Breacha ram",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Breacha ram",
+        "range": "Melee",
+        "stats": {
+          "A": 2,
+          "S": 9,
+          "AP": -2,
+          "D": 2,
+          "WS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "kombi-weapon",
+    "name": "Kombi-weapon",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Kombi-weapon",
+        "range": 24,
+        "stats": {
+          "A": 1,
+          "S": 4,
+          "AP": 0,
+          "D": 1,
+          "BS": 5
+        },
+        "keywords": [
+          "Anti-infantry 4+",
+          "Devastating Wounds",
+          "Rapid Fire 1"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "shoota",
+    "name": "Shoota",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Shoota",
+        "range": 18,
+        "stats": {
+          "A": 2,
+          "S": 4,
+          "AP": 0,
+          "D": 1,
+          "BS": 5
+        },
+        "keywords": [
+          "Rapid Fire 1"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "spiked-wheels",
+    "name": "Spiked wheels",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Spiked wheels",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 6,
+          "AP": 0,
+          "D": 1,
+          "WS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "beast-snagga-klaw",
+    "name": "Beast Snagga klaw",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Beast Snagga klaw",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 9,
+          "AP": -2,
+          "D": 2,
+          "WS": 4
+        },
+        "keywords": [
+          "Anti-monster 4+",
+          "Anti-vehicle 4+"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "deffstorm-mega-shoota",
+    "name": "Deffstorm mega-shoota",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Deffstorm mega-shoota",
+        "range": 36,
+        "stats": {
+          "A": 20,
+          "S": 6,
+          "AP": -1,
+          "D": 1,
+          "BS": 5
+        },
+        "keywords": [
+          "Rapid Fire 10"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "klaw-of-gork",
+    "name": "Klaw of Gork",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Sweep",
+        "range": "Melee",
+        "stats": {
+          "A": 15,
+          "S": 8,
+          "AP": -1,
+          "D": 2,
+          "WS": 3
+        },
+        "keywords": []
+      },
+      {
+        "name": "Strike",
+        "range": "Melee",
+        "stats": {
+          "A": 5,
+          "S": 18,
+          "AP": -3,
+          "D": 6,
+          "WS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "smasha-gun",
+    "name": "Smasha gun",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Smasha gun",
+        "range": 48,
+        "stats": {
+          "A": "D3+1",
+          "S": 9,
+          "AP": -3,
+          "D": 3,
+          "BS": 4
+        },
+        "keywords": [
+          "Blast"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "bubblechukka",
+    "name": "Bubblechukka",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Big bubble (1-2)",
+        "range": 48,
+        "stats": {
+          "A": "2D6",
+          "S": 6,
+          "AP": -1,
+          "D": 1,
+          "BS": 4
+        },
+        "keywords": [
+          "Blast",
+          "Bubblechukka"
+        ]
+      },
+      {
+        "name": "Wobbly bubble (3-4)",
+        "range": 48,
+        "stats": {
+          "A": "D6",
+          "S": 9,
+          "AP": -2,
+          "D": 3,
+          "BS": 4
+        },
+        "keywords": [
+          "Blast",
+          "Bubblechukka"
+        ]
+      },
+      {
+        "name": "Dense bubble (5-6)",
+        "range": 48,
+        "stats": {
+          "A": "D3",
+          "S": 12,
+          "AP": -3,
+          "D": "D6+3",
+          "BS": 4
+        },
+        "keywords": [
+          "Blast",
+          "Bubblechukka"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "kustom-mega-kannon",
+    "name": "Kustom mega-kannon",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Kustom mega-kannon",
+        "range": 36,
+        "stats": {
+          "A": "D6",
+          "S": 12,
+          "AP": -1,
+          "D": "D6",
+          "BS": 4
+        },
+        "keywords": [
+          "Blast",
+          "Hazardous"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "traktor-kannon",
+    "name": "Traktor kannon",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Traktor kannon",
+        "range": 48,
+        "stats": {
+          "A": 1,
+          "S": 10,
+          "AP": -2,
+          "D": "D6+1",
+          "BS": 4
+        },
+        "keywords": [
+          "Anti-fly 2+",
+          "Devastating Wounds"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "grot-crew",
+    "name": "Grot crew",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Grot crew",
+        "range": "Melee",
+        "stats": {
+          "A": 6,
+          "S": 2,
+          "AP": 0,
+          "D": 1,
+          "WS": 5
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "snazzgun",
+    "name": "Snazzgun",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Snazzgun",
+        "range": 24,
+        "stats": {
+          "A": 3,
+          "S": 6,
+          "AP": -1,
+          "D": 2,
+          "BS": 5
+        },
+        "keywords": [
+          "Heavy",
+          "Sustained Hits 1"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "twin-supa-shoota",
+    "name": "Twin supa-shoota",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Twin supa-shoota",
+        "range": 36,
+        "stats": {
+          "A": 4,
+          "S": 6,
+          "AP": -1,
+          "D": 1,
+          "BS": 5
+        },
+        "keywords": [
+          "Rapid Fire 2",
+          "Sustained Hits 1",
+          "Twin-linked"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "stompy-feet",
+    "name": "Stompy feet",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Stompy feet",
+        "range": "Melee",
+        "stats": {
+          "A": 4,
+          "S": 5,
+          "AP": 0,
+          "D": 1,
+          "WS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "dread-klaw",
+    "name": "Dread klaw",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Dread klaw",
+        "range": "Melee",
+        "stats": {
+          "A": 4,
+          "S": 12,
+          "AP": -2,
+          "D": 3,
+          "WS": 3
+        },
+        "keywords": [
+          "Dead Choppy"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "eyez-of-mork",
+    "name": "Eyez of Mork",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Eyez of Mork",
+        "range": 18,
+        "stats": {
+          "A": "D6",
+          "S": 8,
+          "AP": -3,
+          "D": 2,
+          "BS": 5
+        },
+        "keywords": [
+          "Psychic"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "shoota",
+    "name": "Shoota",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Shoota",
+        "range": 18,
+        "stats": {
+          "A": 2,
+          "S": 4,
+          "AP": 0,
+          "D": 1,
+          "BS": 4
+        },
+        "keywords": [
+          "Rapid Fire 1"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "beastchoppa",
+    "name": "Beastchoppa",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Beastchoppa",
+        "range": "Melee",
+        "stats": {
+          "A": 6,
+          "S": 6,
+          "AP": -1,
+          "D": 2,
+          "WS": 2
+        },
+        "keywords": [
+          "Anti-monster 4+",
+          "Anti-vehicle 4+"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "beast-snagga-klaw",
+    "name": "Beast Snagga klaw",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Beast Snagga klaw",
+        "range": "Melee",
+        "stats": {
+          "A": 4,
+          "S": 10,
+          "AP": -2,
+          "D": 2,
+          "WS": 3
+        },
+        "keywords": [
+          "Anti-monster 4+",
+          "Anti-vehicle 4+"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "tellyport-blasta",
+    "name": "Tellyport blasta",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Tellyport blasta",
+        "range": 12,
+        "stats": {
+          "A": 3,
+          "S": 8,
+          "AP": -1,
+          "D": 3,
+          "BS": 5
+        },
+        "keywords": [
+          "Blast"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "killsaw",
+    "name": "Killsaw",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Killsaw",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 12,
+          "AP": -3,
+          "D": 2,
+          "WS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "sawn-off-shotgun",
+    "name": "Sawn-off shotgun",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Sawn-off shotgun",
+        "range": 12,
+        "stats": {
+          "A": 2,
+          "S": 4,
+          "AP": 0,
+          "D": 1,
+          "BS": 5
+        },
+        "keywords": [
+          "Assault"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "squig-launchas",
+    "name": "Squig-launchas",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Squig-launchas",
+        "range": 36,
+        "stats": {
+          "A": "D6+6",
+          "S": 5,
+          "AP": -1,
+          "D": 2,
+          "BS": 5
+        },
+        "keywords": [
+          "Blast",
+          "Ignores Cover",
+          "Indirect Fire"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "saw-blades",
+    "name": "Saw blades",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Saw blades",
+        "range": "Melee",
+        "stats": {
+          "A": 4,
+          "S": 7,
+          "AP": -1,
+          "D": 2,
+          "WS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "thump-gun",
+    "name": "Thump gun",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Thump gun",
+        "range": 18,
+        "stats": {
+          "A": "D3",
+          "S": 6,
+          "AP": 0,
+          "D": 2,
+          "BS": 5
+        },
+        "keywords": [
+          "Blast"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "power-snappa",
+    "name": "Power snappa",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Power snappa",
+        "range": "Melee",
+        "stats": {
+          "A": 4,
+          "S": 7,
+          "AP": -1,
+          "D": 2,
+          "WS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "choppa",
+    "name": "Choppa",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Choppa",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 5,
+          "AP": -1,
+          "D": 1,
+          "WS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "close-combat-weapon",
+    "name": "Close combat weapon",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Close combat weapon",
+        "range": "Melee",
+        "stats": {
+          "A": 2,
+          "S": 5,
+          "AP": 0,
+          "D": 1,
+          "WS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "boomstikks",
+    "name": "Boomstikks",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Boomstikks",
+        "range": 12,
+        "stats": {
+          "A": 6,
+          "S": 5,
+          "AP": 0,
+          "D": 1,
+          "BS": 5
+        },
+        "keywords": [
+          "Assault"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "killa-jet",
+    "name": "Killa jet",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Burna",
+        "range": 12,
+        "stats": {
+          "A": "D6",
+          "S": 5,
+          "AP": -1,
+          "D": 1,
+          "BS": null
+        },
+        "keywords": [
+          "Ignores Cover",
+          "Torrent"
+        ]
+      },
+      {
+        "name": "Cutta",
+        "range": 12,
+        "stats": {
+          "A": 1,
+          "S": 9,
+          "AP": -4,
+          "D": "D6",
+          "BS": 5
+        },
+        "keywords": [
+          "Melta 2"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "snagga-klaw",
+    "name": "Snagga klaw",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Snagga klaw",
+        "range": "Melee",
+        "stats": {
+          "A": 4,
+          "S": 10,
+          "AP": -2,
+          "D": 2,
+          "WS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "kustom-mega-slugga",
+    "name": "Kustom mega-slugga",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Kustom mega-slugga",
+        "range": 12,
+        "stats": {
+          "A": "D3",
+          "S": 8,
+          "AP": -2,
+          "D": "D6",
+          "BS": 5
+        },
+        "keywords": [
+          "Blast",
+          "Hazardous"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "close-combat-weapon",
+    "name": "Close combat weapon",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Close combat weapon",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 4,
+          "AP": 0,
+          "D": 1,
+          "WS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "killsaw",
+    "name": "Killsaw",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Killsaw",
+        "range": "Melee",
+        "stats": {
+          "A": 1,
+          "S": 12,
+          "AP": -3,
+          "D": 2,
+          "WS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "kustom-shokk-rifle",
+    "name": "Kustom shokk rifle",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Kustom shokk rifle",
+        "range": 24,
+        "stats": {
+          "A": 1,
+          "S": 8,
+          "AP": -2,
+          "D": "D6+1",
+          "BS": 3
+        },
+        "keywords": [
+          "Devastating Wounds",
+          "Hazardous",
+          "Precision"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "rokkits",
+    "name": "Rokkits",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Rokkits",
+        "range": 24,
+        "stats": {
+          "A": "D3",
+          "S": 9,
+          "AP": -2,
+          "D": 3,
+          "BS": 5
+        },
+        "keywords": [
+          "Blast"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "big-chompas-jaws",
+    "name": "Big Chompa’s jaws",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Big Chompa’s jaws",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 7,
+          "AP": -2,
+          "D": 4,
+          "WS": 3
+        },
+        "keywords": [
+          "Devastating Wounds",
+          "Extra Attacks"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "gutrippa",
+    "name": "Gutrippa",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Gutrippa",
+        "range": "Melee",
+        "stats": {
+          "A": 6,
+          "S": 7,
+          "AP": -1,
+          "D": 3,
+          "WS": 2
+        },
+        "keywords": [
+          "Anti-monster 4+",
+          "Anti-vehicle 4+"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "squigstoppa",
+    "name": "Squigstoppa",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Squigstoppa",
+        "range": 12,
+        "stats": {
+          "A": 1,
+          "S": 4,
+          "AP": -1,
+          "D": 1,
+          "BS": 5
+        },
+        "keywords": [
+          "Anti-monster 4+",
+          "Pistol"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "da-grabzappa",
+    "name": "Da Grabzappa",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Da Grabzappa",
+        "range": "Melee",
+        "stats": {
+          "A": 5,
+          "S": 7,
+          "AP": -2,
+          "D": 2,
+          "WS": 2
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "runtherd-tools",
+    "name": "Runtherd tools",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Runtherd tools",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 5,
+          "AP": 0,
+          "D": 1,
+          "WS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "close-combat-weapon",
+    "name": "Close combat weapon",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Close combat weapon",
+        "range": "Melee",
+        "stats": {
+          "A": 1,
+          "S": 2,
+          "AP": 0,
+          "D": 1,
+          "WS": 5
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "shokk-attack-gun",
+    "name": "Shokk attack gun",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Shokk attack gun",
+        "range": 60,
+        "stats": {
+          "A": "D6+1",
+          "S": 9,
+          "AP": -4,
+          "D": "D6",
+          "BS": 5
+        },
+        "keywords": [
+          "Blast",
+          "Heavy"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "close-combat-weapon",
+    "name": "Close combat weapon",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Close combat weapon",
+        "range": "Melee",
+        "stats": {
+          "A": 4,
+          "S": 5,
+          "AP": 0,
+          "D": 1,
+          "WS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "eavy-lobba",
+    "name": "Eavy lobba",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Eavy lobba",
+        "range": 48,
+        "stats": {
+          "A": "D6",
+          "S": 6,
+          "AP": 0,
+          "D": 2,
+          "BS": 5
+        },
+        "keywords": [
+          "Blast",
+          "Indirect Fire"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "stikka-kannon",
+    "name": "Stikka kannon",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Stikka kannon",
+        "range": 12,
+        "stats": {
+          "A": 1,
+          "S": 12,
+          "AP": -2,
+          "D": 3,
+          "BS": 5
+        },
+        "keywords": [
+          "Anti-monster 2+",
+          "Anti-vehicle 2+",
+          "Snagged"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "wurrtower",
+    "name": "Wurrtower",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Wurrtower",
+        "range": 24,
+        "stats": {
+          "A": "D3",
+          "S": 12,
+          "AP": -3,
+          "D": "D6",
+          "BS": null
+        },
+        "keywords": [
+          "Hazardous",
+          "Psychic",
+          "Torrent"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "butcha-boyz",
+    "name": "Butcha boyz",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Butcha boyz",
+        "range": "Melee",
+        "stats": {
+          "A": 4,
+          "S": 5,
+          "AP": -1,
+          "D": 1,
+          "WS": 3
+        },
+        "keywords": [
+          "Anti-monster 4+",
+          "Anti-vehicle 4+",
+          "Extra Attacks"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "savage-horns-and-hooves",
+    "name": "Savage horns and hooves",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Savage horns and hooves",
+        "range": "Melee",
+        "stats": {
+          "A": 4,
+          "S": 8,
+          "AP": -1,
+          "D": 3,
+          "WS": 4
+        },
+        "keywords": [
+          "Extra Attacks",
+          "Lance"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "saw-blades",
+    "name": "Saw blades",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Saw blades",
+        "range": "Melee",
+        "stats": {
+          "A": 6,
+          "S": 10,
+          "AP": -2,
+          "D": 2,
+          "WS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "cuttin-flames",
+    "name": "Cuttin’ flames",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Cuttin’ flames",
+        "range": "Melee",
+        "stats": {
+          "A": 2,
+          "S": 4,
+          "AP": -2,
+          "D": 1,
+          "WS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "squigosaurs-jaws",
+    "name": "Squigosaur’s jaws",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Squigosaur’s jaws",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 7,
+          "AP": -2,
+          "D": 3,
+          "WS": 4
+        },
+        "keywords": [
+          "Devastating Wounds",
+          "Extra Attacks"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "killsaw",
+    "name": "Killsaw",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Killsaw",
+        "range": "Melee",
+        "stats": {
+          "A": 2,
+          "S": 12,
+          "AP": -3,
+          "D": 2,
+          "WS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "twin-killsaw",
+    "name": "Twin killsaw",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Twin killsaw",
+        "range": "Melee",
+        "stats": {
+          "A": 2,
+          "S": 12,
+          "AP": -3,
+          "D": 2,
+          "WS": 4
+        },
+        "keywords": [
+          "Twin-linked"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "mek-speshul",
+    "name": "Mek speshul",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Mek speshul",
+        "range": 24,
+        "stats": {
+          "A": 12,
+          "S": 5,
+          "AP": -1,
+          "D": 1,
+          "BS": 5
+        },
+        "keywords": [
+          "Assault",
+          "Rapid Fire 4",
+          "Sustained Hits 1"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "spiked-wheels",
+    "name": "Spiked wheels",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Spiked wheels",
+        "range": "Melee",
+        "stats": {
+          "A": 4,
+          "S": 7,
+          "AP": -1,
+          "D": 2,
+          "WS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "kannon",
+    "name": "Kannon",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Shell",
+        "range": 36,
+        "stats": {
+          "A": 1,
+          "S": 9,
+          "AP": -2,
+          "D": "D6",
+          "BS": 5
+        },
+        "keywords": []
+      },
+      {
+        "name": "Frag",
+        "range": 36,
+        "stats": {
+          "A": "D6",
+          "S": 5,
+          "AP": 0,
+          "D": 1,
+          "BS": 5
+        },
+        "keywords": [
+          "Blast"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "supa-kannon",
+    "name": "Supa-kannon",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Supa-kannon",
+        "range": 60,
+        "stats": {
+          "A": "2D6",
+          "S": 12,
+          "AP": -2,
+          "D": 3,
+          "BS": 5
+        },
+        "keywords": [
+          "Blast"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "huge-tusks",
+    "name": "Huge tusks",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Sweep",
+        "range": "Melee",
+        "stats": {
+          "A": 18,
+          "S": 9,
+          "AP": -2,
+          "D": 3,
+          "WS": 3
+        },
+        "keywords": []
+      },
+      {
+        "name": "Strike",
+        "range": "Melee",
+        "stats": {
+          "A": 6,
+          "S": 14,
+          "AP": -3,
+          "D": 12,
+          "WS": 3
+        },
+        "keywords": [
+          "Lance"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "skorcha-missile-rack",
+    "name": "Skorcha missile rack",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Skorcha missile rack",
+        "range": 36,
+        "stats": {
+          "A": "2D6",
+          "S": 5,
+          "AP": -1,
+          "D": 1,
+          "BS": 5
+        },
+        "keywords": [
+          "Blast",
+          "Ignores Cover"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "twin-sluggas",
+    "name": "Twin sluggas",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Twin sluggas",
+        "range": 12,
+        "stats": {
+          "A": 2,
+          "S": 4,
+          "AP": 0,
+          "D": 1,
+          "BS": 5
+        },
+        "keywords": [
+          "Pistol",
+          "Twin-linked"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "big-choppa",
+    "name": "Big choppa",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Big choppa",
+        "range": "Melee",
+        "stats": {
+          "A": 5,
+          "S": 8,
+          "AP": -1,
+          "D": 2,
+          "WS": 2
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "power-klaw",
+    "name": "Power klaw",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Power klaw",
+        "range": "Melee",
+        "stats": {
+          "A": 4,
+          "S": 10,
+          "AP": -2,
+          "D": 2,
+          "WS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "attack-squig",
+    "name": "Attack squig",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Attack squig",
+        "range": "Melee",
+        "stats": {
+          "A": 2,
+          "S": 4,
+          "AP": 0,
+          "D": 1,
+          "WS": 4
+        },
+        "keywords": [
+          "Extra Attacks"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "deffgun",
+    "name": "Deffgun",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Deffgun",
+        "range": 48,
+        "stats": {
+          "A": 2,
+          "S": 8,
+          "AP": -1,
+          "D": 2,
+          "BS": 5
+        },
+        "keywords": [
+          "rapid fire 1"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "rattler-kannon",
+    "name": "Rattler kannon",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Rattler kannon",
+        "range": 24,
+        "stats": {
+          "A": 6,
+          "S": 6,
+          "AP": -1,
+          "D": 1,
+          "BS": 5
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "skorcha",
+    "name": "Skorcha",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Skorcha",
+        "range": 12,
+        "stats": {
+          "A": "D6",
+          "S": 5,
+          "AP": -1,
+          "D": 1,
+          "BS": null
+        },
+        "keywords": [
+          "ignores cover",
+          "torrent"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "kustom-mega-blasta",
+    "name": "Kustom mega-blasta",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Kustom mega-blasta",
+        "range": 24,
+        "stats": {
+          "A": 3,
+          "S": 9,
+          "AP": -2,
+          "D": "D6",
+          "BS": 5
+        },
+        "keywords": [
+          "hazardous"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "rokkit-launcha",
+    "name": "Rokkit launcha",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Rokkit launcha",
+        "range": 24,
+        "stats": {
+          "A": "D3",
+          "S": 9,
+          "AP": -2,
+          "D": 3,
+          "BS": 5
+        },
+        "keywords": [
+          "blast"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "big-shoota",
+    "name": "Big shoota",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Big shoota",
+        "range": 36,
+        "stats": {
+          "A": 3,
+          "S": 5,
+          "AP": 0,
+          "D": 1,
+          "BS": 5
+        },
+        "keywords": [
+          "rapid fire 2"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "twin-big-shoota",
+    "name": "Twin big shoota",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Twin big shoota",
+        "range": 36,
+        "stats": {
+          "A": 3,
+          "S": 5,
+          "AP": 0,
+          "D": 1,
+          "BS": 5
+        },
+        "keywords": [
+          "rapid fire 2",
+          "twin-linked"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "grot-guided-bomm",
+    "name": "Grot-guided bomm",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Grot-guided bomm",
+        "range": 72,
+        "stats": {
+          "A": "D6",
+          "S": 8,
+          "AP": -2,
+          "D": 2,
+          "BS": 4
+        },
+        "keywords": [
+          "blast",
+          "indirect fire",
+          "one shot"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "supa-kannon",
+    "name": "Supa-kannon",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "shell",
+        "range": 36,
+        "stats": {
+          "A": 1,
+          "S": 9,
+          "AP": -2,
+          "D": "D3+3",
+          "BS": 5
+        },
+        "keywords": []
+      },
+      {
+        "name": "frag",
+        "range": 36,
+        "stats": {
+          "A": "D6+3",
+          "S": 5,
+          "AP": 0,
+          "D": 1,
+          "BS": 5
+        },
+        "keywords": [
+          "blast"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "spiked-ram",
+    "name": "Spiked ram",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Spiked ram",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 8,
+          "AP": 0,
+          "D": 1,
+          "WS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "lifta-droppa",
+    "name": "Lifta-droppa",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Lifta-droppa",
+        "range": 36,
+        "stats": {
+          "A": 4,
+          "S": 6,
+          "AP": -3,
+          "D": "D6+1",
+          "BS": 5
+        },
+        "keywords": [
+          "anti-vehicle 3+"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "grabbin-klaw",
+    "name": "Grabbin’ klaw",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Grabbin’ klaw",
+        "range": "Melee",
+        "stats": {
+          "A": 2,
+          "S": 8,
+          "AP": -2,
+          "D": 2,
+          "WS": 3
+        },
+        "keywords": [
+          "extra attacks"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "wreckin-ball",
+    "name": "Wreckin’ ball",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Wreckin’ ball",
+        "range": "Melee",
+        "stats": {
+          "A": 1,
+          "S": 10,
+          "AP": 0,
+          "D": "D6",
+          "WS": 4
+        },
+        "keywords": [
+          "extra attacks"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "krusha-kannon",
+    "name": "Krusha kannon",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "blast burna",
+        "range": 48,
+        "stats": {
+          "A": "3D6",
+          "S": 6,
+          "AP": -1,
+          "D": 1,
+          "BS": 5
+        },
+        "keywords": [
+          "blast"
+        ]
+      },
+      {
+        "name": "tankhamma shell",
+        "range": 60,
+        "stats": {
+          "A": 1,
+          "S": 16,
+          "AP": -3,
+          "D": 6,
+          "BS": 5
+        },
+        "keywords": [
+          "heavy"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "tracks-and-wheels",
+    "name": "Tracks and wheels",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Tracks and wheels",
+        "range": "Melee",
+        "stats": {
+          "A": 6,
+          "S": 8,
+          "AP": -1,
+          "D": 1,
+          "WS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "kannon",
+    "name": "Kannon",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "shell",
+        "range": 36,
+        "stats": {
+          "A": 1,
+          "S": 9,
+          "AP": -2,
+          "D": "D6",
+          "BS": 5
+        },
+        "keywords": []
+      },
+      {
+        "name": "frag",
+        "range": 36,
+        "stats": {
+          "A": "D6",
+          "S": 5,
+          "AP": 0,
+          "D": 1,
+          "BS": 5
+        },
+        "keywords": [
+          "blast"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "zzap-gun",
+    "name": "Zzap gun",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Zzap gun",
+        "range": 36,
+        "stats": {
+          "A": 1,
+          "S": "2D6",
+          "AP": -3,
+          "D": 3,
+          "BS": 5
+        },
+        "keywords": [
+          "devastating wounds"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "lobba",
+    "name": "Lobba",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Lobba",
+        "range": 48,
+        "stats": {
+          "A": "D6",
+          "S": 5,
+          "AP": 0,
+          "D": 1,
+          "BS": 5
+        },
+        "keywords": [
+          "blast",
+          "indirect fire"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "kopta-rokkits",
+    "name": "Kopta rokkits",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Kopta rokkits",
+        "range": 24,
+        "stats": {
+          "A": "D3",
+          "S": 9,
+          "AP": -2,
+          "D": 3,
+          "BS": 5
+        },
+        "keywords": [
+          "blast",
+          "twin-linked"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "slugga",
+    "name": "Slugga",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Slugga",
+        "range": 12,
+        "stats": {
+          "A": 1,
+          "S": 4,
+          "AP": 0,
+          "D": 1,
+          "BS": 5
+        },
+        "keywords": [
+          "pistol"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "kustom-grot-blasta",
+    "name": "Kustom grot blasta",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Kustom grot blasta",
+        "range": 12,
+        "stats": {
+          "A": "D3",
+          "S": 4,
+          "AP": 0,
+          "D": 1,
+          "BS": 4
+        },
+        "keywords": [
+          "devastating wounds",
+          "pistol"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "icon-of-da-revolushun",
+    "name": "Icon of da Revolushun",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Icon of da Revolushun",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 3,
+          "AP": 0,
+          "D": 1,
+          "WS": 4
+        },
+        "keywords": [
+          "devastating wounds"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "kustom-mega-slugga",
+    "name": "Kustom mega-slugga",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Kustom mega-slugga",
+        "range": 12,
+        "stats": {
+          "A": "D3",
+          "S": 8,
+          "AP": -2,
+          "D": "D6",
+          "BS": 5
+        },
+        "keywords": [
+          "blast",
+          "hazardous"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "shokk-attack-gun",
+    "name": "Shokk attack gun",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Shokk attack gun",
+        "range": 60,
+        "stats": {
+          "A": "D6+1",
+          "S": 9,
+          "AP": -4,
+          "D": "D6",
+          "BS": 5
+        },
+        "keywords": [
+          "blast",
+          "heavy"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "kombi-weapon",
+    "name": "Kombi-weapon",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Kombi-weapon",
+        "range": 24,
+        "stats": {
+          "A": 1,
+          "S": 4,
+          "AP": 0,
+          "D": 1,
+          "BS": 5
+        },
+        "keywords": [
+          "anti-infantry 4+",
+          "devastating wounds",
+          "rapid fire 1"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "twin-dakkagun",
+    "name": "Twin dakkagun",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Twin dakkagun",
+        "range": 18,
+        "stats": {
+          "A": 3,
+          "S": 5,
+          "AP": 0,
+          "D": 1,
+          "BS": 5
+        },
+        "keywords": [
+          "assault",
+          "rapid fire 2",
+          "twin-linked"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "power-klaw",
+    "name": "Power klaw",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Power klaw",
+        "range": "Melee",
+        "stats": {
+          "A": 4,
+          "S": 9,
+          "AP": -2,
+          "D": 2,
+          "WS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "urty-syringe",
+    "name": "’Urty syringe",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "’Urty syringe",
+        "range": "Melee",
+        "stats": {
+          "A": 1,
+          "S": 2,
+          "AP": 0,
+          "D": 1,
+          "WS": 3
+        },
+        "keywords": [
+          "anti-infantry 4+",
+          "extra attacks",
+          "precision"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "kannon",
+    "name": "Kannon",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "shell",
+        "range": 36,
+        "stats": {
+          "A": 1,
+          "S": 9,
+          "AP": -2,
+          "D": "D6",
+          "BS": 6
+        },
+        "keywords": [
+          "heavy"
+        ]
+      },
+      {
+        "name": "frag",
+        "range": 36,
+        "stats": {
+          "A": "D6",
+          "S": 5,
+          "AP": 0,
+          "D": 1,
+          "BS": 6
+        },
+        "keywords": [
+          "blast",
+          "heavy"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "zzap-gun",
+    "name": "Zzap gun",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Zzap gun",
+        "range": 36,
+        "stats": {
+          "A": 1,
+          "S": "2D6",
+          "AP": -3,
+          "D": 3,
+          "BS": 6
+        },
+        "keywords": [
+          "devastating wounds",
+          "heavy"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "lobba",
+    "name": "Lobba",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Lobba",
+        "range": 48,
+        "stats": {
+          "A": "D6",
+          "S": 5,
+          "AP": 0,
+          "D": 1,
+          "BS": 6
+        },
+        "keywords": [
+          "blast",
+          "heavy",
+          "indirect fire"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "close-combat-weapons",
+    "name": "Close combat weapons",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Close combat weapons",
+        "range": "Melee",
+        "stats": {
+          "A": 2,
+          "S": 4,
+          "AP": 0,
+          "D": 1,
+          "WS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "rack-of-rokkits",
+    "name": "Rack of rokkits",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Rack of rokkits",
+        "range": 24,
+        "stats": {
+          "A": "D3+1",
+          "S": 9,
+          "AP": -2,
+          "D": 3,
+          "BS": 5
+        },
+        "keywords": [
+          "blast"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "spiked-wheel",
+    "name": "Spiked wheel",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Spiked wheel",
+        "range": "Melee",
+        "stats": {
+          "A": 2,
+          "S": 6,
+          "AP": 0,
+          "D": 1,
+          "WS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "grot-guided-bomms",
+    "name": "Grot-guided bomms",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Grot-guided bomms",
+        "range": 72,
+        "stats": {
+          "A": "D6",
+          "S": 8,
+          "AP": -2,
+          "D": 2,
+          "BS": 4
+        },
+        "keywords": [
+          "blast",
+          "indirect fire",
+          "one shot"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  }
+]

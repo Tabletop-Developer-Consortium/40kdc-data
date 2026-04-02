@@ -1,0 +1,1393 @@
+[
+  {
+    "id": "death-from-on-high",
+    "name": "DEATH FROM ON HIGH",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "windrider-host",
+    "cp_cost": 1,
+    "phases": [
+      "fight",
+      "shooting"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "focused-firepower",
+    "name": "FOCUSED FIREPOWER",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "windrider-host",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "spiralling-evasion",
+    "name": "SPIRALLING EVASION",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "windrider-host",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "fangs-of-the-brood",
+    "name": "FANGS OF THE BROOD",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "serpents-brood",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "crushing-strides",
+    "name": "CRUSHING STRIDES",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "spirit-conclave",
+    "cp_cost": 1,
+    "phases": [
+      "charge"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "seers-eye",
+    "name": "SEER’S EYE",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "spirit-conclave",
+    "cp_cost": 1,
+    "phases": [
+      "fight",
+      "shooting"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "wraithbone-armour",
+    "name": "WRAITHBONE ARMOUR",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "spirit-conclave",
+    "cp_cost": 1,
+    "phases": [
+      "fight",
+      "shooting"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "blades-from-beyond",
+    "name": "BLADES FROM BEYOND",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "spirit-conclave",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "macabre-resilience",
+    "name": "MACABRE RESILIENCE",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "devoted-of-ynnead",
+    "cp_cost": 1,
+    "phases": [
+      "fight",
+      "shooting"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "emissaries-of-ynnead",
+    "name": "EMISSARIES OF YNNEAD",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "devoted-of-ynnead",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "soulsight",
+    "name": "SOULSIGHT",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "devoted-of-ynnead",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "warding-salvoes",
+    "name": "WARDING SALVOES",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "guardian-battlehost",
+    "cp_cost": 1,
+    "phases": [
+      "fight",
+      "shooting"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "shield-nodes",
+    "name": "SHIELD NODES",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "guardian-battlehost",
+    "cp_cost": 1,
+    "phases": [
+      "fight",
+      "shooting"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "vauls-vengeance",
+    "name": "VAUL’S VENGEANCE",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "guardian-battlehost",
+    "cp_cost": 1,
+    "phases": [
+      "fight",
+      "shooting"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "blades-of-asuryan",
+    "name": "BLADES OF ASURYAN",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "guardian-battlehost",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "pirates-due",
+    "name": "PIRATES’ DUE",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "corsair-coterie",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "no-prey-too-big",
+    "name": "NO PREY TOO BIG",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "eldritch-raiders",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "fate-inescapable",
+    "name": "FATE INESCAPABLE",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "seer-council",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "lightning-fast-reactions",
+    "name": "LIGHTNING-FAST REACTIONS",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "warhost",
+    "cp_cost": 1,
+    "phases": [
+      "fight",
+      "shooting"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "blitzing-firepower",
+    "name": "BLITZING FIREPOWER",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "warhost",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "warrior-focus",
+    "name": "WARRIOR FOCUS",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "aspect-host",
+    "cp_cost": 1,
+    "phases": [
+      "fight",
+      "shooting"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "doom-inescapable",
+    "name": "DOOM INESCAPABLE",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "aspect-host",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "preternatural-precision",
+    "name": "PRETERNATURAL PRECISION",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "aspect-host",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "yriels-example",
+    "name": "YRIEL’S EXAMPLE",
+    "category": "detachment",
+    "type": "epic-deed",
+    "detachment_id": "eldritch-raiders",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "ishas-fury",
+    "name": "ISHA’S FURY",
+    "category": "detachment",
+    "type": "epic-deed",
+    "detachment_id": "seer-council",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "staged-death",
+    "name": "STAGED DEATH",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "ghosts-of-the-webway",
+    "cp_cost": 1,
+    "phases": [
+      "command",
+      "movement",
+      "shooting",
+      "charge",
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "heroes-fall",
+    "name": "HEROES’ FALL",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "ghosts-of-the-webway",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "mocking-flight",
+    "name": "MOCKING FLIGHT",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "ghosts-of-the-webway",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "tricksters-retort",
+    "name": "TRICKSTERS’ RETORT",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "ghosts-of-the-webway",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "bloody-dance",
+    "name": "BLOODY DANCE",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "ghosts-of-the-webway",
+    "cp_cost": 1,
+    "phases": [
+      "charge"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "exit-the-stage",
+    "name": "EXIT THE STAGE",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "ghosts-of-the-webway",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "overflight",
+    "name": "OVERFLIGHT",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "windrider-host",
+    "cp_cost": 1,
+    "phases": [
+      "fight",
+      "shooting"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "wind-of-blades",
+    "name": "WIND OF BLADES",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "windrider-host",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "daring-riders",
+    "name": "DARING RIDERS",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "windrider-host",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "venomous-wrath",
+    "name": "VENOMOUS WRATH",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "serpents-brood",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "striking-stride",
+    "name": "STRIKING STRIDE",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "serpents-brood",
+    "cp_cost": 1,
+    "phases": [
+      "charge"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "weavers-coils",
+    "name": "WEAVER’S COILS",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "serpents-brood",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "weaving-stride",
+    "name": "WEAVING STRIDE",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "serpents-brood",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "skyward-lunge",
+    "name": "SKYWARD LUNGE",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "serpents-brood",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "soul-bridge",
+    "name": "SOUL BRIDGE",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "spirit-conclave",
+    "cp_cost": 1,
+    "phases": [
+      "command"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "spirit-token",
+    "name": "SPIRIT TOKEN",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "spirit-conclave",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "pall-of-dread",
+    "name": "PALL OF DREAD",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "devoted-of-ynnead",
+    "cp_cost": 1,
+    "phases": [
+      "command",
+      "movement",
+      "shooting",
+      "charge",
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "death-answers-death",
+    "name": "DEATH ANSWERS DEATH",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "devoted-of-ynnead",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "time-to-strike",
+    "name": "TIME TO STRIKE",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "guardian-battlehost",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "cost-of-victory",
+    "name": "COST OF VICTORY",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "guardian-battlehost",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "cloudstrike",
+    "name": "CLOUDSTRIKE",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "armoured-warhost",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "soulsight",
+    "name": "SOULSIGHT",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "armoured-warhost",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "anti-grav-repulsion",
+    "name": "ANTI-GRAV REPULSION",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "armoured-warhost",
+    "cp_cost": 1,
+    "phases": [
+      "charge"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "layered-wards",
+    "name": "LAYERED WARDS",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "armoured-warhost",
+    "cp_cost": 1,
+    "phases": [
+      "command",
+      "movement",
+      "shooting",
+      "charge",
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "swift-deployment",
+    "name": "SWIFT DEPLOYMENT",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "armoured-warhost",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "vectored-engines",
+    "name": "VECTORED ENGINES",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "armoured-warhost",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "lethal-ruse",
+    "name": "LETHAL RUSE",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "corsair-coterie",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "outcast-ambush",
+    "name": "OUTCAST AMBUSH",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "corsair-coterie",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "into-the-breach",
+    "name": "INTO THE BREACH",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "corsair-coterie",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "cloak-and-shadow",
+    "name": "CLOAK AND SHADOW",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "corsair-coterie",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "vengeful-sorrow",
+    "name": "VENGEFUL SORROW",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "corsair-coterie",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "raiders-spoils",
+    "name": "RAIDER’S SPOILS",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "eldritch-raiders",
+    "cp_cost": 1,
+    "phases": [
+      "command"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "ruthless-killers",
+    "name": "RUTHLESS KILLERS",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "eldritch-raiders",
+    "cp_cost": 1,
+    "phases": [
+      "fight",
+      "shooting"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "withdraw-and-reinforce",
+    "name": "WITHDRAW AND REINFORCE",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "eldritch-raiders",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "presentiment-of-dread",
+    "name": "PRESENTIMENT OF DREAD",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "seer-council",
+    "cp_cost": 1,
+    "phases": [
+      "command"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "forewarned",
+    "name": "FOREWARNED",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "seer-council",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "unshrouded-truth",
+    "name": "UNSHROUDED TRUTH",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "seer-council",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "psychic-shield",
+    "name": "PSYCHIC SHIELD",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "seer-council",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "skyborne-sanctuary",
+    "name": "SKYBORNE SANCTUARY",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "warhost",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "feigned-retreat",
+    "name": "FEIGNED RETREAT",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "warhost",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "fire-and-fade",
+    "name": "FIRE AND FADE",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "warhost",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "webway-tunnel",
+    "name": "WEBWAY TUNNEL",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "warhost",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "to-their-final-breath",
+    "name": "TO THEIR FINAL BREATH",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "aspect-host",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "skyborne-sanctuary",
+    "name": "SKYBORNE SANCTUARY",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "aspect-host",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "khaines-vengeance",
+    "name": "KHAINE’S VENGEANCE",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "aspect-host",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "parting-the-veil",
+    "name": "PARTING THE VEIL",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "devoted-of-ynnead",
+    "cp_cost": 2,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "impeding-fire",
+    "name": "IMPEDING FIRE",
+    "category": "detachment",
+    "type": "wargear",
+    "detachment_id": "eldritch-raiders",
+    "cp_cost": 1,
+    "phases": [
+      "charge"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  }
+]

@@ -1,0 +1,399 @@
+[
+  {
+    "unit_id": "memnyr-strategist",
+    "models": [
+      {
+        "name": "Memnyr Strategist",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "einhyr-hearthguard",
+    "models": [
+      {
+        "name": "Hesyr",
+        "profile_name": "Einhyr Hearthguard",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "etacarn-plasma-gun",
+          "concussion-gauntlet"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Einhyr Hearthguard",
+        "min": 4,
+        "max": 9,
+        "default_weapon_ids": [
+          "etacarn-plasma-gun",
+          "concussion-gauntlet"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "grimnyr",
+    "models": [
+      {
+        "name": "Grimnyr",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "ancestral-wrath-witchfire",
+          "ancestral-ward-stave"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "CORV",
+        "min": 2,
+        "max": 2,
+        "default_weapon_ids": [
+          "close-combat-weapon"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "hernkyn-pioneers",
+    "models": [
+      {
+        "name": "Hernkyn Pioneers",
+        "min": 3,
+        "max": 6,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "cthonian-earthshakers",
+    "models": [
+      {
+        "name": "Cthonian Earthshakers",
+        "min": 2,
+        "max": 2,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "kapricus-carrier",
+    "models": [
+      {
+        "name": "Kapricus Carrier",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "ironkin-steeljacks-with-heavy-volkanite-disintegrators",
+    "models": [
+      {
+        "name": "Ironkin Steeljack",
+        "min": 3,
+        "max": 6,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "hekaton-land-fortress",
+    "models": [
+      {
+        "name": "Hekaton Land Fortress",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "buri-aegnirssen",
+    "models": [
+      {
+        "name": "Buri Aegnirssen",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "brokhyr-iron-master",
+    "models": [
+      {
+        "name": "Brôkhyr Iron-master",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "graviton-rifle",
+          "graviton-hammer"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Ironkin Assistant",
+        "min": 3,
+        "max": 3,
+        "default_weapon_ids": [
+          "las-beam-cutter",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": false
+      },
+      {
+        "name": "E-COG",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "plasma-torch",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "berehk-stornbrow",
+    "models": [
+      {
+        "name": "Berehk Stornbröw",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "ironkin-steeljacks-with-melee-weapons",
+    "models": [
+      {
+        "name": "Ironkin Steeljack",
+        "min": 3,
+        "max": 6,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "uthar-the-destined",
+    "models": [
+      {
+        "name": "Ûthar the Destined",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "hernkyn-yaegirs",
+    "models": [
+      {
+        "name": "Hernkyn Yaegir",
+        "min": 10,
+        "max": 10,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "einhyr-champion",
+    "models": [
+      {
+        "name": "Einhyr Champion",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "brokhyr-thunderkyn",
+    "models": [
+      {
+        "name": "Brôkhyr Thunderkyn",
+        "min": 3,
+        "max": 6,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "arkanyst-evaluator",
+    "models": [
+      {
+        "name": "Arkanyst Evaluator",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "kapricus-defenders",
+    "models": [
+      {
+        "name": "Kapricus Defenders",
+        "min": 1,
+        "max": 2,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "cthonian-beserks",
+    "models": [
+      {
+        "name": "Cthonian Beserks",
+        "min": 5,
+        "max": 10,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "sagitaur",
+    "models": [
+      {
+        "name": "Sagitaur",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "kahl",
+    "models": [
+      {
+        "name": "Kâhl",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "hearthkyn-warriors",
+    "models": [
+      {
+        "name": "Theyn",
+        "profile_name": "Hearthkyn Warrior",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "theyns-pistol",
+          "theyns-melee-weapon"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Hearthkyn Warrior",
+        "min": 9,
+        "max": 9,
+        "default_weapon_ids": [
+          "autoch-pattern-bolt-pistol",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  }
+]

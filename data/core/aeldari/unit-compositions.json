@@ -1,0 +1,1442 @@
+[
+  {
+    "unit_id": "revenant-titan",
+    "models": [
+      {
+        "name": "Revenant Titan",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "shadow-weaver-platform",
+    "models": [
+      {
+        "name": "Shadow Weaver Platform",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "striking-scorpions",
+    "models": [
+      {
+        "name": "Striking Scorpion Exarch",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "scorpion-chainsword",
+          "shuriken-pistol"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Striking Scorpion",
+        "min": 4,
+        "max": 9,
+        "default_weapon_ids": [
+          "scorpion-chainsword",
+          "shuriken-pistol"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "eldrad-ulthran",
+    "models": [
+      {
+        "name": "Eldrad Ulthran",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "wraithlord",
+    "models": [
+      {
+        "name": "Wraithlord",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "wave-serpent",
+    "models": [
+      {
+        "name": "Wave Serpent",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "yvraine",
+    "models": [
+      {
+        "name": "Yvraine",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "corsair-voidscarred",
+    "models": [
+      {
+        "name": "Way Seeker",
+        "min": 5,
+        "max": 13,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "fire-prism",
+    "models": [
+      {
+        "name": "Fire Prism",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "autarch",
+    "models": [
+      {
+        "name": "Autarch",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "ynnari-incubi",
+    "models": [
+      {
+        "name": "Klaivex",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "demiklaives-single-blade"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Incubi",
+        "min": 4,
+        "max": 9,
+        "default_weapon_ids": [
+          "klaive"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "fire-dragons",
+    "models": [
+      {
+        "name": "Fire Dragon Exarch",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "dragon-fusion-gun",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Fire Dragon",
+        "min": 4,
+        "max": 9,
+        "default_weapon_ids": [
+          "dragon-fusion-gun",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "asurmen",
+    "models": [
+      {
+        "name": "Asurmen",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "storm-guardians",
+    "models": [
+      {
+        "name": "Storm Guardian",
+        "min": 10,
+        "max": 10,
+        "default_weapon_ids": [
+          "shuriken-pistol",
+          "aeldari-power-sword"
+        ],
+        "is_leader_model": false
+      },
+      {
+        "name": "Serpent’s Scale Platform",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "shuriken-catapult"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "d-cannon-platform",
+    "models": [
+      {
+        "name": "D-cannon Platform",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "warlock-skyrunners",
+    "models": [
+      {
+        "name": "Warlock Skyrunners",
+        "min": 1,
+        "max": 2,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "lhykhis",
+    "models": [
+      {
+        "name": "Lhykhis",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "death-jester",
+    "models": [
+      {
+        "name": "Death Jester",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "prince-yriel",
+    "models": [
+      {
+        "name": "Prince Yriel",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "the-yncarne",
+    "models": [
+      {
+        "name": "The Yncarne",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "farseer-skyrunner",
+    "models": [
+      {
+        "name": "Farseer Skyrunner",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "solitaire",
+    "models": [
+      {
+        "name": "Solitaire",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "maugan-ra",
+    "models": [
+      {
+        "name": "Maugan Ra",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "corsair-skyreavers",
+    "models": [
+      {
+        "name": "Skyreaver",
+        "min": 5,
+        "max": 10,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "guardian-defenders",
+    "models": [
+      {
+        "name": "Guardian Defender",
+        "min": 10,
+        "max": 10,
+        "default_weapon_ids": [
+          "shuriken-catapult",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": false
+      },
+      {
+        "name": "Heavy Weapon Platform",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "bright-lance"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "phantom-titan",
+    "models": [
+      {
+        "name": "Phantom Titan",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "avatar-of-khaine",
+    "models": [
+      {
+        "name": "Avatar of Khaine",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "war-walkers",
+    "models": [
+      {
+        "name": "War Walkers",
+        "min": 1,
+        "max": 2,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "kharseth",
+    "models": [
+      {
+        "name": "Kharseth",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "hemlock-wraithfighter",
+    "models": [
+      {
+        "name": "Hemlock Wraithfighter",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "wraithknight",
+    "models": [
+      {
+        "name": "Wraithknight",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "ynnari-reavers",
+    "models": [
+      {
+        "name": "Arena Champion",
+        "profile_name": "Reaver",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "splinter-pistol",
+          "bladevanes"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Reaver",
+        "min": 2,
+        "max": 5,
+        "default_weapon_ids": [
+          "splinter-pistol",
+          "bladevanes"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "swooping-hawks",
+    "models": [
+      {
+        "name": "Swooping Hawk Exarch",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "lasblaster",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Swooping Hawk",
+        "min": 4,
+        "max": 9,
+        "default_weapon_ids": [
+          "lasblaster",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "wraithguard",
+    "models": [
+      {
+        "name": "Wraithguard",
+        "min": 5,
+        "max": 5,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "fuegan",
+    "models": [
+      {
+        "name": "Fuegan",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "ynnari-succubus",
+    "models": [
+      {
+        "name": "Ynnari Succubus",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "shining-spears",
+    "models": [
+      {
+        "name": "Shining Spear Exarch",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "twin-shuriken-catapult",
+          "laser-lance"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Shining Spear",
+        "min": 2,
+        "max": 5,
+        "default_weapon_ids": [
+          "twin-shuriken-catapult",
+          "laser-lance"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "the-visarch",
+    "models": [
+      {
+        "name": "The Visarch",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "corsair-voidreavers",
+    "models": [
+      {
+        "name": "Corsair Voidreaver",
+        "min": 5,
+        "max": 10,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "vibro-cannon-platform",
+    "models": [
+      {
+        "name": "Vibro Cannon Platform",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "shadowseer",
+    "models": [
+      {
+        "name": "Shadowseer",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "jain-zar",
+    "models": [
+      {
+        "name": "Jain Zar",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "warp-spiders",
+    "models": [
+      {
+        "name": "Warp Spider Exarch",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "death-spinner",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Warp Spider",
+        "min": 4,
+        "max": 9,
+        "default_weapon_ids": [
+          "death-spinner",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "dark-reapers",
+    "models": [
+      {
+        "name": "Dark Reaper Exarch",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "reaper-launcher",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Dark Reaper",
+        "min": 4,
+        "max": 9,
+        "default_weapon_ids": [
+          "reaper-launcher",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "ynnari-kabalite-warriors",
+    "models": [
+      {
+        "name": "Sybarite",
+        "profile_name": "Kabalite Warrior",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "splinter-pistol",
+          "power-weapon"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Kabalite Warrior",
+        "min": 9,
+        "max": 9,
+        "default_weapon_ids": [
+          "splinter-rifle",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "voidweaver",
+    "models": [
+      {
+        "name": "Voidweaver",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "shroud-runners",
+    "models": [
+      {
+        "name": "Shroud Runners",
+        "min": 3,
+        "max": 6,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "warlock",
+    "models": [
+      {
+        "name": "Warlock",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "wraithknight-with-ghostglaive",
+    "models": [
+      {
+        "name": "Wraithknight with Ghostglaive",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "ynnari-wyches",
+    "models": [
+      {
+        "name": "Hekatrix",
+        "profile_name": "Wych",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "splinter-pistol",
+          "power-weapon"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Wych",
+        "min": 9,
+        "max": 9,
+        "default_weapon_ids": [
+          "splinter-pistol",
+          "hekatarii-blade"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "warlock-conclave",
+    "models": [
+      {
+        "name": "Warlock Conclave",
+        "min": 2,
+        "max": 4,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "farseer",
+    "models": [
+      {
+        "name": "Farseer",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "night-spinner",
+    "models": [
+      {
+        "name": "Night Spinner",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "autarch-wayleaper",
+    "models": [
+      {
+        "name": "Autarch Wayleaper",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "dire-avengers",
+    "models": [
+      {
+        "name": "Dire Avenger Exarch",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "avenger-shuriken-catapult",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Dire Avenger",
+        "min": 4,
+        "max": 9,
+        "default_weapon_ids": [
+          "avenger-shuriken-catapult",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "howling-banshees",
+    "models": [
+      {
+        "name": "Howling Banshee Exarch",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "shuriken-pistol",
+          "power-sword"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Howling Banshee",
+        "min": 4,
+        "max": 9,
+        "default_weapon_ids": [
+          "shuriken-pistol",
+          "power-sword"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "falcon",
+    "models": [
+      {
+        "name": "Falcon",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "windriders",
+    "models": [
+      {
+        "name": "Windriders",
+        "min": 3,
+        "max": 6,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "troupe-master",
+    "models": [
+      {
+        "name": "Troupe Master",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "rangers",
+    "models": [
+      {
+        "name": "Rangers",
+        "min": 5,
+        "max": 10,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "crimson-hunter",
+    "models": [
+      {
+        "name": "Crimson Hunter",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "ynnari-raider",
+    "models": [
+      {
+        "name": "Ynnari Raider",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "starfangs",
+    "models": [
+      {
+        "name": "Starfangs",
+        "min": 1,
+        "max": 2,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "skyweavers",
+    "models": [
+      {
+        "name": "Skyweavers",
+        "min": 2,
+        "max": 4,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "ynnari-archon",
+    "models": [
+      {
+        "name": "Ynnari Archon",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "baharroth",
+    "models": [
+      {
+        "name": "Baharroth",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "wraithblades",
+    "models": [
+      {
+        "name": "Wraithblades",
+        "min": 5,
+        "max": 5,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "troupe",
+    "models": [
+      {
+        "name": "Lead Player",
+        "profile_name": "Player",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "shuriken-pistol",
+          "harlequins-blade"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Player",
+        "min": 4,
+        "max": 11,
+        "default_weapon_ids": [
+          "shuriken-pistol",
+          "harlequins-blade"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "ynnari-venom",
+    "models": [
+      {
+        "name": "Ynnari Venom",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "vyper",
+    "models": [
+      {
+        "name": "Vyper",
+        "min": 1,
+        "max": 2,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "spiritseer",
+    "models": [
+      {
+        "name": "Spiritseer",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "starweaver",
+    "models": [
+      {
+        "name": "Starweaver",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "firestorm",
+    "models": [
+      {
+        "name": "Firestorm",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "phoenix",
+    "models": [
+      {
+        "name": "Phoenix",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "vampire-hunter",
+    "models": [
+      {
+        "name": "Vampire Hunter",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "vampire-raider",
+    "models": [
+      {
+        "name": "Vampire Raider",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "wasp-assault-walker",
+    "models": [
+      {
+        "name": "Wasp Assault Walker",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "corsair-skyreaver-band",
+    "models": [
+      {
+        "name": "Corsair Skyreaver Band",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "amallyn-shadowguide",
+    "models": [
+      {
+        "name": "Amallyn Shadowguide",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "bonesinger",
+    "models": [
+      {
+        "name": "Bonesinger",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "corsair-cloud-dancer-band",
+    "models": [
+      {
+        "name": "Corsair Cloud Dancer Band",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "corsair-reaver-band",
+    "models": [
+      {
+        "name": "Corsair Reaver Band",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  }
+]

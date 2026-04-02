@@ -1,0 +1,2664 @@
+[
+  {
+    "id": "trygon",
+    "name": "Trygon",
+    "faction_id": "tyranids",
+    "profiles": [
+      {
+        "name": "Trygon",
+        "M": 10,
+        "T": 10,
+        "W": 14,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 8,
+        "OC": 4
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 140
+      }
+    ],
+    "keywords": [
+      "Monster",
+      "Great Devourer",
+      "Vanguard Invader",
+      "Trygon"
+    ],
+    "faction_keywords": [
+      "Tyranids"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "bio-electric-pulse",
+      "trygon-scything-talons"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "mawloc",
+    "name": "Mawloc",
+    "faction_id": "tyranids",
+    "profiles": [
+      {
+        "name": "Mawloc",
+        "M": 10,
+        "T": 10,
+        "W": 14,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 8,
+        "OC": 4
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 135
+      }
+    ],
+    "keywords": [
+      "Monster",
+      "Great Devourer",
+      "Vanguard Invader",
+      "Mawloc"
+    ],
+    "faction_keywords": [
+      "Tyranids"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "distensible-jaw",
+      "mawloc-scything-talons"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "tyranid-warriors-with-ranged-bio-weapons",
+    "name": "Tyranid Warriors with Ranged Bio-weapons",
+    "faction_id": "tyranids",
+    "profiles": [
+      {
+        "name": "Tyranid Warrior",
+        "M": 6,
+        "T": 5,
+        "W": 3,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 3,
+        "cost": 65
+      },
+      {
+        "models": 6,
+        "cost": 130
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Great Devourer",
+      "Synapse",
+      "Tyranid Warriors with Ranged Bio-Weapons"
+    ],
+    "faction_keywords": [
+      "Tyranids"
+    ],
+    "model_count": {
+      "min": 3,
+      "max": 6
+    },
+    "weapon_ids": [
+      "barbed-strangler",
+      "deathspitter",
+      "devourer",
+      "spinefists",
+      "tyranid-warrior-claws-and-talons",
+      "venom-cannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "winged-hive-tyrant",
+    "name": "Winged Hive Tyrant",
+    "faction_id": "tyranids",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Winged Hive Tyrant",
+        "M": 12,
+        "T": 9,
+        "W": 10,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 7,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 170
+      }
+    ],
+    "keywords": [
+      "Monster",
+      "Character",
+      "Psyker",
+      "Fly",
+      "Great Devourer",
+      "Synapse",
+      "Vanguard Invader",
+      "Hive Tyrant",
+      "Winged Hive Tyrant"
+    ],
+    "faction_keywords": [
+      "Tyranids"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "heavy-venom-cannon",
+      "monstrous-bonesword-and-lash-whip",
+      "monstrous-scything-talons",
+      "stranglethorn-cannon",
+      "tyrant-talons"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "harridan",
+    "name": "Harridan",
+    "faction_id": "tyranids",
+    "profiles": [
+      {
+        "name": "Harridan",
+        "M": 20,
+        "T": 10,
+        "W": 30,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 8,
+        "OC": 0
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 610
+      }
+    ],
+    "keywords": [
+      "Monster",
+      "Titanic",
+      "Fly",
+      "Aircraft",
+      "Transport",
+      "Great Devourer",
+      "Harridan"
+    ],
+    "faction_keywords": [
+      "Tyranids"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "dire-bio-cannon",
+      "gargantuan-scything-talons"
+    ],
+    "ability_ids": [],
+    "transport_capacity": {
+      "capacity": 20
+    },
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "norn-emissary",
+    "name": "Norn Emissary",
+    "faction_id": "tyranids",
+    "profiles": [
+      {
+        "name": "Norn Emissary",
+        "M": 10,
+        "T": 11,
+        "W": 16,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 7,
+        "OC": 5
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 260
+      }
+    ],
+    "keywords": [
+      "Monster",
+      "Psyker",
+      "Great Devourer",
+      "Synapse",
+      "Norn Emissary"
+    ],
+    "faction_keywords": [
+      "Tyranids"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "monstrous-rending-claws",
+      "monstrous-scything-talons",
+      "psychic-tendril"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "winged-tyranid-prime",
+    "name": "Winged Tyranid Prime",
+    "faction_id": "tyranids",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Winged Tyranid Prime",
+        "M": 12,
+        "T": 5,
+        "W": 6,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 65
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Fly",
+      "Great Devourer",
+      "Synapse",
+      "Vanguard Invader",
+      "Winged Tyranid Prime"
+    ],
+    "faction_keywords": [
+      "Tyranids"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "prime-talons"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "von-ryans-leapers",
+    "name": "Von Ryan’s Leapers",
+    "faction_id": "tyranids",
+    "profiles": [
+      {
+        "name": "Von Ryan’s Leapers",
+        "M": 10,
+        "T": 5,
+        "W": 3,
+        "Sv": 4,
+        "invuln_sv": 6,
+        "Ld": 8,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 3,
+        "cost": 70
+      },
+      {
+        "models": 6,
+        "cost": 140
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Great Devourer",
+      "Vanguard Invader",
+      "Von Ryan’s Leapers"
+    ],
+    "faction_keywords": [
+      "Tyranids"
+    ],
+    "model_count": {
+      "min": 3,
+      "max": 6
+    },
+    "weapon_ids": [
+      "leapers-talons"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "hierophant",
+    "name": "Hierophant",
+    "faction_id": "tyranids",
+    "profiles": [
+      {
+        "name": "Hierophant",
+        "M": 12,
+        "T": 14,
+        "W": 30,
+        "Sv": 2,
+        "invuln_sv": 5,
+        "Ld": 8,
+        "OC": 12
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 810
+      }
+    ],
+    "keywords": [
+      "Monster",
+      "Titanic",
+      "Towering",
+      "Transport",
+      "Great Devourer",
+      "Hierophant"
+    ],
+    "faction_keywords": [
+      "Tyranids"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "bio-plasma-torrent",
+      "dire-bio-cannon",
+      "lashwhip-pods",
+      "titanic-scything-talons"
+    ],
+    "ability_ids": [],
+    "transport_capacity": {
+      "capacity": 20
+    },
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "the-swarmlord",
+    "name": "The Swarmlord",
+    "faction_id": "tyranids",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "The Swarmlord",
+        "M": 8,
+        "T": 10,
+        "W": 10,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 7,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 220
+      }
+    ],
+    "keywords": [
+      "Monster",
+      "Character",
+      "Epic Hero",
+      "Psyker",
+      "Great Devourer",
+      "Synapse",
+      "Hive Tyrant",
+      "The Swarmlord"
+    ],
+    "faction_keywords": [
+      "Tyranids"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "bone-sabres",
+      "synaptic-pulse"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "exocrine",
+    "name": "Exocrine",
+    "faction_id": "tyranids",
+    "profiles": [
+      {
+        "name": "Exocrine",
+        "M": 8,
+        "T": 10,
+        "W": 14,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 8,
+        "OC": 4
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 140
+      }
+    ],
+    "keywords": [
+      "Monster",
+      "Great Devourer",
+      "Exocrine"
+    ],
+    "faction_keywords": [
+      "Tyranids"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "bio-plasmic-cannon",
+      "powerful-limbs"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "venomthropes",
+    "name": "Venomthropes",
+    "faction_id": "tyranids",
+    "profiles": [
+      {
+        "name": "Venomthropes",
+        "M": 6,
+        "T": 5,
+        "W": 3,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 8,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 3,
+        "cost": 70
+      },
+      {
+        "models": 6,
+        "cost": 140
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Fly",
+      "Great Devourer",
+      "Venomthropes"
+    ],
+    "faction_keywords": [
+      "Tyranids"
+    ],
+    "model_count": {
+      "min": 3,
+      "max": 6
+    },
+    "weapon_ids": [
+      "toxic-lashes"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "tyranid-warriors-with-melee-bio-weapons",
+    "name": "Tyranid Warriors with Melee Bio-weapons",
+    "faction_id": "tyranids",
+    "profiles": [
+      {
+        "name": "Tyranid Warrior",
+        "M": 6,
+        "T": 5,
+        "W": 3,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 3,
+        "cost": 75
+      },
+      {
+        "models": 6,
+        "cost": 150
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Great Devourer",
+      "Synapse",
+      "Tyranid Warriors with Melee Bio-Weapons"
+    ],
+    "faction_keywords": [
+      "Tyranids"
+    ],
+    "model_count": {
+      "min": 3,
+      "max": 6
+    },
+    "weapon_ids": [
+      "tyranid-warrior-claws-and-talons"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "spore-mines",
+    "name": "Spore Mines",
+    "faction_id": "tyranids",
+    "profiles": [
+      {
+        "name": "Spore Mines",
+        "M": 4,
+        "T": 1,
+        "W": 1,
+        "Sv": 7,
+        "invuln_sv": null,
+        "Ld": 8,
+        "OC": 0
+      }
+    ],
+    "points": [
+      {
+        "models": 3,
+        "cost": 55
+      },
+      {
+        "models": 6,
+        "cost": 110
+      }
+    ],
+    "keywords": [
+      "Beast",
+      "Fly",
+      "Great Devourer",
+      "Spore Mines"
+    ],
+    "faction_keywords": [
+      "Tyranids"
+    ],
+    "model_count": {
+      "min": 3,
+      "max": 6
+    },
+    "weapon_ids": [],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "tyrannocyte",
+    "name": "Tyrannocyte",
+    "faction_id": "tyranids",
+    "role": "dedicated-transport",
+    "profiles": [
+      {
+        "name": "Tyrannocyte",
+        "M": 8,
+        "T": 9,
+        "W": 10,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 8,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 105
+      }
+    ],
+    "keywords": [
+      "Monster",
+      "Fly",
+      "Transport",
+      "Dedicated Transport",
+      "Great Devourer",
+      "Vanguard Invader",
+      "Tyrannocyte"
+    ],
+    "faction_keywords": [
+      "Tyranids"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "flensing-whips",
+      "tyrannocyte-bio-weapons"
+    ],
+    "ability_ids": [],
+    "transport_capacity": {
+      "capacity": 20
+    },
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "ripper-swarms",
+    "name": "Ripper Swarms",
+    "faction_id": "tyranids",
+    "profiles": [
+      {
+        "name": "Ripper Swarms",
+        "M": 6,
+        "T": 2,
+        "W": 4,
+        "Sv": 6,
+        "invuln_sv": null,
+        "Ld": 8,
+        "OC": 0
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 25
+      },
+      {
+        "models": 2,
+        "cost": 40
+      },
+      {
+        "models": 3,
+        "cost": 50
+      }
+    ],
+    "keywords": [
+      "Swarm",
+      "Great Devourer",
+      "Harvester",
+      "Ripper Swarms"
+    ],
+    "faction_keywords": [
+      "Tyranids"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 3
+    },
+    "weapon_ids": [
+      "chitinous-claws-and-teeth",
+      "spinemaws"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "biovores",
+    "name": "Biovores",
+    "faction_id": "tyranids",
+    "profiles": [
+      {
+        "name": "Biovores",
+        "M": 5,
+        "T": 6,
+        "W": 5,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 8,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 50
+      },
+      {
+        "models": 2,
+        "cost": 100
+      },
+      {
+        "models": 3,
+        "cost": 150
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Great Devourer",
+      "Biovores"
+    ],
+    "faction_keywords": [
+      "Tyranids"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 3
+    },
+    "weapon_ids": [
+      "chitin-barbed-limbs",
+      "spore-mine-launcher"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "deathleaper",
+    "name": "Deathleaper",
+    "faction_id": "tyranids",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Deathleaper",
+        "M": 8,
+        "T": 6,
+        "W": 7,
+        "Sv": 3,
+        "invuln_sv": 4,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 80
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Epic Hero",
+      "Great Devourer",
+      "Vanguard Invader",
+      "Deathleaper"
+    ],
+    "faction_keywords": [
+      "Tyranids"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "lictor-claws-and-talons"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "hyperadapted-raveners",
+    "name": "Hyperadapted Raveners",
+    "faction_id": "tyranids",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Ravener Prime",
+        "M": 10,
+        "T": 5,
+        "W": 6,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      },
+      {
+        "name": "Raveners",
+        "M": 10,
+        "T": 5,
+        "W": 3,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 8,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 165
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Great Devourer",
+      "Vanguard Invader",
+      "Burrower",
+      "Hyperadapted Raveners",
+      "Character",
+      "Synapse"
+    ],
+    "faction_keywords": [
+      "Tyranids"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 5
+    },
+    "weapon_ids": [
+      "prime-claws-and-talons",
+      "ravener-heavy-claws-and-talons",
+      "venom-bolt"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "norn-assimilator",
+    "name": "Norn Assimilator",
+    "faction_id": "tyranids",
+    "profiles": [
+      {
+        "name": "Norn Assimilator",
+        "M": 10,
+        "T": 11,
+        "W": 16,
+        "Sv": 2,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 5
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 275
+      }
+    ],
+    "keywords": [
+      "Monster",
+      "Great Devourer",
+      "Harvester",
+      "Synapse",
+      "Norn Assimilator"
+    ],
+    "faction_keywords": [
+      "Tyranids"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "monstrous-scything-talons",
+      "toxinjector-harpoon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "sporocyst",
+    "name": "Sporocyst",
+    "faction_id": "tyranids",
+    "profiles": [
+      {
+        "name": "Sporocyst",
+        "M": 0,
+        "T": 10,
+        "W": 10,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 8,
+        "OC": 0
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 145
+      }
+    ],
+    "keywords": [
+      "Monster",
+      "Great Devourer",
+      "Sporocyst"
+    ],
+    "faction_keywords": [
+      "Tyranids"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "flensing-whips",
+      "sporocyst-bio-weapons"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "tyrannofex",
+    "name": "Tyrannofex",
+    "faction_id": "tyranids",
+    "profiles": [
+      {
+        "name": "Tyrannofex",
+        "M": 9,
+        "T": 12,
+        "W": 16,
+        "Sv": 2,
+        "invuln_sv": null,
+        "Ld": 8,
+        "OC": 5
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 200
+      }
+    ],
+    "keywords": [
+      "Monster",
+      "Great Devourer",
+      "Tyrannofex"
+    ],
+    "faction_keywords": [
+      "Tyranids"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "acid-spray",
+      "fleshborer-hive",
+      "powerful-limbs",
+      "rupture-cannon",
+      "stinger-salvoes"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "neurolictor",
+    "name": "Neurolictor",
+    "faction_id": "tyranids",
+    "profiles": [
+      {
+        "name": "Neurolictor",
+        "M": 8,
+        "T": 5,
+        "W": 7,
+        "Sv": 4,
+        "invuln_sv": 4,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 70
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Great Devourer",
+      "Vanguard Invader",
+      "Synapse",
+      "Neurolictor"
+    ],
+    "faction_keywords": [
+      "Tyranids"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "piercing-claws-and-talons"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "psychophage",
+    "name": "Psychophage",
+    "faction_id": "tyranids",
+    "profiles": [
+      {
+        "name": "Psychophage",
+        "M": 12,
+        "T": 9,
+        "W": 10,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 8,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 110
+      }
+    ],
+    "keywords": [
+      "Monster",
+      "Smoke",
+      "Great Devourer",
+      "Harvester",
+      "Psychophage"
+    ],
+    "faction_keywords": [
+      "Tyranids"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "psychoclastic-torrent",
+      "talons-and-betentacled-maw"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "zoanthropes",
+    "name": "Zoanthropes",
+    "faction_id": "tyranids",
+    "profiles": [
+      {
+        "name": "Zoanthrope",
+        "M": 5,
+        "T": 5,
+        "W": 3,
+        "Sv": 5,
+        "invuln_sv": 4,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 3,
+        "cost": 100
+      },
+      {
+        "models": 6,
+        "cost": 200
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Psyker",
+      "Fly",
+      "Great Devourer",
+      "Synapse",
+      "Zoanthropes"
+    ],
+    "faction_keywords": [
+      "Tyranids"
+    ],
+    "model_count": {
+      "min": 3,
+      "max": 6
+    },
+    "weapon_ids": [
+      "chitinous-claws-and-teeth",
+      "warp-blast"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "broodlord",
+    "name": "Broodlord",
+    "faction_id": "tyranids",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Broodlord",
+        "M": 8,
+        "T": 5,
+        "W": 6,
+        "Sv": 4,
+        "invuln_sv": 4,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 80
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Psyker",
+      "Great Devourer",
+      "Vanguard Invader",
+      "Synapse",
+      "Broodlord"
+    ],
+    "faction_keywords": [
+      "Tyranids"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "broodlord-claws-and-talons"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "harpy",
+    "name": "Harpy",
+    "faction_id": "tyranids",
+    "profiles": [
+      {
+        "name": "Harpy",
+        "M": 20,
+        "T": 9,
+        "W": 12,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 8,
+        "OC": 0
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 215
+      }
+    ],
+    "keywords": [
+      "Monster",
+      "Fly",
+      "Aircraft",
+      "Great Devourer",
+      "Vanguard Invader",
+      "Harpy"
+    ],
+    "faction_keywords": [
+      "Tyranids"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "scything-wings",
+      "stinger-salvoes",
+      "twin-heavy-venom-cannon",
+      "twin-stranglethorn-cannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "parasite-of-mortrex",
+    "name": "Parasite of Mortrex",
+    "faction_id": "tyranids",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Parasite of Mortrex",
+        "M": 12,
+        "T": 5,
+        "W": 5,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 8,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 80
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Fly",
+      "Great Devourer",
+      "Vanguard Invader",
+      "Synapse",
+      "Parasite of Mortrex"
+    ],
+    "faction_keywords": [
+      "Tyranids"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "barbed-ovipositor",
+      "clawed-limbs"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "tyrant-guard",
+    "name": "Tyrant Guard",
+    "faction_id": "tyranids",
+    "profiles": [
+      {
+        "name": "Tyrant Guard",
+        "M": 6,
+        "T": 8,
+        "W": 4,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 8,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 3,
+        "cost": 80
+      },
+      {
+        "models": 6,
+        "cost": 160
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Great Devourer",
+      "Tyrant Guard"
+    ],
+    "faction_keywords": [
+      "Tyranids"
+    ],
+    "model_count": {
+      "min": 3,
+      "max": 6
+    },
+    "weapon_ids": [
+      "bone-cleaver-lash-whip-and-rending-claws",
+      "crushing-claws-and-rending-claws",
+      "scything-talons-and-rending-claws"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "screamer-killer",
+    "name": "Screamer-Killer",
+    "faction_id": "tyranids",
+    "profiles": [
+      {
+        "name": "Screamer-Killer",
+        "M": 8,
+        "T": 9,
+        "W": 10,
+        "Sv": 2,
+        "invuln_sv": null,
+        "Ld": 8,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 125
+      }
+    ],
+    "keywords": [
+      "Monster",
+      "Great Devourer",
+      "Screamer-Killer"
+    ],
+    "faction_keywords": [
+      "Tyranids"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "bio-plasmic-scream",
+      "scream-killer-talons"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "mucolid-spores",
+    "name": "Mucolid Spores",
+    "faction_id": "tyranids",
+    "profiles": [
+      {
+        "name": "Mucolid Spores",
+        "M": 4,
+        "T": 4,
+        "W": 3,
+        "Sv": 7,
+        "invuln_sv": null,
+        "Ld": 8,
+        "OC": 0
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 30
+      },
+      {
+        "models": 2,
+        "cost": 60
+      }
+    ],
+    "keywords": [
+      "Beast",
+      "Fly",
+      "Great Devourer",
+      "Mucolid Spores"
+    ],
+    "faction_keywords": [
+      "Tyranids"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 2
+    },
+    "weapon_ids": [],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "hormagaunts",
+    "name": "Hormagaunts",
+    "faction_id": "tyranids",
+    "role": "battleline",
+    "profiles": [
+      {
+        "name": "Hormagaunts",
+        "M": 10,
+        "T": 3,
+        "W": 1,
+        "Sv": 5,
+        "invuln_sv": null,
+        "Ld": 8,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 10,
+        "cost": 65
+      },
+      {
+        "models": 20,
+        "cost": 130
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Battleline",
+      "Great Devourer",
+      "Endless Multitude",
+      "Hormagaunts"
+    ],
+    "faction_keywords": [
+      "Tyranids"
+    ],
+    "model_count": {
+      "min": 10,
+      "max": 20
+    },
+    "weapon_ids": [
+      "hormagaunt-talons"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "genestealers",
+    "name": "Genestealers",
+    "faction_id": "tyranids",
+    "profiles": [
+      {
+        "name": "Genestealers",
+        "M": 8,
+        "T": 4,
+        "W": 2,
+        "Sv": 5,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 75
+      },
+      {
+        "models": 10,
+        "cost": 140
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Great Devourer",
+      "Vanguard Invader",
+      "Genestealers"
+    ],
+    "faction_keywords": [
+      "Tyranids"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 10
+    },
+    "weapon_ids": [
+      "genestealers-claws-and-talons"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "toxicrene",
+    "name": "Toxicrene",
+    "faction_id": "tyranids",
+    "profiles": [
+      {
+        "name": "Toxicrene",
+        "M": 8,
+        "T": 11,
+        "W": 14,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 8,
+        "OC": 4
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 150
+      }
+    ],
+    "keywords": [
+      "Monster",
+      "Great Devourer",
+      "Toxicrene"
+    ],
+    "faction_keywords": [
+      "Tyranids"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "massive-toxic-lashes"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "pyrovores",
+    "name": "Pyrovores",
+    "faction_id": "tyranids",
+    "profiles": [
+      {
+        "name": "Pyrovores",
+        "M": 5,
+        "T": 6,
+        "W": 5,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 8,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 40
+      },
+      {
+        "models": 2,
+        "cost": 70
+      },
+      {
+        "models": 3,
+        "cost": 105
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Great Devourer",
+      "Harvester",
+      "Pyrovores"
+    ],
+    "faction_keywords": [
+      "Tyranids"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 3
+    },
+    "weapon_ids": [
+      "chitin-barbed-limbs",
+      "flamespurt"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "neurotyrant",
+    "name": "Neurotyrant",
+    "faction_id": "tyranids",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Neurotyrant",
+        "M": 6,
+        "T": 8,
+        "W": 9,
+        "Sv": 4,
+        "invuln_sv": 4,
+        "Ld": 7,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 105
+      }
+    ],
+    "keywords": [
+      "Monster",
+      "Character",
+      "Fly",
+      "Psyker",
+      "Great Devourer",
+      "Synapse",
+      "Neurotyrant"
+    ],
+    "faction_keywords": [
+      "Tyranids"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "neurotyrant-claws-and-lashes",
+      "psychic-scream"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "termagants",
+    "name": "Termagants",
+    "faction_id": "tyranids",
+    "role": "battleline",
+    "profiles": [
+      {
+        "name": "Termagants",
+        "M": 6,
+        "T": 3,
+        "W": 1,
+        "Sv": 5,
+        "invuln_sv": null,
+        "Ld": 8,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 10,
+        "cost": 60
+      },
+      {
+        "models": 20,
+        "cost": 120
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Battleline",
+      "Great Devourer",
+      "Endless Multitude",
+      "Termagants"
+    ],
+    "faction_keywords": [
+      "Tyranids"
+    ],
+    "model_count": {
+      "min": 10,
+      "max": 20
+    },
+    "weapon_ids": [
+      "chitinous-claws-and-teeth",
+      "fleshborer",
+      "shardlauncher",
+      "spike-rifle",
+      "strangleweb",
+      "termagant-devourer",
+      "termagant-spinefists"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "tyranid-prime-with-lash-whip",
+    "name": "Tyranid Prime with Lash Whip",
+    "faction_id": "tyranids",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Tyranid Prime with Lash Whip",
+        "M": 10,
+        "T": 5,
+        "W": 6,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 85
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Great Devourer",
+      "Synapse",
+      "Tyranid Prime with Lash Whip"
+    ],
+    "faction_keywords": [
+      "Tyranids"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "lash-whip",
+      "rending-claw",
+      "scything-talons"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "hive-guard",
+    "name": "Hive Guard",
+    "faction_id": "tyranids",
+    "profiles": [
+      {
+        "name": "Hive Guard",
+        "M": 6,
+        "T": 7,
+        "W": 4,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 8,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 3,
+        "cost": 90
+      },
+      {
+        "models": 6,
+        "cost": 180
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Great Devourer",
+      "Hive Guard"
+    ],
+    "faction_keywords": [
+      "Tyranids"
+    ],
+    "model_count": {
+      "min": 3,
+      "max": 6
+    },
+    "weapon_ids": [
+      "chitinous-claws-and-teeth",
+      "impaler-cannon",
+      "shockcannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "barbgaunts",
+    "name": "Barbgaunts",
+    "faction_id": "tyranids",
+    "profiles": [
+      {
+        "name": "Barbgaunts",
+        "M": 6,
+        "T": 4,
+        "W": 2,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 8,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 55
+      },
+      {
+        "models": 10,
+        "cost": 110
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Great Devourer",
+      "Barbgaunts"
+    ],
+    "faction_keywords": [
+      "Tyranids"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 10
+    },
+    "weapon_ids": [
+      "barblauncher",
+      "chitinous-claws-and-teeth"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "neurogaunts",
+    "name": "Neurogaunts",
+    "faction_id": "tyranids",
+    "profiles": [
+      {
+        "name": "Neurogaunt",
+        "M": 6,
+        "T": 3,
+        "W": 1,
+        "Sv": 6,
+        "invuln_sv": null,
+        "Ld": 8,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 11,
+        "cost": 45
+      },
+      {
+        "models": 21,
+        "cost": 90
+      },
+      {
+        "models": 22,
+        "cost": 90
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Great Devourer",
+      "Endless Multitude",
+      "Neurogaunts"
+    ],
+    "faction_keywords": [
+      "Tyranids"
+    ],
+    "model_count": {
+      "min": 11,
+      "max": 22
+    },
+    "weapon_ids": [
+      "chitinous-claws-and-teeth"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "hive-crone",
+    "name": "Hive Crone",
+    "faction_id": "tyranids",
+    "profiles": [
+      {
+        "name": "Hive Crone",
+        "M": 20,
+        "T": 9,
+        "W": 12,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 8,
+        "OC": 0
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 200
+      }
+    ],
+    "keywords": [
+      "Monster",
+      "Fly",
+      "Aircraft",
+      "Great Devourer",
+      "Vanguard Invader",
+      "Hive Crone"
+    ],
+    "faction_keywords": [
+      "Tyranids"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "drool-cannon",
+      "scything-wings",
+      "stinger-salvoes",
+      "tentaclids",
+      "thorax-spur"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "tervigon",
+    "name": "Tervigon",
+    "faction_id": "tyranids",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Tervigon",
+        "M": 8,
+        "T": 11,
+        "W": 16,
+        "Sv": 2,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 5
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 160
+      }
+    ],
+    "keywords": [
+      "Monster",
+      "Character",
+      "Psyker",
+      "Great Devourer",
+      "Synapse",
+      "Tervigon"
+    ],
+    "faction_keywords": [
+      "Tyranids"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "massive-crushing-claws",
+      "massive-scything-talons",
+      "stinger-salvoes"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "old-one-eye",
+    "name": "Old One Eye",
+    "faction_id": "tyranids",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Old One Eye",
+        "M": 8,
+        "T": 9,
+        "W": 9,
+        "Sv": 2,
+        "invuln_sv": null,
+        "Ld": 8,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 150
+      }
+    ],
+    "keywords": [
+      "Monster",
+      "Character",
+      "Epic Hero",
+      "Great Devourer",
+      "Old One Eye"
+    ],
+    "faction_keywords": [
+      "Tyranids"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "old-one-eyes-claws-and-talons"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "maleceptor",
+    "name": "Maleceptor",
+    "faction_id": "tyranids",
+    "profiles": [
+      {
+        "name": "Maleceptor",
+        "M": 8,
+        "T": 11,
+        "W": 14,
+        "Sv": 3,
+        "invuln_sv": 4,
+        "Ld": 7,
+        "OC": 4
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 170
+      }
+    ],
+    "keywords": [
+      "Monster",
+      "Psyker",
+      "Great Devourer",
+      "Synapse",
+      "Maleceptor"
+    ],
+    "faction_keywords": [
+      "Tyranids"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "massive-scything-talons",
+      "psychic-overload"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "carnifexes",
+    "name": "Carnifexes",
+    "faction_id": "tyranids",
+    "profiles": [
+      {
+        "name": "Carnifexes",
+        "M": 8,
+        "T": 9,
+        "W": 8,
+        "Sv": 2,
+        "invuln_sv": null,
+        "Ld": 8,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 90
+      },
+      {
+        "models": 2,
+        "cost": 180
+      }
+    ],
+    "keywords": [
+      "Monster",
+      "Great Devourer",
+      "Carnifexes"
+    ],
+    "faction_keywords": [
+      "Tyranids"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 2
+    },
+    "weapon_ids": [
+      "bio-plasma",
+      "carnifex-crushing-claws",
+      "carnifex-extra-scything-talons",
+      "carnifex-scything-talons",
+      "chitinous-claws-and-teeth",
+      "deathspitters-with-slimer-maggots",
+      "devourers-with-brainleech-worms",
+      "heavy-venom-cannon",
+      "spine-banks",
+      "stranglethorn-cannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "hive-tyrant",
+    "name": "Hive Tyrant",
+    "faction_id": "tyranids",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Hive Tyrant",
+        "M": 8,
+        "T": 10,
+        "W": 10,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 7,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 195
+      }
+    ],
+    "keywords": [
+      "Monster",
+      "Character",
+      "Psyker",
+      "Great Devourer",
+      "Synapse",
+      "Hive Tyrant"
+    ],
+    "faction_keywords": [
+      "Tyranids"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "heavy-venom-cannon",
+      "monstrous-bonesword-and-lash-whip",
+      "monstrous-scything-talons",
+      "stranglethorn-cannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "gargoyles",
+    "name": "Gargoyles",
+    "faction_id": "tyranids",
+    "role": "battleline",
+    "profiles": [
+      {
+        "name": "Gargoyles",
+        "M": 12,
+        "T": 3,
+        "W": 1,
+        "Sv": 6,
+        "invuln_sv": null,
+        "Ld": 8,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 10,
+        "cost": 85
+      },
+      {
+        "models": 20,
+        "cost": 170
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Battleline",
+      "Fly",
+      "Great Devourer",
+      "Endless Multitude",
+      "Vanguard Invader",
+      "Gargoyles"
+    ],
+    "faction_keywords": [
+      "Tyranids"
+    ],
+    "model_count": {
+      "min": 10,
+      "max": 20
+    },
+    "weapon_ids": [
+      "blinding-venom",
+      "fleshborer"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "haruspex",
+    "name": "Haruspex",
+    "faction_id": "tyranids",
+    "profiles": [
+      {
+        "name": "Haruspex",
+        "M": 8,
+        "T": 11,
+        "W": 14,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 8,
+        "OC": 4
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 125
+      }
+    ],
+    "keywords": [
+      "Monster",
+      "Great Devourer",
+      "Harvester",
+      "Haruspex"
+    ],
+    "faction_keywords": [
+      "Tyranids"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "grasping-tongue",
+      "ravenous-maw",
+      "shovelling-claws"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "lictor",
+    "name": "Lictor",
+    "faction_id": "tyranids",
+    "profiles": [
+      {
+        "name": "Lictor",
+        "M": 8,
+        "T": 6,
+        "W": 6,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 60
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Great Devourer",
+      "Vanguard Invader",
+      "Lictor"
+    ],
+    "faction_keywords": [
+      "Tyranids"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "lictor-claws-and-talons"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "raveners",
+    "name": "Raveners",
+    "faction_id": "tyranids",
+    "profiles": [
+      {
+        "name": "Raveners",
+        "M": 10,
+        "T": 5,
+        "W": 3,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 8,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 125
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Great Devourer",
+      "Vanguard Invader",
+      "Burrower",
+      "Raveners"
+    ],
+    "faction_keywords": [
+      "Tyranids"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 5
+    },
+    "weapon_ids": [
+      "ravener-claws-and-talons"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "dimachaeron",
+    "name": "Dimachaeron",
+    "faction_id": "tyranids",
+    "profiles": [
+      {
+        "name": "Dimachaeron",
+        "M": 12,
+        "T": 10,
+        "W": 16,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 5
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Dimachaeron",
+      "Great Devourer",
+      "Monster"
+    ],
+    "faction_keywords": [
+      "Tyranids"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "massive-scything-sickle-talons"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "sky-slasher-swarms",
+    "name": "Sky-slasher Swarms",
+    "faction_id": "tyranids",
+    "profiles": [
+      {
+        "name": "Sky-slasher Swarms",
+        "M": 12,
+        "T": 2,
+        "W": 4,
+        "Sv": 6,
+        "invuln_sv": null,
+        "Ld": 8,
+        "OC": 0
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Fly",
+      "Great Devourer",
+      "Sky-slasher Swarms",
+      "Swarm"
+    ],
+    "faction_keywords": [
+      "Tyranids"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "claws-and-teeth",
+      "spinemaws"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "malanthrope",
+    "name": "Malanthrope",
+    "faction_id": "tyranids",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Malanthrope",
+        "M": 6,
+        "T": 5,
+        "W": 10,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 3
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Character",
+      "Fly",
+      "Great Devourer",
+      "Infantry",
+      "Malanthrope",
+      "Synapse"
+    ],
+    "faction_keywords": [
+      "Tyranids"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "grasping-tail"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  }
+]

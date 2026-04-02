@@ -1,0 +1,1583 @@
+[
+  {
+    "id": "lord-of-poxes",
+    "name": "Lord of Poxes",
+    "faction_id": "death-guard",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Lord of Poxes",
+        "M": 5,
+        "T": 6,
+        "W": 5,
+        "Sv": 3,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 75
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Grenades",
+      "Chaos",
+      "Nurgle",
+      "Lord of Poxes"
+    ],
+    "faction_keywords": [
+      "Death Guard"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "great-plague-blade",
+      "plasma-pistol"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "defiler",
+    "name": "Defiler",
+    "faction_id": "death-guard",
+    "profiles": [
+      {
+        "name": "Defiler",
+        "M": 8,
+        "T": 11,
+        "W": 14,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 5
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 165
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Smoke",
+      "Chaos",
+      "Nurgle",
+      "Daemon",
+      "Defiler"
+    ],
+    "faction_keywords": [
+      "Death Guard"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "battle-cannon",
+      "combi-bolter",
+      "combi-weapon",
+      "defiler-claws",
+      "defiler-scourge",
+      "havoc-launcher",
+      "reaper-autocannon",
+      "twin-heavy-bolter",
+      "twin-heavy-flamer",
+      "twin-lascannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "chaos-spawn",
+    "name": "Chaos Spawn",
+    "faction_id": "death-guard",
+    "profiles": [
+      {
+        "name": "Chaos Spawn",
+        "M": 8,
+        "T": 7,
+        "W": 4,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 2,
+        "cost": 80
+      }
+    ],
+    "keywords": [
+      "Beast",
+      "Chaos",
+      "Nurgle",
+      "Spawn"
+    ],
+    "faction_keywords": [
+      "Death Guard"
+    ],
+    "model_count": {
+      "min": 2,
+      "max": 2
+    },
+    "weapon_ids": [
+      "hideous-mutations"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "tallyman",
+    "name": "Tallyman",
+    "faction_id": "death-guard",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Tallyman",
+        "M": 5,
+        "T": 6,
+        "W": 4,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 50
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Chaos",
+      "Nurgle",
+      "Tallyman"
+    ],
+    "faction_keywords": [
+      "Death Guard"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "close-combat-weapon",
+      "plasma-pistol"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "poxwalkers",
+    "name": "Poxwalkers",
+    "faction_id": "death-guard",
+    "profiles": [
+      {
+        "name": "Poxwalkers",
+        "M": 5,
+        "T": 4,
+        "W": 1,
+        "Sv": 7,
+        "invuln_sv": null,
+        "Ld": 8,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 10,
+        "cost": 65
+      },
+      {
+        "models": 20,
+        "cost": 130
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Chaos",
+      "Nurgle",
+      "Poxwalkers"
+    ],
+    "faction_keywords": [
+      "Death Guard"
+    ],
+    "model_count": {
+      "min": 10,
+      "max": 20
+    },
+    "weapon_ids": [
+      "improvised-weapon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "lord-of-contagion",
+    "name": "Lord of Contagion",
+    "faction_id": "death-guard",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Lord of Contagion",
+        "M": 5,
+        "T": 7,
+        "W": 6,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 120
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Grenades",
+      "Chaos",
+      "Nurgle",
+      "Terminator",
+      "Lord of Contagion"
+    ],
+    "faction_keywords": [
+      "Death Guard"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "manreaper"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "chaos-predator-annihilator",
+    "name": "Chaos Predator Annihilator",
+    "faction_id": "death-guard",
+    "profiles": [
+      {
+        "name": "Chaos Predator Annihilator",
+        "M": 10,
+        "T": 10,
+        "W": 11,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 135
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Smoke",
+      "Chaos",
+      "Nurgle",
+      "Predator Annihilator"
+    ],
+    "faction_keywords": [
+      "Death Guard"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-tracks",
+      "combi-bolter",
+      "combi-weapon",
+      "havoc-launcher",
+      "heavy-bolter",
+      "lascannon",
+      "predator-twin-lascannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "chaos-predator-destructor",
+    "name": "Chaos Predator Destructor",
+    "faction_id": "death-guard",
+    "profiles": [
+      {
+        "name": "Chaos Predator Destructor",
+        "M": 10,
+        "T": 10,
+        "W": 11,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 145
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Smoke",
+      "Chaos",
+      "Nurgle",
+      "Predator Destructor"
+    ],
+    "faction_keywords": [
+      "Death Guard"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-tracks",
+      "combi-bolter",
+      "combi-weapon",
+      "havoc-launcher",
+      "heavy-bolter",
+      "lascannon",
+      "predator-autocannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "foetid-bloat-drone-with-heavy-blight-launcher",
+    "name": "Foetid Bloat-Drone with Heavy Blight Launcher",
+    "faction_id": "death-guard",
+    "profiles": [
+      {
+        "name": "Foetid Bloat-Drone with Heavy Blight Launcher",
+        "M": 10,
+        "T": 9,
+        "W": 10,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 120
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Fly",
+      "Chaos",
+      "Nurgle",
+      "Daemon",
+      "Foetid Bloat-drone with Heavy Blight Launcher"
+    ],
+    "faction_keywords": [
+      "Death Guard"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "heavy-blight-launcher",
+      "plague-probe"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "plagueburst-crawler",
+    "name": "Plagueburst Crawler",
+    "faction_id": "death-guard",
+    "profiles": [
+      {
+        "name": "Plagueburst Crawler",
+        "M": 10,
+        "T": 10,
+        "W": 12,
+        "Sv": 2,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 210
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Chaos",
+      "Nurgle",
+      "Daemon",
+      "Plagueburst Crawler"
+    ],
+    "faction_keywords": [
+      "Death Guard"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-tracks",
+      "entropy-cannon",
+      "heavy-slugger",
+      "plagueburst-mortar",
+      "plaguespitter",
+      "rothail-volley-gun"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "biologus-putrifier",
+    "name": "Biologus Putrifier",
+    "faction_id": "death-guard",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Biologus Putrifier",
+        "M": 5,
+        "T": 6,
+        "W": 4,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 60
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Grenades",
+      "Chaos",
+      "Nurgle",
+      "Biologus Putrifier"
+    ],
+    "faction_keywords": [
+      "Death Guard"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "hyper-blight-grenades",
+      "injector-pistol",
+      "plague-knives"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "plague-marines",
+    "name": "Plague Marines",
+    "faction_id": "death-guard",
+    "role": "battleline",
+    "profiles": [
+      {
+        "name": "Plague Marine",
+        "M": 5,
+        "T": 6,
+        "W": 2,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 95
+      },
+      {
+        "models": 7,
+        "cost": 130
+      },
+      {
+        "models": 10,
+        "cost": 190
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Battleline",
+      "Grenades",
+      "Chaos",
+      "Nurgle",
+      "Plague Marines"
+    ],
+    "faction_keywords": [
+      "Death Guard"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 10
+    },
+    "weapon_ids": [
+      "blight-launcher",
+      "bolt-pistol",
+      "boltgun",
+      "bubotic-weapons",
+      "heavy-plague-weapon",
+      "meltagun",
+      "plague-belcher",
+      "plague-knives",
+      "plague-spewer",
+      "plasma-gun",
+      "plasma-pistol",
+      "power-fist"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "plague-surgeon",
+    "name": "Plague Surgeon",
+    "faction_id": "death-guard",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Plague Surgeon",
+        "M": 5,
+        "T": 6,
+        "W": 4,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 50
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Chaos",
+      "Nurgle",
+      "Plague Surgeon"
+    ],
+    "faction_keywords": [
+      "Death Guard"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "balesword",
+      "bolt-pistol"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "daemon-prince-of-nurgle",
+    "name": "Daemon Prince of Nurgle",
+    "faction_id": "death-guard",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Daemon Prince of Nurgle",
+        "M": 8,
+        "T": 12,
+        "W": 10,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 195
+      }
+    ],
+    "keywords": [
+      "Monster",
+      "Character",
+      "Chaos",
+      "Nurgle",
+      "Daemon",
+      "Daemon Prince"
+    ],
+    "faction_keywords": [
+      "Death Guard"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "hellforged-weapons",
+      "infernal-cannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "deathshroud-terminators",
+    "name": "Deathshroud Terminators",
+    "faction_id": "death-guard",
+    "profiles": [
+      {
+        "name": "Deathshroud Terminator",
+        "M": 5,
+        "T": 7,
+        "W": 4,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 3,
+        "cost": 160
+      },
+      {
+        "models": 6,
+        "cost": 320
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Chaos",
+      "Nurgle",
+      "Terminator",
+      "Deathshroud Terminators"
+    ],
+    "faction_keywords": [
+      "Death Guard"
+    ],
+    "model_count": {
+      "min": 3,
+      "max": 6
+    },
+    "weapon_ids": [
+      "manreaper",
+      "plaguespurt-gauntlet"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "lord-of-virulence",
+    "name": "Lord of Virulence",
+    "faction_id": "death-guard",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Lord of Virulence",
+        "M": 5,
+        "T": 7,
+        "W": 6,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 100
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Chaos",
+      "Nurgle",
+      "Terminator",
+      "Lord of Virulence"
+    ],
+    "faction_keywords": [
+      "Death Guard"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "power-fist",
+      "twin-plague-spewer"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "foetid-bloat-drone",
+    "name": "Foetid Bloat-Drone",
+    "faction_id": "death-guard",
+    "profiles": [
+      {
+        "name": "Foetid Bloat-Drone",
+        "M": 10,
+        "T": 9,
+        "W": 10,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 100
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Fly",
+      "Chaos",
+      "Nurgle",
+      "Daemon",
+      "Foetid Bloat-Drone"
+    ],
+    "faction_keywords": [
+      "Death Guard"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "fleshmower",
+      "plague-probe",
+      "plaguespitter"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "noxious-blightbringer",
+    "name": "Noxious Blightbringer",
+    "faction_id": "death-guard",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Noxious Blightbringer",
+        "M": 5,
+        "T": 6,
+        "W": 4,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 50
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Chaos",
+      "Nurgle",
+      "Noxious Blightbringer"
+    ],
+    "faction_keywords": [
+      "Death Guard"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "cursed-plague-bell",
+      "plasma-pistol"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "daemon-prince-of-nurgle-with-wings",
+    "name": "Daemon Prince of Nurgle with Wings",
+    "faction_id": "death-guard",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Daemon Prince of Nurgle with Wings",
+        "M": 12,
+        "T": 11,
+        "W": 10,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 180
+      }
+    ],
+    "keywords": [
+      "Monster",
+      "Character",
+      "Fly",
+      "Chaos",
+      "Nurgle",
+      "Daemon",
+      "Daemon Prince with Wings"
+    ],
+    "faction_keywords": [
+      "Death Guard"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "hellforged-weapons",
+      "infernal-cannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "miasmic-malignifier",
+    "name": "Miasmic Malignifier",
+    "faction_id": "death-guard",
+    "profiles": [
+      {
+        "name": "Miasmic Malignifier",
+        "M": 0,
+        "T": 10,
+        "W": 12,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 0
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 105
+      }
+    ],
+    "keywords": [
+      "Fortification",
+      "Chaos",
+      "Nurgle",
+      "Miasmic Malignifier"
+    ],
+    "faction_keywords": [
+      "Death Guard"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "miasmic-gouts"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "helbrute",
+    "name": "Helbrute",
+    "faction_id": "death-guard",
+    "profiles": [
+      {
+        "name": "Helbrute",
+        "M": 7,
+        "T": 9,
+        "W": 8,
+        "Sv": 2,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 115
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Chaos",
+      "Nurgle",
+      "Helbrute"
+    ],
+    "faction_keywords": [
+      "Death Guard"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "close-combat-weapon",
+      "combi-bolter",
+      "heavy-flamer",
+      "helbrute-fist",
+      "helbrute-hammer",
+      "missile-launcher",
+      "multi-melta",
+      "plasma-cannon",
+      "power-scourge",
+      "twin-autocannon",
+      "twin-heavy-bolter",
+      "twin-lascannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "myphitic-blight-haulers",
+    "name": "Myphitic Blight-haulers",
+    "faction_id": "death-guard",
+    "profiles": [
+      {
+        "name": "Myphitic Blight-haulers",
+        "M": 10,
+        "T": 9,
+        "W": 10,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 100
+      },
+      {
+        "models": 2,
+        "cost": 200
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Smoke",
+      "Chaos",
+      "Nurgle",
+      "Daemon",
+      "Myphitic Blight-Hauler"
+    ],
+    "faction_keywords": [
+      "Death Guard"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 2
+    },
+    "weapon_ids": [
+      "bile-spurt",
+      "gnashing-maw",
+      "missile-launcher",
+      "multi-melta"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "mortarion",
+    "name": "Mortarion",
+    "faction_id": "death-guard",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Mortarion",
+        "M": 10,
+        "T": 12,
+        "W": 16,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 5,
+        "OC": 6
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 380
+      }
+    ],
+    "keywords": [
+      "Monster",
+      "Primarch",
+      "Mortarion",
+      "Character",
+      "Psyker",
+      "Fly",
+      "Epic Hero",
+      "Grenades",
+      "Chaos",
+      "Nurgle",
+      "Daemon"
+    ],
+    "faction_keywords": [
+      "Death Guard"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "lantern",
+      "rotwind",
+      "silence"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "malignant-plaguecaster",
+    "name": "Malignant Plaguecaster",
+    "faction_id": "death-guard",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Malignant Plaguecaster",
+        "M": 5,
+        "T": 6,
+        "W": 4,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 60
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Psyker",
+      "Chaos",
+      "Nurgle",
+      "Malignant Plaguecaster"
+    ],
+    "faction_keywords": [
+      "Death Guard"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "bolt-pistol",
+      "corrupted-staff",
+      "plague-wind"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "chaos-rhino",
+    "name": "Chaos Rhino",
+    "faction_id": "death-guard",
+    "role": "dedicated-transport",
+    "profiles": [
+      {
+        "name": "Chaos Rhino",
+        "M": 12,
+        "T": 9,
+        "W": 10,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 85
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Smoke",
+      "Chaos",
+      "Nurgle",
+      "Transport",
+      "Dedicated Transport",
+      "Rhino"
+    ],
+    "faction_keywords": [
+      "Death Guard"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-tracks",
+      "combi-bolter",
+      "combi-weapon",
+      "havoc-launcher"
+    ],
+    "ability_ids": [],
+    "transport_capacity": {
+      "capacity": 12
+    },
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "chaos-land-raider",
+    "name": "Chaos Land Raider",
+    "faction_id": "death-guard",
+    "profiles": [
+      {
+        "name": "Chaos Land Raider",
+        "M": 10,
+        "T": 12,
+        "W": 16,
+        "Sv": 2,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 5
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 220
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Transport",
+      "Smoke",
+      "Chaos",
+      "Nurgle",
+      "Land Raider"
+    ],
+    "faction_keywords": [
+      "Death Guard"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-tracks",
+      "combi-bolter",
+      "combi-weapon",
+      "havoc-launcher",
+      "soulshatter-lascannon",
+      "twin-heavy-bolter"
+    ],
+    "ability_ids": [],
+    "transport_capacity": {
+      "capacity": 14
+    },
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "foul-blightspawn",
+    "name": "Foul Blightspawn",
+    "faction_id": "death-guard",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Foul Blightspawn",
+        "M": 5,
+        "T": 6,
+        "W": 4,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 75
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Grenades",
+      "Chaos",
+      "Nurgle",
+      "Foul Blightspawn"
+    ],
+    "faction_keywords": [
+      "Death Guard"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "close-combat-weapon",
+      "plague-sprayer"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "icon-bearer",
+    "name": "Icon Bearer",
+    "faction_id": "death-guard",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Icon Bearer",
+        "M": 5,
+        "T": 6,
+        "W": 4,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 5,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 45
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Grenades",
+      "Chaos",
+      "Nurgle",
+      "Icon Bearer"
+    ],
+    "faction_keywords": [
+      "Death Guard"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "boltgun",
+      "plague-knife"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "typhus",
+    "name": "Typhus",
+    "faction_id": "death-guard",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Typhus",
+        "M": 5,
+        "T": 7,
+        "W": 6,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 100
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Psyker",
+      "Epic Hero",
+      "Chaos",
+      "Nurgle",
+      "Terminator",
+      "Typhus"
+    ],
+    "faction_keywords": [
+      "Death Guard"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "lakrimae"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "blightlord-terminators",
+    "name": "Blightlord Terminators",
+    "faction_id": "death-guard",
+    "profiles": [
+      {
+        "name": "Blightlord Terminator",
+        "M": 5,
+        "T": 7,
+        "W": 3,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 3,
+        "cost": 115
+      },
+      {
+        "models": 5,
+        "cost": 185
+      },
+      {
+        "models": 10,
+        "cost": 370
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Chaos",
+      "Nurgle",
+      "Terminator",
+      "Blightlord Terminators"
+    ],
+    "faction_keywords": [
+      "Death Guard"
+    ],
+    "model_count": {
+      "min": 3,
+      "max": 10
+    },
+    "weapon_ids": [
+      "blight-launcher",
+      "bubotic-blade",
+      "close-combat-weapon",
+      "combi-bolter",
+      "combi-weapon",
+      "flail-of-corruption",
+      "plague-spewer",
+      "reaper-autocannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "death-guard-possessed",
+    "name": "Death Guard Possessed",
+    "faction_id": "death-guard",
+    "profiles": [
+      {
+        "name": "Death Guard Possessed",
+        "M": 9,
+        "T": 6,
+        "W": 3,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Chaos",
+      "Daemon",
+      "Infantry",
+      "Possessed"
+    ],
+    "faction_keywords": [
+      "Death Guard"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "hideous-mutations"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  }
+]

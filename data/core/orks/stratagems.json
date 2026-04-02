@@ -1,0 +1,1036 @@
+[
+  {
+    "id": "dakkastorm",
+    "name": "DAKKASTORM",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "kult-of-speed",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "blitza-fire",
+    "name": "BLITZA FIRE",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "kult-of-speed",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "full-throttle",
+    "name": "FULL THROTTLE",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "kult-of-speed",
+    "cp_cost": 1,
+    "phases": [
+      "charge"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "stalkin-taktiks",
+    "name": "STALKIN’ TAKTIKS",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "da-big-hunt",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "drag-it-down",
+    "name": "DRAG IT DOWN",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "da-big-hunt",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "klankin-klaws",
+    "name": "KLANKIN’ KLAWS",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "dread-mob",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "bigger-shells-for-bigger-gitz",
+    "name": "BIGGER SHELLS FOR BIGGER GITZ",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "dread-mob",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "dakka-dakka-dakka",
+    "name": "DAKKA! DAKKA! DAKKA!",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "dread-mob",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "extra-gubbinz",
+    "name": "EXTRA GUBBINZ",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "dread-mob",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "unbridled-carnage",
+    "name": "UNBRIDLED CARNAGE",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "war-horde",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "ard-as-nails",
+    "name": "’ARD AS NAILS",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "war-horde",
+    "cp_cost": 1,
+    "phases": [
+      "fight",
+      "shooting"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "mob-rule",
+    "name": "MOB RULE",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "war-horde",
+    "cp_cost": 1,
+    "phases": [
+      "command"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "ere-we-go",
+    "name": "’ERE WE GO",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "war-horde",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "armed-to-da-teef",
+    "name": "ARMED TO DA TEEF",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "bully-boyz",
+    "cp_cost": 1,
+    "phases": [
+      "fight",
+      "shooting"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "cut-em-down",
+    "name": "CUT’ EM DOWN",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "bully-boyz",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "hulking-brutes",
+    "name": "HULKING BRUTES",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "bully-boyz",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "competitive-streak",
+    "name": "COMPETITIVE STREAK",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "green-tide",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "bulldozer-brutality",
+    "name": "BULLDOZER BRUTALITY",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "green-tide",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "fight-proppa",
+    "name": "FIGHT PROPPA",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "taktikal-brigade",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "krunchin-descent",
+    "name": "KRUNCHIN’ DESCENT",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "taktikal-brigade",
+    "cp_cost": 1,
+    "phases": [
+      "charge"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "orks-is-still-orks",
+    "name": "ORKS IS STILL ORKS",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "more-dakka",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "long-uncontrolled-bursts",
+    "name": "LONG, UNCONTROLLED BURSTS",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "more-dakka",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "bash-and-grab",
+    "name": "BASH AND GRAB",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "freebooter-krew",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "boardin-rush",
+    "name": "BOARDIN’ RUSH",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "freebooter-krew",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "careen",
+    "name": "CAREEN!",
+    "category": "detachment",
+    "type": "epic-deed",
+    "detachment_id": "war-horde",
+    "cp_cost": 1,
+    "phases": [
+      "command",
+      "movement",
+      "shooting",
+      "charge",
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "crushing-impact",
+    "name": "CRUSHING IMPACT",
+    "category": "detachment",
+    "type": "epic-deed",
+    "detachment_id": "bully-boyz",
+    "cp_cost": 1,
+    "phases": [
+      "charge"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "tide-of-muscle",
+    "name": "TIDE OF MUSCLE",
+    "category": "detachment",
+    "type": "epic-deed",
+    "detachment_id": "green-tide",
+    "cp_cost": 1,
+    "phases": [
+      "charge"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "huge-show-offs",
+    "name": "HUGE SHOW-OFFS",
+    "category": "detachment",
+    "type": "epic-deed",
+    "detachment_id": "more-dakka",
+    "cp_cost": 1,
+    "phases": [
+      "command"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "orks-is-never-beaten",
+    "name": "ORKS IS NEVER BEATEN",
+    "category": "detachment",
+    "type": "epic-deed",
+    "detachment_id": "war-horde",
+    "cp_cost": 2,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "get-stuck-in-ladz",
+    "name": "GET STUCK IN, LADZ!",
+    "category": "detachment",
+    "type": "epic-deed",
+    "detachment_id": "more-dakka",
+    "cp_cost": 2,
+    "phases": [
+      "command"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "speediest-freeks",
+    "name": "SPEEDIEST FREEKS",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "kult-of-speed",
+    "cp_cost": 1,
+    "phases": [
+      "fight",
+      "shooting"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "squig-flingin",
+    "name": "SQUIG FLINGIN’",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "kult-of-speed",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "more-gitz-over-ere",
+    "name": "MORE GITZ OVER ’ERE!",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "kult-of-speed",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "where-dya-fink-youre-going",
+    "name": "WHERE D’YA FINK YOU’RE GOING?",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "da-big-hunt",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "instinctive-hunters",
+    "name": "INSTINCTIVE HUNTERS",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "da-big-hunt",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "unstoppable-momentum",
+    "name": "UNSTOPPABLE MOMENTUM",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "da-big-hunt",
+    "cp_cost": 1,
+    "phases": [
+      "charge"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "dat-ones-even-bigga",
+    "name": "DAT ONE’S EVEN BIGGA!",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "da-big-hunt",
+    "cp_cost": 1,
+    "phases": [
+      "charge"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "superfuelled-boiler",
+    "name": "SUPERFUELLED BOILER",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "dread-mob",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "conniving-runts",
+    "name": "CONNIVING RUNTS",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "dread-mob",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "too-arrogant-to-die",
+    "name": "TOO ARROGANT TO DIE",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "bully-boyz",
+    "cp_cost": 1,
+    "phases": [
+      "fight",
+      "shooting"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "always-lookin-fer-a-fight",
+    "name": "ALWAYS LOOKIN’ FER A FIGHT",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "bully-boyz",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "braggin-rights",
+    "name": "BRAGGIN’ RIGHTS",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "green-tide",
+    "cp_cost": 1,
+    "phases": [
+      "command"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "come-on-ladz",
+    "name": "COME ON LADZ!",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "green-tide",
+    "cp_cost": 1,
+    "phases": [
+      "command"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "go-get-em",
+    "name": "GO GET ’EM!",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "green-tide",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "dats-ours",
+    "name": "DAT’S OURS",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "taktikal-brigade",
+    "cp_cost": 1,
+    "phases": [
+      "command"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "taktikal-retreat",
+    "name": "TAKTIKAL RETREAT",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "taktikal-brigade",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "on-to-da-next",
+    "name": "ON TO DA NEXT",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "taktikal-brigade",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "ded-sneaky",
+    "name": "DED SNEAKY",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "taktikal-brigade",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "call-dat-dakka",
+    "name": "CALL DAT DAKKA?",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "more-dakka",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "grab-and-bash",
+    "name": "GRAB AND BASH",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "freebooter-krew",
+    "cp_cost": 1,
+    "phases": [
+      "command"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "deck-fraggers",
+    "name": "DECK FRAGGERS",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "freebooter-krew",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "rolling-loot-heap",
+    "name": "ROLLING LOOT-HEAP",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "freebooter-krew",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "krump-and-run",
+    "name": "KRUMP AND RUN",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "freebooter-krew",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "speshul-shells",
+    "name": "SPESHUL SHELLS",
+    "category": "detachment",
+    "type": "wargear",
+    "detachment_id": "more-dakka",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  }
+]

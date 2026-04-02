@@ -1,0 +1,1236 @@
+[
+  {
+    "unit_id": "weirdboy",
+    "models": [
+      {
+        "name": "Weirdboy",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "megatrakk-scrapjet",
+    "models": [
+      {
+        "name": "Megatrakk Scrapjet",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "warbikers",
+    "models": [
+      {
+        "name": "Boss Nob on Warbike",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "slugga",
+          "choppa"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Warbiker",
+        "min": 2,
+        "max": 5,
+        "default_weapon_ids": [
+          "dakkagun",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "deffkoptas",
+    "models": [
+      {
+        "name": "Deffkoptas",
+        "min": 3,
+        "max": 6,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "kustom-boosta-blasta",
+    "models": [
+      {
+        "name": "Kustom Boosta-blasta",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "painboy",
+    "models": [
+      {
+        "name": "Painboy",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "killa-kans",
+    "models": [
+      {
+        "name": "Killa Kans",
+        "min": 3,
+        "max": 6,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "lootas",
+    "models": [
+      {
+        "name": "Spanner",
+        "profile_name": "Loota",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "kustom-mega-blasta",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Loota",
+        "min": 4,
+        "max": 9,
+        "default_weapon_ids": [
+          "deffgun",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "big-mek",
+    "models": [
+      {
+        "name": "Big Mek",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "squighog-boyz",
+    "models": [
+      {
+        "name": "Nob on Smasha Squig",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "slugga",
+          "big-choppa"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Squighog Boy",
+        "min": 3,
+        "max": 7,
+        "default_weapon_ids": [
+          "saddlegit-weapons",
+          "squighog-jaws"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "warboss-in-mega-armour",
+    "models": [
+      {
+        "name": "Warboss in Mega Armour",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "wazbom-blastajet",
+    "models": [
+      {
+        "name": "Wazbom Blastajet",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "battlewagon",
+    "models": [
+      {
+        "name": "Battlewagon",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "boss-snikrot",
+    "models": [
+      {
+        "name": "Boss Snikrot",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "morkanaut",
+    "models": [
+      {
+        "name": "Morkanaut",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "ghazghkull-thraka",
+    "models": [
+      {
+        "name": "Ghazghkull Thraka",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "gork-klaw-and-mork-klaw"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Makari",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "close-combat-weapon"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "breaka-boyz",
+    "models": [
+      {
+        "name": "Breaka Boy",
+        "min": 6,
+        "max": 6,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "stompa",
+    "models": [
+      {
+        "name": "Stompa",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "biged-bossbunka",
+    "models": [
+      {
+        "name": "Big’ed Bossbunka",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "tankbustas",
+    "models": [
+      {
+        "name": "Boss Nob",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "rokkit-launcha",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Tankbusta",
+        "min": 5,
+        "max": 5,
+        "default_weapon_ids": [
+          "rokkit-launcha",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "kommandos",
+    "models": [
+      {
+        "name": "Boss Nob",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "slugga",
+          "power-klaw"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Kommando",
+        "min": 9,
+        "max": 9,
+        "default_weapon_ids": [
+          "slugga",
+          "choppa"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "boyz",
+    "models": [
+      {
+        "name": "Boss Nob",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "slugga",
+          "choppa"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Boy",
+        "min": 9,
+        "max": 19,
+        "default_weapon_ids": [
+          "slugga",
+          "choppa"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "trukk",
+    "models": [
+      {
+        "name": "Trukk",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "painboss",
+    "models": [
+      {
+        "name": "Painboss",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "gorkanaut",
+    "models": [
+      {
+        "name": "Gorkanaut",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "mek-gunz",
+    "models": [
+      {
+        "name": "Mek Gunz",
+        "min": 1,
+        "max": 3,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "stormboyz",
+    "models": [
+      {
+        "name": "Boss Nob",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "slugga",
+          "choppa"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Stormboy",
+        "min": 4,
+        "max": 9,
+        "default_weapon_ids": [
+          "slugga",
+          "choppa"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "flash-gitz",
+    "models": [
+      {
+        "name": "Kaptin",
+        "profile_name": "Flash Git",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "snazzgun",
+          "choppa"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Flash Git",
+        "min": 4,
+        "max": 9,
+        "default_weapon_ids": [
+          "snazzgun",
+          "choppa"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "blitza-bommer",
+    "models": [
+      {
+        "name": "Blitza-bommer",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "deff-dread",
+    "models": [
+      {
+        "name": "Deff Dread",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "wurrboy",
+    "models": [
+      {
+        "name": "Wurrboy",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "beastboss",
+    "models": [
+      {
+        "name": "Beastboss",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "dakkajet",
+    "models": [
+      {
+        "name": "Dakkajet",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "big-mek-in-mega-armour",
+    "models": [
+      {
+        "name": "Big Mek in Mega Armour",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "rukkatrukk-squigbuggy",
+    "models": [
+      {
+        "name": "Rukkatrukk Squigbuggy",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "beast-snagga-boyz",
+    "models": [
+      {
+        "name": "Beast Snagga Nob",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "slugga",
+          "choppa"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Beast Snagga Boy",
+        "min": 9,
+        "max": 19,
+        "default_weapon_ids": [
+          "slugga",
+          "choppa"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "deffkilla-wartrike",
+    "models": [
+      {
+        "name": "Deffkilla Wartrike",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "mek",
+    "models": [
+      {
+        "name": "Mek",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "shokkjump-dragsta",
+    "models": [
+      {
+        "name": "Shokkjump Dragsta",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "mozrog-skragbad",
+    "models": [
+      {
+        "name": "Mozrog Skragbad",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "zodgrod-wortsnagga",
+    "models": [
+      {
+        "name": "Zodgrod Wortsnagga",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "gretchin",
+    "models": [
+      {
+        "name": "Runtherd",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "slugga",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Gretchin",
+        "min": 10,
+        "max": 21,
+        "default_weapon_ids": [
+          "grot-blasta",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "big-mek-with-shokk-attack-gun",
+    "models": [
+      {
+        "name": "Big Mek with Shokk Attack Gun",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "kill-rig",
+    "models": [
+      {
+        "name": "Kill Rig",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "burna-boyz",
+    "models": [
+      {
+        "name": "Spanner",
+        "profile_name": "Burna Boy",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "kustom-mega-blasta",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Burna Boy",
+        "min": 4,
+        "max": 9,
+        "default_weapon_ids": [
+          "burna",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "nobz",
+    "models": [
+      {
+        "name": "Boss Nob",
+        "profile_name": "Nob",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "slugga",
+          "power-klaw"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Nob",
+        "min": 4,
+        "max": 9,
+        "default_weapon_ids": [
+          "slugga",
+          "choppa"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "beastboss-on-squigosaur",
+    "models": [
+      {
+        "name": "Beastboss on Squigosaur",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "meganobz",
+    "models": [
+      {
+        "name": "Meganob with Mega-Shoota",
+        "profile_name": "Meganob",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "kombi-weapon",
+          "power-klaw"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Meganob",
+        "min": 1,
+        "max": 5,
+        "default_weapon_ids": [
+          "kombi-weapon",
+          "power-klaw"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "boomdakka-snazzwagon",
+    "models": [
+      {
+        "name": "Boomdakka Snazzwagon",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "gargantuan-squiggoth",
+    "models": [
+      {
+        "name": "Gargantuan Squiggoth",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "burna-bommer",
+    "models": [
+      {
+        "name": "Burna-bommer",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "hunta-rig",
+    "models": [
+      {
+        "name": "Hunta Rig",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "warboss",
+    "models": [
+      {
+        "name": "Warboss",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "chinork-warkopta",
+    "models": [
+      {
+        "name": "Chinork Warkopta",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "attack-fighta",
+    "models": [
+      {
+        "name": "Attack Fighta",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "fighta-bommer",
+    "models": [
+      {
+        "name": "Fighta-bommer",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "kannonwagon",
+    "models": [
+      {
+        "name": "Kannonwagon",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "lifta-wagon",
+    "models": [
+      {
+        "name": "Lifta Wagon",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "kill-krusha",
+    "models": [
+      {
+        "name": "Kill Krusha",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "deff-rolla-battle-fortress",
+    "models": [
+      {
+        "name": "Deff Rolla Battle Fortress",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "deffkoptas-with-big-shootas",
+    "models": [
+      {
+        "name": "Deffkoptas With Big Shootas",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "da-red-gobbo",
+    "models": [
+      {
+        "name": "Da Red Gobbo",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "big-mek-on-warbike",
+    "models": [
+      {
+        "name": "Big Mek On Warbike",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "painboy-on-warbike",
+    "models": [
+      {
+        "name": "Painboy On Warbike",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "big-gunz",
+    "models": [
+      {
+        "name": "Big Gunz",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "wartrakks",
+    "models": [
+      {
+        "name": "Wartrakks",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "skorchas",
+    "models": [
+      {
+        "name": "Skorchas",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "grot-bomm-launcha",
+    "models": [
+      {
+        "name": "Grot Bomm Launcha",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "warbuggies",
+    "models": [
+      {
+        "name": "Warbuggies",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  }
+]

@@ -1,0 +1,2019 @@
+[
+  {
+    "id": "splinter-pistol",
+    "name": "Splinter pistol",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Splinter pistol",
+        "range": 12,
+        "stats": {
+          "A": 1,
+          "S": 2,
+          "AP": 0,
+          "D": 1,
+          "BS": 3
+        },
+        "keywords": [
+          "Anti-infantry 3+",
+          "Assault",
+          "Pistol"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "splinter-rifle",
+    "name": "Splinter rifle",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Splinter rifle",
+        "range": 24,
+        "stats": {
+          "A": 2,
+          "S": 2,
+          "AP": 0,
+          "D": 1,
+          "BS": 3
+        },
+        "keywords": [
+          "Anti-infantry 3+",
+          "Assault"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "blaster",
+    "name": "Blaster",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Blaster",
+        "range": 18,
+        "stats": {
+          "A": 1,
+          "S": 8,
+          "AP": -4,
+          "D": "D6+1",
+          "BS": 3
+        },
+        "keywords": [
+          "Assault"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "heat-lance",
+    "name": "Heat lance",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Heat lance",
+        "range": 18,
+        "stats": {
+          "A": 1,
+          "S": 14,
+          "AP": -4,
+          "D": "D6",
+          "BS": 3
+        },
+        "keywords": [
+          "Assault",
+          "Melta 3"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "bladevanes",
+    "name": "Bladevanes",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Bladevanes",
+        "range": "Melee",
+        "stats": {
+          "A": 4,
+          "S": 4,
+          "AP": -1,
+          "D": 1,
+          "WS": 3
+        },
+        "keywords": [
+          "Lance"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "spirit-syphon",
+    "name": "Spirit syphon",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Spirit syphon",
+        "range": 12,
+        "stats": {
+          "A": "D6",
+          "S": 5,
+          "AP": -1,
+          "D": 1,
+          "BS": null
+        },
+        "keywords": [
+          "Ignores Cover",
+          "Torrent"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "spirit-vortex",
+    "name": "Spirit vortex",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Spirit vortex",
+        "range": 18,
+        "stats": {
+          "A": "D6",
+          "S": 5,
+          "AP": -1,
+          "D": 1,
+          "BS": 3
+        },
+        "keywords": [
+          "Blast",
+          "Ignores Cover"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "spirit-leech-tentacles",
+    "name": "Spirit-leech tentacles",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Spirit-leech tentacles",
+        "range": "Melee",
+        "stats": {
+          "A": 6,
+          "S": 5,
+          "AP": -1,
+          "D": 1,
+          "WS": 3
+        },
+        "keywords": [
+          "Anti-infantry 2+"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "archite-glaive-and-agoniser",
+    "name": "Archite glaive and agoniser",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Archite glaive and agoniser",
+        "range": "Melee",
+        "stats": {
+          "A": 7,
+          "S": 3,
+          "AP": -2,
+          "D": 1,
+          "WS": 2
+        },
+        "keywords": [
+          "Anti-infantry 3+",
+          "Precision"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "splinter-pods",
+    "name": "Splinter pods",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Splinter pods",
+        "range": 18,
+        "stats": {
+          "A": 2,
+          "S": 2,
+          "AP": 0,
+          "D": 1,
+          "BS": 3
+        },
+        "keywords": [
+          "Anti-infantry 3+",
+          "Assault",
+          "Twin-linked"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "hellglaive",
+    "name": "Hellglaive",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Hellglaive",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 4,
+          "AP": -1,
+          "D": 2,
+          "WS": 3
+        },
+        "keywords": [
+          "Lance",
+          "Sustained Hits 1"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "stunclaw",
+    "name": "Stunclaw",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Stunclaw",
+        "range": "Melee",
+        "stats": {
+          "A": 4,
+          "S": 3,
+          "AP": -1,
+          "D": 1,
+          "WS": 3
+        },
+        "keywords": [
+          "Devastating Wounds",
+          "Lance",
+          "Precision"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "power-weapon",
+    "name": "Power weapon",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Power weapon",
+        "range": "Melee",
+        "stats": {
+          "A": 4,
+          "S": 3,
+          "AP": -2,
+          "D": 1,
+          "WS": 3
+        },
+        "keywords": [
+          "Anti-infantry 3+",
+          "Lance",
+          "Sustained Hits 1"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "splinter-cannon",
+    "name": "Splinter cannon",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Splinter cannon",
+        "range": 36,
+        "stats": {
+          "A": 3,
+          "S": 3,
+          "AP": -1,
+          "D": 2,
+          "BS": 3
+        },
+        "keywords": [
+          "Anti-infantry 3+",
+          "Sustained Hits 1"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "twin-splinter-rifle",
+    "name": "Twin splinter rifle",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Twin splinter rifle",
+        "range": 24,
+        "stats": {
+          "A": 2,
+          "S": 2,
+          "AP": 0,
+          "D": 1,
+          "BS": 3
+        },
+        "keywords": [
+          "Anti-infantry 3+",
+          "Assault",
+          "Rapid Fire 2",
+          "Twin-linked"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "bladevanes",
+    "name": "Bladevanes",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Bladevanes",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 5,
+          "AP": -1,
+          "D": 1,
+          "WS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "shardcarbine",
+    "name": "Shardcarbine",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Shardcarbine",
+        "range": 18,
+        "stats": {
+          "A": 3,
+          "S": 2,
+          "AP": 0,
+          "D": 1,
+          "BS": 3
+        },
+        "keywords": [
+          "Anti-infantry 3+",
+          "Assault"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "blast-pistol",
+    "name": "Blast pistol",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Blast pistol",
+        "range": 6,
+        "stats": {
+          "A": 1,
+          "S": 8,
+          "AP": -3,
+          "D": "D3",
+          "BS": 3
+        },
+        "keywords": [
+          "Pistol"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "shredder",
+    "name": "Shredder",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Shredder",
+        "range": 18,
+        "stats": {
+          "A": "D6",
+          "S": 6,
+          "AP": 0,
+          "D": 1,
+          "BS": null
+        },
+        "keywords": [
+          "Assault",
+          "Torrent"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "close-combat-weapon",
+    "name": "Close combat weapon",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Close combat weapon",
+        "range": "Melee",
+        "stats": {
+          "A": 2,
+          "S": 3,
+          "AP": 0,
+          "D": 1,
+          "WS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "power-weapon",
+    "name": "Power weapon",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Power weapon",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 3,
+          "AP": -2,
+          "D": 1,
+          "WS": 3
+        },
+        "keywords": [
+          "Anti-infantry 3+"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "dark-lance",
+    "name": "Dark lance",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Dark lance",
+        "range": 36,
+        "stats": {
+          "A": 1,
+          "S": 12,
+          "AP": -3,
+          "D": "D6+2",
+          "BS": 4
+        },
+        "keywords": [
+          "Heavy"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "splinter-cannon",
+    "name": "Splinter cannon",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Splinter cannon",
+        "range": 36,
+        "stats": {
+          "A": 3,
+          "S": 3,
+          "AP": -1,
+          "D": 2,
+          "BS": 4
+        },
+        "keywords": [
+          "Anti-infantry 3+",
+          "Heavy",
+          "Sustained Hits 1"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "dark-lance",
+    "name": "Dark lance",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Dark lance",
+        "range": 36,
+        "stats": {
+          "A": 1,
+          "S": 12,
+          "AP": -3,
+          "D": "D6+2",
+          "BS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "disintegrator-cannon",
+    "name": "Disintegrator cannon",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Disintegrator cannon",
+        "range": 36,
+        "stats": {
+          "A": 3,
+          "S": 6,
+          "AP": -3,
+          "D": 2,
+          "BS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "bladevanes-and-chainsnares",
+    "name": "Bladevanes and chainsnares",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Bladevanes and chainsnares",
+        "range": "Melee",
+        "stats": {
+          "A": "D3+3",
+          "S": 6,
+          "AP": -1,
+          "D": 1,
+          "WS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "leliths-blades",
+    "name": "Lelith’s blades",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Lelith’s blades",
+        "range": "Melee",
+        "stats": {
+          "A": 8,
+          "S": 3,
+          "AP": -2,
+          "D": 1,
+          "WS": 2
+        },
+        "keywords": [
+          "Anti-infantry 2+",
+          "Precision",
+          "Sustained Hits 2"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "razorwing-missiles",
+    "name": "Razorwing missiles",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Monoscythe missiles",
+        "range": 48,
+        "stats": {
+          "A": "D6",
+          "S": 6,
+          "AP": -1,
+          "D": 2,
+          "BS": 3
+        },
+        "keywords": [
+          "Blast"
+        ]
+      },
+      {
+        "name": "Shatterfield missiles",
+        "range": 48,
+        "stats": {
+          "A": "D6",
+          "S": 7,
+          "AP": -2,
+          "D": 1,
+          "BS": 3
+        },
+        "keywords": [
+          "Blast"
+        ]
+      },
+      {
+        "name": "Necrotoxin missiles",
+        "range": 48,
+        "stats": {
+          "A": "D6+3",
+          "S": 2,
+          "AP": 0,
+          "D": 1,
+          "BS": 3
+        },
+        "keywords": [
+          "Anti-infantry 2+",
+          "Blast"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "bladed-wings",
+    "name": "Bladed wings",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Bladed wings",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 6,
+          "AP": -1,
+          "D": 1,
+          "WS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "haywire-blaster",
+    "name": "Haywire blaster",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Haywire blaster",
+        "range": 24,
+        "stats": {
+          "A": 2,
+          "S": 3,
+          "AP": -1,
+          "D": 3,
+          "BS": 4
+        },
+        "keywords": [
+          "Anti-vehicle 4+",
+          "Devastating Wounds",
+          "Heavy"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "heat-lance",
+    "name": "Heat lance",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Heat lance",
+        "range": 18,
+        "stats": {
+          "A": 1,
+          "S": 14,
+          "AP": -4,
+          "D": "D6",
+          "BS": 4
+        },
+        "keywords": [
+          "Assault",
+          "Heavy",
+          "Melta 3"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "twin-splinter-cannon",
+    "name": "Twin splinter cannon",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Twin splinter cannon",
+        "range": 36,
+        "stats": {
+          "A": 3,
+          "S": 3,
+          "AP": -1,
+          "D": 2,
+          "BS": 3
+        },
+        "keywords": [
+          "Anti-infantry 3+",
+          "Sustained Hits 1",
+          "Twin-linked"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "twin-haywire-blaster",
+    "name": "Twin haywire blaster",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Twin haywire blaster",
+        "range": 24,
+        "stats": {
+          "A": 2,
+          "S": 3,
+          "AP": -1,
+          "D": 3,
+          "BS": 3
+        },
+        "keywords": [
+          "Anti-vehicle 4+",
+          "Devastating Wounds",
+          "Twin-linked"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "twin-heat-lance",
+    "name": "Twin heat lance",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Twin heat lance",
+        "range": 18,
+        "stats": {
+          "A": 1,
+          "S": 14,
+          "AP": -4,
+          "D": "D6",
+          "BS": 3
+        },
+        "keywords": [
+          "Assault",
+          "Melta 3",
+          "Twin-linked"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "stinger-pod",
+    "name": "Stinger pod",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Stinger pod",
+        "range": 24,
+        "stats": {
+          "A": "2D6",
+          "S": 5,
+          "AP": 0,
+          "D": 1,
+          "BS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "twin-liquifier-gun",
+    "name": "Twin liquifier gun",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Twin liquifier gun",
+        "range": 12,
+        "stats": {
+          "A": "D6",
+          "S": 4,
+          "AP": -1,
+          "D": 1,
+          "BS": null
+        },
+        "keywords": [
+          "Anti-infantry 3+",
+          "Torrent",
+          "Twin-linked"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "maco-scalpel",
+    "name": "Maco-scalpel",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Maco-scalpel",
+        "range": "Melee",
+        "stats": {
+          "A": 5,
+          "S": 7,
+          "AP": -2,
+          "D": 2,
+          "WS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "talos-ichor-injector",
+    "name": "Talos ichor injector",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Talos ichor injector",
+        "range": "Melee",
+        "stats": {
+          "A": 1,
+          "S": 8,
+          "AP": -2,
+          "D": "D6",
+          "WS": 2
+        },
+        "keywords": [
+          "Extra Attacks"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "chain-flails",
+    "name": "Chain flails",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Chain flails",
+        "range": "Melee",
+        "stats": {
+          "A": 8,
+          "S": 6,
+          "AP": -1,
+          "D": 1,
+          "WS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "talos-gauntlet",
+    "name": "Talos gauntlet",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Talos gauntlet",
+        "range": "Melee",
+        "stats": {
+          "A": 5,
+          "S": 9,
+          "AP": -2,
+          "D": 3,
+          "WS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "hexrifle",
+    "name": "Hexrifle",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Hexrifle",
+        "range": 36,
+        "stats": {
+          "A": 1,
+          "S": 8,
+          "AP": -2,
+          "D": 3,
+          "BS": 3
+        },
+        "keywords": [
+          "Heavy",
+          "Precision"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "liquifier-gun",
+    "name": "Liquifier gun",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Liquifier gun",
+        "range": 12,
+        "stats": {
+          "A": "D6",
+          "S": 4,
+          "AP": -1,
+          "D": 1,
+          "BS": null
+        },
+        "keywords": [
+          "Anti-infantry 3+",
+          "Torrent"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "ossefactor",
+    "name": "Ossefactor",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Ossefactor",
+        "range": 24,
+        "stats": {
+          "A": 1,
+          "S": 2,
+          "AP": -2,
+          "D": 2,
+          "BS": 3
+        },
+        "keywords": [
+          "Anti-infantry 4+",
+          "Devastating Wounds"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "stinger-pistol",
+    "name": "Stinger pistol",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Stinger pistol",
+        "range": 12,
+        "stats": {
+          "A": 1,
+          "S": 2,
+          "AP": 0,
+          "D": 1,
+          "BS": 3
+        },
+        "keywords": [
+          "Anti-infantry 2+",
+          "Pistol"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "twin-torturers-tools",
+    "name": "Twin torturer’s tools",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Twin torturer’s tools",
+        "range": "Melee",
+        "stats": {
+          "A": 2,
+          "S": 4,
+          "AP": -1,
+          "D": 1,
+          "WS": 3
+        },
+        "keywords": [
+          "Anti-infantry 4+",
+          "Twin-linked"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "torturers-tool",
+    "name": "Torturer’s tool",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Torturer’s tool",
+        "range": "Melee",
+        "stats": {
+          "A": 2,
+          "S": 4,
+          "AP": -1,
+          "D": 1,
+          "WS": 3
+        },
+        "keywords": [
+          "Anti-infantry 4+"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "power-weapon",
+    "name": "Power weapon",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Power weapon",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 5,
+          "AP": -2,
+          "D": 1,
+          "WS": 3
+        },
+        "keywords": [
+          "Anti-infantry 3+"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "stinger-pistol",
+    "name": "Stinger pistol",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Stinger pistol",
+        "range": 12,
+        "stats": {
+          "A": 1,
+          "S": 2,
+          "AP": -1,
+          "D": "D3",
+          "BS": 2
+        },
+        "keywords": [
+          "Anti-infantry 2+",
+          "Pistol",
+          "Precision"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "haemonculus-tools-and-scissorhands",
+    "name": "Haemonculus tools and scissorhands",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Haemonculus tools and scissorhands",
+        "range": "Melee",
+        "stats": {
+          "A": 5,
+          "S": 3,
+          "AP": -1,
+          "D": "D3",
+          "WS": 2
+        },
+        "keywords": [
+          "Anti-infantry 2+",
+          "Precision"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "splinter-pistol",
+    "name": "Splinter pistol",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Splinter pistol",
+        "range": 12,
+        "stats": {
+          "A": 1,
+          "S": 2,
+          "AP": 0,
+          "D": 1,
+          "BS": 2
+        },
+        "keywords": [
+          "Anti-infantry 3+",
+          "Assault",
+          "Pistol"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "blast-pistol",
+    "name": "Blast pistol",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Blast pistol",
+        "range": 6,
+        "stats": {
+          "A": 1,
+          "S": 8,
+          "AP": -3,
+          "D": "D3",
+          "BS": 2
+        },
+        "keywords": [
+          "Pistol"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "huskblade",
+    "name": "Huskblade",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Huskblade",
+        "range": "Melee",
+        "stats": {
+          "A": 4,
+          "S": 3,
+          "AP": -2,
+          "D": 3,
+          "WS": 2
+        },
+        "keywords": [
+          "Devastating Wounds"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "agoniser",
+    "name": "Agoniser",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Agoniser",
+        "range": "Melee",
+        "stats": {
+          "A": 6,
+          "S": 3,
+          "AP": -2,
+          "D": 1,
+          "WS": 2
+        },
+        "keywords": [
+          "Anti-infantry 3+"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "master-crafted-power-weapon",
+    "name": "Master‑crafted power weapon",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Master‑crafted power weapon",
+        "range": "Melee",
+        "stats": {
+          "A": 5,
+          "S": 4,
+          "AP": -2,
+          "D": 2,
+          "WS": 2
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "ladys-blade",
+    "name": "Lady’s Blade",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Lady’s Blade",
+        "range": "Melee",
+        "stats": {
+          "A": 6,
+          "S": 5,
+          "AP": -3,
+          "D": 3,
+          "WS": 2
+        },
+        "keywords": [
+          "Devastating Wounds",
+          "Hazardous"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "razor-fan",
+    "name": "Razor fan",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Razor fan",
+        "range": "Melee",
+        "stats": {
+          "A": 6,
+          "S": 3,
+          "AP": 0,
+          "D": 1,
+          "WS": 2
+        },
+        "keywords": [
+          "Extra Attacks"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "bladevanes",
+    "name": "Bladevanes",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Bladevanes",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 6,
+          "AP": -1,
+          "D": 1,
+          "WS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "blast-pistol",
+    "name": "Blast pistol",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Blast pistol",
+        "range": 6,
+        "stats": {
+          "A": 1,
+          "S": 8,
+          "AP": -4,
+          "D": "D3",
+          "BS": 3
+        },
+        "keywords": [
+          "Pistol"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "hekatarii-blade",
+    "name": "Hekatarii blade",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Hekatarii blade",
+        "range": "Melee",
+        "stats": {
+          "A": 4,
+          "S": 3,
+          "AP": -1,
+          "D": 1,
+          "WS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "power-weapon",
+    "name": "Power weapon",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Power weapon",
+        "range": "Melee",
+        "stats": {
+          "A": 5,
+          "S": 3,
+          "AP": -2,
+          "D": 1,
+          "WS": 3
+        },
+        "keywords": [
+          "Anti-infantry 3+"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "gladiatorial-weapons",
+    "name": "Gladiatorial weapons",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Gladiatorial weapons",
+        "range": "Melee",
+        "stats": {
+          "A": 5,
+          "S": 4,
+          "AP": -2,
+          "D": 1,
+          "WS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "pain-sculptors",
+    "name": "Pain sculptors",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Pain sculptors",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 4,
+          "AP": -1,
+          "D": 1,
+          "WS": 3
+        },
+        "keywords": [
+          "Anti-infantry 4+",
+          "Twin-linked"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "razorflail",
+    "name": "Razorflail",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Razorflail",
+        "range": "Melee",
+        "stats": {
+          "A": 4,
+          "S": 4,
+          "AP": -2,
+          "D": 1,
+          "WS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "power-weapon",
+    "name": "Power weapon",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Power weapon",
+        "range": "Melee",
+        "stats": {
+          "A": 4,
+          "S": 3,
+          "AP": -2,
+          "D": 1,
+          "WS": 3
+        },
+        "keywords": [
+          "Anti-infantry 3+"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "void-lance",
+    "name": "Void lance",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Void lance",
+        "range": 36,
+        "stats": {
+          "A": 2,
+          "S": 14,
+          "AP": -4,
+          "D": "D6+2",
+          "BS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "voidraven-missiles",
+    "name": "Voidraven missiles",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Shatterfield missiles",
+        "range": 48,
+        "stats": {
+          "A": "D6",
+          "S": 7,
+          "AP": -1,
+          "D": 1,
+          "BS": 3
+        },
+        "keywords": [
+          "Blast"
+        ]
+      },
+      {
+        "name": "Implosion missiles",
+        "range": 48,
+        "stats": {
+          "A": "D3",
+          "S": 9,
+          "AP": -2,
+          "D": 3,
+          "BS": 3
+        },
+        "keywords": [
+          "Blast"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "dark-scythe",
+    "name": "Dark scythe",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Dark scythe",
+        "range": 24,
+        "stats": {
+          "A": 6,
+          "S": 8,
+          "AP": -4,
+          "D": 2,
+          "BS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "executioners-demiklaives",
+    "name": "Executioner’s demiklaives",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Single blade",
+        "range": "Melee",
+        "stats": {
+          "A": 6,
+          "S": 6,
+          "AP": -2,
+          "D": 3,
+          "WS": 2
+        },
+        "keywords": [
+          "Devastating Wounds"
+        ]
+      },
+      {
+        "name": "Dual blade",
+        "range": "Melee",
+        "stats": {
+          "A": 8,
+          "S": 5,
+          "AP": -2,
+          "D": 2,
+          "WS": 2
+        },
+        "keywords": [
+          "Devastating Wounds"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "klaive",
+    "name": "Klaive",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Klaive",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 5,
+          "AP": -2,
+          "D": 2,
+          "WS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "demiklaives",
+    "name": "Demiklaives",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Single blade",
+        "range": "Melee",
+        "stats": {
+          "A": 4,
+          "S": 5,
+          "AP": -2,
+          "D": 2,
+          "WS": 3
+        },
+        "keywords": []
+      },
+      {
+        "name": "Dual blades",
+        "range": "Melee",
+        "stats": {
+          "A": 6,
+          "S": 4,
+          "AP": -2,
+          "D": 1,
+          "WS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "baleblast",
+    "name": "Baleblast",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Baleblast",
+        "range": 18,
+        "stats": {
+          "A": 2,
+          "S": 5,
+          "AP": -1,
+          "D": 1,
+          "BS": 3
+        },
+        "keywords": [
+          "Assault",
+          "Devastating Wounds",
+          "Ignores Cover"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "glimmersteel-blade",
+    "name": "Glimmersteel blade",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Glimmersteel blade",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 5,
+          "AP": -1,
+          "D": 1,
+          "WS": 3
+        },
+        "keywords": [
+          "Devastating Wounds"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "storm-vortex-projector",
+    "name": "Storm vortex projector",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "blast",
+        "range": 24,
+        "stats": {
+          "A": "D6+3",
+          "S": 6,
+          "AP": -1,
+          "D": 1,
+          "BS": 3
+        },
+        "keywords": [
+          "blast"
+        ]
+      },
+      {
+        "name": "beam",
+        "range": 36,
+        "stats": {
+          "A": 3,
+          "S": 12,
+          "AP": -3,
+          "D": "D6",
+          "BS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "prow-blade",
+    "name": "Prow blade",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Prow blade",
+        "range": "Melee",
+        "stats": {
+          "A": 1,
+          "S": 8,
+          "AP": -2,
+          "D": 2,
+          "WS": 4
+        },
+        "keywords": [
+          "extra attacks",
+          "lance",
+          "sustained hits 3"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "bladevanes",
+    "name": "Bladevanes",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Bladevanes",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 6,
+          "AP": 0,
+          "D": 1,
+          "WS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "splinterstorm-cannon",
+    "name": "Splinterstorm cannon",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Splinterstorm cannon",
+        "range": 36,
+        "stats": {
+          "A": 8,
+          "S": 3,
+          "AP": -1,
+          "D": 1,
+          "BS": 3
+        },
+        "keywords": [
+          "anti-infantry 3+",
+          "sustained hits 2"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "bladed-wings",
+    "name": "Bladed wings",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Bladed wings",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 6,
+          "AP": 0,
+          "D": 1,
+          "WS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  }
+]

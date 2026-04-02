@@ -1,0 +1,468 @@
+[
+  {
+    "unit_id": "helbrute",
+    "models": [
+      {
+        "name": "Helbrute",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "mutalith-vortex-beast",
+    "models": [
+      {
+        "name": "Mutalith Vortex Beast",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "chaos-land-raider",
+    "models": [
+      {
+        "name": "Chaos Land Raider",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "tzaangor-shaman",
+    "models": [
+      {
+        "name": "Tzaangor Shaman",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "chaos-spawn",
+    "models": [
+      {
+        "name": "Chaos Spawn",
+        "min": 2,
+        "max": 2,
+        "default_weapon_ids": [
+          "hideous-mutations"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "sorcerer",
+    "models": [
+      {
+        "name": "Sorcerer",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "chaos-vindicator",
+    "models": [
+      {
+        "name": "Chaos Vindicator",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "chaos-rhino",
+    "models": [
+      {
+        "name": "Chaos Rhino",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "ahriman",
+    "models": [
+      {
+        "name": "Ahriman",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "rubric-marines",
+    "models": [
+      {
+        "name": "Aspiring Sorcerer",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "inferno-bolt-pistol",
+          "force-weapon"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Rubric Marine",
+        "min": 4,
+        "max": 9,
+        "default_weapon_ids": [
+          "inferno-boltgun",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "infernal-master",
+    "models": [
+      {
+        "name": "Infernal Master",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "tzaangor-enlightened",
+    "models": [
+      {
+        "name": "Enlightened",
+        "min": 3,
+        "max": 6,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "tzaangor-enlightened-with-fatecaster-greatbows",
+    "models": [
+      {
+        "name": "Enlightened",
+        "min": 3,
+        "max": 6,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "scarab-occult-terminators",
+    "models": [
+      {
+        "name": "Scarab Occult Sorcerer",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "inferno-combi-bolter",
+          "force-weapon"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Scarab Occult Terminator",
+        "min": 4,
+        "max": 9,
+        "default_weapon_ids": [
+          "inferno-combi-bolter",
+          "prosperine-khopesh"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "magnus-the-red",
+    "models": [
+      {
+        "name": "Magnus the Red",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "chaos-predator-destructor",
+    "models": [
+      {
+        "name": "Chaos Predator Destructor",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "defiler",
+    "models": [
+      {
+        "name": "Defiler",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "daemon-prince-of-tzeentch-with-wings",
+    "models": [
+      {
+        "name": "Daemon Prince of Tzeentch with Wings",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "tzaangors",
+    "models": [
+      {
+        "name": "Twistbray",
+        "profile_name": "Tzaangor",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "autopistol",
+          "tzaangor-blades"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Tzaangor",
+        "min": 9,
+        "max": 19,
+        "default_weapon_ids": [
+          "autopistol",
+          "tzaangor-blades"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "sekhetar-robots",
+    "models": [
+      {
+        "name": "Sekhetar Robots",
+        "min": 2,
+        "max": 4,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "exalted-sorcerer-on-disc-of-tzeentch",
+    "models": [
+      {
+        "name": "Exalted Sorcerer on Disc of Tzeentch",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "maulerfiend",
+    "models": [
+      {
+        "name": "Maulerfiend",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "exalted-sorcerer",
+    "models": [
+      {
+        "name": "Exalted Sorcerer",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "sorcerer-in-terminator-armour",
+    "models": [
+      {
+        "name": "Sorcerer in Terminator Armour",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "chaos-predator-annihilator",
+    "models": [
+      {
+        "name": "Chaos Predator Annihilator",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "forgefiend",
+    "models": [
+      {
+        "name": "Forgefiend",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "heldrake",
+    "models": [
+      {
+        "name": "Heldrake",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "daemon-prince-of-tzeentch",
+    "models": [
+      {
+        "name": "Daemon Prince of Tzeentch",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  }
+]

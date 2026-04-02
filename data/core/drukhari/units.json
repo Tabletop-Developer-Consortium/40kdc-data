@@ -1,0 +1,1303 @@
+[
+  {
+    "id": "reavers",
+    "name": "Reavers",
+    "faction_id": "drukhari",
+    "profiles": [
+      {
+        "name": "Reaver",
+        "M": 16,
+        "T": 4,
+        "W": 2,
+        "Sv": 4,
+        "invuln_sv": 6,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 3,
+        "cost": 70
+      },
+      {
+        "models": 6,
+        "cost": 140
+      }
+    ],
+    "keywords": [
+      "Mounted",
+      "Wych Cult",
+      "Fly",
+      "Aeldari",
+      "Reavers"
+    ],
+    "faction_keywords": [
+      "Drukhari"
+    ],
+    "model_count": {
+      "min": 3,
+      "max": 6
+    },
+    "weapon_ids": [
+      "bladevanes",
+      "blaster",
+      "heat-lance",
+      "splinter-pistol",
+      "splinter-rifle"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "cronos",
+    "name": "Cronos",
+    "faction_id": "drukhari",
+    "profiles": [
+      {
+        "name": "Cronos",
+        "M": 7,
+        "T": 7,
+        "W": 7,
+        "Sv": 3,
+        "invuln_sv": 6,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 55
+      },
+      {
+        "models": 2,
+        "cost": 110
+      }
+    ],
+    "keywords": [
+      "Monster",
+      "Haemonculus Covens",
+      "Fly",
+      "Aeldari",
+      "Cronos"
+    ],
+    "faction_keywords": [
+      "Drukhari"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 2
+    },
+    "weapon_ids": [
+      "spirit-leech-tentacles",
+      "spirit-syphon",
+      "spirit-vortex"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "succubus",
+    "name": "Succubus",
+    "faction_id": "drukhari",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Succubus",
+        "M": 8,
+        "T": 3,
+        "W": 4,
+        "Sv": 6,
+        "invuln_sv": 4,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 50
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Wych Cult",
+      "Character",
+      "Aeldari",
+      "Succubus"
+    ],
+    "faction_keywords": [
+      "Drukhari"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "archite-glaive-and-agoniser"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "hellions",
+    "name": "Hellions",
+    "faction_id": "drukhari",
+    "profiles": [
+      {
+        "name": "Hellion",
+        "M": 14,
+        "T": 4,
+        "W": 2,
+        "Sv": 4,
+        "invuln_sv": 6,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 85
+      },
+      {
+        "models": 10,
+        "cost": 170
+      }
+    ],
+    "keywords": [
+      "Mounted",
+      "Fly",
+      "Aeldari",
+      "Wych Cult",
+      "Hellions"
+    ],
+    "faction_keywords": [
+      "Drukhari"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 10
+    },
+    "weapon_ids": [
+      "hellglaive",
+      "power-weapon",
+      "splinter-pistol",
+      "splinter-pods",
+      "stunclaw"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "venom",
+    "name": "Venom",
+    "faction_id": "drukhari",
+    "role": "dedicated-transport",
+    "profiles": [
+      {
+        "name": "Venom",
+        "M": 14,
+        "T": 6,
+        "W": 6,
+        "Sv": 4,
+        "invuln_sv": 6,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 70
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Transport",
+      "Dedicated Transport",
+      "Fly",
+      "Aeldari",
+      "Venom"
+    ],
+    "faction_keywords": [
+      "Drukhari"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "bladevanes",
+      "splinter-cannon",
+      "twin-splinter-rifle"
+    ],
+    "ability_ids": [],
+    "transport_capacity": {
+      "capacity": 6
+    },
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "scourges-with-shardcarbines",
+    "name": "Scourges with Shardcarbines",
+    "faction_id": "drukhari",
+    "profiles": [
+      {
+        "name": "Scourge",
+        "M": 14,
+        "T": 3,
+        "W": 1,
+        "Sv": 4,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 75
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Fly",
+      "Grenades",
+      "Jump Pack",
+      "Aeldari",
+      "Blades for Hire",
+      "Scourges",
+      "Scourges with Shardcarbines"
+    ],
+    "faction_keywords": [
+      "Drukhari"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 5
+    },
+    "weapon_ids": [
+      "blast-pistol",
+      "blaster",
+      "close-combat-weapon",
+      "power-weapon",
+      "shardcarbine",
+      "shredder",
+      "splinter-pistol"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "kabalite-warriors",
+    "name": "Kabalite Warriors",
+    "faction_id": "drukhari",
+    "role": "battleline",
+    "profiles": [
+      {
+        "name": "Kabalite Warrior",
+        "M": 7,
+        "T": 3,
+        "W": 1,
+        "Sv": 4,
+        "invuln_sv": 6,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 10,
+        "cost": 115
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Kabal",
+      "Battleline",
+      "Aeldari",
+      "Kabalite Warriors"
+    ],
+    "faction_keywords": [
+      "Drukhari"
+    ],
+    "model_count": {
+      "min": 10,
+      "max": 10
+    },
+    "weapon_ids": [
+      "blast-pistol",
+      "blaster",
+      "close-combat-weapon",
+      "dark-lance",
+      "power-weapon",
+      "shredder",
+      "splinter-cannon",
+      "splinter-pistol",
+      "splinter-rifle"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "raider",
+    "name": "Raider",
+    "faction_id": "drukhari",
+    "role": "dedicated-transport",
+    "profiles": [
+      {
+        "name": "Raider",
+        "M": 14,
+        "T": 8,
+        "W": 10,
+        "Sv": 4,
+        "invuln_sv": 6,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 85
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Transport",
+      "Dedicated Transport",
+      "Fly",
+      "Aeldari",
+      "Raider"
+    ],
+    "faction_keywords": [
+      "Drukhari"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "bladevanes-and-chainsnares",
+      "dark-lance",
+      "disintegrator-cannon"
+    ],
+    "ability_ids": [],
+    "transport_capacity": {
+      "capacity": 11
+    },
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "lelith-hesperax",
+    "name": "Lelith Hesperax",
+    "faction_id": "drukhari",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Lelith Hesperax",
+        "M": 8,
+        "T": 3,
+        "W": 4,
+        "Sv": 6,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 85
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Wych Cult",
+      "Character",
+      "Epic Hero",
+      "Aeldari",
+      "Succubus",
+      "Lelith Hesperax"
+    ],
+    "faction_keywords": [
+      "Drukhari"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "leliths-blades"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "razorwing-jetfighter",
+    "name": "Razorwing Jetfighter",
+    "faction_id": "drukhari",
+    "profiles": [
+      {
+        "name": "Razorwing Jetfighter",
+        "M": 20,
+        "T": 8,
+        "W": 10,
+        "Sv": 4,
+        "invuln_sv": 6,
+        "Ld": 7,
+        "OC": 0
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 170
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Fly",
+      "Aircraft",
+      "Aeldari",
+      "Razorwing Jetfighter"
+    ],
+    "faction_keywords": [
+      "Drukhari"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "bladed-wings",
+      "dark-lance",
+      "disintegrator-cannon",
+      "razorwing-missiles",
+      "splinter-cannon",
+      "twin-splinter-rifle"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "scourges-with-heavy-weapons",
+    "name": "Scourges with Heavy Weapons",
+    "faction_id": "drukhari",
+    "profiles": [
+      {
+        "name": "Scourge",
+        "M": 14,
+        "T": 3,
+        "W": 1,
+        "Sv": 4,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 130
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Fly",
+      "Grenades",
+      "Jump Pack",
+      "Aeldari",
+      "Blades for Hire",
+      "Scourges",
+      "Scourges with Heavy Weapons"
+    ],
+    "faction_keywords": [
+      "Drukhari"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 5
+    },
+    "weapon_ids": [
+      "blast-pistol",
+      "blaster",
+      "close-combat-weapon",
+      "dark-lance",
+      "haywire-blaster",
+      "heat-lance",
+      "power-weapon",
+      "shardcarbine",
+      "shredder",
+      "splinter-cannon",
+      "splinter-pistol"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "talos",
+    "name": "Talos",
+    "faction_id": "drukhari",
+    "profiles": [
+      {
+        "name": "Talos",
+        "M": 7,
+        "T": 7,
+        "W": 7,
+        "Sv": 3,
+        "invuln_sv": 6,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 80
+      },
+      {
+        "models": 2,
+        "cost": 160
+      }
+    ],
+    "keywords": [
+      "Monster",
+      "Haemonculus Covens",
+      "Fly",
+      "Aeldari",
+      "Talos"
+    ],
+    "faction_keywords": [
+      "Drukhari"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 2
+    },
+    "weapon_ids": [
+      "chain-flails",
+      "maco-scalpel",
+      "stinger-pod",
+      "talos-gauntlet",
+      "talos-ichor-injector",
+      "twin-haywire-blaster",
+      "twin-heat-lance",
+      "twin-liquifier-gun",
+      "twin-splinter-cannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "wracks",
+    "name": "Wracks",
+    "faction_id": "drukhari",
+    "role": "battleline",
+    "profiles": [
+      {
+        "name": "Wrack",
+        "M": 7,
+        "T": 4,
+        "W": 2,
+        "Sv": 5,
+        "invuln_sv": 6,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 60
+      },
+      {
+        "models": 8,
+        "cost": 100
+      },
+      {
+        "models": 10,
+        "cost": 120
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Battleline",
+      "Haemonculus Covens",
+      "Aeldari",
+      "Wracks"
+    ],
+    "faction_keywords": [
+      "Drukhari"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 10
+    },
+    "weapon_ids": [
+      "hexrifle",
+      "liquifier-gun",
+      "ossefactor",
+      "power-weapon",
+      "stinger-pistol",
+      "torturers-tool",
+      "twin-torturers-tools"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "haemonculus",
+    "name": "Haemonculus",
+    "faction_id": "drukhari",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Haemonculus",
+        "M": 7,
+        "T": 4,
+        "W": 5,
+        "Sv": 5,
+        "invuln_sv": 6,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 60
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Haemonculus Covens",
+      "Character",
+      "Aeldari",
+      "Haemonculus"
+    ],
+    "faction_keywords": [
+      "Drukhari"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "haemonculus-tools-and-scissorhands",
+      "stinger-pistol"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "archon",
+    "name": "Archon",
+    "faction_id": "drukhari",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Archon",
+        "M": 7,
+        "T": 3,
+        "W": 4,
+        "Sv": 4,
+        "invuln_sv": 2,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 80
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Kabal",
+      "Character",
+      "Aeldari",
+      "Archon"
+    ],
+    "faction_keywords": [
+      "Drukhari"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "agoniser",
+      "blast-pistol",
+      "huskblade",
+      "master-crafted-power-weapon",
+      "splinter-pistol"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "lady-malys",
+    "name": "Lady Malys",
+    "faction_id": "drukhari",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Lady Malys",
+        "M": 7,
+        "T": 3,
+        "W": 5,
+        "Sv": 4,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 100
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Kabal",
+      "Character",
+      "Aeldari",
+      "Archon",
+      "Epic Hero",
+      "Lady Malys"
+    ],
+    "faction_keywords": [
+      "Drukhari"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "ladys-blade",
+      "razor-fan"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "ravager",
+    "name": "Ravager",
+    "faction_id": "drukhari",
+    "profiles": [
+      {
+        "name": "Ravager",
+        "M": 14,
+        "T": 9,
+        "W": 11,
+        "Sv": 4,
+        "invuln_sv": 6,
+        "Ld": 7,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 110
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Kabal",
+      "Fly",
+      "Aeldari",
+      "Ravager"
+    ],
+    "faction_keywords": [
+      "Drukhari"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "bladevanes",
+      "dark-lance",
+      "disintegrator-cannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "wyches",
+    "name": "Wyches",
+    "faction_id": "drukhari",
+    "role": "battleline",
+    "profiles": [
+      {
+        "name": "Wych",
+        "M": 8,
+        "T": 3,
+        "W": 1,
+        "Sv": 6,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 10,
+        "cost": 90
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Battleline",
+      "Grenades",
+      "Wych Cult",
+      "Aeldari",
+      "Wyches"
+    ],
+    "faction_keywords": [
+      "Drukhari"
+    ],
+    "model_count": {
+      "min": 10,
+      "max": 10
+    },
+    "weapon_ids": [
+      "blast-pistol",
+      "gladiatorial-weapons",
+      "hekatarii-blade",
+      "power-weapon",
+      "splinter-pistol"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "hand-of-the-archon",
+    "name": "Hand of the Archon",
+    "faction_id": "drukhari",
+    "profiles": [
+      {
+        "name": "Kabalite Agents",
+        "M": 7,
+        "T": 3,
+        "W": 1,
+        "Sv": 4,
+        "invuln_sv": 6,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 10,
+        "cost": 125
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Kabal",
+      "Aeldari",
+      "Grenades",
+      "Hand of the Archon"
+    ],
+    "faction_keywords": [
+      "Drukhari"
+    ],
+    "model_count": {
+      "min": 10,
+      "max": 10
+    },
+    "weapon_ids": [
+      "blast-pistol",
+      "blaster",
+      "close-combat-weapon",
+      "dark-lance",
+      "pain-sculptors",
+      "power-weapon",
+      "razorflail",
+      "shardcarbine",
+      "shredder",
+      "splinter-cannon",
+      "splinter-pistol",
+      "splinter-rifle",
+      "stinger-pistol"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "voidraven-bomber",
+    "name": "Voidraven Bomber",
+    "faction_id": "drukhari",
+    "profiles": [
+      {
+        "name": "Voidraven Bomber",
+        "M": 20,
+        "T": 9,
+        "W": 12,
+        "Sv": 4,
+        "invuln_sv": 6,
+        "Ld": 7,
+        "OC": 0
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 245
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Aircraft",
+      "Fly",
+      "Aeldari",
+      "Voidraven Bomber"
+    ],
+    "faction_keywords": [
+      "Drukhari"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "bladed-wings",
+      "dark-scythe",
+      "void-lance",
+      "voidraven-missiles"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "drazhar",
+    "name": "Drazhar",
+    "faction_id": "drukhari",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Drazhar",
+        "M": 7,
+        "T": 3,
+        "W": 5,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 85
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Epic Hero",
+      "Aeldari",
+      "Blades for Hire",
+      "Drazhar"
+    ],
+    "faction_keywords": [
+      "Drukhari"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "executioners-demiklaives"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "incubi",
+    "name": "Incubi",
+    "faction_id": "drukhari",
+    "profiles": [
+      {
+        "name": "Klaivex",
+        "M": 7,
+        "T": 3,
+        "W": 2,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 1
+      },
+      {
+        "name": "Incubi",
+        "M": 7,
+        "T": 3,
+        "W": 1,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 90
+      },
+      {
+        "models": 10,
+        "cost": 180
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Aeldari",
+      "Blades for Hire",
+      "Incubi"
+    ],
+    "faction_keywords": [
+      "Drukhari"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 10
+    },
+    "weapon_ids": [
+      "demiklaives",
+      "klaive"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "mandrakes",
+    "name": "Mandrakes",
+    "faction_id": "drukhari",
+    "profiles": [
+      {
+        "name": "Mandrake",
+        "M": 8,
+        "T": 3,
+        "W": 1,
+        "Sv": 7,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 75
+      },
+      {
+        "models": 10,
+        "cost": 150
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Aeldari",
+      "Blades for Hire",
+      "Mandrakes"
+    ],
+    "faction_keywords": [
+      "Drukhari"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 10
+    },
+    "weapon_ids": [
+      "baleblast",
+      "glimmersteel-blade"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "reaper",
+    "name": "Reaper",
+    "faction_id": "drukhari",
+    "profiles": [
+      {
+        "name": "Reaper",
+        "M": 14,
+        "T": 9,
+        "W": 11,
+        "Sv": 4,
+        "invuln_sv": 6,
+        "Ld": 6,
+        "OC": 3
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Aeldari",
+      "Fly",
+      "Kabal",
+      "Reaper",
+      "Vehicle"
+    ],
+    "faction_keywords": [
+      "Drukhari"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "bladevanes",
+      "prow-blade",
+      "storm-vortex-projector"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "raven-strike-fighter",
+    "name": "Raven Strike Fighter",
+    "faction_id": "drukhari",
+    "profiles": [
+      {
+        "name": "Raven Strike Fighter",
+        "M": 20,
+        "T": 8,
+        "W": 10,
+        "Sv": 4,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 0
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Aeldari",
+      "Aircraft",
+      "Fly",
+      "Raven Strike Fighter",
+      "Vehicle"
+    ],
+    "faction_keywords": [
+      "Drukhari"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "bladed-wings",
+      "dark-lance",
+      "splinterstorm-cannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  }
+]

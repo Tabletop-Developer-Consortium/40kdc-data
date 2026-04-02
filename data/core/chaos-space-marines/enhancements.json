@@ -1,0 +1,782 @@
+[
+  {
+    "id": "warmasters-gift",
+    "name": "Warmaster’s Gift",
+    "detachment_id": "veterans-of-the-long-war",
+    "cost": 15,
+    "keyword_restrictions": [
+      "Chaos Space Marines"
+    ],
+    "ability_id": null,
+    "is_unique": true,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "talisman-of-burning-blood",
+    "name": "Talisman of Burning Blood",
+    "detachment_id": "pactbound-zealots",
+    "cost": 15,
+    "keyword_restrictions": [
+      "Chaos Space Marines"
+    ],
+    "ability_id": null,
+    "is_unique": true,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "eye-of-tzeentch",
+    "name": "Eye of Tzeentch",
+    "detachment_id": "pactbound-zealots",
+    "cost": 15,
+    "keyword_restrictions": [
+      "Chaos Space Marines"
+    ],
+    "ability_id": null,
+    "is_unique": true,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "eager-for-vengeance",
+    "name": "Eager for Vengeance",
+    "detachment_id": "veterans-of-the-long-war",
+    "cost": 20,
+    "keyword_restrictions": [
+      "Chaos Space Marines"
+    ],
+    "ability_id": null,
+    "is_unique": true,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "eye-of-abaddon",
+    "name": "Eye of Abaddon",
+    "detachment_id": "veterans-of-the-long-war",
+    "cost": 15,
+    "keyword_restrictions": [
+      "Chaos Space Marines"
+    ],
+    "ability_id": null,
+    "is_unique": true,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "orbs-of-unlife",
+    "name": "Orbs of Unlife",
+    "detachment_id": "pactbound-zealots",
+    "cost": 15,
+    "keyword_restrictions": [
+      "Chaos Space Marines"
+    ],
+    "ability_id": null,
+    "is_unique": true,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "mark-of-legend",
+    "name": "Mark of Legend",
+    "detachment_id": "veterans-of-the-long-war",
+    "cost": 10,
+    "keyword_restrictions": [
+      "Chaos Space Marines"
+    ],
+    "ability_id": null,
+    "is_unique": true,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "intoxicating-elixir",
+    "name": "Intoxicating Elixir",
+    "detachment_id": "pactbound-zealots",
+    "cost": 15,
+    "keyword_restrictions": [
+      "Chaos Space Marines"
+    ],
+    "ability_id": null,
+    "is_unique": true,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "falsehood",
+    "name": "Falsehood",
+    "detachment_id": "deceptors",
+    "cost": 10,
+    "keyword_restrictions": [
+      "Chaos Space Marines"
+    ],
+    "ability_id": null,
+    "is_unique": true,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "cursed-fang",
+    "name": "Cursed Fang",
+    "detachment_id": "deceptors",
+    "cost": 10,
+    "keyword_restrictions": [
+      "Chaos Space Marines"
+    ],
+    "ability_id": null,
+    "is_unique": true,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "shroud-of-obfuscation",
+    "name": "Shroud of Obfuscation",
+    "detachment_id": "deceptors",
+    "cost": 15,
+    "keyword_restrictions": [
+      "Chaos Space Marines"
+    ],
+    "ability_id": null,
+    "is_unique": true,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "soul-link",
+    "name": "Soul Link",
+    "detachment_id": "deceptors",
+    "cost": 5,
+    "keyword_restrictions": [
+      "Chaos Space Marines"
+    ],
+    "ability_id": null,
+    "is_unique": true,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "despots-claim",
+    "name": "Despot’s Claim",
+    "detachment_id": "renegade-raiders",
+    "cost": 15,
+    "keyword_restrictions": [
+      "Chaos Space Marines"
+    ],
+    "ability_id": null,
+    "is_unique": true,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "dread-reaver",
+    "name": "Dread Reaver",
+    "detachment_id": "renegade-raiders",
+    "cost": 15,
+    "keyword_restrictions": [
+      "Chaos Space Marines"
+    ],
+    "ability_id": null,
+    "is_unique": true,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "mark-of-the-hound",
+    "name": "Mark of the Hound",
+    "detachment_id": "renegade-raiders",
+    "cost": 25,
+    "keyword_restrictions": [
+      "Chaos Space Marines"
+    ],
+    "ability_id": null,
+    "is_unique": true,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "tyrants-lash",
+    "name": "Tyrant’s Lash",
+    "detachment_id": "renegade-raiders",
+    "cost": 20,
+    "keyword_restrictions": [
+      "Chaos Space Marines"
+    ],
+    "ability_id": null,
+    "is_unique": true,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "nights-shroud",
+    "name": "Night’s Shroud",
+    "detachment_id": "dread-talons",
+    "cost": 20,
+    "keyword_restrictions": [
+      "Chaos Space Marines"
+    ],
+    "ability_id": null,
+    "is_unique": true,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "willbreaker",
+    "name": "Willbreaker",
+    "detachment_id": "dread-talons",
+    "cost": 10,
+    "keyword_restrictions": [
+      "Chaos Space Marines"
+    ],
+    "ability_id": null,
+    "is_unique": true,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "warp-fuelled-thrusters",
+    "name": "Warp-Fuelled Thrusters",
+    "detachment_id": "dread-talons",
+    "cost": 20,
+    "keyword_restrictions": [
+      "Chaos Space Marines"
+    ],
+    "ability_id": null,
+    "is_unique": true,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "eater-of-dread",
+    "name": "Eater of Dread",
+    "detachment_id": "dread-talons",
+    "cost": 15,
+    "keyword_restrictions": [
+      "Chaos Space Marines"
+    ],
+    "ability_id": null,
+    "is_unique": true,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "bastion-plate",
+    "name": "Bastion Plate",
+    "detachment_id": "fellhammer-siege-host",
+    "cost": 10,
+    "keyword_restrictions": [
+      "Chaos Space Marines"
+    ],
+    "ability_id": null,
+    "is_unique": true,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "warp-tracer",
+    "name": "Warp Tracer",
+    "detachment_id": "fellhammer-siege-host",
+    "cost": 20,
+    "keyword_restrictions": [
+      "Chaos Space Marines"
+    ],
+    "ability_id": null,
+    "is_unique": true,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "ironbound-enmity",
+    "name": "Ironbound Enmity",
+    "detachment_id": "fellhammer-siege-host",
+    "cost": 15,
+    "keyword_restrictions": [
+      "Chaos Space Marines"
+    ],
+    "ability_id": null,
+    "is_unique": true,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "iron-artifice",
+    "name": "Iron Artifice",
+    "detachment_id": "fellhammer-siege-host",
+    "cost": 10,
+    "keyword_restrictions": [
+      "Chaos Space Marines"
+    ],
+    "ability_id": null,
+    "is_unique": true,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "cultists-brand",
+    "name": "Cultist’s Brand",
+    "detachment_id": "chaos-cult",
+    "cost": 20,
+    "keyword_restrictions": [
+      "Chaos Space Marines"
+    ],
+    "ability_id": null,
+    "is_unique": true,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "amulet-of-tainted-vigour",
+    "name": "Amulet of Tainted Vigour",
+    "detachment_id": "chaos-cult",
+    "cost": 20,
+    "keyword_restrictions": [
+      "Chaos Space Marines"
+    ],
+    "ability_id": null,
+    "is_unique": true,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "incendiary-goad",
+    "name": "Incendiary Goad",
+    "detachment_id": "chaos-cult",
+    "cost": 15,
+    "keyword_restrictions": [
+      "Chaos Space Marines"
+    ],
+    "ability_id": null,
+    "is_unique": true,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "warped-foresight",
+    "name": "Warped Foresight",
+    "detachment_id": "chaos-cult",
+    "cost": 10,
+    "keyword_restrictions": [
+      "Chaos Space Marines"
+    ],
+    "ability_id": null,
+    "is_unique": true,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "invigorated-mechatendrils",
+    "name": "Invigorated Mechatendrils",
+    "detachment_id": "soulforged-warpack",
+    "cost": 15,
+    "keyword_restrictions": [
+      "Chaos Space Marines"
+    ],
+    "ability_id": null,
+    "is_unique": true,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "tempting-addendum",
+    "name": "Tempting Addendum",
+    "detachment_id": "soulforged-warpack",
+    "cost": 25,
+    "keyword_restrictions": [
+      "Chaos Space Marines"
+    ],
+    "ability_id": null,
+    "is_unique": true,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "forges-blessing",
+    "name": "Forge’s Blessing",
+    "detachment_id": "soulforged-warpack",
+    "cost": 20,
+    "keyword_restrictions": [
+      "Chaos Space Marines"
+    ],
+    "ability_id": null,
+    "is_unique": true,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "soul-harvester",
+    "name": "Soul Harvester",
+    "detachment_id": "soulforged-warpack",
+    "cost": 15,
+    "keyword_restrictions": [
+      "Chaos Space Marines"
+    ],
+    "ability_id": null,
+    "is_unique": true,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "surgical-precision",
+    "name": "Surgical Precision",
+    "detachment_id": "creations-of-bile",
+    "cost": 10,
+    "keyword_restrictions": [
+      "Chaos Space Marines"
+    ],
+    "ability_id": null,
+    "is_unique": true,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "living-carapace",
+    "name": "Living Carapace",
+    "detachment_id": "creations-of-bile",
+    "cost": 15,
+    "keyword_restrictions": [
+      "Chaos Space Marines"
+    ],
+    "ability_id": null,
+    "is_unique": true,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "helm-of-all-seeing",
+    "name": "Helm of All-Seeing",
+    "detachment_id": "creations-of-bile",
+    "cost": 25,
+    "keyword_restrictions": [
+      "Chaos Space Marines"
+    ],
+    "ability_id": null,
+    "is_unique": true,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "prime-test-subject",
+    "name": "Prime Test Subject",
+    "detachment_id": "creations-of-bile",
+    "cost": 35,
+    "keyword_restrictions": [
+      "Chaos Space Marines"
+    ],
+    "ability_id": null,
+    "is_unique": true,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "touched-by-the-warp",
+    "name": "Touched by the Warp",
+    "detachment_id": "cabal-of-chaos",
+    "cost": 10,
+    "keyword_restrictions": [
+      "Chaos Space Marines"
+    ],
+    "ability_id": null,
+    "is_unique": true,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "eye-of-zdesh",
+    "name": "Eye of Z’Desh",
+    "detachment_id": "cabal-of-chaos",
+    "cost": 25,
+    "keyword_restrictions": [
+      "Chaos Space Marines"
+    ],
+    "ability_id": null,
+    "is_unique": true,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "mind-blade",
+    "name": "Mind Blade",
+    "detachment_id": "cabal-of-chaos",
+    "cost": 25,
+    "keyword_restrictions": [
+      "Chaos Space Marines"
+    ],
+    "ability_id": null,
+    "is_unique": true,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "infernal-avatar",
+    "name": "Infernal Avatar",
+    "detachment_id": "cabal-of-chaos",
+    "cost": 20,
+    "keyword_restrictions": [
+      "Chaos Space Marines"
+    ],
+    "ability_id": null,
+    "is_unique": true,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "greyveil-hex",
+    "name": "Greyveil Hex",
+    "detachment_id": "nightmare-hunt",
+    "cost": 25,
+    "keyword_restrictions": [
+      "Chaos Space Marines"
+    ],
+    "ability_id": null,
+    "is_unique": true,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "warp-fuelled-thrusters",
+    "name": "Warp-fuelled Thrusters",
+    "detachment_id": "nightmare-hunt",
+    "cost": 20,
+    "keyword_restrictions": [
+      "Chaos Space Marines"
+    ],
+    "ability_id": null,
+    "is_unique": true,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "terrorglut-parasite",
+    "name": "Terrorglut Parasite",
+    "detachment_id": "nightmare-hunt",
+    "cost": 20,
+    "keyword_restrictions": [
+      "Chaos Space Marines"
+    ],
+    "ability_id": null,
+    "is_unique": true,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "sorrowscent-vulture",
+    "name": "Sorrowscent Vulture",
+    "detachment_id": "nightmare-hunt",
+    "cost": 35,
+    "keyword_restrictions": [
+      "Chaos Space Marines"
+    ],
+    "ability_id": null,
+    "is_unique": true,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "voice-of-the-tyrant",
+    "name": "Voice of the Tyrant",
+    "detachment_id": "hurons-marauders",
+    "cost": 25,
+    "keyword_restrictions": [
+      "Chaos Space Marines"
+    ],
+    "ability_id": null,
+    "is_unique": true,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "raid-leader",
+    "name": "Raid Leader",
+    "detachment_id": "hurons-marauders",
+    "cost": 20,
+    "keyword_restrictions": [
+      "Chaos Space Marines"
+    ],
+    "ability_id": null,
+    "is_unique": true,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "dread-reputation",
+    "name": "Dread Reputation",
+    "detachment_id": "hurons-marauders",
+    "cost": 25,
+    "keyword_restrictions": [
+      "Chaos Space Marines"
+    ],
+    "ability_id": null,
+    "is_unique": true,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "eager-for-bloodshed",
+    "name": "Eager for Bloodshed",
+    "detachment_id": "hurons-marauders",
+    "cost": 30,
+    "keyword_restrictions": [
+      "Chaos Space Marines"
+    ],
+    "ability_id": null,
+    "is_unique": true,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "weaponised-hatred",
+    "name": "Weaponised Hatred",
+    "detachment_id": "renegade-warband",
+    "cost": 35,
+    "keyword_restrictions": [
+      "Chaos Space Marines"
+    ],
+    "ability_id": null,
+    "is_unique": true,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "eyes-of-the-hunter",
+    "name": "Eyes of the Hunter",
+    "detachment_id": "renegade-warband",
+    "cost": 15,
+    "keyword_restrictions": [
+      "Chaos Space Marines"
+    ],
+    "ability_id": null,
+    "is_unique": true,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "fratricidal-trophies",
+    "name": "Fratricidal Trophies",
+    "detachment_id": "renegade-warband",
+    "cost": 5,
+    "keyword_restrictions": [
+      "Chaos Space Marines"
+    ],
+    "ability_id": null,
+    "is_unique": true,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "empyric-symbiote",
+    "name": "Empyric Symbiote",
+    "detachment_id": "renegade-warband",
+    "cost": 15,
+    "keyword_restrictions": [
+      "Chaos Space Marines"
+    ],
+    "ability_id": null,
+    "is_unique": true,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  }
+]

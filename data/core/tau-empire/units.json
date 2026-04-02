@@ -1,0 +1,2587 @@
+[
+  {
+    "id": "krootox-rampagers",
+    "name": "Krootox Rampagers",
+    "faction_id": "tau-empire",
+    "profiles": [
+      {
+        "name": "Krootox Rampagers",
+        "M": 7,
+        "T": 6,
+        "W": 5,
+        "Sv": 5,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 3,
+        "cost": 85
+      },
+      {
+        "models": 6,
+        "cost": 170
+      }
+    ],
+    "keywords": [
+      "Mounted",
+      "Grenades",
+      "Kroot",
+      "Krootox Rampagers"
+    ],
+    "faction_keywords": [
+      "T’au Empire"
+    ],
+    "model_count": {
+      "min": 3,
+      "max": 6
+    },
+    "weapon_ids": [
+      "hunting-blades",
+      "kroot-pistol-and-hunting-javelins",
+      "rampager-fists"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "manta",
+    "name": "Manta",
+    "faction_id": "tau-empire",
+    "profiles": [
+      {
+        "name": "Manta",
+        "M": 20,
+        "T": 14,
+        "W": 60,
+        "Sv": 2,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 0
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 2100
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Aircraft",
+      "Fly",
+      "Titanic",
+      "Transport",
+      "Markerlight",
+      "Manta"
+    ],
+    "faction_keywords": [
+      "T’au Empire"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-hull",
+      "heavy-rail-cannon",
+      "ion-cannon",
+      "long-barrelled-burst-cannon-array",
+      "missile-pod",
+      "seeker-missile"
+    ],
+    "ability_ids": [],
+    "transport_capacity": {
+      "capacity": 200
+    },
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "crisis-fireknife-battlesuits",
+    "name": "Crisis Fireknife Battlesuits",
+    "faction_id": "tau-empire",
+    "profiles": [
+      {
+        "name": "Crisis Fireknife Shas’ui",
+        "M": 10,
+        "T": 5,
+        "W": 4,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 3,
+        "cost": 120
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Fly",
+      "Battlesuit",
+      "Crisis",
+      "Fireknife"
+    ],
+    "faction_keywords": [
+      "T’au Empire"
+    ],
+    "model_count": {
+      "min": 3,
+      "max": 3
+    },
+    "weapon_ids": [
+      "battlesuit-fists",
+      "missile-pod",
+      "plasma-rifle"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "piranhas",
+    "name": "Piranhas",
+    "faction_id": "tau-empire",
+    "profiles": [
+      {
+        "name": "Piranhas",
+        "M": 14,
+        "T": 7,
+        "W": 7,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 60
+      },
+      {
+        "models": 2,
+        "cost": 120
+      },
+      {
+        "models": 3,
+        "cost": 180
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Fly",
+      "Piranhas"
+    ],
+    "faction_keywords": [
+      "T’au Empire"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 3
+    },
+    "weapon_ids": [
+      "armoured-hull",
+      "piranha-burst-cannon",
+      "piranha-fusion-blaster",
+      "seeker-missile",
+      "twin-pulse-carbine"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "stealth-battlesuits",
+    "name": "Stealth Battlesuits",
+    "faction_id": "tau-empire",
+    "profiles": [
+      {
+        "name": "Stealth Shas’ui",
+        "M": 8,
+        "T": 4,
+        "W": 2,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 100
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Fly",
+      "Battlesuit",
+      "Grenades",
+      "Markerlight",
+      "Stealth"
+    ],
+    "faction_keywords": [
+      "T’au Empire"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 5
+    },
+    "weapon_ids": [
+      "battlesuit-fists",
+      "burst-cannon",
+      "fusion-blaster",
+      "pulse-pistol"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "sun-shark-bomber",
+    "name": "Sun Shark Bomber",
+    "faction_id": "tau-empire",
+    "profiles": [
+      {
+        "name": "Sun Shark Bomber",
+        "M": 20,
+        "T": 9,
+        "W": 12,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 0
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 160
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Aircraft",
+      "Fly",
+      "Sun Shark Bomber"
+    ],
+    "faction_keywords": [
+      "T’au Empire"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-hull",
+      "missile-pod",
+      "seeker-missile",
+      "twin-ion-rifle",
+      "twin-missile-pod"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "kroot-farstalkers",
+    "name": "Kroot Farstalkers",
+    "faction_id": "tau-empire",
+    "profiles": [
+      {
+        "name": "Kroot Farstalker",
+        "M": 7,
+        "T": 3,
+        "W": 1,
+        "Sv": 6,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      },
+      {
+        "name": "Kroot Hound",
+        "M": 12,
+        "T": 3,
+        "W": 1,
+        "Sv": 6,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 0
+      }
+    ],
+    "points": [
+      {
+        "models": 12,
+        "cost": 85
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Grenades",
+      "Kroot",
+      "Farstalkers"
+    ],
+    "faction_keywords": [
+      "T’au Empire"
+    ],
+    "model_count": {
+      "min": 12,
+      "max": 12
+    },
+    "weapon_ids": [
+      "close-combat-weapon",
+      "dvorgite-skinner",
+      "farstalker-firearm",
+      "kroot-pistol",
+      "londaxi-tribalest",
+      "ripping-fangs",
+      "ritual-blade",
+      "tau-tech-rifle"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "taunar-supremacy-armour",
+    "name": "Ta’unar Supremacy Armour",
+    "faction_id": "tau-empire",
+    "profiles": [
+      {
+        "name": "Ta’unar Supremacy Armour",
+        "M": 8,
+        "T": 13,
+        "W": 30,
+        "Sv": 2,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 10
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 790
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Titanic",
+      "Towering",
+      "Ta’unar Supremacy Armour"
+    ],
+    "faction_keywords": [
+      "T’au Empire"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "burst-cannon",
+      "crushing-feet",
+      "fragmentation-cluster-shell-launcher",
+      "fusion-eradicator",
+      "heavy-rail-cannon-array",
+      "nexus-missile-launcher",
+      "pulse-ordnance-driver",
+      "smart-missile-system",
+      "tri-axis-ion-cannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "pathfinder-team",
+    "name": "Pathfinder Team",
+    "faction_id": "tau-empire",
+    "profiles": [
+      {
+        "name": "Pathfinder",
+        "M": 7,
+        "T": 3,
+        "W": 1,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 10,
+        "cost": 90
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Grenades",
+      "Markerlight",
+      "Pathfinder Team"
+    ],
+    "faction_keywords": [
+      "T’au Empire"
+    ],
+    "model_count": {
+      "min": 10,
+      "max": 10
+    },
+    "weapon_ids": [
+      "close-combat-weapon",
+      "ion-rifle",
+      "pulse-carbine",
+      "pulse-pistol",
+      "rail-rifle",
+      "semi-automatic-grenade-launcher"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "strike-team",
+    "name": "Strike Team",
+    "faction_id": "tau-empire",
+    "role": "battleline",
+    "profiles": [
+      {
+        "name": "Fire Warrior",
+        "M": 6,
+        "T": 3,
+        "W": 1,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 10,
+        "cost": 70
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Battleline",
+      "Grenades",
+      "Markerlight",
+      "Fire Warrior",
+      "Strike Team"
+    ],
+    "faction_keywords": [
+      "T’au Empire"
+    ],
+    "model_count": {
+      "min": 10,
+      "max": 10
+    },
+    "weapon_ids": [
+      "close-combat-weapon",
+      "pulse-carbine",
+      "pulse-pistol",
+      "pulse-rifle",
+      "support-turret"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "the-twin-lance",
+    "name": "The Twin Lance",
+    "faction_id": "tau-empire",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Ri’Locai",
+        "M": 10,
+        "T": 6,
+        "W": 8,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 2,
+        "cost": 160
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Fly",
+      "Character",
+      "Epic Hero",
+      "Battlesuit",
+      "The Twin Lance"
+    ],
+    "faction_keywords": [
+      "T’au Empire"
+    ],
+    "model_count": {
+      "min": 2,
+      "max": 2
+    },
+    "weapon_ids": [
+      "fusion-eliminator",
+      "ion-scattercannon",
+      "shardstorm-burst-system",
+      "xv-pulse-pistol"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "crisis-starscythe-battlesuits",
+    "name": "Crisis Starscythe Battlesuits",
+    "faction_id": "tau-empire",
+    "profiles": [
+      {
+        "name": "Crisis Starscythe Shas’ui",
+        "M": 10,
+        "T": 5,
+        "W": 4,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 3,
+        "cost": 110
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Fly",
+      "Battlesuit",
+      "Crisis",
+      "Starscythe"
+    ],
+    "faction_keywords": [
+      "T’au Empire"
+    ],
+    "model_count": {
+      "min": 3,
+      "max": 3
+    },
+    "weapon_ids": [
+      "battlesuit-fists",
+      "burst-cannon",
+      "tau-flamer"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "tiger-shark",
+    "name": "Tiger Shark",
+    "faction_id": "tau-empire",
+    "profiles": [
+      {
+        "name": "Tiger Shark",
+        "M": 20,
+        "T": 11,
+        "W": 18,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 0
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 325
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Aircraft",
+      "Fly",
+      "Tiger Shark"
+    ],
+    "faction_keywords": [
+      "T’au Empire"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-hull",
+      "burst-cannon",
+      "cyclic-ion-blaster",
+      "ion-cannon",
+      "missile-pod",
+      "seeker-missile",
+      "skyspear-missile-rack",
+      "swiftstrike-burst-cannon",
+      "swiftstrike-railgun"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "breacher-team",
+    "name": "Breacher Team",
+    "faction_id": "tau-empire",
+    "role": "battleline",
+    "profiles": [
+      {
+        "name": "Breacher Fire Warrior",
+        "M": 6,
+        "T": 3,
+        "W": 1,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 10,
+        "cost": 90
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Battleline",
+      "Grenades",
+      "Markerlight",
+      "Fire Warrior",
+      "Breacher Team"
+    ],
+    "faction_keywords": [
+      "T’au Empire"
+    ],
+    "model_count": {
+      "min": 10,
+      "max": 10
+    },
+    "weapon_ids": [
+      "close-combat-weapon",
+      "pulse-blaster",
+      "pulse-pistol",
+      "support-turret"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "stormsurge",
+    "name": "Stormsurge",
+    "faction_id": "tau-empire",
+    "profiles": [
+      {
+        "name": "Stormsurge",
+        "M": 8,
+        "T": 11,
+        "W": 20,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 7,
+        "OC": 6
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 360
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Titanic",
+      "Towering",
+      "Stormsurge"
+    ],
+    "faction_keywords": [
+      "T’au Empire"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "cluster-rocket-system",
+      "destroyer-missiles",
+      "pulse-blast-cannon",
+      "pulse-driver-cannon",
+      "thunderous-footfalls",
+      "twin-airbursting-fragmentation-projector",
+      "twin-burst-cannon",
+      "twin-smart-missile-system",
+      "twin-tau-flamer"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "tidewall-gunrig",
+    "name": "Tidewall Gunrig",
+    "faction_id": "tau-empire",
+    "profiles": [
+      {
+        "name": "Tidewall Gunrig",
+        "M": 4,
+        "T": 8,
+        "W": 14,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 0
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 90
+      }
+    ],
+    "keywords": [
+      "Fortification",
+      "Vehicle",
+      "Transport",
+      "Fly",
+      "Tidewall Gunrig"
+    ],
+    "faction_keywords": [
+      "T’au Empire"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "supremacy-railgun"
+    ],
+    "ability_ids": [],
+    "transport_capacity": {
+      "capacity": 11
+    },
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "kroot-hounds",
+    "name": "Kroot Hounds",
+    "faction_id": "tau-empire",
+    "profiles": [
+      {
+        "name": "Kroot Hounds",
+        "M": 12,
+        "T": 3,
+        "W": 1,
+        "Sv": 6,
+        "invuln_sv": null,
+        "Ld": 8,
+        "OC": 0
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 40
+      },
+      {
+        "models": 10,
+        "cost": 80
+      }
+    ],
+    "keywords": [
+      "Beasts",
+      "Kroot",
+      "Hounds"
+    ],
+    "faction_keywords": [
+      "T’au Empire"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 10
+    },
+    "weapon_ids": [
+      "ripping-fangs"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "ethereal",
+    "name": "Ethereal",
+    "faction_id": "tau-empire",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Ethereal",
+        "M": 6,
+        "T": 3,
+        "W": 3,
+        "Sv": 5,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 50
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Ethereal"
+    ],
+    "faction_keywords": [
+      "T’au Empire"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "honour-stave"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "riptide-battlesuit",
+    "name": "Riptide Battlesuit",
+    "faction_id": "tau-empire",
+    "profiles": [
+      {
+        "name": "Riptide Battlesuit",
+        "M": 10,
+        "T": 9,
+        "W": 14,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 7,
+        "OC": 4
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 200
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Fly",
+      "Battlesuit",
+      "Riptide"
+    ],
+    "faction_keywords": [
+      "T’au Empire"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "heavy-burst-cannon",
+      "ion-accelerator",
+      "riptide-fists",
+      "twin-fusion-blaster",
+      "twin-plasma-rifle",
+      "twin-smart-missile-system"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "commander-farsight",
+    "name": "Commander Farsight",
+    "faction_id": "tau-empire",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Commander Farsight",
+        "M": 10,
+        "T": 5,
+        "W": 8,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 85
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Fly",
+      "Character",
+      "Epic Hero",
+      "Battlesuit",
+      "Commander Farsight"
+    ],
+    "faction_keywords": [
+      "T’au Empire"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "dawn-blade",
+      "high-intensity-plasma-rifle"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "krootox-riders",
+    "name": "Krootox Riders",
+    "faction_id": "tau-empire",
+    "profiles": [
+      {
+        "name": "Krootox Riders",
+        "M": 7,
+        "T": 6,
+        "W": 5,
+        "Sv": 5,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 40
+      },
+      {
+        "models": 2,
+        "cost": 60
+      },
+      {
+        "models": 3,
+        "cost": 90
+      }
+    ],
+    "keywords": [
+      "Mounted",
+      "Grenades",
+      "Kroot",
+      "Krootox Riders"
+    ],
+    "faction_keywords": [
+      "T’au Empire"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 3
+    },
+    "weapon_ids": [
+      "close-combat-weapon",
+      "krootox-fists",
+      "repeater-cannon",
+      "tanglecannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "commander-shadowsun",
+    "name": "Commander Shadowsun",
+    "faction_id": "tau-empire",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Commander Shadowsun",
+        "M": 10,
+        "T": 4,
+        "W": 6,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 100
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Fly",
+      "Character",
+      "Epic Hero",
+      "Battlesuit",
+      "Commander Shadowsun"
+    ],
+    "faction_keywords": [
+      "T’au Empire"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "battlesuit-fists",
+      "flechette-launcher",
+      "high-energy-fusion-blaster",
+      "light-missile-pod",
+      "pulse-pistol"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "ghostkeel-battlesuit",
+    "name": "Ghostkeel Battlesuit",
+    "faction_id": "tau-empire",
+    "profiles": [
+      {
+        "name": "Ghostkeel Battlesuit",
+        "M": 10,
+        "T": 8,
+        "W": 12,
+        "Sv": 2,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 160
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Fly",
+      "Smoke",
+      "Battlesuit",
+      "Ghostkeel"
+    ],
+    "faction_keywords": [
+      "T’au Empire"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "cyclic-ion-raker",
+      "fusion-collider",
+      "ghostkeel-fists",
+      "twin-burst-cannon",
+      "twin-fusion-blaster",
+      "twin-tau-flamer"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "ax-1-0-tiger-shark",
+    "name": "AX-1-0 Tiger Shark",
+    "faction_id": "tau-empire",
+    "profiles": [
+      {
+        "name": "AX-1-0 Tiger Shark",
+        "M": 20,
+        "T": 11,
+        "W": 18,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 0
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 315
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Aircraft",
+      "Fly",
+      "AX-1-0 Tiger Shark"
+    ],
+    "faction_keywords": [
+      "T’au Empire"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-hull",
+      "burst-cannon",
+      "cyclic-ion-blaster",
+      "missile-pod",
+      "seeker-missile",
+      "twin-heavy-rail-cannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "sky-ray-gunship",
+    "name": "Sky Ray Gunship",
+    "faction_id": "tau-empire",
+    "profiles": [
+      {
+        "name": "Sky Ray Gunship",
+        "M": 10,
+        "T": 10,
+        "W": 14,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 150
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Fly",
+      "Markerlight",
+      "Sky Ray Gunship"
+    ],
+    "faction_keywords": [
+      "T’au Empire"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "accelerator-burst-cannon",
+      "armoured-hull",
+      "seeker-missile-rack",
+      "smart-missile-system",
+      "twin-pulse-carbine"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "vespid-stingwings",
+    "name": "Vespid Stingwings",
+    "faction_id": "tau-empire",
+    "profiles": [
+      {
+        "name": "Vespid Stingwing",
+        "M": 12,
+        "T": 4,
+        "W": 1,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 65
+      },
+      {
+        "models": 10,
+        "cost": 130
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Fly",
+      "Vespid Stingwings"
+    ],
+    "faction_keywords": [
+      "T’au Empire"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 10
+    },
+    "weapon_ids": [
+      "neutron-blaster",
+      "neutron-grenade-launcher",
+      "neutron-rail-rifle",
+      "stingwing-claws",
+      "tau-flamer"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "commander-in-coldstar-battlesuit",
+    "name": "Commander in Coldstar Battlesuit",
+    "faction_id": "tau-empire",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Commander in Coldstar Battlesuit",
+        "M": 12,
+        "T": 5,
+        "W": 6,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 95
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Fly",
+      "Character",
+      "Battlesuit",
+      "Commander in Coldstar Battlesuit"
+    ],
+    "faction_keywords": [
+      "T’au Empire"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "airbursting-fragmentation-projector",
+      "battlesuit-fists",
+      "burst-cannon",
+      "cyclic-ion-blaster",
+      "fusion-blaster",
+      "high-output-burst-cannon",
+      "missile-pod",
+      "plasma-rifle",
+      "tau-flamer"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "kroot-trail-shaper",
+    "name": "Kroot Trail Shaper",
+    "faction_id": "tau-empire",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Kroot Trail Shaper",
+        "M": 7,
+        "T": 3,
+        "W": 3,
+        "Sv": 6,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 55
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Kroot",
+      "Shaper",
+      "Trail Shaper"
+    ],
+    "faction_keywords": [
+      "T’au Empire"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "kroot-rifle",
+      "shapers-blade"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "tidewall-shieldline",
+    "name": "Tidewall Shieldline",
+    "faction_id": "tau-empire",
+    "profiles": [
+      {
+        "name": "Tidewall Shieldline",
+        "M": 4,
+        "T": 8,
+        "W": 10,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 0
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 85
+      },
+      {
+        "models": 2,
+        "cost": 105
+      }
+    ],
+    "keywords": [
+      "Fortification",
+      "Vehicle",
+      "Transport",
+      "Fly",
+      "Tidewall Shieldline"
+    ],
+    "faction_keywords": [
+      "T’au Empire"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 2
+    },
+    "weapon_ids": [],
+    "ability_ids": [],
+    "transport_capacity": {
+      "capacity": 11
+    },
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "broadside-battlesuits",
+    "name": "Broadside Battlesuits",
+    "faction_id": "tau-empire",
+    "profiles": [
+      {
+        "name": "Broadside Shas’vre",
+        "M": 5,
+        "T": 6,
+        "W": 8,
+        "Sv": 2,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 80
+      },
+      {
+        "models": 2,
+        "cost": 170
+      },
+      {
+        "models": 3,
+        "cost": 270
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Battlesuit",
+      "Broadside"
+    ],
+    "faction_keywords": [
+      "T’au Empire"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 3
+    },
+    "weapon_ids": [
+      "crushing-bulk",
+      "heavy-rail-rifle",
+      "high-yield-missile-pods",
+      "seeker-missile",
+      "twin-plasma-rifle",
+      "twin-smart-missile-system"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "commander-in-enforcer-battlesuit",
+    "name": "Commander in Enforcer Battlesuit",
+    "faction_id": "tau-empire",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Commander in Enforcer Battlesuit",
+        "M": 8,
+        "T": 5,
+        "W": 6,
+        "Sv": 2,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 80
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Fly",
+      "Character",
+      "Battlesuit",
+      "Commander in Enforcer Battlesuit"
+    ],
+    "faction_keywords": [
+      "T’au Empire"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "airbursting-fragmentation-projector",
+      "battlesuit-fists",
+      "burst-cannon",
+      "cyclic-ion-blaster",
+      "fusion-blaster",
+      "missile-pod",
+      "plasma-rifle",
+      "tau-flamer"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "cadre-fireblade",
+    "name": "Cadre Fireblade",
+    "faction_id": "tau-empire",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Cadre Fireblade",
+        "M": 6,
+        "T": 3,
+        "W": 3,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 50
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Grenades",
+      "Cadre Fireblade"
+    ],
+    "faction_keywords": [
+      "T’au Empire"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "close-combat-weapon",
+      "fireblade-pulse-rifle"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "razorshark-strike-fighter",
+    "name": "Razorshark Strike Fighter",
+    "faction_id": "tau-empire",
+    "profiles": [
+      {
+        "name": "Razorshark Strike Fighter",
+        "M": 20,
+        "T": 10,
+        "W": 12,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 0
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 170
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Aircraft",
+      "Fly",
+      "Razorshark Strike Fighter"
+    ],
+    "faction_keywords": [
+      "T’au Empire"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "accelerator-burst-cannon",
+      "armoured-hull",
+      "missile-pod",
+      "quad-ion-turret",
+      "seeker-missile"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "devilfish",
+    "name": "Devilfish",
+    "faction_id": "tau-empire",
+    "role": "dedicated-transport",
+    "profiles": [
+      {
+        "name": "Devilfish",
+        "M": 12,
+        "T": 9,
+        "W": 13,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 85
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Fly",
+      "Transport",
+      "Dedicated Transport",
+      "Devilfish"
+    ],
+    "faction_keywords": [
+      "T’au Empire"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "accelerator-burst-cannon",
+      "armoured-hull",
+      "seeker-missile",
+      "smart-missile-system",
+      "twin-pulse-carbine"
+    ],
+    "ability_ids": [],
+    "transport_capacity": {
+      "capacity": 12
+    },
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "darkstrider",
+    "name": "Darkstrider",
+    "faction_id": "tau-empire",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Darkstrider",
+        "M": 7,
+        "T": 3,
+        "W": 3,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 60
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Epic Hero",
+      "Markerlight",
+      "Darkstrider"
+    ],
+    "faction_keywords": [
+      "T’au Empire"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "close-combat-weapon",
+      "shade"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "hammerhead-gunship",
+    "name": "Hammerhead Gunship",
+    "faction_id": "tau-empire",
+    "profiles": [
+      {
+        "name": "Hammerhead Gunship",
+        "M": 10,
+        "T": 10,
+        "W": 14,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 145
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Fly",
+      "Hammerhead Gunship"
+    ],
+    "faction_keywords": [
+      "T’au Empire"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "accelerator-burst-cannon",
+      "armoured-hull",
+      "ion-cannon",
+      "railgun",
+      "seeker-missile",
+      "smart-missile-system",
+      "twin-pulse-carbine"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "tidewall-droneport",
+    "name": "Tidewall Droneport",
+    "faction_id": "tau-empire",
+    "profiles": [
+      {
+        "name": "Tidewall Droneport",
+        "M": 4,
+        "T": 8,
+        "W": 10,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 0
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 85
+      }
+    ],
+    "keywords": [
+      "Fortification",
+      "Vehicle",
+      "Transport",
+      "Fly",
+      "Tidewall Droneport"
+    ],
+    "faction_keywords": [
+      "T’au Empire"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "drone-defenders"
+    ],
+    "ability_ids": [],
+    "transport_capacity": {
+      "capacity": 11
+    },
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "crisis-sunforge-battlesuits",
+    "name": "Crisis Sunforge Battlesuits",
+    "faction_id": "tau-empire",
+    "profiles": [
+      {
+        "name": "Crisis Sunforge Shas’ui",
+        "M": 10,
+        "T": 5,
+        "W": 4,
+        "Sv": 3,
+        "invuln_sv": 4,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 3,
+        "cost": 140
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Fly",
+      "Battlesuit",
+      "Crisis",
+      "Sunforge"
+    ],
+    "faction_keywords": [
+      "T’au Empire"
+    ],
+    "model_count": {
+      "min": 3,
+      "max": 3
+    },
+    "weapon_ids": [
+      "battlesuit-fists",
+      "fusion-blaster"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "firesight-team",
+    "name": "Firesight Team",
+    "faction_id": "tau-empire",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Firesight Team",
+        "M": 6,
+        "T": 3,
+        "W": 4,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 60
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Markerlight",
+      "Firesight Team"
+    ],
+    "faction_keywords": [
+      "T’au Empire"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "close-combat-weapons",
+      "longshot-pulse-rifles",
+      "pulse-pistol"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "kroot-carnivores",
+    "name": "Kroot Carnivores",
+    "faction_id": "tau-empire",
+    "profiles": [
+      {
+        "name": "Kroot Carnivore",
+        "M": 7,
+        "T": 3,
+        "W": 1,
+        "Sv": 6,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 10,
+        "cost": 65
+      },
+      {
+        "models": 20,
+        "cost": 140
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Grenades",
+      "Kroot",
+      "Carnivores"
+    ],
+    "faction_keywords": [
+      "T’au Empire"
+    ],
+    "model_count": {
+      "min": 10,
+      "max": 20
+    },
+    "weapon_ids": [
+      "close-combat-weapon",
+      "kroot-carbine",
+      "kroot-pistol",
+      "kroot-rifle",
+      "tanglebomb-launcher"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "kroot-war-shaper",
+    "name": "Kroot War Shaper",
+    "faction_id": "tau-empire",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Kroot War Shaper",
+        "M": 7,
+        "T": 3,
+        "W": 3,
+        "Sv": 6,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 50
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Kroot",
+      "Shaper",
+      "War Shaper"
+    ],
+    "faction_keywords": [
+      "T’au Empire"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "bladestave-and-prey-hook",
+      "dart-bow-and-tri-blade",
+      "kroot-pistol",
+      "shapers-blade"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "kroot-lone-spear",
+    "name": "Kroot Lone-spear",
+    "faction_id": "tau-empire",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Kroot Lone-spear",
+        "M": 12,
+        "T": 5,
+        "W": 6,
+        "Sv": 5,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 80
+      }
+    ],
+    "keywords": [
+      "Mounted",
+      "Character",
+      "Kroot",
+      "Lone-spear"
+    ],
+    "faction_keywords": [
+      "T’au Empire"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "blast-javelin",
+      "close-combat-weapon",
+      "hunting-javelin",
+      "kalamandras-bite",
+      "kroot-long-gun"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "kroot-flesh-shaper",
+    "name": "Kroot Flesh Shaper",
+    "faction_id": "tau-empire",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Kroot Flesh Shaper",
+        "M": 7,
+        "T": 3,
+        "W": 3,
+        "Sv": 6,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 45
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Kroot",
+      "Shaper",
+      "Flesh Shaper"
+    ],
+    "faction_keywords": [
+      "T’au Empire"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "kroot-scattergun",
+      "twin-ritualistic-blades"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "tx42-piranha",
+    "name": "Tx42 Piranha",
+    "faction_id": "tau-empire",
+    "profiles": [
+      {
+        "name": "Tx42 Piranha",
+        "M": 14,
+        "T": 7,
+        "W": 7,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Fly",
+      "TX42 Piranha",
+      "Vehicle"
+    ],
+    "faction_keywords": [
+      "T'au Empire"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-hull",
+      "fusion-blaster",
+      "missile-pod",
+      "plasma-rifle",
+      "rail-rifle"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "orca-dropship",
+    "name": "Orca Dropship",
+    "faction_id": "tau-empire",
+    "profiles": [
+      {
+        "name": "Orca Dropship",
+        "M": 20,
+        "T": 12,
+        "W": 28,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 0
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Aircraft",
+      "Fly",
+      "Orca Dropship",
+      "Titanic",
+      "Transport",
+      "Vehicle"
+    ],
+    "faction_keywords": [
+      "T’au Empire"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-hull",
+      "long-barrelled-burst-cannon",
+      "missile-pod"
+    ],
+    "ability_ids": [],
+    "transport_capacity": {
+      "capacity": 48
+    },
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "shaso-ralai",
+    "name": "Shas'o R'alai",
+    "faction_id": "tau-empire",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Shas'o R'alai",
+        "M": 8,
+        "T": 6,
+        "W": 6,
+        "Sv": 3,
+        "invuln_sv": 4,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Battlesuit",
+      "Character",
+      "Epic Hero",
+      "Fly",
+      "Markerlight",
+      "Shas'o R'alai",
+      "Vehicle",
+      "Walker"
+    ],
+    "faction_keywords": [
+      "T'au Empire"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "battlesuit-fists",
+      "experimental-pulse-submunitions-rifle"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "xv9-hazard-battlesuits",
+    "name": "Xv9 Hazard Battlesuits",
+    "faction_id": "tau-empire",
+    "profiles": [
+      {
+        "name": "Xv9 Hazard Battlesuits",
+        "M": 8,
+        "T": 6,
+        "W": 4,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Battlesuit",
+      "Fly",
+      "Vehicle",
+      "Walker",
+      "XV9 Hazard"
+    ],
+    "faction_keywords": [
+      "T'au Empire"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "battlesuit-fists",
+      "fusion-cascade",
+      "phased-ion-gun",
+      "twin-hazard-burst-cannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "knarloc-riders",
+    "name": "Knarloc Riders",
+    "faction_id": "tau-empire",
+    "profiles": [
+      {
+        "name": "Knarloc Riders",
+        "M": 7,
+        "T": 5,
+        "W": 4,
+        "Sv": 5,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Knarloc Riders",
+      "Kroot",
+      "Mounted"
+    ],
+    "faction_keywords": [
+      "T'au Empire"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "knarloc-beak-and-talons",
+      "kroot-rifle"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "great-knarloc",
+    "name": "Great Knarloc",
+    "faction_id": "tau-empire",
+    "profiles": [
+      {
+        "name": "Great Knarloc",
+        "M": 9,
+        "T": 8,
+        "W": 10,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 3
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Great Knarloc",
+      "Kroot",
+      "Monster"
+    ],
+    "faction_keywords": [
+      "T'au Empire"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "great-knarloc-beak-and-talons",
+      "kroot-bolt-thrower",
+      "kroot-rifle",
+      "twin-kroot-gun"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "drone-sentry-turret",
+    "name": "Drone Sentry Turret",
+    "faction_id": "tau-empire",
+    "profiles": [
+      {
+        "name": "Drone Sentry Turret",
+        "M": 0,
+        "T": 8,
+        "W": 4,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 8,
+        "OC": 0
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Drone Sentry Turret",
+      "Fortification",
+      "Vehicle"
+    ],
+    "faction_keywords": [
+      "T'au Empire"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "twin-burst-cannon",
+      "twin-fusion-blaster",
+      "twin-missile-pod",
+      "twin-plasma-rifle"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "remote-sensor-tower",
+    "name": "Remote Sensor Tower",
+    "faction_id": "tau-empire",
+    "profiles": [
+      {
+        "name": "Remote Sensor Tower",
+        "M": 0,
+        "T": 8,
+        "W": 4,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 8,
+        "OC": 0
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Fortification",
+      "Remote Sensor Tower"
+    ],
+    "faction_keywords": [
+      "T'au Empire"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "heavy-gun-drones",
+    "name": "Heavy Gun Drones",
+    "faction_id": "tau-empire",
+    "profiles": [
+      {
+        "name": "Heavy Gun Drones",
+        "M": 8,
+        "T": 5,
+        "W": 2,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 8,
+        "OC": 0
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Fly",
+      "Heavy Gun Drones",
+      "Vehicle"
+    ],
+    "faction_keywords": [
+      "T'au Empire"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "burst-cannon",
+      "close-combat-weapon",
+      "twin-burst-cannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  }
+]

@@ -1,0 +1,1522 @@
+[
+  {
+    "id": "land-raider-redeemer",
+    "name": "Land Raider Redeemer",
+    "faction_id": "grey-knights",
+    "profiles": [
+      {
+        "name": "Land Raider Redeemer",
+        "M": 12,
+        "T": 12,
+        "W": 16,
+        "Sv": 2,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 5
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 270
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Transport",
+      "Smoke",
+      "Grenades",
+      "Imperium",
+      "Land Raider",
+      "Redeemer"
+    ],
+    "faction_keywords": [
+      "Grey Knights"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-tracks",
+      "flamestorm-cannon",
+      "hunter-killer-missile",
+      "multi-melta",
+      "storm-bolter",
+      "twin-assault-cannon"
+    ],
+    "ability_ids": [],
+    "transport_capacity": {
+      "capacity": 14
+    },
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "grand-master-in-nemesis-dreadknight",
+    "name": "Grand Master in Nemesis Dreadknight",
+    "faction_id": "grey-knights",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Grand Master in Nemesis Dreadknight",
+        "M": 8,
+        "T": 8,
+        "W": 13,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 4
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 225
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Character",
+      "Walker",
+      "Psyker",
+      "Imperium",
+      "Grand Master in Nemesis Dreadknight"
+    ],
+    "faction_keywords": [
+      "Grey Knights"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "dreadfists",
+      "fragstorm-grenade-launcher",
+      "gatling-psilencer",
+      "heavy-incinerator",
+      "heavy-psycannon",
+      "nemesis-daemon-greathammer",
+      "nemesis-flail",
+      "nemesis-greatsword",
+      "nemesis-mace",
+      "sublimator"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "land-raider-crusader",
+    "name": "Land Raider Crusader",
+    "faction_id": "grey-knights",
+    "profiles": [
+      {
+        "name": "Land Raider Crusader",
+        "M": 12,
+        "T": 12,
+        "W": 16,
+        "Sv": 2,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 5
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 220
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Transport",
+      "Smoke",
+      "Grenades",
+      "Imperium",
+      "Land Raider",
+      "Crusader"
+    ],
+    "faction_keywords": [
+      "Grey Knights"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-tracks",
+      "hunter-killer-missile",
+      "hurricane-bolter",
+      "multi-melta",
+      "storm-bolter",
+      "twin-assault-cannon"
+    ],
+    "ability_ids": [],
+    "transport_capacity": {
+      "capacity": 16
+    },
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "grand-master",
+    "name": "Grand Master",
+    "faction_id": "grey-knights",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Grand Master",
+        "M": 5,
+        "T": 5,
+        "W": 7,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 95
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Psyker",
+      "Grenades",
+      "Terminator",
+      "Imperium",
+      "Grand Master"
+    ],
+    "faction_keywords": [
+      "Grey Knights"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "incinerator",
+      "nemesis-force-weapon",
+      "psilencer",
+      "psycannon",
+      "storm-bolter"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "razorback",
+    "name": "Razorback",
+    "faction_id": "grey-knights",
+    "role": "dedicated-transport",
+    "profiles": [
+      {
+        "name": "Razorback",
+        "M": 12,
+        "T": 9,
+        "W": 10,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 85
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Transport",
+      "Dedicated Transport",
+      "Smoke",
+      "Imperium",
+      "Razorback"
+    ],
+    "faction_keywords": [
+      "Grey Knights"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-tracks",
+      "hunter-killer-missile",
+      "storm-bolter",
+      "twin-heavy-bolter",
+      "twin-lascannon"
+    ],
+    "ability_ids": [],
+    "transport_capacity": {
+      "capacity": 6
+    },
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "purifier-squad",
+    "name": "Purifier Squad",
+    "faction_id": "grey-knights",
+    "profiles": [
+      {
+        "name": "Purifier",
+        "M": 6,
+        "T": 4,
+        "W": 2,
+        "Sv": 2,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 125
+      },
+      {
+        "models": 10,
+        "cost": 250
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Psyker",
+      "Grenades",
+      "Imperium",
+      "Purifier Squad"
+    ],
+    "faction_keywords": [
+      "Grey Knights"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 10
+    },
+    "weapon_ids": [
+      "close-combat-weapon",
+      "incinerator",
+      "nemesis-force-weapon",
+      "psilencer",
+      "psycannon",
+      "purifying-flame",
+      "storm-bolter"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "nemesis-dreadknight",
+    "name": "Nemesis Dreadknight",
+    "faction_id": "grey-knights",
+    "profiles": [
+      {
+        "name": "Nemesis Dreadknight",
+        "M": 8,
+        "T": 8,
+        "W": 13,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 4
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 210
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Psyker",
+      "Imperium",
+      "Nemesis Dreadknight"
+    ],
+    "faction_keywords": [
+      "Grey Knights"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "dreadfists",
+      "gatling-psilencer",
+      "heavy-incinerator",
+      "heavy-psycannon",
+      "nemesis-daemon-greathammer",
+      "nemesis-greatsword"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "grey-knights-thunderhawk-gunship",
+    "name": "Grey Knights Thunderhawk Gunship",
+    "faction_id": "grey-knights",
+    "profiles": [
+      {
+        "name": "Grey Knights Thunderhawk Gunship",
+        "M": 20,
+        "T": 12,
+        "W": 30,
+        "Sv": 2,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 0
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 805
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Titanic",
+      "Fly",
+      "Aircraft",
+      "Transport",
+      "Imperium",
+      "Thunderhawk Gunship"
+    ],
+    "faction_keywords": [
+      "Grey Knights"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-hull",
+      "hellstrike-missile-battery",
+      "lascannon",
+      "thunderhawk-heavy-cannon",
+      "turbo-laser-destructor",
+      "twin-heavy-bolter"
+    ],
+    "ability_ids": [],
+    "transport_capacity": {
+      "capacity": 30
+    },
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "rhino",
+    "name": "Rhino",
+    "faction_id": "grey-knights",
+    "role": "dedicated-transport",
+    "profiles": [
+      {
+        "name": "Rhino",
+        "M": 12,
+        "T": 9,
+        "W": 10,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 80
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Transport",
+      "Dedicated Transport",
+      "Smoke",
+      "Imperium",
+      "Rhino"
+    ],
+    "faction_keywords": [
+      "Grey Knights"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-tracks",
+      "hunter-killer-missile",
+      "storm-bolter"
+    ],
+    "ability_ids": [],
+    "transport_capacity": {
+      "capacity": 12
+    },
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "brother-captain",
+    "name": "Brother-Captain",
+    "faction_id": "grey-knights",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Brother-Captain",
+        "M": 5,
+        "T": 5,
+        "W": 6,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 90
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Psyker",
+      "Grenades",
+      "Terminator",
+      "Imperium",
+      "Brother-Captain"
+    ],
+    "faction_keywords": [
+      "Grey Knights"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "incinerator",
+      "nemesis-force-weapon",
+      "psilencer",
+      "psycannon",
+      "storm-bolter"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "venerable-dreadnought",
+    "name": "Venerable Dreadnought",
+    "faction_id": "grey-knights",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Venerable Dreadnought",
+        "M": 8,
+        "T": 9,
+        "W": 8,
+        "Sv": 2,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 140
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Character",
+      "Psyker",
+      "Smoke",
+      "Imperium",
+      "Venerable Dreadnought"
+    ],
+    "faction_keywords": [
+      "Grey Knights"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "assault-cannon",
+      "dreadnought-combat-weapon",
+      "heavy-flamer",
+      "heavy-plasma-cannon",
+      "storm-bolter",
+      "twin-lascannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "castellan-crowe",
+    "name": "Castellan Crowe",
+    "faction_id": "grey-knights",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Castellan Crowe",
+        "M": 6,
+        "T": 4,
+        "W": 5,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 90
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Epic Hero",
+      "Psyker",
+      "Grenades",
+      "Imperium",
+      "Castellan Crowe"
+    ],
+    "faction_keywords": [
+      "Grey Knights"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "black-blade-of-antwyr",
+      "purifying-flame",
+      "storm-bolter"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "strike-squad",
+    "name": "Strike Squad",
+    "faction_id": "grey-knights",
+    "role": "battleline",
+    "profiles": [
+      {
+        "name": "Grey Knight",
+        "M": 6,
+        "T": 4,
+        "W": 2,
+        "Sv": 2,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 120
+      },
+      {
+        "models": 10,
+        "cost": 240
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Battleline",
+      "Psyker",
+      "Grenades",
+      "Imperium",
+      "Strike Squad"
+    ],
+    "faction_keywords": [
+      "Grey Knights"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 10
+    },
+    "weapon_ids": [
+      "close-combat-weapon",
+      "incinerator",
+      "nemesis-force-weapon",
+      "psilencer",
+      "psycannon",
+      "storm-bolter"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "brotherhood-techmarine",
+    "name": "Brotherhood Techmarine",
+    "faction_id": "grey-knights",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Brotherhood Techmarine",
+        "M": 6,
+        "T": 4,
+        "W": 4,
+        "Sv": 2,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 70
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Psyker",
+      "Grenades",
+      "Imperium",
+      "Brotherhood Techmarine"
+    ],
+    "faction_keywords": [
+      "Grey Knights"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "forge-bolter",
+      "grav-pistol",
+      "omnissiah-power-axe",
+      "servo-arm"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "brotherhood-librarian",
+    "name": "Brotherhood Librarian",
+    "faction_id": "grey-knights",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Brotherhood Librarian",
+        "M": 5,
+        "T": 5,
+        "W": 5,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 80
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Terminator",
+      "Psyker",
+      "Imperium",
+      "Brotherhood Librarian"
+    ],
+    "faction_keywords": [
+      "Grey Knights"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "combi-weapon",
+      "nemesis-force-weapon",
+      "storm-bolter",
+      "vortex-of-doom"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "brotherhood-champion",
+    "name": "Brotherhood Champion",
+    "faction_id": "grey-knights",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Brotherhood Champion",
+        "M": 6,
+        "T": 4,
+        "W": 4,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 70
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Psyker",
+      "Grenades",
+      "Imperium",
+      "Brotherhood Champion"
+    ],
+    "faction_keywords": [
+      "Grey Knights"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "nemesis-force-weapon",
+      "storm-bolter"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "purgation-squad",
+    "name": "Purgation Squad",
+    "faction_id": "grey-knights",
+    "profiles": [
+      {
+        "name": "Purgator",
+        "M": 6,
+        "T": 4,
+        "W": 2,
+        "Sv": 2,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 115
+      },
+      {
+        "models": 10,
+        "cost": 230
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Psyker",
+      "Grenades",
+      "Imperium",
+      "Purgation Squad"
+    ],
+    "faction_keywords": [
+      "Grey Knights"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 10
+    },
+    "weapon_ids": [
+      "close-combat-weapon",
+      "incinerator",
+      "nemesis-force-weapon",
+      "psilencer",
+      "psycannon",
+      "storm-bolter"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "stormtalon-gunship",
+    "name": "Stormtalon Gunship",
+    "faction_id": "grey-knights",
+    "profiles": [
+      {
+        "name": "Stormtalon Gunship",
+        "M": 20,
+        "T": 9,
+        "W": 10,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 0
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 170
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Aircraft",
+      "Fly",
+      "Imperium",
+      "Stormtalon Gunship"
+    ],
+    "faction_keywords": [
+      "Grey Knights"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-hull",
+      "skyhammer-missile-launcher",
+      "twin-assault-cannon",
+      "twin-heavy-bolter",
+      "twin-lascannon",
+      "typhoon-missile-launcher"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "interceptor-squad",
+    "name": "Interceptor Squad",
+    "faction_id": "grey-knights",
+    "profiles": [
+      {
+        "name": "Interceptor",
+        "M": 12,
+        "T": 4,
+        "W": 2,
+        "Sv": 2,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 125
+      },
+      {
+        "models": 10,
+        "cost": 250
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Psyker",
+      "Fly",
+      "Grenades",
+      "Imperium",
+      "Interceptor Squad"
+    ],
+    "faction_keywords": [
+      "Grey Knights"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 10
+    },
+    "weapon_ids": [
+      "close-combat-weapon",
+      "incinerator",
+      "nemesis-force-weapon",
+      "psilencer",
+      "psycannon",
+      "storm-bolter"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "brotherhood-chaplain",
+    "name": "Brotherhood Chaplain",
+    "faction_id": "grey-knights",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Brotherhood Chaplain",
+        "M": 5,
+        "T": 5,
+        "W": 5,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 5,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 65
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Psyker",
+      "Terminator",
+      "Imperium",
+      "Brotherhood Chaplain"
+    ],
+    "faction_keywords": [
+      "Grey Knights"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "crozius-arcanum",
+      "storm-bolter"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "paladin-squad",
+    "name": "Paladin Squad",
+    "faction_id": "grey-knights",
+    "profiles": [
+      {
+        "name": "Paladin",
+        "M": 5,
+        "T": 5,
+        "W": 3,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 4,
+        "cost": 180
+      },
+      {
+        "models": 5,
+        "cost": 225
+      },
+      {
+        "models": 8,
+        "cost": 360
+      },
+      {
+        "models": 10,
+        "cost": 450
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Psyker",
+      "Terminator",
+      "Grenades",
+      "Imperium",
+      "Paladin Squad"
+    ],
+    "faction_keywords": [
+      "Grey Knights"
+    ],
+    "model_count": {
+      "min": 4,
+      "max": 10
+    },
+    "weapon_ids": [
+      "incinerator",
+      "nemesis-force-weapon",
+      "psilencer",
+      "psycannon",
+      "storm-bolter"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "land-raider",
+    "name": "Land Raider",
+    "faction_id": "grey-knights",
+    "profiles": [
+      {
+        "name": "Land Raider",
+        "M": 10,
+        "T": 12,
+        "W": 16,
+        "Sv": 2,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 5
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 220
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Transport",
+      "Smoke",
+      "Imperium",
+      "Land Raider"
+    ],
+    "faction_keywords": [
+      "Grey Knights"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-tracks",
+      "godhammer-lascannon",
+      "hunter-killer-missile",
+      "multi-melta",
+      "storm-bolter",
+      "twin-heavy-bolter"
+    ],
+    "ability_ids": [],
+    "transport_capacity": {
+      "capacity": 12
+    },
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "grand-master-voldus",
+    "name": "Grand Master Voldus",
+    "faction_id": "grey-knights",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Grand Master Voldus",
+        "M": 5,
+        "T": 5,
+        "W": 7,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 110
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Epic Hero",
+      "Psyker",
+      "Terminator",
+      "Imperium",
+      "Grand Master Voldus"
+    ],
+    "faction_keywords": [
+      "Grey Knights"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "malleus-argyrum",
+      "searing-purity",
+      "storm-bolter"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "brotherhood-terminator-squad",
+    "name": "Brotherhood Terminator Squad",
+    "faction_id": "grey-knights",
+    "role": "battleline",
+    "profiles": [
+      {
+        "name": "Terminator",
+        "M": 5,
+        "T": 5,
+        "W": 3,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 4,
+        "cost": 150
+      },
+      {
+        "models": 5,
+        "cost": 185
+      },
+      {
+        "models": 8,
+        "cost": 300
+      },
+      {
+        "models": 10,
+        "cost": 375
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Battleline",
+      "Psyker",
+      "Terminator",
+      "Grenades",
+      "Imperium",
+      "Brotherhood Terminator Squad"
+    ],
+    "faction_keywords": [
+      "Grey Knights"
+    ],
+    "model_count": {
+      "min": 4,
+      "max": 10
+    },
+    "weapon_ids": [
+      "incinerator",
+      "nemesis-force-weapon",
+      "psilencer",
+      "psycannon",
+      "storm-bolter"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "stormhawk-interceptor",
+    "name": "Stormhawk Interceptor",
+    "faction_id": "grey-knights",
+    "profiles": [
+      {
+        "name": "Stormhawk Interceptor",
+        "M": 20,
+        "T": 9,
+        "W": 10,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 0
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 160
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Aircraft",
+      "Fly",
+      "Smoke",
+      "Imperium",
+      "Stormhawk Interceptor"
+    ],
+    "faction_keywords": [
+      "Grey Knights"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-hull",
+      "icarus-stormcannon",
+      "las-talon",
+      "skyhammer-missile-launcher",
+      "twin-assault-cannon",
+      "twin-heavy-bolter",
+      "typhoon-missile-launcher"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "stormraven-gunship",
+    "name": "Stormraven Gunship",
+    "faction_id": "grey-knights",
+    "profiles": [
+      {
+        "name": "Stormraven Gunship",
+        "M": 20,
+        "T": 10,
+        "W": 14,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 0
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 280
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Aircraft",
+      "Transport",
+      "Fly",
+      "Imperium",
+      "Stormraven Gunship"
+    ],
+    "faction_keywords": [
+      "Grey Knights"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-hull",
+      "hurricane-bolter",
+      "stormstrike-missile-launcher",
+      "twin-assault-cannon",
+      "twin-heavy-bolter",
+      "twin-heavy-plasma-cannon",
+      "twin-lascannon",
+      "twin-multi-melta",
+      "typhoon-missile-launcher"
+    ],
+    "ability_ids": [],
+    "transport_capacity": {
+      "capacity": 12
+    },
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "grey-knights-dreadnought",
+    "name": "Grey Knights Dreadnought",
+    "faction_id": "grey-knights",
+    "profiles": [
+      {
+        "name": "Grey Knights Dreadnought",
+        "M": 6,
+        "T": 9,
+        "W": 8,
+        "Sv": 2,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 3
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Dreadnought",
+      "Imperium",
+      "Psyker",
+      "Smoke",
+      "Vehicle",
+      "Walker"
+    ],
+    "faction_keywords": [
+      "Grey Knights"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-feet",
+      "assault-cannon",
+      "dreadnought-combat-weapon",
+      "heavy-flamer",
+      "heavy-plasma-cannon",
+      "heavy-psycannon",
+      "incinerator",
+      "missile-launcher",
+      "multi-melta",
+      "nemesis-doomglaive",
+      "storm-bolter",
+      "twin-lascannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "grey-knights-relic-razorback",
+    "name": "Grey Knights Relic Razorback",
+    "faction_id": "grey-knights",
+    "role": "dedicated-transport",
+    "profiles": [
+      {
+        "name": "Grey Knights Relic Razorback",
+        "M": 12,
+        "T": 9,
+        "W": 10,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 2
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Dedicated Transport",
+      "Imperium",
+      "Relic Razorback",
+      "Smoke",
+      "Transport",
+      "Vehicle"
+    ],
+    "faction_keywords": [
+      "Grey Knights"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-tracks",
+      "hunter-killer-missile",
+      "multi-melta",
+      "storm-bolter",
+      "twin-assault-cannon",
+      "twin-heavy-bolter",
+      "twin-lascannon",
+      "twin-psycannon"
+    ],
+    "ability_ids": [],
+    "transport_capacity": {
+      "capacity": 6
+    },
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  }
+]

@@ -1,0 +1,818 @@
+[
+  {
+    "id": "droning-horror",
+    "name": "DRONING HORROR",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "flyblown-host",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "myphitic-invigoration",
+    "name": "MYPHITIC INVIGORATION",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "flyblown-host",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "vermin-cloud",
+    "name": "VERMIN CLOUD",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "flyblown-host",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "clutching-corruption",
+    "name": "CLUTCHING CORRUPTION",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "tallyband-summoners",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "blessings-of-filth",
+    "name": "BLESSINGS OF FILTH",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "champions-of-contagion",
+    "cp_cost": 1,
+    "phases": [
+      "fight",
+      "shooting"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "grotesque-fortitude",
+    "name": "GROTESQUE FORTITUDE",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "champions-of-contagion",
+    "cp_cost": 1,
+    "phases": [
+      "fight",
+      "shooting"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "drawn-to-despair",
+    "name": "DRAWN TO DESPAIR",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "mortarions-hammer",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "gnawing-hunger",
+    "name": "GNAWING HUNGER",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "shamblerot-vectorium",
+    "cp_cost": 1,
+    "phases": [
+      "command"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "grim-reapers",
+    "name": "GRIM REAPERS",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "death-lords-chosen",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "disgustingly-resilient",
+    "name": "DISGUSTINGLY RESILIENT",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "virulent-vectorium",
+    "cp_cost": 2,
+    "phases": [
+      "fight",
+      "shooting"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "malignance-magnified",
+    "name": "MALIGNANCE MAGNIFIED",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "champions-of-contagion",
+    "cp_cost": 2,
+    "phases": [
+      "fight",
+      "shooting"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "leechspore-eruption",
+    "name": "LEECHSPORE ERUPTION",
+    "category": "detachment",
+    "type": "epic-deed",
+    "detachment_id": "virulent-vectorium",
+    "cp_cost": 1,
+    "phases": [
+      "command"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "blooming-pestilence",
+    "name": "BLOOMING PESTILENCE",
+    "category": "detachment",
+    "type": "epic-deed",
+    "detachment_id": "death-lords-chosen",
+    "cp_cost": 1,
+    "phases": [
+      "command",
+      "movement",
+      "shooting",
+      "charge",
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "signal-pox",
+    "name": "SIGNAL POX",
+    "category": "detachment",
+    "type": "epic-deed",
+    "detachment_id": "death-lords-chosen",
+    "cp_cost": 1,
+    "phases": [
+      "command"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "plaguesurge",
+    "name": "PLAGUESURGE",
+    "category": "detachment",
+    "type": "epic-deed",
+    "detachment_id": "virulent-vectorium",
+    "cp_cost": 2,
+    "phases": [
+      "command"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "putrid-detonation",
+    "name": "PUTRID DETONATION",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "virulent-vectorium",
+    "cp_cost": 1,
+    "phases": [
+      "command",
+      "movement",
+      "shooting",
+      "charge",
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "enervating-onslaught",
+    "name": "ENERVATING ONSLAUGHT",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "flyblown-host",
+    "cp_cost": 1,
+    "phases": [
+      "charge"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "nauseating-paroxysms",
+    "name": "NAUSEATING PAROXYSMS",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "flyblown-host",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "eye-of-the-swarm",
+    "name": "EYE OF THE SWARM",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "flyblown-host",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "persistent-pests",
+    "name": "PERSISTENT PESTS",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "tallyband-summoners",
+    "cp_cost": 1,
+    "phases": [
+      "command",
+      "movement",
+      "shooting",
+      "charge",
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "all-is-rot",
+    "name": "ALL IS ROT",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "tallyband-summoners",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "fleshy-avalanche",
+    "name": "FLESHY AVALANCHE",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "tallyband-summoners",
+    "cp_cost": 1,
+    "phases": [
+      "charge",
+      "movement"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "avatars-of-decay",
+    "name": "AVATARS OF DECAY",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "tallyband-summoners",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "mireslick",
+    "name": "MIRESLICK",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "tallyband-summoners",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "rabid-infusion",
+    "name": "RABID INFUSION",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "champions-of-contagion",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "mobile-vector",
+    "name": "MOBILE VECTOR",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "champions-of-contagion",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "font-of-filth",
+    "name": "FONT OF FILTH",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "mortarions-hammer",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "eyestinger-storm",
+    "name": "EYESTINGER STORM",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "mortarions-hammer",
+    "cp_cost": 1,
+    "phases": [
+      "command"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "stinking-mire",
+    "name": "STINKING MIRE",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "mortarions-hammer",
+    "cp_cost": 1,
+    "phases": [
+      "charge"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "relentless-grind",
+    "name": "RELENTLESS GRIND",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "mortarions-hammer",
+    "cp_cost": 1,
+    "phases": [
+      "charge",
+      "movement"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "grip-of-the-walking-pox",
+    "name": "GRIP OF THE WALKING POX",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "shamblerot-vectorium",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "smeared-with-filth",
+    "name": "SMEARED WITH FILTH",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "shamblerot-vectorium",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "hidden-amongst-the-dead",
+    "name": "HIDDEN AMONGST THE DEAD",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "shamblerot-vectorium",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "shock-and-horror",
+    "name": "SHOCK AND HORROR",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "shamblerot-vectorium",
+    "cp_cost": 1,
+    "phases": [
+      "charge"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "shambling-wall",
+    "name": "SHAMBLING WALL",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "shamblerot-vectorium",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "undying-spite",
+    "name": "UNDYING SPITE",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "death-lords-chosen",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "mortarions-teachings",
+    "name": "MORTARION’S TEACHINGS",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "death-lords-chosen",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "sickening-impact",
+    "name": "SICKENING IMPACT",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "death-lords-chosen",
+    "cp_cost": 1,
+    "phases": [
+      "charge"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "blighted-land",
+    "name": "BLIGHTED LAND",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "mortarions-hammer",
+    "cp_cost": 2,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "overwhelming-generosity",
+    "name": "OVERWHELMING GENEROSITY",
+    "category": "detachment",
+    "type": "wargear",
+    "detachment_id": "virulent-vectorium",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "creeping-blight",
+    "name": "CREEPING BLIGHT",
+    "category": "detachment",
+    "type": "wargear",
+    "detachment_id": "virulent-vectorium",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "deaths-heads",
+    "name": "DEATH’S HEADS",
+    "category": "detachment",
+    "type": "wargear",
+    "detachment_id": "champions-of-contagion",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  }
+]

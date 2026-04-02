@@ -1,0 +1,3231 @@
+[
+  {
+    "id": "harvester-cannon",
+    "name": "Harvester cannon",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Harvester cannon",
+        "range": 36,
+        "stats": {
+          "A": 3,
+          "S": 10,
+          "AP": -1,
+          "D": 3,
+          "BS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "torrent-of-burning-blood",
+    "name": "Torrent of burning blood",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Torrent of burning blood",
+        "range": 12,
+        "stats": {
+          "A": "2D6",
+          "S": 5,
+          "AP": -1,
+          "D": 1,
+          "BS": null
+        },
+        "keywords": [
+          "Ignores Cover",
+          "Torrent"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "warp-gaze",
+    "name": "Warp gaze",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Warp gaze",
+        "range": 48,
+        "stats": {
+          "A": "D3",
+          "S": 12,
+          "AP": -2,
+          "D": "D6+2",
+          "BS": 3
+        },
+        "keywords": [
+          "Blast"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "phlegm-bombardment",
+    "name": "Phlegm bombardment",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Phlegm bombardment",
+        "range": 36,
+        "stats": {
+          "A": "D6+1",
+          "S": 7,
+          "AP": -1,
+          "D": 2,
+          "BS": 3
+        },
+        "keywords": [
+          "Blast",
+          "Indirect Fire",
+          "Lethal Hits"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "scream-of-despair",
+    "name": "Scream of despair",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Scream of despair",
+        "range": 24,
+        "stats": {
+          "A": 6,
+          "S": 9,
+          "AP": -2,
+          "D": 2,
+          "BS": 3
+        },
+        "keywords": [
+          "Devastating Wounds",
+          "Sustained Hits 1"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "iron-claw",
+    "name": "Iron claw",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Iron claw",
+        "range": "Melee",
+        "stats": {
+          "A": 5,
+          "S": 16,
+          "AP": -3,
+          "D": "D6+2",
+          "WS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "warpsword",
+    "name": "Warpsword",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Warpsword",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 8,
+          "AP": -2,
+          "D": "D6",
+          "WS": 3
+        },
+        "keywords": [
+          "Extra Attacks"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "warpclaw",
+    "name": "Warpclaw",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Warpclaw",
+        "range": "Melee",
+        "stats": {
+          "A": 6,
+          "S": 8,
+          "AP": -1,
+          "D": 2,
+          "WS": 3
+        },
+        "keywords": [
+          "Extra Attacks"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "infernal-cannon",
+    "name": "Infernal cannon",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Infernal cannon",
+        "range": 24,
+        "stats": {
+          "A": 3,
+          "S": 5,
+          "AP": -1,
+          "D": 2,
+          "BS": 2
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "hellforged-weapons",
+    "name": "Hellforged weapons",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Strike",
+        "range": "Melee",
+        "stats": {
+          "A": 6,
+          "S": 8,
+          "AP": -2,
+          "D": 3,
+          "WS": 2
+        },
+        "keywords": []
+      },
+      {
+        "name": "Sweep",
+        "range": "Melee",
+        "stats": {
+          "A": 14,
+          "S": 6,
+          "AP": 0,
+          "D": 1,
+          "WS": 2
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "streams-of-brackish-filth",
+    "name": "Streams of brackish filth",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Streams of brackish filth",
+        "range": 12,
+        "stats": {
+          "A": "2D6",
+          "S": 8,
+          "AP": -2,
+          "D": 1,
+          "BS": null
+        },
+        "keywords": [
+          "Devastating Wounds",
+          "Ignores Cover",
+          "Torrent"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "gnarlrod",
+    "name": "Gnarlrod",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Sweep",
+        "range": "Melee",
+        "stats": {
+          "A": 14,
+          "S": 8,
+          "AP": -1,
+          "D": 1,
+          "WS": 2
+        },
+        "keywords": [
+          "Lethal Hits",
+          "Psychic"
+        ]
+      },
+      {
+        "name": "Strike",
+        "range": "Melee",
+        "stats": {
+          "A": 7,
+          "S": 10,
+          "AP": -3,
+          "D": 3,
+          "WS": 2
+        },
+        "keywords": [
+          "Lethal Hits",
+          "Psychic"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "serrated-claws",
+    "name": "Serrated claws",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Serrated claws",
+        "range": "Melee",
+        "stats": {
+          "A": 6,
+          "S": 4,
+          "AP": -1,
+          "D": 2,
+          "WS": 2
+        },
+        "keywords": [
+          "Devastating Wounds"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "slashing-claws",
+    "name": "Slashing claws",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Slashing claws",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 4,
+          "AP": -1,
+          "D": 1,
+          "WS": 3
+        },
+        "keywords": [
+          "Devastating Wounds"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "diseased-claws-and-teeth",
+    "name": "Diseased claws and teeth",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Diseased claws and teeth",
+        "range": "Melee",
+        "stats": {
+          "A": 4,
+          "S": 2,
+          "AP": 0,
+          "D": 1,
+          "WS": 5
+        },
+        "keywords": [
+          "Lethal Hits"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "blade-of-blood",
+    "name": "Blade of blood",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Blade of blood",
+        "range": "Melee",
+        "stats": {
+          "A": 5,
+          "S": 6,
+          "AP": -2,
+          "D": 3,
+          "WS": 2
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "ravaging-claws",
+    "name": "Ravaging claws",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Ravaging claws",
+        "range": "Melee",
+        "stats": {
+          "A": 6,
+          "S": 4,
+          "AP": -1,
+          "D": 1,
+          "WS": 2
+        },
+        "keywords": [
+          "Devastating Wounds"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "fire-of-tzeentch",
+    "name": "Fire of Tzeentch",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Pink fire",
+        "range": 12,
+        "stats": {
+          "A": "2D6",
+          "S": 5,
+          "AP": -1,
+          "D": 1,
+          "BS": null
+        },
+        "keywords": [
+          "Ignores Cover",
+          "Psychic",
+          "Torrent"
+        ]
+      },
+      {
+        "name": "Blue fire",
+        "range": 18,
+        "stats": {
+          "A": 3,
+          "S": 9,
+          "AP": -3,
+          "D": 3,
+          "BS": 3
+        },
+        "keywords": [
+          "Ignores Cover",
+          "Psychic"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "flamer-mouths",
+    "name": "Flamer mouths",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Flamer mouths",
+        "range": "Melee",
+        "stats": {
+          "A": 6,
+          "S": 5,
+          "AP": 0,
+          "D": 1,
+          "WS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "screamer-bites",
+    "name": "Screamer bites",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Screamer bites",
+        "range": "Melee",
+        "stats": {
+          "A": 6,
+          "S": 6,
+          "AP": -2,
+          "D": 2,
+          "WS": 3
+        },
+        "keywords": [
+          "Anti-monster 4+",
+          "Anti-vehicle 4+",
+          "Extra Attacks"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "coruscating-pink-flames",
+    "name": "Coruscating Pink Flames",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Coruscating Pink Flames",
+        "range": 18,
+        "stats": {
+          "A": 2,
+          "S": 4,
+          "AP": -1,
+          "D": 1,
+          "BS": 3
+        },
+        "keywords": [
+          "Pistol",
+          "Psychic"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "coruscating-blue-flames",
+    "name": "Coruscating blue flames",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Coruscating blue flames",
+        "range": 18,
+        "stats": {
+          "A": 2,
+          "S": 3,
+          "AP": -1,
+          "D": 1,
+          "BS": 4
+        },
+        "keywords": [
+          "Pistol",
+          "Psychic"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "coruscating-yellow-flames",
+    "name": "Coruscating yellow flames",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Coruscating yellow flames",
+        "range": 18,
+        "stats": {
+          "A": 2,
+          "S": 2,
+          "AP": -1,
+          "D": 1,
+          "BS": 5
+        },
+        "keywords": [
+          "Pistol",
+          "Psychic"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "pink-claws",
+    "name": "Pink claws",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Pink claws",
+        "range": "Melee",
+        "stats": {
+          "A": 1,
+          "S": 3,
+          "AP": 0,
+          "D": 1,
+          "WS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "blue-claws",
+    "name": "Blue claws",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Blue claws",
+        "range": "Melee",
+        "stats": {
+          "A": 1,
+          "S": 3,
+          "AP": 0,
+          "D": 1,
+          "WS": 5
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "yellow-claws",
+    "name": "Yellow claws",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Yellow claws",
+        "range": "Melee",
+        "stats": {
+          "A": 2,
+          "S": 2,
+          "AP": 0,
+          "D": 1,
+          "WS": 5
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "heartstring-lyre",
+    "name": "Heartstring lyre",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Euphonic blast",
+        "range": 24,
+        "stats": {
+          "A": 1,
+          "S": 12,
+          "AP": -3,
+          "D": "D6+1",
+          "BS": 3
+        },
+        "keywords": [
+          "Assault"
+        ]
+      },
+      {
+        "name": "Cacophonous melody",
+        "range": 18,
+        "stats": {
+          "A": 6,
+          "S": 6,
+          "AP": 0,
+          "D": 1,
+          "BS": 3
+        },
+        "keywords": [
+          "Assault"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "ravaging-claws",
+    "name": "Ravaging claws",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Ravaging claws",
+        "range": "Melee",
+        "stats": {
+          "A": 5,
+          "S": 4,
+          "AP": -1,
+          "D": 1,
+          "WS": 2
+        },
+        "keywords": [
+          "Devastating Wounds"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "plaguesword",
+    "name": "Plaguesword",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Plaguesword",
+        "range": "Melee",
+        "stats": {
+          "A": 2,
+          "S": 4,
+          "AP": -1,
+          "D": 1,
+          "WS": 3
+        },
+        "keywords": [
+          "Lethal Hits"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "phantasmagoria",
+    "name": "Phantasmagoria",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Witchfire",
+        "range": 18,
+        "stats": {
+          "A": 6,
+          "S": 6,
+          "AP": -2,
+          "D": 1,
+          "BS": 2
+        },
+        "keywords": [
+          "Devastating Wounds",
+          "Psychic"
+        ]
+      },
+      {
+        "name": "Focused witchfire",
+        "range": 18,
+        "stats": {
+          "A": 9,
+          "S": 6,
+          "AP": -2,
+          "D": 1,
+          "BS": 2
+        },
+        "keywords": [
+          "Devastating Wounds",
+          "Hazardous",
+          "Psychic"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "living-whip",
+    "name": "Living whip",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Living whip",
+        "range": 12,
+        "stats": {
+          "A": 6,
+          "S": 6,
+          "AP": -1,
+          "D": 2,
+          "BS": 2
+        },
+        "keywords": [
+          "Assault"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "snapping-claws",
+    "name": "Snapping claws",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Snapping claws",
+        "range": "Melee",
+        "stats": {
+          "A": 4,
+          "S": 6,
+          "AP": -2,
+          "D": 3,
+          "WS": 2
+        },
+        "keywords": [
+          "Devastating Wounds",
+          "Extra Attacks"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "witstealer-sword",
+    "name": "Witstealer sword",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Witstealer sword",
+        "range": "Melee",
+        "stats": {
+          "A": 6,
+          "S": 8,
+          "AP": -2,
+          "D": 3,
+          "WS": 2
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "ritual-knife",
+    "name": "Ritual knife",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Ritual knife",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 6,
+          "AP": -2,
+          "D": 2,
+          "WS": 2
+        },
+        "keywords": [
+          "Extra Attacks"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "lash-of-slaanesh",
+    "name": "Lash of Slaanesh",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Lash of Slaanesh",
+        "range": 12,
+        "stats": {
+          "A": 6,
+          "S": 6,
+          "AP": -1,
+          "D": 2,
+          "BS": 2
+        },
+        "keywords": [
+          "Assault"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "pavane-of-slaanesh",
+    "name": "Pavane of Slaanesh",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Witchfire",
+        "range": 18,
+        "stats": {
+          "A": "D6",
+          "S": 9,
+          "AP": -1,
+          "D": "D3",
+          "BS": 2
+        },
+        "keywords": [
+          "Devastating Wounds",
+          "Psychic"
+        ]
+      },
+      {
+        "name": "Focused witchfire",
+        "range": 18,
+        "stats": {
+          "A": "D6",
+          "S": 9,
+          "AP": -2,
+          "D": "D3",
+          "BS": 2
+        },
+        "keywords": [
+          "Devastating Wounds",
+          "Hazardous",
+          "Psychic",
+          "Sustained Hits 3"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "soulpiercer",
+    "name": "Soulpiercer",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Soulpiercer",
+        "range": "Melee",
+        "stats": {
+          "A": 6,
+          "S": 12,
+          "AP": -3,
+          "D": "D6+2",
+          "WS": 2
+        },
+        "keywords": [
+          "Precision"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "lashing-tongue",
+    "name": "Lashing tongue",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Lashing tongue",
+        "range": "Melee",
+        "stats": {
+          "A": 2,
+          "S": 4,
+          "AP": 0,
+          "D": 1,
+          "WS": 4
+        },
+        "keywords": [
+          "Extra Attacks",
+          "Lethal Hits"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "cacophonic-choir",
+    "name": "Cacophonic choir",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Focused witchfire",
+        "range": 12,
+        "stats": {
+          "A": "2D6",
+          "S": 6,
+          "AP": -1,
+          "D": 1,
+          "BS": null
+        },
+        "keywords": [
+          "Devastating Wounds",
+          "Hazardous",
+          "Ignores Cover",
+          "Psychic",
+          "Torrent"
+        ]
+      },
+      {
+        "name": "Witchfire",
+        "range": 12,
+        "stats": {
+          "A": "D6",
+          "S": 6,
+          "AP": -1,
+          "D": 1,
+          "BS": null
+        },
+        "keywords": [
+          "Devastating Wounds",
+          "Ignores Cover",
+          "Psychic",
+          "Torrent"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "scourging-whip",
+    "name": "Scourging whip",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Ranged",
+        "range": 9,
+        "stats": {
+          "A": 6,
+          "S": 4,
+          "AP": -1,
+          "D": 1,
+          "BS": 3
+        },
+        "keywords": [
+          "Assault"
+        ]
+      },
+      {
+        "name": "Melee",
+        "range": "Melee",
+        "stats": {
+          "A": 6,
+          "S": 4,
+          "AP": -1,
+          "D": 1,
+          "WS": 2
+        },
+        "keywords": [
+          "Extra Attacks"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "axe-of-dominion",
+    "name": "Axe of Dominion",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Axe of Dominion",
+        "range": "Melee",
+        "stats": {
+          "A": 6,
+          "S": 7,
+          "AP": -2,
+          "D": 3,
+          "WS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "lamprey-bite",
+    "name": "Lamprey bite",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Lamprey bite",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 6,
+          "AP": -2,
+          "D": 2,
+          "WS": 3
+        },
+        "keywords": [
+          "Anti-monster 4+",
+          "Anti-vehicle 4+"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "hellblade",
+    "name": "Hellblade",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Hellblade",
+        "range": "Melee",
+        "stats": {
+          "A": 2,
+          "S": 5,
+          "AP": -2,
+          "D": 2,
+          "WS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "bolt-of-change",
+    "name": "Bolt of Change",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Witchfire",
+        "range": 18,
+        "stats": {
+          "A": 9,
+          "S": 9,
+          "AP": -1,
+          "D": 1,
+          "BS": 2
+        },
+        "keywords": [
+          "Psychic"
+        ]
+      },
+      {
+        "name": "Focused witchfire",
+        "range": 18,
+        "stats": {
+          "A": 9,
+          "S": 9,
+          "AP": -2,
+          "D": 3,
+          "BS": 2
+        },
+        "keywords": [
+          "Hazardous",
+          "Psychic"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "rod-of-sorcery",
+    "name": "Rod of sorcery",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Rod of sorcery",
+        "range": 18,
+        "stats": {
+          "A": 6,
+          "S": 8,
+          "AP": -1,
+          "D": 2,
+          "BS": 2
+        },
+        "keywords": [
+          "Psychic"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "staff-of-tzeentch",
+    "name": "Staff of Tzeentch",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Staff of Tzeentch",
+        "range": "Melee",
+        "stats": {
+          "A": 5,
+          "S": 6,
+          "AP": -1,
+          "D": 3,
+          "WS": 3
+        },
+        "keywords": [
+          "Psychic"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "baleful-sword",
+    "name": "Baleful sword",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Baleful sword",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 7,
+          "AP": -2,
+          "D": 3,
+          "WS": 3
+        },
+        "keywords": [
+          "Extra Attacks"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "arcane-fireball",
+    "name": "Arcane Fireball",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Witchfire",
+        "range": 18,
+        "stats": {
+          "A": 3,
+          "S": 5,
+          "AP": -1,
+          "D": "D3",
+          "BS": 3
+        },
+        "keywords": [
+          "Psychic"
+        ]
+      },
+      {
+        "name": "Focused witchfire",
+        "range": 18,
+        "stats": {
+          "A": 3,
+          "S": 6,
+          "AP": -2,
+          "D": "D3",
+          "BS": 3
+        },
+        "keywords": [
+          "Devastating Wounds",
+          "Hazardous",
+          "Psychic"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "herald-combat-weapon",
+    "name": "Herald combat weapon",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Herald combat weapon",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 4,
+          "AP": -1,
+          "D": 1,
+          "WS": 4
+        },
+        "keywords": [
+          "Psychic"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "plague-flail",
+    "name": "Plague flail",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Plague flail",
+        "range": 6,
+        "stats": {
+          "A": "D6+1",
+          "S": 7,
+          "AP": -2,
+          "D": 2,
+          "BS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "putrid-vomit",
+    "name": "Putrid vomit",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Putrid vomit",
+        "range": 12,
+        "stats": {
+          "A": "D6+3",
+          "S": 5,
+          "AP": -2,
+          "D": 1,
+          "BS": null
+        },
+        "keywords": [
+          "Ignores Cover",
+          "Torrent"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "bilesword",
+    "name": "Bilesword",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Sweep",
+        "range": "Melee",
+        "stats": {
+          "A": 12,
+          "S": 7,
+          "AP": -1,
+          "D": 1,
+          "WS": 2
+        },
+        "keywords": [
+          "Lethal Hits"
+        ]
+      },
+      {
+        "name": "Strike",
+        "range": "Melee",
+        "stats": {
+          "A": 6,
+          "S": 10,
+          "AP": -2,
+          "D": "D6+1",
+          "WS": 2
+        },
+        "keywords": [
+          "Lethal Hits"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "bileblade",
+    "name": "Bileblade",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Bileblade",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 6,
+          "AP": -2,
+          "D": 2,
+          "WS": 2
+        },
+        "keywords": [
+          "Extra Attacks",
+          "Lethal Hits"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "doomsday-bell",
+    "name": "Doomsday bell",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Doomsday bell",
+        "range": "Melee",
+        "stats": {
+          "A": 6,
+          "S": 7,
+          "AP": -1,
+          "D": 2,
+          "WS": 2
+        },
+        "keywords": [
+          "Lethal Hits",
+          "Reverberating Summons"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "juggernauts-bladed-horn",
+    "name": "Juggernaut’s bladed horn",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Juggernaut’s bladed horn",
+        "range": "Melee",
+        "stats": {
+          "A": 4,
+          "S": 6,
+          "AP": -1,
+          "D": 1,
+          "WS": 4
+        },
+        "keywords": [
+          "Extra Attacks",
+          "Lance"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "barbed-tail-and-dissecting-claws",
+    "name": "Barbed tail and dissecting claws",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Barbed tail and dissecting claws",
+        "range": "Melee",
+        "stats": {
+          "A": 5,
+          "S": 5,
+          "AP": -2,
+          "D": 2,
+          "WS": 3
+        },
+        "keywords": [
+          "Devastating Wounds"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "bellow-of-endless-fury",
+    "name": "Bellow of endless fury",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Bellow of endless fury",
+        "range": 12,
+        "stats": {
+          "A": "2D6",
+          "S": 8,
+          "AP": -1,
+          "D": 1,
+          "BS": null
+        },
+        "keywords": [
+          "Ignores Cover",
+          "Torrent"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "slaughter-and-carnage",
+    "name": "Slaughter and Carnage",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Sweep",
+        "range": "Melee",
+        "stats": {
+          "A": 16,
+          "S": 8,
+          "AP": -2,
+          "D": 2,
+          "WS": 2
+        },
+        "keywords": []
+      },
+      {
+        "name": "Strike",
+        "range": "Melee",
+        "stats": {
+          "A": 8,
+          "S": 16,
+          "AP": -4,
+          "D": 6,
+          "WS": 2
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "betraying-shades",
+    "name": "Betraying Shades",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Witchfire",
+        "range": 18,
+        "stats": {
+          "A": 9,
+          "S": 5,
+          "AP": -2,
+          "D": 1,
+          "BS": 2
+        },
+        "keywords": [
+          "Devastating Wounds",
+          "Ignores Cover",
+          "Psychic"
+        ]
+      },
+      {
+        "name": "Focused witchfire",
+        "range": 18,
+        "stats": {
+          "A": 12,
+          "S": 6,
+          "AP": -3,
+          "D": 1,
+          "BS": 2
+        },
+        "keywords": [
+          "Devastating Wounds",
+          "Hazardous",
+          "Ignores Cover",
+          "Psychic"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "the-blade-of-shadows",
+    "name": "The Blade of Shadows",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Sweep",
+        "range": "Melee",
+        "stats": {
+          "A": 14,
+          "S": 8,
+          "AP": -3,
+          "D": 1,
+          "WS": 2
+        },
+        "keywords": [
+          "Sustained Hits 1"
+        ]
+      },
+      {
+        "name": "Strike",
+        "range": "Melee",
+        "stats": {
+          "A": 7,
+          "S": 14,
+          "AP": -4,
+          "D": "D6+1",
+          "WS": 2
+        },
+        "keywords": [
+          "Devastating Wounds"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "acidic-maw",
+    "name": "Acidic maw",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Acidic maw",
+        "range": "Melee",
+        "stats": {
+          "A": 2,
+          "S": 7,
+          "AP": -4,
+          "D": 3,
+          "WS": 4
+        },
+        "keywords": [
+          "Devastating Wounds",
+          "Extra Attacks"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "lopping-shears",
+    "name": "Lopping shears",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Lopping shears",
+        "range": "Melee",
+        "stats": {
+          "A": 4,
+          "S": 6,
+          "AP": -2,
+          "D": 3,
+          "WS": 3
+        },
+        "keywords": [
+          "Lethal Hits"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "coiled-tentacles",
+    "name": "Coiled tentacles",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Coiled tentacles",
+        "range": "Melee",
+        "stats": {
+          "A": "D6",
+          "S": 5,
+          "AP": -1,
+          "D": 2,
+          "WS": 4
+        },
+        "keywords": [
+          "Extra Attacks"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "ravaging-claws",
+    "name": "Ravaging claws",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Ravaging claws",
+        "range": "Melee",
+        "stats": {
+          "A": 8,
+          "S": 4,
+          "AP": -1,
+          "D": 1,
+          "WS": 2
+        },
+        "keywords": [
+          "Devastating Wounds"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "foul-balesword",
+    "name": "Foul balesword",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Foul balesword",
+        "range": "Melee",
+        "stats": {
+          "A": 4,
+          "S": 5,
+          "AP": -2,
+          "D": 2,
+          "WS": 3
+        },
+        "keywords": [
+          "Lethal Hits"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "lashes-of-torment",
+    "name": "Lashes of torment",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Ranged",
+        "range": 12,
+        "stats": {
+          "A": 3,
+          "S": 4,
+          "AP": -1,
+          "D": 2,
+          "BS": 3
+        },
+        "keywords": [
+          "Anti-infantry 3+",
+          "Assault",
+          "Pistol"
+        ]
+      },
+      {
+        "name": "Melee",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 4,
+          "AP": -1,
+          "D": 2,
+          "WS": 3
+        },
+        "keywords": [
+          "Anti-infantry 3+",
+          "Extra Attacks"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "seeker-tongues",
+    "name": "Seeker tongues",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Seeker tongues",
+        "range": "Melee",
+        "stats": {
+          "A": 4,
+          "S": 4,
+          "AP": 0,
+          "D": 1,
+          "WS": 4
+        },
+        "keywords": [
+          "Extra Attacks",
+          "Lethal Hits"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "slashing-claws",
+    "name": "Slashing claws",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Slashing claws",
+        "range": "Melee",
+        "stats": {
+          "A": 8,
+          "S": 4,
+          "AP": -1,
+          "D": 1,
+          "WS": 3
+        },
+        "keywords": [
+          "Devastating Wounds"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "deaths-heads",
+    "name": "Death’s heads",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Death’s heads",
+        "range": 12,
+        "stats": {
+          "A": "D3",
+          "S": 4,
+          "AP": 0,
+          "D": 1,
+          "BS": 4
+        },
+        "keywords": [
+          "Blast",
+          "Lethal Hits"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "foul-mouthparts",
+    "name": "Foul mouthparts",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Foul mouthparts",
+        "range": "Melee",
+        "stats": {
+          "A": 2,
+          "S": 5,
+          "AP": -1,
+          "D": 2,
+          "WS": 4
+        },
+        "keywords": [
+          "Extra Attacks",
+          "Lethal Hits"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "hellfire-breath",
+    "name": "Hellfire breath",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Hellfire breath",
+        "range": 12,
+        "stats": {
+          "A": "D6",
+          "S": 5,
+          "AP": -1,
+          "D": 1,
+          "BS": null
+        },
+        "keywords": [
+          "Ignores Cover",
+          "Torrent"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "bloodflail",
+    "name": "Bloodflail",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Bloodflail",
+        "range": 12,
+        "stats": {
+          "A": 1,
+          "S": 16,
+          "AP": -3,
+          "D": "D6+1",
+          "BS": 2
+        },
+        "keywords": [
+          "Devastating Wounds"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "lash-of-khorne",
+    "name": "Lash of Khorne",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Lash of Khorne",
+        "range": 12,
+        "stats": {
+          "A": 6,
+          "S": 8,
+          "AP": -1,
+          "D": 2,
+          "BS": 2
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "great-axe-of-khorne",
+    "name": "Great axe of Khorne",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Sweep",
+        "range": "Melee",
+        "stats": {
+          "A": 14,
+          "S": 10,
+          "AP": -2,
+          "D": 2,
+          "WS": 2
+        },
+        "keywords": []
+      },
+      {
+        "name": "Strike",
+        "range": "Melee",
+        "stats": {
+          "A": 7,
+          "S": 16,
+          "AP": -4,
+          "D": "D6+2",
+          "WS": 2
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "axe-of-khorne",
+    "name": "Axe of Khorne",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Sweep",
+        "range": "Melee",
+        "stats": {
+          "A": 16,
+          "S": 8,
+          "AP": -2,
+          "D": 1,
+          "WS": 2
+        },
+        "keywords": []
+      },
+      {
+        "name": "Strike",
+        "range": "Melee",
+        "stats": {
+          "A": 8,
+          "S": 14,
+          "AP": -4,
+          "D": "D3+1",
+          "WS": 2
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "flamer-mouths",
+    "name": "Flamer mouths",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Flamer mouths",
+        "range": "Melee",
+        "stats": {
+          "A": 4,
+          "S": 5,
+          "AP": 0,
+          "D": 1,
+          "WS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "balesword-and-nurgling-attendants",
+    "name": "Balesword and Nurgling attendants",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Balesword and Nurgling attendants",
+        "range": "Melee",
+        "stats": {
+          "A": "D6+3",
+          "S": 5,
+          "AP": -2,
+          "D": 2,
+          "WS": 3
+        },
+        "keywords": [
+          "Lethal Hits"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "scalding-roar",
+    "name": "Scalding roar",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Scalding roar",
+        "range": 12,
+        "stats": {
+          "A": "D6+3",
+          "S": 5,
+          "AP": -1,
+          "D": 1,
+          "BS": null
+        },
+        "keywords": [
+          "Ignores Cover",
+          "Torrent"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "soul-rending-fangs",
+    "name": "Soul-rending fangs",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Soul-rending fangs",
+        "range": "Melee",
+        "stats": {
+          "A": 6,
+          "S": 6,
+          "AP": -2,
+          "D": 2,
+          "WS": 2
+        },
+        "keywords": [
+          "Anti-character 3+",
+          "Precision"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "disgusting-sneezes",
+    "name": "Disgusting sneezes",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Disgusting sneezes",
+        "range": 6,
+        "stats": {
+          "A": "D6",
+          "S": 3,
+          "AP": 0,
+          "D": 1,
+          "BS": null
+        },
+        "keywords": [
+          "Pistol",
+          "Torrent"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "plaguesword-and-distended-maw",
+    "name": "Plaguesword and distended maw",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Plaguesword and distended maw",
+        "range": "Melee",
+        "stats": {
+          "A": 6,
+          "S": 5,
+          "AP": -1,
+          "D": 1,
+          "WS": 3
+        },
+        "keywords": [
+          "Lethal Hits"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "lashes-of-torment",
+    "name": "Lashes of torment",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Ranged",
+        "range": 12,
+        "stats": {
+          "A": 6,
+          "S": 4,
+          "AP": -1,
+          "D": 2,
+          "BS": 2
+        },
+        "keywords": [
+          "Anti-infantry 3+",
+          "Assault",
+          "Pistol"
+        ]
+      },
+      {
+        "name": "Melee",
+        "range": "Melee",
+        "stats": {
+          "A": 6,
+          "S": 4,
+          "AP": -1,
+          "D": 2,
+          "WS": 2
+        },
+        "keywords": [
+          "Anti-infantry 3+",
+          "Extra Attacks"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "the-slayer-sword",
+    "name": "The Slayer Sword",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "The Slayer Sword",
+        "range": "Melee",
+        "stats": {
+          "A": 6,
+          "S": 6,
+          "AP": -2,
+          "D": 3,
+          "WS": 2
+        },
+        "keywords": [
+          "Devastating Wounds",
+          "Precision"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "attendants-hellblades",
+    "name": "Attendants’ hellblades",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Attendants’ hellblades",
+        "range": "Melee",
+        "stats": {
+          "A": 4,
+          "S": 5,
+          "AP": -2,
+          "D": 2,
+          "WS": 3
+        },
+        "keywords": [
+          "Extra Attacks"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "marotter",
+    "name": "Marotter",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Marotter",
+        "range": "Melee",
+        "stats": {
+          "A": 4,
+          "S": 5,
+          "AP": 0,
+          "D": 1,
+          "WS": 3
+        },
+        "keywords": [
+          "Lethal Hits"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "infernal-gateway",
+    "name": "Infernal Gateway",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Focused witchfire",
+        "range": 24,
+        "stats": {
+          "A": "D3+6",
+          "S": 9,
+          "AP": -2,
+          "D": 3,
+          "BS": 2
+        },
+        "keywords": [
+          "Blast",
+          "Hazardous",
+          "Indirect Fire",
+          "Psychic"
+        ]
+      },
+      {
+        "name": "Witchfire",
+        "range": 24,
+        "stats": {
+          "A": "D6+3",
+          "S": 9,
+          "AP": -2,
+          "D": "D3",
+          "BS": 2
+        },
+        "keywords": [
+          "Blast",
+          "Indirect Fire",
+          "Psychic"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "staff-of-tomorrow",
+    "name": "Staff of Tomorrow",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Staff of Tomorrow",
+        "range": "Melee",
+        "stats": {
+          "A": 5,
+          "S": 8,
+          "AP": -2,
+          "D": "2D3",
+          "WS": 3
+        },
+        "keywords": [
+          "Psychic"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "sharp-quills",
+    "name": "Sharp quills",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Sharp quills",
+        "range": "Melee",
+        "stats": {
+          "A": 4,
+          "S": 2,
+          "AP": 0,
+          "D": 1,
+          "WS": 5
+        },
+        "keywords": [
+          "Anti-psyker 2+"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "infernal-flames",
+    "name": "Infernal Flames",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Witchfire",
+        "range": 12,
+        "stats": {
+          "A": "D6",
+          "S": 6,
+          "AP": -1,
+          "D": 1,
+          "BS": null
+        },
+        "keywords": [
+          "Ignores Cover",
+          "Psychic",
+          "Torrent"
+        ]
+      },
+      {
+        "name": "Focused witchfire",
+        "range": 12,
+        "stats": {
+          "A": "D6+3",
+          "S": 6,
+          "AP": -1,
+          "D": "D3",
+          "BS": null
+        },
+        "keywords": [
+          "Hazardous",
+          "Ignores Cover",
+          "Psychic",
+          "Torrent"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "the-tricksters-staff",
+    "name": "The Trickster’s Staff",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "The Trickster’s Staff",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 4,
+          "AP": -1,
+          "D": "D3",
+          "WS": 4
+        },
+        "keywords": [
+          "Psychic"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "flickering-flames",
+    "name": "Flickering flames",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Flickering flames",
+        "range": 12,
+        "stats": {
+          "A": "D6",
+          "S": 4,
+          "AP": -1,
+          "D": 1,
+          "BS": null
+        },
+        "keywords": [
+          "Ignores Cover",
+          "Psychic",
+          "Torrent"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "flamer-mouths",
+    "name": "Flamer mouths",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Flamer mouths",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 4,
+          "AP": 0,
+          "D": 1,
+          "WS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "putrid-appendages",
+    "name": "Putrid appendages",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Putrid appendages",
+        "range": "Melee",
+        "stats": {
+          "A": 6,
+          "S": 6,
+          "AP": -1,
+          "D": 2,
+          "WS": 4
+        },
+        "keywords": [
+          "Devastating Wounds"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "burning-roar",
+    "name": "Burning roar",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Burning roar",
+        "range": 12,
+        "stats": {
+          "A": "D6",
+          "S": 4,
+          "AP": 0,
+          "D": 1,
+          "BS": null
+        },
+        "keywords": [
+          "Ignores Cover",
+          "Torrent"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "gore-drenched-fangs",
+    "name": "Gore-drenched fangs",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Gore-drenched fangs",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 5,
+          "AP": -1,
+          "D": 1,
+          "WS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "skull-cannon",
+    "name": "Skull cannon",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Skull cannon",
+        "range": 48,
+        "stats": {
+          "A": "D6+2",
+          "S": 9,
+          "AP": -1,
+          "D": 2,
+          "BS": 3
+        },
+        "keywords": [
+          "Blast"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "biting-maw",
+    "name": "Biting maw",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Biting maw",
+        "range": "Melee",
+        "stats": {
+          "A": 2,
+          "S": 6,
+          "AP": 0,
+          "D": 2,
+          "WS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "putrid-vomit",
+    "name": "Putrid vomit",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Putrid vomit",
+        "range": 6,
+        "stats": {
+          "A": "D6+3",
+          "S": 5,
+          "AP": -2,
+          "D": 1,
+          "BS": null
+        },
+        "keywords": [
+          "ignores cover",
+          "torrent"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "blade-of-decay",
+    "name": "Blade of decay",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Sweep",
+        "range": "Melee",
+        "stats": {
+          "A": 14,
+          "S": 7,
+          "AP": -1,
+          "D": 1,
+          "WS": 2
+        },
+        "keywords": [
+          "lethal hits"
+        ]
+      },
+      {
+        "name": "Strike",
+        "range": "Melee",
+        "stats": {
+          "A": 7,
+          "S": 9,
+          "AP": -2,
+          "D": "D6",
+          "WS": 2
+        },
+        "keywords": [
+          "lethal hits"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "phantasmagoria",
+    "name": "Phantasmagoria",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "witchfire",
+        "range": 18,
+        "stats": {
+          "A": 6,
+          "S": 6,
+          "AP": -2,
+          "D": 1,
+          "BS": 2
+        },
+        "keywords": [
+          "devastating wounds",
+          "psychic"
+        ]
+      },
+      {
+        "name": "focused witchfire",
+        "range": 18,
+        "stats": {
+          "A": 9,
+          "S": 6,
+          "AP": -2,
+          "D": 1,
+          "BS": 2
+        },
+        "keywords": [
+          "devastating wounds",
+          "hazardous",
+          "psychic"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "snapping-claws",
+    "name": "Snapping claws",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Snapping claws",
+        "range": "Melee",
+        "stats": {
+          "A": 4,
+          "S": 6,
+          "AP": -2,
+          "D": 3,
+          "WS": 2
+        },
+        "keywords": [
+          "devastating wounds",
+          "extra attacks"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "souleater-blade",
+    "name": "Souleater blade",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Souleater blade",
+        "range": "Melee",
+        "stats": {
+          "A": 6,
+          "S": 9,
+          "AP": -2,
+          "D": 3,
+          "WS": 2
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "bolt-of-tzeentch",
+    "name": "Bolt of Tzeentch",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "witchfire",
+        "range": 24,
+        "stats": {
+          "A": 9,
+          "S": 10,
+          "AP": -1,
+          "D": 1,
+          "BS": 2
+        },
+        "keywords": [
+          "psychic"
+        ]
+      },
+      {
+        "name": "focused witchfire",
+        "range": 24,
+        "stats": {
+          "A": 9,
+          "S": 10,
+          "AP": -2,
+          "D": "D3",
+          "BS": 2
+        },
+        "keywords": [
+          "hazardous",
+          "psychic"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "warpfire-talons",
+    "name": "Warpfire talons",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Warpfire talons",
+        "range": "Melee",
+        "stats": {
+          "A": 12,
+          "S": 4,
+          "AP": -1,
+          "D": 1,
+          "WS": 3
+        },
+        "keywords": [
+          "psychic"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "staff-of-cataclysm",
+    "name": "Staff of cataclysm",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Staff of cataclysm",
+        "range": "Melee",
+        "stats": {
+          "A": 6,
+          "S": 8,
+          "AP": -2,
+          "D": 3,
+          "WS": 3
+        },
+        "keywords": [
+          "psychic"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "bloodlash",
+    "name": "Bloodlash",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Bloodlash",
+        "range": 12,
+        "stats": {
+          "A": 9,
+          "S": 8,
+          "AP": 0,
+          "D": 2,
+          "BS": 2
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "axe-of-khorne",
+    "name": "Axe of Khorne",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "sweep",
+        "range": "Melee",
+        "stats": {
+          "A": 16,
+          "S": 10,
+          "AP": -2,
+          "D": 2,
+          "WS": 2
+        },
+        "keywords": []
+      },
+      {
+        "name": "strike",
+        "range": "Melee",
+        "stats": {
+          "A": 8,
+          "S": 16,
+          "AP": -4,
+          "D": "D6+2",
+          "WS": 2
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "churning-fangs-and-claws",
+    "name": "Churning fangs and claws",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Churning fangs and claws",
+        "range": "Melee",
+        "stats": {
+          "A": "D6+6",
+          "S": 10,
+          "AP": -1,
+          "D": 2,
+          "WS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "ravaging-claws",
+    "name": "Ravaging claws",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Ravaging claws",
+        "range": "Melee",
+        "stats": {
+          "A": 6,
+          "S": 4,
+          "AP": -1,
+          "D": 1,
+          "WS": 2
+        },
+        "keywords": [
+          "devastating wounds"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "lashing-tongue",
+    "name": "Lashing tongue",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Lashing tongue",
+        "range": "Melee",
+        "stats": {
+          "A": 2,
+          "S": 4,
+          "AP": 0,
+          "D": 1,
+          "WS": 4
+        },
+        "keywords": [
+          "extra attacks",
+          "lethal hits"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "daemonic-claws",
+    "name": "Daemonic claws",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Daemonic claws",
+        "range": "Melee",
+        "stats": {
+          "A": 2,
+          "S": 4,
+          "AP": 0,
+          "D": 1,
+          "WS": 4
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "grasping-tongue",
+    "name": "Grasping tongue",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Grasping tongue",
+        "range": 9,
+        "stats": {
+          "A": "D3",
+          "S": 5,
+          "AP": 0,
+          "D": 1,
+          "BS": 4
+        },
+        "keywords": [
+          "lethal hits"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "pox-rider-plaguesword",
+    "name": "Pox Rider plaguesword",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Pox Rider plaguesword",
+        "range": "Melee",
+        "stats": {
+          "A": 2,
+          "S": 4,
+          "AP": -1,
+          "D": 1,
+          "WS": 3
+        },
+        "keywords": [
+          "extra attacks",
+          "lethal hits"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "yawning-maw",
+    "name": "Yawning maw",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Yawning maw",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 6,
+          "AP": -1,
+          "D": 2,
+          "WS": 3
+        },
+        "keywords": [
+          "lethal hits"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "jagged-claws-and-tusked-maw",
+    "name": "Jagged claws and tusked maw",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Jagged claws and tusked maw",
+        "range": "Melee",
+        "stats": {
+          "A": 6,
+          "S": 12,
+          "AP": -2,
+          "D": 3,
+          "WS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  }
+]

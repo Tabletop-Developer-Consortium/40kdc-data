@@ -1,0 +1,4345 @@
+[
+  {
+    "id": "revenant-titan",
+    "name": "Revenant Titan",
+    "faction_id": "aeldari",
+    "profiles": [
+      {
+        "name": "Revenant Titan",
+        "M": 16,
+        "T": 13,
+        "W": 30,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 16
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 1100
+      }
+    ],
+    "keywords": [
+      "Monster",
+      "Titanic",
+      "Towering",
+      "Walker",
+      "Fly",
+      "Wraith Construct",
+      "Aeldari",
+      "Revenant Titan"
+    ],
+    "faction_keywords": [
+      "Asuryani"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "cloudburst-missile-launcher",
+      "revenant-feet",
+      "revenant-pulsar",
+      "sonic-lance"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "shadow-weaver-platform",
+    "name": "Shadow Weaver Platform",
+    "faction_id": "aeldari",
+    "profiles": [
+      {
+        "name": "Shadow Weaver Platform",
+        "M": 7,
+        "T": 6,
+        "W": 5,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 75
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Aeldari",
+      "Support Weapon",
+      "Shadow Weaver Platform"
+    ],
+    "faction_keywords": [
+      "Asuryani"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "close-combat-weapon",
+      "shadow-weaver",
+      "shuriken-catapult"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "striking-scorpions",
+    "name": "Striking Scorpions",
+    "faction_id": "aeldari",
+    "profiles": [
+      {
+        "name": "Striking Scorpion Exarch",
+        "M": 7,
+        "T": 3,
+        "W": 2,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 1
+      },
+      {
+        "name": "Striking Scorpion",
+        "M": 7,
+        "T": 3,
+        "W": 1,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 85
+      },
+      {
+        "models": 10,
+        "cost": 150
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Aeldari",
+      "Aspect Warriors",
+      "Striking Scorpions"
+    ],
+    "faction_keywords": [
+      "Asuryani"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 10
+    },
+    "weapon_ids": [
+      "biting-blade",
+      "chainsabres",
+      "melee",
+      "scorpion-chainsword",
+      "shuriken-pistol"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "eldrad-ulthran",
+    "name": "Eldrad Ulthran",
+    "faction_id": "aeldari",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Eldrad Ulthran",
+        "M": 7,
+        "T": 4,
+        "W": 5,
+        "Sv": 6,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 120
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Epic Hero",
+      "Aeldari",
+      "Psyker",
+      "Farseer",
+      "Eldrad Ulthran"
+    ],
+    "faction_keywords": [
+      "Asuryani"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "mind-war",
+      "shuriken-pistol",
+      "the-staff-of-ulthamar-and-witchblade"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "wraithlord",
+    "name": "Wraithlord",
+    "faction_id": "aeldari",
+    "profiles": [
+      {
+        "name": "Wraithlord",
+        "M": 8,
+        "T": 10,
+        "W": 10,
+        "Sv": 2,
+        "invuln_sv": null,
+        "Ld": 8,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 130
+      }
+    ],
+    "keywords": [
+      "Monster",
+      "Aeldari",
+      "Walker",
+      "Wraith Construct",
+      "Wraithlord"
+    ],
+    "faction_keywords": [
+      "Asuryani"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "bright-lance",
+      "flamer",
+      "ghostglaive",
+      "missile-launcher",
+      "scatter-laser",
+      "shuriken-cannon",
+      "shuriken-catapult",
+      "starcannon",
+      "wraithbone-fists"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "wave-serpent",
+    "name": "Wave Serpent",
+    "faction_id": "aeldari",
+    "role": "dedicated-transport",
+    "profiles": [
+      {
+        "name": "Wave Serpent",
+        "M": 14,
+        "T": 9,
+        "W": 13,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 125
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Aeldari",
+      "Transport",
+      "Dedicated Transport",
+      "Fly",
+      "Wave Serpent"
+    ],
+    "faction_keywords": [
+      "Asuryani"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "shuriken-cannon",
+      "twin-bright-lance",
+      "twin-missile-launcher",
+      "twin-scatter-laser",
+      "twin-shuriken-cannon",
+      "twin-shuriken-catapult",
+      "twin-starcannon",
+      "wraithbone-hull"
+    ],
+    "ability_ids": [],
+    "transport_capacity": {
+      "capacity": 12,
+      "exclusion_keywords": [
+        "Jump Pack"
+      ]
+    },
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "yvraine",
+    "name": "Yvraine",
+    "faction_id": "aeldari",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Yvraine",
+        "M": 8,
+        "T": 3,
+        "W": 4,
+        "Sv": 6,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 100
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Epic Hero",
+      "Aeldari",
+      "Psyker",
+      "Yvraine"
+    ],
+    "faction_keywords": [
+      "Ynnari"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "kha-vir-the-sword-of-sorrows",
+      "storm-of-whispers"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "corsair-voidscarred",
+    "name": "Corsair Voidscarred",
+    "faction_id": "aeldari",
+    "profiles": [
+      {
+        "name": "Way Seeker",
+        "M": 7,
+        "T": 3,
+        "W": 1,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 80
+      },
+      {
+        "models": 6,
+        "cost": 160
+      },
+      {
+        "models": 7,
+        "cost": 160
+      },
+      {
+        "models": 8,
+        "cost": 160
+      },
+      {
+        "models": 13,
+        "cost": 160
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Aeldari",
+      "Grenades",
+      "Anhrathe",
+      "Corsair Voidscarred",
+      "Psyker"
+    ],
+    "faction_keywords": [
+      "Asuryani"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 13
+    },
+    "weapon_ids": [
+      "blaster",
+      "close-combat-weapon",
+      "executioner",
+      "fusion-pistol",
+      "long-rifle",
+      "neuro-disruptor",
+      "paired-hekatarii-blades",
+      "power-sword",
+      "shredder",
+      "shuriken-cannon",
+      "shuriken-pistol",
+      "shuriken-rifle",
+      "witch-staff",
+      "wraithcannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "fire-prism",
+    "name": "Fire Prism",
+    "faction_id": "aeldari",
+    "profiles": [
+      {
+        "name": "Fire Prism",
+        "M": 14,
+        "T": 9,
+        "W": 12,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 150
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Aeldari",
+      "Fly",
+      "Fire Prism"
+    ],
+    "faction_keywords": [
+      "Asuryani"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "prism-cannon",
+      "shuriken-cannon",
+      "twin-shuriken-catapult",
+      "wraithbone-hull"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "autarch",
+    "name": "Autarch",
+    "faction_id": "aeldari",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Autarch",
+        "M": 7,
+        "T": 3,
+        "W": 4,
+        "Sv": 3,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 85
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Aeldari",
+      "Grenades",
+      "Autarch"
+    ],
+    "faction_keywords": [
+      "Asuryani"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "banshee-blade",
+      "death-spinner",
+      "dragon-fusion-gun",
+      "dragon-fusion-pistol",
+      "reaper-launcher",
+      "scorpion-chainsword",
+      "shuriken-pistol",
+      "star-glaive"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "ynnari-incubi",
+    "name": "Ynnari Incubi",
+    "faction_id": "aeldari",
+    "profiles": [
+      {
+        "name": "Klaivex",
+        "M": 7,
+        "T": 3,
+        "W": 2,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 1
+      },
+      {
+        "name": "Incubi",
+        "M": 7,
+        "T": 3,
+        "W": 1,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 85
+      },
+      {
+        "models": 10,
+        "cost": 170
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Aeldari",
+      "Incubi"
+    ],
+    "faction_keywords": [
+      "Ynnari"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 10
+    },
+    "weapon_ids": [
+      "demiklaives",
+      "klaive"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "fire-dragons",
+    "name": "Fire Dragons",
+    "faction_id": "aeldari",
+    "profiles": [
+      {
+        "name": "Fire Dragon Exarch",
+        "M": 7,
+        "T": 3,
+        "W": 2,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 1
+      },
+      {
+        "name": "Fire Dragon",
+        "M": 7,
+        "T": 3,
+        "W": 1,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 120
+      },
+      {
+        "models": 10,
+        "cost": 240
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Aeldari",
+      "Grenades",
+      "Aspect Warriors",
+      "Fire Dragons"
+    ],
+    "faction_keywords": [
+      "Asuryani"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 10
+    },
+    "weapon_ids": [
+      "close-combat-weapon",
+      "dragon-axe",
+      "dragon-fusion-gun",
+      "dragon-fusion-pistol",
+      "dragons-breath-flamer",
+      "exarchs-dragon-fusion-gun",
+      "firepike"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "asurmen",
+    "name": "Asurmen",
+    "faction_id": "aeldari",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Asurmen",
+        "M": 7,
+        "T": 3,
+        "W": 5,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 135
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Epic Hero",
+      "Aeldari",
+      "Grenades",
+      "Aspect Warrior",
+      "Phoenix Lord",
+      "Asurmen"
+    ],
+    "faction_keywords": [
+      "Asuryani"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "bloody-twins",
+      "sword-of-asur"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "storm-guardians",
+    "name": "Storm Guardians",
+    "faction_id": "aeldari",
+    "role": "battleline",
+    "profiles": [
+      {
+        "name": "Storm Guardian",
+        "M": 7,
+        "T": 3,
+        "W": 1,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 2
+      },
+      {
+        "name": "Serpent’s Scale Platform",
+        "M": 7,
+        "T": 3,
+        "W": 2,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 0
+      }
+    ],
+    "points": [
+      {
+        "models": 11,
+        "cost": 110
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Battleline",
+      "Aeldari",
+      "Grenades",
+      "Guardians",
+      "Storm Guardians"
+    ],
+    "faction_keywords": [
+      "Asuryani"
+    ],
+    "model_count": {
+      "min": 11,
+      "max": 11
+    },
+    "weapon_ids": [
+      "close-combat-weapon",
+      "flamer",
+      "fusion-gun",
+      "power-sword",
+      "shuriken-pistol"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "d-cannon-platform",
+    "name": "D-cannon Platform",
+    "faction_id": "aeldari",
+    "profiles": [
+      {
+        "name": "D-cannon Platform",
+        "M": 7,
+        "T": 6,
+        "W": 5,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 125
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Aeldari",
+      "Support Weapon",
+      "D-cannon Platform"
+    ],
+    "faction_keywords": [
+      "Asuryani"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "close-combat-weapon",
+      "d-cannon",
+      "shuriken-catapult"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "warlock-skyrunners",
+    "name": "Warlock Skyrunners",
+    "faction_id": "aeldari",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Warlock Skyrunners",
+        "M": 14,
+        "T": 4,
+        "W": 3,
+        "Sv": 6,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 45
+      },
+      {
+        "models": 2,
+        "cost": 90
+      }
+    ],
+    "keywords": [
+      "Mounted",
+      "Aeldari",
+      "Fly",
+      "Psyker",
+      "Warlocks",
+      "Warlock Skyrunner Conclave"
+    ],
+    "faction_keywords": [
+      "Asuryani"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 2
+    },
+    "weapon_ids": [
+      "destructor",
+      "shuriken-pistol",
+      "singing-spear",
+      "twin-shuriken-catapult",
+      "witchblade"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "lhykhis",
+    "name": "Lhykhis",
+    "faction_id": "aeldari",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Lhykhis",
+        "M": 12,
+        "T": 3,
+        "W": 5,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 135
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Epic Hero",
+      "Aeldari",
+      "Jump Pack",
+      "Fly",
+      "Aspect Warrior",
+      "Phoenix Lord",
+      "Lhykhis"
+    ],
+    "faction_keywords": [
+      "Asuryani"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "brood-twain",
+      "spiders-fangs",
+      "weaverender"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "death-jester",
+    "name": "Death Jester",
+    "faction_id": "aeldari",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Death Jester",
+        "M": 8,
+        "T": 3,
+        "W": 4,
+        "Sv": 6,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 90
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Aeldari",
+      "Death Jester"
+    ],
+    "faction_keywords": [
+      "Harlequins"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "jesters-blade",
+      "shrieker-cannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "prince-yriel",
+    "name": "Prince Yriel",
+    "faction_id": "aeldari",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Prince Yriel",
+        "M": 7,
+        "T": 3,
+        "W": 5,
+        "Sv": 3,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 95
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Aeldari",
+      "Character",
+      "Epic Hero",
+      "Anhrathe",
+      "Prince Yriel"
+    ],
+    "faction_keywords": [
+      "Asuryani"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "eye-of-wrath",
+      "shuriken-pistol",
+      "spear-of-twilight"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "the-yncarne",
+    "name": "The Yncarne",
+    "faction_id": "aeldari",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "The Yncarne",
+        "M": 10,
+        "T": 10,
+        "W": 12,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 260
+      }
+    ],
+    "keywords": [
+      "Monster",
+      "Character",
+      "Epic Hero",
+      "Aeldari",
+      "Fly",
+      "Psyker",
+      "Daemon",
+      "The Yncarne"
+    ],
+    "faction_keywords": [
+      "Ynnari"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "swirling-soul-energy",
+      "vilith-zhar"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "farseer-skyrunner",
+    "name": "Farseer Skyrunner",
+    "faction_id": "aeldari",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Farseer Skyrunner",
+        "M": 14,
+        "T": 4,
+        "W": 5,
+        "Sv": 6,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 80
+      }
+    ],
+    "keywords": [
+      "Mounted",
+      "Character",
+      "Aeldari",
+      "Fly",
+      "Psyker",
+      "Farseer",
+      "Farseer Skyrunner"
+    ],
+    "faction_keywords": [
+      "Asuryani"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "eldritch-storm",
+      "shuriken-pistol",
+      "singing-spear",
+      "twin-shuriken-catapult",
+      "witchblade"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "solitaire",
+    "name": "Solitaire",
+    "faction_id": "aeldari",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Solitaire",
+        "M": 12,
+        "T": 3,
+        "W": 4,
+        "Sv": 6,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 115
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Epic Hero",
+      "Aeldari",
+      "Solitaire"
+    ],
+    "faction_keywords": [
+      "Harlequins"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "solitaire-weapons"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "maugan-ra",
+    "name": "Maugan Ra",
+    "faction_id": "aeldari",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Maugan Ra",
+        "M": 7,
+        "T": 3,
+        "W": 5,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 100
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Epic Hero",
+      "Aeldari",
+      "Aspect Warrior",
+      "Phoenix Lord",
+      "Maugan Ra"
+    ],
+    "faction_keywords": [
+      "Asuryani"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "maugetar"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "corsair-skyreavers",
+    "name": "Corsair Skyreavers",
+    "faction_id": "aeldari",
+    "profiles": [
+      {
+        "name": "Skyreaver",
+        "M": 12,
+        "T": 3,
+        "W": 1,
+        "Sv": 5,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 75
+      },
+      {
+        "models": 10,
+        "cost": 150
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Aeldari",
+      "Anhrathe",
+      "Jump Pack",
+      "Fly",
+      "Grenades",
+      "Corsair Skyreavers"
+    ],
+    "faction_keywords": [
+      "Asuryani"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 10
+    },
+    "weapon_ids": [
+      "blast-pistol",
+      "blaster",
+      "close-combat-weapon",
+      "corsair-blade",
+      "flamer",
+      "fusion-gun",
+      "neuro-disruptor",
+      "shredder",
+      "shuriken-pistol"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "guardian-defenders",
+    "name": "Guardian Defenders",
+    "faction_id": "aeldari",
+    "role": "battleline",
+    "profiles": [
+      {
+        "name": "Guardian Defender",
+        "M": 7,
+        "T": 3,
+        "W": 1,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 2
+      },
+      {
+        "name": "Heavy Weapon Platform",
+        "M": 7,
+        "T": 3,
+        "W": 2,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 0
+      }
+    ],
+    "points": [
+      {
+        "models": 11,
+        "cost": 100
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Battleline",
+      "Aeldari",
+      "Grenades",
+      "Guardians",
+      "Guardian Defenders"
+    ],
+    "faction_keywords": [
+      "Asuryani"
+    ],
+    "model_count": {
+      "min": 11,
+      "max": 11
+    },
+    "weapon_ids": [
+      "bright-lance",
+      "close-combat-weapon",
+      "missile-launcher",
+      "scatter-laser",
+      "shuriken-cannon",
+      "shuriken-catapult",
+      "starcannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "phantom-titan",
+    "name": "Phantom Titan",
+    "faction_id": "aeldari",
+    "profiles": [
+      {
+        "name": "Phantom Titan",
+        "M": 14,
+        "T": 14,
+        "W": 55,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 20
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 2100
+      }
+    ],
+    "keywords": [
+      "Monster",
+      "Titanic",
+      "Towering",
+      "Walker",
+      "Wraith Construct",
+      "Aeldari",
+      "Phantom Titan"
+    ],
+    "faction_keywords": [
+      "Asuryani"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "d-bombard",
+      "phantom-feet",
+      "phantom-pulsar",
+      "phantom-starcannon",
+      "pulse-laser",
+      "voidstorm-missile-launcher",
+      "wraith-glaive"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "avatar-of-khaine",
+    "name": "Avatar of Khaine",
+    "faction_id": "aeldari",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Avatar of Khaine",
+        "M": 10,
+        "T": 11,
+        "W": 14,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 5
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 280
+      }
+    ],
+    "keywords": [
+      "Monster",
+      "Character",
+      "Epic Hero",
+      "Aeldari",
+      "Daemon",
+      "Avatar of Khaine"
+    ],
+    "faction_keywords": [
+      "Asuryani"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "the-wailing-doom"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "war-walkers",
+    "name": "War Walkers",
+    "faction_id": "aeldari",
+    "profiles": [
+      {
+        "name": "War Walkers",
+        "M": 10,
+        "T": 7,
+        "W": 6,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 85
+      },
+      {
+        "models": 2,
+        "cost": 170
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Aeldari",
+      "Walker",
+      "War Walkers"
+    ],
+    "faction_keywords": [
+      "Asuryani"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 2
+    },
+    "weapon_ids": [
+      "bright-lance",
+      "missile-launcher",
+      "scatter-laser",
+      "shuriken-cannon",
+      "starcannon",
+      "war-walker-feet"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "kharseth",
+    "name": "Kharseth",
+    "faction_id": "aeldari",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Kharseth",
+        "M": 7,
+        "T": 3,
+        "W": 4,
+        "Sv": 6,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 95
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Aeldari",
+      "Character",
+      "Epic Hero",
+      "Psyker",
+      "Anhrathe",
+      "Kharseth"
+    ],
+    "faction_keywords": [
+      "Asuryani"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "dread-of-the-deep-void",
+      "waystave"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "hemlock-wraithfighter",
+    "name": "Hemlock Wraithfighter",
+    "faction_id": "aeldari",
+    "profiles": [
+      {
+        "name": "Hemlock Wraithfighter",
+        "M": 20,
+        "T": 8,
+        "W": 12,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 0
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 155
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Aeldari",
+      "Fly",
+      "Aircraft",
+      "Psyker",
+      "Wraith Construct",
+      "Hemlock Wraithfighter"
+    ],
+    "faction_keywords": [
+      "Asuryani"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "heavy-d-scythe",
+      "wraithbone-hull"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "wraithknight",
+    "name": "Wraithknight",
+    "faction_id": "aeldari",
+    "profiles": [
+      {
+        "name": "Wraithknight",
+        "M": 12,
+        "T": 12,
+        "W": 18,
+        "Sv": 2,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 10
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 435
+      }
+    ],
+    "keywords": [
+      "Monster",
+      "Titanic",
+      "Towering",
+      "Aeldari",
+      "Walker",
+      "Wraith Construct",
+      "Wraithknight"
+    ],
+    "faction_keywords": [
+      "Asuryani"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "heavy-wraithcannon",
+      "scatter-laser",
+      "shuriken-cannon",
+      "starcannon",
+      "suncannon",
+      "titanic-feet"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "ynnari-reavers",
+    "name": "Ynnari Reavers",
+    "faction_id": "aeldari",
+    "profiles": [
+      {
+        "name": "Reaver",
+        "M": 16,
+        "T": 4,
+        "W": 2,
+        "Sv": 4,
+        "invuln_sv": 6,
+        "Ld": 6,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 3,
+        "cost": 65
+      },
+      {
+        "models": 6,
+        "cost": 120
+      }
+    ],
+    "keywords": [
+      "Mounted",
+      "Fly",
+      "Aeldari",
+      "Reavers"
+    ],
+    "faction_keywords": [
+      "Ynnari"
+    ],
+    "model_count": {
+      "min": 3,
+      "max": 6
+    },
+    "weapon_ids": [
+      "agoniser",
+      "bladevanes",
+      "blaster",
+      "heat-lance",
+      "splinter-pistol",
+      "splinter-rifle"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "swooping-hawks",
+    "name": "Swooping Hawks",
+    "faction_id": "aeldari",
+    "profiles": [
+      {
+        "name": "Swooping Hawk Exarch",
+        "M": 14,
+        "T": 3,
+        "W": 2,
+        "Sv": 4,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 1
+      },
+      {
+        "name": "Swooping Hawk",
+        "M": 14,
+        "T": 3,
+        "W": 1,
+        "Sv": 4,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 95
+      },
+      {
+        "models": 10,
+        "cost": 190
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Aeldari",
+      "Jump Pack",
+      "Fly",
+      "Grenades",
+      "Aspect Warriors",
+      "Swooping Hawks"
+    ],
+    "faction_keywords": [
+      "Asuryani"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 10
+    },
+    "weapon_ids": [
+      "close-combat-weapon",
+      "exarchs-lasblaster",
+      "hawks-talon",
+      "lasblaster",
+      "power-sword",
+      "scatter-laser",
+      "sunpistol"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "wraithguard",
+    "name": "Wraithguard",
+    "faction_id": "aeldari",
+    "profiles": [
+      {
+        "name": "Wraithguard",
+        "M": 6,
+        "T": 6,
+        "W": 3,
+        "Sv": 2,
+        "invuln_sv": null,
+        "Ld": 8,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 160
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Aeldari",
+      "Wraith Construct",
+      "Wraithguard"
+    ],
+    "faction_keywords": [
+      "Asuryani"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 5
+    },
+    "weapon_ids": [
+      "close-combat-weapon",
+      "d-scythe",
+      "wraithcannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "fuegan",
+    "name": "Fuegan",
+    "faction_id": "aeldari",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Fuegan",
+        "M": 7,
+        "T": 3,
+        "W": 5,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 120
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Epic Hero",
+      "Aeldari",
+      "Grenades",
+      "Aspect Warrior",
+      "Phoenix Lord",
+      "Fuegan"
+    ],
+    "faction_keywords": [
+      "Asuryani"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "searsong",
+      "the-fire-axe"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "ynnari-succubus",
+    "name": "Ynnari Succubus",
+    "faction_id": "aeldari",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Ynnari Succubus",
+        "M": 8,
+        "T": 3,
+        "W": 4,
+        "Sv": 6,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 45
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Aeldari",
+      "Succubus"
+    ],
+    "faction_keywords": [
+      "Ynnari"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "blast-pistol",
+      "splinter-pistol",
+      "succubus-weapons"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "shining-spears",
+    "name": "Shining Spears",
+    "faction_id": "aeldari",
+    "profiles": [
+      {
+        "name": "Shining Spear Exarch",
+        "M": 14,
+        "T": 4,
+        "W": 3,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 2
+      },
+      {
+        "name": "Shining Spear",
+        "M": 14,
+        "T": 4,
+        "W": 2,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 3,
+        "cost": 110
+      },
+      {
+        "models": 6,
+        "cost": 220
+      }
+    ],
+    "keywords": [
+      "Mounted",
+      "Aeldari",
+      "Fly",
+      "Aspect Warriors",
+      "Shining Spears"
+    ],
+    "faction_keywords": [
+      "Asuryani"
+    ],
+    "model_count": {
+      "min": 3,
+      "max": 6
+    },
+    "weapon_ids": [
+      "laser-lance",
+      "paragon-sabre",
+      "shuriken-cannon",
+      "star-lance",
+      "twin-shuriken-catapult"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "the-visarch",
+    "name": "The Visarch",
+    "faction_id": "aeldari",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "The Visarch",
+        "M": 8,
+        "T": 3,
+        "W": 5,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 90
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Epic Hero",
+      "Aeldari",
+      "The Visarch"
+    ],
+    "faction_keywords": [
+      "Ynnari"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "asu-var"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "corsair-voidreavers",
+    "name": "Corsair Voidreavers",
+    "faction_id": "aeldari",
+    "role": "battleline",
+    "profiles": [
+      {
+        "name": "Corsair Voidreaver",
+        "M": 7,
+        "T": 3,
+        "W": 1,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 65
+      },
+      {
+        "models": 10,
+        "cost": 110
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Battleline",
+      "Aeldari",
+      "Grenades",
+      "Anhrathe",
+      "Corsair Voidreavers"
+    ],
+    "faction_keywords": [
+      "Asuryani"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 10
+    },
+    "weapon_ids": [
+      "blaster",
+      "close-combat-weapon",
+      "neuro-disruptor",
+      "power-sword",
+      "shredder",
+      "shuriken-cannon",
+      "shuriken-pistol",
+      "shuriken-rifle",
+      "wraithcannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "vibro-cannon-platform",
+    "name": "Vibro Cannon Platform",
+    "faction_id": "aeldari",
+    "profiles": [
+      {
+        "name": "Vibro Cannon Platform",
+        "M": 7,
+        "T": 6,
+        "W": 5,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 60
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Aeldari",
+      "Support Weapon",
+      "Vibro Cannon Platform"
+    ],
+    "faction_keywords": [
+      "Asuryani"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "close-combat-weapon",
+      "shuriken-catapult",
+      "vibro-cannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "shadowseer",
+    "name": "Shadowseer",
+    "faction_id": "aeldari",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Shadowseer",
+        "M": 8,
+        "T": 3,
+        "W": 4,
+        "Sv": 6,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 60
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Aeldari",
+      "Psyker",
+      "Grenades",
+      "Shadowseer"
+    ],
+    "faction_keywords": [
+      "Harlequins"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "miststave",
+      "neuro-disruptor",
+      "shuriken-pistol"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "jain-zar",
+    "name": "Jain Zar",
+    "faction_id": "aeldari",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Jain Zar",
+        "M": 8,
+        "T": 3,
+        "W": 5,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 120
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Epic Hero",
+      "Aeldari",
+      "Aspect Warrior",
+      "Phoenix Lord",
+      "Jain Zar"
+    ],
+    "faction_keywords": [
+      "Asuryani"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "silent-death",
+      "strike"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "warp-spiders",
+    "name": "Warp Spiders",
+    "faction_id": "aeldari",
+    "profiles": [
+      {
+        "name": "Warp Spider Exarch",
+        "M": 12,
+        "T": 3,
+        "W": 2,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 1
+      },
+      {
+        "name": "Warp Spider",
+        "M": 12,
+        "T": 3,
+        "W": 1,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 105
+      },
+      {
+        "models": 10,
+        "cost": 190
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Aeldari",
+      "Jump Pack",
+      "Fly",
+      "Aspect Warriors",
+      "Warp Spiders"
+    ],
+    "faction_keywords": [
+      "Asuryani"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 10
+    },
+    "weapon_ids": [
+      "close-combat-weapon",
+      "death-spinner",
+      "death-weavers",
+      "exarchs-death-spinner",
+      "powerblade-array",
+      "powerblades",
+      "spinneret-rifle"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "dark-reapers",
+    "name": "Dark Reapers",
+    "faction_id": "aeldari",
+    "profiles": [
+      {
+        "name": "Dark Reaper Exarch",
+        "M": 6,
+        "T": 3,
+        "W": 2,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 1
+      },
+      {
+        "name": "Dark Reaper",
+        "M": 6,
+        "T": 3,
+        "W": 1,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 90
+      },
+      {
+        "models": 10,
+        "cost": 195
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Aeldari",
+      "Aspect Warriors",
+      "Dark Reapers"
+    ],
+    "faction_keywords": [
+      "Asuryani"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 10
+    },
+    "weapon_ids": [
+      "close-combat-weapon",
+      "missile-launcher",
+      "reaper-launcher",
+      "shuriken-cannon",
+      "tempest-launcher"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "ynnari-kabalite-warriors",
+    "name": "Ynnari Kabalite Warriors",
+    "faction_id": "aeldari",
+    "role": "battleline",
+    "profiles": [
+      {
+        "name": "Kabalite Warrior",
+        "M": 8,
+        "T": 3,
+        "W": 1,
+        "Sv": 4,
+        "invuln_sv": 6,
+        "Ld": 6,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 10,
+        "cost": 110
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Battleline",
+      "Aeldari",
+      "Kabalite Warriors"
+    ],
+    "faction_keywords": [
+      "Ynnari"
+    ],
+    "model_count": {
+      "min": 10,
+      "max": 10
+    },
+    "weapon_ids": [
+      "blast-pistol",
+      "blaster",
+      "close-combat-weapon",
+      "dark-lance",
+      "shredder",
+      "splinter-cannon",
+      "splinter-pistol",
+      "splinter-rifle",
+      "sybarite-weapon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "voidweaver",
+    "name": "Voidweaver",
+    "faction_id": "aeldari",
+    "profiles": [
+      {
+        "name": "Voidweaver",
+        "M": 14,
+        "T": 6,
+        "W": 6,
+        "Sv": 4,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 125
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Aeldari",
+      "Fly",
+      "Voidweaver"
+    ],
+    "faction_keywords": [
+      "Harlequins"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "close-combat-weapon",
+      "prismatic-cannon",
+      "shuriken-cannon",
+      "voidweaver-haywire-cannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "shroud-runners",
+    "name": "Shroud Runners",
+    "faction_id": "aeldari",
+    "profiles": [
+      {
+        "name": "Shroud Runners",
+        "M": 14,
+        "T": 4,
+        "W": 3,
+        "Sv": 5,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 3,
+        "cost": 80
+      },
+      {
+        "models": 6,
+        "cost": 160
+      }
+    ],
+    "keywords": [
+      "Mounted",
+      "Aeldari",
+      "Fly",
+      "Shroud Runners"
+    ],
+    "faction_keywords": [
+      "Asuryani"
+    ],
+    "model_count": {
+      "min": 3,
+      "max": 6
+    },
+    "weapon_ids": [
+      "close-combat-weapon",
+      "long-rifle",
+      "scatter-laser",
+      "shuriken-pistol"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "warlock",
+    "name": "Warlock",
+    "faction_id": "aeldari",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Warlock",
+        "M": 7,
+        "T": 3,
+        "W": 2,
+        "Sv": 6,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 45
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Aeldari",
+      "Psyker",
+      "Warlock"
+    ],
+    "faction_keywords": [
+      "Asuryani"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "destructor",
+      "shuriken-pistol",
+      "singing-spear",
+      "witchblade"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "wraithknight-with-ghostglaive",
+    "name": "Wraithknight with Ghostglaive",
+    "faction_id": "aeldari",
+    "profiles": [
+      {
+        "name": "Wraithknight with Ghostglaive",
+        "M": 12,
+        "T": 12,
+        "W": 18,
+        "Sv": 2,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 10
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 420
+      }
+    ],
+    "keywords": [
+      "Monster",
+      "Titanic",
+      "Towering",
+      "Aeldari",
+      "Walker",
+      "Wraith Construct",
+      "Wraithknight with Ghostglaive"
+    ],
+    "faction_keywords": [
+      "Asuryani"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "heavy-wraithcannon",
+      "scatter-laser",
+      "shuriken-cannon",
+      "starcannon",
+      "titanic-ghostglaive"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "ynnari-wyches",
+    "name": "Ynnari Wyches",
+    "faction_id": "aeldari",
+    "role": "battleline",
+    "profiles": [
+      {
+        "name": "Wych",
+        "M": 8,
+        "T": 3,
+        "W": 1,
+        "Sv": 6,
+        "invuln_sv": 6,
+        "Ld": 6,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 10,
+        "cost": 90
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Battleline",
+      "Aeldari",
+      "Grenades",
+      "Wyches"
+    ],
+    "faction_keywords": [
+      "Ynnari"
+    ],
+    "model_count": {
+      "min": 10,
+      "max": 10
+    },
+    "weapon_ids": [
+      "blast-pistol",
+      "hekatarii-blade",
+      "splinter-pistol"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "warlock-conclave",
+    "name": "Warlock Conclave",
+    "faction_id": "aeldari",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Warlock Conclave",
+        "M": 7,
+        "T": 3,
+        "W": 2,
+        "Sv": 6,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 2,
+        "cost": 55
+      },
+      {
+        "models": 4,
+        "cost": 130
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Aeldari",
+      "Psyker",
+      "Warlocks",
+      "Warlock Conclave"
+    ],
+    "faction_keywords": [
+      "Asuryani"
+    ],
+    "model_count": {
+      "min": 2,
+      "max": 4
+    },
+    "weapon_ids": [
+      "destructor",
+      "shuriken-pistol",
+      "singing-spear",
+      "witchblade"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "farseer",
+    "name": "Farseer",
+    "faction_id": "aeldari",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Farseer",
+        "M": 7,
+        "T": 3,
+        "W": 4,
+        "Sv": 6,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 70
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Aeldari",
+      "Psyker",
+      "Farseer"
+    ],
+    "faction_keywords": [
+      "Asuryani"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "eldritch-storm",
+      "shuriken-pistol",
+      "singing-spear",
+      "witchblade"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "night-spinner",
+    "name": "Night Spinner",
+    "faction_id": "aeldari",
+    "profiles": [
+      {
+        "name": "Night Spinner",
+        "M": 14,
+        "T": 9,
+        "W": 12,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 190
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Aeldari",
+      "Fly",
+      "Night Spinner"
+    ],
+    "faction_keywords": [
+      "Asuryani"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "doomweaver",
+      "shuriken-cannon",
+      "twin-shuriken-catapult",
+      "wraithbone-hull"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "autarch-wayleaper",
+    "name": "Autarch Wayleaper",
+    "faction_id": "aeldari",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Autarch Wayleaper",
+        "M": 14,
+        "T": 3,
+        "W": 4,
+        "Sv": 3,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 80
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Aeldari",
+      "Jump Pack",
+      "Fly",
+      "Grenades",
+      "Autarch Wayleaper"
+    ],
+    "faction_keywords": [
+      "Asuryani"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "banshee-blade",
+      "death-spinner",
+      "dragon-fusion-gun",
+      "dragon-fusion-pistol",
+      "reaper-launcher",
+      "scorpion-chainsword",
+      "shuriken-pistol",
+      "star-glaive"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "dire-avengers",
+    "name": "Dire Avengers",
+    "faction_id": "aeldari",
+    "profiles": [
+      {
+        "name": "Dire Avenger Exarch",
+        "M": 7,
+        "T": 3,
+        "W": 2,
+        "Sv": 4,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 1
+      },
+      {
+        "name": "Dire Avenger",
+        "M": 7,
+        "T": 3,
+        "W": 1,
+        "Sv": 4,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 75
+      },
+      {
+        "models": 10,
+        "cost": 150
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Aeldari",
+      "Grenades",
+      "Aspect Warriors",
+      "Dire Avengers"
+    ],
+    "faction_keywords": [
+      "Asuryani"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 10
+    },
+    "weapon_ids": [
+      "avenger-shuriken-catapult",
+      "close-combat-weapon",
+      "diresword",
+      "power-glaive",
+      "shuriken-pistol"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "howling-banshees",
+    "name": "Howling Banshees",
+    "faction_id": "aeldari",
+    "profiles": [
+      {
+        "name": "Howling Banshee Exarch",
+        "M": 8,
+        "T": 3,
+        "W": 2,
+        "Sv": 4,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 1
+      },
+      {
+        "name": "Howling Banshee",
+        "M": 8,
+        "T": 3,
+        "W": 1,
+        "Sv": 4,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 95
+      },
+      {
+        "models": 10,
+        "cost": 190
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Aeldari",
+      "Aspect Warriors",
+      "Howling Banshees"
+    ],
+    "faction_keywords": [
+      "Asuryani"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 10
+    },
+    "weapon_ids": [
+      "banshee-blade",
+      "executioner",
+      "mirrorswords",
+      "shuriken-pistol",
+      "triskele"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "falcon",
+    "name": "Falcon",
+    "faction_id": "aeldari",
+    "profiles": [
+      {
+        "name": "Falcon",
+        "M": 14,
+        "T": 9,
+        "W": 12,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 130
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Aeldari",
+      "Transport",
+      "Fly",
+      "Falcon"
+    ],
+    "faction_keywords": [
+      "Asuryani"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "bright-lance",
+      "missile-launcher",
+      "pulse-laser",
+      "scatter-laser",
+      "shuriken-cannon",
+      "starcannon",
+      "twin-shuriken-catapult",
+      "wraithbone-hull"
+    ],
+    "ability_ids": [],
+    "transport_capacity": {
+      "capacity": 6,
+      "exclusion_keywords": [
+        "Jump Pack"
+      ]
+    },
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "windriders",
+    "name": "Windriders",
+    "faction_id": "aeldari",
+    "profiles": [
+      {
+        "name": "Windriders",
+        "M": 14,
+        "T": 4,
+        "W": 2,
+        "Sv": 4,
+        "invuln_sv": 6,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 3,
+        "cost": 80
+      },
+      {
+        "models": 6,
+        "cost": 160
+      }
+    ],
+    "keywords": [
+      "Mounted",
+      "Aeldari",
+      "Fly",
+      "Windriders"
+    ],
+    "faction_keywords": [
+      "Asuryani"
+    ],
+    "model_count": {
+      "min": 3,
+      "max": 6
+    },
+    "weapon_ids": [
+      "close-combat-weapon",
+      "scatter-laser",
+      "shuriken-cannon",
+      "twin-shuriken-catapult"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "troupe-master",
+    "name": "Troupe Master",
+    "faction_id": "aeldari",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Troupe Master",
+        "M": 8,
+        "T": 3,
+        "W": 4,
+        "Sv": 6,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 75
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Aeldari",
+      "Grenades",
+      "Troupe Master"
+    ],
+    "faction_keywords": [
+      "Harlequins"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "fusion-pistol",
+      "harlequins-special-weapon",
+      "neuro-disruptor",
+      "shuriken-pistol",
+      "troupe-masters-blade"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "rangers",
+    "name": "Rangers",
+    "faction_id": "aeldari",
+    "profiles": [
+      {
+        "name": "Rangers",
+        "M": 7,
+        "T": 3,
+        "W": 1,
+        "Sv": 5,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 55
+      },
+      {
+        "models": 10,
+        "cost": 110
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Aeldari",
+      "Rangers"
+    ],
+    "faction_keywords": [
+      "Asuryani"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 10
+    },
+    "weapon_ids": [
+      "close-combat-weapon",
+      "long-rifle",
+      "shuriken-pistol"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "crimson-hunter",
+    "name": "Crimson Hunter",
+    "faction_id": "aeldari",
+    "profiles": [
+      {
+        "name": "Crimson Hunter",
+        "M": 20,
+        "T": 8,
+        "W": 12,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 0
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 160
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Aeldari",
+      "Fly",
+      "Aircraft",
+      "Aspect Warrior",
+      "Crimson Hunter"
+    ],
+    "faction_keywords": [
+      "Asuryani"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "bright-lance",
+      "pulse-laser",
+      "starcannon",
+      "wraithbone-hull"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "ynnari-raider",
+    "name": "Ynnari Raider",
+    "faction_id": "aeldari",
+    "role": "dedicated-transport",
+    "profiles": [
+      {
+        "name": "Ynnari Raider",
+        "M": 14,
+        "T": 8,
+        "W": 10,
+        "Sv": 4,
+        "invuln_sv": 6,
+        "Ld": 6,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 80
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Aeldari",
+      "Transport",
+      "Dedicated Transport",
+      "Fly",
+      "Raider"
+    ],
+    "faction_keywords": [
+      "Ynnari"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "bladevanes",
+      "dark-lance",
+      "disintegrator-cannon"
+    ],
+    "ability_ids": [],
+    "transport_capacity": {
+      "capacity": 11
+    },
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "starfangs",
+    "name": "Starfangs",
+    "faction_id": "aeldari",
+    "profiles": [
+      {
+        "name": "Starfangs",
+        "M": 14,
+        "T": 6,
+        "W": 6,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 75
+      },
+      {
+        "models": 2,
+        "cost": 150
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Aeldari",
+      "Anhrathe",
+      "Fly",
+      "Smoke",
+      "Grenades",
+      "Starfang"
+    ],
+    "faction_keywords": [
+      "Asuryani"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 2
+    },
+    "weapon_ids": [
+      "disintegrator-cannon",
+      "starfang-grenade-launcher",
+      "wraithbone-hull"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "skyweavers",
+    "name": "Skyweavers",
+    "faction_id": "aeldari",
+    "profiles": [
+      {
+        "name": "Skyweavers",
+        "M": 14,
+        "T": 4,
+        "W": 3,
+        "Sv": 4,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 2,
+        "cost": 95
+      },
+      {
+        "models": 4,
+        "cost": 190
+      }
+    ],
+    "keywords": [
+      "Mounted",
+      "Aeldari",
+      "Fly",
+      "Smoke",
+      "Skyweavers"
+    ],
+    "faction_keywords": [
+      "Harlequins"
+    ],
+    "model_count": {
+      "min": 2,
+      "max": 4
+    },
+    "weapon_ids": [
+      "close-combat-weapon",
+      "shuriken-cannon",
+      "skyweaver-haywire-cannon",
+      "star-bolas",
+      "zephyrglaive"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "ynnari-archon",
+    "name": "Ynnari Archon",
+    "faction_id": "aeldari",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Ynnari Archon",
+        "M": 8,
+        "T": 3,
+        "W": 4,
+        "Sv": 4,
+        "invuln_sv": 2,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 85
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Aeldari",
+      "Archon"
+    ],
+    "faction_keywords": [
+      "Ynnari"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "blast-pistol",
+      "huskblade",
+      "splinter-pistol"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "baharroth",
+    "name": "Baharroth",
+    "faction_id": "aeldari",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Baharroth",
+        "M": 14,
+        "T": 3,
+        "W": 5,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 115
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Baharroth",
+      "Character",
+      "Epic Hero",
+      "Aeldari",
+      "Jump Pack",
+      "Fly",
+      "Grenades",
+      "Aspect Warrior",
+      "Phoenix Lord"
+    ],
+    "faction_keywords": [
+      "Asuryani"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "fury-of-the-tempest",
+      "shining-blade"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "wraithblades",
+    "name": "Wraithblades",
+    "faction_id": "aeldari",
+    "profiles": [
+      {
+        "name": "Wraithblades",
+        "M": 6,
+        "T": 6,
+        "W": 3,
+        "Sv": 2,
+        "invuln_sv": null,
+        "Ld": 8,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 150
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Aeldari",
+      "Wraith Construct",
+      "Wraithblades"
+    ],
+    "faction_keywords": [
+      "Asuryani"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 5
+    },
+    "weapon_ids": [
+      "ghostaxe",
+      "ghostswords"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "troupe",
+    "name": "Troupe",
+    "faction_id": "aeldari",
+    "profiles": [
+      {
+        "name": "Player",
+        "M": 8,
+        "T": 3,
+        "W": 1,
+        "Sv": 6,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 85
+      },
+      {
+        "models": 6,
+        "cost": 100
+      },
+      {
+        "models": 11,
+        "cost": 190
+      },
+      {
+        "models": 12,
+        "cost": 205
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Aeldari",
+      "Grenades",
+      "Troupe"
+    ],
+    "faction_keywords": [
+      "Harlequins"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 12
+    },
+    "weapon_ids": [
+      "fusion-pistol",
+      "harlequins-blade",
+      "harlequins-special-weapon",
+      "neuro-disruptor",
+      "power-sword",
+      "shuriken-pistol"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "ynnari-venom",
+    "name": "Ynnari Venom",
+    "faction_id": "aeldari",
+    "role": "dedicated-transport",
+    "profiles": [
+      {
+        "name": "Ynnari Venom",
+        "M": 14,
+        "T": 6,
+        "W": 6,
+        "Sv": 4,
+        "invuln_sv": 6,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 70
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Aeldari",
+      "Transport",
+      "Dedicated Transport",
+      "Fly",
+      "Venom"
+    ],
+    "faction_keywords": [
+      "Ynnari"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "bladevanes",
+      "splinter-cannon",
+      "twin-splinter-rifle"
+    ],
+    "ability_ids": [],
+    "transport_capacity": {
+      "capacity": 6
+    },
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "vyper",
+    "name": "Vyper",
+    "faction_id": "aeldari",
+    "profiles": [
+      {
+        "name": "Vyper",
+        "M": 14,
+        "T": 6,
+        "W": 6,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 75
+      },
+      {
+        "models": 2,
+        "cost": 150
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Aeldari",
+      "Fly",
+      "Vypers"
+    ],
+    "faction_keywords": [
+      "Asuryani"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 2
+    },
+    "weapon_ids": [
+      "bright-lance",
+      "missile-launcher",
+      "scatter-laser",
+      "shuriken-cannon",
+      "starcannon",
+      "wraithbone-hull"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "spiritseer",
+    "name": "Spiritseer",
+    "faction_id": "aeldari",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Spiritseer",
+        "M": 7,
+        "T": 3,
+        "W": 3,
+        "Sv": 6,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 65
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Aeldari",
+      "Psyker",
+      "Spiritseer"
+    ],
+    "faction_keywords": [
+      "Asuryani"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "shuriken-pistol",
+      "witch-staff"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "starweaver",
+    "name": "Starweaver",
+    "faction_id": "aeldari",
+    "role": "dedicated-transport",
+    "profiles": [
+      {
+        "name": "Starweaver",
+        "M": 14,
+        "T": 6,
+        "W": 6,
+        "Sv": 4,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 80
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Aeldari",
+      "Transport",
+      "Dedicated Transport",
+      "Smoke",
+      "Fly",
+      "Starweaver"
+    ],
+    "faction_keywords": [
+      "Harlequins"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "close-combat-weapon",
+      "shuriken-cannon"
+    ],
+    "ability_ids": [],
+    "transport_capacity": {
+      "capacity": 6
+    },
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "firestorm",
+    "name": "Firestorm",
+    "faction_id": "aeldari",
+    "profiles": [
+      {
+        "name": "Firestorm",
+        "M": 14,
+        "T": 9,
+        "W": 12,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 3
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Firestorm",
+      "Fly",
+      "Vehicle"
+    ],
+    "faction_keywords": [
+      "Aeldari"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "firestorm-scatter-laser",
+      "shuriken-cannon",
+      "twin-shuriken-catapult",
+      "wraithbone-hull"
+    ],
+    "ability_ids": [],
+    "transport_capacity": {
+      "capacity": 6,
+      "exclusion_keywords": [
+        "Jump Pack"
+      ]
+    },
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "phoenix",
+    "name": "Phoenix",
+    "faction_id": "aeldari",
+    "profiles": [
+      {
+        "name": "Phoenix",
+        "M": 20,
+        "T": 9,
+        "W": 16,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 0
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Aircraft",
+      "Fly",
+      "Phoenix",
+      "Vehicle"
+    ],
+    "faction_keywords": [
+      "Aeldari"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "phoenix-missile-array",
+      "phoenix-pulse-laser",
+      "twin-shuriken-cannon",
+      "wraithbone-hull"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "vampire-hunter",
+    "name": "Vampire Hunter",
+    "faction_id": "aeldari",
+    "profiles": [
+      {
+        "name": "Vampire Hunter",
+        "M": 20,
+        "T": 12,
+        "W": 30,
+        "Sv": 3,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 0
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Aircraft",
+      "Fly",
+      "Titanic",
+      "Vampire Hunter",
+      "Vehicle"
+    ],
+    "faction_keywords": [
+      "Aeldari"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "scatter-laser",
+      "twin-pulse-laser",
+      "twin-vampire-pulsar",
+      "wraithbone-hull"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "vampire-raider",
+    "name": "Vampire Raider",
+    "faction_id": "aeldari",
+    "profiles": [
+      {
+        "name": "Vampire Raider",
+        "M": 20,
+        "T": 12,
+        "W": 30,
+        "Sv": 3,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 0
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Aircraft",
+      "Fly",
+      "Titanic",
+      "Transport",
+      "Vampire Raider",
+      "Vehicle"
+    ],
+    "faction_keywords": [
+      "Aeldari"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "scatter-laser",
+      "twin-pulse-laser",
+      "wraithbone-hull"
+    ],
+    "ability_ids": [],
+    "transport_capacity": {
+      "capacity": 30,
+      "exclusion_keywords": [
+        "Jump Pack"
+      ]
+    },
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "wasp-assault-walker",
+    "name": "Wasp Assault Walker",
+    "faction_id": "aeldari",
+    "profiles": [
+      {
+        "name": "Wasp Assault Walker",
+        "M": 10,
+        "T": 7,
+        "W": 6,
+        "Sv": 3,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 2
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Fly",
+      "Vehicle",
+      "Walker",
+      "Wasp Assault Walker"
+    ],
+    "faction_keywords": [
+      "Aeldari"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "aeldari-missile-launcher",
+      "bright-lance",
+      "scatter-laser",
+      "shuriken-cannon",
+      "starcannon",
+      "wasp-feet"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "corsair-skyreaver-band",
+    "name": "Corsair Skyreaver Band",
+    "faction_id": "aeldari",
+    "profiles": [
+      {
+        "name": "Corsair Skyreaver Band",
+        "M": 14,
+        "T": 3,
+        "W": 3,
+        "Sv": 5,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Anhrathe",
+      "Corsair Skyreaver Band",
+      "Fly",
+      "Grenades",
+      "Infantry",
+      "Jump Pack"
+    ],
+    "faction_keywords": [
+      "Aeldari"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "brace-of-pistols",
+      "close-combat-weapon",
+      "corsair-firearm",
+      "dark-lance",
+      "dissonance-pistol",
+      "flamer",
+      "fusion-gun",
+      "shardcarbine",
+      "shuriken-cannon",
+      "shuriken-catapult",
+      "spar-glaive",
+      "splinter-cannon",
+      "void-sabre"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "amallyn-shadowguide",
+    "name": "Amallyn Shadowguide",
+    "faction_id": "aeldari",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Amallyn Shadowguide",
+        "M": 7,
+        "T": 3,
+        "W": 3,
+        "Sv": 5,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Amallyn Shadowguide",
+      "Character",
+      "Epic Hero",
+      "Grenades",
+      "Infantry"
+    ],
+    "faction_keywords": [
+      "Aeldari"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "power-blade",
+      "ranger-long-rifle"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "bonesinger",
+    "name": "Bonesinger",
+    "faction_id": "aeldari",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Bonesinger",
+        "M": 7,
+        "T": 3,
+        "W": 3,
+        "Sv": 6,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Bonesinger",
+      "Character",
+      "Psyker",
+      "infantry"
+    ],
+    "faction_keywords": [
+      "Aeldari"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "psytronome-shaper"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "corsair-cloud-dancer-band",
+    "name": "Corsair Cloud Dancer Band",
+    "faction_id": "aeldari",
+    "profiles": [
+      {
+        "name": "Corsair Cloud Dancer Band",
+        "M": 14,
+        "T": 4,
+        "W": 2,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 2
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Anhrathe",
+      "Corsair Cloud Dancer Band",
+      "Grenades",
+      "Mounted"
+    ],
+    "faction_keywords": [
+      "Aeldari"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "brace-of-pistols",
+      "close-combat-weapon",
+      "dark-lance",
+      "dissonance-cannon",
+      "dissonance-pistol",
+      "scatter-laser",
+      "shuriken-cannon",
+      "splinter-cannon",
+      "twin-shuriken-catapult",
+      "void-sabre"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "corsair-reaver-band",
+    "name": "Corsair Reaver Band",
+    "faction_id": "aeldari",
+    "profiles": [
+      {
+        "name": "Corsair Reaver Band",
+        "M": 7,
+        "T": 3,
+        "W": 3,
+        "Sv": 5,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 2
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Anhrathe",
+      "Corsair Reaver Band",
+      "Grenades",
+      "Infantry"
+    ],
+    "faction_keywords": [
+      "Aeldari"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "blaster",
+      "brace-of-pistols",
+      "close-combat-weapon",
+      "corsair-firearm",
+      "dark-lance",
+      "dissonance-pistol",
+      "flamer",
+      "fusion-gun",
+      "shredder",
+      "shuriken-cannon",
+      "spar-glaive",
+      "splinter-cannon",
+      "void-sabre"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  }
+]

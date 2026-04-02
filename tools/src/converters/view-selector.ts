@@ -60,6 +60,7 @@ export function findFactionViewIndex(
   abilities: SourceAbility[],
   factionAbilityName: string
 ): number {
+  if (abilities.length === 0) return 0;
   const views = splitIntoViews(abilities);
   if (views.length === 1) return 0;
 
@@ -72,17 +73,20 @@ export function findFactionViewIndex(
     if (hasAbility) return view.index;
   }
 
+  // Some shared units (e.g., SM vehicles used by Grey Knights, or units shared
+  // with Agents of the Imperium) have views with no Faction-type ability.
+  // Use the first such view when no direct match is found.
+  const emptyFactionViews = views.filter(
+    (v) => !v.entries.some((a) => a.type === "Faction")
+  );
+  if (emptyFactionViews.length > 0) {
+    return emptyFactionViews[0].index;
+  }
+
   throw new Error(
     `No "${factionAbilityName}" faction ability found in ${views.length} views ` +
       `for datasheet ${abilities[0]?.datasheet_id}`
   );
-}
-
-/** @deprecated Use findFactionViewIndex instead. */
-export function findWEViewIndex(
-  abilities: SourceAbility[]
-): number {
-  return findFactionViewIndex(abilities, "Blessings of Khorne");
 }
 
 /** Extract entries for a specific view index from a line-numbered array. */
@@ -90,6 +94,7 @@ export function getViewEntries<T extends { line: string }>(
   entries: T[],
   viewIndex: number
 ): T[] {
+  if (entries.length === 0) return [];
   const views = splitIntoViews(entries);
   if (viewIndex >= views.length) {
     throw new Error(

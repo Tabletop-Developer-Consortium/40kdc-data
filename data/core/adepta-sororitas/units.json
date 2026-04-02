@@ -1,0 +1,1853 @@
+[
+  {
+    "id": "celestian-sacresants",
+    "name": "Celestian Sacresants",
+    "faction_id": "adepta-sororitas",
+    "profiles": [
+      {
+        "name": "Celestian Sacresant",
+        "M": 6,
+        "T": 3,
+        "W": 1,
+        "Sv": 3,
+        "invuln_sv": 4,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 70
+      },
+      {
+        "models": 10,
+        "cost": 140
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Grenades",
+      "Imperium",
+      "Celestian Sacresants"
+    ],
+    "faction_keywords": [
+      "Adepta Sororitas"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 10
+    },
+    "weapon_ids": [
+      "anointed-halberd",
+      "bolt-pistol",
+      "hallowed-mace",
+      "inferno-pistol",
+      "ministorum-hand-flamer",
+      "plasma-pistol",
+      "spear-of-the-faithful"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "mortifiers",
+    "name": "Mortifiers",
+    "faction_id": "adepta-sororitas",
+    "profiles": [
+      {
+        "name": "Mortifiers",
+        "M": 8,
+        "T": 6,
+        "W": 5,
+        "Sv": 4,
+        "invuln_sv": 6,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 70
+      },
+      {
+        "models": 2,
+        "cost": 140
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Imperium",
+      "Penitent",
+      "Mortifiers"
+    ],
+    "faction_keywords": [
+      "Adepta Sororitas"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 2
+    },
+    "weapon_ids": [
+      "heavy-bolter",
+      "mortifier-flamer",
+      "penitent-buzz-blade",
+      "penitent-flail",
+      "twin-penitent-buzz-blades",
+      "twin-penitent-flails"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "canoness-with-jump-pack",
+    "name": "Canoness with Jump Pack",
+    "faction_id": "adepta-sororitas",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Canoness with Jump Pack",
+        "M": 12,
+        "T": 3,
+        "W": 3,
+        "Sv": 3,
+        "invuln_sv": 4,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 75
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Jump Pack",
+      "Fly",
+      "Grenades",
+      "Imperium",
+      "Canoness"
+    ],
+    "faction_keywords": [
+      "Adepta Sororitas"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "blessed-halberd",
+      "holy-eviscerator",
+      "ministorum-hand-flamer",
+      "power-weapon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "palatine",
+    "name": "Palatine",
+    "faction_id": "adepta-sororitas",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Palatine",
+        "M": 6,
+        "T": 3,
+        "W": 4,
+        "Sv": 3,
+        "invuln_sv": 4,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 50
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Grenades",
+      "Imperium",
+      "Palatine"
+    ],
+    "faction_keywords": [
+      "Adepta Sororitas"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "bolt-pistol",
+      "palatine-blade",
+      "plasma-pistol"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "sanctifiers",
+    "name": "Sanctifiers",
+    "faction_id": "adepta-sororitas",
+    "profiles": [
+      {
+        "name": "Miraculist",
+        "M": 6,
+        "T": 3,
+        "W": 1,
+        "Sv": 6,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 1
+      },
+      {
+        "name": "Salvationist",
+        "M": 6,
+        "T": 3,
+        "W": 1,
+        "Sv": 6,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 1
+      },
+      {
+        "name": "Death Cult Assassin",
+        "M": 6,
+        "T": 3,
+        "W": 1,
+        "Sv": 6,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 1
+      },
+      {
+        "name": "Missionary",
+        "M": 6,
+        "T": 3,
+        "W": 1,
+        "Sv": 6,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 1
+      },
+      {
+        "name": "Sanctifier",
+        "M": 6,
+        "T": 3,
+        "W": 1,
+        "Sv": 6,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 9,
+        "cost": 110
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Grenades",
+      "Imperium",
+      "Sanctifiers"
+    ],
+    "faction_keywords": [
+      "Adepta Sororitas"
+    ],
+    "model_count": {
+      "min": 9,
+      "max": 9
+    },
+    "weapon_ids": [
+      "burning-hands",
+      "close-combat-weapon",
+      "death-cult-blades",
+      "holy-fire",
+      "meltagun",
+      "ministorum-flamer",
+      "ministorum-hand-flamer",
+      "plasma-gun",
+      "sanctifier-melee-weapon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "arco-flagellants",
+    "name": "Arco-flagellants",
+    "faction_id": "adepta-sororitas",
+    "profiles": [
+      {
+        "name": "Arco-flagellants",
+        "M": 7,
+        "T": 3,
+        "W": 2,
+        "Sv": 7,
+        "invuln_sv": 6,
+        "Ld": 8,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 3,
+        "cost": 45
+      },
+      {
+        "models": 10,
+        "cost": 140
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Imperium",
+      "Penitent",
+      "Arco-flagellants"
+    ],
+    "faction_keywords": [
+      "Adepta Sororitas"
+    ],
+    "model_count": {
+      "min": 3,
+      "max": 10
+    },
+    "weapon_ids": [
+      "arco-flails"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "celestian-insidiants",
+    "name": "Celestian Insidiants",
+    "faction_id": "adepta-sororitas",
+    "profiles": [
+      {
+        "name": "Celestian Insidiant",
+        "M": 6,
+        "T": 3,
+        "W": 1,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 10,
+        "cost": 120
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Grenades",
+      "Imperium",
+      "Celestian Insidiants"
+    ],
+    "faction_keywords": [
+      "Adepta Sororitas"
+    ],
+    "model_count": {
+      "min": 10,
+      "max": 10
+    },
+    "weapon_ids": [
+      "blessed-sword",
+      "condemnor-bolt-pistol",
+      "inferno-pistol",
+      "ministorum-hand-flamer",
+      "null-mace",
+      "virge-of-admonition"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "imagifier",
+    "name": "Imagifier",
+    "faction_id": "adepta-sororitas",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Imagifier",
+        "M": 6,
+        "T": 3,
+        "W": 3,
+        "Sv": 3,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 65
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Grenades",
+      "Character",
+      "Imperium",
+      "Imagifier"
+    ],
+    "faction_keywords": [
+      "Adepta Sororitas"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "bolt-pistol",
+      "boltgun",
+      "close-combat-weapon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "triumph-of-saint-katherine",
+    "name": "Triumph of Saint Katherine",
+    "faction_id": "adepta-sororitas",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Triumph of Saint Katherine",
+        "M": 6,
+        "T": 3,
+        "W": 18,
+        "Sv": 3,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 6
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 235
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Grenades",
+      "Character",
+      "Epic Hero",
+      "Imperium",
+      "Triumph of Saint Katherine"
+    ],
+    "faction_keywords": [
+      "Adepta Sororitas"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "bolt-pistols",
+      "relic-weapons"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "seraphim-squad",
+    "name": "Seraphim Squad",
+    "faction_id": "adepta-sororitas",
+    "profiles": [
+      {
+        "name": "Seraphim",
+        "M": 12,
+        "T": 3,
+        "W": 1,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 80
+      },
+      {
+        "models": 10,
+        "cost": 160
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Jump Pack",
+      "Fly",
+      "Grenades",
+      "Imperium",
+      "Seraphim Squad"
+    ],
+    "faction_keywords": [
+      "Adepta Sororitas"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 10
+    },
+    "weapon_ids": [
+      "bolt-pistol",
+      "chainsword",
+      "close-combat-weapon",
+      "inferno-pistol",
+      "ministorum-hand-flamer",
+      "plasma-pistol",
+      "power-weapon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "repentia-squad",
+    "name": "Repentia Squad",
+    "faction_id": "adepta-sororitas",
+    "profiles": [
+      {
+        "name": "Repentia Superior",
+        "M": 7,
+        "T": 3,
+        "W": 1,
+        "Sv": 3,
+        "invuln_sv": 6,
+        "Ld": 7,
+        "OC": 1
+      },
+      {
+        "name": "Sister Repentia",
+        "M": 7,
+        "T": 3,
+        "W": 1,
+        "Sv": 7,
+        "invuln_sv": 6,
+        "Ld": 8,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 75
+      },
+      {
+        "models": 10,
+        "cost": 160
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Grenades",
+      "Imperium",
+      "Penitent",
+      "Repentia Squad"
+    ],
+    "faction_keywords": [
+      "Adepta Sororitas"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 10
+    },
+    "weapon_ids": [
+      "bolt-pistol",
+      "neural-whips",
+      "penitent-eviscerator"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "dialogus",
+    "name": "Dialogus",
+    "faction_id": "adepta-sororitas",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Dialogus",
+        "M": 6,
+        "T": 3,
+        "W": 3,
+        "Sv": 3,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 40
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Imperium",
+      "Dialogus"
+    ],
+    "faction_keywords": [
+      "Adepta Sororitas"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "bolt-pistol",
+      "dialogus-staff"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "dogmata",
+    "name": "Dogmata",
+    "faction_id": "adepta-sororitas",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Dogmata",
+        "M": 6,
+        "T": 3,
+        "W": 3,
+        "Sv": 3,
+        "invuln_sv": 6,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 45
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Grenades",
+      "Character",
+      "Imperium",
+      "Dogmata"
+    ],
+    "faction_keywords": [
+      "Adepta Sororitas"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "bolt-pistol",
+      "mace-of-the-righteous"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "immolator",
+    "name": "Immolator",
+    "faction_id": "adepta-sororitas",
+    "role": "dedicated-transport",
+    "profiles": [
+      {
+        "name": "Immolator",
+        "M": 12,
+        "T": 10,
+        "W": 11,
+        "Sv": 3,
+        "invuln_sv": 6,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 115
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Smoke",
+      "Transport",
+      "Dedicated Transport",
+      "Imperium",
+      "Immolator"
+    ],
+    "faction_keywords": [
+      "Adepta Sororitas"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-tracks",
+      "heavy-bolter",
+      "hunter-killer-missile",
+      "immolation-flamers",
+      "twin-heavy-bolter",
+      "twin-multi-melta"
+    ],
+    "ability_ids": [],
+    "transport_capacity": {
+      "capacity": 6,
+      "exclusion_keywords": [
+        "Jump Pack"
+      ]
+    },
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "hospitaller",
+    "name": "Hospitaller",
+    "faction_id": "adepta-sororitas",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Hospitaller",
+        "M": 6,
+        "T": 3,
+        "W": 3,
+        "Sv": 3,
+        "invuln_sv": 6,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 60
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Imperium",
+      "Hospitaller"
+    ],
+    "faction_keywords": [
+      "Adepta Sororitas"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "bolt-pistol",
+      "chirurgeons-tools"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "morvenn-vahl",
+    "name": "Morvenn Vahl",
+    "faction_id": "adepta-sororitas",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Morvenn Vahl",
+        "M": 8,
+        "T": 7,
+        "W": 8,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 185
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Character",
+      "Epic Hero",
+      "Imperium",
+      "Morvenn Vahl"
+    ],
+    "faction_keywords": [
+      "Adepta Sororitas"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "fidelis",
+      "lance-of-illumination",
+      "paragon-missile-launcher"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "retributor-squad",
+    "name": "Retributor Squad",
+    "faction_id": "adepta-sororitas",
+    "profiles": [
+      {
+        "name": "Retributor",
+        "M": 6,
+        "T": 3,
+        "W": 1,
+        "Sv": 3,
+        "invuln_sv": 6,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 120
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Grenades",
+      "Imperium",
+      "Retributor Squad"
+    ],
+    "faction_keywords": [
+      "Adepta Sororitas"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 5
+    },
+    "weapon_ids": [
+      "bolt-pistol",
+      "boltgun",
+      "chainsword",
+      "close-combat-weapon",
+      "combi-weapon",
+      "condemnor-boltgun",
+      "heavy-bolter",
+      "inferno-pistol",
+      "ministorum-hand-flamer",
+      "ministorum-heavy-flamer",
+      "multi-melta",
+      "plasma-pistol",
+      "power-weapon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "sisters-novitiate-squad",
+    "name": "Sisters Novitiate Squad",
+    "faction_id": "adepta-sororitas",
+    "profiles": [
+      {
+        "name": "Novitiate Superior",
+        "M": 6,
+        "T": 3,
+        "W": 1,
+        "Sv": 3,
+        "invuln_sv": 6,
+        "Ld": 7,
+        "OC": 2
+      },
+      {
+        "name": "Sister Novitiate",
+        "M": 6,
+        "T": 3,
+        "W": 1,
+        "Sv": 4,
+        "invuln_sv": 6,
+        "Ld": 8,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 10,
+        "cost": 100
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Grenades",
+      "Imperium",
+      "Sisters Novitiate Squad"
+    ],
+    "faction_keywords": [
+      "Adepta Sororitas"
+    ],
+    "model_count": {
+      "min": 10,
+      "max": 10
+    },
+    "weapon_ids": [
+      "autogun",
+      "autopistol",
+      "bolt-pistol",
+      "boltgun",
+      "close-combat-weapon",
+      "ministorum-flamer",
+      "novitiate-melee-weapons",
+      "plasma-pistol",
+      "power-weapon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "daemonifuge",
+    "name": "Daemonifuge",
+    "faction_id": "adepta-sororitas",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Ephrael Stern",
+        "M": 8,
+        "T": 3,
+        "W": 5,
+        "Sv": 3,
+        "invuln_sv": 4,
+        "Ld": 7,
+        "OC": 1
+      },
+      {
+        "name": "Kyganil of the Bloody Tears",
+        "M": 8,
+        "T": 3,
+        "W": 3,
+        "Sv": 6,
+        "invuln_sv": 4,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 2,
+        "cost": 85
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Grenades",
+      "Character",
+      "Epic Hero",
+      "Imperium",
+      "Daemonifuge"
+    ],
+    "faction_keywords": [
+      "Adepta Sororitas"
+    ],
+    "model_count": {
+      "min": 2,
+      "max": 2
+    },
+    "weapon_ids": [
+      "bolt-pistol",
+      "sanctity",
+      "the-outcasts-weapons"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "sororitas-rhino",
+    "name": "Sororitas Rhino",
+    "faction_id": "adepta-sororitas",
+    "role": "dedicated-transport",
+    "profiles": [
+      {
+        "name": "Sororitas Rhino",
+        "M": 12,
+        "T": 9,
+        "W": 10,
+        "Sv": 3,
+        "invuln_sv": 6,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 75
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Transport",
+      "Dedicated Transport",
+      "Smoke",
+      "Imperium",
+      "Sororitas Rhino"
+    ],
+    "faction_keywords": [
+      "Adepta Sororitas"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-tracks",
+      "hunter-killer-missile",
+      "storm-bolter"
+    ],
+    "ability_ids": [],
+    "transport_capacity": {
+      "capacity": 12,
+      "exclusion_keywords": [
+        "Jump Pack"
+      ]
+    },
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "paragon-warsuits",
+    "name": "Paragon Warsuits",
+    "faction_id": "adepta-sororitas",
+    "profiles": [
+      {
+        "name": "Paragon",
+        "M": 8,
+        "T": 7,
+        "W": 4,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 3,
+        "cost": 210
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Grenades",
+      "Imperium",
+      "Paragon Warsuits"
+    ],
+    "faction_keywords": [
+      "Adepta Sororitas"
+    ],
+    "model_count": {
+      "min": 3,
+      "max": 3
+    },
+    "weapon_ids": [
+      "bolt-pistol",
+      "heavy-bolter",
+      "ministorum-heavy-flamer",
+      "multi-melta",
+      "paragon-grenade-launchers",
+      "paragon-storm-bolters",
+      "paragon-war-blade",
+      "paragon-war-mace"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "castigator",
+    "name": "Castigator",
+    "faction_id": "adepta-sororitas",
+    "profiles": [
+      {
+        "name": "Castigator",
+        "M": 10,
+        "T": 10,
+        "W": 11,
+        "Sv": 3,
+        "invuln_sv": 6,
+        "Ld": 7,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 160
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Smoke",
+      "Imperium",
+      "Castigator"
+    ],
+    "faction_keywords": [
+      "Adepta Sororitas"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-tracks",
+      "castigator-autocannons",
+      "castigator-battle-cannon",
+      "heavy-bolter",
+      "hunter-killer-missile",
+      "storm-bolter"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "exorcist",
+    "name": "Exorcist",
+    "faction_id": "adepta-sororitas",
+    "profiles": [
+      {
+        "name": "Exorcist",
+        "M": 10,
+        "T": 10,
+        "W": 11,
+        "Sv": 3,
+        "invuln_sv": 6,
+        "Ld": 7,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 210
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Smoke",
+      "Imperium",
+      "Exorcist"
+    ],
+    "faction_keywords": [
+      "Adepta Sororitas"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-tracks",
+      "exorcist-conflagration-rockets",
+      "exorcist-missile-launcher",
+      "heavy-bolter",
+      "hunter-killer-missile"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "penitent-engines",
+    "name": "Penitent Engines",
+    "faction_id": "adepta-sororitas",
+    "profiles": [
+      {
+        "name": "Penitent Engines",
+        "M": 8,
+        "T": 6,
+        "W": 5,
+        "Sv": 4,
+        "invuln_sv": 6,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 75
+      },
+      {
+        "models": 2,
+        "cost": 150
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Imperium",
+      "Penitent",
+      "Penitent Engines"
+    ],
+    "faction_keywords": [
+      "Adepta Sororitas"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 2
+    },
+    "weapon_ids": [
+      "penitent-buzz-blade",
+      "penitent-flail",
+      "penitent-flamers",
+      "twin-penitent-buzz-blades",
+      "twin-penitent-flail"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "junith-eruita",
+    "name": "Junith Eruita",
+    "faction_id": "adepta-sororitas",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Junith Eruita",
+        "M": 8,
+        "T": 5,
+        "W": 8,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 80
+      }
+    ],
+    "keywords": [
+      "Mounted",
+      "Character",
+      "Fly",
+      "Epic Hero",
+      "Imperium",
+      "Junith Eruita"
+    ],
+    "faction_keywords": [
+      "Adepta Sororitas"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "mace-of-castigation",
+      "twin-ministorum-heavy-flamer"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "ministorum-priest",
+    "name": "Ministorum Priest",
+    "faction_id": "adepta-sororitas",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Ministorum Priest",
+        "M": 6,
+        "T": 3,
+        "W": 3,
+        "Sv": 6,
+        "invuln_sv": 4,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 50
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Imperium",
+      "Penitent",
+      "Ministorum Priest"
+    ],
+    "faction_keywords": [
+      "Adepta Sororitas"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "holy-pistol",
+      "power-weapon",
+      "zealots-vindictor"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "zephyrim-squad",
+    "name": "Zephyrim Squad",
+    "faction_id": "adepta-sororitas",
+    "profiles": [
+      {
+        "name": "Zephyrim",
+        "M": 12,
+        "T": 3,
+        "W": 1,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 80
+      },
+      {
+        "models": 10,
+        "cost": 160
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Jump Pack",
+      "Fly",
+      "Grenades",
+      "Imperium",
+      "Zephyrim Squad"
+    ],
+    "faction_keywords": [
+      "Adepta Sororitas"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 10
+    },
+    "weapon_ids": [
+      "bolt-pistol",
+      "plasma-pistol",
+      "power-weapon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "dominion-squad",
+    "name": "Dominion Squad",
+    "faction_id": "adepta-sororitas",
+    "profiles": [
+      {
+        "name": "Dominion",
+        "M": 6,
+        "T": 3,
+        "W": 1,
+        "Sv": 3,
+        "invuln_sv": 6,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 10,
+        "cost": 120
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Grenades",
+      "Imperium",
+      "Dominion Squad"
+    ],
+    "faction_keywords": [
+      "Adepta Sororitas"
+    ],
+    "model_count": {
+      "min": 10,
+      "max": 10
+    },
+    "weapon_ids": [
+      "artificer-crafted-storm-bolter",
+      "bolt-pistol",
+      "boltgun",
+      "chainsword",
+      "close-combat-weapon",
+      "combi-weapon",
+      "condemnor-boltgun",
+      "inferno-pistol",
+      "meltagun",
+      "ministorum-flamer",
+      "ministorum-hand-flamer",
+      "plasma-pistol",
+      "power-weapon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "saint-celestine",
+    "name": "Saint Celestine",
+    "faction_id": "adepta-sororitas",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Celestine",
+        "M": 12,
+        "T": 3,
+        "W": 5,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      },
+      {
+        "name": "Geminae Superia",
+        "M": 12,
+        "T": 3,
+        "W": 2,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 3,
+        "cost": 150
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Jump Pack",
+      "Fly",
+      "Grenades",
+      "Imperium",
+      "Character",
+      "Epic Hero",
+      "Saint Celestine"
+    ],
+    "faction_keywords": [
+      "Adepta Sororitas"
+    ],
+    "model_count": {
+      "min": 3,
+      "max": 3
+    },
+    "weapon_ids": [
+      "bolt-pistol",
+      "power-weapon",
+      "the-ardent-blade"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "battle-sisters-squad",
+    "name": "Battle Sisters Squad",
+    "faction_id": "adepta-sororitas",
+    "role": "battleline",
+    "profiles": [
+      {
+        "name": "Battle Sister",
+        "M": 6,
+        "T": 3,
+        "W": 1,
+        "Sv": 3,
+        "invuln_sv": 6,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 10,
+        "cost": 105
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Grenades",
+      "Battleline",
+      "Imperium",
+      "Battle Sisters Squad"
+    ],
+    "faction_keywords": [
+      "Adepta Sororitas"
+    ],
+    "model_count": {
+      "min": 10,
+      "max": 10
+    },
+    "weapon_ids": [
+      "artificer-crafted-storm-bolter",
+      "bolt-pistol",
+      "boltgun",
+      "chainsword",
+      "close-combat-weapon",
+      "combi-weapon",
+      "condemnor-boltgun",
+      "heavy-bolter",
+      "inferno-pistol",
+      "meltagun",
+      "ministorum-flamer",
+      "ministorum-hand-flamer",
+      "ministorum-heavy-flamer",
+      "multi-melta",
+      "plasma-pistol",
+      "power-weapon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "canoness",
+    "name": "Canoness",
+    "faction_id": "adepta-sororitas",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Canoness",
+        "M": 6,
+        "T": 3,
+        "W": 4,
+        "Sv": 3,
+        "invuln_sv": 4,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 60
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Grenades",
+      "Imperium",
+      "Canoness"
+    ],
+    "faction_keywords": [
+      "Adepta Sororitas"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "blessed-blade",
+      "bolt-pistol",
+      "brazier-of-holy-fire",
+      "condemnor-boltgun",
+      "hallowed-chainsword",
+      "inferno-pistol",
+      "plasma-pistol",
+      "power-weapon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "aestred-thurga-and-agathae-dolan",
+    "name": "Aestred Thurga and Agathae Dolan",
+    "faction_id": "adepta-sororitas",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Aestred Thurga",
+        "M": 6,
+        "T": 3,
+        "W": 4,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      },
+      {
+        "name": "Agathae Dolan",
+        "M": 6,
+        "T": 3,
+        "W": 3,
+        "Sv": 6,
+        "invuln_sv": 4,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 2,
+        "cost": 70
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Grenades",
+      "Character",
+      "Epic Hero",
+      "Imperium",
+      "Aestred Thurga",
+      "Agathae Dolan"
+    ],
+    "faction_keywords": [
+      "Adepta Sororitas"
+    ],
+    "model_count": {
+      "min": 2,
+      "max": 2
+    },
+    "weapon_ids": [
+      "blade-of-vigil",
+      "bolt-pistol",
+      "scribes-staff"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "repressor",
+    "name": "Repressor",
+    "faction_id": "adepta-sororitas",
+    "role": "dedicated-transport",
+    "profiles": [
+      {
+        "name": "Repressor",
+        "M": 12,
+        "T": 10,
+        "W": 12,
+        "Sv": 3,
+        "invuln_sv": 6,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Dedicated Transport",
+      "Imperium",
+      "Repressor",
+      "Smoke",
+      "Transport",
+      "Vehicle"
+    ],
+    "faction_keywords": [
+      "Adepta Sororitas"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "dozer-ram",
+      "heavy-flamer",
+      "hunter-killer-missile",
+      "repressor-twin-heavy-flamer",
+      "storm-bolter"
+    ],
+    "ability_ids": [],
+    "transport_capacity": {
+      "capacity": 12,
+      "exclusion_keywords": [
+        "Jump Pack"
+      ]
+    },
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "battle-sanctum",
+    "name": "Battle Sanctum",
+    "faction_id": "adepta-sororitas",
+    "profiles": [
+      {
+        "name": "Battle Sanctum",
+        "M": 0,
+        "T": 11,
+        "W": 20,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 0
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Battle Sanctum",
+      "Fortification",
+      "Imperium",
+      "Towering"
+    ],
+    "faction_keywords": [
+      "Adepta Sororitas"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  }
+]

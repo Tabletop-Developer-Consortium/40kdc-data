@@ -1,0 +1,704 @@
+[
+  {
+    "id": "the-arrokon-protocol",
+    "name": "THE ARRO’KON PROTOCOL",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "retaliation-cadre",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "focused-fire",
+    "name": "FOCUSED FIRE",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "montka",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "combat-debarkation",
+    "name": "COMBAT DEBARKATION",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "montka",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "pinpoint-counter-offensive",
+    "name": "PINPOINT COUNTER-OFFENSIVE",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "montka",
+    "cp_cost": 1,
+    "phases": [
+      "command",
+      "movement",
+      "shooting",
+      "charge",
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "aggressive-mobility",
+    "name": "AGGRESSIVE MOBILITY",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "montka",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "a-trap-well-laid",
+    "name": "A TRAP WELL LAID",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "kroot-hunting-pack",
+    "cp_cost": 1,
+    "phases": [
+      "fight",
+      "shooting"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "reactive-impact-dampeners",
+    "name": "REACTIVE IMPACT DAMPENERS",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "experimental-prototype-cadre",
+    "cp_cost": 1,
+    "phases": [
+      "fight",
+      "shooting"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "experimental-weaponry",
+    "name": "EXPERIMENTAL WEAPONRY",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "experimental-prototype-cadre",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "a-tempting-trap",
+    "name": "A TEMPTING TRAP",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "kauyon",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "point-blank-ambush",
+    "name": "POINT-BLANK AMBUSH",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "kauyon",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "coordinate-to-engage",
+    "name": "COORDINATE TO ENGAGE",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "kauyon",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "wall-of-mirrors",
+    "name": "WALL OF MIRRORS",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "kauyon",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "multisensory-scanning",
+    "name": "MULTISENSORY SCANNING",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "auxiliary-cadre",
+    "cp_cost": 1,
+    "phases": [
+      "fight",
+      "shooting"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "alien-expertise",
+    "name": "ALIEN EXPERTISE",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "auxiliary-cadre",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "guided-fire",
+    "name": "GUIDED FIRE",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "auxiliary-cadre",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "join-the-hunt",
+    "name": "JOIN THE HUNT",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "kroot-hunting-pack",
+    "cp_cost": 2,
+    "phases": [
+      "command",
+      "movement",
+      "shooting",
+      "charge",
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "fail-safe-detonator",
+    "name": "FAIL-SAFE DETONATOR",
+    "category": "detachment",
+    "type": "epic-deed",
+    "detachment_id": "retaliation-cadre",
+    "cp_cost": 2,
+    "phases": [
+      "command",
+      "movement",
+      "shooting",
+      "charge",
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "the-torchstar-gambit",
+    "name": "THE TORCHSTAR GAMBIT",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "retaliation-cadre",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "grav-inhibitor-field",
+    "name": "GRAV-INHIBITOR FIELD",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "retaliation-cadre",
+    "cp_cost": 1,
+    "phases": [
+      "charge"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "the-grisly-feast",
+    "name": "THE GRISLY FEAST",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "kroot-hunting-pack",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "guerrilla-warriors",
+    "name": "GUERRILLA WARRIORS",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "kroot-hunting-pack",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "hidden-hunters",
+    "name": "HIDDEN HUNTERS",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "kroot-hunting-pack",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "automated-repair-drones",
+    "name": "AUTOMATED REPAIR DRONES",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "experimental-prototype-cadre",
+    "cp_cost": 1,
+    "phases": [
+      "command"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "experimental-modifications",
+    "name": "EXPERIMENTAL MODIFICATIONS",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "auxiliary-cadre",
+    "cp_cost": 1,
+    "phases": [
+      "fight",
+      "shooting"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "interlocking-manouevres",
+    "name": "INTERLOCKING MANOUEVRES",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "auxiliary-cadre",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "pheromone-waypoints",
+    "name": "PHEROMONE WAYPOINTS",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "auxiliary-cadre",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "the-shortened-blade",
+    "name": "THE SHORTENED BLADE",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "retaliation-cadre",
+    "cp_cost": 2,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "pulse-onslaught",
+    "name": "PULSE ONSLAUGHT",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "montka",
+    "cp_cost": 2,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "stimm-injectors",
+    "name": "STIMM INJECTORS",
+    "category": "detachment",
+    "type": "wargear",
+    "detachment_id": "retaliation-cadre",
+    "cp_cost": 1,
+    "phases": [
+      "fight",
+      "shooting"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "emp-grenades",
+    "name": "EMP GRENADES",
+    "category": "detachment",
+    "type": "wargear",
+    "detachment_id": "kroot-hunting-pack",
+    "cp_cost": 1,
+    "phases": [
+      "fight",
+      "shooting"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "experimental-ammunition",
+    "name": "EXPERIMENTAL AMMUNITION",
+    "category": "detachment",
+    "type": "wargear",
+    "detachment_id": "experimental-prototype-cadre",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "threat-assessment-analyser",
+    "name": "THREAT ASSESSMENT ANALYSER",
+    "category": "detachment",
+    "type": "wargear",
+    "detachment_id": "experimental-prototype-cadre",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "neuroweb-system-jammer",
+    "name": "NEUROWEB SYSTEM JAMMER",
+    "category": "detachment",
+    "type": "wargear",
+    "detachment_id": "experimental-prototype-cadre",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "combat-embarkation",
+    "name": "COMBAT EMBARKATION",
+    "category": "detachment",
+    "type": "wargear",
+    "detachment_id": "kauyon",
+    "cp_cost": 1,
+    "phases": [
+      "charge"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "photon-grenades",
+    "name": "PHOTON GRENADES",
+    "category": "detachment",
+    "type": "wargear",
+    "detachment_id": "kauyon",
+    "cp_cost": 1,
+    "phases": [
+      "charge"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "counterfire-defence-systems",
+    "name": "COUNTERFIRE DEFENCE SYSTEMS",
+    "category": "detachment",
+    "type": "wargear",
+    "detachment_id": "montka",
+    "cp_cost": 2,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  }
+]

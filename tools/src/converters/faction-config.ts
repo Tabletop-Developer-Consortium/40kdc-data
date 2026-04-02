@@ -45,6 +45,20 @@ export interface FactionConfig {
    * Single-model units (vehicles, characters) get auto-generated compositions.
    */
   compositionOverrides: Record<string, ModelEntry[]>;
+
+  /**
+   * For subfactions that share a source faction (e.g., SM chapters):
+   * only include detachments whose names match this list.
+   * Stratagems and enhancements are filtered to matching detachments.
+   * If undefined, all detachments are included.
+   */
+  detachmentFilter?: string[];
+
+  /**
+   * If true, skip unit/weapon/leader-attachment/unit-composition generation.
+   * Used by subfactions whose units are inherited from the parent faction.
+   */
+  skipUnits?: boolean;
 }
 
 /** Registry of all known faction configs, keyed by 40kdc faction ID. */

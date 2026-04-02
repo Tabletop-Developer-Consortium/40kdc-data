@@ -1,0 +1,3113 @@
+[
+  {
+    "id": "soul-grinder",
+    "name": "Soul Grinder",
+    "faction_id": "chaos-daemons",
+    "profiles": [
+      {
+        "name": "Soul Grinder",
+        "M": 8,
+        "T": 11,
+        "W": 14,
+        "Sv": 3,
+        "invuln_sv": 4,
+        "Ld": 7,
+        "OC": 5
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 180
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Chaos",
+      "Soul Grinder",
+      "Daemon"
+    ],
+    "faction_keywords": [
+      "Legiones Daemonica"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "harvester-cannon",
+      "iron-claw",
+      "phlegm-bombardment",
+      "scream-of-despair",
+      "torrent-of-burning-blood",
+      "warp-gaze",
+      "warpclaw",
+      "warpsword"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "daemon-prince-of-chaos-with-wings",
+    "name": "Daemon Prince of Chaos with Wings",
+    "faction_id": "chaos-daemons",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Daemon Prince of Chaos with Wings",
+        "M": 12,
+        "T": 9,
+        "W": 10,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 180
+      }
+    ],
+    "keywords": [
+      "Monster",
+      "Character",
+      "Fly",
+      "Chaos",
+      "Daemon Prince of Chaos with Wings",
+      "Daemon"
+    ],
+    "faction_keywords": [
+      "Legiones Daemonica"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "hellforged-weapons",
+      "infernal-cannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "daemon-prince-of-chaos",
+    "name": "Daemon Prince of Chaos",
+    "faction_id": "chaos-daemons",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Daemon Prince of Chaos",
+        "M": 8,
+        "T": 10,
+        "W": 10,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 190
+      }
+    ],
+    "keywords": [
+      "Monster",
+      "Character",
+      "Chaos",
+      "Daemon Prince of Chaos",
+      "Daemon"
+    ],
+    "faction_keywords": [
+      "Legiones Daemonica"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "hellforged-weapons",
+      "infernal-cannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "rotigus",
+    "name": "Rotigus",
+    "faction_id": "chaos-daemons",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Rotigus",
+        "M": 7,
+        "T": 12,
+        "W": 22,
+        "Sv": 5,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 5
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 265
+      }
+    ],
+    "keywords": [
+      "Monster",
+      "Character",
+      "Epic Hero",
+      "Psyker",
+      "Chaos",
+      "Daemon",
+      "Nurgle",
+      "Rotigus"
+    ],
+    "faction_keywords": [
+      "Legiones Daemonica"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "gnarlrod",
+      "streams-of-brackish-filth"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "the-masque-of-slaanesh",
+    "name": "The Masque of Slaanesh",
+    "faction_id": "chaos-daemons",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "The Masque of Slaanesh",
+        "M": 9,
+        "T": 3,
+        "W": 4,
+        "Sv": 7,
+        "invuln_sv": 4,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 95
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Epic Hero",
+      "Fly",
+      "Chaos",
+      "Daemon",
+      "Slaanesh",
+      "The Masque of Slaanesh"
+    ],
+    "faction_keywords": [
+      "Legiones Daemonica"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "serrated-claws"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "daemonettes",
+    "name": "Daemonettes",
+    "faction_id": "chaos-daemons",
+    "role": "battleline",
+    "profiles": [
+      {
+        "name": "Daemonette",
+        "M": 9,
+        "T": 3,
+        "W": 1,
+        "Sv": 7,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 10,
+        "cost": 100
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Battleline",
+      "Chaos",
+      "Daemon",
+      "Slaanesh",
+      "Daemonettes"
+    ],
+    "faction_keywords": [
+      "Legiones Daemonica"
+    ],
+    "model_count": {
+      "min": 10,
+      "max": 10
+    },
+    "weapon_ids": [
+      "slashing-claws"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "nurglings",
+    "name": "Nurglings",
+    "faction_id": "chaos-daemons",
+    "role": "battleline",
+    "profiles": [
+      {
+        "name": "Nurglings",
+        "M": 5,
+        "T": 3,
+        "W": 4,
+        "Sv": 7,
+        "invuln_sv": 5,
+        "Ld": 8,
+        "OC": 0
+      }
+    ],
+    "points": [
+      {
+        "models": 3,
+        "cost": 40
+      },
+      {
+        "models": 6,
+        "cost": 70
+      }
+    ],
+    "keywords": [
+      "Swarm",
+      "Battleline",
+      "Chaos",
+      "Daemon",
+      "Nurgle",
+      "Nurglings"
+    ],
+    "faction_keywords": [
+      "Legiones Daemonica"
+    ],
+    "model_count": {
+      "min": 3,
+      "max": 6
+    },
+    "weapon_ids": [
+      "diseased-claws-and-teeth"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "bloodmaster",
+    "name": "Bloodmaster",
+    "faction_id": "chaos-daemons",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Bloodmaster",
+        "M": 8,
+        "T": 4,
+        "W": 4,
+        "Sv": 5,
+        "invuln_sv": 4,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 65
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Chaos",
+      "Daemon",
+      "Khorne",
+      "Bloodmaster"
+    ],
+    "faction_keywords": [
+      "Legiones Daemonica"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "blade-of-blood"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "tranceweaver",
+    "name": "Tranceweaver",
+    "faction_id": "chaos-daemons",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Tranceweaver",
+        "M": 9,
+        "T": 3,
+        "W": 3,
+        "Sv": 7,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 60
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Psyker",
+      "Chaos",
+      "Daemon",
+      "Slaanesh",
+      "Tranceweaver"
+    ],
+    "faction_keywords": [
+      "Legiones Daemonica"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "ravaging-claws"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "burning-chariot",
+    "name": "Burning Chariot",
+    "faction_id": "chaos-daemons",
+    "profiles": [
+      {
+        "name": "Burning Chariot",
+        "M": 12,
+        "T": 8,
+        "W": 9,
+        "Sv": 7,
+        "invuln_sv": 4,
+        "Ld": 7,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 115
+      }
+    ],
+    "keywords": [
+      "Mounted",
+      "Fly",
+      "Chaos",
+      "Daemon",
+      "Tzeentch",
+      "Burning Chariot"
+    ],
+    "faction_keywords": [
+      "Legiones Daemonica"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "fire-of-tzeentch",
+      "flamer-mouths",
+      "screamer-bites"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "pink-horrors",
+    "name": "Pink Horrors",
+    "faction_id": "chaos-daemons",
+    "role": "battleline",
+    "profiles": [
+      {
+        "name": "Pink Horror",
+        "M": 6,
+        "T": 3,
+        "W": 1,
+        "Sv": 7,
+        "invuln_sv": 4,
+        "Ld": 7,
+        "OC": 2
+      },
+      {
+        "name": "Brimstone Horror",
+        "M": 6,
+        "T": 3,
+        "W": 1,
+        "Sv": 7,
+        "invuln_sv": 4,
+        "Ld": 8,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 10,
+        "cost": 140
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Battleline",
+      "Chaos",
+      "Daemon",
+      "Tzeentch",
+      "Horrors",
+      "Pink",
+      "Brimstone"
+    ],
+    "faction_keywords": [
+      "Legiones Daemonica"
+    ],
+    "model_count": {
+      "min": 10,
+      "max": 10
+    },
+    "weapon_ids": [
+      "blue-claws",
+      "coruscating-blue-flames",
+      "coruscating-pink-flames",
+      "coruscating-yellow-flames",
+      "pink-claws",
+      "yellow-claws"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "infernal-enrapturess",
+    "name": "Infernal Enrapturess",
+    "faction_id": "chaos-daemons",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Infernal Enrapturess",
+        "M": 9,
+        "T": 3,
+        "W": 3,
+        "Sv": 7,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 60
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Chaos",
+      "Daemon",
+      "Slaanesh",
+      "Infernal Enrapturess"
+    ],
+    "faction_keywords": [
+      "Legiones Daemonica"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "heartstring-lyre",
+      "ravaging-claws"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "plaguebearers",
+    "name": "Plaguebearers",
+    "faction_id": "chaos-daemons",
+    "role": "battleline",
+    "profiles": [
+      {
+        "name": "Plaguebearer",
+        "M": 5,
+        "T": 5,
+        "W": 2,
+        "Sv": 7,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 10,
+        "cost": 110
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Battleline",
+      "Chaos",
+      "Daemon",
+      "Nurgle",
+      "Plaguebearers"
+    ],
+    "faction_keywords": [
+      "Legiones Daemonica"
+    ],
+    "model_count": {
+      "min": 10,
+      "max": 10
+    },
+    "weapon_ids": [
+      "plaguesword"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "keeper-of-secrets",
+    "name": "Keeper of Secrets",
+    "faction_id": "chaos-daemons",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Keeper of Secrets",
+        "M": 14,
+        "T": 10,
+        "W": 18,
+        "Sv": 5,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 5
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 240
+      }
+    ],
+    "keywords": [
+      "Monster",
+      "Character",
+      "Psyker",
+      "Chaos",
+      "Daemon",
+      "Slaanesh",
+      "Keeper of Secrets"
+    ],
+    "faction_keywords": [
+      "Legiones Daemonica"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "living-whip",
+      "phantasmagoria",
+      "ritual-knife",
+      "snapping-claws",
+      "witstealer-sword"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "shalaxi-helbane",
+    "name": "Shalaxi Helbane",
+    "faction_id": "chaos-daemons",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Shalaxi Helbane",
+        "M": 14,
+        "T": 10,
+        "W": 20,
+        "Sv": 3,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 5
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 340
+      }
+    ],
+    "keywords": [
+      "Monster",
+      "Character",
+      "Epic Hero",
+      "Psyker",
+      "Chaos",
+      "Daemon",
+      "Slaanesh",
+      "Shalaxi Helbane"
+    ],
+    "faction_keywords": [
+      "Legiones Daemonica"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "lash-of-slaanesh",
+      "pavane-of-slaanesh",
+      "snapping-claws",
+      "soulpiercer"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "seekers",
+    "name": "Seekers",
+    "faction_id": "chaos-daemons",
+    "profiles": [
+      {
+        "name": "Seeker",
+        "M": 14,
+        "T": 4,
+        "W": 2,
+        "Sv": 7,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 80
+      },
+      {
+        "models": 10,
+        "cost": 160
+      }
+    ],
+    "keywords": [
+      "Mounted",
+      "Chaos",
+      "Daemon",
+      "Slaanesh",
+      "Seekers"
+    ],
+    "faction_keywords": [
+      "Legiones Daemonica"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 10
+    },
+    "weapon_ids": [
+      "lashing-tongue",
+      "slashing-claws"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "syllesske",
+    "name": "Syll’Esske",
+    "faction_id": "chaos-daemons",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Syll’Esske",
+        "M": 9,
+        "T": 6,
+        "W": 9,
+        "Sv": 6,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 120
+      }
+    ],
+    "keywords": [
+      "Monster",
+      "Character",
+      "Epic Hero",
+      "Psyker",
+      "Chaos",
+      "Daemon",
+      "Slaanesh",
+      "Syll’Esske"
+    ],
+    "faction_keywords": [
+      "Legiones Daemonica"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "axe-of-dominion",
+      "cacophonic-choir",
+      "scourging-whip"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "screamers",
+    "name": "Screamers",
+    "faction_id": "chaos-daemons",
+    "profiles": [
+      {
+        "name": "Screamers",
+        "M": 14,
+        "T": 4,
+        "W": 3,
+        "Sv": 6,
+        "invuln_sv": 4,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 3,
+        "cost": 80
+      },
+      {
+        "models": 6,
+        "cost": 160
+      }
+    ],
+    "keywords": [
+      "Beast",
+      "Fly",
+      "Chaos",
+      "Daemon",
+      "Tzeentch",
+      "Screamers"
+    ],
+    "faction_keywords": [
+      "Legiones Daemonica"
+    ],
+    "model_count": {
+      "min": 3,
+      "max": 6
+    },
+    "weapon_ids": [
+      "lamprey-bite"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "bloodletters",
+    "name": "Bloodletters",
+    "faction_id": "chaos-daemons",
+    "role": "battleline",
+    "profiles": [
+      {
+        "name": "Bloodletter",
+        "M": 8,
+        "T": 4,
+        "W": 1,
+        "Sv": 7,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 10,
+        "cost": 110
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Battleline",
+      "Chaos",
+      "Daemon",
+      "Khorne",
+      "Bloodletters"
+    ],
+    "faction_keywords": [
+      "Legiones Daemonica"
+    ],
+    "model_count": {
+      "min": 10,
+      "max": 10
+    },
+    "weapon_ids": [
+      "hellblade"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "lord-of-change",
+    "name": "Lord of Change",
+    "faction_id": "chaos-daemons",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Lord of Change",
+        "M": 12,
+        "T": 10,
+        "W": 18,
+        "Sv": 6,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 5
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 285
+      }
+    ],
+    "keywords": [
+      "Monster",
+      "Character",
+      "Fly",
+      "Psyker",
+      "Chaos",
+      "Daemon",
+      "Tzeentch",
+      "Lord of Change"
+    ],
+    "faction_keywords": [
+      "Legiones Daemonica"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "baleful-sword",
+      "bolt-of-change",
+      "rod-of-sorcery",
+      "staff-of-tzeentch"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "changecaster",
+    "name": "Changecaster",
+    "faction_id": "chaos-daemons",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Changecaster",
+        "M": 6,
+        "T": 3,
+        "W": 3,
+        "Sv": 6,
+        "invuln_sv": 4,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 60
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Psyker",
+      "Chaos",
+      "Daemon",
+      "Tzeentch",
+      "Changecaster"
+    ],
+    "faction_keywords": [
+      "Legiones Daemonica"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "arcane-fireball",
+      "herald-combat-weapon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "feculent-gnarlmaw",
+    "name": "Feculent Gnarlmaw",
+    "faction_id": "chaos-daemons",
+    "profiles": [
+      {
+        "name": "Feculent Gnarlmaw",
+        "M": 0,
+        "T": 9,
+        "W": 9,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 0
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 100
+      }
+    ],
+    "keywords": [
+      "Fortification",
+      "Chaos",
+      "Daemon",
+      "Nurgle",
+      "Feculent Gnarlmaw"
+    ],
+    "faction_keywords": [
+      "Legiones Daemonica"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "great-unclean-one",
+    "name": "Great Unclean One",
+    "faction_id": "chaos-daemons",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Great Unclean One",
+        "M": 7,
+        "T": 12,
+        "W": 20,
+        "Sv": 5,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 5
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 250
+      }
+    ],
+    "keywords": [
+      "Monster",
+      "Character",
+      "Psyker",
+      "Chaos",
+      "Daemon",
+      "Nurgle",
+      "Great Unclean One"
+    ],
+    "faction_keywords": [
+      "Legiones Daemonica"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "bileblade",
+      "bilesword",
+      "doomsday-bell",
+      "plague-flail",
+      "putrid-vomit"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "bloodcrushers",
+    "name": "Bloodcrushers",
+    "faction_id": "chaos-daemons",
+    "profiles": [
+      {
+        "name": "Bloodcrusher",
+        "M": 10,
+        "T": 7,
+        "W": 4,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 3,
+        "cost": 110
+      },
+      {
+        "models": 6,
+        "cost": 220
+      }
+    ],
+    "keywords": [
+      "Mounted",
+      "Chaos",
+      "Daemon",
+      "Khorne",
+      "Bloodcrushers"
+    ],
+    "faction_keywords": [
+      "Legiones Daemonica"
+    ],
+    "model_count": {
+      "min": 3,
+      "max": 6
+    },
+    "weapon_ids": [
+      "hellblade",
+      "juggernauts-bladed-horn"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "fiends",
+    "name": "Fiends",
+    "faction_id": "chaos-daemons",
+    "profiles": [
+      {
+        "name": "Fiend",
+        "M": 12,
+        "T": 5,
+        "W": 4,
+        "Sv": 7,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 3,
+        "cost": 95
+      },
+      {
+        "models": 6,
+        "cost": 190
+      }
+    ],
+    "keywords": [
+      "Beast",
+      "Chaos",
+      "Daemon",
+      "Slaanesh",
+      "Fiends"
+    ],
+    "faction_keywords": [
+      "Legiones Daemonica"
+    ],
+    "model_count": {
+      "min": 3,
+      "max": 6
+    },
+    "weapon_ids": [
+      "barbed-tail-and-dissecting-claws"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "skarbrand",
+    "name": "Skarbrand",
+    "faction_id": "chaos-daemons",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Skarbrand",
+        "M": 10,
+        "T": 11,
+        "W": 20,
+        "Sv": 3,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 5
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 305
+      }
+    ],
+    "keywords": [
+      "Monster",
+      "Character",
+      "Epic Hero",
+      "Chaos",
+      "Daemon",
+      "Khorne",
+      "Skarbrand"
+    ],
+    "faction_keywords": [
+      "Legiones Daemonica"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "bellow-of-endless-fury",
+      "slaughter-and-carnage"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "belakor",
+    "name": "Be’lakor",
+    "faction_id": "chaos-daemons",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Be’lakor",
+        "M": 12,
+        "T": 11,
+        "W": 20,
+        "Sv": 3,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 5
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 375
+      }
+    ],
+    "keywords": [
+      "Monster",
+      "Character",
+      "Epic Hero",
+      "Chaos",
+      "Daemon",
+      "Be’lakor",
+      "Psyker",
+      "Fly"
+    ],
+    "faction_keywords": [
+      "Legiones Daemonica"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "betraying-shades",
+      "the-blade-of-shadows"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "horticulous-slimux",
+    "name": "Horticulous Slimux",
+    "faction_id": "chaos-daemons",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Horticulous Slimux",
+        "M": 6,
+        "T": 10,
+        "W": 10,
+        "Sv": 3,
+        "invuln_sv": 4,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 120
+      }
+    ],
+    "keywords": [
+      "Mounted",
+      "Character",
+      "Epic Hero",
+      "Chaos",
+      "Daemon",
+      "Nurgle",
+      "Horticulous Slimux"
+    ],
+    "faction_keywords": [
+      "Legiones Daemonica"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "acidic-maw",
+      "lopping-shears"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "contorted-epitome",
+    "name": "Contorted Epitome",
+    "faction_id": "chaos-daemons",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Contorted Epitome",
+        "M": 9,
+        "T": 6,
+        "W": 8,
+        "Sv": 5,
+        "invuln_sv": 4,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 100
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Psyker",
+      "Chaos",
+      "Slaanesh",
+      "Contorted Epitome"
+    ],
+    "faction_keywords": [
+      "Legiones Daemonica"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "coiled-tentacles",
+      "ravaging-claws"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "poxbringer",
+    "name": "Poxbringer",
+    "faction_id": "chaos-daemons",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Poxbringer",
+        "M": 5,
+        "T": 5,
+        "W": 5,
+        "Sv": 7,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 55
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Psyker",
+      "Chaos",
+      "Daemon",
+      "Nurgle",
+      "Poxbringer"
+    ],
+    "faction_keywords": [
+      "Legiones Daemonica"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "foul-balesword"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "fateskimmer",
+    "name": "Fateskimmer",
+    "faction_id": "chaos-daemons",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Fateskimmer",
+        "M": 12,
+        "T": 7,
+        "W": 9,
+        "Sv": 6,
+        "invuln_sv": 4,
+        "Ld": 7,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 95
+      }
+    ],
+    "keywords": [
+      "Mounted",
+      "Character",
+      "Fly",
+      "Psyker",
+      "Chaos",
+      "Daemon",
+      "Tzeentch",
+      "Fateskimmer"
+    ],
+    "faction_keywords": [
+      "Legiones Daemonica"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "arcane-fireball",
+      "herald-combat-weapon",
+      "screamer-bites"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "hellflayers",
+    "name": "Hellflayers",
+    "faction_id": "chaos-daemons",
+    "profiles": [
+      {
+        "name": "Hellflayers",
+        "M": 14,
+        "T": 6,
+        "W": 7,
+        "Sv": 5,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 80
+      },
+      {
+        "models": 2,
+        "cost": 160
+      }
+    ],
+    "keywords": [
+      "Mounted",
+      "Chaos",
+      "Daemon",
+      "Slaanesh",
+      "Hellflayers"
+    ],
+    "faction_keywords": [
+      "Legiones Daemonica"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 2
+    },
+    "weapon_ids": [
+      "lashes-of-torment",
+      "seeker-tongues",
+      "slashing-claws"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "plague-drones",
+    "name": "Plague Drones",
+    "faction_id": "chaos-daemons",
+    "profiles": [
+      {
+        "name": "Plague Drone",
+        "M": 10,
+        "T": 8,
+        "W": 5,
+        "Sv": 6,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 3,
+        "cost": 110
+      },
+      {
+        "models": 6,
+        "cost": 220
+      }
+    ],
+    "keywords": [
+      "Mounted",
+      "Fly",
+      "Chaos",
+      "Daemon",
+      "Nurgle",
+      "Plague Drones"
+    ],
+    "faction_keywords": [
+      "Legiones Daemonica"
+    ],
+    "model_count": {
+      "min": 3,
+      "max": 6
+    },
+    "weapon_ids": [
+      "deaths-heads",
+      "foul-mouthparts",
+      "plaguesword"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "bloodthirster",
+    "name": "Bloodthirster",
+    "faction_id": "chaos-daemons",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Bloodthirster",
+        "M": 12,
+        "T": 11,
+        "W": 18,
+        "Sv": 3,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 5
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 305
+      }
+    ],
+    "keywords": [
+      "Monster",
+      "Character",
+      "Fly",
+      "Chaos",
+      "Daemon",
+      "Khorne",
+      "Bloodthirster"
+    ],
+    "faction_keywords": [
+      "Legiones Daemonica"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "axe-of-khorne",
+      "bloodflail",
+      "great-axe-of-khorne",
+      "hellfire-breath",
+      "lash-of-khorne"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "exalted-flamer",
+    "name": "Exalted Flamer",
+    "faction_id": "chaos-daemons",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Exalted Flamer",
+        "M": 9,
+        "T": 4,
+        "W": 6,
+        "Sv": 7,
+        "invuln_sv": 4,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 65
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Fly",
+      "Chaos",
+      "Daemon",
+      "Tzeentch",
+      "Exalted Flamer"
+    ],
+    "faction_keywords": [
+      "Legiones Daemonica"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "fire-of-tzeentch",
+      "flamer-mouths"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "skullmaster",
+    "name": "Skullmaster",
+    "faction_id": "chaos-daemons",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Skullmaster",
+        "M": 10,
+        "T": 7,
+        "W": 6,
+        "Sv": 3,
+        "invuln_sv": 4,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 100
+      }
+    ],
+    "keywords": [
+      "Mounted",
+      "Character",
+      "Chaos",
+      "Daemon",
+      "Khorne",
+      "Skullmaster"
+    ],
+    "faction_keywords": [
+      "Legiones Daemonica"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "blade-of-blood",
+      "juggernauts-bladed-horn"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "epidemius",
+    "name": "Epidemius",
+    "faction_id": "chaos-daemons",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Epidemius",
+        "M": 5,
+        "T": 5,
+        "W": 8,
+        "Sv": 6,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 80
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Epic Hero",
+      "Chaos",
+      "Daemon",
+      "Nurgle",
+      "Epidemius"
+    ],
+    "faction_keywords": [
+      "Legiones Daemonica"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "balesword-and-nurgling-attendants"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "karanak",
+    "name": "Karanak",
+    "faction_id": "chaos-daemons",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Karanak",
+        "M": 12,
+        "T": 4,
+        "W": 5,
+        "Sv": 7,
+        "invuln_sv": 4,
+        "Ld": 7,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 75
+      }
+    ],
+    "keywords": [
+      "Beast",
+      "Character",
+      "Epic Hero",
+      "Chaos",
+      "Daemon",
+      "Khorne",
+      "Karanak"
+    ],
+    "faction_keywords": [
+      "Legiones Daemonica"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "scalding-roar",
+      "soul-rending-fangs"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "spoilpox-scrivener",
+    "name": "Spoilpox Scrivener",
+    "faction_id": "chaos-daemons",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Spoilpox Scrivener",
+        "M": 5,
+        "T": 5,
+        "W": 5,
+        "Sv": 7,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 60
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Chaos",
+      "Daemon",
+      "Nurgle",
+      "Spoilpox Scrivener"
+    ],
+    "faction_keywords": [
+      "Legiones Daemonica"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "disgusting-sneezes",
+      "plaguesword-and-distended-maw"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "tormentbringer",
+    "name": "Tormentbringer",
+    "faction_id": "chaos-daemons",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Tormentbringer",
+        "M": 14,
+        "T": 6,
+        "W": 12,
+        "Sv": 5,
+        "invuln_sv": 4,
+        "Ld": 7,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 140
+      }
+    ],
+    "keywords": [
+      "Mounted",
+      "Character",
+      "Psyker",
+      "Chaos",
+      "Daemon",
+      "Slaanesh",
+      "Tormentbringer on Exalted Seeker Chariot"
+    ],
+    "faction_keywords": [
+      "Legiones Daemonica"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "lashes-of-torment",
+      "seeker-tongues",
+      "slashing-claws"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "skulltaker",
+    "name": "Skulltaker",
+    "faction_id": "chaos-daemons",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Skulltaker",
+        "M": 8,
+        "T": 4,
+        "W": 5,
+        "Sv": 4,
+        "invuln_sv": 4,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 85
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Epic Hero",
+      "Chaos",
+      "Daemon",
+      "Khorne",
+      "Skulltaker"
+    ],
+    "faction_keywords": [
+      "Legiones Daemonica"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "the-slayer-sword"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "rendmaster-on-blood-throne",
+    "name": "Rendmaster on Blood Throne",
+    "faction_id": "chaos-daemons",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Rendmaster on Blood Throne",
+        "M": 8,
+        "T": 9,
+        "W": 9,
+        "Sv": 4,
+        "invuln_sv": 4,
+        "Ld": 7,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 165
+      }
+    ],
+    "keywords": [
+      "Mounted",
+      "Character",
+      "Chaos",
+      "Daemon",
+      "Khorne",
+      "Rendmaster on Blood Throne"
+    ],
+    "faction_keywords": [
+      "Legiones Daemonica"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "attendants-hellblades",
+      "blade-of-blood"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "skull-altar",
+    "name": "Skull Altar",
+    "faction_id": "chaos-daemons",
+    "profiles": [
+      {
+        "name": "Skull Altar",
+        "M": 0,
+        "T": 12,
+        "W": 10,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 0
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 105
+      }
+    ],
+    "keywords": [
+      "Fortification",
+      "Chaos",
+      "Daemon",
+      "Khorne",
+      "Skull Altar"
+    ],
+    "faction_keywords": [
+      "Legiones Daemonica"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "sloppity-bilepiper",
+    "name": "Sloppity Bilepiper",
+    "faction_id": "chaos-daemons",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Sloppity Bilepiper",
+        "M": 5,
+        "T": 5,
+        "W": 5,
+        "Sv": 7,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 55
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Chaos",
+      "Daemon",
+      "Nurgle",
+      "Sloppity Bilepiper"
+    ],
+    "faction_keywords": [
+      "Legiones Daemonica"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "marotter"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "kairos-fateweaver",
+    "name": "Kairos Fateweaver",
+    "faction_id": "chaos-daemons",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Kairos Fateweaver",
+        "M": 12,
+        "T": 10,
+        "W": 20,
+        "Sv": 6,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 5
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 295
+      }
+    ],
+    "keywords": [
+      "Monster",
+      "Character",
+      "Epic Hero",
+      "Fly",
+      "Psyker",
+      "Chaos",
+      "Daemon",
+      "Tzeentch",
+      "Kairos Fateweaver"
+    ],
+    "faction_keywords": [
+      "Legiones Daemonica"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "infernal-gateway",
+      "staff-of-tomorrow"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "blue-horrors",
+    "name": "Blue Horrors",
+    "faction_id": "chaos-daemons",
+    "role": "battleline",
+    "profiles": [
+      {
+        "name": "Brimstone Horror",
+        "M": 6,
+        "T": 3,
+        "W": 1,
+        "Sv": 7,
+        "invuln_sv": 4,
+        "Ld": 8,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 10,
+        "cost": 125
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Battleline",
+      "Chaos",
+      "Daemon",
+      "Tzeentch",
+      "Horrors",
+      "Brimstone"
+    ],
+    "faction_keywords": [
+      "Legiones Daemonica"
+    ],
+    "model_count": {
+      "min": 10,
+      "max": 10
+    },
+    "weapon_ids": [
+      "blue-claws",
+      "coruscating-blue-flames",
+      "coruscating-yellow-flames",
+      "yellow-claws"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "the-blue-scribes",
+    "name": "The Blue Scribes",
+    "faction_id": "chaos-daemons",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "The Blue Scribes",
+        "M": 12,
+        "T": 4,
+        "W": 6,
+        "Sv": 6,
+        "invuln_sv": 4,
+        "Ld": 8,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 75
+      }
+    ],
+    "keywords": [
+      "Mounted",
+      "Character",
+      "Epic Hero",
+      "Fly",
+      "Chaos",
+      "Daemon",
+      "Tzeentch",
+      "The Blue Scribes"
+    ],
+    "faction_keywords": [
+      "Legiones Daemonica"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "sharp-quills"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "the-changeling",
+    "name": "The Changeling",
+    "faction_id": "chaos-daemons",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "The Changeling",
+        "M": 6,
+        "T": 3,
+        "W": 5,
+        "Sv": 7,
+        "invuln_sv": 4,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 90
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Epic Hero",
+      "Psyker",
+      "Chaos",
+      "Daemon",
+      "Tzeentch",
+      "The Changeling"
+    ],
+    "faction_keywords": [
+      "Legiones Daemonica"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "infernal-flames",
+      "the-tricksters-staff"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "fluxmaster",
+    "name": "Fluxmaster",
+    "faction_id": "chaos-daemons",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Fluxmaster",
+        "M": 12,
+        "T": 4,
+        "W": 4,
+        "Sv": 6,
+        "invuln_sv": 4,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 60
+      }
+    ],
+    "keywords": [
+      "Mounted",
+      "Character",
+      "Fly",
+      "Psyker",
+      "Chaos",
+      "Daemon",
+      "Tzeentch",
+      "Fluxmaster"
+    ],
+    "faction_keywords": [
+      "Legiones Daemonica"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "arcane-fireball",
+      "herald-combat-weapon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "flamers",
+    "name": "Flamers",
+    "faction_id": "chaos-daemons",
+    "profiles": [
+      {
+        "name": "Flamer",
+        "M": 9,
+        "T": 4,
+        "W": 3,
+        "Sv": 7,
+        "invuln_sv": 4,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 3,
+        "cost": 65
+      },
+      {
+        "models": 6,
+        "cost": 130
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Fly",
+      "Chaos",
+      "Daemon",
+      "Tzeentch",
+      "Flamers"
+    ],
+    "faction_keywords": [
+      "Legiones Daemonica"
+    ],
+    "model_count": {
+      "min": 3,
+      "max": 6
+    },
+    "weapon_ids": [
+      "flamer-mouths",
+      "flickering-flames"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "beasts-of-nurgle",
+    "name": "Beasts of Nurgle",
+    "faction_id": "chaos-daemons",
+    "profiles": [
+      {
+        "name": "Beasts of Nurgle",
+        "M": 6,
+        "T": 9,
+        "W": 7,
+        "Sv": 6,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 65
+      },
+      {
+        "models": 2,
+        "cost": 130
+      }
+    ],
+    "keywords": [
+      "Beast",
+      "Chaos",
+      "Daemon",
+      "Nurgle",
+      "Beasts of Nurgle"
+    ],
+    "faction_keywords": [
+      "Legiones Daemonica"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 2
+    },
+    "weapon_ids": [
+      "putrid-appendages"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "flesh-hounds",
+    "name": "Flesh Hounds",
+    "faction_id": "chaos-daemons",
+    "profiles": [
+      {
+        "name": "Flesh Hound",
+        "M": 12,
+        "T": 4,
+        "W": 2,
+        "Sv": 7,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 75
+      },
+      {
+        "models": 10,
+        "cost": 150
+      }
+    ],
+    "keywords": [
+      "Beast",
+      "Chaos",
+      "Daemon",
+      "Khorne",
+      "Flesh Hounds"
+    ],
+    "faction_keywords": [
+      "Legiones Daemonica"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 10
+    },
+    "weapon_ids": [
+      "burning-roar",
+      "gore-drenched-fangs"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "skull-cannon",
+    "name": "Skull Cannon",
+    "faction_id": "chaos-daemons",
+    "profiles": [
+      {
+        "name": "Skull Cannon",
+        "M": 8,
+        "T": 9,
+        "W": 9,
+        "Sv": 4,
+        "invuln_sv": 4,
+        "Ld": 7,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 95
+      }
+    ],
+    "keywords": [
+      "Mounted",
+      "Chaos",
+      "Daemon",
+      "Khorne",
+      "Skull Cannon"
+    ],
+    "faction_keywords": [
+      "Legiones Daemonica"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "attendants-hellblades",
+      "biting-maw",
+      "skull-cannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "scabeiathrax-the-bloated",
+    "name": "Scabeiathrax The Bloated",
+    "faction_id": "chaos-daemons",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Scabeiathrax The Bloated",
+        "M": 7,
+        "T": 12,
+        "W": 22,
+        "Sv": 5,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 5
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Chaos",
+      "Character",
+      "Daemon",
+      "Epic Hero",
+      "Monster",
+      "Nurgle",
+      "Psyker",
+      "Scabeiathrax the Bloated"
+    ],
+    "faction_keywords": [
+      "Legiones Daemonica"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "blade-of-decay",
+      "putrid-vomit"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "zarakynel",
+    "name": "Zarakynel",
+    "faction_id": "chaos-daemons",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Zarakynel",
+        "M": 14,
+        "T": 10,
+        "W": 20,
+        "Sv": 5,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 5
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Chaos",
+      "Character",
+      "Daemon",
+      "Epic Hero",
+      "Monster",
+      "Psyker",
+      "Slaanesh",
+      "Zarakynel"
+    ],
+    "faction_keywords": [
+      "Legiones Daemonica"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "phantasmagoria",
+      "snapping-claws",
+      "souleater-blade"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "aetaosraukeres",
+    "name": "Aetaos'rau'keres",
+    "faction_id": "chaos-daemons",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Aetaos'rau'keres",
+        "M": 12,
+        "T": 10,
+        "W": 24,
+        "Sv": 6,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 6
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Aetaos'rau'keres",
+      "Chaos",
+      "Character",
+      "Daemon",
+      "Epic Hero",
+      "Fly",
+      "Monster",
+      "Psyker",
+      "Titanic",
+      "Towering",
+      "Tzeentch"
+    ],
+    "faction_keywords": [
+      "Legiones Daemonica"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "bolt-of-tzeentch",
+      "staff-of-cataclysm",
+      "warpfire-talons"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "anggrath-the-unbound",
+    "name": "An'ggrath The Unbound",
+    "faction_id": "chaos-daemons",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "An'ggrath The Unbound",
+        "M": 12,
+        "T": 11,
+        "W": 24,
+        "Sv": 4,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 6
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "An'ggrath the Unbound",
+      "Chaos",
+      "Character",
+      "Daemon",
+      "Epic Hero",
+      "Khorne",
+      "Monster",
+      "Titanic",
+      "Towering"
+    ],
+    "faction_keywords": [
+      "Legiones Daemonica"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "axe-of-khorne",
+      "bloodlash"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "giant-chaos-spawn",
+    "name": "Giant Chaos Spawn",
+    "faction_id": "chaos-daemons",
+    "profiles": [
+      {
+        "name": "Giant Chaos Spawn",
+        "M": 10,
+        "T": 8,
+        "W": 10,
+        "Sv": 4,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 3
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Chaos",
+      "Giant Chaos Spawn",
+      "Monster"
+    ],
+    "faction_keywords": [
+      "Legiones Daemonica"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "churning-fangs-and-claws"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "herald-of-slaanesh-on-steed-of-slaanesh",
+    "name": "Herald Of Slaanesh On Steed Of Slaanesh",
+    "faction_id": "chaos-daemons",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Herald Of Slaanesh On Steed Of Slaanesh",
+        "M": 14,
+        "T": 4,
+        "W": 4,
+        "Sv": 7,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Chaos",
+      "Character",
+      "Daemon",
+      "Herald of Slaanesh",
+      "Mounted",
+      "Psyker",
+      "Slaanesh"
+    ],
+    "faction_keywords": [
+      "Legiones Daemonica"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "lashing-tongue",
+      "ravaging-claws"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "furies",
+    "name": "Furies",
+    "faction_id": "chaos-daemons",
+    "profiles": [
+      {
+        "name": "Furies",
+        "M": 12,
+        "T": 3,
+        "W": 1,
+        "Sv": 7,
+        "invuln_sv": 5,
+        "Ld": 8,
+        "OC": 1
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Chaos",
+      "Daemon",
+      "Fly",
+      "Furies",
+      "Infantry"
+    ],
+    "faction_keywords": [
+      "Legiones Daemonica"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "daemonic-claws"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "pox-riders",
+    "name": "Pox Riders",
+    "faction_id": "chaos-daemons",
+    "profiles": [
+      {
+        "name": "Pox Riders",
+        "M": 7,
+        "T": 8,
+        "W": 5,
+        "Sv": 6,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Chaos",
+      "Daemon",
+      "Mounted",
+      "Nurgle",
+      "Pox Riders"
+    ],
+    "faction_keywords": [
+      "Legiones Daemonica"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "grasping-tongue",
+      "pox-rider-plaguesword",
+      "yawning-maw"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "plague-toads",
+    "name": "Plague Toads",
+    "faction_id": "chaos-daemons",
+    "profiles": [
+      {
+        "name": "Plague Toads",
+        "M": 7,
+        "T": 8,
+        "W": 4,
+        "Sv": 6,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Beast",
+      "Chaos",
+      "Daemon",
+      "Nurgle",
+      "Plague Toads"
+    ],
+    "faction_keywords": [
+      "Legiones Daemonica"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "grasping-tongue",
+      "yawning-maw"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "spined-chaos-beast",
+    "name": "Spined Chaos Beast",
+    "faction_id": "chaos-daemons",
+    "profiles": [
+      {
+        "name": "Spined Chaos Beast",
+        "M": 10,
+        "T": 10,
+        "W": 12,
+        "Sv": 4,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 4
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Chaos",
+      "Monster",
+      "Spined Chaos Beast"
+    ],
+    "faction_keywords": [
+      "Legiones Daemonica"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "jagged-claws-and-tusked-maw"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  }
+]

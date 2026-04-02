@@ -1,0 +1,1990 @@
+[
+  {
+    "id": "sanctifiers",
+    "name": "Sanctifiers",
+    "faction_id": "agents-of-the-imperium",
+    "profiles": [
+      {
+        "name": "Miraculist",
+        "M": 6,
+        "T": 3,
+        "W": 1,
+        "Sv": 6,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 1
+      },
+      {
+        "name": "Salvationist",
+        "M": 6,
+        "T": 3,
+        "W": 1,
+        "Sv": 6,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 1
+      },
+      {
+        "name": "Death Cult Assassin",
+        "M": 6,
+        "T": 3,
+        "W": 1,
+        "Sv": 6,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 1
+      },
+      {
+        "name": "Missionary",
+        "M": 6,
+        "T": 3,
+        "W": 1,
+        "Sv": 6,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 1
+      },
+      {
+        "name": "Sanctifier",
+        "M": 6,
+        "T": 3,
+        "W": 1,
+        "Sv": 6,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 9,
+        "cost": 100
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Grenades",
+      "Imperium",
+      "Retinue",
+      "Sanctifiers"
+    ],
+    "faction_keywords": [
+      "Agents of the Imperium"
+    ],
+    "model_count": {
+      "min": 9,
+      "max": 9
+    },
+    "weapon_ids": [
+      "burning-hands",
+      "close-combat-weapon",
+      "death-cult-blades",
+      "holy-fire",
+      "meltagun",
+      "ministorum-flamer",
+      "ministorum-hand-flamer",
+      "plasma-gun",
+      "sanctifier-melee-weapon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "watch-captain-artemis",
+    "name": "Watch Captain Artemis",
+    "faction_id": "agents-of-the-imperium",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Watch Captain Artemis",
+        "M": 6,
+        "T": 4,
+        "W": 4,
+        "Sv": 3,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 65
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Epic Hero",
+      "Grenades",
+      "Imperium",
+      "Ordo Xenos",
+      "Deathwatch",
+      "Watch Captain Artemis"
+    ],
+    "faction_keywords": [
+      "Agents of the Imperium"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "hellfire-extremis",
+      "master-crafted-power-weapon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "inquisitorial-chimera",
+    "name": "Inquisitorial Chimera",
+    "faction_id": "agents-of-the-imperium",
+    "role": "dedicated-transport",
+    "profiles": [
+      {
+        "name": "Inquisitorial Chimera",
+        "M": 10,
+        "T": 9,
+        "W": 11,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 70
+      },
+      {
+        "models": 1,
+        "cost": 70
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Smoke",
+      "Transport",
+      "Dedicated Transport",
+      "Imperium",
+      "Inquisitorial Chimera"
+    ],
+    "faction_keywords": [
+      "Agents of the Imperium"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-tracks",
+      "heavy-bolter",
+      "heavy-flamer",
+      "heavy-stubber",
+      "hunter-killer-missile",
+      "lasgun-array",
+      "multi-laser",
+      "storm-bolter"
+    ],
+    "ability_ids": [],
+    "transport_capacity": {
+      "capacity": 13
+    },
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "callidus-assassin",
+    "name": "Callidus Assassin",
+    "faction_id": "agents-of-the-imperium",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Callidus Assassin",
+        "M": 7,
+        "T": 4,
+        "W": 4,
+        "Sv": 6,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 140
+      },
+      {
+        "models": 1,
+        "cost": 100
+      },
+      {
+        "models": 1,
+        "cost": 100
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Epic Hero",
+      "Imperium",
+      "Officio Assassinorum",
+      "Callidus Assassin"
+    ],
+    "faction_keywords": [
+      "Agents of the Imperium"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "neural-shredder",
+      "phase-sword-and-poison-blades"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "inquisitor-greyfax",
+    "name": "Inquisitor Greyfax",
+    "faction_id": "agents-of-the-imperium",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Inquisitor Greyfax",
+        "M": 6,
+        "T": 3,
+        "W": 4,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 65
+      },
+      {
+        "models": 1,
+        "cost": 65
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Epic Hero",
+      "Psyker",
+      "Grenades",
+      "Imperium",
+      "Ordo Hereticus",
+      "Inquisitor",
+      "Greyfax"
+    ],
+    "faction_keywords": [
+      "Agents of the Imperium"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "castigation",
+      "condemnor-stake",
+      "master-crafted-power-sword"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "sisters-of-battle-immolator",
+    "name": "Sisters of Battle Immolator",
+    "faction_id": "agents-of-the-imperium",
+    "role": "dedicated-transport",
+    "profiles": [
+      {
+        "name": "Sisters of Battle Immolator",
+        "M": 12,
+        "T": 10,
+        "W": 11,
+        "Sv": 3,
+        "invuln_sv": 6,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 115
+      },
+      {
+        "models": 1,
+        "cost": 100
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Smoke",
+      "Transport",
+      "Dedicated Transport",
+      "Imperium",
+      "Ordo Hereticus",
+      "Sisters of Battle Immolator"
+    ],
+    "faction_keywords": [
+      "Agents of the Imperium"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-tracks",
+      "heavy-bolter",
+      "hunter-killer-missile",
+      "immolation-flamers",
+      "twin-heavy-bolter",
+      "twin-multi-melta"
+    ],
+    "ability_ids": [],
+    "transport_capacity": {
+      "capacity": 6
+    },
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "inquisitorial-agents",
+    "name": "Inquisitorial Agents",
+    "faction_id": "agents-of-the-imperium",
+    "profiles": [
+      {
+        "name": "Inquisitorial Agent",
+        "M": 6,
+        "T": 3,
+        "W": 1,
+        "Sv": 5,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 6,
+        "cost": 60
+      },
+      {
+        "models": 6,
+        "cost": 50
+      },
+      {
+        "models": 11,
+        "cost": 120
+      },
+      {
+        "models": 11,
+        "cost": 100
+      },
+      {
+        "models": 12,
+        "cost": 120
+      },
+      {
+        "models": 12,
+        "cost": 100
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Grenades",
+      "Imperium",
+      "Retinue",
+      "Inquisitorial Agents"
+    ],
+    "faction_keywords": [
+      "Agents of the Imperium"
+    ],
+    "model_count": {
+      "min": 6,
+      "max": 12
+    },
+    "weapon_ids": [
+      "agent-firearm",
+      "agent-melee-weapon",
+      "eviscerator",
+      "heavy-bolter",
+      "multi-melta",
+      "mystic-stave",
+      "plasma-cannon",
+      "plasma-pistol"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "inquisitor",
+    "name": "Inquisitor",
+    "faction_id": "agents-of-the-imperium",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Inquisitor",
+        "M": 6,
+        "T": 3,
+        "W": 4,
+        "Sv": 4,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 65
+      },
+      {
+        "models": 1,
+        "cost": 55
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Grenades",
+      "Imperium",
+      "Inquisitor"
+    ],
+    "faction_keywords": [
+      "Agents of the Imperium"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "bolt-pistol",
+      "combi-weapon",
+      "force-weapon",
+      "inquisitorial-melee-weapon",
+      "psychic-shock-wave"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "grey-knights-terminator-squad",
+    "name": "Grey Knights Terminator Squad",
+    "faction_id": "agents-of-the-imperium",
+    "profiles": [
+      {
+        "name": "Grey Knights Terminators",
+        "M": 5,
+        "T": 5,
+        "W": 3,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 210
+      },
+      {
+        "models": 5,
+        "cost": 190
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Psyker",
+      "Terminator",
+      "Grenades",
+      "Imperium",
+      "Ordo Malleus",
+      "Requisitioned",
+      "Grey Knights Terminator Squad"
+    ],
+    "faction_keywords": [
+      "Agents of the Imperium"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 5
+    },
+    "weapon_ids": [
+      "incinerator",
+      "nemesis-force-weapon",
+      "psilencer",
+      "psycannon",
+      "storm-bolter"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "voidsmen-at-arms",
+    "name": "Voidsmen-at-Arms",
+    "faction_id": "agents-of-the-imperium",
+    "profiles": [
+      {
+        "name": "Canid",
+        "M": 6,
+        "T": 3,
+        "W": 1,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 6,
+        "cost": 70
+      },
+      {
+        "models": 6,
+        "cost": 50
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Grenades",
+      "Imperium",
+      "Voidfarers",
+      "Retinue",
+      "Voidsmen-At-Arms"
+    ],
+    "faction_keywords": [
+      "Agents of the Imperium"
+    ],
+    "model_count": {
+      "min": 6,
+      "max": 6
+    },
+    "weapon_ids": [
+      "artificer-shotgun",
+      "close-combat-weapon",
+      "lasgun",
+      "laspistol",
+      "vicious-bite",
+      "voidsman-rotor-cannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "deathwatch-kill-team",
+    "name": "Deathwatch Kill Team",
+    "faction_id": "agents-of-the-imperium",
+    "role": "battleline",
+    "profiles": [
+      {
+        "name": "Watch Sergeant",
+        "M": 6,
+        "T": 4,
+        "W": 2,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 2
+      },
+      {
+        "name": "Deathwatch Veterans",
+        "M": 6,
+        "T": 4,
+        "W": 2,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 100
+      },
+      {
+        "models": 5,
+        "cost": 100
+      },
+      {
+        "models": 10,
+        "cost": 190
+      },
+      {
+        "models": 10,
+        "cost": 190
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Battleline",
+      "Grenades",
+      "Imperium",
+      "Ordo Xenos",
+      "Retinue",
+      "Deathwatch",
+      "Kill Team"
+    ],
+    "faction_keywords": [
+      "Agents of the Imperium"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 10
+    },
+    "weapon_ids": [
+      "black-shield-blades",
+      "boltgun",
+      "close-combat-weapon",
+      "combi-weapon",
+      "deathwatch-shotgun",
+      "deathwatch-thunder-hammer",
+      "frag-cannon",
+      "infernus-heavy-bolter",
+      "power-weapon",
+      "stalker-pattern-boltgun",
+      "xenophase-blade"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "eversor-assassin",
+    "name": "Eversor Assassin",
+    "faction_id": "agents-of-the-imperium",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Eversor Assassin",
+        "M": 9,
+        "T": 4,
+        "W": 4,
+        "Sv": 6,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 145
+      },
+      {
+        "models": 1,
+        "cost": 120
+      },
+      {
+        "models": 1,
+        "cost": 110
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Epic Hero",
+      "Grenades",
+      "Imperium",
+      "Officio Assassinorum",
+      "Eversor Assassin"
+    ],
+    "faction_keywords": [
+      "Agents of the Imperium"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "executioner-pistol",
+      "power-sword-and-neuro-gauntlet"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "imperial-rhino",
+    "name": "Imperial Rhino",
+    "faction_id": "agents-of-the-imperium",
+    "role": "dedicated-transport",
+    "profiles": [
+      {
+        "name": "Imperial Rhino",
+        "M": 12,
+        "T": 9,
+        "W": 10,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 75
+      },
+      {
+        "models": 1,
+        "cost": 75
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Smoke",
+      "Transport",
+      "Dedicated Transport",
+      "Imperium",
+      "Imperial Rhino"
+    ],
+    "faction_keywords": [
+      "Agents of the Imperium"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-tracks",
+      "hunter-killer-missile",
+      "storm-bolter"
+    ],
+    "ability_ids": [],
+    "transport_capacity": {
+      "capacity": 12
+    },
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "aquila-kill-team",
+    "name": "Aquila Kill Team",
+    "faction_id": "agents-of-the-imperium",
+    "role": "battleline",
+    "profiles": [
+      {
+        "name": "Deathwatch Veteran",
+        "M": 6,
+        "T": 4,
+        "W": 2,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 2
+      },
+      {
+        "name": "Gravis Veteran",
+        "M": 5,
+        "T": 6,
+        "W": 3,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 100
+      },
+      {
+        "models": 10,
+        "cost": 200
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Battleline",
+      "Grenades",
+      "Imperium",
+      "Ordo Xenos",
+      "Retinue",
+      "Deathwatch",
+      "Aquila Kill Team",
+      "Tacticus",
+      "Gravis"
+    ],
+    "faction_keywords": [
+      "Agents of the Imperium"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 10
+    },
+    "weapon_ids": [
+      "astartes-grenade-launcher",
+      "bolt-pistol",
+      "close-combat-weapon",
+      "combat-knife",
+      "deathwatch-marksman-bolt-carbine",
+      "frag-cannon",
+      "heavy-thunder-hammer",
+      "hellstorm-bolt-rifle",
+      "infernus-heavy-bolter",
+      "plasma-incinerator",
+      "plasma-pistol",
+      "power-weapon",
+      "special-issue-bolt-pistol",
+      "stalker-bolt-rifle",
+      "xenophase-blade"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "vindicare-assassin",
+    "name": "Vindicare Assassin",
+    "faction_id": "agents-of-the-imperium",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Vindicare Assassin",
+        "M": 7,
+        "T": 4,
+        "W": 4,
+        "Sv": 6,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 155
+      },
+      {
+        "models": 1,
+        "cost": 125
+      },
+      {
+        "models": 1,
+        "cost": 110
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Epic Hero",
+      "Smoke",
+      "Imperium",
+      "Officio Assassinorum",
+      "Vindicare Assassin"
+    ],
+    "faction_keywords": [
+      "Agents of the Imperium"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "exitus-pistol",
+      "exitus-rifle",
+      "vindicare-combat-knife"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "exaction-squad",
+    "name": "Exaction Squad",
+    "faction_id": "agents-of-the-imperium",
+    "profiles": [
+      {
+        "name": "Cyber-mastiff",
+        "M": 6,
+        "T": 3,
+        "W": 1,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 11,
+        "cost": 90
+      },
+      {
+        "models": 11,
+        "cost": 90
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Grenades",
+      "Imperium",
+      "Retinue",
+      "Adeptus Arbites",
+      "Exaction Squad"
+    ],
+    "faction_keywords": [
+      "Agents of the Imperium"
+    ],
+    "model_count": {
+      "min": 11,
+      "max": 11
+    },
+    "weapon_ids": [
+      "arbites-combat-shotgun",
+      "arbites-grenade-launcher",
+      "arbites-shotpistol",
+      "close-combat-weapon",
+      "excruciator-maul",
+      "executioner-shotgun",
+      "heavy-stubber",
+      "mechanical-bite",
+      "webber"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "imperial-navy-breachers",
+    "name": "Imperial Navy Breachers",
+    "faction_id": "agents-of-the-imperium",
+    "role": "battleline",
+    "profiles": [
+      {
+        "name": "Navis Armsman",
+        "M": 6,
+        "T": 3,
+        "W": 1,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 10,
+        "cost": 90
+      },
+      {
+        "models": 10,
+        "cost": 90
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Battleline",
+      "Grenades",
+      "Smoke",
+      "Imperium",
+      "Voidfarers",
+      "Retinue",
+      "Imperial Navy Breachers"
+    ],
+    "faction_keywords": [
+      "Agents of the Imperium"
+    ],
+    "model_count": {
+      "min": 10,
+      "max": 10
+    },
+    "weapon_ids": [
+      "autopistol",
+      "bolt-pistol",
+      "chainfist",
+      "chainsword",
+      "close-combat-weapon",
+      "demolition-charge",
+      "meltagun",
+      "navis-heavy-shotgun",
+      "navis-las-volley",
+      "navis-shotgun",
+      "plasma-gun",
+      "power-weapon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "culexus-assassin",
+    "name": "Culexus Assassin",
+    "faction_id": "agents-of-the-imperium",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Culexus Assassin",
+        "M": 7,
+        "T": 4,
+        "W": 4,
+        "Sv": 6,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 125
+      },
+      {
+        "models": 1,
+        "cost": 85
+      },
+      {
+        "models": 1,
+        "cost": 85
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Epic Hero",
+      "Grenades",
+      "Imperium",
+      "Officio Assassinorum",
+      "Culexus Assassin"
+    ],
+    "faction_keywords": [
+      "Agents of the Imperium"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "animus-speculum",
+      "life-draining-touch"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "vigilant-squad",
+    "name": "Vigilant Squad",
+    "faction_id": "agents-of-the-imperium",
+    "role": "battleline",
+    "profiles": [
+      {
+        "name": "Cyber-mastiff",
+        "M": 6,
+        "T": 3,
+        "W": 1,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 11,
+        "cost": 85
+      },
+      {
+        "models": 11,
+        "cost": 85
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Battleline",
+      "Grenades",
+      "Imperium",
+      "Retinue",
+      "Adeptus Arbites",
+      "Vigilant Squad"
+    ],
+    "faction_keywords": [
+      "Agents of the Imperium"
+    ],
+    "model_count": {
+      "min": 11,
+      "max": 11
+    },
+    "weapon_ids": [
+      "arbites-combat-shotgun",
+      "arbites-grenade-launcher",
+      "arbites-shotpistol",
+      "close-combat-weapon",
+      "executioner-shotgun",
+      "heavy-stubber",
+      "mechanical-bite",
+      "webber"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "subductor-squad",
+    "name": "Subductor Squad",
+    "faction_id": "agents-of-the-imperium",
+    "profiles": [
+      {
+        "name": "Cyber-mastiff",
+        "M": 6,
+        "T": 3,
+        "W": 1,
+        "Sv": 3,
+        "invuln_sv": 4,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 11,
+        "cost": 100
+      },
+      {
+        "models": 11,
+        "cost": 85
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Grenades",
+      "Imperium",
+      "Retinue",
+      "Adeptus Arbites",
+      "Subductor Squad"
+    ],
+    "faction_keywords": [
+      "Agents of the Imperium"
+    ],
+    "model_count": {
+      "min": 11,
+      "max": 11
+    },
+    "weapon_ids": [
+      "arbites-shotpistol",
+      "mechanical-bite",
+      "shock-maul"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "navigator",
+    "name": "Navigator",
+    "faction_id": "agents-of-the-imperium",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Navigator",
+        "M": 6,
+        "T": 3,
+        "W": 3,
+        "Sv": 5,
+        "invuln_sv": 4,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 75
+      },
+      {
+        "models": 1,
+        "cost": 60
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Psyker",
+      "Imperium",
+      "Voidfarers",
+      "Navigator"
+    ],
+    "faction_keywords": [
+      "Agents of the Imperium"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "force-orb-cane",
+      "laspistol"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "inquisitor-draxus",
+    "name": "Inquisitor Draxus",
+    "faction_id": "agents-of-the-imperium",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Inquisitor Draxus",
+        "M": 6,
+        "T": 3,
+        "W": 4,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 110
+      },
+      {
+        "models": 1,
+        "cost": 75
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Epic Hero",
+      "Psyker",
+      "Grenades",
+      "Imperium",
+      "Ordo Xenos",
+      "Inquisitor",
+      "Draxus"
+    ],
+    "faction_keywords": [
+      "Agents of the Imperium"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "dirgesinger",
+      "power-fist",
+      "psychic-tempest"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "watch-master",
+    "name": "Watch Master",
+    "faction_id": "agents-of-the-imperium",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Watch Master",
+        "M": 6,
+        "T": 4,
+        "W": 5,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 105
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Grenades",
+      "Imperium",
+      "Ordo Xenos",
+      "Deathwatch",
+      "Watch Master"
+    ],
+    "faction_keywords": [
+      "Agents of the Imperium"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "vigil-spear"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "inquisitor-coteaz",
+    "name": "Inquisitor Coteaz",
+    "faction_id": "agents-of-the-imperium",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Inquisitor Coteaz",
+        "M": 6,
+        "T": 3,
+        "W": 4,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 95
+      },
+      {
+        "models": 1,
+        "cost": 75
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Epic Hero",
+      "Psyker",
+      "Imperium",
+      "Ordo Malleus",
+      "Inquisitor",
+      "Coteaz"
+    ],
+    "faction_keywords": [
+      "Agents of the Imperium"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "bolt-pistol",
+      "nemesis-daemon-hammer",
+      "psychic-blast"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "sisters-of-battle-squad",
+    "name": "Sisters of Battle Squad",
+    "faction_id": "agents-of-the-imperium",
+    "profiles": [
+      {
+        "name": "Battle Sister",
+        "M": 6,
+        "T": 3,
+        "W": 1,
+        "Sv": 3,
+        "invuln_sv": 6,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 10,
+        "cost": 115
+      },
+      {
+        "models": 10,
+        "cost": 100
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Grenades",
+      "Imperium",
+      "Ordo Hereticus",
+      "Requisitioned",
+      "Sisters of Battle Squad"
+    ],
+    "faction_keywords": [
+      "Agents of the Imperium"
+    ],
+    "model_count": {
+      "min": 10,
+      "max": 10
+    },
+    "weapon_ids": [
+      "artificer-crafted-storm-bolter",
+      "bolt-pistol",
+      "boltgun",
+      "chainsword",
+      "close-combat-weapon",
+      "combi-weapon",
+      "condemnor-boltgun",
+      "heavy-bolter",
+      "inferno-pistol",
+      "meltagun",
+      "ministorum-flamer",
+      "ministorum-hand-flamer",
+      "ministorum-heavy-flamer",
+      "multi-melta",
+      "plasma-pistol",
+      "power-weapon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "corvus-blackstar",
+    "name": "Corvus Blackstar",
+    "faction_id": "agents-of-the-imperium",
+    "profiles": [
+      {
+        "name": "Corvus Blackstar",
+        "M": 20,
+        "T": 10,
+        "W": 14,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 0
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 180
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Aircraft",
+      "Fly",
+      "Transport",
+      "Imperium",
+      "Ordo Xenos",
+      "Retinue",
+      "Deathwatch",
+      "Corvus Blackstar"
+    ],
+    "faction_keywords": [
+      "Agents of the Imperium"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-hull",
+      "blackstar-rocket-launcher",
+      "hurricane-bolter",
+      "stormstrike-missile-launcher",
+      "twin-assault-cannon",
+      "twin-lascannon"
+    ],
+    "ability_ids": [],
+    "transport_capacity": {
+      "capacity": 12
+    },
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "ministorum-priest",
+    "name": "Ministorum Priest",
+    "faction_id": "agents-of-the-imperium",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Ministorum Priest",
+        "M": 6,
+        "T": 3,
+        "W": 3,
+        "Sv": 6,
+        "invuln_sv": 4,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 40
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Imperium",
+      "Ordo Hereticus",
+      "Ministorum Priest"
+    ],
+    "faction_keywords": [
+      "Agents of the Imperium"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "holy-pistol",
+      "power-weapon",
+      "zealots-vindictor"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "rogue-trader-entourage",
+    "name": "Rogue Trader Entourage",
+    "faction_id": "agents-of-the-imperium",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Rogue Trader",
+        "M": 6,
+        "T": 3,
+        "W": 4,
+        "Sv": 4,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      },
+      {
+        "name": "Rejuvenat Adept",
+        "M": 6,
+        "T": 3,
+        "W": 2,
+        "Sv": 4,
+        "invuln_sv": 4,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 4,
+        "cost": 105
+      },
+      {
+        "models": 4,
+        "cost": 75
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Grenades",
+      "Imperium",
+      "Voidfarers",
+      "Rogue Trader Entourage",
+      "Character"
+    ],
+    "faction_keywords": [
+      "Agents of the Imperium"
+    ],
+    "model_count": {
+      "min": 4,
+      "max": 4
+    },
+    "weapon_ids": [
+      "close-combat-weapon",
+      "dartmask",
+      "death-cult-power-blade",
+      "household-pistol",
+      "laspistol",
+      "monomolecular-cane-rapier",
+      "voltaic-pistol"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "inquisitor-in-terminator-armour",
+    "name": "Inquisitor In Terminator Armour",
+    "faction_id": "agents-of-the-imperium",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Inquisitor In Terminator Armour",
+        "M": 5,
+        "T": 4,
+        "W": 5,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Character",
+      "Grenades",
+      "Imperium",
+      "Infantry",
+      "Inquisitor",
+      "Terminator"
+    ],
+    "faction_keywords": [
+      "Agents of the Imperium"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "close-combat-weapon",
+      "combi-weapon",
+      "force-weapon",
+      "inquisitorial-melee-weapon",
+      "psycannon",
+      "psychic-shock-wave",
+      "storm-bolter"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "damned-legionnaires",
+    "name": "Damned Legionnaires",
+    "faction_id": "agents-of-the-imperium",
+    "profiles": [
+      {
+        "name": "Damned Legionnaires",
+        "M": 5,
+        "T": 4,
+        "W": 2,
+        "Sv": 3,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Damned Legionnaires",
+      "Grenades",
+      "Imperium",
+      "Infantry",
+      "Retinue"
+    ],
+    "faction_keywords": [
+      "Agents of the Imperium"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "astartes-chainsword",
+      "bolt-pistol",
+      "boltgun",
+      "close-combat-weapon",
+      "flamer",
+      "heavy-flamer",
+      "meltagun",
+      "multi-melta",
+      "plasma-gun",
+      "plasma-pistol",
+      "power-weapon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "janus-draik",
+    "name": "Janus Draik",
+    "faction_id": "agents-of-the-imperium",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Janus Draik",
+        "M": 6,
+        "T": 3,
+        "W": 4,
+        "Sv": 4,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Character",
+      "Epic Hero",
+      "Grenades",
+      "Imperium",
+      "Infantry",
+      "Janus Draik",
+      "Navis Imperialis"
+    ],
+    "faction_keywords": [
+      "Agents of the Imperium"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "heirloom-pistol",
+      "monomolecular-rapier"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "neyam-shai-murad",
+    "name": "Neyam Shai Murad",
+    "faction_id": "agents-of-the-imperium",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Neyam Shai Murad",
+        "M": 6,
+        "T": 3,
+        "W": 4,
+        "Sv": 4,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Character",
+      "Epic Hero",
+      "Grenades",
+      "Imperium",
+      "Infantry",
+      "Navis Imperialis",
+      "Neyam Shai Murad"
+    ],
+    "faction_keywords": [
+      "Agents of the Imperium"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "close-combat-weapon",
+      "negotiator-pistol"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "espern-locarno",
+    "name": "Espern Locarno",
+    "faction_id": "agents-of-the-imperium",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Espern Locarno",
+        "M": 6,
+        "T": 3,
+        "W": 3,
+        "Sv": 5,
+        "invuln_sv": 4,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Character",
+      "Epic Hero",
+      "Espern Locarno",
+      "Imperium",
+      "Infantry",
+      "Navis Imperialis",
+      "Psyker"
+    ],
+    "faction_keywords": [
+      "Agents of the Imperium"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "force-orb-cane",
+      "laspistol"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "ur-025",
+    "name": "Ur-025",
+    "faction_id": "agents-of-the-imperium",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Ur-025",
+        "M": 5,
+        "T": 5,
+        "W": 4,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Character",
+      "Epic Hero",
+      "Imperium",
+      "Infantry",
+      "UR-025"
+    ],
+    "faction_keywords": [
+      "Agents of the Imperium"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "mk-1-assault-weapon",
+      "power-claw"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  }
+]

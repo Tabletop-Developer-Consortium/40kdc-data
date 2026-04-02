@@ -28,7 +28,9 @@ export function parseStratagemType(typeStr: string): {
   detachmentName: string;
 } {
   // Format: "Berzerker Warband - Battle Tactic Stratagem"
-  const match = typeStr.match(/^(.+?)\s*-\s*(.+?)\s*Stratagem$/i);
+  // Require spaces around the separator to avoid splitting on internal hyphens
+  // (e.g., "Spearhead-at-Arms" has hyphens but the delimiter is " - ")
+  const match = typeStr.match(/^(.+)\s+-\s+(.+?)\s*Stratagem$/i);
   if (!match) {
     throw new Error(`Cannot parse stratagem type: "${typeStr}"`);
   }

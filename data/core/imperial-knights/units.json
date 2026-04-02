@@ -1,0 +1,1173 @@
+[
+  {
+    "id": "acastus-knight-asterius",
+    "name": "Acastus Knight Asterius",
+    "faction_id": "imperial-knights",
+    "profiles": [
+      {
+        "name": "Acastus Knight Asterius",
+        "M": 8,
+        "T": 13,
+        "W": 30,
+        "Sv": 2,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 10
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 765
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Titanic",
+      "Towering",
+      "Acastus",
+      "Imperium",
+      "Knight Asterius"
+    ],
+    "faction_keywords": [
+      "Imperial Knights"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "asterius-volkite-culverin",
+      "karacnos-mortar-battery",
+      "titanic-feet",
+      "twin-conversion-beam-cannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "knight-defender",
+    "name": "Knight Defender",
+    "faction_id": "imperial-knights",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Knight Defender",
+        "M": 10,
+        "T": 11,
+        "W": 26,
+        "Sv": 3,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 10
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 415
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Titanic",
+      "Towering",
+      "Questoris",
+      "Character",
+      "Imperium",
+      "Knight Defender"
+    ],
+    "faction_keywords": [
+      "Imperial Knights"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "conversion-beam-obliterator",
+      "phosphor-blaster",
+      "plasma-executor",
+      "titanic-feet",
+      "twin-incendine-combustor"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "cerastus-knight-acheron",
+    "name": "Cerastus Knight Acheron",
+    "faction_id": "imperial-knights",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Cerastus Knight Acheron",
+        "M": 12,
+        "T": 11,
+        "W": 28,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 10
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 395
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Character",
+      "Titanic",
+      "Towering",
+      "Imperium",
+      "Cerastus",
+      "Knight Acheron"
+    ],
+    "faction_keywords": [
+      "Imperial Knights"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "acheron-flame-cannon",
+      "reaper-chainfist",
+      "twin-heavy-bolter"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "acastus-knight-porphyrion",
+    "name": "Acastus Knight Porphyrion",
+    "faction_id": "imperial-knights",
+    "profiles": [
+      {
+        "name": "Acastus Knight Porphyrion",
+        "M": 8,
+        "T": 13,
+        "W": 30,
+        "Sv": 2,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 10
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 700
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Titanic",
+      "Towering",
+      "Imperium",
+      "Acastus",
+      "Knight Porphyrion"
+    ],
+    "faction_keywords": [
+      "Imperial Knights"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "acastus-autocannon",
+      "acastus-ironstorm-missile-pod",
+      "helios-defence-missiles",
+      "lascannon",
+      "titanic-feet",
+      "twin-magna-lascannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "cerastus-knight-castigator",
+    "name": "Cerastus Knight Castigator",
+    "faction_id": "imperial-knights",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Cerastus Knight Castigator",
+        "M": 12,
+        "T": 11,
+        "W": 28,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 10
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 395
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Character",
+      "Titanic",
+      "Towering",
+      "Imperium",
+      "Cerastus",
+      "Knight Castigator"
+    ],
+    "faction_keywords": [
+      "Imperial Knights"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "castigator-bolt-cannon",
+      "tempest-warblade"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "knight-paladin",
+    "name": "Knight Paladin",
+    "faction_id": "imperial-knights",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Knight Paladin",
+        "M": 10,
+        "T": 11,
+        "W": 26,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 10
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 375
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Titanic",
+      "Towering",
+      "Questoris",
+      "Character",
+      "Imperium",
+      "Knight Paladin"
+    ],
+    "faction_keywords": [
+      "Imperial Knights"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "ironstorm-missile-pod",
+      "meltagun",
+      "questoris-heavy-stubber",
+      "rapid-fire-battle-cannon",
+      "reaper-chainsword",
+      "stormspear-rocket-pod",
+      "thunderstrike-gauntlet",
+      "twin-icarus-autocannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "knight-errant",
+    "name": "Knight Errant",
+    "faction_id": "imperial-knights",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Knight Errant",
+        "M": 10,
+        "T": 11,
+        "W": 26,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 10
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 355
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Titanic",
+      "Towering",
+      "Questoris",
+      "Character",
+      "Imperium",
+      "Knight Errant"
+    ],
+    "faction_keywords": [
+      "Imperial Knights"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "ironstorm-missile-pod",
+      "meltagun",
+      "questoris-heavy-stubber",
+      "reaper-chainsword",
+      "stormspear-rocket-pod",
+      "thermal-cannon",
+      "thunderstrike-gauntlet",
+      "twin-icarus-autocannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "knight-crusader",
+    "name": "Knight Crusader",
+    "faction_id": "imperial-knights",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Knight Crusader",
+        "M": 10,
+        "T": 11,
+        "W": 26,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 10
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 385
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Titanic",
+      "Towering",
+      "Questoris",
+      "Character",
+      "Imperium",
+      "Knight Crusader"
+    ],
+    "faction_keywords": [
+      "Imperial Knights"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "avenger-gatling-cannon",
+      "heavy-flamer",
+      "ironstorm-missile-pod",
+      "meltagun",
+      "questoris-heavy-stubber",
+      "rapid-fire-battle-cannon",
+      "stormspear-rocket-pod",
+      "thermal-cannon",
+      "titanic-feet",
+      "twin-icarus-autocannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "knight-warden",
+    "name": "Knight Warden",
+    "faction_id": "imperial-knights",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Knight Warden",
+        "M": 10,
+        "T": 11,
+        "W": 26,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 10
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 375
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Titanic",
+      "Towering",
+      "Questoris",
+      "Character",
+      "Imperium",
+      "Knight Warden"
+    ],
+    "faction_keywords": [
+      "Imperial Knights"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "avenger-gatling-cannon",
+      "heavy-flamer",
+      "ironstorm-missile-pod",
+      "meltagun",
+      "questoris-heavy-stubber",
+      "reaper-chainsword",
+      "stormspear-rocket-pod",
+      "thunderstrike-gauntlet",
+      "twin-icarus-autocannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "knight-preceptor",
+    "name": "Knight Preceptor",
+    "faction_id": "imperial-knights",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Knight Preceptor",
+        "M": 10,
+        "T": 11,
+        "W": 26,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 10
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 365
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Titanic",
+      "Towering",
+      "Questoris",
+      "Character",
+      "Imperium",
+      "Knight Preceptor"
+    ],
+    "faction_keywords": [
+      "Imperial Knights"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "ironstorm-missile-pod",
+      "las-impulsor",
+      "meltagun",
+      "questoris-heavy-stubber",
+      "questoris-multi-laser",
+      "reaper-chainsword",
+      "stormspear-rocket-pod",
+      "thunderstrike-gauntlet",
+      "twin-icarus-autocannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "cerastus-knight-lancer",
+    "name": "Cerastus Knight Lancer",
+    "faction_id": "imperial-knights",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Cerastus Knight Lancer",
+        "M": 14,
+        "T": 11,
+        "W": 28,
+        "Sv": 3,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 10
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 395
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Character",
+      "Titanic",
+      "Towering",
+      "Imperium",
+      "Cerastus",
+      "Knight Lancer"
+    ],
+    "faction_keywords": [
+      "Imperial Knights"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "cerastus-shock-lance"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "armiger-moirax",
+    "name": "Armiger Moirax",
+    "faction_id": "imperial-knights",
+    "profiles": [
+      {
+        "name": "Armiger Moirax",
+        "M": 12,
+        "T": 9,
+        "W": 14,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 6
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 150
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Imperium",
+      "Armiger",
+      "Moirax"
+    ],
+    "faction_keywords": [
+      "Imperial Knights"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-feet",
+      "conversion-beam-cannon",
+      "graviton-pulsar",
+      "lightning-lock",
+      "rad-cleanser",
+      "siege-claw",
+      "volkite-veuglaire"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "knight-gallant",
+    "name": "Knight Gallant",
+    "faction_id": "imperial-knights",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Knight Gallant",
+        "M": 12,
+        "T": 11,
+        "W": 26,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 10
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 355
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Titanic",
+      "Towering",
+      "Questoris",
+      "Character",
+      "Imperium",
+      "Knight Gallant"
+    ],
+    "faction_keywords": [
+      "Imperial Knights"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "ironstorm-missile-pod",
+      "meltagun",
+      "questoris-heavy-stubber",
+      "reaper-chainsword",
+      "stormspear-rocket-pod",
+      "thunderstrike-gauntlet",
+      "twin-icarus-autocannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "armiger-warglaive",
+    "name": "Armiger Warglaive",
+    "faction_id": "imperial-knights",
+    "profiles": [
+      {
+        "name": "Armiger Warglaive",
+        "M": 12,
+        "T": 9,
+        "W": 14,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 6
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 140
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Imperium",
+      "Armiger",
+      "Warglaive"
+    ],
+    "faction_keywords": [
+      "Imperial Knights"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "meltagun",
+      "questoris-heavy-stubber",
+      "reaper-chain-cleaver",
+      "thermal-spear"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "knight-valiant",
+    "name": "Knight Valiant",
+    "faction_id": "imperial-knights",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Knight Valiant",
+        "M": 8,
+        "T": 12,
+        "W": 28,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 10
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 410
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Titanic",
+      "Towering",
+      "Dominus",
+      "Character",
+      "Imperium",
+      "Knight Valiant"
+    ],
+    "faction_keywords": [
+      "Imperial Knights"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "conflagration-cannon",
+      "shieldbreaker-missile-launcher",
+      "thundercoil-harpoon",
+      "titanic-feet",
+      "twin-meltagun",
+      "twin-siegebreaker-cannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "sir-hekhtur",
+    "name": "Sir Hekhtur",
+    "faction_id": "imperial-knights",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Sir Hekhtur",
+        "M": 6,
+        "T": 3,
+        "W": 3,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 5,
+        "OC": 1
+      }
+    ],
+    "points": [],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Epic Hero",
+      "Imperium",
+      "Sir Hekhtur"
+    ],
+    "faction_keywords": [
+      "Imperial Knights"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "close-combat-weapon",
+      "hekhturs-pistol"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "canis-rex",
+    "name": "Canis Rex",
+    "faction_id": "imperial-knights",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Canis Rex",
+        "M": 10,
+        "T": 11,
+        "W": 26,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 10
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 415
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Titanic",
+      "Towering",
+      "Questoris",
+      "Character",
+      "Epic Hero",
+      "Imperium",
+      "Canis Rex"
+    ],
+    "faction_keywords": [
+      "Imperial Knights"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "chainbreaker-multi-laser",
+      "freedoms-hand",
+      "las-impulsor"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "knight-castellan",
+    "name": "Knight Castellan",
+    "faction_id": "imperial-knights",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Knight Castellan",
+        "M": 8,
+        "T": 12,
+        "W": 28,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 10
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 410
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Titanic",
+      "Towering",
+      "Dominus",
+      "Character",
+      "Imperium",
+      "Knight Castellan"
+    ],
+    "faction_keywords": [
+      "Imperial Knights"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "plasma-decimator",
+      "shieldbreaker-missile-launcher",
+      "titanic-feet",
+      "twin-meltagun",
+      "twin-siegebreaker-cannon",
+      "volcano-lance"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "armiger-helverin",
+    "name": "Armiger Helverin",
+    "faction_id": "imperial-knights",
+    "profiles": [
+      {
+        "name": "Armiger Helverin",
+        "M": 12,
+        "T": 9,
+        "W": 14,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 6
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 135
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Imperium",
+      "Armiger",
+      "Helverin"
+    ],
+    "faction_keywords": [
+      "Imperial Knights"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armiger-autocannon",
+      "armoured-feet",
+      "meltagun",
+      "questoris-heavy-stubber"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "questoris-knight-magaera",
+    "name": "Questoris Knight Magaera",
+    "faction_id": "imperial-knights",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Questoris Knight Magaera",
+        "M": 10,
+        "T": 11,
+        "W": 26,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 10
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 385
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Character",
+      "Titanic",
+      "Towering",
+      "Imperium",
+      "Questoris",
+      "Knight Magaera"
+    ],
+    "faction_keywords": [
+      "Imperial Knights"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "hekaton-siege-claw",
+      "lightning-cannon",
+      "phased-plasma-fusil",
+      "reaper-chainsword",
+      "twin-rad-cleanser"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "questoris-knight-styrix",
+    "name": "Questoris Knight Styrix",
+    "faction_id": "imperial-knights",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Questoris Knight Styrix",
+        "M": 10,
+        "T": 11,
+        "W": 26,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 10
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 385
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Character",
+      "Titanic",
+      "Towering",
+      "Imperium",
+      "Questoris",
+      "Knight Styrix"
+    ],
+    "faction_keywords": [
+      "Imperial Knights"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "graviton-crusher",
+      "hekaton-siege-claw",
+      "reaper-chainsword",
+      "twin-rad-cleanser",
+      "volkite-chierovile"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "cerastus-knight-atrapos",
+    "name": "Cerastus Knight Atrapos",
+    "faction_id": "imperial-knights",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Cerastus Knight Atrapos",
+        "M": 12,
+        "T": 11,
+        "W": 28,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 10
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 405
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Character",
+      "Titanic",
+      "Towering",
+      "Imperium",
+      "Cerastus",
+      "Knight Atrapos"
+    ],
+    "faction_keywords": [
+      "Imperial Knights"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "atrapos-lascutter",
+      "graviton-singularity-cannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  }
+]

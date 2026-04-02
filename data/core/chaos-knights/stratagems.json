@@ -1,0 +1,597 @@
+[
+  {
+    "id": "soul-hunger",
+    "name": "SOUL HUNGER",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "iconoclast-fiefdom",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "profane-symbiosis",
+    "name": "PROFANE SYMBIOSIS",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "infernal-lance",
+    "cp_cost": 1,
+    "phases": [
+      "command",
+      "movement",
+      "shooting",
+      "charge",
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "hellforged-construction",
+    "name": "HELLFORGED CONSTRUCTION",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "infernal-lance",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "hungry-for-combat",
+    "name": "HUNGRY FOR COMBAT",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "houndpack-lance",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "animalistic-rage",
+    "name": "ANIMALISTIC RAGE",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "houndpack-lance",
+    "cp_cost": 1,
+    "phases": [
+      "fight",
+      "shooting"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "conquerors-without-mercy",
+    "name": "CONQUERORS WITHOUT MERCY",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "traitoris-lance",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "wretched-masses",
+    "name": "WRETCHED MASSES",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "iconoclast-fiefdom",
+    "cp_cost": 2,
+    "phases": [
+      "command",
+      "movement",
+      "shooting",
+      "charge",
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "vox-howl",
+    "name": "VOX-HOWL",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "houndpack-lance",
+    "cp_cost": 2,
+    "phases": [
+      "fight",
+      "shooting"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "claimed-for-the-dark-gods",
+    "name": "CLAIMED FOR THE DARK GODS",
+    "category": "detachment",
+    "type": "epic-deed",
+    "detachment_id": "lords-of-dread",
+    "cp_cost": 1,
+    "phases": [
+      "command"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "spiteful-demise",
+    "name": "SPITEFUL DEMISE",
+    "category": "detachment",
+    "type": "epic-deed",
+    "detachment_id": "lords-of-dread",
+    "cp_cost": 1,
+    "phases": [
+      "command",
+      "movement",
+      "shooting",
+      "charge",
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "titanic-duel",
+    "name": "TITANIC DUEL",
+    "category": "detachment",
+    "type": "epic-deed",
+    "detachment_id": "lords-of-dread",
+    "cp_cost": 1,
+    "phases": [
+      "fight",
+      "shooting"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "trophy-hunter",
+    "name": "TROPHY HUNTER",
+    "category": "detachment",
+    "type": "epic-deed",
+    "detachment_id": "lords-of-dread",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "crushed-like-vermin",
+    "name": "CRUSHED LIKE VERMIN",
+    "category": "detachment",
+    "type": "epic-deed",
+    "detachment_id": "lords-of-dread",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "corrupting-taint",
+    "name": "CORRUPTING TAINT",
+    "category": "detachment",
+    "type": "epic-deed",
+    "detachment_id": "infernal-lance",
+    "cp_cost": 1,
+    "phases": [
+      "command"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "imperious-advance",
+    "name": "IMPERIOUS ADVANCE",
+    "category": "detachment",
+    "type": "epic-deed",
+    "detachment_id": "traitoris-lance",
+    "cp_cost": 1,
+    "phases": [
+      "charge",
+      "movement"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "runes-of-disdain",
+    "name": "RUNES OF DISDAIN",
+    "category": "detachment",
+    "type": "epic-deed",
+    "detachment_id": "lords-of-dread",
+    "cp_cost": 2,
+    "phases": [
+      "fight",
+      "shooting"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "unrestrained-rage",
+    "name": "UNRESTRAINED RAGE",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "iconoclast-fiefdom",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "worthless-chattel",
+    "name": "WORTHLESS CHATTEL",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "iconoclast-fiefdom",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "preserve-the-idols",
+    "name": "PRESERVE THE IDOLS",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "iconoclast-fiefdom",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "avenge-the-masters",
+    "name": "AVENGE THE MASTERS!",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "iconoclast-fiefdom",
+    "cp_cost": 1,
+    "phases": [
+      "command",
+      "movement",
+      "shooting",
+      "charge",
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "cunning-hunter",
+    "name": "CUNNING HUNTER",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "houndpack-lance",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "harrying-hounds",
+    "name": "HARRYING HOUNDS",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "houndpack-lance",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "encircling-pack",
+    "name": "ENCIRCLING PACK",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "houndpack-lance",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "disdain-for-the-weak",
+    "name": "DISDAIN FOR THE WEAK",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "traitoris-lance",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "a-long-leash",
+    "name": "A LONG LEASH",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "traitoris-lance",
+    "cp_cost": 1,
+    "phases": [
+      "command"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "storm-of-darkness",
+    "name": "STORM OF DARKNESS",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "traitoris-lance",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "unleash-balefire",
+    "name": "UNLEASH BALEFIRE",
+    "category": "detachment",
+    "type": "wargear",
+    "detachment_id": "infernal-lance",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "warp-vision",
+    "name": "WARP VISION",
+    "category": "detachment",
+    "type": "wargear",
+    "detachment_id": "infernal-lance",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "diabolic-bulwark",
+    "name": "DIABOLIC BULWARK",
+    "category": "detachment",
+    "type": "wargear",
+    "detachment_id": "infernal-lance",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "pterrorshades",
+    "name": "PTERRORSHADES",
+    "category": "detachment",
+    "type": "wargear",
+    "detachment_id": "traitoris-lance",
+    "cp_cost": 1,
+    "phases": [
+      "command",
+      "movement",
+      "shooting",
+      "charge",
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  }
+]

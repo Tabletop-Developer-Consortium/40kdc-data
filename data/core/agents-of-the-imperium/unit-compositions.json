@@ -1,0 +1,728 @@
+[
+  {
+    "unit_id": "sanctifiers",
+    "models": [
+      {
+        "name": "Missionary",
+        "profile_name": "Missionary",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "holy-fire",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Miraculist",
+        "min": 2,
+        "max": 2,
+        "default_weapon_ids": [
+          "ministorum-hand-flamer",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": false
+      },
+      {
+        "name": "Salvationist",
+        "min": 2,
+        "max": 2,
+        "default_weapon_ids": [
+          "ministorum-flamer",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": false
+      },
+      {
+        "name": "Death Cult Assassin",
+        "min": 2,
+        "max": 2,
+        "default_weapon_ids": [
+          "death-cult-blades"
+        ],
+        "is_leader_model": false
+      },
+      {
+        "name": "Sanctifier",
+        "min": 2,
+        "max": 2,
+        "default_weapon_ids": [
+          "sanctifier-melee-weapon"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "watch-captain-artemis",
+    "models": [
+      {
+        "name": "Watch Captain Artemis",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "inquisitorial-chimera",
+    "models": [
+      {
+        "name": "Inquisitorial Chimera",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "callidus-assassin",
+    "models": [
+      {
+        "name": "Callidus Assassin",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "inquisitor-greyfax",
+    "models": [
+      {
+        "name": "Inquisitor Greyfax",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "sisters-of-battle-immolator",
+    "models": [
+      {
+        "name": "Sisters of Battle Immolator",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "inquisitorial-agents",
+    "models": [
+      {
+        "name": "Inquisitorial Agent",
+        "min": 6,
+        "max": 12,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "inquisitor",
+    "models": [
+      {
+        "name": "Inquisitor",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "grey-knights-terminator-squad",
+    "models": [
+      {
+        "name": "Grey Knights Terminators",
+        "min": 5,
+        "max": 5,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "voidsmen-at-arms",
+    "models": [
+      {
+        "name": "Voidmaster",
+        "profile_name": "Canid",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "laspistol",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Voidsman",
+        "profile_name": "Canid",
+        "min": 4,
+        "max": 4,
+        "default_weapon_ids": [
+          "lasgun",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": false
+      },
+      {
+        "name": "Canid",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "close-combat-weapon"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "deathwatch-kill-team",
+    "models": [
+      {
+        "name": "Watch Sergeant",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "boltgun",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Deathwatch Veteran",
+        "profile_name": "Deathwatch Veterans",
+        "min": 4,
+        "max": 9,
+        "default_weapon_ids": [
+          "boltgun",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "eversor-assassin",
+    "models": [
+      {
+        "name": "Eversor Assassin",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "imperial-rhino",
+    "models": [
+      {
+        "name": "Imperial Rhino",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "aquila-kill-team",
+    "models": [
+      {
+        "name": "Watch Sergeant",
+        "profile_name": "Deathwatch Veteran",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "boltgun",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Deathwatch Veteran",
+        "min": 2,
+        "max": 7,
+        "default_weapon_ids": [
+          "boltgun",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": false
+      },
+      {
+        "name": "Gravis Veteran",
+        "min": 2,
+        "max": 2,
+        "default_weapon_ids": [
+          "bolt-rifle",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "vindicare-assassin",
+    "models": [
+      {
+        "name": "Vindicare Assassin",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "exaction-squad",
+    "models": [
+      {
+        "name": "Proctor-Exactant",
+        "profile_name": "Cyber-mastiff",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "arbites-shotpistol",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Exaction Vigilant",
+        "profile_name": "Cyber-mastiff",
+        "min": 9,
+        "max": 9,
+        "default_weapon_ids": [
+          "arbites-combat-shotgun",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": false
+      },
+      {
+        "name": "Cyber-mastiff",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "mechanical-bite"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "imperial-navy-breachers",
+    "models": [
+      {
+        "name": "Navis Armsman",
+        "min": 10,
+        "max": 10,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "culexus-assassin",
+    "models": [
+      {
+        "name": "Culexus Assassin",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "vigilant-squad",
+    "models": [
+      {
+        "name": "Vigilant Proctor",
+        "profile_name": "Cyber-mastiff",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "arbites-shotpistol",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Vigilant",
+        "profile_name": "Cyber-mastiff",
+        "min": 9,
+        "max": 9,
+        "default_weapon_ids": [
+          "arbites-combat-shotgun",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": false
+      },
+      {
+        "name": "Cyber-mastiff",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "mechanical-bite"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "subductor-squad",
+    "models": [
+      {
+        "name": "Subductor Proctor",
+        "profile_name": "Cyber-mastiff",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "arbites-shotpistol",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Subductor",
+        "profile_name": "Cyber-mastiff",
+        "min": 9,
+        "max": 9,
+        "default_weapon_ids": [
+          "arbites-shotpistol",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": false
+      },
+      {
+        "name": "Cyber-mastiff",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "mechanical-bite"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "navigator",
+    "models": [
+      {
+        "name": "Navigator",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "inquisitor-draxus",
+    "models": [
+      {
+        "name": "Inquisitor Draxus",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "watch-master",
+    "models": [
+      {
+        "name": "Watch Master",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "inquisitor-coteaz",
+    "models": [
+      {
+        "name": "Inquisitor Coteaz",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "sisters-of-battle-squad",
+    "models": [
+      {
+        "name": "Battle Sister",
+        "min": 10,
+        "max": 10,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "corvus-blackstar",
+    "models": [
+      {
+        "name": "Corvus Blackstar",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "ministorum-priest",
+    "models": [
+      {
+        "name": "Ministorum Priest",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "rogue-trader-entourage",
+    "models": [
+      {
+        "name": "Rogue Trader",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "dartmask",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Rejuvenat Adept",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "close-combat-weapon"
+        ],
+        "is_leader_model": false
+      },
+      {
+        "name": "Canid",
+        "profile_name": "Rejuvenat Adept",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "close-combat-weapon"
+        ],
+        "is_leader_model": false
+      },
+      {
+        "name": "Lectro-Maester",
+        "profile_name": "Rejuvenat Adept",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "close-combat-weapon"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "inquisitor-in-terminator-armour",
+    "models": [
+      {
+        "name": "Inquisitor In Terminator Armour",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "damned-legionnaires",
+    "models": [
+      {
+        "name": "Damned Legionnaires",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "janus-draik",
+    "models": [
+      {
+        "name": "Janus Draik",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "neyam-shai-murad",
+    "models": [
+      {
+        "name": "Neyam Shai Murad",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "espern-locarno",
+    "models": [
+      {
+        "name": "Espern Locarno",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "ur-025",
+    "models": [
+      {
+        "name": "Ur-025",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  }
+]

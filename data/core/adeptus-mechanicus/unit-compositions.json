@@ -1,0 +1,659 @@
+[
+  {
+    "unit_id": "archaeopter-stratoraptor",
+    "models": [
+      {
+        "name": "Archaeopter Stratoraptor",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "onager-dunecrawler",
+    "models": [
+      {
+        "name": "Onager Dunecrawler",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "kataphron-destroyers",
+    "models": [
+      {
+        "name": "Kataphron Destroyers",
+        "min": 3,
+        "max": 6,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "cybernetica-datasmith",
+    "models": [
+      {
+        "name": "Cybernetica Datasmith",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "ironstrider-ballistarii",
+    "models": [
+      {
+        "name": "Ironstrider Ballistarii",
+        "min": 1,
+        "max": 3,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "tech-priest-manipulus",
+    "models": [
+      {
+        "name": "Tech-Priest Manipulus",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "sydonian-dragoons-with-radium-jezzails",
+    "models": [
+      {
+        "name": "Sydonian Dragoons with Radium Jezzails",
+        "min": 1,
+        "max": 3,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "belisarius-cawl",
+    "models": [
+      {
+        "name": "Belisarius Cawl",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "servitor-battleclade",
+    "models": [
+      {
+        "name": "Servitor Underseer",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "mechanicus-pistol",
+          "dataspikes"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Combat Servitor",
+        "min": 8,
+        "max": 8,
+        "default_weapon_ids": [
+          "heavy-bolter",
+          "servo-claw"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "fulgurite-electro-priests",
+    "models": [
+      {
+        "name": "Fulgurite Electro-Priests",
+        "min": 5,
+        "max": 10,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "skorpius-disintegrator",
+    "models": [
+      {
+        "name": "Skorpius Disintegrator",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "sydonian-skatros",
+    "models": [
+      {
+        "name": "Sydonian Skatros",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "sicarian-infiltrators",
+    "models": [
+      {
+        "name": "Sicarian Princeps",
+        "profile_name": "Sicarian Infiltrator",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "stubcarbine",
+          "power-weapon"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Sicarian Infiltrator",
+        "min": 4,
+        "max": 9,
+        "default_weapon_ids": [
+          "stubcarbine",
+          "power-weapon"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "archaeopter-transvector",
+    "models": [
+      {
+        "name": "Archaeopter Transvector",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "skitarii-vanguard",
+    "models": [
+      {
+        "name": "Vanguard Alpha",
+        "profile_name": "Skitarii Vanguard",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "mechanicus-pistol",
+          "alpha-combat-weapon"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Skitarii Vanguard",
+        "min": 9,
+        "max": 9,
+        "default_weapon_ids": [
+          "radium-carbine",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "tech-priest-dominus",
+    "models": [
+      {
+        "name": "Tech-Priest Dominus",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "pteraxii-skystalkers",
+    "models": [
+      {
+        "name": "Pteraxii Alpha",
+        "profile_name": "Pteraxii Skystalker",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "flechette-blaster",
+          "taser-goad"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Pteraxii Skystalker",
+        "min": 4,
+        "max": 9,
+        "default_weapon_ids": [
+          "flechette-carbine",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "kataphron-breachers",
+    "models": [
+      {
+        "name": "Kataphron Breachers",
+        "min": 3,
+        "max": 6,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "sicarian-ruststalkers",
+    "models": [
+      {
+        "name": "Sicarian Princeps",
+        "profile_name": "Sicarian Ruststalker",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "transonic-blades-and-chordclaw"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Sicarian Ruststalker",
+        "min": 4,
+        "max": 9,
+        "default_weapon_ids": [
+          "transonic-blades-and-chordclaw"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "technoarcheologist",
+    "models": [
+      {
+        "name": "Technoarcheologist",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "corpuscarii-electro-priests",
+    "models": [
+      {
+        "name": "Corpuscarii Electro-Priests",
+        "min": 5,
+        "max": 10,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "serberys-raiders",
+    "models": [
+      {
+        "name": "Serberys Alpha",
+        "profile_name": "Serberys Raider",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "mechanicus-pistol",
+          "cavalry-sabre-and-clawed-limbs"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Serberys Raider",
+        "min": 2,
+        "max": 5,
+        "default_weapon_ids": [
+          "galvanic-carbine",
+          "cavalry-sabre-and-clawed-limbs"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "sydonian-dragoons-with-taser-lances",
+    "models": [
+      {
+        "name": "Sydonian Dragoons with Taser Lances",
+        "min": 1,
+        "max": 3,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "serberys-sulphurhounds",
+    "models": [
+      {
+        "name": "Serberys Alpha",
+        "profile_name": "Serberys Sulphurhound",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "mechanicus-pistol",
+          "cavalry-arc-maul"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Serberys Sulphurhound",
+        "min": 2,
+        "max": 5,
+        "default_weapon_ids": [
+          "sulphur-breath",
+          "clawed-limbs"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "tech-priest-enginseer",
+    "models": [
+      {
+        "name": "Tech-Priest Enginseer",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "skitarii-marshal",
+    "models": [
+      {
+        "name": "Skitarii Marshal",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "skorpius-dunerider",
+    "models": [
+      {
+        "name": "Skorpius Dunerider",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "kastelan-robots",
+    "models": [
+      {
+        "name": "Kastelan Robots",
+        "min": 2,
+        "max": 4,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "pteraxii-sterylizors",
+    "models": [
+      {
+        "name": "Pteraxii Alpha",
+        "profile_name": "Pteraxii Sterylizor",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "flechette-blaster",
+          "taser-goad"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Pteraxii Sterylizor",
+        "min": 4,
+        "max": 9,
+        "default_weapon_ids": [
+          "phosphor-torch",
+          "pteraxii-talons"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "archaeopter-fusilave",
+    "models": [
+      {
+        "name": "Archaeopter Fusilave",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "skitarii-rangers",
+    "models": [
+      {
+        "name": "Ranger Alpha",
+        "profile_name": "Skitarii Ranger",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "mechanicus-pistol",
+          "alpha-combat-weapon"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Skitarii Ranger",
+        "min": 9,
+        "max": 9,
+        "default_weapon_ids": [
+          "galvanic-rifle",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "terrax-pattern-termite",
+    "models": [
+      {
+        "name": "Terrax-pattern Termite",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "x-101",
+    "models": [
+      {
+        "name": "X-101",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "secutarii-hoplites",
+    "models": [
+      {
+        "name": "Secutarii Hoplites",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "secutarii-peltasts",
+    "models": [
+      {
+        "name": "Secutarii Peltasts",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  }
+]

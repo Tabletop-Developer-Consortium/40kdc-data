@@ -1,0 +1,117 @@
+[
+  {
+    "id": "furious-dedication",
+    "name": "FURIOUS DEDICATION",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "reclamation-force",
+    "cp_cost": 1,
+    "phases": [
+      "charge",
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "fight-to-the-end",
+    "name": "FIGHT TO THE END",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "reclamation-force",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "scions-of-guilliman",
+    "name": "SCIONS OF GUILLIMAN",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "reclamation-force",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "ultramarian-destiny",
+    "name": "ULTRAMARIAN DESTINY",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "reclamation-force",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "marching-ever-on",
+    "name": "MARCHING EVER ON",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "reclamation-force",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "crusading-conquerors",
+    "name": "CRUSADING CONQUERORS",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "reclamation-force",
+    "cp_cost": 1,
+    "phases": [
+      "command"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  }
+]

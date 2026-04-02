@@ -1,0 +1,811 @@
+[
+  {
+    "id": "wall-of-steel",
+    "name": "WALL OF STEEL",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "hearthfyre-arsenal",
+    "cp_cost": 1,
+    "phases": [
+      "charge"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "ranger-tactics",
+    "name": "RANGER TACTICS",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "persecution-prospect",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "frontier-momentum",
+    "name": "FRONTIER MOMENTUM",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "persecution-prospect",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "exposed-flaws",
+    "name": "EXPOSED FLAWS",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "persecution-prospect",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "honour-of-the-hold",
+    "name": "HONOUR OF THE HOLD",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "needgaard-oathband",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "ancestral-sentence",
+    "name": "ANCESTRAL SENTENCE",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "needgaard-oathband",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "huntrs-mark",
+    "name": "HUNTR’S MARK",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "needgaard-oathband",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "cyberstimm-infusion",
+    "name": "CYBERSTIMM INFUSION",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "delve-assault-shift",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "brekkeknots",
+    "name": "BRËKKEKNOTS",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "hearthband",
+    "cp_cost": 1,
+    "phases": [
+      "fight",
+      "shooting"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "fury-of-the-hearth",
+    "name": "FURY OF THE HEARTH",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "hearthband",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "bastion-running",
+    "name": "BASTION RUNNING",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "brandfast-oathband",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "unwavering-accuracy",
+    "name": "UNWAVERING ACCURACY",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "hearthfyre-arsenal",
+    "cp_cost": 2,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "superior-craftsmanship",
+    "name": "SUPERIOR CRAFTSMANSHIP",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "hearthband",
+    "cp_cost": 2,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "first-concern",
+    "name": "FIRST CONCERN",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "hearthfyre-arsenal",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "preventative-purge",
+    "name": "PREVENTATIVE PURGE",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "hearthfyre-arsenal",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "cogitated-need",
+    "name": "COGITATED NEED",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "hearthfyre-arsenal",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "claimstaker-reflex",
+    "name": "CLAIMSTAKER REFLEX",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "persecution-prospect",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "dispersed-formation",
+    "name": "DISPERSED FORMATION",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "persecution-prospect",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "adaptable-avarice",
+    "name": "ADAPTABLE AVARICE",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "persecution-prospect",
+    "cp_cost": 1,
+    "phases": [
+      "command",
+      "movement",
+      "shooting",
+      "charge",
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "ordered-retreat",
+    "name": "ORDERED RETREAT",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "needgaard-oathband",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "unstoppable-force",
+    "name": "UNSTOPPABLE FORCE",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "delve-assault-shift",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "augmented-assault",
+    "name": "AUGMENTED ASSAULT",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "delve-assault-shift",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "tectonic-fracture",
+    "name": "TECTONIC FRACTURE",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "delve-assault-shift",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "weavewerke-buttress",
+    "name": "WEAVEWËRKE BUTTRESS",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "delve-assault-shift",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "hidden-accessways",
+    "name": "HIDDEN ACCESSWAYS",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "delve-assault-shift",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "sure-of-purpose",
+    "name": "SURE OF PURPOSE",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "hearthband",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "unyielding-aggression",
+    "name": "UNYIELDING AGGRESSION",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "hearthband",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "materialisation-matrices",
+    "name": "MATERIALISATION MATRICES",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "hearthband",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "auxiliary-contract",
+    "name": "AUXILIARY CONTRACT",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "mercenary-oathband",
+    "cp_cost": 1,
+    "phases": [
+      "fight",
+      "shooting"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "grand-artifice",
+    "name": "GRAND ARTIFICE",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "mercenary-oathband",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "new-horizons",
+    "name": "NEW HORIZONS",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "mercenary-oathband",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "mobile-exploitation",
+    "name": "MOBILE EXPLOITATION",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "mercenary-oathband",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "secure-positions",
+    "name": "SECURE POSITIONS",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "brandfast-oathband",
+    "cp_cost": 1,
+    "phases": [
+      "charge",
+      "command",
+      "fight",
+      "movement",
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "inexorable-efficiency",
+    "name": "INEXORABLE EFFICIENCY",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "brandfast-oathband",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "opportunistic-escalation",
+    "name": "OPPORTUNISTIC ESCALATION",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "brandfast-oathband",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "reactive-reprisal",
+    "name": "REACTIVE REPRISAL",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "needgaard-oathband",
+    "cp_cost": 2,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "vengeance-flare",
+    "name": "VENGEANCE FLARE",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "brandfast-oathband",
+    "cp_cost": 2,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "delayed-fire-rounds",
+    "name": "DELAYED-FIRE ROUNDS",
+    "category": "detachment",
+    "type": "wargear",
+    "detachment_id": "hearthfyre-arsenal",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "void-hardened",
+    "name": "VOID HARDENED",
+    "category": "detachment",
+    "type": "wargear",
+    "detachment_id": "needgaard-oathband",
+    "cp_cost": 1,
+    "phases": [
+      "fight",
+      "shooting"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "optimal-expenditure",
+    "name": "OPTIMAL EXPENDITURE",
+    "category": "detachment",
+    "type": "wargear",
+    "detachment_id": "mercenary-oathband",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "privateer-arsenal",
+    "name": "PRIVATEER ARSENAL",
+    "category": "detachment",
+    "type": "wargear",
+    "detachment_id": "mercenary-oathband",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "illuminated-priority",
+    "name": "ILLUMINATED PRIORITY",
+    "category": "detachment",
+    "type": "wargear",
+    "detachment_id": "brandfast-oathband",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  }
+]

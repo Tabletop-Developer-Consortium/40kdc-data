@@ -1,0 +1,1748 @@
+[
+  {
+    "unit_id": "scout-sentinels",
+    "models": [
+      {
+        "name": "Scout Sentinels",
+        "min": 1,
+        "max": 2,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "cadian-castellan",
+    "models": [
+      {
+        "name": "Cadian Castellan",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "gaunts-ghosts",
+    "models": [
+      {
+        "name": "Ibram Gaunt",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "bolt-pistol",
+          "power-sword"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Oan Mkoll",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "laspistol",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": false
+      },
+      {
+        "name": "Hlaine Larkin",
+        "profile_name": "Oan Mkoll",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "long-las",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": false
+      },
+      {
+        "name": "Elim Rawne",
+        "profile_name": "Oan Mkoll",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "laspistol",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": false
+      },
+      {
+        "name": "Brin Milo",
+        "profile_name": "Oan Mkoll",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "lasgun",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": false
+      },
+      {
+        "name": "Try Again Bragg",
+        "profile_name": "Oan Mkoll",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "autocannon",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "nork-deddog",
+    "models": [
+      {
+        "name": "Nork Deddog",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "cadian-shock-troops",
+    "models": [
+      {
+        "name": "Cadian Sergeant",
+        "profile_name": "Cadian Shock Trooper",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "laspistol",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Cadian Shock Trooper",
+        "min": 9,
+        "max": 19,
+        "default_weapon_ids": [
+          "lasgun",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "militarum-tempestus-command-squad",
+    "models": [
+      {
+        "name": "Tempestor Prime",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "hot-shot-laspistol",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Tempestus Scion",
+        "min": 4,
+        "max": 4,
+        "default_weapon_ids": [
+          "hot-shot-lasgun",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "lord-solar-leontus",
+    "models": [
+      {
+        "name": "Lord Solar Leontus",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "tempestus-aquilons",
+    "models": [
+      {
+        "name": "Tempestor",
+        "profile_name": "Tempestus Aquilon",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "hot-shot-laspistol",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Tempestus Aquilon",
+        "min": 9,
+        "max": 9,
+        "default_weapon_ids": [
+          "hot-shot-lasgun",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "krieg-heavy-weapons-squad",
+    "models": [
+      {
+        "name": "Fire Coordinator",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "laspistol",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Heavy Weapons Gunner",
+        "min": 3,
+        "max": 3,
+        "default_weapon_ids": [
+          "heavy-bolter",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "ratlings",
+    "models": [
+      {
+        "name": "Ratlings",
+        "min": 5,
+        "max": 10,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "leman-russ-battle-tank",
+    "models": [
+      {
+        "name": "Leman Russ Battle Tank",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "stormsword",
+    "models": [
+      {
+        "name": "Stormsword",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "taurox-prime",
+    "models": [
+      {
+        "name": "Taurox Prime",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "field-ordnance-battery",
+    "models": [
+      {
+        "name": "Field Ordnance Battery",
+        "min": 2,
+        "max": 2,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "cyclops-demolition-vehicle",
+    "models": [
+      {
+        "name": "Cyclops Demolition Vehicle",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "rogal-dorn-commander",
+    "models": [
+      {
+        "name": "Rogal Dorn Commander",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "leman-russ-exterminator",
+    "models": [
+      {
+        "name": "Leman Russ Exterminator",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "bullgryn-squad",
+    "models": [
+      {
+        "name": "Bullgryn",
+        "min": 3,
+        "max": 6,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "primaris-psyker",
+    "models": [
+      {
+        "name": "Primaris Psyker",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "cadian-heavy-weapons-squad",
+    "models": [
+      {
+        "name": "Cadian Heavy Weapons Squad",
+        "min": 3,
+        "max": 3,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "catachan-heavy-weapons-squad",
+    "models": [
+      {
+        "name": "Catachan Heavy Weapons Squad",
+        "min": 3,
+        "max": 3,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "hellhammer",
+    "models": [
+      {
+        "name": "Hellhammer",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "aegis-defence-line",
+    "models": [
+      {
+        "name": "Aegis Defence Line",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "armoured-sentinels",
+    "models": [
+      {
+        "name": "Armoured Sentinels",
+        "min": 1,
+        "max": 2,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "commissar",
+    "models": [
+      {
+        "name": "Commissar",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "deathstrike",
+    "models": [
+      {
+        "name": "Deathstrike",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "death-riders",
+    "models": [
+      {
+        "name": "Ridemaster",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "laspistol",
+          "death-rider-hunting-lance"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Death Rider",
+        "min": 4,
+        "max": 9,
+        "default_weapon_ids": [
+          "laspistol",
+          "death-rider-hunting-lance"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "artillery-team",
+    "models": [
+      {
+        "name": "Artillery Team",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "leman-russ-executioner",
+    "models": [
+      {
+        "name": "Leman Russ Executioner",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "tempestus-scions",
+    "models": [
+      {
+        "name": "Tempestor",
+        "profile_name": "Tempestus Scion",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "hot-shot-laspistol",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Tempestus Scion",
+        "min": 4,
+        "max": 9,
+        "default_weapon_ids": [
+          "hot-shot-lasgun",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "stormlord",
+    "models": [
+      {
+        "name": "Stormlord",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "ogryn-bodyguard",
+    "models": [
+      {
+        "name": "Ogryn Bodyguard",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "kasrkin",
+    "models": [
+      {
+        "name": "Kasrkin Sergeant",
+        "profile_name": "Kasrkin",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "hot-shot-laspistol",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Kasrkin",
+        "min": 9,
+        "max": 9,
+        "default_weapon_ids": [
+          "hot-shot-lasgun",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "cadian-command-squad",
+    "models": [
+      {
+        "name": "Cadian Commander",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "laspistol",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Cadian Veteran Guardsman",
+        "min": 4,
+        "max": 4,
+        "default_weapon_ids": [
+          "lasgun",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "catachan-command-squad",
+    "models": [
+      {
+        "name": "Catachan Commander",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "laspistol",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Veteran Guardsman",
+        "min": 4,
+        "max": 4,
+        "default_weapon_ids": [
+          "lasgun",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "doomhammer",
+    "models": [
+      {
+        "name": "Doomhammer",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "rogal-dorn-battle-tank",
+    "models": [
+      {
+        "name": "Rogal Dorn Battle Tank",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "ministorum-priest",
+    "models": [
+      {
+        "name": "Ministorum Priest",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "death-korps-of-krieg",
+    "models": [
+      {
+        "name": "Watchmaster",
+        "profile_name": "Death Korps Trooper",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "laspistol",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Death Korps Trooper",
+        "min": 9,
+        "max": 19,
+        "default_weapon_ids": [
+          "lasgun",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "banesword",
+    "models": [
+      {
+        "name": "Banesword",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "wyvern",
+    "models": [
+      {
+        "name": "Wyvern",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "attilan-rough-riders",
+    "models": [
+      {
+        "name": "Rough Rider Sergeant",
+        "profile_name": "Attilan Rough Rider",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "laspistol",
+          "hunting-lance"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Attilan Rough Rider",
+        "min": 4,
+        "max": 9,
+        "default_weapon_ids": [
+          "laspistol",
+          "hunting-lance"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "hellhound",
+    "models": [
+      {
+        "name": "Hellhound",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "leman-russ-punisher",
+    "models": [
+      {
+        "name": "Leman Russ Punisher",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "krieg-command-squad",
+    "models": [
+      {
+        "name": "Lord Commissar",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "laspistol",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Veteran Guardsman",
+        "min": 5,
+        "max": 5,
+        "default_weapon_ids": [
+          "lasgun",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "sly-marbo",
+    "models": [
+      {
+        "name": "Sly Marbo",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "leman-russ-demolisher",
+    "models": [
+      {
+        "name": "Leman Russ Demolisher",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "taurox",
+    "models": [
+      {
+        "name": "Taurox",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "ogryn-squad",
+    "models": [
+      {
+        "name": "Ogryn",
+        "min": 3,
+        "max": 6,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "lord-marshal-dreir",
+    "models": [
+      {
+        "name": "Lord Marshal Dreir",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "tech-priest-enginseer",
+    "models": [
+      {
+        "name": "Tech-Priest Enginseer",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "banehammer",
+    "models": [
+      {
+        "name": "Banehammer",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "catachan-jungle-fighters",
+    "models": [
+      {
+        "name": "Catachan Sergeant",
+        "profile_name": "Catachan Jungle Fighter",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "laspistol",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Catachan Jungle Fighter",
+        "min": 9,
+        "max": 19,
+        "default_weapon_ids": [
+          "lasgun",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "leman-russ-commander",
+    "models": [
+      {
+        "name": "Leman Russ Commander",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "valkyrie",
+    "models": [
+      {
+        "name": "Valkyrie",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "ursula-creed",
+    "models": [
+      {
+        "name": "Ursula Creed",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "shadowsword",
+    "models": [
+      {
+        "name": "Shadowsword",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "manticore",
+    "models": [
+      {
+        "name": "Manticore",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "chimera",
+    "models": [
+      {
+        "name": "Chimera",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "avenger-strike-fighter",
+    "models": [
+      {
+        "name": "Avenger Strike Fighter",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "leman-russ-vanquisher",
+    "models": [
+      {
+        "name": "Leman Russ Vanquisher",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "basilisk",
+    "models": [
+      {
+        "name": "Basilisk",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "baneblade",
+    "models": [
+      {
+        "name": "Baneblade",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "krieg-combat-engineers",
+    "models": [
+      {
+        "name": "Krieg Engineer Watchmaster",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "laspistol",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Krieg Combat Engineer",
+        "min": 4,
+        "max": 9,
+        "default_weapon_ids": [
+          "lasgun",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "hydra",
+    "models": [
+      {
+        "name": "Hydra",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "leman-russ-eradicator",
+    "models": [
+      {
+        "name": "Leman Russ Eradicator",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "elysian-drop-sentinel",
+    "models": [
+      {
+        "name": "Elysian Drop Sentinel",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "arvus-lighter",
+    "models": [
+      {
+        "name": "Arvus Lighter",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "tauros-assault-vehicle",
+    "models": [
+      {
+        "name": "Tauros Assault Vehicle",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "hydra-platform",
+    "models": [
+      {
+        "name": "Hydra Platform",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "manticore-platform",
+    "models": [
+      {
+        "name": "Manticore Platform",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "earthshaker-platform",
+    "models": [
+      {
+        "name": "Earthshaker Platform",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "sentinel-powerlifter",
+    "models": [
+      {
+        "name": "Sentinel Powerlifter",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "tauros-venator",
+    "models": [
+      {
+        "name": "Tauros Venator",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "centaur-light-carrier",
+    "models": [
+      {
+        "name": "Centaur Light Carrier",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "storm-chimera",
+    "models": [
+      {
+        "name": "Storm Chimera",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "aquila-lander",
+    "models": [
+      {
+        "name": "Aquila Lander",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "vendetta-gunship",
+    "models": [
+      {
+        "name": "Vendetta Gunship",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "salamander-scout-vehicle",
+    "models": [
+      {
+        "name": "Salamander Scout Vehicle",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "atlas-recovery-vehicle",
+    "models": [
+      {
+        "name": "Atlas Recovery Vehicle",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "salamander-command-vehicle",
+    "models": [
+      {
+        "name": "Salamander Command Vehicle",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "griffon-mortar-carrier",
+    "models": [
+      {
+        "name": "Griffon Mortar Carrier",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "stygies-destroyer-tank-hunter",
+    "models": [
+      {
+        "name": "Stygies Destroyer Tank Hunter",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "armageddon-pattern-medusa",
+    "models": [
+      {
+        "name": "Armageddon-pattern Medusa",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "valkyrie-sky-talon",
+    "models": [
+      {
+        "name": "Valkyrie Sky Talon",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "minotaur",
+    "models": [
+      {
+        "name": "Minotaur",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "macharius-omega",
+    "models": [
+      {
+        "name": "Macharius Omega",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "dominus-armoured-siege-bombard",
+    "models": [
+      {
+        "name": "Dominus Armoured Siege Bombard",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "gorgon-heavy-transport",
+    "models": [
+      {
+        "name": "Gorgon Heavy Transport",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "arkurian-stormhammer",
+    "models": [
+      {
+        "name": "Arkurian Stormhammer",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "elysian-sniper-squad",
+    "models": [
+      {
+        "name": "Elysian Sniper Squad",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "rein-and-raus",
+    "models": [
+      {
+        "name": "Rein And Raus",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "death-rider-commissar",
+    "models": [
+      {
+        "name": "Death Rider Commissar",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "quartermaster-cadre-squad",
+    "models": [
+      {
+        "name": "QUARTERMASTER REVENANT",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "mukaali-riders",
+    "models": [
+      {
+        "name": "Mukaali Riders",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "sabre-weapons-battery",
+    "models": [
+      {
+        "name": "Sabre Weapons Battery",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "heavy-quad-launcher-team",
+    "models": [
+      {
+        "name": "Heavy Quad Launcher Team",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "death-korps-grenadier-squad",
+    "models": [
+      {
+        "name": "GRENADIER",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "heavy-mortar-team",
+    "models": [
+      {
+        "name": "Heavy Mortar Team",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  }
+]

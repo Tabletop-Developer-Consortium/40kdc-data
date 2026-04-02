@@ -1,0 +1,1046 @@
+[
+  {
+    "id": "war-dog-huntsman",
+    "name": "War Dog Huntsman",
+    "faction_id": "chaos-knights",
+    "profiles": [
+      {
+        "name": "War Dog Huntsman",
+        "M": 12,
+        "T": 9,
+        "W": 14,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 6
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 140
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Chaos",
+      "War Dog",
+      "Huntsman"
+    ],
+    "faction_keywords": [
+      "Chaos Knights"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "daemonbreath-meltagun",
+      "daemonbreath-spear",
+      "diabolus-heavy-stubber",
+      "reaper-chaintalon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "war-dog-brigand",
+    "name": "War Dog Brigand",
+    "faction_id": "chaos-knights",
+    "profiles": [
+      {
+        "name": "War Dog Brigand",
+        "M": 12,
+        "T": 9,
+        "W": 14,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 6
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 140
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Chaos",
+      "War Dog",
+      "Brigand"
+    ],
+    "faction_keywords": [
+      "Chaos Knights"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-feet",
+      "avenger-chaincannon",
+      "daemonbreath-spear",
+      "diabolus-heavy-stubber",
+      "havoc-multi-launcher"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "war-dog-executioner",
+    "name": "War Dog Executioner",
+    "faction_id": "chaos-knights",
+    "profiles": [
+      {
+        "name": "War Dog Executioner",
+        "M": 12,
+        "T": 9,
+        "W": 14,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 6
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 130
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Chaos",
+      "War Dog",
+      "Executioner"
+    ],
+    "faction_keywords": [
+      "Chaos Knights"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-feet",
+      "daemonbreath-meltagun",
+      "diabolus-heavy-stubber",
+      "war-dog-autocannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "war-dog-stalker",
+    "name": "War Dog Stalker",
+    "faction_id": "chaos-knights",
+    "profiles": [
+      {
+        "name": "War Dog Stalker",
+        "M": 12,
+        "T": 9,
+        "W": 14,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 6
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 140
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Chaos",
+      "War Dog",
+      "Stalker"
+    ],
+    "faction_keywords": [
+      "Chaos Knights"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "avenger-chaincannon",
+      "daemonbreath-spear",
+      "diabolus-heavy-stubber",
+      "havoc-multi-launcher",
+      "reaper-chaintalon",
+      "slaughterclaw"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "war-dog-moirax",
+    "name": "War Dog Moirax",
+    "faction_id": "chaos-knights",
+    "profiles": [
+      {
+        "name": "War Dog Moirax",
+        "M": 12,
+        "T": 9,
+        "W": 14,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 6
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 150
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Chaos",
+      "War Dog",
+      "Moirax"
+    ],
+    "faction_keywords": [
+      "Chaos Knights"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-feet",
+      "conversion-beam-cannon",
+      "graviton-pulsar",
+      "lightning-lock",
+      "rad-cleanser",
+      "siege-claw",
+      "volkite-veuglaire"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "war-dog-karnivore",
+    "name": "War Dog Karnivore",
+    "faction_id": "chaos-knights",
+    "profiles": [
+      {
+        "name": "War Dog Karnivore",
+        "M": 14,
+        "T": 9,
+        "W": 14,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 7,
+        "OC": 6
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 150
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Chaos",
+      "War Dog",
+      "Karnivore"
+    ],
+    "faction_keywords": [
+      "Chaos Knights"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "diabolus-heavy-stubber",
+      "havoc-multi-launcher",
+      "reaper-chaintalon",
+      "slaughterclaw"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "knight-despoiler",
+    "name": "Knight Despoiler",
+    "faction_id": "chaos-knights",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Knight Despoiler",
+        "M": 10,
+        "T": 11,
+        "W": 26,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 10
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 390
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Titanic",
+      "Towering",
+      "Abhorrent",
+      "Character",
+      "Chaos",
+      "Knight Despoiler"
+    ],
+    "faction_keywords": [
+      "Chaos Knights"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "daemonbreath-meltagun",
+      "daemonbreath-thermal-cannon",
+      "despoiler-battle-cannon",
+      "despoiler-gatling-cannon",
+      "diabolus-heavy-stubber",
+      "havoc-missile-pod",
+      "heavy-darkflamer",
+      "hellstorm-autocannons",
+      "reaper-chainsword",
+      "ruinspear-rocket-pod",
+      "titanic-feet",
+      "warpstrike-claw"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "chaos-cerastus-knight-acheron",
+    "name": "Chaos Cerastus Knight Acheron",
+    "faction_id": "chaos-knights",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Chaos Cerastus Knight Acheron",
+        "M": 12,
+        "T": 11,
+        "W": 28,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 10
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 385
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Character",
+      "Titanic",
+      "Towering",
+      "Chaos",
+      "Cerastus",
+      "Knight Acheron"
+    ],
+    "faction_keywords": [
+      "Chaos Knights"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "acheron-flame-cannon",
+      "reaper-chainfist",
+      "twin-heavy-bolter"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "knight-ruinator",
+    "name": "Knight Ruinator",
+    "faction_id": "chaos-knights",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Knight Ruinator",
+        "M": 10,
+        "T": 11,
+        "W": 26,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 10
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 355
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Titanic",
+      "Towering",
+      "Abhorrent",
+      "Character",
+      "Chaos",
+      "Knight Ruinator"
+    ],
+    "faction_keywords": [
+      "Chaos Knights"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "darkflame-lance",
+      "fellbore",
+      "terrorpulse-missiles"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "knight-desecrator",
+    "name": "Knight Desecrator",
+    "faction_id": "chaos-knights",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Knight Desecrator",
+        "M": 10,
+        "T": 11,
+        "W": 26,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 10
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 355
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Titanic",
+      "Towering",
+      "Abhorrent",
+      "Character",
+      "Chaos",
+      "Knight Desecrator"
+    ],
+    "faction_keywords": [
+      "Chaos Knights"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "desecrator-laser-destructor",
+      "diabolus-heavy-stubber",
+      "reaper-chainsword",
+      "warpstrike-claw"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "chaos-acastus-knight-porphyrion",
+    "name": "Chaos Acastus Knight Porphyrion",
+    "faction_id": "chaos-knights",
+    "profiles": [
+      {
+        "name": "Chaos Acastus Knight Porphyrion",
+        "M": 8,
+        "T": 13,
+        "W": 30,
+        "Sv": 2,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 10
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 700
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Titanic",
+      "Towering",
+      "Chaos",
+      "Acastus",
+      "Knight Porphyrion"
+    ],
+    "faction_keywords": [
+      "Chaos Knights"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "acastus-autocannon",
+      "acastus-ironstorm-missile-pod",
+      "helios-defence-missiles",
+      "lascannon",
+      "titanic-feet",
+      "twin-magna-lascannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "chaos-cerastus-knight-atrapos",
+    "name": "Chaos Cerastus Knight Atrapos",
+    "faction_id": "chaos-knights",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Chaos Cerastus Knight Atrapos",
+        "M": 12,
+        "T": 11,
+        "W": 28,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 10
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 395
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Character",
+      "Titanic",
+      "Towering",
+      "Chaos",
+      "Cerastus",
+      "Knight Atrapos"
+    ],
+    "faction_keywords": [
+      "Chaos Knights"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "atrapos-lascutter",
+      "graviton-singularity-cannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "chaos-acastus-knight-asterius",
+    "name": "Chaos Acastus Knight Asterius",
+    "faction_id": "chaos-knights",
+    "profiles": [
+      {
+        "name": "Chaos Acastus Knight Asterius",
+        "M": 8,
+        "T": 13,
+        "W": 30,
+        "Sv": 2,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 10
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 765
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Titanic",
+      "Towering",
+      "Chaos",
+      "Acastus",
+      "Knight Asterius"
+    ],
+    "faction_keywords": [
+      "Chaos Knights"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "asterius-volkite-culverin",
+      "karacnos-mortar-battery",
+      "titanic-feet",
+      "twin-conversion-beam-cannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "chaos-cerastus-knight-castigator",
+    "name": "Chaos Cerastus Knight Castigator",
+    "faction_id": "chaos-knights",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Chaos Cerastus Knight Castigator",
+        "M": 12,
+        "T": 11,
+        "W": 28,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 10
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 385
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Character",
+      "Titanic",
+      "Towering",
+      "Chaos",
+      "Cerastus",
+      "Knight Castigator"
+    ],
+    "faction_keywords": [
+      "Chaos Knights"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "castigator-bolt-cannon",
+      "tempest-warblade"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "chaos-cerastus-knight-lancer",
+    "name": "Chaos Cerastus Knight Lancer",
+    "faction_id": "chaos-knights",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Chaos Cerastus Knight Lancer",
+        "M": 14,
+        "T": 11,
+        "W": 28,
+        "Sv": 3,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 10
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 385
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Character",
+      "Titanic",
+      "Towering",
+      "Chaos",
+      "Cerastus",
+      "Knight Lancer"
+    ],
+    "faction_keywords": [
+      "Chaos Knights"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "cerastus-shock-lance"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "knight-rampager",
+    "name": "Knight Rampager",
+    "faction_id": "chaos-knights",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Knight Rampager",
+        "M": 12,
+        "T": 11,
+        "W": 26,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 10
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 365
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Titanic",
+      "Towering",
+      "Abhorrent",
+      "Character",
+      "Chaos",
+      "Knight Rampager"
+    ],
+    "faction_keywords": [
+      "Chaos Knights"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "diabolus-heavy-stubber",
+      "reaper-chainsword",
+      "warpstrike-claw"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "chaos-questoris-knight-magaera",
+    "name": "Chaos Questoris Knight Magaera",
+    "faction_id": "chaos-knights",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Chaos Questoris Knight Magaera",
+        "M": 10,
+        "T": 11,
+        "W": 26,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 10
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 375
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Character",
+      "Titanic",
+      "Towering",
+      "Chaos",
+      "Abhorrent",
+      "Knight Magaera"
+    ],
+    "faction_keywords": [
+      "Chaos Knights"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "hekaton-siege-claw",
+      "lightning-cannon",
+      "phased-plasma-fusil",
+      "reaper-chainsword",
+      "twin-rad-cleanser"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "knight-tyrant",
+    "name": "Knight Tyrant",
+    "faction_id": "chaos-knights",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Knight Tyrant",
+        "M": 8,
+        "T": 12,
+        "W": 28,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 10
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 410
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Titanic",
+      "Towering",
+      "Character",
+      "Chaos",
+      "Knight Tyrant"
+    ],
+    "faction_keywords": [
+      "Chaos Knights"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "brimstone-volcano-lance",
+      "darkflame-cannon",
+      "ectoplasma-decimator",
+      "gheiststrike-missile-launcher",
+      "titanic-feet",
+      "twin-daemonbreath-meltagun",
+      "twin-desecrator-cannon",
+      "warpshock-harpoon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "knight-abominant",
+    "name": "Knight Abominant",
+    "faction_id": "chaos-knights",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Knight Abominant",
+        "M": 10,
+        "T": 11,
+        "W": 26,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 10
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 355
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Titanic",
+      "Towering",
+      "Abhorrent",
+      "Psyker",
+      "Character",
+      "Chaos",
+      "Knight Abominant"
+    ],
+    "faction_keywords": [
+      "Chaos Knights"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "balemace",
+      "diabolus-heavy-stubber",
+      "electroscourge",
+      "volkite-combustor"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "chaos-questoris-knight-styrix",
+    "name": "Chaos Questoris Knight Styrix",
+    "faction_id": "chaos-knights",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Chaos Questoris Knight Styrix",
+        "M": 10,
+        "T": 11,
+        "W": 26,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 10
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 375
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Character",
+      "Titanic",
+      "Towering",
+      "Chaos",
+      "Abhorrent",
+      "Knight Styrix"
+    ],
+    "faction_keywords": [
+      "Chaos Knights"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "graviton-crusher",
+      "hekaton-siege-claw",
+      "reaper-chainsword",
+      "twin-rad-cleanser",
+      "volkite-chierovile"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  }
+]

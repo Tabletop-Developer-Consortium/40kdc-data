@@ -20,6 +20,39 @@ import { type FactionConfig, getFactionConfig, listFactions } from "./converters
 // Register all faction configs
 import "./converters/configs/world-eaters.js";
 import "./converters/configs/emperors-children.js";
+import "./converters/configs/chaos-knights.js";
+import "./converters/configs/imperial-knights.js";
+import "./converters/configs/leagues-of-votann.js";
+import "./converters/configs/drukhari.js";
+import "./converters/configs/genestealer-cults.js";
+import "./converters/configs/grey-knights.js";
+import "./converters/configs/thousand-sons.js";
+import "./converters/configs/death-guard.js";
+import "./converters/configs/adeptus-custodes.js";
+import "./converters/configs/adepta-sororitas.js";
+import "./converters/configs/agents-of-the-imperium.js";
+import "./converters/configs/adeptus-mechanicus.js";
+import "./converters/configs/tau-empire.js";
+import "./converters/configs/tyranids.js";
+import "./converters/configs/necrons.js";
+import "./converters/configs/chaos-daemons.js";
+import "./converters/configs/orks.js";
+import "./converters/configs/aeldari.js";
+import "./converters/configs/chaos-space-marines.js";
+import "./converters/configs/astra-militarum.js";
+import "./converters/configs/adeptus-astartes.js";
+import "./converters/configs/blood-angels.js";
+import "./converters/configs/dark-angels.js";
+import "./converters/configs/space-wolves.js";
+import "./converters/configs/black-templars.js";
+import "./converters/configs/deathwatch.js";
+import "./converters/configs/ultramarines.js";
+import "./converters/configs/imperial-fists.js";
+import "./converters/configs/crimson-fists.js";
+import "./converters/configs/iron-hands.js";
+import "./converters/configs/raven-guard.js";
+import "./converters/configs/salamanders.js";
+import "./converters/configs/white-scars.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, "../..");
@@ -187,9 +220,10 @@ export function convertFaction(config: FactionConfig): void {
     "Detachment_abilities.json"
   );
 
-  // Filter to target faction
+  // Filter to target faction, skip datasheets with no model data (metadata entries)
+  const modelDatasheetIds = new Set(allModels.map((m) => m.datasheet_id));
   const factionDatasheets = datasheets.filter(
-    (d) => d.faction_id === sourceFactionId
+    (d) => d.faction_id === sourceFactionId && modelDatasheetIds.has(d.id)
   );
   const factionIds = new Set(factionDatasheets.map((d) => d.id));
   const idToName = new Map(factionDatasheets.map((d) => [d.id, d.name]));
@@ -346,21 +380,31 @@ export function convertFaction(config: FactionConfig): void {
       game_version: GAME_VERSION,
     })
   );
-
   // ─── Build detachments ───
   console.log("Converting detachments...");
   const factionDetAbilities = detachmentAbilities.filter(
     (d) => d.faction_id === sourceFactionId
   );
-  const factionEnhancements = enhancements.filter(
+  let factionEnhancements = enhancements.filter(
     (e) => e.faction_id === sourceFactionId
   );
-  const factionStratagems = stratagems.filter(
+  let factionStratagems = stratagems.filter(
     (s) => s.faction_id === sourceFactionId
   );
 
   // Deduplicate detachments (some have multiple ability entries per detachment)
-  const detachmentNames = [...new Set(factionDetAbilities.map((da) => da.detachment))];
+  let detachmentNames = [...new Set(factionDetAbilities.map((da) => da.detachment))];
+
+  // Apply detachment filter for subfactions
+  if (config.detachmentFilter) {
+    detachmentNames = detachmentNames.filter((d) =>
+      config.detachmentFilter!.includes(d)
+    );
+    // Also filter enhancements and stratagems to matching detachments
+    const allowedDetachments = new Set(config.detachmentFilter);
+    factionEnhancements = factionEnhancements.filter((e) => allowedDetachments.has(e.detachment));
+    factionStratagems = factionStratagems.filter((s) => allowedDetachments.has(s.detachment));
+  }
 
   const detachments = detachmentNames.map((detName) => {
     const detId = nameToId(detName);
@@ -561,25 +605,33 @@ export function convertFaction(config: FactionConfig): void {
   console.log("\nWriting output files...");
 
   writeOutput(`${coreDir}/factions.json`, factionEntity);
-  writeOutput(`${coreDir}/units.json`, units);
-  writeOutput(`${coreDir}/weapons.json`, weapons);
-  writeOutput(`${coreDir}/leader-attachments.json`, leaderAttachments);
+  if (!config.skipUnits) {
+    writeOutput(`${coreDir}/units.json`, units);
+    writeOutput(`${coreDir}/weapons.json`, weapons);
+    writeOutput(`${coreDir}/leader-attachments.json`, leaderAttachments);
+    writeOutput(`${coreDir}/unit-compositions.json`, unitCompositions);
+  }
   writeOutput(`${coreDir}/detachments.json`, detachments);
   writeOutput(`${coreDir}/enhancements.json`, enhancementEntities);
   writeOutput(`${coreDir}/stratagems.json`, stratagemEntities);
-  writeOutput(`${coreDir}/unit-compositions.json`, unitCompositions);
-  writeOutput(`${enrichDir}/phase-mappings.json`, dedupedPhaseMappings);
+  if (!config.skipUnits) {
+    writeOutput(`${enrichDir}/phase-mappings.json`, dedupedPhaseMappings);
+  }
 
   // ─── Summary ───
   console.log(`\n── ${factionName} Summary ──`);
-  console.log(`  Units: ${units.length}`);
-  console.log(`  Weapons: ${weapons.length}`);
-  console.log(`  Leader attachments: ${leaderAttachments.length}`);
+  if (!config.skipUnits) {
+    console.log(`  Units: ${units.length}`);
+    console.log(`  Weapons: ${weapons.length}`);
+    console.log(`  Leader attachments: ${leaderAttachments.length}`);
+    console.log(`  Unit compositions: ${unitCompositions.length}`);
+  }
   console.log(`  Detachments: ${detachments.length}`);
   console.log(`  Enhancements: ${enhancementEntities.length}`);
   console.log(`  Stratagems: ${stratagemEntities.length}`);
-  console.log(`  Unit compositions: ${unitCompositions.length}`);
-  console.log(`  Phase mappings: ${dedupedPhaseMappings.length}`);
+  if (!config.skipUnits) {
+    console.log(`  Phase mappings: ${dedupedPhaseMappings.length}`);
+  }
   console.log("\nDone. Run 'npm run validate' to check output.");
 }
 

@@ -1,0 +1,1565 @@
+[
+  {
+    "id": "telemon-heavy-dreadnought",
+    "name": "Telemon Heavy Dreadnought",
+    "faction_id": "adeptus-custodes",
+    "profiles": [
+      {
+        "name": "Telemon Heavy Dreadnought",
+        "M": 8,
+        "T": 10,
+        "W": 12,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 4
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 225
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Imperium",
+      "Telemon Heavy Dreadnought"
+    ],
+    "faction_keywords": [
+      "Adeptus Custodes"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "arachnus-storm-cannon",
+      "armoured-feet",
+      "iliastus-accelerator-culverin",
+      "spiculus-bolt-launcher",
+      "telemon-caestus",
+      "twin-plasma-projector"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "contemptor-achillus-dreadnought",
+    "name": "Contemptor-Achillus Dreadnought",
+    "faction_id": "adeptus-custodes",
+    "profiles": [
+      {
+        "name": "Contemptor-Achillus Dreadnought",
+        "M": 6,
+        "T": 9,
+        "W": 10,
+        "Sv": 2,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 155
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Imperium",
+      "Contemptor-Achillus Dreadnought"
+    ],
+    "faction_keywords": [
+      "Adeptus Custodes"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "achillus-dreadspear",
+      "infernus-incinerator",
+      "lastrum-storm-bolter",
+      "twin-adrathic-destructor"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "contemptor-galatus-dreadnought",
+    "name": "Contemptor-Galatus Dreadnought",
+    "faction_id": "adeptus-custodes",
+    "profiles": [
+      {
+        "name": "Contemptor-Galatus Dreadnought",
+        "M": 6,
+        "T": 9,
+        "W": 10,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 165
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Imperium",
+      "Contemptor-Galatus Dreadnought"
+    ],
+    "faction_keywords": [
+      "Adeptus Custodes"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "galatus-warblade"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "venerable-contemptor-dreadnought",
+    "name": "Venerable Contemptor Dreadnought",
+    "faction_id": "adeptus-custodes",
+    "profiles": [
+      {
+        "name": "Venerable Contemptor Dreadnought",
+        "M": 6,
+        "T": 9,
+        "W": 10,
+        "Sv": 2,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 170
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Imperium",
+      "Venerable Contemptor Dreadnought"
+    ],
+    "faction_keywords": [
+      "Adeptus Custodes"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "combi-bolter",
+      "contemptor-combat-weapon",
+      "kheres-pattern-assault-cannon",
+      "multi-melta"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "blade-champion",
+    "name": "Blade Champion",
+    "faction_id": "adeptus-custodes",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Blade Champion",
+        "M": 6,
+        "T": 6,
+        "W": 6,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 120
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Imperium",
+      "Blade Champion"
+    ],
+    "faction_keywords": [
+      "Adeptus Custodes"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "vaultswords"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "caladius-grav-tank",
+    "name": "Caladius Grav-tank",
+    "faction_id": "adeptus-custodes",
+    "profiles": [
+      {
+        "name": "Caladius Grav-tank",
+        "M": 10,
+        "T": 11,
+        "W": 14,
+        "Sv": 2,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 4
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 215
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Fly",
+      "Imperium",
+      "Caladius Grav-tank"
+    ],
+    "faction_keywords": [
+      "Adeptus Custodes"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-hull",
+      "twin-arachnus-heavy-blaze-cannon",
+      "twin-iliastus-accelerator-cannon",
+      "twin-lastrum-bolt-cannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "allarus-custodians",
+    "name": "Allarus Custodians",
+    "faction_id": "adeptus-custodes",
+    "profiles": [
+      {
+        "name": "Allarus Custodians",
+        "M": 5,
+        "T": 7,
+        "W": 4,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 2,
+        "cost": 110
+      },
+      {
+        "models": 3,
+        "cost": 165
+      },
+      {
+        "models": 5,
+        "cost": 275
+      },
+      {
+        "models": 6,
+        "cost": 330
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Terminator",
+      "Imperium",
+      "Allarus Custodians"
+    ],
+    "faction_keywords": [
+      "Adeptus Custodes"
+    ],
+    "model_count": {
+      "min": 2,
+      "max": 6
+    },
+    "weapon_ids": [
+      "balistus-grenade-launcher",
+      "castellan-axe",
+      "guardian-spear",
+      "misericordia"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "shield-captain-on-dawneagle-jetbike",
+    "name": "Shield-Captain on Dawneagle Jetbike",
+    "faction_id": "adeptus-custodes",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Shield-Captain on Dawneagle Jetbike",
+        "M": 12,
+        "T": 7,
+        "W": 8,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 150
+      }
+    ],
+    "keywords": [
+      "Mounted",
+      "Character",
+      "Fly",
+      "Imperium",
+      "Dawneagle Jetbike",
+      "Shield-Captain"
+    ],
+    "faction_keywords": [
+      "Adeptus Custodes"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "interceptor-lance",
+      "salvo-launcher",
+      "vertus-hurricane-bolter"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "vigilators",
+    "name": "Vigilators",
+    "faction_id": "adeptus-custodes",
+    "profiles": [
+      {
+        "name": "Vigilator",
+        "M": 6,
+        "T": 3,
+        "W": 1,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 4,
+        "cost": 45
+      },
+      {
+        "models": 5,
+        "cost": 55
+      },
+      {
+        "models": 9,
+        "cost": 90
+      },
+      {
+        "models": 10,
+        "cost": 100
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Imperium",
+      "Anathema Psykana",
+      "Vigilators"
+    ],
+    "faction_keywords": [
+      "Adeptus Custodes"
+    ],
+    "model_count": {
+      "min": 4,
+      "max": 10
+    },
+    "weapon_ids": [
+      "executioner-greatblade"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "sagittarum-custodians",
+    "name": "Sagittarum Custodians",
+    "faction_id": "adeptus-custodes",
+    "profiles": [
+      {
+        "name": "Sagittarum Custodians",
+        "M": 6,
+        "T": 6,
+        "W": 3,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 225
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Imperium",
+      "Sagittarum Custodians"
+    ],
+    "faction_keywords": [
+      "Adeptus Custodes"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 5
+    },
+    "weapon_ids": [
+      "adrastus-bolt-caliver",
+      "misericordia"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "witchseekers",
+    "name": "Witchseekers",
+    "faction_id": "adeptus-custodes",
+    "profiles": [
+      {
+        "name": "Witchseeker",
+        "M": 6,
+        "T": 3,
+        "W": 1,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 4,
+        "cost": 45
+      },
+      {
+        "models": 5,
+        "cost": 55
+      },
+      {
+        "models": 9,
+        "cost": 90
+      },
+      {
+        "models": 10,
+        "cost": 100
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Imperium",
+      "Anathema Psykana",
+      "Witchseekers"
+    ],
+    "faction_keywords": [
+      "Adeptus Custodes"
+    ],
+    "model_count": {
+      "min": 4,
+      "max": 10
+    },
+    "weapon_ids": [
+      "close-combat-weapon",
+      "witchseeker-flamer"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "ares-gunship",
+    "name": "Ares Gunship",
+    "faction_id": "adeptus-custodes",
+    "profiles": [
+      {
+        "name": "Ares Gunship",
+        "M": 20,
+        "T": 12,
+        "W": 22,
+        "Sv": 2,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 0
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 580
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Aircraft",
+      "Fly",
+      "Imperium",
+      "Ares Gunship"
+    ],
+    "faction_keywords": [
+      "Adeptus Custodes"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "arachnus-heavy-blaze-cannon",
+      "arachnus-magna-blaze-cannon",
+      "armoured-hull"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "custodian-guard",
+    "name": "Custodian Guard",
+    "faction_id": "adeptus-custodes",
+    "role": "battleline",
+    "profiles": [
+      {
+        "name": "Custodian Guard",
+        "M": 6,
+        "T": 6,
+        "W": 3,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 4,
+        "cost": 160
+      },
+      {
+        "models": 5,
+        "cost": 200
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Battleline",
+      "Imperium",
+      "Custodian Guard"
+    ],
+    "faction_keywords": [
+      "Adeptus Custodes"
+    ],
+    "model_count": {
+      "min": 4,
+      "max": 5
+    },
+    "weapon_ids": [
+      "guardian-spear",
+      "misericordia",
+      "sentinel-blade"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "orion-assault-dropship",
+    "name": "Orion Assault Dropship",
+    "faction_id": "adeptus-custodes",
+    "profiles": [
+      {
+        "name": "Orion Assault Dropship",
+        "M": 20,
+        "T": 12,
+        "W": 22,
+        "Sv": 2,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 0
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 690
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Transport",
+      "Aircraft",
+      "Fly",
+      "Imperium",
+      "Orion Assault Dropship"
+    ],
+    "faction_keywords": [
+      "Adeptus Custodes"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "arachnus-heavy-blaze-cannon",
+      "armoured-hull",
+      "spiculus-heavy-bolt-launcher",
+      "twin-lastrum-bolt-cannon"
+    ],
+    "ability_ids": [],
+    "transport_capacity": {
+      "capacity": 12
+    },
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "knight-centura",
+    "name": "Knight-Centura",
+    "faction_id": "adeptus-custodes",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Knight-Centura",
+        "M": 6,
+        "T": 3,
+        "W": 4,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 55
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Imperium",
+      "Anathema Psykana",
+      "Knight-Centura"
+    ],
+    "faction_keywords": [
+      "Adeptus Custodes"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "close-combat-weapon",
+      "executioner-greatblade",
+      "master-crafted-boltgun",
+      "witchseeker-flamer"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "anathema-psykana-rhino",
+    "name": "Anathema Psykana Rhino",
+    "faction_id": "adeptus-custodes",
+    "role": "dedicated-transport",
+    "profiles": [
+      {
+        "name": "Anathema Psykana Rhino",
+        "M": 12,
+        "T": 9,
+        "W": 10,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 75
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Transport",
+      "Dedicated Transport",
+      "Smoke",
+      "Imperium",
+      "Anathema Psykana",
+      "Rhino"
+    ],
+    "faction_keywords": [
+      "Adeptus Custodes"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-tracks",
+      "hunter-killer-missile",
+      "storm-bolter"
+    ],
+    "ability_ids": [],
+    "transport_capacity": {
+      "capacity": 12
+    },
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "aleya",
+    "name": "Aleya",
+    "faction_id": "adeptus-custodes",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Aleya",
+        "M": 6,
+        "T": 3,
+        "W": 4,
+        "Sv": 3,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 65
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Epic Hero",
+      "Imperium",
+      "Anathema Psykana",
+      "Aleya"
+    ],
+    "faction_keywords": [
+      "Adeptus Custodes"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "somnus"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "agamatus-custodians",
+    "name": "Agamatus Custodians",
+    "faction_id": "adeptus-custodes",
+    "profiles": [
+      {
+        "name": "Agamatus Custodians",
+        "M": 12,
+        "T": 6,
+        "W": 4,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 3,
+        "cost": 225
+      },
+      {
+        "models": 6,
+        "cost": 450
+      }
+    ],
+    "keywords": [
+      "Mounted",
+      "Fly",
+      "Imperium",
+      "Agamatus Custodians"
+    ],
+    "faction_keywords": [
+      "Adeptus Custodes"
+    ],
+    "model_count": {
+      "min": 3,
+      "max": 6
+    },
+    "weapon_ids": [
+      "adrathic-devastator",
+      "interceptor-lance",
+      "lastrum-bolt-cannon",
+      "twin-las-pulsar"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "venerable-land-raider",
+    "name": "Venerable Land Raider",
+    "faction_id": "adeptus-custodes",
+    "profiles": [
+      {
+        "name": "Venerable Land Raider",
+        "M": 10,
+        "T": 12,
+        "W": 16,
+        "Sv": 2,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 5
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 220
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Imperium",
+      "Transport",
+      "Smoke",
+      "Venerable Land Raider"
+    ],
+    "faction_keywords": [
+      "Adeptus Custodes"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-tracks",
+      "godhammer-lascannon",
+      "hunter-killer-missile",
+      "storm-bolter",
+      "twin-heavy-bolter"
+    ],
+    "ability_ids": [],
+    "transport_capacity": {
+      "capacity": 6
+    },
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "custodian-wardens",
+    "name": "Custodian Wardens",
+    "faction_id": "adeptus-custodes",
+    "profiles": [
+      {
+        "name": "Custodian Wardens",
+        "M": 6,
+        "T": 6,
+        "W": 3,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 4,
+        "cost": 210
+      },
+      {
+        "models": 5,
+        "cost": 260
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Imperium",
+      "Custodian Wardens"
+    ],
+    "faction_keywords": [
+      "Adeptus Custodes"
+    ],
+    "model_count": {
+      "min": 4,
+      "max": 5
+    },
+    "weapon_ids": [
+      "castellan-axe",
+      "guardian-spear"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "pallas-grav-attack",
+    "name": "Pallas Grav-attack",
+    "faction_id": "adeptus-custodes",
+    "profiles": [
+      {
+        "name": "Pallas Grav-attack",
+        "M": 12,
+        "T": 8,
+        "W": 9,
+        "Sv": 2,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 105
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Fly",
+      "Imperium",
+      "Pallas Grav-attack"
+    ],
+    "faction_keywords": [
+      "Adeptus Custodes"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-hull",
+      "twin-arachnus-blaze-cannon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "vertus-praetors",
+    "name": "Vertus Praetors",
+    "faction_id": "adeptus-custodes",
+    "profiles": [
+      {
+        "name": "Vertus Praetors",
+        "M": 12,
+        "T": 7,
+        "W": 5,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 2,
+        "cost": 150
+      },
+      {
+        "models": 3,
+        "cost": 225
+      }
+    ],
+    "keywords": [
+      "Mounted",
+      "Fly",
+      "Imperium",
+      "Vertus Praetors"
+    ],
+    "faction_keywords": [
+      "Adeptus Custodes"
+    ],
+    "model_count": {
+      "min": 2,
+      "max": 3
+    },
+    "weapon_ids": [
+      "interceptor-lance",
+      "salvo-launcher",
+      "vertus-hurricane-bolter"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "valerian",
+    "name": "Valerian",
+    "faction_id": "adeptus-custodes",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Valerian",
+        "M": 6,
+        "T": 6,
+        "W": 6,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 110
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Epic Hero",
+      "Imperium",
+      "Shield-Captain",
+      "Valerian"
+    ],
+    "faction_keywords": [
+      "Adeptus Custodes"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "gnosis"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "venatari-custodians",
+    "name": "Venatari Custodians",
+    "faction_id": "adeptus-custodes",
+    "profiles": [
+      {
+        "name": "Venatari Custodians",
+        "M": 10,
+        "T": 6,
+        "W": 3,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 3,
+        "cost": 165
+      },
+      {
+        "models": 6,
+        "cost": 330
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Fly",
+      "Jump Pack",
+      "Imperium",
+      "Venatari Custodians"
+    ],
+    "faction_keywords": [
+      "Adeptus Custodes"
+    ],
+    "model_count": {
+      "min": 3,
+      "max": 6
+    },
+    "weapon_ids": [
+      "kinetic-destroyer",
+      "venatari-lance"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "shield-captain-in-allarus-terminator-armour",
+    "name": "Shield-Captain in Allarus Terminator Armour",
+    "faction_id": "adeptus-custodes",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Shield-Captain in Allarus Terminator Armour",
+        "M": 5,
+        "T": 7,
+        "W": 7,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 130
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Terminator",
+      "Imperium",
+      "Shield-Captain"
+    ],
+    "faction_keywords": [
+      "Adeptus Custodes"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "balistus-grenade-launcher",
+      "castellan-axe",
+      "guardian-spear"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "aquilon-custodians",
+    "name": "Aquilon Custodians",
+    "faction_id": "adeptus-custodes",
+    "profiles": [
+      {
+        "name": "Aquilon Custodians",
+        "M": 5,
+        "T": 7,
+        "W": 4,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 3,
+        "cost": 195
+      },
+      {
+        "models": 6,
+        "cost": 390
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Terminator",
+      "Imperium",
+      "Aquilon Custodians"
+    ],
+    "faction_keywords": [
+      "Adeptus Custodes"
+    ],
+    "model_count": {
+      "min": 3,
+      "max": 6
+    },
+    "weapon_ids": [
+      "infernus-firepike",
+      "lastrum-storm-bolter",
+      "solerite-power-gauntlet",
+      "solerite-power-talon",
+      "twin-adrathic-destructor"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "custodian-guard-with-adrasite-and-pyrithite-spears",
+    "name": "Custodian Guard with Adrasite and Pyrithite Spears",
+    "faction_id": "adeptus-custodes",
+    "profiles": [
+      {
+        "name": "Custodian Guard with Adrasite and Pyrithite Spears",
+        "M": 6,
+        "T": 6,
+        "W": 3,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 250
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Imperium",
+      "Custodian Guard with Adrasite and Pyrithite Spears"
+    ],
+    "faction_keywords": [
+      "Adeptus Custodes"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 5
+    },
+    "weapon_ids": [
+      "adrasite-spear",
+      "pyrithite-spear"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "coronus-grav-carrier",
+    "name": "Coronus Grav-carrier",
+    "faction_id": "adeptus-custodes",
+    "profiles": [
+      {
+        "name": "Coronus Grav-carrier",
+        "M": 12,
+        "T": 12,
+        "W": 16,
+        "Sv": 2,
+        "invuln_sv": 5,
+        "Ld": 6,
+        "OC": 5
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 200
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Transport",
+      "Fly",
+      "Imperium",
+      "Coronus Grav-carrier"
+    ],
+    "faction_keywords": [
+      "Adeptus Custodes"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "armoured-hull",
+      "twin-arachnus-blaze-cannon",
+      "twin-lastrum-bolt-cannon"
+    ],
+    "ability_ids": [],
+    "transport_capacity": {
+      "capacity": 8
+    },
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "prosecutors",
+    "name": "Prosecutors",
+    "faction_id": "adeptus-custodes",
+    "profiles": [
+      {
+        "name": "Prosecutor",
+        "M": 6,
+        "T": 3,
+        "W": 1,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 4,
+        "cost": 40
+      },
+      {
+        "models": 5,
+        "cost": 50
+      },
+      {
+        "models": 9,
+        "cost": 75
+      },
+      {
+        "models": 10,
+        "cost": 85
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Imperium",
+      "Anathema Psykana",
+      "Prosecutors"
+    ],
+    "faction_keywords": [
+      "Adeptus Custodes"
+    ],
+    "model_count": {
+      "min": 4,
+      "max": 10
+    },
+    "weapon_ids": [
+      "boltgun",
+      "close-combat-weapon"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "shield-captain",
+    "name": "Shield-Captain",
+    "faction_id": "adeptus-custodes",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Shield-Captain",
+        "M": 6,
+        "T": 6,
+        "W": 6,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 6,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 120
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Imperium",
+      "Shield-Captain"
+    ],
+    "faction_keywords": [
+      "Adeptus Custodes"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "castellan-axe",
+      "guardian-spear",
+      "pyrithite-spear",
+      "sentinel-blade"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  },
+  {
+    "id": "trajann-valoris",
+    "name": "Trajann Valoris",
+    "faction_id": "adeptus-custodes",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Trajann Valoris",
+        "M": 6,
+        "T": 6,
+        "W": 7,
+        "Sv": 2,
+        "invuln_sv": 4,
+        "Ld": 5,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 140
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Epic Hero",
+      "Imperium",
+      "Trajann Valoris"
+    ],
+    "faction_keywords": [
+      "Adeptus Custodes"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "weapon_ids": [
+      "eagles-scream",
+      "watchers-axe"
+    ],
+    "ability_ids": [],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    },
+    "is_legend": false
+  }
+]

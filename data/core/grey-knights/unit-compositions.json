@@ -1,0 +1,512 @@
+[
+  {
+    "unit_id": "land-raider-redeemer",
+    "models": [
+      {
+        "name": "Land Raider Redeemer",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "grand-master-in-nemesis-dreadknight",
+    "models": [
+      {
+        "name": "Grand Master in Nemesis Dreadknight",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "land-raider-crusader",
+    "models": [
+      {
+        "name": "Land Raider Crusader",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "grand-master",
+    "models": [
+      {
+        "name": "Grand Master",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "razorback",
+    "models": [
+      {
+        "name": "Razorback",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "purifier-squad",
+    "models": [
+      {
+        "name": "Knight of the Flame",
+        "profile_name": "Purifier",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "storm-bolter",
+          "nemesis-force-weapon"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Purifier",
+        "min": 4,
+        "max": 9,
+        "default_weapon_ids": [
+          "storm-bolter",
+          "nemesis-force-weapon"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "nemesis-dreadknight",
+    "models": [
+      {
+        "name": "Nemesis Dreadknight",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "grey-knights-thunderhawk-gunship",
+    "models": [
+      {
+        "name": "Grey Knights Thunderhawk Gunship",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "rhino",
+    "models": [
+      {
+        "name": "Rhino",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "brother-captain",
+    "models": [
+      {
+        "name": "Brother-Captain",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "venerable-dreadnought",
+    "models": [
+      {
+        "name": "Venerable Dreadnought",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "castellan-crowe",
+    "models": [
+      {
+        "name": "Castellan Crowe",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "strike-squad",
+    "models": [
+      {
+        "name": "Justicar",
+        "profile_name": "Grey Knight",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "storm-bolter",
+          "nemesis-force-weapon"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Grey Knight",
+        "min": 4,
+        "max": 9,
+        "default_weapon_ids": [
+          "storm-bolter",
+          "nemesis-force-weapon"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "brotherhood-techmarine",
+    "models": [
+      {
+        "name": "Brotherhood Techmarine",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "brotherhood-librarian",
+    "models": [
+      {
+        "name": "Brotherhood Librarian",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "brotherhood-champion",
+    "models": [
+      {
+        "name": "Brotherhood Champion",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "purgation-squad",
+    "models": [
+      {
+        "name": "Justicar",
+        "profile_name": "Purgator",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "storm-bolter",
+          "nemesis-force-weapon"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Purgator",
+        "min": 4,
+        "max": 9,
+        "default_weapon_ids": [
+          "storm-bolter",
+          "nemesis-force-weapon"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "stormtalon-gunship",
+    "models": [
+      {
+        "name": "Stormtalon Gunship",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "interceptor-squad",
+    "models": [
+      {
+        "name": "Justicar",
+        "profile_name": "Interceptor",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "storm-bolter",
+          "nemesis-force-weapon"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Interceptor",
+        "min": 4,
+        "max": 9,
+        "default_weapon_ids": [
+          "storm-bolter",
+          "nemesis-force-weapon"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "brotherhood-chaplain",
+    "models": [
+      {
+        "name": "Brotherhood Chaplain",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "paladin-squad",
+    "models": [
+      {
+        "name": "Paragon",
+        "profile_name": "Paladin",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "storm-bolter",
+          "nemesis-force-weapon"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Paladin",
+        "min": 3,
+        "max": 9,
+        "default_weapon_ids": [
+          "storm-bolter",
+          "nemesis-force-weapon"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "land-raider",
+    "models": [
+      {
+        "name": "Land Raider",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "grand-master-voldus",
+    "models": [
+      {
+        "name": "Grand Master Voldus",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "brotherhood-terminator-squad",
+    "models": [
+      {
+        "name": "Justicar",
+        "profile_name": "Terminator",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "storm-bolter",
+          "nemesis-force-weapon"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Terminator",
+        "min": 3,
+        "max": 9,
+        "default_weapon_ids": [
+          "storm-bolter",
+          "nemesis-force-weapon"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "stormhawk-interceptor",
+    "models": [
+      {
+        "name": "Stormhawk Interceptor",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "stormraven-gunship",
+    "models": [
+      {
+        "name": "Stormraven Gunship",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "grey-knights-dreadnought",
+    "models": [
+      {
+        "name": "Grey Knights Dreadnought",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "grey-knights-relic-razorback",
+    "models": [
+      {
+        "name": "Grey Knights Relic Razorback",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  }
+]

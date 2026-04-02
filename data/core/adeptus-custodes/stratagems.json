@@ -1,0 +1,710 @@
+[
+  {
+    "id": "peerless-warrior",
+    "name": "PEERLESS WARRIOR",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "lions-of-the-emperor",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "flawless-construction",
+    "name": "FLAWLESS CONSTRUCTION",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "solar-spearhead",
+    "cp_cost": 1,
+    "phases": [
+      "fight",
+      "shooting"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "emperors-vengeance",
+    "name": "EMPEROR’S VENGEANCE",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "solar-spearhead",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "wrathful-advance",
+    "name": "WRATHFUL ADVANCE",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "solar-spearhead",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "arcane-genetic-alchemy",
+    "name": "ARCANE GENETIC ALCHEMY",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "shield-host",
+    "cp_cost": 1,
+    "phases": [
+      "command",
+      "movement",
+      "shooting",
+      "charge",
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "witch-hunters",
+    "name": "WITCH HUNTERS",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "null-maiden-vigil",
+    "cp_cost": 1,
+    "phases": [
+      "fight",
+      "shooting"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "anathema-blademastery",
+    "name": "ANATHEMA BLADEMASTERY",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "null-maiden-vigil",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "purgation-sweep",
+    "name": "PURGATION SWEEP",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "null-maiden-vigil",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "talons-interlocked",
+    "name": "TALONS INTERLOCKED",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "talons-of-the-emperor",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "empyric-severance",
+    "name": "EMPYRIC SEVERANCE",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "talons-of-the-emperor",
+    "cp_cost": 1,
+    "phases": [
+      "fight",
+      "shooting"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "taloned-pincer",
+    "name": "TALONED PINCER",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "talons-of-the-emperor",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "emperors-executioners",
+    "name": "EMPEROR’S EXECUTIONERS",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "talons-of-the-emperor",
+    "cp_cost": 2,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "slayer-of-champions",
+    "name": "SLAYER OF CHAMPIONS",
+    "category": "detachment",
+    "type": "epic-deed",
+    "detachment_id": "auric-champions",
+    "cp_cost": 1,
+    "phases": [
+      "command",
+      "movement",
+      "shooting",
+      "charge",
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "the-emperors-auspice",
+    "name": "THE EMPEROR’S AUSPICE",
+    "category": "detachment",
+    "type": "epic-deed",
+    "detachment_id": "auric-champions",
+    "cp_cost": 1,
+    "phases": [
+      "fight",
+      "shooting"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "earning-of-a-name",
+    "name": "EARNING OF A NAME",
+    "category": "detachment",
+    "type": "epic-deed",
+    "detachment_id": "auric-champions",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "shoulder-the-mantle",
+    "name": "SHOULDER THE MANTLE",
+    "category": "detachment",
+    "type": "epic-deed",
+    "detachment_id": "auric-champions",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "shield-of-honour",
+    "name": "SHIELD OF HONOUR",
+    "category": "detachment",
+    "type": "epic-deed",
+    "detachment_id": "talons-of-the-emperor",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "superhuman-reserves",
+    "name": "SUPERHUMAN RESERVES",
+    "category": "detachment",
+    "type": "epic-deed",
+    "detachment_id": "auric-champions",
+    "cp_cost": 2,
+    "phases": [
+      "command",
+      "movement",
+      "shooting",
+      "charge",
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "vigil-unending",
+    "name": "VIGIL UNENDING",
+    "category": "detachment",
+    "type": "epic-deed",
+    "detachment_id": "auric-champions",
+    "cp_cost": 2,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "gilded-champion",
+    "name": "GILDED CHAMPION",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "lions-of-the-emperor",
+    "cp_cost": 1,
+    "phases": [
+      "command",
+      "movement",
+      "shooting",
+      "charge",
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "defiant-to-the-last",
+    "name": "DEFIANT TO THE LAST",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "lions-of-the-emperor",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "unleash-the-lions",
+    "name": "UNLEASH THE LIONS",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "lions-of-the-emperor",
+    "cp_cost": 1,
+    "phases": [
+      "command"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "manoeuvre-and-fire",
+    "name": "MANOEUVRE AND FIRE",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "lions-of-the-emperor",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "swift-as-the-eagle",
+    "name": "SWIFT AS THE EAGLE",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "lions-of-the-emperor",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "unstoppable",
+    "name": "UNSTOPPABLE",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "solar-spearhead",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "relentless-persecution",
+    "name": "RELENTLESS PERSECUTION",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "solar-spearhead",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "punishment-inescapable",
+    "name": "PUNISHMENT INESCAPABLE",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "solar-spearhead",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "avenge-the-fallen",
+    "name": "AVENGE THE FALLEN",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "shield-host",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "unwavering-sentinels",
+    "name": "UNWAVERING SENTINELS",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "shield-host",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "multipotentiality",
+    "name": "MULTIPOTENTIALITY",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "shield-host",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "vigilance-eternal",
+    "name": "VIGILANCE ETERNAL",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "shield-host",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "desperations-price",
+    "name": "DESPERATION’S PRICE",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "null-maiden-vigil",
+    "cp_cost": 1,
+    "phases": [
+      "command",
+      "movement",
+      "shooting",
+      "charge",
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "psy-chaff-volley",
+    "name": "PSY-CHAFF VOLLEY",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "null-maiden-vigil",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "psychic-abominations",
+    "name": "PSYCHIC ABOMINATIONS",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "null-maiden-vigil",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "hunt-as-one",
+    "name": "HUNT AS ONE",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "talons-of-the-emperor",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "archeotech-munitions",
+    "name": "ARCHEOTECH MUNITIONS",
+    "category": "detachment",
+    "type": "wargear",
+    "detachment_id": "shield-host",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  }
+]

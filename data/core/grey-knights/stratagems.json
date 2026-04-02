@@ -1,0 +1,702 @@
+[
+  {
+    "id": "aggressive-anticipation",
+    "name": "AGGRESSIVE ANTICIPATION",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "augurium-task-force",
+    "cp_cost": 1,
+    "phases": [
+      "fight",
+      "shooting"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "appointed-hour",
+    "name": "APPOINTED HOUR",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "augurium-task-force",
+    "cp_cost": 1,
+    "phases": [
+      "fight",
+      "shooting"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "fires-of-covenant",
+    "name": "FIRES OF COVENANT",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "warpbane-task-force",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "aegis-eternal",
+    "name": "AEGIS ETERNAL",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "warpbane-task-force",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "repelling-sphere",
+    "name": "REPELLING SPHERE",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "warpbane-task-force",
+    "cp_cost": 1,
+    "phases": [
+      "charge"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "sanctified-kill-zone",
+    "name": "SANCTIFIED KILL ZONE",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "warpbane-task-force",
+    "cp_cost": 1,
+    "phases": [
+      "fight",
+      "shooting"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "hallowed-beacon",
+    "name": "HALLOWED BEACON",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "warpbane-task-force",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "purgation-pattern",
+    "name": "PURGATION PATTERN",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "brotherhood-strike",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "shining-veil",
+    "name": "SHINING VEIL",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "brotherhood-strike",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "giants-of-the-battlefield",
+    "name": "GIANTS OF THE BATTLEFIELD",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "hallowed-conclave",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "abominus-class-targets",
+    "name": "ABOMINUS-CLASS TARGETS",
+    "category": "detachment",
+    "type": "battle-tactic",
+    "detachment_id": "sanctic-spearhead",
+    "cp_cost": 1,
+    "phases": [
+      "fight",
+      "shooting"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "forewarned-evasion",
+    "name": "FOREWARNED EVASION",
+    "category": "detachment",
+    "type": "epic-deed",
+    "detachment_id": "augurium-task-force",
+    "cp_cost": 1,
+    "phases": [
+      "fight",
+      "shooting"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "necessary-end",
+    "name": "NECESSARY END",
+    "category": "detachment",
+    "type": "epic-deed",
+    "detachment_id": "augurium-task-force",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "redirected-strike",
+    "name": "REDIRECTED STRIKE",
+    "category": "detachment",
+    "type": "epic-deed",
+    "detachment_id": "augurium-task-force",
+    "cp_cost": 1,
+    "phases": [
+      "command"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "hexwrought-reprisal",
+    "name": "HEXWROUGHT REPRISAL",
+    "category": "detachment",
+    "type": "epic-deed",
+    "detachment_id": "banishers",
+    "cp_cost": 1,
+    "phases": [
+      "command",
+      "movement",
+      "shooting",
+      "charge",
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "warding-chant",
+    "name": "WARDING CHANT",
+    "category": "detachment",
+    "type": "epic-deed",
+    "detachment_id": "banishers",
+    "cp_cost": 1,
+    "phases": [
+      "fight",
+      "shooting"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "chaos-bane",
+    "name": "CHAOS BANE",
+    "category": "detachment",
+    "type": "epic-deed",
+    "detachment_id": "banishers",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "celerity",
+    "name": "CELERITY",
+    "category": "detachment",
+    "type": "epic-deed",
+    "detachment_id": "banishers",
+    "cp_cost": 1,
+    "phases": [
+      "charge"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "circle-of-sanctuary",
+    "name": "CIRCLE OF SANCTUARY",
+    "category": "detachment",
+    "type": "epic-deed",
+    "detachment_id": "banishers",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "shadow-of-anarch",
+    "name": "SHADOW OF ANARCH",
+    "category": "detachment",
+    "type": "epic-deed",
+    "detachment_id": "banishers",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "combat-manifestation",
+    "name": "COMBAT MANIFESTATION",
+    "category": "detachment",
+    "type": "epic-deed",
+    "detachment_id": "brotherhood-strike",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "truesilver-will",
+    "name": "TRUESILVER WILL",
+    "category": "detachment",
+    "type": "epic-deed",
+    "detachment_id": "sanctic-spearhead",
+    "cp_cost": 1,
+    "phases": [
+      "command",
+      "movement",
+      "shooting",
+      "charge",
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "mirage-of-echoes",
+    "name": "MIRAGE OF ECHOES",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "augurium-task-force",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "flames-of-sanctity",
+    "name": "FLAMES OF SANCTITY",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "warpbane-task-force",
+    "cp_cost": 1,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "duty-unending",
+    "name": "DUTY UNENDING",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "brotherhood-strike",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "unending-fidelity",
+    "name": "UNENDING FIDELITY",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "hallowed-conclave",
+    "cp_cost": 1,
+    "phases": [
+      "fight",
+      "shooting"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "point-blank-purgation",
+    "name": "POINT-BLANK PURGATION",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "hallowed-conclave",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "grind-them-underfoot",
+    "name": "GRIND THEM UNDERFOOT",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "hallowed-conclave",
+    "cp_cost": 1,
+    "phases": [
+      "charge"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "precognitive-strategies",
+    "name": "PRECOGNITIVE STRATEGIES",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "hallowed-conclave",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "shining-resolve",
+    "name": "SHINING RESOLVE",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "hallowed-conclave",
+    "cp_cost": 1,
+    "phases": [
+      "shooting"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "armoured-aegis",
+    "name": "ARMOURED AEGIS",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "sanctic-spearhead",
+    "cp_cost": 1,
+    "phases": [
+      "command"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "redoubled-assault",
+    "name": "REDOUBLED ASSAULT",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "sanctic-spearhead",
+    "cp_cost": 1,
+    "phases": [
+      "movement"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "force-wave",
+    "name": "FORCE WAVE",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "sanctic-spearhead",
+    "cp_cost": 1,
+    "phases": [
+      "charge",
+      "movement"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "argent-wrath",
+    "name": "ARGENT WRATH",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "sanctic-spearhead",
+    "cp_cost": 1,
+    "phases": [
+      "charge"
+    ],
+    "player_turn": "your-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "truesilver-channelling",
+    "name": "TRUESILVER CHANNELLING",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "brotherhood-strike",
+    "cp_cost": 2,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "either",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "id": "expeditious-exit",
+    "name": "EXPEDITIOUS EXIT",
+    "category": "detachment",
+    "type": "strategic-ploy",
+    "detachment_id": "brotherhood-strike",
+    "cp_cost": 2,
+    "phases": [
+      "fight"
+    ],
+    "player_turn": "opponent-turn",
+    "timing": "once-per-phase",
+    "target_restrictions": null,
+    "ability_id": null,
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  }
+]

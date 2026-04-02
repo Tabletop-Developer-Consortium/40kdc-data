@@ -1,0 +1,727 @@
+[
+  {
+    "unit_id": "celestian-sacresants",
+    "models": [
+      {
+        "name": "Sacresant Superior",
+        "profile_name": "Celestian Sacresant",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "bolt-pistol",
+          "hallowed-mace"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Celestian Sacresant",
+        "min": 4,
+        "max": 9,
+        "default_weapon_ids": [
+          "bolt-pistol",
+          "hallowed-mace"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "mortifiers",
+    "models": [
+      {
+        "name": "Mortifiers",
+        "min": 1,
+        "max": 2,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "canoness-with-jump-pack",
+    "models": [
+      {
+        "name": "Canoness with Jump Pack",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "palatine",
+    "models": [
+      {
+        "name": "Palatine",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "sanctifiers",
+    "models": [
+      {
+        "name": "Missionary",
+        "profile_name": "Missionary",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "holy-fire",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Miraculist",
+        "min": 2,
+        "max": 2,
+        "default_weapon_ids": [
+          "ministorum-hand-flamer",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": false
+      },
+      {
+        "name": "Salvationist",
+        "min": 2,
+        "max": 2,
+        "default_weapon_ids": [
+          "ministorum-flamer",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": false
+      },
+      {
+        "name": "Death Cult Assassin",
+        "min": 2,
+        "max": 2,
+        "default_weapon_ids": [
+          "death-cult-blades"
+        ],
+        "is_leader_model": false
+      },
+      {
+        "name": "Sanctifier",
+        "min": 2,
+        "max": 2,
+        "default_weapon_ids": [
+          "sanctifier-melee-weapon"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "arco-flagellants",
+    "models": [
+      {
+        "name": "Arco-flagellants",
+        "min": 3,
+        "max": 10,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "celestian-insidiants",
+    "models": [
+      {
+        "name": "Insidiant Superior",
+        "profile_name": "Celestian Insidiant",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "condemnor-bolt-pistol",
+          "blessed-sword"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Celestian Insidiant",
+        "min": 9,
+        "max": 9,
+        "default_weapon_ids": [
+          "condemnor-bolt-pistol",
+          "null-mace"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "imagifier",
+    "models": [
+      {
+        "name": "Imagifier",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "triumph-of-saint-katherine",
+    "models": [
+      {
+        "name": "Triumph of Saint Katherine",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "seraphim-squad",
+    "models": [
+      {
+        "name": "Seraphim Superior",
+        "profile_name": "Seraphim",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "bolt-pistol",
+          "chainsword"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Seraphim",
+        "min": 4,
+        "max": 9,
+        "default_weapon_ids": [
+          "bolt-pistol",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "repentia-squad",
+    "models": [
+      {
+        "name": "Repentia Superior",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "bolt-pistol",
+          "neural-whips"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Sister Repentia",
+        "min": 4,
+        "max": 9,
+        "default_weapon_ids": [
+          "penitent-eviscerator"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "dialogus",
+    "models": [
+      {
+        "name": "Dialogus",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "dogmata",
+    "models": [
+      {
+        "name": "Dogmata",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "immolator",
+    "models": [
+      {
+        "name": "Immolator",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "hospitaller",
+    "models": [
+      {
+        "name": "Hospitaller",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "morvenn-vahl",
+    "models": [
+      {
+        "name": "Morvenn Vahl",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "retributor-squad",
+    "models": [
+      {
+        "name": "Retributor Superior",
+        "profile_name": "Retributor",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "bolt-pistol",
+          "power-weapon"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Retributor",
+        "min": 4,
+        "max": 4,
+        "default_weapon_ids": [
+          "boltgun",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "sisters-novitiate-squad",
+    "models": [
+      {
+        "name": "Novitiate Superior",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "bolt-pistol",
+          "power-weapon"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Sister Novitiate",
+        "min": 9,
+        "max": 9,
+        "default_weapon_ids": [
+          "autogun",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "daemonifuge",
+    "models": [
+      {
+        "name": "Ephrael Stern",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "bolt-pistol",
+          "sanctity"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Kyganil of the Bloody Tears",
+        "profile_name": "Kyganil of the Bloody Tears",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "the-blades-of-the-harlequin"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "sororitas-rhino",
+    "models": [
+      {
+        "name": "Sororitas Rhino",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "paragon-warsuits",
+    "models": [
+      {
+        "name": "Paragon",
+        "min": 3,
+        "max": 3,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "castigator",
+    "models": [
+      {
+        "name": "Castigator",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "exorcist",
+    "models": [
+      {
+        "name": "Exorcist",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "penitent-engines",
+    "models": [
+      {
+        "name": "Penitent Engines",
+        "min": 1,
+        "max": 2,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "junith-eruita",
+    "models": [
+      {
+        "name": "Junith Eruita",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "ministorum-priest",
+    "models": [
+      {
+        "name": "Ministorum Priest",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "zephyrim-squad",
+    "models": [
+      {
+        "name": "Zephyrim Superior",
+        "profile_name": "Zephyrim",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "bolt-pistol",
+          "power-weapon"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Zephyrim",
+        "min": 4,
+        "max": 9,
+        "default_weapon_ids": [
+          "bolt-pistol",
+          "power-weapon"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "dominion-squad",
+    "models": [
+      {
+        "name": "Dominion Superior",
+        "profile_name": "Dominion",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "bolt-pistol",
+          "power-weapon"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Dominion",
+        "min": 9,
+        "max": 9,
+        "default_weapon_ids": [
+          "boltgun",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "saint-celestine",
+    "models": [
+      {
+        "name": "Celestine",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "the-ardent-blade-strike"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Geminae Superia",
+        "min": 2,
+        "max": 2,
+        "default_weapon_ids": [
+          "bolt-pistol",
+          "power-weapon"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "battle-sisters-squad",
+    "models": [
+      {
+        "name": "Sister Superior",
+        "profile_name": "Battle Sister",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "bolt-pistol",
+          "power-weapon"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Battle Sister",
+        "min": 9,
+        "max": 9,
+        "default_weapon_ids": [
+          "boltgun",
+          "close-combat-weapon"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "canoness",
+    "models": [
+      {
+        "name": "Canoness",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "aestred-thurga-and-agathae-dolan",
+    "models": [
+      {
+        "name": "Aestred Thurga",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "bolt-pistol",
+          "auto-of-castigation"
+        ],
+        "is_leader_model": true
+      },
+      {
+        "name": "Agathae Dolan",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "close-combat-weapon"
+        ],
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "repressor",
+    "models": [
+      {
+        "name": "Repressor",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  },
+  {
+    "unit_id": "battle-sanctum",
+    "models": [
+      {
+        "name": "Battle Sanctum",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": false
+      }
+    ],
+    "game_version": {
+      "edition": "10th",
+      "dataslate": "2025-q3"
+    }
+  }
+]

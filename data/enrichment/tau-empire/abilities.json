@@ -3468,13 +3468,27 @@
         ]
       },
       "effect": {
-        "type": "keyword-grant",
-        "target": "unit",
-        "modifier": {
-          "keywords": [
-            "Ignores Cover"
-          ]
-        }
+        "type": "sequence",
+        "steps": [
+          {
+            "type": "roll-modifier",
+            "target": "unit",
+            "modifier": {
+              "roll": "hit",
+              "operation": "add",
+              "value": 1
+            }
+          },
+          {
+            "type": "keyword-grant",
+            "target": "unit",
+            "modifier": {
+              "keywords": [
+                "Ignores Cover"
+              ]
+            }
+          }
+        ]
       }
     },
     "scope": {
@@ -3483,6 +3497,7 @@
     },
     "faction_id": "tau-empire",
     "ability_type": "faction",
-    "behavior": "activated"
+    "behavior": "activated",
+    "community_notes": "Assumes targets are SPOTTED (observer unit sacrifices shooting). +1 BS is the primary offensive benefit; Ignores Cover is kept for completeness but has no effect in the current damage engine (cover not simulated)."
   }
 ]

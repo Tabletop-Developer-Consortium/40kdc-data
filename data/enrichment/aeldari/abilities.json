@@ -338,12 +338,11 @@
     "version": "2025-q3",
     "effect": {
       "type": "roll-modifier",
-      "target": "self",
+      "target": "unit",
       "modifier": {
-        "roll": "any",
-        "operation": "set",
-        "value": 6,
-        "uses": 1
+        "roll": "hit",
+        "operation": "guarantee-crit",
+        "value": 1
       }
     },
     "scope": {
@@ -351,10 +350,17 @@
       "duration": "one-use"
     },
     "unit_ids": [
-      "striking-scorpions"
+      "striking-scorpions",
+      "fire-dragons",
+      "swooping-hawks",
+      "warp-spiders",
+      "dark-reapers",
+      "dire-avengers",
+      "howling-banshees"
     ],
     "ability_type": "unit",
-    "behavior": "activated"
+    "behavior": "activated",
+    "community_notes": "Once per battle, change one Hit or Wound roll to an unmodified 6. Modeled as 1 guaranteed crit hit per activation to capture GW's pricing signal. Actual mechanic is once-per-game."
   },
   {
     "ability_id": "leader",
@@ -3431,9 +3437,19 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "conditional",
+      "condition": {
+        "type": "is-attached"
+      },
+      "effect": {
+        "type": "movement-modifier",
+        "target": "unit",
+        "modifier": {
+          "move_type": "pile-in-consolidation",
+          "value": 6,
+          "replaces_default": true
+        }
+      }
     },
     "scope": {
       "range": "unit",
@@ -3443,8 +3459,7 @@
       "troupe-master"
     ],
     "ability_type": "unit",
-    "behavior": "passive",
-    "community_notes": "auto-generated stub — needs manual authoring. Original: While this model is leading a unit, each time a model in that unit makes a Pile‐in or Consolidation move, it can move up to 6\" instead of up to 3\". In"
+    "behavior": "passive"
   },
   {
     "ability_id": "cegorach-s-favour",

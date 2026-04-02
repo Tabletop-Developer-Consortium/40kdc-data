@@ -2485,17 +2485,21 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "stat-modifier",
+      "type": "roll-modifier",
       "target": "unit",
-      "modifier": {}
+      "modifier": {
+        "roll": "hit",
+        "operation": "guarantee-crit",
+        "value": 1
+      }
     },
     "scope": {
       "range": "any-on-battlefield",
-      "duration": "permanent"
+      "duration": "phase"
     },
     "faction_id": "adepta-sororitas",
     "ability_type": "faction",
-    "behavior": "passive",
-    "community_notes": "auto-generated stub — needs manual authoring. Original: If your Army Faction is ADEPTA SORORITAS, each unit from your army with this ability can perform one Act of Faith per phase. This is done using Miracl"
+    "behavior": "activated",
+    "community_notes": "Models 1 Miracle Die per activation as a guaranteed crit hit (auto-6). Sororitas generate ~8-10 Miracle Dice per game; 1 per unit-activation is a generous upper-bound that captures the mechanic's offensive value."
   }
 ]

@@ -870,9 +870,13 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "stat-modifier",
+      "type": "movement-modifier",
       "target": "unit",
-      "modifier": {}
+      "modifier": {
+        "move_type": "extended-consolidation",
+        "value": 6,
+        "replaces_default": true
+      }
     },
     "scope": {
       "range": "unit",
@@ -882,8 +886,7 @@
       "knight-gallant"
     ],
     "ability_type": "unit",
-    "behavior": "passive",
-    "community_notes": "auto-generated stub — needs manual authoring. Original: Each time this unit Consolidates, models in it can move an additional 3\" provided your unit can end that move within Engagement Range of one or more e"
+    "behavior": "passive"
   },
   {
     "ability_id": "impetuous-glory",

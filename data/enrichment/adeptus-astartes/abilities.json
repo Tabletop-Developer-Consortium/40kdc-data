@@ -4697,20 +4697,56 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "conditional",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          {
+            "type": "phase-is",
+            "parameters": {
+              "phase": "shooting"
+            }
+          },
+          {
+            "type": "player-turn-is",
+            "parameters": {
+              "turn": "opponent-turn"
+            }
+          },
+          {
+            "type": "destroyed-by-attack-type",
+            "parameters": {
+              "attack_type": "ranged"
+            }
+          },
+          {
+            "type": "opponent-unit-within-range",
+            "parameters": {
+              "range": "engagement"
+            },
+            "negated": true
+          }
+        ]
+      },
+      "effect": {
+        "type": "movement-modifier",
+        "target": "unit",
+        "modifier": {
+          "move_type": "surge-move",
+          "value": "D6",
+          "replaces_default": false
+        }
+      }
     },
     "scope": {
       "range": "unit",
-      "duration": "permanent"
+      "duration": "phase"
     },
     "unit_ids": [
       "victrix-honour-guard"
     ],
     "ability_type": "unit",
-    "behavior": "passive",
-    "community_notes": "auto-generated stub — needs manual authoring. Original: In your opponent’s Shooting phase, each time an enemy unit has shot, if any models from this unit were destroyed as a result of those attacks, this un"
+    "behavior": "reactive"
   },
   {
     "ability_id": "banner-of-macragge",
@@ -8180,20 +8216,44 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "conditional",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          {
+            "type": "phase-is",
+            "parameters": {
+              "phase": "shooting"
+            }
+          },
+          {
+            "type": "opponent-unit-within-range",
+            "parameters": {
+              "range": "engagement"
+            },
+            "negated": true
+          }
+        ]
+      },
+      "effect": {
+        "type": "movement-modifier",
+        "target": "unit",
+        "modifier": {
+          "move_type": "move-after-shoot",
+          "value": "D6",
+          "replaces_default": false
+        }
+      }
     },
     "scope": {
       "range": "unit",
-      "duration": "permanent"
+      "duration": "phase"
     },
     "unit_ids": [
       "javelin-attack-speeder"
     ],
     "ability_type": "unit",
-    "behavior": "passive",
-    "community_notes": "auto-generated stub — needs manual authoring. Original: In your Shooting phase, each time this model has shot, if it is not within Engagement Range of any enemy units, it can make a Normal move of up to D6\""
+    "behavior": "reactive"
   },
   {
     "ability_id": "deathstorm-assault",

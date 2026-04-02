@@ -4432,13 +4432,36 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {
-        "stat": "M",
-        "operation": "add",
-        "value": 3
-      }
+      "type": "choice",
+      "options": [
+        {
+          "type": "roll-modifier",
+          "target": "unit",
+          "modifier": {
+            "roll": "hit",
+            "operation": "add",
+            "value": 1
+          }
+        },
+        {
+          "type": "stat-modifier",
+          "target": "unit",
+          "modifier": {
+            "stat": "A",
+            "operation": "add",
+            "value": 1
+          }
+        },
+        {
+          "type": "stat-modifier",
+          "target": "unit",
+          "modifier": {
+            "stat": "M",
+            "operation": "add",
+            "value": 3
+          }
+        }
+      ]
     },
     "scope": {
       "range": "aura-6",
@@ -4446,6 +4469,7 @@
     },
     "faction_id": "astra-militarum",
     "ability_type": "faction",
-    "behavior": "passive"
+    "behavior": "activated",
+    "community_notes": "Models 3 offensive Orders as a choice: Take Aim (+1 BS), First Rank Fire (+1A on Rapid Fire), Move Move Move (+3M). Hill-climbing selects Take Aim (+1 hit) as universally best. Fix Bayonets (+1 WS) omitted as it's equivalent to Take Aim for melee phase."
   }
 ]

@@ -410,20 +410,37 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "sequence",
+      "steps": [
+        {
+          "type": "stat-modifier",
+          "target": "enemy-within-aura",
+          "modifier": {
+            "stat": "M",
+            "operation": "subtract",
+            "value": 2
+          }
+        },
+        {
+          "type": "objective-control-modifier",
+          "target": "enemy-within-aura",
+          "modifier": {
+            "stat": "OC",
+            "operation": "subtract",
+            "value": 1
+          }
+        }
+      ]
     },
     "scope": {
-      "range": "unit",
+      "range": "aura-6",
       "duration": "permanent"
     },
     "unit_ids": [
       "rotigus"
     ],
     "ability_type": "unit",
-    "behavior": "passive",
-    "community_notes": "auto-generated stub — needs manual authoring. Original: While an enemy unit is within 6\" of this model, subtract 2 from the Move characteristic and subtract 1 from the Objective Control characteristic of mo"
+    "behavior": "passive"
   },
   {
     "ability_id": "fights-first",
@@ -783,9 +800,13 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "stat-modifier",
+      "type": "movement-modifier",
       "target": "unit",
-      "modifier": {}
+      "modifier": {
+        "move_type": "extended-consolidation",
+        "value": 6,
+        "replaces_default": true
+      }
     },
     "scope": {
       "range": "unit",
@@ -795,8 +816,7 @@
       "bloodmaster"
     ],
     "ability_type": "unit",
-    "behavior": "passive",
-    "community_notes": "auto-generated stub — needs manual authoring. Original: Each time this model’s unit Consolidates, it can move up to 6\" instead of up to 3\"."
+    "behavior": "passive"
   },
   {
     "ability_id": "tranceweaver",

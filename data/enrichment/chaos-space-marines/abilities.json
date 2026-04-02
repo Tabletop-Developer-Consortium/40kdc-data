@@ -2920,9 +2920,29 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "conditional",
+      "condition": {
+        "type": "is-attached"
+      },
+      "effect": {
+        "type": "sequence",
+        "steps": [
+          {
+            "type": "re-roll",
+            "target": "unit",
+            "modifier": {
+              "roll": "advance"
+            }
+          },
+          {
+            "type": "re-roll",
+            "target": "unit",
+            "modifier": {
+              "roll": "blood-surge"
+            }
+          }
+        ]
+      }
     },
     "scope": {
       "range": "unit",
@@ -2932,8 +2952,7 @@
       "master-of-executions"
     ],
     "ability_type": "unit",
-    "behavior": "passive",
-    "community_notes": "auto-generated stub — needs manual authoring. Original: While this model is leading a unit, you can re-roll Advance rolls made for that unit and each time that unit makes a Blood Surge move, you can re-roll"
+    "behavior": "passive"
   },
   {
     "ability_id": "a-worthy-skull",
@@ -3006,20 +3025,56 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "conditional",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          {
+            "type": "phase-is",
+            "parameters": {
+              "phase": "shooting"
+            }
+          },
+          {
+            "type": "player-turn-is",
+            "parameters": {
+              "turn": "opponent-turn"
+            }
+          },
+          {
+            "type": "destroyed-by-attack-type",
+            "parameters": {
+              "attack_type": "ranged"
+            }
+          },
+          {
+            "type": "opponent-unit-within-range",
+            "parameters": {
+              "range": "engagement"
+            },
+            "negated": true
+          }
+        ]
+      },
+      "effect": {
+        "type": "movement-modifier",
+        "target": "unit",
+        "modifier": {
+          "move_type": "horde-move",
+          "value": "D6",
+          "replaces_default": false
+        }
+      }
     },
     "scope": {
       "range": "unit",
-      "duration": "permanent"
+      "duration": "phase"
     },
     "unit_ids": [
       "accursed-cultists"
     ],
     "ability_type": "unit",
-    "behavior": "passive",
-    "community_notes": "auto-generated stub — needs manual authoring. Original: Each time an enemy unit has shot, if one or more models from this unit were destroyed as a result of those attacks, this unit can make a Horde move. T"
+    "behavior": "reactive"
   },
   {
     "ability_id": "dark-ascension-aura",
@@ -3174,9 +3229,19 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "conditional",
+      "condition": {
+        "type": "is-attached"
+      },
+      "effect": {
+        "type": "movement-modifier",
+        "target": "unit",
+        "modifier": {
+          "move_type": "pile-in-consolidation",
+          "value": 6,
+          "replaces_default": true
+        }
+      }
     },
     "scope": {
       "range": "unit",
@@ -3186,8 +3251,7 @@
       "chaos-lord-with-jump-pack"
     ],
     "ability_type": "unit",
-    "behavior": "passive",
-    "community_notes": "auto-generated stub — needs manual authoring. Original: While this model is leading a unit, each time that unit Piles In or Consolidates, each model in that unit can move up to 6\" instead of up to 3\"."
+    "behavior": "passive"
   },
   {
     "ability_id": "for-the-dark-gods",
@@ -5341,9 +5405,19 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "conditional",
+      "condition": {
+        "type": "is-attached"
+      },
+      "effect": {
+        "type": "stat-modifier",
+        "target": "unit",
+        "modifier": {
+          "stat": "M",
+          "operation": "set",
+          "value": 14
+        }
+      }
     },
     "scope": {
       "range": "unit",
@@ -5353,8 +5427,7 @@
       "sorcerer-on-steed-of-slaanesh"
     ],
     "ability_type": "unit",
-    "behavior": "passive",
-    "community_notes": "auto-generated stub — needs manual authoring. Original: While this model is leading a unit, change the Move characteristic of models in that unit to 14\"."
+    "behavior": "passive"
   },
   {
     "ability_id": "dark-favour-psychic",

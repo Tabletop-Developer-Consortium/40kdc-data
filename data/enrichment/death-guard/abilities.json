@@ -2490,20 +2490,22 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "attack-restriction",
+      "target": "enemy-within-aura",
+      "modifier": {
+        "restriction": "no-advance",
+        "range": 9
+      }
     },
     "scope": {
-      "range": "unit",
+      "range": "aura-9",
       "duration": "permanent"
     },
     "unit_ids": [
       "foul-blightspawn"
     ],
     "ability_type": "unit",
-    "behavior": "passive",
-    "community_notes": "auto-generated stub — needs manual authoring. Original: Enemy models cannot start or end an Advance move within 9\" of this model."
+    "behavior": "passive"
   },
   {
     "ability_id": "unclean-icon",
@@ -2789,13 +2791,50 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "stat-modifier",
-      "target": "enemy-within-aura",
-      "modifier": {
-        "stat": "T",
-        "operation": "subtract",
-        "value": 1
-      }
+      "type": "sequence",
+      "steps": [
+        {
+          "type": "stat-modifier",
+          "target": "enemy-within-aura",
+          "modifier": {
+            "stat": "T",
+            "operation": "subtract",
+            "value": 1
+          }
+        },
+        {
+          "type": "choice",
+          "options": [
+            {
+              "type": "roll-modifier",
+              "target": "enemy-within-aura",
+              "modifier": {
+                "roll": "hit",
+                "operation": "subtract",
+                "value": 1
+              }
+            },
+            {
+              "type": "stat-modifier",
+              "target": "enemy-within-aura",
+              "modifier": {
+                "stat": "Sv",
+                "operation": "subtract",
+                "value": 1
+              }
+            },
+            {
+              "type": "stat-modifier",
+              "target": "enemy-within-aura",
+              "modifier": {
+                "stat": "M",
+                "operation": "subtract",
+                "value": 1
+              }
+            }
+          ]
+        }
+      ]
     },
     "scope": {
       "range": "unit",
@@ -2803,7 +2842,8 @@
     },
     "faction_id": "death-guard",
     "ability_type": "faction",
-    "behavior": "passive"
+    "behavior": "passive",
+    "community_notes": "-1T always active (Contagion). Plague choice: hill-climbing selects -1 Save (most offensive), equivalent to +1 AP. Other plague options are -1 to enemy Hit (defensive) and -1 M/Ld/OC (utility)."
   },
   {
     "ability_id": "pact-of-decay",

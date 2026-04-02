@@ -693,20 +693,11 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "conditional",
-      "condition": {
-        "type": "phase-is",
-        "parameters": {
-          "phase": "fight"
-        }
-      },
-      "effect": {
-        "type": "re-roll",
-        "target": "unit",
-        "modifier": {
-          "roll": "wound",
-          "condition": "natural-1"
-        }
+      "type": "re-roll",
+      "target": "unit",
+      "modifier": {
+        "roll": "wound",
+        "condition": "natural-1"
       }
     },
     "scope": {
@@ -1399,20 +1390,11 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "conditional",
-      "condition": {
-        "type": "phase-is",
-        "parameters": {
-          "phase": "fight"
-        }
-      },
-      "effect": {
-        "type": "re-roll",
-        "target": "unit",
-        "modifier": {
-          "roll": "hit",
-          "condition": "any-fail"
-        }
+      "type": "re-roll",
+      "target": "unit",
+      "modifier": {
+        "roll": "hit",
+        "condition": "any-fail"
       }
     },
     "scope": {
@@ -2038,9 +2020,19 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "conditional",
+      "condition": {
+        "type": "is-attached"
+      },
+      "effect": {
+        "type": "movement-modifier",
+        "target": "unit",
+        "modifier": {
+          "move_type": "pile-in-consolidation",
+          "value": 6,
+          "replaces_default": true
+        }
+      }
     },
     "scope": {
       "range": "unit",
@@ -2050,8 +2042,7 @@
       "drazhar"
     ],
     "ability_type": "unit",
-    "behavior": "passive",
-    "community_notes": "auto-generated stub — needs manual authoring. Original: While this model is leading a unit, each time a model in that unit makes a Pile‑in or Consolidation move, it can move up to 6\" instead of up to 3\"."
+    "behavior": "passive"
   },
   {
     "ability_id": "silent-executioner",
@@ -2210,12 +2201,11 @@
     "version": "2025-q3",
     "effect": {
       "type": "roll-modifier",
-      "target": "self",
+      "target": "unit",
       "modifier": {
-        "roll": "any",
-        "operation": "set",
-        "value": 6,
-        "uses": 1
+        "roll": "hit",
+        "operation": "guarantee-crit",
+        "value": 1
       }
     },
     "scope": {
@@ -2226,7 +2216,8 @@
       "incubi"
     ],
     "ability_type": "unit",
-    "behavior": "activated"
+    "behavior": "activated",
+    "community_notes": "Once per battle, change one Hit or Wound roll to an unmodified 6. Modeled as 1 guaranteed crit hit per activation."
   },
   {
     "ability_id": "infiltrators",

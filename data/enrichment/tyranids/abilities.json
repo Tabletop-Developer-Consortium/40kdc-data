@@ -795,20 +795,22 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "attack-restriction",
+      "target": "enemy-within-aura",
+      "modifier": {
+        "restriction": "no-advance",
+        "range": 6
+      }
     },
     "scope": {
-      "range": "unit",
+      "range": "aura-6",
       "duration": "permanent"
     },
     "unit_ids": [
       "spore-mines"
     ],
     "ability_type": "unit",
-    "behavior": "passive",
-    "community_notes": "auto-generated stub — needs manual authoring. Original: Enemy units cannot start or end an Advance move within 6\" of this unit."
+    "behavior": "passive"
   },
   {
     "ability_id": "floating-death",

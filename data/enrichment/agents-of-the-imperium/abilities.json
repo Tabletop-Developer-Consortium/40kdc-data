@@ -2917,12 +2917,18 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "keyword-grant",
+      "target": "self",
+      "modifier": {
+        "keywords": [
+          "anti-monster",
+          "anti-vehicle"
+        ],
+        "weapon": "exitus-rifle"
+      }
     },
     "scope": {
-      "range": "unit",
+      "range": "self",
       "duration": "permanent"
     },
     "unit_ids": [
@@ -2930,7 +2936,8 @@
     ],
     "ability_type": "enhancement",
     "behavior": "passive",
-    "detachment_id": "veiled-blade-elimination-force"
+    "detachment_id": "veiled-blade-elimination-force",
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "prime-target-veiled-blade-elimination-force",
@@ -3011,18 +3018,23 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "attack-restriction",
+      "target": "self",
+      "modifier": {
+        "restriction": "ranged-attack-range",
+        "base_range": 18,
+        "lone-operative-range": 6
+      }
     },
     "scope": {
-      "range": "unit",
-      "duration": "permanent"
+      "range": "self",
+      "duration": "phase"
     },
     "unit_ids": [],
     "ability_type": "stratagem",
     "behavior": "reactive",
-    "detachment_id": "veiled-blade-elimination-force"
+    "detachment_id": "veiled-blade-elimination-force",
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "blind-grenades-veiled-blade-elimination-force",
@@ -3248,19 +3260,33 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "conditional",
+      "condition": {
+        "type": "model-is-leader"
+      },
+      "effect": {
+        "type": "stat-modifier",
+        "target": "unit",
+        "modifier": {
+          "stat": "A",
+          "operation": "multiply",
+          "factor": 2,
+          "applies_to": "daemonhost-models",
+          "weapon_type": "melee",
+          "attack_type": "melee"
+        }
+      }
     },
     "scope": {
       "range": "unit",
-      "duration": "permanent"
+      "duration": "battle"
     },
     "unit_ids": [
       "inquisitor-eisenhorn"
     ],
     "ability_type": "unit",
-    "behavior": "passive"
+    "behavior": "passive",
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "dominate-will-psychic",
@@ -3296,19 +3322,26 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "stat-modifier",
+      "type": "keyword-grant",
       "target": "unit",
-      "modifier": {}
+      "modifier": {
+        "keywords": [
+          "devastating-wounds"
+        ],
+        "applies_to": "melee-weapons",
+        "condition": "chaplain-cassius-in-unit"
+      }
     },
     "scope": {
       "range": "unit",
-      "duration": "permanent"
+      "duration": "battle"
     },
     "unit_ids": [
       "kill-team-cassius"
     ],
     "ability_type": "unit",
-    "behavior": "passive"
+    "behavior": "passive",
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "unflinching",
@@ -3320,19 +3353,23 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "stat-modifier",
+      "type": "leadership-modifier",
       "target": "unit",
-      "modifier": {}
+      "modifier": {
+        "test": "battle-shock",
+        "operation": "re-roll"
+      }
     },
     "scope": {
       "range": "unit",
-      "duration": "permanent"
+      "duration": "battle"
     },
     "unit_ids": [
       "kill-team-cassius"
     ],
     "ability_type": "unit",
-    "behavior": "passive"
+    "behavior": "passive",
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "jump-pack",
@@ -3344,19 +3381,24 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "movement-modifier",
+      "target": "self",
+      "modifier": {
+        "move_characteristic": 12,
+        "ignores_terrain": true,
+        "ignores_models": true
+      }
     },
     "scope": {
-      "range": "unit",
+      "range": "self",
       "duration": "permanent"
     },
     "unit_ids": [
       "kill-team-cassius"
     ],
     "ability_type": "unit",
-    "behavior": "passive"
+    "behavior": "passive",
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "psychic-hood",
@@ -3368,19 +3410,23 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "stat-modifier",
+      "type": "feel-no-pain",
       "target": "unit",
-      "modifier": {}
+      "modifier": {
+        "threshold": 4,
+        "against_attack_type": "psychic"
+      }
     },
     "scope": {
       "range": "unit",
-      "duration": "permanent"
+      "duration": "battle"
     },
     "unit_ids": [
       "kill-team-cassius"
     ],
     "ability_type": "unit",
-    "behavior": "passive"
+    "behavior": "passive",
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "terminatus-assault",
@@ -3441,18 +3487,23 @@
     "version": "2025-q3",
     "effect": {
       "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "target": "self",
+      "modifier": {
+        "stat": "W",
+        "operation": "set",
+        "value": 4
+      }
     },
     "scope": {
-      "range": "unit",
+      "range": "self",
       "duration": "permanent"
     },
     "unit_ids": [
       "deathwatch-terminator-squad"
     ],
     "ability_type": "unit",
-    "behavior": "passive"
+    "behavior": "passive",
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "turbo-boost",
@@ -3464,19 +3515,25 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "stat-modifier",
+      "type": "movement-modifier",
       "target": "unit",
-      "modifier": {}
+      "modifier": {
+        "triggered_on": "advance",
+        "add_move_characteristic": 6,
+        "no_advance_roll": true,
+        "scope_duration_effect": "until_end_of_phase"
+      }
     },
     "scope": {
       "range": "unit",
-      "duration": "permanent"
+      "duration": "phase"
     },
     "unit_ids": [
       "veteran-bike-squad"
     ],
     "ability_type": "unit",
-    "behavior": "passive"
+    "behavior": "passive",
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "proteus-doctrines",
@@ -3488,19 +3545,25 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "stat-modifier",
+      "type": "roll-modifier",
       "target": "unit",
-      "modifier": {}
+      "modifier": {
+        "operation": "add",
+        "roll": "hit",
+        "value": 1,
+        "target_condition": "target_not_below_half_strength"
+      }
     },
     "scope": {
       "range": "unit",
-      "duration": "permanent"
+      "duration": "battle"
     },
     "unit_ids": [
       "proteus-kill-team"
     ],
     "ability_type": "unit",
-    "behavior": "passive"
+    "behavior": "passive",
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "fortis-doctrines",
@@ -3512,19 +3575,30 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "conditional",
+      "condition": {
+        "type": "unit-below-half-strength"
+      },
+      "effect": {
+        "type": "roll-modifier",
+        "target": "attacker",
+        "modifier": {
+          "operation": "add",
+          "roll": "hit",
+          "value": 1
+        }
+      }
     },
     "scope": {
       "range": "unit",
-      "duration": "permanent"
+      "duration": "battle"
     },
     "unit_ids": [
       "fortis-kill-team"
     ],
     "ability_type": "unit",
-    "behavior": "passive"
+    "behavior": "passive",
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "indomitor-doctrines",
@@ -3584,19 +3658,22 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "stat-modifier",
+      "type": "feel-no-pain",
       "target": "unit",
-      "modifier": {}
+      "modifier": {
+        "threshold": 6
+      }
     },
     "scope": {
       "range": "unit",
-      "duration": "permanent"
+      "duration": "battle"
     },
     "unit_ids": [
       "spectrus-kill-team"
     ],
     "ability_type": "unit",
-    "behavior": "passive"
+    "behavior": "passive",
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "infiltrator-comms-array",
@@ -3680,19 +3757,31 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "conditional",
+      "condition": {
+        "type": "model-is-leader"
+      },
+      "effect": {
+        "type": "keyword-grant",
+        "target": "unit",
+        "modifier": {
+          "keywords": [
+            "lethal-hits"
+          ],
+          "applies_to": "ranged-weapons"
+        }
+      }
     },
     "scope": {
       "range": "unit",
-      "duration": "permanent"
+      "duration": "battle"
     },
     "unit_ids": [
       "jokaero-weaponsmith"
     ],
     "ability_type": "unit",
-    "behavior": "passive"
+    "behavior": "passive",
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "a-weaponsmith-not-a-warlord",

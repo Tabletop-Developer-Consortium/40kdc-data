@@ -71,9 +71,9 @@ Repair worklist by faction — abilities still needing DSL work (not total cover
 
 | faction | stub\* | notes-stub | gw-leak | def-skipped |
 |---|--:|--:|--:|--:|
-| agents-of-the-imperium | 44 | 6 | 0 | 2 |
 | aeldari | 35 | 25 | 0 | 5 |
 | orks | 34 | 16 | 0 | 3 |
+| agents-of-the-imperium | 31 | 6 | 0 | 2 |
 | necrons | 30 | 15 | 0 | 1 |
 | thousand-sons | 27 | 22 | 0 | 2 |
 | genestealer-cults | 27 | 9 | 0 | 1 |
@@ -95,7 +95,7 @@ Repair worklist by faction — abilities still needing DSL work (not total cover
 | chaos-knights | 4 | 3 | 0 | 0 |
 | _core | 0 | 0 | 0 | 0 |
 | world-eaters | 0 | 0 | 0 | 0 |
-| **TOTAL** | **405** | **317** | **0** | **59** |
+| **TOTAL** | **392** | **317** | **0** | **59** |
 
 `stub*` = empty-modifier placeholder nodes (highest need first) · `notes-stub` = flagged in `community_notes` · `gw-leak` = suspected verbatim GW text · `def-skipped` = defensive abilities skipped by the buff walk. Enumerated stub ids: [`data/_audit/worklist.md`](data/_audit/worklist.md). Full total+repair breakdown: [`data/_audit/summary.md`](data/_audit/summary.md).
 <!-- coverage:end -->

@@ -69,11 +69,11 @@
     {
       "faction": "agents-of-the-imperium",
       "total": 133,
-      "offensive": 23,
-      "defensive": 8,
-      "inert": 104,
+      "offensive": 27,
+      "defensive": 10,
+      "inert": 98,
       "stub": 6,
-      "stubStructural": 44,
+      "stubStructural": 31,
       "gwTextLeak": 0,
       "defensiveSkipped": 2
     },
@@ -267,11 +267,11 @@
   ],
   "totals": {
     "total": 3083,
-    "offensive": 705,
-    "defensive": 256,
-    "inert": 2208,
+    "offensive": 709,
+    "defensive": 258,
+    "inert": 2202,
     "stub": 317,
-    "stubStructural": 405,
+    "stubStructural": 392,
     "gwTextLeak": 0,
     "defensiveSkipped": 59
   },
@@ -282,11 +282,11 @@
     },
     {
       "reason": "stat-modifier: operation \"undefined\" not supported",
-      "count": 398
+      "count": 385
     },
     {
       "reason": "effect type \"movement-modifier\" is not modelled by the buff layer",
-      "count": 168
+      "count": 170
     },
     {
       "reason": "effect type \"mortal-wounds\" is not modelled by the buff layer",
@@ -294,7 +294,7 @@
     },
     {
       "reason": "effect type \"attack-restriction\" is not modelled by the buff layer",
-      "count": 91
+      "count": 92
     },
     {
       "reason": "dice-gated effect: stochastic; not expressible as a buff",
@@ -302,7 +302,7 @@
     },
     {
       "reason": "effect type \"leadership-modifier\" is not modelled by the buff layer",
-      "count": 76
+      "count": 77
     },
     {
       "reason": "effect type \"resurrection\" is not modelled by the buff layer",
@@ -322,7 +322,7 @@
     },
     {
       "reason": "stat-modifier: operation \"set\" not supported",
-      "count": 41
+      "count": 42
     },
     {
       "reason": "effect type \"deep-strike\" is not modelled by the buff layer",
@@ -441,6 +441,10 @@
       "count": 3
     },
     {
+      "reason": "conditional: cannot evaluate condition \"unit-below-half-strength\" against current context",
+      "count": 3
+    },
+    {
       "reason": "re-roll on \"attacks-characteristic\" (subset …) is outside the damage path",
       "count": 2
     },
@@ -450,6 +454,10 @@
     },
     {
       "reason": "stat-modifier on \"Range\" is outside the damage path",
+      "count": 2
+    },
+    {
+      "reason": "stat-modifier: operation \"multiply\" not supported",
       "count": 2
     },
     {
@@ -478,10 +486,6 @@
     },
     {
       "reason": "effect type \"resource-spend\" is not modelled by the buff layer",
-      "count": 2
-    },
-    {
-      "reason": "conditional: cannot evaluate condition \"unit-below-half-strength\" against current context",
       "count": 2
     },
     {
@@ -522,10 +526,6 @@
     },
     {
       "reason": "re-roll on \"weapon-attacks\" (subset …) is outside the damage path",
-      "count": 1
-    },
-    {
-      "reason": "stat-modifier: operation \"multiply\" not supported",
       "count": 1
     },
     {
@@ -9878,11 +9878,11 @@
       "faction": "agents-of-the-imperium",
       "ability_id": "micromelta-rounds",
       "name": "Micromelta Rounds",
-      "shape": "stat-modifier",
-      "stub": true,
-      "offensive": false,
+      "shape": "keyword-grant",
+      "stub": false,
+      "offensive": true,
       "defensive": false,
-      "gap": "stat-modifier: operation \"undefined\" not supported"
+      "gap": null
     },
     {
       "faction": "agents-of-the-imperium",
@@ -9918,11 +9918,11 @@
       "faction": "agents-of-the-imperium",
       "ability_id": "orbital-oversight-veiled-blade-elimination-force",
       "name": "Orbital Oversight",
-      "shape": "stat-modifier",
-      "stub": true,
+      "shape": "attack-restriction",
+      "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "stat-modifier: operation \"undefined\" not supported"
+      "gap": "effect type \"attack-restriction\" is not modelled by the buff layer"
     },
     {
       "faction": "agents-of-the-imperium",
@@ -10018,11 +10018,11 @@
       "faction": "agents-of-the-imperium",
       "ability_id": "malus-codicium",
       "name": "Malus Codicium",
-      "shape": "stat-modifier",
-      "stub": true,
+      "shape": "conditional",
+      "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "stat-modifier: operation \"undefined\" not supported"
+      "gap": "stat-modifier: operation \"multiply\" not supported"
     },
     {
       "faction": "agents-of-the-imperium",
@@ -10038,41 +10038,41 @@
       "faction": "agents-of-the-imperium",
       "ability_id": "catechism-of-death",
       "name": "Catechism of Death",
-      "shape": "stat-modifier",
-      "stub": true,
-      "offensive": false,
+      "shape": "keyword-grant",
+      "stub": false,
+      "offensive": true,
       "defensive": false,
-      "gap": "stat-modifier: operation \"undefined\" not supported"
+      "gap": null
     },
     {
       "faction": "agents-of-the-imperium",
       "ability_id": "unflinching",
       "name": "Unflinching",
-      "shape": "stat-modifier",
-      "stub": true,
+      "shape": "leadership-modifier",
+      "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "stat-modifier: operation \"undefined\" not supported"
+      "gap": "effect type \"leadership-modifier\" is not modelled by the buff layer"
     },
     {
       "faction": "agents-of-the-imperium",
       "ability_id": "jump-pack",
       "name": "Jump Pack",
-      "shape": "stat-modifier",
-      "stub": true,
+      "shape": "movement-modifier",
+      "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "stat-modifier: operation \"undefined\" not supported"
+      "gap": "effect type \"movement-modifier\" is not modelled by the buff layer"
     },
     {
       "faction": "agents-of-the-imperium",
       "ability_id": "psychic-hood",
       "name": "Psychic Hood",
-      "shape": "stat-modifier",
-      "stub": true,
+      "shape": "feel-no-pain",
+      "stub": false,
       "offensive": false,
-      "defensive": false,
-      "gap": "stat-modifier: operation \"undefined\" not supported"
+      "defensive": true,
+      "gap": null
     },
     {
       "faction": "agents-of-the-imperium",
@@ -10099,40 +10099,40 @@
       "ability_id": "storm-shield",
       "name": "Storm Shield",
       "shape": "stat-modifier",
-      "stub": true,
+      "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "stat-modifier: operation \"undefined\" not supported"
+      "gap": "stat-modifier: operation \"set\" not supported"
     },
     {
       "faction": "agents-of-the-imperium",
       "ability_id": "turbo-boost",
       "name": "Turbo-boost",
-      "shape": "stat-modifier",
-      "stub": true,
+      "shape": "movement-modifier",
+      "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "stat-modifier: operation \"undefined\" not supported"
+      "gap": "effect type \"movement-modifier\" is not modelled by the buff layer"
     },
     {
       "faction": "agents-of-the-imperium",
       "ability_id": "proteus-doctrines",
       "name": "Proteus Doctrines",
-      "shape": "stat-modifier",
-      "stub": true,
-      "offensive": false,
+      "shape": "roll-modifier",
+      "stub": false,
+      "offensive": true,
       "defensive": false,
-      "gap": "stat-modifier: operation \"undefined\" not supported"
+      "gap": null
     },
     {
       "faction": "agents-of-the-imperium",
       "ability_id": "fortis-doctrines",
       "name": "Fortis Doctrines",
-      "shape": "stat-modifier",
-      "stub": true,
+      "shape": "conditional",
+      "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "stat-modifier: operation \"undefined\" not supported"
+      "gap": "conditional: cannot evaluate condition \"unit-below-half-strength\" against current context"
     },
     {
       "faction": "agents-of-the-imperium",
@@ -10158,11 +10158,11 @@
       "faction": "agents-of-the-imperium",
       "ability_id": "helix-gauntlet",
       "name": "Helix Gauntlet",
-      "shape": "stat-modifier",
-      "stub": true,
+      "shape": "feel-no-pain",
+      "stub": false,
       "offensive": false,
-      "defensive": false,
-      "gap": "stat-modifier: operation \"undefined\" not supported"
+      "defensive": true,
+      "gap": null
     },
     {
       "faction": "agents-of-the-imperium",
@@ -10198,11 +10198,11 @@
       "faction": "agents-of-the-imperium",
       "ability_id": "inconceivable-augmentation",
       "name": "Inconceivable Augmentation",
-      "shape": "stat-modifier",
-      "stub": true,
-      "offensive": false,
+      "shape": "conditional",
+      "stub": false,
+      "offensive": true,
       "defensive": false,
-      "gap": "stat-modifier: operation \"undefined\" not supported"
+      "gap": null
     },
     {
       "faction": "agents-of-the-imperium",

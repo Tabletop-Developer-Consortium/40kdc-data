@@ -5,7 +5,7 @@ structural stub — an effect carrying an empty-modifier placeholder node that s
 DSL authored. This is the actionable counterpart to the per-faction `stub*` counts in
 [`CONTRIBUTING.md`](../../CONTRIBUTING.md) and [`summary.md`](summary.md).
 
-Total: 405 stub abilities.
+Total: 392 stub abilities.
 
 | faction | ability | shape | needs |
 |---|---|---|---|
@@ -90,7 +90,6 @@ Total: 405 stub abilities.
 | agents-of-the-imperium | backroom-deals | stat-modifier | stat-modifier: operation "undefined" not supported |
 | agents-of-the-imperium | blind-grenades-veiled-blade-elimination-force | stat-modifier | stat-modifier: operation "undefined" not supported |
 | agents-of-the-imperium | bound-daemon | stat-modifier | stat-modifier: operation "undefined" not supported |
-| agents-of-the-imperium | catechism-of-death | stat-modifier | stat-modifier: operation "undefined" not supported |
 | agents-of-the-imperium | deathwatch-mission-tactics | stat-modifier | stat-modifier: operation "undefined" not supported |
 | agents-of-the-imperium | decoy-targets | stat-modifier | stat-modifier: operation "undefined" not supported |
 | agents-of-the-imperium | destroy-the-daemonic | stat-modifier | stat-modifier: operation "undefined" not supported |
@@ -98,31 +97,19 @@ Total: 405 stub abilities.
 | agents-of-the-imperium | ensnaring-trap-veiled-blade-elimination-force | stat-modifier | stat-modifier: operation "undefined" not supported |
 | agents-of-the-imperium | esoteric-explosives | stat-modifier | stat-modifier: operation "undefined" not supported |
 | agents-of-the-imperium | extremis-sanction | stat-modifier | stat-modifier: operation "undefined" not supported |
-| agents-of-the-imperium | fortis-doctrines | stat-modifier | stat-modifier: operation "undefined" not supported |
-| agents-of-the-imperium | helix-gauntlet | stat-modifier | stat-modifier: operation "undefined" not supported |
 | agents-of-the-imperium | hyperstimms-veiled-blade-elimination-force | stat-modifier | stat-modifier: operation "undefined" not supported |
-| agents-of-the-imperium | inconceivable-augmentation | stat-modifier | stat-modifier: operation "undefined" not supported |
 | agents-of-the-imperium | indomitor-doctrines | stat-modifier | stat-modifier: operation "undefined" not supported |
 | agents-of-the-imperium | infiltrator-comms-array | stat-modifier | stat-modifier: operation "undefined" not supported |
 | agents-of-the-imperium | intraneural-biotech | stat-modifier | stat-modifier: operation "undefined" not supported |
-| agents-of-the-imperium | jump-pack | stat-modifier | stat-modifier: operation "undefined" not supported |
 | agents-of-the-imperium | malefic-warding | stat-modifier | stat-modifier: operation "undefined" not supported |
-| agents-of-the-imperium | malus-codicium | stat-modifier | stat-modifier: operation "undefined" not supported |
-| agents-of-the-imperium | micromelta-rounds | stat-modifier | stat-modifier: operation "undefined" not supported |
 | agents-of-the-imperium | on-my-signal-fire | stat-modifier | stat-modifier: operation "undefined" not supported |
-| agents-of-the-imperium | orbital-oversight-veiled-blade-elimination-force | stat-modifier | stat-modifier: operation "undefined" not supported |
 | agents-of-the-imperium | prime-target-veiled-blade-elimination-force | stat-modifier | stat-modifier: operation "undefined" not supported |
-| agents-of-the-imperium | proteus-doctrines | stat-modifier | stat-modifier: operation "undefined" not supported |
-| agents-of-the-imperium | psychic-hood | stat-modifier | stat-modifier: operation "undefined" not supported |
 | agents-of-the-imperium | root-out-heresy | stat-modifier | stat-modifier: operation "undefined" not supported |
 | agents-of-the-imperium | spectrus-doctrines | stat-modifier | stat-modifier: operation "undefined" not supported |
-| agents-of-the-imperium | storm-shield | stat-modifier | stat-modifier: operation "undefined" not supported |
 | agents-of-the-imperium | teleport-homer | stat-modifier | stat-modifier: operation "undefined" not supported |
 | agents-of-the-imperium | terminatus-assault | stat-modifier | stat-modifier: operation "undefined" not supported |
 | agents-of-the-imperium | throne-of-judgement-aura | stat-modifier | stat-modifier: operation "undefined" not supported |
 | agents-of-the-imperium | tox-cycler | stat-modifier | stat-modifier: operation "undefined" not supported |
-| agents-of-the-imperium | turbo-boost | stat-modifier | stat-modifier: operation "undefined" not supported |
-| agents-of-the-imperium | unflinching | stat-modifier | stat-modifier: operation "undefined" not supported |
 | agents-of-the-imperium | unsubtle-crusader | stat-modifier | stat-modifier: operation "undefined" not supported |
 | agents-of-the-imperium | vox-cast-proclamations-aura | stat-modifier | stat-modifier: operation "undefined" not supported |
 | agents-of-the-imperium | vox-skull | stat-modifier | stat-modifier: operation "undefined" not supported |

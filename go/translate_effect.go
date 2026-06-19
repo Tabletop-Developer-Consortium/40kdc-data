@@ -10,7 +10,24 @@ import (
 // python .../translate/effect.py.
 
 var containerTypes = map[string]bool{
-	"sequence": true, "choice": true, "dice-gated": true, "dice-pool-allocation": true,
+	"sequence": true, "choice": true, "dice-gated": true, "dice-pool-allocation": true, "select-units": true,
+}
+
+// selectUnitsSubject renders "up to 3 friendly Orks Vehicle units" for select-units.
+func selectUnitsSubject(sel map[string]any) string {
+	var kws []string
+	for _, k := range getStrList(sel, "keywords") {
+		kws = append(kws, titleCase(k))
+	}
+	kw := strings.Join(kws, " ")
+	if kw != "" {
+		kw = " " + kw
+	}
+	noun := "units"
+	if ejstr(sel["max_count"]) == "1" {
+		noun = "unit"
+	}
+	return "up to " + ejstr(sel["max_count"]) + " " + ejstr(sel["owner"]) + kw + " " + noun
 }
 
 // ejstr is the effect module's _jstr (lists join with ", "; numbers without .0).
@@ -213,6 +230,23 @@ func esigned(operation, value any) string {
 	return "-" + ejstr(value)
 }
 
+// poolThreshold renders the per-die success phrase ("4+", "6", "3 or less") for
+// a mortal-wounds dice pool — no leading "a", as it follows "for each".
+func poolThreshold(comp string, threshold any) string {
+	th := ejstr(threshold)
+	switch comp {
+	case "lte":
+		return th + " or less"
+	case "gt":
+		return "more than " + th
+	case "lt":
+		return "less than " + th
+	case "eq":
+		return th
+	}
+	return th + "+"
+}
+
 func formatComparison(comp string, threshold any) string {
 	th := ejstr(threshold)
 	switch comp {
@@ -313,6 +347,12 @@ func conditionLeadIn(c map[string]any) string {
 		return "if the unit charged this turn"
 	case "advanced-this-turn":
 		return "if the unit Advanced this turn"
+	case "disembarked-from-transport":
+		return "if the unit disembarked from a Transport this turn"
+	case "faction-rule-active":
+		return "while the " + titleCase(ejstr(p["rule"])) + " is active"
+	case "battle-round":
+		return "during the first " + ejstr(p["max"]) + " battle rounds"
 	case "remained-stationary":
 		return "if the unit Remained Stationary"
 	case "target-has-keyword":
@@ -350,6 +390,28 @@ func conditionLeadIn(c map[string]any) string {
 			where = ejstr(p["range"]) + "\""
 		}
 		return "while an enemy unit is within " + where
+	case "engagement-state":
+		if p["state"] == nil {
+			return "while the unit is within Engagement Range"
+		}
+		st := cstr(p["state"])
+		switch st {
+		case "on-battlefield":
+			return "while the unit is on the battlefield"
+		case "embarked":
+			return "while the unit is embarked"
+		case "engaged", "within-engagement-range", "in-engagement-range":
+			return "while the unit is within Engagement Range"
+		}
+		return "while the unit is " + dekebab(st)
+	case "disposition-matches":
+		d := cstr(p["disposition"])
+		if d == "strategic-reserves" {
+			return "while the unit is in Strategic Reserves"
+		}
+		return "while the unit's disposition is " + dekebab(d)
+	case "fights-first":
+		return "while the unit has the Fights First ability"
 	}
 	return "if " + describeCondition(c)
 }
@@ -413,7 +475,45 @@ func mod(e map[string]any) map[string]any {
 	return m
 }
 
+// scaleOf is the humanized noun for a scaling `of` dimension.
+var scaleOf = map[string]string{
+	"enemy-models-in-range":    "enemy models",
+	"friendly-models-in-range": "friendly models",
+	"models-in-bearer-unit":    "models in this unit",
+	"enemy-units-in-range":     "enemy units",
+	"wounds-lost":              "wounds lost",
+}
+
+// scalingClause renders a `scaling` block as a trailing "for every …" clause.
+func scalingClause(s map[string]any) string {
+	of := cstr(s["of"])
+	ofText := scaleOf[of]
+	if ofText == "" {
+		ofText = dekebab(of)
+	}
+	c := "for every " + cstr(s["per"]) + " " + ofText
+	if s["within_inches"] != nil {
+		c += " within " + cstr(s["within_inches"]) + "\""
+	}
+	if s["round"] == "up" {
+		c += " (rounding up)"
+	}
+	if s["max_value"] != nil {
+		c += " (to a maximum of " + cstr(s["max_value"]) + ")"
+	}
+	return c
+}
+
+// describeEffectInline wraps the leaf/container switch to weave on any `scaling` block.
 func describeEffectInline(e map[string]any, ctx map[string]any) string {
+	base := describeEffectInlineBase(e, ctx)
+	if scaling, ok := getMap(e, "scaling"); ok && scaling != nil {
+		return base + " " + scalingClause(scaling)
+	}
+	return base
+}
+
+func describeEffectInlineBase(e map[string]any, ctx map[string]any) string {
 	if ctx == nil {
 		ctx = map[string]any{}
 	}
@@ -464,6 +564,9 @@ func describeEffectInline(e map[string]any, ctx map[string]any) string {
 				crit = "Critical Wounds"
 			}
 			return subj + " " + ev(subj, "scores") + " " + crit + " on " + roll + " rolls of " + ejstr(m["critical_on"]) + "+"
+		}
+		if m["operation"] == "set" {
+			return subj + " can change " + roll + " rolls to a " + ejstr(m["value"])
 		}
 		if m["value"] == nil {
 			return dekebab(ejstr(m["operation"])) + " " + possessive(subj) + " " + roll + " rolls" + ctxNote
@@ -541,6 +644,17 @@ func describeEffectInline(e map[string]any, ctx map[string]any) string {
 		}
 		if ejstr(kind) == "move-through" {
 			return subj + " can move through enemy models and terrain"
+		}
+		if ejstr(kind) == "scouts" {
+			dist := m["distance"]
+			if dist == nil {
+				dist = m["value"]
+			}
+			inches := ""
+			if dist != nil && ejstr(dist) != "0" {
+				inches = " " + ejstr(dist) + "\""
+			}
+			return "Before the first battle round, " + strings.ToLower(subj[:1]) + subj[1:] + " can Scout" + inches
 		}
 		dist := m["distance"]
 		if dist == nil {
@@ -668,8 +782,21 @@ func describeEffectInline(e map[string]any, ctx map[string]any) string {
 			return "each time this model is destroyed, it can shoot before being removed from play"
 		}
 		return "each time a model in " + subj + " is destroyed, it can shoot before being removed from play"
+	case "unit-keyword":
+		name := titleCase(ejstr(m["keyword_id"]))
+		val := ""
+		if m["value"] != nil {
+			val = " " + ejstr(m["value"])
+		}
+		return subj + " " + ev(subj, "has") + " the " + name + val + " ability"
+	case "unit-keyword-grant":
+		return ejstr(m["to_keywords"]) + " units gain the " + ejstr(m["keyword"]) + " keyword"
 	case "deep-strike":
 		return subj + " " + ev(subj, "has") + " the Deep Strike ability"
+	case "strategic-reserves-arrival":
+		return subj + " can arrive from Strategic Reserves regardless of mission rules"
+	case "remove-battle-shock":
+		return subj + " " + ev(subj, "is") + " no longer Battle-shocked"
 	case "fallback-and-act":
 		return subj + " " + ev(subj, "is") + " eligible to shoot and declare a charge in a turn in which it Fell Back"
 	case "engagement-passthrough":
@@ -723,6 +850,10 @@ func describeEffectInline(e map[string]any, ctx map[string]any) string {
 		return describeDiceGatedInline(e, ctx)
 	case "dice-pool-allocation":
 		return describeDicePoolInline(e, ctx)
+	case "select-units":
+		sel, _ := getMap(e, "selector")
+		inner, _ := getMap(e, "effect")
+		return "select " + selectUnitsSubject(sel) + ": " + describeEffectInline(inner, ctx)
 	}
 	t := "unknown"
 	if e["type"] != nil {
@@ -746,6 +877,30 @@ func describeMortalWounds(e, m map[string]any, subj string, ctx map[string]any) 
 	verb := ev(subjMW, "suffers")
 	if strings.HasPrefix(subjMW, "each ") {
 		verb = "suffers"
+	}
+	// Dice-pool form: N dice rolled, each success worth `mortal_per_success`
+	// mortal wounds (distinct from a flat count).
+	if m["mortal_per_success"] != nil {
+		per := ejstr(m["mortal_per_success"])
+		perNoun := "mortal wounds"
+		if per == "1" {
+			perNoun = "mortal wound"
+		}
+		comp := "gte"
+		if c, ok := m["comparison"].(string); ok && c != "" {
+			comp = c
+		}
+		hit := poolThreshold(comp, m["threshold"])
+		die := diceCase(m["dice"])
+		// Per-model pool: one die per model in this/the target unit.
+		if m["per_model"] != nil {
+			where := "this unit"
+			if m["per_model"] == "target" {
+				where = "the target unit"
+			}
+			return "roll one " + die + " for each model in " + where + ": for each " + hit + ", " + subjMW + " " + verb + " " + per + " " + perNoun
+		}
+		return "roll " + die + ": for each " + hit + ", " + subjMW + " " + verb + " " + per + " " + perNoun
 	}
 	var a *string
 	switch {
@@ -803,7 +958,7 @@ func describeDicePoolInline(e map[string]any, ctx map[string]any) string {
 		om, _ := asMap(o)
 		req, _ := getMap(om, "requirement")
 		eff, _ := getMap(om, "effect")
-		opts = append(opts, ejstr(om["name"])+" ("+ejstr(req["min_value"])+"+): "+describeEffectInline(eff, ctx))
+		opts = append(opts, ejstr(om["name"])+" ("+ejstr(req["type"])+" of "+ejstr(req["min_value"])+"+): "+describeEffectInline(eff, ctx))
 	}
 	return "roll " + poolText + ": " + strings.Join(opts, " / ")
 }
@@ -871,6 +1026,14 @@ func describeEffect(e map[string]any, depth int, ctx map[string]any) string {
 			lines = append(lines, indent+"  - "+ejstr(opt["name"])+": need "+ejstr(req["type"])+" of "+ejstr(req["min_value"])+"+ -> "+describeEffectInline(eff, ctx))
 		}
 		return strings.Join(lines, "\n")
+	case "select-units":
+		sel, _ := getMap(e, "selector")
+		inner, _ := getMap(e, "effect")
+		lead := "Select " + selectUnitsSubject(sel)
+		if inner != nil && containerTypes[getStr(inner, "type")] {
+			return indent + arrow + lead + ":\n" + describeEffect(inner, depth+1, ctx)
+		}
+		return indent + arrow + lead + ": " + describeEffectInline(inner, ctx) + "."
 	}
 	return indent + arrow + capitalize(describeEffectInline(e, ctx)) + "."
 }

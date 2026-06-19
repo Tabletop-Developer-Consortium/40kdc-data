@@ -639,6 +639,9 @@ class SimpleCondition(TypedDict):
         "operation-markers",
         "attack-stat-compare",
         "made-ingress-move-this-turn",
+        "disembarked-from-transport",
+        "faction-rule-active",
+        "battle-round",
     ]
     parameters: NotRequired[dict[str, Any]]
     negated: NotRequired[bool]
@@ -668,6 +671,7 @@ class SingleEffect(TypedDict):
         "invulnerable-save",
         "ward",
         "keyword-grant",
+        "unit-keyword",
         "movement-modifier",
         "deep-strike",
         "fallback-and-act",
@@ -692,6 +696,9 @@ class SingleEffect(TypedDict):
         "unit-tag",
         "bs-modifier",
         "engagement-passthrough",
+        "strategic-reserves-arrival",
+        "remove-battle-shock",
+        "unit-keyword-grant",
     ]
     target: Literal[
         "self",
@@ -700,6 +707,7 @@ class SingleEffect(TypedDict):
         "attached-unit",
         "attacker",
         "defender",
+        "target",
         "friendly-within-aura",
         "enemy-within-aura",
         "all-friendly",
@@ -717,6 +725,12 @@ class Pool(TypedDict):
 class Requirement(TypedDict):
     type: Literal["pair", "triple", "single", "run"]
     min_value: int
+
+
+class Selector(TypedDict):
+    max_count: int
+    keywords: NotRequired[list[str]]
+    owner: Literal["friendly", "enemy"]
 
 
 class Scope(TypedDict):
@@ -790,6 +804,7 @@ class TimingFlag(TypedDict):
         "on-unit-destroyed",
         "on-model-destroyed",
         "on-damage-allocated",
+        "before-this-model-removed",
     ]
     game_version: GameVersionRef
     authored_by: NotRequired[ContributorRef]
@@ -904,6 +919,7 @@ EffectNode: TypeAlias = Union[
     "DiceGatedEffect",
     "ConditionalEffect",
     "DicePoolAllocationEffect",
+    "SelectUnitsEffect",
 ]
 
 
@@ -944,6 +960,12 @@ class DicePoolAllocationEffect(TypedDict):
     pool: Pool
     max_activations: int
     options: list[Option]
+
+
+class SelectUnitsEffect(TypedDict):
+    type: Literal["select-units"]
+    selector: Selector
+    effect: EffectNode
 
 
 Effect: TypeAlias = EffectNode

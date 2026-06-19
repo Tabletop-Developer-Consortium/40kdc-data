@@ -1111,6 +1111,21 @@ function genEffectTranslation(): void {
     };
     cases.push(entry);
   }
+  // Pin the scouts movement-modifier — movement-modifier caps out before scouts-6
+  // sorts in alphabetically, so force-include one case to keep the new
+  // "Before the first battle round, …" phrasing pinned cross-impl.
+  {
+    const fc = {
+      effect: { type: "movement-modifier", target: "unit", modifier: { type: "scouts", distance: 6 } },
+      scope: { range: "unit", duration: "permanent" },
+    };
+    cases.push({
+      caseId: `movement-modifier-scouts#${cases.length}`,
+      effect: fc.effect,
+      scope: fc.scope,
+      expected: { text: describeAbility({ effect: fc.effect as Effect, scope: fc.scope }) },
+    });
+  }
   // Pin the curated ability-grant label overrides for the sibling ids — they
   // rarely surface in the capped sample above (ability-grant caps out on the
   // common `charge-after-advance`). Shapes mirror real enrichment data; expected
@@ -1130,6 +1145,84 @@ function genEffectTranslation(): void {
     const id = (fc.effect.modifier as Record<string, unknown>).grant_type as string;
     cases.push({
       caseId: `grant-label-${id}#${cases.length}`,
+      effect: fc.effect,
+      scope: fc.scope,
+      expected: { text: describeAbility({ effect: fc.effect as Effect, scope: fc.scope }) },
+    });
+  }
+  // Batch A (describer-only gaps): pin the new condition lead-ins
+  // (engagement-state / disposition-matches / fights-first), the `scaling`
+  // trailing clause, and the inline dice-pool requirement label cross-impl.
+  // `scaling` and `fights-first` have no enrichment usage, and several
+  // engagement-state param branches never surface in the capped auto-sample, so
+  // force-include exemplars; expected text still comes from the reference
+  // describer, so a second impl must independently reproduce it.
+  const FORCED_DESCRIBER_CASES: { id: string; effect: Record<string, unknown>; scope: Record<string, unknown> }[] = [
+    {
+      id: "engagement-state-engaged",
+      effect: { type: "conditional", condition: { type: "engagement-state", parameters: { state: "within-engagement-range" } }, effect: { type: "fight-first", target: "unit" } },
+      scope: { range: "unit", duration: "permanent" },
+    },
+    {
+      id: "engagement-state-on-battlefield",
+      effect: { type: "conditional", condition: { type: "engagement-state", parameters: { state: "on-battlefield" } }, effect: { type: "deep-strike", target: "unit" } },
+      scope: { range: "unit", duration: "permanent" },
+    },
+    {
+      id: "engagement-state-embarked",
+      effect: { type: "conditional", condition: { type: "engagement-state", parameters: { state: "embarked" } }, effect: { type: "deep-strike", target: "unit" } },
+      scope: { range: "unit", duration: "permanent" },
+    },
+    {
+      id: "engagement-state-empty",
+      effect: { type: "conditional", condition: { type: "engagement-state", parameters: {} }, effect: { type: "deep-strike", target: "unit" } },
+      scope: { range: "unit", duration: "permanent" },
+    },
+    {
+      id: "engagement-state-negated",
+      effect: { type: "conditional", condition: { type: "engagement-state", negated: true, parameters: { state: "embarked" } }, effect: { type: "deep-strike", target: "unit" } },
+      scope: { range: "unit", duration: "permanent" },
+    },
+    {
+      id: "disposition-matches-reserves",
+      effect: { type: "conditional", condition: { type: "disposition-matches", parameters: { disposition: "strategic-reserves" } }, effect: { type: "deep-strike", target: "unit" } },
+      scope: { range: "unit", duration: "permanent" },
+    },
+    {
+      id: "disposition-matches-enemy",
+      effect: { type: "conditional", condition: { type: "disposition-matches", parameters: { disposition: "enemy" } }, effect: { type: "deep-strike", target: "unit" } },
+      scope: { range: "unit", duration: "permanent" },
+    },
+    {
+      id: "fights-first-cond",
+      effect: { type: "conditional", condition: { type: "fights-first", parameters: {} }, effect: { type: "stat-modifier", target: "unit", modifier: { stat: "A", operation: "add", value: 1 } } },
+      scope: { range: "unit", duration: "permanent" },
+    },
+    {
+      id: "scaling-attacks-per-models",
+      effect: { type: "stat-modifier", target: "unit", modifier: { stat: "A", operation: "add", value: 1 }, scaling: { per: 5, of: "enemy-models-in-range", within_inches: 6 } },
+      scope: { range: "unit", duration: "permanent" },
+    },
+    {
+      id: "scaling-strength-wounds-lost",
+      effect: { type: "stat-modifier", target: "self", modifier: { stat: "S", operation: "add", value: 1 }, scaling: { per: 1, of: "wounds-lost", round: "up", max_value: 3 } },
+      scope: { range: "self", duration: "permanent" },
+    },
+    {
+      id: "dice-pool-inline-label",
+      effect: {
+        type: "choice",
+        options: [
+          { type: "dice-pool-allocation", pool: { count: 3, die: "D6" }, max_activations: 1, options: [{ name: "Carnage", requirement: { type: "pair", min_value: 4 }, effect: { type: "mortal-wounds", target: "all-enemy", modifier: { count: 3 } } }] },
+          { type: "fight-first", target: "unit" },
+        ],
+      },
+      scope: { range: "unit", duration: "permanent" },
+    },
+  ];
+  for (const fc of FORCED_DESCRIBER_CASES) {
+    cases.push({
+      caseId: `${fc.id}#${cases.length}`,
       effect: fc.effect,
       scope: fc.scope,
       expected: { text: describeAbility({ effect: fc.effect as Effect, scope: fc.scope }) },

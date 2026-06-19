@@ -20,7 +20,17 @@ from wh40kdc.translate.condition import Condition, dekebab, describe_condition, 
 Effect = dict[str, Any]
 Ctx = dict[str, Any]
 
-_CONTAINER_TYPES = {"sequence", "choice", "dice-gated", "dice-pool-allocation"}
+_CONTAINER_TYPES = {"sequence", "choice", "dice-gated", "dice-pool-allocation", "select-units"}
+
+
+def _select_units_subject(sel: Any) -> str:
+    """``up to 3 friendly Orks Vehicle units`` — the ``select-units`` selector phrase."""
+    sel = sel or {}
+    kw = " ".join(_title_case(_jstr(k)) for k in (sel.get("keywords") or []))
+    owner = _jstr(sel.get("owner"))
+    noun = "unit" if sel.get("max_count") == 1 else "units"
+    kw = f" {kw}" if kw else ""
+    return f"up to {_jstr(sel.get('max_count'))} {owner}{kw} {noun}"
 
 
 def _jstr(v: Any) -> str:
@@ -205,6 +215,21 @@ def _signed(operation: Any, value: Any) -> str:
     return f"{'+' if sign > 0 else '-'}{_jstr(value)}"
 
 
+def _pool_threshold(comp: str, threshold: Any) -> str:
+    """Dice-pool success phrase ("4+", "6", "3 or less") — no leading "a", as it
+    follows "for each" in a mortal-wounds pool."""
+    th = _jstr(threshold)
+    if comp == "lte":
+        return f"{th} or less"
+    if comp == "gt":
+        return f"more than {th}"
+    if comp == "lt":
+        return f"less than {th}"
+    if comp == "eq":
+        return th
+    return f"{th}+"
+
+
 def _format_comparison(comp: str, threshold: Any) -> str:
     th = _jstr(threshold)
     if comp == "gte":
@@ -272,6 +297,12 @@ def _condition_lead_in(c: Condition) -> str:
         return "if the unit charged this turn"
     if ctype == "advanced-this-turn":
         return "if the unit Advanced this turn"
+    if ctype == "disembarked-from-transport":
+        return "if the unit disembarked from a Transport this turn"
+    if ctype == "faction-rule-active":
+        return f"while the {_title_case(_jstr(p.get('rule')))} is active"
+    if ctype == "battle-round":
+        return f"during the first {_jstr(p.get('max'))} battle rounds"
     if ctype == "remained-stationary":
         return "if the unit Remained Stationary"
     if ctype == "target-has-keyword":
@@ -304,6 +335,25 @@ def _condition_lead_in(c: Condition) -> str:
         else:
             where = f'{_jstr(p.get("range"))}"'
         return f"while an enemy unit is within {where}"
+    if ctype == "engagement-state":
+        state = p.get("state")
+        if state is None:
+            return "while the unit is within Engagement Range"
+        st = _jstr(state)
+        if st == "on-battlefield":
+            return "while the unit is on the battlefield"
+        if st == "embarked":
+            return "while the unit is embarked"
+        if st in ("engaged", "within-engagement-range", "in-engagement-range"):
+            return "while the unit is within Engagement Range"
+        return f"while the unit is {dekebab(st)}"
+    if ctype == "disposition-matches":
+        d = _jstr(p.get("disposition"))
+        if d == "strategic-reserves":
+            return "while the unit is in Strategic Reserves"
+        return f"while the unit's disposition is {dekebab(d)}"
+    if ctype == "fights-first":
+        return "while the unit has the Fights First ability"
     return f"if {describe_condition(c)}"
 
 
@@ -345,8 +395,40 @@ def _describe_attack_restriction(m: dict[str, Any], subj: str) -> str:
     return f"{subj}: {dekebab(slug)}{rng_clause}"
 
 
+# Humanized noun for a scaling `of` dimension (`enemy-models-in-range` -> `enemy models`).
+_SCALE_OF = {
+    "enemy-models-in-range": "enemy models",
+    "friendly-models-in-range": "friendly models",
+    "models-in-bearer-unit": "models in this unit",
+    "enemy-units-in-range": "enemy units",
+    "wounds-lost": "wounds lost",
+}
+
+
+def _scaling_clause(s: dict[str, Any]) -> str:
+    """A ``scaling`` block -> trailing clause ("for every 5 enemy models within 6\"")."""
+    of = _jstr(s.get("of"))
+    of_text = _SCALE_OF.get(of, dekebab(of))
+    c = f"for every {_jstr(s.get('per'))} {of_text}"
+    if s.get("within_inches") is not None:
+        c += f' within {_jstr(s.get("within_inches"))}"'
+    if s.get("round") == "up":
+        c += " (rounding up)"
+    if s.get("max_value") is not None:
+        c += f" (to a maximum of {_jstr(s.get('max_value'))})"
+    return c
+
+
 def describe_effect_inline(e: Effect, ctx: Ctx | None = None) -> str:
-    """Single-clause translation for leaf effects (lowercase-initial, no period)."""
+    """Single-clause translation for leaf effects (lowercase-initial, no period),
+    with any ``scaling`` block woven on as a trailing "for every ..." clause."""
+    base = _describe_effect_inline_base(e, ctx)
+    scaling = e.get("scaling")
+    return f"{base} {_scaling_clause(scaling)}" if scaling else base
+
+
+def _describe_effect_inline_base(e: Effect, ctx: Ctx | None = None) -> str:
+    """The leaf/container switch; :func:`describe_effect_inline` wraps it to append scaling."""
     ctx = ctx or {}
     m = e.get("modifier") or {}
     subj = _subject(e.get("target"), ctx)
@@ -382,6 +464,8 @@ def describe_effect_inline(e: Effect, ctx: Ctx | None = None) -> str:
             crit = "Critical Wounds" if m.get("roll") == "wound" else "Critical Hits"
             crit_on = _jstr(m["critical_on"])
             return f"{subj} {_v(subj, 'scores')} {crit} on {roll} rolls of {crit_on}+"
+        if m.get("operation") == "set":
+            return f"{subj} can change {roll} rolls to a {_jstr(m.get('value'))}"
         if m.get("value") is None:
             op = dekebab(_jstr(m.get("operation")))
             return f"{op} {_possessive(subj)} {roll} rolls{ctx_note}"
@@ -402,6 +486,21 @@ def describe_effect_inline(e: Effect, ctx: Ctx | None = None) -> str:
         else:
             subj_mw = subj
         verb = "suffers" if subj_mw.startswith("each ") else _v(subj_mw, "suffers")
+        # Dice-pool form: N dice rolled, each success worth `mortal_per_success`
+        # mortal wounds (distinct from a flat count).
+        if m.get("mortal_per_success") is not None:
+            per = _jstr(m.get("mortal_per_success"))
+            per_noun = "mortal wound" if per == "1" else "mortal wounds"
+            hit = _pool_threshold(_jstr(m.get("comparison") or "gte"), m.get("threshold"))
+            die = _dice_case(m.get("dice"))
+            # Per-model pool: one die per model in this/the target unit.
+            if m.get("per_model") is not None:
+                where = "the target unit" if m.get("per_model") == "target" else "this unit"
+                return (
+                    f"roll one {die} for each model in {where}: "
+                    f"for each {hit}, {subj_mw} {verb} {per} {per_noun}"
+                )
+            return f"roll {die}: for each {hit}, {subj_mw} {verb} {per} {per_noun}"
         if m.get("count") is not None:
             a: str | None = _jstr(m.get("count"))
         elif m.get("amount") is not None:
@@ -457,6 +556,13 @@ def describe_effect_inline(e: Effect, ctx: Ctx | None = None) -> str:
             kind = m.get("type")
         if _jstr(kind) == "move-through":
             return f"{subj} can move through enemy models and terrain"
+        if _jstr(kind) == "scouts":
+            dist = m.get("distance")
+            if dist is None:
+                dist = m.get("value")
+            inches = f' {_jstr(dist)}"' if dist is not None and _jstr(dist) != "0" else ""
+            lc_subj = subj[0].lower() + subj[1:] if subj else subj
+            return f"Before the first battle round, {lc_subj} can Scout{inches}"
         dist = m.get("distance")
         if dist is None:
             dist = m.get("value")
@@ -535,8 +641,18 @@ def describe_effect_inline(e: Effect, ctx: Ctx | None = None) -> str:
             f"each time a model in {subj} is destroyed, "
             "it can shoot before being removed from play"
         )
+    if etype == "unit-keyword":
+        name = _title_case(_jstr(m.get("keyword_id")))
+        val = f" {_jstr(m.get('value'))}" if m.get("value") is not None else ""
+        return f"{subj} {_v(subj, 'has')} the {name}{val} ability"
+    if etype == "unit-keyword-grant":
+        return f"{_jstr(m.get('to_keywords'))} units gain the {_jstr(m.get('keyword'))} keyword"
     if etype == "deep-strike":
         return f"{subj} {_v(subj, 'has')} the Deep Strike ability"
+    if etype == "strategic-reserves-arrival":
+        return f"{subj} can arrive from Strategic Reserves regardless of mission rules"
+    if etype == "remove-battle-shock":
+        return f"{subj} {_v(subj, 'is')} no longer Battle-shocked"
     if etype == "fallback-and-act":
         return (
             f"{subj} {_v(subj, 'is')} eligible to shoot and declare a charge "
@@ -594,11 +710,17 @@ def describe_effect_inline(e: Effect, ctx: Ctx | None = None) -> str:
         pool = e.get("pool")
         pool_text = f"{_jstr(pool['count'])}{_jstr(pool['die'])}" if pool else "?"
         opts = " / ".join(
-            f"{_jstr(o.get('name'))} ({_jstr((o.get('requirement') or {}).get('min_value'))}+): "
+            f"{_jstr(o.get('name'))} ({_jstr((o.get('requirement') or {}).get('type'))} of "
+            f"{_jstr((o.get('requirement') or {}).get('min_value'))}+): "
             f"{describe_effect_inline(o.get('effect') or {}, ctx)}"
             for o in e.get("options") or []
         )
         return f"roll {pool_text}: {opts}"
+    if etype == "select-units":
+        return (
+            f"select {_select_units_subject(e.get('selector'))}: "
+            f"{describe_effect_inline(e.get('effect') or {}, ctx)}"
+        )
 
     return f"[{etype if etype is not None else 'unknown'}]"
 
@@ -649,6 +771,12 @@ def describe_effect(e: Effect, depth: int = 0, ctx: Ctx | None = None) -> str:
                 f"{describe_effect_inline(opt.get('effect') or {}, ctx)}"
             )
         return "\n".join(lines)
+    if etype == "select-units":
+        inner = e.get("effect") or {}
+        lead = f"Select {_select_units_subject(e.get('selector'))}"
+        if inner.get("type") in _CONTAINER_TYPES:
+            return f"{indent}{arrow}{lead}:\n" + describe_effect(inner, depth + 1, ctx)
+        return f"{indent}{arrow}{lead}: {describe_effect_inline(inner, ctx)}."
     # Leaf at block position — a single capitalized sentence.
     return f"{indent}{arrow}{_capitalize(describe_effect_inline(e, ctx))}."
 

@@ -41,6 +41,14 @@ export interface Effect {
   on_fail?: Effect | null;
   pool?: { count: number; die: string };
   max_activations?: number;
+  selector?: { max_count?: number; keywords?: string[]; owner?: string };
+  scaling?: {
+    per?: number;
+    of?: string;
+    within_inches?: number;
+    round?: string;
+    max_value?: number;
+  };
 }
 
 /** Ability scope, as carried on enrichment ability entries. */
@@ -75,7 +83,15 @@ const CONTAINER_TYPES = new Set([
   "choice",
   "dice-gated",
   "dice-pool-allocation",
+  "select-units",
 ]);
+
+/** "up to 3 friendly Orks Vehicle units" — the `select-units` selector phrase. */
+function selectUnitsSubject(sel: Record<string, unknown> = {}): string {
+  const kw = ((sel.keywords as unknown[]) ?? []).map((k) => titleCase(jstr(k))).join(" ");
+  const noun = sel.max_count === 1 ? "unit" : "units";
+  return `up to ${jstr(sel.max_count)} ${jstr(sel.owner)}${kw ? ` ${kw}` : ""} ${noun}`;
+}
 
 /** JS-template stringification (numbers print without trailing `.0`). */
 function jstr(v: unknown): string {
@@ -218,6 +234,28 @@ function signed(operation: unknown, value: unknown): string {
   return `${sign > 0 ? "+" : "-"}${jstr(value)}`;
 }
 
+/**
+ * Dice-pool success phrase → "4+", "6", "3 or less", etc. (for the per-die
+ * threshold in a `mortal-wounds` dice pool — "for each 4+, …"). Unlike
+ * {@link formatComparison} this carries no leading "a", because it follows
+ * "for each".
+ */
+function poolThreshold(comp: string, threshold: unknown): string {
+  const th = jstr(threshold);
+  switch (comp) {
+    case "lte":
+      return `${th} or less`;
+    case "gt":
+      return `more than ${th}`;
+    case "lt":
+      return `less than ${th}`;
+    case "eq":
+      return th;
+    default: // gte
+      return `${th}+`;
+  }
+}
+
 /** Dice comparison → "a 4+", "a 3 or less", etc. (for dice-gated thresholds). */
 function formatComparison(comp: string, threshold: unknown): string {
   const th = jstr(threshold);
@@ -338,6 +376,12 @@ function conditionLeadIn(c: Condition): string {
       return "if the unit charged this turn";
     case "advanced-this-turn":
       return "if the unit Advanced this turn";
+    case "disembarked-from-transport":
+      return "if the unit disembarked from a Transport this turn";
+    case "faction-rule-active":
+      return `while the ${titleCase(jstr(p.rule))} is active`;
+    case "battle-round":
+      return `during the first ${jstr(p.max)} battle rounds`;
     case "remained-stationary":
       return "if the unit Remained Stationary";
     case "target-has-keyword":
@@ -366,13 +410,57 @@ function conditionLeadIn(c: Condition): string {
       else where = p.range === "engagement" ? "engagement range" : `${jstr(p.range)}"`;
       return `while an enemy unit is within ${where}`;
     }
+    case "engagement-state": {
+      if (p.state == null) return "while the unit is within Engagement Range";
+      const st = jstr(p.state);
+      if (st === "on-battlefield") return "while the unit is on the battlefield";
+      if (st === "embarked") return "while the unit is embarked";
+      if (st === "engaged" || st === "within-engagement-range" || st === "in-engagement-range")
+        return "while the unit is within Engagement Range";
+      return `while the unit is ${dekebab(st)}`;
+    }
+    case "disposition-matches": {
+      const d = jstr(p.disposition);
+      if (d === "strategic-reserves") return "while the unit is in Strategic Reserves";
+      return `while the unit's disposition is ${dekebab(d)}`;
+    }
+    case "fights-first":
+      return "while the unit has the Fights First ability";
     default:
       return `if ${describeCondition(c)}`;
   }
 }
 
-/** Single-clause translation for leaf effects (lowercase-initial, no period). */
+/** Humanized noun for a scaling `of` dimension (`enemy-models-in-range` → `enemy models`). */
+const SCALE_OF: Record<string, string> = {
+  "enemy-models-in-range": "enemy models",
+  "friendly-models-in-range": "friendly models",
+  "models-in-bearer-unit": "models in this unit",
+  "enemy-units-in-range": "enemy units",
+  "wounds-lost": "wounds lost",
+};
+
+/** A `scaling` block → trailing clause ("for every 5 enemy models within 6\""). */
+function scalingClause(s: NonNullable<Effect["scaling"]>): string {
+  const ofText = SCALE_OF[jstr(s.of)] ?? dekebab(jstr(s.of));
+  let c = `for every ${jstr(s.per)} ${ofText}`;
+  if (s.within_inches != null) c += ` within ${jstr(s.within_inches)}"`;
+  if (s.round === "up") c += " (rounding up)";
+  if (s.max_value != null) c += ` (to a maximum of ${jstr(s.max_value)})`;
+  return c;
+}
+
+/**
+ * Single-clause translation for leaf effects (lowercase-initial, no period),
+ * with any `scaling` block woven on as a trailing "for every …" clause.
+ */
 export function describeEffectInline(e: Effect, ctx: Ctx = {}): string {
+  const base = describeEffectInlineBase(e, ctx);
+  return e.scaling ? `${base} ${scalingClause(e.scaling)}` : base;
+}
+
+/** The leaf/container switch; {@link describeEffectInline} wraps it to append scaling. */
+function describeEffectInlineBase(e: Effect, ctx: Ctx = {}): string {
   const m = e.modifier ?? {};
   const subj = subject(e.target, ctx);
 
@@ -398,6 +486,8 @@ export function describeEffectInline(e: Effect, ctx: Ctx = {}): string {
         const crit = m.roll === "wound" ? "Critical Wounds" : "Critical Hits";
         return `${subj} ${v(subj, "scores")} ${crit} on ${rollName(m.roll)} rolls of ${jstr(m.critical_on)}+`;
       }
+      if (m.operation === "set")
+        return `${subj} can change ${rollName(m.roll)} rolls to a ${jstr(m.value)}`;
       if (m.value == null) return `${dekebab(jstr(m.operation))} ${possessive(subj)} ${rollName(m.roll)} rolls${ctxNote}`;
       return `${subj} ${v(subj, "gets")} ${signed(m.operation, m.value)} to ${rollName(m.roll)} rolls${ctxNote}`;
     }
@@ -413,6 +503,21 @@ export function describeEffectInline(e: Effect, ctx: Ctx = {}): string {
           ? `each enemy unit within ${jstr(range)}"`
           : subj;
       const verb = subjMW.startsWith("each ") ? "suffers" : v(subjMW, "suffers");
+      // Dice-pool form (e.g. "roll six D6: for each 4+, that unit suffers 1
+      // mortal wound"): N dice rolled, each success worth `mortal_per_success`
+      // mortal wounds. Distinct from a flat count — the amount IS the pool.
+      if (m.mortal_per_success != null) {
+        const per = jstr(m.mortal_per_success);
+        const perNoun = per === "1" ? "mortal wound" : "mortal wounds";
+        const hit = poolThreshold(jstr(m.comparison ?? "gte"), m.threshold);
+        // Per-model pool: one die per model in this/the target unit (e.g.
+        // "roll one D6 for each model in this unit: for each 4+, …").
+        if (m.per_model != null) {
+          const where = m.per_model === "target" ? "the target unit" : "this unit";
+          return `roll one ${diceCase(m.dice)} for each model in ${where}: for each ${hit}, ${subjMW} ${verb} ${per} ${perNoun}`;
+        }
+        return `roll ${diceCase(m.dice)}: for each ${hit}, ${subjMW} ${verb} ${per} ${perNoun}`;
+      }
       const a =
         m.count != null
           ? jstr(m.count)
@@ -457,6 +562,11 @@ export function describeEffectInline(e: Effect, ctx: Ctx = {}): string {
     case "movement-modifier": {
       const kind = m.move_type ?? m.type;
       if (jstr(kind) === "move-through") return `${subj} can move through enemy models and terrain`;
+      if (jstr(kind) === "scouts") {
+        const dist = m.distance ?? m.value;
+        const inches = dist != null && jstr(dist) !== "0" ? ` ${jstr(dist)}"` : "";
+        return `Before the first battle round, ${subj.charAt(0).toLowerCase() + subj.slice(1)} can Scout${inches}`;
+      }
       const dist = m.distance ?? m.value;
       const inches = dist != null && jstr(dist) !== "0" ? ` ${jstr(dist)}"` : "";
       return kind != null
@@ -516,8 +626,19 @@ export function describeEffectInline(e: Effect, ctx: Ctx = {}): string {
       return subj === "this model"
         ? `each time this model is destroyed, it can shoot before being removed from play`
         : `each time a model in ${subj} is destroyed, it can shoot before being removed from play`;
+    case "unit-keyword": {
+      const name = titleCase(jstr(m.keyword_id));
+      const val = m.value != null ? ` ${jstr(m.value)}` : "";
+      return `${subj} has the ${name}${val} ability`;
+    }
+    case "unit-keyword-grant":
+      return `${jstr(m.to_keywords)} units gain the ${jstr(m.keyword)} keyword`;
     case "deep-strike":
       return `${subj} has the Deep Strike ability`;
+    case "strategic-reserves-arrival":
+      return `${subj} can arrive from Strategic Reserves regardless of mission rules`;
+    case "remove-battle-shock":
+      return `${subj} ${v(subj, "is")} no longer Battle-shocked`;
     case "fallback-and-act":
       return `${subj} is eligible to shoot and declare a charge in a turn in which it Fell Back`;
     case "engagement-passthrough":
@@ -561,10 +682,12 @@ export function describeEffectInline(e: Effect, ctx: Ctx = {}): string {
     case "dice-pool-allocation": {
       const pool = e.pool ? `${jstr(e.pool.count)}${jstr(e.pool.die)}` : "?";
       const opts = (e.options ?? [])
-        .map((o) => `${jstr(o.name)} (${jstr(o.requirement?.min_value)}+): ${describeEffectInline(o.effect ?? {}, ctx)}`)
+        .map((o) => `${jstr(o.name)} (${jstr(o.requirement?.type)} of ${jstr(o.requirement?.min_value)}+): ${describeEffectInline(o.effect ?? {}, ctx)}`)
         .join(" / ");
       return `roll ${pool}: ${opts}`;
     }
+    case "select-units":
+      return `select ${selectUnitsSubject(e.selector)}: ${describeEffectInline(e.effect ?? {}, ctx)}`;
 
     default:
       return `[${e.type ?? "unknown"}]`;
@@ -642,6 +765,14 @@ export function describeEffect(e: Effect, depth: number = 0, ctx: Ctx = {}): str
         );
       }
       return lines.join("\n");
+    }
+    case "select-units": {
+      const inner = e.effect ?? {};
+      const lead = `Select ${selectUnitsSubject(e.selector)}`;
+      if (CONTAINER_TYPES.has(inner.type ?? "")) {
+        return `${indent}${arrow}${lead}:\n` + describeEffect(inner, depth + 1, ctx);
+      }
+      return `${indent}${arrow}${lead}: ${describeEffectInline(inner, ctx)}.`;
     }
     default:
       // Leaf at block position — render as a single capitalized sentence.

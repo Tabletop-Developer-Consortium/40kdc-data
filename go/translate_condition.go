@@ -41,6 +41,7 @@ var timingPhrases = map[string]string{
 	"command-phase":                   "in the Command phase",
 	"shooting-phase":                  "in the Shooting phase",
 	"on-model-destroyed":              "each time a model in this unit is destroyed",
+	"before-this-model-removed":       "before removing this model from the battlefield",
 	"model-destroyed":                 "each time a model in this unit is destroyed",
 	"first-model-destroyed":           "the first time a model in this unit is destroyed",
 	"first-this-battle":               "the first time this battle",
@@ -249,6 +250,28 @@ func describeCondition(c map[string]any) string {
 		return negate + "the attack's " + sv(p["attacker_stat"]) + " is " + dekebab(sv(p["comparison"])) + " the target's " + sv(p["target_stat"])
 	case "made-ingress-move-this-turn":
 		return negate + "the unit made an ingress move this turn"
+	case "engagement-state":
+		if p["state"] == nil {
+			return negate + "the unit is within Engagement Range"
+		}
+		st := cstr(p["state"])
+		switch st {
+		case "on-battlefield":
+			return negate + "the unit is on the battlefield"
+		case "embarked":
+			return negate + "the unit is embarked"
+		case "engaged", "within-engagement-range", "in-engagement-range":
+			return negate + "the unit is within Engagement Range"
+		}
+		return negate + "the unit is " + dekebab(st)
+	case "disposition-matches":
+		d := cstr(p["disposition"])
+		if d == "strategic-reserves" {
+			return negate + "the unit is in Strategic Reserves"
+		}
+		return negate + "the unit's disposition is " + dekebab(d)
+	case "fights-first":
+		return negate + "the unit has Fights First"
 
 	// Scoring conditions.
 	case "objective-majority":

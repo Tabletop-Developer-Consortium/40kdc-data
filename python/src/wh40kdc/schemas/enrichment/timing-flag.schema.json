@@ -18,7 +18,8 @@
         "before-advance-roll", "after-advance-roll",
         "before-battle-shock", "after-battle-shock",
         "on-unit-selected", "on-unit-destroyed",
-        "on-model-destroyed", "on-damage-allocated"
+        "on-model-destroyed", "on-damage-allocated",
+        "before-this-model-removed"
       ]
     },
     "game_version": { "$ref": "../defs/game-version-ref.schema.json" },

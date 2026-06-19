@@ -67,6 +67,7 @@ pub(super) fn describe_timing(t: &str) -> String {
         "command-phase" => "in the Command phase",
         "shooting-phase" => "in the Shooting phase",
         "on-model-destroyed" => "each time a model in this unit is destroyed",
+        "before-this-model-removed" => "before removing this model from the battlefield",
         "model-destroyed" => "each time a model in this unit is destroyed",
         "first-model-destroyed" => "the first time a model in this unit is destroyed",
         "first-this-battle" => "the first time this battle",
@@ -256,6 +257,11 @@ fn describe_simple(s: &SimpleCondition) -> String {
         }
         T::ChargedThisTurn => format!("{negate}the unit charged this turn"),
         T::AdvancedThisTurn => format!("{negate}the unit advanced this turn"),
+        T::DisembarkedFromTransport => {
+            format!("{negate}the unit disembarked from a Transport this turn")
+        }
+        T::FactionRuleActive => format!("{negate}the {} is active", pj(p, "rule")),
+        T::BattleRound => format!("{negate}during the first {} battle rounds", pj(p, "max")),
         T::RemainedStationary => format!("{negate}the unit remained stationary"),
         T::UnitBelowStartingStrength => format!("{negate}the unit is below starting strength"),
         T::UnitBelowHalfStrength => format!("{negate}the unit is below half strength"),
@@ -569,11 +575,23 @@ fn describe_simple(s: &SimpleCondition) -> String {
             )
         }
 
-        // Schema types with no scoring usage today — match the TS `dekebab(type)`
-        // fallback so a stray occurrence still round-trips identically.
-        T::EngagementState => format!("{negate}engagement state"),
-        T::FightsFirst => format!("{negate}fights first"),
-        T::DispositionMatches => format!("{negate}disposition matches"),
+        T::EngagementState => match ps(p, "state") {
+            None => format!("{negate}the unit is within Engagement Range"),
+            Some("on-battlefield") => format!("{negate}the unit is on the battlefield"),
+            Some("embarked") => format!("{negate}the unit is embarked"),
+            Some("engaged") | Some("within-engagement-range") | Some("in-engagement-range") => {
+                format!("{negate}the unit is within Engagement Range")
+            }
+            Some(other) => format!("{negate}the unit is {}", dekebab(other)),
+        },
+        T::FightsFirst => format!("{negate}the unit has Fights First"),
+        T::DispositionMatches => match ps(p, "disposition") {
+            Some("strategic-reserves") => format!("{negate}the unit is in Strategic Reserves"),
+            _ => format!(
+                "{negate}the unit's disposition is {}",
+                dekebab(&pj(p, "disposition"))
+            ),
+        },
         T::AttackStatCompare => format!(
             "{negate}the attack's {} is {} the target's {}",
             ps(p, "attacker_stat").unwrap_or(""),

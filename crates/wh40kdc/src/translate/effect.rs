@@ -12,7 +12,8 @@ use super::{dekebab, describe_node, describe_timing};
 use crate::generated::{
     Ability, AbilityAppliesTo, CompoundConditionOperator, ConditionNode, DiceGatedEffect,
     DiceGatedEffectComparison, DiceGatedEffectThreshold, DicePoolAllocationEffect, EffectNode,
-    Scope, SimpleConditionType, SingleEffect, SingleEffectType,
+    Scaling, ScalingOf, ScalingRound, Scope, SelectUnitsEffectSelector,
+    SelectUnitsEffectSelectorOwner, SimpleConditionType, SingleEffect, SingleEffectType,
 };
 
 /// Rendering context threaded from the ability (scope info the leaf needs).
@@ -262,6 +263,19 @@ fn signed(m: &Map<String, Value>) -> String {
 }
 
 /// Dice comparison → "a 4+", "a 3 or less", etc.
+/// Dice-pool success phrase → "4+", "6", "3 or less" (per-die threshold in a
+/// `mortal-wounds` pool — follows "for each", so no leading "a").
+fn pool_threshold(comp: &str, threshold: Option<&Value>) -> String {
+    let th = threshold.map(jval).unwrap_or_else(|| "?".to_string());
+    match comp {
+        "lte" => format!("{th} or less"),
+        "gt" => format!("more than {th}"),
+        "lt" => format!("less than {th}"),
+        "eq" => th,
+        _ => format!("{th}+"),
+    }
+}
+
 fn format_comparison(
     comp: DiceGatedEffectComparison,
     threshold: &DiceGatedEffectThreshold,
@@ -337,6 +351,15 @@ fn condition_lead_in(n: &ConditionNode) -> String {
                 T::ModelIsLeader => "while this model leads a unit".to_string(),
                 T::ChargedThisTurn => "if the unit charged this turn".to_string(),
                 T::AdvancedThisTurn => "if the unit Advanced this turn".to_string(),
+                T::DisembarkedFromTransport => {
+                    "if the unit disembarked from a Transport this turn".to_string()
+                }
+                T::FactionRuleActive => {
+                    format!("while the {} is active", title_case(&jv(p, "rule")))
+                }
+                T::BattleRound => {
+                    format!("during the first {} battle rounds", jv(p, "max"))
+                }
                 T::RemainedStationary => "if the unit Remained Stationary".to_string(),
                 T::TargetHasKeyword => format!("against {} targets", jv(p, "keyword")),
                 T::UnitHasKeyword => format!("if the unit has the {} keyword", jv(p, "keyword")),
@@ -369,6 +392,27 @@ fn condition_lead_in(n: &ConditionNode) -> String {
                     };
                     format!("while an enemy unit is within {where_}")
                 }
+                T::EngagementState => match nstr(p, "state") {
+                    None => "while the unit is within Engagement Range".to_string(),
+                    Some("on-battlefield") => "while the unit is on the battlefield".to_string(),
+                    Some("embarked") => "while the unit is embarked".to_string(),
+                    Some("engaged")
+                    | Some("within-engagement-range")
+                    | Some("in-engagement-range") => {
+                        "while the unit is within Engagement Range".to_string()
+                    }
+                    Some(st) => format!("while the unit is {}", dekebab(st)),
+                },
+                T::DispositionMatches => match nstr(p, "disposition") {
+                    Some("strategic-reserves") => {
+                        "while the unit is in Strategic Reserves".to_string()
+                    }
+                    _ => format!(
+                        "while the unit's disposition is {}",
+                        dekebab(&jv(p, "disposition"))
+                    ),
+                },
+                T::FightsFirst => "while the unit has the Fights First ability".to_string(),
                 _ => format!("if {}", describe_node(n)),
             }
         }
@@ -485,6 +529,13 @@ fn describe_single(e: &SingleEffect, ctx: &Ctx) -> String {
                     jv(m, "critical_on")
                 );
             }
+            if nstr(m, "operation") == Some("set") {
+                return format!(
+                    "{subj} can change {} rolls to a {}",
+                    roll_name(m.get("roll").unwrap_or(&Value::Null)),
+                    jv(m, "value")
+                );
+            }
             if !notnull(m, "value") {
                 format!(
                     "{} {} {} rolls{ctx_note}",
@@ -524,6 +575,31 @@ fn describe_single(e: &SingleEffect, ctx: &Ctx) -> String {
             } else {
                 agree(&subj_mw, "suffers")
             };
+            // Dice-pool form: N dice rolled, each success worth
+            // `mortal_per_success` mortal wounds (distinct from a flat count).
+            if notnull(m, "mortal_per_success") {
+                let per = jv(m, "mortal_per_success");
+                let per_noun = if per == "1" {
+                    "mortal wound"
+                } else {
+                    "mortal wounds"
+                };
+                let comp = nstr(m, "comparison").unwrap_or("gte");
+                let hit = pool_threshold(comp, m.get("threshold"));
+                let die = dice_case(m.get("dice").unwrap_or(&Value::Null));
+                // Per-model pool: one die per model in this/the target unit.
+                if notnull(m, "per_model") {
+                    let where_ = if nstr(m, "per_model") == Some("target") {
+                        "the target unit"
+                    } else {
+                        "this unit"
+                    };
+                    return format!(
+                        "roll one {die} for each model in {where_}: for each {hit}, {subj_mw} {verb} {per} {per_noun}"
+                    );
+                }
+                return format!("roll {die}: for each {hit}, {subj_mw} {verb} {per} {per_noun}");
+            }
             let a: Option<String> = if notnull(m, "count") {
                 Some(jv(m, "count"))
             } else if notnull(m, "amount") {
@@ -615,6 +691,20 @@ fn describe_single(e: &SingleEffect, ctx: &Ctx) -> String {
             let kind = first(m, &["move_type", "type"]);
             if kind.map(jval).as_deref() == Some("move-through") {
                 return format!("{subj} can move through enemy models and terrain");
+            }
+            if kind.map(jval).as_deref() == Some("scouts") {
+                let inches = first(m, &["distance", "value"])
+                    .filter(|d| jval(d) != "0")
+                    .map(|d| format!(" {}\"", jval(d)))
+                    .unwrap_or_default();
+                let lc_subj = {
+                    let mut chars = subj.chars();
+                    match chars.next() {
+                        None => String::new(),
+                        Some(c) => c.to_lowercase().collect::<String>() + chars.as_str(),
+                    }
+                };
+                return format!("Before the first battle round, {lc_subj} can Scout{inches}");
             }
             let inches = first(m, &["distance", "value"])
                 .filter(|d| jval(d) != "0")
@@ -752,7 +842,25 @@ fn describe_single(e: &SingleEffect, ctx: &Ctx) -> String {
                 format!("each time a model in {subj} is destroyed, it can shoot before being removed from play")
             }
         }
+        T::UnitKeyword => {
+            let name = title_case(&jv(m, "keyword_id"));
+            let val = if notnull(m, "value") {
+                format!(" {}", jv(m, "value"))
+            } else {
+                String::new()
+            };
+            format!("{subj} {} the {name}{val} ability", agree(&subj, "has"))
+        }
+        T::UnitKeywordGrant => format!(
+            "{} units gain the {} keyword",
+            jv(m, "to_keywords"),
+            jv(m, "keyword")
+        ),
         T::DeepStrike => format!("{subj} {} the Deep Strike ability", agree(&subj, "has")),
+        T::StrategicReservesArrival => {
+            format!("{subj} can arrive from Strategic Reserves regardless of mission rules")
+        }
+        T::RemoveBattleShock => format!("{subj} {} no longer Battle-shocked", agree(&subj, "is")),
         T::FallbackAndAct => format!(
             "{subj} {} eligible to shoot and declare a charge in a turn in which it Fell Back",
             agree(&subj, "is")
@@ -807,9 +915,35 @@ pub fn describe_effect_inline(e: &EffectNode) -> String {
     inline(e, &Ctx::default())
 }
 
+/// `for every 5 enemy models within 6"` — the trailing scaling clause woven
+/// onto a single effect whose `modifier.value` scales. Mirrors `scalingClause`.
+fn scaling_clause(s: &Scaling) -> String {
+    let of_text = match s.of {
+        ScalingOf::EnemyModelsInRange => "enemy models",
+        ScalingOf::FriendlyModelsInRange => "friendly models",
+        ScalingOf::ModelsInBearerUnit => "models in this unit",
+        ScalingOf::EnemyUnitsInRange => "enemy units",
+        ScalingOf::WoundsLost => "wounds lost",
+    };
+    let mut c = format!("for every {} {of_text}", s.per.get());
+    if let Some(w) = s.within_inches {
+        c.push_str(&format!(" within {}\"", fmt_num(w)));
+    }
+    if matches!(s.round, ScalingRound::Up) {
+        c.push_str(" (rounding up)");
+    }
+    if let Some(mx) = s.max_value {
+        c.push_str(&format!(" (to a maximum of {mx})"));
+    }
+    c
+}
+
 fn inline(e: &EffectNode, ctx: &Ctx) -> String {
     match e {
-        EffectNode::SingleEffect(s) => describe_single(s, ctx),
+        EffectNode::SingleEffect(s) => match &s.scaling {
+            Some(sc) => format!("{} {}", describe_single(s, ctx), scaling_clause(sc)),
+            None => describe_single(s, ctx),
+        },
         EffectNode::ConditionalEffect(c) => {
             format!(
                 "{}, {}",
@@ -845,7 +979,37 @@ fn inline(e: &EffectNode, ctx: &Ctx) -> String {
             d.pool.die,
             dice_pool_options_inline(d, ctx)
         ),
+        EffectNode::SelectUnitsEffect(s) => format!(
+            "select {}: {}",
+            select_units_subject(&s.selector),
+            inline(&s.effect, ctx)
+        ),
     }
+}
+
+/// "up to 3 friendly Orks Vehicle units" — the `select-units` selector phrase.
+fn select_units_subject(sel: &SelectUnitsEffectSelector) -> String {
+    let kw = sel
+        .keywords
+        .iter()
+        .map(|k| title_case(k))
+        .collect::<Vec<_>>()
+        .join(" ");
+    let owner = match sel.owner {
+        SelectUnitsEffectSelectorOwner::Friendly => "friendly",
+        SelectUnitsEffectSelectorOwner::Enemy => "enemy",
+    };
+    let noun = if sel.max_count.get() == 1 {
+        "unit"
+    } else {
+        "units"
+    };
+    let kw = if kw.is_empty() {
+        String::new()
+    } else {
+        format!(" {kw}")
+    };
+    format!("up to {} {owner}{kw} {noun}", sel.max_count)
 }
 
 fn dice_gated_inline(d: &DiceGatedEffect, ctx: &Ctx) -> String {
@@ -871,8 +1035,9 @@ fn dice_pool_options_inline(d: &DicePoolAllocationEffect, ctx: &Ctx) -> String {
         .iter()
         .map(|o| {
             format!(
-                "{} ({}+): {}",
+                "{} ({} of {}+): {}",
                 o.name,
+                o.requirement.type_,
                 o.requirement.min_value,
                 inline(&o.effect, ctx)
             )
@@ -888,6 +1053,7 @@ fn is_container(e: &EffectNode) -> bool {
             | EffectNode::ChoiceEffect(_)
             | EffectNode::DiceGatedEffect(_)
             | EffectNode::DicePoolAllocationEffect(_)
+            | EffectNode::SelectUnitsEffect(_)
     )
 }
 
@@ -969,6 +1135,15 @@ fn block(e: &EffectNode, depth: usize, ctx: &Ctx) -> String {
                 ));
             }
             lines.join("\n")
+        }
+        EffectNode::SelectUnitsEffect(s) => {
+            let inner = &*s.effect;
+            let lead = format!("Select {}", select_units_subject(&s.selector));
+            if is_container(inner) {
+                format!("{indent}{arrow}{lead}:\n{}", block(inner, depth + 1, ctx))
+            } else {
+                format!("{indent}{arrow}{lead}: {}.", inline(inner, ctx))
+            }
         }
         EffectNode::SingleEffect(_) => {
             format!("{indent}{arrow}{}.", capitalize(&inline(e, ctx)))

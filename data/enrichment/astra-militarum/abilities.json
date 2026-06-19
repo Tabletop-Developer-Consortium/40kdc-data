@@ -9,23 +9,32 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "dice-gated",
-      "dice": "D6",
-      "threshold": 6,
-      "comparison": "gte",
-      "on_success": {
-        "type": "mortal-wounds",
-        "target": "enemy-within-aura",
-        "modifier": {
-          "count": "1",
-          "range": 6
+      "type": "conditional",
+      "condition": {
+        "type": "timing-is",
+        "parameters": {
+          "timing": "before-this-model-removed"
         }
       },
-      "on_fail": null
+      "effect": {
+        "type": "dice-gated",
+        "dice": "D6",
+        "threshold": 6,
+        "comparison": "gte",
+        "on_success": {
+          "type": "mortal-wounds",
+          "target": "enemy-within-aura",
+          "modifier": {
+            "count": "1",
+            "range": 6
+          }
+        },
+        "on_fail": null
+      }
     },
     "scope": {
       "range": "aura-6",
-      "duration": "one-use"
+      "duration": "permanent"
     },
     "unit_ids": [
       "scout-sentinels",
@@ -55,7 +64,7 @@
     },
     "scope": {
       "range": "unit",
-      "duration": "one-use"
+      "duration": "permanent"
     },
     "unit_ids": [
       "scout-sentinels"
@@ -775,10 +784,10 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "movement-modifier",
+      "type": "unit-keyword",
       "target": "unit",
       "modifier": {
-        "type": "infiltrate"
+        "keyword_id": "infiltrators"
       }
     },
     "scope": {
@@ -923,23 +932,32 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "dice-gated",
-      "dice": "D6",
-      "threshold": 6,
-      "comparison": "gte",
-      "on_success": {
-        "type": "mortal-wounds",
-        "target": "enemy-within-aura",
-        "modifier": {
-          "count": "D3",
-          "range": 6
+      "type": "conditional",
+      "condition": {
+        "type": "timing-is",
+        "parameters": {
+          "timing": "before-this-model-removed"
         }
       },
-      "on_fail": null
+      "effect": {
+        "type": "dice-gated",
+        "dice": "D6",
+        "threshold": 6,
+        "comparison": "gte",
+        "on_success": {
+          "type": "mortal-wounds",
+          "target": "enemy-within-aura",
+          "modifier": {
+            "count": "D3",
+            "range": 6
+          }
+        },
+        "on_fail": null
+      }
     },
     "scope": {
       "range": "aura-6",
-      "duration": "one-use"
+      "duration": "permanent"
     },
     "unit_ids": [
       "leman-russ-battle-tank",
@@ -987,23 +1005,32 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "dice-gated",
-      "dice": "D6",
-      "threshold": 6,
-      "comparison": "gte",
-      "on_success": {
-        "type": "mortal-wounds",
-        "target": "enemy-within-aura",
-        "modifier": {
-          "count": "D6+2",
-          "range": 6
+      "type": "conditional",
+      "condition": {
+        "type": "timing-is",
+        "parameters": {
+          "timing": "before-this-model-removed"
         }
       },
-      "on_fail": null
+      "effect": {
+        "type": "dice-gated",
+        "dice": "D6",
+        "threshold": 6,
+        "comparison": "gte",
+        "on_success": {
+          "type": "mortal-wounds",
+          "target": "enemy-within-aura",
+          "modifier": {
+            "count": "D6+2",
+            "range": 6
+          }
+        },
+        "on_fail": null
+      }
     },
     "scope": {
       "range": "aura-6",
-      "duration": "one-use"
+      "duration": "permanent"
     },
     "unit_ids": [
       "stormsword",
@@ -1209,23 +1236,32 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "dice-gated",
-      "dice": "D6",
-      "threshold": 6,
-      "comparison": "gte",
-      "on_success": {
-        "type": "mortal-wounds",
-        "target": "enemy-within-aura",
-        "modifier": {
-          "count": "D6",
-          "range": 6
+      "type": "conditional",
+      "condition": {
+        "type": "timing-is",
+        "parameters": {
+          "timing": "before-this-model-removed"
         }
       },
-      "on_fail": null
+      "effect": {
+        "type": "dice-gated",
+        "dice": "D6",
+        "threshold": 6,
+        "comparison": "gte",
+        "on_success": {
+          "type": "mortal-wounds",
+          "target": "enemy-within-aura",
+          "modifier": {
+            "count": "D6",
+            "range": 6
+          }
+        },
+        "on_fail": null
+      }
     },
     "scope": {
       "range": "aura-6",
-      "duration": "one-use"
+      "duration": "permanent"
     },
     "unit_ids": [
       "rogal-dorn-commander"
@@ -1550,7 +1586,7 @@
     },
     "scope": {
       "range": "unit",
-      "duration": "one-use"
+      "duration": "permanent"
     },
     "unit_ids": [
       "catachan-heavy-weapons-squad"
@@ -3494,12 +3530,10 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "stat-modifier",
+      "type": "unit-keyword",
       "target": "self",
       "modifier": {
-        "stat": "M",
-        "operation": "set",
-        "value": 20
+        "keyword_id": "hover"
       }
     },
     "scope": {
@@ -4133,53 +4167,22 @@
             }
           },
           {
-            "operator": "or",
-            "operands": [
-              {
-                "type": "player-turn-is",
-                "parameters": {
-                  "turn": 1
-                }
-              },
-              {
-                "type": "player-turn-is",
-                "parameters": {
-                  "turn": 2
-                }
-              },
-              {
-                "type": "player-turn-is",
-                "parameters": {
-                  "turn": 3
-                }
-              }
-            ]
+            "type": "battle-round",
+            "parameters": {
+              "max": 3
+            }
           }
         ]
       },
       "effect": {
-        "type": "sequence",
-        "steps": [
-          {
-            "type": "ability-grant",
-            "target": "self",
-            "modifier": {
-              "grant_type": "reinforcements-step-setup"
-            }
-          },
-          {
-            "type": "ability-grant",
-            "target": "self",
-            "modifier": {
-              "grant_type": "ignore-mission-reserves-restrictions"
-            }
-          }
-        ]
+        "type": "strategic-reserves-arrival",
+        "target": "self",
+        "modifier": {}
       }
     },
     "scope": {
       "range": "self",
-      "duration": "turn"
+      "duration": "permanent"
     },
     "unit_ids": [
       "arvus-lighter",

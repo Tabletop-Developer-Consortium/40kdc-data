@@ -54,6 +54,7 @@ _TIMING_PHRASES: dict[str, str] = {
     "command-phase": "in the Command phase",
     "shooting-phase": "in the Shooting phase",
     "on-model-destroyed": "each time a model in this unit is destroyed",
+    "before-this-model-removed": "before removing this model from the battlefield",
     "model-destroyed": "each time a model in this unit is destroyed",
     "first-model-destroyed": "the first time a model in this unit is destroyed",
     "first-this-battle": "the first time this battle",
@@ -212,6 +213,25 @@ def describe_condition(c: Condition) -> str:
         )
     if ctype == "made-ingress-move-this-turn":
         return f"{negate}the unit made an ingress move this turn"
+    if ctype == "engagement-state":
+        state = p.get("state")
+        if state is None:
+            return f"{negate}the unit is within Engagement Range"
+        st = _str(state)
+        if st == "on-battlefield":
+            return f"{negate}the unit is on the battlefield"
+        if st == "embarked":
+            return f"{negate}the unit is embarked"
+        if st in ("engaged", "within-engagement-range", "in-engagement-range"):
+            return f"{negate}the unit is within Engagement Range"
+        return f"{negate}the unit is {dekebab(st)}"
+    if ctype == "disposition-matches":
+        d = _str(p.get("disposition"))
+        if d == "strategic-reserves":
+            return f"{negate}the unit is in Strategic Reserves"
+        return f"{negate}the unit's disposition is {dekebab(d)}"
+    if ctype == "fights-first":
+        return f"{negate}the unit has Fights First"
 
     # ── Scoring conditions (secondary-card award `when`) ─────────────────────
     if ctype == "objective-majority":

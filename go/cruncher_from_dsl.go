@@ -82,6 +82,9 @@ func dslWalk(node any, source map[string]any, opts dslOpts, out *effectTranslati
 		out.unsupported = append(out.unsupported, unsup("dice-gated effect: stochastic; not expressible as a buff", n))
 	case "dice-pool-allocation":
 		enumerateDicePool(n, source, opts, out)
+	case "select-units":
+		// Targeting wrapper — the selected units receive the nested effect.
+		dslWalk(n["effect"], source, opts, out)
 	default:
 		out.unsupported = append(out.unsupported, unsup("effect type \""+jsStr(n["type"])+"\" is not modelled by the buff layer", n))
 	}

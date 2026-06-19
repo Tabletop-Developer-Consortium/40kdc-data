@@ -51,6 +51,7 @@ const TIMING_PHRASES: Record<string, string> = {
   "command-phase": "in the Command phase",
   "shooting-phase": "in the Shooting phase",
   "on-model-destroyed": "each time a model in this unit is destroyed",
+  "before-this-model-removed": "before removing this model from the battlefield",
   "model-destroyed": "each time a model in this unit is destroyed",
   "first-model-destroyed": "the first time a model in this unit is destroyed",
   "first-this-battle": "the first time this battle",
@@ -191,6 +192,22 @@ export function describeCondition(c: Condition): string {
     }
     case "made-ingress-move-this-turn":
       return `${negate}the unit made an ingress move this turn`;
+    case "engagement-state": {
+      if (p.state == null) return `${negate}the unit is within Engagement Range`;
+      const st = str(p.state);
+      if (st === "on-battlefield") return `${negate}the unit is on the battlefield`;
+      if (st === "embarked") return `${negate}the unit is embarked`;
+      if (st === "engaged" || st === "within-engagement-range" || st === "in-engagement-range")
+        return `${negate}the unit is within Engagement Range`;
+      return `${negate}the unit is ${dekebab(st)}`;
+    }
+    case "disposition-matches": {
+      const d = str(p.disposition);
+      if (d === "strategic-reserves") return `${negate}the unit is in Strategic Reserves`;
+      return `${negate}the unit's disposition is ${dekebab(d)}`;
+    }
+    case "fights-first":
+      return `${negate}the unit has Fights First`;
 
     // ── Scoring conditions (secondary-card award `when`) ────────────────────
     case "objective-majority":

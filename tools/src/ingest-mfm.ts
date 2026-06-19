@@ -11,7 +11,13 @@
  * Subcommands (more land in later phases):
  *   coverage      Report dump-vs-repo coverage; writes no data. (phase 1)
  *   dispositions  (phase 2)  enhancements (phase 3)  points (phase 4)
- *   wargear       (phase 5)  stratagems/missions (phase 6)
+ *   wargear       (phase 5)  stratagems (phase 6)
+ *   missions      Reconcile mission scoring-card numbers (vp/vp_max/cumulative)
+ *                 + exclusive_group guard, for secondary + generic primary cards
+ *   chapter-scope Reconcile Space Marine chapter access in the shared
+ *                 adeptus-astartes pool: collapse Black Templars exclude-and-replace
+ *                 twins to generic faction_keywords (#36) + stamp
+ *                 excluded_faction_keywords for genuine chapter bars (e.g. Librarians)
  *   cull-legends  Drop dump-absent Legends/Forge-World units + prune refs
  *   attachment-role  Dump-authoritative leader/support role + leader-attachments
  *                    (supersedes the 10e known-support-10e.ts scrape)
@@ -39,6 +45,8 @@ import { runEnhancements, buildEnhReport } from "./mfm/enhancements.js";
 import { runPoints, buildPointsReport } from "./mfm/points.js";
 import { runCull, buildCullReport } from "./mfm/legends-cull.js";
 import { runStratagems, buildStratReport } from "./mfm/stratagems.js";
+import { runMissions, buildMissionsReport } from "./mfm/missions.js";
+import { runChapterScope, buildChapterScopeReport } from "./mfm/chapter-scope.js";
 import {
   runWargear,
   buildWargearReport,
@@ -517,6 +525,64 @@ async function runStratagemsCmd(dump: MfmDump, write: boolean): Promise<void> {
   if (!write) console.log("DRY RUN — no files written. Re-run with --write to apply.");
 }
 
+async function runMissionsCmd(dump: MfmDump, write: boolean): Promise<void> {
+  const report = runMissions(dump, write);
+  fs.mkdirSync(REPORT_DIR, { recursive: true });
+  const reportPath = path.join(REPORT_DIR, "mfm-missions.md");
+  fs.writeFileSync(reportPath, buildMissionsReport(report, write));
+
+  if (report.shapeMismatch.length || report.exclusiveReview.length || report.repoOnly.length) {
+    fs.mkdirSync(UNMATCHED_DIR, { recursive: true });
+    fs.writeFileSync(
+      path.join(UNMATCHED_DIR, "unmatched-missions.json"),
+      JSON.stringify(
+        {
+          shapeMismatch: report.shapeMismatch,
+          exclusiveReview: report.exclusiveReview,
+          repoOnly: report.repoOnly,
+          dumpOnly: report.dumpOnly,
+        },
+        null,
+        2
+      ) + "\n"
+    );
+  }
+
+  console.log(`Missions report → ${path.relative(REPO_ROOT, reportPath)}`);
+  console.log(
+    `Matched ${report.matched}, cards changed ${report.cardsChanged}, ` +
+      `vp ${report.vpChanged.length}, vp_max ${report.vpMaxChanged.length}, ` +
+      `cumulative ${report.cumulativeChanged.length}, exclusive_group added ${report.exclusiveAdded.length}, ` +
+      `shape-mismatch ${report.shapeMismatch.length}, repo-only ${report.repoOnly.length}.`
+  );
+  await applyWrites(report.staged, { write, label: "missions" });
+  if (!write) console.log("DRY RUN — no files written. Re-run with --write to apply.");
+}
+
+async function runChapterScopeCmd(dump: MfmDump, write: boolean): Promise<void> {
+  const report = runChapterScope(dump, write);
+  fs.mkdirSync(REPORT_DIR, { recursive: true });
+  const reportPath = path.join(REPORT_DIR, "mfm-chapter-scope.md");
+  fs.writeFileSync(reportPath, buildChapterScopeReport(report, write));
+
+  if (report.repoOnly.length || report.dumpOnly.length) {
+    fs.mkdirSync(UNMATCHED_DIR, { recursive: true });
+    fs.writeFileSync(
+      path.join(UNMATCHED_DIR, "unmatched-chapter-scope.json"),
+      JSON.stringify({ repoOnly: report.repoOnly, dumpOnly: report.dumpOnly }, null, 2) + "\n"
+    );
+  }
+
+  console.log(`Chapter-scope report → ${path.relative(REPO_ROOT, reportPath)}`);
+  console.log(
+    `Matched ${report.matched}, faction_keywords collapsed ${report.factionKeywordsChanged.length}, ` +
+      `excluded_faction_keywords set ${report.excludedChanged.length}, ` +
+      `repo-only ${report.repoOnly.length}, dump-only ${report.dumpOnly.length}.`
+  );
+  await applyWrites(report.staged, { write, label: "chapter-scope" });
+  if (!write) console.log("DRY RUN — no files written. Re-run with --write to apply.");
+}
+
 async function runWargearCmd(dump: MfmDump, write: boolean, onlyDir?: string): Promise<void> {
   const report = runWargear(dump, write, onlyDir);
   fs.mkdirSync(REPORT_DIR, { recursive: true });
@@ -621,6 +687,8 @@ async function main(): Promise<void> {
     "points",
     "cull-legends",
     "stratagems",
+    "missions",
+    "chapter-scope",
     "wargear",
     "wargear-budgets",
     "composition-names",
@@ -641,6 +709,8 @@ async function main(): Promise<void> {
   else if (cmd === "points") await runPointsCmd(dump, write);
   else if (cmd === "cull-legends") await runCullCmd(dump, write);
   else if (cmd === "stratagems") await runStratagemsCmd(dump, write);
+  else if (cmd === "missions") await runMissionsCmd(dump, write);
+  else if (cmd === "chapter-scope") await runChapterScopeCmd(dump, write);
   else if (cmd === "wargear") await runWargearCmd(dump, write, onlyDir);
   else if (cmd === "wargear-budgets") await runWargearBudgetsCmd(dump, write, onlyDir);
   else if (cmd === "composition-names") await runCompositionNamesCmd(dump, write, onlyDir);

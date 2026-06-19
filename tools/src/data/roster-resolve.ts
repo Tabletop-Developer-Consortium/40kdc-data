@@ -151,6 +151,7 @@ export type RosterViolationCode =
   | "detachment-tag-conflict"
   | "detachment-restriction-required"
   | "detachment-restriction-excluded"
+  | "unit-excluded-from-faction"
   | "no-warlord"
   | "multiple-warlords"
   | "unit-minimum-unmet";
@@ -346,6 +347,29 @@ export function validateRosterCore(spec: NormRoster, dataset: Dataset): RosterLe
         err("detachment-restriction-required", view.id, `${view.id} lacks a keyword required by ${d.id}`, idx);
       if ((r.excluded_keywords ?? []).some((k) => kws.has(k)))
         err("detachment-restriction-excluded", view.id, `${view.id} carries a keyword excluded by ${d.id}`, idx);
+    });
+  }
+
+  // --- Faction exclusions (a generic unit barred from this army's chapter). --
+  // The shared Space Marine pool can't drop a generic datasheet for one chapter,
+  // so a removed-without-replacement unit (e.g. Librarians for Black Templars)
+  // carries `excluded_faction_keywords`; it is illegal when the army's faction
+  // keywords intersect that list.
+  const factionKeywords = spec.factionId
+    ? new Set<string>(dataset.factions.get(spec.factionId)?.raw.keywords ?? [])
+    : new Set<string>();
+  if (factionKeywords.size) {
+    spec.units.forEach((su, idx) => {
+      const view = views[idx];
+      if (!view) return;
+      const barred = (view.raw.excluded_faction_keywords ?? []).filter((k) => factionKeywords.has(k));
+      if (barred.length)
+        err(
+          "unit-excluded-from-faction",
+          view.id,
+          `${view.id} cannot be taken by ${spec.factionId} (barred by ${barred.join(", ")})`,
+          idx,
+        );
     });
   }
 

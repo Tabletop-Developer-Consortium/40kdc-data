@@ -8,6 +8,8 @@ import {
   resolveAttachmentPartners,
   resolveRosterUnit,
   resolveRosterWargear,
+  validateRosterCore,
+  type NormRoster,
 } from "../src/data/roster-resolve.js";
 import type {
   Roster,
@@ -282,5 +284,40 @@ describe("checkRosterLegality", () => {
       { ...chaosTerminators(5, []), ref: { id: null, raw_name: "???", resolved: false, candidates: [] } },
     ]);
     expect(checkRosterLegality(roster, ds)).toEqual([]);
+  });
+});
+
+// --- validateRosterCore: unit-excluded-from-faction ------------------------
+describe("validateRosterCore — unit-excluded-from-faction", () => {
+  const norm = (factionId: string, unitId: string): NormRoster => ({
+    factionId,
+    battleSize: null,
+    forceDisposition: "purge-the-foe",
+    detachmentIds: [],
+    units: [
+      {
+        unitId,
+        modelCount: 1,
+        isWarlord: true,
+        enhancementId: null,
+        leaderBodyguardId: null,
+        counts: new Map(),
+      },
+    ],
+  });
+
+  it("bars a unit whose excluded_faction_keywords match the army's chapter", () => {
+    const { army } = validateRosterCore(norm("black-templars", "librarian"), ds);
+    expect(army.map((v) => v.code)).toContain("unit-excluded-from-faction");
+  });
+
+  it("allows the same unit in a chapter it is not barred from", () => {
+    const { army } = validateRosterCore(norm("ultramarines", "librarian"), ds);
+    expect(army.map((v) => v.code)).not.toContain("unit-excluded-from-faction");
+  });
+
+  it("allows a collapsed generic twin (Repulsor) in the chapter that excluded it", () => {
+    const { army } = validateRosterCore(norm("black-templars", "repulsor"), ds);
+    expect(army.map((v) => v.code)).not.toContain("unit-excluded-from-faction");
   });
 });

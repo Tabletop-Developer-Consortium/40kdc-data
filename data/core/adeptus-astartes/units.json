@@ -98,8 +98,7 @@
       "Gladiator Lancer"
     ],
     "faction_keywords": [
-      "Adeptus Astartes",
-      "Black Templars"
+      "Adeptus Astartes"
     ],
     "base_size_mm": {
       "shape": "round",
@@ -161,8 +160,7 @@
       "Terminator Squad"
     ],
     "faction_keywords": [
-      "Adeptus Astartes",
-      "Black Templars"
+      "Adeptus Astartes"
     ],
     "base_size_mm": {
       "shape": "round",
@@ -204,6 +202,9 @@
         "count": 2,
         "per_models": 10
       }
+    ],
+    "excluded_faction_keywords": [
+      "Deathwatch"
     ]
   },
   {
@@ -528,8 +529,7 @@
       "Sternguard Veteran Squad"
     ],
     "faction_keywords": [
-      "Adeptus Astartes",
-      "Black Templars"
+      "Adeptus Astartes"
     ],
     "base_size_mm": {
       "shape": "round",
@@ -611,8 +611,7 @@
       "Land Raider Crusader"
     ],
     "faction_keywords": [
-      "Adeptus Astartes",
-      "Black Templars"
+      "Adeptus Astartes"
     ],
     "base_size_mm": {
       "shape": "hull",
@@ -871,8 +870,7 @@
       "Impulsor"
     ],
     "faction_keywords": [
-      "Adeptus Astartes",
-      "Black Templars"
+      "Adeptus Astartes"
     ],
     "base_size_mm": {
       "shape": "round",
@@ -947,8 +945,7 @@
       "Repulsor Executioner"
     ],
     "faction_keywords": [
-      "Adeptus Astartes",
-      "Black Templars"
+      "Adeptus Astartes"
     ],
     "base_size_mm": {
       "shape": "round",
@@ -1020,8 +1017,7 @@
       "Gladiator Valiant"
     ],
     "faction_keywords": [
-      "Adeptus Astartes",
-      "Black Templars"
+      "Adeptus Astartes"
     ],
     "base_size_mm": {
       "shape": "round",
@@ -1147,8 +1143,7 @@
       "Repulsor"
     ],
     "faction_keywords": [
-      "Adeptus Astartes",
-      "Black Templars"
+      "Adeptus Astartes"
     ],
     "base_size_mm": {
       "shape": "round",
@@ -1218,8 +1213,7 @@
       "Gladiator Reaper"
     ],
     "faction_keywords": [
-      "Adeptus Astartes",
-      "Black Templars"
+      "Adeptus Astartes"
     ],
     "base_size_mm": {
       "shape": "round",
@@ -4896,7 +4890,10 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "excluded_faction_keywords": [
+      "Black Templars"
+    ]
   },
   {
     "id": "darnath-lysander",
@@ -5080,7 +5077,10 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "excluded_faction_keywords": [
+      "Deathwatch"
+    ]
   },
   {
     "id": "predator-destructor",
@@ -6020,7 +6020,10 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "excluded_faction_keywords": [
+      "Black Templars"
+    ]
   },
   {
     "id": "devastator-squad",
@@ -6107,6 +6110,10 @@
         "count": 4,
         "per_models": 0
       }
+    ],
+    "excluded_faction_keywords": [
+      "Deathwatch",
+      "Space Wolves"
     ]
   },
   {
@@ -6514,6 +6521,9 @@
         "count": 1,
         "per_models": 5
       }
+    ],
+    "excluded_faction_keywords": [
+      "Deathwatch"
     ]
   },
   {
@@ -6634,7 +6644,10 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "support"
+    "attachment_role": "support",
+    "excluded_faction_keywords": [
+      "Space Wolves"
+    ]
   },
   {
     "id": "brutalis-dreadnought",
@@ -6760,7 +6773,10 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "excluded_faction_keywords": [
+      "Black Templars"
+    ]
   },
   {
     "id": "apothecary",
@@ -6819,7 +6835,10 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "support"
+    "attachment_role": "support",
+    "excluded_faction_keywords": [
+      "Space Wolves"
+    ]
   },
   {
     "id": "land-raider",
@@ -7628,6 +7647,10 @@
         "count": 1,
         "per_models": 0
       }
+    ],
+    "excluded_faction_keywords": [
+      "Deathwatch",
+      "Space Wolves"
     ]
   },
   {
@@ -10154,7 +10177,8 @@
       "Walker"
     ],
     "faction_keywords": [
-      "Adeptus Astartes"
+      "Adeptus Astartes",
+      "Space Wolves"
     ],
     "base_size_mm": {
       "shape": "round",

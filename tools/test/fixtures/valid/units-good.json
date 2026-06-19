@@ -11,5 +11,16 @@
     "points": [{ "models": 1, "cost": 55 }],
     "points_provisional": true,
     "game_version": { "edition": "11th", "dataslate": "pre-launch-provisional" }
+  },
+  {
+    "id": "chapter-barred-unit",
+    "name": "Chapter Barred Unit",
+    "faction_id": "test-faction",
+    "profiles": [
+      { "M": 6, "T": 4, "W": 4, "Sv": 3, "invuln_sv": null, "Ld": 6, "OC": 1 }
+    ],
+    "faction_keywords": ["Adeptus Astartes"],
+    "excluded_faction_keywords": ["Black Templars", "Deathwatch"],
+    "game_version": { "edition": "11th", "dataslate": "pre-launch-provisional" }
   }
 ]

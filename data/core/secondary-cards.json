@@ -906,10 +906,10 @@
         "trigger": { "timing": "end-of-turn", "player_turn": "opponent-turn" },
         "vp_per": 2,
         "per": "objective-guarded-by-your-army",
-        "vp_max": 9
+        "vp_max": 5
       }
     ],
-    "text": "When drawn and at the start of each of your turns, you can select one friendly unit per objective to guard it; until the start of your next turn, while that unit is within range of the objective and you control it, the objective is guarded. Score per guarded objective at the end of your opponent's turn or the end of the fifth battle round, whichever comes first, up to a ceiling of 9 VP.",
+    "text": "When drawn and at the start of each of your turns, you can select one friendly unit per objective to guard it; until the start of your next turn, while that unit is within range of the objective and you control it, the objective is guarded. Score per guarded objective at the end of your opponent's turn or the end of the fifth battle round, whichever comes first, up to a ceiling of 5 VP.",
     "game_version": { "edition": "11th", "dataslate": "launch" }
   },
   {
@@ -1116,10 +1116,10 @@
         "trigger": { "timing": "end-of-turn", "player_turn": "either" },
         "vp_per": 3,
         "per": "enemy-unit-destroyed-that-started-the-turn-within-range-of-an-objective",
-        "vp_max": 9
+        "vp_max": 5
       }
     ],
-    "text": "Clear the objectives by force. Score per enemy unit that started the turn within range of one or more objectives and was destroyed, evaluated at the end of a turn, up to a ceiling of 9 VP.",
+    "text": "Clear the objectives by force. Score per enemy unit that started the turn within range of one or more objectives and was destroyed, evaluated at the end of a turn, up to a ceiling of 5 VP.",
     "game_version": { "edition": "11th", "dataslate": "launch" }
   },
   {
@@ -1164,10 +1164,10 @@
         "trigger": { "timing": "end-of-turn", "player_turn": "your-turn" },
         "vp_per": 3,
         "per": "friendly-unit-wholly-within-opponent-deployment-zone",
-        "vp_max": 9
+        "vp_max": 5
       }
     ],
-    "text": "Push into the enemy backfield. Score per friendly unit (excluding AIRCRAFT and battle-shocked units) wholly within the opponent's deployment zone, evaluated at the end of your turn, up to a ceiling of 9 VP. If drawn in the first battle round, draw one new card and shuffle this card back into your deck.",
+    "text": "Push into the enemy backfield. Score per friendly unit (excluding AIRCRAFT and battle-shocked units) wholly within the opponent's deployment zone, evaluated at the end of your turn, up to a ceiling of 5 VP. If drawn in the first battle round, draw one new card and shuffle this card back into your deck.",
     "game_version": { "edition": "11th", "dataslate": "launch" }
   },
   {

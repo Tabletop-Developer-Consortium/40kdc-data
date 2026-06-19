@@ -39,6 +39,7 @@ ROSTER_VIOLATION_CODES = (
     "detachment-tag-conflict",
     "detachment-restriction-required",
     "detachment-restriction-excluded",
+    "unit-excluded-from-faction",
     "no-warlord",
     "multiple-warlords",
     "unit-minimum-unmet",
@@ -282,6 +283,31 @@ def validate_roster_core(spec: dict[str, Any], dataset: Dataset) -> dict[str, An
                     "detachment-restriction-excluded",
                     view.id,
                     f"{view.id} carries a keyword excluded by {d['id']}",
+                    idx,
+                )
+
+    # --- Faction exclusions (a generic unit barred from this army's chapter). --
+    # The shared Space Marine pool can't drop a generic datasheet for one chapter,
+    # so a removed-without-replacement unit (e.g. Librarians for Black Templars)
+    # carries ``excluded_faction_keywords``; it is illegal when the army's faction
+    # keywords intersect that list. Mirror of TS ``unit-excluded-from-faction``.
+    faction_view = dataset.factions.get(faction_id) if faction_id else None
+    faction_keywords = set((faction_view.raw.get("keywords") if faction_view else None) or [])
+    if faction_keywords:
+        for idx, _su in enumerate(spec_units):
+            view = views[idx]
+            if view is None:
+                continue
+            barred = [
+                k
+                for k in (view.raw.get("excluded_faction_keywords") or [])
+                if k in faction_keywords
+            ]
+            if barred:
+                err(
+                    "unit-excluded-from-faction",
+                    view.id,
+                    f"{view.id} cannot be taken by {faction_id} (barred by {', '.join(barred)})",
                     idx,
                 )
 

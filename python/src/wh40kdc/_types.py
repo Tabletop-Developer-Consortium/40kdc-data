@@ -508,6 +508,7 @@ class Unit(TypedDict):
     points_provisional: NotRequired[bool]
     keywords: NotRequired[KeywordList]
     faction_keywords: NotRequired[KeywordList]
+    excluded_faction_keywords: NotRequired[KeywordList | None]
     base_size_mm: NotRequired[BaseSize | None]
     model_count: NotRequired[ModelCount]
     weapon_ids: NotRequired[list[EntityId]]

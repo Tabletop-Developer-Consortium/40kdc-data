@@ -33,6 +33,7 @@ pub enum RosterViolationCode {
     DetachmentTagConflict,
     DetachmentRestrictionRequired,
     DetachmentRestrictionExcluded,
+    UnitExcludedFromFaction,
     NoWarlord,
     MultipleWarlords,
     UnitMinimumUnmet,
@@ -55,6 +56,7 @@ impl RosterViolationCode {
             RosterViolationCode::DetachmentTagConflict => "detachment-tag-conflict",
             RosterViolationCode::DetachmentRestrictionRequired => "detachment-restriction-required",
             RosterViolationCode::DetachmentRestrictionExcluded => "detachment-restriction-excluded",
+            RosterViolationCode::UnitExcludedFromFaction => "unit-excluded-from-faction",
             RosterViolationCode::NoWarlord => "no-warlord",
             RosterViolationCode::MultipleWarlords => "multiple-warlords",
             RosterViolationCode::UnitMinimumUnmet => "unit-minimum-unmet",
@@ -463,6 +465,45 @@ pub fn validate_roster_core(spec: &NormRoster, dataset: &Dataset) -> RosterLegal
                         severity: Severity::Error,
                     });
                 }
+            }
+        }
+    }
+
+    // --- Faction exclusions (a generic unit barred from this army's chapter). --
+    // The shared Space Marine pool can't drop a generic datasheet for one chapter,
+    // so a removed-without-replacement unit (e.g. Librarians for Black Templars)
+    // carries `excluded_faction_keywords`; it is illegal when the army's faction
+    // keywords intersect that list. Mirror of TS `unit-excluded-from-faction`.
+    let faction_keywords: HashSet<String> = faction
+        .and_then(|f| dataset.factions.get(f))
+        .and_then(|fac| fac.keywords.as_ref())
+        .map(|k| k.0.iter().map(|kw| kw.as_str().to_string()).collect())
+        .unwrap_or_default();
+    if !faction_keywords.is_empty() {
+        for (idx, _su) in spec.units.iter().enumerate() {
+            let Some(view) = views[idx] else { continue };
+            let Some(excl) = &view.excluded_faction_keywords else {
+                continue;
+            };
+            let barred: Vec<&str> = excl
+                .0
+                .iter()
+                .map(|k| k.as_str())
+                .filter(|k| faction_keywords.contains(*k))
+                .collect();
+            if !barred.is_empty() {
+                army.push(RosterViolation {
+                    code: RosterViolationCode::UnitExcludedFromFaction,
+                    id: view.id.as_str().to_string(),
+                    message: format!(
+                        "{} cannot be taken by {} (barred by {})",
+                        view.id.as_str(),
+                        faction.unwrap_or(""),
+                        barred.join(", ")
+                    ),
+                    unit_index: Some(idx),
+                    severity: Severity::Error,
+                });
             }
         }
     }

@@ -432,7 +432,8 @@ mod tests {
         let ds = ds();
         let burden = card(ds, "burden-of-trust");
         assert_eq!(score_cap(&burden, ScoringMode::Tactical), Some(5));
-        assert_eq!(score_cap(&burden, ScoringMode::Fixed), Some(9));
+        // Burden of Trust: 2 VP per guarded objective, capped at the printed 5 VP.
+        assert_eq!(score_cap(&burden, ScoringMode::Fixed), Some(5));
         let assassination = card(ds, "assassination");
         assert_eq!(score_cap(&assassination, ScoringMode::Fixed), None);
 
@@ -443,7 +444,7 @@ mod tests {
         }];
         assert_eq!(
             score_secondary_event(&asserted, &burden, ScoringMode::Fixed),
-            9
+            5
         );
     }
 

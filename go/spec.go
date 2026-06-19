@@ -6,4 +6,4 @@ package wh40kdc
 // SpecVersion is the conformance corpus spec version this implementation was
 // tested against. The runner refuses to participate in a cross-impl run if the
 // differ's spec version doesn't match.
-const SpecVersion = 45
+const SpecVersion = 47

@@ -37,6 +37,14 @@ export interface StagedWrite {
   path: string;
   /** Full new contents — a JSON-serializable array of entities. */
   value: unknown;
+  /**
+   * Optional pre-serialized file text to persist verbatim instead of the default
+   * `JSON.stringify(value, 2)`. Lets a subcommand preserve a file's hand-authored
+   * formatting (so the diff is only the changed values). When present it MUST
+   * `JSON.parse` to a value deep-equal to {@link value}; the validation overlay
+   * uses this text, so a mismatch would validate something other than `value`.
+   */
+  text?: string;
 }
 
 export interface ApplyOptions {
@@ -87,7 +95,7 @@ export async function applyWrites(staged: StagedWrite[], opts: ApplyOptions): Pr
       }
       const dest = path.join(projRoot, rel);
       fs.mkdirSync(path.dirname(dest), { recursive: true });
-      fs.writeFileSync(dest, serialize(s.value));
+      fs.writeFileSync(dest, s.text ?? serialize(s.value));
     }
 
     // 2. Validate the projected tree — identical to `npm run validate`.
@@ -124,7 +132,7 @@ export async function applyWrites(staged: StagedWrite[], opts: ApplyOptions): Pr
       try {
         for (const s of staged) {
           const tmp = `${s.path}.ingest-tmp`;
-          fs.writeFileSync(tmp, serialize(s.value));
+          fs.writeFileSync(tmp, s.text ?? serialize(s.value));
           fs.renameSync(tmp, s.path);
           written.push(s.path);
         }

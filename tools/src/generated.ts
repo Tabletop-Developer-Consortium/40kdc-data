@@ -1618,6 +1618,10 @@ export interface Unit {
   keywords?: KeywordList;
   faction_keywords?: KeywordList;
   /**
+   * Faction keywords whose armies are barred from taking this otherwise-generic unit. Used where the game removes a generic unit from a specific sub-faction without printing a replacement (e.g. Black Templars cannot field Librarians; Deathwatch cannot field the generic Tactical Squad). An army may take this unit only if none of its faction keywords appear here. Absent/empty = available to every keyword-eligible army. Distinct from `faction_keywords`, which is the positive access list; this is the negative one for the rare exclusions a flat shared pool cannot otherwise express.
+   */
+  excluded_faction_keywords?: KeywordList | null;
+  /**
    * The unit's representative base (the most-numerous model's base). Mixed-model units carry the full per-model breakdown in unit-composition; this top-level value is a convenience for consumers that need a single base.
    */
   base_size_mm?: BaseSize | null;

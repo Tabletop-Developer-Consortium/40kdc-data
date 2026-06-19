@@ -94,9 +94,10 @@ describe("scoreCap / scoreSecondaryEvent", () => {
     expect(scoreSecondaryEvent([{ award: perKill, count: 4 }], noPrisoners, "tactical")).toBe(5);
   });
   it("uses the printed vp_max under the fixed approach", () => {
-    expect(scoreCap(burden, "fixed")).toBe(9);
+    // Burden of Trust: 2 VP per guarded objective, capped at the printed 5 VP.
+    expect(scoreCap(burden, "fixed")).toBe(5);
     const perObj = awardsForApproach(burden, "fixed")[0];
-    expect(scoreSecondaryEvent([{ award: perObj, count: 10 }], burden, "fixed")).toBe(9);
+    expect(scoreSecondaryEvent([{ award: perObj, count: 10 }], burden, "fixed")).toBe(5);
   });
   it("is unbounded under fixed when no vp_max is printed", () => {
     expect(scoreCap(assassination, "fixed")).toBe(Infinity);

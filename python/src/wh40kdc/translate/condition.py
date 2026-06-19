@@ -54,6 +54,7 @@ _TIMING_PHRASES: dict[str, str] = {
     "command-phase": "in the Command phase",
     "shooting-phase": "in the Shooting phase",
     "on-model-destroyed": "each time a model in this unit is destroyed",
+    "before-this-model-removed": "before removing this model from the battlefield",
     "model-destroyed": "each time a model in this unit is destroyed",
     "first-model-destroyed": "the first time a model in this unit is destroyed",
     "first-this-battle": "the first time this battle",

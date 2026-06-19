@@ -67,6 +67,7 @@ pub(super) fn describe_timing(t: &str) -> String {
         "command-phase" => "in the Command phase",
         "shooting-phase" => "in the Shooting phase",
         "on-model-destroyed" => "each time a model in this unit is destroyed",
+        "before-this-model-removed" => "before removing this model from the battlefield",
         "model-destroyed" => "each time a model in this unit is destroyed",
         "first-model-destroyed" => "the first time a model in this unit is destroyed",
         "first-this-battle" => "the first time this battle",
@@ -256,6 +257,11 @@ fn describe_simple(s: &SimpleCondition) -> String {
         }
         T::ChargedThisTurn => format!("{negate}the unit charged this turn"),
         T::AdvancedThisTurn => format!("{negate}the unit advanced this turn"),
+        T::DisembarkedFromTransport => {
+            format!("{negate}the unit disembarked from a Transport this turn")
+        }
+        T::FactionRuleActive => format!("{negate}the {} is active", pj(p, "rule")),
+        T::BattleRound => format!("{negate}during the first {} battle rounds", pj(p, "max")),
         T::RemainedStationary => format!("{negate}the unit remained stationary"),
         T::UnitBelowStartingStrength => format!("{negate}the unit is below starting strength"),
         T::UnitBelowHalfStrength => format!("{negate}the unit is below half strength"),

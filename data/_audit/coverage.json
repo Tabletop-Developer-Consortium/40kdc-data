@@ -84,7 +84,7 @@
       "defensive": 16,
       "inert": 138,
       "stub": 9,
-      "stubStructural": 6,
+      "stubStructural": 7,
       "gwTextLeak": 0,
       "defensiveSkipped": 5
     },
@@ -213,10 +213,10 @@
       "faction": "orks",
       "total": 152,
       "offensive": 29,
-      "defensive": 12,
+      "defensive": 13,
       "inert": 115,
-      "stub": 16,
-      "stubStructural": 34,
+      "stub": 15,
+      "stubStructural": 26,
       "gwTextLeak": 0,
       "defensiveSkipped": 3
     },
@@ -268,25 +268,25 @@
   "totals": {
     "total": 3083,
     "offensive": 705,
-    "defensive": 256,
+    "defensive": 257,
     "inert": 2208,
-    "stub": 317,
-    "stubStructural": 405,
+    "stub": 316,
+    "stubStructural": 398,
     "gwTextLeak": 0,
     "defensiveSkipped": 59
   },
   "unsupportedReasons": [
     {
       "reason": "effect type \"ability-grant\" is not modelled by the buff layer",
-      "count": 463
+      "count": 467
     },
     {
       "reason": "stat-modifier: operation \"undefined\" not supported",
-      "count": 398
+      "count": 388
     },
     {
       "reason": "effect type \"movement-modifier\" is not modelled by the buff layer",
-      "count": 168
+      "count": 147
     },
     {
       "reason": "effect type \"mortal-wounds\" is not modelled by the buff layer",
@@ -297,10 +297,6 @@
       "count": 91
     },
     {
-      "reason": "dice-gated effect: stochastic; not expressible as a buff",
-      "count": 89
-    },
-    {
       "reason": "effect type \"leadership-modifier\" is not modelled by the buff layer",
       "count": 76
     },
@@ -309,24 +305,20 @@
       "count": 55
     },
     {
-      "reason": "effect type \"cp-refund\" is not modelled by the buff layer",
-      "count": 49
+      "reason": "conditional: cannot evaluate condition \"undefined\" against current context",
+      "count": 50
     },
     {
-      "reason": "conditional: cannot evaluate condition \"undefined\" against current context",
-      "count": 48
+      "reason": "effect type \"cp-refund\" is not modelled by the buff layer",
+      "count": 49
     },
     {
       "reason": "effect type \"objective-control-modifier\" is not modelled by the buff layer",
       "count": 44
     },
     {
-      "reason": "stat-modifier: operation \"set\" not supported",
-      "count": 41
-    },
-    {
       "reason": "effect type \"deep-strike\" is not modelled by the buff layer",
-      "count": 37
+      "count": 38
     },
     {
       "reason": "re-roll on \"charge\" (subset …) is outside the damage path",
@@ -335,6 +327,14 @@
     {
       "reason": "effect type \"cp-gain\" is not modelled by the buff layer",
       "count": 34
+    },
+    {
+      "reason": "effect type \"unit-keyword\" is not modelled by the buff layer",
+      "count": 32
+    },
+    {
+      "reason": "stat-modifier: operation \"set\" not supported",
+      "count": 29
     },
     {
       "reason": "effect type \"fallback-and-act\" is not modelled by the buff layer",
@@ -382,6 +382,10 @@
     },
     {
       "reason": "roll-modifier: operation \"crit-on\" not supported",
+      "count": 7
+    },
+    {
+      "reason": "dice-gated effect: stochastic; not expressible as a buff",
       "count": 7
     },
     {
@@ -485,6 +489,14 @@
       "count": 2
     },
     {
+      "reason": "conditional: cannot evaluate condition \"faction-rule-active\" against current context",
+      "count": 2
+    },
+    {
+      "reason": "conditional: cannot evaluate condition \"disembarked-from-transport\" against current context",
+      "count": 2
+    },
+    {
       "reason": "effect type \"resource-gain\" is not modelled by the buff layer",
       "count": 2
     },
@@ -533,6 +545,10 @@
       "count": 1
     },
     {
+      "reason": "effect type \"unit-keyword-grant\" is not modelled by the buff layer",
+      "count": 1
+    },
+    {
       "reason": "stat-modifier AP: operation \"set-on-crit-wound\" not supported",
       "count": 1
     },
@@ -578,11 +594,11 @@
       "faction": "adepta-sororitas",
       "ability_id": "deadly-demise-1",
       "name": "Deadly Demise 1",
-      "shape": "dice-gated",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "dice-gated effect: stochastic; not expressible as a buff"
+      "gap": null
     },
     {
       "faction": "adepta-sororitas",
@@ -878,11 +894,11 @@
       "faction": "adepta-sororitas",
       "ability_id": "deadly-demise-d3",
       "name": "Deadly Demise D3",
-      "shape": "dice-gated",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "dice-gated effect: stochastic; not expressible as a buff"
+      "gap": null
     },
     {
       "faction": "adepta-sororitas",
@@ -968,11 +984,11 @@
       "faction": "adepta-sororitas",
       "ability_id": "infiltrators",
       "name": "Infiltrators",
-      "shape": "movement-modifier",
+      "shape": "unit-keyword",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"movement-modifier\" is not modelled by the buff layer"
+      "gap": "effect type \"unit-keyword\" is not modelled by the buff layer"
     },
     {
       "faction": "adepta-sororitas",
@@ -1318,11 +1334,11 @@
       "faction": "adepta-sororitas",
       "ability_id": "deadly-demise-d6",
       "name": "Deadly Demise D6",
-      "shape": "dice-gated",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "dice-gated effect: stochastic; not expressible as a buff"
+      "gap": null
     },
     {
       "faction": "adepta-sororitas",
@@ -1578,11 +1594,11 @@
       "faction": "adeptus-astartes",
       "ability_id": "deadly-demise-d3",
       "name": "Deadly Demise D3",
-      "shape": "dice-gated",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "dice-gated effect: stochastic; not expressible as a buff"
+      "gap": null
     },
     {
       "faction": "adeptus-astartes",
@@ -1728,11 +1744,11 @@
       "faction": "adeptus-astartes",
       "ability_id": "deadly-demise-d6",
       "name": "Deadly Demise D6",
-      "shape": "dice-gated",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "dice-gated effect: stochastic; not expressible as a buff"
+      "gap": null
     },
     {
       "faction": "adeptus-astartes",
@@ -2358,11 +2374,11 @@
       "faction": "adeptus-astartes",
       "ability_id": "hover",
       "name": "Hover",
-      "shape": "stat-modifier",
+      "shape": "unit-keyword",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "stat-modifier: operation \"set\" not supported"
+      "gap": "effect type \"unit-keyword\" is not modelled by the buff layer"
     },
     {
       "faction": "adeptus-astartes",
@@ -2658,11 +2674,11 @@
       "faction": "adeptus-astartes",
       "ability_id": "infiltrators",
       "name": "Infiltrators",
-      "shape": "movement-modifier",
+      "shape": "unit-keyword",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"movement-modifier\" is not modelled by the buff layer"
+      "gap": "effect type \"unit-keyword\" is not modelled by the buff layer"
     },
     {
       "faction": "adeptus-astartes",
@@ -2928,11 +2944,11 @@
       "faction": "adeptus-astartes",
       "ability_id": "deadly-demise-1",
       "name": "Deadly Demise 1",
-      "shape": "dice-gated",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "dice-gated effect: stochastic; not expressible as a buff"
+      "gap": null
     },
     {
       "faction": "adeptus-astartes",
@@ -3928,11 +3944,11 @@
       "faction": "adeptus-astartes",
       "ability_id": "deadly-demise-d6-2",
       "name": "Deadly Demise D6+2",
-      "shape": "dice-gated",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "dice-gated effect: stochastic; not expressible as a buff"
+      "gap": null
     },
     {
       "faction": "adeptus-astartes",
@@ -4258,11 +4274,11 @@
       "faction": "adeptus-astartes",
       "ability_id": "deadly-demise-2d6",
       "name": "Deadly Demise 2D6",
-      "shape": "dice-gated",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "dice-gated effect: stochastic; not expressible as a buff"
+      "gap": null
     },
     {
       "faction": "adeptus-astartes",
@@ -5168,11 +5184,11 @@
       "faction": "adeptus-custodes",
       "ability_id": "deadly-demise-d3",
       "name": "Deadly Demise D3",
-      "shape": "dice-gated",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "dice-gated effect: stochastic; not expressible as a buff"
+      "gap": null
     },
     {
       "faction": "adeptus-custodes",
@@ -5198,11 +5214,11 @@
       "faction": "adeptus-custodes",
       "ability_id": "deadly-demise-1",
       "name": "Deadly Demise 1",
-      "shape": "dice-gated",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "dice-gated effect: stochastic; not expressible as a buff"
+      "gap": null
     },
     {
       "faction": "adeptus-custodes",
@@ -5408,21 +5424,21 @@
       "faction": "adeptus-custodes",
       "ability_id": "deadly-demise-d6",
       "name": "Deadly Demise D6",
-      "shape": "dice-gated",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "dice-gated effect: stochastic; not expressible as a buff"
+      "gap": null
     },
     {
       "faction": "adeptus-custodes",
       "ability_id": "hover",
       "name": "Hover",
-      "shape": "stat-modifier",
+      "shape": "unit-keyword",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "stat-modifier: operation \"set\" not supported"
+      "gap": "effect type \"unit-keyword\" is not modelled by the buff layer"
     },
     {
       "faction": "adeptus-custodes",
@@ -6068,21 +6084,21 @@
       "faction": "adeptus-mechanicus",
       "ability_id": "deadly-demise-d3",
       "name": "Deadly Demise D3",
-      "shape": "dice-gated",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "dice-gated effect: stochastic; not expressible as a buff"
+      "gap": null
     },
     {
       "faction": "adeptus-mechanicus",
       "ability_id": "hover",
       "name": "Hover",
-      "shape": "stat-modifier",
+      "shape": "unit-keyword",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "stat-modifier: operation \"set\" not supported"
+      "gap": "effect type \"unit-keyword\" is not modelled by the buff layer"
     },
     {
       "faction": "adeptus-mechanicus",
@@ -6178,11 +6194,11 @@
       "faction": "adeptus-mechanicus",
       "ability_id": "deadly-demise-1",
       "name": "Deadly Demise 1",
-      "shape": "dice-gated",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "dice-gated effect: stochastic; not expressible as a buff"
+      "gap": null
     },
     {
       "faction": "adeptus-mechanicus",
@@ -6368,11 +6384,11 @@
       "faction": "adeptus-mechanicus",
       "ability_id": "infiltrators",
       "name": "Infiltrators",
-      "shape": "movement-modifier",
+      "shape": "unit-keyword",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"movement-modifier\" is not modelled by the buff layer"
+      "gap": "effect type \"unit-keyword\" is not modelled by the buff layer"
     },
     {
       "faction": "adeptus-mechanicus",
@@ -7128,11 +7144,11 @@
       "faction": "aeldari",
       "ability_id": "deadly-demise-2d6",
       "name": "Deadly Demise 2D6",
-      "shape": "dice-gated",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "dice-gated effect: stochastic; not expressible as a buff"
+      "gap": null
     },
     {
       "faction": "aeldari",
@@ -7198,11 +7214,11 @@
       "faction": "aeldari",
       "ability_id": "infiltrators",
       "name": "Infiltrators",
-      "shape": "movement-modifier",
+      "shape": "unit-keyword",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"movement-modifier\" is not modelled by the buff layer"
+      "gap": "effect type \"unit-keyword\" is not modelled by the buff layer"
     },
     {
       "faction": "aeldari",
@@ -7278,11 +7294,11 @@
       "faction": "aeldari",
       "ability_id": "deadly-demise-1",
       "name": "Deadly Demise 1",
-      "shape": "dice-gated",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "dice-gated effect: stochastic; not expressible as a buff"
+      "gap": null
     },
     {
       "faction": "aeldari",
@@ -7308,11 +7324,11 @@
       "faction": "aeldari",
       "ability_id": "deadly-demise-d3",
       "name": "Deadly Demise D3",
-      "shape": "dice-gated",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "dice-gated effect: stochastic; not expressible as a buff"
+      "gap": null
     },
     {
       "faction": "aeldari",
@@ -7768,11 +7784,11 @@
       "faction": "aeldari",
       "ability_id": "deadly-demise-d6-6",
       "name": "Deadly Demise D6+6",
-      "shape": "dice-gated",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "dice-gated effect: stochastic; not expressible as a buff"
+      "gap": null
     },
     {
       "faction": "aeldari",
@@ -7858,11 +7874,11 @@
       "faction": "aeldari",
       "ability_id": "deadly-demise-d6",
       "name": "Deadly Demise D6",
-      "shape": "dice-gated",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "dice-gated effect: stochastic; not expressible as a buff"
+      "gap": null
     },
     {
       "faction": "aeldari",
@@ -8508,21 +8524,21 @@
       "faction": "aeldari",
       "ability_id": "deadly-demise-d6-2",
       "name": "Deadly Demise D6+2",
-      "shape": "dice-gated",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "dice-gated effect: stochastic; not expressible as a buff"
+      "gap": null
     },
     {
       "faction": "aeldari",
       "ability_id": "hover",
       "name": "Hover",
-      "shape": "stat-modifier",
+      "shape": "unit-keyword",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "stat-modifier: operation \"set\" not supported"
+      "gap": "effect type \"unit-keyword\" is not modelled by the buff layer"
     },
     {
       "faction": "aeldari",
@@ -9028,11 +9044,11 @@
       "faction": "agents-of-the-imperium",
       "ability_id": "deadly-demise-d3",
       "name": "Deadly Demise D3",
-      "shape": "dice-gated",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "dice-gated effect: stochastic; not expressible as a buff"
+      "gap": null
     },
     {
       "faction": "agents-of-the-imperium",
@@ -9078,11 +9094,11 @@
       "faction": "agents-of-the-imperium",
       "ability_id": "infiltrators",
       "name": "Infiltrators",
-      "shape": "movement-modifier",
+      "shape": "unit-keyword",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"movement-modifier\" is not modelled by the buff layer"
+      "gap": "effect type \"unit-keyword\" is not modelled by the buff layer"
     },
     {
       "faction": "agents-of-the-imperium",
@@ -9638,21 +9654,21 @@
       "faction": "agents-of-the-imperium",
       "ability_id": "deadly-demise-d6",
       "name": "Deadly Demise D6",
-      "shape": "dice-gated",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "dice-gated effect: stochastic; not expressible as a buff"
+      "gap": null
     },
     {
       "faction": "agents-of-the-imperium",
       "ability_id": "hover",
       "name": "Hover",
-      "shape": "stat-modifier",
+      "shape": "unit-keyword",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "stat-modifier: operation \"set\" not supported"
+      "gap": "effect type \"unit-keyword\" is not modelled by the buff layer"
     },
     {
       "faction": "agents-of-the-imperium",
@@ -10258,11 +10274,11 @@
       "faction": "astra-militarum",
       "ability_id": "deadly-demise-1",
       "name": "Deadly Demise 1",
-      "shape": "dice-gated",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "dice-gated effect: stochastic; not expressible as a buff"
+      "gap": null
     },
     {
       "faction": "astra-militarum",
@@ -10518,11 +10534,11 @@
       "faction": "astra-militarum",
       "ability_id": "infiltrators",
       "name": "Infiltrators",
-      "shape": "movement-modifier",
+      "shape": "unit-keyword",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"movement-modifier\" is not modelled by the buff layer"
+      "gap": "effect type \"unit-keyword\" is not modelled by the buff layer"
     },
     {
       "faction": "astra-militarum",
@@ -10568,11 +10584,11 @@
       "faction": "astra-militarum",
       "ability_id": "deadly-demise-d3",
       "name": "Deadly Demise D3",
-      "shape": "dice-gated",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "dice-gated effect: stochastic; not expressible as a buff"
+      "gap": null
     },
     {
       "faction": "astra-militarum",
@@ -10588,11 +10604,11 @@
       "faction": "astra-militarum",
       "ability_id": "deadly-demise-d6-2",
       "name": "Deadly Demise D6+2",
-      "shape": "dice-gated",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "dice-gated effect: stochastic; not expressible as a buff"
+      "gap": null
     },
     {
       "faction": "astra-militarum",
@@ -10658,11 +10674,11 @@
       "faction": "astra-militarum",
       "ability_id": "deadly-demise-d6",
       "name": "Deadly Demise D6",
-      "shape": "dice-gated",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "dice-gated effect: stochastic; not expressible as a buff"
+      "gap": null
     },
     {
       "faction": "astra-militarum",
@@ -11328,11 +11344,11 @@
       "faction": "astra-militarum",
       "ability_id": "hover",
       "name": "Hover",
-      "shape": "stat-modifier",
+      "shape": "unit-keyword",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "stat-modifier: operation \"set\" not supported"
+      "gap": "effect type \"unit-keyword\" is not modelled by the buff layer"
     },
     {
       "faction": "astra-militarum",
@@ -11499,7 +11515,7 @@
       "ability_id": "aerial-deployment",
       "name": "Aerial Deployment",
       "shape": "conditional",
-      "stub": false,
+      "stub": true,
       "offensive": false,
       "defensive": false,
       "gap": null
@@ -12228,11 +12244,11 @@
       "faction": "chaos-daemons",
       "ability_id": "deadly-demise-d3",
       "name": "Deadly Demise D3",
-      "shape": "dice-gated",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "dice-gated effect: stochastic; not expressible as a buff"
+      "gap": null
     },
     {
       "faction": "chaos-daemons",
@@ -12318,11 +12334,11 @@
       "faction": "chaos-daemons",
       "ability_id": "deadly-demise-d6",
       "name": "Deadly Demise D6",
-      "shape": "dice-gated",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "dice-gated effect: stochastic; not expressible as a buff"
+      "gap": null
     },
     {
       "faction": "chaos-daemons",
@@ -12438,11 +12454,11 @@
       "faction": "chaos-daemons",
       "ability_id": "infiltrators",
       "name": "Infiltrators",
-      "shape": "movement-modifier",
+      "shape": "unit-keyword",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"movement-modifier\" is not modelled by the buff layer"
+      "gap": "effect type \"unit-keyword\" is not modelled by the buff layer"
     },
     {
       "faction": "chaos-daemons",
@@ -13288,11 +13304,11 @@
       "faction": "chaos-daemons",
       "ability_id": "deadly-demise-1",
       "name": "Deadly Demise 1",
-      "shape": "dice-gated",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "dice-gated effect: stochastic; not expressible as a buff"
+      "gap": null
     },
     {
       "faction": "chaos-daemons",
@@ -13498,11 +13514,11 @@
       "faction": "chaos-daemons",
       "ability_id": "deadly-demise-d6-2",
       "name": "Deadly Demise D6+2",
-      "shape": "dice-gated",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "dice-gated effect: stochastic; not expressible as a buff"
+      "gap": null
     },
     {
       "faction": "chaos-daemons",
@@ -13778,11 +13794,11 @@
       "faction": "chaos-knights",
       "ability_id": "deadly-demise-d3",
       "name": "Deadly Demise D3",
-      "shape": "dice-gated",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "dice-gated effect: stochastic; not expressible as a buff"
+      "gap": null
     },
     {
       "faction": "chaos-knights",
@@ -13858,11 +13874,11 @@
       "faction": "chaos-knights",
       "ability_id": "deadly-demise-d6",
       "name": "Deadly Demise D6",
-      "shape": "dice-gated",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "dice-gated effect: stochastic; not expressible as a buff"
+      "gap": null
     },
     {
       "faction": "chaos-knights",
@@ -13888,11 +13904,11 @@
       "faction": "chaos-knights",
       "ability_id": "deadly-demise-d6-2",
       "name": "Deadly Demise D6+2",
-      "shape": "dice-gated",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "dice-gated effect: stochastic; not expressible as a buff"
+      "gap": null
     },
     {
       "faction": "chaos-knights",
@@ -13958,11 +13974,11 @@
       "faction": "chaos-knights",
       "ability_id": "deadly-demise-2d6",
       "name": "Deadly Demise 2D6",
-      "shape": "dice-gated",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "dice-gated effect: stochastic; not expressible as a buff"
+      "gap": null
     },
     {
       "faction": "chaos-knights",
@@ -14928,11 +14944,11 @@
       "faction": "chaos-space-marines",
       "ability_id": "deadly-demise-d3",
       "name": "Deadly Demise D3",
-      "shape": "dice-gated",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "dice-gated effect: stochastic; not expressible as a buff"
+      "gap": null
     },
     {
       "faction": "chaos-space-marines",
@@ -15268,11 +15284,11 @@
       "faction": "chaos-space-marines",
       "ability_id": "deadly-demise-d6",
       "name": "Deadly Demise D6",
-      "shape": "dice-gated",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "dice-gated effect: stochastic; not expressible as a buff"
+      "gap": null
     },
     {
       "faction": "chaos-space-marines",
@@ -15368,11 +15384,11 @@
       "faction": "chaos-space-marines",
       "ability_id": "deadly-demise-1",
       "name": "Deadly Demise 1",
-      "shape": "dice-gated",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "dice-gated effect: stochastic; not expressible as a buff"
+      "gap": null
     },
     {
       "faction": "chaos-space-marines",
@@ -15668,11 +15684,11 @@
       "faction": "chaos-space-marines",
       "ability_id": "hover",
       "name": "Hover",
-      "shape": "stat-modifier",
+      "shape": "unit-keyword",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "stat-modifier: operation \"set\" not supported"
+      "gap": "effect type \"unit-keyword\" is not modelled by the buff layer"
     },
     {
       "faction": "chaos-space-marines",
@@ -15778,11 +15794,11 @@
       "faction": "chaos-space-marines",
       "ability_id": "infiltrators",
       "name": "Infiltrators",
-      "shape": "movement-modifier",
+      "shape": "unit-keyword",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"movement-modifier\" is not modelled by the buff layer"
+      "gap": "effect type \"unit-keyword\" is not modelled by the buff layer"
     },
     {
       "faction": "chaos-space-marines",
@@ -16298,11 +16314,11 @@
       "faction": "chaos-space-marines",
       "ability_id": "deadly-demise-d6-2",
       "name": "Deadly Demise D6+2",
-      "shape": "dice-gated",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "dice-gated effect: stochastic; not expressible as a buff"
+      "gap": null
     },
     {
       "faction": "chaos-space-marines",
@@ -17298,11 +17314,11 @@
       "faction": "death-guard",
       "ability_id": "deadly-demise-d3",
       "name": "Deadly Demise D3",
-      "shape": "dice-gated",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "dice-gated effect: stochastic; not expressible as a buff"
+      "gap": null
     },
     {
       "faction": "death-guard",
@@ -17388,11 +17404,11 @@
       "faction": "death-guard",
       "ability_id": "deadly-demise-1",
       "name": "Deadly Demise 1",
-      "shape": "dice-gated",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "dice-gated effect: stochastic; not expressible as a buff"
+      "gap": null
     },
     {
       "faction": "death-guard",
@@ -17478,11 +17494,11 @@
       "faction": "death-guard",
       "ability_id": "infiltrators",
       "name": "Infiltrators",
-      "shape": "movement-modifier",
+      "shape": "unit-keyword",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"movement-modifier\" is not modelled by the buff layer"
+      "gap": "effect type \"unit-keyword\" is not modelled by the buff layer"
     },
     {
       "faction": "death-guard",
@@ -17908,11 +17924,11 @@
       "faction": "death-guard",
       "ability_id": "deadly-demise-d6",
       "name": "Deadly Demise D6",
-      "shape": "dice-gated",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "dice-gated effect: stochastic; not expressible as a buff"
+      "gap": null
     },
     {
       "faction": "death-guard",
@@ -18498,11 +18514,11 @@
       "faction": "drukhari",
       "ability_id": "deadly-demise-1",
       "name": "Deadly Demise 1",
-      "shape": "dice-gated",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "dice-gated effect: stochastic; not expressible as a buff"
+      "gap": null
     },
     {
       "faction": "drukhari",
@@ -18708,11 +18724,11 @@
       "faction": "drukhari",
       "ability_id": "deadly-demise-d3",
       "name": "Deadly Demise D3",
-      "shape": "dice-gated",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "dice-gated effect: stochastic; not expressible as a buff"
+      "gap": null
     },
     {
       "faction": "drukhari",
@@ -19158,11 +19174,11 @@
       "faction": "drukhari",
       "ability_id": "infiltrators",
       "name": "Infiltrators",
-      "shape": "movement-modifier",
+      "shape": "unit-keyword",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"movement-modifier\" is not modelled by the buff layer"
+      "gap": "effect type \"unit-keyword\" is not modelled by the buff layer"
     },
     {
       "faction": "drukhari",
@@ -19458,11 +19474,11 @@
       "faction": "emperors-children",
       "ability_id": "deadly-demise-d6",
       "name": "Deadly Demise D6",
-      "shape": "dice-gated",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "dice-gated effect: stochastic; not expressible as a buff"
+      "gap": null
     },
     {
       "faction": "emperors-children",
@@ -19648,11 +19664,11 @@
       "faction": "emperors-children",
       "ability_id": "deadly-demise-1",
       "name": "Deadly Demise 1",
-      "shape": "dice-gated",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "dice-gated effect: stochastic; not expressible as a buff"
+      "gap": null
     },
     {
       "faction": "emperors-children",
@@ -19718,11 +19734,11 @@
       "faction": "emperors-children",
       "ability_id": "deadly-demise-d3",
       "name": "Deadly Demise D3",
-      "shape": "dice-gated",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "dice-gated effect: stochastic; not expressible as a buff"
+      "gap": null
     },
     {
       "faction": "emperors-children",
@@ -19768,11 +19784,11 @@
       "faction": "emperors-children",
       "ability_id": "infiltrators",
       "name": "Infiltrators",
-      "shape": "movement-modifier",
+      "shape": "unit-keyword",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"movement-modifier\" is not modelled by the buff layer"
+      "gap": "effect type \"unit-keyword\" is not modelled by the buff layer"
     },
     {
       "faction": "emperors-children",
@@ -19948,11 +19964,11 @@
       "faction": "emperors-children",
       "ability_id": "hover",
       "name": "Hover",
-      "shape": "stat-modifier",
+      "shape": "unit-keyword",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "stat-modifier: operation \"set\" not supported"
+      "gap": "effect type \"unit-keyword\" is not modelled by the buff layer"
     },
     {
       "faction": "emperors-children",
@@ -20458,11 +20474,11 @@
       "faction": "genestealer-cults",
       "ability_id": "infiltrators",
       "name": "Infiltrators",
-      "shape": "movement-modifier",
+      "shape": "unit-keyword",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"movement-modifier\" is not modelled by the buff layer"
+      "gap": "effect type \"unit-keyword\" is not modelled by the buff layer"
     },
     {
       "faction": "genestealer-cults",
@@ -20528,11 +20544,11 @@
       "faction": "genestealer-cults",
       "ability_id": "deadly-demise-d3",
       "name": "Deadly Demise D3",
-      "shape": "dice-gated",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "dice-gated effect: stochastic; not expressible as a buff"
+      "gap": null
     },
     {
       "faction": "genestealer-cults",
@@ -20618,11 +20634,11 @@
       "faction": "genestealer-cults",
       "ability_id": "deadly-demise-1",
       "name": "Deadly Demise 1",
-      "shape": "dice-gated",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "dice-gated effect: stochastic; not expressible as a buff"
+      "gap": null
     },
     {
       "faction": "genestealer-cults",
@@ -21208,11 +21224,11 @@
       "faction": "grey-knights",
       "ability_id": "deadly-demise-d6",
       "name": "Deadly Demise D6",
-      "shape": "dice-gated",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "dice-gated effect: stochastic; not expressible as a buff"
+      "gap": null
     },
     {
       "faction": "grey-knights",
@@ -21228,11 +21244,11 @@
       "faction": "grey-knights",
       "ability_id": "deadly-demise-d3",
       "name": "Deadly Demise D3",
-      "shape": "dice-gated",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "dice-gated effect: stochastic; not expressible as a buff"
+      "gap": null
     },
     {
       "faction": "grey-knights",
@@ -21338,21 +21354,21 @@
       "faction": "grey-knights",
       "ability_id": "deadly-demise-d6-2",
       "name": "Deadly Demise D6+2",
-      "shape": "dice-gated",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "dice-gated effect: stochastic; not expressible as a buff"
+      "gap": null
     },
     {
       "faction": "grey-knights",
       "ability_id": "hover",
       "name": "Hover",
-      "shape": "stat-modifier",
+      "shape": "unit-keyword",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "stat-modifier: operation \"set\" not supported"
+      "gap": "effect type \"unit-keyword\" is not modelled by the buff layer"
     },
     {
       "faction": "grey-knights",
@@ -21428,11 +21444,11 @@
       "faction": "grey-knights",
       "ability_id": "deadly-demise-1",
       "name": "Deadly Demise 1",
-      "shape": "dice-gated",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "dice-gated effect: stochastic; not expressible as a buff"
+      "gap": null
     },
     {
       "faction": "grey-knights",
@@ -21818,11 +21834,11 @@
       "faction": "imperial-knights",
       "ability_id": "deadly-demise-2d6",
       "name": "Deadly Demise 2D6",
-      "shape": "dice-gated",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "dice-gated effect: stochastic; not expressible as a buff"
+      "gap": null
     },
     {
       "faction": "imperial-knights",
@@ -21838,11 +21854,11 @@
       "faction": "imperial-knights",
       "ability_id": "deadly-demise-d6",
       "name": "Deadly Demise D6",
-      "shape": "dice-gated",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "dice-gated effect: stochastic; not expressible as a buff"
+      "gap": null
     },
     {
       "faction": "imperial-knights",
@@ -21868,11 +21884,11 @@
       "faction": "imperial-knights",
       "ability_id": "deadly-demise-d6-2",
       "name": "Deadly Demise D6+2",
-      "shape": "dice-gated",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "dice-gated effect: stochastic; not expressible as a buff"
+      "gap": null
     },
     {
       "faction": "imperial-knights",
@@ -22048,11 +22064,11 @@
       "faction": "imperial-knights",
       "ability_id": "deadly-demise-d3",
       "name": "Deadly Demise D3",
-      "shape": "dice-gated",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "dice-gated effect: stochastic; not expressible as a buff"
+      "gap": null
     },
     {
       "faction": "imperial-knights",
@@ -22698,11 +22714,11 @@
       "faction": "leagues-of-votann",
       "ability_id": "deadly-demise-1",
       "name": "Deadly Demise 1",
-      "shape": "dice-gated",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "dice-gated effect: stochastic; not expressible as a buff"
+      "gap": null
     },
     {
       "faction": "leagues-of-votann",
@@ -22758,11 +22774,11 @@
       "faction": "leagues-of-votann",
       "ability_id": "deadly-demise-d6",
       "name": "Deadly Demise D6",
-      "shape": "dice-gated",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "dice-gated effect: stochastic; not expressible as a buff"
+      "gap": null
     },
     {
       "faction": "leagues-of-votann",
@@ -22918,11 +22934,11 @@
       "faction": "leagues-of-votann",
       "ability_id": "infiltrators",
       "name": "Infiltrators",
-      "shape": "movement-modifier",
+      "shape": "unit-keyword",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"movement-modifier\" is not modelled by the buff layer"
+      "gap": "effect type \"unit-keyword\" is not modelled by the buff layer"
     },
     {
       "faction": "leagues-of-votann",
@@ -23308,11 +23324,11 @@
       "faction": "necrons",
       "ability_id": "deadly-demise-d3",
       "name": "Deadly Demise D3",
-      "shape": "dice-gated",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "dice-gated effect: stochastic; not expressible as a buff"
+      "gap": null
     },
     {
       "faction": "necrons",
@@ -23328,11 +23344,11 @@
       "faction": "necrons",
       "ability_id": "deadly-demise-d6-2",
       "name": "Deadly Demise D6+2",
-      "shape": "dice-gated",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "dice-gated effect: stochastic; not expressible as a buff"
+      "gap": null
     },
     {
       "faction": "necrons",
@@ -23598,11 +23614,11 @@
       "faction": "necrons",
       "ability_id": "deadly-demise-d6-3",
       "name": "Deadly Demise D6+3",
-      "shape": "dice-gated",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "dice-gated effect: stochastic; not expressible as a buff"
+      "gap": null
     },
     {
       "faction": "necrons",
@@ -23818,11 +23834,11 @@
       "faction": "necrons",
       "ability_id": "deadly-demise-d6",
       "name": "Deadly Demise D6",
-      "shape": "dice-gated",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "dice-gated effect: stochastic; not expressible as a buff"
+      "gap": null
     },
     {
       "faction": "necrons",
@@ -23878,11 +23894,11 @@
       "faction": "necrons",
       "ability_id": "deadly-demise-1",
       "name": "Deadly Demise 1",
-      "shape": "dice-gated",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "dice-gated effect: stochastic; not expressible as a buff"
+      "gap": null
     },
     {
       "faction": "necrons",
@@ -24038,11 +24054,11 @@
       "faction": "necrons",
       "ability_id": "infiltrators",
       "name": "Infiltrators",
-      "shape": "movement-modifier",
+      "shape": "unit-keyword",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"movement-modifier\" is not modelled by the buff layer"
+      "gap": "effect type \"unit-keyword\" is not modelled by the buff layer"
     },
     {
       "faction": "necrons",
@@ -24288,11 +24304,11 @@
       "faction": "necrons",
       "ability_id": "deadly-demise-d6-3-szarekh-model-only",
       "name": "Deadly Demise D6+3 (Szarekh model only)",
-      "shape": "dice-gated",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "dice-gated effect: stochastic; not expressible as a buff"
+      "gap": null
     },
     {
       "faction": "necrons",
@@ -24388,11 +24404,11 @@
       "faction": "necrons",
       "ability_id": "deadly-demise-3d6",
       "name": "Deadly Demise 3D6",
-      "shape": "dice-gated",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "dice-gated effect: stochastic; not expressible as a buff"
+      "gap": null
     },
     {
       "faction": "necrons",
@@ -24878,11 +24894,11 @@
       "faction": "orks",
       "ability_id": "deadly-demise-d3",
       "name": "Deadly Demise D3",
-      "shape": "dice-gated",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "dice-gated effect: stochastic; not expressible as a buff"
+      "gap": null
     },
     {
       "faction": "orks",
@@ -24918,11 +24934,11 @@
       "faction": "orks",
       "ability_id": "deadly-demise-1",
       "name": "Deadly Demise 1",
-      "shape": "dice-gated",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "dice-gated effect: stochastic; not expressible as a buff"
+      "gap": null
     },
     {
       "faction": "orks",
@@ -25118,11 +25134,11 @@
       "faction": "orks",
       "ability_id": "deadly-demise-d6",
       "name": "Deadly Demise D6",
-      "shape": "dice-gated",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "dice-gated effect: stochastic; not expressible as a buff"
+      "gap": null
     },
     {
       "faction": "orks",
@@ -25158,11 +25174,11 @@
       "faction": "orks",
       "ability_id": "infiltrators",
       "name": "Infiltrators",
-      "shape": "movement-modifier",
+      "shape": "unit-keyword",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"movement-modifier\" is not modelled by the buff layer"
+      "gap": "effect type \"unit-keyword\" is not modelled by the buff layer"
     },
     {
       "faction": "orks",
@@ -25220,9 +25236,9 @@
       "name": "Big an’ Shooty",
       "shape": "conditional",
       "stub": false,
-      "offensive": true,
+      "offensive": false,
       "defensive": false,
-      "gap": null
+      "gap": "conditional: cannot evaluate condition \"faction-rule-active\" against current context"
     },
     {
       "faction": "orks",
@@ -25288,11 +25304,11 @@
       "faction": "orks",
       "ability_id": "deadly-demise-2d6",
       "name": "Deadly Demise 2D6",
-      "shape": "dice-gated",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "dice-gated effect: stochastic; not expressible as a buff"
+      "gap": null
     },
     {
       "faction": "orks",
@@ -25378,11 +25394,11 @@
       "faction": "orks",
       "ability_id": "bodyguard",
       "name": "Bodyguard",
-      "shape": "stat-modifier",
-      "stub": true,
+      "shape": "ability-grant",
+      "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "stat-modifier: operation \"undefined\" not supported"
+      "gap": "effect type \"ability-grant\" is not modelled by the buff layer"
     },
     {
       "faction": "orks",
@@ -25420,9 +25436,9 @@
       "name": "Big an’ Stompy",
       "shape": "conditional",
       "stub": false,
-      "offensive": true,
+      "offensive": false,
       "defensive": false,
-      "gap": null
+      "gap": "conditional: cannot evaluate condition \"faction-rule-active\" against current context"
     },
     {
       "faction": "orks",
@@ -25458,7 +25474,7 @@
       "faction": "orks",
       "ability_id": "ammo-runt",
       "name": "Ammo Runt",
-      "shape": "keyword-grant",
+      "shape": "conditional",
       "stub": false,
       "offensive": true,
       "defensive": false,
@@ -25869,7 +25885,7 @@
       "ability_id": "aerial-deployment",
       "name": "Aerial Deployment",
       "shape": "conditional",
-      "stub": false,
+      "stub": true,
       "offensive": false,
       "defensive": false,
       "gap": null
@@ -25948,11 +25964,11 @@
       "faction": "orks",
       "ability_id": "deadly-demise-d6-2",
       "name": "Deadly Demise D6+2",
-      "shape": "dice-gated",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "dice-gated effect: stochastic; not expressible as a buff"
+      "gap": null
     },
     {
       "faction": "orks",
@@ -26048,21 +26064,21 @@
       "faction": "orks",
       "ability_id": "waaagh",
       "name": "Waaagh!",
-      "shape": "sequence",
+      "shape": "conditional",
       "stub": false,
       "offensive": true,
-      "defensive": false,
+      "defensive": true,
       "gap": null
     },
     {
       "faction": "orks",
       "ability_id": "ramshackle-cover",
       "name": "Ramshackle Cover",
-      "shape": "stat-modifier",
-      "stub": true,
+      "shape": "ability-grant",
+      "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "stat-modifier: operation \"undefined\" not supported"
+      "gap": "effect type \"ability-grant\" is not modelled by the buff layer"
     },
     {
       "faction": "orks",
@@ -26078,21 +26094,21 @@
       "faction": "orks",
       "ability_id": "fortification",
       "name": "Fortification",
-      "shape": "stat-modifier",
-      "stub": true,
+      "shape": "sequence",
+      "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "stat-modifier: operation \"undefined\" not supported"
+      "gap": "conditional: cannot evaluate condition \"undefined\" against current context"
     },
     {
       "faction": "orks",
       "ability_id": "thundering-wagons",
       "name": "Thundering Wagons",
-      "shape": "stat-modifier",
-      "stub": true,
+      "shape": "sequence",
+      "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "stat-modifier: operation \"undefined\" not supported"
+      "gap": "effect type \"unit-keyword-grant\" is not modelled by the buff layer"
     },
     {
       "faction": "orks",
@@ -26168,31 +26184,31 @@
       "faction": "orks",
       "ability_id": "dead-shiny-shootas-rollin-deff",
       "name": "Dead Shiny Shootas",
-      "shape": "stat-modifier",
-      "stub": true,
-      "offensive": false,
+      "shape": "keyword-grant",
+      "stub": false,
+      "offensive": true,
       "defensive": false,
-      "gap": "stat-modifier: operation \"undefined\" not supported"
+      "gap": null
     },
     {
       "faction": "orks",
       "ability_id": "da-gobshot-thunderbuss-rollin-deff",
       "name": "Da Gobshot Thunderbuss",
-      "shape": "stat-modifier",
-      "stub": true,
-      "offensive": false,
+      "shape": "keyword-grant",
+      "stub": false,
+      "offensive": true,
       "defensive": false,
-      "gap": "stat-modifier: operation \"undefined\" not supported"
+      "gap": null
     },
     {
       "faction": "orks",
       "ability_id": "eager-for-the-fight",
       "name": "Eager for the Fight",
-      "shape": "stat-modifier",
-      "stub": true,
+      "shape": "conditional",
+      "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "stat-modifier: operation \"undefined\" not supported"
+      "gap": "conditional: cannot evaluate condition \"disembarked-from-transport\" against current context"
     },
     {
       "faction": "orks",
@@ -26258,21 +26274,21 @@
       "faction": "orks",
       "ability_id": "runnin-boots-blitz-brigade",
       "name": "Runnin’ Boots",
-      "shape": "stat-modifier",
-      "stub": true,
+      "shape": "conditional",
+      "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "stat-modifier: operation \"undefined\" not supported"
+      "gap": "conditional: cannot evaluate condition \"disembarked-from-transport\" against current context"
     },
     {
       "faction": "orks",
       "ability_id": "blitzkaptin-blitz-brigade",
       "name": "Blitzkaptin",
-      "shape": "stat-modifier",
-      "stub": true,
+      "shape": "select-units",
+      "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "stat-modifier: operation \"undefined\" not supported"
+      "gap": "effect type \"ability-grant\" is not modelled by the buff layer"
     },
     {
       "faction": "orks",
@@ -26288,11 +26304,11 @@
       "faction": "orks",
       "ability_id": "tuff-git-blitz-brigade",
       "name": "Tuff Git",
-      "shape": "stat-modifier",
+      "shape": "conditional",
       "stub": true,
       "offensive": false,
       "defensive": false,
-      "gap": "stat-modifier: operation \"undefined\" not supported"
+      "gap": "conditional: cannot evaluate condition \"undefined\" against current context"
     },
     {
       "faction": "orks",
@@ -26418,21 +26434,21 @@
       "faction": "tau-empire",
       "ability_id": "deadly-demise-3d6",
       "name": "Deadly Demise 3D6",
-      "shape": "dice-gated",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "dice-gated effect: stochastic; not expressible as a buff"
+      "gap": null
     },
     {
       "faction": "tau-empire",
       "ability_id": "hover",
       "name": "Hover",
-      "shape": "stat-modifier",
+      "shape": "unit-keyword",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "stat-modifier: operation \"set\" not supported"
+      "gap": "effect type \"unit-keyword\" is not modelled by the buff layer"
     },
     {
       "faction": "tau-empire",
@@ -26518,11 +26534,11 @@
       "faction": "tau-empire",
       "ability_id": "deadly-demise-1",
       "name": "Deadly Demise 1",
-      "shape": "dice-gated",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "dice-gated effect: stochastic; not expressible as a buff"
+      "gap": null
     },
     {
       "faction": "tau-empire",
@@ -26548,11 +26564,11 @@
       "faction": "tau-empire",
       "ability_id": "infiltrators",
       "name": "Infiltrators",
-      "shape": "movement-modifier",
+      "shape": "unit-keyword",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"movement-modifier\" is not modelled by the buff layer"
+      "gap": "effect type \"unit-keyword\" is not modelled by the buff layer"
     },
     {
       "faction": "tau-empire",
@@ -26588,11 +26604,11 @@
       "faction": "tau-empire",
       "ability_id": "deadly-demise-d3",
       "name": "Deadly Demise D3",
-      "shape": "dice-gated",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "dice-gated effect: stochastic; not expressible as a buff"
+      "gap": null
     },
     {
       "faction": "tau-empire",
@@ -26768,11 +26784,11 @@
       "faction": "tau-empire",
       "ability_id": "deadly-demise-d6-2",
       "name": "Deadly Demise D6+2",
-      "shape": "dice-gated",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "dice-gated effect: stochastic; not expressible as a buff"
+      "gap": null
     },
     {
       "faction": "tau-empire",
@@ -26928,11 +26944,11 @@
       "faction": "tau-empire",
       "ability_id": "deadly-demise-d6",
       "name": "Deadly Demise D6",
-      "shape": "dice-gated",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "dice-gated effect: stochastic; not expressible as a buff"
+      "gap": null
     },
     {
       "faction": "tau-empire",
@@ -27528,11 +27544,11 @@
       "faction": "tau-empire",
       "ability_id": "deadly-demise-d6-3",
       "name": "Deadly Demise D6+3",
-      "shape": "dice-gated",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "dice-gated effect: stochastic; not expressible as a buff"
+      "gap": null
     },
     {
       "faction": "tau-empire",
@@ -27688,11 +27704,11 @@
       "faction": "thousand-sons",
       "ability_id": "deadly-demise-1",
       "name": "Deadly Demise 1",
-      "shape": "dice-gated",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "dice-gated effect: stochastic; not expressible as a buff"
+      "gap": null
     },
     {
       "faction": "thousand-sons",
@@ -27758,11 +27774,11 @@
       "faction": "thousand-sons",
       "ability_id": "deadly-demise-d6",
       "name": "Deadly Demise D6",
-      "shape": "dice-gated",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "dice-gated effect: stochastic; not expressible as a buff"
+      "gap": null
     },
     {
       "faction": "thousand-sons",
@@ -27968,11 +27984,11 @@
       "faction": "thousand-sons",
       "ability_id": "deadly-demise-d3",
       "name": "Deadly Demise D3",
-      "shape": "dice-gated",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "dice-gated effect: stochastic; not expressible as a buff"
+      "gap": null
     },
     {
       "faction": "thousand-sons",
@@ -28328,11 +28344,11 @@
       "faction": "thousand-sons",
       "ability_id": "infiltrators",
       "name": "Infiltrators",
-      "shape": "movement-modifier",
+      "shape": "unit-keyword",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"movement-modifier\" is not modelled by the buff layer"
+      "gap": "effect type \"unit-keyword\" is not modelled by the buff layer"
     },
     {
       "faction": "thousand-sons",
@@ -28558,11 +28574,11 @@
       "faction": "thousand-sons",
       "ability_id": "hover",
       "name": "Hover",
-      "shape": "stat-modifier",
+      "shape": "unit-keyword",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "stat-modifier: operation \"set\" not supported"
+      "gap": "effect type \"unit-keyword\" is not modelled by the buff layer"
     },
     {
       "faction": "thousand-sons",
@@ -29028,11 +29044,11 @@
       "faction": "tyranids",
       "ability_id": "deadly-demise-d3",
       "name": "Deadly Demise D3",
-      "shape": "dice-gated",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "dice-gated effect: stochastic; not expressible as a buff"
+      "gap": null
     },
     {
       "faction": "tyranids",
@@ -29058,21 +29074,21 @@
       "faction": "tyranids",
       "ability_id": "deadly-demise-2d6",
       "name": "Deadly Demise 2D6",
-      "shape": "dice-gated",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "dice-gated effect: stochastic; not expressible as a buff"
+      "gap": null
     },
     {
       "faction": "tyranids",
       "ability_id": "hover",
       "name": "Hover",
-      "shape": "stat-modifier",
+      "shape": "unit-keyword",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "stat-modifier: operation \"set\" not supported"
+      "gap": "effect type \"unit-keyword\" is not modelled by the buff layer"
     },
     {
       "faction": "tyranids",
@@ -29088,11 +29104,11 @@
       "faction": "tyranids",
       "ability_id": "deadly-demise-d6",
       "name": "Deadly Demise D6",
-      "shape": "dice-gated",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "dice-gated effect: stochastic; not expressible as a buff"
+      "gap": null
     },
     {
       "faction": "tyranids",
@@ -29278,11 +29294,11 @@
       "faction": "tyranids",
       "ability_id": "deadly-demise-1",
       "name": "Deadly Demise 1",
-      "shape": "dice-gated",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "dice-gated effect: stochastic; not expressible as a buff"
+      "gap": null
     },
     {
       "faction": "tyranids",
@@ -29308,11 +29324,11 @@
       "faction": "tyranids",
       "ability_id": "infiltrators",
       "name": "Infiltrators",
-      "shape": "movement-modifier",
+      "shape": "unit-keyword",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"movement-modifier\" is not modelled by the buff layer"
+      "gap": "effect type \"unit-keyword\" is not modelled by the buff layer"
     },
     {
       "faction": "tyranids",
@@ -30178,11 +30194,11 @@
       "faction": "world-eaters",
       "ability_id": "deep-strike",
       "name": "Deep Strike",
-      "shape": "movement-modifier",
+      "shape": "deep-strike",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"movement-modifier\" is not modelled by the buff layer"
+      "gap": "effect type \"deep-strike\" is not modelled by the buff layer"
     },
     {
       "faction": "world-eaters",
@@ -30238,21 +30254,21 @@
       "faction": "world-eaters",
       "ability_id": "infiltrators",
       "name": "Infiltrators",
-      "shape": "movement-modifier",
+      "shape": "unit-keyword",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"movement-modifier\" is not modelled by the buff layer"
+      "gap": "effect type \"unit-keyword\" is not modelled by the buff layer"
     },
     {
       "faction": "world-eaters",
       "ability_id": "hover",
       "name": "Hover",
-      "shape": "movement-modifier",
+      "shape": "unit-keyword",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"movement-modifier\" is not modelled by the buff layer"
+      "gap": "effect type \"unit-keyword\" is not modelled by the buff layer"
     },
     {
       "faction": "world-eaters",

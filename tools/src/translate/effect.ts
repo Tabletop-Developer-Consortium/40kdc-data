@@ -41,6 +41,7 @@ export interface Effect {
   on_fail?: Effect | null;
   pool?: { count: number; die: string };
   max_activations?: number;
+  selector?: { max_count?: number; keywords?: string[]; owner?: string };
 }
 
 /** Ability scope, as carried on enrichment ability entries. */
@@ -75,7 +76,15 @@ const CONTAINER_TYPES = new Set([
   "choice",
   "dice-gated",
   "dice-pool-allocation",
+  "select-units",
 ]);
+
+/** "up to 3 friendly Orks Vehicle units" — the `select-units` selector phrase. */
+function selectUnitsSubject(sel: Record<string, unknown> = {}): string {
+  const kw = ((sel.keywords as unknown[]) ?? []).map((k) => titleCase(jstr(k))).join(" ");
+  const noun = sel.max_count === 1 ? "unit" : "units";
+  return `up to ${jstr(sel.max_count)} ${jstr(sel.owner)}${kw ? ` ${kw}` : ""} ${noun}`;
+}
 
 /** JS-template stringification (numbers print without trailing `.0`). */
 function jstr(v: unknown): string {
@@ -218,6 +227,28 @@ function signed(operation: unknown, value: unknown): string {
   return `${sign > 0 ? "+" : "-"}${jstr(value)}`;
 }
 
+/**
+ * Dice-pool success phrase → "4+", "6", "3 or less", etc. (for the per-die
+ * threshold in a `mortal-wounds` dice pool — "for each 4+, …"). Unlike
+ * {@link formatComparison} this carries no leading "a", because it follows
+ * "for each".
+ */
+function poolThreshold(comp: string, threshold: unknown): string {
+  const th = jstr(threshold);
+  switch (comp) {
+    case "lte":
+      return `${th} or less`;
+    case "gt":
+      return `more than ${th}`;
+    case "lt":
+      return `less than ${th}`;
+    case "eq":
+      return th;
+    default: // gte
+      return `${th}+`;
+  }
+}
+
 /** Dice comparison → "a 4+", "a 3 or less", etc. (for dice-gated thresholds). */
 function formatComparison(comp: string, threshold: unknown): string {
   const th = jstr(threshold);
@@ -338,6 +369,12 @@ function conditionLeadIn(c: Condition): string {
       return "if the unit charged this turn";
     case "advanced-this-turn":
       return "if the unit Advanced this turn";
+    case "disembarked-from-transport":
+      return "if the unit disembarked from a Transport this turn";
+    case "faction-rule-active":
+      return `while the ${titleCase(jstr(p.rule))} is active`;
+    case "battle-round":
+      return `during the first ${jstr(p.max)} battle rounds`;
     case "remained-stationary":
       return "if the unit Remained Stationary";
     case "target-has-keyword":
@@ -398,6 +435,8 @@ export function describeEffectInline(e: Effect, ctx: Ctx = {}): string {
         const crit = m.roll === "wound" ? "Critical Wounds" : "Critical Hits";
         return `${subj} ${v(subj, "scores")} ${crit} on ${rollName(m.roll)} rolls of ${jstr(m.critical_on)}+`;
       }
+      if (m.operation === "set")
+        return `${subj} can change ${rollName(m.roll)} rolls to a ${jstr(m.value)}`;
       if (m.value == null) return `${dekebab(jstr(m.operation))} ${possessive(subj)} ${rollName(m.roll)} rolls${ctxNote}`;
       return `${subj} ${v(subj, "gets")} ${signed(m.operation, m.value)} to ${rollName(m.roll)} rolls${ctxNote}`;
     }
@@ -413,6 +452,21 @@ export function describeEffectInline(e: Effect, ctx: Ctx = {}): string {
           ? `each enemy unit within ${jstr(range)}"`
           : subj;
       const verb = subjMW.startsWith("each ") ? "suffers" : v(subjMW, "suffers");
+      // Dice-pool form (e.g. "roll six D6: for each 4+, that unit suffers 1
+      // mortal wound"): N dice rolled, each success worth `mortal_per_success`
+      // mortal wounds. Distinct from a flat count — the amount IS the pool.
+      if (m.mortal_per_success != null) {
+        const per = jstr(m.mortal_per_success);
+        const perNoun = per === "1" ? "mortal wound" : "mortal wounds";
+        const hit = poolThreshold(jstr(m.comparison ?? "gte"), m.threshold);
+        // Per-model pool: one die per model in this/the target unit (e.g.
+        // "roll one D6 for each model in this unit: for each 4+, …").
+        if (m.per_model != null) {
+          const where = m.per_model === "target" ? "the target unit" : "this unit";
+          return `roll one ${diceCase(m.dice)} for each model in ${where}: for each ${hit}, ${subjMW} ${verb} ${per} ${perNoun}`;
+        }
+        return `roll ${diceCase(m.dice)}: for each ${hit}, ${subjMW} ${verb} ${per} ${perNoun}`;
+      }
       const a =
         m.count != null
           ? jstr(m.count)
@@ -516,8 +570,19 @@ export function describeEffectInline(e: Effect, ctx: Ctx = {}): string {
       return subj === "this model"
         ? `each time this model is destroyed, it can shoot before being removed from play`
         : `each time a model in ${subj} is destroyed, it can shoot before being removed from play`;
+    case "unit-keyword": {
+      const name = titleCase(jstr(m.keyword_id));
+      const val = m.value != null ? ` ${jstr(m.value)}` : "";
+      return `${subj} has the ${name}${val} ability`;
+    }
+    case "unit-keyword-grant":
+      return `${jstr(m.to_keywords)} units gain the ${jstr(m.keyword)} keyword`;
     case "deep-strike":
       return `${subj} has the Deep Strike ability`;
+    case "strategic-reserves-arrival":
+      return `${subj} can arrive from Strategic Reserves regardless of mission rules`;
+    case "remove-battle-shock":
+      return `${subj} ${v(subj, "is")} no longer Battle-shocked`;
     case "fallback-and-act":
       return `${subj} is eligible to shoot and declare a charge in a turn in which it Fell Back`;
     case "engagement-passthrough":
@@ -565,6 +630,8 @@ export function describeEffectInline(e: Effect, ctx: Ctx = {}): string {
         .join(" / ");
       return `roll ${pool}: ${opts}`;
     }
+    case "select-units":
+      return `select ${selectUnitsSubject(e.selector)}: ${describeEffectInline(e.effect ?? {}, ctx)}`;
 
     default:
       return `[${e.type ?? "unknown"}]`;
@@ -642,6 +709,14 @@ export function describeEffect(e: Effect, depth: number = 0, ctx: Ctx = {}): str
         );
       }
       return lines.join("\n");
+    }
+    case "select-units": {
+      const inner = e.effect ?? {};
+      const lead = `Select ${selectUnitsSubject(e.selector)}`;
+      if (CONTAINER_TYPES.has(inner.type ?? "")) {
+        return `${indent}${arrow}${lead}:\n` + describeEffect(inner, depth + 1, ctx);
+      }
+      return `${indent}${arrow}${lead}: ${describeEffectInline(inner, ctx)}.`;
     }
     default:
       // Leaf at block position — render as a single capitalized sentence.

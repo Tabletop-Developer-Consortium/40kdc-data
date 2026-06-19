@@ -548,13 +548,9 @@
     "ability_type": "core",
     "behavior": "activated",
     "effect": {
-      "type": "movement-modifier",
+      "type": "deep-strike",
       "target": "unit",
-      "modifier": {
-        "move_type": "deep-strike",
-        "value": 0,
-        "replaces_default": false
-      }
+      "modifier": {}
     },
     "scope": {
       "range": "unit",
@@ -716,12 +712,10 @@
     "ability_type": "core",
     "behavior": "activated",
     "effect": {
-      "type": "movement-modifier",
+      "type": "unit-keyword",
       "target": "unit",
       "modifier": {
-        "move_type": "infiltrators",
-        "value": 0,
-        "replaces_default": false
+        "keyword_id": "infiltrators"
       }
     },
     "scope": {
@@ -745,12 +739,10 @@
     "ability_type": "core",
     "behavior": "activated",
     "effect": {
-      "type": "movement-modifier",
+      "type": "unit-keyword",
       "target": "self",
       "modifier": {
-        "move_type": "hover",
-        "value": 0,
-        "replaces_default": false
+        "keyword_id": "hover"
       }
     },
     "scope": {

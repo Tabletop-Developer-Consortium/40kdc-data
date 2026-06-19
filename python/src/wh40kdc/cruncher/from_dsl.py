@@ -94,6 +94,9 @@ def _walk(node: Any, source: BuffSource, opts: dict[str, Any], out: EffectTransl
         # Player spends dice on options at runtime — each buff-bearing option
         # becomes an opt-in lever, grouped under the pool's activation cap.
         _enumerate_dice_pool(node, source, opts, out)
+    elif node_type == "select-units":
+        # Targeting wrapper — the selected units receive the nested effect.
+        _walk(node.get("effect"), source, opts, out)
     else:
         # Unknown effect — record it. Covers ability-grant, deep-strike,
         # mortal-wounds, cp-gain, movement-modifier, etc.

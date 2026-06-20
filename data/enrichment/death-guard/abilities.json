@@ -3827,19 +3827,30 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "conditional",
+      "condition": {
+        "type": "has-lost-wounds"
+      },
+      "effect": {
+        "type": "roll-modifier",
+        "target": "self",
+        "modifier": {
+          "roll": "hit",
+          "operation": "subtract",
+          "value": 1
+        }
+      }
     },
     "scope": {
-      "range": "unit",
+      "range": "self",
       "duration": "permanent"
     },
     "unit_ids": [
       "defiler"
     ],
     "ability_type": "unit",
-    "behavior": "passive"
+    "behavior": "passive",
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "chaos-lord",
@@ -3886,20 +3897,46 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "conditional",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          {
+            "type": "timing-is",
+            "parameters": {
+              "timing": "end-of-turn"
+            }
+          },
+          {
+            "type": "opponent-unit-within-range"
+          }
+        ]
+      },
+      "effect": {
+        "type": "dice-gated",
+        "dice": "D6",
+        "threshold": 4,
+        "comparison": "gte",
+        "on_success": {
+          "type": "mortal-wounds",
+          "target": "enemy-within-aura",
+          "modifier": {
+            "count": "D3"
+          }
+        }
+      }
     },
     "scope": {
-      "range": "unit",
-      "duration": "permanent"
+      "range": "aura-custom",
+      "duration": "turn"
     },
     "unit_ids": [
       "death-guard-chaos-lord",
       "death-guard-chaos-lord-in-terminator-armour"
     ],
     "ability_type": "unit",
-    "behavior": "aura"
+    "behavior": "aura",
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "putrescent-vitality-psychic",
@@ -3911,19 +3948,55 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "conditional",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          {
+            "type": "phase-is",
+            "parameters": {
+              "phase": "fight"
+            }
+          },
+          {
+            "type": "timing-is",
+            "parameters": {
+              "timing": "start-of-phase"
+            }
+          }
+        ]
+      },
+      "effect": {
+        "type": "dice-gated",
+        "dice": "D6",
+        "threshold": 2,
+        "comparison": "gte",
+        "on_success": {
+          "type": "damage-reduction",
+          "target": "self",
+          "modifier": {
+            "reduction": 1
+          }
+        },
+        "on_fail": {
+          "type": "mortal-wounds",
+          "target": "self",
+          "modifier": {
+            "count": "D3"
+          }
+        }
+      }
     },
     "scope": {
-      "range": "unit",
-      "duration": "permanent"
+      "range": "self",
+      "duration": "phase"
     },
     "unit_ids": [
       "death-guard-sorcerer-in-terminator-armour"
     ],
     "ability_type": "unit",
-    "behavior": "activated"
+    "behavior": "activated",
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "pestilent-familiar-psychic",
@@ -3935,19 +4008,40 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "sequence",
+      "steps": [
+        {
+          "type": "stat-modifier",
+          "target": "self",
+          "modifier": {
+            "stat": "S",
+            "operation": "add",
+            "value": 2,
+            "weapon_keyword": "Psychic"
+          }
+        },
+        {
+          "type": "stat-modifier",
+          "target": "self",
+          "modifier": {
+            "stat": "D",
+            "operation": "add",
+            "value": 2,
+            "weapon_keyword": "Psychic"
+          }
+        }
+      ]
     },
     "scope": {
-      "range": "unit",
-      "duration": "permanent"
+      "range": "self",
+      "duration": "one-use"
     },
     "unit_ids": [
       "death-guard-sorcerer-in-terminator-armour"
     ],
     "ability_type": "unit",
-    "behavior": "activated"
+    "behavior": "activated",
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "worldblight",
@@ -3963,17 +4057,71 @@
     "faction_id": "death-guard",
     "detachment_id": "virulent-vectorium",
     "ability_type": "detachment",
-    "behavior": "passive",
+    "behavior": "activated",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "conditional",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          {
+            "type": "timing-is",
+            "parameters": {
+              "timing": "end-of-phase"
+            }
+          },
+          {
+            "type": "phase-is",
+            "parameters": {
+              "phase": "command"
+            }
+          },
+          {
+            "type": "controls-objective"
+          },
+          {
+            "type": "unit-has-keyword",
+            "parameters": {
+              "keyword": "DEATH GUARD"
+            }
+          },
+          {
+            "type": "within-range-of-objective"
+          },
+          {
+            "operator": "not",
+            "operands": [
+              {
+                "type": "is-battle-shocked"
+              }
+            ]
+          }
+        ]
+      },
+      "effect": {
+        "type": "sequence",
+        "steps": [
+          {
+            "type": "objective-control-modifier",
+            "target": "self",
+            "modifier": {
+              "sticky": true
+            }
+          },
+          {
+            "type": "ability-grant",
+            "target": "self",
+            "modifier": {
+              "grant_type": "nurgle-gift-as-death-guard-model"
+            }
+          }
+        ]
+      }
     },
     "scope": {
-      "range": "unit",
-      "duration": "permanent"
+      "range": "any-on-battlefield",
+      "duration": "battle"
     },
-    "community_notes": "[APPROX] DSL stub — detachment rule; mechanics pending authoring. Full rule in raw-text store."
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "reverberant-rancidity",
@@ -3989,17 +4137,75 @@
     "faction_id": "death-guard",
     "detachment_id": "tallyband-summoners",
     "ability_type": "detachment",
-    "behavior": "passive",
+    "behavior": "aura",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "sequence",
+      "steps": [
+        {
+          "type": "conditional",
+          "condition": {
+            "operator": "and",
+            "operands": [
+              {
+                "type": "unit-has-keyword",
+                "parameters": {
+                  "keyword": "PLAGUE LEGIONS"
+                }
+              },
+              {
+                "type": "unit-within-range-of",
+                "parameters": {
+                  "target_type": "friendly",
+                  "keyword": "DEATH GUARD",
+                  "within_inches": 7
+                }
+              }
+            ]
+          },
+          "effect": {
+            "type": "ability-grant",
+            "target": "friendly-within-aura",
+            "modifier": {
+              "grant_type": "nurgle-gift"
+            }
+          }
+        },
+        {
+          "type": "conditional",
+          "condition": {
+            "operator": "and",
+            "operands": [
+              {
+                "type": "unit-has-keyword",
+                "parameters": {
+                  "keyword": "DEATH GUARD"
+                }
+              },
+              {
+                "type": "unit-within-range-of",
+                "parameters": {
+                  "target_type": "friendly",
+                  "keyword": "PLAGUE LEGIONS",
+                  "within_inches": 7
+                }
+              }
+            ]
+          },
+          "effect": {
+            "type": "ability-grant",
+            "target": "friendly-within-aura",
+            "modifier": {
+              "grant_type": "contagion-range-extension-3"
+            }
+          }
+        }
+      ]
     },
     "scope": {
-      "range": "unit",
-      "duration": "permanent"
+      "range": "aura-custom",
+      "duration": "turn"
     },
-    "community_notes": "[APPROX] DSL stub — detachment rule; mechanics pending authoring. Full rule in raw-text store."
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "manifold-maladies",
@@ -4015,17 +4221,28 @@
     "faction_id": "death-guard",
     "detachment_id": "champions-of-contagion",
     "ability_type": "detachment",
-    "behavior": "passive",
+    "behavior": "activated",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "conditional",
+      "condition": {
+        "type": "timing-is",
+        "parameters": {
+          "timing": "start-of-battle-round"
+        }
+      },
+      "effect": {
+        "type": "ability-grant",
+        "target": "self",
+        "modifier": {
+          "grant_type": "plague-selection"
+        }
+      }
     },
     "scope": {
-      "range": "unit",
-      "duration": "permanent"
+      "range": "self",
+      "duration": "battle"
     },
-    "community_notes": "[APPROX] DSL stub — detachment rule; mechanics pending authoring. Full rule in raw-text store."
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "miasmic-bombardment",
@@ -4041,17 +4258,45 @@
     "faction_id": "death-guard",
     "detachment_id": "mortarions-hammer",
     "ability_type": "detachment",
-    "behavior": "passive",
+    "behavior": "activated",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "conditional",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          {
+            "type": "timing-is",
+            "parameters": {
+              "timing": "start-of-battle-round"
+            }
+          },
+          {
+            "operator": "not",
+            "operands": [
+              {
+                "type": "unit-within-range-of",
+                "parameters": {
+                  "target_type": "friendly",
+                  "within_inches": 12
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "effect": {
+        "type": "ability-grant",
+        "target": "all-enemy",
+        "modifier": {
+          "grant_type": "afflicted"
+        }
+      }
     },
     "scope": {
-      "range": "unit",
-      "duration": "permanent"
+      "range": "any-on-battlefield",
+      "duration": "battle-round"
     },
-    "community_notes": "[APPROX] DSL stub — detachment rule; mechanics pending authoring. Full rule in raw-text store."
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "numberless-horde",
@@ -4067,17 +4312,39 @@
     "faction_id": "death-guard",
     "detachment_id": "shamblerot-vectorium",
     "ability_type": "detachment",
-    "behavior": "passive",
+    "behavior": "activated",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "conditional",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          {
+            "type": "phase-is",
+            "parameters": {
+              "phase": "command"
+            }
+          },
+          {
+            "type": "player-turn-is",
+            "parameters": {
+              "turn": "self"
+            }
+          }
+        ]
+      },
+      "effect": {
+        "type": "ability-grant",
+        "target": "self",
+        "modifier": {
+          "grant_type": "summon-poxwalkers-strategic-reserves"
+        }
+      }
     },
     "scope": {
-      "range": "unit",
+      "range": "self",
       "duration": "permanent"
     },
-    "community_notes": "[APPROX] DSL stub — detachment rule; mechanics pending authoring. Full rule in raw-text store."
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "deadly-vectors",
@@ -4093,16 +4360,85 @@
     "faction_id": "death-guard",
     "detachment_id": "death-lords-chosen",
     "ability_type": "detachment",
-    "behavior": "passive",
+    "behavior": "reactive",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "conditional",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          {
+            "type": "phase-is",
+            "parameters": {
+              "phase": "command"
+            }
+          },
+          {
+            "type": "player-turn-is",
+            "parameters": {
+              "turn": "opponent"
+            }
+          },
+          {
+            "type": "target-has-keyword",
+            "parameters": {
+              "keyword": "AFFLICTED"
+            }
+          }
+        ]
+      },
+      "effect": {
+        "type": "sequence",
+        "steps": [
+          {
+            "type": "conditional",
+            "condition": {
+              "type": "unit-below-half-strength"
+            },
+            "effect": {
+              "type": "dice-gated",
+              "dice": "2D6",
+              "threshold": 7,
+              "comparison": "lte",
+              "on_success": {
+                "type": "mortal-wounds",
+                "target": "unit",
+                "modifier": {
+                  "count": "D3"
+                }
+              }
+            }
+          },
+          {
+            "type": "conditional",
+            "condition": {
+              "operator": "not",
+              "operands": [
+                {
+                  "type": "unit-below-half-strength"
+                }
+              ]
+            },
+            "effect": {
+              "type": "dice-gated",
+              "dice": "2D6",
+              "threshold": 6,
+              "comparison": "lte",
+              "on_success": {
+                "type": "mortal-wounds",
+                "target": "unit",
+                "modifier": {
+                  "count": "D3"
+                }
+              }
+            }
+          }
+        ]
+      }
     },
     "scope": {
-      "range": "unit",
-      "duration": "permanent"
+      "range": "any-on-battlefield",
+      "duration": "phase"
     },
-    "community_notes": "[APPROX] DSL stub — detachment rule; mechanics pending authoring. Full rule in raw-text store."
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   }
 ]

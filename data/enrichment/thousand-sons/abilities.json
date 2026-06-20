@@ -1102,20 +1102,22 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "stat-modifier",
+      "type": "ability-grant",
       "target": "unit",
-      "modifier": {}
+      "modifier": {
+        "grant_type": "strategic-reserves-override"
+      }
     },
     "scope": {
       "range": "unit",
-      "duration": "permanent"
+      "duration": "one-use"
     },
     "unit_ids": [
       "ahriman"
     ],
     "ability_type": "unit",
     "behavior": "passive",
-    "community_notes": "auto-generated stub — needs manual authoring (source: 10e Datasheets_abilities; rules text omitted for IP)"
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "arch-sorcerer-of-tzeentch-psychic",
@@ -3990,18 +3992,62 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "sequence",
+      "steps": [
+        {
+          "type": "conditional",
+          "condition": {
+            "operator": "not",
+            "operands": [
+              {
+                "type": "terrain-area-control",
+                "parameters": {
+                  "area": "flow-of-magic"
+                }
+              }
+            ]
+          },
+          "effect": {
+            "type": "stat-modifier",
+            "target": "unit",
+            "modifier": {
+              "stat": "S",
+              "operation": "add",
+              "value": 1,
+              "weapon_keyword": "Psychic"
+            }
+          }
+        },
+        {
+          "type": "conditional",
+          "condition": {
+            "type": "terrain-area-control",
+            "parameters": {
+              "area": "flow-of-magic"
+            }
+          },
+          "effect": {
+            "type": "stat-modifier",
+            "target": "unit",
+            "modifier": {
+              "stat": "S",
+              "operation": "add",
+              "value": 2,
+              "weapon_keyword": "Psychic"
+            }
+          }
+        }
+      ]
     },
     "scope": {
       "range": "unit",
-      "duration": "permanent"
+      "duration": "battle"
     },
     "unit_ids": [],
     "ability_type": "enhancement",
     "behavior": "passive",
-    "detachment_id": "hexwarp-thrallband"
+    "detachment_id": "hexwarp-thrallband",
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "empowered-manifestation-hexwarp-thrallband",
@@ -4013,18 +4059,42 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "conditional",
+      "condition": {
+        "type": "terrain-area-control",
+        "parameters": {
+          "area": "flow-of-magic"
+        }
+      },
+      "effect": {
+        "type": "sequence",
+        "steps": [
+          {
+            "type": "ability-grant",
+            "target": "bearer",
+            "modifier": {
+              "grant_type": "extend-psychic-ability-range-6"
+            }
+          },
+          {
+            "type": "ability-grant",
+            "target": "unit",
+            "modifier": {
+              "grant_type": "re-roll-hazardous-tests-psychic"
+            }
+          }
+        ]
+      }
     },
     "scope": {
       "range": "unit",
-      "duration": "permanent"
+      "duration": "battle"
     },
     "unit_ids": [],
     "ability_type": "enhancement",
     "behavior": "passive",
-    "detachment_id": "hexwarp-thrallband"
+    "detachment_id": "hexwarp-thrallband",
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "empyric-onslaught-hexwarp-thrallband",
@@ -4038,7 +4108,12 @@
     "effect": {
       "type": "stat-modifier",
       "target": "unit",
-      "modifier": {}
+      "modifier": {
+        "operation": "add",
+        "stat": "A",
+        "value": 3,
+        "attack_type": "ranged"
+      }
     },
     "scope": {
       "range": "unit",
@@ -4047,7 +4122,8 @@
     "unit_ids": [],
     "ability_type": "enhancement",
     "behavior": "passive",
-    "detachment_id": "hexwarp-thrallband"
+    "detachment_id": "hexwarp-thrallband",
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "noctilith-mantle-hexwarp-thrallband",
@@ -4059,9 +4135,23 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "sequence",
+      "steps": [
+        {
+          "type": "ability-grant",
+          "target": "unit",
+          "modifier": {
+            "grant_type": "wholly-within-flow-of-magic"
+          }
+        },
+        {
+          "type": "attack-restriction",
+          "target": "unit",
+          "modifier": {
+            "restriction": "cannot-use-rituals"
+          }
+        }
+      ]
     },
     "scope": {
       "range": "unit",
@@ -4070,7 +4160,8 @@
     "unit_ids": [],
     "ability_type": "enhancement",
     "behavior": "passive",
-    "detachment_id": "hexwarp-thrallband"
+    "detachment_id": "hexwarp-thrallband",
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "warding-hex-hexwarp-thrallband",
@@ -4082,18 +4173,30 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "conditional",
+      "condition": {
+        "type": "phase-is",
+        "parameters": {
+          "phase": "command"
+        }
+      },
+      "effect": {
+        "type": "objective-control-modifier",
+        "target": "unit",
+        "modifier": {
+          "sticky": true
+        }
+      }
     },
     "scope": {
-      "range": "unit",
-      "duration": "permanent"
+      "range": "any-on-battlefield",
+      "duration": "until-next-command-phase"
     },
     "unit_ids": [],
     "ability_type": "stratagem",
     "behavior": "activated",
-    "detachment_id": "hexwarp-thrallband"
+    "detachment_id": "hexwarp-thrallband",
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "wrath-of-the-doomed-hexwarp-thrallband",
@@ -4105,18 +4208,76 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "conditional",
+      "condition": {
+        "operator": "not",
+        "operands": [
+          {
+            "type": "has-fought-this-phase",
+            "parameters": {}
+          }
+        ]
+      },
+      "effect": {
+        "type": "sequence",
+        "steps": [
+          {
+            "type": "conditional",
+            "condition": {
+              "operator": "not",
+              "operands": [
+                {
+                  "type": "unit-has-keyword",
+                  "parameters": {
+                    "keyword": "wholly-within-flow-of-magic"
+                  }
+                }
+              ]
+            },
+            "effect": {
+              "type": "dice-gated",
+              "dice": "D6",
+              "threshold": 4,
+              "comparison": "gte",
+              "on_success": {
+                "type": "fight-on-death",
+                "target": "unit",
+                "modifier": {}
+              }
+            }
+          },
+          {
+            "type": "conditional",
+            "condition": {
+              "type": "unit-has-keyword",
+              "parameters": {
+                "keyword": "wholly-within-flow-of-magic"
+              }
+            },
+            "effect": {
+              "type": "dice-gated",
+              "dice": "D6",
+              "threshold": 3,
+              "comparison": "gte",
+              "on_success": {
+                "type": "fight-on-death",
+                "target": "unit",
+                "modifier": {}
+              }
+            }
+          }
+        ]
+      }
     },
     "scope": {
       "range": "unit",
-      "duration": "permanent"
+      "duration": "phase"
     },
     "unit_ids": [],
     "ability_type": "stratagem",
     "behavior": "reactive",
-    "detachment_id": "hexwarp-thrallband"
+    "detachment_id": "hexwarp-thrallband",
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "strands-of-time-hexwarp-thrallband",
@@ -4151,18 +4312,61 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "sequence",
+      "steps": [
+        {
+          "type": "conditional",
+          "condition": {
+            "type": "unit-has-keyword",
+            "parameters": {
+              "keyword": "RUBRIC MARINES"
+            }
+          },
+          "effect": {
+            "type": "deep-strike",
+            "target": "unit",
+            "modifier": {}
+          }
+        },
+        {
+          "type": "conditional",
+          "condition": {
+            "type": "unit-has-keyword",
+            "parameters": {
+              "keyword": "SCARAB OCCULT TERMINATORS"
+            }
+          },
+          "effect": {
+            "type": "sequence",
+            "steps": [
+              {
+                "type": "ability-grant",
+                "target": "unit",
+                "modifier": {
+                  "grant_type": "deep-strike-within-flow-of-magic"
+                }
+              },
+              {
+                "type": "attack-restriction",
+                "target": "unit",
+                "modifier": {
+                  "restriction": "cannot-declare-charge"
+                }
+              }
+            ]
+          }
+        }
+      ]
     },
     "scope": {
       "range": "unit",
-      "duration": "permanent"
+      "duration": "turn"
     },
     "unit_ids": [],
     "ability_type": "stratagem",
     "behavior": "activated",
-    "detachment_id": "hexwarp-thrallband"
+    "detachment_id": "hexwarp-thrallband",
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "scouring-warpflame-hexwarp-thrallband",
@@ -4197,18 +4401,23 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "stat-modifier",
+      "type": "keyword-grant",
       "target": "unit",
-      "modifier": {}
+      "modifier": {
+        "keywords": [
+          "stealth"
+        ]
+      }
     },
     "scope": {
       "range": "unit",
-      "duration": "permanent"
+      "duration": "phase"
     },
     "unit_ids": [],
     "ability_type": "stratagem",
     "behavior": "reactive",
-    "detachment_id": "hexwarp-thrallband"
+    "detachment_id": "hexwarp-thrallband",
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "damaged-1-6-wounds-remaining",
@@ -4220,19 +4429,33 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "conditional",
+      "condition": {
+        "type": "has-lost-wounds",
+        "parameters": {
+          "wounds_remaining_max": 6
+        }
+      },
+      "effect": {
+        "type": "roll-modifier",
+        "target": "self",
+        "modifier": {
+          "roll": "hit",
+          "operation": "subtract",
+          "value": 1
+        }
+      }
     },
     "scope": {
-      "range": "unit",
+      "range": "self",
       "duration": "permanent"
     },
     "unit_ids": [
       "defiler"
     ],
     "ability_type": "unit",
-    "behavior": "passive"
+    "behavior": "passive",
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "infernal-pacts",
@@ -4248,17 +4471,86 @@
     "faction_id": "thousand-sons",
     "detachment_id": "changehost-of-deceit",
     "ability_type": "detachment",
-    "behavior": "passive",
+    "behavior": "aura",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "sequence",
+      "steps": [
+        {
+          "type": "conditional",
+          "condition": {
+            "operator": "and",
+            "operands": [
+              {
+                "type": "unit-has-keyword",
+                "parameters": {
+                  "keyword": "SCINTILLATING LEGIONS"
+                }
+              },
+              {
+                "type": "unit-within-range-of",
+                "parameters": {
+                  "target_type": "friendly",
+                  "keyword": "THOUSAND SONS PSYKER",
+                  "range": 6,
+                  "visible": true
+                }
+              }
+            ]
+          },
+          "effect": {
+            "type": "conditional",
+            "condition": {
+              "type": "attack-is-type",
+              "parameters": {
+                "attack_type": "ranged"
+              }
+            },
+            "effect": {
+              "type": "invulnerable-save",
+              "target": "friendly-within-aura",
+              "modifier": {
+                "invuln_sv": 4
+              }
+            }
+          }
+        },
+        {
+          "type": "conditional",
+          "condition": {
+            "operator": "and",
+            "operands": [
+              {
+                "type": "unit-has-keyword",
+                "parameters": {
+                  "keyword": "THOUSAND SONS"
+                }
+              },
+              {
+                "type": "unit-within-range-of",
+                "parameters": {
+                  "target_type": "friendly",
+                  "keyword": "SCINTILLATING LEGIONS PSYKER",
+                  "range": 6,
+                  "visible": true
+                }
+              }
+            ]
+          },
+          "effect": {
+            "type": "ability-grant",
+            "target": "friendly-within-aura",
+            "modifier": {
+              "grant_type": "cabal-of-sorcerers"
+            }
+          }
+        }
+      ]
     },
     "scope": {
-      "range": "unit",
+      "range": "aura-6",
       "duration": "permanent"
     },
-    "community_notes": "[APPROX] DSL stub — detachment rule; mechanics pending authoring. Full rule in raw-text store."
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "warpfire-infusion",
@@ -4354,14 +4646,29 @@
     "ability_type": "detachment",
     "behavior": "passive",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "conditional",
+      "condition": {
+        "type": "attack-stat-compare",
+        "parameters": {
+          "attacker_stat": "D",
+          "comparison": "equal",
+          "target_stat": 1
+        }
+      },
+      "effect": {
+        "type": "roll-modifier",
+        "target": "self",
+        "modifier": {
+          "roll": "save",
+          "operation": "add",
+          "value": 1
+        }
+      }
     },
     "scope": {
-      "range": "unit",
+      "range": "self",
       "duration": "permanent"
     },
-    "community_notes": "[APPROX] DSL stub — detachment rule; mechanics pending authoring. Full rule in raw-text store."
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   }
 ]

@@ -33,16 +33,25 @@
   {
     "caseId": "a-foot-in-the-future-fateful-performance#1",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "conditional",
+      "condition": {
+        "type": "model-is-leader"
+      },
+      "effect": {
+        "type": "re-roll",
+        "target": "self",
+        "modifier": {
+          "roll": "charge",
+          "subset": "all-failures"
+        }
+      }
     },
     "scope": {
       "range": "unit",
       "duration": "permanent"
     },
     "expected": {
-      "text": "Modify the unit's characteristics."
+      "text": "While this model leads a unit, you can re-roll the Charge roll."
     }
   },
   {
@@ -467,22 +476,7 @@
     }
   },
   {
-    "caseId": "acquisition-at-any-cost#19",
-    "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
-    },
-    "scope": {
-      "range": "unit",
-      "duration": "permanent"
-    },
-    "expected": {
-      "text": "Modify the unit's characteristics."
-    }
-  },
-  {
-    "caseId": "acrobatic#20",
+    "caseId": "acrobatic#19",
     "effect": {
       "type": "ability-grant",
       "target": "unit",
@@ -496,6 +490,43 @@
     },
     "expected": {
       "text": "The unit gains the Advance & Charge ability."
+    }
+  },
+  {
+    "caseId": "acrobatic-display-exhibition-of-slaughter#20",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          {
+            "type": "player-turn-is",
+            "parameters": {
+              "turn": "opponent"
+            }
+          },
+          {
+            "type": "phase-is",
+            "parameters": {
+              "phase": "shooting"
+            }
+          }
+        ]
+      },
+      "effect": {
+        "type": "invulnerable-save",
+        "target": "self",
+        "modifier": {
+          "invuln_sv": 5
+        }
+      }
+    },
+    "scope": {
+      "range": "self",
+      "duration": "phase"
+    },
+    "expected": {
+      "text": "In either player's turn, during the Shooting phase, until the end of the phase, this model has a 5+ invulnerable save."
     }
   },
   {
@@ -559,7 +590,22 @@
     }
   },
   {
-    "caseId": "acts-of-faith#24",
+    "caseId": "acrobatic-onslaught#24",
+    "effect": {
+      "type": "stat-modifier",
+      "target": "unit",
+      "modifier": {}
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "expected": {
+      "text": "Modify the unit's characteristics."
+    }
+  },
+  {
+    "caseId": "acts-of-faith#25",
     "effect": {
       "type": "roll-modifier",
       "target": "unit",
@@ -578,7 +624,7 @@
     }
   },
   {
-    "caseId": "adamantine-behemoth-steel-hammer#25",
+    "caseId": "adamantine-behemoth-steel-hammer#26",
     "effect": {
       "type": "movement-modifier",
       "target": "unit",
@@ -601,7 +647,7 @@
     }
   },
   {
-    "caseId": "adaptable-predators#26",
+    "caseId": "adaptable-predators#27",
     "effect": {
       "type": "fallback-and-act",
       "target": "unit",
@@ -616,7 +662,22 @@
     }
   },
   {
-    "caseId": "adaptive-instincts#27",
+    "caseId": "adaptive-defence#28",
+    "effect": {
+      "type": "stat-modifier",
+      "target": "unit",
+      "modifier": {}
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "expected": {
+      "text": "Modify the unit's characteristics."
+    }
+  },
+  {
+    "caseId": "adaptive-instincts#29",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -643,7 +704,7 @@
     }
   },
   {
-    "caseId": "adaptive-strategy#28",
+    "caseId": "adaptive-strategy#30",
     "effect": {
       "type": "fallback-and-act",
       "target": "unit",
@@ -658,7 +719,33 @@
     }
   },
   {
-    "caseId": "advanced-armour#29",
+    "caseId": "adrenaline-junkies#31",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "unit-has-keyword",
+        "parameters": {
+          "keyword": "SPEED FREEKS"
+        }
+      },
+      "effect": {
+        "type": "ability-grant",
+        "target": "all-friendly",
+        "modifier": {
+          "grant_type": "shoot-and-charge-after-advance-fallback"
+        }
+      }
+    },
+    "scope": {
+      "range": "any-on-battlefield",
+      "duration": "battle"
+    },
+    "expected": {
+      "text": "If the unit has the SPEED FREEKS keyword, for the rest of the battle, all friendly units gain the Shoot and Charge After Advance Fallback ability."
+    }
+  },
+  {
+    "caseId": "advanced-armour#32",
     "effect": {
       "type": "feel-no-pain",
       "target": "unit",
@@ -675,7 +762,7 @@
     }
   },
   {
-    "caseId": "advanced-firepower#30",
+    "caseId": "advanced-firepower#33",
     "effect": {
       "type": "keyword-grant",
       "target": "unit",
@@ -694,7 +781,7 @@
     }
   },
   {
-    "caseId": "advanced-guardian-drone#31",
+    "caseId": "advanced-guardian-drone#34",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -722,7 +809,7 @@
     }
   },
   {
-    "caseId": "advanced-quantum-shielding#32",
+    "caseId": "advanced-quantum-shielding#35",
     "effect": {
       "type": "roll-modifier",
       "target": "attacker",
@@ -741,7 +828,7 @@
     }
   },
   {
-    "caseId": "advanced-scouting#33",
+    "caseId": "advanced-scouting#36",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -768,7 +855,7 @@
     }
   },
   {
-    "caseId": "aerial-seeding#34",
+    "caseId": "aerial-seeding#37",
     "effect": {
       "type": "deep-strike",
       "target": "unit",
@@ -785,7 +872,7 @@
     }
   },
   {
-    "caseId": "aerialists#35",
+    "caseId": "aerialists#38",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -811,7 +898,7 @@
     }
   },
   {
-    "caseId": "aetherstride-psychic#36",
+    "caseId": "aetherstride-psychic#39",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -868,7 +955,7 @@
     }
   },
   {
-    "caseId": "agent-of-discord-aura#37",
+    "caseId": "agent-of-discord-aura#40",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -895,7 +982,7 @@
     }
   },
   {
-    "caseId": "aggressive-advance#38",
+    "caseId": "aggressive-advance#41",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -934,7 +1021,7 @@
     }
   },
   {
-    "caseId": "aggressive-leader-beast#39",
+    "caseId": "aggressive-leader-beast#42",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -998,7 +1085,7 @@
     }
   },
   {
-    "caseId": "agile-combatant#40",
+    "caseId": "agile-combatant#43",
     "effect": {
       "type": "fallback-and-act",
       "target": "unit",
@@ -1013,7 +1100,7 @@
     }
   },
   {
-    "caseId": "air-caste-colossus#41",
+    "caseId": "air-caste-colossus#44",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -1041,7 +1128,7 @@
     }
   },
   {
-    "caseId": "airborne-agility#42",
+    "caseId": "airborne-agility#45",
     "effect": {
       "type": "movement-modifier",
       "target": "unit",
@@ -1058,7 +1145,7 @@
     }
   },
   {
-    "caseId": "airborne-predator#43",
+    "caseId": "airborne-predator#46",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -1086,7 +1173,7 @@
     }
   },
   {
-    "caseId": "akshurs-binding-runes-warpstrike-champions#44",
+    "caseId": "akshurs-binding-runes-warpstrike-champions#47",
     "effect": {
       "type": "deep-strike",
       "target": "bearer",
@@ -1113,7 +1200,7 @@
     }
   },
   {
-    "caseId": "alchemicus-familiar#45",
+    "caseId": "alchemicus-familiar#48",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -1141,7 +1228,7 @@
     }
   },
   {
-    "caseId": "alchemyk-counteragents#46",
+    "caseId": "alchemyk-counteragents#49",
     "effect": {
       "type": "feel-no-pain",
       "target": "unit",
@@ -1158,7 +1245,37 @@
     }
   },
   {
-    "caseId": "all-seeing-mutant-hordes#47",
+    "caseId": "all-is-dust#50",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "attack-stat-compare",
+        "parameters": {
+          "attacker_stat": "D",
+          "comparison": "equal",
+          "target_stat": 1
+        }
+      },
+      "effect": {
+        "type": "roll-modifier",
+        "target": "self",
+        "modifier": {
+          "roll": "save",
+          "operation": "add",
+          "value": 1
+        }
+      }
+    },
+    "scope": {
+      "range": "self",
+      "duration": "permanent"
+    },
+    "expected": {
+      "text": "If the attack's D is equal the target's 1, this model gets +1 to Saving throw rolls."
+    }
+  },
+  {
+    "caseId": "all-seeing-mutant-hordes#51",
     "effect": {
       "type": "sequence",
       "steps": [
@@ -1208,7 +1325,115 @@
     }
   },
   {
-    "caseId": "alpha-invader#48",
+    "caseId": "alliance-of-agony#52",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "timing-is",
+        "parameters": {
+          "timing": "start-of-battle"
+        }
+      },
+      "effect": {
+        "type": "sequence",
+        "steps": [
+          {
+            "type": "conditional",
+            "condition": {
+              "operator": "and",
+              "operands": [
+                {
+                  "type": "unit-has-keyword",
+                  "parameters": {
+                    "keyword": "ARCHON"
+                  }
+                },
+                {
+                  "type": "unit-has-keyword",
+                  "parameters": {
+                    "keyword": "KABALITE WARRIORS"
+                  }
+                }
+              ]
+            },
+            "effect": {
+              "type": "resource-gain",
+              "target": "all-friendly",
+              "modifier": {
+                "pool_id": "pain-token-pool",
+                "amount": 2
+              }
+            }
+          },
+          {
+            "type": "conditional",
+            "condition": {
+              "operator": "and",
+              "operands": [
+                {
+                  "type": "unit-has-keyword",
+                  "parameters": {
+                    "keyword": "SUCCUBUS"
+                  }
+                },
+                {
+                  "type": "unit-has-keyword",
+                  "parameters": {
+                    "keyword": "WYCHES"
+                  }
+                }
+              ]
+            },
+            "effect": {
+              "type": "resource-gain",
+              "target": "all-friendly",
+              "modifier": {
+                "pool_id": "pain-token-pool",
+                "amount": 2
+              }
+            }
+          },
+          {
+            "type": "conditional",
+            "condition": {
+              "operator": "and",
+              "operands": [
+                {
+                  "type": "unit-has-keyword",
+                  "parameters": {
+                    "keyword": "HAEMONCULUS"
+                  }
+                },
+                {
+                  "type": "unit-has-keyword",
+                  "parameters": {
+                    "keyword": "WRACKS"
+                  }
+                }
+              ]
+            },
+            "effect": {
+              "type": "resource-gain",
+              "target": "all-friendly",
+              "modifier": {
+                "pool_id": "pain-token-pool",
+                "amount": 2
+              }
+            }
+          }
+        ]
+      }
+    },
+    "scope": {
+      "range": "any-on-battlefield",
+      "duration": "battle"
+    },
+    "expected": {
+      "text": "At start of battle, for the rest of the battle:\n  -> If the unit has the ARCHON keyword, if the unit has the KABALITE WARRIORS keyword, you gain 2 Pain Token Pool.\n  -> If the unit has the SUCCUBUS keyword, if the unit has the WYCHES keyword, you gain 2 Pain Token Pool.\n  -> If the unit has the HAEMONCULUS keyword, if the unit has the WRACKS keyword, you gain 2 Pain Token Pool."
+    }
+  },
+  {
+    "caseId": "alpha-invader#53",
     "effect": {
       "type": "keyword-grant",
       "target": "unit",
@@ -1227,7 +1452,7 @@
     }
   },
   {
-    "caseId": "alpha-leader#49",
+    "caseId": "alpha-leader#54",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -1251,7 +1476,7 @@
     }
   },
   {
-    "caseId": "alpha-warrior#50",
+    "caseId": "alpha-warrior#55",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -1276,7 +1501,7 @@
     }
   },
   {
-    "caseId": "ancestral-overbleed-throne-bonded-outriders#51",
+    "caseId": "ancestral-overbleed-throne-bonded-outriders#56",
     "effect": {
       "type": "cp-refund",
       "target": "bearer",
@@ -1299,7 +1524,7 @@
     }
   },
   {
-    "caseId": "ancient-collector#52",
+    "caseId": "ancient-collector#57",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -1322,7 +1547,7 @@
     }
   },
   {
-    "caseId": "ancient-s-banner#53",
+    "caseId": "ancient-s-banner#58",
     "effect": {
       "type": "objective-control-modifier",
       "target": "unit",
@@ -1340,7 +1565,7 @@
     }
   },
   {
-    "caseId": "ancient-tactician#54",
+    "caseId": "ancient-tactician#59",
     "effect": {
       "type": "cp-gain",
       "target": "self",
@@ -1357,7 +1582,7 @@
     }
   },
   {
-    "caseId": "angel-s-wrath#55",
+    "caseId": "angel-s-wrath#60",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -1382,7 +1607,7 @@
     }
   },
   {
-    "caseId": "anguish-of-the-unredeemed#56",
+    "caseId": "anguish-of-the-unredeemed#61",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -1406,7 +1631,7 @@
     }
   },
   {
-    "caseId": "animalistic-rage-houndpack-lance#57",
+    "caseId": "animalistic-rage-houndpack-lance#62",
     "effect": {
       "type": "choice",
       "choice_label": "rage-attack",
@@ -1432,7 +1657,7 @@
     }
   },
   {
-    "caseId": "annihilate-the-unworthy#58",
+    "caseId": "annihilate-the-unworthy#63",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -1465,7 +1690,7 @@
     }
   },
   {
-    "caseId": "anvil-of-endurance#59",
+    "caseId": "anvil-of-endurance#64",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -1497,7 +1722,7 @@
     }
   },
   {
-    "caseId": "apex-beast#60",
+    "caseId": "apex-beast#65",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -1525,7 +1750,7 @@
     }
   },
   {
-    "caseId": "apothecary-s-narthecium#61",
+    "caseId": "apothecary-s-narthecium#66",
     "effect": {
       "type": "resurrection",
       "target": "unit",
@@ -1542,7 +1767,7 @@
     }
   },
   {
-    "caseId": "arbites-medi-kit#62",
+    "caseId": "arbites-medi-kit#67",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -1566,7 +1791,65 @@
     }
   },
   {
-    "caseId": "arcane-shield-psychic#63",
+    "caseId": "arcane-might-hexwarp-thrallband#68",
+    "effect": {
+      "type": "sequence",
+      "steps": [
+        {
+          "type": "conditional",
+          "condition": {
+            "operator": "not",
+            "operands": [
+              {
+                "type": "terrain-area-control",
+                "parameters": {
+                  "area": "flow-of-magic"
+                }
+              }
+            ]
+          },
+          "effect": {
+            "type": "stat-modifier",
+            "target": "unit",
+            "modifier": {
+              "stat": "S",
+              "operation": "add",
+              "value": 1,
+              "weapon_keyword": "Psychic"
+            }
+          }
+        },
+        {
+          "type": "conditional",
+          "condition": {
+            "type": "terrain-area-control",
+            "parameters": {
+              "area": "flow-of-magic"
+            }
+          },
+          "effect": {
+            "type": "stat-modifier",
+            "target": "unit",
+            "modifier": {
+              "stat": "S",
+              "operation": "add",
+              "value": 2,
+              "weapon_keyword": "Psychic"
+            }
+          }
+        }
+      ]
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "battle"
+    },
+    "expected": {
+      "text": "For the rest of the battle:\nUnless you control a terrain area with 1+ models, add 1 to the unit's Strength characteristic.\nIf you control a terrain area with 1+ models, add 2 to the unit's Strength characteristic."
+    }
+  },
+  {
+    "caseId": "arcane-shield-psychic#69",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -1589,7 +1872,7 @@
     }
   },
   {
-    "caseId": "arcane-venting-sekhetar-cohort#64",
+    "caseId": "arcane-venting-sekhetar-cohort#70",
     "effect": {
       "type": "objective-tag",
       "target": "unit",
@@ -1612,7 +1895,7 @@
     }
   },
   {
-    "caseId": "arch-sorcerer-of-tzeentch-psychic#65",
+    "caseId": "arch-sorcerer-of-tzeentch-psychic#71",
     "effect": {
       "type": "leadership-modifier",
       "target": "self",
@@ -1630,7 +1913,7 @@
     }
   },
   {
-    "caseId": "archon-s-will#66",
+    "caseId": "archon-s-will#72",
     "effect": {
       "type": "invulnerable-save",
       "target": "self",
@@ -1647,7 +1930,7 @@
     }
   },
   {
-    "caseId": "armour-obliteration#67",
+    "caseId": "armour-obliteration#73",
     "effect": {
       "type": "mortal-wounds",
       "target": "enemy-within-aura",
@@ -1665,7 +1948,7 @@
     }
   },
   {
-    "caseId": "armour-of-corruption-warpstrike-champions#68",
+    "caseId": "armour-of-corruption-warpstrike-champions#74",
     "effect": {
       "type": "damage-reduction",
       "target": "unit",
@@ -1688,7 +1971,7 @@
     }
   },
   {
-    "caseId": "armour-of-fate#69",
+    "caseId": "armour-of-fate#75",
     "effect": {
       "type": "resurrection",
       "target": "self",
@@ -1706,7 +1989,7 @@
     }
   },
   {
-    "caseId": "armoured-frontis#70",
+    "caseId": "armoured-frontis#76",
     "effect": {
       "type": "damage-reduction",
       "target": "unit",
@@ -1723,7 +2006,7 @@
     }
   },
   {
-    "caseId": "armoured-resilience#71",
+    "caseId": "armoured-resilience#77",
     "effect": {
       "type": "damage-reduction",
       "target": "unit",
@@ -1740,7 +2023,61 @@
     }
   },
   {
-    "caseId": "aspect-training#72",
+    "caseId": "artillery-support#78",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "operator": "not",
+        "operands": [
+          {
+            "type": "unit-within-range-of",
+            "parameters": {
+              "target_type": "friendly",
+              "range": 12
+            }
+          }
+        ]
+      },
+      "effect": {
+        "type": "dice-gated",
+        "dice": "D6",
+        "threshold": 5,
+        "comparison": "gte",
+        "on_success": {
+          "type": "sequence",
+          "steps": [
+            {
+              "type": "stat-modifier",
+              "target": "unit",
+              "modifier": {
+                "stat": "M",
+                "operation": "subtract",
+                "value": 2
+              }
+            },
+            {
+              "type": "roll-modifier",
+              "target": "unit",
+              "modifier": {
+                "roll": "charge",
+                "operation": "subtract",
+                "value": 2
+              }
+            }
+          ]
+        }
+      }
+    },
+    "scope": {
+      "range": "any-on-battlefield",
+      "duration": "battle-round"
+    },
+    "expected": {
+      "text": "Unless within 12\" of a friendly unit, until the end of the battle round:\n  -> Roll one D6: on a 5+, subtract 2 from the unit's Move characteristic; the unit gets -2 to Charge rolls."
+    }
+  },
+  {
+    "caseId": "aspect-training#79",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -1761,7 +2098,107 @@
     }
   },
   {
-    "caseId": "astartes-banner#73",
+    "caseId": "assailed-from-every-angle#80",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          {
+            "type": "phase-is",
+            "parameters": {
+              "phase": "shooting"
+            }
+          },
+          {
+            "type": "timing-is",
+            "parameters": {
+              "timing": "selected-to-shoot"
+            }
+          }
+        ]
+      },
+      "effect": {
+        "type": "sequence",
+        "steps": [
+          {
+            "type": "attack-restriction",
+            "target": "self",
+            "modifier": {
+              "restriction": "single-target-only",
+              "excluded_target_keywords": [
+                "MONSTER",
+                "VEHICLE"
+              ]
+            }
+          },
+          {
+            "type": "conditional",
+            "condition": {
+              "type": "was-hit-by-attack",
+              "parameters": {
+                "subject": "target",
+                "count_min": 1
+              }
+            },
+            "effect": {
+              "type": "sequence",
+              "steps": [
+                {
+                  "type": "conditional",
+                  "condition": {
+                    "type": "target-has-keyword",
+                    "parameters": {
+                      "keyword": "assailed"
+                    }
+                  },
+                  "effect": {
+                    "type": "sequence",
+                    "steps": [
+                      {
+                        "type": "movement-modifier",
+                        "target": "defender",
+                        "modifier": {
+                          "move_type": "standard",
+                          "value": -2
+                        }
+                      },
+                      {
+                        "type": "charge-roll-modifier",
+                        "target": "defender",
+                        "modifier": {
+                          "operation": "subtract",
+                          "value": 2
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "keyword-grant",
+                  "target": "defender",
+                  "modifier": {
+                    "keywords": [
+                      "assailed"
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "scope": {
+      "range": "any-visible",
+      "duration": "battle-round"
+    },
+    "expected": {
+      "text": "During the Shooting phase, at selected to shoot, until the end of the battle round:\n  -> This model: single target only.\n  If the target was hit by an attack this phase:\n    Against assailed targets:\n      -> Your unit has the Standard -2\" ability.\n      -> Your unit gets -2 to Charge rolls.\n    -> Your unit's weapons gain [ASSAILED]."
+    }
+  },
+  {
+    "caseId": "astartes-banner#81",
     "effect": {
       "type": "objective-control-modifier",
       "target": "unit",
@@ -1779,7 +2216,7 @@
     }
   },
   {
-    "caseId": "astartes-shield#74",
+    "caseId": "astartes-shield#82",
     "effect": {
       "type": "invulnerable-save",
       "target": "self",
@@ -1796,7 +2233,7 @@
     }
   },
   {
-    "caseId": "aura-of-fervour-aura#75",
+    "caseId": "aura-of-fervour-aura#83",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -1834,7 +2271,7 @@
     }
   },
   {
-    "caseId": "auramite-sarcophagus-might-of-the-moritoi#76",
+    "caseId": "auramite-sarcophagus-might-of-the-moritoi#84",
     "effect": {
       "type": "cp-refund",
       "target": "self",
@@ -1858,7 +2295,93 @@
     }
   },
   {
-    "caseId": "bane-of-cowards#77",
+    "caseId": "auric-armour#85",
+    "effect": {
+      "type": "sequence",
+      "steps": [
+        {
+          "type": "conditional",
+          "condition": {
+            "operator": "and",
+            "operands": [
+              {
+                "operator": "not",
+                "operands": [
+                  {
+                    "type": "unit-below-starting-strength"
+                  }
+                ]
+              },
+              {
+                "operator": "not",
+                "operands": [
+                  {
+                    "type": "unit-has-keyword",
+                    "parameters": {
+                      "keyword": "Aircraft"
+                    }
+                  }
+                ]
+              },
+              {
+                "operator": "not",
+                "operands": [
+                  {
+                    "type": "is-battle-shocked"
+                  }
+                ]
+              }
+            ]
+          },
+          "effect": {
+            "type": "objective-control-modifier",
+            "target": "self",
+            "modifier": {
+              "operation": "add",
+              "value": 2
+            }
+          }
+        },
+        {
+          "type": "conditional",
+          "condition": {
+            "type": "unit-below-starting-strength"
+          },
+          "effect": {
+            "type": "re-roll",
+            "target": "self",
+            "modifier": {
+              "roll": "hit",
+              "subset": "ones"
+            }
+          }
+        },
+        {
+          "type": "conditional",
+          "condition": {
+            "type": "unit-below-half-strength"
+          },
+          "effect": {
+            "type": "re-roll",
+            "target": "self",
+            "modifier": {
+              "roll": "wound",
+              "subset": "ones"
+            }
+          }
+        }
+      ]
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "battle"
+    },
+    "expected": {
+      "text": "For the rest of the battle:\nUnless while the unit is below its starting strength, unless the unit has the Aircraft keyword, unless while the unit is Battle-shocked, this model gets +2 to its Objective Control characteristic.\nWhile the unit is below its starting strength, you can re-roll a Hit roll of 1.\nWhile the unit is below half strength, you can re-roll a Wound roll of 1."
+    }
+  },
+  {
+    "caseId": "bane-of-cowards#86",
     "effect": {
       "type": "attack-restriction",
       "target": "enemy-within-aura",
@@ -1875,7 +2398,7 @@
     }
   },
   {
-    "caseId": "bastion-of-corruption#78",
+    "caseId": "bastion-of-corruption#87",
     "effect": {
       "type": "attack-restriction",
       "target": "enemy-within-aura",
@@ -1893,7 +2416,7 @@
     }
   },
   {
-    "caseId": "battle-lust-berzerker-warband#79",
+    "caseId": "battle-lust-berzerker-warband#88",
     "effect": {
       "type": "sequence",
       "steps": [
@@ -1934,7 +2457,7 @@
     }
   },
   {
-    "caseId": "battlefield-analysis#80",
+    "caseId": "battlefield-analysis#89",
     "effect": {
       "type": "cp-refund",
       "target": "self",
@@ -1951,7 +2474,7 @@
     }
   },
   {
-    "caseId": "battlesuit-support-system#81",
+    "caseId": "battlesuit-support-system#90",
     "effect": {
       "type": "fallback-and-act",
       "target": "unit",
@@ -1966,7 +2489,7 @@
     }
   },
   {
-    "caseId": "beacons-of-rage#82",
+    "caseId": "beacons-of-rage#91",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -2033,31 +2556,7 @@
     }
   },
   {
-    "caseId": "beguiling-grotesquerie-spectacle-of-slaughter#83",
-    "effect": {
-      "type": "attack-restriction",
-      "target": "bearer",
-      "modifier": {
-        "restriction": "cannot-be-targeted",
-        "by": "all-enemy"
-      }
-    },
-    "scope": {
-      "range": "unit",
-      "duration": "permanent"
-    },
-    "applies_to": {
-      "required_keywords": [
-        "Emperor's Children",
-        "Flawless Blades"
-      ]
-    },
-    "expected": {
-      "text": "This model: cannot be targeted.\nApplies to: units with Emperor's Children, Flawless Blades."
-    }
-  },
-  {
-    "caseId": "benefit-of-cover#84",
+    "caseId": "benefit-of-cover#92",
     "effect": {
       "type": "bs-modifier",
       "target": "attacker",
@@ -2075,7 +2574,7 @@
     }
   },
   {
-    "caseId": "berzerker-frenzy#85",
+    "caseId": "berzerker-frenzy#93",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -2111,7 +2610,7 @@
     }
   },
   {
-    "caseId": "bestial-raiders#86",
+    "caseId": "bestial-raiders#94",
     "effect": {
       "type": "sequence",
       "steps": [
@@ -2158,7 +2657,7 @@
     }
   },
   {
-    "caseId": "big-bomms#87",
+    "caseId": "big-bomms#95",
     "effect": {
       "type": "mortal-wounds",
       "target": "defender",
@@ -2175,7 +2674,7 @@
     }
   },
   {
-    "caseId": "big-booms#88",
+    "caseId": "big-booms#96",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -2201,7 +2700,7 @@
     }
   },
   {
-    "caseId": "bilious-blessing-lords-of-the-warp#89",
+    "caseId": "bilious-blessing-lords-of-the-warp#97",
     "effect": {
       "type": "mortal-wounds",
       "target": "enemy-within-aura",
@@ -2234,7 +2733,7 @@
     }
   },
   {
-    "caseId": "blackstar-cluster-launcher#90",
+    "caseId": "blackstar-cluster-launcher#98",
     "effect": {
       "type": "mortal-wounds",
       "target": "defender",
@@ -2251,7 +2750,7 @@
     }
   },
   {
-    "caseId": "blackwing-mantle#91",
+    "caseId": "blackwing-mantle#99",
     "effect": {
       "type": "cp-refund",
       "target": "self",
@@ -2268,7 +2767,7 @@
     }
   },
   {
-    "caseId": "blade-of-celerity-lords-of-dread#92",
+    "caseId": "blade-of-celerity-lords-of-dread#100",
     "effect": {
       "type": "sequence",
       "steps": [
@@ -2298,7 +2797,7 @@
     }
   },
   {
-    "caseId": "blade-of-endless-bloodshed-khorne-daemonkin#93",
+    "caseId": "blade-of-endless-bloodshed-khorne-daemonkin#101",
     "effect": {
       "type": "sequence",
       "steps": [
@@ -2352,7 +2851,7 @@
     }
   },
   {
-    "caseId": "blastajet-force-field#94",
+    "caseId": "blastajet-force-field#102",
     "effect": {
       "type": "invulnerable-save",
       "target": "self",
@@ -2369,30 +2868,7 @@
     }
   },
   {
-    "caseId": "blessed-by-the-plague-god#95",
-    "effect": {
-      "type": "conditional",
-      "condition": {
-        "type": "is-attached"
-      },
-      "effect": {
-        "type": "invulnerable-save",
-        "target": "self",
-        "modifier": {
-          "invuln_sv": 4
-        }
-      }
-    },
-    "scope": {
-      "range": "unit",
-      "duration": "permanent"
-    },
-    "expected": {
-      "text": "After being attached to a unit, this model has a 4+ invulnerable save."
-    }
-  },
-  {
-    "caseId": "blessing-of-burning-blood-khorne-daemonkin#96",
+    "caseId": "blessing-of-burning-blood-khorne-daemonkin#103",
     "effect": {
       "type": "feel-no-pain",
       "target": "unit",
@@ -2409,7 +2885,7 @@
     }
   },
   {
-    "caseId": "blessings-of-khorne#97",
+    "caseId": "blessings-of-khorne#104",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -2569,7 +3045,7 @@
     }
   },
   {
-    "caseId": "blinding-spray#98",
+    "caseId": "blinding-spray#105",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -2593,7 +3069,7 @@
     }
   },
   {
-    "caseId": "blood-forged-armour-khorne-daemonkin#99",
+    "caseId": "blood-forged-armour-khorne-daemonkin#106",
     "effect": {
       "type": "sequence",
       "steps": [
@@ -2634,7 +3110,7 @@
     }
   },
   {
-    "caseId": "blood-tithe#100",
+    "caseId": "blood-tithe#107",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -2668,7 +3144,7 @@
     }
   },
   {
-    "caseId": "bloodied-terror#101",
+    "caseId": "bloodied-terror#108",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -2695,7 +3171,7 @@
     }
   },
   {
-    "caseId": "bloodrust-deluge-contagion-engines#102",
+    "caseId": "bloodrust-deluge-contagion-engines#109",
     "effect": {
       "type": "unit-tag",
       "target": "unit",
@@ -2719,7 +3195,7 @@
     }
   },
   {
-    "caseId": "blur-of-blades#103",
+    "caseId": "blur-of-blades#110",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -2740,7 +3216,7 @@
     }
   },
   {
-    "caseId": "bodyguard#104",
+    "caseId": "bodyguard#111",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -2763,7 +3239,88 @@
     }
   },
   {
-    "caseId": "bounding-assault#105",
+    "caseId": "bold-gallantry#112",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "advanced-this-turn"
+      },
+      "effect": {
+        "type": "keyword-grant",
+        "target": "all-friendly",
+        "modifier": {
+          "keywords": [
+            "Assault"
+          ],
+          "weapon_type": "ranged"
+        }
+      }
+    },
+    "scope": {
+      "range": "any-on-battlefield",
+      "duration": "turn"
+    },
+    "expected": {
+      "text": "If the unit Advanced this turn, until the end of the turn, all friendly units' ranged weapons gain [ASSAULT]."
+    }
+  },
+  {
+    "caseId": "bonded-heroes#113",
+    "effect": {
+      "type": "sequence",
+      "steps": [
+        {
+          "type": "conditional",
+          "condition": {
+            "type": "unit-within-range-of",
+            "parameters": {
+              "target_type": "enemy",
+              "range": 12
+            }
+          },
+          "effect": {
+            "type": "stat-modifier",
+            "target": "attacker",
+            "modifier": {
+              "stat": "S",
+              "operation": "add",
+              "value": 1,
+              "attack_type": "ranged"
+            }
+          }
+        },
+        {
+          "type": "conditional",
+          "condition": {
+            "type": "unit-within-range-of",
+            "parameters": {
+              "target_type": "enemy",
+              "range": 8
+            }
+          },
+          "effect": {
+            "type": "stat-modifier",
+            "target": "attacker",
+            "modifier": {
+              "stat": "AP",
+              "operation": "add",
+              "value": 1,
+              "attack_type": "ranged"
+            }
+          }
+        }
+      ]
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "phase"
+    },
+    "expected": {
+      "text": "Until the end of the phase:\nIf within 12\" of enemy, add 1 to the attacking unit's Strength characteristic (ranged).\nIf within 8\" of enemy, add 1 to the attacking unit's Armour Penetration characteristic (ranged)."
+    }
+  },
+  {
+    "caseId": "bounding-assault#114",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -2788,7 +3345,7 @@
     }
   },
   {
-    "caseId": "broad-spectrum-data-tether#106",
+    "caseId": "broad-spectrum-data-tether#115",
     "effect": {
       "type": "cp-gain",
       "target": "self",
@@ -2805,7 +3362,7 @@
     }
   },
   {
-    "caseId": "brood-surge#107",
+    "caseId": "brood-surge#116",
     "effect": {
       "type": "shoot-on-death",
       "target": "self",
@@ -2820,7 +3377,7 @@
     }
   },
   {
-    "caseId": "brutal-example#108",
+    "caseId": "brutal-example#117",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -2843,7 +3400,30 @@
     }
   },
   {
-    "caseId": "cacophonic-accompaniment-elegant-brutes#109",
+    "caseId": "burning-lance#118",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "model-is-leader"
+      },
+      "effect": {
+        "type": "ability-grant",
+        "target": "unit",
+        "modifier": {
+          "grant_type": "melta-range-add-6"
+        }
+      }
+    },
+    "scope": {
+      "range": "attached",
+      "duration": "battle"
+    },
+    "expected": {
+      "text": "While this model leads a unit, for the rest of the battle, the unit gains the Melta Range Add 6 ability."
+    }
+  },
+  {
+    "caseId": "cacophonic-accompaniment-elegant-brutes#119",
     "effect": {
       "type": "sequence",
       "steps": [
@@ -2880,7 +3460,7 @@
     }
   },
   {
-    "caseId": "call-to-murder-lords-of-the-warp#110",
+    "caseId": "call-to-murder-lords-of-the-warp#120",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -2916,7 +3496,7 @@
     }
   },
   {
-    "caseId": "canoptek-swarm#111",
+    "caseId": "canoptek-swarm#121",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -2952,7 +3532,7 @@
     }
   },
   {
-    "caseId": "carnival-of-excess-lords-of-the-warp#112",
+    "caseId": "carnival-of-excess-lords-of-the-warp#122",
     "effect": {
       "type": "fight-first",
       "target": "unit",
@@ -2979,25 +3559,59 @@
     }
   },
   {
-    "caseId": "carrier-wave-aura#113",
+    "caseId": "channelled-force#123",
     "effect": {
-      "type": "objective-control-modifier",
-      "target": "unit",
-      "modifier": {
-        "operation": "add",
-        "value": 1
+      "type": "conditional",
+      "condition": {
+        "type": "phase-is",
+        "parameters": {
+          "phase": "fight"
+        }
+      },
+      "effect": {
+        "type": "dice-gated",
+        "dice": "2D6",
+        "threshold": 6,
+        "comparison": "lte",
+        "on_success": {
+          "type": "choice",
+          "options": [
+            {
+              "type": "keyword-grant",
+              "target": "self",
+              "modifier": {
+                "keywords": [
+                  "Sustained Hits 1"
+                ],
+                "weapon_type": "melee",
+                "weapon_keyword": "Psychic"
+              }
+            },
+            {
+              "type": "keyword-grant",
+              "target": "self",
+              "modifier": {
+                "keywords": [
+                  "Lethal Hits"
+                ],
+                "weapon_type": "melee",
+                "weapon_keyword": "Psychic"
+              }
+            }
+          ]
+        }
       }
     },
     "scope": {
-      "range": "aura-6",
-      "duration": "permanent"
+      "range": "unit",
+      "duration": "phase"
     },
     "expected": {
-      "text": "The unit gets +1 to its Objective Control characteristic."
+      "text": "During the Fight phase, until the end of the phase:\n  -> Roll one 2D6: on a 6 or less, select one of the following: this model's melee weapons gain [SUSTAINED HITS 1] / this model's melee weapons gain [LETHAL HITS]."
     }
   },
   {
-    "caseId": "channeller-stones#114",
+    "caseId": "channeller-stones#124",
     "effect": {
       "type": "damage-reduction",
       "target": "self",
@@ -3014,7 +3628,7 @@
     }
   },
   {
-    "caseId": "chaos-icon#115",
+    "caseId": "chaos-icon#125",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -3041,7 +3655,7 @@
     }
   },
   {
-    "caseId": "chaos-lord#116",
+    "caseId": "chaos-lord#126",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -3065,7 +3679,7 @@
     }
   },
   {
-    "caseId": "cherub#117",
+    "caseId": "cherub#127",
     "effect": {
       "type": "cp-gain",
       "target": "self",
@@ -3082,7 +3696,7 @@
     }
   },
   {
-    "caseId": "chittering-swarm#118",
+    "caseId": "chittering-swarm#128",
     "effect": {
       "type": "sequence",
       "steps": [
@@ -3130,7 +3744,7 @@
     }
   },
   {
-    "caseId": "choice-samples#119",
+    "caseId": "choice-samples#129",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -3153,7 +3767,7 @@
     }
   },
   {
-    "caseId": "claimed-for-the-cult#120",
+    "caseId": "claimed-for-the-cult#130",
     "effect": {
       "type": "cp-gain",
       "target": "self",
@@ -3170,31 +3784,106 @@
     }
   },
   {
-    "caseId": "command-rod#121",
+    "caseId": "cogbound-alliance#131",
+    "effect": {
+      "type": "sequence",
+      "steps": [
+        {
+          "type": "conditional",
+          "condition": {
+            "type": "unit-has-keyword",
+            "parameters": {
+              "keyword": "IMPERIAL KNIGHTS"
+            }
+          },
+          "effect": {
+            "type": "sequence",
+            "steps": [
+              {
+                "type": "bs-modifier",
+                "target": "friendly-within-aura",
+                "modifier": {
+                  "operation": "add",
+                  "value": 1
+                }
+              },
+              {
+                "type": "keyword-grant",
+                "target": "friendly-within-aura",
+                "modifier": {
+                  "keywords": [
+                    "Heavy"
+                  ],
+                  "weapon_type": "ranged"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "conditional",
+          "condition": {
+            "operator": "and",
+            "operands": [
+              {
+                "type": "unit-has-keyword",
+                "parameters": {
+                  "keyword": "TECH-PRIEST"
+                }
+              },
+              {
+                "type": "phase-is",
+                "parameters": {
+                  "phase": "command"
+                }
+              }
+            ]
+          },
+          "effect": {
+            "type": "ability-grant",
+            "target": "unit",
+            "modifier": {
+              "grant_type": "heal-d3-wounds"
+            }
+          }
+        }
+      ]
+    },
+    "scope": {
+      "range": "aura-6",
+      "duration": "permanent"
+    },
+    "expected": {
+      "text": "If the unit has the IMPERIAL KNIGHTS keyword:\n  -> Friendly units nearby get +1 to Ballistic Skill.\n  -> Friendly units nearby's ranged weapons gain [HEAVY].\nIf the unit has the TECH-PRIEST keyword, during the Command phase, the unit gains the Heal D3 Wounds ability."
+    }
+  },
+  {
+    "caseId": "command-protocols#132",
     "effect": {
       "type": "conditional",
       "condition": {
-        "type": "model-is-leader",
-        "parameters": {}
+        "type": "model-is-leader"
       },
       "effect": {
-        "type": "ability-grant",
+        "type": "roll-modifier",
         "target": "unit",
         "modifier": {
-          "grant_type": "multiple-orders"
+          "operation": "add",
+          "roll": "hit",
+          "value": 1
         }
       }
     },
     "scope": {
       "range": "unit",
-      "duration": "turn"
+      "duration": "permanent"
     },
     "expected": {
-      "text": "While this model leads a unit, until the end of the turn, the unit gains the Multiple Orders ability."
+      "text": "While this model leads a unit, the unit gets +1 to Hit rolls."
     }
   },
   {
-    "caseId": "computational-mastermind#122",
+    "caseId": "computational-mastermind#133",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -3246,7 +3935,7 @@
     }
   },
   {
-    "caseId": "condemnatory-annihilation#123",
+    "caseId": "condemnatory-annihilation#134",
     "effect": {
       "type": "leadership-modifier",
       "target": "enemy-within-aura",
@@ -3263,7 +3952,7 @@
     }
   },
   {
-    "caseId": "covert-stealth-team#124",
+    "caseId": "covert-stealth-team#135",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -3307,7 +3996,79 @@
     }
   },
   {
-    "caseId": "crewed-platform#125",
+    "caseId": "creeping-dread-aura#136",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          {
+            "type": "phase-is",
+            "parameters": {
+              "phase": "command"
+            }
+          },
+          {
+            "type": "player-turn-is",
+            "parameters": {
+              "turn": "opponent"
+            }
+          },
+          {
+            "operator": "or",
+            "operands": [
+              {
+                "type": "target-has-keyword",
+                "parameters": {
+                  "keyword": "PSYKER"
+                }
+              },
+              {
+                "type": "unit-below-starting-strength"
+              }
+            ]
+          }
+        ]
+      },
+      "effect": {
+        "type": "sequence",
+        "steps": [
+          {
+            "type": "leadership-modifier",
+            "target": "enemy-within-aura",
+            "modifier": {
+              "test": "battle-shock",
+              "operation": "force-test"
+            }
+          },
+          {
+            "type": "conditional",
+            "condition": {
+              "type": "unit-below-half-strength"
+            },
+            "effect": {
+              "type": "leadership-modifier",
+              "target": "enemy-within-aura",
+              "modifier": {
+                "test": "battle-shock",
+                "operation": "subtract",
+                "value": 1
+              }
+            }
+          }
+        ]
+      }
+    },
+    "scope": {
+      "range": "aura-12",
+      "duration": "phase"
+    },
+    "expected": {
+      "text": "During the Command phase, in either player's turn, against PSYKER targets or while the unit is below its starting strength, until the end of the phase:\n  -> Modify enemy units nearby's Leadership characteristic.\n  -> While the unit is below half strength, subtract 1 from the Battle-shock test of enemy units nearby."
+    }
+  },
+  {
+    "caseId": "crewed-platform#137",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -3336,7 +4097,7 @@
     }
   },
   {
-    "caseId": "cry-of-the-wind#126",
+    "caseId": "cry-of-the-wind#138",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -3371,7 +4132,7 @@
     }
   },
   {
-    "caseId": "cyberstimms#127",
+    "caseId": "cyberstimms#139",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -3395,7 +4156,7 @@
     }
   },
   {
-    "caseId": "daemonic-patrons#128",
+    "caseId": "daemonic-patrons#140",
     "effect": {
       "type": "sequence",
       "steps": [
@@ -3457,7 +4218,7 @@
     }
   },
   {
-    "caseId": "daemonic-strength-possessed-slaughterband#129",
+    "caseId": "daemonic-strength-possessed-slaughterband#141",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -3486,7 +4247,32 @@
     }
   },
   {
-    "caseId": "dark-angels-bodyguard#130",
+    "caseId": "damaged-1-6-wounds-remaining#142",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "has-lost-wounds"
+      },
+      "effect": {
+        "type": "roll-modifier",
+        "target": "self",
+        "modifier": {
+          "roll": "hit",
+          "operation": "subtract",
+          "value": 1
+        }
+      }
+    },
+    "scope": {
+      "range": "self",
+      "duration": "permanent"
+    },
+    "expected": {
+      "text": "While the model has lost wounds, this model gets -1 to Hit rolls."
+    }
+  },
+  {
+    "caseId": "dark-angels-bodyguard#143",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -3517,7 +4303,7 @@
     }
   },
   {
-    "caseId": "dark-pacts#131",
+    "caseId": "dark-pacts#144",
     "effect": {
       "type": "choice",
       "choice_label": "Dark Pact ability",
@@ -3551,7 +4337,47 @@
     }
   },
   {
-    "caseId": "dead-shot#132",
+    "caseId": "dauntless-defenders#145",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "territory-control",
+        "parameters": {
+          "zone": "defensive-line"
+        }
+      },
+      "effect": {
+        "type": "sequence",
+        "steps": [
+          {
+            "type": "ability-grant",
+            "target": "self",
+            "modifier": {
+              "grant_type": "ignore-hit-roll-modifiers"
+            }
+          },
+          {
+            "type": "keyword-grant",
+            "target": "self",
+            "modifier": {
+              "keywords": [
+                "Sustained Hits 1"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "scope": {
+      "range": "self",
+      "duration": "permanent"
+    },
+    "expected": {
+      "text": "If you control your territory:\n  -> This model gains the Ignore Hit Roll Modifiers ability.\n  -> This model's weapons gain [SUSTAINED HITS 1]."
+    }
+  },
+  {
+    "caseId": "dead-shot#146",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -3577,57 +4403,91 @@
     }
   },
   {
-    "caseId": "deadly-demise-1#133",
+    "caseId": "deadly-vectors#147",
     "effect": {
-      "type": "dice-gated",
-      "dice": "D6",
-      "threshold": 6,
-      "comparison": "gte",
-      "on_success": {
-        "type": "mortal-wounds",
-        "target": "enemy-within-aura",
-        "modifier": {
-          "count": "1",
-          "range": 6
-        }
+      "type": "conditional",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          {
+            "type": "phase-is",
+            "parameters": {
+              "phase": "command"
+            }
+          },
+          {
+            "type": "player-turn-is",
+            "parameters": {
+              "turn": "opponent"
+            }
+          },
+          {
+            "type": "target-has-keyword",
+            "parameters": {
+              "keyword": "AFFLICTED"
+            }
+          }
+        ]
       },
-      "on_fail": null
+      "effect": {
+        "type": "sequence",
+        "steps": [
+          {
+            "type": "conditional",
+            "condition": {
+              "type": "unit-below-half-strength"
+            },
+            "effect": {
+              "type": "dice-gated",
+              "dice": "2D6",
+              "threshold": 7,
+              "comparison": "lte",
+              "on_success": {
+                "type": "mortal-wounds",
+                "target": "unit",
+                "modifier": {
+                  "count": "D3"
+                }
+              }
+            }
+          },
+          {
+            "type": "conditional",
+            "condition": {
+              "operator": "not",
+              "operands": [
+                {
+                  "type": "unit-below-half-strength"
+                }
+              ]
+            },
+            "effect": {
+              "type": "dice-gated",
+              "dice": "2D6",
+              "threshold": 6,
+              "comparison": "lte",
+              "on_success": {
+                "type": "mortal-wounds",
+                "target": "unit",
+                "modifier": {
+                  "count": "D3"
+                }
+              }
+            }
+          }
+        ]
+      }
     },
     "scope": {
-      "range": "aura-6",
-      "duration": "one-use"
+      "range": "any-on-battlefield",
+      "duration": "phase"
     },
     "expected": {
-      "text": "Once per battle:\nRoll one D6: on a 6+, each enemy unit within 6\" suffers 1 mortal wound."
+      "text": "During the Command phase, in either player's turn, against AFFLICTED targets, until the end of the phase:\n  While the unit is below half strength:\n    -> Roll one 2D6: on a 7 or less, the unit suffers D3 mortal wounds.\n  Unless while the unit is below half strength:\n    -> Roll one 2D6: on a 6 or less, the unit suffers D3 mortal wounds."
     }
   },
   {
-    "caseId": "deadly-demise-2d6#134",
-    "effect": {
-      "type": "dice-gated",
-      "dice": "D6",
-      "threshold": 6,
-      "comparison": "gte",
-      "on_success": {
-        "type": "mortal-wounds",
-        "target": "enemy-within-aura",
-        "modifier": {
-          "count": "2D6",
-          "range": 6
-        }
-      },
-      "on_fail": null
-    },
-    "scope": {
-      "range": "aura-6",
-      "duration": "one-use"
-    },
-    "expected": {
-      "text": "Once per battle:\nRoll one D6: on a 6+, each enemy unit within 6\" suffers 2D6 mortal wounds."
-    }
-  },
-  {
-    "caseId": "death-befitting-an-officer#135",
+    "caseId": "death-befitting-an-officer#148",
     "effect": {
       "type": "dice-gated",
       "dice": "D6",
@@ -3648,7 +4508,7 @@
     }
   },
   {
-    "caseId": "death-korps-medi-pack#136",
+    "caseId": "death-korps-medi-pack#149",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -3672,7 +4532,7 @@
     }
   },
   {
-    "caseId": "deathstrike-missile#137",
+    "caseId": "deathstrike-missile#150",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -3722,7 +4582,7 @@
     }
   },
   {
-    "caseId": "devastating-assault#138",
+    "caseId": "devastating-assault#151",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -3747,7 +4607,33 @@
     }
   },
   {
-    "caseId": "direct-the-slaughter#139",
+    "caseId": "devastating-drift-rollin-deff#152",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "charged-this-turn"
+      },
+      "effect": {
+        "type": "keyword-grant",
+        "target": "self",
+        "modifier": {
+          "keywords": [
+            "cleave"
+          ],
+          "value": 1
+        }
+      }
+    },
+    "scope": {
+      "range": "self",
+      "duration": "phase"
+    },
+    "expected": {
+      "text": "If the unit charged this turn, until the end of the phase, this model's weapons gain [CLEAVE]."
+    }
+  },
+  {
+    "caseId": "direct-the-slaughter#153",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -3776,7 +4662,7 @@
     }
   },
   {
-    "caseId": "disdain-for-the-weak-traitoris-lance#140",
+    "caseId": "disdain-for-the-weak-traitoris-lance#154",
     "effect": {
       "type": "sequence",
       "steps": [
@@ -3814,33 +4700,43 @@
     }
   },
   {
-    "caseId": "dread-dominion-aura#141",
+    "caseId": "dividends-of-agony-tools-of-torment#155",
     "effect": {
       "type": "conditional",
       "condition": {
-        "type": "unit-has-keyword",
-        "parameters": {
-          "keyword": "WAR DOG"
-        }
+        "operator": "and",
+        "operands": [
+          {
+            "type": "phase-is",
+            "parameters": {
+              "phase": "fight"
+            }
+          },
+          {
+            "type": "units-destroyed",
+            "parameters": {
+              "side": "enemy",
+              "window": "this-phase",
+              "count_min": 1
+            }
+          }
+        ]
       },
       "effect": {
         "type": "sequence",
         "steps": [
           {
-            "type": "stat-modifier",
-            "target": "friendly-within-aura",
+            "type": "ability-grant",
+            "target": "enemy-within-aura",
             "modifier": {
-              "stat": "Ld",
-              "operation": "add",
-              "value": 1
+              "grant_type": "battle-shock-test"
             }
           },
           {
-            "type": "stat-modifier",
-            "target": "friendly-within-aura",
+            "type": "bs-modifier",
+            "target": "enemy-within-aura",
             "modifier": {
-              "stat": "OC",
-              "operation": "add",
+              "operation": "subtract",
               "value": 1
             }
           }
@@ -3848,15 +4744,15 @@
       }
     },
     "scope": {
-      "range": "aura-9",
-      "duration": "permanent"
+      "range": "aura-12",
+      "duration": "phase"
     },
     "expected": {
-      "text": "If the unit has the WAR DOG keyword:\n  -> Add 1 to friendly units nearby's Leadership characteristic.\n  -> Add 1 to friendly units nearby's Objective Control characteristic."
+      "text": "During the Fight phase, if 1+ enemy units destroyed this phase, until the end of the phase:\n  -> Enemy units nearby gain the Battle Shock Test ability.\n  -> Enemy units nearby get -1 to Ballistic Skill."
     }
   },
   {
-    "caseId": "dread-foe#142",
+    "caseId": "dread-foe#156",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -3879,7 +4775,7 @@
     }
   },
   {
-    "caseId": "driven-by-hatred#143",
+    "caseId": "driven-by-hatred#157",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -3916,7 +4812,7 @@
     }
   },
   {
-    "caseId": "eager-to-kill#144",
+    "caseId": "eager-to-kill#158",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -3949,7 +4845,7 @@
     }
   },
   {
-    "caseId": "earthshaker-rounds#145",
+    "caseId": "earthshaker-rounds#159",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -4013,7 +4909,7 @@
     }
   },
   {
-    "caseId": "efficient-aggression-tharanatoi-hammerblow#146",
+    "caseId": "efficient-aggression-tharanatoi-hammerblow#160",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -4044,31 +4940,92 @@
     }
   },
   {
-    "caseId": "embodied-prophecy#147",
+    "caseId": "eldritch-suppression-path-of-the-outcast#161",
     "effect": {
       "type": "conditional",
       "condition": {
-        "type": "charged-this-turn"
+        "operator": "and",
+        "operands": [
+          {
+            "type": "phase-is",
+            "parameters": {
+              "phase": "shooting"
+            }
+          },
+          {
+            "type": "was-hit-by-attack",
+            "parameters": {
+              "subject": "target",
+              "attack_type": "ranged"
+            }
+          }
+        ]
       },
       "effect": {
         "type": "sequence",
         "steps": [
           {
-            "type": "keyword-grant",
-            "target": "unit",
+            "type": "leadership-modifier",
+            "target": "defender",
             "modifier": {
-              "keywords": [
-                "Lethal Hits"
-              ]
+              "test": "battle-shock",
+              "operation": "force-test"
             }
           },
           {
-            "type": "keyword-grant",
+            "type": "conditional",
+            "condition": {
+              "type": "destroyed-by-attack-type",
+              "parameters": {
+                "attack_type": "ranged"
+              }
+            },
+            "effect": {
+              "type": "leadership-modifier",
+              "target": "defender",
+              "modifier": {
+                "test": "battle-shock",
+                "operation": "subtract",
+                "value": 1
+              }
+            }
+          }
+        ]
+      }
+    },
+    "scope": {
+      "range": "any-visible",
+      "duration": "phase"
+    },
+    "expected": {
+      "text": "During the Shooting phase, if the target was hit by a ranged attack this phase, until the end of the phase:\n  -> Modify your unit's Leadership characteristic.\n  -> When destroyed by a ranged attack, subtract 1 from the Battle-shock test of your unit."
+    }
+  },
+  {
+    "caseId": "empowered-manifestation-hexwarp-thrallband#162",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "terrain-area-control",
+        "parameters": {
+          "area": "flow-of-magic"
+        }
+      },
+      "effect": {
+        "type": "sequence",
+        "steps": [
+          {
+            "type": "ability-grant",
+            "target": "bearer",
+            "modifier": {
+              "grant_type": "extend-psychic-ability-range-6"
+            }
+          },
+          {
+            "type": "ability-grant",
             "target": "unit",
             "modifier": {
-              "keywords": [
-                "Sustained Hits 1"
-              ]
+              "grant_type": "re-roll-hazardous-tests-psychic"
             }
           }
         ]
@@ -4076,71 +5033,14 @@
     },
     "scope": {
       "range": "unit",
-      "duration": "phase"
+      "duration": "battle"
     },
     "expected": {
-      "text": "If the unit charged this turn, until the end of the phase:\n  -> The unit's weapons gain [LETHAL HITS].\n  -> The unit's weapons gain [SUSTAINED HITS 1]."
+      "text": "If you control a terrain area with 1+ models, for the rest of the battle:\n  -> This model gains the Extend Psychic Ability Range 6 ability.\n  -> The unit gains the Re Roll Hazardous Tests Psychic ability."
     }
   },
   {
-    "caseId": "empyric-ambush#148",
-    "effect": {
-      "type": "conditional",
-      "condition": {
-        "type": "model-is-leader"
-      },
-      "effect": {
-        "type": "conditional",
-        "condition": {
-          "type": "timing-is",
-          "parameters": {
-            "timing": "flickerjump-used-this-turn"
-          }
-        },
-        "effect": {
-          "type": "ability-grant",
-          "target": "unit",
-          "modifier": {
-            "grant_type": "charge-after-movement"
-          }
-        }
-      }
-    },
-    "scope": {
-      "range": "unit",
-      "duration": "turn"
-    },
-    "expected": {
-      "text": "While this model leads a unit, until the end of the turn, at flickerjump used this turn, the unit gains the Charge After Movement ability."
-    }
-  },
-  {
-    "caseId": "encephalic-diffusion-aura-psychic#149",
-    "effect": {
-      "type": "conditional",
-      "condition": {
-        "type": "unit-below-half-strength"
-      },
-      "effect": {
-        "type": "roll-modifier",
-        "target": "attacker",
-        "modifier": {
-          "roll": "hit",
-          "operation": "subtract",
-          "value": 1
-        }
-      }
-    },
-    "scope": {
-      "range": "aura-6",
-      "duration": "permanent"
-    },
-    "expected": {
-      "text": "While the unit is below half strength, the attacking unit gets -1 to Hit rolls."
-    }
-  },
-  {
-    "caseId": "enfeebling-miasma#150",
+    "caseId": "enfeebling-miasma#163",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -4208,90 +5108,7 @@
     }
   },
   {
-    "caseId": "enhanced-toxic-miasma#151",
-    "effect": {
-      "type": "conditional",
-      "condition": {
-        "type": "model-is-leader"
-      },
-      "effect": {
-        "type": "ability-grant",
-        "target": "attached-unit",
-        "modifier": {
-          "grant_type": "enhanced-foul-spores-aura-9"
-        }
-      }
-    },
-    "scope": {
-      "range": "aura-9",
-      "duration": "permanent"
-    },
-    "expected": {
-      "text": "While this model leads a unit, the unit this model leads gains the Enhanced Foul Spores Aura 9 ability."
-    }
-  },
-  {
-    "caseId": "etheric-emergence#152",
-    "effect": {
-      "type": "conditional",
-      "condition": {
-        "operator": "and",
-        "operands": [
-          {
-            "type": "phase-is",
-            "parameters": {
-              "phase": "movement"
-            }
-          },
-          {
-            "type": "unit-has-keyword",
-            "parameters": {
-              "keyword": "Deep Strike"
-            }
-          }
-        ]
-      },
-      "effect": {
-        "type": "choice",
-        "choice_label": "etheric-emergence",
-        "options": [
-          {
-            "type": "sequence",
-            "steps": [
-              {
-                "type": "deep-strike",
-                "target": "self",
-                "modifier": {
-                  "placement_restriction": "more-than-6-horizontally-from-all-enemy-units"
-                }
-              },
-              {
-                "type": "ability-grant",
-                "target": "self",
-                "modifier": {
-                  "grant_type": "charge-ineligible"
-                }
-              }
-            ]
-          },
-          {
-            "type": "deep-strike",
-            "target": "self",
-            "modifier": {}
-          }
-        ]
-      }
-    },
-    "scope": {
-      "range": "self",
-      "duration": "turn"
-    },
-    "expected": {
-      "text": "During the Movement phase, if the unit has the Deep Strike keyword, until the end of the turn:\n  Select one of the following (Etheric Emergence):\n    - This model has the Deep Strike ability; this model gains the Charge Ineligible ability.\n    - This model has the Deep Strike ability."
-    }
-  },
-  {
-    "caseId": "experimental-enhancements#153",
+    "caseId": "experimental-enhancements#164",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -4392,7 +5209,7 @@
     }
   },
   {
-    "caseId": "explosive-blight#154",
+    "caseId": "explosive-blight#165",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -4478,7 +5295,7 @@
     }
   },
   {
-    "caseId": "fade-away#155",
+    "caseId": "fade-away#166",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -4545,7 +5362,7 @@
     }
   },
   {
-    "caseId": "fail-not-the-blood-god-cult-of-blood#156",
+    "caseId": "fail-not-the-blood-god-cult-of-blood#167",
     "effect": {
       "type": "sequence",
       "steps": [
@@ -4588,7 +5405,7 @@
     }
   },
   {
-    "caseId": "fear-incarnate-aura#157",
+    "caseId": "fear-incarnate-aura#168",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -4611,30 +5428,7 @@
     }
   },
   {
-    "caseId": "fear-of-the-unseen-aura#158",
-    "effect": {
-      "type": "conditional",
-      "condition": {
-        "type": "unit-below-starting-strength"
-      },
-      "effect": {
-        "type": "leadership-modifier",
-        "target": "enemy-within-aura",
-        "modifier": {
-          "test": "battle-shock"
-        }
-      }
-    },
-    "scope": {
-      "range": "aura-6",
-      "duration": "permanent"
-    },
-    "expected": {
-      "text": "While the unit is below its starting strength, enemy units nearby must take a Battle-shock test."
-    }
-  },
-  {
-    "caseId": "final-duty#159",
+    "caseId": "final-duty#169",
     "effect": {
       "type": "shoot-on-death",
       "target": "self",
@@ -4649,7 +5443,180 @@
     }
   },
   {
-    "caseId": "flawless-construction-might-of-the-moritoi#160",
+    "caseId": "first-prince-of-chaos#170",
+    "effect": {
+      "type": "sequence",
+      "steps": [
+        {
+          "type": "conditional",
+          "condition": {
+            "type": "unit-has-keyword",
+            "parameters": {
+              "keyword": "Khorne"
+            }
+          },
+          "effect": {
+            "type": "sequence",
+            "steps": [
+              {
+                "type": "keyword-grant",
+                "target": "unit",
+                "modifier": {
+                  "keywords": [
+                    "Assault"
+                  ],
+                  "weapon_type": "ranged"
+                }
+              },
+              {
+                "type": "movement-modifier",
+                "target": "unit",
+                "modifier": {
+                  "move_type": "advance-and-charge"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "conditional",
+          "condition": {
+            "type": "unit-has-keyword",
+            "parameters": {
+              "keyword": "Tzeentch"
+            }
+          },
+          "effect": {
+            "type": "sequence",
+            "steps": [
+              {
+                "type": "keyword-grant",
+                "target": "unit",
+                "modifier": {
+                  "keywords": [
+                    "Stealth"
+                  ]
+                }
+              },
+              {
+                "type": "conditional",
+                "condition": {
+                  "type": "attack-is-type",
+                  "parameters": {
+                    "attack_type": "melee"
+                  }
+                },
+                "effect": {
+                  "type": "roll-modifier",
+                  "target": "attacker",
+                  "modifier": {
+                    "roll": "hit",
+                    "operation": "subtract",
+                    "value": 1
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "conditional",
+          "condition": {
+            "type": "unit-has-keyword",
+            "parameters": {
+              "keyword": "Nurgle"
+            }
+          },
+          "effect": {
+            "type": "conditional",
+            "condition": {
+              "type": "attack-stat-compare",
+              "parameters": {
+                "attacker_stat": "S",
+                "comparison": "greater-than",
+                "target_stat": "T"
+              }
+            },
+            "effect": {
+              "type": "roll-modifier",
+              "target": "attacker",
+              "modifier": {
+                "roll": "wound",
+                "operation": "subtract",
+                "value": 1
+              }
+            }
+          }
+        },
+        {
+          "type": "conditional",
+          "condition": {
+            "type": "unit-has-keyword",
+            "parameters": {
+              "keyword": "Slaanesh"
+            }
+          },
+          "effect": {
+            "type": "attack-restriction",
+            "target": "all-enemy",
+            "modifier": {
+              "restriction": "no-snap-shots"
+            }
+          }
+        },
+        {
+          "type": "conditional",
+          "condition": {
+            "type": "unit-has-keyword",
+            "parameters": {
+              "keyword": "Undivided"
+            }
+          },
+          "effect": {
+            "type": "sequence",
+            "steps": [
+              {
+                "type": "ability-grant",
+                "target": "unit",
+                "modifier": {
+                  "grant_type": "dark-pacts"
+                }
+              },
+              {
+                "type": "conditional",
+                "condition": {
+                  "type": "model-is-leader",
+                  "parameters": {}
+                },
+                "effect": {
+                  "type": "leadership-modifier",
+                  "target": "unit",
+                  "modifier": {
+                    "test": "leadership",
+                    "operation": "auto-pass"
+                  }
+                }
+              },
+              {
+                "type": "deep-strike",
+                "target": "unit",
+                "modifier": {}
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "scope": {
+      "range": "any-on-battlefield",
+      "duration": "battle"
+    },
+    "expected": {
+      "text": "For the rest of the battle:\nIf the unit has the Khorne keyword:\n  -> The unit's ranged weapons gain [ASSAULT].\n  -> The unit has the Advance and Charge ability.\nIf the unit has the Tzeentch keyword:\n  -> The unit's weapons gain [STEALTH].\n  -> With melee attacks, the attacking unit gets -1 to Hit rolls.\nIf the unit has the Nurgle keyword, if the attack's S is greater than the target's T, the attacking unit gets -1 to Wound rolls.\nIf the unit has the Slaanesh keyword, all enemy units: no snap shots.\nIf the unit has the Undivided keyword:\n  -> The unit gains the Dark Pacts ability.\n  -> While this model leads a unit, modify the unit's Leadership characteristic.\n  -> The unit has the Deep Strike ability."
+    }
+  },
+  {
+    "caseId": "flawless-construction-might-of-the-moritoi#171",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -4683,22 +5650,57 @@
     }
   },
   {
-    "caseId": "flush-the-quarry-helhunt-lance#161",
+    "caseId": "flush-the-quarry-helhunt-lance#172",
     "effect": {
-      "type": "engagement-passthrough",
-      "target": "unit",
-      "modifier": {}
+      "type": "conditional",
+      "condition": {
+        "type": "phase-is",
+        "parameters": {
+          "phase": "movement"
+        }
+      },
+      "effect": {
+        "type": "sequence",
+        "steps": [
+          {
+            "type": "movement-modifier",
+            "target": "friendly-within-aura",
+            "modifier": {
+              "move_type": "through-models"
+            }
+          },
+          {
+            "type": "movement-modifier",
+            "target": "friendly-within-aura",
+            "modifier": {
+              "move_type": "through-terrain"
+            }
+          },
+          {
+            "type": "engagement-passthrough",
+            "target": "friendly-within-aura",
+            "modifier": {}
+          },
+          {
+            "type": "ability-grant",
+            "target": "friendly-within-aura",
+            "modifier": {
+              "grant_type": "desperate-escape-auto-pass"
+            }
+          }
+        ]
+      }
     },
     "scope": {
-      "range": "unit",
+      "range": "aura-6",
       "duration": "phase"
     },
     "expected": {
-      "text": "Until the end of the phase, the unit can move through enemy models."
+      "text": "During the Movement phase, until the end of the phase:\n  -> Friendly units nearby have the Through Models ability.\n  -> Friendly units nearby have the Through Terrain ability.\n  -> Friendly units nearby can move through enemy models.\n  -> Friendly units nearby gain the Desperate Escape Auto Pass ability."
     }
   },
   {
-    "caseId": "for-the-chapter#162",
+    "caseId": "for-the-chapter#173",
     "effect": {
       "type": "shoot-on-death",
       "target": "self",
@@ -4713,7 +5715,7 @@
     }
   },
   {
-    "caseId": "formless-horror#163",
+    "caseId": "formless-horror#174",
     "effect": {
       "type": "sequence",
       "steps": [
@@ -4750,7 +5752,7 @@
     }
   },
   {
-    "caseId": "frantic-focus#164",
+    "caseId": "frantic-focus#175",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -4784,7 +5786,7 @@
     }
   },
   {
-    "caseId": "frenzon#165",
+    "caseId": "frenzon#176",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -4808,7 +5810,7 @@
     }
   },
   {
-    "caseId": "gateways-to-glory-vessels-of-wrath#166",
+    "caseId": "gateways-to-glory-vessels-of-wrath#177",
     "effect": {
       "type": "sequence",
       "steps": [
@@ -4838,45 +5840,37 @@
     }
   },
   {
-    "caseId": "grim-determination#167",
+    "caseId": "gnarlskin-experimentor-tools-of-torment#178",
     "effect": {
       "type": "conditional",
       "condition": {
-        "type": "unit-has-keyword",
+        "type": "attack-stat-compare",
         "parameters": {
-          "keyword": "OFFICER"
+          "attacker_stat": "S",
+          "comparison": "greater-than",
+          "target_stat": "T"
         }
       },
       "effect": {
-        "type": "sequence",
-        "steps": [
-          {
-            "type": "ability-grant",
-            "target": "unit",
-            "modifier": {
-              "grant_type": "stratagem-targetable-while-battle-shocked"
-            }
-          },
-          {
-            "type": "ability-grant",
-            "target": "unit",
-            "modifier": {
-              "grant_type": "orders-persist-during-battle-shock"
-            }
-          }
-        ]
+        "type": "roll-modifier",
+        "target": "defender",
+        "modifier": {
+          "roll": "wound",
+          "operation": "subtract",
+          "value": 1
+        }
       }
     },
     "scope": {
-      "range": "unit",
-      "duration": "battle"
+      "range": "self",
+      "duration": "phase"
     },
     "expected": {
-      "text": "If the unit has the OFFICER keyword, for the rest of the battle:\n  -> The unit gains the Stratagem Targetable While Battle Shocked ability.\n  -> The unit gains the Orders Persist During Battle Shock ability."
+      "text": "If the attack's S is greater than the target's T, until the end of the phase, your unit gets -1 to Wound rolls."
     }
   },
   {
-    "caseId": "hagiomnifex-sanctified-orators#168",
+    "caseId": "hagiomnifex-sanctified-orators#179",
     "effect": {
       "type": "choice",
       "choice_label": "hagiomnifex-sermon",
@@ -4945,7 +5939,128 @@
     }
   },
   {
-    "caseId": "harbingers-of-dread#169",
+    "caseId": "hallowed-ground#180",
+    "effect": {
+      "type": "sequence",
+      "steps": [
+        {
+          "type": "terrain-area-tag",
+          "target": "self",
+          "modifier": {}
+        },
+        {
+          "type": "conditional",
+          "condition": {
+            "type": "unit-has-keyword",
+            "parameters": {
+              "keyword": "Purifier Squad"
+            }
+          },
+          "effect": {
+            "type": "terrain-area-tag",
+            "target": "self",
+            "modifier": {}
+          }
+        },
+        {
+          "type": "conditional",
+          "condition": {
+            "operator": "and",
+            "operands": [
+              {
+                "type": "timing-is",
+                "parameters": {
+                  "timing": "start"
+                }
+              },
+              {
+                "type": "objective-majority",
+                "parameters": {
+                  "zone": "no-mans-land"
+                }
+              }
+            ]
+          },
+          "effect": {
+            "type": "terrain-area-tag",
+            "target": "self",
+            "modifier": {}
+          }
+        },
+        {
+          "type": "conditional",
+          "condition": {
+            "operator": "and",
+            "operands": [
+              {
+                "type": "timing-is",
+                "parameters": {
+                  "timing": "start"
+                }
+              },
+              {
+                "type": "objective-majority",
+                "parameters": {
+                  "zone": "opponent-deployment-zone"
+                }
+              }
+            ]
+          },
+          "effect": {
+            "type": "terrain-area-tag",
+            "target": "self",
+            "modifier": {}
+          }
+        },
+        {
+          "type": "re-roll",
+          "target": "self",
+          "modifier": {
+            "roll": "hit",
+            "subset": "ones"
+          }
+        },
+        {
+          "type": "conditional",
+          "condition": {
+            "operator": "or",
+            "operands": [
+              {
+                "type": "unit-has-keyword",
+                "parameters": {
+                  "keyword": "Purifier Squad"
+                }
+              },
+              {
+                "type": "terrain-area-control",
+                "parameters": {
+                  "area": "hallowed-ground",
+                  "relation": "wholly-within"
+                }
+              }
+            ]
+          },
+          "effect": {
+            "type": "re-roll",
+            "target": "self",
+            "modifier": {
+              "roll": "hit",
+              "subset": "all-failures"
+            }
+          }
+        }
+      ]
+    },
+    "scope": {
+      "range": "aura-6",
+      "duration": "battle"
+    },
+    "expected": {
+      "text": "For the rest of the battle:\nThe terrain area is marked as ?.\nIf the unit has the Purifier Squad keyword, the terrain area is marked as ?.\nAt the start of the turn, if you hold more objectives than the opponent, the terrain area is marked as ?.\nAt the start of the turn, if you hold more objectives than the opponent, the terrain area is marked as ?.\nYou can re-roll a Hit roll of 1.\nIf the unit has the Purifier Squad keyword or if you control a terrain area with 1+ models, you can re-roll the Hit roll."
+    }
+  },
+  {
+    "caseId": "harbingers-of-dread#181",
     "effect": {
       "type": "sequence",
       "steps": [
@@ -5033,50 +6148,99 @@
     }
   },
   {
-    "caseId": "icon-of-war-khorne-daemonkin#170",
+    "caseId": "imperious-advance-traitoris-lance#182",
     "effect": {
       "type": "conditional",
       "condition": {
-        "type": "unit-within-range-of",
+        "type": "phase-is",
         "parameters": {
-          "range": 6,
-          "target_type": "friendly",
-          "keyword": "Blood Legions"
+          "phase": "movement"
         }
       },
       "effect": {
-        "type": "ability-grant",
-        "target": "friendly-within-aura",
-        "modifier": {
-          "grant_type": "blessings-of-khorne"
-        }
+        "type": "sequence",
+        "steps": [
+          {
+            "type": "movement-modifier",
+            "target": "unit",
+            "modifier": {
+              "move_type": "through-terrain"
+            }
+          },
+          {
+            "type": "movement-modifier",
+            "target": "unit",
+            "modifier": {
+              "move_type": "through-models"
+            }
+          },
+          {
+            "type": "conditional",
+            "condition": {
+              "operator": "not",
+              "operands": [
+                {
+                  "type": "charged-this-turn",
+                  "parameters": {}
+                }
+              ]
+            },
+            "effect": {
+              "type": "engagement-passthrough",
+              "target": "unit",
+              "modifier": {}
+            }
+          },
+          {
+            "type": "ability-grant",
+            "target": "unit",
+            "modifier": {
+              "grant_type": "desperate-escape-auto-pass"
+            }
+          }
+        ]
       }
-    },
-    "scope": {
-      "range": "aura-6",
-      "duration": "permanent"
-    },
-    "expected": {
-      "text": "If within 6\" of a friendly unit, friendly units nearby gain the Blessings of Khorne ability."
-    }
-  },
-  {
-    "caseId": "imperious-advance-traitoris-lance#171",
-    "effect": {
-      "type": "engagement-passthrough",
-      "target": "unit",
-      "modifier": {}
     },
     "scope": {
       "range": "unit",
       "duration": "phase"
     },
     "expected": {
-      "text": "Until the end of the phase, the unit can move through enemy models."
+      "text": "During the Movement phase, until the end of the phase:\n  -> The unit has the Through Terrain ability.\n  -> The unit has the Through Models ability.\n  -> Unless the unit charged this turn, the unit can move through enemy models.\n  -> The unit gains the Desperate Escape Auto Pass ability."
     }
   },
   {
-    "caseId": "inevitable-death#172",
+    "caseId": "impervious-blitz-brigade#183",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "attack-stat-compare",
+        "parameters": {
+          "attacker_stat": "S",
+          "comparison": "greater-than",
+          "target_stat": "T"
+        }
+      },
+      "effect": {
+        "type": "roll-modifier",
+        "target": "self",
+        "modifier": {
+          "roll": "wound",
+          "operation": "subtract",
+          "value": 1
+        }
+      }
+    },
+    "scope": {
+      "range": "self",
+      "duration": "phase"
+    },
+    "expected": {
+      "text": "If the attack's S is greater than the target's T, until the end of the phase, this model gets -1 to Wound rolls."
+    }
+  },
+  {
+    "caseId": "inevitable-death#184",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -5140,7 +6304,7 @@
     }
   },
   {
-    "caseId": "inspirational-battle-canticles-chorus-of-condemnation#173",
+    "caseId": "inspirational-battle-canticles-chorus-of-condemnation#185",
     "effect": {
       "type": "unit-tag",
       "target": "unit",
@@ -5163,45 +6327,36 @@
     }
   },
   {
-    "caseId": "march-of-the-honoured-dead#174",
+    "caseId": "martial-leverage#186",
     "effect": {
-      "type": "sequence",
-      "steps": [
-        {
-          "type": "stat-modifier",
-          "target": "all-friendly",
-          "modifier": {
-            "stat": "M",
-            "operation": "add",
-            "value": 2
-          }
-        },
-        {
-          "type": "charge-roll-modifier",
-          "target": "all-friendly",
-          "modifier": {
-            "operation": "add",
-            "value": 1
-          }
+      "type": "conditional",
+      "condition": {
+        "type": "units-destroyed",
+        "parameters": {
+          "side": "enemy",
+          "count_min": 1,
+          "window": "any"
         }
-      ]
+      },
+      "effect": {
+        "type": "resource-gain",
+        "target": "self",
+        "modifier": {
+          "pool_id": "yp-pool",
+          "amount": 1
+        }
+      }
     },
     "scope": {
       "range": "any-on-battlefield",
       "duration": "battle"
     },
-    "applies_to": {
-      "required_keywords": [
-        "Adeptus Custodes",
-        "Walker"
-      ]
-    },
     "expected": {
-      "text": "For the rest of the battle:\nAdd 2 to all friendly units' Move characteristic.\nAll friendly units get +1 to Charge rolls.\nApplies to: units with Adeptus Custodes, Walker."
+      "text": "If 1+ enemy units destroyed any, for the rest of the battle, you gain 1 Yp Pool."
     }
   },
   {
-    "caseId": "murderous-imperative#175",
+    "caseId": "murderous-imperative#187",
     "effect": {
       "type": "sequence",
       "steps": [
@@ -5255,7 +6410,7 @@
     }
   },
   {
-    "caseId": "neurostatic-interference-aura#176",
+    "caseId": "neurostatic-interference-aura#188",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -5300,7 +6455,7 @@
     }
   },
   {
-    "caseId": "noospheric-recon#177",
+    "caseId": "noospheric-recon#189",
     "effect": {
       "type": "sequence",
       "steps": [
@@ -5355,7 +6510,7 @@
     }
   },
   {
-    "caseId": "omnicogitator-eradication-cohort#178",
+    "caseId": "omnicogitator-eradication-cohort#190",
     "effect": {
       "type": "sequence",
       "steps": [
@@ -5389,7 +6544,7 @@
     }
   },
   {
-    "caseId": "outrider-gangs#179",
+    "caseId": "outrider-gangs#191",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -5441,7 +6596,7 @@
     }
   },
   {
-    "caseId": "pact-of-destruction-devotees-of-destruction#180",
+    "caseId": "pact-of-destruction-devotees-of-destruction#192",
     "effect": {
       "type": "sequence",
       "steps": [
@@ -5488,7 +6643,7 @@
     }
   },
   {
-    "caseId": "parasitic-infection#181",
+    "caseId": "parasitic-infection#193",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -5550,7 +6705,7 @@
     }
   },
   {
-    "caseId": "parasitic-woe-reaper-contagion-engines#182",
+    "caseId": "parasitic-woe-reaper-contagion-engines#194",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -5580,7 +6735,449 @@
     }
   },
   {
-    "caseId": "rearm-reload-fire#183",
+    "caseId": "patient-hunter#195",
+    "effect": {
+      "type": "sequence",
+      "steps": [
+        {
+          "type": "conditional",
+          "condition": {
+            "operator": "or",
+            "operands": [
+              {
+                "type": "player-turn-is",
+                "parameters": {
+                  "turn": 3
+                }
+              },
+              {
+                "type": "player-turn-is",
+                "parameters": {
+                  "turn": 4
+                }
+              },
+              {
+                "type": "player-turn-is",
+                "parameters": {
+                  "turn": 5
+                }
+              }
+            ]
+          },
+          "effect": {
+            "type": "keyword-grant",
+            "target": "unit",
+            "modifier": {
+              "keywords": [
+                "Sustained Hits 1"
+              ],
+              "weapon_type": "ranged"
+            }
+          }
+        },
+        {
+          "type": "conditional",
+          "condition": {
+            "operator": "and",
+            "operands": [
+              {
+                "operator": "or",
+                "operands": [
+                  {
+                    "type": "player-turn-is",
+                    "parameters": {
+                      "turn": 3
+                    }
+                  },
+                  {
+                    "type": "player-turn-is",
+                    "parameters": {
+                      "turn": 4
+                    }
+                  },
+                  {
+                    "type": "player-turn-is",
+                    "parameters": {
+                      "turn": 5
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "unit-has-keyword",
+                "parameters": {
+                  "keyword": "GUIDED"
+                }
+              },
+              {
+                "type": "attack-is-type",
+                "parameters": {
+                  "attack_type": "ranged"
+                }
+              },
+              {
+                "type": "target-has-keyword",
+                "parameters": {
+                  "keyword": "SPOTTED"
+                }
+              }
+            ]
+          },
+          "effect": {
+            "type": "sequence",
+            "steps": [
+              {
+                "type": "bs-modifier",
+                "target": "self",
+                "modifier": {
+                  "operation": "ignore-modifiers"
+                }
+              },
+              {
+                "type": "roll-modifier",
+                "target": "self",
+                "modifier": {
+                  "roll": "hit",
+                  "operation": "ignore-modifiers"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "battle"
+    },
+    "expected": {
+      "text": "For the rest of the battle:\nIn either player's turn or in either player's turn or in either player's turn, the unit's ranged weapons gain [SUSTAINED HITS 1].\nIn either player's turn or in either player's turn or in either player's turn, if the unit has the GUIDED keyword, with ranged attacks, against SPOTTED targets:\n  -> This model gets -? to Ballistic Skill.\n  -> Ignore modifiers this model's Hit rolls."
+    }
+  },
+  {
+    "caseId": "pledges-to-the-dark-prince#196",
+    "effect": {
+      "type": "sequence",
+      "steps": [
+        {
+          "type": "conditional",
+          "condition": {
+            "operator": "and",
+            "operands": [
+              {
+                "type": "timing-is",
+                "parameters": {
+                  "timing": "start-of-battle-round"
+                }
+              },
+              {
+                "type": "unit-has-keyword",
+                "parameters": {
+                  "keyword": "WARLORD"
+                }
+              }
+            ]
+          },
+          "effect": {
+            "type": "resource-gain",
+            "target": "self",
+            "modifier": {
+              "pool_id": "pact-pledge",
+              "amount": "variable"
+            }
+          }
+        },
+        {
+          "type": "conditional",
+          "condition": {
+            "type": "timing-is",
+            "parameters": {
+              "timing": "end-of-battle-round"
+            }
+          },
+          "effect": {
+            "type": "sequence",
+            "steps": [
+              {
+                "type": "conditional",
+                "condition": {
+                  "type": "units-destroyed-comparison",
+                  "parameters": {
+                    "side": "enemy",
+                    "window": "battle-round",
+                    "comparison": "greater-or-equal"
+                  }
+                },
+                "effect": {
+                  "type": "resource-gain",
+                  "target": "self",
+                  "modifier": {
+                    "pool_id": "pact-points-pool",
+                    "amount": "variable"
+                  }
+                }
+              },
+              {
+                "type": "conditional",
+                "condition": {
+                  "operator": "not",
+                  "operands": [
+                    {
+                      "type": "units-destroyed-comparison",
+                      "parameters": {
+                        "side": "enemy",
+                        "window": "battle-round",
+                        "comparison": "greater-or-equal"
+                      }
+                    }
+                  ]
+                },
+                "effect": {
+                  "type": "mortal-wounds",
+                  "target": "bearer",
+                  "modifier": {
+                    "dice": "D3"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "battle-round"
+    },
+    "expected": {
+      "text": "Until the end of the battle round:\nAt the start of the battle round, if the unit has the WARLORD keyword, you gain variable Pact Pledge.\nAt end of battle round:\n  -> If you destroyed more ? units ? than ? units ?, you gain variable Pact Points Pool.\n  -> Unless you destroyed more ? units ? than ? units ?, this model suffers D3 mortal wounds."
+    }
+  },
+  {
+    "caseId": "power-matrix#197",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "operator": "or",
+        "operands": [
+          {
+            "type": "unit-has-keyword",
+            "parameters": {
+              "keyword": "CRYPTEK"
+            }
+          },
+          {
+            "type": "unit-has-keyword",
+            "parameters": {
+              "keyword": "CANOPTEK"
+            }
+          }
+        ]
+      },
+      "effect": {
+        "type": "sequence",
+        "steps": [
+          {
+            "type": "re-roll",
+            "target": "attacker",
+            "modifier": {
+              "roll": "hit",
+              "subset": "ones"
+            }
+          },
+          {
+            "type": "conditional",
+            "condition": {
+              "type": "terrain-area-control",
+              "parameters": {
+                "area": "power-matrix"
+              }
+            },
+            "effect": {
+              "type": "re-roll",
+              "target": "attacker",
+              "modifier": {
+                "roll": "hit",
+                "subset": "all-failures"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "scope": {
+      "range": "any-on-battlefield",
+      "duration": "battle"
+    },
+    "expected": {
+      "text": "If the unit has the CRYPTEK keyword or if the unit has the CANOPTEK keyword, for the rest of the battle:\n  -> You can re-roll a Hit roll of 1.\n  -> If you control a terrain area with 1+ models, you can re-roll the Hit roll."
+    }
+  },
+  {
+    "caseId": "psychic-disciplines#198",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "timing-is",
+        "parameters": {
+          "timing": "start-of-battle-round"
+        }
+      },
+      "effect": {
+        "type": "conditional",
+        "condition": {
+          "operator": "and",
+          "operands": [
+            {
+              "type": "unit-has-keyword",
+              "parameters": {
+                "keyword": "ADEPTUS ASTARTES"
+              }
+            },
+            {
+              "type": "unit-has-keyword",
+              "parameters": {
+                "keyword": "PSYKER"
+              }
+            }
+          ]
+        },
+        "effect": {
+          "type": "choice",
+          "choice_label": "Psychic Discipline",
+          "options": [
+            {
+              "type": "stat-modifier",
+              "target": "unit",
+              "modifier": {
+                "stat": "M",
+                "operation": "add",
+                "value": 2
+              }
+            },
+            {
+              "type": "sequence",
+              "steps": [
+                {
+                  "type": "re-roll",
+                  "target": "unit",
+                  "modifier": {
+                    "roll": "hit",
+                    "subset": "ones"
+                  }
+                },
+                {
+                  "type": "re-roll",
+                  "target": "unit",
+                  "modifier": {
+                    "roll": "wound",
+                    "subset": "ones"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "conditional",
+              "condition": {
+                "type": "opponent-unit-within-range",
+                "parameters": {
+                  "range_inches": 12
+                }
+              },
+              "effect": {
+                "type": "stat-modifier",
+                "target": "unit",
+                "modifier": {
+                  "stat": "AP",
+                  "operation": "add",
+                  "value": 1,
+                  "attack_type": "ranged"
+                }
+              }
+            },
+            {
+              "type": "conditional",
+              "condition": {
+                "type": "attack-is-type",
+                "parameters": {
+                  "attack_type": "ranged"
+                }
+              },
+              "effect": {
+                "type": "stat-modifier",
+                "target": "attacker",
+                "modifier": {
+                  "stat": "S",
+                  "operation": "subtract",
+                  "value": 1
+                }
+              }
+            },
+            {
+              "type": "ability-grant",
+              "target": "unit",
+              "modifier": {
+                "grant_type": "ignore-characteristic-and-roll-modifiers"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "scope": {
+      "range": "any-on-battlefield",
+      "duration": "battle-round"
+    },
+    "expected": {
+      "text": "At the start of the battle round, until the end of the battle round, if the unit has the ADEPTUS ASTARTES keyword, if the unit has the PSYKER keyword, select one of the following (Psychic Discipline): add 2 to the unit's Move characteristic / you can re-roll a Hit roll of 1; you can re-roll a Wound roll of 1 / while an enemy unit is within ?\", add 1 to the unit's Armour Penetration characteristic (ranged) / with ranged attacks, subtract 1 from the attacking unit's Strength characteristic / the unit gains the Ignore Characteristic and Roll Modifiers ability."
+    }
+  },
+  {
+    "caseId": "raiders-and-reavers#199",
+    "effect": {
+      "type": "sequence",
+      "steps": [
+        {
+          "type": "keyword-grant",
+          "target": "all-friendly",
+          "modifier": {
+            "keywords": [
+              "Assault"
+            ],
+            "weapon_type": "ranged"
+          }
+        },
+        {
+          "type": "conditional",
+          "condition": {
+            "type": "within-range-of-objective",
+            "parameters": {}
+          },
+          "effect": {
+            "type": "stat-modifier",
+            "target": "self",
+            "modifier": {
+              "stat": "AP",
+              "operation": "subtract",
+              "value": 1
+            }
+          }
+        }
+      ]
+    },
+    "scope": {
+      "range": "any-on-battlefield",
+      "duration": "permanent",
+      "applies_to": [
+        "HERETIC ASTARTES"
+      ]
+    },
+    "expected": {
+      "text": "All friendly units' ranged weapons gain [ASSAULT].\nIf within range of an objective, subtract 1 from this model's Armour Penetration characteristic."
+    }
+  },
+  {
+    "caseId": "rearm-reload-fire#200",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -5605,7 +7202,7 @@
     }
   },
   {
-    "caseId": "seed-the-garden-of-nurgle#184",
+    "caseId": "seed-the-garden-of-nurgle#201",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -5654,7 +7251,7 @@
     }
   },
   {
-    "caseId": "shadow-of-khorne-aura#185",
+    "caseId": "shadow-of-khorne-aura#202",
     "effect": {
       "type": "sequence",
       "steps": [
@@ -5704,7 +7301,7 @@
     }
   },
   {
-    "caseId": "shudderblink#186",
+    "caseId": "shudderblink#203",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -5758,7 +7355,37 @@
     }
   },
   {
-    "caseId": "super-heavy-walker#187",
+    "caseId": "stitchflesh-abominations#204",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "attack-stat-compare",
+        "parameters": {
+          "attacker_stat": "S",
+          "comparison": "greater-than",
+          "target_stat": "T"
+        }
+      },
+      "effect": {
+        "type": "roll-modifier",
+        "target": "defender",
+        "modifier": {
+          "roll": "wound",
+          "operation": "subtract",
+          "value": 1
+        }
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "phase"
+    },
+    "expected": {
+      "text": "If the attack's S is greater than the target's T, until the end of the phase, your unit gets -1 to Wound rolls."
+    }
+  },
+  {
+    "caseId": "super-heavy-walker#205",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -5831,7 +7458,7 @@
     }
   },
   {
-    "caseId": "swooping-descent#188",
+    "caseId": "swooping-descent#206",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -5887,7 +7514,78 @@
     }
   },
   {
-    "caseId": "the-betrayer#189",
+    "caseId": "target-sighted#207",
+    "effect": {
+      "type": "sequence",
+      "steps": [
+        {
+          "type": "conditional",
+          "condition": {
+            "type": "advanced-this-turn"
+          },
+          "effect": {
+            "type": "sequence",
+            "steps": [
+              {
+                "type": "movement-modifier",
+                "target": "unit",
+                "modifier": {
+                  "move_type": "advance",
+                  "value": 6
+                }
+              },
+              {
+                "type": "ability-grant",
+                "target": "unit",
+                "modifier": {
+                  "grant_type": "no-advance-roll"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "conditional",
+          "condition": {
+            "operator": "and",
+            "operands": [
+              {
+                "type": "phase-is",
+                "parameters": {
+                  "phase": "shooting"
+                }
+              },
+              {
+                "operator": "not",
+                "operands": [
+                  {
+                    "type": "advanced-this-turn"
+                  }
+                ]
+              }
+            ]
+          },
+          "effect": {
+            "type": "re-roll",
+            "target": "attacker",
+            "modifier": {
+              "roll": "damage",
+              "subset": "all-failures"
+            }
+          }
+        }
+      ]
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "expected": {
+      "text": "If the unit Advanced this turn:\n  -> The unit has the Advance 6\" ability.\n  -> The unit gains the No Advance Roll ability.\nDuring the Shooting phase, unless the unit Advanced this turn, you can re-roll the Damage roll."
+    }
+  },
+  {
+    "caseId": "the-betrayer#208",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -5954,7 +7652,7 @@
     }
   },
   {
-    "caseId": "the-dark-master-aura#190",
+    "caseId": "the-dark-master-aura#209",
     "effect": {
       "type": "terrain-area-tag",
       "target": "self",
@@ -5971,40 +7669,7 @@
     }
   },
   {
-    "caseId": "the-hammer-falls#191",
-    "effect": {
-      "type": "conditional",
-      "condition": {
-        "type": "advanced-this-turn",
-        "parameters": {
-          "move": "ingress"
-        }
-      },
-      "effect": {
-        "type": "re-roll",
-        "target": "all-friendly",
-        "modifier": {
-          "roll": "charge",
-          "subset": "all-failures"
-        }
-      }
-    },
-    "scope": {
-      "range": "any-on-battlefield",
-      "duration": "battle"
-    },
-    "applies_to": {
-      "required_keywords": [
-        "Adeptus Custodes",
-        "Terminator"
-      ]
-    },
-    "expected": {
-      "text": "If the unit Advanced this turn, for the rest of the battle, you can re-roll the Charge roll.\nApplies to: units with Adeptus Custodes, Terminator."
-    }
-  },
-  {
-    "caseId": "torture-device#192",
+    "caseId": "torture-device#210",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -6033,7 +7698,7 @@
     }
   },
   {
-    "caseId": "triarchal-menhirs#193",
+    "caseId": "triarchal-menhirs#211",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -6070,46 +7735,7 @@
     }
   },
   {
-    "caseId": "unholy-avalanche#194",
-    "effect": {
-      "type": "conditional",
-      "condition": {
-        "type": "advanced-this-turn",
-        "parameters": {
-          "move": "fall-back"
-        }
-      },
-      "effect": {
-        "type": "ability-grant",
-        "target": "all-friendly",
-        "modifier": {
-          "grant_type": "act-after-move",
-          "moves": [
-            "fall-back"
-          ],
-          "acts": [
-            "shoot",
-            "charge"
-          ]
-        }
-      }
-    },
-    "scope": {
-      "range": "any-on-battlefield",
-      "duration": "turn"
-    },
-    "applies_to": {
-      "required_keywords": [
-        "Legiones Daemonica",
-        "Mounted"
-      ]
-    },
-    "expected": {
-      "text": "If the unit Advanced this turn, until the end of the turn, all friendly units gain the Act After Move ability.\nApplies to: units with Legiones Daemonica, Mounted."
-    }
-  },
-  {
-    "caseId": "warp-tainted-warpstrike-champions#195",
+    "caseId": "warp-tainted-warpstrike-champions#212",
     "effect": {
       "type": "objective-tag",
       "target": "unit",
@@ -6133,7 +7759,7 @@
     }
   },
   {
-    "caseId": "grant-label-charge-after-disembark#196",
+    "caseId": "grant-label-charge-after-disembark#213",
     "effect": {
       "type": "ability-grant",
       "target": "unit",
@@ -6150,7 +7776,7 @@
     }
   },
   {
-    "caseId": "grant-label-charge-after-fallback#197",
+    "caseId": "grant-label-charge-after-fallback#214",
     "effect": {
       "type": "ability-grant",
       "target": "self",

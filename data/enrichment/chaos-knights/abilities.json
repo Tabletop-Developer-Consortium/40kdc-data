@@ -1277,7 +1277,8 @@
     "faction_id": "chaos-knights",
     "ability_type": "faction",
     "behavior": "passive",
-    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21",
+    "unit_ids": []
   },
   {
     "ability_id": "annihilate-the-unworthy",
@@ -2150,15 +2151,50 @@
     "ability_type": "stratagem",
     "behavior": "activated",
     "effect": {
-      "type": "engagement-passthrough",
-      "target": "unit",
-      "modifier": {}
+      "type": "conditional",
+      "condition": {
+        "type": "phase-is",
+        "parameters": {
+          "phase": "movement"
+        }
+      },
+      "effect": {
+        "type": "sequence",
+        "steps": [
+          {
+            "type": "movement-modifier",
+            "target": "friendly-within-aura",
+            "modifier": {
+              "move_type": "through-models"
+            }
+          },
+          {
+            "type": "movement-modifier",
+            "target": "friendly-within-aura",
+            "modifier": {
+              "move_type": "through-terrain"
+            }
+          },
+          {
+            "type": "engagement-passthrough",
+            "target": "friendly-within-aura",
+            "modifier": {}
+          },
+          {
+            "type": "ability-grant",
+            "target": "friendly-within-aura",
+            "modifier": {
+              "grant_type": "desperate-escape-auto-pass"
+            }
+          }
+        ]
+      }
     },
     "scope": {
-      "range": "unit",
+      "range": "aura-6",
       "duration": "phase"
     },
-    "community_notes": "Start of your Movement phase: up to three friendly War Dog units within 6\" of a Titanic Chaos Knights unit can move through models and terrain (and within Engagement Range, not ending there); Desperate Escape tests are auto-passed."
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "contemptuous-volleys-helhunt-lance",
@@ -3579,15 +3615,62 @@
     "ability_type": "stratagem",
     "behavior": "activated",
     "effect": {
-      "type": "engagement-passthrough",
-      "target": "unit",
-      "modifier": {}
+      "type": "conditional",
+      "condition": {
+        "type": "phase-is",
+        "parameters": {
+          "phase": "movement"
+        }
+      },
+      "effect": {
+        "type": "sequence",
+        "steps": [
+          {
+            "type": "movement-modifier",
+            "target": "unit",
+            "modifier": {
+              "move_type": "through-terrain"
+            }
+          },
+          {
+            "type": "movement-modifier",
+            "target": "unit",
+            "modifier": {
+              "move_type": "through-models"
+            }
+          },
+          {
+            "type": "conditional",
+            "condition": {
+              "operator": "not",
+              "operands": [
+                {
+                  "type": "charged-this-turn",
+                  "parameters": {}
+                }
+              ]
+            },
+            "effect": {
+              "type": "engagement-passthrough",
+              "target": "unit",
+              "modifier": {}
+            }
+          },
+          {
+            "type": "ability-grant",
+            "target": "unit",
+            "modifier": {
+              "grant_type": "desperate-escape-auto-pass"
+            }
+          }
+        ]
+      }
     },
     "scope": {
       "range": "unit",
       "duration": "phase"
     },
-    "community_notes": "1CP (Faction Pack v1.0). Movement or Charge phase, up to two WAR DOG units or one TITANIC CHAOS KNIGHTS unit: models can move through models and terrain; any Desperate Escape test is automatically passed (Super-heavy Walker does not apply while using this)."
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "disdain-for-the-weak-traitoris-lance",

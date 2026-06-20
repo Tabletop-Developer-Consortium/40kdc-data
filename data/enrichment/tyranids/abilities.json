@@ -3078,16 +3078,57 @@
     "faction_id": "tyranids",
     "detachment_id": "ambush-predators",
     "ability_type": "stratagem",
-    "behavior": "passive",
+    "behavior": "reactive",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "conditional",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          {
+            "type": "phase-is",
+            "parameters": {
+              "phase": "fight"
+            }
+          },
+          {
+            "type": "target-has-keyword",
+            "parameters": {
+              "keyword": "HIDDEN"
+            }
+          }
+        ]
+      },
+      "effect": {
+        "type": "sequence",
+        "steps": [
+          {
+            "type": "stat-modifier",
+            "target": "self",
+            "modifier": {
+              "operation": "add",
+              "stat": "S",
+              "value": 1,
+              "attack_type": "melee"
+            }
+          },
+          {
+            "type": "stat-modifier",
+            "target": "self",
+            "modifier": {
+              "operation": "add",
+              "stat": "AP",
+              "value": 1,
+              "attack_type": "melee"
+            }
+          }
+        ]
+      }
     },
     "scope": {
       "range": "unit",
-      "duration": "permanent"
-    }
+      "duration": "phase"
+    },
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "hypersensory-adaptations-ambush-predators",
@@ -3103,16 +3144,39 @@
     "faction_id": "tyranids",
     "detachment_id": "ambush-predators",
     "ability_type": "stratagem",
-    "behavior": "passive",
+    "behavior": "activated",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "conditional",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          {
+            "type": "timing-is",
+            "parameters": {
+              "timing": "start-of-phase"
+            }
+          },
+          {
+            "type": "phase-is",
+            "parameters": {
+              "phase": "shooting"
+            }
+          }
+        ]
+      },
+      "effect": {
+        "type": "ability-grant",
+        "target": "enemy-within-aura",
+        "modifier": {
+          "grant_type": "detection-range-extended-6"
+        }
+      }
     },
     "scope": {
-      "range": "unit",
-      "duration": "permanent"
-    }
+      "range": "aura-12",
+      "duration": "phase"
+    },
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "scanner-gheist-ambush-predators",
@@ -3128,16 +3192,51 @@
     "faction_id": "tyranids",
     "detachment_id": "ambush-predators",
     "ability_type": "stratagem",
-    "behavior": "passive",
+    "behavior": "reactive",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "conditional",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          {
+            "type": "timing-is",
+            "parameters": {
+              "timing": "end-of-phase"
+            }
+          },
+          {
+            "type": "phase-is",
+            "parameters": {
+              "phase": "fight"
+            }
+          },
+          {
+            "type": "player-turn-is",
+            "parameters": {
+              "turn": "opponent"
+            }
+          },
+          {
+            "type": "engagement-state",
+            "parameters": {
+              "state": "unengaged"
+            }
+          }
+        ]
+      },
+      "effect": {
+        "type": "ability-grant",
+        "target": "self",
+        "modifier": {
+          "grant_type": "withdraw-to-strategic-reserves"
+        }
+      }
     },
     "scope": {
       "range": "unit",
-      "duration": "permanent"
-    }
+      "duration": "one-use"
+    },
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "encircling-horrors-ambush-predators",
@@ -3153,16 +3252,68 @@
     "faction_id": "tyranids",
     "detachment_id": "ambush-predators",
     "ability_type": "enhancement",
-    "behavior": "passive",
+    "behavior": "reactive",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "conditional",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          {
+            "operator": "or",
+            "operands": [
+              {
+                "type": "unit-has-keyword",
+                "parameters": {
+                  "keyword": "NEUROLICTOR"
+                }
+              },
+              {
+                "type": "unit-has-keyword",
+                "parameters": {
+                  "keyword": "LICTOR"
+                }
+              },
+              {
+                "type": "unit-has-keyword",
+                "parameters": {
+                  "keyword": "VON RYAN'S LEAPERS"
+                }
+              }
+            ]
+          },
+          {
+            "type": "phase-is",
+            "parameters": {
+              "phase": "movement"
+            }
+          },
+          {
+            "type": "player-turn-is",
+            "parameters": {
+              "turn": "opponent"
+            }
+          },
+          {
+            "type": "opponent-unit-within-range",
+            "parameters": {}
+          }
+        ]
+      },
+      "effect": {
+        "type": "movement-modifier",
+        "target": "self",
+        "modifier": {
+          "move_type": "normal",
+          "value": "D3+3"
+        }
+      }
     },
     "scope": {
-      "range": "unit",
-      "duration": "permanent"
-    }
+      "range": "aura-custom",
+      "range_inches": 8,
+      "duration": "phase"
+    },
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "cryptophotaic-camouflage-ambush-predators",
@@ -3180,14 +3331,26 @@
     "ability_type": "enhancement",
     "behavior": "passive",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "conditional",
+      "condition": {
+        "type": "unit-has-keyword",
+        "parameters": {
+          "keyword": "VON RYAN'S LEAPERS"
+        }
+      },
+      "effect": {
+        "type": "attack-restriction",
+        "target": "self",
+        "modifier": {
+          "detection_modifier": -3
+        }
+      }
     },
     "scope": {
-      "range": "unit",
+      "range": "self",
       "duration": "permanent"
-    }
+    },
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "higher-imperatives",
@@ -3205,14 +3368,17 @@
     "ability_type": "detachment",
     "behavior": "passive",
     "effect": {
-      "type": "stat-modifier",
+      "type": "ability-grant",
       "target": "unit",
-      "modifier": {}
+      "modifier": {
+        "ability_id": "protean-purpose"
+      }
     },
     "scope": {
       "range": "unit",
       "duration": "permanent"
-    }
+    },
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "catalytic-biofortification-talons-of-the-norn-queen",
@@ -3228,16 +3394,40 @@
     "faction_id": "tyranids",
     "detachment_id": "talons-of-the-norn-queen",
     "ability_type": "stratagem",
-    "behavior": "passive",
+    "behavior": "reactive",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "conditional",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          {
+            "type": "unit-has-keyword",
+            "parameters": {
+              "keyword": "NORN ASSIMILATOR"
+            }
+          },
+          {
+            "type": "was-hit-by-attack",
+            "parameters": {
+              "subject": "self",
+              "attack_type": "mortal"
+            }
+          }
+        ]
+      },
+      "effect": {
+        "type": "feel-no-pain",
+        "target": "self",
+        "modifier": {
+          "threshold": 4
+        }
+      }
     },
     "scope": {
       "range": "unit",
-      "duration": "permanent"
-    }
+      "duration": "phase"
+    },
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "lesser-prey-talons-of-the-norn-queen",
@@ -3255,14 +3445,29 @@
     "ability_type": "stratagem",
     "behavior": "passive",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "conditional",
+      "condition": {
+        "type": "phase-is",
+        "parameters": {
+          "phase": "fight"
+        }
+      },
+      "effect": {
+        "type": "stat-modifier",
+        "target": "self",
+        "modifier": {
+          "operation": "add",
+          "stat": "S",
+          "value": 2,
+          "attack_type": "melee"
+        }
+      }
     },
     "scope": {
       "range": "unit",
-      "duration": "permanent"
-    }
+      "duration": "phase"
+    },
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "tanglestrike-rounds-talons-of-the-norn-queen",
@@ -3305,14 +3510,20 @@
     "ability_type": "enhancement",
     "behavior": "passive",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "keyword-grant",
+      "target": "self",
+      "modifier": {
+        "keywords": [
+          "Anti-character 2+"
+        ],
+        "weapon_type": "ranged"
+      }
     },
     "scope": {
-      "range": "unit",
+      "range": "self",
       "duration": "permanent"
-    }
+    },
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "synaptoprescience-talons-of-the-norn-queen",
@@ -3330,14 +3541,17 @@
     "ability_type": "enhancement",
     "behavior": "passive",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "invulnerable-save",
+      "target": "self",
+      "modifier": {
+        "invuln_sv": 4
+      }
     },
     "scope": {
-      "range": "unit",
+      "range": "self",
       "duration": "permanent"
-    }
+    },
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "synaptic-imperatives",
@@ -3353,17 +3567,65 @@
     "faction_id": "tyranids",
     "detachment_id": "synaptic-nexus",
     "ability_type": "detachment",
-    "behavior": "passive",
+    "behavior": "activated",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "conditional",
+      "condition": {
+        "type": "timing-is",
+        "parameters": {
+          "timing": "start-of-battle-round"
+        }
+      },
+      "effect": {
+        "type": "choice",
+        "choice_label": "Synaptic Imperative",
+        "options": [
+          {
+            "type": "invulnerable-save",
+            "target": "friendly-within-aura",
+            "modifier": {
+              "threshold": 5
+            }
+          },
+          {
+            "type": "sequence",
+            "steps": [
+              {
+                "type": "movement-modifier",
+                "target": "friendly-within-aura",
+                "modifier": {
+                  "move_type": "advance",
+                  "value": 1
+                }
+              },
+              {
+                "type": "charge-roll-modifier",
+                "target": "friendly-within-aura",
+                "modifier": {
+                  "operation": "add",
+                  "value": 1
+                }
+              }
+            ]
+          },
+          {
+            "type": "roll-modifier",
+            "target": "friendly-within-aura",
+            "modifier": {
+              "roll": "hit",
+              "operation": "add",
+              "value": 1,
+              "attack_type": "melee"
+            }
+          }
+        ]
+      }
     },
     "scope": {
-      "range": "unit",
-      "duration": "permanent"
+      "range": "aura-6",
+      "duration": "battle-round"
     },
-    "community_notes": "[APPROX] DSL stub — detachment rule; mechanics pending authoring. Full rule in raw-text store."
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "surprise-assault",
@@ -3407,15 +3669,78 @@
     "ability_type": "detachment",
     "behavior": "passive",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "sequence",
+      "steps": [
+        {
+          "type": "conditional",
+          "condition": {
+            "operator": "or",
+            "operands": [
+              {
+                "type": "unit-has-keyword",
+                "parameters": {
+                  "keyword": "TYRANID WARRIORS WITH RANGED BIO-WEAPONS"
+                }
+              },
+              {
+                "type": "unit-has-keyword",
+                "parameters": {
+                  "keyword": "TYRANID WARRIORS WITH MELEE BIO-WEAPONS"
+                }
+              }
+            ]
+          },
+          "effect": {
+            "type": "keyword-grant",
+            "target": "self",
+            "modifier": {
+              "keywords": [
+                "TYRANID WARRIORS",
+                "BATTLELINE"
+              ]
+            }
+          }
+        },
+        {
+          "type": "conditional",
+          "condition": {
+            "operator": "or",
+            "operands": [
+              {
+                "type": "unit-has-keyword",
+                "parameters": {
+                  "keyword": "TYRANID WARRIORS"
+                }
+              },
+              {
+                "type": "unit-has-keyword",
+                "parameters": {
+                  "keyword": "TYRANID PRIME WITH LASH WHIP"
+                }
+              },
+              {
+                "type": "unit-has-keyword",
+                "parameters": {
+                  "keyword": "WINGED TYRANID PRIME"
+                }
+              }
+            ]
+          },
+          "effect": {
+            "type": "invulnerable-save",
+            "target": "self",
+            "modifier": {
+              "threshold": 5
+            }
+          }
+        }
+      ]
     },
     "scope": {
-      "range": "unit",
-      "duration": "permanent"
+      "range": "any-on-battlefield",
+      "duration": "battle"
     },
-    "community_notes": "[APPROX] DSL stub — detachment rule; mechanics pending authoring. Full rule in raw-text store."
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "enraged-behemoths",
@@ -3433,15 +3758,105 @@
     "ability_type": "detachment",
     "behavior": "passive",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "sequence",
+      "steps": [
+        {
+          "type": "conditional",
+          "condition": {
+            "operator": "and",
+            "operands": [
+              {
+                "type": "unit-has-keyword",
+                "parameters": {
+                  "keyword": "MONSTER"
+                }
+              },
+              {
+                "type": "unit-below-starting-strength"
+              }
+            ]
+          },
+          "effect": {
+            "type": "roll-modifier",
+            "target": "self",
+            "modifier": {
+              "roll": "hit",
+              "operation": "add",
+              "value": 1
+            }
+          }
+        },
+        {
+          "type": "conditional",
+          "condition": {
+            "operator": "and",
+            "operands": [
+              {
+                "type": "unit-has-keyword",
+                "parameters": {
+                  "keyword": "MONSTER"
+                }
+              },
+              {
+                "type": "unit-below-half-strength"
+              }
+            ]
+          },
+          "effect": {
+            "type": "roll-modifier",
+            "target": "self",
+            "modifier": {
+              "roll": "wound",
+              "operation": "add",
+              "value": 1
+            }
+          }
+        },
+        {
+          "type": "conditional",
+          "condition": {
+            "operator": "and",
+            "operands": [
+              {
+                "type": "unit-has-keyword",
+                "parameters": {
+                  "keyword": "MONSTER"
+                }
+              },
+              {
+                "operator": "not",
+                "operands": [
+                  {
+                    "type": "unit-below-starting-strength"
+                  }
+                ]
+              },
+              {
+                "operator": "not",
+                "operands": [
+                  {
+                    "type": "is-battle-shocked"
+                  }
+                ]
+              }
+            ]
+          },
+          "effect": {
+            "type": "objective-control-modifier",
+            "target": "self",
+            "modifier": {
+              "operation": "add",
+              "value": 2
+            }
+          }
+        }
+      ]
     },
     "scope": {
-      "range": "unit",
-      "duration": "permanent"
+      "range": "any-on-battlefield",
+      "duration": "battle"
     },
-    "community_notes": "[APPROX] DSL stub — detachment rule; mechanics pending authoring. Full rule in raw-text store."
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "insurmountable-odds",
@@ -3457,17 +3872,52 @@
     "faction_id": "tyranids",
     "detachment_id": "unending-swarm",
     "ability_type": "detachment",
-    "behavior": "passive",
+    "behavior": "reactive",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "conditional",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          {
+            "type": "phase-is",
+            "parameters": {
+              "phase": "shooting"
+            }
+          },
+          {
+            "type": "player-turn-is",
+            "parameters": {
+              "turn": "opponent"
+            }
+          },
+          {
+            "type": "unit-has-keyword",
+            "parameters": {
+              "keyword": "ENDLESS MULTITUDE"
+            }
+          },
+          {
+            "type": "destroyed-by-attack-type",
+            "parameters": {
+              "attack_type": "ranged"
+            }
+          }
+        ]
+      },
+      "effect": {
+        "type": "movement-modifier",
+        "target": "self",
+        "modifier": {
+          "move_type": "surge",
+          "value": "D6"
+        }
+      }
     },
     "scope": {
       "range": "unit",
-      "duration": "permanent"
+      "duration": "phase"
     },
-    "community_notes": "[APPROX] DSL stub — detachment rule; mechanics pending authoring. Full rule in raw-text store."
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "questing-tendrils",
@@ -3485,15 +3935,45 @@
     "ability_type": "detachment",
     "behavior": "passive",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "sequence",
+      "steps": [
+        {
+          "type": "conditional",
+          "condition": {
+            "type": "unit-has-keyword",
+            "parameters": {
+              "keyword": "TYRANIDS"
+            }
+          },
+          "effect": {
+            "type": "fallback-and-act",
+            "target": "self",
+            "modifier": {}
+          }
+        },
+        {
+          "type": "conditional",
+          "condition": {
+            "type": "unit-has-keyword",
+            "parameters": {
+              "keyword": "VANGUARD INVADER"
+            }
+          },
+          "effect": {
+            "type": "ability-grant",
+            "target": "self",
+            "modifier": {
+              "grant_type": "charge-after-advance"
+            }
+          }
+        }
+      ]
     },
     "scope": {
       "range": "unit",
-      "duration": "permanent"
+      "duration": "battle"
     },
-    "community_notes": "[APPROX] DSL stub — detachment rule; mechanics pending authoring. Full rule in raw-text store."
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "vanguard-prime",
@@ -3511,15 +3991,29 @@
     "ability_type": "detachment",
     "behavior": "passive",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "sequence",
+      "steps": [
+        {
+          "type": "ability-grant",
+          "target": "self",
+          "modifier": {
+            "grant_type": "remove-hunter-organism"
+          }
+        },
+        {
+          "type": "ability-grant",
+          "target": "self",
+          "modifier": {
+            "grant_type": "warlord"
+          }
+        }
+      ]
     },
     "scope": {
-      "range": "unit",
+      "range": "self",
       "duration": "permanent"
     },
-    "community_notes": "[APPROX] DSL stub — detachment rule; mechanics pending authoring. Full rule in raw-text store."
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "hyper-adaptations",

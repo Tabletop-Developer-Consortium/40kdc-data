@@ -2728,20 +2728,65 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "sequence",
+      "steps": [
+        {
+          "type": "conditional",
+          "condition": {
+            "operator": "and",
+            "operands": [
+              {
+                "type": "unit-has-keyword",
+                "parameters": {
+                  "keyword": "ADEPTA-SORORITAS"
+                }
+              },
+              {
+                "type": "unit-has-keyword",
+                "parameters": {
+                  "keyword": "INFANTRY"
+                }
+              }
+            ]
+          },
+          "effect": {
+            "type": "ability-grant",
+            "target": "friendly-within-aura",
+            "modifier": {
+              "grant_type": "stand-on-terrain-sections"
+            }
+          }
+        },
+        {
+          "type": "conditional",
+          "condition": {
+            "type": "unit-has-keyword",
+            "parameters": {
+              "keyword": "ADEPTA-SORORITAS"
+            }
+          },
+          "effect": {
+            "type": "resource-gain",
+            "target": "friendly-within-aura",
+            "modifier": {
+              "pool_id": "acts-of-faith-pool",
+              "amount": 1
+            }
+          }
+        }
+      ]
     },
     "scope": {
-      "range": "unit",
-      "duration": "permanent"
+      "range": "aura-custom",
+      "duration": "phase",
+      "range_inches": 1
     },
     "unit_ids": [
       "battle-sanctum"
     ],
     "ability_type": "unit",
-    "behavior": "passive",
-    "community_notes": "auto-generated stub — needs manual authoring (source: 10e Datasheets_abilities; rules text omitted for IP)"
+    "behavior": "aura",
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "acts-of-faith",
@@ -2768,7 +2813,8 @@
     "faction_id": "adepta-sororitas",
     "ability_type": "faction",
     "behavior": "activated",
-    "community_notes": "Models 1 Miracle Die per activation as a guaranteed crit hit (auto-6). Sororitas generate ~8-10 Miracle Dice per game; 1 per unit-activation is a generous upper-bound that captures the mechanic's offensive value."
+    "community_notes": "Models 1 Miracle Die per activation as a guaranteed crit hit (auto-6). Sororitas generate ~8-10 Miracle Dice per game; 1 per unit-activation is a generous upper-bound that captures the mechanic's offensive value.",
+    "unit_ids": []
   },
   {
     "ability_id": "angelic-judgement",
@@ -3379,17 +3425,28 @@
     "faction_id": "adepta-sororitas",
     "detachment_id": "penitent-host",
     "ability_type": "detachment",
-    "behavior": "passive",
+    "behavior": "activated",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "conditional",
+      "condition": {
+        "type": "timing-is",
+        "parameters": {
+          "timing": "start-of-battle-round"
+        }
+      },
+      "effect": {
+        "type": "ability-grant",
+        "target": "all-friendly",
+        "modifier": {
+          "grant_type": "vow-of-atonement-selection"
+        }
+      }
     },
     "scope": {
-      "range": "unit",
-      "duration": "permanent"
+      "range": "any-on-battlefield",
+      "duration": "battle-round"
     },
-    "community_notes": "[APPROX] DSL stub — detachment rule; mechanics pending authoring. Full rule in raw-text store."
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "the-blood-of-martyrs",
@@ -3407,15 +3464,47 @@
     "ability_type": "detachment",
     "behavior": "passive",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "sequence",
+      "steps": [
+        {
+          "type": "conditional",
+          "condition": {
+            "type": "unit-below-starting-strength",
+            "parameters": {}
+          },
+          "effect": {
+            "type": "roll-modifier",
+            "target": "self",
+            "modifier": {
+              "roll": "hit",
+              "operation": "add",
+              "value": 1
+            }
+          }
+        },
+        {
+          "type": "conditional",
+          "condition": {
+            "type": "unit-below-half-strength",
+            "parameters": {}
+          },
+          "effect": {
+            "type": "roll-modifier",
+            "target": "self",
+            "modifier": {
+              "roll": "wound",
+              "operation": "add",
+              "value": 1
+            }
+          }
+        }
+      ]
     },
     "scope": {
-      "range": "unit",
-      "duration": "permanent"
+      "range": "any-on-battlefield",
+      "duration": "phase"
     },
-    "community_notes": "[APPROX] DSL stub — detachment rule; mechanics pending authoring. Full rule in raw-text store."
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "fervent-purgation",
@@ -3485,14 +3574,17 @@
     "ability_type": "detachment",
     "behavior": "passive",
     "effect": {
-      "type": "stat-modifier",
+      "type": "resource-gain",
       "target": "unit",
-      "modifier": {}
+      "modifier": {
+        "pool_id": "acts-of-faith-pool",
+        "amount": 1
+      }
     },
     "scope": {
       "range": "unit",
       "duration": "permanent"
     },
-    "community_notes": "[APPROX] DSL stub — detachment rule; mechanics pending authoring. Full rule in raw-text store."
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   }
 ]

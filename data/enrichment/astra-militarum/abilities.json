@@ -6672,15 +6672,114 @@
     "ability_type": "detachment",
     "behavior": "passive",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "sequence",
+      "steps": [
+        {
+          "type": "conditional",
+          "condition": {
+            "operator": "and",
+            "operands": [
+              {
+                "type": "unit-has-keyword",
+                "parameters": {
+                  "keyword": "REGIMENT"
+                }
+              },
+              {
+                "type": "attack-is-type",
+                "parameters": {
+                  "attack_type": "ranged"
+                }
+              },
+              {
+                "operator": "not",
+                "operands": [
+                  {
+                    "operator": "or",
+                    "operands": [
+                      {
+                        "type": "target-has-keyword",
+                        "parameters": {
+                          "keyword": "MONSTER"
+                        }
+                      },
+                      {
+                        "type": "target-has-keyword",
+                        "parameters": {
+                          "keyword": "VEHICLE"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "effect": {
+            "type": "keyword-grant",
+            "target": "unit",
+            "modifier": {
+              "keywords": [
+                "Lethal Hits"
+              ],
+              "weapon_type": "ranged"
+            }
+          }
+        },
+        {
+          "type": "conditional",
+          "condition": {
+            "operator": "and",
+            "operands": [
+              {
+                "type": "unit-has-keyword",
+                "parameters": {
+                  "keyword": "SQUADRON"
+                }
+              },
+              {
+                "type": "attack-is-type",
+                "parameters": {
+                  "attack_type": "ranged"
+                }
+              },
+              {
+                "operator": "or",
+                "operands": [
+                  {
+                    "type": "target-has-keyword",
+                    "parameters": {
+                      "keyword": "MONSTER"
+                    }
+                  },
+                  {
+                    "type": "target-has-keyword",
+                    "parameters": {
+                      "keyword": "VEHICLE"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "effect": {
+            "type": "keyword-grant",
+            "target": "unit",
+            "modifier": {
+              "keywords": [
+                "Lethal Hits"
+              ],
+              "weapon_type": "ranged"
+            }
+          }
+        }
+      ]
     },
     "scope": {
       "range": "unit",
-      "duration": "permanent"
+      "duration": "battle"
     },
-    "community_notes": "[APPROX] DSL stub — detachment rule; mechanics pending authoring. Full rule in raw-text store."
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "ruthless-discipline",
@@ -6698,15 +6797,39 @@
     "ability_type": "detachment",
     "behavior": "passive",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "sequence",
+      "steps": [
+        {
+          "type": "ability-grant",
+          "target": "unit",
+          "modifier": {
+            "grant_type": "extra-order"
+          }
+        },
+        {
+          "type": "conditional",
+          "condition": {
+            "type": "unit-has-keyword",
+            "parameters": {
+              "keyword": "affected-by-order"
+            }
+          },
+          "effect": {
+            "type": "re-roll",
+            "target": "unit",
+            "modifier": {
+              "roll": "hit",
+              "subset": "ones"
+            }
+          }
+        }
+      ]
     },
     "scope": {
       "range": "unit",
-      "duration": "permanent"
+      "duration": "battle"
     },
-    "community_notes": "[APPROX] DSL stub — detachment rule; mechanics pending authoring. Full rule in raw-text store."
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "armoured-fist",
@@ -6748,16 +6871,55 @@
     "faction_id": "astra-militarum",
     "detachment_id": "siege-regiment",
     "ability_type": "detachment",
-    "behavior": "passive",
+    "behavior": "activated",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "conditional",
+      "condition": {
+        "operator": "not",
+        "operands": [
+          {
+            "type": "unit-within-range-of",
+            "parameters": {
+              "target_type": "friendly",
+              "range": 12
+            }
+          }
+        ]
+      },
+      "effect": {
+        "type": "dice-gated",
+        "dice": "D6",
+        "threshold": 5,
+        "comparison": "gte",
+        "on_success": {
+          "type": "sequence",
+          "steps": [
+            {
+              "type": "stat-modifier",
+              "target": "unit",
+              "modifier": {
+                "stat": "M",
+                "operation": "subtract",
+                "value": 2
+              }
+            },
+            {
+              "type": "roll-modifier",
+              "target": "unit",
+              "modifier": {
+                "roll": "charge",
+                "operation": "subtract",
+                "value": 2
+              }
+            }
+          ]
+        }
+      }
     },
     "scope": {
-      "range": "unit",
-      "duration": "permanent"
+      "range": "any-on-battlefield",
+      "duration": "battle-round"
     },
-    "community_notes": "[APPROX] DSL stub — detachment rule; mechanics pending authoring. Full rule in raw-text store."
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   }
 ]

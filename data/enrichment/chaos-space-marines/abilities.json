@@ -1445,20 +1445,37 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "conditional",
+      "condition": {
+        "operator": "not",
+        "operands": [
+          {
+            "type": "target-has-keyword",
+            "parameters": {
+              "keyword": "VEHICLE"
+            }
+          }
+        ]
+      },
+      "effect": {
+        "type": "objective-control-modifier",
+        "target": "enemy-within-aura",
+        "modifier": {
+          "operation": "add",
+          "value": -1
+        }
+      }
     },
     "scope": {
-      "range": "unit",
+      "range": "aura-custom",
       "duration": "permanent"
     },
     "unit_ids": [
       "chaos-spawn"
     ],
     "ability_type": "unit",
-    "behavior": "passive",
-    "community_notes": "auto-generated stub — needs manual authoring (source: 10e Datasheets_abilities; rules text omitted for IP)"
+    "behavior": "aura",
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "deadly-demise-1",
@@ -7767,15 +7784,44 @@
     "ability_type": "detachment",
     "behavior": "passive",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "sequence",
+      "steps": [
+        {
+          "type": "keyword-grant",
+          "target": "all-friendly",
+          "modifier": {
+            "keywords": [
+              "Assault"
+            ],
+            "weapon_type": "ranged"
+          }
+        },
+        {
+          "type": "conditional",
+          "condition": {
+            "type": "within-range-of-objective",
+            "parameters": {}
+          },
+          "effect": {
+            "type": "stat-modifier",
+            "target": "self",
+            "modifier": {
+              "stat": "AP",
+              "operation": "subtract",
+              "value": 1
+            }
+          }
+        }
+      ]
     },
     "scope": {
-      "range": "unit",
-      "duration": "permanent"
+      "range": "any-on-battlefield",
+      "duration": "permanent",
+      "applies_to": [
+        "HERETIC ASTARTES"
+      ]
     },
-    "community_notes": "[APPROX] DSL stub — detachment rule; mechanics pending authoring. Full rule in raw-text store."
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "iron-fortitude",
@@ -7791,17 +7837,49 @@
     "faction_id": "chaos-space-marines",
     "detachment_id": "fellhammer-siege-host",
     "ability_type": "detachment",
-    "behavior": "passive",
+    "behavior": "reactive",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "conditional",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          {
+            "operator": "not",
+            "operands": [
+              {
+                "type": "unit-has-keyword",
+                "parameters": {
+                  "keyword": "DAMNED"
+                }
+              }
+            ]
+          },
+          {
+            "type": "attack-stat-compare",
+            "parameters": {
+              "attacker_stat": "S",
+              "comparison": "greater-than",
+              "target_stat": "T"
+            }
+          }
+        ]
+      },
+      "effect": {
+        "type": "roll-modifier",
+        "target": "self",
+        "modifier": {
+          "roll": "wound",
+          "operation": "subtract",
+          "value": 1,
+          "attack_type": "ranged"
+        }
+      }
     },
     "scope": {
-      "range": "unit",
+      "range": "self",
       "duration": "permanent"
     },
-    "community_notes": "[APPROX] DSL stub — detachment rule; mechanics pending authoring. Full rule in raw-text store."
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "masters-of-misdirection",
@@ -7817,17 +7895,74 @@
     "faction_id": "chaos-space-marines",
     "detachment_id": "deceptors",
     "ability_type": "detachment",
-    "behavior": "passive",
+    "behavior": "activated",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "sequence",
+      "steps": [
+        {
+          "type": "conditional",
+          "condition": {
+            "operator": "or",
+            "operands": [
+              {
+                "type": "unit-has-keyword",
+                "parameters": {
+                  "keyword": "LEGIONARIES"
+                }
+              },
+              {
+                "type": "unit-has-keyword",
+                "parameters": {
+                  "keyword": "CULTIST MOB"
+                }
+              }
+            ]
+          },
+          "effect": {
+            "type": "ability-grant",
+            "target": "unit",
+            "modifier": {
+              "grant_type": "infiltrators"
+            }
+          }
+        },
+        {
+          "type": "conditional",
+          "condition": {
+            "operator": "and",
+            "operands": [
+              {
+                "type": "is-attached",
+                "parameters": {}
+              },
+              {
+                "operator": "not",
+                "operands": [
+                  {
+                    "type": "unit-has-keyword",
+                    "parameters": {
+                      "keyword": "EPIC HEROES"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "effect": {
+            "type": "ability-grant",
+            "target": "unit",
+            "modifier": {
+              "grant_type": "infiltrators"
+            }
+          }
+        }
+      ]
     },
     "scope": {
-      "range": "unit",
-      "duration": "permanent"
+      "range": "any-on-battlefield",
+      "duration": "battle"
     },
-    "community_notes": "[APPROX] DSL stub — detachment rule; mechanics pending authoring. Full rule in raw-text store."
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "debt-to-the-soul-forge",
@@ -7999,17 +8134,176 @@
     "faction_id": "chaos-space-marines",
     "detachment_id": "pactbound-zealots",
     "ability_type": "detachment",
-    "behavior": "passive",
+    "behavior": "reactive",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "sequence",
+      "steps": [
+        {
+          "type": "conditional",
+          "condition": {
+            "operator": "and",
+            "operands": [
+              {
+                "type": "unit-has-keyword",
+                "parameters": {
+                  "keyword": "KHORNE"
+                }
+              },
+              {
+                "type": "unit-has-keyword",
+                "parameters": {
+                  "keyword": "LETHAL HITS"
+                }
+              }
+            ]
+          },
+          "effect": {
+            "type": "keyword-grant",
+            "target": "unit",
+            "modifier": {
+              "keywords": [
+                "Critical Hits 5+"
+              ],
+              "weapon_type": "melee"
+            }
+          }
+        },
+        {
+          "type": "conditional",
+          "condition": {
+            "operator": "and",
+            "operands": [
+              {
+                "type": "unit-has-keyword",
+                "parameters": {
+                  "keyword": "TZEENTCH"
+                }
+              },
+              {
+                "type": "unit-has-keyword",
+                "parameters": {
+                  "keyword": "LETHAL HITS"
+                }
+              }
+            ]
+          },
+          "effect": {
+            "type": "keyword-grant",
+            "target": "unit",
+            "modifier": {
+              "keywords": [
+                "Critical Hits 5+"
+              ],
+              "weapon_type": "ranged"
+            }
+          }
+        },
+        {
+          "type": "conditional",
+          "condition": {
+            "operator": "and",
+            "operands": [
+              {
+                "type": "unit-has-keyword",
+                "parameters": {
+                  "keyword": "NURGLE"
+                }
+              },
+              {
+                "type": "unit-has-keyword",
+                "parameters": {
+                  "keyword": "SUSTAINED HITS 1"
+                }
+              }
+            ]
+          },
+          "effect": {
+            "type": "keyword-grant",
+            "target": "unit",
+            "modifier": {
+              "keywords": [
+                "Critical Hits 5+"
+              ],
+              "weapon_type": "ranged"
+            }
+          }
+        },
+        {
+          "type": "conditional",
+          "condition": {
+            "operator": "and",
+            "operands": [
+              {
+                "type": "unit-has-keyword",
+                "parameters": {
+                  "keyword": "SLAANESH"
+                }
+              },
+              {
+                "type": "unit-has-keyword",
+                "parameters": {
+                  "keyword": "SUSTAINED HITS 1"
+                }
+              }
+            ]
+          },
+          "effect": {
+            "type": "keyword-grant",
+            "target": "unit",
+            "modifier": {
+              "keywords": [
+                "Critical Hits 5+"
+              ],
+              "weapon_type": "melee"
+            }
+          }
+        },
+        {
+          "type": "conditional",
+          "condition": {
+            "operator": "and",
+            "operands": [
+              {
+                "type": "unit-has-keyword",
+                "parameters": {
+                  "keyword": "CHAOS UNDIVIDED"
+                }
+              },
+              {
+                "operator": "or",
+                "operands": [
+                  {
+                    "type": "unit-has-keyword",
+                    "parameters": {
+                      "keyword": "LETHAL HITS"
+                    }
+                  },
+                  {
+                    "type": "unit-has-keyword",
+                    "parameters": {
+                      "keyword": "SUSTAINED HITS 1"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "effect": {
+            "type": "re-roll",
+            "target": "unit",
+            "modifier": {
+              "roll": "hit",
+              "subset": "ones"
+            }
+          }
+        }
+      ]
     },
     "scope": {
       "range": "unit",
-      "duration": "permanent"
+      "duration": "phase"
     },
-    "community_notes": "[APPROX] DSL stub — detachment rule; mechanics pending authoring. Full rule in raw-text store."
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "experimental-augmentations",

@@ -2779,20 +2779,28 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "conditional",
+      "condition": {
+        "type": "model-is-leader"
+      },
+      "effect": {
+        "type": "ability-grant",
+        "target": "unit",
+        "modifier": {
+          "grant_type": "melta-range-add-6"
+        }
+      }
     },
     "scope": {
-      "range": "unit",
-      "duration": "permanent"
+      "range": "attached",
+      "duration": "battle"
     },
     "unit_ids": [
       "fuegan"
     ],
     "ability_type": "unit",
     "behavior": "passive",
-    "community_notes": "auto-generated stub — needs manual authoring (source: 10e Datasheets_abilities; rules text omitted for IP)"
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "unquenchable-resolve",
@@ -5026,7 +5034,8 @@
     "faction_id": "aeldari",
     "ability_type": "faction",
     "behavior": "passive",
-    "community_notes": "auto-generated stub — needs manual authoring (source: 10e Datasheets_abilities; rules text omitted for IP)"
+    "community_notes": "auto-generated stub — needs manual authoring (source: 10e Datasheets_abilities; rules text omitted for IP)",
+    "unit_ids": []
   },
   {
     "ability_id": "acrobatic-onslaught",
@@ -5092,16 +5101,47 @@
     "faction_id": "aeldari",
     "detachment_id": "fateful-performance",
     "ability_type": "stratagem",
-    "behavior": "passive",
+    "behavior": "reactive",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "conditional",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          {
+            "type": "phase-is",
+            "parameters": {
+              "phase": "fight"
+            }
+          },
+          {
+            "operator": "not",
+            "operands": [
+              {
+                "type": "has-fought-this-phase"
+              }
+            ]
+          }
+        ]
+      },
+      "effect": {
+        "type": "dice-gated",
+        "dice": "D6",
+        "threshold": 4,
+        "comparison": "gte",
+        "on_success": {
+          "type": "ability-grant",
+          "target": "self",
+          "modifier": {
+            "grant_type": "deferred-removal-until-fought-or-end-of-phase"
+          }
+        }
+      }
     },
     "scope": {
       "range": "unit",
-      "duration": "permanent"
-    }
+      "duration": "phase"
+    },
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "deceptive-feint-fateful-performance",
@@ -5117,16 +5157,66 @@
     "faction_id": "aeldari",
     "detachment_id": "fateful-performance",
     "ability_type": "stratagem",
-    "behavior": "passive",
+    "behavior": "reactive",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "conditional",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          {
+            "type": "phase-is",
+            "parameters": {
+              "phase": "movement"
+            }
+          },
+          {
+            "type": "player-turn-is",
+            "parameters": {
+              "turn": "opponent"
+            }
+          },
+          {
+            "type": "opponent-unit-within-range",
+            "parameters": {
+              "within_inches": 8
+            }
+          },
+          {
+            "operator": "not",
+            "operands": [
+              {
+                "type": "engagement-state"
+              }
+            ]
+          },
+          {
+            "type": "unit-has-keyword",
+            "parameters": {
+              "keyword": "HARLEQUINS"
+            }
+          },
+          {
+            "type": "unit-has-keyword",
+            "parameters": {
+              "keyword": "INFANTRY"
+            }
+          }
+        ]
+      },
+      "effect": {
+        "type": "movement-modifier",
+        "target": "unit",
+        "modifier": {
+          "move_type": "normal",
+          "value": "D3+3"
+        }
+      }
     },
     "scope": {
       "range": "unit",
-      "duration": "permanent"
-    }
+      "duration": "turn"
+    },
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "a-foot-in-the-future-fateful-performance",
@@ -5144,14 +5234,24 @@
     "ability_type": "enhancement",
     "behavior": "passive",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "conditional",
+      "condition": {
+        "type": "model-is-leader"
+      },
+      "effect": {
+        "type": "re-roll",
+        "target": "self",
+        "modifier": {
+          "roll": "charge",
+          "subset": "all-failures"
+        }
+      }
     },
     "scope": {
       "range": "unit",
       "duration": "permanent"
-    }
+    },
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "mistweave-fateful-performance",
@@ -5169,14 +5269,23 @@
     "ability_type": "enhancement",
     "behavior": "passive",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "conditional",
+      "condition": {
+        "type": "model-is-leader"
+      },
+      "effect": {
+        "type": "ability-grant",
+        "target": "self",
+        "modifier": {
+          "grant_type": "infiltrators"
+        }
+      }
     },
     "scope": {
       "range": "unit",
       "duration": "permanent"
-    }
+    },
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "far-reaching-doom",
@@ -5217,16 +5326,64 @@
     "faction_id": "aeldari",
     "detachment_id": "path-of-the-outcast",
     "ability_type": "stratagem",
-    "behavior": "passive",
+    "behavior": "reactive",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "conditional",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          {
+            "type": "phase-is",
+            "parameters": {
+              "phase": "shooting"
+            }
+          },
+          {
+            "type": "was-hit-by-attack",
+            "parameters": {
+              "subject": "target",
+              "attack_type": "ranged"
+            }
+          }
+        ]
+      },
+      "effect": {
+        "type": "sequence",
+        "steps": [
+          {
+            "type": "leadership-modifier",
+            "target": "defender",
+            "modifier": {
+              "test": "battle-shock",
+              "operation": "force-test"
+            }
+          },
+          {
+            "type": "conditional",
+            "condition": {
+              "type": "destroyed-by-attack-type",
+              "parameters": {
+                "attack_type": "ranged"
+              }
+            },
+            "effect": {
+              "type": "leadership-modifier",
+              "target": "defender",
+              "modifier": {
+                "test": "battle-shock",
+                "operation": "subtract",
+                "value": 1
+              }
+            }
+          }
+        ]
+      }
     },
     "scope": {
-      "range": "unit",
-      "duration": "permanent"
-    }
+      "range": "any-visible",
+      "duration": "phase"
+    },
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "casting-back-the-veil-path-of-the-outcast",
@@ -5244,14 +5401,29 @@
     "ability_type": "stratagem",
     "behavior": "passive",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "conditional",
+      "condition": {
+        "type": "phase-is",
+        "parameters": {
+          "phase": "shooting"
+        }
+      },
+      "effect": {
+        "type": "stat-modifier",
+        "target": "enemy-within-aura",
+        "modifier": {
+          "operation": "add",
+          "stat": "detection-range",
+          "value": 6,
+          "attack_type": "ranged"
+        }
+      }
     },
     "scope": {
-      "range": "unit",
-      "duration": "permanent"
-    }
+      "range": "any-visible",
+      "duration": "phase"
+    },
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "nomads-of-the-hidden-way-path-of-the-outcast",
@@ -5267,16 +5439,76 @@
     "faction_id": "aeldari",
     "detachment_id": "path-of-the-outcast",
     "ability_type": "stratagem",
-    "behavior": "passive",
+    "behavior": "reactive",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "conditional",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          {
+            "type": "phase-is",
+            "parameters": {
+              "phase": "shooting"
+            }
+          },
+          {
+            "operator": "or",
+            "operands": [
+              {
+                "type": "unit-has-keyword",
+                "parameters": {
+                  "keyword": "RANGERS"
+                }
+              },
+              {
+                "type": "unit-has-keyword",
+                "parameters": {
+                  "keyword": "SHROUD RUNNERS"
+                }
+              }
+            ]
+          },
+          {
+            "type": "timing-is",
+            "parameters": {
+              "timing": "after-unit-completes-shooting"
+            }
+          }
+        ]
+      },
+      "effect": {
+        "type": "sequence",
+        "steps": [
+          {
+            "type": "movement-modifier",
+            "target": "unit",
+            "modifier": {
+              "move_type": "normal-move",
+              "value": "D6"
+            }
+          },
+          {
+            "type": "attack-restriction",
+            "target": "unit",
+            "modifier": {
+              "restriction": "cannot-declare-charge"
+            }
+          },
+          {
+            "type": "ability-grant",
+            "target": "unit",
+            "modifier": {
+              "grant_type": "cannot-embark-transport"
+            }
+          }
+        ]
+      }
     },
     "scope": {
       "range": "unit",
-      "duration": "permanent"
-    }
+      "duration": "turn"
+    },
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "camouflaged-snipers-path-of-the-outcast",
@@ -5294,14 +5526,17 @@
     "ability_type": "enhancement",
     "behavior": "passive",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "attack-restriction",
+      "target": "self",
+      "modifier": {
+        "restriction": "remains-hidden-after-ranged-attacks"
+      }
     },
     "scope": {
-      "range": "unit",
+      "range": "self",
       "duration": "permanent"
-    }
+    },
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "dance-of-distortion",
@@ -5319,14 +5554,19 @@
     "ability_type": "detachment",
     "behavior": "passive",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "keyword-grant",
+      "target": "friendly-within-aura",
+      "modifier": {
+        "keywords": [
+          "stealth"
+        ]
+      }
     },
     "scope": {
       "range": "unit",
       "duration": "permanent"
-    }
+    },
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "presaged-rehearsal-twilight-flickers",
@@ -5342,16 +5582,42 @@
     "faction_id": "aeldari",
     "detachment_id": "twilight-flickers",
     "ability_type": "stratagem",
-    "behavior": "passive",
+    "behavior": "reactive",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "conditional",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          {
+            "type": "phase-is",
+            "parameters": {
+              "phase": "fight"
+            }
+          },
+          {
+            "type": "timing-is",
+            "parameters": {
+              "timing": "selected-to-fight"
+            }
+          }
+        ]
+      },
+      "effect": {
+        "type": "keyword-grant",
+        "target": "self",
+        "modifier": {
+          "keywords": [
+            "Lance"
+          ],
+          "weapon_type": "melee"
+        }
+      }
     },
     "scope": {
       "range": "unit",
-      "duration": "permanent"
-    }
+      "duration": "phase"
+    },
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "captivating-performance-twilight-flickers",
@@ -5369,14 +5635,26 @@
     "ability_type": "stratagem",
     "behavior": "passive",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "conditional",
+      "condition": {
+        "type": "phase-is",
+        "parameters": {
+          "phase": "movement"
+        }
+      },
+      "effect": {
+        "type": "objective-control-modifier",
+        "target": "self",
+        "modifier": {
+          "operation": "secure"
+        }
+      }
     },
     "scope": {
       "range": "unit",
-      "duration": "permanent"
-    }
+      "duration": "battle-round"
+    },
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "phantasmal-mirage-twilight-flickers",
@@ -5392,16 +5670,52 @@
     "faction_id": "aeldari",
     "detachment_id": "twilight-flickers",
     "ability_type": "stratagem",
-    "behavior": "passive",
+    "behavior": "reactive",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "conditional",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          {
+            "type": "phase-is",
+            "parameters": {
+              "phase": "shooting"
+            }
+          },
+          {
+            "type": "timing-is",
+            "parameters": {
+              "timing": "unit-has-shot"
+            }
+          }
+        ]
+      },
+      "effect": {
+        "type": "sequence",
+        "steps": [
+          {
+            "type": "movement-modifier",
+            "target": "self",
+            "modifier": {
+              "move_type": "normal-move",
+              "value": "D6"
+            }
+          },
+          {
+            "type": "attack-restriction",
+            "target": "self",
+            "modifier": {
+              "restriction": "cannot-declare-charge"
+            }
+          }
+        ]
+      }
     },
     "scope": {
       "range": "unit",
-      "duration": "permanent"
-    }
+      "duration": "turn"
+    },
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "shadowfall-masks-twilight-flickers",
@@ -5419,14 +5733,19 @@
     "ability_type": "enhancement",
     "behavior": "passive",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "keyword-grant",
+      "target": "self",
+      "modifier": {
+        "keywords": [
+          "fights-first"
+        ]
+      }
     },
     "scope": {
-      "range": "unit",
+      "range": "self",
       "duration": "permanent"
-    }
+    },
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "prelude-performer-twilight-flickers",
@@ -5444,14 +5763,19 @@
     "ability_type": "enhancement",
     "behavior": "passive",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "keyword-grant",
+      "target": "self",
+      "modifier": {
+        "keywords": [
+          "scouts-6"
+        ]
+      }
     },
     "scope": {
-      "range": "unit",
+      "range": "self",
       "duration": "permanent"
-    }
+    },
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "ride-the-wind",
@@ -5469,15 +5793,24 @@
     "ability_type": "detachment",
     "behavior": "passive",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "conditional",
+      "condition": {
+        "type": "model-is-leader"
+      },
+      "effect": {
+        "type": "movement-modifier",
+        "target": "unit",
+        "modifier": {
+          "move_type": "advance",
+          "value": 6
+        }
+      }
     },
     "scope": {
       "range": "unit",
-      "duration": "permanent"
+      "duration": "phase"
     },
-    "community_notes": "[APPROX] DSL stub — detachment rule; mechanics pending authoring. Full rule in raw-text store."
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "boons-of-the-brood",
@@ -5495,15 +5828,84 @@
     "ability_type": "detachment",
     "behavior": "passive",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "sequence",
+      "steps": [
+        {
+          "type": "conditional",
+          "condition": {
+            "operator": "and",
+            "operands": [
+              {
+                "type": "unit-has-keyword",
+                "parameters": {
+                  "keyword": "HARLEQUINS"
+                }
+              },
+              {
+                "operator": "or",
+                "operands": [
+                  {
+                    "type": "unit-has-keyword",
+                    "parameters": {
+                      "keyword": "MOUNTED"
+                    }
+                  },
+                  {
+                    "type": "unit-has-keyword",
+                    "parameters": {
+                      "keyword": "VEHICLE"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "effect": {
+            "type": "keyword-grant",
+            "target": "self",
+            "modifier": {
+              "keywords": [
+                "Sustained Hits 1"
+              ]
+            }
+          }
+        },
+        {
+          "type": "conditional",
+          "condition": {
+            "operator": "and",
+            "operands": [
+              {
+                "type": "unit-has-keyword",
+                "parameters": {
+                  "keyword": "HARLEQUINS"
+                }
+              },
+              {
+                "type": "timing-is",
+                "parameters": {
+                  "timing": "disembarked-from-transport"
+                }
+              }
+            ]
+          },
+          "effect": {
+            "type": "keyword-grant",
+            "target": "self",
+            "modifier": {
+              "keywords": [
+                "Sustained Hits 1"
+              ]
+            }
+          }
+        }
+      ]
     },
     "scope": {
       "range": "unit",
       "duration": "permanent"
     },
-    "community_notes": "[APPROX] DSL stub — detachment rule; mechanics pending authoring. Full rule in raw-text store."
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "shepherds-of-the-dead",
@@ -5573,15 +5975,71 @@
     "ability_type": "detachment",
     "behavior": "passive",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "conditional",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          {
+            "operator": "or",
+            "operands": [
+              {
+                "type": "unit-has-keyword",
+                "parameters": {
+                  "keyword": "DIRE AVENGER"
+                }
+              },
+              {
+                "type": "unit-has-keyword",
+                "parameters": {
+                  "keyword": "GUARDIAN"
+                }
+              },
+              {
+                "type": "unit-has-keyword",
+                "parameters": {
+                  "keyword": "SUPPORT WEAPON"
+                }
+              },
+              {
+                "type": "unit-has-keyword",
+                "parameters": {
+                  "keyword": "WAR WALKER"
+                }
+              }
+            ]
+          },
+          {
+            "operator": "or",
+            "operands": [
+              {
+                "type": "within-range-of-objective",
+                "parameters": {}
+              },
+              {
+                "type": "within-range-of-objective",
+                "parameters": {
+                  "subject": "target"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "effect": {
+        "type": "roll-modifier",
+        "target": "self",
+        "modifier": {
+          "roll": "hit",
+          "operation": "add",
+          "value": 1
+        }
+      }
     },
     "scope": {
       "range": "unit",
-      "duration": "permanent"
+      "duration": "battle"
     },
-    "community_notes": "[APPROX] DSL stub — detachment rule; mechanics pending authoring. Full rule in raw-text store."
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "skilled-crews",
@@ -5599,15 +6057,19 @@
     "ability_type": "detachment",
     "behavior": "passive",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "keyword-grant",
+      "target": "friendly-within-aura",
+      "modifier": {
+        "keywords": [
+          "assault"
+        ]
+      }
     },
     "scope": {
       "range": "unit",
       "duration": "permanent"
     },
-    "community_notes": "[APPROX] DSL stub — detachment rule; mechanics pending authoring. Full rule in raw-text store."
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "relentless-raiders",
@@ -5651,15 +6113,17 @@
     "ability_type": "detachment",
     "behavior": "passive",
     "effect": {
-      "type": "stat-modifier",
+      "type": "ability-grant",
       "target": "unit",
-      "modifier": {}
+      "modifier": {
+        "grant_type": "corsair-enhancement-selection"
+      }
     },
     "scope": {
       "range": "unit",
       "duration": "permanent"
     },
-    "community_notes": "[APPROX] DSL stub — detachment rule; mechanics pending authoring. Full rule in raw-text store."
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "yriels-own",
@@ -5701,17 +6165,65 @@
     "faction_id": "aeldari",
     "detachment_id": "seer-council",
     "ability_type": "detachment",
-    "behavior": "passive",
+    "behavior": "reactive",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "sequence",
+      "steps": [
+        {
+          "type": "conditional",
+          "condition": {
+            "type": "timing-is",
+            "parameters": {
+              "timing": "start-of-first-battle-round"
+            }
+          },
+          "effect": {
+            "type": "resource-gain",
+            "target": "self",
+            "modifier": {
+              "pool_id": "fate-dice-pool",
+              "die": "D6",
+              "count_mode": "by-battle-size"
+            }
+          }
+        },
+        {
+          "type": "conditional",
+          "condition": {
+            "type": "timing-is",
+            "parameters": {
+              "timing": "stratagem-usage"
+            }
+          },
+          "effect": {
+            "type": "sequence",
+            "steps": [
+              {
+                "type": "resource-spend",
+                "target": "self",
+                "modifier": {
+                  "pool_id": "fate-dice-pool",
+                  "amount": 1,
+                  "value_match": "stratagem-table-value"
+                }
+              },
+              {
+                "type": "cp-refund",
+                "target": "self",
+                "modifier": {
+                  "amount": 1
+                }
+              }
+            ]
+          }
+        }
+      ]
     },
     "scope": {
-      "range": "unit",
-      "duration": "permanent"
+      "range": "self",
+      "duration": "battle"
     },
-    "community_notes": "[APPROX] DSL stub — detachment rule; mechanics pending authoring. Full rule in raw-text store."
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "martial-grace",
@@ -5729,15 +6241,66 @@
     "ability_type": "detachment",
     "behavior": "passive",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "sequence",
+      "steps": [
+        {
+          "type": "conditional",
+          "condition": {
+            "type": "timing-is",
+            "parameters": {
+              "timing": "start-of-battle-round"
+            }
+          },
+          "effect": {
+            "type": "resource-gain",
+            "target": "self",
+            "modifier": {
+              "pool_id": "battle-focus-pool",
+              "amount": 1
+            }
+          }
+        },
+        {
+          "type": "conditional",
+          "condition": {
+            "type": "timing-is",
+            "parameters": {
+              "timing": "unit-performs-swift-as-the-wind-agile-manoeuvre"
+            }
+          },
+          "effect": {
+            "type": "stat-modifier",
+            "target": "unit",
+            "modifier": {
+              "stat": "M",
+              "operation": "add",
+              "value": 1
+            }
+          }
+        },
+        {
+          "type": "conditional",
+          "condition": {
+            "type": "timing-is",
+            "parameters": {
+              "timing": "unit-performs-agile-manoeuvre-involving-d6"
+            }
+          },
+          "effect": {
+            "type": "ability-grant",
+            "target": "unit",
+            "modifier": {
+              "grant_type": "agile-manoeuvre-d6-add-1"
+            }
+          }
+        }
+      ]
     },
     "scope": {
       "range": "unit",
-      "duration": "permanent"
+      "duration": "battle"
     },
-    "community_notes": "[APPROX] DSL stub — detachment rule; mechanics pending authoring. Full rule in raw-text store."
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "path-of-the-warrior",
@@ -5753,16 +6316,75 @@
     "faction_id": "aeldari",
     "detachment_id": "aspect-host",
     "ability_type": "detachment",
-    "behavior": "passive",
+    "behavior": "reactive",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "conditional",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          {
+            "operator": "or",
+            "operands": [
+              {
+                "type": "phase-is",
+                "parameters": {
+                  "phase": "shooting"
+                }
+              },
+              {
+                "type": "phase-is",
+                "parameters": {
+                  "phase": "fight"
+                }
+              }
+            ]
+          },
+          {
+            "operator": "or",
+            "operands": [
+              {
+                "type": "unit-has-keyword",
+                "parameters": {
+                  "keyword": "ASPECT WARRIORS"
+                }
+              },
+              {
+                "type": "unit-has-keyword",
+                "parameters": {
+                  "keyword": "AVATAR OF KHAINE"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "effect": {
+        "type": "choice",
+        "choice_label": "Path of the Warrior",
+        "options": [
+          {
+            "type": "re-roll",
+            "target": "unit",
+            "modifier": {
+              "roll": "hit",
+              "subset": "ones"
+            }
+          },
+          {
+            "type": "re-roll",
+            "target": "unit",
+            "modifier": {
+              "roll": "wound",
+              "subset": "ones"
+            }
+          }
+        ]
+      }
     },
     "scope": {
       "range": "unit",
-      "duration": "permanent"
+      "duration": "phase"
     },
-    "community_notes": "[APPROX] DSL stub — detachment rule; mechanics pending authoring. Full rule in raw-text store."
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   }
 ]

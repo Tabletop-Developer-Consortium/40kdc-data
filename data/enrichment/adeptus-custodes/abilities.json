@@ -2048,7 +2048,8 @@
     },
     "faction_id": "adeptus-custodes",
     "ability_type": "faction",
-    "behavior": "activated"
+    "behavior": "activated",
+    "unit_ids": []
   },
   {
     "ability_id": "march-of-the-honoured-dead",
@@ -2804,15 +2805,48 @@
     "ability_type": "detachment",
     "behavior": "passive",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "conditional",
+      "condition": {
+        "operator": "not",
+        "operands": [
+          {
+            "type": "unit-within-range-of",
+            "parameters": {
+              "target_type": "friendly",
+              "range": 6
+            }
+          }
+        ]
+      },
+      "effect": {
+        "type": "sequence",
+        "steps": [
+          {
+            "type": "roll-modifier",
+            "target": "self",
+            "modifier": {
+              "roll": "hit",
+              "operation": "add",
+              "value": 1
+            }
+          },
+          {
+            "type": "roll-modifier",
+            "target": "self",
+            "modifier": {
+              "roll": "wound",
+              "operation": "add",
+              "value": 1
+            }
+          }
+        ]
+      }
     },
     "scope": {
       "range": "unit",
-      "duration": "permanent"
+      "duration": "battle"
     },
-    "community_notes": "[APPROX] DSL stub — detachment rule; mechanics pending authoring. Full rule in raw-text store."
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "assemblage-of-might",
@@ -2856,15 +2890,86 @@
     "ability_type": "detachment",
     "behavior": "passive",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "sequence",
+      "steps": [
+        {
+          "type": "conditional",
+          "condition": {
+            "operator": "and",
+            "operands": [
+              {
+                "operator": "not",
+                "operands": [
+                  {
+                    "type": "unit-below-starting-strength"
+                  }
+                ]
+              },
+              {
+                "operator": "not",
+                "operands": [
+                  {
+                    "type": "unit-has-keyword",
+                    "parameters": {
+                      "keyword": "Aircraft"
+                    }
+                  }
+                ]
+              },
+              {
+                "operator": "not",
+                "operands": [
+                  {
+                    "type": "is-battle-shocked"
+                  }
+                ]
+              }
+            ]
+          },
+          "effect": {
+            "type": "objective-control-modifier",
+            "target": "self",
+            "modifier": {
+              "operation": "add",
+              "value": 2
+            }
+          }
+        },
+        {
+          "type": "conditional",
+          "condition": {
+            "type": "unit-below-starting-strength"
+          },
+          "effect": {
+            "type": "re-roll",
+            "target": "self",
+            "modifier": {
+              "roll": "hit",
+              "subset": "ones"
+            }
+          }
+        },
+        {
+          "type": "conditional",
+          "condition": {
+            "type": "unit-below-half-strength"
+          },
+          "effect": {
+            "type": "re-roll",
+            "target": "self",
+            "modifier": {
+              "roll": "wound",
+              "subset": "ones"
+            }
+          }
+        }
+      ]
     },
     "scope": {
       "range": "unit",
-      "duration": "permanent"
+      "duration": "battle"
     },
-    "community_notes": "[APPROX] DSL stub — detachment rule; mechanics pending authoring. Full rule in raw-text store."
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "moritoi-ancients",
@@ -2882,15 +2987,39 @@
     "ability_type": "detachment",
     "behavior": "passive",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "sequence",
+      "steps": [
+        {
+          "type": "movement-modifier",
+          "target": "self",
+          "modifier": {
+            "move_type": "move",
+            "value": 2
+          }
+        },
+        {
+          "type": "movement-modifier",
+          "target": "self",
+          "modifier": {
+            "move_type": "advance",
+            "value": 1
+          }
+        },
+        {
+          "type": "charge-roll-modifier",
+          "target": "self",
+          "modifier": {
+            "operation": "add",
+            "value": 1
+          }
+        }
+      ]
     },
     "scope": {
       "range": "unit",
       "duration": "permanent"
     },
-    "community_notes": "[APPROX] DSL stub — detachment rule; mechanics pending authoring. Full rule in raw-text store."
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "martial-mastery",
@@ -2932,17 +3061,74 @@
     "faction_id": "adeptus-custodes",
     "detachment_id": "null-maiden-vigil",
     "ability_type": "detachment",
-    "behavior": "passive",
+    "behavior": "aura",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "conditional",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          {
+            "type": "phase-is",
+            "parameters": {
+              "phase": "command"
+            }
+          },
+          {
+            "type": "player-turn-is",
+            "parameters": {
+              "turn": "opponent"
+            }
+          },
+          {
+            "operator": "or",
+            "operands": [
+              {
+                "type": "target-has-keyword",
+                "parameters": {
+                  "keyword": "PSYKER"
+                }
+              },
+              {
+                "type": "unit-below-starting-strength"
+              }
+            ]
+          }
+        ]
+      },
+      "effect": {
+        "type": "sequence",
+        "steps": [
+          {
+            "type": "leadership-modifier",
+            "target": "enemy-within-aura",
+            "modifier": {
+              "test": "battle-shock",
+              "operation": "force-test"
+            }
+          },
+          {
+            "type": "conditional",
+            "condition": {
+              "type": "unit-below-half-strength"
+            },
+            "effect": {
+              "type": "leadership-modifier",
+              "target": "enemy-within-aura",
+              "modifier": {
+                "test": "battle-shock",
+                "operation": "subtract",
+                "value": 1
+              }
+            }
+          }
+        ]
+      }
     },
     "scope": {
-      "range": "unit",
-      "duration": "permanent"
+      "range": "aura-12",
+      "duration": "phase"
     },
-    "community_notes": "[APPROX] DSL stub — detachment rule; mechanics pending authoring. Full rule in raw-text store."
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "revered-companions",

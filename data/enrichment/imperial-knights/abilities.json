@@ -910,8 +910,8 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "move_type": "extended-consolidation",
-        "value": 6,
+        "move_type": "consolidation",
+        "distance": 6,
         "replaces_default": true
       }
     },
@@ -1473,16 +1473,18 @@
             "type": "movement-modifier",
             "target": "self",
             "modifier": {
-              "move_type": "through-non-titanic-models",
-              "value": 0
+              "passthrough": [
+                "non-titanic-models"
+              ]
             }
           },
           {
             "type": "movement-modifier",
             "target": "self",
             "modifier": {
-              "move_type": "through-terrain-max-4-inches",
-              "value": 0
+              "passthrough": [
+                "terrain-le-4"
+              ]
             }
           },
           {
@@ -1494,8 +1496,9 @@
             "type": "movement-modifier",
             "target": "self",
             "modifier": {
-              "move_type": "through-terrain-over-4-inches",
-              "value": 0
+              "passthrough": [
+                "tall-terrain"
+              ]
             }
           },
           {
@@ -2332,8 +2335,8 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "move_type": "advance-bonus",
-        "value": 6
+        "move_type": "advance",
+        "distance": 6
       }
     },
     "scope": {

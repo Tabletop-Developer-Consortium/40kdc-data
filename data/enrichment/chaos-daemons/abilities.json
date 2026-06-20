@@ -104,21 +104,27 @@
             "type": "movement-modifier",
             "target": "self",
             "modifier": {
-              "move_type": "over-friendly-monster"
+              "passthrough": [
+                "friendly-monsters"
+              ]
             }
           },
           {
             "type": "movement-modifier",
             "target": "self",
             "modifier": {
-              "move_type": "over-friendly-vehicle"
+              "passthrough": [
+                "friendly-vehicles"
+              ]
             }
           },
           {
             "type": "movement-modifier",
             "target": "self",
             "modifier": {
-              "move_type": "through-terrain-max-4-inch"
+              "passthrough": [
+                "terrain-le-4"
+              ]
             }
           }
         ]
@@ -904,8 +910,8 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "move_type": "extended-consolidation",
-        "value": 6,
+        "move_type": "consolidation",
+        "distance": 6,
         "replaces_default": true
       }
     },
@@ -1459,7 +1465,7 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "type": "scouts",
+        "move_type": "scout",
         "distance": 9
       }
     },
@@ -2404,7 +2410,8 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "type": "redeploy-to-reserves"
+        "move_type": "redeploy",
+        "to_reserves": true
       }
     },
     "scope": {
@@ -3763,7 +3770,7 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "type": "scouts",
+        "move_type": "scout",
         "distance": 6
       }
     },
@@ -3856,7 +3863,8 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "type": "redeploy-to-reserves"
+        "move_type": "redeploy",
+        "to_reserves": true
       }
     },
     "scope": {

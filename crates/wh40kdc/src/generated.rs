@@ -1911,6 +1911,250 @@ impl ::std::default::Default for ArmyCompositionPredicateUnitFilter {
         }
     }
 }
+///`AuraEffect`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "object",
+///  "required": [
+///    "modifier",
+///    "target",
+///    "type"
+///  ],
+///  "properties": {
+///    "modifier": {
+///      "type": "object",
+///      "properties": {
+///        "effect": {
+///          "$ref": "#/$defs/effect-node"
+///        },
+///        "of": {
+///          "type": "string"
+///        },
+///        "range": {
+///          "oneOf": [
+///            {
+///              "type": "integer",
+///              "minimum": 1.0
+///            },
+///            {
+///              "type": "array",
+///              "items": {
+///                "type": "integer",
+///                "minimum": 1.0
+///              },
+///              "minItems": 1
+///            }
+///          ]
+///        },
+///        "range_bonus": {
+///          "type": "integer"
+///        }
+///      },
+///      "additionalProperties": false
+///    },
+///    "target": {
+///      "type": "string",
+///      "enum": [
+///        "enemy-within-aura",
+///        "friendly-within-aura"
+///      ]
+///    },
+///    "type": {
+///      "const": "aura"
+///    }
+///  },
+///  "additionalProperties": false,
+///  "$comment": "Generic aura (Batch D): a persistent zone around a unit applying an effect to units within a range. Models Contagions, Shadow in the Warp, Vect — the concept the dataset previously expressed implicitly via `target: *-within-aura` + scope.range. `range` is the radius in inches (an integer, or an array of per-battle-round tiers, e.g. [3,6,9] for Contagions). `range_bonus` + `of` model an ability that EXTENDS a named aura's range (Gift of Poxes: contagion +3\"). `effect` is the nested effect applied within the zone. Batch D builds the type and migrates contagion-range; the ~300 incumbent within-aura-target effects are a separate follow-up sweep."
+///}
+/// ```
+/// </details>
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
+#[serde(deny_unknown_fields)]
+pub struct AuraEffect {
+    pub modifier: AuraEffectModifier,
+    pub target: AuraEffectTarget,
+    #[serde(rename = "type")]
+    pub type_: ::serde_json::Value,
+}
+///`AuraEffectModifier`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "object",
+///  "properties": {
+///    "effect": {
+///      "$ref": "#/$defs/effect-node"
+///    },
+///    "of": {
+///      "type": "string"
+///    },
+///    "range": {
+///      "oneOf": [
+///        {
+///          "type": "integer",
+///          "minimum": 1.0
+///        },
+///        {
+///          "type": "array",
+///          "items": {
+///            "type": "integer",
+///            "minimum": 1.0
+///          },
+///          "minItems": 1
+///        }
+///      ]
+///    },
+///    "range_bonus": {
+///      "type": "integer"
+///    }
+///  },
+///  "additionalProperties": false
+///}
+/// ```
+/// </details>
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
+#[serde(deny_unknown_fields)]
+pub struct AuraEffectModifier {
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub effect: ::std::option::Option<::std::boxed::Box<EffectNode>>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub of: ::std::option::Option<::std::string::String>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub range: ::std::option::Option<AuraEffectModifierRange>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub range_bonus: ::std::option::Option<i64>,
+}
+impl ::std::default::Default for AuraEffectModifier {
+    fn default() -> Self {
+        Self {
+            effect: Default::default(),
+            of: Default::default(),
+            range: Default::default(),
+            range_bonus: Default::default(),
+        }
+    }
+}
+///`AuraEffectModifierRange`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "oneOf": [
+///    {
+///      "type": "integer",
+///      "minimum": 1.0
+///    },
+///    {
+///      "type": "array",
+///      "items": {
+///        "type": "integer",
+///        "minimum": 1.0
+///      },
+///      "minItems": 1
+///    }
+///  ]
+///}
+/// ```
+/// </details>
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
+#[serde(untagged)]
+pub enum AuraEffectModifierRange {
+    Integer(::std::num::NonZeroU64),
+    Array(::std::vec::Vec<::std::num::NonZeroU64>),
+}
+impl ::std::convert::From<::std::num::NonZeroU64> for AuraEffectModifierRange {
+    fn from(value: ::std::num::NonZeroU64) -> Self {
+        Self::Integer(value)
+    }
+}
+impl ::std::convert::From<::std::vec::Vec<::std::num::NonZeroU64>>
+for AuraEffectModifierRange {
+    fn from(value: ::std::vec::Vec<::std::num::NonZeroU64>) -> Self {
+        Self::Array(value)
+    }
+}
+///`AuraEffectTarget`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "string",
+///  "enum": [
+///    "enemy-within-aura",
+///    "friendly-within-aura"
+///  ]
+///}
+/// ```
+/// </details>
+#[derive(
+    ::serde::Deserialize,
+    ::serde::Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd
+)]
+pub enum AuraEffectTarget {
+    #[serde(rename = "enemy-within-aura")]
+    EnemyWithinAura,
+    #[serde(rename = "friendly-within-aura")]
+    FriendlyWithinAura,
+}
+impl ::std::fmt::Display for AuraEffectTarget {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::EnemyWithinAura => f.write_str("enemy-within-aura"),
+            Self::FriendlyWithinAura => f.write_str("friendly-within-aura"),
+        }
+    }
+}
+impl ::std::str::FromStr for AuraEffectTarget {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "enemy-within-aura" => Ok(Self::EnemyWithinAura),
+            "friendly-within-aura" => Ok(Self::FriendlyWithinAura),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for AuraEffectTarget {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for AuraEffectTarget {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for AuraEffectTarget {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
 ///A model's base. 'round' carries 'diameter'; 'oval' carries 'width'+'length'. 'flying-base' (with 'size': small/large), 'hull', and 'unique' are categories the GW base-size guide gives without standard millimetre dimensions; entries carrying such a category, or any millimetre value not taken from an authoritative source, set 'draft': true to mark them for later hand-authoring.
 ///
 /// <details><summary>JSON schema</summary>
@@ -4347,6 +4591,12 @@ impl ::std::convert::From<EffectNode> for Effect {
 ///    },
 ///    {
 ///      "$ref": "#/$defs/select-units-effect"
+///    },
+///    {
+///      "$ref": "#/$defs/movement-modifier-effect"
+///    },
+///    {
+///      "$ref": "#/$defs/aura-effect"
 ///    }
 ///  ]
 ///}
@@ -4362,6 +4612,8 @@ pub enum EffectNode {
     ConditionalEffect(ConditionalEffect),
     DicePoolAllocationEffect(DicePoolAllocationEffect),
     SelectUnitsEffect(SelectUnitsEffect),
+    MovementModifierEffect(MovementModifierEffect),
+    AuraEffect(AuraEffect),
 }
 impl ::std::convert::From<SingleEffect> for EffectNode {
     fn from(value: SingleEffect) -> Self {
@@ -4396,6 +4648,16 @@ impl ::std::convert::From<DicePoolAllocationEffect> for EffectNode {
 impl ::std::convert::From<SelectUnitsEffect> for EffectNode {
     fn from(value: SelectUnitsEffect) -> Self {
         Self::SelectUnitsEffect(value)
+    }
+}
+impl ::std::convert::From<MovementModifierEffect> for EffectNode {
+    fn from(value: MovementModifierEffect) -> Self {
+        Self::MovementModifierEffect(value)
+    }
+}
+impl ::std::convert::From<AuraEffect> for EffectNode {
+    fn from(value: AuraEffect) -> Self {
+        Self::AuraEffect(value)
     }
 }
 ///A purchasable upgrade for a character unit, provided by a detachment.
@@ -6413,6 +6675,950 @@ impl<'de> ::serde::Deserialize<'de> for MissionSource {
             .map_err(|e: self::error::ConversionError| {
                 <D::Error as ::serde::de::Error>::custom(e.to_string())
             })
+    }
+}
+///`MovementModifierEffect`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "object",
+///  "required": [
+///    "modifier",
+///    "target",
+///    "type"
+///  ],
+///  "properties": {
+///    "modifier": {
+///      "type": "object",
+///      "properties": {
+///        "applies_to_moves": {
+///          "type": "array",
+///          "items": {
+///            "type": "string",
+///            "enum": [
+///              "normal",
+///              "advance",
+///              "fall-back",
+///              "charge"
+///            ]
+///          }
+///        },
+///        "condition": {
+///          "$ref": "#/$defs/condition"
+///        },
+///        "distance": {
+///          "oneOf": [
+///            {
+///              "type": "integer"
+///            },
+///            {
+///              "type": "string",
+///              "minLength": 1
+///            }
+///          ]
+///        },
+///        "excludes_keyword": {
+///          "type": "string"
+///        },
+///        "ignore_vertical": {
+///          "type": "boolean"
+///        },
+///        "marker": {
+///          "type": "object",
+///          "properties": {
+///            "affected": {
+///              "type": "string"
+///            },
+///            "location": {
+///              "type": "string"
+///            },
+///            "max_units": {
+///              "type": "integer",
+///              "minimum": 1.0
+///            },
+///            "unit_filter": {
+///              "type": "string"
+///            }
+///          },
+///          "additionalProperties": false,
+///          "$comment": "GSC marker / fortification placement mechanics (move_type: redeploy)."
+///        },
+///        "max_units": {
+///          "type": "integer",
+///          "minimum": 1.0
+///        },
+///        "move_type": {
+///          "type": "string",
+///          "enum": [
+///            "normal",
+///            "advance",
+///            "pile-in",
+///            "consolidation",
+///            "reactive",
+///            "surge",
+///            "redeploy",
+///            "scout",
+///            "infiltrate",
+///            "shoot-and-scoot"
+///          ]
+///        },
+///        "name": {
+///          "type": "string"
+///        },
+///        "passthrough": {
+///          "type": "array",
+///          "items": {
+///            "type": "string",
+///            "enum": [
+///              "non-titanic-models",
+///              "friendly-vehicles",
+///              "friendly-monsters",
+///              "terrain-le-4",
+///              "tall-terrain",
+///              "all-terrain"
+///            ]
+///          }
+///        },
+///        "replaces_default": {
+///          "type": "boolean"
+///        },
+///        "to_reserves": {
+///          "type": "boolean"
+///        },
+///        "vertical_limit": {
+///          "type": "integer",
+///          "minimum": 0.0
+///        }
+///      },
+///      "additionalProperties": false
+///    },
+///    "target": {
+///      "type": "string",
+///      "enum": [
+///        "self",
+///        "bearer",
+///        "unit",
+///        "attached-unit",
+///        "attacker",
+///        "defender",
+///        "target",
+///        "friendly-within-aura",
+///        "enemy-within-aura",
+///        "all-friendly",
+///        "all-enemy"
+///      ]
+///    },
+///    "type": {
+///      "const": "movement-modifier"
+///    }
+///  },
+///  "additionalProperties": false,
+///  "$comment": "Fully-closed movement-modifier (shape 1, Batch D). Promoted to its own discriminated effect-node branch so the closed `modifier` reaches the generated types (typify/json2ts can model a plain closed object, unlike if/then). `move_type` is the canonical move KIND and is OPTIONAL: a record may be a pure traversal CAPABILITY (passthrough/vertical_limit/ignore_vertical, applying to all moves or those in `applies_to_moves`) with no move_type. `distance` folds the old distance/value/bonus (integer or dice-expression string, e.g. 6, -2, \"D6+2\"). Reactivity lives at ability level (`trigger`), and frequency at ability level (`usage`) — neither is carried here. Non-movement mechanics that previously hid in this blob (deep-strike ranges, engagement passthrough, advance+charge eligibility, aura ranges) are re-homed to their own effect types."
+///}
+/// ```
+/// </details>
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
+#[serde(deny_unknown_fields)]
+pub struct MovementModifierEffect {
+    pub modifier: MovementModifierEffectModifier,
+    pub target: MovementModifierEffectTarget,
+    #[serde(rename = "type")]
+    pub type_: ::serde_json::Value,
+}
+///`MovementModifierEffectModifier`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "object",
+///  "properties": {
+///    "applies_to_moves": {
+///      "type": "array",
+///      "items": {
+///        "type": "string",
+///        "enum": [
+///          "normal",
+///          "advance",
+///          "fall-back",
+///          "charge"
+///        ]
+///      }
+///    },
+///    "condition": {
+///      "$ref": "#/$defs/condition"
+///    },
+///    "distance": {
+///      "oneOf": [
+///        {
+///          "type": "integer"
+///        },
+///        {
+///          "type": "string",
+///          "minLength": 1
+///        }
+///      ]
+///    },
+///    "excludes_keyword": {
+///      "type": "string"
+///    },
+///    "ignore_vertical": {
+///      "type": "boolean"
+///    },
+///    "marker": {
+///      "type": "object",
+///      "properties": {
+///        "affected": {
+///          "type": "string"
+///        },
+///        "location": {
+///          "type": "string"
+///        },
+///        "max_units": {
+///          "type": "integer",
+///          "minimum": 1.0
+///        },
+///        "unit_filter": {
+///          "type": "string"
+///        }
+///      },
+///      "additionalProperties": false,
+///      "$comment": "GSC marker / fortification placement mechanics (move_type: redeploy)."
+///    },
+///    "max_units": {
+///      "type": "integer",
+///      "minimum": 1.0
+///    },
+///    "move_type": {
+///      "type": "string",
+///      "enum": [
+///        "normal",
+///        "advance",
+///        "pile-in",
+///        "consolidation",
+///        "reactive",
+///        "surge",
+///        "redeploy",
+///        "scout",
+///        "infiltrate",
+///        "shoot-and-scoot"
+///      ]
+///    },
+///    "name": {
+///      "type": "string"
+///    },
+///    "passthrough": {
+///      "type": "array",
+///      "items": {
+///        "type": "string",
+///        "enum": [
+///          "non-titanic-models",
+///          "friendly-vehicles",
+///          "friendly-monsters",
+///          "terrain-le-4",
+///          "tall-terrain",
+///          "all-terrain"
+///        ]
+///      }
+///    },
+///    "replaces_default": {
+///      "type": "boolean"
+///    },
+///    "to_reserves": {
+///      "type": "boolean"
+///    },
+///    "vertical_limit": {
+///      "type": "integer",
+///      "minimum": 0.0
+///    }
+///  },
+///  "additionalProperties": false
+///}
+/// ```
+/// </details>
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
+#[serde(deny_unknown_fields)]
+pub struct MovementModifierEffectModifier {
+    #[serde(default, skip_serializing_if = "::std::vec::Vec::is_empty")]
+    pub applies_to_moves: ::std::vec::Vec<
+        MovementModifierEffectModifierAppliesToMovesItem,
+    >,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub condition: ::std::option::Option<Condition>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub distance: ::std::option::Option<MovementModifierEffectModifierDistance>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub excludes_keyword: ::std::option::Option<::std::string::String>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub ignore_vertical: ::std::option::Option<bool>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub marker: ::std::option::Option<MovementModifierEffectModifierMarker>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub max_units: ::std::option::Option<::std::num::NonZeroU64>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub move_type: ::std::option::Option<MovementModifierEffectModifierMoveType>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub name: ::std::option::Option<::std::string::String>,
+    #[serde(default, skip_serializing_if = "::std::vec::Vec::is_empty")]
+    pub passthrough: ::std::vec::Vec<MovementModifierEffectModifierPassthroughItem>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub replaces_default: ::std::option::Option<bool>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub to_reserves: ::std::option::Option<bool>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub vertical_limit: ::std::option::Option<u64>,
+}
+impl ::std::default::Default for MovementModifierEffectModifier {
+    fn default() -> Self {
+        Self {
+            applies_to_moves: Default::default(),
+            condition: Default::default(),
+            distance: Default::default(),
+            excludes_keyword: Default::default(),
+            ignore_vertical: Default::default(),
+            marker: Default::default(),
+            max_units: Default::default(),
+            move_type: Default::default(),
+            name: Default::default(),
+            passthrough: Default::default(),
+            replaces_default: Default::default(),
+            to_reserves: Default::default(),
+            vertical_limit: Default::default(),
+        }
+    }
+}
+///`MovementModifierEffectModifierAppliesToMovesItem`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "string",
+///  "enum": [
+///    "normal",
+///    "advance",
+///    "fall-back",
+///    "charge"
+///  ]
+///}
+/// ```
+/// </details>
+#[derive(
+    ::serde::Deserialize,
+    ::serde::Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd
+)]
+pub enum MovementModifierEffectModifierAppliesToMovesItem {
+    #[serde(rename = "normal")]
+    Normal,
+    #[serde(rename = "advance")]
+    Advance,
+    #[serde(rename = "fall-back")]
+    FallBack,
+    #[serde(rename = "charge")]
+    Charge,
+}
+impl ::std::fmt::Display for MovementModifierEffectModifierAppliesToMovesItem {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::Normal => f.write_str("normal"),
+            Self::Advance => f.write_str("advance"),
+            Self::FallBack => f.write_str("fall-back"),
+            Self::Charge => f.write_str("charge"),
+        }
+    }
+}
+impl ::std::str::FromStr for MovementModifierEffectModifierAppliesToMovesItem {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "normal" => Ok(Self::Normal),
+            "advance" => Ok(Self::Advance),
+            "fall-back" => Ok(Self::FallBack),
+            "charge" => Ok(Self::Charge),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for MovementModifierEffectModifierAppliesToMovesItem {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+for MovementModifierEffectModifierAppliesToMovesItem {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+for MovementModifierEffectModifierAppliesToMovesItem {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+///`MovementModifierEffectModifierDistance`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "oneOf": [
+///    {
+///      "type": "integer"
+///    },
+///    {
+///      "type": "string",
+///      "minLength": 1
+///    }
+///  ]
+///}
+/// ```
+/// </details>
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
+#[serde(untagged)]
+pub enum MovementModifierEffectModifierDistance {
+    Integer(i64),
+    String(MovementModifierEffectModifierDistanceString),
+}
+impl ::std::str::FromStr for MovementModifierEffectModifierDistance {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        if let Ok(v) = value.parse() {
+            Ok(Self::Integer(v))
+        } else if let Ok(v) = value.parse() {
+            Ok(Self::String(v))
+        } else {
+            Err("string conversion failed for all variants".into())
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for MovementModifierEffectModifierDistance {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+for MovementModifierEffectModifierDistance {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+for MovementModifierEffectModifierDistance {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::fmt::Display for MovementModifierEffectModifierDistance {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match self {
+            Self::Integer(x) => x.fmt(f),
+            Self::String(x) => x.fmt(f),
+        }
+    }
+}
+impl ::std::convert::From<i64> for MovementModifierEffectModifierDistance {
+    fn from(value: i64) -> Self {
+        Self::Integer(value)
+    }
+}
+impl ::std::convert::From<MovementModifierEffectModifierDistanceString>
+for MovementModifierEffectModifierDistance {
+    fn from(value: MovementModifierEffectModifierDistanceString) -> Self {
+        Self::String(value)
+    }
+}
+///`MovementModifierEffectModifierDistanceString`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "string",
+///  "minLength": 1
+///}
+/// ```
+/// </details>
+#[derive(::serde::Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+#[serde(transparent)]
+pub struct MovementModifierEffectModifierDistanceString(::std::string::String);
+impl ::std::ops::Deref for MovementModifierEffectModifierDistanceString {
+    type Target = ::std::string::String;
+    fn deref(&self) -> &::std::string::String {
+        &self.0
+    }
+}
+impl ::std::convert::From<MovementModifierEffectModifierDistanceString>
+for ::std::string::String {
+    fn from(value: MovementModifierEffectModifierDistanceString) -> Self {
+        value.0
+    }
+}
+impl ::std::str::FromStr for MovementModifierEffectModifierDistanceString {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        if value.chars().count() < 1usize {
+            return Err("shorter than 1 characters".into());
+        }
+        Ok(Self(value.to_string()))
+    }
+}
+impl ::std::convert::TryFrom<&str> for MovementModifierEffectModifierDistanceString {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+for MovementModifierEffectModifierDistanceString {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+for MovementModifierEffectModifierDistanceString {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl<'de> ::serde::Deserialize<'de> for MovementModifierEffectModifierDistanceString {
+    fn deserialize<D>(deserializer: D) -> ::std::result::Result<Self, D::Error>
+    where
+        D: ::serde::Deserializer<'de>,
+    {
+        ::std::string::String::deserialize(deserializer)?
+            .parse()
+            .map_err(|e: self::error::ConversionError| {
+                <D::Error as ::serde::de::Error>::custom(e.to_string())
+            })
+    }
+}
+///`MovementModifierEffectModifierMarker`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "object",
+///  "properties": {
+///    "affected": {
+///      "type": "string"
+///    },
+///    "location": {
+///      "type": "string"
+///    },
+///    "max_units": {
+///      "type": "integer",
+///      "minimum": 1.0
+///    },
+///    "unit_filter": {
+///      "type": "string"
+///    }
+///  },
+///  "additionalProperties": false,
+///  "$comment": "GSC marker / fortification placement mechanics (move_type: redeploy)."
+///}
+/// ```
+/// </details>
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
+#[serde(deny_unknown_fields)]
+pub struct MovementModifierEffectModifierMarker {
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub affected: ::std::option::Option<::std::string::String>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub location: ::std::option::Option<::std::string::String>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub max_units: ::std::option::Option<::std::num::NonZeroU64>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub unit_filter: ::std::option::Option<::std::string::String>,
+}
+impl ::std::default::Default for MovementModifierEffectModifierMarker {
+    fn default() -> Self {
+        Self {
+            affected: Default::default(),
+            location: Default::default(),
+            max_units: Default::default(),
+            unit_filter: Default::default(),
+        }
+    }
+}
+///`MovementModifierEffectModifierMoveType`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "string",
+///  "enum": [
+///    "normal",
+///    "advance",
+///    "pile-in",
+///    "consolidation",
+///    "reactive",
+///    "surge",
+///    "redeploy",
+///    "scout",
+///    "infiltrate",
+///    "shoot-and-scoot"
+///  ]
+///}
+/// ```
+/// </details>
+#[derive(
+    ::serde::Deserialize,
+    ::serde::Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd
+)]
+pub enum MovementModifierEffectModifierMoveType {
+    #[serde(rename = "normal")]
+    Normal,
+    #[serde(rename = "advance")]
+    Advance,
+    #[serde(rename = "pile-in")]
+    PileIn,
+    #[serde(rename = "consolidation")]
+    Consolidation,
+    #[serde(rename = "reactive")]
+    Reactive,
+    #[serde(rename = "surge")]
+    Surge,
+    #[serde(rename = "redeploy")]
+    Redeploy,
+    #[serde(rename = "scout")]
+    Scout,
+    #[serde(rename = "infiltrate")]
+    Infiltrate,
+    #[serde(rename = "shoot-and-scoot")]
+    ShootAndScoot,
+}
+impl ::std::fmt::Display for MovementModifierEffectModifierMoveType {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::Normal => f.write_str("normal"),
+            Self::Advance => f.write_str("advance"),
+            Self::PileIn => f.write_str("pile-in"),
+            Self::Consolidation => f.write_str("consolidation"),
+            Self::Reactive => f.write_str("reactive"),
+            Self::Surge => f.write_str("surge"),
+            Self::Redeploy => f.write_str("redeploy"),
+            Self::Scout => f.write_str("scout"),
+            Self::Infiltrate => f.write_str("infiltrate"),
+            Self::ShootAndScoot => f.write_str("shoot-and-scoot"),
+        }
+    }
+}
+impl ::std::str::FromStr for MovementModifierEffectModifierMoveType {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "normal" => Ok(Self::Normal),
+            "advance" => Ok(Self::Advance),
+            "pile-in" => Ok(Self::PileIn),
+            "consolidation" => Ok(Self::Consolidation),
+            "reactive" => Ok(Self::Reactive),
+            "surge" => Ok(Self::Surge),
+            "redeploy" => Ok(Self::Redeploy),
+            "scout" => Ok(Self::Scout),
+            "infiltrate" => Ok(Self::Infiltrate),
+            "shoot-and-scoot" => Ok(Self::ShootAndScoot),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for MovementModifierEffectModifierMoveType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+for MovementModifierEffectModifierMoveType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+for MovementModifierEffectModifierMoveType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+///`MovementModifierEffectModifierPassthroughItem`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "string",
+///  "enum": [
+///    "non-titanic-models",
+///    "friendly-vehicles",
+///    "friendly-monsters",
+///    "terrain-le-4",
+///    "tall-terrain",
+///    "all-terrain"
+///  ]
+///}
+/// ```
+/// </details>
+#[derive(
+    ::serde::Deserialize,
+    ::serde::Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd
+)]
+pub enum MovementModifierEffectModifierPassthroughItem {
+    #[serde(rename = "non-titanic-models")]
+    NonTitanicModels,
+    #[serde(rename = "friendly-vehicles")]
+    FriendlyVehicles,
+    #[serde(rename = "friendly-monsters")]
+    FriendlyMonsters,
+    #[serde(rename = "terrain-le-4")]
+    TerrainLe4,
+    #[serde(rename = "tall-terrain")]
+    TallTerrain,
+    #[serde(rename = "all-terrain")]
+    AllTerrain,
+}
+impl ::std::fmt::Display for MovementModifierEffectModifierPassthroughItem {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::NonTitanicModels => f.write_str("non-titanic-models"),
+            Self::FriendlyVehicles => f.write_str("friendly-vehicles"),
+            Self::FriendlyMonsters => f.write_str("friendly-monsters"),
+            Self::TerrainLe4 => f.write_str("terrain-le-4"),
+            Self::TallTerrain => f.write_str("tall-terrain"),
+            Self::AllTerrain => f.write_str("all-terrain"),
+        }
+    }
+}
+impl ::std::str::FromStr for MovementModifierEffectModifierPassthroughItem {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "non-titanic-models" => Ok(Self::NonTitanicModels),
+            "friendly-vehicles" => Ok(Self::FriendlyVehicles),
+            "friendly-monsters" => Ok(Self::FriendlyMonsters),
+            "terrain-le-4" => Ok(Self::TerrainLe4),
+            "tall-terrain" => Ok(Self::TallTerrain),
+            "all-terrain" => Ok(Self::AllTerrain),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for MovementModifierEffectModifierPassthroughItem {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+for MovementModifierEffectModifierPassthroughItem {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+for MovementModifierEffectModifierPassthroughItem {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+///`MovementModifierEffectTarget`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "string",
+///  "enum": [
+///    "self",
+///    "bearer",
+///    "unit",
+///    "attached-unit",
+///    "attacker",
+///    "defender",
+///    "target",
+///    "friendly-within-aura",
+///    "enemy-within-aura",
+///    "all-friendly",
+///    "all-enemy"
+///  ]
+///}
+/// ```
+/// </details>
+#[derive(
+    ::serde::Deserialize,
+    ::serde::Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd
+)]
+pub enum MovementModifierEffectTarget {
+    #[serde(rename = "self")]
+    Self_,
+    #[serde(rename = "bearer")]
+    Bearer,
+    #[serde(rename = "unit")]
+    Unit,
+    #[serde(rename = "attached-unit")]
+    AttachedUnit,
+    #[serde(rename = "attacker")]
+    Attacker,
+    #[serde(rename = "defender")]
+    Defender,
+    #[serde(rename = "target")]
+    Target,
+    #[serde(rename = "friendly-within-aura")]
+    FriendlyWithinAura,
+    #[serde(rename = "enemy-within-aura")]
+    EnemyWithinAura,
+    #[serde(rename = "all-friendly")]
+    AllFriendly,
+    #[serde(rename = "all-enemy")]
+    AllEnemy,
+}
+impl ::std::fmt::Display for MovementModifierEffectTarget {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::Self_ => f.write_str("self"),
+            Self::Bearer => f.write_str("bearer"),
+            Self::Unit => f.write_str("unit"),
+            Self::AttachedUnit => f.write_str("attached-unit"),
+            Self::Attacker => f.write_str("attacker"),
+            Self::Defender => f.write_str("defender"),
+            Self::Target => f.write_str("target"),
+            Self::FriendlyWithinAura => f.write_str("friendly-within-aura"),
+            Self::EnemyWithinAura => f.write_str("enemy-within-aura"),
+            Self::AllFriendly => f.write_str("all-friendly"),
+            Self::AllEnemy => f.write_str("all-enemy"),
+        }
+    }
+}
+impl ::std::str::FromStr for MovementModifierEffectTarget {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "self" => Ok(Self::Self_),
+            "bearer" => Ok(Self::Bearer),
+            "unit" => Ok(Self::Unit),
+            "attached-unit" => Ok(Self::AttachedUnit),
+            "attacker" => Ok(Self::Attacker),
+            "defender" => Ok(Self::Defender),
+            "target" => Ok(Self::Target),
+            "friendly-within-aura" => Ok(Self::FriendlyWithinAura),
+            "enemy-within-aura" => Ok(Self::EnemyWithinAura),
+            "all-friendly" => Ok(Self::AllFriendly),
+            "all-enemy" => Ok(Self::AllEnemy),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for MovementModifierEffectTarget {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for MovementModifierEffectTarget {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for MovementModifierEffectTarget {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
     }
 }
 ///The five official game phases. Unchanged between 10th and 11th edition — 11e reorders Pile In timing within the Fight phase but adds no top-level phase.
@@ -11042,7 +12248,6 @@ impl ::std::convert::TryFrom<::std::string::String> for SimpleConditionType {
 ///        "ward",
 ///        "keyword-grant",
 ///        "unit-keyword",
-///        "movement-modifier",
 ///        "deep-strike",
 ///        "fallback-and-act",
 ///        "fight-first",
@@ -11227,7 +12432,6 @@ impl ::std::convert::TryFrom<::std::string::String> for SingleEffectTarget {
 ///    "ward",
 ///    "keyword-grant",
 ///    "unit-keyword",
-///    "movement-modifier",
 ///    "deep-strike",
 ///    "fallback-and-act",
 ///    "fight-first",
@@ -11292,8 +12496,6 @@ pub enum SingleEffectType {
     KeywordGrant,
     #[serde(rename = "unit-keyword")]
     UnitKeyword,
-    #[serde(rename = "movement-modifier")]
-    MovementModifier,
     #[serde(rename = "deep-strike")]
     DeepStrike,
     #[serde(rename = "fallback-and-act")]
@@ -11365,7 +12567,6 @@ impl ::std::fmt::Display for SingleEffectType {
             Self::Ward => f.write_str("ward"),
             Self::KeywordGrant => f.write_str("keyword-grant"),
             Self::UnitKeyword => f.write_str("unit-keyword"),
-            Self::MovementModifier => f.write_str("movement-modifier"),
             Self::DeepStrike => f.write_str("deep-strike"),
             Self::FallbackAndAct => f.write_str("fallback-and-act"),
             Self::FightFirst => f.write_str("fight-first"),
@@ -11413,7 +12614,6 @@ impl ::std::str::FromStr for SingleEffectType {
             "ward" => Ok(Self::Ward),
             "keyword-grant" => Ok(Self::KeywordGrant),
             "unit-keyword" => Ok(Self::UnitKeyword),
-            "movement-modifier" => Ok(Self::MovementModifier),
             "deep-strike" => Ok(Self::DeepStrike),
             "fallback-and-act" => Ok(Self::FallbackAndAct),
             "fight-first" => Ok(Self::FightFirst),

@@ -175,7 +175,7 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "type": "scouts",
+        "move_type": "scout",
         "distance": 6
       }
     },
@@ -1258,14 +1258,18 @@
             "type": "movement-modifier",
             "target": "self",
             "modifier": {
-              "move_type": "through-non-titanic-models"
+              "passthrough": [
+                "non-titanic-models"
+              ]
             }
           },
           {
             "type": "movement-modifier",
             "target": "self",
             "modifier": {
-              "move_type": "through-terrain-4-or-less"
+              "passthrough": [
+                "terrain-le-4"
+              ]
             }
           },
           {
@@ -1277,7 +1281,9 @@
             "type": "movement-modifier",
             "target": "self",
             "modifier": {
-              "move_type": "through-terrain-over-4-inches"
+              "passthrough": [
+                "tall-terrain"
+              ]
             }
           },
           {
@@ -1762,9 +1768,8 @@
       "type": "movement-modifier",
       "target": "friendly-within-aura",
       "modifier": {
-        "move_type": "move-bonus",
-        "value": 2,
-        "replaces_default": false
+        "move_type": "normal",
+        "distance": 2
       }
     },
     "scope": {
@@ -2243,9 +2248,8 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "move_type": "surge-move",
-        "value": "D6",
-        "replaces_default": false
+        "move_type": "surge",
+        "distance": "D6"
       }
     },
     "scope": {
@@ -2530,8 +2534,8 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "move_type": "consolidate",
-        "bonus": 3
+        "move_type": "consolidation",
+        "distance": 3
       }
     },
     "scope": {
@@ -2624,10 +2628,10 @@
           }
         },
         {
-          "type": "movement-modifier",
+          "type": "ability-grant",
           "target": "unit",
           "modifier": {
-            "move_type": "advance-and-charge"
+            "grant_type": "advance-and-charge"
           }
         }
       ]
@@ -2814,8 +2818,13 @@
           "type": "movement-modifier",
           "target": "unit",
           "modifier": {
-            "move_type": "normal-advance-fallback",
-            "bonus": 3
+            "move_type": "normal",
+            "distance": 3,
+            "applies_to_moves": [
+              "normal",
+              "advance",
+              "fall-back"
+            ]
           }
         },
         {
@@ -3372,7 +3381,7 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "move_type": "normal-move",
+        "move_type": "normal",
         "distance": 6
       }
     },
@@ -3401,7 +3410,8 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "move_type": "to-strategic-reserves"
+        "move_type": "redeploy",
+        "to_reserves": true
       }
     },
     "scope": {

@@ -469,6 +469,8 @@ func conditionLeadIn(c map[string]any) string {
 			return "while the unit is embarked"
 		case "engaged", "within-engagement-range", "in-engagement-range":
 			return "while the unit is within Engagement Range"
+		case "not-in-engagement-range", "not-within-engagement-range":
+			return "while the unit is not within Engagement Range"
 		}
 		return "while the unit is " + dekebab(st)
 	case "disposition-matches":
@@ -569,6 +571,235 @@ func scalingClause(s map[string]any) string {
 		c += " (to a maximum of " + cstr(s["max_value"]) + ")"
 	}
 	return c
+}
+
+// passthroughPhrase maps a movement-modifier passthrough enum to its human phrase.
+var passthroughPhrase = map[string]string{
+	"non-titanic-models": "non-Titanic models",
+	"friendly-vehicles":  "friendly Vehicle models",
+	"friendly-monsters":  "friendly Monster models",
+	"terrain-le-4":       `terrain features 4" or lower`,
+	"tall-terrain":       `terrain features over 4"`,
+	"all-terrain":        "terrain features",
+}
+
+// moveNoun maps a move-kind token to its display noun (for applies_to_moves).
+var moveNoun = map[string]string{
+	"normal":    "Normal",
+	"advance":   "Advance",
+	"fall-back": "Fall Back",
+	"charge":    "Charge",
+}
+
+// andList renders an Oxford-free conjunction list ("a", "a and b", "a, b and c").
+func andList(items []string) string {
+	switch len(items) {
+	case 0:
+		return ""
+	case 1:
+		return items[0]
+	case 2:
+		return items[0] + " and " + items[1]
+	}
+	return strings.Join(items[:len(items)-1], ", ") + " and " + items[len(items)-1]
+}
+
+// inchClause renders a trailing inches clause for a movement distance (int or
+// dice string); "" when absent or zero.
+func inchClause(dist any) string {
+	if dist == nil {
+		return ""
+	}
+	s := diceCase(ejstr(dist))
+	if s == "0" {
+		return ""
+	}
+	return " " + s + "\""
+}
+
+// parseNumber mirrors TS Number()/Python float(): a JSON number, or a numeric
+// string. Returns (value, true) only when the value parses cleanly.
+func parseNumber(v any) (float64, bool) {
+	switch x := v.(type) {
+	case float64:
+		return x, true
+	case string:
+		f, err := strconv.ParseFloat(strings.TrimSpace(x), 64)
+		if err != nil {
+			return 0, false
+		}
+		return f, true
+	}
+	return 0, false
+}
+
+// movementClause renders a closed movement-modifier `modifier` as one
+// lowercase-initial clause. Mirror of _movement_clause in
+// python .../translate/effect.py.
+func movementClause(m map[string]any, subj string) string {
+	kind := m["move_type"]
+	dist := m["distance"]
+	inches := inchClause(dist)
+	ofUpTo := ""
+	if inches != "" {
+		ofUpTo = " of up to" + inches
+	}
+	var moveKinds string
+	if moves, ok := asList(m["applies_to_moves"]); ok {
+		parts := make([]string, len(moves))
+		for i, x := range moves {
+			xs := ejstr(x)
+			if n, ok := moveNoun[xs]; ok {
+				parts[i] = n
+			} else {
+				parts[i] = dekebab(xs)
+			}
+		}
+		moveKinds = andList(parts)
+	}
+
+	// Pure traversal capability (no move kind): passthrough / vertical / ignore-vertical.
+	if kind == nil {
+		var parts []string
+		if pt, ok := asList(m["passthrough"]); ok && len(pt) > 0 {
+			phrases := make([]string, len(pt))
+			for i, p := range pt {
+				ps := ejstr(p)
+				if ph, ok := passthroughPhrase[ps]; ok {
+					phrases[i] = ph
+				} else {
+					phrases[i] = dekebab(ps)
+				}
+			}
+			parts = append(parts, strings.Join(phrases, " and "))
+		}
+		var clause string
+		if len(parts) > 0 {
+			over := ""
+			if m["vertical_limit"] != nil {
+				over = " (up to " + ejstr(m["vertical_limit"]) + "\" high)"
+			}
+			clause = subj + " can move over " + strings.Join(parts, " and ") + over + " as though they were not there"
+		} else if truthy(m["ignore_vertical"]) {
+			clause = subj + " ignores vertical distances when it moves"
+		} else {
+			clause = subj + " " + ev(subj, "has") + " a movement capability"
+		}
+		if m["excludes_keyword"] != nil {
+			clause += " (excluding " + titleCase(ejstr(m["excludes_keyword"])) + " models)"
+		}
+		if moveKinds != "" {
+			clause += ", during its " + moveKinds + " moves"
+		}
+		return clause
+	}
+
+	switch ejstr(kind) {
+	case "scout":
+		return "before the first battle round, " + subj + " can make a Scout move" + ofUpTo
+	case "infiltrate":
+		return subj + " " + ev(subj, "has") + " the Infiltrators ability"
+	case "advance":
+		return "add " + diceCase(ejstr(dist)) + " to " + possessive(subj) + " Advance rolls"
+	case "pile-in":
+		i := inches
+		if i == "" {
+			i = " 3\""
+		}
+		return subj + " can Pile In up to" + i
+	case "consolidation":
+		i := inches
+		if i == "" {
+			i = " 3\""
+		}
+		return subj + " can Consolidate up to" + i
+	case "surge":
+		return subj + " can make a Surge move" + ofUpTo
+	case "shoot-and-scoot":
+		if inches != "" {
+			return subj + " can shoot and then make a Normal move" + ofUpTo
+		}
+		return subj + " can Shoot and Scoot"
+	case "reactive":
+		label := ""
+		if m["name"] != nil {
+			label = " (" + ejstr(m["name"]) + ")"
+		}
+		return subj + " can make a Reactive move" + ofUpTo + label
+	case "redeploy":
+		if marker, ok := getMap(m, "marker"); ok && marker != nil {
+			if marker["location"] != nil {
+				who := "units"
+				if marker["unit_filter"] != nil {
+					who = ejstr(marker["unit_filter"]) + " units"
+				}
+				return who + " can be set up on " + ejstr(marker["location"])
+			}
+			what := "markers"
+			if marker["affected"] != nil {
+				what = ejstr(marker["affected"])
+			}
+			return what + " can be repositioned" + inches
+		}
+		if truthy(m["to_reserves"]) {
+			n := subj
+			if m["max_units"] != nil {
+				n = "up to " + ejstr(m["max_units"]) + " units"
+			}
+			return n + " can be placed into Strategic Reserves"
+		}
+		return subj + " can be redeployed" + inches
+	}
+	// normal / default
+	if n, ok := parseNumber(dist); ok && n < 0 {
+		return possessive(subj) + " Move characteristic is reduced by " + numStr(-n) + "\""
+	}
+	if moveKinds != "" {
+		return "add" + inches + " to " + possessive(subj) + " " + moveKinds + " moves"
+	}
+	return subj + " can make a Normal move" + ofUpTo
+}
+
+// auraClause renders a generic aura `modifier` as one lowercase-initial clause.
+// Mirror of _aura_clause in python .../translate/effect.py.
+func auraClause(e, m map[string]any, ctx map[string]any) string {
+	// Range-extension of a named aura (e.g. Gift of Poxes: contagion +3").
+	if m["range_bonus"] != nil {
+		named := ""
+		if m["of"] != nil {
+			named = titleCase(ejstr(m["of"])) + " "
+		}
+		return "the range of this model's " + named + "abilities is increased by " + ejstr(m["range_bonus"]) + "\""
+	}
+	var rangeText string
+	hasRange := false
+	if rng, ok := asList(m["range"]); ok {
+		parts := make([]string, len(rng))
+		for i, r := range rng {
+			parts[i] = ejstr(r) + "\""
+		}
+		rangeText = strings.Join(parts, "/") + " (by battle round)"
+		hasRange = true
+	} else if m["range"] != nil {
+		rangeText = ejstr(m["range"]) + "\""
+		hasRange = true
+	}
+	who := "each enemy unit"
+	if e["target"] == "friendly-within-aura" {
+		who = "each friendly unit"
+	}
+	within := who
+	if hasRange {
+		within = who + " within " + rangeText
+	}
+	if inner, ok := getMap(m, "effect"); ok && inner != nil {
+		ctxCopy := map[string]any{}
+		for k, val := range ctx {
+			ctxCopy[k] = val
+		}
+		return within + " " + describeEffectInline(inner, ctxCopy)
+	}
+	return within + " is affected"
 }
 
 // describeEffectInline wraps the leaf/container switch to weave on any `scaling` block.
@@ -716,36 +947,9 @@ func describeEffectInlineBase(e map[string]any, ctx map[string]any) string {
 		}
 		return subj + " " + ev(subj, "gains") + " an ability" + cap
 	case "movement-modifier":
-		kind := m["move_type"]
-		if kind == nil {
-			kind = m["type"]
-		}
-		if ejstr(kind) == "move-through" {
-			return subj + " can move through enemy models and terrain"
-		}
-		if ejstr(kind) == "scouts" {
-			dist := m["distance"]
-			if dist == nil {
-				dist = m["value"]
-			}
-			inches := ""
-			if dist != nil && ejstr(dist) != "0" {
-				inches = " " + ejstr(dist) + "\""
-			}
-			return "Before the first battle round, " + strings.ToLower(subj[:1]) + subj[1:] + " can Scout" + inches
-		}
-		dist := m["distance"]
-		if dist == nil {
-			dist = m["value"]
-		}
-		inches := ""
-		if dist != nil && ejstr(dist) != "0" {
-			inches = " " + ejstr(dist) + "\""
-		}
-		if kind != nil {
-			return subj + " " + ev(subj, "has") + " the " + titleCase(ejstr(kind)) + inches + " ability"
-		}
-		return subj + " " + ev(subj, "gains") + " a movement ability"
+		return movementClause(m, subj)
+	case "aura":
+		return auraClause(e, m, ctx)
 	case "damage-reduction":
 		var rv any = m["reduction"]
 		if rv == nil {
@@ -870,7 +1074,10 @@ func describeEffectInlineBase(e map[string]any, ctx map[string]any) string {
 	case "unit-keyword-grant":
 		return ejstr(m["to_keywords"]) + " units gain the " + ejstr(m["keyword"]) + " keyword"
 	case "deep-strike":
-		return subj + " " + ev(subj, "has") + " the Deep Strike ability"
+		if m["min_distance"] != nil {
+			return subj + " " + ev(subj, "has") + " the Deep Strike ability and can be set up more than " + ejstr(m["min_distance"]) + "\" from enemy models"
+		}
+		return subj + " has the Deep Strike ability"
 	case "strategic-reserves-arrival":
 		return subj + " can arrive from Strategic Reserves regardless of mission rules"
 	case "remove-battle-shock":
@@ -901,6 +1108,9 @@ func describeEffectInlineBase(e map[string]any, ctx map[string]any) string {
 	case "fallback-and-act":
 		return subj + " " + ev(subj, "is") + " eligible to shoot and declare a charge in a turn in which it Fell Back"
 	case "engagement-passthrough":
+		if truthy(m["no_end_in_engagement"]) {
+			return subj + " can move through enemy models, but cannot end that move within Engagement Range of any enemy unit"
+		}
 		return subj + " can move through enemy models"
 	case "attack-restriction":
 		return describeAttackRestriction(m, subj)

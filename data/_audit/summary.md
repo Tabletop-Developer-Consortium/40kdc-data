@@ -36,9 +36,9 @@ abilities that translate into cruncher buffs via the real `effectToBuffs`
 
 ## Unsupported-effect reasons (offensive walk)
 
-- `467` — effect type "ability-grant" is not modelled by the buff layer
+- `468` — effect type "ability-grant" is not modelled by the buff layer
 - `388` — stat-modifier: operation "undefined" not supported
-- `147` — effect type "movement-modifier" is not modelled by the buff layer
+- `143` — effect type "movement-modifier" is not modelled by the buff layer
 - `129` — effect type "mortal-wounds" is not modelled by the buff layer
 - `91` — effect type "attack-restriction" is not modelled by the buff layer
 - `76` — effect type "leadership-modifier" is not modelled by the buff layer
@@ -46,7 +46,7 @@ abilities that translate into cruncher buffs via the real `effectToBuffs`
 - `50` — conditional: cannot evaluate condition "undefined" against current context
 - `49` — effect type "cp-refund" is not modelled by the buff layer
 - `44` — effect type "objective-control-modifier" is not modelled by the buff layer
-- `38` — effect type "deep-strike" is not modelled by the buff layer
+- `40` — effect type "deep-strike" is not modelled by the buff layer
 - `35` — re-roll on "charge" (subset …) is outside the damage path
 - `34` — effect type "cp-gain" is not modelled by the buff layer
 - `32` — effect type "unit-keyword" is not modelled by the buff layer
@@ -64,6 +64,7 @@ abilities that translate into cruncher buffs via the real `effectToBuffs`
 - `8` — stat-modifier T: defender-side stat; applies when the buffed unit is the target
 - `7` — roll-modifier: operation "crit-on" not supported
 - `7` — dice-gated effect: stochastic; not expressible as a buff
+- `6` — effect type "engagement-passthrough" is not modelled by the buff layer
 - `5` — effect type "unit-tag" is not modelled by the buff layer
 - `5` — stat-modifier AP on the attacker: defender-side AP reduction is not modelled by the buff layer
 - `5` — conditional: cannot evaluate condition "advanced-this-turn" against current context
@@ -73,7 +74,6 @@ abilities that translate into cruncher buffs via the real `effectToBuffs`
 - `4` — effect type "charge-roll-modifier" is not modelled by the buff layer
 - `4` — stat-modifier on "Ld" is outside the damage path
 - `4` — conditional: cannot evaluate condition "is-battle-shocked" against current context
-- `4` — effect type "engagement-passthrough" is not modelled by the buff layer
 - `3` — roll-modifier: operation "guarantee-crit" not supported
 - `3` — effect type "shoot-on-death" is not modelled by the buff layer
 - `3` — conditional: cannot evaluate condition "attack-is-type" against current context
@@ -98,6 +98,7 @@ abilities that translate into cruncher buffs via the real `effectToBuffs`
 - `1` — stat-modifier: narrows by "weapon_filter" which the cruncher can't resolve here
 - `1` — stat-modifier on "OC" is outside the damage path
 - `1` — re-roll on "dread-ability-selection" (subset …) is outside the damage path
+- `1` — effect type "aura" is not modelled by the buff layer
 - `1` — conditional: cannot evaluate condition "has-fought-this-phase" against current context
 - `1` — conditional: cannot evaluate condition "units-destroyed" against current context
 - `1` — re-roll on "weapon-attacks" (subset …) is outside the damage path

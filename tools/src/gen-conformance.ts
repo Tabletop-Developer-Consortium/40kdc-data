@@ -1120,7 +1120,7 @@ function genEffectTranslation(): void {
   // "Before the first battle round, …" phrasing pinned cross-impl.
   {
     const fc = {
-      effect: { type: "movement-modifier", target: "unit", modifier: { type: "scouts", distance: 6 } },
+      effect: { type: "movement-modifier", target: "unit", modifier: { move_type: "scout", distance: 6 } },
       scope: { range: "unit", duration: "permanent" },
     };
     cases.push({
@@ -1335,6 +1335,112 @@ function genEffectTranslation(): void {
           trigger: fc.trigger as AbilityTrigger,
         }),
       },
+    });
+  }
+  // Batch D (movement-modifier full closure + generic aura): pin one exemplar of
+  // every new closed shape — move kinds, the optional-move_type passthrough
+  // capability, redeploy/marker, the generic aura (range-bonus + tiered+effect),
+  // and the re-homed deep-strike-range / engagement-no-end records. Several have
+  // no enrichment usage (aura with nested effect, tiered range), so force them;
+  // expected text still flows from the reference describer.
+  const FORCED_BATCH_D_CASES: { id: string; effect: Record<string, unknown>; scope: Record<string, unknown> }[] = [
+    {
+      id: "move-passthrough-models-terrain",
+      effect: { type: "movement-modifier", target: "self", modifier: { passthrough: ["non-titanic-models", "terrain-le-4"] } },
+      scope: { range: "self", duration: "permanent" },
+    },
+    {
+      id: "move-passthrough-applies-excludes",
+      effect: { type: "movement-modifier", target: "unit", modifier: { passthrough: ["terrain-le-4"], vertical_limit: 4, excludes_keyword: "titanic", applies_to_moves: ["normal", "advance", "fall-back"] } },
+      scope: { range: "unit", duration: "permanent" },
+    },
+    {
+      id: "move-ignore-vertical",
+      effect: { type: "movement-modifier", target: "unit", modifier: { ignore_vertical: true } },
+      scope: { range: "unit", duration: "permanent" },
+    },
+    {
+      id: "move-normal-applies",
+      effect: { type: "movement-modifier", target: "unit", modifier: { move_type: "normal", distance: 3, applies_to_moves: ["normal", "advance", "fall-back"] } },
+      scope: { range: "unit", duration: "permanent" },
+    },
+    {
+      id: "move-normal-negative",
+      effect: { type: "movement-modifier", target: "defender", modifier: { move_type: "normal", distance: -2 } },
+      scope: { range: "unit", duration: "turn" },
+    },
+    {
+      id: "move-advance-bonus",
+      effect: { type: "movement-modifier", target: "unit", modifier: { move_type: "advance", distance: 6 } },
+      scope: { range: "unit", duration: "permanent" },
+    },
+    {
+      id: "move-pile-in",
+      effect: { type: "movement-modifier", target: "unit", modifier: { move_type: "pile-in", distance: 3, replaces_default: true } },
+      scope: { range: "unit", duration: "permanent" },
+    },
+    {
+      id: "move-consolidation",
+      effect: { type: "movement-modifier", target: "unit", modifier: { move_type: "consolidation", distance: 6, replaces_default: true } },
+      scope: { range: "unit", duration: "permanent" },
+    },
+    {
+      id: "move-surge",
+      effect: { type: "movement-modifier", target: "unit", modifier: { move_type: "surge", distance: "D6" } },
+      scope: { range: "unit", duration: "phase" },
+    },
+    {
+      id: "move-shoot-and-scoot",
+      effect: { type: "movement-modifier", target: "unit", modifier: { move_type: "shoot-and-scoot", distance: "D6" } },
+      scope: { range: "unit", duration: "turn" },
+    },
+    {
+      id: "move-redeploy-reserves-max",
+      effect: { type: "movement-modifier", target: "unit", modifier: { move_type: "redeploy", to_reserves: true, max_units: 3 } },
+      scope: { range: "unit", duration: "permanent" },
+    },
+    {
+      id: "move-redeploy-marker",
+      effect: { type: "movement-modifier", target: "unit", modifier: { move_type: "redeploy", marker: { affected: "Cult Ambush markers" }, distance: 6 } },
+      scope: { range: "unit", duration: "turn" },
+    },
+    {
+      id: "move-redeploy-placement",
+      effect: { type: "movement-modifier", target: "unit", modifier: { move_type: "redeploy", marker: { location: "floor sections", unit_filter: "Genestealer Cult Infantry" } } },
+      scope: { range: "unit", duration: "permanent" },
+    },
+    {
+      id: "move-infiltrate",
+      effect: { type: "movement-modifier", target: "unit", modifier: { move_type: "infiltrate" } },
+      scope: { range: "unit", duration: "permanent" },
+    },
+    {
+      id: "aura-range-bonus",
+      effect: { type: "aura", target: "enemy-within-aura", modifier: { of: "contagion", range_bonus: 3 } },
+      scope: { range: "self", duration: "permanent" },
+    },
+    {
+      id: "aura-tiered-effect",
+      effect: { type: "aura", target: "enemy-within-aura", modifier: { range: [3, 6, 9], effect: { type: "stat-modifier", target: "enemy-within-aura", modifier: { stat: "T", operation: "subtract", value: 1 } } } },
+      scope: { range: "self", duration: "permanent" },
+    },
+    {
+      id: "rehome-deep-strike-min-distance",
+      effect: { type: "deep-strike", target: "unit", modifier: { min_distance: 6, replaces_default: true } },
+      scope: { range: "unit", duration: "phase" },
+    },
+    {
+      id: "rehome-engagement-no-end",
+      effect: { type: "engagement-passthrough", target: "self", modifier: { no_end_in_engagement: true } },
+      scope: { range: "self", duration: "permanent" },
+    },
+  ];
+  for (const fc of FORCED_BATCH_D_CASES) {
+    cases.push({
+      caseId: `${fc.id}#${cases.length}`,
+      effect: fc.effect,
+      scope: fc.scope,
+      expected: { text: describeAbility({ effect: fc.effect as Effect, scope: fc.scope }) },
     });
   }
   writeJson(join(CONFORMANCE, "effect-translation", "cases.json"), cases);

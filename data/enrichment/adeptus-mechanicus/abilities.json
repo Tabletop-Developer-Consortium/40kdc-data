@@ -208,8 +208,10 @@
         "type": "movement-modifier",
         "target": "self",
         "modifier": {
-          "move_type": "through-friendly-heavy-and-small-terrain",
-          "value": 4
+          "passthrough": [
+            "friendly-vehicles",
+            "terrain-le-4"
+          ]
         }
       }
     },
@@ -1369,7 +1371,7 @@
                 "target": "unit",
                 "modifier": {
                   "move_type": "normal",
-                  "value": 6
+                  "distance": 6
                 }
               },
               {
@@ -1398,7 +1400,7 @@
                   "target": "unit",
                   "modifier": {
                     "move_type": "normal",
-                    "value": 12
+                    "distance": 12
                   }
                 },
                 {
@@ -1588,7 +1590,7 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "type": "scouts",
+        "move_type": "scout",
         "distance": 9
       }
     },
@@ -1615,8 +1617,7 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "type": "reactive-move",
-        "trigger": "enemy-ends-move-nearby"
+        "move_type": "reactive"
       }
     },
     "scope": {
@@ -1627,7 +1628,12 @@
       "serberys-raiders"
     ],
     "ability_type": "unit",
-    "behavior": "passive"
+    "behavior": "passive",
+    "trigger": {
+      "event": "enemy-unit-ended-move",
+      "subject": "enemy-unit",
+      "optional": true
+    }
   },
   {
     "ability_id": "dynamic-efficiency",
@@ -2060,7 +2066,7 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "type": "scouts",
+        "move_type": "scout",
         "distance": 6
       }
     },
@@ -2593,7 +2599,8 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "type": "redeploy-to-reserves"
+        "move_type": "redeploy",
+        "to_reserves": true
       }
     },
     "scope": {
@@ -3077,9 +3084,8 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "move_type": "surge-move",
-        "value": "D6",
-        "replaces_default": false
+        "move_type": "surge",
+        "distance": "D6"
       }
     },
     "scope": {

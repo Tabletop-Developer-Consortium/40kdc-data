@@ -412,7 +412,8 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "type": "redeploy-to-reserves"
+        "move_type": "redeploy",
+        "to_reserves": true
       }
     },
     "scope": {
@@ -693,7 +694,7 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "type": "scouts",
+        "move_type": "scout",
         "distance": 6
       }
     },
@@ -2394,7 +2395,8 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "type": "redeploy-to-reserves",
+        "move_type": "redeploy",
+        "to_reserves": true,
         "max_units": 3
       }
     },
@@ -2693,8 +2695,7 @@
         "target": "unit",
         "modifier": {
           "move_type": "normal",
-          "distance": "D6+1",
-          "unit": "inches"
+          "distance": "D6+1"
         }
       }
     },

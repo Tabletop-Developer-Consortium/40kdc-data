@@ -55,8 +55,8 @@
               "type": "movement-modifier",
               "target": "all-friendly",
               "modifier": {
-                "move_type": "pile-in-consolidation",
-                "value": 6,
+                "move_type": "consolidation",
+                "distance": 6,
                 "replaces_default": true
               }
             }
@@ -657,9 +657,8 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "move_type": "scouts",
-        "value": 6,
-        "replaces_default": false
+        "move_type": "scout",
+        "distance": 6
       }
     },
     "scope": {
@@ -686,9 +685,8 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "move_type": "scouts",
-        "value": 8,
-        "replaces_default": false
+        "move_type": "scout",
+        "distance": 8
       }
     },
     "scope": {
@@ -980,9 +978,10 @@
       "type": "movement-modifier",
       "target": "self",
       "modifier": {
-        "move_type": "move-through",
-        "value": 4,
-        "replaces_default": false
+        "passthrough": [
+          "non-titanic-models",
+          "terrain-le-4"
+        ]
       }
     },
     "scope": {
@@ -1136,9 +1135,8 @@
         "type": "movement-modifier",
         "target": "unit",
         "modifier": {
-          "move_type": "reactive-move",
-          "value": "D6",
-          "replaces_default": false
+          "move_type": "reactive",
+          "distance": "D6"
         }
       }
     },
@@ -1500,9 +1498,9 @@
         "type": "movement-modifier",
         "target": "unit",
         "modifier": {
-          "move_type": "blood-surge",
-          "value": "D6+2",
-          "replaces_default": false
+          "move_type": "reactive",
+          "name": "Blood Surge",
+          "distance": "D6+2"
         }
       }
     },
@@ -1824,18 +1822,19 @@
           "type": "movement-modifier",
           "target": "self",
           "modifier": {
-            "move_type": "move-through",
-            "value": 4,
-            "replaces_default": false
+            "passthrough": [
+              "non-titanic-models",
+              "terrain-le-4"
+            ]
           }
         },
         {
           "type": "movement-modifier",
           "target": "self",
           "modifier": {
-            "move_type": "move-through-tall",
-            "value": 0,
-            "replaces_default": false
+            "passthrough": [
+              "tall-terrain"
+            ]
           }
         }
       ]
@@ -2018,9 +2017,9 @@
             "type": "movement-modifier",
             "target": "unit",
             "modifier": {
-              "move_type": "move-through-terrain",
-              "value": 0,
-              "replaces_default": false
+              "passthrough": [
+                "all-terrain"
+              ]
             }
           }
         ]
@@ -2357,9 +2356,10 @@
             "type": "movement-modifier",
             "target": "unit",
             "modifier": {
-              "move_type": "move-through",
-              "value": 0,
-              "replaces_default": false
+              "passthrough": [
+                "non-titanic-models",
+                "all-terrain"
+              ]
             }
           }
         ]
@@ -2399,8 +2399,8 @@
         "type": "movement-modifier",
         "target": "unit",
         "modifier": {
-          "move_type": "extended-pile-in",
-          "value": 3,
+          "move_type": "pile-in",
+          "distance": 3,
           "replaces_default": true
         }
       }
@@ -2795,9 +2795,9 @@
         "type": "movement-modifier",
         "target": "unit",
         "modifier": {
-          "move_type": "brazen-fury",
-          "value": "D6",
-          "replaces_default": false
+          "move_type": "reactive",
+          "name": "Brazen Fury",
+          "distance": "D6"
         }
       }
     },
@@ -4228,9 +4228,10 @@
           "type": "movement-modifier",
           "target": "unit",
           "modifier": {
-            "move_type": "move-through",
-            "value": 0,
-            "replaces_default": false
+            "passthrough": [
+              "non-titanic-models",
+              "all-terrain"
+            ]
           }
         },
         {
@@ -4321,9 +4322,8 @@
       "type": "movement-modifier",
       "target": "self",
       "modifier": {
-        "move_type": "reactive-move",
-        "value": 6,
-        "replaces_default": false
+        "move_type": "reactive",
+        "distance": 6
       }
     },
     "scope": {
@@ -4515,9 +4515,7 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "move_type": "teleport-redeploy",
-        "value": 0,
-        "replaces_default": false
+        "move_type": "redeploy"
       }
     },
     "scope": {
@@ -4634,11 +4632,10 @@
     "ability_type": "stratagem",
     "behavior": "activated",
     "effect": {
-      "type": "movement-modifier",
+      "type": "deep-strike",
       "target": "unit",
       "modifier": {
-        "move_type": "deep-strike-close",
-        "value": 6,
+        "min_distance": 6,
         "replaces_default": true
       }
     },
@@ -4666,9 +4663,10 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "move_type": "move-through",
-        "value": 0,
-        "replaces_default": false
+        "passthrough": [
+          "non-titanic-models",
+          "all-terrain"
+        ]
       }
     },
     "scope": {
@@ -4982,9 +4980,8 @@
         "type": "movement-modifier",
         "target": "unit",
         "modifier": {
-          "move_type": "surge-move",
-          "value": "D6",
-          "replaces_default": false
+          "move_type": "surge",
+          "distance": "D6"
         }
       }
     },

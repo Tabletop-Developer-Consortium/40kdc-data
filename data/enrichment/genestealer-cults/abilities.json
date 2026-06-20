@@ -12,7 +12,7 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "type": "scouts",
+        "move_type": "scout",
         "distance": 9
       }
     },
@@ -90,8 +90,8 @@
             "type": "movement-modifier",
             "target": "self",
             "modifier": {
-              "move_type": "redeploy-within-distance",
-              "value": 9
+              "move_type": "redeploy",
+              "distance": 9
             }
           },
           {
@@ -239,8 +239,7 @@
         "type": "movement-modifier",
         "target": "unit",
         "modifier": {
-          "type": "reactive-move",
-          "trigger": "enemy-ends-move-nearby"
+          "move_type": "reactive"
         }
       }
     },
@@ -252,7 +251,12 @@
       "kelermorph"
     ],
     "ability_type": "unit",
-    "behavior": "passive"
+    "behavior": "passive",
+    "trigger": {
+      "event": "enemy-unit-ended-move",
+      "subject": "enemy-unit",
+      "optional": true
+    }
   },
   {
     "ability_id": "a-plan-generations-in-the-making",
@@ -463,8 +467,7 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "type": "reactive-move",
-        "trigger": "enemy-ends-move-nearby"
+        "move_type": "reactive"
       }
     },
     "scope": {
@@ -475,7 +478,12 @@
       "reductus-saboteur"
     ],
     "ability_type": "unit",
-    "behavior": "activated"
+    "behavior": "activated",
+    "trigger": {
+      "event": "enemy-unit-ended-move",
+      "subject": "enemy-unit",
+      "optional": true
+    }
   },
   {
     "ability_id": "might-from-beyond",
@@ -823,7 +831,7 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "type": "scouts",
+        "move_type": "scout",
         "distance": 6
       }
     },
@@ -1286,10 +1294,11 @@
         "type": "movement-modifier",
         "target": "self",
         "modifier": {
-          "movement_type": "marker_reposition",
-          "distance": 6,
-          "affected": "Cult Ambush markers",
-          "per_turn_limit": 1
+          "move_type": "redeploy",
+          "marker": {
+            "affected": "Cult Ambush markers"
+          },
+          "distance": 6
         }
       }
     },
@@ -1302,7 +1311,10 @@
     ],
     "ability_type": "unit",
     "behavior": "passive",
-    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21",
+    "usage": {
+      "frequency": "once-per-turn"
+    }
   },
   {
     "ability_id": "creeping-shadow",
@@ -1317,8 +1329,7 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "type": "reactive-move",
-        "trigger": "enemy-ends-move-nearby"
+        "move_type": "reactive"
       }
     },
     "scope": {
@@ -1329,7 +1340,12 @@
       "sanctus"
     ],
     "ability_type": "unit",
-    "behavior": "passive"
+    "behavior": "passive",
+    "trigger": {
+      "event": "enemy-unit-ended-move",
+      "subject": "enemy-unit",
+      "optional": true
+    }
   },
   {
     "ability_id": "cloaked-assassin",
@@ -1465,7 +1481,7 @@
         "type": "movement-modifier",
         "target": "unit",
         "modifier": {
-          "type": "shoot-and-scoot"
+          "move_type": "shoot-and-scoot"
         }
       }
     },
@@ -1937,7 +1953,7 @@
               "type": "movement-modifier",
               "target": "self",
               "modifier": {
-                "move_type": "reposition"
+                "move_type": "redeploy"
               }
             }
           },
@@ -1973,9 +1989,11 @@
       "type": "movement-modifier",
       "target": "friendly-within-aura",
       "modifier": {
-        "movement_type": "placement_on_fortification",
-        "unit_filter": "Genestealer Cult Infantry",
-        "location": "floor sections"
+        "move_type": "redeploy",
+        "marker": {
+          "location": "floor sections",
+          "unit_filter": "Genestealer Cult Infantry"
+        }
       }
     },
     "scope": {

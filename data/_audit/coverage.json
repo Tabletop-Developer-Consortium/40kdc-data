@@ -278,7 +278,7 @@
   "unsupportedReasons": [
     {
       "reason": "effect type \"ability-grant\" is not modelled by the buff layer",
-      "count": 467
+      "count": 468
     },
     {
       "reason": "stat-modifier: operation \"undefined\" not supported",
@@ -286,7 +286,7 @@
     },
     {
       "reason": "effect type \"movement-modifier\" is not modelled by the buff layer",
-      "count": 147
+      "count": 143
     },
     {
       "reason": "effect type \"mortal-wounds\" is not modelled by the buff layer",
@@ -318,7 +318,7 @@
     },
     {
       "reason": "effect type \"deep-strike\" is not modelled by the buff layer",
-      "count": 38
+      "count": 40
     },
     {
       "reason": "re-roll on \"charge\" (subset …) is outside the damage path",
@@ -389,6 +389,10 @@
       "count": 7
     },
     {
+      "reason": "effect type \"engagement-passthrough\" is not modelled by the buff layer",
+      "count": 6
+    },
+    {
       "reason": "effect type \"unit-tag\" is not modelled by the buff layer",
       "count": 5
     },
@@ -422,10 +426,6 @@
     },
     {
       "reason": "conditional: cannot evaluate condition \"is-battle-shocked\" against current context",
-      "count": 4
-    },
-    {
-      "reason": "effect type \"engagement-passthrough\" is not modelled by the buff layer",
       "count": 4
     },
     {
@@ -522,6 +522,10 @@
     },
     {
       "reason": "re-roll on \"dread-ability-selection\" (subset …) is outside the damage path",
+      "count": 1
+    },
+    {
+      "reason": "effect type \"aura\" is not modelled by the buff layer",
       "count": 1
     },
     {
@@ -17294,11 +17298,11 @@
       "faction": "death-guard",
       "ability_id": "gift-of-poxes",
       "name": "Gift of Poxes",
-      "shape": "movement-modifier",
+      "shape": "aura",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"movement-modifier\" is not modelled by the buff layer"
+      "gap": "effect type \"aura\" is not modelled by the buff layer"
     },
     {
       "faction": "death-guard",
@@ -31224,11 +31228,11 @@
       "faction": "world-eaters",
       "ability_id": "rapid-manifestation-possessed-slaughterband",
       "name": "Rapid Manifestation",
-      "shape": "movement-modifier",
+      "shape": "deep-strike",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"movement-modifier\" is not modelled by the buff layer"
+      "gap": "effect type \"deep-strike\" is not modelled by the buff layer"
     },
     {
       "faction": "world-eaters",

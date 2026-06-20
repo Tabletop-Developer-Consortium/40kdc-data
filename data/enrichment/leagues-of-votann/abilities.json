@@ -270,7 +270,7 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "type": "scouts",
+        "move_type": "scout",
         "distance": 9
       }
     },
@@ -297,7 +297,8 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "type": "redeploy-to-reserves"
+        "move_type": "redeploy",
+        "to_reserves": true
       }
     },
     "scope": {
@@ -1239,8 +1240,7 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "type": "reactive-move",
-        "trigger": "enemy-ends-move-nearby"
+        "move_type": "reactive"
       }
     },
     "scope": {
@@ -1251,7 +1251,12 @@
       "hernkyn-yaegirs"
     ],
     "ability_type": "unit",
-    "behavior": "passive"
+    "behavior": "passive",
+    "trigger": {
+      "event": "enemy-unit-ended-move",
+      "subject": "enemy-unit",
+      "optional": true
+    }
   },
   {
     "ability_id": "exemplar-of-the-einhyr",
@@ -1432,7 +1437,7 @@
         "type": "movement-modifier",
         "target": "unit",
         "modifier": {
-          "type": "shoot-and-scoot"
+          "move_type": "shoot-and-scoot"
         }
       }
     },

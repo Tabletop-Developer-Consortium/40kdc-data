@@ -755,7 +755,6 @@ class SingleEffect(TypedDict):
         "ward",
         "keyword-grant",
         "unit-keyword",
-        "movement-modifier",
         "deep-strike",
         "fallback-and-act",
         "fight-first",
@@ -817,6 +816,16 @@ class Selector(TypedDict):
     max_count: int
     keywords: NotRequired[list[str]]
     owner: Literal["friendly", "enemy"]
+
+
+class Marker(TypedDict):
+    affected: NotRequired[str]
+    unit_filter: NotRequired[str]
+    location: NotRequired[str]
+    max_units: NotRequired[int]
+
+
+RangeItem: TypeAlias = int
 
 
 class Scope(TypedDict):
@@ -1020,6 +1029,8 @@ EffectNode: TypeAlias = Union[
     "ConditionalEffect",
     "DicePoolAllocationEffect",
     "SelectUnitsEffect",
+    "MovementModifierEffect",
+    "AuraEffect",
 ]
 
 
@@ -1066,6 +1077,77 @@ class SelectUnitsEffect(TypedDict):
     type: Literal["select-units"]
     selector: Selector
     effect: EffectNode
+
+
+class Modifier(TypedDict):
+    move_type: NotRequired[
+        Literal[
+            "normal",
+            "advance",
+            "pile-in",
+            "consolidation",
+            "reactive",
+            "surge",
+            "redeploy",
+            "scout",
+            "infiltrate",
+            "shoot-and-scoot",
+        ]
+    ]
+    distance: NotRequired[int | str]
+    passthrough: NotRequired[
+        list[
+            Literal[
+                "non-titanic-models",
+                "friendly-vehicles",
+                "friendly-monsters",
+                "terrain-le-4",
+                "tall-terrain",
+                "all-terrain",
+            ]
+        ]
+    ]
+    vertical_limit: NotRequired[int]
+    ignore_vertical: NotRequired[bool]
+    replaces_default: NotRequired[bool]
+    to_reserves: NotRequired[bool]
+    applies_to_moves: NotRequired[list[Literal["normal", "advance", "fall-back", "charge"]]]
+    name: NotRequired[str]
+    excludes_keyword: NotRequired[str]
+    max_units: NotRequired[int]
+    marker: NotRequired[Marker]
+    condition: NotRequired[Condition]
+
+
+class MovementModifierEffect(TypedDict):
+    type: Literal["movement-modifier"]
+    target: Literal[
+        "self",
+        "bearer",
+        "unit",
+        "attached-unit",
+        "attacker",
+        "defender",
+        "target",
+        "friendly-within-aura",
+        "enemy-within-aura",
+        "all-friendly",
+        "all-enemy",
+    ]
+    modifier: Modifier
+
+
+class Modifier1(TypedDict):
+    range: NotRequired[int | list[RangeItem]]
+    range_bonus: NotRequired[int]
+    of: NotRequired[str]
+    effect: NotRequired[EffectNode]
+
+
+class AuraEffect(TypedDict):
+    type: Literal["aura"]
+    target: Literal["enemy-within-aura", "friendly-within-aura"]
+    modifier: Modifier1
 
 
 Effect: TypeAlias = EffectNode

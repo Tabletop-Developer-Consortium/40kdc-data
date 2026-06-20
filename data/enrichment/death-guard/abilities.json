@@ -38,11 +38,11 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "movement-modifier",
-      "target": "bearer",
+      "type": "aura",
+      "target": "enemy-within-aura",
       "modifier": {
-        "move_type": "contagion-range",
-        "value": 3
+        "of": "contagion",
+        "range_bonus": 3
       }
     },
     "scope": {
@@ -182,7 +182,9 @@
       "type": "movement-modifier",
       "target": "self",
       "modifier": {
-        "type": "move-over-terrain"
+        "passthrough": [
+          "all-terrain"
+        ]
       }
     },
     "scope": {
@@ -418,7 +420,7 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "type": "scouts",
+        "move_type": "scout",
         "distance": 6
       }
     },
@@ -481,8 +483,7 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "type": "reactive-move",
-        "trigger": "enemy-ends-move-nearby"
+        "move_type": "reactive"
       }
     },
     "scope": {
@@ -493,7 +494,12 @@
       "chaos-spawn"
     ],
     "ability_type": "unit",
-    "behavior": "passive"
+    "behavior": "passive",
+    "trigger": {
+      "event": "enemy-unit-ended-move",
+      "subject": "enemy-unit",
+      "optional": true
+    }
   },
   {
     "ability_id": "regenerating-monstrosities",
@@ -535,7 +541,7 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "type": "scouts",
+        "move_type": "scout",
         "distance": 8
       }
     },
@@ -2688,8 +2694,7 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "type": "reactive-move",
-        "trigger": "enemy-ends-move-nearby"
+        "move_type": "reactive"
       }
     },
     "scope": {
@@ -2700,7 +2705,12 @@
       "chaos-rhino"
     ],
     "ability_type": "unit",
-    "behavior": "passive"
+    "behavior": "passive",
+    "trigger": {
+      "event": "enemy-unit-ended-move",
+      "subject": "enemy-unit",
+      "optional": true
+    }
   },
   {
     "ability_id": "assault-ramp",

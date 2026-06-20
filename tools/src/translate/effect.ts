@@ -541,6 +541,8 @@ function conditionLeadIn(c: Condition): string {
       if (st === "embarked") return "while the unit is embarked";
       if (st === "engaged" || st === "within-engagement-range" || st === "in-engagement-range")
         return "while the unit is within Engagement Range";
+      if (st === "not-in-engagement-range" || st === "not-within-engagement-range")
+        return "while the unit is not within Engagement Range";
       return `while the unit is ${dekebab(st)}`;
     }
     case "disposition-matches": {
@@ -572,6 +574,137 @@ function scalingClause(s: NonNullable<Effect["scaling"]>): string {
   if (s.round === "up") c += " (rounding up)";
   if (s.max_value != null) c += ` (to a maximum of ${jstr(s.max_value)})`;
   return c;
+}
+
+/** Movement-modifier passthrough enum → human phrase. */
+const PASSTHROUGH_PHRASE: Record<string, string> = {
+  "non-titanic-models": "non-Titanic models",
+  "friendly-vehicles": "friendly Vehicle models",
+  "friendly-monsters": "friendly Monster models",
+  "terrain-le-4": 'terrain features 4" or lower',
+  "tall-terrain": 'terrain features over 4"',
+  "all-terrain": "terrain features",
+};
+
+/** Move-kind token → display noun (for `applies_to_moves`). */
+const MOVE_NOUN: Record<string, string> = {
+  normal: "Normal",
+  advance: "Advance",
+  "fall-back": "Fall Back",
+  charge: "Charge",
+};
+
+/** Oxford-free conjunction list ("a", "a and b", "a, b and c"). */
+function andList(items: string[]): string {
+  if (items.length <= 1) return items[0] ?? "";
+  if (items.length === 2) return `${items[0]} and ${items[1]}`;
+  return `${items.slice(0, -1).join(", ")} and ${items[items.length - 1]}`;
+}
+
+/** Trailing inches clause for a movement distance (int or dice string); "" when absent/zero. */
+function inchClause(dist: unknown): string {
+  if (dist == null) return "";
+  const s = diceCase(jstr(dist));
+  return s === "0" ? "" : ` ${s}"`;
+}
+
+/** Closed movement-modifier `modifier` → one lowercase-initial clause. */
+function movementClause(m: Record<string, unknown>, subj: string): string {
+  const kind = m.move_type as string | undefined;
+  const dist = m.distance;
+  const inches = inchClause(dist);
+  const ofUpTo = inches ? ` of up to${inches}` : "";
+  const moveKinds = Array.isArray(m.applies_to_moves)
+    ? andList((m.applies_to_moves as string[]).map((x) => MOVE_NOUN[x] ?? dekebab(x)))
+    : null;
+
+  // Pure traversal capability (no move kind): passthrough / vertical / ignore-vertical.
+  if (kind == null) {
+    const parts: string[] = [];
+    if (Array.isArray(m.passthrough) && m.passthrough.length) {
+      parts.push((m.passthrough as string[]).map((p) => PASSTHROUGH_PHRASE[p] ?? dekebab(p)).join(" and "));
+    }
+    let clause: string;
+    if (parts.length) {
+      const over = m.vertical_limit != null ? ` (up to ${jstr(m.vertical_limit)}" high)` : "";
+      clause = `${subj} can move over ${parts.join(" and ")}${over} as though they were not there`;
+    } else if (m.ignore_vertical) {
+      clause = `${subj} ignores vertical distances when it moves`;
+    } else {
+      clause = `${subj} ${v(subj, "has")} a movement capability`;
+    }
+    if (m.excludes_keyword != null) clause += ` (excluding ${titleCase(jstr(m.excludes_keyword))} models)`;
+    if (moveKinds) clause += `, during its ${moveKinds} moves`;
+    return clause;
+  }
+
+  switch (kind) {
+    case "scout":
+      return `before the first battle round, ${subj} can make a Scout move${ofUpTo}`;
+    case "infiltrate":
+      return `${subj} ${v(subj, "has")} the Infiltrators ability`;
+    case "advance":
+      return `add ${diceCase(jstr(dist))} to ${possessive(subj)} Advance rolls`;
+    case "pile-in":
+      return `${subj} can Pile In up to${inches || ' 3"'}`;
+    case "consolidation":
+      return `${subj} can Consolidate up to${inches || ' 3"'}`;
+    case "surge":
+      return `${subj} can make a Surge move${ofUpTo}`;
+    case "shoot-and-scoot":
+      return inches
+        ? `${subj} can shoot and then make a Normal move${ofUpTo}`
+        : `${subj} can Shoot and Scoot`;
+    case "reactive": {
+      const label = m.name != null ? ` (${jstr(m.name)})` : "";
+      return `${subj} can make a Reactive move${ofUpTo}${label}`;
+    }
+    case "redeploy": {
+      if (m.marker != null) {
+        const mk = m.marker as Record<string, unknown>;
+        if (mk.location != null) {
+          const who = mk.unit_filter != null ? `${jstr(mk.unit_filter)} units` : "units";
+          return `${who} can be set up on ${jstr(mk.location)}`;
+        }
+        const what = mk.affected != null ? jstr(mk.affected) : "markers";
+        return `${what} can be repositioned${inches}`;
+      }
+      if (m.to_reserves) {
+        const n = m.max_units != null ? `up to ${jstr(m.max_units)} units` : subj;
+        return `${n} can be placed into Strategic Reserves`;
+      }
+      return `${subj} can be redeployed${inches}`;
+    }
+    case "normal":
+    default: {
+      const n = Number(dist);
+      if (!Number.isNaN(n) && n < 0)
+        return `${possessive(subj)} Move characteristic is reduced by ${Math.abs(n)}"`;
+      if (moveKinds) return `add${inches} to ${possessive(subj)} ${moveKinds} moves`;
+      return `${subj} can make a Normal move${ofUpTo}`;
+    }
+  }
+}
+
+/** Generic aura `modifier` → one lowercase-initial clause. */
+function auraClause(e: Effect, m: Record<string, unknown>, ctx: Ctx): string {
+  // Range-extension of a named aura (e.g. Gift of Poxes: contagion +3").
+  if (m.range_bonus != null) {
+    const named = m.of != null ? `${titleCase(jstr(m.of))} ` : "";
+    return `the range of this model's ${named}abilities is increased by ${jstr(m.range_bonus)}"`;
+  }
+  const range = m.range;
+  const rangeText = Array.isArray(range)
+    ? `${(range as number[]).map((r) => `${r}"`).join("/")} (by battle round)`
+    : range != null
+      ? `${jstr(range)}"`
+      : null;
+  const who = e.target === "friendly-within-aura" ? "each friendly unit" : "each enemy unit";
+  const within = rangeText != null ? `${who} within ${rangeText}` : who;
+  if (m.effect != null) {
+    return `${within} ${describeEffectInline(m.effect as Effect, { ...ctx })}`;
+  }
+  return `${within} is affected`;
 }
 
 /**
@@ -691,20 +824,10 @@ function describeEffectInlineBase(e: Effect, ctx: Ctx = {}): string {
         ? `${subj} ${v(subj, "gains")} the ${grantLabel(jstr(grant))} ability${cap}`
         : `${subj} ${v(subj, "gains")} an ability${cap}`;
     }
-    case "movement-modifier": {
-      const kind = m.move_type ?? m.type;
-      if (jstr(kind) === "move-through") return `${subj} can move through enemy models and terrain`;
-      if (jstr(kind) === "scouts") {
-        const dist = m.distance ?? m.value;
-        const inches = dist != null && jstr(dist) !== "0" ? ` ${jstr(dist)}"` : "";
-        return `Before the first battle round, ${subj.charAt(0).toLowerCase() + subj.slice(1)} can Scout${inches}`;
-      }
-      const dist = m.distance ?? m.value;
-      const inches = dist != null && jstr(dist) !== "0" ? ` ${jstr(dist)}"` : "";
-      return kind != null
-        ? `${subj} ${v(subj, "has")} the ${titleCase(jstr(kind))}${inches} ability`
-        : `${subj} ${v(subj, "gains")} a movement ability`;
-    }
+    case "movement-modifier":
+      return movementClause(m, subj);
+    case "aura":
+      return auraClause(e, m, ctx);
     case "damage-reduction": {
       const r = jstr(m.reduction ?? m.amount ?? m.value);
       const how =
@@ -766,7 +889,9 @@ function describeEffectInlineBase(e: Effect, ctx: Ctx = {}): string {
     case "unit-keyword-grant":
       return `${jstr(m.to_keywords)} units gain the ${jstr(m.keyword)} keyword`;
     case "deep-strike":
-      return `${subj} has the Deep Strike ability`;
+      return m.min_distance != null
+        ? `${subj} ${v(subj, "has")} the Deep Strike ability and can be set up more than ${jstr(m.min_distance)}" from enemy models`
+        : `${subj} has the Deep Strike ability`;
     case "strategic-reserves-arrival":
       return `${subj} can arrive from Strategic Reserves regardless of mission rules`;
     case "remove-battle-shock":
@@ -790,7 +915,9 @@ function describeEffectInlineBase(e: Effect, ctx: Ctx = {}): string {
     case "fallback-and-act":
       return `${subj} is eligible to shoot and declare a charge in a turn in which it Fell Back`;
     case "engagement-passthrough":
-      return `${subj} can move through enemy models`;
+      return m.no_end_in_engagement
+        ? `${subj} can move through enemy models, but cannot end that move within Engagement Range of any enemy unit`
+        : `${subj} can move through enemy models`;
     case "attack-restriction":
       return describeAttackRestriction(m, subj);
     case "objective-control-modifier": {

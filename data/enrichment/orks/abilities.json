@@ -628,14 +628,17 @@
                 "type": "movement-modifier",
                 "target": "unit",
                 "modifier": {
-                  "move_type": "through-terrain-and-models"
+                  "passthrough": [
+                    "non-titanic-models",
+                    "all-terrain"
+                  ]
                 }
               },
               {
-                "type": "movement-modifier",
+                "type": "engagement-passthrough",
                 "target": "unit",
                 "modifier": {
-                  "move_type": "pass-through-engagement-range-no-end"
+                  "no_end_in_engagement": true
                 }
               },
               {
@@ -1179,7 +1182,9 @@
       "type": "movement-modifier",
       "target": "self",
       "modifier": {
-        "type": "move-over-terrain"
+        "passthrough": [
+          "all-terrain"
+        ]
       }
     },
     "scope": {
@@ -1522,7 +1527,9 @@
       "type": "movement-modifier",
       "target": "self",
       "modifier": {
-        "type": "move-over-terrain"
+        "passthrough": [
+          "all-terrain"
+        ]
       }
     },
     "scope": {
@@ -3229,7 +3236,9 @@
       "type": "movement-modifier",
       "target": "self",
       "modifier": {
-        "type": "move-over-terrain"
+        "passthrough": [
+          "all-terrain"
+        ]
       }
     },
     "scope": {

@@ -3277,6 +3277,12 @@
         },
         {
           "$ref": "#/$defs/select-units-effect"
+        },
+        {
+          "$ref": "#/$defs/movement-modifier-effect"
+        },
+        {
+          "$ref": "#/$defs/aura-effect"
         }
       ]
     },
@@ -3334,7 +3340,6 @@
             "ward",
             "keyword-grant",
             "unit-keyword",
-            "movement-modifier",
             "deep-strike",
             "fallback-and-act",
             "fight-first",
@@ -3639,6 +3644,194 @@
         "type",
         "selector",
         "effect"
+      ]
+    },
+    "movement-modifier-effect": {
+      "type": "object",
+      "additionalProperties": false,
+      "$comment": "Fully-closed movement-modifier (shape 1, Batch D). Promoted to its own discriminated effect-node branch so the closed `modifier` reaches the generated types (typify/json2ts can model a plain closed object, unlike if/then). `move_type` is the canonical move KIND and is OPTIONAL: a record may be a pure traversal CAPABILITY (passthrough/vertical_limit/ignore_vertical, applying to all moves or those in `applies_to_moves`) with no move_type. `distance` folds the old distance/value/bonus (integer or dice-expression string, e.g. 6, -2, \"D6+2\"). Reactivity lives at ability level (`trigger`), and frequency at ability level (`usage`) — neither is carried here. Non-movement mechanics that previously hid in this blob (deep-strike ranges, engagement passthrough, advance+charge eligibility, aura ranges) are re-homed to their own effect types.",
+      "properties": {
+        "type": {
+          "const": "movement-modifier"
+        },
+        "target": {
+          "type": "string",
+          "enum": [
+            "self",
+            "bearer",
+            "unit",
+            "attached-unit",
+            "attacker",
+            "defender",
+            "target",
+            "friendly-within-aura",
+            "enemy-within-aura",
+            "all-friendly",
+            "all-enemy"
+          ]
+        },
+        "modifier": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "move_type": {
+              "type": "string",
+              "enum": [
+                "normal",
+                "advance",
+                "pile-in",
+                "consolidation",
+                "reactive",
+                "surge",
+                "redeploy",
+                "scout",
+                "infiltrate",
+                "shoot-and-scoot"
+              ]
+            },
+            "distance": {
+              "oneOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "string",
+                  "minLength": 1
+                }
+              ]
+            },
+            "passthrough": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "non-titanic-models",
+                  "friendly-vehicles",
+                  "friendly-monsters",
+                  "terrain-le-4",
+                  "tall-terrain",
+                  "all-terrain"
+                ]
+              }
+            },
+            "vertical_limit": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "ignore_vertical": {
+              "type": "boolean"
+            },
+            "replaces_default": {
+              "type": "boolean"
+            },
+            "to_reserves": {
+              "type": "boolean"
+            },
+            "applies_to_moves": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "normal",
+                  "advance",
+                  "fall-back",
+                  "charge"
+                ]
+              }
+            },
+            "name": {
+              "type": "string"
+            },
+            "excludes_keyword": {
+              "type": "string"
+            },
+            "max_units": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "marker": {
+              "type": "object",
+              "additionalProperties": false,
+              "$comment": "GSC marker / fortification placement mechanics (move_type: redeploy).",
+              "properties": {
+                "affected": {
+                  "type": "string"
+                },
+                "unit_filter": {
+                  "type": "string"
+                },
+                "location": {
+                  "type": "string"
+                },
+                "max_units": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
+            "condition": {
+              "$ref": "#/$defs/condition"
+            }
+          }
+        }
+      },
+      "required": [
+        "type",
+        "target",
+        "modifier"
+      ]
+    },
+    "aura-effect": {
+      "type": "object",
+      "additionalProperties": false,
+      "$comment": "Generic aura (Batch D): a persistent zone around a unit applying an effect to units within a range. Models Contagions, Shadow in the Warp, Vect — the concept the dataset previously expressed implicitly via `target: *-within-aura` + scope.range. `range` is the radius in inches (an integer, or an array of per-battle-round tiers, e.g. [3,6,9] for Contagions). `range_bonus` + `of` model an ability that EXTENDS a named aura's range (Gift of Poxes: contagion +3\"). `effect` is the nested effect applied within the zone. Batch D builds the type and migrates contagion-range; the ~300 incumbent within-aura-target effects are a separate follow-up sweep.",
+      "properties": {
+        "type": {
+          "const": "aura"
+        },
+        "target": {
+          "type": "string",
+          "enum": [
+            "enemy-within-aura",
+            "friendly-within-aura"
+          ]
+        },
+        "modifier": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "range": {
+              "oneOf": [
+                {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "minItems": 1
+                }
+              ]
+            },
+            "range_bonus": {
+              "type": "integer"
+            },
+            "of": {
+              "type": "string"
+            },
+            "effect": {
+              "$ref": "#/$defs/effect-node"
+            }
+          }
+        }
+      },
+      "required": [
+        "type",
+        "target",
+        "modifier"
       ]
     },
     "effect": {

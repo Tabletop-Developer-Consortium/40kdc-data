@@ -12,7 +12,7 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "type": "scouts",
+        "move_type": "scout",
         "distance": 7
       }
     },
@@ -457,7 +457,7 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "type": "scouts",
+        "move_type": "scout",
         "distance": 9
       }
     },
@@ -1007,7 +1007,7 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "type": "scouts",
+        "move_type": "scout",
         "distance": 8
       }
     },
@@ -1376,7 +1376,9 @@
       "type": "movement-modifier",
       "target": "self",
       "modifier": {
-        "type": "move-over-terrain"
+        "passthrough": [
+          "all-terrain"
+        ]
       }
     },
     "scope": {
@@ -2356,7 +2358,8 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "type": "redeploy-to-reserves"
+        "move_type": "redeploy",
+        "to_reserves": true
       }
     },
     "scope": {
@@ -2470,8 +2473,7 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "type": "reactive-move",
-        "trigger": "enemy-ends-move-nearby"
+        "move_type": "reactive"
       }
     },
     "scope": {
@@ -2482,7 +2484,12 @@
       "kroot-trail-shaper"
     ],
     "ability_type": "unit",
-    "behavior": "passive"
+    "behavior": "passive",
+    "trigger": {
+      "event": "enemy-unit-ended-move",
+      "subject": "enemy-unit",
+      "optional": true
+    }
   },
   {
     "ability_id": "kroot-ambush",
@@ -3162,7 +3169,7 @@
         "type": "movement-modifier",
         "target": "unit",
         "modifier": {
-          "type": "shoot-and-scoot"
+          "move_type": "shoot-and-scoot"
         }
       }
     },
@@ -3790,10 +3797,16 @@
       "type": "movement-modifier",
       "target": "self",
       "modifier": {
-        "move_type": "normal-advance-fallback",
-        "allows_terrain_ignoring": true,
-        "terrain_height_limit": 4,
-        "excludes_keyword": "titanic"
+        "passthrough": [
+          "terrain-le-4"
+        ],
+        "vertical_limit": 4,
+        "excludes_keyword": "titanic",
+        "applies_to_moves": [
+          "normal",
+          "advance",
+          "fall-back"
+        ]
       }
     },
     "scope": {

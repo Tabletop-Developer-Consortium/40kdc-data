@@ -159,7 +159,9 @@
       "type": "movement-modifier",
       "target": "self",
       "modifier": {
-        "type": "move-over-terrain"
+        "passthrough": [
+          "all-terrain"
+        ]
       }
     },
     "scope": {
@@ -265,7 +267,7 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "type": "scouts",
+        "move_type": "scout",
         "distance": 8
       }
     },
@@ -989,7 +991,7 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "type": "scouts",
+        "move_type": "scout",
         "distance": 9
       }
     },
@@ -1024,7 +1026,7 @@
         "type": "movement-modifier",
         "target": "unit",
         "modifier": {
-          "type": "shoot-and-scoot"
+          "move_type": "shoot-and-scoot"
         }
       }
     },
@@ -3460,7 +3462,7 @@
         "type": "movement-modifier",
         "target": "unit",
         "modifier": {
-          "type": "shoot-and-scoot"
+          "move_type": "shoot-and-scoot"
         }
       }
     },

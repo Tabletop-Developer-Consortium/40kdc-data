@@ -55,7 +55,9 @@
       "type": "movement-modifier",
       "target": "self",
       "modifier": {
-        "type": "move-over-terrain"
+        "passthrough": [
+          "all-terrain"
+        ]
       }
     },
     "scope": {
@@ -262,7 +264,7 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "type": "scouts",
+        "move_type": "scout",
         "distance": 7
       }
     },
@@ -1180,7 +1182,7 @@
         "type": "movement-modifier",
         "target": "unit",
         "modifier": {
-          "type": "shoot-and-scoot"
+          "move_type": "shoot-and-scoot"
         }
       }
     },
@@ -1642,7 +1644,7 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "type": "ignore-vertical"
+        "ignore_vertical": true
       }
     },
     "scope": {
@@ -2376,7 +2378,7 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "type": "scouts",
+        "move_type": "scout",
         "distance": 9
       }
     },
@@ -2589,14 +2591,17 @@
           "type": "movement-modifier",
           "target": "self",
           "modifier": {
-            "move_type": "through-non-titanic-models-and-terrain-up-to-4"
+            "passthrough": [
+              "non-titanic-models",
+              "terrain-le-4"
+            ]
           }
         },
         {
-          "type": "movement-modifier",
+          "type": "engagement-passthrough",
           "target": "self",
           "modifier": {
-            "move_type": "within-engagement-range-no-end-position"
+            "no_end_in_engagement": true
           }
         },
         {
@@ -2954,7 +2959,7 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "type": "ignore-vertical"
+        "ignore_vertical": true
       }
     },
     "scope": {
@@ -3198,7 +3203,7 @@
         "type": "movement-modifier",
         "target": "unit",
         "modifier": {
-          "type": "ignore-vertical"
+          "ignore_vertical": true
         }
       }
     },
@@ -3478,14 +3483,17 @@
           "type": "movement-modifier",
           "target": "self",
           "modifier": {
-            "move_type": "through-models-and-terrain"
+            "passthrough": [
+              "non-titanic-models",
+              "all-terrain"
+            ]
           }
         },
         {
-          "type": "movement-modifier",
+          "type": "engagement-passthrough",
           "target": "self",
           "modifier": {
-            "move_type": "within-engagement-range-no-end-position"
+            "no_end_in_engagement": true
           }
         }
       ]
@@ -3835,8 +3843,8 @@
         "type": "movement-modifier",
         "target": "unit",
         "modifier": {
-          "move_type": "pile-in-consolidation",
-          "value": 6,
+          "move_type": "consolidation",
+          "distance": 6,
           "replaces_default": true
         }
       }
@@ -3915,8 +3923,7 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "type": "reactive-move",
-        "trigger": "enemy-ends-move-nearby"
+        "move_type": "reactive"
       }
     },
     "scope": {
@@ -3927,7 +3934,12 @@
       "rangers"
     ],
     "ability_type": "unit",
-    "behavior": "passive"
+    "behavior": "passive",
+    "trigger": {
+      "event": "enemy-unit-ended-move",
+      "subject": "enemy-unit",
+      "optional": true
+    }
   },
   {
     "ability_id": "skyhunter",
@@ -4212,7 +4224,8 @@
         "type": "movement-modifier",
         "target": "unit",
         "modifier": {
-          "type": "redeploy-to-reserves"
+          "move_type": "redeploy",
+          "to_reserves": true
         }
       }
     },
@@ -4609,8 +4622,7 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "type": "reactive-move",
-        "trigger": "enemy-ends-move-nearby"
+        "move_type": "reactive"
       }
     },
     "scope": {
@@ -4622,7 +4634,12 @@
       "firestorm"
     ],
     "ability_type": "unit",
-    "behavior": "passive"
+    "behavior": "passive",
+    "trigger": {
+      "event": "enemy-unit-ended-move",
+      "subject": "enemy-unit",
+      "optional": true
+    }
   },
   {
     "ability_id": "strafing-run",
@@ -4844,7 +4861,8 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "type": "redeploy-to-reserves"
+        "move_type": "redeploy",
+        "to_reserves": true
       }
     },
     "scope": {
@@ -5043,8 +5061,7 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "type": "reactive-move",
-        "trigger": "enemy-ends-move-nearby"
+        "move_type": "reactive"
       }
     },
     "scope": {
@@ -5055,7 +5072,12 @@
       "corsair-reaver-band"
     ],
     "ability_type": "unit",
-    "behavior": "passive"
+    "behavior": "passive",
+    "trigger": {
+      "event": "enemy-unit-ended-move",
+      "subject": "enemy-unit",
+      "optional": true
+    }
   },
   {
     "ability_id": "battle-focus",

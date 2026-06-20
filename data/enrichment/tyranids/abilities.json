@@ -606,7 +606,9 @@
       "type": "movement-modifier",
       "target": "self",
       "modifier": {
-        "type": "move-over-terrain"
+        "passthrough": [
+          "all-terrain"
+        ]
       }
     },
     "scope": {
@@ -1618,7 +1620,7 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "type": "scouts",
+        "move_type": "scout",
         "distance": 8
       }
     },
@@ -2195,8 +2197,7 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "type": "reactive-move",
-        "trigger": "enemy-ends-move-nearby"
+        "move_type": "reactive"
       }
     },
     "scope": {
@@ -2207,7 +2208,12 @@
       "termagants"
     ],
     "ability_type": "unit",
-    "behavior": "passive"
+    "behavior": "passive",
+    "trigger": {
+      "event": "enemy-unit-ended-move",
+      "subject": "enemy-unit",
+      "optional": true
+    }
   },
   {
     "ability_id": "aggressive-leader-beast",
@@ -2266,9 +2272,8 @@
         "type": "movement-modifier",
         "target": "unit",
         "modifier": {
-          "move_type": "surge-move",
-          "distance": "D6",
-          "frequency": "once-per-phase"
+          "move_type": "surge",
+          "distance": "D6"
         }
       }
     },
@@ -2281,7 +2286,10 @@
     ],
     "ability_type": "unit",
     "behavior": "reactive",
-    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21",
+    "usage": {
+      "frequency": "once-per-phase"
+    }
   },
   {
     "ability_id": "defensive-stance",
@@ -2688,9 +2696,9 @@
         "type": "movement-modifier",
         "target": "unit",
         "modifier": {
-          "move_type": "blistering-assault",
-          "distance": "D6+2",
-          "frequency": "once-per-phase"
+          "move_type": "reactive",
+          "name": "Blistering Assault",
+          "distance": "D6+2"
         }
       }
     },
@@ -2703,7 +2711,10 @@
     ],
     "ability_type": "unit",
     "behavior": "reactive",
-    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21",
+    "usage": {
+      "frequency": "once-per-phase"
+    }
   },
   {
     "ability_id": "onslaught-aura-psychic",
@@ -2754,7 +2765,7 @@
         "type": "movement-modifier",
         "target": "unit",
         "modifier": {
-          "type": "shoot-and-scoot"
+          "move_type": "shoot-and-scoot"
         }
       }
     },
@@ -2831,7 +2842,8 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "type": "redeploy-to-reserves"
+        "move_type": "redeploy",
+        "to_reserves": true
       }
     },
     "scope": {

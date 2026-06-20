@@ -468,8 +468,9 @@
         "type": "movement-modifier",
         "target": "unit",
         "modifier": {
-          "move_type": "righteous-zeal",
-          "value": 2
+          "move_type": "reactive",
+          "name": "Righteous Zeal",
+          "distance": 2
         }
       }
     },
@@ -3770,7 +3771,7 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "type": "scouts",
+        "move_type": "scout",
         "distance": 6
       }
     },
@@ -3797,7 +3798,8 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "type": "redeploy-to-reserves"
+        "move_type": "redeploy",
+        "to_reserves": true
       }
     },
     "scope": {
@@ -3883,7 +3885,7 @@
         "type": "movement-modifier",
         "target": "unit",
         "modifier": {
-          "type": "shoot-and-scoot"
+          "move_type": "shoot-and-scoot"
         }
       }
     },
@@ -4062,11 +4064,10 @@
         "type": "sequence",
         "steps": [
           {
-            "type": "movement-modifier",
+            "type": "deep-strike",
             "target": "unit",
             "modifier": {
-              "move_type": "deep-strike-exclusion-range",
-              "value": 6
+              "min_distance": 6
             }
           },
           {
@@ -4394,8 +4395,9 @@
         "type": "movement-modifier",
         "target": "unit",
         "modifier": {
-          "move_type": "terrain-passthrough",
-          "value": 0
+          "passthrough": [
+            "all-terrain"
+          ]
         }
       }
     },
@@ -5165,9 +5167,8 @@
         "type": "movement-modifier",
         "target": "unit",
         "modifier": {
-          "move_type": "surge-move",
-          "value": "D6",
-          "replaces_default": false
+          "move_type": "surge",
+          "distance": "D6"
         }
       }
     },
@@ -6005,7 +6006,8 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "type": "redeploy-to-reserves"
+        "move_type": "redeploy",
+        "to_reserves": true
       }
     },
     "scope": {
@@ -6619,7 +6621,7 @@
         "type": "movement-modifier",
         "target": "unit",
         "modifier": {
-          "type": "shoot-and-scoot"
+          "move_type": "shoot-and-scoot"
         }
       }
     },
@@ -6915,8 +6917,7 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "type": "reactive-move",
-        "trigger": "enemy-ends-move-nearby"
+        "move_type": "reactive"
       }
     },
     "scope": {
@@ -6927,7 +6928,12 @@
       "cato-sicarius"
     ],
     "ability_type": "unit",
-    "behavior": "passive"
+    "behavior": "passive",
+    "trigger": {
+      "event": "enemy-unit-ended-move",
+      "subject": "enemy-unit",
+      "optional": true
+    }
   },
   {
     "ability_id": "captain-of-the-honour-guard",
@@ -7345,8 +7351,7 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "type": "reactive-move",
-        "trigger": "enemy-ends-move-nearby"
+        "move_type": "reactive"
       }
     },
     "scope": {
@@ -7357,7 +7362,12 @@
       "lieutenant-with-combi-weapon"
     ],
     "ability_type": "unit",
-    "behavior": "passive"
+    "behavior": "passive",
+    "trigger": {
+      "event": "enemy-unit-ended-move",
+      "subject": "enemy-unit",
+      "optional": true
+    }
   },
   {
     "ability_id": "last-survivor",
@@ -8380,7 +8390,8 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "type": "redeploy-to-reserves"
+        "move_type": "redeploy",
+        "to_reserves": true
       }
     },
     "scope": {
@@ -8524,7 +8535,7 @@
         "type": "movement-modifier",
         "target": "unit",
         "modifier": {
-          "type": "shoot-and-scoot"
+          "move_type": "shoot-and-scoot"
         }
       }
     },
@@ -8635,7 +8646,7 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "type": "ignore-vertical"
+        "ignore_vertical": true
       }
     },
     "scope": {
@@ -8688,7 +8699,7 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "type": "scouts",
+        "move_type": "scout",
         "distance": 8
       }
     },
@@ -8826,9 +8837,8 @@
         "type": "movement-modifier",
         "target": "unit",
         "modifier": {
-          "move_type": "move-after-shoot",
-          "value": "D6",
-          "replaces_default": false
+          "move_type": "shoot-and-scoot",
+          "distance": "D6"
         }
       }
     },
@@ -10092,8 +10102,7 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "type": "reactive-move",
-        "trigger": "enemy-ends-move-nearby"
+        "move_type": "reactive"
       }
     },
     "scope": {
@@ -10104,7 +10113,12 @@
       "fenrisian-wolves"
     ],
     "ability_type": "unit",
-    "behavior": "passive"
+    "behavior": "passive",
+    "trigger": {
+      "event": "enemy-unit-ended-move",
+      "subject": "enemy-unit",
+      "optional": true
+    }
   },
   {
     "ability_id": "hunting-hounds",
@@ -10672,8 +10686,9 @@
         "type": "movement-modifier",
         "target": "self",
         "modifier": {
-          "move_type": "bestial-rage",
-          "value": "D6+2"
+          "move_type": "reactive",
+          "name": "Bestial Rage",
+          "distance": "D6+2"
         }
       }
     },
@@ -11039,7 +11054,7 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "type": "scouts",
+        "move_type": "scout",
         "distance": 7
       }
     },

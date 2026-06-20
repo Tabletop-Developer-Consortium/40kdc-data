@@ -458,6 +458,8 @@ def _condition_lead_in(c: Condition) -> str:
             return "while the unit is embarked"
         if st in ("engaged", "within-engagement-range", "in-engagement-range"):
             return "while the unit is within Engagement Range"
+        if st in ("not-in-engagement-range", "not-within-engagement-range"):
+            return "while the unit is not within Engagement Range"
         return f"while the unit is {dekebab(st)}"
     if ctype == "disposition-matches":
         d = _jstr(p.get("disposition"))
@@ -529,6 +531,145 @@ def _scaling_clause(s: dict[str, Any]) -> str:
     if s.get("max_value") is not None:
         c += f" (to a maximum of {_jstr(s.get('max_value'))})"
     return c
+
+
+# Movement-modifier passthrough enum -> human phrase.
+_PASSTHROUGH_PHRASE = {
+    "non-titanic-models": "non-Titanic models",
+    "friendly-vehicles": "friendly Vehicle models",
+    "friendly-monsters": "friendly Monster models",
+    "terrain-le-4": 'terrain features 4" or lower',
+    "tall-terrain": 'terrain features over 4"',
+    "all-terrain": "terrain features",
+}
+
+
+# Move-kind token -> display noun (for `applies_to_moves`).
+_MOVE_NOUN = {
+    "normal": "Normal",
+    "advance": "Advance",
+    "fall-back": "Fall Back",
+    "charge": "Charge",
+}
+
+
+def _and_list(items: list[str]) -> str:
+    """Oxford-free conjunction list ("a", "a and b", "a, b and c")."""
+    if len(items) <= 1:
+        return items[0] if items else ""
+    if len(items) == 2:
+        return f"{items[0]} and {items[1]}"
+    return f"{', '.join(items[:-1])} and {items[-1]}"
+
+
+def _inch_clause(dist: Any) -> str:
+    """Trailing inches clause for a movement distance (int or dice string); "" when absent/zero."""
+    if dist is None:
+        return ""
+    s = _dice_case(_jstr(dist))
+    return "" if s == "0" else f' {s}"'
+
+
+def _movement_clause(m: dict[str, Any], subj: str) -> str:
+    """Closed movement-modifier ``modifier`` -> one lowercase-initial clause."""
+    kind = m.get("move_type")
+    dist = m.get("distance")
+    inches = _inch_clause(dist)
+    of_up_to = f" of up to{inches}" if inches else ""
+    move_kinds = (
+        _and_list([_MOVE_NOUN.get(x, dekebab(x)) for x in m["applies_to_moves"]])
+        if isinstance(m.get("applies_to_moves"), list)
+        else None
+    )
+
+    # Pure traversal capability (no move kind): passthrough / vertical / ignore-vertical.
+    if kind is None:
+        parts: list[str] = []
+        passthrough = m.get("passthrough")
+        if isinstance(passthrough, list) and passthrough:
+            parts.append(
+                " and ".join(_PASSTHROUGH_PHRASE.get(p, dekebab(p)) for p in passthrough)
+            )
+        if parts:
+            over = f' (up to {_jstr(m["vertical_limit"])}" high)' if m.get("vertical_limit") is not None else ""
+            clause = f"{subj} can move over {' and '.join(parts)}{over} as though they were not there"
+        elif m.get("ignore_vertical"):
+            clause = f"{subj} ignores vertical distances when it moves"
+        else:
+            clause = f"{subj} {_v(subj, 'has')} a movement capability"
+        if m.get("excludes_keyword") is not None:
+            clause += f" (excluding {_title_case(_jstr(m['excludes_keyword']))} models)"
+        if move_kinds:
+            clause += f", during its {move_kinds} moves"
+        return clause
+
+    kind_str = _jstr(kind)
+    if kind_str == "scout":
+        return f"before the first battle round, {subj} can make a Scout move{of_up_to}"
+    if kind_str == "infiltrate":
+        return f"{subj} {_v(subj, 'has')} the Infiltrators ability"
+    if kind_str == "advance":
+        return f"add {_dice_case(_jstr(dist))} to {_possessive(subj)} Advance rolls"
+    if kind_str == "pile-in":
+        return f"{subj} can Pile In up to{inches or ' 3\"'}"
+    if kind_str == "consolidation":
+        return f"{subj} can Consolidate up to{inches or ' 3\"'}"
+    if kind_str == "surge":
+        return f"{subj} can make a Surge move{of_up_to}"
+    if kind_str == "shoot-and-scoot":
+        return (
+            f"{subj} can shoot and then make a Normal move{of_up_to}"
+            if inches
+            else f"{subj} can Shoot and Scoot"
+        )
+    if kind_str == "reactive":
+        label = f" ({_jstr(m['name'])})" if m.get("name") is not None else ""
+        return f"{subj} can make a Reactive move{of_up_to}{label}"
+    if kind_str == "redeploy":
+        marker = m.get("marker")
+        if marker is not None:
+            if marker.get("location") is not None:
+                who = f"{_jstr(marker['unit_filter'])} units" if marker.get("unit_filter") is not None else "units"
+                return f"{who} can be set up on {_jstr(marker['location'])}"
+            what = _jstr(marker["affected"]) if marker.get("affected") is not None else "markers"
+            return f"{what} can be repositioned{inches}"
+        if m.get("to_reserves"):
+            n = f"up to {_jstr(m['max_units'])} units" if m.get("max_units") is not None else subj
+            return f"{n} can be placed into Strategic Reserves"
+        return f"{subj} can be redeployed{inches}"
+    # normal / default
+    try:
+        n = float(dist)
+        is_num = True
+    except (TypeError, ValueError):
+        n = 0.0
+        is_num = False
+    if is_num and n < 0:
+        abs_n = int(abs(n)) if float(abs(n)).is_integer() else abs(n)
+        return f'{_possessive(subj)} Move characteristic is reduced by {abs_n}"'
+    if move_kinds:
+        return f"add{inches} to {_possessive(subj)} {move_kinds} moves"
+    return f"{subj} can make a Normal move{of_up_to}"
+
+
+def _aura_clause(e: Effect, m: dict[str, Any], ctx: Ctx) -> str:
+    """Generic aura ``modifier`` -> one lowercase-initial clause."""
+    # Range-extension of a named aura (e.g. Gift of Poxes: contagion +3").
+    if m.get("range_bonus") is not None:
+        named = f"{_title_case(_jstr(m['of']))} " if m.get("of") is not None else ""
+        return f"the range of this model's {named}abilities is increased by {_jstr(m['range_bonus'])}\""
+    rng = m.get("range")
+    if isinstance(rng, list):
+        range_text: str | None = '/'.join(f'{_jstr(r)}"' for r in rng) + " (by battle round)"
+    elif rng is not None:
+        range_text = f'{_jstr(rng)}"'
+    else:
+        range_text = None
+    who = "each friendly unit" if e.get("target") == "friendly-within-aura" else "each enemy unit"
+    within = f"{who} within {range_text}" if range_text is not None else who
+    if m.get("effect") is not None:
+        return f"{within} {describe_effect_inline(m['effect'], dict(ctx))}"
+    return f"{within} is affected"
 
 
 def describe_effect_inline(e: Effect, ctx: Ctx | None = None) -> str:
@@ -671,25 +812,9 @@ def _describe_effect_inline_base(e: Effect, ctx: Ctx | None = None) -> str:
             return f"{subj} {_v(subj, 'gains')} the {_grant_label(_jstr(grant))} ability{cap}"
         return f"{subj} {_v(subj, 'gains')} an ability{cap}"
     if etype == "movement-modifier":
-        kind = m.get("move_type")
-        if kind is None:
-            kind = m.get("type")
-        if _jstr(kind) == "move-through":
-            return f"{subj} can move through enemy models and terrain"
-        if _jstr(kind) == "scouts":
-            dist = m.get("distance")
-            if dist is None:
-                dist = m.get("value")
-            inches = f' {_jstr(dist)}"' if dist is not None and _jstr(dist) != "0" else ""
-            lc_subj = subj[0].lower() + subj[1:] if subj else subj
-            return f"Before the first battle round, {lc_subj} can Scout{inches}"
-        dist = m.get("distance")
-        if dist is None:
-            dist = m.get("value")
-        inches = f' {_jstr(dist)}"' if dist is not None and _jstr(dist) != "0" else ""
-        if kind is not None:
-            return f"{subj} {_v(subj, 'has')} the {_title_case(_jstr(kind))}{inches} ability"
-        return f"{subj} {_v(subj, 'gains')} a movement ability"
+        return _movement_clause(m, subj)
+    if etype == "aura":
+        return _aura_clause(e, m, ctx)
     if etype == "damage-reduction":
         r = _jstr(m.get("reduction") if m.get("reduction") is not None
                   else m.get("amount") if m.get("amount") is not None else m.get("value"))
@@ -768,7 +893,12 @@ def _describe_effect_inline_base(e: Effect, ctx: Ctx | None = None) -> str:
     if etype == "unit-keyword-grant":
         return f"{_jstr(m.get('to_keywords'))} units gain the {_jstr(m.get('keyword'))} keyword"
     if etype == "deep-strike":
-        return f"{subj} {_v(subj, 'has')} the Deep Strike ability"
+        if m.get("min_distance") is not None:
+            return (
+                f"{subj} {_v(subj, 'has')} the Deep Strike ability and can be set up "
+                f'more than {_jstr(m["min_distance"])}" from enemy models'
+            )
+        return f"{subj} has the Deep Strike ability"
     if etype == "strategic-reserves-arrival":
         return f"{subj} can arrive from Strategic Reserves regardless of mission rules"
     if etype == "remove-battle-shock":
@@ -798,6 +928,11 @@ def _describe_effect_inline_base(e: Effect, ctx: Ctx | None = None) -> str:
             "in a turn in which it Fell Back"
         )
     if etype == "engagement-passthrough":
+        if m.get("no_end_in_engagement"):
+            return (
+                f"{subj} can move through enemy models, but cannot end that move "
+                "within Engagement Range of any enemy unit"
+            )
         return f"{subj} can move through enemy models"
     if etype == "attack-restriction":
         return _describe_attack_restriction(m, subj)

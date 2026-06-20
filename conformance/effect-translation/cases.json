@@ -51,8 +51,8 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "move_type": "extended-consolidation",
-        "value": 6,
+        "move_type": "consolidation",
+        "distance": 6,
         "replaces_default": true
       }
     },
@@ -61,7 +61,7 @@
       "duration": "permanent"
     },
     "expected": {
-      "text": "The unit has the Extended Consolidation 6\" ability."
+      "text": "The unit can Consolidate up to 6\"."
     }
   },
   {
@@ -583,7 +583,9 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "type": "move-through-terrain"
+        "passthrough": [
+          "all-terrain"
+        ]
       }
     },
     "scope": {
@@ -597,7 +599,7 @@
       ]
     },
     "expected": {
-      "text": "Until the end of the phase, the unit has the Move Through Terrain ability.\nApplies to: units with Astra Militarum, Vehicle."
+      "text": "Until the end of the phase, the unit can move over terrain features as though they were not there.\nApplies to: units with Astra Militarum, Vehicle."
     }
   },
   {
@@ -917,9 +919,9 @@
             "type": "movement-modifier",
             "target": "unit",
             "modifier": {
-              "move_type": "move-through-terrain",
-              "value": 0,
-              "replaces_default": false
+              "passthrough": [
+                "all-terrain"
+              ]
             }
           }
         ]
@@ -930,7 +932,7 @@
       "duration": "permanent"
     },
     "expected": {
-      "text": "While this model leads a unit:\n  -> Modify the unit's Move characteristic to 10.\n  -> The unit has the Move Through Terrain ability."
+      "text": "While this model leads a unit:\n  -> Modify the unit's Move characteristic to 10.\n  -> The unit can move over terrain features as though they were not there."
     }
   },
   {
@@ -983,9 +985,8 @@
         "type": "movement-modifier",
         "target": "unit",
         "modifier": {
-          "move_type": "surge-move",
-          "distance": "D6",
-          "frequency": "once-per-phase"
+          "move_type": "surge",
+          "distance": "D6"
         }
       }
     },
@@ -993,8 +994,11 @@
       "range": "unit",
       "duration": "phase"
     },
+    "usage": {
+      "frequency": "once-per-phase"
+    },
     "expected": {
-      "text": "During the Shooting phase, in either player's turn, when destroyed by a ranged attack, unless while the unit is Battle-shocked, unless while the unit is within Engagement Range, until the end of the phase, the unit has the Surge Move D6\" ability."
+      "text": "Once per phase, during the Shooting phase, in either player's turn, when destroyed by a ranged attack, unless while the unit is Battle-shocked, unless while the unit is within Engagement Range, until the end of the phase, the unit can make a Surge move of up to D6\"."
     }
   },
   {
@@ -1046,7 +1050,8 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "type": "redeploy-to-reserves"
+        "move_type": "redeploy",
+        "to_reserves": true
       }
     },
     "scope": {
@@ -1054,7 +1059,7 @@
       "duration": "permanent"
     },
     "expected": {
-      "text": "The unit has the Redeploy to Reserves ability."
+      "text": "The unit can be placed into Strategic Reserves."
     }
   },
   {
@@ -2544,8 +2549,8 @@
               "type": "movement-modifier",
               "target": "all-friendly",
               "modifier": {
-                "move_type": "pile-in-consolidation",
-                "value": 6,
+                "move_type": "consolidation",
+                "distance": 6,
                 "replaces_default": true
               }
             }
@@ -2658,7 +2663,7 @@
       "duration": "battle-round"
     },
     "expected": {
-      "text": "At the start of the phase, until the end of the battle round:\n  -> Roll 8D6 (max 2 activations):\n    - Unbridled Bloodlust: need pair of 1+ -> all friendly units get +1 to Charge rolls\n    - Rage-Fuelled Invigoration: need pair of 2+ -> all friendly units have the Pile in Consolidation 6\" ability\n    - Total Carnage: need pair of 3+ -> when destroyed by a melee attack, if not has fought this phase, roll one D6: on a 4+, each time this model is destroyed, it can fight before being removed from play\n    - Martial Excellence: need pair of 4+ -> all friendly units' melee weapons gain [SUSTAINED HITS 1]\n    - Warp Blades: need pair of 5+ -> all friendly units' melee weapons gain [LETHAL HITS]\n    - Decapitating Strikes: need triple of 6+ -> against Infantry targets, while making melee attacks, all friendly units' weapons gain [DEVASTATING WOUNDS]"
+      "text": "At the start of the phase, until the end of the battle round:\n  -> Roll 8D6 (max 2 activations):\n    - Unbridled Bloodlust: need pair of 1+ -> all friendly units get +1 to Charge rolls\n    - Rage-Fuelled Invigoration: need pair of 2+ -> all friendly units can Consolidate up to 6\"\n    - Total Carnage: need pair of 3+ -> when destroyed by a melee attack, if not has fought this phase, roll one D6: on a 4+, each time this model is destroyed, it can fight before being removed from play\n    - Martial Excellence: need pair of 4+ -> all friendly units' melee weapons gain [SUSTAINED HITS 1]\n    - Warp Blades: need pair of 5+ -> all friendly units' melee weapons gain [LETHAL HITS]\n    - Decapitating Strikes: need triple of 6+ -> against Infantry targets, while making melee attacks, all friendly units' weapons gain [DEVASTATING WOUNDS]"
     }
   },
   {
@@ -4166,8 +4171,8 @@
             "type": "movement-modifier",
             "target": "defender",
             "modifier": {
-              "move_type": "move",
-              "value": -2
+              "move_type": "normal",
+              "distance": -2
             }
           },
           {
@@ -4186,7 +4191,7 @@
       "duration": "turn"
     },
     "expected": {
-      "text": "During the Shooting phase against INFANTRY targets, while making ranged attacks, until the end of the turn:\n  -> Your unit gains the Shaken Status ability.\n  -> Your unit has the Move -2\" ability.\n  -> Your unit gets -2 to Charge rolls."
+      "text": "During the Shooting phase against INFANTRY targets, while making ranged attacks, until the end of the turn:\n  -> Your unit gains the Shaken Status ability.\n  -> Your unit's Move characteristic is reduced by 2\".\n  -> Your unit gets -2 to Charge rolls."
     }
   },
   {
@@ -4201,8 +4206,7 @@
         "target": "unit",
         "modifier": {
           "move_type": "normal",
-          "distance": "D6+1",
-          "unit": "inches"
+          "distance": "D6+1"
         }
       }
     },
@@ -4217,7 +4221,7 @@
       ]
     },
     "expected": {
-      "text": "Once per battle, while the model has lost wounds, the unit has the Normal D6+1\" ability.\nApplies to: units with Adeptus Custodes, Terminator."
+      "text": "Once per battle, while the model has lost wounds, the unit can make a Normal move of up to D6+1\".\nApplies to: units with Adeptus Custodes, Terminator."
     }
   },
   {
@@ -4707,7 +4711,8 @@
             "type": "movement-modifier",
             "target": "self",
             "modifier": {
-              "move_type": "into-strategic-reserves"
+              "move_type": "redeploy",
+              "to_reserves": true
             }
           }
         ]
@@ -4718,7 +4723,7 @@
       "duration": "turn"
     },
     "expected": {
-      "text": "At the end of the phase, during the Fight phase, in either player's turn, unless while the unit is within Engagement Range, until the end of the turn:\n  -> Spend 1 Pain Token Pool.\n  -> This model has the Into Strategic Reserves ability."
+      "text": "At the end of the phase, during the Fight phase, in either player's turn, unless while the unit is within Engagement Range, until the end of the turn:\n  -> Spend 1 Pain Token Pool.\n  -> This model can be placed into Strategic Reserves."
     }
   },
   {
@@ -5015,7 +5020,25 @@
     }
   },
   {
-    "caseId": "grim-determination#172",
+    "caseId": "gift-of-poxes#172",
+    "effect": {
+      "type": "aura",
+      "target": "enemy-within-aura",
+      "modifier": {
+        "of": "contagion",
+        "range_bonus": 3
+      }
+    },
+    "scope": {
+      "range": "self",
+      "duration": "permanent"
+    },
+    "expected": {
+      "text": "The range of this model's Contagion abilities is increased by 3\"."
+    }
+  },
+  {
+    "caseId": "grim-determination#173",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -5053,7 +5076,7 @@
     }
   },
   {
-    "caseId": "hagiomnifex-sanctified-orators#173",
+    "caseId": "hagiomnifex-sanctified-orators#174",
     "effect": {
       "type": "choice",
       "choice_label": "hagiomnifex-sermon",
@@ -5122,7 +5145,7 @@
     }
   },
   {
-    "caseId": "harbingers-of-dread#174",
+    "caseId": "harbingers-of-dread#175",
     "effect": {
       "type": "sequence",
       "steps": [
@@ -5210,7 +5233,7 @@
     }
   },
   {
-    "caseId": "hover#175",
+    "caseId": "hover#176",
     "effect": {
       "type": "unit-keyword",
       "target": "self",
@@ -5227,7 +5250,7 @@
     }
   },
   {
-    "caseId": "icon-of-war-khorne-daemonkin#176",
+    "caseId": "icon-of-war-khorne-daemonkin#177",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -5255,7 +5278,7 @@
     }
   },
   {
-    "caseId": "imperious-advance-traitoris-lance#177",
+    "caseId": "imperious-advance-traitoris-lance#178",
     "effect": {
       "type": "engagement-passthrough",
       "target": "unit",
@@ -5270,7 +5293,7 @@
     }
   },
   {
-    "caseId": "inevitable-death#178",
+    "caseId": "inevitable-death#179",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -5334,7 +5357,7 @@
     }
   },
   {
-    "caseId": "infiltrators#179",
+    "caseId": "infiltrators#180",
     "effect": {
       "type": "unit-keyword",
       "target": "unit",
@@ -5351,7 +5374,7 @@
     }
   },
   {
-    "caseId": "inspirational-battle-canticles-chorus-of-condemnation#180",
+    "caseId": "inspirational-battle-canticles-chorus-of-condemnation#181",
     "effect": {
       "type": "unit-tag",
       "target": "unit",
@@ -5374,7 +5397,7 @@
     }
   },
   {
-    "caseId": "march-of-the-honoured-dead#181",
+    "caseId": "march-of-the-honoured-dead#182",
     "effect": {
       "type": "sequence",
       "steps": [
@@ -5412,7 +5435,7 @@
     }
   },
   {
-    "caseId": "murderous-imperative#182",
+    "caseId": "murderous-imperative#183",
     "effect": {
       "type": "sequence",
       "steps": [
@@ -5466,7 +5489,7 @@
     }
   },
   {
-    "caseId": "neurostatic-interference-aura#183",
+    "caseId": "neurostatic-interference-aura#184",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -5511,7 +5534,7 @@
     }
   },
   {
-    "caseId": "noospheric-recon#184",
+    "caseId": "noospheric-recon#185",
     "effect": {
       "type": "sequence",
       "steps": [
@@ -5566,7 +5589,7 @@
     }
   },
   {
-    "caseId": "omnicogitator-eradication-cohort#185",
+    "caseId": "omnicogitator-eradication-cohort#186",
     "effect": {
       "type": "sequence",
       "steps": [
@@ -5600,7 +5623,7 @@
     }
   },
   {
-    "caseId": "outrider-gangs#186",
+    "caseId": "outrider-gangs#187",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -5628,8 +5651,8 @@
             "type": "movement-modifier",
             "target": "self",
             "modifier": {
-              "move_type": "redeploy-within-distance",
-              "value": 9
+              "move_type": "redeploy",
+              "distance": 9
             }
           },
           {
@@ -5648,11 +5671,11 @@
       "duration": "battle"
     },
     "expected": {
-      "text": "At cult ambush redeployment, if within 0\" of cult ambush marker, for the rest of the battle:\n  -> This model has the Redeploy Within Distance 9\" ability.\n  -> Spend 1 Cult Ambush Marker."
+      "text": "At cult ambush redeployment, if within 0\" of cult ambush marker, for the rest of the battle:\n  -> This model can be redeployed 9\".\n  -> Spend 1 Cult Ambush Marker."
     }
   },
   {
-    "caseId": "pact-of-destruction-devotees-of-destruction#187",
+    "caseId": "pact-of-destruction-devotees-of-destruction#188",
     "effect": {
       "type": "sequence",
       "steps": [
@@ -5699,7 +5722,7 @@
     }
   },
   {
-    "caseId": "parasitic-infection#188",
+    "caseId": "parasitic-infection#189",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -5761,7 +5784,7 @@
     }
   },
   {
-    "caseId": "parasitic-woe-reaper-contagion-engines#189",
+    "caseId": "parasitic-woe-reaper-contagion-engines#190",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -5791,7 +5814,7 @@
     }
   },
   {
-    "caseId": "quantum-invader#190",
+    "caseId": "quantum-invader#191",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -5831,7 +5854,7 @@
     }
   },
   {
-    "caseId": "rearm-reload-fire#191",
+    "caseId": "rearm-reload-fire#192",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -5856,7 +5879,7 @@
     }
   },
   {
-    "caseId": "runnin-boots-blitz-brigade#192",
+    "caseId": "runnin-boots-blitz-brigade#193",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -5881,7 +5904,7 @@
     }
   },
   {
-    "caseId": "seed-the-garden-of-nurgle#193",
+    "caseId": "seed-the-garden-of-nurgle#194",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -5930,7 +5953,7 @@
     }
   },
   {
-    "caseId": "shadow-of-khorne-aura#194",
+    "caseId": "shadow-of-khorne-aura#195",
     "effect": {
       "type": "sequence",
       "steps": [
@@ -5980,7 +6003,67 @@
     }
   },
   {
-    "caseId": "shudderblink#195",
+    "caseId": "shokk-boosta#196",
+    "effect": {
+      "type": "sequence",
+      "steps": [
+        {
+          "type": "ability-grant",
+          "target": "unit",
+          "modifier": {
+            "grant_type": "re-roll-advance-characteristic-rolls"
+          }
+        },
+        {
+          "type": "conditional",
+          "condition": {
+            "type": "timing-is",
+            "parameters": {
+              "timing": "making-normal-advance-or-fallback-move"
+            }
+          },
+          "effect": {
+            "type": "sequence",
+            "steps": [
+              {
+                "type": "movement-modifier",
+                "target": "unit",
+                "modifier": {
+                  "passthrough": [
+                    "non-titanic-models",
+                    "all-terrain"
+                  ]
+                }
+              },
+              {
+                "type": "engagement-passthrough",
+                "target": "unit",
+                "modifier": {
+                  "no_end_in_engagement": true
+                }
+              },
+              {
+                "type": "ability-grant",
+                "target": "unit",
+                "modifier": {
+                  "grant_type": "desperate-escape-auto-pass"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "battle"
+    },
+    "expected": {
+      "text": "For the rest of the battle:\nThe unit gains the Re Roll Advance Characteristic Rolls ability.\nAt making normal advance or fallback move:\n  -> The unit can move over non-Titanic models and terrain features as though they were not there.\n  -> The unit can move through enemy models, but cannot end that move within Engagement Range of any enemy unit.\n  -> The unit gains the Desperate Escape Auto Pass ability."
+    }
+  },
+  {
+    "caseId": "shudderblink#197",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -6034,7 +6117,7 @@
     }
   },
   {
-    "caseId": "super-heavy-walker#196",
+    "caseId": "super-heavy-walker#198",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -6050,14 +6133,18 @@
             "type": "movement-modifier",
             "target": "self",
             "modifier": {
-              "move_type": "through-non-titanic-models"
+              "passthrough": [
+                "non-titanic-models"
+              ]
             }
           },
           {
             "type": "movement-modifier",
             "target": "self",
             "modifier": {
-              "move_type": "through-terrain-4-or-less"
+              "passthrough": [
+                "terrain-le-4"
+              ]
             }
           },
           {
@@ -6069,7 +6156,9 @@
             "type": "movement-modifier",
             "target": "self",
             "modifier": {
-              "move_type": "through-terrain-over-4-inches"
+              "passthrough": [
+                "tall-terrain"
+              ]
             }
           },
           {
@@ -6103,11 +6192,11 @@
       "duration": "phase"
     },
     "expected": {
-      "text": "During the Movement phase, until the end of the phase:\n  -> This model has the Through Non Titanic Models ability.\n  -> This model has the Through Terrain 4 or Less ability.\n  -> This model can move through enemy models.\n  -> This model has the Through Terrain Over 4 Inches ability.\n  When the unit moves through terrain:\n    -> Roll one D6: on exactly 1, modify this model's Leadership characteristic."
+      "text": "During the Movement phase, until the end of the phase:\n  -> This model can move over non-Titanic models as though they were not there.\n  -> This model can move over terrain features 4\" or lower as though they were not there.\n  -> This model can move through enemy models.\n  -> This model can move over terrain features over 4\" as though they were not there.\n  When the unit moves through terrain:\n    -> Roll one D6: on exactly 1, modify this model's Leadership characteristic."
     }
   },
   {
-    "caseId": "swooping-descent#197",
+    "caseId": "swooping-descent#199",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -6128,11 +6217,10 @@
             }
           },
           {
-            "type": "movement-modifier",
+            "type": "deep-strike",
             "target": "unit",
             "modifier": {
-              "move_type": "deep-strike-min-distance",
-              "value": 6
+              "min_distance": 6
             }
           },
           {
@@ -6159,11 +6247,11 @@
       "duration": "turn"
     },
     "expected": {
-      "text": "During the Movement phase, until the end of the turn:\n  -> Spend 1 Pain Token Pool.\n  -> The unit has the Deep Strike Min Distance 6\" ability.\n  -> While an enemy unit is within 9\", the unit cannot charge."
+      "text": "During the Movement phase, until the end of the turn:\n  -> Spend 1 Pain Token Pool.\n  -> The unit has the Deep Strike ability and can be set up more than 6\" from enemy models.\n  -> While an enemy unit is within 9\", the unit cannot charge."
     }
   },
   {
-    "caseId": "the-betrayer#198",
+    "caseId": "the-betrayer#200",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -6230,7 +6318,7 @@
     }
   },
   {
-    "caseId": "the-dark-master-aura#199",
+    "caseId": "the-dark-master-aura#201",
     "effect": {
       "type": "terrain-area-tag",
       "target": "self",
@@ -6247,7 +6335,7 @@
     }
   },
   {
-    "caseId": "the-hammer-falls#200",
+    "caseId": "the-hammer-falls#202",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -6280,7 +6368,7 @@
     }
   },
   {
-    "caseId": "thundering-wagons#201",
+    "caseId": "thundering-wagons#203",
     "effect": {
       "type": "sequence",
       "steps": [
@@ -6342,7 +6430,7 @@
     }
   },
   {
-    "caseId": "torture-device#202",
+    "caseId": "torture-device#204",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -6371,7 +6459,7 @@
     }
   },
   {
-    "caseId": "triarchal-menhirs#203",
+    "caseId": "triarchal-menhirs#205",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -6408,7 +6496,7 @@
     }
   },
   {
-    "caseId": "tuff-git-blitz-brigade#204",
+    "caseId": "tuff-git-blitz-brigade#206",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -6439,7 +6527,7 @@
     }
   },
   {
-    "caseId": "unholy-avalanche#205",
+    "caseId": "unholy-avalanche#207",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -6478,7 +6566,7 @@
     }
   },
   {
-    "caseId": "warp-tainted-warpstrike-champions#206",
+    "caseId": "warp-tainted-warpstrike-champions#208",
     "effect": {
       "type": "objective-tag",
       "target": "unit",
@@ -6502,12 +6590,12 @@
     }
   },
   {
-    "caseId": "movement-modifier-scouts#207",
+    "caseId": "movement-modifier-scouts#209",
     "effect": {
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "type": "scouts",
+        "move_type": "scout",
         "distance": 6
       }
     },
@@ -6516,11 +6604,11 @@
       "duration": "permanent"
     },
     "expected": {
-      "text": "Before the first battle round, the unit can Scout 6\"."
+      "text": "Before the first battle round, the unit can make a Scout move of up to 6\"."
     }
   },
   {
-    "caseId": "grant-label-charge-after-disembark#208",
+    "caseId": "grant-label-charge-after-disembark#210",
     "effect": {
       "type": "ability-grant",
       "target": "unit",
@@ -6537,7 +6625,7 @@
     }
   },
   {
-    "caseId": "grant-label-charge-after-fallback#209",
+    "caseId": "grant-label-charge-after-fallback#211",
     "effect": {
       "type": "ability-grant",
       "target": "self",
@@ -6554,7 +6642,7 @@
     }
   },
   {
-    "caseId": "engagement-state-engaged#210",
+    "caseId": "engagement-state-engaged#212",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -6577,7 +6665,7 @@
     }
   },
   {
-    "caseId": "engagement-state-on-battlefield#211",
+    "caseId": "engagement-state-on-battlefield#213",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -6600,7 +6688,7 @@
     }
   },
   {
-    "caseId": "engagement-state-embarked#212",
+    "caseId": "engagement-state-embarked#214",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -6623,7 +6711,7 @@
     }
   },
   {
-    "caseId": "engagement-state-empty#213",
+    "caseId": "engagement-state-empty#215",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -6644,7 +6732,7 @@
     }
   },
   {
-    "caseId": "engagement-state-negated#214",
+    "caseId": "engagement-state-negated#216",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -6668,7 +6756,7 @@
     }
   },
   {
-    "caseId": "disposition-matches-reserves#215",
+    "caseId": "disposition-matches-reserves#217",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -6691,7 +6779,7 @@
     }
   },
   {
-    "caseId": "disposition-matches-enemy#216",
+    "caseId": "disposition-matches-enemy#218",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -6714,7 +6802,7 @@
     }
   },
   {
-    "caseId": "fights-first-cond#217",
+    "caseId": "fights-first-cond#219",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -6740,7 +6828,7 @@
     }
   },
   {
-    "caseId": "scaling-attacks-per-models#218",
+    "caseId": "scaling-attacks-per-models#220",
     "effect": {
       "type": "stat-modifier",
       "target": "unit",
@@ -6764,7 +6852,7 @@
     }
   },
   {
-    "caseId": "scaling-strength-wounds-lost#219",
+    "caseId": "scaling-strength-wounds-lost#221",
     "effect": {
       "type": "stat-modifier",
       "target": "self",
@@ -6789,7 +6877,7 @@
     }
   },
   {
-    "caseId": "dice-pool-inline-label#220",
+    "caseId": "dice-pool-inline-label#222",
     "effect": {
       "type": "choice",
       "options": [
@@ -6832,7 +6920,7 @@
     }
   },
   {
-    "caseId": "keyword-grant-anti-string#221",
+    "caseId": "keyword-grant-anti-string#223",
     "effect": {
       "type": "keyword-grant",
       "target": "unit",
@@ -6849,7 +6937,7 @@
     }
   },
   {
-    "caseId": "keyword-grant-anti-structured#222",
+    "caseId": "keyword-grant-anti-structured#224",
     "effect": {
       "type": "keyword-grant",
       "target": "unit",
@@ -6867,7 +6955,7 @@
     }
   },
   {
-    "caseId": "keyword-grant-rated-value#223",
+    "caseId": "keyword-grant-rated-value#225",
     "effect": {
       "type": "keyword-grant",
       "target": "unit",
@@ -6885,7 +6973,7 @@
     }
   },
   {
-    "caseId": "auto-result-battle-shock-pass#224",
+    "caseId": "auto-result-battle-shock-pass#226",
     "effect": {
       "type": "auto-result",
       "target": "unit",
@@ -6903,7 +6991,7 @@
     }
   },
   {
-    "caseId": "auto-result-hit-six#225",
+    "caseId": "auto-result-hit-six#227",
     "effect": {
       "type": "auto-result",
       "target": "unit",
@@ -6921,7 +7009,7 @@
     }
   },
   {
-    "caseId": "firing-deck#226",
+    "caseId": "firing-deck#228",
     "effect": {
       "type": "firing-deck",
       "target": "self",
@@ -6938,7 +7026,7 @@
     }
   },
   {
-    "caseId": "disembark-after-move#227",
+    "caseId": "disembark-after-move#229",
     "effect": {
       "type": "disembark-after-move",
       "target": "self",
@@ -6953,7 +7041,7 @@
     }
   },
   {
-    "caseId": "usage-once-per-turn#228",
+    "caseId": "usage-once-per-turn#230",
     "effect": {
       "type": "cp-gain",
       "target": "self",
@@ -6973,7 +7061,7 @@
     }
   },
   {
-    "caseId": "usage-n-per-battle-per-unit#229",
+    "caseId": "usage-n-per-battle-per-unit#231",
     "effect": {
       "type": "stat-modifier",
       "target": "unit",
@@ -6997,7 +7085,7 @@
     }
   },
   {
-    "caseId": "trigger-enemy-ended-move#230",
+    "caseId": "trigger-enemy-ended-move#232",
     "effect": {
       "type": "movement-modifier",
       "target": "self",
@@ -7019,11 +7107,11 @@
       }
     },
     "expected": {
-      "text": "An enemy unit ends a move within 9\" of this model, once per battle, this model has the Reactive D6\" ability."
+      "text": "An enemy unit ends a move within 9\" of this model, once per battle, this model can make a Reactive move of up to D6\"."
     }
   },
   {
-    "caseId": "trigger-on-model-destroyed#231",
+    "caseId": "trigger-on-model-destroyed#233",
     "effect": {
       "type": "mortal-wounds",
       "target": "all-enemy",
@@ -7044,7 +7132,7 @@
     }
   },
   {
-    "caseId": "trigger-before-save-with-condition#232",
+    "caseId": "trigger-before-save-with-condition#234",
     "effect": {
       "type": "re-roll",
       "target": "unit",
@@ -7066,6 +7154,363 @@
     },
     "expected": {
       "text": "Before a saving throw is made, if the unit is battle-shocked, until the end of the phase, you can re-roll the Saving throw roll."
+    }
+  },
+  {
+    "caseId": "move-passthrough-models-terrain#235",
+    "effect": {
+      "type": "movement-modifier",
+      "target": "self",
+      "modifier": {
+        "passthrough": [
+          "non-titanic-models",
+          "terrain-le-4"
+        ]
+      }
+    },
+    "scope": {
+      "range": "self",
+      "duration": "permanent"
+    },
+    "expected": {
+      "text": "This model can move over non-Titanic models and terrain features 4\" or lower as though they were not there."
+    }
+  },
+  {
+    "caseId": "move-passthrough-applies-excludes#236",
+    "effect": {
+      "type": "movement-modifier",
+      "target": "unit",
+      "modifier": {
+        "passthrough": [
+          "terrain-le-4"
+        ],
+        "vertical_limit": 4,
+        "excludes_keyword": "titanic",
+        "applies_to_moves": [
+          "normal",
+          "advance",
+          "fall-back"
+        ]
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "expected": {
+      "text": "The unit can move over terrain features 4\" or lower (up to 4\" high) as though they were not there (excluding Titanic models), during its Normal, Advance and Fall Back moves."
+    }
+  },
+  {
+    "caseId": "move-ignore-vertical#237",
+    "effect": {
+      "type": "movement-modifier",
+      "target": "unit",
+      "modifier": {
+        "ignore_vertical": true
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "expected": {
+      "text": "The unit ignores vertical distances when it moves."
+    }
+  },
+  {
+    "caseId": "move-normal-applies#238",
+    "effect": {
+      "type": "movement-modifier",
+      "target": "unit",
+      "modifier": {
+        "move_type": "normal",
+        "distance": 3,
+        "applies_to_moves": [
+          "normal",
+          "advance",
+          "fall-back"
+        ]
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "expected": {
+      "text": "Add 3\" to the unit's Normal, Advance and Fall Back moves."
+    }
+  },
+  {
+    "caseId": "move-normal-negative#239",
+    "effect": {
+      "type": "movement-modifier",
+      "target": "defender",
+      "modifier": {
+        "move_type": "normal",
+        "distance": -2
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "turn"
+    },
+    "expected": {
+      "text": "Until the end of the turn, your unit's Move characteristic is reduced by 2\"."
+    }
+  },
+  {
+    "caseId": "move-advance-bonus#240",
+    "effect": {
+      "type": "movement-modifier",
+      "target": "unit",
+      "modifier": {
+        "move_type": "advance",
+        "distance": 6
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "expected": {
+      "text": "Add 6 to the unit's Advance rolls."
+    }
+  },
+  {
+    "caseId": "move-pile-in#241",
+    "effect": {
+      "type": "movement-modifier",
+      "target": "unit",
+      "modifier": {
+        "move_type": "pile-in",
+        "distance": 3,
+        "replaces_default": true
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "expected": {
+      "text": "The unit can Pile In up to 3\"."
+    }
+  },
+  {
+    "caseId": "move-consolidation#242",
+    "effect": {
+      "type": "movement-modifier",
+      "target": "unit",
+      "modifier": {
+        "move_type": "consolidation",
+        "distance": 6,
+        "replaces_default": true
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "expected": {
+      "text": "The unit can Consolidate up to 6\"."
+    }
+  },
+  {
+    "caseId": "move-surge#243",
+    "effect": {
+      "type": "movement-modifier",
+      "target": "unit",
+      "modifier": {
+        "move_type": "surge",
+        "distance": "D6"
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "phase"
+    },
+    "expected": {
+      "text": "Until the end of the phase, the unit can make a Surge move of up to D6\"."
+    }
+  },
+  {
+    "caseId": "move-shoot-and-scoot#244",
+    "effect": {
+      "type": "movement-modifier",
+      "target": "unit",
+      "modifier": {
+        "move_type": "shoot-and-scoot",
+        "distance": "D6"
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "turn"
+    },
+    "expected": {
+      "text": "Until the end of the turn, the unit can shoot and then make a Normal move of up to D6\"."
+    }
+  },
+  {
+    "caseId": "move-redeploy-reserves-max#245",
+    "effect": {
+      "type": "movement-modifier",
+      "target": "unit",
+      "modifier": {
+        "move_type": "redeploy",
+        "to_reserves": true,
+        "max_units": 3
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "expected": {
+      "text": "Up to 3 units can be placed into Strategic Reserves."
+    }
+  },
+  {
+    "caseId": "move-redeploy-marker#246",
+    "effect": {
+      "type": "movement-modifier",
+      "target": "unit",
+      "modifier": {
+        "move_type": "redeploy",
+        "marker": {
+          "affected": "Cult Ambush markers"
+        },
+        "distance": 6
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "turn"
+    },
+    "expected": {
+      "text": "Until the end of the turn, Cult Ambush markers can be repositioned 6\"."
+    }
+  },
+  {
+    "caseId": "move-redeploy-placement#247",
+    "effect": {
+      "type": "movement-modifier",
+      "target": "unit",
+      "modifier": {
+        "move_type": "redeploy",
+        "marker": {
+          "location": "floor sections",
+          "unit_filter": "Genestealer Cult Infantry"
+        }
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "expected": {
+      "text": "Genestealer Cult Infantry units can be set up on floor sections."
+    }
+  },
+  {
+    "caseId": "move-infiltrate#248",
+    "effect": {
+      "type": "movement-modifier",
+      "target": "unit",
+      "modifier": {
+        "move_type": "infiltrate"
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "expected": {
+      "text": "The unit has the Infiltrators ability."
+    }
+  },
+  {
+    "caseId": "aura-range-bonus#249",
+    "effect": {
+      "type": "aura",
+      "target": "enemy-within-aura",
+      "modifier": {
+        "of": "contagion",
+        "range_bonus": 3
+      }
+    },
+    "scope": {
+      "range": "self",
+      "duration": "permanent"
+    },
+    "expected": {
+      "text": "The range of this model's Contagion abilities is increased by 3\"."
+    }
+  },
+  {
+    "caseId": "aura-tiered-effect#250",
+    "effect": {
+      "type": "aura",
+      "target": "enemy-within-aura",
+      "modifier": {
+        "range": [
+          3,
+          6,
+          9
+        ],
+        "effect": {
+          "type": "stat-modifier",
+          "target": "enemy-within-aura",
+          "modifier": {
+            "stat": "T",
+            "operation": "subtract",
+            "value": 1
+          }
+        }
+      }
+    },
+    "scope": {
+      "range": "self",
+      "duration": "permanent"
+    },
+    "expected": {
+      "text": "Each enemy unit within 3\"/6\"/9\" (by battle round) subtract 1 from enemy units nearby's Toughness characteristic."
+    }
+  },
+  {
+    "caseId": "rehome-deep-strike-min-distance#251",
+    "effect": {
+      "type": "deep-strike",
+      "target": "unit",
+      "modifier": {
+        "min_distance": 6,
+        "replaces_default": true
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "phase"
+    },
+    "expected": {
+      "text": "Until the end of the phase, the unit has the Deep Strike ability and can be set up more than 6\" from enemy models."
+    }
+  },
+  {
+    "caseId": "rehome-engagement-no-end#252",
+    "effect": {
+      "type": "engagement-passthrough",
+      "target": "self",
+      "modifier": {
+        "no_end_in_engagement": true
+      }
+    },
+    "scope": {
+      "range": "self",
+      "duration": "permanent"
+    },
+    "expected": {
+      "text": "This model can move through enemy models, but cannot end that move within Engagement Range of any enemy unit."
     }
   }
 ]

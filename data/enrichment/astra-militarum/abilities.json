@@ -58,7 +58,7 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "type": "scouts",
+        "move_type": "scout",
         "distance": 9
       }
     },
@@ -851,7 +851,7 @@
         "type": "movement-modifier",
         "target": "unit",
         "modifier": {
-          "type": "shoot-and-scoot"
+          "move_type": "shoot-and-scoot"
         }
       }
     },
@@ -1580,7 +1580,7 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "type": "scouts",
+        "move_type": "scout",
         "distance": 6
       }
     },
@@ -2024,8 +2024,7 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "type": "reactive-move",
-        "trigger": "enemy-ends-move-nearby"
+        "move_type": "reactive"
       }
     },
     "scope": {
@@ -2036,7 +2035,12 @@
       "death-riders"
     ],
     "ability_type": "unit",
-    "behavior": "passive"
+    "behavior": "passive",
+    "trigger": {
+      "event": "enemy-unit-ended-move",
+      "subject": "enemy-unit",
+      "optional": true
+    }
   },
   {
     "ability_id": "remorseless-barrage",
@@ -3046,7 +3050,7 @@
         "type": "movement-modifier",
         "target": "unit",
         "modifier": {
-          "type": "shoot-and-scoot"
+          "move_type": "shoot-and-scoot"
         }
       }
     },
@@ -3879,8 +3883,8 @@
             "type": "movement-modifier",
             "target": "defender",
             "modifier": {
-              "move_type": "move",
-              "value": -2
+              "move_type": "normal",
+              "distance": -2
             }
           },
           {
@@ -5296,9 +5300,8 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "type": "surge-move",
-        "distance": "D6",
-        "unit": "inches"
+        "move_type": "surge",
+        "distance": "D6"
       }
     },
     "scope": {
@@ -5370,7 +5373,7 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "type": "infiltrate"
+        "move_type": "infiltrate"
       }
     },
     "scope": {
@@ -5470,9 +5473,8 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "type": "normal-move",
-        "distance": "D3+3",
-        "unit": "inches"
+        "move_type": "normal",
+        "distance": "D3+3"
       }
     },
     "scope": {
@@ -5875,7 +5877,9 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "type": "move-through-terrain"
+        "passthrough": [
+          "all-terrain"
+        ]
       }
     },
     "scope": {
@@ -6293,9 +6297,8 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "type": "normal-move",
-        "distance": "D6",
-        "unit": "inches"
+        "move_type": "normal",
+        "distance": "D6"
       }
     },
     "scope": {

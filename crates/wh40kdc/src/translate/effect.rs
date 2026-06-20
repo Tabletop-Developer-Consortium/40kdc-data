@@ -11,8 +11,9 @@ use serde_json::{Map, Value};
 use super::{dekebab, describe_node, describe_timing, event_clause};
 use crate::generated::{
     Ability, AbilityAppliesTo, AbilityTrigger, AbilityTriggerProximityOf, AbilityUsage,
-    AbilityUsageFrequency, CompoundConditionOperator, ConditionNode, DiceGatedEffect,
-    DiceGatedEffectComparison, DiceGatedEffectThreshold, DicePoolAllocationEffect, EffectNode,
+    AbilityUsageFrequency, AuraEffect, AuraEffectModifierRange, AuraEffectTarget,
+    CompoundConditionOperator, ConditionNode, DiceGatedEffect, DiceGatedEffectComparison,
+    DiceGatedEffectThreshold, DicePoolAllocationEffect, EffectNode, MovementModifierEffect,
     Scaling, ScalingOf, ScalingRound, Scope, ScopeRange, SelectUnitsEffectSelector,
     SelectUnitsEffectSelectorOwner, SimpleConditionType, SingleEffect, SingleEffectType,
 };
@@ -532,6 +533,9 @@ fn condition_lead_in(n: &ConditionNode) -> String {
                     | Some("in-engagement-range") => {
                         "while the unit is within Engagement Range".to_string()
                     }
+                    Some("not-in-engagement-range") | Some("not-within-engagement-range") => {
+                        "while the unit is not within Engagement Range".to_string()
+                    }
                     Some(st) => format!("while the unit is {}", dekebab(st)),
                 },
                 T::DispositionMatches => match nstr(p, "disposition") {
@@ -595,6 +599,240 @@ fn describe_attack_restriction(m: &Map<String, Value>, subj: &str) -> String {
                 .unwrap_or_default();
             format!("{subj}: {}{rng}", dekebab(&slug))
         }
+    }
+}
+
+/// Movement-modifier passthrough enum → human phrase (`PASSTHROUGH_PHRASE`).
+fn passthrough_phrase(p: &str) -> String {
+    match p {
+        "non-titanic-models" => "non-Titanic models".to_string(),
+        "friendly-vehicles" => "friendly Vehicle models".to_string(),
+        "friendly-monsters" => "friendly Monster models".to_string(),
+        "terrain-le-4" => "terrain features 4\" or lower".to_string(),
+        "tall-terrain" => "terrain features over 4\"".to_string(),
+        "all-terrain" => "terrain features".to_string(),
+        other => dekebab(other),
+    }
+}
+
+/// Move-kind token → display noun (`MOVE_NOUN`, for `applies_to_moves`).
+fn move_noun(x: &str) -> String {
+    match x {
+        "normal" => "Normal".to_string(),
+        "advance" => "Advance".to_string(),
+        "fall-back" => "Fall Back".to_string(),
+        "charge" => "Charge".to_string(),
+        other => dekebab(other),
+    }
+}
+
+/// Oxford-free conjunction list ("a", "a and b", "a, b and c").
+fn and_list(items: &[String]) -> String {
+    match items.len() {
+        0 => String::new(),
+        1 => items[0].clone(),
+        2 => format!("{} and {}", items[0], items[1]),
+        n => format!("{} and {}", items[..n - 1].join(", "), items[n - 1]),
+    }
+}
+
+/// Trailing inches clause for a movement distance (int or dice string); "" when absent/zero.
+fn inch_clause(dist: Option<&Value>) -> String {
+    match dist {
+        None | Some(Value::Null) => String::new(),
+        Some(d) => {
+            let s = dice_case(d);
+            if s == "0" {
+                String::new()
+            } else {
+                format!(" {s}\"")
+            }
+        }
+    }
+}
+
+/// Closed movement-modifier `modifier` → one lowercase-initial clause. Mirrors
+/// `movementClause` in `tools/src/translate/effect.ts`.
+fn movement_clause(m: &Map<String, Value>, subj: &str) -> String {
+    let kind = nstr(m, "move_type");
+    let dist = m.get("distance");
+    let inches = inch_clause(dist);
+    let of_up_to = if inches.is_empty() {
+        String::new()
+    } else {
+        format!(" of up to{inches}")
+    };
+    let move_kinds: Option<String> = match m.get("applies_to_moves") {
+        Some(Value::Array(a)) => Some(and_list(
+            &a.iter().map(|x| move_noun(&jval(x))).collect::<Vec<_>>(),
+        )),
+        _ => None,
+    };
+
+    // Pure traversal capability (no move kind): passthrough / vertical / ignore-vertical.
+    if kind.is_none() {
+        let mut parts: Vec<String> = Vec::new();
+        if let Some(Value::Array(a)) = m.get("passthrough") {
+            if !a.is_empty() {
+                parts.push(
+                    a.iter()
+                        .map(|p| passthrough_phrase(&jval(p)))
+                        .collect::<Vec<_>>()
+                        .join(" and "),
+                );
+            }
+        }
+        let mut clause = if !parts.is_empty() {
+            let over = if notnull(m, "vertical_limit") {
+                format!(" (up to {}\" high)", jv(m, "vertical_limit"))
+            } else {
+                String::new()
+            };
+            format!(
+                "{subj} can move over {}{over} as though they were not there",
+                parts.join(" and ")
+            )
+        } else if truthy(m, "ignore_vertical") {
+            format!("{subj} ignores vertical distances when it moves")
+        } else {
+            format!("{subj} {} a movement capability", agree(subj, "has"))
+        };
+        if notnull(m, "excludes_keyword") {
+            clause.push_str(&format!(
+                " (excluding {} models)",
+                title_case(&jv(m, "excludes_keyword"))
+            ));
+        }
+        if let Some(mk) = &move_kinds {
+            clause.push_str(&format!(", during its {mk} moves"));
+        }
+        return clause;
+    }
+
+    match kind.unwrap() {
+        "scout" => format!("before the first battle round, {subj} can make a Scout move{of_up_to}"),
+        "infiltrate" => format!("{subj} {} the Infiltrators ability", agree(subj, "has")),
+        "advance" => format!(
+            "add {} to {} Advance rolls",
+            dice_case(dist.unwrap_or(&Value::Null)),
+            possessive(subj)
+        ),
+        "pile-in" => format!(
+            "{subj} can Pile In up to{}",
+            if inches.is_empty() {
+                " 3\"".to_string()
+            } else {
+                inches.clone()
+            }
+        ),
+        "consolidation" => format!(
+            "{subj} can Consolidate up to{}",
+            if inches.is_empty() {
+                " 3\"".to_string()
+            } else {
+                inches.clone()
+            }
+        ),
+        "surge" => format!("{subj} can make a Surge move{of_up_to}"),
+        "shoot-and-scoot" => {
+            if inches.is_empty() {
+                format!("{subj} can Shoot and Scoot")
+            } else {
+                format!("{subj} can shoot and then make a Normal move{of_up_to}")
+            }
+        }
+        "reactive" => {
+            let label = if notnull(m, "name") {
+                format!(" ({})", jv(m, "name"))
+            } else {
+                String::new()
+            };
+            format!("{subj} can make a Reactive move{of_up_to}{label}")
+        }
+        "redeploy" => {
+            if notnull(m, "marker") {
+                if let Some(mk) = m.get("marker").and_then(Value::as_object) {
+                    if notnull(mk, "location") {
+                        let who = if notnull(mk, "unit_filter") {
+                            format!("{} units", jv(mk, "unit_filter"))
+                        } else {
+                            "units".to_string()
+                        };
+                        return format!("{who} can be set up on {}", jv(mk, "location"));
+                    }
+                    let what = if notnull(mk, "affected") {
+                        jv(mk, "affected")
+                    } else {
+                        "markers".to_string()
+                    };
+                    return format!("{what} can be repositioned{inches}");
+                }
+            }
+            if truthy(m, "to_reserves") {
+                let n = if notnull(m, "max_units") {
+                    format!("up to {} units", jv(m, "max_units"))
+                } else {
+                    subj.to_string()
+                };
+                return format!("{n} can be placed into Strategic Reserves");
+            }
+            format!("{subj} can be redeployed{inches}")
+        }
+        // "normal" and any other kind fall to the default arm.
+        _ => {
+            if let Some(n) = dist.and_then(Value::as_f64) {
+                if n < 0.0 {
+                    return format!(
+                        "{} Move characteristic is reduced by {}\"",
+                        possessive(subj),
+                        fmt_num(n.abs())
+                    );
+                }
+            }
+            if let Some(mk) = &move_kinds {
+                return format!("add{inches} to {} {mk} moves", possessive(subj));
+            }
+            format!("{subj} can make a Normal move{of_up_to}")
+        }
+    }
+}
+
+/// Generic aura `modifier` → one lowercase-initial clause. Mirrors `auraClause`.
+fn aura_clause(e: &AuraEffect, ctx: &Ctx) -> String {
+    let m = &e.modifier;
+    // Range-extension of a named aura (e.g. Gift of Poxes: contagion +3").
+    if let Some(range_bonus) = m.range_bonus {
+        let named = match &m.of {
+            Some(of) => format!("{} ", title_case(of)),
+            None => String::new(),
+        };
+        return format!(
+            "the range of this model's {named}abilities is increased by {range_bonus}\""
+        );
+    }
+    let range_text: Option<String> = match &m.range {
+        Some(AuraEffectModifierRange::Array(arr)) => Some(format!(
+            "{} (by battle round)",
+            arr.iter()
+                .map(|r| format!("{r}\""))
+                .collect::<Vec<_>>()
+                .join("/")
+        )),
+        Some(AuraEffectModifierRange::Integer(n)) => Some(format!("{n}\"")),
+        None => None,
+    };
+    let who = if e.target == AuraEffectTarget::FriendlyWithinAura {
+        "each friendly unit"
+    } else {
+        "each enemy unit"
+    };
+    let within = match &range_text {
+        Some(rt) => format!("{who} within {rt}"),
+        None => who.to_string(),
+    };
+    match &m.effect {
+        Some(inner) => format!("{within} {}", inline(inner, ctx)),
+        None => format!("{within} is affected"),
     }
 }
 
@@ -832,38 +1070,6 @@ fn describe_single(e: &SingleEffect, ctx: &Ctx) -> String {
                 None => format!("{subj} {} an ability{cap}", agree(&subj, "gains")),
             }
         }
-        T::MovementModifier => {
-            let kind = first(m, &["move_type", "type"]);
-            if kind.map(jval).as_deref() == Some("move-through") {
-                return format!("{subj} can move through enemy models and terrain");
-            }
-            if kind.map(jval).as_deref() == Some("scouts") {
-                let inches = first(m, &["distance", "value"])
-                    .filter(|d| jval(d) != "0")
-                    .map(|d| format!(" {}\"", jval(d)))
-                    .unwrap_or_default();
-                let lc_subj = {
-                    let mut chars = subj.chars();
-                    match chars.next() {
-                        None => String::new(),
-                        Some(c) => c.to_lowercase().collect::<String>() + chars.as_str(),
-                    }
-                };
-                return format!("Before the first battle round, {lc_subj} can Scout{inches}");
-            }
-            let inches = first(m, &["distance", "value"])
-                .filter(|d| jval(d) != "0")
-                .map(|d| format!(" {}\"", jval(d)))
-                .unwrap_or_default();
-            match kind {
-                Some(k) => format!(
-                    "{subj} {} the {}{inches} ability",
-                    agree(&subj, "has"),
-                    title_case(&jval(k))
-                ),
-                None => format!("{subj} {} a movement ability", agree(&subj, "gains")),
-            }
-        }
         T::DamageReduction => {
             let r = first(m, &["reduction", "amount", "value"])
                 .map(jval)
@@ -1001,7 +1207,17 @@ fn describe_single(e: &SingleEffect, ctx: &Ctx) -> String {
             jv(m, "to_keywords"),
             jv(m, "keyword")
         ),
-        T::DeepStrike => format!("{subj} {} the Deep Strike ability", agree(&subj, "has")),
+        T::DeepStrike => {
+            if notnull(m, "min_distance") {
+                format!(
+                    "{subj} {} the Deep Strike ability and can be set up more than {}\" from enemy models",
+                    agree(&subj, "has"),
+                    jv(m, "min_distance")
+                )
+            } else {
+                format!("{subj} has the Deep Strike ability")
+            }
+        }
         T::StrategicReservesArrival => {
             format!("{subj} can arrive from Strategic Reserves regardless of mission rules")
         }
@@ -1010,7 +1226,13 @@ fn describe_single(e: &SingleEffect, ctx: &Ctx) -> String {
             "{subj} {} eligible to shoot and declare a charge in a turn in which it Fell Back",
             agree(&subj, "is")
         ),
-        T::EngagementPassthrough => format!("{subj} can move through enemy models"),
+        T::EngagementPassthrough => {
+            if truthy(m, "no_end_in_engagement") {
+                format!("{subj} can move through enemy models, but cannot end that move within Engagement Range of any enemy unit")
+            } else {
+                format!("{subj} can move through enemy models")
+            }
+        }
         T::AttackRestriction => describe_attack_restriction(m, &subj),
         T::ObjectiveControlModifier => {
             if truthy(m, "sticky") {
@@ -1176,7 +1398,25 @@ fn inline(e: &EffectNode, ctx: &Ctx) -> String {
             select_units_subject(&s.selector),
             inline(&s.effect, ctx)
         ),
+        EffectNode::MovementModifierEffect(mm) => {
+            let subj = subject(&mm.target.to_string(), ctx);
+            movement_clause(&movement_modifier_map(mm), &subj)
+        }
+        EffectNode::AuraEffect(a) => aura_clause(a, ctx),
     }
+}
+
+/// Serialize a closed `MovementModifierEffect` modifier back to a JSON map so the
+/// `movementClause` port can read it with the same `?? / != null` semantics the TS
+/// oracle applies to its free-form `Record<string, unknown>`.
+fn movement_modifier_map(mm: &MovementModifierEffect) -> Map<String, Value> {
+    serde_json::to_value(&mm.modifier)
+        .ok()
+        .and_then(|v| match v {
+            Value::Object(o) => Some(o),
+            _ => None,
+        })
+        .unwrap_or_default()
 }
 
 /// "up to 3 friendly Orks Vehicle units" — the `select-units` selector phrase.
@@ -1337,7 +1577,9 @@ fn block(e: &EffectNode, depth: usize, ctx: &Ctx) -> String {
                 format!("{indent}{arrow}{lead}: {}.", inline(inner, ctx))
             }
         }
-        EffectNode::SingleEffect(_) => {
+        EffectNode::SingleEffect(_)
+        | EffectNode::MovementModifierEffect(_)
+        | EffectNode::AuraEffect(_) => {
             format!("{indent}{arrow}{}.", capitalize(&inline(e, ctx)))
         }
     }

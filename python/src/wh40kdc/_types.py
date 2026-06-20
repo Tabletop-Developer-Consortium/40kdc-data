@@ -43,6 +43,66 @@ SourceType: TypeAlias = Literal[
 PlayerTurn: TypeAlias = Literal["your-turn", "opponent-turn", "either"]
 
 
+GameEvent: TypeAlias = Literal[
+    "start-of-phase",
+    "end-of-phase",
+    "start-of-turn",
+    "end-of-turn",
+    "start-of-opponent-turn",
+    "end-of-opponent-turn",
+    "start-of-battle-round",
+    "start-of-command-phase",
+    "declare-battle-formations",
+    "post-deployment",
+    "unit-set-up",
+    "set-up-from-reserves",
+    "arrives-from-strategic-reserves",
+    "starts-in-strategic-reserves",
+    "game-start-in-reserves",
+    "deep-strike-setup",
+    "reinforcements",
+    "normal-move",
+    "advance-move",
+    "advances",
+    "fall-back-move",
+    "falls-back",
+    "charge-move",
+    "moved-through-terrain",
+    "enemy-unit-ended-move",
+    "enemy-unit-fell-back",
+    "before-hit-roll",
+    "after-hit-roll",
+    "before-wound-roll",
+    "after-wound-roll",
+    "before-save-roll",
+    "after-save-roll",
+    "before-damage-roll",
+    "after-damage-roll",
+    "before-charge-roll",
+    "after-charge-roll",
+    "before-advance-roll",
+    "after-advance-roll",
+    "before-battle-shock",
+    "after-battle-shock",
+    "on-unit-selected",
+    "selected-to-shoot",
+    "selected-to-fight",
+    "selected-to-advance",
+    "after-unit-resolves-attacks",
+    "after-scoring-hit",
+    "after-enemy-unit-fires",
+    "on-unit-destroyed",
+    "on-model-destroyed",
+    "first-model-destroyed",
+    "before-bearer-removed",
+    "enemy-unit-destroyed-in-melee",
+    "on-damage-allocated",
+    "battle-shock-test",
+    "leadership-test",
+    "desperate-escape-test",
+]
+
+
 BattleSize: TypeAlias = Literal["incursion", "strike-force"]
 
 
@@ -584,6 +644,15 @@ class Weapon(TypedDict):
     game_version: GameVersionRef
 
 
+class Proximity(TypedDict):
+    of: NotRequired[Literal["self", "bearer", "attached-unit"]]
+    range: float
+
+
+class Cost(TypedDict):
+    cp: NotRequired[int]
+
+
 class Usage(TypedDict):
     frequency: Literal[
         "once-per-turn",
@@ -895,6 +964,18 @@ class WeaponKeyword(TypedDict):
     game_version: GameVersionRef
 
 
+class Trigger(TypedDict):
+    event: GameEvent
+    subject: NotRequired[
+        Literal["self", "bearer", "friendly-unit", "enemy-unit", "any-unit", "model-in-bearer"]
+    ]
+    proximity: NotRequired[Proximity]
+    condition: NotRequired[Condition]
+    optional: NotRequired[bool]
+    cost: NotRequired[Cost]
+    window: NotRequired[str]
+
+
 class Ability(TypedDict):
     ability_id: EntityId
     name: str
@@ -910,6 +991,7 @@ class Ability(TypedDict):
     ]
     behavior: NotRequired[Literal["passive", "activated", "reactive", "aura"]]
     effect: Effect
+    trigger: NotRequired[Trigger]
     scope: Scope
     usage: NotRequired[Usage]
     applies_to: NotRequired[AppliesTo | None]

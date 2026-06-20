@@ -108,7 +108,7 @@
       "condition": {
         "type": "timing-is",
         "parameters": {
-          "timing": "before-this-model-removed"
+          "timing": "before-bearer-removed"
         }
       },
       "effect": {
@@ -610,7 +610,7 @@
       "condition": {
         "type": "timing-is",
         "parameters": {
-          "timing": "before-this-model-removed"
+          "timing": "before-bearer-removed"
         }
       },
       "effect": {
@@ -4767,7 +4767,7 @@
       "condition": {
         "type": "timing-is",
         "parameters": {
-          "timing": "before-this-model-removed"
+          "timing": "before-bearer-removed"
         }
       },
       "effect": {
@@ -5457,7 +5457,7 @@
           {
             "type": "timing-is",
             "parameters": {
-              "timing": "model-destroyed"
+              "timing": "on-model-destroyed"
             }
           },
           {
@@ -7987,7 +7987,7 @@
       "condition": {
         "type": "timing-is",
         "parameters": {
-          "timing": "before-this-model-removed"
+          "timing": "before-bearer-removed"
         }
       },
       "effect": {
@@ -9077,7 +9077,7 @@
       "condition": {
         "type": "timing-is",
         "parameters": {
-          "timing": "before-this-model-removed"
+          "timing": "before-bearer-removed"
         }
       },
       "effect": {
@@ -11587,7 +11587,7 @@
           {
             "type": "timing-is",
             "parameters": {
-              "timing": "start"
+              "timing": "start-of-turn"
             }
           }
         ]

@@ -47,7 +47,7 @@
       "condition": {
         "type": "timing-is",
         "parameters": {
-          "timing": "before-this-model-removed"
+          "timing": "before-bearer-removed"
         }
       },
       "effect": {
@@ -1103,7 +1103,7 @@
       "condition": {
         "type": "timing-is",
         "parameters": {
-          "timing": "before-this-model-removed"
+          "timing": "before-bearer-removed"
         }
       },
       "effect": {
@@ -2229,7 +2229,7 @@
           {
             "type": "timing-is",
             "parameters": {
-              "timing": "command-phase"
+              "timing": "start-of-command-phase"
             }
           },
           {
@@ -2681,7 +2681,7 @@
       "condition": {
         "type": "timing-is",
         "parameters": {
-          "timing": "before-this-model-removed"
+          "timing": "before-bearer-removed"
         }
       },
       "effect": {

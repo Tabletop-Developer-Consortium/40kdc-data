@@ -62,6 +62,28 @@
       "enum": ["your-turn", "opponent-turn", "either"],
       "description": "Which player's turn this applies during"
     },
+    "game-event": {
+      "type": "string",
+      "description": "The single canonical 'when' vocabulary, shared by the reactive `trigger.event` (the dispatch key an event-driven consumer subscribes on) and the `timing-is` condition. Supersedes the (deprecated) timing-flag entity's step-level vocabulary, adding movement/lifecycle/targeting events. Grouped: phase/turn structure, setup/reserves, movement, combat dice steps, attack lifecycle, destruction, and tests.",
+      "enum": [
+        "start-of-phase", "end-of-phase", "start-of-turn", "end-of-turn",
+        "start-of-opponent-turn", "end-of-opponent-turn", "start-of-battle-round", "start-of-command-phase",
+        "declare-battle-formations", "post-deployment", "unit-set-up", "set-up-from-reserves",
+        "arrives-from-strategic-reserves", "starts-in-strategic-reserves", "game-start-in-reserves",
+        "deep-strike-setup", "reinforcements",
+        "normal-move", "advance-move", "advances", "fall-back-move", "falls-back", "charge-move",
+        "moved-through-terrain", "enemy-unit-ended-move", "enemy-unit-fell-back",
+        "before-hit-roll", "after-hit-roll", "before-wound-roll", "after-wound-roll",
+        "before-save-roll", "after-save-roll", "before-damage-roll", "after-damage-roll",
+        "before-charge-roll", "after-charge-roll", "before-advance-roll", "after-advance-roll",
+        "before-battle-shock", "after-battle-shock",
+        "on-unit-selected", "selected-to-shoot", "selected-to-fight", "selected-to-advance",
+        "after-unit-resolves-attacks", "after-scoring-hit", "after-enemy-unit-fires",
+        "on-unit-destroyed", "on-model-destroyed", "first-model-destroyed", "before-bearer-removed",
+        "enemy-unit-destroyed-in-melee", "on-damage-allocated",
+        "battle-shock-test", "leadership-test", "desperate-escape-test"
+      ]
+    },
     "battle-size": {
       "type": "string",
       "enum": ["incursion", "strike-force"],

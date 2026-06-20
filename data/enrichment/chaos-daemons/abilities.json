@@ -13,7 +13,7 @@
       "condition": {
         "type": "timing-is",
         "parameters": {
-          "timing": "before-this-model-removed"
+          "timing": "before-bearer-removed"
         }
       },
       "effect": {
@@ -92,7 +92,7 @@
           {
             "type": "timing-is",
             "parameters": {
-              "timing": "advance"
+              "timing": "advances"
             }
           }
         ]
@@ -356,7 +356,7 @@
       "condition": {
         "type": "timing-is",
         "parameters": {
-          "timing": "before-this-model-removed"
+          "timing": "before-bearer-removed"
         }
       },
       "effect": {
@@ -1039,7 +1039,7 @@
           {
             "type": "timing-is",
             "parameters": {
-              "timing": "after-attacking-unit-finishes-attacks"
+              "timing": "after-unit-resolves-attacks"
             }
           },
           {
@@ -2171,7 +2171,7 @@
           {
             "type": "timing-is",
             "parameters": {
-              "timing": "end"
+              "timing": "end-of-turn"
             }
           },
           {
@@ -3721,7 +3721,7 @@
       "condition": {
         "type": "timing-is",
         "parameters": {
-          "timing": "before-this-model-removed"
+          "timing": "before-bearer-removed"
         }
       },
       "effect": {
@@ -4386,7 +4386,7 @@
       "condition": {
         "type": "timing-is",
         "parameters": {
-          "timing": "before-this-model-removed"
+          "timing": "before-bearer-removed"
         }
       },
       "effect": {

@@ -74,6 +74,69 @@ export type SourceType = "ability" | "stratagem" | "enhancement" | "detachment-r
  */
 export type PlayerTurn = "your-turn" | "opponent-turn" | "either";
 /**
+ * The single canonical 'when' vocabulary, shared by the reactive `trigger.event` (the dispatch key an event-driven consumer subscribes on) and the `timing-is` condition. Supersedes the (deprecated) timing-flag entity's step-level vocabulary, adding movement/lifecycle/targeting events. Grouped: phase/turn structure, setup/reserves, movement, combat dice steps, attack lifecycle, destruction, and tests.
+ *
+ * This interface was referenced by `0KdcBundledSchemas`'s JSON-Schema
+ * via the `definition` "game-event".
+ */
+export type GameEvent =
+  | "start-of-phase"
+  | "end-of-phase"
+  | "start-of-turn"
+  | "end-of-turn"
+  | "start-of-opponent-turn"
+  | "end-of-opponent-turn"
+  | "start-of-battle-round"
+  | "start-of-command-phase"
+  | "declare-battle-formations"
+  | "post-deployment"
+  | "unit-set-up"
+  | "set-up-from-reserves"
+  | "arrives-from-strategic-reserves"
+  | "starts-in-strategic-reserves"
+  | "game-start-in-reserves"
+  | "deep-strike-setup"
+  | "reinforcements"
+  | "normal-move"
+  | "advance-move"
+  | "advances"
+  | "fall-back-move"
+  | "falls-back"
+  | "charge-move"
+  | "moved-through-terrain"
+  | "enemy-unit-ended-move"
+  | "enemy-unit-fell-back"
+  | "before-hit-roll"
+  | "after-hit-roll"
+  | "before-wound-roll"
+  | "after-wound-roll"
+  | "before-save-roll"
+  | "after-save-roll"
+  | "before-damage-roll"
+  | "after-damage-roll"
+  | "before-charge-roll"
+  | "after-charge-roll"
+  | "before-advance-roll"
+  | "after-advance-roll"
+  | "before-battle-shock"
+  | "after-battle-shock"
+  | "on-unit-selected"
+  | "selected-to-shoot"
+  | "selected-to-fight"
+  | "selected-to-advance"
+  | "after-unit-resolves-attacks"
+  | "after-scoring-hit"
+  | "after-enemy-unit-fires"
+  | "on-unit-destroyed"
+  | "on-model-destroyed"
+  | "first-model-destroyed"
+  | "before-bearer-removed"
+  | "enemy-unit-destroyed-in-melee"
+  | "on-damage-allocated"
+  | "battle-shock-test"
+  | "leadership-test"
+  | "desperate-escape-test";
+/**
  * 11e battle size, which sets the army's points limit and detachment-point budget: 'incursion' = 1000 pts / 2 detachment points; 'strike-force' = 2000 pts / 3 detachment points.
  *
  * This interface was referenced by `0KdcBundledSchemas`'s JSON-Schema
@@ -1867,6 +1930,23 @@ export interface AbilityDSLEntry {
    */
   behavior?: "passive" | "activated" | "reactive" | "aura";
   effect: AbilityEffect1;
+  /**
+   * For reactive abilities: the game event this ability fires on, plus structured guards an event-driven consumer evaluates against game state (no prose parsing). `event` is the closed dispatch key; `subject` names whose action triggered it; `proximity` is the spatial gate in inches; `condition` is an optional extra gate reusing the condition tree. `optional` marks 'you can' reactions, `cost` a stratagem-style CP cost, `window` how long the granted reaction stays open.
+   */
+  trigger?: {
+    event: GameEvent;
+    subject?: "self" | "bearer" | "friendly-unit" | "enemy-unit" | "any-unit" | "model-in-bearer";
+    proximity?: {
+      of?: "self" | "bearer" | "attached-unit";
+      range: number;
+    };
+    condition?: AbilityCondition2;
+    optional?: boolean;
+    cost?: {
+      cp?: number;
+    };
+    window?: string;
+  };
   scope: AbilityScope;
   /**
    * How often the ability may be used, beyond what scope.duration captures. `scope.duration: one-use` already models 'once per battle'; this models finer limits (once per turn/phase, N per battle) and an optional per-army/unit/model granularity.

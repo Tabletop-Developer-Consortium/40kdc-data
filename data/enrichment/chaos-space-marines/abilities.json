@@ -13,7 +13,7 @@
       "condition": {
         "type": "timing-is",
         "parameters": {
-          "timing": "before-this-model-removed"
+          "timing": "before-bearer-removed"
         }
       },
       "effect": {
@@ -1179,7 +1179,7 @@
       "condition": {
         "type": "timing-is",
         "parameters": {
-          "timing": "before-this-model-removed"
+          "timing": "before-bearer-removed"
         }
       },
       "effect": {
@@ -1492,7 +1492,7 @@
       "condition": {
         "type": "timing-is",
         "parameters": {
-          "timing": "before-this-model-removed"
+          "timing": "before-bearer-removed"
         }
       },
       "effect": {
@@ -4730,7 +4730,7 @@
       "condition": {
         "type": "timing-is",
         "parameters": {
-          "timing": "before-this-model-removed"
+          "timing": "before-bearer-removed"
         }
       },
       "effect": {

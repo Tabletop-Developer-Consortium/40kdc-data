@@ -51,54 +51,139 @@ fn count(n: u64, noun: &str) -> String {
     format!("{n}+ {noun}s")
 }
 
-/// A `timing-is` event token → natural GW-voice clause ("each time a model in
-/// this unit is destroyed", "at the start of the phase"). Mirrors the TS/Python
-/// `describeTiming`: a missing/`after-`/`on-` prefix never produces "at on …".
-pub(super) fn describe_timing(t: &str) -> String {
-    let mapped = match t {
+/// `EVENT_PHRASES` lookup: a canonical `GameEvent` token → its fixed phrase, or
+/// `None` when unmapped. The single source of truth shared by [`event_clause`]
+/// (reactive triggers) and [`describe_timing`] (canonicalized `timing-is`).
+fn event_phrase(e: &str) -> Option<&'static str> {
+    let mapped = match e {
         "start-of-phase" => "at the start of the phase",
         "end-of-phase" => "at the end of the phase",
         "start-of-turn" => "at the start of the turn",
         "end-of-turn" => "at the end of the turn",
+        "start-of-opponent-turn" => "at the start of the opponent's turn",
         "end-of-opponent-turn" => "at the end of the opponent's turn",
         "start-of-battle-round" => "at the start of the battle round",
-        "start" => "at the start of the turn",
-        "end" => "at the end of the turn",
-        "command-phase" => "in the Command phase",
-        "shooting-phase" => "in the Shooting phase",
-        "on-model-destroyed" => "each time a model in this unit is destroyed",
-        "before-this-model-removed" => "before removing this model from the battlefield",
-        "model-destroyed" => "each time a model in this unit is destroyed",
-        "first-model-destroyed" => "the first time a model in this unit is destroyed",
-        "first-this-battle" => "the first time this battle",
-        "first-time-this-phase" => "the first time this phase",
-        "on-unit-destroyed" => "each time this unit is destroyed",
-        "on-destroyed" => "each time this unit is destroyed",
-        "enemy-unit-destroyed-in-melee" => "each time an enemy unit is destroyed in melee",
-        "in-reserves" => "while it is in Reserves",
-        "game-start-in-reserves" => "if it begins the battle in Reserves",
-        "starts-in-strategic-reserves" => "if it starts in Strategic Reserves",
-        "deep-strike-setup" => "when it is set up by Deep Strike",
-        "deep-strike" => "when it is set up by Deep Strike",
-        "set-up-from-reserves" => "when it arrives from Reserves",
-        "arrives-from-strategic-reserves" => "when it arrives from Strategic Reserves",
-        "reinforcements" => "when it arrives as Reinforcements",
-        "reinforcements-step" => "during the Reinforcements step",
-        "post-deployment" => "after deployment",
+        "start-of-command-phase" => "at the start of the Command phase",
         "declare-battle-formations" => "when declaring Battle Formations",
-        "normal-move" => "when it makes a Normal move",
-        "advance-move" => "when it makes an Advance move",
-        "advance" => "when it Advances",
-        "fall-back-move" => "when it makes a Fall Back move",
-        "fall-back" => "when it Falls Back",
-        "charge-move" => "when it makes a Charge move",
+        "post-deployment" => "after deployment",
+        "unit-set-up" => "when the unit is set up",
+        "set-up-from-reserves" => "when the unit arrives from Reserves",
+        "arrives-from-strategic-reserves" => "when the unit arrives from Strategic Reserves",
+        "starts-in-strategic-reserves" => "if the unit starts in Strategic Reserves",
+        "game-start-in-reserves" => "if the unit begins the battle in Reserves",
+        "deep-strike-setup" => "when the unit is set up by Deep Strike",
+        "reinforcements" => "when the unit arrives as Reinforcements",
+        "normal-move" => "when the unit makes a Normal move",
+        "advance-move" => "when the unit makes an Advance move",
+        "advances" => "when the unit Advances",
+        "fall-back-move" => "when the unit makes a Fall Back move",
+        "falls-back" => "when the unit Falls Back",
+        "charge-move" => "when the unit makes a Charge move",
+        "moved-through-terrain" => "when the unit moves through terrain",
+        "enemy-unit-ended-move" => "an enemy unit ends a move",
+        "enemy-unit-fell-back" => "an enemy unit Falls Back",
+        "before-hit-roll" => "before a Hit roll is made",
+        "after-hit-roll" => "after a Hit roll is made",
+        "before-wound-roll" => "before a Wound roll is made",
+        "after-wound-roll" => "after a Wound roll is made",
+        "before-save-roll" => "before a saving throw is made",
+        "after-save-roll" => "after a saving throw is made",
+        "before-damage-roll" => "before a Damage roll is made",
+        "after-damage-roll" => "after a Damage roll is made",
+        "before-charge-roll" => "before a Charge roll is made",
+        "after-charge-roll" => "after a Charge roll is made",
+        "before-advance-roll" => "before an Advance roll is made",
+        "after-advance-roll" => "after an Advance roll is made",
+        "before-battle-shock" => "before a Battle-shock test",
+        "after-battle-shock" => "after a Battle-shock test",
+        "on-unit-selected" => "when the unit is selected",
+        "selected-to-shoot" => "when the unit is selected to shoot",
+        "selected-to-fight" => "when the unit is selected to fight",
+        "selected-to-advance" => "when the unit is selected to Advance",
+        "after-unit-resolves-attacks" => "after the unit resolves its attacks",
+        "after-scoring-hit" => "after scoring a hit",
+        "after-enemy-unit-fires" => "after an enemy unit shoots",
+        "on-unit-destroyed" => "when the unit is destroyed",
+        "on-model-destroyed" => "when a model in the unit is destroyed",
+        "first-model-destroyed" => "the first time a model in the unit is destroyed",
+        "before-bearer-removed" => "before this model is removed from play",
+        "enemy-unit-destroyed-in-melee" => "when an enemy unit is destroyed in melee",
+        "on-damage-allocated" => "when damage is allocated",
+        "battle-shock-test" => "when the unit takes a Battle-shock test",
+        "leadership-test" => "when the unit takes a Leadership test",
+        "desperate-escape-test" => "when the unit takes a Desperate Escape test",
+        _ => return None,
+    };
+    Some(mapped)
+}
+
+/// A `GameEvent` token → natural reactive-trigger clause ("an enemy unit ends a
+/// move", "before a saving throw is made"). Mirrors the TS `EVENT_PHRASES` map
+/// in `condition.ts`; an unmapped event falls back to `when <dekebab>`.
+pub(super) fn event_clause(e: &str) -> String {
+    match event_phrase(e) {
+        Some(p) => p.to_string(),
+        None => format!("when {}", dekebab(e)),
+    }
+}
+
+/// Legacy `timing-is` string → its canonical `GameEvent` token. Mirrors
+/// `TIMING_ALIASES`; applied before the `EVENT_PHRASES` lookup in
+/// [`describe_timing`].
+fn timing_alias(t: &str) -> Option<&'static str> {
+    Some(match t {
+        "advance" => "advances",
+        "after-attacks" => "after-unit-resolves-attacks",
+        "after-attacking-unit-finishes-attacks" => "after-unit-resolves-attacks",
+        "after-shooting" => "after-unit-resolves-attacks",
+        "after-unit-shot" => "after-unit-resolves-attacks",
+        "after-unit-has-shot" => "after-unit-resolves-attacks",
+        "after-this-model-has-shot" => "after-unit-resolves-attacks",
+        "after-shot-hits-scored" => "after-scoring-hit",
+        "deep-strike" => "deep-strike-setup",
+        "end" => "end-of-turn",
+        "start" => "start-of-turn",
+        "fall-back" => "falls-back",
+        "model-destroyed" => "on-model-destroyed",
+        "on-destroyed" => "on-unit-destroyed",
+        "before-this-model-removed" => "before-bearer-removed",
+        "command-phase" => "start-of-command-phase",
+        "reinforcements-step" => "reinforcements",
+        "setup" => "unit-set-up",
+        "set-up-this-turn" => "unit-set-up",
+        "after-move-through-terrain-over-4-inches" => "moved-through-terrain",
+        "after-moving-through-tall-terrain" => "moved-through-terrain",
+        _ => return None,
+    })
+}
+
+/// `timing-is` tokens with no canonical `GameEvent` — these keep their own
+/// phrase. Mirrors `TIMING_ONLY_PHRASES`.
+fn timing_only_phrase(t: &str) -> Option<&'static str> {
+    Some(match t {
         "once-per-battle" => "once per battle",
         "once-per-phase" => "once per phase",
         "once-per-opponent-turn" => "once per opponent's turn",
-        _ => "",
-    };
-    if !mapped.is_empty() {
-        return mapped.to_string();
+        "first-this-battle" => "the first time this battle",
+        "first-time-this-phase" => "the first time this phase",
+        "in-reserves" => "while it is in Reserves",
+        "shooting-phase" => "in the Shooting phase",
+        _ => return None,
+    })
+}
+
+/// A `timing-is` token → natural GW-voice clause. `timing-is` has been unified
+/// onto the game-event vocabulary: a timing-only phrase wins first, otherwise
+/// the token is canonicalized (via [`timing_alias`]) and rendered through the
+/// shared [`event_phrase`] map; the `after-`/`on-`/`-destroyed`/`at` fallbacks
+/// run on the *original* token.
+pub(super) fn describe_timing(t: &str) -> String {
+    if let Some(p) = timing_only_phrase(t) {
+        return p.to_string();
+    }
+    let canon = timing_alias(t).unwrap_or(t);
+    if let Some(p) = event_phrase(canon) {
+        return p.to_string();
     }
     if let Some(rest) = t.strip_prefix("after-") {
         return format!("after {}", dekebab(rest));
@@ -264,7 +349,14 @@ fn describe_simple(s: &SimpleCondition) -> String {
         T::BattleRound => format!("{negate}during the first {} battle rounds", pj(p, "max")),
         T::RemainedStationary => format!("{negate}the unit remained stationary"),
         T::UnitBelowStartingStrength => format!("{negate}the unit is below starting strength"),
-        T::UnitBelowHalfStrength => format!("{negate}the unit is below half strength"),
+        T::UnitBelowHalfStrength => {
+            let who = if pj(p, "subject") == "target" {
+                "target unit"
+            } else {
+                "unit"
+            };
+            format!("{negate}the {who} is below half strength")
+        }
         T::UnitHasKeyword => format!("{negate}the unit has \"{}\"", pj(p, "keyword")),
         T::TargetHasKeyword => {
             format!("{negate}the target has \"{}\"", pj(p, "keyword"))

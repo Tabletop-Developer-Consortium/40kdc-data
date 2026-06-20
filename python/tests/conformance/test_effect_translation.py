@@ -26,6 +26,8 @@ def test_effect_translation(case: dict[str, Any]) -> None:
         ability["scope"] = case["scope"]
     if case.get("usage") is not None:
         ability["usage"] = case["usage"]
+    if case.get("trigger") is not None:
+        ability["trigger"] = case["trigger"]
     if case.get("applies_to") is not None:
         ability["applies_to"] = case["applies_to"]
     assert describe_ability(ability) == case["expected"]["text"]

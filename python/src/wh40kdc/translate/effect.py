@@ -15,7 +15,13 @@ from __future__ import annotations
 import re
 from typing import Any
 
-from wh40kdc.translate.condition import Condition, dekebab, describe_condition, describe_timing
+from wh40kdc.translate.condition import (
+    Condition,
+    dekebab,
+    describe_condition,
+    describe_timing,
+    event_clause,
+)
 
 Effect = dict[str, Any]
 Ctx = dict[str, Any]
@@ -283,32 +289,99 @@ _USAGE_FREQUENCIES = {
 
 
 def _usage_clause(u: dict[str, Any]) -> str:
-    """Usage limit -> front-of-sentence lead clause ("once per turn", "twice per battle per unit")."""
+    """Usage limit -> front-of-sentence lead clause ("once per turn", "twice per battle")."""
     count = u.get("count")
     try:
         n = int(count) if count is not None else 1
     except (TypeError, ValueError):
         n = 1
     freq = u.get("frequency")
-    base = _USAGE_FREQUENCIES.get(freq)
+    base = _USAGE_FREQUENCIES.get(freq) if isinstance(freq, str) else None
     if base is None:
         if freq == "n-per-battle":
-            base = "once per battle" if n == 1 else "twice per battle" if n == 2 else f"{_jstr(n)} times per battle"
+            if n == 1:
+                base = "once per battle"
+            elif n == 2:
+                base = "twice per battle"
+            else:
+                base = f"{_jstr(n)} times per battle"
         else:
             base = dekebab(_jstr(freq))
     return f"{base} per {_jstr(u['per'])}" if u.get("per") is not None else base
 
 
+def _describe_trigger(t: dict[str, Any]) -> str:
+    """Reactive trigger -> front-of-sentence lead clause
+    ("an enemy unit ends a move within 9\" of this model")."""
+    s = event_clause(t.get("event"))
+    prox = t.get("proximity") or {}
+    if prox.get("range") is not None:
+        of_kind = prox.get("of")
+        if of_kind == "attached-unit":
+            of = "the unit this model leads"
+        elif of_kind in ("self", "bearer"):
+            of = "this model"
+        else:
+            of = "this unit"
+        s += f' within {_jstr(prox["range"])}" of {of}'
+    if t.get("condition"):
+        s += f", if {describe_condition(t['condition'])}"
+    return s
+
+
+def _negated_target_keywords(keywords: list[str]) -> str:
+    """"against a unit that is not a Monster or Vehicle" from excluded target keywords."""
+    return "against a unit that is not a " + " or ".join(keywords)
+
+
+def _join_and_lead_ins(operands: list[Condition]) -> str:
+    """Join `and` operands. A run of negated target-has-keyword exclusions collapses
+    into one "against a unit that is not a X or Y" clause, which attaches to the
+    preceding clause with a space; all other operands join with ", "."""
+    parts: list[str] = []
+    i = 0
+    while i < len(operands):
+        op = operands[i]
+        if op.get("negated") and op.get("type") == "target-has-keyword":
+            kws: list[str] = []
+            while (
+                i < len(operands)
+                and operands[i].get("negated")
+                and operands[i].get("type") == "target-has-keyword"
+            ):
+                kws.append(_jstr((operands[i].get("parameters") or {}).get("keyword")))
+                i += 1
+            parts.append(_negated_target_keywords(kws))
+            continue
+        parts.append(_condition_lead_in(op))
+        i += 1
+    acc = ""
+    for part in parts:
+        if acc == "":
+            acc = part
+        elif part.startswith("against "):
+            acc = f"{acc} {part}"
+        else:
+            acc = f"{acc}, {part}"
+    return acc
+
+
 def _condition_lead_in(c: Condition) -> str:
     operands = c.get("operands")
     if c.get("operator") == "and" and operands:
-        return ", ".join(_condition_lead_in(o) for o in operands)
+        return _join_and_lead_ins(operands)
     if c.get("operator") == "or" and operands:
         return " or ".join(_condition_lead_in(o) for o in operands)
     if c.get("operator") == "not" and operands:
         return "unless " + " or ".join(
             re.sub(r"^if ", "", _condition_lead_in(o)) for o in operands
         )
+    # Negated keyword gates read as an exclusion clause, not the generic "if not …".
+    if c.get("negated") and c.get("type") == "target-has-keyword":
+        return _negated_target_keywords([_jstr((c.get("parameters") or {}).get("keyword"))])
+    if c.get("negated") and c.get("type") == "unit-has-keyword":
+        kw = _jstr((c.get("parameters") or {}).get("keyword"))
+        return f"unless the unit has the {kw} keyword"
     if c.get("negated"):
         return f"if {describe_condition(c)}"
 
@@ -349,6 +422,8 @@ def _condition_lead_in(c: Condition) -> str:
     if ctype == "is-battle-shocked":
         return "while the unit is Battle-shocked"
     if ctype == "unit-below-half-strength":
+        if p.get("subject") == "target":
+            return "while the target unit is below half strength"
         return "while the unit is below half strength"
     if ctype == "unit-below-starting-strength":
         return "while the unit is below its starting strength"
@@ -359,7 +434,7 @@ def _condition_lead_in(c: Condition) -> str:
             return "when this attack's Strength is greater than the target's Toughness"
         if p.get("comparison") is not None:
             return f"when {dekebab(_jstr(p.get('comparison')))}"
-        return f"with {_jstr(p.get('attack_type'))} attacks"
+        return f"while making {_jstr(p.get('attack_type'))} attacks"
     if ctype == "destroyed-by-attack-type":
         return f"when destroyed by a {_jstr(p.get('attack_type'))} attack"
     if ctype == "opponent-unit-within-range":
@@ -699,20 +774,20 @@ def _describe_effect_inline_base(e: Effect, ctx: Ctx | None = None) -> str:
     if etype == "remove-battle-shock":
         return f"{subj} {_v(subj, 'is')} no longer Battle-shocked"
     if etype == "auto-result":
-        r = m.get("result")
+        res = m.get("result")
         if m.get("test") is not None:
             tn = _test_name(m.get("test"))
-            if r == "pass":
+            if res == "pass":
                 return f"{subj} automatically {_v(subj, 'passes')} {tn} tests"
-            if r == "fail":
+            if res == "fail":
                 return f"{subj} automatically {_v(subj, 'fails')} {tn} tests"
-            return f"{subj} {_v(subj, 'treats')} {tn} tests as {_jstr(r)}"
+            return f"{subj} {_v(subj, 'treats')} {tn} tests as {_jstr(res)}"
         roll = _roll_name(m.get("roll"))
-        if r == "pass":
+        if res == "pass":
             return f"{_possessive(subj)} {roll} rolls automatically succeed"
-        if r == "fail":
+        if res == "fail":
             return f"{_possessive(subj)} {roll} rolls automatically fail"
-        return f"{_possessive(subj)} {roll} rolls count as {_jstr(r)}"
+        return f"{_possessive(subj)} {roll} rolls count as {_jstr(res)}"
     if etype == "firing-deck":
         return f"{subj} {_v(subj, 'has')} Firing Deck {_jstr(m.get('value'))}"
     if etype == "disembark-after-move":
@@ -876,35 +951,53 @@ def _assemble_sentence(parts: list[str]) -> str:
     return _capitalize(body) + period
 
 
+def _aura_radius(scope: dict[str, Any] | None) -> float | int | None:
+    """Aura radius in inches: explicit `range_inches`, else the integer baked into a
+    standard `aura-<n>` slug (`aura-6` -> 6), else None. Per the scope schema,
+    `aura-6/9/12` carry the radius in the slug and leave `range_inches` null; only
+    `aura-custom` sets `range_inches`. Non-aura ranges yield None, so the subject
+    helper keeps its " nearby" fallback."""
+    scope = scope or {}
+    if scope.get("range_inches") is not None:
+        return scope.get("range_inches")
+    m = re.fullmatch(r"aura-(\d+)", scope.get("range") or "")
+    return int(m.group(1)) if m else None
+
+
 def _render_top_level(
-    e: Effect, scope: dict[str, Any] | None, usage: dict[str, Any] | None = None
+    e: Effect,
+    scope: dict[str, Any] | None,
+    usage: dict[str, Any] | None = None,
+    trigger: dict[str, Any] | None = None,
 ) -> str:
-    ctx: Ctx = {"range_inches": (scope or {}).get("range_inches")}
+    ctx: Ctx = {"range_inches": _aura_radius(scope)}
     dur_lead, trail = _duration_clauses((scope or {}).get("duration"))
     # An explicit usage limit supersedes the duration's coarse "once per battle" lead.
     lead = _usage_clause(usage) if usage and usage.get("frequency") is not None else dur_lead
+    # A reactive trigger opens the sentence ("Each time ...").
+    trig = _describe_trigger(trigger) if trigger and trigger.get("event") is not None else ""
 
     if e.get("type") == "conditional":
         inner = e.get("effect") or {}
         lead_in = _condition_lead_in(e.get("condition") or {})
         if inner.get("type") in _CONTAINER_TYPES:
-            header = ", ".join(part for part in (lead, lead_in, trail) if part)
+            header = ", ".join(part for part in (trig, lead, lead_in, trail) if part)
             return _capitalize(header) + ":\n" + describe_effect(inner, 1, ctx)
-        return _assemble_sentence([lead, lead_in, trail, describe_effect_inline(inner, ctx)])
+        return _assemble_sentence([trig, lead, lead_in, trail, describe_effect_inline(inner, ctx)])
 
     if e.get("type") in _CONTAINER_TYPES:
         block = describe_effect(e, 0, ctx)
-        dur = lead or trail
-        return _capitalize(dur) + ":\n" + block if dur else block
+        head = ", ".join(part for part in (trig, lead or trail) if part)
+        return _capitalize(head) + ":\n" + block if head else block
 
-    return _assemble_sentence([lead, trail, describe_effect_inline(e, ctx)])
+    return _assemble_sentence([trig, lead, trail, describe_effect_inline(e, ctx)])
 
 
 def describe_ability(a: dict[str, Any]) -> str:
     """Full natural-English text for an ability (effect + woven scope/duration,
     plus a trailing ``Applies to:`` line when a curated filter is present)."""
     core = (
-        _render_top_level(a["effect"], a.get("scope"), a.get("usage"))
+        _render_top_level(a["effect"], a.get("scope"), a.get("usage"), a.get("trigger"))
         if a.get("effect")
         else ""
     )

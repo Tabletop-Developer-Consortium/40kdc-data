@@ -2,6 +2,7 @@ package wh40kdc
 
 import (
 	"regexp"
+	"strconv"
 	"strings"
 )
 
@@ -299,17 +300,58 @@ func durationClauses(duration any) (string, string) {
 
 var leadingIfRe = regexp.MustCompile(`^if `)
 
+// negatedTargetKeywords renders "against a unit that is not a Monster or Vehicle"
+// from a run of excluded target keywords.
+func negatedTargetKeywords(keywords []string) string {
+	return "against a unit that is not a " + strings.Join(keywords, " or ")
+}
+
+// joinAndLeadIns joins the operands of an `and` lead-in. A run of consecutive
+// negated target-has-keyword exclusions collapses into one "against a unit that is
+// not a X or Y" clause, which attaches to the preceding clause with a space; all
+// other operands join with ", ".
+func joinAndLeadIns(operands []any) string {
+	var parts []string
+	for i := 0; i < len(operands); {
+		om, _ := asMap(operands[i])
+		if om["negated"] == true && om["type"] == "target-has-keyword" {
+			var kws []string
+			for i < len(operands) {
+				m, _ := asMap(operands[i])
+				if m["negated"] == true && m["type"] == "target-has-keyword" {
+					mp, _ := getMap(m, "parameters")
+					kws = append(kws, ejstr(mp["keyword"]))
+					i++
+				} else {
+					break
+				}
+			}
+			parts = append(parts, negatedTargetKeywords(kws))
+			continue
+		}
+		parts = append(parts, conditionLeadIn(om))
+		i++
+	}
+	acc := ""
+	for _, part := range parts {
+		switch {
+		case acc == "":
+			acc = part
+		case strings.HasPrefix(part, "against "):
+			acc = acc + " " + part
+		default:
+			acc = acc + ", " + part
+		}
+	}
+	return acc
+}
+
 func conditionLeadIn(c map[string]any) string {
 	operands, _ := asList(c["operands"])
 	switch c["operator"] {
 	case "and":
 		if len(operands) > 0 {
-			parts := make([]string, len(operands))
-			for i, o := range operands {
-				om, _ := asMap(o)
-				parts[i] = conditionLeadIn(om)
-			}
-			return strings.Join(parts, ", ")
+			return joinAndLeadIns(operands)
 		}
 	case "or":
 		if len(operands) > 0 {
@@ -330,12 +372,19 @@ func conditionLeadIn(c map[string]any) string {
 			return "unless " + strings.Join(parts, " or ")
 		}
 	}
-	if c["negated"] == true {
-		return "if " + describeCondition(c)
-	}
 	p, _ := getMap(c, "parameters")
 	if p == nil {
 		p = map[string]any{}
+	}
+	// Negated keyword gates read as an exclusion clause, not the generic "if not …".
+	if c["negated"] == true && c["type"] == "target-has-keyword" {
+		return negatedTargetKeywords([]string{ejstr(p["keyword"])})
+	}
+	if c["negated"] == true && c["type"] == "unit-has-keyword" {
+		return "unless the unit has the " + ejstr(p["keyword"]) + " keyword"
+	}
+	if c["negated"] == true {
+		return "if " + describeCondition(c)
 	}
 	switch c["type"] {
 	case "phase-is":
@@ -377,6 +426,9 @@ func conditionLeadIn(c map[string]any) string {
 	case "is-battle-shocked":
 		return "while the unit is Battle-shocked"
 	case "unit-below-half-strength":
+		if p["subject"] == "target" {
+			return "while the target unit is below half strength"
+		}
 		return "while the unit is below half strength"
 	case "unit-below-starting-strength":
 		return "while the unit is below its starting strength"
@@ -389,7 +441,7 @@ func conditionLeadIn(c map[string]any) string {
 		if p["comparison"] != nil {
 			return "when " + dekebab(ejstr(p["comparison"]))
 		}
-		return "with " + ejstr(p["attack_type"]) + " attacks"
+		return "while making " + ejstr(p["attack_type"]) + " attacks"
 	case "destroyed-by-attack-type":
 		return "when destroyed by a " + ejstr(p["attack_type"]) + " attack"
 	case "opponent-unit-within-range":
@@ -1165,23 +1217,70 @@ func usageClause(u map[string]any) string {
 	return base
 }
 
-func renderTopLevel(e map[string]any, scope map[string]any, usage map[string]any) string {
-	ctx := map[string]any{"range_inches": scope["range_inches"]}
+// describeReactiveTrigger renders a reactive ability trigger as a front-of-sentence
+// lead clause ("an enemy unit ends a move within 9\" of this model"). Distinct from
+// the scoring-card describeTrigger (different shape; same package).
+func describeReactiveTrigger(t map[string]any) string {
+	s := eventClause(t["event"])
+	if prox, _ := getMap(t, "proximity"); prox != nil && prox["range"] != nil {
+		of := "this unit"
+		switch prox["of"] {
+		case "attached-unit":
+			of = "the unit this model leads"
+		case "self", "bearer":
+			of = "this model"
+		}
+		s += " within " + ejstr(prox["range"]) + "\" of " + of
+	}
+	if t["condition"] != nil {
+		cond, _ := asMap(t["condition"])
+		s += ", if " + describeCondition(cond)
+	}
+	return s
+}
+
+var auraSlugRe = regexp.MustCompile(`^aura-(\d+)$`)
+
+// auraRadius returns the aura radius in inches: an explicit range_inches, else the
+// integer baked into a standard aura-<n> slug (aura-6 -> 6), else nil. Per the
+// scope schema, aura-6/9/12 carry the radius in the slug and leave range_inches
+// null; only aura-custom sets range_inches. Non-aura ranges yield nil, keeping
+// subject()'s " nearby" fallback.
+func auraRadius(scope map[string]any) any {
+	if scope["range_inches"] != nil {
+		return scope["range_inches"]
+	}
+	if r, ok := scope["range"].(string); ok {
+		if m := auraSlugRe.FindStringSubmatch(r); m != nil {
+			n, _ := strconv.ParseFloat(m[1], 64)
+			return n
+		}
+	}
+	return nil
+}
+
+func renderTopLevel(e map[string]any, scope map[string]any, usage map[string]any, trigger map[string]any) string {
+	ctx := map[string]any{"range_inches": auraRadius(scope)}
 	durLead, trail := durationClauses(scope["duration"])
 	// An explicit usage limit supersedes the duration's coarse "once per battle" lead.
 	lead := durLead
 	if usage != nil && usage["frequency"] != nil {
 		lead = usageClause(usage)
 	}
+	// A reactive trigger opens the sentence ("Each time …").
+	trig := ""
+	if trigger != nil && trigger["event"] != nil {
+		trig = describeReactiveTrigger(trigger)
+	}
 	if e["type"] == "conditional" {
 		inner, _ := getMap(e, "effect")
 		cond, _ := getMap(e, "condition")
 		leadIn := conditionLeadIn(cond)
 		if inner != nil && containerTypes[getStr(inner, "type")] {
-			header := joinNonEmpty([]string{lead, leadIn, trail}, ", ")
+			header := joinNonEmpty([]string{trig, lead, leadIn, trail}, ", ")
 			return capitalize(header) + ":\n" + describeEffect(inner, 1, ctx)
 		}
-		return assembleSentence([]string{lead, leadIn, trail, describeEffectInline(inner, ctx)})
+		return assembleSentence([]string{trig, lead, leadIn, trail, describeEffectInline(inner, ctx)})
 	}
 	if containerTypes[getStr(e, "type")] {
 		block := describeEffect(e, 0, ctx)
@@ -1189,12 +1288,13 @@ func renderTopLevel(e map[string]any, scope map[string]any, usage map[string]any
 		if dur == "" {
 			dur = trail
 		}
-		if dur != "" {
-			return capitalize(dur) + ":\n" + block
+		head := joinNonEmpty([]string{trig, dur}, ", ")
+		if head != "" {
+			return capitalize(head) + ":\n" + block
 		}
 		return block
 	}
-	return assembleSentence([]string{lead, trail, describeEffectInline(e, ctx)})
+	return assembleSentence([]string{trig, lead, trail, describeEffectInline(e, ctx)})
 }
 
 func joinNonEmpty(parts []string, sep string) string {
@@ -1217,7 +1317,8 @@ func describeAbility(a map[string]any) string {
 			scope = map[string]any{}
 		}
 		usage, _ := getMap(a, "usage")
-		core = renderTopLevel(eff, scope, usage)
+		trigger, _ := getMap(a, "trigger")
+		core = renderTopLevel(eff, scope, usage, trigger)
 	}
 	at, _ := getMap(a, "applies_to")
 	applies := describeAppliesTo(at)

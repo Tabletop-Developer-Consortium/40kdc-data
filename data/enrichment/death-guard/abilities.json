@@ -115,7 +115,7 @@
       "condition": {
         "type": "timing-is",
         "parameters": {
-          "timing": "before-this-model-removed"
+          "timing": "before-bearer-removed"
         }
       },
       "effect": {
@@ -376,7 +376,7 @@
       "condition": {
         "type": "timing-is",
         "parameters": {
-          "timing": "before-this-model-removed"
+          "timing": "before-bearer-removed"
         }
       },
       "effect": {
@@ -1644,7 +1644,7 @@
       "condition": {
         "type": "timing-is",
         "parameters": {
-          "timing": "deep-strike"
+          "timing": "deep-strike-setup"
         }
       },
       "effect": {
@@ -2293,7 +2293,7 @@
       "condition": {
         "type": "timing-is",
         "parameters": {
-          "timing": "before-this-model-removed"
+          "timing": "before-bearer-removed"
         }
       },
       "effect": {
@@ -2469,7 +2469,7 @@
           {
             "type": "timing-is",
             "parameters": {
-              "timing": "after-this-model-has-shot"
+              "timing": "after-unit-resolves-attacks"
             }
           },
           {
@@ -3481,7 +3481,7 @@
       "target": "enemy-within-aura",
       "modifier": {
         "grant_type": "apply-additional-plague",
-        "timing": "command-phase",
+        "timing": "start-of-command-phase",
         "frequency": "once-per-battle-per-army",
         "range": "contagion"
       }

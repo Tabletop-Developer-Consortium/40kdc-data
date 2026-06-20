@@ -216,7 +216,7 @@
       "duration": "permanent"
     },
     "expected": {
-      "text": "During the Fight phase, against CHARACTER targets:\n  -> You can re-roll the Hit roll.\n  -> You can re-roll the Wound roll."
+      "text": "During the Fight phase against CHARACTER targets:\n  -> You can re-roll the Hit roll.\n  -> You can re-roll the Wound roll."
     }
   },
   {
@@ -864,7 +864,7 @@
       "duration": "turn"
     },
     "expected": {
-      "text": "During the Movement phase, when it arrives as Reinforcements, until the end of the turn:\n  -> This model has the Deep Strike ability.\n  -> This model's Dark Blessing gains [SUSTAINED HITS D3].\n  -> This model: charge."
+      "text": "During the Movement phase, when the unit arrives as Reinforcements, until the end of the turn:\n  -> This model has the Deep Strike ability.\n  -> This model's Dark Blessing gains [SUSTAINED HITS D3].\n  -> This model: charge."
     }
   },
   {
@@ -1859,7 +1859,7 @@
       "duration": "battle"
     },
     "expected": {
-      "text": "If the unit has the ADEPTUS ASTARTES keyword, for the rest of the battle:\n  -> Friendly units nearby gain the Battle Shock Test Re Roll ability.\n  -> Friendly units nearby gain the Leadership Test Re Roll ability."
+      "text": "If the unit has the ADEPTUS ASTARTES keyword, for the rest of the battle:\n  -> Friendly units within 6\" gain the Battle Shock Test Re Roll ability.\n  -> Friendly units within 6\" gain the Leadership Test Re Roll ability."
     }
   },
   {
@@ -1918,7 +1918,7 @@
       "duration": "permanent"
     },
     "expected": {
-      "text": "Enemy units cannot be set up from Reserves within 12\" of enemy units nearby."
+      "text": "Enemy units cannot be set up from Reserves within 12\" of enemy units within 12\"."
     }
   },
   {
@@ -2038,7 +2038,10 @@
           {
             "type": "conditional",
             "condition": {
-              "type": "unit-below-half-strength"
+              "type": "unit-below-half-strength",
+              "parameters": {
+                "subject": "target"
+              }
             },
             "effect": {
               "type": "roll-modifier",
@@ -2058,7 +2061,7 @@
       "duration": "permanent"
     },
     "expected": {
-      "text": "With melee attacks, if not the target has \"Monster\", if not the target has \"Vehicle\":\n  -> Friendly units nearby get +1 to Hit rolls.\n  -> While the unit is below half strength, friendly units nearby get +1 to Wound rolls."
+      "text": "While making melee attacks against a unit that is not a Monster or Vehicle:\n  -> Friendly units within 6\" get +1 to Hit rolls.\n  -> While the target unit is below half strength, friendly units within 6\" get +1 to Wound rolls."
     }
   },
   {
@@ -2110,7 +2113,7 @@
       "condition": {
         "type": "timing-is",
         "parameters": {
-          "timing": "on-destroyed"
+          "timing": "on-unit-destroyed"
         }
       },
       "effect": {
@@ -2136,7 +2139,7 @@
       "duration": "one-use"
     },
     "expected": {
-      "text": "Once per battle, each time this unit is destroyed:\n  -> Roll one D6: on a 2+, return 1 destroyed model to this model with 3 wounds."
+      "text": "Once per battle, when the unit is destroyed:\n  -> Roll one D6: on a 2+, return 1 destroyed model to this model with 3 wounds."
     }
   },
   {
@@ -2183,7 +2186,7 @@
       "duration": "battle"
     },
     "expected": {
-      "text": "For the rest of the battle:\nIf it begins the battle in Reserves, this model gains the Reinforcements First Three Movement Phases ability.\nWhile it is in Reserves, this model gains the Treat Battle Round One Higher for Reserves ability."
+      "text": "For the rest of the battle:\nIf the unit begins the battle in Reserves, this model gains the Reinforcements First Three Movement Phases ability.\nWhile it is in Reserves, this model gains the Treat Battle Round One Higher for Reserves ability."
     }
   },
   {
@@ -2655,7 +2658,7 @@
       "duration": "battle-round"
     },
     "expected": {
-      "text": "At the start of the phase, until the end of the battle round:\n  -> Roll 8D6 (max 2 activations):\n    - Unbridled Bloodlust: need pair of 1+ -> all friendly units get +1 to Charge rolls\n    - Rage-Fuelled Invigoration: need pair of 2+ -> all friendly units have the Pile in Consolidation 6\" ability\n    - Total Carnage: need pair of 3+ -> when destroyed by a melee attack, if not has fought this phase, roll one D6: on a 4+, each time this model is destroyed, it can fight before being removed from play\n    - Martial Excellence: need pair of 4+ -> all friendly units' melee weapons gain [SUSTAINED HITS 1]\n    - Warp Blades: need pair of 5+ -> all friendly units' melee weapons gain [LETHAL HITS]\n    - Decapitating Strikes: need triple of 6+ -> against Infantry targets, with melee attacks, all friendly units' weapons gain [DEVASTATING WOUNDS]"
+      "text": "At the start of the phase, until the end of the battle round:\n  -> Roll 8D6 (max 2 activations):\n    - Unbridled Bloodlust: need pair of 1+ -> all friendly units get +1 to Charge rolls\n    - Rage-Fuelled Invigoration: need pair of 2+ -> all friendly units have the Pile in Consolidation 6\" ability\n    - Total Carnage: need pair of 3+ -> when destroyed by a melee attack, if not has fought this phase, roll one D6: on a 4+, each time this model is destroyed, it can fight before being removed from play\n    - Martial Excellence: need pair of 4+ -> all friendly units' melee weapons gain [SUSTAINED HITS 1]\n    - Warp Blades: need pair of 5+ -> all friendly units' melee weapons gain [LETHAL HITS]\n    - Decapitating Strikes: need triple of 6+ -> against Infantry targets, while making melee attacks, all friendly units' weapons gain [DEVASTATING WOUNDS]"
     }
   },
   {
@@ -2748,7 +2751,7 @@
       "duration": "permanent"
     },
     "expected": {
-      "text": "Modify this model's Save characteristic to 2.\nEach time this unit is destroyed, you gain 1 Blood Tithe Pool."
+      "text": "Modify this model's Save characteristic to 2.\nWhen the unit is destroyed, you gain 1 Blood Tithe Pool."
     }
   },
   {
@@ -2782,7 +2785,7 @@
       "duration": "battle"
     },
     "expected": {
-      "text": "Each time this unit is destroyed, for the rest of the battle:\n  -> Roll one D6: on a 3+, you gain 1 Blood Tithe Pool."
+      "text": "When the unit is destroyed, for the rest of the battle:\n  -> Roll one D6: on a 3+, you gain 1 Blood Tithe Pool."
     }
   },
   {
@@ -3066,7 +3069,7 @@
       "duration": "permanent"
     },
     "expected": {
-      "text": "During the Command phase, if the unit has the CANOPTEK SCARAB SWARM keyword, return 1 destroyed model to friendly units nearby with full wounds."
+      "text": "During the Command phase, if the unit has the CANOPTEK SCARAB SWARM keyword, return 1 destroyed model to friendly units within 6\" with full wounds."
     }
   },
   {
@@ -3244,7 +3247,7 @@
       "duration": "permanent"
     },
     "expected": {
-      "text": "While the unit is within Engagement Range, enemy units nearby get -1 to their Objective Control characteristic.\nIf within 6\" of friendly cryptek, this model gets -1 to its Objective Control characteristic."
+      "text": "While the unit is within Engagement Range, enemy units within 6\" get -1 to their Objective Control characteristic.\nIf within 6\" of friendly cryptek, this model gets -1 to its Objective Control characteristic."
     }
   },
   {
@@ -3377,7 +3380,7 @@
       "duration": "permanent"
     },
     "expected": {
-      "text": "Enemy units nearby must take a Battle-shock test."
+      "text": "Enemy units within 6\" must take a Battle-shock test."
     }
   },
   {
@@ -3431,7 +3434,7 @@
       "condition": {
         "type": "timing-is",
         "parameters": {
-          "timing": "model-destroyed",
+          "timing": "on-model-destroyed",
           "model_keyword": "STORM GUARDIAN",
           "qualifier": "last-in-unit"
         }
@@ -3450,7 +3453,7 @@
       "duration": "permanent"
     },
     "expected": {
-      "text": "Each time a model in this unit is destroyed, destroy all models in the unit."
+      "text": "When a model in the unit is destroyed, destroy all models in the unit."
     }
   },
   {
@@ -3460,7 +3463,7 @@
       "condition": {
         "type": "timing-is",
         "parameters": {
-          "timing": "setup"
+          "timing": "unit-set-up"
         }
       },
       "effect": {
@@ -3485,7 +3488,7 @@
       "duration": "turn"
     },
     "expected": {
-      "text": "At setup, until the end of the turn, with ranged attacks, this model gains the Unmodified Hit Critical ability."
+      "text": "When the unit is set up, until the end of the turn, while making ranged attacks, this model gains the Unmodified Hit Critical ability."
     }
   },
   {
@@ -3600,7 +3603,7 @@
       "duration": "phase"
     },
     "expected": {
-      "text": "With melee attacks, until the end of the phase, add 2 to the unit's Strength characteristic (melee)."
+      "text": "While making melee attacks, until the end of the phase, add 2 to the unit's Strength characteristic (melee)."
     }
   },
   {
@@ -3691,7 +3694,7 @@
       "duration": "phase"
     },
     "expected": {
-      "text": "With ranged attacks, until the end of the phase, this model gains the Ignores Lone Operative ability."
+      "text": "While making ranged attacks, until the end of the phase, this model gains the Ignores Lone Operative ability."
     }
   },
   {
@@ -3701,7 +3704,7 @@
       "condition": {
         "type": "timing-is",
         "parameters": {
-          "timing": "before-this-model-removed"
+          "timing": "before-bearer-removed"
         }
       },
       "effect": {
@@ -3725,7 +3728,7 @@
       "duration": "permanent"
     },
     "expected": {
-      "text": "Before removing this model from the battlefield:\n  -> Roll one D6: on a 6+, each enemy unit within 6\" suffers 1 mortal wound."
+      "text": "Before this model is removed from play:\n  -> Roll one D6: on a 6+, each enemy unit within 6\" suffers 1 mortal wound."
     }
   },
   {
@@ -3735,7 +3738,7 @@
       "condition": {
         "type": "timing-is",
         "parameters": {
-          "timing": "before-this-model-removed"
+          "timing": "before-bearer-removed"
         }
       },
       "effect": {
@@ -3759,7 +3762,7 @@
       "duration": "permanent"
     },
     "expected": {
-      "text": "Before removing this model from the battlefield:\n  -> Roll one D6: on a 6+, each enemy unit within 6\" suffers 2D6 mortal wounds."
+      "text": "Before this model is removed from play:\n  -> Roll one D6: on a 6+, each enemy unit within 6\" suffers 2D6 mortal wounds."
     }
   },
   {
@@ -3988,7 +3991,7 @@
       "duration": "permanent"
     },
     "expected": {
-      "text": "If the unit has the WAR DOG keyword:\n  -> Add 1 to friendly units nearby's Leadership characteristic.\n  -> Add 1 to friendly units nearby's Objective Control characteristic."
+      "text": "If the unit has the WAR DOG keyword:\n  -> Add 1 to friendly units within 9\"'s Leadership characteristic.\n  -> Add 1 to friendly units within 9\"'s Objective Control characteristic."
     }
   },
   {
@@ -4119,7 +4122,7 @@
       ]
     },
     "expected": {
-      "text": "At unit set up, until the end of the turn, the unit gets +1 to Charge rolls.\nApplies to: units with Emperor's Children, Terminator."
+      "text": "When the unit is set up, until the end of the turn, the unit gets +1 to Charge rolls.\nApplies to: units with Emperor's Children, Terminator."
     }
   },
   {
@@ -4183,7 +4186,7 @@
       "duration": "turn"
     },
     "expected": {
-      "text": "During the Shooting phase, against INFANTRY targets, with ranged attacks, until the end of the turn:\n  -> Your unit gains the Shaken Status ability.\n  -> Your unit has the Move -2\" ability.\n  -> Your unit gets -2 to Charge rolls."
+      "text": "During the Shooting phase against INFANTRY targets, while making ranged attacks, until the end of the turn:\n  -> Your unit gains the Shaken Status ability.\n  -> Your unit has the Move -2\" ability.\n  -> Your unit gets -2 to Charge rolls."
     }
   },
   {
@@ -4378,7 +4381,7 @@
       "duration": "permanent"
     },
     "expected": {
-      "text": "Unless against MONSTER targets, unless against VEHICLE targets:\n  -> Enemy units nearby gain the Forced Desperate Escape on Fall Back ability.\n  -> While the unit is Battle-shocked, subtract 1 from the Desperate Escape test of enemy units nearby."
+      "text": "Unless against MONSTER targets, unless against VEHICLE targets:\n  -> Enemy units within 6\" gain the Forced Desperate Escape on Fall Back ability.\n  -> While the unit is Battle-shocked, subtract 1 from the Desperate Escape test of enemy units within 6\"."
     }
   },
   {
@@ -4648,7 +4651,7 @@
       "duration": "turn"
     },
     "expected": {
-      "text": "During the Shooting phase, until the end of the turn, when destroyed by a ranged attack, against AFFLICTED targets, roll one D6: on a 4+, enemy units nearby's weapons gain [AFFLICTED]; unless against AFFLICTED targets, roll one D6: on a 5+, enemy units nearby's weapons gain [AFFLICTED]."
+      "text": "During the Shooting phase, until the end of the turn, when destroyed by a ranged attack, against AFFLICTED targets, roll one D6: on a 4+, enemy units within 6\"'s weapons gain [AFFLICTED]; unless against AFFLICTED targets, roll one D6: on a 5+, enemy units within 6\"'s weapons gain [AFFLICTED]."
     }
   },
   {
@@ -4781,7 +4784,7 @@
       "duration": "permanent"
     },
     "expected": {
-      "text": "While the unit is below its starting strength, enemy units nearby must take a Battle-shock test."
+      "text": "While the unit is below its starting strength, enemy units within 6\" must take a Battle-shock test."
     }
   },
   {
@@ -4804,7 +4807,7 @@
       "duration": "permanent"
     },
     "expected": {
-      "text": "While the unit is below its starting strength, enemy units nearby must take a Battle-shock test."
+      "text": "While the unit is below its starting strength, enemy units within 6\" must take a Battle-shock test."
     }
   },
   {
@@ -5203,7 +5206,7 @@
       "duration": "battle"
     },
     "expected": {
-      "text": "For the rest of the battle:\nSubtract 1 from enemy units nearby's Leadership characteristic.\nSelect one of the following (Dread Ability):\n  - Subtract 1 from enemy units nearby's Leadership characteristic.\n  - While the unit is Battle-shocked, the unit gets +1 to Wound rolls.\n  - This model gains the Stealth ability.\n  - Enemy units nearby must take a Battle-shock test.\n  - Each enemy unit within 9\" suffers D3 mortal wounds.\n  - Add 3 to this model's Aura Range characteristic."
+      "text": "For the rest of the battle:\nSubtract 1 from enemy units within 9\"'s Leadership characteristic.\nSelect one of the following (Dread Ability):\n  - Subtract 1 from enemy units within 9\"'s Leadership characteristic.\n  - While the unit is Battle-shocked, the unit gets +1 to Wound rolls.\n  - This model gains the Stealth ability.\n  - Enemy units within 9\" must take a Battle-shock test.\n  - Each enemy unit within 9\" suffers D3 mortal wounds.\n  - Add 3 to this model's Aura Range characteristic."
     }
   },
   {
@@ -5248,7 +5251,7 @@
       "duration": "permanent"
     },
     "expected": {
-      "text": "If within 6\" of a friendly unit, friendly units nearby gain the Blessings of Khorne ability."
+      "text": "If within 6\" of a friendly unit, friendly units within 6\" gain the Blessings of Khorne ability."
     }
   },
   {
@@ -5504,7 +5507,7 @@
       "duration": "phase"
     },
     "expected": {
-      "text": "While an enemy unit is within 6\", until the end of the phase, if within ?\" of a friendly ADEPTUS MECHANICUS BATTLELINE unit, subtract 2 from the Leadership characteristic of enemy units nearby."
+      "text": "While an enemy unit is within 6\", until the end of the phase, if within ?\" of a friendly ADEPTUS MECHANICUS BATTLELINE unit, subtract 2 from the Leadership characteristic of enemy units within 6\"."
     }
   },
   {
@@ -5705,7 +5708,7 @@
           {
             "type": "timing-is",
             "parameters": {
-              "timing": "after-attacks"
+              "timing": "after-unit-resolves-attacks"
             }
           },
           {
@@ -5754,7 +5757,7 @@
       "duration": "phase"
     },
     "expected": {
-      "text": "After attacks, against INFANTRY targets, when destroyed by a melee attack, with melee attacks, until the end of the phase:\n  -> Return D3 destroyed models to the unit with full wounds.\n  -> The unit can move through enemy models."
+      "text": "After the unit resolves its attacks against INFANTRY targets, when destroyed by a melee attack, while making melee attacks, until the end of the phase:\n  -> Return D3 destroyed models to the unit with full wounds.\n  -> The unit can move through enemy models."
     }
   },
   {
@@ -5824,7 +5827,7 @@
       "duration": "permanent"
     },
     "expected": {
-      "text": "During the Movement phase, when it arrives as Reinforcements, during the first 3 battle rounds, this model can arrive from Strategic Reserves regardless of mission rules."
+      "text": "During the Movement phase, when the unit arrives as Reinforcements, during the first 3 battle rounds, this model can arrive from Strategic Reserves regardless of mission rules."
     }
   },
   {
@@ -5899,7 +5902,7 @@
           {
             "type": "timing-is",
             "parameters": {
-              "timing": "end"
+              "timing": "end-of-turn"
             }
           },
           {
@@ -5973,7 +5976,7 @@
       "duration": "permanent"
     },
     "expected": {
-      "text": "The terrain area is marked as shadow of chaos.\nIf the unit has the KHORNE keyword, if the unit has the LEGIONES DAEMONICA keyword, friendly units nearby can re-roll Battle-shock tests."
+      "text": "The terrain area is marked as shadow of chaos.\nIf the unit has the KHORNE keyword, if the unit has the LEGIONES DAEMONICA keyword, friendly units within 6\" can re-roll Battle-shock tests."
     }
   },
   {
@@ -6074,7 +6077,7 @@
             "condition": {
               "type": "timing-is",
               "parameters": {
-                "timing": "after-moving-through-tall-terrain"
+                "timing": "moved-through-terrain"
               }
             },
             "effect": {
@@ -6100,7 +6103,7 @@
       "duration": "phase"
     },
     "expected": {
-      "text": "During the Movement phase, until the end of the phase:\n  -> This model has the Through Non Titanic Models ability.\n  -> This model has the Through Terrain 4 or Less ability.\n  -> This model can move through enemy models.\n  -> This model has the Through Terrain Over 4 Inches ability.\n  After moving through tall terrain:\n    -> Roll one D6: on exactly 1, modify this model's Leadership characteristic."
+      "text": "During the Movement phase, until the end of the phase:\n  -> This model has the Through Non Titanic Models ability.\n  -> This model has the Through Terrain 4 or Less ability.\n  -> This model can move through enemy models.\n  -> This model has the Through Terrain Over 4 Inches ability.\n  When the unit moves through terrain:\n    -> Roll one D6: on exactly 1, modify this model's Leadership characteristic."
     }
   },
   {
@@ -6401,7 +6404,7 @@
       "duration": "permanent"
     },
     "expected": {
-      "text": "Each time a model in this unit is destroyed, while this model leads a unit, destroy 1 model in the unit."
+      "text": "When a model in the unit is destroyed, while this model leads a unit, destroy 1 model in the unit."
     }
   },
   {
@@ -6991,6 +6994,78 @@
     },
     "expected": {
       "text": "Twice per battle per unit, until the end of the phase, add 1 to the unit's Attacks characteristic."
+    }
+  },
+  {
+    "caseId": "trigger-enemy-ended-move#230",
+    "effect": {
+      "type": "movement-modifier",
+      "target": "self",
+      "modifier": {
+        "move_type": "reactive",
+        "distance": "D6"
+      }
+    },
+    "scope": {
+      "range": "self",
+      "duration": "one-use"
+    },
+    "trigger": {
+      "event": "enemy-unit-ended-move",
+      "subject": "enemy-unit",
+      "proximity": {
+        "of": "bearer",
+        "range": 9
+      }
+    },
+    "expected": {
+      "text": "An enemy unit ends a move within 9\" of this model, once per battle, this model has the Reactive D6\" ability."
+    }
+  },
+  {
+    "caseId": "trigger-on-model-destroyed#231",
+    "effect": {
+      "type": "mortal-wounds",
+      "target": "all-enemy",
+      "modifier": {
+        "count": 1
+      }
+    },
+    "scope": {
+      "range": "aura-6",
+      "duration": "one-use",
+      "range_inches": 6
+    },
+    "trigger": {
+      "event": "on-model-destroyed"
+    },
+    "expected": {
+      "text": "When a model in the unit is destroyed, once per battle, all enemy units suffer 1 mortal wound."
+    }
+  },
+  {
+    "caseId": "trigger-before-save-with-condition#232",
+    "effect": {
+      "type": "re-roll",
+      "target": "unit",
+      "modifier": {
+        "roll": "save",
+        "subset": "all-failures"
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "phase"
+    },
+    "trigger": {
+      "event": "before-save-roll",
+      "subject": "self",
+      "condition": {
+        "type": "is-battle-shocked"
+      }
+    },
+    "expected": {
+      "text": "Before a saving throw is made, if the unit is battle-shocked, until the end of the phase, you can re-roll the Saving throw roll."
     }
   }
 ]

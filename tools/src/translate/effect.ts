@@ -14,7 +14,7 @@
  * Unknown leaf types degrade to a deterministic bracketed form (`[the-type]`).
  */
 
-import { describeCondition, describeTiming, dekebab, type Condition } from "./condition.js";
+import { describeCondition, describeTiming, eventClause, dekebab, type Condition } from "./condition.js";
 
 /**
  * Minimal structural view of an effect node. Matches the ability-dsl effect
@@ -71,11 +71,23 @@ export interface AbilityUsage {
   per?: string;
 }
 
+/** Reactive-trigger block: the event the ability fires on + structured guards. */
+export interface AbilityTrigger {
+  event?: string;
+  subject?: string;
+  proximity?: { of?: string; range?: number };
+  condition?: Condition;
+  optional?: boolean;
+  cost?: { cp?: number };
+  window?: string;
+}
+
 /** Minimal ability view for `describeAbility`. */
 export interface AbilityLike {
   name?: string;
   effect?: Effect;
   scope?: AbilityScope;
+  trigger?: AbilityTrigger | null;
   usage?: AbilityUsage | null;
   applies_to?: AbilityAppliesTo | null;
 }
@@ -365,6 +377,22 @@ function durationClauses(duration: string | undefined): { lead: string; trail: s
   }
 }
 
+/** Reactive trigger → front-of-sentence lead clause ("an enemy unit ends a move within 9\" of this model"). */
+function describeTrigger(t: AbilityTrigger): string {
+  let s = eventClause(t.event);
+  if (t.proximity?.range != null) {
+    const of =
+      t.proximity.of === "attached-unit"
+        ? "the unit this model leads"
+        : t.proximity.of === "self" || t.proximity.of === "bearer"
+          ? "this model"
+          : "this unit";
+    s += ` within ${jstr(t.proximity.range)}" of ${of}`;
+  }
+  if (t.condition) s += `, if ${describeCondition(t.condition)}`;
+  return s;
+}
+
 /** Usage limit → front-of-sentence lead clause ("once per turn", "twice per battle per unit"). */
 function usageClause(u: AbilityUsage): string {
   const n = Number(u.count ?? 1);
@@ -397,6 +425,41 @@ function usageClause(u: AbilityUsage): string {
   return u.per != null ? `${base} per ${jstr(u.per)}` : base;
 }
 
+/** "against a unit that is not a Monster or Vehicle" from a run of excluded target keywords. */
+function negatedTargetKeywords(keywords: string[]): string {
+  return `against a unit that is not a ${keywords.join(" or ")}`;
+}
+
+/**
+ * Join the operands of an `and` lead-in. A run of consecutive negated
+ * `target-has-keyword` exclusions collapses into one "against a unit that is
+ * not a X or Y" clause, and such a clause attaches to the preceding clause with
+ * a space ("while making melee attacks" + exclusion reads "while making melee
+ * attacks against a unit that is not a Monster or Vehicle"); all other operands
+ * join with ", ".
+ */
+function joinAndLeadIns(operands: Condition[]): string {
+  const parts: string[] = [];
+  for (let i = 0; i < operands.length; ) {
+    const op = operands[i];
+    if (op.negated && op.type === "target-has-keyword") {
+      const kws: string[] = [];
+      while (i < operands.length && operands[i].negated && operands[i].type === "target-has-keyword") {
+        kws.push(jstr((operands[i].parameters ?? {}).keyword));
+        i++;
+      }
+      parts.push(negatedTargetKeywords(kws));
+      continue;
+    }
+    parts.push(conditionLeadIn(op));
+    i++;
+  }
+  return parts.reduce(
+    (acc, part) => (acc === "" ? part : part.startsWith("against ") ? `${acc} ${part}` : `${acc}, ${part}`),
+    ""
+  );
+}
+
 /**
  * A condition rendered as a natural lead-in clause (lowercase-initial — the
  * caller capitalizes at the sentence boundary). Falls back to `if <condition>`
@@ -404,10 +467,15 @@ function usageClause(u: AbilityUsage): string {
  */
 function conditionLeadIn(c: Condition): string {
   // Compound nodes recurse so each part reads in its natural framing.
-  if (c.operator === "and" && c.operands) return c.operands.map(conditionLeadIn).join(", ");
+  if (c.operator === "and" && c.operands) return joinAndLeadIns(c.operands);
   if (c.operator === "or" && c.operands) return c.operands.map(conditionLeadIn).join(" or ");
   if (c.operator === "not" && c.operands)
     return `unless ${c.operands.map((o) => conditionLeadIn(o).replace(/^if /, "")).join(" or ")}`;
+  // Negated keyword gates read as an exclusion clause, not the generic "if not …".
+  if (c.negated && c.type === "target-has-keyword")
+    return negatedTargetKeywords([jstr((c.parameters ?? {}).keyword)]);
+  if (c.negated && c.type === "unit-has-keyword")
+    return `unless the unit has the ${jstr((c.parameters ?? {}).keyword)} keyword`;
   if (c.negated) return `if ${describeCondition(c)}`;
 
   const p = c.parameters ?? {};
@@ -445,7 +513,9 @@ function conditionLeadIn(c: Condition): string {
     case "is-battle-shocked":
       return "while the unit is Battle-shocked";
     case "unit-below-half-strength":
-      return "while the unit is below half strength";
+      return p.subject === "target"
+        ? "while the target unit is below half strength"
+        : "while the unit is below half strength";
     case "unit-below-starting-strength":
       return "while the unit is below its starting strength";
     case "has-lost-wounds":
@@ -454,7 +524,7 @@ function conditionLeadIn(c: Condition): string {
       if (p.comparison === "strength-greater-than-toughness")
         return "when this attack's Strength is greater than the target's Toughness";
       if (p.comparison != null) return `when ${dekebab(jstr(p.comparison))}`;
-      return `with ${jstr(p.attack_type)} attacks`;
+      return `while making ${jstr(p.attack_type)} attacks`;
     case "destroyed-by-attack-type":
       return `when destroyed by a ${jstr(p.attack_type)} attack`;
     case "opponent-unit-within-range": {
@@ -899,35 +969,56 @@ function assembleSentence(parts: string[]): string {
  * carries no rules prose.
  */
 export function describeAbility(a: AbilityLike): string {
-  const core = a.effect ? renderTopLevel(a.effect, a.scope, a.usage) : "";
+  const core = a.effect ? renderTopLevel(a.effect, a.scope, a.usage, a.trigger) : "";
   const applies = describeAppliesTo(a.applies_to);
   return [core, applies].filter(Boolean).join("\n");
 }
 
-/** Assemble the top-level sentence/block, weaving usage + scope duration + range. */
-function renderTopLevel(e: Effect, scope?: AbilityScope, usage?: AbilityUsage | null): string {
-  const ctx: Ctx = { rangeInches: scope?.range_inches };
+/** Assemble the top-level sentence/block, weaving trigger + usage + scope duration + range. */
+/**
+ * Aura radius in inches: an explicit `range_inches` when present, else the
+ * integer baked into a standard `aura-<n>` slug (`aura-6` -> 6), else undefined.
+ * Per the scope schema, `aura-6/9/12` carry the radius in the slug and leave
+ * `range_inches` null; only `aura-custom` sets `range_inches`. Non-aura ranges
+ * (`unit`, `engagement-range`, ...) yield undefined, so the subject helper keeps
+ * its `" nearby"` fallback for them.
+ */
+function auraRadius(scope?: AbilityScope): number | undefined {
+  if (scope?.range_inches != null) return scope.range_inches;
+  const m = /^aura-(\d+)$/.exec(scope?.range ?? "");
+  return m ? Number(m[1]) : undefined;
+}
+
+function renderTopLevel(
+  e: Effect,
+  scope?: AbilityScope,
+  usage?: AbilityUsage | null,
+  trigger?: AbilityTrigger | null,
+): string {
+  const ctx: Ctx = { rangeInches: auraRadius(scope) };
   const { lead: durLead, trail } = durationClauses(scope?.duration);
   // An explicit usage limit supersedes the duration's coarse "once per battle" lead.
   const lead = usage && usage.frequency != null ? usageClause(usage) : durLead;
+  // A reactive trigger opens the sentence ("Each time …").
+  const trig = trigger && trigger.event != null ? describeTrigger(trigger) : "";
 
   if (e.type === "conditional") {
     const inner = e.effect ?? {};
     const leadIn = conditionLeadIn(e.condition ?? {});
     if (CONTAINER_TYPES.has(inner.type ?? "")) {
-      // Block: "<lead-in>[, <duration>]:" then the indented container.
-      const header = [lead, leadIn, trail].filter((p) => p.length > 0).join(", ");
+      // Block: "<trigger>[, <lead-in>][, <duration>]:" then the indented container.
+      const header = [trig, lead, leadIn, trail].filter((p) => p.length > 0).join(", ");
       return capitalize(header) + ":\n" + describeEffect(inner, 1, ctx);
     }
-    return assembleSentence([lead, leadIn, trail, describeEffectInline(inner, ctx)]);
+    return assembleSentence([trig, lead, leadIn, trail, describeEffectInline(inner, ctx)]);
   }
 
   if (CONTAINER_TYPES.has(e.type ?? "")) {
-    // Containers render block; a duration lead-in prefixes the block when present.
+    // Containers render block; a trigger/duration lead-in prefixes the block when present.
     const block = describeEffect(e, 0, ctx);
-    const dur = lead || trail;
-    return dur ? capitalize(dur) + ":\n" + block : block;
+    const head = [trig, lead || trail].filter((p) => p.length > 0).join(", ");
+    return head ? capitalize(head) + ":\n" + block : block;
   }
 
-  return assembleSentence([lead, trail, describeEffectInline(e, ctx)]);
+  return assembleSentence([trig, lead, trail, describeEffectInline(e, ctx)]);
 }

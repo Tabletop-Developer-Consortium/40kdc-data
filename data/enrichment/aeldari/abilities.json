@@ -13,7 +13,7 @@
       "condition": {
         "type": "timing-is",
         "parameters": {
-          "timing": "before-this-model-removed"
+          "timing": "before-bearer-removed"
         }
       },
       "effect": {
@@ -479,7 +479,7 @@
       "condition": {
         "type": "timing-is",
         "parameters": {
-          "timing": "before-this-model-removed"
+          "timing": "before-bearer-removed"
         }
       },
       "effect": {
@@ -600,7 +600,7 @@
       "condition": {
         "type": "timing-is",
         "parameters": {
-          "timing": "before-this-model-removed"
+          "timing": "before-bearer-removed"
         }
       },
       "effect": {
@@ -1262,7 +1262,7 @@
       "condition": {
         "type": "timing-is",
         "parameters": {
-          "timing": "model-destroyed",
+          "timing": "on-model-destroyed",
           "model_keyword": "STORM GUARDIAN",
           "qualifier": "last-in-unit"
         }
@@ -2255,7 +2255,7 @@
       "condition": {
         "type": "timing-is",
         "parameters": {
-          "timing": "before-this-model-removed"
+          "timing": "before-bearer-removed"
         }
       },
       "effect": {
@@ -2544,7 +2544,7 @@
       "condition": {
         "type": "timing-is",
         "parameters": {
-          "timing": "before-this-model-removed"
+          "timing": "before-bearer-removed"
         }
       },
       "effect": {
@@ -2604,7 +2604,7 @@
           "condition": {
             "type": "timing-is",
             "parameters": {
-              "timing": "after-move-through-terrain-over-4-inches"
+              "timing": "moved-through-terrain"
             }
           },
           "effect": {
@@ -3613,7 +3613,7 @@
           {
             "type": "timing-is",
             "parameters": {
-              "timing": "after-shot-hits-scored"
+              "timing": "after-scoring-hit"
             }
           },
           {
@@ -4240,7 +4240,7 @@
       "condition": {
         "type": "timing-is",
         "parameters": {
-          "timing": "setup"
+          "timing": "unit-set-up"
         }
       },
       "effect": {
@@ -4686,7 +4686,7 @@
       "condition": {
         "type": "timing-is",
         "parameters": {
-          "timing": "before-this-model-removed"
+          "timing": "before-bearer-removed"
         }
       },
       "effect": {

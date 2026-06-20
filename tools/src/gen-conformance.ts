@@ -26,7 +26,7 @@ import { fileURLToPath } from "node:url";
 import { Dataset } from "./data/dataset.js";
 import { baseLoadout } from "./data/loadout.js";
 import { normalizeName } from "./data/normalize.js";
-import { describeScoringCard, describeAbility, type Effect, type AbilityUsage } from "./translate/index.js";
+import { describeScoringCard, describeAbility, type Effect, type AbilityUsage, type AbilityTrigger } from "./translate/index.js";
 import { awardsOf } from "./scoring/index.js";
 import { createRunnerState, dispatch } from "./runner.js";
 import { exportRoster, type ExportFormat } from "./export/index.js";
@@ -1103,11 +1103,13 @@ function genEffectTranslation(): void {
     };
     if (a.raw.applies_to != null) entry.applies_to = a.raw.applies_to;
     if (a.raw.usage != null) entry.usage = a.raw.usage;
+    if (a.raw.trigger != null) entry.trigger = a.raw.trigger;
     entry.expected = {
       text: describeAbility({
         effect: a.raw.effect as Effect,
         scope: a.raw.scope,
         usage: a.raw.usage as AbilityUsage | undefined,
+        trigger: a.raw.trigger as AbilityTrigger | undefined,
         applies_to: a.raw.applies_to,
       }),
     };
@@ -1297,6 +1299,43 @@ function genEffectTranslation(): void {
       }),
     };
     cases.push(entry);
+  }
+  // Batch C (reactive trigger): pin the trigger lead-in across the event vocabulary
+  // (no ability carries a trigger yet — forward-looking, like usage/auto-result).
+  const FORCED_TRIGGER_CASES: { id: string; effect: Record<string, unknown>; scope: Record<string, unknown>; trigger: Record<string, unknown> }[] = [
+    {
+      id: "trigger-enemy-ended-move",
+      effect: { type: "movement-modifier", target: "self", modifier: { move_type: "reactive", distance: "D6" } },
+      scope: { range: "self", duration: "one-use" },
+      trigger: { event: "enemy-unit-ended-move", subject: "enemy-unit", proximity: { of: "bearer", range: 9 } },
+    },
+    {
+      id: "trigger-on-model-destroyed",
+      effect: { type: "mortal-wounds", target: "all-enemy", modifier: { count: 1 } },
+      scope: { range: "aura-6", duration: "one-use", range_inches: 6 },
+      trigger: { event: "on-model-destroyed" },
+    },
+    {
+      id: "trigger-before-save-with-condition",
+      effect: { type: "re-roll", target: "unit", modifier: { roll: "save", subset: "all-failures" } },
+      scope: { range: "unit", duration: "phase" },
+      trigger: { event: "before-save-roll", subject: "self", condition: { type: "is-battle-shocked" } },
+    },
+  ];
+  for (const fc of FORCED_TRIGGER_CASES) {
+    cases.push({
+      caseId: `${fc.id}#${cases.length}`,
+      effect: fc.effect,
+      scope: fc.scope,
+      trigger: fc.trigger,
+      expected: {
+        text: describeAbility({
+          effect: fc.effect as Effect,
+          scope: fc.scope,
+          trigger: fc.trigger as AbilityTrigger,
+        }),
+      },
+    });
   }
   writeJson(join(CONFORMANCE, "effect-translation", "cases.json"), cases);
   console.log(`effect-translation/cases.json: ${cases.length} cases (${seen.size} node types)`);

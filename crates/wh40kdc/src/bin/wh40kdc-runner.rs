@@ -1181,8 +1181,18 @@ fn handle_translate_effect(args: &Value) -> Value {
         .get("usage")
         .filter(|v| !v.is_null())
         .and_then(|v| serde_json::from_value(v.clone()).ok());
+    let trigger: Option<wh40kdc::AbilityTrigger> = args
+        .get("trigger")
+        .filter(|v| !v.is_null())
+        .and_then(|v| serde_json::from_value(v.clone()).ok());
     ok_value(json!({
-        "text": describe_ability_parts(&effect, scope.as_ref(), applies_to.as_ref(), usage.as_ref())
+        "text": describe_ability_parts(
+            &effect,
+            scope.as_ref(),
+            applies_to.as_ref(),
+            usage.as_ref(),
+            trigger.as_ref(),
+        )
     }))
 }
 

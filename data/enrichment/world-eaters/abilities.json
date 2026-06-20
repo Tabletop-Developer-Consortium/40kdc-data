@@ -330,7 +330,7 @@
       "condition": {
         "type": "timing-is",
         "parameters": {
-          "timing": "on-destroyed"
+          "timing": "on-unit-destroyed"
         }
       },
       "effect": {
@@ -1728,7 +1728,10 @@
           {
             "type": "conditional",
             "condition": {
-              "type": "unit-below-half-strength"
+              "type": "unit-below-half-strength",
+              "parameters": {
+                "subject": "target"
+              }
             },
             "effect": {
               "type": "roll-modifier",

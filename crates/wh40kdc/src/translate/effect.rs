@@ -8,13 +8,13 @@
 
 use serde_json::{Map, Value};
 
-use super::{dekebab, describe_node, describe_timing};
+use super::{dekebab, describe_node, describe_timing, event_clause};
 use crate::generated::{
-    Ability, AbilityAppliesTo, AbilityUsage, AbilityUsageFrequency, CompoundConditionOperator,
-    ConditionNode, DiceGatedEffect, DiceGatedEffectComparison, DiceGatedEffectThreshold,
-    DicePoolAllocationEffect, EffectNode, Scaling, ScalingOf, ScalingRound, Scope,
-    SelectUnitsEffectSelector, SelectUnitsEffectSelectorOwner, SimpleConditionType, SingleEffect,
-    SingleEffectType,
+    Ability, AbilityAppliesTo, AbilityTrigger, AbilityTriggerProximityOf, AbilityUsage,
+    AbilityUsageFrequency, CompoundConditionOperator, ConditionNode, DiceGatedEffect,
+    DiceGatedEffectComparison, DiceGatedEffectThreshold, DicePoolAllocationEffect, EffectNode,
+    Scaling, ScalingOf, ScalingRound, Scope, ScopeRange, SelectUnitsEffectSelector,
+    SelectUnitsEffectSelectorOwner, SimpleConditionType, SingleEffect, SingleEffectType,
 };
 
 /// Rendering context threaded from the ability (scope info the leaf needs).
@@ -371,26 +371,90 @@ fn duration_clauses(duration: &str) -> (String, String) {
 }
 
 /// A condition rendered as a natural lead-in clause (lowercase-initial).
+/// "against a unit that is not a Monster or Vehicle" from a run of excluded target keywords.
+fn negated_target_keywords(keywords: &[String]) -> String {
+    format!("against a unit that is not a {}", keywords.join(" or "))
+}
+
+/// Join the operands of an `and` lead-in. A run of consecutive negated
+/// `target-has-keyword` exclusions collapses into one "against a unit that is not
+/// a X or Y" clause, which attaches to the preceding clause with a space; all
+/// other operands join with ", ".
+fn join_and_lead_ins(operands: &[ConditionNode]) -> String {
+    let mut parts: Vec<String> = Vec::new();
+    let mut i = 0;
+    while i < operands.len() {
+        if let ConditionNode::SimpleCondition(s) = &operands[i] {
+            if s.negated && s.type_ == SimpleConditionType::TargetHasKeyword {
+                let mut kws: Vec<String> = Vec::new();
+                while i < operands.len() {
+                    match &operands[i] {
+                        ConditionNode::SimpleCondition(s2)
+                            if s2.negated && s2.type_ == SimpleConditionType::TargetHasKeyword =>
+                        {
+                            kws.push(jv(&s2.parameters, "keyword"));
+                            i += 1;
+                        }
+                        _ => break,
+                    }
+                }
+                parts.push(negated_target_keywords(&kws));
+                continue;
+            }
+        }
+        parts.push(condition_lead_in(&operands[i]));
+        i += 1;
+    }
+    let mut acc = String::new();
+    for part in parts {
+        if acc.is_empty() {
+            acc = part;
+        } else if part.starts_with("against ") {
+            acc = format!("{acc} {part}");
+        } else {
+            acc = format!("{acc}, {part}");
+        }
+    }
+    acc
+}
+
 fn condition_lead_in(n: &ConditionNode) -> String {
     match n {
-        ConditionNode::CompoundCondition(c) => {
-            let parts: Vec<String> = c.operands.iter().map(condition_lead_in).collect();
-            match c.operator {
-                CompoundConditionOperator::And => parts.join(", "),
-                CompoundConditionOperator::Or => parts.join(" or "),
-                CompoundConditionOperator::Not => format!(
+        ConditionNode::CompoundCondition(c) => match c.operator {
+            CompoundConditionOperator::And => join_and_lead_ins(&c.operands),
+            CompoundConditionOperator::Or => c
+                .operands
+                .iter()
+                .map(condition_lead_in)
+                .collect::<Vec<_>>()
+                .join(" or "),
+            CompoundConditionOperator::Not => {
+                let parts: Vec<String> = c.operands.iter().map(condition_lead_in).collect();
+                format!(
                     "unless {}",
                     parts
                         .iter()
                         .map(|p| p.strip_prefix("if ").unwrap_or(p))
                         .collect::<Vec<_>>()
                         .join(" or ")
-                ),
+                )
             }
-        }
+        },
         ConditionNode::SimpleCondition(s) => {
             if s.negated {
-                return format!("if {}", describe_node(n));
+                // Negated keyword gates read as an exclusion clause, not "if not …".
+                return match s.type_ {
+                    SimpleConditionType::TargetHasKeyword => {
+                        negated_target_keywords(&[jv(&s.parameters, "keyword")])
+                    }
+                    SimpleConditionType::UnitHasKeyword => {
+                        format!(
+                            "unless the unit has the {} keyword",
+                            jv(&s.parameters, "keyword")
+                        )
+                    }
+                    _ => format!("if {}", describe_node(n)),
+                };
             }
             let p = &s.parameters;
             use SimpleConditionType as T;
@@ -425,7 +489,13 @@ fn condition_lead_in(n: &ConditionNode) -> String {
                 T::TargetHasKeyword => format!("against {} targets", jv(p, "keyword")),
                 T::UnitHasKeyword => format!("if the unit has the {} keyword", jv(p, "keyword")),
                 T::IsBattleShocked => "while the unit is Battle-shocked".to_string(),
-                T::UnitBelowHalfStrength => "while the unit is below half strength".to_string(),
+                T::UnitBelowHalfStrength => {
+                    if nstr(p, "subject") == Some("target") {
+                        "while the target unit is below half strength".to_string()
+                    } else {
+                        "while the unit is below half strength".to_string()
+                    }
+                }
                 T::UnitBelowStartingStrength => {
                     "while the unit is below its starting strength".to_string()
                 }
@@ -436,7 +506,7 @@ fn condition_lead_in(n: &ConditionNode) -> String {
                             .to_string()
                     }
                     Some(c) => format!("when {}", dekebab(c)),
-                    None => format!("with {} attacks", jv(p, "attack_type")),
+                    None => format!("while making {} attacks", jv(p, "attack_type")),
                 },
                 T::DestroyedByAttackType => {
                     format!("when destroyed by a {} attack", jv(p, "attack_type"))
@@ -1292,6 +1362,26 @@ fn assemble_sentence(parts: &[String]) -> String {
     format!("{}{period}", capitalize(&body))
 }
 
+/// Reactive-trigger opener ("an enemy unit ends a move within 9" of this model,
+/// if ..."). Mirrors `describeTrigger` for ability `trigger` blocks.
+fn describe_ability_trigger(t: &AbilityTrigger) -> String {
+    let mut s = event_clause(&t.event.to_string());
+    if let Some(prox) = &t.proximity {
+        let of = match prox.of {
+            Some(AbilityTriggerProximityOf::AttachedUnit) => "the unit this model leads",
+            Some(AbilityTriggerProximityOf::Self_) | Some(AbilityTriggerProximityOf::Bearer) => {
+                "this model"
+            }
+            None => "this unit",
+        };
+        s.push_str(&format!(" within {}\" of {of}", fmt_num(prox.range)));
+    }
+    if let Some(cond) = &t.condition {
+        s.push_str(&format!(", if {}", describe_node(&cond.0)));
+    }
+    s
+}
+
 /// Usage limit → front-of-sentence lead clause ("once per turn", "twice per
 /// battle per unit"). Mirrors `usageClause`.
 fn usage_clause(u: &AbilityUsage) -> String {
@@ -1321,9 +1411,32 @@ fn usage_clause(u: &AbilityUsage) -> String {
 
 /// Assemble the top-level sentence/block, weaving scope range + duration. An
 /// explicit usage limit supersedes the duration's coarse "once per battle" lead.
-fn render_top_level(e: &EffectNode, scope: Option<&Scope>, usage: Option<&AbilityUsage>) -> String {
+/// Aura radius in inches: an explicit `range_inches`, else the integer baked into
+/// a standard `aura-<n>` slug (`aura-6` -> 6), else None. Per the scope schema,
+/// `aura-6/9/12` carry the radius in the slug and leave `range_inches` null; only
+/// `aura-custom` sets `range_inches`. Non-aura ranges yield None, keeping the
+/// subject helper's " nearby" fallback.
+fn aura_radius(scope: Option<&Scope>) -> Option<f64> {
+    let scope = scope?;
+    if let Some(ri) = scope.range_inches {
+        return Some(ri);
+    }
+    match scope.range {
+        ScopeRange::Aura6 => Some(6.0),
+        ScopeRange::Aura9 => Some(9.0),
+        ScopeRange::Aura12 => Some(12.0),
+        _ => None,
+    }
+}
+
+fn render_top_level(
+    e: &EffectNode,
+    scope: Option<&Scope>,
+    usage: Option<&AbilityUsage>,
+    trigger: Option<&AbilityTrigger>,
+) -> String {
     let ctx = Ctx {
-        range_inches: scope.and_then(|s| s.range_inches),
+        range_inches: aura_radius(scope),
     };
     let duration = scope.map(|s| s.duration.to_string()).unwrap_or_default();
     let (dur_lead, trail) = duration_clauses(&duration);
@@ -1331,32 +1444,42 @@ fn render_top_level(e: &EffectNode, scope: Option<&Scope>, usage: Option<&Abilit
         Some(u) => usage_clause(u),
         None => dur_lead,
     };
+    // A reactive trigger opens the sentence, ahead of the usage/duration lead.
+    let trig = match trigger {
+        Some(t) => describe_ability_trigger(t),
+        None => String::new(),
+    };
 
     match e {
         EffectNode::ConditionalEffect(c) => {
             let inner = &*c.effect;
             let lead_in = condition_lead_in(&c.condition.0);
             if is_container(inner) {
-                let header = [lead, lead_in, trail]
+                let header = [trig, lead, lead_in, trail]
                     .into_iter()
                     .filter(|p| !p.is_empty())
                     .collect::<Vec<_>>()
                     .join(", ");
                 format!("{}:\n{}", capitalize(&header), block(inner, 1, &ctx))
             } else {
-                assemble_sentence(&[lead, lead_in, trail, inline(inner, &ctx)])
+                assemble_sentence(&[trig, lead, lead_in, trail, inline(inner, &ctx)])
             }
         }
         _ if is_container(e) => {
             let blk = block(e, 0, &ctx);
             let dur = if !lead.is_empty() { lead } else { trail };
-            if dur.is_empty() {
+            let head = [trig, dur]
+                .into_iter()
+                .filter(|p| !p.is_empty())
+                .collect::<Vec<_>>()
+                .join(", ");
+            if head.is_empty() {
                 blk
             } else {
-                format!("{}:\n{}", capitalize(&dur), blk)
+                format!("{}:\n{}", capitalize(&head), blk)
             }
         }
-        _ => assemble_sentence(&[lead, trail, inline(e, &ctx)]),
+        _ => assemble_sentence(&[trig, lead, trail, inline(e, &ctx)]),
     }
 }
 
@@ -1428,8 +1551,9 @@ pub fn describe_ability_parts(
     scope: Option<&Scope>,
     applies_to: Option<&AbilityAppliesTo>,
     usage: Option<&AbilityUsage>,
+    trigger: Option<&AbilityTrigger>,
 ) -> String {
-    let base = render_top_level(e, scope, usage);
+    let base = render_top_level(e, scope, usage, trigger);
     let applies = describe_applies_to(applies_to);
     if applies.is_empty() {
         base
@@ -1447,5 +1571,6 @@ pub fn describe_ability(a: &Ability) -> String {
         Some(&a.scope),
         a.applies_to.as_ref(),
         a.usage.as_ref(),
+        a.trigger.as_ref(),
     )
 }

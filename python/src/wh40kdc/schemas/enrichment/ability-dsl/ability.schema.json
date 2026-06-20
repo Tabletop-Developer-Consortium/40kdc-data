@@ -39,6 +39,20 @@
     },
     "effect": { "$ref": "effect.schema.json" },
     "scope": { "$ref": "scope.schema.json" },
+    "usage": {
+      "description": "How often the ability may be used, beyond what scope.duration captures. `scope.duration: one-use` already models 'once per battle'; this models finer limits (once per turn/phase, N per battle) and an optional per-army/unit/model granularity.",
+      "type": "object",
+      "properties": {
+        "frequency": {
+          "type": "string",
+          "enum": ["once-per-turn", "once-per-phase", "once-per-command-phase", "once-per-opponent-turn", "n-per-battle", "first-this-battle", "first-time-this-phase"]
+        },
+        "count": { "type": "integer", "minimum": 1 },
+        "per": { "type": "string", "enum": ["army", "unit", "model"] }
+      },
+      "required": ["frequency"],
+      "additionalProperties": false
+    },
     "applies_to": {
       "description": "Static, human-curated keyword filter naming which datasheet units this ability benefits, for roster-side highlighting. A unit matches when it carries every keyword in `required_keywords` (across its `keywords` + `faction_keywords`) and none in `excluded_keywords`. This is a denormalized projection distinct from the runtime `effect` condition tree (which mixes static class, runtime-granted markers, and timing gates and must not be scraped for scope). Absent/null means no resolvable unit scope — consumers render no highlight rather than guess.",
       "oneOf": [

@@ -584,6 +584,20 @@ class Weapon(TypedDict):
     game_version: GameVersionRef
 
 
+class Usage(TypedDict):
+    frequency: Literal[
+        "once-per-turn",
+        "once-per-phase",
+        "once-per-command-phase",
+        "once-per-opponent-turn",
+        "n-per-battle",
+        "first-this-battle",
+        "first-time-this-phase",
+    ]
+    count: NotRequired[int]
+    per: NotRequired[Literal["army", "unit", "model"]]
+
+
 class AppliesTo(TypedDict):
     required_keywords: NotRequired[KeywordList]
     excluded_keywords: NotRequired[KeywordList]
@@ -699,6 +713,9 @@ class SingleEffect(TypedDict):
         "strategic-reserves-arrival",
         "remove-battle-shock",
         "unit-keyword-grant",
+        "auto-result",
+        "firing-deck",
+        "disembark-after-move",
     ]
     target: Literal[
         "self",
@@ -894,6 +911,7 @@ class Ability(TypedDict):
     behavior: NotRequired[Literal["passive", "activated", "reactive", "aura"]]
     effect: Effect
     scope: Scope
+    usage: NotRequired[Usage]
     applies_to: NotRequired[AppliesTo | None]
     interactions: NotRequired[list[Interaction]]
     disputed: NotRequired[bool]

@@ -33,7 +33,7 @@ import { selectAdapter } from "./import/adapter.js";
 import { createValidator } from "./schema-loader.js";
 import { attributeStages, crunch, type Buff, type EngineContext, type EngineInput } from "./cruncher/index.js";
 import { compareCell, loadoutCell, type ComparePhase, type LoadoutLine } from "./compare.js";
-import { describeScoringCard, describeAbility, type ScoringMode, type Effect, type AbilityScope, type AbilityAppliesTo } from "./translate/index.js";
+import { describeScoringCard, describeAbility, type ScoringMode, type Effect, type AbilityScope, type AbilityAppliesTo, type AbilityUsage } from "./translate/index.js";
 import { unitMatchesAppliesTo } from "./scope.js";
 import {
   awardsOf,
@@ -836,12 +836,14 @@ function handleTranslateEffect(args: unknown): RunnerResponse {
   if (typeof args !== "object" || args === null) {
     return err("INVALID_INPUT", { detail: "translate_effect args must be an object" });
   }
-  const a = args as { effect?: unknown; scope?: unknown; applies_to?: unknown };
+  const a = args as { effect?: unknown; scope?: unknown; usage?: unknown; applies_to?: unknown };
   if (typeof a.effect !== "object" || a.effect === null) {
     return err("INVALID_INPUT", { detail: "translate_effect.effect must be an object" });
   }
   const scope =
     typeof a.scope === "object" && a.scope !== null ? (a.scope as AbilityScope) : undefined;
+  const usage =
+    typeof a.usage === "object" && a.usage !== null ? (a.usage as AbilityUsage) : undefined;
   const appliesTo =
     typeof a.applies_to === "object" && a.applies_to !== null
       ? (a.applies_to as AbilityAppliesTo)
@@ -850,6 +852,7 @@ function handleTranslateEffect(args: unknown): RunnerResponse {
     text: describeAbility({
       effect: a.effect as Effect,
       ...(scope ? { scope } : {}),
+      ...(usage ? { usage } : {}),
       ...(appliesTo ? { applies_to: appliesTo } : {}),
     }),
   });

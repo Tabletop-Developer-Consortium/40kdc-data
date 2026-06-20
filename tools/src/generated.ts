@@ -987,7 +987,10 @@ export interface SingleEffect {
     | "engagement-passthrough"
     | "strategic-reserves-arrival"
     | "remove-battle-shock"
-    | "unit-keyword-grant";
+    | "unit-keyword-grant"
+    | "auto-result"
+    | "firing-deck"
+    | "disembark-after-move";
   target:
     | "self"
     | "bearer"
@@ -1865,6 +1868,21 @@ export interface AbilityDSLEntry {
   behavior?: "passive" | "activated" | "reactive" | "aura";
   effect: AbilityEffect1;
   scope: AbilityScope;
+  /**
+   * How often the ability may be used, beyond what scope.duration captures. `scope.duration: one-use` already models 'once per battle'; this models finer limits (once per turn/phase, N per battle) and an optional per-army/unit/model granularity.
+   */
+  usage?: {
+    frequency:
+      | "once-per-turn"
+      | "once-per-phase"
+      | "once-per-command-phase"
+      | "once-per-opponent-turn"
+      | "n-per-battle"
+      | "first-this-battle"
+      | "first-time-this-phase";
+    count?: number;
+    per?: "army" | "unit" | "model";
+  };
   /**
    * Static, human-curated keyword filter naming which datasheet units this ability benefits, for roster-side highlighting. A unit matches when it carries every keyword in `required_keywords` (across its `keywords` + `faction_keywords`) and none in `excluded_keywords`. This is a denormalized projection distinct from the runtime `effect` condition tree (which mixes static class, runtime-granted markers, and timing gates and must not be scraped for scope). Absent/null means no resolvable unit scope — consumers render no highlight rather than guess.
    */

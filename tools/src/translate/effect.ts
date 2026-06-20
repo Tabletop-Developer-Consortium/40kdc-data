@@ -64,11 +64,19 @@ export interface AbilityAppliesTo {
   excluded_keywords?: string[];
 }
 
+/** Usage-limit block (how often the ability may be used). */
+export interface AbilityUsage {
+  frequency?: string;
+  count?: number;
+  per?: string;
+}
+
 /** Minimal ability view for `describeAbility`. */
 export interface AbilityLike {
   name?: string;
   effect?: Effect;
   scope?: AbilityScope;
+  usage?: AbilityUsage | null;
   applies_to?: AbilityAppliesTo | null;
 }
 
@@ -138,9 +146,20 @@ function titleCase(s: string): string {
     .join(" ");
 }
 
-/** A GW weapon keyword token → bracketed caps (`lethal-hits` → `[LETHAL HITS]`). */
+/**
+ * A GW weapon keyword token → bracketed caps (`lethal-hits` → `[LETHAL HITS]`).
+ * Anti-X keywords keep their hyphen and normalize the threshold to `N+`
+ * (`anti-titanic-3plus` / `anti-monster 4+` → `[ANTI-TITANIC 3+]` / `[ANTI-MONSTER 4+]`).
+ */
 function bracketKeyword(k: unknown): string {
-  return `[${dekebab(jstr(k)).toUpperCase()}]`;
+  const raw = jstr(k).trim();
+  const anti = /^anti[\s-]+(.*)$/i.exec(raw);
+  if (anti) {
+    const m = /^(.*?)[\s-]*(\d+)\s*(?:\+|plus)?$/i.exec(anti[1]);
+    if (m) return `[ANTI-${dekebab(m[1]).trim().toUpperCase()} ${m[2]}+]`;
+    return `[ANTI-${dekebab(anti[1]).trim().toUpperCase()}]`;
+  }
+  return `[${dekebab(raw).toUpperCase()}]`;
 }
 
 /** Dice tokens print with a capital `D` (`d3` → `D3`, `2d6` → `2D6`). */
@@ -172,6 +191,9 @@ const PLURAL_VERBS: Record<string, string> = {
   suffers: "suffer",
   retains: "retain",
   makes: "make",
+  passes: "pass",
+  fails: "fail",
+  treats: "treat",
 };
 function v(subj: string, singular: string): string {
   if (!isPlural(subj)) return singular;
@@ -341,6 +363,38 @@ function durationClauses(duration: string | undefined): { lead: string; trail: s
     default: // permanent / absent
       return { lead: "", trail: "" };
   }
+}
+
+/** Usage limit → front-of-sentence lead clause ("once per turn", "twice per battle per unit"). */
+function usageClause(u: AbilityUsage): string {
+  const n = Number(u.count ?? 1);
+  let base: string;
+  switch (u.frequency) {
+    case "once-per-turn":
+      base = "once per turn";
+      break;
+    case "once-per-phase":
+      base = "once per phase";
+      break;
+    case "once-per-command-phase":
+      base = "once per Command phase";
+      break;
+    case "once-per-opponent-turn":
+      base = "once per opponent's turn";
+      break;
+    case "first-this-battle":
+      base = "the first time this battle";
+      break;
+    case "first-time-this-phase":
+      base = "the first time this phase";
+      break;
+    case "n-per-battle":
+      base = n === 1 ? "once per battle" : n === 2 ? "twice per battle" : `${jstr(n)} times per battle`;
+      break;
+    default:
+      base = dekebab(jstr(u.frequency));
+  }
+  return u.per != null ? `${base} per ${jstr(u.per)}` : base;
 }
 
 /**
@@ -545,9 +599,17 @@ function describeEffectInlineBase(e: Effect, ctx: Ctx = {}): string {
     case "invulnerable-save":
       return `${subj} ${v(subj, "has")} a ${jstr(m.invuln_sv ?? m.value ?? m.threshold)}+ invulnerable save`;
     case "keyword-grant": {
-      const kw = Array.isArray(m.keywords)
-        ? m.keywords.map(bracketKeyword).join(" and ")
-        : bracketKeyword(m.keyword ?? "keywords");
+      let kw: string;
+      if (m.anti_keyword != null) {
+        kw = `[ANTI-${dekebab(jstr(m.anti_keyword)).toUpperCase()} ${jstr(m.anti_threshold ?? "?")}+]`;
+      } else if (Array.isArray(m.keywords)) {
+        kw = m.keywords.map(bracketKeyword).join(" and ");
+      } else if (m.value != null) {
+        // Rated keyword carried structurally (Sustained Hits N / Rapid Fire N / Melta N).
+        kw = `[${dekebab(jstr(m.keyword ?? "keywords")).toUpperCase()} ${jstr(m.value)}]`;
+      } else {
+        kw = bracketKeyword(m.keyword ?? "keywords");
+      }
       if (m.weapon_name != null) return `${possessive(subj)} ${jstr(m.weapon_name)} gains ${kw}`;
       if (m.weapon_type != null) return `${possessive(subj)} ${jstr(m.weapon_type)} weapons gain ${kw}`;
       return `${possessive(subj)} weapons gain ${kw}`;
@@ -639,6 +701,22 @@ function describeEffectInlineBase(e: Effect, ctx: Ctx = {}): string {
       return `${subj} can arrive from Strategic Reserves regardless of mission rules`;
     case "remove-battle-shock":
       return `${subj} ${v(subj, "is")} no longer Battle-shocked`;
+    case "auto-result": {
+      const r = m.result;
+      if (m.test != null) {
+        if (r === "pass") return `${subj} automatically ${v(subj, "passes")} ${testName(m.test)} tests`;
+        if (r === "fail") return `${subj} automatically ${v(subj, "fails")} ${testName(m.test)} tests`;
+        return `${subj} ${v(subj, "treats")} ${testName(m.test)} tests as ${jstr(r)}`;
+      }
+      const roll = rollName(m.roll);
+      if (r === "pass") return `${possessive(subj)} ${roll} rolls automatically succeed`;
+      if (r === "fail") return `${possessive(subj)} ${roll} rolls automatically fail`;
+      return `${possessive(subj)} ${roll} rolls count as ${jstr(r)}`;
+    }
+    case "firing-deck":
+      return `${subj} ${v(subj, "has")} Firing Deck ${jstr(m.value)}`;
+    case "disembark-after-move":
+      return `units can disembark from ${subj} after it has moved`;
     case "fallback-and-act":
       return `${subj} is eligible to shoot and declare a charge in a turn in which it Fell Back`;
     case "engagement-passthrough":
@@ -821,15 +899,17 @@ function assembleSentence(parts: string[]): string {
  * carries no rules prose.
  */
 export function describeAbility(a: AbilityLike): string {
-  const core = a.effect ? renderTopLevel(a.effect, a.scope) : "";
+  const core = a.effect ? renderTopLevel(a.effect, a.scope, a.usage) : "";
   const applies = describeAppliesTo(a.applies_to);
   return [core, applies].filter(Boolean).join("\n");
 }
 
-/** Assemble the top-level sentence/block, weaving scope duration + range. */
-function renderTopLevel(e: Effect, scope?: AbilityScope): string {
+/** Assemble the top-level sentence/block, weaving usage + scope duration + range. */
+function renderTopLevel(e: Effect, scope?: AbilityScope, usage?: AbilityUsage | null): string {
   const ctx: Ctx = { rangeInches: scope?.range_inches };
-  const { lead, trail } = durationClauses(scope?.duration);
+  const { lead: durLead, trail } = durationClauses(scope?.duration);
+  // An explicit usage limit supersedes the duration's coarse "once per battle" lead.
+  const lead = usage && usage.frequency != null ? usageClause(usage) : durLead;
 
   if (e.type === "conditional") {
     const inner = e.effect ?? {};

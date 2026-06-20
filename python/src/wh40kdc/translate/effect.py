@@ -85,7 +85,14 @@ def _grant_label(id: str) -> str:
 
 
 def _bracket_keyword(k: Any) -> str:
-    return f"[{dekebab(_jstr(k)).upper()}]"
+    raw = _jstr(k).strip()
+    anti = re.match(r"^anti[\s-]+(.*)$", raw, re.I)
+    if anti:
+        rated = re.match(r"^(.*?)[\s-]*(\d+)\s*(?:\+|plus)?$", anti.group(1), re.I)
+        if rated:
+            return f"[ANTI-{dekebab(rated.group(1)).strip().upper()} {rated.group(2)}+]"
+        return f"[ANTI-{dekebab(anti.group(1)).strip().upper()}]"
+    return f"[{dekebab(raw).upper()}]"
 
 
 def _dice_case(v: Any) -> str:
@@ -159,6 +166,9 @@ _PLURAL_VERBS = {
     "suffers": "suffer",
     "retains": "retain",
     "makes": "make",
+    "passes": "pass",
+    "fails": "fail",
+    "treats": "treat",
 }
 
 
@@ -260,6 +270,33 @@ def _duration_clauses(duration: str | None) -> tuple[str, str]:
     if duration == "one-use":
         return ("once per battle", "")
     return ("", "")
+
+
+_USAGE_FREQUENCIES = {
+    "once-per-turn": "once per turn",
+    "once-per-phase": "once per phase",
+    "once-per-command-phase": "once per Command phase",
+    "once-per-opponent-turn": "once per opponent's turn",
+    "first-this-battle": "the first time this battle",
+    "first-time-this-phase": "the first time this phase",
+}
+
+
+def _usage_clause(u: dict[str, Any]) -> str:
+    """Usage limit -> front-of-sentence lead clause ("once per turn", "twice per battle per unit")."""
+    count = u.get("count")
+    try:
+        n = int(count) if count is not None else 1
+    except (TypeError, ValueError):
+        n = 1
+    freq = u.get("frequency")
+    base = _USAGE_FREQUENCIES.get(freq)
+    if base is None:
+        if freq == "n-per-battle":
+            base = "once per battle" if n == 1 else "twice per battle" if n == 2 else f"{_jstr(n)} times per battle"
+        else:
+            base = dekebab(_jstr(freq))
+    return f"{base} per {_jstr(u['per'])}" if u.get("per") is not None else base
 
 
 def _condition_lead_in(c: Condition) -> str:
@@ -533,8 +570,16 @@ def _describe_effect_inline_base(e: Effect, ctx: Ctx | None = None) -> str:
             sv = m.get("threshold")
         return f"{subj} {_v(subj, 'has')} a {_jstr(sv)}+ invulnerable save"
     if etype == "keyword-grant":
-        if isinstance(m.get("keywords"), list):
+        if m.get("anti_keyword") is not None:
+            anti_th = m.get("anti_threshold")
+            anti_th = anti_th if anti_th is not None else "?"
+            kw = f"[ANTI-{dekebab(_jstr(m['anti_keyword'])).upper()} {_jstr(anti_th)}+]"
+        elif isinstance(m.get("keywords"), list):
             kw = " and ".join(_bracket_keyword(k) for k in m["keywords"])
+        elif m.get("value") is not None:
+            # Rated keyword carried structurally (Sustained Hits N / Rapid Fire N / Melta N).
+            base_kw = m.get("keyword") if m.get("keyword") is not None else "keywords"
+            kw = f"[{dekebab(_jstr(base_kw)).upper()} {_jstr(m['value'])}]"
         else:
             kw = _bracket_keyword(m.get("keyword") if m.get("keyword") is not None else "keywords")
         if m.get("weapon_name") is not None:
@@ -653,6 +698,25 @@ def _describe_effect_inline_base(e: Effect, ctx: Ctx | None = None) -> str:
         return f"{subj} can arrive from Strategic Reserves regardless of mission rules"
     if etype == "remove-battle-shock":
         return f"{subj} {_v(subj, 'is')} no longer Battle-shocked"
+    if etype == "auto-result":
+        r = m.get("result")
+        if m.get("test") is not None:
+            tn = _test_name(m.get("test"))
+            if r == "pass":
+                return f"{subj} automatically {_v(subj, 'passes')} {tn} tests"
+            if r == "fail":
+                return f"{subj} automatically {_v(subj, 'fails')} {tn} tests"
+            return f"{subj} {_v(subj, 'treats')} {tn} tests as {_jstr(r)}"
+        roll = _roll_name(m.get("roll"))
+        if r == "pass":
+            return f"{_possessive(subj)} {roll} rolls automatically succeed"
+        if r == "fail":
+            return f"{_possessive(subj)} {roll} rolls automatically fail"
+        return f"{_possessive(subj)} {roll} rolls count as {_jstr(r)}"
+    if etype == "firing-deck":
+        return f"{subj} {_v(subj, 'has')} Firing Deck {_jstr(m.get('value'))}"
+    if etype == "disembark-after-move":
+        return f"units can disembark from {subj} after it has moved"
     if etype == "fallback-and-act":
         return (
             f"{subj} {_v(subj, 'is')} eligible to shoot and declare a charge "
@@ -812,9 +876,13 @@ def _assemble_sentence(parts: list[str]) -> str:
     return _capitalize(body) + period
 
 
-def _render_top_level(e: Effect, scope: dict[str, Any] | None) -> str:
+def _render_top_level(
+    e: Effect, scope: dict[str, Any] | None, usage: dict[str, Any] | None = None
+) -> str:
     ctx: Ctx = {"range_inches": (scope or {}).get("range_inches")}
-    lead, trail = _duration_clauses((scope or {}).get("duration"))
+    dur_lead, trail = _duration_clauses((scope or {}).get("duration"))
+    # An explicit usage limit supersedes the duration's coarse "once per battle" lead.
+    lead = _usage_clause(usage) if usage and usage.get("frequency") is not None else dur_lead
 
     if e.get("type") == "conditional":
         inner = e.get("effect") or {}
@@ -835,6 +903,10 @@ def _render_top_level(e: Effect, scope: dict[str, Any] | None) -> str:
 def describe_ability(a: dict[str, Any]) -> str:
     """Full natural-English text for an ability (effect + woven scope/duration,
     plus a trailing ``Applies to:`` line when a curated filter is present)."""
-    core = _render_top_level(a["effect"], a.get("scope")) if a.get("effect") else ""
+    core = (
+        _render_top_level(a["effect"], a.get("scope"), a.get("usage"))
+        if a.get("effect")
+        else ""
+    )
     applies = describe_applies_to(a.get("applies_to"))
     return "\n".join(part for part in (core, applies) if part)

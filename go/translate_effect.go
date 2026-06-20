@@ -93,7 +93,21 @@ func grantLabel(id string) string {
 	return titleCase(id)
 }
 
-func bracketKeyword(k any) string { return "[" + strings.ToUpper(dekebab(ejstr(k))) + "]" }
+// antiRe splits an "anti-<x>"/"anti <x>" keyword; antiRatedRe peels the trailing
+// rating ("titanic 3+" -> "titanic", "3"). Both case-insensitive, mirroring the TS.
+var antiRe = regexp.MustCompile(`(?i)^anti[\s-]+(.*)$`)
+var antiRatedRe = regexp.MustCompile(`(?i)^(.*?)[\s-]*(\d+)\s*(?:\+|plus)?$`)
+
+func bracketKeyword(k any) string {
+	raw := strings.TrimSpace(ejstr(k))
+	if anti := antiRe.FindStringSubmatch(raw); anti != nil {
+		if m := antiRatedRe.FindStringSubmatch(anti[1]); m != nil {
+			return "[ANTI-" + strings.ToUpper(strings.TrimSpace(dekebab(m[1]))) + " " + m[2] + "+]"
+		}
+		return "[ANTI-" + strings.ToUpper(strings.TrimSpace(dekebab(anti[1]))) + "]"
+	}
+	return "[" + strings.ToUpper(dekebab(raw)) + "]"
+}
 
 var dRe = regexp.MustCompile(`[dD]`)
 
@@ -155,6 +169,7 @@ func isPlural(subj string) bool {
 var pluralVerbs = map[string]string{
 	"has": "have", "is": "are", "gets": "get", "gains": "gain",
 	"suffers": "suffer", "retains": "retain", "makes": "make",
+	"passes": "pass", "fails": "fail", "treats": "treat",
 }
 
 func ev(subj, singular string) string {
@@ -604,13 +619,24 @@ func describeEffectInlineBase(e map[string]any, ctx map[string]any) string {
 		return subj + " " + ev(subj, "has") + " a " + ejstr(sv) + "+ invulnerable save"
 	case "keyword-grant":
 		var kw string
-		if arr, ok := asList(m["keywords"]); ok {
-			parts := make([]string, len(arr))
-			for i, k := range arr {
+		kwArr, kwIsList := asList(m["keywords"])
+		switch {
+		case m["anti_keyword"] != nil:
+			kw = "[ANTI-" + strings.ToUpper(dekebab(ejstr(m["anti_keyword"]))) + " " + ejstr(m["anti_threshold"]) + "+]"
+		case kwIsList:
+			parts := make([]string, len(kwArr))
+			for i, k := range kwArr {
 				parts[i] = bracketKeyword(k)
 			}
 			kw = strings.Join(parts, " and ")
-		} else {
+		case m["value"] != nil:
+			// Rated keyword carried structurally (Sustained Hits N / Rapid Fire N / Melta N).
+			var k any = "keywords"
+			if m["keyword"] != nil {
+				k = m["keyword"]
+			}
+			kw = "[" + strings.ToUpper(dekebab(ejstr(k))) + " " + ejstr(m["value"]) + "]"
+		default:
 			var k any = "keywords"
 			if m["keyword"] != nil {
 				k = m["keyword"]
@@ -797,6 +823,29 @@ func describeEffectInlineBase(e map[string]any, ctx map[string]any) string {
 		return subj + " can arrive from Strategic Reserves regardless of mission rules"
 	case "remove-battle-shock":
 		return subj + " " + ev(subj, "is") + " no longer Battle-shocked"
+	case "auto-result":
+		r := m["result"]
+		if m["test"] != nil {
+			switch r {
+			case "pass":
+				return subj + " automatically " + ev(subj, "passes") + " " + testName(m["test"]) + " tests"
+			case "fail":
+				return subj + " automatically " + ev(subj, "fails") + " " + testName(m["test"]) + " tests"
+			}
+			return subj + " " + ev(subj, "treats") + " " + testName(m["test"]) + " tests as " + ejstr(r)
+		}
+		roll := rollName(m["roll"])
+		switch r {
+		case "pass":
+			return possessive(subj) + " " + roll + " rolls automatically succeed"
+		case "fail":
+			return possessive(subj) + " " + roll + " rolls automatically fail"
+		}
+		return possessive(subj) + " " + roll + " rolls count as " + ejstr(r)
+	case "firing-deck":
+		return subj + " " + ev(subj, "has") + " Firing Deck " + ejstr(m["value"])
+	case "disembark-after-move":
+		return "units can disembark from " + subj + " after it has moved"
 	case "fallback-and-act":
 		return subj + " " + ev(subj, "is") + " eligible to shoot and declare a charge in a turn in which it Fell Back"
 	case "engagement-passthrough":
@@ -1076,9 +1125,54 @@ func assembleSentence(parts []string) string {
 	return capitalize(body) + period
 }
 
-func renderTopLevel(e map[string]any, scope map[string]any) string {
+// usageClause renders an ability-level usage limit as a front-of-sentence lead
+// clause ("once per turn", "twice per battle per unit").
+func usageClause(u map[string]any) string {
+	n := 1
+	if isNumber(u["count"]) {
+		f, _ := num(u["count"])
+		n = int(f)
+	}
+	var base string
+	switch ejstr(u["frequency"]) {
+	case "once-per-turn":
+		base = "once per turn"
+	case "once-per-phase":
+		base = "once per phase"
+	case "once-per-command-phase":
+		base = "once per Command phase"
+	case "once-per-opponent-turn":
+		base = "once per opponent's turn"
+	case "first-this-battle":
+		base = "the first time this battle"
+	case "first-time-this-phase":
+		base = "the first time this phase"
+	case "n-per-battle":
+		switch n {
+		case 1:
+			base = "once per battle"
+		case 2:
+			base = "twice per battle"
+		default:
+			base = ejstr(float64(n)) + " times per battle"
+		}
+	default:
+		base = dekebab(ejstr(u["frequency"]))
+	}
+	if u["per"] != nil {
+		base += " per " + ejstr(u["per"])
+	}
+	return base
+}
+
+func renderTopLevel(e map[string]any, scope map[string]any, usage map[string]any) string {
 	ctx := map[string]any{"range_inches": scope["range_inches"]}
-	lead, trail := durationClauses(scope["duration"])
+	durLead, trail := durationClauses(scope["duration"])
+	// An explicit usage limit supersedes the duration's coarse "once per battle" lead.
+	lead := durLead
+	if usage != nil && usage["frequency"] != nil {
+		lead = usageClause(usage)
+	}
 	if e["type"] == "conditional" {
 		inner, _ := getMap(e, "effect")
 		cond, _ := getMap(e, "condition")
@@ -1122,7 +1216,8 @@ func describeAbility(a map[string]any) string {
 		if scope == nil {
 			scope = map[string]any{}
 		}
-		core = renderTopLevel(eff, scope)
+		usage, _ := getMap(a, "usage")
+		core = renderTopLevel(eff, scope, usage)
 	}
 	at, _ := getMap(a, "applies_to")
 	applies := describeAppliesTo(at)

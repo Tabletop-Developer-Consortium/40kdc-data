@@ -656,6 +656,8 @@ def _handle_translate_effect(args: Any) -> Response:
     ability: dict[str, Any] = {"effect": args["effect"]}
     if isinstance(args.get("scope"), dict):
         ability["scope"] = args["scope"]
+    if isinstance(args.get("usage"), dict):
+        ability["usage"] = args["usage"]
     if isinstance(args.get("applies_to"), dict):
         ability["applies_to"] = args["applies_to"]
     return _ok({"text": describe_ability(ability)})

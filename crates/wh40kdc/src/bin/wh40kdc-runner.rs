@@ -1177,8 +1177,12 @@ fn handle_translate_effect(args: &Value) -> Value {
         .get("applies_to")
         .filter(|v| !v.is_null())
         .and_then(|v| serde_json::from_value(v.clone()).ok());
+    let usage: Option<wh40kdc::AbilityUsage> = args
+        .get("usage")
+        .filter(|v| !v.is_null())
+        .and_then(|v| serde_json::from_value(v.clone()).ok());
     ok_value(json!({
-        "text": describe_ability_parts(&effect, scope.as_ref(), applies_to.as_ref())
+        "text": describe_ability_parts(&effect, scope.as_ref(), applies_to.as_ref(), usage.as_ref())
     }))
 }
 

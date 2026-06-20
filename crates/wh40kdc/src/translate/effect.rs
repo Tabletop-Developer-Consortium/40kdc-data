@@ -10,10 +10,11 @@ use serde_json::{Map, Value};
 
 use super::{dekebab, describe_node, describe_timing};
 use crate::generated::{
-    Ability, AbilityAppliesTo, CompoundConditionOperator, ConditionNode, DiceGatedEffect,
-    DiceGatedEffectComparison, DiceGatedEffectThreshold, DicePoolAllocationEffect, EffectNode,
-    Scaling, ScalingOf, ScalingRound, Scope, SelectUnitsEffectSelector,
-    SelectUnitsEffectSelectorOwner, SimpleConditionType, SingleEffect, SingleEffectType,
+    Ability, AbilityAppliesTo, AbilityUsage, AbilityUsageFrequency, CompoundConditionOperator,
+    ConditionNode, DiceGatedEffect, DiceGatedEffectComparison, DiceGatedEffectThreshold,
+    DicePoolAllocationEffect, EffectNode, Scaling, ScalingOf, ScalingRound, Scope,
+    SelectUnitsEffectSelector, SelectUnitsEffectSelectorOwner, SimpleConditionType, SingleEffect,
+    SingleEffectType,
 };
 
 /// Rendering context threaded from the ability (scope info the leaf needs).
@@ -124,9 +125,66 @@ fn title_case(s: &str) -> String {
         .join(" ")
 }
 
+/// `^anti[\s-]+(.*)$` (case-insensitive): returns the captured remainder when
+/// `raw` starts with an `anti` prefix followed by ≥1 whitespace/hyphen.
+fn strip_anti_prefix(raw: &str) -> Option<&str> {
+    let prefix = raw.get(..4)?;
+    if !prefix.eq_ignore_ascii_case("anti") {
+        return None;
+    }
+    let after = &raw[4..];
+    let rest = after.trim_start_matches(|c: char| c.is_whitespace() || c == '-');
+    // The `[\s-]+` requires at least one separator char to have been consumed.
+    if rest.len() == after.len() {
+        return None;
+    }
+    Some(rest)
+}
+
+/// `^(.*?)[\s-]*(\d+)\s*(?:\+|plus)?$` (case-insensitive): the lazy split of a
+/// keyword body into (name, trailing-number). Returns the earliest-matching cut.
+fn split_trailing_number(s: &str) -> Option<(&str, &str)> {
+    fn match_number_suffix(suffix: &str) -> Option<&str> {
+        let body = suffix.trim_start_matches(|c: char| c.is_whitespace() || c == '-');
+        let digits_end = body
+            .find(|c: char| !c.is_ascii_digit())
+            .unwrap_or(body.len());
+        if digits_end == 0 {
+            return None;
+        }
+        let digits = &body[..digits_end];
+        let tail = body[digits_end..].trim_start_matches(char::is_whitespace);
+        if tail.is_empty() || tail == "+" || tail.eq_ignore_ascii_case("plus") {
+            Some(digits)
+        } else {
+            None
+        }
+    }
+    let cuts = s
+        .char_indices()
+        .map(|(i, _)| i)
+        .chain(std::iter::once(s.len()));
+    for p in cuts {
+        if let Some(digits) = match_number_suffix(&s[p..]) {
+            return Some((&s[..p], digits));
+        }
+    }
+    None
+}
+
 /// GW weapon keyword token → bracketed caps (`lethal-hits` → `[LETHAL HITS]`).
+/// `Anti-` keywords keep their hyphen and surface their `+`-threshold
+/// (`anti-titanic-3plus` → `[ANTI-TITANIC 3+]`).
 fn bracket_keyword(v: &Value) -> String {
-    format!("[{}]", dekebab(&jval(v)).to_uppercase())
+    let raw = jval(v);
+    let raw = raw.trim();
+    if let Some(anti) = strip_anti_prefix(raw) {
+        if let Some((name, num)) = split_trailing_number(anti) {
+            return format!("[ANTI-{} {num}+]", dekebab(name).trim().to_uppercase());
+        }
+        return format!("[ANTI-{}]", dekebab(anti).trim().to_uppercase());
+    }
+    format!("[{}]", dekebab(raw).to_uppercase())
 }
 
 /// Dice tokens print with a capital `D` (`d3` → `D3`).
@@ -206,6 +264,9 @@ fn agree(subj: &str, singular: &str) -> String {
         "suffers" => "suffer".to_string(),
         "retains" => "retain".to_string(),
         "makes" => "make".to_string(),
+        "passes" => "pass".to_string(),
+        "fails" => "fail".to_string(),
+        "treats" => "treat".to_string(),
         other => other.strip_suffix('s').unwrap_or(other).to_string(),
     }
 }
@@ -650,15 +711,29 @@ fn describe_single(e: &SingleEffect, ctx: &Ctx) -> String {
             format!("{subj} {} a {sv}+ invulnerable save", agree(&subj, "has"))
         }
         T::KeywordGrant => {
-            let kw = match m.get("keywords") {
-                Some(Value::Array(a)) => a
-                    .iter()
+            let kw = if notnull(m, "anti_keyword") {
+                let th = first(m, &["anti_threshold"])
+                    .map(jval)
+                    .unwrap_or_else(|| "?".to_string());
+                format!(
+                    "[ANTI-{} {th}+]",
+                    dekebab(&jv(m, "anti_keyword")).to_uppercase()
+                )
+            } else if let Some(Value::Array(a)) = m.get("keywords") {
+                a.iter()
                     .map(bracket_keyword)
                     .collect::<Vec<_>>()
-                    .join(" and "),
-                _ => first(m, &["keyword"])
-                    .map(bracket_keyword)
-                    .unwrap_or_else(|| "[KEYWORDS]".to_string()),
+                    .join(" and ")
+            } else if notnull(m, "value") {
+                let kw_name = first(m, &["keyword"])
+                    .map(jval)
+                    .unwrap_or_else(|| "keywords".to_string());
+                format!("[{} {}]", dekebab(&kw_name).to_uppercase(), jv(m, "value"))
+            } else {
+                let kw_or_default = first(m, &["keyword"])
+                    .cloned()
+                    .unwrap_or_else(|| Value::String("keywords".to_string()));
+                bracket_keyword(&kw_or_default)
             };
             if notnull(m, "weapon_name") {
                 format!("{} {} gains {kw}", possessive(&subj), jv(m, "weapon_name"))
@@ -907,6 +982,53 @@ fn describe_single(e: &SingleEffect, ctx: &Ctx) -> String {
             agree(&subj, "is"),
             dekebab(&jv(m, "tag"))
         ),
+        T::AutoResult => {
+            let result = nstr(m, "result");
+            if notnull(m, "test") {
+                let test = m.get("test").unwrap_or(&Value::Null);
+                match result {
+                    Some("pass") => format!(
+                        "{subj} automatically {} {} tests",
+                        agree(&subj, "passes"),
+                        test_name(test)
+                    ),
+                    Some("fail") => format!(
+                        "{subj} automatically {} {} tests",
+                        agree(&subj, "fails"),
+                        test_name(test)
+                    ),
+                    _ => format!(
+                        "{subj} {} {} tests as {}",
+                        agree(&subj, "treats"),
+                        test_name(test),
+                        jv(m, "result")
+                    ),
+                }
+            } else {
+                let roll = roll_name(m.get("roll").unwrap_or(&Value::Null));
+                match result {
+                    Some("pass") => {
+                        format!("{} {roll} rolls automatically succeed", possessive(&subj))
+                    }
+                    Some("fail") => {
+                        format!("{} {roll} rolls automatically fail", possessive(&subj))
+                    }
+                    _ => format!(
+                        "{} {roll} rolls count as {}",
+                        possessive(&subj),
+                        jv(m, "result")
+                    ),
+                }
+            }
+        }
+        T::FiringDeck => {
+            format!(
+                "{subj} {} Firing Deck {}",
+                agree(&subj, "has"),
+                jv(m, "value")
+            )
+        }
+        T::DisembarkAfterMove => format!("units can disembark from {subj} after it has moved"),
     }
 }
 
@@ -1170,13 +1292,45 @@ fn assemble_sentence(parts: &[String]) -> String {
     format!("{}{period}", capitalize(&body))
 }
 
-/// Assemble the top-level sentence/block, weaving scope range + duration.
-fn render_top_level(e: &EffectNode, scope: Option<&Scope>) -> String {
+/// Usage limit → front-of-sentence lead clause ("once per turn", "twice per
+/// battle per unit"). Mirrors `usageClause`.
+fn usage_clause(u: &AbilityUsage) -> String {
+    let n = u.count.map(|c| c.get()).unwrap_or(1);
+    let base = match u.frequency {
+        AbilityUsageFrequency::OncePerTurn => "once per turn".to_string(),
+        AbilityUsageFrequency::OncePerPhase => "once per phase".to_string(),
+        AbilityUsageFrequency::OncePerCommandPhase => "once per Command phase".to_string(),
+        AbilityUsageFrequency::OncePerOpponentTurn => "once per opponent's turn".to_string(),
+        AbilityUsageFrequency::FirstThisBattle => "the first time this battle".to_string(),
+        AbilityUsageFrequency::FirstTimeThisPhase => "the first time this phase".to_string(),
+        AbilityUsageFrequency::NPerBattle => {
+            if n == 1 {
+                "once per battle".to_string()
+            } else if n == 2 {
+                "twice per battle".to_string()
+            } else {
+                format!("{n} times per battle")
+            }
+        }
+    };
+    match &u.per {
+        Some(per) => format!("{base} per {per}"),
+        None => base,
+    }
+}
+
+/// Assemble the top-level sentence/block, weaving scope range + duration. An
+/// explicit usage limit supersedes the duration's coarse "once per battle" lead.
+fn render_top_level(e: &EffectNode, scope: Option<&Scope>, usage: Option<&AbilityUsage>) -> String {
     let ctx = Ctx {
         range_inches: scope.and_then(|s| s.range_inches),
     };
     let duration = scope.map(|s| s.duration.to_string()).unwrap_or_default();
-    let (lead, trail) = duration_clauses(&duration);
+    let (dur_lead, trail) = duration_clauses(&duration);
+    let lead = match usage {
+        Some(u) => usage_clause(u),
+        None => dur_lead,
+    };
 
     match e {
         EffectNode::ConditionalEffect(c) => {
@@ -1273,8 +1427,9 @@ pub fn describe_ability_parts(
     e: &EffectNode,
     scope: Option<&Scope>,
     applies_to: Option<&AbilityAppliesTo>,
+    usage: Option<&AbilityUsage>,
 ) -> String {
-    let base = render_top_level(e, scope);
+    let base = render_top_level(e, scope, usage);
     let applies = describe_applies_to(applies_to);
     if applies.is_empty() {
         base
@@ -1287,5 +1442,10 @@ pub fn describe_ability_parts(
 
 /// Full generated text for an ability. Mirrors `describeAbility`.
 pub fn describe_ability(a: &Ability) -> String {
-    describe_ability_parts(&a.effect, Some(&a.scope), a.applies_to.as_ref())
+    describe_ability_parts(
+        &a.effect,
+        Some(&a.scope),
+        a.applies_to.as_ref(),
+        a.usage.as_ref(),
+    )
 }

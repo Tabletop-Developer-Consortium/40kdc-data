@@ -187,6 +187,40 @@ pub mod error {
 ///        "$ref": "#/$defs/entity-id"
 ///      }
 ///    },
+///    "usage": {
+///      "description": "How often the ability may be used, beyond what scope.duration captures. `scope.duration: one-use` already models 'once per battle'; this models finer limits (once per turn/phase, N per battle) and an optional per-army/unit/model granularity.",
+///      "type": "object",
+///      "required": [
+///        "frequency"
+///      ],
+///      "properties": {
+///        "count": {
+///          "type": "integer",
+///          "minimum": 1.0
+///        },
+///        "frequency": {
+///          "type": "string",
+///          "enum": [
+///            "once-per-turn",
+///            "once-per-phase",
+///            "once-per-command-phase",
+///            "once-per-opponent-turn",
+///            "n-per-battle",
+///            "first-this-battle",
+///            "first-time-this-phase"
+///          ]
+///        },
+///        "per": {
+///          "type": "string",
+///          "enum": [
+///            "army",
+///            "unit",
+///            "model"
+///          ]
+///        }
+///      },
+///      "additionalProperties": false
+///    },
 ///    "version": {
 ///      "$ref": "#/$defs/dataslate-version"
 ///    }
@@ -230,6 +264,8 @@ pub struct Ability {
     pub supersedes: ::std::option::Option<DataslateVersion>,
     #[serde(default, skip_serializing_if = "::std::vec::Vec::is_empty")]
     pub unit_ids: ::std::vec::Vec<EntityId>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub usage: ::std::option::Option<AbilityUsage>,
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub version: ::std::option::Option<DataslateVersion>,
 }
@@ -575,6 +611,238 @@ impl ::std::convert::TryFrom<&::std::string::String> for AbilityInteractionsItem
     }
 }
 impl ::std::convert::TryFrom<::std::string::String> for AbilityInteractionsItemType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+///How often the ability may be used, beyond what scope.duration captures. `scope.duration: one-use` already models 'once per battle'; this models finer limits (once per turn/phase, N per battle) and an optional per-army/unit/model granularity.
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "description": "How often the ability may be used, beyond what scope.duration captures. `scope.duration: one-use` already models 'once per battle'; this models finer limits (once per turn/phase, N per battle) and an optional per-army/unit/model granularity.",
+///  "type": "object",
+///  "required": [
+///    "frequency"
+///  ],
+///  "properties": {
+///    "count": {
+///      "type": "integer",
+///      "minimum": 1.0
+///    },
+///    "frequency": {
+///      "type": "string",
+///      "enum": [
+///        "once-per-turn",
+///        "once-per-phase",
+///        "once-per-command-phase",
+///        "once-per-opponent-turn",
+///        "n-per-battle",
+///        "first-this-battle",
+///        "first-time-this-phase"
+///      ]
+///    },
+///    "per": {
+///      "type": "string",
+///      "enum": [
+///        "army",
+///        "unit",
+///        "model"
+///      ]
+///    }
+///  },
+///  "additionalProperties": false
+///}
+/// ```
+/// </details>
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
+#[serde(deny_unknown_fields)]
+pub struct AbilityUsage {
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub count: ::std::option::Option<::std::num::NonZeroU64>,
+    pub frequency: AbilityUsageFrequency,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub per: ::std::option::Option<AbilityUsagePer>,
+}
+///`AbilityUsageFrequency`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "string",
+///  "enum": [
+///    "once-per-turn",
+///    "once-per-phase",
+///    "once-per-command-phase",
+///    "once-per-opponent-turn",
+///    "n-per-battle",
+///    "first-this-battle",
+///    "first-time-this-phase"
+///  ]
+///}
+/// ```
+/// </details>
+#[derive(
+    ::serde::Deserialize,
+    ::serde::Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd
+)]
+pub enum AbilityUsageFrequency {
+    #[serde(rename = "once-per-turn")]
+    OncePerTurn,
+    #[serde(rename = "once-per-phase")]
+    OncePerPhase,
+    #[serde(rename = "once-per-command-phase")]
+    OncePerCommandPhase,
+    #[serde(rename = "once-per-opponent-turn")]
+    OncePerOpponentTurn,
+    #[serde(rename = "n-per-battle")]
+    NPerBattle,
+    #[serde(rename = "first-this-battle")]
+    FirstThisBattle,
+    #[serde(rename = "first-time-this-phase")]
+    FirstTimeThisPhase,
+}
+impl ::std::fmt::Display for AbilityUsageFrequency {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::OncePerTurn => f.write_str("once-per-turn"),
+            Self::OncePerPhase => f.write_str("once-per-phase"),
+            Self::OncePerCommandPhase => f.write_str("once-per-command-phase"),
+            Self::OncePerOpponentTurn => f.write_str("once-per-opponent-turn"),
+            Self::NPerBattle => f.write_str("n-per-battle"),
+            Self::FirstThisBattle => f.write_str("first-this-battle"),
+            Self::FirstTimeThisPhase => f.write_str("first-time-this-phase"),
+        }
+    }
+}
+impl ::std::str::FromStr for AbilityUsageFrequency {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "once-per-turn" => Ok(Self::OncePerTurn),
+            "once-per-phase" => Ok(Self::OncePerPhase),
+            "once-per-command-phase" => Ok(Self::OncePerCommandPhase),
+            "once-per-opponent-turn" => Ok(Self::OncePerOpponentTurn),
+            "n-per-battle" => Ok(Self::NPerBattle),
+            "first-this-battle" => Ok(Self::FirstThisBattle),
+            "first-time-this-phase" => Ok(Self::FirstTimeThisPhase),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for AbilityUsageFrequency {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for AbilityUsageFrequency {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for AbilityUsageFrequency {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+///`AbilityUsagePer`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "string",
+///  "enum": [
+///    "army",
+///    "unit",
+///    "model"
+///  ]
+///}
+/// ```
+/// </details>
+#[derive(
+    ::serde::Deserialize,
+    ::serde::Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd
+)]
+pub enum AbilityUsagePer {
+    #[serde(rename = "army")]
+    Army,
+    #[serde(rename = "unit")]
+    Unit,
+    #[serde(rename = "model")]
+    Model,
+}
+impl ::std::fmt::Display for AbilityUsagePer {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::Army => f.write_str("army"),
+            Self::Unit => f.write_str("unit"),
+            Self::Model => f.write_str("model"),
+        }
+    }
+}
+impl ::std::str::FromStr for AbilityUsagePer {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "army" => Ok(Self::Army),
+            "unit" => Ok(Self::Unit),
+            "model" => Ok(Self::Model),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for AbilityUsagePer {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for AbilityUsagePer {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for AbilityUsagePer {
     type Error = self::error::ConversionError;
     fn try_from(
         value: ::std::string::String,
@@ -10051,11 +10319,14 @@ impl ::std::convert::TryFrom<::std::string::String> for SimpleConditionType {
 ///        "engagement-passthrough",
 ///        "strategic-reserves-arrival",
 ///        "remove-battle-shock",
-///        "unit-keyword-grant"
+///        "unit-keyword-grant",
+///        "auto-result",
+///        "firing-deck",
+///        "disembark-after-move"
 ///      ]
 ///    }
 ///  },
-///  "$comment": "Optional weapon narrowing on cruncher-interpreted modifiers (stat-modifier/roll-modifier/re-roll/keyword-grant): `weapon_type` ('melee'|'ranged'), `weapon_name` (one named weapon), or `weapon_keyword` (a weapon ability such as 'Torrent'|'Blast'|'Pistol' — restricts the effect to weapons carrying that keyword). When `type` is `re-roll`, `modifier` must carry `roll` (string) and `subset` (`ones` | `all-failures`). Rerolls always target failures; the subset decides whether only 1s are rerolled or every failed die. The constraint is enforced by AJV at validation time and stripped from the codegen bundle (typify can't model if/then/else) — the generated TS/Rust types therefore see `modifier` as an open object, matching its other-`type` callers. When `type` is `feel-no-pain`, `modifier` carries `threshold` (the FNP save target) and optionally `scope` ∈ {`all`, `mortal`}; an absent scope defaults to `all` (fires on every unsaved wound). The two scopes compose independently against the mortal-wound stream. Tag effects (`terrain-area-tag`, `objective-tag`, `unit-tag`) set a transient marker on the named subject; `modifier` carries `tag` (string) and optionally `source` ('this-action'|'destroying-unit') and `clears_on` ('turn-rollover'|'never'). `target` for tag effects names the kind of entity the tag is applied to ('unit', 'self') — a placeholder, since the marker target is the objective/terrain/unit specified by the action context, not a combat target."
+///  "$comment": "Optional weapon narrowing on cruncher-interpreted modifiers (stat-modifier/roll-modifier/re-roll/keyword-grant): `weapon_type` ('melee'|'ranged'), `weapon_name` (one named weapon), or `weapon_keyword` (a weapon ability such as 'Torrent'|'Blast'|'Pistol' — restricts the effect to weapons carrying that keyword). When `type` is `re-roll`, `modifier` must carry `roll` (string) and `subset` (`ones` | `all-failures`). Rerolls always target failures; the subset decides whether only 1s are rerolled or every failed die. The constraint is enforced by AJV at validation time and stripped from the codegen bundle (typify can't model if/then/else) — the generated TS/Rust types therefore see `modifier` as an open object, matching its other-`type` callers. When `type` is `feel-no-pain`, `modifier` carries `threshold` (the FNP save target) and optionally `scope` ∈ {`all`, `mortal`}; an absent scope defaults to `all` (fires on every unsaved wound). The two scopes compose independently against the mortal-wound stream. Tag effects (`terrain-area-tag`, `objective-tag`, `unit-tag`) set a transient marker on the named subject; `modifier` carries `tag` (string) and optionally `source` ('this-action'|'destroying-unit') and `clears_on` ('turn-rollover'|'never'). `target` for tag effects names the kind of entity the tag is applied to ('unit', 'self') — a placeholder, since the marker target is the objective/terrain/unit specified by the action context, not a combat target. Parameterized weapon keywords on `keyword-grant`/`unit-keyword-grant`: a granted keyword may carry its rating either baked into the `keyword` string ('Sustained Hits 1') or structurally via `value` (Sustained Hits/Rapid Fire/Melta N); Anti-X keywords may use `anti_keyword` + `anti_threshold` (rendered '[ANTI-INFANTRY 4+]'). When `type` is `auto-result`, `modifier` carries `result` (`pass`|`fail`, or an integer the named roll counts as) plus `test` (e.g. 'battle-shock') or `roll` (e.g. 'hit'). When `type` is `firing-deck`, `modifier` carries `value` (the Firing Deck rating). `disembark-after-move` needs no modifier."
 ///}
 /// ```
 /// </details>
@@ -10233,7 +10504,10 @@ impl ::std::convert::TryFrom<::std::string::String> for SingleEffectTarget {
 ///    "engagement-passthrough",
 ///    "strategic-reserves-arrival",
 ///    "remove-battle-shock",
-///    "unit-keyword-grant"
+///    "unit-keyword-grant",
+///    "auto-result",
+///    "firing-deck",
+///    "disembark-after-move"
 ///  ]
 ///}
 /// ```
@@ -10323,6 +10597,12 @@ pub enum SingleEffectType {
     RemoveBattleShock,
     #[serde(rename = "unit-keyword-grant")]
     UnitKeywordGrant,
+    #[serde(rename = "auto-result")]
+    AutoResult,
+    #[serde(rename = "firing-deck")]
+    FiringDeck,
+    #[serde(rename = "disembark-after-move")]
+    DisembarkAfterMove,
 }
 impl ::std::fmt::Display for SingleEffectType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
@@ -10363,6 +10643,9 @@ impl ::std::fmt::Display for SingleEffectType {
             Self::StrategicReservesArrival => f.write_str("strategic-reserves-arrival"),
             Self::RemoveBattleShock => f.write_str("remove-battle-shock"),
             Self::UnitKeywordGrant => f.write_str("unit-keyword-grant"),
+            Self::AutoResult => f.write_str("auto-result"),
+            Self::FiringDeck => f.write_str("firing-deck"),
+            Self::DisembarkAfterMove => f.write_str("disembark-after-move"),
         }
     }
 }
@@ -10408,6 +10691,9 @@ impl ::std::str::FromStr for SingleEffectType {
             "strategic-reserves-arrival" => Ok(Self::StrategicReservesArrival),
             "remove-battle-shock" => Ok(Self::RemoveBattleShock),
             "unit-keyword-grant" => Ok(Self::UnitKeywordGrant),
+            "auto-result" => Ok(Self::AutoResult),
+            "firing-deck" => Ok(Self::FiringDeck),
+            "disembark-after-move" => Ok(Self::DisembarkAfterMove),
             _ => Err("invalid value".into()),
         }
     }

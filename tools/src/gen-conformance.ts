@@ -26,7 +26,7 @@ import { fileURLToPath } from "node:url";
 import { Dataset } from "./data/dataset.js";
 import { baseLoadout } from "./data/loadout.js";
 import { normalizeName } from "./data/normalize.js";
-import { describeScoringCard, describeAbility, type Effect } from "./translate/index.js";
+import { describeScoringCard, describeAbility, type Effect, type AbilityUsage } from "./translate/index.js";
 import { awardsOf } from "./scoring/index.js";
 import { createRunnerState, dispatch } from "./runner.js";
 import { exportRoster, type ExportFormat } from "./export/index.js";
@@ -1102,10 +1102,12 @@ function genEffectTranslation(): void {
       scope: a.raw.scope ?? null,
     };
     if (a.raw.applies_to != null) entry.applies_to = a.raw.applies_to;
+    if (a.raw.usage != null) entry.usage = a.raw.usage;
     entry.expected = {
       text: describeAbility({
         effect: a.raw.effect as Effect,
         scope: a.raw.scope,
+        usage: a.raw.usage as AbilityUsage | undefined,
         applies_to: a.raw.applies_to,
       }),
     };
@@ -1227,6 +1229,74 @@ function genEffectTranslation(): void {
       scope: fc.scope,
       expected: { text: describeAbility({ effect: fc.effect as Effect, scope: fc.scope }) },
     });
+  }
+  // Batch B (structured modifiers): parameterized weapon keywords (Anti-X / rated),
+  // auto-result, transport (firing-deck / disembark-after-move), and the ability-level
+  // `usage` limit. Shapes 3/5/6 have no enrichment usage yet; pin them synthetically.
+  const FORCED_BATCH_B_CASES: { id: string; effect: Record<string, unknown>; scope: Record<string, unknown>; usage?: Record<string, unknown> }[] = [
+    {
+      id: "keyword-grant-anti-string",
+      effect: { type: "keyword-grant", target: "unit", modifier: { keyword: "anti-titanic-3plus" } },
+      scope: { range: "unit", duration: "permanent" },
+    },
+    {
+      id: "keyword-grant-anti-structured",
+      effect: { type: "keyword-grant", target: "unit", modifier: { anti_keyword: "infantry", anti_threshold: 4 } },
+      scope: { range: "unit", duration: "permanent" },
+    },
+    {
+      id: "keyword-grant-rated-value",
+      effect: { type: "keyword-grant", target: "unit", modifier: { keyword: "sustained-hits", value: 2 } },
+      scope: { range: "unit", duration: "permanent" },
+    },
+    {
+      id: "auto-result-battle-shock-pass",
+      effect: { type: "auto-result", target: "unit", modifier: { test: "battle-shock", result: "pass" } },
+      scope: { range: "unit", duration: "permanent" },
+    },
+    {
+      id: "auto-result-hit-six",
+      effect: { type: "auto-result", target: "unit", modifier: { roll: "hit", result: 6 } },
+      scope: { range: "unit", duration: "phase" },
+    },
+    {
+      id: "firing-deck",
+      effect: { type: "firing-deck", target: "self", modifier: { value: 2 } },
+      scope: { range: "self", duration: "permanent" },
+    },
+    {
+      id: "disembark-after-move",
+      effect: { type: "disembark-after-move", target: "self", modifier: {} },
+      scope: { range: "self", duration: "permanent" },
+    },
+    {
+      id: "usage-once-per-turn",
+      effect: { type: "cp-gain", target: "self", modifier: { amount: 1 } },
+      scope: { range: "self", duration: "permanent" },
+      usage: { frequency: "once-per-turn" },
+    },
+    {
+      id: "usage-n-per-battle-per-unit",
+      effect: { type: "stat-modifier", target: "unit", modifier: { stat: "A", operation: "add", value: 1 } },
+      scope: { range: "unit", duration: "phase" },
+      usage: { frequency: "n-per-battle", count: 2, per: "unit" },
+    },
+  ];
+  for (const fc of FORCED_BATCH_B_CASES) {
+    const entry: Record<string, unknown> = {
+      caseId: `${fc.id}#${cases.length}`,
+      effect: fc.effect,
+      scope: fc.scope,
+    };
+    if (fc.usage) entry.usage = fc.usage;
+    entry.expected = {
+      text: describeAbility({
+        effect: fc.effect as Effect,
+        scope: fc.scope,
+        usage: fc.usage as AbilityUsage | undefined,
+      }),
+    };
+    cases.push(entry);
   }
   writeJson(join(CONFORMANCE, "effect-translation", "cases.json"), cases);
   console.log(`effect-translation/cases.json: ${cases.length} cases (${seen.size} node types)`);

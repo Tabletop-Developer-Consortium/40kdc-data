@@ -6827,5 +6827,170 @@
     "expected": {
       "text": "Select one of the following:\n  - Roll 3D6: Carnage (pair of 4+): all enemy units suffer 3 mortal wounds.\n  - The unit has the Fights First ability."
     }
+  },
+  {
+    "caseId": "keyword-grant-anti-string#221",
+    "effect": {
+      "type": "keyword-grant",
+      "target": "unit",
+      "modifier": {
+        "keyword": "anti-titanic-3plus"
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "expected": {
+      "text": "The unit's weapons gain [ANTI-TITANIC 3+]."
+    }
+  },
+  {
+    "caseId": "keyword-grant-anti-structured#222",
+    "effect": {
+      "type": "keyword-grant",
+      "target": "unit",
+      "modifier": {
+        "anti_keyword": "infantry",
+        "anti_threshold": 4
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "expected": {
+      "text": "The unit's weapons gain [ANTI-INFANTRY 4+]."
+    }
+  },
+  {
+    "caseId": "keyword-grant-rated-value#223",
+    "effect": {
+      "type": "keyword-grant",
+      "target": "unit",
+      "modifier": {
+        "keyword": "sustained-hits",
+        "value": 2
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "expected": {
+      "text": "The unit's weapons gain [SUSTAINED HITS 2]."
+    }
+  },
+  {
+    "caseId": "auto-result-battle-shock-pass#224",
+    "effect": {
+      "type": "auto-result",
+      "target": "unit",
+      "modifier": {
+        "test": "battle-shock",
+        "result": "pass"
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "expected": {
+      "text": "The unit automatically passes Battle-shock tests."
+    }
+  },
+  {
+    "caseId": "auto-result-hit-six#225",
+    "effect": {
+      "type": "auto-result",
+      "target": "unit",
+      "modifier": {
+        "roll": "hit",
+        "result": 6
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "phase"
+    },
+    "expected": {
+      "text": "Until the end of the phase, the unit's Hit rolls count as 6."
+    }
+  },
+  {
+    "caseId": "firing-deck#226",
+    "effect": {
+      "type": "firing-deck",
+      "target": "self",
+      "modifier": {
+        "value": 2
+      }
+    },
+    "scope": {
+      "range": "self",
+      "duration": "permanent"
+    },
+    "expected": {
+      "text": "This model has Firing Deck 2."
+    }
+  },
+  {
+    "caseId": "disembark-after-move#227",
+    "effect": {
+      "type": "disembark-after-move",
+      "target": "self",
+      "modifier": {}
+    },
+    "scope": {
+      "range": "self",
+      "duration": "permanent"
+    },
+    "expected": {
+      "text": "Units can disembark from this model after it has moved."
+    }
+  },
+  {
+    "caseId": "usage-once-per-turn#228",
+    "effect": {
+      "type": "cp-gain",
+      "target": "self",
+      "modifier": {
+        "amount": 1
+      }
+    },
+    "scope": {
+      "range": "self",
+      "duration": "permanent"
+    },
+    "usage": {
+      "frequency": "once-per-turn"
+    },
+    "expected": {
+      "text": "Once per turn, you gain 1CP."
+    }
+  },
+  {
+    "caseId": "usage-n-per-battle-per-unit#229",
+    "effect": {
+      "type": "stat-modifier",
+      "target": "unit",
+      "modifier": {
+        "stat": "A",
+        "operation": "add",
+        "value": 1
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "phase"
+    },
+    "usage": {
+      "frequency": "n-per-battle",
+      "count": 2,
+      "per": "unit"
+    },
+    "expected": {
+      "text": "Twice per battle per unit, until the end of the phase, add 1 to the unit's Attacks characteristic."
+    }
   }
 ]

@@ -591,8 +591,15 @@ def _movement_clause(m: dict[str, Any], subj: str) -> str:
                 " and ".join(_PASSTHROUGH_PHRASE.get(p, dekebab(p)) for p in passthrough)
             )
         if parts:
-            over = f' (up to {_jstr(m["vertical_limit"])}" high)' if m.get("vertical_limit") is not None else ""
-            clause = f"{subj} can move over {' and '.join(parts)}{over} as though they were not there"
+            over = (
+                f' (up to {_jstr(m["vertical_limit"])}" high)'
+                if m.get("vertical_limit") is not None
+                else ""
+            )
+            clause = (
+                f"{subj} can move over {' and '.join(parts)}{over} "
+                "as though they were not there"
+            )
         elif m.get("ignore_vertical"):
             clause = f"{subj} ignores vertical distances when it moves"
         else:
@@ -611,9 +618,11 @@ def _movement_clause(m: dict[str, Any], subj: str) -> str:
     if kind_str == "advance":
         return f"add {_dice_case(_jstr(dist))} to {_possessive(subj)} Advance rolls"
     if kind_str == "pile-in":
-        return f"{subj} can Pile In up to{inches or ' 3\"'}"
+        pile_default = inches or ' 3"'
+        return f"{subj} can Pile In up to{pile_default}"
     if kind_str == "consolidation":
-        return f"{subj} can Consolidate up to{inches or ' 3\"'}"
+        consol_default = inches or ' 3"'
+        return f"{subj} can Consolidate up to{consol_default}"
     if kind_str == "surge":
         return f"{subj} can make a Surge move{of_up_to}"
     if kind_str == "shoot-and-scoot":
@@ -629,7 +638,11 @@ def _movement_clause(m: dict[str, Any], subj: str) -> str:
         marker = m.get("marker")
         if marker is not None:
             if marker.get("location") is not None:
-                who = f"{_jstr(marker['unit_filter'])} units" if marker.get("unit_filter") is not None else "units"
+                who = (
+                    f"{_jstr(marker['unit_filter'])} units"
+                    if marker.get("unit_filter") is not None
+                    else "units"
+                )
                 return f"{who} can be set up on {_jstr(marker['location'])}"
             what = _jstr(marker["affected"]) if marker.get("affected") is not None else "markers"
             return f"{what} can be repositioned{inches}"
@@ -638,14 +651,17 @@ def _movement_clause(m: dict[str, Any], subj: str) -> str:
             return f"{n} can be placed into Strategic Reserves"
         return f"{subj} can be redeployed{inches}"
     # normal / default
-    try:
-        n = float(dist)
-        is_num = True
-    except (TypeError, ValueError):
-        n = 0.0
-        is_num = False
-    if is_num and n < 0:
-        abs_n = int(abs(n)) if float(abs(n)).is_integer() else abs(n)
+    dist_val = 0.0
+    is_num = False
+    if dist is not None:
+        try:
+            dist_val = float(dist)
+            is_num = True
+        except (TypeError, ValueError):
+            dist_val = 0.0
+            is_num = False
+    if is_num and dist_val < 0:
+        abs_n = int(abs(dist_val)) if float(abs(dist_val)).is_integer() else abs(dist_val)
         return f'{_possessive(subj)} Move characteristic is reduced by {abs_n}"'
     if move_kinds:
         return f"add{inches} to {_possessive(subj)} {move_kinds} moves"
@@ -657,7 +673,10 @@ def _aura_clause(e: Effect, m: dict[str, Any], ctx: Ctx) -> str:
     # Range-extension of a named aura (e.g. Gift of Poxes: contagion +3").
     if m.get("range_bonus") is not None:
         named = f"{_title_case(_jstr(m['of']))} " if m.get("of") is not None else ""
-        return f"the range of this model's {named}abilities is increased by {_jstr(m['range_bonus'])}\""
+        return (
+            f"the range of this model's {named}abilities "
+            f"is increased by {_jstr(m['range_bonus'])}\""
+        )
     rng = m.get("range")
     if isinstance(rng, list):
         range_text: str | None = '/'.join(f'{_jstr(r)}"' for r in rng) + " (by battle round)"

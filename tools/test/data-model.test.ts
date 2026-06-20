@@ -340,7 +340,6 @@ function emptyRaw() {
     deploymentPatterns: [],
     forceDispositions: [],
     resourcePools: [],
-    timingFlags: [],
     interactionFlags: [],
   };
 }

@@ -27,6 +27,7 @@ import { Dataset } from "./data/dataset.js";
 import { baseLoadout } from "./data/loadout.js";
 import { normalizeName } from "./data/normalize.js";
 import { describeScoringCard, describeAbility, type Effect, type AbilityUsage, type AbilityTrigger } from "./translate/index.js";
+import type { GameEvent } from "./generated.js";
 import { awardsOf } from "./scoring/index.js";
 import { createRunnerState, dispatch } from "./runner.js";
 import { exportRoster, type ExportFormat } from "./export/index.js";
@@ -276,7 +277,10 @@ type LinkedApiQuery =
       args: { factionId: string; detachmentIds?: string[] };
       comparison: "ordered";
     }
-  | { name: string; query: "ally_units_for"; args: { ruleId: string }; comparison: "set" };
+  | { name: string; query: "ally_units_for"; args: { ruleId: string }; comparison: "set" }
+  | { name: string; query: "reactive_trigger_ability_ids"; args: Record<string, never>; comparison: "ordered" }
+  | { name: string; query: "events_with_triggers"; args: Record<string, never>; comparison: "ordered" }
+  | { name: string; query: "triggers_for_event"; args: { event: string }; comparison: "ordered" };
 
 const LINKED_API_QUERIES: LinkedApiQuery[] = [
   // find_unit: diacritic-insensitive lookup, miss returns null.
@@ -328,6 +332,12 @@ const LINKED_API_QUERIES: LinkedApiQuery[] = [
   { name: "base_loadout chaos-terminators @5 (legal default, no swaps)", query: "base_loadout", args: { unitId: "chaos-terminators", modelCount: "5" }, comparison: "set" },
   { name: "base_loadout chaos-terminators @10 scales per model", query: "base_loadout", args: { unitId: "chaos-terminators", modelCount: "10" }, comparison: "set" },
   { name: "base_loadout crusader-squad @10 exercises leader+bulk allocation", query: "base_loadout", args: { unitId: "crusader-squad", modelCount: "10" }, comparison: "set" },
+  // reactive triggers: reactiveTriggers() sorts by ability id; triggerIndex() keys are
+  // event-sorted and each bucket ability-id-sorted, so all three are order-pinned.
+  { name: "reactive_trigger_ability_ids (all triggered abilities)", query: "reactive_trigger_ability_ids", args: {}, comparison: "ordered" },
+  { name: "events_with_triggers (index keys)", query: "events_with_triggers", args: {}, comparison: "ordered" },
+  { name: "triggers_for_event start-of-phase", query: "triggers_for_event", args: { event: "start-of-phase" }, comparison: "ordered" },
+  { name: "triggers_for_event on-unit-selected", query: "triggers_for_event", args: { event: "on-unit-selected" }, comparison: "ordered" },
 ];
 
 function genLinkedApi(): void {
@@ -413,6 +423,12 @@ function runLinkedQuery(ds: Dataset, q: LinkedApiQuery): string | null | string[
       return ds.alliesFor(q.args.factionId, q.args.detachmentIds ?? []).map((r) => r.id);
     case "ally_units_for":
       return ds.allyUnitsFor(q.args.ruleId).map((u) => u.id).sort();
+    case "reactive_trigger_ability_ids":
+      return ds.reactiveTriggers().map((rt) => rt.abilityId);
+    case "events_with_triggers":
+      return [...ds.triggerIndex().keys()];
+    case "triggers_for_event":
+      return (ds.triggerIndex().get(q.args.event as GameEvent) ?? []).map((rt) => rt.abilityId);
   }
 }
 

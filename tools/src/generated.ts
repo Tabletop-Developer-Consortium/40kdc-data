@@ -74,7 +74,7 @@ export type SourceType = "ability" | "stratagem" | "enhancement" | "detachment-r
  */
 export type PlayerTurn = "your-turn" | "opponent-turn" | "either";
 /**
- * The single canonical 'when' vocabulary, shared by the reactive `trigger.event` (the dispatch key an event-driven consumer subscribes on) and the `timing-is` condition. Supersedes the (deprecated) timing-flag entity's step-level vocabulary, adding movement/lifecycle/targeting events. Grouped: phase/turn structure, setup/reserves, movement, combat dice steps, attack lifecycle, destruction, and tests.
+ * The single canonical 'when' vocabulary, shared by the reactive `trigger.event` (the dispatch key an event-driven consumer subscribes on) and the `timing-is` condition. Supersedes the former timing-flag entity's step-level vocabulary, adding movement/lifecycle/targeting events. Grouped: phase/turn structure, setup/reserves, movement, combat dice steps, attack lifecycle, destruction, and tests.
  *
  * This interface was referenced by `0KdcBundledSchemas`'s JSON-Schema
  * via the `definition` "game-event".
@@ -2123,37 +2123,4 @@ export interface ResourcePool {
   }[];
   max_size?: number | null;
   game_version: GameVersionReference;
-}
-/**
- * This interface was referenced by `0KdcBundledSchemas`'s JSON-Schema
- * via the `definition` "timing-flag".
- */
-export interface TimingFlag {
-  source_id: EntityId;
-  source_type: SourceType;
-  timing:
-    | "start-of-phase"
-    | "end-of-phase"
-    | "before-hit-roll"
-    | "after-hit-roll"
-    | "before-wound-roll"
-    | "after-wound-roll"
-    | "before-save-roll"
-    | "after-save-roll"
-    | "before-damage-roll"
-    | "after-damage-roll"
-    | "before-charge-roll"
-    | "after-charge-roll"
-    | "before-advance-roll"
-    | "after-advance-roll"
-    | "before-battle-shock"
-    | "after-battle-shock"
-    | "on-unit-selected"
-    | "on-unit-destroyed"
-    | "on-model-destroyed"
-    | "on-damage-allocated"
-    | "before-this-model-removed";
-  game_version: GameVersionReference;
-  authored_by?: ContributorRef;
-  [k: string]: unknown;
 }

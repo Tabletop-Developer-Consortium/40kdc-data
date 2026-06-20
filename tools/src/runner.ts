@@ -53,7 +53,7 @@ import {
   type AssertedAward,
   type PlayerGame,
 } from "./scoring/index.js";
-import type { SecondaryCard } from "./generated.js";
+import type { SecondaryCard, GameEvent } from "./generated.js";
 import {
   resolveLayout,
   TerrainResolveError,
@@ -565,6 +565,12 @@ function handleLinkedQuery(state: RunnerState, args: unknown): RunnerResponse {
       }
       case "ally_units_for":
         return ok(ds.allyUnitsFor(input.ruleId ?? "").map((u) => u.id));
+      case "reactive_trigger_ability_ids":
+        return ok(ds.reactiveTriggers().map((rt) => rt.abilityId));
+      case "events_with_triggers":
+        return ok([...ds.triggerIndex().keys()]);
+      case "triggers_for_event":
+        return ok((ds.triggerIndex().get((input.event ?? "") as GameEvent) ?? []).map((rt) => rt.abilityId));
       default:
         return err("INVALID_INPUT", { detail: `unknown linked_query: ${a.query}` });
     }

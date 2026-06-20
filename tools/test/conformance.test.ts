@@ -32,7 +32,7 @@ import type { RosterFormat } from "../src/import/types.js";
 import { crunch, type Buff, type EngineContext, type Stage } from "../src/cruncher/index.js";
 import { compareCell, loadoutCell, type ComparePhase, type LoadoutLine } from "../src/compare.js";
 import { attributeStages } from "../src/cruncher/attribution.js";
-import type { Phase } from "../src/generated.js";
+import type { Phase, GameEvent } from "../src/generated.js";
 import { effectToBuffs } from "../src/cruncher/from-dsl.js";
 import { encodeBase } from "../src/runner.js";
 import type { EligibilityInput } from "../src/abilities-resolver/index.js";
@@ -553,6 +553,12 @@ function runLinkedApi(ds: Dataset, c: LinkedApiCase): string | null | string[] {
     }
     case "ally_units_for":
       return ds.allyUnitsFor(c.args.ruleId).map((u) => u.id);
+    case "reactive_trigger_ability_ids":
+      return ds.reactiveTriggers().map((rt) => rt.abilityId);
+    case "events_with_triggers":
+      return [...ds.triggerIndex().keys()];
+    case "triggers_for_event":
+      return (ds.triggerIndex().get(c.args.event as GameEvent) ?? []).map((rt) => rt.abilityId);
     default:
       throw new Error(`unknown linked-api query: ${c.query}`);
   }

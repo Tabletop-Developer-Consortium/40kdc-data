@@ -221,6 +221,29 @@ fn run_query(ds: &Dataset, query: &str, args: &Value) -> Value {
                 .map(|u| Value::String(u.id.to_string()))
                 .collect(),
         ),
+        "reactive_trigger_ability_ids" => {
+            let mut ids: Vec<String> = ds
+                .reactive_triggers()
+                .into_iter()
+                .map(|rt| rt.ability_id)
+                .collect();
+            ids.sort();
+            Value::Array(ids.into_iter().map(Value::String).collect())
+        }
+        "events_with_triggers" => {
+            Value::Array(ds.trigger_index().into_keys().map(Value::String).collect())
+        }
+        "triggers_for_event" => {
+            let event = arg_str("event");
+            let mut ids: Vec<String> = ds
+                .reactive_triggers()
+                .into_iter()
+                .filter(|rt| rt.event == event)
+                .map(|rt| rt.ability_id)
+                .collect();
+            ids.sort();
+            Value::Array(ids.into_iter().map(Value::String).collect())
+        }
         other => panic!("unknown linked-api query: {other}"),
     }
 }

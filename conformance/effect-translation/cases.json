@@ -233,8 +233,12 @@
       "range": "unit",
       "duration": "phase"
     },
+    "trigger": {
+      "event": "on-unit-selected",
+      "optional": true
+    },
     "expected": {
-      "text": "Until the end of the phase, you gain 1 Blood Tithe Pool."
+      "text": "When the unit is selected, until the end of the phase, you gain 1 Blood Tithe Pool."
     }
   },
   {
@@ -931,8 +935,12 @@
       "range": "unit",
       "duration": "permanent"
     },
+    "trigger": {
+      "event": "start-of-phase",
+      "subject": "self"
+    },
     "expected": {
-      "text": "While this model leads a unit:\n  -> Modify the unit's Move characteristic to 10.\n  -> The unit can move over terrain features as though they were not there."
+      "text": "At the start of the phase, while this model leads a unit:\n  -> Modify the unit's Move characteristic to 10.\n  -> The unit can move over terrain features as though they were not there."
     }
   },
   {
@@ -1963,8 +1971,11 @@
       "range": "unit",
       "duration": "permanent"
     },
+    "trigger": {
+      "event": "start-of-phase"
+    },
     "expected": {
-      "text": "You can re-roll the Charge roll.\nIf the unit has the Unbridled Bloodlust active keyword, the unit gets +1 to Charge rolls."
+      "text": "At the start of the phase:\nYou can re-roll the Charge roll.\nIf the unit has the Unbridled Bloodlust active keyword, the unit gets +1 to Charge rolls."
     }
   },
   {
@@ -2065,8 +2076,16 @@
       "range": "aura-6",
       "duration": "permanent"
     },
+    "trigger": {
+      "event": "before-hit-roll",
+      "subject": "friendly-unit",
+      "proximity": {
+        "of": "bearer",
+        "range": 6
+      }
+    },
     "expected": {
-      "text": "While making melee attacks against a unit that is not a Monster or Vehicle:\n  -> Friendly units within 6\" get +1 to Hit rolls.\n  -> While the target unit is below half strength, friendly units within 6\" get +1 to Wound rolls."
+      "text": "Before a Hit roll is made within 6\" of this model, while making melee attacks against a unit that is not a Monster or Vehicle:\n  -> Friendly units within 6\" get +1 to Hit rolls.\n  -> While the target unit is below half strength, friendly units within 6\" get +1 to Wound rolls."
     }
   },
   {
@@ -2143,8 +2162,12 @@
       "range": "self",
       "duration": "one-use"
     },
+    "trigger": {
+      "event": "on-unit-destroyed",
+      "subject": "self"
+    },
     "expected": {
-      "text": "Once per battle, when the unit is destroyed:\n  -> Roll one D6: on a 2+, return 1 destroyed model to this model with 3 wounds."
+      "text": "When the unit is destroyed, once per battle, when the unit is destroyed:\n  -> Roll one D6: on a 2+, return 1 destroyed model to this model with 3 wounds."
     }
   },
   {
@@ -2445,8 +2468,11 @@
       "range": "self",
       "duration": "permanent"
     },
+    "trigger": {
+      "event": "start-of-phase"
+    },
     "expected": {
-      "text": "Add 1 to this model's Attacks characteristic (melee).\nAdd 1 to this model's Strength characteristic (melee).\nAdd 1 to this model's Damage characteristic (melee).\nYou gain 1 Blood Tithe Pool."
+      "text": "At the start of the phase:\nAdd 1 to this model's Attacks characteristic (melee).\nAdd 1 to this model's Strength characteristic (melee).\nAdd 1 to this model's Damage characteristic (melee).\nYou gain 1 Blood Tithe Pool."
     }
   },
   {
@@ -2502,8 +2528,13 @@
       "range": "unit",
       "duration": "phase"
     },
+    "trigger": {
+      "event": "on-unit-selected",
+      "subject": "friendly-unit",
+      "optional": true
+    },
     "expected": {
-      "text": "Until the end of the phase, the unit has the Feel No Pain 4+ ability."
+      "text": "When the unit is selected, until the end of the phase, the unit has the Feel No Pain 4+ ability."
     }
   },
   {
@@ -2662,8 +2693,11 @@
       "range": "any-on-battlefield",
       "duration": "battle-round"
     },
+    "trigger": {
+      "event": "start-of-phase"
+    },
     "expected": {
-      "text": "At the start of the phase, until the end of the battle round:\n  -> Roll 8D6 (max 2 activations):\n    - Unbridled Bloodlust: need pair of 1+ -> all friendly units get +1 to Charge rolls\n    - Rage-Fuelled Invigoration: need pair of 2+ -> all friendly units can Consolidate up to 6\"\n    - Total Carnage: need pair of 3+ -> when destroyed by a melee attack, if not has fought this phase, roll one D6: on a 4+, each time this model is destroyed, it can fight before being removed from play\n    - Martial Excellence: need pair of 4+ -> all friendly units' melee weapons gain [SUSTAINED HITS 1]\n    - Warp Blades: need pair of 5+ -> all friendly units' melee weapons gain [LETHAL HITS]\n    - Decapitating Strikes: need triple of 6+ -> against Infantry targets, while making melee attacks, all friendly units' weapons gain [DEVASTATING WOUNDS]"
+      "text": "At the start of the phase, at the start of the phase, until the end of the battle round:\n  -> Roll 8D6 (max 2 activations):\n    - Unbridled Bloodlust: need pair of 1+ -> all friendly units get +1 to Charge rolls\n    - Rage-Fuelled Invigoration: need pair of 2+ -> all friendly units can Consolidate up to 6\"\n    - Total Carnage: need pair of 3+ -> when destroyed by a melee attack, if not has fought this phase, roll one D6: on a 4+, each time this model is destroyed, it can fight before being removed from play\n    - Martial Excellence: need pair of 4+ -> all friendly units' melee weapons gain [SUSTAINED HITS 1]\n    - Warp Blades: need pair of 5+ -> all friendly units' melee weapons gain [LETHAL HITS]\n    - Decapitating Strikes: need triple of 6+ -> against Infantry targets, while making melee attacks, all friendly units' weapons gain [DEVASTATING WOUNDS]"
     }
   },
   {
@@ -2755,8 +2789,11 @@
       "range": "self",
       "duration": "permanent"
     },
+    "trigger": {
+      "event": "start-of-phase"
+    },
     "expected": {
-      "text": "Modify this model's Save characteristic to 2.\nWhen the unit is destroyed, you gain 1 Blood Tithe Pool."
+      "text": "At the start of the phase:\nModify this model's Save characteristic to 2.\nWhen the unit is destroyed, you gain 1 Blood Tithe Pool."
     }
   },
   {
@@ -2789,8 +2826,12 @@
       "range": "any-on-battlefield",
       "duration": "battle"
     },
+    "trigger": {
+      "event": "on-unit-destroyed",
+      "subject": "any-unit"
+    },
     "expected": {
-      "text": "When the unit is destroyed, for the rest of the battle:\n  -> Roll one D6: on a 3+, you gain 1 Blood Tithe Pool."
+      "text": "When the unit is destroyed, when the unit is destroyed, for the rest of the battle:\n  -> Roll one D6: on a 3+, you gain 1 Blood Tithe Pool."
     }
   },
   {
@@ -2816,8 +2857,11 @@
       "range": "engagement-range",
       "duration": "phase"
     },
+    "trigger": {
+      "event": "start-of-phase"
+    },
     "expected": {
-      "text": "At the start of the phase, until the end of the phase, modify enemy units nearby's Leadership characteristic."
+      "text": "At the start of the phase, at the start of the phase, until the end of the phase, modify enemy units nearby's Leadership characteristic."
     }
   },
   {
@@ -3607,8 +3651,13 @@
       "range": "unit",
       "duration": "phase"
     },
+    "trigger": {
+      "event": "on-unit-selected",
+      "subject": "friendly-unit",
+      "optional": true
+    },
     "expected": {
-      "text": "While making melee attacks, until the end of the phase, add 2 to the unit's Strength characteristic (melee)."
+      "text": "When the unit is selected, while making melee attacks, until the end of the phase, add 2 to the unit's Strength characteristic (melee)."
     }
   },
   {
@@ -3886,8 +3935,11 @@
       "range": "self",
       "duration": "turn"
     },
+    "trigger": {
+      "event": "before-hit-roll"
+    },
     "expected": {
-      "text": "If the unit charged this turn, until the end of the turn, this model's hellforged weapons gains [DEVASTATING WOUNDS]."
+      "text": "Before a Hit roll is made, if the unit charged this turn, until the end of the turn, this model's hellforged weapons gains [DEVASTATING WOUNDS]."
     }
   },
   {
@@ -3915,8 +3967,17 @@
       "range": "aura-12",
       "duration": "battle-round"
     },
+    "trigger": {
+      "event": "start-of-phase",
+      "subject": "friendly-unit",
+      "optional": true,
+      "proximity": {
+        "of": "self",
+        "range": 12
+      }
+    },
     "expected": {
-      "text": "If within 12\" of a friendly unit, until the end of the battle round, you can use one Stratagem on this model for 0CP."
+      "text": "At the start of the phase within 12\" of this model, if within 12\" of a friendly unit, until the end of the battle round, you can use one Stratagem on this model for 0CP."
     }
   },
   {
@@ -4765,8 +4826,12 @@
       "range": "unit",
       "duration": "phase"
     },
+    "trigger": {
+      "event": "on-unit-selected",
+      "optional": true
+    },
     "expected": {
-      "text": "Until the end of the phase:\nYou can re-roll a Hit roll of 1.\nIf within 6\" of friendly monster, you can re-roll a Wound roll of 1."
+      "text": "When the unit is selected, until the end of the phase:\nYou can re-roll a Hit roll of 1.\nIf within 6\" of friendly monster, you can re-roll a Wound roll of 1."
     }
   },
   {
@@ -5015,8 +5080,11 @@
       "range": "self",
       "duration": "permanent"
     },
+    "trigger": {
+      "event": "start-of-phase"
+    },
     "expected": {
-      "text": "This model's weapons gain [MOBILE].\nThis model gets +1 to Charge rolls."
+      "text": "At the start of the phase:\nThis model's weapons gain [MOBILE].\nThis model gets +1 to Charge rolls."
     }
   },
   {
@@ -5273,8 +5341,11 @@
       "range": "aura-6",
       "duration": "permanent"
     },
+    "trigger": {
+      "event": "start-of-phase"
+    },
     "expected": {
-      "text": "If within 6\" of a friendly unit, friendly units within 6\" gain the Blessings of Khorne ability."
+      "text": "At the start of the phase, if within 6\" of a friendly unit, friendly units within 6\" gain the Blessings of Khorne ability."
     }
   },
   {
@@ -6313,8 +6384,12 @@
       "range": "unit",
       "duration": "phase"
     },
+    "trigger": {
+      "event": "end-of-phase",
+      "subject": "self"
+    },
     "expected": {
-      "text": "During the Charge phase, at the end of the phase, in your turn, until the end of the phase, while this model leads a unit, if not an enemy unit is within engagement range, roll one 2D6: on a leadership+, nothing happens; otherwise, destroy 1 model in the unit."
+      "text": "At the end of the phase, during the Charge phase, at the end of the phase, in your turn, until the end of the phase, while this model leads a unit, if not an enemy unit is within engagement range, roll one 2D6: on a leadership+, nothing happens; otherwise, destroy 1 model in the unit."
     }
   },
   {

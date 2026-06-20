@@ -8,7 +8,7 @@ Python mirror of ``tools/src/data/dataset.ts``.
 
 from __future__ import annotations
 
-from typing import Any
+from typing import Any, TypedDict
 
 from wh40kdc.data.bundle import RawData, empty_raw_data, raw_data
 from wh40kdc.data.collection import Collection, id_collection
@@ -38,6 +38,22 @@ def _buff_source_from_eligible(entry: dict[str, Any]) -> dict[str, Any]:
     else:
         ability_kind = kind  # army / detachment / unit / support
     return {"kind": "ability", "abilityId": ability_id, "abilityKind": ability_kind}
+
+
+class ReactiveTrigger(TypedDict):
+    """One reactive ability resolved for event dispatch.
+
+    Names the ability's id, the game event its ``trigger`` fires on, the unit
+    ids that list the ability (sorted; empty for faction/detachment-rule
+    abilities no unit references directly), and the full ``trigger`` block.
+
+    Python mirror of TS ``ReactiveTrigger``.
+    """
+
+    ability_id: str
+    event: str
+    unit_ids: list[str]
+    trigger: dict[str, Any]
 
 
 class Dataset:
@@ -121,7 +137,6 @@ class Dataset:
         self.leader_attachments: list[dict[str, Any]] = raw["leader_attachments"]
         self.unit_compositions: list[dict[str, Any]] = raw["unit_compositions"]
         self.game_versions: list[dict[str, Any]] = raw["game_versions"]
-        self.timing_flags: list[dict[str, Any]] = raw["timing_flags"]
         self.interaction_flags: list[dict[str, Any]] = raw["interaction_flags"]
         self.phase_mappings: list[dict[str, Any]] = raw["phase_mappings"]
 
@@ -175,6 +190,42 @@ class Dataset:
     def units_with_ability(self, ability_id: str) -> list[UnitView]:
         """Units that list the given ability id."""
         return [UnitView(u, self) for u in self._units_by_ability.get(ability_id, [])]
+
+    def reactive_triggers(self) -> list[ReactiveTrigger]:
+        """Every ability carrying a reactive ``trigger``, sorted by ability id.
+
+        Each entry names the units that list the ability (sorted; empty for
+        faction/detachment-rule abilities no unit references directly). Mirror
+        of TS ``reactiveTriggers``.
+        """
+        out: list[ReactiveTrigger] = []
+        for a in self.abilities.all:
+            trigger = a.raw.get("trigger")
+            if not trigger:
+                continue
+            unit_ids = sorted(u["id"] for u in self._units_by_ability.get(a.id, []))
+            out.append(
+                ReactiveTrigger(
+                    ability_id=a.id,
+                    event=trigger["event"],
+                    unit_ids=unit_ids,
+                    trigger=trigger,
+                )
+            )
+        out.sort(key=lambda rt: rt["ability_id"])
+        return out
+
+    def trigger_index(self) -> dict[str, list[ReactiveTrigger]]:
+        """Dispatch index for event-driven consumers: event -> reactive triggers.
+
+        Keys are inserted in ascending event order and each bucket is sorted by
+        ability id (inherited from :meth:`reactive_triggers`), so the structure
+        is deterministic across runs. Mirror of TS ``triggerIndex``.
+        """
+        grouped: dict[str, list[ReactiveTrigger]] = {}
+        for rt in self.reactive_triggers():
+            grouped.setdefault(rt["event"], []).append(rt)
+        return {event: grouped[event] for event in sorted(grouped)}
 
     def units_with_weapon(self, weapon_id: str) -> list[UnitView]:
         """Units that list the given weapon id."""

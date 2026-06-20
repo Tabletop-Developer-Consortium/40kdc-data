@@ -460,6 +460,19 @@ def _handle_linked_query(state: RunnerState, args: Any) -> Response:
             )
         if query == "ally_units_for":
             return _ok([u.id for u in ds.ally_units_for(input_.get("ruleId") or "")])
+        if query == "reactive_trigger_ability_ids":
+            return _ok(sorted(rt["ability_id"] for rt in ds.reactive_triggers()))
+        if query == "events_with_triggers":
+            return _ok(sorted(ds.trigger_index().keys()))
+        if query == "triggers_for_event":
+            event = input_.get("event") or ""
+            return _ok(
+                sorted(
+                    rt["ability_id"]
+                    for rt in ds.reactive_triggers()
+                    if rt["event"] == event
+                )
+            )
         return _err("INVALID_INPUT", {"detail": f"unknown linked_query: {query}"})
     except Exception as e:
         return _err("INTERNAL_ERROR", {"detail": str(e)})

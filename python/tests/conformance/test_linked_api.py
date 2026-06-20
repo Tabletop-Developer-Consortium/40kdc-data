@@ -78,6 +78,13 @@ def run_linked_query(ds: Any, query: str, args: dict[str, Any]) -> Any:
         return [r["id"] for r in ds.allies_for(args["factionId"], args.get("detachmentIds") or [])]
     if query == "ally_units_for":
         return [u.id for u in ds.ally_units_for(args["ruleId"])]
+    if query == "reactive_trigger_ability_ids":
+        return sorted(rt["ability_id"] for rt in ds.reactive_triggers())
+    if query == "events_with_triggers":
+        return sorted(ds.trigger_index().keys())
+    if query == "triggers_for_event":
+        event = args.get("event") or ""
+        return sorted(rt["ability_id"] for rt in ds.reactive_triggers() if rt["event"] == event)
     raise AssertionError(f"unknown linked_query: {query}")
 
 

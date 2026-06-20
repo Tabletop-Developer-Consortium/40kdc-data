@@ -64,7 +64,7 @@
     },
     "game-event": {
       "type": "string",
-      "description": "The single canonical 'when' vocabulary, shared by the reactive `trigger.event` (the dispatch key an event-driven consumer subscribes on) and the `timing-is` condition. Supersedes the (deprecated) timing-flag entity's step-level vocabulary, adding movement/lifecycle/targeting events. Grouped: phase/turn structure, setup/reserves, movement, combat dice steps, attack lifecycle, destruction, and tests.",
+      "description": "The single canonical 'when' vocabulary, shared by the reactive `trigger.event` (the dispatch key an event-driven consumer subscribes on) and the `timing-is` condition. Supersedes the former timing-flag entity's step-level vocabulary, adding movement/lifecycle/targeting events. Grouped: phase/turn structure, setup/reserves, movement, combat dice steps, attack lifecycle, destruction, and tests.",
       "enum": [
         "start-of-phase", "end-of-phase", "start-of-turn", "end-of-turn",
         "start-of-opponent-turn", "end-of-opponent-turn", "start-of-battle-round", "start-of-command-phase",

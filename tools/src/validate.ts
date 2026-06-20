@@ -49,7 +49,6 @@ const SCHEMA_MAP: Record<string, string> = {
   "terrain-layouts": "https://40kdc.dev/schemas/core/terrain-layout.schema.json",
   "hull-shapes": "https://40kdc.dev/schemas/core/hull-shape.schema.json",
   "phase-mappings": "https://40kdc.dev/schemas/enrichment/phase-mapping.schema.json",
-  "timing-flags": "https://40kdc.dev/schemas/enrichment/timing-flag.schema.json",
   "interaction-flags": "https://40kdc.dev/schemas/enrichment/interaction-flag.schema.json",
   abilities: "https://40kdc.dev/schemas/enrichment/ability-dsl/ability.schema.json",
   "resource-pools": "https://40kdc.dev/schemas/enrichment/resource-pool.schema.json",

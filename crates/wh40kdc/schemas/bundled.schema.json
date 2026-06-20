@@ -91,7 +91,7 @@
     },
     "game-event": {
       "type": "string",
-      "description": "The single canonical 'when' vocabulary, shared by the reactive `trigger.event` (the dispatch key an event-driven consumer subscribes on) and the `timing-is` condition. Supersedes the (deprecated) timing-flag entity's step-level vocabulary, adding movement/lifecycle/targeting events. Grouped: phase/turn structure, setup/reserves, movement, combat dice steps, attack lifecycle, destruction, and tests.",
+      "description": "The single canonical 'when' vocabulary, shared by the reactive `trigger.event` (the dispatch key an event-driven consumer subscribes on) and the `timing-is` condition. Supersedes the former timing-flag entity's step-level vocabulary, adding movement/lifecycle/targeting events. Grouped: phase/turn structure, setup/reserves, movement, combat dice steps, attack lifecycle, destruction, and tests.",
       "enum": [
         "start-of-phase",
         "end-of-phase",
@@ -4016,56 +4016,6 @@
         "game_version"
       ],
       "additionalProperties": false
-    },
-    "timing-flag": {
-      "title": "Timing Flag",
-      "type": "object",
-      "properties": {
-        "source_id": {
-          "$ref": "#/$defs/entity-id"
-        },
-        "source_type": {
-          "$ref": "#/$defs/source-type"
-        },
-        "timing": {
-          "type": "string",
-          "enum": [
-            "start-of-phase",
-            "end-of-phase",
-            "before-hit-roll",
-            "after-hit-roll",
-            "before-wound-roll",
-            "after-wound-roll",
-            "before-save-roll",
-            "after-save-roll",
-            "before-damage-roll",
-            "after-damage-roll",
-            "before-charge-roll",
-            "after-charge-roll",
-            "before-advance-roll",
-            "after-advance-roll",
-            "before-battle-shock",
-            "after-battle-shock",
-            "on-unit-selected",
-            "on-unit-destroyed",
-            "on-model-destroyed",
-            "on-damage-allocated",
-            "before-this-model-removed"
-          ]
-        },
-        "game_version": {
-          "$ref": "#/$defs/game-version-ref"
-        },
-        "authored_by": {
-          "$ref": "#/$defs/contributor-ref"
-        }
-      },
-      "required": [
-        "source_id",
-        "source_type",
-        "timing",
-        "game_version"
-      ]
     }
   }
 }

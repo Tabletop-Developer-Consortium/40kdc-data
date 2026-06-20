@@ -875,36 +875,6 @@ class PhaseMapping(TypedDict):
     authored_by: NotRequired[ContributorRef]
 
 
-class TimingFlag(TypedDict):
-    source_id: EntityId
-    source_type: SourceType
-    timing: Literal[
-        "start-of-phase",
-        "end-of-phase",
-        "before-hit-roll",
-        "after-hit-roll",
-        "before-wound-roll",
-        "after-wound-roll",
-        "before-save-roll",
-        "after-save-roll",
-        "before-damage-roll",
-        "after-damage-roll",
-        "before-charge-roll",
-        "after-charge-roll",
-        "before-advance-roll",
-        "after-advance-roll",
-        "before-battle-shock",
-        "after-battle-shock",
-        "on-unit-selected",
-        "on-unit-destroyed",
-        "on-model-destroyed",
-        "on-damage-allocated",
-        "before-this-model-removed",
-    ]
-    game_version: GameVersionRef
-    authored_by: NotRequired[ContributorRef]
-
-
 class Action(TypedDict):
     action_id: NotRequired[str]
     starts: NotRequired[Phase]

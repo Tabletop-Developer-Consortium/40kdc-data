@@ -2242,5 +2242,51 @@
     "is_legend": false,
     "points_provisional": false,
     "attachment_role": "leader"
+  },
+  {
+    "id": "intranzia-fraye",
+    "name": "Intranzia Fraye",
+    "faction_id": "adepta-sororitas",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Intranzia Fraye",
+        "M": 8,
+        "T": 7,
+        "W": 8,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 150
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Imperium",
+      "Character",
+      "Penitent",
+      "Epic Hero",
+      "Intranzia Fraye"
+    ],
+    "faction_keywords": [
+      "Adepta Sororitas"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_legend": false,
+    "points_provisional": false
   }
 ]

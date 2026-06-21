@@ -11470,5 +11470,107 @@
     },
     "is_legend": false,
     "points_provisional": true
+  },
+  {
+    "id": "eradicator-squad-with-heavy-bolters",
+    "name": "Eradicator Squad with Heavy Bolters",
+    "faction_id": "adeptus-astartes",
+    "profiles": [
+      {
+        "name": "Eradicator",
+        "M": 5,
+        "T": 6,
+        "W": 3,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 3,
+        "cost": 70,
+        "unit_count_min": 1,
+        "unit_count_max": 2
+      },
+      {
+        "models": 3,
+        "cost": 80,
+        "unit_count_min": 3,
+        "unit_count_max": null
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Imperium",
+      "Gravis",
+      "Eradicator Squad",
+      "Eradicator Squad with Heavy Bolters"
+    ],
+    "faction_keywords": [
+      "Adeptus Astartes"
+    ],
+    "model_count": {
+      "min": 3,
+      "max": 3
+    },
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_legend": false,
+    "points_provisional": false
+  },
+  {
+    "id": "land-speeder",
+    "name": "Land Speeder",
+    "faction_id": "adeptus-astartes",
+    "profiles": [
+      {
+        "name": "Land Speeder",
+        "M": 14,
+        "T": 8,
+        "W": 9,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 95,
+        "unit_count_min": 1,
+        "unit_count_max": 2
+      },
+      {
+        "models": 1,
+        "cost": 105,
+        "unit_count_min": 3,
+        "unit_count_max": null
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Fly",
+      "Imperium",
+      "Land Speeder",
+      "Frame"
+    ],
+    "faction_keywords": [
+      "Adeptus Astartes"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_legend": false,
+    "points_provisional": false
   }
 ]

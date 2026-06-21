@@ -2174,5 +2174,59 @@
         "host_faction": "imperium"
       }
     ]
+  },
+  {
+    "id": "inquisitor-kroyle",
+    "name": "Inquisitor Kroyle",
+    "faction_id": "agents-of-the-imperium",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Inquisitor Kroyle",
+        "M": 12,
+        "T": 4,
+        "W": 6,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 100
+      }
+    ],
+    "allied_points": [
+      {
+        "models": 1,
+        "cost": 100,
+        "host_faction": "imperium"
+      }
+    ],
+    "keywords": [
+      "Mounted",
+      "Character",
+      "Epic Hero",
+      "Imperium",
+      "Grenades",
+      "Ordo Xenos",
+      "Inquisitor",
+      "Kroyle"
+    ],
+    "faction_keywords": [
+      "Agents of the Imperium"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_legend": false,
+    "points_provisional": false
   }
 ]

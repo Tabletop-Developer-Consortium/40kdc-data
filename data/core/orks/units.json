@@ -3510,5 +3510,225 @@
     "is_legend": false,
     "points_provisional": false,
     "attachment_role": "leader"
+  },
+  {
+    "id": "bannernob",
+    "name": "Bannernob",
+    "faction_id": "orks",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Bannernob",
+        "M": 6,
+        "T": 5,
+        "W": 4,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 6
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 50
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Bannernob"
+    ],
+    "faction_keywords": [
+      "Orks"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_legend": false,
+    "points_provisional": false
+  },
+  {
+    "id": "big-mek-dakkarig",
+    "name": "Big Mek Dakkarig",
+    "faction_id": "orks",
+    "profiles": [
+      {
+        "name": "Big Mek Dakkarig",
+        "M": 8,
+        "T": 8,
+        "W": 11,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 100,
+        "unit_count_min": 1,
+        "unit_count_max": 2
+      },
+      {
+        "models": 1,
+        "cost": 110,
+        "unit_count_min": 3,
+        "unit_count_max": null
+      }
+    ],
+    "keywords": [
+      "Walker",
+      "Big Mek",
+      "Dakkarig"
+    ],
+    "faction_keywords": [
+      "Orks"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_legend": false,
+    "points_provisional": false
+  },
+  {
+    "id": "bigboss",
+    "name": "Bigboss",
+    "faction_id": "orks",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Bigboss",
+        "M": 6,
+        "T": 5,
+        "W": 5,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 55
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Bigboss"
+    ],
+    "faction_keywords": [
+      "Orks"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_legend": false,
+    "points_provisional": false
+  },
+  {
+    "id": "wartrakk",
+    "name": "Wartrakk",
+    "faction_id": "orks",
+    "profiles": [
+      {
+        "name": "Wartrakk",
+        "M": 12,
+        "T": 6,
+        "W": 7,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 60
+      }
+    ],
+    "keywords": [
+      "Mounted",
+      "Speed Freeks",
+      "Wartrakk"
+    ],
+    "faction_keywords": [
+      "Orks"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_legend": false,
+    "points_provisional": false
+  },
+  {
+    "id": "wazdakka-gutsmek",
+    "name": "Wazdakka Gutsmek",
+    "faction_id": "orks",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Wazdakka Gutsmek",
+        "M": 14,
+        "T": 8,
+        "W": 10,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 175
+      }
+    ],
+    "keywords": [
+      "Mounted",
+      "Vehicle",
+      "Speed Freeks",
+      "Epic Hero",
+      "Smoke",
+      "Character",
+      "Wazdakka Gutsmek"
+    ],
+    "faction_keywords": [
+      "Orks"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_legend": false,
+    "points_provisional": false
   }
 ]

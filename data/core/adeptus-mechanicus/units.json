@@ -2104,5 +2104,153 @@
         "per_models": 0
       }
     ]
+  },
+  {
+    "id": "hastarii-exterminators",
+    "name": "Hastarii Exterminators",
+    "faction_id": "adeptus-mechanicus",
+    "profiles": [
+      {
+        "name": "Hastarii Exterminator",
+        "M": 5,
+        "T": 4,
+        "W": 2,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 115,
+        "unit_count_min": 1,
+        "unit_count_max": 2
+      },
+      {
+        "models": 5,
+        "cost": 130,
+        "unit_count_min": 3,
+        "unit_count_max": null
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Imperium",
+      "Skitarii",
+      "Hastarii",
+      "Exterminators"
+    ],
+    "faction_keywords": [
+      "Adeptus Mechanicus"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 5
+    },
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_legend": false,
+    "points_provisional": false
+  },
+  {
+    "id": "hastarii-fusiliers",
+    "name": "Hastarii Fusiliers",
+    "faction_id": "adeptus-mechanicus",
+    "profiles": [
+      {
+        "name": "Hastarii Fusilier",
+        "M": 5,
+        "T": 4,
+        "W": 2,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 5,
+        "cost": 115,
+        "unit_count_min": 1,
+        "unit_count_max": 2
+      },
+      {
+        "models": 5,
+        "cost": 130,
+        "unit_count_min": 3,
+        "unit_count_max": null
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Imperium",
+      "Skitarii",
+      "Hastarii",
+      "Fusiliers"
+    ],
+    "faction_keywords": [
+      "Adeptus Mechanicus"
+    ],
+    "model_count": {
+      "min": 5,
+      "max": 5
+    },
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_legend": false,
+    "points_provisional": false
+  },
+  {
+    "id": "thulia-ghuld",
+    "name": "Thulia Ghuld",
+    "faction_id": "adeptus-mechanicus",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Thulia Ghuld",
+        "M": 8,
+        "T": 8,
+        "W": 10,
+        "Sv": 2,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 3
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 180
+      }
+    ],
+    "keywords": [
+      "Monster",
+      "Character",
+      "Epic Hero",
+      "Imperium",
+      "Cult Mechanicus",
+      "Tech-Priest",
+      "Thulia Ghuld"
+    ],
+    "faction_keywords": [
+      "Adeptus Mechanicus"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_legend": false,
+    "points_provisional": false
   }
 ]

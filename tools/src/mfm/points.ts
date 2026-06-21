@@ -40,13 +40,13 @@ import type { StagedWrite } from "./apply.js";
 const CORE_DIR = path.join(REPO_ROOT, "data", "core");
 const CONFIRMED = { edition: "11th", dataslate: "launch" };
 
-interface Tier {
+export interface Tier {
   models: number;
   cost: number;
   unit_count_min?: number;
   unit_count_max?: number | null;
 }
-interface AlliedTier extends Tier {
+export interface AlliedTier extends Tier {
   host_faction: string;
 }
 interface UnitRecord {
@@ -154,7 +154,7 @@ export function deriveDatasheet(dump: MfmDump, datasheetId: string): Derived {
 }
 
 /** Strip band keys when absent, to keep the simple case clean (mirrors MFM applyUnit). */
-function cleanTier<T extends Tier>(t: T): T {
+export function cleanTier<T extends Tier>(t: T): T {
   if (t.unit_count_min === undefined) {
     const { unit_count_min, unit_count_max, ...rest } = t;
     return rest as T;

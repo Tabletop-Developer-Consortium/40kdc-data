@@ -1503,5 +1503,60 @@
     },
     "is_legend": false,
     "points_provisional": false
+  },
+  {
+    "id": "knight-destrier",
+    "name": "Knight Destrier",
+    "faction_id": "imperial-knights",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Knight Destrier",
+        "M": 12,
+        "T": 10,
+        "W": 18,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 8
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 265,
+        "unit_count_min": 1,
+        "unit_count_max": 2
+      },
+      {
+        "models": 1,
+        "cost": 280,
+        "unit_count_min": 3,
+        "unit_count_max": null
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Walker",
+      "Titanic",
+      "Towering",
+      "Bellatus",
+      "Character",
+      "Imperium",
+      "Knight Destrier"
+    ],
+    "faction_keywords": [
+      "Imperial Knights"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_legend": false,
+    "points_provisional": false
   }
 ]

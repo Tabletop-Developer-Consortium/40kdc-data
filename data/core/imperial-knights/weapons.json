@@ -2185,5 +2185,146 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     }
+  },
+  {
+    "id": "chastiser-gatling-cannon",
+    "name": "Chastiser gatling cannon",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Chastiser gatling cannon",
+        "range": 24,
+        "stats": {
+          "A": 12,
+          "S": 6,
+          "AP": -1,
+          "D": 2,
+          "BS": 3
+        },
+        "keywords": [
+          {
+            "keyword_id": "assault"
+          }
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "pre-launch-provisional"
+    }
+  },
+  {
+    "id": "frag-bombard",
+    "name": "Frag bombard",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Frag bombard",
+        "range": 24,
+        "stats": {
+          "A": "D6+3",
+          "S": 7,
+          "AP": -1,
+          "D": 2,
+          "BS": 3
+        },
+        "keywords": [
+          {
+            "keyword_id": "rapid-fire",
+            "parameters": {
+              "value": "D6+3"
+            }
+          },
+          {
+            "keyword_id": "blast"
+          },
+          {
+            "keyword_id": "assault"
+          }
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "pre-launch-provisional"
+    }
+  },
+  {
+    "id": "bellatus-reaper-chainsword",
+    "name": "Bellatus reaper chainsword",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Sweep",
+        "range": "Melee",
+        "stats": {
+          "A": 10,
+          "S": 8,
+          "AP": -2,
+          "D": 2,
+          "WS": 3
+        },
+        "keywords": []
+      },
+      {
+        "name": "Strike",
+        "range": "Melee",
+        "stats": {
+          "A": 5,
+          "S": 12,
+          "AP": -3,
+          "D": "D3+3",
+          "WS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "pre-launch-provisional"
+    }
+  },
+  {
+    "id": "thundershock-spear",
+    "name": "Thundershock spear",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Sweep",
+        "range": "Melee",
+        "stats": {
+          "A": 8,
+          "S": 6,
+          "AP": -3,
+          "D": 2,
+          "WS": 3
+        },
+        "keywords": [
+          {
+            "keyword_id": "lance"
+          }
+        ]
+      },
+      {
+        "name": "Strike",
+        "range": "Melee",
+        "stats": {
+          "A": 4,
+          "S": 12,
+          "AP": -3,
+          "D": "D3+3",
+          "WS": 3
+        },
+        "keywords": [
+          {
+            "keyword_id": "lance"
+          }
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "pre-launch-provisional"
+    }
   }
 ]

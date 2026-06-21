@@ -22,7 +22,7 @@ abilities that translate into cruncher buffs via the real `effectToBuffs`
 | emperors-children | 87 | 21 | 3 | 64 | 11 | 16 | 0 | 1 |
 | genestealer-cults | 88 | 13 | 6 | 71 | 27 | 9 | 0 | 1 |
 | grey-knights | 61 | 14 | 5 | 43 | 10 | 12 | 0 | 1 |
-| imperial-knights | 73 | 29 | 7 | 40 | 7 | 11 | 0 | 1 |
+| imperial-knights | 76 | 30 | 7 | 42 | 7 | 11 | 0 | 1 |
 | leagues-of-votann | 76 | 13 | 7 | 58 | 22 | 7 | 0 | 1 |
 | necrons | 157 | 24 | 23 | 118 | 30 | 15 | 0 | 1 |
 | orks | 152 | 29 | 13 | 115 | 26 | 15 | 0 | 3 |
@@ -30,7 +30,7 @@ abilities that translate into cruncher buffs via the real `effectToBuffs`
 | thousand-sons | 130 | 30 | 9 | 96 | 27 | 22 | 0 | 2 |
 | tyranids | 111 | 19 | 7 | 88 | 22 | 14 | 0 | 6 |
 | world-eaters | 129 | 20 | 7 | 102 | 0 | 0 | 0 | 0 |
-| **TOTAL** | **3083** | **705** | **257** | **2208** | **398** | **316** | **0** | **59** |
+| **TOTAL** | **3086** | **706** | **257** | **2210** | **398** | **316** | **0** | **59** |
 
 `stub*` = structural (empty-modifier placeholder node) — the authoring worklist. `notes-stub` = flagged in community_notes.
 
@@ -102,6 +102,8 @@ abilities that translate into cruncher buffs via the real `effectToBuffs`
 - `1` — conditional: cannot evaluate condition "has-fought-this-phase" against current context
 - `1` — conditional: cannot evaluate condition "units-destroyed" against current context
 - `1` — re-roll on "weapon-attacks" (subset …) is outside the damage path
+- `1` — stat-modifier: operation "add" not supported
+- `1` — conditional: cannot evaluate condition "within-range-of-objective" against current context
 - `1` — stat-modifier: operation "multiply" not supported
 - `1` — conditional: cannot evaluate condition "engagement-state" against current context
 - `1` — effect type "unit-keyword-grant" is not modelled by the buff layer

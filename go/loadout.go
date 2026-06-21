@@ -249,12 +249,36 @@ func maximalLoadout(unit map[string]any, modelCount int, options []any, models [
 			counts[id] += cap
 		}
 	}
+	clampFlatBudgets(unit, counts)
 	for id, n := range counts {
 		if n == 0 {
 			delete(counts, id)
 		}
 	}
 	return counts
+}
+
+// clampFlatBudgets caps each weapon's count by any single-weapon flat
+// wargear_budgets entry (a "this model takes at most N of weapon X" line,
+// modelled as items of length 1 with per_models == 0). A weapon reachable
+// through several swap slots — e.g. a Knight Destrier whose chastiser gatling
+// cannon AND frag bombard can each be swapped for a bellatus reaper chainsword —
+// would otherwise sum to an illegal count; clamping here makes maximalLoadout/
+// weaponBounds agree with the same invalid-loadout prevention the editor
+// enforces. Shared (multi-item) and ratio (per_models > 0) budgets stay policed
+// by budgetViolations.
+func clampFlatBudgets(unit map[string]any, counts map[string]int) {
+	for _, bAny := range getList(unit, "wargear_budgets") {
+		budget, _ := asMap(bAny)
+		items := getStrList(budget, "items")
+		if len(items) != 1 || asInt(budget["per_models"]) != 0 {
+			continue
+		}
+		capN := asInt(budget["count"])
+		if cur, ok := counts[items[0]]; ok && cur > capN {
+			counts[items[0]] = capN
+		}
+	}
 }
 
 type intRange struct{ min, max int }
@@ -283,6 +307,20 @@ func weaponBounds(unit map[string]any, modelCount int, options []any, models []a
 		for id := range adds {
 			b := bounds[id]
 			bounds[id] = intRange{b.min, b.max + cap}
+		}
+	}
+	// A single-weapon flat budget caps the weapon's ceiling regardless of how
+	// many swap slots can add it (see clampFlatBudgets), so an editor/salvo input
+	// clamped against these bounds can never reach an over-cap, illegal count.
+	for _, bAny := range getList(unit, "wargear_budgets") {
+		budget, _ := asMap(bAny)
+		items := getStrList(budget, "items")
+		if len(items) != 1 || asInt(budget["per_models"]) != 0 {
+			continue
+		}
+		capN := asInt(budget["count"])
+		if b, ok := bounds[items[0]]; ok && b.max > capN {
+			bounds[items[0]] = intRange{minInt(b.min, capN), capN}
 		}
 	}
 	return bounds

@@ -30,3 +30,25 @@ func TestValidateLoadoutSwapConflict(t *testing.T) {
 		t.Fatalf("swapping to the havoc launcher should be legal, got %v", got)
 	}
 }
+
+// A 1-model unit with two slots that can each add "sword" (cf. the Knight
+// Destrier): without the single-weapon flat-budget clamp the weapon sums to 2.
+// The "max one" rule is modelled as a single-item per-unit budget, and
+// maximalLoadout/weaponBounds must honour it. Mirror of the TS/Rust/Python tests.
+func TestSingleWeaponFlatBudgetCaps(t *testing.T) {
+	unit := map[string]any{
+		"weapon_ids":      []any{"gun-a", "gun-b"},
+		"wargear_budgets": []any{map[string]any{"items": []any{"sword"}, "count": float64(1), "per_models": float64(0)}},
+	}
+	opts := []any{
+		map[string]any{"replaces": []any{"gun-a"}, "replacement": []any{"sword"}, "model_constraint": map[string]any{"any_number": true}},
+		map[string]any{"replaces": []any{"gun-b"}, "replacement": []any{"sword"}, "model_constraint": map[string]any{"any_number": true}},
+	}
+
+	if b := weaponBounds(unit, 1, opts, nil)["sword"]; b.min != 0 || b.max != 1 {
+		t.Fatalf("expected sword bound {0,1}, got {%d,%d}", b.min, b.max)
+	}
+	if got := maximalLoadout(unit, 1, opts, nil)["sword"]; got != 1 {
+		t.Fatalf("expected maximal sword count 1, got %d", got)
+	}
+}

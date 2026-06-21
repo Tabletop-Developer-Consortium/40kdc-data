@@ -665,5 +665,53 @@
     "model_constraint": {
       "any_number": true
     }
+  },
+  {
+    "id": "knight-destrier-wgo-1",
+    "unit_id": "knight-destrier",
+    "faction_id": "imperial-knights",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_free": true,
+    "replaces": [
+      "chastiser-gatling-cannon"
+    ],
+    "replacement_choice": [
+      [
+        "bellatus-reaper-chainsword"
+      ],
+      [
+        "thundershock-spear"
+      ]
+    ],
+    "model_constraint": {
+      "any_number": true
+    }
+  },
+  {
+    "id": "knight-destrier-wgo-2",
+    "unit_id": "knight-destrier",
+    "faction_id": "imperial-knights",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_free": true,
+    "replaces": [
+      "frag-bombard"
+    ],
+    "replacement_choice": [
+      [
+        "bellatus-reaper-chainsword"
+      ],
+      [
+        "thundershock-spear"
+      ]
+    ],
+    "model_constraint": {
+      "any_number": true
+    }
   }
 ]

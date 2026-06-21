@@ -178,10 +178,10 @@
     },
     {
       "faction": "imperial-knights",
-      "total": 73,
-      "offensive": 29,
+      "total": 76,
+      "offensive": 30,
       "defensive": 7,
-      "inert": 40,
+      "inert": 42,
       "stub": 11,
       "stubStructural": 7,
       "gwTextLeak": 0,
@@ -266,10 +266,10 @@
     }
   ],
   "totals": {
-    "total": 3083,
-    "offensive": 705,
+    "total": 3086,
+    "offensive": 706,
     "defensive": 257,
-    "inert": 2208,
+    "inert": 2210,
     "stub": 316,
     "stubStructural": 398,
     "gwTextLeak": 0,
@@ -538,6 +538,14 @@
     },
     {
       "reason": "re-roll on \"weapon-attacks\" (subset …) is outside the damage path",
+      "count": 1
+    },
+    {
+      "reason": "stat-modifier: operation \"add\" not supported",
+      "count": 1
+    },
+    {
+      "reason": "conditional: cannot evaluate condition \"within-range-of-objective\" against current context",
       "count": 1
     },
     {
@@ -22563,6 +22571,36 @@
       "offensive": false,
       "defensive": false,
       "gap": "stat-modifier: operation \"undefined\" not supported"
+    },
+    {
+      "faction": "imperial-knights",
+      "ability_id": "ram-jets",
+      "name": "Ram Jets",
+      "shape": "stat-modifier",
+      "stub": false,
+      "offensive": false,
+      "defensive": false,
+      "gap": "stat-modifier: operation \"add\" not supported"
+    },
+    {
+      "faction": "imperial-knights",
+      "ability_id": "thundercharge",
+      "name": "Thundercharge",
+      "shape": "stat-modifier",
+      "stub": false,
+      "offensive": true,
+      "defensive": false,
+      "gap": null
+    },
+    {
+      "faction": "imperial-knights",
+      "ability_id": "saturation-fire",
+      "name": "Saturation Fire",
+      "shape": "conditional",
+      "stub": false,
+      "offensive": false,
+      "defensive": false,
+      "gap": "conditional: cannot evaluate condition \"within-range-of-objective\" against current context"
     },
     {
       "faction": "leagues-of-votann",

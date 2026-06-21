@@ -316,8 +316,31 @@ pub fn maximal_loadout(
             *counts.entry(id.to_string()).or_insert(0) += cap;
         }
     }
+    clamp_flat_budgets(unit, &mut counts);
     counts.retain(|_, n| *n != 0);
     Loadout { counts }
+}
+
+/// Cap each weapon's count by any single-weapon flat `wargear_budgets` entry (a
+/// "this model takes at most N of weapon X" line, modelled as `items` of length 1
+/// with `per_models == 0`). A weapon reachable through several swap slots — e.g. a
+/// Knight Destrier whose chastiser gatling cannon AND frag bombard can each be
+/// swapped for a bellatus reaper chainsword — would otherwise sum to an illegal
+/// count; clamping here makes [`maximal_loadout`]/[`weapon_bounds`] agree with the
+/// same invalid-loadout prevention the editor enforces. Shared (multi-item) and
+/// ratio (`per_models > 0`) budgets stay policed by [`validate_loadout`].
+fn clamp_flat_budgets(unit: &Unit, counts: &mut BTreeMap<String, i64>) {
+    for budget in &unit.wargear_budgets {
+        if budget.items.len() != 1 || budget.per_models != 0 {
+            continue;
+        }
+        let cap = budget.count.get() as i64;
+        if let Some(cur) = counts.get_mut(&budget.items[0].to_string()) {
+            if *cur > cap {
+                *cur = cap;
+            }
+        }
+    }
 }
 
 /// Inclusive valid count range for each weapon/wargear id, used to clamp a UI's
@@ -353,6 +376,21 @@ pub fn weapon_bounds(
         for id in adds {
             let b = bounds.entry(id).or_insert(WeaponBound { min: 0, max: 0 });
             b.max += cap;
+        }
+    }
+    // A single-weapon flat budget caps the weapon's ceiling regardless of how many
+    // swap slots can add it (see `clamp_flat_budgets`), so an editor/salvo input
+    // clamped against these bounds can never reach an over-cap, illegal count.
+    for budget in &unit.wargear_budgets {
+        if budget.items.len() != 1 || budget.per_models != 0 {
+            continue;
+        }
+        let cap = budget.count.get();
+        if let Some(b) = bounds.get_mut(&budget.items[0].to_string()) {
+            if b.max > cap {
+                b.max = cap;
+                b.min = b.min.min(cap);
+            }
         }
     }
     bounds
@@ -789,5 +827,37 @@ mod tests {
         let mut swap = HashMap::new();
         swap.insert("havoc-multi-launcher".to_string(), 1i64);
         assert!(validate_loadout(&unit, 1, &refs, &swap, None).is_empty());
+    }
+
+    #[test]
+    fn single_weapon_flat_budget_caps_bounds_and_maximal() {
+        // 1-model unit, two slots that can each add "sword" (cf. Knight Destrier).
+        // Without the flat-budget clamp the weapon sums to 2 across the slots.
+        let unit: crate::generated::Unit = serde_json::from_value(serde_json::json!({
+            "id": "syn-unit", "name": "Synthetic", "faction_id": "test",
+            "game_version": { "edition": "10th", "dataslate": "2025-q3" },
+            "is_legend": false, "points_provisional": false,
+            "weapon_ids": ["gun-a", "gun-b"], "ability_ids": [], "profiles": [],
+            "points": [], "allied_points": [],
+            "wargear_budgets": [{ "items": ["sword"], "count": 1, "per_models": 0 }],
+        }))
+        .expect("unit deserializes");
+        let gv = serde_json::json!({ "edition": "10th", "dataslate": "2025-q3" });
+        let opts = vec![
+            syn_opt(
+                serde_json::json!({ "id": "o1", "unit_id": "syn-unit", "game_version": gv,
+                "replaces": ["gun-a"], "replacement": ["sword"], "model_constraint": { "any_number": true } }),
+            ),
+            syn_opt(
+                serde_json::json!({ "id": "o2", "unit_id": "syn-unit", "game_version": gv,
+                "replaces": ["gun-b"], "replacement": ["sword"], "model_constraint": { "any_number": true } }),
+            ),
+        ];
+        let refs: Vec<&WargearOption> = opts.iter().collect();
+        let bounds = weapon_bounds(&unit, 1, &refs, None);
+        assert_eq!(bounds.get("sword"), Some(&WeaponBound { min: 0, max: 1 }));
+        let lo = maximal_loadout(&unit, 1, &refs, None);
+        assert_eq!(lo.counts.get("sword").copied().unwrap_or(0), 1);
+        assert_eq!(clamp_weapon_count(&bounds, "sword", 2), 1);
     }
 }

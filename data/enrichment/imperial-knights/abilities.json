@@ -2538,5 +2538,99 @@
       "duration": "permanent"
     },
     "community_notes": "[APPROX] DSL stub — detachment rule; mechanics pending authoring. Full rule in raw-text store."
+  },
+  {
+    "ability_id": "ram-jets",
+    "name": "Ram Jets",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "pre-launch-provisional"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "stat-modifier",
+      "target": "unit",
+      "modifier": {
+        "stat": "M",
+        "operation": "add",
+        "value": "D3"
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "phase"
+    },
+    "unit_ids": [
+      "knight-destrier"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive",
+    "community_notes": "Each time this model makes a Normal or Advance move, add D3\" to its Move characteristic for that move."
+  },
+  {
+    "ability_id": "thundercharge",
+    "name": "Thundercharge",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "pre-launch-provisional"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "stat-modifier",
+      "target": "unit",
+      "modifier": {
+        "stat": "A",
+        "operation": "add",
+        "value": 2
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "knight-destrier"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive",
+    "community_notes": "While this model is equipped with both a thundershock spear and a bellatus reaper chainsword, add 2 to the Attacks characteristic of its melee weapons."
+  },
+  {
+    "ability_id": "saturation-fire",
+    "name": "Saturation Fire",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "pre-launch-provisional"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "within-range-of-objective",
+        "parameters": {}
+      },
+      "effect": {
+        "type": "keyword-grant",
+        "target": "attacker",
+        "modifier": {
+          "keywords": [
+            "Ignores Cover"
+          ]
+        }
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "phase"
+    },
+    "unit_ids": [
+      "knight-destrier"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive",
+    "community_notes": "In the Shooting phase, each time this model makes a ranged attack that targets a unit within range of an objective marker, that attack has the [IGNORES COVER] ability."
   }
 ]

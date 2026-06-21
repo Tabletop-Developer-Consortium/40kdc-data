@@ -249,9 +249,30 @@ export function maximalLoadout(
       counts.set(id, (counts.get(id) ?? 0) + cap);
     }
   }
+  clampFlatBudgets(unit, counts);
   // Drop any id that nets to zero so the loadout reads cleanly.
   for (const [id, n] of counts) if (n === 0) counts.delete(id);
   return { counts };
+}
+
+/**
+ * Cap each weapon's count by any single-weapon flat {@link Unit.wargear_budgets}
+ * (a "this model takes at most N of weapon X" line, modelled as `items` of length
+ * 1 with `per_models === 0`). A weapon reachable through several swap slots — e.g.
+ * a Knight Destrier whose chastiser gatling cannon AND frag bombard can each be
+ * swapped for a bellatus reaper chainsword — would otherwise sum to an illegal
+ * count; clamping here makes {@link maximalLoadout}/{@link weaponBounds} agree with
+ * the same invalid-loadout prevention the editor enforces, so a count consumer
+ * (the salvo calculator) never seeds an over-cap value. Shared (multi-item) and
+ * ratio (`per_models > 0`) budgets stay policed by {@link budgetViolations}.
+ */
+function clampFlatBudgets(unit: Unit, counts: Map<string, number>): void {
+  for (const budget of unit.wargear_budgets ?? []) {
+    if (budget.items.length !== 1 || budget.per_models !== 0) continue;
+    const id = budget.items[0];
+    const cur = counts.get(id);
+    if (cur != null && cur > budget.count) counts.set(id, budget.count);
+  }
 }
 
 /**
@@ -284,6 +305,16 @@ export function weaponBounds(
     for (const id of adds) {
       const b = bounds.get(id) ?? { min: 0, max: 0 };
       bounds.set(id, { min: b.min, max: b.max + cap });
+    }
+  }
+  // A single-weapon flat budget caps the weapon's ceiling regardless of how many
+  // swap slots can add it (see {@link clampFlatBudgets}), so an editor/salvo input
+  // clamped against these bounds can never reach an over-cap, illegal count.
+  for (const budget of unit.wargear_budgets ?? []) {
+    if (budget.items.length !== 1 || budget.per_models !== 0) continue;
+    const b = bounds.get(budget.items[0]);
+    if (b && b.max > budget.count) {
+      bounds.set(budget.items[0], { min: Math.min(b.min, budget.count), max: budget.count });
     }
   }
   return bounds;

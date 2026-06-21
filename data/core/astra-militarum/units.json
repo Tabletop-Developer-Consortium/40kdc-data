@@ -4679,5 +4679,277 @@
     },
     "is_legend": false,
     "points_provisional": false
+  },
+  {
+    "id": "cadian-recon-squad",
+    "name": "Cadian Recon Squad",
+    "faction_id": "astra-militarum",
+    "profiles": [
+      {
+        "name": "Recon Trooper",
+        "M": 6,
+        "T": 3,
+        "W": 1,
+        "Sv": 5,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 10,
+        "cost": 80
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Grenades",
+      "Smoke",
+      "Imperium",
+      "Regiment",
+      "Cadian Recon Squad"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 10,
+      "max": 10
+    },
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_legend": false,
+    "points_provisional": false
+  },
+  {
+    "id": "centaur-rsv",
+    "name": "Centaur RSV",
+    "faction_id": "astra-militarum",
+    "role": "dedicated-transport",
+    "profiles": [
+      {
+        "name": "Centaur RSV",
+        "M": 12,
+        "T": 7,
+        "W": 10,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 75
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Imperium",
+      "Smoke",
+      "Squadron",
+      "Transport",
+      "Dedicated Transport",
+      "Centaur RSV"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_legend": false,
+    "points_provisional": false
+  },
+  {
+    "id": "commissar-graves",
+    "name": "Commissar Graves",
+    "faction_id": "astra-militarum",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Commissar Graves",
+        "M": 12,
+        "T": 8,
+        "W": 12,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 5
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 125
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Character",
+      "Squadron",
+      "Epic Hero",
+      "Imperium",
+      "Officer",
+      "Commissar Graves"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_legend": false,
+    "points_provisional": false
+  },
+  {
+    "id": "commissar-graves-on-foot",
+    "name": "Commissar Graves on Foot",
+    "faction_id": "astra-militarum",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Commissar Graves on Foot",
+        "M": 6,
+        "T": 3,
+        "W": 4,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 65
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Epic Hero",
+      "Imperium",
+      "Commissar Graves on Foot"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_legend": false,
+    "points_provisional": false
+  },
+  {
+    "id": "commissar-yarrick",
+    "name": "Commissar Yarrick",
+    "faction_id": "astra-militarum",
+    "role": "epic-hero",
+    "profiles": [
+      {
+        "name": "Commissar Yarrick",
+        "M": 6,
+        "T": 4,
+        "W": 5,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 1
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 130
+      }
+    ],
+    "keywords": [
+      "Infantry",
+      "Character",
+      "Epic Hero",
+      "Imperium",
+      "Officer",
+      "Commissar Yarrick"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_legend": false,
+    "points_provisional": false
+  },
+  {
+    "id": "hippogriff-afv",
+    "name": "Hippogriff AFV",
+    "faction_id": "astra-militarum",
+    "profiles": [
+      {
+        "name": "Hippogriff AFV",
+        "M": 12,
+        "T": 8,
+        "W": 7,
+        "Sv": 3,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 70
+      },
+      {
+        "models": 2,
+        "cost": 140
+      }
+    ],
+    "keywords": [
+      "Vehicle",
+      "Imperium",
+      "Smoke",
+      "Squadron",
+      "Hippogriff AFV"
+    ],
+    "faction_keywords": [
+      "Astra Militarum"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 2
+    },
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_legend": false,
+    "points_provisional": false
   }
 ]

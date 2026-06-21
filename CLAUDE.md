@@ -218,9 +218,15 @@ across implementations by the `conformance/share/` corpus.
   convert-faction as the upstream for mechanical data. Run
   `npx tsx tools/src/ingest-mfm.ts <subcommand>` (coverage / dispositions /
   enhancements / points / wargear / wargear-budgets / composition-names /
-  composition-tiers / attachment-role / stratagems / missions / cull-legends) — dry
+  composition-tiers / attachment-role / stratagems / missions / cull-legends /
+  seed-units) — dry
   run + `_reports/mfm-*.md` report by default, `--write` to apply, unmatched rows
-  to `_private/mfm/`. Both modes apply the same in-memory mutations and route the
+  to `_private/mfm/`. **`seed-units` is the only subcommand that CREATES new units**
+  (skeleton id/name/profiles/points/keywords/role/model_count) for dump datasheets
+  with no repo entity — every other subcommand only reconciles units that already
+  exist. It files shared-roster children (SM chapters) into their parent dir
+  (adeptus-astartes) and, by default, holds back Combat-Patrol-box datasheets
+  (`Combat Patrol: X` publications); pass `--include-combat-patrol` to seed those. Both modes apply the same in-memory mutations and route the
   projected file contents through `mfm/apply.ts` `applyWrites`, which validates
   the whole projected dataset (AJV + `integrity.ts`, the same checks as
   `npm run validate`) and **throws on any failure in either mode** — so a clean

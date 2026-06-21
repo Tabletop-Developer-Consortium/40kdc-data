@@ -43,6 +43,7 @@ export interface DatasheetRow extends DumpRow {
   publicationId: string;
   isLegends: boolean;
   maxModelCount: number | null;
+  displayOrder: number;
 }
 export interface DatasheetFactionKeywordRow {
   id: string;
@@ -114,7 +115,27 @@ export interface WargearOptionRow {
 }
 
 // ── wargear / loadout tables (phase 5) ──
-export interface MiniatureRow extends DumpRow {}
+// `miniature` also carries the model's stat line (as display strings) used by the
+// seed-units ingest. `statlineHidden` marks a model that shares a visible model's
+// statline (e.g. a sergeant on the trooper line) and so introduces no new profile.
+export interface MiniatureRow extends DumpRow {
+  datasheetId: string;
+  displayOrder: number;
+  statlineHidden: boolean;
+  isIndividualModels: boolean;
+  movement: string;
+  toughness: string;
+  save: string;
+  wounds: string;
+  leadership: string;
+  objectiveControl: string;
+}
+export interface MiniatureKeywordRow {
+  id: string;
+  displayOrder: number;
+  miniatureId: string;
+  keywordId: string;
+}
 export interface WargearItemRow extends DumpRow {
   wargearType: string; // "weapon" | "other" | ...
 }

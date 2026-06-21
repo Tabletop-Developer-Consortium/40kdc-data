@@ -41,5 +41,11 @@ func (s *RunnerState) handleTranslateEffect(args any) map[string]any {
 	if at, ok := getMap(a, "applies_to"); ok {
 		ability["applies_to"] = at
 	}
+	if usage, ok := getMap(a, "usage"); ok {
+		ability["usage"] = usage
+	}
+	if trigger, ok := getMap(a, "trigger"); ok {
+		ability["trigger"] = trigger
+	}
 	return okResp(map[string]any{"text": describeAbility(ability)})
 }

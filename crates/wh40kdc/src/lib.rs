@@ -79,7 +79,7 @@ pub fn encode_base_size(b: &BaseSize) -> String {
 pub mod data;
 
 #[cfg(feature = "bundled-data")]
-pub use data::{normalize_name, Collection, Dataset, RawData};
+pub use data::{normalize_name, Collection, Dataset, RawData, ReactiveTrigger};
 
 pub use data::{
     base_loadout, base_unit_points, check_unit_legality, clamp_weapon_count, loadout_models,

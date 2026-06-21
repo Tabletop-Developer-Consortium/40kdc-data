@@ -190,6 +190,10 @@ function walk(
       // becomes an opt-in lever, grouped under the pool's activation cap.
       enumerateDicePool(node, source, opts, out);
       return;
+    case "select-units":
+      // Targeting wrapper — the selected units receive the nested effect.
+      walk(node.effect, source, opts, out);
+      return;
     default:
       // Unknown effect — record it. Covers ability-grant, deep-strike,
       // mortal-wounds, cp-gain, movement-modifier, etc.; the buff layer

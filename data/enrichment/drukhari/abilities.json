@@ -116,23 +116,32 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "dice-gated",
-      "dice": "D6",
-      "threshold": 6,
-      "comparison": "gte",
-      "on_success": {
-        "type": "mortal-wounds",
-        "target": "enemy-within-aura",
-        "modifier": {
-          "count": "1",
-          "range": 6
+      "type": "conditional",
+      "condition": {
+        "type": "timing-is",
+        "parameters": {
+          "timing": "before-bearer-removed"
         }
       },
-      "on_fail": null
+      "effect": {
+        "type": "dice-gated",
+        "dice": "D6",
+        "threshold": 6,
+        "comparison": "gte",
+        "on_success": {
+          "type": "mortal-wounds",
+          "target": "enemy-within-aura",
+          "modifier": {
+            "count": "1",
+            "range": 6
+          }
+        },
+        "on_fail": null
+      }
     },
     "scope": {
       "range": "aura-6",
-      "duration": "one-use"
+      "duration": "permanent"
     },
     "unit_ids": [
       "cronos"
@@ -467,8 +476,7 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "type": "reactive-move",
-        "trigger": "enemy-ends-move-nearby"
+        "move_type": "reactive"
       }
     },
     "scope": {
@@ -479,7 +487,12 @@
       "hellions"
     ],
     "ability_type": "unit",
-    "behavior": "passive"
+    "behavior": "passive",
+    "trigger": {
+      "event": "enemy-unit-ended-move",
+      "subject": "enemy-unit",
+      "optional": true
+    }
   },
   {
     "ability_id": "phantasm-grenade-launcher",
@@ -656,11 +669,10 @@
             }
           },
           {
-            "type": "movement-modifier",
+            "type": "deep-strike",
             "target": "unit",
             "modifier": {
-              "move_type": "deep-strike-min-distance",
-              "value": 6
+              "min_distance": 6
             }
           },
           {
@@ -832,23 +844,32 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "dice-gated",
-      "dice": "D6",
-      "threshold": 6,
-      "comparison": "gte",
-      "on_success": {
-        "type": "mortal-wounds",
-        "target": "enemy-within-aura",
-        "modifier": {
-          "count": "D3",
-          "range": 6
+      "type": "conditional",
+      "condition": {
+        "type": "timing-is",
+        "parameters": {
+          "timing": "before-bearer-removed"
         }
       },
-      "on_fail": null
+      "effect": {
+        "type": "dice-gated",
+        "dice": "D6",
+        "threshold": 6,
+        "comparison": "gte",
+        "on_success": {
+          "type": "mortal-wounds",
+          "target": "enemy-within-aura",
+          "modifier": {
+            "count": "D3",
+            "range": 6
+          }
+        },
+        "on_fail": null
+      }
     },
     "scope": {
       "range": "aura-6",
-      "duration": "one-use"
+      "duration": "permanent"
     },
     "unit_ids": [
       "raider",
@@ -1211,7 +1232,7 @@
         "type": "movement-modifier",
         "target": "unit",
         "modifier": {
-          "type": "shoot-and-scoot"
+          "move_type": "shoot-and-scoot"
         }
       }
     },
@@ -1972,13 +1993,13 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "type": "scouts",
+        "move_type": "scout",
         "distance": 7
       }
     },
     "scope": {
       "range": "unit",
-      "duration": "one-use"
+      "duration": "permanent"
     },
     "unit_ids": [
       "hand-of-the-archon"
@@ -2241,8 +2262,8 @@
         "type": "movement-modifier",
         "target": "unit",
         "modifier": {
-          "move_type": "pile-in-consolidation",
-          "value": 6,
+          "move_type": "consolidation",
+          "distance": 6,
           "replaces_default": true
         }
       }
@@ -2442,10 +2463,10 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "movement-modifier",
+      "type": "unit-keyword",
       "target": "unit",
       "modifier": {
-        "type": "infiltrate"
+        "keyword_id": "infiltrators"
       }
     },
     "scope": {
@@ -2518,7 +2539,8 @@
             "type": "movement-modifier",
             "target": "self",
             "modifier": {
-              "move_type": "into-strategic-reserves"
+              "move_type": "redeploy",
+              "to_reserves": true
             }
           }
         ]

@@ -20,7 +20,7 @@
  * factions.find("World Eaters")!.units.length;
  */
 export { Dataset } from "./dataset.js";
-export type { StackableBuff, StackableBuffGroup } from "./dataset.js";
+export type { StackableBuff, StackableBuffGroup, ReactiveTrigger } from "./dataset.js";
 export { Collection } from "./collection.js";
 export type { CollectionConfig } from "./collection.js";
 export {

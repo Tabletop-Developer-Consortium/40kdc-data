@@ -89,6 +89,68 @@
       ],
       "description": "Which player's turn this applies during"
     },
+    "game-event": {
+      "type": "string",
+      "description": "The single canonical 'when' vocabulary, shared by the reactive `trigger.event` (the dispatch key an event-driven consumer subscribes on) and the `timing-is` condition. Supersedes the former timing-flag entity's step-level vocabulary, adding movement/lifecycle/targeting events. Grouped: phase/turn structure, setup/reserves, movement, combat dice steps, attack lifecycle, destruction, and tests.",
+      "enum": [
+        "start-of-phase",
+        "end-of-phase",
+        "start-of-turn",
+        "end-of-turn",
+        "start-of-opponent-turn",
+        "end-of-opponent-turn",
+        "start-of-battle-round",
+        "start-of-command-phase",
+        "declare-battle-formations",
+        "post-deployment",
+        "unit-set-up",
+        "set-up-from-reserves",
+        "arrives-from-strategic-reserves",
+        "starts-in-strategic-reserves",
+        "game-start-in-reserves",
+        "deep-strike-setup",
+        "reinforcements",
+        "normal-move",
+        "advance-move",
+        "advances",
+        "fall-back-move",
+        "falls-back",
+        "charge-move",
+        "moved-through-terrain",
+        "enemy-unit-ended-move",
+        "enemy-unit-fell-back",
+        "before-hit-roll",
+        "after-hit-roll",
+        "before-wound-roll",
+        "after-wound-roll",
+        "before-save-roll",
+        "after-save-roll",
+        "before-damage-roll",
+        "after-damage-roll",
+        "before-charge-roll",
+        "after-charge-roll",
+        "before-advance-roll",
+        "after-advance-roll",
+        "before-battle-shock",
+        "after-battle-shock",
+        "on-unit-selected",
+        "selected-to-shoot",
+        "selected-to-fight",
+        "selected-to-advance",
+        "after-unit-resolves-attacks",
+        "after-scoring-hit",
+        "after-enemy-unit-fires",
+        "on-unit-destroyed",
+        "on-model-destroyed",
+        "first-model-destroyed",
+        "before-bearer-removed",
+        "enemy-unit-destroyed-in-melee",
+        "on-damage-allocated",
+        "battle-shock-test",
+        "leadership-test",
+        "desperate-escape-test"
+      ]
+    },
     "battle-size": {
       "type": "string",
       "enum": [
@@ -2362,6 +2424,17 @@
         "faction_keywords": {
           "$ref": "#/$defs/keyword-list"
         },
+        "excluded_faction_keywords": {
+          "description": "Faction keywords whose armies are barred from taking this otherwise-generic unit. Used where the game removes a generic unit from a specific sub-faction without printing a replacement (e.g. Black Templars cannot field Librarians; Deathwatch cannot field the generic Tactical Squad). An army may take this unit only if none of its faction keywords appear here. Absent/empty = available to every keyword-eligible army. Distinct from `faction_keywords`, which is the positive access list; this is the negative one for the rare exclusions a flat shared pool cannot otherwise express.",
+          "oneOf": [
+            {
+              "$ref": "#/$defs/keyword-list"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
         "base_size_mm": {
           "description": "The unit's representative base (the most-numerous model's base). Mixed-model units carry the full per-model breakdown in unit-composition; this top-level value is a convenience for consumers that need a single base.",
           "oneOf": [
@@ -2906,8 +2979,107 @@
         "effect": {
           "$ref": "#/$defs/effect"
         },
+        "trigger": {
+          "description": "For reactive abilities: the game event this ability fires on, plus structured guards an event-driven consumer evaluates against game state (no prose parsing). `event` is the closed dispatch key; `subject` names whose action triggered it; `proximity` is the spatial gate in inches; `condition` is an optional extra gate reusing the condition tree. `optional` marks 'you can' reactions, `cost` a stratagem-style CP cost, `window` how long the granted reaction stays open.",
+          "type": "object",
+          "properties": {
+            "event": {
+              "$ref": "#/$defs/game-event"
+            },
+            "subject": {
+              "type": "string",
+              "enum": [
+                "self",
+                "bearer",
+                "friendly-unit",
+                "enemy-unit",
+                "any-unit",
+                "model-in-bearer"
+              ]
+            },
+            "proximity": {
+              "type": "object",
+              "properties": {
+                "of": {
+                  "type": "string",
+                  "enum": [
+                    "self",
+                    "bearer",
+                    "attached-unit"
+                  ]
+                },
+                "range": {
+                  "type": "number",
+                  "exclusiveMinimum": 0
+                }
+              },
+              "required": [
+                "range"
+              ],
+              "additionalProperties": false
+            },
+            "condition": {
+              "$ref": "#/$defs/condition"
+            },
+            "optional": {
+              "type": "boolean",
+              "default": false
+            },
+            "cost": {
+              "type": "object",
+              "properties": {
+                "cp": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              },
+              "additionalProperties": false
+            },
+            "window": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "event"
+          ],
+          "additionalProperties": false
+        },
         "scope": {
           "$ref": "#/$defs/scope"
+        },
+        "usage": {
+          "description": "How often the ability may be used, beyond what scope.duration captures. `scope.duration: one-use` already models 'once per battle'; this models finer limits (once per turn/phase, N per battle) and an optional per-army/unit/model granularity.",
+          "type": "object",
+          "properties": {
+            "frequency": {
+              "type": "string",
+              "enum": [
+                "once-per-turn",
+                "once-per-phase",
+                "once-per-command-phase",
+                "once-per-opponent-turn",
+                "n-per-battle",
+                "first-this-battle",
+                "first-time-this-phase"
+              ]
+            },
+            "count": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "per": {
+              "type": "string",
+              "enum": [
+                "army",
+                "unit",
+                "model"
+              ]
+            }
+          },
+          "required": [
+            "frequency"
+          ],
+          "additionalProperties": false
         },
         "applies_to": {
           "description": "Static, human-curated keyword filter naming which datasheet units this ability benefits, for roster-side highlighting. A unit matches when it carries every keyword in `required_keywords` (across its `keywords` + `faction_keywords`) and none in `excluded_keywords`. This is a denormalized projection distinct from the runtime `effect` condition tree (which mixes static class, runtime-granted markers, and timing gates and must not be scraped for scope). Absent/null means no resolvable unit scope — consumers render no highlight rather than guess.",
@@ -3036,7 +3208,10 @@
             "destroyed-in-tagged-terrain",
             "operation-markers",
             "attack-stat-compare",
-            "made-ingress-move-this-turn"
+            "made-ingress-move-this-turn",
+            "disembarked-from-transport",
+            "faction-rule-active",
+            "battle-round"
           ]
         },
         "parameters": {
@@ -3099,6 +3274,15 @@
         },
         {
           "$ref": "#/$defs/dice-pool-allocation-effect"
+        },
+        {
+          "$ref": "#/$defs/select-units-effect"
+        },
+        {
+          "$ref": "#/$defs/movement-modifier-effect"
+        },
+        {
+          "$ref": "#/$defs/aura-effect"
         }
       ]
     },
@@ -3155,7 +3339,7 @@
             "invulnerable-save",
             "ward",
             "keyword-grant",
-            "movement-modifier",
+            "unit-keyword",
             "deep-strike",
             "fallback-and-act",
             "fight-first",
@@ -3178,7 +3362,13 @@
             "objective-tag",
             "unit-tag",
             "bs-modifier",
-            "engagement-passthrough"
+            "engagement-passthrough",
+            "strategic-reserves-arrival",
+            "remove-battle-shock",
+            "unit-keyword-grant",
+            "auto-result",
+            "firing-deck",
+            "disembark-after-move"
           ]
         },
         "target": {
@@ -3190,6 +3380,7 @@
             "attached-unit",
             "attacker",
             "defender",
+            "target",
             "friendly-within-aura",
             "enemy-within-aura",
             "all-friendly",
@@ -3208,7 +3399,7 @@
         "type",
         "target"
       ],
-      "$comment": "Optional weapon narrowing on cruncher-interpreted modifiers (stat-modifier/roll-modifier/re-roll/keyword-grant): `weapon_type` ('melee'|'ranged'), `weapon_name` (one named weapon), or `weapon_keyword` (a weapon ability such as 'Torrent'|'Blast'|'Pistol' — restricts the effect to weapons carrying that keyword). When `type` is `re-roll`, `modifier` must carry `roll` (string) and `subset` (`ones` | `all-failures`). Rerolls always target failures; the subset decides whether only 1s are rerolled or every failed die. The constraint is enforced by AJV at validation time and stripped from the codegen bundle (typify can't model if/then/else) — the generated TS/Rust types therefore see `modifier` as an open object, matching its other-`type` callers. When `type` is `feel-no-pain`, `modifier` carries `threshold` (the FNP save target) and optionally `scope` ∈ {`all`, `mortal`}; an absent scope defaults to `all` (fires on every unsaved wound). The two scopes compose independently against the mortal-wound stream. Tag effects (`terrain-area-tag`, `objective-tag`, `unit-tag`) set a transient marker on the named subject; `modifier` carries `tag` (string) and optionally `source` ('this-action'|'destroying-unit') and `clears_on` ('turn-rollover'|'never'). `target` for tag effects names the kind of entity the tag is applied to ('unit', 'self') — a placeholder, since the marker target is the objective/terrain/unit specified by the action context, not a combat target."
+      "$comment": "Optional weapon narrowing on cruncher-interpreted modifiers (stat-modifier/roll-modifier/re-roll/keyword-grant): `weapon_type` ('melee'|'ranged'), `weapon_name` (one named weapon), or `weapon_keyword` (a weapon ability such as 'Torrent'|'Blast'|'Pistol' — restricts the effect to weapons carrying that keyword). When `type` is `re-roll`, `modifier` must carry `roll` (string) and `subset` (`ones` | `all-failures`). Rerolls always target failures; the subset decides whether only 1s are rerolled or every failed die. The constraint is enforced by AJV at validation time and stripped from the codegen bundle (typify can't model if/then/else) — the generated TS/Rust types therefore see `modifier` as an open object, matching its other-`type` callers. When `type` is `feel-no-pain`, `modifier` carries `threshold` (the FNP save target) and optionally `scope` ∈ {`all`, `mortal`}; an absent scope defaults to `all` (fires on every unsaved wound). The two scopes compose independently against the mortal-wound stream. Tag effects (`terrain-area-tag`, `objective-tag`, `unit-tag`) set a transient marker on the named subject; `modifier` carries `tag` (string) and optionally `source` ('this-action'|'destroying-unit') and `clears_on` ('turn-rollover'|'never'). `target` for tag effects names the kind of entity the tag is applied to ('unit', 'self') — a placeholder, since the marker target is the objective/terrain/unit specified by the action context, not a combat target. Parameterized weapon keywords on `keyword-grant`/`unit-keyword-grant`: a granted keyword may carry its rating either baked into the `keyword` string ('Sustained Hits 1') or structurally via `value` (Sustained Hits/Rapid Fire/Melta N); Anti-X keywords may use `anti_keyword` + `anti_threshold` (rendered '[ANTI-INFANTRY 4+]'). When `type` is `auto-result`, `modifier` carries `result` (`pass`|`fail`, or an integer the named roll counts as) plus `test` (e.g. 'battle-shock') or `roll` (e.g. 'hit'). When `type` is `firing-deck`, `modifier` carries `value` (the Firing Deck rating). `disembark-after-move` needs no modifier."
     },
     "choice-effect": {
       "type": "object",
@@ -3411,6 +3602,238 @@
         "options"
       ]
     },
+    "select-units-effect": {
+      "type": "object",
+      "$comment": "Targeting wrapper: choose up to `selector.max_count` units matching `selector.keywords` of the named `owner`, then apply the nested `effect` to each. Models 'select up to N <keyword> units and do X' (redeploy, army-wide one-off buffs) that bare ability-grant labels previously flattened.",
+      "properties": {
+        "type": {
+          "const": "select-units"
+        },
+        "selector": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "max_count": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "keywords": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "owner": {
+              "type": "string",
+              "enum": [
+                "friendly",
+                "enemy"
+              ]
+            }
+          },
+          "required": [
+            "max_count",
+            "owner"
+          ]
+        },
+        "effect": {
+          "$ref": "#/$defs/effect-node"
+        }
+      },
+      "required": [
+        "type",
+        "selector",
+        "effect"
+      ]
+    },
+    "movement-modifier-effect": {
+      "type": "object",
+      "additionalProperties": false,
+      "$comment": "Fully-closed movement-modifier (shape 1, Batch D). Promoted to its own discriminated effect-node branch so the closed `modifier` reaches the generated types (typify/json2ts can model a plain closed object, unlike if/then). `move_type` is the canonical move KIND and is OPTIONAL: a record may be a pure traversal CAPABILITY (passthrough/vertical_limit/ignore_vertical, applying to all moves or those in `applies_to_moves`) with no move_type. `distance` folds the old distance/value/bonus (integer or dice-expression string, e.g. 6, -2, \"D6+2\"). Reactivity lives at ability level (`trigger`), and frequency at ability level (`usage`) — neither is carried here. Non-movement mechanics that previously hid in this blob (deep-strike ranges, engagement passthrough, advance+charge eligibility, aura ranges) are re-homed to their own effect types.",
+      "properties": {
+        "type": {
+          "const": "movement-modifier"
+        },
+        "target": {
+          "type": "string",
+          "enum": [
+            "self",
+            "bearer",
+            "unit",
+            "attached-unit",
+            "attacker",
+            "defender",
+            "target",
+            "friendly-within-aura",
+            "enemy-within-aura",
+            "all-friendly",
+            "all-enemy"
+          ]
+        },
+        "modifier": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "move_type": {
+              "type": "string",
+              "enum": [
+                "normal",
+                "advance",
+                "pile-in",
+                "consolidation",
+                "reactive",
+                "surge",
+                "redeploy",
+                "scout",
+                "infiltrate",
+                "shoot-and-scoot"
+              ]
+            },
+            "distance": {
+              "oneOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "string",
+                  "minLength": 1
+                }
+              ]
+            },
+            "passthrough": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "non-titanic-models",
+                  "friendly-vehicles",
+                  "friendly-monsters",
+                  "terrain-le-4",
+                  "tall-terrain",
+                  "all-terrain"
+                ]
+              }
+            },
+            "vertical_limit": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "ignore_vertical": {
+              "type": "boolean"
+            },
+            "replaces_default": {
+              "type": "boolean"
+            },
+            "to_reserves": {
+              "type": "boolean"
+            },
+            "applies_to_moves": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "normal",
+                  "advance",
+                  "fall-back",
+                  "charge"
+                ]
+              }
+            },
+            "name": {
+              "type": "string"
+            },
+            "excludes_keyword": {
+              "type": "string"
+            },
+            "max_units": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "marker": {
+              "type": "object",
+              "additionalProperties": false,
+              "$comment": "GSC marker / fortification placement mechanics (move_type: redeploy).",
+              "properties": {
+                "affected": {
+                  "type": "string"
+                },
+                "unit_filter": {
+                  "type": "string"
+                },
+                "location": {
+                  "type": "string"
+                },
+                "max_units": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
+            "condition": {
+              "$ref": "#/$defs/condition"
+            }
+          }
+        }
+      },
+      "required": [
+        "type",
+        "target",
+        "modifier"
+      ]
+    },
+    "aura-effect": {
+      "type": "object",
+      "additionalProperties": false,
+      "$comment": "Generic aura (Batch D): a persistent zone around a unit applying an effect to units within a range. Models Contagions, Shadow in the Warp, Vect — the concept the dataset previously expressed implicitly via `target: *-within-aura` + scope.range. `range` is the radius in inches (an integer, or an array of per-battle-round tiers, e.g. [3,6,9] for Contagions). `range_bonus` + `of` model an ability that EXTENDS a named aura's range (Gift of Poxes: contagion +3\"). `effect` is the nested effect applied within the zone. Batch D builds the type and migrates contagion-range; the ~300 incumbent within-aura-target effects are a separate follow-up sweep.",
+      "properties": {
+        "type": {
+          "const": "aura"
+        },
+        "target": {
+          "type": "string",
+          "enum": [
+            "enemy-within-aura",
+            "friendly-within-aura"
+          ]
+        },
+        "modifier": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "range": {
+              "oneOf": [
+                {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "minItems": 1
+                }
+              ]
+            },
+            "range_bonus": {
+              "type": "integer"
+            },
+            "of": {
+              "type": "string"
+            },
+            "effect": {
+              "$ref": "#/$defs/effect-node"
+            }
+          }
+        }
+      },
+      "required": [
+        "type",
+        "target",
+        "modifier"
+      ]
+    },
     "effect": {
       "title": "Ability Effect",
       "$ref": "#/$defs/effect-node"
@@ -3593,55 +4016,6 @@
         "game_version"
       ],
       "additionalProperties": false
-    },
-    "timing-flag": {
-      "title": "Timing Flag",
-      "type": "object",
-      "properties": {
-        "source_id": {
-          "$ref": "#/$defs/entity-id"
-        },
-        "source_type": {
-          "$ref": "#/$defs/source-type"
-        },
-        "timing": {
-          "type": "string",
-          "enum": [
-            "start-of-phase",
-            "end-of-phase",
-            "before-hit-roll",
-            "after-hit-roll",
-            "before-wound-roll",
-            "after-wound-roll",
-            "before-save-roll",
-            "after-save-roll",
-            "before-damage-roll",
-            "after-damage-roll",
-            "before-charge-roll",
-            "after-charge-roll",
-            "before-advance-roll",
-            "after-advance-roll",
-            "before-battle-shock",
-            "after-battle-shock",
-            "on-unit-selected",
-            "on-unit-destroyed",
-            "on-model-destroyed",
-            "on-damage-allocated"
-          ]
-        },
-        "game_version": {
-          "$ref": "#/$defs/game-version-ref"
-        },
-        "authored_by": {
-          "$ref": "#/$defs/contributor-ref"
-        }
-      },
-      "required": [
-        "source_id",
-        "source_type",
-        "timing",
-        "game_version"
-      ]
     }
   }
 }

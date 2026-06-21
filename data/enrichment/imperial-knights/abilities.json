@@ -9,23 +9,32 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "dice-gated",
-      "dice": "D6",
-      "threshold": 6,
-      "comparison": "gte",
-      "on_success": {
-        "type": "mortal-wounds",
-        "target": "enemy-within-aura",
-        "modifier": {
-          "count": "2D6",
-          "range": 6
+      "type": "conditional",
+      "condition": {
+        "type": "timing-is",
+        "parameters": {
+          "timing": "before-bearer-removed"
         }
       },
-      "on_fail": null
+      "effect": {
+        "type": "dice-gated",
+        "dice": "D6",
+        "threshold": 6,
+        "comparison": "gte",
+        "on_success": {
+          "type": "mortal-wounds",
+          "target": "enemy-within-aura",
+          "modifier": {
+            "count": "2D6",
+            "range": 6
+          }
+        },
+        "on_fail": null
+      }
     },
     "scope": {
       "range": "aura-6",
-      "duration": "one-use"
+      "duration": "permanent"
     },
     "unit_ids": [
       "acastus-knight-asterius"
@@ -86,23 +95,32 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "dice-gated",
-      "dice": "D6",
-      "threshold": 6,
-      "comparison": "gte",
-      "on_success": {
-        "type": "mortal-wounds",
-        "target": "enemy-within-aura",
-        "modifier": {
-          "count": "D6",
-          "range": 6
+      "type": "conditional",
+      "condition": {
+        "type": "timing-is",
+        "parameters": {
+          "timing": "before-bearer-removed"
         }
       },
-      "on_fail": null
+      "effect": {
+        "type": "dice-gated",
+        "dice": "D6",
+        "threshold": 6,
+        "comparison": "gte",
+        "on_success": {
+          "type": "mortal-wounds",
+          "target": "enemy-within-aura",
+          "modifier": {
+            "count": "D6",
+            "range": 6
+          }
+        },
+        "on_fail": null
+      }
     },
     "scope": {
       "range": "aura-6",
-      "duration": "one-use"
+      "duration": "permanent"
     },
     "unit_ids": [
       "knight-defender"
@@ -182,23 +200,32 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "dice-gated",
-      "dice": "D6",
-      "threshold": 6,
-      "comparison": "gte",
-      "on_success": {
-        "type": "mortal-wounds",
-        "target": "enemy-within-aura",
-        "modifier": {
-          "count": "D6+2",
-          "range": 6
+      "type": "conditional",
+      "condition": {
+        "type": "timing-is",
+        "parameters": {
+          "timing": "before-bearer-removed"
         }
       },
-      "on_fail": null
+      "effect": {
+        "type": "dice-gated",
+        "dice": "D6",
+        "threshold": 6,
+        "comparison": "gte",
+        "on_success": {
+          "type": "mortal-wounds",
+          "target": "enemy-within-aura",
+          "modifier": {
+            "count": "D6+2",
+            "range": 6
+          }
+        },
+        "on_fail": null
+      }
     },
     "scope": {
       "range": "aura-6",
-      "duration": "one-use"
+      "duration": "permanent"
     },
     "unit_ids": [
       "cerastus-knight-acheron"
@@ -761,23 +788,32 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "dice-gated",
-      "dice": "D6",
-      "threshold": 6,
-      "comparison": "gte",
-      "on_success": {
-        "type": "mortal-wounds",
-        "target": "enemy-within-aura",
-        "modifier": {
-          "count": "D3",
-          "range": 6
+      "type": "conditional",
+      "condition": {
+        "type": "timing-is",
+        "parameters": {
+          "timing": "before-bearer-removed"
         }
       },
-      "on_fail": null
+      "effect": {
+        "type": "dice-gated",
+        "dice": "D6",
+        "threshold": 6,
+        "comparison": "gte",
+        "on_success": {
+          "type": "mortal-wounds",
+          "target": "enemy-within-aura",
+          "modifier": {
+            "count": "D3",
+            "range": 6
+          }
+        },
+        "on_fail": null
+      }
     },
     "scope": {
       "range": "aura-6",
-      "duration": "one-use"
+      "duration": "permanent"
     },
     "unit_ids": [
       "armiger-moirax"
@@ -874,8 +910,8 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "move_type": "extended-consolidation",
-        "value": 6,
+        "move_type": "consolidation",
+        "distance": 6,
         "replaces_default": true
       }
     },
@@ -1437,16 +1473,18 @@
             "type": "movement-modifier",
             "target": "self",
             "modifier": {
-              "move_type": "through-non-titanic-models",
-              "value": 0
+              "passthrough": [
+                "non-titanic-models"
+              ]
             }
           },
           {
             "type": "movement-modifier",
             "target": "self",
             "modifier": {
-              "move_type": "through-terrain-max-4-inches",
-              "value": 0
+              "passthrough": [
+                "terrain-le-4"
+              ]
             }
           },
           {
@@ -1458,8 +1496,9 @@
             "type": "movement-modifier",
             "target": "self",
             "modifier": {
-              "move_type": "through-terrain-over-4-inches",
-              "value": 0
+              "passthrough": [
+                "tall-terrain"
+              ]
             }
           },
           {
@@ -2296,8 +2335,8 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "move_type": "advance-bonus",
-        "value": 6
+        "move_type": "advance",
+        "distance": 6
       }
     },
     "scope": {

@@ -38,11 +38,11 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "movement-modifier",
-      "target": "bearer",
+      "type": "aura",
+      "target": "enemy-within-aura",
       "modifier": {
-        "move_type": "contagion-range",
-        "value": 3
+        "of": "contagion",
+        "range_bonus": 3
       }
     },
     "scope": {
@@ -111,23 +111,32 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "dice-gated",
-      "dice": "D6",
-      "threshold": 6,
-      "comparison": "gte",
-      "on_success": {
-        "type": "mortal-wounds",
-        "target": "enemy-within-aura",
-        "modifier": {
-          "count": "D3",
-          "range": 6
+      "type": "conditional",
+      "condition": {
+        "type": "timing-is",
+        "parameters": {
+          "timing": "before-bearer-removed"
         }
       },
-      "on_fail": null
+      "effect": {
+        "type": "dice-gated",
+        "dice": "D6",
+        "threshold": 6,
+        "comparison": "gte",
+        "on_success": {
+          "type": "mortal-wounds",
+          "target": "enemy-within-aura",
+          "modifier": {
+            "count": "D3",
+            "range": 6
+          }
+        },
+        "on_fail": null
+      }
     },
     "scope": {
       "range": "aura-6",
-      "duration": "one-use"
+      "duration": "permanent"
     },
     "unit_ids": [
       "defiler"
@@ -173,7 +182,9 @@
       "type": "movement-modifier",
       "target": "self",
       "modifier": {
-        "type": "move-over-terrain"
+        "passthrough": [
+          "all-terrain"
+        ]
       }
     },
     "scope": {
@@ -363,23 +374,32 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "dice-gated",
-      "dice": "D6",
-      "threshold": 6,
-      "comparison": "gte",
-      "on_success": {
-        "type": "mortal-wounds",
-        "target": "enemy-within-aura",
-        "modifier": {
-          "count": "1",
-          "range": 6
+      "type": "conditional",
+      "condition": {
+        "type": "timing-is",
+        "parameters": {
+          "timing": "before-bearer-removed"
         }
       },
-      "on_fail": null
+      "effect": {
+        "type": "dice-gated",
+        "dice": "D6",
+        "threshold": 6,
+        "comparison": "gte",
+        "on_success": {
+          "type": "mortal-wounds",
+          "target": "enemy-within-aura",
+          "modifier": {
+            "count": "1",
+            "range": 6
+          }
+        },
+        "on_fail": null
+      }
     },
     "scope": {
       "range": "aura-6",
-      "duration": "one-use"
+      "duration": "permanent"
     },
     "unit_ids": [
       "chaos-spawn"
@@ -400,13 +420,13 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "type": "scouts",
+        "move_type": "scout",
         "distance": 6
       }
     },
     "scope": {
       "range": "unit",
-      "duration": "one-use"
+      "duration": "permanent"
     },
     "unit_ids": [
       "chaos-spawn",
@@ -463,8 +483,7 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "type": "reactive-move",
-        "trigger": "enemy-ends-move-nearby"
+        "move_type": "reactive"
       }
     },
     "scope": {
@@ -475,7 +494,12 @@
       "chaos-spawn"
     ],
     "ability_type": "unit",
-    "behavior": "passive"
+    "behavior": "passive",
+    "trigger": {
+      "event": "enemy-unit-ended-move",
+      "subject": "enemy-unit",
+      "optional": true
+    }
   },
   {
     "ability_id": "regenerating-monstrosities",
@@ -517,13 +541,13 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "type": "scouts",
+        "move_type": "scout",
         "distance": 8
       }
     },
     "scope": {
       "range": "unit",
-      "duration": "one-use"
+      "duration": "permanent"
     },
     "unit_ids": [
       "chaos-spawn"
@@ -626,10 +650,10 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "movement-modifier",
+      "type": "unit-keyword",
       "target": "unit",
       "modifier": {
-        "type": "infiltrate"
+        "keyword_id": "infiltrators"
       }
     },
     "scope": {
@@ -1626,7 +1650,7 @@
       "condition": {
         "type": "timing-is",
         "parameters": {
-          "timing": "deep-strike"
+          "timing": "deep-strike-setup"
         }
       },
       "effect": {
@@ -2271,23 +2295,32 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "dice-gated",
-      "dice": "D6",
-      "threshold": 6,
-      "comparison": "gte",
-      "on_success": {
-        "type": "mortal-wounds",
-        "target": "enemy-within-aura",
-        "modifier": {
-          "count": "D6",
-          "range": 6
+      "type": "conditional",
+      "condition": {
+        "type": "timing-is",
+        "parameters": {
+          "timing": "before-bearer-removed"
         }
       },
-      "on_fail": null
+      "effect": {
+        "type": "dice-gated",
+        "dice": "D6",
+        "threshold": 6,
+        "comparison": "gte",
+        "on_success": {
+          "type": "mortal-wounds",
+          "target": "enemy-within-aura",
+          "modifier": {
+            "count": "D6",
+            "range": 6
+          }
+        },
+        "on_fail": null
+      }
     },
     "scope": {
       "range": "aura-6",
-      "duration": "one-use"
+      "duration": "permanent"
     },
     "unit_ids": [
       "mortarion",
@@ -2442,7 +2475,7 @@
           {
             "type": "timing-is",
             "parameters": {
-              "timing": "after-this-model-has-shot"
+              "timing": "after-unit-resolves-attacks"
             }
           },
           {
@@ -2661,8 +2694,7 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "type": "reactive-move",
-        "trigger": "enemy-ends-move-nearby"
+        "move_type": "reactive"
       }
     },
     "scope": {
@@ -2673,7 +2705,12 @@
       "chaos-rhino"
     ],
     "ability_type": "unit",
-    "behavior": "passive"
+    "behavior": "passive",
+    "trigger": {
+      "event": "enemy-unit-ended-move",
+      "subject": "enemy-unit",
+      "optional": true
+    }
   },
   {
     "ability_id": "assault-ramp",
@@ -3454,7 +3491,7 @@
       "target": "enemy-within-aura",
       "modifier": {
         "grant_type": "apply-additional-plague",
-        "timing": "command-phase",
+        "timing": "start-of-command-phase",
         "frequency": "once-per-battle-per-army",
         "range": "contagion"
       }

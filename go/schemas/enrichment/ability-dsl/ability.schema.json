@@ -38,7 +38,51 @@
       "description": "How this ability interacts with the game flow — not a runtime predicate"
     },
     "effect": { "$ref": "effect.schema.json" },
+    "trigger": {
+      "description": "For reactive abilities: the game event this ability fires on, plus structured guards an event-driven consumer evaluates against game state (no prose parsing). `event` is the closed dispatch key; `subject` names whose action triggered it; `proximity` is the spatial gate in inches; `condition` is an optional extra gate reusing the condition tree. `optional` marks 'you can' reactions, `cost` a stratagem-style CP cost, `window` how long the granted reaction stays open.",
+      "type": "object",
+      "properties": {
+        "event": { "$ref": "../../defs/common.schema.json#/$defs/game-event" },
+        "subject": {
+          "type": "string",
+          "enum": ["self", "bearer", "friendly-unit", "enemy-unit", "any-unit", "model-in-bearer"]
+        },
+        "proximity": {
+          "type": "object",
+          "properties": {
+            "of": { "type": "string", "enum": ["self", "bearer", "attached-unit"] },
+            "range": { "type": "number", "exclusiveMinimum": 0 }
+          },
+          "required": ["range"],
+          "additionalProperties": false
+        },
+        "condition": { "$ref": "condition.schema.json" },
+        "optional": { "type": "boolean", "default": false },
+        "cost": {
+          "type": "object",
+          "properties": { "cp": { "type": "integer", "minimum": 0 } },
+          "additionalProperties": false
+        },
+        "window": { "type": "string" }
+      },
+      "required": ["event"],
+      "additionalProperties": false
+    },
     "scope": { "$ref": "scope.schema.json" },
+    "usage": {
+      "description": "How often the ability may be used, beyond what scope.duration captures. `scope.duration: one-use` already models 'once per battle'; this models finer limits (once per turn/phase, N per battle) and an optional per-army/unit/model granularity.",
+      "type": "object",
+      "properties": {
+        "frequency": {
+          "type": "string",
+          "enum": ["once-per-turn", "once-per-phase", "once-per-command-phase", "once-per-opponent-turn", "n-per-battle", "first-this-battle", "first-time-this-phase"]
+        },
+        "count": { "type": "integer", "minimum": 1 },
+        "per": { "type": "string", "enum": ["army", "unit", "model"] }
+      },
+      "required": ["frequency"],
+      "additionalProperties": false
+    },
     "applies_to": {
       "description": "Static, human-curated keyword filter naming which datasheet units this ability benefits, for roster-side highlighting. A unit matches when it carries every keyword in `required_keywords` (across its `keywords` + `faction_keywords`) and none in `excluded_keywords`. This is a denormalized projection distinct from the runtime `effect` condition tree (which mixes static class, runtime-granted markers, and timing gates and must not be scraped for scope). Absent/null means no resolvable unit scope — consumers render no highlight rather than guess.",
       "oneOf": [

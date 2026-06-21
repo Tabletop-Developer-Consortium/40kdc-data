@@ -403,6 +403,10 @@ def iter_effect_translation_cases(corpus: Path) -> Iterator[Case]:
         args = {"effect": entry["effect"]}
         if entry.get("scope") is not None:
             args["scope"] = entry["scope"]
+        if entry.get("usage") is not None:
+            args["usage"] = entry["usage"]
+        if entry.get("trigger") is not None:
+            args["trigger"] = entry["trigger"]
         if entry.get("applies_to") is not None:
             args["applies_to"] = entry["applies_to"]
         yield Case(

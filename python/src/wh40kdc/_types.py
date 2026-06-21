@@ -43,6 +43,66 @@ SourceType: TypeAlias = Literal[
 PlayerTurn: TypeAlias = Literal["your-turn", "opponent-turn", "either"]
 
 
+GameEvent: TypeAlias = Literal[
+    "start-of-phase",
+    "end-of-phase",
+    "start-of-turn",
+    "end-of-turn",
+    "start-of-opponent-turn",
+    "end-of-opponent-turn",
+    "start-of-battle-round",
+    "start-of-command-phase",
+    "declare-battle-formations",
+    "post-deployment",
+    "unit-set-up",
+    "set-up-from-reserves",
+    "arrives-from-strategic-reserves",
+    "starts-in-strategic-reserves",
+    "game-start-in-reserves",
+    "deep-strike-setup",
+    "reinforcements",
+    "normal-move",
+    "advance-move",
+    "advances",
+    "fall-back-move",
+    "falls-back",
+    "charge-move",
+    "moved-through-terrain",
+    "enemy-unit-ended-move",
+    "enemy-unit-fell-back",
+    "before-hit-roll",
+    "after-hit-roll",
+    "before-wound-roll",
+    "after-wound-roll",
+    "before-save-roll",
+    "after-save-roll",
+    "before-damage-roll",
+    "after-damage-roll",
+    "before-charge-roll",
+    "after-charge-roll",
+    "before-advance-roll",
+    "after-advance-roll",
+    "before-battle-shock",
+    "after-battle-shock",
+    "on-unit-selected",
+    "selected-to-shoot",
+    "selected-to-fight",
+    "selected-to-advance",
+    "after-unit-resolves-attacks",
+    "after-scoring-hit",
+    "after-enemy-unit-fires",
+    "on-unit-destroyed",
+    "on-model-destroyed",
+    "first-model-destroyed",
+    "before-bearer-removed",
+    "enemy-unit-destroyed-in-melee",
+    "on-damage-allocated",
+    "battle-shock-test",
+    "leadership-test",
+    "desperate-escape-test",
+]
+
+
 BattleSize: TypeAlias = Literal["incursion", "strike-force"]
 
 
@@ -508,6 +568,7 @@ class Unit(TypedDict):
     points_provisional: NotRequired[bool]
     keywords: NotRequired[KeywordList]
     faction_keywords: NotRequired[KeywordList]
+    excluded_faction_keywords: NotRequired[KeywordList | None]
     base_size_mm: NotRequired[BaseSize | None]
     model_count: NotRequired[ModelCount]
     weapon_ids: NotRequired[list[EntityId]]
@@ -583,6 +644,29 @@ class Weapon(TypedDict):
     game_version: GameVersionRef
 
 
+class Proximity(TypedDict):
+    of: NotRequired[Literal["self", "bearer", "attached-unit"]]
+    range: float
+
+
+class Cost(TypedDict):
+    cp: NotRequired[int]
+
+
+class Usage(TypedDict):
+    frequency: Literal[
+        "once-per-turn",
+        "once-per-phase",
+        "once-per-command-phase",
+        "once-per-opponent-turn",
+        "n-per-battle",
+        "first-this-battle",
+        "first-time-this-phase",
+    ]
+    count: NotRequired[int]
+    per: NotRequired[Literal["army", "unit", "model"]]
+
+
 class AppliesTo(TypedDict):
     required_keywords: NotRequired[KeywordList]
     excluded_keywords: NotRequired[KeywordList]
@@ -638,6 +722,9 @@ class SimpleCondition(TypedDict):
         "operation-markers",
         "attack-stat-compare",
         "made-ingress-move-this-turn",
+        "disembarked-from-transport",
+        "faction-rule-active",
+        "battle-round",
     ]
     parameters: NotRequired[dict[str, Any]]
     negated: NotRequired[bool]
@@ -667,7 +754,7 @@ class SingleEffect(TypedDict):
         "invulnerable-save",
         "ward",
         "keyword-grant",
-        "movement-modifier",
+        "unit-keyword",
         "deep-strike",
         "fallback-and-act",
         "fight-first",
@@ -691,6 +778,12 @@ class SingleEffect(TypedDict):
         "unit-tag",
         "bs-modifier",
         "engagement-passthrough",
+        "strategic-reserves-arrival",
+        "remove-battle-shock",
+        "unit-keyword-grant",
+        "auto-result",
+        "firing-deck",
+        "disembark-after-move",
     ]
     target: Literal[
         "self",
@@ -699,6 +792,7 @@ class SingleEffect(TypedDict):
         "attached-unit",
         "attacker",
         "defender",
+        "target",
         "friendly-within-aura",
         "enemy-within-aura",
         "all-friendly",
@@ -716,6 +810,22 @@ class Pool(TypedDict):
 class Requirement(TypedDict):
     type: Literal["pair", "triple", "single", "run"]
     min_value: int
+
+
+class Selector(TypedDict):
+    max_count: int
+    keywords: NotRequired[list[str]]
+    owner: Literal["friendly", "enemy"]
+
+
+class Marker(TypedDict):
+    affected: NotRequired[str]
+    unit_filter: NotRequired[str]
+    location: NotRequired[str]
+    max_units: NotRequired[int]
+
+
+RangeItem: TypeAlias = int
 
 
 class Scope(TypedDict):
@@ -761,35 +871,6 @@ class PhaseMapping(TypedDict):
     source_id: EntityId
     source_type: SourceType
     phases: PhaseList
-    game_version: GameVersionRef
-    authored_by: NotRequired[ContributorRef]
-
-
-class TimingFlag(TypedDict):
-    source_id: EntityId
-    source_type: SourceType
-    timing: Literal[
-        "start-of-phase",
-        "end-of-phase",
-        "before-hit-roll",
-        "after-hit-roll",
-        "before-wound-roll",
-        "after-wound-roll",
-        "before-save-roll",
-        "after-save-roll",
-        "before-damage-roll",
-        "after-damage-roll",
-        "before-charge-roll",
-        "after-charge-roll",
-        "before-advance-roll",
-        "after-advance-roll",
-        "before-battle-shock",
-        "after-battle-shock",
-        "on-unit-selected",
-        "on-unit-destroyed",
-        "on-model-destroyed",
-        "on-damage-allocated",
-    ]
     game_version: GameVersionRef
     authored_by: NotRequired[ContributorRef]
 
@@ -862,6 +943,18 @@ class WeaponKeyword(TypedDict):
     game_version: GameVersionRef
 
 
+class Trigger(TypedDict):
+    event: GameEvent
+    subject: NotRequired[
+        Literal["self", "bearer", "friendly-unit", "enemy-unit", "any-unit", "model-in-bearer"]
+    ]
+    proximity: NotRequired[Proximity]
+    condition: NotRequired[Condition]
+    optional: NotRequired[bool]
+    cost: NotRequired[Cost]
+    window: NotRequired[str]
+
+
 class Ability(TypedDict):
     ability_id: EntityId
     name: str
@@ -877,7 +970,9 @@ class Ability(TypedDict):
     ]
     behavior: NotRequired[Literal["passive", "activated", "reactive", "aura"]]
     effect: Effect
+    trigger: NotRequired[Trigger]
     scope: Scope
+    usage: NotRequired[Usage]
     applies_to: NotRequired[AppliesTo | None]
     interactions: NotRequired[list[Interaction]]
     disputed: NotRequired[bool]
@@ -903,6 +998,9 @@ EffectNode: TypeAlias = Union[
     "DiceGatedEffect",
     "ConditionalEffect",
     "DicePoolAllocationEffect",
+    "SelectUnitsEffect",
+    "MovementModifierEffect",
+    "AuraEffect",
 ]
 
 
@@ -943,6 +1041,83 @@ class DicePoolAllocationEffect(TypedDict):
     pool: Pool
     max_activations: int
     options: list[Option]
+
+
+class SelectUnitsEffect(TypedDict):
+    type: Literal["select-units"]
+    selector: Selector
+    effect: EffectNode
+
+
+class Modifier(TypedDict):
+    move_type: NotRequired[
+        Literal[
+            "normal",
+            "advance",
+            "pile-in",
+            "consolidation",
+            "reactive",
+            "surge",
+            "redeploy",
+            "scout",
+            "infiltrate",
+            "shoot-and-scoot",
+        ]
+    ]
+    distance: NotRequired[int | str]
+    passthrough: NotRequired[
+        list[
+            Literal[
+                "non-titanic-models",
+                "friendly-vehicles",
+                "friendly-monsters",
+                "terrain-le-4",
+                "tall-terrain",
+                "all-terrain",
+            ]
+        ]
+    ]
+    vertical_limit: NotRequired[int]
+    ignore_vertical: NotRequired[bool]
+    replaces_default: NotRequired[bool]
+    to_reserves: NotRequired[bool]
+    applies_to_moves: NotRequired[list[Literal["normal", "advance", "fall-back", "charge"]]]
+    name: NotRequired[str]
+    excludes_keyword: NotRequired[str]
+    max_units: NotRequired[int]
+    marker: NotRequired[Marker]
+    condition: NotRequired[Condition]
+
+
+class MovementModifierEffect(TypedDict):
+    type: Literal["movement-modifier"]
+    target: Literal[
+        "self",
+        "bearer",
+        "unit",
+        "attached-unit",
+        "attacker",
+        "defender",
+        "target",
+        "friendly-within-aura",
+        "enemy-within-aura",
+        "all-friendly",
+        "all-enemy",
+    ]
+    modifier: Modifier
+
+
+class Modifier1(TypedDict):
+    range: NotRequired[int | list[RangeItem]]
+    range_bonus: NotRequired[int]
+    of: NotRequired[str]
+    effect: NotRequired[EffectNode]
+
+
+class AuraEffect(TypedDict):
+    type: Literal["aura"]
+    target: Literal["enemy-within-aura", "friendly-within-aura"]
+    modifier: Modifier1
 
 
 Effect: TypeAlias = EffectNode

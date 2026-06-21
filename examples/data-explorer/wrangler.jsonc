@@ -1,0 +1,14 @@
+{
+  "$schema": "../../node_modules/wrangler/config-schema.json",
+  "name": "40kdc-data-explorer",
+  "compatibility_date": "2026-06-01",
+  // Assets-only Worker (no `main`): serves the built Vite SPA. Unmatched paths
+  // fall back to index.html so client-side deep links resolve.
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "single-page-application"
+  },
+  // wrangler deploy provisions the DNS record + edge cert for this subdomain
+  // because alpacasoft.dev is a zone on the same Cloudflare account.
+  "routes": [{ "pattern": "data-explorer.alpacasoft.dev", "custom_domain": true }]
+}

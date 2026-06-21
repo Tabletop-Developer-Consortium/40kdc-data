@@ -9,23 +9,32 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "dice-gated",
-      "dice": "D6",
-      "threshold": 6,
-      "comparison": "gte",
-      "on_success": {
-        "type": "mortal-wounds",
-        "target": "enemy-within-aura",
-        "modifier": {
-          "count": "D3",
-          "range": 6
+      "type": "conditional",
+      "condition": {
+        "type": "timing-is",
+        "parameters": {
+          "timing": "before-bearer-removed"
         }
       },
-      "on_fail": null
+      "effect": {
+        "type": "dice-gated",
+        "dice": "D6",
+        "threshold": 6,
+        "comparison": "gte",
+        "on_success": {
+          "type": "mortal-wounds",
+          "target": "enemy-within-aura",
+          "modifier": {
+            "count": "D3",
+            "range": 6
+          }
+        },
+        "on_fail": null
+      }
     },
     "scope": {
       "range": "aura-6",
-      "duration": "one-use"
+      "duration": "permanent"
     },
     "unit_ids": [
       "war-dog-huntsman"
@@ -166,13 +175,13 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "type": "scouts",
+        "move_type": "scout",
         "distance": 6
       }
     },
     "scope": {
       "range": "unit",
-      "duration": "one-use"
+      "duration": "permanent"
     },
     "unit_ids": [
       "war-dog-stalker"
@@ -271,23 +280,32 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "dice-gated",
-      "dice": "D6",
-      "threshold": 6,
-      "comparison": "gte",
-      "on_success": {
-        "type": "mortal-wounds",
-        "target": "enemy-within-aura",
-        "modifier": {
-          "count": "D6",
-          "range": 6
+      "type": "conditional",
+      "condition": {
+        "type": "timing-is",
+        "parameters": {
+          "timing": "before-bearer-removed"
         }
       },
-      "on_fail": null
+      "effect": {
+        "type": "dice-gated",
+        "dice": "D6",
+        "threshold": 6,
+        "comparison": "gte",
+        "on_success": {
+          "type": "mortal-wounds",
+          "target": "enemy-within-aura",
+          "modifier": {
+            "count": "D6",
+            "range": 6
+          }
+        },
+        "on_fail": null
+      }
     },
     "scope": {
       "range": "aura-6",
-      "duration": "one-use"
+      "duration": "permanent"
     },
     "unit_ids": [
       "knight-despoiler"
@@ -385,23 +403,32 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "dice-gated",
-      "dice": "D6",
-      "threshold": 6,
-      "comparison": "gte",
-      "on_success": {
-        "type": "mortal-wounds",
-        "target": "enemy-within-aura",
-        "modifier": {
-          "count": "D6+2",
-          "range": 6
+      "type": "conditional",
+      "condition": {
+        "type": "timing-is",
+        "parameters": {
+          "timing": "before-bearer-removed"
         }
       },
-      "on_fail": null
+      "effect": {
+        "type": "dice-gated",
+        "dice": "D6",
+        "threshold": 6,
+        "comparison": "gte",
+        "on_success": {
+          "type": "mortal-wounds",
+          "target": "enemy-within-aura",
+          "modifier": {
+            "count": "D6+2",
+            "range": 6
+          }
+        },
+        "on_fail": null
+      }
     },
     "scope": {
       "range": "aura-6",
-      "duration": "one-use"
+      "duration": "permanent"
     },
     "unit_ids": [
       "chaos-cerastus-knight-acheron"
@@ -617,23 +644,32 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "dice-gated",
-      "dice": "D6",
-      "threshold": 6,
-      "comparison": "gte",
-      "on_success": {
-        "type": "mortal-wounds",
-        "target": "enemy-within-aura",
-        "modifier": {
-          "count": "2D6",
-          "range": 6
+      "type": "conditional",
+      "condition": {
+        "type": "timing-is",
+        "parameters": {
+          "timing": "before-bearer-removed"
         }
       },
-      "on_fail": null
+      "effect": {
+        "type": "dice-gated",
+        "dice": "D6",
+        "threshold": 6,
+        "comparison": "gte",
+        "on_success": {
+          "type": "mortal-wounds",
+          "target": "enemy-within-aura",
+          "modifier": {
+            "count": "2D6",
+            "range": 6
+          }
+        },
+        "on_fail": null
+      }
     },
     "scope": {
       "range": "aura-6",
-      "duration": "one-use"
+      "duration": "permanent"
     },
     "unit_ids": [
       "chaos-acastus-knight-porphyrion"
@@ -1222,14 +1258,18 @@
             "type": "movement-modifier",
             "target": "self",
             "modifier": {
-              "move_type": "through-non-titanic-models"
+              "passthrough": [
+                "non-titanic-models"
+              ]
             }
           },
           {
             "type": "movement-modifier",
             "target": "self",
             "modifier": {
-              "move_type": "through-terrain-4-or-less"
+              "passthrough": [
+                "terrain-le-4"
+              ]
             }
           },
           {
@@ -1241,7 +1281,9 @@
             "type": "movement-modifier",
             "target": "self",
             "modifier": {
-              "move_type": "through-terrain-over-4-inches"
+              "passthrough": [
+                "tall-terrain"
+              ]
             }
           },
           {
@@ -1249,7 +1291,7 @@
             "condition": {
               "type": "timing-is",
               "parameters": {
-                "timing": "after-moving-through-tall-terrain"
+                "timing": "moved-through-terrain"
               }
             },
             "effect": {
@@ -1726,9 +1768,8 @@
       "type": "movement-modifier",
       "target": "friendly-within-aura",
       "modifier": {
-        "move_type": "move-bonus",
-        "value": 2,
-        "replaces_default": false
+        "move_type": "normal",
+        "distance": 2
       }
     },
     "scope": {
@@ -2207,9 +2248,8 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "move_type": "surge-move",
-        "value": "D6",
-        "replaces_default": false
+        "move_type": "surge",
+        "distance": "D6"
       }
     },
     "scope": {
@@ -2494,8 +2534,8 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "move_type": "consolidate",
-        "bonus": 3
+        "move_type": "consolidation",
+        "distance": 3
       }
     },
     "scope": {
@@ -2588,10 +2628,10 @@
           }
         },
         {
-          "type": "movement-modifier",
+          "type": "ability-grant",
           "target": "unit",
           "modifier": {
-            "move_type": "advance-and-charge"
+            "grant_type": "advance-and-charge"
           }
         }
       ]
@@ -2778,8 +2818,13 @@
           "type": "movement-modifier",
           "target": "unit",
           "modifier": {
-            "move_type": "normal-advance-fallback",
-            "bonus": 3
+            "move_type": "normal",
+            "distance": 3,
+            "applies_to_moves": [
+              "normal",
+              "advance",
+              "fall-back"
+            ]
           }
         },
         {
@@ -3336,7 +3381,7 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "move_type": "normal-move",
+        "move_type": "normal",
         "distance": 6
       }
     },
@@ -3365,7 +3410,8 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "move_type": "to-strategic-reserves"
+        "move_type": "redeploy",
+        "to_reserves": true
       }
     },
     "scope": {

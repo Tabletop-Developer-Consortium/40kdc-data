@@ -26,7 +26,8 @@ import { fileURLToPath } from "node:url";
 import { Dataset } from "./data/dataset.js";
 import { baseLoadout } from "./data/loadout.js";
 import { normalizeName } from "./data/normalize.js";
-import { describeScoringCard, describeAbility, type Effect } from "./translate/index.js";
+import { describeScoringCard, describeAbility, type Effect, type AbilityUsage, type AbilityTrigger } from "./translate/index.js";
+import type { GameEvent } from "./generated.js";
 import { awardsOf } from "./scoring/index.js";
 import { createRunnerState, dispatch } from "./runner.js";
 import { exportRoster, type ExportFormat } from "./export/index.js";
@@ -276,7 +277,10 @@ type LinkedApiQuery =
       args: { factionId: string; detachmentIds?: string[] };
       comparison: "ordered";
     }
-  | { name: string; query: "ally_units_for"; args: { ruleId: string }; comparison: "set" };
+  | { name: string; query: "ally_units_for"; args: { ruleId: string }; comparison: "set" }
+  | { name: string; query: "reactive_trigger_ability_ids"; args: Record<string, never>; comparison: "ordered" }
+  | { name: string; query: "events_with_triggers"; args: Record<string, never>; comparison: "ordered" }
+  | { name: string; query: "triggers_for_event"; args: { event: string }; comparison: "ordered" };
 
 const LINKED_API_QUERIES: LinkedApiQuery[] = [
   // find_unit: diacritic-insensitive lookup, miss returns null.
@@ -328,6 +332,12 @@ const LINKED_API_QUERIES: LinkedApiQuery[] = [
   { name: "base_loadout chaos-terminators @5 (legal default, no swaps)", query: "base_loadout", args: { unitId: "chaos-terminators", modelCount: "5" }, comparison: "set" },
   { name: "base_loadout chaos-terminators @10 scales per model", query: "base_loadout", args: { unitId: "chaos-terminators", modelCount: "10" }, comparison: "set" },
   { name: "base_loadout crusader-squad @10 exercises leader+bulk allocation", query: "base_loadout", args: { unitId: "crusader-squad", modelCount: "10" }, comparison: "set" },
+  // reactive triggers: reactiveTriggers() sorts by ability id; triggerIndex() keys are
+  // event-sorted and each bucket ability-id-sorted, so all three are order-pinned.
+  { name: "reactive_trigger_ability_ids (all triggered abilities)", query: "reactive_trigger_ability_ids", args: {}, comparison: "ordered" },
+  { name: "events_with_triggers (index keys)", query: "events_with_triggers", args: {}, comparison: "ordered" },
+  { name: "triggers_for_event start-of-phase", query: "triggers_for_event", args: { event: "start-of-phase" }, comparison: "ordered" },
+  { name: "triggers_for_event on-unit-selected", query: "triggers_for_event", args: { event: "on-unit-selected" }, comparison: "ordered" },
 ];
 
 function genLinkedApi(): void {
@@ -413,6 +423,12 @@ function runLinkedQuery(ds: Dataset, q: LinkedApiQuery): string | null | string[
       return ds.alliesFor(q.args.factionId, q.args.detachmentIds ?? []).map((r) => r.id);
     case "ally_units_for":
       return ds.allyUnitsFor(q.args.ruleId).map((u) => u.id).sort();
+    case "reactive_trigger_ability_ids":
+      return ds.reactiveTriggers().map((rt) => rt.abilityId);
+    case "events_with_triggers":
+      return [...ds.triggerIndex().keys()];
+    case "triggers_for_event":
+      return (ds.triggerIndex().get(q.args.event as GameEvent) ?? []).map((rt) => rt.abilityId);
   }
 }
 
@@ -1102,14 +1118,33 @@ function genEffectTranslation(): void {
       scope: a.raw.scope ?? null,
     };
     if (a.raw.applies_to != null) entry.applies_to = a.raw.applies_to;
+    if (a.raw.usage != null) entry.usage = a.raw.usage;
+    if (a.raw.trigger != null) entry.trigger = a.raw.trigger;
     entry.expected = {
       text: describeAbility({
         effect: a.raw.effect as Effect,
         scope: a.raw.scope,
+        usage: a.raw.usage as AbilityUsage | undefined,
+        trigger: a.raw.trigger as AbilityTrigger | undefined,
         applies_to: a.raw.applies_to,
       }),
     };
     cases.push(entry);
+  }
+  // Pin the scouts movement-modifier — movement-modifier caps out before scouts-6
+  // sorts in alphabetically, so force-include one case to keep the new
+  // "Before the first battle round, …" phrasing pinned cross-impl.
+  {
+    const fc = {
+      effect: { type: "movement-modifier", target: "unit", modifier: { move_type: "scout", distance: 6 } },
+      scope: { range: "unit", duration: "permanent" },
+    };
+    cases.push({
+      caseId: `movement-modifier-scouts#${cases.length}`,
+      effect: fc.effect,
+      scope: fc.scope,
+      expected: { text: describeAbility({ effect: fc.effect as Effect, scope: fc.scope }) },
+    });
   }
   // Pin the curated ability-grant label overrides for the sibling ids — they
   // rarely surface in the capped sample above (ability-grant caps out on the
@@ -1130,6 +1165,295 @@ function genEffectTranslation(): void {
     const id = (fc.effect.modifier as Record<string, unknown>).grant_type as string;
     cases.push({
       caseId: `grant-label-${id}#${cases.length}`,
+      effect: fc.effect,
+      scope: fc.scope,
+      expected: { text: describeAbility({ effect: fc.effect as Effect, scope: fc.scope }) },
+    });
+  }
+  // Batch A (describer-only gaps): pin the new condition lead-ins
+  // (engagement-state / disposition-matches / fights-first), the `scaling`
+  // trailing clause, and the inline dice-pool requirement label cross-impl.
+  // `scaling` and `fights-first` have no enrichment usage, and several
+  // engagement-state param branches never surface in the capped auto-sample, so
+  // force-include exemplars; expected text still comes from the reference
+  // describer, so a second impl must independently reproduce it.
+  const FORCED_DESCRIBER_CASES: { id: string; effect: Record<string, unknown>; scope: Record<string, unknown> }[] = [
+    {
+      id: "engagement-state-engaged",
+      effect: { type: "conditional", condition: { type: "engagement-state", parameters: { state: "within-engagement-range" } }, effect: { type: "fight-first", target: "unit" } },
+      scope: { range: "unit", duration: "permanent" },
+    },
+    {
+      id: "engagement-state-on-battlefield",
+      effect: { type: "conditional", condition: { type: "engagement-state", parameters: { state: "on-battlefield" } }, effect: { type: "deep-strike", target: "unit" } },
+      scope: { range: "unit", duration: "permanent" },
+    },
+    {
+      id: "engagement-state-embarked",
+      effect: { type: "conditional", condition: { type: "engagement-state", parameters: { state: "embarked" } }, effect: { type: "deep-strike", target: "unit" } },
+      scope: { range: "unit", duration: "permanent" },
+    },
+    {
+      id: "engagement-state-empty",
+      effect: { type: "conditional", condition: { type: "engagement-state", parameters: {} }, effect: { type: "deep-strike", target: "unit" } },
+      scope: { range: "unit", duration: "permanent" },
+    },
+    {
+      id: "engagement-state-negated",
+      effect: { type: "conditional", condition: { type: "engagement-state", negated: true, parameters: { state: "embarked" } }, effect: { type: "deep-strike", target: "unit" } },
+      scope: { range: "unit", duration: "permanent" },
+    },
+    {
+      id: "disposition-matches-reserves",
+      effect: { type: "conditional", condition: { type: "disposition-matches", parameters: { disposition: "strategic-reserves" } }, effect: { type: "deep-strike", target: "unit" } },
+      scope: { range: "unit", duration: "permanent" },
+    },
+    {
+      id: "disposition-matches-enemy",
+      effect: { type: "conditional", condition: { type: "disposition-matches", parameters: { disposition: "enemy" } }, effect: { type: "deep-strike", target: "unit" } },
+      scope: { range: "unit", duration: "permanent" },
+    },
+    {
+      id: "fights-first-cond",
+      effect: { type: "conditional", condition: { type: "fights-first", parameters: {} }, effect: { type: "stat-modifier", target: "unit", modifier: { stat: "A", operation: "add", value: 1 } } },
+      scope: { range: "unit", duration: "permanent" },
+    },
+    {
+      id: "scaling-attacks-per-models",
+      effect: { type: "stat-modifier", target: "unit", modifier: { stat: "A", operation: "add", value: 1 }, scaling: { per: 5, of: "enemy-models-in-range", within_inches: 6 } },
+      scope: { range: "unit", duration: "permanent" },
+    },
+    {
+      id: "scaling-strength-wounds-lost",
+      effect: { type: "stat-modifier", target: "self", modifier: { stat: "S", operation: "add", value: 1 }, scaling: { per: 1, of: "wounds-lost", round: "up", max_value: 3 } },
+      scope: { range: "self", duration: "permanent" },
+    },
+    {
+      id: "dice-pool-inline-label",
+      effect: {
+        type: "choice",
+        options: [
+          { type: "dice-pool-allocation", pool: { count: 3, die: "D6" }, max_activations: 1, options: [{ name: "Carnage", requirement: { type: "pair", min_value: 4 }, effect: { type: "mortal-wounds", target: "all-enemy", modifier: { count: 3 } } }] },
+          { type: "fight-first", target: "unit" },
+        ],
+      },
+      scope: { range: "unit", duration: "permanent" },
+    },
+  ];
+  for (const fc of FORCED_DESCRIBER_CASES) {
+    cases.push({
+      caseId: `${fc.id}#${cases.length}`,
+      effect: fc.effect,
+      scope: fc.scope,
+      expected: { text: describeAbility({ effect: fc.effect as Effect, scope: fc.scope }) },
+    });
+  }
+  // Batch B (structured modifiers): parameterized weapon keywords (Anti-X / rated),
+  // auto-result, transport (firing-deck / disembark-after-move), and the ability-level
+  // `usage` limit. Shapes 3/5/6 have no enrichment usage yet; pin them synthetically.
+  const FORCED_BATCH_B_CASES: { id: string; effect: Record<string, unknown>; scope: Record<string, unknown>; usage?: Record<string, unknown> }[] = [
+    {
+      id: "keyword-grant-anti-string",
+      effect: { type: "keyword-grant", target: "unit", modifier: { keyword: "anti-titanic-3plus" } },
+      scope: { range: "unit", duration: "permanent" },
+    },
+    {
+      id: "keyword-grant-anti-structured",
+      effect: { type: "keyword-grant", target: "unit", modifier: { anti_keyword: "infantry", anti_threshold: 4 } },
+      scope: { range: "unit", duration: "permanent" },
+    },
+    {
+      id: "keyword-grant-rated-value",
+      effect: { type: "keyword-grant", target: "unit", modifier: { keyword: "sustained-hits", value: 2 } },
+      scope: { range: "unit", duration: "permanent" },
+    },
+    {
+      id: "auto-result-battle-shock-pass",
+      effect: { type: "auto-result", target: "unit", modifier: { test: "battle-shock", result: "pass" } },
+      scope: { range: "unit", duration: "permanent" },
+    },
+    {
+      id: "auto-result-hit-six",
+      effect: { type: "auto-result", target: "unit", modifier: { roll: "hit", result: 6 } },
+      scope: { range: "unit", duration: "phase" },
+    },
+    {
+      id: "firing-deck",
+      effect: { type: "firing-deck", target: "self", modifier: { value: 2 } },
+      scope: { range: "self", duration: "permanent" },
+    },
+    {
+      id: "disembark-after-move",
+      effect: { type: "disembark-after-move", target: "self", modifier: {} },
+      scope: { range: "self", duration: "permanent" },
+    },
+    {
+      id: "usage-once-per-turn",
+      effect: { type: "cp-gain", target: "self", modifier: { amount: 1 } },
+      scope: { range: "self", duration: "permanent" },
+      usage: { frequency: "once-per-turn" },
+    },
+    {
+      id: "usage-n-per-battle-per-unit",
+      effect: { type: "stat-modifier", target: "unit", modifier: { stat: "A", operation: "add", value: 1 } },
+      scope: { range: "unit", duration: "phase" },
+      usage: { frequency: "n-per-battle", count: 2, per: "unit" },
+    },
+  ];
+  for (const fc of FORCED_BATCH_B_CASES) {
+    const entry: Record<string, unknown> = {
+      caseId: `${fc.id}#${cases.length}`,
+      effect: fc.effect,
+      scope: fc.scope,
+    };
+    if (fc.usage) entry.usage = fc.usage;
+    entry.expected = {
+      text: describeAbility({
+        effect: fc.effect as Effect,
+        scope: fc.scope,
+        usage: fc.usage as AbilityUsage | undefined,
+      }),
+    };
+    cases.push(entry);
+  }
+  // Batch C (reactive trigger): pin the trigger lead-in across the event vocabulary
+  // (no ability carries a trigger yet — forward-looking, like usage/auto-result).
+  const FORCED_TRIGGER_CASES: { id: string; effect: Record<string, unknown>; scope: Record<string, unknown>; trigger: Record<string, unknown> }[] = [
+    {
+      id: "trigger-enemy-ended-move",
+      effect: { type: "movement-modifier", target: "self", modifier: { move_type: "reactive", distance: "D6" } },
+      scope: { range: "self", duration: "one-use" },
+      trigger: { event: "enemy-unit-ended-move", subject: "enemy-unit", proximity: { of: "bearer", range: 9 } },
+    },
+    {
+      id: "trigger-on-model-destroyed",
+      effect: { type: "mortal-wounds", target: "all-enemy", modifier: { count: 1 } },
+      scope: { range: "aura-6", duration: "one-use", range_inches: 6 },
+      trigger: { event: "on-model-destroyed" },
+    },
+    {
+      id: "trigger-before-save-with-condition",
+      effect: { type: "re-roll", target: "unit", modifier: { roll: "save", subset: "all-failures" } },
+      scope: { range: "unit", duration: "phase" },
+      trigger: { event: "before-save-roll", subject: "self", condition: { type: "is-battle-shocked" } },
+    },
+  ];
+  for (const fc of FORCED_TRIGGER_CASES) {
+    cases.push({
+      caseId: `${fc.id}#${cases.length}`,
+      effect: fc.effect,
+      scope: fc.scope,
+      trigger: fc.trigger,
+      expected: {
+        text: describeAbility({
+          effect: fc.effect as Effect,
+          scope: fc.scope,
+          trigger: fc.trigger as AbilityTrigger,
+        }),
+      },
+    });
+  }
+  // Batch D (movement-modifier full closure + generic aura): pin one exemplar of
+  // every new closed shape — move kinds, the optional-move_type passthrough
+  // capability, redeploy/marker, the generic aura (range-bonus + tiered+effect),
+  // and the re-homed deep-strike-range / engagement-no-end records. Several have
+  // no enrichment usage (aura with nested effect, tiered range), so force them;
+  // expected text still flows from the reference describer.
+  const FORCED_BATCH_D_CASES: { id: string; effect: Record<string, unknown>; scope: Record<string, unknown> }[] = [
+    {
+      id: "move-passthrough-models-terrain",
+      effect: { type: "movement-modifier", target: "self", modifier: { passthrough: ["non-titanic-models", "terrain-le-4"] } },
+      scope: { range: "self", duration: "permanent" },
+    },
+    {
+      id: "move-passthrough-applies-excludes",
+      effect: { type: "movement-modifier", target: "unit", modifier: { passthrough: ["terrain-le-4"], vertical_limit: 4, excludes_keyword: "titanic", applies_to_moves: ["normal", "advance", "fall-back"] } },
+      scope: { range: "unit", duration: "permanent" },
+    },
+    {
+      id: "move-ignore-vertical",
+      effect: { type: "movement-modifier", target: "unit", modifier: { ignore_vertical: true } },
+      scope: { range: "unit", duration: "permanent" },
+    },
+    {
+      id: "move-normal-applies",
+      effect: { type: "movement-modifier", target: "unit", modifier: { move_type: "normal", distance: 3, applies_to_moves: ["normal", "advance", "fall-back"] } },
+      scope: { range: "unit", duration: "permanent" },
+    },
+    {
+      id: "move-normal-negative",
+      effect: { type: "movement-modifier", target: "defender", modifier: { move_type: "normal", distance: -2 } },
+      scope: { range: "unit", duration: "turn" },
+    },
+    {
+      id: "move-advance-bonus",
+      effect: { type: "movement-modifier", target: "unit", modifier: { move_type: "advance", distance: 6 } },
+      scope: { range: "unit", duration: "permanent" },
+    },
+    {
+      id: "move-pile-in",
+      effect: { type: "movement-modifier", target: "unit", modifier: { move_type: "pile-in", distance: 3, replaces_default: true } },
+      scope: { range: "unit", duration: "permanent" },
+    },
+    {
+      id: "move-consolidation",
+      effect: { type: "movement-modifier", target: "unit", modifier: { move_type: "consolidation", distance: 6, replaces_default: true } },
+      scope: { range: "unit", duration: "permanent" },
+    },
+    {
+      id: "move-surge",
+      effect: { type: "movement-modifier", target: "unit", modifier: { move_type: "surge", distance: "D6" } },
+      scope: { range: "unit", duration: "phase" },
+    },
+    {
+      id: "move-shoot-and-scoot",
+      effect: { type: "movement-modifier", target: "unit", modifier: { move_type: "shoot-and-scoot", distance: "D6" } },
+      scope: { range: "unit", duration: "turn" },
+    },
+    {
+      id: "move-redeploy-reserves-max",
+      effect: { type: "movement-modifier", target: "unit", modifier: { move_type: "redeploy", to_reserves: true, max_units: 3 } },
+      scope: { range: "unit", duration: "permanent" },
+    },
+    {
+      id: "move-redeploy-marker",
+      effect: { type: "movement-modifier", target: "unit", modifier: { move_type: "redeploy", marker: { affected: "Cult Ambush markers" }, distance: 6 } },
+      scope: { range: "unit", duration: "turn" },
+    },
+    {
+      id: "move-redeploy-placement",
+      effect: { type: "movement-modifier", target: "unit", modifier: { move_type: "redeploy", marker: { location: "floor sections", unit_filter: "Genestealer Cult Infantry" } } },
+      scope: { range: "unit", duration: "permanent" },
+    },
+    {
+      id: "move-infiltrate",
+      effect: { type: "movement-modifier", target: "unit", modifier: { move_type: "infiltrate" } },
+      scope: { range: "unit", duration: "permanent" },
+    },
+    {
+      id: "aura-range-bonus",
+      effect: { type: "aura", target: "enemy-within-aura", modifier: { of: "contagion", range_bonus: 3 } },
+      scope: { range: "self", duration: "permanent" },
+    },
+    {
+      id: "aura-tiered-effect",
+      effect: { type: "aura", target: "enemy-within-aura", modifier: { range: [3, 6, 9], effect: { type: "stat-modifier", target: "enemy-within-aura", modifier: { stat: "T", operation: "subtract", value: 1 } } } },
+      scope: { range: "self", duration: "permanent" },
+    },
+    {
+      id: "rehome-deep-strike-min-distance",
+      effect: { type: "deep-strike", target: "unit", modifier: { min_distance: 6, replaces_default: true } },
+      scope: { range: "unit", duration: "phase" },
+    },
+    {
+      id: "rehome-engagement-no-end",
+      effect: { type: "engagement-passthrough", target: "self", modifier: { no_end_in_engagement: true } },
+      scope: { range: "self", duration: "permanent" },
+    },
+  ];
+  for (const fc of FORCED_BATCH_D_CASES) {
+    cases.push({
+      caseId: `${fc.id}#${cases.length}`,
       effect: fc.effect,
       scope: fc.scope,
       expected: { text: describeAbility({ effect: fc.effect as Effect, scope: fc.scope }) },

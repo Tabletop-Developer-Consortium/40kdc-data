@@ -36,7 +36,6 @@ type Dataset struct {
 	LeaderAttachments []any
 	UnitCompositions  []any
 	GameVersions      []any
-	TimingFlags       []any
 	InteractionFlags  []any
 	PhaseMappings     []any
 
@@ -126,7 +125,6 @@ func NewDataset(raw rawData) *Dataset {
 	ds.LeaderAttachments = raw["leader_attachments"]
 	ds.UnitCompositions = raw["unit_compositions"]
 	ds.GameVersions = raw["game_versions"]
-	ds.TimingFlags = raw["timing_flags"]
 	ds.InteractionFlags = raw["interaction_flags"]
 	ds.PhaseMappings = raw["phase_mappings"]
 
@@ -292,6 +290,58 @@ func (ds *Dataset) allyUnitsFor(ruleID string) []*UnitView {
 		out[i] = &UnitView{Raw: u, ds: ds}
 	}
 	return out
+}
+
+// ReactiveTrigger is an ability's reactive trigger block plus the units that
+// list it. Go mirror of the TS ReactiveTrigger shape.
+type ReactiveTrigger struct {
+	AbilityID string
+	Event     string
+	UnitIDs   []string
+	Trigger   map[string]any
+}
+
+// ReactiveTriggers returns every ability whose `trigger` is non-null, sorted
+// ascending by AbilityID. UnitIDs are the ids of units listing the ability
+// (reverse index), sorted ascending (empty for faction/detachment-rule
+// abilities). Go mirror of TS Dataset.reactiveTriggers.
+func (ds *Dataset) ReactiveTriggers() []ReactiveTrigger {
+	var out []ReactiveTrigger
+	for _, ability := range ds.Abilities.All() {
+		trigger, ok := getMap(ability.Raw, "trigger")
+		if !ok || trigger == nil {
+			continue
+		}
+		abilityID := ability.ID()
+		unitIDs := []string{}
+		for _, unitAny := range ds.unitsByAbility[abilityID] {
+			unit, _ := asMap(unitAny)
+			unitIDs = append(unitIDs, getStr(unit, "id"))
+		}
+		sort.Strings(unitIDs)
+		out = append(out, ReactiveTrigger{
+			AbilityID: abilityID,
+			Event:     getStr(trigger, "event"),
+			UnitIDs:   unitIDs,
+			Trigger:   trigger,
+		})
+	}
+	sort.SliceStable(out, func(i, j int) bool {
+		return out[i].AbilityID < out[j].AbilityID
+	})
+	return out
+}
+
+// TriggerIndex maps each trigger event to its ReactiveTriggers (buckets stay
+// ability-id-sorted via ReactiveTriggers's ordering). Callers sort the event
+// keys when deterministic iteration is needed. Go mirror of TS
+// Dataset.triggerIndex.
+func (ds *Dataset) TriggerIndex() map[string][]ReactiveTrigger {
+	index := map[string][]ReactiveTrigger{}
+	for _, rt := range ds.ReactiveTriggers() {
+		index[rt.Event] = append(index[rt.Event], rt)
+	}
+	return index
 }
 
 func (ds *Dataset) buildIndexes(raw rawData) {

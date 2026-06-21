@@ -1,13 +1,13 @@
 ---
 name: Enrichment Contribution
-about: Contribute enrichment data (phase mappings, timing flags, abilities)
+about: Contribute enrichment data (phase mappings, abilities)
 title: '[ENRICHMENT] '
 labels: enrichment
 ---
 
 ## Type
 
-What kind of enrichment? (phase-mapping / timing-flag / interaction-flag / ability-dsl)
+What kind of enrichment? (phase-mapping / interaction-flag / ability-dsl)
 
 ## Scope
 

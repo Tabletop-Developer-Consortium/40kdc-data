@@ -41,7 +41,7 @@ var collectionKeys = []string{
 	"enhancements", "leader_attachments", "unit_compositions", "wargear_options",
 	"wargear", "game_versions", "missions", "mission_matchups", "mission_cards",
 	"deployment_patterns", "force_dispositions", "terrain_templates",
-	"terrain_layouts", "hull_shapes", "resource_pools", "timing_flags",
+	"terrain_layouts", "hull_shapes", "resource_pools",
 	"interaction_flags",
 }
 

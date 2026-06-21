@@ -24,5 +24,7 @@ export {
   type Effect,
   type AbilityScope,
   type AbilityAppliesTo,
+  type AbilityUsage,
+  type AbilityTrigger,
   type AbilityLike,
 } from "./effect.js";

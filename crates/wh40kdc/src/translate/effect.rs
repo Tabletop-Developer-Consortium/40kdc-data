@@ -8,11 +8,14 @@
 
 use serde_json::{Map, Value};
 
-use super::{dekebab, describe_node, describe_timing};
+use super::{dekebab, describe_node, describe_timing, event_clause};
 use crate::generated::{
-    Ability, AbilityAppliesTo, CompoundConditionOperator, ConditionNode, DiceGatedEffect,
-    DiceGatedEffectComparison, DiceGatedEffectThreshold, DicePoolAllocationEffect, EffectNode,
-    Scope, SimpleConditionType, SingleEffect, SingleEffectType,
+    Ability, AbilityAppliesTo, AbilityTrigger, AbilityTriggerProximityOf, AbilityUsage,
+    AbilityUsageFrequency, AuraEffect, AuraEffectModifierRange, AuraEffectTarget,
+    CompoundConditionOperator, ConditionNode, DiceGatedEffect, DiceGatedEffectComparison,
+    DiceGatedEffectThreshold, DicePoolAllocationEffect, EffectNode, MovementModifierEffect,
+    Scaling, ScalingOf, ScalingRound, Scope, ScopeRange, SelectUnitsEffectSelector,
+    SelectUnitsEffectSelectorOwner, SimpleConditionType, SingleEffect, SingleEffectType,
 };
 
 /// Rendering context threaded from the ability (scope info the leaf needs).
@@ -123,9 +126,66 @@ fn title_case(s: &str) -> String {
         .join(" ")
 }
 
+/// `^anti[\s-]+(.*)$` (case-insensitive): returns the captured remainder when
+/// `raw` starts with an `anti` prefix followed by ≥1 whitespace/hyphen.
+fn strip_anti_prefix(raw: &str) -> Option<&str> {
+    let prefix = raw.get(..4)?;
+    if !prefix.eq_ignore_ascii_case("anti") {
+        return None;
+    }
+    let after = &raw[4..];
+    let rest = after.trim_start_matches(|c: char| c.is_whitespace() || c == '-');
+    // The `[\s-]+` requires at least one separator char to have been consumed.
+    if rest.len() == after.len() {
+        return None;
+    }
+    Some(rest)
+}
+
+/// `^(.*?)[\s-]*(\d+)\s*(?:\+|plus)?$` (case-insensitive): the lazy split of a
+/// keyword body into (name, trailing-number). Returns the earliest-matching cut.
+fn split_trailing_number(s: &str) -> Option<(&str, &str)> {
+    fn match_number_suffix(suffix: &str) -> Option<&str> {
+        let body = suffix.trim_start_matches(|c: char| c.is_whitespace() || c == '-');
+        let digits_end = body
+            .find(|c: char| !c.is_ascii_digit())
+            .unwrap_or(body.len());
+        if digits_end == 0 {
+            return None;
+        }
+        let digits = &body[..digits_end];
+        let tail = body[digits_end..].trim_start_matches(char::is_whitespace);
+        if tail.is_empty() || tail == "+" || tail.eq_ignore_ascii_case("plus") {
+            Some(digits)
+        } else {
+            None
+        }
+    }
+    let cuts = s
+        .char_indices()
+        .map(|(i, _)| i)
+        .chain(std::iter::once(s.len()));
+    for p in cuts {
+        if let Some(digits) = match_number_suffix(&s[p..]) {
+            return Some((&s[..p], digits));
+        }
+    }
+    None
+}
+
 /// GW weapon keyword token → bracketed caps (`lethal-hits` → `[LETHAL HITS]`).
+/// `Anti-` keywords keep their hyphen and surface their `+`-threshold
+/// (`anti-titanic-3plus` → `[ANTI-TITANIC 3+]`).
 fn bracket_keyword(v: &Value) -> String {
-    format!("[{}]", dekebab(&jval(v)).to_uppercase())
+    let raw = jval(v);
+    let raw = raw.trim();
+    if let Some(anti) = strip_anti_prefix(raw) {
+        if let Some((name, num)) = split_trailing_number(anti) {
+            return format!("[ANTI-{} {num}+]", dekebab(name).trim().to_uppercase());
+        }
+        return format!("[ANTI-{}]", dekebab(anti).trim().to_uppercase());
+    }
+    format!("[{}]", dekebab(raw).to_uppercase())
 }
 
 /// Dice tokens print with a capital `D` (`d3` → `D3`).
@@ -205,6 +265,9 @@ fn agree(subj: &str, singular: &str) -> String {
         "suffers" => "suffer".to_string(),
         "retains" => "retain".to_string(),
         "makes" => "make".to_string(),
+        "passes" => "pass".to_string(),
+        "fails" => "fail".to_string(),
+        "treats" => "treat".to_string(),
         other => other.strip_suffix('s').unwrap_or(other).to_string(),
     }
 }
@@ -262,6 +325,19 @@ fn signed(m: &Map<String, Value>) -> String {
 }
 
 /// Dice comparison → "a 4+", "a 3 or less", etc.
+/// Dice-pool success phrase → "4+", "6", "3 or less" (per-die threshold in a
+/// `mortal-wounds` pool — follows "for each", so no leading "a").
+fn pool_threshold(comp: &str, threshold: Option<&Value>) -> String {
+    let th = threshold.map(jval).unwrap_or_else(|| "?".to_string());
+    match comp {
+        "lte" => format!("{th} or less"),
+        "gt" => format!("more than {th}"),
+        "lt" => format!("less than {th}"),
+        "eq" => th,
+        _ => format!("{th}+"),
+    }
+}
+
 fn format_comparison(
     comp: DiceGatedEffectComparison,
     threshold: &DiceGatedEffectThreshold,
@@ -296,26 +372,90 @@ fn duration_clauses(duration: &str) -> (String, String) {
 }
 
 /// A condition rendered as a natural lead-in clause (lowercase-initial).
+/// "against a unit that is not a Monster or Vehicle" from a run of excluded target keywords.
+fn negated_target_keywords(keywords: &[String]) -> String {
+    format!("against a unit that is not a {}", keywords.join(" or "))
+}
+
+/// Join the operands of an `and` lead-in. A run of consecutive negated
+/// `target-has-keyword` exclusions collapses into one "against a unit that is not
+/// a X or Y" clause, which attaches to the preceding clause with a space; all
+/// other operands join with ", ".
+fn join_and_lead_ins(operands: &[ConditionNode]) -> String {
+    let mut parts: Vec<String> = Vec::new();
+    let mut i = 0;
+    while i < operands.len() {
+        if let ConditionNode::SimpleCondition(s) = &operands[i] {
+            if s.negated && s.type_ == SimpleConditionType::TargetHasKeyword {
+                let mut kws: Vec<String> = Vec::new();
+                while i < operands.len() {
+                    match &operands[i] {
+                        ConditionNode::SimpleCondition(s2)
+                            if s2.negated && s2.type_ == SimpleConditionType::TargetHasKeyword =>
+                        {
+                            kws.push(jv(&s2.parameters, "keyword"));
+                            i += 1;
+                        }
+                        _ => break,
+                    }
+                }
+                parts.push(negated_target_keywords(&kws));
+                continue;
+            }
+        }
+        parts.push(condition_lead_in(&operands[i]));
+        i += 1;
+    }
+    let mut acc = String::new();
+    for part in parts {
+        if acc.is_empty() {
+            acc = part;
+        } else if part.starts_with("against ") {
+            acc = format!("{acc} {part}");
+        } else {
+            acc = format!("{acc}, {part}");
+        }
+    }
+    acc
+}
+
 fn condition_lead_in(n: &ConditionNode) -> String {
     match n {
-        ConditionNode::CompoundCondition(c) => {
-            let parts: Vec<String> = c.operands.iter().map(condition_lead_in).collect();
-            match c.operator {
-                CompoundConditionOperator::And => parts.join(", "),
-                CompoundConditionOperator::Or => parts.join(" or "),
-                CompoundConditionOperator::Not => format!(
+        ConditionNode::CompoundCondition(c) => match c.operator {
+            CompoundConditionOperator::And => join_and_lead_ins(&c.operands),
+            CompoundConditionOperator::Or => c
+                .operands
+                .iter()
+                .map(condition_lead_in)
+                .collect::<Vec<_>>()
+                .join(" or "),
+            CompoundConditionOperator::Not => {
+                let parts: Vec<String> = c.operands.iter().map(condition_lead_in).collect();
+                format!(
                     "unless {}",
                     parts
                         .iter()
                         .map(|p| p.strip_prefix("if ").unwrap_or(p))
                         .collect::<Vec<_>>()
                         .join(" or ")
-                ),
+                )
             }
-        }
+        },
         ConditionNode::SimpleCondition(s) => {
             if s.negated {
-                return format!("if {}", describe_node(n));
+                // Negated keyword gates read as an exclusion clause, not "if not …".
+                return match s.type_ {
+                    SimpleConditionType::TargetHasKeyword => {
+                        negated_target_keywords(&[jv(&s.parameters, "keyword")])
+                    }
+                    SimpleConditionType::UnitHasKeyword => {
+                        format!(
+                            "unless the unit has the {} keyword",
+                            jv(&s.parameters, "keyword")
+                        )
+                    }
+                    _ => format!("if {}", describe_node(n)),
+                };
             }
             let p = &s.parameters;
             use SimpleConditionType as T;
@@ -337,11 +477,26 @@ fn condition_lead_in(n: &ConditionNode) -> String {
                 T::ModelIsLeader => "while this model leads a unit".to_string(),
                 T::ChargedThisTurn => "if the unit charged this turn".to_string(),
                 T::AdvancedThisTurn => "if the unit Advanced this turn".to_string(),
+                T::DisembarkedFromTransport => {
+                    "if the unit disembarked from a Transport this turn".to_string()
+                }
+                T::FactionRuleActive => {
+                    format!("while the {} is active", title_case(&jv(p, "rule")))
+                }
+                T::BattleRound => {
+                    format!("during the first {} battle rounds", jv(p, "max"))
+                }
                 T::RemainedStationary => "if the unit Remained Stationary".to_string(),
                 T::TargetHasKeyword => format!("against {} targets", jv(p, "keyword")),
                 T::UnitHasKeyword => format!("if the unit has the {} keyword", jv(p, "keyword")),
                 T::IsBattleShocked => "while the unit is Battle-shocked".to_string(),
-                T::UnitBelowHalfStrength => "while the unit is below half strength".to_string(),
+                T::UnitBelowHalfStrength => {
+                    if nstr(p, "subject") == Some("target") {
+                        "while the target unit is below half strength".to_string()
+                    } else {
+                        "while the unit is below half strength".to_string()
+                    }
+                }
                 T::UnitBelowStartingStrength => {
                     "while the unit is below its starting strength".to_string()
                 }
@@ -352,7 +507,7 @@ fn condition_lead_in(n: &ConditionNode) -> String {
                             .to_string()
                     }
                     Some(c) => format!("when {}", dekebab(c)),
-                    None => format!("with {} attacks", jv(p, "attack_type")),
+                    None => format!("while making {} attacks", jv(p, "attack_type")),
                 },
                 T::DestroyedByAttackType => {
                     format!("when destroyed by a {} attack", jv(p, "attack_type"))
@@ -369,6 +524,30 @@ fn condition_lead_in(n: &ConditionNode) -> String {
                     };
                     format!("while an enemy unit is within {where_}")
                 }
+                T::EngagementState => match nstr(p, "state") {
+                    None => "while the unit is within Engagement Range".to_string(),
+                    Some("on-battlefield") => "while the unit is on the battlefield".to_string(),
+                    Some("embarked") => "while the unit is embarked".to_string(),
+                    Some("engaged")
+                    | Some("within-engagement-range")
+                    | Some("in-engagement-range") => {
+                        "while the unit is within Engagement Range".to_string()
+                    }
+                    Some("not-in-engagement-range") | Some("not-within-engagement-range") => {
+                        "while the unit is not within Engagement Range".to_string()
+                    }
+                    Some(st) => format!("while the unit is {}", dekebab(st)),
+                },
+                T::DispositionMatches => match nstr(p, "disposition") {
+                    Some("strategic-reserves") => {
+                        "while the unit is in Strategic Reserves".to_string()
+                    }
+                    _ => format!(
+                        "while the unit's disposition is {}",
+                        dekebab(&jv(p, "disposition"))
+                    ),
+                },
+                T::FightsFirst => "while the unit has the Fights First ability".to_string(),
                 _ => format!("if {}", describe_node(n)),
             }
         }
@@ -420,6 +599,240 @@ fn describe_attack_restriction(m: &Map<String, Value>, subj: &str) -> String {
                 .unwrap_or_default();
             format!("{subj}: {}{rng}", dekebab(&slug))
         }
+    }
+}
+
+/// Movement-modifier passthrough enum → human phrase (`PASSTHROUGH_PHRASE`).
+fn passthrough_phrase(p: &str) -> String {
+    match p {
+        "non-titanic-models" => "non-Titanic models".to_string(),
+        "friendly-vehicles" => "friendly Vehicle models".to_string(),
+        "friendly-monsters" => "friendly Monster models".to_string(),
+        "terrain-le-4" => "terrain features 4\" or lower".to_string(),
+        "tall-terrain" => "terrain features over 4\"".to_string(),
+        "all-terrain" => "terrain features".to_string(),
+        other => dekebab(other),
+    }
+}
+
+/// Move-kind token → display noun (`MOVE_NOUN`, for `applies_to_moves`).
+fn move_noun(x: &str) -> String {
+    match x {
+        "normal" => "Normal".to_string(),
+        "advance" => "Advance".to_string(),
+        "fall-back" => "Fall Back".to_string(),
+        "charge" => "Charge".to_string(),
+        other => dekebab(other),
+    }
+}
+
+/// Oxford-free conjunction list ("a", "a and b", "a, b and c").
+fn and_list(items: &[String]) -> String {
+    match items.len() {
+        0 => String::new(),
+        1 => items[0].clone(),
+        2 => format!("{} and {}", items[0], items[1]),
+        n => format!("{} and {}", items[..n - 1].join(", "), items[n - 1]),
+    }
+}
+
+/// Trailing inches clause for a movement distance (int or dice string); "" when absent/zero.
+fn inch_clause(dist: Option<&Value>) -> String {
+    match dist {
+        None | Some(Value::Null) => String::new(),
+        Some(d) => {
+            let s = dice_case(d);
+            if s == "0" {
+                String::new()
+            } else {
+                format!(" {s}\"")
+            }
+        }
+    }
+}
+
+/// Closed movement-modifier `modifier` → one lowercase-initial clause. Mirrors
+/// `movementClause` in `tools/src/translate/effect.ts`.
+fn movement_clause(m: &Map<String, Value>, subj: &str) -> String {
+    let kind = nstr(m, "move_type");
+    let dist = m.get("distance");
+    let inches = inch_clause(dist);
+    let of_up_to = if inches.is_empty() {
+        String::new()
+    } else {
+        format!(" of up to{inches}")
+    };
+    let move_kinds: Option<String> = match m.get("applies_to_moves") {
+        Some(Value::Array(a)) => Some(and_list(
+            &a.iter().map(|x| move_noun(&jval(x))).collect::<Vec<_>>(),
+        )),
+        _ => None,
+    };
+
+    // Pure traversal capability (no move kind): passthrough / vertical / ignore-vertical.
+    if kind.is_none() {
+        let mut parts: Vec<String> = Vec::new();
+        if let Some(Value::Array(a)) = m.get("passthrough") {
+            if !a.is_empty() {
+                parts.push(
+                    a.iter()
+                        .map(|p| passthrough_phrase(&jval(p)))
+                        .collect::<Vec<_>>()
+                        .join(" and "),
+                );
+            }
+        }
+        let mut clause = if !parts.is_empty() {
+            let over = if notnull(m, "vertical_limit") {
+                format!(" (up to {}\" high)", jv(m, "vertical_limit"))
+            } else {
+                String::new()
+            };
+            format!(
+                "{subj} can move over {}{over} as though they were not there",
+                parts.join(" and ")
+            )
+        } else if truthy(m, "ignore_vertical") {
+            format!("{subj} ignores vertical distances when it moves")
+        } else {
+            format!("{subj} {} a movement capability", agree(subj, "has"))
+        };
+        if notnull(m, "excludes_keyword") {
+            clause.push_str(&format!(
+                " (excluding {} models)",
+                title_case(&jv(m, "excludes_keyword"))
+            ));
+        }
+        if let Some(mk) = &move_kinds {
+            clause.push_str(&format!(", during its {mk} moves"));
+        }
+        return clause;
+    }
+
+    match kind.unwrap() {
+        "scout" => format!("before the first battle round, {subj} can make a Scout move{of_up_to}"),
+        "infiltrate" => format!("{subj} {} the Infiltrators ability", agree(subj, "has")),
+        "advance" => format!(
+            "add {} to {} Advance rolls",
+            dice_case(dist.unwrap_or(&Value::Null)),
+            possessive(subj)
+        ),
+        "pile-in" => format!(
+            "{subj} can Pile In up to{}",
+            if inches.is_empty() {
+                " 3\"".to_string()
+            } else {
+                inches.clone()
+            }
+        ),
+        "consolidation" => format!(
+            "{subj} can Consolidate up to{}",
+            if inches.is_empty() {
+                " 3\"".to_string()
+            } else {
+                inches.clone()
+            }
+        ),
+        "surge" => format!("{subj} can make a Surge move{of_up_to}"),
+        "shoot-and-scoot" => {
+            if inches.is_empty() {
+                format!("{subj} can Shoot and Scoot")
+            } else {
+                format!("{subj} can shoot and then make a Normal move{of_up_to}")
+            }
+        }
+        "reactive" => {
+            let label = if notnull(m, "name") {
+                format!(" ({})", jv(m, "name"))
+            } else {
+                String::new()
+            };
+            format!("{subj} can make a Reactive move{of_up_to}{label}")
+        }
+        "redeploy" => {
+            if notnull(m, "marker") {
+                if let Some(mk) = m.get("marker").and_then(Value::as_object) {
+                    if notnull(mk, "location") {
+                        let who = if notnull(mk, "unit_filter") {
+                            format!("{} units", jv(mk, "unit_filter"))
+                        } else {
+                            "units".to_string()
+                        };
+                        return format!("{who} can be set up on {}", jv(mk, "location"));
+                    }
+                    let what = if notnull(mk, "affected") {
+                        jv(mk, "affected")
+                    } else {
+                        "markers".to_string()
+                    };
+                    return format!("{what} can be repositioned{inches}");
+                }
+            }
+            if truthy(m, "to_reserves") {
+                let n = if notnull(m, "max_units") {
+                    format!("up to {} units", jv(m, "max_units"))
+                } else {
+                    subj.to_string()
+                };
+                return format!("{n} can be placed into Strategic Reserves");
+            }
+            format!("{subj} can be redeployed{inches}")
+        }
+        // "normal" and any other kind fall to the default arm.
+        _ => {
+            if let Some(n) = dist.and_then(Value::as_f64) {
+                if n < 0.0 {
+                    return format!(
+                        "{} Move characteristic is reduced by {}\"",
+                        possessive(subj),
+                        fmt_num(n.abs())
+                    );
+                }
+            }
+            if let Some(mk) = &move_kinds {
+                return format!("add{inches} to {} {mk} moves", possessive(subj));
+            }
+            format!("{subj} can make a Normal move{of_up_to}")
+        }
+    }
+}
+
+/// Generic aura `modifier` → one lowercase-initial clause. Mirrors `auraClause`.
+fn aura_clause(e: &AuraEffect, ctx: &Ctx) -> String {
+    let m = &e.modifier;
+    // Range-extension of a named aura (e.g. Gift of Poxes: contagion +3").
+    if let Some(range_bonus) = m.range_bonus {
+        let named = match &m.of {
+            Some(of) => format!("{} ", title_case(of)),
+            None => String::new(),
+        };
+        return format!(
+            "the range of this model's {named}abilities is increased by {range_bonus}\""
+        );
+    }
+    let range_text: Option<String> = match &m.range {
+        Some(AuraEffectModifierRange::Array(arr)) => Some(format!(
+            "{} (by battle round)",
+            arr.iter()
+                .map(|r| format!("{r}\""))
+                .collect::<Vec<_>>()
+                .join("/")
+        )),
+        Some(AuraEffectModifierRange::Integer(n)) => Some(format!("{n}\"")),
+        None => None,
+    };
+    let who = if e.target == AuraEffectTarget::FriendlyWithinAura {
+        "each friendly unit"
+    } else {
+        "each enemy unit"
+    };
+    let within = match &range_text {
+        Some(rt) => format!("{who} within {rt}"),
+        None => who.to_string(),
+    };
+    match &m.effect {
+        Some(inner) => format!("{within} {}", inline(inner, ctx)),
+        None => format!("{within} is affected"),
     }
 }
 
@@ -485,6 +898,13 @@ fn describe_single(e: &SingleEffect, ctx: &Ctx) -> String {
                     jv(m, "critical_on")
                 );
             }
+            if nstr(m, "operation") == Some("set") {
+                return format!(
+                    "{subj} can change {} rolls to a {}",
+                    roll_name(m.get("roll").unwrap_or(&Value::Null)),
+                    jv(m, "value")
+                );
+            }
             if !notnull(m, "value") {
                 format!(
                     "{} {} {} rolls{ctx_note}",
@@ -524,6 +944,31 @@ fn describe_single(e: &SingleEffect, ctx: &Ctx) -> String {
             } else {
                 agree(&subj_mw, "suffers")
             };
+            // Dice-pool form: N dice rolled, each success worth
+            // `mortal_per_success` mortal wounds (distinct from a flat count).
+            if notnull(m, "mortal_per_success") {
+                let per = jv(m, "mortal_per_success");
+                let per_noun = if per == "1" {
+                    "mortal wound"
+                } else {
+                    "mortal wounds"
+                };
+                let comp = nstr(m, "comparison").unwrap_or("gte");
+                let hit = pool_threshold(comp, m.get("threshold"));
+                let die = dice_case(m.get("dice").unwrap_or(&Value::Null));
+                // Per-model pool: one die per model in this/the target unit.
+                if notnull(m, "per_model") {
+                    let where_ = if nstr(m, "per_model") == Some("target") {
+                        "the target unit"
+                    } else {
+                        "this unit"
+                    };
+                    return format!(
+                        "roll one {die} for each model in {where_}: for each {hit}, {subj_mw} {verb} {per} {per_noun}"
+                    );
+                }
+                return format!("roll {die}: for each {hit}, {subj_mw} {verb} {per} {per_noun}");
+            }
             let a: Option<String> = if notnull(m, "count") {
                 Some(jv(m, "count"))
             } else if notnull(m, "amount") {
@@ -574,15 +1019,29 @@ fn describe_single(e: &SingleEffect, ctx: &Ctx) -> String {
             format!("{subj} {} a {sv}+ invulnerable save", agree(&subj, "has"))
         }
         T::KeywordGrant => {
-            let kw = match m.get("keywords") {
-                Some(Value::Array(a)) => a
-                    .iter()
+            let kw = if notnull(m, "anti_keyword") {
+                let th = first(m, &["anti_threshold"])
+                    .map(jval)
+                    .unwrap_or_else(|| "?".to_string());
+                format!(
+                    "[ANTI-{} {th}+]",
+                    dekebab(&jv(m, "anti_keyword")).to_uppercase()
+                )
+            } else if let Some(Value::Array(a)) = m.get("keywords") {
+                a.iter()
                     .map(bracket_keyword)
                     .collect::<Vec<_>>()
-                    .join(" and "),
-                _ => first(m, &["keyword"])
-                    .map(bracket_keyword)
-                    .unwrap_or_else(|| "[KEYWORDS]".to_string()),
+                    .join(" and ")
+            } else if notnull(m, "value") {
+                let kw_name = first(m, &["keyword"])
+                    .map(jval)
+                    .unwrap_or_else(|| "keywords".to_string());
+                format!("[{} {}]", dekebab(&kw_name).to_uppercase(), jv(m, "value"))
+            } else {
+                let kw_or_default = first(m, &["keyword"])
+                    .cloned()
+                    .unwrap_or_else(|| Value::String("keywords".to_string()));
+                bracket_keyword(&kw_or_default)
             };
             if notnull(m, "weapon_name") {
                 format!("{} {} gains {kw}", possessive(&subj), jv(m, "weapon_name"))
@@ -609,24 +1068,6 @@ fn describe_single(e: &SingleEffect, ctx: &Ctx) -> String {
                     grant_label(&jval(g))
                 ),
                 None => format!("{subj} {} an ability{cap}", agree(&subj, "gains")),
-            }
-        }
-        T::MovementModifier => {
-            let kind = first(m, &["move_type", "type"]);
-            if kind.map(jval).as_deref() == Some("move-through") {
-                return format!("{subj} can move through enemy models and terrain");
-            }
-            let inches = first(m, &["distance", "value"])
-                .filter(|d| jval(d) != "0")
-                .map(|d| format!(" {}\"", jval(d)))
-                .unwrap_or_default();
-            match kind {
-                Some(k) => format!(
-                    "{subj} {} the {}{inches} ability",
-                    agree(&subj, "has"),
-                    title_case(&jval(k))
-                ),
-                None => format!("{subj} {} a movement ability", agree(&subj, "gains")),
             }
         }
         T::DamageReduction => {
@@ -752,12 +1193,46 @@ fn describe_single(e: &SingleEffect, ctx: &Ctx) -> String {
                 format!("each time a model in {subj} is destroyed, it can shoot before being removed from play")
             }
         }
-        T::DeepStrike => format!("{subj} {} the Deep Strike ability", agree(&subj, "has")),
+        T::UnitKeyword => {
+            let name = title_case(&jv(m, "keyword_id"));
+            let val = if notnull(m, "value") {
+                format!(" {}", jv(m, "value"))
+            } else {
+                String::new()
+            };
+            format!("{subj} {} the {name}{val} ability", agree(&subj, "has"))
+        }
+        T::UnitKeywordGrant => format!(
+            "{} units gain the {} keyword",
+            jv(m, "to_keywords"),
+            jv(m, "keyword")
+        ),
+        T::DeepStrike => {
+            if notnull(m, "min_distance") {
+                format!(
+                    "{subj} {} the Deep Strike ability and can be set up more than {}\" from enemy models",
+                    agree(&subj, "has"),
+                    jv(m, "min_distance")
+                )
+            } else {
+                format!("{subj} has the Deep Strike ability")
+            }
+        }
+        T::StrategicReservesArrival => {
+            format!("{subj} can arrive from Strategic Reserves regardless of mission rules")
+        }
+        T::RemoveBattleShock => format!("{subj} {} no longer Battle-shocked", agree(&subj, "is")),
         T::FallbackAndAct => format!(
             "{subj} {} eligible to shoot and declare a charge in a turn in which it Fell Back",
             agree(&subj, "is")
         ),
-        T::EngagementPassthrough => format!("{subj} can move through enemy models"),
+        T::EngagementPassthrough => {
+            if truthy(m, "no_end_in_engagement") {
+                format!("{subj} can move through enemy models, but cannot end that move within Engagement Range of any enemy unit")
+            } else {
+                format!("{subj} can move through enemy models")
+            }
+        }
         T::AttackRestriction => describe_attack_restriction(m, &subj),
         T::ObjectiveControlModifier => {
             if truthy(m, "sticky") {
@@ -799,6 +1274,53 @@ fn describe_single(e: &SingleEffect, ctx: &Ctx) -> String {
             agree(&subj, "is"),
             dekebab(&jv(m, "tag"))
         ),
+        T::AutoResult => {
+            let result = nstr(m, "result");
+            if notnull(m, "test") {
+                let test = m.get("test").unwrap_or(&Value::Null);
+                match result {
+                    Some("pass") => format!(
+                        "{subj} automatically {} {} tests",
+                        agree(&subj, "passes"),
+                        test_name(test)
+                    ),
+                    Some("fail") => format!(
+                        "{subj} automatically {} {} tests",
+                        agree(&subj, "fails"),
+                        test_name(test)
+                    ),
+                    _ => format!(
+                        "{subj} {} {} tests as {}",
+                        agree(&subj, "treats"),
+                        test_name(test),
+                        jv(m, "result")
+                    ),
+                }
+            } else {
+                let roll = roll_name(m.get("roll").unwrap_or(&Value::Null));
+                match result {
+                    Some("pass") => {
+                        format!("{} {roll} rolls automatically succeed", possessive(&subj))
+                    }
+                    Some("fail") => {
+                        format!("{} {roll} rolls automatically fail", possessive(&subj))
+                    }
+                    _ => format!(
+                        "{} {roll} rolls count as {}",
+                        possessive(&subj),
+                        jv(m, "result")
+                    ),
+                }
+            }
+        }
+        T::FiringDeck => {
+            format!(
+                "{subj} {} Firing Deck {}",
+                agree(&subj, "has"),
+                jv(m, "value")
+            )
+        }
+        T::DisembarkAfterMove => format!("units can disembark from {subj} after it has moved"),
     }
 }
 
@@ -807,9 +1329,35 @@ pub fn describe_effect_inline(e: &EffectNode) -> String {
     inline(e, &Ctx::default())
 }
 
+/// `for every 5 enemy models within 6"` — the trailing scaling clause woven
+/// onto a single effect whose `modifier.value` scales. Mirrors `scalingClause`.
+fn scaling_clause(s: &Scaling) -> String {
+    let of_text = match s.of {
+        ScalingOf::EnemyModelsInRange => "enemy models",
+        ScalingOf::FriendlyModelsInRange => "friendly models",
+        ScalingOf::ModelsInBearerUnit => "models in this unit",
+        ScalingOf::EnemyUnitsInRange => "enemy units",
+        ScalingOf::WoundsLost => "wounds lost",
+    };
+    let mut c = format!("for every {} {of_text}", s.per.get());
+    if let Some(w) = s.within_inches {
+        c.push_str(&format!(" within {}\"", fmt_num(w)));
+    }
+    if matches!(s.round, ScalingRound::Up) {
+        c.push_str(" (rounding up)");
+    }
+    if let Some(mx) = s.max_value {
+        c.push_str(&format!(" (to a maximum of {mx})"));
+    }
+    c
+}
+
 fn inline(e: &EffectNode, ctx: &Ctx) -> String {
     match e {
-        EffectNode::SingleEffect(s) => describe_single(s, ctx),
+        EffectNode::SingleEffect(s) => match &s.scaling {
+            Some(sc) => format!("{} {}", describe_single(s, ctx), scaling_clause(sc)),
+            None => describe_single(s, ctx),
+        },
         EffectNode::ConditionalEffect(c) => {
             format!(
                 "{}, {}",
@@ -845,7 +1393,55 @@ fn inline(e: &EffectNode, ctx: &Ctx) -> String {
             d.pool.die,
             dice_pool_options_inline(d, ctx)
         ),
+        EffectNode::SelectUnitsEffect(s) => format!(
+            "select {}: {}",
+            select_units_subject(&s.selector),
+            inline(&s.effect, ctx)
+        ),
+        EffectNode::MovementModifierEffect(mm) => {
+            let subj = subject(&mm.target.to_string(), ctx);
+            movement_clause(&movement_modifier_map(mm), &subj)
+        }
+        EffectNode::AuraEffect(a) => aura_clause(a, ctx),
     }
+}
+
+/// Serialize a closed `MovementModifierEffect` modifier back to a JSON map so the
+/// `movementClause` port can read it with the same `?? / != null` semantics the TS
+/// oracle applies to its free-form `Record<string, unknown>`.
+fn movement_modifier_map(mm: &MovementModifierEffect) -> Map<String, Value> {
+    serde_json::to_value(&mm.modifier)
+        .ok()
+        .and_then(|v| match v {
+            Value::Object(o) => Some(o),
+            _ => None,
+        })
+        .unwrap_or_default()
+}
+
+/// "up to 3 friendly Orks Vehicle units" — the `select-units` selector phrase.
+fn select_units_subject(sel: &SelectUnitsEffectSelector) -> String {
+    let kw = sel
+        .keywords
+        .iter()
+        .map(|k| title_case(k))
+        .collect::<Vec<_>>()
+        .join(" ");
+    let owner = match sel.owner {
+        SelectUnitsEffectSelectorOwner::Friendly => "friendly",
+        SelectUnitsEffectSelectorOwner::Enemy => "enemy",
+    };
+    let noun = if sel.max_count.get() == 1 {
+        "unit"
+    } else {
+        "units"
+    };
+    let kw = if kw.is_empty() {
+        String::new()
+    } else {
+        format!(" {kw}")
+    };
+    format!("up to {} {owner}{kw} {noun}", sel.max_count)
 }
 
 fn dice_gated_inline(d: &DiceGatedEffect, ctx: &Ctx) -> String {
@@ -871,8 +1467,9 @@ fn dice_pool_options_inline(d: &DicePoolAllocationEffect, ctx: &Ctx) -> String {
         .iter()
         .map(|o| {
             format!(
-                "{} ({}+): {}",
+                "{} ({} of {}+): {}",
                 o.name,
+                o.requirement.type_,
                 o.requirement.min_value,
                 inline(&o.effect, ctx)
             )
@@ -888,6 +1485,7 @@ fn is_container(e: &EffectNode) -> bool {
             | EffectNode::ChoiceEffect(_)
             | EffectNode::DiceGatedEffect(_)
             | EffectNode::DicePoolAllocationEffect(_)
+            | EffectNode::SelectUnitsEffect(_)
     )
 }
 
@@ -970,7 +1568,18 @@ fn block(e: &EffectNode, depth: usize, ctx: &Ctx) -> String {
             }
             lines.join("\n")
         }
-        EffectNode::SingleEffect(_) => {
+        EffectNode::SelectUnitsEffect(s) => {
+            let inner = &*s.effect;
+            let lead = format!("Select {}", select_units_subject(&s.selector));
+            if is_container(inner) {
+                format!("{indent}{arrow}{lead}:\n{}", block(inner, depth + 1, ctx))
+            } else {
+                format!("{indent}{arrow}{lead}: {}.", inline(inner, ctx))
+            }
+        }
+        EffectNode::SingleEffect(_)
+        | EffectNode::MovementModifierEffect(_)
+        | EffectNode::AuraEffect(_) => {
             format!("{indent}{arrow}{}.", capitalize(&inline(e, ctx)))
         }
     }
@@ -995,39 +1604,124 @@ fn assemble_sentence(parts: &[String]) -> String {
     format!("{}{period}", capitalize(&body))
 }
 
-/// Assemble the top-level sentence/block, weaving scope range + duration.
-fn render_top_level(e: &EffectNode, scope: Option<&Scope>) -> String {
+/// Reactive-trigger opener ("an enemy unit ends a move within 9" of this model,
+/// if ..."). Mirrors `describeTrigger` for ability `trigger` blocks.
+fn describe_ability_trigger(t: &AbilityTrigger) -> String {
+    let mut s = event_clause(&t.event.to_string());
+    if let Some(prox) = &t.proximity {
+        let of = match prox.of {
+            Some(AbilityTriggerProximityOf::AttachedUnit) => "the unit this model leads",
+            Some(AbilityTriggerProximityOf::Self_) | Some(AbilityTriggerProximityOf::Bearer) => {
+                "this model"
+            }
+            None => "this unit",
+        };
+        s.push_str(&format!(" within {}\" of {of}", fmt_num(prox.range)));
+    }
+    if let Some(cond) = &t.condition {
+        s.push_str(&format!(", if {}", describe_node(&cond.0)));
+    }
+    s
+}
+
+/// Usage limit → front-of-sentence lead clause ("once per turn", "twice per
+/// battle per unit"). Mirrors `usageClause`.
+fn usage_clause(u: &AbilityUsage) -> String {
+    let n = u.count.map(|c| c.get()).unwrap_or(1);
+    let base = match u.frequency {
+        AbilityUsageFrequency::OncePerTurn => "once per turn".to_string(),
+        AbilityUsageFrequency::OncePerPhase => "once per phase".to_string(),
+        AbilityUsageFrequency::OncePerCommandPhase => "once per Command phase".to_string(),
+        AbilityUsageFrequency::OncePerOpponentTurn => "once per opponent's turn".to_string(),
+        AbilityUsageFrequency::FirstThisBattle => "the first time this battle".to_string(),
+        AbilityUsageFrequency::FirstTimeThisPhase => "the first time this phase".to_string(),
+        AbilityUsageFrequency::NPerBattle => {
+            if n == 1 {
+                "once per battle".to_string()
+            } else if n == 2 {
+                "twice per battle".to_string()
+            } else {
+                format!("{n} times per battle")
+            }
+        }
+    };
+    match &u.per {
+        Some(per) => format!("{base} per {per}"),
+        None => base,
+    }
+}
+
+/// Assemble the top-level sentence/block, weaving scope range + duration. An
+/// explicit usage limit supersedes the duration's coarse "once per battle" lead.
+/// Aura radius in inches: an explicit `range_inches`, else the integer baked into
+/// a standard `aura-<n>` slug (`aura-6` -> 6), else None. Per the scope schema,
+/// `aura-6/9/12` carry the radius in the slug and leave `range_inches` null; only
+/// `aura-custom` sets `range_inches`. Non-aura ranges yield None, keeping the
+/// subject helper's " nearby" fallback.
+fn aura_radius(scope: Option<&Scope>) -> Option<f64> {
+    let scope = scope?;
+    if let Some(ri) = scope.range_inches {
+        return Some(ri);
+    }
+    match scope.range {
+        ScopeRange::Aura6 => Some(6.0),
+        ScopeRange::Aura9 => Some(9.0),
+        ScopeRange::Aura12 => Some(12.0),
+        _ => None,
+    }
+}
+
+fn render_top_level(
+    e: &EffectNode,
+    scope: Option<&Scope>,
+    usage: Option<&AbilityUsage>,
+    trigger: Option<&AbilityTrigger>,
+) -> String {
     let ctx = Ctx {
-        range_inches: scope.and_then(|s| s.range_inches),
+        range_inches: aura_radius(scope),
     };
     let duration = scope.map(|s| s.duration.to_string()).unwrap_or_default();
-    let (lead, trail) = duration_clauses(&duration);
+    let (dur_lead, trail) = duration_clauses(&duration);
+    let lead = match usage {
+        Some(u) => usage_clause(u),
+        None => dur_lead,
+    };
+    // A reactive trigger opens the sentence, ahead of the usage/duration lead.
+    let trig = match trigger {
+        Some(t) => describe_ability_trigger(t),
+        None => String::new(),
+    };
 
     match e {
         EffectNode::ConditionalEffect(c) => {
             let inner = &*c.effect;
             let lead_in = condition_lead_in(&c.condition.0);
             if is_container(inner) {
-                let header = [lead, lead_in, trail]
+                let header = [trig, lead, lead_in, trail]
                     .into_iter()
                     .filter(|p| !p.is_empty())
                     .collect::<Vec<_>>()
                     .join(", ");
                 format!("{}:\n{}", capitalize(&header), block(inner, 1, &ctx))
             } else {
-                assemble_sentence(&[lead, lead_in, trail, inline(inner, &ctx)])
+                assemble_sentence(&[trig, lead, lead_in, trail, inline(inner, &ctx)])
             }
         }
         _ if is_container(e) => {
             let blk = block(e, 0, &ctx);
             let dur = if !lead.is_empty() { lead } else { trail };
-            if dur.is_empty() {
+            let head = [trig, dur]
+                .into_iter()
+                .filter(|p| !p.is_empty())
+                .collect::<Vec<_>>()
+                .join(", ");
+            if head.is_empty() {
                 blk
             } else {
-                format!("{}:\n{}", capitalize(&dur), blk)
+                format!("{}:\n{}", capitalize(&head), blk)
             }
         }
-        _ => assemble_sentence(&[lead, trail, inline(e, &ctx)]),
+        _ => assemble_sentence(&[trig, lead, trail, inline(e, &ctx)]),
     }
 }
 
@@ -1098,8 +1792,10 @@ pub fn describe_ability_parts(
     e: &EffectNode,
     scope: Option<&Scope>,
     applies_to: Option<&AbilityAppliesTo>,
+    usage: Option<&AbilityUsage>,
+    trigger: Option<&AbilityTrigger>,
 ) -> String {
-    let base = render_top_level(e, scope);
+    let base = render_top_level(e, scope, usage, trigger);
     let applies = describe_applies_to(applies_to);
     if applies.is_empty() {
         base
@@ -1112,5 +1808,11 @@ pub fn describe_ability_parts(
 
 /// Full generated text for an ability. Mirrors `describeAbility`.
 pub fn describe_ability(a: &Ability) -> String {
-    describe_ability_parts(&a.effect, Some(&a.scope), a.applies_to.as_ref())
+    describe_ability_parts(
+        &a.effect,
+        Some(&a.scope),
+        a.applies_to.as_ref(),
+        a.usage.as_ref(),
+        a.trigger.as_ref(),
+    )
 }

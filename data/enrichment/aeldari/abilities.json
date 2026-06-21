@@ -9,23 +9,32 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "dice-gated",
-      "dice": "D6",
-      "threshold": 6,
-      "comparison": "gte",
-      "on_success": {
-        "type": "mortal-wounds",
-        "target": "enemy-within-aura",
-        "modifier": {
-          "count": "2D6",
-          "range": 6
+      "type": "conditional",
+      "condition": {
+        "type": "timing-is",
+        "parameters": {
+          "timing": "before-bearer-removed"
         }
       },
-      "on_fail": null
+      "effect": {
+        "type": "dice-gated",
+        "dice": "D6",
+        "threshold": 6,
+        "comparison": "gte",
+        "on_success": {
+          "type": "mortal-wounds",
+          "target": "enemy-within-aura",
+          "modifier": {
+            "count": "2D6",
+            "range": 6
+          }
+        },
+        "on_fail": null
+      }
     },
     "scope": {
       "range": "aura-6",
-      "duration": "one-use"
+      "duration": "permanent"
     },
     "unit_ids": [
       "revenant-titan"
@@ -46,7 +55,9 @@
       "type": "movement-modifier",
       "target": "self",
       "modifier": {
-        "type": "move-over-terrain"
+        "passthrough": [
+          "all-terrain"
+        ]
       }
     },
     "scope": {
@@ -224,10 +235,10 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "movement-modifier",
+      "type": "unit-keyword",
       "target": "unit",
       "modifier": {
-        "type": "infiltrate"
+        "keyword_id": "infiltrators"
       }
     },
     "scope": {
@@ -253,13 +264,13 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "type": "scouts",
+        "move_type": "scout",
         "distance": 7
       }
     },
     "scope": {
       "range": "unit",
-      "duration": "one-use"
+      "duration": "permanent"
     },
     "unit_ids": [
       "striking-scorpions"
@@ -466,23 +477,32 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "dice-gated",
-      "dice": "D6",
-      "threshold": 6,
-      "comparison": "gte",
-      "on_success": {
-        "type": "mortal-wounds",
-        "target": "enemy-within-aura",
-        "modifier": {
-          "count": "1",
-          "range": 6
+      "type": "conditional",
+      "condition": {
+        "type": "timing-is",
+        "parameters": {
+          "timing": "before-bearer-removed"
         }
       },
-      "on_fail": null
+      "effect": {
+        "type": "dice-gated",
+        "dice": "D6",
+        "threshold": 6,
+        "comparison": "gte",
+        "on_success": {
+          "type": "mortal-wounds",
+          "target": "enemy-within-aura",
+          "modifier": {
+            "count": "1",
+            "range": 6
+          }
+        },
+        "on_fail": null
+      }
     },
     "scope": {
       "range": "aura-6",
-      "duration": "one-use"
+      "duration": "permanent"
     },
     "unit_ids": [
       "wraithlord"
@@ -578,23 +598,32 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "dice-gated",
-      "dice": "D6",
-      "threshold": 6,
-      "comparison": "gte",
-      "on_success": {
-        "type": "mortal-wounds",
-        "target": "enemy-within-aura",
-        "modifier": {
-          "count": "D3",
-          "range": 6
+      "type": "conditional",
+      "condition": {
+        "type": "timing-is",
+        "parameters": {
+          "timing": "before-bearer-removed"
         }
       },
-      "on_fail": null
+      "effect": {
+        "type": "dice-gated",
+        "dice": "D6",
+        "threshold": 6,
+        "comparison": "gte",
+        "on_success": {
+          "type": "mortal-wounds",
+          "target": "enemy-within-aura",
+          "modifier": {
+            "count": "D3",
+            "range": 6
+          }
+        },
+        "on_fail": null
+      }
     },
     "scope": {
       "range": "aura-6",
-      "duration": "one-use"
+      "duration": "permanent"
     },
     "unit_ids": [
       "wave-serpent"
@@ -1153,7 +1182,7 @@
         "type": "movement-modifier",
         "target": "unit",
         "modifier": {
-          "type": "shoot-and-scoot"
+          "move_type": "shoot-and-scoot"
         }
       }
     },
@@ -1235,7 +1264,7 @@
       "condition": {
         "type": "timing-is",
         "parameters": {
-          "timing": "model-destroyed",
+          "timing": "on-model-destroyed",
           "model_keyword": "STORM GUARDIAN",
           "qualifier": "last-in-unit"
         }
@@ -1615,7 +1644,7 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "type": "ignore-vertical"
+        "ignore_vertical": true
       }
     },
     "scope": {
@@ -2224,23 +2253,32 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "dice-gated",
-      "dice": "D6",
-      "threshold": 6,
-      "comparison": "gte",
-      "on_success": {
-        "type": "mortal-wounds",
-        "target": "enemy-within-aura",
-        "modifier": {
-          "count": "D6+6",
-          "range": 6
+      "type": "conditional",
+      "condition": {
+        "type": "timing-is",
+        "parameters": {
+          "timing": "before-bearer-removed"
         }
       },
-      "on_fail": null
+      "effect": {
+        "type": "dice-gated",
+        "dice": "D6",
+        "threshold": 6,
+        "comparison": "gte",
+        "on_success": {
+          "type": "mortal-wounds",
+          "target": "enemy-within-aura",
+          "modifier": {
+            "count": "D6+6",
+            "range": 6
+          }
+        },
+        "on_fail": null
+      }
     },
     "scope": {
       "range": "aura-6",
-      "duration": "one-use"
+      "duration": "permanent"
     },
     "unit_ids": [
       "phantom-titan"
@@ -2340,13 +2378,13 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "type": "scouts",
+        "move_type": "scout",
         "distance": 9
       }
     },
     "scope": {
       "range": "unit",
-      "duration": "one-use"
+      "duration": "permanent"
     },
     "unit_ids": [
       "war-walkers"
@@ -2504,23 +2542,32 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "dice-gated",
-      "dice": "D6",
-      "threshold": 6,
-      "comparison": "gte",
-      "on_success": {
-        "type": "mortal-wounds",
-        "target": "enemy-within-aura",
-        "modifier": {
-          "count": "D6",
-          "range": 6
+      "type": "conditional",
+      "condition": {
+        "type": "timing-is",
+        "parameters": {
+          "timing": "before-bearer-removed"
         }
       },
-      "on_fail": null
+      "effect": {
+        "type": "dice-gated",
+        "dice": "D6",
+        "threshold": 6,
+        "comparison": "gte",
+        "on_success": {
+          "type": "mortal-wounds",
+          "target": "enemy-within-aura",
+          "modifier": {
+            "count": "D6",
+            "range": 6
+          }
+        },
+        "on_fail": null
+      }
     },
     "scope": {
       "range": "aura-6",
-      "duration": "one-use"
+      "duration": "permanent"
     },
     "unit_ids": [
       "wraithknight"
@@ -2544,14 +2591,17 @@
           "type": "movement-modifier",
           "target": "self",
           "modifier": {
-            "move_type": "through-non-titanic-models-and-terrain-up-to-4"
+            "passthrough": [
+              "non-titanic-models",
+              "terrain-le-4"
+            ]
           }
         },
         {
-          "type": "movement-modifier",
+          "type": "engagement-passthrough",
           "target": "self",
           "modifier": {
-            "move_type": "within-engagement-range-no-end-position"
+            "no_end_in_engagement": true
           }
         },
         {
@@ -2559,7 +2609,7 @@
           "condition": {
             "type": "timing-is",
             "parameters": {
-              "timing": "after-move-through-terrain-over-4-inches"
+              "timing": "moved-through-terrain"
             }
           },
           "effect": {
@@ -2909,7 +2959,7 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "type": "ignore-vertical"
+        "ignore_vertical": true
       }
     },
     "scope": {
@@ -3153,7 +3203,7 @@
         "type": "movement-modifier",
         "target": "unit",
         "modifier": {
-          "type": "ignore-vertical"
+          "ignore_vertical": true
         }
       }
     },
@@ -3433,14 +3483,17 @@
           "type": "movement-modifier",
           "target": "self",
           "modifier": {
-            "move_type": "through-models-and-terrain"
+            "passthrough": [
+              "non-titanic-models",
+              "all-terrain"
+            ]
           }
         },
         {
-          "type": "movement-modifier",
+          "type": "engagement-passthrough",
           "target": "self",
           "modifier": {
-            "move_type": "within-engagement-range-no-end-position"
+            "no_end_in_engagement": true
           }
         }
       ]
@@ -3568,7 +3621,7 @@
           {
             "type": "timing-is",
             "parameters": {
-              "timing": "after-shot-hits-scored"
+              "timing": "after-scoring-hit"
             }
           },
           {
@@ -3790,8 +3843,8 @@
         "type": "movement-modifier",
         "target": "unit",
         "modifier": {
-          "move_type": "pile-in-consolidation",
-          "value": 6,
+          "move_type": "consolidation",
+          "distance": 6,
           "replaces_default": true
         }
       }
@@ -3870,8 +3923,7 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "type": "reactive-move",
-        "trigger": "enemy-ends-move-nearby"
+        "move_type": "reactive"
       }
     },
     "scope": {
@@ -3882,7 +3934,12 @@
       "rangers"
     ],
     "ability_type": "unit",
-    "behavior": "passive"
+    "behavior": "passive",
+    "trigger": {
+      "event": "enemy-unit-ended-move",
+      "subject": "enemy-unit",
+      "optional": true
+    }
   },
   {
     "ability_id": "skyhunter",
@@ -4167,7 +4224,8 @@
         "type": "movement-modifier",
         "target": "unit",
         "modifier": {
-          "type": "redeploy-to-reserves"
+          "move_type": "redeploy",
+          "to_reserves": true
         }
       }
     },
@@ -4195,7 +4253,7 @@
       "condition": {
         "type": "timing-is",
         "parameters": {
-          "timing": "setup"
+          "timing": "unit-set-up"
         }
       },
       "effect": {
@@ -4564,8 +4622,7 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "type": "reactive-move",
-        "trigger": "enemy-ends-move-nearby"
+        "move_type": "reactive"
       }
     },
     "scope": {
@@ -4577,7 +4634,12 @@
       "firestorm"
     ],
     "ability_type": "unit",
-    "behavior": "passive"
+    "behavior": "passive",
+    "trigger": {
+      "event": "enemy-unit-ended-move",
+      "subject": "enemy-unit",
+      "optional": true
+    }
   },
   {
     "ability_id": "strafing-run",
@@ -4637,23 +4699,32 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "dice-gated",
-      "dice": "D6",
-      "threshold": 6,
-      "comparison": "gte",
-      "on_success": {
-        "type": "mortal-wounds",
-        "target": "enemy-within-aura",
-        "modifier": {
-          "count": "D6+2",
-          "range": 6
+      "type": "conditional",
+      "condition": {
+        "type": "timing-is",
+        "parameters": {
+          "timing": "before-bearer-removed"
         }
       },
-      "on_fail": null
+      "effect": {
+        "type": "dice-gated",
+        "dice": "D6",
+        "threshold": 6,
+        "comparison": "gte",
+        "on_success": {
+          "type": "mortal-wounds",
+          "target": "enemy-within-aura",
+          "modifier": {
+            "count": "D6+2",
+            "range": 6
+          }
+        },
+        "on_fail": null
+      }
     },
     "scope": {
       "range": "aura-6",
-      "duration": "one-use"
+      "duration": "permanent"
     },
     "unit_ids": [
       "vampire-hunter"
@@ -4671,12 +4742,10 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "stat-modifier",
+      "type": "unit-keyword",
       "target": "self",
       "modifier": {
-        "stat": "M",
-        "operation": "set",
-        "value": 20
+        "keyword_id": "hover"
       }
     },
     "scope": {
@@ -4792,7 +4861,8 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "type": "redeploy-to-reserves"
+        "move_type": "redeploy",
+        "to_reserves": true
       }
     },
     "scope": {
@@ -4991,8 +5061,7 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "type": "reactive-move",
-        "trigger": "enemy-ends-move-nearby"
+        "move_type": "reactive"
       }
     },
     "scope": {
@@ -5003,7 +5072,12 @@
       "corsair-reaver-band"
     ],
     "ability_type": "unit",
-    "behavior": "passive"
+    "behavior": "passive",
+    "trigger": {
+      "event": "enemy-unit-ended-move",
+      "subject": "enemy-unit",
+      "optional": true
+    }
   },
   {
     "ability_id": "battle-focus",

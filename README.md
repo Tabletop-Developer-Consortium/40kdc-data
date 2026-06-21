@@ -93,7 +93,6 @@ that — but it is the supported entry point for cross-language verification.
 | Schema | Description |
 |--------|-------------|
 | [phase-mapping](schemas/enrichment/phase-mapping.schema.json) | Maps abilities to game phases |
-| [timing-flag](schemas/enrichment/timing-flag.schema.json) | Precise within-phase timing |
 | [interaction-flag](schemas/enrichment/interaction-flag.schema.json) | Ability conflicts, combos, sequencing |
 | [ability](schemas/enrichment/ability-dsl/ability.schema.json) | Structured ability definitions (DSL) |
 

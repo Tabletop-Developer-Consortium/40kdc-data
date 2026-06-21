@@ -903,6 +903,32 @@ fn handle_linked_query(state: &mut RunnerState, args: &Value) -> Value {
                     .collect(),
             ))
         }
+        "reactive_trigger_ability_ids" => {
+            let mut ids: Vec<String> = ds
+                .reactive_triggers()
+                .into_iter()
+                .map(|rt| rt.ability_id)
+                .collect();
+            ids.sort();
+            ok_value(Value::Array(ids.into_iter().map(Value::String).collect()))
+        }
+        "events_with_triggers" => {
+            // BTreeMap keys are already ascending and distinct.
+            ok_value(Value::Array(
+                ds.trigger_index().into_keys().map(Value::String).collect(),
+            ))
+        }
+        "triggers_for_event" => {
+            let event = str_arg("event");
+            let mut ids: Vec<String> = ds
+                .reactive_triggers()
+                .into_iter()
+                .filter(|rt| rt.event == event)
+                .map(|rt| rt.ability_id)
+                .collect();
+            ids.sort();
+            ok_value(Value::Array(ids.into_iter().map(Value::String).collect()))
+        }
         other => err_value(
             ErrorKind::InvalidInput,
             Some(json!({ "detail": format!("unknown linked_query: {other}") })),
@@ -1177,8 +1203,22 @@ fn handle_translate_effect(args: &Value) -> Value {
         .get("applies_to")
         .filter(|v| !v.is_null())
         .and_then(|v| serde_json::from_value(v.clone()).ok());
+    let usage: Option<wh40kdc::AbilityUsage> = args
+        .get("usage")
+        .filter(|v| !v.is_null())
+        .and_then(|v| serde_json::from_value(v.clone()).ok());
+    let trigger: Option<wh40kdc::AbilityTrigger> = args
+        .get("trigger")
+        .filter(|v| !v.is_null())
+        .and_then(|v| serde_json::from_value(v.clone()).ok());
     ok_value(json!({
-        "text": describe_ability_parts(&effect, scope.as_ref(), applies_to.as_ref())
+        "text": describe_ability_parts(
+            &effect,
+            scope.as_ref(),
+            applies_to.as_ref(),
+            usage.as_ref(),
+            trigger.as_ref(),
+        )
     }))
 }
 

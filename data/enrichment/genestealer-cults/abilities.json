@@ -12,13 +12,13 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "type": "scouts",
+        "move_type": "scout",
         "distance": 9
       }
     },
     "scope": {
       "range": "unit",
-      "duration": "one-use"
+      "duration": "permanent"
     },
     "unit_ids": [
       "atalan-jackals"
@@ -90,8 +90,8 @@
             "type": "movement-modifier",
             "target": "self",
             "modifier": {
-              "move_type": "redeploy-within-distance",
-              "value": 9
+              "move_type": "redeploy",
+              "distance": 9
             }
           },
           {
@@ -239,8 +239,7 @@
         "type": "movement-modifier",
         "target": "unit",
         "modifier": {
-          "type": "reactive-move",
-          "trigger": "enemy-ends-move-nearby"
+          "move_type": "reactive"
         }
       }
     },
@@ -252,7 +251,12 @@
       "kelermorph"
     ],
     "ability_type": "unit",
-    "behavior": "passive"
+    "behavior": "passive",
+    "trigger": {
+      "event": "enemy-unit-ended-move",
+      "subject": "enemy-unit",
+      "optional": true
+    }
   },
   {
     "ability_id": "a-plan-generations-in-the-making",
@@ -396,10 +400,10 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "movement-modifier",
+      "type": "unit-keyword",
       "target": "unit",
       "modifier": {
-        "type": "infiltrate"
+        "keyword_id": "infiltrators"
       }
     },
     "scope": {
@@ -463,8 +467,7 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "type": "reactive-move",
-        "trigger": "enemy-ends-move-nearby"
+        "move_type": "reactive"
       }
     },
     "scope": {
@@ -475,7 +478,12 @@
       "reductus-saboteur"
     ],
     "ability_type": "unit",
-    "behavior": "activated"
+    "behavior": "activated",
+    "trigger": {
+      "event": "enemy-unit-ended-move",
+      "subject": "enemy-unit",
+      "optional": true
+    }
   },
   {
     "ability_id": "might-from-beyond",
@@ -617,23 +625,32 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "dice-gated",
-      "dice": "D6",
-      "threshold": 6,
-      "comparison": "gte",
-      "on_success": {
-        "type": "mortal-wounds",
-        "target": "enemy-within-aura",
-        "modifier": {
-          "count": "D3",
-          "range": 6
+      "type": "conditional",
+      "condition": {
+        "type": "timing-is",
+        "parameters": {
+          "timing": "before-bearer-removed"
         }
       },
-      "on_fail": null
+      "effect": {
+        "type": "dice-gated",
+        "dice": "D6",
+        "threshold": 6,
+        "comparison": "gte",
+        "on_success": {
+          "type": "mortal-wounds",
+          "target": "enemy-within-aura",
+          "modifier": {
+            "count": "D3",
+            "range": 6
+          }
+        },
+        "on_fail": null
+      }
     },
     "scope": {
       "range": "aura-6",
-      "duration": "one-use"
+      "duration": "permanent"
     },
     "unit_ids": [
       "goliath-truck"
@@ -814,13 +831,13 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "type": "scouts",
+        "move_type": "scout",
         "distance": 6
       }
     },
     "scope": {
       "range": "unit",
-      "duration": "one-use"
+      "duration": "permanent"
     },
     "unit_ids": [
       "acolyte-iconward"
@@ -896,23 +913,32 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "dice-gated",
-      "dice": "D6",
-      "threshold": 6,
-      "comparison": "gte",
-      "on_success": {
-        "type": "mortal-wounds",
-        "target": "enemy-within-aura",
-        "modifier": {
-          "count": "1",
-          "range": 6
+      "type": "conditional",
+      "condition": {
+        "type": "timing-is",
+        "parameters": {
+          "timing": "before-bearer-removed"
         }
       },
-      "on_fail": null
+      "effect": {
+        "type": "dice-gated",
+        "dice": "D6",
+        "threshold": 6,
+        "comparison": "gte",
+        "on_success": {
+          "type": "mortal-wounds",
+          "target": "enemy-within-aura",
+          "modifier": {
+            "count": "1",
+            "range": 6
+          }
+        },
+        "on_fail": null
+      }
     },
     "scope": {
       "range": "aura-6",
-      "duration": "one-use"
+      "duration": "permanent"
     },
     "unit_ids": [
       "achilles-ridgerunners"
@@ -1268,10 +1294,11 @@
         "type": "movement-modifier",
         "target": "self",
         "modifier": {
-          "movement_type": "marker_reposition",
-          "distance": 6,
-          "affected": "Cult Ambush markers",
-          "per_turn_limit": 1
+          "move_type": "redeploy",
+          "marker": {
+            "affected": "Cult Ambush markers"
+          },
+          "distance": 6
         }
       }
     },
@@ -1284,7 +1311,10 @@
     ],
     "ability_type": "unit",
     "behavior": "passive",
-    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21",
+    "usage": {
+      "frequency": "once-per-turn"
+    }
   },
   {
     "ability_id": "creeping-shadow",
@@ -1299,8 +1329,7 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "type": "reactive-move",
-        "trigger": "enemy-ends-move-nearby"
+        "move_type": "reactive"
       }
     },
     "scope": {
@@ -1311,7 +1340,12 @@
       "sanctus"
     ],
     "ability_type": "unit",
-    "behavior": "passive"
+    "behavior": "passive",
+    "trigger": {
+      "event": "enemy-unit-ended-move",
+      "subject": "enemy-unit",
+      "optional": true
+    }
   },
   {
     "ability_id": "cloaked-assassin",
@@ -1447,7 +1481,7 @@
         "type": "movement-modifier",
         "target": "unit",
         "modifier": {
-          "type": "shoot-and-scoot"
+          "move_type": "shoot-and-scoot"
         }
       }
     },
@@ -1919,7 +1953,7 @@
               "type": "movement-modifier",
               "target": "self",
               "modifier": {
-                "move_type": "reposition"
+                "move_type": "redeploy"
               }
             }
           },
@@ -1955,9 +1989,11 @@
       "type": "movement-modifier",
       "target": "friendly-within-aura",
       "modifier": {
-        "movement_type": "placement_on_fortification",
-        "unit_filter": "Genestealer Cult Infantry",
-        "location": "floor sections"
+        "move_type": "redeploy",
+        "marker": {
+          "location": "floor sections",
+          "unit_filter": "Genestealer Cult Infantry"
+        }
       }
     },
     "scope": {

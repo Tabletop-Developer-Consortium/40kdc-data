@@ -5,7 +5,7 @@ structural stub — an effect carrying an empty-modifier placeholder node that s
 DSL authored. This is the actionable counterpart to the per-faction `stub*` counts in
 [`CONTRIBUTING.md`](../../CONTRIBUTING.md) and [`summary.md`](summary.md).
 
-Total: 405 stub abilities.
+Total: 398 stub abilities.
 
 | faction | ability | shape | needs |
 |---|---|---|---|
@@ -129,6 +129,7 @@ Total: 405 stub abilities.
 | agents-of-the-imperium | ward-against-the-malefic-arts | stat-modifier | stat-modifier: operation "undefined" not supported |
 | agents-of-the-imperium | warrant-of-trade | stat-modifier | stat-modifier: operation "undefined" not supported |
 | agents-of-the-imperium | willsapping-salvo | stat-modifier | stat-modifier: operation "undefined" not supported |
+| astra-militarum | aerial-deployment | conditional | empty modifier |
 | astra-militarum | armoured-fist | stat-modifier | stat-modifier: operation "undefined" not supported |
 | astra-militarum | artillery-support | stat-modifier | stat-modifier: operation "undefined" not supported |
 | astra-militarum | born-soldiers | stat-modifier | stat-modifier: operation "undefined" not supported |
@@ -316,19 +317,14 @@ Total: 405 stub abilities.
 | necrons | will-of-the-conqueror-hand-of-the-dynasty | stat-modifier | stat-modifier: operation "undefined" not supported |
 | necrons | worthy-foes | stat-modifier | stat-modifier: operation "undefined" not supported |
 | orks | adrenaline-junkies | stat-modifier | stat-modifier: operation "undefined" not supported |
+| orks | aerial-deployment | conditional | empty modifier |
 | orks | armoured-duellists-blitz-brigade | stat-modifier | stat-modifier: operation "undefined" not supported |
-| orks | blitzkaptin-blitz-brigade | stat-modifier | stat-modifier: operation "undefined" not supported |
 | orks | boarding-ramps-rollin-deff | stat-modifier | stat-modifier: operation "undefined" not supported |
-| orks | bodyguard | stat-modifier | stat-modifier: operation "undefined" not supported |
 | orks | brutal-broadside-rollin-deff | stat-modifier | stat-modifier: operation "undefined" not supported |
 | orks | da-boss-is-watchin | stat-modifier | stat-modifier: operation "undefined" not supported |
-| orks | da-gobshot-thunderbuss-rollin-deff | stat-modifier | stat-modifier: operation "undefined" not supported |
 | orks | da-hunt-is-on | stat-modifier | stat-modifier: operation "undefined" not supported |
 | orks | dakka-dakka-dakka-more-dakka | stat-modifier | stat-modifier: operation "undefined" not supported |
-| orks | dead-shiny-shootas-rollin-deff | stat-modifier | stat-modifier: operation "undefined" not supported |
 | orks | devastating-drift-rollin-deff | stat-modifier | stat-modifier: operation "undefined" not supported |
-| orks | eager-for-the-fight | stat-modifier | stat-modifier: operation "undefined" not supported |
-| orks | fortification | stat-modifier | stat-modifier: operation "undefined" not supported |
 | orks | get-stuck-in | stat-modifier | stat-modifier: operation "undefined" not supported |
 | orks | here-be-loot | stat-modifier | stat-modifier: operation "undefined" not supported |
 | orks | impending-crunch-rollin-deff | stat-modifier | stat-modifier: operation "undefined" not supported |
@@ -338,15 +334,12 @@ Total: 405 stub abilities.
 | orks | mekanised-brutality-blitz-brigade | stat-modifier | stat-modifier: operation "undefined" not supported |
 | orks | mob-mentality | stat-modifier | stat-modifier: operation "undefined" not supported |
 | orks | mount-up-ladz-blitz-brigade | stat-modifier | stat-modifier: operation "undefined" not supported |
-| orks | ramshackle-cover | stat-modifier | stat-modifier: operation "undefined" not supported |
 | orks | run-em-down-blitz-brigade | stat-modifier | stat-modifier: operation "undefined" not supported |
-| orks | runnin-boots-blitz-brigade | stat-modifier | stat-modifier: operation "undefined" not supported |
 | orks | speshul-shells-rollin-deff | stat-modifier | stat-modifier: operation "undefined" not supported |
 | orks | supercharged-squig-oil-blitz-brigade | stat-modifier | stat-modifier: operation "undefined" not supported |
 | orks | targetin-gizmos-rollin-deff | stat-modifier | stat-modifier: operation "undefined" not supported |
-| orks | thundering-wagons | stat-modifier | stat-modifier: operation "undefined" not supported |
 | orks | try-dat-button | stat-modifier | stat-modifier: operation "undefined" not supported |
-| orks | tuff-git-blitz-brigade | stat-modifier | stat-modifier: operation "undefined" not supported |
+| orks | tuff-git-blitz-brigade | conditional | conditional: cannot evaluate condition "undefined" against current context |
 | orks | turbo-boostas | stat-modifier | stat-modifier: operation "undefined" not supported |
 | orks | yooz-in-trouble-now-blitz-brigade | stat-modifier | stat-modifier: operation "undefined" not supported |
 | tau-empire | autoreactive-camouflage-advanced-acquisition-cadre | stat-modifier | stat-modifier: operation "undefined" not supported |

@@ -11,6 +11,7 @@ import type {
   Detachment,
   Enhancement,
   ForceDisposition,
+  GameEvent,
   GameVersion,
   HullShape,
   InteractionFlag,
@@ -24,7 +25,6 @@ import type {
   TargetProfile,
   TerrainLayout,
   TerrainTemplate,
-  TimingFlag,
   Unit,
   UnitComposition,
   Wargear,
@@ -82,6 +82,21 @@ export type StackableBuffGroup = {
   maxActivations: number;
 };
 
+/**
+ * One reactive ability resolved for event dispatch: the ability's id, the
+ * {@link GameEvent} it fires on, the units that carry it (sorted; empty for
+ * faction/detachment rules), and the full (non-null) `trigger` block.
+ *
+ * @see {@link Dataset.reactiveTriggers}
+ * @see {@link Dataset.triggerIndex}
+ */
+export type ReactiveTrigger = {
+  abilityId: string;
+  event: GameEvent;
+  unitIds: string[];
+  trigger: NonNullable<RawData["abilities"][number]["trigger"]>;
+};
+
 /** The whole dataset, with linked accessors over every entity collection. */
 export class Dataset {
   // Richly-linked collections.
@@ -114,7 +129,6 @@ export class Dataset {
   readonly leaderAttachments: readonly LeaderAttachment[];
   readonly unitCompositions: readonly UnitComposition[];
   readonly gameVersions: readonly GameVersion[];
-  readonly timingFlags: readonly TimingFlag[];
   readonly interactionFlags: readonly InteractionFlag[];
   readonly phaseMappings: readonly RawData["phaseMappings"][number][];
 
@@ -216,7 +230,6 @@ export class Dataset {
     this.leaderAttachments = raw.leaderAttachments;
     this.unitCompositions = raw.unitCompositions;
     this.gameVersions = raw.gameVersions;
-    this.timingFlags = raw.timingFlags;
     this.interactionFlags = raw.interactionFlags;
     this.phaseMappings = raw.phaseMappings;
 
@@ -258,6 +271,40 @@ export class Dataset {
   /** Units that list the given ability id. */
   unitsWithAbility(abilityId: string): UnitView[] {
     return (this.unitsByAbility.get(abilityId) ?? []).map((u) => new UnitView(u, this));
+  }
+
+  /**
+   * Every ability carrying a reactive {@link AbilityTrigger}, sorted by ability
+   * id. Each entry names the units that list the ability (sorted; empty for
+   * faction/detachment-rule abilities no unit references directly).
+   */
+  reactiveTriggers(): ReactiveTrigger[] {
+    const out: ReactiveTrigger[] = [];
+    for (const a of this.abilities.all) {
+      const trigger = a.raw.trigger;
+      if (!trigger) continue;
+      const unitIds = (this.unitsByAbility.get(a.id) ?? []).map((u) => u.id).sort();
+      out.push({ abilityId: a.id, event: trigger.event, unitIds, trigger });
+    }
+    out.sort((x, y) => (x.abilityId < y.abilityId ? -1 : x.abilityId > y.abilityId ? 1 : 0));
+    return out;
+  }
+
+  /**
+   * Dispatch index for event-driven consumers: {@link GameEvent} → the reactive
+   * triggers firing on it. Keys are iterated in event order and each bucket is
+   * sorted by ability id, so the structure is deterministic across runs.
+   */
+  triggerIndex(): Map<GameEvent, ReactiveTrigger[]> {
+    const grouped = new Map<GameEvent, ReactiveTrigger[]>();
+    for (const rt of this.reactiveTriggers()) {
+      const bucket = grouped.get(rt.event);
+      if (bucket) bucket.push(rt);
+      else grouped.set(rt.event, [rt]);
+    }
+    return new Map(
+      [...grouped.entries()].sort(([a], [b]) => (a < b ? -1 : a > b ? 1 : 0)),
+    );
   }
 
   /** Units that list the given weapon id. */

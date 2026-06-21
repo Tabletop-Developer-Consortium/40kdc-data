@@ -28,7 +28,7 @@ schemas/
                       wargear-option, leader-attachment, unit-composition
   enrichment/       Community-authored intelligence:
     ability-dsl/      Ability DSL (ability, trigger, condition, effect, scope)
-    *.schema.json     Phase-mapping, timing-flag, interaction-flag
+    *.schema.json     Phase-mapping, interaction-flag
 data/
   core/_example/    Fabricated example data (not real GW data)
   enrichment/       Community enrichment data by edition/dataslate

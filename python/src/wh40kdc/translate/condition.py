@@ -41,54 +41,56 @@ def _count(n: Any, noun: str) -> str:
     return f"{_str(n)}+ {noun}s"
 
 
-# A ``timing-is`` event token → natural GW-voice clause. Mirrors TS TIMING_PHRASES.
-_TIMING_PHRASES: dict[str, str] = {
-    "start-of-phase": "at the start of the phase",
-    "end-of-phase": "at the end of the phase",
-    "start-of-turn": "at the start of the turn",
-    "end-of-turn": "at the end of the turn",
-    "end-of-opponent-turn": "at the end of the opponent's turn",
-    "start-of-battle-round": "at the start of the battle round",
-    "start": "at the start of the turn",
-    "end": "at the end of the turn",
-    "command-phase": "in the Command phase",
-    "shooting-phase": "in the Shooting phase",
-    "on-model-destroyed": "each time a model in this unit is destroyed",
-    "model-destroyed": "each time a model in this unit is destroyed",
-    "first-model-destroyed": "the first time a model in this unit is destroyed",
-    "first-this-battle": "the first time this battle",
-    "first-time-this-phase": "the first time this phase",
-    "on-unit-destroyed": "each time this unit is destroyed",
-    "on-destroyed": "each time this unit is destroyed",
-    "enemy-unit-destroyed-in-melee": "each time an enemy unit is destroyed in melee",
-    "in-reserves": "while it is in Reserves",
-    "game-start-in-reserves": "if it begins the battle in Reserves",
-    "starts-in-strategic-reserves": "if it starts in Strategic Reserves",
-    "deep-strike-setup": "when it is set up by Deep Strike",
-    "deep-strike": "when it is set up by Deep Strike",
-    "set-up-from-reserves": "when it arrives from Reserves",
-    "arrives-from-strategic-reserves": "when it arrives from Strategic Reserves",
-    "reinforcements": "when it arrives as Reinforcements",
-    "reinforcements-step": "during the Reinforcements step",
-    "post-deployment": "after deployment",
-    "declare-battle-formations": "when declaring Battle Formations",
-    "normal-move": "when it makes a Normal move",
-    "advance-move": "when it makes an Advance move",
-    "advance": "when it Advances",
-    "fall-back-move": "when it makes a Fall Back move",
-    "fall-back": "when it Falls Back",
-    "charge-move": "when it makes a Charge move",
+# Legacy ``timing-is`` tokens → canonical ``game-event`` keys. The alias map keeps
+# un-migrated strings rendering identically through the one vocabulary
+# (``event_clause`` / ``_EVENT_PHRASES``). Mirrors TS TIMING_ALIASES.
+_TIMING_ALIASES: dict[str, str] = {
+    "advance": "advances",
+    "after-attacks": "after-unit-resolves-attacks",
+    "after-attacking-unit-finishes-attacks": "after-unit-resolves-attacks",
+    "after-shooting": "after-unit-resolves-attacks",
+    "after-unit-shot": "after-unit-resolves-attacks",
+    "after-unit-has-shot": "after-unit-resolves-attacks",
+    "after-this-model-has-shot": "after-unit-resolves-attacks",
+    "after-shot-hits-scored": "after-scoring-hit",
+    "deep-strike": "deep-strike-setup",
+    "end": "end-of-turn",
+    "start": "start-of-turn",
+    "fall-back": "falls-back",
+    "model-destroyed": "on-model-destroyed",
+    "on-destroyed": "on-unit-destroyed",
+    "before-this-model-removed": "before-bearer-removed",
+    "command-phase": "start-of-command-phase",
+    "reinforcements-step": "reinforcements",
+    "setup": "unit-set-up",
+    "set-up-this-turn": "unit-set-up",
+    "after-move-through-terrain-over-4-inches": "moved-through-terrain",
+    "after-moving-through-tall-terrain": "moved-through-terrain",
+}
+
+# Timing strings with no canonical ``game-event`` equivalent but an established
+# phrase: usage markers and a couple of phase/state gates. Mirrors TS
+# TIMING_ONLY_PHRASES.
+_TIMING_ONLY_PHRASES: dict[str, str] = {
     "once-per-battle": "once per battle",
     "once-per-phase": "once per phase",
     "once-per-opponent-turn": "once per opponent's turn",
+    "first-this-battle": "the first time this battle",
+    "first-time-this-phase": "the first time this phase",
+    "in-reserves": "while it is in Reserves",
+    "shooting-phase": "in the Shooting phase",
 }
 
 
 def describe_timing(timing: Any) -> str:
-    """A ``timing-is`` event → natural GW-voice clause (no doubled prepositions)."""
+    """A ``timing-is`` event → natural GW-voice clause, delegating to the canonical
+    ``_EVENT_PHRASES`` vocabulary via the alias map (no doubled prepositions)."""
     t = _str(timing)
-    if t in _TIMING_PHRASES:
-        return _TIMING_PHRASES[t]
+    if t in _TIMING_ONLY_PHRASES:
+        return _TIMING_ONLY_PHRASES[t]
+    canon = _TIMING_ALIASES.get(t, t)
+    if canon in _EVENT_PHRASES:
+        return _EVENT_PHRASES[canon]
     if t.startswith("after-"):
         return f"after {dekebab(t[6:])}"
     if t.startswith("on-"):
@@ -96,6 +98,74 @@ def describe_timing(timing: Any) -> str:
     if t.endswith("-destroyed"):
         return f"each time {dekebab(t)}"
     return f"at {dekebab(t)}"
+
+
+# Canonical ``game-event`` token → natural clause, for the reactive ``trigger.event``.
+# Unmapped events degrade to ``when <dekebab>``. Mirrors TS EVENT_PHRASES.
+_EVENT_PHRASES: dict[str, str] = {
+    "start-of-phase": "at the start of the phase",
+    "end-of-phase": "at the end of the phase",
+    "start-of-turn": "at the start of the turn",
+    "end-of-turn": "at the end of the turn",
+    "start-of-opponent-turn": "at the start of the opponent's turn",
+    "end-of-opponent-turn": "at the end of the opponent's turn",
+    "start-of-battle-round": "at the start of the battle round",
+    "start-of-command-phase": "at the start of the Command phase",
+    "declare-battle-formations": "when declaring Battle Formations",
+    "post-deployment": "after deployment",
+    "unit-set-up": "when the unit is set up",
+    "set-up-from-reserves": "when the unit arrives from Reserves",
+    "arrives-from-strategic-reserves": "when the unit arrives from Strategic Reserves",
+    "starts-in-strategic-reserves": "if the unit starts in Strategic Reserves",
+    "game-start-in-reserves": "if the unit begins the battle in Reserves",
+    "deep-strike-setup": "when the unit is set up by Deep Strike",
+    "reinforcements": "when the unit arrives as Reinforcements",
+    "normal-move": "when the unit makes a Normal move",
+    "advance-move": "when the unit makes an Advance move",
+    "advances": "when the unit Advances",
+    "fall-back-move": "when the unit makes a Fall Back move",
+    "falls-back": "when the unit Falls Back",
+    "charge-move": "when the unit makes a Charge move",
+    "moved-through-terrain": "when the unit moves through terrain",
+    "enemy-unit-ended-move": "an enemy unit ends a move",
+    "enemy-unit-fell-back": "an enemy unit Falls Back",
+    "before-hit-roll": "before a Hit roll is made",
+    "after-hit-roll": "after a Hit roll is made",
+    "before-wound-roll": "before a Wound roll is made",
+    "after-wound-roll": "after a Wound roll is made",
+    "before-save-roll": "before a saving throw is made",
+    "after-save-roll": "after a saving throw is made",
+    "before-damage-roll": "before a Damage roll is made",
+    "after-damage-roll": "after a Damage roll is made",
+    "before-charge-roll": "before a Charge roll is made",
+    "after-charge-roll": "after a Charge roll is made",
+    "before-advance-roll": "before an Advance roll is made",
+    "after-advance-roll": "after an Advance roll is made",
+    "before-battle-shock": "before a Battle-shock test",
+    "after-battle-shock": "after a Battle-shock test",
+    "on-unit-selected": "when the unit is selected",
+    "selected-to-shoot": "when the unit is selected to shoot",
+    "selected-to-fight": "when the unit is selected to fight",
+    "selected-to-advance": "when the unit is selected to Advance",
+    "after-unit-resolves-attacks": "after the unit resolves its attacks",
+    "after-scoring-hit": "after scoring a hit",
+    "after-enemy-unit-fires": "after an enemy unit shoots",
+    "on-unit-destroyed": "when the unit is destroyed",
+    "on-model-destroyed": "when a model in the unit is destroyed",
+    "first-model-destroyed": "the first time a model in the unit is destroyed",
+    "before-bearer-removed": "before this model is removed from play",
+    "enemy-unit-destroyed-in-melee": "when an enemy unit is destroyed in melee",
+    "on-damage-allocated": "when damage is allocated",
+    "battle-shock-test": "when the unit takes a Battle-shock test",
+    "leadership-test": "when the unit takes a Leadership test",
+    "desperate-escape-test": "when the unit takes a Desperate Escape test",
+}
+
+
+def event_clause(event: Any) -> str:
+    """A reactive ``trigger.event`` token → natural clause (unmapped → ``when <dekebab>``)."""
+    e = _str(event)
+    return _EVENT_PHRASES.get(e, f"when {dekebab(e)}")
 
 
 def describe_condition(c: Condition) -> str:
@@ -135,7 +205,8 @@ def describe_condition(c: Condition) -> str:
     if ctype == "unit-below-starting-strength":
         return f"{negate}the unit is below starting strength"
     if ctype == "unit-below-half-strength":
-        return f"{negate}the unit is below half strength"
+        who = "target unit" if p.get("subject") == "target" else "unit"
+        return f"{negate}the {who} is below half strength"
     if ctype == "unit-has-keyword":
         return f'{negate}the unit has "{_str(p.get("keyword"))}"'
     if ctype == "target-has-keyword":
@@ -212,6 +283,25 @@ def describe_condition(c: Condition) -> str:
         )
     if ctype == "made-ingress-move-this-turn":
         return f"{negate}the unit made an ingress move this turn"
+    if ctype == "engagement-state":
+        state = p.get("state")
+        if state is None:
+            return f"{negate}the unit is within Engagement Range"
+        st = _str(state)
+        if st == "on-battlefield":
+            return f"{negate}the unit is on the battlefield"
+        if st == "embarked":
+            return f"{negate}the unit is embarked"
+        if st in ("engaged", "within-engagement-range", "in-engagement-range"):
+            return f"{negate}the unit is within Engagement Range"
+        return f"{negate}the unit is {dekebab(st)}"
+    if ctype == "disposition-matches":
+        d = _str(p.get("disposition"))
+        if d == "strategic-reserves":
+            return f"{negate}the unit is in Strategic Reserves"
+        return f"{negate}the unit's disposition is {dekebab(d)}"
+    if ctype == "fights-first":
+        return f"{negate}the unit has Fights First"
 
     # ── Scoring conditions (secondary-card award `when`) ─────────────────────
     if ctype == "objective-majority":

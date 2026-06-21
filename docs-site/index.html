@@ -120,6 +120,30 @@
         padding: 3px 10px;
       }
       .gh-link:hover { color: var(--accent); border-color: var(--accent); text-decoration: none; }
+      .filter-bar {
+        margin-top: 36px;
+      }
+      .filter-bar input {
+        width: 100%;
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 11px 14px;
+        color: var(--text);
+        font-size: 15px;
+        font-family: inherit;
+      }
+      .filter-bar input::placeholder { color: var(--muted); }
+      .filter-bar input:focus {
+        outline: none;
+        border-color: var(--accent);
+      }
+      .is-hidden { display: none !important; }
+      .no-results {
+        color: var(--muted);
+        font-size: 14px;
+        margin-top: 24px;
+      }
       footer {
         margin-top: 48px;
         padding-top: 18px;
@@ -152,7 +176,17 @@
         </p>
       </section>
 
-      <section>
+      <div class="filter-bar">
+        <input
+          id="filter"
+          type="search"
+          placeholder="Filter tools and references…"
+          autocomplete="off"
+          aria-label="Filter tools and references"
+        />
+      </div>
+
+      <section data-group>
         <h2>Reference</h2>
         <div class="card-grid">
           <a class="card" href="api/">
@@ -192,8 +226,8 @@
         </div>
       </section>
 
-      <section>
-        <h2>Example toollets</h2>
+      <section data-group>
+        <h2>Toollets</h2>
         <div class="card-grid">
           <a class="card" href="https://list-builder.alpacasoft.dev">
             <h3>List Builder</h3>
@@ -259,6 +293,42 @@
             </p>
             <div class="path">hull-tracer.alpacasoft.dev</div>
           </a>
+          <a class="card" href="https://data-explorer.alpacasoft.dev">
+            <h3>Data Explorer</h3>
+            <p class="blurb">
+              Browse the embedded dataset as Wahapedia-style datacards — stat
+              lines, weapon tables, and abilities. A roundtrip view sets each
+              ability's source rule beside its community DSL and the description
+              that DSL generates, so you can flag mismatches and export notes
+              for fixing. Showcases the linked dataset API and the DSL describer.
+            </p>
+            <div class="path">data-explorer.alpacasoft.dev</div>
+          </a>
+        </div>
+      </section>
+
+      <section data-group>
+        <h2>Ecosystem</h2>
+        <div class="card-grid">
+          <a class="card" href="https://shadowboxing.xyz" target="_blank" rel="noopener">
+            <h3>Shadowboxing ↗</h3>
+            <p class="blurb">
+              A browser-based Warhammer 40K game board and post-game review tool:
+              measure, move, draw, snapshot the timeline, and rewind. Annotation-
+              first rather than rules-enforcing, with army-list import and an OBS
+              overlay for streaming.
+            </p>
+            <div class="path">shadowboxing.xyz</div>
+          </a>
+          <a class="card" href="https://armyassist.xyz" target="_blank" rel="noopener">
+            <h3>Army Assist ↗</h3>
+            <p class="blurb">
+              A mid-game rules reference for the table: import a list and get
+              per-phase unit cards, stratagems, and army rules, optimised for
+              your phone during a game.
+            </p>
+            <div class="path">armyassist.xyz</div>
+          </a>
         </div>
       </section>
 
@@ -271,5 +341,43 @@
         &middot; Schemas: CC0 &middot; Data: CC BY 4.0 &middot; Tools: MIT
       </footer>
     </main>
+    <script>
+      // Live filter across all groups: hide cards whose title/blurb don't match,
+      // hide a section whose cards are all filtered out, and show a "no results"
+      // line when nothing matches. Pure client-side, no dependencies.
+      (function () {
+        var input = document.getElementById("filter");
+        if (!input) return;
+        var groups = Array.prototype.slice.call(
+          document.querySelectorAll("section[data-group]"),
+        );
+        var wrap = document.querySelector(".wrap");
+        var empty = document.createElement("p");
+        empty.className = "no-results is-hidden";
+        empty.textContent = "No tools or references match your filter.";
+        if (wrap) wrap.appendChild(empty);
+
+        function apply() {
+          var q = input.value.trim().toLowerCase();
+          var anyVisible = false;
+          groups.forEach(function (section) {
+            var cards = Array.prototype.slice.call(
+              section.querySelectorAll(".card"),
+            );
+            var shown = 0;
+            cards.forEach(function (card) {
+              var match = q === "" || card.textContent.toLowerCase().indexOf(q) !== -1;
+              card.classList.toggle("is-hidden", !match);
+              if (match) shown++;
+            });
+            section.classList.toggle("is-hidden", shown === 0);
+            if (shown > 0) anyVisible = true;
+          });
+          empty.classList.toggle("is-hidden", anyVisible);
+        }
+
+        input.addEventListener("input", apply);
+      })();
+    </script>
   </body>
 </html>

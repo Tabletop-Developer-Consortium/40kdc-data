@@ -264,6 +264,34 @@ func validateRosterCore(spec normRoster, ds *Dataset) ([]unitLoadoutResult, []ro
 		}
 	}
 
+	// --- Faction exclusions (a generic unit barred from this army's chapter). --
+	// The shared Space Marine pool can't drop a generic datasheet for one chapter,
+	// so a removed-without-replacement unit (e.g. Librarians for Black Templars)
+	// carries excluded_faction_keywords; it is illegal when the army's faction
+	// keywords intersect that list. Mirror of TS unit-excluded-from-faction.
+	if spec.factionID != "" {
+		factionKeywords := map[string]struct{}{}
+		if fac, ok := ds.Factions.Get(spec.factionID); ok {
+			for _, k := range getStrList(fac.Raw, "keywords") {
+				factionKeywords[k] = struct{}{}
+			}
+		}
+		if len(factionKeywords) > 0 {
+			for idx := range spec.units {
+				view := views[idx]
+				if view == nil {
+					continue
+				}
+				for _, k := range getStrList(view.Raw, "excluded_faction_keywords") {
+					if _, has := factionKeywords[k]; has {
+						errV("unit-excluded-from-faction", view.ID(), idx)
+						break
+					}
+				}
+			}
+		}
+	}
+
 	// --- Warlord present (exactly one). ---------------------------------------
 	warlords := 0
 	for _, su := range spec.units {

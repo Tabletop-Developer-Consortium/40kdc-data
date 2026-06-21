@@ -343,6 +343,35 @@ func (s *RunnerState) handleLinkedQuery(args any) map[string]any {
 			out = append(out, u.ID())
 		}
 		return okResp(out)
+	case "reactive_trigger_ability_ids":
+		ids := []string{}
+		for _, rt := range ds.ReactiveTriggers() {
+			ids = append(ids, rt.AbilityID)
+		}
+		sort.Strings(ids)
+		return okResp(toAnyList(ids))
+	case "events_with_triggers":
+		seen := map[string]struct{}{}
+		events := []string{}
+		for _, rt := range ds.ReactiveTriggers() {
+			if _, dup := seen[rt.Event]; dup {
+				continue
+			}
+			seen[rt.Event] = struct{}{}
+			events = append(events, rt.Event)
+		}
+		sort.Strings(events)
+		return okResp(toAnyList(events))
+	case "triggers_for_event":
+		event := getStr(in, "event")
+		ids := []string{}
+		for _, rt := range ds.ReactiveTriggers() {
+			if rt.Event == event {
+				ids = append(ids, rt.AbilityID)
+			}
+		}
+		sort.Strings(ids)
+		return okResp(toAnyList(ids))
 	default:
 		return errResp("INVALID_INPUT", detail("unknown linked_query: "+query))
 	}

@@ -467,5 +467,75 @@
     "expected": [
       "army|error|unit-minimum-unmet:War Dog"
     ]
+  },
+  {
+    "name": "unit-excluded-from-faction",
+    "args": {
+      "factionId": "black-templars",
+      "battleSize": null,
+      "forceDisposition": "purge-the-foe",
+      "detachments": [],
+      "units": [
+        {
+          "unitId": "librarian",
+          "modelCount": 1,
+          "isWarlord": true,
+          "enhancementId": null,
+          "leaderBodyguardId": null,
+          "counts": {}
+        }
+      ]
+    },
+    "expected": [
+      "u0|error|unit-excluded-from-faction:librarian"
+    ]
+  },
+  {
+    "name": "excluded-unit-legal-in-other-chapter",
+    "args": {
+      "factionId": "ultramarines",
+      "battleSize": null,
+      "forceDisposition": "purge-the-foe",
+      "detachments": [],
+      "units": [
+        {
+          "unitId": "librarian",
+          "modelCount": 1,
+          "isWarlord": true,
+          "enhancementId": null,
+          "leaderBodyguardId": null,
+          "counts": {}
+        }
+      ]
+    },
+    "expected": []
+  },
+  {
+    "name": "collapsed-twin-legal-in-excluding-chapter",
+    "args": {
+      "factionId": "black-templars",
+      "battleSize": null,
+      "forceDisposition": "purge-the-foe",
+      "detachments": [],
+      "units": [
+        {
+          "unitId": "high-marshal-helbrecht",
+          "modelCount": 1,
+          "isWarlord": true,
+          "enhancementId": null,
+          "leaderBodyguardId": null,
+          "counts": {}
+        },
+        {
+          "unitId": "repulsor",
+          "modelCount": 1,
+          "isWarlord": false,
+          "enhancementId": null,
+          "leaderBodyguardId": null,
+          "counts": {}
+        }
+      ]
+    },
+    "expected": []
   }
 ]

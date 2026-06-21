@@ -181,11 +181,110 @@ pub mod error {
 ///        }
 ///      ]
 ///    },
+///    "trigger": {
+///      "description": "For reactive abilities: the game event this ability fires on, plus structured guards an event-driven consumer evaluates against game state (no prose parsing). `event` is the closed dispatch key; `subject` names whose action triggered it; `proximity` is the spatial gate in inches; `condition` is an optional extra gate reusing the condition tree. `optional` marks 'you can' reactions, `cost` a stratagem-style CP cost, `window` how long the granted reaction stays open.",
+///      "type": "object",
+///      "required": [
+///        "event"
+///      ],
+///      "properties": {
+///        "condition": {
+///          "$ref": "#/$defs/condition"
+///        },
+///        "cost": {
+///          "type": "object",
+///          "properties": {
+///            "cp": {
+///              "type": "integer",
+///              "minimum": 0.0
+///            }
+///          },
+///          "additionalProperties": false
+///        },
+///        "event": {
+///          "$ref": "#/$defs/game-event"
+///        },
+///        "optional": {
+///          "default": false,
+///          "type": "boolean"
+///        },
+///        "proximity": {
+///          "type": "object",
+///          "required": [
+///            "range"
+///          ],
+///          "properties": {
+///            "of": {
+///              "type": "string",
+///              "enum": [
+///                "self",
+///                "bearer",
+///                "attached-unit"
+///              ]
+///            },
+///            "range": {
+///              "type": "number",
+///              "exclusiveMinimum": 0.0
+///            }
+///          },
+///          "additionalProperties": false
+///        },
+///        "subject": {
+///          "type": "string",
+///          "enum": [
+///            "self",
+///            "bearer",
+///            "friendly-unit",
+///            "enemy-unit",
+///            "any-unit",
+///            "model-in-bearer"
+///          ]
+///        },
+///        "window": {
+///          "type": "string"
+///        }
+///      },
+///      "additionalProperties": false
+///    },
 ///    "unit_ids": {
 ///      "type": "array",
 ///      "items": {
 ///        "$ref": "#/$defs/entity-id"
 ///      }
+///    },
+///    "usage": {
+///      "description": "How often the ability may be used, beyond what scope.duration captures. `scope.duration: one-use` already models 'once per battle'; this models finer limits (once per turn/phase, N per battle) and an optional per-army/unit/model granularity.",
+///      "type": "object",
+///      "required": [
+///        "frequency"
+///      ],
+///      "properties": {
+///        "count": {
+///          "type": "integer",
+///          "minimum": 1.0
+///        },
+///        "frequency": {
+///          "type": "string",
+///          "enum": [
+///            "once-per-turn",
+///            "once-per-phase",
+///            "once-per-command-phase",
+///            "once-per-opponent-turn",
+///            "n-per-battle",
+///            "first-this-battle",
+///            "first-time-this-phase"
+///          ]
+///        },
+///        "per": {
+///          "type": "string",
+///          "enum": [
+///            "army",
+///            "unit",
+///            "model"
+///          ]
+///        }
+///      },
+///      "additionalProperties": false
 ///    },
 ///    "version": {
 ///      "$ref": "#/$defs/dataslate-version"
@@ -228,8 +327,12 @@ pub struct Ability {
     pub scope: Scope,
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub supersedes: ::std::option::Option<DataslateVersion>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub trigger: ::std::option::Option<AbilityTrigger>,
     #[serde(default, skip_serializing_if = "::std::vec::Vec::is_empty")]
     pub unit_ids: ::std::vec::Vec<EntityId>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub usage: ::std::option::Option<AbilityUsage>,
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub version: ::std::option::Option<DataslateVersion>,
 }
@@ -575,6 +678,567 @@ impl ::std::convert::TryFrom<&::std::string::String> for AbilityInteractionsItem
     }
 }
 impl ::std::convert::TryFrom<::std::string::String> for AbilityInteractionsItemType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+///For reactive abilities: the game event this ability fires on, plus structured guards an event-driven consumer evaluates against game state (no prose parsing). `event` is the closed dispatch key; `subject` names whose action triggered it; `proximity` is the spatial gate in inches; `condition` is an optional extra gate reusing the condition tree. `optional` marks 'you can' reactions, `cost` a stratagem-style CP cost, `window` how long the granted reaction stays open.
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "description": "For reactive abilities: the game event this ability fires on, plus structured guards an event-driven consumer evaluates against game state (no prose parsing). `event` is the closed dispatch key; `subject` names whose action triggered it; `proximity` is the spatial gate in inches; `condition` is an optional extra gate reusing the condition tree. `optional` marks 'you can' reactions, `cost` a stratagem-style CP cost, `window` how long the granted reaction stays open.",
+///  "type": "object",
+///  "required": [
+///    "event"
+///  ],
+///  "properties": {
+///    "condition": {
+///      "$ref": "#/$defs/condition"
+///    },
+///    "cost": {
+///      "type": "object",
+///      "properties": {
+///        "cp": {
+///          "type": "integer",
+///          "minimum": 0.0
+///        }
+///      },
+///      "additionalProperties": false
+///    },
+///    "event": {
+///      "$ref": "#/$defs/game-event"
+///    },
+///    "optional": {
+///      "default": false,
+///      "type": "boolean"
+///    },
+///    "proximity": {
+///      "type": "object",
+///      "required": [
+///        "range"
+///      ],
+///      "properties": {
+///        "of": {
+///          "type": "string",
+///          "enum": [
+///            "self",
+///            "bearer",
+///            "attached-unit"
+///          ]
+///        },
+///        "range": {
+///          "type": "number",
+///          "exclusiveMinimum": 0.0
+///        }
+///      },
+///      "additionalProperties": false
+///    },
+///    "subject": {
+///      "type": "string",
+///      "enum": [
+///        "self",
+///        "bearer",
+///        "friendly-unit",
+///        "enemy-unit",
+///        "any-unit",
+///        "model-in-bearer"
+///      ]
+///    },
+///    "window": {
+///      "type": "string"
+///    }
+///  },
+///  "additionalProperties": false
+///}
+/// ```
+/// </details>
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
+#[serde(deny_unknown_fields)]
+pub struct AbilityTrigger {
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub condition: ::std::option::Option<Condition>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub cost: ::std::option::Option<AbilityTriggerCost>,
+    pub event: GameEvent,
+    #[serde(default)]
+    pub optional: bool,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub proximity: ::std::option::Option<AbilityTriggerProximity>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub subject: ::std::option::Option<AbilityTriggerSubject>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub window: ::std::option::Option<::std::string::String>,
+}
+///`AbilityTriggerCost`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "object",
+///  "properties": {
+///    "cp": {
+///      "type": "integer",
+///      "minimum": 0.0
+///    }
+///  },
+///  "additionalProperties": false
+///}
+/// ```
+/// </details>
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
+#[serde(deny_unknown_fields)]
+pub struct AbilityTriggerCost {
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub cp: ::std::option::Option<u64>,
+}
+impl ::std::default::Default for AbilityTriggerCost {
+    fn default() -> Self {
+        Self { cp: Default::default() }
+    }
+}
+///`AbilityTriggerProximity`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "object",
+///  "required": [
+///    "range"
+///  ],
+///  "properties": {
+///    "of": {
+///      "type": "string",
+///      "enum": [
+///        "self",
+///        "bearer",
+///        "attached-unit"
+///      ]
+///    },
+///    "range": {
+///      "type": "number",
+///      "exclusiveMinimum": 0.0
+///    }
+///  },
+///  "additionalProperties": false
+///}
+/// ```
+/// </details>
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
+#[serde(deny_unknown_fields)]
+pub struct AbilityTriggerProximity {
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub of: ::std::option::Option<AbilityTriggerProximityOf>,
+    pub range: f64,
+}
+///`AbilityTriggerProximityOf`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "string",
+///  "enum": [
+///    "self",
+///    "bearer",
+///    "attached-unit"
+///  ]
+///}
+/// ```
+/// </details>
+#[derive(
+    ::serde::Deserialize,
+    ::serde::Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd
+)]
+pub enum AbilityTriggerProximityOf {
+    #[serde(rename = "self")]
+    Self_,
+    #[serde(rename = "bearer")]
+    Bearer,
+    #[serde(rename = "attached-unit")]
+    AttachedUnit,
+}
+impl ::std::fmt::Display for AbilityTriggerProximityOf {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::Self_ => f.write_str("self"),
+            Self::Bearer => f.write_str("bearer"),
+            Self::AttachedUnit => f.write_str("attached-unit"),
+        }
+    }
+}
+impl ::std::str::FromStr for AbilityTriggerProximityOf {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "self" => Ok(Self::Self_),
+            "bearer" => Ok(Self::Bearer),
+            "attached-unit" => Ok(Self::AttachedUnit),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for AbilityTriggerProximityOf {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for AbilityTriggerProximityOf {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for AbilityTriggerProximityOf {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+///`AbilityTriggerSubject`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "string",
+///  "enum": [
+///    "self",
+///    "bearer",
+///    "friendly-unit",
+///    "enemy-unit",
+///    "any-unit",
+///    "model-in-bearer"
+///  ]
+///}
+/// ```
+/// </details>
+#[derive(
+    ::serde::Deserialize,
+    ::serde::Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd
+)]
+pub enum AbilityTriggerSubject {
+    #[serde(rename = "self")]
+    Self_,
+    #[serde(rename = "bearer")]
+    Bearer,
+    #[serde(rename = "friendly-unit")]
+    FriendlyUnit,
+    #[serde(rename = "enemy-unit")]
+    EnemyUnit,
+    #[serde(rename = "any-unit")]
+    AnyUnit,
+    #[serde(rename = "model-in-bearer")]
+    ModelInBearer,
+}
+impl ::std::fmt::Display for AbilityTriggerSubject {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::Self_ => f.write_str("self"),
+            Self::Bearer => f.write_str("bearer"),
+            Self::FriendlyUnit => f.write_str("friendly-unit"),
+            Self::EnemyUnit => f.write_str("enemy-unit"),
+            Self::AnyUnit => f.write_str("any-unit"),
+            Self::ModelInBearer => f.write_str("model-in-bearer"),
+        }
+    }
+}
+impl ::std::str::FromStr for AbilityTriggerSubject {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "self" => Ok(Self::Self_),
+            "bearer" => Ok(Self::Bearer),
+            "friendly-unit" => Ok(Self::FriendlyUnit),
+            "enemy-unit" => Ok(Self::EnemyUnit),
+            "any-unit" => Ok(Self::AnyUnit),
+            "model-in-bearer" => Ok(Self::ModelInBearer),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for AbilityTriggerSubject {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for AbilityTriggerSubject {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for AbilityTriggerSubject {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+///How often the ability may be used, beyond what scope.duration captures. `scope.duration: one-use` already models 'once per battle'; this models finer limits (once per turn/phase, N per battle) and an optional per-army/unit/model granularity.
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "description": "How often the ability may be used, beyond what scope.duration captures. `scope.duration: one-use` already models 'once per battle'; this models finer limits (once per turn/phase, N per battle) and an optional per-army/unit/model granularity.",
+///  "type": "object",
+///  "required": [
+///    "frequency"
+///  ],
+///  "properties": {
+///    "count": {
+///      "type": "integer",
+///      "minimum": 1.0
+///    },
+///    "frequency": {
+///      "type": "string",
+///      "enum": [
+///        "once-per-turn",
+///        "once-per-phase",
+///        "once-per-command-phase",
+///        "once-per-opponent-turn",
+///        "n-per-battle",
+///        "first-this-battle",
+///        "first-time-this-phase"
+///      ]
+///    },
+///    "per": {
+///      "type": "string",
+///      "enum": [
+///        "army",
+///        "unit",
+///        "model"
+///      ]
+///    }
+///  },
+///  "additionalProperties": false
+///}
+/// ```
+/// </details>
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
+#[serde(deny_unknown_fields)]
+pub struct AbilityUsage {
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub count: ::std::option::Option<::std::num::NonZeroU64>,
+    pub frequency: AbilityUsageFrequency,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub per: ::std::option::Option<AbilityUsagePer>,
+}
+///`AbilityUsageFrequency`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "string",
+///  "enum": [
+///    "once-per-turn",
+///    "once-per-phase",
+///    "once-per-command-phase",
+///    "once-per-opponent-turn",
+///    "n-per-battle",
+///    "first-this-battle",
+///    "first-time-this-phase"
+///  ]
+///}
+/// ```
+/// </details>
+#[derive(
+    ::serde::Deserialize,
+    ::serde::Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd
+)]
+pub enum AbilityUsageFrequency {
+    #[serde(rename = "once-per-turn")]
+    OncePerTurn,
+    #[serde(rename = "once-per-phase")]
+    OncePerPhase,
+    #[serde(rename = "once-per-command-phase")]
+    OncePerCommandPhase,
+    #[serde(rename = "once-per-opponent-turn")]
+    OncePerOpponentTurn,
+    #[serde(rename = "n-per-battle")]
+    NPerBattle,
+    #[serde(rename = "first-this-battle")]
+    FirstThisBattle,
+    #[serde(rename = "first-time-this-phase")]
+    FirstTimeThisPhase,
+}
+impl ::std::fmt::Display for AbilityUsageFrequency {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::OncePerTurn => f.write_str("once-per-turn"),
+            Self::OncePerPhase => f.write_str("once-per-phase"),
+            Self::OncePerCommandPhase => f.write_str("once-per-command-phase"),
+            Self::OncePerOpponentTurn => f.write_str("once-per-opponent-turn"),
+            Self::NPerBattle => f.write_str("n-per-battle"),
+            Self::FirstThisBattle => f.write_str("first-this-battle"),
+            Self::FirstTimeThisPhase => f.write_str("first-time-this-phase"),
+        }
+    }
+}
+impl ::std::str::FromStr for AbilityUsageFrequency {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "once-per-turn" => Ok(Self::OncePerTurn),
+            "once-per-phase" => Ok(Self::OncePerPhase),
+            "once-per-command-phase" => Ok(Self::OncePerCommandPhase),
+            "once-per-opponent-turn" => Ok(Self::OncePerOpponentTurn),
+            "n-per-battle" => Ok(Self::NPerBattle),
+            "first-this-battle" => Ok(Self::FirstThisBattle),
+            "first-time-this-phase" => Ok(Self::FirstTimeThisPhase),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for AbilityUsageFrequency {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for AbilityUsageFrequency {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for AbilityUsageFrequency {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+///`AbilityUsagePer`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "string",
+///  "enum": [
+///    "army",
+///    "unit",
+///    "model"
+///  ]
+///}
+/// ```
+/// </details>
+#[derive(
+    ::serde::Deserialize,
+    ::serde::Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd
+)]
+pub enum AbilityUsagePer {
+    #[serde(rename = "army")]
+    Army,
+    #[serde(rename = "unit")]
+    Unit,
+    #[serde(rename = "model")]
+    Model,
+}
+impl ::std::fmt::Display for AbilityUsagePer {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::Army => f.write_str("army"),
+            Self::Unit => f.write_str("unit"),
+            Self::Model => f.write_str("model"),
+        }
+    }
+}
+impl ::std::str::FromStr for AbilityUsagePer {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "army" => Ok(Self::Army),
+            "unit" => Ok(Self::Unit),
+            "model" => Ok(Self::Model),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for AbilityUsagePer {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for AbilityUsagePer {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for AbilityUsagePer {
     type Error = self::error::ConversionError;
     fn try_from(
         value: ::std::string::String,
@@ -1245,6 +1909,250 @@ impl ::std::default::Default for ArmyCompositionPredicateUnitFilter {
             model_count_min: Default::default(),
             wounds_min: Default::default(),
         }
+    }
+}
+///`AuraEffect`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "object",
+///  "required": [
+///    "modifier",
+///    "target",
+///    "type"
+///  ],
+///  "properties": {
+///    "modifier": {
+///      "type": "object",
+///      "properties": {
+///        "effect": {
+///          "$ref": "#/$defs/effect-node"
+///        },
+///        "of": {
+///          "type": "string"
+///        },
+///        "range": {
+///          "oneOf": [
+///            {
+///              "type": "integer",
+///              "minimum": 1.0
+///            },
+///            {
+///              "type": "array",
+///              "items": {
+///                "type": "integer",
+///                "minimum": 1.0
+///              },
+///              "minItems": 1
+///            }
+///          ]
+///        },
+///        "range_bonus": {
+///          "type": "integer"
+///        }
+///      },
+///      "additionalProperties": false
+///    },
+///    "target": {
+///      "type": "string",
+///      "enum": [
+///        "enemy-within-aura",
+///        "friendly-within-aura"
+///      ]
+///    },
+///    "type": {
+///      "const": "aura"
+///    }
+///  },
+///  "additionalProperties": false,
+///  "$comment": "Generic aura (Batch D): a persistent zone around a unit applying an effect to units within a range. Models Contagions, Shadow in the Warp, Vect — the concept the dataset previously expressed implicitly via `target: *-within-aura` + scope.range. `range` is the radius in inches (an integer, or an array of per-battle-round tiers, e.g. [3,6,9] for Contagions). `range_bonus` + `of` model an ability that EXTENDS a named aura's range (Gift of Poxes: contagion +3\"). `effect` is the nested effect applied within the zone. Batch D builds the type and migrates contagion-range; the ~300 incumbent within-aura-target effects are a separate follow-up sweep."
+///}
+/// ```
+/// </details>
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
+#[serde(deny_unknown_fields)]
+pub struct AuraEffect {
+    pub modifier: AuraEffectModifier,
+    pub target: AuraEffectTarget,
+    #[serde(rename = "type")]
+    pub type_: ::serde_json::Value,
+}
+///`AuraEffectModifier`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "object",
+///  "properties": {
+///    "effect": {
+///      "$ref": "#/$defs/effect-node"
+///    },
+///    "of": {
+///      "type": "string"
+///    },
+///    "range": {
+///      "oneOf": [
+///        {
+///          "type": "integer",
+///          "minimum": 1.0
+///        },
+///        {
+///          "type": "array",
+///          "items": {
+///            "type": "integer",
+///            "minimum": 1.0
+///          },
+///          "minItems": 1
+///        }
+///      ]
+///    },
+///    "range_bonus": {
+///      "type": "integer"
+///    }
+///  },
+///  "additionalProperties": false
+///}
+/// ```
+/// </details>
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
+#[serde(deny_unknown_fields)]
+pub struct AuraEffectModifier {
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub effect: ::std::option::Option<::std::boxed::Box<EffectNode>>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub of: ::std::option::Option<::std::string::String>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub range: ::std::option::Option<AuraEffectModifierRange>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub range_bonus: ::std::option::Option<i64>,
+}
+impl ::std::default::Default for AuraEffectModifier {
+    fn default() -> Self {
+        Self {
+            effect: Default::default(),
+            of: Default::default(),
+            range: Default::default(),
+            range_bonus: Default::default(),
+        }
+    }
+}
+///`AuraEffectModifierRange`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "oneOf": [
+///    {
+///      "type": "integer",
+///      "minimum": 1.0
+///    },
+///    {
+///      "type": "array",
+///      "items": {
+///        "type": "integer",
+///        "minimum": 1.0
+///      },
+///      "minItems": 1
+///    }
+///  ]
+///}
+/// ```
+/// </details>
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
+#[serde(untagged)]
+pub enum AuraEffectModifierRange {
+    Integer(::std::num::NonZeroU64),
+    Array(::std::vec::Vec<::std::num::NonZeroU64>),
+}
+impl ::std::convert::From<::std::num::NonZeroU64> for AuraEffectModifierRange {
+    fn from(value: ::std::num::NonZeroU64) -> Self {
+        Self::Integer(value)
+    }
+}
+impl ::std::convert::From<::std::vec::Vec<::std::num::NonZeroU64>>
+for AuraEffectModifierRange {
+    fn from(value: ::std::vec::Vec<::std::num::NonZeroU64>) -> Self {
+        Self::Array(value)
+    }
+}
+///`AuraEffectTarget`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "string",
+///  "enum": [
+///    "enemy-within-aura",
+///    "friendly-within-aura"
+///  ]
+///}
+/// ```
+/// </details>
+#[derive(
+    ::serde::Deserialize,
+    ::serde::Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd
+)]
+pub enum AuraEffectTarget {
+    #[serde(rename = "enemy-within-aura")]
+    EnemyWithinAura,
+    #[serde(rename = "friendly-within-aura")]
+    FriendlyWithinAura,
+}
+impl ::std::fmt::Display for AuraEffectTarget {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::EnemyWithinAura => f.write_str("enemy-within-aura"),
+            Self::FriendlyWithinAura => f.write_str("friendly-within-aura"),
+        }
+    }
+}
+impl ::std::str::FromStr for AuraEffectTarget {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "enemy-within-aura" => Ok(Self::EnemyWithinAura),
+            "friendly-within-aura" => Ok(Self::FriendlyWithinAura),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for AuraEffectTarget {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for AuraEffectTarget {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for AuraEffectTarget {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
     }
 }
 ///A model's base. 'round' carries 'diameter'; 'oval' carries 'width'+'length'. 'flying-base' (with 'size': small/large), 'hull', and 'unique' are categories the GW base-size guide gives without standard millimetre dimensions; entries carrying such a category, or any millimetre value not taken from an authoritative source, set 'draft': true to mark them for later hand-authoring.
@@ -3680,6 +4588,15 @@ impl ::std::convert::From<EffectNode> for Effect {
 ///    },
 ///    {
 ///      "$ref": "#/$defs/dice-pool-allocation-effect"
+///    },
+///    {
+///      "$ref": "#/$defs/select-units-effect"
+///    },
+///    {
+///      "$ref": "#/$defs/movement-modifier-effect"
+///    },
+///    {
+///      "$ref": "#/$defs/aura-effect"
 ///    }
 ///  ]
 ///}
@@ -3694,6 +4611,9 @@ pub enum EffectNode {
     DiceGatedEffect(DiceGatedEffect),
     ConditionalEffect(ConditionalEffect),
     DicePoolAllocationEffect(DicePoolAllocationEffect),
+    SelectUnitsEffect(SelectUnitsEffect),
+    MovementModifierEffect(MovementModifierEffect),
+    AuraEffect(AuraEffect),
 }
 impl ::std::convert::From<SingleEffect> for EffectNode {
     fn from(value: SingleEffect) -> Self {
@@ -3723,6 +4643,21 @@ impl ::std::convert::From<ConditionalEffect> for EffectNode {
 impl ::std::convert::From<DicePoolAllocationEffect> for EffectNode {
     fn from(value: DicePoolAllocationEffect) -> Self {
         Self::DicePoolAllocationEffect(value)
+    }
+}
+impl ::std::convert::From<SelectUnitsEffect> for EffectNode {
+    fn from(value: SelectUnitsEffect) -> Self {
+        Self::SelectUnitsEffect(value)
+    }
+}
+impl ::std::convert::From<MovementModifierEffect> for EffectNode {
+    fn from(value: MovementModifierEffect) -> Self {
+        Self::MovementModifierEffect(value)
+    }
+}
+impl ::std::convert::From<AuraEffect> for EffectNode {
+    fn from(value: AuraEffect) -> Self {
+        Self::AuraEffect(value)
     }
 }
 ///A purchasable upgrade for a character unit, provided by a detachment.
@@ -4527,6 +5462,359 @@ impl<'de> ::serde::Deserialize<'de> for ForceDispositionText {
             .map_err(|e: self::error::ConversionError| {
                 <D::Error as ::serde::de::Error>::custom(e.to_string())
             })
+    }
+}
+///The single canonical 'when' vocabulary, shared by the reactive `trigger.event` (the dispatch key an event-driven consumer subscribes on) and the `timing-is` condition. Supersedes the former timing-flag entity's step-level vocabulary, adding movement/lifecycle/targeting events. Grouped: phase/turn structure, setup/reserves, movement, combat dice steps, attack lifecycle, destruction, and tests.
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "description": "The single canonical 'when' vocabulary, shared by the reactive `trigger.event` (the dispatch key an event-driven consumer subscribes on) and the `timing-is` condition. Supersedes the former timing-flag entity's step-level vocabulary, adding movement/lifecycle/targeting events. Grouped: phase/turn structure, setup/reserves, movement, combat dice steps, attack lifecycle, destruction, and tests.",
+///  "type": "string",
+///  "enum": [
+///    "start-of-phase",
+///    "end-of-phase",
+///    "start-of-turn",
+///    "end-of-turn",
+///    "start-of-opponent-turn",
+///    "end-of-opponent-turn",
+///    "start-of-battle-round",
+///    "start-of-command-phase",
+///    "declare-battle-formations",
+///    "post-deployment",
+///    "unit-set-up",
+///    "set-up-from-reserves",
+///    "arrives-from-strategic-reserves",
+///    "starts-in-strategic-reserves",
+///    "game-start-in-reserves",
+///    "deep-strike-setup",
+///    "reinforcements",
+///    "normal-move",
+///    "advance-move",
+///    "advances",
+///    "fall-back-move",
+///    "falls-back",
+///    "charge-move",
+///    "moved-through-terrain",
+///    "enemy-unit-ended-move",
+///    "enemy-unit-fell-back",
+///    "before-hit-roll",
+///    "after-hit-roll",
+///    "before-wound-roll",
+///    "after-wound-roll",
+///    "before-save-roll",
+///    "after-save-roll",
+///    "before-damage-roll",
+///    "after-damage-roll",
+///    "before-charge-roll",
+///    "after-charge-roll",
+///    "before-advance-roll",
+///    "after-advance-roll",
+///    "before-battle-shock",
+///    "after-battle-shock",
+///    "on-unit-selected",
+///    "selected-to-shoot",
+///    "selected-to-fight",
+///    "selected-to-advance",
+///    "after-unit-resolves-attacks",
+///    "after-scoring-hit",
+///    "after-enemy-unit-fires",
+///    "on-unit-destroyed",
+///    "on-model-destroyed",
+///    "first-model-destroyed",
+///    "before-bearer-removed",
+///    "enemy-unit-destroyed-in-melee",
+///    "on-damage-allocated",
+///    "battle-shock-test",
+///    "leadership-test",
+///    "desperate-escape-test"
+///  ]
+///}
+/// ```
+/// </details>
+#[derive(
+    ::serde::Deserialize,
+    ::serde::Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd
+)]
+pub enum GameEvent {
+    #[serde(rename = "start-of-phase")]
+    StartOfPhase,
+    #[serde(rename = "end-of-phase")]
+    EndOfPhase,
+    #[serde(rename = "start-of-turn")]
+    StartOfTurn,
+    #[serde(rename = "end-of-turn")]
+    EndOfTurn,
+    #[serde(rename = "start-of-opponent-turn")]
+    StartOfOpponentTurn,
+    #[serde(rename = "end-of-opponent-turn")]
+    EndOfOpponentTurn,
+    #[serde(rename = "start-of-battle-round")]
+    StartOfBattleRound,
+    #[serde(rename = "start-of-command-phase")]
+    StartOfCommandPhase,
+    #[serde(rename = "declare-battle-formations")]
+    DeclareBattleFormations,
+    #[serde(rename = "post-deployment")]
+    PostDeployment,
+    #[serde(rename = "unit-set-up")]
+    UnitSetUp,
+    #[serde(rename = "set-up-from-reserves")]
+    SetUpFromReserves,
+    #[serde(rename = "arrives-from-strategic-reserves")]
+    ArrivesFromStrategicReserves,
+    #[serde(rename = "starts-in-strategic-reserves")]
+    StartsInStrategicReserves,
+    #[serde(rename = "game-start-in-reserves")]
+    GameStartInReserves,
+    #[serde(rename = "deep-strike-setup")]
+    DeepStrikeSetup,
+    #[serde(rename = "reinforcements")]
+    Reinforcements,
+    #[serde(rename = "normal-move")]
+    NormalMove,
+    #[serde(rename = "advance-move")]
+    AdvanceMove,
+    #[serde(rename = "advances")]
+    Advances,
+    #[serde(rename = "fall-back-move")]
+    FallBackMove,
+    #[serde(rename = "falls-back")]
+    FallsBack,
+    #[serde(rename = "charge-move")]
+    ChargeMove,
+    #[serde(rename = "moved-through-terrain")]
+    MovedThroughTerrain,
+    #[serde(rename = "enemy-unit-ended-move")]
+    EnemyUnitEndedMove,
+    #[serde(rename = "enemy-unit-fell-back")]
+    EnemyUnitFellBack,
+    #[serde(rename = "before-hit-roll")]
+    BeforeHitRoll,
+    #[serde(rename = "after-hit-roll")]
+    AfterHitRoll,
+    #[serde(rename = "before-wound-roll")]
+    BeforeWoundRoll,
+    #[serde(rename = "after-wound-roll")]
+    AfterWoundRoll,
+    #[serde(rename = "before-save-roll")]
+    BeforeSaveRoll,
+    #[serde(rename = "after-save-roll")]
+    AfterSaveRoll,
+    #[serde(rename = "before-damage-roll")]
+    BeforeDamageRoll,
+    #[serde(rename = "after-damage-roll")]
+    AfterDamageRoll,
+    #[serde(rename = "before-charge-roll")]
+    BeforeChargeRoll,
+    #[serde(rename = "after-charge-roll")]
+    AfterChargeRoll,
+    #[serde(rename = "before-advance-roll")]
+    BeforeAdvanceRoll,
+    #[serde(rename = "after-advance-roll")]
+    AfterAdvanceRoll,
+    #[serde(rename = "before-battle-shock")]
+    BeforeBattleShock,
+    #[serde(rename = "after-battle-shock")]
+    AfterBattleShock,
+    #[serde(rename = "on-unit-selected")]
+    OnUnitSelected,
+    #[serde(rename = "selected-to-shoot")]
+    SelectedToShoot,
+    #[serde(rename = "selected-to-fight")]
+    SelectedToFight,
+    #[serde(rename = "selected-to-advance")]
+    SelectedToAdvance,
+    #[serde(rename = "after-unit-resolves-attacks")]
+    AfterUnitResolvesAttacks,
+    #[serde(rename = "after-scoring-hit")]
+    AfterScoringHit,
+    #[serde(rename = "after-enemy-unit-fires")]
+    AfterEnemyUnitFires,
+    #[serde(rename = "on-unit-destroyed")]
+    OnUnitDestroyed,
+    #[serde(rename = "on-model-destroyed")]
+    OnModelDestroyed,
+    #[serde(rename = "first-model-destroyed")]
+    FirstModelDestroyed,
+    #[serde(rename = "before-bearer-removed")]
+    BeforeBearerRemoved,
+    #[serde(rename = "enemy-unit-destroyed-in-melee")]
+    EnemyUnitDestroyedInMelee,
+    #[serde(rename = "on-damage-allocated")]
+    OnDamageAllocated,
+    #[serde(rename = "battle-shock-test")]
+    BattleShockTest,
+    #[serde(rename = "leadership-test")]
+    LeadershipTest,
+    #[serde(rename = "desperate-escape-test")]
+    DesperateEscapeTest,
+}
+impl ::std::fmt::Display for GameEvent {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::StartOfPhase => f.write_str("start-of-phase"),
+            Self::EndOfPhase => f.write_str("end-of-phase"),
+            Self::StartOfTurn => f.write_str("start-of-turn"),
+            Self::EndOfTurn => f.write_str("end-of-turn"),
+            Self::StartOfOpponentTurn => f.write_str("start-of-opponent-turn"),
+            Self::EndOfOpponentTurn => f.write_str("end-of-opponent-turn"),
+            Self::StartOfBattleRound => f.write_str("start-of-battle-round"),
+            Self::StartOfCommandPhase => f.write_str("start-of-command-phase"),
+            Self::DeclareBattleFormations => f.write_str("declare-battle-formations"),
+            Self::PostDeployment => f.write_str("post-deployment"),
+            Self::UnitSetUp => f.write_str("unit-set-up"),
+            Self::SetUpFromReserves => f.write_str("set-up-from-reserves"),
+            Self::ArrivesFromStrategicReserves => {
+                f.write_str("arrives-from-strategic-reserves")
+            }
+            Self::StartsInStrategicReserves => {
+                f.write_str("starts-in-strategic-reserves")
+            }
+            Self::GameStartInReserves => f.write_str("game-start-in-reserves"),
+            Self::DeepStrikeSetup => f.write_str("deep-strike-setup"),
+            Self::Reinforcements => f.write_str("reinforcements"),
+            Self::NormalMove => f.write_str("normal-move"),
+            Self::AdvanceMove => f.write_str("advance-move"),
+            Self::Advances => f.write_str("advances"),
+            Self::FallBackMove => f.write_str("fall-back-move"),
+            Self::FallsBack => f.write_str("falls-back"),
+            Self::ChargeMove => f.write_str("charge-move"),
+            Self::MovedThroughTerrain => f.write_str("moved-through-terrain"),
+            Self::EnemyUnitEndedMove => f.write_str("enemy-unit-ended-move"),
+            Self::EnemyUnitFellBack => f.write_str("enemy-unit-fell-back"),
+            Self::BeforeHitRoll => f.write_str("before-hit-roll"),
+            Self::AfterHitRoll => f.write_str("after-hit-roll"),
+            Self::BeforeWoundRoll => f.write_str("before-wound-roll"),
+            Self::AfterWoundRoll => f.write_str("after-wound-roll"),
+            Self::BeforeSaveRoll => f.write_str("before-save-roll"),
+            Self::AfterSaveRoll => f.write_str("after-save-roll"),
+            Self::BeforeDamageRoll => f.write_str("before-damage-roll"),
+            Self::AfterDamageRoll => f.write_str("after-damage-roll"),
+            Self::BeforeChargeRoll => f.write_str("before-charge-roll"),
+            Self::AfterChargeRoll => f.write_str("after-charge-roll"),
+            Self::BeforeAdvanceRoll => f.write_str("before-advance-roll"),
+            Self::AfterAdvanceRoll => f.write_str("after-advance-roll"),
+            Self::BeforeBattleShock => f.write_str("before-battle-shock"),
+            Self::AfterBattleShock => f.write_str("after-battle-shock"),
+            Self::OnUnitSelected => f.write_str("on-unit-selected"),
+            Self::SelectedToShoot => f.write_str("selected-to-shoot"),
+            Self::SelectedToFight => f.write_str("selected-to-fight"),
+            Self::SelectedToAdvance => f.write_str("selected-to-advance"),
+            Self::AfterUnitResolvesAttacks => f.write_str("after-unit-resolves-attacks"),
+            Self::AfterScoringHit => f.write_str("after-scoring-hit"),
+            Self::AfterEnemyUnitFires => f.write_str("after-enemy-unit-fires"),
+            Self::OnUnitDestroyed => f.write_str("on-unit-destroyed"),
+            Self::OnModelDestroyed => f.write_str("on-model-destroyed"),
+            Self::FirstModelDestroyed => f.write_str("first-model-destroyed"),
+            Self::BeforeBearerRemoved => f.write_str("before-bearer-removed"),
+            Self::EnemyUnitDestroyedInMelee => {
+                f.write_str("enemy-unit-destroyed-in-melee")
+            }
+            Self::OnDamageAllocated => f.write_str("on-damage-allocated"),
+            Self::BattleShockTest => f.write_str("battle-shock-test"),
+            Self::LeadershipTest => f.write_str("leadership-test"),
+            Self::DesperateEscapeTest => f.write_str("desperate-escape-test"),
+        }
+    }
+}
+impl ::std::str::FromStr for GameEvent {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "start-of-phase" => Ok(Self::StartOfPhase),
+            "end-of-phase" => Ok(Self::EndOfPhase),
+            "start-of-turn" => Ok(Self::StartOfTurn),
+            "end-of-turn" => Ok(Self::EndOfTurn),
+            "start-of-opponent-turn" => Ok(Self::StartOfOpponentTurn),
+            "end-of-opponent-turn" => Ok(Self::EndOfOpponentTurn),
+            "start-of-battle-round" => Ok(Self::StartOfBattleRound),
+            "start-of-command-phase" => Ok(Self::StartOfCommandPhase),
+            "declare-battle-formations" => Ok(Self::DeclareBattleFormations),
+            "post-deployment" => Ok(Self::PostDeployment),
+            "unit-set-up" => Ok(Self::UnitSetUp),
+            "set-up-from-reserves" => Ok(Self::SetUpFromReserves),
+            "arrives-from-strategic-reserves" => Ok(Self::ArrivesFromStrategicReserves),
+            "starts-in-strategic-reserves" => Ok(Self::StartsInStrategicReserves),
+            "game-start-in-reserves" => Ok(Self::GameStartInReserves),
+            "deep-strike-setup" => Ok(Self::DeepStrikeSetup),
+            "reinforcements" => Ok(Self::Reinforcements),
+            "normal-move" => Ok(Self::NormalMove),
+            "advance-move" => Ok(Self::AdvanceMove),
+            "advances" => Ok(Self::Advances),
+            "fall-back-move" => Ok(Self::FallBackMove),
+            "falls-back" => Ok(Self::FallsBack),
+            "charge-move" => Ok(Self::ChargeMove),
+            "moved-through-terrain" => Ok(Self::MovedThroughTerrain),
+            "enemy-unit-ended-move" => Ok(Self::EnemyUnitEndedMove),
+            "enemy-unit-fell-back" => Ok(Self::EnemyUnitFellBack),
+            "before-hit-roll" => Ok(Self::BeforeHitRoll),
+            "after-hit-roll" => Ok(Self::AfterHitRoll),
+            "before-wound-roll" => Ok(Self::BeforeWoundRoll),
+            "after-wound-roll" => Ok(Self::AfterWoundRoll),
+            "before-save-roll" => Ok(Self::BeforeSaveRoll),
+            "after-save-roll" => Ok(Self::AfterSaveRoll),
+            "before-damage-roll" => Ok(Self::BeforeDamageRoll),
+            "after-damage-roll" => Ok(Self::AfterDamageRoll),
+            "before-charge-roll" => Ok(Self::BeforeChargeRoll),
+            "after-charge-roll" => Ok(Self::AfterChargeRoll),
+            "before-advance-roll" => Ok(Self::BeforeAdvanceRoll),
+            "after-advance-roll" => Ok(Self::AfterAdvanceRoll),
+            "before-battle-shock" => Ok(Self::BeforeBattleShock),
+            "after-battle-shock" => Ok(Self::AfterBattleShock),
+            "on-unit-selected" => Ok(Self::OnUnitSelected),
+            "selected-to-shoot" => Ok(Self::SelectedToShoot),
+            "selected-to-fight" => Ok(Self::SelectedToFight),
+            "selected-to-advance" => Ok(Self::SelectedToAdvance),
+            "after-unit-resolves-attacks" => Ok(Self::AfterUnitResolvesAttacks),
+            "after-scoring-hit" => Ok(Self::AfterScoringHit),
+            "after-enemy-unit-fires" => Ok(Self::AfterEnemyUnitFires),
+            "on-unit-destroyed" => Ok(Self::OnUnitDestroyed),
+            "on-model-destroyed" => Ok(Self::OnModelDestroyed),
+            "first-model-destroyed" => Ok(Self::FirstModelDestroyed),
+            "before-bearer-removed" => Ok(Self::BeforeBearerRemoved),
+            "enemy-unit-destroyed-in-melee" => Ok(Self::EnemyUnitDestroyedInMelee),
+            "on-damage-allocated" => Ok(Self::OnDamageAllocated),
+            "battle-shock-test" => Ok(Self::BattleShockTest),
+            "leadership-test" => Ok(Self::LeadershipTest),
+            "desperate-escape-test" => Ok(Self::DesperateEscapeTest),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for GameEvent {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for GameEvent {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for GameEvent {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
     }
 }
 ///`GameVersion`
@@ -5387,6 +6675,950 @@ impl<'de> ::serde::Deserialize<'de> for MissionSource {
             .map_err(|e: self::error::ConversionError| {
                 <D::Error as ::serde::de::Error>::custom(e.to_string())
             })
+    }
+}
+///`MovementModifierEffect`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "object",
+///  "required": [
+///    "modifier",
+///    "target",
+///    "type"
+///  ],
+///  "properties": {
+///    "modifier": {
+///      "type": "object",
+///      "properties": {
+///        "applies_to_moves": {
+///          "type": "array",
+///          "items": {
+///            "type": "string",
+///            "enum": [
+///              "normal",
+///              "advance",
+///              "fall-back",
+///              "charge"
+///            ]
+///          }
+///        },
+///        "condition": {
+///          "$ref": "#/$defs/condition"
+///        },
+///        "distance": {
+///          "oneOf": [
+///            {
+///              "type": "integer"
+///            },
+///            {
+///              "type": "string",
+///              "minLength": 1
+///            }
+///          ]
+///        },
+///        "excludes_keyword": {
+///          "type": "string"
+///        },
+///        "ignore_vertical": {
+///          "type": "boolean"
+///        },
+///        "marker": {
+///          "type": "object",
+///          "properties": {
+///            "affected": {
+///              "type": "string"
+///            },
+///            "location": {
+///              "type": "string"
+///            },
+///            "max_units": {
+///              "type": "integer",
+///              "minimum": 1.0
+///            },
+///            "unit_filter": {
+///              "type": "string"
+///            }
+///          },
+///          "additionalProperties": false,
+///          "$comment": "GSC marker / fortification placement mechanics (move_type: redeploy)."
+///        },
+///        "max_units": {
+///          "type": "integer",
+///          "minimum": 1.0
+///        },
+///        "move_type": {
+///          "type": "string",
+///          "enum": [
+///            "normal",
+///            "advance",
+///            "pile-in",
+///            "consolidation",
+///            "reactive",
+///            "surge",
+///            "redeploy",
+///            "scout",
+///            "infiltrate",
+///            "shoot-and-scoot"
+///          ]
+///        },
+///        "name": {
+///          "type": "string"
+///        },
+///        "passthrough": {
+///          "type": "array",
+///          "items": {
+///            "type": "string",
+///            "enum": [
+///              "non-titanic-models",
+///              "friendly-vehicles",
+///              "friendly-monsters",
+///              "terrain-le-4",
+///              "tall-terrain",
+///              "all-terrain"
+///            ]
+///          }
+///        },
+///        "replaces_default": {
+///          "type": "boolean"
+///        },
+///        "to_reserves": {
+///          "type": "boolean"
+///        },
+///        "vertical_limit": {
+///          "type": "integer",
+///          "minimum": 0.0
+///        }
+///      },
+///      "additionalProperties": false
+///    },
+///    "target": {
+///      "type": "string",
+///      "enum": [
+///        "self",
+///        "bearer",
+///        "unit",
+///        "attached-unit",
+///        "attacker",
+///        "defender",
+///        "target",
+///        "friendly-within-aura",
+///        "enemy-within-aura",
+///        "all-friendly",
+///        "all-enemy"
+///      ]
+///    },
+///    "type": {
+///      "const": "movement-modifier"
+///    }
+///  },
+///  "additionalProperties": false,
+///  "$comment": "Fully-closed movement-modifier (shape 1, Batch D). Promoted to its own discriminated effect-node branch so the closed `modifier` reaches the generated types (typify/json2ts can model a plain closed object, unlike if/then). `move_type` is the canonical move KIND and is OPTIONAL: a record may be a pure traversal CAPABILITY (passthrough/vertical_limit/ignore_vertical, applying to all moves or those in `applies_to_moves`) with no move_type. `distance` folds the old distance/value/bonus (integer or dice-expression string, e.g. 6, -2, \"D6+2\"). Reactivity lives at ability level (`trigger`), and frequency at ability level (`usage`) — neither is carried here. Non-movement mechanics that previously hid in this blob (deep-strike ranges, engagement passthrough, advance+charge eligibility, aura ranges) are re-homed to their own effect types."
+///}
+/// ```
+/// </details>
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
+#[serde(deny_unknown_fields)]
+pub struct MovementModifierEffect {
+    pub modifier: MovementModifierEffectModifier,
+    pub target: MovementModifierEffectTarget,
+    #[serde(rename = "type")]
+    pub type_: ::serde_json::Value,
+}
+///`MovementModifierEffectModifier`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "object",
+///  "properties": {
+///    "applies_to_moves": {
+///      "type": "array",
+///      "items": {
+///        "type": "string",
+///        "enum": [
+///          "normal",
+///          "advance",
+///          "fall-back",
+///          "charge"
+///        ]
+///      }
+///    },
+///    "condition": {
+///      "$ref": "#/$defs/condition"
+///    },
+///    "distance": {
+///      "oneOf": [
+///        {
+///          "type": "integer"
+///        },
+///        {
+///          "type": "string",
+///          "minLength": 1
+///        }
+///      ]
+///    },
+///    "excludes_keyword": {
+///      "type": "string"
+///    },
+///    "ignore_vertical": {
+///      "type": "boolean"
+///    },
+///    "marker": {
+///      "type": "object",
+///      "properties": {
+///        "affected": {
+///          "type": "string"
+///        },
+///        "location": {
+///          "type": "string"
+///        },
+///        "max_units": {
+///          "type": "integer",
+///          "minimum": 1.0
+///        },
+///        "unit_filter": {
+///          "type": "string"
+///        }
+///      },
+///      "additionalProperties": false,
+///      "$comment": "GSC marker / fortification placement mechanics (move_type: redeploy)."
+///    },
+///    "max_units": {
+///      "type": "integer",
+///      "minimum": 1.0
+///    },
+///    "move_type": {
+///      "type": "string",
+///      "enum": [
+///        "normal",
+///        "advance",
+///        "pile-in",
+///        "consolidation",
+///        "reactive",
+///        "surge",
+///        "redeploy",
+///        "scout",
+///        "infiltrate",
+///        "shoot-and-scoot"
+///      ]
+///    },
+///    "name": {
+///      "type": "string"
+///    },
+///    "passthrough": {
+///      "type": "array",
+///      "items": {
+///        "type": "string",
+///        "enum": [
+///          "non-titanic-models",
+///          "friendly-vehicles",
+///          "friendly-monsters",
+///          "terrain-le-4",
+///          "tall-terrain",
+///          "all-terrain"
+///        ]
+///      }
+///    },
+///    "replaces_default": {
+///      "type": "boolean"
+///    },
+///    "to_reserves": {
+///      "type": "boolean"
+///    },
+///    "vertical_limit": {
+///      "type": "integer",
+///      "minimum": 0.0
+///    }
+///  },
+///  "additionalProperties": false
+///}
+/// ```
+/// </details>
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
+#[serde(deny_unknown_fields)]
+pub struct MovementModifierEffectModifier {
+    #[serde(default, skip_serializing_if = "::std::vec::Vec::is_empty")]
+    pub applies_to_moves: ::std::vec::Vec<
+        MovementModifierEffectModifierAppliesToMovesItem,
+    >,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub condition: ::std::option::Option<Condition>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub distance: ::std::option::Option<MovementModifierEffectModifierDistance>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub excludes_keyword: ::std::option::Option<::std::string::String>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub ignore_vertical: ::std::option::Option<bool>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub marker: ::std::option::Option<MovementModifierEffectModifierMarker>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub max_units: ::std::option::Option<::std::num::NonZeroU64>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub move_type: ::std::option::Option<MovementModifierEffectModifierMoveType>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub name: ::std::option::Option<::std::string::String>,
+    #[serde(default, skip_serializing_if = "::std::vec::Vec::is_empty")]
+    pub passthrough: ::std::vec::Vec<MovementModifierEffectModifierPassthroughItem>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub replaces_default: ::std::option::Option<bool>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub to_reserves: ::std::option::Option<bool>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub vertical_limit: ::std::option::Option<u64>,
+}
+impl ::std::default::Default for MovementModifierEffectModifier {
+    fn default() -> Self {
+        Self {
+            applies_to_moves: Default::default(),
+            condition: Default::default(),
+            distance: Default::default(),
+            excludes_keyword: Default::default(),
+            ignore_vertical: Default::default(),
+            marker: Default::default(),
+            max_units: Default::default(),
+            move_type: Default::default(),
+            name: Default::default(),
+            passthrough: Default::default(),
+            replaces_default: Default::default(),
+            to_reserves: Default::default(),
+            vertical_limit: Default::default(),
+        }
+    }
+}
+///`MovementModifierEffectModifierAppliesToMovesItem`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "string",
+///  "enum": [
+///    "normal",
+///    "advance",
+///    "fall-back",
+///    "charge"
+///  ]
+///}
+/// ```
+/// </details>
+#[derive(
+    ::serde::Deserialize,
+    ::serde::Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd
+)]
+pub enum MovementModifierEffectModifierAppliesToMovesItem {
+    #[serde(rename = "normal")]
+    Normal,
+    #[serde(rename = "advance")]
+    Advance,
+    #[serde(rename = "fall-back")]
+    FallBack,
+    #[serde(rename = "charge")]
+    Charge,
+}
+impl ::std::fmt::Display for MovementModifierEffectModifierAppliesToMovesItem {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::Normal => f.write_str("normal"),
+            Self::Advance => f.write_str("advance"),
+            Self::FallBack => f.write_str("fall-back"),
+            Self::Charge => f.write_str("charge"),
+        }
+    }
+}
+impl ::std::str::FromStr for MovementModifierEffectModifierAppliesToMovesItem {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "normal" => Ok(Self::Normal),
+            "advance" => Ok(Self::Advance),
+            "fall-back" => Ok(Self::FallBack),
+            "charge" => Ok(Self::Charge),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for MovementModifierEffectModifierAppliesToMovesItem {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+for MovementModifierEffectModifierAppliesToMovesItem {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+for MovementModifierEffectModifierAppliesToMovesItem {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+///`MovementModifierEffectModifierDistance`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "oneOf": [
+///    {
+///      "type": "integer"
+///    },
+///    {
+///      "type": "string",
+///      "minLength": 1
+///    }
+///  ]
+///}
+/// ```
+/// </details>
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
+#[serde(untagged)]
+pub enum MovementModifierEffectModifierDistance {
+    Integer(i64),
+    String(MovementModifierEffectModifierDistanceString),
+}
+impl ::std::str::FromStr for MovementModifierEffectModifierDistance {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        if let Ok(v) = value.parse() {
+            Ok(Self::Integer(v))
+        } else if let Ok(v) = value.parse() {
+            Ok(Self::String(v))
+        } else {
+            Err("string conversion failed for all variants".into())
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for MovementModifierEffectModifierDistance {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+for MovementModifierEffectModifierDistance {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+for MovementModifierEffectModifierDistance {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::fmt::Display for MovementModifierEffectModifierDistance {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match self {
+            Self::Integer(x) => x.fmt(f),
+            Self::String(x) => x.fmt(f),
+        }
+    }
+}
+impl ::std::convert::From<i64> for MovementModifierEffectModifierDistance {
+    fn from(value: i64) -> Self {
+        Self::Integer(value)
+    }
+}
+impl ::std::convert::From<MovementModifierEffectModifierDistanceString>
+for MovementModifierEffectModifierDistance {
+    fn from(value: MovementModifierEffectModifierDistanceString) -> Self {
+        Self::String(value)
+    }
+}
+///`MovementModifierEffectModifierDistanceString`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "string",
+///  "minLength": 1
+///}
+/// ```
+/// </details>
+#[derive(::serde::Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+#[serde(transparent)]
+pub struct MovementModifierEffectModifierDistanceString(::std::string::String);
+impl ::std::ops::Deref for MovementModifierEffectModifierDistanceString {
+    type Target = ::std::string::String;
+    fn deref(&self) -> &::std::string::String {
+        &self.0
+    }
+}
+impl ::std::convert::From<MovementModifierEffectModifierDistanceString>
+for ::std::string::String {
+    fn from(value: MovementModifierEffectModifierDistanceString) -> Self {
+        value.0
+    }
+}
+impl ::std::str::FromStr for MovementModifierEffectModifierDistanceString {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        if value.chars().count() < 1usize {
+            return Err("shorter than 1 characters".into());
+        }
+        Ok(Self(value.to_string()))
+    }
+}
+impl ::std::convert::TryFrom<&str> for MovementModifierEffectModifierDistanceString {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+for MovementModifierEffectModifierDistanceString {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+for MovementModifierEffectModifierDistanceString {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl<'de> ::serde::Deserialize<'de> for MovementModifierEffectModifierDistanceString {
+    fn deserialize<D>(deserializer: D) -> ::std::result::Result<Self, D::Error>
+    where
+        D: ::serde::Deserializer<'de>,
+    {
+        ::std::string::String::deserialize(deserializer)?
+            .parse()
+            .map_err(|e: self::error::ConversionError| {
+                <D::Error as ::serde::de::Error>::custom(e.to_string())
+            })
+    }
+}
+///`MovementModifierEffectModifierMarker`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "object",
+///  "properties": {
+///    "affected": {
+///      "type": "string"
+///    },
+///    "location": {
+///      "type": "string"
+///    },
+///    "max_units": {
+///      "type": "integer",
+///      "minimum": 1.0
+///    },
+///    "unit_filter": {
+///      "type": "string"
+///    }
+///  },
+///  "additionalProperties": false,
+///  "$comment": "GSC marker / fortification placement mechanics (move_type: redeploy)."
+///}
+/// ```
+/// </details>
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
+#[serde(deny_unknown_fields)]
+pub struct MovementModifierEffectModifierMarker {
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub affected: ::std::option::Option<::std::string::String>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub location: ::std::option::Option<::std::string::String>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub max_units: ::std::option::Option<::std::num::NonZeroU64>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub unit_filter: ::std::option::Option<::std::string::String>,
+}
+impl ::std::default::Default for MovementModifierEffectModifierMarker {
+    fn default() -> Self {
+        Self {
+            affected: Default::default(),
+            location: Default::default(),
+            max_units: Default::default(),
+            unit_filter: Default::default(),
+        }
+    }
+}
+///`MovementModifierEffectModifierMoveType`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "string",
+///  "enum": [
+///    "normal",
+///    "advance",
+///    "pile-in",
+///    "consolidation",
+///    "reactive",
+///    "surge",
+///    "redeploy",
+///    "scout",
+///    "infiltrate",
+///    "shoot-and-scoot"
+///  ]
+///}
+/// ```
+/// </details>
+#[derive(
+    ::serde::Deserialize,
+    ::serde::Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd
+)]
+pub enum MovementModifierEffectModifierMoveType {
+    #[serde(rename = "normal")]
+    Normal,
+    #[serde(rename = "advance")]
+    Advance,
+    #[serde(rename = "pile-in")]
+    PileIn,
+    #[serde(rename = "consolidation")]
+    Consolidation,
+    #[serde(rename = "reactive")]
+    Reactive,
+    #[serde(rename = "surge")]
+    Surge,
+    #[serde(rename = "redeploy")]
+    Redeploy,
+    #[serde(rename = "scout")]
+    Scout,
+    #[serde(rename = "infiltrate")]
+    Infiltrate,
+    #[serde(rename = "shoot-and-scoot")]
+    ShootAndScoot,
+}
+impl ::std::fmt::Display for MovementModifierEffectModifierMoveType {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::Normal => f.write_str("normal"),
+            Self::Advance => f.write_str("advance"),
+            Self::PileIn => f.write_str("pile-in"),
+            Self::Consolidation => f.write_str("consolidation"),
+            Self::Reactive => f.write_str("reactive"),
+            Self::Surge => f.write_str("surge"),
+            Self::Redeploy => f.write_str("redeploy"),
+            Self::Scout => f.write_str("scout"),
+            Self::Infiltrate => f.write_str("infiltrate"),
+            Self::ShootAndScoot => f.write_str("shoot-and-scoot"),
+        }
+    }
+}
+impl ::std::str::FromStr for MovementModifierEffectModifierMoveType {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "normal" => Ok(Self::Normal),
+            "advance" => Ok(Self::Advance),
+            "pile-in" => Ok(Self::PileIn),
+            "consolidation" => Ok(Self::Consolidation),
+            "reactive" => Ok(Self::Reactive),
+            "surge" => Ok(Self::Surge),
+            "redeploy" => Ok(Self::Redeploy),
+            "scout" => Ok(Self::Scout),
+            "infiltrate" => Ok(Self::Infiltrate),
+            "shoot-and-scoot" => Ok(Self::ShootAndScoot),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for MovementModifierEffectModifierMoveType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+for MovementModifierEffectModifierMoveType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+for MovementModifierEffectModifierMoveType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+///`MovementModifierEffectModifierPassthroughItem`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "string",
+///  "enum": [
+///    "non-titanic-models",
+///    "friendly-vehicles",
+///    "friendly-monsters",
+///    "terrain-le-4",
+///    "tall-terrain",
+///    "all-terrain"
+///  ]
+///}
+/// ```
+/// </details>
+#[derive(
+    ::serde::Deserialize,
+    ::serde::Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd
+)]
+pub enum MovementModifierEffectModifierPassthroughItem {
+    #[serde(rename = "non-titanic-models")]
+    NonTitanicModels,
+    #[serde(rename = "friendly-vehicles")]
+    FriendlyVehicles,
+    #[serde(rename = "friendly-monsters")]
+    FriendlyMonsters,
+    #[serde(rename = "terrain-le-4")]
+    TerrainLe4,
+    #[serde(rename = "tall-terrain")]
+    TallTerrain,
+    #[serde(rename = "all-terrain")]
+    AllTerrain,
+}
+impl ::std::fmt::Display for MovementModifierEffectModifierPassthroughItem {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::NonTitanicModels => f.write_str("non-titanic-models"),
+            Self::FriendlyVehicles => f.write_str("friendly-vehicles"),
+            Self::FriendlyMonsters => f.write_str("friendly-monsters"),
+            Self::TerrainLe4 => f.write_str("terrain-le-4"),
+            Self::TallTerrain => f.write_str("tall-terrain"),
+            Self::AllTerrain => f.write_str("all-terrain"),
+        }
+    }
+}
+impl ::std::str::FromStr for MovementModifierEffectModifierPassthroughItem {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "non-titanic-models" => Ok(Self::NonTitanicModels),
+            "friendly-vehicles" => Ok(Self::FriendlyVehicles),
+            "friendly-monsters" => Ok(Self::FriendlyMonsters),
+            "terrain-le-4" => Ok(Self::TerrainLe4),
+            "tall-terrain" => Ok(Self::TallTerrain),
+            "all-terrain" => Ok(Self::AllTerrain),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for MovementModifierEffectModifierPassthroughItem {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+for MovementModifierEffectModifierPassthroughItem {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+for MovementModifierEffectModifierPassthroughItem {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+///`MovementModifierEffectTarget`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "string",
+///  "enum": [
+///    "self",
+///    "bearer",
+///    "unit",
+///    "attached-unit",
+///    "attacker",
+///    "defender",
+///    "target",
+///    "friendly-within-aura",
+///    "enemy-within-aura",
+///    "all-friendly",
+///    "all-enemy"
+///  ]
+///}
+/// ```
+/// </details>
+#[derive(
+    ::serde::Deserialize,
+    ::serde::Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd
+)]
+pub enum MovementModifierEffectTarget {
+    #[serde(rename = "self")]
+    Self_,
+    #[serde(rename = "bearer")]
+    Bearer,
+    #[serde(rename = "unit")]
+    Unit,
+    #[serde(rename = "attached-unit")]
+    AttachedUnit,
+    #[serde(rename = "attacker")]
+    Attacker,
+    #[serde(rename = "defender")]
+    Defender,
+    #[serde(rename = "target")]
+    Target,
+    #[serde(rename = "friendly-within-aura")]
+    FriendlyWithinAura,
+    #[serde(rename = "enemy-within-aura")]
+    EnemyWithinAura,
+    #[serde(rename = "all-friendly")]
+    AllFriendly,
+    #[serde(rename = "all-enemy")]
+    AllEnemy,
+}
+impl ::std::fmt::Display for MovementModifierEffectTarget {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::Self_ => f.write_str("self"),
+            Self::Bearer => f.write_str("bearer"),
+            Self::Unit => f.write_str("unit"),
+            Self::AttachedUnit => f.write_str("attached-unit"),
+            Self::Attacker => f.write_str("attacker"),
+            Self::Defender => f.write_str("defender"),
+            Self::Target => f.write_str("target"),
+            Self::FriendlyWithinAura => f.write_str("friendly-within-aura"),
+            Self::EnemyWithinAura => f.write_str("enemy-within-aura"),
+            Self::AllFriendly => f.write_str("all-friendly"),
+            Self::AllEnemy => f.write_str("all-enemy"),
+        }
+    }
+}
+impl ::std::str::FromStr for MovementModifierEffectTarget {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "self" => Ok(Self::Self_),
+            "bearer" => Ok(Self::Bearer),
+            "unit" => Ok(Self::Unit),
+            "attached-unit" => Ok(Self::AttachedUnit),
+            "attacker" => Ok(Self::Attacker),
+            "defender" => Ok(Self::Defender),
+            "target" => Ok(Self::Target),
+            "friendly-within-aura" => Ok(Self::FriendlyWithinAura),
+            "enemy-within-aura" => Ok(Self::EnemyWithinAura),
+            "all-friendly" => Ok(Self::AllFriendly),
+            "all-enemy" => Ok(Self::AllEnemy),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for MovementModifierEffectTarget {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for MovementModifierEffectTarget {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for MovementModifierEffectTarget {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
     }
 }
 ///The five official game phases. Unchanged between 10th and 11th edition — 11e reorders Pile In timing within the Fight phase but adds no top-level phase.
@@ -9306,6 +11538,182 @@ impl ::std::convert::TryFrom<::std::string::String> for SecondaryCardWhenDrawnOp
         value.parse()
     }
 }
+///`SelectUnitsEffect`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "object",
+///  "required": [
+///    "effect",
+///    "selector",
+///    "type"
+///  ],
+///  "properties": {
+///    "effect": {
+///      "$ref": "#/$defs/effect-node"
+///    },
+///    "selector": {
+///      "type": "object",
+///      "required": [
+///        "max_count",
+///        "owner"
+///      ],
+///      "properties": {
+///        "keywords": {
+///          "type": "array",
+///          "items": {
+///            "type": "string"
+///          }
+///        },
+///        "max_count": {
+///          "type": "integer",
+///          "minimum": 1.0
+///        },
+///        "owner": {
+///          "type": "string",
+///          "enum": [
+///            "friendly",
+///            "enemy"
+///          ]
+///        }
+///      },
+///      "additionalProperties": false
+///    },
+///    "type": {
+///      "const": "select-units"
+///    }
+///  },
+///  "$comment": "Targeting wrapper: choose up to `selector.max_count` units matching `selector.keywords` of the named `owner`, then apply the nested `effect` to each. Models 'select up to N <keyword> units and do X' (redeploy, army-wide one-off buffs) that bare ability-grant labels previously flattened."
+///}
+/// ```
+/// </details>
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
+pub struct SelectUnitsEffect {
+    pub effect: ::std::boxed::Box<EffectNode>,
+    pub selector: SelectUnitsEffectSelector,
+    #[serde(rename = "type")]
+    pub type_: ::serde_json::Value,
+}
+///`SelectUnitsEffectSelector`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "object",
+///  "required": [
+///    "max_count",
+///    "owner"
+///  ],
+///  "properties": {
+///    "keywords": {
+///      "type": "array",
+///      "items": {
+///        "type": "string"
+///      }
+///    },
+///    "max_count": {
+///      "type": "integer",
+///      "minimum": 1.0
+///    },
+///    "owner": {
+///      "type": "string",
+///      "enum": [
+///        "friendly",
+///        "enemy"
+///      ]
+///    }
+///  },
+///  "additionalProperties": false
+///}
+/// ```
+/// </details>
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
+#[serde(deny_unknown_fields)]
+pub struct SelectUnitsEffectSelector {
+    #[serde(default, skip_serializing_if = "::std::vec::Vec::is_empty")]
+    pub keywords: ::std::vec::Vec<::std::string::String>,
+    pub max_count: ::std::num::NonZeroU64,
+    pub owner: SelectUnitsEffectSelectorOwner,
+}
+///`SelectUnitsEffectSelectorOwner`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "string",
+///  "enum": [
+///    "friendly",
+///    "enemy"
+///  ]
+///}
+/// ```
+/// </details>
+#[derive(
+    ::serde::Deserialize,
+    ::serde::Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd
+)]
+pub enum SelectUnitsEffectSelectorOwner {
+    #[serde(rename = "friendly")]
+    Friendly,
+    #[serde(rename = "enemy")]
+    Enemy,
+}
+impl ::std::fmt::Display for SelectUnitsEffectSelectorOwner {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::Friendly => f.write_str("friendly"),
+            Self::Enemy => f.write_str("enemy"),
+        }
+    }
+}
+impl ::std::str::FromStr for SelectUnitsEffectSelectorOwner {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "friendly" => Ok(Self::Friendly),
+            "enemy" => Ok(Self::Enemy),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for SelectUnitsEffectSelectorOwner {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for SelectUnitsEffectSelectorOwner {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for SelectUnitsEffectSelectorOwner {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
 ///`SequenceEffect`
 ///
 /// <details><summary>JSON schema</summary>
@@ -9478,7 +11886,10 @@ impl ::std::convert::TryFrom<::std::string::String> for Side {
 ///        "destroyed-in-tagged-terrain",
 ///        "operation-markers",
 ///        "attack-stat-compare",
-///        "made-ingress-move-this-turn"
+///        "made-ingress-move-this-turn",
+///        "disembarked-from-transport",
+///        "faction-rule-active",
+///        "battle-round"
 ///      ]
 ///    }
 ///  },
@@ -9544,7 +11955,10 @@ pub struct SimpleCondition {
 ///    "destroyed-in-tagged-terrain",
 ///    "operation-markers",
 ///    "attack-stat-compare",
-///    "made-ingress-move-this-turn"
+///    "made-ingress-move-this-turn",
+///    "disembarked-from-transport",
+///    "faction-rule-active",
+///    "battle-round"
 ///  ]
 ///}
 /// ```
@@ -9646,6 +12060,12 @@ pub enum SimpleConditionType {
     AttackStatCompare,
     #[serde(rename = "made-ingress-move-this-turn")]
     MadeIngressMoveThisTurn,
+    #[serde(rename = "disembarked-from-transport")]
+    DisembarkedFromTransport,
+    #[serde(rename = "faction-rule-active")]
+    FactionRuleActive,
+    #[serde(rename = "battle-round")]
+    BattleRound,
 }
 impl ::std::fmt::Display for SimpleConditionType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
@@ -9696,6 +12116,9 @@ impl ::std::fmt::Display for SimpleConditionType {
             Self::OperationMarkers => f.write_str("operation-markers"),
             Self::AttackStatCompare => f.write_str("attack-stat-compare"),
             Self::MadeIngressMoveThisTurn => f.write_str("made-ingress-move-this-turn"),
+            Self::DisembarkedFromTransport => f.write_str("disembarked-from-transport"),
+            Self::FactionRuleActive => f.write_str("faction-rule-active"),
+            Self::BattleRound => f.write_str("battle-round"),
         }
     }
 }
@@ -9747,6 +12170,9 @@ impl ::std::str::FromStr for SimpleConditionType {
             "operation-markers" => Ok(Self::OperationMarkers),
             "attack-stat-compare" => Ok(Self::AttackStatCompare),
             "made-ingress-move-this-turn" => Ok(Self::MadeIngressMoveThisTurn),
+            "disembarked-from-transport" => Ok(Self::DisembarkedFromTransport),
+            "faction-rule-active" => Ok(Self::FactionRuleActive),
+            "battle-round" => Ok(Self::BattleRound),
             _ => Err("invalid value".into()),
         }
     }
@@ -9803,6 +12229,7 @@ impl ::std::convert::TryFrom<::std::string::String> for SimpleConditionType {
 ///        "attached-unit",
 ///        "attacker",
 ///        "defender",
+///        "target",
 ///        "friendly-within-aura",
 ///        "enemy-within-aura",
 ///        "all-friendly",
@@ -9820,7 +12247,7 @@ impl ::std::convert::TryFrom<::std::string::String> for SimpleConditionType {
 ///        "invulnerable-save",
 ///        "ward",
 ///        "keyword-grant",
-///        "movement-modifier",
+///        "unit-keyword",
 ///        "deep-strike",
 ///        "fallback-and-act",
 ///        "fight-first",
@@ -9843,11 +12270,17 @@ impl ::std::convert::TryFrom<::std::string::String> for SimpleConditionType {
 ///        "objective-tag",
 ///        "unit-tag",
 ///        "bs-modifier",
-///        "engagement-passthrough"
+///        "engagement-passthrough",
+///        "strategic-reserves-arrival",
+///        "remove-battle-shock",
+///        "unit-keyword-grant",
+///        "auto-result",
+///        "firing-deck",
+///        "disembark-after-move"
 ///      ]
 ///    }
 ///  },
-///  "$comment": "Optional weapon narrowing on cruncher-interpreted modifiers (stat-modifier/roll-modifier/re-roll/keyword-grant): `weapon_type` ('melee'|'ranged'), `weapon_name` (one named weapon), or `weapon_keyword` (a weapon ability such as 'Torrent'|'Blast'|'Pistol' — restricts the effect to weapons carrying that keyword). When `type` is `re-roll`, `modifier` must carry `roll` (string) and `subset` (`ones` | `all-failures`). Rerolls always target failures; the subset decides whether only 1s are rerolled or every failed die. The constraint is enforced by AJV at validation time and stripped from the codegen bundle (typify can't model if/then/else) — the generated TS/Rust types therefore see `modifier` as an open object, matching its other-`type` callers. When `type` is `feel-no-pain`, `modifier` carries `threshold` (the FNP save target) and optionally `scope` ∈ {`all`, `mortal`}; an absent scope defaults to `all` (fires on every unsaved wound). The two scopes compose independently against the mortal-wound stream. Tag effects (`terrain-area-tag`, `objective-tag`, `unit-tag`) set a transient marker on the named subject; `modifier` carries `tag` (string) and optionally `source` ('this-action'|'destroying-unit') and `clears_on` ('turn-rollover'|'never'). `target` for tag effects names the kind of entity the tag is applied to ('unit', 'self') — a placeholder, since the marker target is the objective/terrain/unit specified by the action context, not a combat target."
+///  "$comment": "Optional weapon narrowing on cruncher-interpreted modifiers (stat-modifier/roll-modifier/re-roll/keyword-grant): `weapon_type` ('melee'|'ranged'), `weapon_name` (one named weapon), or `weapon_keyword` (a weapon ability such as 'Torrent'|'Blast'|'Pistol' — restricts the effect to weapons carrying that keyword). When `type` is `re-roll`, `modifier` must carry `roll` (string) and `subset` (`ones` | `all-failures`). Rerolls always target failures; the subset decides whether only 1s are rerolled or every failed die. The constraint is enforced by AJV at validation time and stripped from the codegen bundle (typify can't model if/then/else) — the generated TS/Rust types therefore see `modifier` as an open object, matching its other-`type` callers. When `type` is `feel-no-pain`, `modifier` carries `threshold` (the FNP save target) and optionally `scope` ∈ {`all`, `mortal`}; an absent scope defaults to `all` (fires on every unsaved wound). The two scopes compose independently against the mortal-wound stream. Tag effects (`terrain-area-tag`, `objective-tag`, `unit-tag`) set a transient marker on the named subject; `modifier` carries `tag` (string) and optionally `source` ('this-action'|'destroying-unit') and `clears_on` ('turn-rollover'|'never'). `target` for tag effects names the kind of entity the tag is applied to ('unit', 'self') — a placeholder, since the marker target is the objective/terrain/unit specified by the action context, not a combat target. Parameterized weapon keywords on `keyword-grant`/`unit-keyword-grant`: a granted keyword may carry its rating either baked into the `keyword` string ('Sustained Hits 1') or structurally via `value` (Sustained Hits/Rapid Fire/Melta N); Anti-X keywords may use `anti_keyword` + `anti_threshold` (rendered '[ANTI-INFANTRY 4+]'). When `type` is `auto-result`, `modifier` carries `result` (`pass`|`fail`, or an integer the named roll counts as) plus `test` (e.g. 'battle-shock') or `roll` (e.g. 'hit'). When `type` is `firing-deck`, `modifier` carries `value` (the Firing Deck rating). `disembark-after-move` needs no modifier."
 ///}
 /// ```
 /// </details>
@@ -9875,6 +12308,7 @@ pub struct SingleEffect {
 ///    "attached-unit",
 ///    "attacker",
 ///    "defender",
+///    "target",
 ///    "friendly-within-aura",
 ///    "enemy-within-aura",
 ///    "all-friendly",
@@ -9908,6 +12342,8 @@ pub enum SingleEffectTarget {
     Attacker,
     #[serde(rename = "defender")]
     Defender,
+    #[serde(rename = "target")]
+    Target,
     #[serde(rename = "friendly-within-aura")]
     FriendlyWithinAura,
     #[serde(rename = "enemy-within-aura")]
@@ -9926,6 +12362,7 @@ impl ::std::fmt::Display for SingleEffectTarget {
             Self::AttachedUnit => f.write_str("attached-unit"),
             Self::Attacker => f.write_str("attacker"),
             Self::Defender => f.write_str("defender"),
+            Self::Target => f.write_str("target"),
             Self::FriendlyWithinAura => f.write_str("friendly-within-aura"),
             Self::EnemyWithinAura => f.write_str("enemy-within-aura"),
             Self::AllFriendly => f.write_str("all-friendly"),
@@ -9945,6 +12382,7 @@ impl ::std::str::FromStr for SingleEffectTarget {
             "attached-unit" => Ok(Self::AttachedUnit),
             "attacker" => Ok(Self::Attacker),
             "defender" => Ok(Self::Defender),
+            "target" => Ok(Self::Target),
             "friendly-within-aura" => Ok(Self::FriendlyWithinAura),
             "enemy-within-aura" => Ok(Self::EnemyWithinAura),
             "all-friendly" => Ok(Self::AllFriendly),
@@ -9993,7 +12431,7 @@ impl ::std::convert::TryFrom<::std::string::String> for SingleEffectTarget {
 ///    "invulnerable-save",
 ///    "ward",
 ///    "keyword-grant",
-///    "movement-modifier",
+///    "unit-keyword",
 ///    "deep-strike",
 ///    "fallback-and-act",
 ///    "fight-first",
@@ -10016,7 +12454,13 @@ impl ::std::convert::TryFrom<::std::string::String> for SingleEffectTarget {
 ///    "objective-tag",
 ///    "unit-tag",
 ///    "bs-modifier",
-///    "engagement-passthrough"
+///    "engagement-passthrough",
+///    "strategic-reserves-arrival",
+///    "remove-battle-shock",
+///    "unit-keyword-grant",
+///    "auto-result",
+///    "firing-deck",
+///    "disembark-after-move"
 ///  ]
 ///}
 /// ```
@@ -10050,8 +12494,8 @@ pub enum SingleEffectType {
     Ward,
     #[serde(rename = "keyword-grant")]
     KeywordGrant,
-    #[serde(rename = "movement-modifier")]
-    MovementModifier,
+    #[serde(rename = "unit-keyword")]
+    UnitKeyword,
     #[serde(rename = "deep-strike")]
     DeepStrike,
     #[serde(rename = "fallback-and-act")]
@@ -10098,6 +12542,18 @@ pub enum SingleEffectType {
     BsModifier,
     #[serde(rename = "engagement-passthrough")]
     EngagementPassthrough,
+    #[serde(rename = "strategic-reserves-arrival")]
+    StrategicReservesArrival,
+    #[serde(rename = "remove-battle-shock")]
+    RemoveBattleShock,
+    #[serde(rename = "unit-keyword-grant")]
+    UnitKeywordGrant,
+    #[serde(rename = "auto-result")]
+    AutoResult,
+    #[serde(rename = "firing-deck")]
+    FiringDeck,
+    #[serde(rename = "disembark-after-move")]
+    DisembarkAfterMove,
 }
 impl ::std::fmt::Display for SingleEffectType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
@@ -10110,7 +12566,7 @@ impl ::std::fmt::Display for SingleEffectType {
             Self::InvulnerableSave => f.write_str("invulnerable-save"),
             Self::Ward => f.write_str("ward"),
             Self::KeywordGrant => f.write_str("keyword-grant"),
-            Self::MovementModifier => f.write_str("movement-modifier"),
+            Self::UnitKeyword => f.write_str("unit-keyword"),
             Self::DeepStrike => f.write_str("deep-strike"),
             Self::FallbackAndAct => f.write_str("fallback-and-act"),
             Self::FightFirst => f.write_str("fight-first"),
@@ -10134,6 +12590,12 @@ impl ::std::fmt::Display for SingleEffectType {
             Self::UnitTag => f.write_str("unit-tag"),
             Self::BsModifier => f.write_str("bs-modifier"),
             Self::EngagementPassthrough => f.write_str("engagement-passthrough"),
+            Self::StrategicReservesArrival => f.write_str("strategic-reserves-arrival"),
+            Self::RemoveBattleShock => f.write_str("remove-battle-shock"),
+            Self::UnitKeywordGrant => f.write_str("unit-keyword-grant"),
+            Self::AutoResult => f.write_str("auto-result"),
+            Self::FiringDeck => f.write_str("firing-deck"),
+            Self::DisembarkAfterMove => f.write_str("disembark-after-move"),
         }
     }
 }
@@ -10151,7 +12613,7 @@ impl ::std::str::FromStr for SingleEffectType {
             "invulnerable-save" => Ok(Self::InvulnerableSave),
             "ward" => Ok(Self::Ward),
             "keyword-grant" => Ok(Self::KeywordGrant),
-            "movement-modifier" => Ok(Self::MovementModifier),
+            "unit-keyword" => Ok(Self::UnitKeyword),
             "deep-strike" => Ok(Self::DeepStrike),
             "fallback-and-act" => Ok(Self::FallbackAndAct),
             "fight-first" => Ok(Self::FightFirst),
@@ -10175,6 +12637,12 @@ impl ::std::str::FromStr for SingleEffectType {
             "unit-tag" => Ok(Self::UnitTag),
             "bs-modifier" => Ok(Self::BsModifier),
             "engagement-passthrough" => Ok(Self::EngagementPassthrough),
+            "strategic-reserves-arrival" => Ok(Self::StrategicReservesArrival),
+            "remove-battle-shock" => Ok(Self::RemoveBattleShock),
+            "unit-keyword-grant" => Ok(Self::UnitKeywordGrant),
+            "auto-result" => Ok(Self::AutoResult),
+            "firing-deck" => Ok(Self::FiringDeck),
+            "disembark-after-move" => Ok(Self::DisembarkAfterMove),
             _ => Err("invalid value".into()),
         }
     }
@@ -11930,237 +14398,6 @@ pub struct TerrainTemplateUpperFloor {
     pub floor: ::std::num::NonZeroU64,
     pub footprint: Footprint,
 }
-///`TimingFlag`
-///
-/// <details><summary>JSON schema</summary>
-///
-/// ```json
-///{
-///  "title": "Timing Flag",
-///  "type": "object",
-///  "required": [
-///    "game_version",
-///    "source_id",
-///    "source_type",
-///    "timing"
-///  ],
-///  "properties": {
-///    "authored_by": {
-///      "$ref": "#/$defs/contributor-ref"
-///    },
-///    "game_version": {
-///      "$ref": "#/$defs/game-version-ref"
-///    },
-///    "source_id": {
-///      "$ref": "#/$defs/entity-id"
-///    },
-///    "source_type": {
-///      "$ref": "#/$defs/source-type"
-///    },
-///    "timing": {
-///      "type": "string",
-///      "enum": [
-///        "start-of-phase",
-///        "end-of-phase",
-///        "before-hit-roll",
-///        "after-hit-roll",
-///        "before-wound-roll",
-///        "after-wound-roll",
-///        "before-save-roll",
-///        "after-save-roll",
-///        "before-damage-roll",
-///        "after-damage-roll",
-///        "before-charge-roll",
-///        "after-charge-roll",
-///        "before-advance-roll",
-///        "after-advance-roll",
-///        "before-battle-shock",
-///        "after-battle-shock",
-///        "on-unit-selected",
-///        "on-unit-destroyed",
-///        "on-model-destroyed",
-///        "on-damage-allocated"
-///      ]
-///    }
-///  }
-///}
-/// ```
-/// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
-pub struct TimingFlag {
-    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
-    pub authored_by: ::std::option::Option<ContributorRef>,
-    pub game_version: GameVersionRef,
-    pub source_id: EntityId,
-    pub source_type: SourceType,
-    pub timing: TimingFlagTiming,
-}
-///`TimingFlagTiming`
-///
-/// <details><summary>JSON schema</summary>
-///
-/// ```json
-///{
-///  "type": "string",
-///  "enum": [
-///    "start-of-phase",
-///    "end-of-phase",
-///    "before-hit-roll",
-///    "after-hit-roll",
-///    "before-wound-roll",
-///    "after-wound-roll",
-///    "before-save-roll",
-///    "after-save-roll",
-///    "before-damage-roll",
-///    "after-damage-roll",
-///    "before-charge-roll",
-///    "after-charge-roll",
-///    "before-advance-roll",
-///    "after-advance-roll",
-///    "before-battle-shock",
-///    "after-battle-shock",
-///    "on-unit-selected",
-///    "on-unit-destroyed",
-///    "on-model-destroyed",
-///    "on-damage-allocated"
-///  ]
-///}
-/// ```
-/// </details>
-#[derive(
-    ::serde::Deserialize,
-    ::serde::Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd
-)]
-pub enum TimingFlagTiming {
-    #[serde(rename = "start-of-phase")]
-    StartOfPhase,
-    #[serde(rename = "end-of-phase")]
-    EndOfPhase,
-    #[serde(rename = "before-hit-roll")]
-    BeforeHitRoll,
-    #[serde(rename = "after-hit-roll")]
-    AfterHitRoll,
-    #[serde(rename = "before-wound-roll")]
-    BeforeWoundRoll,
-    #[serde(rename = "after-wound-roll")]
-    AfterWoundRoll,
-    #[serde(rename = "before-save-roll")]
-    BeforeSaveRoll,
-    #[serde(rename = "after-save-roll")]
-    AfterSaveRoll,
-    #[serde(rename = "before-damage-roll")]
-    BeforeDamageRoll,
-    #[serde(rename = "after-damage-roll")]
-    AfterDamageRoll,
-    #[serde(rename = "before-charge-roll")]
-    BeforeChargeRoll,
-    #[serde(rename = "after-charge-roll")]
-    AfterChargeRoll,
-    #[serde(rename = "before-advance-roll")]
-    BeforeAdvanceRoll,
-    #[serde(rename = "after-advance-roll")]
-    AfterAdvanceRoll,
-    #[serde(rename = "before-battle-shock")]
-    BeforeBattleShock,
-    #[serde(rename = "after-battle-shock")]
-    AfterBattleShock,
-    #[serde(rename = "on-unit-selected")]
-    OnUnitSelected,
-    #[serde(rename = "on-unit-destroyed")]
-    OnUnitDestroyed,
-    #[serde(rename = "on-model-destroyed")]
-    OnModelDestroyed,
-    #[serde(rename = "on-damage-allocated")]
-    OnDamageAllocated,
-}
-impl ::std::fmt::Display for TimingFlagTiming {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::StartOfPhase => f.write_str("start-of-phase"),
-            Self::EndOfPhase => f.write_str("end-of-phase"),
-            Self::BeforeHitRoll => f.write_str("before-hit-roll"),
-            Self::AfterHitRoll => f.write_str("after-hit-roll"),
-            Self::BeforeWoundRoll => f.write_str("before-wound-roll"),
-            Self::AfterWoundRoll => f.write_str("after-wound-roll"),
-            Self::BeforeSaveRoll => f.write_str("before-save-roll"),
-            Self::AfterSaveRoll => f.write_str("after-save-roll"),
-            Self::BeforeDamageRoll => f.write_str("before-damage-roll"),
-            Self::AfterDamageRoll => f.write_str("after-damage-roll"),
-            Self::BeforeChargeRoll => f.write_str("before-charge-roll"),
-            Self::AfterChargeRoll => f.write_str("after-charge-roll"),
-            Self::BeforeAdvanceRoll => f.write_str("before-advance-roll"),
-            Self::AfterAdvanceRoll => f.write_str("after-advance-roll"),
-            Self::BeforeBattleShock => f.write_str("before-battle-shock"),
-            Self::AfterBattleShock => f.write_str("after-battle-shock"),
-            Self::OnUnitSelected => f.write_str("on-unit-selected"),
-            Self::OnUnitDestroyed => f.write_str("on-unit-destroyed"),
-            Self::OnModelDestroyed => f.write_str("on-model-destroyed"),
-            Self::OnDamageAllocated => f.write_str("on-damage-allocated"),
-        }
-    }
-}
-impl ::std::str::FromStr for TimingFlagTiming {
-    type Err = self::error::ConversionError;
-    fn from_str(
-        value: &str,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "start-of-phase" => Ok(Self::StartOfPhase),
-            "end-of-phase" => Ok(Self::EndOfPhase),
-            "before-hit-roll" => Ok(Self::BeforeHitRoll),
-            "after-hit-roll" => Ok(Self::AfterHitRoll),
-            "before-wound-roll" => Ok(Self::BeforeWoundRoll),
-            "after-wound-roll" => Ok(Self::AfterWoundRoll),
-            "before-save-roll" => Ok(Self::BeforeSaveRoll),
-            "after-save-roll" => Ok(Self::AfterSaveRoll),
-            "before-damage-roll" => Ok(Self::BeforeDamageRoll),
-            "after-damage-roll" => Ok(Self::AfterDamageRoll),
-            "before-charge-roll" => Ok(Self::BeforeChargeRoll),
-            "after-charge-roll" => Ok(Self::AfterChargeRoll),
-            "before-advance-roll" => Ok(Self::BeforeAdvanceRoll),
-            "after-advance-roll" => Ok(Self::AfterAdvanceRoll),
-            "before-battle-shock" => Ok(Self::BeforeBattleShock),
-            "after-battle-shock" => Ok(Self::AfterBattleShock),
-            "on-unit-selected" => Ok(Self::OnUnitSelected),
-            "on-unit-destroyed" => Ok(Self::OnUnitDestroyed),
-            "on-model-destroyed" => Ok(Self::OnModelDestroyed),
-            "on-damage-allocated" => Ok(Self::OnDamageAllocated),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str> for TimingFlagTiming {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &str,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String> for TimingFlagTiming {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String> for TimingFlagTiming {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
 ///A unit datasheet entry with stat profiles and point costs.
 ///
 /// <details><summary>JSON schema</summary>
@@ -12245,6 +14482,17 @@ impl ::std::convert::TryFrom<::std::string::String> for TimingFlagTiming {
 ///      "oneOf": [
 ///        {
 ///          "$ref": "#/$defs/base-size"
+///        },
+///        {
+///          "type": "null"
+///        }
+///      ]
+///    },
+///    "excluded_faction_keywords": {
+///      "description": "Faction keywords whose armies are barred from taking this otherwise-generic unit. Used where the game removes a generic unit from a specific sub-faction without printing a replacement (e.g. Black Templars cannot field Librarians; Deathwatch cannot field the generic Tactical Squad). An army may take this unit only if none of its faction keywords appear here. Absent/empty = available to every keyword-eligible army. Distinct from `faction_keywords`, which is the positive access list; this is the negative one for the rare exclusions a flat shared pool cannot otherwise express.",
+///      "oneOf": [
+///        {
+///          "$ref": "#/$defs/keyword-list"
 ///        },
 ///        {
 ///          "type": "null"
@@ -12500,6 +14748,9 @@ pub struct Unit {
     ///The unit's representative base (the most-numerous model's base). Mixed-model units carry the full per-model breakdown in unit-composition; this top-level value is a convenience for consumers that need a single base.
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub base_size_mm: ::std::option::Option<BaseSize>,
+    ///Faction keywords whose armies are barred from taking this otherwise-generic unit. Used where the game removes a generic unit from a specific sub-faction without printing a replacement (e.g. Black Templars cannot field Librarians; Deathwatch cannot field the generic Tactical Squad). An army may take this unit only if none of its faction keywords appear here. Absent/empty = available to every keyword-eligible army. Distinct from `faction_keywords`, which is the positive access list; this is the negative one for the rare exclusions a flat shared pool cannot otherwise express.
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub excluded_faction_keywords: ::std::option::Option<KeywordList>,
     pub faction_id: EntityId,
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub faction_keywords: ::std::option::Option<KeywordList>,

@@ -55,8 +55,8 @@
               "type": "movement-modifier",
               "target": "all-friendly",
               "modifier": {
-                "move_type": "pile-in-consolidation",
-                "value": 6,
+                "move_type": "consolidation",
+                "distance": 6,
                 "replaces_default": true
               }
             }
@@ -167,6 +167,9 @@
     "scope": {
       "range": "any-on-battlefield",
       "duration": "battle-round"
+    },
+    "trigger": {
+      "event": "start-of-phase"
     }
   },
   {
@@ -227,6 +230,10 @@
     "scope": {
       "range": "unit",
       "duration": "permanent"
+    },
+    "trigger": {
+      "event": "before-hit-roll",
+      "subject": "model-in-bearer"
     }
   },
   {
@@ -306,6 +313,10 @@
     "scope": {
       "range": "unit",
       "duration": "phase"
+    },
+    "trigger": {
+      "event": "end-of-phase",
+      "subject": "self"
     }
   },
   {
@@ -330,7 +341,7 @@
       "condition": {
         "type": "timing-is",
         "parameters": {
-          "timing": "on-destroyed"
+          "timing": "on-unit-destroyed"
         }
       },
       "effect": {
@@ -354,6 +365,10 @@
     "scope": {
       "range": "self",
       "duration": "one-use"
+    },
+    "trigger": {
+      "event": "on-unit-destroyed",
+      "subject": "self"
     }
   },
   {
@@ -398,6 +413,10 @@
     "scope": {
       "range": "aura-6",
       "duration": "phase"
+    },
+    "trigger": {
+      "event": "on-model-destroyed",
+      "subject": "self"
     }
   },
   {
@@ -442,6 +461,10 @@
     "scope": {
       "range": "aura-6",
       "duration": "phase"
+    },
+    "trigger": {
+      "event": "on-model-destroyed",
+      "subject": "self"
     }
   },
   {
@@ -486,6 +509,10 @@
     "scope": {
       "range": "aura-6",
       "duration": "phase"
+    },
+    "trigger": {
+      "event": "on-model-destroyed",
+      "subject": "self"
     }
   },
   {
@@ -530,6 +557,10 @@
     "scope": {
       "range": "aura-6",
       "duration": "phase"
+    },
+    "trigger": {
+      "event": "on-model-destroyed",
+      "subject": "self"
     }
   },
   {
@@ -548,17 +579,18 @@
     "ability_type": "core",
     "behavior": "activated",
     "effect": {
-      "type": "movement-modifier",
+      "type": "deep-strike",
       "target": "unit",
-      "modifier": {
-        "move_type": "deep-strike",
-        "value": 0,
-        "replaces_default": false
-      }
+      "modifier": {}
     },
     "scope": {
       "range": "unit",
       "duration": "permanent"
+    },
+    "trigger": {
+      "event": "start-of-phase",
+      "subject": "bearer",
+      "optional": true
     }
   },
   {
@@ -586,6 +618,10 @@
     "scope": {
       "range": "self",
       "duration": "permanent"
+    },
+    "trigger": {
+      "event": "on-damage-allocated",
+      "subject": "self"
     }
   },
   {
@@ -613,6 +649,10 @@
     "scope": {
       "range": "self",
       "duration": "permanent"
+    },
+    "trigger": {
+      "event": "on-damage-allocated",
+      "subject": "self"
     }
   },
   {
@@ -640,6 +680,9 @@
     "scope": {
       "range": "self",
       "duration": "permanent"
+    },
+    "trigger": {
+      "event": "start-of-phase"
     }
   },
   {
@@ -661,14 +704,16 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "move_type": "scouts",
-        "value": 6,
-        "replaces_default": false
+        "move_type": "scout",
+        "distance": 6
       }
     },
     "scope": {
       "range": "unit",
       "duration": "one-use"
+    },
+    "trigger": {
+      "event": "start-of-phase"
     }
   },
   {
@@ -690,14 +735,16 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "move_type": "scouts",
-        "value": 8,
-        "replaces_default": false
+        "move_type": "scout",
+        "distance": 8
       }
     },
     "scope": {
       "range": "unit",
       "duration": "one-use"
+    },
+    "trigger": {
+      "event": "start-of-phase"
     }
   },
   {
@@ -716,17 +763,18 @@
     "ability_type": "core",
     "behavior": "activated",
     "effect": {
-      "type": "movement-modifier",
+      "type": "unit-keyword",
       "target": "unit",
       "modifier": {
-        "move_type": "infiltrators",
-        "value": 0,
-        "replaces_default": false
+        "keyword_id": "infiltrators"
       }
     },
     "scope": {
       "range": "unit",
       "duration": "permanent"
+    },
+    "trigger": {
+      "event": "start-of-phase"
     }
   },
   {
@@ -745,17 +793,20 @@
     "ability_type": "core",
     "behavior": "activated",
     "effect": {
-      "type": "movement-modifier",
+      "type": "unit-keyword",
       "target": "self",
       "modifier": {
-        "move_type": "hover",
-        "value": 0,
-        "replaces_default": false
+        "keyword_id": "hover"
       }
     },
     "scope": {
       "range": "self",
       "duration": "turn"
+    },
+    "trigger": {
+      "event": "start-of-phase",
+      "subject": "self",
+      "optional": true
     }
   },
   {
@@ -784,6 +835,10 @@
     "scope": {
       "range": "unit",
       "duration": "permanent"
+    },
+    "trigger": {
+      "event": "on-unit-selected",
+      "subject": "bearer"
     }
   },
   {
@@ -838,6 +893,10 @@
     "scope": {
       "range": "unit",
       "duration": "phase"
+    },
+    "trigger": {
+      "event": "on-unit-destroyed",
+      "subject": "bearer"
     }
   },
   {
@@ -867,6 +926,9 @@
     "scope": {
       "range": "unit",
       "duration": "permanent"
+    },
+    "trigger": {
+      "event": "start-of-phase"
     }
   },
   {
@@ -896,6 +958,10 @@
     "scope": {
       "range": "unit",
       "duration": "permanent"
+    },
+    "trigger": {
+      "event": "start-of-phase",
+      "subject": "friendly-unit"
     }
   },
   {
@@ -936,6 +1002,10 @@
     "scope": {
       "range": "self",
       "duration": "permanent"
+    },
+    "trigger": {
+      "event": "before-hit-roll",
+      "subject": "bearer"
     }
   },
   {
@@ -965,6 +1035,9 @@
     "scope": {
       "range": "unit",
       "duration": "permanent"
+    },
+    "trigger": {
+      "event": "end-of-phase"
     }
   },
   {
@@ -988,14 +1061,19 @@
       "type": "movement-modifier",
       "target": "self",
       "modifier": {
-        "move_type": "move-through",
-        "value": 4,
-        "replaces_default": false
+        "passthrough": [
+          "non-titanic-models",
+          "terrain-le-4"
+        ]
       }
     },
     "scope": {
       "range": "self",
       "duration": "permanent"
+    },
+    "trigger": {
+      "event": "start-of-phase",
+      "subject": "self"
     }
   },
   {
@@ -1048,6 +1126,10 @@
     "scope": {
       "range": "unit",
       "duration": "phase"
+    },
+    "trigger": {
+      "event": "before-damage-roll",
+      "subject": "self"
     }
   },
   {
@@ -1089,6 +1171,11 @@
     "scope": {
       "range": "self",
       "duration": "permanent"
+    },
+    "trigger": {
+      "event": "before-hit-roll",
+      "subject": "self",
+      "optional": true
     }
   },
   {
@@ -1144,15 +1231,23 @@
         "type": "movement-modifier",
         "target": "unit",
         "modifier": {
-          "move_type": "reactive-move",
-          "value": "D6",
-          "replaces_default": false
+          "move_type": "reactive",
+          "distance": "D6"
         }
       }
     },
     "scope": {
       "range": "unit",
       "duration": "phase"
+    },
+    "trigger": {
+      "event": "end-of-phase",
+      "subject": "enemy-unit",
+      "optional": true,
+      "proximity": {
+        "of": "bearer",
+        "range": 9
+      }
     }
   },
   {
@@ -1194,6 +1289,9 @@
     "scope": {
       "range": "self",
       "duration": "permanent"
+    },
+    "trigger": {
+      "event": "before-hit-roll"
     }
   },
   {
@@ -1234,6 +1332,14 @@
     "scope": {
       "range": "self",
       "duration": "permanent"
+    },
+    "trigger": {
+      "event": "start-of-phase",
+      "subject": "self",
+      "proximity": {
+        "of": "self",
+        "range": 3
+      }
     }
   },
   {
@@ -1271,6 +1377,9 @@
     "scope": {
       "range": "self",
       "duration": "turn"
+    },
+    "trigger": {
+      "event": "before-hit-roll"
     }
   },
   {
@@ -1300,6 +1409,9 @@
     "scope": {
       "range": "self",
       "duration": "permanent"
+    },
+    "trigger": {
+      "event": "start-of-phase"
     }
   },
   {
@@ -1331,6 +1443,9 @@
     "scope": {
       "range": "any-on-battlefield",
       "duration": "permanent"
+    },
+    "trigger": {
+      "event": "start-of-phase"
     }
   },
   {
@@ -1412,6 +1527,10 @@
     "scope": {
       "range": "self",
       "duration": "permanent"
+    },
+    "trigger": {
+      "event": "before-wound-roll",
+      "subject": "bearer"
     }
   },
   {
@@ -1463,6 +1582,10 @@
     "scope": {
       "range": "any-visible",
       "duration": "until-next-command-phase"
+    },
+    "trigger": {
+      "event": "end-of-phase",
+      "subject": "bearer"
     }
   },
   {
@@ -1508,15 +1631,20 @@
         "type": "movement-modifier",
         "target": "unit",
         "modifier": {
-          "move_type": "blood-surge",
-          "value": "D6+2",
-          "replaces_default": false
+          "move_type": "reactive",
+          "name": "Blood Surge",
+          "distance": "D6+2"
         }
       }
     },
     "scope": {
       "range": "unit",
       "duration": "phase"
+    },
+    "trigger": {
+      "event": "on-damage-allocated",
+      "subject": "enemy-unit",
+      "optional": true
     }
   },
   {
@@ -1590,6 +1718,11 @@
     "scope": {
       "range": "unit",
       "duration": "permanent"
+    },
+    "trigger": {
+      "event": "before-hit-roll",
+      "subject": "bearer",
+      "optional": true
     }
   },
   {
@@ -1629,6 +1762,9 @@
     "scope": {
       "range": "engagement-range",
       "duration": "phase"
+    },
+    "trigger": {
+      "event": "start-of-phase"
     }
   },
   {
@@ -1675,6 +1811,11 @@
     "scope": {
       "range": "any-visible",
       "duration": "phase"
+    },
+    "trigger": {
+      "event": "end-of-phase",
+      "subject": "bearer",
+      "optional": true
     }
   },
   {
@@ -1736,7 +1877,10 @@
           {
             "type": "conditional",
             "condition": {
-              "type": "unit-below-half-strength"
+              "type": "unit-below-half-strength",
+              "parameters": {
+                "subject": "target"
+              }
             },
             "effect": {
               "type": "roll-modifier",
@@ -1754,6 +1898,14 @@
     "scope": {
       "range": "aura-6",
       "duration": "permanent"
+    },
+    "trigger": {
+      "event": "before-hit-roll",
+      "subject": "friendly-unit",
+      "proximity": {
+        "of": "bearer",
+        "range": 6
+      }
     }
   },
   {
@@ -1803,7 +1955,12 @@
       "range": "self",
       "duration": "phase"
     },
-    "community_notes": "Once per turn, per unit. In the Fight phase, after an enemy unit that targeted this unit resolves its attacks, this unit is eligible to fight again and must be selected to fight next."
+    "community_notes": "Once per turn, per unit. In the Fight phase, after an enemy unit that targeted this unit resolves its attacks, this unit is eligible to fight again and must be selected to fight next.",
+    "trigger": {
+      "event": "end-of-phase",
+      "subject": "enemy-unit",
+      "optional": true
+    }
   },
   {
     "ability_id": "super-heavy-war-engine",
@@ -1829,18 +1986,19 @@
           "type": "movement-modifier",
           "target": "self",
           "modifier": {
-            "move_type": "move-through",
-            "value": 4,
-            "replaces_default": false
+            "passthrough": [
+              "non-titanic-models",
+              "terrain-le-4"
+            ]
           }
         },
         {
           "type": "movement-modifier",
           "target": "self",
           "modifier": {
-            "move_type": "move-through-tall",
-            "value": 0,
-            "replaces_default": false
+            "passthrough": [
+              "tall-terrain"
+            ]
           }
         }
       ]
@@ -1848,6 +2006,10 @@
     "scope": {
       "range": "self",
       "duration": "permanent"
+    },
+    "trigger": {
+      "event": "start-of-phase",
+      "subject": "self"
     }
   },
   {
@@ -1915,7 +2077,11 @@
       "range": "self",
       "duration": "permanent"
     },
-    "community_notes": "In the Charge phase when this unit declares a charge: +1 to charge rolls if an enemy unit below starting strength is within 9\", or +2 if an enemy unit below half strength is within 9\". (Enemy-strength predicate carried on the option modifier; no dedicated condition type exists.)"
+    "community_notes": "In the Charge phase when this unit declares a charge: +1 to charge rolls if an enemy unit below starting strength is within 9\", or +2 if an enemy unit below half strength is within 9\". (Enemy-strength predicate carried on the option modifier; no dedicated condition type exists.)",
+    "trigger": {
+      "event": "before-charge-roll",
+      "subject": "self"
+    }
   },
   {
     "ability_id": "savage-exaltation",
@@ -1983,6 +2149,10 @@
     "scope": {
       "range": "self",
       "duration": "permanent"
+    },
+    "trigger": {
+      "event": "before-hit-roll",
+      "subject": "self"
     }
   },
   {
@@ -2023,9 +2193,9 @@
             "type": "movement-modifier",
             "target": "unit",
             "modifier": {
-              "move_type": "move-through-terrain",
-              "value": 0,
-              "replaces_default": false
+              "passthrough": [
+                "all-terrain"
+              ]
             }
           }
         ]
@@ -2034,6 +2204,10 @@
     "scope": {
       "range": "unit",
       "duration": "permanent"
+    },
+    "trigger": {
+      "event": "start-of-phase",
+      "subject": "self"
     }
   },
   {
@@ -2083,6 +2257,11 @@
     "scope": {
       "range": "unit",
       "duration": "permanent"
+    },
+    "trigger": {
+      "event": "before-advance-roll",
+      "subject": "bearer",
+      "optional": true
     }
   },
   {
@@ -2145,6 +2324,11 @@
     "scope": {
       "range": "self",
       "duration": "permanent"
+    },
+    "trigger": {
+      "event": "before-hit-roll",
+      "subject": "self",
+      "optional": true
     }
   },
   {
@@ -2200,6 +2384,15 @@
     "scope": {
       "range": "unit",
       "duration": "phase"
+    },
+    "trigger": {
+      "event": "end-of-phase",
+      "subject": "enemy-unit",
+      "optional": true,
+      "proximity": {
+        "of": "bearer",
+        "range": 9
+      }
     }
   },
   {
@@ -2269,6 +2462,10 @@
     "scope": {
       "range": "self",
       "duration": "phase"
+    },
+    "trigger": {
+      "event": "end-of-phase",
+      "optional": true
     }
   },
   {
@@ -2324,6 +2521,10 @@
     "scope": {
       "range": "engagement-range",
       "duration": "phase"
+    },
+    "trigger": {
+      "event": "end-of-phase",
+      "subject": "self"
     }
   },
   {
@@ -2362,9 +2563,10 @@
             "type": "movement-modifier",
             "target": "unit",
             "modifier": {
-              "move_type": "move-through",
-              "value": 0,
-              "replaces_default": false
+              "passthrough": [
+                "non-titanic-models",
+                "all-terrain"
+              ]
             }
           }
         ]
@@ -2373,6 +2575,9 @@
     "scope": {
       "range": "unit",
       "duration": "permanent"
+    },
+    "trigger": {
+      "event": "start-of-phase"
     }
   },
   {
@@ -2404,8 +2609,8 @@
         "type": "movement-modifier",
         "target": "unit",
         "modifier": {
-          "move_type": "extended-pile-in",
-          "value": 3,
+          "move_type": "pile-in",
+          "distance": 3,
           "replaces_default": true
         }
       }
@@ -2413,6 +2618,11 @@
     "scope": {
       "range": "unit",
       "duration": "phase"
+    },
+    "trigger": {
+      "event": "on-unit-selected",
+      "subject": "self",
+      "optional": true
     }
   },
   {
@@ -2454,6 +2664,15 @@
     "scope": {
       "range": "aura-12",
       "duration": "battle-round"
+    },
+    "trigger": {
+      "event": "start-of-phase",
+      "subject": "friendly-unit",
+      "optional": true,
+      "proximity": {
+        "of": "self",
+        "range": 12
+      }
     }
   },
   {
@@ -2504,6 +2723,11 @@
     "scope": {
       "range": "self",
       "duration": "battle"
+    },
+    "trigger": {
+      "event": "start-of-phase",
+      "subject": "self",
+      "optional": true
     }
   },
   {
@@ -2542,6 +2766,9 @@
     "scope": {
       "range": "self",
       "duration": "battle-round"
+    },
+    "trigger": {
+      "event": "start-of-phase"
     }
   },
   {
@@ -2596,6 +2823,9 @@
     "scope": {
       "range": "unit",
       "duration": "phase"
+    },
+    "trigger": {
+      "event": "start-of-phase"
     }
   },
   {
@@ -2650,6 +2880,10 @@
     "scope": {
       "range": "self",
       "duration": "phase"
+    },
+    "trigger": {
+      "event": "start-of-phase",
+      "optional": true
     }
   },
   {
@@ -2700,6 +2934,9 @@
     "scope": {
       "range": "self",
       "duration": "battle"
+    },
+    "trigger": {
+      "event": "start-of-phase"
     }
   },
   {
@@ -2751,6 +2988,9 @@
     "scope": {
       "range": "any-on-battlefield",
       "duration": "turn"
+    },
+    "trigger": {
+      "event": "end-of-phase"
     }
   },
   {
@@ -2800,9 +3040,9 @@
         "type": "movement-modifier",
         "target": "unit",
         "modifier": {
-          "move_type": "brazen-fury",
-          "value": "D6",
-          "replaces_default": false
+          "move_type": "reactive",
+          "name": "Brazen Fury",
+          "distance": "D6"
         }
       }
     },
@@ -2815,6 +3055,11 @@
       "required_keywords": [
         "Possessed"
       ]
+    },
+    "trigger": {
+      "event": "start-of-phase",
+      "subject": "self",
+      "optional": true
     }
   },
   {
@@ -2869,7 +3114,12 @@
       "range": "unit",
       "duration": "phase"
     },
-    "community_notes": "When a friendly WORLD EATERS CHARACTER (excluding EPIC HERO) is selected to fight, its CHARACTER models' melee attacks gain [CLEAVE 1] or +1 AP."
+    "community_notes": "When a friendly WORLD EATERS CHARACTER (excluding EPIC HERO) is selected to fight, its CHARACTER models' melee attacks gain [CLEAVE 1] or +1 AP.",
+    "trigger": {
+      "event": "start-of-phase",
+      "subject": "self",
+      "optional": true
+    }
   },
   {
     "ability_id": "blood-tithe",
@@ -2913,6 +3163,10 @@
     "scope": {
       "range": "any-on-battlefield",
       "duration": "battle"
+    },
+    "trigger": {
+      "event": "on-unit-destroyed",
+      "subject": "any-unit"
     }
   },
   {
@@ -2960,6 +3214,11 @@
     "scope": {
       "range": "any-on-battlefield",
       "duration": "until-next-command-phase"
+    },
+    "trigger": {
+      "event": "start-of-phase",
+      "subject": "friendly-unit",
+      "optional": true
     }
   },
   {
@@ -3011,6 +3270,9 @@
     "scope": {
       "range": "any-on-battlefield",
       "duration": "turn"
+    },
+    "trigger": {
+      "event": "start-of-phase"
     }
   },
   {
@@ -3056,6 +3318,9 @@
     "scope": {
       "range": "self",
       "duration": "permanent"
+    },
+    "trigger": {
+      "event": "start-of-phase"
     }
   },
   {
@@ -3083,6 +3348,9 @@
     "scope": {
       "range": "self",
       "duration": "permanent"
+    },
+    "trigger": {
+      "event": "start-of-phase"
     }
   },
   {
@@ -3112,6 +3380,10 @@
     "scope": {
       "range": "any-on-battlefield",
       "duration": "permanent"
+    },
+    "trigger": {
+      "event": "start-of-phase",
+      "optional": true
     }
   },
   {
@@ -3163,6 +3435,9 @@
     "scope": {
       "range": "unit",
       "duration": "permanent"
+    },
+    "trigger": {
+      "event": "start-of-phase"
     }
   },
   {
@@ -3192,6 +3467,9 @@
     "scope": {
       "range": "self",
       "duration": "permanent"
+    },
+    "trigger": {
+      "event": "start-of-phase"
     }
   },
   {
@@ -3219,6 +3497,9 @@
     "scope": {
       "range": "self",
       "duration": "permanent"
+    },
+    "trigger": {
+      "event": "start-of-phase"
     }
   },
   {
@@ -3260,6 +3541,9 @@
     "scope": {
       "range": "self",
       "duration": "permanent"
+    },
+    "trigger": {
+      "event": "start-of-phase"
     }
   },
   {
@@ -3288,6 +3572,9 @@
     "scope": {
       "range": "any-on-battlefield",
       "duration": "one-use"
+    },
+    "trigger": {
+      "event": "start-of-phase"
     }
   },
   {
@@ -3324,6 +3611,9 @@
     "scope": {
       "range": "unit",
       "duration": "turn"
+    },
+    "trigger": {
+      "event": "start-of-phase"
     }
   },
   {
@@ -3351,6 +3641,9 @@
     "scope": {
       "range": "unit",
       "duration": "one-use"
+    },
+    "trigger": {
+      "event": "start-of-phase"
     }
   },
   {
@@ -3387,6 +3680,10 @@
     "scope": {
       "range": "aura-6",
       "duration": "phase"
+    },
+    "trigger": {
+      "event": "start-of-phase",
+      "optional": true
     }
   },
   {
@@ -3423,6 +3720,10 @@
     "scope": {
       "range": "unit",
       "duration": "phase"
+    },
+    "trigger": {
+      "event": "start-of-phase",
+      "optional": true
     }
   },
   {
@@ -3461,6 +3762,9 @@
     "scope": {
       "range": "aura-6",
       "duration": "permanent"
+    },
+    "trigger": {
+      "event": "start-of-phase"
     }
   },
   {
@@ -3512,6 +3816,9 @@
     "scope": {
       "range": "self",
       "duration": "permanent"
+    },
+    "trigger": {
+      "event": "start-of-phase"
     }
   },
   {
@@ -3539,6 +3846,9 @@
     "scope": {
       "range": "self",
       "duration": "permanent"
+    },
+    "trigger": {
+      "event": "start-of-phase"
     }
   },
   {
@@ -3603,6 +3913,9 @@
     "scope": {
       "range": "self",
       "duration": "permanent"
+    },
+    "trigger": {
+      "event": "start-of-phase"
     }
   },
   {
@@ -3632,6 +3945,9 @@
     "scope": {
       "range": "self",
       "duration": "permanent"
+    },
+    "trigger": {
+      "event": "start-of-phase"
     }
   },
   {
@@ -3675,6 +3991,10 @@
     "scope": {
       "range": "unit",
       "duration": "permanent"
+    },
+    "trigger": {
+      "event": "on-unit-destroyed",
+      "subject": "bearer"
     }
   },
   {
@@ -3703,6 +4023,9 @@
     "scope": {
       "range": "unit",
       "duration": "permanent"
+    },
+    "trigger": {
+      "event": "start-of-phase"
     }
   },
   {
@@ -3746,6 +4069,9 @@
     "scope": {
       "range": "self",
       "duration": "permanent"
+    },
+    "trigger": {
+      "event": "start-of-phase"
     }
   },
   {
@@ -3783,7 +4109,11 @@
       "range": "self",
       "duration": "until-next-command-phase"
     },
-    "community_notes": "WORLD EATERS model only. Once per battle, per army, in your Command phase: every Blessing of Khorne is active for this unit until the start of your next turn."
+    "community_notes": "WORLD EATERS model only. Once per battle, per army, in your Command phase: every Blessing of Khorne is active for this unit until the start of your next turn.",
+    "trigger": {
+      "event": "start-of-phase",
+      "optional": true
+    }
   },
   {
     "ability_id": "gateways-to-glory-vessels-of-wrath",
@@ -3824,7 +4154,10 @@
       "range": "self",
       "duration": "permanent"
     },
-    "community_notes": "WORLD EATERS DAEMON PRINCE model only: the model gains MOBILE and +1 to charge rolls."
+    "community_notes": "WORLD EATERS DAEMON PRINCE model only: the model gains MOBILE and +1 to charge rolls.",
+    "trigger": {
+      "event": "start-of-phase"
+    }
   },
   {
     "ability_id": "hack-and-slash-berzerker-warband",
@@ -3854,6 +4187,10 @@
     "scope": {
       "range": "unit",
       "duration": "phase"
+    },
+    "trigger": {
+      "event": "on-unit-selected",
+      "optional": true
     }
   },
   {
@@ -3881,6 +4218,10 @@
     "scope": {
       "range": "unit",
       "duration": "phase"
+    },
+    "trigger": {
+      "event": "on-damage-allocated",
+      "optional": true
     }
   },
   {
@@ -3908,6 +4249,10 @@
     "scope": {
       "range": "unit",
       "duration": "phase"
+    },
+    "trigger": {
+      "event": "on-unit-selected",
+      "optional": true
     }
   },
   {
@@ -3935,6 +4280,10 @@
     "scope": {
       "range": "unit",
       "duration": "phase"
+    },
+    "trigger": {
+      "event": "on-unit-selected",
+      "optional": true
     }
   },
   {
@@ -3962,6 +4311,10 @@
     "scope": {
       "range": "unit",
       "duration": "turn"
+    },
+    "trigger": {
+      "event": "on-unit-selected",
+      "optional": true
     }
   },
   {
@@ -3991,6 +4344,10 @@
     "scope": {
       "range": "unit",
       "duration": "phase"
+    },
+    "trigger": {
+      "event": "on-unit-selected",
+      "optional": true
     }
   },
   {
@@ -4019,6 +4376,10 @@
     "scope": {
       "range": "unit",
       "duration": "phase"
+    },
+    "trigger": {
+      "event": "on-unit-selected",
+      "optional": true
     }
   },
   {
@@ -4046,6 +4407,10 @@
     "scope": {
       "range": "unit",
       "duration": "phase"
+    },
+    "trigger": {
+      "event": "on-unit-destroyed",
+      "optional": true
     }
   },
   {
@@ -4073,6 +4438,10 @@
     "scope": {
       "range": "unit",
       "duration": "until-next-command-phase"
+    },
+    "trigger": {
+      "event": "on-unit-selected",
+      "optional": true
     }
   },
   {
@@ -4100,6 +4469,10 @@
     "scope": {
       "range": "unit",
       "duration": "phase"
+    },
+    "trigger": {
+      "event": "on-unit-selected",
+      "optional": true
     }
   },
   {
@@ -4153,6 +4526,10 @@
     "scope": {
       "range": "unit",
       "duration": "phase"
+    },
+    "trigger": {
+      "event": "on-unit-selected",
+      "optional": true
     }
   },
   {
@@ -4182,6 +4559,10 @@
     "scope": {
       "range": "any-on-battlefield",
       "duration": "phase"
+    },
+    "trigger": {
+      "event": "on-unit-selected",
+      "optional": true
     }
   },
   {
@@ -4209,6 +4590,10 @@
     "scope": {
       "range": "unit",
       "duration": "phase"
+    },
+    "trigger": {
+      "event": "on-unit-selected",
+      "optional": true
     }
   },
   {
@@ -4233,9 +4618,10 @@
           "type": "movement-modifier",
           "target": "unit",
           "modifier": {
-            "move_type": "move-through",
-            "value": 0,
-            "replaces_default": false
+            "passthrough": [
+              "non-titanic-models",
+              "all-terrain"
+            ]
           }
         },
         {
@@ -4251,6 +4637,10 @@
     "scope": {
       "range": "self",
       "duration": "phase"
+    },
+    "trigger": {
+      "event": "on-unit-selected",
+      "optional": true
     }
   },
   {
@@ -4278,6 +4668,11 @@
     "scope": {
       "range": "unit",
       "duration": "turn"
+    },
+    "trigger": {
+      "event": "on-unit-selected",
+      "subject": "friendly-unit",
+      "optional": true
     }
   },
   {
@@ -4305,6 +4700,11 @@
     "scope": {
       "range": "unit",
       "duration": "turn"
+    },
+    "trigger": {
+      "event": "on-unit-selected",
+      "subject": "friendly-unit",
+      "optional": true
     }
   },
   {
@@ -4326,14 +4726,18 @@
       "type": "movement-modifier",
       "target": "self",
       "modifier": {
-        "move_type": "reactive-move",
-        "value": 6,
-        "replaces_default": false
+        "move_type": "reactive",
+        "distance": 6
       }
     },
     "scope": {
       "range": "self",
       "duration": "phase"
+    },
+    "trigger": {
+      "event": "on-unit-selected",
+      "subject": "friendly-unit",
+      "optional": true
     }
   },
   {
@@ -4361,6 +4765,11 @@
     "scope": {
       "range": "unit",
       "duration": "phase"
+    },
+    "trigger": {
+      "event": "on-unit-selected",
+      "subject": "friendly-unit",
+      "optional": true
     }
   },
   {
@@ -4389,6 +4798,11 @@
     "scope": {
       "range": "aura-6",
       "duration": "turn"
+    },
+    "trigger": {
+      "event": "on-unit-selected",
+      "subject": "friendly-unit",
+      "optional": true
     }
   },
   {
@@ -4416,6 +4830,11 @@
     "scope": {
       "range": "unit",
       "duration": "phase"
+    },
+    "trigger": {
+      "event": "on-unit-selected",
+      "subject": "friendly-unit",
+      "optional": true
     }
   },
   {
@@ -4444,6 +4863,10 @@
     "scope": {
       "range": "unit",
       "duration": "phase"
+    },
+    "trigger": {
+      "event": "on-unit-selected",
+      "optional": true
     }
   },
   {
@@ -4471,6 +4894,10 @@
     "scope": {
       "range": "any-on-battlefield",
       "duration": "phase"
+    },
+    "trigger": {
+      "event": "on-unit-selected",
+      "optional": true
     }
   },
   {
@@ -4499,6 +4926,10 @@
     "scope": {
       "range": "aura-6",
       "duration": "phase"
+    },
+    "trigger": {
+      "event": "on-unit-selected",
+      "optional": true
     }
   },
   {
@@ -4520,14 +4951,16 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "move_type": "teleport-redeploy",
-        "value": 0,
-        "replaces_default": false
+        "move_type": "redeploy"
       }
     },
     "scope": {
       "range": "unit",
       "duration": "phase"
+    },
+    "trigger": {
+      "event": "on-unit-selected",
+      "optional": true
     }
   },
   {
@@ -4567,6 +5000,11 @@
     "scope": {
       "range": "unit",
       "duration": "phase"
+    },
+    "trigger": {
+      "event": "on-unit-selected",
+      "subject": "friendly-unit",
+      "optional": true
     }
   },
   {
@@ -4594,6 +5032,11 @@
     "scope": {
       "range": "unit",
       "duration": "phase"
+    },
+    "trigger": {
+      "event": "on-damage-allocated",
+      "subject": "friendly-unit",
+      "optional": true
     }
   },
   {
@@ -4621,6 +5064,11 @@
     "scope": {
       "range": "unit",
       "duration": "phase"
+    },
+    "trigger": {
+      "event": "on-unit-selected",
+      "subject": "friendly-unit",
+      "optional": true
     }
   },
   {
@@ -4639,17 +5087,21 @@
     "ability_type": "stratagem",
     "behavior": "activated",
     "effect": {
-      "type": "movement-modifier",
+      "type": "deep-strike",
       "target": "unit",
       "modifier": {
-        "move_type": "deep-strike-close",
-        "value": 6,
+        "min_distance": 6,
         "replaces_default": true
       }
     },
     "scope": {
       "range": "unit",
       "duration": "phase"
+    },
+    "trigger": {
+      "event": "on-unit-selected",
+      "subject": "friendly-unit",
+      "optional": true
     }
   },
   {
@@ -4671,14 +5123,20 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "move_type": "move-through",
-        "value": 0,
-        "replaces_default": false
+        "passthrough": [
+          "non-titanic-models",
+          "all-terrain"
+        ]
       }
     },
     "scope": {
       "range": "unit",
       "duration": "phase"
+    },
+    "trigger": {
+      "event": "on-unit-selected",
+      "subject": "friendly-unit",
+      "optional": true
     }
   },
   {
@@ -4707,6 +5165,11 @@
     "scope": {
       "range": "engagement-range",
       "duration": "phase"
+    },
+    "trigger": {
+      "event": "on-unit-selected",
+      "subject": "friendly-unit",
+      "optional": true
     }
   },
   {
@@ -4752,6 +5215,10 @@
     "scope": {
       "range": "unit",
       "duration": "phase"
+    },
+    "trigger": {
+      "event": "on-unit-selected",
+      "optional": true
     }
   },
   {
@@ -4781,7 +5248,11 @@
       "range": "engagement-range",
       "duration": "phase"
     },
-    "community_notes": "An enemy unit engaged with your WORLD EATERS CHARACTER that falls back must use desperate escape; if it is battle-shocked, -1 to those hazard rolls."
+    "community_notes": "An enemy unit engaged with your WORLD EATERS CHARACTER that falls back must use desperate escape; if it is battle-shocked, -1 to those hazard rolls.",
+    "trigger": {
+      "event": "on-unit-selected",
+      "optional": true
+    }
   },
   {
     "ability_id": "rampaging-terrors",
@@ -4987,9 +5458,8 @@
         "type": "movement-modifier",
         "target": "unit",
         "modifier": {
-          "move_type": "surge-move",
-          "value": "D6",
-          "replaces_default": false
+          "move_type": "surge",
+          "distance": "D6"
         }
       }
     },

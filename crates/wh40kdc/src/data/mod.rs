@@ -36,7 +36,7 @@ pub mod battle_sizes;
 pub mod roster;
 
 pub use collection::Collection;
-pub use dataset::{Dataset, RawData};
+pub use dataset::{Dataset, RawData, ReactiveTrigger};
 pub use loadout::{
     base_loadout, check_unit_legality, clamp_weapon_count, loadout_models, loadout_tiers,
     maximal_loadout, option_cap, validate_loadout, Loadout, LoadoutModel, LoadoutTier, Violation,

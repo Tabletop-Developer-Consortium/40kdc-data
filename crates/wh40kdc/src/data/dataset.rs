@@ -8,14 +8,14 @@
 //! `dataset.phases_of(&ability)`) — a borrowing view object would be
 //! self-referential. The join graph is identical.
 
-use std::collections::HashMap;
+use std::collections::{BTreeMap, HashMap};
 use std::sync::OnceLock;
 
 use crate::generated::{
-    Ability, AlliedRule, DeploymentPattern, Detachment, Enhancement, Faction, ForceDisposition,
-    GameVersion, HullShape, InteractionFlag, KeywordList, LeaderAttachment, Mission,
-    MissionMatchup, Phase, PhaseMapping, ResourcePool, SecondaryCard, Stratagem, TargetProfile,
-    TerrainLayout, TerrainTemplate, TimingFlag, Unit, UnitComposition, UnitKeyword, Wargear,
+    Ability, AbilityTrigger, AlliedRule, DeploymentPattern, Detachment, Enhancement, Faction,
+    ForceDisposition, GameVersion, HullShape, InteractionFlag, KeywordList, LeaderAttachment,
+    Mission, MissionMatchup, Phase, PhaseMapping, ResourcePool, SecondaryCard, Stratagem,
+    TargetProfile, TerrainLayout, TerrainTemplate, Unit, UnitComposition, UnitKeyword, Wargear,
     WargearOption, Weapon, WeaponKeyword,
 };
 
@@ -94,9 +94,25 @@ pub struct RawData {
     #[serde(default)]
     pub resource_pools: Vec<ResourcePool>,
     #[serde(default)]
-    pub timing_flags: Vec<TimingFlag>,
-    #[serde(default)]
     pub interaction_flags: Vec<InteractionFlag>,
+}
+
+/// A reactive trigger surfaced from an ability's `trigger` block.
+///
+/// Produced by [`Dataset::reactive_triggers`] and [`Dataset::trigger_index`].
+/// `event` is the trigger event's string form (the schema enum value);
+/// `unit_ids` are the ids of units listing the ability, sorted ascending.
+#[derive(Debug, Clone, PartialEq)]
+pub struct ReactiveTrigger<'a> {
+    /// The `ability_id` of the ability carrying the trigger.
+    pub ability_id: String,
+    /// The trigger's game event, in its string form.
+    pub event: String,
+    /// Ids of units that list the ability, sorted ascending. Empty for
+    /// faction / detachment-rule abilities that no unit references.
+    pub unit_ids: Vec<String>,
+    /// The trigger block itself, borrowed from the owning [`Ability`].
+    pub trigger: &'a AbilityTrigger,
 }
 
 /// The whole dataset, with linked accessors over every entity collection.
@@ -157,7 +173,6 @@ pub struct Dataset {
     pub leader_attachments: Vec<LeaderAttachment>,
     pub unit_compositions: Vec<UnitComposition>,
     pub game_versions: Vec<GameVersion>,
-    pub timing_flags: Vec<TimingFlag>,
     pub interaction_flags: Vec<InteractionFlag>,
     pub phase_mappings: Vec<PhaseMapping>,
 
@@ -353,7 +368,6 @@ impl Dataset {
             leader_attachments: raw.leader_attachments,
             unit_compositions: raw.unit_compositions,
             game_versions: raw.game_versions,
-            timing_flags: raw.timing_flags,
             interaction_flags: raw.interaction_flags,
             phase_mappings: raw.phase_mappings,
             phase_index,
@@ -474,6 +488,49 @@ impl Dataset {
             .get(ability_id)
             .map(|idxs| idxs.iter().map(|&i| self.units.at(i)).collect())
             .unwrap_or_default()
+    }
+
+    /// Every ability carrying a reactive `trigger` block, sorted ascending by
+    /// `ability_id`. Each entry pairs the trigger's event with the ids of units
+    /// that list the ability (via the units-by-ability reverse index, sorted
+    /// ascending; empty for faction / detachment-rule abilities). Mirror of TS
+    /// `Dataset.reactiveTriggers`.
+    pub fn reactive_triggers(&self) -> Vec<ReactiveTrigger<'_>> {
+        let mut out: Vec<ReactiveTrigger<'_>> = self
+            .abilities
+            .all()
+            .iter()
+            .filter_map(|ability| {
+                ability.trigger.as_ref().map(|trigger| {
+                    let mut unit_ids: Vec<String> = self
+                        .units_with_ability(ability.ability_id.as_str())
+                        .into_iter()
+                        .map(|u| u.id.to_string())
+                        .collect();
+                    unit_ids.sort();
+                    ReactiveTrigger {
+                        ability_id: ability.ability_id.to_string(),
+                        event: trigger.event.to_string(),
+                        unit_ids,
+                        trigger,
+                    }
+                })
+            })
+            .collect();
+        out.sort_by(|a, b| a.ability_id.cmp(&b.ability_id));
+        out
+    }
+
+    /// Reactive triggers grouped by event. The [`BTreeMap`] iterates keys in
+    /// ascending event order; each bucket preserves the ability-id-sorted order
+    /// of [`reactive_triggers`](Self::reactive_triggers). Mirror of TS
+    /// `Dataset.triggerIndex`.
+    pub fn trigger_index(&self) -> BTreeMap<String, Vec<ReactiveTrigger<'_>>> {
+        let mut index: BTreeMap<String, Vec<ReactiveTrigger<'_>>> = BTreeMap::new();
+        for rt in self.reactive_triggers() {
+            index.entry(rt.event.clone()).or_default().push(rt);
+        }
+        index
     }
 
     /// Units that list the given weapon id in their `weapon_ids`.

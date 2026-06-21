@@ -9,23 +9,32 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "dice-gated",
-      "dice": "D6",
-      "threshold": 6,
-      "comparison": "gte",
-      "on_success": {
-        "type": "mortal-wounds",
-        "target": "enemy-within-aura",
-        "modifier": {
-          "count": "D3",
-          "range": 6
+      "type": "conditional",
+      "condition": {
+        "type": "timing-is",
+        "parameters": {
+          "timing": "before-bearer-removed"
         }
       },
-      "on_fail": null
+      "effect": {
+        "type": "dice-gated",
+        "dice": "D6",
+        "threshold": 6,
+        "comparison": "gte",
+        "on_success": {
+          "type": "mortal-wounds",
+          "target": "enemy-within-aura",
+          "modifier": {
+            "count": "D3",
+            "range": 6
+          }
+        },
+        "on_fail": null
+      }
     },
     "scope": {
       "range": "aura-6",
-      "duration": "one-use"
+      "duration": "permanent"
     },
     "unit_ids": [
       "archaeopter-stratoraptor"
@@ -43,12 +52,10 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "stat-modifier",
+      "type": "unit-keyword",
       "target": "self",
       "modifier": {
-        "stat": "M",
-        "operation": "set",
-        "value": 20
+        "keyword_id": "hover"
       }
     },
     "scope": {
@@ -186,13 +193,13 @@
           {
             "type": "timing-is",
             "parameters": {
-              "timing": "advance"
+              "timing": "advances"
             }
           },
           {
             "type": "timing-is",
             "parameters": {
-              "timing": "fall-back"
+              "timing": "falls-back"
             }
           }
         ]
@@ -201,8 +208,10 @@
         "type": "movement-modifier",
         "target": "self",
         "modifier": {
-          "move_type": "through-friendly-heavy-and-small-terrain",
-          "value": 4
+          "passthrough": [
+            "friendly-vehicles",
+            "terrain-le-4"
+          ]
         }
       }
     },
@@ -377,23 +386,32 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "dice-gated",
-      "dice": "D6",
-      "threshold": 6,
-      "comparison": "gte",
-      "on_success": {
-        "type": "mortal-wounds",
-        "target": "enemy-within-aura",
-        "modifier": {
-          "count": "1",
-          "range": 6
+      "type": "conditional",
+      "condition": {
+        "type": "timing-is",
+        "parameters": {
+          "timing": "before-bearer-removed"
         }
       },
-      "on_fail": null
+      "effect": {
+        "type": "dice-gated",
+        "dice": "D6",
+        "threshold": 6,
+        "comparison": "gte",
+        "on_success": {
+          "type": "mortal-wounds",
+          "target": "enemy-within-aura",
+          "modifier": {
+            "count": "1",
+            "range": 6
+          }
+        },
+        "on_fail": null
+      }
     },
     "scope": {
       "range": "aura-6",
-      "duration": "one-use"
+      "duration": "permanent"
     },
     "unit_ids": [
       "ironstrider-ballistarii"
@@ -955,10 +973,10 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "movement-modifier",
+      "type": "unit-keyword",
       "target": "unit",
       "modifier": {
-        "type": "infiltrate"
+        "keyword_id": "infiltrators"
       }
     },
     "scope": {
@@ -1127,7 +1145,7 @@
             {
               "type": "timing-is",
               "parameters": {
-                "timing": "reinforcements-step"
+                "timing": "reinforcements"
               }
             },
             {
@@ -1325,7 +1343,7 @@
           {
             "type": "timing-is",
             "parameters": {
-              "timing": "after-unit-shot"
+              "timing": "after-unit-resolves-attacks"
             }
           },
           {
@@ -1353,7 +1371,7 @@
                 "target": "unit",
                 "modifier": {
                   "move_type": "normal",
-                  "value": 6
+                  "distance": 6
                 }
               },
               {
@@ -1382,7 +1400,7 @@
                   "target": "unit",
                   "modifier": {
                     "move_type": "normal",
-                    "value": 12
+                    "distance": 12
                   }
                 },
                 {
@@ -1572,13 +1590,13 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "type": "scouts",
+        "move_type": "scout",
         "distance": 9
       }
     },
     "scope": {
       "range": "unit",
-      "duration": "one-use"
+      "duration": "permanent"
     },
     "unit_ids": [
       "serberys-raiders"
@@ -1599,8 +1617,7 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "type": "reactive-move",
-        "trigger": "enemy-ends-move-nearby"
+        "move_type": "reactive"
       }
     },
     "scope": {
@@ -1611,7 +1628,12 @@
       "serberys-raiders"
     ],
     "ability_type": "unit",
-    "behavior": "passive"
+    "behavior": "passive",
+    "trigger": {
+      "event": "enemy-unit-ended-move",
+      "subject": "enemy-unit",
+      "optional": true
+    }
   },
   {
     "ability_id": "dynamic-efficiency",
@@ -2044,13 +2066,13 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "type": "scouts",
+        "move_type": "scout",
         "distance": 6
       }
     },
     "scope": {
       "range": "unit",
-      "duration": "one-use"
+      "duration": "permanent"
     },
     "unit_ids": [
       "skitarii-rangers"
@@ -2577,7 +2599,8 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "type": "redeploy-to-reserves"
+        "move_type": "redeploy",
+        "to_reserves": true
       }
     },
     "scope": {
@@ -3061,9 +3084,8 @@
       "type": "movement-modifier",
       "target": "unit",
       "modifier": {
-        "move_type": "surge-move",
-        "value": "D6",
-        "replaces_default": false
+        "move_type": "surge",
+        "distance": "D6"
       }
     },
     "scope": {

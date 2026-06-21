@@ -45,7 +45,6 @@ COLLECTION_KEYS = (
     "terrain_layouts",
     "hull_shapes",
     "resource_pools",
-    "timing_flags",
     "interaction_flags",
 )
 

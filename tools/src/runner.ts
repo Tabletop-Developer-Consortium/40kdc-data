@@ -33,7 +33,7 @@ import { selectAdapter } from "./import/adapter.js";
 import { createValidator } from "./schema-loader.js";
 import { attributeStages, crunch, type Buff, type EngineContext, type EngineInput } from "./cruncher/index.js";
 import { compareCell, loadoutCell, type ComparePhase, type LoadoutLine } from "./compare.js";
-import { describeScoringCard, describeAbility, type ScoringMode, type Effect, type AbilityScope, type AbilityAppliesTo } from "./translate/index.js";
+import { describeScoringCard, describeAbility, type ScoringMode, type Effect, type AbilityScope, type AbilityAppliesTo, type AbilityUsage, type AbilityTrigger } from "./translate/index.js";
 import { unitMatchesAppliesTo } from "./scope.js";
 import {
   awardsOf,
@@ -53,7 +53,7 @@ import {
   type AssertedAward,
   type PlayerGame,
 } from "./scoring/index.js";
-import type { SecondaryCard } from "./generated.js";
+import type { SecondaryCard, GameEvent } from "./generated.js";
 import {
   resolveLayout,
   TerrainResolveError,
@@ -565,6 +565,12 @@ function handleLinkedQuery(state: RunnerState, args: unknown): RunnerResponse {
       }
       case "ally_units_for":
         return ok(ds.allyUnitsFor(input.ruleId ?? "").map((u) => u.id));
+      case "reactive_trigger_ability_ids":
+        return ok(ds.reactiveTriggers().map((rt) => rt.abilityId));
+      case "events_with_triggers":
+        return ok([...ds.triggerIndex().keys()]);
+      case "triggers_for_event":
+        return ok((ds.triggerIndex().get((input.event ?? "") as GameEvent) ?? []).map((rt) => rt.abilityId));
       default:
         return err("INVALID_INPUT", { detail: `unknown linked_query: ${a.query}` });
     }
@@ -836,12 +842,16 @@ function handleTranslateEffect(args: unknown): RunnerResponse {
   if (typeof args !== "object" || args === null) {
     return err("INVALID_INPUT", { detail: "translate_effect args must be an object" });
   }
-  const a = args as { effect?: unknown; scope?: unknown; applies_to?: unknown };
+  const a = args as { effect?: unknown; scope?: unknown; usage?: unknown; trigger?: unknown; applies_to?: unknown };
   if (typeof a.effect !== "object" || a.effect === null) {
     return err("INVALID_INPUT", { detail: "translate_effect.effect must be an object" });
   }
   const scope =
     typeof a.scope === "object" && a.scope !== null ? (a.scope as AbilityScope) : undefined;
+  const usage =
+    typeof a.usage === "object" && a.usage !== null ? (a.usage as AbilityUsage) : undefined;
+  const trigger =
+    typeof a.trigger === "object" && a.trigger !== null ? (a.trigger as AbilityTrigger) : undefined;
   const appliesTo =
     typeof a.applies_to === "object" && a.applies_to !== null
       ? (a.applies_to as AbilityAppliesTo)
@@ -850,6 +860,8 @@ function handleTranslateEffect(args: unknown): RunnerResponse {
     text: describeAbility({
       effect: a.effect as Effect,
       ...(scope ? { scope } : {}),
+      ...(usage ? { usage } : {}),
+      ...(trigger ? { trigger } : {}),
       ...(appliesTo ? { applies_to: appliesTo } : {}),
     }),
   });

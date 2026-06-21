@@ -28,7 +28,6 @@ import type {
   TerrainLayout,
   TargetProfile,
   TerrainTemplate,
-  TimingFlag,
   Unit,
   UnitComposition,
   Wargear,
@@ -82,7 +81,6 @@ export interface RawData {
   /** Reusable model collision hulls (polygon footprints) referenced by id. */
   hullShapes: HullShape[];
   resourcePools: ResourcePool[];
-  timingFlags: TimingFlag[];
   interactionFlags: InteractionFlag[];
 }
 
@@ -115,7 +113,6 @@ export function emptyRawData(): RawData {
     terrainLayouts: [],
     hullShapes: [],
     resourcePools: [],
-    timingFlags: [],
     interactionFlags: [],
   };
 }

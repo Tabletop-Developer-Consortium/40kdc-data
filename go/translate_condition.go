@@ -29,51 +29,55 @@ func cstr(v any) string {
 
 func countNoun(n any, noun string) string { return cstr(n) + "+ " + noun + "s" }
 
-var timingPhrases = map[string]string{
-	"start-of-phase":                  "at the start of the phase",
-	"end-of-phase":                    "at the end of the phase",
-	"start-of-turn":                   "at the start of the turn",
-	"end-of-turn":                     "at the end of the turn",
-	"end-of-opponent-turn":            "at the end of the opponent's turn",
-	"start-of-battle-round":           "at the start of the battle round",
-	"start":                           "at the start of the turn",
-	"end":                             "at the end of the turn",
-	"command-phase":                   "in the Command phase",
-	"shooting-phase":                  "in the Shooting phase",
-	"on-model-destroyed":              "each time a model in this unit is destroyed",
-	"model-destroyed":                 "each time a model in this unit is destroyed",
-	"first-model-destroyed":           "the first time a model in this unit is destroyed",
-	"first-this-battle":               "the first time this battle",
-	"first-time-this-phase":           "the first time this phase",
-	"on-unit-destroyed":               "each time this unit is destroyed",
-	"on-destroyed":                    "each time this unit is destroyed",
-	"enemy-unit-destroyed-in-melee":   "each time an enemy unit is destroyed in melee",
-	"in-reserves":                     "while it is in Reserves",
-	"game-start-in-reserves":          "if it begins the battle in Reserves",
-	"starts-in-strategic-reserves":    "if it starts in Strategic Reserves",
-	"deep-strike-setup":               "when it is set up by Deep Strike",
-	"deep-strike":                     "when it is set up by Deep Strike",
-	"set-up-from-reserves":            "when it arrives from Reserves",
-	"arrives-from-strategic-reserves": "when it arrives from Strategic Reserves",
-	"reinforcements":                  "when it arrives as Reinforcements",
-	"reinforcements-step":             "during the Reinforcements step",
-	"post-deployment":                 "after deployment",
-	"declare-battle-formations":       "when declaring Battle Formations",
-	"normal-move":                     "when it makes a Normal move",
-	"advance-move":                    "when it makes an Advance move",
-	"advance":                         "when it Advances",
-	"fall-back-move":                  "when it makes a Fall Back move",
-	"fall-back":                       "when it Falls Back",
-	"charge-move":                     "when it makes a Charge move",
-	"once-per-battle":                 "once per battle",
-	"once-per-phase":                  "once per phase",
-	"once-per-opponent-turn":          "once per opponent's turn",
+// timingAliases maps legacy timing slugs onto canonical game-event ids so
+// describeTiming can share the eventPhrases table.
+var timingAliases = map[string]string{
+	"advance":                               "advances",
+	"after-attacks":                         "after-unit-resolves-attacks",
+	"after-attacking-unit-finishes-attacks": "after-unit-resolves-attacks",
+	"after-shooting":                        "after-unit-resolves-attacks",
+	"after-unit-shot":                       "after-unit-resolves-attacks",
+	"after-unit-has-shot":                   "after-unit-resolves-attacks",
+	"after-this-model-has-shot":             "after-unit-resolves-attacks",
+	"after-shot-hits-scored":                "after-scoring-hit",
+	"deep-strike":                           "deep-strike-setup",
+	"end":                                   "end-of-turn",
+	"start":                                 "start-of-turn",
+	"fall-back":                             "falls-back",
+	"model-destroyed":                       "on-model-destroyed",
+	"on-destroyed":                          "on-unit-destroyed",
+	"before-this-model-removed":             "before-bearer-removed",
+	"command-phase":                         "start-of-command-phase",
+	"reinforcements-step":                   "reinforcements",
+	"setup":                                 "unit-set-up",
+	"set-up-this-turn":                      "unit-set-up",
+	"after-move-through-terrain-over-4-inches": "moved-through-terrain",
+	"after-moving-through-tall-terrain":        "moved-through-terrain",
+}
+
+// timingOnlyPhrases are timing strings with no canonical game-event equivalent
+// but an established phrase (usage markers + a couple of phase/state gates).
+var timingOnlyPhrases = map[string]string{
+	"once-per-battle":        "once per battle",
+	"once-per-phase":         "once per phase",
+	"once-per-opponent-turn": "once per opponent's turn",
+	"first-this-battle":      "the first time this battle",
+	"first-time-this-phase":  "the first time this phase",
+	"in-reserves":            "while it is in Reserves",
+	"shooting-phase":         "in the Shooting phase",
 }
 
 func describeTiming(timing any) string {
 	t := cstr(timing)
-	if v, ok := timingPhrases[t]; ok {
-		return v
+	if p, ok := timingOnlyPhrases[t]; ok {
+		return p
+	}
+	canon := t
+	if a, ok := timingAliases[t]; ok {
+		canon = a
+	}
+	if p, ok := eventPhrases[canon]; ok {
+		return p
 	}
 	if strings.HasPrefix(t, "after-") {
 		return "after " + dekebab(t[6:])
@@ -85,6 +89,75 @@ func describeTiming(timing any) string {
 		return "each time " + dekebab(t)
 	}
 	return "at " + dekebab(t)
+}
+
+var eventPhrases = map[string]string{
+	"start-of-phase":                  "at the start of the phase",
+	"end-of-phase":                    "at the end of the phase",
+	"start-of-turn":                   "at the start of the turn",
+	"end-of-turn":                     "at the end of the turn",
+	"start-of-opponent-turn":          "at the start of the opponent's turn",
+	"end-of-opponent-turn":            "at the end of the opponent's turn",
+	"start-of-battle-round":           "at the start of the battle round",
+	"start-of-command-phase":          "at the start of the Command phase",
+	"declare-battle-formations":       "when declaring Battle Formations",
+	"post-deployment":                 "after deployment",
+	"unit-set-up":                     "when the unit is set up",
+	"set-up-from-reserves":            "when the unit arrives from Reserves",
+	"arrives-from-strategic-reserves": "when the unit arrives from Strategic Reserves",
+	"starts-in-strategic-reserves":    "if the unit starts in Strategic Reserves",
+	"game-start-in-reserves":          "if the unit begins the battle in Reserves",
+	"deep-strike-setup":               "when the unit is set up by Deep Strike",
+	"reinforcements":                  "when the unit arrives as Reinforcements",
+	"normal-move":                     "when the unit makes a Normal move",
+	"advance-move":                    "when the unit makes an Advance move",
+	"advances":                        "when the unit Advances",
+	"fall-back-move":                  "when the unit makes a Fall Back move",
+	"falls-back":                      "when the unit Falls Back",
+	"charge-move":                     "when the unit makes a Charge move",
+	"moved-through-terrain":           "when the unit moves through terrain",
+	"enemy-unit-ended-move":           "an enemy unit ends a move",
+	"enemy-unit-fell-back":            "an enemy unit Falls Back",
+	"before-hit-roll":                 "before a Hit roll is made",
+	"after-hit-roll":                  "after a Hit roll is made",
+	"before-wound-roll":               "before a Wound roll is made",
+	"after-wound-roll":                "after a Wound roll is made",
+	"before-save-roll":                "before a saving throw is made",
+	"after-save-roll":                 "after a saving throw is made",
+	"before-damage-roll":              "before a Damage roll is made",
+	"after-damage-roll":               "after a Damage roll is made",
+	"before-charge-roll":              "before a Charge roll is made",
+	"after-charge-roll":               "after a Charge roll is made",
+	"before-advance-roll":             "before an Advance roll is made",
+	"after-advance-roll":              "after an Advance roll is made",
+	"before-battle-shock":             "before a Battle-shock test",
+	"after-battle-shock":              "after a Battle-shock test",
+	"on-unit-selected":                "when the unit is selected",
+	"selected-to-shoot":               "when the unit is selected to shoot",
+	"selected-to-fight":               "when the unit is selected to fight",
+	"selected-to-advance":             "when the unit is selected to Advance",
+	"after-unit-resolves-attacks":     "after the unit resolves its attacks",
+	"after-scoring-hit":               "after scoring a hit",
+	"after-enemy-unit-fires":          "after an enemy unit shoots",
+	"on-unit-destroyed":               "when the unit is destroyed",
+	"on-model-destroyed":              "when a model in the unit is destroyed",
+	"first-model-destroyed":           "the first time a model in the unit is destroyed",
+	"before-bearer-removed":           "before this model is removed from play",
+	"enemy-unit-destroyed-in-melee":   "when an enemy unit is destroyed in melee",
+	"on-damage-allocated":             "when damage is allocated",
+	"battle-shock-test":               "when the unit takes a Battle-shock test",
+	"leadership-test":                 "when the unit takes a Leadership test",
+	"desperate-escape-test":           "when the unit takes a Desperate Escape test",
+}
+
+// eventClause maps a reactive-trigger event to its lead-in phrase; unmapped
+// events fall back to "when <dekebab>".
+func eventClause(event any) string {
+	e := cstr(event)
+	if v, ok := eventPhrases[e]; ok {
+		return v
+	}
+	return "when " + dekebab(e)
 }
 
 func describeCondition(c map[string]any) string {
@@ -137,7 +210,11 @@ func describeCondition(c map[string]any) string {
 	case "unit-below-starting-strength":
 		return negate + "the unit is below starting strength"
 	case "unit-below-half-strength":
-		return negate + "the unit is below half strength"
+		who := "unit"
+		if p["subject"] == "target" {
+			who = "target unit"
+		}
+		return negate + "the " + who + " is below half strength"
 	case "unit-has-keyword":
 		return negate + "the unit has \"" + cstr(p["keyword"]) + "\""
 	case "target-has-keyword":
@@ -249,6 +326,28 @@ func describeCondition(c map[string]any) string {
 		return negate + "the attack's " + sv(p["attacker_stat"]) + " is " + dekebab(sv(p["comparison"])) + " the target's " + sv(p["target_stat"])
 	case "made-ingress-move-this-turn":
 		return negate + "the unit made an ingress move this turn"
+	case "engagement-state":
+		if p["state"] == nil {
+			return negate + "the unit is within Engagement Range"
+		}
+		st := cstr(p["state"])
+		switch st {
+		case "on-battlefield":
+			return negate + "the unit is on the battlefield"
+		case "embarked":
+			return negate + "the unit is embarked"
+		case "engaged", "within-engagement-range", "in-engagement-range":
+			return negate + "the unit is within Engagement Range"
+		}
+		return negate + "the unit is " + dekebab(st)
+	case "disposition-matches":
+		d := cstr(p["disposition"])
+		if d == "strategic-reserves" {
+			return negate + "the unit is in Strategic Reserves"
+		}
+		return negate + "the unit's disposition is " + dekebab(d)
+	case "fights-first":
+		return negate + "the unit has Fights First"
 
 	// Scoring conditions.
 	case "objective-majority":

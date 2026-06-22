@@ -520,6 +520,88 @@ func conditionLeadIn(c map[string]any) string {
 	return "if " + describeCondition(c)
 }
 
+// describeRuleState renders a `rule-state` effect: a named rule switched on/off
+// for the subject. The faction-rule + suppressed path reproduces the legacy
+// `forgo-faction-rule` wording verbatim; core-rule slugs get natural
+// action/benefit phrasing; keyword/ability kinds fall back to a regular
+// gains/loses-the-X clause. Pinned across the four ports by conformance.
+func describeRuleState(m map[string]any, subj string) string {
+	direction := ejstr(m["direction"])
+	kind := ejstr(m["rule_kind"])
+	rule := ejstr(m["rule"])
+	granted := direction == "granted"
+
+	if kind == "faction-rule" && !granted {
+		scope := ""
+		if m["scope"] != nil {
+			scope = " this " + dekebab(ejstr(m["scope"]))
+		}
+		cost := ""
+		if c, ok := m["cost"].(map[string]any); ok && c["dice"] != nil {
+			frm := ""
+			if c["from"] != nil {
+				if ejstr(c["from"]) == rule {
+					frm = " from that roll"
+				} else {
+					frm = " from the " + titleCase(ejstr(c["from"])) + " roll"
+				}
+			}
+			cost = ", using a " + dekebab(ejstr(c["dice"])) + frm
+		}
+		return "forgo activating " + titleCase(rule) + scope + cost
+	}
+	if kind == "faction-rule" {
+		return subj + " " + ev(subj, "gains") + " " + titleCase(rule)
+	}
+
+	switch rule {
+	case "benefit-of-cover":
+		if granted {
+			return subj + " " + ev(subj, "has") + " the Benefit of Cover"
+		}
+		return subj + " cannot benefit from Cover"
+	case "charge":
+		if granted {
+			return subj + " can charge"
+		}
+		return subj + " cannot charge"
+	case "advance":
+		if granted {
+			return subj + " can Advance"
+		}
+		return subj + " cannot Advance"
+	case "fall-back":
+		if granted {
+			return subj + " can Fall Back"
+		}
+		return subj + " cannot Fall Back"
+	case "fire-overwatch":
+		if granted {
+			return subj + " can fire Overwatch"
+		}
+		return subj + " cannot fire Overwatch"
+	case "overwatch-against-bearer":
+		if granted {
+			return "your opponent can target " + subj + " with Overwatch"
+		}
+		return "your opponent cannot target " + subj + " with Overwatch"
+	case "desperate-escape":
+		if granted {
+			return subj + " must take Desperate Escape tests"
+		}
+		return subj + " " + ev(subj, "is") + " not affected by Desperate Escape tests"
+	}
+
+	noun := "ability"
+	if kind == "keyword" {
+		noun = "keyword"
+	}
+	if granted {
+		return subj + " " + ev(subj, "gains") + " the " + titleCase(rule) + " " + noun
+	}
+	return subj + " " + ev(subj, "loses") + " the " + titleCase(rule) + " " + noun
+}
+
 func describeAttackRestriction(m map[string]any, subj string) string {
 	if m["restriction"] == nil && m["restriction_type"] == nil && m["attack_type"] != nil {
 		return subj + " cannot " + ejstr(m["attack_type"])
@@ -1043,25 +1125,8 @@ func describeEffectInlineBase(e map[string]any, ctx map[string]any) string {
 			noun = "model"
 		}
 		return "destroy " + count + " " + noun + " in " + subj
-	case "forgo-faction-rule":
-		rule := titleCase(ejstr(m["rule"]))
-		scope := ""
-		if m["scope"] != nil {
-			scope = " this " + dekebab(ejstr(m["scope"]))
-		}
-		cost := ""
-		if c, ok := m["cost"].(map[string]any); ok && c["dice"] != nil {
-			frm := ""
-			if c["from"] != nil {
-				if ejstr(c["from"]) == ejstr(m["rule"]) {
-					frm = " from that roll"
-				} else {
-					frm = " from the " + titleCase(ejstr(c["from"])) + " roll"
-				}
-			}
-			cost = ", using a " + dekebab(ejstr(c["dice"])) + frm
-		}
-		return "forgo activating " + rule + scope + cost
+	case "rule-state":
+		return describeRuleState(m, subj)
 	case "cp-gain":
 		var a any = float64(1)
 		if m["amount"] != nil {

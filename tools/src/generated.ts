@@ -302,6 +302,18 @@ export type AbilityEffect1 =
 export type AbilityCondition4 = SimpleCondition | CompoundCondition;
 /**
  * This interface was referenced by `0KdcBundledSchemas`'s JSON-Schema
+ * via the `definition` "rule-state-core-rule-slug".
+ */
+export type RuleStateCoreRuleSlug =
+  | "benefit-of-cover"
+  | "fall-back"
+  | "advance"
+  | "charge"
+  | "fire-overwatch"
+  | "overwatch-against-bearer"
+  | "desperate-escape";
+/**
+ * This interface was referenced by `0KdcBundledSchemas`'s JSON-Schema
  * via the `definition` "effect".
  */
 export type AbilityEffect2 =
@@ -1061,7 +1073,7 @@ export interface SingleEffect {
     | "auto-result"
     | "firing-deck"
     | "disembark-after-move"
-    | "forgo-faction-rule";
+    | "rule-state";
   target:
     | "self"
     | "bearer"

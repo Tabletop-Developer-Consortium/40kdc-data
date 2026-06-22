@@ -3829,10 +3829,12 @@
             ]
           },
           "effect": {
-            "type": "ability-grant",
+            "type": "rule-state",
             "target": "defender",
             "modifier": {
-              "grant_type": "benefit-of-cover"
+              "direction": "granted",
+              "rule_kind": "core-rule",
+              "rule": "benefit-of-cover"
             }
           }
         }

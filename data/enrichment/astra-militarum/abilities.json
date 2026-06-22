@@ -5771,10 +5771,12 @@
     "ability_type": "stratagem",
     "behavior": "activated",
     "effect": {
-      "type": "ability-grant",
+      "type": "rule-state",
       "target": "all-enemy",
       "modifier": {
-        "grant_type": "deny-benefit-of-cover"
+        "direction": "suppressed",
+        "rule_kind": "core-rule",
+        "rule": "benefit-of-cover"
       }
     },
     "scope": {
@@ -6248,10 +6250,12 @@
       "type": "sequence",
       "steps": [
         {
-          "type": "ability-grant",
+          "type": "rule-state",
           "target": "all-enemy",
           "modifier": {
-            "grant_type": "deny-benefit-of-cover"
+            "direction": "suppressed",
+            "rule_kind": "core-rule",
+            "rule": "benefit-of-cover"
           }
         },
         {

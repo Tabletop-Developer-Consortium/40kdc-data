@@ -1337,10 +1337,12 @@
         }
       },
       "effect": {
-        "type": "ability-grant",
+        "type": "rule-state",
         "target": "self",
         "modifier": {
-          "grant_type": "ignores-lone-operative"
+          "direction": "suppressed",
+          "rule_kind": "ability",
+          "rule": "lone-operative"
         }
       }
     },

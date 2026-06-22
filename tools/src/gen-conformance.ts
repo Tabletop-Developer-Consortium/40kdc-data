@@ -1248,6 +1248,68 @@ function genEffectTranslation(): void {
       expected: { text: describeAbility({ effect: fc.effect as Effect, scope: fc.scope }) },
     });
   }
+  // rule-state: the auto-sample caps each node type at 5, so alphabetically-late
+  // abilities (Angron's reborn-in-blood faction-rule forgo) and the no-enrichment
+  // branches (faction-rule granted, keyword kind, desperate-escape, advance) fall
+  // out. Force-include one exemplar per distinct describer branch — most
+  // importantly the faction-rule + suppressed path, which reproduces the retired
+  // forgo-faction-rule wording (scope + cost) verbatim. Expected text comes from
+  // the reference describer, so a second impl must reproduce it.
+  const FORCED_RULE_STATE_CASES: { id: string; effect: Record<string, unknown>; scope: Record<string, unknown> }[] = [
+    {
+      id: "rule-state-forgo-faction-rule",
+      effect: { type: "rule-state", target: "self", modifier: { direction: "suppressed", rule_kind: "faction-rule", rule: "blessings-of-khorne", scope: "battle-round", cost: { dice: "triple-6", from: "blessings-of-khorne" } } },
+      scope: { range: "self", duration: "permanent" },
+    },
+    {
+      id: "rule-state-faction-rule-granted",
+      effect: { type: "rule-state", target: "self", modifier: { direction: "granted", rule_kind: "faction-rule", rule: "oath-of-moment" } },
+      scope: { range: "self", duration: "phase" },
+    },
+    {
+      id: "rule-state-cover-granted",
+      effect: { type: "rule-state", target: "self", modifier: { direction: "granted", rule_kind: "core-rule", rule: "benefit-of-cover" } },
+      scope: { range: "self", duration: "phase" },
+    },
+    {
+      id: "rule-state-advance-suppressed",
+      effect: { type: "rule-state", target: "unit", modifier: { direction: "suppressed", rule_kind: "core-rule", rule: "advance" } },
+      scope: { range: "unit", duration: "turn" },
+    },
+    {
+      id: "rule-state-overwatch-against-bearer",
+      effect: { type: "rule-state", target: "unit", modifier: { direction: "suppressed", rule_kind: "core-rule", rule: "overwatch-against-bearer" } },
+      scope: { range: "unit", duration: "phase" },
+    },
+    {
+      id: "rule-state-desperate-escape-granted",
+      effect: { type: "rule-state", target: "all-enemy", modifier: { direction: "granted", rule_kind: "core-rule", rule: "desperate-escape" } },
+      scope: { range: "engagement-range", duration: "phase" },
+    },
+    {
+      id: "rule-state-desperate-escape-suppressed",
+      effect: { type: "rule-state", target: "self", modifier: { direction: "suppressed", rule_kind: "core-rule", rule: "desperate-escape" } },
+      scope: { range: "self", duration: "turn" },
+    },
+    {
+      id: "rule-state-ability-granted",
+      effect: { type: "rule-state", target: "unit", modifier: { direction: "granted", rule_kind: "ability", rule: "lone-operative" } },
+      scope: { range: "unit", duration: "permanent" },
+    },
+    {
+      id: "rule-state-keyword-suppressed",
+      effect: { type: "rule-state", target: "unit", modifier: { direction: "suppressed", rule_kind: "keyword", rule: "infantry" } },
+      scope: { range: "unit", duration: "phase" },
+    },
+  ];
+  for (const fc of FORCED_RULE_STATE_CASES) {
+    cases.push({
+      caseId: `${fc.id}#${cases.length}`,
+      effect: fc.effect,
+      scope: fc.scope,
+      expected: { text: describeAbility({ effect: fc.effect as Effect, scope: fc.scope }) },
+    });
+  }
   // Batch B (structured modifiers): parameterized weapon keywords (Anti-X / rated),
   // auto-result, transport (firing-deck / disembark-after-move), and the ability-level
   // `usage` limit. Shapes 3/5/6 have no enrichment usage yet; pin them synthetically.

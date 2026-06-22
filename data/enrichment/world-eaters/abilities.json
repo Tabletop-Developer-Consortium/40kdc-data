@@ -2715,9 +2715,11 @@
         "type": "sequence",
         "steps": [
           {
-            "type": "forgo-faction-rule",
+            "type": "rule-state",
             "target": "self",
             "modifier": {
+              "direction": "suppressed",
+              "rule_kind": "faction-rule",
               "rule": "blessings-of-khorne",
               "scope": "battle-round",
               "cost": {
@@ -3619,10 +3621,12 @@
         }
       },
       "effect": {
-        "type": "ability-grant",
+        "type": "rule-state",
         "target": "unit",
         "modifier": {
-          "grant_type": "no-overwatch-against"
+          "direction": "suppressed",
+          "rule_kind": "core-rule",
+          "rule": "overwatch-against-bearer"
         }
       }
     },

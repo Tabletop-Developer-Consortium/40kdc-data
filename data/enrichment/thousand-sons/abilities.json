@@ -4387,10 +4387,12 @@
                 }
               },
               {
-                "type": "attack-restriction",
+                "type": "rule-state",
                 "target": "unit",
                 "modifier": {
-                  "restriction": "cannot-declare-charge"
+                  "direction": "suppressed",
+                  "rule_kind": "core-rule",
+                  "rule": "charge"
                 }
               }
             ]

@@ -471,6 +471,65 @@ def _condition_lead_in(c: Condition) -> str:
     return f"if {describe_condition(c)}"
 
 
+def _describe_rule_state(m: dict[str, Any], subj: str) -> str:
+    """``rule-state``: a named rule switched on/off for the subject. The
+    ``faction-rule`` + ``suppressed`` path reproduces the legacy
+    ``forgo-faction-rule`` wording verbatim; core-rule slugs get natural
+    action/benefit phrasing; keyword/ability kinds fall back to a regular
+    gains/loses-the-X clause. Pinned across the four ports by conformance."""
+    direction = _jstr(m.get("direction"))
+    kind = _jstr(m.get("rule_kind"))
+    rule = _jstr(m.get("rule"))
+    granted = direction == "granted"
+
+    if kind == "faction-rule" and not granted:
+        scope = f" this {dekebab(_jstr(m.get('scope')))}" if m.get("scope") is not None else ""
+        cost = ""
+        c = m.get("cost")
+        if isinstance(c, dict) and c.get("dice") is not None:
+            cfrom = c.get("from")
+            if cfrom is None:
+                frm = ""
+            elif _jstr(cfrom) == rule:
+                frm = " from that roll"
+            else:
+                frm = f" from the {_title_case(_jstr(cfrom))} roll"
+            cost = f", using a {dekebab(_jstr(c.get('dice')))}{frm}"
+        return f"forgo activating {_title_case(rule)}{scope}{cost}"
+    if kind == "faction-rule":
+        return f"{subj} {_v(subj, 'gains')} {_title_case(rule)}"
+
+    if rule == "benefit-of-cover":
+        if granted:
+            return f"{subj} {_v(subj, 'has')} the Benefit of Cover"
+        return f"{subj} cannot benefit from Cover"
+    if rule == "charge":
+        return f"{subj} can charge" if granted else f"{subj} cannot charge"
+    if rule == "advance":
+        return f"{subj} can Advance" if granted else f"{subj} cannot Advance"
+    if rule == "fall-back":
+        return f"{subj} can Fall Back" if granted else f"{subj} cannot Fall Back"
+    if rule == "fire-overwatch":
+        return f"{subj} can fire Overwatch" if granted else f"{subj} cannot fire Overwatch"
+    if rule == "overwatch-against-bearer":
+        return (
+            f"your opponent can target {subj} with Overwatch"
+            if granted
+            else f"your opponent cannot target {subj} with Overwatch"
+        )
+    if rule == "desperate-escape":
+        return (
+            f"{subj} must take Desperate Escape tests"
+            if granted
+            else f"{subj} {_v(subj, 'is')} not affected by Desperate Escape tests"
+        )
+
+    noun = "keyword" if kind == "keyword" else "ability"
+    if granted:
+        return f"{subj} {_v(subj, 'gains')} the {_title_case(rule)} {noun}"
+    return f"{subj} {_v(subj, 'loses')} the {_title_case(rule)} {noun}"
+
+
 def _describe_attack_restriction(m: dict[str, Any], subj: str) -> str:
     """Per-slug GW-prose for ``attack-restriction`` (reads ``restriction`` or
     ``restriction_type``)."""
@@ -889,21 +948,8 @@ def _describe_effect_inline_base(e: Effect, ctx: Ctx | None = None) -> str:
         count = _dice_case(m.get("count")) if m.get("count") is not None else "1"
         noun = "model" if count == "1" else "models"
         return f"destroy {count} {noun} in {subj}"
-    if etype == "forgo-faction-rule":
-        rule = _title_case(_jstr(m.get("rule")))
-        scope = f" this {dekebab(_jstr(m.get('scope')))}" if m.get("scope") is not None else ""
-        cost = ""
-        c = m.get("cost")
-        if isinstance(c, dict) and c.get("dice") is not None:
-            cfrom = c.get("from")
-            if cfrom is None:
-                frm = ""
-            elif _jstr(cfrom) == _jstr(m.get("rule")):
-                frm = " from that roll"
-            else:
-                frm = f" from the {_title_case(_jstr(cfrom))} roll"
-            cost = f", using a {dekebab(_jstr(c.get('dice')))}{frm}"
-        return f"forgo activating {rule}{scope}{cost}"
+    if etype == "rule-state":
+        return _describe_rule_state(m, subj)
     if etype == "cp-gain":
         return f"you gain {_jstr(m.get('amount') if m.get('amount') is not None else 1)}CP"
     if etype == "cp-refund":

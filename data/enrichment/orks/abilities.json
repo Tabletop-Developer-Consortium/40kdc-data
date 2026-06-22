@@ -642,10 +642,11 @@
                 }
               },
               {
-                "type": "ability-grant",
+                "type": "auto-result",
                 "target": "unit",
                 "modifier": {
-                  "grant_type": "desperate-escape-auto-pass"
+                  "test": "desperate-escape",
+                  "result": "pass"
                 }
               }
             ]
@@ -1641,10 +1642,12 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "attack-restriction",
+      "type": "rule-state",
       "target": "self",
       "modifier": {
-        "restriction": "fire-overwatch"
+        "direction": "suppressed",
+        "rule_kind": "core-rule",
+        "rule": "fire-overwatch"
       }
     },
     "scope": {
@@ -4081,10 +4084,12 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "ability-grant",
+      "type": "rule-state",
       "target": "self",
       "modifier": {
-        "grant_type": "benefit-of-cover"
+        "direction": "granted",
+        "rule_kind": "core-rule",
+        "rule": "benefit-of-cover"
       }
     },
     "scope": {

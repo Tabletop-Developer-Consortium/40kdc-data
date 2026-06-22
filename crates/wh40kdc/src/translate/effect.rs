@@ -555,6 +555,119 @@ fn condition_lead_in(n: &ConditionNode) -> String {
 }
 
 /// Per-slug GW-prose for `attack-restriction` (reads `restriction` or `restriction_type`).
+/// `rule-state`: a named rule switched on/off for the subject. The faction-rule
+/// + suppressed path reproduces the legacy `forgo-faction-rule` wording verbatim;
+/// core-rule slugs get natural action/benefit phrasing; keyword/ability kinds fall
+/// back to a regular gains/loses-the-X clause. Pinned across the four ports by
+/// the conformance corpus.
+fn describe_rule_state(m: &Map<String, Value>, subj: &str) -> String {
+    let direction = jv(m, "direction");
+    let kind = jv(m, "rule_kind");
+    let rule = jv(m, "rule");
+    let granted = direction == "granted";
+
+    if kind == "faction-rule" && !granted {
+        let scope = if notnull(m, "scope") {
+            format!(" this {}", dekebab(&jv(m, "scope")))
+        } else {
+            String::new()
+        };
+        let cost = match m.get("cost") {
+            Some(Value::Object(c)) if !c.get("dice").map(Value::is_null).unwrap_or(true) => {
+                let from = match c.get("from") {
+                    None | Some(Value::Null) => String::new(),
+                    Some(v) if jval(v) == rule => " from that roll".to_string(),
+                    Some(v) => format!(" from the {} roll", title_case(&jval(v))),
+                };
+                format!(
+                    ", using a {}{from}",
+                    dekebab(&c.get("dice").map(jval).unwrap_or_default())
+                )
+            }
+            _ => String::new(),
+        };
+        return format!("forgo activating {}{scope}{cost}", title_case(&rule));
+    }
+    if kind == "faction-rule" {
+        return format!("{subj} {} {}", agree(subj, "gains"), title_case(&rule));
+    }
+
+    match rule.as_str() {
+        "benefit-of-cover" => {
+            if granted {
+                format!("{subj} {} the Benefit of Cover", agree(subj, "has"))
+            } else {
+                format!("{subj} cannot benefit from Cover")
+            }
+        }
+        "charge" => {
+            if granted {
+                format!("{subj} can charge")
+            } else {
+                format!("{subj} cannot charge")
+            }
+        }
+        "advance" => {
+            if granted {
+                format!("{subj} can Advance")
+            } else {
+                format!("{subj} cannot Advance")
+            }
+        }
+        "fall-back" => {
+            if granted {
+                format!("{subj} can Fall Back")
+            } else {
+                format!("{subj} cannot Fall Back")
+            }
+        }
+        "fire-overwatch" => {
+            if granted {
+                format!("{subj} can fire Overwatch")
+            } else {
+                format!("{subj} cannot fire Overwatch")
+            }
+        }
+        "overwatch-against-bearer" => {
+            if granted {
+                format!("your opponent can target {subj} with Overwatch")
+            } else {
+                format!("your opponent cannot target {subj} with Overwatch")
+            }
+        }
+        "desperate-escape" => {
+            if granted {
+                format!("{subj} must take Desperate Escape tests")
+            } else {
+                format!(
+                    "{subj} {} not affected by Desperate Escape tests",
+                    agree(subj, "is")
+                )
+            }
+        }
+        _ => {
+            let noun = if kind == "keyword" {
+                "keyword"
+            } else {
+                "ability"
+            };
+            if granted {
+                format!(
+                    "{subj} {} the {} {noun}",
+                    agree(subj, "gains"),
+                    title_case(&rule)
+                )
+            } else {
+                format!(
+                    "{subj} {} the {} {noun}",
+                    agree(subj, "loses"),
+                    title_case(&rule)
+                )
+            }
+        }
+    }
+}
+
 fn describe_attack_restriction(m: &Map<String, Value>, subj: &str) -> String {
     if !notnull(m, "restriction") && !notnull(m, "restriction_type") && notnull(m, "attack_type") {
         return format!("{subj} cannot {}", jv(m, "attack_type"));
@@ -1152,29 +1265,7 @@ fn describe_single(e: &SingleEffect, ctx: &Ctx) -> String {
             let noun = if count == "1" { "model" } else { "models" };
             format!("destroy {count} {noun} in {subj}")
         }
-        T::ForgoFactionRule => {
-            let rule = title_case(&jv(m, "rule"));
-            let scope = if notnull(m, "scope") {
-                format!(" this {}", dekebab(&jv(m, "scope")))
-            } else {
-                String::new()
-            };
-            let cost = match m.get("cost") {
-                Some(Value::Object(c)) if !c.get("dice").map(Value::is_null).unwrap_or(true) => {
-                    let from = match c.get("from") {
-                        None | Some(Value::Null) => String::new(),
-                        Some(v) if jval(v) == jv(m, "rule") => " from that roll".to_string(),
-                        Some(v) => format!(" from the {} roll", title_case(&jval(v))),
-                    };
-                    format!(
-                        ", using a {}{from}",
-                        dekebab(&c.get("dice").map(jval).unwrap_or_default())
-                    )
-                }
-                _ => String::new(),
-            };
-            format!("forgo activating {rule}{scope}{cost}")
-        }
+        T::RuleState => describe_rule_state(m, &subj),
         T::CpGain => {
             let amount = first(m, &["amount"])
                 .map(jval)

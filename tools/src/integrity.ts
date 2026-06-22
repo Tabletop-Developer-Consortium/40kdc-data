@@ -199,6 +199,98 @@ export async function checkReferentialIntegrity(dataRoot?: string): Promise<Vali
     }
   }
 
+  // rule-state slug resolution beyond what JSON Schema can express. The schema
+  // pins `core-rule` slugs to a closed enum and leaves `keyword` free (the open
+  // keyword set), but `ability`/`faction-rule` slugs are free strings that must
+  // resolve to a real entity — the negative counterpart of unit `ability_id`
+  // resolution. Scope is GLOBAL (every ability id across all factions + core),
+  // because a suppression legitimately references another faction's ability
+  // (e.g. negating an enemy's Lone Operative); a same-faction check would falsely
+  // fail those cross-faction references. faction-rule slugs resolve against the
+  // `faction_rule_id` set declared on the factions.
+  const allAbilityIds = new Set<string>(coreAbilities);
+  const abilityFiles = await glob("enrichment/*/abilities.json", { cwd: root, absolute: true });
+  for (const f of abilityFiles) {
+    if (basename(dirname(f)).startsWith("_")) continue;
+    try {
+      for (const a of readArray<AbilityLike & { id?: string }>(f)) {
+        if (a.id) allAbilityIds.add(a.id);
+        if (a.ability_id) allAbilityIds.add(a.ability_id);
+      }
+    } catch {
+      // structural problems are the AJV pass's job
+    }
+  }
+  const factionRuleIds = new Set<string>();
+  for (const f of await glob("core/*/factions.json", { cwd: root, absolute: true })) {
+    try {
+      for (const fac of readArray<{ faction_rule_id?: string }>(f)) {
+        if (fac.faction_rule_id) factionRuleIds.add(fac.faction_rule_id);
+      }
+    } catch {
+      // skip unreadable faction files
+    }
+  }
+
+  /** Collect (rule_kind, rule) pairs from every rule-state effect in a value tree. */
+  const collectRuleStateRefs = (node: unknown, out: Array<{ kind: string; rule: string }>): void => {
+    if (Array.isArray(node)) {
+      for (const v of node) collectRuleStateRefs(v, out);
+    } else if (node !== null && typeof node === "object") {
+      const o = node as Record<string, unknown>;
+      if (o.type === "rule-state" && o.modifier !== null && typeof o.modifier === "object") {
+        const m = o.modifier as Record<string, unknown>;
+        if (typeof m.rule_kind === "string" && typeof m.rule === "string") {
+          out.push({ kind: m.rule_kind, rule: m.rule });
+        }
+      }
+      for (const v of Object.values(o)) collectRuleStateRefs(v, out);
+    }
+  };
+
+  for (const file of abilityFiles) {
+    const faction = basename(dirname(file));
+    if (faction.startsWith("_")) continue;
+    let abilities: Array<AbilityLike & { id?: string; effect?: unknown }>;
+    try {
+      abilities = readArray(file);
+    } catch {
+      continue;
+    }
+    if (!Array.isArray(abilities)) continue;
+
+    for (let i = 0; i < abilities.length; i++) {
+      const a = abilities[i];
+      const refs: Array<{ kind: string; rule: string }> = [];
+      collectRuleStateRefs(a.effect, refs);
+      // Only abilities carrying a rule-state ability/faction-rule slug have
+      // anything to resolve here; skip the rest so this check doesn't inflate the
+      // item counts the unit/wargear passes already own.
+      if (refs.length === 0) continue;
+      result.totalItems++;
+      const errs: Array<{ path: string; message: string }> = [];
+      for (const { kind, rule } of refs) {
+        if (kind === "ability" && !allAbilityIds.has(rule)) {
+          errs.push({
+            path: `/${i}/effect`,
+            message: `ability "${a.id ?? a.ability_id}": rule-state rule_kind:ability "${rule}" resolves to no ability entity in the dataset`,
+          });
+        } else if (kind === "faction-rule" && !factionRuleIds.has(rule)) {
+          errs.push({
+            path: `/${i}/effect`,
+            message: `ability "${a.id ?? a.ability_id}": rule-state rule_kind:faction-rule "${rule}" is not a declared faction_rule_id`,
+          });
+        }
+      }
+      if (errs.length > 0) {
+        result.failed++;
+        result.errors.push({ file, index: i, errors: errs });
+      } else {
+        result.passed++;
+      }
+    }
+  }
+
   // Wargear-option weapon refs must not carry a parser-corruption signature. This
   // guards against the "1 A and 1 B" choice-group severing recurring on any
   // future data regeneration or hand-edit.

@@ -36,11 +36,11 @@ abilities that translate into cruncher buffs via the real `effectToBuffs`
 
 ## Unsupported-effect reasons (offensive walk)
 
-- `492` — effect type "ability-grant" is not modelled by the buff layer
+- `486` — effect type "ability-grant" is not modelled by the buff layer
 - `171` — stat-modifier: operation "undefined" not supported
 - `150` — effect type "movement-modifier" is not modelled by the buff layer
 - `129` — effect type "mortal-wounds" is not modelled by the buff layer
-- `98` — effect type "attack-restriction" is not modelled by the buff layer
+- `83` — effect type "attack-restriction" is not modelled by the buff layer
 - `79` — effect type "leadership-modifier" is not modelled by the buff layer
 - `78` — conditional: cannot evaluate condition "undefined" against current context
 - `55` — effect type "resurrection" is not modelled by the buff layer
@@ -55,6 +55,7 @@ abilities that translate into cruncher buffs via the real `effectToBuffs`
 - `22` — effect type "fight-on-death" is not modelled by the buff layer
 - `22` — effect type "fight-first" is not modelled by the buff layer
 - `22` — stat-modifier on "M" is outside the damage path
+- `20` — effect type "rule-state" is not modelled by the buff layer
 - `18` — roll-modifier: operation "set" not supported
 - `14` — roll-modifier: operation "ignore-modifiers" not supported
 - `13` — conditional: cannot evaluate condition "unit-below-starting-strength" against current context
@@ -89,6 +90,7 @@ abilities that translate into cruncher buffs via the real `effectToBuffs`
 - `2` — stat-modifier on "detection-range" is outside the damage path
 - `2` — stat-modifier: operation "multiply" not supported
 - `2` — re-roll on "leadership" (subset …) is outside the damage path
+- `2` — effect type "auto-result" is not modelled by the buff layer
 - `2` — stat-modifier on "WS" is outside the damage path
 - `2` — re-roll on "blood-surge" (subset …) is outside the damage path
 - `2` — conditional: cannot evaluate condition "destroyed-by-attack-type" against current context

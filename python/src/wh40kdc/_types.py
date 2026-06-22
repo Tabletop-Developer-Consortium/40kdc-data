@@ -744,6 +744,17 @@ class Scaling(TypedDict):
     max_value: NotRequired[int]
 
 
+RuleStateCoreRuleSlug: TypeAlias = Literal[
+    "benefit-of-cover",
+    "fall-back",
+    "advance",
+    "charge",
+    "fire-overwatch",
+    "overwatch-against-bearer",
+    "desperate-escape",
+]
+
+
 class SingleEffect(TypedDict):
     type: Literal[
         "stat-modifier",
@@ -784,7 +795,7 @@ class SingleEffect(TypedDict):
         "auto-result",
         "firing-deck",
         "disembark-after-move",
-        "forgo-faction-rule",
+        "rule-state",
     ]
     target: Literal[
         "self",

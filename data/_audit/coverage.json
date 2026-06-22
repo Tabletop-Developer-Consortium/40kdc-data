@@ -278,7 +278,7 @@
   "unsupportedReasons": [
     {
       "reason": "effect type \"ability-grant\" is not modelled by the buff layer",
-      "count": 492
+      "count": 486
     },
     {
       "reason": "stat-modifier: operation \"undefined\" not supported",
@@ -294,7 +294,7 @@
     },
     {
       "reason": "effect type \"attack-restriction\" is not modelled by the buff layer",
-      "count": 98
+      "count": 83
     },
     {
       "reason": "effect type \"leadership-modifier\" is not modelled by the buff layer",
@@ -351,6 +351,10 @@
     {
       "reason": "stat-modifier on \"M\" is outside the damage path",
       "count": 22
+    },
+    {
+      "reason": "effect type \"rule-state\" is not modelled by the buff layer",
+      "count": 20
     },
     {
       "reason": "roll-modifier: operation \"set\" not supported",
@@ -486,6 +490,10 @@
     },
     {
       "reason": "re-roll on \"leadership\" (subset …) is outside the damage path",
+      "count": 2
+    },
+    {
+      "reason": "effect type \"auto-result\" is not modelled by the buff layer",
       "count": 2
     },
     {
@@ -1674,11 +1682,11 @@
       "faction": "adeptus-astartes",
       "ability_id": "judgement-of-the-weak",
       "name": "Judgement of the Weak",
-      "shape": "attack-restriction",
+      "shape": "rule-state",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"attack-restriction\" is not modelled by the buff layer"
+      "gap": "effect type \"rule-state\" is not modelled by the buff layer"
     },
     {
       "faction": "adeptus-astartes",
@@ -1714,11 +1722,11 @@
       "faction": "adeptus-astartes",
       "ability_id": "exploit-their-cowardice",
       "name": "Exploit Their Cowardice",
-      "shape": "attack-restriction",
+      "shape": "rule-state",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"attack-restriction\" is not modelled by the buff layer"
+      "gap": "effect type \"rule-state\" is not modelled by the buff layer"
     },
     {
       "faction": "adeptus-astartes",
@@ -2554,11 +2562,11 @@
       "faction": "adeptus-astartes",
       "ability_id": "cut-off-their-escape",
       "name": "Cut Off Their Escape",
-      "shape": "attack-restriction",
+      "shape": "rule-state",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"attack-restriction\" is not modelled by the buff layer"
+      "gap": "effect type \"rule-state\" is not modelled by the buff layer"
     },
     {
       "faction": "adeptus-astartes",
@@ -4884,11 +4892,11 @@
       "faction": "adeptus-astartes",
       "ability_id": "savage-frenzy",
       "name": "Savage Frenzy",
-      "shape": "attack-restriction",
+      "shape": "rule-state",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"attack-restriction\" is not modelled by the buff layer"
+      "gap": "effect type \"rule-state\" is not modelled by the buff layer"
     },
     {
       "faction": "adeptus-astartes",
@@ -5554,11 +5562,11 @@
       "faction": "adeptus-custodes",
       "ability_id": "corner-the-quarry",
       "name": "Corner the Quarry",
-      "shape": "attack-restriction",
+      "shape": "rule-state",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"attack-restriction\" is not modelled by the buff layer"
+      "gap": "effect type \"rule-state\" is not modelled by the buff layer"
     },
     {
       "faction": "adeptus-custodes",
@@ -8224,11 +8232,11 @@
       "faction": "aeldari",
       "ability_id": "no-escape",
       "name": "No Escape",
-      "shape": "attack-restriction",
+      "shape": "rule-state",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"attack-restriction\" is not modelled by the buff layer"
+      "gap": "effect type \"rule-state\" is not modelled by the buff layer"
     },
     {
       "faction": "aeldari",
@@ -12004,11 +12012,11 @@
       "faction": "astra-militarum",
       "ability_id": "shattering-salvo-steel-hammer",
       "name": "Shattering Salvo",
-      "shape": "ability-grant",
+      "shape": "rule-state",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"ability-grant\" is not modelled by the buff layer"
+      "gap": "effect type \"rule-state\" is not modelled by the buff layer"
     },
     {
       "faction": "astra-militarum",
@@ -12138,7 +12146,7 @@
       "stub": false,
       "offensive": true,
       "defensive": false,
-      "gap": "effect type \"ability-grant\" is not modelled by the buff layer"
+      "gap": "effect type \"rule-state\" is not modelled by the buff layer"
     },
     {
       "faction": "astra-militarum",
@@ -12714,11 +12722,11 @@
       "faction": "chaos-daemons",
       "ability_id": "bane-of-cowards",
       "name": "Bane of Cowards",
-      "shape": "attack-restriction",
+      "shape": "rule-state",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"attack-restriction\" is not modelled by the buff layer"
+      "gap": "effect type \"rule-state\" is not modelled by the buff layer"
     },
     {
       "faction": "chaos-daemons",
@@ -12834,11 +12842,11 @@
       "faction": "chaos-daemons",
       "ability_id": "soporific-musk",
       "name": "Soporific Musk",
-      "shape": "attack-restriction",
+      "shape": "rule-state",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"attack-restriction\" is not modelled by the buff layer"
+      "gap": "effect type \"rule-state\" is not modelled by the buff layer"
     },
     {
       "faction": "chaos-daemons",
@@ -13828,7 +13836,7 @@
       "stub": false,
       "offensive": true,
       "defensive": false,
-      "gap": "effect type \"ability-grant\" is not modelled by the buff layer"
+      "gap": "effect type \"rule-state\" is not modelled by the buff layer"
     },
     {
       "faction": "chaos-knights",
@@ -16694,11 +16702,11 @@
       "faction": "chaos-space-marines",
       "ability_id": "cut-off-their-escape",
       "name": "Cut Off Their Escape",
-      "shape": "attack-restriction",
+      "shape": "rule-state",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"attack-restriction\" is not modelled by the buff layer"
+      "gap": "effect type \"rule-state\" is not modelled by the buff layer"
     },
     {
       "faction": "chaos-space-marines",
@@ -19074,11 +19082,11 @@
       "faction": "drukhari",
       "ability_id": "no-escape",
       "name": "No Escape",
-      "shape": "attack-restriction",
+      "shape": "rule-state",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"attack-restriction\" is not modelled by the buff layer"
+      "gap": "effect type \"rule-state\" is not modelled by the buff layer"
     },
     {
       "faction": "drukhari",
@@ -20808,7 +20816,7 @@
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"attack-restriction\" is not modelled by the buff layer"
+      "gap": "effect type \"rule-state\" is not modelled by the buff layer"
     },
     {
       "faction": "genestealer-cults",
@@ -20914,11 +20922,11 @@
       "faction": "genestealer-cults",
       "ability_id": "grinding-line-breaker",
       "name": "Grinding Line-breaker",
-      "shape": "attack-restriction",
+      "shape": "rule-state",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"attack-restriction\" is not modelled by the buff layer"
+      "gap": "effect type \"rule-state\" is not modelled by the buff layer"
     },
     {
       "faction": "genestealer-cults",
@@ -22964,11 +22972,11 @@
       "faction": "leagues-of-votann",
       "ability_id": "merciless-eradication",
       "name": "Merciless Eradication",
-      "shape": "attack-restriction",
+      "shape": "rule-state",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"attack-restriction\" is not modelled by the buff layer"
+      "gap": "effect type \"rule-state\" is not modelled by the buff layer"
     },
     {
       "faction": "leagues-of-votann",
@@ -25424,11 +25432,11 @@
       "faction": "orks",
       "ability_id": "sneaky-gitz",
       "name": "Sneaky Gitz",
-      "shape": "attack-restriction",
+      "shape": "rule-state",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"attack-restriction\" is not modelled by the buff layer"
+      "gap": "effect type \"rule-state\" is not modelled by the buff layer"
     },
     {
       "faction": "orks",
@@ -26144,11 +26152,11 @@
       "faction": "orks",
       "ability_id": "ramshackle-cover",
       "name": "Ramshackle Cover",
-      "shape": "ability-grant",
+      "shape": "rule-state",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"ability-grant\" is not modelled by the buff layer"
+      "gap": "effect type \"rule-state\" is not modelled by the buff layer"
     },
     {
       "faction": "orks",
@@ -29674,11 +29682,11 @@
       "faction": "tyranids",
       "ability_id": "grasping-tendrils",
       "name": "Grasping Tendrils",
-      "shape": "attack-restriction",
+      "shape": "rule-state",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"attack-restriction\" is not modelled by the buff layer"
+      "gap": "effect type \"rule-state\" is not modelled by the buff layer"
     },
     {
       "faction": "tyranids",

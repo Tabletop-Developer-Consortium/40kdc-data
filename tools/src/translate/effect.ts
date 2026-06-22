@@ -887,23 +887,8 @@ function describeEffectInlineBase(e: Effect, ctx: Ctx = {}): string {
       const noun = count === "1" ? "model" : "models";
       return `destroy ${count} ${noun} in ${subj}`;
     }
-    case "forgo-faction-rule": {
-      const rule = titleCase(jstr(m.rule));
-      const scope = m.scope != null ? ` this ${dekebab(jstr(m.scope))}` : "";
-      let cost = "";
-      const c = m.cost;
-      if (c != null && typeof c === "object" && (c as Record<string, unknown>).dice != null) {
-        const cc = c as Record<string, unknown>;
-        const from =
-          cc.from == null
-            ? ""
-            : jstr(cc.from) === jstr(m.rule)
-              ? " from that roll"
-              : ` from the ${titleCase(jstr(cc.from))} roll`;
-        cost = `, using a ${dekebab(jstr(cc.dice))}${from}`;
-      }
-      return `forgo activating ${rule}${scope}${cost}`;
-    }
+    case "rule-state":
+      return describeRuleState(m, subj);
     case "cp-gain":
       return `you gain ${jstr(m.amount ?? 1)}CP`;
     case "cp-refund": {
@@ -1025,6 +1010,66 @@ function describeEffectInlineBase(e: Effect, ctx: Ctx = {}): string {
 }
 
 /** Per-slug GW-prose for `attack-restriction` (reads `restriction` or `restriction_type`). */
+/**
+ * `rule-state`: a named rule switched on/off for the subject. The `faction-rule`
+ * + `suppressed` path reproduces the legacy `forgo-faction-rule` phrasing
+ * verbatim (Angron "Reborn in Blood"); the core-rule slugs get natural
+ * action/benefit phrasing; keyword/ability kinds fall back to a regular
+ * gains/loses-the-X clause. Phrasing is pinned byte-for-byte across the four
+ * language ports by the conformance corpus.
+ */
+function describeRuleState(m: Record<string, unknown>, subj: string): string {
+  const dir = jstr(m.direction);
+  const kind = jstr(m.rule_kind);
+  const rule = jstr(m.rule);
+  const granted = dir === "granted";
+
+  // Faction-rule suppression keeps the original "forgo activating …" wording.
+  if (kind === "faction-rule" && !granted) {
+    const scope = m.scope != null ? ` this ${dekebab(jstr(m.scope))}` : "";
+    let cost = "";
+    const c = m.cost;
+    if (c != null && typeof c === "object" && (c as Record<string, unknown>).dice != null) {
+      const cc = c as Record<string, unknown>;
+      const from =
+        cc.from == null
+          ? ""
+          : jstr(cc.from) === rule
+            ? " from that roll"
+            : ` from the ${titleCase(jstr(cc.from))} roll`;
+      cost = `, using a ${dekebab(jstr(cc.dice))}${from}`;
+    }
+    return `forgo activating ${titleCase(rule)}${scope}${cost}`;
+  }
+  if (kind === "faction-rule") return `${subj} ${v(subj, "gains")} ${titleCase(rule)}`;
+
+  // Natural phrasing for the closed core-rule slug vocabulary.
+  switch (rule) {
+    case "benefit-of-cover":
+      return granted ? `${subj} ${v(subj, "has")} the Benefit of Cover` : `${subj} cannot benefit from Cover`;
+    case "charge":
+      return granted ? `${subj} can charge` : `${subj} cannot charge`;
+    case "advance":
+      return granted ? `${subj} can Advance` : `${subj} cannot Advance`;
+    case "fall-back":
+      return granted ? `${subj} can Fall Back` : `${subj} cannot Fall Back`;
+    case "fire-overwatch":
+      return granted ? `${subj} can fire Overwatch` : `${subj} cannot fire Overwatch`;
+    case "overwatch-against-bearer":
+      return granted ? `your opponent can target ${subj} with Overwatch` : `your opponent cannot target ${subj} with Overwatch`;
+    case "desperate-escape":
+      return granted
+        ? `${subj} must take Desperate Escape tests`
+        : `${subj} ${v(subj, "is")} not affected by Desperate Escape tests`;
+  }
+
+  // Ability / keyword kinds (every core-rule slug is cased above): regular clause.
+  const noun = kind === "keyword" ? "keyword" : "ability";
+  return granted
+    ? `${subj} ${v(subj, "gains")} the ${titleCase(rule)} ${noun}`
+    : `${subj} ${v(subj, "loses")} the ${titleCase(rule)} ${noun}`;
+}
+
 function describeAttackRestriction(m: Record<string, unknown>, subj: string): string {
   // Some entries express the restriction as a forbidden action (`attack_type: charge`).
   if (m.restriction == null && m.restriction_type == null && m.attack_type != null)

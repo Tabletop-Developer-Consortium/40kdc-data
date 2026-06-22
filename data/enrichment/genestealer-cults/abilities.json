@@ -1365,10 +1365,12 @@
         }
       },
       "effect": {
-        "type": "attack-restriction",
+        "type": "rule-state",
         "target": "self",
         "modifier": {
-          "restriction": "fire-overwatch"
+          "direction": "suppressed",
+          "rule_kind": "core-rule",
+          "rule": "fire-overwatch"
         }
       }
     },
@@ -1702,10 +1704,12 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "attack-restriction",
+      "type": "rule-state",
       "target": "enemy-within-aura",
       "modifier": {
-        "restriction": "anti-fallback"
+        "direction": "suppressed",
+        "rule_kind": "core-rule",
+        "rule": "fall-back"
       }
     },
     "scope": {

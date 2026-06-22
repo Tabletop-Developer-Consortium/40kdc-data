@@ -32,6 +32,19 @@
       "required": ["per", "of"],
       "additionalProperties": false
     },
+    "rule-state-core-rule-slug": {
+      "$comment": "Closed vocabulary of core-rule slugs a `rule-state` effect may toggle (rule_kind: core-rule). These are 10e CORE RULES/mechanics (not core abilities — those are entities, reached via rule_kind: ability). Finite, slow-moving; AJV-enforced, stripped from codegen. The slug — not direction/target — disambiguates active vs passive of the same rule: `fire-overwatch` (the bearer firing Overwatch) vs `overwatch-against-bearer` (the bearer being targeted by Overwatch). For rule_kind `ability`/`faction-rule` the slug is a free string resolved by integrity.ts against the matching entity; `keyword` is a free string (open keyword set).",
+      "type": "string",
+      "enum": [
+        "benefit-of-cover",
+        "fall-back",
+        "advance",
+        "charge",
+        "fire-overwatch",
+        "overwatch-against-bearer",
+        "desperate-escape"
+      ]
+    },
     "single-effect": {
       "type": "object",
       "properties": {
@@ -54,7 +67,7 @@
             "strategic-reserves-arrival", "remove-battle-shock",
             "unit-keyword-grant",
             "auto-result", "firing-deck", "disembark-after-move",
-            "forgo-faction-rule"
+            "rule-state"
           ]
         },
         "target": {
@@ -70,7 +83,7 @@
         "scaling": { "$ref": "#/$defs/scaling" }
       },
       "required": ["type", "target"],
-      "$comment": "Optional weapon narrowing on cruncher-interpreted modifiers (stat-modifier/roll-modifier/re-roll/keyword-grant): `weapon_type` ('melee'|'ranged'), `weapon_name` (one named weapon), or `weapon_keyword` (a weapon ability such as 'Torrent'|'Blast'|'Pistol' — restricts the effect to weapons carrying that keyword). When `type` is `re-roll`, `modifier` must carry `roll` (string) and `subset` (`ones` | `all-failures`). Rerolls always target failures; the subset decides whether only 1s are rerolled or every failed die. The constraint is enforced by AJV at validation time and stripped from the codegen bundle (typify can't model if/then/else) — the generated TS/Rust types therefore see `modifier` as an open object, matching its other-`type` callers. When `type` is `feel-no-pain`, `modifier` carries `threshold` (the FNP save target) and optionally `scope` ∈ {`all`, `mortal`}; an absent scope defaults to `all` (fires on every unsaved wound). The two scopes compose independently against the mortal-wound stream. Tag effects (`terrain-area-tag`, `objective-tag`, `unit-tag`) set a transient marker on the named subject; `modifier` carries `tag` (string) and optionally `source` ('this-action'|'destroying-unit') and `clears_on` ('turn-rollover'|'never'). `target` for tag effects names the kind of entity the tag is applied to ('unit', 'self') — a placeholder, since the marker target is the objective/terrain/unit specified by the action context, not a combat target. Parameterized weapon keywords on `keyword-grant`/`unit-keyword-grant`: a granted keyword may carry its rating either baked into the `keyword` string ('Sustained Hits 1') or structurally via `value` (Sustained Hits/Rapid Fire/Melta N); Anti-X keywords may use `anti_keyword` + `anti_threshold` (rendered '[ANTI-INFANTRY 4+]'). When `type` is `auto-result`, `modifier` carries `result` (`pass`|`fail`, or an integer the named roll counts as) plus `test` (e.g. 'battle-shock') or `roll` (e.g. 'hit'). When `type` is `firing-deck`, `modifier` carries `value` (the Firing Deck rating). `disembark-after-move` needs no modifier. When `type` is `forgo-faction-rule`, the controlling player skips activating a named faction rule (e.g. 'instead of activating any Blessings of Khorne'); `modifier` carries `rule` (the faction-rule slug forgone), optional `scope` (the window it is forgone for — e.g. 'battle-round'), and an optional `cost` object `{ dice, from }` describing the resource paid (e.g. a 'triple-6' taken `from` the 'blessings-of-khorne' roll).",
+      "$comment": "Optional weapon narrowing on cruncher-interpreted modifiers (stat-modifier/roll-modifier/re-roll/keyword-grant): `weapon_type` ('melee'|'ranged'), `weapon_name` (one named weapon), or `weapon_keyword` (a weapon ability such as 'Torrent'|'Blast'|'Pistol' — restricts the effect to weapons carrying that keyword). When `type` is `re-roll`, `modifier` must carry `roll` (string) and `subset` (`ones` | `all-failures`). Rerolls always target failures; the subset decides whether only 1s are rerolled or every failed die. The constraint is enforced by AJV at validation time and stripped from the codegen bundle (typify can't model if/then/else) — the generated TS/Rust types therefore see `modifier` as an open object, matching its other-`type` callers. When `type` is `feel-no-pain`, `modifier` carries `threshold` (the FNP save target) and optionally `scope` ∈ {`all`, `mortal`}; an absent scope defaults to `all` (fires on every unsaved wound). The two scopes compose independently against the mortal-wound stream. Tag effects (`terrain-area-tag`, `objective-tag`, `unit-tag`) set a transient marker on the named subject; `modifier` carries `tag` (string) and optionally `source` ('this-action'|'destroying-unit') and `clears_on` ('turn-rollover'|'never'). `target` for tag effects names the kind of entity the tag is applied to ('unit', 'self') — a placeholder, since the marker target is the objective/terrain/unit specified by the action context, not a combat target. Parameterized weapon keywords on `keyword-grant`/`unit-keyword-grant`: a granted keyword may carry its rating either baked into the `keyword` string ('Sustained Hits 1') or structurally via `value` (Sustained Hits/Rapid Fire/Melta N); Anti-X keywords may use `anti_keyword` + `anti_threshold` (rendered '[ANTI-INFANTRY 4+]'). When `type` is `auto-result`, `modifier` carries `result` (`pass`|`fail`, or an integer the named roll counts as) plus `test` (e.g. 'battle-shock') or `roll` (e.g. 'hit'). When `type` is `firing-deck`, `modifier` carries `value` (the Firing Deck rating). `disembark-after-move` needs no modifier. When `type` is `rule-state`, a named rule is switched on/off for `target`: `modifier` carries `direction` (`suppressed` | `granted`), `rule_kind` (`core-rule` | `keyword` | `ability` | `faction-rule`), `rule` (the rule slug — constrained to the closed core-rule vocabulary when `rule_kind` is `core-rule`; a free slug resolved by integrity.ts against the matching ability/faction-rule entity when `rule_kind` is `ability`/`faction-rule`; a free string when `rule_kind` is `keyword`), and — carried over from `forgo-faction-rule` — optional `scope` and `cost`. `target` names whose printed datasheet line the rule is a property OF (the rule-text attachment point), not a buff/debuff stance: a self-immunity is `self`, an aura debuff projected onto enemies is `enemy-within-aura`. `forgo-faction-rule` is exactly `rule-state` with `direction: suppressed`, `rule_kind: faction-rule`.",
       "allOf": [
         {
           "if": {
@@ -127,6 +140,46 @@
                 "type": "object",
                 "properties": { "value": { "type": "integer", "minimum": 1 } },
                 "required": ["value"]
+              }
+            },
+            "required": ["modifier"]
+          }
+        },
+        {
+          "if": {
+            "properties": { "type": { "const": "rule-state" } },
+            "required": ["type"]
+          },
+          "then": {
+            "properties": {
+              "modifier": {
+                "type": "object",
+                "properties": {
+                  "direction": { "type": "string", "enum": ["suppressed", "granted"] },
+                  "rule_kind": { "type": "string", "enum": ["core-rule", "keyword", "ability", "faction-rule"] },
+                  "rule": { "type": "string", "minLength": 1 },
+                  "scope": { "type": "string" },
+                  "cost": {
+                    "type": "object",
+                    "properties": {
+                      "dice": { "type": "string" },
+                      "from": { "type": "string" }
+                    },
+                    "required": ["dice"]
+                  }
+                },
+                "required": ["direction", "rule_kind", "rule"],
+                "allOf": [
+                  {
+                    "if": {
+                      "properties": { "rule_kind": { "const": "core-rule" } },
+                      "required": ["rule_kind"]
+                    },
+                    "then": {
+                      "properties": { "rule": { "$ref": "#/$defs/rule-state-core-rule-slug" } }
+                    }
+                  }
+                ]
               }
             },
             "required": ["modifier"]

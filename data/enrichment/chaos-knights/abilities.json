@@ -2227,10 +2227,11 @@
             "modifier": {}
           },
           {
-            "type": "ability-grant",
+            "type": "auto-result",
             "target": "friendly-within-aura",
             "modifier": {
-              "grant_type": "desperate-escape-auto-pass"
+              "test": "desperate-escape",
+              "result": "pass"
             }
           }
         ]
@@ -3713,10 +3714,11 @@
             }
           },
           {
-            "type": "ability-grant",
+            "type": "auto-result",
             "target": "unit",
             "modifier": {
-              "grant_type": "desperate-escape-auto-pass"
+              "test": "desperate-escape",
+              "result": "pass"
             }
           }
         ]
@@ -3832,10 +3834,12 @@
           }
         },
         {
-          "type": "ability-grant",
+          "type": "rule-state",
           "target": "unit",
           "modifier": {
-            "grant_type": "Benefit of Cover"
+            "direction": "granted",
+            "rule_kind": "core-rule",
+            "rule": "benefit-of-cover"
           }
         }
       ]

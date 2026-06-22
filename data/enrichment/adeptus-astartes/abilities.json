@@ -235,10 +235,12 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "attack-restriction",
+      "type": "rule-state",
       "target": "enemy-within-aura",
       "modifier": {
-        "restriction": "anti-fallback"
+        "direction": "suppressed",
+        "rule_kind": "core-rule",
+        "rule": "fall-back"
       }
     },
     "scope": {
@@ -362,10 +364,12 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "attack-restriction",
+      "type": "rule-state",
       "target": "enemy-within-aura",
       "modifier": {
-        "restriction": "anti-fallback"
+        "direction": "suppressed",
+        "rule_kind": "core-rule",
+        "rule": "fall-back"
       }
     },
     "scope": {
@@ -3211,10 +3215,12 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "attack-restriction",
+      "type": "rule-state",
       "target": "enemy-within-aura",
       "modifier": {
-        "restriction": "anti-fallback"
+        "direction": "suppressed",
+        "rule_kind": "core-rule",
+        "rule": "fall-back"
       }
     },
     "scope": {
@@ -4071,10 +4077,12 @@
             }
           },
           {
-            "type": "attack-restriction",
+            "type": "rule-state",
             "target": "unit",
             "modifier": {
-              "restriction": "cannot-charge"
+              "direction": "suppressed",
+              "rule_kind": "core-rule",
+              "rule": "charge"
             }
           }
         ]
@@ -4519,10 +4527,12 @@
             }
           },
           {
-            "type": "ability-grant",
+            "type": "rule-state",
             "target": "unit",
             "modifier": {
-              "grant_type": "remove-lone-operative"
+              "direction": "suppressed",
+              "rule_kind": "ability",
+              "rule": "lone-operative"
             }
           }
         ]
@@ -11140,10 +11150,12 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "attack-restriction",
+      "type": "rule-state",
       "target": "enemy-within-aura",
       "modifier": {
-        "restriction": "anti-fallback"
+        "direction": "suppressed",
+        "rule_kind": "core-rule",
+        "rule": "fall-back"
       }
     },
     "scope": {

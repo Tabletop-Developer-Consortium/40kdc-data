@@ -9143,6 +9143,108 @@ impl ::std::convert::TryFrom<::std::string::String> for ResourcePoolPoolType {
         value.parse()
     }
 }
+///`RuleStateCoreRuleSlug`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "string",
+///  "enum": [
+///    "benefit-of-cover",
+///    "fall-back",
+///    "advance",
+///    "charge",
+///    "fire-overwatch",
+///    "overwatch-against-bearer",
+///    "desperate-escape"
+///  ],
+///  "$comment": "Closed vocabulary of core-rule slugs a `rule-state` effect may toggle (rule_kind: core-rule). These are 10e CORE RULES/mechanics (not core abilities — those are entities, reached via rule_kind: ability). Finite, slow-moving; AJV-enforced, stripped from codegen. The slug — not direction/target — disambiguates active vs passive of the same rule: `fire-overwatch` (the bearer firing Overwatch) vs `overwatch-against-bearer` (the bearer being targeted by Overwatch). For rule_kind `ability`/`faction-rule` the slug is a free string resolved by integrity.ts against the matching entity; `keyword` is a free string (open keyword set)."
+///}
+/// ```
+/// </details>
+#[derive(
+    ::serde::Deserialize,
+    ::serde::Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd
+)]
+pub enum RuleStateCoreRuleSlug {
+    #[serde(rename = "benefit-of-cover")]
+    BenefitOfCover,
+    #[serde(rename = "fall-back")]
+    FallBack,
+    #[serde(rename = "advance")]
+    Advance,
+    #[serde(rename = "charge")]
+    Charge,
+    #[serde(rename = "fire-overwatch")]
+    FireOverwatch,
+    #[serde(rename = "overwatch-against-bearer")]
+    OverwatchAgainstBearer,
+    #[serde(rename = "desperate-escape")]
+    DesperateEscape,
+}
+impl ::std::fmt::Display for RuleStateCoreRuleSlug {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::BenefitOfCover => f.write_str("benefit-of-cover"),
+            Self::FallBack => f.write_str("fall-back"),
+            Self::Advance => f.write_str("advance"),
+            Self::Charge => f.write_str("charge"),
+            Self::FireOverwatch => f.write_str("fire-overwatch"),
+            Self::OverwatchAgainstBearer => f.write_str("overwatch-against-bearer"),
+            Self::DesperateEscape => f.write_str("desperate-escape"),
+        }
+    }
+}
+impl ::std::str::FromStr for RuleStateCoreRuleSlug {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "benefit-of-cover" => Ok(Self::BenefitOfCover),
+            "fall-back" => Ok(Self::FallBack),
+            "advance" => Ok(Self::Advance),
+            "charge" => Ok(Self::Charge),
+            "fire-overwatch" => Ok(Self::FireOverwatch),
+            "overwatch-against-bearer" => Ok(Self::OverwatchAgainstBearer),
+            "desperate-escape" => Ok(Self::DesperateEscape),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for RuleStateCoreRuleSlug {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for RuleStateCoreRuleSlug {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for RuleStateCoreRuleSlug {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
 ///Scales the effect's numeric `modifier.value`: it applies once per `per` of `of` (rounding `round`, default down), optionally capped at `max_value`. E.g. '+2 to the Attacks characteristic for every 5 enemy models within 6\"' → modifier.value 2 with scaling { per: 5, of: 'enemy-models-in-range', within_inches: 6 }.
 ///
 /// <details><summary>JSON schema</summary>
@@ -12277,11 +12379,11 @@ impl ::std::convert::TryFrom<::std::string::String> for SimpleConditionType {
 ///        "auto-result",
 ///        "firing-deck",
 ///        "disembark-after-move",
-///        "forgo-faction-rule"
+///        "rule-state"
 ///      ]
 ///    }
 ///  },
-///  "$comment": "Optional weapon narrowing on cruncher-interpreted modifiers (stat-modifier/roll-modifier/re-roll/keyword-grant): `weapon_type` ('melee'|'ranged'), `weapon_name` (one named weapon), or `weapon_keyword` (a weapon ability such as 'Torrent'|'Blast'|'Pistol' — restricts the effect to weapons carrying that keyword). When `type` is `re-roll`, `modifier` must carry `roll` (string) and `subset` (`ones` | `all-failures`). Rerolls always target failures; the subset decides whether only 1s are rerolled or every failed die. The constraint is enforced by AJV at validation time and stripped from the codegen bundle (typify can't model if/then/else) — the generated TS/Rust types therefore see `modifier` as an open object, matching its other-`type` callers. When `type` is `feel-no-pain`, `modifier` carries `threshold` (the FNP save target) and optionally `scope` ∈ {`all`, `mortal`}; an absent scope defaults to `all` (fires on every unsaved wound). The two scopes compose independently against the mortal-wound stream. Tag effects (`terrain-area-tag`, `objective-tag`, `unit-tag`) set a transient marker on the named subject; `modifier` carries `tag` (string) and optionally `source` ('this-action'|'destroying-unit') and `clears_on` ('turn-rollover'|'never'). `target` for tag effects names the kind of entity the tag is applied to ('unit', 'self') — a placeholder, since the marker target is the objective/terrain/unit specified by the action context, not a combat target. Parameterized weapon keywords on `keyword-grant`/`unit-keyword-grant`: a granted keyword may carry its rating either baked into the `keyword` string ('Sustained Hits 1') or structurally via `value` (Sustained Hits/Rapid Fire/Melta N); Anti-X keywords may use `anti_keyword` + `anti_threshold` (rendered '[ANTI-INFANTRY 4+]'). When `type` is `auto-result`, `modifier` carries `result` (`pass`|`fail`, or an integer the named roll counts as) plus `test` (e.g. 'battle-shock') or `roll` (e.g. 'hit'). When `type` is `firing-deck`, `modifier` carries `value` (the Firing Deck rating). `disembark-after-move` needs no modifier. When `type` is `forgo-faction-rule`, the controlling player skips activating a named faction rule (e.g. 'instead of activating any Blessings of Khorne'); `modifier` carries `rule` (the faction-rule slug forgone), optional `scope` (the window it is forgone for — e.g. 'battle-round'), and an optional `cost` object `{ dice, from }` describing the resource paid (e.g. a 'triple-6' taken `from` the 'blessings-of-khorne' roll)."
+///  "$comment": "Optional weapon narrowing on cruncher-interpreted modifiers (stat-modifier/roll-modifier/re-roll/keyword-grant): `weapon_type` ('melee'|'ranged'), `weapon_name` (one named weapon), or `weapon_keyword` (a weapon ability such as 'Torrent'|'Blast'|'Pistol' — restricts the effect to weapons carrying that keyword). When `type` is `re-roll`, `modifier` must carry `roll` (string) and `subset` (`ones` | `all-failures`). Rerolls always target failures; the subset decides whether only 1s are rerolled or every failed die. The constraint is enforced by AJV at validation time and stripped from the codegen bundle (typify can't model if/then/else) — the generated TS/Rust types therefore see `modifier` as an open object, matching its other-`type` callers. When `type` is `feel-no-pain`, `modifier` carries `threshold` (the FNP save target) and optionally `scope` ∈ {`all`, `mortal`}; an absent scope defaults to `all` (fires on every unsaved wound). The two scopes compose independently against the mortal-wound stream. Tag effects (`terrain-area-tag`, `objective-tag`, `unit-tag`) set a transient marker on the named subject; `modifier` carries `tag` (string) and optionally `source` ('this-action'|'destroying-unit') and `clears_on` ('turn-rollover'|'never'). `target` for tag effects names the kind of entity the tag is applied to ('unit', 'self') — a placeholder, since the marker target is the objective/terrain/unit specified by the action context, not a combat target. Parameterized weapon keywords on `keyword-grant`/`unit-keyword-grant`: a granted keyword may carry its rating either baked into the `keyword` string ('Sustained Hits 1') or structurally via `value` (Sustained Hits/Rapid Fire/Melta N); Anti-X keywords may use `anti_keyword` + `anti_threshold` (rendered '[ANTI-INFANTRY 4+]'). When `type` is `auto-result`, `modifier` carries `result` (`pass`|`fail`, or an integer the named roll counts as) plus `test` (e.g. 'battle-shock') or `roll` (e.g. 'hit'). When `type` is `firing-deck`, `modifier` carries `value` (the Firing Deck rating). `disembark-after-move` needs no modifier. When `type` is `rule-state`, a named rule is switched on/off for `target`: `modifier` carries `direction` (`suppressed` | `granted`), `rule_kind` (`core-rule` | `keyword` | `ability` | `faction-rule`), `rule` (the rule slug — constrained to the closed core-rule vocabulary when `rule_kind` is `core-rule`; a free slug resolved by integrity.ts against the matching ability/faction-rule entity when `rule_kind` is `ability`/`faction-rule`; a free string when `rule_kind` is `keyword`), and — carried over from `forgo-faction-rule` — optional `scope` and `cost`. `target` names whose printed datasheet line the rule is a property OF (the rule-text attachment point), not a buff/debuff stance: a self-immunity is `self`, an aura debuff projected onto enemies is `enemy-within-aura`. `forgo-faction-rule` is exactly `rule-state` with `direction: suppressed`, `rule_kind: faction-rule`."
 ///}
 /// ```
 /// </details>
@@ -12462,7 +12564,7 @@ impl ::std::convert::TryFrom<::std::string::String> for SingleEffectTarget {
 ///    "auto-result",
 ///    "firing-deck",
 ///    "disembark-after-move",
-///    "forgo-faction-rule"
+///    "rule-state"
 ///  ]
 ///}
 /// ```
@@ -12556,8 +12658,8 @@ pub enum SingleEffectType {
     FiringDeck,
     #[serde(rename = "disembark-after-move")]
     DisembarkAfterMove,
-    #[serde(rename = "forgo-faction-rule")]
-    ForgoFactionRule,
+    #[serde(rename = "rule-state")]
+    RuleState,
 }
 impl ::std::fmt::Display for SingleEffectType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
@@ -12600,7 +12702,7 @@ impl ::std::fmt::Display for SingleEffectType {
             Self::AutoResult => f.write_str("auto-result"),
             Self::FiringDeck => f.write_str("firing-deck"),
             Self::DisembarkAfterMove => f.write_str("disembark-after-move"),
-            Self::ForgoFactionRule => f.write_str("forgo-faction-rule"),
+            Self::RuleState => f.write_str("rule-state"),
         }
     }
 }
@@ -12648,7 +12750,7 @@ impl ::std::str::FromStr for SingleEffectType {
             "auto-result" => Ok(Self::AutoResult),
             "firing-deck" => Ok(Self::FiringDeck),
             "disembark-after-move" => Ok(Self::DisembarkAfterMove),
-            "forgo-faction-rule" => Ok(Self::ForgoFactionRule),
+            "rule-state" => Ok(Self::RuleState),
             _ => Err("invalid value".into()),
         }
     }

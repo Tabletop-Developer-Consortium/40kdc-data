@@ -1542,10 +1542,12 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "attack-restriction",
+      "type": "rule-state",
       "target": "enemy-within-aura",
       "modifier": {
-        "restriction": "anti-fallback"
+        "direction": "suppressed",
+        "rule_kind": "core-rule",
+        "rule": "fall-back"
       }
     },
     "scope": {
@@ -1998,10 +2000,12 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "attack-restriction",
+      "type": "rule-state",
       "target": "enemy-within-aura",
       "modifier": {
-        "restriction": "anti-fallback"
+        "direction": "suppressed",
+        "rule_kind": "core-rule",
+        "rule": "fall-back"
       }
     },
     "scope": {
@@ -5640,10 +5644,12 @@
         "type": "sequence",
         "steps": [
           {
-            "type": "ability-grant",
+            "type": "rule-state",
             "target": "unit",
             "modifier": {
-              "grant_type": "suppress-fights-first"
+              "direction": "suppressed",
+              "rule_kind": "ability",
+              "rule": "fights-first"
             }
           },
           {

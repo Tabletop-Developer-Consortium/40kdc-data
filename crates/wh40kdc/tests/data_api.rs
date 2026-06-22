@@ -411,8 +411,11 @@ fn terrain_catalog_and_layouts_are_embedded() {
     );
     assert!(ds.terrain_templates.get("wall-medium").is_none());
     assert!(ds.terrain_templates.get("scaffold").is_none());
-    assert!(ds.terrain_layouts.get("gw-11e-crucible").is_some());
-    assert!(ds.terrain_layouts.get("gw-11e-hammer-anvil").is_some());
+    assert!(ds.terrain_layouts.get("take-and-hold-mirror-1").is_some());
+    // removed: non-grid layouts (reference migrations + standalone) with no mission_matchup_id
+    assert!(ds.terrain_layouts.get("gw-11e-crucible").is_none());
+    assert!(ds.terrain_layouts.get("gw-11e-hammer-anvil").is_none());
+    assert!(ds.terrain_layouts.get("sweeping-engagement-1").is_none());
 }
 
 #[test]
@@ -420,8 +423,8 @@ fn resolve_terrain_produces_board_vertices() {
     let ds = Dataset::embedded();
     let layout = ds
         .terrain_layouts
-        .get("gw-11e-crucible")
-        .expect("crucible layout");
+        .get("take-and-hold-mirror-1")
+        .expect("take-and-hold-mirror-1 layout");
     let resolved = ds
         .resolve_terrain(layout)
         .expect("resolves against embedded catalog");

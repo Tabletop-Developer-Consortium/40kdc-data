@@ -54,7 +54,7 @@
   import AppFooter from "../../_shared/AppFooter.svelte";
   import { MISSION_MATRIX_URL, PATREON_URL, SALVO_URL } from "../../_shared/links.js";
 
-  const initialLayout = loadEmbedded("gw-11e-crucible", true) ?? blankLayout();
+  const initialLayout = loadEmbedded("take-and-hold-mirror-1", true) ?? blankLayout();
   let symmetric = $state(true);
   // Board-only visibility of the pinned keystone dimension lines; the pins
   // themselves stay on the pieces.

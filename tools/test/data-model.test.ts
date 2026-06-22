@@ -24,13 +24,16 @@ describe("terrain (embedded catalog + layout resolution)", () => {
     // removed in the catalog correction
     expect(dataset.terrainTemplates.get("wall-medium")).toBeUndefined();
     expect(dataset.terrainTemplates.get("scaffold")).toBeUndefined();
-    expect(dataset.terrainLayouts.get("gw-11e-crucible")).toBeDefined();
-    expect(dataset.terrainLayouts.get("gw-11e-hammer-anvil")).toBeDefined();
+    expect(dataset.terrainLayouts.get("take-and-hold-mirror-1")).toBeDefined();
+    // removed: non-grid layouts (reference migrations + standalone) with no mission_matchup_id
+    expect(dataset.terrainLayouts.get("gw-11e-crucible")).toBeUndefined();
+    expect(dataset.terrainLayouts.get("gw-11e-hammer-anvil")).toBeUndefined();
+    expect(dataset.terrainLayouts.get("sweeping-engagement-1")).toBeUndefined();
   });
 
   it("exposes the new layout classification fields", () => {
-    expect(dataset.terrainLayouts.get("gw-11e-crucible")!.deployment_pattern_id).toBe(
-      "crucible-of-battle",
+    expect(dataset.terrainLayouts.get("take-and-hold-mirror-1")!.deployment_pattern_id).toBe(
+      "tipping-point",
     );
     const sd = dataset.terrainLayouts.get("take-and-hold-vs-purge-the-foe-2")!;
     expect(sd.deployment_pattern_id).toBe("search-and-destroy");
@@ -39,7 +42,7 @@ describe("terrain (embedded catalog + layout resolution)", () => {
   });
 
   it("resolveTerrain produces on-board polygons (mirror of Rust resolve_terrain)", () => {
-    const layout = dataset.terrainLayouts.get("gw-11e-crucible")!;
+    const layout = dataset.terrainLayouts.get("take-and-hold-mirror-1")!;
     const resolved = dataset.resolveTerrain(layout);
     expect(resolved.length).toBeGreaterThan(0);
     for (const p of resolved) {

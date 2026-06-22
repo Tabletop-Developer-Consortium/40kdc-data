@@ -368,8 +368,12 @@ function runCoverage(dump: MfmDump): void {
     console.log(`Unmapped factions (no repo dir): ${cov.unmappedFactions.join(", ")}`);
 }
 
-async function runDispositionsCmd(dump: MfmDump, write: boolean): Promise<void> {
-  const report = runDispositions(dump, write);
+async function runDispositionsCmd(
+  dump: MfmDump,
+  write: boolean,
+  includeCombatPatrol = false
+): Promise<void> {
+  const report = runDispositions(dump, write, { includeCombatPatrol });
   fs.mkdirSync(REPORT_DIR, { recursive: true });
   const reportPath = path.join(REPORT_DIR, "mfm-dispositions.md");
   fs.writeFileSync(reportPath, buildDispReport(report, write));
@@ -380,6 +384,7 @@ async function runDispositionsCmd(dump: MfmDump, write: boolean): Promise<void> 
     JSON.stringify(
       {
         newInDump: report.newInDump,
+        combatPatrolExcluded: report.cpExcluded,
         repoOnly: report.dirs
           .filter((d) => d.unmatchedRepo.length)
           .map((d) => ({ dir: d.dir, ids: d.unmatchedRepo })),
@@ -395,14 +400,19 @@ async function runDispositionsCmd(dump: MfmDump, write: boolean): Promise<void> 
   console.log(
     `Matched ${sum((d) => d.matched)}, DP changed ${sum((d) => d.dpChanged.length)}, ` +
       `disposition changed ${sum((d) => d.dispChanged.length)}, ` +
-      `repo-only ${sum((d) => d.unmatchedRepo.length)}, new-in-dump ${report.newInDump.length}.`
+      `repo-only ${sum((d) => d.unmatchedRepo.length)}, new-in-dump ${report.newInDump.length}, ` +
+      `held back ${report.cpExcluded.length} Combat-Patrol.`
   );
   await applyWrites(report.staged, { write, label: "dispositions" });
   if (!write) console.log("DRY RUN — no files written. Re-run with --write to apply.");
 }
 
-async function runEnhancementsCmd(dump: MfmDump, write: boolean): Promise<void> {
-  const report = runEnhancements(dump, write);
+async function runEnhancementsCmd(
+  dump: MfmDump,
+  write: boolean,
+  includeCombatPatrol = false
+): Promise<void> {
+  const report = runEnhancements(dump, write, { includeCombatPatrol });
   fs.mkdirSync(REPORT_DIR, { recursive: true });
   const reportPath = path.join(REPORT_DIR, "mfm-enhancements.md");
   fs.writeFileSync(reportPath, buildEnhReport(report, write));
@@ -413,6 +423,7 @@ async function runEnhancementsCmd(dump: MfmDump, write: boolean): Promise<void> 
     JSON.stringify(
       {
         newInDump: report.newInDump,
+        combatPatrolExcluded: report.cpExcluded,
         repoOnly: report.dirs
           .filter((d) => d.unmatchedRepo.length)
           .map((d) => ({ dir: d.dir, ids: d.unmatchedRepo })),
@@ -428,7 +439,7 @@ async function runEnhancementsCmd(dump: MfmDump, write: boolean): Promise<void> 
   console.log(
     `Matched ${sum((d) => d.matched)}, cost changed ${sum((d) => d.costChanged.length)}, ` +
       `confirmed ${sum((d) => d.confirmed)}, repo-only ${sum((d) => d.unmatchedRepo.length)}, ` +
-      `new-in-dump ${report.newInDump.length}.`
+      `new-in-dump ${report.newInDump.length}, held back ${report.cpExcluded.length} Combat-Patrol.`
   );
   await applyWrites(report.staged, { write, label: "enhancements" });
   if (!write) console.log("DRY RUN — no files written. Re-run with --write to apply.");
@@ -769,8 +780,8 @@ async function main(): Promise<void> {
 
   const dump = loadDump(dumpPath);
   if (cmd === "coverage") runCoverage(dump);
-  else if (cmd === "dispositions") await runDispositionsCmd(dump, write);
-  else if (cmd === "enhancements") await runEnhancementsCmd(dump, write);
+  else if (cmd === "dispositions") await runDispositionsCmd(dump, write, includeCombatPatrol);
+  else if (cmd === "enhancements") await runEnhancementsCmd(dump, write, includeCombatPatrol);
   else if (cmd === "points") await runPointsCmd(dump, write);
   else if (cmd === "cull-legends") await runCullCmd(dump, write);
   else if (cmd === "stratagems") await runStratagemsCmd(dump, write);

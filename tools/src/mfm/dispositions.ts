@@ -60,6 +60,7 @@ export interface DirDispResult {
 export interface DispReport {
   dirs: DirDispResult[];
   newInDump: string[]; // dump detachment slugs with no repo entity anywhere
+  cpExcluded: string[]; // CP-only dump slugs held back from newInDump (default)
   staged: StagedWrite[];
 }
 
@@ -122,11 +123,36 @@ export function buildCanon(dump: MfmDump): {
   return { bySlug, overrideBySlugDir };
 }
 
+/**
+ * Slugs of the dump's Combat-Patrol-box detachments. These are detachments the
+ * repo intentionally does not author (mirroring how `seed-units` holds back
+ * Combat-Patrol datasheets), so they are filtered out of `newInDump` by default.
+ * Slugged exactly as `buildCanon` slugs detachment names so the ids line up.
+ */
+export function combatPatrolDetSlugs(dump: MfmDump): Set<string> {
+  const slugs = new Set<string>();
+  for (const det of dump.table<DetachmentRow>("detachment")) {
+    if (!det.isCombatPatrol) continue;
+    const name = dump.enName(det);
+    if (!name) continue;
+    try {
+      slugs.add(nameToId(name));
+    } catch {
+      continue;
+    }
+  }
+  return slugs;
+}
+
 function dispEqual(a: string[] = [], b: string[] = []): boolean {
   return a.length === b.length && [...a].sort().join("|") === [...b].sort().join("|");
 }
 
-export function runDispositions(dump: MfmDump, write: boolean): DispReport {
+export function runDispositions(
+  dump: MfmDump,
+  write: boolean,
+  opts: { includeCombatPatrol?: boolean } = {}
+): DispReport {
   const { bySlug, overrideBySlugDir } = buildCanon(dump);
   const matchedSlugs = new Set<string>();
   const dirs: DirDispResult[] = [];
@@ -176,12 +202,21 @@ export function runDispositions(dump: MfmDump, write: boolean): DispReport {
     dirs.push(res);
   }
 
-  const newInDump = [...bySlug.keys()].filter((s) => !matchedSlugs.has(s)).sort();
-  return { dirs, newInDump, staged };
+  const unmatched = [...bySlug.keys()].filter((s) => !matchedSlugs.has(s));
+  const cp = combatPatrolDetSlugs(dump);
+  const cpExcluded: string[] = [];
+  const newInDump: string[] = [];
+  for (const s of unmatched) {
+    if (!opts.includeCombatPatrol && cp.has(s)) cpExcluded.push(s);
+    else newInDump.push(s);
+  }
+  newInDump.sort();
+  cpExcluded.sort();
+  return { dirs, newInDump, cpExcluded, staged };
 }
 
 export function buildDispReport(report: DispReport, write: boolean): string {
-  const { dirs, newInDump } = report;
+  const { dirs, newInDump, cpExcluded } = report;
   const sum = (f: (d: DirDispResult) => number) => dirs.reduce((a, d) => a + f(d), 0);
   const L: string[] = [];
   L.push(`# MFM dispositions + detachment points — ${write ? "APPLIED" : "DRY RUN"}`);
@@ -223,6 +258,14 @@ export function buildDispReport(report: DispReport, write: boolean): string {
     L.push("## New detachments in dump (no repo entity — author in a follow-up)");
     L.push("");
     newInDump.forEach((s) => L.push(`- ${s}`));
+    L.push("");
+  }
+  if (cpExcluded.length) {
+    L.push(
+      `## Combat-Patrol detachments held back (${cpExcluded.length} — pass --include-combat-patrol to author)`
+    );
+    L.push("");
+    cpExcluded.forEach((s) => L.push(`- ${s}`));
     L.push("");
   }
   return L.join("\n") + "\n";

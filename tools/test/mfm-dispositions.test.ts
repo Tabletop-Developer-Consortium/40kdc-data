@@ -1,6 +1,11 @@
 import { describe, it, expect } from "vitest";
 import { MfmDump } from "../src/mfm/loader.js";
-import { buildCanon, dispositionIdMap } from "../src/mfm/dispositions.js";
+import {
+  buildCanon,
+  combatPatrolDetSlugs,
+  dispositionIdMap,
+  runDispositions,
+} from "../src/mfm/dispositions.js";
 
 /**
  * Canon-building joins the dump's detachment / disposition / per-faction DP-cost
@@ -28,6 +33,15 @@ function dump(): MfmDump {
           publicationId: "p",
           detachmentPointsCost: 3,
           localisations: { en: { name: "Stormlance Task Force" } },
+        },
+        {
+          // A Combat-Patrol-box detachment with a fabricated name that exists in
+          // no repo dir, so it always lands in the unmatched bucket.
+          id: "det-cp",
+          publicationId: "p",
+          isCombatPatrol: true,
+          detachmentPointsCost: 3,
+          localisations: { en: { name: "Synthetic Patrol Cadre" } },
         },
       ],
       detachment_force_disposition: [
@@ -60,5 +74,28 @@ describe("buildCanon", () => {
     const { overrideBySlugDir } = buildCanon(dump());
     expect(overrideBySlugDir.get("stormlance-task-force@@black-templars")).toBe(2);
     expect(overrideBySlugDir.get("stormlance-task-force@@adeptus-astartes")).toBeUndefined();
+  });
+});
+
+describe("combatPatrolDetSlugs", () => {
+  it("collects only the Combat-Patrol detachment slugs", () => {
+    const cp = combatPatrolDetSlugs(dump());
+    expect(cp.has("synthetic-patrol-cadre")).toBe(true);
+    expect(cp.has("berzerker-warband")).toBe(false);
+    expect(cp.size).toBe(1);
+  });
+});
+
+describe("runDispositions Combat-Patrol filtering", () => {
+  it("holds Combat-Patrol detachments out of newInDump by default", () => {
+    const report = runDispositions(dump(), false);
+    expect(report.newInDump).not.toContain("synthetic-patrol-cadre");
+    expect(report.cpExcluded).toContain("synthetic-patrol-cadre");
+  });
+
+  it("includes them when --include-combat-patrol is set", () => {
+    const report = runDispositions(dump(), false, { includeCombatPatrol: true });
+    expect(report.newInDump).toContain("synthetic-patrol-cadre");
+    expect(report.cpExcluded).toHaveLength(0);
   });
 });

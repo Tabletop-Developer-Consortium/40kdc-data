@@ -47,6 +47,7 @@ export interface DirEnhResult {
 export interface EnhReport {
   dirs: DirEnhResult[];
   newInDump: string[];
+  cpExcluded: string[]; // CP-only dump enhancement ids held back from newInDump (default)
   staged: StagedWrite[];
 }
 
@@ -79,7 +80,34 @@ export function buildEnhCanon(dump: MfmDump): Map<string, number> {
   return m;
 }
 
-export function runEnhancements(dump: MfmDump, write: boolean): EnhReport {
+/**
+ * Repo-ids of the dump's Combat-Patrol-box enhancements. These are intentionally
+ * not authored in the repo (mirroring how `seed-units`/`dispositions` hold back
+ * Combat-Patrol content), so they are filtered out of `newInDump` by default.
+ * Id'd exactly as `buildEnhCanon` keys its canon so the ids line up.
+ */
+export function combatPatrolEnhIds(dump: MfmDump): Set<string> {
+  const detName = dump.byId<DetachmentRow>("detachment");
+  const ids = new Set<string>();
+  for (const e of dump.table<EnhancementRow>("enhancement")) {
+    if (!e.isCombatPatrol) continue;
+    const en = dump.enName(e);
+    const dn = dump.enName(detName.get(e.detachmentId));
+    if (!en || !dn) continue;
+    try {
+      ids.add(detachmentScopedId(cleanEnhName(en), dn));
+    } catch {
+      /* unsluggable — skip */
+    }
+  }
+  return ids;
+}
+
+export function runEnhancements(
+  dump: MfmDump,
+  write: boolean,
+  opts: { includeCombatPatrol?: boolean } = {}
+): EnhReport {
   const canon = buildEnhCanon(dump);
   const matchedIds = new Set<string>();
   const dirs: DirEnhResult[] = [];
@@ -116,12 +144,21 @@ export function runEnhancements(dump: MfmDump, write: boolean): EnhReport {
     dirs.push(res);
   }
 
-  const newInDump = [...canon.keys()].filter((id) => !matchedIds.has(id)).sort();
-  return { dirs, newInDump, staged };
+  const unmatched = [...canon.keys()].filter((id) => !matchedIds.has(id));
+  const cp = combatPatrolEnhIds(dump);
+  const cpExcluded: string[] = [];
+  const newInDump: string[] = [];
+  for (const id of unmatched) {
+    if (!opts.includeCombatPatrol && cp.has(id)) cpExcluded.push(id);
+    else newInDump.push(id);
+  }
+  newInDump.sort();
+  cpExcluded.sort();
+  return { dirs, newInDump, cpExcluded, staged };
 }
 
 export function buildEnhReport(report: EnhReport, write: boolean): string {
-  const { dirs, newInDump } = report;
+  const { dirs, newInDump, cpExcluded } = report;
   const sum = (f: (d: DirEnhResult) => number) => dirs.reduce((a, d) => a + f(d), 0);
   const L: string[] = [];
   L.push(`# MFM enhancement costs — ${write ? "APPLIED" : "DRY RUN"}`);
@@ -158,6 +195,15 @@ export function buildEnhReport(report: EnhReport, write: boolean): string {
     L.push("");
     newInDump.slice(0, 200).forEach((s) => L.push(`- ${s}`));
     if (newInDump.length > 200) L.push(`- …and ${newInDump.length - 200} more`);
+    L.push("");
+  }
+  if (cpExcluded.length) {
+    L.push(
+      `## Combat-Patrol enhancements held back (${cpExcluded.length} — pass --include-combat-patrol to author)`
+    );
+    L.push("");
+    cpExcluded.slice(0, 200).forEach((s) => L.push(`- ${s}`));
+    if (cpExcluded.length > 200) L.push(`- …and ${cpExcluded.length - 200} more`);
     L.push("");
   }
   return L.join("\n") + "\n";

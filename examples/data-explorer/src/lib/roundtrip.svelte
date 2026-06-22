@@ -1,7 +1,10 @@
 <script lang="ts">
-  import { abilities } from "@alpaca-software/40kdc-data";
+  import { untrack } from "svelte";
+  import { abilities, units } from "@alpaca-software/40kdc-data";
+  import type { AbilityView } from "@alpaca-software/40kdc-data";
   import { explorer } from "./store.svelte.js";
   import { notes } from "./notes.svelte.js";
+  import { groupAbilities } from "./ability-groups.js";
   import {
     loadIndex,
     entryKind,
@@ -18,19 +21,93 @@
   let specInput = $state(explorer.sourceSpec);
   let copyState = $state<"idle" | "json" | "error">("idle");
 
-  const ability = $derived(
-    explorer.abilityId ? abilities.get(explorer.abilityId) : undefined,
+  // ── Collation scope ─────────────────────────────────────────────────────
+  // Whole-faction scope is the union of faction-scoped abilities and every
+  // ability that appears on a unit of the faction — the latter picks up shared
+  // `core` abilities, which carry no faction_id. Deduped by id, faction order
+  // first; unit scope is just the selected unit's abilities.
+  const scopeAbilities = $derived.by((): AbilityView[] => {
+    if (!explorer.roundtripAll) {
+      const u = explorer.unitId ? units.get(explorer.unitId) : undefined;
+      return u?.abilities ?? [];
+    }
+    if (!explorer.factionId) return [];
+    const seen = new Set<string>();
+    const out: AbilityView[] = [];
+    const push = (a: AbilityView): void => {
+      if (!seen.has(a.id)) {
+        seen.add(a.id);
+        out.push(a);
+      }
+    };
+    for (const a of abilities.byFaction(explorer.factionId)) push(a);
+    for (const u of units.byFaction(explorer.factionId))
+      for (const a of u.abilities) push(a);
+    return out;
+  });
+
+  const filtered = $derived.by((): AbilityView[] => {
+    const q = explorer.abilitySearch.trim().toLowerCase();
+    if (!q) return scopeAbilities;
+    return scopeAbilities.filter(
+      (a) => a.name.toLowerCase().includes(q) || a.id.toLowerCase().includes(q),
+    );
+  });
+
+  const groups = $derived(groupAbilities(filtered));
+  const total = $derived(filtered.length);
+
+  const scopeLabel = $derived(
+    explorer.roundtripAll
+      ? "this faction"
+      : (explorer.unitId ? units.get(explorer.unitId)?.name : null) ?? "this unit",
   );
-  const entry = $derived(
-    index && ability ? index[ability.id] : undefined,
-  );
-  const describer = $derived.by(() => {
-    if (!ability) return "";
+
+  function abilityTypeLabel(a: AbilityView): string {
+    const t = (a.raw.ability_type as string | undefined) ?? "unit";
+    return t.charAt(0).toUpperCase() + t.slice(1);
+  }
+
+  function describe(a: AbilityView): string {
     try {
-      return ability.describe();
+      return a.describe();
     } catch (e) {
       return `(describer error: ${e instanceof Error ? e.message : String(e)})`;
     }
+  }
+
+  // ── Expand / collapse ─────────────────────────────────────────────────────
+  let expanded = $state(new Set<string>());
+  let rowEls = $state<Record<string, HTMLDetailsElement>>({});
+
+  function setOpen(id: string, open: boolean): void {
+    const next = new Set(expanded);
+    if (open) next.add(id);
+    else next.delete(id);
+    expanded = next;
+  }
+  function expandAll(): void {
+    expanded = new Set(filtered.map((a) => a.id));
+  }
+  function collapseAll(): void {
+    expanded = new Set();
+  }
+
+  // An ability handed in via explorer.inspect() (the datacard QA button) opens
+  // its row and scrolls it into view, then clears the target — a one-shot keyed
+  // on abilityId, so a later manual collapse of the row isn't undone.
+  $effect(() => {
+    const id = explorer.abilityId;
+    if (!id) return;
+    untrack(() => {
+      if (!expanded.has(id)) {
+        const next = new Set(expanded);
+        next.add(id);
+        expanded = next;
+      }
+      rowEls[id]?.scrollIntoView({ block: "nearest" });
+    });
+    explorer.abilityId = null;
   });
 
   async function load(force = false): Promise<void> {
@@ -100,7 +177,6 @@
   }
 
   const exportCount = $derived(notes.exportableIds().length);
-  const note = $derived(ability ? notes.get(ability.id).note : "");
 </script>
 
 <div class="toolbar">
@@ -134,44 +210,77 @@
   {/if}
 </div>
 
-{#if !ability}
+<div class="collation-bar">
+  <span class="collation-count">{total} {total === 1 ? "ability" : "abilities"} · {scopeLabel}</span>
+  <span class="grow"></span>
+  <button onclick={expandAll} disabled={total === 0}>Expand all</button>
+  <button onclick={collapseAll} disabled={expanded.size === 0}>Collapse all</button>
+</div>
+
+{#if total === 0}
   <div class="empty-state">
-    Pick an ability from the list, or hit <b>QA</b> on any ability in the
-    datacard view to inspect its source text, DSL, and generated description here.
+    No abilities in scope. Pick a faction (and optionally a unit) on the left, or
+    widen the ability filter.
   </div>
 {:else}
-  <div class="notes-bar">
-    <b style="font-size:var(--text-sm)">{ability.name}</b>
-    <code>{ability.id}</code>
-    <button
-      class:flagged={notes.isFlagged(ability.id)}
-      onclick={() => notes.toggleFlag(ability.id)}
-    >{notes.isFlagged(ability.id) ? "⚑ Flagged" : "⚐ Flag"}</button>
-  </div>
+  <div class="collation">
+    {#each groups as group (group.label)}
+      <div class="collation-group">
+        <div class="section-label">{group.label} Abilities</div>
+        {#each group.abilities as a (a.id)}
+          {@const entry = index ? index[a.id] : undefined}
+          <details
+            class="collation-row"
+            bind:this={rowEls[a.id]}
+            open={expanded.has(a.id)}
+            ontoggle={(e) => setOpen(a.id, (e.currentTarget as HTMLDetailsElement).open)}
+          >
+            <summary>
+              <span class="chevron" aria-hidden="true">▶</span>
+              <span class="col-name">{a.name}</span>
+              <code class="col-id">{a.id}</code>
+              <span class="chip">{abilityTypeLabel(a)}</span>
+              <span class="col-actions">
+                <button
+                  class="icon-btn"
+                  class:flagged={notes.isFlagged(a.id)}
+                  title={notes.isFlagged(a.id) ? "Flagged for review" : "Flag for review"}
+                  onclick={(e) => { e.preventDefault(); notes.toggleFlag(a.id); }}
+                >{notes.isFlagged(a.id) ? "⚑" : "⚐"}</button>
+              </span>
+            </summary>
 
-  <textarea
-    placeholder="Note for the LLM — what's wrong with the DSL / describer for this ability?"
-    value={note}
-    oninput={(e) => notes.setNote(ability!.id, (e.target as HTMLTextAreaElement).value)}
-    style="width:100%;min-height:60px"
-  ></textarea>
+            {#if expanded.has(a.id)}
+              <div class="col-body">
+                <textarea
+                  placeholder="Note for the LLM — what's wrong with the DSL / describer for this ability?"
+                  value={notes.get(a.id).note}
+                  oninput={(e) => notes.setNote(a.id, (e.target as HTMLTextAreaElement).value)}
+                ></textarea>
 
-  <div class="panels">
-    <div class="panel">
-      <h3>Source text (GW rule)</h3>
-      {#if entryKind(entry) === "empty"}
-        <p class="muted-note">No source text for <code>{ability.id}</code> in this store.</p>
-      {:else}
-        <div class="prose">{entryToText(entry)}</div>
-      {/if}
-    </div>
-    <div class="panel">
-      <h3>Ability DSL</h3>
-      <pre>{JSON.stringify(ability.raw, null, 2)}</pre>
-    </div>
-    <div class="panel">
-      <h3>Describer output</h3>
-      <div class="prose">{describer || "(empty)"}</div>
-    </div>
+                <div class="panels">
+                  <div class="panel">
+                    <h3>Source text (GW rule)</h3>
+                    {#if entryKind(entry) === "empty"}
+                      <p class="muted-note">No source text for <code>{a.id}</code> in this store.</p>
+                    {:else}
+                      <div class="prose">{entryToText(entry)}</div>
+                    {/if}
+                  </div>
+                  <div class="panel">
+                    <h3>Ability DSL</h3>
+                    <pre>{JSON.stringify(a.raw, null, 2)}</pre>
+                  </div>
+                  <div class="panel">
+                    <h3>Describer output</h3>
+                    <div class="prose">{describe(a) || "(empty)"}</div>
+                  </div>
+                </div>
+              </div>
+            {/if}
+          </details>
+        {/each}
+      </div>
+    {/each}
   </div>
 {/if}

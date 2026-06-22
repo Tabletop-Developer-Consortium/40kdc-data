@@ -81,6 +81,11 @@ input:focus, select:focus, textarea:focus {
      1fr track stays viewport-bounded and overflow-y actually scrolls (without
      it, min-height:auto grows the track to content height and nothing scrolls). */
   .sidebar, .main { overflow-y: auto; min-height: 0; }
+  /* …and the flex children must NOT shrink: .datacard has overflow:hidden, so
+     its flex auto-min-height collapses to 0 and it clips its own content to fit
+     the viewport instead of letting .main scroll. flex-shrink:0 keeps each child
+     at content height so .main is what scrolls. */
+  .main > * { flex-shrink: 0; }
 }
 
 header.app-header { grid-area: header; }
@@ -409,6 +414,75 @@ table.weapons td.name { font-family: inherit; }
   flex-wrap: wrap;
 }
 .toolbar .grow { flex: 1; }
+
+/* ── Roundtrip collation ──────────────────────────────────────────────── */
+/* "All faction abilities" pseudo-entry pinned atop the unit list. */
+.unit-list .collation-all {
+  font-weight: 600;
+  color: var(--muted);
+  border-bottom: 1px solid var(--border);
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+  margin-bottom: 2px;
+}
+.unit-list .collation-all.active { color: var(--accent); border-color: var(--accent-dim); }
+
+.collation-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+.collation-bar .grow { flex: 1; }
+.collation-count {
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  color: var(--dim);
+}
+
+.collation { display: flex; flex-direction: column; gap: var(--space-3); max-width: 920px; }
+.collation-group { display: flex; flex-direction: column; gap: var(--space-1); }
+.collation-group .section-label { margin: var(--space-1) 0 0; }
+
+.collation-row {
+  background: var(--panel);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+.collation-row > summary {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-1) var(--space-2);
+  background: var(--panel-2);
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+}
+.collation-row > summary::-webkit-details-marker { display: none; }
+.collation-row > summary:hover { background: var(--panel-surface); }
+.collation-row[open] > summary { border-bottom: 1px solid var(--border); }
+.collation-row .chevron {
+  flex-shrink: 0;
+  font-size: 9px;
+  color: var(--muted);
+  transition: transform 180ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.collation-row[open] .chevron { transform: rotate(90deg); }
+.col-name { font-weight: 600; font-size: var(--text-xs); color: var(--text); white-space: nowrap; }
+.col-id {
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  color: var(--dim);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+}
+.col-actions { margin-left: auto; display: flex; gap: 4px; flex-shrink: 0; }
+
+.col-body { padding: var(--space-3); display: flex; flex-direction: column; gap: var(--space-2); }
+.col-body textarea { width: 100%; min-height: 56px; }
 
 /* ── Detachments section ──────────────────────────────────────────────── */
 .detach-block { max-width: 920px; display: flex; flex-direction: column; gap: var(--space-2); }

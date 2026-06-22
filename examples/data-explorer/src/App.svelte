@@ -1,10 +1,9 @@
 <script lang="ts">
-  import { units, abilities } from "@alpaca-software/40kdc-data";
+  import { units } from "@alpaca-software/40kdc-data";
   import AppHeader from "../../_shared/AppHeader.svelte";
   import AppFooter from "../../_shared/AppFooter.svelte";
   import { LIST_BUILDER_URL, SALVO_URL } from "../../_shared/links.js";
   import { explorer, sortedFactions } from "./lib/store.svelte.js";
-  import { notes } from "./lib/notes.svelte.js";
   import Datacard from "./lib/datacard.svelte";
   import Detachments from "./lib/detachments.svelte";
   import Roundtrip from "./lib/roundtrip.svelte";
@@ -44,20 +43,19 @@
     return `${cheapest}`;
   }
 
-  // Roundtrip sidebar: abilities of the selected unit by default, or a wider
-  // name/id search across the whole dataset (capped) when the box has text.
-  let abilitySearch = $state("");
-  const abilityResults = $derived.by(() => {
-    const q = abilitySearch.trim().toLowerCase();
-    if (q) {
-      return abilities.all
-        .filter(
-          (a) => a.name.toLowerCase().includes(q) || a.id.toLowerCase().includes(q),
-        )
-        .slice(0, 200);
-    }
-    return selectedUnit?.abilities ?? [];
-  });
+  // Picking a unit in Roundtrip also narrows the collation scope to that unit.
+  function selectUnit(id: string): void {
+    explorer.unitId = id;
+    if (explorer.view === "roundtrip") explorer.roundtripAll = false;
+  }
+
+  // A unit row is highlighted in Browse whenever it's the selected unit; in
+  // Roundtrip only when the collation is scoped to that unit (not "all").
+  function unitActive(id: string): boolean {
+    return explorer.view === "roundtrip"
+      ? !explorer.roundtripAll && id === explorer.unitId
+      : id === explorer.unitId;
+  }
 </script>
 
 <div class="app">
@@ -69,42 +67,39 @@
   </nav>
 
   <aside class="sidebar">
-    {#if explorer.view === "browse"}
-      <div class="section-label">Faction</div>
-      <select bind:value={explorer.factionId}>
-        {#each sortedFactions as f (f.id)}
-          <option value={f.id}>{f.name}</option>
-        {/each}
-      </select>
+    <div class="section-label">Faction</div>
+    <select bind:value={explorer.factionId}>
+      {#each sortedFactions as f (f.id)}
+        <option value={f.id}>{f.name}</option>
+      {/each}
+    </select>
 
-      <div class="section-label">Unit</div>
-      <input placeholder="Filter units…" bind:value={explorer.unitFilter} />
-      <div class="unit-list">
-        {#each filteredUnits as u (u.id)}
-          <button class:active={u.id === explorer.unitId} onclick={() => (explorer.unitId = u.id)}>
-            <span>{u.name}</span>
-            {#if pts(u)}<span class="pts">{pts(u)}</span>{/if}
-          </button>
-        {/each}
-        {#if filteredUnits.length === 0}
-          <p class="dim" style="font-size:var(--text-xs);padding:var(--space-2)">No units match.</p>
-        {/if}
-      </div>
-    {:else}
-      <div class="section-label">Ability</div>
-      <input placeholder="Search all abilities…" bind:value={abilitySearch} />
-      <div class="unit-list">
-        {#each abilityResults as a (a.id)}
-          <button class:active={a.id === explorer.abilityId} onclick={() => (explorer.abilityId = a.id)}>
-            <span>{a.name}{#if notes.isFlagged(a.id)} ⚑{/if}</span>
-          </button>
-        {/each}
-        {#if abilityResults.length === 0}
-          <p class="dim" style="font-size:var(--text-xs);padding:var(--space-2)">
-            {abilitySearch.trim() ? "No abilities match." : "Select a unit in Browse, or search above."}
-          </p>
-        {/if}
-      </div>
+    <div class="section-label">Unit</div>
+    <input placeholder="Filter units…" bind:value={explorer.unitFilter} />
+    <div class="unit-list">
+      {#if explorer.view === "roundtrip"}
+        <button
+          class="collation-all"
+          class:active={explorer.roundtripAll}
+          onclick={() => (explorer.roundtripAll = true)}
+        >
+          <span>✦ All faction abilities</span>
+        </button>
+      {/if}
+      {#each filteredUnits as u (u.id)}
+        <button class:active={unitActive(u.id)} onclick={() => selectUnit(u.id)}>
+          <span>{u.name}</span>
+          {#if pts(u)}<span class="pts">{pts(u)}</span>{/if}
+        </button>
+      {/each}
+      {#if filteredUnits.length === 0}
+        <p class="dim" style="font-size:var(--text-xs);padding:var(--space-2)">No units match.</p>
+      {/if}
+    </div>
+
+    {#if explorer.view === "roundtrip"}
+      <div class="section-label">Ability filter</div>
+      <input placeholder="Filter abilities by name or id…" bind:value={explorer.abilitySearch} />
     {/if}
   </aside>
 

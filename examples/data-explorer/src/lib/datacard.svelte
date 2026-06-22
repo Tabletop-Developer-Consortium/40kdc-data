@@ -2,6 +2,7 @@
   import type { UnitView, AbilityView } from "@alpaca-software/40kdc-data";
   import { explorer } from "./store.svelte.js";
   import { notes } from "./notes.svelte.js";
+  import { groupAbilities } from "./ability-groups.js";
 
   let { unit }: { unit: UnitView } = $props();
 
@@ -13,21 +14,7 @@
   const melee = $derived(unit.weapons.filter((w) => w.raw.type === "melee"));
 
   // ── Abilities grouped by type, in datasheet reading order ─────────────
-  const ABILITY_GROUPS: { label: string; types: string[] }[] = [
-    { label: "Core", types: ["core"] },
-    { label: "Faction", types: ["faction"] },
-    { label: "Datasheet", types: ["unit"] },
-    { label: "Other", types: ["detachment", "enhancement", "stratagem"] },
-  ];
-  const groupedAbilities = $derived(
-    ABILITY_GROUPS.map((g) => ({
-      label: g.label,
-      abilities: unit.abilities.filter((a) => {
-        const t = a.raw.ability_type ?? "unit";
-        return g.types.includes(t);
-      }),
-    })).filter((g) => g.abilities.length > 0),
-  );
+  const groupedAbilities = $derived(groupAbilities(unit.abilities));
 
   function kwLabel(
     name: string,

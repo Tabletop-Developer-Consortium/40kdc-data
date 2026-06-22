@@ -836,6 +836,34 @@ fn aura_clause(e: &AuraEffect, ctx: &Ctx) -> String {
     }
 }
 
+/// Resurrection `placement` modifier → a "where it is set up" clause.
+fn resurrection_placement(placement: Option<&Value>) -> String {
+    match placement {
+        None | Some(Value::Null) => String::new(),
+        Some(v) => match jval(v).as_str() {
+            "deep-strike" => "using its Deep Strike ability".to_string(),
+            "battlefield-edge" => "at a battlefield edge".to_string(),
+            "closest-to-destruction" => {
+                "as close as possible to where it was destroyed".to_string()
+            }
+            "unengaged" => "not within Engagement Range of any enemy units".to_string(),
+            other => format!("via {}", dekebab(other)),
+        },
+    }
+}
+
+/// Resurrection `timing` modifier → a "when it is set up" clause.
+fn resurrection_timing(timing: Option<&Value>) -> String {
+    match timing {
+        None | Some(Value::Null) => String::new(),
+        Some(v) => match jval(v).as_str() {
+            "next-movement-phase" => "in your next Movement phase".to_string(),
+            "end-of-phase" => "at the end of the phase".to_string(),
+            other => dekebab(other),
+        },
+    }
+}
+
 fn describe_single(e: &SingleEffect, ctx: &Ctx) -> String {
     let m = &e.modifier;
     let subj = subject(&e.target.to_string(), ctx);
@@ -1087,15 +1115,35 @@ fn describe_single(e: &SingleEffect, ctx: &Ctx) -> String {
             let count = first(m, &["count"])
                 .map(dice_case)
                 .unwrap_or_else(|| "1".to_string());
+            let wounds = first(m, &["wounds_remaining"])
+                .map(jval)
+                .unwrap_or_else(|| "full".to_string());
+            let place = resurrection_placement(m.get("placement"));
+            let when = resurrection_timing(m.get("timing"));
+            let tail = [place, when]
+                .into_iter()
+                .filter(|s| !s.is_empty())
+                .collect::<Vec<_>>()
+                .join(" ");
+            let tail_clause = if tail.is_empty() {
+                String::new()
+            } else {
+                format!(" {tail}")
+            };
+            // A self/bearer resurrection reads as the model returning, not "returning a model to itself".
+            let tgt = e.target.to_string();
+            if tgt == "self" || tgt == "bearer" {
+                return format!(
+                    "{subj} {} set up again{tail_clause} with {wounds} wounds remaining",
+                    agree(&subj, "is")
+                );
+            }
             let noun = if count == "1" {
                 "destroyed model"
             } else {
                 "destroyed models"
             };
-            let wounds = first(m, &["wounds_remaining"])
-                .map(jval)
-                .unwrap_or_else(|| "full".to_string());
-            format!("return {count} {noun} to {subj} with {wounds} wounds")
+            format!("return {count} {noun} to {subj} with {wounds} wounds{tail_clause}")
         }
         T::ModelDestruction => {
             let count = first(m, &["count"])
@@ -1103,6 +1151,29 @@ fn describe_single(e: &SingleEffect, ctx: &Ctx) -> String {
                 .unwrap_or_else(|| "1".to_string());
             let noun = if count == "1" { "model" } else { "models" };
             format!("destroy {count} {noun} in {subj}")
+        }
+        T::ForgoFactionRule => {
+            let rule = title_case(&jv(m, "rule"));
+            let scope = if notnull(m, "scope") {
+                format!(" this {}", dekebab(&jv(m, "scope")))
+            } else {
+                String::new()
+            };
+            let cost = match m.get("cost") {
+                Some(Value::Object(c)) if !c.get("dice").map(Value::is_null).unwrap_or(true) => {
+                    let from = match c.get("from") {
+                        None | Some(Value::Null) => String::new(),
+                        Some(v) if jval(v) == jv(m, "rule") => " from that roll".to_string(),
+                        Some(v) => format!(" from the {} roll", title_case(&jval(v))),
+                    };
+                    format!(
+                        ", using a {}{from}",
+                        dekebab(&c.get("dice").map(jval).unwrap_or_default())
+                    )
+                }
+                _ => String::new(),
+            };
+            format!("forgo activating {rule}{scope}{cost}")
         }
         T::CpGain => {
             let amount = first(m, &["amount"])

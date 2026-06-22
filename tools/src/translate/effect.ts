@@ -716,6 +716,36 @@ export function describeEffectInline(e: Effect, ctx: Ctx = {}): string {
   return e.scaling ? `${base} ${scalingClause(e.scaling)}` : base;
 }
 
+/** Resurrection `placement` modifier → a "where it is set up" clause. */
+function resurrectionPlacement(placement: unknown): string {
+  if (placement == null) return "";
+  switch (jstr(placement)) {
+    case "deep-strike":
+      return "using its Deep Strike ability";
+    case "battlefield-edge":
+      return "at a battlefield edge";
+    case "closest-to-destruction":
+      return "as close as possible to where it was destroyed";
+    case "unengaged":
+      return "not within Engagement Range of any enemy units";
+    default:
+      return `via ${dekebab(jstr(placement))}`;
+  }
+}
+
+/** Resurrection `timing` modifier → a "when it is set up" clause. */
+function resurrectionTiming(timing: unknown): string {
+  if (timing == null) return "";
+  switch (jstr(timing)) {
+    case "next-movement-phase":
+      return "in your next Movement phase";
+    case "end-of-phase":
+      return "at the end of the phase";
+    default:
+      return dekebab(jstr(timing));
+  }
+}
+
 /** The leaf/container switch; {@link describeEffectInline} wraps it to append scaling. */
 function describeEffectInlineBase(e: Effect, ctx: Ctx = {}): string {
   const m = e.modifier ?? {};
@@ -840,14 +870,39 @@ function describeEffectInlineBase(e: Effect, ctx: Ctx = {}): string {
     }
     case "resurrection": {
       const count = m.count != null ? diceCase(m.count) : "1";
-      const noun = count === "1" ? "destroyed model" : "destroyed models";
       const wounds = m.wounds_remaining ?? "full";
-      return `return ${count} ${noun} to ${subj} with ${jstr(wounds)} wounds`;
+      const place = resurrectionPlacement(m.placement);
+      const when = resurrectionTiming(m.timing);
+      const tail = [place, when].filter((s) => s.length > 0).join(" ");
+      const tailClause = tail ? ` ${tail}` : "";
+      // A self/bearer resurrection reads as the model returning, not "returning a model to itself".
+      if (e.target === "self" || e.target === "bearer") {
+        return `${subj} ${v(subj, "is")} set up again${tailClause} with ${jstr(wounds)} wounds remaining`;
+      }
+      const noun = count === "1" ? "destroyed model" : "destroyed models";
+      return `return ${count} ${noun} to ${subj} with ${jstr(wounds)} wounds${tailClause}`;
     }
     case "model-destruction": {
       const count = m.count != null ? diceCase(m.count) : "1";
       const noun = count === "1" ? "model" : "models";
       return `destroy ${count} ${noun} in ${subj}`;
+    }
+    case "forgo-faction-rule": {
+      const rule = titleCase(jstr(m.rule));
+      const scope = m.scope != null ? ` this ${dekebab(jstr(m.scope))}` : "";
+      let cost = "";
+      const c = m.cost;
+      if (c != null && typeof c === "object" && (c as Record<string, unknown>).dice != null) {
+        const cc = c as Record<string, unknown>;
+        const from =
+          cc.from == null
+            ? ""
+            : jstr(cc.from) === jstr(m.rule)
+              ? " from that roll"
+              : ` from the ${titleCase(jstr(cc.from))} roll`;
+        cost = `, using a ${dekebab(jstr(cc.dice))}${from}`;
+      }
+      return `forgo activating ${rule}${scope}${cost}`;
     }
     case "cp-gain":
       return `you gain ${jstr(m.amount ?? 1)}CP`;

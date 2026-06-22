@@ -2695,37 +2695,55 @@
     "effect": {
       "type": "conditional",
       "condition": {
-        "type": "timing-is",
-        "parameters": {
-          "timing": "start-of-phase"
-        }
+        "operator": "and",
+        "operands": [
+          {
+            "type": "faction-rule-active",
+            "parameters": {
+              "rule": "blessings-of-khorne"
+            }
+          },
+          {
+            "type": "timing-is",
+            "parameters": {
+              "timing": "on-unit-destroyed"
+            }
+          }
+        ]
       },
       "effect": {
-        "type": "conditional",
-        "condition": {
-          "type": "timing-is",
-          "parameters": {
-            "timing": "on-unit-destroyed"
+        "type": "sequence",
+        "steps": [
+          {
+            "type": "forgo-faction-rule",
+            "target": "self",
+            "modifier": {
+              "rule": "blessings-of-khorne",
+              "scope": "battle-round",
+              "cost": {
+                "dice": "triple-6",
+                "from": "blessings-of-khorne"
+              }
+            }
+          },
+          {
+            "type": "resurrection",
+            "target": "self",
+            "modifier": {
+              "wounds_remaining": 8,
+              "placement": "deep-strike",
+              "timing": "next-movement-phase"
+            }
           }
-        },
-        "effect": {
-          "type": "resurrection",
-          "target": "self",
-          "modifier": {
-            "wounds_remaining": 8,
-            "placement": "deep-strike",
-            "cost": "triple-6-blessings",
-            "timing": "next-movement-phase"
-          }
-        }
+        ]
       }
     },
     "scope": {
       "range": "self",
-      "duration": "battle"
+      "duration": "permanent"
     },
     "trigger": {
-      "event": "start-of-phase",
+      "event": "start-of-battle-round",
       "subject": "self",
       "optional": true
     }

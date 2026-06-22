@@ -784,6 +784,7 @@ class SingleEffect(TypedDict):
         "auto-result",
         "firing-deck",
         "disembark-after-move",
+        "forgo-faction-rule",
     ]
     target: Literal[
         "self",

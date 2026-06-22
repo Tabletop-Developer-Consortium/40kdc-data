@@ -1060,7 +1060,8 @@ export interface SingleEffect {
     | "unit-keyword-grant"
     | "auto-result"
     | "firing-deck"
-    | "disembark-after-move";
+    | "disembark-after-move"
+    | "forgo-faction-rule";
   target:
     | "self"
     | "bearer"

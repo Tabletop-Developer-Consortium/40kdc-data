@@ -699,6 +699,34 @@ def describe_effect_inline(e: Effect, ctx: Ctx | None = None) -> str:
     return f"{base} {_scaling_clause(scaling)}" if scaling else base
 
 
+def _resurrection_placement(placement: Any) -> str:
+    """Resurrection ``placement`` modifier → a "where it is set up" clause."""
+    if placement is None:
+        return ""
+    p = _jstr(placement)
+    if p == "deep-strike":
+        return "using its Deep Strike ability"
+    if p == "battlefield-edge":
+        return "at a battlefield edge"
+    if p == "closest-to-destruction":
+        return "as close as possible to where it was destroyed"
+    if p == "unengaged":
+        return "not within Engagement Range of any enemy units"
+    return f"via {dekebab(p)}"
+
+
+def _resurrection_timing(timing: Any) -> str:
+    """Resurrection ``timing`` modifier → a "when it is set up" clause."""
+    if timing is None:
+        return ""
+    t = _jstr(timing)
+    if t == "next-movement-phase":
+        return "in your next Movement phase"
+    if t == "end-of-phase":
+        return "at the end of the phase"
+    return dekebab(t)
+
+
 def _describe_effect_inline_base(e: Effect, ctx: Ctx | None = None) -> str:
     """The leaf/container switch; :func:`describe_effect_inline` wraps it to append scaling."""
     ctx = ctx or {}
@@ -846,14 +874,36 @@ def _describe_effect_inline_base(e: Effect, ctx: Ctx | None = None) -> str:
         return f"each time an attack targets {subj}, {how}"
     if etype == "resurrection":
         count = _dice_case(m.get("count")) if m.get("count") is not None else "1"
-        noun = "destroyed model" if count == "1" else "destroyed models"
         wounds = m.get("wounds_remaining")
         w = _jstr(wounds if wounds is not None else "full")
-        return f"return {count} {noun} to {subj} with {w} wounds"
+        place = _resurrection_placement(m.get("placement"))
+        when = _resurrection_timing(m.get("timing"))
+        tail = " ".join(p for p in (place, when) if p)
+        tail_clause = f" {tail}" if tail else ""
+        # Self/bearer resurrection reads as the model returning, not a model returned to itself.
+        if e.get("target") in ("self", "bearer"):
+            return f"{subj} {_v(subj, 'is')} set up again{tail_clause} with {w} wounds remaining"
+        noun = "destroyed model" if count == "1" else "destroyed models"
+        return f"return {count} {noun} to {subj} with {w} wounds{tail_clause}"
     if etype == "model-destruction":
         count = _dice_case(m.get("count")) if m.get("count") is not None else "1"
         noun = "model" if count == "1" else "models"
         return f"destroy {count} {noun} in {subj}"
+    if etype == "forgo-faction-rule":
+        rule = _title_case(_jstr(m.get("rule")))
+        scope = f" this {dekebab(_jstr(m.get('scope')))}" if m.get("scope") is not None else ""
+        cost = ""
+        c = m.get("cost")
+        if isinstance(c, dict) and c.get("dice") is not None:
+            cfrom = c.get("from")
+            if cfrom is None:
+                frm = ""
+            elif _jstr(cfrom) == _jstr(m.get("rule")):
+                frm = " from that roll"
+            else:
+                frm = f" from the {_title_case(_jstr(cfrom))} roll"
+            cost = f", using a {dekebab(_jstr(c.get('dice')))}{frm}"
+        return f"forgo activating {rule}{scope}{cost}"
     if etype == "cp-gain":
         return f"you gain {_jstr(m.get('amount') if m.get('amount') is not None else 1)}CP"
     if etype == "cp-refund":

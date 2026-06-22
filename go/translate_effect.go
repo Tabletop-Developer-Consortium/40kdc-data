@@ -190,6 +190,41 @@ func pronoun(subj string) string {
 	return "its"
 }
 
+// resurrectionPlacement renders a resurrection placement modifier
+// ("using its Deep Strike ability" / "at a battlefield edge").
+func resurrectionPlacement(placement any) string {
+	if placement == nil {
+		return ""
+	}
+	switch ejstr(placement) {
+	case "deep-strike":
+		return "using its Deep Strike ability"
+	case "battlefield-edge":
+		return "at a battlefield edge"
+	case "closest-to-destruction":
+		return "as close as possible to where it was destroyed"
+	case "unengaged":
+		return "not within Engagement Range of any enemy units"
+	default:
+		return "via " + dekebab(ejstr(placement))
+	}
+}
+
+// resurrectionTiming renders a resurrection timing modifier ("when it is set up").
+func resurrectionTiming(timing any) string {
+	if timing == nil {
+		return ""
+	}
+	switch ejstr(timing) {
+	case "next-movement-phase":
+		return "in your next Movement phase"
+	case "end-of-phase":
+		return "at the end of the phase"
+	default:
+		return dekebab(ejstr(timing))
+	}
+}
+
 func subject(target any, ctx map[string]any) string {
 	within := " nearby"
 	if ri := ctx["range_inches"]; ri != nil {
@@ -974,15 +1009,30 @@ func describeEffectInlineBase(e map[string]any, ctx map[string]any) string {
 		if m["count"] != nil {
 			count = diceCase(m["count"])
 		}
-		noun := "destroyed models"
-		if count == "1" {
-			noun = "destroyed model"
-		}
 		var w any = "full"
 		if m["wounds_remaining"] != nil {
 			w = m["wounds_remaining"]
 		}
-		return "return " + count + " " + noun + " to " + subj + " with " + ejstr(w) + " wounds"
+		var parts []string
+		if p := resurrectionPlacement(m["placement"]); p != "" {
+			parts = append(parts, p)
+		}
+		if t := resurrectionTiming(m["timing"]); t != "" {
+			parts = append(parts, t)
+		}
+		tailClause := ""
+		if len(parts) > 0 {
+			tailClause = " " + strings.Join(parts, " ")
+		}
+		// A self/bearer resurrection reads as the model returning, not "returning a model to itself".
+		if e["target"] == "self" || e["target"] == "bearer" {
+			return subj + " " + ev(subj, "is") + " set up again" + tailClause + " with " + ejstr(w) + " wounds remaining"
+		}
+		noun := "destroyed models"
+		if count == "1" {
+			noun = "destroyed model"
+		}
+		return "return " + count + " " + noun + " to " + subj + " with " + ejstr(w) + " wounds" + tailClause
 	case "model-destruction":
 		count := "1"
 		if m["count"] != nil {
@@ -993,6 +1043,25 @@ func describeEffectInlineBase(e map[string]any, ctx map[string]any) string {
 			noun = "model"
 		}
 		return "destroy " + count + " " + noun + " in " + subj
+	case "forgo-faction-rule":
+		rule := titleCase(ejstr(m["rule"]))
+		scope := ""
+		if m["scope"] != nil {
+			scope = " this " + dekebab(ejstr(m["scope"]))
+		}
+		cost := ""
+		if c, ok := m["cost"].(map[string]any); ok && c["dice"] != nil {
+			frm := ""
+			if c["from"] != nil {
+				if ejstr(c["from"]) == ejstr(m["rule"]) {
+					frm = " from that roll"
+				} else {
+					frm = " from the " + titleCase(ejstr(c["from"])) + " roll"
+				}
+			}
+			cost = ", using a " + dekebab(ejstr(c["dice"])) + frm
+		}
+		return "forgo activating " + rule + scope + cost
 	case "cp-gain":
 		var a any = float64(1)
 		if m["amount"] != nil {

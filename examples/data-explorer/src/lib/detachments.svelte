@@ -73,6 +73,7 @@
         <span class="detach-name">{d.raw.name}</span>
         <span class="detach-summary-meta">
           {#if d.raw.detachment_points != null}<span class="detach-pts">{d.raw.detachment_points} DP</span>{/if}
+          {#each d.dispositions as fd (fd.id)}<span class="chip accent">{fd.name}</span>{/each}
           {#each d.raw.tags ?? [] as t}<span class="chip">{titleCase(t)}</span>{/each}
           <span class="detach-counts">{d.enhancements.length}E · {d.stratagems.length}S</span>
         </span>

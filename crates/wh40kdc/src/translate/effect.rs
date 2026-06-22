@@ -22,6 +22,8 @@ use crate::generated::{
 #[derive(Default, Clone, Copy)]
 struct Ctx {
     range_inches: Option<f64>,
+    /// True when the ability scope is `engagement-range`, so within-aura subjects read "within Engagement Range".
+    engagement_range: bool,
 }
 
 /// JS-template stringification (`String(v)`; numbers print without `.0`, null → `?`).
@@ -284,6 +286,7 @@ fn pronoun(subj: &str) -> &'static str {
 fn subject(target: &str, ctx: &Ctx) -> String {
     let within = match ctx.range_inches {
         Some(r) => format!(" within {}\"", fmt_num(r)),
+        None if ctx.engagement_range => " within Engagement Range".to_string(),
         None => " nearby".to_string(),
     };
     match target {
@@ -377,10 +380,43 @@ fn negated_target_keywords(keywords: &[String]) -> String {
     format!("against a unit that is not a {}", keywords.join(" or "))
 }
 
-/// Join the operands of an `and` lead-in. A run of consecutive negated
-/// `target-has-keyword` exclusions collapses into one "against a unit that is not
-/// a X or Y" clause, which attaches to the preceding clause with a space; all
-/// other operands join with ", ".
+/// Capitalize the first character and lowercase the rest (`MONSTER` -> `Monster`).
+fn cap_word(s: &str) -> String {
+    let mut chars = s.chars();
+    match chars.next() {
+        Some(first) => first.to_uppercase().collect::<String>() + &chars.as_str().to_lowercase(),
+        None => String::new(),
+    }
+}
+
+/// The keyword of a `not`-wrapping-a-single-`target-has-keyword` operand, else None.
+/// The aura-subject exclusion encoding, distinct from the bare negated form.
+fn not_wrapped_target_keyword(n: &ConditionNode) -> Option<String> {
+    if let ConditionNode::CompoundCondition(c) = n {
+        if matches!(c.operator, CompoundConditionOperator::Not) && c.operands.len() == 1 {
+            if let ConditionNode::SimpleCondition(s) = &c.operands[0] {
+                if s.type_ == SimpleConditionType::TargetHasKeyword && !s.negated {
+                    return Some(jv(&s.parameters, "keyword"));
+                }
+            }
+        }
+    }
+    None
+}
+
+/// "(excluding Monster or Vehicle units)" from a run of `not`-wrapped exclusions.
+fn excluded_target_keywords(keywords: &[String]) -> String {
+    format!(
+        "(excluding {} units)",
+        keywords.iter().map(|k| cap_word(k)).collect::<Vec<_>>().join(" or ")
+    )
+}
+
+/// Join the operands of an `and` lead-in. Two exclusion encodings collapse: a run
+/// of bare-negated `target-has-keyword` becomes "against a unit that is not a X or
+/// Y", and a run of `not`-wrapped `target-has-keyword` becomes "(excluding X or Y
+/// units)". Either attaches to the preceding clause with a space; all other
+/// operands join with ", ".
 fn join_and_lead_ins(operands: &[ConditionNode]) -> String {
     let mut parts: Vec<String> = Vec::new();
     let mut i = 0;
@@ -403,6 +439,20 @@ fn join_and_lead_ins(operands: &[ConditionNode]) -> String {
                 continue;
             }
         }
+        if not_wrapped_target_keyword(&operands[i]).is_some() {
+            let mut kws: Vec<String> = Vec::new();
+            while i < operands.len() {
+                match not_wrapped_target_keyword(&operands[i]) {
+                    Some(kw) => {
+                        kws.push(kw);
+                        i += 1;
+                    }
+                    None => break,
+                }
+            }
+            parts.push(excluded_target_keywords(&kws));
+            continue;
+        }
         parts.push(condition_lead_in(&operands[i]));
         i += 1;
     }
@@ -410,7 +460,7 @@ fn join_and_lead_ins(operands: &[ConditionNode]) -> String {
     for part in parts {
         if acc.is_empty() {
             acc = part;
-        } else if part.starts_with("against ") {
+        } else if part.starts_with("against ") || part.starts_with("(excluding ") {
             acc = format!("{acc} {part}");
         } else {
             acc = format!("{acc}, {part}");
@@ -622,10 +672,16 @@ fn describe_rule_state(m: &Map<String, Value>, subj: &str) -> String {
             }
         }
         "ordered-retreat" => {
+            // GW frames this lever by its effect on Desperate Escape tests: suppressing
+            // Ordered Retreat forces the tests; granting it (e.g. while Battle-shocked)
+            // exempts the unit. Mirrors the `desperate-escape` slug wording.
             if granted {
-                format!("{subj} can make an Ordered Retreat")
+                format!(
+                    "{subj} {} not affected by Desperate Escape tests",
+                    agree(subj, "is")
+                )
             } else {
-                format!("{subj} cannot make an Ordered Retreat")
+                format!("{subj} must take Desperate Escape tests")
             }
         }
         "fire-overwatch" => {
@@ -1848,6 +1904,9 @@ fn render_top_level(
 ) -> String {
     let ctx = Ctx {
         range_inches: aura_radius(scope),
+        engagement_range: scope
+            .map(|s| matches!(s.range, ScopeRange::EngagementRange))
+            .unwrap_or(false),
     };
     let duration = scope.map(|s| s.duration.to_string()).unwrap_or_default();
     let (dur_lead, trail) = duration_clauses(&duration);

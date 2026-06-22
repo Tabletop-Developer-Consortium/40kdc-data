@@ -96,6 +96,8 @@ export interface AbilityLike {
 interface Ctx {
   /** Aura/blast radius in inches, for `*-within-aura` targets and within-range effects. */
   rangeInches?: number;
+  /** True when the ability scope is `engagement-range`, so within-aura subjects read "within Engagement Range". */
+  engagementRange?: boolean;
 }
 
 const CONTAINER_TYPES = new Set([
@@ -315,7 +317,12 @@ function formatComparison(comp: string, threshold: unknown): string {
  * noun phrase in GW datasheet voice.
  */
 function subject(target: string | undefined, ctx: Ctx): string {
-  const within = ctx.rangeInches != null ? ` within ${jstr(ctx.rangeInches)}"` : " nearby";
+  const within =
+    ctx.rangeInches != null
+      ? ` within ${jstr(ctx.rangeInches)}"`
+      : ctx.engagementRange
+        ? " within Engagement Range"
+        : " nearby";
   switch (target) {
     case "self":
     case "bearer":
@@ -430,13 +437,35 @@ function negatedTargetKeywords(keywords: string[]): string {
   return `against a unit that is not a ${keywords.join(" or ")}`;
 }
 
+/** Capitalize the first character and lowercase the rest (`MONSTER` -> `Monster`). */
+function capWord(s: string): string {
+  return s.length === 0 ? s : s[0].toUpperCase() + s.slice(1).toLowerCase();
+}
+
 /**
- * Join the operands of an `and` lead-in. A run of consecutive negated
- * `target-has-keyword` exclusions collapses into one "against a unit that is
- * not a X or Y" clause, and such a clause attaches to the preceding clause with
- * a space ("while making melee attacks" + exclusion reads "while making melee
- * attacks against a unit that is not a Monster or Vehicle"); all other operands
- * join with ", ".
+ * The keyword of a `not`-wrapping-a-single-`target-has-keyword` operand, else
+ * `null`. This is the aura-subject exclusion encoding (`not[target-has-keyword X]`),
+ * distinct from the bare `{negated:true, type:"target-has-keyword"}` form.
+ */
+function notWrappedTargetKeyword(op: Condition): string | null {
+  if (op.operator !== "not" || !op.operands || op.operands.length !== 1) return null;
+  const inner = op.operands[0];
+  if (inner.type !== "target-has-keyword" || inner.negated) return null;
+  return jstr((inner.parameters ?? {}).keyword);
+}
+
+/** "(excluding Monster or Vehicle units)" from a run of `not`-wrapped target-keyword exclusions. */
+function excludedTargetKeywords(keywords: string[]): string {
+  return `(excluding ${keywords.map(capWord).join(" or ")} units)`;
+}
+
+/**
+ * Join the operands of an `and` lead-in. Two exclusion encodings collapse into a
+ * single clause: a run of bare-negated `target-has-keyword` becomes "against a
+ * unit that is not a X or Y" (attack-context voice), and a run of `not`-wrapped
+ * `target-has-keyword` becomes "(excluding X or Y units)" (aura-subject voice,
+ * matching the `applies_to` "(excluding …)" idiom). Either collapsed clause
+ * attaches to the preceding clause with a space; all other operands join with ", ".
  */
 function joinAndLeadIns(operands: Condition[]): string {
   const parts: string[] = [];
@@ -451,11 +480,26 @@ function joinAndLeadIns(operands: Condition[]): string {
       parts.push(negatedTargetKeywords(kws));
       continue;
     }
+    if (notWrappedTargetKeyword(op) != null) {
+      const kws: string[] = [];
+      let kw: string | null;
+      while (i < operands.length && (kw = notWrappedTargetKeyword(operands[i])) != null) {
+        kws.push(kw);
+        i++;
+      }
+      parts.push(excludedTargetKeywords(kws));
+      continue;
+    }
     parts.push(conditionLeadIn(op));
     i++;
   }
   return parts.reduce(
-    (acc, part) => (acc === "" ? part : part.startsWith("against ") ? `${acc} ${part}` : `${acc}, ${part}`),
+    (acc, part) =>
+      acc === ""
+        ? part
+        : part.startsWith("against ") || part.startsWith("(excluding ")
+          ? `${acc} ${part}`
+          : `${acc}, ${part}`,
     ""
   );
 }
@@ -1054,7 +1098,12 @@ function describeRuleState(m: Record<string, unknown>, subj: string): string {
     case "fall-back":
       return granted ? `${subj} can Fall Back` : `${subj} cannot Fall Back`;
     case "ordered-retreat":
-      return granted ? `${subj} can make an Ordered Retreat` : `${subj} cannot make an Ordered Retreat`;
+      // GW frames this lever by its effect on Desperate Escape tests: suppressing
+      // Ordered Retreat forces the tests; granting it (e.g. while Battle-shocked)
+      // exempts the unit. Mirrors the `desperate-escape` slug wording.
+      return granted
+        ? `${subj} ${v(subj, "is")} not affected by Desperate Escape tests`
+        : `${subj} must take Desperate Escape tests`;
     case "fire-overwatch":
       return granted ? `${subj} can fire Overwatch` : `${subj} cannot fire Overwatch`;
     case "overwatch-against-bearer":
@@ -1224,7 +1273,7 @@ function renderTopLevel(
   usage?: AbilityUsage | null,
   trigger?: AbilityTrigger | null,
 ): string {
-  const ctx: Ctx = { rangeInches: auraRadius(scope) };
+  const ctx: Ctx = { rangeInches: auraRadius(scope), engagementRange: scope?.range === "engagement-range" };
   const { lead: durLead, trail } = durationClauses(scope?.duration);
   // An explicit usage limit supersedes the duration's coarse "once per battle" lead.
   const lead = usage && usage.frequency != null ? usageClause(usage) : durLead;

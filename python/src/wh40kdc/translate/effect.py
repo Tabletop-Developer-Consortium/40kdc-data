@@ -190,7 +190,12 @@ def _pronoun(subj: str) -> str:
 
 def _subject(target: str | None, ctx: Ctx) -> str:
     ri = ctx.get("range_inches")
-    within = f' within {_jstr(ri)}"' if ri is not None else " nearby"
+    if ri is not None:
+        within = f' within {_jstr(ri)}"'
+    elif ctx.get("engagement_range"):
+        within = " within Engagement Range"
+    else:
+        within = " nearby"
     if target in ("self", "bearer"):
         return "this model"
     if target == "unit":
@@ -334,10 +339,35 @@ def _negated_target_keywords(keywords: list[str]) -> str:
     return "against a unit that is not a " + " or ".join(keywords)
 
 
+def _cap_word(s: str) -> str:
+    """Capitalize the first character and lowercase the rest (`MONSTER` -> `Monster`)."""
+    return s[:1].upper() + s[1:].lower() if s else s
+
+
+def _not_wrapped_target_keyword(op: Condition) -> str | None:
+    """The keyword of a `not`-wrapping-a-single-`target-has-keyword` operand, else None.
+    The aura-subject exclusion encoding, distinct from the bare negated form."""
+    if op.get("operator") != "not":
+        return None
+    operands = op.get("operands")
+    if not operands or len(operands) != 1:
+        return None
+    inner = operands[0]
+    if inner.get("type") != "target-has-keyword" or inner.get("negated"):
+        return None
+    return _jstr((inner.get("parameters") or {}).get("keyword"))
+
+
+def _excluded_target_keywords(keywords: list[str]) -> str:
+    """"(excluding Monster or Vehicle units)" from a run of `not`-wrapped exclusions."""
+    return "(excluding " + " or ".join(_cap_word(k) for k in keywords) + " units)"
+
+
 def _join_and_lead_ins(operands: list[Condition]) -> str:
-    """Join `and` operands. A run of negated target-has-keyword exclusions collapses
-    into one "against a unit that is not a X or Y" clause, which attaches to the
-    preceding clause with a space; all other operands join with ", "."""
+    """Join `and` operands. Two exclusion encodings collapse: a run of bare-negated
+    target-has-keyword becomes "against a unit that is not a X or Y", and a run of
+    `not`-wrapped target-has-keyword becomes "(excluding X or Y units)". Either
+    attaches to the preceding clause with a space; all other operands join with ", "."""
     parts: list[str] = []
     i = 0
     while i < len(operands):
@@ -353,13 +383,23 @@ def _join_and_lead_ins(operands: list[Condition]) -> str:
                 i += 1
             parts.append(_negated_target_keywords(kws))
             continue
+        if _not_wrapped_target_keyword(op) is not None:
+            kws = []
+            while i < len(operands):
+                kw = _not_wrapped_target_keyword(operands[i])
+                if kw is None:
+                    break
+                kws.append(kw)
+                i += 1
+            parts.append(_excluded_target_keywords(kws))
+            continue
         parts.append(_condition_lead_in(op))
         i += 1
     acc = ""
     for part in parts:
         if acc == "":
             acc = part
-        elif part.startswith("against "):
+        elif part.startswith("against ") or part.startswith("(excluding "):
             acc = f"{acc} {part}"
         else:
             acc = f"{acc}, {part}"
@@ -510,10 +550,13 @@ def _describe_rule_state(m: dict[str, Any], subj: str) -> str:
     if rule == "fall-back":
         return f"{subj} can Fall Back" if granted else f"{subj} cannot Fall Back"
     if rule == "ordered-retreat":
+        # GW frames this lever by its effect on Desperate Escape tests: suppressing
+        # Ordered Retreat forces the tests; granting it (e.g. while Battle-shocked)
+        # exempts the unit. Mirrors the `desperate-escape` slug wording.
         return (
-            f"{subj} can make an Ordered Retreat"
+            f"{subj} {_v(subj, 'is')} not affected by Desperate Escape tests"
             if granted
-            else f"{subj} cannot make an Ordered Retreat"
+            else f"{subj} must take Desperate Escape tests"
         )
     if rule == "fire-overwatch":
         return f"{subj} can fire Overwatch" if granted else f"{subj} cannot fire Overwatch"
@@ -1226,7 +1269,10 @@ def _render_top_level(
     usage: dict[str, Any] | None = None,
     trigger: dict[str, Any] | None = None,
 ) -> str:
-    ctx: Ctx = {"range_inches": _aura_radius(scope)}
+    ctx: Ctx = {
+        "range_inches": _aura_radius(scope),
+        "engagement_range": (scope or {}).get("range") == "engagement-range",
+    }
     dur_lead, trail = _duration_clauses((scope or {}).get("duration"))
     # An explicit usage limit supersedes the duration's coarse "once per battle" lead.
     lead = _usage_clause(usage) if usage and usage.get("frequency") is not None else dur_lead

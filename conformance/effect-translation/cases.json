@@ -3345,7 +3345,7 @@
       "event": "start-of-phase"
     },
     "expected": {
-      "text": "At the start of the phase, at the start of the phase, until the end of the phase, modify enemy units nearby's Leadership characteristic."
+      "text": "At the start of the phase, at the start of the phase, until the end of the phase, modify enemy units within Engagement Range's Leadership characteristic."
     }
   },
   {
@@ -3887,12 +3887,12 @@
         "type": "sequence",
         "steps": [
           {
-            "type": "keyword-grant",
+            "type": "rule-state",
             "target": "unit",
             "modifier": {
-              "keywords": [
-                "CAPTAIN"
-              ]
+              "direction": "granted",
+              "rule_kind": "keyword",
+              "rule": "captain"
             }
           },
           {
@@ -3921,7 +3921,7 @@
       "duration": "battle"
     },
     "expected": {
-      "text": "When declaring Battle Formations, if the unit has the AETHON SHAAN keyword, if the unit has the KAYVAAN SHRIKE keyword, for the rest of the battle:\n  -> The unit's weapons gain [CAPTAIN].\n  -> The unit loses the Chapter Master keyword.\n  -> The unit loses the Lone Operative ability."
+      "text": "When declaring Battle Formations, if the unit has the AETHON SHAAN keyword, if the unit has the KAYVAAN SHRIKE keyword, for the rest of the battle:\n  -> The unit gains the Captain keyword.\n  -> The unit loses the Chapter Master keyword.\n  -> The unit loses the Lone Operative ability."
     }
   },
   {
@@ -5477,7 +5477,7 @@
       "duration": "permanent"
     },
     "expected": {
-      "text": "Unless against MONSTER targets, unless against VEHICLE targets:\n  -> Enemy units within 6\" cannot make an Ordered Retreat.\n  -> While the unit is Battle-shocked, enemy units within 6\" get -1 to Desperate Escape rolls."
+      "text": "(excluding Monster or Vehicle units):\n  -> Enemy units within 6\" must take Desperate Escape tests.\n  -> While the unit is Battle-shocked, enemy units within 6\" get -1 to Desperate Escape rolls."
     }
   },
   {
@@ -9011,7 +9011,7 @@
       "duration": "permanent"
     },
     "expected": {
-      "text": "Enemy units within 9\" cannot make an Ordered Retreat."
+      "text": "Enemy units within 9\" must take Desperate Escape tests."
     }
   },
   {
@@ -9030,7 +9030,7 @@
       "duration": "phase"
     },
     "expected": {
-      "text": "Until the end of the phase, the unit can make an Ordered Retreat."
+      "text": "Until the end of the phase, the unit is not affected by Desperate Escape tests."
     }
   },
   {

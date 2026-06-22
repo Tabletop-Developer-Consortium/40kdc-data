@@ -229,6 +229,8 @@ func subject(target any, ctx map[string]any) string {
 	within := " nearby"
 	if ri := ctx["range_inches"]; ri != nil {
 		within = " within " + ejstr(ri) + "\""
+	} else if ctx["engagement_range"] == true {
+		within = " within Engagement Range"
 	}
 	switch target {
 	case "self", "bearer":
@@ -341,10 +343,48 @@ func negatedTargetKeywords(keywords []string) string {
 	return "against a unit that is not a " + strings.Join(keywords, " or ")
 }
 
-// joinAndLeadIns joins the operands of an `and` lead-in. A run of consecutive
-// negated target-has-keyword exclusions collapses into one "against a unit that is
-// not a X or Y" clause, which attaches to the preceding clause with a space; all
-// other operands join with ", ".
+// capWord capitalizes the first character and lowercases the rest (MONSTER -> Monster).
+func capWord(s string) string {
+	if s == "" {
+		return s
+	}
+	return strings.ToUpper(s[:1]) + strings.ToLower(s[1:])
+}
+
+// notWrappedTargetKeyword returns the keyword of a `not`-wrapping-a-single-
+// `target-has-keyword` operand, else "", false. The aura-subject exclusion
+// encoding, distinct from the bare negated form.
+func notWrappedTargetKeyword(op map[string]any) (string, bool) {
+	if op["operator"] != "not" {
+		return "", false
+	}
+	operands, ok := asList(op["operands"])
+	if !ok || len(operands) != 1 {
+		return "", false
+	}
+	inner, _ := asMap(operands[0])
+	if inner["type"] != "target-has-keyword" || inner["negated"] == true {
+		return "", false
+	}
+	mp, _ := getMap(inner, "parameters")
+	return ejstr(mp["keyword"]), true
+}
+
+// excludedTargetKeywords renders "(excluding Monster or Vehicle units)" from a run
+// of `not`-wrapped target-keyword exclusions.
+func excludedTargetKeywords(keywords []string) string {
+	capped := make([]string, len(keywords))
+	for i, k := range keywords {
+		capped[i] = capWord(k)
+	}
+	return "(excluding " + strings.Join(capped, " or ") + " units)"
+}
+
+// joinAndLeadIns joins the operands of an `and` lead-in. Two exclusion encodings
+// collapse: a run of bare-negated target-has-keyword becomes "against a unit that
+// is not a X or Y", and a run of `not`-wrapped target-has-keyword becomes
+// "(excluding X or Y units)". Either attaches to the preceding clause with a
+// space; all other operands join with ", ".
 func joinAndLeadIns(operands []any) string {
 	var parts []string
 	for i := 0; i < len(operands); {
@@ -364,6 +404,21 @@ func joinAndLeadIns(operands []any) string {
 			parts = append(parts, negatedTargetKeywords(kws))
 			continue
 		}
+		if kw, ok := notWrappedTargetKeyword(om); ok {
+			kws := []string{kw}
+			i++
+			for i < len(operands) {
+				m, _ := asMap(operands[i])
+				if k2, ok2 := notWrappedTargetKeyword(m); ok2 {
+					kws = append(kws, k2)
+					i++
+				} else {
+					break
+				}
+			}
+			parts = append(parts, excludedTargetKeywords(kws))
+			continue
+		}
 		parts = append(parts, conditionLeadIn(om))
 		i++
 	}
@@ -372,7 +427,7 @@ func joinAndLeadIns(operands []any) string {
 		switch {
 		case acc == "":
 			acc = part
-		case strings.HasPrefix(part, "against "):
+		case strings.HasPrefix(part, "against ") || strings.HasPrefix(part, "(excluding "):
 			acc = acc + " " + part
 		default:
 			acc = acc + ", " + part
@@ -576,10 +631,13 @@ func describeRuleState(m map[string]any, subj string) string {
 		}
 		return subj + " cannot Fall Back"
 	case "ordered-retreat":
+		// GW frames this lever by its effect on Desperate Escape tests: suppressing
+		// Ordered Retreat forces the tests; granting it (e.g. while Battle-shocked)
+		// exempts the unit. Mirrors the `desperate-escape` slug wording.
 		if granted {
-			return subj + " can make an Ordered Retreat"
+			return subj + " " + ev(subj, "is") + " not affected by Desperate Escape tests"
 		}
-		return subj + " cannot make an Ordered Retreat"
+		return subj + " must take Desperate Escape tests"
 	case "fire-overwatch":
 		if granted {
 			return subj + " can fire Overwatch"
@@ -1609,7 +1667,10 @@ func auraRadius(scope map[string]any) any {
 }
 
 func renderTopLevel(e map[string]any, scope map[string]any, usage map[string]any, trigger map[string]any) string {
-	ctx := map[string]any{"range_inches": auraRadius(scope)}
+	ctx := map[string]any{
+		"range_inches":     auraRadius(scope),
+		"engagement_range": scope["range"] == "engagement-range",
+	}
 	durLead, trail := durationClauses(scope["duration"])
 	// An explicit usage limit supersedes the duration's coarse "once per battle" lead.
 	lead := durLead

@@ -4933,6 +4933,10 @@
     "scope": {
       "range": "engagement-range",
       "duration": "phase"
+    },
+    "trigger": {
+      "event": "on-unit-selected",
+      "optional": true
     }
   },
   {

@@ -4511,12 +4511,12 @@
         "type": "sequence",
         "steps": [
           {
-            "type": "keyword-grant",
+            "type": "rule-state",
             "target": "unit",
             "modifier": {
-              "keywords": [
-                "CAPTAIN"
-              ]
+              "direction": "granted",
+              "rule_kind": "keyword",
+              "rule": "captain"
             }
           },
           {

@@ -3523,7 +3523,7 @@
         "T": 5,
         "W": 4,
         "Sv": 4,
-        "invuln_sv": null,
+        "invuln_sv": 5,
         "Ld": 7,
         "OC": 6
       }
@@ -3551,7 +3551,11 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "weapon_ids": [
+      "shoota",
+      "choppa"
+    ]
   },
   {
     "id": "big-mek-dakkarig",
@@ -3564,7 +3568,7 @@
         "T": 8,
         "W": 11,
         "Sv": 3,
-        "invuln_sv": null,
+        "invuln_sv": 5,
         "Ld": 7,
         "OC": 3
       }
@@ -3600,7 +3604,12 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "weapon_ids": [
+      "blitzkannon",
+      "rokkit-launcha",
+      "stompy-feet"
+    ]
   },
   {
     "id": "bigboss",
@@ -3642,7 +3651,11 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "weapon_ids": [
+      "slugga",
+      "two-handed-big-choppa"
+    ]
   },
   {
     "id": "wartrakk",
@@ -3655,7 +3668,7 @@
         "T": 6,
         "W": 7,
         "Sv": 4,
-        "invuln_sv": null,
+        "invuln_sv": 6,
         "Ld": 7,
         "OC": 3
       }
@@ -3683,7 +3696,12 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "weapon_ids": [
+      "kustom-shoota",
+      "rokkit-launcha",
+      "choppa"
+    ]
   },
   {
     "id": "wazdakka-gutsmek",
@@ -3697,7 +3715,7 @@
         "T": 8,
         "W": 10,
         "Sv": 3,
-        "invuln_sv": null,
+        "invuln_sv": 4,
         "Ld": 6,
         "OC": 3
       }
@@ -3729,6 +3747,12 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "weapon_ids": [
+      "grabba-dragga",
+      "psyko-gatler",
+      "fixits-wrench",
+      "speeding-bulk-and-flaming-exhaust"
+    ]
   }
 ]

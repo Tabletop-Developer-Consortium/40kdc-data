@@ -71,7 +71,8 @@
       "duration": "permanent"
     },
     "unit_ids": [
-      "mortifiers"
+      "mortifiers",
+      "intranzia-fraye"
     ],
     "ability_type": "core",
     "behavior": "reactive"
@@ -97,7 +98,8 @@
       "duration": "permanent"
     },
     "unit_ids": [
-      "mortifiers"
+      "mortifiers",
+      "intranzia-fraye"
     ],
     "ability_type": "core",
     "behavior": "passive"
@@ -704,20 +706,32 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "conditional",
+      "condition": {
+        "type": "units-destroyed",
+        "parameters": {
+          "side": "enemy",
+          "count_min": 1
+        }
+      },
+      "effect": {
+        "type": "ability-grant",
+        "target": "self",
+        "modifier": {
+          "grant_type": "select-new-quarry"
+        }
+      }
     },
     "scope": {
-      "range": "unit",
-      "duration": "permanent"
+      "range": "self",
+      "duration": "battle"
     },
     "unit_ids": [
       "celestian-insidiants"
     ],
     "ability_type": "unit",
-    "behavior": "passive",
-    "community_notes": "auto-generated stub — needs manual authoring (source: 10e Datasheets_abilities; rules text omitted for IP)"
+    "behavior": "reactive",
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "litany-of-deeds",
@@ -2834,7 +2848,16 @@
       "target": "unit",
       "modifier": {
         "pool_id": "miracle-dice-pool",
-        "rolls": ["hit", "wound", "save", "advance", "charge", "desperate-escape", "hazardous", "leadership"]
+        "rolls": [
+          "hit",
+          "wound",
+          "save",
+          "advance",
+          "charge",
+          "desperate-escape",
+          "hazardous",
+          "leadership"
+        ]
       }
     },
     "scope": {
@@ -2845,7 +2868,9 @@
     "ability_type": "faction",
     "behavior": "activated",
     "community_notes": "Discard a Miracle die from the pool to substitute its value for a single roll/test. Modeled with the pooled-resource `replace-roll-from-pool` effect (the dice-substitution sub-shape); the cruncher leaves this unsupported (fail-safe) since pool state is not tracked by the buff layer. Previously punted as a roll-modifier guarantee-crit, which over-claimed a deterministic auto-6 per activation.",
-    "unit_ids": []
+    "unit_ids": [
+      "intranzia-fraye"
+    ]
   },
   {
     "ability_id": "angelic-judgement",
@@ -3622,6 +3647,114 @@
       "range": "unit",
       "duration": "permanent"
     },
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
+  },
+  {
+    "ability_id": "righteous-denunciation",
+    "name": "Righteous Denunciation",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "pre-launch-provisional"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "timing-is",
+        "parameters": {
+          "timing": "start-of-fight-phase"
+        }
+      },
+      "effect": {
+        "type": "sequence",
+        "steps": [
+          {
+            "type": "ability-grant",
+            "target": "enemy-within-aura",
+            "modifier": {
+              "grant_type": "forced-battle-shock-test"
+            }
+          },
+          {
+            "type": "leadership-modifier",
+            "target": "enemy-within-aura",
+            "modifier": {
+              "test": "battle-shock",
+              "operation": "subtract",
+              "value": 1
+            }
+          }
+        ]
+      }
+    },
+    "scope": {
+      "range": "aura-6",
+      "duration": "phase"
+    },
+    "unit_ids": [
+      "intranzia-fraye"
+    ],
+    "ability_type": "unit",
+    "behavior": "reactive",
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
+  },
+  {
+    "ability_id": "judged-for-execution",
+    "name": "Judged for Execution",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "pre-launch-provisional"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          {
+            "type": "timing-is",
+            "parameters": {
+              "timing": "end-of-movement-phase"
+            }
+          },
+          {
+            "type": "unit-within-range-of",
+            "parameters": {
+              "target_type": "enemy"
+            }
+          }
+        ]
+      },
+      "effect": {
+        "type": "conditional",
+        "condition": {
+          "type": "unit-has-keyword",
+          "parameters": {
+            "keyword": "ADEPTA SORORITAS"
+          }
+        },
+        "effect": {
+          "type": "keyword-grant",
+          "target": "defender",
+          "modifier": {
+            "keywords": [
+              "Lethal Hits"
+            ]
+          }
+        }
+      }
+    },
+    "scope": {
+      "range": "any-visible",
+      "duration": "until-next-command-phase"
+    },
+    "unit_ids": [
+      "intranzia-fraye"
+    ],
+    "ability_type": "unit",
+    "behavior": "activated",
     "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   }
 ]

@@ -4859,5 +4859,201 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     }
+  },
+  {
+    "id": "blitzkannon",
+    "name": "Blitzkannon",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Blitzkannon",
+        "range": 24,
+        "stats": {
+          "A": 8,
+          "S": 7,
+          "AP": -2,
+          "D": 2,
+          "BS": 5
+        },
+        "keywords": [
+          {
+            "keyword_id": "heavy"
+          },
+          {
+            "keyword_id": "sustained-hits",
+            "parameters": {
+              "value": 1
+            }
+          }
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
+    "id": "two-handed-big-choppa",
+    "name": "Two‑handed big choppa",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Two‑handed big choppa",
+        "range": "Melee",
+        "stats": {
+          "A": 5,
+          "S": 7,
+          "AP": -1,
+          "D": 2,
+          "WS": 3
+        },
+        "keywords": [
+          {
+            "keyword_id": "cleave",
+            "parameters": {
+              "value": 1
+            }
+          }
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
+    "id": "grabba-dragga",
+    "name": "Grabba dragga",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "ranged",
+        "range": 12,
+        "stats": {
+          "A": 1,
+          "S": 10,
+          "AP": -2,
+          "D": 3,
+          "BS": 2
+        },
+        "keywords": [
+          {
+            "keyword_id": "assault"
+          },
+          {
+            "keyword_id": "precision"
+          }
+        ]
+      },
+      {
+        "name": "melee",
+        "range": "Melee",
+        "stats": {
+          "A": 6,
+          "S": 10,
+          "AP": -2,
+          "D": 3,
+          "WS": 2
+        },
+        "keywords": [
+          {
+            "keyword_id": "lance"
+          }
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
+    "id": "psyko-gatler",
+    "name": "Psyko‑gatler",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Psyko‑gatler",
+        "range": 24,
+        "stats": {
+          "A": 12,
+          "S": 6,
+          "AP": -2,
+          "D": 2,
+          "BS": 4
+        },
+        "keywords": [
+          {
+            "keyword_id": "assault"
+          },
+          {
+            "keyword_id": "sustained-hits",
+            "parameters": {
+              "value": 1
+            }
+          }
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
+    "id": "fixits-wrench",
+    "name": "Fixit’s wrench",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Fixit’s wrench",
+        "range": "Melee",
+        "stats": {
+          "A": 1,
+          "S": 3,
+          "AP": 0,
+          "D": 1,
+          "WS": 4
+        },
+        "keywords": [
+          {
+            "keyword_id": "extra-attacks"
+          }
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
+    "id": "speeding-bulk-and-flaming-exhaust",
+    "name": "Speeding bulk and flaming exhaust",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Speeding bulk and flaming exhaust",
+        "range": "Melee",
+        "stats": {
+          "A": 6,
+          "S": 5,
+          "AP": -1,
+          "D": 1,
+          "WS": 2
+        },
+        "keywords": [
+          {
+            "keyword_id": "extra-attacks"
+          }
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
   }
 ]

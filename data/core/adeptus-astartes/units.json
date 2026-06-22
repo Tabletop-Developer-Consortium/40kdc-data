@@ -11520,7 +11520,12 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "weapon_ids": [
+      "bolt-pistol",
+      "heavy-bolter",
+      "close-combat-weapon"
+    ]
   },
   {
     "id": "land-speeder",
@@ -11571,6 +11576,13 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "weapon_ids": [
+      "onslaught-gatling-cannon",
+      "multi-melta",
+      "stormfury-missile-launcher",
+      "close-combat-weapon",
+      "heavy-flamer"
+    ]
   }
 ]

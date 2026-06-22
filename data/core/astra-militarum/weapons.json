@@ -6179,5 +6179,272 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     }
+  },
+  {
+    "id": "autostubber",
+    "name": "Autostubber",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Autostubber",
+        "range": 24,
+        "stats": {
+          "A": 3,
+          "S": 4,
+          "AP": 0,
+          "D": 1,
+          "BS": 4
+        },
+        "keywords": [
+          {
+            "keyword_id": "rapid-fire",
+            "parameters": {
+              "value": 3
+            }
+          }
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
+    "id": "pintle-mounted-heavy-stubber",
+    "name": "Pintle‑mounted heavy stubber",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Pintle‑mounted heavy stubber",
+        "range": 36,
+        "stats": {
+          "A": 3,
+          "S": 4,
+          "AP": 0,
+          "D": 1,
+          "BS": 4
+        },
+        "keywords": [
+          {
+            "keyword_id": "rapid-fire",
+            "parameters": {
+              "value": 3
+            }
+          }
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
+    "id": "chiron-gatling-cannon",
+    "name": "Chiron gatling cannon",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Chiron gatling cannon",
+        "range": 24,
+        "stats": {
+          "A": 12,
+          "S": 5,
+          "AP": 0,
+          "D": 1,
+          "BS": 4
+        },
+        "keywords": [
+          {
+            "keyword_id": "assault"
+          }
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
+    "id": "prefectus-heavy-stubber",
+    "name": "Prefectus heavy stubber",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Prefectus heavy stubber",
+        "range": 36,
+        "stats": {
+          "A": 3,
+          "S": 5,
+          "AP": 0,
+          "D": 1,
+          "BS": 3
+        },
+        "keywords": [
+          {
+            "keyword_id": "rapid-fire",
+            "parameters": {
+              "value": 3
+            }
+          }
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
+    "id": "power-sword-and-manus-mortis",
+    "name": "Power sword and Manus Mortis",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Power sword and Manus Mortis",
+        "range": "Melee",
+        "stats": {
+          "A": 5,
+          "S": 6,
+          "AP": -2,
+          "D": 2,
+          "WS": 2
+        }
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
+    "id": "enforcer-crew",
+    "name": "Enforcer crew",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Enforcer crew",
+        "range": "Melee",
+        "stats": {
+          "A": 10,
+          "S": 3,
+          "AP": 0,
+          "D": 1,
+          "WS": 4
+        },
+        "keywords": [
+          {
+            "keyword_id": "extra-attacks"
+          }
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
+    "id": "bale-eye",
+    "name": "Bale Eye",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Bale Eye",
+        "range": 12,
+        "stats": {
+          "A": 2,
+          "S": 6,
+          "AP": -2,
+          "D": "D3+1",
+          "BS": 2
+        },
+        "keywords": [
+          {
+            "keyword_id": "precision"
+          }
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
+    "id": "power-klaw",
+    "name": "Power klaw",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Power klaw",
+        "range": "Melee",
+        "stats": {
+          "A": 4,
+          "S": 8,
+          "AP": -2,
+          "D": 2,
+          "WS": 2
+        }
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
+    "id": "power-sword",
+    "name": "Power sword",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Power sword",
+        "range": "Melee",
+        "stats": {
+          "A": 6,
+          "S": 4,
+          "AP": -2,
+          "D": 1,
+          "WS": 2
+        }
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
+    "id": "vigilator-cannon",
+    "name": "Vigilator cannon",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Vigilator cannon",
+        "range": 36,
+        "stats": {
+          "A": "D6",
+          "S": 8,
+          "AP": -1,
+          "D": 2,
+          "BS": 4
+        },
+        "keywords": [
+          {
+            "keyword_id": "assault"
+          },
+          {
+            "keyword_id": "blast"
+          }
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
   }
 ]

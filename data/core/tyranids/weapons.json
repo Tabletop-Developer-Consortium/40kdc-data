@@ -3076,5 +3076,38 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     }
+  },
+  {
+    "id": "gaping-maw",
+    "name": "Gaping maw",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Gaping maw",
+        "range": "Melee",
+        "stats": {
+          "A": 1,
+          "S": 5,
+          "AP": 0,
+          "D": "D3+2",
+          "WS": 2
+        },
+        "keywords": [
+          {
+            "keyword_id": "extra-attacks"
+          },
+          {
+            "keyword_id": "devastating-wounds"
+          },
+          {
+            "keyword_id": "precision"
+          }
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
   }
 ]

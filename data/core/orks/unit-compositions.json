@@ -2338,5 +2338,104 @@
         ]
       }
     ]
+  },
+  {
+    "unit_id": "bannernob",
+    "faction_id": "orks",
+    "models": [
+      {
+        "name": "Bannernob",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "shoota",
+          "choppa"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
+    "unit_id": "big-mek-dakkarig",
+    "faction_id": "orks",
+    "models": [
+      {
+        "name": "Big Mek Dakkarig",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "blitzkannon",
+          "rokkit-launcha",
+          "stompy-feet"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
+    "unit_id": "bigboss",
+    "faction_id": "orks",
+    "models": [
+      {
+        "name": "Bigboss",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "slugga",
+          "two-handed-big-choppa"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
+    "unit_id": "wartrakk",
+    "faction_id": "orks",
+    "models": [
+      {
+        "name": "Wartrakk",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "kustom-shoota",
+          "rokkit-launcha",
+          "choppa"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
+    "unit_id": "wazdakka-gutsmek",
+    "faction_id": "orks",
+    "models": [
+      {
+        "name": "Wazdakka Gutsmek",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "grabba-dragga",
+          "psyko-gatler",
+          "fixits-wrench",
+          "speeding-bulk-and-flaming-exhaust"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
   }
 ]

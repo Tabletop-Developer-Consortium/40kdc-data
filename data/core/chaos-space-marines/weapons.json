@@ -5982,5 +5982,66 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     }
+  },
+  {
+    "id": "last-argument-and-power-fist",
+    "name": "Last Argument and power fist",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Last Argument and power fist",
+        "range": "Melee",
+        "stats": {
+          "A": 7,
+          "S": 10,
+          "AP": -2,
+          "D": 2,
+          "WS": 2
+        },
+        "keywords": [
+          {
+            "keyword_id": "devastating-wounds"
+          }
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
+    "id": "servo-harness",
+    "name": "Servo-harness",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Servo-harness",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 6,
+          "AP": -2,
+          "D": 2,
+          "WS": 2
+        },
+        "keywords": [
+          {
+            "keyword_id": "extra-attacks"
+          },
+          {
+            "keyword_id": "anti",
+            "parameters": {
+              "target_keyword": "Vehicle",
+              "threshold": 2
+            }
+          }
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
   }
 ]

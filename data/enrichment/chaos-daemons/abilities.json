@@ -795,7 +795,9 @@
       "duration": "one-use"
     },
     "unit_ids": [
-      "nurglings"
+      "nurglings",
+      "feculent-gnarlmaw",
+      "skull-altar"
     ],
     "ability_type": "core",
     "behavior": "activated"
@@ -1882,7 +1884,8 @@
       "duration": "permanent"
     },
     "unit_ids": [
-      "feculent-gnarlmaw"
+      "feculent-gnarlmaw",
+      "skull-altar"
     ],
     "ability_type": "unit",
     "behavior": "passive"
@@ -4250,7 +4253,9 @@
     "unit_ids": [
       "belakor",
       "aetaosraukeres",
-      "anggrath-the-unbound"
+      "anggrath-the-unbound",
+      "feculent-gnarlmaw",
+      "skull-altar"
     ]
   },
   {
@@ -5703,5 +5708,53 @@
       "duration": "turn"
     },
     "community_notes": "community-authored from 10e source (provisional 11e); see #21"
+  },
+  {
+    "ability_id": "shroud-of-flies",
+    "name": "Shroud of Flies",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "pre-launch-provisional"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "stat-modifier",
+      "target": "unit",
+      "modifier": {}
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "feculent-gnarlmaw"
+    ],
+    "ability_type": "unit",
+    "behavior": "aura"
+  },
+  {
+    "ability_id": "shadow-of-khorne",
+    "name": "Shadow of Khorne",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "pre-launch-provisional"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "stat-modifier",
+      "target": "unit",
+      "modifier": {}
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "skull-altar"
+    ],
+    "ability_type": "unit",
+    "behavior": "aura"
   }
 ]

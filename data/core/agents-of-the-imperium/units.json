@@ -2187,7 +2187,7 @@
         "T": 4,
         "W": 6,
         "Sv": 3,
-        "invuln_sv": null,
+        "invuln_sv": 4,
         "Ld": 6,
         "OC": 2
       }
@@ -2227,6 +2227,12 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "weapon_ids": [
+      "jindarii-tox-cycler",
+      "stubcarbine",
+      "butcher-blade",
+      "garralisks-claws-and-teeth"
+    ]
   }
 ]

@@ -40,7 +40,9 @@
       "scout-sentinels",
       "hydra-platform",
       "manticore-platform",
-      "earthshaker-platform"
+      "earthshaker-platform",
+      "cyclops-demolition-vehicle",
+      "hippogriff-afv"
     ],
     "ability_type": "core",
     "behavior": "reactive"
@@ -132,7 +134,9 @@
     },
     "unit_ids": [
       "cadian-castellan",
-      "death-rider-commissar"
+      "death-rider-commissar",
+      "commissar-graves-on-foot",
+      "commissar-yarrick"
     ],
     "ability_type": "core",
     "behavior": "passive"
@@ -796,7 +800,8 @@
     },
     "unit_ids": [
       "ratlings",
-      "gaunts-ghosts"
+      "gaunts-ghosts",
+      "cadian-recon-squad"
     ],
     "ability_type": "core",
     "behavior": "activated"
@@ -825,7 +830,8 @@
     },
     "unit_ids": [
       "ratlings",
-      "gaunts-ghosts"
+      "gaunts-ghosts",
+      "cadian-recon-squad"
     ],
     "ability_type": "core",
     "behavior": "passive"
@@ -963,7 +969,9 @@
       "leman-russ-battle-tank",
       "storm-chimera",
       "aquila-lander",
-      "griffon-mortar-carrier"
+      "griffon-mortar-carrier",
+      "centaur-rsv",
+      "commissar-graves"
     ],
     "ability_type": "core",
     "behavior": "reactive"
@@ -2171,7 +2179,8 @@
       "duration": "permanent"
     },
     "unit_ids": [
-      "stormlord"
+      "stormlord",
+      "centaur-rsv"
     ],
     "ability_type": "core",
     "behavior": "passive"
@@ -4159,34 +4168,45 @@
             }
           },
           {
-            "type": "disposition-matches",
-            "parameters": {
-              "disposition": "strategic-reserves"
-            }
-          },
-          {
             "type": "phase-is",
             "parameters": {
               "phase": "movement"
             }
           },
           {
-            "type": "battle-round",
-            "parameters": {
-              "max": 3
-            }
+            "operator": "or",
+            "operands": [
+              {
+                "type": "player-turn-is",
+                "parameters": {
+                  "turn": 1
+                }
+              },
+              {
+                "type": "player-turn-is",
+                "parameters": {
+                  "turn": 2
+                }
+              },
+              {
+                "type": "player-turn-is",
+                "parameters": {
+                  "turn": 3
+                }
+              }
+            ]
           }
         ]
       },
       "effect": {
-        "type": "strategic-reserves-arrival",
+        "type": "deep-strike",
         "target": "self",
         "modifier": {}
       }
     },
     "scope": {
       "range": "self",
-      "duration": "permanent"
+      "duration": "battle"
     },
     "unit_ids": [
       "arvus-lighter",
@@ -4954,7 +4974,10 @@
     "community_notes": "Models 3 offensive Orders as a choice: Take Aim (+1 BS), First Rank Fire (+1A on Rapid Fire), Move Move Move (+3M). Hill-climbing selects Take Aim (+1 hit) as universally best. Fix Bayonets (+1 WS) omitted as it's equivalent to Take Aim for melee phase.",
     "unit_ids": [
       "gaunts-ghosts",
-      "death-rider-commissar"
+      "death-rider-commissar",
+      "commissar-graves",
+      "commissar-graves-on-foot",
+      "commissar-yarrick"
     ]
   },
   {
@@ -6931,5 +6954,248 @@
       "duration": "battle-round"
     },
     "community_notes": "community-authored from 10e source (provisional 11e); see #21"
+  },
+  {
+    "ability_id": "independent-operatives",
+    "name": "Independent Operatives",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "pre-launch-provisional"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "ability-grant",
+      "target": "unit",
+      "modifier": {
+        "grant_type": "persistent-orders"
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "battle"
+    },
+    "unit_ids": [
+      "cadian-recon-squad"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive",
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
+  },
+  {
+    "ability_id": "rapid-strike-vehicle",
+    "name": "Rapid Strike Vehicle",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "pre-launch-provisional"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "operator": "not",
+        "operands": [
+          {
+            "type": "is-battle-shocked",
+            "parameters": {}
+          }
+        ]
+      },
+      "effect": {
+        "type": "objective-control-modifier",
+        "target": "self",
+        "modifier": {
+          "operation": "add",
+          "value": 1
+        },
+        "scaling": {
+          "per": 3,
+          "of": "friendly-models-in-range",
+          "within_inches": 0,
+          "round": "down"
+        }
+      }
+    },
+    "scope": {
+      "range": "self",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "centaur-rsv"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive",
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
+  },
+  {
+    "ability_id": "mechanised-spearhead",
+    "name": "Mechanised Spearhead",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "pre-launch-provisional"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "stat-modifier",
+      "target": "unit",
+      "modifier": {}
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "commissar-graves"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "brutal-disciplinarian",
+    "name": "Brutal Disciplinarian",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "pre-launch-provisional"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "stat-modifier",
+      "target": "unit",
+      "modifier": {}
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "commissar-graves",
+      "commissar-graves-on-foot"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "icon-of-discipline",
+    "name": "Icon of Discipline",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "pre-launch-provisional"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "ability-grant",
+      "target": "self",
+      "modifier": {
+        "grant_type": "fallback-exception"
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "turn"
+    },
+    "unit_ids": [
+      "commissar-graves-on-foot"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive",
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
+  },
+  {
+    "ability_id": "will-of-iron",
+    "name": "Will of Iron",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "pre-launch-provisional"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "dice-gated",
+      "dice": "D6",
+      "threshold": 2,
+      "comparison": "gte",
+      "on_success": {
+        "type": "resurrection",
+        "target": "self",
+        "modifier": {
+          "count": 1,
+          "wounds_remaining": 3
+        }
+      }
+    },
+    "scope": {
+      "range": "self",
+      "duration": "one-use"
+    },
+    "unit_ids": [
+      "commissar-yarrick"
+    ],
+    "ability_type": "unit",
+    "behavior": "reactive",
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
+  },
+  {
+    "ability_id": "hero-of-hades-hive",
+    "name": "Hero of Hades Hive",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "pre-launch-provisional"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "phase-is",
+        "parameters": {
+          "phase": "command"
+        }
+      },
+      "effect": {
+        "type": "ability-grant",
+        "target": "self",
+        "modifier": {
+          "grant_type": "hero-of-hades-hive-ability"
+        }
+      }
+    },
+    "scope": {
+      "range": "self",
+      "duration": "until-next-command-phase"
+    },
+    "unit_ids": [
+      "commissar-yarrick"
+    ],
+    "ability_type": "unit",
+    "behavior": "activated",
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
+  },
+  {
+    "ability_id": "convoy-escort-vehicle",
+    "name": "Convoy Escort Vehicle",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "pre-launch-provisional"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "stat-modifier",
+      "target": "unit",
+      "modifier": {}
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "hippogriff-afv"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
   }
 ]

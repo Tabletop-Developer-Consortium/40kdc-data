@@ -4722,7 +4722,17 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "weapon_ids": [
+      "close-combat-weapon",
+      "lasgun",
+      "laspistol",
+      "missile-launcher",
+      "plasma-gun",
+      "long-las",
+      "meltagun",
+      "autostubber"
+    ]
   },
   {
     "id": "centaur-rsv",
@@ -4768,7 +4778,11 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "weapon_ids": [
+      "pintle-mounted-heavy-stubber",
+      "armoured-hull"
+    ]
   },
   {
     "id": "commissar-graves",
@@ -4782,7 +4796,7 @@
         "T": 8,
         "W": 12,
         "Sv": 3,
-        "invuln_sv": null,
+        "invuln_sv": 4,
         "Ld": 6,
         "OC": 5
       }
@@ -4814,7 +4828,14 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "weapon_ids": [
+      "chiron-gatling-cannon",
+      "prefectus-heavy-stubber",
+      "power-sword-and-manus-mortis",
+      "enforcer-crew",
+      "armoured-hull"
+    ]
   },
   {
     "id": "commissar-graves-on-foot",
@@ -4828,7 +4849,7 @@
         "T": 3,
         "W": 4,
         "Sv": 4,
-        "invuln_sv": null,
+        "invuln_sv": 5,
         "Ld": 6,
         "OC": 1
       }
@@ -4858,7 +4879,11 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "weapon_ids": [
+      "bolt-pistol",
+      "power-sword-and-manus-mortis"
+    ]
   },
   {
     "id": "commissar-yarrick",
@@ -4872,7 +4897,7 @@
         "T": 4,
         "W": 5,
         "Sv": 4,
-        "invuln_sv": null,
+        "invuln_sv": 4,
         "Ld": 6,
         "OC": 1
       }
@@ -4903,7 +4928,14 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "weapon_ids": [
+      "storm-bolter",
+      "laspistol",
+      "bale-eye",
+      "power-klaw",
+      "power-sword"
+    ]
   },
   {
     "id": "hippogriff-afv",
@@ -4950,6 +4982,15 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "weapon_ids": [
+      "vigilator-cannon",
+      "heavy-stubber",
+      "armoured-hull",
+      "melta-cannon",
+      "chiron-gatling-cannon",
+      "lascannon",
+      "meltagun"
+    ]
   }
 ]

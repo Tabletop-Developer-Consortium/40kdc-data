@@ -2255,7 +2255,7 @@
         "T": 7,
         "W": 8,
         "Sv": 3,
-        "invuln_sv": null,
+        "invuln_sv": 4,
         "Ld": 6,
         "OC": 3
       }
@@ -2287,6 +2287,20 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "weapon_ids": [
+      "heavy-bolter",
+      "ministorum-heavy-flamer",
+      "melta-missile-array",
+      "mace-of-saint-praxedes",
+      "throne-of-blame"
+    ],
+    "ability_ids": [
+      "deadly-demise-1",
+      "feel-no-pain-5",
+      "acts-of-faith",
+      "righteous-denunciation",
+      "judged-for-execution"
+    ]
   }
 ]

@@ -193,7 +193,8 @@
       "duration": "permanent"
     },
     "unit_ids": [
-      "heretic-astartes-daemon-prince-with-wings"
+      "heretic-astartes-daemon-prince-with-wings",
+      "kravek-morne"
     ],
     "ability_type": "core",
     "behavior": "activated"
@@ -271,7 +272,8 @@
       "duration": "permanent"
     },
     "unit_ids": [
-      "sorcerer-in-terminator-armour"
+      "sorcerer-in-terminator-armour",
+      "kravek-morne"
     ],
     "ability_type": "core",
     "behavior": "passive"
@@ -6074,7 +6076,8 @@
     "ability_type": "faction",
     "behavior": "activated",
     "unit_ids": [
-      "gellerpox-infected"
+      "gellerpox-infected",
+      "kravek-morne"
     ]
   },
   {
@@ -8378,5 +8381,67 @@
       "duration": "permanent"
     },
     "community_notes": "[APPROX] DSL stub — detachment rule; mechanics pending authoring. Full rule in raw-text store."
+  },
+  {
+    "ability_id": "headlong-destruction",
+    "name": "Headlong Destruction",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "pre-launch-provisional"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "opponent-unit-within-range",
+        "parameters": {
+          "target_qualifier": "closest-eligible-enemy-unit"
+        }
+      },
+      "effect": {
+        "type": "stat-modifier",
+        "target": "attacker",
+        "modifier": {
+          "stat": "AP",
+          "operation": "subtract",
+          "value": 1
+        }
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "kravek-morne"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive",
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
+  },
+  {
+    "ability_id": "architect-of-ruin",
+    "name": "Architect of Ruin",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "pre-launch-provisional"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "stat-modifier",
+      "target": "unit",
+      "modifier": {}
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "kravek-morne"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
   }
 ]

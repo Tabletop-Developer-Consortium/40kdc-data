@@ -1250,5 +1250,84 @@
         ]
       }
     ]
+  },
+  {
+    "unit_id": "hastarii-exterminators",
+    "faction_id": "adeptus-mechanicus",
+    "models": [
+      {
+        "name": "Hastarii Exterminator Alpha",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "hastarii-arc-blaster",
+          "eradication-caster",
+          "power-weapon"
+        ]
+      },
+      {
+        "name": "Hastarii Exterminator",
+        "min": 4,
+        "max": 4,
+        "default_weapon_ids": [
+          "hastarii-arc-blaster",
+          "eradication-caster",
+          "close-combat-weapon"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
+    "unit_id": "hastarii-fusiliers",
+    "faction_id": "adeptus-mechanicus",
+    "models": [
+      {
+        "name": "Hastarii Fusilier Alpha",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "neutron-fusil",
+          "hastarii-phosphor-blaster",
+          "power-weapon"
+        ]
+      },
+      {
+        "name": "Hastarii Fusilier",
+        "min": 4,
+        "max": 4,
+        "default_weapon_ids": [
+          "neutron-fusil",
+          "hastarii-phosphor-blaster",
+          "close-combat-weapon"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
+    "unit_id": "thulia-ghuld",
+    "faction_id": "adeptus-mechanicus",
+    "models": [
+      {
+        "name": "Thulia Ghuld",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "jericho-class-conversion-resonator",
+          "rod-of-the-war-forge"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
   }
 ]

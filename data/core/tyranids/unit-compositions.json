@@ -2066,5 +2066,24 @@
         ]
       }
     ]
+  },
+  {
+    "unit_id": "the-red-terror",
+    "faction_id": "tyranids",
+    "models": [
+      {
+        "name": "The Red Terror",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "gaping-maw",
+          "scything-talons"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
   }
 ]

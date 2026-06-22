@@ -38,7 +38,8 @@
     },
     "unit_ids": [
       "weirdboy",
-      "biged-bossbunka"
+      "biged-bossbunka",
+      "wazdakka-gutsmek"
     ],
     "ability_type": "core",
     "behavior": "reactive"
@@ -64,7 +65,8 @@
       "duration": "permanent"
     },
     "unit_ids": [
-      "weirdboy"
+      "weirdboy",
+      "bigboss"
     ],
     "ability_type": "core",
     "behavior": "passive"
@@ -281,7 +283,8 @@
     },
     "unit_ids": [
       "deffkoptas",
-      "deffkoptas-with-big-shootas"
+      "deffkoptas-with-big-shootas",
+      "wazdakka-gutsmek"
     ],
     "ability_type": "core",
     "behavior": "activated"
@@ -1079,7 +1082,8 @@
       "duration": "permanent"
     },
     "unit_ids": [
-      "boss-snikrot"
+      "boss-snikrot",
+      "wazdakka-gutsmek"
     ],
     "ability_type": "core",
     "behavior": "passive"
@@ -4071,7 +4075,12 @@
     "unit_ids": [
       "biged-bossbunka",
       "deffkoptas-with-big-shootas",
-      "skorchas"
+      "skorchas",
+      "bannernob",
+      "big-mek-dakkarig",
+      "bigboss",
+      "wartrakk",
+      "wazdakka-gutsmek"
     ]
   },
   {
@@ -5535,6 +5544,252 @@
       "range": "unit",
       "duration": "turn"
     },
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
+  },
+  {
+    "ability_id": "waaagh-banner",
+    "name": "Waaagh! Banner",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "pre-launch-provisional"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "stat-modifier",
+      "target": "unit",
+      "modifier": {}
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "bannernob"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "dakkablitz",
+    "name": "Dakkablitz",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "pre-launch-provisional"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "operator": "not",
+        "operands": [
+          {
+            "operator": "or",
+            "operands": [
+              {
+                "type": "target-has-keyword",
+                "parameters": {
+                  "keyword": "MONSTER"
+                }
+              },
+              {
+                "type": "target-has-keyword",
+                "parameters": {
+                  "keyword": "VEHICLE"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "effect": {
+        "type": "stat-modifier",
+        "target": "self",
+        "modifier": {
+          "stat": "A",
+          "operation": "add",
+          "value": 6,
+          "weapon_name": "blitzkannon"
+        }
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "phase"
+    },
+    "unit_ids": [
+      "big-mek-dakkarig"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive",
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
+  },
+  {
+    "ability_id": "breakin-heads",
+    "name": "Breakin’ Heads",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "pre-launch-provisional"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "keyword-grant",
+      "target": "self",
+      "modifier": {
+        "keywords": [
+          "sustained-hits"
+        ]
+      }
+    },
+    "scope": {
+      "range": "self",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "bigboss"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive",
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
+  },
+  {
+    "ability_id": "somethin-to-prove",
+    "name": "Somethin’ to Prove",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "pre-launch-provisional"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "roll-modifier",
+      "target": "self",
+      "modifier": {
+        "operation": "add",
+        "roll": "charge",
+        "value": 1
+      }
+    },
+    "scope": {
+      "range": "self",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "bigboss"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive",
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
+  },
+  {
+    "ability_id": "indiscriminate-detonations",
+    "name": "Indiscriminate Detonations",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "pre-launch-provisional"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          {
+            "type": "phase-is",
+            "parameters": {
+              "phase": "shooting"
+            }
+          },
+          {
+            "type": "was-hit-by-attack",
+            "parameters": {
+              "subject": "target"
+            }
+          }
+        ]
+      },
+      "effect": {
+        "type": "roll-modifier",
+        "target": "defender",
+        "modifier": {
+          "roll": "hit",
+          "operation": "subtract",
+          "value": 1
+        }
+      }
+    },
+    "scope": {
+      "range": "any-on-battlefield",
+      "duration": "until-next-command-phase"
+    },
+    "unit_ids": [
+      "wartrakk"
+    ],
+    "ability_type": "unit",
+    "behavior": "reactive",
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
+  },
+  {
+    "ability_id": "fixit-da-grot",
+    "name": "Fixit da Grot",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "pre-launch-provisional"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "stat-modifier",
+      "target": "unit",
+      "modifier": {}
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "wazdakka-gutsmek"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "throttlerokkit-shokka-engine",
+    "name": "Throttlerokkit Shokka Engine",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "pre-launch-provisional"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "phase-is",
+        "parameters": {
+          "phase": "command"
+        }
+      },
+      "effect": {
+        "type": "ability-grant",
+        "target": "self",
+        "modifier": {
+          "grant_type": "choice"
+        }
+      }
+    },
+    "scope": {
+      "range": "self",
+      "duration": "until-next-command-phase"
+    },
+    "unit_ids": [
+      "wazdakka-gutsmek"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive",
     "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   }
 ]

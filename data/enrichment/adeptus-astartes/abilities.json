@@ -193,7 +193,9 @@
       "terminator-squad",
       "lion-eljonson",
       "terminator-assault-squad",
-      "dreadnought-drop-pod"
+      "dreadnought-drop-pod",
+      "drop-pod",
+      "land-speeder"
     ],
     "ability_type": "core",
     "behavior": "activated"
@@ -4807,7 +4809,8 @@
     "unit_ids": [
       "dreadnought",
       "dreadnought-drop-pod",
-      "chaplain-venerable-dreadnought"
+      "chaplain-venerable-dreadnought",
+      "drop-pod"
     ],
     "ability_type": "core",
     "behavior": "reactive"
@@ -11424,7 +11427,10 @@
       "land-raider-achilles",
       "land-raider-excelsior",
       "spartan",
-      "tarantula-sentry-battery"
+      "tarantula-sentry-battery",
+      "drop-pod",
+      "eradicator-squad-with-heavy-bolters",
+      "land-speeder"
     ]
   },
   {
@@ -12454,5 +12460,101 @@
       "duration": "one-use"
     },
     "community_notes": "community-authored from 10e source (provisional 11e); see #21"
+  },
+  {
+    "ability_id": "overlapping-detonations",
+    "name": "Overlapping Detonations",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "pre-launch-provisional"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          {
+            "type": "phase-is",
+            "parameters": {
+              "phase": "shooting"
+            }
+          },
+          {
+            "type": "timing-is",
+            "parameters": {
+              "timing": "selected-to-shoot"
+            }
+          },
+          {
+            "operator": "not",
+            "operands": [
+              {
+                "type": "target-has-keyword",
+                "parameters": {
+                  "keyword": "MONSTER"
+                }
+              }
+            ]
+          },
+          {
+            "operator": "not",
+            "operands": [
+              {
+                "type": "target-has-keyword",
+                "parameters": {
+                  "keyword": "VEHICLE"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "effect": {
+        "type": "keyword-grant",
+        "target": "self",
+        "modifier": {
+          "keywords": [
+            "Blast 1"
+          ],
+          "weapon_name": "heavy bolter"
+        }
+      }
+    },
+    "scope": {
+      "range": "any-visible",
+      "duration": "phase"
+    },
+    "unit_ids": [
+      "eradicator-squad-with-heavy-bolters"
+    ],
+    "ability_type": "unit",
+    "behavior": "activated",
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
+  },
+  {
+    "ability_id": "purgation-run",
+    "name": "Purgation Run",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "pre-launch-provisional"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "stat-modifier",
+      "target": "unit",
+      "modifier": {}
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "land-speeder"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
   }
 ]

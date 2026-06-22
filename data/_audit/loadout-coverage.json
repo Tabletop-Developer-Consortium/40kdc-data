@@ -1,19 +1,7 @@
 {
   "generatedFrom": "tools/src/audit-loadout-coverage.ts",
-  "totalSkeletons": 28,
+  "totalSkeletons": 8,
   "byFaction": {
-    "adepta-sororitas": [
-      {
-        "faction": "adepta-sororitas",
-        "unit_id": "intranzia-fraye",
-        "missing": [
-          "weapons",
-          "wargear-options",
-          "composition",
-          "abilities"
-        ]
-      }
-    ],
     "adeptus-astartes": [
       {
         "faction": "adeptus-astartes",
@@ -21,70 +9,6 @@
         "missing": [
           "weapons",
           "wargear-options"
-        ]
-      },
-      {
-        "faction": "adeptus-astartes",
-        "unit_id": "eradicator-squad-with-heavy-bolters",
-        "missing": [
-          "weapons",
-          "wargear-options",
-          "composition",
-          "abilities"
-        ]
-      },
-      {
-        "faction": "adeptus-astartes",
-        "unit_id": "land-speeder",
-        "missing": [
-          "weapons",
-          "wargear-options",
-          "composition",
-          "abilities"
-        ]
-      }
-    ],
-    "adeptus-mechanicus": [
-      {
-        "faction": "adeptus-mechanicus",
-        "unit_id": "hastarii-exterminators",
-        "missing": [
-          "weapons",
-          "wargear-options",
-          "composition",
-          "abilities"
-        ]
-      },
-      {
-        "faction": "adeptus-mechanicus",
-        "unit_id": "hastarii-fusiliers",
-        "missing": [
-          "weapons",
-          "wargear-options",
-          "composition",
-          "abilities"
-        ]
-      },
-      {
-        "faction": "adeptus-mechanicus",
-        "unit_id": "thulia-ghuld",
-        "missing": [
-          "weapons",
-          "wargear-options",
-          "composition",
-          "abilities"
-        ]
-      }
-    ],
-    "agents-of-the-imperium": [
-      {
-        "faction": "agents-of-the-imperium",
-        "unit_id": "inquisitor-kroyle",
-        "missing": [
-          "weapons",
-          "wargear-options",
-          "composition",
-          "abilities"
         ]
       }
     ],
@@ -99,70 +23,10 @@
       },
       {
         "faction": "astra-militarum",
-        "unit_id": "cadian-recon-squad",
-        "missing": [
-          "weapons",
-          "wargear-options",
-          "composition",
-          "abilities"
-        ]
-      },
-      {
-        "faction": "astra-militarum",
-        "unit_id": "centaur-rsv",
-        "missing": [
-          "weapons",
-          "wargear-options",
-          "composition",
-          "abilities"
-        ]
-      },
-      {
-        "faction": "astra-militarum",
-        "unit_id": "commissar-graves",
-        "missing": [
-          "weapons",
-          "wargear-options",
-          "composition",
-          "abilities"
-        ]
-      },
-      {
-        "faction": "astra-militarum",
-        "unit_id": "commissar-graves-on-foot",
-        "missing": [
-          "weapons",
-          "wargear-options",
-          "composition",
-          "abilities"
-        ]
-      },
-      {
-        "faction": "astra-militarum",
-        "unit_id": "commissar-yarrick",
-        "missing": [
-          "weapons",
-          "wargear-options",
-          "composition",
-          "abilities"
-        ]
-      },
-      {
-        "faction": "astra-militarum",
         "unit_id": "cyclops-demolition-vehicle",
         "missing": [
           "weapons",
           "wargear-options"
-        ]
-      },
-      {
-        "faction": "astra-militarum",
-        "unit_id": "hippogriff-afv",
-        "missing": [
-          "weapons",
-          "wargear-options",
-          "composition",
-          "abilities"
         ]
       }
     ],
@@ -181,70 +45,6 @@
         "missing": [
           "weapons",
           "wargear-options"
-        ]
-      }
-    ],
-    "chaos-space-marines": [
-      {
-        "faction": "chaos-space-marines",
-        "unit_id": "kravek-morne",
-        "missing": [
-          "weapons",
-          "wargear-options",
-          "composition",
-          "abilities"
-        ]
-      }
-    ],
-    "orks": [
-      {
-        "faction": "orks",
-        "unit_id": "bannernob",
-        "missing": [
-          "weapons",
-          "wargear-options",
-          "composition",
-          "abilities"
-        ]
-      },
-      {
-        "faction": "orks",
-        "unit_id": "big-mek-dakkarig",
-        "missing": [
-          "weapons",
-          "wargear-options",
-          "composition",
-          "abilities"
-        ]
-      },
-      {
-        "faction": "orks",
-        "unit_id": "bigboss",
-        "missing": [
-          "weapons",
-          "wargear-options",
-          "composition",
-          "abilities"
-        ]
-      },
-      {
-        "faction": "orks",
-        "unit_id": "wartrakk",
-        "missing": [
-          "weapons",
-          "wargear-options",
-          "composition",
-          "abilities"
-        ]
-      },
-      {
-        "faction": "orks",
-        "unit_id": "wazdakka-gutsmek",
-        "missing": [
-          "weapons",
-          "wargear-options",
-          "composition",
-          "abilities"
         ]
       }
     ],
@@ -273,16 +73,6 @@
         "missing": [
           "weapons",
           "wargear-options"
-        ]
-      },
-      {
-        "faction": "tyranids",
-        "unit_id": "the-red-terror",
-        "missing": [
-          "weapons",
-          "wargear-options",
-          "composition",
-          "abilities"
         ]
       }
     ]

@@ -3751,7 +3751,7 @@
         "T": 5,
         "W": 6,
         "Sv": 2,
-        "invuln_sv": null,
+        "invuln_sv": 4,
         "Ld": 6,
         "OC": 1
       }
@@ -3783,6 +3783,12 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "weapon_ids": [
+      "baleflamer",
+      "combi-bolter",
+      "last-argument-and-power-fist",
+      "servo-harness"
+    ]
   }
 ]

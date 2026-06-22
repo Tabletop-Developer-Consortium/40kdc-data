@@ -6786,5 +6786,27 @@
     "model_constraint": {
       "any_number": true
     }
+  },
+  {
+    "id": "land-speeder-wgo-mfm-1",
+    "unit_id": "land-speeder",
+    "faction_id": "adeptus-astartes",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_free": true,
+    "model_constraint": {
+      "any_number": true
+    },
+    "replaces": [
+      "onslaught-gatling-cannon",
+      "multi-melta",
+      "stormfury-missile-launcher",
+      "close-combat-weapon"
+    ],
+    "replacement": [
+      "heavy-flamer"
+    ]
   }
 ]

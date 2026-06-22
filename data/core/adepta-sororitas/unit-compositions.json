@@ -1548,5 +1548,29 @@
         ]
       }
     ]
+  },
+  {
+    "unit_id": "intranzia-fraye",
+    "faction_id": "adepta-sororitas",
+    "models": [
+      {
+        "name": "Intranzia Fraye",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "heavy-bolter",
+          "heavy-bolter",
+          "ministorum-heavy-flamer",
+          "ministorum-heavy-flamer",
+          "melta-missile-array",
+          "mace-of-saint-praxedes",
+          "throne-of-blame"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
   }
 ]

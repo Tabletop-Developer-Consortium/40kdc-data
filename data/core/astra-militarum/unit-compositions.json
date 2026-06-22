@@ -2824,5 +2824,156 @@
         ]
       }
     ]
+  },
+  {
+    "unit_id": "cadian-recon-squad",
+    "faction_id": "astra-militarum",
+    "models": [
+      {
+        "name": "Recon Sergeant",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "close-combat-weapon",
+          "lasgun"
+        ]
+      },
+      {
+        "name": "Recon Trooper",
+        "min": 9,
+        "max": 9,
+        "default_weapon_ids": [
+          "close-combat-weapon",
+          "lasgun"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
+    "unit_id": "centaur-rsv",
+    "faction_id": "astra-militarum",
+    "models": [
+      {
+        "name": "Centaur RSV",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "pintle-mounted-heavy-stubber",
+          "armoured-hull"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
+    "unit_id": "commissar-graves",
+    "faction_id": "astra-militarum",
+    "models": [
+      {
+        "name": "Commissar Graves",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "chiron-gatling-cannon",
+          "prefectus-heavy-stubber",
+          "prefectus-heavy-stubber",
+          "power-sword-and-manus-mortis",
+          "enforcer-crew",
+          "armoured-hull"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
+    "unit_id": "commissar-graves-on-foot",
+    "faction_id": "astra-militarum",
+    "models": [
+      {
+        "name": "Commissar Graves on Foot",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "bolt-pistol",
+          "power-sword-and-manus-mortis"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
+    "unit_id": "commissar-yarrick",
+    "faction_id": "astra-militarum",
+    "models": [
+      {
+        "name": "Commissar Yarrick",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "storm-bolter",
+          "laspistol",
+          "bale-eye",
+          "power-klaw",
+          "power-sword"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
+    "unit_id": "hippogriff-afv",
+    "faction_id": "astra-militarum",
+    "models": [
+      {
+        "name": "Hippogriff AFV",
+        "min": 1,
+        "max": 2,
+        "default_weapon_ids": [
+          "vigilator-cannon",
+          "heavy-stubber",
+          "armoured-hull"
+        ]
+      }
+    ],
+    "tiers": [
+      {
+        "models": [
+          {
+            "name": "Hippogriff AFV",
+            "min": 1,
+            "max": 1
+          }
+        ]
+      },
+      {
+        "models": [
+          {
+            "name": "Hippogriff AFV",
+            "min": 2,
+            "max": 2
+          }
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
   }
 ]

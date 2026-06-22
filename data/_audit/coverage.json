@@ -13,23 +13,23 @@
     },
     {
       "faction": "adepta-sororitas",
-      "total": 98,
+      "total": 100,
       "offensive": 28,
       "defensive": 10,
-      "inert": 63,
-      "stub": 10,
-      "stubStructural": 3,
+      "inert": 65,
+      "stub": 9,
+      "stubStructural": 2,
       "gwTextLeak": 0,
       "defensiveSkipped": 1
     },
     {
       "faction": "adeptus-astartes",
-      "total": 362,
-      "offensive": 109,
+      "total": 364,
+      "offensive": 110,
       "defensive": 39,
-      "inert": 229,
+      "inert": 230,
       "stub": 26,
-      "stubStructural": 12,
+      "stubStructural": 13,
       "gwTextLeak": 0,
       "defensiveSkipped": 7
     },
@@ -46,12 +46,12 @@
     },
     {
       "faction": "adeptus-mechanicus",
-      "total": 106,
-      "offensive": 24,
+      "total": 111,
+      "offensive": 25,
       "defensive": 11,
-      "inert": 74,
+      "inert": 78,
       "stub": 3,
-      "stubStructural": 3,
+      "stubStructural": 4,
       "gwTextLeak": 0,
       "defensiveSkipped": 2
     },
@@ -79,23 +79,23 @@
     },
     {
       "faction": "astra-militarum",
-      "total": 197,
+      "total": 205,
       "offensive": 46,
       "defensive": 16,
-      "inert": 138,
+      "inert": 146,
       "stub": 6,
-      "stubStructural": 4,
+      "stubStructural": 6,
       "gwTextLeak": 0,
       "defensiveSkipped": 5
     },
     {
       "faction": "chaos-daemons",
-      "total": 155,
+      "total": 157,
       "offensive": 40,
       "defensive": 14,
-      "inert": 107,
+      "inert": 109,
       "stub": 9,
-      "stubStructural": 3,
+      "stubStructural": 5,
       "gwTextLeak": 0,
       "defensiveSkipped": 4
     },
@@ -112,12 +112,12 @@
     },
     {
       "faction": "chaos-space-marines",
-      "total": 234,
+      "total": 236,
       "offensive": 64,
       "defensive": 17,
-      "inert": 160,
+      "inert": 162,
       "stub": 28,
-      "stubStructural": 14,
+      "stubStructural": 15,
       "gwTextLeak": 0,
       "defensiveSkipped": 6
     },
@@ -211,12 +211,12 @@
     },
     {
       "faction": "orks",
-      "total": 152,
-      "offensive": 32,
+      "total": 159,
+      "offensive": 33,
       "defensive": 13,
-      "inert": 112,
+      "inert": 118,
       "stub": 11,
-      "stubStructural": 12,
+      "stubStructural": 14,
       "gwTextLeak": 0,
       "defensiveSkipped": 3
     },
@@ -244,10 +244,10 @@
     },
     {
       "faction": "tyranids",
-      "total": 111,
+      "total": 114,
       "offensive": 22,
       "defensive": 8,
-      "inert": 84,
+      "inert": 87,
       "stub": 8,
       "stubStructural": 6,
       "gwTextLeak": 0,
@@ -266,23 +266,23 @@
     }
   ],
   "totals": {
-    "total": 3086,
-    "offensive": 745,
+    "total": 3117,
+    "offensive": 748,
     "defensive": 262,
-    "inert": 2167,
-    "stub": 220,
-    "stubStructural": 182,
+    "inert": 2195,
+    "stub": 219,
+    "stubStructural": 190,
     "gwTextLeak": 0,
     "defensiveSkipped": 59
   },
   "unsupportedReasons": [
     {
       "reason": "effect type \"ability-grant\" is not modelled by the buff layer",
-      "count": 482
+      "count": 487
     },
     {
       "reason": "stat-modifier: operation \"undefined\" not supported",
-      "count": 171
+      "count": 181
     },
     {
       "reason": "effect type \"movement-modifier\" is not modelled by the buff layer",
@@ -297,11 +297,11 @@
       "count": 81
     },
     {
-      "reason": "effect type \"leadership-modifier\" is not modelled by the buff layer",
-      "count": 79
+      "reason": "conditional: cannot evaluate condition \"undefined\" against current context",
+      "count": 81
     },
     {
-      "reason": "conditional: cannot evaluate condition \"undefined\" against current context",
+      "reason": "effect type \"leadership-modifier\" is not modelled by the buff layer",
       "count": 79
     },
     {
@@ -369,12 +369,12 @@
       "count": 13
     },
     {
-      "reason": "stat-modifier on \"D\" is outside the damage path",
+      "reason": "roll-modifier on \"charge\" is outside the damage path",
       "count": 12
     },
     {
-      "reason": "roll-modifier on \"charge\" is outside the damage path",
-      "count": 11
+      "reason": "stat-modifier on \"D\" is outside the damage path",
+      "count": 12
     },
     {
       "reason": "conditional: cannot evaluate condition \"unit-within-range-of\" against current context",
@@ -385,11 +385,11 @@
       "count": 9
     },
     {
-      "reason": "conditional: cannot evaluate condition \"advanced-this-turn\" against current context",
-      "count": 8
+      "reason": "dice-gated effect: stochastic; not expressible as a buff",
+      "count": 9
     },
     {
-      "reason": "dice-gated effect: stochastic; not expressible as a buff",
+      "reason": "conditional: cannot evaluate condition \"advanced-this-turn\" against current context",
       "count": 8
     },
     {
@@ -441,8 +441,16 @@
       "count": 4
     },
     {
+      "reason": "conditional: cannot evaluate condition \"opponent-unit-within-range\" against current context",
+      "count": 4
+    },
+    {
       "reason": "stat-modifier on \"Ld\" is outside the damage path",
       "count": 4
+    },
+    {
+      "reason": "conditional: cannot evaluate condition \"units-destroyed\" against current context",
+      "count": 3
     },
     {
       "reason": "effect type \"resource-gain\" is not modelled by the buff layer",
@@ -454,10 +462,6 @@
     },
     {
       "reason": "conditional: cannot evaluate condition \"has-lost-wounds\" against current context",
-      "count": 3
-    },
-    {
-      "reason": "conditional: cannot evaluate condition \"opponent-unit-within-range\" against current context",
       "count": 3
     },
     {
@@ -517,7 +521,7 @@
       "count": 2
     },
     {
-      "reason": "conditional: cannot evaluate condition \"units-destroyed\" against current context",
+      "reason": "stat-modifier: narrows by \"weapon_name\" which the cruncher can't resolve here",
       "count": 2
     },
     {
@@ -586,10 +590,6 @@
     },
     {
       "reason": "conditional: cannot evaluate condition \"engagement-state\" against current context",
-      "count": 1
-    },
-    {
-      "reason": "stat-modifier: narrows by \"weapon_name\" which the cruncher can't resolve here",
       "count": 1
     },
     {
@@ -836,11 +836,11 @@
       "faction": "adepta-sororitas",
       "ability_id": "denuncia-oratory",
       "name": "Denuncia oratory",
-      "shape": "stat-modifier",
-      "stub": true,
+      "shape": "conditional",
+      "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "stat-modifier: operation \"undefined\" not supported"
+      "gap": "conditional: cannot evaluate condition \"units-destroyed\" against current context"
     },
     {
       "faction": "adepta-sororitas",
@@ -1611,6 +1611,26 @@
       "offensive": false,
       "defensive": false,
       "gap": "effect type \"resource-gain\" is not modelled by the buff layer"
+    },
+    {
+      "faction": "adepta-sororitas",
+      "ability_id": "righteous-denunciation",
+      "name": "Righteous Denunciation",
+      "shape": "conditional",
+      "stub": false,
+      "offensive": false,
+      "defensive": false,
+      "gap": null
+    },
+    {
+      "faction": "adepta-sororitas",
+      "ability_id": "judged-for-execution",
+      "name": "Judged for Execution",
+      "shape": "conditional",
+      "stub": false,
+      "offensive": false,
+      "defensive": false,
+      "gap": null
     },
     {
       "faction": "adeptus-astartes",
@@ -5233,6 +5253,26 @@
       "gap": null
     },
     {
+      "faction": "adeptus-astartes",
+      "ability_id": "overlapping-detonations",
+      "name": "Overlapping Detonations",
+      "shape": "conditional",
+      "stub": false,
+      "offensive": true,
+      "defensive": false,
+      "gap": null
+    },
+    {
+      "faction": "adeptus-astartes",
+      "ability_id": "purgation-run",
+      "name": "Purgation Run",
+      "shape": "stat-modifier",
+      "stub": true,
+      "offensive": false,
+      "defensive": false,
+      "gap": "stat-modifier: operation \"undefined\" not supported"
+    },
+    {
       "faction": "adeptus-custodes",
       "ability_id": "deadly-demise-d3",
       "name": "Deadly Demise D3",
@@ -7191,6 +7231,56 @@
       "offensive": false,
       "defensive": false,
       "gap": "stat-modifier: operation \"undefined\" not supported"
+    },
+    {
+      "faction": "adeptus-mechanicus",
+      "ability_id": "broad-spectrum-targeting-augurs",
+      "name": "Broad‑spectrum Targeting Augurs",
+      "shape": "conditional",
+      "stub": false,
+      "offensive": true,
+      "defensive": false,
+      "gap": null
+    },
+    {
+      "faction": "adeptus-mechanicus",
+      "ability_id": "monocular-targeting-helms",
+      "name": "Monocular Targeting Helms",
+      "shape": "conditional",
+      "stub": false,
+      "offensive": false,
+      "defensive": false,
+      "gap": null
+    },
+    {
+      "faction": "adeptus-mechanicus",
+      "ability_id": "rod-of-the-war-forge",
+      "name": "Rod of the War Forge",
+      "shape": "conditional",
+      "stub": false,
+      "offensive": false,
+      "defensive": false,
+      "gap": "effect type \"ability-grant\" is not modelled by the buff layer"
+    },
+    {
+      "faction": "adeptus-mechanicus",
+      "ability_id": "cybernetic-augmentation",
+      "name": "Cybernetic Augmentation",
+      "shape": "stat-modifier",
+      "stub": true,
+      "offensive": false,
+      "defensive": false,
+      "gap": "stat-modifier: operation \"undefined\" not supported"
+    },
+    {
+      "faction": "adeptus-mechanicus",
+      "ability_id": "secutor-of-olympus",
+      "name": "Secutor of Olympus",
+      "shape": "conditional",
+      "stub": false,
+      "offensive": false,
+      "defensive": false,
+      "gap": null
     },
     {
       "faction": "aeldari",
@@ -11567,7 +11657,7 @@
       "ability_id": "aerial-deployment",
       "name": "Aerial Deployment",
       "shape": "conditional",
-      "stub": true,
+      "stub": false,
       "offensive": false,
       "defensive": false,
       "gap": null
@@ -12291,6 +12381,86 @@
       "offensive": false,
       "defensive": false,
       "gap": "conditional: cannot evaluate condition \"undefined\" against current context"
+    },
+    {
+      "faction": "astra-militarum",
+      "ability_id": "independent-operatives",
+      "name": "Independent Operatives",
+      "shape": "ability-grant",
+      "stub": false,
+      "offensive": false,
+      "defensive": false,
+      "gap": "effect type \"ability-grant\" is not modelled by the buff layer"
+    },
+    {
+      "faction": "astra-militarum",
+      "ability_id": "rapid-strike-vehicle",
+      "name": "Rapid Strike Vehicle",
+      "shape": "conditional",
+      "stub": false,
+      "offensive": false,
+      "defensive": false,
+      "gap": "conditional: cannot evaluate condition \"undefined\" against current context"
+    },
+    {
+      "faction": "astra-militarum",
+      "ability_id": "mechanised-spearhead",
+      "name": "Mechanised Spearhead",
+      "shape": "stat-modifier",
+      "stub": true,
+      "offensive": false,
+      "defensive": false,
+      "gap": "stat-modifier: operation \"undefined\" not supported"
+    },
+    {
+      "faction": "astra-militarum",
+      "ability_id": "brutal-disciplinarian",
+      "name": "Brutal Disciplinarian",
+      "shape": "stat-modifier",
+      "stub": true,
+      "offensive": false,
+      "defensive": false,
+      "gap": "stat-modifier: operation \"undefined\" not supported"
+    },
+    {
+      "faction": "astra-militarum",
+      "ability_id": "icon-of-discipline",
+      "name": "Icon of Discipline",
+      "shape": "ability-grant",
+      "stub": false,
+      "offensive": false,
+      "defensive": false,
+      "gap": "effect type \"ability-grant\" is not modelled by the buff layer"
+    },
+    {
+      "faction": "astra-militarum",
+      "ability_id": "will-of-iron",
+      "name": "Will of Iron",
+      "shape": "dice-gated",
+      "stub": false,
+      "offensive": false,
+      "defensive": false,
+      "gap": "dice-gated effect: stochastic; not expressible as a buff"
+    },
+    {
+      "faction": "astra-militarum",
+      "ability_id": "hero-of-hades-hive",
+      "name": "Hero of Hades Hive",
+      "shape": "conditional",
+      "stub": false,
+      "offensive": false,
+      "defensive": false,
+      "gap": "effect type \"ability-grant\" is not modelled by the buff layer"
+    },
+    {
+      "faction": "astra-militarum",
+      "ability_id": "convoy-escort-vehicle",
+      "name": "Convoy Escort Vehicle",
+      "shape": "stat-modifier",
+      "stub": true,
+      "offensive": false,
+      "defensive": false,
+      "gap": "stat-modifier: operation \"undefined\" not supported"
     },
     {
       "faction": "chaos-daemons",
@@ -13841,6 +14011,26 @@
       "offensive": true,
       "defensive": false,
       "gap": "effect type \"rule-state\" is not modelled by the buff layer"
+    },
+    {
+      "faction": "chaos-daemons",
+      "ability_id": "shroud-of-flies",
+      "name": "Shroud of Flies",
+      "shape": "stat-modifier",
+      "stub": true,
+      "offensive": false,
+      "defensive": false,
+      "gap": "stat-modifier: operation \"undefined\" not supported"
+    },
+    {
+      "faction": "chaos-daemons",
+      "ability_id": "shadow-of-khorne",
+      "name": "Shadow of Khorne",
+      "shape": "stat-modifier",
+      "stub": true,
+      "offensive": false,
+      "defensive": false,
+      "gap": "stat-modifier: operation \"undefined\" not supported"
     },
     {
       "faction": "chaos-knights",
@@ -17326,6 +17516,26 @@
       "faction": "chaos-space-marines",
       "ability_id": "experimental-augmentations",
       "name": "Experimental Augmentations",
+      "shape": "stat-modifier",
+      "stub": true,
+      "offensive": false,
+      "defensive": false,
+      "gap": "stat-modifier: operation \"undefined\" not supported"
+    },
+    {
+      "faction": "chaos-space-marines",
+      "ability_id": "headlong-destruction",
+      "name": "Headlong Destruction",
+      "shape": "conditional",
+      "stub": false,
+      "offensive": false,
+      "defensive": false,
+      "gap": "conditional: cannot evaluate condition \"opponent-unit-within-range\" against current context"
+    },
+    {
+      "faction": "chaos-space-marines",
+      "ability_id": "architect-of-ruin",
+      "name": "Architect of Ruin",
       "shape": "stat-modifier",
       "stub": true,
       "offensive": false,
@@ -26493,6 +26703,76 @@
       "gap": "conditional: cannot evaluate condition \"advanced-this-turn\" against current context"
     },
     {
+      "faction": "orks",
+      "ability_id": "waaagh-banner",
+      "name": "Waaagh! Banner",
+      "shape": "stat-modifier",
+      "stub": true,
+      "offensive": false,
+      "defensive": false,
+      "gap": "stat-modifier: operation \"undefined\" not supported"
+    },
+    {
+      "faction": "orks",
+      "ability_id": "dakkablitz",
+      "name": "Dakkablitz",
+      "shape": "conditional",
+      "stub": false,
+      "offensive": false,
+      "defensive": false,
+      "gap": "stat-modifier: narrows by \"weapon_name\" which the cruncher can't resolve here"
+    },
+    {
+      "faction": "orks",
+      "ability_id": "breakin-heads",
+      "name": "Breakin’ Heads",
+      "shape": "keyword-grant",
+      "stub": false,
+      "offensive": true,
+      "defensive": false,
+      "gap": null
+    },
+    {
+      "faction": "orks",
+      "ability_id": "somethin-to-prove",
+      "name": "Somethin’ to Prove",
+      "shape": "roll-modifier",
+      "stub": false,
+      "offensive": false,
+      "defensive": false,
+      "gap": "roll-modifier on \"charge\" is outside the damage path"
+    },
+    {
+      "faction": "orks",
+      "ability_id": "indiscriminate-detonations",
+      "name": "Indiscriminate Detonations",
+      "shape": "conditional",
+      "stub": false,
+      "offensive": false,
+      "defensive": false,
+      "gap": "conditional: cannot evaluate condition \"undefined\" against current context"
+    },
+    {
+      "faction": "orks",
+      "ability_id": "fixit-da-grot",
+      "name": "Fixit da Grot",
+      "shape": "stat-modifier",
+      "stub": true,
+      "offensive": false,
+      "defensive": false,
+      "gap": "stat-modifier: operation \"undefined\" not supported"
+    },
+    {
+      "faction": "orks",
+      "ability_id": "throttlerokkit-shokka-engine",
+      "name": "Throttlerokkit Shokka Engine",
+      "shape": "conditional",
+      "stub": false,
+      "offensive": false,
+      "defensive": false,
+      "gap": "effect type \"ability-grant\" is not modelled by the buff layer"
+    },
+    {
       "faction": "tau-empire",
       "ability_id": "scouts-7",
       "name": "Scouts 7\"",
@@ -29627,7 +29907,7 @@
       "ability_id": "parasitic-infection",
       "name": "Parasitic Infection",
       "shape": "conditional",
-      "stub": true,
+      "stub": false,
       "offensive": false,
       "defensive": false,
       "gap": null
@@ -30186,6 +30466,36 @@
       "faction": "tyranids",
       "ability_id": "feed-the-swarm",
       "name": "Feed the Swarm",
+      "shape": "stat-modifier",
+      "stub": true,
+      "offensive": false,
+      "defensive": false,
+      "gap": "stat-modifier: operation \"undefined\" not supported"
+    },
+    {
+      "faction": "tyranids",
+      "ability_id": "swallow-whole",
+      "name": "Swallow Whole",
+      "shape": "sequence",
+      "stub": false,
+      "offensive": false,
+      "defensive": false,
+      "gap": null
+    },
+    {
+      "faction": "tyranids",
+      "ability_id": "subterranean-hunter",
+      "name": "Subterranean Hunter",
+      "shape": "conditional",
+      "stub": false,
+      "offensive": false,
+      "defensive": false,
+      "gap": null
+    },
+    {
+      "faction": "tyranids",
+      "ability_id": "serpentine-fiend",
+      "name": "Serpentine Fiend",
       "shape": "stat-modifier",
       "stub": true,
       "offensive": false,

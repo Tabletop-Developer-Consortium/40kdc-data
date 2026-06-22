@@ -4663,5 +4663,118 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     }
+  },
+  {
+    "id": "jindarii-tox-cycler",
+    "name": "Jindarii tox‑cycler",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Jindarii tox‑cycler",
+        "range": 36,
+        "stats": {
+          "A": 1,
+          "S": 6,
+          "AP": -2,
+          "D": 2,
+          "BS": 2
+        },
+        "keywords": [
+          {
+            "keyword_id": "anti",
+            "parameters": {
+              "target_keyword": "Monster",
+              "threshold": 2
+            }
+          },
+          {
+            "keyword_id": "heavy"
+          },
+          {
+            "keyword_id": "precision"
+          }
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
+    "id": "stubcarbine",
+    "name": "Stubcarbine",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Stubcarbine",
+        "range": 12,
+        "stats": {
+          "A": 2,
+          "S": 5,
+          "AP": -2,
+          "D": 2,
+          "BS": 2
+        },
+        "keywords": [
+          {
+            "keyword_id": "pistol"
+          }
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
+    "id": "butcher-blade",
+    "name": "Butcher blade",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Butcher blade",
+        "range": "Melee",
+        "stats": {
+          "A": 5,
+          "S": 4,
+          "AP": -2,
+          "D": 1,
+          "WS": 3
+        }
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
+    "id": "garralisks-claws-and-teeth",
+    "name": "Garralisk’s claws and teeth",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Garralisk’s claws and teeth",
+        "range": "Melee",
+        "stats": {
+          "A": 4,
+          "S": 5,
+          "AP": -1,
+          "D": 1,
+          "WS": 4
+        },
+        "keywords": [
+          {
+            "keyword_id": "extra-attacks"
+          }
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
   }
 ]

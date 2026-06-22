@@ -5,11 +5,10 @@ structural stub — an effect carrying an empty-modifier placeholder node that s
 DSL authored. This is the actionable counterpart to the per-faction `stub*` counts in
 [`CONTRIBUTING.md`](../../CONTRIBUTING.md) and [`summary.md`](summary.md).
 
-Total: 182 stub abilities.
+Total: 190 stub abilities.
 
 | faction | ability | shape | needs |
 |---|---|---|---|
-| adepta-sororitas | denuncia-oratory | stat-modifier | stat-modifier: operation "undefined" not supported |
 | adepta-sororitas | fervent-purgation | stat-modifier | stat-modifier: operation "undefined" not supported |
 | adepta-sororitas | righteous-purpose | stat-modifier | stat-modifier: operation "undefined" not supported |
 | adeptus-astartes | adaptive-defence | stat-modifier | stat-modifier: operation "undefined" not supported |
@@ -19,6 +18,7 @@ Total: 182 stub abilities.
 | adeptus-astartes | driven-by-fury | stat-modifier | stat-modifier: operation "undefined" not supported |
 | adeptus-astartes | interlocking-tactics | stat-modifier | stat-modifier: operation "undefined" not supported |
 | adeptus-astartes | mission-tactics | stat-modifier | stat-modifier: operation "undefined" not supported |
+| adeptus-astartes | purgation-run | stat-modifier | stat-modifier: operation "undefined" not supported |
 | adeptus-astartes | rapid-deployment | stat-modifier | stat-modifier: operation "undefined" not supported |
 | adeptus-astartes | rapid-drop-deployment | stat-modifier | stat-modifier: operation "undefined" not supported |
 | adeptus-astartes | sagas | stat-modifier | stat-modifier: operation "undefined" not supported |
@@ -28,6 +28,7 @@ Total: 182 stub abilities.
 | adeptus-custodes | martial-mastery | stat-modifier | stat-modifier: operation "undefined" not supported |
 | adeptus-custodes | revered-companions | stat-modifier | stat-modifier: operation "undefined" not supported |
 | adeptus-mechanicus | benedictions-of-the-omnissiah | stat-modifier | stat-modifier: operation "undefined" not supported |
+| adeptus-mechanicus | cybernetic-augmentation | stat-modifier | stat-modifier: operation "undefined" not supported |
 | adeptus-mechanicus | noospheric-transference | stat-modifier | stat-modifier: operation "undefined" not supported |
 | adeptus-mechanicus | rad-bombardment | stat-modifier | stat-modifier: operation "undefined" not supported |
 | aeldari | acrobatic-onslaught | stat-modifier | stat-modifier: operation "undefined" not supported |
@@ -73,17 +74,22 @@ Total: 182 stub abilities.
 | agents-of-the-imperium | ward-against-the-malefic-arts | stat-modifier | stat-modifier: operation "undefined" not supported |
 | agents-of-the-imperium | warrant-of-trade | stat-modifier | stat-modifier: operation "undefined" not supported |
 | agents-of-the-imperium | willsapping-salvo | stat-modifier | stat-modifier: operation "undefined" not supported |
-| astra-militarum | aerial-deployment | conditional | empty modifier |
 | astra-militarum | armoured-fist | stat-modifier | stat-modifier: operation "undefined" not supported |
+| astra-militarum | brutal-disciplinarian | stat-modifier | stat-modifier: operation "undefined" not supported |
+| astra-militarum | convoy-escort-vehicle | stat-modifier | stat-modifier: operation "undefined" not supported |
 | astra-militarum | iron-tread | stat-modifier | stat-modifier: operation "undefined" not supported |
 | astra-militarum | masters-of-camouflage | stat-modifier | stat-modifier: operation "undefined" not supported |
+| astra-militarum | mechanised-spearhead | stat-modifier | stat-modifier: operation "undefined" not supported |
 | chaos-daemons | fates-in-flux | stat-modifier | stat-modifier: operation "undefined" not supported |
 | chaos-daemons | shadow-form-abilities | stat-modifier | stat-modifier: operation "undefined" not supported |
+| chaos-daemons | shadow-of-khorne | stat-modifier | stat-modifier: operation "undefined" not supported |
+| chaos-daemons | shroud-of-flies | stat-modifier | stat-modifier: operation "undefined" not supported |
 | chaos-daemons | warp-rifts | stat-modifier | stat-modifier: operation "undefined" not supported |
 | chaos-knights | flush-the-quarry-helhunt-lance | conditional | effect type "movement-modifier" is not modelled by the buff layer |
 | chaos-knights | grav-pinned | stat-modifier | stat-modifier: operation "undefined" not supported |
 | chaos-knights | imperious-advance-traitoris-lance | conditional | effect type "movement-modifier" is not modelled by the buff layer |
 | chaos-knights | super-heavy-walker | conditional | effect type "movement-modifier" is not modelled by the buff layer |
+| chaos-space-marines | architect-of-ruin | stat-modifier | stat-modifier: operation "undefined" not supported |
 | chaos-space-marines | daemonforge | stat-modifier | stat-modifier: operation "undefined" not supported |
 | chaos-space-marines | debt-to-the-soul-forge | stat-modifier | stat-modifier: operation "undefined" not supported |
 | chaos-space-marines | desperate-devotion | stat-modifier | stat-modifier: operation "undefined" not supported |
@@ -159,12 +165,14 @@ Total: 182 stub abilities.
 | orks | da-boss-is-watchin | stat-modifier | stat-modifier: operation "undefined" not supported |
 | orks | da-hunt-is-on | stat-modifier | stat-modifier: operation "undefined" not supported |
 | orks | dakka-dakka-dakka-more-dakka | stat-modifier | stat-modifier: operation "undefined" not supported |
+| orks | fixit-da-grot | stat-modifier | stat-modifier: operation "undefined" not supported |
 | orks | lissen-ere | stat-modifier | stat-modifier: operation "undefined" not supported |
 | orks | mob-mentality | stat-modifier | stat-modifier: operation "undefined" not supported |
 | orks | supercharged-squig-oil-blitz-brigade | stat-modifier | stat-modifier: operation "undefined" not supported |
 | orks | targetin-gizmos-rollin-deff | stat-modifier | stat-modifier: operation "undefined" not supported |
 | orks | try-dat-button | stat-modifier | stat-modifier: operation "undefined" not supported |
 | orks | tuff-git-blitz-brigade | conditional | conditional: cannot evaluate condition "undefined" against current context |
+| orks | waaagh-banner | stat-modifier | stat-modifier: operation "undefined" not supported |
 | orks | yooz-in-trouble-now-blitz-brigade | stat-modifier | stat-modifier: operation "undefined" not supported |
 | tau-empire | autoreactive-camouflage-advanced-acquisition-cadre | stat-modifier | stat-modifier: operation "undefined" not supported |
 | tau-empire | bodyguard | stat-modifier | stat-modifier: operation "undefined" not supported |
@@ -188,6 +196,6 @@ Total: 182 stub abilities.
 | tyranids | feed-the-swarm | stat-modifier | stat-modifier: operation "undefined" not supported |
 | tyranids | hyper-adaptations | stat-modifier | stat-modifier: operation "undefined" not supported |
 | tyranids | mindhunger | stat-modifier | stat-modifier: operation "undefined" not supported |
-| tyranids | parasitic-infection | conditional | empty modifier |
+| tyranids | serpentine-fiend | stat-modifier | stat-modifier: operation "undefined" not supported |
 | tyranids | surprise-assault | stat-modifier | stat-modifier: operation "undefined" not supported |
 | tyranids | tanglestrike-rounds-talons-of-the-norn-queen | stat-modifier | stat-modifier: operation "undefined" not supported |

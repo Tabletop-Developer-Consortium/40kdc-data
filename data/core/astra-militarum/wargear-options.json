@@ -4452,5 +4452,94 @@
     "model_constraint": {
       "any_number": true
     }
+  },
+  {
+    "id": "cadian-recon-squad-wgo-mfm-1",
+    "unit_id": "cadian-recon-squad",
+    "faction_id": "astra-militarum",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_free": true,
+    "model_constraint": {
+      "model_name": "Recon Trooper",
+      "max_count": 1
+    },
+    "replaces": [
+      "close-combat-weapon",
+      "lasgun"
+    ],
+    "replacement_choice": [
+      [
+        "laspistol"
+      ],
+      [
+        "laspistol",
+        "missile-launcher"
+      ],
+      [
+        "plasma-gun"
+      ],
+      [
+        "long-las"
+      ],
+      [
+        "meltagun"
+      ],
+      [
+        "autostubber"
+      ]
+    ]
+  },
+  {
+    "id": "hippogriff-afv-wgo-mfm-1",
+    "unit_id": "hippogriff-afv",
+    "faction_id": "astra-militarum",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_free": true,
+    "model_constraint": {
+      "any_number": true
+    },
+    "replaces": [
+      "vigilator-cannon",
+      "heavy-stubber",
+      "armoured-hull"
+    ],
+    "replacement_choice": [
+      [
+        "melta-cannon"
+      ],
+      [
+        "chiron-gatling-cannon"
+      ],
+      [
+        "lascannon"
+      ]
+    ]
+  },
+  {
+    "id": "hippogriff-afv-wgo-mfm-2",
+    "unit_id": "hippogriff-afv",
+    "faction_id": "astra-militarum",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_free": true,
+    "model_constraint": {
+      "any_number": true
+    },
+    "replaces": [
+      "vigilator-cannon",
+      "heavy-stubber",
+      "armoured-hull"
+    ],
+    "replacement": [
+      "meltagun"
+    ]
   }
 ]

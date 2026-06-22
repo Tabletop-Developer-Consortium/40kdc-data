@@ -2834,5 +2834,221 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     }
+  },
+  {
+    "id": "hastarii-arc-blaster",
+    "name": "Hastarii arc blaster",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Hastarii arc blaster",
+        "range": 18,
+        "stats": {
+          "A": 1,
+          "S": 6,
+          "AP": -1,
+          "D": 2,
+          "BS": 4
+        },
+        "keywords": [
+          {
+            "keyword_id": "anti",
+            "parameters": {
+              "target_keyword": "Vehicle",
+              "threshold": 4
+            }
+          },
+          {
+            "keyword_id": "devastating-wounds"
+          }
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
+    "id": "eradication-caster",
+    "name": "Eradication caster",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "dissipated",
+        "range": 30,
+        "stats": {
+          "A": 2,
+          "S": 5,
+          "AP": -1,
+          "D": 2,
+          "BS": 4
+        },
+        "keywords": [
+          {
+            "keyword_id": "anti",
+            "parameters": {
+              "target_keyword": "Infantry",
+              "threshold": 4
+            }
+          }
+        ]
+      },
+      {
+        "name": "focused",
+        "range": 15,
+        "stats": {
+          "A": 2,
+          "S": 5,
+          "AP": -2,
+          "D": 2,
+          "BS": 4
+        },
+        "keywords": [
+          {
+            "keyword_id": "anti",
+            "parameters": {
+              "target_keyword": "Infantry",
+              "threshold": 4
+            }
+          }
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
+    "id": "neutron-fusil",
+    "name": "Neutron fusil",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Neutron fusil",
+        "range": 24,
+        "stats": {
+          "A": 1,
+          "S": 12,
+          "AP": -3,
+          "D": "D6+1",
+          "BS": 4
+        }
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
+    "id": "hastarii-phosphor-blaster",
+    "name": "Hastarii phosphor blaster",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Hastarii phosphor blaster",
+        "range": 18,
+        "stats": {
+          "A": 2,
+          "S": 5,
+          "AP": 0,
+          "D": 1,
+          "BS": 4
+        },
+        "keywords": [
+          {
+            "keyword_id": "ignores-cover"
+          }
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
+    "id": "jericho-class-conversion-resonator",
+    "name": "Jericho‑class conversion resonator",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "titanic impact",
+        "range": 24,
+        "stats": {
+          "A": 2,
+          "S": 12,
+          "AP": -3,
+          "D": "D6+2",
+          "BS": 2
+        },
+        "keywords": [
+          {
+            "keyword_id": "devastating-wounds"
+          }
+        ]
+      },
+      {
+        "name": "shockwave",
+        "range": 24,
+        "stats": {
+          "A": "D6+2",
+          "S": 6,
+          "AP": -2,
+          "D": 1,
+          "BS": 2
+        },
+        "keywords": [
+          {
+            "keyword_id": "blast"
+          },
+          {
+            "keyword_id": "sustained-hits",
+            "parameters": {
+              "value": 1
+            }
+          }
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
+    "id": "rod-of-the-war-forge",
+    "name": "Rod of the War Forge",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "strike",
+        "range": "Melee",
+        "stats": {
+          "A": 6,
+          "S": 10,
+          "AP": -2,
+          "D": 3,
+          "WS": 2
+        }
+      },
+      {
+        "name": "sweep",
+        "range": "Melee",
+        "stats": {
+          "A": 12,
+          "S": 6,
+          "AP": -1,
+          "D": 1,
+          "WS": 2
+        }
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
   }
 ]

@@ -617,7 +617,8 @@
       "duration": "permanent"
     },
     "unit_ids": [
-      "belisarius-cawl"
+      "belisarius-cawl",
+      "thulia-ghuld"
     ],
     "ability_type": "unit",
     "behavior": "passive"
@@ -2398,7 +2399,11 @@
     "faction_id": "adeptus-mechanicus",
     "ability_type": "faction",
     "behavior": "reactive",
-    "unit_ids": []
+    "unit_ids": [
+      "hastarii-exterminators",
+      "hastarii-fusiliers",
+      "thulia-ghuld"
+    ]
   },
   {
     "ability_id": "noospheric-recon",
@@ -3942,5 +3947,234 @@
       "duration": "permanent"
     },
     "community_notes": "[APPROX] DSL stub — detachment rule; mechanics pending authoring. Full rule in raw-text store."
+  },
+  {
+    "ability_id": "broad-spectrum-targeting-augurs",
+    "name": "Broad‑spectrum Targeting Augurs",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "pre-launch-provisional"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          {
+            "operator": "not",
+            "operands": [
+              {
+                "type": "target-has-keyword",
+                "parameters": {
+                  "keyword": "MONSTER"
+                }
+              }
+            ]
+          },
+          {
+            "operator": "not",
+            "operands": [
+              {
+                "type": "target-has-keyword",
+                "parameters": {
+                  "keyword": "VEHICLE"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "effect": {
+        "type": "keyword-grant",
+        "target": "unit",
+        "modifier": {
+          "keywords": [
+            "Sustained Hits 1"
+          ],
+          "weapon_name": "eradication caster"
+        }
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "hastarii-exterminators"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive",
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
+  },
+  {
+    "ability_id": "monocular-targeting-helms",
+    "name": "Monocular Targeting Helms",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "pre-launch-provisional"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "operator": "or",
+        "operands": [
+          {
+            "type": "target-has-keyword",
+            "parameters": {
+              "keyword": "MONSTER"
+            }
+          },
+          {
+            "type": "target-has-keyword",
+            "parameters": {
+              "keyword": "VEHICLE"
+            }
+          }
+        ]
+      },
+      "effect": {
+        "type": "keyword-grant",
+        "target": "unit",
+        "modifier": {
+          "keywords": [
+            "Ignores Cover"
+          ],
+          "weapon_name": "neutron-fusil"
+        }
+      }
+    },
+    "scope": {
+      "range": "self",
+      "duration": "battle"
+    },
+    "unit_ids": [
+      "hastarii-fusiliers"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive",
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
+  },
+  {
+    "ability_id": "rod-of-the-war-forge",
+    "name": "Rod of the War Forge",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "pre-launch-provisional"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "phase-is",
+        "parameters": {
+          "phase": "command"
+        }
+      },
+      "effect": {
+        "type": "ability-grant",
+        "target": "self",
+        "modifier": {
+          "grant_type": "icon-of-war-selection"
+        }
+      }
+    },
+    "scope": {
+      "range": "self",
+      "duration": "until-next-command-phase"
+    },
+    "unit_ids": [
+      "thulia-ghuld"
+    ],
+    "ability_type": "unit",
+    "behavior": "activated",
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
+  },
+  {
+    "ability_id": "cybernetic-augmentation",
+    "name": "Cybernetic Augmentation",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "pre-launch-provisional"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "stat-modifier",
+      "target": "unit",
+      "modifier": {}
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "thulia-ghuld"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
+  },
+  {
+    "ability_id": "secutor-of-olympus",
+    "name": "Secutor of Olympus",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "pre-launch-provisional"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          {
+            "type": "phase-is",
+            "parameters": {
+              "phase": "shooting"
+            }
+          },
+          {
+            "type": "timing-is",
+            "parameters": {
+              "timing": "start"
+            }
+          },
+          {
+            "type": "target-has-keyword",
+            "parameters": {
+              "keyword": "VEHICLE"
+            }
+          }
+        ]
+      },
+      "effect": {
+        "type": "dice-gated",
+        "dice": "D6",
+        "threshold": 2,
+        "comparison": "gte",
+        "on_success": {
+          "type": "mortal-wounds",
+          "target": "enemy-within-aura",
+          "modifier": {
+            "count": "D3+1"
+          }
+        }
+      }
+    },
+    "scope": {
+      "range": "aura-12",
+      "duration": "phase"
+    },
+    "unit_ids": [
+      "thulia-ghuld"
+    ],
+    "ability_type": "unit",
+    "behavior": "activated",
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   }
 ]

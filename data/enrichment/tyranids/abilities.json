@@ -19,7 +19,9 @@
     },
     "unit_ids": [
       "trygon",
-      "mucolid-spores"
+      "mucolid-spores",
+      "spore-mines",
+      "the-red-terror"
     ],
     "ability_type": "core",
     "behavior": "activated"
@@ -1747,9 +1749,15 @@
         "operator": "and",
         "operands": [
           {
+            "type": "phase-is",
+            "parameters": {
+              "phase": "fight"
+            }
+          },
+          {
             "type": "timing-is",
             "parameters": {
-              "timing": "after-unit-resolves-attacks"
+              "timing": "after-attacks-resolved"
             }
           },
           {
@@ -1761,12 +1769,6 @@
           {
             "type": "destroyed-by-attack-type",
             "parameters": {
-              "attack_type": "melee"
-            }
-          },
-          {
-            "type": "attack-is-type",
-            "parameters": {
               "attack_type": "melee",
               "weapon_name": "barbed ovipositor"
             }
@@ -1774,28 +1776,19 @@
         ]
       },
       "effect": {
-        "type": "sequence",
-        "steps": [
-          {
-            "type": "resurrection",
-            "target": "unit",
-            "modifier": {
-              "unit_type": "RIPPER SWARMS",
-              "count": "D3",
-              "placement_range": 3
-            }
-          },
-          {
-            "type": "engagement-passthrough",
-            "target": "unit",
-            "modifier": {}
-          }
-        ]
+        "type": "resurrection",
+        "target": "self",
+        "modifier": {
+          "count": "D3",
+          "unit_type": "ripper-swarms",
+          "placement_range": 3,
+          "placement_allowance": "engagement-range-of-destroyed-unit"
+        }
       }
     },
     "scope": {
       "range": "self",
-      "duration": "phase"
+      "duration": "permanent"
     },
     "unit_ids": [
       "parasite-of-mortrex"
@@ -3021,7 +3014,9 @@
     "behavior": "passive",
     "unit_ids": [
       "von-ryans-leapers",
-      "mucolid-spores"
+      "mucolid-spores",
+      "spore-mines",
+      "the-red-terror"
     ]
   },
   {
@@ -4115,5 +4110,185 @@
       "duration": "permanent"
     },
     "community_notes": "[APPROX] DSL stub — detachment rule; mechanics pending authoring. Full rule in raw-text store."
+  },
+  {
+    "ability_id": "swallow-whole",
+    "name": "Swallow Whole",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "pre-launch-provisional"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "sequence",
+      "steps": [
+        {
+          "type": "conditional",
+          "condition": {
+            "operator": "or",
+            "operands": [
+              {
+                "type": "target-has-keyword",
+                "parameters": {
+                  "keyword": "INFANTRY"
+                }
+              },
+              {
+                "type": "target-has-keyword",
+                "parameters": {
+                  "keyword": "MOUNTED"
+                }
+              },
+              {
+                "type": "target-has-keyword",
+                "parameters": {
+                  "keyword": "BEASTS"
+                }
+              }
+            ]
+          },
+          "effect": {
+            "type": "ability-grant",
+            "target": "self",
+            "modifier": {
+              "grant_type": "critical-wound-on-successful-wound-roll"
+            }
+          }
+        },
+        {
+          "type": "conditional",
+          "condition": {
+            "operator": "and",
+            "operands": [
+              {
+                "type": "destroyed-by-attack-type",
+                "parameters": {
+                  "attack_type": "melee"
+                }
+              },
+              {
+                "operator": "or",
+                "operands": [
+                  {
+                    "type": "target-has-keyword",
+                    "parameters": {
+                      "keyword": "INFANTRY"
+                    }
+                  },
+                  {
+                    "type": "target-has-keyword",
+                    "parameters": {
+                      "keyword": "MOUNTED"
+                    }
+                  },
+                  {
+                    "type": "target-has-keyword",
+                    "parameters": {
+                      "keyword": "BEASTS"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "effect": {
+            "type": "stat-modifier",
+            "target": "self",
+            "modifier": {
+              "stat": "W",
+              "operation": "add",
+              "value": "D3+2"
+            }
+          }
+        }
+      ]
+    },
+    "scope": {
+      "range": "self",
+      "duration": "battle"
+    },
+    "unit_ids": [
+      "the-red-terror"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive",
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
+  },
+  {
+    "ability_id": "subterranean-hunter",
+    "name": "Subterranean Hunter",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "pre-launch-provisional"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          {
+            "type": "timing-is",
+            "parameters": {
+              "timing": "end-of-fight-phase"
+            }
+          },
+          {
+            "operator": "not",
+            "operands": [
+              {
+                "type": "opponent-unit-within-range",
+                "parameters": {
+                  "range": "engagement"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "effect": {
+        "type": "ability-grant",
+        "target": "self",
+        "modifier": {
+          "grant_type": "redeploy-to-strategic-reserves"
+        }
+      }
+    },
+    "scope": {
+      "range": "self",
+      "duration": "phase"
+    },
+    "unit_ids": [
+      "the-red-terror"
+    ],
+    "ability_type": "unit",
+    "behavior": "activated",
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
+  },
+  {
+    "ability_id": "serpentine-fiend",
+    "name": "Serpentine Fiend",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "pre-launch-provisional"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "stat-modifier",
+      "target": "unit",
+      "modifier": {}
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "the-red-terror"
+    ],
+    "ability_type": "unit",
+    "behavior": "passive"
   }
 ]

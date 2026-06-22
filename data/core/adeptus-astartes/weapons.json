@@ -12974,5 +12974,27 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     }
+  },
+  {
+    "id": "stormfury-missile-launcher",
+    "name": "Stormfury missile launcher",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Stormfury missile launcher",
+        "range": 48,
+        "stats": {
+          "A": 1,
+          "S": 10,
+          "AP": -3,
+          "D": 4,
+          "BS": 3
+        }
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
   }
 ]

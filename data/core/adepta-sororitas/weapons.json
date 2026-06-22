@@ -3040,5 +3040,92 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     }
+  },
+  {
+    "id": "melta-missile-array",
+    "name": "Melta missile array",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Melta missile array",
+        "range": 24,
+        "stats": {
+          "A": 2,
+          "S": 9,
+          "AP": -2,
+          "D": "D3",
+          "BS": 2
+        },
+        "keywords": [
+          {
+            "keyword_id": "melta",
+            "parameters": {
+              "value": 2
+            }
+          }
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
+    "id": "mace-of-saint-praxedes",
+    "name": "Mace of Saint Praxedes",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Mace of Saint Praxedes",
+        "range": "Melee",
+        "stats": {
+          "A": 4,
+          "S": 6,
+          "AP": -2,
+          "D": 2,
+          "WS": 2
+        },
+        "keywords": [
+          {
+            "keyword_id": "sustained-hits",
+            "parameters": {
+              "value": 1
+            }
+          }
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
+    "id": "throne-of-blame",
+    "name": "Throne of Blame",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Throne of Blame",
+        "range": "Melee",
+        "stats": {
+          "A": 4,
+          "S": 6,
+          "AP": 0,
+          "D": 1,
+          "WS": 4
+        },
+        "keywords": [
+          {
+            "keyword_id": "extra-attacks"
+          }
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
   }
 ]

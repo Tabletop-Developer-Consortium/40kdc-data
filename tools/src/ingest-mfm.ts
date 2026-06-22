@@ -713,7 +713,25 @@ async function runSeedUnitsCmd(
       `held back ${cpExcluded} Combat-Patrol-only, skipped ${skipped}.`,
   );
   await applyWrites(report.staged, { write, label: "seed-units" });
-  if (!write) console.log("DRY RUN — no files written. Re-run with --write to apply.");
+  if (!write) {
+    console.log("DRY RUN — no files written. Re-run with --write to apply.");
+  } else if (created > 0) {
+    // seed-units emits skeletons only (no weapon_ids/ability_ids/composition).
+    // The wargear/composition reconcile passes skip a datasheet whose unit did
+    // not yet exist when they ran, so a freshly-seeded unit keeps an empty
+    // loadout until those passes are re-run now that it exists. Prompt that
+    // follow-through here so a seeded skeleton is not silently shipped (the gap
+    // is also tracked by `npm run audit:loadout-coverage`).
+    const createdIds = report.dirs.flatMap((d) => d.created.map((c) => c.id));
+    console.log(
+      "\nNext: these skeletons have NO loadout/abilities yet. Re-run the reconcile\n" +
+        "passes now that the units exist, then author abilities:\n" +
+        "  npx tsx tools/src/ingest-mfm.ts wargear --write\n" +
+        "  npx tsx tools/src/ingest-mfm.ts composition-tiers --write\n" +
+        "  (then author ability_ids; verify with `npm run audit:loadout-coverage`)\n" +
+        `Seeded ids: ${createdIds.join(", ")}`,
+    );
+  }
 }
 
 async function main(): Promise<void> {

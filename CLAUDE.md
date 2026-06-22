@@ -224,7 +224,13 @@ across implementations by the `conformance/share/` corpus.
   to `_private/mfm/`. **`seed-units` is the only subcommand that CREATES new units**
   (skeleton id/name/profiles/points/keywords/role/model_count) for dump datasheets
   with no repo entity — every other subcommand only reconciles units that already
-  exist. It files shared-roster children (SM chapters) into their parent dir
+  exist. **Because seed-units emits a bare skeleton (no `weapon_ids`/`ability_ids`/
+  composition) and the `wargear`/`composition-tiers` passes skip any datasheet
+  whose unit didn't yet exist when they ran, a freshly-seeded unit keeps an EMPTY
+  loadout until those passes are re-run now that it exists — then its abilities are
+  authored.** seed-units prints this follow-through (with the seeded ids) on
+  `--write`; the gap is tracked by `npm run audit:loadout-coverage`
+  (`data/_audit/loadout-coverage.md`). It files shared-roster children (SM chapters) into their parent dir
   (adeptus-astartes) and, by default, holds back Combat-Patrol-box datasheets
   (`Combat Patrol: X` publications); pass `--include-combat-patrol` to seed those. Both modes apply the same in-memory mutations and route the
   projected file contents through `mfm/apply.ts` `applyWrites`, which validates

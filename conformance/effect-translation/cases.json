@@ -6036,7 +6036,33 @@
     }
   },
   {
-    "caseId": "seed-the-garden-of-nurgle#195",
+    "caseId": "saturation-fire#195",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "within-range-of-objective",
+        "parameters": {}
+      },
+      "effect": {
+        "type": "keyword-grant",
+        "target": "attacker",
+        "modifier": {
+          "keywords": [
+            "Ignores Cover"
+          ]
+        }
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "phase"
+    },
+    "expected": {
+      "text": "If within range of an objective, until the end of the phase, the attacking unit's weapons gain [IGNORES COVER]."
+    }
+  },
+  {
+    "caseId": "seed-the-garden-of-nurgle#196",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -6085,7 +6111,7 @@
     }
   },
   {
-    "caseId": "shadow-of-khorne-aura#196",
+    "caseId": "shadow-of-khorne-aura#197",
     "effect": {
       "type": "sequence",
       "steps": [
@@ -6135,7 +6161,7 @@
     }
   },
   {
-    "caseId": "shokk-boosta#197",
+    "caseId": "shokk-boosta#198",
     "effect": {
       "type": "sequence",
       "steps": [
@@ -6195,7 +6221,7 @@
     }
   },
   {
-    "caseId": "shudderblink#198",
+    "caseId": "shudderblink#199",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -6249,7 +6275,7 @@
     }
   },
   {
-    "caseId": "super-heavy-walker#199",
+    "caseId": "super-heavy-walker#200",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -6328,7 +6354,7 @@
     }
   },
   {
-    "caseId": "swooping-descent#200",
+    "caseId": "swooping-descent#201",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -6383,7 +6409,7 @@
     }
   },
   {
-    "caseId": "the-betrayer#201",
+    "caseId": "the-betrayer#202",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -6454,7 +6480,7 @@
     }
   },
   {
-    "caseId": "the-dark-master-aura#202",
+    "caseId": "the-dark-master-aura#203",
     "effect": {
       "type": "terrain-area-tag",
       "target": "self",
@@ -6471,7 +6497,7 @@
     }
   },
   {
-    "caseId": "the-hammer-falls#203",
+    "caseId": "the-hammer-falls#204",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -6504,7 +6530,7 @@
     }
   },
   {
-    "caseId": "thundering-wagons#204",
+    "caseId": "thundering-wagons#205",
     "effect": {
       "type": "sequence",
       "steps": [
@@ -6566,7 +6592,7 @@
     }
   },
   {
-    "caseId": "torture-device#205",
+    "caseId": "torture-device#206",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -6595,7 +6621,7 @@
     }
   },
   {
-    "caseId": "triarchal-menhirs#206",
+    "caseId": "triarchal-menhirs#207",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -6632,7 +6658,7 @@
     }
   },
   {
-    "caseId": "tuff-git-blitz-brigade#207",
+    "caseId": "tuff-git-blitz-brigade#208",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -6663,7 +6689,7 @@
     }
   },
   {
-    "caseId": "unholy-avalanche#208",
+    "caseId": "unholy-avalanche#209",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -6702,7 +6728,7 @@
     }
   },
   {
-    "caseId": "warp-tainted-warpstrike-champions#209",
+    "caseId": "warp-tainted-warpstrike-champions#210",
     "effect": {
       "type": "objective-tag",
       "target": "unit",
@@ -6726,7 +6752,7 @@
     }
   },
   {
-    "caseId": "movement-modifier-scouts#210",
+    "caseId": "movement-modifier-scouts#211",
     "effect": {
       "type": "movement-modifier",
       "target": "unit",
@@ -6744,7 +6770,7 @@
     }
   },
   {
-    "caseId": "grant-label-charge-after-disembark#211",
+    "caseId": "grant-label-charge-after-disembark#212",
     "effect": {
       "type": "ability-grant",
       "target": "unit",
@@ -6761,7 +6787,7 @@
     }
   },
   {
-    "caseId": "grant-label-charge-after-fallback#212",
+    "caseId": "grant-label-charge-after-fallback#213",
     "effect": {
       "type": "ability-grant",
       "target": "self",
@@ -6778,7 +6804,7 @@
     }
   },
   {
-    "caseId": "engagement-state-engaged#213",
+    "caseId": "engagement-state-engaged#214",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -6801,7 +6827,7 @@
     }
   },
   {
-    "caseId": "engagement-state-on-battlefield#214",
+    "caseId": "engagement-state-on-battlefield#215",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -6824,7 +6850,7 @@
     }
   },
   {
-    "caseId": "engagement-state-embarked#215",
+    "caseId": "engagement-state-embarked#216",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -6847,7 +6873,7 @@
     }
   },
   {
-    "caseId": "engagement-state-empty#216",
+    "caseId": "engagement-state-empty#217",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -6868,7 +6894,7 @@
     }
   },
   {
-    "caseId": "engagement-state-negated#217",
+    "caseId": "engagement-state-negated#218",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -6892,7 +6918,7 @@
     }
   },
   {
-    "caseId": "disposition-matches-reserves#218",
+    "caseId": "disposition-matches-reserves#219",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -6915,7 +6941,7 @@
     }
   },
   {
-    "caseId": "disposition-matches-enemy#219",
+    "caseId": "disposition-matches-enemy#220",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -6938,7 +6964,7 @@
     }
   },
   {
-    "caseId": "fights-first-cond#220",
+    "caseId": "fights-first-cond#221",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -6964,7 +6990,7 @@
     }
   },
   {
-    "caseId": "scaling-attacks-per-models#221",
+    "caseId": "scaling-attacks-per-models#222",
     "effect": {
       "type": "stat-modifier",
       "target": "unit",
@@ -6988,7 +7014,7 @@
     }
   },
   {
-    "caseId": "scaling-strength-wounds-lost#222",
+    "caseId": "scaling-strength-wounds-lost#223",
     "effect": {
       "type": "stat-modifier",
       "target": "self",
@@ -7013,7 +7039,7 @@
     }
   },
   {
-    "caseId": "dice-pool-inline-label#223",
+    "caseId": "dice-pool-inline-label#224",
     "effect": {
       "type": "choice",
       "options": [
@@ -7056,7 +7082,7 @@
     }
   },
   {
-    "caseId": "keyword-grant-anti-string#224",
+    "caseId": "keyword-grant-anti-string#225",
     "effect": {
       "type": "keyword-grant",
       "target": "unit",
@@ -7073,7 +7099,7 @@
     }
   },
   {
-    "caseId": "keyword-grant-anti-structured#225",
+    "caseId": "keyword-grant-anti-structured#226",
     "effect": {
       "type": "keyword-grant",
       "target": "unit",
@@ -7091,7 +7117,7 @@
     }
   },
   {
-    "caseId": "keyword-grant-rated-value#226",
+    "caseId": "keyword-grant-rated-value#227",
     "effect": {
       "type": "keyword-grant",
       "target": "unit",
@@ -7109,7 +7135,7 @@
     }
   },
   {
-    "caseId": "auto-result-battle-shock-pass#227",
+    "caseId": "auto-result-battle-shock-pass#228",
     "effect": {
       "type": "auto-result",
       "target": "unit",
@@ -7127,7 +7153,7 @@
     }
   },
   {
-    "caseId": "auto-result-hit-six#228",
+    "caseId": "auto-result-hit-six#229",
     "effect": {
       "type": "auto-result",
       "target": "unit",
@@ -7145,7 +7171,7 @@
     }
   },
   {
-    "caseId": "firing-deck#229",
+    "caseId": "firing-deck#230",
     "effect": {
       "type": "firing-deck",
       "target": "self",
@@ -7162,7 +7188,7 @@
     }
   },
   {
-    "caseId": "disembark-after-move#230",
+    "caseId": "disembark-after-move#231",
     "effect": {
       "type": "disembark-after-move",
       "target": "self",
@@ -7177,7 +7203,7 @@
     }
   },
   {
-    "caseId": "usage-once-per-turn#231",
+    "caseId": "usage-once-per-turn#232",
     "effect": {
       "type": "cp-gain",
       "target": "self",
@@ -7197,7 +7223,7 @@
     }
   },
   {
-    "caseId": "usage-n-per-battle-per-unit#232",
+    "caseId": "usage-n-per-battle-per-unit#233",
     "effect": {
       "type": "stat-modifier",
       "target": "unit",
@@ -7221,7 +7247,7 @@
     }
   },
   {
-    "caseId": "trigger-enemy-ended-move#233",
+    "caseId": "trigger-enemy-ended-move#234",
     "effect": {
       "type": "movement-modifier",
       "target": "self",
@@ -7247,7 +7273,7 @@
     }
   },
   {
-    "caseId": "trigger-on-model-destroyed#234",
+    "caseId": "trigger-on-model-destroyed#235",
     "effect": {
       "type": "mortal-wounds",
       "target": "all-enemy",
@@ -7268,7 +7294,7 @@
     }
   },
   {
-    "caseId": "trigger-before-save-with-condition#235",
+    "caseId": "trigger-before-save-with-condition#236",
     "effect": {
       "type": "re-roll",
       "target": "unit",
@@ -7293,7 +7319,7 @@
     }
   },
   {
-    "caseId": "move-passthrough-models-terrain#236",
+    "caseId": "move-passthrough-models-terrain#237",
     "effect": {
       "type": "movement-modifier",
       "target": "self",
@@ -7313,7 +7339,7 @@
     }
   },
   {
-    "caseId": "move-passthrough-applies-excludes#237",
+    "caseId": "move-passthrough-applies-excludes#238",
     "effect": {
       "type": "movement-modifier",
       "target": "unit",
@@ -7339,7 +7365,7 @@
     }
   },
   {
-    "caseId": "move-ignore-vertical#238",
+    "caseId": "move-ignore-vertical#239",
     "effect": {
       "type": "movement-modifier",
       "target": "unit",
@@ -7356,7 +7382,7 @@
     }
   },
   {
-    "caseId": "move-normal-applies#239",
+    "caseId": "move-normal-applies#240",
     "effect": {
       "type": "movement-modifier",
       "target": "unit",
@@ -7379,7 +7405,7 @@
     }
   },
   {
-    "caseId": "move-normal-negative#240",
+    "caseId": "move-normal-negative#241",
     "effect": {
       "type": "movement-modifier",
       "target": "defender",
@@ -7397,7 +7423,7 @@
     }
   },
   {
-    "caseId": "move-advance-bonus#241",
+    "caseId": "move-advance-bonus#242",
     "effect": {
       "type": "movement-modifier",
       "target": "unit",
@@ -7415,7 +7441,7 @@
     }
   },
   {
-    "caseId": "move-pile-in#242",
+    "caseId": "move-pile-in#243",
     "effect": {
       "type": "movement-modifier",
       "target": "unit",
@@ -7434,7 +7460,7 @@
     }
   },
   {
-    "caseId": "move-consolidation#243",
+    "caseId": "move-consolidation#244",
     "effect": {
       "type": "movement-modifier",
       "target": "unit",
@@ -7453,7 +7479,7 @@
     }
   },
   {
-    "caseId": "move-surge#244",
+    "caseId": "move-surge#245",
     "effect": {
       "type": "movement-modifier",
       "target": "unit",
@@ -7471,7 +7497,7 @@
     }
   },
   {
-    "caseId": "move-shoot-and-scoot#245",
+    "caseId": "move-shoot-and-scoot#246",
     "effect": {
       "type": "movement-modifier",
       "target": "unit",
@@ -7489,7 +7515,7 @@
     }
   },
   {
-    "caseId": "move-redeploy-reserves-max#246",
+    "caseId": "move-redeploy-reserves-max#247",
     "effect": {
       "type": "movement-modifier",
       "target": "unit",
@@ -7508,7 +7534,7 @@
     }
   },
   {
-    "caseId": "move-redeploy-marker#247",
+    "caseId": "move-redeploy-marker#248",
     "effect": {
       "type": "movement-modifier",
       "target": "unit",
@@ -7529,7 +7555,7 @@
     }
   },
   {
-    "caseId": "move-redeploy-placement#248",
+    "caseId": "move-redeploy-placement#249",
     "effect": {
       "type": "movement-modifier",
       "target": "unit",
@@ -7550,7 +7576,7 @@
     }
   },
   {
-    "caseId": "move-infiltrate#249",
+    "caseId": "move-infiltrate#250",
     "effect": {
       "type": "movement-modifier",
       "target": "unit",
@@ -7567,7 +7593,7 @@
     }
   },
   {
-    "caseId": "aura-range-bonus#250",
+    "caseId": "aura-range-bonus#251",
     "effect": {
       "type": "aura",
       "target": "enemy-within-aura",
@@ -7585,7 +7611,7 @@
     }
   },
   {
-    "caseId": "aura-tiered-effect#251",
+    "caseId": "aura-tiered-effect#252",
     "effect": {
       "type": "aura",
       "target": "enemy-within-aura",
@@ -7615,7 +7641,7 @@
     }
   },
   {
-    "caseId": "rehome-deep-strike-min-distance#252",
+    "caseId": "rehome-deep-strike-min-distance#253",
     "effect": {
       "type": "deep-strike",
       "target": "unit",
@@ -7633,7 +7659,7 @@
     }
   },
   {
-    "caseId": "rehome-engagement-no-end#253",
+    "caseId": "rehome-engagement-no-end#254",
     "effect": {
       "type": "engagement-passthrough",
       "target": "self",

@@ -1516,7 +1516,7 @@
         "T": 10,
         "W": 18,
         "Sv": 3,
-        "invuln_sv": null,
+        "invuln_sv": 5,
         "Ld": 6,
         "OC": 8
       }
@@ -1548,10 +1548,42 @@
     "faction_keywords": [
       "Imperial Knights"
     ],
+    "base_size_mm": {
+      "shape": "oval",
+      "width": 150,
+      "length": 95
+    },
     "model_count": {
       "min": 1,
       "max": 1
     },
+    "weapon_ids": [
+      "chastiser-gatling-cannon",
+      "frag-bombard",
+      "questoris-heavy-stubber",
+      "titanic-feet"
+    ],
+    "ability_ids": [
+      "ram-jets",
+      "thundercharge",
+      "saturation-fire"
+    ],
+    "wargear_budgets": [
+      {
+        "items": [
+          "bellatus-reaper-chainsword"
+        ],
+        "count": 1,
+        "per_models": 0
+      },
+      {
+        "items": [
+          "thundershock-spear"
+        ],
+        "count": 1,
+        "per_models": 0
+      }
+    ],
     "game_version": {
       "edition": "11th",
       "dataslate": "launch"

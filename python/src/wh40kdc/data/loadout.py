@@ -232,8 +232,31 @@ def maximal_loadout(
             counts[id_] = counts.get(id_, 0) - cap
         for id_ in _added_ids(option):
             counts[id_] = counts.get(id_, 0) + cap
+    _clamp_flat_budgets(unit, counts)
     # Drop any id that nets to zero so the loadout reads cleanly.
     return {id_: n for id_, n in counts.items() if n != 0}
+
+
+def _clamp_flat_budgets(unit: Unit, counts: dict[str, int]) -> None:
+    """Cap each weapon's count by any single-weapon flat ``wargear_budgets`` entry.
+
+    A "this model takes at most N of weapon X" line is modelled as ``items`` of
+    length 1 with ``per_models == 0``. A weapon reachable through several swap
+    slots — e.g. a Knight Destrier whose chastiser gatling cannon AND frag
+    bombard can each be swapped for a bellatus reaper chainsword — would
+    otherwise sum to an illegal count; clamping here makes
+    :func:`maximal_loadout`/:func:`weapon_bounds` agree with the same
+    invalid-loadout prevention the editor enforces. Shared (multi-item) and ratio
+    (``per_models > 0``) budgets stay policed by :func:`validate_loadout`.
+    """
+    for budget in unit.get("wargear_budgets") or []:
+        items = budget.get("items") or []
+        if len(items) != 1 or budget.get("per_models", 0) != 0:
+            continue
+        id_ = items[0]
+        cap = budget["count"]
+        if id_ in counts and counts[id_] > cap:
+            counts[id_] = cap
 
 
 def weapon_bounds(
@@ -263,6 +286,18 @@ def weapon_bounds(
         for id_ in adds:
             b = bounds.get(id_, {"min": 0, "max": 0})
             bounds[id_] = {"min": b["min"], "max": b["max"] + cap}
+    # A single-weapon flat budget caps the weapon's ceiling regardless of how
+    # many swap slots can add it (see :func:`_clamp_flat_budgets`), so an
+    # editor/salvo input clamped against these bounds can never reach an
+    # over-cap, illegal count.
+    for budget in unit.get("wargear_budgets") or []:
+        items = budget.get("items") or []
+        if len(items) != 1 or budget.get("per_models", 0) != 0:
+            continue
+        entry = bounds.get(items[0])
+        cap = budget["count"]
+        if entry is not None and entry["max"] > cap:
+            bounds[items[0]] = {"min": min(entry["min"], cap), "max": cap}
     return bounds
 
 

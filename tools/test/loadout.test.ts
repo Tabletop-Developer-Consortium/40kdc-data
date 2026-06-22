@@ -174,6 +174,50 @@ describe("weaponBounds + clampWeaponCount + validateLoadout", () => {
   });
 });
 
+describe("weaponBounds + maximalLoadout — single-weapon flat budgets", () => {
+  // A 1-model unit with two independent swap slots that can each add the same
+  // weapon (the Knight Destrier: chastiser gatling cannon AND frag bombard can
+  // each become a bellatus reaper chainsword). Without the flat-budget clamp the
+  // weapon sums to 2 across the two slots — an illegal count the salvo calculator
+  // would seed. The "max one" rule is modelled as a single-item per-unit budget.
+  const unit = {
+    weapon_ids: ["gun-a", "gun-b"],
+    wargear_budgets: [{ items: ["sword"], count: 1, per_models: 0 }],
+  } as unknown as Unit;
+  const opts = [
+    opt({ replaces: ["gun-a"], replacement: ["sword"], model_constraint: { any_number: true } }),
+    opt({ replaces: ["gun-b"], replacement: ["sword"], model_constraint: { any_number: true } }),
+  ];
+
+  it("caps the weapon's bound max at the budget, not the sum of slots", () => {
+    const bounds = weaponBounds(unit, 1, opts);
+    expect(bounds.get("sword")).toEqual({ min: 0, max: 1 });
+  });
+
+  it("caps the maximal loadout count at the budget", () => {
+    expect(maximalLoadout(unit, 1, opts).counts.get("sword")).toBe(1);
+  });
+
+  it("clamps a user input down to the budgeted max", () => {
+    const bounds = weaponBounds(unit, 1, opts);
+    expect(clampWeaponCount(bounds, "sword", 2)).toBe(1);
+  });
+
+  it("leaves a shared (multi-item) budget to validateLoadout", () => {
+    // Two distinct weapons sharing one allowance must not be clamped per-id here.
+    const shared = {
+      weapon_ids: ["gun-a", "gun-b"],
+      wargear_budgets: [{ items: ["sword", "spear"], count: 1, per_models: 0 }],
+    } as unknown as Unit;
+    const sharedOpts = [
+      opt({ replaces: ["gun-a"], replacement: ["sword"], model_constraint: { any_number: true } }),
+      opt({ replaces: ["gun-b"], replacement: ["spear"], model_constraint: { any_number: true } }),
+    ];
+    expect(weaponBounds(shared, 1, sharedOpts).get("sword")).toEqual({ min: 0, max: 1 });
+    expect(weaponBounds(shared, 1, sharedOpts).get("spear")).toEqual({ min: 0, max: 1 });
+  });
+});
+
 describe("checkUnitLegality — tier selection", () => {
   // Neurogaunts: 1 Nodebeast + 10, or 1 + 11–20, or 2 + 20. A roster carries only
   // the total model count, so the tier that admits 22 is the one with 2 Nodebeasts.

@@ -4168,7 +4168,7 @@
           },
           "effect": {
             "type": "roll-modifier",
-            "target": "enemy-within-aura",
+            "target": "attacker",
             "modifier": {
               "operation": "subtract",
               "roll": "hit",
@@ -4178,10 +4178,19 @@
           }
         },
         {
-          "type": "ability-grant",
-          "target": "enemy-within-aura",
-          "modifier": {
-            "grant_type": "ignore-desperate-escape-when-battle-shocked"
+          "type": "conditional",
+          "condition": {
+            "type": "is-battle-shocked",
+            "parameters": {}
+          },
+          "effect": {
+            "type": "rule-state",
+            "target": "enemy-within-aura",
+            "modifier": {
+              "direction": "granted",
+              "rule_kind": "core-rule",
+              "rule": "ordered-retreat"
+            }
           }
         }
       ]

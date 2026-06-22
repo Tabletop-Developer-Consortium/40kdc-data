@@ -621,6 +621,13 @@ fn describe_rule_state(m: &Map<String, Value>, subj: &str) -> String {
                 format!("{subj} cannot Fall Back")
             }
         }
+        "ordered-retreat" => {
+            if granted {
+                format!("{subj} can make an Ordered Retreat")
+            } else {
+                format!("{subj} cannot make an Ordered Retreat")
+            }
+        }
         "fire-overwatch" => {
             if granted {
                 format!("{subj} can fire Overwatch")

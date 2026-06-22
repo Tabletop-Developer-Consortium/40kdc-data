@@ -278,7 +278,7 @@
   "unsupportedReasons": [
     {
       "reason": "effect type \"ability-grant\" is not modelled by the buff layer",
-      "count": 486
+      "count": 482
     },
     {
       "reason": "stat-modifier: operation \"undefined\" not supported",
@@ -294,7 +294,7 @@
     },
     {
       "reason": "effect type \"attack-restriction\" is not modelled by the buff layer",
-      "count": 83
+      "count": 81
     },
     {
       "reason": "effect type \"leadership-modifier\" is not modelled by the buff layer",
@@ -341,6 +341,10 @@
       "count": 29
     },
     {
+      "reason": "effect type \"rule-state\" is not modelled by the buff layer",
+      "count": 25
+    },
+    {
       "reason": "effect type \"fight-on-death\" is not modelled by the buff layer",
       "count": 22
     },
@@ -351,10 +355,6 @@
     {
       "reason": "stat-modifier on \"M\" is outside the damage path",
       "count": 22
-    },
-    {
-      "reason": "effect type \"rule-state\" is not modelled by the buff layer",
-      "count": 20
     },
     {
       "reason": "roll-modifier: operation \"set\" not supported",
@@ -394,6 +394,10 @@
     },
     {
       "reason": "roll-modifier: operation \"crit-on\" not supported",
+      "count": 7
+    },
+    {
+      "reason": "conditional: cannot evaluate condition \"is-battle-shocked\" against current context",
       "count": 7
     },
     {
@@ -438,10 +442,6 @@
     },
     {
       "reason": "stat-modifier on \"Ld\" is outside the damage path",
-      "count": 4
-    },
-    {
-      "reason": "conditional: cannot evaluate condition \"is-battle-shocked\" against current context",
       "count": 4
     },
     {
@@ -13682,11 +13682,11 @@
       "faction": "chaos-daemons",
       "ability_id": "inescapable-manifestations-cavalcade-of-chaos",
       "name": "Inescapable Manifestations",
-      "shape": "ability-grant",
+      "shape": "sequence",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"ability-grant\" is not modelled by the buff layer"
+      "gap": "effect type \"rule-state\" is not modelled by the buff layer"
     },
     {
       "faction": "chaos-daemons",
@@ -17866,7 +17866,7 @@
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"ability-grant\" is not modelled by the buff layer"
+      "gap": "effect type \"rule-state\" is not modelled by the buff layer"
     },
     {
       "faction": "death-guard",
@@ -18112,11 +18112,11 @@
       "faction": "death-guard",
       "ability_id": "putrefying-stink",
       "name": "Putrefying Stink",
-      "shape": "attack-restriction",
+      "shape": "rule-state",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"attack-restriction\" is not modelled by the buff layer"
+      "gap": "effect type \"rule-state\" is not modelled by the buff layer"
     },
     {
       "faction": "death-guard",
@@ -29332,11 +29332,11 @@
       "faction": "tyranids",
       "ability_id": "bio-minefield",
       "name": "Bio-minefield",
-      "shape": "attack-restriction",
+      "shape": "rule-state",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"attack-restriction\" is not modelled by the buff layer"
+      "gap": "effect type \"rule-state\" is not modelled by the buff layer"
     },
     {
       "faction": "tyranids",
@@ -31342,11 +31342,11 @@
       "faction": "world-eaters",
       "ability_id": "punish-the-craven-vessels-of-wrath",
       "name": "Punish the Craven",
-      "shape": "ability-grant",
+      "shape": "sequence",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"ability-grant\" is not modelled by the buff layer"
+      "gap": "effect type \"rule-state\" is not modelled by the buff layer"
     },
     {
       "faction": "world-eaters",

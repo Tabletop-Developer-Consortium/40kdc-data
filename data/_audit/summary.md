@@ -36,11 +36,11 @@ abilities that translate into cruncher buffs via the real `effectToBuffs`
 
 ## Unsupported-effect reasons (offensive walk)
 
-- `486` — effect type "ability-grant" is not modelled by the buff layer
+- `482` — effect type "ability-grant" is not modelled by the buff layer
 - `171` — stat-modifier: operation "undefined" not supported
 - `150` — effect type "movement-modifier" is not modelled by the buff layer
 - `129` — effect type "mortal-wounds" is not modelled by the buff layer
-- `83` — effect type "attack-restriction" is not modelled by the buff layer
+- `81` — effect type "attack-restriction" is not modelled by the buff layer
 - `79` — effect type "leadership-modifier" is not modelled by the buff layer
 - `78` — conditional: cannot evaluate condition "undefined" against current context
 - `55` — effect type "resurrection" is not modelled by the buff layer
@@ -52,10 +52,10 @@ abilities that translate into cruncher buffs via the real `effectToBuffs`
 - `32` — effect type "unit-keyword" is not modelled by the buff layer
 - `31` — stat-modifier: operation "set" not supported
 - `29` — effect type "fallback-and-act" is not modelled by the buff layer
+- `25` — effect type "rule-state" is not modelled by the buff layer
 - `22` — effect type "fight-on-death" is not modelled by the buff layer
 - `22` — effect type "fight-first" is not modelled by the buff layer
 - `22` — stat-modifier on "M" is outside the damage path
-- `20` — effect type "rule-state" is not modelled by the buff layer
 - `18` — roll-modifier: operation "set" not supported
 - `14` — roll-modifier: operation "ignore-modifiers" not supported
 - `13` — conditional: cannot evaluate condition "unit-below-starting-strength" against current context
@@ -66,6 +66,7 @@ abilities that translate into cruncher buffs via the real `effectToBuffs`
 - `8` — conditional: cannot evaluate condition "advanced-this-turn" against current context
 - `8` — dice-gated effect: stochastic; not expressible as a buff
 - `7` — roll-modifier: operation "crit-on" not supported
+- `7` — conditional: cannot evaluate condition "is-battle-shocked" against current context
 - `6` — conditional: cannot evaluate condition "unit-below-half-strength" against current context
 - `6` — re-roll on "advance" (subset …) is outside the damage path
 - `5` — effect type "unit-tag" is not modelled by the buff layer
@@ -77,7 +78,6 @@ abilities that translate into cruncher buffs via the real `effectToBuffs`
 - `4` — conditional: cannot evaluate condition "attack-stat-compare" against current context
 - `4` — conditional: cannot evaluate condition "attack-is-type" against current context
 - `4` — stat-modifier on "Ld" is outside the damage path
-- `4` — conditional: cannot evaluate condition "is-battle-shocked" against current context
 - `3` — roll-modifier: operation "guarantee-crit" not supported
 - `3` — effect type "resource-gain" is not modelled by the buff layer
 - `3` — effect type "shoot-on-death" is not modelled by the buff layer

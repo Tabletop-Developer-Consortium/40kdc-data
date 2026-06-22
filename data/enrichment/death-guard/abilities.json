@@ -1920,10 +1920,12 @@
         "type": "sequence",
         "steps": [
           {
-            "type": "ability-grant",
+            "type": "rule-state",
             "target": "enemy-within-aura",
             "modifier": {
-              "grant_type": "forced-desperate-escape-on-fall-back"
+              "direction": "suppressed",
+              "rule_kind": "core-rule",
+              "rule": "ordered-retreat"
             }
           },
           {
@@ -1933,10 +1935,10 @@
               "parameters": {}
             },
             "effect": {
-              "type": "leadership-modifier",
+              "type": "roll-modifier",
               "target": "enemy-within-aura",
               "modifier": {
-                "test": "desperate-escape",
+                "roll": "desperate-escape",
                 "operation": "subtract",
                 "value": 1
               }
@@ -2781,11 +2783,12 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "attack-restriction",
+      "type": "rule-state",
       "target": "enemy-within-aura",
       "modifier": {
-        "restriction": "no-advance",
-        "range": 9
+        "direction": "suppressed",
+        "rule_kind": "core-rule",
+        "rule": "advance"
       }
     },
     "scope": {

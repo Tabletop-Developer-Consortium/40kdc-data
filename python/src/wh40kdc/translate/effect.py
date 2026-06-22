@@ -509,6 +509,12 @@ def _describe_rule_state(m: dict[str, Any], subj: str) -> str:
         return f"{subj} can Advance" if granted else f"{subj} cannot Advance"
     if rule == "fall-back":
         return f"{subj} can Fall Back" if granted else f"{subj} cannot Fall Back"
+    if rule == "ordered-retreat":
+        return (
+            f"{subj} can make an Ordered Retreat"
+            if granted
+            else f"{subj} cannot make an Ordered Retreat"
+        )
     if rule == "fire-overwatch":
         return f"{subj} can fire Overwatch" if granted else f"{subj} cannot fire Overwatch"
     if rule == "overwatch-against-bearer":

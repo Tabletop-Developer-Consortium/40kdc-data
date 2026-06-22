@@ -1053,6 +1053,8 @@ function describeRuleState(m: Record<string, unknown>, subj: string): string {
       return granted ? `${subj} can Advance` : `${subj} cannot Advance`;
     case "fall-back":
       return granted ? `${subj} can Fall Back` : `${subj} cannot Fall Back`;
+    case "ordered-retreat":
+      return granted ? `${subj} can make an Ordered Retreat` : `${subj} cannot make an Ordered Retreat`;
     case "fire-overwatch":
       return granted ? `${subj} can fire Overwatch` : `${subj} cannot fire Overwatch`;
     case "overwatch-against-bearer":

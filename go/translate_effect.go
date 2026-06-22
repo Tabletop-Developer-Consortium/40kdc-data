@@ -575,6 +575,11 @@ func describeRuleState(m map[string]any, subj string) string {
 			return subj + " can Fall Back"
 		}
 		return subj + " cannot Fall Back"
+	case "ordered-retreat":
+		if granted {
+			return subj + " can make an Ordered Retreat"
+		}
+		return subj + " cannot make an Ordered Retreat"
 	case "fire-overwatch":
 		if granted {
 			return subj + " can fire Overwatch"

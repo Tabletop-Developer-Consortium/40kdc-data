@@ -4520,10 +4520,12 @@
             }
           },
           {
-            "type": "ability-grant",
+            "type": "rule-state",
             "target": "unit",
             "modifier": {
-              "grant_type": "remove-chapter-master-keyword"
+              "direction": "suppressed",
+              "rule_kind": "keyword",
+              "rule": "chapter-master"
             }
           },
           {

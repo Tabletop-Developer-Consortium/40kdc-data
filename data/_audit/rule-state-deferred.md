@@ -1,38 +1,45 @@
-# `rule-state` — deferred migration candidates
+# `rule-state` — deferred migration candidates (RESOLVED)
 
-These ability effects are **rule on/off toggles in spirit** but were **left in
-their original `ability-grant` / `attack-restriction` encoding** when the
-`rule-state` effect landed, because the bare `rule-state` shape
-(`direction` × `rule_kind` × `rule` + optional `scope`/`cost`) can't model their
-extra parameters without either losing data or smuggling unstructured fields in.
+All nine candidates that were originally left in their `ability-grant` /
+`attack-restriction` encoding when the `rule-state` effect landed have now been
+migrated. The load-bearing rule held: **`rule-state` stayed minimal** — none of
+the deferred params were folded into it. Each was handled by decomposing into
+existing sibling primitives, dropping a redundant field, or picking the correct
+named rule. One new closed core-rule slug (`ordered-retreat`) was added.
 
-They are **fully functional as-is** — this is a worklist for a future pass that
-either extends `rule-state` (e.g. a desperate-escape / battle-shock-hazard
-qualifier) or gives these their own dedicated shape. Grep the `grant_type` /
-`restriction` slug to jump to each.
+## Resolved — Desperate Escape family (was: hazard/trigger/condition params)
 
-Regenerate this list: scan `data/enrichment/*/abilities.json` for the slugs below.
+The 11e Fall-Back move (core rules 09.07) exposes its toggle on **Ordered
+Retreat** (the optional mode, selectable iff not battle-shocked), not on
+Desperate Escape (the mandatory "otherwise" fallback, which has no switch of its
+own). So "force Desperate Escape" = **suppress** `ordered-retreat`, and the Orks
+mirror "ignore Desperate Escape while battle-shocked" = **grant**
+`ordered-retreat`. The `-1`-when-battle-shocked is a modifier to the per-model
+hazard roll (06.03) made during Desperate Escape, modeled as a sibling
+`conditional(is-battle-shocked) → roll-modifier { roll: "desperate-escape", -1 }`.
 
-## Desperate Escape family — carries hazard/trigger/condition params
+| Faction | Ability id | New encoding |
+|---|---|---|
+| chaos-daemons | `inescapable-manifestations-cavalcade-of-chaos` | `sequence`: rule-state(`ordered-retreat`, suppressed) + conditional(is-battle-shocked)→roll-modifier(`desperate-escape`, −1) |
+| world-eaters | `punish-the-craven-vessels-of-wrath` | same two-step sequence |
+| death-guard | `enfeebling-miasma` | step 1 → rule-state(`ordered-retreat`, suppressed); step 2 leadership-modifier → roll-modifier(`desperate-escape`, −1) (10e mislabel corrected) |
+| orks | `fortification` | step 2 → conditional(is-battle-shocked)→rule-state(`ordered-retreat`, granted). Also fixed step 1: the ranged −1-to-Hit was encoded `target: enemy-within-aura` (renders as the enemy's *own* Hit rolls) → corrected to `target: attacker` (the published rule penalizes attacks *against* the unit), matching the 66-case `attacker` convention. |
 
-| Faction | Ability id | Encoding | Slug | Why deferred |
-|---|---|---|---|---|
-| chaos-daemons | `inescapable-manifestations-cavalcade-of-chaos` | ability-grant | `force-desperate-escape` | modifier carries `trigger` + `hazard_modifier_if_battle_shocked` |
-| world-eaters | `punish-the-craven-vessels-of-wrath` | ability-grant | `forced-desperate-escape` | modifier carries `battle_shock_hazard_penalty` |
-| death-guard | `enfeebling-miasma` | ability-grant | `forced-desperate-escape-on-fall-back` | condition (on fall back) encoded in slug + sibling battle-shock conditional |
-| orks | `fortification` | ability-grant | `ignore-desperate-escape-when-battle-shocked` | condition (when battle-shocked) encoded in slug |
+## Resolved — parameterized aura debuff (was: explicit `range`)
 
-## Parameterized aura debuff — carries a range
+`no-advance` is `advance` suppressed; the explicit `range` was redundant with
+`scope.range: aura-N` (the describer threads it onto the `enemy-within-aura`
+subject), so it was dropped.
 
-| Faction | Ability id | Encoding | Slug | Why deferred |
-|---|---|---|---|---|
-| death-guard | `putrefying-stink` | attack-restriction | `no-advance` (range 9) | explicit `range`; per the boundary rule, parameterized constraints stay in `attack-restriction` |
-| tyranids | `bio-minefield` | attack-restriction | `no-advance` (range 6) | explicit `range` (as above) |
+| Faction | Ability id | New encoding |
+|---|---|---|
+| death-guard | `putrefying-stink` | rule-state(`advance`, suppressed, enemy-within-aura), scope `aura-9` |
+| tyranids | `bio-minefield` | rule-state(`advance`, suppressed, enemy-within-aura), scope `aura-6` |
 
-## Better served by a different existing shape
+## Resolved — better served by a different existing shape
 
-| Faction | Ability id | Encoding | Slug | Why deferred |
-|---|---|---|---|---|
-| astra-militarum | `low-profile-abhuman-auxiliaries` | ability-grant | `remain-hidden-after-shooting` | granting an exception; cleaner as a keyword/ability grant than a rule toggle |
-| emperors-children | `absolute-sensory-overload-frenzied-host` | ability-grant | `remain-hidden-after-shooting` | as above |
-| adeptus-astartes | `chapter-master-of-the-raven-guard` | ability-grant | `remove-chapter-master-keyword` | `chapter-master` resolves to no ability entity, so it can't be `rule_kind: ability`; left until that ability is modelled |
+| Faction | Ability id | Resolution |
+|---|---|---|
+| astra-militarum | `low-profile-abhuman-auxiliaries` | **No change** — `ability-grant` is the correct shape (granting an exception ability, not toggling a named rule). |
+| emperors-children | `absolute-sensory-overload-frenzied-host` | **No change** — as above. |
+| adeptus-astartes | `chapter-master-of-the-raven-guard` | `ability-grant{remove-chapter-master-keyword}` → rule-state(`keyword` "chapter-master", suppressed). `rule_kind: keyword` is a free open-set string (no entity resolution), pairing with the sibling `keyword-grant(CAPTAIN)`. |

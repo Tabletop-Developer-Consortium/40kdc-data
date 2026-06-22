@@ -5259,12 +5259,34 @@
     "ability_type": "stratagem",
     "behavior": "reactive",
     "effect": {
-      "type": "ability-grant",
-      "target": "all-enemy",
-      "modifier": {
-        "grant_type": "forced-desperate-escape",
-        "battle_shock_hazard_penalty": -1
-      }
+      "type": "sequence",
+      "steps": [
+        {
+          "type": "rule-state",
+          "target": "all-enemy",
+          "modifier": {
+            "direction": "suppressed",
+            "rule_kind": "core-rule",
+            "rule": "ordered-retreat"
+          }
+        },
+        {
+          "type": "conditional",
+          "condition": {
+            "type": "is-battle-shocked",
+            "parameters": {}
+          },
+          "effect": {
+            "type": "roll-modifier",
+            "target": "all-enemy",
+            "modifier": {
+              "roll": "desperate-escape",
+              "operation": "subtract",
+              "value": 1
+            }
+          }
+        }
+      ]
     },
     "scope": {
       "range": "engagement-range",

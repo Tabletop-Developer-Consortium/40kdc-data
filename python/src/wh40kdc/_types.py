@@ -747,6 +747,7 @@ class Scaling(TypedDict):
 RuleStateCoreRuleSlug: TypeAlias = Literal[
     "benefit-of-cover",
     "fall-back",
+    "ordered-retreat",
     "advance",
     "charge",
     "fire-overwatch",

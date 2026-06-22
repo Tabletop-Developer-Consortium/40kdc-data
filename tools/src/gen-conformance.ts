@@ -1301,6 +1301,20 @@ function genEffectTranslation(): void {
       effect: { type: "rule-state", target: "unit", modifier: { direction: "suppressed", rule_kind: "keyword", rule: "infantry" } },
       scope: { range: "unit", duration: "phase" },
     },
+    {
+      // ordered-retreat: the lever the 11e Fall-Back move (09.07) actually
+      // toggles. Suppressed (force Desperate Escape) carried on an aura target so
+      // the range-threaded subject is also pinned; granted (Orks "ignore
+      // Desperate Escape while battle-shocked") on a plain unit target.
+      id: "rule-state-ordered-retreat-suppressed",
+      effect: { type: "rule-state", target: "enemy-within-aura", modifier: { direction: "suppressed", rule_kind: "core-rule", rule: "ordered-retreat" } },
+      scope: { range: "aura-9", duration: "permanent" },
+    },
+    {
+      id: "rule-state-ordered-retreat-granted",
+      effect: { type: "rule-state", target: "unit", modifier: { direction: "granted", rule_kind: "core-rule", rule: "ordered-retreat" } },
+      scope: { range: "unit", duration: "phase" },
+    },
   ];
   for (const fc of FORCED_RULE_STATE_CASES) {
     cases.push({

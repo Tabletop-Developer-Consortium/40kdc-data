@@ -307,6 +307,7 @@ export type AbilityCondition4 = SimpleCondition | CompoundCondition;
 export type RuleStateCoreRuleSlug =
   | "benefit-of-cover"
   | "fall-back"
+  | "ordered-retreat"
   | "advance"
   | "charge"
   | "fire-overwatch"

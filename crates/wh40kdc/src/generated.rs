@@ -9153,6 +9153,7 @@ impl ::std::convert::TryFrom<::std::string::String> for ResourcePoolPoolType {
 ///  "enum": [
 ///    "benefit-of-cover",
 ///    "fall-back",
+///    "ordered-retreat",
 ///    "advance",
 ///    "charge",
 ///    "fire-overwatch",
@@ -9180,6 +9181,8 @@ pub enum RuleStateCoreRuleSlug {
     BenefitOfCover,
     #[serde(rename = "fall-back")]
     FallBack,
+    #[serde(rename = "ordered-retreat")]
+    OrderedRetreat,
     #[serde(rename = "advance")]
     Advance,
     #[serde(rename = "charge")]
@@ -9196,6 +9199,7 @@ impl ::std::fmt::Display for RuleStateCoreRuleSlug {
         match *self {
             Self::BenefitOfCover => f.write_str("benefit-of-cover"),
             Self::FallBack => f.write_str("fall-back"),
+            Self::OrderedRetreat => f.write_str("ordered-retreat"),
             Self::Advance => f.write_str("advance"),
             Self::Charge => f.write_str("charge"),
             Self::FireOverwatch => f.write_str("fire-overwatch"),
@@ -9212,6 +9216,7 @@ impl ::std::str::FromStr for RuleStateCoreRuleSlug {
         match value {
             "benefit-of-cover" => Ok(Self::BenefitOfCover),
             "fall-back" => Ok(Self::FallBack),
+            "ordered-retreat" => Ok(Self::OrderedRetreat),
             "advance" => Ok(Self::Advance),
             "charge" => Ok(Self::Charge),
             "fire-overwatch" => Ok(Self::FireOverwatch),

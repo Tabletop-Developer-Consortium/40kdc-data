@@ -1673,18 +1673,55 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "conditional",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          {
+            "type": "player-turn-is",
+            "parameters": {
+              "turn": "opponent"
+            }
+          },
+          {
+            "type": "phase-is",
+            "parameters": {
+              "phase": "fight"
+            }
+          },
+          {
+            "type": "timing-is",
+            "parameters": {
+              "timing": "end"
+            }
+          },
+          {
+            "operator": "not",
+            "operands": [
+              {
+                "type": "engagement-state",
+                "parameters": {}
+              }
+            ]
+          }
+        ]
+      },
+      "effect": {
+        "type": "movement-modifier",
+        "target": "unit",
+        "modifier": {
+          "to_reserves": true
+        }
+      }
     },
     "scope": {
-      "range": "any-on-battlefield",
-      "duration": "permanent"
+      "range": "unit",
+      "duration": "battle"
     },
     "faction_id": "grey-knights",
     "ability_type": "faction",
-    "behavior": "passive",
-    "community_notes": "auto-generated stub — needs manual authoring (source: 10e Datasheets_abilities; rules text omitted for IP)",
+    "behavior": "reactive",
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21",
     "unit_ids": []
   },
   {
@@ -1727,17 +1764,54 @@
     "faction_id": "grey-knights",
     "detachment_id": "banishers",
     "ability_type": "detachment",
-    "behavior": "passive",
+    "behavior": "reactive",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "conditional",
+      "condition": {
+        "type": "phase-is",
+        "parameters": {
+          "phase": "fight"
+        }
+      },
+      "effect": {
+        "type": "dice-gated",
+        "dice": "2D6",
+        "threshold": 6,
+        "comparison": "lte",
+        "on_success": {
+          "type": "choice",
+          "options": [
+            {
+              "type": "keyword-grant",
+              "target": "self",
+              "modifier": {
+                "keywords": [
+                  "Sustained Hits 1"
+                ],
+                "weapon_type": "melee",
+                "weapon_keyword": "Psychic"
+              }
+            },
+            {
+              "type": "keyword-grant",
+              "target": "self",
+              "modifier": {
+                "keywords": [
+                  "Lethal Hits"
+                ],
+                "weapon_type": "melee",
+                "weapon_keyword": "Psychic"
+              }
+            }
+          ]
+        }
+      }
     },
     "scope": {
       "range": "unit",
-      "duration": "permanent"
+      "duration": "phase"
     },
-    "community_notes": "[APPROX] DSL stub — detachment rule; mechanics pending authoring. Full rule in raw-text store."
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "hallowed-ground",
@@ -1755,15 +1829,121 @@
     "ability_type": "detachment",
     "behavior": "passive",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "sequence",
+      "steps": [
+        {
+          "type": "terrain-area-tag",
+          "target": "self",
+          "modifier": {}
+        },
+        {
+          "type": "conditional",
+          "condition": {
+            "type": "unit-has-keyword",
+            "parameters": {
+              "keyword": "Purifier Squad"
+            }
+          },
+          "effect": {
+            "type": "terrain-area-tag",
+            "target": "self",
+            "modifier": {}
+          }
+        },
+        {
+          "type": "conditional",
+          "condition": {
+            "operator": "and",
+            "operands": [
+              {
+                "type": "timing-is",
+                "parameters": {
+                  "timing": "start"
+                }
+              },
+              {
+                "type": "objective-majority",
+                "parameters": {
+                  "zone": "no-mans-land"
+                }
+              }
+            ]
+          },
+          "effect": {
+            "type": "terrain-area-tag",
+            "target": "self",
+            "modifier": {}
+          }
+        },
+        {
+          "type": "conditional",
+          "condition": {
+            "operator": "and",
+            "operands": [
+              {
+                "type": "timing-is",
+                "parameters": {
+                  "timing": "start"
+                }
+              },
+              {
+                "type": "objective-majority",
+                "parameters": {
+                  "zone": "opponent-deployment-zone"
+                }
+              }
+            ]
+          },
+          "effect": {
+            "type": "terrain-area-tag",
+            "target": "self",
+            "modifier": {}
+          }
+        },
+        {
+          "type": "re-roll",
+          "target": "self",
+          "modifier": {
+            "roll": "hit",
+            "subset": "ones"
+          }
+        },
+        {
+          "type": "conditional",
+          "condition": {
+            "operator": "or",
+            "operands": [
+              {
+                "type": "unit-has-keyword",
+                "parameters": {
+                  "keyword": "Purifier Squad"
+                }
+              },
+              {
+                "type": "terrain-area-control",
+                "parameters": {
+                  "area": "hallowed-ground",
+                  "relation": "wholly-within"
+                }
+              }
+            ]
+          },
+          "effect": {
+            "type": "re-roll",
+            "target": "self",
+            "modifier": {
+              "roll": "hit",
+              "subset": "all-failures"
+            }
+          }
+        }
+      ]
     },
     "scope": {
-      "range": "unit",
-      "duration": "permanent"
+      "range": "aura-6",
+      "duration": "battle"
     },
-    "community_notes": "[APPROX] DSL stub — detachment rule; mechanics pending authoring. Full rule in raw-text store."
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "fury-of-titan",
@@ -1807,15 +1987,23 @@
     "ability_type": "detachment",
     "behavior": "passive",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "ability-grant",
+      "target": "self",
+      "modifier": {
+        "grant_type": "post-fallback-actions",
+        "allows": [
+          "shoot",
+          "declare-charge"
+        ],
+        "unit_type": "terminator",
+        "faction": "grey-knights"
+      }
     },
     "scope": {
       "range": "unit",
-      "duration": "permanent"
+      "duration": "turn"
     },
-    "community_notes": "[APPROX] DSL stub — detachment rule; mechanics pending authoring. Full rule in raw-text store."
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "mailed-fist",
@@ -1857,17 +2045,44 @@
     "faction_id": "grey-knights",
     "detachment_id": "argent-assault",
     "ability_type": "detachment",
-    "behavior": "passive",
+    "behavior": "reactive",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "conditional",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          {
+            "type": "phase-is",
+            "parameters": {
+              "phase": "fight"
+            }
+          },
+          {
+            "type": "attack-stat-compare",
+            "parameters": {
+              "attacker_stat": "S",
+              "comparison": "less-than",
+              "target_stat": "T"
+            }
+          }
+        ]
+      },
+      "effect": {
+        "type": "roll-modifier",
+        "target": "self",
+        "modifier": {
+          "roll": "wound",
+          "operation": "add",
+          "value": 1,
+          "attack_type": "melee"
+        }
+      }
     },
     "scope": {
       "range": "unit",
-      "duration": "permanent"
+      "duration": "phase"
     },
-    "community_notes": "[APPROX] DSL stub — detachment rule; mechanics pending authoring. Full rule in raw-text store."
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "searing-soulflame",
@@ -1909,16 +2124,66 @@
     "faction_id": "grey-knights",
     "detachment_id": "immaterial-interdiction",
     "ability_type": "detachment",
-    "behavior": "passive",
+    "behavior": "reactive",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "conditional",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          {
+            "type": "phase-is",
+            "parameters": {
+              "phase": "shooting"
+            }
+          },
+          {
+            "type": "unit-has-keyword",
+            "parameters": {
+              "keyword": "INTERCEPTOR SQUAD"
+            }
+          },
+          {
+            "type": "timing-is",
+            "parameters": {
+              "timing": "after-unit-shot"
+            }
+          },
+          {
+            "operator": "not",
+            "operands": [
+              {
+                "type": "made-ingress-move-this-turn",
+                "parameters": {}
+              }
+            ]
+          }
+        ]
+      },
+      "effect": {
+        "type": "sequence",
+        "steps": [
+          {
+            "type": "ability-grant",
+            "target": "self",
+            "modifier": {
+              "grant_type": "cannot-use-personal-teleporters"
+            }
+          },
+          {
+            "type": "movement-modifier",
+            "target": "self",
+            "modifier": {
+              "move_type": "surge",
+              "distance": "D6+1"
+            }
+          }
+        ]
+      }
     },
     "scope": {
-      "range": "unit",
-      "duration": "permanent"
+      "range": "self",
+      "duration": "turn"
     },
-    "community_notes": "[APPROX] DSL stub — detachment rule; mechanics pending authoring. Full rule in raw-text store."
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   }
 ]

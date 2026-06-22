@@ -1184,20 +1184,38 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "conditional",
+      "condition": {
+        "operator": "not",
+        "operands": [
+          {
+            "type": "target-has-keyword",
+            "parameters": {
+              "keyword": "VEHICLE"
+            }
+          }
+        ]
+      },
+      "effect": {
+        "type": "objective-control-modifier",
+        "target": "enemy-within-aura",
+        "modifier": {
+          "operation": "subtract",
+          "value": 1
+        }
+      }
     },
     "scope": {
-      "range": "unit",
-      "duration": "permanent"
+      "range": "aura-custom",
+      "range_inches": 3,
+      "duration": "battle"
     },
     "unit_ids": [
       "skitarii-vanguard"
     ],
     "ability_type": "unit",
-    "behavior": "passive",
-    "community_notes": "auto-generated stub — needs manual authoring (source: 10e Datasheets_abilities; rules text omitted for IP)"
+    "behavior": "aura",
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "enhanced-data-tether",
@@ -2379,7 +2397,8 @@
     },
     "faction_id": "adeptus-mechanicus",
     "ability_type": "faction",
-    "behavior": "reactive"
+    "behavior": "reactive",
+    "unit_ids": []
   },
   {
     "ability_id": "noospheric-recon",
@@ -3647,15 +3666,62 @@
     "ability_type": "detachment",
     "behavior": "passive",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "sequence",
+      "steps": [
+        {
+          "type": "conditional",
+          "condition": {
+            "type": "unit-has-keyword",
+            "parameters": {
+              "keyword": "LEGIO CYBERNETICA"
+            }
+          },
+          "effect": {
+            "type": "movement-modifier",
+            "target": "unit",
+            "modifier": {
+              "move_type": "normal",
+              "distance": 2
+            }
+          }
+        },
+        {
+          "type": "conditional",
+          "condition": {
+            "operator": "and",
+            "operands": [
+              {
+                "type": "unit-has-keyword",
+                "parameters": {
+                  "keyword": "LEGIO CYBERNETICA"
+                }
+              },
+              {
+                "operator": "not",
+                "operands": [
+                  {
+                    "type": "is-battle-shocked"
+                  }
+                ]
+              }
+            ]
+          },
+          "effect": {
+            "type": "objective-control-modifier",
+            "target": "unit",
+            "modifier": {
+              "operation": "add",
+              "value": 1
+            }
+          }
+        }
+      ]
     },
     "scope": {
       "range": "unit",
-      "duration": "permanent"
+      "duration": "battle"
     },
-    "community_notes": "[APPROX] DSL stub — detachment rule; mechanics pending authoring. Full rule in raw-text store."
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "stealth-optimisation",
@@ -3673,15 +3739,110 @@
     "ability_type": "detachment",
     "behavior": "passive",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "sequence",
+      "steps": [
+        {
+          "type": "conditional",
+          "condition": {
+            "operator": "or",
+            "operands": [
+              {
+                "operator": "and",
+                "operands": [
+                  {
+                    "type": "unit-has-keyword",
+                    "parameters": {
+                      "keyword": "SKITARII"
+                    }
+                  },
+                  {
+                    "type": "unit-has-keyword",
+                    "parameters": {
+                      "keyword": "INFANTRY"
+                    }
+                  }
+                ]
+              },
+              {
+                "operator": "and",
+                "operands": [
+                  {
+                    "type": "unit-has-keyword",
+                    "parameters": {
+                      "keyword": "SKITARII"
+                    }
+                  },
+                  {
+                    "type": "unit-has-keyword",
+                    "parameters": {
+                      "keyword": "MOUNTED"
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "unit-has-keyword",
+                "parameters": {
+                  "keyword": "IRONSTRIDER BALLISTARII"
+                }
+              }
+            ]
+          },
+          "effect": {
+            "type": "keyword-grant",
+            "target": "unit",
+            "modifier": {
+              "keywords": [
+                "Stealth"
+              ]
+            }
+          }
+        },
+        {
+          "type": "conditional",
+          "condition": {
+            "operator": "and",
+            "operands": [
+              {
+                "type": "attack-is-type",
+                "parameters": {
+                  "attack_type": "ranged"
+                }
+              },
+              {
+                "type": "target-has-keyword",
+                "parameters": {
+                  "keyword": "SICARIAN"
+                }
+              },
+              {
+                "operator": "not",
+                "operands": [
+                  {
+                    "type": "opponent-unit-within-range",
+                    "parameters": {
+                      "range": 12
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "effect": {
+            "type": "ability-grant",
+            "target": "defender",
+            "modifier": {
+              "grant_type": "benefit-of-cover"
+            }
+          }
+        }
+      ]
     },
     "scope": {
       "range": "unit",
-      "duration": "permanent"
+      "duration": "battle"
     },
-    "community_notes": "[APPROX] DSL stub — detachment rule; mechanics pending authoring. Full rule in raw-text store."
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "benedictions-of-the-omnissiah",
@@ -3723,17 +3884,36 @@
     "faction_id": "adeptus-mechanicus",
     "detachment_id": "explorator-maniple",
     "ability_type": "detachment",
-    "behavior": "passive",
+    "behavior": "activated",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "conditional",
+      "condition": {
+        "operator": "or",
+        "operands": [
+          {
+            "type": "within-range-of-objective",
+            "parameters": {}
+          },
+          {
+            "type": "opponent-unit-within-range",
+            "parameters": {}
+          }
+        ]
+      },
+      "effect": {
+        "type": "re-roll",
+        "target": "unit",
+        "modifier": {
+          "roll": "wound",
+          "subset": "ones"
+        }
+      }
     },
     "scope": {
-      "range": "unit",
-      "duration": "permanent"
+      "range": "any-on-battlefield",
+      "duration": "until-next-command-phase"
     },
-    "community_notes": "[APPROX] DSL stub — detachment rule; mechanics pending authoring. Full rule in raw-text store."
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "rad-bombardment",

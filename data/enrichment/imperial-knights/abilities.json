@@ -1524,7 +1524,8 @@
     "faction_id": "imperial-knights",
     "ability_type": "faction",
     "behavior": "passive",
-    "community_notes": "community-authored from 10e source (provisional 11e); see #21. Battle-shock outcome encoded as an ability-grant stand-in (no status-apply node yet); movement permissions are inert in the damage buff layer."
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21",
+    "unit_ids": []
   },
   {
     "ability_id": "dreadblades",
@@ -1548,7 +1549,8 @@
     },
     "faction_id": "imperial-knights",
     "ability_type": "faction",
-    "behavior": "passive"
+    "behavior": "passive",
+    "unit_ids": []
   },
   {
     "ability_id": "rain-of-devastation",
@@ -2397,17 +2399,28 @@
     "faction_id": "imperial-knights",
     "detachment_id": "valourstrike-lance",
     "ability_type": "detachment",
-    "behavior": "passive",
+    "behavior": "reactive",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "conditional",
+      "condition": {
+        "type": "advanced-this-turn"
+      },
+      "effect": {
+        "type": "keyword-grant",
+        "target": "all-friendly",
+        "modifier": {
+          "keywords": [
+            "Assault"
+          ],
+          "weapon_type": "ranged"
+        }
+      }
     },
     "scope": {
-      "range": "unit",
-      "duration": "permanent"
+      "range": "any-on-battlefield",
+      "duration": "turn"
     },
-    "community_notes": "[APPROX] DSL stub — detachment rule; mechanics pending authoring. Full rule in raw-text store."
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "cogbound-alliance",
@@ -2423,17 +2436,76 @@
     "faction_id": "imperial-knights",
     "detachment_id": "questor-forgepact",
     "ability_type": "detachment",
-    "behavior": "passive",
+    "behavior": "aura",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "sequence",
+      "steps": [
+        {
+          "type": "conditional",
+          "condition": {
+            "type": "unit-has-keyword",
+            "parameters": {
+              "keyword": "IMPERIAL KNIGHTS"
+            }
+          },
+          "effect": {
+            "type": "sequence",
+            "steps": [
+              {
+                "type": "bs-modifier",
+                "target": "friendly-within-aura",
+                "modifier": {
+                  "operation": "add",
+                  "value": 1
+                }
+              },
+              {
+                "type": "keyword-grant",
+                "target": "friendly-within-aura",
+                "modifier": {
+                  "keywords": [
+                    "Heavy"
+                  ],
+                  "weapon_type": "ranged"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "conditional",
+          "condition": {
+            "operator": "and",
+            "operands": [
+              {
+                "type": "unit-has-keyword",
+                "parameters": {
+                  "keyword": "TECH-PRIEST"
+                }
+              },
+              {
+                "type": "phase-is",
+                "parameters": {
+                  "phase": "command"
+                }
+              }
+            ]
+          },
+          "effect": {
+            "type": "ability-grant",
+            "target": "unit",
+            "modifier": {
+              "grant_type": "heal-d3-wounds"
+            }
+          }
+        }
+      ]
     },
     "scope": {
-      "range": "unit",
+      "range": "aura-6",
       "duration": "permanent"
     },
-    "community_notes": "[APPROX] DSL stub — detachment rule; mechanics pending authoring. Full rule in raw-text store."
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "dauntless-defenders",
@@ -2451,15 +2523,40 @@
     "ability_type": "detachment",
     "behavior": "passive",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "conditional",
+      "condition": {
+        "type": "territory-control",
+        "parameters": {
+          "zone": "defensive-line"
+        }
+      },
+      "effect": {
+        "type": "sequence",
+        "steps": [
+          {
+            "type": "ability-grant",
+            "target": "self",
+            "modifier": {
+              "grant_type": "ignore-hit-roll-modifiers"
+            }
+          },
+          {
+            "type": "keyword-grant",
+            "target": "self",
+            "modifier": {
+              "keywords": [
+                "Sustained Hits 1"
+              ]
+            }
+          }
+        ]
+      }
     },
     "scope": {
-      "range": "unit",
+      "range": "self",
       "duration": "permanent"
     },
-    "community_notes": "[APPROX] DSL stub — detachment rule; mechanics pending authoring. Full rule in raw-text store."
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "knightly-teachings",
@@ -2475,17 +2572,63 @@
     "faction_id": "imperial-knights",
     "detachment_id": "spearhead-at-arms",
     "ability_type": "detachment",
-    "behavior": "passive",
+    "behavior": "reactive",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "conditional",
+      "condition": {
+        "type": "timing-is",
+        "parameters": {
+          "timing": "first-time-per-turn"
+        }
+      },
+      "effect": {
+        "type": "sequence",
+        "steps": [
+          {
+            "type": "conditional",
+            "condition": {
+              "operator": "not",
+              "operands": [
+                {
+                  "type": "unit-has-keyword",
+                  "parameters": {
+                    "keyword": "HONOURED"
+                  }
+                }
+              ]
+            },
+            "effect": {
+              "type": "ability-grant",
+              "target": "unit",
+              "modifier": {
+                "grant_type": "bondsman-select-three-armiger-12in"
+              }
+            }
+          },
+          {
+            "type": "conditional",
+            "condition": {
+              "type": "unit-has-keyword",
+              "parameters": {
+                "keyword": "HONOURED"
+              }
+            },
+            "effect": {
+              "type": "ability-grant",
+              "target": "unit",
+              "modifier": {
+                "grant_type": "bondsman-select-three-armiger-15in"
+              }
+            }
+          }
+        ]
+      }
     },
     "scope": {
-      "range": "unit",
-      "duration": "permanent"
+      "range": "aura-custom",
+      "duration": "until-next-command-phase"
     },
-    "community_notes": "[APPROX] DSL stub — detachment rule; mechanics pending authoring. Full rule in raw-text store."
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "heroes-of-legend",
@@ -2529,15 +2672,45 @@
     "ability_type": "detachment",
     "behavior": "passive",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "sequence",
+      "steps": [
+        {
+          "type": "ability-grant",
+          "target": "self",
+          "modifier": {
+            "grant_type": "detachment-enhancements-gain-expended-state"
+          }
+        },
+        {
+          "type": "ability-grant",
+          "target": "self",
+          "modifier": {
+            "grant_type": "expended-enhancement-cannot-be-used"
+          }
+        },
+        {
+          "type": "conditional",
+          "condition": {
+            "type": "timing-is",
+            "parameters": {
+              "timing": "oath-fulfilled"
+            }
+          },
+          "effect": {
+            "type": "ability-grant",
+            "target": "self",
+            "modifier": {
+              "grant_type": "expended-enhancements-all-refreshed"
+            }
+          }
+        }
+      ]
     },
     "scope": {
-      "range": "unit",
-      "duration": "permanent"
+      "range": "self",
+      "duration": "battle"
     },
-    "community_notes": "[APPROX] DSL stub — detachment rule; mechanics pending authoring. Full rule in raw-text store."
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "ram-jets",

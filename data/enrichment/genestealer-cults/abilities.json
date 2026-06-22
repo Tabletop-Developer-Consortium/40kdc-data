@@ -2029,7 +2029,8 @@
     },
     "faction_id": "genestealer-cults",
     "ability_type": "faction",
-    "behavior": "passive"
+    "behavior": "passive",
+    "unit_ids": []
   },
   {
     "ability_id": "killer-reputation",
@@ -2047,14 +2048,86 @@
     "ability_type": "detachment",
     "behavior": "passive",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "sequence",
+      "steps": [
+        {
+          "type": "conditional",
+          "condition": {
+            "operator": "or",
+            "operands": [
+              {
+                "type": "unit-has-keyword",
+                "parameters": {
+                  "keyword": "KELERMORPH"
+                }
+              },
+              {
+                "type": "unit-has-keyword",
+                "parameters": {
+                  "keyword": "LOCUS"
+                }
+              },
+              {
+                "type": "unit-has-keyword",
+                "parameters": {
+                  "keyword": "REDUCTUS SABOTEUR"
+                }
+              },
+              {
+                "type": "unit-has-keyword",
+                "parameters": {
+                  "keyword": "SANCTUS"
+                }
+              }
+            ]
+          },
+          "effect": {
+            "type": "keyword-grant",
+            "target": "self",
+            "modifier": {
+              "keywords": [
+                "KILLER"
+              ]
+            }
+          }
+        },
+        {
+          "type": "conditional",
+          "condition": {
+            "type": "unit-has-keyword",
+            "parameters": {
+              "keyword": "KILLER"
+            }
+          },
+          "effect": {
+            "type": "sequence",
+            "steps": [
+              {
+                "type": "re-roll",
+                "target": "self",
+                "modifier": {
+                  "roll": "hit",
+                  "subset": "ones"
+                }
+              },
+              {
+                "type": "re-roll",
+                "target": "self",
+                "modifier": {
+                  "roll": "wound",
+                  "subset": "ones"
+                }
+              }
+            ]
+          }
+        }
+      ]
     },
     "scope": {
-      "range": "unit",
+      "range": "any-on-battlefield",
       "duration": "permanent"
-    }
+    },
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "living-up-to-legend-heroes-of-the-uprising",
@@ -2095,16 +2168,58 @@
     "faction_id": "genestealer-cults",
     "detachment_id": "heroes-of-the-uprising",
     "ability_type": "stratagem",
-    "behavior": "passive",
+    "behavior": "reactive",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "conditional",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          {
+            "operator": "or",
+            "operands": [
+              {
+                "type": "phase-is",
+                "parameters": {
+                  "phase": "shooting"
+                }
+              },
+              {
+                "type": "phase-is",
+                "parameters": {
+                  "phase": "fight"
+                }
+              }
+            ]
+          },
+          {
+            "type": "unit-has-keyword",
+            "parameters": {
+              "keyword": "KILLER"
+            }
+          },
+          {
+            "type": "timing-is",
+            "parameters": {
+              "timing": "selected-to-attack"
+            }
+          }
+        ]
+      },
+      "effect": {
+        "type": "keyword-grant",
+        "target": "self",
+        "modifier": {
+          "keywords": [
+            "Devastating Wounds"
+          ]
+        }
+      }
     },
     "scope": {
-      "range": "unit",
-      "duration": "permanent"
-    }
+      "range": "self",
+      "duration": "phase"
+    },
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "loyal-to-the-end-heroes-of-the-uprising",
@@ -2120,16 +2235,53 @@
     "faction_id": "genestealer-cults",
     "detachment_id": "heroes-of-the-uprising",
     "ability_type": "stratagem",
-    "behavior": "passive",
+    "behavior": "reactive",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "conditional",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          {
+            "type": "phase-is",
+            "parameters": {
+              "phase": "fight"
+            }
+          },
+          {
+            "operator": "not",
+            "operands": [
+              {
+                "type": "has-fought-this-phase",
+                "parameters": {}
+              }
+            ]
+          }
+        ]
+      },
+      "effect": {
+        "type": "dice-gated",
+        "dice": "D6",
+        "threshold": 2,
+        "comparison": "gte",
+        "on_success": {
+          "type": "fight-on-death",
+          "target": "unit",
+          "modifier": {}
+        },
+        "on_fail": {
+          "type": "mortal-wounds",
+          "target": "attacker",
+          "modifier": {
+            "count": 1
+          }
+        }
+      }
     },
     "scope": {
-      "range": "unit",
-      "duration": "permanent"
-    }
+      "range": "self",
+      "duration": "phase"
+    },
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "gene-tailored-toxins-heroes-of-the-uprising",
@@ -2148,13 +2300,19 @@
     "behavior": "passive",
     "effect": {
       "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "target": "self",
+      "modifier": {
+        "stat": "D",
+        "operation": "add",
+        "value": 1,
+        "attack_type": "melee"
+      }
     },
     "scope": {
-      "range": "unit",
-      "duration": "permanent"
-    }
+      "range": "self",
+      "duration": "battle"
+    },
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "contraband-munitions-heroes-of-the-uprising",
@@ -2173,13 +2331,19 @@
     "behavior": "passive",
     "effect": {
       "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "target": "self",
+      "modifier": {
+        "stat": "S",
+        "operation": "add",
+        "value": 2,
+        "attack_type": "ranged"
+      }
     },
     "scope": {
-      "range": "unit",
-      "duration": "permanent"
-    }
+      "range": "self",
+      "duration": "battle"
+    },
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "enemy-within",
@@ -2195,16 +2359,54 @@
     "faction_id": "genestealer-cults",
     "detachment_id": "purestrain-broodswarm",
     "ability_type": "detachment",
-    "behavior": "passive",
+    "behavior": "reactive",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "conditional",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          {
+            "type": "phase-is",
+            "parameters": {
+              "phase": "fight"
+            }
+          },
+          {
+            "type": "player-turn-is",
+            "parameters": {
+              "turn": "opponent"
+            }
+          },
+          {
+            "type": "timing-is",
+            "parameters": {
+              "timing": "end"
+            }
+          },
+          {
+            "operator": "not",
+            "operands": [
+              {
+                "type": "engagement-state",
+                "parameters": {}
+              }
+            ]
+          }
+        ]
+      },
+      "effect": {
+        "type": "ability-grant",
+        "target": "unit",
+        "modifier": {
+          "grant_type": "enter-strategic-reserves"
+        }
+      }
     },
     "scope": {
-      "range": "unit",
-      "duration": "permanent"
-    }
+      "range": "self",
+      "duration": "phase"
+    },
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "lurk-and-strike-purestrain-broodswarm",
@@ -2220,16 +2422,37 @@
     "faction_id": "genestealer-cults",
     "detachment_id": "purestrain-broodswarm",
     "ability_type": "stratagem",
-    "behavior": "passive",
+    "behavior": "reactive",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "conditional",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          {
+            "type": "phase-is",
+            "parameters": {
+              "phase": "movement"
+            }
+          },
+          {
+            "type": "timing-is",
+            "parameters": {
+              "timing": "selected-to-fall-back"
+            }
+          }
+        ]
+      },
+      "effect": {
+        "type": "fallback-and-act",
+        "target": "self",
+        "modifier": {}
+      }
     },
     "scope": {
-      "range": "unit",
-      "duration": "permanent"
-    }
+      "range": "self",
+      "duration": "phase"
+    },
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "crawling-horror-purestrain-broodswarm",
@@ -2247,14 +2470,28 @@
     "ability_type": "stratagem",
     "behavior": "passive",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "conditional",
+      "condition": {
+        "type": "phase-is",
+        "parameters": {
+          "phase": "opponent-movement"
+        }
+      },
+      "effect": {
+        "type": "stat-modifier",
+        "target": "self",
+        "modifier": {
+          "stat": "detection-range",
+          "operation": "subtract",
+          "value": 6
+        }
+      }
     },
     "scope": {
       "range": "unit",
-      "duration": "permanent"
-    }
+      "duration": "phase"
+    },
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "inhuman-reactions-purestrain-broodswarm",
@@ -2297,14 +2534,43 @@
     "ability_type": "enhancement",
     "behavior": "passive",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "sequence",
+      "steps": [
+        {
+          "type": "stat-modifier",
+          "target": "self",
+          "modifier": {
+            "stat": "T",
+            "operation": "add",
+            "value": 1
+          }
+        },
+        {
+          "type": "stat-modifier",
+          "target": "self",
+          "modifier": {
+            "stat": "Sv",
+            "operation": "set",
+            "value": 4
+          }
+        },
+        {
+          "type": "stat-modifier",
+          "target": "self",
+          "modifier": {
+            "stat": "S",
+            "operation": "add",
+            "value": 1,
+            "attack_type": "melee"
+          }
+        }
+      ]
     },
     "scope": {
-      "range": "unit",
+      "range": "self",
       "duration": "permanent"
-    }
+    },
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "talons-of-the-sire-purestrain-broodswarm",
@@ -2322,14 +2588,18 @@
     "ability_type": "enhancement",
     "behavior": "passive",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "re-roll",
+      "target": "self",
+      "modifier": {
+        "roll": "wound",
+        "subset": "ones"
+      }
     },
     "scope": {
-      "range": "unit",
-      "duration": "permanent"
-    }
+      "range": "self",
+      "duration": "battle"
+    },
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "hordes-of-the-faithful",
@@ -2372,14 +2642,27 @@
     "ability_type": "stratagem",
     "behavior": "passive",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "conditional",
+      "condition": {
+        "type": "phase-is",
+        "parameters": {
+          "phase": "shooting"
+        }
+      },
+      "effect": {
+        "type": "attack-restriction",
+        "target": "enemy-within-aura",
+        "modifier": {
+          "restriction": "increased-detection-range",
+          "value": 6
+        }
+      }
     },
     "scope": {
-      "range": "unit",
-      "duration": "permanent"
-    }
+      "range": "terrain-within-range",
+      "duration": "phase"
+    },
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "fanatical-hail-xenocult-masses",
@@ -2447,14 +2730,18 @@
     "ability_type": "enhancement",
     "behavior": "passive",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "re-roll",
+      "target": "self",
+      "modifier": {
+        "roll": "damage",
+        "subset": "all-failures"
+      }
     },
     "scope": {
-      "range": "unit",
-      "duration": "permanent"
-    }
+      "range": "self",
+      "duration": "battle"
+    },
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "devious-disguises-xenocult-masses",
@@ -2472,14 +2759,18 @@
     "ability_type": "enhancement",
     "behavior": "passive",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "attack-restriction",
+      "target": "self",
+      "modifier": {
+        "restriction": "reduced-detection-range",
+        "value": 3
+      }
     },
     "scope": {
-      "range": "unit",
+      "range": "self",
       "duration": "permanent"
-    }
+    },
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "integrated-tactics",
@@ -2575,15 +2866,73 @@
     "ability_type": "detachment",
     "behavior": "passive",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "sequence",
+      "steps": [
+        {
+          "type": "conditional",
+          "condition": {
+            "operator": "not",
+            "operands": [
+              {
+                "type": "is-battle-shocked",
+                "parameters": {}
+              }
+            ]
+          },
+          "effect": {
+            "type": "stat-modifier",
+            "target": "self",
+            "modifier": {
+              "stat": "OC",
+              "operation": "add",
+              "value": 1
+            }
+          }
+        },
+        {
+          "type": "conditional",
+          "condition": {
+            "operator": "and",
+            "operands": [
+              {
+                "type": "phase-is",
+                "parameters": {
+                  "phase": "command"
+                }
+              },
+              {
+                "type": "timing-is",
+                "parameters": {
+                  "timing": "end-of-phase"
+                }
+              },
+              {
+                "type": "controls-objective",
+                "parameters": {}
+              },
+              {
+                "type": "within-range-of-objective",
+                "parameters": {
+                  "target_type": "friendly-atalan-jackals"
+                }
+              }
+            ]
+          },
+          "effect": {
+            "type": "objective-control-modifier",
+            "target": "self",
+            "modifier": {
+              "sticky": true
+            }
+          }
+        }
+      ]
     },
     "scope": {
       "range": "unit",
       "duration": "permanent"
     },
-    "community_notes": "[APPROX] DSL stub — detachment rule; mechanics pending authoring. Full rule in raw-text store."
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "psionic-parasitism",
@@ -2627,15 +2976,71 @@
     "ability_type": "detachment",
     "behavior": "passive",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "conditional",
+      "condition": {
+        "type": "model-is-leader",
+        "parameters": {}
+      },
+      "effect": {
+        "type": "sequence",
+        "steps": [
+          {
+            "type": "re-roll",
+            "target": "unit",
+            "modifier": {
+              "roll": "advance",
+              "subset": "all-failures"
+            }
+          },
+          {
+            "type": "re-roll",
+            "target": "unit",
+            "modifier": {
+              "roll": "charge",
+              "subset": "all-failures"
+            }
+          },
+          {
+            "type": "conditional",
+            "condition": {
+              "operator": "or",
+              "operands": [
+                {
+                  "type": "unit-has-keyword",
+                  "parameters": {
+                    "keyword": "MAGUS"
+                  }
+                },
+                {
+                  "type": "unit-has-keyword",
+                  "parameters": {
+                    "keyword": "PRIMUS"
+                  }
+                },
+                {
+                  "type": "unit-has-keyword",
+                  "parameters": {
+                    "keyword": "ACOLYTE ICONWARD"
+                  }
+                }
+              ]
+            },
+            "effect": {
+              "type": "feel-no-pain",
+              "target": "bearer",
+              "modifier": {
+                "threshold": 3
+              }
+            }
+          }
+        ]
+      }
     },
     "scope": {
       "range": "unit",
       "duration": "permanent"
     },
-    "community_notes": "[APPROX] DSL stub — detachment rule; mechanics pending authoring. Full rule in raw-text store."
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
   {
     "ability_id": "a-perfect-ambush",

@@ -1011,7 +1011,8 @@ export interface SimpleCondition {
     | "made-ingress-move-this-turn"
     | "disembarked-from-transport"
     | "faction-rule-active"
-    | "battle-round";
+    | "battle-round"
+    | "token-count-at-or-above";
   parameters?: {
     [k: string]: unknown;
   };
@@ -1074,7 +1075,9 @@ export interface SingleEffect {
     | "auto-result"
     | "firing-deck"
     | "disembark-after-move"
-    | "rule-state";
+    | "rule-state"
+    | "pool-add-die"
+    | "replace-roll-from-pool";
   target:
     | "self"
     | "bearer"

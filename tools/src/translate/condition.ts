@@ -381,6 +381,8 @@ export function describeCondition(c: Condition): string {
     }
     case "engagement-fronts":
       return `${negate}you are engaged on ${str(p.count_min ?? 1)}+ fronts`;
+    case "token-count-at-or-above":
+      return `${negate}the unit has ${str(p.threshold)}+ ${dekebab(str(p.pool_id))}`;
 
     default:
       return `${negate}${dekebab(c.type ?? "unknown")}`;

@@ -453,6 +453,8 @@ def _condition_lead_in(c: Condition) -> str:
         return f"while the {_title_case(_jstr(p.get('rule')))} is active"
     if ctype == "battle-round":
         return f"during the first {_jstr(p.get('max'))} battle rounds"
+    if ctype == "token-count-at-or-above":
+        return f"while the unit has {_jstr(p.get('threshold'))}+ {_pool_name(p.get('pool_id'))}"
     if ctype == "remained-stationary":
         return "if the unit Remained Stationary"
     if ctype == "target-has-keyword":
@@ -668,6 +670,15 @@ def _and_list(items: list[str]) -> str:
     if len(items) == 2:
         return f"{items[0]} and {items[1]}"
     return f"{', '.join(items[:-1])} and {items[-1]}"
+
+
+def _or_list(items: list[str]) -> str:
+    """Oxford-free disjunction list ("a", "a or b", "a, b or c")."""
+    if len(items) <= 1:
+        return items[0] if items else ""
+    if len(items) == 2:
+        return f"{items[0]} or {items[1]}"
+    return f"{', '.join(items[:-1])} or {items[-1]}"
 
 
 def _inch_clause(dist: Any) -> str:
@@ -999,6 +1010,18 @@ def _describe_effect_inline_base(e: Effect, ctx: Ctx | None = None) -> str:
         return f"destroy {count} {noun} in {subj}"
     if etype == "rule-state":
         return _describe_rule_state(m, subj)
+    if etype == "pool-add-die":
+        val = "the highest result" if m.get("value") == "highest" else _jstr(m.get("value"))
+        cnt = _dice_case(m.get("count")) if m.get("count") is not None else "1"
+        dice = "a die" if cnt == "1" else f"{cnt} dice"
+        return f"add {dice} showing {val} to your {_pool_name(m.get('pool_id'))}"
+    if etype == "replace-roll-from-pool":
+        raw_rolls = m.get("rolls")
+        rolls = [dekebab(_jstr(r)) for r in raw_rolls] if isinstance(raw_rolls, list) else []
+        return (
+            f"discard a die from your {_pool_name(m.get('pool_id'))} "
+            f"and substitute its value for a {_or_list(rolls)} roll"
+        )
     if etype == "cp-gain":
         return f"you gain {_jstr(m.get('amount') if m.get('amount') is not None else 1)}CP"
     if etype == "cp-refund":
@@ -1014,7 +1037,17 @@ def _describe_effect_inline_base(e: Effect, ctx: Ctx | None = None) -> str:
     if etype == "resource-spend":
         amount = m.get("amount") if m.get("amount") is not None else m.get("value")
         pool = m.get("pool_id") if m.get("pool_id") is not None else m.get("resource")
-        return f"spend {_jstr(amount)} {_pool_name(pool)}"
+        base = f"spend {_jstr(amount)} {_pool_name(pool)}"
+        cap_obj = m.get("cap")
+        if (
+            isinstance(cap_obj, dict)
+            and cap_obj.get("count") is not None
+            and cap_obj.get("per") is not None
+        ):
+            count = _jstr(cap_obj.get("count"))
+            per = _jstr(cap_obj.get("per"))
+            return f"{base} (no more than {count} per {per})"
+        return base
     if etype == "leadership-modifier":
         test = f"{_test_name(m.get('test'))} test" if m.get("test") is not None else None
         if test is not None and m.get("operation") is None:

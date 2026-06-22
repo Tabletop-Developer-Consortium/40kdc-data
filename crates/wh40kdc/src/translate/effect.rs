@@ -536,6 +536,13 @@ fn condition_lead_in(n: &ConditionNode) -> String {
                 T::BattleRound => {
                     format!("during the first {} battle rounds", jv(p, "max"))
                 }
+                T::TokenCountAtOrAbove => format!(
+                    "while the unit has {}+ {}",
+                    jv(p, "threshold"),
+                    p.get("pool_id")
+                        .map(pool_name)
+                        .unwrap_or_else(|| "?".to_string())
+                ),
                 T::RemainedStationary => "if the unit Remained Stationary".to_string(),
                 T::TargetHasKeyword => format!("against {} targets", jv(p, "keyword")),
                 T::UnitHasKeyword => format!("if the unit has the {} keyword", jv(p, "keyword")),
@@ -809,6 +816,15 @@ fn and_list(items: &[String]) -> String {
         1 => items[0].clone(),
         2 => format!("{} and {}", items[0], items[1]),
         n => format!("{} and {}", items[..n - 1].join(", "), items[n - 1]),
+    }
+}
+
+fn or_list(items: &[String]) -> String {
+    match items.len() {
+        0 => String::new(),
+        1 => items[0].clone(),
+        2 => format!("{} or {}", items[0], items[1]),
+        n => format!("{} or {}", items[..n - 1].join(", "), items[n - 1]),
     }
 }
 
@@ -1329,6 +1345,41 @@ fn describe_single(e: &SingleEffect, ctx: &Ctx) -> String {
             format!("destroy {count} {noun} in {subj}")
         }
         T::RuleState => describe_rule_state(m, &subj),
+        T::PoolAddDie => {
+            let val = match m.get("value") {
+                Some(Value::String(s)) if s == "highest" => "the highest result".to_string(),
+                Some(v) => jval(v),
+                None => "?".to_string(),
+            };
+            let cnt = m
+                .get("count")
+                .map(dice_case)
+                .unwrap_or_else(|| "1".to_string());
+            let dice = if cnt == "1" {
+                "a die".to_string()
+            } else {
+                format!("{cnt} dice")
+            };
+            let pool = m
+                .get("pool_id")
+                .map(pool_name)
+                .unwrap_or_else(|| "?".to_string());
+            format!("add {dice} showing {val} to your {pool}")
+        }
+        T::ReplaceRollFromPool => {
+            let rolls: Vec<String> = match m.get("rolls") {
+                Some(Value::Array(a)) => a.iter().map(|r| dekebab(&jval(r))).collect(),
+                _ => Vec::new(),
+            };
+            let pool = m
+                .get("pool_id")
+                .map(pool_name)
+                .unwrap_or_else(|| "?".to_string());
+            format!(
+                "discard a die from your {pool} and substitute its value for a {} roll",
+                or_list(&rolls)
+            )
+        }
         T::CpGain => {
             let amount = first(m, &["amount"])
                 .map(jval)
@@ -1359,7 +1410,20 @@ fn describe_single(e: &SingleEffect, ctx: &Ctx) -> String {
             let pool = first(m, &["pool_id", "resource"])
                 .map(pool_name)
                 .unwrap_or_else(|| "?".to_string());
-            format!("spend {amount} {pool}")
+            let base = format!("spend {amount} {pool}");
+            match m.get("cap") {
+                Some(Value::Object(cap))
+                    if cap.get("count").is_some_and(|v| !v.is_null())
+                        && cap.get("per").is_some_and(|v| !v.is_null()) =>
+                {
+                    format!(
+                        "{base} (no more than {} per {})",
+                        jv(cap, "count"),
+                        jv(cap, "per")
+                    )
+                }
+                _ => base,
+            }
         }
         T::LeadershipModifier => {
             let has_test = notnull(m, "test");

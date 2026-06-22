@@ -548,6 +548,8 @@ function conditionLeadIn(c: Condition): string {
       return `while the ${titleCase(jstr(p.rule))} is active`;
     case "battle-round":
       return `during the first ${jstr(p.max)} battle rounds`;
+    case "token-count-at-or-above":
+      return `while the unit has ${jstr(p.threshold)}+ ${poolName(p.pool_id)}`;
     case "remained-stationary":
       return "if the unit Remained Stationary";
     case "target-has-keyword":
@@ -643,6 +645,12 @@ function andList(items: string[]): string {
   if (items.length <= 1) return items[0] ?? "";
   if (items.length === 2) return `${items[0]} and ${items[1]}`;
   return `${items.slice(0, -1).join(", ")} and ${items[items.length - 1]}`;
+}
+
+function orList(items: string[]): string {
+  if (items.length <= 1) return items[0] ?? "";
+  if (items.length === 2) return `${items[0]} or ${items[1]}`;
+  return `${items.slice(0, -1).join(", ")} or ${items[items.length - 1]}`;
 }
 
 /** Trailing inches clause for a movement distance (int or dice string); "" when absent/zero. */
@@ -941,8 +949,23 @@ function describeEffectInlineBase(e: Effect, ctx: Ctx = {}): string {
     }
     case "resource-gain":
       return `you gain ${jstr(m.amount ?? m.value)} ${poolName(m.pool_id ?? m.resource)}`;
-    case "resource-spend":
-      return `spend ${jstr(m.amount ?? m.value)} ${poolName(m.pool_id ?? m.resource)}`;
+    case "resource-spend": {
+      const base = `spend ${jstr(m.amount ?? m.value)} ${poolName(m.pool_id ?? m.resource)}`;
+      const cap = m.cap as Record<string, unknown> | undefined;
+      if (cap != null && cap.count != null && cap.per != null)
+        return `${base} (no more than ${jstr(cap.count)} per ${jstr(cap.per)})`;
+      return base;
+    }
+    case "pool-add-die": {
+      const val = m.value === "highest" ? "the highest result" : jstr(m.value);
+      const cnt = m.count != null ? diceCase(m.count) : "1";
+      const dice = cnt === "1" ? "a die" : `${cnt} dice`;
+      return `add ${dice} showing ${val} to your ${poolName(m.pool_id)}`;
+    }
+    case "replace-roll-from-pool": {
+      const rolls = Array.isArray(m.rolls) ? (m.rolls as unknown[]).map((r) => dekebab(jstr(r))) : [];
+      return `discard a die from your ${poolName(m.pool_id)} and substitute its value for a ${orList(rolls)} roll`;
+    }
     case "leadership-modifier": {
       const test = m.test != null ? `${testName(m.test)} test` : null;
       if (test != null && m.operation == null) return `${subj} must take a ${test}`;

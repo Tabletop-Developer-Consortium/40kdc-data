@@ -507,6 +507,8 @@ func conditionLeadIn(c map[string]any) string {
 		return "while the " + titleCase(ejstr(p["rule"])) + " is active"
 	case "battle-round":
 		return "during the first " + ejstr(p["max"]) + " battle rounds"
+	case "token-count-at-or-above":
+		return "while the unit has " + ejstr(p["threshold"]) + "+ " + poolName(p["pool_id"])
 	case "remained-stationary":
 		return "if the unit Remained Stationary"
 	case "target-has-keyword":
@@ -782,6 +784,18 @@ func andList(items []string) string {
 		return items[0] + " and " + items[1]
 	}
 	return strings.Join(items[:len(items)-1], ", ") + " and " + items[len(items)-1]
+}
+
+func orList(items []string) string {
+	switch len(items) {
+	case 0:
+		return ""
+	case 1:
+		return items[0]
+	case 2:
+		return items[0] + " or " + items[1]
+	}
+	return strings.Join(items[:len(items)-1], ", ") + " or " + items[len(items)-1]
 }
 
 // inchClause renders a trailing inches clause for a movement distance (int or
@@ -1190,6 +1204,28 @@ func describeEffectInlineBase(e map[string]any, ctx map[string]any) string {
 		return "destroy " + count + " " + noun + " in " + subj
 	case "rule-state":
 		return describeRuleState(m, subj)
+	case "pool-add-die":
+		val := "the highest result"
+		if m["value"] != "highest" {
+			val = ejstr(m["value"])
+		}
+		cnt := "1"
+		if m["count"] != nil {
+			cnt = diceCase(m["count"])
+		}
+		dice := "a die"
+		if cnt != "1" {
+			dice = cnt + " dice"
+		}
+		return "add " + dice + " showing " + val + " to your " + poolName(m["pool_id"])
+	case "replace-roll-from-pool":
+		var rolls []string
+		if arr, ok := m["rolls"].([]any); ok {
+			for _, r := range arr {
+				rolls = append(rolls, dekebab(ejstr(r)))
+			}
+		}
+		return "discard a die from your " + poolName(m["pool_id"]) + " and substitute its value for a " + orList(rolls) + " roll"
 	case "cp-gain":
 		var a any = float64(1)
 		if m["amount"] != nil {
@@ -1221,7 +1257,11 @@ func describeEffectInlineBase(e map[string]any, ctx map[string]any) string {
 		if pool == nil {
 			pool = m["resource"]
 		}
-		return "spend " + ejstr(amount) + " " + poolName(pool)
+		base := "spend " + ejstr(amount) + " " + poolName(pool)
+		if capm, ok := m["cap"].(map[string]any); ok && capm["count"] != nil && capm["per"] != nil {
+			return base + " (no more than " + ejstr(capm["count"]) + " per " + ejstr(capm["per"]) + ")"
+		}
+		return base
 	case "leadership-modifier":
 		hasTest := m["test"] != nil
 		if hasTest && m["operation"] == nil {

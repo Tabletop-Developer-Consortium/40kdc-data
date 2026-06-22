@@ -543,6 +543,8 @@ func describeCondition(c map[string]any) string {
 			n = cstr(p["count_min"])
 		}
 		return negate + "you are engaged on " + n + "+ fronts"
+	case "token-count-at-or-above":
+		return negate + "the unit has " + cstr(p["threshold"]) + "+ " + dekebab(cstr(p["pool_id"]))
 	}
 	t := "unknown"
 	if ctype != "" {

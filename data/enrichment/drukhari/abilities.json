@@ -1362,10 +1362,22 @@
     "effect": {
       "type": "conditional",
       "condition": {
-        "type": "phase-is",
-        "parameters": {
-          "phase": "fight"
-        }
+        "operator": "and",
+        "operands": [
+          {
+            "type": "phase-is",
+            "parameters": {
+              "phase": "fight"
+            }
+          },
+          {
+            "type": "token-count-at-or-above",
+            "parameters": {
+              "pool_id": "pain-token-pool",
+              "threshold": 1
+            }
+          }
+        ]
       },
       "effect": {
         "type": "sequence",
@@ -1375,7 +1387,11 @@
             "target": "self",
             "modifier": {
               "pool_id": "pain-token-pool",
-              "amount": 1
+              "amount": 1,
+              "cap": {
+                "count": 1,
+                "per": "phase"
+              }
             }
           },
           {
@@ -1459,7 +1475,7 @@
     ],
     "ability_type": "unit",
     "behavior": "activated",
-    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
+    "community_notes": "community-authored from 10e source (provisional 11e); see #21. Gated on token-count-at-or-above (a spend requires holding a Pain token) and capped at once per fight phase via the resource-spend cap; the cap is a community reading of the once-per-activation structure."
   },
   {
     "ability_id": "torturer-s-craft",

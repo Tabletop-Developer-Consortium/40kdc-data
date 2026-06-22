@@ -858,10 +858,11 @@
         }
       },
       "effect": {
-        "type": "ability-grant",
+        "type": "pool-add-die",
         "target": "self",
         "modifier": {
-          "grant_type": "miracle-dice-fixed-6-override"
+          "pool_id": "miracle-dice-pool",
+          "value": 6
         }
       }
     },
@@ -874,7 +875,7 @@
     ],
     "ability_type": "unit",
     "behavior": "reactive",
-    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
+    "community_notes": "The Triumph contributes a guaranteed value-6 Miracle die to the pool each battle round; modeled with the pooled-resource `pool-add-die` effect. Previously punted as an opaque ability-grant grant_type."
   },
   {
     "ability_id": "angelic-ascent",
@@ -2829,12 +2830,11 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "roll-modifier",
+      "type": "replace-roll-from-pool",
       "target": "unit",
       "modifier": {
-        "roll": "hit",
-        "operation": "guarantee-crit",
-        "value": 1
+        "pool_id": "miracle-dice-pool",
+        "rolls": ["hit", "wound", "save", "advance", "charge", "desperate-escape", "hazardous", "leadership"]
       }
     },
     "scope": {
@@ -2844,7 +2844,7 @@
     "faction_id": "adepta-sororitas",
     "ability_type": "faction",
     "behavior": "activated",
-    "community_notes": "Models 1 Miracle Die per activation as a guaranteed crit hit (auto-6). Sororitas generate ~8-10 Miracle Dice per game; 1 per unit-activation is a generous upper-bound that captures the mechanic's offensive value.",
+    "community_notes": "Discard a Miracle die from the pool to substitute its value for a single roll/test. Modeled with the pooled-resource `replace-roll-from-pool` effect (the dice-substitution sub-shape); the cruncher leaves this unsupported (fail-safe) since pool state is not tracked by the buff layer. Previously punted as a roll-modifier guarantee-crit, which over-claimed a deterministic auto-6 per activation.",
     "unit_ids": []
   },
   {

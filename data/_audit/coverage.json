@@ -135,9 +135,9 @@
     {
       "faction": "drukhari",
       "total": 100,
-      "offensive": 25,
+      "offensive": 24,
       "defensive": 7,
-      "inert": 70,
+      "inert": 71,
       "stub": 11,
       "stubStructural": 8,
       "gwTextLeak": 0,
@@ -267,9 +267,9 @@
   ],
   "totals": {
     "total": 3086,
-    "offensive": 746,
+    "offensive": 745,
     "defensive": 262,
-    "inert": 2166,
+    "inert": 2167,
     "stub": 220,
     "stubStructural": 182,
     "gwTextLeak": 0,
@@ -302,7 +302,7 @@
     },
     {
       "reason": "conditional: cannot evaluate condition \"undefined\" against current context",
-      "count": 78
+      "count": 79
     },
     {
       "reason": "effect type \"resurrection\" is not modelled by the buff layer",
@@ -445,10 +445,6 @@
       "count": 4
     },
     {
-      "reason": "roll-modifier: operation \"guarantee-crit\" not supported",
-      "count": 3
-    },
-    {
       "reason": "effect type \"resource-gain\" is not modelled by the buff layer",
       "count": 3
     },
@@ -478,6 +474,10 @@
     },
     {
       "reason": "stat-modifier on \"Range\" is outside the damage path",
+      "count": 2
+    },
+    {
+      "reason": "roll-modifier: operation \"guarantee-crit\" not supported",
       "count": 2
     },
     {
@@ -517,10 +517,6 @@
       "count": 2
     },
     {
-      "reason": "effect type \"resource-spend\" is not modelled by the buff layer",
-      "count": 2
-    },
-    {
       "reason": "conditional: cannot evaluate condition \"units-destroyed\" against current context",
       "count": 2
     },
@@ -535,6 +531,10 @@
     {
       "reason": "conditional: cannot evaluate condition \"terrain-area-control\" against current context",
       "count": 2
+    },
+    {
+      "reason": "effect type \"replace-roll-from-pool\" is not modelled by the buff layer",
+      "count": 1
     },
     {
       "reason": "stat-modifier: operation \"improve-vs-D1\" not supported",
@@ -566,6 +566,10 @@
     },
     {
       "reason": "stat-modifier: narrows by \"weapon_keyword\" which the cruncher can't resolve here",
+      "count": 1
+    },
+    {
+      "reason": "effect type \"resource-spend\" is not modelled by the buff layer",
       "count": 1
     },
     {
@@ -1412,11 +1416,11 @@
       "faction": "adepta-sororitas",
       "ability_id": "acts-of-faith",
       "name": "Acts of Faith",
-      "shape": "roll-modifier",
+      "shape": "replace-roll-from-pool",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "roll-modifier: operation \"guarantee-crit\" not supported"
+      "gap": "effect type \"replace-roll-from-pool\" is not modelled by the buff layer"
     },
     {
       "faction": "adepta-sororitas",
@@ -18924,9 +18928,9 @@
       "name": "Experimental Enhancements",
       "shape": "conditional",
       "stub": false,
-      "offensive": true,
+      "offensive": false,
       "defensive": false,
-      "gap": "effect type \"resource-spend\" is not modelled by the buff layer"
+      "gap": "conditional: cannot evaluate condition \"undefined\" against current context"
     },
     {
       "faction": "drukhari",

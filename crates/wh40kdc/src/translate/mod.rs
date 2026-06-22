@@ -666,6 +666,11 @@ fn describe_simple(s: &SimpleCondition) -> String {
                 pu(p, "count_min", 1)
             )
         }
+        T::TokenCountAtOrAbove => format!(
+            "{negate}the unit has {}+ {}",
+            pj(p, "threshold"),
+            dekebab(&pj(p, "pool_id"))
+        ),
 
         T::EngagementState => match ps(p, "state") {
             None => format!("{negate}the unit is within Engagement Range"),

@@ -448,5 +448,7 @@ def describe_condition(c: Condition) -> str:
         count_min = p.get("count_min")
         n = count_min if count_min is not None else 1
         return f"{negate}you are engaged on {_str(n)}+ fronts"
+    if ctype == "token-count-at-or-above":
+        return f"{negate}the unit has {_str(p.get('threshold'))}+ {dekebab(_str(p.get('pool_id')))}"
 
     return f"{negate}{dekebab(ctype if ctype is not None else 'unknown')}"

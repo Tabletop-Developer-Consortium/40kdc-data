@@ -725,6 +725,7 @@ class SimpleCondition(TypedDict):
         "disembarked-from-transport",
         "faction-rule-active",
         "battle-round",
+        "token-count-at-or-above",
     ]
     parameters: NotRequired[dict[str, Any]]
     negated: NotRequired[bool]
@@ -797,6 +798,8 @@ class SingleEffect(TypedDict):
         "firing-deck",
         "disembark-after-move",
         "rule-state",
+        "pool-add-die",
+        "replace-roll-from-pool",
     ]
     target: Literal[
         "self",

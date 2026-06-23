@@ -16,9 +16,9 @@
 use crate::data::{normalize_name, Dataset};
 
 use super::types::{
-    BattleSize, Candidate, Diagnostics, ParsedRoster, ParsedUnit, ResolvedRef, Roster,
-    RosterDetachment, RosterFormat, RosterLeaderAttachment, RosterPoints, RosterSource, RosterUnit,
-    RosterWargear, Warning, WarningCode,
+    AttachmentRole, BattleSize, Candidate, Diagnostics, ParsedRoster, ParsedUnit, ResolvedRef,
+    Roster, RosterDetachment, RosterFormat, RosterLeaderAttachment, RosterPoints, RosterSource,
+    RosterUnit, RosterWargear, Warning, WarningCode,
 };
 
 /// The dataset edition/dataslate stamped onto an imported roster.
@@ -534,6 +534,7 @@ fn infer_leader_attachments(
     for (idx, bodyguard_id, bodyguard_raw_name) in planned {
         units[idx].leader_attachment = Some(RosterLeaderAttachment {
             bodyguard_ref: resolved(&bodyguard_id, &bodyguard_raw_name),
+            role: AttachmentRole::Support,
             provisional: true,
         });
         let leader_raw = units[idx].ref_.raw_name.clone();

@@ -75,6 +75,13 @@ export interface RosterDetachment {
 /** An inferred, always-provisional leader→bodyguard attachment. */
 export interface RosterLeaderAttachment {
   bodyguard_ref: ResolvedRef;
+  /**
+   * Role of the attaching character relative to the bodyguard unit. `leader`
+   * renders as "<leader> leading <bodyguard>"; `support` (a character that
+   * cannot operate alone) renders as "supported by <support>". Import only ever
+   * infers `support`; the list-builder emits `leader`.
+   */
+  role: "leader" | "support";
   provisional: boolean;
 }
 

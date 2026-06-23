@@ -105,10 +105,23 @@ pub struct RosterDetachment {
     pub dp_cost: Option<u64>,
 }
 
+/// Role of an attaching character relative to its bodyguard unit.
+///
+/// `Leader` renders as "<leader> leading <bodyguard>"; `Support` (a character
+/// that cannot operate alone) as "supported by <support>". Import only ever
+/// infers `Support`; the list-builder emits `Leader`.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(rename_all = "lowercase")]
+pub enum AttachmentRole {
+    Leader,
+    Support,
+}
+
 /// An inferred, always-provisional leader→bodyguard attachment.
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct RosterLeaderAttachment {
     pub bodyguard_ref: ResolvedRef,
+    pub role: AttachmentRole,
     pub provisional: bool,
 }
 

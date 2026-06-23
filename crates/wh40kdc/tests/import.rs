@@ -225,12 +225,27 @@ fn infers_a_provisional_leader_attachment() {
     let pb = unit_by_id(&roster, "painboy").unwrap();
     let attachment = pb.leader_attachment.as_ref().expect("attachment inferred");
     assert_eq!(attachment.bodyguard_ref.id.as_deref(), Some("boyz"));
+    assert_eq!(attachment.role, wh40kdc::import::AttachmentRole::Support);
     assert!(attachment.provisional);
     assert!(roster
         .diagnostics
         .warnings
         .iter()
         .any(|w| w.code == wh40kdc::import::WarningCode::LeaderAttachmentInferred));
+}
+
+#[cfg(feature = "export")]
+#[test]
+fn support_attachment_renders_supported_by_in_atc() {
+    // An imported support character (bodyguard-first, no leader) renders as
+    // "<bodyguard> supported by <support>". Cross-impl pin for the ATC wording.
+    use wh40kdc::export::{export_roster, ExportFormat};
+    let roster = import_roster(&support_attachment_payload(), Dataset::embedded()).unwrap();
+    let out = export_roster(&roster, ExportFormat::Atc2026Compact);
+    assert!(
+        out.contains("+ LEADER/SUPPORT: Boyz supported by Painboy"),
+        "ATC LEADER/SUPPORT line wrong:\n{out}"
+    );
 }
 
 #[test]

@@ -55,14 +55,22 @@ const populatedUnits: RosterUnit[] = [
     is_warlord: true,
     enhancement: ref("the-honour-vehement", "The Honour Vehement"),
     enhancement_points: 25,
-    leader_attachment: { bodyguard_ref: ref("assault-intercessor-squad", "Assault Squad"), provisional: true },
+    leader_attachment: {
+      bodyguard_ref: ref("assault-intercessor-squad", "Assault Squad"),
+      role: "leader",
+      provisional: true,
+    },
     wargear: [{ ref: ref("power-fist", "Power fist"), count: 1 }],
   }),
   unit({
     ref: ref("lieutenant", "Lieutenant"),
     enhancement: ref("artificer-armour", "Artificer Armour"),
     enhancement_points: 10,
-    leader_attachment: { bodyguard_ref: ref("infernus-squad", "Infernus Squad"), provisional: true },
+    leader_attachment: {
+      bodyguard_ref: ref("infernus-squad", "Infernus Squad"),
+      role: "leader",
+      provisional: true,
+    },
   }),
   unit({ ref: ref("assault-intercessor-squad", "Assault Squad"), model_count: 5 }),
   unit({ ref: ref("infernus-squad", "Infernus Squad"), model_count: 5 }),
@@ -83,7 +91,7 @@ describe("ATC 2026 export header", () => {
       "+",
       "+ WARLORD: Char1: Captain",
       "+ ENHANCEMENT: The Honour Vehement (on Char1: Captain); Artificer Armour (on Char2: Lieutenant)",
-      "+ LEADER/SUPPORT: Captain attached to Assault Squad; Lieutenant attached to Infernus Squad",
+      "+ LEADER/SUPPORT: Captain leading Assault Squad; Lieutenant leading Infernus Squad",
       "+ NUMBER OF UNITS: 4",
       "+++++++++++++++++++++++++++++++++++++++++++++++",
     ]);
@@ -99,6 +107,42 @@ describe("ATC 2026 export header", () => {
     expect(out).toContain("+ LEADER/SUPPORT: —");
     expect(out).toContain("+ PLAYER NAME: —");
     expect(out).toContain("+ TEAM NAME: —");
+  });
+
+  it("renders a support character as 'supported by' (bodyguard-first, no leader)", () => {
+    // The importer only ever infers `support` attachments; with no leader on the
+    // bodyguard the line names the bodyguard first.
+    const units: RosterUnit[] = [
+      unit({
+        ref: ref("master-of-executions", "Master of Executions"),
+        leader_attachment: {
+          bodyguard_ref: ref("chaos-terminator-squad", "Chaos Terminators"),
+          role: "support",
+          provisional: true,
+        },
+      }),
+      unit({ ref: ref("chaos-terminator-squad", "Chaos Terminators"), model_count: 5 }),
+    ];
+    const out = exportRoster(roster({ units }), "atc-2026-compact");
+    expect(out).toContain("+ LEADER/SUPPORT: Chaos Terminators supported by Master of Executions");
+  });
+
+  it("renders a leader and a support on the same bodyguard as a compound line", () => {
+    const bg = ref("eightbound", "Eightbound");
+    const units: RosterUnit[] = [
+      unit({
+        ref: ref("slaughterbound", "Slaughterbound"),
+        is_warlord: true,
+        leader_attachment: { bodyguard_ref: bg, role: "leader", provisional: false },
+      }),
+      unit({
+        ref: ref("lord-invocatus", "Support Char"),
+        leader_attachment: { bodyguard_ref: bg, role: "support", provisional: true },
+      }),
+      unit({ ref: bg, model_count: 3 }),
+    ];
+    const out = exportRoster(roster({ units }), "atc-2026-compact");
+    expect(out).toContain("+ LEADER/SUPPORT: Slaughterbound leading Eightbound, supported by Support Char");
   });
 
   it("does not throw when force_disposition is absent (undefined), not just null", () => {

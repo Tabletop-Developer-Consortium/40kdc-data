@@ -485,6 +485,7 @@ func inferLeaderAttachments(parsedUnits []any, units []any, ds *Dataset, faction
 		bref := bodyguard["ref"].(map[string]any)
 		unit["leader_attachment"] = map[string]any{
 			"bodyguard_ref": refResolved(bodyguardID, bref["raw_name"]),
+			"role":          "support",
 			"provisional":   true,
 		}
 		diag.warn("leader-attachment-inferred", "Support character attached to an eligible bodyguard (it cannot operate alone); provisional.", ref["raw_name"])

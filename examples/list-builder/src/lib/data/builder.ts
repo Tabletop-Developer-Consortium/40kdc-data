@@ -1092,6 +1092,7 @@ export function builderToRoster(state: BuilderState): Roster {
 		const leader_attachment = bodyguard
 			? {
 					bodyguard_ref: ref(bodyguard.datasheetId, bodyguardRaw?.name ?? bodyguard.datasheetId),
+					role: "leader" as const,
 					provisional: false,
 				}
 			: null;

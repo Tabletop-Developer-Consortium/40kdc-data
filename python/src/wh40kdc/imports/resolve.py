@@ -273,7 +273,7 @@ def _resolve_unit(
     # name or alias.
     in_faction = ds.units.by_faction(faction_id) if faction_id else []
 
-    def _scoped_exact(query: str):
+    def _scoped_exact(query: str) -> Any | None:
         k = normalize_name(query)
         for u in in_faction:
             if normalize_name(u.name) == k:
@@ -435,6 +435,7 @@ def _infer_leader_attachments(
 
         unit["leader_attachment"] = {
             "bodyguard_ref": _resolved(bodyguard_id, bodyguard["ref"]["raw_name"]),
+            "role": "support",
             "provisional": True,
         }
         diag.warn(

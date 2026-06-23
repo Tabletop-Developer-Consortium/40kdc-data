@@ -13,7 +13,9 @@
 //!
 //! Rust mirror of `tools/src/export/atc-2026.ts`.
 
-use crate::import::{Roster, RosterUnit};
+use std::collections::HashMap;
+
+use crate::import::{AttachmentRole, Roster, RosterUnit};
 
 use super::helpers::{char_slot_assignment, title_case_id, total_army_points};
 use super::newrecruit_wtc::{wtc_compact_body_lines, wtc_full_body_lines, FENCE};
@@ -69,15 +71,53 @@ fn atc_header(roster: &Roster, units: &[RosterUnit], char_slots: &[Option<u32>])
         enh_parts.join("; ")
     };
 
-    let attach_parts: Vec<String> = units
+    // LEADER/SUPPORT: group attaching characters by the bodyguard unit they
+    // join, preserving first-seen order. A leader "leads" the bodyguard; a
+    // support character (which cannot operate alone) renders as "supported by".
+    struct AttachGroup {
+        bodyguard: String,
+        leaders: Vec<String>,
+        supports: Vec<String>,
+    }
+    let mut groups: Vec<AttachGroup> = Vec::new();
+    let mut index: HashMap<String, usize> = HashMap::new();
+    for u in units {
+        if let Some(la) = u.leader_attachment.as_ref() {
+            let key = la
+                .bodyguard_ref
+                .id
+                .clone()
+                .unwrap_or_else(|| la.bodyguard_ref.raw_name.clone());
+            let gi = *index.entry(key).or_insert_with(|| {
+                groups.push(AttachGroup {
+                    bodyguard: la.bodyguard_ref.raw_name.clone(),
+                    leaders: Vec::new(),
+                    supports: Vec::new(),
+                });
+                groups.len() - 1
+            });
+            match la.role {
+                AttachmentRole::Support => groups[gi].supports.push(u.ref_.raw_name.clone()),
+                AttachmentRole::Leader => groups[gi].leaders.push(u.ref_.raw_name.clone()),
+            }
+        }
+    }
+    let attach_parts: Vec<String> = groups
         .iter()
-        .filter_map(|u| {
-            u.leader_attachment.as_ref().map(|la| {
-                format!(
-                    "{} attached to {}",
-                    u.ref_.raw_name, la.bodyguard_ref.raw_name
-                )
-            })
+        .map(|g| {
+            let mut s = if g.leaders.is_empty() {
+                g.bodyguard.clone()
+            } else {
+                format!("{} leading {}", g.leaders.join(" & "), g.bodyguard)
+            };
+            if !g.supports.is_empty() {
+                s.push_str(&format!(
+                    "{} supported by {}",
+                    if g.leaders.is_empty() { "" } else { "," },
+                    g.supports.join(" & ")
+                ));
+            }
+            s
         })
         .collect();
     let leader_support = if attach_parts.is_empty() {

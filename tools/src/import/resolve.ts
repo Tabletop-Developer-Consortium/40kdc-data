@@ -363,6 +363,7 @@ function inferLeaderAttachments(
 
     unit.leader_attachment = {
       bodyguard_ref: resolved(bodyguardId, bodyguard.ref.raw_name),
+      role: "support",
       provisional: true,
     };
     diag.warn(

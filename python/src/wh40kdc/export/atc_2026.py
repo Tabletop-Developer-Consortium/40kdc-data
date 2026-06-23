@@ -58,11 +58,34 @@ def _header(roster: Roster, units: list[RosterUnit], char_slots: list[int | None
     ]
     enhancement = "; ".join(enh_parts) if enh_parts else _DASH
 
-    attach_parts = [
-        f"{u['ref']['raw_name']} attached to {u['leader_attachment']['bodyguard_ref']['raw_name']}"
-        for u in units
-        if u.get("leader_attachment") is not None
-    ]
+    # LEADER/SUPPORT: group attaching characters by the bodyguard unit they join,
+    # preserving first-seen order. A leader "leads" the bodyguard; a support
+    # character (which cannot operate alone) renders as "supported by".
+    groups: list[dict] = []
+    by_key: dict[str, dict] = {}
+    for u in units:
+        la = u.get("leader_attachment")
+        if la is None:
+            continue
+        bg = la["bodyguard_ref"]
+        key = bg.get("id") or bg["raw_name"]
+        g = by_key.get(key)
+        if g is None:
+            g = {"bodyguard": bg["raw_name"], "leaders": [], "supports": []}
+            by_key[key] = g
+            groups.append(g)
+        target = g["supports"] if la.get("role") == "support" else g["leaders"]
+        target.append(u["ref"]["raw_name"])
+    attach_parts = []
+    for g in groups:
+        if g["leaders"]:
+            s = f"{' & '.join(g['leaders'])} leading {g['bodyguard']}"
+        else:
+            s = g["bodyguard"]
+        if g["supports"]:
+            sep = "," if g["leaders"] else ""
+            s += f"{sep} supported by {' & '.join(g['supports'])}"
+        attach_parts.append(s)
     leader_support = "; ".join(attach_parts) if attach_parts else _DASH
 
     lines = [

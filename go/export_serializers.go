@@ -338,13 +338,56 @@ func atcHeaderText(roster map[string]any, units []any, slots []int) string {
 		enhancement = strings.Join(enhParts, "; ")
 	}
 
-	var attachParts []string
+	// LEADER/SUPPORT: group attaching characters by the bodyguard unit they join,
+	// preserving first-seen order. A leader "leads" the bodyguard; a support
+	// character (which cannot operate alone) renders as "supported by".
+	type atcAttachGroup struct {
+		bodyguard string
+		leaders   []string
+		supports  []string
+	}
+	var groups []*atcAttachGroup
+	byKey := map[string]*atcAttachGroup{}
 	for _, uAny := range units {
 		u := uAny.(map[string]any)
-		if la, ok := u["leader_attachment"].(map[string]any); ok {
-			bg, _ := la["bodyguard_ref"].(map[string]any)
-			attachParts = append(attachParts, getStr(refOf(u), "raw_name")+" attached to "+getStr(bg, "raw_name"))
+		la, ok := u["leader_attachment"].(map[string]any)
+		if !ok {
+			continue
 		}
+		bg, _ := la["bodyguard_ref"].(map[string]any)
+		key := getStr(bg, "id")
+		if key == "" {
+			key = getStr(bg, "raw_name")
+		}
+		g := byKey[key]
+		if g == nil {
+			g = &atcAttachGroup{bodyguard: getStr(bg, "raw_name")}
+			byKey[key] = g
+			groups = append(groups, g)
+		}
+		name := getStr(refOf(u), "raw_name")
+		if getStr(la, "role") == "support" {
+			g.supports = append(g.supports, name)
+		} else {
+			g.leaders = append(g.leaders, name)
+		}
+	}
+	var attachParts []string
+	for _, g := range groups {
+		var s string
+		if len(g.leaders) > 0 {
+			s = strings.Join(g.leaders, " & ") + " leading " + g.bodyguard
+		} else {
+			s = g.bodyguard
+		}
+		if len(g.supports) > 0 {
+			sep := ""
+			if len(g.leaders) > 0 {
+				sep = ","
+			}
+			s += sep + " supported by " + strings.Join(g.supports, " & ")
+		}
+		attachParts = append(attachParts, s)
 	}
 	leaderSupport := atcDash
 	if len(attachParts) > 0 {

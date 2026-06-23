@@ -94,11 +94,12 @@ def _enhancement_line(u: RosterUnit) -> str:
     return f"Enhancement: {u['enhancement']['raw_name']} (+{u['enhancement_points']} pts)"
 
 
-def serialize_newrecruit_wtc_compact(roster: Roster) -> str:
-    units = roster["units"]
-    slots = char_slot_assignment(units)
-    lines = [_header(roster, units, slots), ""]
-
+def wtc_compact_body_lines(units: list[RosterUnit], slots: list[int | None]) -> list[str]:
+    """The compact body — one line per unit, wargear inline — that follows the
+    summary header. Returned as the lines *after* the header (the leading ``""``
+    separator included) so any header variant (WTC or ATC 2026) can prepend its
+    own block. Compact callers append a trailing newline."""
+    lines = [""]
     for i, u in enumerate(units):
         prefix = f"Char{slots[i]}: " if slots[i] is not None else ""
         pts = displayed_unit_points(u)
@@ -109,8 +110,13 @@ def serialize_newrecruit_wtc_compact(roster: Roster) -> str:
         )
         if u.get("enhancement"):
             lines.append(_enhancement_line(u))
+    return lines
 
-    return "\n".join(lines) + "\n"
+
+def serialize_newrecruit_wtc_compact(roster: Roster) -> str:
+    units = roster["units"]
+    slots = char_slot_assignment(units)
+    return "\n".join([_header(roster, units, slots), *wtc_compact_body_lines(units, slots)]) + "\n"
 
 
 def _multi_model_with_line(u: RosterUnit) -> str:
@@ -133,14 +139,15 @@ def _multi_model_with_line(u: RosterUnit) -> str:
     return f"1 with {_wargear_list_text(u, True)}"
 
 
-def serialize_newrecruit_wtc_full(roster: Roster) -> str:
-    units = roster["units"]
-    slots = char_slot_assignment(units)
+def wtc_full_body_lines(units: list[RosterUnit], slots: list[int | None]) -> list[str]:
+    """The full body — section headers plus two-line unit blocks — that follows
+    the summary header. Returned as the lines *after* the header (the leading
+    ``""`` separator included). Unlike compact, full callers do not append a
+    trailing newline.
 
-    # The Roster doesn't tag allied units per-unit (the multi-force fact is a
-    # diagnostic warning), so wtc-full collapses to one BATTLELINE section.
-    lines = [_header(roster, units, slots), "", "BATTLELINE", ""]
-
+    The Roster doesn't tag allied units per-unit (the multi-force fact is a
+    diagnostic warning), so this collapses to one BATTLELINE section."""
+    lines = ["", "BATTLELINE", ""]
     for i, u in enumerate(units):
         prefix = f"Char{slots[i]}: " if slots[i] is not None else ""
         pts = displayed_unit_points(u)
@@ -155,5 +162,10 @@ def serialize_newrecruit_wtc_full(roster: Roster) -> str:
         if u.get("enhancement"):
             lines.append(_enhancement_line(u))
         lines.append("")
+    return lines
 
-    return "\n".join(lines)
+
+def serialize_newrecruit_wtc_full(roster: Roster) -> str:
+    units = roster["units"]
+    slots = char_slot_assignment(units)
+    return "\n".join([_header(roster, units, slots), *wtc_full_body_lines(units, slots)])

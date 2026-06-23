@@ -226,6 +226,9 @@ ROSTER_EXPORT_FORMATS = (
     ("newrecruit-simple", "expected.newrecruit-simple.txt"),
     ("roster-json", "expected.roster-json.json"),
     ("rosterizer", "expected.rosterizer.json"),
+    # ATC 2026 — export-only (no importer, no derived round-trip input).
+    ("atc-2026-compact", "expected.atc-2026-compact.txt"),
+    ("atc-2026-full", "expected.atc-2026-full.txt"),
 )
 
 

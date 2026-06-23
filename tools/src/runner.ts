@@ -257,6 +257,8 @@ const EXPORT_FORMATS: ExportFormat[] = [
   "newrecruit-simple",
   "roster-json",
   "rosterizer",
+  "atc-2026-compact",
+  "atc-2026-full",
 ];
 
 function handleExport(args: unknown): RunnerResponse {

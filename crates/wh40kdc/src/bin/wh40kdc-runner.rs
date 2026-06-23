@@ -316,6 +316,8 @@ fn handle_export(state: &mut RunnerState, args: &Value) -> Value {
         "newrecruit-simple" => ExportFormat::NewrecruitSimple,
         "roster-json" => ExportFormat::RosterJson,
         "rosterizer" => ExportFormat::Rosterizer,
+        "atc-2026-compact" => ExportFormat::Atc2026Compact,
+        "atc-2026-full" => ExportFormat::Atc2026Full,
         other => {
             return err_value(
                 ErrorKind::InvalidInput,

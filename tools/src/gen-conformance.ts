@@ -176,6 +176,13 @@ const TEXT_FORMATS: { format: ExportFormat; inputName: string; goldenName: strin
   },
 ];
 
+// Export-only text formats — no importer exists, so they get an `expected.*.txt`
+// byte-equality golden but never a derived `input.*.txt` round-trip seed.
+const EXPORT_ONLY_TEXT_FORMATS: { format: ExportFormat; goldenName: string }[] = [
+  { format: "atc-2026-compact", goldenName: "expected.atc-2026-compact.txt" },
+  { format: "atc-2026-full", goldenName: "expected.atc-2026-full.txt" },
+];
+
 function genRosters(): void {
   const ds = Dataset.embedded();
   const rosterDir = join(CONFORMANCE, "roster");
@@ -218,6 +225,11 @@ function genRosters(): void {
       if (textRoundTrippable) {
         writeText(join(caseDir, inputName), out);
       }
+    }
+
+    // Export-only text formats (ATC 2026) — golden only, never a round-trip input.
+    for (const { format, goldenName } of EXPORT_ONLY_TEXT_FORMATS) {
+      writeText(join(caseDir, goldenName), exportRoster(seed, format));
     }
 
     // Rosterizer JSON export + a derived round-trip input. The exporter is

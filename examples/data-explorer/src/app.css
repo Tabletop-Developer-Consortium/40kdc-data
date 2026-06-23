@@ -377,6 +377,57 @@ table.weapons td.name { font-family: inherit; }
   color: var(--muted);
 }
 .source-status.error { color: var(--danger); }
+.veracity-status code { color: var(--accent); }
+.veracity-status .coverage-warn { color: var(--warn); }
+
+/* Per-ability / per-shape embedding-veracity badge: red weak → amber → green. */
+.score-badge {
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  font-weight: 600;
+  padding: 0 var(--space-1);
+  border-radius: var(--radius-md);
+  border: 1px solid currentColor;
+  flex-shrink: 0;
+}
+.score-badge.weak { color: var(--danger); }
+.score-badge.mid { color: var(--warn); }
+.score-badge.ok { color: var(--good); }
+
+/* Reading-order / veracity sort toggle in the collation bar. */
+.sort-toggle { display: inline-flex; gap: 2px; }
+.sort-toggle button.active {
+  border-color: var(--accent-dim);
+  color: var(--accent);
+}
+
+/* Per-DSL-shape veracity aggregate. */
+.shape-agg {
+  max-width: 920px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--panel-2);
+}
+.shape-agg > summary {
+  cursor: pointer;
+  padding: var(--space-1) var(--space-3);
+  font-size: var(--text-2xs);
+  font-family: var(--font-heading);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  color: var(--muted);
+}
+.shape-table { width: 100%; border-collapse: collapse; font-size: var(--text-xs); }
+.shape-table th {
+  text-align: left;
+  color: var(--dim);
+  font-weight: 600;
+  padding: var(--space-1) var(--space-3);
+  border-top: 1px solid var(--border);
+}
+.shape-table td { padding: var(--space-1) var(--space-3); }
+.shape-table code { font-size: var(--text-2xs); color: var(--text); }
+.shape-table .dim { color: var(--dim); font-family: var(--font-mono); }
 
 .notes-bar {
   display: flex;

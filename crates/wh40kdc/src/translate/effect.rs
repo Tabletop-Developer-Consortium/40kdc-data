@@ -408,7 +408,11 @@ fn not_wrapped_target_keyword(n: &ConditionNode) -> Option<String> {
 fn excluded_target_keywords(keywords: &[String]) -> String {
     format!(
         "(excluding {} units)",
-        keywords.iter().map(|k| cap_word(k)).collect::<Vec<_>>().join(" or ")
+        keywords
+            .iter()
+            .map(|k| cap_word(k))
+            .collect::<Vec<_>>()
+            .join(" or ")
     )
 }
 

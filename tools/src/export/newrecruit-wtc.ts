@@ -23,7 +23,7 @@ import {
 } from "./helpers.js";
 import type { RosterSerializer } from "./serializer.js";
 
-const FENCE = "+++++++++++++++++++++++++++++++++++++++++++++++";
+export const FENCE = "+++++++++++++++++++++++++++++++++++++++++++++++";
 
 function wargearListText(unit: RosterUnit, includeWarlordTag: boolean): string {
   const parts: string[] = [];
@@ -85,30 +85,38 @@ function isAlliedUnit(u: RosterUnit, factionId: string | null): boolean {
   return false;
 }
 
+/**
+ * The compact body — one line per unit, wargear inline — that follows the
+ * summary header. Returned as the lines *after* the header (the leading `""`
+ * separator included) so any header variant (WTC or ATC 2026) can prepend its
+ * own block and join. Compact callers append a trailing newline.
+ */
+export function wtcCompactBodyLines(units: readonly RosterUnit[], slots: readonly (number | null)[]): string[] {
+  const lines: string[] = [""];
+  for (let i = 0; i < units.length; i += 1) {
+    const u = units[i];
+    const prefix = slots[i] !== null ? `Char${slots[i]}: ` : "";
+    const pts = displayedUnitPoints(u);
+    const ptsText = pts === null ? "" : `${pts} pts`;
+    lines.push(`${prefix}${u.model_count}x ${u.ref.raw_name} (${ptsText}): ${wargearListText(u, true)}`);
+    if (u.enhancement) {
+      const enhText =
+        u.enhancement_points === null
+          ? `Enhancement: ${u.enhancement.raw_name}`
+          : `Enhancement: ${u.enhancement.raw_name} (+${u.enhancement_points} pts)`;
+      lines.push(enhText);
+    }
+  }
+  return lines;
+}
+
 export const newRecruitWtcCompactSerializer: RosterSerializer = {
   id: "newrecruit-wtc-compact",
 
   serialize(roster: Roster): string {
     const units = roster.units;
     const slots = charSlotAssignment(units);
-    const lines: string[] = [header(roster, units, slots), ""];
-
-    for (let i = 0; i < units.length; i += 1) {
-      const u = units[i];
-      const prefix = slots[i] !== null ? `Char${slots[i]}: ` : "";
-      const pts = displayedUnitPoints(u);
-      const ptsText = pts === null ? "" : `${pts} pts`;
-      lines.push(`${prefix}${u.model_count}x ${u.ref.raw_name} (${ptsText}): ${wargearListText(u, true)}`);
-      if (u.enhancement) {
-        const enhText =
-          u.enhancement_points === null
-            ? `Enhancement: ${u.enhancement.raw_name}`
-            : `Enhancement: ${u.enhancement.raw_name} (+${u.enhancement_points} pts)`;
-        lines.push(enhText);
-      }
-    }
-
-    return lines.join("\n") + "\n";
+    return [header(roster, units, slots), ...wtcCompactBodyLines(units, slots)].join("\n") + "\n";
   },
 };
 
@@ -133,52 +141,65 @@ function multiModelWithLine(u: RosterUnit): string {
   return `1 with ${wargearListText(u, true)}`;
 }
 
+/**
+ * The full body — section headers plus two-line unit blocks — that follows the
+ * summary header. Returned as the lines *after* the header (the leading `""`
+ * separator included). Unlike compact, full callers do not append a trailing
+ * newline.
+ */
+export function wtcFullBodyLines(
+  units: readonly RosterUnit[],
+  slots: readonly (number | null)[],
+  factionId: string | null,
+): string[] {
+  const battlelineIdxs: number[] = [];
+  const alliedIdxs: number[] = [];
+  for (let i = 0; i < units.length; i += 1) {
+    if (isAlliedUnit(units[i], factionId)) alliedIdxs.push(i);
+    else battlelineIdxs.push(i);
+  }
+
+  const lines: string[] = ["", "BATTLELINE", ""];
+
+  const emitUnit = (i: number): void => {
+    const u = units[i];
+    const prefix = slots[i] !== null ? `Char${slots[i]}: ` : "";
+    const pts = displayedUnitPoints(u);
+    const ptsText = pts === null ? "" : `${pts} pts`;
+    lines.push(`${prefix}${u.model_count}x ${u.ref.raw_name} (${ptsText})`);
+
+    if (u.model_count > 1) {
+      lines.push(multiModelWithLine(u));
+    } else {
+      lines.push(`1 with ${wargearListText(u, true)}`);
+    }
+
+    if (u.enhancement) {
+      const enhText =
+        u.enhancement_points === null
+          ? `Enhancement: ${u.enhancement.raw_name}`
+          : `Enhancement: ${u.enhancement.raw_name} (+${u.enhancement_points} pts)`;
+      lines.push(enhText);
+    }
+    lines.push("");
+  };
+
+  for (const i of battlelineIdxs) emitUnit(i);
+
+  if (alliedIdxs.length > 0) {
+    lines.push("ALLIED UNITS", "");
+    for (const i of alliedIdxs) emitUnit(i);
+  }
+
+  return lines;
+}
+
 export const newRecruitWtcFullSerializer: RosterSerializer = {
   id: "newrecruit-wtc-full",
 
   serialize(roster: Roster): string {
     const units = roster.units;
     const slots = charSlotAssignment(units);
-
-    const battlelineIdxs: number[] = [];
-    const alliedIdxs: number[] = [];
-    for (let i = 0; i < units.length; i += 1) {
-      if (isAlliedUnit(units[i], roster.faction_id)) alliedIdxs.push(i);
-      else battlelineIdxs.push(i);
-    }
-
-    const lines: string[] = [header(roster, units, slots), "", "BATTLELINE", ""];
-
-    const emitUnit = (i: number): void => {
-      const u = units[i];
-      const prefix = slots[i] !== null ? `Char${slots[i]}: ` : "";
-      const pts = displayedUnitPoints(u);
-      const ptsText = pts === null ? "" : `${pts} pts`;
-      lines.push(`${prefix}${u.model_count}x ${u.ref.raw_name} (${ptsText})`);
-
-      if (u.model_count > 1) {
-        lines.push(multiModelWithLine(u));
-      } else {
-        lines.push(`1 with ${wargearListText(u, true)}`);
-      }
-
-      if (u.enhancement) {
-        const enhText =
-          u.enhancement_points === null
-            ? `Enhancement: ${u.enhancement.raw_name}`
-            : `Enhancement: ${u.enhancement.raw_name} (+${u.enhancement_points} pts)`;
-        lines.push(enhText);
-      }
-      lines.push("");
-    };
-
-    for (const i of battlelineIdxs) emitUnit(i);
-
-    if (alliedIdxs.length > 0) {
-      lines.push("ALLIED UNITS", "");
-      for (const i of alliedIdxs) emitUnit(i);
-    }
-
-    return lines.join("\n");
+    return [header(roster, units, slots), ...wtcFullBodyLines(units, slots, roster.faction_id)].join("\n");
   },
 };

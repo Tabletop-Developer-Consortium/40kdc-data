@@ -1,16 +1,17 @@
 """Roster exporters — the symmetric counterpart to the importer.
 
-``export_roster(roster, format)`` dispatches to one of six registered
-serializers (NewRecruit JSON, the three NewRecruit text formats, the
-canonical Roster JSON, and Rosterizer). Each serializer is deterministic and
-Dataset-free, so the TS, Rust, and Python mirrors produce byte-identical
-output for cross-implementation conformance.
+``export_roster(roster, format)`` dispatches to one of the registered
+serializers (NewRecruit JSON, the three NewRecruit text formats, the canonical
+Roster JSON, Rosterizer, and the export-only ATC 2026 pair). Each serializer is
+deterministic and Dataset-free, so the TS, Rust, Python, and Go mirrors produce
+byte-identical output for cross-implementation conformance.
 """
 
 from __future__ import annotations
 
 from collections.abc import Callable
 
+from wh40kdc.export.atc_2026 import serialize_atc_2026_compact, serialize_atc_2026_full
 from wh40kdc.export.helpers import (
     Roster,
     char_slot_assignment,
@@ -36,6 +37,8 @@ SERIALIZERS: dict[str, Callable[[Roster], str]] = {
     "newrecruit-simple": serialize_newrecruit_simple,
     "roster-json": serialize_roster_json,
     "rosterizer": serialize_rosterizer,
+    "atc-2026-compact": serialize_atc_2026_compact,
+    "atc-2026-full": serialize_atc_2026_full,
 }
 
 EXPORT_FORMATS = tuple(SERIALIZERS)
@@ -57,6 +60,8 @@ __all__ = [
     "displayed_unit_points",
     "export_roster",
     "pretty_json",
+    "serialize_atc_2026_compact",
+    "serialize_atc_2026_full",
     "serialize_newrecruit_json",
     "serialize_newrecruit_simple",
     "serialize_newrecruit_wtc_compact",

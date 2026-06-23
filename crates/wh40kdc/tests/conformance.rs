@@ -351,6 +351,12 @@ fn exported_rosters_match_reference_goldens() {
             ExportFormat::NewrecruitSimple,
             "expected.newrecruit-simple.txt",
         ),
+        // ATC 2026 — export-only (no importer, no derived round-trip input).
+        (
+            ExportFormat::Atc2026Compact,
+            "expected.atc-2026-compact.txt",
+        ),
+        (ExportFormat::Atc2026Full, "expected.atc-2026-full.txt"),
     ];
     const JSON_EXPORTS: &[(ExportFormat, &str)] = &[
         (

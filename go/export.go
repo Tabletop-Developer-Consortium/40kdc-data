@@ -16,6 +16,8 @@ var exportSerializers = map[string]func(map[string]any) string{
 	"newrecruit-simple":      serializeNewrecruitSimple,
 	"roster-json":            serializeRosterJSON,
 	"rosterizer":             serializeRosterizer,
+	"atc-2026-compact":       serializeAtc2026Compact,
+	"atc-2026-full":          serializeAtc2026Full,
 }
 
 func exportRoster(roster map[string]any, format string) (string, error) {

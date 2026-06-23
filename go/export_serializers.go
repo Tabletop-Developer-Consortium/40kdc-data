@@ -189,10 +189,12 @@ func wtcEnhancementLine(u map[string]any) string {
 	return "Enhancement: " + getStr(enh, "raw_name") + " (+" + numStr(u["enhancement_points"]) + " pts)"
 }
 
-func serializeWtcCompact(roster map[string]any) string {
-	units := getList(roster, "units")
-	slots := charSlotAssignment(units)
-	lines := []string{wtcHeaderText(roster, units, slots), ""}
+// wtcCompactBodyLines is the compact body — one line per unit, wargear inline —
+// that follows the summary header. Returned as the lines after the header (the
+// leading "" separator included) so any header variant (WTC or ATC 2026) can
+// prepend its own block. Compact callers append a trailing newline.
+func wtcCompactBodyLines(units []any, slots []int) []string {
+	lines := []string{""}
 	for i, uAny := range units {
 		u := uAny.(map[string]any)
 		prefix := ""
@@ -208,6 +210,13 @@ func serializeWtcCompact(roster map[string]any) string {
 			lines = append(lines, wtcEnhancementLine(u))
 		}
 	}
+	return lines
+}
+
+func serializeWtcCompact(roster map[string]any) string {
+	units := getList(roster, "units")
+	slots := charSlotAssignment(units)
+	lines := append([]string{wtcHeaderText(roster, units, slots)}, wtcCompactBodyLines(units, slots)...)
 	return strings.Join(lines, "\n") + "\n"
 }
 
@@ -240,10 +249,12 @@ func multiModelWithLine(u map[string]any) string {
 	return "1 with " + wtcWargearListText(u, true)
 }
 
-func serializeWtcFull(roster map[string]any) string {
-	units := getList(roster, "units")
-	slots := charSlotAssignment(units)
-	lines := []string{wtcHeaderText(roster, units, slots), "", "BATTLELINE", ""}
+// wtcFullBodyLines is the full body — section headers plus two-line unit blocks —
+// that follows the summary header. Returned as the lines after the header (the
+// leading "" separator included). Unlike compact, full callers do not append a
+// trailing newline.
+func wtcFullBodyLines(units []any, slots []int) []string {
+	lines := []string{"", "BATTLELINE", ""}
 	for i, uAny := range units {
 		u := uAny.(map[string]any)
 		prefix := ""
@@ -265,6 +276,110 @@ func serializeWtcFull(roster map[string]any) string {
 		}
 		lines = append(lines, "")
 	}
+	return lines
+}
+
+func serializeWtcFull(roster map[string]any) string {
+	units := getList(roster, "units")
+	slots := charSlotAssignment(units)
+	lines := append([]string{wtcHeaderText(roster, units, slots)}, wtcFullBodyLines(units, slots)...)
+	return strings.Join(lines, "\n")
+}
+
+// --- ATC 2026 (export-only: ATC header + reused WTC body) ---
+
+const atcDash = "—"
+
+// atcHeaderText builds the American Team Championship 2026 list-submission
+// header: player/team placeholders, the picked Force Disposition, every
+// enhancement-bearing model, and the leader/support attachments spelled out.
+// Go mirror of tools/src/export/atc-2026.ts.
+func atcHeaderText(roster map[string]any, units []any, slots []int) string {
+	faction := titleCaseIDOr(roster["faction_id"], "Unknown")
+	disposition := titleCaseIDOr(roster["force_disposition"], atcDash)
+	detachments := getList(roster, "detachments")
+	detachment := atcDash
+	if len(detachments) > 0 {
+		var ds []string
+		for _, dAny := range detachments {
+			d := dAny.(map[string]any)
+			disp := titleCaseIDOr(refOf(d)["id"], "")
+			if disp == "" {
+				disp = getStr(refOf(d), "raw_name")
+			}
+			ds = append(ds, disp)
+		}
+		detachment = strings.Join(ds, ", ")
+	}
+	pts, _ := roster["points"].(map[string]any)
+	total := pts["total_reported"]
+	if total == nil {
+		total = totalArmyPoints(roster)
+	}
+
+	warlord := atcDash
+	for i, uAny := range units {
+		u := uAny.(map[string]any)
+		if u["is_warlord"] == true {
+			warlord = "Char" + itoa(slots[i]) + ": " + getStr(refOf(u), "raw_name")
+			break
+		}
+	}
+
+	var enhParts []string
+	for i, uAny := range units {
+		u := uAny.(map[string]any)
+		if enh, ok := u["enhancement"].(map[string]any); ok {
+			enhParts = append(enhParts, getStr(enh, "raw_name")+" (on Char"+itoa(slots[i])+": "+getStr(refOf(u), "raw_name")+")")
+		}
+	}
+	enhancement := atcDash
+	if len(enhParts) > 0 {
+		enhancement = strings.Join(enhParts, "; ")
+	}
+
+	var attachParts []string
+	for _, uAny := range units {
+		u := uAny.(map[string]any)
+		if la, ok := u["leader_attachment"].(map[string]any); ok {
+			bg, _ := la["bodyguard_ref"].(map[string]any)
+			attachParts = append(attachParts, getStr(refOf(u), "raw_name")+" attached to "+getStr(bg, "raw_name"))
+		}
+	}
+	leaderSupport := atcDash
+	if len(attachParts) > 0 {
+		leaderSupport = strings.Join(attachParts, "; ")
+	}
+
+	lines := []string{
+		wtcFence,
+		"+ PLAYER NAME: " + atcDash,
+		"+ TEAM NAME: " + atcDash,
+		"+ FACTIONS USED: " + faction,
+		"+ DISPOSITION: " + disposition,
+		"+ DETACHMENT: " + detachment,
+		"+ ARMY POINTS: " + numStr(total) + "pts",
+		"+",
+		"+ WARLORD: " + warlord,
+		"+ ENHANCEMENT: " + enhancement,
+		"+ LEADER/SUPPORT: " + leaderSupport,
+		"+ NUMBER OF UNITS: " + itoa(len(units)),
+		wtcFence,
+	}
+	return strings.Join(lines, "\n")
+}
+
+func serializeAtc2026Compact(roster map[string]any) string {
+	units := getList(roster, "units")
+	slots := charSlotAssignment(units)
+	lines := append([]string{atcHeaderText(roster, units, slots)}, wtcCompactBodyLines(units, slots)...)
+	return strings.Join(lines, "\n") + "\n"
+}
+
+func serializeAtc2026Full(roster map[string]any) string {
+	units := getList(roster, "units")
+	slots := charSlotAssignment(units)
+	lines := append([]string{atcHeaderText(roster, units, slots)}, wtcFullBodyLines(units, slots)...)
 	return strings.Join(lines, "\n")
 }
 

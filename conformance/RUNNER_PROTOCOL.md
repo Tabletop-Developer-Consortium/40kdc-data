@@ -78,7 +78,7 @@ The response value includes the detected `format` plus the imported roster.
 {"op":"export","args":{"format":"newrecruit-wtc-compact","roster":{…Roster…}}}
 ```
 
-Response value is a string — the exported roster in the requested format. The differ asserts string equality across implementations.
+`format` is one of `newrecruit-json`, `newrecruit-wtc-compact`, `newrecruit-wtc-full`, `newrecruit-simple`, `roster-json`, `rosterizer`, `atc-2026-compact`, `atc-2026-full`. The last two are **export-only** (no matching `import` format) — they reuse the WTC bodies under the ATC 2026 list-submission header. Response value is a string — the exported roster in the requested format. The differ asserts string equality across implementations.
 
 ### `linked_query`
 

@@ -62,6 +62,9 @@ const TEXT_EXPORTS: { format: ExportFormat; filename: string }[] = [
   { format: "newrecruit-wtc-compact", filename: "expected.newrecruit-wtc-compact.txt" },
   { format: "newrecruit-wtc-full", filename: "expected.newrecruit-wtc-full.txt" },
   { format: "newrecruit-simple", filename: "expected.newrecruit-simple.txt" },
+  // ATC 2026 — export-only (no importer, no derived round-trip input).
+  { format: "atc-2026-compact", filename: "expected.atc-2026-compact.txt" },
+  { format: "atc-2026-full", filename: "expected.atc-2026-full.txt" },
 ];
 
 const JSON_EXPORTS: { format: ExportFormat; filename: string }[] = [
@@ -219,8 +222,9 @@ describe("conformance corpus (ties out with the Rust crate)", () => {
     });
 
     it(`roster/${entry.name}: every export matches its golden`, () => {
-      // Every fixture carries export goldens for all six formats. The
-      // defensive filter below tolerates a fixture authored without one of
+      // Every fixture carries export goldens for all eight formats (the six
+      // round-trip-capable ones plus the two export-only ATC 2026 variants).
+      // The defensive filter below tolerates a fixture authored without one of
       // them, but in practice the present-set should always equal the full
       // export list.
       const allExports = [...TEXT_EXPORTS, ...JSON_EXPORTS];

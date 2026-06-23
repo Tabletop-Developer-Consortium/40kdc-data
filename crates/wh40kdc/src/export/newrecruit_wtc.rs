@@ -19,9 +19,9 @@ use super::helpers::{
 };
 use super::{ExportFormat, RosterSerializer};
 
-const FENCE: &str = "+++++++++++++++++++++++++++++++++++++++++++++++";
+pub(super) const FENCE: &str = "+++++++++++++++++++++++++++++++++++++++++++++++";
 
-fn wargear_list_text(unit: &RosterUnit, include_warlord_tag: bool) -> String {
+pub(super) fn wargear_list_text(unit: &RosterUnit, include_warlord_tag: bool) -> String {
     let mut parts: Vec<String> = Vec::with_capacity(unit.wargear.len() + 1);
     for w in &unit.wargear {
         if w.count > 1 {
@@ -110,6 +110,39 @@ fn is_allied_unit(_u: &RosterUnit, _faction_id: Option<&str>) -> bool {
     false
 }
 
+/// The compact body — one line per unit, wargear inline — that follows the
+/// summary header. Returned as the lines *after* the header (the leading empty
+/// separator included) so any header variant (WTC or ATC 2026) can prepend its
+/// own block. Compact callers append a trailing newline.
+pub(super) fn wtc_compact_body_lines(units: &[RosterUnit], slots: &[Option<u32>]) -> Vec<String> {
+    let mut lines: Vec<String> = vec![String::new()];
+    for (i, u) in units.iter().enumerate() {
+        let prefix = match slots[i] {
+            Some(n) => format!("Char{n}: "),
+            None => String::new(),
+        };
+        let pts = displayed_unit_points(u);
+        let pts_text = match pts {
+            Some(p) => format!("{p} pts"),
+            None => String::new(),
+        };
+        lines.push(format!(
+            "{prefix}{}x {} ({pts_text}): {}",
+            u.model_count,
+            u.ref_.raw_name,
+            wargear_list_text(u, true)
+        ));
+        if let Some(enh) = &u.enhancement {
+            let enh_text = match u.enhancement_points {
+                Some(p) => format!("Enhancement: {} (+{p} pts)", enh.raw_name),
+                None => format!("Enhancement: {}", enh.raw_name),
+            };
+            lines.push(enh_text);
+        }
+    }
+    lines
+}
+
 pub struct NewRecruitWtcCompactSerializer;
 
 impl RosterSerializer for NewRecruitWtcCompactSerializer {
@@ -120,33 +153,8 @@ impl RosterSerializer for NewRecruitWtcCompactSerializer {
     fn serialize(&self, roster: &Roster) -> String {
         let units = &roster.units;
         let slots = char_slot_assignment(units);
-        let mut lines: Vec<String> = vec![header(roster, units, &slots), String::new()];
-
-        for (i, u) in units.iter().enumerate() {
-            let prefix = match slots[i] {
-                Some(n) => format!("Char{n}: "),
-                None => String::new(),
-            };
-            let pts = displayed_unit_points(u);
-            let pts_text = match pts {
-                Some(p) => format!("{p} pts"),
-                None => String::new(),
-            };
-            lines.push(format!(
-                "{prefix}{}x {} ({pts_text}): {}",
-                u.model_count,
-                u.ref_.raw_name,
-                wargear_list_text(u, true)
-            ));
-            if let Some(enh) = &u.enhancement {
-                let enh_text = match u.enhancement_points {
-                    Some(p) => format!("Enhancement: {} (+{p} pts)", enh.raw_name),
-                    None => format!("Enhancement: {}", enh.raw_name),
-                };
-                lines.push(enh_text);
-            }
-        }
-
+        let mut lines: Vec<String> = vec![header(roster, units, &slots)];
+        lines.extend(wtc_compact_body_lines(units, &slots));
         let mut out = lines.join("\n");
         out.push('\n');
         out
@@ -183,6 +191,74 @@ fn multi_model_with_line(u: &RosterUnit) -> String {
     format!("1 with {}", wargear_list_text(u, true))
 }
 
+/// The full body — section headers plus two-line unit blocks — that follows
+/// the summary header. Returned as the lines *after* the header (the leading
+/// empty separator included). Unlike compact, full callers do not append a
+/// trailing newline.
+pub(super) fn wtc_full_body_lines(
+    units: &[RosterUnit],
+    slots: &[Option<u32>],
+    faction_id: Option<&str>,
+) -> Vec<String> {
+    let mut battleline_idxs: Vec<usize> = Vec::new();
+    let mut allied_idxs: Vec<usize> = Vec::new();
+    for (i, u) in units.iter().enumerate() {
+        if is_allied_unit(u, faction_id) {
+            allied_idxs.push(i);
+        } else {
+            battleline_idxs.push(i);
+        }
+    }
+
+    let mut lines: Vec<String> = vec![String::new(), "BATTLELINE".to_string(), String::new()];
+
+    let emit_unit = |i: usize, lines: &mut Vec<String>| {
+        let u = &units[i];
+        let prefix = match slots[i] {
+            Some(n) => format!("Char{n}: "),
+            None => String::new(),
+        };
+        let pts = displayed_unit_points(u);
+        let pts_text = match pts {
+            Some(p) => format!("{p} pts"),
+            None => String::new(),
+        };
+        lines.push(format!(
+            "{prefix}{}x {} ({pts_text})",
+            u.model_count, u.ref_.raw_name
+        ));
+
+        if u.model_count > 1 {
+            lines.push(multi_model_with_line(u));
+        } else {
+            lines.push(format!("1 with {}", wargear_list_text(u, true)));
+        }
+
+        if let Some(enh) = &u.enhancement {
+            let enh_text = match u.enhancement_points {
+                Some(p) => format!("Enhancement: {} (+{p} pts)", enh.raw_name),
+                None => format!("Enhancement: {}", enh.raw_name),
+            };
+            lines.push(enh_text);
+        }
+        lines.push(String::new());
+    };
+
+    for i in &battleline_idxs {
+        emit_unit(*i, &mut lines);
+    }
+
+    if !allied_idxs.is_empty() {
+        lines.push("ALLIED UNITS".to_string());
+        lines.push(String::new());
+        for i in &allied_idxs {
+            emit_unit(*i, &mut lines);
+        }
+    }
+
+    lines
+}
+
 pub struct NewRecruitWtcFullSerializer;
 
 impl RosterSerializer for NewRecruitWtcFullSerializer {
@@ -193,68 +269,12 @@ impl RosterSerializer for NewRecruitWtcFullSerializer {
     fn serialize(&self, roster: &Roster) -> String {
         let units = &roster.units;
         let slots = char_slot_assignment(units);
-
-        let mut battleline_idxs: Vec<usize> = Vec::new();
-        let mut allied_idxs: Vec<usize> = Vec::new();
-        for (i, u) in units.iter().enumerate() {
-            if is_allied_unit(u, roster.faction_id.as_deref()) {
-                allied_idxs.push(i);
-            } else {
-                battleline_idxs.push(i);
-            }
-        }
-
-        let mut lines: Vec<String> = vec![
-            header(roster, units, &slots),
-            String::new(),
-            "BATTLELINE".to_string(),
-            String::new(),
-        ];
-
-        let emit_unit = |i: usize, lines: &mut Vec<String>| {
-            let u = &units[i];
-            let prefix = match slots[i] {
-                Some(n) => format!("Char{n}: "),
-                None => String::new(),
-            };
-            let pts = displayed_unit_points(u);
-            let pts_text = match pts {
-                Some(p) => format!("{p} pts"),
-                None => String::new(),
-            };
-            lines.push(format!(
-                "{prefix}{}x {} ({pts_text})",
-                u.model_count, u.ref_.raw_name
-            ));
-
-            if u.model_count > 1 {
-                lines.push(multi_model_with_line(u));
-            } else {
-                lines.push(format!("1 with {}", wargear_list_text(u, true)));
-            }
-
-            if let Some(enh) = &u.enhancement {
-                let enh_text = match u.enhancement_points {
-                    Some(p) => format!("Enhancement: {} (+{p} pts)", enh.raw_name),
-                    None => format!("Enhancement: {}", enh.raw_name),
-                };
-                lines.push(enh_text);
-            }
-            lines.push(String::new());
-        };
-
-        for i in &battleline_idxs {
-            emit_unit(*i, &mut lines);
-        }
-
-        if !allied_idxs.is_empty() {
-            lines.push("ALLIED UNITS".to_string());
-            lines.push(String::new());
-            for i in &allied_idxs {
-                emit_unit(*i, &mut lines);
-            }
-        }
-
+        let mut lines: Vec<String> = vec![header(roster, units, &slots)];
+        lines.extend(wtc_full_body_lines(
+            units,
+            &slots,
+            roster.faction_id.as_deref(),
+        ));
         lines.join("\n")
     }
 }

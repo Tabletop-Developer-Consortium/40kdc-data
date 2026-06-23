@@ -10,6 +10,7 @@
  * @packageDocumentation
  */
 import type { Roster } from "../import/types.js";
+import { atc2026CompactSerializer, atc2026FullSerializer } from "./atc-2026.js";
 import { newRecruitJsonSerializer } from "./newrecruit-json.js";
 import { newRecruitSimpleSerializer } from "./newrecruit-simple.js";
 import {
@@ -29,6 +30,7 @@ export {
 } from "./newrecruit-wtc.js";
 export { rosterJsonSerializer } from "./roster-json.js";
 export { rosterizerSerializer } from "./rosterizer.js";
+export { atc2026CompactSerializer, atc2026FullSerializer } from "./atc-2026.js";
 
 /** All registered serializers, keyed by their {@link ExportFormat} id. */
 const SERIALIZERS: readonly RosterSerializer[] = [
@@ -38,6 +40,8 @@ const SERIALIZERS: readonly RosterSerializer[] = [
   newRecruitSimpleSerializer,
   rosterJsonSerializer,
   rosterizerSerializer,
+  atc2026CompactSerializer,
+  atc2026FullSerializer,
 ];
 
 /** Serialize a {@link Roster} into the named target format. */

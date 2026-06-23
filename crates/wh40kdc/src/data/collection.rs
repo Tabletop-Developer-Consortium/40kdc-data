@@ -56,6 +56,28 @@ impl<T> Collection<T> {
         faction_of: impl Fn(&T) -> Option<&str>,
         dedupe_of: impl Fn(&T) -> String,
     ) -> Self {
+        // No aliases by default — only some collections (units) answer to them.
+        Self::build_with_aliases(items, id_of, name_of, |_| Vec::new(), faction_of, dedupe_of)
+    }
+
+    /// Like [`build`](Self::build) but also indexes alternate names.
+    ///
+    /// - `aliases_of` — alternate names the record answers to (e.g. spelling
+    ///   variants from other tools' exports). Each is indexed into the
+    ///   normalized-name map alongside the canonical name, so
+    ///   [`find`](Self::find) / [`find_all`](Self::find_all) match an alias
+    ///   exactly — but an alias is never returned as the record's display name,
+    ///   and the canonical name always wins a collision (aliases are appended
+    ///   after the canonical entry and any alias that normalizes to the record's
+    ///   own canonical name is skipped). Mirror of the TS `aliasesOf`.
+    pub fn build_with_aliases(
+        items: Vec<T>,
+        id_of: impl Fn(&T) -> String,
+        name_of: impl Fn(&T) -> Option<&str>,
+        aliases_of: impl Fn(&T) -> Vec<&str>,
+        faction_of: impl Fn(&T) -> Option<&str>,
+        dedupe_of: impl Fn(&T) -> String,
+    ) -> Self {
         let mut kept: Vec<T> = Vec::with_capacity(items.len());
         let mut by_id: HashMap<String, usize> = HashMap::new();
         let mut by_norm: HashMap<String, Vec<usize>> = HashMap::new();
@@ -75,6 +97,16 @@ impl<T> Collection<T> {
             let norm = name_of(&item).map(normalize_name);
             if let Some(key) = &norm {
                 by_norm.entry(key.clone()).or_default().push(idx);
+            }
+            // Index aliases after the canonical name, skipping empties and any
+            // alias that normalizes to the canonical name, so an alias can never
+            // displace the canonical owner of a normalized key.
+            for alias in aliases_of(&item) {
+                let alias_key = normalize_name(alias);
+                if alias_key.is_empty() || norm.as_deref() == Some(alias_key.as_str()) {
+                    continue;
+                }
+                by_norm.entry(alias_key).or_default().push(idx);
             }
             norm_names.push(norm);
 

@@ -68,6 +68,7 @@ func NewDataset(raw rawData) *Dataset {
 			return getStr(m, "faction_id") + "::" + getStr(m, "id")
 		},
 		nameOf:    func(i any) string { return getStr(i.(map[string]any), "name") },
+		aliasesOf: func(i any) []string { return getStrList(i.(map[string]any), "aliases") },
 		factionOf: factionIDOf,
 	})
 	ds.Weapons = newCollection(raw["weapons"], func(i any) *WeaponView {

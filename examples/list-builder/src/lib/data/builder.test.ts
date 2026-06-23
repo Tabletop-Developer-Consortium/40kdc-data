@@ -154,6 +154,16 @@ describe('builder points', () => {
 		expect(three.units.map((u) => u.points)).toEqual([175, 175, 185]);
 		expect(three.points.total_computed).toBe(535);
 	});
+
+	it('carries the selected/forced disposition onto the roster (force_disposition)', () => {
+		// The builder auto-locks a detachment's sole disposition into state.disposition;
+		// builderToRoster must thread it onto the roster so exports (e.g. ATC) print it
+		// instead of an em dash. Regression for the live list-builder ATC export.
+		const we = 'world-eaters';
+		const withDisp = builderToRoster({ ...emptyBuilderState(), factionId: we, disposition: 'take-and-hold' });
+		expect(withDisp.force_disposition).toBe('take-and-hold');
+		expect(builderToRoster({ ...emptyBuilderState(), factionId: we }).force_disposition).toBeNull();
+	});
 });
 
 describe('builder default loadout', () => {

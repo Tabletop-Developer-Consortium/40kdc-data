@@ -94,12 +94,15 @@ export {
 // Army-list exporter (Roster → text or JSON for any of the supported formats).
 export {
   exportRoster,
+  EXPORT_FORMATS,
   newRecruitJsonSerializer,
   newRecruitSimpleSerializer,
   newRecruitWtcCompactSerializer,
   newRecruitWtcFullSerializer,
   rosterJsonSerializer,
   rosterizerSerializer,
+  atc2026CompactSerializer,
+  atc2026FullSerializer,
 } from "./export/index.js";
 export type { ExportFormat, RosterSerializer } from "./export/index.js";
 export type { FormatAdapter } from "./import/index.js";

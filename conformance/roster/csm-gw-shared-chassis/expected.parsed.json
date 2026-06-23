@@ -1,0 +1,53 @@
+{
+  "name": "Imported roster",
+  "generated_by": null,
+  "faction_raw_name": "Chaos Space Marines",
+  "detachment_raw_names": [
+    "Huron’s Marauders"
+  ],
+  "battle_size_raw": "Combat Patrol (500 Point limit)",
+  "declared_limit": 295,
+  "total_reported": 295,
+  "total_computed": 295,
+  "units": [
+    {
+      "raw_name": "Chaos Rhino",
+      "is_character": false,
+      "model_count": 1,
+      "points": 75,
+      "is_warlord": false,
+      "enhancement_raw_name": null,
+      "enhancement_points": null,
+      "wargear": [
+        {
+          "raw_name": "Armoured tracks",
+          "count": 1
+        },
+        {
+          "raw_name": "Combi-bolter",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "raw_name": "Chaos Land Raider",
+      "is_character": false,
+      "model_count": 1,
+      "points": 220,
+      "is_warlord": false,
+      "enhancement_raw_name": null,
+      "enhancement_points": null,
+      "wargear": [
+        {
+          "raw_name": "Armoured tracks",
+          "count": 1
+        },
+        {
+          "raw_name": "Combi-bolter",
+          "count": 1
+        }
+      ]
+    }
+  ],
+  "multi_force": false
+}

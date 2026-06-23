@@ -5,7 +5,8 @@
  * exercised here against a hand-built Roster instead.
  */
 import { describe, it, expect } from "vitest";
-import { exportRoster } from "../../src/export/index.js";
+import { EXPORT_FORMATS, exportRoster } from "../../src/export/index.js";
+import type { ExportFormat } from "../../src/export/index.js";
 import type { ResolvedRef, Roster, RosterUnit } from "../../src/import/types.js";
 
 const ref = (id: string | null, raw_name: string): ResolvedRef => ({
@@ -100,6 +101,19 @@ describe("ATC 2026 export header", () => {
     expect(out).toContain("+ TEAM NAME: —");
   });
 
+  it("does not throw when force_disposition is absent (undefined), not just null", () => {
+    // A list-builder whose detachment locks a single disposition never writes the
+    // field, so the roster reaches the exporter with `force_disposition: undefined`
+    // (the optional-Roster shape). `titleCaseId` must treat that like null → em dash,
+    // not crash on `undefined.length`. Regression for the live list-builder export.
+    const r = roster({ units: [unit({ ref: ref("intercessor-squad", "Intercessor Squad"), model_count: 5 })] });
+    delete (r as { force_disposition?: unknown }).force_disposition;
+    for (const fmt of ["atc-2026-compact", "atc-2026-full"] as const) {
+      expect(() => exportRoster(r, fmt), `${fmt} with absent force_disposition`).not.toThrow();
+      expect(exportRoster(r, fmt)).toContain("+ DISPOSITION: —");
+    }
+  });
+
   it("reuses the WTC body verbatim — only the header differs", () => {
     const r = roster({ force_disposition: "disruption", units: populatedUnits });
     const ATC_HEADER_LINES = 13; // fence + 11 fields + fence
@@ -123,5 +137,44 @@ describe("ATC 2026 export header", () => {
     expect(exportRoster(r, "atc-2026-full").endsWith("\n")).toBe(
       exportRoster(r, "newrecruit-wtc-full").endsWith("\n"),
     );
+  });
+});
+
+describe("EXPORT_FORMATS picker descriptor", () => {
+  // The list-builder picker iterates EXPORT_FORMATS instead of a hand-maintained
+  // copy. These assertions are the drift guard: every dispatchable format must
+  // appear here with a usable label, so a newly-added format (like ATC 2026) can
+  // never silently go missing from the UI again.
+  const ALL_FORMATS: ExportFormat[] = [
+    "newrecruit-json",
+    "newrecruit-wtc-compact",
+    "newrecruit-wtc-full",
+    "newrecruit-simple",
+    "roster-json",
+    "rosterizer",
+    "atc-2026-compact",
+    "atc-2026-full",
+  ];
+
+  it("lists every export format the dispatcher supports", () => {
+    expect([...EXPORT_FORMATS.map((f) => f.id)].sort()).toEqual([...ALL_FORMATS].sort());
+  });
+
+  it("includes the ATC 2026 formats (the original regression)", () => {
+    const ids = EXPORT_FORMATS.map((f) => f.id);
+    expect(ids).toContain("atc-2026-compact");
+    expect(ids).toContain("atc-2026-full");
+  });
+
+  it("gives every format a non-empty label", () => {
+    for (const f of EXPORT_FORMATS) expect(f.label.trim().length).toBeGreaterThan(0);
+  });
+
+  it("every listed format is actually dispatchable", () => {
+    const r = roster({ units: populatedUnits });
+    for (const f of EXPORT_FORMATS) {
+      expect(() => exportRoster(r, f.id), `format ${f.id} should export`).not.toThrow();
+      expect(exportRoster(r, f.id).length).toBeGreaterThan(0);
+    }
   });
 });

@@ -293,7 +293,11 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 60
-        }
+        },
+        "default_weapon_ids": [
+          "heavy-blight-launcher",
+          "plague-probe"
+        ]
       }
     ],
     "game_version": {
@@ -655,7 +659,11 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 60
-        }
+        },
+        "default_weapon_ids": [
+          "fleshmower",
+          "plague-probe"
+        ]
       }
     ],
     "game_version": {
@@ -790,7 +798,12 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 60
-        }
+        },
+        "default_weapon_ids": [
+          "multi-melta",
+          "helbrute-fist",
+          "close-combat-weapon"
+        ]
       }
     ],
     "game_version": {
@@ -821,7 +834,13 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 80
-        }
+        },
+        "default_weapon_ids": [
+          "bile-spurt",
+          "missile-launcher",
+          "multi-melta",
+          "gnashing-maw"
+        ]
       }
     ],
     "game_version": {

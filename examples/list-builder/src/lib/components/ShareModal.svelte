@@ -3,8 +3,10 @@
 	import EntitlementGate from "../../../../_shared/EntitlementGate.svelte";
 	import { entitlement, storedEntitlement } from "../../../../_shared/entitlement.svelte";
 	import { mintLink, shortlinkUrl } from "../../../../_shared/sync-api";
-	import { exportRoster, encodeShareToken, type Roster, type ExportFormat } from "@alpaca-software/40kdc-data";
+	import { exportRoster, EXPORT_FORMATS, encodeShareToken, type Roster, type ExportFormat } from "@alpaca-software/40kdc-data";
 	import { builderStateToShareList, type BuilderState } from "../data/builder";
+	import { identity } from "../identity.svelte";
+	import { applyAtcIdentity, isAtcFormat } from "../atc-identity";
 
 	interface Props {
 		/** Bindable visibility, driven by the host. */
@@ -17,20 +19,19 @@
 	}
 	let { open = $bindable(false), roster, draft, onClose }: Props = $props();
 
-	const FORMATS: { id: ExportFormat; label: string }[] = [
-		{ id: "newrecruit-wtc-compact", label: "WTC — compact" },
-		{ id: "newrecruit-wtc-full", label: "WTC — full" },
-		{ id: "newrecruit-simple", label: "Simple text" },
-		{ id: "newrecruit-json", label: "NewRecruit JSON" },
-		{ id: "rosterizer", label: "Rosterizer JSON" },
-		{ id: "roster-json", label: "Roster JSON (canonical)" },
-	];
+	// Every export format the package supports, in the package's canonical order.
+	// Iterating this (rather than a hand-maintained copy) means a new format is
+	// automatically selectable here.
+	const FORMATS = EXPORT_FORMATS;
 
 	let format = $state<ExportFormat>("newrecruit-wtc-compact");
 
 	function safeExport(r: Roster, f: ExportFormat): string {
 		try {
-			return exportRoster(r, f);
+			// ATC formats get the locally-entered player/team name substituted into the
+			// header; every other format is untouched. Reading `identity.*` here makes the
+			// `exportText` derivation update live as the user types.
+			return applyAtcIdentity(exportRoster(r, f), f, identity);
 		} catch (e) {
 			return `// couldn't export as ${f}: ${(e as Error).message}`;
 		}
@@ -121,6 +122,28 @@
 					{/each}
 				</select>
 			</div>
+			{#if isAtcFormat(format)}
+				<!-- ATC submission identity: stored locally only (never in the list, share
+				     link, or cloud upload) and reused across every list. -->
+				<div class="flex gap-2">
+					<label class="flex flex-1 flex-col gap-1">
+						<span class="text-text-dim text-[10px] font-semibold uppercase tracking-wider">Player name</span>
+						<input
+							class="bg-panel border-panel-border text-text w-full rounded border px-1.5 py-1 text-xs"
+							placeholder="—"
+							bind:value={identity.playerName}
+						/>
+					</label>
+					<label class="flex flex-1 flex-col gap-1">
+						<span class="text-text-dim text-[10px] font-semibold uppercase tracking-wider">Team name</span>
+						<input
+							class="bg-panel border-panel-border text-text w-full rounded border px-1.5 py-1 text-xs"
+							placeholder="—"
+							bind:value={identity.teamName}
+						/>
+					</label>
+				</div>
+			{/if}
 			<textarea
 				readonly
 				class="bg-panel border-panel-border text-text h-40 w-full resize-y rounded border p-2 font-mono text-xs"

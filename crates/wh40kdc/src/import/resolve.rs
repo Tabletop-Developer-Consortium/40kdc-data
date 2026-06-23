@@ -271,6 +271,45 @@ pub fn resolve(parsed: &ParsedRoster, ds: &Dataset, format: RosterFormat) -> Ros
     }
 }
 
+/// The canonical prefix the dataset uses for shared Chaos chassis ("Chaos Rhino",
+/// "Chaos Land Raider", …). GW/NewRecruit subfaction exports substitute the
+/// faction name for it ("Death Guard Rhino"), so swapping it back is one of the
+/// candidate lookups (see [`unit_lookup_candidates`]).
+const CHAOS_CHASSIS_PREFIX: &str = "Chaos ";
+
+/// Candidate lookup strings for a unit name, in priority order. GW/NewRecruit
+/// exports prefix shared chassis with the faction's display name in two forms:
+/// keeping "Chaos" ("Death Guard Chaos Spawn" → dataset "Chaos Spawn") or
+/// replacing it ("Death Guard Rhino" → dataset "Chaos Rhino"). When `raw_name`
+/// starts with the resolved faction's display name we therefore also try the
+/// prefix stripped, and the prefix replaced with [`CHAOS_CHASSIS_PREFIX`]. The
+/// original `raw_name` is always what gets recorded on the ref — only the lookup
+/// is adjusted. This is a general rule over all shared Chaos chassis × every
+/// faction, not per-unit data. Mirror of the TS `unitLookupCandidates`.
+fn unit_lookup_candidates(raw_name: &str, faction_id: Option<&str>, ds: &Dataset) -> Vec<String> {
+    let mut candidates: Vec<String> = vec![raw_name.to_string()];
+    let faction_name = faction_id
+        .and_then(|f| ds.factions.get(f))
+        .map(|f| f.name.as_str());
+    if let Some(faction_name) = faction_name {
+        let prefix = format!("{faction_name} ");
+        if raw_name.len() > prefix.len()
+            && raw_name.is_char_boundary(prefix.len())
+            && raw_name.to_lowercase().starts_with(&prefix.to_lowercase())
+        {
+            let rest = raw_name[prefix.len()..].trim_start();
+            if !rest.is_empty() {
+                candidates.push(rest.to_string());
+                candidates.push(format!("{CHAOS_CHASSIS_PREFIX}{rest}"));
+            }
+        }
+    }
+    // De-duplicate while preserving order (e.g. a name already starting "Chaos ").
+    let mut seen = std::collections::HashSet::new();
+    candidates.retain(|c| seen.insert(c.clone()));
+    candidates
+}
+
 fn resolve_unit(
     parsed: &ParsedUnit,
     faction_id: Option<&str>,
@@ -278,22 +317,41 @@ fn resolve_unit(
     ds: &Dataset,
     diag: &mut DiagnosticsBuilder,
 ) -> RosterUnit {
-    // Prefer a faction-scoped match (the same unit id recurs across factions),
-    // then fall back to a global name lookup.
-    let key = normalize_name(&parsed.raw_name);
-    let all = ds.units.find_all(&parsed.raw_name);
-    let scoped_id = faction_id.and_then(|f| {
-        ds.units
-            .by_faction(f)
-            .into_iter()
-            .find(|u| normalize_name(&u.name) == key)
-            .map(|u| u.id.as_str().to_string())
-    });
-    let hit_id = scoped_id.or_else(|| all.first().map(|u| u.id.as_str().to_string()));
+    let lookup_names = unit_lookup_candidates(&parsed.raw_name, faction_id, ds);
 
-    let ref_ = if let Some(id) = &hit_id {
+    // Prefer a faction-scoped exact match (the same unit id recurs across
+    // factions, and a stripped base name can collide with another faction's unit
+    // — e.g. "Rhino" matches the Space Marine Rhino), matching canonical name or
+    // alias.
+    let in_faction: Vec<&crate::Unit> = faction_id
+        .map(|f| ds.units.by_faction(f))
+        .unwrap_or_default();
+    let scoped_exact = |q: &str| -> Option<&crate::Unit> {
+        let k = normalize_name(q);
+        in_faction.iter().copied().find(|u| {
+            normalize_name(&u.name) == k || u.aliases.iter().any(|a| normalize_name(a) == k)
+        })
+    };
+
+    let mut hit: Option<&crate::Unit> = lookup_names.iter().find_map(|q| scoped_exact(q));
+    // Global fallback (alias-aware via the name index); still prefer the resolved
+    // faction's copy of a shared id over whichever copy registered first.
+    let mut all: Vec<&crate::Unit> = Vec::new();
+    if hit.is_none() {
+        for q in &lookup_names {
+            all = ds.units.find_all(q);
+            hit = faction_id
+                .and_then(|f| all.iter().copied().find(|u| u.faction_id.as_str() == f))
+                .or_else(|| all.first().copied());
+            if hit.is_some() {
+                break;
+            }
+        }
+    }
+
+    let ref_ = if let Some(u) = hit {
         diag.resolved_units += 1;
-        resolved(id, &parsed.raw_name)
+        resolved(u.id.as_str(), &parsed.raw_name)
     } else {
         diag.unresolved_units += 1;
         diag.warn(

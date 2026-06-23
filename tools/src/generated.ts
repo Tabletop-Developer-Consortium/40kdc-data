@@ -1729,6 +1729,10 @@ export interface UnitKeyword {
 export interface Unit {
   id: EntityId;
   name: string;
+  /**
+   * Alternate names this unit is known by (e.g. spelling variants in other tools' roster exports). Consulted by name lookup so an import matches despite a spelling difference; never displayed.
+   */
+  aliases?: string[];
   faction_id: EntityId;
   /**
    * Battlefield role from the datasheet header. Unit types (Infantry, Vehicle, etc.) belong in keywords.

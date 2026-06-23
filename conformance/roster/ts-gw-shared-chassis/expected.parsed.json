@@ -1,0 +1,53 @@
+{
+  "name": "Imported roster",
+  "generated_by": null,
+  "faction_raw_name": "Thousand Sons",
+  "detachment_raw_names": [
+    "Changehost of Deceit"
+  ],
+  "battle_size_raw": "Combat Patrol (500 Point limit)",
+  "declared_limit": 310,
+  "total_reported": 310,
+  "total_computed": 310,
+  "units": [
+    {
+      "raw_name": "Thousand Sons Rhino",
+      "is_character": false,
+      "model_count": 1,
+      "points": 90,
+      "is_warlord": false,
+      "enhancement_raw_name": null,
+      "enhancement_points": null,
+      "wargear": [
+        {
+          "raw_name": "Armoured tracks",
+          "count": 1
+        },
+        {
+          "raw_name": "Inferno combi-bolter",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "raw_name": "Thousand Sons Land Raider",
+      "is_character": false,
+      "model_count": 1,
+      "points": 220,
+      "is_warlord": false,
+      "enhancement_raw_name": null,
+      "enhancement_points": null,
+      "wargear": [
+        {
+          "raw_name": "Armoured tracks",
+          "count": 1
+        },
+        {
+          "raw_name": "Inferno combi-bolter",
+          "count": 1
+        }
+      ]
+    }
+  ],
+  "multi_force": false
+}

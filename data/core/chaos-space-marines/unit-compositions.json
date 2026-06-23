@@ -310,7 +310,11 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 50
-        }
+        },
+        "default_weapon_ids": [
+          "fleshmetal-guns",
+          "crushing-fists"
+        ]
       }
     ],
     "game_version": {
@@ -1769,8 +1773,8 @@
         "min": 1,
         "max": 1,
         "default_weapon_ids": [
-          "autopistol",
-          "close-combat-weapon"
+          "bolt-pistol",
+          "chainsword"
         ],
         "is_leader_model": true,
         "base_size_mm": {
@@ -2000,8 +2004,8 @@
         "min": 1,
         "max": 1,
         "default_weapon_ids": [
-          "bolt-pistol",
-          "axe-of-ending"
+          "absolvor-bolt-pistol",
+          "reductor-array"
         ],
         "is_leader_model": true,
         "base_size_mm": {
@@ -2011,34 +2015,6 @@
       },
       {
         "name": "Garlon Souleater",
-        "min": 1,
-        "max": 1,
-        "default_weapon_ids": [
-          "londaxi-maimer",
-          "bionic-gauntlet"
-        ],
-        "is_leader_model": false,
-        "base_size_mm": {
-          "shape": "round",
-          "diameter": 40
-        }
-      },
-      {
-        "name": "Katar Garrix",
-        "min": 1,
-        "max": 1,
-        "default_weapon_ids": [
-          "absolvor-bolt-pistol",
-          "reductor-array"
-        ],
-        "is_leader_model": false,
-        "base_size_mm": {
-          "shape": "round",
-          "diameter": 40
-        }
-      },
-      {
-        "name": "Captain Sargotta",
         "min": 1,
         "max": 1,
         "default_weapon_ids": [
@@ -2052,12 +2028,40 @@
         }
       },
       {
-        "name": "The Enforcer",
+        "name": "Katar Garrix",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "bolt-pistol",
+          "axe-of-ending"
+        ],
+        "is_leader_model": false,
+        "base_size_mm": {
+          "shape": "round",
+          "diameter": 40
+        }
+      },
+      {
+        "name": "Captain Sargotta",
         "min": 1,
         "max": 1,
         "default_weapon_ids": [
           "laspistol",
           "power-sabre"
+        ],
+        "is_leader_model": false,
+        "base_size_mm": {
+          "shape": "round",
+          "diameter": 40
+        }
+      },
+      {
+        "name": "The Enforcer",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "londaxi-maimer",
+          "bionic-gauntlet"
         ],
         "is_leader_model": false,
         "base_size_mm": {

@@ -541,7 +541,6 @@
         },
         "default_weapon_ids": [
           "twin-gauss-blaster",
-          "shieldvanes",
           "close-combat-weapon"
         ]
       }
@@ -619,8 +618,8 @@
           "diameter": 60
         },
         "default_weapon_ids": [
-          "close-combat-weapon",
-          "enmitic-exterminator"
+          "gauss-destructor",
+          "close-combat-weapon"
         ]
       }
     ],
@@ -2010,7 +2009,10 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 60
-        }
+        },
+        "default_weapon_ids": [
+          "automaton-claws"
+        ]
       }
     ],
     "game_version": {

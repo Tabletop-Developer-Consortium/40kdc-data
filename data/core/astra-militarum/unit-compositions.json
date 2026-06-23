@@ -11,7 +11,11 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 80
-        }
+        },
+        "default_weapon_ids": [
+          "multi-laser",
+          "close-combat-weapon"
+        ]
       }
     ],
     "game_version": {
@@ -97,8 +101,8 @@
         "min": 1,
         "max": 1,
         "default_weapon_ids": [
-          "lascarbine",
-          "mkolls-straight-silver-knife"
+          "corbecs-hot-shot-lascarbine",
+          "straight-silver-knife"
         ],
         "is_leader_model": false,
         "base_size_mm": {
@@ -108,21 +112,6 @@
       },
       {
         "name": "Elim Rawne",
-        "profile_name": "Oan Mkoll",
-        "min": 1,
-        "max": 1,
-        "default_weapon_ids": [
-          "straight-silver-knife",
-          "larkins-long-las"
-        ],
-        "is_leader_model": false,
-        "base_size_mm": {
-          "shape": "round",
-          "diameter": 28.5
-        }
-      },
-      {
-        "name": "Hlaine Larkin",
         "profile_name": "Oan Mkoll",
         "min": 1,
         "max": 1,
@@ -137,12 +126,27 @@
         }
       },
       {
+        "name": "Hlaine Larkin",
+        "profile_name": "Oan Mkoll",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "larkins-long-las",
+          "straight-silver-knife"
+        ],
+        "is_leader_model": false,
+        "base_size_mm": {
+          "shape": "round",
+          "diameter": 28.5
+        }
+      },
+      {
         "name": "’Try Again’ Bragg",
         "profile_name": "Oan Mkoll",
         "min": 1,
         "max": 1,
         "default_weapon_ids": [
-          "corbecs-hot-shot-lascarbine",
+          "braggs-autocannon",
           "straight-silver-knife"
         ],
         "is_leader_model": false,
@@ -157,9 +161,8 @@
         "min": 1,
         "max": 1,
         "default_weapon_ids": [
-          "autocannon",
-          "close-combat-weapon",
-          "braggs-autocannon"
+          "lascarbine",
+          "mkolls-straight-silver-knife"
         ],
         "is_leader_model": false,
         "base_size_mm": {
@@ -1010,7 +1013,11 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 80
-        }
+        },
+        "default_weapon_ids": [
+          "multi-laser",
+          "close-combat-weapon"
+        ]
       }
     ],
     "game_version": {

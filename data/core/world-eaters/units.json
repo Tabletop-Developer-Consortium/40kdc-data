@@ -188,6 +188,9 @@
   {
     "id": "khorne-berzerkers",
     "name": "Khorne Berzerkers",
+    "aliases": [
+      "Khorne Berserkers"
+    ],
     "faction_id": "world-eaters",
     "role": "battleline",
     "profiles": [
@@ -1451,6 +1454,27 @@
     "is_legend": false,
     "points_provisional": false,
     "wargear_budgets": [
+      {
+        "items": [
+          "chainfist"
+        ],
+        "count": 2,
+        "per_models": 10
+      },
+      {
+        "items": [
+          "paired-accursed-weapons"
+        ],
+        "count": 1,
+        "per_models": 5
+      },
+      {
+        "items": [
+          "power-fist"
+        ],
+        "count": 6,
+        "per_models": 10
+      },
       {
         "items": [
           "heavy-flamer",

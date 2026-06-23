@@ -14,8 +14,8 @@ import type { Roster, RosterUnit } from "../import/types.js";
 /** Convert a kebab-case entity id ("chaos-knights") to a Title Case display
  * name ("Chaos Knights"). This is the round-trip best-effort when the Roster
  * doesn't store the source's raw faction/detachment name. */
-export function titleCaseId(id: string | null): string | null {
-  if (id === null) return null;
+export function titleCaseId(id: string | null | undefined): string | null {
+  if (id == null) return null;
   if (id.length === 0) return id;
   return id
     .split("-")

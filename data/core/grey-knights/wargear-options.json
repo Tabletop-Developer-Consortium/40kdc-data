@@ -18,7 +18,7 @@
       "storm-bolter"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -40,7 +40,7 @@
       "hunter-killer-missile"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -62,7 +62,7 @@
       "multi-melta"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -116,7 +116,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -146,7 +146,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -165,7 +165,7 @@
       "fragstorm-grenade-launcher"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -187,7 +187,7 @@
       "multi-melta"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -209,7 +209,7 @@
       "storm-bolter"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -231,7 +231,7 @@
       "hunter-killer-missile"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -259,7 +259,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -279,7 +279,7 @@
       "twin-lascannon"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -299,7 +299,7 @@
       "storm-bolter"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -319,7 +319,7 @@
       "hunter-killer-missile"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -352,7 +352,7 @@
     ],
     "model_constraint": {
       "model_name": "Purifier",
-      "per_n_models": 3
+      "any_number": true
     }
   },
   {
@@ -379,7 +379,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -403,7 +403,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -430,7 +430,7 @@
       "turbo-laser-destructor"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -457,7 +457,7 @@
       "hellstrike-missile-battery"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -477,7 +477,7 @@
       "hunter-killer-missile"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -505,7 +505,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -531,7 +531,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -551,7 +551,7 @@
       "heavy-flamer"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -583,7 +583,7 @@
     ],
     "model_constraint": {
       "model_name": "Grey Knight",
-      "per_n_models": 5
+      "any_number": true
     }
   },
   {
@@ -608,7 +608,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -640,7 +640,7 @@
     ],
     "model_constraint": {
       "model_name": "Purgator",
-      "max_count": 4
+      "any_number": true
     }
   },
   {
@@ -669,7 +669,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -701,7 +701,7 @@
     ],
     "model_constraint": {
       "model_name": "Interceptor",
-      "per_n_models": 5
+      "any_number": true
     }
   },
   {
@@ -729,7 +729,7 @@
     ],
     "model_constraint": {
       "model_name": "Paladin Ancient",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -760,7 +760,7 @@
     ],
     "model_constraint": {
       "model_name": "Paladin",
-      "per_n_models": 3
+      "any_number": true
     }
   },
   {
@@ -782,7 +782,7 @@
       "storm-bolter"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -804,7 +804,7 @@
       "hunter-killer-missile"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -826,7 +826,7 @@
       "multi-melta"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -858,7 +858,7 @@
     ],
     "model_constraint": {
       "model_name": "Terminator",
-      "per_n_models": 5
+      "any_number": true
     }
   },
   {
@@ -887,7 +887,7 @@
     ],
     "model_constraint": {
       "model_name": "Ancient",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -909,7 +909,7 @@
       "icarus-stormcannon"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -936,7 +936,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -988,7 +988,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -1016,7 +1016,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   }
 ]

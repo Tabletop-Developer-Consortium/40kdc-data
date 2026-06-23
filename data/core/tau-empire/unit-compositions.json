@@ -171,7 +171,13 @@
           "draft": true,
           "width": 120,
           "length": 92
-        }
+        },
+        "default_weapon_ids": [
+          "piranha-burst-cannon",
+          "twin-pulse-carbine",
+          "twin-pulse-carbine",
+          "armoured-hull"
+        ]
       }
     ],
     "game_version": {
@@ -232,9 +238,8 @@
         "min": 4,
         "max": 4,
         "default_weapon_ids": [
-          "battlesuit-fists",
           "burst-cannon",
-          "homing-beacon"
+          "battlesuit-fists"
         ],
         "is_leader_model": false,
         "base_size_mm": {
@@ -1672,7 +1677,12 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 40
-        }
+        },
+        "default_weapon_ids": [
+          "longshot-pulse-rifles",
+          "pulse-pistol",
+          "close-combat-weapons"
+        ]
       }
     ],
     "game_version": {

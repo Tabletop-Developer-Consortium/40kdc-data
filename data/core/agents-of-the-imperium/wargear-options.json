@@ -17,7 +17,7 @@
     ],
     "model_constraint": {
       "model_name": "Missionary",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -37,7 +37,7 @@
     ],
     "model_constraint": {
       "model_name": "Missionary",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -63,7 +63,7 @@
     ],
     "model_constraint": {
       "model_name": "Sanctifier",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -85,7 +85,7 @@
       "hunter-killer-missile"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -110,7 +110,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -148,7 +148,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -175,7 +175,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -217,7 +217,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -243,7 +243,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -264,7 +264,7 @@
       "hunter-killer-missile"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -289,7 +289,7 @@
     ],
     "model_constraint": {
       "model_name": "Inquisitorial Agent",
-      "per_n_models": 6
+      "per_n_models": 5
     }
   },
   {
@@ -314,7 +314,7 @@
     ],
     "model_constraint": {
       "model_name": "Gun Servitor",
-      "per_n_models": 6
+      "any_number": true
     }
   },
   {
@@ -338,7 +338,7 @@
       "psychic-gifts"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -360,7 +360,7 @@
       "force-weapon"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -382,7 +382,7 @@
       "psychic-shock-wave"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -402,7 +402,7 @@
       "psychic-gifts"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -421,7 +421,7 @@
       "combi-weapon"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -518,7 +518,7 @@
     ],
     "model_constraint": {
       "model_name": "Watch Sergeant",
-      "per_n_models": 5
+      "max_count": 1
     }
   },
   {
@@ -572,7 +572,7 @@
     ],
     "model_constraint": {
       "model_name": "Watch Sergeant",
-      "per_n_models": 5
+      "max_count": 1
     }
   },
   {
@@ -597,7 +597,7 @@
     ],
     "model_constraint": {
       "model_name": "Watch Sergeant",
-      "per_n_models": 5
+      "max_count": 1
     }
   },
   {
@@ -639,7 +639,7 @@
     ],
     "model_constraint": {
       "model_name": "Deathwatch Veterans",
-      "per_n_models": 5
+      "any_number": true
     }
   },
   {
@@ -659,7 +659,7 @@
     ],
     "model_constraint": {
       "model_name": "Deathwatch Veterans",
-      "per_n_models": 5
+      "any_number": true
     }
   },
   {
@@ -679,7 +679,7 @@
     ],
     "model_constraint": {
       "model_name": "Deathwatch Veterans",
-      "per_n_models": 5
+      "any_number": true
     }
   },
   {
@@ -695,7 +695,7 @@
       "hunter-killer-missile"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -804,7 +804,7 @@
     ],
     "model_constraint": {
       "model_name": "Proctor-Exactant",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -925,7 +925,7 @@
     ],
     "model_constraint": {
       "model_name": "Navis Sergeant-at-Arms",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -947,7 +947,7 @@
     ],
     "model_constraint": {
       "model_name": "Proctor-Vigilant",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -980,7 +980,7 @@
     ],
     "model_constraint": {
       "model_name": "Vigilant",
-      "max_count": 2
+      "max_count": 1
     }
   },
   {
@@ -1001,7 +1001,7 @@
     ],
     "model_constraint": {
       "model_name": "Proctor-Subductor",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -1078,7 +1078,7 @@
     ],
     "model_constraint": {
       "model_name": "Sister Superior",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -1105,7 +1105,7 @@
     ],
     "model_constraint": {
       "model_name": "Sister Superior",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -1132,7 +1132,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -1154,7 +1154,7 @@
       "twin-lascannon"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -1199,7 +1199,7 @@
       "hurricane-bolter"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -1219,7 +1219,7 @@
       "holy-pistol"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   }
 ]

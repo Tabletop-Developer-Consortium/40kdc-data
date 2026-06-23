@@ -729,7 +729,7 @@
         "max": 9,
         "default_weapon_ids": [
           "boltgun",
-          "close-combat-weapon"
+          "power-weapon"
         ],
         "is_leader_model": false,
         "base_size_mm": {
@@ -1229,6 +1229,7 @@
         "min": 1,
         "max": 1,
         "default_weapon_ids": [
+          "arbites-combat-shotgun",
           "arbites-shotpistol",
           "close-combat-weapon"
         ],
@@ -1324,7 +1325,7 @@
         "max": 1,
         "default_weapon_ids": [
           "arbites-shotpistol",
-          "close-combat-weapon"
+          "shock-maul"
         ],
         "is_leader_model": true,
         "base_size_mm": {
@@ -1766,8 +1767,8 @@
         "min": 1,
         "max": 1,
         "default_weapon_ids": [
-          "laspistol",
-          "close-combat-weapon"
+          "dartmask",
+          "death-cult-power-blade"
         ],
         "is_leader_model": false,
         "base_size_mm": {
@@ -1780,8 +1781,8 @@
         "min": 1,
         "max": 1,
         "default_weapon_ids": [
-          "death-cult-power-blade",
-          "dartmask"
+          "voltaic-pistol",
+          "close-combat-weapon"
         ],
         "is_leader_model": false,
         "base_size_mm": {
@@ -1795,8 +1796,8 @@
         "min": 1,
         "max": 1,
         "default_weapon_ids": [
-          "close-combat-weapon",
-          "voltaic-pistol"
+          "laspistol",
+          "close-combat-weapon"
         ],
         "is_leader_model": false,
         "base_size_mm": {

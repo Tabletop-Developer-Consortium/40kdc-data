@@ -332,9 +332,9 @@
           "diameter": 28.5
         },
         "default_weapon_ids": [
+          "paired-hekatarii-blades",
           "shuriken-pistol",
-          "close-combat-weapon",
-          "paired-hekatarii-blades"
+          "close-combat-weapon"
         ]
       },
       {
@@ -363,9 +363,9 @@
         },
         "default_weapon_ids": [
           "shuriken-pistol",
+          "witch-staff",
           "executioner",
-          "close-combat-weapon",
-          "witch-staff"
+          "close-combat-weapon"
         ]
       }
     ],
@@ -1410,7 +1410,12 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 60
-        }
+        },
+        "default_weapon_ids": [
+          "shuriken-cannon",
+          "shuriken-cannon",
+          "war-walker-feet"
+        ]
       }
     ],
     "game_version": {
@@ -1770,7 +1775,10 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 25
-        }
+        },
+        "default_weapon_ids": [
+          "succubus-weapons"
+        ]
       }
     ],
     "game_version": {
@@ -2969,7 +2977,11 @@
           "draft": true,
           "width": 120,
           "length": 92
-        }
+        },
+        "default_weapon_ids": [
+          "dark-lance",
+          "bladevanes"
+        ]
       }
     ],
     "game_version": {
@@ -3094,7 +3106,11 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 25
-        }
+        },
+        "default_weapon_ids": [
+          "splinter-pistol",
+          "huskblade"
+        ]
       }
     ],
     "game_version": {
@@ -3294,7 +3310,12 @@
           "draft": true,
           "width": 120,
           "length": 92
-        }
+        },
+        "default_weapon_ids": [
+          "splinter-cannon",
+          "twin-splinter-rifle",
+          "bladevanes"
+        ]
       }
     ],
     "game_version": {
@@ -3328,7 +3349,12 @@
           "draft": true,
           "width": 120,
           "length": 92
-        }
+        },
+        "default_weapon_ids": [
+          "shuriken-cannon",
+          "bright-lance",
+          "wraithbone-hull"
+        ]
       }
     ],
     "game_version": {

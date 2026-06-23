@@ -72,6 +72,7 @@ class Dataset:
             # within-faction duplicates.
             dedupe_key_of=lambda u: f"{u['faction_id']}::{u['id']}",
             name_of=lambda u: u.get("name"),
+            aliases_of=lambda u: u.get("aliases"),
             faction_of=lambda u: u.get("faction_id"),
             wrap=lambda u: UnitView(u, self),
         )

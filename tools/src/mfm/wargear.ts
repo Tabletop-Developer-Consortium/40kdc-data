@@ -194,7 +194,7 @@ const MANUAL_DEFAULTS: Record<string, Record<string, Record<string, string[]>>> 
     "the-silent-king": { Szarekh: ["scythe-of-dust", "staff-of-stars"] },
   },
   "tau-empire": {
-    "breacher-team": { "Fire Warrior Shas’ui": ["support-turret"] },
+    "breacher-team": { "Breacher Fire Warrior Shas’ui": ["support-turret"] },
     "strike-team": { "Fire Warrior Shas’ui": ["support-turret"] },
   },
 };
@@ -477,47 +477,117 @@ function deriveDefaults(
 }
 
 /**
- * The *binding* (most restrictive) squad cap across a datasheet's limited-wargear
- * sets, scoped to a miniature (or datasheet-wide). A limit is `choiceLimit` picks
- * per `modelCount` models → an allowed ratio `choiceLimit/modelCount`; the binding
- * constraint is the smallest ratio (fewest copies allowed). It maps to
- * `per_n_models = ceil(1/ratio)` — rounded up so `floor(models/per_n)` never
- * *exceeds* the allowed count (conservative: the advisory maximal stays legal).
- * `non` flags a non-integer ratio (e.g. 3-per-5) the schema can't express exactly.
+ * Per-weapon caps from the **mini-scoped single-weapon** limited sets only — the
+ * subset of squad caps that are NOT promoted to {@link limitedSetBudgets}
+ * (datasheet-wide single + shared + flat all become budgets). Returns a map keyed
+ * `${miniatureId}::${weaponId}` → `per_n_models` (`ceil(1/ratio)`, rounded up so the
+ * advisory maximal stays legal). Used to set each swap option's `model_constraint`
+ * from the weapon it actually grants, instead of one datasheet-wide tightest ratio
+ * stamped on every option (which used to pin base weapons — e.g. it capped a
+ * 3-per-5 power fist at 1 and falsely capped an unlimited combi-weapon).
  */
-function bindingCap(
+function miniScopedSingleCaps(
   dump: MfmDump,
   datasheetId: string,
-  miniatureId: string | null,
-): { per_n_models?: number; max_count?: number; non?: string } | null {
-  const sets = dump
-    .groupBy<LimitedWargearChoiceSetRow>("limited_wargear_choice_set", "datasheetId")
-    .get(datasheetId);
-  if (!sets?.length) return null;
+  resolve: (name: string) => string | null,
+): Map<string, number> {
+  const sets =
+    dump.groupBy<LimitedWargearChoiceSetRow>("limited_wargear_choice_set", "datasheetId").get(datasheetId) ?? [];
   const limitsBySet = dump.groupBy<WargearLimitRow>("wargear_limit", "limitedWargearChoiceSetId");
-  let minRatio: number | null = null;
-  let nonInteger: string | undefined;
-  let flatMax: number | null = null;
+  const choicesBySet = dump.groupBy<{ id: string; limitedWargearChoiceSetId: string }>(
+    "limited_wargear_choice",
+    "limitedWargearChoiceSetId",
+  );
+  const itemsByChoice = dump.groupBy<{ limitedWargearChoiceId: string; wargearItemId: string }>(
+    "limited_wargear_choice_wargear_item",
+    "limitedWargearChoiceId",
+  );
+  const wiName = dump.byId<WargearItemRow>("wargear_item");
+
+  const out = new Map<string, number>();
   for (const s of sets) {
-    // A miniature-scoped limited set applies only to that model; datasheet-wide
-    // (miniatureId null) applies to all.
-    if (s.miniatureId && miniatureId && s.miniatureId !== miniatureId) continue;
-    for (const l of limitsBySet.get(s.id) ?? []) {
-      if (l.modelCount > 0 && l.choiceLimit > 0) {
-        const ratio = l.choiceLimit / l.modelCount; // copies allowed per model
-        if (minRatio == null || ratio < minRatio) {
-          minRatio = ratio;
-          nonInteger = l.modelCount % l.choiceLimit === 0 ? undefined : `${l.choiceLimit}/${l.modelCount}`;
-        }
-      } else if (l.choiceLimit > 0) {
-        // modelCount 0 → a flat per-unit cap.
-        flatMax = flatMax == null ? l.choiceLimit : Math.min(flatMax, l.choiceLimit);
+    if (!s.miniatureId) continue; // datasheet-wide → a budget, not a per-option cap
+    const itemIds = new Set<string>();
+    for (const c of choicesBySet.get(s.id) ?? []) {
+      for (const it of itemsByChoice.get(c.id) ?? []) {
+        const id = resolve(dump.enName(wiName.get(it.wargearItemId)) ?? "");
+        if (id) itemIds.add(id);
       }
     }
+    if (itemIds.size !== 1) continue; // shared (≥2) sets are budgets
+    let minRatio: number | null = null;
+    for (const l of limitsBySet.get(s.id) ?? []) {
+      if (l.modelCount > 0 && l.choiceLimit > 0) {
+        const ratio = l.choiceLimit / l.modelCount;
+        if (minRatio == null || ratio < minRatio) minRatio = ratio;
+      }
+    }
+    if (minRatio == null) continue;
+    const perN = Math.ceil(1 / minRatio);
+    const [id] = [...itemIds];
+    const key = `${s.miniatureId}::${id}`;
+    out.set(key, Math.min(out.get(key) ?? Infinity, perN));
   }
-  if (minRatio != null) return { per_n_models: Math.ceil(1 / minRatio), non: nonInteger };
-  if (flatMax != null) return { max_count: flatMax };
-  return null;
+  return out;
+}
+
+/**
+ * Per-(miniature, weapon) input type of the dump's **optional swap** wargear
+ * options — the `defaultValue == 0` rows of each `wargear_option_group`, excluding
+ * the base loadout (`defaultValue > 0`). This is the table the GW app builds and
+ * enforces loadouts from: a `checkbox` option is a 0/1 toggle the app caps at one
+ * instance unit-wide (the "1 X can be replaced with 1 Y" shape — e.g. Goremongers'
+ * blood harpoon), while a `stepper` is a 0..N counter ("Any number of models can
+ * …", capped only by the model count or a `wargear_limit` ratio). Keyed
+ * `${miniatureId}::${weaponId}` → the set of input types seen for that swap (a
+ * weapon offered only via checkboxes maps to `{"checkbox"}`); the set guards the
+ * case where a weapon is both a base item (stepper) and a swap (checkbox), since
+ * only the `defaultValue == 0` swap rows are recorded here.
+ */
+function swapInputTypesByMiniWeapon(
+  dump: MfmDump,
+  datasheetId: string,
+  resolve: (name: string) => string | null,
+): Map<string, Set<string>> {
+  const wiName = dump.byId<WargearItemRow>("wargear_item");
+  const woByGroup = dump.groupBy<WargearOptionRow>("wargear_option", "wargearOptionGroupId");
+  const groups = dump.groupBy<WargearOptionGroupRow>("wargear_option_group", "datasheetId").get(datasheetId) ?? [];
+  const out = new Map<string, Set<string>>();
+  for (const g of groups) {
+    if (!g.miniatureId) continue;
+    for (const o of woByGroup.get(g.id) ?? []) {
+      if (o.defaultValue > 0) continue; // base loadout, not an optional swap
+      const id = resolve(dump.enName(wiName.get(o.wargearItemId)) ?? "");
+      if (!id) continue;
+      const key = `${g.miniatureId}::${id}`;
+      (out.get(key) ?? out.set(key, new Set()).get(key)!).add(o.inputType);
+    }
+  }
+  return out;
+}
+
+/**
+ * True iff every weapon this swap grants is offered **solely** via a `checkbox` on
+ * `miniatureId` — a 0/1 toggle the GW app caps at one instance unit-wide. Any
+ * granted weapon that is unknown to the swap map, or that is offered via a
+ * `stepper` (a counter), leaves the swap uncapped (`false`) so we never
+ * over-restrict. A multi-branch "one of A/B/C" swap caps at 1 iff each alternative
+ * is itself a checkbox.
+ */
+function checkboxCapped(
+  added: string[][],
+  miniatureId: string,
+  swapInputTypes: Map<string, Set<string>>,
+): boolean {
+  let sawCheckbox = false;
+  for (const branch of added) {
+    for (const id of branch) {
+      const types = swapInputTypes.get(`${miniatureId}::${id}`);
+      if (!types || types.size !== 1 || !types.has("checkbox")) return false;
+      sawCheckbox = true;
+    }
+  }
+  return sawCheckbox;
 }
 
 /**
@@ -602,11 +672,17 @@ export function limitedSetBudgets(
     if (flat != null) {
       // Flat per-unit cap (shared or single) — the per-weapon bound can't express it.
       out.push({ items: sorted, count: flat, per_models: 0 });
-    } else if (ratioCount != null && ratioPer != null && items.size >= 2) {
-      // Shared ratio allowance — the per-weapon bounds need the summed constraint.
+    } else if (ratioCount != null && ratioPer != null && (items.size >= 2 || s.miniatureId == null)) {
+      // Shared ratio allowances (≥2 items) AND datasheet-wide single-weapon ratio
+      // sets become summed budgets: the dump scopes these to the whole unit, so the
+      // squad-wide sum `floor(modelCount * count / per_models)` is the correct cap and
+      // a per-option `per_n_models` would mis-apply when several swap options add the
+      // same weapon. Mini-scoped single-weapon ratio sets are deliberately NOT budgets
+      // (a unit-wide budget would under-count a weapon a *different* model type can also
+      // carry, e.g. a champion's plasma pistol on top of the troopers' ratio) — those
+      // stay per-option in `deriveWargear`.
       out.push({ items: sorted, count: ratioCount, per_models: ratioPer });
     }
-    // Single-weapon ratio sets: intentionally no budget (per-weapon bounds suffice).
   }
   return out;
 }
@@ -645,6 +721,8 @@ export function deriveWargear(
   // scoped with model_constraint.model_name). Read it from the dump composition, not
   // defaultsByModel.size — a miniature the heterogeneity guard skipped still counts.
   const multiModel = dumpComposition(dump, datasheetId).length > 1;
+  const miniCaps = miniScopedSingleCaps(dump, datasheetId, resolve);
+  const swapInputTypes = swapInputTypesByMiniWeapon(dump, datasheetId, resolve);
   const options: DerivedOption[] = [];
 
   for (const set of (sets ?? []).slice().sort((a, b) => a.id.localeCompare(b.id))) {
@@ -698,23 +776,36 @@ export function deriveWargear(
       groups.set(rKey, g);
     }
 
-    const cap = bindingCap(dump, datasheetId, set.miniatureId);
-    const mc: ModelConstraint = {};
-    if (mini && multiModel) mc.model_name = mini;
-    if (cap?.per_n_models) {
-      mc.per_n_models = cap.per_n_models;
-      if (cap.non)
-        notes.push(`non-integer cap ${cap.non} on ${mini ?? "all"} — approximated to per_n_models ${cap.per_n_models} (advisory maximal only)`);
-    } else if (cap?.max_count) {
-      mc.max_count = cap.max_count;
-    } else {
-      mc.any_number = true;
-    }
-
     for (const { removed, added } of groups.values()) {
       if (added.length === 0) continue;
+      // The model_constraint caps how many MODELS may take this swap. Squad caps on
+      // the *weapons* it grants are enforced by `wargear_budgets` (shared, flat, and
+      // datasheet-wide single-weapon sets), so an option whose granted weapons are
+      // budgeted or uncapped stays `any_number` (the swap itself is per-model — this
+      // is what lets a base weapon drop to 0). The only caps applied per-option are
+      // the mini-scoped single-weapon sets (not budgets): take the binding ratio over
+      // the weapons this option actually grants.
+      const mc: ModelConstraint = {};
+      if (mini && multiModel) mc.model_name = mini;
+      let perN: number | null = null;
+      if (set.miniatureId) {
+        for (const branch of added) {
+          for (const id of branch) {
+            const c = miniCaps.get(`${set.miniatureId}::${id}`);
+            if (c != null) perN = perN == null ? c : Math.min(perN, c);
+          }
+        }
+      }
+      // Precedence: a `wargear_limit` ratio (mini-scoped single set) binds first;
+      // else if the dump offers this swap solely via a checkbox (a 0/1 toggle), the
+      // app caps it at 1 instance unit-wide (Goremongers' blood harpoon); else the
+      // swap is per-model (`any_number`, capped by model count / a shared budget).
+      if (perN != null) mc.per_n_models = perN;
+      else if (set.miniatureId && checkboxCapped(added, set.miniatureId, swapInputTypes)) mc.max_count = 1;
+      else mc.any_number = true;
+
       const opt: DerivedOption = {
-        model_constraint: Object.keys(mc).length ? { ...mc } : null,
+        model_constraint: Object.keys(mc).length ? mc : null,
       };
       if (removed.length > 0) opt.replaces = removed;
       if (added.length === 1) opt.replacement = added[0];

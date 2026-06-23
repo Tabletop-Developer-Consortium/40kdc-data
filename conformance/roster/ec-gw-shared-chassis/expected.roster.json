@@ -1,0 +1,105 @@
+{
+  "name": "Imported roster",
+  "source": {
+    "format": "gw",
+    "generated_by": null
+  },
+  "faction_id": "emperors-children",
+  "detachments": [
+    {
+      "ref": {
+        "id": "slaaneshs-chosen",
+        "raw_name": "Slaanesh’s Chosen",
+        "resolved": true,
+        "candidates": []
+      },
+      "dp_cost": 2
+    }
+  ],
+  "battle_size": null,
+  "force_disposition": null,
+  "points": {
+    "declared_limit": 150,
+    "detachment_cap": null,
+    "total_reported": 150,
+    "total_computed": 150
+  },
+  "units": [
+    {
+      "ref": {
+        "id": "chaos-rhino",
+        "raw_name": "Emperor’s Children Rhino",
+        "resolved": true,
+        "candidates": []
+      },
+      "model_count": 1,
+      "points": 80,
+      "is_warlord": false,
+      "enhancement": null,
+      "enhancement_points": null,
+      "wargear": [
+        {
+          "ref": {
+            "id": "armoured-tracks",
+            "raw_name": "Armoured tracks",
+            "resolved": true,
+            "candidates": []
+          },
+          "count": 1
+        },
+        {
+          "ref": {
+            "id": "combi-bolter",
+            "raw_name": "Combi-bolter",
+            "resolved": true,
+            "candidates": []
+          },
+          "count": 1
+        }
+      ],
+      "leader_attachment": null
+    },
+    {
+      "ref": {
+        "id": "chaos-spawn",
+        "raw_name": "Emperor’s Children Chaos Spawn",
+        "resolved": true,
+        "candidates": []
+      },
+      "model_count": 1,
+      "points": 70,
+      "is_warlord": false,
+      "enhancement": null,
+      "enhancement_points": null,
+      "wargear": [
+        {
+          "ref": {
+            "id": "hideous-mutations",
+            "raw_name": "Hideous mutations",
+            "resolved": true,
+            "candidates": []
+          },
+          "count": 2
+        }
+      ],
+      "leader_attachment": null
+    }
+  ],
+  "game_version": {
+    "edition": "11th",
+    "dataslate": "pre-launch-provisional"
+  },
+  "diagnostics": {
+    "resolved_units": 2,
+    "unresolved_units": 0,
+    "resolved_weapons": 3,
+    "unresolved_weapons": 0,
+    "warnings": [
+      {
+        "code": "battle-size-unmapped",
+        "message": "Battle size label could not be mapped.",
+        "raw_name": "Combat Patrol (500 Point limit)"
+      }
+    ]
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "name": "Imported roster",
+  "generated_by": null,
+  "faction_raw_name": "Emperor’s Children",
+  "detachment_raw_names": [
+    "Slaanesh’s Chosen"
+  ],
+  "battle_size_raw": "Combat Patrol (500 Point limit)",
+  "declared_limit": 150,
+  "total_reported": 150,
+  "total_computed": 150,
+  "units": [
+    {
+      "raw_name": "Emperor’s Children Rhino",
+      "is_character": false,
+      "model_count": 1,
+      "points": 80,
+      "is_warlord": false,
+      "enhancement_raw_name": null,
+      "enhancement_points": null,
+      "wargear": [
+        {
+          "raw_name": "Armoured tracks",
+          "count": 1
+        },
+        {
+          "raw_name": "Combi-bolter",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "raw_name": "Emperor’s Children Chaos Spawn",
+      "is_character": false,
+      "model_count": 1,
+      "points": 70,
+      "is_warlord": false,
+      "enhancement_raw_name": null,
+      "enhancement_points": null,
+      "wargear": [
+        {
+          "raw_name": "Hideous mutations",
+          "count": 2
+        }
+      ]
+    }
+  ],
+  "multi_force": false
+}

@@ -40,6 +40,7 @@ class Collection(Generic[T, V]):
         wrap: Callable[[T], V],
         dedupe_key_of: Callable[[T], str] | None = None,
         name_of: Callable[[T], str | None] | None = None,
+        aliases_of: Callable[[T], list[str] | None] | None = None,
         faction_of: Callable[[T], str | None] | None = None,
     ) -> None:
         self._id_of = id_of
@@ -66,6 +67,17 @@ class Collection(Generic[T, V]):
             name = name_of(item) if name_of else None
             if name:
                 self._by_norm.setdefault(normalize_name(name), []).append(item)
+
+            # Alias names answer to the same record. Index them after the
+            # canonical name and skip any alias that normalizes to the
+            # record's own name, so an alias can never displace the canonical
+            # owner of a normalized key.
+            name_key = normalize_name(name) if name else None
+            for alias in (aliases_of(item) if aliases_of else None) or []:
+                alias_key = normalize_name(alias)
+                if alias_key == "" or alias_key == name_key:
+                    continue
+                self._by_norm.setdefault(alias_key, []).append(item)
 
             faction = faction_of(item) if faction_of else None
             if faction:

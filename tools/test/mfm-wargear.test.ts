@@ -244,6 +244,123 @@ describe("deriveDefaults quantity rule + heterogeneity guard (option-group model
   });
 });
 
+describe("deriveWargear checkbox cap (wargear_option.inputType)", () => {
+  const wi = (id: string, name: string) => ({ id, wargearType: "weapon", localisations: { en: { name } } });
+  const slug = (name: string) => name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  // Two model types. A multi-model "Goremonger" offering its chainblade swapped for
+  // one of {autopistol, blood-harpoon} — both CHECKBOX swaps (the GW "1 X → 1 Y"
+  // shape). A "Trooper" with a STEPPER swap (any number) and a CHECKBOX swap that is
+  // ALSO governed by a 1-per-5 wargear_limit (ratio must win over the checkbox).
+  function dump(): MfmDump {
+    return new MfmDump({
+      data: {
+        miniature: [
+          { id: "m-gore", displayOrder: 0, localisations: { en: { name: "Goremonger" } } },
+          { id: "m-troop", displayOrder: 1, localisations: { en: { name: "Trooper" } } },
+        ],
+        unit_composition: [
+          { id: "uc", datasheetId: "ds", isDefault: true, displayOrder: 1, points: 0, referenceGroupingKeywordId: null },
+        ],
+        unit_composition_miniature: [
+          { id: "ucm1", min: 1, max: 7, unitCompositionId: "uc", miniatureId: "m-gore" },
+          { id: "ucm2", min: 1, max: 5, unitCompositionId: "uc", miniatureId: "m-troop" },
+        ],
+        wargear_item: [
+          wi("wi-chainblade", "Chainblade"),
+          wi("wi-autopistol", "Autopistol"),
+          wi("wi-harpoon", "Blood harpoon"),
+          wi("wi-bolter", "Bolter"),
+          wi("wi-pistol", "Pistol"),
+          wi("wi-special", "Special weapon"),
+          wi("wi-heavy", "Heavy weapon"),
+        ],
+        wargear_option_group: [
+          // base loadouts (defaultValue > 0)
+          { id: "g-gore-base", displayOrder: 1, datasheetId: "ds", miniatureId: "m-gore", isStaticWargear: false },
+          { id: "g-troop-base", displayOrder: 2, datasheetId: "ds", miniatureId: "m-troop", isStaticWargear: false },
+          // optional swaps (defaultValue == 0) — the inputType carries the cap
+          { id: "g-gore-swaps", displayOrder: 3, datasheetId: "ds", miniatureId: "m-gore", isStaticWargear: false },
+          { id: "g-troop-swaps", displayOrder: 4, datasheetId: "ds", miniatureId: "m-troop", isStaticWargear: false },
+        ],
+        wargear_option: [
+          { id: "o-gore-cb", wargearItemId: "wi-chainblade", wargearOptionGroupId: "g-gore-base", inputType: "checkbox", defaultValue: 1, points: 0, displayOrder: 1 },
+          { id: "o-troop-b", wargearItemId: "wi-bolter", wargearOptionGroupId: "g-troop-base", inputType: "checkbox", defaultValue: 1, points: 0, displayOrder: 1 },
+          { id: "o-troop-p", wargearItemId: "wi-pistol", wargearOptionGroupId: "g-troop-base", inputType: "checkbox", defaultValue: 1, points: 0, displayOrder: 2 },
+          // swaps: checkbox → max 1; stepper → any number; checkbox+ratio → ratio
+          { id: "o-auto", wargearItemId: "wi-autopistol", wargearOptionGroupId: "g-gore-swaps", inputType: "checkbox", defaultValue: 0, points: 0, displayOrder: 1 },
+          { id: "o-harpoon", wargearItemId: "wi-harpoon", wargearOptionGroupId: "g-gore-swaps", inputType: "checkbox", defaultValue: 0, points: 0, displayOrder: 2 },
+          { id: "o-special", wargearItemId: "wi-special", wargearOptionGroupId: "g-troop-swaps", inputType: "stepper", defaultValue: 0, points: 0, displayOrder: 1 },
+          { id: "o-heavy", wargearItemId: "wi-heavy", wargearOptionGroupId: "g-troop-swaps", inputType: "checkbox", defaultValue: 0, points: 0, displayOrder: 2 },
+        ],
+        loadout_choice_set: [
+          { id: "lcs-1-gore", limit: 1, allowDuplicates: false, datasheetId: "ds", miniatureId: "m-gore", alternate: false },
+          { id: "lcs-2-special", limit: 1, allowDuplicates: false, datasheetId: "ds", miniatureId: "m-troop", alternate: false },
+          { id: "lcs-3-heavy", limit: 1, allowDuplicates: false, datasheetId: "ds", miniatureId: "m-troop", alternate: false },
+        ],
+        loadout_choice: [
+          { id: "c1a", loadoutChoiceSetId: "lcs-1-gore" },
+          { id: "c1b", loadoutChoiceSetId: "lcs-1-gore" },
+          { id: "c1c", loadoutChoiceSetId: "lcs-1-gore" },
+          { id: "c2a", loadoutChoiceSetId: "lcs-2-special" },
+          { id: "c2b", loadoutChoiceSetId: "lcs-2-special" },
+          { id: "c3a", loadoutChoiceSetId: "lcs-3-heavy" },
+          { id: "c3b", loadoutChoiceSetId: "lcs-3-heavy" },
+        ],
+        loadout_choice_wargear_item: [
+          // gore: base chainblade, or autopistol, or blood harpoon
+          { id: "x1", count: 1, wargearItemId: "wi-chainblade", loadoutChoiceId: "c1a" },
+          { id: "x2", count: 1, wargearItemId: "wi-autopistol", loadoutChoiceId: "c1b" },
+          { id: "x3", count: 1, wargearItemId: "wi-harpoon", loadoutChoiceId: "c1c" },
+          // trooper special swap: base [bolter,pistol] or [special,pistol]
+          { id: "x4", count: 1, wargearItemId: "wi-bolter", loadoutChoiceId: "c2a" },
+          { id: "x5", count: 1, wargearItemId: "wi-pistol", loadoutChoiceId: "c2a" },
+          { id: "x6", count: 1, wargearItemId: "wi-special", loadoutChoiceId: "c2b" },
+          { id: "x7", count: 1, wargearItemId: "wi-pistol", loadoutChoiceId: "c2b" },
+          // trooper heavy swap: base [bolter,pistol] or [bolter,heavy]
+          { id: "x8", count: 1, wargearItemId: "wi-bolter", loadoutChoiceId: "c3a" },
+          { id: "x9", count: 1, wargearItemId: "wi-pistol", loadoutChoiceId: "c3a" },
+          { id: "x10", count: 1, wargearItemId: "wi-bolter", loadoutChoiceId: "c3b" },
+          { id: "x11", count: 1, wargearItemId: "wi-heavy", loadoutChoiceId: "c3b" },
+        ],
+        // heavy weapon capped 1-per-5 (mini-scoped single set → per-option ratio)
+        limited_wargear_choice_set: [
+          { id: "lim-heavy", mandatory: false, datasheetId: "ds", miniatureId: "m-troop" },
+        ],
+        limited_wargear_choice: [{ id: "lwc-heavy", limitedWargearChoiceSetId: "lim-heavy" }],
+        limited_wargear_choice_wargear_item: [
+          { id: "lwi-heavy", count: 1, wargearItemId: "wi-heavy", limitedWargearChoiceId: "lwc-heavy" },
+        ],
+        wargear_limit: [
+          { id: "wl-heavy", modelCount: 5, choiceLimit: 1, duplicateLimit: null, limitedWargearChoiceSetId: "lim-heavy" },
+        ],
+      },
+    });
+  }
+
+  const d = deriveWargear(dump(), "ds", slug);
+  const byRemoved = (id: string) => d.options.find((o) => (o.replaces ?? []).includes(id));
+
+  it("caps a checkbox swap at 1 instance unit-wide (max_count: 1)", () => {
+    const o = byRemoved("chainblade")!;
+    expect(o.replaces).toEqual(["chainblade"]);
+    // the two checkbox alternatives merge under one option (same replaced weapon)
+    expect(o.replacement_choice).toEqual([["autopistol"], ["blood-harpoon"]]);
+    expect(o.model_constraint).toEqual({ model_name: "Goremonger", max_count: 1 });
+  });
+
+  it("leaves a stepper swap uncapped (any_number)", () => {
+    const o = byRemoved("bolter")!;
+    expect(o.replacement).toEqual(["special-weapon"]);
+    expect(o.model_constraint).toEqual({ model_name: "Trooper", any_number: true });
+  });
+
+  it("lets a wargear_limit ratio win over the checkbox (per_n_models, not max_count)", () => {
+    const o = byRemoved("pistol")!;
+    expect(o.replacement).toEqual(["heavy-weapon"]);
+    expect(o.model_constraint).toEqual({ model_name: "Trooper", per_n_models: 5 });
+  });
+});
+
 describe("makeResolver per-unit priority overrides", () => {
   // Both ids are valid faction weapons (the GW dump reuses the display name
   // "Questoris multi-laser" for two distinct profiles). Without an override the

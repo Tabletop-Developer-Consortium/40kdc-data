@@ -3581,6 +3581,13 @@
         ],
         "count": 2,
         "per_models": 5
+      },
+      {
+        "items": [
+          "deathwatch-thunder-hammer"
+        ],
+        "count": 2,
+        "per_models": 5
       }
     ]
   },
@@ -4027,7 +4034,16 @@
       "dataslate": "pre-launch-provisional"
     },
     "is_legend": false,
-    "points_provisional": true
+    "points_provisional": true,
+    "wargear_budgets": [
+      {
+        "items": [
+          "astartes-grenade-launcher"
+        ],
+        "count": 2,
+        "per_models": 10
+      }
+    ]
   },
   {
     "id": "spectrus-kill-team",
@@ -10330,7 +10346,16 @@
       "dataslate": "pre-launch-provisional"
     },
     "is_legend": false,
-    "points_provisional": true
+    "points_provisional": true,
+    "wargear_budgets": [
+      {
+        "items": [
+          "plasma-pistol"
+        ],
+        "count": 1,
+        "per_models": 3
+      }
+    ]
   },
   {
     "id": "grey-hunters",

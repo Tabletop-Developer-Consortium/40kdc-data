@@ -82,12 +82,9 @@
           "diameter": 50
         },
         "default_weapon_ids": [
-          "twin-penitent-buzz-blades",
-          "twin-penitent-flails",
-          "penitent-buzz-blade",
-          "penitent-flail",
           "heavy-bolter",
-          "mortifier-flamer"
+          "heavy-bolter",
+          "twin-penitent-buzz-blades"
         ]
       }
     ],
@@ -1127,7 +1124,11 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 50
-        }
+        },
+        "default_weapon_ids": [
+          "penitent-flamers",
+          "twin-penitent-buzz-blades"
+        ]
       }
     ],
     "game_version": {

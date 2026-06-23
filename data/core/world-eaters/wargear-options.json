@@ -82,7 +82,7 @@
     ],
     "model_constraint": {
       "model_name": "Khorne Berzerker",
-      "per_n_models": 5
+      "max_count": 1
     }
   },
   {
@@ -255,7 +255,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -277,7 +277,7 @@
       "havoc-launcher"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -322,7 +322,7 @@
       "ectoplasma-destructor"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -378,7 +378,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -409,7 +409,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -452,7 +452,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -472,7 +472,7 @@
       "baleflamer"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -507,7 +507,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -536,7 +536,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -807,7 +807,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -827,7 +827,7 @@
       "havoc-launcher"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -901,7 +901,7 @@
       "havoc-launcher"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -926,7 +926,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -957,7 +957,7 @@
     ],
     "model_constraint": {
       "model_name": "World Eaters Terminator Champion",
-      "per_n_models": 5
+      "max_count": 1
     }
   },
   {
@@ -982,7 +982,7 @@
     ],
     "model_constraint": {
       "model_name": "World Eaters Terminator Champion",
-      "per_n_models": 5
+      "max_count": 1
     }
   },
   {
@@ -1002,7 +1002,7 @@
     ],
     "model_constraint": {
       "model_name": "World Eaters Terminator Champion",
-      "per_n_models": 5
+      "max_count": 1
     }
   },
   {
@@ -1049,7 +1049,7 @@
     ],
     "model_constraint": {
       "model_name": "World Eaters Terminator",
-      "per_n_models": 5
+      "any_number": true
     }
   },
   {
@@ -1074,7 +1074,7 @@
     ],
     "model_constraint": {
       "model_name": "World Eaters Terminator",
-      "per_n_models": 5
+      "any_number": true
     }
   },
   {
@@ -1102,7 +1102,7 @@
     ],
     "model_constraint": {
       "model_name": "World Eaters Terminator",
-      "per_n_models": 5
+      "any_number": true
     }
   },
   {
@@ -1128,7 +1128,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -1149,7 +1149,7 @@
       "skullhurler"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -1174,7 +1174,7 @@
     ],
     "model_constraint": {
       "model_name": "Goremongers",
-      "any_number": true
+      "max_count": 1
     }
   }
 ]

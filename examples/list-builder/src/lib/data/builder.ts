@@ -1041,9 +1041,11 @@ export function builderViolations(state: BuilderState): BuilderViolation[] {
 			out.push({ unitKey: bu.key, message: v.message });
 		}
 	}
-	// At most one warlord.
+	// Exactly one warlord: every army must name one, and only one.
 	const warlords = state.units.filter((u) => u.isWarlord).length;
 	if (warlords > 1) out.push({ unitKey: null, message: `${warlords} warlords (pick one)` });
+	else if (warlords === 0 && state.units.length > 0)
+		out.push({ unitKey: null, message: 'no Warlord set — every army must name one' });
 	// Allied-rule limits and core army-construction caps (advisory).
 	out.push(...allyViolations(state), ...constructionViolations(state));
 	return out;
@@ -1112,6 +1114,10 @@ export function builderToRoster(state: BuilderState): Roster {
 		faction_id: factionName,
 		detachments,
 		battle_size: state.battleSize,
+		// The picked (or detachment-forced) disposition — mandatory for a legal list.
+		// The builder auto-locks it to the sole option when a detachment grants one,
+		// so it is always set; carry it through to the roster/exports.
+		force_disposition: state.disposition,
 		points: {
 			declared_limit: pointsLimit(state),
 			detachment_cap: detachmentPointCap(state),

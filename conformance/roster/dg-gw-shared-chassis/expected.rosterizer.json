@@ -1,0 +1,80 @@
+{
+  "slug": "",
+  "key": "",
+  "visible": "hidden",
+  "locked": false,
+  "rulebook": {
+    "name": "40kdc",
+    "game": "Warhammer 40,000",
+    "publisher": "Alpaca Software",
+    "url": "https://40kdc.dev",
+    "genre": "wargame"
+  },
+  "snapshot": {
+    "item": "Roster§Roster",
+    "name": "Imported roster",
+    "quantity": 1,
+    "stats": {
+      "Points": {
+        "value": 165
+      }
+    },
+    "assets": {
+      "included": [
+        {
+          "item": "Faction§Death Guard",
+          "name": "Death Guard",
+          "quantity": 1
+        },
+        {
+          "item": "Detachment§Virulent Vectorium",
+          "name": "Virulent Vectorium",
+          "quantity": 1
+        },
+        {
+          "item": "Unit§Death Guard Chaos Spawn",
+          "name": "Death Guard Chaos Spawn",
+          "quantity": 1,
+          "stats": {
+            "Points": {
+              "value": 80
+            }
+          },
+          "assets": {
+            "included": [
+              {
+                "item": "Weapon§Hideous mutations",
+                "name": "Hideous mutations",
+                "quantity": 2
+              }
+            ]
+          }
+        },
+        {
+          "item": "Unit§Death Guard Rhino",
+          "name": "Death Guard Rhino",
+          "quantity": 1,
+          "stats": {
+            "Points": {
+              "value": 85
+            }
+          },
+          "assets": {
+            "included": [
+              {
+                "item": "Weapon§Armoured tracks",
+                "name": "Armoured tracks",
+                "quantity": 1
+              },
+              {
+                "item": "Weapon§Combi-bolter",
+                "name": "Combi-bolter",
+                "quantity": 1
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

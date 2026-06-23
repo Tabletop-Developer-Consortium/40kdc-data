@@ -630,7 +630,10 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 40
-        }
+        },
+        "default_weapon_ids": [
+          "chitinous-claws-and-teeth"
+        ]
       }
     ],
     "game_version": {
@@ -679,7 +682,11 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 80
-        }
+        },
+        "default_weapon_ids": [
+          "spore-mine-launcher",
+          "chitin-barbed-limbs"
+        ]
       }
     ],
     "game_version": {
@@ -1328,7 +1335,10 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 32
-        }
+        },
+        "default_weapon_ids": [
+          "genestealers-claws-and-talons"
+        ]
       }
     ],
     "game_version": {
@@ -1491,7 +1501,11 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 28.5
-        }
+        },
+        "default_weapon_ids": [
+          "fleshborer",
+          "chitinous-claws-and-teeth"
+        ]
       }
     ],
     "game_version": {
@@ -1611,7 +1625,11 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 40
-        }
+        },
+        "default_weapon_ids": [
+          "barblauncher",
+          "chitinous-claws-and-teeth"
+        ]
       }
     ],
     "game_version": {
@@ -1934,7 +1952,11 @@
           "shape": "flying-base",
           "size": "small",
           "draft": true
-        }
+        },
+        "default_weapon_ids": [
+          "fleshborer",
+          "blinding-venom"
+        ]
       }
     ],
     "game_version": {

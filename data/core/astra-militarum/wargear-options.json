@@ -95,7 +95,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -124,7 +124,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -218,7 +218,7 @@
     ],
     "model_constraint": {
       "model_name": "Shock Trooper",
-      "per_n_models": 10
+      "any_number": true
     }
   },
   {
@@ -311,7 +311,7 @@
     ],
     "model_constraint": {
       "model_name": "Tempestor Prime",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -343,7 +343,7 @@
     ],
     "model_constraint": {
       "model_name": "Tempestus Aquilon",
-      "max_count": 1
+      "any_number": true
     }
   },
   {
@@ -418,7 +418,7 @@
     ],
     "model_constraint": {
       "model_name": "Tempestor Aquilon",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -444,7 +444,7 @@
     ],
     "model_constraint": {
       "model_name": "Tempestor Aquilon",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -471,7 +471,7 @@
     ],
     "model_constraint": {
       "model_name": "Tempestor Aquilon",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -578,7 +578,7 @@
       "hunter-killer-missile"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -705,7 +705,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -790,7 +790,7 @@
       "twin-autocannon"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -816,7 +816,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -837,7 +837,7 @@
       "storm-bolter"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -886,7 +886,7 @@
       "pulveriser-cannon"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -909,7 +909,7 @@
       "oppressor-cannon"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -1093,7 +1093,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -1114,7 +1114,7 @@
       "hunter-killer-missile"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -1136,7 +1136,7 @@
     ],
     "model_constraint": {
       "model_name": "Bullgryn Bone ’ead",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -1202,7 +1202,7 @@
     ],
     "model_constraint": {
       "model_name": "Bullgryn Bone ’ead",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -1430,7 +1430,7 @@
       "plasma-pistol"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -1450,7 +1450,7 @@
       "power-weapon"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -1471,7 +1471,7 @@
       "hunter-killer-missile"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -1492,7 +1492,7 @@
       "heavy-flamer"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -1521,7 +1521,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -1648,7 +1648,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -1669,7 +1669,7 @@
       "hunter-killer-missile"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -1695,7 +1695,7 @@
     ],
     "model_constraint": {
       "model_name": "Tempestor",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -1721,7 +1721,7 @@
     ],
     "model_constraint": {
       "model_name": "Tempestor",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -1760,7 +1760,7 @@
     ],
     "model_constraint": {
       "model_name": "Tempestus Scion",
-      "per_n_models": 3
+      "any_number": true
     }
   },
   {
@@ -1854,7 +1854,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -1880,7 +1880,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -1921,7 +1921,7 @@
     ],
     "model_constraint": {
       "model_name": "Kasrkin",
-      "max_count": 1
+      "any_number": true
     }
   },
   {
@@ -1962,7 +1962,7 @@
     ],
     "model_constraint": {
       "model_name": "Kasrkin Sergeant",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -1988,7 +1988,7 @@
     ],
     "model_constraint": {
       "model_name": "Kasrkin Sergeant",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -2014,7 +2014,7 @@
     ],
     "model_constraint": {
       "model_name": "Cadian Commander",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -2040,7 +2040,7 @@
     ],
     "model_constraint": {
       "model_name": "Cadian Commander",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -2082,7 +2082,7 @@
     ],
     "model_constraint": {
       "model_name": "Cadian Veteran Guardsman",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -2114,7 +2114,7 @@
     ],
     "model_constraint": {
       "model_name": "Cadian Veteran Guardsman",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -2140,7 +2140,7 @@
     ],
     "model_constraint": {
       "model_name": "Cadian Veteran Guardsman",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -2165,7 +2165,7 @@
     ],
     "model_constraint": {
       "model_name": "Catachan Commander",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -2197,7 +2197,7 @@
     ],
     "model_constraint": {
       "model_name": "Catachan Commander",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -2348,7 +2348,7 @@
       "pulveriser-cannon"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -2399,7 +2399,7 @@
       "oppressor-cannon"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -2448,7 +2448,7 @@
       "power-weapon"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -2581,7 +2581,7 @@
     ],
     "model_constraint": {
       "model_name": "Death Korps Trooper",
-      "per_n_models": 10
+      "any_number": true
     }
   },
   {
@@ -2666,7 +2666,7 @@
       "heavy-flamer"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -2687,7 +2687,7 @@
       "hunter-killer-missile"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -2710,7 +2710,7 @@
     ],
     "model_constraint": {
       "model_name": "Rough Rider",
-      "per_n_models": 5
+      "any_number": true
     }
   },
   {
@@ -2733,7 +2733,7 @@
     ],
     "model_constraint": {
       "model_name": "Rough Rider Sergeant",
-      "per_n_models": 5
+      "max_count": 1
     }
   },
   {
@@ -2756,7 +2756,7 @@
     ],
     "model_constraint": {
       "model_name": "Rough Rider Sergeant",
-      "per_n_models": 5
+      "max_count": 1
     }
   },
   {
@@ -2782,7 +2782,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -2803,7 +2803,7 @@
       "hunter-killer-missile"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -2829,7 +2829,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -2951,7 +2951,7 @@
       "hunter-killer-missile"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -2977,7 +2977,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -3003,7 +3003,7 @@
     ],
     "model_constraint": {
       "model_name": "Veteran Guardsman",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -3024,7 +3024,7 @@
     ],
     "model_constraint": {
       "model_name": "Lord Commissar",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -3055,7 +3055,7 @@
     ],
     "model_constraint": {
       "model_name": "Veteran Guardsman",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -3081,7 +3081,7 @@
     ],
     "model_constraint": {
       "model_name": "Veteran Guardsman",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -3102,7 +3102,7 @@
     ],
     "model_constraint": {
       "model_name": "Lord Commissar",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -3123,7 +3123,7 @@
       "hunter-killer-missile"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -3149,7 +3149,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -3270,7 +3270,7 @@
       "storm-bolter"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -3355,7 +3355,7 @@
     ],
     "model_constraint": {
       "model_name": "Jungle Fighter",
-      "per_n_models": 10
+      "per_n_models": 5
     }
   },
   {
@@ -3375,7 +3375,7 @@
     ],
     "model_constraint": {
       "model_name": "Jungle Fighter",
-      "per_n_models": 10
+      "any_number": true
     }
   },
   {
@@ -3396,7 +3396,7 @@
       "hunter-killer-missile"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -3422,7 +3422,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -3460,7 +3460,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -3582,7 +3582,7 @@
       "lascannon"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -3711,7 +3711,7 @@
       "hunter-killer-missile"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -3732,7 +3732,7 @@
       "heavy-flamer"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -3754,7 +3754,7 @@
       "hunter-killer-missile"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -3781,7 +3781,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -3802,7 +3802,7 @@
       "heavy-flamer"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -3828,7 +3828,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -3851,7 +3851,7 @@
       "heavy-flamer"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -3973,7 +3973,7 @@
       "hunter-killer-missile"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -3999,7 +3999,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -4020,7 +4020,7 @@
       "heavy-flamer"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -4041,7 +4041,7 @@
       "hunter-killer-missile"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -4139,7 +4139,7 @@
     ],
     "model_constraint": {
       "model_name": "Krieg Combat Engineer",
-      "max_count": 1
+      "any_number": true
     }
   },
   {
@@ -4159,7 +4159,7 @@
     ],
     "model_constraint": {
       "model_name": "Krieg Combat Engineer",
-      "max_count": 1
+      "any_number": true
     }
   },
   {
@@ -4187,7 +4187,7 @@
     ],
     "model_constraint": {
       "model_name": "Krieg Engineer Watchmaster",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -4235,7 +4235,7 @@
     ],
     "model_constraint": {
       "model_name": "Krieg Engineer Watchmaster",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -4260,7 +4260,7 @@
     ],
     "model_constraint": {
       "model_name": "Krieg Engineer Watchmaster",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -4281,7 +4281,7 @@
       "heavy-flamer"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -4302,7 +4302,7 @@
       "hunter-killer-missile"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -4328,7 +4328,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -4450,7 +4450,7 @@
       "hunter-killer-missile"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -4462,10 +4462,26 @@
       "dataslate": "launch"
     },
     "is_free": true,
+    "replaces": [
+      "close-combat-weapon"
+    ],
+    "replacement": [
+      "vox-caster"
+    ],
     "model_constraint": {
       "model_name": "Recon Trooper",
       "max_count": 1
+    }
+  },
+  {
+    "id": "cadian-recon-squad-wgo-mfm-2",
+    "unit_id": "cadian-recon-squad",
+    "faction_id": "astra-militarum",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
     },
+    "is_free": true,
     "replaces": [
       "close-combat-weapon",
       "lasgun"
@@ -4490,7 +4506,11 @@
       [
         "autostubber"
       ]
-    ]
+    ],
+    "model_constraint": {
+      "model_name": "Recon Trooper",
+      "any_number": true
+    }
   },
   {
     "id": "hippogriff-afv-wgo-mfm-1",
@@ -4501,9 +4521,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "model_constraint": {
-      "any_number": true
-    },
     "replaces": [
       "vigilator-cannon",
       "heavy-stubber",
@@ -4519,7 +4536,10 @@
       [
         "lascannon"
       ]
-    ]
+    ],
+    "model_constraint": {
+      "any_number": true
+    }
   },
   {
     "id": "hippogriff-afv-wgo-mfm-2",
@@ -4530,9 +4550,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "model_constraint": {
-      "any_number": true
-    },
     "replaces": [
       "vigilator-cannon",
       "heavy-stubber",
@@ -4540,6 +4557,9 @@
     ],
     "replacement": [
       "meltagun"
-    ]
+    ],
+    "model_constraint": {
+      "any_number": true
+    }
   }
 ]

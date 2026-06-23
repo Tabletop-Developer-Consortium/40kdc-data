@@ -44,6 +44,32 @@ const SERIALIZERS: readonly RosterSerializer[] = [
   atc2026FullSerializer,
 ];
 
+/**
+ * Human-readable label for each export format. Typed as a total
+ * `Record<ExportFormat, string>` so adding a format to the {@link ExportFormat}
+ * union is a compile error until it is given a label here — the picker can
+ * never silently drop a format.
+ */
+const EXPORT_FORMAT_LABELS: Record<ExportFormat, string> = {
+  "newrecruit-wtc-compact": "WTC — compact",
+  "newrecruit-wtc-full": "WTC — full",
+  "newrecruit-simple": "Simple text",
+  "newrecruit-json": "NewRecruit JSON",
+  "rosterizer": "Rosterizer JSON",
+  "roster-json": "Roster JSON (canonical)",
+  "atc-2026-compact": "ATC 2026 — compact",
+  "atc-2026-full": "ATC 2026 — full",
+};
+
+/**
+ * The full list of selectable export formats, `{ id, label }`, derived from the
+ * registered {@link SERIALIZERS} so it always equals what {@link exportRoster}
+ * can actually produce. UIs should iterate this rather than hand-maintain a
+ * parallel list. Display order follows {@link SERIALIZERS}.
+ */
+export const EXPORT_FORMATS: readonly { id: ExportFormat; label: string }[] =
+  SERIALIZERS.map((s) => ({ id: s.id, label: EXPORT_FORMAT_LABELS[s.id] }));
+
 /** Serialize a {@link Roster} into the named target format. */
 export function exportRoster(roster: Roster, format: ExportFormat): string {
   const s = SERIALIZERS.find((s) => s.id === format);

@@ -45,6 +45,13 @@ export interface CollectionConfig<T, V> {
   dedupeKeyOf?: (item: T) => string;
   /** Display name, if the record has one — drives {@link Collection.find}. */
   nameOf?: (item: T) => string | undefined;
+  /**
+   * Alternate names a record answers to (spelling variants from other tools'
+   * exports). Indexed alongside {@link nameOf} so {@link Collection.find} /
+   * {@link Collection.findAll} match an alias exactly, but never returned as the
+   * record's display name. The canonical name always wins a collision.
+   */
+  aliasesOf?: (item: T) => readonly string[] | null | undefined;
   /** Owning faction id, if applicable — drives {@link Collection.byFaction}. */
   factionOf?: (item: T) => string | null | undefined;
   /**
@@ -106,6 +113,15 @@ export class Collection<T, V> implements Iterable<V> {
 
       const name = cfg.nameOf?.(item);
       if (name) push(this.byNorm, normalizeName(name), item);
+
+      // Alias names answer to the same record. Index them after the canonical
+      // name and skip any alias that normalizes to an already-registered name,
+      // so an alias can never displace the canonical owner of a normalized key.
+      for (const alias of cfg.aliasesOf?.(item) ?? []) {
+        const aliasKey = normalizeName(alias);
+        if (aliasKey === "" || aliasKey === (name ? normalizeName(name) : undefined)) continue;
+        push(this.byNorm, aliasKey, item);
+      }
 
       const faction = cfg.factionOf?.(item);
       if (faction) {

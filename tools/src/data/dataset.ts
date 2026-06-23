@@ -155,6 +155,7 @@ export class Dataset {
       // keep each faction's copy, collapse only true within-faction duplicates.
       dedupeKeyOf: (u) => `${u.faction_id}::${u.id}`,
       nameOf: (u) => u.name,
+      aliasesOf: (u) => u.aliases,
       factionOf: (u) => u.faction_id,
       // Per-faction copies of a shared chassis genuinely diverge (points,
       // keywords, profiles), so a faction-less get() of a shared id is a bug.

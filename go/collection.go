@@ -13,8 +13,9 @@ import "strings"
 type collectionOpts struct {
 	idOf        func(any) string
 	dedupeKeyOf func(any) string
-	nameOf      func(any) string // returns "" for no name
-	factionOf   func(any) string // returns "" for no faction
+	nameOf      func(any) string   // returns "" for no name
+	aliasesOf   func(any) []string // alternate names answering to the same record
+	factionOf   func(any) string   // returns "" for no faction
 }
 
 // Collection is a collection of one entity type, parameterised by its wrapped
@@ -56,10 +57,23 @@ func newCollection[V any](items []any, wrap func(any) V, opts collectionOpts) *C
 		if _, exists := c.byID[id]; !exists {
 			c.byID[id] = item // first-wins for shared ids
 		}
+		var nameKey string
 		if opts.nameOf != nil {
 			if name := opts.nameOf(item); name != "" {
-				k := NormalizeName(name)
-				c.byNorm[k] = append(c.byNorm[k], item)
+				nameKey = NormalizeName(name)
+				c.byNorm[nameKey] = append(c.byNorm[nameKey], item)
+			}
+		}
+		// Alias names answer to the same record. Index them after the canonical
+		// name and skip any alias that normalizes to an already-registered name,
+		// so an alias can never displace the canonical owner of a normalized key.
+		if opts.aliasesOf != nil {
+			for _, alias := range opts.aliasesOf(item) {
+				aliasKey := NormalizeName(alias)
+				if aliasKey == "" || aliasKey == nameKey {
+					continue
+				}
+				c.byNorm[aliasKey] = append(c.byNorm[aliasKey], item)
 			}
 		}
 		if opts.factionOf != nil {

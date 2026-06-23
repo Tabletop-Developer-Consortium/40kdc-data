@@ -1,0 +1,80 @@
+{
+  "slug": "",
+  "key": "",
+  "visible": "hidden",
+  "locked": false,
+  "rulebook": {
+    "name": "40kdc",
+    "game": "Warhammer 40,000",
+    "publisher": "Alpaca Software",
+    "url": "https://40kdc.dev",
+    "genre": "wargame"
+  },
+  "snapshot": {
+    "item": "Roster§Roster",
+    "name": "Imported roster",
+    "quantity": 1,
+    "stats": {
+      "Points": {
+        "value": 150
+      }
+    },
+    "assets": {
+      "included": [
+        {
+          "item": "Faction§Emperors Children",
+          "name": "Emperors Children",
+          "quantity": 1
+        },
+        {
+          "item": "Detachment§Slaaneshs Chosen",
+          "name": "Slaaneshs Chosen",
+          "quantity": 1
+        },
+        {
+          "item": "Unit§Emperor’s Children Rhino",
+          "name": "Emperor’s Children Rhino",
+          "quantity": 1,
+          "stats": {
+            "Points": {
+              "value": 80
+            }
+          },
+          "assets": {
+            "included": [
+              {
+                "item": "Weapon§Armoured tracks",
+                "name": "Armoured tracks",
+                "quantity": 1
+              },
+              {
+                "item": "Weapon§Combi-bolter",
+                "name": "Combi-bolter",
+                "quantity": 1
+              }
+            ]
+          }
+        },
+        {
+          "item": "Unit§Emperor’s Children Chaos Spawn",
+          "name": "Emperor’s Children Chaos Spawn",
+          "quantity": 1,
+          "stats": {
+            "Points": {
+              "value": 70
+            }
+          },
+          "assets": {
+            "included": [
+              {
+                "item": "Weapon§Hideous mutations",
+                "name": "Hideous mutations",
+                "quantity": 2
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,139 @@
+{
+  "name": "Imported roster",
+  "source": {
+    "format": "gw",
+    "generated_by": null
+  },
+  "faction_id": "world-eaters",
+  "detachments": [
+    {
+      "ref": {
+        "id": "berzerker-warband",
+        "raw_name": "Berzerker Warband",
+        "resolved": true,
+        "candidates": []
+      },
+      "dp_cost": 3
+    }
+  ],
+  "battle_size": null,
+  "force_disposition": null,
+  "points": {
+    "declared_limit": 360,
+    "detachment_cap": null,
+    "total_reported": 360,
+    "total_computed": 360
+  },
+  "units": [
+    {
+      "ref": {
+        "id": "khorne-berzerkers",
+        "raw_name": "Khorne Berserkers",
+        "resolved": true,
+        "candidates": []
+      },
+      "model_count": 1,
+      "points": 180,
+      "is_warlord": false,
+      "enhancement": null,
+      "enhancement_points": null,
+      "wargear": [
+        {
+          "ref": {
+            "id": "chainblade",
+            "raw_name": "Chainblade",
+            "resolved": true,
+            "candidates": []
+          },
+          "count": 10
+        },
+        {
+          "ref": {
+            "id": "bolt-pistol",
+            "raw_name": "Bolt pistol",
+            "resolved": true,
+            "candidates": []
+          },
+          "count": 10
+        }
+      ],
+      "leader_attachment": null
+    },
+    {
+      "ref": {
+        "id": "chaos-spawn",
+        "raw_name": "World Eaters Chaos Spawn",
+        "resolved": true,
+        "candidates": []
+      },
+      "model_count": 1,
+      "points": 95,
+      "is_warlord": false,
+      "enhancement": null,
+      "enhancement_points": null,
+      "wargear": [
+        {
+          "ref": {
+            "id": "hideous-mutations",
+            "raw_name": "Hideous mutations",
+            "resolved": true,
+            "candidates": []
+          },
+          "count": 2
+        }
+      ],
+      "leader_attachment": null
+    },
+    {
+      "ref": {
+        "id": "chaos-rhino",
+        "raw_name": "World Eaters Rhino",
+        "resolved": true,
+        "candidates": []
+      },
+      "model_count": 1,
+      "points": 85,
+      "is_warlord": false,
+      "enhancement": null,
+      "enhancement_points": null,
+      "wargear": [
+        {
+          "ref": {
+            "id": "armoured-tracks",
+            "raw_name": "Armoured tracks",
+            "resolved": true,
+            "candidates": []
+          },
+          "count": 1
+        },
+        {
+          "ref": {
+            "id": "combi-bolter",
+            "raw_name": "Combi-bolter",
+            "resolved": true,
+            "candidates": []
+          },
+          "count": 1
+        }
+      ],
+      "leader_attachment": null
+    }
+  ],
+  "game_version": {
+    "edition": "11th",
+    "dataslate": "pre-launch-provisional"
+  },
+  "diagnostics": {
+    "resolved_units": 3,
+    "unresolved_units": 0,
+    "resolved_weapons": 5,
+    "unresolved_weapons": 0,
+    "warnings": [
+      {
+        "code": "battle-size-unmapped",
+        "message": "Battle size label could not be mapped.",
+        "raw_name": "Combat Patrol (500 Point limit)"
+      }
+    ]
+  }
+}

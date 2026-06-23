@@ -63,5 +63,40 @@
     "name": "terminators-reaper-heavyflamer-shared-over",
     "args": { "unitId": "chaos-terminators", "factionId": "world-eaters", "modelCount": 10, "counts": { "reaper-autocannon": 1, "heavy-flamer": 2 } },
     "expected": ["exceeds-allowance:heavy-flamer+reaper-autocannon"]
+  },
+  {
+    "name": "terminators-5-powerfist-at-cap-legal",
+    "args": { "unitId": "chaos-terminators", "factionId": "world-eaters", "modelCount": 5, "counts": { "power-fist": 3 } },
+    "expected": []
+  },
+  {
+    "name": "terminators-5-powerfist-over-allowance",
+    "args": { "unitId": "chaos-terminators", "factionId": "world-eaters", "modelCount": 5, "counts": { "power-fist": 4 } },
+    "expected": ["exceeds-allowance:power-fist"]
+  },
+  {
+    "name": "goremongers-blood-harpoon-at-cap-legal",
+    "args": { "unitId": "goremongers", "factionId": "world-eaters", "modelCount": 8, "counts": { "blood-harpoon": 1 } },
+    "expected": []
+  },
+  {
+    "name": "goremongers-blood-harpoon-over-max",
+    "args": { "unitId": "goremongers", "factionId": "world-eaters", "modelCount": 8, "counts": { "blood-harpoon": 2 } },
+    "expected": ["exceeds-max:blood-harpoon"]
+  },
+  {
+    "name": "tzaangors-herd-banner-at-cap-legal",
+    "args": { "unitId": "tzaangors", "factionId": "thousand-sons", "modelCount": 10, "counts": { "herd-banner": 1 } },
+    "expected": []
+  },
+  {
+    "name": "tzaangors-herd-banner-over",
+    "args": { "unitId": "tzaangors", "factionId": "thousand-sons", "modelCount": 10, "counts": { "herd-banner": 2 } },
+    "expected": ["exceeds-allowance:herd-banner"]
+  },
+  {
+    "name": "tzaangors-banner-and-brayhorn-independent-legal",
+    "args": { "unitId": "tzaangors", "factionId": "thousand-sons", "modelCount": 10, "counts": { "herd-banner": 1, "brayhorn": 1 } },
+    "expected": []
   }
 ]

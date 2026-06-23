@@ -209,10 +209,13 @@ impl Dataset {
     /// Build a dataset from arbitrary [`RawData`], wiring all collections and
     /// cross-entity indexes.
     pub fn from_raw(raw: RawData) -> Dataset {
-        let units = Collection::build(
+        let units = Collection::build_with_aliases(
             raw.units,
             |u| u.id.to_string(),
             |u| Some(u.name.as_str()),
+            // Units answer to alternate names (spelling variants in other tools'
+            // exports) so an import matches despite a spelling difference.
+            |u| u.aliases.iter().map(|a| a.as_str()).collect(),
             |u| Some(u.faction_id.as_str()),
             // The same unit id is shared across factions (e.g. ministorum-priest);
             // keep each faction's copy, collapse only true within-faction dupes.

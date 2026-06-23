@@ -1,0 +1,114 @@
+{
+  "name": "Imported roster",
+  "source": {
+    "format": "gw",
+    "generated_by": null
+  },
+  "faction_id": "thousand-sons",
+  "detachments": [
+    {
+      "ref": {
+        "id": "changehost-of-deceit",
+        "raw_name": "Changehost of Deceit",
+        "resolved": true,
+        "candidates": []
+      },
+      "dp_cost": 2
+    }
+  ],
+  "battle_size": null,
+  "force_disposition": null,
+  "points": {
+    "declared_limit": 310,
+    "detachment_cap": null,
+    "total_reported": 310,
+    "total_computed": 310
+  },
+  "units": [
+    {
+      "ref": {
+        "id": "chaos-rhino",
+        "raw_name": "Thousand Sons Rhino",
+        "resolved": true,
+        "candidates": []
+      },
+      "model_count": 1,
+      "points": 90,
+      "is_warlord": false,
+      "enhancement": null,
+      "enhancement_points": null,
+      "wargear": [
+        {
+          "ref": {
+            "id": "armoured-tracks",
+            "raw_name": "Armoured tracks",
+            "resolved": true,
+            "candidates": []
+          },
+          "count": 1
+        },
+        {
+          "ref": {
+            "id": "inferno-combi-bolter",
+            "raw_name": "Inferno combi-bolter",
+            "resolved": true,
+            "candidates": []
+          },
+          "count": 1
+        }
+      ],
+      "leader_attachment": null
+    },
+    {
+      "ref": {
+        "id": "chaos-land-raider",
+        "raw_name": "Thousand Sons Land Raider",
+        "resolved": true,
+        "candidates": []
+      },
+      "model_count": 1,
+      "points": 220,
+      "is_warlord": false,
+      "enhancement": null,
+      "enhancement_points": null,
+      "wargear": [
+        {
+          "ref": {
+            "id": "armoured-tracks",
+            "raw_name": "Armoured tracks",
+            "resolved": true,
+            "candidates": []
+          },
+          "count": 1
+        },
+        {
+          "ref": {
+            "id": "inferno-combi-bolter",
+            "raw_name": "Inferno combi-bolter",
+            "resolved": true,
+            "candidates": []
+          },
+          "count": 1
+        }
+      ],
+      "leader_attachment": null
+    }
+  ],
+  "game_version": {
+    "edition": "11th",
+    "dataslate": "pre-launch-provisional"
+  },
+  "diagnostics": {
+    "resolved_units": 2,
+    "unresolved_units": 0,
+    "resolved_weapons": 4,
+    "unresolved_weapons": 0,
+    "warnings": [
+      {
+        "code": "battle-size-unmapped",
+        "message": "Battle size label could not be mapped.",
+        "raw_name": "Combat Patrol (500 Point limit)"
+      }
+    ]
+  }
+}

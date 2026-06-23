@@ -25,7 +25,7 @@
     ],
     "model_constraint": {
       "model_name": "Boss Nob on Warbike",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -92,7 +92,7 @@
       "grot-orderly"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -166,7 +166,7 @@
       "traktor-blasta"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -186,7 +186,7 @@
       "drilla"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -207,7 +207,7 @@
       "twin-supa-shoota"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -228,7 +228,7 @@
       "blastajet-force-field"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -249,7 +249,7 @@
       "twin-tellyport-mega-blasta"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -276,7 +276,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -295,7 +295,7 @@
       "lobba"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -341,7 +341,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -360,7 +360,7 @@
       "deff-rolla"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -380,7 +380,7 @@
     ],
     "model_constraint": {
       "model_name": "Boss Nob",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -455,7 +455,7 @@
     ],
     "model_constraint": {
       "model_name": "Boss Nob",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -472,7 +472,7 @@
     ],
     "model_constraint": {
       "model_name": "Tankbusta",
-      "max_count": 2
+      "max_count": 1
     }
   },
   {
@@ -507,7 +507,7 @@
     ],
     "model_constraint": {
       "model_name": "Kommando",
-      "max_count": 1
+      "any_number": true
     }
   },
   {
@@ -533,7 +533,7 @@
     ],
     "model_constraint": {
       "model_name": "Boss Nob",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -565,7 +565,7 @@
     ],
     "model_constraint": {
       "model_name": "Boy",
-      "per_n_models": 10
+      "any_number": true
     }
   },
   {
@@ -587,7 +587,7 @@
     ],
     "model_constraint": {
       "model_name": "Boss Nob",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -607,7 +607,7 @@
     ],
     "model_constraint": {
       "model_name": "Boss Nob",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -627,7 +627,7 @@
       "wreckin-ball"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -646,7 +646,7 @@
       "grot-orderly"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -695,7 +695,7 @@
     ],
     "model_constraint": {
       "model_name": "Boss Nob",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -745,7 +745,7 @@
       "twin-supa-shoota"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -773,7 +773,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -798,7 +798,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -820,7 +820,7 @@
     ],
     "model_constraint": {
       "model_name": "Beast Snagga Boy",
-      "per_n_models": 10
+      "any_number": true
     }
   },
   {
@@ -840,7 +840,7 @@
       "killsaw"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -887,7 +887,7 @@
     ],
     "model_constraint": {
       "model_name": "Nob",
-      "per_n_models": 5
+      "any_number": true
     }
   },
   {
@@ -907,7 +907,7 @@
     ],
     "model_constraint": {
       "model_name": "Nob",
-      "per_n_models": 5
+      "any_number": true
     }
   },
   {
@@ -927,7 +927,7 @@
     ],
     "model_constraint": {
       "model_name": "Boss Nob",
-      "per_n_models": 5
+      "max_count": 1
     }
   },
   {
@@ -949,7 +949,7 @@
     ],
     "model_constraint": {
       "model_name": "Boss Nob",
-      "per_n_models": 5
+      "max_count": 1
     }
   },
   {
@@ -970,7 +970,7 @@
       "thump-gun"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -1063,7 +1063,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -1084,7 +1084,7 @@
       "skorcha-missile-rack"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -1105,7 +1105,7 @@
       "attack-squig"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -1126,7 +1126,7 @@
       "power-klaw"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   }
 ]

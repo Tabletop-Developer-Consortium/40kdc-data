@@ -219,6 +219,45 @@ def resolve(parsed: dict[str, Any], ds: Dataset, format: str = "listforge") -> d
     }
 
 
+#: The canonical prefix the dataset uses for shared Chaos chassis ("Chaos
+#: Rhino", "Chaos Land Raider", …). GW/NewRecruit subfaction exports substitute
+#: the faction name for it ("Death Guard Rhino"), so swapping it back is one of
+#: the candidate lookups (see :func:`_unit_lookup_candidates`).
+_CHAOS_CHASSIS_PREFIX = "Chaos "
+
+
+def _unit_lookup_candidates(raw_name: str, faction_id: str | None, ds: Dataset) -> list[str]:
+    """Candidate lookup strings for a unit name, in priority order.
+
+    GW/NewRecruit exports prefix shared chassis with the faction's display name
+    in two forms: keeping "Chaos" ("Death Guard Chaos Spawn" → dataset "Chaos
+    Spawn") or replacing it ("Death Guard Rhino" → dataset "Chaos Rhino"). When
+    ``raw_name`` starts with the resolved faction's display name we therefore
+    also try the prefix stripped, and the prefix replaced with
+    :data:`_CHAOS_CHASSIS_PREFIX`. The original ``raw_name`` is always what gets
+    recorded on the ref — only the lookup is adjusted. This is a general rule
+    over all shared Chaos chassis × every faction, not per-unit data.
+    """
+    candidates = [raw_name]
+    faction = ds.factions.get(faction_id) if faction_id else None
+    faction_name = faction.name if faction is not None else None
+    if faction_name:
+        prefix = f"{faction_name} "
+        if len(raw_name) > len(prefix) and raw_name.lower().startswith(prefix.lower()):
+            rest = raw_name[len(prefix) :].lstrip()
+            if rest:
+                candidates.append(rest)
+                candidates.append(_CHAOS_CHASSIS_PREFIX + rest)
+    # De-duplicate while preserving order (e.g. a name already starting "Chaos ").
+    seen: set[str] = set()
+    deduped: list[str] = []
+    for c in candidates:
+        if c not in seen:
+            seen.add(c)
+            deduped.append(c)
+    return deduped
+
+
 def _resolve_unit(
     parsed: dict[str, Any],
     faction_id: str | None,
@@ -226,17 +265,42 @@ def _resolve_unit(
     ds: Dataset,
     diag: _DiagnosticsBuilder,
 ) -> dict[str, Any]:
-    # Prefer a faction-scoped match (the same unit id recurs across factions),
-    # then fall back to a global name lookup.
-    key = normalize_name(parsed["raw_name"])
-    scoped = None
-    if faction_id:
-        scoped = next(
-            (u for u in ds.units.by_faction(faction_id) if normalize_name(u.name) == key),
-            None,
-        )
-    all_hits = ds.units.find_all(parsed["raw_name"])
-    hit = scoped if scoped is not None else (all_hits[0] if all_hits else None)
+    lookup_names = _unit_lookup_candidates(parsed["raw_name"], faction_id, ds)
+
+    # Prefer a faction-scoped exact match (the same unit id recurs across
+    # factions, and a stripped base name can collide with another faction's
+    # unit — e.g. "Rhino" matches the Space Marine Rhino), matching canonical
+    # name or alias.
+    in_faction = ds.units.by_faction(faction_id) if faction_id else []
+
+    def _scoped_exact(query: str):
+        k = normalize_name(query)
+        for u in in_faction:
+            if normalize_name(u.name) == k:
+                return u
+            if any(normalize_name(a) == k for a in (u.raw.get("aliases") or [])):
+                return u
+        return None
+
+    hit = None
+    for q in lookup_names:
+        hit = _scoped_exact(q)
+        if hit is not None:
+            break
+
+    all_hits: list[Any] = []
+    if hit is None:
+        # Global fallback (alias-aware via the name index); still prefer the
+        # resolved faction's copy of a shared id over whichever copy registered
+        # first.
+        for q in lookup_names:
+            all_hits = ds.units.find_all(q)
+            if faction_id:
+                hit = next((u for u in all_hits if u.raw.get("faction_id") == faction_id), None)
+            if hit is None and all_hits:
+                hit = all_hits[0]
+            if hit is not None:
+                break
 
     if hit is not None:
         ref = _resolved(hit.id, parsed["raw_name"])

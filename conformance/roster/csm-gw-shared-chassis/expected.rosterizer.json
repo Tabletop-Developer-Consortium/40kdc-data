@@ -1,0 +1,85 @@
+{
+  "slug": "",
+  "key": "",
+  "visible": "hidden",
+  "locked": false,
+  "rulebook": {
+    "name": "40kdc",
+    "game": "Warhammer 40,000",
+    "publisher": "Alpaca Software",
+    "url": "https://40kdc.dev",
+    "genre": "wargame"
+  },
+  "snapshot": {
+    "item": "Roster§Roster",
+    "name": "Imported roster",
+    "quantity": 1,
+    "stats": {
+      "Points": {
+        "value": 295
+      }
+    },
+    "assets": {
+      "included": [
+        {
+          "item": "Faction§Chaos Space Marines",
+          "name": "Chaos Space Marines",
+          "quantity": 1
+        },
+        {
+          "item": "Detachment§Hurons Marauders",
+          "name": "Hurons Marauders",
+          "quantity": 1
+        },
+        {
+          "item": "Unit§Chaos Rhino",
+          "name": "Chaos Rhino",
+          "quantity": 1,
+          "stats": {
+            "Points": {
+              "value": 75
+            }
+          },
+          "assets": {
+            "included": [
+              {
+                "item": "Weapon§Armoured tracks",
+                "name": "Armoured tracks",
+                "quantity": 1
+              },
+              {
+                "item": "Weapon§Combi-bolter",
+                "name": "Combi-bolter",
+                "quantity": 1
+              }
+            ]
+          }
+        },
+        {
+          "item": "Unit§Chaos Land Raider",
+          "name": "Chaos Land Raider",
+          "quantity": 1,
+          "stats": {
+            "Points": {
+              "value": 220
+            }
+          },
+          "assets": {
+            "included": [
+              {
+                "item": "Weapon§Armoured tracks",
+                "name": "Armoured tracks",
+                "quantity": 1
+              },
+              {
+                "item": "Weapon§Combi-bolter",
+                "name": "Combi-bolter",
+                "quantity": 1
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

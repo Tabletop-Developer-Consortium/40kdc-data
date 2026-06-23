@@ -18,7 +18,7 @@
       "havoc-launcher"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -45,7 +45,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -74,7 +74,7 @@
     ],
     "model_constraint": {
       "model_name": "Chaos Terminator",
-      "max_count": 1
+      "any_number": true
     }
   },
   {
@@ -121,7 +121,7 @@
     ],
     "model_constraint": {
       "model_name": "Chaos Terminator",
-      "max_count": 1
+      "any_number": true
     }
   },
   {
@@ -189,7 +189,7 @@
     ],
     "model_constraint": {
       "model_name": "Chaos Terminator",
-      "max_count": 1
+      "any_number": true
     }
   },
   {
@@ -216,7 +216,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -243,7 +243,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -263,7 +263,7 @@
       "close-combat-weapon"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -285,7 +285,7 @@
     ],
     "model_constraint": {
       "model_name": "Disharmonist",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -306,7 +306,7 @@
     ],
     "model_constraint": {
       "model_name": "Noise Marine",
-      "max_count": 2
+      "any_number": true
     }
   },
   {
@@ -327,7 +327,7 @@
     ],
     "model_constraint": {
       "model_name": "Obsessionist",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -348,7 +348,7 @@
     ],
     "model_constraint": {
       "model_name": "Tormentor",
-      "per_n_models": 5
+      "max_count": 1
     }
   },
   {
@@ -395,7 +395,7 @@
     ],
     "model_constraint": {
       "model_name": "Obsessionist",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -430,7 +430,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -456,7 +456,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -476,7 +476,7 @@
       "baleflamer"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -497,7 +497,7 @@
     ],
     "model_constraint": {
       "model_name": "Obsessionist",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -518,7 +518,7 @@
     ],
     "model_constraint": {
       "model_name": "Infractor",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -539,7 +539,7 @@
     ],
     "model_constraint": {
       "model_name": "Obsessionist",
-      "any_number": true
+      "max_count": 1
     }
   },
   {

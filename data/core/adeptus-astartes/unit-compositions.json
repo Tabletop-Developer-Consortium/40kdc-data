@@ -930,7 +930,11 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 32
-        }
+        },
+        "default_weapon_ids": [
+          "heavy-bolt-pistol",
+          "astartes-chainsword"
+        ]
       }
     ],
     "game_version": {
@@ -1145,7 +1149,12 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 32
-        }
+        },
+        "default_weapon_ids": [
+          "bolt-pistol",
+          "bolt-rifle",
+          "close-combat-weapon"
+        ]
       }
     ],
     "game_version": {
@@ -1298,7 +1307,11 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 32
-        }
+        },
+        "default_weapon_ids": [
+          "heavy-bolt-pistol",
+          "astartes-chainsword"
+        ]
       }
     ],
     "game_version": {
@@ -2224,7 +2237,7 @@
         "max": 9,
         "default_weapon_ids": [
           "boltgun",
-          "close-combat-weapon"
+          "power-weapon"
         ],
         "is_leader_model": false,
         "base_size_mm": {
@@ -3594,7 +3607,11 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 80
-        }
+        },
+        "default_weapon_ids": [
+          "twin-firestrike-las-talon",
+          "close-combat-weapon"
+        ]
       }
     ],
     "game_version": {
@@ -5429,9 +5446,8 @@
         "min": 1,
         "max": 1,
         "default_weapon_ids": [
-          "storm-shield",
-          "heavy-bolt-pistol",
-          "master-crafted-power-weapon"
+          "bolt-rifle",
+          "close-combat-weapon"
         ],
         "is_leader_model": true
       },
@@ -5441,8 +5457,9 @@
         "min": 1,
         "max": 1,
         "default_weapon_ids": [
-          "close-combat-weapon",
-          "archeotech-laspistol"
+          "heavy-bolt-pistol",
+          "master-crafted-power-weapon",
+          "storm-shield"
         ],
         "is_leader_model": false
       },
@@ -5451,8 +5468,8 @@
         "min": 1,
         "max": 1,
         "default_weapon_ids": [
-          "force-stave",
-          "astropathic-blast"
+          "archeotech-laspistol",
+          "power-weapon"
         ],
         "is_leader_model": false
       },
@@ -5461,8 +5478,8 @@
         "min": 1,
         "max": 1,
         "default_weapon_ids": [
-          "close-combat-weapon",
-          "bolt-rifle"
+          "archeotech-laspistol",
+          "power-weapon"
         ],
         "is_leader_model": false
       },
@@ -5471,8 +5488,8 @@
         "min": 1,
         "max": 1,
         "default_weapon_ids": [
-          "power-weapon",
-          "archeotech-laspistol"
+          "astropathic-blast",
+          "force-stave"
         ],
         "is_leader_model": false
       },
@@ -5482,7 +5499,7 @@
         "max": 1,
         "default_weapon_ids": [
           "archeotech-laspistol",
-          "power-weapon"
+          "close-combat-weapon"
         ],
         "is_leader_model": false
       }

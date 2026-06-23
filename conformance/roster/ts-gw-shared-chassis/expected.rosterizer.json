@@ -1,0 +1,85 @@
+{
+  "slug": "",
+  "key": "",
+  "visible": "hidden",
+  "locked": false,
+  "rulebook": {
+    "name": "40kdc",
+    "game": "Warhammer 40,000",
+    "publisher": "Alpaca Software",
+    "url": "https://40kdc.dev",
+    "genre": "wargame"
+  },
+  "snapshot": {
+    "item": "Roster§Roster",
+    "name": "Imported roster",
+    "quantity": 1,
+    "stats": {
+      "Points": {
+        "value": 310
+      }
+    },
+    "assets": {
+      "included": [
+        {
+          "item": "Faction§Thousand Sons",
+          "name": "Thousand Sons",
+          "quantity": 1
+        },
+        {
+          "item": "Detachment§Changehost Of Deceit",
+          "name": "Changehost Of Deceit",
+          "quantity": 1
+        },
+        {
+          "item": "Unit§Thousand Sons Rhino",
+          "name": "Thousand Sons Rhino",
+          "quantity": 1,
+          "stats": {
+            "Points": {
+              "value": 90
+            }
+          },
+          "assets": {
+            "included": [
+              {
+                "item": "Weapon§Armoured tracks",
+                "name": "Armoured tracks",
+                "quantity": 1
+              },
+              {
+                "item": "Weapon§Inferno combi-bolter",
+                "name": "Inferno combi-bolter",
+                "quantity": 1
+              }
+            ]
+          }
+        },
+        {
+          "item": "Unit§Thousand Sons Land Raider",
+          "name": "Thousand Sons Land Raider",
+          "quantity": 1,
+          "stats": {
+            "Points": {
+              "value": 220
+            }
+          },
+          "assets": {
+            "included": [
+              {
+                "item": "Weapon§Armoured tracks",
+                "name": "Armoured tracks",
+                "quantity": 1
+              },
+              {
+                "item": "Weapon§Inferno combi-bolter",
+                "name": "Inferno combi-bolter",
+                "quantity": 1
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

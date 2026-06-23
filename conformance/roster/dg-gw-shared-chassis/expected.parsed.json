@@ -1,0 +1,49 @@
+{
+  "name": "Imported roster",
+  "generated_by": null,
+  "faction_raw_name": "Death Guard",
+  "detachment_raw_names": [
+    "Virulent Vectorium"
+  ],
+  "battle_size_raw": "Combat Patrol (500 Point limit)",
+  "declared_limit": 165,
+  "total_reported": 165,
+  "total_computed": 165,
+  "units": [
+    {
+      "raw_name": "Death Guard Chaos Spawn",
+      "is_character": false,
+      "model_count": 1,
+      "points": 80,
+      "is_warlord": false,
+      "enhancement_raw_name": null,
+      "enhancement_points": null,
+      "wargear": [
+        {
+          "raw_name": "Hideous mutations",
+          "count": 2
+        }
+      ]
+    },
+    {
+      "raw_name": "Death Guard Rhino",
+      "is_character": false,
+      "model_count": 1,
+      "points": 85,
+      "is_warlord": false,
+      "enhancement_raw_name": null,
+      "enhancement_points": null,
+      "wargear": [
+        {
+          "raw_name": "Armoured tracks",
+          "count": 1
+        },
+        {
+          "raw_name": "Combi-bolter",
+          "count": 1
+        }
+      ]
+    }
+  ],
+  "multi_force": false
+}

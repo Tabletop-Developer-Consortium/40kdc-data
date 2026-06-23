@@ -28,7 +28,7 @@
     ],
     "model_constraint": {
       "model_name": "Tyranid Prime",
-      "per_n_models": 3
+      "max_count": 1
     }
   },
   {
@@ -60,7 +60,7 @@
     ],
     "model_constraint": {
       "model_name": "Tyranid Warrior",
-      "per_n_models": 3
+      "any_number": true
     }
   },
   {
@@ -88,7 +88,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -133,7 +133,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -154,7 +154,7 @@
       "twin-heavy-venom-cannon"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -252,7 +252,7 @@
       "massive-crushing-claws"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -273,7 +273,7 @@
       "spine-banks"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -294,7 +294,7 @@
       "bio-plasma"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -328,7 +328,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -396,7 +396,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -424,7 +424,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -451,7 +451,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -475,7 +475,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   }
 ]

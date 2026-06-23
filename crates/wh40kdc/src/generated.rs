@@ -14552,6 +14552,14 @@ pub struct TerrainTemplateUpperFloor {
 ///        "$ref": "#/$defs/entity-id"
 ///      }
 ///    },
+///    "aliases": {
+///      "description": "Alternate names this unit is known by (e.g. spelling variants in other tools' roster exports). Consulted by name lookup so an import matches despite a spelling difference; never displayed.",
+///      "type": "array",
+///      "items": {
+///        "type": "string",
+///        "minLength": 1
+///      }
+///    },
 ///    "allied_points": {
 ///      "description": "11e: alternate point costs that apply only when this unit is included in a host army of another faction (e.g. an Agents of the Imperium unit allied into any IMPERIUM army). Each entry mirrors a `points` tier but is scoped to a `host_faction`. Absent for the common case where the unit costs the same everywhere; consumers that don't model allied pricing read `points` (the native cost) and ignore this.",
 ///      "type": "array",
@@ -14870,6 +14878,9 @@ pub struct TerrainTemplateUpperFloor {
 pub struct Unit {
     #[serde(default, skip_serializing_if = "::std::vec::Vec::is_empty")]
     pub ability_ids: ::std::vec::Vec<EntityId>,
+    ///Alternate names this unit is known by (e.g. spelling variants in other tools' roster exports). Consulted by name lookup so an import matches despite a spelling difference; never displayed.
+    #[serde(default, skip_serializing_if = "::std::vec::Vec::is_empty")]
+    pub aliases: ::std::vec::Vec<UnitAliasesItem>,
     ///11e: alternate point costs that apply only when this unit is included in a host army of another faction (e.g. an Agents of the Imperium unit allied into any IMPERIUM army). Each entry mirrors a `points` tier but is scoped to a `host_faction`. Absent for the common case where the unit costs the same everywhere; consumers that don't model allied pricing read `points` (the native cost) and ignore this.
     #[serde(default, skip_serializing_if = "::std::vec::Vec::is_empty")]
     pub allied_points: ::std::vec::Vec<UnitAlliedPointsItem>,
@@ -14910,6 +14921,78 @@ pub struct Unit {
     pub wargear_budgets: ::std::vec::Vec<UnitWargearBudgetsItem>,
     #[serde(default, skip_serializing_if = "::std::vec::Vec::is_empty")]
     pub weapon_ids: ::std::vec::Vec<EntityId>,
+}
+///`UnitAliasesItem`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "string",
+///  "minLength": 1
+///}
+/// ```
+/// </details>
+#[derive(::serde::Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+#[serde(transparent)]
+pub struct UnitAliasesItem(::std::string::String);
+impl ::std::ops::Deref for UnitAliasesItem {
+    type Target = ::std::string::String;
+    fn deref(&self) -> &::std::string::String {
+        &self.0
+    }
+}
+impl ::std::convert::From<UnitAliasesItem> for ::std::string::String {
+    fn from(value: UnitAliasesItem) -> Self {
+        value.0
+    }
+}
+impl ::std::str::FromStr for UnitAliasesItem {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        if value.chars().count() < 1usize {
+            return Err("shorter than 1 characters".into());
+        }
+        Ok(Self(value.to_string()))
+    }
+}
+impl ::std::convert::TryFrom<&str> for UnitAliasesItem {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for UnitAliasesItem {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for UnitAliasesItem {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl<'de> ::serde::Deserialize<'de> for UnitAliasesItem {
+    fn deserialize<D>(deserializer: D) -> ::std::result::Result<Self, D::Error>
+    where
+        D: ::serde::Deserializer<'de>,
+    {
+        ::std::string::String::deserialize(deserializer)?
+            .parse()
+            .map_err(|e: self::error::ConversionError| {
+                <D::Error as ::serde::de::Error>::custom(e.to_string())
+            })
+    }
 }
 ///`UnitAlliedPointsItem`
 ///

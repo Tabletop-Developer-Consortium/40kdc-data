@@ -185,3 +185,97 @@ describe("resolve (against embedded grey-knights data)", () => {
     expect(r.units.length).toBe(2);
   });
 });
+
+describe("name resolution: faction-prefixed shared chassis and unit aliases", () => {
+  // GW/NewRecruit subfaction exports prefix the faction display name onto the
+  // shared Chaos chassis, sometimes keeping "Chaos" ("Death Guard Chaos Spawn")
+  // and sometimes replacing it ("Death Guard Rhino" ← dataset "Chaos Rhino"). The
+  // resolver tries the name as-is, prefix-stripped, and prefix→"Chaos ", scoped to
+  // the faction. This is a general rule, not per-unit aliases.
+  const factionList = (factionLabel: string, ...unitNames: string[]) => ({
+    name: "Test",
+    generatedBy: "List Forge",
+    roster: {
+      name: "Test",
+      costs: [{ name: "pts", value: 0 }],
+      forces: [
+        {
+          id: "f1",
+          name: "Army Roster",
+          selections: unitNames.map((name, i) => ({
+            id: `u-${i}`,
+            name,
+            type: "unit",
+            number: 1,
+            categories: [{ name: `Faction: ${factionLabel}` }, { name: "Infantry", primary: true }],
+          })),
+        },
+      ],
+    },
+  });
+
+  it("strips a kept-Chaos faction prefix (Death Guard Chaos Spawn → chaos-spawn)", () => {
+    const r = importRoster(factionList("World Eaters", "World Eaters Chaos Spawn"), { dataset: ds });
+    expect(unitByRaw(r, "World Eaters Chaos Spawn")!.ref.id).toBe("chaos-spawn");
+    expect(unitByRaw(r, "World Eaters Chaos Spawn")!.ref.resolved).toBe(true);
+  });
+
+  it("substitutes the faction prefix with 'Chaos ' (World Eaters Rhino → chaos-rhino)", () => {
+    const r = importRoster(factionList("World Eaters", "World Eaters Rhino"), { dataset: ds });
+    expect(unitByRaw(r, "World Eaters Rhino")!.ref.id).toBe("chaos-rhino");
+  });
+
+  it("resolves the shared Rhino for EVERY Chaos cult, under the correct faction", () => {
+    // The Rhino (and Spawn/Land Raider) is shared across all five Chaos cults. Each
+    // cult's prefixed export must resolve to the shared chaos-* id AND land under
+    // that cult's faction_id — so the faction-scoped variant (points/keywords) is
+    // the cult's, not whichever copy registered first. This is the case per-unit
+    // aliases would have missed.
+    const cults: [string, string][] = [
+      ["World Eaters", "world-eaters"],
+      ["Death Guard", "death-guard"],
+      ["Thousand Sons", "thousand-sons"],
+      ["Emperor’s Children", "emperors-children"],
+    ];
+    for (const [label, factionId] of cults) {
+      const r = importRoster(factionList(label, `${label} Rhino`), { dataset: ds });
+      expect(r.faction_id, `${label} faction`).toBe(factionId);
+      const rhino = unitByRaw(r, `${label} Rhino`)!;
+      expect(rhino.ref.id, `${label} rhino id`).toBe("chaos-rhino");
+      expect(rhino.ref.resolved).toBe(true);
+      // The shared id resolves to the cult's own variant (distinct points per cult).
+      expect(ds.units.getInFaction("chaos-rhino", factionId), `${label} variant`).toBeDefined();
+    }
+    // Base CSM export is bare (no faction prefix) and still resolves.
+    const csm = importRoster(factionList("Chaos Space Marines", "Chaos Rhino", "Chaos Land Raider"), {
+      dataset: ds,
+    });
+    expect(csm.faction_id).toBe("chaos-space-marines");
+    expect(unitByRaw(csm, "Chaos Rhino")!.ref.id).toBe("chaos-rhino");
+    expect(unitByRaw(csm, "Chaos Land Raider")!.ref.id).toBe("chaos-land-raider");
+
+    // Mixed shared chassis in one list (kept-"Chaos" + dropped-"Chaos" forms).
+    const dg = importRoster(factionList("Death Guard", "Death Guard Rhino", "Death Guard Chaos Spawn"), {
+      dataset: ds,
+    });
+    expect(unitByRaw(dg, "Death Guard Rhino")!.ref.id).toBe("chaos-rhino");
+    expect(unitByRaw(dg, "Death Guard Chaos Spawn")!.ref.id).toBe("chaos-spawn");
+  });
+
+  it("resolves a trademark spelling variant via the unit's aliases", () => {
+    const r = importRoster(factionList("World Eaters", "Khorne Berserkers"), { dataset: ds });
+    expect(unitByRaw(r, "Khorne Berserkers")!.ref.id).toBe("khorne-berzerkers");
+    expect(r.diagnostics.unresolved_units).toBe(0);
+  });
+
+  it("does not strip a prefix that is not the resolved faction's name", () => {
+    const r = importRoster(factionList("World Eaters", "Chaos Spawn"), { dataset: ds });
+    expect(unitByRaw(r, "Chaos Spawn")!.ref.id).toBe("chaos-spawn");
+  });
+
+  it("still reports a genuinely unknown name as unresolved (no blind fuzzy match)", () => {
+    const r = importRoster(factionList("World Eaters", "World Eaters Khorne Berserkrs"), { dataset: ds });
+    expect(unitByRaw(r, "World Eaters Khorne Berserkrs")!.ref.resolved).toBe(false);
+    expect(r.diagnostics.unresolved_units).toBe(1);
+  });
+});

@@ -15,6 +15,7 @@
  * @packageDocumentation
  */
 import type { Dataset } from "../data/dataset.js";
+import type { UnitView } from "../data/entities.js";
 import { detachmentCapForBattleSize } from "../data/battle-sizes.js";
 import { normalizeName } from "../data/normalize.js";
 import type {
@@ -189,6 +190,41 @@ export function resolve(
   };
 }
 
+/**
+ * The canonical prefix the dataset uses for shared Chaos chassis ("Chaos Rhino",
+ * "Chaos Land Raider", …). GW/NewRecruit subfaction exports substitute the faction
+ * name for it ("Death Guard Rhino"), so swapping it back is one of the candidate
+ * lookups (see {@link unitLookupCandidates}).
+ */
+const CHAOS_CHASSIS_PREFIX = "Chaos ";
+
+/**
+ * Candidate lookup strings for a unit name, in priority order. GW/NewRecruit
+ * exports prefix shared chassis with the faction's display name in two forms:
+ * keeping "Chaos" ("Death Guard Chaos Spawn" → dataset "Chaos Spawn") or replacing
+ * it ("Death Guard Rhino" → dataset "Chaos Rhino"). When `raw_name` starts with the
+ * resolved faction's display name we therefore also try the prefix stripped, and
+ * the prefix replaced with {@link CHAOS_CHASSIS_PREFIX}. The original `raw_name` is
+ * always what gets recorded on the ref — only the lookup is adjusted. This is a
+ * general rule over all 16 shared Chaos chassis × every faction, not per-unit data.
+ */
+function unitLookupCandidates(raw_name: string, faction_id: string | null, ds: Dataset): string[] {
+  const candidates = [raw_name];
+  const factionName = faction_id ? ds.factions.getAny(faction_id)?.name : undefined;
+  if (factionName) {
+    const prefix = `${factionName} `;
+    if (raw_name.length > prefix.length && raw_name.toLowerCase().startsWith(prefix.toLowerCase())) {
+      const rest = raw_name.slice(prefix.length).trimStart();
+      if (rest) {
+        candidates.push(rest);
+        candidates.push(CHAOS_CHASSIS_PREFIX + rest);
+      }
+    }
+  }
+  // De-duplicate while preserving order (e.g. a name that already starts with "Chaos ").
+  return [...new Set(candidates)];
+}
+
 function resolveUnit(
   parsed: ParsedUnit,
   faction_id: string | null,
@@ -196,14 +232,30 @@ function resolveUnit(
   ds: Dataset,
   diag: DiagnosticsBuilder,
 ): RosterUnit {
-  // Prefer a faction-scoped match (the same unit id recurs across factions),
-  // then fall back to a global name lookup.
-  const key = normalizeName(parsed.raw_name);
-  const scoped = faction_id
-    ? ds.units.byFaction(faction_id).find((u) => normalizeName(u.name) === key)
-    : undefined;
-  const all = ds.units.findAll(parsed.raw_name);
-  const hit = scoped ?? all[0];
+  const lookupNames = unitLookupCandidates(parsed.raw_name, faction_id, ds);
+
+  // Prefer a faction-scoped exact match (the same unit id recurs across factions,
+  // and a stripped base name can collide with another faction's unit — e.g.
+  // "Rhino" matches the Space Marine Rhino), matching canonical name or alias.
+  const inFaction = faction_id ? ds.units.byFaction(faction_id) : [];
+  const scopedExact = (q: string) => {
+    const k = normalizeName(q);
+    return inFaction.find(
+      (u) => normalizeName(u.name) === k || (u.raw.aliases ?? []).some((a) => normalizeName(a) === k),
+    );
+  };
+
+  let hit = lookupNames.map(scopedExact).find(Boolean);
+  let all: UnitView[] = [];
+  if (!hit) {
+    // Global fallback (alias-aware via the name index); still prefer the resolved
+    // faction's copy of a shared id over whichever copy registered first.
+    for (const q of lookupNames) {
+      all = ds.units.findAll(q);
+      hit = (faction_id ? all.find((u) => u.raw.faction_id === faction_id) : undefined) ?? all[0];
+      if (hit) break;
+    }
+  }
 
   let ref: ResolvedRef;
   if (hit) {

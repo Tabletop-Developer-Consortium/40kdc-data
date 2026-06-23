@@ -1,0 +1,104 @@
+{
+  "slug": "",
+  "key": "",
+  "visible": "hidden",
+  "locked": false,
+  "rulebook": {
+    "name": "40kdc",
+    "game": "Warhammer 40,000",
+    "publisher": "Alpaca Software",
+    "url": "https://40kdc.dev",
+    "genre": "wargame"
+  },
+  "snapshot": {
+    "item": "Roster§Roster",
+    "name": "Imported roster",
+    "quantity": 1,
+    "stats": {
+      "Points": {
+        "value": 360
+      }
+    },
+    "assets": {
+      "included": [
+        {
+          "item": "Faction§World Eaters",
+          "name": "World Eaters",
+          "quantity": 1
+        },
+        {
+          "item": "Detachment§Berzerker Warband",
+          "name": "Berzerker Warband",
+          "quantity": 1
+        },
+        {
+          "item": "Unit§Khorne Berserkers",
+          "name": "Khorne Berserkers",
+          "quantity": 1,
+          "stats": {
+            "Points": {
+              "value": 180
+            }
+          },
+          "assets": {
+            "included": [
+              {
+                "item": "Weapon§Chainblade",
+                "name": "Chainblade",
+                "quantity": 10
+              },
+              {
+                "item": "Weapon§Bolt pistol",
+                "name": "Bolt pistol",
+                "quantity": 10
+              }
+            ]
+          }
+        },
+        {
+          "item": "Unit§World Eaters Chaos Spawn",
+          "name": "World Eaters Chaos Spawn",
+          "quantity": 1,
+          "stats": {
+            "Points": {
+              "value": 95
+            }
+          },
+          "assets": {
+            "included": [
+              {
+                "item": "Weapon§Hideous mutations",
+                "name": "Hideous mutations",
+                "quantity": 2
+              }
+            ]
+          }
+        },
+        {
+          "item": "Unit§World Eaters Rhino",
+          "name": "World Eaters Rhino",
+          "quantity": 1,
+          "stats": {
+            "Points": {
+              "value": 85
+            }
+          },
+          "assets": {
+            "included": [
+              {
+                "item": "Weapon§Armoured tracks",
+                "name": "Armoured tracks",
+                "quantity": 1
+              },
+              {
+                "item": "Weapon§Combi-bolter",
+                "name": "Combi-bolter",
+                "quantity": 1
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

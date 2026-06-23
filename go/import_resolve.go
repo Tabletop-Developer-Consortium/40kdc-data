@@ -1,5 +1,7 @@
 package wh40kdc
 
+import "strings"
+
 // Resolve a ParsedRoster onto 40kdc entity ids, producing a Roster. Lenient:
 // unmatched names yield resolved:false refs with candidate suggestions. Go
 // mirror of python .../imports/resolve.py.
@@ -242,24 +244,103 @@ func detachmentPointsOrNil(d map[string]any) any {
 	return nil
 }
 
-func resolveUnit(parsed map[string]any, factionID string, detachmentIDs []string, ds *Dataset, diag *diagBuilder) map[string]any {
-	rawName := getStr(parsed, "raw_name")
-	key := NormalizeName(rawName)
-	var scoped *UnitView
+// chaosChassisPrefix is the canonical prefix the dataset uses for shared Chaos
+// chassis ("Chaos Rhino", "Chaos Land Raider", …). GW/NewRecruit subfaction
+// exports substitute the faction name for it ("Death Guard Rhino"), so swapping
+// it back is one of the candidate lookups (see unitLookupCandidates).
+const chaosChassisPrefix = "Chaos "
+
+// unitLookupCandidates returns candidate lookup strings for a unit name, in
+// priority order. GW/NewRecruit exports prefix shared chassis with the faction's
+// display name in two forms: keeping "Chaos" ("Death Guard Chaos Spawn" → dataset
+// "Chaos Spawn") or replacing it ("Death Guard Rhino" → dataset "Chaos Rhino").
+// When rawName starts with the resolved faction's display name we therefore also
+// try the prefix stripped, and the prefix replaced with chaosChassisPrefix. The
+// original rawName is always what gets recorded on the ref — only the lookup is
+// adjusted. This is a general rule over all shared Chaos chassis × every faction,
+// not per-unit data.
+func unitLookupCandidates(rawName, factionID string, ds *Dataset) []string {
+	candidates := []string{rawName}
 	if factionID != "" {
-		for _, u := range ds.Units.ByFaction(factionID) {
-			if NormalizeName(u.Name()) == key {
-				scoped = u
-				break
+		if fac, ok := ds.Factions.Get(factionID); ok {
+			if factionName := fac.Name(); factionName != "" {
+				prefix := factionName + " "
+				if len(rawName) > len(prefix) && strings.HasPrefix(lower(rawName), lower(prefix)) {
+					rest := strings.TrimLeft(rawName[len(prefix):], " \t\n\r\f\v")
+					if rest != "" {
+						candidates = append(candidates, rest, chaosChassisPrefix+rest)
+					}
+				}
 			}
 		}
 	}
-	allHits := ds.Units.FindAll(rawName)
+	// De-duplicate while preserving order (e.g. a name already starting "Chaos ").
+	seen := map[string]struct{}{}
+	out := candidates[:0]
+	for _, c := range candidates {
+		if _, dup := seen[c]; dup {
+			continue
+		}
+		seen[c] = struct{}{}
+		out = append(out, c)
+	}
+	return out
+}
+
+func resolveUnit(parsed map[string]any, factionID string, detachmentIDs []string, ds *Dataset, diag *diagBuilder) map[string]any {
+	rawName := getStr(parsed, "raw_name")
+	lookupNames := unitLookupCandidates(rawName, factionID, ds)
+
+	// Prefer a faction-scoped exact match (the same unit id recurs across factions,
+	// and a stripped base name can collide with another faction's unit — e.g.
+	// "Rhino" matches the Space Marine Rhino), matching canonical name or alias.
+	var inFaction []*UnitView
+	if factionID != "" {
+		inFaction = ds.Units.ByFaction(factionID)
+	}
+	scopedExact := func(q string) *UnitView {
+		k := NormalizeName(q)
+		for _, u := range inFaction {
+			if NormalizeName(u.Name()) == k {
+				return u
+			}
+			for _, a := range getStrList(u.Raw, "aliases") {
+				if NormalizeName(a) == k {
+					return u
+				}
+			}
+		}
+		return nil
+	}
+
 	var hit *UnitView
-	if scoped != nil {
-		hit = scoped
-	} else if len(allHits) > 0 {
-		hit = allHits[0]
+	for _, q := range lookupNames {
+		if hit = scopedExact(q); hit != nil {
+			break
+		}
+	}
+
+	var allHits []*UnitView
+	if hit == nil {
+		// Global fallback (alias-aware via the name index); still prefer the
+		// resolved faction's copy of a shared id over whichever registered first.
+		for _, q := range lookupNames {
+			allHits = ds.Units.FindAll(q)
+			if factionID != "" {
+				for _, u := range allHits {
+					if getStr(u.Raw, "faction_id") == factionID {
+						hit = u
+						break
+					}
+				}
+			}
+			if hit == nil && len(allHits) > 0 {
+				hit = allHits[0]
+			}
+			if hit != nil {
+				break
+			}
+		}
 	}
 
 	var ref map[string]any

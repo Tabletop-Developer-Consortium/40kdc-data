@@ -18,7 +18,7 @@
       "icarus-rocket-pod"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -40,7 +40,7 @@
       "ironhail-heavy-stubber"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -84,7 +84,7 @@
     ],
     "model_constraint": {
       "model_name": "Terminator",
-      "per_n_models": 5
+      "any_number": true
     }
   },
   {
@@ -104,7 +104,7 @@
     ],
     "model_constraint": {
       "model_name": "Terminator",
-      "per_n_models": 5
+      "any_number": true
     }
   },
   {
@@ -130,7 +130,7 @@
     ],
     "model_constraint": {
       "model_name": "Terminator",
-      "per_n_models": 5
+      "any_number": true
     }
   },
   {
@@ -155,7 +155,7 @@
     ],
     "model_constraint": {
       "model_name": "Terminator Sergeant",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -175,7 +175,7 @@
       "combi-weapon"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -200,7 +200,7 @@
       ]
     ],
     "model_constraint": {
-      "per_n_models": 5
+      "per_n_models": 3
     }
   },
   {
@@ -299,7 +299,7 @@
     ],
     "model_constraint": {
       "model_name": "Initiate",
-      "per_n_models": 5
+      "any_number": true
     }
   },
   {
@@ -320,7 +320,7 @@
     ],
     "model_constraint": {
       "model_name": "Sword Brother",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -340,7 +340,7 @@
       "pyre-pistol"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -359,7 +359,7 @@
       "master-crafted-power-weapon"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -388,7 +388,7 @@
     ],
     "model_constraint": {
       "model_name": "Sternguard Veteran Sergeant",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -421,7 +421,7 @@
     ],
     "model_constraint": {
       "model_name": "Sternguard Veteran Sergeant",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -451,7 +451,7 @@
     ],
     "model_constraint": {
       "model_name": "Sternguard Veteran",
-      "per_n_models": 5
+      "any_number": true
     }
   },
   {
@@ -473,7 +473,7 @@
       "multi-melta"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -495,7 +495,7 @@
       "hunter-killer-missile"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -517,7 +517,7 @@
       "storm-bolter"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -537,7 +537,7 @@
       "astartes-chainsword"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -557,7 +557,7 @@
       "heavy-bolt-pistol"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -608,7 +608,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -629,7 +629,7 @@
       "ironhail-heavy-stubber"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -653,7 +653,7 @@
       "icarus-rocket-pod"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -677,7 +677,7 @@
       "heavy-laser-destroyer"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -701,7 +701,7 @@
       "ironhail-heavy-stubber"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -723,7 +723,7 @@
       "ironhail-heavy-stubber"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -745,7 +745,7 @@
       "icarus-rocket-pod"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -768,7 +768,7 @@
       "las-talon"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -791,7 +791,7 @@
       "twin-lascannon"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -813,7 +813,7 @@
       "ironhail-heavy-stubber"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -835,7 +835,7 @@
       "icarus-rocket-pod"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -857,7 +857,7 @@
       "blood-talons"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -879,7 +879,7 @@
       "twin-multi-melta"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -904,7 +904,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -929,7 +929,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -988,7 +988,7 @@
       ]
     ],
     "model_constraint": {
-      "per_n_models": 5
+      "max_count": 1
     }
   },
   {
@@ -1013,7 +1013,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -1033,7 +1033,7 @@
       "inferno-pistol"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -1063,7 +1063,7 @@
       ]
     ],
     "model_constraint": {
-      "per_n_models": 5
+      "max_count": 1
     }
   },
   {
@@ -1093,7 +1093,7 @@
       ]
     ],
     "model_constraint": {
-      "per_n_models": 5
+      "max_count": 1
     }
   },
   {
@@ -1149,7 +1149,7 @@
       "sanguinary-banner"
     ],
     "model_constraint": {
-      "per_n_models": 3
+      "max_count": 1
     }
   },
   {
@@ -1169,7 +1169,7 @@
       "encarmine-spear"
     ],
     "model_constraint": {
-      "per_n_models": 3
+      "any_number": true
     }
   },
   {
@@ -1209,7 +1209,7 @@
       "baal-flamestorm-cannon"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -1229,7 +1229,7 @@
       "hunter-killer-missile"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -1249,7 +1249,7 @@
       "storm-bolter"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -1303,7 +1303,7 @@
       ]
     ],
     "model_constraint": {
-      "per_n_models": 5
+      "any_number": true
     }
   },
   {
@@ -1410,7 +1410,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -1430,7 +1430,7 @@
       "inferno-pistol"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -1450,7 +1450,7 @@
       "assault-cannon"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -1472,7 +1472,7 @@
     ],
     "model_constraint": {
       "model_name": "Ravenwing Huntmaster",
-      "per_n_models": 3
+      "max_count": 1
     }
   },
   {
@@ -1494,7 +1494,7 @@
     ],
     "model_constraint": {
       "model_name": "Ravenwing Black Knight",
-      "per_n_models": 3
+      "any_number": true
     }
   },
   {
@@ -1522,7 +1522,7 @@
     ],
     "model_constraint": {
       "model_name": "Deathwing Terminator",
-      "per_n_models": 5
+      "any_number": true
     }
   },
   {
@@ -1554,7 +1554,7 @@
     ],
     "model_constraint": {
       "model_name": "Deathwing Terminator",
-      "per_n_models": 5
+      "any_number": true
     }
   },
   {
@@ -1580,7 +1580,7 @@
     ],
     "model_constraint": {
       "model_name": "Deathwing Terminator",
-      "per_n_models": 5
+      "any_number": true
     }
   },
   {
@@ -1597,7 +1597,7 @@
     ],
     "model_constraint": {
       "model_name": "Deathwing Terminator",
-      "per_n_models": 5
+      "any_number": true
     }
   },
   {
@@ -1618,7 +1618,7 @@
       "assault-cannon"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -1640,7 +1640,7 @@
       "nephilim-lascannons"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -1660,7 +1660,7 @@
     ],
     "model_constraint": {
       "model_name": "Deathwing Knight",
-      "max_count": 1
+      "any_number": true
     }
   },
   {
@@ -1802,7 +1802,7 @@
       "multi-melta"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -1856,7 +1856,7 @@
     ],
     "model_constraint": {
       "model_name": "Watch Sergeant",
-      "per_n_models": 5
+      "max_count": 1
     }
   },
   {
@@ -1881,7 +1881,7 @@
     ],
     "model_constraint": {
       "model_name": "Watch Sergeant",
-      "per_n_models": 5
+      "max_count": 1
     }
   },
   {
@@ -1906,7 +1906,7 @@
     ],
     "model_constraint": {
       "model_name": "Watch Sergeant",
-      "per_n_models": 5
+      "max_count": 1
     }
   },
   {
@@ -1948,7 +1948,7 @@
     ],
     "model_constraint": {
       "model_name": "Deathwatch Veterans",
-      "per_n_models": 5
+      "any_number": true
     }
   },
   {
@@ -1968,7 +1968,7 @@
     ],
     "model_constraint": {
       "model_name": "Deathwatch Veterans",
-      "per_n_models": 5
+      "any_number": true
     }
   },
   {
@@ -1988,7 +1988,7 @@
     ],
     "model_constraint": {
       "model_name": "Deathwatch Veterans",
-      "per_n_models": 5
+      "any_number": true
     }
   },
   {
@@ -2111,7 +2111,7 @@
     ],
     "model_constraint": {
       "model_name": "Kill Team Sergeant with Jump Pack",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -2136,7 +2136,7 @@
     ],
     "model_constraint": {
       "model_name": "Kill Team Sergeant with Jump Pack",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -2161,7 +2161,7 @@
     ],
     "model_constraint": {
       "model_name": "Kill Team Sergeant with Jump Pack",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -2228,7 +2228,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -2250,7 +2250,7 @@
       "hurricane-bolter"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -2295,7 +2295,7 @@
       "twin-lascannon"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -2320,7 +2320,7 @@
     ],
     "model_constraint": {
       "model_name": "Deathwatch Terminator Sergeant",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -2347,7 +2347,7 @@
     ],
     "model_constraint": {
       "model_name": "Deathwatch Terminator Sergeant",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -2398,7 +2398,7 @@
     ],
     "model_constraint": {
       "model_name": "Deathwatch Terminator",
-      "max_count": 3
+      "any_number": true
     }
   },
   {
@@ -2426,7 +2426,7 @@
     ],
     "model_constraint": {
       "model_name": "Deathwatch Terminator",
-      "max_count": 3
+      "any_number": true
     }
   },
   {
@@ -2459,7 +2459,7 @@
     ],
     "model_constraint": {
       "model_name": "Deathwatch Terminator",
-      "max_count": 3
+      "any_number": true
     }
   },
   {
@@ -2476,7 +2476,7 @@
     ],
     "model_constraint": {
       "model_name": "Deathwatch Terminator",
-      "max_count": 3
+      "any_number": true
     }
   },
   {
@@ -2496,7 +2496,7 @@
     ],
     "model_constraint": {
       "model_name": "Kill Team Intercessor with plasma incinerator",
-      "per_n_models": 5
+      "max_count": 1
     }
   },
   {
@@ -2521,7 +2521,7 @@
     ],
     "model_constraint": {
       "model_name": "Kill Team Intercessor with superfrag rocket launcher",
-      "per_n_models": 5
+      "any_number": true
     }
   },
   {
@@ -2602,7 +2602,7 @@
     ],
     "model_constraint": {
       "model_name": "Kill Team Sergeant",
-      "per_n_models": 5
+      "max_count": 1
     }
   },
   {
@@ -2650,7 +2650,7 @@
     ],
     "model_constraint": {
       "model_name": "Kill Team Sergeant",
-      "per_n_models": 5
+      "max_count": 1
     }
   },
   {
@@ -2682,7 +2682,7 @@
     ],
     "model_constraint": {
       "model_name": "Kill Team Sergeant",
-      "per_n_models": 5
+      "max_count": 1
     }
   },
   {
@@ -2702,7 +2702,7 @@
     ],
     "model_constraint": {
       "model_name": "Kill Team Sergeant",
-      "per_n_models": 5
+      "max_count": 1
     }
   },
   {
@@ -2722,7 +2722,7 @@
     ],
     "model_constraint": {
       "model_name": "Kill Team Intercessor",
-      "per_n_models": 5
+      "any_number": true
     }
   },
   {
@@ -2828,7 +2828,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -2857,7 +2857,7 @@
     ],
     "model_constraint": {
       "model_name": "Assault Intercessor Sergeant",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -2883,7 +2883,7 @@
     ],
     "model_constraint": {
       "model_name": "Assault Intercessor Sergeant",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -2925,7 +2925,7 @@
     ],
     "model_constraint": {
       "model_name": "Inceptor Sergeant",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -2950,7 +2950,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -2980,7 +2980,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -3024,7 +3024,7 @@
       "close-combat-weapon"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -3044,7 +3044,7 @@
       "heavy-flamer"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -3073,7 +3073,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -3115,7 +3115,7 @@
     ],
     "model_constraint": {
       "model_name": "Assault Terminator Sergeant",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -3135,7 +3135,7 @@
       "hunter-killer-missile"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -3182,7 +3182,7 @@
       "storm-bolter"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -3208,7 +3208,7 @@
     ],
     "model_constraint": {
       "model_name": "Bladeguard Veteran Sergeant",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -3247,7 +3247,7 @@
       "relic-fist"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -3266,7 +3266,7 @@
       "combi-weapon"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -3287,7 +3287,7 @@
       "relic-fist"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -3326,7 +3326,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -3350,7 +3350,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -3374,7 +3374,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -3390,7 +3390,7 @@
       "relic-shield"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -3410,7 +3410,7 @@
       "hammerfall-heavy-flamer-array"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -3435,7 +3435,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -3474,7 +3474,7 @@
     ],
     "model_constraint": {
       "model_name": "Devastator",
-      "max_count": 4
+      "any_number": true
     }
   },
   {
@@ -3512,7 +3512,7 @@
     ],
     "model_constraint": {
       "model_name": "Devastator Sergeant",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -3613,7 +3613,7 @@
     ],
     "model_constraint": {
       "model_name": "Devastator Sergeant",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -3648,7 +3648,7 @@
     ],
     "model_constraint": {
       "model_name": "Devastator Sergeant",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -3675,7 +3675,7 @@
     ],
     "model_constraint": {
       "model_name": "Devastator Centurion Sergeant",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -3719,7 +3719,7 @@
     ],
     "model_constraint": {
       "model_name": "Devastator Centurion Sergeant",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -3768,7 +3768,7 @@
     ],
     "model_constraint": {
       "model_name": "Hellblaster Sergeant",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -3853,7 +3853,7 @@
     ],
     "model_constraint": {
       "model_name": "Scout Sergeant",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -3875,7 +3875,7 @@
       "twin-multi-melta"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -3897,7 +3897,7 @@
       "brutalis-talons"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -3919,7 +3919,7 @@
       "storm-bolter"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -3941,7 +3941,7 @@
       "hunter-killer-missile"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -3963,7 +3963,7 @@
       "multi-melta"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -3994,7 +3994,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -4044,7 +4044,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -4083,7 +4083,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -4107,7 +4107,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -4134,7 +4134,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -4161,7 +4161,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -4180,7 +4180,7 @@
       "heavy-bolt-pistol"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -4209,7 +4209,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -4229,7 +4229,7 @@
       "hunter-killer-missile"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -4249,7 +4249,7 @@
       "storm-bolter"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -4269,7 +4269,7 @@
       "twin-lascannon"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -4296,7 +4296,7 @@
     ],
     "model_constraint": {
       "model_name": "Eliminator Sergeant",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -4341,7 +4341,7 @@
     ],
     "model_constraint": {
       "model_name": "Invader ATV",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -4392,7 +4392,7 @@
     ],
     "model_constraint": {
       "model_name": "Desolation Sergeant",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -4436,7 +4436,7 @@
     ],
     "model_constraint": {
       "model_name": "Assault Centurion Sergeant",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -4456,7 +4456,7 @@
       "hunter-killer-missile"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -4476,7 +4476,7 @@
       "storm-bolter"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -4688,7 +4688,7 @@
     ],
     "model_constraint": {
       "model_name": "Tactical Sergeant",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -4726,7 +4726,7 @@
     ],
     "model_constraint": {
       "model_name": "Tactical Sergeant",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -4764,7 +4764,7 @@
     ],
     "model_constraint": {
       "model_name": "Tactical Sergeant",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -4784,7 +4784,7 @@
       "storm-bolter"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -4804,7 +4804,7 @@
       "hunter-killer-missile"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -4826,7 +4826,7 @@
       "icarus-rocket-pod"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -4848,7 +4848,7 @@
       "macro-plasma-incinerator"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -4870,7 +4870,7 @@
       "onslaught-gatling-cannon"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -4892,7 +4892,7 @@
       "twin-storm-bolter"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -4913,7 +4913,7 @@
       "power-weapon"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -4933,7 +4933,7 @@
       "relic-shield"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -4986,7 +4986,7 @@
     ],
     "model_constraint": {
       "model_name": "Assault Intercessor Sergeant with Jump Pack",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -5011,7 +5011,7 @@
     ],
     "model_constraint": {
       "model_name": "Assault Intercessor Sergeant with Jump Pack",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -5036,7 +5036,7 @@
     ],
     "model_constraint": {
       "model_name": "Assault Intercessor Sergeant with Jump Pack",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -5092,7 +5092,7 @@
     ],
     "model_constraint": {
       "model_name": "Vanguard Veteran Sergeant with Jump Pack",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -5171,7 +5171,7 @@
     ],
     "model_constraint": {
       "model_name": "Aggressor Sergeant",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -5198,7 +5198,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -5220,7 +5220,7 @@
       "icarus-stormcannon"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -5269,7 +5269,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -5293,7 +5293,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -5313,7 +5313,7 @@
       "hunter-killer-missile"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -5333,7 +5333,7 @@
       "storm-bolter"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -5388,7 +5388,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -5440,7 +5440,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -5483,7 +5483,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -5500,7 +5500,7 @@
     ],
     "model_constraint": {
       "model_name": "Intercessor",
-      "per_n_models": 5
+      "any_number": true
     }
   },
   {
@@ -5581,7 +5581,7 @@
     ],
     "model_constraint": {
       "model_name": "Intercessor Sergeant",
-      "per_n_models": 5
+      "max_count": 1
     }
   },
   {
@@ -5629,7 +5629,7 @@
     ],
     "model_constraint": {
       "model_name": "Intercessor Sergeant",
-      "per_n_models": 5
+      "max_count": 1
     }
   },
   {
@@ -5661,7 +5661,7 @@
     ],
     "model_constraint": {
       "model_name": "Intercessor Sergeant",
-      "per_n_models": 5
+      "max_count": 1
     }
   },
   {
@@ -5681,7 +5681,7 @@
     ],
     "model_constraint": {
       "model_name": "Intercessor Sergeant",
-      "per_n_models": 5
+      "max_count": 1
     }
   },
   {
@@ -5706,7 +5706,7 @@
       "twin-lascannon"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -5756,7 +5756,7 @@
       "ironhail-heavy-stubber"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -5778,7 +5778,7 @@
       "hunter-killer-missile"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -5800,7 +5800,7 @@
       "multi-melta"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -5822,7 +5822,7 @@
       "storm-bolter"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -5849,7 +5849,7 @@
       "hellstrike-missile-battery"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -5876,7 +5876,7 @@
       "turbo-laser-destructor"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -5896,7 +5896,7 @@
       "hunter-killer-missile"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -5918,7 +5918,7 @@
       "multi-melta"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -6003,7 +6003,7 @@
     ],
     "model_constraint": {
       "model_name": "Reiver Sergeant",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -6045,7 +6045,7 @@
     ],
     "model_constraint": {
       "model_name": "Reiver Sergeant",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -6063,7 +6063,7 @@
     ],
     "model_constraint": {
       "model_name": "Reiver Sergeant",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -6084,7 +6084,7 @@
     ],
     "model_constraint": {
       "model_name": "Reiver Sergeant",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -6107,7 +6107,7 @@
       "twin-ironhail-autocannon"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -6130,7 +6130,7 @@
       "blizzard-shield"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -6149,7 +6149,7 @@
       "heavy-flamer"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -6176,7 +6176,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -6197,7 +6197,7 @@
       "blizzard-shield"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -6221,7 +6221,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -6251,7 +6251,7 @@
     ],
     "model_constraint": {
       "model_name": "Thunderwolf Cavalry Pack Leader",
-      "per_n_models": 3
+      "max_count": 1
     }
   },
   {
@@ -6281,7 +6281,7 @@
     ],
     "model_constraint": {
       "model_name": "Thunderwolf Cavalry",
-      "per_n_models": 3
+      "any_number": true
     }
   },
   {
@@ -6308,7 +6308,7 @@
     ],
     "model_constraint": {
       "model_name": "Grey Hunter Pack Leader",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -6330,7 +6330,7 @@
     ],
     "model_constraint": {
       "model_name": "Grey Hunter Pack Leader",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -6370,7 +6370,7 @@
     ],
     "model_constraint": {
       "model_name": "Blood Claw Pack Leader",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -6392,7 +6392,7 @@
     ],
     "model_constraint": {
       "model_name": "Blood Claw Pack Leader",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -6412,7 +6412,7 @@
     ],
     "model_constraint": {
       "model_name": "Blood Claw Pack Leader",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -6432,7 +6432,7 @@
     ],
     "model_constraint": {
       "model_name": "Wolf Guard Terminator",
-      "per_n_models": 5
+      "any_number": true
     }
   },
   {
@@ -6454,7 +6454,7 @@
     ],
     "model_constraint": {
       "model_name": "Wolf Guard Terminator",
-      "per_n_models": 5
+      "any_number": true
     }
   },
   {
@@ -6480,7 +6480,7 @@
     ],
     "model_constraint": {
       "model_name": "Wolf Guard Terminator Pack Leader",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -6500,7 +6500,7 @@
     ],
     "model_constraint": {
       "model_name": "Wolf Guard Terminator Pack Leader",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -6521,7 +6521,7 @@
       "blizzard-shield"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -6547,7 +6547,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -6566,7 +6566,7 @@
       "heavy-flamer"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -6585,7 +6585,7 @@
       "blizzard-shield"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -6607,7 +6607,7 @@
       "heavy-flamer"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -6652,7 +6652,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -6672,7 +6672,7 @@
       "thunder-hammer"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -6700,7 +6700,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -6742,7 +6742,7 @@
     ],
     "model_constraint": {
       "model_name": "Wolf Scout",
-      "per_n_models": 12
+      "max_count": 1
     }
   },
   {
@@ -6765,7 +6765,7 @@
     ],
     "model_constraint": {
       "model_name": "Wolf Scout",
-      "per_n_models": 12
+      "max_count": 1
     }
   },
   {
@@ -6796,9 +6796,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "model_constraint": {
-      "any_number": true
-    },
     "replaces": [
       "onslaught-gatling-cannon",
       "multi-melta",
@@ -6807,6 +6804,9 @@
     ],
     "replacement": [
       "heavy-flamer"
-    ]
+    ],
+    "model_constraint": {
+      "max_count": 1
+    }
   }
 ]

@@ -2247,6 +2247,14 @@
           "minLength": 1,
           "maxLength": 128
         },
+        "aliases": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "description": "Alternate names this unit is known by (e.g. spelling variants in other tools' roster exports). Consulted by name lookup so an import matches despite a spelling difference; never displayed."
+        },
         "faction_id": {
           "$ref": "#/$defs/entity-id"
         },

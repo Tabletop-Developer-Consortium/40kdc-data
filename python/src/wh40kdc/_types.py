@@ -555,6 +555,7 @@ class TransportCapacity(TypedDict):
 class Unit(TypedDict):
     id: EntityId
     name: str
+    aliases: NotRequired[list[str]]
     faction_id: EntityId
     role: NotRequired[
         Literal[

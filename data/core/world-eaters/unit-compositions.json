@@ -251,7 +251,12 @@
           "shape": "oval",
           "width": 90,
           "length": 52.5
-        }
+        },
+        "default_weapon_ids": [
+          "plasma-pistol",
+          "exalted-chainblade",
+          "bladed-horn"
+        ]
       }
     ],
     "game_version": {
@@ -430,7 +435,11 @@
           "shape": "oval",
           "width": 120,
           "length": 92
-        }
+        },
+        "default_weapon_ids": [
+          "hades-autocannon",
+          "heldrake-claws"
+        ]
       }
     ],
     "game_version": {
@@ -701,7 +710,11 @@
         "base_size_mm": {
           "shape": "hull",
           "draft": true
-        }
+        },
+        "default_weapon_ids": [
+          "combi-bolter",
+          "armoured-tracks"
+        ]
       }
     ],
     "game_version": {

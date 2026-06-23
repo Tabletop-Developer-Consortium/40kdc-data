@@ -958,7 +958,37 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "wargear_budgets": [
+      {
+        "items": [
+          "hexrifle"
+        ],
+        "count": 2,
+        "per_models": 10
+      },
+      {
+        "items": [
+          "stinger-pistol"
+        ],
+        "count": 2,
+        "per_models": 10
+      },
+      {
+        "items": [
+          "liquifier-gun"
+        ],
+        "count": 1,
+        "per_models": 5
+      },
+      {
+        "items": [
+          "ossefactor"
+        ],
+        "count": 1,
+        "per_models": 5
+      }
+    ]
   },
   {
     "id": "haemonculus",
@@ -1567,7 +1597,16 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "wargear_budgets": [
+      {
+        "items": [
+          "incubi-shrine-token"
+        ],
+        "count": 2,
+        "per_models": 10
+      }
+    ]
   },
   {
     "id": "mandrakes",

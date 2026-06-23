@@ -190,7 +190,12 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 32
-        }
+        },
+        "default_weapon_ids": [
+          "pandaemonic-delusion",
+          "inferno-bolt-pistol",
+          "force-weapon"
+        ]
       }
     ],
     "game_version": {
@@ -840,7 +845,13 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 40
-        }
+        },
+        "default_weapon_ids": [
+          "heavy-warpflamer",
+          "hellfyre-missile-rack",
+          "pyreflux-meltagun",
+          "close-combat-weapon"
+        ]
       }
     ],
     "game_version": {
@@ -880,7 +891,12 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 40
-        }
+        },
+        "default_weapon_ids": [
+          "arcane-fire",
+          "inferno-bolt-pistol",
+          "force-weapon"
+        ]
       }
     ],
     "game_version": {

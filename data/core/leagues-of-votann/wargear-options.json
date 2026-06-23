@@ -19,7 +19,7 @@
     ],
     "model_constraint": {
       "model_name": "Hesyr",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -64,7 +64,7 @@
     ],
     "model_constraint": {
       "model_name": "Hesyr",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -114,7 +114,7 @@
     ],
     "model_constraint": {
       "model_name": "Hesyr",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -144,7 +144,7 @@
       ]
     ],
     "model_constraint": {
-      "per_n_models": 3
+      "any_number": true
     }
   },
   {
@@ -182,7 +182,7 @@
       "smoke-launcher"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -204,7 +204,7 @@
     ],
     "model_constraint": {
       "model_name": "Steeljack Theyn",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -276,7 +276,7 @@
       "hekaton-warhead"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -305,7 +305,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -345,7 +345,7 @@
     ],
     "model_constraint": {
       "model_name": "Steeljack Theyn",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -397,7 +397,7 @@
     ],
     "model_constraint": {
       "model_name": "Yaegir Theyn",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -418,7 +418,7 @@
       "darkstar-axe"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -439,7 +439,7 @@
       "teleport-crest"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -577,7 +577,7 @@
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -598,7 +598,7 @@
       "volkanite-disintegrator"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -619,7 +619,7 @@
       "teleport-crest"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -640,7 +640,7 @@
       "mass-gauntlet"
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -663,7 +663,7 @@
     ],
     "model_constraint": {
       "model_name": "Theyn",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -691,7 +691,7 @@
     ],
     "model_constraint": {
       "model_name": "Theyn",
-      "any_number": true
+      "max_count": 1
     }
   },
   {
@@ -733,7 +733,7 @@
     ],
     "model_constraint": {
       "model_name": "Hearthkyn Warrior",
-      "max_count": 2
+      "any_number": true
     }
   }
 ]

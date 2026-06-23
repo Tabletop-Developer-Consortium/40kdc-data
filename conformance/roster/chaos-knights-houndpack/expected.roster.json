@@ -182,6 +182,23 @@
           "count": 3
         }
       ],
+      "loadout_groups": [
+        {
+          "model_name": "Nurglings",
+          "count": 3,
+          "wargear": [
+            {
+              "ref": {
+                "id": "diseased-claws-and-teeth",
+                "raw_name": "Diseased claws and teeth",
+                "resolved": true,
+                "candidates": []
+              },
+              "count": 1
+            }
+          ]
+        }
+      ],
       "leader_attachment": null
     }
   ],

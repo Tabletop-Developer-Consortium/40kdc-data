@@ -20,16 +20,34 @@ from wh40kdc.export.helpers import (
     Roster,
     RosterUnit,
     char_slot_assignment,
+    group_weapons_text,
     title_case_id,
     total_army_points,
 )
 from wh40kdc.export.newrecruit_wtc import (
     _FENCE,
+    full_body_lines,
     wtc_compact_body_lines,
-    wtc_full_body_lines,
+    wtc_model_lines,
 )
 
 _DASH = "—"
+
+
+def _atc_model_lines(u: RosterUnit) -> list[str]:
+    """ATC per-model lines: one bulleted ``• Nx <model-type>: <loadout>`` line per
+    loadout group (the ATC submission style). Units whose loadout doesn't decompose
+    (no ``loadout_groups``) fall back to the shared WTC rendering. Mirror of the TS
+    ``atcModelLines``."""
+    groups = u.get("loadout_groups")
+    if groups:
+        lines = []
+        for i, g in enumerate(groups):
+            name = g["model_name"] or u["ref"]["raw_name"]
+            tag = ", Warlord" if u.get("is_warlord") and i == 0 else ""
+            lines.append(f"• {g['count']}x {name}: {group_weapons_text(g['wargear'])}{tag}")
+        return lines
+    return wtc_model_lines(u)
 
 
 def _header(roster: Roster, units: list[RosterUnit], char_slots: list[int | None]) -> str:
@@ -115,4 +133,6 @@ def serialize_atc_2026_compact(roster: Roster) -> str:
 def serialize_atc_2026_full(roster: Roster) -> str:
     units = roster["units"]
     slots = char_slot_assignment(units)
-    return "\n".join([_header(roster, units, slots), *wtc_full_body_lines(units, slots)])
+    return "\n".join(
+        [_header(roster, units, slots), *full_body_lines(units, slots, _atc_model_lines)]
+    )

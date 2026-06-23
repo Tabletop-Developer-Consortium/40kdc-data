@@ -29,11 +29,28 @@
  * @packageDocumentation
  */
 import type { Roster, RosterUnit } from "../import/types.js";
-import { charSlotAssignment, titleCaseId, totalArmyPoints } from "./helpers.js";
-import { FENCE, wtcCompactBodyLines, wtcFullBodyLines } from "./newrecruit-wtc.js";
+import { charSlotAssignment, groupWeaponsText, titleCaseId, totalArmyPoints } from "./helpers.js";
+import { FENCE, fullBodyLines, wtcCompactBodyLines, wtcModelLines } from "./newrecruit-wtc.js";
 import type { RosterSerializer } from "./serializer.js";
 
 const DASH = "—";
+
+/**
+ * ATC per-model lines: one bulleted `• Nx <model-type>: <loadout>` line per
+ * loadout group (the ATC submission style — model named, count always prefixed).
+ * Units whose loadout doesn't decompose (no `loadout_groups`) fall back to the
+ * shared WTC rendering unchanged.
+ */
+function atcModelLines(u: RosterUnit): string[] {
+  if (u.loadout_groups && u.loadout_groups.length > 0) {
+    return u.loadout_groups.map((g, i) => {
+      const name = g.model_name ?? u.ref.raw_name;
+      const tag = u.is_warlord && i === 0 ? ", Warlord" : "";
+      return `• ${g.count}x ${name}: ${groupWeaponsText(g.wargear)}${tag}`;
+    });
+  }
+  return wtcModelLines(u);
+}
 
 function atcHeader(roster: Roster, units: readonly RosterUnit[], slots: readonly (number | null)[]): string {
   const faction = titleCaseId(roster.faction_id) ?? "Unknown";
@@ -119,6 +136,8 @@ export const atc2026FullSerializer: RosterSerializer = {
   serialize(roster: Roster): string {
     const units = roster.units;
     const slots = charSlotAssignment(units);
-    return [atcHeader(roster, units, slots), ...wtcFullBodyLines(units, slots, roster.faction_id)].join("\n");
+    return [atcHeader(roster, units, slots), ...fullBodyLines(units, slots, roster.faction_id, atcModelLines)].join(
+      "\n",
+    );
   },
 };

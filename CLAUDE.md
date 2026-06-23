@@ -38,6 +38,9 @@ tools/              TypeScript package @alpaca-software/40kdc-data:
                       src/generated.ts     Entity types (codegen'd from schemas)
                       schema-loader/cli    AJV validator + 40kdc-validate CLI
                       docs/api/       Auto-generated API reference (TypeDoc)
+examples/           Demo web apps consuming the package (Svelte 5 + Vite +
+                      Cloudflare). See examples/CLAUDE.md for their shared
+                      conventions before working in any of them.
 ```
 
 ## Schema Conventions
@@ -145,6 +148,17 @@ When editing the corpus or changing behavior that the corpus pins, read the per-
    `tools/src/data/dataset.ts` (+ an export in `tools/src/data/index.ts`).
 9. Run `npm test && npm run validate`.
 
+## Matched-play list validity
+
+A valid matched-play / tournament (e.g. ATC) list is not optional on two fields:
+it MUST have a **Force Disposition** and a **Warlord**. A list missing either is
+invalid, not merely incomplete. The `—` placeholders in the ATC exporter
+(`tools/src/export/atc-2026.ts`) exist only for the player/team *name* fields the
+player fills in after export (the Roster models no name); a `—` rendered for
+disposition or warlord is a **builder bug to surface upstream**, not an acceptable
+output. Don't make the exporter paper over a roster the builder should never have
+let the user save.
+
 ## For Downstream Consumers
 
 Tools can consume this repo via:
@@ -251,6 +265,15 @@ across implementations by the `conformance/share/` corpus.
   leader+support (their support rows are detachment-scoped, which the flat
   `attachment_role` can't model); eligibility is merged by `leader_id` so the dump
   wins where it speaks and hand-curated records survive where it is silent.
+  **Debugging "the dump doesn't have X":** the dump is the *same relational export
+  the GW app renders from*, so it is authoritative AND complete for anything the
+  app can display — if the app shows it, it is in the dump. A field that looks
+  "missing" is almost always present under a non-obvious key that the ingest
+  isn't consuming yet, **not** a gap in the source. The canonical case: wargear
+  selection caps live in `loadout_choice_set.limit` (the MFM checkbox cap fixed in
+  `e14166d4`), not in any field named like a "max." Grep the dump for the value
+  the app shows before concluding anything is absent — never assert a dump gap
+  without a failing `grep` to back it.
 
 ## Ability ids, the raw-text store, and share tokens
 
@@ -328,6 +351,11 @@ upstream. Resync with `git switch main && git fetch upstream && git merge --ff-o
 upstream/main && git push origin main`. After a feature merges upstream, rebase any
 descendant branch with `git rebase --onto main <old-base>` + `--force-with-lease`.
 Commit/stash before switching branches — uncommitted changes follow you across `git switch`.
+Before assuming a clean slate, check the working tree for uncommitted changes from
+a parallel session and **reconcile rather than overwrite** — green, intentional
+work from another change (often committed elsewhere but sitting in this tree) can
+be present, and clobbering it to make your own change apply is a regression. If
+the tree state surprises you, ask before discarding.
 
 ## Versioning
 

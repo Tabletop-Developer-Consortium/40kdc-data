@@ -27,6 +27,7 @@ from wh40kdc.export.helpers import (
     Roster,
     RosterUnit,
     displayed_unit_points,
+    group_weapons_text,
     title_case_id,
     total_army_points,
 )
@@ -61,14 +62,37 @@ def _wargear_text(u: RosterUnit, per_model_divisor: int) -> str:
     return ", ".join(parts)
 
 
+def _lead_tokens(u: RosterUnit) -> list[str]:
+    """Unit-level tokens that lead the first wargear line: enhancement then ``Warlord``."""
+    parts: list[str] = []
+    if u.get("enhancement"):
+        pts_tag = "" if u.get("enhancement_points") is None else f" [{u['enhancement_points']} pts]"
+        parts.append(f"{u['enhancement']['raw_name']}{pts_tag}")
+    if u.get("is_warlord"):
+        parts.append("Warlord")
+    return parts
+
+
 def _unit_text(u: RosterUnit) -> list[str]:
     pts = displayed_unit_points(u)
     pts_text = "" if pts is None else f"{pts} pts"
 
     if u["model_count"] <= 1:
         return [f"{u['ref']['raw_name']} [{pts_text}]: {_wargear_text(u, 1)}"]
-    # Multi-model: homogeneous when every weapon count divides cleanly;
-    # heterogeneous falls back to a single bullet with full counts.
+    # Multi-model with an exact per-model breakdown: one bullet per model-type
+    # group, each named, with the enhancement/Warlord tokens leading the first.
+    groups = u.get("loadout_groups")
+    if groups:
+        lead = _lead_tokens(u)
+        lines = [f"{u['ref']['raw_name']} [{pts_text}]:"]
+        for i, g in enumerate(groups):
+            name = g["model_name"] or u["ref"]["raw_name"]
+            weapons = group_weapons_text(g["wargear"])
+            tokens = [*(lead if i == 0 else []), *([weapons] if weapons else [])]
+            lines.append(f"• {g['count']}x {name}: {', '.join(tokens)}")
+        return lines
+    # No exact breakdown: homogeneous units divide cleanly; otherwise a single
+    # bullet with full counts (the legacy fallback, unit-named).
     divisible = all(w["count"] % u["model_count"] == 0 for w in u["wargear"])
     divisor = u["model_count"] if divisible else 1
     return [

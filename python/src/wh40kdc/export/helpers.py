@@ -47,6 +47,41 @@ def total_army_points(roster: Roster) -> int:
     return total
 
 
+def group_weapons_text(wargear: list[dict[str, Any]]) -> str:
+    """Render a loadout group's per-model weapons, sorted by display name, with
+    ``Nx`` for counts >1. Mirror of the TS ``groupWeaponsText``."""
+    parts = []
+    for w in sorted(wargear, key=lambda x: x["ref"]["raw_name"]):
+        name = w["ref"]["raw_name"]
+        parts.append(f"{w['count']}x {name}" if w["count"] > 1 else name)
+    return ", ".join(parts)
+
+
+def coarsened_loadout_groups(u: RosterUnit) -> list[dict[str, Any]] | None:
+    """Coarsen a unit's fine per-model ``loadout_groups`` by merging groups that
+    share an identical per-model weapon set (dropping the model-type name) — the
+    granularity the WTC ``N with …`` convention wants. Preserves first-seen order.
+    ``None`` when the unit carries no loadout groups. Mirror of the TS
+    ``coarsenedLoadoutGroups``."""
+    groups = u.get("loadout_groups")
+    if not groups:
+        return None
+    index: dict[str, int] = {}
+    out: list[dict[str, Any]] = []
+    for g in groups:
+        key = "|".join(
+            sorted(
+                f"{w['ref'].get('id') or w['ref']['raw_name']}#{w['count']}" for w in g["wargear"]
+            )
+        )
+        if key in index:
+            out[index[key]]["count"] += g["count"]
+        else:
+            index[key] = len(out)
+            out.append({"count": g["count"], "wargear": g["wargear"]})
+    return out
+
+
 def char_slot_assignment(units: list[RosterUnit]) -> list[int | None]:
     """Heuristic re-derivation of which units carry a ``CharN:`` prefix on
     export to a wtc text format.

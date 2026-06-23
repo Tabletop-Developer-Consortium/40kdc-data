@@ -38,9 +38,9 @@ pub mod roster;
 pub use collection::Collection;
 pub use dataset::{Dataset, RawData, ReactiveTrigger};
 pub use loadout::{
-    base_loadout, check_unit_legality, clamp_weapon_count, loadout_models, loadout_tiers,
-    maximal_loadout, option_cap, validate_loadout, Loadout, LoadoutModel, LoadoutTier, Violation,
-    ViolationCode, WeaponBound,
+    base_loadout, check_unit_legality, clamp_weapon_count, group_loadout, loadout_models,
+    loadout_tiers, maximal_loadout, option_cap, validate_loadout, Loadout, LoadoutGroup,
+    LoadoutGroupWeapon, LoadoutModel, LoadoutTier, Violation, ViolationCode, WeaponBound,
 };
 pub use normalize::normalize_name;
 pub use pricing::{base_unit_points, points_tier_missing};

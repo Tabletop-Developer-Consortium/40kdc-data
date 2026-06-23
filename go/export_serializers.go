@@ -1,6 +1,9 @@
 package wh40kdc
 
-import "strings"
+import (
+	"sort"
+	"strings"
+)
 
 // --- newrecruit-json ---
 
@@ -249,11 +252,93 @@ func multiModelWithLine(u map[string]any) string {
 	return "1 with " + wtcWargearListText(u, true)
 }
 
-// wtcFullBodyLines is the full body — section headers plus two-line unit blocks —
-// that follows the summary header. Returned as the lines after the header (the
-// leading "" separator included). Unlike compact, full callers do not append a
-// trailing newline.
-func wtcFullBodyLines(units []any, slots []int) []string {
+// groupWeaponsText renders a loadout group's per-model weapons, sorted by display
+// name, with Nx for counts >1. Mirror of the TS groupWeaponsText.
+func groupWeaponsText(wargear []any) string {
+	type wn struct {
+		name  string
+		count int
+	}
+	items := make([]wn, 0, len(wargear))
+	for _, wAny := range wargear {
+		w := wAny.(map[string]any)
+		items = append(items, wn{getStr(refOf(w), "raw_name"), asInt(w["count"])})
+	}
+	sort.Slice(items, func(i, j int) bool { return items[i].name < items[j].name })
+	parts := make([]string, 0, len(items))
+	for _, it := range items {
+		if it.count > 1 {
+			parts = append(parts, itoa(it.count)+"x "+it.name)
+		} else {
+			parts = append(parts, it.name)
+		}
+	}
+	return strings.Join(parts, ", ")
+}
+
+// coarsenedLoadoutGroups merges a unit's fine loadout groups that share an
+// identical per-model weapon set (dropping the model-type name), preserving
+// first-seen order; nil when the unit has no loadout groups. Mirror of the TS
+// coarsenedLoadoutGroups.
+func coarsenedLoadoutGroups(u map[string]any) []map[string]any {
+	groups := getList(u, "loadout_groups")
+	if len(groups) == 0 {
+		return nil
+	}
+	index := map[string]int{}
+	var out []map[string]any
+	for _, gAny := range groups {
+		g := gAny.(map[string]any)
+		var keys []string
+		for _, wAny := range getList(g, "wargear") {
+			w := wAny.(map[string]any)
+			ref := refOf(w)
+			id, _ := ref["id"].(string)
+			if id == "" {
+				id = getStr(ref, "raw_name")
+			}
+			keys = append(keys, id+"#"+numStr(w["count"]))
+		}
+		sort.Strings(keys)
+		key := strings.Join(keys, "|")
+		if idx, ok := index[key]; ok {
+			out[idx]["count"] = asInt(out[idx]["count"]) + asInt(g["count"])
+		} else {
+			index[key] = len(out)
+			out = append(out, map[string]any{"count": asInt(g["count"]), "wargear": getList(g, "wargear")})
+		}
+	}
+	return out
+}
+
+// wtcModelLines is the per-model "N with <loadout>" line(s) for a unit. A
+// genuinely heterogeneous unit (loadout groups coarsen to more than one distinct
+// per-model loadout) emits one line per loadout; everything else keeps the
+// existing single-line form. Mirror of the TS wtcModelLines.
+func wtcModelLines(u map[string]any) []string {
+	if asInt(u["model_count"]) > 1 {
+		coarse := coarsenedLoadoutGroups(u)
+		if len(coarse) > 1 {
+			lines := make([]string, 0, len(coarse))
+			for i, c := range coarse {
+				tag := ""
+				if u["is_warlord"] == true && i == 0 {
+					tag = ", Warlord"
+				}
+				lines = append(lines, itoa(asInt(c["count"]))+" with "+groupWeaponsText(c["wargear"].([]any))+tag)
+			}
+			return lines
+		}
+		return []string{multiModelWithLine(u)}
+	}
+	return []string{"1 with " + wtcWargearListText(u, true)}
+}
+
+// fullBodyLines is the shared full-body scaffold: the BATTLELINE section, CharN:
+// prefixes, the unit header line, the per-model lines (supplied by modelLines so
+// WTC and ATC 2026 render them differently), and the enhancement line. Mirror of
+// the TS fullBodyLines.
+func fullBodyLines(units []any, slots []int, modelLines func(map[string]any) []string) []string {
 	lines := []string{"", "BATTLELINE", ""}
 	for i, uAny := range units {
 		u := uAny.(map[string]any)
@@ -266,17 +351,18 @@ func wtcFullBodyLines(units []any, slots []int) []string {
 			ptsText = numStr(pts) + " pts"
 		}
 		lines = append(lines, prefix+numStr(u["model_count"])+"x "+getStr(refOf(u), "raw_name")+" ("+ptsText+")")
-		if asInt(u["model_count"]) > 1 {
-			lines = append(lines, multiModelWithLine(u))
-		} else {
-			lines = append(lines, "1 with "+wtcWargearListText(u, true))
-		}
+		lines = append(lines, modelLines(u)...)
 		if _, ok := u["enhancement"].(map[string]any); ok {
 			lines = append(lines, wtcEnhancementLine(u))
 		}
 		lines = append(lines, "")
 	}
 	return lines
+}
+
+// wtcFullBodyLines is the full WTC body: fullBodyLines with WTC per-model rendering.
+func wtcFullBodyLines(units []any, slots []int) []string {
+	return fullBodyLines(units, slots, wtcModelLines)
 }
 
 func serializeWtcFull(roster map[string]any) string {
@@ -419,10 +505,33 @@ func serializeAtc2026Compact(roster map[string]any) string {
 	return strings.Join(lines, "\n") + "\n"
 }
 
+// atcModelLines renders one bulleted "• Nx <model-type>: <loadout>" line per
+// loadout group (the ATC submission style); units whose loadout doesn't decompose
+// fall back to the shared WTC rendering. Mirror of the TS atcModelLines.
+func atcModelLines(u map[string]any) []string {
+	if groups := getList(u, "loadout_groups"); len(groups) > 0 {
+		lines := make([]string, 0, len(groups))
+		for i, gAny := range groups {
+			g := gAny.(map[string]any)
+			name := getStr(refOf(u), "raw_name")
+			if mn, ok := g["model_name"].(string); ok && mn != "" {
+				name = mn
+			}
+			tag := ""
+			if u["is_warlord"] == true && i == 0 {
+				tag = ", Warlord"
+			}
+			lines = append(lines, "• "+itoa(asInt(g["count"]))+"x "+name+": "+groupWeaponsText(getList(g, "wargear"))+tag)
+		}
+		return lines
+	}
+	return wtcModelLines(u)
+}
+
 func serializeAtc2026Full(roster map[string]any) string {
 	units := getList(roster, "units")
 	slots := charSlotAssignment(units)
-	lines := append([]string{atcHeaderText(roster, units, slots)}, wtcFullBodyLines(units, slots)...)
+	lines := append([]string{atcHeaderText(roster, units, slots)}, fullBodyLines(units, slots, atcModelLines)...)
 	return strings.Join(lines, "\n")
 }
 
@@ -456,13 +565,53 @@ func simpleWargearText(u map[string]any, perModelDivisor int) string {
 	return strings.Join(parts, ", ")
 }
 
+// simpleLeadTokens are the unit-level tokens leading the first wargear line:
+// the enhancement then "Warlord".
+func simpleLeadTokens(u map[string]any) []string {
+	var parts []string
+	if enh, ok := u["enhancement"].(map[string]any); ok {
+		ptsTag := ""
+		if u["enhancement_points"] != nil {
+			ptsTag = " [" + numStr(u["enhancement_points"]) + " pts]"
+		}
+		parts = append(parts, getStr(enh, "raw_name")+ptsTag)
+	}
+	if u["is_warlord"] == true {
+		parts = append(parts, "Warlord")
+	}
+	return parts
+}
+
 func simpleUnitText(u map[string]any) []string {
 	ptsText := ""
 	if pts := displayedUnitPoints(u); pts != nil {
 		ptsText = numStr(pts) + " pts"
 	}
+	name := getStr(refOf(u), "raw_name")
 	if asInt(u["model_count"]) <= 1 {
-		return []string{getStr(refOf(u), "raw_name") + " [" + ptsText + "]: " + simpleWargearText(u, 1)}
+		return []string{name + " [" + ptsText + "]: " + simpleWargearText(u, 1)}
+	}
+	// Multi-model with an exact per-model breakdown: one bullet per model-type
+	// group, each named, with the enhancement/Warlord tokens leading the first.
+	if groups := getList(u, "loadout_groups"); len(groups) > 0 {
+		lead := simpleLeadTokens(u)
+		lines := []string{name + " [" + ptsText + "]:"}
+		for i, gAny := range groups {
+			g := gAny.(map[string]any)
+			gName := name
+			if mn, ok := g["model_name"].(string); ok && mn != "" {
+				gName = mn
+			}
+			var tokens []string
+			if i == 0 {
+				tokens = append(tokens, lead...)
+			}
+			if weapons := groupWeaponsText(getList(g, "wargear")); weapons != "" {
+				tokens = append(tokens, weapons)
+			}
+			lines = append(lines, "• "+itoa(asInt(g["count"]))+"x "+gName+": "+strings.Join(tokens, ", "))
+		}
+		return lines
 	}
 	mc := asInt(u["model_count"])
 	divisible := true
@@ -477,8 +626,8 @@ func simpleUnitText(u map[string]any) []string {
 		divisor = mc
 	}
 	return []string{
-		getStr(refOf(u), "raw_name") + " [" + ptsText + "]:",
-		"• " + itoa(mc) + "x " + getStr(refOf(u), "raw_name") + ": " + simpleWargearText(u, divisor),
+		name + " [" + ptsText + "]:",
+		"• " + itoa(mc) + "x " + name + ": " + simpleWargearText(u, divisor),
 	}
 }
 

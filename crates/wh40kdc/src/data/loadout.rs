@@ -396,6 +396,312 @@ pub fn weapon_bounds(
     bounds
 }
 
+/// One weapon line within a [`LoadoutGroup`]: entity id and its count *per model*.
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct LoadoutGroupWeapon {
+    pub id: String,
+    pub count: u64,
+}
+
+/// A set of identically-equipped models within a unit: `count` models of model-type
+/// `model_name`, each carrying `weapons` (counts are *per model*). Produced by
+/// [`group_loadout`] for grouped "Nx <model>: <loadout>" export rendering. Mirror of
+/// the TS `LoadoutGroup`.
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct LoadoutGroup {
+    pub model_name: Option<String>,
+    pub count: u64,
+    pub weapons: Vec<LoadoutGroupWeapon>,
+}
+
+#[derive(Debug, Clone)]
+struct MutGroup {
+    model_name: Option<String>,
+    count: u64,
+    weapons: BTreeMap<String, i64>,
+}
+
+fn to_multiset(ids: &[String]) -> BTreeMap<String, u64> {
+    let mut m: BTreeMap<String, u64> = BTreeMap::new();
+    for id in ids {
+        *m.entry(id.clone()).or_insert(0) += 1;
+    }
+    m
+}
+
+/// Group weapons in a stable, language-agnostic order (by id — `BTreeMap` already
+/// sorts) for cross-impl parity.
+fn sorted_group_weapons(m: &BTreeMap<String, i64>) -> Vec<LoadoutGroupWeapon> {
+    m.iter()
+        .filter(|(_, c)| **c > 0)
+        .map(|(id, c)| LoadoutGroupWeapon {
+            id: id.clone(),
+            count: *c as u64,
+        })
+        .collect()
+}
+
+/// The bundles (added-id sets) an option offers: a fixed `replacement`, else each
+/// `replacement_choice` branch.
+fn option_bundles(option: &WargearOption) -> Vec<Vec<String>> {
+    if !option.replacement.is_empty() {
+        return vec![option.replacement.iter().map(|s| s.to_string()).collect()];
+    }
+    option
+        .replacement_choice
+        .iter()
+        .map(|b| b.iter().map(|s| s.to_string()).collect())
+        .collect()
+}
+
+/// Assign each composition row a model count summing to `model_count`. Rows seed at
+/// `min`; a row with a *distinctive* default weapon (one carried by no other row)
+/// present in `counts` grows toward that weapon's implied count (recovers opt-in
+/// weapon-variant rows at `min: 0`); the leftover budget pours into the bulk row.
+/// Deterministic. Mirror of the TS `assignRowCounts`.
+fn assign_row_counts(
+    models: &[LoadoutModel],
+    model_count: u64,
+    counts: &BTreeMap<String, i64>,
+) -> Vec<u64> {
+    let row_defaults: Vec<BTreeMap<String, u64>> = models
+        .iter()
+        .map(|m| to_multiset(&m.default_weapon_ids))
+        .collect();
+    let mut rows_with: HashMap<String, u64> = HashMap::new();
+    for def in &row_defaults {
+        for id in def.keys() {
+            *rows_with.entry(id.clone()).or_insert(0) += 1;
+        }
+    }
+    let max_of = |i: usize| models[i].max.max(models[i].min);
+
+    let mut out: Vec<u64> = (0..models.len()).map(|i| models[i].min).collect();
+    let sum: u64 = out.iter().sum();
+    let mut budget = model_count.saturating_sub(sum);
+    if sum > model_count {
+        // Σmin exceeds the unit's size: trim from the end, deterministically.
+        let mut over = sum - model_count;
+        for i in (0..out.len()).rev() {
+            if over == 0 {
+                break;
+            }
+            let cut = over.min(out[i]);
+            out[i] -= cut;
+            over -= cut;
+        }
+        budget = 0;
+    }
+
+    let mut distinctive = vec![false; models.len()];
+    for i in 0..models.len() {
+        if budget == 0 {
+            break;
+        }
+        let mut cap = u64::MAX;
+        let mut saw = false;
+        for (id, mult) in &row_defaults[i] {
+            if rows_with.get(id).copied().unwrap_or(0) == 1 && *mult > 0 {
+                let avail = counts.get(id).copied().unwrap_or(0);
+                if avail > 0 {
+                    saw = true;
+                    cap = cap.min(avail as u64 / *mult);
+                }
+            }
+        }
+        if !saw {
+            continue;
+        }
+        distinctive[i] = true;
+        let add = cap.min(max_of(i)).saturating_sub(out[i]).min(budget);
+        out[i] += add;
+        budget -= add;
+    }
+
+    while budget > 0 {
+        let headroom = |i: usize, out: &[u64]| max_of(i).saturating_sub(out[i]);
+        let mut pick: Option<usize> = None;
+        for i in 0..models.len() {
+            if headroom(i, &out) == 0 || models[i].is_leader_model || distinctive[i] {
+                continue;
+            }
+            if pick.map_or(true, |p| headroom(i, &out) > headroom(p, &out)) {
+                pick = Some(i);
+            }
+        }
+        if pick.is_none() {
+            for i in 0..models.len() {
+                if headroom(i, &out) == 0 {
+                    continue;
+                }
+                if pick.map_or(true, |p| headroom(i, &out) > headroom(p, &out)) {
+                    pick = Some(i);
+                }
+            }
+        }
+        let Some(p) = pick else { break };
+        let add = budget.min(headroom(p, &out));
+        out[p] += add;
+        budget -= add;
+    }
+    out
+}
+
+fn group_holds(g: &MutGroup, replaces: &[String]) -> bool {
+    g.count > 0
+        && replaces
+            .iter()
+            .all(|id| g.weapons.get(id).copied().unwrap_or(0) >= 1)
+}
+
+/// The group to peel a swap-variant off: a group of the scoped model-type still
+/// holding every replaced weapon (fall back to any such holder when the scoped name
+/// matches nothing).
+fn find_source(
+    groups: &[MutGroup],
+    scoped_name: Option<&str>,
+    replaces: &[String],
+) -> Option<usize> {
+    if let Some(name) = scoped_name {
+        if let Some(i) = groups
+            .iter()
+            .position(|g| group_holds(g, replaces) && g.model_name.as_deref() == Some(name))
+        {
+            return Some(i);
+        }
+        return groups.iter().position(|g| group_holds(g, replaces));
+    }
+    groups.iter().position(|g| group_holds(g, replaces))
+}
+
+/// Explain leftover weapon counts as option swaps, peeling a variant sub-group off
+/// the base group of the model-type each option is scoped to. Mirror of the TS
+/// `applySwaps`.
+fn apply_swaps(
+    groups: &mut Vec<MutGroup>,
+    models: &[LoadoutModel],
+    options: &[&WargearOption],
+    model_count: u64,
+    remaining: &mut BTreeMap<String, i64>,
+) {
+    for option in options {
+        let cap = option_cap(option, model_count, Some(models)) as i64;
+        if cap <= 0 {
+            continue;
+        }
+        let replaces: Vec<String> = option.replaces.iter().map(|s| s.to_string()).collect();
+        let scoped_name: Option<&str> = option
+            .model_constraint
+            .as_ref()
+            .and_then(|c| c.model_name.as_deref())
+            .map(|s| s.as_str());
+        for bundle in option_bundles(option) {
+            if bundle.is_empty() {
+                continue;
+            }
+            let add_m = to_multiset(&bundle);
+            let mut k = cap;
+            for (id, mult) in &add_m {
+                let avail = remaining.get(id).copied().unwrap_or(0).max(0);
+                k = k.min(avail / *mult as i64);
+            }
+            if k <= 0 {
+                continue;
+            }
+            let Some(idx) = find_source(groups, scoped_name, &replaces) else {
+                continue;
+            };
+            let take = (k as u64).min(groups[idx].count);
+            if take == 0 {
+                continue;
+            }
+            let mut w = groups[idx].weapons.clone();
+            for id in &replaces {
+                *w.entry(id.clone()).or_insert(0) -= 1;
+            }
+            for (id, mult) in &add_m {
+                *w.entry(id.clone()).or_insert(0) += *mult as i64;
+            }
+            w.retain(|_, c| *c > 0);
+            groups[idx].count -= take;
+            let model_name = groups[idx].model_name.clone();
+            groups.push(MutGroup {
+                model_name,
+                count: take,
+                weapons: w,
+            });
+            for (id, mult) in &add_m {
+                *remaining.entry(id.clone()).or_insert(0) -= *mult as i64 * take as i64;
+            }
+            for id in &replaces {
+                *remaining.entry(id.clone()).or_insert(0) += take as i64;
+            }
+        }
+    }
+}
+
+/// Decompose a unit's flat loadout into per-model-type groups, reusing
+/// [`allocate_models`]'s partition and per-model-type option scoping. Returns `None`
+/// when the decomposition is not *exact* (single model, no recorded per-model
+/// defaults, or leftover counts no swap explains) so callers omit `loadout_groups`
+/// and renderers keep their unit-wide rendering. Mirror of the TS `groupLoadout`.
+pub fn group_loadout(
+    unit: &Unit,
+    model_count: u64,
+    options: &[&WargearOption],
+    models: Option<&[LoadoutModel]>,
+    counts: &BTreeMap<String, i64>,
+) -> Option<Vec<LoadoutGroup>> {
+    let _ = unit;
+    if model_count <= 1 || !has_recorded_defaults(models) {
+        return None;
+    }
+    let models = models.expect("has_recorded_defaults implies Some");
+    let mut remaining: BTreeMap<String, i64> = BTreeMap::new();
+    for (id, c) in counts {
+        if *c > 0 {
+            remaining.insert(id.clone(), *c);
+        }
+    }
+    let row_n = assign_row_counts(models, model_count, &remaining);
+    let mut groups: Vec<MutGroup> = Vec::new();
+    for (i, model) in models.iter().enumerate() {
+        let k = row_n[i];
+        if k == 0 {
+            continue;
+        }
+        let def = to_multiset(&model.default_weapon_ids);
+        for (id, c) in &def {
+            *remaining.entry(id.clone()).or_insert(0) -= *c as i64 * k as i64;
+        }
+        let weapons: BTreeMap<String, i64> =
+            def.into_iter().map(|(id, c)| (id, c as i64)).collect();
+        groups.push(MutGroup {
+            model_name: model.name.clone(),
+            count: k,
+            weapons,
+        });
+    }
+    apply_swaps(&mut groups, models, options, model_count, &mut remaining);
+    if remaining.values().any(|c| *c != 0) {
+        return None;
+    }
+    let live: Vec<LoadoutGroup> = groups
+        .into_iter()
+        .filter(|g| g.count > 0)
+        .map(|g| LoadoutGroup {
+            model_name: g.model_name,
+            count: g.count,
+            weapons: sorted_group_weapons(&g.weapons),
+        })
+        .collect();
+    if live.is_empty() {
+        None
+    } else {
+        Some(live)
+    }
+}
+
 /// Clamp a single weapon's requested count into its valid range. Ids with no
 /// bound are returned unchanged (floored at zero).
 pub fn clamp_weapon_count(bounds: &BTreeMap<String, WeaponBound>, id: &str, requested: u64) -> u64 {

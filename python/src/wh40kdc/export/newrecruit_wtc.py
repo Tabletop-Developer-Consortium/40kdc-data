@@ -18,11 +18,15 @@ does not (pinned by the goldens).
 
 from __future__ import annotations
 
+from collections.abc import Callable
+
 from wh40kdc.export.helpers import (
     Roster,
     RosterUnit,
     char_slot_assignment,
+    coarsened_loadout_groups,
     displayed_unit_points,
+    group_weapons_text,
     title_case_id,
     total_army_points,
 )
@@ -139,11 +143,33 @@ def _multi_model_with_line(u: RosterUnit) -> str:
     return f"1 with {_wargear_list_text(u, True)}"
 
 
-def wtc_full_body_lines(units: list[RosterUnit], slots: list[int | None]) -> list[str]:
-    """The full body — section headers plus two-line unit blocks — that follows
-    the summary header. Returned as the lines *after* the header (the leading
-    ``""`` separator included). Unlike compact, full callers do not append a
-    trailing newline.
+def wtc_model_lines(u: RosterUnit) -> list[str]:
+    """The per-model ``N with <loadout>`` line(s) for a unit. A genuinely
+    heterogeneous unit (loadout groups coarsen to more than one distinct per-model
+    loadout) emits one line per loadout; everything else keeps the existing
+    single-line form, so uniform units render byte-identically to before. Mirror of
+    the TS ``wtcModelLines``."""
+    if u["model_count"] > 1:
+        coarse = coarsened_loadout_groups(u)
+        if coarse and len(coarse) > 1:
+            lines = []
+            for i, c in enumerate(coarse):
+                tag = ", Warlord" if u.get("is_warlord") and i == 0 else ""
+                lines.append(f"{c['count']} with {group_weapons_text(c['wargear'])}{tag}")
+            return lines
+        return [_multi_model_with_line(u)]
+    return [f"1 with {_wargear_list_text(u, True)}"]
+
+
+def full_body_lines(
+    units: list[RosterUnit],
+    slots: list[int | None],
+    model_lines: Callable[[RosterUnit], list[str]] = wtc_model_lines,
+) -> list[str]:
+    """The shared full-body scaffold: the ``BATTLELINE`` section, ``CharN:``
+    prefixes, the unit header line, the per-model lines (supplied by ``model_lines``
+    so WTC and ATC 2026 render them differently), and the enhancement line. Mirror
+    of the TS ``fullBodyLines``.
 
     The Roster doesn't tag allied units per-unit (the multi-force fact is a
     diagnostic warning), so this collapses to one BATTLELINE section."""
@@ -153,16 +179,16 @@ def wtc_full_body_lines(units: list[RosterUnit], slots: list[int | None]) -> lis
         pts = displayed_unit_points(u)
         pts_text = "" if pts is None else f"{pts} pts"
         lines.append(f"{prefix}{u['model_count']}x {u['ref']['raw_name']} ({pts_text})")
-
-        if u["model_count"] > 1:
-            lines.append(_multi_model_with_line(u))
-        else:
-            lines.append(f"1 with {_wargear_list_text(u, True)}")
-
+        lines.extend(model_lines(u))
         if u.get("enhancement"):
             lines.append(_enhancement_line(u))
         lines.append("")
     return lines
+
+
+def wtc_full_body_lines(units: list[RosterUnit], slots: list[int | None]) -> list[str]:
+    """The full WTC body: :func:`full_body_lines` with the WTC per-model rendering."""
+    return full_body_lines(units, slots, wtc_model_lines)
 
 
 def serialize_newrecruit_wtc_full(roster: Roster) -> str:

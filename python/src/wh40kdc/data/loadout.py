@@ -237,6 +237,224 @@ def maximal_loadout(
     return {id_: n for id_, n in counts.items() if n != 0}
 
 
+# A loadout group: ``{"model_name": str|None, "count": int, "weapons": [{"id", "count"}]}``.
+# ``weapons[].count`` is per model in the group. Mirror of the TS ``LoadoutGroup``.
+LoadoutGroup = dict[str, Any]
+
+
+def _to_multiset(ids: list[str]) -> dict[str, int]:
+    m: dict[str, int] = {}
+    for id_ in ids:
+        m[id_] = m.get(id_, 0) + 1
+    return m
+
+
+def _sorted_group_weapons(m: dict[str, int]) -> list[dict[str, Any]]:
+    """Group weapons in a stable, language-agnostic order (by id) for cross-impl parity."""
+    return [{"id": id_, "count": c} for id_, c in sorted(m.items()) if c > 0]
+
+
+def _option_bundles(option: WargearOption) -> list[list[str]]:
+    """The bundles (added-id sets) an option offers: a fixed ``replacement``, else
+    each ``replacement_choice`` branch."""
+    if option.get("replacement"):
+        return [list(option["replacement"])]
+    return [list(b) for b in (option.get("replacement_choice") or [])]
+
+
+def _assign_row_counts(
+    models: list[LoadoutModel],
+    model_count: int,
+    counts: dict[str, int],
+) -> list[int]:
+    """Assign each composition row a model count summing to ``model_count``.
+
+    Rows seed at ``min``; a row with a *distinctive* default weapon (one carried by
+    no other row) present in ``counts`` grows toward that weapon's implied count
+    (recovers opt-in weapon-variant rows at ``min: 0``); the leftover budget pours
+    into the bulk row. Deterministic. Mirror of the TS ``assignRowCounts``.
+    """
+    row_defaults = [_to_multiset(m.get("default_weapon_ids") or []) for m in models]
+    rows_with: dict[str, int] = {}
+    for def_ in row_defaults:
+        for id_ in def_:
+            rows_with[id_] = rows_with.get(id_, 0) + 1
+
+    def min_of(i: int) -> int:
+        return max(0, models[i].get("min") or 0)
+
+    def max_of(i: int) -> int:
+        return max(min_of(i), models[i].get("max") or min_of(i))
+
+    out = [min_of(i) for i in range(len(models))]
+    total = sum(out)
+    budget = max(0, model_count - total)
+    if total > model_count:
+        over = total - model_count
+        for i in range(len(out) - 1, -1, -1):
+            if over == 0:
+                break
+            cut = min(over, out[i])
+            out[i] -= cut
+            over -= cut
+        budget = 0
+
+    distinctive = [False] * len(models)
+    for i in range(len(models)):
+        if budget == 0:
+            break
+        cap: int | None = None
+        saw = False
+        for id_, mult in row_defaults[i].items():
+            if rows_with.get(id_, 0) == 1 and mult > 0 and counts.get(id_, 0) > 0:
+                saw = True
+                v = counts[id_] // mult
+                cap = v if cap is None else min(cap, v)
+        if not saw or cap is None:
+            continue
+        distinctive[i] = True
+        add = max(0, min(min(cap, max_of(i)) - out[i], budget))
+        out[i] += add
+        budget -= add
+
+    def headroom(i: int) -> int:
+        return max_of(i) - out[i]
+
+    while budget > 0:
+        pick: int | None = None
+        for i in range(len(models)):
+            if headroom(i) <= 0 or models[i].get("is_leader_model") or distinctive[i]:
+                continue
+            if pick is None or headroom(i) > headroom(pick):
+                pick = i
+        if pick is None:
+            for i in range(len(models)):
+                if headroom(i) <= 0:
+                    continue
+                if pick is None or headroom(i) > headroom(pick):
+                    pick = i
+        if pick is None:
+            break
+        add = min(budget, headroom(pick))
+        out[pick] += add
+        budget -= add
+    return out
+
+
+def _group_holds(group: dict[str, Any], replaces: list[str]) -> bool:
+    return group["count"] > 0 and all(group["weapons"].get(id_, 0) >= 1 for id_ in replaces)
+
+
+def _find_source(
+    groups: list[dict[str, Any]],
+    scoped_name: str | None,
+    replaces: list[str],
+) -> int | None:
+    if scoped_name is not None:
+        for i, g in enumerate(groups):
+            if _group_holds(g, replaces) and g["model_name"] == scoped_name:
+                return i
+        for i, g in enumerate(groups):
+            if _group_holds(g, replaces):
+                return i
+        return None
+    for i, g in enumerate(groups):
+        if _group_holds(g, replaces):
+            return i
+    return None
+
+
+def _apply_swaps(
+    groups: list[dict[str, Any]],
+    models: list[LoadoutModel],
+    options: list[WargearOption],
+    model_count: int,
+    remaining: dict[str, int],
+) -> None:
+    """Explain leftover weapon counts as option swaps, peeling a variant sub-group
+    off the base group of the model-type each option is scoped to. Mirror of the TS
+    ``applySwaps``."""
+    for option in options:
+        cap = option_cap(option, model_count, models)
+        if cap <= 0:
+            continue
+        replaces = list(option.get("replaces") or [])
+        c = option.get("model_constraint")
+        scoped_name = c.get("model_name") if c else None
+        for bundle in _option_bundles(option):
+            if not bundle:
+                continue
+            add_m = _to_multiset(bundle)
+            k = cap
+            for id_, mult in add_m.items():
+                k = min(k, max(0, remaining.get(id_, 0)) // mult)
+            if k <= 0:
+                continue
+            idx = _find_source(groups, scoped_name, replaces)
+            if idx is None:
+                continue
+            take = min(k, groups[idx]["count"])
+            if take <= 0:
+                continue
+            w = dict(groups[idx]["weapons"])
+            for id_ in replaces:
+                w[id_] = w.get(id_, 0) - 1
+            for id_, mult in add_m.items():
+                w[id_] = w.get(id_, 0) + mult
+            w = {id_: n for id_, n in w.items() if n > 0}
+            groups[idx]["count"] -= take
+            groups.append({"model_name": groups[idx]["model_name"], "count": take, "weapons": w})
+            for id_, mult in add_m.items():
+                remaining[id_] = remaining.get(id_, 0) - mult * take
+            for id_ in replaces:
+                remaining[id_] = remaining.get(id_, 0) + take
+
+
+def group_loadout(
+    unit: Unit,
+    model_count: int,
+    options: list[WargearOption],
+    models: list[LoadoutModel] | None,
+    counts: dict[str, int],
+) -> list[LoadoutGroup] | None:
+    """Decompose a unit's flat loadout into per-model-type groups, reusing
+    :func:`_allocate_models`'s partition and per-model-type option scoping.
+
+    Returns ``None`` when the decomposition is not *exact* (single model, no
+    recorded per-model defaults, or leftover counts no swap explains) so callers
+    omit ``loadout_groups`` and renderers keep their unit-wide rendering. Mirror of
+    the TS ``groupLoadout``.
+    """
+    if model_count <= 1 or not _has_recorded_defaults(models):
+        return None
+    assert models is not None
+    remaining = {id_: c for id_, c in counts.items() if c > 0}
+    row_n = _assign_row_counts(models, model_count, remaining)
+    groups: list[dict[str, Any]] = []
+    for i, model in enumerate(models):
+        k = row_n[i]
+        if k == 0:
+            continue
+        def_ = _to_multiset(model.get("default_weapon_ids") or [])
+        for id_, c in def_.items():
+            remaining[id_] = remaining.get(id_, 0) - c * k
+        groups.append({"model_name": model.get("name"), "count": k, "weapons": dict(def_)})
+    _apply_swaps(groups, models, options, model_count, remaining)
+    if any(n != 0 for n in remaining.values()):
+        return None
+    live = [g for g in groups if g["count"] > 0]
+    if not live:
+        return None
+    return [
+        {
+            "model_name": g["model_name"],
+            "count": g["count"],
+            "weapons": _sorted_group_weapons(g["weapons"]),
+        }
+        for g in live
+    ]
+
+
 def _clamp_flat_budgets(unit: Unit, counts: dict[str, int]) -> None:
     """Cap each weapon's count by any single-weapon flat ``wargear_budgets`` entry.
 

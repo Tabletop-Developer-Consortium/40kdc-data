@@ -17,9 +17,39 @@ use std::collections::HashMap;
 
 use crate::import::{AttachmentRole, Roster, RosterUnit};
 
-use super::helpers::{char_slot_assignment, title_case_id, total_army_points};
-use super::newrecruit_wtc::{wtc_compact_body_lines, wtc_full_body_lines, FENCE};
+use super::helpers::{char_slot_assignment, group_weapons_text, title_case_id, total_army_points};
+use super::newrecruit_wtc::{full_body_lines, wtc_compact_body_lines, wtc_model_lines, FENCE};
 use super::{ExportFormat, RosterSerializer};
+
+/// ATC per-model lines: one bulleted `• Nx <model-type>: <loadout>` line per loadout
+/// group (the ATC submission style). Units whose loadout doesn't decompose (no
+/// `loadout_groups`) fall back to the shared WTC rendering. Mirror of TS `atcModelLines`.
+fn atc_model_lines(u: &RosterUnit) -> Vec<String> {
+    if let Some(groups) = u.loadout_groups.as_ref() {
+        if !groups.is_empty() {
+            return groups
+                .iter()
+                .enumerate()
+                .map(|(i, g)| {
+                    let name = g.model_name.as_deref().unwrap_or(&u.ref_.raw_name);
+                    let tag = if u.is_warlord && i == 0 {
+                        ", Warlord"
+                    } else {
+                        ""
+                    };
+                    format!(
+                        "• {}x {}: {}{}",
+                        g.count,
+                        name,
+                        group_weapons_text(&g.wargear),
+                        tag
+                    )
+                })
+                .collect();
+        }
+    }
+    wtc_model_lines(u)
+}
 
 const DASH: &str = "—";
 
@@ -173,10 +203,11 @@ impl RosterSerializer for Atc2026FullSerializer {
         let units = &roster.units;
         let slots = char_slot_assignment(units);
         let mut lines: Vec<String> = vec![atc_header(roster, units, &slots)];
-        lines.extend(wtc_full_body_lines(
+        lines.extend(full_body_lines(
             units,
             &slots,
             roster.faction_id.as_deref(),
+            atc_model_lines,
         ));
         lines.join("\n")
     }

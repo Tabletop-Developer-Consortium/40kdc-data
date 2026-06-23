@@ -17,6 +17,7 @@
 import type { Dataset } from "../data/dataset.js";
 import type { UnitView } from "../data/entities.js";
 import { detachmentCapForBattleSize } from "../data/battle-sizes.js";
+import { groupLoadout } from "../data/loadout.js";
 import { normalizeName } from "../data/normalize.js";
 import type {
   BattleSize,
@@ -28,6 +29,7 @@ import type {
   Roster,
   RosterDetachment,
   RosterFormat,
+  RosterLoadoutGroup,
   RosterUnit,
   Warning,
   WarningCode,
@@ -283,6 +285,13 @@ function resolveUnit(
     return { ref: unresolved(w.raw_name, toCandidates(hits)), count: w.count };
   });
 
+  // Reconstruct the per-model-type loadout groups deterministically from the
+  // resolved unit, so a re-export reproduces the same grouped lines the exporter
+  // emits (round-trip), without the text parsers having to understand model-name
+  // labels. Only when the unit and every weapon resolved and the loadout
+  // decomposes exactly (groupLoadout returns null otherwise).
+  const loadout_groups = buildLoadoutGroups(hit, parsed.model_count, wargear, ds);
+
   return {
     ref,
     model_count: parsed.model_count,
@@ -291,8 +300,45 @@ function resolveUnit(
     enhancement,
     enhancement_points,
     wargear,
+    ...(loadout_groups ? { loadout_groups } : {}),
     leader_attachment: null,
   };
+}
+
+/**
+ * Recompute a unit's {@link RosterUnit.loadout_groups} from its resolved wargear via
+ * {@link groupLoadout} — the same maths the exporter uses, so an import→export
+ * round-trip is stable. Returns `undefined` when the unit is unresolved, any weapon
+ * is unresolved (the aggregate would be incomplete), or the loadout doesn't
+ * decompose exactly.
+ */
+function buildLoadoutGroups(
+  hit: UnitView | undefined,
+  modelCount: number,
+  wargear: { ref: ResolvedRef; count: number }[],
+  ds: Dataset,
+): RosterLoadoutGroup[] | undefined {
+  if (!hit) return undefined;
+  const refById = new Map<string, ResolvedRef>();
+  const counts = new Map<string, number>();
+  for (const w of wargear) {
+    if (!w.ref.id) return undefined; // incomplete aggregate → can't group faithfully
+    refById.set(w.ref.id, w.ref);
+    counts.set(w.ref.id, (counts.get(w.ref.id) ?? 0) + w.count);
+  }
+  const groups = groupLoadout(
+    hit.raw,
+    modelCount,
+    ds.wargearOptionsOf(hit.raw),
+    ds.unitCompositionOf(hit.raw)?.models,
+    counts,
+  );
+  if (!groups) return undefined;
+  return groups.map((g) => ({
+    model_name: g.model_name,
+    count: g.count,
+    wargear: g.weapons.map((w) => ({ ref: refById.get(w.id)!, count: w.count })),
+  }));
 }
 
 function resolveEnhancement(

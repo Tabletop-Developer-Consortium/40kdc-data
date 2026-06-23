@@ -18,6 +18,7 @@ from __future__ import annotations
 from typing import Any
 
 from wh40kdc.data.dataset import Dataset
+from wh40kdc.data.loadout import group_loadout
 from wh40kdc.data.normalize import normalize_name
 
 #: The dataset edition/dataslate stamped onto an imported roster.
@@ -334,7 +335,7 @@ def _resolve_unit(
                 {"ref": _unresolved(w["raw_name"], _to_candidates(hits)), "count": w["count"]}
             )
 
-    return {
+    result: dict[str, Any] = {
         "ref": ref,
         "model_count": parsed["model_count"],
         "points": parsed["points"],
@@ -342,8 +343,54 @@ def _resolve_unit(
         "enhancement": enhancement,
         "enhancement_points": enhancement_points,
         "wargear": wargear,
-        "leader_attachment": None,
     }
+    # Reconstruct the per-model-type loadout groups deterministically from the
+    # resolved unit, so a re-export reproduces the same grouped lines the exporter
+    # emits (round-trip), without the text parsers understanding model-name labels.
+    # Omitted (key absent) when it can't decompose exactly, to match the other impls.
+    loadout_groups = _build_loadout_groups(hit, parsed["model_count"], wargear, ds)
+    if loadout_groups is not None:
+        result["loadout_groups"] = loadout_groups
+    result["leader_attachment"] = None
+    return result
+
+
+def _build_loadout_groups(
+    hit: Any,
+    model_count: int,
+    wargear: list[dict[str, Any]],
+    ds: Dataset,
+) -> list[dict[str, Any]] | None:
+    """Recompute a unit's ``loadout_groups`` from its resolved wargear via
+    :func:`group_loadout` — the same maths the exporter uses, so an import→export
+    round-trip is stable. ``None`` when the unit is unresolved, any weapon is
+    unresolved, or the loadout doesn't decompose exactly. Mirror of the TS
+    ``buildLoadoutGroups``.
+    """
+    if hit is None:
+        return None
+    ref_by_id: dict[str, Any] = {}
+    counts: dict[str, int] = {}
+    for w in wargear:
+        wid = w["ref"].get("id")
+        if wid is None:
+            return None
+        ref_by_id[wid] = w["ref"]
+        counts[wid] = counts.get(wid, 0) + w["count"]
+    options = ds.wargear_options_of(hit.raw)
+    comp = ds.unit_composition_of(hit.raw)
+    models = comp.get("models") if comp else None
+    groups = group_loadout(hit.raw, model_count, options, models, counts)
+    if groups is None:
+        return None
+    return [
+        {
+            "model_name": g["model_name"],
+            "count": g["count"],
+            "wargear": [{"ref": ref_by_id[w["id"]], "count": w["count"]} for w in g["weapons"]],
+        }
+        for g in groups
+    ]
 
 
 def _resolve_enhancement(

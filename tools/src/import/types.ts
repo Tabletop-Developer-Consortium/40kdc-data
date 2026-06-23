@@ -65,6 +65,18 @@ export interface RosterWargear {
   count: number;
 }
 
+/**
+ * A set of identically-equipped models within a unit — `count` models of model-type
+ * `model_name`, each carrying `wargear` (counts are *per model*). Summed across a
+ * unit's groups, the weapons equal {@link RosterUnit.wargear}. Present only when the
+ * loadout decomposes exactly; consumers fall back to `wargear` when absent.
+ */
+export interface RosterLoadoutGroup {
+  model_name: string | null;
+  count: number;
+  wargear: RosterWargear[];
+}
+
 /** One detachment on the roster, paired with its resolved DP cost. */
 export interface RosterDetachment {
   ref: ResolvedRef;
@@ -96,6 +108,12 @@ export interface RosterUnit {
   /** Points cost of the enhancement when the source reported one; null otherwise. */
   enhancement_points: number | null;
   wargear: RosterWargear[];
+  /**
+   * Optional per-model-type loadout breakdown for grouped rendering ("Nx <model>:
+   * <loadout>"). Omitted when the loadout doesn't decompose exactly; consumers must
+   * fall back to {@link wargear}.
+   */
+  loadout_groups?: RosterLoadoutGroup[];
   leader_attachment: RosterLeaderAttachment | null;
 }
 

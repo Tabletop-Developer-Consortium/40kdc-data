@@ -15,7 +15,8 @@
 use crate::import::{Roster, RosterUnit};
 
 use super::helpers::{
-    char_slot_assignment, displayed_unit_points, title_case_id, total_army_points,
+    char_slot_assignment, coarsened_loadout_groups, displayed_unit_points, group_weapons_text,
+    title_case_id, total_army_points,
 };
 use super::{ExportFormat, RosterSerializer};
 
@@ -191,6 +192,33 @@ fn multi_model_with_line(u: &RosterUnit) -> String {
     format!("1 with {}", wargear_list_text(u, true))
 }
 
+/// The per-model `N with <loadout>` line(s) for a unit. A genuinely heterogeneous
+/// unit (loadout groups coarsen to more than one distinct per-model loadout) emits
+/// one line per loadout; everything else keeps the existing single-line form, so
+/// uniform units render byte-identically to before. Mirror of TS `wtcModelLines`.
+pub(super) fn wtc_model_lines(u: &RosterUnit) -> Vec<String> {
+    if u.model_count > 1 {
+        if let Some(coarse) = coarsened_loadout_groups(u) {
+            if coarse.len() > 1 {
+                return coarse
+                    .iter()
+                    .enumerate()
+                    .map(|(i, (count, wargear))| {
+                        let tag = if u.is_warlord && i == 0 {
+                            ", Warlord"
+                        } else {
+                            ""
+                        };
+                        format!("{} with {}{}", count, group_weapons_text(wargear), tag)
+                    })
+                    .collect();
+            }
+        }
+        return vec![multi_model_with_line(u)];
+    }
+    vec![format!("1 with {}", wargear_list_text(u, true))]
+}
+
 /// The full body — section headers plus two-line unit blocks — that follows
 /// the summary header. Returned as the lines *after* the header (the leading
 /// empty separator included). Unlike compact, full callers do not append a
@@ -199,6 +227,19 @@ pub(super) fn wtc_full_body_lines(
     units: &[RosterUnit],
     slots: &[Option<u32>],
     faction_id: Option<&str>,
+) -> Vec<String> {
+    full_body_lines(units, slots, faction_id, wtc_model_lines)
+}
+
+/// The shared full-body scaffold: `BATTLELINE`/`ALLIED UNITS` sections, `CharN:`
+/// prefixes, the unit header line, the per-model lines (supplied by `model_lines`
+/// so WTC and ATC 2026 render them differently), and the enhancement line. Mirror
+/// of the TS `fullBodyLines`.
+pub(super) fn full_body_lines(
+    units: &[RosterUnit],
+    slots: &[Option<u32>],
+    faction_id: Option<&str>,
+    model_lines: fn(&RosterUnit) -> Vec<String>,
 ) -> Vec<String> {
     let mut battleline_idxs: Vec<usize> = Vec::new();
     let mut allied_idxs: Vec<usize> = Vec::new();
@@ -228,10 +269,8 @@ pub(super) fn wtc_full_body_lines(
             u.model_count, u.ref_.raw_name
         ));
 
-        if u.model_count > 1 {
-            lines.push(multi_model_with_line(u));
-        } else {
-            lines.push(format!("1 with {}", wargear_list_text(u, true)));
+        for line in model_lines(u) {
+            lines.push(line);
         }
 
         if let Some(enh) = &u.enhancement {

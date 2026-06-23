@@ -82,9 +82,10 @@ pub mod data;
 pub use data::{normalize_name, Collection, Dataset, RawData, ReactiveTrigger};
 
 pub use data::{
-    base_loadout, base_unit_points, check_unit_legality, clamp_weapon_count, loadout_models,
-    loadout_tiers, maximal_loadout, option_cap, points_tier_missing, validate_loadout, Loadout,
-    LoadoutModel, LoadoutTier, Violation, ViolationCode, WeaponBound,
+    base_loadout, base_unit_points, check_unit_legality, clamp_weapon_count, group_loadout,
+    loadout_models, loadout_tiers, maximal_loadout, option_cap, points_tier_missing,
+    validate_loadout, Loadout, LoadoutGroup, LoadoutGroupWeapon, LoadoutModel, LoadoutTier,
+    Violation, ViolationCode, WeaponBound,
 };
 
 // Roster-level legality + affordability primitives (need both the Dataset and

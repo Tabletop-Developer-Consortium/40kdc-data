@@ -1,0 +1,193 @@
+{
+  "name": "Blood for the Blood God",
+  "source": {
+    "format": "newrecruit-json",
+    "generated_by": "https://newrecruit.eu"
+  },
+  "faction_id": "world-eaters",
+  "detachments": [
+    {
+      "ref": {
+        "id": "berzerker-warband",
+        "raw_name": "Berzerker Warband",
+        "resolved": true,
+        "candidates": []
+      },
+      "dp_cost": 3
+    }
+  ],
+  "battle_size": "strike-force",
+  "force_disposition": null,
+  "points": {
+    "declared_limit": 2000,
+    "detachment_cap": 3,
+    "total_reported": 75,
+    "total_computed": 75
+  },
+  "units": [
+    {
+      "ref": {
+        "id": "goremongers",
+        "raw_name": "Goremongers",
+        "resolved": true,
+        "candidates": []
+      },
+      "model_count": 8,
+      "points": 75,
+      "is_warlord": false,
+      "enhancement": null,
+      "enhancement_points": null,
+      "wargear": [
+        {
+          "ref": {
+            "id": "autopistol",
+            "raw_name": "Autopistol",
+            "resolved": true,
+            "candidates": []
+          },
+          "count": 8
+        },
+        {
+          "ref": {
+            "id": "chainblade",
+            "raw_name": "Chainblade",
+            "resolved": true,
+            "candidates": []
+          },
+          "count": 7
+        },
+        {
+          "ref": {
+            "id": "close-combat-weapon",
+            "raw_name": "Close combat weapon",
+            "resolved": true,
+            "candidates": []
+          },
+          "count": 8
+        },
+        {
+          "ref": {
+            "id": "blood-harpoon",
+            "raw_name": "Blood harpoon",
+            "resolved": true,
+            "candidates": []
+          },
+          "count": 1
+        }
+      ],
+      "loadout_groups": [
+        {
+          "model_name": "Blood Herald",
+          "count": 1,
+          "wargear": [
+            {
+              "ref": {
+                "id": "autopistol",
+                "raw_name": "Autopistol",
+                "resolved": true,
+                "candidates": []
+              },
+              "count": 1
+            },
+            {
+              "ref": {
+                "id": "chainblade",
+                "raw_name": "Chainblade",
+                "resolved": true,
+                "candidates": []
+              },
+              "count": 1
+            },
+            {
+              "ref": {
+                "id": "close-combat-weapon",
+                "raw_name": "Close combat weapon",
+                "resolved": true,
+                "candidates": []
+              },
+              "count": 1
+            }
+          ]
+        },
+        {
+          "model_name": "Goremongers",
+          "count": 6,
+          "wargear": [
+            {
+              "ref": {
+                "id": "autopistol",
+                "raw_name": "Autopistol",
+                "resolved": true,
+                "candidates": []
+              },
+              "count": 1
+            },
+            {
+              "ref": {
+                "id": "chainblade",
+                "raw_name": "Chainblade",
+                "resolved": true,
+                "candidates": []
+              },
+              "count": 1
+            },
+            {
+              "ref": {
+                "id": "close-combat-weapon",
+                "raw_name": "Close combat weapon",
+                "resolved": true,
+                "candidates": []
+              },
+              "count": 1
+            }
+          ]
+        },
+        {
+          "model_name": "Goremongers",
+          "count": 1,
+          "wargear": [
+            {
+              "ref": {
+                "id": "autopistol",
+                "raw_name": "Autopistol",
+                "resolved": true,
+                "candidates": []
+              },
+              "count": 1
+            },
+            {
+              "ref": {
+                "id": "blood-harpoon",
+                "raw_name": "Blood harpoon",
+                "resolved": true,
+                "candidates": []
+              },
+              "count": 1
+            },
+            {
+              "ref": {
+                "id": "close-combat-weapon",
+                "raw_name": "Close combat weapon",
+                "resolved": true,
+                "candidates": []
+              },
+              "count": 1
+            }
+          ]
+        }
+      ],
+      "leader_attachment": null
+    }
+  ],
+  "game_version": {
+    "edition": "11th",
+    "dataslate": "pre-launch-provisional"
+  },
+  "diagnostics": {
+    "resolved_units": 1,
+    "unresolved_units": 0,
+    "resolved_weapons": 4,
+    "unresolved_weapons": 0,
+    "warnings": []
+  }
+}

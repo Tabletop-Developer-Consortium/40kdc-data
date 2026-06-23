@@ -258,6 +258,298 @@ func maximalLoadout(unit map[string]any, modelCount int, options []any, models [
 	return counts
 }
 
+func toMultiset(ids []string) map[string]int {
+	m := map[string]int{}
+	for _, id := range ids {
+		m[id]++
+	}
+	return m
+}
+
+// sortedGroupWeapons renders a group's per-model weapons in a stable,
+// language-agnostic order (by id) for cross-impl parity.
+func sortedGroupWeapons(m map[string]int) []any {
+	ids := make([]string, 0, len(m))
+	for id, c := range m {
+		if c > 0 {
+			ids = append(ids, id)
+		}
+	}
+	sort.Strings(ids)
+	out := make([]any, 0, len(ids))
+	for _, id := range ids {
+		out = append(out, map[string]any{"id": id, "count": m[id]})
+	}
+	return out
+}
+
+func optionBundles(option map[string]any) [][]string {
+	if r := getStrList(option, "replacement"); len(r) > 0 {
+		return [][]string{r}
+	}
+	var out [][]string
+	for _, group := range getList(option, "replacement_choice") {
+		out = append(out, toStrList(group))
+	}
+	return out
+}
+
+// assignRowCounts assigns each composition row a model count summing to
+// modelCount. Rows seed at min; a row with a distinctive default weapon (one
+// carried by no other row) present in counts grows toward that weapon's implied
+// count (recovers opt-in weapon-variant rows at min: 0); the leftover budget pours
+// into the bulk row. Deterministic. Mirror of the TS assignRowCounts.
+func assignRowCounts(models []any, modelCount int, counts map[string]int) []int {
+	rowDefaults := make([]map[string]int, len(models))
+	rowsWith := map[string]int{}
+	for i, mAny := range models {
+		m, _ := asMap(mAny)
+		rowDefaults[i] = toMultiset(getStrList(m, "default_weapon_ids"))
+		for id := range rowDefaults[i] {
+			rowsWith[id]++
+		}
+	}
+	modelAt := func(i int) map[string]any { m, _ := asMap(models[i]); return m }
+	minOf := func(i int) int { return maxInt(0, asInt(modelAt(i)["min"])) }
+	maxOf := func(i int) int { return maxInt(minOf(i), asInt(modelAt(i)["max"])) }
+
+	out := make([]int, len(models))
+	total := 0
+	for i := range models {
+		out[i] = minOf(i)
+		total += out[i]
+	}
+	budget := maxInt(0, modelCount-total)
+	if total > modelCount {
+		over := total - modelCount
+		for i := len(out) - 1; i >= 0 && over > 0; i-- {
+			cut := minInt(over, out[i])
+			out[i] -= cut
+			over -= cut
+		}
+		budget = 0
+	}
+
+	distinctive := make([]bool, len(models))
+	for i := range models {
+		if budget == 0 {
+			break
+		}
+		cap := -1
+		saw := false
+		for id, mult := range rowDefaults[i] {
+			if rowsWith[id] == 1 && mult > 0 && counts[id] > 0 {
+				saw = true
+				v := counts[id] / mult
+				if cap < 0 || v < cap {
+					cap = v
+				}
+			}
+		}
+		if !saw {
+			continue
+		}
+		distinctive[i] = true
+		add := maxInt(0, minInt(minInt(cap, maxOf(i))-out[i], budget))
+		out[i] += add
+		budget -= add
+	}
+
+	headroom := func(i int) int { return maxOf(i) - out[i] }
+	for budget > 0 {
+		pick := -1
+		for i := range models {
+			if headroom(i) <= 0 || truthy(modelAt(i)["is_leader_model"]) || distinctive[i] {
+				continue
+			}
+			if pick < 0 || headroom(i) > headroom(pick) {
+				pick = i
+			}
+		}
+		if pick < 0 {
+			for i := range models {
+				if headroom(i) <= 0 {
+					continue
+				}
+				if pick < 0 || headroom(i) > headroom(pick) {
+					pick = i
+				}
+			}
+		}
+		if pick < 0 {
+			break
+		}
+		add := minInt(budget, headroom(pick))
+		out[pick] += add
+		budget -= add
+	}
+	return out
+}
+
+type mutGroup struct {
+	modelName any
+	count     int
+	weapons   map[string]int
+}
+
+func groupHolds(g *mutGroup, replaces []string) bool {
+	if g.count <= 0 {
+		return false
+	}
+	for _, id := range replaces {
+		if g.weapons[id] < 1 {
+			return false
+		}
+	}
+	return true
+}
+
+func findSource(groups []*mutGroup, scopedName any, replaces []string) int {
+	if name, ok := scopedName.(string); ok {
+		for i, g := range groups {
+			if groupHolds(g, replaces) {
+				if gn, _ := g.modelName.(string); gn == name {
+					return i
+				}
+			}
+		}
+		for i, g := range groups {
+			if groupHolds(g, replaces) {
+				return i
+			}
+		}
+		return -1
+	}
+	for i, g := range groups {
+		if groupHolds(g, replaces) {
+			return i
+		}
+	}
+	return -1
+}
+
+// applySwaps explains leftover weapon counts as option swaps, peeling a variant
+// sub-group off the base group of the model-type each option is scoped to. Mirror
+// of the TS applySwaps.
+func applySwaps(groups *[]*mutGroup, models []any, options []any, modelCount int, remaining map[string]int) {
+	for _, oAny := range options {
+		o, _ := asMap(oAny)
+		capN := optionCap(o, modelCount, models)
+		if capN <= 0 {
+			continue
+		}
+		replaces := getStrList(o, "replaces")
+		var scopedName any
+		if c, ok := getMap(o, "model_constraint"); ok {
+			scopedName = c["model_name"]
+		}
+		for _, bundle := range optionBundles(o) {
+			if len(bundle) == 0 {
+				continue
+			}
+			addM := toMultiset(bundle)
+			k := capN
+			for id, mult := range addM {
+				avail := remaining[id]
+				if avail < 0 {
+					avail = 0
+				}
+				k = minInt(k, avail/mult)
+			}
+			if k <= 0 {
+				continue
+			}
+			idx := findSource(*groups, scopedName, replaces)
+			if idx < 0 {
+				continue
+			}
+			take := minInt(k, (*groups)[idx].count)
+			if take <= 0 {
+				continue
+			}
+			w := map[string]int{}
+			for id, c := range (*groups)[idx].weapons {
+				w[id] = c
+			}
+			for _, id := range replaces {
+				w[id]--
+			}
+			for id, mult := range addM {
+				w[id] += mult
+			}
+			for id, c := range w {
+				if c <= 0 {
+					delete(w, id)
+				}
+			}
+			(*groups)[idx].count -= take
+			*groups = append(*groups, &mutGroup{modelName: (*groups)[idx].modelName, count: take, weapons: w})
+			for id, mult := range addM {
+				remaining[id] -= mult * take
+			}
+			for _, id := range replaces {
+				remaining[id] += take
+			}
+		}
+	}
+}
+
+// GroupLoadout decomposes a unit's flat loadout into per-model-type groups,
+// reusing allocateModels's partition and per-model-type option scoping. Returns
+// nil when the decomposition is not exact (single model, no recorded per-model
+// defaults, or leftover counts no swap explains) so callers omit loadout_groups
+// and renderers keep their unit-wide rendering. Mirror of the TS groupLoadout.
+func GroupLoadout(unit map[string]any, modelCount int, options []any, models []any, counts map[string]int) []any {
+	if modelCount <= 1 || !hasRecordedDefaults(models) {
+		return nil
+	}
+	remaining := map[string]int{}
+	for id, c := range counts {
+		if c > 0 {
+			remaining[id] = c
+		}
+	}
+	rowN := assignRowCounts(models, modelCount, remaining)
+	groups := []*mutGroup{}
+	for i, mAny := range models {
+		k := rowN[i]
+		if k == 0 {
+			continue
+		}
+		m, _ := asMap(mAny)
+		def := toMultiset(getStrList(m, "default_weapon_ids"))
+		for id, c := range def {
+			remaining[id] -= c * k
+		}
+		weapons := map[string]int{}
+		for id, c := range def {
+			weapons[id] = c
+		}
+		groups = append(groups, &mutGroup{modelName: m["name"], count: k, weapons: weapons})
+	}
+	applySwaps(&groups, models, options, modelCount, remaining)
+	for _, c := range remaining {
+		if c != 0 {
+			return nil
+		}
+	}
+	out := []any{}
+	for _, g := range groups {
+		if g.count <= 0 {
+			continue
+		}
+		out = append(out, map[string]any{
+			"model_name": g.modelName,
+			"count":      g.count,
+			"weapons":    sortedGroupWeapons(g.weapons),
+		})
+	}
+	if len(out) == 0 {
+		return nil
+	}
+	return out
+}
+
 // clampFlatBudgets caps each weapon's count by any single-weapon flat
 // wargear_budgets entry (a "this model takes at most N of weapon X" line,
 // modelled as items of length 1 with per_models == 0). A weapon reachable

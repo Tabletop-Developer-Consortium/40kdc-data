@@ -17,7 +17,9 @@
 import type { Roster, RosterUnit } from "../import/types.js";
 import {
   charSlotAssignment,
+  coarsenedLoadoutGroups,
   displayedUnitPoints,
+  groupWeaponsText,
   titleCaseId,
   totalArmyPoints,
 } from "./helpers.js";
@@ -142,6 +144,27 @@ function multiModelWithLine(u: RosterUnit): string {
 }
 
 /**
+ * The per-model `N with <loadout>` line(s) for a unit. A genuinely heterogeneous
+ * unit (its loadout groups coarsen to more than one distinct per-model loadout)
+ * emits one line per loadout; everything else keeps the existing single-line form
+ * ({@link multiModelWithLine}'s divide-by-model_count, or the `1 with` fallback),
+ * so uniform units render byte-identically to before.
+ */
+export function wtcModelLines(u: RosterUnit): string[] {
+  if (u.model_count > 1) {
+    const coarse = coarsenedLoadoutGroups(u);
+    if (coarse && coarse.length > 1) {
+      return coarse.map((c, i) => {
+        const tag = u.is_warlord && i === 0 ? ", Warlord" : "";
+        return `${c.count} with ${groupWeaponsText(c.wargear)}${tag}`;
+      });
+    }
+    return [multiModelWithLine(u)];
+  }
+  return [`1 with ${wargearListText(u, true)}`];
+}
+
+/**
  * The full body — section headers plus two-line unit blocks — that follows the
  * summary header. Returned as the lines *after* the header (the leading `""`
  * separator included). Unlike compact, full callers do not append a trailing
@@ -151,6 +174,21 @@ export function wtcFullBodyLines(
   units: readonly RosterUnit[],
   slots: readonly (number | null)[],
   factionId: string | null,
+): string[] {
+  return fullBodyLines(units, slots, factionId, wtcModelLines);
+}
+
+/**
+ * The shared full-body scaffold (summary-less): `BATTLELINE`/`ALLIED UNITS`
+ * sections, `CharN:` prefixes, the unit header line, the per-model lines (supplied
+ * by `modelLines` so WTC and ATC 2026 can render them differently), and the
+ * enhancement line. Returned as the lines *after* the summary header.
+ */
+export function fullBodyLines(
+  units: readonly RosterUnit[],
+  slots: readonly (number | null)[],
+  factionId: string | null,
+  modelLines: (u: RosterUnit) => string[],
 ): string[] {
   const battlelineIdxs: number[] = [];
   const alliedIdxs: number[] = [];
@@ -168,11 +206,7 @@ export function wtcFullBodyLines(
     const ptsText = pts === null ? "" : `${pts} pts`;
     lines.push(`${prefix}${u.model_count}x ${u.ref.raw_name} (${ptsText})`);
 
-    if (u.model_count > 1) {
-      lines.push(multiModelWithLine(u));
-    } else {
-      lines.push(`1 with ${wargearListText(u, true)}`);
-    }
+    lines.push(...modelLines(u));
 
     if (u.enhancement) {
       const enhText =

@@ -9,7 +9,7 @@
 //!
 //! Rust mirror of `tools/src/export/helpers.ts`.
 
-use crate::import::{Roster, RosterUnit};
+use crate::import::{Roster, RosterUnit, RosterWargear};
 
 /// Convert a kebab-case entity id (`"chaos-knights"`) to a Title Case
 /// display name (`"Chaos Knights"`). The round-trip best-effort when the
@@ -75,6 +75,58 @@ pub fn char_slot_assignment(units: &[RosterUnit]) -> Vec<Option<u32>> {
         }
     }
     result
+}
+
+/// Render a loadout group's per-model weapons, sorted by display name, with `Nx`
+/// for counts >1. Mirror of the TS `groupWeaponsText`.
+pub fn group_weapons_text(wargear: &[RosterWargear]) -> String {
+    let mut ws: Vec<&RosterWargear> = wargear.iter().collect();
+    ws.sort_by(|a, b| a.ref_.raw_name.cmp(&b.ref_.raw_name));
+    ws.iter()
+        .map(|w| {
+            if w.count > 1 {
+                format!("{}x {}", w.count, w.ref_.raw_name)
+            } else {
+                w.ref_.raw_name.clone()
+            }
+        })
+        .collect::<Vec<_>>()
+        .join(", ")
+}
+
+/// Coarsen a unit's fine per-model loadout groups by merging groups that share an
+/// identical per-model weapon set (dropping the model-type name) — the granularity
+/// the WTC `N with …` convention wants. Preserves first-seen order. `None` when the
+/// unit carries no loadout groups. Mirror of the TS `coarsenedLoadoutGroups`.
+pub fn coarsened_loadout_groups(u: &RosterUnit) -> Option<Vec<(u64, Vec<RosterWargear>)>> {
+    let groups = u.loadout_groups.as_ref()?;
+    if groups.is_empty() {
+        return None;
+    }
+    let mut index: std::collections::HashMap<String, usize> = std::collections::HashMap::new();
+    let mut out: Vec<(u64, Vec<RosterWargear>)> = Vec::new();
+    for g in groups {
+        let mut key_parts: Vec<String> = g
+            .wargear
+            .iter()
+            .map(|w| {
+                format!(
+                    "{}#{}",
+                    w.ref_.id.as_deref().unwrap_or(&w.ref_.raw_name),
+                    w.count
+                )
+            })
+            .collect();
+        key_parts.sort();
+        let key = key_parts.join("|");
+        if let Some(&idx) = index.get(&key) {
+            out[idx].0 += g.count;
+        } else {
+            index.insert(key, out.len());
+            out.push((g.count, g.wargear.clone()));
+        }
+    }
+    Some(out)
 }
 
 /// Pretty JSON with a trailing newline — matches the repo's 2-space

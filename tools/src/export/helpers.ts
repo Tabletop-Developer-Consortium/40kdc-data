@@ -9,7 +9,7 @@
  *
  * @packageDocumentation
  */
-import type { Roster, RosterUnit } from "../import/types.js";
+import type { Roster, RosterUnit, RosterWargear } from "../import/types.js";
 
 /** Convert a kebab-case entity id ("chaos-knights") to a Title Case display
  * name ("Chaos Knights"). This is the round-trip best-effort when the Roster
@@ -61,6 +61,42 @@ export function charSlotAssignment(units: readonly RosterUnit[]): (number | null
     }
   }
   return result;
+}
+
+/** Render a loadout group's per-model weapons, sorted by display name, with `Nx` for counts >1. */
+export function groupWeaponsText(wargear: readonly RosterWargear[]): string {
+  return [...wargear]
+    .sort((a, b) => a.ref.raw_name.localeCompare(b.ref.raw_name))
+    .map((w) => (w.count > 1 ? `${w.count}x ${w.ref.raw_name}` : w.ref.raw_name))
+    .join(", ");
+}
+
+/**
+ * Coarsen a unit's fine per-model {@link RosterUnit.loadout_groups} by merging
+ * groups that share an identical per-model weapon set (dropping the model-type
+ * name) — the granularity the WTC `N with …` convention wants. Preserves first-seen
+ * order. Returns `null` when the unit carries no loadout groups (caller renders from
+ * the aggregate `wargear` instead).
+ */
+export function coarsenedLoadoutGroups(
+  u: RosterUnit,
+): { count: number; wargear: RosterWargear[] }[] | null {
+  if (!u.loadout_groups || u.loadout_groups.length === 0) return null;
+  const byLoadout = new Map<string, { count: number; wargear: RosterWargear[] }>();
+  const order: string[] = [];
+  for (const g of u.loadout_groups) {
+    const key = [...g.wargear]
+      .map((w) => `${w.ref.id ?? w.ref.raw_name}#${w.count}`)
+      .sort()
+      .join("|");
+    const cur = byLoadout.get(key);
+    if (cur) cur.count += g.count;
+    else {
+      byLoadout.set(key, { count: g.count, wargear: g.wargear });
+      order.push(key);
+    }
+  }
+  return order.map((k) => byLoadout.get(k)!);
 }
 
 /** Pretty JSON with a trailing newline — matches the repo's 2-space convention. */

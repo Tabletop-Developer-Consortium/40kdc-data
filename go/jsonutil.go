@@ -35,13 +35,17 @@ func num(v any) (float64, bool) {
 
 // asInt truncates a JSON number to an int (0 when not a number).
 func asInt(v any) int {
-	if f, ok := v.(float64); ok {
-		return int(f)
-	}
-	// The runner protocol passes numeric args (e.g. modelCount) as strings.
-	if s, ok := v.(string); ok {
-		if n, err := strconv.Atoi(s); err == nil {
-			return n
+	switch n := v.(type) {
+	case float64:
+		return int(n)
+	case int:
+		return n
+	case int64:
+		return int(n)
+	case string:
+		// The runner protocol passes numeric args (e.g. modelCount) as strings.
+		if i, err := strconv.Atoi(n); err == nil {
+			return i
 		}
 	}
 	return 0

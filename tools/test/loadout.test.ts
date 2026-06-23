@@ -9,6 +9,8 @@ import {
   clampWeaponCount,
   validateLoadout,
   checkUnitLegality,
+  baseLoadout,
+  groupLoadout,
   type LoadoutTier,
 } from "../src/data/loadout.js";
 import type { Unit, WargearOption } from "../src/generated.js";
@@ -266,5 +268,88 @@ describe("wargearOptionsOf accessor", () => {
     const bz = dataset.units.get("khorne-berzerkers")!;
     expect(dataset.wargearOptionsOf(bz.raw).length).toBeGreaterThan(0);
     expect(bz.wargearOptions.length).toBe(dataset.wargearOptionsOf(bz.raw).length);
+  });
+});
+
+describe("groupLoadout", () => {
+  const u = (p: Partial<Unit> = {}) => ({ id: "u", ...p } as Unit);
+  const summarize = (gs: ReturnType<typeof groupLoadout>) =>
+    gs?.map((g) => `${g.count}x ${g.model_name}: ${g.weapons.map((w) => `${w.count}:${w.id}`).join(",")}`);
+
+  it("returns null for single-model units and units without recorded per-model defaults", () => {
+    const models = [{ name: "A", min: 1, max: 1, default_weapon_ids: ["x"] }];
+    expect(groupLoadout(u(), 1, [], models, new Map([["x", 1]]))).toBeNull();
+    // model_count 3 but no default_weapon_ids → can't partition → null.
+    expect(groupLoadout(u(), 3, [], [{ name: "A", min: 3, max: 3 }], new Map([["x", 3]]))).toBeNull();
+  });
+
+  it("splits a leader model from the bulk even when loadouts match", () => {
+    const models = [
+      { name: "Champion", min: 1, max: 1, is_leader_model: true, default_weapon_ids: ["bolter", "ccw"] },
+      { name: "Trooper", min: 4, max: 9, default_weapon_ids: ["bolter", "ccw"] },
+    ];
+    const counts = new Map([["bolter", 10], ["ccw", 10]]);
+    expect(summarize(groupLoadout(u(), 10, [], models, counts))).toEqual([
+      "1x Champion: 1:bolter,1:ccw",
+      "9x Trooper: 1:bolter,1:ccw",
+    ]);
+  });
+
+  it("reconstructs an option swap into its own sub-group", () => {
+    const models = [
+      { name: "Herald", min: 1, max: 1, is_leader_model: true, default_weapon_ids: ["pistol", "blade", "ccw"] },
+      { name: "Grunt", min: 7, max: 7, default_weapon_ids: ["pistol", "blade", "ccw"] },
+    ];
+    const options = [
+      opt({ replaces: ["blade"], replacement: ["harpoon"], model_constraint: { model_name: "Grunt", max_count: 1 } }),
+    ];
+    // 8 models, base = 8×{pistol,blade,ccw}; one Grunt swapped blade→harpoon.
+    const counts = new Map([["pistol", 8], ["blade", 7], ["ccw", 8], ["harpoon", 1]]);
+    expect(summarize(groupLoadout(u(), 8, options, models, counts))).toEqual([
+      "1x Herald: 1:blade,1:ccw,1:pistol",
+      "6x Grunt: 1:blade,1:ccw,1:pistol",
+      "1x Grunt: 1:ccw,1:harpoon,1:pistol",
+    ]);
+  });
+
+  it("infers opt-in weapon-variant rows from their distinctive default weapon", () => {
+    const models = [
+      { name: "Sgt", min: 1, max: 1, is_leader_model: true, default_weapon_ids: ["pistol", "rifle", "ccw"] },
+      { name: "Trooper", min: 2, max: 9, default_weapon_ids: ["pistol", "rifle", "ccw"] },
+      { name: "Plasma", min: 0, max: 4, default_weapon_ids: ["pistol", "plasma", "ccw"] },
+    ];
+    // 6 models: counts imply 2 plasma models; the rest fill Sgt(1)+Trooper(3).
+    const counts = new Map([["pistol", 6], ["rifle", 4], ["ccw", 6], ["plasma", 2]]);
+    expect(summarize(groupLoadout(u(), 6, [], models, counts))).toEqual([
+      "1x Sgt: 1:ccw,1:pistol,1:rifle",
+      "3x Trooper: 1:ccw,1:pistol,1:rifle",
+      "2x Plasma: 1:ccw,1:pistol,1:plasma",
+    ]);
+  });
+
+  it("returns null when leftover counts can't be explained (inexact)", () => {
+    const models = [{ name: "A", min: 2, max: 2, default_weapon_ids: ["x"] }];
+    // an unexplained extra weapon → no exact decomposition.
+    expect(groupLoadout(u(), 2, [], models, new Map([["x", 2], ["mystery", 1]]))).toBeNull();
+  });
+
+  it("decomposes real dataset units (Goremongers, Chaos Terminators)", () => {
+    const gore = dataset.units.getInFaction("goremongers", "world-eaters")!.raw;
+    const gOpts = dataset.wargearOptionsOf(gore);
+    const gModels = dataset.unitCompositionOf(gore)?.models;
+    const gCounts = baseLoadout(gore, 8, gOpts, gModels).counts;
+    expect(summarize(groupLoadout(gore, 8, gOpts, gModels, gCounts))).toEqual([
+      "1x Blood Herald: 1:autopistol,1:chainblade,1:close-combat-weapon",
+      "7x Goremongers: 1:autopistol,1:chainblade,1:close-combat-weapon",
+    ]);
+
+    const term = dataset.units.getInFaction("chaos-terminators", "world-eaters")!.raw;
+    const tOpts = dataset.wargearOptionsOf(term);
+    const tModels = dataset.unitCompositionOf(term)?.models;
+    const tCounts = baseLoadout(term, 10, tOpts, tModels).counts;
+    expect(summarize(groupLoadout(term, 10, tOpts, tModels, tCounts))).toEqual([
+      "1x World Eaters Terminator Champion: 1:accursed-weapon,1:combi-bolter",
+      "9x World Eaters Terminator: 1:accursed-weapon,1:combi-bolter",
+    ]);
   });
 });

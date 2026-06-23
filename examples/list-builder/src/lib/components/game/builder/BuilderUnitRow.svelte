@@ -4,6 +4,7 @@ import {
 	unitPoints,
 	unitOrdinals,
 	loadoutSummary,
+	enhancementName,
 	builderViolations,
 	attachedLeaders,
 	type BuilderState,
@@ -24,6 +25,8 @@ const armyFaction = $derived(draft.factionId ?? undefined);
 const raw = $derived(unitRaw(unit.datasheetId, unit.factionId, armyFaction));
 const points = $derived(unitPoints(unit, armyFaction, unitOrdinals(draft.units).get(unit.key)));
 const summary = $derived(loadoutSummary(unit));
+/** Selected enhancement's display name, surfaced as a blue chip in the row. */
+const enhancement = $derived(unit.enhancementId ? enhancementName(unit.enhancementId) : null);
 const hasIssues = $derived(builderViolations(draft).some((v) => v.unitKey === unit.key));
 /** Leaders attached to this row (so a bodyguard shows it's being led). */
 const leadingCount = $derived(attachedLeaders(draft, unit).length);
@@ -48,6 +51,9 @@ const leadingCount = $derived(attachedLeaders(draft, unit).length);
 				>{/if}
 			{#if hasIssues}<span class="shrink-0 text-xs text-amber-400" title="This unit has advisory violations">⚠</span>{/if}
 		</div>
+		{#if enhancement}
+			<span class="truncate text-xs text-blue-300" title={`Enhancement: ${enhancement}`}>{enhancement}</span>
+		{/if}
 		{#if summary}
 			<span class="text-text-muted truncate text-xs italic" title={summary}>{summary}</span>
 		{/if}

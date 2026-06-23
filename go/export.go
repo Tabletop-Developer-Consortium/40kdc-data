@@ -146,6 +146,19 @@ func unitToOmap(u map[string]any) *omap {
 		o.set("enhancement", nil)
 	}
 	o.set("enhancement_points", u["enhancement_points"]).set("wargear", wargear)
+	if lgList := getList(u, "loadout_groups"); len(lgList) > 0 {
+		groups := []any{}
+		for _, gAny := range lgList {
+			g := gAny.(map[string]any)
+			gw := []any{}
+			for _, wAny := range getList(g, "wargear") {
+				w := wAny.(map[string]any)
+				gw = append(gw, newOmap().set("ref", refToOmap(refOf(w))).set("count", w["count"]))
+			}
+			groups = append(groups, newOmap().set("model_name", g["model_name"]).set("count", g["count"]).set("wargear", gw))
+		}
+		o.set("loadout_groups", groups)
+	}
 	if la, ok := u["leader_attachment"].(map[string]any); ok {
 		o.set("leader_attachment", newOmap().
 			set("bodyguard_ref", refToOmap(la["bodyguard_ref"].(map[string]any))).

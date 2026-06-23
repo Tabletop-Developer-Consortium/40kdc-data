@@ -22,7 +22,7 @@
 
 use crate::import::{BattleSize, Roster, RosterUnit};
 
-use super::helpers::{displayed_unit_points, title_case_id, total_army_points};
+use super::helpers::{displayed_unit_points, group_weapons_text, title_case_id, total_army_points};
 use super::{ExportFormat, RosterSerializer};
 
 fn battle_size_label(roster: &Roster) -> Option<String> {
@@ -67,6 +67,22 @@ fn wargear_text(u: &RosterUnit, per_model_divisor: u64) -> String {
     parts.join(", ")
 }
 
+/// Unit-level tokens that lead the first wargear line: the enhancement then `Warlord`.
+fn lead_tokens(u: &RosterUnit) -> Vec<String> {
+    let mut parts: Vec<String> = Vec::new();
+    if let Some(enh) = &u.enhancement {
+        let pts_tag = match u.enhancement_points {
+            Some(p) => format!(" [{p} pts]"),
+            None => String::new(),
+        };
+        parts.push(format!("{}{pts_tag}", enh.raw_name));
+    }
+    if u.is_warlord {
+        parts.push("Warlord".to_string());
+    }
+    parts
+}
+
 fn unit_text(u: &RosterUnit) -> Vec<String> {
     let pts = displayed_unit_points(u);
     let pts_text = match pts {
@@ -81,28 +97,45 @@ fn unit_text(u: &RosterUnit) -> Vec<String> {
             wargear_text(u, 1)
         )];
     }
-    let divisible = u
+    // Multi-model with an exact per-model breakdown: one bullet per model-type group,
+    // each named, with the enhancement/Warlord tokens leading the first group.
+    if let Some(groups) = u.loadout_groups.as_ref() {
+        if !groups.is_empty() {
+            let lead = lead_tokens(u);
+            let mut lines = vec![format!("{} [{pts_text}]:", u.ref_.raw_name)];
+            for (i, g) in groups.iter().enumerate() {
+                let name = g.model_name.as_deref().unwrap_or(&u.ref_.raw_name);
+                let weapons = group_weapons_text(&g.wargear);
+                let mut tokens: Vec<String> = Vec::new();
+                if i == 0 {
+                    tokens.extend(lead.iter().cloned());
+                }
+                if !weapons.is_empty() {
+                    tokens.push(weapons);
+                }
+                lines.push(format!("• {}x {}: {}", g.count, name, tokens.join(", ")));
+            }
+            return lines;
+        }
+    }
+    // No exact breakdown: homogeneous units divide cleanly; otherwise a single bullet
+    // with the full counts (the legacy fallback, unit-named).
+    let divisor = if u
         .wargear
         .iter()
-        .all(|w| u.model_count > 0 && w.count % u.model_count == 0);
-    if divisible {
-        return vec![
-            format!("{} [{pts_text}]:", u.ref_.raw_name),
-            format!(
-                "• {}x {}: {}",
-                u.model_count,
-                u.ref_.raw_name,
-                wargear_text(u, u.model_count)
-            ),
-        ];
-    }
+        .all(|w| u.model_count > 0 && w.count % u.model_count == 0)
+    {
+        u.model_count
+    } else {
+        1
+    };
     vec![
         format!("{} [{pts_text}]:", u.ref_.raw_name),
         format!(
             "• {}x {}: {}",
             u.model_count,
             u.ref_.raw_name,
-            wargear_text(u, 1)
+            wargear_text(u, divisor)
         ),
     ]
 }

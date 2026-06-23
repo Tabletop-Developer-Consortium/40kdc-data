@@ -336,6 +336,213 @@ export function clampWeaponCount(
   return Math.min(b.max, Math.max(b.min, n));
 }
 
+/** One weapon line within a {@link LoadoutGroup}: entity id and its count *per model* in the group. */
+export interface LoadoutGroupWeapon {
+  id: string;
+  count: number;
+}
+
+/**
+ * A set of identically-equipped models within a unit: `count` models of model-type
+ * `model_name`, each carrying `weapons` (counts are *per model*). Produced by
+ * {@link groupLoadout} so an exporter can render "Nx <model>: <loadout>" lines
+ * instead of one unit-wide weapon bag. Mirror of `crates/wh40kdc/src/data/loadout.rs`.
+ */
+export interface LoadoutGroup {
+  model_name: string | null;
+  count: number;
+  weapons: LoadoutGroupWeapon[];
+}
+
+function toMultiset(ids: readonly string[]): Map<string, number> {
+  const m = new Map<string, number>();
+  for (const id of ids) m.set(id, (m.get(id) ?? 0) + 1);
+  return m;
+}
+
+/** Group weapons in a stable, language-agnostic order (by id) for cross-impl parity. */
+function sortedGroupWeapons(m: Map<string, number>): LoadoutGroupWeapon[] {
+  return [...m.entries()]
+    .filter(([, c]) => c > 0)
+    .sort((a, b) => a[0].localeCompare(b[0]))
+    .map(([id, count]) => ({ id, count }));
+}
+
+/**
+ * Assign each composition row a model count, summing to `modelCount`. Rows are
+ * seeded at their `min`; a row with a *distinctive* default weapon (one carried by
+ * no other row) present in `counts` grows toward that weapon's implied count (this
+ * recovers opt-in weapon-variant rows like a Deathwatch kill-team's plasma models,
+ * which sit at `min: 0`); the leftover budget pours into the bulk row (the
+ * non-leader, non-distinctive row with the most headroom). Deterministic.
+ */
+function assignRowCounts(
+  models: readonly LoadoutModel[],
+  modelCount: number,
+  counts: Map<string, number>,
+): number[] {
+  const rowDefaults = models.map((m) => toMultiset(m.default_weapon_ids ?? []));
+  const rowsWith = new Map<string, number>();
+  for (const def of rowDefaults) for (const id of def.keys()) rowsWith.set(id, (rowsWith.get(id) ?? 0) + 1);
+  const minOf = (i: number) => Math.max(0, models[i].min ?? 0);
+  const maxOf = (i: number) => Math.max(minOf(i), models[i].max ?? minOf(i));
+
+  const out = models.map((_, i) => minOf(i));
+  let budget = modelCount - out.reduce((a, b) => a + b, 0);
+  if (budget < 0) {
+    // Σmin exceeds the unit's size: trim from the end, deterministically.
+    let over = -budget;
+    for (let i = models.length - 1; i >= 0 && over > 0; i--) {
+      const cut = Math.min(over, out[i]);
+      out[i] -= cut;
+      over -= cut;
+    }
+    budget = 0;
+  }
+
+  const distinctive = models.map(() => false);
+  for (let i = 0; i < models.length && budget > 0; i++) {
+    let cap = Infinity;
+    let saw = false;
+    for (const [id, mult] of rowDefaults[i]) {
+      if ((rowsWith.get(id) ?? 0) === 1 && mult > 0 && (counts.get(id) ?? 0) > 0) {
+        saw = true;
+        cap = Math.min(cap, Math.floor((counts.get(id) ?? 0) / mult));
+      }
+    }
+    if (!saw) continue;
+    distinctive[i] = true;
+    const add = Math.max(0, Math.min(Math.min(cap, maxOf(i)) - out[i], budget));
+    out[i] += add;
+    budget -= add;
+  }
+
+  const headroom = (i: number) => maxOf(i) - out[i];
+  while (budget > 0) {
+    let pick = -1;
+    for (let i = 0; i < models.length; i++) {
+      if (headroom(i) <= 0 || models[i].is_leader_model || distinctive[i]) continue;
+      if (pick < 0 || headroom(i) > headroom(pick)) pick = i;
+    }
+    if (pick < 0)
+      for (let i = 0; i < models.length; i++) {
+        if (headroom(i) <= 0) continue;
+        if (pick < 0 || headroom(i) > headroom(pick)) pick = i;
+      }
+    if (pick < 0) break;
+    const add = Math.min(budget, headroom(pick));
+    out[pick] += add;
+    budget -= add;
+  }
+  return out;
+}
+
+interface MutGroup {
+  model_name: string | null;
+  count: number;
+  weapons: Map<string, number>;
+}
+
+/** The bundles (added-id sets) an option offers: a fixed `replacement`, else each `replacement_choice` branch. */
+function optionBundles(option: WargearOption): string[][] {
+  if (option.replacement) return [option.replacement];
+  return (option.replacement_choice ?? []).map((b) => [...b]);
+}
+
+/**
+ * Explain the leftover weapon counts as option swaps, peeling a variant sub-group
+ * off the base group of the model-type the option is scoped to. Each peel moves
+ * `take` models to `(base − replaces + bundle)` and updates `remaining` (added ids
+ * consumed, replaced ids returned). What it can't explain stays in `remaining`,
+ * which {@link groupLoadout} then treats as a failed (inexact) decomposition.
+ */
+function applySwaps(
+  groups: MutGroup[],
+  models: readonly LoadoutModel[],
+  options: readonly WargearOption[],
+  modelCount: number,
+  remaining: Map<string, number>,
+): void {
+  for (const option of options) {
+    const cap = optionCap(option, modelCount, models);
+    if (cap <= 0) continue;
+    const replaces = option.replaces ?? [];
+    const scopedName = option.model_constraint?.model_name ?? null;
+    for (const bundle of optionBundles(option)) {
+      if (bundle.length === 0) continue;
+      const addM = toMultiset(bundle);
+      let k = cap;
+      for (const [id, mult] of addM) k = Math.min(k, Math.floor(Math.max(0, remaining.get(id) ?? 0) / mult));
+      if (k <= 0) continue;
+      // Source: a group of the scoped model-type still holding every replaced weapon
+      // (fall back to any such holder when the scoped name matches nothing).
+      const holds = (g: MutGroup) => g.count > 0 && replaces.every((id) => (g.weapons.get(id) ?? 0) >= 1);
+      let src = groups.find((g) => holds(g) && (scopedName == null || g.model_name === scopedName));
+      if (!src && scopedName != null) src = groups.find(holds);
+      if (!src) continue;
+      const take = Math.min(k, src.count);
+      if (take <= 0) continue;
+      const w = new Map(src.weapons);
+      for (const id of replaces) w.set(id, (w.get(id) ?? 0) - 1);
+      for (const [id, mult] of addM) w.set(id, (w.get(id) ?? 0) + mult);
+      for (const [id, c] of [...w]) if (c <= 0) w.delete(id);
+      src.count -= take;
+      groups.push({ model_name: src.model_name, count: take, weapons: w });
+      for (const [id, mult] of addM) remaining.set(id, (remaining.get(id) ?? 0) - mult * take);
+      for (const id of replaces) remaining.set(id, (remaining.get(id) ?? 0) + take);
+    }
+  }
+}
+
+/**
+ * Decompose a unit's flat loadout into per-model-type groups (e.g. "1x Blood Herald:
+ * …" + "6x Goremongers: …" + "1x Goremongers: …"), reusing {@link allocateModels}'s
+ * partition and the per-model-type option scoping. Returns `null` when the
+ * decomposition is not *exact* — a single model, no recorded per-model defaults, or
+ * leftover counts no swap explains — so callers omit `loadout_groups` and renderers
+ * fall back to their unit-wide rendering unchanged. Mirror of
+ * `crates/wh40kdc/src/data/loadout.rs`.
+ */
+export function groupLoadout(
+  unit: Unit,
+  modelCount: number,
+  options: readonly WargearOption[],
+  models: readonly LoadoutModel[] | undefined,
+  counts: Map<string, number>,
+): LoadoutGroup[] | null {
+  const n = Math.max(0, Math.floor(modelCount) || 0);
+  // Single-model units and units without recorded per-model defaults render fine
+  // from the aggregate; don't synthesise groups for them.
+  if (n <= 1 || !hasRecordedDefaults(models)) return null;
+
+  const remaining = new Map<string, number>();
+  for (const [id, c] of counts) if (c > 0) remaining.set(id, c);
+
+  const rowN = assignRowCounts(models, n, remaining);
+  const groups: MutGroup[] = [];
+  for (let i = 0; i < models.length; i++) {
+    const k = rowN[i];
+    if (k <= 0) continue;
+    const def = toMultiset(models[i].default_weapon_ids ?? []);
+    for (const [id, c] of def) remaining.set(id, (remaining.get(id) ?? 0) - c * k);
+    groups.push({ model_name: models[i].name ?? null, count: k, weapons: def });
+  }
+
+  applySwaps(groups, models, options, n, remaining);
+
+  // Exact only: any unexplained surplus or deficit means we can't faithfully
+  // partition the bag — bail so the renderer keeps its existing fallback.
+  for (const c of remaining.values()) if (c !== 0) return null;
+
+  const live = groups.filter((g) => g.count > 0);
+  if (live.length === 0) return null;
+  return live.map((g) => ({
+    model_name: g.model_name,
+    count: g.count,
+    weapons: sortedGroupWeapons(g.weapons),
+  }));
+}
+
 /** Report every weapon/wargear count that falls outside its valid range. */
 export function validateLoadout(
   unit: Unit,

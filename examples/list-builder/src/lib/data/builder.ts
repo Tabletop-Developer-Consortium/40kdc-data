@@ -15,6 +15,7 @@ import {
 	baseUnitPoints,
 	clampWeaponCount,
 	exportRoster,
+	groupLoadout,
 	pointsTierMissing,
 	tryImportRoster,
 	validateLoadout,
@@ -22,6 +23,7 @@ import {
 	type AlliedRule,
 	type Detachment,
 	type Enhancement,
+	type LoadoutGroup,
 	type Roster,
 	type ShareList,
 	type Unit,
@@ -600,6 +602,17 @@ export function loadoutBounds(bu: BuilderUnit, armyFactionId?: string): Map<stri
 	return weaponBounds(unit, bu.modelCount, ds.wargearOptionsOf(unit), unitModels(unit));
 }
 
+/**
+ * The per-model-type loadout groups for a unit (for grouped "Nx <model>: …"
+ * export), or `null` when the loadout doesn't decompose exactly (single model, no
+ * recorded per-model defaults, or an indivisible bag). Mirrors {@link loadoutBounds}.
+ */
+export function loadoutGroups(bu: BuilderUnit, armyFactionId?: string): LoadoutGroup[] | null {
+	const unit = buRaw(bu, armyFactionId);
+	if (!unit) return null;
+	return groupLoadout(unit, bu.modelCount, ds.wargearOptionsOf(unit), unitModels(unit), bu.loadout);
+}
+
 /** Clamp a requested count for one weapon id into its valid range. */
 export function clampCount(
 	bounds: Map<string, WeaponBound>,
@@ -612,6 +625,11 @@ export function clampCount(
 /** Display name for a weapon/wargear id. */
 export function itemName(id: string): string {
 	return ds.weapons.get(id)?.name ?? ds.wargear.get(id)?.name ?? id;
+}
+
+/** Display name for an enhancement id (falls back to the id when unknown). */
+export function enhancementName(id: string): string {
+	return ds.enhancements.get(id)?.name ?? id;
 }
 
 /** Loadout-rule violations for a builder unit (empty = legal). */
@@ -1080,12 +1098,23 @@ export function builderToRoster(state: BuilderState): Roster {
 		const unit = buRaw(bu, armyFaction);
 		const name = unit?.name ?? bu.datasheetId;
 		const enh = bu.enhancementId ? ds.enhancements.get(bu.enhancementId) : undefined;
+		const weaponRef = (id: string, count: number) => {
+			const w = ds.weapons.get(id) ?? ds.wargear.get(id);
+			return { ref: ref(id, w?.name ?? id), count };
+		};
 		const wargear = [...bu.loadout.entries()]
 			.filter(([, count]) => count > 0)
-			.map(([id, count]) => {
-				const w = ds.weapons.get(id) ?? ds.wargear.get(id);
-				return { ref: ref(id, w?.name ?? id), count };
-			});
+			.map(([id, count]) => weaponRef(id, count));
+		// Per-model-type breakdown for grouped export; absent when it can't decompose
+		// exactly (the exporters then fall back to the aggregate `wargear`).
+		const groups = loadoutGroups(bu, armyFaction);
+		const loadout_groups = groups
+			? groups.map((g) => ({
+					model_name: g.model_name,
+					count: g.count,
+					wargear: g.weapons.map((w) => weaponRef(w.id, w.count)),
+				}))
+			: undefined;
 		// A leader's attachment is emitted on its own row, pointing at the bodyguard.
 		const bodyguard = bu.attachedToKey ? byKey.get(bu.attachedToKey) : undefined;
 		const bodyguardRaw = bodyguard ? buRaw(bodyguard, armyFaction) : undefined;
@@ -1104,6 +1133,7 @@ export function builderToRoster(state: BuilderState): Roster {
 			enhancement: enh ? ref(enh.id, enh.name) : null,
 			enhancement_points: enh?.cost ?? null,
 			wargear,
+			...(loadout_groups ? { loadout_groups } : {}),
 			leader_attachment,
 		};
 	});

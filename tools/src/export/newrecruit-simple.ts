@@ -22,7 +22,7 @@
  * @packageDocumentation
  */
 import type { Roster, RosterUnit } from "../import/types.js";
-import { displayedUnitPoints, titleCaseId, totalArmyPoints } from "./helpers.js";
+import { displayedUnitPoints, groupWeaponsText, titleCaseId, totalArmyPoints } from "./helpers.js";
 import type { RosterSerializer } from "./serializer.js";
 
 function battleSizeLabel(roster: Roster): string | null {
@@ -51,6 +51,17 @@ function wargearText(u: RosterUnit, perModelDivisor: number): string {
   return parts.join(", ");
 }
 
+/** Unit-level tokens that lead the first wargear line: the enhancement then `Warlord`. */
+function leadTokens(u: RosterUnit): string[] {
+  const parts: string[] = [];
+  if (u.enhancement) {
+    const ptsTag = u.enhancement_points === null ? "" : ` [${u.enhancement_points} pts]`;
+    parts.push(`${u.enhancement.raw_name}${ptsTag}`);
+  }
+  if (u.is_warlord) parts.push("Warlord");
+  return parts;
+}
+
 function unitText(u: RosterUnit): string[] {
   const pts = displayedUnitPoints(u);
   const ptsText = pts === null ? "" : `${pts} pts`;
@@ -58,18 +69,24 @@ function unitText(u: RosterUnit): string[] {
   if (u.model_count <= 1) {
     return [`${u.ref.raw_name} [${ptsText}]: ${wargearText(u, 1)}`];
   }
-  // Multi-model: homogeneous when every weapon count divides cleanly.
-  const divisible = u.wargear.every((w) => w.count % u.model_count === 0);
-  if (divisible) {
-    return [
-      `${u.ref.raw_name} [${ptsText}]:`,
-      `• ${u.model_count}x ${u.ref.raw_name}: ${wargearText(u, u.model_count)}`,
-    ];
+  // Multi-model with an exact per-model breakdown: one bullet per model-type group,
+  // each named, with the enhancement/Warlord tokens leading the first group.
+  if (u.loadout_groups && u.loadout_groups.length > 0) {
+    const lead = leadTokens(u);
+    const lines = [`${u.ref.raw_name} [${ptsText}]:`];
+    u.loadout_groups.forEach((g, i) => {
+      const name = g.model_name ?? u.ref.raw_name;
+      const tokens = [...(i === 0 ? lead : []), groupWeaponsText(g.wargear)].filter((s) => s.length > 0);
+      lines.push(`• ${g.count}x ${name}: ${tokens.join(", ")}`);
+    });
+    return lines;
   }
-  // Heterogeneous fallback: render as a single bullet with full counts.
+  // No exact breakdown: homogeneous units divide cleanly; otherwise a single bullet
+  // with the full counts (the legacy fallback, unit-named).
+  const divisor = u.wargear.every((w) => w.count % u.model_count === 0) ? u.model_count : 1;
   return [
     `${u.ref.raw_name} [${ptsText}]:`,
-    `• ${u.model_count}x ${u.ref.raw_name}: ${wargearText(u, 1)}`,
+    `• ${u.model_count}x ${u.ref.raw_name}: ${wargearText(u, divisor)}`,
   ];
 }
 

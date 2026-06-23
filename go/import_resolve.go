@@ -374,7 +374,7 @@ func resolveUnit(parsed map[string]any, factionID string, detachmentIDs []string
 		}
 	}
 
-	return map[string]any{
+	result := map[string]any{
 		"ref":                ref,
 		"model_count":        parsed["model_count"],
 		"points":             parsed["points"],
@@ -384,6 +384,58 @@ func resolveUnit(parsed map[string]any, factionID string, detachmentIDs []string
 		"wargear":            wargear,
 		"leader_attachment":  nil,
 	}
+	// Reconstruct the per-model-type loadout groups deterministically from the
+	// resolved unit, so a re-export reproduces the same grouped lines the exporter
+	// emits (round-trip), without the text parsers understanding model-name labels.
+	// Omitted (key absent) when it can't decompose exactly, to match the other impls.
+	if lg := buildLoadoutGroups(hit, asInt(parsed["model_count"]), wargear, ds); lg != nil {
+		result["loadout_groups"] = lg
+	}
+	return result
+}
+
+// buildLoadoutGroups recomputes a unit's loadout_groups from its resolved wargear
+// via GroupLoadout — the same maths the exporter uses, so an import→export
+// round-trip is stable. nil when the unit is unresolved, any weapon is unresolved,
+// or the loadout doesn't decompose exactly. Mirror of the TS buildLoadoutGroups.
+func buildLoadoutGroups(hit *UnitView, modelCount int, wargear []any, ds *Dataset) []any {
+	if hit == nil {
+		return nil
+	}
+	refByID := map[string]any{}
+	counts := map[string]int{}
+	for _, wAny := range wargear {
+		w := wAny.(map[string]any)
+		ref := w["ref"].(map[string]any)
+		id, ok := ref["id"].(string)
+		if !ok || id == "" {
+			return nil // incomplete aggregate → can't group faithfully
+		}
+		refByID[id] = ref
+		counts[id] += asInt(w["count"])
+	}
+	options := ds.wargearOptionsOf(hit.Raw)
+	models, _ := ds.unitCompositionOf(hit.Raw)
+	groups := GroupLoadout(hit.Raw, modelCount, options, models, counts)
+	if groups == nil {
+		return nil
+	}
+	out := []any{}
+	for _, gAny := range groups {
+		g := gAny.(map[string]any)
+		gw := []any{}
+		for _, wAny := range g["weapons"].([]any) {
+			w := wAny.(map[string]any)
+			id := w["id"].(string)
+			gw = append(gw, map[string]any{"ref": refByID[id], "count": w["count"]})
+		}
+		out = append(out, map[string]any{
+			"model_name": g["model_name"],
+			"count":      g["count"],
+			"wargear":    gw,
+		})
+	}
+	return out
 }
 
 func resolveEnhancement(rawName string, detachmentIDs []string, ds *Dataset, diag *diagBuilder) map[string]any {

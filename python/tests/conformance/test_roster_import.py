@@ -29,6 +29,7 @@ _CANONICAL_SEEDS = (
     "input.newrecruit-json.json",
     "input.gw.txt",
     "input.listforge-text.txt",
+    "input.roster-json.json",
 )
 _NEWRECRUIT_INPUT = re.compile(r"^input\.(newrecruit-[a-z-]+)\.[a-z]+$")
 
@@ -49,6 +50,8 @@ def _expected_format_for(filename: str) -> str:
         return "gw"
     if filename == "input.listforge-text.txt":
         return "listforge-text"
+    if filename == "input.roster-json.json":
+        return "roster-json"
     match = _NEWRECRUIT_INPUT.match(filename)
     if not match:
         raise AssertionError(f"unrecognised input fixture filename: {filename}")
@@ -95,6 +98,25 @@ def test_every_input_parses_to_the_same_roster(dataset: Any, case: str) -> None:
             # exporter; format-only fields reshape, but the resolved roster
             # shape must still match.
             assert _stable(actual) == _stable(expected), f"{case} input {filename}"
+
+
+@pytest.mark.skipif(not _CASES, reason="conformance corpus not available")
+@pytest.mark.parametrize("case", _CASES)
+def test_roster_json_golden_reimports_to_roster_golden(dataset: Any, case: str) -> None:
+    """The corpus-wide round-trip contract for the canonical format: every
+    case's roster-json export golden comes back through ``try_import_roster``
+    (the adapter path, not the canonical passthrough) and lands on the roster
+    golden (``source``/``diagnostics`` excluded). Mirrors the TS/Rust
+    ``roster_json_goldens_reimport_to_roster_goldens``."""
+    case_dir = _ROSTER_DIR / case
+    golden = case_dir / "expected.roster-json.json"
+    if not golden.exists():
+        pytest.skip("no expected.roster-json.json for this case")
+    expected = json.loads((case_dir / "expected.roster.json").read_text(encoding="utf-8"))
+    result = try_import_roster(golden.read_text(encoding="utf-8"), dataset)
+    assert result["ok"], f"{case}: {result.get('reason')}: {result.get('message')}"
+    assert result["format"] == "roster-json", f"{case}: mis-detected as {result['format']}"
+    assert _stable(result["roster"]) == _stable(expected), case
 
 
 @pytest.mark.skipif(not _CASES, reason="conformance corpus not available")

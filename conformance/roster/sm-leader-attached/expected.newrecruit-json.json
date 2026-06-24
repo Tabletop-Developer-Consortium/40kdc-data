@@ -1,0 +1,169 @@
+{
+  "name": "Helbrecht Attached",
+  "generatedBy": "https://newrecruit.eu",
+  "roster": {
+    "name": "Helbrecht Attached",
+    "xmlns": "http://www.battlescribe.net/schema/rosterSchema",
+    "generatedBy": "https://newrecruit.eu",
+    "costs": [
+      {
+        "name": "pts",
+        "typeId": "pts-type",
+        "value": 195
+      }
+    ],
+    "forces": [
+      {
+        "id": "force-1",
+        "name": "Army Roster",
+        "catalogueName": "Adeptus Astartes",
+        "selections": [
+          {
+            "id": "cfg-battle-size",
+            "name": "Battle Size",
+            "type": "upgrade",
+            "number": 1,
+            "categories": [
+              {
+                "name": "Configuration",
+                "primary": true
+              }
+            ],
+            "selections": [
+              {
+                "id": "cfg-battle-size-val",
+                "name": "Strike Force (2000 Point limit)",
+                "type": "upgrade",
+                "number": 1
+              }
+            ]
+          },
+          {
+            "id": "cfg-detachment",
+            "name": "Detachment",
+            "type": "upgrade",
+            "number": 1,
+            "categories": [
+              {
+                "name": "Configuration",
+                "primary": true
+              }
+            ],
+            "selections": [
+              {
+                "id": "cfg-detachment-val",
+                "name": "Gladius Task Force",
+                "type": "upgrade",
+                "number": 1
+              }
+            ]
+          },
+          {
+            "id": "u-0",
+            "name": "High Marshal Helbrecht",
+            "type": "model",
+            "number": 1,
+            "categories": [
+              {
+                "name": "Faction: Adeptus Astartes",
+                "primary": false
+              }
+            ],
+            "costs": [
+              {
+                "name": "pts",
+                "typeId": "pts-type",
+                "value": 120
+              }
+            ],
+            "selections": [
+              {
+                "id": "u0-warlord",
+                "name": "Warlord",
+                "type": "upgrade",
+                "number": 1
+              },
+              {
+                "id": "w-0",
+                "name": "Sword of the High Marshals",
+                "type": "upgrade",
+                "number": 1,
+                "categories": [
+                  {
+                    "name": "Ranged Weapon",
+                    "primary": false
+                  }
+                ]
+              },
+              {
+                "id": "w-1",
+                "name": "Ferocity",
+                "type": "upgrade",
+                "number": 1,
+                "categories": [
+                  {
+                    "name": "Ranged Weapon",
+                    "primary": false
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "u-1",
+            "name": "Assault Intercessor Squad",
+            "type": "unit",
+            "number": 1,
+            "categories": [
+              {
+                "name": "Faction: Adeptus Astartes",
+                "primary": false
+              }
+            ],
+            "costs": [
+              {
+                "name": "pts",
+                "typeId": "pts-type",
+                "value": 75
+              }
+            ],
+            "selections": [
+              {
+                "id": "u1-model",
+                "name": "Assault Intercessor Squad",
+                "type": "model",
+                "number": 5,
+                "selections": [
+                  {
+                    "id": "w-0",
+                    "name": "Heavy bolt pistol",
+                    "type": "upgrade",
+                    "number": 5,
+                    "categories": [
+                      {
+                        "name": "Ranged Weapon",
+                        "primary": false
+                      }
+                    ]
+                  },
+                  {
+                    "id": "w-1",
+                    "name": "Astartes chainsword",
+                    "type": "upgrade",
+                    "number": 5,
+                    "categories": [
+                      {
+                        "name": "Ranged Weapon",
+                        "primary": false
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

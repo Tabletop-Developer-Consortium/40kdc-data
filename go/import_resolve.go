@@ -206,7 +206,7 @@ func resolveRoster(parsed map[string]any, ds *Dataset, format string) map[string
 		pu := puAny.(map[string]any)
 		units = append(units, resolveUnit(pu, factionIDStr, detachmentIDs, ds, diag))
 	}
-	inferLeaderAttachments(parsedUnits, units, ds, factionIDStr, diag)
+	applyLeaderAttachments(parsedUnits, units, ds, factionIDStr, diag)
 
 	tr := parsed["total_reported"]
 	tc := parsed["total_computed"]
@@ -464,7 +464,54 @@ func resolveEnhancement(rawName string, detachmentIDs []string, ds *Dataset, dia
 	return refUnresolved(rawName, candFromRaw(ds.Enhancements.FindAll(rawName)))
 }
 
-func inferLeaderAttachments(parsedUnits []any, units []any, ds *Dataset, factionID string, diag *diagBuilder) {
+// applyLeaderAttachments resolves leader→bodyguard attachments in two passes
+// (mirror of the TS applyLeaderAttachments):
+//
+//  1. Explicit attachments carried verbatim from the source (only the canonical
+//     roster-json round-trip encodes one) are reconstructed exactly — the
+//     bodyguard id is re-resolved against the current dataset, but the role and
+//     provisional flag are preserved (lossless, incl. leader-role attachments
+//     inference never produces).
+//  2. For every other character, the source does not encode an unambiguous
+//     attachment, so each inferred link is marked provisional: only `support`
+//     characters (which cannot operate alone) are auto-attached.
+func applyLeaderAttachments(parsedUnits []any, units []any, ds *Dataset, factionID string, diag *diagBuilder) {
+	// --- Pass 1: explicit attachments (lossless). ----------------------------
+	for i, uAny := range units {
+		pu := parsedUnits[i].(map[string]any)
+		explicit, ok := pu["leader_attachment"].(map[string]any)
+		if !ok {
+			continue
+		}
+		key := NormalizeName(getStr(explicit, "bodyguard_raw_name"))
+		var bodyguard map[string]any
+		for _, bAny := range units {
+			b := bAny.(map[string]any)
+			bref := b["ref"].(map[string]any)
+			if NormalizeName(getStr(bref, "raw_name")) == key {
+				bodyguard = b
+				break
+			}
+		}
+		if bodyguard == nil {
+			continue
+		}
+		bref := bodyguard["ref"].(map[string]any)
+		var bodyguardRef map[string]any
+		if id, ok := bref["id"].(string); ok && id != "" {
+			bodyguardRef = refResolved(id, bref["raw_name"])
+		} else {
+			bodyguardRef = refUnresolved(bref["raw_name"], nil)
+		}
+		unit := uAny.(map[string]any)
+		unit["leader_attachment"] = map[string]any{
+			"bodyguard_ref": bodyguardRef,
+			"role":          explicit["role"],
+			"provisional":   explicit["provisional"],
+		}
+	}
+
+	// --- Pass 2: inference for characters without an explicit attachment. -----
 	bodyguardIDs := map[string]bool{}
 	for i, uAny := range units {
 		u := uAny.(map[string]any)
@@ -478,6 +525,9 @@ func inferLeaderAttachments(parsedUnits []any, units []any, ds *Dataset, faction
 		unit := uAny.(map[string]any)
 		ref := unit["ref"].(map[string]any)
 		pu := parsedUnits[i].(map[string]any)
+		if _, has := pu["leader_attachment"].(map[string]any); has {
+			continue // explicit already applied in pass 1
+		}
 		leaderID, ok := ref["id"].(string)
 		if !ok || leaderID == "" || pu["is_character"] != true {
 			continue

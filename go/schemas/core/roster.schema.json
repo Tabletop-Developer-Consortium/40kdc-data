@@ -207,12 +207,13 @@
           "oneOf": [
             {
               "type": "object",
-              "description": "Inferred leader→bodyguard attachment. Always provisional: the source format does not encode attachment unambiguously, so this is a heuristic match against leader-attachment data.",
+              "description": "A leader→bodyguard attachment. May be explicit (a builder export sets provisional=false) or inferred on import (provisional=true: the source format does not encode the attachment unambiguously, so it is a heuristic match against leader-attachment data). `role` distinguishes a leader leading a bodyguard from a support character that cannot operate alone.",
               "properties": {
                 "bodyguard_ref": { "$ref": "#/$defs/roster-resolved-ref" },
+                "role": { "enum": ["leader", "support"] },
                 "provisional": { "type": "boolean" }
               },
-              "required": ["bodyguard_ref", "provisional"],
+              "required": ["bodyguard_ref", "role", "provisional"],
               "additionalProperties": false
             },
             { "type": "null" }

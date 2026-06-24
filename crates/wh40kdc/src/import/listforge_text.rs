@@ -206,6 +206,7 @@ fn finish_unit(acc: UnitAcc) -> ParsedUnit {
         // displayed points stay as-is and no enhancement points are claimed.
         enhancement_points: None,
         wargear,
+        leader_attachment: None,
     }
 }
 

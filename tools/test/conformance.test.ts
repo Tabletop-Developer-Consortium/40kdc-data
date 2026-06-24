@@ -98,6 +98,7 @@ function expectedFormatFor(filename: string): RosterFormat {
   if (filename === "input.rosterizer.json") return "rosterizer";
   if (filename === "input.gw.txt") return "gw";
   if (filename === "input.listforge-text.txt") return "listforge-text";
+  if (filename === "input.roster-json.json") return "roster-json";
   const match = /^input\.(newrecruit-[a-z-]+)\.[a-z]+$/.exec(filename);
   if (!match) throw new Error(`unrecognised input fixture filename: ${filename}`);
   return match[1] as RosterFormat;
@@ -154,7 +155,8 @@ describe("conformance corpus (ties out with the Rust crate)", () => {
           filename === "input.json" ||
           filename === "input.newrecruit-json.json" ||
           filename === "input.gw.txt" ||
-          filename === "input.listforge-text.txt";
+          filename === "input.listforge-text.txt" ||
+          filename === "input.roster-json.json";
         if (isCanonical) {
           // Canonical seed must reproduce the golden exactly.
           expect(
@@ -189,6 +191,8 @@ describe("conformance corpus (ties out with the Rust crate)", () => {
         decoded = readText(join(caseDir, "input.gw.txt"));
       } else if (dirEntries.includes("input.listforge-text.txt")) {
         decoded = readText(join(caseDir, "input.listforge-text.txt"));
+      } else if (dirEntries.includes("input.roster-json.json")) {
+        decoded = readJson(join(caseDir, "input.roster-json.json"));
       } else {
         throw new Error(`roster/${entry.name}: no canonical seed`);
       }
@@ -238,7 +242,8 @@ describe("conformance corpus (ties out with the Rust crate)", () => {
         dirEntries.find((n) => n === "input.json") ??
         dirEntries.find((n) => n === "input.newrecruit-json.json") ??
         dirEntries.find((n) => n === "input.gw.txt") ??
-        dirEntries.find((n) => n === "input.listforge-text.txt");
+        dirEntries.find((n) => n === "input.listforge-text.txt") ??
+        dirEntries.find((n) => n === "input.roster-json.json");
       if (!seed) throw new Error(`no canonical input in roster/${entry.name}`);
       const seedPath = join(caseDir, seed);
       const roster = importRoster(

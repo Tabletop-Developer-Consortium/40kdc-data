@@ -160,7 +160,7 @@ export function resolve(
   const units = parsed.units.map((u) => resolveUnit(u, faction_id, detachmentIds, ds, diag));
 
   // --- Leader attachments (second pass: needs all resolved unit ids). -------
-  inferLeaderAttachments(parsed.units, units, ds, faction_id, diag);
+  applyLeaderAttachments(parsed.units, units, ds, faction_id, diag);
 
   // --- Points reconciliation (reported vs computed kept distinct). ----------
   if (parsed.total_reported !== null && parsed.total_reported !== parsed.total_computed) {
@@ -368,23 +368,50 @@ function resolveEnhancement(
 }
 
 /**
- * Infer leader→bodyguard attachments. The source format does not encode an
- * unambiguous attachment, so each inferred link is marked provisional: we match
- * a resolved character unit against a resolved non-character unit in the same
- * roster using the dataset's leader-attachment data.
+ * Resolve leader→bodyguard attachments in two passes.
+ *
+ * 1. **Explicit** attachments carried verbatim from the source (only the
+ *    canonical roster-json round-trip encodes one) are reconstructed exactly —
+ *    the bodyguard id is re-resolved against the current dataset, but the role
+ *    and provisional flag are preserved. This makes the round-trip lossless,
+ *    including `leader`-role attachments that inference never produces.
+ * 2. For every other character, the source does not encode an unambiguous
+ *    attachment, so each **inferred** link is marked provisional: a resolved
+ *    `support` character (which cannot operate alone) is matched against a
+ *    resolved bodyguard present in the roster using the dataset's
+ *    leader-attachment data.
  */
-function inferLeaderAttachments(
+function applyLeaderAttachments(
   parsedUnits: ParsedUnit[],
   units: RosterUnit[],
   ds: Dataset,
   factionId: string | null,
   diag: DiagnosticsBuilder,
 ): void {
+  // --- Pass 1: explicit attachments (lossless). ----------------------------
+  units.forEach((unit, i) => {
+    const explicit = parsedUnits[i].leader_attachment;
+    if (explicit == null) return;
+    const key = normalizeName(explicit.bodyguard_raw_name);
+    const bodyguard = units.find((u) => normalizeName(u.ref.raw_name) === key);
+    if (!bodyguard) return;
+    unit.leader_attachment = {
+      bodyguard_ref:
+        bodyguard.ref.id != null
+          ? resolved(bodyguard.ref.id, bodyguard.ref.raw_name)
+          : unresolved(bodyguard.ref.raw_name),
+      role: explicit.role,
+      provisional: explicit.provisional,
+    };
+  });
+
+  // --- Pass 2: inference for characters without an explicit attachment. -----
   const bodyguardIds = new Set(
     units.filter((u, i) => u.ref.id && !parsedUnits[i].is_character).map((u) => u.ref.id as string),
   );
 
   units.forEach((unit, i) => {
+    if (parsedUnits[i].leader_attachment != null) return; // explicit already applied
     if (!unit.ref.id || !parsedUnits[i].is_character) return;
     const leaderId = unit.ref.id;
     // Only `support` characters are auto-attached: per the GW datasheet

@@ -16,9 +16,14 @@
 //!   before any name lookup, so resolution is exact. Detachments carry a
 //!   `ref.raw_name`, so (like units) that lowers directly and round-trips.
 //! - `is_character` isn't stored on the canonical shape (it's an inference
-//!   input, not an output). It lowers as `leader_attachment.is_some()`, which
-//!   reproduces the original (deterministic) attachment inference on
-//!   re-import. Attachments are always provisional either way.
+//!   input, not an output). It lowers as `leader_attachment.is_some()` so the
+//!   `support`-only inference still has its gate for any unit without an
+//!   explicit attachment.
+//! - An explicit `leader_attachment` (the builder emits one, `provisional:false`)
+//!   is carried verbatim into [`ParsedUnit::leader_attachment`] so `resolve`
+//!   reconstructs it exactly — the round-trip is lossless. Only the bodyguard's
+//!   raw name is lowered; `resolve` re-resolves its id against the current
+//!   dataset (so stale ids self-heal, like every other ref).
 //!
 //! **IP safety**: the canonical document carries only permitted facts (names,
 //! counts, points, ids); no prose fields exist to read.
@@ -28,7 +33,10 @@
 use serde_json::Value;
 
 use super::adapter::{FormatAdapter, ParseError};
-use super::types::{BattleSize, ParsedRoster, ParsedUnit, ParsedWargear, Roster, RosterFormat};
+use super::types::{
+    BattleSize, ParsedLeaderAttachment, ParsedRoster, ParsedUnit, ParsedWargear, Roster,
+    RosterFormat,
+};
 
 pub struct RosterJsonAdapter;
 
@@ -74,9 +82,7 @@ fn lower(roster: &Roster) -> ParsedRoster {
         .iter()
         .map(|u| ParsedUnit {
             raw_name: u.ref_.raw_name.clone(),
-            // Not stored canonically; attached units were characters, and
-            // re-running the (deterministic) inference over them reproduces
-            // the exported attachments. See module docs.
+            // Keeps the inference gate for units without an explicit attachment.
             is_character: u.leader_attachment.is_some(),
             model_count: u.model_count,
             points: u.points,
@@ -91,6 +97,17 @@ fn lower(roster: &Roster) -> ParsedRoster {
                     count: w.count,
                 })
                 .collect(),
+            // Carry an explicit attachment verbatim so resolve reconstructs it
+            // exactly (lossless round-trip) rather than re-inferring — which
+            // would drop a leader-role attachment entirely. See module docs.
+            leader_attachment: u
+                .leader_attachment
+                .as_ref()
+                .map(|la| ParsedLeaderAttachment {
+                    bodyguard_raw_name: la.bodyguard_ref.raw_name.clone(),
+                    role: la.role,
+                    provisional: la.provisional,
+                }),
         })
         .collect();
 

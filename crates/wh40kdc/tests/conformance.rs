@@ -134,6 +134,7 @@ fn expected_format_for(filename: &str) -> RosterFormat {
         "rosterizer" => RosterFormat::Rosterizer,
         "gw" => RosterFormat::Gw,
         "listforge-text" => RosterFormat::ListforgeText,
+        "roster-json" => RosterFormat::RosterJson,
         other => panic!("unmapped input fixture stem: {other}"),
     }
 }
@@ -209,7 +210,8 @@ fn imported_rosters_match_reference_goldens() {
             let is_canonical = filename == "input.json"
                 || filename == "input.newrecruit-json.json"
                 || filename == "input.gw.txt"
-                || filename == "input.listforge-text.txt";
+                || filename == "input.listforge-text.txt"
+                || filename == "input.roster-json.json";
             if is_canonical {
                 assert_eq!(
                     actual_value, expected,
@@ -309,6 +311,11 @@ fn parsed_stage_matches_reference_goldens() {
                 Value::String(read_text(&case_dir.join("input.listforge-text.txt"))),
                 "input.listforge-text.txt",
             )
+        } else if dir_entries.iter().any(|n| n == "input.roster-json.json") {
+            (
+                read_json(&case_dir.join("input.roster-json.json")),
+                "input.roster-json.json",
+            )
         } else {
             panic!("roster/{case_name}: no canonical seed");
         };
@@ -398,6 +405,11 @@ fn exported_rosters_match_reference_goldens() {
                 files
                     .iter()
                     .find(|n| n.as_str() == "input.listforge-text.txt")
+            })
+            .or_else(|| {
+                files
+                    .iter()
+                    .find(|n| n.as_str() == "input.roster-json.json")
             })
             .unwrap_or_else(|| {
                 panic!("roster/{case_name}: export goldens present but no canonical input")

@@ -162,6 +162,7 @@ func unitToOmap(u map[string]any) *omap {
 	if la, ok := u["leader_attachment"].(map[string]any); ok {
 		o.set("leader_attachment", newOmap().
 			set("bodyguard_ref", refToOmap(la["bodyguard_ref"].(map[string]any))).
+			set("role", la["role"]).
 			set("provisional", la["provisional"]))
 	} else {
 		o.set("leader_attachment", nil)

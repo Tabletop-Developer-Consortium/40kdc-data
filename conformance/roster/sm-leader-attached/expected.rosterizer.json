@@ -1,0 +1,97 @@
+{
+  "slug": "",
+  "key": "",
+  "visible": "hidden",
+  "locked": false,
+  "rulebook": {
+    "name": "40kdc",
+    "game": "Warhammer 40,000",
+    "publisher": "Alpaca Software",
+    "url": "https://40kdc.dev",
+    "genre": "wargame"
+  },
+  "snapshot": {
+    "item": "Roster§Roster",
+    "name": "Helbrecht Attached",
+    "quantity": 1,
+    "stats": {
+      "Points": {
+        "value": 195
+      }
+    },
+    "assets": {
+      "included": [
+        {
+          "item": "Faction§Adeptus Astartes",
+          "name": "Adeptus Astartes",
+          "quantity": 1
+        },
+        {
+          "item": "Detachment§Gladius Task Force",
+          "name": "Gladius Task Force",
+          "quantity": 1
+        },
+        {
+          "item": "Battle Size§Strike Force (2000 Point limit)",
+          "name": "Strike Force (2000 Point limit)",
+          "quantity": 1
+        },
+        {
+          "item": "Unit§High Marshal Helbrecht",
+          "name": "High Marshal Helbrecht",
+          "quantity": 1,
+          "stats": {
+            "Points": {
+              "value": 120
+            }
+          },
+          "assets": {
+            "included": [
+              {
+                "item": "Weapon§Sword of the High Marshals",
+                "name": "Sword of the High Marshals",
+                "quantity": 1
+              },
+              {
+                "item": "Weapon§Ferocity",
+                "name": "Ferocity",
+                "quantity": 1
+              }
+            ],
+            "traits": [
+              {
+                "item": "Trait§Warlord",
+                "name": "Warlord",
+                "quantity": 1
+              }
+            ]
+          }
+        },
+        {
+          "item": "Unit§Assault Intercessor Squad",
+          "name": "Assault Intercessor Squad",
+          "quantity": 5,
+          "stats": {
+            "Points": {
+              "value": 75
+            }
+          },
+          "assets": {
+            "included": [
+              {
+                "item": "Weapon§Heavy bolt pistol",
+                "name": "Heavy bolt pistol",
+                "quantity": 5
+              },
+              {
+                "item": "Weapon§Astartes chainsword",
+                "name": "Astartes chainsword",
+                "quantity": 5
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

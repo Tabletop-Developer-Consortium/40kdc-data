@@ -18,9 +18,14 @@
  *   `ref.raw_name`, so (like units/enhancements) that lowers directly and
  *   round-trips the display name.
  * - `is_character` isn't stored on the canonical shape (it's an inference
- *   input, not an output). It lowers as `leader_attachment != null`, which
- *   reproduces the original (deterministic) attachment inference on
- *   re-import. Attachments are always provisional either way.
+ *   input, not an output). It lowers as `leader_attachment != null` so the
+ *   `support`-only inference still has its gate for any unit without an
+ *   explicit attachment.
+ * - An explicit `leader_attachment` (the builder emits one, `provisional:false`)
+ *   is carried verbatim into {@link ParsedUnit.leader_attachment} so `resolve`
+ *   reconstructs it exactly — the round-trip is lossless. Only the bodyguard's
+ *   raw name is lowered; `resolve` re-resolves its id against the current
+ *   dataset (so stale ids self-heal, like every other ref).
  *
  * **IP safety**: the canonical document carries only permitted facts (names,
  * counts, points, ids); no prose fields exist to read.
@@ -69,9 +74,7 @@ export const rosterJsonAdapter: FormatAdapter = {
 
     const units: ParsedUnit[] = roster.units.map((u) => ({
       raw_name: u.ref.raw_name,
-      // Not stored canonically; attached units were characters, and re-running
-      // the (deterministic) inference over them reproduces the exported
-      // attachments. See module docs.
+      // Keeps the inference gate for units without an explicit attachment.
       is_character: u.leader_attachment != null,
       model_count: u.model_count,
       points: u.points,
@@ -79,6 +82,19 @@ export const rosterJsonAdapter: FormatAdapter = {
       enhancement_raw_name: u.enhancement?.raw_name ?? null,
       enhancement_points: u.enhancement_points,
       wargear: u.wargear.map((w) => ({ raw_name: w.ref.raw_name, count: w.count })),
+      // Carry an explicit attachment verbatim so resolve reconstructs it exactly
+      // (lossless round-trip) rather than re-inferring — which would drop a
+      // leader-role attachment entirely. The key is elided when absent (matching
+      // every other adapter, which never sets it). See module docs.
+      ...(u.leader_attachment
+        ? {
+            leader_attachment: {
+              bodyguard_raw_name: u.leader_attachment.bodyguard_ref.raw_name,
+              role: u.leader_attachment.role,
+              provisional: u.leader_attachment.provisional,
+            },
+          }
+        : {}),
     }));
 
     return {

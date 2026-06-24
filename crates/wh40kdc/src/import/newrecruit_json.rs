@@ -150,6 +150,7 @@ fn parse_unit(unit: &Value) -> ParsedUnit {
         enhancement_raw_name,
         enhancement_points,
         wargear,
+        leader_attachment: None,
     }
 }
 

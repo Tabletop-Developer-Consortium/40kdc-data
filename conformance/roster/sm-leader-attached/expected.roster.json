@@ -1,0 +1,167 @@
+{
+  "name": "Helbrecht Attached",
+  "source": {
+    "format": "roster-json",
+    "generated_by": "List Forge"
+  },
+  "faction_id": "adeptus-astartes",
+  "detachments": [
+    {
+      "ref": {
+        "id": "gladius-task-force",
+        "raw_name": "Gladius Task Force",
+        "resolved": true,
+        "candidates": []
+      },
+      "dp_cost": 3
+    }
+  ],
+  "battle_size": "strike-force",
+  "force_disposition": "take-and-hold",
+  "points": {
+    "declared_limit": 2000,
+    "detachment_cap": 3,
+    "total_reported": 195,
+    "total_computed": 195
+  },
+  "units": [
+    {
+      "ref": {
+        "id": "high-marshal-helbrecht",
+        "raw_name": "High Marshal Helbrecht",
+        "resolved": true,
+        "candidates": []
+      },
+      "model_count": 1,
+      "points": 120,
+      "is_warlord": true,
+      "enhancement": null,
+      "enhancement_points": null,
+      "wargear": [
+        {
+          "ref": {
+            "id": "sword-of-the-high-marshals",
+            "raw_name": "Sword of the High Marshals",
+            "resolved": true,
+            "candidates": []
+          },
+          "count": 1
+        },
+        {
+          "ref": {
+            "id": "ferocity",
+            "raw_name": "Ferocity",
+            "resolved": true,
+            "candidates": []
+          },
+          "count": 1
+        }
+      ],
+      "leader_attachment": {
+        "bodyguard_ref": {
+          "id": "assault-intercessor-squad",
+          "raw_name": "Assault Intercessor Squad",
+          "resolved": true,
+          "candidates": []
+        },
+        "role": "leader",
+        "provisional": false
+      }
+    },
+    {
+      "ref": {
+        "id": "assault-intercessor-squad",
+        "raw_name": "Assault Intercessor Squad",
+        "resolved": true,
+        "candidates": []
+      },
+      "model_count": 5,
+      "points": 75,
+      "is_warlord": false,
+      "enhancement": null,
+      "enhancement_points": null,
+      "wargear": [
+        {
+          "ref": {
+            "id": "heavy-bolt-pistol",
+            "raw_name": "Heavy bolt pistol",
+            "resolved": true,
+            "candidates": []
+          },
+          "count": 5
+        },
+        {
+          "ref": {
+            "id": "astartes-chainsword",
+            "raw_name": "Astartes chainsword",
+            "resolved": true,
+            "candidates": []
+          },
+          "count": 5
+        }
+      ],
+      "loadout_groups": [
+        {
+          "model_name": "Assault Intercessor Sergeant",
+          "count": 1,
+          "wargear": [
+            {
+              "ref": {
+                "id": "astartes-chainsword",
+                "raw_name": "Astartes chainsword",
+                "resolved": true,
+                "candidates": []
+              },
+              "count": 1
+            },
+            {
+              "ref": {
+                "id": "heavy-bolt-pistol",
+                "raw_name": "Heavy bolt pistol",
+                "resolved": true,
+                "candidates": []
+              },
+              "count": 1
+            }
+          ]
+        },
+        {
+          "model_name": "Assault Intercessor",
+          "count": 4,
+          "wargear": [
+            {
+              "ref": {
+                "id": "astartes-chainsword",
+                "raw_name": "Astartes chainsword",
+                "resolved": true,
+                "candidates": []
+              },
+              "count": 1
+            },
+            {
+              "ref": {
+                "id": "heavy-bolt-pistol",
+                "raw_name": "Heavy bolt pistol",
+                "resolved": true,
+                "candidates": []
+              },
+              "count": 1
+            }
+          ]
+        }
+      ],
+      "leader_attachment": null
+    }
+  ],
+  "game_version": {
+    "edition": "11th",
+    "dataslate": "pre-launch-provisional"
+  },
+  "diagnostics": {
+    "resolved_units": 2,
+    "unresolved_units": 0,
+    "resolved_weapons": 4,
+    "unresolved_weapons": 0,
+    "warnings": []
+  }
+}

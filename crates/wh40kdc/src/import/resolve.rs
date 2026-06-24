@@ -223,7 +223,7 @@ pub fn resolve(parsed: &ParsedRoster, ds: &Dataset, format: RosterFormat) -> Ros
         .collect();
 
     // --- Leader attachments (second pass: needs all resolved unit ids). -----
-    infer_leader_attachments(
+    apply_leader_attachments(
         &parsed.units,
         &mut units,
         ds,
@@ -504,20 +504,24 @@ fn resolve_enhancement(
     unresolved(raw_name, candidates)
 }
 
-/// Infer leader→bodyguard attachments. The source format does not encode an
-/// unambiguous attachment, so each inferred link is marked provisional: a
-/// resolved character unit is matched against a resolved non-character unit in
-/// the same roster using the dataset's leader-attachment data.
+/// Resolve leader→bodyguard attachments in two passes (mirror of the TS
+/// `applyLeaderAttachments`).
 ///
-/// Only `support` characters are auto-attached: per the GW datasheet
-/// bodyguard-group data they cannot operate alone, so attaching to an eligible
-/// bodyguard present in the roster is certain. A `leader` (or a character with
-/// no `attachment_role`) MAY be solo — the source doesn't encode the
-/// attachment, so we don't guess one. `attachment_role` is faction-specific
-/// (e.g. the World Eaters Master of Executions is a leader while the Chaos
-/// Space Marines one is support), so resolve faction-scoped. Mirror of the TS
-/// `inferLeaderAttachments`.
-fn infer_leader_attachments(
+/// 1. **Explicit** attachments carried verbatim from the source (only the
+///    canonical roster-json round-trip encodes one) are reconstructed exactly —
+///    the bodyguard id is re-resolved against the current dataset, but the role
+///    and provisional flag are preserved. This makes the round-trip lossless,
+///    including `leader`-role attachments inference never produces.
+/// 2. For every other character, the source does not encode an unambiguous
+///    attachment, so each **inferred** link is marked provisional. Only
+///    `support` characters are auto-attached: per the GW datasheet
+///    bodyguard-group data they cannot operate alone, so attaching to an
+///    eligible bodyguard present in the roster is certain. A `leader` (or a
+///    character with no `attachment_role`) MAY be solo — the source doesn't
+///    encode the attachment, so we don't guess one. `attachment_role` is
+///    faction-specific (e.g. the World Eaters Master of Executions is a leader
+///    while the Chaos Space Marines one is support), so resolve faction-scoped.
+fn apply_leader_attachments(
     parsed_units: &[ParsedUnit],
     units: &mut [RosterUnit],
     ds: &Dataset,
@@ -526,6 +530,35 @@ fn infer_leader_attachments(
 ) {
     use crate::generated::UnitAttachmentRole;
 
+    // --- Pass 1: explicit attachments (lossless). ----------------------------
+    // Compute first (immutable borrow), then apply (mutable) to avoid overlap.
+    let mut explicit: Vec<(usize, ResolvedRef, AttachmentRole, bool)> = Vec::new();
+    for (i, parsed) in parsed_units.iter().enumerate() {
+        let Some(att) = &parsed.leader_attachment else {
+            continue;
+        };
+        let key = normalize_name(&att.bodyguard_raw_name);
+        let Some(bodyguard) = units
+            .iter()
+            .find(|u| normalize_name(&u.ref_.raw_name) == key)
+        else {
+            continue;
+        };
+        let bodyguard_ref = match &bodyguard.ref_.id {
+            Some(id) => resolved(id, &bodyguard.ref_.raw_name),
+            None => unresolved(&bodyguard.ref_.raw_name, Vec::new()),
+        };
+        explicit.push((i, bodyguard_ref, att.role, att.provisional));
+    }
+    for (idx, bodyguard_ref, role, provisional) in explicit {
+        units[idx].leader_attachment = Some(RosterLeaderAttachment {
+            bodyguard_ref,
+            role,
+            provisional,
+        });
+    }
+
+    // --- Pass 2: inference for characters without an explicit attachment. -----
     let bodyguard_ids: std::collections::HashSet<String> = units
         .iter()
         .zip(parsed_units)
@@ -550,6 +583,9 @@ fn infer_leader_attachments(
     // them (mutable borrow) to avoid overlapping borrows.
     let mut planned: Vec<(usize, String, String)> = Vec::new(); // (leader idx, bodyguard id, bodyguard raw name)
     for (i, (unit, parsed)) in units.iter().zip(parsed_units).enumerate() {
+        if parsed.leader_attachment.is_some() {
+            continue; // explicit already applied in pass 1
+        }
         let Some(leader_id) = &unit.ref_.id else {
             continue;
         };

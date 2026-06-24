@@ -29,6 +29,7 @@ from wh40kdc.imports.newrecruit_wtc import (
     newrecruit_wtc_full_adapter,
 )
 from wh40kdc.imports.resolve import resolve
+from wh40kdc.imports.roster_json import roster_json_adapter
 from wh40kdc.imports.rosterizer import rosterizer_adapter
 
 Roster = dict[str, Any]
@@ -44,6 +45,10 @@ Roster = dict[str, Any]
 #: JSON dispatch — its ``rulebook`` + ``snapshot`` signature is structurally
 #: distinct from the BattleScribe shape.
 ADAPTERS: tuple[FormatAdapter, ...] = (
+    # roster-json runs first: its matcher is the most specific (the canonical
+    # source.format + game_version + diagnostics envelope), so a 40kdc-native
+    # export is never mis-detected by a looser matcher.
+    roster_json_adapter,
     rosterizer_adapter,
     newrecruit_json_adapter,
     gw_adapter,

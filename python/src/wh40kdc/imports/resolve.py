@@ -186,7 +186,7 @@ def resolve(parsed: dict[str, Any], ds: Dataset, format: str = "listforge") -> d
     units = [_resolve_unit(u, faction_id, detachment_ids, ds, diag) for u in parsed["units"]]
 
     # --- Leader attachments (second pass: needs all resolved unit ids). -------
-    _infer_leader_attachments(parsed["units"], units, ds, faction_id, diag)
+    _apply_leader_attachments(parsed["units"], units, ds, faction_id, diag)
 
     # --- Points reconciliation (reported vs computed kept distinct). ----------
     if parsed["total_reported"] is not None and parsed["total_reported"] != parsed[
@@ -424,20 +424,48 @@ def _resolve_enhancement(
     return _unresolved(raw_name, _to_candidates(ds.enhancements.find_all(raw_name)))
 
 
-def _infer_leader_attachments(
+def _apply_leader_attachments(
     parsed_units: list[dict[str, Any]],
     units: list[dict[str, Any]],
     ds: Dataset,
     faction_id: str | None,
     diag: _DiagnosticsBuilder,
 ) -> None:
-    """Infer leader→bodyguard attachments.
+    """Resolve leader→bodyguard attachments in two passes.
 
-    The source format does not encode an unambiguous attachment, so each
-    inferred link is marked provisional: we match a resolved character unit
-    against a resolved non-character unit in the same roster using the
-    dataset's leader-attachment data.
+    1. **Explicit** attachments carried verbatim from the source (only the
+       canonical roster-json round-trip encodes one) are reconstructed exactly:
+       the bodyguard id is re-resolved against the current dataset, but the role
+       and provisional flag are preserved. This makes the round-trip lossless,
+       including ``leader``-role attachments inference never produces.
+    2. For every other character the source does not encode an unambiguous
+       attachment, so each **inferred** link is marked provisional: a resolved
+       ``support`` character (which cannot operate alone) is matched against a
+       resolved bodyguard present in the roster via the leader-attachment data.
     """
+    # --- Pass 1: explicit attachments (lossless). ----------------------------
+    for i, unit in enumerate(units):
+        explicit = parsed_units[i].get("leader_attachment")
+        if explicit is None:
+            continue
+        key = normalize_name(explicit["bodyguard_raw_name"])
+        bodyguard = next(
+            (u for u in units if normalize_name(u["ref"]["raw_name"]) == key), None
+        )
+        if bodyguard is None:
+            continue
+        bodyguard_ref = (
+            _resolved(bodyguard["ref"]["id"], bodyguard["ref"]["raw_name"])
+            if bodyguard["ref"]["id"]
+            else _unresolved(bodyguard["ref"]["raw_name"])
+        )
+        unit["leader_attachment"] = {
+            "bodyguard_ref": bodyguard_ref,
+            "role": explicit["role"],
+            "provisional": explicit["provisional"],
+        }
+
+    # --- Pass 2: inference for characters without an explicit attachment. -----
     bodyguard_ids = {
         u["ref"]["id"]
         for i, u in enumerate(units)
@@ -445,6 +473,8 @@ def _infer_leader_attachments(
     }
 
     for i, unit in enumerate(units):
+        if parsed_units[i].get("leader_attachment") is not None:
+            continue  # explicit already applied in pass 1
         if not unit["ref"]["id"] or not parsed_units[i]["is_character"]:
             continue
         leader_id = unit["ref"]["id"]

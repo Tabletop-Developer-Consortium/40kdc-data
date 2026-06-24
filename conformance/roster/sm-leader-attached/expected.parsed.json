@@ -1,0 +1,59 @@
+{
+  "name": "Helbrecht Attached",
+  "generated_by": "List Forge",
+  "faction_raw_name": "adeptus-astartes",
+  "detachment_raw_names": [
+    "Gladius Task Force"
+  ],
+  "battle_size_raw": "Strike Force",
+  "force_disposition": "take-and-hold",
+  "declared_limit": 2000,
+  "total_reported": 195,
+  "total_computed": 195,
+  "units": [
+    {
+      "raw_name": "High Marshal Helbrecht",
+      "is_character": true,
+      "model_count": 1,
+      "points": 120,
+      "is_warlord": true,
+      "enhancement_raw_name": null,
+      "enhancement_points": null,
+      "wargear": [
+        {
+          "raw_name": "Sword of the High Marshals",
+          "count": 1
+        },
+        {
+          "raw_name": "Ferocity",
+          "count": 1
+        }
+      ],
+      "leader_attachment": {
+        "bodyguard_raw_name": "Assault Intercessor Squad",
+        "role": "leader",
+        "provisional": false
+      }
+    },
+    {
+      "raw_name": "Assault Intercessor Squad",
+      "is_character": false,
+      "model_count": 5,
+      "points": 75,
+      "is_warlord": false,
+      "enhancement_raw_name": null,
+      "enhancement_points": null,
+      "wargear": [
+        {
+          "raw_name": "Heavy bolt pistol",
+          "count": 5
+        },
+        {
+          "raw_name": "Astartes chainsword",
+          "count": 5
+        }
+      ]
+    }
+  ],
+  "multi_force": false
+}

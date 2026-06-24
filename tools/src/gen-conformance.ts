@@ -1251,6 +1251,28 @@ function genEffectTranslation(): void {
       },
       scope: { range: "unit", duration: "permanent" },
     },
+    {
+      // closest-eligible target with a range bound — pins the `within N"` clause
+      // (blood-hungry-annihilator's targeting); the auto-sample caps the
+      // unit-within-range-of condition before a ranged closest-eligible surfaces.
+      id: "unit-within-range-closest-eligible",
+      effect: { type: "conditional", condition: { type: "unit-within-range-of", parameters: { range: 18, target_type: "closest-eligible" } }, effect: { type: "re-roll", target: "self", modifier: { roll: "wound", subset: "all-failures" } } },
+      scope: { range: "self", duration: "permanent" },
+    },
+    {
+      // dice-pool requirement with an `any_of` alternative (double X OR triple Y) —
+      // World Eaters Blessings of Khorne; pins the "pair of 4+ or triple of 1+" join.
+      id: "dice-pool-requirement-anyof",
+      effect: {
+        type: "dice-pool-allocation",
+        pool: { count: 8, die: "D6" },
+        max_activations: 2,
+        options: [
+          { name: "Martial Excellence", requirement: { any_of: [{ type: "pair", min_value: 4 }, { type: "triple", min_value: 1 }] }, effect: { type: "keyword-grant", target: "all-friendly", modifier: { keyword: "Sustained Hits 1", weapon_type: "melee" } } },
+        ],
+      },
+      scope: { range: "any-on-battlefield", duration: "battle-round" },
+    },
   ];
   for (const fc of FORCED_DESCRIBER_CASES) {
     cases.push({

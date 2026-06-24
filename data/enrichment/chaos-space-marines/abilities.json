@@ -1846,17 +1846,46 @@
     "effect": {
       "type": "conditional",
       "condition": {
-        "type": "phase-is",
-        "parameters": {
-          "phase": "shooting"
-        }
+        "operator": "and",
+        "operands": [
+          {
+            "type": "unit-within-range-of",
+            "parameters": {
+              "range": 18,
+              "target_type": "closest-eligible"
+            }
+          },
+          {
+            "type": "attack-is-type",
+            "parameters": {
+              "attack_type": "ranged"
+            }
+          },
+          {
+            "operator": "or",
+            "operands": [
+              {
+                "type": "target-has-keyword",
+                "parameters": {
+                  "keyword": "Monster"
+                }
+              },
+              {
+                "type": "target-has-keyword",
+                "parameters": {
+                  "keyword": "Vehicle"
+                }
+              }
+            ]
+          }
+        ]
       },
       "effect": {
         "type": "sequence",
         "steps": [
           {
             "type": "re-roll",
-            "target": "unit",
+            "target": "self",
             "modifier": {
               "roll": "wound",
               "subset": "all-failures"
@@ -1864,7 +1893,7 @@
           },
           {
             "type": "re-roll",
-            "target": "unit",
+            "target": "self",
             "modifier": {
               "roll": "damage",
               "subset": "all-failures"
@@ -1874,16 +1903,19 @@
       }
     },
     "scope": {
-      "range": "aura-custom",
-      "duration": "permanent",
-      "range_inches": 18
+      "range": "self",
+      "duration": "permanent"
+    },
+    "trigger": {
+      "event": "before-wound-roll",
+      "subject": "bearer"
     },
     "unit_ids": [
       "chaos-predator-annihilator"
     ],
     "ability_type": "unit",
     "behavior": "passive",
-    "community_notes": "auto-generated, partial"
+    "community_notes": "Re-roll the Wound roll and the Damage roll against the closest eligible Monster or Vehicle within 18\". Shared Chaos Predator Annihilator ability, kept identical to the World Eaters copy."
   },
   {
     "ability_id": "soul-eater",

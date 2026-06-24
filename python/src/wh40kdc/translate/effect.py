@@ -236,6 +236,21 @@ def _signed(operation: Any, value: Any) -> str:
     return f"{'+' if sign > 0 else '-'}{_jstr(value)}"
 
 
+def _describe_requirement(req: dict[str, Any] | None) -> str:
+    """Dice-pool requirement phrase ("pair of 4+"); an ``any_of`` list joins its
+    alternatives with " or " ("pair of 4+ or triple of 1+")."""
+    req = req or {}
+
+    def one(r: dict[str, Any] | None) -> str:
+        r = r or {}
+        return f"{_jstr(r.get('type'))} of {_jstr(r.get('min_value'))}+"
+
+    any_of = req.get("any_of")
+    if isinstance(any_of, list):
+        return " or ".join(one(r) for r in any_of)
+    return one(req)
+
+
 def _pool_threshold(comp: str, threshold: Any) -> str:
     """Dice-pool success phrase ("4+", "6", "3 or less") — no leading "a", as it
     follows "for each" in a mortal-wounds pool."""
@@ -1117,6 +1132,18 @@ def _describe_effect_inline_base(e: Effect, ctx: Ctx | None = None) -> str:
         return f"{_possessive(subj)} {roll} rolls count as {_jstr(res)}"
     if etype == "firing-deck":
         return f"{subj} {_v(subj, 'has')} Firing Deck {_jstr(m.get('value'))}"
+    if etype == "disembark":
+        where = (
+            f' and be set up wholly within {_jstr(m.get("distance"))}" of the transport'
+            if m.get("distance") is not None
+            else ""
+        )
+        eng = (
+            ", even within Engagement Range of enemy units"
+            if m.get("allow_engagement_range")
+            else ""
+        )
+        return f"{subj} can disembark{where}{eng}"
     if etype == "disembark-after-move":
         return f"units can disembark from {subj} after it has moved"
     if etype == "fallback-and-act":
@@ -1181,8 +1208,7 @@ def _describe_effect_inline_base(e: Effect, ctx: Ctx | None = None) -> str:
         pool = e.get("pool")
         pool_text = f"{_jstr(pool['count'])}{_jstr(pool['die'])}" if pool else "?"
         opts = " / ".join(
-            f"{_jstr(o.get('name'))} ({_jstr((o.get('requirement') or {}).get('type'))} of "
-            f"{_jstr((o.get('requirement') or {}).get('min_value'))}+): "
+            f"{_jstr(o.get('name'))} ({_describe_requirement(o.get('requirement'))}): "
             f"{describe_effect_inline(o.get('effect') or {}, ctx)}"
             for o in e.get("options") or []
         )
@@ -1235,10 +1261,9 @@ def describe_effect(e: Effect, depth: int = 0, ctx: Ctx | None = None) -> str:
             f"{indent}{arrow}Roll {pool_text} (max {_jstr(e.get('max_activations'))} activations):"
         ]
         for opt in e.get("options") or []:
-            requirement = opt.get("requirement") or {}
             lines.append(
-                f"{indent}  - {_jstr(opt.get('name'))}: need {_jstr(requirement.get('type'))} of "
-                f"{_jstr(requirement.get('min_value'))}+ -> "
+                f"{indent}  - {_jstr(opt.get('name'))}: "
+                f"need {_describe_requirement(opt.get('requirement'))} -> "
                 f"{describe_effect_inline(opt.get('effect') or {}, ctx)}"
             )
         return "\n".join(lines)

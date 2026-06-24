@@ -422,7 +422,12 @@ fn describe_simple(s: &SimpleCondition) -> String {
         T::UnitWithinRangeOf => {
             let tt = ps(p, "target_type").unwrap_or("target");
             if tt == "closest-eligible" {
-                format!("{negate}the target is the closest eligible target")
+                let within = if pnn(p, "range") {
+                    format!(" within {}\"", pj(p, "range"))
+                } else {
+                    String::new()
+                };
+                format!("{negate}the target is the closest eligible target{within}")
             } else if tt == "area-terrain" {
                 format!("{negate}within an area terrain feature")
             } else {

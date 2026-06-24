@@ -254,7 +254,8 @@ def describe_condition(c: Condition) -> str:
         tt = _str(p.get("target_type") if p.get("target_type") is not None else "target")
         # Targets that name a specific model, not a radius — no inches apply.
         if tt == "closest-eligible":
-            return f"{negate}the target is the closest eligible target"
+            within = f' within {_str(p.get("range"))}"' if p.get("range") is not None else ""
+            return f"{negate}the target is the closest eligible target{within}"
         if tt == "area-terrain":
             return f"{negate}within an area terrain feature"
         if tt == "friendly-keyword" and p.get("keyword"):

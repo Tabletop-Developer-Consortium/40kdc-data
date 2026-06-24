@@ -100,8 +100,16 @@
           {
             "name": "Martial Excellence",
             "requirement": {
-              "type": "pair",
-              "min_value": 4
+              "any_of": [
+                {
+                  "type": "pair",
+                  "min_value": 4
+                },
+                {
+                  "type": "triple",
+                  "min_value": 1
+                }
+              ]
             },
             "effect": {
               "type": "keyword-grant",
@@ -115,8 +123,16 @@
           {
             "name": "Warp Blades",
             "requirement": {
-              "type": "pair",
-              "min_value": 5
+              "any_of": [
+                {
+                  "type": "pair",
+                  "min_value": 5
+                },
+                {
+                  "type": "triple",
+                  "min_value": 2
+                }
+              ]
             },
             "effect": {
               "type": "keyword-grant",
@@ -130,8 +146,16 @@
           {
             "name": "Decapitating Strikes",
             "requirement": {
-              "type": "triple",
-              "min_value": 6
+              "any_of": [
+                {
+                  "type": "pair",
+                  "min_value": 6
+                },
+                {
+                  "type": "triple",
+                  "min_value": 3
+                }
+              ]
             },
             "effect": {
               "type": "conditional",
@@ -3187,7 +3211,207 @@
     "trigger": {
       "event": "on-unit-destroyed",
       "subject": "any-unit"
-    }
+    },
+    "community_notes": "Blood Tithe earn side: gain 1 BTP on a 3+ each time a Blood Legions or World Eaters unit destroys an enemy unit. The four spend options (start of Command phase, last until end of battle) are modeled as separate detachment abilities: enraged-abjuration (2 BTP), daemonic-rage (3 BTP), boon-of-blood (4 BTP), might-of-khorne (5 BTP)."
+  },
+  {
+    "ability_id": "enraged-abjuration",
+    "name": "Enraged Abjuration",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "pre-launch-provisional"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [],
+    "faction_id": "world-eaters",
+    "detachment_id": "khorne-daemonkin",
+    "ability_type": "detachment",
+    "behavior": "activated",
+    "effect": {
+      "type": "sequence",
+      "steps": [
+        {
+          "type": "resource-spend",
+          "target": "self",
+          "modifier": {
+            "pool_id": "blood-tithe-pool",
+            "amount": 2
+          }
+        },
+        {
+          "type": "feel-no-pain",
+          "target": "all-friendly",
+          "modifier": {
+            "threshold": 5,
+            "scope": "mortal"
+          }
+        }
+      ]
+    },
+    "scope": {
+      "range": "any-on-battlefield",
+      "duration": "battle"
+    },
+    "trigger": {
+      "event": "start-of-phase",
+      "optional": true
+    },
+    "community_notes": "Blood Tithe spend (2 BTP), activated at the start of your Command phase, lasting until end of battle: Blood Legions and World Eaters models gain Feel No Pain 5+ against Psychic Attacks and mortal wounds (modeled as FNP 5+ vs mortal wounds; the Psychic-Attacks scope is not separately expressible). Applies to the whole army, so no keyword gate."
+  },
+  {
+    "ability_id": "daemonic-rage",
+    "name": "Daemonic Rage",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "pre-launch-provisional"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [],
+    "faction_id": "world-eaters",
+    "detachment_id": "khorne-daemonkin",
+    "ability_type": "detachment",
+    "behavior": "activated",
+    "effect": {
+      "type": "sequence",
+      "steps": [
+        {
+          "type": "resource-spend",
+          "target": "self",
+          "modifier": {
+            "pool_id": "blood-tithe-pool",
+            "amount": 3
+          }
+        },
+        {
+          "type": "keyword-grant",
+          "target": "all-friendly",
+          "modifier": {
+            "keyword": "Lance",
+            "weapon_type": "melee"
+          }
+        }
+      ]
+    },
+    "scope": {
+      "range": "any-on-battlefield",
+      "duration": "battle"
+    },
+    "trigger": {
+      "event": "start-of-phase",
+      "optional": true
+    },
+    "applies_to": {
+      "required_keywords": [
+        "Blood Legions"
+      ]
+    },
+    "community_notes": "Blood Tithe spend (3 BTP), activated at the start of your Command phase, lasting until end of battle: melee weapons equipped by Blood Legions units gain [LANCE]."
+  },
+  {
+    "ability_id": "boon-of-blood",
+    "name": "Boon of Blood",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "pre-launch-provisional"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [],
+    "faction_id": "world-eaters",
+    "detachment_id": "khorne-daemonkin",
+    "ability_type": "detachment",
+    "behavior": "activated",
+    "effect": {
+      "type": "sequence",
+      "steps": [
+        {
+          "type": "resource-spend",
+          "target": "self",
+          "modifier": {
+            "pool_id": "blood-tithe-pool",
+            "amount": 4
+          }
+        },
+        {
+          "type": "invulnerable-save",
+          "target": "all-friendly",
+          "modifier": {
+            "invuln_sv": 4
+          }
+        }
+      ]
+    },
+    "scope": {
+      "range": "any-on-battlefield",
+      "duration": "battle"
+    },
+    "trigger": {
+      "event": "start-of-phase",
+      "optional": true
+    },
+    "applies_to": {
+      "required_keywords": [
+        "Blood Legions"
+      ]
+    },
+    "community_notes": "Blood Tithe spend (4 BTP), activated at the start of your Command phase, lasting until end of battle: Blood Legions units have a 4+ invulnerable save. Referenced by blessing-of-burning-blood as the 'Boon of Blood active' condition."
+  },
+  {
+    "ability_id": "might-of-khorne",
+    "name": "Might of Khorne",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "pre-launch-provisional"
+    },
+    "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [],
+    "faction_id": "world-eaters",
+    "detachment_id": "khorne-daemonkin",
+    "ability_type": "detachment",
+    "behavior": "activated",
+    "effect": {
+      "type": "sequence",
+      "steps": [
+        {
+          "type": "resource-spend",
+          "target": "self",
+          "modifier": {
+            "pool_id": "blood-tithe-pool",
+            "amount": 5
+          }
+        },
+        {
+          "type": "rule-state",
+          "target": "all-friendly",
+          "modifier": {
+            "direction": "granted",
+            "rule_kind": "faction-rule",
+            "rule": "blessings-of-khorne"
+          }
+        }
+      ]
+    },
+    "scope": {
+      "range": "any-on-battlefield",
+      "duration": "battle"
+    },
+    "trigger": {
+      "event": "start-of-phase",
+      "optional": true
+    },
+    "applies_to": {
+      "required_keywords": [
+        "Blood Legions"
+      ]
+    },
+    "community_notes": "Blood Tithe spend (5 BTP), activated at the start of your Command phase, lasting until end of battle: Blood Legions units gain the Blessings of Khorne ability."
   },
   {
     "ability_id": "idols-of-khorne",
@@ -4681,10 +4905,11 @@
     "ability_type": "stratagem",
     "behavior": "activated",
     "effect": {
-      "type": "ability-grant",
+      "type": "disembark",
       "target": "unit",
       "modifier": {
-        "grant_type": "early-disembark-and-charge"
+        "distance": 6,
+        "allow_engagement_range": true
       }
     },
     "scope": {
@@ -4695,7 +4920,8 @@
       "event": "on-unit-selected",
       "subject": "friendly-unit",
       "optional": true
-    }
+    },
+    "community_notes": "A unit embarked in the Rhino disembarks and is set up wholly within 6\" of it (extending the default 3\"), and may be set up within Engagement Range of enemies. Stratagem: target a World Eaters Rhino that has not been selected to move this phase (the stationary-transport precondition is not expressible in the DSL target vocabulary)."
   },
   {
     "ability_id": "full-throttle-assault-goretrack-onslaught",
@@ -4843,11 +5069,32 @@
     "ability_type": "stratagem",
     "behavior": "activated",
     "effect": {
-      "type": "feel-no-pain",
-      "target": "unit",
-      "modifier": {
-        "threshold": 4
-      }
+      "type": "sequence",
+      "steps": [
+        {
+          "type": "invulnerable-save",
+          "target": "unit",
+          "modifier": {
+            "invuln_sv": 5
+          }
+        },
+        {
+          "type": "conditional",
+          "condition": {
+            "type": "faction-rule-active",
+            "parameters": {
+              "rule": "boon-of-blood"
+            }
+          },
+          "effect": {
+            "type": "invulnerable-save",
+            "target": "unit",
+            "modifier": {
+              "invuln_sv": 4
+            }
+          }
+        }
+      ]
     },
     "scope": {
       "range": "unit",
@@ -4857,7 +5104,8 @@
       "event": "on-unit-selected",
       "subject": "friendly-unit",
       "optional": true
-    }
+    },
+    "community_notes": "5+ invulnerable save until end of phase, improving to 4+ while the Boon of Blood ability (Blood Tithe, Khorne Daemonkin) is active. The source targets a Blood Legions unit within 6\" of the attacked World Eaters unit but buffs that World Eaters unit; the DSL target vocabulary can't express that relay, so target is the unit the ability resolves on."
   },
   {
     "ability_id": "a-worthy-skull-khorne-daemonkin",
@@ -4907,10 +5155,12 @@
     "ability_type": "stratagem",
     "behavior": "activated",
     "effect": {
-      "type": "ability-grant",
+      "type": "resurrection",
       "target": "unit",
       "modifier": {
-        "grant_type": "summon-daemons-on-death"
+        "count": "variable",
+        "model_type": "blood-legions",
+        "placement": "closest-to-destruction"
       }
     },
     "scope": {
@@ -4918,9 +5168,10 @@
       "duration": "phase"
     },
     "trigger": {
-      "event": "on-unit-selected",
+      "event": "on-unit-destroyed",
       "optional": true
-    }
+    },
+    "community_notes": "Set up a Bloodletters unit from Reserves wholly within 9\" of the destroyed model and more than 6\" from enemy units, once per battle round. Modeled with resurrection — the local blood-legions summon pattern (cf. daemontide); the Reserves origin, 9\"/>6\" placement, and once-per-battle-round limit are recorded here rather than in the effect shape."
   },
   {
     "ability_id": "daemontide-khorne-daemonkin",
@@ -5043,23 +5294,21 @@
     "faction_id": "world-eaters",
     "detachment_id": "possessed-slaughterband",
     "ability_type": "stratagem",
-    "behavior": "activated",
+    "behavior": "reactive",
     "effect": {
-      "type": "feel-no-pain",
-      "target": "unit",
+      "type": "roll-modifier",
+      "target": "attacker",
       "modifier": {
-        "threshold": 4
+        "roll": "wound",
+        "operation": "subtract",
+        "value": 1
       }
     },
     "scope": {
       "range": "unit",
       "duration": "phase"
     },
-    "trigger": {
-      "event": "on-damage-allocated",
-      "subject": "friendly-unit",
-      "optional": true
-    }
+    "community_notes": "Defensive: each time an attack targets the unit, subtract 1 from the attacker's Wound roll (modeled attacker-side, as icon-of-obstinacy / rugged-resilience do). Reactive stratagem, used just after an enemy selects targets in the opponent's Shooting or Fight phase."
   },
   {
     "ability_id": "immortal-fury-possessed-slaughterband",
@@ -5142,13 +5391,10 @@
     "ability_type": "stratagem",
     "behavior": "activated",
     "effect": {
-      "type": "movement-modifier",
+      "type": "engagement-passthrough",
       "target": "unit",
       "modifier": {
-        "passthrough": [
-          "non-titanic-models",
-          "all-terrain"
-        ]
+        "no_end_in_engagement": true
       }
     },
     "scope": {
@@ -5159,7 +5405,13 @@
       "event": "on-unit-selected",
       "subject": "friendly-unit",
       "optional": true
-    }
+    },
+    "applies_to": {
+      "required_keywords": [
+        "Possessed"
+      ]
+    },
+    "community_notes": "Move through enemy models, ending the move outside Engagement Range (a Charge move may end within it). The rule excludes Monsters and Vehicles and auto-passes Desperate Escape tests; engagement-passthrough has no exclusion field, so those carve-outs are not modeled. Stratagem: used in your Movement or Charge phase on a Possessed unit not yet selected to move or charge."
   },
   {
     "ability_id": "horrifying-violence-possessed-slaughterband",
@@ -5583,15 +5835,20 @@
     "behavior": "passive",
     "effect": {
       "type": "objective-control-modifier",
-      "target": "self",
+      "target": "unit",
       "modifier": {
         "operation": "add",
         "value": 1
       }
     },
     "scope": {
-      "range": "self",
+      "range": "unit",
       "duration": "permanent"
+    },
+    "applies_to": {
+      "required_keywords": [
+        "Terminator Squad"
+      ]
     }
   },
   {
@@ -5610,10 +5867,10 @@
     "ability_type": "enhancement",
     "behavior": "passive",
     "effect": {
-      "type": "roll-modifier",
+      "type": "stat-modifier",
       "target": "self",
       "modifier": {
-        "roll": "hit",
+        "stat": "WS",
         "operation": "add",
         "value": 1,
         "attack_type": "melee"
@@ -5623,7 +5880,7 @@
       "range": "self",
       "duration": "permanent"
     },
-    "community_notes": "+1 WS on melee attacks (modeled as +1 to melee Hit rolls)."
+    "community_notes": "+1 Weapon Skill on melee attacks, modeled as a WS characteristic modifier (distinct from +1 to Hit; the two stack and must not collide under the single +1-to-Hit cap)."
   },
   {
     "ability_id": "focused-ferocity-butchers-of-khorne",

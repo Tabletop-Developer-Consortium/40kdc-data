@@ -3,7 +3,7 @@
   import { abilities, units } from "@alpaca-software/40kdc-data";
   import type { AbilityView } from "@alpaca-software/40kdc-data";
   import { explorer } from "./store.svelte.js";
-  import { notes } from "./notes.svelte.js";
+  import { notes, fingerprintText } from "./notes.svelte.js";
   import { groupAbilities } from "./ability-groups.js";
   import {
     loadIndex,
@@ -205,6 +205,7 @@
       } catch {
         desc = "";
       }
+      const current_fingerprint = fingerprintText(desc);
       out.push({
         ability_id: id,
         name: a?.name ?? id,
@@ -214,6 +215,9 @@
         source_text: entryToText(index?.[id]),
         dsl: a?.raw ?? null,
         describer: desc,
+        reviewed_fingerprint: n.fingerprint,
+        current_fingerprint,
+        stale: n.fingerprint != null && n.fingerprint !== current_fingerprint,
       });
     }
     return out;
@@ -235,6 +239,14 @@
   }
 
   const exportCount = $derived(notes.exportableIds().length);
+
+  // Stale-flag audit loop: show only entries whose describer changed since review,
+  // and a two-step "clear all" so flags don't rot silently across re-authoring.
+  let staleOnly = $state(false);
+  let confirmClear = $state(false);
+  function isRowStale(a: AbilityView): boolean {
+    return notes.isStale(a.id, describe(a));
+  }
 </script>
 
 <div class="toolbar">
@@ -339,6 +351,17 @@
   <span class="grow"></span>
   <button onclick={expandAll} disabled={total === 0}>Expand all</button>
   <button onclick={collapseAll} disabled={expanded.size === 0}>Collapse all</button>
+  <button
+    class:active={staleOnly}
+    onclick={() => (staleOnly = !staleOnly)}
+    title="Show only flags/notes whose describer output changed since you reviewed them"
+  >Stale only</button>
+  {#if confirmClear}
+    <button class="danger" onclick={() => { notes.clearAll(); confirmClear = false; }}>Confirm clear all</button>
+    <button onclick={() => (confirmClear = false)}>Cancel</button>
+  {:else}
+    <button onclick={() => (confirmClear = true)} disabled={exportCount === 0}>Clear all</button>
+  {/if}
 </div>
 
 {#snippet row(a: AbilityView)}
@@ -359,11 +382,26 @@
         <span class="score-badge {badgeClass(s)}" title="Embedding veracity (cosine)">{s.toFixed(2)}</span>
       {/if}
       <span class="col-actions">
+        {#if notes.isStale(a.id, describe(a))}
+          <span class="stale-badge" title="The describer output changed since you reviewed this — re-verify the note, then re-affirm or clear.">changed</span>
+          <button
+            class="icon-btn"
+            title="Re-affirm: still applies — update the baseline to the current describer"
+            onclick={(e) => { e.preventDefault(); notes.reaffirm(a.id, describe(a)); }}
+          >↻</button>
+        {/if}
+        {#if notes.isFlagged(a.id) || notes.get(a.id).note.trim()}
+          <button
+            class="icon-btn"
+            title="Clear this flag/note"
+            onclick={(e) => { e.preventDefault(); notes.clear(a.id); }}
+          >✕</button>
+        {/if}
         <button
           class="icon-btn"
           class:flagged={notes.isFlagged(a.id)}
           title={notes.isFlagged(a.id) ? "Flagged for review" : "Flag for review"}
-          onclick={(e) => { e.preventDefault(); notes.toggleFlag(a.id); }}
+          onclick={(e) => { e.preventDefault(); notes.toggleFlag(a.id, describe(a)); }}
         >{notes.isFlagged(a.id) ? "⚑" : "⚐"}</button>
       </span>
     </summary>
@@ -373,7 +411,7 @@
         <textarea
           placeholder="Note for the LLM — what's wrong with the DSL / describer for this ability?"
           value={notes.get(a.id).note}
-          oninput={(e) => notes.setNote(a.id, (e.target as HTMLTextAreaElement).value)}
+          oninput={(e) => notes.setNote(a.id, (e.target as HTMLTextAreaElement).value, describe(a))}
         ></textarea>
 
         <div class="panels">
@@ -407,7 +445,9 @@
 {:else if explorer.veracity && explorer.roundtripSort === "veracity"}
   <div class="collation">
     {#each ranked as a (a.id)}
-      {@render row(a)}
+      {#if !staleOnly || isRowStale(a)}
+        {@render row(a)}
+      {/if}
     {/each}
   </div>
 {:else}
@@ -416,7 +456,9 @@
       <div class="collation-group">
         <div class="section-label">{group.label} Abilities</div>
         {#each group.abilities as a (a.id)}
-          {@render row(a)}
+          {#if !staleOnly || isRowStale(a)}
+            {@render row(a)}
+          {/if}
         {/each}
       </div>
     {/each}

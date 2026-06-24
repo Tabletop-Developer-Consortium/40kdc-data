@@ -4197,27 +4197,7 @@ impl ::std::convert::TryFrom<::std::string::String> for DiceGatedEffectThreshold
 ///            "type": "string"
 ///          },
 ///          "requirement": {
-///            "type": "object",
-///            "required": [
-///              "min_value",
-///              "type"
-///            ],
-///            "properties": {
-///              "min_value": {
-///                "type": "integer",
-///                "maximum": 6.0,
-///                "minimum": 1.0
-///              },
-///              "type": {
-///                "type": "string",
-///                "enum": [
-///                  "pair",
-///                  "triple",
-///                  "single",
-///                  "run"
-///                ]
-///              }
-///            }
+///            "$ref": "#/$defs/dice-requirement-spec"
 ///          }
 ///        }
 ///      },
@@ -4274,27 +4254,7 @@ pub struct DicePoolAllocationEffect {
 ///      "type": "string"
 ///    },
 ///    "requirement": {
-///      "type": "object",
-///      "required": [
-///        "min_value",
-///        "type"
-///      ],
-///      "properties": {
-///        "min_value": {
-///          "type": "integer",
-///          "maximum": 6.0,
-///          "minimum": 1.0
-///        },
-///        "type": {
-///          "type": "string",
-///          "enum": [
-///            "pair",
-///            "triple",
-///            "single",
-///            "run"
-///          ]
-///        }
-///      }
+///      "$ref": "#/$defs/dice-requirement-spec"
 ///    }
 ///  }
 ///}
@@ -4304,132 +4264,7 @@ pub struct DicePoolAllocationEffect {
 pub struct DicePoolAllocationEffectOptionsItem {
     pub effect: EffectNode,
     pub name: ::std::string::String,
-    pub requirement: DicePoolAllocationEffectOptionsItemRequirement,
-}
-///`DicePoolAllocationEffectOptionsItemRequirement`
-///
-/// <details><summary>JSON schema</summary>
-///
-/// ```json
-///{
-///  "type": "object",
-///  "required": [
-///    "min_value",
-///    "type"
-///  ],
-///  "properties": {
-///    "min_value": {
-///      "type": "integer",
-///      "maximum": 6.0,
-///      "minimum": 1.0
-///    },
-///    "type": {
-///      "type": "string",
-///      "enum": [
-///        "pair",
-///        "triple",
-///        "single",
-///        "run"
-///      ]
-///    }
-///  }
-///}
-/// ```
-/// </details>
-#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
-pub struct DicePoolAllocationEffectOptionsItemRequirement {
-    pub min_value: ::std::num::NonZeroU64,
-    #[serde(rename = "type")]
-    pub type_: DicePoolAllocationEffectOptionsItemRequirementType,
-}
-///`DicePoolAllocationEffectOptionsItemRequirementType`
-///
-/// <details><summary>JSON schema</summary>
-///
-/// ```json
-///{
-///  "type": "string",
-///  "enum": [
-///    "pair",
-///    "triple",
-///    "single",
-///    "run"
-///  ]
-///}
-/// ```
-/// </details>
-#[derive(
-    ::serde::Deserialize,
-    ::serde::Serialize,
-    Clone,
-    Copy,
-    Debug,
-    Eq,
-    Hash,
-    Ord,
-    PartialEq,
-    PartialOrd
-)]
-pub enum DicePoolAllocationEffectOptionsItemRequirementType {
-    #[serde(rename = "pair")]
-    Pair,
-    #[serde(rename = "triple")]
-    Triple,
-    #[serde(rename = "single")]
-    Single,
-    #[serde(rename = "run")]
-    Run,
-}
-impl ::std::fmt::Display for DicePoolAllocationEffectOptionsItemRequirementType {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        match *self {
-            Self::Pair => f.write_str("pair"),
-            Self::Triple => f.write_str("triple"),
-            Self::Single => f.write_str("single"),
-            Self::Run => f.write_str("run"),
-        }
-    }
-}
-impl ::std::str::FromStr for DicePoolAllocationEffectOptionsItemRequirementType {
-    type Err = self::error::ConversionError;
-    fn from_str(
-        value: &str,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        match value {
-            "pair" => Ok(Self::Pair),
-            "triple" => Ok(Self::Triple),
-            "single" => Ok(Self::Single),
-            "run" => Ok(Self::Run),
-            _ => Err("invalid value".into()),
-        }
-    }
-}
-impl ::std::convert::TryFrom<&str>
-for DicePoolAllocationEffectOptionsItemRequirementType {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &str,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<&::std::string::String>
-for DicePoolAllocationEffectOptionsItemRequirementType {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: &::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
-}
-impl ::std::convert::TryFrom<::std::string::String>
-for DicePoolAllocationEffectOptionsItemRequirementType {
-    type Error = self::error::ConversionError;
-    fn try_from(
-        value: ::std::string::String,
-    ) -> ::std::result::Result<Self, self::error::ConversionError> {
-        value.parse()
-    }
+    pub requirement: DiceRequirementSpec,
 }
 ///`DicePoolAllocationEffectPool`
 ///
@@ -4458,6 +4293,173 @@ for DicePoolAllocationEffectOptionsItemRequirementType {
 pub struct DicePoolAllocationEffectPool {
     pub count: ::std::num::NonZeroU64,
     pub die: ::std::string::String,
+}
+///`DiceRequirement`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "object",
+///  "required": [
+///    "min_value",
+///    "type"
+///  ],
+///  "properties": {
+///    "min_value": {
+///      "type": "integer",
+///      "maximum": 6.0,
+///      "minimum": 1.0
+///    },
+///    "type": {
+///      "type": "string",
+///      "enum": [
+///        "pair",
+///        "triple",
+///        "single",
+///        "run"
+///      ]
+///    }
+///  },
+///  "additionalProperties": false,
+///  "$comment": "A single dice-allocation requirement: a pair/triple/single/run of dice at or above min_value."
+///}
+/// ```
+/// </details>
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
+#[serde(deny_unknown_fields)]
+pub struct DiceRequirement {
+    pub min_value: ::std::num::NonZeroU64,
+    #[serde(rename = "type")]
+    pub type_: DiceRequirementType,
+}
+///`DiceRequirementSpec`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "oneOf": [
+///    {
+///      "$ref": "#/$defs/dice-requirement"
+///    },
+///    {
+///      "type": "object",
+///      "required": [
+///        "any_of"
+///      ],
+///      "properties": {
+///        "any_of": {
+///          "type": "array",
+///          "items": {
+///            "$ref": "#/$defs/dice-requirement"
+///          },
+///          "minItems": 2
+///        }
+///      },
+///      "additionalProperties": false
+///    }
+///  ],
+///  "$comment": "Either a single dice-requirement, or an `any_of` set of them — the option activates if ANY is met. The any_of form models blessings that trigger on a double of X OR a triple of Y (World Eaters Blessings of Khorne: the top three blessings)."
+///}
+/// ```
+/// </details>
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
+#[serde(untagged, deny_unknown_fields)]
+pub enum DiceRequirementSpec {
+    DiceRequirement(DiceRequirement),
+    Object { any_of: ::std::vec::Vec<DiceRequirement> },
+}
+impl ::std::convert::From<DiceRequirement> for DiceRequirementSpec {
+    fn from(value: DiceRequirement) -> Self {
+        Self::DiceRequirement(value)
+    }
+}
+///`DiceRequirementType`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "string",
+///  "enum": [
+///    "pair",
+///    "triple",
+///    "single",
+///    "run"
+///  ]
+///}
+/// ```
+/// </details>
+#[derive(
+    ::serde::Deserialize,
+    ::serde::Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd
+)]
+pub enum DiceRequirementType {
+    #[serde(rename = "pair")]
+    Pair,
+    #[serde(rename = "triple")]
+    Triple,
+    #[serde(rename = "single")]
+    Single,
+    #[serde(rename = "run")]
+    Run,
+}
+impl ::std::fmt::Display for DiceRequirementType {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::Pair => f.write_str("pair"),
+            Self::Triple => f.write_str("triple"),
+            Self::Single => f.write_str("single"),
+            Self::Run => f.write_str("run"),
+        }
+    }
+}
+impl ::std::str::FromStr for DiceRequirementType {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "pair" => Ok(Self::Pair),
+            "triple" => Ok(Self::Triple),
+            "single" => Ok(Self::Single),
+            "run" => Ok(Self::Run),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for DiceRequirementType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for DiceRequirementType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for DiceRequirementType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
 }
 ///Game edition, e.g. '10th' or '11'
 ///
@@ -12390,13 +12392,14 @@ impl ::std::convert::TryFrom<::std::string::String> for SimpleConditionType {
 ///        "auto-result",
 ///        "firing-deck",
 ///        "disembark-after-move",
+///        "disembark",
 ///        "rule-state",
 ///        "pool-add-die",
 ///        "replace-roll-from-pool"
 ///      ]
 ///    }
 ///  },
-///  "$comment": "Optional weapon narrowing on cruncher-interpreted modifiers (stat-modifier/roll-modifier/re-roll/keyword-grant): `weapon_type` ('melee'|'ranged'), `weapon_name` (one named weapon), or `weapon_keyword` (a weapon ability such as 'Torrent'|'Blast'|'Pistol' — restricts the effect to weapons carrying that keyword). When `type` is `re-roll`, `modifier` must carry `roll` (string) and `subset` (`ones` | `all-failures`). Rerolls always target failures; the subset decides whether only 1s are rerolled or every failed die. The constraint is enforced by AJV at validation time and stripped from the codegen bundle (typify can't model if/then/else) — the generated TS/Rust types therefore see `modifier` as an open object, matching its other-`type` callers. When `type` is `feel-no-pain`, `modifier` carries `threshold` (the FNP save target) and optionally `scope` ∈ {`all`, `mortal`}; an absent scope defaults to `all` (fires on every unsaved wound). The two scopes compose independently against the mortal-wound stream. Tag effects (`terrain-area-tag`, `objective-tag`, `unit-tag`) set a transient marker on the named subject; `modifier` carries `tag` (string) and optionally `source` ('this-action'|'destroying-unit') and `clears_on` ('turn-rollover'|'never'). `target` for tag effects names the kind of entity the tag is applied to ('unit', 'self') — a placeholder, since the marker target is the objective/terrain/unit specified by the action context, not a combat target. Parameterized weapon keywords on `keyword-grant`/`unit-keyword-grant`: a granted keyword may carry its rating either baked into the `keyword` string ('Sustained Hits 1') or structurally via `value` (Sustained Hits/Rapid Fire/Melta N); Anti-X keywords may use `anti_keyword` + `anti_threshold` (rendered '[ANTI-INFANTRY 4+]'). When `type` is `auto-result`, `modifier` carries `result` (`pass`|`fail`, or an integer the named roll counts as) plus `test` (e.g. 'battle-shock') or `roll` (e.g. 'hit'). When `type` is `firing-deck`, `modifier` carries `value` (the Firing Deck rating). `disembark-after-move` needs no modifier. When `type` is `rule-state`, a named rule is switched on/off for `target`: `modifier` carries `direction` (`suppressed` | `granted`), `rule_kind` (`core-rule` | `keyword` | `ability` | `faction-rule`), `rule` (the rule slug — constrained to the closed core-rule vocabulary when `rule_kind` is `core-rule`; a free slug resolved by integrity.ts against the matching ability/faction-rule entity when `rule_kind` is `ability`/`faction-rule`; a free string when `rule_kind` is `keyword`), and — carried over from `forgo-faction-rule` — optional `scope` and `cost`. `target` names whose printed datasheet line the rule is a property OF (the rule-text attachment point), not a buff/debuff stance: a self-immunity is `self`, an aura debuff projected onto enemies is `enemy-within-aura`. `forgo-faction-rule` is exactly `rule-state` with `direction: suppressed`, `rule_kind: faction-rule`. Pooled-resource economy (shape #1): `resource-gain`/`resource-spend` move plain COUNT tokens (Pain tokens, Yield Points) by `amount` from a free-string `pool_id`; `resource-spend` may additionally carry a `cap` ({ `count` (int), `per` ('turn'|'phase'|'battle') }) bounding how often the bearer may spend from that pool. For pools whose tokens carry a FIXED FACE VALUE (Adepta Sororitas Miracle dice), two dedicated effects apply: `pool-add-die` adds a die SHOWING a value to the pool — `modifier` carries `pool_id` (free string), `value` (integer 1-6, or the string 'highest' for 'the highest result you could roll'), and optional `count` (integer or dice-expression string, default 1); and `replace-roll-from-pool` discards a die from the pool to substitute its value for a roll — `modifier` carries `pool_id` and `rolls` (array of roll names the substitution may apply to, e.g. ['hit','wound','save','advance','charge','desperate-escape','hazardous','leadership']). `replace-roll-from-pool` revives the dice-substitution sub-shape retired at v1.0.0; the cruncher leaves both pool effects unsupported (fail-safe) since pool state is not tracked by the buff layer."
+///  "$comment": "Optional weapon narrowing on cruncher-interpreted modifiers (stat-modifier/roll-modifier/re-roll/keyword-grant): `weapon_type` ('melee'|'ranged'), `weapon_name` (one named weapon), or `weapon_keyword` (a weapon ability such as 'Torrent'|'Blast'|'Pistol' — restricts the effect to weapons carrying that keyword). When `type` is `re-roll`, `modifier` must carry `roll` (string) and `subset` (`ones` | `all-failures`). Rerolls always target failures; the subset decides whether only 1s are rerolled or every failed die. The constraint is enforced by AJV at validation time and stripped from the codegen bundle (typify can't model if/then/else) — the generated TS/Rust types therefore see `modifier` as an open object, matching its other-`type` callers. When `type` is `feel-no-pain`, `modifier` carries `threshold` (the FNP save target) and optionally `scope` ∈ {`all`, `mortal`}; an absent scope defaults to `all` (fires on every unsaved wound). The two scopes compose independently against the mortal-wound stream. Tag effects (`terrain-area-tag`, `objective-tag`, `unit-tag`) set a transient marker on the named subject; `modifier` carries `tag` (string) and optionally `source` ('this-action'|'destroying-unit') and `clears_on` ('turn-rollover'|'never'). `target` for tag effects names the kind of entity the tag is applied to ('unit', 'self') — a placeholder, since the marker target is the objective/terrain/unit specified by the action context, not a combat target. Parameterized weapon keywords on `keyword-grant`/`unit-keyword-grant`: a granted keyword may carry its rating either baked into the `keyword` string ('Sustained Hits 1') or structurally via `value` (Sustained Hits/Rapid Fire/Melta N); Anti-X keywords may use `anti_keyword` + `anti_threshold` (rendered '[ANTI-INFANTRY 4+]'). When `type` is `auto-result`, `modifier` carries `result` (`pass`|`fail`, or an integer the named roll counts as) plus `test` (e.g. 'battle-shock') or `roll` (e.g. 'hit'). When `type` is `firing-deck`, `modifier` carries `value` (the Firing Deck rating). `disembark-after-move` needs no modifier. When `type` is `rule-state`, a named rule is switched on/off for `target`: `modifier` carries `direction` (`suppressed` | `granted`), `rule_kind` (`core-rule` | `keyword` | `ability` | `faction-rule`), `rule` (the rule slug — constrained to the closed core-rule vocabulary when `rule_kind` is `core-rule`; a free slug resolved by integrity.ts against the matching ability/faction-rule entity when `rule_kind` is `ability`/`faction-rule`; a free string when `rule_kind` is `keyword`), and — carried over from `forgo-faction-rule` — optional `scope` and `cost`. `target` names whose printed datasheet line the rule is a property OF (the rule-text attachment point), not a buff/debuff stance: a self-immunity is `self`, an aura debuff projected onto enemies is `enemy-within-aura`. `forgo-faction-rule` is exactly `rule-state` with `direction: suppressed`, `rule_kind: faction-rule`. Pooled-resource economy (shape #1): `resource-gain`/`resource-spend` move plain COUNT tokens (Pain tokens, Yield Points) by `amount` from a free-string `pool_id`; `resource-spend` may additionally carry a `cap` ({ `count` (int), `per` ('turn'|'phase'|'battle') }) bounding how often the bearer may spend from that pool. For pools whose tokens carry a FIXED FACE VALUE (Adepta Sororitas Miracle dice), two dedicated effects apply: `pool-add-die` adds a die SHOWING a value to the pool — `modifier` carries `pool_id` (free string), `value` (integer 1-6, or the string 'highest' for 'the highest result you could roll'), and optional `count` (integer or dice-expression string, default 1); and `replace-roll-from-pool` discards a die from the pool to substitute its value for a roll — `modifier` carries `pool_id` and `rolls` (array of roll names the substitution may apply to, e.g. ['hit','wound','save','advance','charge','desperate-escape','hazardous','leadership']). `replace-roll-from-pool` revives the dice-substitution sub-shape retired at v1.0.0; the cruncher leaves both pool effects unsupported (fail-safe) since pool state is not tracked by the buff layer. When `type` is `disembark`, `modifier` carries `distance` (inches the disembarking unit may be set up wholly within of the transport, extending the default 3\") and `allow_engagement_range` (boolean — removes the core restriction against disembarking within Engagement Range of enemies); deployment mechanic, left unsupported by the cruncher like `disembark-after-move`/`deep-strike`."
 ///}
 /// ```
 /// </details>
@@ -12577,6 +12580,7 @@ impl ::std::convert::TryFrom<::std::string::String> for SingleEffectTarget {
 ///    "auto-result",
 ///    "firing-deck",
 ///    "disembark-after-move",
+///    "disembark",
 ///    "rule-state",
 ///    "pool-add-die",
 ///    "replace-roll-from-pool"
@@ -12673,6 +12677,8 @@ pub enum SingleEffectType {
     FiringDeck,
     #[serde(rename = "disembark-after-move")]
     DisembarkAfterMove,
+    #[serde(rename = "disembark")]
+    Disembark,
     #[serde(rename = "rule-state")]
     RuleState,
     #[serde(rename = "pool-add-die")]
@@ -12721,6 +12727,7 @@ impl ::std::fmt::Display for SingleEffectType {
             Self::AutoResult => f.write_str("auto-result"),
             Self::FiringDeck => f.write_str("firing-deck"),
             Self::DisembarkAfterMove => f.write_str("disembark-after-move"),
+            Self::Disembark => f.write_str("disembark"),
             Self::RuleState => f.write_str("rule-state"),
             Self::PoolAddDie => f.write_str("pool-add-die"),
             Self::ReplaceRollFromPool => f.write_str("replace-roll-from-pool"),
@@ -12771,6 +12778,7 @@ impl ::std::str::FromStr for SingleEffectType {
             "auto-result" => Ok(Self::AutoResult),
             "firing-deck" => Ok(Self::FiringDeck),
             "disembark-after-move" => Ok(Self::DisembarkAfterMove),
+            "disembark" => Ok(Self::Disembark),
             "rule-state" => Ok(Self::RuleState),
             "pool-add-die" => Ok(Self::PoolAddDie),
             "replace-roll-from-pool" => Ok(Self::ReplaceRollFromPool),

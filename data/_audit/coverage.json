@@ -113,10 +113,10 @@
     {
       "faction": "chaos-space-marines",
       "total": 236,
-      "offensive": 64,
+      "offensive": 63,
       "defensive": 17,
-      "inert": 162,
-      "stub": 28,
+      "inert": 163,
+      "stub": 27,
       "stubStructural": 15,
       "gwTextLeak": 0,
       "defensiveSkipped": 6
@@ -124,10 +124,10 @@
     {
       "faction": "death-guard",
       "total": 119,
-      "offensive": 26,
+      "offensive": 25,
       "defensive": 7,
-      "inert": 89,
-      "stub": 8,
+      "inert": 90,
+      "stub": 7,
       "stubStructural": 5,
       "gwTextLeak": 0,
       "defensiveSkipped": 3
@@ -234,10 +234,10 @@
     {
       "faction": "thousand-sons",
       "total": 130,
-      "offensive": 32,
+      "offensive": 31,
       "defensive": 9,
-      "inert": 94,
-      "stub": 20,
+      "inert": 95,
+      "stub": 19,
       "stubStructural": 16,
       "gwTextLeak": 0,
       "defensiveSkipped": 2
@@ -255,10 +255,10 @@
     },
     {
       "faction": "world-eaters",
-      "total": 129,
-      "offensive": 20,
-      "defensive": 7,
-      "inert": 102,
+      "total": 133,
+      "offensive": 21,
+      "defensive": 9,
+      "inert": 104,
       "stub": 0,
       "stubStructural": 0,
       "gwTextLeak": 0,
@@ -266,11 +266,11 @@
     }
   ],
   "totals": {
-    "total": 3117,
-    "offensive": 748,
-    "defensive": 262,
-    "inert": 2195,
-    "stub": 219,
+    "total": 3121,
+    "offensive": 746,
+    "defensive": 264,
+    "inert": 2200,
+    "stub": 216,
     "stubStructural": 190,
     "gwTextLeak": 0,
     "defensiveSkipped": 59
@@ -278,7 +278,7 @@
   "unsupportedReasons": [
     {
       "reason": "effect type \"ability-grant\" is not modelled by the buff layer",
-      "count": 487
+      "count": 485
     },
     {
       "reason": "stat-modifier: operation \"undefined\" not supported",
@@ -286,7 +286,7 @@
     },
     {
       "reason": "effect type \"movement-modifier\" is not modelled by the buff layer",
-      "count": 150
+      "count": 149
     },
     {
       "reason": "effect type \"mortal-wounds\" is not modelled by the buff layer",
@@ -306,7 +306,7 @@
     },
     {
       "reason": "effect type \"resurrection\" is not modelled by the buff layer",
-      "count": 55
+      "count": 56
     },
     {
       "reason": "effect type \"objective-control-modifier\" is not modelled by the buff layer",
@@ -342,7 +342,7 @@
     },
     {
       "reason": "effect type \"rule-state\" is not modelled by the buff layer",
-      "count": 25
+      "count": 26
     },
     {
       "reason": "effect type \"fight-on-death\" is not modelled by the buff layer",
@@ -409,6 +409,10 @@
       "count": 6
     },
     {
+      "reason": "effect type \"engagement-passthrough\" is not modelled by the buff layer",
+      "count": 6
+    },
+    {
       "reason": "effect type \"unit-tag\" is not modelled by the buff layer",
       "count": 5
     },
@@ -425,7 +429,7 @@
       "count": 5
     },
     {
-      "reason": "effect type \"engagement-passthrough\" is not modelled by the buff layer",
+      "reason": "effect type \"resource-spend\" is not modelled by the buff layer",
       "count": 5
     },
     {
@@ -469,6 +473,14 @@
       "count": 3
     },
     {
+      "reason": "stat-modifier on \"WS\" is outside the damage path",
+      "count": 3
+    },
+    {
+      "reason": "conditional: cannot evaluate condition \"faction-rule-active\" against current context",
+      "count": 3
+    },
+    {
       "reason": "re-roll on \"attacks-characteristic\" (subset …) is outside the damage path",
       "count": 2
     },
@@ -501,10 +513,6 @@
       "count": 2
     },
     {
-      "reason": "stat-modifier on \"WS\" is outside the damage path",
-      "count": 2
-    },
-    {
       "reason": "re-roll on \"blood-surge\" (subset …) is outside the damage path",
       "count": 2
     },
@@ -522,10 +530,6 @@
     },
     {
       "reason": "stat-modifier: narrows by \"weapon_name\" which the cruncher can't resolve here",
-      "count": 2
-    },
-    {
-      "reason": "conditional: cannot evaluate condition \"faction-rule-active\" against current context",
       "count": 2
     },
     {
@@ -573,10 +577,6 @@
       "count": 1
     },
     {
-      "reason": "effect type \"resource-spend\" is not modelled by the buff layer",
-      "count": 1
-    },
-    {
       "reason": "re-roll on \"weapon-attacks\" (subset …) is outside the damage path",
       "count": 1
     },
@@ -618,6 +618,10 @@
     },
     {
       "reason": "roll-modifier: operation \"undefined\" not supported",
+      "count": 1
+    },
+    {
+      "reason": "effect type \"disembark\" is not modelled by the buff layer",
       "count": 1
     }
   ],
@@ -15728,7 +15732,7 @@
       "name": "Blood-hungry Annihilator",
       "shape": "conditional",
       "stub": false,
-      "offensive": true,
+      "offensive": false,
       "defensive": false,
       "gap": null
     },
@@ -17838,7 +17842,7 @@
       "name": "Blood-hungry Annihilator",
       "shape": "conditional",
       "stub": false,
-      "offensive": true,
+      "offensive": false,
       "defensive": false,
       "gap": null
     },
@@ -28898,7 +28902,7 @@
       "name": "Blood-hungry Annihilator",
       "shape": "conditional",
       "stub": false,
-      "offensive": true,
+      "offensive": false,
       "defensive": false,
       "gap": null
     },
@@ -31104,6 +31108,46 @@
     },
     {
       "faction": "world-eaters",
+      "ability_id": "enraged-abjuration",
+      "name": "Enraged Abjuration",
+      "shape": "sequence",
+      "stub": false,
+      "offensive": false,
+      "defensive": true,
+      "gap": "effect type \"resource-spend\" is not modelled by the buff layer"
+    },
+    {
+      "faction": "world-eaters",
+      "ability_id": "daemonic-rage",
+      "name": "Daemonic Rage",
+      "shape": "sequence",
+      "stub": false,
+      "offensive": true,
+      "defensive": false,
+      "gap": "effect type \"resource-spend\" is not modelled by the buff layer"
+    },
+    {
+      "faction": "world-eaters",
+      "ability_id": "boon-of-blood",
+      "name": "Boon of Blood",
+      "shape": "sequence",
+      "stub": false,
+      "offensive": false,
+      "defensive": true,
+      "gap": "effect type \"resource-spend\" is not modelled by the buff layer"
+    },
+    {
+      "faction": "world-eaters",
+      "ability_id": "might-of-khorne",
+      "name": "Might of Khorne",
+      "shape": "sequence",
+      "stub": false,
+      "offensive": false,
+      "defensive": false,
+      "gap": "effect type \"resource-spend\" is not modelled by the buff layer"
+    },
+    {
+      "faction": "world-eaters",
       "ability_id": "idols-of-khorne",
       "name": "Idols of Khorne",
       "shape": "conditional",
@@ -31486,11 +31530,11 @@
       "faction": "world-eaters",
       "ability_id": "aggressive-disembarkation-goretrack-onslaught",
       "name": "Aggressive Disembarkation",
-      "shape": "ability-grant",
+      "shape": "disembark",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"ability-grant\" is not modelled by the buff layer"
+      "gap": "effect type \"disembark\" is not modelled by the buff layer"
     },
     {
       "faction": "world-eaters",
@@ -31536,11 +31580,11 @@
       "faction": "world-eaters",
       "ability_id": "blessing-of-burning-blood-khorne-daemonkin",
       "name": "Blessing of Burning Blood",
-      "shape": "feel-no-pain",
+      "shape": "sequence",
       "stub": false,
       "offensive": false,
       "defensive": true,
-      "gap": null
+      "gap": "conditional: cannot evaluate condition \"faction-rule-active\" against current context"
     },
     {
       "faction": "world-eaters",
@@ -31556,11 +31600,11 @@
       "faction": "world-eaters",
       "ability_id": "summoned-by-slaughter-khorne-daemonkin",
       "name": "Summoned by Slaughter",
-      "shape": "ability-grant",
+      "shape": "resurrection",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"ability-grant\" is not modelled by the buff layer"
+      "gap": "effect type \"resurrection\" is not modelled by the buff layer"
     },
     {
       "faction": "world-eaters",
@@ -31596,9 +31640,9 @@
       "faction": "world-eaters",
       "ability_id": "daemonic-resistance-possessed-slaughterband",
       "name": "Daemonic Resistance",
-      "shape": "feel-no-pain",
+      "shape": "roll-modifier",
       "stub": false,
-      "offensive": false,
+      "offensive": true,
       "defensive": true,
       "gap": null
     },
@@ -31626,11 +31670,11 @@
       "faction": "world-eaters",
       "ability_id": "warp-stalkers-possessed-slaughterband",
       "name": "Warp Stalkers",
-      "shape": "movement-modifier",
+      "shape": "engagement-passthrough",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"movement-modifier\" is not modelled by the buff layer"
+      "gap": "effect type \"engagement-passthrough\" is not modelled by the buff layer"
     },
     {
       "faction": "world-eaters",
@@ -31746,11 +31790,11 @@
       "faction": "world-eaters",
       "ability_id": "gore-stained-veterans-butchers-of-khorne",
       "name": "Gore-Stained Veterans",
-      "shape": "roll-modifier",
+      "shape": "stat-modifier",
       "stub": false,
-      "offensive": true,
+      "offensive": false,
       "defensive": false,
-      "gap": null
+      "gap": "stat-modifier on \"WS\" is outside the damage path"
     },
     {
       "faction": "world-eaters",

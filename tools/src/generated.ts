@@ -274,6 +274,18 @@ export type EffectNode =
   | AuraEffect;
 export type AbilityCondition2 = SimpleCondition | CompoundCondition;
 /**
+ * This interface was referenced by `0KdcBundledSchemas`'s JSON-Schema
+ * via the `definition` "dice-requirement-spec".
+ */
+export type DiceRequirementSpec =
+  | DiceRequirement
+  | {
+      /**
+       * @minItems 2
+       */
+      any_of: [DiceRequirement, DiceRequirement, ...DiceRequirement[]];
+    };
+/**
  * Predicate that BLOCKS starting the action while it holds (Sensor Sweep: a unit cannot start this action if there is only one operation marker on the battlefield).
  */
 export type AbilityCondition3 = SimpleCondition | CompoundCondition;
@@ -1075,6 +1087,7 @@ export interface SingleEffect {
     | "auto-result"
     | "firing-deck"
     | "disembark-after-move"
+    | "disembark"
     | "rule-state"
     | "pool-add-die"
     | "replace-roll-from-pool";
@@ -1186,26 +1199,26 @@ export interface DicePoolAllocationEffect {
   options: [
     {
       name: string;
-      requirement: {
-        type: "pair" | "triple" | "single" | "run";
-        min_value: number;
-        [k: string]: unknown;
-      };
+      requirement: DiceRequirementSpec;
       effect: EffectNode;
       [k: string]: unknown;
     },
     ...{
       name: string;
-      requirement: {
-        type: "pair" | "triple" | "single" | "run";
-        min_value: number;
-        [k: string]: unknown;
-      };
+      requirement: DiceRequirementSpec;
       effect: EffectNode;
       [k: string]: unknown;
     }[]
   ];
   [k: string]: unknown;
+}
+/**
+ * This interface was referenced by `0KdcBundledSchemas`'s JSON-Schema
+ * via the `definition` "dice-requirement".
+ */
+export interface DiceRequirement {
+  type: "pair" | "triple" | "single" | "run";
+  min_value: number;
 }
 /**
  * This interface was referenced by `0KdcBundledSchemas`'s JSON-Schema

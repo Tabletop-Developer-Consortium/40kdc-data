@@ -31,7 +31,8 @@ export interface Effect {
   steps?: Effect[];
   options?: (Effect & {
     name?: string;
-    requirement?: Record<string, unknown>;
+    // single dice-requirement or an `any_of` set; read structurally by describeRequirement.
+    requirement?: unknown;
   })[];
   choice_label?: string;
   dice?: string;
@@ -799,6 +800,21 @@ function resurrectionTiming(timing: unknown): string {
 }
 
 /** The leaf/container switch; {@link describeEffectInline} wraps it to append scaling. */
+/**
+ * Render a dice-pool option requirement as a noun phrase: `pair of 4+`, or, for an
+ * `any_of` set (a blessing that triggers on a double of X OR a triple of Y — World
+ * Eaters Blessings of Khorne), the alternatives joined with " or ":
+ * `pair of 6+ or triple of 3+`. The single-requirement output is byte-identical to
+ * the pre-`any_of` phrasing (no leading article) so existing goldens don't move.
+ */
+function describeRequirement(req: unknown): string {
+  const one = (r: { type?: unknown; min_value?: unknown } | undefined) =>
+    `${jstr(r?.type)} of ${jstr(r?.min_value)}+`;
+  const anyOf = (req as { any_of?: unknown } | undefined)?.any_of;
+  if (Array.isArray(anyOf)) return anyOf.map(one).join(" or ");
+  return one(req as { type?: unknown; min_value?: unknown } | undefined);
+}
+
 function describeEffectInlineBase(e: Effect, ctx: Ctx = {}): string {
   const m = e.modifier ?? {};
   const subj = subject(e.target, ctx);
@@ -1019,6 +1035,11 @@ function describeEffectInlineBase(e: Effect, ctx: Ctx = {}): string {
       return `${subj} ${v(subj, "has")} Firing Deck ${jstr(m.value)}`;
     case "disembark-after-move":
       return `units can disembark from ${subj} after it has moved`;
+    case "disembark": {
+      const where = m.distance != null ? ` and be set up wholly within ${jstr(m.distance)}" of the transport` : "";
+      const eng = m.allow_engagement_range ? ", even within Engagement Range of enemy units" : "";
+      return `${subj} can disembark${where}${eng}`;
+    }
     case "fallback-and-act":
       return `${subj} is eligible to shoot and declare a charge in a turn in which it Fell Back`;
     case "engagement-passthrough":
@@ -1064,7 +1085,7 @@ function describeEffectInlineBase(e: Effect, ctx: Ctx = {}): string {
     case "dice-pool-allocation": {
       const pool = e.pool ? `${jstr(e.pool.count)}${jstr(e.pool.die)}` : "?";
       const opts = (e.options ?? [])
-        .map((o) => `${jstr(o.name)} (${jstr(o.requirement?.type)} of ${jstr(o.requirement?.min_value)}+): ${describeEffectInline(o.effect ?? {}, ctx)}`)
+        .map((o) => `${jstr(o.name)} (${describeRequirement(o.requirement)}): ${describeEffectInline(o.effect ?? {}, ctx)}`)
         .join(" / ");
       return `roll ${pool}: ${opts}`;
     }
@@ -1210,7 +1231,7 @@ export function describeEffect(e: Effect, depth: number = 0, ctx: Ctx = {}): str
       const lines = [`${indent}${arrow}Roll ${pool} (max ${jstr(e.max_activations)} activations):`];
       for (const opt of e.options ?? []) {
         lines.push(
-          `${indent}  - ${jstr(opt.name)}: need ${jstr(opt.requirement?.type)} of ${jstr(opt.requirement?.min_value)}+ -> ${describeEffectInline(opt.effect ?? {}, ctx)}`
+          `${indent}  - ${jstr(opt.name)}: need ${describeRequirement(opt.requirement)} -> ${describeEffectInline(opt.effect ?? {}, ctx)}`
         );
       }
       return lines.join("\n");

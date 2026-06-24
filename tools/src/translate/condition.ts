@@ -239,8 +239,12 @@ export function describeCondition(c: Condition): string {
     }
     case "unit-within-range-of": {
       const tt = str(p.target_type ?? "target");
-      // Targets that name a specific model, not a radius — no inches apply.
-      if (tt === "closest-eligible") return `${negate}the target is the closest eligible target`;
+      // `closest-eligible` names a specific model, not a radius — but a range, when
+      // present, still bounds WHICH model is eligible ("the closest ... within 18\"").
+      if (tt === "closest-eligible") {
+        const within = p.range != null ? ` within ${str(p.range)}"` : "";
+        return `${negate}the target is the closest eligible target${within}`;
+      }
       if (tt === "area-terrain") return `${negate}within an area terrain feature`;
       const who =
         tt === "friendly-keyword" && p.keyword

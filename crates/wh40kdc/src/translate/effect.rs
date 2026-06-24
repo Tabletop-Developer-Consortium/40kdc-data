@@ -13,9 +13,10 @@ use crate::generated::{
     Ability, AbilityAppliesTo, AbilityTrigger, AbilityTriggerProximityOf, AbilityUsage,
     AbilityUsageFrequency, AuraEffect, AuraEffectModifierRange, AuraEffectTarget,
     CompoundConditionOperator, ConditionNode, DiceGatedEffect, DiceGatedEffectComparison,
-    DiceGatedEffectThreshold, DicePoolAllocationEffect, EffectNode, MovementModifierEffect,
-    Scaling, ScalingOf, ScalingRound, Scope, ScopeRange, SelectUnitsEffectSelector,
-    SelectUnitsEffectSelectorOwner, SimpleConditionType, SingleEffect, SingleEffectType,
+    DiceGatedEffectThreshold, DicePoolAllocationEffect, DiceRequirementSpec, EffectNode,
+    MovementModifierEffect, Scaling, ScalingOf, ScalingRound, Scope, ScopeRange,
+    SelectUnitsEffectSelector, SelectUnitsEffectSelectorOwner, SimpleConditionType, SingleEffect,
+    SingleEffectType,
 };
 
 /// Rendering context threaded from the ability (scope info the leaf needs).
@@ -1614,6 +1615,22 @@ fn describe_single(e: &SingleEffect, ctx: &Ctx) -> String {
             )
         }
         T::DisembarkAfterMove => format!("units can disembark from {subj} after it has moved"),
+        T::Disembark => {
+            let where_ = if notnull(m, "distance") {
+                format!(
+                    " and be set up wholly within {}\" of the transport",
+                    jv(m, "distance")
+                )
+            } else {
+                String::new()
+            };
+            let eng = if truthy(m, "allow_engagement_range") {
+                ", even within Engagement Range of enemy units"
+            } else {
+                ""
+            };
+            format!("{subj} can disembark{where_}{eng}")
+        }
     }
 }
 
@@ -1755,15 +1772,48 @@ fn dice_gated_inline(d: &DiceGatedEffect, ctx: &Ctx) -> String {
     )
 }
 
+/// Render a dice-pool option requirement as a noun phrase: `pair of 4+`, or, for
+/// an `any_of` set (a blessing that triggers on a double of X OR a triple of Y —
+/// World Eaters Blessings of Khorne), the alternatives joined with " or ":
+/// `pair of 6+ or triple of 3+`. The single-requirement output is byte-identical
+/// to the pre-`any_of` phrasing (no leading article) so existing goldens don't
+/// move. Mirror of `describeRequirement` in `tools/src/translate/effect.ts`; the
+/// requirement is read structurally (via its serialized JSON) so the shape is
+/// `{type,min_value}` or `{any_of:[{type,min_value},...]}`.
+fn describe_requirement(req: &Value) -> String {
+    fn one(r: &Value) -> String {
+        let m = r.as_object();
+        let type_ = m
+            .and_then(|m| m.get("type"))
+            .map(jval)
+            .unwrap_or_else(|| "?".to_string());
+        let min_value = m
+            .and_then(|m| m.get("min_value"))
+            .map(jval)
+            .unwrap_or_else(|| "?".to_string());
+        format!("{type_} of {min_value}+")
+    }
+    match req.get("any_of") {
+        Some(Value::Array(arr)) => arr.iter().map(one).collect::<Vec<_>>().join(" or "),
+        _ => one(req),
+    }
+}
+
+/// Serialize an option requirement to JSON so `describe_requirement` can read it
+/// structurally (single `{type,min_value}` or `{any_of:[...]}`), matching the way
+/// the TS oracle treats its free-form requirement value.
+fn requirement_value(req: &DiceRequirementSpec) -> Value {
+    serde_json::to_value(req).unwrap_or(Value::Null)
+}
+
 fn dice_pool_options_inline(d: &DicePoolAllocationEffect, ctx: &Ctx) -> String {
     d.options
         .iter()
         .map(|o| {
             format!(
-                "{} ({} of {}+): {}",
+                "{} ({}): {}",
                 o.name,
-                o.requirement.type_,
-                o.requirement.min_value,
+                describe_requirement(&requirement_value(&o.requirement)),
                 inline(&o.effect, ctx)
             )
         })
@@ -1852,10 +1902,9 @@ fn block(e: &EffectNode, depth: usize, ctx: &Ctx) -> String {
             )];
             for opt in &d.options {
                 lines.push(format!(
-                    "{indent}  - {}: need {} of {}+ -> {}",
+                    "{indent}  - {}: need {} -> {}",
                     opt.name,
-                    opt.requirement.type_,
-                    opt.requirement.min_value,
+                    describe_requirement(&requirement_value(&opt.requirement)),
                     inline(&opt.effect, ctx)
                 ));
             }

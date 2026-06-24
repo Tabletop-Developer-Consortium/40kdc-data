@@ -1340,6 +1340,16 @@ func describeEffectInlineBase(e map[string]any, ctx map[string]any) string {
 		return possessive(subj) + " " + roll + " rolls count as " + ejstr(r)
 	case "firing-deck":
 		return subj + " " + ev(subj, "has") + " Firing Deck " + ejstr(m["value"])
+	case "disembark":
+		where := ""
+		if m["distance"] != nil {
+			where = " and be set up wholly within " + ejstr(m["distance"]) + "\" of the transport"
+		}
+		eng := ""
+		if truthy(m["allow_engagement_range"]) {
+			eng = ", even within Engagement Range of enemy units"
+		}
+		return subj + " can disembark" + where + eng
 	case "disembark-after-move":
 		return "units can disembark from " + subj + " after it has moved"
 	case "fallback-and-act":
@@ -1496,6 +1506,25 @@ func describeDiceGatedInline(e map[string]any, ctx map[string]any) string {
 	return "roll one " + diceCase(e["dice"]) + ": on " + cmp + ", " + success + fail
 }
 
+// describeRequirement renders a dice-pool option requirement. A single
+// requirement is "<type> of <min_value>+"; an `any_of` alternative joins the
+// member phrases with " or ". Mirror of describeRequirement in
+// tools/src/translate/effect.ts.
+func describeRequirement(req map[string]any) string {
+	one := func(r map[string]any) string {
+		return ejstr(r["type"]) + " of " + ejstr(r["min_value"]) + "+"
+	}
+	if anyOf, ok := asList(req["any_of"]); ok {
+		parts := make([]string, len(anyOf))
+		for i, r := range anyOf {
+			rm, _ := asMap(r)
+			parts[i] = one(rm)
+		}
+		return strings.Join(parts, " or ")
+	}
+	return one(req)
+}
+
 func describeDicePoolInline(e map[string]any, ctx map[string]any) string {
 	poolText := "?"
 	if pool, ok := getMap(e, "pool"); ok && pool != nil {
@@ -1506,7 +1535,7 @@ func describeDicePoolInline(e map[string]any, ctx map[string]any) string {
 		om, _ := asMap(o)
 		req, _ := getMap(om, "requirement")
 		eff, _ := getMap(om, "effect")
-		opts = append(opts, ejstr(om["name"])+" ("+ejstr(req["type"])+" of "+ejstr(req["min_value"])+"+): "+describeEffectInline(eff, ctx))
+		opts = append(opts, ejstr(om["name"])+" ("+describeRequirement(req)+"): "+describeEffectInline(eff, ctx))
 	}
 	return "roll " + poolText + ": " + strings.Join(opts, " / ")
 }
@@ -1571,7 +1600,7 @@ func describeEffect(e map[string]any, depth int, ctx map[string]any) string {
 			opt, _ := asMap(optAny)
 			req, _ := getMap(opt, "requirement")
 			eff, _ := getMap(opt, "effect")
-			lines = append(lines, indent+"  - "+ejstr(opt["name"])+": need "+ejstr(req["type"])+" of "+ejstr(req["min_value"])+"+ -> "+describeEffectInline(eff, ctx))
+			lines = append(lines, indent+"  - "+ejstr(opt["name"])+": need "+describeRequirement(req)+" -> "+describeEffectInline(eff, ctx))
 		}
 		return strings.Join(lines, "\n")
 	case "select-units":

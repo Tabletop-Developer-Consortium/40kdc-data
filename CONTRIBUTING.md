@@ -72,8 +72,8 @@ Repair worklist by faction — abilities still needing DSL work (not total cover
 | faction | stub\* | notes-stub | gw-leak | def-skipped |
 |---|--:|--:|--:|--:|
 | agents-of-the-imperium | 31 | 6 | 0 | 2 |
-| thousand-sons | 16 | 20 | 0 | 2 |
-| chaos-space-marines | 15 | 28 | 0 | 6 |
+| thousand-sons | 16 | 19 | 0 | 2 |
+| chaos-space-marines | 15 | 27 | 0 | 6 |
 | orks | 14 | 11 | 0 | 3 |
 | adeptus-astartes | 13 | 26 | 0 | 7 |
 | necrons | 13 | 12 | 0 | 1 |
@@ -84,7 +84,7 @@ Repair worklist by faction — abilities still needing DSL work (not total cover
 | tyranids | 6 | 8 | 0 | 6 |
 | astra-militarum | 6 | 6 | 0 | 5 |
 | chaos-daemons | 5 | 9 | 0 | 4 |
-| death-guard | 5 | 8 | 0 | 3 |
+| death-guard | 5 | 7 | 0 | 3 |
 | grey-knights | 5 | 6 | 0 | 1 |
 | adeptus-mechanicus | 4 | 3 | 0 | 2 |
 | chaos-knights | 4 | 3 | 0 | 0 |
@@ -95,7 +95,7 @@ Repair worklist by faction — abilities still needing DSL work (not total cover
 | imperial-knights | 2 | 6 | 0 | 1 |
 | _core | 0 | 0 | 0 | 0 |
 | world-eaters | 0 | 0 | 0 | 0 |
-| **TOTAL** | **190** | **219** | **0** | **59** |
+| **TOTAL** | **190** | **216** | **0** | **59** |
 
 `stub*` = empty-modifier placeholder nodes (highest need first) · `notes-stub` = flagged in `community_notes` · `gw-leak` = suspected verbatim GW text · `def-skipped` = defensive abilities skipped by the buff walk. Enumerated stub ids: [`data/_audit/worklist.md`](data/_audit/worklist.md). Full total+repair breakdown: [`data/_audit/summary.md`](data/_audit/summary.md).
 <!-- coverage:end -->

@@ -45,13 +45,13 @@
   }
 </script>
 
-{#snippet qaButtons(id: string)}
+{#snippet qaButtons(id: string, describer: string)}
   <div class="ab-actions">
     <button
       class="icon-btn"
       class:flagged={notes.isFlagged(id)}
       title={notes.isFlagged(id) ? "Flagged for review" : "Flag for review"}
-      onclick={() => notes.toggleFlag(id)}
+      onclick={() => notes.toggleFlag(id, describer)}
     >{notes.isFlagged(id) ? "⚑" : "⚐"}</button>
     <button class="icon-btn" title="Inspect DSL roundtrip" onclick={() => explorer.inspect(id)}>QA</button>
   </div>
@@ -91,7 +91,7 @@
                     <div class="ab-name">{r.name}</div>
                     {#if r.description}<div class="ab-desc">{r.description}</div>{/if}
                   </div>
-                  {@render qaButtons(r.id)}
+                  {@render qaButtons(r.id, r.description)}
                 </div>
               {/each}
             </div>
@@ -127,7 +127,7 @@
                     {#if kwLine("Excludes", e.exclusion_keywords)}<div class="ab-restrict">{kwLine("Excludes", e.exclusion_keywords)}</div>{/if}
                     {#if ability?.description}<div class="ab-desc">{ability.description}</div>{/if}
                   </div>
-                  {#if ability}{@render qaButtons(ability.id)}{/if}
+                  {#if ability}{@render qaButtons(ability.id, ability.description)}{/if}
                 </div>
               {/each}
             </div>
@@ -153,7 +153,7 @@
                     {/if}
                     {#if ability?.description}<div class="ab-desc">{ability.description}</div>{/if}
                   </div>
-                  {#if ability}{@render qaButtons(ability.id)}{/if}
+                  {#if ability}{@render qaButtons(ability.id, ability.description)}{/if}
                 </div>
               {/each}
             </div>

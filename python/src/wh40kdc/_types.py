@@ -758,6 +758,18 @@ RuleStateCoreRuleSlug: TypeAlias = Literal[
 ]
 
 
+class DiceRequirement(TypedDict):
+    type: Literal["pair", "triple", "single", "run"]
+    min_value: int
+
+
+class DiceRequirementSpec1(TypedDict):
+    any_of: list[DiceRequirement]
+
+
+DiceRequirementSpec: TypeAlias = DiceRequirement | DiceRequirementSpec1
+
+
 class SingleEffect(TypedDict):
     type: Literal[
         "stat-modifier",
@@ -798,6 +810,7 @@ class SingleEffect(TypedDict):
         "auto-result",
         "firing-deck",
         "disembark-after-move",
+        "disembark",
         "rule-state",
         "pool-add-die",
         "replace-roll-from-pool",
@@ -822,11 +835,6 @@ class SingleEffect(TypedDict):
 class Pool(TypedDict):
     count: int
     die: str
-
-
-class Requirement(TypedDict):
-    type: Literal["pair", "triple", "single", "run"]
-    min_value: int
 
 
 class Selector(TypedDict):
@@ -1049,7 +1057,7 @@ class ConditionalEffect(TypedDict):
 
 class Option(TypedDict):
     name: str
-    requirement: Requirement
+    requirement: DiceRequirementSpec
     effect: EffectNode
 
 

@@ -291,7 +291,11 @@ func describeCondition(c map[string]any) string {
 			tt = cstr(p["target_type"])
 		}
 		if tt == "closest-eligible" {
-			return negate + "the target is the closest eligible target"
+			within := ""
+			if p["range"] != nil {
+				within = " within " + cstr(p["range"]) + "\""
+			}
+			return negate + "the target is the closest eligible target" + within
 		}
 		if tt == "area-terrain" {
 			return negate + "within an area terrain feature"

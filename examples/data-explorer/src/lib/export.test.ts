@@ -11,6 +11,9 @@ const records: FlaggedRecord[] = [
     source_text: "When this model is destroyed, roll a D6...",
     dsl: { effect: { type: "dice-gated", threshold: 5 } },
     describer: "On a 5+, deal mortal wounds.",
+    reviewed_fingerprint: "abc",
+    current_fingerprint: "abc",
+    stale: false,
   },
   {
     ability_id: "mystery-ability",
@@ -21,6 +24,8 @@ const records: FlaggedRecord[] = [
     source_text: "",
     dsl: { effect: null },
     describer: "",
+    current_fingerprint: "0",
+    stale: false,
   },
 ];
 
@@ -54,5 +59,19 @@ describe("toMarkdown", () => {
   it("uses singular/plural correctly in the header", () => {
     expect(toMarkdown([records[0]])).toContain("1 flagged ability.");
     expect(md).toContain("2 flagged abilities.");
+  });
+
+  it("marks entries whose describer changed since review", () => {
+    const staleRecord: FlaggedRecord = {
+      ...records[0],
+      reviewed_fingerprint: "old",
+      current_fingerprint: "new",
+      stale: true,
+    };
+    const staleMd = toMarkdown([staleRecord]);
+    expect(staleMd).toContain("⚠️ (changed since reviewed)");
+    expect(staleMd).toContain("re-verify the note still applies");
+    // A non-stale entry carries no marker.
+    expect(md).not.toContain("⚠️ (changed since reviewed)");
   });
 });

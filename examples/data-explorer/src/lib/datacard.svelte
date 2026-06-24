@@ -186,7 +186,7 @@
                 class="icon-btn"
                 class:flagged={notes.isFlagged(a.id)}
                 title={notes.isFlagged(a.id) ? "Flagged for review" : "Flag for review"}
-                onclick={() => notes.toggleFlag(a.id)}
+                onclick={() => notes.toggleFlag(a.id, describe(a))}
               >{notes.isFlagged(a.id) ? "⚑" : "⚐"}</button>
               <button class="icon-btn" title="Inspect DSL roundtrip" onclick={() => explorer.inspect(a.id)}>QA</button>
             </div>

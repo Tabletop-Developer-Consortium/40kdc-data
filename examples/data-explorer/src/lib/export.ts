@@ -16,6 +16,12 @@ export interface FlaggedRecord {
   dsl: unknown;
   /** Describer output generated from the DSL. */
   describer: string;
+  /** Describer fingerprint captured when the entry was last reviewed (undefined for legacy/no-baseline entries). */
+  reviewed_fingerprint?: string;
+  /** Fingerprint of the current describer output. */
+  current_fingerprint: string;
+  /** True when a reviewed fingerprint exists and the DSL's describer has changed since. */
+  stale: boolean;
 }
 
 export function toJson(records: FlaggedRecord[]): string {
@@ -43,8 +49,13 @@ export function toMarkdown(records: FlaggedRecord[]): string {
   ];
 
   for (const r of records) {
-    lines.push(`## ${r.name} \`${r.ability_id}\``);
+    lines.push(`## ${r.name} \`${r.ability_id}\`${r.stale ? " ⚠️ (changed since reviewed)" : ""}`);
     if (r.faction_id) lines.push(`*Faction:* ${r.faction_id}`);
+    if (r.stale) {
+      lines.push(
+        "*The DSL's describer output has changed since this was flagged — re-verify the note still applies.*",
+      );
+    }
     lines.push("");
     if (r.note.trim()) {
       lines.push(`**Note:** ${r.note.trim()}`, "");

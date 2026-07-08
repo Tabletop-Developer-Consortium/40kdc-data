@@ -116,8 +116,8 @@
       "offensive": 69,
       "defensive": 17,
       "inert": 157,
-      "stub": 18,
-      "stubStructural": 6,
+      "stub": 17,
+      "stubStructural": 5,
       "gwTextLeak": 0,
       "defensiveSkipped": 6
     },
@@ -256,9 +256,9 @@
     {
       "faction": "world-eaters",
       "total": 133,
-      "offensive": 18,
+      "offensive": 17,
       "defensive": 10,
-      "inert": 106,
+      "inert": 107,
       "stub": 0,
       "stubStructural": 3,
       "gwTextLeak": 0,
@@ -267,11 +267,11 @@
   ],
   "totals": {
     "total": 3121,
-    "offensive": 771,
+    "offensive": 770,
     "defensive": 266,
-    "inert": 2170,
-    "stub": 119,
-    "stubStructural": 42,
+    "inert": 2171,
+    "stub": 118,
+    "stubStructural": 41,
     "gwTextLeak": 0,
     "defensiveSkipped": 57
   },
@@ -345,15 +345,15 @@
       "count": 30
     },
     {
-      "reason": "stat-modifier: operation \"undefined\" not supported",
-      "count": 24
-    },
-    {
       "reason": "effect type \"fight-on-death\" is not modelled by the buff layer",
       "count": 23
     },
     {
       "reason": "stat-modifier on \"M\" is outside the damage path",
+      "count": 23
+    },
+    {
+      "reason": "stat-modifier: operation \"undefined\" not supported",
       "count": 23
     },
     {
@@ -665,7 +665,7 @@
       "count": 1
     },
     {
-      "reason": "stat-modifier on \"blessings-dice\" is outside the damage path",
+      "reason": "effect type \"pool-add-die\" is not modelled by the buff layer",
       "count": 1
     },
     {
@@ -678,6 +678,10 @@
     },
     {
       "reason": "roll-modifier: operation \"undefined\" not supported",
+      "count": 1
+    },
+    {
+      "reason": "effect type \"fight-eligibility-extension\" is not modelled by the buff layer",
       "count": 1
     }
   ],
@@ -16636,11 +16640,11 @@
       "faction": "chaos-space-marines",
       "ability_id": "idol-of-blessed-blood",
       "name": "Idol of Blessed Blood",
-      "shape": "stat-modifier",
-      "stub": true,
+      "shape": "conditional",
+      "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "stat-modifier: operation \"undefined\" not supported"
+      "gap": null
     },
     {
       "faction": "chaos-space-marines",
@@ -30736,11 +30740,11 @@
       "faction": "world-eaters",
       "ability_id": "icon-of-khorne",
       "name": "Icon of Khorne",
-      "shape": "conditional",
+      "shape": "sequence",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": null
+      "gap": "effect type \"pool-add-die\" is not modelled by the buff layer"
     },
     {
       "faction": "world-eaters",
@@ -30866,11 +30870,11 @@
       "faction": "world-eaters",
       "ability_id": "idol-of-blessed-blood",
       "name": "Idol of Blessed Blood",
-      "shape": "stat-modifier",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "stat-modifier on \"blessings-dice\" is outside the damage path"
+      "gap": null
     },
     {
       "faction": "world-eaters",
@@ -31506,11 +31510,11 @@
       "faction": "world-eaters",
       "ability_id": "bloodthirsty-horde-cult-of-blood",
       "name": "Bloodthirsty Horde",
-      "shape": "keyword-grant",
+      "shape": "conditional",
       "stub": false,
-      "offensive": true,
+      "offensive": false,
       "defensive": false,
-      "gap": null
+      "gap": "effect type \"fight-eligibility-extension\" is not modelled by the buff layer"
     },
     {
       "faction": "world-eaters",

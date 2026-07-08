@@ -547,15 +547,27 @@ function translateFeelNoPain(
     });
     return;
   }
-  // `modifier.scope` ∈ {"all", "mortal"} (default "all"). Schema's `modifier`
-  // is `additionalProperties: true`, so any string lands here; we accept the
-  // two documented values and route everything else to unsupported so a typo
-  // ("mortals", "mortal-wound") can't silently masquerade as an all-FNP.
+  // `modifier.scope` ∈ {"all", "mortal", "psychic", "psychic-and-mortal"}
+  // (default "all"). Schema's `modifier` is `additionalProperties: true`, so
+  // any string lands here; we accept the documented values and route
+  // everything else to unsupported so a typo ("mortals", "mortal-wound")
+  // can't silently masquerade as an all-FNP. `psychic-and-mortal` folds into
+  // the mortal stream (its mortal-wound coverage is exact; the psychic-attack
+  // half is invisible to the buff layer); bare `psychic` has no stream to
+  // attach to, so it stays unsupported rather than overstating defence.
   const rawScope = modifier.scope;
   let scope: "all" | "mortal" = "all";
   if (rawScope !== undefined) {
     if (rawScope === "all" || rawScope === "mortal") {
       scope = rawScope;
+    } else if (rawScope === "psychic-and-mortal") {
+      scope = "mortal";
+    } else if (rawScope === "psychic") {
+      out.unsupported.push({
+        reason: 'feel-no-pain: scope "psychic" (psychic attacks are not tracked by the buff layer)',
+        effectFragment: node,
+      });
+      return;
     } else {
       out.unsupported.push({
         reason: `feel-no-pain: unrecognised scope "${String(rawScope)}" (expected "all" or "mortal")`,

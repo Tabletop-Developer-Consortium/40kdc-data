@@ -1104,7 +1104,21 @@ function genEffectTranslation(): void {
     }
     if (typeof e !== "object" || e === null) return;
     const rec = e as Record<string, unknown>;
-    if (typeof rec.type === "string") out.add(rec.type);
+    if (typeof rec.type === "string") {
+      out.add(rec.type);
+      // Variant-aware keys for types whose modifier picks a distinct render
+      // branch — the per-type cap alone would leave later-alphabet variants
+      // (a psychic-scoped FNP, a rolled pool die) unpinned cross-impl.
+      const m = (rec.modifier ?? {}) as Record<string, unknown>;
+      if (rec.type === "feel-no-pain" && typeof m.scope === "string") {
+        out.add(`feel-no-pain@${m.scope}`);
+      }
+      if (rec.type === "pool-add-die") {
+        const kind = m.value === "rolled" || m.value === "highest" ? m.value : "shown";
+        const per = m.count_per_pool != null ? "@per-pool" : "";
+        out.add(`pool-add-die@${kind}${per}`);
+      }
+    }
     for (const key of ["effect", "on_success", "on_fail", "steps", "options", "condition"]) {
       if (key in rec) collectTypes(rec[key], out);
     }

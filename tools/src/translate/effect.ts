@@ -291,6 +291,13 @@ function poolName(pool: unknown): string {
 }
 
 /** Roll noun for a roll token (`hit` → `Hit`, `attacks-characteristic` → `Attacks characteristic`). */
+// Narrowed feel-no-pain scopes -> trailing qualifier. Absent/`all` renders bare.
+const FNP_SCOPES: Record<string, string> = {
+  mortal: " against mortal wounds",
+  psychic: " against Psychic Attacks",
+  "psychic-and-mortal": " against Psychic Attacks and mortal wounds",
+};
+
 const ROLL_NAMES: Record<string, string> = {
   hit: "Hit",
   wound: "Wound",
@@ -983,7 +990,7 @@ function describeEffectInlineBase(e: Effect, ctx: Ctx = {}): string {
       return `${subjMW} ${verb} ${amt} ${noun}`;
     }
     case "feel-no-pain": {
-      const vs = m.scope === "mortal" ? " against mortal wounds" : "";
+      const vs = FNP_SCOPES[jstr(m.scope)] ?? "";
       return `${subj} ${v(subj, "has")} the Feel No Pain ${jstr(m.threshold)}+ ability${vs}`;
     }
     case "ward":
@@ -1144,10 +1151,25 @@ function describeEffectInlineBase(e: Effect, ctx: Ctx = {}): string {
       return base;
     }
     case "pool-add-die": {
-      const val = m.value === "highest" ? "the highest result" : jstr(m.value);
+      const pool = poolName(m.pool_id);
+      const rolled = m.value === "rolled";
+      if (m.count_per_pool != null) {
+        // One die per point currently in the counting pool (Icon of Khorne).
+        const per = poolName(m.count_per_pool);
+        const perPlural = per.endsWith("s") ? per : `${per}s`;
+        const shown = m.value === "highest" ? "the highest result" : jstr(m.value);
+        const die = rolled ? "one rolled D6" : `one die showing ${shown}`;
+        const tail = m.consumes_pool ? `, after which all your ${perPlural} are lost` : "";
+        return `add ${die} to your ${pool} for each ${per} you have${tail}`;
+      }
       const cnt = m.count != null ? diceCase(m.count) : "1";
+      if (rolled) {
+        const dice = cnt === "1" ? "a rolled D6" : `${cnt} rolled D6`;
+        return `add ${dice} to your ${pool}`;
+      }
+      const val = m.value === "highest" ? "the highest result" : jstr(m.value);
       const dice = cnt === "1" ? "a die" : `${cnt} dice`;
-      return `add ${dice} showing ${val} to your ${poolName(m.pool_id)}`;
+      return `add ${dice} showing ${val} to your ${pool}`;
     }
     case "replace-roll-from-pool": {
       const rolls = Array.isArray(m.rolls) ? (m.rolls as unknown[]).map((r) => dekebab(jstr(r))) : [];
@@ -1249,6 +1271,14 @@ function describeEffectInlineBase(e: Effect, ctx: Ctx = {}): string {
     }
     case "fallback-and-act":
       return `${subj} is eligible to shoot and declare a charge in a turn in which it Fell Back`;
+    case "fight-eligibility-extension": {
+      const r = jstr(m.range);
+      return (
+        `when determining which models in ${subj} are eligible to fight, ` +
+        `models within ${r}" of one or more enemy models are eligible ` +
+        `and can target enemy units within ${r}"`
+      );
+    }
     case "engagement-passthrough":
       return m.no_end_in_engagement
         ? `${subj} can move through enemy models, but cannot end that move within Engagement Range of any enemy unit`

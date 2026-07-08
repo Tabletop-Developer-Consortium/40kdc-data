@@ -447,13 +447,30 @@ def _translate_feel_no_pain(
         )
         return
     threshold = _intify(threshold)
-    # `modifier.scope` ∈ {"all", "mortal"} (default "all"); anything else is
-    # routed to unsupported so a typo can't masquerade as an all-FNP.
+    # `modifier.scope` ∈ {"all", "mortal", "psychic", "psychic-and-mortal"}
+    # (default "all"); anything else is routed to unsupported so a typo can't
+    # masquerade as an all-FNP. `psychic-and-mortal` folds into the mortal
+    # stream (its mortal-wound coverage is exact; the psychic-attack half is
+    # invisible to the buff layer); bare `psychic` has no stream to attach to,
+    # so it stays unsupported rather than overstating defence.
     raw_scope = modifier.get("scope")
     scope = "all"
     if raw_scope is not None:
         if raw_scope in ("all", "mortal"):
             scope = raw_scope
+        elif raw_scope == "psychic-and-mortal":
+            scope = "mortal"
+        elif raw_scope == "psychic":
+            out["unsupported"].append(
+                {
+                    "reason": (
+                        'feel-no-pain: scope "psychic" '
+                        "(psychic attacks are not tracked by the buff layer)"
+                    ),
+                    "effectFragment": node,
+                }
+            )
+            return
         else:
             out["unsupported"].append(
                 {

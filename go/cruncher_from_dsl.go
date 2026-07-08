@@ -313,11 +313,20 @@ func translateFeelNoPain(node, source map[string]any, opts dslOpts, out *effectT
 		out.unsupported = append(out.unsupported, unsup("feel-no-pain: threshold not numeric", node))
 		return
 	}
+	// `psychic-and-mortal` folds into the mortal stream (its mortal-wound
+	// coverage is exact; the psychic-attack half is invisible to the buff
+	// layer); bare `psychic` has no stream to attach to, so it stays
+	// unsupported rather than overstating defence.
 	rawScope := modifier["scope"]
 	scope := "all"
 	if rawScope != nil {
 		if rawScope == "all" || rawScope == "mortal" {
 			scope = rawScope.(string)
+		} else if rawScope == "psychic-and-mortal" {
+			scope = "mortal"
+		} else if rawScope == "psychic" {
+			out.unsupported = append(out.unsupported, unsup("feel-no-pain: scope \"psychic\" (psychic attacks are not tracked by the buff layer)", node))
+			return
 		} else {
 			out.unsupported = append(out.unsupported, unsup("feel-no-pain: unrecognised scope \""+jsStr(rawScope)+"\" (expected \"all\" or \"mortal\")", node))
 			return

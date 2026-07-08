@@ -180,6 +180,14 @@ def _pool_name(pool: Any) -> str:
     return "CP" if p.lower() == "cp" else _title_case(p)
 
 
+# Narrowed feel-no-pain scopes -> trailing qualifier. Absent/`all` renders bare.
+_FNP_SCOPES = {
+    "mortal": " against mortal wounds",
+    "psychic": " against Psychic Attacks",
+    "psychic-and-mortal": " against Psychic Attacks and mortal wounds",
+}
+
+
 _ROLL_NAMES = {
     "hit": "Hit",
     "wound": "Wound",
@@ -1036,7 +1044,7 @@ def _describe_effect_inline_base(e: Effect, ctx: Ctx | None = None) -> str:
         noun = "mortal wound" if amt == "1" else "mortal wounds"
         return f"{subj_mw} {verb} {amt} {noun}"
     if etype == "feel-no-pain":
-        vs = " against mortal wounds" if m.get("scope") == "mortal" else ""
+        vs = _FNP_SCOPES.get(_jstr(m.get("scope")), "")
         return f"{subj} {_v(subj, 'has')} the Feel No Pain {_jstr(m.get('threshold'))}+ ability{vs}"
     if etype == "ward":
         threshold = m.get("threshold")
@@ -1160,10 +1168,28 @@ def _describe_effect_inline_base(e: Effect, ctx: Ctx | None = None) -> str:
     if etype == "rule-state":
         return _describe_rule_state(m, subj)
     if etype == "pool-add-die":
-        val = "the highest result" if m.get("value") == "highest" else _jstr(m.get("value"))
+        pool_label = _pool_name(m.get("pool_id"))
+        rolled = m.get("value") == "rolled"
+        per_pool = m.get("count_per_pool")
+        if per_pool is not None:
+            # One die per point currently in the counting pool (Icon of Khorne).
+            per_label = _pool_name(per_pool)
+            per_plural = per_label if per_label.endswith("s") else f"{per_label}s"
+            if rolled:
+                die = "one rolled D6"
+            elif m.get("value") == "highest":
+                die = "one die showing the highest result"
+            else:
+                die = f"one die showing {_jstr(m.get('value'))}"
+            lost = f", after which all your {per_plural} are lost" if m.get("consumes_pool") else ""
+            return f"add {die} to your {pool_label} for each {per_label} you have{lost}"
         cnt = _dice_case(m.get("count")) if m.get("count") is not None else "1"
+        if rolled:
+            dice = "a rolled D6" if cnt == "1" else f"{cnt} rolled D6"
+            return f"add {dice} to your {pool_label}"
+        shown_val = "the highest result" if m.get("value") == "highest" else _jstr(m.get("value"))
         dice = "a die" if cnt == "1" else f"{cnt} dice"
-        return f"add {dice} showing {val} to your {_pool_name(m.get('pool_id'))}"
+        return f"add {dice} showing {shown_val} to your {pool_label}"
     if etype == "replace-roll-from-pool":
         raw_rolls = m.get("rolls")
         rolls = [dekebab(_jstr(r)) for r in raw_rolls] if isinstance(raw_rolls, list) else []
@@ -1403,6 +1429,13 @@ def _describe_effect_inline_base(e: Effect, ctx: Ctx | None = None) -> str:
         return (
             f"{subj} {_v(subj, 'is')} eligible to shoot and declare a charge "
             "in a turn in which it Fell Back"
+        )
+    if etype == "fight-eligibility-extension":
+        r = _jstr(m.get("range"))
+        return (
+            f"when determining which models in {subj} are eligible to fight, "
+            f'models within {r}" of one or more enemy models are eligible '
+            f'and can target enemy units within {r}"'
         )
     if etype == "engagement-passthrough":
         if m.get("no_end_in_engagement"):

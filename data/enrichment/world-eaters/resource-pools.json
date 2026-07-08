@@ -20,5 +20,27 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     }
+  },
+  {
+    "id": "bloodshed-point",
+    "name": "Bloodshed Point",
+    "faction_id": "world-eaters",
+    "pool_type": "counter",
+    "generation": [
+      {
+        "condition": {
+          "type": "timing-is",
+          "parameters": {
+            "timing": "enemy-unit-destroyed"
+          }
+        },
+        "amount": 1
+      }
+    ],
+    "max_size": null,
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "pre-launch-provisional"
+    }
   }
 ]

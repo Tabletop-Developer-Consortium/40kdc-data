@@ -16,7 +16,7 @@ abilities that translate into cruncher buffs via the real `effectToBuffs`
 | astra-militarum | 205 | 44 | 16 | 147 | 2 | 3 | 0 | 5 |
 | chaos-daemons | 157 | 39 | 14 | 110 | 0 | 7 | 0 | 4 |
 | chaos-knights | 115 | 29 | 9 | 78 | 3 | 2 | 0 | 0 |
-| chaos-space-marines | 236 | 69 | 17 | 157 | 6 | 18 | 0 | 6 |
+| chaos-space-marines | 236 | 69 | 17 | 157 | 5 | 17 | 0 | 6 |
 | death-guard | 119 | 24 | 6 | 91 | 4 | 7 | 0 | 3 |
 | drukhari | 100 | 25 | 7 | 70 | 1 | 5 | 0 | 1 |
 | emperors-children | 87 | 23 | 3 | 62 | 3 | 8 | 0 | 1 |
@@ -29,8 +29,8 @@ abilities that translate into cruncher buffs via the real `effectToBuffs`
 | tau-empire | 129 | 31 | 6 | 94 | 0 | 3 | 0 | 3 |
 | thousand-sons | 130 | 32 | 9 | 94 | 7 | 12 | 0 | 2 |
 | tyranids | 114 | 22 | 8 | 87 | 1 | 5 | 0 | 5 |
-| world-eaters | 133 | 18 | 10 | 106 | 3 | 0 | 0 | 0 |
-| **TOTAL** | **3121** | **771** | **266** | **2170** | **42** | **119** | **0** | **57** |
+| world-eaters | 133 | 17 | 10 | 107 | 3 | 0 | 0 | 0 |
+| **TOTAL** | **3121** | **770** | **266** | **2171** | **41** | **118** | **0** | **57** |
 
 `stub*` = structural (empty-modifier placeholder node) — the authoring worklist. `notes-stub` = flagged in community_notes.
 
@@ -53,9 +53,9 @@ abilities that translate into cruncher buffs via the real `effectToBuffs`
 - `31` — stat-modifier: operation "set" not supported
 - `31` — effect type "disembark-after-move" is not modelled by the buff layer
 - `30` — effect type "fallback-and-act" is not modelled by the buff layer
-- `24` — stat-modifier: operation "undefined" not supported
 - `23` — effect type "fight-on-death" is not modelled by the buff layer
 - `23` — stat-modifier on "M" is outside the damage path
+- `23` — stat-modifier: operation "undefined" not supported
 - `22` — effect type "fight-first" is not modelled by the buff layer
 - `19` — effect type "targeting-permission" is not modelled by the buff layer
 - `19` — roll-modifier: operation "set" not supported
@@ -133,7 +133,8 @@ abilities that translate into cruncher buffs via the real `effectToBuffs`
 - `1` — stat-modifier on "BS" is outside the damage path
 - `1` — re-roll: narrows by "weapon_keyword" which the cruncher can't resolve here
 - `1` — effect type "battle-shock-test" is not modelled by the buff layer
-- `1` — stat-modifier on "blessings-dice" is outside the damage path
+- `1` — effect type "pool-add-die" is not modelled by the buff layer
 - `1` — effect type "flyover" is not modelled by the buff layer
 - `1` — re-roll on "blessings-of-khorne" (subset …) is outside the damage path
 - `1` — roll-modifier: operation "undefined" not supported
+- `1` — effect type "fight-eligibility-extension" is not modelled by the buff layer

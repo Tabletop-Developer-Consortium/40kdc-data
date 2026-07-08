@@ -884,44 +884,42 @@
     "ability_type": "unit",
     "behavior": "passive",
     "effect": {
-      "type": "conditional",
-      "condition": {
-        "type": "timing-is",
-        "parameters": {
-          "timing": "on-unit-destroyed"
-        }
-      },
-      "effect": {
-        "type": "sequence",
-        "steps": [
-          {
+      "type": "sequence",
+      "steps": [
+        {
+          "type": "conditional",
+          "condition": {
+            "type": "timing-is",
+            "parameters": {
+              "timing": "enemy-unit-destroyed"
+            }
+          },
+          "effect": {
             "type": "resource-gain",
             "target": "self",
             "modifier": {
-              "pool_id": "blessings-of-khorne-pool",
+              "pool_id": "bloodshed-point",
               "amount": 1
             }
-          },
-          {
-            "type": "stat-modifier",
-            "target": "self",
-            "modifier": {
-              "stat": "blessings-dice",
-              "operation": "add",
-              "value": 1
-            }
           }
-        ]
-      }
+        },
+        {
+          "type": "pool-add-die",
+          "target": "self",
+          "modifier": {
+            "pool_id": "blessings-of-khorne-pool",
+            "value": "rolled",
+            "count_per_pool": "bloodshed-point",
+            "consumes_pool": true
+          }
+        }
+      ]
     },
     "scope": {
       "range": "unit",
-      "duration": "phase"
+      "duration": "permanent"
     },
-    "trigger": {
-      "event": "on-unit-destroyed",
-      "subject": "bearer"
-    }
+    "community_notes": "Wargear ability (shared by units with an Icon of Khorne, e.g. Khorne Berzerkers): each enemy unit the bearer's unit destroys banks 1 Bloodshed point; every Blessings of Khorne roll adds one rolled D6 per banked point, then all Bloodshed points are lost."
   },
   {
     "ability_id": "to-slake-its-rage",
@@ -1495,21 +1493,28 @@
     "ability_type": "unit",
     "behavior": "passive",
     "effect": {
-      "type": "stat-modifier",
-      "target": "self",
-      "modifier": {
-        "stat": "blessings-dice",
-        "operation": "add",
-        "value": 1
+      "type": "conditional",
+      "condition": {
+        "type": "timing-is",
+        "parameters": {
+          "timing": "start-of-battle-round"
+        }
+      },
+      "effect": {
+        "type": "pool-add-die",
+        "target": "self",
+        "modifier": {
+          "pool_id": "blessings-of-khorne-pool",
+          "count": 1,
+          "value": "rolled"
+        }
       }
     },
     "scope": {
       "range": "any-on-battlefield",
       "duration": "permanent"
     },
-    "trigger": {
-      "event": "start-of-phase"
-    }
+    "community_notes": "At the start of the battle round, while this model is on the battlefield, one additional (rolled) D6 is added to your Blessings of Khorne roll."
   },
   {
     "ability_id": "blood-hungry-annihilator",
@@ -3356,7 +3361,7 @@
           "target": "all-friendly",
           "modifier": {
             "threshold": 5,
-            "scope": "mortal"
+            "scope": "psychic-and-mortal"
           }
         }
       ]
@@ -3369,7 +3374,7 @@
       "event": "start-of-phase",
       "optional": true
     },
-    "community_notes": "[APPROX] Blood Tithe spend (2 BTP), activated at the start of your Command phase, lasting until end of battle: Blood Legions and World Eaters models gain Feel No Pain 5+ against Psychic Attacks and mortal wounds (modeled as FNP 5+ vs mortal wounds; the Psychic-Attacks scope is not separately expressible). Applies to the whole army, so no keyword gate."
+    "community_notes": "[APPROX] Applies to BLOOD LEGIONS and WORLD EATERS models only; modeled as all friendly units (keyword-OR gate not expressible). Blood Tithe spend (2 BTP): the start-of-Command-phase activation timing and until-end-of-battle duration come from the parent Blood Tithe rule ('At the start of the Command phase, you can spend... to activate one of the following abilities until the end of the battle'), not from this option's own text."
   },
   {
     "ability_id": "daemonic-rage",
@@ -5098,11 +5103,19 @@
     "ability_type": "stratagem",
     "behavior": "activated",
     "effect": {
-      "type": "keyword-grant",
-      "target": "unit",
-      "modifier": {
-        "keyword": "Sustained Hits 1",
-        "weapon_type": "melee"
+      "type": "conditional",
+      "condition": {
+        "type": "phase-is",
+        "parameters": {
+          "phase": "fight"
+        }
+      },
+      "effect": {
+        "type": "fight-eligibility-extension",
+        "target": "unit",
+        "modifier": {
+          "range": 3
+        }
       }
     },
     "scope": {
@@ -5112,7 +5125,8 @@
     "trigger": {
       "event": "on-unit-selected",
       "optional": true
-    }
+    },
+    "community_notes": "[APPROX] Targets one JAKHALS or GOREMONGERS unit that has not been selected to fight this phase and is within Engagement Range (the keyword-OR target and the not-yet-fought precondition are not modeled)."
   },
   {
     "ability_id": "bloody-vengeance-cult-of-blood",

@@ -858,6 +858,7 @@ class SingleEffect(TypedDict):
         "stratagem-cost-modifier",
         "targeting-permission",
         "unit-attachment",
+        "fight-eligibility-extension",
     ]
     target: Literal[
         "self",

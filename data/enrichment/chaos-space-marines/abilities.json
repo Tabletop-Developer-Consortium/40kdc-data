@@ -728,7 +728,7 @@
     ],
     "ability_type": "unit",
     "behavior": "passive",
-    "community_notes": "auto-generated stub \u2014 needs manual authoring (source: 10e Datasheets_abilities; rules text omitted for IP)"
+    "community_notes": "auto-generated stub — needs manual authoring (source: 10e Datasheets_abilities; rules text omitted for IP)"
   },
   {
     "ability_id": "twisted-sorceries-psychic",
@@ -2227,7 +2227,7 @@
       "frequency": "n-per-battle",
       "count": 1
     },
-    "community_notes": "[APPROX] On a Dark Pact this unit re-rolls Wound rolls of 1; the second step models the once-per-battle overcharge that instead grants a full Wound re-roll. The overcharge is optional and, if the Dark Pact Leadership test is then failed, the model suffers 3 mortal wounds instead of D3 \u2014 not modeled here. Full rule in raw-text store."
+    "community_notes": "[APPROX] On a Dark Pact this unit re-rolls Wound rolls of 1; the second step models the once-per-battle overcharge that instead grants a full Wound re-roll. The overcharge is optional and, if the Dark Pact Leadership test is then failed, the model suffers 3 mortal wounds instead of D3 — not modeled here. Full rule in raw-text store."
   },
   {
     "ability_id": "scuttling-walker",
@@ -3409,7 +3409,7 @@
     ],
     "ability_type": "unit",
     "behavior": "passive",
-    "community_notes": "auto-generated stub \u2014 needs manual authoring (source: 10e Datasheets_abilities; rules text omitted for IP)"
+    "community_notes": "auto-generated stub — needs manual authoring (source: 10e Datasheets_abilities; rules text omitted for IP)"
   },
   {
     "ability_id": "cruel-hunter",
@@ -3810,7 +3810,7 @@
     ],
     "ability_type": "unit",
     "behavior": "passive",
-    "community_notes": "auto-generated stub \u2014 needs manual authoring (source: 10e Datasheets_abilities; rules text omitted for IP)"
+    "community_notes": "auto-generated stub — needs manual authoring (source: 10e Datasheets_abilities; rules text omitted for IP)"
   },
   {
     "ability_id": "savage-exaltation",
@@ -4157,7 +4157,7 @@
   },
   {
     "ability_id": "raider-s-due",
-    "name": "Raider\u2019s Due",
+    "name": "Raider’s Due",
     "authored_by": "40kdc-community",
     "game_version": {
       "edition": "11th",
@@ -4434,7 +4434,7 @@
   },
   {
     "ability_id": "hamadrya-s-knowledge-psychic",
-    "name": "Hamadrya\u2019s Knowledge (Psychic)",
+    "name": "Hamadrya’s Knowledge (Psychic)",
     "authored_by": "40kdc-community",
     "game_version": {
       "edition": "11th",
@@ -4923,12 +4923,25 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "conditional",
+      "condition": {
+        "type": "timing-is",
+        "parameters": {
+          "timing": "start-of-battle-round"
+        }
+      },
+      "effect": {
+        "type": "pool-add-die",
+        "target": "self",
+        "modifier": {
+          "pool_id": "blessings-of-khorne-pool",
+          "count": 1,
+          "value": "rolled"
+        }
+      }
     },
     "scope": {
-      "range": "unit",
+      "range": "any-on-battlefield",
       "duration": "permanent"
     },
     "unit_ids": [
@@ -4936,7 +4949,7 @@
     ],
     "ability_type": "unit",
     "behavior": "passive",
-    "community_notes": "auto-generated stub \u2014 needs manual authoring (source: 10e Datasheets_abilities; rules text omitted for IP)"
+    "community_notes": "At the start of the battle round, while this model is on the battlefield, one additional (rolled) D6 is added to your Blessings of Khorne roll. Shared datasheet ability (Khorne Lord of Skulls); kept byte-identical with the world-eaters copy so the id-keyed dedup is lossless."
   },
   {
     "ability_id": "super-heavy-war-engine",
@@ -4961,7 +4974,7 @@
     ],
     "ability_type": "unit",
     "behavior": "passive",
-    "community_notes": "auto-generated stub \u2014 needs manual authoring (source: 10e Datasheets_abilities; rules text omitted for IP)"
+    "community_notes": "auto-generated stub — needs manual authoring (source: 10e Datasheets_abilities; rules text omitted for IP)"
   },
   {
     "ability_id": "dreadclaw-assault",
@@ -8019,7 +8032,7 @@
       "range": "any-on-battlefield",
       "duration": "until-next-command-phase"
     },
-    "community_notes": "[APPROX] Each Command phase, HERETIC ASTARTES INFANTRY units gain one selected ability \u2014 Huron's Elite (+1 to Hit rolls) or Mobile Marauders (eligible to shoot and declare a charge in a turn it Fell Back), modeled as a re-selectable menu. The clause granting BOTH abilities to units visible to Huron Blackheart is not modeled. Full rule in raw-text store."
+    "community_notes": "[APPROX] Each Command phase, HERETIC ASTARTES INFANTRY units gain one selected ability — Huron's Elite (+1 to Hit rolls) or Mobile Marauders (eligible to shoot and declare a charge in a turn it Fell Back), modeled as a re-selectable menu. The clause granting BOTH abilities to units visible to Huron Blackheart is not modeled. Full rule in raw-text store."
   },
   {
     "ability_id": "raiders-and-reavers",
@@ -8273,7 +8286,7 @@
         "HERETIC ASTARTES"
       ]
     },
-    "community_notes": "[APPROX] When a HERETIC ASTARTES DAEMON VEHICLE unit invokes its contract on a Dark Pact: \u22121 to the resulting Leadership test, +1 to ranged Wound rolls, and +2 Attacks to melee weapons. The DAEMON VEHICLE restriction and the optional invoke are noted rather than gated in the tree. Full rule in raw-text store."
+    "community_notes": "[APPROX] When a HERETIC ASTARTES DAEMON VEHICLE unit invokes its contract on a Dark Pact: −1 to the resulting Leadership test, +1 to ranged Wound rolls, and +2 Attacks to melee weapons. The DAEMON VEHICLE restriction and the optional invoke are noted rather than gated in the tree. Full rule in raw-text store."
   },
   {
     "ability_id": "slaves-to-none",
@@ -8350,7 +8363,7 @@
       "range": "aura-12",
       "duration": "permanent"
     },
-    "community_notes": "[APPROX] A 12\" battle-shock-test debuff aura: forces the test and applies \u22121 to the result. The rule forces the test specifically on enemy units below their Starting Strength and applies the \u22121 to any enemy unit within 12\" (the encoding ties the \u22121 to below-half via `bonus_if_below_half`); its 'no other Battle-shock tests this phase' clause is not modeled. Full rule in raw-text store."
+    "community_notes": "[APPROX] A 12\" battle-shock-test debuff aura: forces the test and applies −1 to the result. The rule forces the test specifically on enemy units below their Starting Strength and applies the −1 to any enemy unit within 12\" (the encoding ties the −1 to below-half via `bonus_if_below_half`); its 'no other Battle-shock tests this phase' clause is not modeled. Full rule in raw-text store."
   },
   {
     "ability_id": "desperate-devotion",
@@ -8448,7 +8461,7 @@
       "range": "any-on-battlefield",
       "duration": "until-next-command-phase"
     },
-    "community_notes": "[APPROX] Each Command phase, mark one enemy unit as the focus of hatred; HERETIC ASTARTES models re-roll Hit rolls against it. The rule excludes DAMNED models from the re-roll \u2014 an exclusion not modeled here. Full rule in raw-text store."
+    "community_notes": "[APPROX] Each Command phase, mark one enemy unit as the focus of hatred; HERETIC ASTARTES models re-roll Hit rolls against it. The rule excludes DAMNED models from the re-roll — an exclusion not modeled here. Full rule in raw-text store."
   },
   {
     "ability_id": "terror-made-manifest",
@@ -8497,7 +8510,7 @@
       "range": "aura-12",
       "duration": "permanent"
     },
-    "community_notes": "[APPROX] Models the 12\" battle-shock-test debuff (force + \u22121) and +1 to Hit rolls against targets Below Half-strength. Not modeled (the DSL has no Battle-shocked-state condition): \u22121 to Hit for Battle-shocked attackers targeting HERETIC ASTARTES, and +1 to Wound against Battle-shocked targets; nor the 'no other Battle-shock tests this phase' clause. Full rule in raw-text store."
+    "community_notes": "[APPROX] Models the 12\" battle-shock-test debuff (force + −1) and +1 to Hit rolls against targets Below Half-strength. Not modeled (the DSL has no Battle-shocked-state condition): −1 to Hit for Battle-shocked attackers targeting HERETIC ASTARTES, and +1 to Wound against Battle-shocked targets; nor the 'no other Battle-shock tests this phase' clause. Full rule in raw-text store."
   },
   {
     "ability_id": "marks-of-chaos",

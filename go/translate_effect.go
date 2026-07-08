@@ -1130,8 +1130,13 @@ func describeEffectInlineBase(e map[string]any, ctx map[string]any) string {
 		return describeMortalWounds(e, m, subj, ctx)
 	case "feel-no-pain":
 		vs := ""
-		if m["scope"] == "mortal" {
+		switch m["scope"] {
+		case "mortal":
 			vs = " against mortal wounds"
+		case "psychic":
+			vs = " against Psychic Attacks"
+		case "psychic-and-mortal":
+			vs = " against Psychic Attacks and mortal wounds"
 		}
 		return subj + " " + ev(subj, "has") + " the Feel No Pain " + ejstr(m["threshold"]) + "+ ability" + vs
 	case "ward":
@@ -1309,19 +1314,49 @@ func describeEffectInlineBase(e map[string]any, ctx map[string]any) string {
 	case "rule-state":
 		return describeRuleState(m, subj)
 	case "pool-add-die":
-		val := "the highest result"
-		if m["value"] != "highest" {
-			val = ejstr(m["value"])
+		pool := poolName(m["pool_id"])
+		rolled := m["value"] == "rolled"
+		if m["count_per_pool"] != nil {
+			// One die per point currently in the counting pool (Icon of Khorne).
+			per := poolName(m["count_per_pool"])
+			perPlural := per
+			if !strings.HasSuffix(per, "s") {
+				perPlural = per + "s"
+			}
+			die := "one rolled D6"
+			if !rolled {
+				shown := "the highest result"
+				if m["value"] != "highest" {
+					shown = ejstr(m["value"])
+				}
+				die = "one die showing " + shown
+			}
+			tail := ""
+			if m["consumes_pool"] == true {
+				tail = ", after which all your " + perPlural + " are lost"
+			}
+			return "add " + die + " to your " + pool + " for each " + per + " you have" + tail
 		}
 		cnt := "1"
 		if m["count"] != nil {
 			cnt = diceCase(m["count"])
 		}
+		if rolled {
+			dice := "a rolled D6"
+			if cnt != "1" {
+				dice = cnt + " rolled D6"
+			}
+			return "add " + dice + " to your " + pool
+		}
+		val := "the highest result"
+		if m["value"] != "highest" {
+			val = ejstr(m["value"])
+		}
 		dice := "a die"
 		if cnt != "1" {
 			dice = cnt + " dice"
 		}
-		return "add " + dice + " showing " + val + " to your " + poolName(m["pool_id"])
+		return "add " + dice + " showing " + val + " to your " + pool
 	case "replace-roll-from-pool":
 		var rolls []string
 		if arr, ok := m["rolls"].([]any); ok {
@@ -1604,6 +1639,11 @@ func describeEffectInlineBase(e map[string]any, ctx map[string]any) string {
 		return "at the start of the Declare Battle Formations step, " + subj + " can join one friendly unit" + led + ", becoming part of that Bodyguard unit"
 	case "fallback-and-act":
 		return subj + " " + ev(subj, "is") + " eligible to shoot and declare a charge in a turn in which it Fell Back"
+	case "fight-eligibility-extension":
+		r := ejstr(m["range"])
+		return "when determining which models in " + subj + " are eligible to fight, " +
+			"models within " + r + "\" of one or more enemy models are eligible " +
+			"and can target enemy units within " + r + "\""
 	case "engagement-passthrough":
 		if truthy(m["no_end_in_engagement"]) {
 			return subj + " can move through enemy models, but cannot end that move within Engagement Range of any enemy unit"

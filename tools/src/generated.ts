@@ -346,7 +346,8 @@ export type SingleEffect = {
     | "modifier-immunity"
     | "stratagem-cost-modifier"
     | "targeting-permission"
-    | "unit-attachment";
+    | "unit-attachment"
+    | "fight-eligibility-extension";
   target:
     | "self"
     | "bearer"

@@ -1315,10 +1315,11 @@ fn describe_single(e: &SingleEffect, ctx: &Ctx) -> String {
             format!("{subj_mw} {verb} {amt} {noun}")
         }
         T::FeelNoPain => {
-            let vs = if nstr(m, "scope") == Some("mortal") {
-                " against mortal wounds"
-            } else {
-                ""
+            let vs = match nstr(m, "scope") {
+                Some("mortal") => " against mortal wounds",
+                Some("psychic") => " against Psychic Attacks",
+                Some("psychic-and-mortal") => " against Psychic Attacks and mortal wounds",
+                _ => "",
             };
             format!(
                 "{subj} {} the Feel No Pain {}+ ability{vs}",
@@ -1522,24 +1523,60 @@ fn describe_single(e: &SingleEffect, ctx: &Ctx) -> String {
         }
         T::RuleState => describe_rule_state(m, &subj),
         T::PoolAddDie => {
+            let pool = m
+                .get("pool_id")
+                .map(pool_name)
+                .unwrap_or_else(|| "?".to_string());
+            let rolled = nstr(m, "value") == Some("rolled");
+            if let Some(per_pool) = m.get("count_per_pool") {
+                // One die per point currently in the counting pool (Icon of Khorne).
+                let per = pool_name(per_pool);
+                let per_plural = if per.ends_with('s') {
+                    per.clone()
+                } else {
+                    format!("{per}s")
+                };
+                let die = if rolled {
+                    "one rolled D6".to_string()
+                } else {
+                    let shown = match m.get("value") {
+                        Some(Value::String(s)) if s == "highest" => {
+                            "the highest result".to_string()
+                        }
+                        Some(v) => jval(v),
+                        None => "?".to_string(),
+                    };
+                    format!("one die showing {shown}")
+                };
+                let tail = if m.get("consumes_pool").and_then(Value::as_bool) == Some(true) {
+                    format!(", after which all your {per_plural} are lost")
+                } else {
+                    String::new()
+                };
+                return format!("add {die} to your {pool} for each {per} you have{tail}");
+            }
+            let cnt = m
+                .get("count")
+                .map(dice_case)
+                .unwrap_or_else(|| "1".to_string());
+            if rolled {
+                let dice = if cnt == "1" {
+                    "a rolled D6".to_string()
+                } else {
+                    format!("{cnt} rolled D6")
+                };
+                return format!("add {dice} to your {pool}");
+            }
             let val = match m.get("value") {
                 Some(Value::String(s)) if s == "highest" => "the highest result".to_string(),
                 Some(v) => jval(v),
                 None => "?".to_string(),
             };
-            let cnt = m
-                .get("count")
-                .map(dice_case)
-                .unwrap_or_else(|| "1".to_string());
             let dice = if cnt == "1" {
                 "a die".to_string()
             } else {
                 format!("{cnt} dice")
             };
-            let pool = m
-                .get("pool_id")
-                .map(pool_name)
-                .unwrap_or_else(|| "?".to_string());
             format!("add {dice} showing {val} to your {pool}")
         }
         T::ReplaceRollFromPool => {
@@ -1811,6 +1848,14 @@ fn describe_single(e: &SingleEffect, ctx: &Ctx) -> String {
             "{subj} {} eligible to shoot and declare a charge in a turn in which it Fell Back",
             agree(&subj, "is")
         ),
+        T::FightEligibilityExtension => {
+            let r = jv(m, "range");
+            format!(
+                "when determining which models in {subj} are eligible to fight, \
+                 models within {r}\" of one or more enemy models are eligible \
+                 and can target enemy units within {r}\""
+            )
+        }
         T::EngagementPassthrough => {
             if truthy(m, "no_end_in_engagement") {
                 format!("{subj} can move through enemy models, but cannot end that move within Engagement Range of any enemy unit")

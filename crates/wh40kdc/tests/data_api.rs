@@ -359,19 +359,58 @@ fn exposes_the_embedded_data() {
 }
 
 #[test]
-fn deduplicates_abilities_by_id() {
+fn deduplicates_abilities_by_faction_and_id() {
+    // A shared ability_id keeps one copy per faction (the copies legitimately
+    // diverge); only true within-faction duplicates collapse. Mirror of the TS
+    // data-model test.
     let ds = Dataset::embedded();
-    let ids: std::collections::HashSet<&str> = ds
+    let keys: std::collections::HashSet<String> = ds
         .abilities
         .all()
         .iter()
-        .map(|a| a.ability_id.as_str())
+        .map(|a| {
+            format!(
+                "{}::{}",
+                a.faction_id.as_ref().map(|e| e.as_str()).unwrap_or(""),
+                a.ability_id.as_str()
+            )
+        })
         .collect();
     assert_eq!(
-        ids.len(),
+        keys.len(),
         ds.abilities.len(),
-        "no duplicate ability ids in .all()"
+        "no duplicate (faction_id, ability_id) pairs in .all()"
     );
+    let idols = ds
+        .abilities
+        .all()
+        .iter()
+        .filter(|a| a.ability_id.as_str() == "idol-of-blessed-blood")
+        .count();
+    assert_eq!(
+        idols, 2,
+        "both factions' idol-of-blessed-blood copies survive dedupe"
+    );
+}
+
+#[test]
+fn resolves_a_shared_ability_id_to_the_units_own_factions_copy() {
+    // `idol-of-blessed-blood` is authored in both world-eaters and
+    // chaos-space-marines (shared Khorne Lord of Skulls datasheet); each
+    // faction's unit must see its own faction's copy. Mirror of the TS test.
+    let ds = Dataset::embedded();
+    for faction in ["world-eaters", "chaos-space-marines"] {
+        let unit = ds
+            .units
+            .get_in_faction("khorne-lord-of-skulls", faction)
+            .expect("khorne-lord-of-skulls exists in both factions");
+        let idol = ds
+            .abilities_of(unit)
+            .into_iter()
+            .find(|a| a.ability_id.as_str() == "idol-of-blessed-blood")
+            .unwrap_or_else(|| panic!("idol-of-blessed-blood on {faction} lord of skulls"));
+        assert_eq!(idol.faction_id.as_ref().map(|e| e.as_str()), Some(faction));
+    }
 }
 
 #[test]

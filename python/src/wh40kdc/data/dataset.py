@@ -100,9 +100,17 @@ class Dataset:
             name_of=lambda f: f.get("name"),
             wrap=lambda f: FactionView(f, self),
         )
+        # An ability_id is shared across factions (each faction's enrichment
+        # authors its own copy of e.g. "deadly-demise-d3", and the copies
+        # legitimately diverge); dedupe on (faction_id, id) so every faction's
+        # copy is retained and a unit resolves its own faction's ability — the
+        # same scheme as weapons (issue #59). `faction_id` is stamped at bundle
+        # time from the enrichment directory; only the shared `_core` pool
+        # stays faction-less, reachable through the first-wins fallback.
         self.abilities: Collection[dict[str, Any], AbilityView] = Collection(
             raw["abilities"],
             id_of=lambda a: a["ability_id"],
+            dedupe_key_of=lambda a: f"{a.get('faction_id') or ''}::{a['ability_id']}",
             name_of=lambda a: a.get("name"),
             faction_of=lambda a: a.get("faction_id"),
             wrap=lambda a: AbilityView(a, self),
@@ -206,7 +214,15 @@ class Dataset:
         of TS ``reactiveTriggers``.
         """
         out: list[ReactiveTrigger] = []
+        # The abilities collection retains one copy per faction of a shared
+        # ability_id; this aggregation is faction-less (ReactiveTrigger carries
+        # no faction), so emit each ability id once — first registered copy
+        # wins, matching the collection's own by-id index and the TS mirror.
+        seen_ids: set[str] = set()
         for a in self.abilities.all:
+            if a.id in seen_ids:
+                continue
+            seen_ids.add(a.id)
             raw = a.raw.get("trigger")
             if not raw:
                 continue

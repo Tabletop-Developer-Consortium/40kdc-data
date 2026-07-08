@@ -84,7 +84,14 @@ func resolveEligibleAbilities(ds *Dataset, input map[string]any, phase string) [
 				if !ok {
 					continue
 				}
-				stratAbility, ok := ds.Abilities.Get(abilityID)
+				// Stratagem ability ids are detachment-qualified but the
+				// ability copies are still replicated per faction (SM
+				// chapters) — prefer the resolving faction's copy, falling
+				// back for shared pools.
+				stratAbility, ok := ds.Abilities.GetInFaction(abilityID, factionID)
+				if !ok {
+					stratAbility, ok = ds.Abilities.Get(abilityID)
+				}
 				if !ok {
 					continue
 				}

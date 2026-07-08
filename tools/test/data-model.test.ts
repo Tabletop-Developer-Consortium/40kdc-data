@@ -308,13 +308,54 @@ describe("collection integrity", () => {
     expect(abilities.size).toBeGreaterThan(0);
   });
 
-  it("deduplicates abilities by id (no duplicate ids in .all)", () => {
-    const ids = abilities.all.map((a) => a.id);
-    expect(new Set(ids).size).toBe(ids.length);
+  it("deduplicates abilities by (faction_id, id) — every faction's copy retained", () => {
+    // A shared ability_id keeps one copy per faction (the copies legitimately
+    // diverge); only true within-faction duplicates collapse.
+    const keys = abilities.all.map((a) => `${a.raw.faction_id ?? ""}::${a.id}`);
+    expect(new Set(keys).size).toBe(keys.length);
+    // idol-of-blessed-blood exists under both world-eaters and
+    // chaos-space-marines — both copies must survive dedupe.
+    expect(abilities.all.filter((a) => a.id === "idol-of-blessed-blood").length).toBe(2);
   });
 
   it("folds shared _core abilities into the collection", () => {
     expect(abilities.get("benefit-of-cover")).toBeDefined();
+  });
+
+  it("resolves a shared ability_id to the unit's own faction's copy", () => {
+    // `idol-of-blessed-blood` is authored in both world-eaters and
+    // chaos-space-marines (the Khorne Lord of Skulls is a shared datasheet).
+    // Each faction's Lord of Skulls must see its own faction's copy — the
+    // regression this guards: a CSM stub silently shadowing the authored
+    // world-eaters entry under first-wins dedupe.
+    for (const f of ["world-eaters", "chaos-space-marines"]) {
+      const unit = units.getInFaction("khorne-lord-of-skulls", f)!;
+      const idol = unit.abilities.find((a) => a.id === "idol-of-blessed-blood");
+      expect(idol, `idol-of-blessed-blood on ${f} lord of skulls`).toBeDefined();
+      expect(idol!.raw.faction_id).toBe(f);
+    }
+  });
+
+  it("falls back to the faction-less _core pool for ids outside the unit's faction", () => {
+    const ability = { name: "Benefit of Cover", ability_id: "benefit-of-cover" };
+    const ds = new Dataset({
+      ...emptyRawData(),
+      units: [
+        {
+          id: "scout",
+          name: "Scout",
+          faction_id: "test-faction",
+          profiles: [{ M: 6, T: 3, W: 1, Sv: 4, Ld: 7, OC: 1 } as never],
+          ability_ids: ["benefit-of-cover"],
+          game_version: { edition: "11th", dataslate: "test" },
+        } as never,
+      ],
+      // A _core-pool record carries no faction_id — getInFaction misses it,
+      // the getAny fallback finds it.
+      abilities: [ability as never],
+    });
+    const scout = ds.units.get("scout")!;
+    expect(scout.abilities.map((a) => a.id)).toEqual(["benefit-of-cover"]);
   });
 
   it("is iterable", () => {
@@ -322,8 +363,11 @@ describe("collection integrity", () => {
     expect(collected.length).toBe(factions.size);
   });
 
-  it("ability dedupe reduced the raw count (core abilities copied per faction)", () => {
-    expect(abilities.size).toBeLessThan(RAW_DATA.abilities.length);
+  it("retains every faction's ability copy (no within-faction duplicates to collapse)", () => {
+    // Cross-faction copies are kept by the (faction_id, id) dedupe key, and
+    // integrity forbids within-faction duplicate ids — so the collection is
+    // the raw bundle, record for record.
+    expect(abilities.size).toBe(RAW_DATA.abilities.length);
   });
 });
 

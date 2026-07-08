@@ -1124,9 +1124,16 @@ function genEffectTranslation(): void {
     }
   };
 
+  // One copy per ability id: the collection retains per-faction copies of a
+  // shared id, but identical copies would only fill the per-type exemplar
+  // caps with redundant cases (pushing out genuinely distinct later-alphabet
+  // shapes). First-registered copy wins — the stable sort preserves bundle
+  // order within an id, matching the collection's own byId index.
+  const seenIds = new Set<string>();
   const abilities = ds.abilities.all
     .slice()
-    .sort((a, b) => (a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
+    .sort((a, b) => (a.id < b.id ? -1 : a.id > b.id ? 1 : 0))
+    .filter((a) => (seenIds.has(a.id) ? false : (seenIds.add(a.id), true)));
 
   const seen = new Map<string, number>();
   const CAP = 5;

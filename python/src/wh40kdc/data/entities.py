@@ -63,8 +63,16 @@ class UnitView:
 
     @property
     def abilities(self) -> list[AbilityView]:
-        """Abilities referenced by ``ability_ids``; unresolved ids are skipped."""
-        return _resolve_all(self.raw.get("ability_ids"), self._ds.abilities.get)
+        """Abilities referenced by ``ability_ids``, resolved within the unit's
+        own faction first — an ability_id shared across factions has
+        per-faction copies that diverge. The fallback catches the faction-less
+        ``_core`` pool. Unresolved ids are skipped."""
+        faction_id = self.raw.get("faction_id", "")
+        return _resolve_all(
+            self.raw.get("ability_ids"),
+            lambda id_: self._ds.abilities.get_in_faction(id_, faction_id)
+            or self._ds.abilities.get(id_),
+        )
 
     @property
     def wargear_options(self) -> list[dict[str, Any]]:

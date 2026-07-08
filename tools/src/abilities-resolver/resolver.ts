@@ -113,7 +113,11 @@ export function resolveEligibleAbilities(
         if (!stratagemPhaseMatches(stratagem, phase)) continue;
         const ability =
           stratagem.ability_id !== null && stratagem.ability_id !== undefined
-            ? dataset.abilities.get(stratagem.ability_id)
+            ? // Stratagem ability ids are detachment-qualified but the ability
+              // copies are still replicated per faction (SM chapters) — prefer
+              // the resolving faction's copy, falling back for shared pools.
+              (dataset.abilities.getInFaction(stratagem.ability_id, factionId) ??
+              dataset.abilities.getAny(stratagem.ability_id))
             : undefined;
         if (!ability) continue;
         pushUnique(out, seen, {

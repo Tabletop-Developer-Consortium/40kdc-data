@@ -64,6 +64,31 @@ const ID_KEY: Partial<Record<keyof RawData, string>> = {
   abilities: "ability_id",
 };
 
+/**
+ * Collections whose records are stamped with their owning faction (the
+ * `data/{core,enrichment}/<faction>/` directory) at bundle time, so ids shared
+ * across factions resolve faction-scoped in the linked API instead of
+ * first-wins (issue #59 generalized). The rule says when a record is eligible:
+ *
+ *  - `"absent"` — stamp only when the record has no `faction_id` key at all
+ *    (weapons author none; an authored value, even null, is preserved
+ *    verbatim for byte-stability of the existing bundle).
+ *  - `"absent-or-null"` — additionally overwrite an explicit `null` (ability
+ *    records author `faction_id: null` on non-faction-typed entries; the null
+ *    carries no information the directory doesn't).
+ *
+ * Records in `_`-prefixed directories (the shared `enrichment/_core` pool)
+ * are never stamped — they stay faction-less on purpose so the linked API's
+ * faction-scoped lookup falls back to them via `getAny`.
+ *
+ * Mirrored by the Rust bundler (`xtask bundle-data`), which Python and Go
+ * copy byte-for-byte — keep the two tables in sync.
+ */
+const STAMP_FACTION: Partial<Record<keyof RawData, "absent" | "absent-or-null">> = {
+  weapons: "absent",
+  abilities: "absent-or-null",
+};
+
 /** Recursively collect bundleable `.json` files, skipping excluded dirs/examples. */
 function collectFiles(dir: string): string[] {
   const out: string[] = [];
@@ -105,16 +130,18 @@ function build(): RawData {
       if (!Array.isArray(parsed)) {
         throw new Error(`expected a JSON array in ${file}`);
       }
-      // Stamp each weapon with its owning faction (its data/core/<faction>/ dir)
-      // so a unit's weapon_ids resolve within its own faction. A bare id shared
-      // across factions (e.g. "close-combat-weapon") otherwise collapses to
-      // whichever faction bundled first — issue #59. Faction-less weapons (none
-      // today) keep no faction_id and fall back to global first-wins.
-      if (collection === "weapons") {
+      // Stamp records with their owning faction directory so ids shared across
+      // factions resolve faction-scoped rather than first-wins (see
+      // STAMP_FACTION for the per-collection rules and the `_core` exclusion).
+      const stampRule = STAMP_FACTION[collection];
+      if (stampRule) {
         const faction = factionOfFile(root, file);
-        if (faction) {
-          for (const w of parsed as Record<string, unknown>[]) {
-            if (w && typeof w === "object" && w.faction_id === undefined) w.faction_id = faction;
+        if (faction && !faction.startsWith("_")) {
+          for (const r of parsed as Record<string, unknown>[]) {
+            if (!r || typeof r !== "object") continue;
+            if (r.faction_id === undefined || (stampRule === "absent-or-null" && r.faction_id === null)) {
+              r.faction_id = faction;
+            }
           }
         }
       }
@@ -127,31 +154,38 @@ function build(): RawData {
 /** Warn (do not fail) on duplicate primary ids — a data-hygiene signal. */
 function reportDuplicateIds(data: RawData): void {
   for (const [collection, key] of Object.entries(ID_KEY) as [keyof RawData, string][]) {
-    const seen = new Set<string>();
-    const dupes = new Set<string>();
-    for (const item of data[collection] as Record<string, unknown>[]) {
+    // Faction-stamped collections legitimately share bare ids across factions
+    // (each faction file may define its own "close-combat-weapon" / "leader");
+    // the linked API disambiguates by faction. Their TRUE duplicate is the
+    // same (faction_id, id) pair — an authoring error, so that's what's
+    // flagged; unstamped collections keep the bare-id check.
+    if (STAMP_FACTION[collection]) continue;
+    reportDupes(collection, data[collection] as Record<string, unknown>[], (item) => item[key] as string | undefined);
+  }
+  for (const collection of Object.keys(STAMP_FACTION) as (keyof RawData)[]) {
+    const key = ID_KEY[collection] ?? "id";
+    reportDupes(`${collection} (faction_id,${key})`, data[collection] as Record<string, unknown>[], (item) => {
       const id = item[key] as string | undefined;
-      if (id === undefined) continue;
-      if (seen.has(id)) dupes.add(id);
-      else seen.add(id);
-    }
-    if (dupes.size > 0) {
-      console.warn(`  ⚠ ${collection}: ${dupes.size} duplicate ${key}(s), e.g. ${[...dupes].slice(0, 3).join(", ")}`);
-    }
+      return id === undefined ? undefined : `${(item.faction_id as string | null | undefined) ?? ""}::${id}`;
+    });
   }
-  // Weapons legitimately share bare ids across factions (each faction file may
-  // define its own "close-combat-weapon"); the resolver disambiguates by
-  // faction. A TRUE duplicate is the same (faction_id, id) pair — an authoring
-  // error, so flag it.
-  const wseen = new Set<string>();
-  const wdupes = new Set<string>();
-  for (const w of data.weapons) {
-    const key = `${w.faction_id ?? ""}::${w.id}`;
-    if (wseen.has(key)) wdupes.add(w.id);
-    else wseen.add(key);
+}
+
+function reportDupes(
+  label: string,
+  items: Record<string, unknown>[],
+  keyOf: (item: Record<string, unknown>) => string | undefined,
+): void {
+  const seen = new Set<string>();
+  const dupes = new Set<string>();
+  for (const item of items) {
+    const key = keyOf(item);
+    if (key === undefined) continue;
+    if (seen.has(key)) dupes.add(key);
+    else seen.add(key);
   }
-  if (wdupes.size > 0) {
-    console.warn(`  ⚠ weapons: ${wdupes.size} duplicate (faction_id,id) pair(s), e.g. ${[...wdupes].slice(0, 3).join(", ")}`);
+  if (dupes.size > 0) {
+    console.warn(`  ⚠ ${label}: ${dupes.size} duplicate id(s), e.g. ${[...dupes].slice(0, 3).join(", ")}`);
   }
 }
 

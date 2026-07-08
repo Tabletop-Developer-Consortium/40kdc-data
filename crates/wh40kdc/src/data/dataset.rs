@@ -8,7 +8,7 @@
 //! `dataset.phases_of(&ability)`) — a borrowing view object would be
 //! self-referential. The join graph is identical.
 
-use std::collections::{BTreeMap, HashMap};
+use std::collections::{BTreeMap, HashMap, HashSet};
 use std::sync::OnceLock;
 
 use crate::generated::{
@@ -257,12 +257,25 @@ impl Dataset {
             |_| None,
             |f| f.id.to_string(),
         );
+        // An ability_id is shared across factions (each faction's enrichment
+        // authors its own copy of e.g. "deadly-demise-d3", and the copies
+        // legitimately diverge); dedupe on (faction_id, id) so every faction's
+        // copy is retained and a unit resolves its own faction's ability — the
+        // same scheme as weapons (issue #59). `faction_id` is stamped at
+        // bundle time from the enrichment directory; only the shared `_core`
+        // pool stays faction-less, reachable through the first-wins fallback.
         let abilities = Collection::build(
             raw.abilities,
             |a| a.ability_id.to_string(),
             |a| Some(a.name.as_str()),
             |a| a.faction_id.as_ref().map(|e| e.as_str()),
-            |a| a.ability_id.to_string(),
+            |a| {
+                format!(
+                    "{}::{}",
+                    a.faction_id.as_ref().map(|e| e.as_str()).unwrap_or(""),
+                    a.ability_id.as_str()
+                )
+            },
         );
 
         let target_profiles = Collection::build(
@@ -513,10 +526,19 @@ impl Dataset {
     }
 
     /// Abilities referenced by `ability_ids`; unresolved ids are skipped.
+    ///
+    /// Resolves within the unit's own faction first — an ability_id shared
+    /// across factions has per-faction copies that diverge. The fallback
+    /// catches the faction-less `_core` pool (and any id absent from this
+    /// faction's enrichment). Mirror of TS `UnitView.abilities`.
     pub fn abilities_of(&self, unit: &Unit) -> Vec<&Ability> {
         unit.ability_ids
             .iter()
-            .filter_map(|id| self.abilities.get(id.as_str()))
+            .filter_map(|id| {
+                self.abilities
+                    .get_in_faction(id.as_str(), unit.faction_id.as_str())
+                    .or_else(|| self.abilities.get(id.as_str()))
+            })
             .collect()
     }
 
@@ -551,7 +573,15 @@ impl Dataset {
     /// `Dataset.reactiveTriggers`.
     pub fn reactive_triggers(&self) -> Vec<ReactiveTrigger<'_>> {
         let mut out: Vec<ReactiveTrigger<'_>> = Vec::new();
+        // The abilities collection retains one copy per faction of a shared
+        // ability_id; this aggregation is faction-less (ReactiveTrigger carries
+        // no faction), so emit each ability id once — first registered copy
+        // wins, matching the collection's own by-id index and the TS mirror.
+        let mut seen_ids: HashSet<&str> = HashSet::new();
         for ability in self.abilities.all() {
+            if !seen_ids.insert(ability.ability_id.as_str()) {
+                continue;
+            }
             let Some(raw) = ability.trigger.as_ref() else {
                 continue;
             };

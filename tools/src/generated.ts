@@ -2292,7 +2292,7 @@ export interface AbilityDSLEntry {
   supersedes?: DataslateVersion | null;
   unit_ids?: EntityId[];
   /**
-   * For faction-type abilities, the faction this rule belongs to
+   * Owning faction. Authored explicitly on faction/detachment-scoped abilities; otherwise stamped at bundle time from the ability's data/enrichment/<faction>/ directory (records in the shared _core pool stay null). Enables faction-scoped resolution of a unit's ability_ids so an ability_id shared across factions resolves to the unit's own faction's copy rather than whichever faction bundled first.
    */
   faction_id?: EntityId | null;
   /**

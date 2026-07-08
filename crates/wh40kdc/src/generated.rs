@@ -124,7 +124,7 @@ pub mod error {
 ///      "$ref": "#/$defs/effect"
 ///    },
 ///    "faction_id": {
-///      "description": "For faction-type abilities, the faction this rule belongs to",
+///      "description": "Owning faction. Authored explicitly on faction/detachment-scoped abilities; otherwise stamped at bundle time from the ability's data/enrichment/<faction>/ directory (records in the shared _core pool stay null). Enables faction-scoped resolution of a unit's ability_ids so an ability_id shared across factions resolves to the unit's own faction's copy rather than whichever faction bundled first.",
 ///      "oneOf": [
 ///        {
 ///          "$ref": "#/$defs/entity-id"
@@ -267,7 +267,7 @@ pub struct Ability {
     #[serde(default)]
     pub disputed: bool,
     pub effect: Effect,
-    ///For faction-type abilities, the faction this rule belongs to
+    ///Owning faction. Authored explicitly on faction/detachment-scoped abilities; otherwise stamped at bundle time from the ability's data/enrichment/<faction>/ directory (records in the shared _core pool stay null). Enables faction-scoped resolution of a unit's ability_ids so an ability_id shared across factions resolves to the unit's own faction's copy rather than whichever faction bundled first.
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub faction_id: ::std::option::Option<EntityId>,
     pub game_version: GameVersionRef,

@@ -192,6 +192,14 @@ export class Dataset {
     this.abilities = new Collection({
       items: raw.abilities,
       idOf: (a) => a.ability_id,
+      // An ability_id is shared across factions (each faction's enrichment
+      // authors its own copy of e.g. "deadly-demise-d3", and the copies
+      // legitimately diverge); key on (faction_id, id) so every faction's copy
+      // is retained and a unit resolves its own faction's ability — the same
+      // scheme as weapons (issue #59). `faction_id` is stamped at bundle time
+      // from the enrichment directory; only the shared `_core` pool stays
+      // faction-less, reachable through the getAny fallback.
+      dedupeKeyOf: (a) => `${a.faction_id ?? ""}::${a.ability_id}`,
       nameOf: (a) => a.name,
       factionOf: (a) => a.faction_id,
       wrap: (a) => new AbilityView(a, this),
@@ -289,7 +297,14 @@ export class Dataset {
    */
   reactiveTriggers(): ReactiveTrigger[] {
     const out: ReactiveTrigger[] = [];
+    // The abilities collection retains one copy per faction of a shared
+    // ability_id; this aggregation is faction-less (ReactiveTrigger carries no
+    // faction), so emit each ability id once — first registered copy wins,
+    // matching the collection's own byId index.
+    const seenIds = new Set<string>();
     for (const a of this.abilities.all) {
+      if (seenIds.has(a.id)) continue;
+      seenIds.add(a.id);
       const raw = a.raw.trigger;
       if (!raw) continue;
       // `trigger` may be a single object or an array (the ability fires on any);

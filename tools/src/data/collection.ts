@@ -3,10 +3,11 @@
  *
  * Indexes (by id, by normalized name, by faction) are built once at construction.
  * Records are deduplicated by {@link CollectionConfig.dedupeKeyOf} (default: id,
- * first occurrence wins). Some records are intentionally shared: the same unit
- * id (e.g. `ministorum-priest`) appears under several factions, so units dedupe
- * on `(faction_id, id)` to keep each faction's copy; identical core abilities
- * (e.g. `leader`) copied into many faction files dedupe away on `ability_id`.
+ * first occurrence wins). Some records are intentionally shared: the same id
+ * (e.g. unit `ministorum-priest`, ability `deadly-demise-d3`) appears under
+ * several factions with per-faction copies that may diverge, so those
+ * collections dedupe on `(faction_id, id)` to keep each faction's copy and
+ * resolve faction-scoped.
  *
  * `get(id)`/`find` return the first match when an id is shared across factions;
  * use {@link Collection.byFaction} or {@link Collection.findAll} to disambiguate.

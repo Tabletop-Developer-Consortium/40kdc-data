@@ -100,7 +100,16 @@ func NewDataset(raw rawData) *Dataset {
 	ds.Abilities = newCollection(raw["abilities"], func(i any) *AbilityView {
 		return &AbilityView{Raw: i.(map[string]any), ds: ds}
 	}, collectionOpts{
-		idOf:      func(i any) string { return getStr(i.(map[string]any), "ability_id") },
+		idOf: func(i any) string { return getStr(i.(map[string]any), "ability_id") },
+		// An ability_id is shared across factions with per-faction copies that
+		// legitimately diverge; key on (faction_id, id) so every faction's copy
+		// is kept and a unit resolves its own faction's ability — same scheme
+		// as weapons (issue #59). faction_id is stamped at bundle time; only
+		// the shared _core pool stays faction-less (first-wins fallback).
+		dedupeKeyOf: func(i any) string {
+			m := i.(map[string]any)
+			return getStr(m, "faction_id") + "::" + getStr(m, "ability_id")
+		},
 		nameOf:    func(i any) string { return getStr(i.(map[string]any), "name") },
 		factionOf: factionIDOf,
 	})
@@ -328,7 +337,16 @@ type ReactiveTrigger struct {
 // abilities). Go mirror of TS Dataset.reactiveTriggers.
 func (ds *Dataset) ReactiveTriggers() []ReactiveTrigger {
 	var out []ReactiveTrigger
+	// The abilities collection retains one copy per faction of a shared
+	// ability_id; this aggregation is faction-less (ReactiveTrigger carries no
+	// faction), so emit each ability id once — first registered copy wins,
+	// matching the collection's own by-id index and the TS mirror.
+	seenIDs := map[string]struct{}{}
 	for _, ability := range ds.Abilities.All() {
+		if _, dup := seenIDs[ability.ID()]; dup {
+			continue
+		}
+		seenIDs[ability.ID()] = struct{}{}
 		raw := ability.Raw["trigger"]
 		if raw == nil {
 			continue

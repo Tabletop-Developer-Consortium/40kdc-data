@@ -100,8 +100,15 @@ def resolve_eligible_abilities(
                 if not strat_phases or phase not in strat_phases:
                     continue
                 ability_id = stratagem.get("ability_id")
+                # Stratagem ability ids are detachment-qualified but the
+                # ability copies are still replicated per faction (SM
+                # chapters) — prefer the resolving faction's copy, falling
+                # back for shared pools.
                 strat_ability = (
-                    dataset.abilities.get(ability_id) if ability_id is not None else None
+                    dataset.abilities.get_in_faction(ability_id, faction_id or "")
+                    or dataset.abilities.get(ability_id)
+                    if ability_id is not None
+                    else None
                 )
                 if strat_ability is None:
                     continue

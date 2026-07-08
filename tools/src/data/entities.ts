@@ -61,7 +61,14 @@ export class UnitView {
 
   /** Abilities referenced by `ability_ids`; unresolved ids are skipped. */
   get abilities(): AbilityView[] {
-    return resolveAll(this.raw.ability_ids, (id) => this.ds.abilities.get(id));
+    return resolveAll(
+      this.raw.ability_ids,
+      // Resolve within the unit's faction first — an ability_id shared across
+      // factions has per-faction copies that diverge. The fallback catches the
+      // faction-less `_core` pool (and any id absent from this faction's
+      // enrichment).
+      (id) => this.ds.abilities.getInFaction(id, this.raw.faction_id) ?? this.ds.abilities.getAny(id),
+    );
   }
 
   /** Wargear options (weapon swaps, add-ons, choices) authored for this unit. */

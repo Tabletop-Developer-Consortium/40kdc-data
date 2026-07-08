@@ -112,6 +112,30 @@ const FILE_TO_COLLECTION: &[(&str, &str)] = &[
 /// (`_core` is deliberately *not* excluded — its shared abilities are bundled.)
 const EXCLUDED_DIRS: &[&str] = &["_example", "_port-audit"];
 
+/// When a faction-stamped record is eligible for stamping (see [`STAMP_FACTION`]).
+#[derive(Clone, Copy, PartialEq)]
+enum StampRule {
+    /// Stamp only when the record has no `faction_id` key at all (an authored
+    /// value, even `null`, is preserved verbatim for byte-stability).
+    Absent,
+    /// Additionally overwrite an explicit `null` (ability records author
+    /// `faction_id: null` on non-faction-typed entries; the null carries no
+    /// information the directory doesn't).
+    AbsentOrNull,
+}
+
+/// Collections whose records are stamped with their owning faction (the
+/// `data/{core,enrichment}/<faction>/` directory) at bundle time, so ids
+/// shared across factions resolve faction-scoped in the linked API instead of
+/// first-wins (issue #59 generalized). Records in `_`-prefixed directories
+/// (the shared `enrichment/_core` pool) are never stamped — they stay
+/// faction-less on purpose so faction-scoped lookup falls back to them.
+/// Mirrors `tools/src/codegen-data.ts` `STAMP_FACTION` — keep the two in sync.
+const STAMP_FACTION: &[(&str, StampRule)] = &[
+    ("weapons", StampRule::Absent),
+    ("abilities", StampRule::AbsentOrNull),
+];
+
 /// Bundle every authored `data/` file into one embedded JSON object.
 ///
 /// Output is deterministic: files are visited in sorted path order and every
@@ -152,16 +176,26 @@ fn bundle_data() -> Result<()> {
         let Value::Array(mut items) = parsed else {
             bail!("expected a JSON array in {}", file.display());
         };
-        // Stamp each weapon with its owning faction (its data/<sub>/<faction>/
-        // dir) so a unit's weapon_ids resolve within its own faction; a bare id
-        // shared across factions (e.g. "close-combat-weapon") otherwise collapses
-        // to whichever faction bundled first (issue #59). Mirrors the TS bundler.
-        if key == "weapons" {
+        // Stamp records with their owning faction directory so ids shared
+        // across factions resolve faction-scoped rather than first-wins (see
+        // STAMP_FACTION for the per-collection rules and the `_core`
+        // exclusion). Mirrors the TS bundler.
+        if let Some(&(_, rule)) = STAMP_FACTION.iter().find(|&&(name, _)| name == key) {
             if let Some(faction) = faction_of_path(file) {
-                for item in &mut items {
-                    if let Value::Object(map) = item {
-                        if !map.contains_key("faction_id") {
-                            map.insert("faction_id".to_string(), Value::String(faction.clone()));
+                if !faction.starts_with('_') {
+                    for item in &mut items {
+                        if let Value::Object(map) = item {
+                            let stampable = match map.get("faction_id") {
+                                None => true,
+                                Some(Value::Null) => rule == StampRule::AbsentOrNull,
+                                Some(_) => false,
+                            };
+                            if stampable {
+                                map.insert(
+                                    "faction_id".to_string(),
+                                    Value::String(faction.clone()),
+                                );
+                            }
                         }
                     }
                 }

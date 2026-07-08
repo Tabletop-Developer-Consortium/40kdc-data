@@ -974,9 +974,9 @@ function allyViolations(state: BuilderState): BuilderViolation[] {
 }
 
 /**
- * Core 10e army-construction caps (advisory): datasheet-name limits (≤3 of a
- * datasheet, ≤6 for Battleline / Dedicated Transport), Enhancement caps (≤3
- * total, each unique, none on Epic Heroes), and Epic Hero uniqueness.
+ * Core army-construction caps (advisory): datasheet-name limits (≤3 of a
+ * datasheet, ≤6 for Battleline / Dedicated Transport), Enhancement rules (each
+ * unique, none on Epic Heroes), and Epic Hero uniqueness.
  */
 function constructionViolations(state: BuilderState): BuilderViolation[] {
 	const out: BuilderViolation[] = [];
@@ -999,9 +999,9 @@ function constructionViolations(state: BuilderState): BuilderViolation[] {
 		if (count > cap) out.push({ unitKey: null, message: `${count}× ${name} (max ${cap} of a datasheet)` });
 	}
 
-	// Enhancements: ≤3 total, each unique, none on Epic Heroes.
+	// Enhancements: each unique, none on Epic Heroes. (The old army-wide "max 3
+	// Enhancements" cap was removed from the rules and is no longer enforced.)
 	const enhUsed = state.units.flatMap((u) => (u.enhancementId ? [u.enhancementId] : []));
-	if (enhUsed.length > 3) out.push({ unitKey: null, message: `${enhUsed.length} Enhancements (max 3)` });
 	const dupes = new Set(enhUsed.filter((id, i) => enhUsed.indexOf(id) !== i));
 	for (const id of dupes) {
 		out.push({ unitKey: null, message: `Enhancement '${ds.enhancements.get(id)?.name ?? id}' used more than once` });

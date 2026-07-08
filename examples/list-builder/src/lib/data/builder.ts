@@ -449,6 +449,27 @@ export function reconcileLoadout(
 }
 
 /**
+ * Change a unit's model count while PRESERVING its wargear. Clamps the requested
+ * count into the datasheet's [min,max] range, then reconciles the existing loadout
+ * against the new bounds (keeps the player's swaps, clamps counts that now exceed
+ * the new max, tops up always-on base weapons). Mirrors what adding a unit and
+ * importing a roster already do via {@link reconcileLoadout} — the model-count
+ * stepper must NOT reset selections to the datasheet default.
+ */
+export function withModelCount(
+	bu: BuilderUnit,
+	requested: number,
+	armyFactionId?: string,
+): BuilderUnit {
+	const range = buRaw(bu, armyFactionId)?.model_count ?? null;
+	const min = range?.min ?? 1;
+	const max = range?.max ?? Math.max(min, requested);
+	const next = Math.min(max, Math.max(min, requested));
+	const loadout = reconcileLoadout(bu.datasheetId, next, bu.loadout, bu.factionId ?? armyFactionId);
+	return { ...bu, modelCount: next, loadout };
+}
+
+/**
  * Project a builder unit onto the `DatacardData` the shared `Datacard` component
  * renders: the equipped weapon ids split into ranged/melee (a weapon is ranged
  * when any profile has a numeric range — the same test `Datacard` uses). Lets the

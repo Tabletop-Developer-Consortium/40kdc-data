@@ -34,6 +34,9 @@ import {
 	cloneBuilderUnit,
 	loadoutSummary,
 	reconcileLoadout,
+	withModelCount,
+	loadoutBounds,
+	clampCount,
 	itemName,
 	unitTypeKeywords,
 	alliesForState,
@@ -461,6 +464,47 @@ describe('builder loadout reconciliation', () => {
 			units: [bu],
 		}).filter((v) => v.unitKey === 'k' && /close-combat-weapon/.test(v.message));
 		expect(issues).toHaveLength(0);
+	});
+
+	it('preserves wargear when the model count changes, and clamps to the datasheet range', () => {
+		// Regression: the model-count stepper used to rebuild the loadout from the
+		// datasheet default, wiping every wargear swap the player had made (reported
+		// on Custodian Guard 4→5). withModelCount must reconcile, not reset.
+		const raw = unitRaw('custodian-guard');
+		if (!raw?.model_count) return; // dataset may not carry Custodes
+		const { min, max } = raw.model_count;
+		expect(max, 'need a real count range to exercise the change').toBeGreaterThan(min);
+
+		const bu: BuilderUnit = {
+			key: 'k',
+			datasheetId: 'custodian-guard',
+			modelCount: min,
+			loadout: defaultLoadout(raw, min),
+			enhancementId: null,
+			isWarlord: false,
+		};
+
+		// Pick an optional weapon (min<max) and choose a non-default count for it.
+		const bounds = loadoutBounds(bu);
+		const swap = [...bounds.entries()].find(([, b]) => b.max > b.min && b.max >= 1);
+		expect(swap, 'custodian-guard should expose a swappable wargear option').toBeTruthy();
+		const [swapId, swapBound] = swap!;
+		const chosen = clampCount(bounds, swapId, swapBound.min + 1);
+		bu.loadout.set(swapId, chosen);
+
+		// The bug: growing the unit must keep the swap, not reset it to default.
+		const grown = withModelCount(bu, min + 1);
+		expect(grown.modelCount).toBe(min + 1);
+		expect(grown.loadout.get(swapId), 'wargear swap survives a model-count change').toBe(chosen);
+
+		// Always-on base weapons (min===max) top up to the new count.
+		for (const [id, b] of loadoutBounds(grown)) {
+			if (b.min === b.max && b.max > 0) expect(grown.loadout.get(id)).toBe(b.max);
+		}
+
+		// Requests outside the datasheet range clamp to it.
+		expect(withModelCount(bu, max + 5).modelCount).toBe(max);
+		expect(withModelCount(bu, 0).modelCount).toBe(min);
 	});
 });
 

@@ -4,7 +4,7 @@ import {
 	unitPoints,
 	unitOrdinals,
 	eligibleEnhancements,
-	defaultLoadout,
+	withModelCount,
 	builderViolations,
 	builderUnitToDatacardData,
 	canBeWarlord,
@@ -72,10 +72,8 @@ const issues = $derived(
 );
 
 function setModelCount(n: number) {
-	if (!unit || !raw) return;
-	const min = modelRange?.min ?? 1;
-	const next = Math.max(min, n);
-	onchange({ ...unit, modelCount: next, loadout: defaultLoadout(raw, next) });
+	if (!unit) return;
+	onchange(withModelCount(unit, n, armyFaction));
 }
 
 function setAttachment(key: string) {
@@ -107,7 +105,12 @@ function setAttachment(key: string) {
 					aria-label="fewer models">−</button
 				>
 				<span class="w-6 text-center tabular-nums">{unit.modelCount}</span>
-				<button class="btn btn-icon" onclick={() => setModelCount(unit.modelCount + 1)} aria-label="more models">+</button>
+				<button
+					class="btn btn-icon"
+					disabled={unit.modelCount >= (modelRange?.max ?? Infinity)}
+					onclick={() => setModelCount(unit.modelCount + 1)}
+					aria-label="more models">+</button
+				>
 				{#if modelRange}<span class="text-text-muted">({modelRange.min}–{modelRange.max})</span>{/if}
 			</div>
 

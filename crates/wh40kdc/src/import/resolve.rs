@@ -589,7 +589,7 @@ fn apply_leader_attachments(
                     .into_iter()
                     .find(|u| u.id.as_str() == id)
             })
-            .or_else(|| ds.units.get(id))
+            .or_else(|| ds.units.get_any(id))
     };
 
     // First compute the attachments (immutable borrow of units), then apply

@@ -62,7 +62,7 @@ func validateRosterCore(spec normRoster, ds *Dataset) ([]unitLoadoutResult, []ro
 				return uv
 			}
 		}
-		if uv, ok := ds.Units.Get(unitID); ok {
+		if uv, ok := ds.Units.GetAny(unitID); ok {
 			return uv
 		}
 		return nil
@@ -106,8 +106,17 @@ func validateRosterCore(spec normRoster, ds *Dataset) ([]unitLoadoutResult, []ro
 
 	// Resolved detachments (drop ids absent from the dataset); primary = first.
 	var detachments []map[string]any
+	// Shared detachment ids (Codex chapters) resolve within the roster's
+	// faction; fall back first-wins when the spec names no faction.
 	for _, id := range spec.detachmentIDs {
-		if d, ok := ds.Detachments.Get(id); ok {
+		d, ok := any(nil), false
+		if spec.factionID != "" {
+			d, ok = ds.Detachments.GetInFaction(id, spec.factionID)
+		}
+		if !ok {
+			d, ok = ds.Detachments.GetAny(id)
+		}
+		if ok {
 			detachments = append(detachments, d.(map[string]any))
 		}
 	}
@@ -340,7 +349,8 @@ func bodyguardEligibleIDs(ds *Dataset, leaderUnitID string) map[string]struct{} 
 			continue
 		}
 		for _, bid := range getStrList(la, "eligible_bodyguard_ids") {
-			if _, ok := ds.Units.Get(bid); ok {
+			// Faction-agnostic attachment data — GetAny.
+			if _, ok := ds.Units.GetAny(bid); ok {
 				out[bid] = struct{}{}
 			}
 		}

@@ -57,3 +57,55 @@ func TestCorePoolAbilitiesResolveViaFallback(t *testing.T) {
 		t.Fatal("benefit-of-cover (shared _core pool) not resolvable")
 	}
 }
+
+// The tripwire that turns a silent wrong-faction lookup into a loud error:
+// chaos-land-raider exists under several Chaos factions, so a faction-less
+// Get would return the first-registered copy (wrong divergent fields).
+func TestGetPanicsForSharedUnitIDWithoutFaction(t *testing.T) {
+	ds := EmbeddedDataset()
+	defer func() {
+		if r := recover(); r == nil {
+			t.Fatal("Get on a shared unit id should panic")
+		}
+	}()
+	ds.Units.Get("chaos-land-raider")
+}
+
+func TestGetAnyIsTheExplicitFirstWinsOptOut(t *testing.T) {
+	ds := EmbeddedDataset()
+	unit, ok := ds.Units.GetAny("chaos-land-raider")
+	if !ok || unit.ID() != "chaos-land-raider" {
+		t.Fatal("GetAny should resolve the shared id first-wins")
+	}
+}
+
+func TestGetStillWorksForUnambiguousIDsOnGuardedCollection(t *testing.T) {
+	ds := EmbeddedDataset()
+	if _, ok := ds.Units.Get("kharn-the-betrayer"); !ok {
+		t.Fatal("unambiguous id should resolve through Get")
+	}
+}
+
+func TestGetPanicsForSharedDetachmentIDWithoutFaction(t *testing.T) {
+	ds := EmbeddedDataset()
+	// Find a chapter-replicated detachment id (appears under >1 faction).
+	counts := map[string]int{}
+	var shared string
+	for _, dAny := range ds.Detachments.All() {
+		id := getStr(dAny.(map[string]any), "id")
+		counts[id]++
+		if counts[id] > 1 {
+			shared = id
+			break
+		}
+	}
+	if shared == "" {
+		t.Fatal("expected at least one chapter-replicated detachment id")
+	}
+	defer func() {
+		if r := recover(); r == nil {
+			t.Fatal("Get on a shared detachment id should panic")
+		}
+	}()
+	ds.Detachments.Get(shared)
+}

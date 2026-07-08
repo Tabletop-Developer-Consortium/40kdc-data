@@ -222,7 +222,10 @@ impl Dataset {
             // The same unit id is shared across factions (e.g. ministorum-priest);
             // keep each faction's copy, collapse only true within-faction dupes.
             |u| format!("{}::{}", u.faction_id.as_str(), u.id.as_str()),
-        );
+        )
+        // Per-faction copies genuinely diverge (points, keywords, profiles), so
+        // a faction-less get() of a shared id is a bug — mirror of the TS guard.
+        .with_unscoped_guard("unit");
         let weapons = Collection::build(
             raw.weapons,
             |w| w.id.to_string(),
@@ -294,7 +297,10 @@ impl Dataset {
             // Codex-compatible chapter/supplement view (shared id, distinct
             // faction); keep each faction's copy, collapse only within-faction dupes.
             |d| format!("{}::{}", d.faction_id.as_str(), d.id.as_str()),
-        );
+        )
+        // Shared detachments diverge per chapter (detachment_rule_id,
+        // stratagem_ids, enhancement_ids, detachment_points) — same guard as units.
+        .with_unscoped_guard("detachment");
         let allied_rules = id_name_collection(
             raw.allied_rules,
             |r| r.id.to_string(),
@@ -766,7 +772,9 @@ impl Dataset {
                     .iter()
                     .any(|id| id.as_str() == bodyguard_unit_id)
             })
-            .filter_map(|la| self.units.get(la.leader_id.as_str()))
+            // Attachment data is faction-agnostic (no faction context here);
+            // accept first-wins for a shared leader chassis via get_any.
+            .filter_map(|la| self.units.get_any(la.leader_id.as_str()))
             .collect();
         out.sort_by(|a, b| a.name.cmp(&b.name));
         out
@@ -788,7 +796,8 @@ impl Dataset {
                 if !seen.insert(bodyguard_id.as_str()) {
                     continue;
                 }
-                if let Some(unit) = self.units.get(bodyguard_id.as_str()) {
+                // Faction-agnostic attachment data — get_any, as above.
+                if let Some(unit) = self.units.get_any(bodyguard_id.as_str()) {
                     out.push(unit);
                 }
             }

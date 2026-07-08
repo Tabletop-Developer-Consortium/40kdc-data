@@ -36,3 +36,33 @@ def test_resolves_shared_ability_id_to_units_own_factions_copy(dataset: Any) -> 
 def test_core_pool_abilities_resolve_via_fallback(dataset: Any) -> None:
     # The shared `_core` pool stays faction-less; a bare get() still finds it.
     assert dataset.abilities.get("benefit-of-cover") is not None
+
+
+def test_get_raises_for_shared_unit_id_without_faction(dataset: Any) -> None:
+    # The tripwire that turns a silent wrong-faction lookup into a loud error:
+    # chaos-land-raider exists under several Chaos factions. Runs under
+    # __debug__ (any pytest run); -O degrades to first-wins.
+    import pytest
+
+    with pytest.raises(LookupError, match="Ambiguous unit lookup"):
+        dataset.units.get("chaos-land-raider")
+
+
+def test_get_any_is_the_explicit_first_wins_opt_out(dataset: Any) -> None:
+    unit = dataset.units.get_any("chaos-land-raider")
+    assert unit is not None
+    assert unit.id == "chaos-land-raider"
+
+
+def test_get_still_works_for_unambiguous_ids_on_guarded_collection(dataset: Any) -> None:
+    assert dataset.units.get("kharn-the-betrayer") is not None
+
+
+def test_get_raises_for_shared_detachment_id_without_faction(dataset: Any) -> None:
+    import pytest
+    from collections import Counter
+
+    counts = Counter(d["id"] for d in dataset.detachments.all)
+    shared = next(id_ for id_, n in counts.items() if n > 1)
+    with pytest.raises(LookupError, match="Ambiguous detachment lookup"):
+        dataset.detachments.get(shared)

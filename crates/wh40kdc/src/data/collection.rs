@@ -3,14 +3,17 @@
 //! Indexes (by id, by normalized name, by faction) are built once at
 //! construction. Records are deduplicated by a caller-supplied key (default:
 //! id, first occurrence wins). Some records are intentionally shared: the same
-//! unit id (e.g. `ministorum-priest`) appears under several factions, so units
-//! dedupe on `(faction_id, id)` to keep each faction's copy, while identical
-//! core abilities copied into many faction files dedupe away on `ability_id`.
+//! id (e.g. unit `ministorum-priest`, ability `deadly-demise-d3`) appears under
+//! several factions with per-faction copies that may diverge, so those
+//! collections dedupe on `(faction_id, id)` to keep each faction's copy and
+//! resolve via [`get_in_faction`](Collection::get_in_faction).
 //!
-//! [`get`](Collection::get) / [`find`](Collection::find) return the first match
-//! when an id is shared across factions; use
-//! [`by_faction`](Collection::by_faction) or
-//! [`find_all`](Collection::find_all) to disambiguate.
+//! [`find`](Collection::find) returns the first match when an id is shared
+//! across factions; use [`by_faction`](Collection::by_faction) or
+//! [`find_all`](Collection::find_all) to disambiguate. Collections whose
+//! per-faction copies diverge arm [`with_unscoped_guard`](Collection::with_unscoped_guard)
+//! so a faction-less [`get`](Collection::get) of a shared id panics in debug
+//! builds; deliberately faction-less callers use [`get_any`](Collection::get_any).
 //!
 //! This mirrors the TypeScript `Collection` (`tools/src/data/collection.ts`);
 //! unlike TS it stores owned records and hands back borrows (`&T`) rather than
@@ -36,6 +39,11 @@ pub struct Collection<T> {
     by_faction_id: HashMap<String, HashMap<String, usize>>,
     /// Normalized name per item (parallel to `items`), for the substring fallback.
     norm_names: Vec<Option<String>>,
+    /// Ids registered under >1 faction; populated by
+    /// [`with_unscoped_guard`](Self::with_unscoped_guard).
+    ambiguous_ids: Option<std::collections::HashSet<String>>,
+    /// Noun for the guard panic message (e.g. `"unit"`).
+    entity_label: &'static str,
 }
 
 impl<T> Collection<T> {
@@ -133,7 +141,38 @@ impl<T> Collection<T> {
             by_faction,
             by_faction_id,
             norm_names,
+            ambiguous_ids: None,
+            entity_label: "entity",
         }
+    }
+
+    /// Arm the unscoped-lookup tripwire: after this, a faction-less
+    /// [`get`](Self::get) of an id that exists under more than one faction
+    /// panics in debug builds (it would silently return whichever copy
+    /// registered first — the wrong divergent fields). Use for collections
+    /// whose per-faction copies diverge (units, detachments, weapons,
+    /// abilities), so callers are forced through
+    /// [`get_in_faction`](Self::get_in_faction) or opt out explicitly with
+    /// [`get_any`](Self::get_any). Release builds degrade to the historical
+    /// first-wins behaviour rather than crashing a consumer. Mirror of the TS
+    /// `guardUnscoped` (whose non-production tripwire maps to
+    /// `debug_assertions` here).
+    pub fn with_unscoped_guard(mut self, entity_label: &'static str) -> Self {
+        let mut ambiguous: std::collections::HashSet<String> = std::collections::HashSet::new();
+        let mut seen: HashMap<&str, u32> = HashMap::new();
+        for per_faction in self.by_faction_id.values() {
+            for id in per_faction.keys() {
+                *seen.entry(id.as_str()).or_insert(0) += 1;
+            }
+        }
+        for (id, count) in seen {
+            if count > 1 {
+                ambiguous.insert(id.to_string());
+            }
+        }
+        self.ambiguous_ids = Some(ambiguous);
+        self.entity_label = entity_label;
+        self
     }
 
     /// Every record, deduplicated, in first-seen order.
@@ -152,7 +191,35 @@ impl<T> Collection<T> {
     }
 
     /// Look up by exact id.
+    ///
+    /// For a guarded collection (see
+    /// [`with_unscoped_guard`](Self::with_unscoped_guard)), an id that exists
+    /// under more than one faction panics in debug builds — pass a faction via
+    /// [`get_in_faction`](Self::get_in_faction), or call
+    /// [`get_any`](Self::get_any) when faction is genuinely unknown. Release
+    /// builds degrade to first-wins.
     pub fn get(&self, id: &str) -> Option<&T> {
+        #[cfg(debug_assertions)]
+        if let Some(ambiguous) = &self.ambiguous_ids {
+            if ambiguous.contains(id) {
+                panic!(
+                    "Ambiguous {} lookup: \"{id}\" exists under multiple factions; \
+                     a faction-less get() would return whichever copy registered first \
+                     (wrong divergent fields). Use get_in_faction(\"{id}\", faction_id), \
+                     or get_any(\"{id}\") when faction is genuinely unknown (import / conformance).",
+                    self.entity_label,
+                );
+            }
+        }
+        self.by_id.get(id).map(|&i| &self.items[i])
+    }
+
+    /// First-wins lookup by exact id that never panics, for callers with no
+    /// faction context on purpose (roster import, the conformance runner). For
+    /// a guarded collection this is the explicit opt-out of
+    /// [`get`](Self::get)'s ambiguity tripwire; for an unguarded one it is
+    /// identical to `get`. Mirror of the TS `getAny`.
+    pub fn get_any(&self, id: &str) -> Option<&T> {
         self.by_id.get(id).map(|&i| &self.items[i])
     }
 

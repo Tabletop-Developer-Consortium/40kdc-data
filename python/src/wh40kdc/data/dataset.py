@@ -74,6 +74,11 @@ class Dataset:
             name_of=lambda u: u.get("name"),
             aliases_of=lambda u: u.get("aliases"),
             faction_of=lambda u: u.get("faction_id"),
+            # Per-faction copies genuinely diverge (points, keywords,
+            # profiles), so a faction-less get() of a shared id is a bug —
+            # mirror of the TS guard.
+            guard_unscoped=True,
+            entity_label="unit",
             wrap=lambda u: UnitView(u, self),
         )
         self.weapons: Collection[dict[str, Any], WeaponView] = Collection(
@@ -130,6 +135,11 @@ class Dataset:
             name_of=lambda d: d.get("name"),
             dedupe_key_of=lambda d: f"{d['faction_id']}::{d['id']}",
             faction_of=lambda d: d.get("faction_id"),
+            # Shared detachments diverge per chapter (detachment_rule_id,
+            # stratagem_ids, enhancement_ids, detachment_points) — same guard
+            # as units.
+            guard_unscoped=True,
+            entity_label="detachment",
             wrap=lambda d: d,
         )
         # Allied rules aren't owned by one faction; allies_for matches on army_keywords_any.
@@ -390,7 +400,9 @@ class Dataset:
         for la in self.leader_attachments:
             if bodyguard_unit_id not in la.get("eligible_bodyguard_ids", []):
                 continue
-            unit = self.units.get(la["leader_id"])
+            # Attachment data is faction-agnostic (no faction context
+            # here); accept first-wins for a shared chassis via get_any.
+            unit = self.units.get_any(la["leader_id"])
             if unit is not None:
                 out.append(unit)
         return sorted(out, key=lambda u: u.name)
@@ -408,7 +420,8 @@ class Dataset:
             for bodyguard_id in la.get("eligible_bodyguard_ids", []):
                 if bodyguard_id in seen:
                     continue
-                unit = self.units.get(bodyguard_id)
+                # Faction-agnostic attachment data — get_any, as above.
+                unit = self.units.get_any(bodyguard_id)
                 if unit is None:
                     continue
                 seen.add(bodyguard_id)

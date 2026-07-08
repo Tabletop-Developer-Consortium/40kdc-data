@@ -36,7 +36,7 @@ def resolve_eligible_abilities(
     # copy — and with it the wrong intrinsic abilities/keywords.
     def resolve_unit(id: str, fid: str | None) -> UnitView | None:
         scoped = dataset.units.get_in_faction(id, fid) if fid else None
-        return scoped if scoped is not None else dataset.units.get(id)
+        return scoped if scoped is not None else dataset.units.get_any(id)
 
     unit = resolve_unit(input["unitId"], input.get("factionId"))
     if unit is None:
@@ -90,7 +90,11 @@ def resolve_eligible_abilities(
             )
 
         # 3. Detachment stratagems.
-        detachment = dataset.detachments.get(detachment_id)
+        # Shared Codex detachment ids resolve within the requesting faction,
+        # falling back first-wins (mirrors the TS resolver).
+        detachment = dataset.detachments.get_in_faction(
+            detachment_id, faction_id or ""
+        ) or dataset.detachments.get_any(detachment_id)
         if detachment is not None:
             for strat_id in detachment.get("stratagem_ids") or []:
                 stratagem = dataset.stratagems.get(strat_id)

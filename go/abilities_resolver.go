@@ -10,7 +10,7 @@ func (ds *Dataset) resolveUnitScoped(id, fid string) (*UnitView, bool) {
 			return scoped, true
 		}
 	}
-	return ds.Units.Get(id)
+	return ds.Units.GetAny(id)
 }
 
 func resolveEligibleAbilities(ds *Dataset, input map[string]any, phase string) []map[string]any {
@@ -68,7 +68,13 @@ func resolveEligibleAbilities(ds *Dataset, input map[string]any, phase string) [
 			pushUnique(map[string]any{"ability": ability, "source": map[string]any{"kind": "detachment", "detachmentId": detachmentID}, "phases": intersect(ability.Phases())})
 		}
 		// 3. Detachment stratagems.
-		if detAny, ok := ds.Detachments.Get(detachmentID); ok {
+		// Shared Codex detachment ids resolve within the requesting faction,
+		// falling back first-wins (mirrors the TS resolver).
+		detAny, ok := ds.Detachments.GetInFaction(detachmentID, factionID)
+		if !ok {
+			detAny, ok = ds.Detachments.GetAny(detachmentID)
+		}
+		if ok {
 			det := detAny.(map[string]any)
 			for _, stratID := range getStrList(det, "stratagem_ids") {
 				stratAny, ok := ds.Stratagems.Get(stratID)

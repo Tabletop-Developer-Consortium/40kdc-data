@@ -107,7 +107,7 @@ fn cruncher_corpus_stages_match_reference_within_tolerance() {
                 case_path.display()
             )
         });
-        let unit = ds.units.get(&case.target.unit_id).unwrap_or_else(|| {
+        let unit = ds.units.get_any(&case.target.unit_id).unwrap_or_else(|| {
             panic!(
                 "unknown unit {} in {}",
                 case.target.unit_id,

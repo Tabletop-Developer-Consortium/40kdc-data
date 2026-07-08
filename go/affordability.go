@@ -62,7 +62,7 @@ func candidateAffordability(spec affordabilitySpec, ds *Dataset) []map[string]an
 				return uv
 			}
 		}
-		if uv, ok := ds.Units.Get(unitID); ok {
+		if uv, ok := ds.Units.GetAny(unitID); ok {
 			return uv
 		}
 		return nil

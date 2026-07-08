@@ -70,6 +70,10 @@ func NewDataset(raw rawData) *Dataset {
 		nameOf:    func(i any) string { return getStr(i.(map[string]any), "name") },
 		aliasesOf: func(i any) []string { return getStrList(i.(map[string]any), "aliases") },
 		factionOf: factionIDOf,
+		// Per-faction copies genuinely diverge (points, keywords, profiles),
+		// so a faction-less Get of a shared id is a bug — mirror of the TS guard.
+		guardUnscoped: true,
+		entityLabel:   "unit",
 	})
 	ds.Weapons = newCollection(raw["weapons"], func(i any) *WeaponView {
 		return &WeaponView{Raw: i.(map[string]any), ds: ds}
@@ -123,6 +127,10 @@ func NewDataset(raw rawData) *Dataset {
 			return getStr(m, "faction_id") + "::" + getStr(m, "id")
 		},
 		factionOf: factionIDOf,
+		// Shared detachments diverge per chapter (detachment_rule_id,
+		// stratagem_ids, enhancement_ids, detachment_points) — same guard as units.
+		guardUnscoped: true,
+		entityLabel:   "detachment",
 	})
 	ds.AlliedRules = idCollection(raw["allied_rules"], nil)
 	ds.Enhancements = idCollection(raw["enhancements"], nil)

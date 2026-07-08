@@ -26,7 +26,7 @@ func (s *RunnerState) buildEngineInput(a map[string]any, opName string) (map[str
 	if !ok {
 		return nil, errResp("UNKNOWN_ENTITY", map[string]any{"kind": "weapon", "id": attacker["weaponId"]})
 	}
-	unit, ok := ds.Units.Get(getStr(target, "unitId"))
+	unit, ok := ds.Units.GetAny(getStr(target, "unitId"))
 	if !ok {
 		return nil, errResp("UNKNOWN_ENTITY", map[string]any{"kind": "unit", "id": target["unitId"]})
 	}

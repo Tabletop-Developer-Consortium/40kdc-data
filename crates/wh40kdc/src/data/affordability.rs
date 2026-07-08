@@ -78,7 +78,7 @@ pub fn candidate_affordability(spec: &AffordabilitySpec, dataset: &Dataset) -> V
                     .into_iter()
                     .find(|u| u.id.as_str() == unit_id)
             })
-            .or_else(|| dataset.units.get(unit_id))
+            .or_else(|| dataset.units.get_any(unit_id))
     };
 
     // Running total of the current list (ordinal-aware) + enhancement costs.

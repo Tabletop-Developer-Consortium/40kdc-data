@@ -35,13 +35,13 @@ def run_linked_query(ds: Any, query: str, args: dict[str, Any]) -> Any:
         a = ds.abilities.find(args.get("query", ""))
         return a.id if a else None
     if query == "abilities_of":
-        return [x.id for x in ds.units.get(args["unitId"]).abilities]
+        return [x.id for x in ds.units.get_any(args["unitId"]).abilities]
     if query == "weapons_of":
-        return [x.id for x in ds.units.get(args["unitId"]).weapons]
+        return [x.id for x in ds.units.get_any(args["unitId"]).weapons]
     if query == "wargear_options_of":
-        return [x["id"] for x in ds.units.get(args["unitId"]).wargear_options]
+        return [x["id"] for x in ds.units.get_any(args["unitId"]).wargear_options]
     if query == "base_loadout":
-        unit = ds.units.get(args["unitId"])
+        unit = ds.units.get_any(args["unitId"])
         comp = next((c for c in ds.unit_compositions if c.get("unit_id") == args["unitId"]), None)
         lo = base_loadout(
             unit.raw,
@@ -51,16 +51,16 @@ def run_linked_query(ds: Any, query: str, args: dict[str, Any]) -> Any:
         )
         return sorted(f"{id_}:{n}" for id_, n in lo.items())
     if query == "maximal_loadout":
-        unit = ds.units.get(args["unitId"])
+        unit = ds.units.get_any(args["unitId"])
         lo = maximal_loadout(unit.raw, int(args["modelCount"]), ds.wargear_options_of(unit.raw))
         return sorted(f"{id_}:{n}" for id_, n in lo.items())
     if query == "phases_of":
         return list(ds.abilities.get(args["abilityId"]).phases)
     if query == "faction_of":
-        f = ds.units.get(args["unitId"]).faction
+        f = ds.units.get_any(args["unitId"]).faction
         return f.id if f else None
     if query == "base_size_of":
-        return encode_base(ds.units.get(args["unitId"]).raw.get("base_size_mm"))
+        return encode_base(ds.units.get_any(args["unitId"]).raw.get("base_size_mm"))
     if query == "model_bases_of":
         unit_id = args["unitId"]
         comp = next((c for c in ds.unit_compositions if c.get("unit_id") == unit_id), None)

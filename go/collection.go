@@ -1,12 +1,20 @@
 package wh40kdc
 
-import "strings"
+import (
+	"fmt"
+	"strings"
+)
 
 // A queryable view over one entity collection. Indexes (by id, by normalized
-// name, by faction) are built once at construction. Records are deduplicated by
-// dedupeKeyOf (default: id, first occurrence wins). Some records are
-// intentionally shared across factions (e.g. ministorum-priest), so units
-// dedupe on (faction_id, id); identical core abilities dedupe on ability_id.
+// name, by faction) are built once at construction. Records are deduplicated
+// by dedupeKeyOf (default: id, first occurrence wins). Some records are
+// intentionally shared: the same id (e.g. unit ministorum-priest, ability
+// deadly-demise-d3) appears under several factions with per-faction copies
+// that may diverge, so those collections dedupe on (faction_id, id) and
+// resolve via GetInFaction. Collections whose per-faction copies diverge set
+// guardUnscoped so a faction-less Get of a shared id panics (Go has no
+// debug/release split, so the tripwire is always on — the message points at
+// GetInFaction/GetAny); deliberately faction-less callers use GetAny.
 //
 // Go mirror of python .../data/collection.py.
 
@@ -16,6 +24,11 @@ type collectionOpts struct {
 	nameOf      func(any) string   // returns "" for no name
 	aliasesOf   func(any) []string // alternate names answering to the same record
 	factionOf   func(any) string   // returns "" for no faction
+	// guardUnscoped makes Get panic for an id registered under >1 faction (a
+	// faction-less lookup would silently return the wrong divergent copy).
+	guardUnscoped bool
+	// entityLabel is the noun used in the guard panic message (e.g. "unit").
+	entityLabel string
 }
 
 // Collection is a collection of one entity type, parameterised by its wrapped
@@ -28,6 +41,9 @@ type Collection[V any] struct {
 	byID      map[string]any
 	byNorm    map[string][]any
 	byFaction map[string][]any
+	// Ids registered under >1 faction; nil unless guardUnscoped.
+	ambiguousIDs map[string]struct{}
+	entityLabel  string
 }
 
 func newCollection[V any](items []any, wrap func(any) V, opts collectionOpts) *Collection[V] {
@@ -82,6 +98,29 @@ func newCollection[V any](items []any, wrap func(any) V, opts collectionOpts) *C
 			}
 		}
 	}
+	if opts.guardUnscoped {
+		c.entityLabel = opts.entityLabel
+		if c.entityLabel == "" {
+			c.entityLabel = "entity"
+		}
+		// id -> distinct factions it appears under; >1 = ambiguous.
+		idFactions := make(map[string]map[string]struct{})
+		for f, items := range c.byFaction {
+			for _, item := range items {
+				id := opts.idOf(item)
+				if idFactions[id] == nil {
+					idFactions[id] = make(map[string]struct{})
+				}
+				idFactions[id][f] = struct{}{}
+			}
+		}
+		c.ambiguousIDs = make(map[string]struct{})
+		for id, factions := range idFactions {
+			if len(factions) > 1 {
+				c.ambiguousIDs[id] = struct{}{}
+			}
+		}
+	}
 	return c
 }
 
@@ -98,7 +137,31 @@ func (c *Collection[V]) All() []V {
 func (c *Collection[V]) Size() int { return len(c.items) }
 
 // Get looks up by exact id.
+//
+// For a guarded collection (guardUnscoped), an id that exists under more than
+// one faction panics — a faction-less lookup would silently return whichever
+// copy registered first, with the wrong divergent fields. Pass a faction via
+// GetInFaction, or call GetAny when faction is genuinely unknown.
 func (c *Collection[V]) Get(id string) (V, bool) {
+	if c.ambiguousIDs != nil {
+		if _, ambiguous := c.ambiguousIDs[id]; ambiguous {
+			panic(fmt.Sprintf(
+				"Ambiguous %s lookup: %q exists under multiple factions; a faction-less "+
+					"Get would return whichever copy registered first (wrong divergent fields). "+
+					"Use GetInFaction(%q, factionID), or GetAny(%q) when faction is genuinely "+
+					"unknown (import / conformance).",
+				c.entityLabel, id, id, id,
+			))
+		}
+	}
+	return c.GetAny(id)
+}
+
+// GetAny is the first-wins lookup by exact id that never panics, for callers
+// with no faction context on purpose (roster import, the conformance runner).
+// For a guarded collection this is the explicit opt-out of Get's ambiguity
+// tripwire; for an unguarded one it is identical to Get.
+func (c *Collection[V]) GetAny(id string) (V, bool) {
 	item, ok := c.byID[id]
 	if !ok {
 		var zero V

@@ -2,15 +2,18 @@
 
 Indexes (by id, by normalized name, by faction) are built once at
 construction. Records are deduplicated by ``dedupe_key_of`` (default: id,
-first occurrence wins). Some records are intentionally shared: the same unit
-id (e.g. ``ministorum-priest``) appears under several factions, so units
-dedupe on ``(faction_id, id)`` to keep each faction's copy; identical core
-abilities (e.g. ``leader``) copied into many faction files dedupe away on
-``ability_id``.
+first occurrence wins). Some records are intentionally shared: the same id
+(e.g. unit ``ministorum-priest``, ability ``deadly-demise-d3``) appears under
+several factions with per-faction copies that may diverge, so those
+collections dedupe on ``(faction_id, id)`` to keep each faction's copy and
+resolve via :meth:`Collection.get_in_faction`.
 
-``get(id)``/``find`` return the first match when an id is shared across
-factions; use :meth:`Collection.by_faction` or :meth:`Collection.find_all` to
-disambiguate.
+``find`` returns the first match when an id is shared across factions; use
+:meth:`Collection.by_faction` or :meth:`Collection.find_all` to disambiguate.
+Collections whose per-faction copies diverge set ``guard_unscoped`` so a
+faction-less :meth:`Collection.get` of a shared id raises under ``__debug__``
+(any run without ``-O`` — the Python analogue of the TS non-production
+tripwire); deliberately faction-less callers use :meth:`Collection.get_any`.
 
 Python mirror of ``tools/src/data/collection.ts``.
 """
@@ -42,6 +45,8 @@ class Collection(Generic[T, V]):
         name_of: Callable[[T], str | None] | None = None,
         aliases_of: Callable[[T], list[str] | None] | None = None,
         faction_of: Callable[[T], str | None] | None = None,
+        guard_unscoped: bool = False,
+        entity_label: str = "entity",
     ) -> None:
         self._id_of = id_of
         self._name_of = name_of
@@ -50,9 +55,14 @@ class Collection(Generic[T, V]):
         self._by_id: dict[str, T] = {}
         self._by_norm: dict[str, list[T]] = {}
         self._by_faction_id: dict[str, list[T]] = {}
+        # Ids registered under >1 faction; only populated when guarding.
+        self._ambiguous_ids: set[str] | None = set() if guard_unscoped else None
+        self._entity_label = entity_label
 
         dedupe = dedupe_key_of or id_of
         seen: set[str] = set()
+        # id -> distinct faction ids it appears under (only tracked when guarding).
+        id_factions: dict[str, set[str]] | None = {} if guard_unscoped else None
         for item in items:
             dedupe_key = dedupe(item)
             if dedupe_key in seen:
@@ -82,6 +92,13 @@ class Collection(Generic[T, V]):
             faction = faction_of(item) if faction_of else None
             if faction:
                 self._by_faction_id.setdefault(faction, []).append(item)
+                if id_factions is not None:
+                    id_factions.setdefault(id_, set()).add(faction)
+
+        if id_factions is not None and self._ambiguous_ids is not None:
+            for id_, factions in id_factions.items():
+                if len(factions) > 1:
+                    self._ambiguous_ids.add(id_)
 
     @property
     def all(self) -> list[V]:
@@ -94,7 +111,32 @@ class Collection(Generic[T, V]):
         return len(self._items)
 
     def get(self, id: str) -> V | None:
-        """Look up by exact id."""
+        """Look up by exact id.
+
+        For a guarded collection (``guard_unscoped=True``), an id that exists
+        under more than one faction raises under ``__debug__`` — pass a
+        faction via :meth:`get_in_faction`, or call :meth:`get_any` when
+        faction is genuinely unknown. Running with ``-O`` degrades to the
+        historical first-wins behaviour.
+        """
+        if __debug__ and self._ambiguous_ids is not None and id in self._ambiguous_ids:
+            raise LookupError(
+                f'Ambiguous {self._entity_label} lookup: "{id}" exists under multiple '
+                f"factions; a faction-less get() would return whichever copy registered "
+                f'first (wrong divergent fields). Use get_in_faction("{id}", faction_id), '
+                f'or get_any("{id}") when faction is genuinely unknown (import / conformance).'
+            )
+        item = self._by_id.get(id)
+        return self._wrap(item) if item is not None else None
+
+    def get_any(self, id: str) -> V | None:
+        """First-wins lookup by exact id that never raises.
+
+        For callers with no faction context on purpose (roster import, the
+        conformance runner). For a guarded collection this is the explicit
+        opt-out of :meth:`get`'s ambiguity tripwire; for an unguarded one it
+        is identical to :meth:`get`.
+        """
         item = self._by_id.get(id)
         return self._wrap(item) if item is not None else None
 

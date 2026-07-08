@@ -26,7 +26,7 @@ func (s *RunnerState) handleCheckUnitLegality(args any) map[string]any {
 		if uv, found := ds.Units.GetInFaction(unitID, fid); found {
 			u = uv
 		}
-	} else if uv, found := ds.Units.Get(unitID); found {
+	} else if uv, found := ds.Units.GetAny(unitID); found {
 		u = uv
 	}
 	if u == nil {
@@ -212,19 +212,19 @@ func (s *RunnerState) handleLinkedQuery(args any) map[string]any {
 		}
 		return okResp(nil)
 	case "abilities_of":
-		u, ok := ds.Units.Get(unitID)
+		u, ok := ds.Units.GetAny(unitID)
 		if !ok {
 			return unknownUnit()
 		}
 		return okResp(idsOfAbilities(u.Abilities()))
 	case "weapons_of":
-		u, ok := ds.Units.Get(unitID)
+		u, ok := ds.Units.GetAny(unitID)
 		if !ok {
 			return unknownUnit()
 		}
 		return okResp(idsOfWeapons(u.Weapons()))
 	case "wargear_options_of":
-		u, ok := ds.Units.Get(unitID)
+		u, ok := ds.Units.GetAny(unitID)
 		if !ok {
 			return unknownUnit()
 		}
@@ -234,7 +234,7 @@ func (s *RunnerState) handleLinkedQuery(args any) map[string]any {
 		}
 		return okResp(out)
 	case "base_loadout", "maximal_loadout":
-		u, ok := ds.Units.Get(unitID)
+		u, ok := ds.Units.GetAny(unitID)
 		if !ok {
 			return unknownUnit()
 		}
@@ -266,7 +266,7 @@ func (s *RunnerState) handleLinkedQuery(args any) map[string]any {
 		}
 		return okResp(toAnyList(ab.Phases()))
 	case "faction_of":
-		u, ok := ds.Units.Get(unitID)
+		u, ok := ds.Units.GetAny(unitID)
 		if !ok {
 			return unknownUnit()
 		}
@@ -275,7 +275,7 @@ func (s *RunnerState) handleLinkedQuery(args any) map[string]any {
 		}
 		return okResp(nil)
 	case "base_size_of":
-		u, ok := ds.Units.Get(unitID)
+		u, ok := ds.Units.GetAny(unitID)
 		if !ok {
 			return unknownUnit()
 		}
@@ -285,7 +285,7 @@ func (s *RunnerState) handleLinkedQuery(args any) map[string]any {
 		}
 		return okResp(nil)
 	case "model_bases_of":
-		if _, ok := ds.Units.Get(unitID); !ok {
+		if _, ok := ds.Units.GetAny(unitID); !ok {
 			return unknownUnit()
 		}
 		var comp map[string]any

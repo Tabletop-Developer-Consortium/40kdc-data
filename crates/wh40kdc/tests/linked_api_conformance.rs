@@ -45,7 +45,7 @@ fn run_query(ds: &Dataset, query: &str, args: &Value) -> Value {
             let id = arg_str("unitId");
             let u = ds
                 .units
-                .get(id)
+                .get_any(id)
                 .unwrap_or_else(|| panic!("abilities_of: unknown unit {id}"));
             Value::Array(
                 ds.abilities_of(u)
@@ -58,7 +58,7 @@ fn run_query(ds: &Dataset, query: &str, args: &Value) -> Value {
             let id = arg_str("unitId");
             let u = ds
                 .units
-                .get(id)
+                .get_any(id)
                 .unwrap_or_else(|| panic!("weapons_of: unknown unit {id}"));
             Value::Array(
                 ds.weapons_of(u)
@@ -71,7 +71,7 @@ fn run_query(ds: &Dataset, query: &str, args: &Value) -> Value {
             let id = arg_str("unitId");
             let u = ds
                 .units
-                .get(id)
+                .get_any(id)
                 .unwrap_or_else(|| panic!("wargear_options_of: unknown unit {id}"));
             Value::Array(
                 ds.wargear_options_of(u)
@@ -87,7 +87,7 @@ fn run_query(ds: &Dataset, query: &str, args: &Value) -> Value {
                 .expect("modelCount is an integer");
             let u = ds
                 .units
-                .get(id)
+                .get_any(id)
                 .unwrap_or_else(|| panic!("{query}: unknown unit {id}"));
             let models = ds
                 .unit_compositions
@@ -129,7 +129,7 @@ fn run_query(ds: &Dataset, query: &str, args: &Value) -> Value {
             let id = arg_str("unitId");
             let u = ds
                 .units
-                .get(id)
+                .get_any(id)
                 .unwrap_or_else(|| panic!("faction_of: unknown unit {id}"));
             ds.faction_of(u)
                 .map(|f| Value::String(f.id.to_string()))
@@ -162,7 +162,7 @@ fn run_query(ds: &Dataset, query: &str, args: &Value) -> Value {
             let id = arg_str("unitId");
             let u = ds
                 .units
-                .get(id)
+                .get_any(id)
                 .unwrap_or_else(|| panic!("base_size_of: unknown unit {id}"));
             match &u.base_size_mm {
                 Some(b) => Value::String(wh40kdc::encode_base_size(b)),
@@ -171,7 +171,7 @@ fn run_query(ds: &Dataset, query: &str, args: &Value) -> Value {
         }
         "model_bases_of" => {
             let id = arg_str("unitId");
-            if ds.units.get(id).is_none() {
+            if ds.units.get_any(id).is_none() {
                 panic!("model_bases_of: unknown unit {id}");
             }
             let comp = ds

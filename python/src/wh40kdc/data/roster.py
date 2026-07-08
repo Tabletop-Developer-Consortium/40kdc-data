@@ -101,7 +101,7 @@ def validate_roster_core(spec: dict[str, Any], dataset: Dataset) -> dict[str, An
             scoped = dataset.units.get_in_faction(unit_id, faction_id)
             if scoped is not None:
                 return scoped
-        return dataset.units.get(unit_id)
+        return dataset.units.get_any(unit_id)
 
     views = [resolve_unit(u.get("unit_id") or "") for u in spec_units]
 
@@ -129,8 +129,16 @@ def validate_roster_core(spec: dict[str, Any], dataset: Dataset) -> dict[str, An
             }
         )
 
+    # Shared detachment ids (Codex chapters) resolve within the roster's
+    # faction; fall back first-wins when the spec names no faction.
     detachments = [
-        d for d in (dataset.detachments.get(id_) for id_ in detachment_ids) if d is not None
+        d
+        for d in (
+            (dataset.detachments.get_in_faction(id_, faction_id) if faction_id else None)
+            or dataset.detachments.get_any(id_)
+            for id_ in detachment_ids
+        )
+        if d is not None
     ]
     primary = detachments[0] if detachments else None
 

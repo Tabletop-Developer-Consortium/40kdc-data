@@ -114,6 +114,57 @@ fn by_faction_disambiguates_a_shared_unit() {
     }
 }
 
+// --- unscoped-lookup guard ---------------------------------------------------
+
+#[test]
+#[should_panic(expected = "Ambiguous unit lookup")]
+fn get_panics_for_a_shared_unit_id_without_a_faction() {
+    // The tripwire that turns a silent wrong-faction lookup into a loud error:
+    // chaos-land-raider exists under several Chaos factions, so a faction-less
+    // get() would return the first-registered copy (wrong divergent fields).
+    // Debug builds (all test runs) panic; use get_in_faction or get_any.
+    let ds = Dataset::embedded();
+    let _ = ds.units.get("chaos-land-raider");
+}
+
+#[test]
+fn get_any_is_the_explicit_first_wins_opt_out() {
+    let ds = Dataset::embedded();
+    let unit = ds
+        .units
+        .get_any("chaos-land-raider")
+        .expect("get_any resolves the shared id first-wins");
+    assert_eq!(unit.id.as_str(), "chaos-land-raider");
+}
+
+#[test]
+fn get_still_works_for_unambiguous_ids_on_a_guarded_collection() {
+    let ds = Dataset::embedded();
+    assert!(ds.units.get("kharn-the-betrayer").is_some());
+}
+
+#[test]
+#[should_panic(expected = "Ambiguous detachment lookup")]
+fn get_panics_for_a_shared_detachment_id_without_a_faction() {
+    let ds = Dataset::embedded();
+    // Codex SM detachments are replicated into every chapter view.
+    let shared = ds
+        .detachments
+        .all()
+        .iter()
+        .map(|d| d.id.as_str())
+        .find(|id| {
+            ds.detachments
+                .all()
+                .iter()
+                .filter(|d| d.id.as_str() == *id)
+                .count()
+                > 1
+        })
+        .expect("at least one chapter-replicated detachment id exists");
+    let _ = ds.detachments.get(shared);
+}
+
 // --- internationalization ---------------------------------------------------
 
 #[test]

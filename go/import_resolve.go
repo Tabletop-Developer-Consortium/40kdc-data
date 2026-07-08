@@ -607,7 +607,7 @@ func applyLeaderAttachments(parsedUnits []any, units []any, ds *Dataset, faction
 			}
 		}
 		if resolvedUnit == nil {
-			if uv, ok := ds.Units.Get(leaderID); ok {
+			if uv, ok := ds.Units.GetAny(leaderID); ok {
 				resolvedUnit = uv
 			}
 		}

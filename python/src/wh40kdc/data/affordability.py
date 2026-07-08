@@ -59,7 +59,7 @@ def candidate_affordability(spec: dict[str, Any], dataset: Dataset) -> list[dict
             scoped = dataset.units.get_in_faction(unit_id, faction_id)
             if scoped is not None:
                 return scoped
-        return dataset.units.get(unit_id)
+        return dataset.units.get_any(unit_id)
 
     # Running total of the current list (ordinal-aware) + enhancement costs.
     ordinals: dict[str, int] = {}

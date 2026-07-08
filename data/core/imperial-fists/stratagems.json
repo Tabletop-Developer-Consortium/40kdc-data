@@ -98,16 +98,16 @@
   },
   {
     "id": "codex-discipline-bastion-task-force",
-    "name": "CODEX DISCIPLINE",
+    "name": "Codex Discipline",
     "category": "detachment",
     "type": "battle-tactic",
     "detachment_id": "bastion-task-force",
     "cp_cost": 1,
     "phases": [
-      "fight",
-      "shooting"
+      "shooting",
+      "fight"
     ],
-    "player_turn": "either",
+    "player_turn": "your-turn",
     "timing": "once-per-phase",
     "target_restrictions": null,
     "ability_id": null,
@@ -118,16 +118,16 @@
   },
   {
     "id": "light-of-vengeance-bastion-task-force",
-    "name": "LIGHT OF VENGEANCE",
+    "name": "Light of Vengeance",
     "category": "detachment",
     "type": "battle-tactic",
     "detachment_id": "bastion-task-force",
     "cp_cost": 1,
     "phases": [
-      "fight",
-      "shooting"
+      "shooting",
+      "fight"
     ],
-    "player_turn": "either",
+    "player_turn": "your-turn",
     "timing": "once-per-phase",
     "target_restrictions": null,
     "ability_id": null,
@@ -138,16 +138,16 @@
   },
   {
     "id": "angels-defiant-bastion-task-force",
-    "name": "ANGELS DEFIANT",
+    "name": "Angels Defiant",
     "category": "detachment",
     "type": "battle-tactic",
     "detachment_id": "bastion-task-force",
     "cp_cost": 1,
     "phases": [
-      "fight",
-      "shooting"
+      "shooting",
+      "fight"
     ],
-    "player_turn": "either",
+    "player_turn": "opponent-turn",
     "timing": "once-per-phase",
     "target_restrictions": null,
     "ability_id": null,
@@ -177,16 +177,16 @@
   },
   {
     "id": "guided-disruption-bastion-task-force",
-    "name": "GUIDED DISRUPTION",
+    "name": "Guided Disruption",
     "category": "detachment",
     "type": "strategic-ploy",
     "detachment_id": "bastion-task-force",
     "cp_cost": 1,
     "phases": [
-      "fight",
-      "shooting"
+      "shooting",
+      "fight"
     ],
-    "player_turn": "either",
+    "player_turn": "your-turn",
     "timing": "once-per-phase",
     "target_restrictions": null,
     "ability_id": null,
@@ -197,16 +197,16 @@
   },
   {
     "id": "shock-bombardment-bastion-task-force",
-    "name": "SHOCK BOMBARDMENT",
+    "name": "Shock Bombardment",
     "category": "detachment",
     "type": "strategic-ploy",
     "detachment_id": "bastion-task-force",
     "cp_cost": 1,
     "phases": [
-      "fight",
-      "shooting"
+      "shooting",
+      "fight"
     ],
-    "player_turn": "either",
+    "player_turn": "your-turn",
     "timing": "once-per-phase",
     "target_restrictions": null,
     "ability_id": null,
@@ -217,14 +217,14 @@
   },
   {
     "id": "heresy-undone-bastion-task-force",
-    "name": "HERESY UNDONE",
+    "name": "Heresy Undone",
     "category": "detachment",
     "type": "strategic-ploy",
     "detachment_id": "bastion-task-force",
     "cp_cost": 1,
     "phases": [
-      "charge",
-      "shooting"
+      "shooting",
+      "charge"
     ],
     "player_turn": "your-turn",
     "timing": "once-per-phase",

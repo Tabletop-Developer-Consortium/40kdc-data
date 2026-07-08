@@ -29,9 +29,9 @@
     "is_unique": true,
     "game_version": {
       "edition": "11th",
-      "dataslate": "pre-launch-provisional"
+      "dataslate": "launch"
     },
-    "points_provisional": true,
+    "points_provisional": false,
     "upgrade_tag": false,
     "max_targets": 1
   },
@@ -975,7 +975,7 @@
     "id": "astartes-tank-ace-aura-headhunter-task-force",
     "name": "Astartes Tank Ace (aura)",
     "detachment_id": "headhunter-task-force",
-    "cost": 0,
+    "cost": 40,
     "keyword_restrictions": [
       "Adeptus Astartes"
     ],
@@ -983,9 +983,9 @@
     "is_unique": true,
     "game_version": {
       "edition": "11th",
-      "dataslate": "pre-launch-provisional"
+      "dataslate": "launch"
     },
-    "points_provisional": true,
+    "points_provisional": false,
     "upgrade_tag": false,
     "max_targets": 1
   },

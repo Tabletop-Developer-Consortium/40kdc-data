@@ -146,7 +146,17 @@ When editing the corpus or changing behavior that the corpus pins, read the per-
    filename→collection mapping in `tools/src/codegen-data.ts`
    (`FILE_TO_COLLECTION`), and a `Collection`/array field in
    `tools/src/data/dataset.ts` (+ an export in `tools/src/data/index.ts`).
-9. Run `npm test && npm run validate`.
+9. If the entity's data files live under per-faction dirs
+   (`data/{core,enrichment}/<faction>/`), declare its cross-faction collision
+   policy in `COLLISION_POLICIES` (`tools/src/integrity.ts`) — validation
+   fails on an undeclared basename. `faction-scoped` (copies may diverge;
+   the collection must dedupe on `(faction_id, id)` and resolve
+   faction-first — mirror the units/weapons/abilities pattern in all four
+   ports, stamping `faction_id` at bundle time via `STAMP_FACTION` if the
+   records don't author it), `replicated-identical` (copies must stay
+   byte-identical), `unique` (id in exactly one faction dir), or `merged`
+   (no per-record id).
+10. Run `npm test && npm run validate`.
 
 ## Matched-play list validity
 

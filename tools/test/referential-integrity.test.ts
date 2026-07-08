@@ -60,6 +60,37 @@ describe("referential integrity", () => {
     expect(messages.some((m) => m.includes('"solo-unit"'))).toBe(false);
   });
 
+  it("enforces the cross-faction collision policy table (fixture)", async () => {
+    const result = await checkReferentialIntegrity(resolve(FIXTURES, "integrity-collision"));
+    const messages = result.errors.flatMap((e) => e.errors.map((x) => x.message));
+    // Drifted replicated-identical copies fail (stratagem cp_cost differs).
+    expect(
+      messages.some((m) => m.includes('stratagems id "shared-strat"') && m.includes("drifted")),
+    ).toBe(true);
+    // A unique-class id in two faction dirs fails.
+    expect(
+      messages.some((m) => m.includes('factions id "clashing-faction"') && m.includes("unique")),
+    ).toBe(true);
+    // A within-faction duplicate ability_id fails (first-wins shadowing).
+    expect(
+      messages.some((m) => m.includes('duplicate ability_id "dup-ability"')),
+    ).toBe(true);
+    // An undeclared data file type fails until a policy is declared.
+    expect(
+      messages.some((m) => m.includes('"widgets.json"') && m.includes("collision policy")),
+    ).toBe(true);
+  });
+
+  it("the real dataset satisfies the collision policy table", async () => {
+    // The full-dataset run happens in the first test; this pins that no
+    // policy-table failures exist in committed data (drift re-synced, no
+    // within-faction dups, no undeclared file types).
+    const result = await checkReferentialIntegrity();
+    const messages = result.errors.flatMap((e) => e.errors.map((x) => x.message));
+    expect(messages.filter((m) => m.includes("collision policy"))).toEqual([]);
+    expect(messages.filter((m) => m.includes("drifted across factions"))).toEqual([]);
+  });
+
   it("registers the chaos cult factions with bare-legion home keywords", () => {
     expect(FACTION_HOME_KEYWORD["world-eaters"]).toBe("World Eaters");
     expect(FACTION_HOME_KEYWORD["chaos-space-marines"]).toBe("Heretic Astartes");

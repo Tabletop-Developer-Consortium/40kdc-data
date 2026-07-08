@@ -110,7 +110,7 @@ def resolve_eligible_abilities(
                 # back for shared pools.
                 strat_ability = (
                     dataset.abilities.get_in_faction(ability_id, faction_id or "")
-                    or dataset.abilities.get(ability_id)
+                    or dataset.abilities.get_any(ability_id)
                     if ability_id is not None
                     else None
                 )

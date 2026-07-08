@@ -26,7 +26,7 @@ def run_case(ds: Any, args: dict[str, Any]) -> list[str]:
     unit = (
         ds.units.get_in_faction(args["unitId"], faction_id)
         if isinstance(faction_id, str)
-        else ds.units.get(args["unitId"])
+        else ds.units.get_any(args["unitId"])
     )
     assert unit is not None, f"unknown unit {args['unitId']}"
     comp = next(

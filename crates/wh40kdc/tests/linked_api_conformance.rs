@@ -116,7 +116,7 @@ fn run_query(ds: &Dataset, query: &str, args: &Value) -> Value {
             let id = arg_str("abilityId");
             let a = ds
                 .abilities
-                .get(id)
+                .get_any(id)
                 .unwrap_or_else(|| panic!("phases_of: unknown ability {id}"));
             Value::Array(
                 ds.phases_of(a)

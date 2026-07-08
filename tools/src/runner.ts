@@ -525,7 +525,7 @@ function handleLinkedQuery(state: RunnerState, args: unknown): RunnerResponse {
         return ok([...lo.counts].map(([id, n]) => `${id}:${n}`).sort());
       }
       case "phases_of": {
-        const ab = ds.abilities.get(input.abilityId);
+        const ab = ds.abilities.getAny(input.abilityId);
         if (!ab) return err("UNKNOWN_ENTITY", { kind: "ability", id: input.abilityId });
         return ok([...ab.phases]);
       }
@@ -687,7 +687,7 @@ function buildEngineInput(
     return { ok: false, response: err("INVALID_INPUT", { detail: `${opName}.context required` }) };
   }
   const ds = getDataset(state);
-  const weapon = ds.weapons.get(a.attacker.weaponId);
+  const weapon = ds.weapons.getAny(a.attacker.weaponId);
   if (!weapon) return { ok: false, response: err("UNKNOWN_ENTITY", { kind: "weapon", id: a.attacker.weaponId }) };
   const unit = ds.units.getAny(a.target.unitId);
   if (!unit) return { ok: false, response: err("UNKNOWN_ENTITY", { kind: "unit", id: a.target.unitId }) };

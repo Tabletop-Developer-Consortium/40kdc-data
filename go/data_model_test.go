@@ -109,3 +109,25 @@ func TestGetPanicsForSharedDetachmentIDWithoutFaction(t *testing.T) {
 	}()
 	ds.Detachments.Get(shared)
 }
+
+// lascannon exists under many factions with divergent stats; a faction-less
+// Get would silently crunch the wrong faction's profile.
+func TestGetPanicsForSharedWeaponIDWithoutFaction(t *testing.T) {
+	ds := EmbeddedDataset()
+	defer func() {
+		if r := recover(); r == nil {
+			t.Fatal("Get on a shared weapon id should panic")
+		}
+	}()
+	ds.Weapons.Get("lascannon")
+}
+
+func TestGetPanicsForSharedAbilityIDWithoutFaction(t *testing.T) {
+	ds := EmbeddedDataset()
+	defer func() {
+		if r := recover(); r == nil {
+			t.Fatal("Get on a shared ability id should panic")
+		}
+	}()
+	ds.Abilities.Get("idol-of-blessed-blood")
+}

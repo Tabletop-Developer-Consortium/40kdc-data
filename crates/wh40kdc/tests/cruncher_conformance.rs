@@ -100,13 +100,16 @@ fn cruncher_corpus_stages_match_reference_within_tolerance() {
         let case: CruncherCase = serde_json::from_str(&raw)
             .unwrap_or_else(|e| panic!("parsing {}: {e}", case_path.display()));
 
-        let weapon = ds.weapons.get(&case.attacker.weapon_id).unwrap_or_else(|| {
-            panic!(
-                "unknown weapon {} in {}",
-                case.attacker.weapon_id,
-                case_path.display()
-            )
-        });
+        let weapon = ds
+            .weapons
+            .get_any(&case.attacker.weapon_id)
+            .unwrap_or_else(|| {
+                panic!(
+                    "unknown weapon {} in {}",
+                    case.attacker.weapon_id,
+                    case_path.display()
+                )
+            });
         let unit = ds.units.get_any(&case.target.unit_id).unwrap_or_else(|| {
             panic!(
                 "unknown unit {} in {}",

@@ -242,7 +242,11 @@ impl Dataset {
                     w.id.as_str()
                 )
             },
-        );
+        )
+        // Per-faction copies diverge (stats), so a faction-less get() of a
+        // shared id is a bug — catalog/import callsites that genuinely lack
+        // faction context opt out via get_any.
+        .with_unscoped_guard("weapon");
         let weapon_keywords = id_name_collection(
             raw.weapon_keywords,
             |k| k.id.to_string(),
@@ -279,7 +283,9 @@ impl Dataset {
                     a.ability_id.as_str()
                 )
             },
-        );
+        )
+        // Per-faction copies diverge (DSL fidelity, unit_ids) — same guard as weapons.
+        .with_unscoped_guard("ability");
 
         let target_profiles = Collection::build(
             raw.target_profiles,
@@ -510,7 +516,7 @@ impl Dataset {
             .filter_map(|id| {
                 self.weapons
                     .get_in_faction(id.as_str(), unit.faction_id.as_str())
-                    .or_else(|| self.weapons.get(id.as_str()))
+                    .or_else(|| self.weapons.get_any(id.as_str()))
             })
             .collect()
     }
@@ -543,7 +549,7 @@ impl Dataset {
             .filter_map(|id| {
                 self.abilities
                     .get_in_faction(id.as_str(), unit.faction_id.as_str())
-                    .or_else(|| self.abilities.get(id.as_str()))
+                    .or_else(|| self.abilities.get_any(id.as_str()))
             })
             .collect()
     }

@@ -7,7 +7,10 @@ faction, and a unit resolves its own faction's copy.
 
 from __future__ import annotations
 
+from collections import Counter
 from typing import Any
+
+import pytest
 
 
 def test_deduplicates_abilities_by_faction_and_id(dataset: Any) -> None:
@@ -42,8 +45,6 @@ def test_get_raises_for_shared_unit_id_without_faction(dataset: Any) -> None:
     # The tripwire that turns a silent wrong-faction lookup into a loud error:
     # chaos-land-raider exists under several Chaos factions. Runs under
     # __debug__ (any pytest run); -O degrades to first-wins.
-    import pytest
-
     with pytest.raises(LookupError, match="Ambiguous unit lookup"):
         dataset.units.get("chaos-land-raider")
 
@@ -59,10 +60,21 @@ def test_get_still_works_for_unambiguous_ids_on_guarded_collection(dataset: Any)
 
 
 def test_get_raises_for_shared_detachment_id_without_faction(dataset: Any) -> None:
-    import pytest
-    from collections import Counter
-
     counts = Counter(d["id"] for d in dataset.detachments.all)
     shared = next(id_ for id_, n in counts.items() if n > 1)
     with pytest.raises(LookupError, match="Ambiguous detachment lookup"):
         dataset.detachments.get(shared)
+
+
+def test_get_raises_for_shared_weapon_id_without_faction(dataset: Any) -> None:
+    # lascannon exists under many factions with divergent stats; a
+    # faction-less get() would silently crunch the wrong faction's profile.
+    with pytest.raises(LookupError, match="Ambiguous weapon lookup"):
+        dataset.weapons.get("lascannon")
+    assert dataset.weapons.get_any("lascannon") is not None
+
+
+def test_get_raises_for_shared_ability_id_without_faction(dataset: Any) -> None:
+    with pytest.raises(LookupError, match="Ambiguous ability lookup"):
+        dataset.abilities.get("idol-of-blessed-blood")
+    assert dataset.abilities.get_any("idol-of-blessed-blood") is not None

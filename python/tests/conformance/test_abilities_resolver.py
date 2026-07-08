@@ -44,7 +44,7 @@ def test_eligible_abilities(dataset: Any, case_file: str) -> None:
 def _run_dsl_corpus(dataset: Any, filename: str) -> None:
     dsl = json.loads((_DIR / filename).read_text(encoding="utf-8"))
     for c in dsl["cases"]:
-        ability = dataset.abilities.get(c["abilityId"])
+        ability = dataset.abilities.get_any(c["abilityId"])
         assert ability is not None, f"unknown ability {c['abilityId']}"
         perspective = c.get("perspective", "attacker")
         result = effect_to_buffs(ability.raw.get("effect"), c["source"], c["context"], perspective)

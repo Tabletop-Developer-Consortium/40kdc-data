@@ -31,7 +31,7 @@ describe("baseUnitPoints — ordinal bands", () => {
   });
 
   it("ignores ordinal for an unbanded unit (no unit_count_min)", () => {
-    const bz = dataset.units.get("khorne-berzerkers")!.raw;
+    const bz = dataset.units.getAny("khorne-berzerkers")!.raw;
     expect(baseUnitPoints(bz, 10, 1)).toBe(baseUnitPoints(bz, 10, 99));
   });
 });

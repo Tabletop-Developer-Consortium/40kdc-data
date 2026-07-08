@@ -111,9 +111,9 @@ export function buildDebugSnapshot(args: DebugSnapshotArgs): DebugSnapshot {
   const { salvo, ds, context, stackable, allBuffs, projection, resolved } = args;
 
   const unitName = (id: string | null): string | null =>
-    id ? ds.units.get(id)?.raw.name ?? null : null;
+    id ? ds.units.getAny(id)?.raw.name ?? null : null;
   const weaponName = (id: string | null): string | null =>
-    id ? ds.weapons.get(id)?.raw.name ?? null : null;
+    id ? ds.weapons.getAny(id)?.raw.name ?? null : null;
 
   // `manualBuffsActive` is a Set — JSON.stringify would emit `{}`. Convert it.
   const stages: Stage[] | { error: string } | null =

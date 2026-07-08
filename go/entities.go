@@ -30,7 +30,7 @@ func (u *UnitView) Weapons() []*WeaponView {
 		if w, ok := u.ds.Weapons.GetInFaction(id, faction); ok {
 			return w, true
 		}
-		return u.ds.Weapons.Get(id)
+		return u.ds.Weapons.GetAny(id)
 	})
 }
 
@@ -44,7 +44,7 @@ func (u *UnitView) Abilities() []*AbilityView {
 		if a, ok := u.ds.Abilities.GetInFaction(id, faction); ok {
 			return a, true
 		}
-		return u.ds.Abilities.Get(id)
+		return u.ds.Abilities.GetAny(id)
 	})
 }
 

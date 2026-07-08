@@ -58,7 +58,7 @@ class UnitView:
         return _resolve_all(
             self.raw.get("weapon_ids"),
             lambda id_: self._ds.weapons.get_in_faction(id_, faction_id)
-            or self._ds.weapons.get(id_),
+            or self._ds.weapons.get_any(id_),
         )
 
     @property
@@ -71,7 +71,7 @@ class UnitView:
         return _resolve_all(
             self.raw.get("ability_ids"),
             lambda id_: self._ds.abilities.get_in_faction(id_, faction_id)
-            or self._ds.abilities.get(id_),
+            or self._ds.abilities.get_any(id_),
         )
 
     @property

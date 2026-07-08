@@ -57,7 +57,8 @@ export function resolveRosterWargear(
   for (const w of wargear) {
     const id = w.ref.id;
     if (id === null) continue;
-    const weapon = dataset.weapons.get(id);
+    // Roster wargear refs carry no faction context — first-wins via getAny.
+    const weapon = dataset.weapons.getAny(id);
     if (!weapon) continue;
     out.push({ weapon, count: w.count });
   }
@@ -260,8 +261,14 @@ export function validateRosterCore(spec: NormRoster, dataset: Dataset): RosterLe
     });
   });
 
+  // Shared detachment ids (Codex chapters) resolve within the roster's
+  // faction; fall back first-wins when the spec names no faction.
   const detachments = spec.detachmentIds
-    .map((id) => dataset.detachments.get(id))
+    .map(
+      (id) =>
+        (spec.factionId ? dataset.detachments.getInFaction(id, spec.factionId) : undefined) ??
+        dataset.detachments.getAny(id),
+    )
     .filter((d): d is Detachment => d !== undefined);
   const primary = detachments[0];
 

@@ -41,9 +41,9 @@ export function srcKey(s: BuffSource): string {
 export function labelForSource(ds: Dataset, s: BuffSource): string {
   if (s.kind === "manual") return s.label;
   if (s.kind === "weapon-keyword") return s.keywordId;
-  const name = ds.abilities.get(s.abilityId)?.name ?? s.abilityId;
+  const name = ds.abilities.getAny(s.abilityId)?.name ?? s.abilityId;
   if (s.abilityKind === "attached" && s.sourceUnitId) {
-    const unit = ds.units.get(s.sourceUnitId)?.name ?? s.sourceUnitId;
+    const unit = ds.units.getAny(s.sourceUnitId)?.name ?? s.sourceUnitId;
     return `${name} · ${unit}`;
   }
   return name;

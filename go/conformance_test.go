@@ -113,7 +113,7 @@ func runDSLCorpus(t *testing.T, filename string) {
 	for _, cAny := range getList(dsl, "cases") {
 		c, _ := asMap(cAny)
 		abilityID := getStr(c, "abilityId")
-		ability, ok := ds.Abilities.Get(abilityID)
+		ability, ok := ds.Abilities.GetAny(abilityID)
 		if !ok {
 			t.Errorf("unknown ability %q", abilityID)
 			continue

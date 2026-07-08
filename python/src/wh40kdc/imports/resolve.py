@@ -117,8 +117,9 @@ def _scoped_weapon_id(ds: Dataset, hit: Any, raw_name: str) -> str | None:
     stripped = strip_leading_the(raw_name)
     if stripped:
         targets.add(normalize_name(stripped))
+    faction_id = hit.raw.get("faction_id", "")
     for wid in ids:
-        w = ds.weapons.get(wid)
+        w = ds.weapons.get_in_faction(wid, faction_id) or ds.weapons.get_any(wid)
         if w is not None and normalize_name(w.name) in targets:
             return w.id
     return None

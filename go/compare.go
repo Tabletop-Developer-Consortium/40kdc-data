@@ -65,7 +65,7 @@ func compareCell(ds *Dataset, factionID, unitID, weaponID string, profileIndex i
 	if err != nil {
 		return nil, err
 	}
-	weapon, ok := ds.Weapons.Get(weaponID)
+	weapon, ok := ds.Weapons.GetAny(weaponID)
 	if !ok {
 		return nil, &compareError{"unknown weapon " + weaponID}
 	}
@@ -111,7 +111,7 @@ func loadoutCell(ds *Dataset, lines []loadoutLine, targetProfileID string, dista
 	}
 	damage := 0.0
 	for _, line := range lines {
-		weapon, ok := ds.Weapons.Get(line.weaponID)
+		weapon, ok := ds.Weapons.GetAny(line.weaponID)
 		if !ok {
 			continue
 		}

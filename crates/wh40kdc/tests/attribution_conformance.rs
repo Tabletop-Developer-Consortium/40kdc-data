@@ -101,11 +101,11 @@ fn attribution_corpus_matches_reference() {
 
         let weapon = ds
             .weapons
-            .get(&crunch_case.attacker.weapon_id)
+            .get_any(&crunch_case.attacker.weapon_id)
             .unwrap_or_else(|| panic!("unknown weapon {}", crunch_case.attacker.weapon_id));
         let unit = ds
             .units
-            .get(&crunch_case.target.unit_id)
+            .get_any(&crunch_case.target.unit_id)
             .unwrap_or_else(|| panic!("unknown unit {}", crunch_case.target.unit_id));
 
         let input = EngineInput {

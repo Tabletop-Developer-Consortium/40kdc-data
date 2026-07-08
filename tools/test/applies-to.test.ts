@@ -37,7 +37,7 @@ describe("AbilityView applies_to (integration)", () => {
   const ds = Dataset.embedded();
 
   it("exposes brazen-fury's curated filter", () => {
-    expect(ds.abilities.get("brazen-fury")?.appliesTo).toEqual({ required_keywords: ["Possessed"] });
+    expect(ds.abilities.getAny("brazen-fury")?.appliesTo).toEqual({ required_keywords: ["Possessed"] });
   });
 
   it("resolves brazen-fury to exactly the World Eaters Possessed units", () => {

@@ -23,9 +23,9 @@ TOLERANCE = 5e-4
 def build_engine_input(ds: Any, case: dict[str, Any]) -> dict[str, Any]:
     """Assemble an EngineInput from a corpus case's wire shape (weapon/unit by
     id). Mirrors the runner's ``buildEngineInput``."""
-    weapon = ds.weapons.get(case["attacker"]["weaponId"])
+    weapon = ds.weapons.get_any(case["attacker"]["weaponId"])
     assert weapon is not None, f"unknown weapon {case['attacker']['weaponId']}"
-    unit = ds.units.get(case["target"]["unitId"])
+    unit = ds.units.get_any(case["target"]["unitId"])
     assert unit is not None, f"unknown unit {case['target']['unitId']}"
     target: dict[str, Any] = {
         "unit": unit.raw,

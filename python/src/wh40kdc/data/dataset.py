@@ -91,6 +91,11 @@ class Dataset:
             # first.
             dedupe_key_of=lambda w: f"{w.get('faction_id', '')}::{w['id']}",
             faction_of=lambda w: w.get("faction_id"),
+            # Per-faction copies diverge (stats), so a faction-less get() of a
+            # shared id is a bug — catalog/import callsites that genuinely lack
+            # faction context opt out via get_any.
+            guard_unscoped=True,
+            entity_label="weapon",
             wrap=lambda w: WeaponView(w, self),
         )
         self.weapon_keywords: Collection[dict[str, Any], WeaponKeywordView] = Collection(
@@ -118,6 +123,10 @@ class Dataset:
             dedupe_key_of=lambda a: f"{a.get('faction_id') or ''}::{a['ability_id']}",
             name_of=lambda a: a.get("name"),
             faction_of=lambda a: a.get("faction_id"),
+            # Per-faction copies diverge (DSL fidelity, unit_ids) — same guard
+            # as weapons.
+            guard_unscoped=True,
+            entity_label="ability",
             wrap=lambda a: AbilityView(a, self),
         )
 
@@ -469,9 +478,16 @@ class Dataset:
         groups: dict[str, dict[str, Any]] = {}
         ctx = self._derived_context(input, context)
 
-        # Intrinsic weapon-profile keywords — always on.
+        # Intrinsic weapon-profile keywords — always on. Weapon ids are
+        # shared across factions with divergent stats, so resolve within the
+        # input unit's faction (get_any fallback for a cross-faction id).
+        weapon_faction = self._weapon_faction(input)
         for ref in input.get("weaponProfiles") or []:
-            weapon = self.weapons.get(ref["weaponId"])
+            weapon = (
+                self.weapons.get_in_faction(ref["weaponId"], weapon_faction)
+                if weapon_faction
+                else None
+            ) or self.weapons.get_any(ref["weaponId"])
             if weapon is None:
                 continue
             wk = weapon.profile_buffs(ref.get("profileIndex"), ctx)
@@ -527,6 +543,15 @@ class Dataset:
 
         return {"buffs": buffs, "groups": list(groups.values())}
 
+    def _weapon_faction(self, input: dict[str, Any]) -> str | None:
+        """The faction to scope ``weaponProfiles`` lookups by: the explicit
+        ``factionId`` when given, else the input unit's own faction."""
+        faction = input.get("factionId")
+        if faction:
+            return faction
+        unit = self.units.get_any(input.get("unitId") or "")
+        return unit.raw.get("faction_id") if unit is not None else None
+
     def _derived_context(
         self, input: dict[str, Any], context: dict[str, Any]
     ) -> dict[str, Any]:
@@ -544,10 +569,16 @@ class Dataset:
         out: list[dict[str, Any]] = []
         ctx = self._derived_context(input, context)
 
-        # Weapon-profile keywords are attacker-only.
+        # Weapon-profile keywords are attacker-only. Faction-scoped like
+        # stackable_buffs_for — first-wins would crunch the wrong faction's stats.
         if perspective == "attacker":
+            weapon_faction = self._weapon_faction(input)
             for ref in input.get("weaponProfiles") or []:
-                weapon = self.weapons.get(ref["weaponId"])
+                weapon = (
+                    self.weapons.get_in_faction(ref["weaponId"], weapon_faction)
+                    if weapon_faction
+                    else None
+                ) or self.weapons.get_any(ref["weaponId"])
                 if weapon is None:
                     continue
                 out.extend(weapon.profile_buffs(ref.get("profileIndex"), ctx))

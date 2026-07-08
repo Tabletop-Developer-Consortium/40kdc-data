@@ -73,7 +73,7 @@ describe("validateLoadout — shared-allowance budgets", () => {
 
 describe("baseLoadout — Khorne Berzerkers @ 10 (legal default)", () => {
   it("carries only the base weapons on every model, no swaps applied", () => {
-    const bz = dataset.units.get("khorne-berzerkers")!;
+    const bz = dataset.units.getAny("khorne-berzerkers")!;
     const options = dataset.wargearOptionsOf(bz.raw);
     const lo = baseLoadout(bz.raw, 10, options);
     // Base weapons (never a replacement) only — none of the swap/add-on ids.
@@ -265,7 +265,7 @@ describe("checkUnitLegality — tier selection", () => {
 
 describe("wargearOptionsOf accessor", () => {
   it("returns options for a unit and empty for one without", () => {
-    const bz = dataset.units.get("khorne-berzerkers")!;
+    const bz = dataset.units.getAny("khorne-berzerkers")!;
     expect(dataset.wargearOptionsOf(bz.raw).length).toBeGreaterThan(0);
     expect(bz.wargearOptions.length).toBe(dataset.wargearOptionsOf(bz.raw).length);
   });

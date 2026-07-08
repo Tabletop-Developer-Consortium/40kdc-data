@@ -260,7 +260,7 @@ func (s *RunnerState) handleLinkedQuery(args any) map[string]any {
 		sort.Strings(strs)
 		return okResp(toAnyList(strs))
 	case "phases_of":
-		ab, ok := ds.Abilities.Get(getStr(in, "abilityId"))
+		ab, ok := ds.Abilities.GetAny(getStr(in, "abilityId"))
 		if !ok {
 			return errResp("UNKNOWN_ENTITY", map[string]any{"kind": "ability", "id": in["abilityId"]})
 		}

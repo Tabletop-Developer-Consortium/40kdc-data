@@ -26,8 +26,8 @@ function inputFor(
   buffs: EngineInput["buffs"] = [],
   targetModelCount?: number,
 ): EngineInput {
-  const weapon = ds.weapons.get(weaponId);
-  const unit = ds.units.get(unitId);
+  const weapon = ds.weapons.getAny(weaponId);
+  const unit = ds.units.getAny(unitId);
   if (!weapon || !unit) throw new Error(`missing weapon=${weaponId} or unit=${unitId}`);
   return {
     attacker: { weapon: weapon.raw, profileIndex },
@@ -70,7 +70,7 @@ describe("crunch: bolt-rifle vs intercessor", () => {
     near(stage(out, "after-fnp"), unsaved, "after-fnp");
     // models killed: damage / W; cap at model count (10 by default for intercessors min=10? unknown).
     const W = 2;
-    const targetModels = ds.units.get("intercessor-squad")!.raw.model_count?.min ?? 1;
+    const targetModels = ds.units.getAny("intercessor-squad")!.raw.model_count?.min ?? 1;
     near(stage(out, "models-killed"), Math.min(targetModels, unsaved / W), "models-killed");
   });
 

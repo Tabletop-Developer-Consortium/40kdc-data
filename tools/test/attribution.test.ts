@@ -27,8 +27,8 @@ function inputFor(
   buffs: Buff[] = [],
   targetModelCount?: number,
 ): EngineInput {
-  const weapon = ds.weapons.get(weaponId);
-  const unit = ds.units.get(targetUnitId);
+  const weapon = ds.weapons.getAny(weaponId);
+  const unit = ds.units.getAny(targetUnitId);
   if (!weapon || !unit) throw new Error(`missing weapon=${weaponId} or unit=${targetUnitId}`);
   return {
     attacker: { weapon: weapon.raw, profileIndex },

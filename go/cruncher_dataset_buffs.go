@@ -80,13 +80,34 @@ func (ds *Dataset) derivedContext(input, context map[string]any) map[string]any 
 	return ctx
 }
 
+// weaponFaction is the faction to scope weaponProfiles lookups by: the
+// explicit factionId when given, else the input unit's own faction.
+func (ds *Dataset) weaponFaction(input map[string]any) string {
+	if f := getStr(input, "factionId"); f != "" {
+		return f
+	}
+	if unit, ok := ds.Units.GetAny(getStr(input, "unitId")); ok {
+		return getStr(unit.Raw, "faction_id")
+	}
+	return ""
+}
+
 func (ds *Dataset) collectBuffs(input, context map[string]any, perspective string) []any {
 	out := []any{}
 	ctx := ds.derivedContext(input, context)
 	if perspective == "attacker" {
+		// Weapon ids are shared across factions with divergent stats — resolve
+		// within the input unit's faction (GetAny fallback for cross-faction ids).
+		weaponFaction := ds.weaponFaction(input)
 		for _, refAny := range getList(input, "weaponProfiles") {
 			ref, _ := asMap(refAny)
-			weapon, ok := ds.Weapons.Get(getStr(ref, "weaponId"))
+			weapon, ok := (*WeaponView)(nil), false
+			if weaponFaction != "" {
+				weapon, ok = ds.Weapons.GetInFaction(getStr(ref, "weaponId"), weaponFaction)
+			}
+			if !ok {
+				weapon, ok = ds.Weapons.GetAny(getStr(ref, "weaponId"))
+			}
 			if !ok {
 				continue
 			}

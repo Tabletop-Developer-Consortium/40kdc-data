@@ -291,8 +291,8 @@ describe('builder violations are advisory', () => {
 describe('detachment tag conflicts', () => {
 	it('flags two detachments that share a tag (only one of that type)', () => {
 		// Necrons Awakened Dynasty + Hand of the Dynasty both carry the `dynasty` tag.
-		const a = ds.detachments.get('awakened-dynasty');
-		const b = ds.detachments.get('hand-of-the-dynasty');
+		const a = ds.detachments.getAny('awakened-dynasty');
+		const b = ds.detachments.getAny('hand-of-the-dynasty');
 		expect((a?.tags ?? []).includes('dynasty')).toBe(true);
 		expect((b?.tags ?? []).includes('dynasty')).toBe(true);
 		const state: BuilderState = {
@@ -719,10 +719,10 @@ describe('leader attachment (11e)', () => {
 
 	it('offers eligible bodyguards and emits + round-trips the attachment', () => {
 		const { leaderId, bodyguardId } = leaderAndBodyguard();
-		expect(isLeader(ds.units.get(leaderId)!.raw)).toBe(true);
+		expect(isLeader(ds.units.getAny(leaderId)!.raw)).toBe(true);
 
 		const lead: BuilderUnit = { ...makeUnit(leaderId, 1), key: 'L' };
-		const body: BuilderUnit = { ...makeUnit(bodyguardId, ds.units.get(bodyguardId)!.raw.model_count?.min ?? 1), key: 'B' };
+		const body: BuilderUnit = { ...makeUnit(bodyguardId, ds.units.getAny(bodyguardId)!.raw.model_count?.min ?? 1), key: 'B' };
 		const state: BuilderState = { ...emptyBuilderState(), factionId: 'adeptus-astartes', units: [lead, body] };
 
 		// The bodyguard is offered to the leader.

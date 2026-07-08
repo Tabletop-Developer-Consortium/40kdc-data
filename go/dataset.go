@@ -88,6 +88,10 @@ func NewDataset(raw rawData) *Dataset {
 			return getStr(m, "faction_id") + "::" + getStr(m, "id")
 		},
 		factionOf: func(i any) string { return getStr(i.(map[string]any), "faction_id") },
+		// Per-faction copies diverge (stats), so a faction-less Get of a
+		// shared id is a bug — faction-less callsites opt out via GetAny.
+		guardUnscoped: true,
+		entityLabel:   "weapon",
 	})
 	ds.WeaponKeywords = newCollection(raw["weapon_keywords"], func(i any) *WeaponKeywordView {
 		return &WeaponKeywordView{Raw: i.(map[string]any), ds: ds}
@@ -116,6 +120,9 @@ func NewDataset(raw rawData) *Dataset {
 		},
 		nameOf:    func(i any) string { return getStr(i.(map[string]any), "name") },
 		factionOf: factionIDOf,
+		// Per-faction copies diverge (DSL fidelity, unit_ids) — same guard as weapons.
+		guardUnscoped: true,
+		entityLabel:   "ability",
 	})
 
 	ds.TargetProfiles = idCollection(raw["target_profiles"], factionIDOf)

@@ -165,6 +165,22 @@ fn get_panics_for_a_shared_detachment_id_without_a_faction() {
     let _ = ds.detachments.get(shared);
 }
 
+#[test]
+#[should_panic(expected = "Ambiguous weapon lookup")]
+fn get_panics_for_a_shared_weapon_id_without_a_faction() {
+    // lascannon exists under many factions with divergent stats; a
+    // faction-less get() would silently crunch the wrong faction's profile.
+    let ds = Dataset::embedded();
+    let _ = ds.weapons.get("lascannon");
+}
+
+#[test]
+#[should_panic(expected = "Ambiguous ability lookup")]
+fn get_panics_for_a_shared_ability_id_without_a_faction() {
+    let ds = Dataset::embedded();
+    let _ = ds.abilities.get("idol-of-blessed-blood");
+}
+
 // --- internationalization ---------------------------------------------------
 
 #[test]
@@ -264,7 +280,7 @@ fn phases_union_across_a_mapping() {
     let ds = Dataset::embedded();
     let ability = ds
         .abilities
-        .get("deadly-demise-d3")
+        .get_any("deadly-demise-d3")
         .expect("deadly-demise-d3 exists");
     let mut phases: Vec<Phase> = ds.phases_of(ability).to_vec();
     phases.sort_unstable();
@@ -276,7 +292,7 @@ fn phases_empty_for_ability_without_a_mapping() {
     let ds = Dataset::embedded();
     let leader = ds
         .abilities
-        .get("leader")
+        .get_any("leader")
         .expect("the core `leader` ability exists");
     assert!(ds.phases_of(leader).is_empty());
 }
@@ -392,7 +408,7 @@ fn skips_dangling_link_ids_rather_than_panicking() {
     .expect("ghost RawData deserializes");
 
     let ds = Dataset::from_raw(raw);
-    let ghost = ds.units.get("ghost").expect("ghost is present");
+    let ghost = ds.units.get_any("ghost").expect("ghost is present");
     assert!(ds.weapons_of(ghost).is_empty());
     assert!(ds.abilities_of(ghost).is_empty());
     assert!(ds.faction_of(ghost).is_none());
@@ -467,7 +483,7 @@ fn resolves_a_shared_ability_id_to_the_units_own_factions_copy() {
 #[test]
 fn folds_shared_core_abilities_into_the_collection() {
     let ds = Dataset::embedded();
-    assert!(ds.abilities.get("benefit-of-cover").is_some());
+    assert!(ds.abilities.get_any("benefit-of-cover").is_some());
 }
 
 #[test]

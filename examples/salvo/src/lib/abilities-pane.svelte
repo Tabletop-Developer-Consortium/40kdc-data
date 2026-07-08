@@ -21,7 +21,7 @@
     const u =
       (salvo.selectedFactionId &&
         ds.units.getInFaction(salvo.selectedUnitId, salvo.selectedFactionId)) ||
-      ds.units.get(salvo.selectedUnitId);
+      ds.units.getAny(salvo.selectedUnitId);
     if (!u) return [];
     return [
       ...((u.raw.keywords ?? []) as string[]),
@@ -130,7 +130,7 @@
       b.source.abilityKind === "attached" &&
       b.source.sourceUnitId
     ) {
-      const name = ds.units.get(b.source.sourceUnitId)?.name ?? b.source.sourceUnitId;
+      const name = ds.units.getAny(b.source.sourceUnitId)?.name ?? b.source.sourceUnitId;
       return `from ${name} · ${effects}`;
     }
     return effects;

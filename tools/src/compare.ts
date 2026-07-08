@@ -234,7 +234,7 @@ export function compareCell(
       `target profile ${opts.targetProfileId} references missing unit ${profile.unit_id}`,
     );
   }
-  const weapon = ds.weapons.get(opts.weaponId);
+  const weapon = ds.weapons.getAny(opts.weaponId);
   if (!weapon) throw new Error(`unknown weapon: ${opts.weaponId}`);
   const wraw = weapon.raw;
   const rng = wraw.profiles[opts.profileIndex]?.range;
@@ -318,7 +318,7 @@ export function loadoutOutput(
 ): LoadoutTargetResult {
   let damage = 0;
   for (const line of config.lines) {
-    const weapon = ds.weapons.get(line.weaponId);
+    const weapon = ds.weapons.getAny(line.weaponId);
     if (!weapon) continue;
     const profileIndex = line.profileIndex ?? 0;
     const rng = weapon.raw.profiles[profileIndex]?.range;
@@ -416,7 +416,8 @@ export function enumerateLoadouts(
   const unit = ds.units.getInFaction(unitId, factionId);
   if (!unit) throw new Error(`unit ${unitId} not found in faction ${factionId}`);
   const weaponIds = new Set(ds.weapons.all.map((w) => w.raw.id));
-  const isRanged = (wid: string): boolean => ds.weapons.get(wid)?.raw.type === "ranged";
+  const isRanged = (wid: string): boolean =>
+    (ds.weapons.getInFaction(wid, factionId) ?? ds.weapons.getAny(wid))?.raw.type === "ranged";
   const baseRanged = [
     ...new Set(unit.weapons.filter((w) => w.raw.type === "ranged").map((w) => w.raw.id)),
   ].sort();
@@ -462,7 +463,9 @@ export function enumerateLoadouts(
   for (const combo of combos) {
     const weapons = [...new Set(combo)].sort();
     if (!weapons.length) continue;
-    const label = weapons.map((w) => ds.weapons.get(w)?.name ?? w).join(" + ");
+    const label = weapons
+      .map((w) => (ds.weapons.getInFaction(w, factionId) ?? ds.weapons.getAny(w))?.name ?? w)
+      .join(" + ");
     if (!byLabel.has(label)) {
       byLabel.set(label, {
         label,

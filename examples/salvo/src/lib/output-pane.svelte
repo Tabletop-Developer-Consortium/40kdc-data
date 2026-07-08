@@ -120,7 +120,7 @@
         ? salvo.datasetTargetUnitId
         : salvo.targetRoster?.units[salvo.rosterTargetUnitIndex ?? -1]?.ref.id ?? null;
     if (!targetUnitId) return [];
-    const tUnit = ds.units.get(targetUnitId);
+    const tUnit = ds.units.getAny(targetUnitId);
     if (!tUnit) return [];
     try {
       return ds.defensiveBuffsFor(
@@ -161,7 +161,7 @@
     const unit =
       (salvo.selectedFactionId &&
         ds.units.getInFaction(memberId, salvo.selectedFactionId)) ||
-      ds.units.get(memberId);
+      ds.units.getAny(memberId);
     if (!unit) return undefined;
     const modelCount = unit.raw.model_count?.min ?? 1;
     const options = ds.wargearOptionsOf(unit.raw);
@@ -194,7 +194,7 @@
       const unit =
         (salvo.selectedFactionId &&
           ds.units.getInFaction(memberId, salvo.selectedFactionId)) ||
-        ds.units.get(memberId);
+        ds.units.getAny(memberId);
       if (!unit) continue;
       const lo = loadoutByMember.get(memberId);
       const modelCount = lo?.modelCount ?? unit.raw.model_count?.min ?? 1;
@@ -303,7 +303,10 @@
 
   const projection = $derived.by(() => {
     if (!salvo.selectedUnitId || !salvo.selectedWeaponId) return null;
-    const weapon = ds.weapons.get(salvo.selectedWeaponId);
+    const weapon =
+      (salvo.selectedFactionId
+        ? ds.weapons.getInFaction(salvo.selectedWeaponId, salvo.selectedFactionId)
+        : undefined) ?? ds.weapons.getAny(salvo.selectedWeaponId);
     if (!weapon) return null;
     try {
       const target = synthTarget(salvo.manualTarget);

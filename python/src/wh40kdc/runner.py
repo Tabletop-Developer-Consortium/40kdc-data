@@ -413,7 +413,7 @@ def _handle_linked_query(state: RunnerState, args: Any) -> Response:
             # Encode the id→count map as sorted "id:count" strings for set compare.
             return _ok(sorted(f"{id_}:{n}" for id_, n in lo.items()))
         if query == "phases_of":
-            ab = ds.abilities.get(input_.get("abilityId") or "")
+            ab = ds.abilities.get_any(input_.get("abilityId") or "")
             if ab is None:
                 return _err("UNKNOWN_ENTITY", {"kind": "ability", "id": input_.get("abilityId")})
             return _ok(list(ab.phases))
@@ -513,7 +513,7 @@ def _build_engine_input(
     if not a.get("context"):
         return None, _err("INVALID_INPUT", {"detail": f"{op_name}.context required"})
     ds = state.dataset()
-    weapon = ds.weapons.get(attacker["weaponId"])
+    weapon = ds.weapons.get_any(attacker["weaponId"])
     if weapon is None:
         return None, _err("UNKNOWN_ENTITY", {"kind": "weapon", "id": attacker["weaponId"]})
     unit = ds.units.get_any(target["unitId"])

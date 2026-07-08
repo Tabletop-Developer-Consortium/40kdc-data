@@ -50,25 +50,25 @@ describe("WeaponKeywordView", () => {
 
 describe("WeaponView profile accessors", () => {
   it("profileAt(0) returns the schema profile directly", () => {
-    const bolt = ds.weapons.get("bolt-rifle")!;
+    const bolt = ds.weapons.getAny("bolt-rifle")!;
     const profile = bolt.profileAt(0);
     expect(profile.stats.S).toBe(4);
     expect(profile.stats.AP).toBe(-1);
   });
 
   it("profileAt with out-of-range index throws", () => {
-    const bolt = ds.weapons.get("bolt-rifle")!;
+    const bolt = ds.weapons.getAny("bolt-rifle")!;
     expect(() => bolt.profileAt(99)).toThrow(/profileAt\(99\)/);
   });
 
   it("keywordsAt(0) resolves each reference against the catalog", () => {
-    const bolt = ds.weapons.get("bolt-rifle")!;
+    const bolt = ds.weapons.getAny("bolt-rifle")!;
     const kws = bolt.keywordsAt(0);
     expect(kws.map((k) => k.keyword.id).sort()).toEqual(["assault", "heavy"]);
   });
 
   it("profileBuffs(0, context) honours engine context for conditionals", () => {
-    const bolt = ds.weapons.get("bolt-rifle")!;
+    const bolt = ds.weapons.getAny("bolt-rifle")!;
     const off = bolt.profileBuffs(0, { ...baseCtx, attackerStationary: false });
     expect(off).toEqual([]); // Heavy gated off; Assault contributes nothing.
     const on = bolt.profileBuffs(0, { ...baseCtx, attackerStationary: true });

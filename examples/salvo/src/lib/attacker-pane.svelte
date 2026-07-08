@@ -76,7 +76,7 @@
       const scoped = ds.units.getInFaction(salvo.selectedUnitId, salvo.selectedFactionId);
       if (scoped) return scoped;
     }
-    return ds.units.get(salvo.selectedUnitId);
+    return ds.units.getAny(salvo.selectedUnitId);
   });
 
   // Bidirectional attachment partners for the selected unit: a leader+bodyguard
@@ -168,7 +168,7 @@
     if (salvo.selectedFactionId && ds.units.getInFaction(unitId, salvo.selectedFactionId)) {
       return;
     }
-    const u = ds.units.get(unitId);
+    const u = ds.units.getAny(unitId);
     if (u) salvo.selectedFactionId = u.raw.faction_id;
   }
 </script>

@@ -128,7 +128,7 @@ export function unitRaw(
 		const scoped = ds.units.getInFaction(datasheetId, fid);
 		if (scoped) return scoped.raw;
 	}
-	return ds.units.get(datasheetId)?.raw;
+	return ds.units.getAny(datasheetId)?.raw;
 }
 
 /**
@@ -460,7 +460,7 @@ export function builderUnitToDatacardData(bu: BuilderUnit, armyFactionId?: strin
 	const ranged: string[] = [];
 	const melee: string[] = [];
 	for (const id of equipped) {
-		const w = ds.weapons.get(id);
+		const w = (armyFactionId ? ds.weapons.getInFaction(id, armyFactionId) : undefined) ?? ds.weapons.getAny(id);
 		const isRanged = !!w && w.raw.profiles.some((p) => typeof p.range === 'number');
 		(isRanged ? ranged : melee).push(id);
 	}
@@ -624,7 +624,7 @@ export function clampCount(
 
 /** Display name for a weapon/wargear id. */
 export function itemName(id: string): string {
-	return ds.weapons.get(id)?.name ?? ds.wargear.get(id)?.name ?? id;
+	return ds.weapons.getAny(id)?.name ?? ds.wargear.get(id)?.name ?? id;
 }
 
 /** Display name for an enhancement id (falls back to the id when unknown). */
@@ -1123,7 +1123,7 @@ export function builderToRoster(state: BuilderState): Roster {
 		const name = unit?.name ?? bu.datasheetId;
 		const enh = bu.enhancementId ? ds.enhancements.get(bu.enhancementId) : undefined;
 		const weaponRef = (id: string, count: number) => {
-			const w = ds.weapons.get(id) ?? ds.wargear.get(id);
+			const w = ds.weapons.getAny(id) ?? ds.wargear.get(id);
 			return { ref: ref(id, w?.name ?? id), count };
 		};
 		const wargear = [...bu.loadout.entries()]

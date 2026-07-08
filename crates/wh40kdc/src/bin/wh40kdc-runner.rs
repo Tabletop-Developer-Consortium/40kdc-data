@@ -768,7 +768,7 @@ fn handle_linked_query(state: &mut RunnerState, args: &Value) -> Value {
         }
         "phases_of" => {
             let id = str_arg("abilityId");
-            let Some(ability) = ds.abilities.get(id) else {
+            let Some(ability) = ds.abilities.get_any(id) else {
                 return err_value(
                     ErrorKind::UnknownEntity,
                     Some(json!({ "kind": "ability", "id": id })),
@@ -1044,7 +1044,7 @@ fn build_engine_input<'a>(
             Some(json!({ "detail": format!("{op_name}.context required") })),
         )
     })?;
-    let weapon = ds.weapons.get(&attacker.weapon_id).ok_or_else(|| {
+    let weapon = ds.weapons.get_any(&attacker.weapon_id).ok_or_else(|| {
         err_value(
             ErrorKind::UnknownEntity,
             Some(json!({ "kind": "weapon", "id": attacker.weapon_id })),

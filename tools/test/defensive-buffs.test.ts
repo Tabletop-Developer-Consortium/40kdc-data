@@ -52,7 +52,7 @@ describe("Dataset.defensiveBuffsFor", () => {
 
 describe("end-to-end: defensive FNP buff plumbed through crunch", () => {
   it("FNP buff added manually to the engine input reduces damage", () => {
-    const bolt = ds.weapons.get("bolt-rifle")!;
+    const bolt = ds.weapons.getAny("bolt-rifle")!;
     const target = ds.units.find("Cultist Mob")!;
     const base: EngineInput = {
       attacker: { weapon: bolt.raw, profileIndex: 0 },
@@ -79,7 +79,7 @@ describe("end-to-end: defensive FNP buff plumbed through crunch", () => {
   });
 
   it("damage-reduction buff trims damage per hit with a 'min 1' floor", () => {
-    const lascannon = ds.weapons.get("lascannon")!; // D = D6+1 → EV 4.5
+    const lascannon = ds.weapons.getAny("lascannon")!; // D = D6+1 → EV 4.5
     const knight = ds.units.find("Questoris Knight Magaera")!;
     const base: EngineInput = {
       attacker: { weapon: lascannon.raw, profileIndex: 0 },
@@ -107,7 +107,7 @@ describe("end-to-end: defensive FNP buff plumbed through crunch", () => {
   it("damage-reduction floors at 1 even when reduction exceeds base damage", () => {
     // Bolt rifle: D 1. With damage-reduction 2, damage per hit must clamp to 1,
     // not -1 or 0 — the "min 1" rule from the canonical damage-reduction text.
-    const bolt = ds.weapons.get("bolt-rifle")!;
+    const bolt = ds.weapons.getAny("bolt-rifle")!;
     const cultists = ds.units.find("Cultist Mob")!;
     const out = crunch({
       attacker: { weapon: bolt.raw, profileIndex: 0 },
@@ -126,7 +126,7 @@ describe("end-to-end: defensive FNP buff plumbed through crunch", () => {
   });
 
   it("damage-reduction does not stack: highest-wins across buffs", () => {
-    const lascannon = ds.weapons.get("lascannon")!;
+    const lascannon = ds.weapons.getAny("lascannon")!;
     const knight = ds.units.find("Questoris Knight Magaera")!;
     const base: EngineInput = {
       attacker: { weapon: lascannon.raw, profileIndex: 0 },
@@ -167,7 +167,7 @@ describe("end-to-end: defensive FNP buff plumbed through crunch", () => {
     // Lascannon AP-3 vs Cultists (Sv 6+, no printed invuln). Without an
     // invuln, the effective save is 9+ (always fails). Granting a 4+ invuln
     // pulls the effective save to 4+ — saves go from 0% to 50%.
-    const lascannon = ds.weapons.get("lascannon")!;
+    const lascannon = ds.weapons.getAny("lascannon")!;
     const cultists = ds.units.find("Cultist Mob")!;
     const base: EngineInput = {
       attacker: { weapon: lascannon.raw, profileIndex: 0 },
@@ -195,7 +195,7 @@ describe("end-to-end: defensive FNP buff plumbed through crunch", () => {
   it("best ability invuln wins; better printed invuln still preferred", () => {
     // Questoris Knight has a printed 5+ invuln. Granting a 4+ ability invuln
     // should improve to 4+; granting a 6+ should NOT degrade past 5+.
-    const lascannon = ds.weapons.get("lascannon")!;
+    const lascannon = ds.weapons.getAny("lascannon")!;
     const knight = ds.units.find("Questoris Knight Magaera")!;
     const base: EngineInput = {
       attacker: { weapon: lascannon.raw, profileIndex: 0 },
@@ -236,7 +236,7 @@ describe("end-to-end: defensive FNP buff plumbed through crunch", () => {
     // Lascannon + manual devastating-wounds keyword → ~11% of wounds are
     // mortal. A 4+ mortal-FNP should halve those mortals; the main stream is
     // untouched (no all-FNP in play).
-    const lascannon = ds.weapons.get("lascannon")!;
+    const lascannon = ds.weapons.getAny("lascannon")!;
     const cultists = ds.units.find("Cultist Mob")!;
     const baseBuffs = [
       {
@@ -286,7 +286,7 @@ describe("end-to-end: defensive FNP buff plumbed through crunch", () => {
   it("FNP-mortal stacks with FNP-all (independent rolls)", () => {
     // Two FNP buffs at different scopes fire against the mortal stream
     // independently: surviving fraction = (1 - pAll) * (1 - pMortal).
-    const lascannon = ds.weapons.get("lascannon")!;
+    const lascannon = ds.weapons.getAny("lascannon")!;
     const cultists = ds.units.find("Cultist Mob")!;
     const out = crunch({
       attacker: { weapon: lascannon.raw, profileIndex: 0 },
@@ -318,7 +318,7 @@ describe("end-to-end: defensive FNP buff plumbed through crunch", () => {
   });
 
   it("toughness-mod buff hardens the target (wound threshold shifts)", () => {
-    const bolt = ds.weapons.get("bolt-rifle")!;
+    const bolt = ds.weapons.getAny("bolt-rifle")!;
     const target = ds.units.find("Cultist Mob")!; // T3
     const base: EngineInput = {
       attacker: { weapon: bolt.raw, profileIndex: 0 },

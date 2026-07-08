@@ -40,7 +40,9 @@ type WeaponRow = {
 
 function weaponRows(ids: string[]): WeaponRow[] {
 	return ids.flatMap((id) => {
-		const view = ds.weapons.get(id);
+		const view =
+			(data.faction_id ? ds.weapons.getInFaction(id, data.faction_id) : undefined) ??
+			ds.weapons.getAny(id);
 		if (!view) return [];
 		const multi = view.raw.profiles.length > 1;
 		return view.raw.profiles.map((p) => ({

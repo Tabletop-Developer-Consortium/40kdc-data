@@ -72,8 +72,8 @@ describe("srcKey", () => {
 
 describe("labelForSource", () => {
   const fakeDs = {
-    abilities: { get: (id: string) => (id === "known" ? { name: "Known Ability" } : undefined) },
-    units: { get: (id: string) => (id === "u1" ? { name: "Captain" } : undefined) },
+    abilities: { getAny: (id: string) => (id === "known" ? { name: "Known Ability" } : undefined) },
+    units: { getAny: (id: string) => (id === "u1" ? { name: "Captain" } : undefined) },
   } as unknown as Dataset;
 
   it("passes manual labels and weapon keywords through", () => {

@@ -27,7 +27,7 @@ def test_ordinal_bands(dataset: Any) -> None:
 
 
 def test_unbanded_unit_ignores_ordinal(dataset: Any) -> None:
-    bz = dataset.units.get("khorne-berzerkers").raw
+    bz = dataset.units.get_any("khorne-berzerkers").raw
     assert base_unit_points(bz, 10, 1) == base_unit_points(bz, 10, 99)
 
 
@@ -39,7 +39,7 @@ def test_points_tier_missing(dataset: Any) -> None:
 
 
 def test_base_loadout_is_legal_default(dataset: Any) -> None:
-    bz = dataset.units.get("khorne-berzerkers")
+    bz = dataset.units.get_any("khorne-berzerkers")
     options = dataset.wargear_options_of(bz.raw)
     assert base_loadout(bz.raw, 10, options) == {
         "bolt-pistol-khorne-berzerkers": 10,

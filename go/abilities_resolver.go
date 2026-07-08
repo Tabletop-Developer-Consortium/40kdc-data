@@ -96,7 +96,7 @@ func resolveEligibleAbilities(ds *Dataset, input map[string]any, phase string) [
 				// back for shared pools.
 				stratAbility, ok := ds.Abilities.GetInFaction(abilityID, factionID)
 				if !ok {
-					stratAbility, ok = ds.Abilities.Get(abilityID)
+					stratAbility, ok = ds.Abilities.GetAny(abilityID)
 				}
 				if !ok {
 					continue

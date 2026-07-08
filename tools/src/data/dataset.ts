@@ -169,12 +169,15 @@ export class Dataset {
       // A bare weapon id is shared across factions with divergent stats (each
       // faction file defines its own e.g. "close-combat-weapon"); key on
       // (faction_id, id) so every faction's copy is retained and a unit resolves
-      // its own faction's weapon (issue #59), not whichever bundled first. No
-      // guardUnscoped: get()/getAny stay first-wins for the many catalog/import
-      // callsites that pass an explicit id without faction context.
+      // its own faction's weapon (issue #59), not whichever bundled first.
       dedupeKeyOf: (w) => `${w.faction_id ?? ""}::${w.id}`,
       nameOf: (w) => w.name,
       factionOf: (w) => w.faction_id,
+      // Per-faction copies diverge (stats), so a faction-less get() of a
+      // shared id is a bug — catalog/import callsites that genuinely lack
+      // faction context opt out via getAny.
+      guardUnscoped: true,
+      entityLabel: "weapon",
       wrap: (w) => new WeaponView(w, this),
     });
     this.weaponKeywords = new Collection({
@@ -202,6 +205,10 @@ export class Dataset {
       dedupeKeyOf: (a) => `${a.faction_id ?? ""}::${a.ability_id}`,
       nameOf: (a) => a.name,
       factionOf: (a) => a.faction_id,
+      // Per-faction copies diverge (DSL fidelity, unit_ids), so a
+      // faction-less get() of a shared id is a bug — same guard as weapons.
+      guardUnscoped: true,
+      entityLabel: "ability",
       wrap: (a) => new AbilityView(a, this),
     });
 
@@ -572,9 +579,15 @@ export class Dataset {
       attackerAttached: context.attackerAttached ?? (input.attachedUnitIds?.length ?? 0) > 0,
     };
 
-    // Intrinsic weapon-profile keywords — always on.
+    // Intrinsic weapon-profile keywords — always on. Weapon ids are shared
+    // across factions with divergent stats, so resolve within the input
+    // unit's faction (getAny fallback for a genuinely cross-faction id).
+    const weaponFaction =
+      input.factionId ?? this.units.getAny(input.unitId)?.raw.faction_id;
     for (const ref of input.weaponProfiles ?? []) {
-      const weapon = this.weapons.get(ref.weaponId);
+      const weapon =
+        (weaponFaction ? this.weapons.getInFaction(ref.weaponId, weaponFaction) : undefined) ??
+        this.weapons.getAny(ref.weaponId);
       if (!weapon) continue;
       const wk = weapon.profileBuffs(ref.profileIndex, ctx);
       if (wk.length === 0) continue;
@@ -647,10 +660,15 @@ export class Dataset {
       attackerAttached: context.attackerAttached ?? (input.attachedUnitIds?.length ?? 0) > 0,
     };
 
-    // Weapon-profile keywords are attacker-only.
+    // Weapon-profile keywords are attacker-only. Faction-scoped like
+    // stackableBuffsFor — first-wins here would crunch the wrong faction's stats.
     if (perspective === "attacker") {
+      const weaponFaction =
+        input.factionId ?? this.units.getAny(input.unitId)?.raw.faction_id;
       for (const ref of input.weaponProfiles ?? []) {
-        const weapon = this.weapons.get(ref.weaponId);
+        const weapon =
+          (weaponFaction ? this.weapons.getInFaction(ref.weaponId, weaponFaction) : undefined) ??
+          this.weapons.getAny(ref.weaponId);
         if (!weapon) continue;
         out.push(...weapon.profileBuffs(ref.profileIndex, ctx));
       }

@@ -283,7 +283,7 @@ function scopedWeaponId(ds: Dataset, hit: UnitView, rawName: string): string | n
   const targets = new Set<string>([normalizeName(rawName), normalizeName(`The ${rawName}`)]);
   if (stripped) targets.add(normalizeName(stripped));
   for (const id of ids) {
-    const w = ds.weapons.get(id);
+    const w = ds.weapons.getInFaction(id, hit.raw.faction_id) ?? ds.weapons.getAny(id);
     if (w && targets.has(normalizeName(w.name))) return id;
   }
   return null;

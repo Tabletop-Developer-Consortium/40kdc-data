@@ -24,7 +24,7 @@
   // clear it so the dropdown doesn't display a stale value.
   $effect(() => {
     if (!salvo.datasetTargetUnitId || !salvo.datasetTargetFactionId) return;
-    const u = ds.units.get(salvo.datasetTargetUnitId);
+    const u = ds.units.getAny(salvo.datasetTargetUnitId);
     if (!u || u.raw.faction_id !== salvo.datasetTargetFactionId) {
       salvo.datasetTargetUnitId = null;
     }
@@ -53,7 +53,7 @@
   // Pre-fill manual stats from the picked dataset unit.
   $effect(() => {
     if (salvo.targetMode !== "dataset" || !salvo.datasetTargetUnitId) return;
-    const u = ds.units.get(salvo.datasetTargetUnitId);
+    const u = ds.units.getAny(salvo.datasetTargetUnitId);
     if (!u) return;
     const p = u.raw.profiles[0];
     if (!p) return;

@@ -47,7 +47,7 @@ describe("base_size_mm coverage", () => {
   });
 
   it("matches known authoritative sizes", () => {
-    const base = (id: string) => ds.units.get(id)?.raw.base_size_mm;
+    const base = (id: string) => ds.units.getAny(id)?.raw.base_size_mm;
     expect(base("intercessor-squad")).toEqual({ shape: "round", diameter: 32 });
     expect(base("vertus-praetors")).toEqual({ shape: "oval", width: 75, length: 42 });
     expect(base("windriders")).toEqual({ shape: "flying-base", size: "small", draft: true });
@@ -59,6 +59,6 @@ describe("base_size_mm coverage", () => {
     expect(byName.get("Dishonoured")).toEqual({ shape: "round", diameter: 40 });
     expect(byName.get("Jakhal")).toEqual({ shape: "round", diameter: 28.5 });
     // Representative unit-level base is the bulk model (Jakhal), not the 40mm Dishonoured.
-    expect(ds.units.get("jakhals")?.raw.base_size_mm).toEqual({ shape: "round", diameter: 28.5 });
+    expect(ds.units.getAny("jakhals")?.raw.base_size_mm).toEqual({ shape: "round", diameter: 28.5 });
   });
 });

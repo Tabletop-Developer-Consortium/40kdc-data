@@ -38,7 +38,7 @@ describe("Dataset.eligibleAbilities", () => {
     // surfaces, and the record has abilities baked in. Avoids the
     // `(faction_id, id)`-dedup vs `byId` first-wins mismatch other units hit.
     const unitId = "kharn-the-betrayer";
-    expect((ds.units.get(unitId)?.raw.ability_ids ?? []).length).toBeGreaterThan(0);
+    expect((ds.units.getAny(unitId)?.raw.ability_ids ?? []).length).toBeGreaterThan(0);
     const result = ds.eligibleAbilities({ unitId }, "fight");
     const unitAbilities = result.filter((e) => e.source.kind === "unit");
     expect(unitAbilities.length).toBeGreaterThan(0);

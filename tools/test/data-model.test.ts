@@ -130,6 +130,18 @@ describe("Collection.find / findAll", () => {
     }
   });
 
+  it("get() throws for a shared weapon id resolved without a faction (dev guard)", () => {
+    // lascannon exists under many factions with divergent stats; a
+    // faction-less get() would silently crunch the wrong faction's profile.
+    expect(() => weapons.get("lascannon")).toThrow(/Ambiguous weapon lookup/);
+    expect(weapons.getAny("lascannon")).toBeDefined();
+  });
+
+  it("get() throws for a shared ability id resolved without a faction (dev guard)", () => {
+    expect(() => abilities.get("idol-of-blessed-blood")).toThrow(/Ambiguous ability lookup/);
+    expect(abilities.getAny("idol-of-blessed-blood")).toBeDefined();
+  });
+
   it("getInFaction returns undefined when the id is absent from the faction", () => {
     expect(units.getInFaction("chaos-land-raider", "adepta-sororitas")).toBeUndefined();
   });
@@ -199,11 +211,13 @@ describe("Kharn proof (the headline one-liner)", () => {
 
 describe("AbilityView.phases (joined via phase-mappings)", () => {
   it("unions phases across a mapping", () => {
-    expect(abilities.get("deadly-demise-d3")?.phases.sort()).toEqual(["fight", "shooting"]);
+    // deadly-demise-d3 is a shared id (per-faction copies) — phase-mappings
+    // key on the bare ability id, so any copy carries the same phases.
+    expect(abilities.getAny("deadly-demise-d3")?.phases.sort()).toEqual(["fight", "shooting"]);
   });
 
   it("is empty for an ability with no phase-mapping", () => {
-    expect(abilities.get("leader")?.phases).toEqual([]);
+    expect(abilities.getAny("leader")?.phases).toEqual([]);
   });
 });
 

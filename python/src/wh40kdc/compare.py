@@ -234,7 +234,8 @@ def compare_cell(
     if profile is None:
         raise KeyError(f"unknown target profile {target_profile_id!r}")
     target = resolve_target(ds, profile)
-    weapon_view = ds.weapons.get(weapon_id)
+    # Bare weapon id from the compare request — no faction context.
+    weapon_view = ds.weapons.get_any(weapon_id)
     if weapon_view is None:
         raise KeyError(f"unknown weapon {weapon_id!r}")
     weapon_raw = weapon_view.raw
@@ -327,7 +328,7 @@ def enumerate_loadouts(ds: Dataset, faction_id: str, unit_id: str) -> Enumerated
     weapon_ids = {w.raw["id"] for w in ds.weapons.all}
 
     def is_ranged(wid: str) -> bool:
-        w = ds.weapons.get(wid)
+        w = ds.weapons.get_in_faction(wid, faction_id) or ds.weapons.get_any(wid)
         return w is not None and w.raw.get("type") == "ranged"
 
     base_ranged = sorted({w.raw["id"] for w in unit.weapons if w.raw.get("type") == "ranged"})
@@ -378,7 +379,14 @@ def enumerate_loadouts(ds: Dataset, faction_id: str, unit_id: str) -> Enumerated
         weapons = sorted(dict.fromkeys(combo))
         if not weapons:
             continue
-        label = " + ".join((wv.name if (wv := ds.weapons.get(w)) else w) for w in weapons)
+        label = " + ".join(
+            (
+                wv.name
+                if (wv := ds.weapons.get_in_faction(w, faction_id) or ds.weapons.get_any(w))
+                else w
+            )
+            for w in weapons
+        )
         configs.append(
             LoadoutConfig(
                 label=label,
@@ -407,7 +415,7 @@ def loadout_output(
     Returns ``{targetProfileId, targetProfileName, damage, kills}``."""
     damage = 0.0
     for line in config.lines:
-        weapon = ds.weapons.get(line.weapon_id)
+        weapon = ds.weapons.get_any(line.weapon_id)
         if weapon is None:
             continue
         wprofile = weapon.raw["profiles"][line.profile_index]

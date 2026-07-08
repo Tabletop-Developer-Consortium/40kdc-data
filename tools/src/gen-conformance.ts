@@ -393,7 +393,7 @@ function runLinkedQuery(ds: Dataset, q: LinkedApiQuery): string | null | string[
       return u.weapons.map((w) => w.id);
     }
     case "phases_of": {
-      const a = ds.abilities.get(q.args.abilityId);
+      const a = ds.abilities.getAny(q.args.abilityId);
       if (!a) throw new Error(`phases_of: unknown ability ${q.args.abilityId}`);
       return [...a.phases].sort();
     }
@@ -481,7 +481,7 @@ function loadAttributionInput(ds: Dataset, filename: string): {
 } {
   const path = join(CONFORMANCE, "cruncher", filename);
   const c = JSON.parse(readFileSync(path, "utf8")) as CruncherCaseInput;
-  const weapon = ds.weapons.get(c.attacker.weaponId);
+  const weapon = ds.weapons.getAny(c.attacker.weaponId);
   const unit = ds.units.getAny(c.target.unitId);
   if (!weapon) throw new Error(`attribution: unknown weapon ${c.attacker.weaponId}`);
   if (!unit) throw new Error(`attribution: unknown unit ${c.target.unitId}`);

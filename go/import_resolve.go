@@ -128,8 +128,13 @@ func scopedWeaponID(ds *Dataset, hit *UnitView, rawName string) (string, bool) {
 	if stripped, ok := StripLeadingThe(rawName); ok {
 		targets[NormalizeName(stripped)] = true
 	}
+	factionID := getStr(hit.Raw, "faction_id")
 	for _, id := range ids {
-		if w, ok := ds.Weapons.Get(id); ok && targets[NormalizeName(w.Name())] {
+		w, ok := ds.Weapons.GetInFaction(id, factionID)
+		if !ok {
+			w, ok = ds.Weapons.GetAny(id)
+		}
+		if ok && targets[NormalizeName(w.Name())] {
 			return w.ID(), true
 		}
 	}

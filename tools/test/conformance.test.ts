@@ -426,7 +426,7 @@ describe("abilities-resolver conformance corpus", () => {
   function runDslCorpus(filename: string): void {
     const dsl = readJson(join(dir, filename)) as { cases: DslCase[] };
     for (const c of dsl.cases) {
-      const ability = ds.abilities.get(c.abilityId);
+      const ability = ds.abilities.getAny(c.abilityId);
       expect(ability, `unknown ability ${c.abilityId}`).toBeDefined();
       const result = effectToBuffs(
         ability!.raw.effect,
@@ -494,17 +494,17 @@ function runLinkedApi(ds: Dataset, c: LinkedApiCase): string | null | string[] {
     case "find_ability":
       return ds.abilities.find(c.args.query)?.id ?? null;
     case "abilities_of": {
-      const u = ds.units.get(c.args.unitId);
+      const u = ds.units.getAny(c.args.unitId);
       if (!u) throw new Error(`abilities_of: unknown unit ${c.args.unitId}`);
       return u.abilities.map((a) => a.id);
     }
     case "weapons_of": {
-      const u = ds.units.get(c.args.unitId);
+      const u = ds.units.getAny(c.args.unitId);
       if (!u) throw new Error(`weapons_of: unknown unit ${c.args.unitId}`);
       return u.weapons.map((w) => w.id);
     }
     case "wargear_options_of": {
-      const u = ds.units.get(c.args.unitId);
+      const u = ds.units.getAny(c.args.unitId);
       if (!u) throw new Error(`wargear_options_of: unknown unit ${c.args.unitId}`);
       return u.wargearOptions.map((o) => o.id);
     }
@@ -516,18 +516,18 @@ function runLinkedApi(ds: Dataset, c: LinkedApiCase): string | null | string[] {
       return [...lo.counts].map(([id, n]) => `${id}:${n}`).sort();
     }
     case "maximal_loadout": {
-      const u = ds.units.get(c.args.unitId);
+      const u = ds.units.getAny(c.args.unitId);
       if (!u) throw new Error(`maximal_loadout: unknown unit ${c.args.unitId}`);
       const lo = maximalLoadout(u.raw, Number(c.args.modelCount), ds.wargearOptionsOf(u.raw));
       return [...lo.counts].map(([id, n]) => `${id}:${n}`).sort();
     }
     case "phases_of": {
-      const a = ds.abilities.get(c.args.abilityId);
+      const a = ds.abilities.getAny(c.args.abilityId);
       if (!a) throw new Error(`phases_of: unknown ability ${c.args.abilityId}`);
       return [...a.phases];
     }
     case "faction_of": {
-      const u = ds.units.get(c.args.unitId);
+      const u = ds.units.getAny(c.args.unitId);
       if (!u) throw new Error(`faction_of: unknown unit ${c.args.unitId}`);
       return u.faction?.id ?? null;
     }
@@ -544,12 +544,12 @@ function runLinkedApi(ds: Dataset, c: LinkedApiCase): string | null | string[] {
       return f.logoUrl ?? null;
     }
     case "base_size_of": {
-      const u = ds.units.get(c.args.unitId);
+      const u = ds.units.getAny(c.args.unitId);
       if (!u) throw new Error(`base_size_of: unknown unit ${c.args.unitId}`);
       return encodeBase(u.raw.base_size_mm);
     }
     case "model_bases_of": {
-      const u = ds.units.get(c.args.unitId);
+      const u = ds.units.getAny(c.args.unitId);
       if (!u) throw new Error(`model_bases_of: unknown unit ${c.args.unitId}`);
       const comp = ds.unitCompositions.find((cc) => cc.unit_id === c.args.unitId);
       return (comp?.models ?? []).map((m) => `${m.name}=${encodeBase(m.base_size_mm) ?? "none"}`);
@@ -739,8 +739,8 @@ describe("attribution conformance corpus", () => {
     it(`attribution/${c.cruncher_case}: stages match within ${CRUNCHER_TOLERANCE}`, () => {
       const cruncherCasePath = join(CONFORMANCE, "cruncher", c.cruncher_case);
       const crunchInput = readJson(cruncherCasePath) as CruncherCase;
-      const weapon = ds.weapons.get(crunchInput.attacker.weaponId);
-      const unit = ds.units.get(crunchInput.target.unitId);
+      const weapon = ds.weapons.getAny(crunchInput.attacker.weaponId);
+      const unit = ds.units.getAny(crunchInput.target.unitId);
       expect(weapon).toBeDefined();
       expect(unit).toBeDefined();
       const stages = attributeStages(
@@ -1018,8 +1018,8 @@ describe("cruncher conformance corpus", () => {
     const path = join(cruncherDir, filename);
     const c = readJson(path) as CruncherCase;
     it(`cruncher/${filename}: stages match the golden within ${CRUNCHER_TOLERANCE}`, () => {
-      const weapon = ds.weapons.get(c.attacker.weaponId);
-      const unit = ds.units.get(c.target.unitId);
+      const weapon = ds.weapons.getAny(c.attacker.weaponId);
+      const unit = ds.units.getAny(c.target.unitId);
       expect(weapon, `unknown weapon ${c.attacker.weaponId} in ${filename}`).toBeDefined();
       expect(unit, `unknown unit ${c.target.unitId} in ${filename}`).toBeDefined();
       const out = crunch(

@@ -4949,7 +4949,7 @@
     ],
     "ability_type": "unit",
     "behavior": "passive",
-    "community_notes": "At the start of the battle round, while this model is on the battlefield, one additional (rolled) D6 is added to your Blessings of Khorne roll. Shared datasheet ability (Khorne Lord of Skulls); kept byte-identical with the world-eaters copy so the id-keyed dedup is lossless."
+    "community_notes": "At the start of the battle round, while this model is on the battlefield, one additional (rolled) D6 is added to your Blessings of Khorne roll. Shared datasheet ability (Khorne Lord of Skulls); the world-eaters copy is the authored original — the linked API resolves each faction's own copy, so the two may evolve independently."
   },
   {
     "ability_id": "super-heavy-war-engine",

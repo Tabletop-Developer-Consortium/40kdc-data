@@ -256,9 +256,9 @@
     {
       "faction": "world-eaters",
       "total": 133,
-      "offensive": 20,
+      "offensive": 18,
       "defensive": 10,
-      "inert": 104,
+      "inert": 106,
       "stub": 0,
       "stubStructural": 3,
       "gwTextLeak": 0,
@@ -267,9 +267,9 @@
   ],
   "totals": {
     "total": 3121,
-    "offensive": 773,
+    "offensive": 771,
     "defensive": 266,
-    "inert": 2168,
+    "inert": 2170,
     "stub": 119,
     "stubStructural": 42,
     "gwTextLeak": 0,
@@ -278,7 +278,7 @@
   "unsupportedReasons": [
     {
       "reason": "effect type \"ability-grant\" is not modelled by the buff layer",
-      "count": 462
+      "count": 458
     },
     {
       "reason": "effect type \"movement-modifier\" is not modelled by the buff layer",
@@ -290,11 +290,11 @@
     },
     {
       "reason": "conditional: cannot evaluate condition \"undefined\" against current context",
-      "count": 98
+      "count": 102
     },
     {
       "reason": "effect type \"leadership-modifier\" is not modelled by the buff layer",
-      "count": 87
+      "count": 86
     },
     {
       "reason": "effect type \"attack-restriction\" is not modelled by the buff layer",
@@ -302,7 +302,7 @@
     },
     {
       "reason": "effect type \"resurrection\" is not modelled by the buff layer",
-      "count": 58
+      "count": 57
     },
     {
       "reason": "effect type \"cp-refund\" is not modelled by the buff layer",
@@ -325,16 +325,16 @@
       "count": 33
     },
     {
-      "reason": "stat-modifier: operation \"set\" not supported",
-      "count": 32
-    },
-    {
       "reason": "effect type \"unit-keyword\" is not modelled by the buff layer",
       "count": 32
     },
     {
       "reason": "effect type \"rule-state\" is not modelled by the buff layer",
       "count": 32
+    },
+    {
+      "reason": "stat-modifier: operation \"set\" not supported",
+      "count": 31
     },
     {
       "reason": "effect type \"disembark-after-move\" is not modelled by the buff layer",
@@ -425,6 +425,10 @@
       "count": 7
     },
     {
+      "reason": "effect type \"engagement-passthrough\" is not modelled by the buff layer",
+      "count": 7
+    },
+    {
       "reason": "conditional: cannot evaluate condition \"is-battle-shocked\" against current context",
       "count": 7
     },
@@ -441,14 +445,6 @@
       "count": 6
     },
     {
-      "reason": "effect type \"engagement-passthrough\" is not modelled by the buff layer",
-      "count": 6
-    },
-    {
-      "reason": "effect type \"resource-gain\" is not modelled by the buff layer",
-      "count": 5
-    },
-    {
       "reason": "effect type \"unit-tag\" is not modelled by the buff layer",
       "count": 5
     },
@@ -462,6 +458,10 @@
     },
     {
       "reason": "effect type \"terrain-area-tag\" is not modelled by the buff layer",
+      "count": 5
+    },
+    {
+      "reason": "effect type \"auto-result\" is not modelled by the buff layer",
       "count": 5
     },
     {
@@ -501,6 +501,10 @@
       "count": 4
     },
     {
+      "reason": "effect type \"resource-gain\" is not modelled by the buff layer",
+      "count": 3
+    },
+    {
       "reason": "effect type \"shoot-on-death\" is not modelled by the buff layer",
       "count": 3
     },
@@ -518,10 +522,6 @@
     },
     {
       "reason": "stat-modifier: operation \"multiply\" not supported",
-      "count": 3
-    },
-    {
-      "reason": "effect type \"auto-result\" is not modelled by the buff layer",
       "count": 3
     },
     {
@@ -673,15 +673,11 @@
       "count": 1
     },
     {
-      "reason": "re-roll on \"blessings\" (subset …) is outside the damage path",
+      "reason": "re-roll on \"blessings-of-khorne\" (subset …) is outside the damage path",
       "count": 1
     },
     {
       "reason": "roll-modifier: operation \"undefined\" not supported",
-      "count": 1
-    },
-    {
-      "reason": "effect type \"disembark\" is not modelled by the buff layer",
       "count": 1
     }
   ],
@@ -30780,17 +30776,17 @@
       "faction": "world-eaters",
       "ability_id": "objective-ravaged",
       "name": "Objective Ravaged",
-      "shape": "ability-grant",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"ability-grant\" is not modelled by the buff layer"
+      "gap": null
     },
     {
       "faction": "world-eaters",
       "ability_id": "scuttling-walker",
       "name": "Scuttling Walker",
-      "shape": "movement-modifier",
+      "shape": "sequence",
       "stub": false,
       "offensive": false,
       "defensive": false,
@@ -31160,7 +31156,7 @@
       "faction": "world-eaters",
       "ability_id": "blood-tithe",
       "name": "Blood Tithe",
-      "shape": "conditional",
+      "shape": "sequence",
       "stub": false,
       "offensive": false,
       "defensive": false,
@@ -31214,7 +31210,7 @@
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "conditional: cannot evaluate condition \"undefined\" against current context"
+      "gap": null
     },
     {
       "faction": "world-eaters",
@@ -31254,7 +31250,7 @@
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "re-roll on \"blessings\" (subset …) is outside the damage path"
+      "gap": "re-roll on \"blessings-of-khorne\" (subset …) is outside the damage path"
     },
     {
       "faction": "world-eaters",
@@ -31300,11 +31296,11 @@
       "faction": "world-eaters",
       "ability_id": "strategic-slaughter-cult-of-blood",
       "name": "Strategic Slaughter",
-      "shape": "ability-grant",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"ability-grant\" is not modelled by the buff layer"
+      "gap": null
     },
     {
       "faction": "world-eaters",
@@ -31334,7 +31330,7 @@
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"ability-grant\" is not modelled by the buff layer"
+      "gap": "conditional: cannot evaluate condition \"undefined\" against current context"
     },
     {
       "faction": "world-eaters",
@@ -31390,11 +31386,11 @@
       "faction": "world-eaters",
       "ability_id": "malicious-vigour-possessed-slaughterband",
       "name": "Malicious Vigour",
-      "shape": "stat-modifier",
+      "shape": "auto-result",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "stat-modifier: operation \"set\" not supported"
+      "gap": "effect type \"auto-result\" is not modelled by the buff layer"
     },
     {
       "faction": "world-eaters",
@@ -31442,15 +31438,15 @@
       "name": "Gateways to Glory",
       "shape": "sequence",
       "stub": false,
-      "offensive": true,
+      "offensive": false,
       "defensive": false,
-      "gap": "effect type \"charge-roll-modifier\" is not modelled by the buff layer"
+      "gap": "effect type \"ability-grant\" is not modelled by the buff layer"
     },
     {
       "faction": "world-eaters",
       "ability_id": "hack-and-slash-berzerker-warband",
       "name": "Hack and Slash",
-      "shape": "stat-modifier",
+      "shape": "conditional",
       "stub": false,
       "offensive": true,
       "defensive": false,
@@ -31520,21 +31516,21 @@
       "faction": "world-eaters",
       "ability_id": "bloody-vengeance-cult-of-blood",
       "name": "Bloody Vengeance",
-      "shape": "ability-grant",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"ability-grant\" is not modelled by the buff layer"
+      "gap": null
     },
     {
       "faction": "world-eaters",
       "ability_id": "brazen-idol-cult-of-blood",
       "name": "Brazen Idol",
-      "shape": "ability-grant",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"ability-grant\" is not modelled by the buff layer"
+      "gap": null
     },
     {
       "faction": "world-eaters",
@@ -31570,11 +31566,11 @@
       "faction": "world-eaters",
       "ability_id": "endless-pursuit-of-violence-goretrack-onslaught",
       "name": "Endless Pursuit of Violence",
-      "shape": "ability-grant",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"ability-grant\" is not modelled by the buff layer"
+      "gap": null
     },
     {
       "faction": "world-eaters",
@@ -31590,11 +31586,11 @@
       "faction": "world-eaters",
       "ability_id": "aggressive-disembarkation-goretrack-onslaught",
       "name": "Aggressive Disembarkation",
-      "shape": "disembark",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"disembark\" is not modelled by the buff layer"
+      "gap": "conditional: cannot evaluate condition \"undefined\" against current context"
     },
     {
       "faction": "world-eaters",
@@ -31650,11 +31646,11 @@
       "faction": "world-eaters",
       "ability_id": "a-worthy-skull-khorne-daemonkin",
       "name": "A Worthy Skull",
-      "shape": "resource-gain",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"resource-gain\" is not modelled by the buff layer"
+      "gap": null
     },
     {
       "faction": "world-eaters",
@@ -31670,11 +31666,11 @@
       "faction": "world-eaters",
       "ability_id": "daemontide-khorne-daemonkin",
       "name": "Daemontide",
-      "shape": "resurrection",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"resurrection\" is not modelled by the buff layer"
+      "gap": "conditional: cannot evaluate condition \"undefined\" against current context"
     },
     {
       "faction": "world-eaters",
@@ -31730,7 +31726,7 @@
       "faction": "world-eaters",
       "ability_id": "warp-stalkers-possessed-slaughterband",
       "name": "Warp Stalkers",
-      "shape": "sequence",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
@@ -31740,17 +31736,17 @@
       "faction": "world-eaters",
       "ability_id": "horrifying-violence-possessed-slaughterband",
       "name": "Horrifying Violence",
-      "shape": "leadership-modifier",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"leadership-modifier\" is not modelled by the buff layer"
+      "gap": "conditional: cannot evaluate condition \"undefined\" against current context"
     },
     {
       "faction": "world-eaters",
       "ability_id": "aspire-to-infamy-vessels-of-wrath",
       "name": "Aspire to Infamy",
-      "shape": "sequence",
+      "shape": "conditional",
       "stub": false,
       "offensive": true,
       "defensive": false,
@@ -31770,11 +31766,11 @@
       "faction": "world-eaters",
       "ability_id": "rampaging-terrors",
       "name": "Rampaging Terrors",
-      "shape": "conditional",
+      "shape": "sequence",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": null
+      "gap": "effect type \"ability-grant\" is not modelled by the buff layer"
     },
     {
       "faction": "world-eaters",
@@ -31800,7 +31796,7 @@
       "faction": "world-eaters",
       "ability_id": "apoplectic-clarity-brazen-engines",
       "name": "Apoplectic Clarity",
-      "shape": "roll-modifier",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
@@ -31810,11 +31806,11 @@
       "faction": "world-eaters",
       "ability_id": "trail-of-destruction-brazen-engines",
       "name": "Trail of Destruction",
-      "shape": "keyword-grant",
+      "shape": "conditional",
       "stub": false,
-      "offensive": true,
+      "offensive": false,
       "defensive": false,
-      "gap": null
+      "gap": "conditional: cannot evaluate condition \"undefined\" against current context"
     },
     {
       "faction": "world-eaters",

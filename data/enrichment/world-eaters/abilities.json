@@ -1047,18 +1047,45 @@
     "ability_type": "unit",
     "behavior": "passive",
     "effect": {
-      "type": "ability-grant",
-      "target": "unit",
-      "modifier": {
-        "grant_type": "sticky-objectives"
+      "type": "conditional",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          {
+            "type": "phase-is",
+            "parameters": {
+              "phase": "command"
+            }
+          },
+          {
+            "type": "player-turn-is",
+            "parameters": {
+              "turn": "your-turn"
+            }
+          },
+          {
+            "type": "timing-is",
+            "parameters": {
+              "timing": "end-of-phase"
+            }
+          },
+          {
+            "type": "within-range-of-objective",
+            "parameters": {}
+          }
+        ]
+      },
+      "effect": {
+        "type": "objective-control-modifier",
+        "target": "unit",
+        "modifier": {
+          "sticky": true
+        }
       }
     },
     "scope": {
       "range": "unit",
       "duration": "permanent"
-    },
-    "trigger": {
-      "event": "end-of-phase"
     }
   },
   {
@@ -1079,22 +1106,43 @@
     "ability_type": "unit",
     "behavior": "passive",
     "effect": {
-      "type": "movement-modifier",
-      "target": "self",
-      "modifier": {
-        "passthrough": [
-          "non-titanic-models",
-          "terrain-le-4"
-        ]
-      }
+      "type": "sequence",
+      "steps": [
+        {
+          "type": "movement-modifier",
+          "target": "self",
+          "modifier": {
+            "passthrough": [
+              "non-titanic-models",
+              "all-terrain"
+            ],
+            "applies_to_moves": [
+              "normal",
+              "advance",
+              "fall-back"
+            ]
+          }
+        },
+        {
+          "type": "engagement-passthrough",
+          "target": "self",
+          "modifier": {
+            "no_end_in_engagement": true
+          }
+        },
+        {
+          "type": "auto-result",
+          "target": "self",
+          "modifier": {
+            "test": "desperate-escape",
+            "result": "pass"
+          }
+        }
+      ]
     },
     "scope": {
       "range": "self",
       "duration": "permanent"
-    },
-    "trigger": {
-      "event": "start-of-phase",
-      "subject": "self"
     }
   },
   {
@@ -1999,7 +2047,7 @@
       "range": "self",
       "duration": "permanent"
     },
-    "community_notes": "[APPROX] it may move within Engagement Range of enemy models but cannot end the move there; after moving through terrain over 4\" roll one D6 \u2014 on a 1 this model is Battle-shocked"
+    "community_notes": "[APPROX] it may move within Engagement Range of enemy models but cannot end the move there; after moving through terrain over 4\" roll one D6 — on a 1 this model is Battle-shocked"
   },
   {
     "ability_id": "the-scent-of-blood",
@@ -2993,7 +3041,7 @@
       "duration": "turn"
     },
     "trigger": {
-      "event": "end-of-phase"
+      "event": "charge-move"
     }
   },
   {
@@ -3083,14 +3131,13 @@
     "effect": {
       "type": "conditional",
       "condition": {
-        "type": "phase-is",
+        "type": "timing-is",
         "parameters": {
-          "phase": "fight"
+          "timing": "selected-to-fight"
         }
       },
       "effect": {
         "type": "choice",
-        "choice_label": "Boon of martial might",
         "options": [
           {
             "type": "keyword-grant",
@@ -3117,11 +3164,20 @@
       "range": "unit",
       "duration": "phase"
     },
-    "community_notes": "When a friendly WORLD EATERS CHARACTER (excluding EPIC HERO) is selected to fight, its CHARACTER models' melee attacks gain [CLEAVE 1] or +1 AP.",
+    "community_notes": "[APPROX] Only the unit's CHARACTER models' melee attacks gain the chosen benefit; modeled unit-wide.",
     "trigger": {
       "event": "start-of-phase",
       "subject": "self",
       "optional": true
+    },
+    "applies_to": {
+      "required_keywords": [
+        "World Eaters",
+        "Character"
+      ],
+      "excluded_keywords": [
+        "Epic Hero"
+      ]
     }
   },
   {
@@ -3140,38 +3196,134 @@
     "ability_type": "detachment",
     "behavior": "passive",
     "effect": {
-      "type": "conditional",
-      "condition": {
-        "type": "timing-is",
-        "parameters": {
-          "timing": "on-unit-destroyed"
-        }
-      },
-      "effect": {
-        "type": "dice-gated",
-        "dice": "D6",
-        "threshold": 3,
-        "comparison": "gte",
-        "on_success": {
-          "type": "resource-gain",
-          "target": "self",
-          "modifier": {
-            "pool_id": "blood-tithe-pool",
-            "amount": 1
+      "type": "sequence",
+      "steps": [
+        {
+          "type": "conditional",
+          "condition": {
+            "type": "timing-is",
+            "parameters": {
+              "timing": "enemy-unit-destroyed"
+            }
+          },
+          "effect": {
+            "type": "dice-gated",
+            "dice": "D6",
+            "threshold": 3,
+            "comparison": "gte",
+            "on_success": {
+              "type": "resource-gain",
+              "target": "self",
+              "modifier": {
+                "pool_id": "blood-tithe-pool",
+                "amount": 1
+              }
+            },
+            "on_fail": null
           }
         },
-        "on_fail": null
-      }
+        {
+          "type": "conditional",
+          "condition": {
+            "type": "timing-is",
+            "parameters": {
+              "timing": "start-of-command-phase"
+            }
+          },
+          "effect": {
+            "type": "choice",
+            "choice_label": "Blood Tithe abilities",
+            "options": [
+              {
+                "type": "sequence",
+                "steps": [
+                  {
+                    "type": "resource-spend",
+                    "target": "self",
+                    "modifier": {
+                      "pool_id": "blood-tithe-pool",
+                      "amount": 2
+                    }
+                  },
+                  {
+                    "type": "ability-grant",
+                    "target": "all-friendly",
+                    "modifier": {
+                      "grant_type": "enraged-abjuration"
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "sequence",
+                "steps": [
+                  {
+                    "type": "resource-spend",
+                    "target": "self",
+                    "modifier": {
+                      "pool_id": "blood-tithe-pool",
+                      "amount": 3
+                    }
+                  },
+                  {
+                    "type": "ability-grant",
+                    "target": "all-friendly",
+                    "modifier": {
+                      "grant_type": "daemonic-rage"
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "sequence",
+                "steps": [
+                  {
+                    "type": "resource-spend",
+                    "target": "self",
+                    "modifier": {
+                      "pool_id": "blood-tithe-pool",
+                      "amount": 4
+                    }
+                  },
+                  {
+                    "type": "ability-grant",
+                    "target": "all-friendly",
+                    "modifier": {
+                      "grant_type": "boon-of-blood"
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "sequence",
+                "steps": [
+                  {
+                    "type": "resource-spend",
+                    "target": "self",
+                    "modifier": {
+                      "pool_id": "blood-tithe-pool",
+                      "amount": 5
+                    }
+                  },
+                  {
+                    "type": "ability-grant",
+                    "target": "all-friendly",
+                    "modifier": {
+                      "grant_type": "might-of-khorne"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
     },
     "scope": {
       "range": "any-on-battlefield",
       "duration": "battle"
     },
-    "trigger": {
-      "event": "on-unit-destroyed",
-      "subject": "any-unit"
-    },
-    "community_notes": "Blood Tithe earn side: gain 1 BTP on a 3+ each time a Blood Legions or World Eaters unit destroys an enemy unit. The four spend options (start of Command phase, last until end of battle) are modeled as separate detachment abilities: enraged-abjuration (2 BTP), daemonic-rage (3 BTP), boon-of-blood (4 BTP), might-of-khorne (5 BTP)."
+    "community_notes": "Earn side: 1 BTP on a 3+ each time an enemy unit is destroyed by a Blood Legions/World Eaters unit. Spend side (start of your Command phase, effects last until end of battle) references the four detachment abilities by id: enraged-abjuration (2), daemonic-rage (3), boon-of-blood (4), might-of-khorne (5)."
   },
   {
     "ability_id": "enraged-abjuration",
@@ -3217,7 +3369,7 @@
       "event": "start-of-phase",
       "optional": true
     },
-    "community_notes": "Blood Tithe spend (2 BTP), activated at the start of your Command phase, lasting until end of battle: Blood Legions and World Eaters models gain Feel No Pain 5+ against Psychic Attacks and mortal wounds (modeled as FNP 5+ vs mortal wounds; the Psychic-Attacks scope is not separately expressible). Applies to the whole army, so no keyword gate."
+    "community_notes": "[APPROX] Blood Tithe spend (2 BTP), activated at the start of your Command phase, lasting until end of battle: Blood Legions and World Eaters models gain Feel No Pain 5+ against Psychic Attacks and mortal wounds (modeled as FNP 5+ vs mortal wounds; the Psychic-Attacks scope is not separately expressible). Applies to the whole army, so no keyword gate."
   },
   {
     "ability_id": "daemonic-rage",
@@ -3393,36 +3545,185 @@
         "operator": "and",
         "operands": [
           {
-            "type": "phase-is",
+            "type": "timing-is",
             "parameters": {
-              "phase": "command"
+              "timing": "start-of-command-phase"
             }
           },
           {
-            "type": "player-turn-is",
-            "parameters": {
-              "turn": "your-turn"
-            }
+            "operator": "or",
+            "operands": [
+              {
+                "type": "unit-has-keyword",
+                "parameters": {
+                  "keyword": "TITANIC"
+                }
+              },
+              {
+                "type": "unit-has-keyword",
+                "parameters": {
+                  "keyword": "MONSTER"
+                }
+              }
+            ]
           }
         ]
       },
       "effect": {
-        "type": "ability-grant",
-        "target": "all-friendly",
-        "modifier": {
-          "grant_type": "idol-selection"
-        }
+        "type": "choice",
+        "choice_label": "Idols of Khorne",
+        "options": [
+          {
+            "type": "aura",
+            "target": "friendly-within-aura",
+            "modifier": {
+              "range": 6,
+              "effect": {
+                "type": "conditional",
+                "condition": {
+                  "operator": "or",
+                  "operands": [
+                    {
+                      "type": "unit-has-keyword",
+                      "parameters": {
+                        "keyword": "JAKHALS"
+                      }
+                    },
+                    {
+                      "type": "unit-has-keyword",
+                      "parameters": {
+                        "keyword": "GOREMONGERS"
+                      }
+                    }
+                  ]
+                },
+                "effect": {
+                  "type": "sequence",
+                  "steps": [
+                    {
+                      "type": "roll-modifier",
+                      "target": "unit",
+                      "modifier": {
+                        "roll": "hit",
+                        "operation": "add",
+                        "value": 1
+                      }
+                    },
+                    {
+                      "type": "roll-modifier",
+                      "target": "unit",
+                      "modifier": {
+                        "roll": "wound",
+                        "operation": "add",
+                        "value": 1
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "type": "aura",
+            "target": "friendly-within-aura",
+            "modifier": {
+              "range": 6,
+              "effect": {
+                "type": "conditional",
+                "condition": {
+                  "operator": "or",
+                  "operands": [
+                    {
+                      "type": "unit-has-keyword",
+                      "parameters": {
+                        "keyword": "JAKHALS"
+                      }
+                    },
+                    {
+                      "type": "unit-has-keyword",
+                      "parameters": {
+                        "keyword": "GOREMONGERS"
+                      }
+                    }
+                  ]
+                },
+                "effect": {
+                  "type": "sequence",
+                  "steps": [
+                    {
+                      "type": "stat-modifier",
+                      "target": "unit",
+                      "modifier": {
+                        "stat": "M",
+                        "operation": "add",
+                        "value": 1
+                      }
+                    },
+                    {
+                      "type": "roll-modifier",
+                      "target": "unit",
+                      "modifier": {
+                        "roll": "advance",
+                        "operation": "add",
+                        "value": 1
+                      }
+                    },
+                    {
+                      "type": "roll-modifier",
+                      "target": "unit",
+                      "modifier": {
+                        "roll": "charge",
+                        "operation": "add",
+                        "value": 1
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "type": "aura",
+            "target": "friendly-within-aura",
+            "modifier": {
+              "range": 6,
+              "effect": {
+                "type": "conditional",
+                "condition": {
+                  "operator": "or",
+                  "operands": [
+                    {
+                      "type": "unit-has-keyword",
+                      "parameters": {
+                        "keyword": "JAKHALS"
+                      }
+                    },
+                    {
+                      "type": "unit-has-keyword",
+                      "parameters": {
+                        "keyword": "GOREMONGERS"
+                      }
+                    }
+                  ]
+                },
+                "effect": {
+                  "type": "invulnerable-save",
+                  "target": "unit",
+                  "modifier": {
+                    "invuln_sv": 4
+                  }
+                }
+              }
+            }
+          }
+        ]
       }
     },
     "scope": {
-      "range": "any-on-battlefield",
+      "range": "aura-6",
       "duration": "until-next-command-phase"
     },
-    "trigger": {
-      "event": "start-of-phase",
-      "subject": "friendly-unit",
-      "optional": true
-    }
+    "community_notes": "[APPROX] The aura reaches 9\" from TITANIC bearers (modeled at the 6\" base), and each Idol may only be selected once per battle (per-option limit not modeled)."
   },
   {
     "ability_id": "rush-to-the-fray",
@@ -3580,8 +3881,7 @@
       "type": "re-roll",
       "target": "self",
       "modifier": {
-        "roll": "blessings",
-        "max_rerolls": 2,
+        "roll": "blessings-of-khorne",
         "subset": "all-failures"
       }
     },
@@ -3589,7 +3889,12 @@
       "range": "any-on-battlefield",
       "duration": "permanent"
     },
-    "community_notes": "you can re-roll up to two of the D6 in each Blessings of Khorne roll while the bearer is on the battlefield"
+    "community_notes": "[APPROX] Modeled as re-rolling the Blessings of Khorne roll while the bearer is on the battlefield; the cap of re-rolling only up to two of the D6 is not modeled (upper bound).",
+    "applies_to": {
+      "required_keywords": [
+        "World Eaters"
+      ]
+    }
   },
   {
     "ability_id": "battle-lust-berzerker-warband",
@@ -3774,8 +4079,11 @@
       "range": "self",
       "duration": "permanent"
     },
-    "trigger": {
-      "event": "start-of-phase"
+    "applies_to": {
+      "required_keywords": [
+        "World Eaters",
+        "Monster"
+      ]
     }
   },
   {
@@ -3794,19 +4102,41 @@
     "ability_type": "enhancement",
     "behavior": "passive",
     "effect": {
-      "type": "ability-grant",
-      "target": "all-friendly",
-      "modifier": {
-        "grant_type": "redeploy-jakhals-goremongers",
-        "max_units": 3
+      "type": "conditional",
+      "condition": {
+        "type": "timing-is",
+        "parameters": {
+          "timing": "post-deployment"
+        }
+      },
+      "effect": {
+        "type": "select-units",
+        "selector": {
+          "max_count": 3,
+          "keywords": [
+            "Jakhals or Goremongers"
+          ],
+          "owner": "friendly"
+        },
+        "effect": {
+          "type": "movement-modifier",
+          "target": "unit",
+          "modifier": {
+            "move_type": "redeploy",
+            "to_reserves": true
+          }
+        }
       }
     },
     "scope": {
       "range": "any-on-battlefield",
       "duration": "one-use"
     },
-    "trigger": {
-      "event": "start-of-phase"
+    "community_notes": "After both players deploy, redeploy up to three JAKHALS and/or GOREMONGERS units; they may be set up in Strategic Reserves regardless of Reserves limits.",
+    "applies_to": {
+      "required_keywords": [
+        "World Eaters"
+      ]
     }
   },
   {
@@ -3898,26 +4228,64 @@
     "effect": {
       "type": "conditional",
       "condition": {
-        "type": "phase-is",
-        "parameters": {
-          "phase": "shooting"
-        }
+        "operator": "and",
+        "operands": [
+          {
+            "type": "phase-is",
+            "parameters": {
+              "phase": "shooting"
+            }
+          },
+          {
+            "type": "player-turn-is",
+            "parameters": {
+              "turn": "your-turn"
+            }
+          }
+        ]
       },
       "effect": {
-        "type": "ability-grant",
-        "target": "unit",
-        "modifier": {
-          "grant_type": "vehicle-sustained-hits-1"
+        "type": "select-units",
+        "selector": {
+          "max_count": 1,
+          "keywords": [
+            "VEHICLE"
+          ],
+          "owner": "friendly"
+        },
+        "effect": {
+          "type": "designate-target",
+          "designation": "suppressed",
+          "select": {
+            "scope": "enemy-unit",
+            "count": 1,
+            "timing": "after-this-unit-shoots"
+          },
+          "applies": {
+            "to": "target",
+            "effect": {
+              "type": "roll-modifier",
+              "target": "unit",
+              "modifier": {
+                "roll": "hit",
+                "operation": "subtract",
+                "value": 1
+              }
+            }
+          },
+          "duration": "until-next-command-phase"
         }
       }
     },
     "scope": {
       "range": "aura-6",
-      "duration": "phase"
+      "duration": "until-next-command-phase"
     },
-    "trigger": {
-      "event": "start-of-phase",
-      "optional": true
+    "community_notes": "[APPROX] The suppressed unit must have been hit by the selected vehicle's attacks and the vehicle is chosen within 6\" of the bearer (or is its transport); the hit-gate and the 6\" pick are not modeled.",
+    "applies_to": {
+      "required_keywords": [
+        "World Eaters"
+      ]
     }
   },
   {
@@ -3940,24 +4308,26 @@
       "condition": {
         "type": "timing-is",
         "parameters": {
-          "timing": "start-of-phase"
+          "timing": "start-of-fight-phase"
         }
       },
       "effect": {
-        "type": "ability-grant",
-        "target": "unit",
-        "modifier": {
-          "grant_type": "fights-first"
-        }
+        "type": "fight-first",
+        "target": "unit"
       }
     },
     "scope": {
       "range": "unit",
       "duration": "phase"
     },
-    "trigger": {
-      "event": "start-of-phase",
-      "optional": true
+    "usage": {
+      "frequency": "n-per-battle",
+      "count": 1
+    },
+    "applies_to": {
+      "required_keywords": [
+        "World Eaters"
+      ]
     }
   },
   {
@@ -4165,12 +4535,20 @@
           }
         },
         {
-          "type": "resource-gain",
-          "target": "self",
-          "modifier": {
-            "pool_id": "blood-tithe-pool",
-            "amount": 1,
-            "trigger": "auto-on-melee-destroy"
+          "type": "conditional",
+          "condition": {
+            "type": "timing-is",
+            "parameters": {
+              "timing": "enemy-unit-destroyed-in-melee"
+            }
+          },
+          "effect": {
+            "type": "resource-gain",
+            "target": "self",
+            "modifier": {
+              "pool_id": "blood-tithe-pool",
+              "amount": 1
+            }
           }
         }
       ]
@@ -4179,8 +4557,11 @@
       "range": "self",
       "duration": "permanent"
     },
-    "trigger": {
-      "event": "start-of-phase"
+    "community_notes": "Melee weapons get +1 A/S/D; each time the bearer's unit destroys an enemy unit in melee you automatically gain 1 Blood Tithe point (no 3+ roll needed).",
+    "applies_to": {
+      "required_keywords": [
+        "World Eaters"
+      ]
     }
   },
   {
@@ -4199,21 +4580,23 @@
     "ability_type": "enhancement",
     "behavior": "passive",
     "effect": {
-      "type": "stat-modifier",
+      "type": "auto-result",
       "target": "self",
       "modifier": {
-        "stat": "brazen-fury-move",
-        "operation": "set",
-        "value": 6
+        "roll": "brazen-fury",
+        "result": 6
       }
     },
     "scope": {
       "range": "self",
       "duration": "permanent"
     },
-    "trigger": {
-      "event": "start-of-phase"
-    }
+    "applies_to": {
+      "required_keywords": [
+        "Slaughterbound"
+      ]
+    },
+    "community_notes": "Each Brazen Fury move made by the bearer's unit counts as having rolled a 6 for its distance."
   },
   {
     "ability_id": "killing-clarity-possessed-slaughterband",
@@ -4405,10 +4788,10 @@
       "type": "sequence",
       "steps": [
         {
-          "type": "keyword-grant",
+          "type": "ability-grant",
           "target": "self",
           "modifier": {
-            "keyword": "Mobile"
+            "grant_type": "mobile"
           }
         },
         {
@@ -4425,9 +4808,12 @@
       "range": "self",
       "duration": "permanent"
     },
-    "community_notes": "WORLD EATERS DAEMON PRINCE model only: the model gains MOBILE and +1 to charge rolls.",
-    "trigger": {
-      "event": "start-of-phase"
+    "community_notes": "WORLD EATERS DAEMON PRINCE model only: the bearer has MOBILE and adds 1 to Charge rolls.",
+    "applies_to": {
+      "required_keywords": [
+        "World Eaters",
+        "Daemon Prince"
+      ]
     }
   },
   {
@@ -4446,13 +4832,22 @@
     "ability_type": "stratagem",
     "behavior": "activated",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {
-        "stat": "AP",
-        "operation": "improve",
-        "value": 1,
-        "attack_type": "melee"
+      "type": "conditional",
+      "condition": {
+        "type": "phase-is",
+        "parameters": {
+          "phase": "fight"
+        }
+      },
+      "effect": {
+        "type": "stat-modifier",
+        "target": "unit",
+        "modifier": {
+          "stat": "AP",
+          "operation": "improve",
+          "value": 1,
+          "attack_type": "melee"
+        }
       }
     },
     "scope": {
@@ -4462,7 +4857,13 @@
     "trigger": {
       "event": "on-unit-selected",
       "optional": true
-    }
+    },
+    "applies_to": {
+      "required_keywords": [
+        "World Eaters"
+      ]
+    },
+    "community_notes": "[APPROX] The unit must have made a Charge move this turn and must not yet have been selected to fight this phase; both preconditions are left out of the effect tree so the stratagem stays a toggleable lever for the cruncher."
   },
   {
     "ability_id": "frenzied-resilience-berzerker-warband",
@@ -4729,20 +5130,81 @@
     "ability_type": "stratagem",
     "behavior": "activated",
     "effect": {
-      "type": "ability-grant",
-      "target": "unit",
-      "modifier": {
-        "grant_type": "deadly-demise-on-destruction"
+      "type": "conditional",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          {
+            "type": "timing-is",
+            "parameters": {
+              "timing": "on-unit-destroyed"
+            }
+          },
+          {
+            "operator": "or",
+            "operands": [
+              {
+                "type": "unit-has-keyword",
+                "parameters": {
+                  "keyword": "MONSTER"
+                }
+              },
+              {
+                "type": "unit-has-keyword",
+                "parameters": {
+                  "keyword": "TITANIC"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "effect": {
+        "type": "designate-target",
+        "designation": "bloody-vengeance",
+        "select": {
+          "scope": "enemy-unit",
+          "count": 1
+        },
+        "applies": {
+          "to": "attackers-of-target",
+          "effect": {
+            "type": "conditional",
+            "condition": {
+              "operator": "or",
+              "operands": [
+                {
+                  "type": "unit-has-keyword",
+                  "parameters": {
+                    "keyword": "JAKHALS"
+                  }
+                },
+                {
+                  "type": "unit-has-keyword",
+                  "parameters": {
+                    "keyword": "GOREMONGERS"
+                  }
+                }
+              ]
+            },
+            "effect": {
+              "type": "re-roll",
+              "target": "unit",
+              "modifier": {
+                "roll": "hit",
+                "subset": "all-failures"
+              }
+            }
+          }
+        },
+        "duration": "battle"
       }
     },
     "scope": {
-      "range": "unit",
-      "duration": "phase"
+      "range": "any-on-battlefield",
+      "duration": "battle"
     },
-    "trigger": {
-      "event": "on-unit-destroyed",
-      "optional": true
-    }
+    "community_notes": "[APPROX] The marked unit must be the enemy unit that just destroyed your MONSTER/TITANIC (modeled as selecting one enemy unit)."
   },
   {
     "ability_id": "brazen-idol-cult-of-blood",
@@ -4760,10 +5222,67 @@
     "ability_type": "stratagem",
     "behavior": "activated",
     "effect": {
-      "type": "ability-grant",
-      "target": "unit",
-      "modifier": {
-        "grant_type": "extra-idol-activation"
+      "type": "conditional",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          {
+            "type": "phase-is",
+            "parameters": {
+              "phase": "command"
+            }
+          },
+          {
+            "type": "player-turn-is",
+            "parameters": {
+              "turn": "your-turn"
+            }
+          },
+          {
+            "operator": "or",
+            "operands": [
+              {
+                "type": "unit-has-keyword",
+                "parameters": {
+                  "keyword": "MONSTER"
+                }
+              },
+              {
+                "type": "unit-has-keyword",
+                "parameters": {
+                  "keyword": "TITANIC"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "effect": {
+        "type": "choice",
+        "choice_label": "Idols of Khorne",
+        "options": [
+          {
+            "type": "ability-grant",
+            "target": "unit",
+            "modifier": {
+              "grant_type": "idol-of-infinite-rage"
+            }
+          },
+          {
+            "type": "ability-grant",
+            "target": "unit",
+            "modifier": {
+              "grant_type": "idol-of-burning-wrath"
+            }
+          },
+          {
+            "type": "ability-grant",
+            "target": "unit",
+            "modifier": {
+              "grant_type": "idol-of-blessed-blood"
+            }
+          }
+        ]
       }
     },
     "scope": {
@@ -4773,6 +5292,16 @@
     "trigger": {
       "event": "on-unit-selected",
       "optional": true
+    },
+    "usage": {
+      "frequency": "n-per-battle",
+      "count": 1
+    },
+    "community_notes": "[APPROX] The selected Idol is active for this unit instead of any other active Idol and may repeat an already-used Idol; the grant_type slugs are display labels for the three Idols of Khorne auras (see idols-of-khorne), not ability_id references.",
+    "applies_to": {
+      "required_keywords": [
+        "World Eaters"
+      ]
     }
   },
   {
@@ -4937,10 +5466,38 @@
     "ability_type": "stratagem",
     "behavior": "activated",
     "effect": {
-      "type": "ability-grant",
-      "target": "unit",
-      "modifier": {
-        "grant_type": "embark-after-fight"
+      "type": "conditional",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          {
+            "type": "phase-is",
+            "parameters": {
+              "phase": "fight"
+            }
+          },
+          {
+            "type": "timing-is",
+            "parameters": {
+              "timing": "end-of-phase"
+            }
+          },
+          {
+            "type": "unit-within-range-of",
+            "parameters": {
+              "target_type": "friendly-keyword",
+              "keyword": "TRANSPORT",
+              "range": 6
+            }
+          }
+        ]
+      },
+      "effect": {
+        "type": "ability-grant",
+        "target": "unit",
+        "modifier": {
+          "grant_type": "embark-in-transport"
+        }
       }
     },
     "scope": {
@@ -4950,7 +5507,14 @@
     "trigger": {
       "event": "on-unit-selected",
       "optional": true
-    }
+    },
+    "applies_to": {
+      "required_keywords": [
+        "World Eaters",
+        "Infantry"
+      ]
+    },
+    "community_notes": "[APPROX] The unit must be WHOLLY within 6\" of the selected transport (modeled as within 6\"), and the transport must be one it is able to embark within."
   },
   {
     "ability_id": "smash-through-goretrack-onslaught",
@@ -5027,11 +5591,31 @@
     "ability_type": "stratagem",
     "behavior": "activated",
     "effect": {
-      "type": "disembark",
-      "target": "unit",
-      "modifier": {
-        "distance": 6,
-        "allow_engagement_range": true
+      "type": "conditional",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          {
+            "type": "phase-is",
+            "parameters": {
+              "phase": "movement"
+            }
+          },
+          {
+            "type": "player-turn-is",
+            "parameters": {
+              "turn": "your-turn"
+            }
+          }
+        ]
+      },
+      "effect": {
+        "type": "disembark",
+        "target": "unit",
+        "modifier": {
+          "distance": 6,
+          "allow_engagement_range": true
+        }
       }
     },
     "scope": {
@@ -5043,7 +5627,13 @@
       "subject": "friendly-unit",
       "optional": true
     },
-    "community_notes": "A unit embarked in the Rhino disembarks and is set up wholly within 6\" of it (extending the default 3\"), and may be set up within Engagement Range of enemies. Stratagem: target a World Eaters Rhino that has not been selected to move this phase (the stationary-transport precondition is not expressible in the DSL target vocabulary)."
+    "community_notes": "[APPROX] The Rhino must not have been selected to move this phase (precondition not modeled). The disembarking unit sets up wholly within 6\" of the Rhino and may be placed within Engagement Range.",
+    "applies_to": {
+      "required_keywords": [
+        "World Eaters",
+        "Rhino"
+      ]
+    }
   },
   {
     "ability_id": "full-throttle-assault-goretrack-onslaught",
@@ -5361,21 +5951,72 @@
     "ability_type": "stratagem",
     "behavior": "activated",
     "effect": {
-      "type": "resource-gain",
-      "target": "self",
-      "modifier": {
-        "pool_id": "blood-tithe-pool",
-        "amount": 1
+      "type": "conditional",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          {
+            "type": "phase-is",
+            "parameters": {
+              "phase": "fight"
+            }
+          },
+          {
+            "type": "timing-is",
+            "parameters": {
+              "timing": "enemy-unit-destroyed-in-melee"
+            }
+          },
+          {
+            "operator": "or",
+            "operands": [
+              {
+                "type": "target-has-keyword",
+                "parameters": {
+                  "keyword": "CHARACTER"
+                }
+              },
+              {
+                "type": "target-has-keyword",
+                "parameters": {
+                  "keyword": "MONSTER"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "effect": {
+        "type": "sequence",
+        "steps": [
+          {
+            "type": "resource-gain",
+            "target": "self",
+            "modifier": {
+              "pool_id": "blood-tithe-pool",
+              "amount": "D3"
+            }
+          },
+          {
+            "type": "resource-spend",
+            "target": "self",
+            "modifier": {
+              "pool_id": "blood-tithe-pool",
+              "amount": "one or more"
+            }
+          }
+        ]
       }
     },
     "scope": {
       "range": "unit",
-      "duration": "phase"
+      "duration": "permanent"
     },
     "trigger": {
       "event": "on-unit-selected",
       "optional": true
-    }
+    },
+    "community_notes": "[APPROX] The follow-on 'spend one or more BTP to activate one of the Blood Tithe abilities' is modeled as an unquantified resource-spend without naming the activated ability."
   },
   {
     "ability_id": "summoned-by-slaughter-khorne-daemonkin",
@@ -5409,7 +6050,7 @@
       "event": "on-unit-destroyed",
       "optional": true
     },
-    "community_notes": "Set up a Bloodletters unit from Reserves wholly within 9\" of the destroyed model and more than 6\" from enemy units, once per battle round. Modeled with resurrection \u2014 the local blood-legions summon pattern (cf. daemontide); the Reserves origin, 9\"/>6\" placement, and once-per-battle-round limit are recorded here rather than in the effect shape."
+    "community_notes": "Set up a Bloodletters unit from Reserves wholly within 9\" of the destroyed model and more than 6\" from enemy units, once per battle round. Modeled with resurrection — the local blood-legions summon pattern (cf. daemontide); the Reserves origin, 9\"/>6\" placement, and once-per-battle-round limit are recorded here rather than in the effect shape."
   },
   {
     "ability_id": "daemontide-khorne-daemonkin",
@@ -5427,11 +6068,76 @@
     "ability_type": "stratagem",
     "behavior": "activated",
     "effect": {
-      "type": "resurrection",
-      "target": "friendly-within-aura",
-      "modifier": {
-        "count": "variable",
-        "model_type": "blood-legions"
+      "type": "conditional",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          {
+            "type": "phase-is",
+            "parameters": {
+              "phase": "command"
+            }
+          },
+          {
+            "type": "player-turn-is",
+            "parameters": {
+              "turn": "your-turn"
+            }
+          }
+        ]
+      },
+      "effect": {
+        "type": "choice",
+        "options": [
+          {
+            "type": "conditional",
+            "condition": {
+              "type": "unit-has-keyword",
+              "parameters": {
+                "keyword": "MOUNTED"
+              }
+            },
+            "effect": {
+              "type": "resurrection",
+              "target": "friendly-within-aura",
+              "modifier": {
+                "count": 1
+              }
+            }
+          },
+          {
+            "type": "conditional",
+            "condition": {
+              "type": "unit-has-keyword",
+              "parameters": {
+                "keyword": "BEAST"
+              }
+            },
+            "effect": {
+              "type": "resurrection",
+              "target": "friendly-within-aura",
+              "modifier": {
+                "count": "D3"
+              }
+            }
+          },
+          {
+            "type": "conditional",
+            "condition": {
+              "type": "unit-has-keyword",
+              "parameters": {
+                "keyword": "INFANTRY"
+              }
+            },
+            "effect": {
+              "type": "resurrection",
+              "target": "friendly-within-aura",
+              "modifier": {
+                "count": "D6"
+              }
+            }
+          }
+        ]
       }
     },
     "scope": {
@@ -5441,7 +6147,13 @@
     "trigger": {
       "event": "on-unit-selected",
       "optional": true
-    }
+    },
+    "applies_to": {
+      "required_keywords": [
+        "Blood Legions"
+      ]
+    },
+    "community_notes": "[APPROX] Destroyed CHARACTER models cannot be returned to Attached units (restriction not modeled). Returned models go to one BLOOD LEGIONS unit within 6\" of the stratagem's target."
   },
   {
     "ability_id": "murder-call-khorne-daemonkin",
@@ -5701,25 +6413,44 @@
     "ability_type": "stratagem",
     "behavior": "activated",
     "effect": {
-      "type": "sequence",
-      "steps": [
-        {
-          "type": "engagement-passthrough",
-          "target": "unit",
-          "modifier": {
-            "no_end_in_engagement": true,
-            "excludes_keyword": "Monster or Vehicle"
+      "type": "conditional",
+      "condition": {
+        "operator": "or",
+        "operands": [
+          {
+            "type": "phase-is",
+            "parameters": {
+              "phase": "movement"
+            }
+          },
+          {
+            "type": "phase-is",
+            "parameters": {
+              "phase": "charge"
+            }
           }
-        },
-        {
-          "type": "auto-result",
-          "target": "unit",
-          "modifier": {
-            "test": "desperate-escape",
-            "result": "pass"
+        ]
+      },
+      "effect": {
+        "type": "sequence",
+        "steps": [
+          {
+            "type": "engagement-passthrough",
+            "target": "unit",
+            "modifier": {
+              "no_end_in_engagement": true
+            }
+          },
+          {
+            "type": "auto-result",
+            "target": "unit",
+            "modifier": {
+              "test": "desperate-escape",
+              "result": "pass"
+            }
           }
-        }
-      ]
+        ]
+      }
     },
     "scope": {
       "range": "unit",
@@ -5727,10 +6458,11 @@
     },
     "applies_to": {
       "required_keywords": [
+        "World Eaters",
         "Possessed"
       ]
     },
-    "community_notes": "applies to Normal, Advance, Fall Back and Charge moves; a Charge move may end within Engagement Range; usable in your Movement or Charge phase"
+    "community_notes": "[APPROX] Move-through excludes enemy MONSTER and VEHICLE models, and a Charge move may end within Engagement Range (both nuances not modeled). Applies to Normal, Advance, Fall Back and Charge moves; the unit must not have been selected to move or declare a charge this phase."
   },
   {
     "ability_id": "horrifying-violence-possessed-slaughterband",
@@ -5748,11 +6480,44 @@
     "ability_type": "stratagem",
     "behavior": "activated",
     "effect": {
-      "type": "leadership-modifier",
-      "target": "enemy-within-aura",
-      "modifier": {
-        "operation": "battle-shock-test",
-        "bonus_if_below_half": -1
+      "type": "conditional",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          {
+            "type": "phase-is",
+            "parameters": {
+              "phase": "command"
+            }
+          },
+          {
+            "type": "player-turn-is",
+            "parameters": {
+              "turn": "opponent-turn"
+            }
+          }
+        ]
+      },
+      "effect": {
+        "type": "sequence",
+        "steps": [
+          {
+            "type": "leadership-modifier",
+            "target": "enemy-within-aura",
+            "modifier": {
+              "test": "battle-shock"
+            }
+          },
+          {
+            "type": "leadership-modifier",
+            "target": "enemy-within-aura",
+            "modifier": {
+              "test": "battle-shock",
+              "operation": "subtract",
+              "value": 1
+            }
+          }
+        ]
       }
     },
     "scope": {
@@ -5763,6 +6528,12 @@
       "event": "on-unit-selected",
       "subject": "friendly-unit",
       "optional": true
+    },
+    "applies_to": {
+      "required_keywords": [
+        "World Eaters",
+        "Possessed"
+      ]
     }
   },
   {
@@ -5781,29 +6552,38 @@
     "ability_type": "stratagem",
     "behavior": "activated",
     "effect": {
-      "type": "sequence",
-      "steps": [
-        {
-          "type": "stat-modifier",
-          "target": "unit",
-          "modifier": {
-            "stat": "A",
-            "operation": "add",
-            "value": 1,
-            "attack_type": "melee"
-          }
-        },
-        {
-          "type": "stat-modifier",
-          "target": "unit",
-          "modifier": {
-            "stat": "S",
-            "operation": "add",
-            "value": 2,
-            "attack_type": "melee"
-          }
+      "type": "conditional",
+      "condition": {
+        "type": "timing-is",
+        "parameters": {
+          "timing": "selected-to-fight"
         }
-      ]
+      },
+      "effect": {
+        "type": "sequence",
+        "steps": [
+          {
+            "type": "stat-modifier",
+            "target": "unit",
+            "modifier": {
+              "stat": "A",
+              "operation": "add",
+              "value": 1,
+              "attack_type": "melee"
+            }
+          },
+          {
+            "type": "stat-modifier",
+            "target": "unit",
+            "modifier": {
+              "stat": "S",
+              "operation": "add",
+              "value": 2,
+              "attack_type": "melee"
+            }
+          }
+        ]
+      }
     },
     "scope": {
       "range": "unit",
@@ -5812,7 +6592,17 @@
     "trigger": {
       "event": "on-unit-selected",
       "optional": true
-    }
+    },
+    "applies_to": {
+      "required_keywords": [
+        "World Eaters",
+        "Character"
+      ],
+      "excluded_keywords": [
+        "Epic Hero"
+      ]
+    },
+    "community_notes": "[APPROX] Only the unit's CHARACTER models' melee attacks gain +1 A / +2 S; modeled unit-wide."
   },
   {
     "ability_id": "punish-the-craven-vessels-of-wrath",
@@ -5885,36 +6675,68 @@
     "ability_type": "detachment",
     "behavior": "passive",
     "effect": {
-      "type": "conditional",
-      "condition": {
-        "operator": "and",
-        "operands": [
-          {
-            "type": "phase-is",
-            "parameters": {
-              "phase": "fight"
-            }
+      "type": "sequence",
+      "steps": [
+        {
+          "type": "ability-grant",
+          "target": "all-friendly",
+          "modifier": {
+            "grant_type": "terror-of-khorne"
+          }
+        },
+        {
+          "type": "conditional",
+          "condition": {
+            "operator": "and",
+            "operands": [
+              {
+                "type": "phase-is",
+                "parameters": {
+                  "phase": "fight"
+                }
+              },
+              {
+                "type": "timing-is",
+                "parameters": {
+                  "timing": "start-of-phase"
+                }
+              }
+            ]
           },
-          {
-            "type": "timing-is",
-            "parameters": {
-              "timing": "start-of-phase"
+          "effect": {
+            "type": "select-units",
+            "selector": {
+              "max_count": 1,
+              "owner": "enemy"
+            },
+            "effect": {
+              "type": "sequence",
+              "steps": [
+                {
+                  "type": "leadership-modifier",
+                  "target": "unit",
+                  "modifier": {
+                    "test": "battle-shock"
+                  }
+                },
+                {
+                  "type": "leadership-modifier",
+                  "target": "unit",
+                  "modifier": {
+                    "test": "battle-shock",
+                    "operation": "subtract",
+                    "value": 1
+                  }
+                }
+              ]
             }
           }
-        ]
-      },
-      "effect": {
-        "type": "leadership-modifier",
-        "target": "enemy-within-aura",
-        "modifier": {
-          "test": "battle-shock",
-          "penalty": -1
         }
-      }
+      ]
     },
     "scope": {
       "range": "engagement-range",
-      "duration": "phase"
+      "duration": "permanent"
     },
     "applies_to": {
       "required_keywords": [
@@ -5922,7 +6744,7 @@
         "Vehicle"
       ]
     },
-    "community_notes": "Grants friendly DAEMON VEHICLE units the Terror of Khorne ability: at the start of the Fight phase, force a battle-shock test at -1 on one engaged enemy unit (once per enemy per phase). ONSLAUGHT detachment."
+    "community_notes": "[APPROX] The same enemy unit cannot be selected for this effect more than once per phase (cap not modeled). Grants friendly DAEMON VEHICLE units the Terror of Khorne ability; BRAZEN ENGINES is an onslaught detachment and cannot be combined with another onslaught detachment."
   },
   {
     "ability_id": "talons-of-butchery-brazen-engines",
@@ -6003,16 +6825,42 @@
     "ability_type": "stratagem",
     "behavior": "activated",
     "effect": {
-      "type": "roll-modifier",
-      "target": "unit",
-      "modifier": {
-        "operation": "ignore-modifiers",
-        "roll": "BS, WS, Hit and Wound"
+      "type": "conditional",
+      "condition": {
+        "operator": "or",
+        "operands": [
+          {
+            "type": "phase-is",
+            "parameters": {
+              "phase": "shooting"
+            }
+          },
+          {
+            "type": "phase-is",
+            "parameters": {
+              "phase": "fight"
+            }
+          }
+        ]
+      },
+      "effect": {
+        "type": "roll-modifier",
+        "target": "unit",
+        "modifier": {
+          "operation": "ignore-modifiers",
+          "roll": "BS, WS, Hit and Wound"
+        }
       }
     },
     "scope": {
       "range": "unit",
       "duration": "phase"
+    },
+    "applies_to": {
+      "required_keywords": [
+        "Daemon",
+        "Vehicle"
+      ]
     }
   },
   {
@@ -6031,15 +6879,41 @@
     "ability_type": "stratagem",
     "behavior": "activated",
     "effect": {
-      "type": "keyword-grant",
-      "target": "unit",
-      "modifier": {
-        "keyword": "Mobile"
+      "type": "conditional",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          {
+            "type": "phase-is",
+            "parameters": {
+              "phase": "movement"
+            }
+          },
+          {
+            "type": "player-turn-is",
+            "parameters": {
+              "turn": "your-turn"
+            }
+          }
+        ]
+      },
+      "effect": {
+        "type": "ability-grant",
+        "target": "unit",
+        "modifier": {
+          "grant_type": "mobile"
+        }
       }
     },
     "scope": {
       "range": "unit",
       "duration": "phase"
+    },
+    "applies_to": {
+      "required_keywords": [
+        "Daemon",
+        "Vehicle"
+      ]
     }
   },
   {

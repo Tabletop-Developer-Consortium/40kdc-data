@@ -4837,7 +4837,7 @@
       "edition": "11th",
       "dataslate": "launch"
     },
-    "is_free": true,
+    "is_free": false,
     "replaces": [
       "twin-fragstorm-grenade-launcher",
       "heavy-flamer",
@@ -4849,7 +4849,8 @@
     ],
     "model_constraint": {
       "max_count": 1
-    }
+    },
+    "additional_cost": 10
   },
   {
     "id": "redemptor-dreadnought-wgo-mfm-3",
@@ -6423,7 +6424,7 @@
       "edition": "11th",
       "dataslate": "launch"
     },
-    "is_free": true,
+    "is_free": false,
     "replaces": [
       "storm-bolter-wolf-guard-terminators"
     ],
@@ -6433,7 +6434,8 @@
     "model_constraint": {
       "model_name": "Wolf Guard Terminator",
       "any_number": true
-    }
+    },
+    "additional_cost": 5
   },
   {
     "id": "wolf-guard-terminators-wgo-mfm-2",
@@ -6491,7 +6493,7 @@
       "edition": "11th",
       "dataslate": "launch"
     },
-    "is_free": true,
+    "is_free": false,
     "replaces": [
       "storm-bolter-wolf-guard-terminators"
     ],
@@ -6501,7 +6503,8 @@
     "model_constraint": {
       "model_name": "Wolf Guard Terminator Pack Leader",
       "max_count": 1
-    }
+    },
+    "additional_cost": 5
   },
   {
     "id": "wulfen-dreadnought-wgo-mfm-1",

@@ -937,7 +937,7 @@
       "edition": "11th",
       "dataslate": "launch"
     },
-    "is_free": true,
+    "is_free": false,
     "replaces": [
       "suncannon",
       "titanic-feet",
@@ -949,7 +949,8 @@
     ],
     "model_constraint": {
       "max_count": 1
-    }
+    },
+    "additional_cost": 20
   },
   {
     "id": "wraithknight-wgo-mfm-3",
@@ -959,7 +960,7 @@
       "edition": "11th",
       "dataslate": "launch"
     },
-    "is_free": true,
+    "is_free": false,
     "replaces": [
       "titanic-feet",
       "scattershield"
@@ -969,7 +970,8 @@
     ],
     "model_constraint": {
       "max_count": 1
-    }
+    },
+    "additional_cost": 10
   },
   {
     "id": "wraithknight-wgo-mfm-4",
@@ -979,7 +981,7 @@
       "edition": "11th",
       "dataslate": "launch"
     },
-    "is_free": true,
+    "is_free": false,
     "replaces": [
       "suncannon",
       "titanic-feet"
@@ -989,7 +991,8 @@
     ],
     "model_constraint": {
       "max_count": 1
-    }
+    },
+    "additional_cost": 10
   },
   {
     "id": "ynnari-reavers-wgo-mfm-1",

@@ -148,7 +148,7 @@
       "edition": "11th",
       "dataslate": "launch"
     },
-    "is_free": true,
+    "is_free": false,
     "replaces": [
       "twin-iliastus-accelerator-cannon",
       "twin-lastrum-bolt-cannon",
@@ -159,7 +159,8 @@
     ],
     "model_constraint": {
       "max_count": 1
-    }
+    },
+    "additional_cost": 15
   },
   {
     "id": "allarus-custodians-wgo-mfm-1",

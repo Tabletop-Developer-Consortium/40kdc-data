@@ -7,7 +7,7 @@
       "edition": "11th",
       "dataslate": "launch"
     },
-    "is_free": true,
+    "is_free": false,
     "replaces": [
       "plasma-rifle",
       "battlesuit-fists"
@@ -18,7 +18,8 @@
     "model_constraint": {
       "model_name": "Crisis Fireknife Shas’vre",
       "max_count": 1
-    }
+    },
+    "additional_cost": 5
   },
   {
     "id": "crisis-fireknife-battlesuits-wgo-mfm-2",
@@ -109,7 +110,7 @@
       "edition": "11th",
       "dataslate": "launch"
     },
-    "is_free": true,
+    "is_free": false,
     "replaces": [
       "plasma-rifle",
       "battlesuit-fists"
@@ -120,7 +121,8 @@
     "model_constraint": {
       "model_name": "Crisis Fireknife Shas’ui",
       "any_number": true
-    }
+    },
+    "additional_cost": 5
   },
   {
     "id": "crisis-fireknife-battlesuits-wgo-mfm-6",
@@ -635,7 +637,7 @@
       "edition": "11th",
       "dataslate": "launch"
     },
-    "is_free": true,
+    "is_free": false,
     "replaces": [
       "burst-cannon",
       "battlesuit-fists"
@@ -646,7 +648,8 @@
     "model_constraint": {
       "model_name": "Crisis Starscythe Shas’ui",
       "any_number": true
-    }
+    },
+    "additional_cost": 5
   },
   {
     "id": "crisis-starscythe-battlesuits-wgo-mfm-3",
@@ -677,7 +680,7 @@
       "edition": "11th",
       "dataslate": "launch"
     },
-    "is_free": true,
+    "is_free": false,
     "replaces": [
       "burst-cannon",
       "battlesuit-fists"
@@ -688,7 +691,8 @@
     "model_constraint": {
       "model_name": "Crisis Starscythe Shas’vre",
       "max_count": 1
-    }
+    },
+    "additional_cost": 5
   },
   {
     "id": "crisis-starscythe-battlesuits-wgo-mfm-5",
@@ -977,7 +981,7 @@
       "edition": "11th",
       "dataslate": "launch"
     },
-    "is_free": true,
+    "is_free": false,
     "replaces": [
       "heavy-burst-cannon",
       "twin-plasma-rifle",
@@ -988,7 +992,8 @@
     ],
     "model_constraint": {
       "max_count": 1
-    }
+    },
+    "additional_cost": 20
   },
   {
     "id": "riptide-battlesuit-wgo-mfm-2",
@@ -1064,7 +1069,7 @@
       "edition": "11th",
       "dataslate": "launch"
     },
-    "is_free": true,
+    "is_free": false,
     "replaces": [
       "fusion-collider",
       "twin-tau-flamer",
@@ -1075,7 +1080,8 @@
     ],
     "model_constraint": {
       "max_count": 1
-    }
+    },
+    "additional_cost": 10
   },
   {
     "id": "ghostkeel-battlesuit-wgo-mfm-3",
@@ -1365,7 +1371,7 @@
       "edition": "11th",
       "dataslate": "launch"
     },
-    "is_free": true,
+    "is_free": false,
     "replaces": [
       "heavy-rail-rifle",
       "crushing-bulk"
@@ -1375,7 +1381,8 @@
     ],
     "model_constraint": {
       "max_count": 1
-    }
+    },
+    "additional_cost": 5
   },
   {
     "id": "broadside-battlesuits-wgo-mfm-2",
@@ -1413,7 +1420,7 @@
       "edition": "11th",
       "dataslate": "launch"
     },
-    "is_free": true,
+    "is_free": false,
     "replaces": [
       "crushing-bulk",
       "heavy-rail-rifle"
@@ -1423,7 +1430,8 @@
     ],
     "model_constraint": {
       "any_number": true
-    }
+    },
+    "additional_cost": 5
   },
   {
     "id": "broadside-battlesuits-wgo-mfm-4",

@@ -136,7 +136,15 @@
     "points": [
       {
         "models": 1,
-        "cost": 80
+        "cost": 95,
+        "unit_count_min": 1,
+        "unit_count_max": 2
+      },
+      {
+        "models": 1,
+        "cost": 105,
+        "unit_count_min": 3,
+        "unit_count_max": null
       }
     ],
     "keywords": [
@@ -179,7 +187,6 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false,
     "attachment_role": "leader"
   },
   {
@@ -304,7 +311,7 @@
     "points": [
       {
         "models": 1,
-        "cost": 60
+        "cost": 85
       }
     ],
     "keywords": [
@@ -347,7 +354,6 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false,
     "attachment_role": "leader"
   },
   {
@@ -1089,7 +1095,7 @@
     "points": [
       {
         "models": 2,
-        "cost": 60
+        "cost": 95
       }
     ],
     "keywords": [
@@ -1132,8 +1138,7 @@
       "edition": "11th",
       "dataslate": "launch"
     },
-    "is_legend": false,
-    "points_provisional": false
+    "is_legend": false
   },
   {
     "id": "chaos-predator-annihilator",
@@ -1508,13 +1513,13 @@
     "points": [
       {
         "models": 1,
-        "cost": 300,
+        "cost": 270,
         "unit_count_min": 1,
         "unit_count_max": 1
       },
       {
         "models": 1,
-        "cost": 330,
+        "cost": 300,
         "unit_count_min": 2,
         "unit_count_max": null
       }
@@ -1566,8 +1571,7 @@
       "edition": "11th",
       "dataslate": "launch"
     },
-    "is_legend": false,
-    "points_provisional": false
+    "is_legend": false
   },
   {
     "id": "chaos-predator-destructor",
@@ -1588,13 +1592,13 @@
     "points": [
       {
         "models": 1,
-        "cost": 140,
+        "cost": 135,
         "unit_count_min": 1,
         "unit_count_max": 2
       },
       {
         "models": 1,
-        "cost": 150,
+        "cost": 145,
         "unit_count_min": 3,
         "unit_count_max": null
       }
@@ -1638,8 +1642,7 @@
       "edition": "11th",
       "dataslate": "launch"
     },
-    "is_legend": false,
-    "points_provisional": false
+    "is_legend": false
   },
   {
     "id": "chosen",
@@ -1985,7 +1988,7 @@
       },
       {
         "models": 1,
-        "cost": 170,
+        "cost": 175,
         "unit_count_min": 3,
         "unit_count_max": null
       }
@@ -2027,8 +2030,7 @@
       "edition": "11th",
       "dataslate": "launch"
     },
-    "is_legend": false,
-    "points_provisional": false
+    "is_legend": false
   },
   {
     "id": "warpsmith",
@@ -2252,7 +2254,7 @@
     "points": [
       {
         "models": 1,
-        "cost": 70
+        "cost": 60
       }
     ],
     "keywords": [
@@ -2290,7 +2292,6 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false,
     "attachment_role": "support"
   },
   {
@@ -2395,7 +2396,7 @@
     "points": [
       {
         "models": 1,
-        "cost": 130
+        "cost": 120
       }
     ],
     "keywords": [
@@ -2445,8 +2446,7 @@
       "edition": "11th",
       "dataslate": "launch"
     },
-    "is_legend": false,
-    "points_provisional": false
+    "is_legend": false
   },
   {
     "id": "chaos-lord-with-jump-pack",
@@ -2751,12 +2751,6 @@
         "cost": 135,
         "unit_count_min": 3,
         "unit_count_max": null
-      },
-      {
-        "models": 10,
-        "cost": 290,
-        "unit_count_min": 3,
-        "unit_count_max": null
       }
     ],
     "keywords": [
@@ -2789,8 +2783,7 @@
       "edition": "11th",
       "dataslate": "launch"
     },
-    "is_legend": false,
-    "points_provisional": false
+    "is_legend": false
   },
   {
     "id": "fellgor-beastmen",
@@ -2886,7 +2879,15 @@
     "points": [
       {
         "models": 1,
-        "cost": 130
+        "cost": 145,
+        "unit_count_min": 1,
+        "unit_count_max": 2
+      },
+      {
+        "models": 1,
+        "cost": 155,
+        "unit_count_min": 3,
+        "unit_count_max": null
       }
     ],
     "keywords": [
@@ -2927,8 +2928,7 @@
       "edition": "11th",
       "dataslate": "launch"
     },
-    "is_legend": false,
-    "points_provisional": false
+    "is_legend": false
   },
   {
     "id": "chaos-rhino",
@@ -2950,7 +2950,7 @@
     "points": [
       {
         "models": 1,
-        "cost": 75
+        "cost": 85
       }
     ],
     "keywords": [
@@ -3000,8 +3000,7 @@
       "edition": "11th",
       "dataslate": "launch"
     },
-    "is_legend": false,
-    "points_provisional": false
+    "is_legend": false
   },
   {
     "id": "legionaries",
@@ -3640,13 +3639,13 @@
     "points": [
       {
         "models": 1,
-        "cost": 450,
+        "cost": 505,
         "unit_count_min": 1,
         "unit_count_max": 1
       },
       {
         "models": 1,
-        "cost": 475,
+        "cost": 535,
         "unit_count_min": 2,
         "unit_count_max": null
       }
@@ -3689,8 +3688,7 @@
       "edition": "11th",
       "dataslate": "launch"
     },
-    "is_legend": false,
-    "points_provisional": false
+    "is_legend": false
   },
   {
     "id": "mutilators",

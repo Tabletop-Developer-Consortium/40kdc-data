@@ -711,6 +711,24 @@
         "cost": 80,
         "unit_count_min": 1,
         "unit_count_max": 2
+      },
+      {
+        "models": 10,
+        "cost": 160,
+        "unit_count_min": 1,
+        "unit_count_max": 2
+      },
+      {
+        "models": 5,
+        "cost": 90,
+        "unit_count_min": 3,
+        "unit_count_max": null
+      },
+      {
+        "models": 10,
+        "cost": 170,
+        "unit_count_min": 3,
+        "unit_count_max": null
       }
     ],
     "keywords": [
@@ -740,8 +758,7 @@
       "edition": "11th",
       "dataslate": "launch"
     },
-    "is_legend": false,
-    "points_provisional": false
+    "is_legend": false
   },
   {
     "id": "fire-dragons",
@@ -3084,16 +3101,8 @@
     ],
     "points": [
       {
-        "models": 5,
-        "cost": 90,
-        "unit_count_min": 3,
-        "unit_count_max": null
-      },
-      {
-        "models": 10,
-        "cost": 170,
-        "unit_count_min": 3,
-        "unit_count_max": null
+        "models": 1,
+        "cost": 115
       }
     ],
     "keywords": [
@@ -3129,8 +3138,7 @@
       "edition": "11th",
       "dataslate": "launch"
     },
-    "is_legend": false,
-    "points_provisional": false
+    "is_legend": false
   },
   {
     "id": "shroud-runners",

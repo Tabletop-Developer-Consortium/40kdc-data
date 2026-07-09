@@ -1273,7 +1273,7 @@
       "edition": "11th",
       "dataslate": "launch"
     },
-    "is_free": true,
+    "is_free": false,
     "replaces": [
       "hades-autocannon",
       "hades-autocannon",
@@ -1285,7 +1285,8 @@
     ],
     "model_constraint": {
       "any_number": true
-    }
+    },
+    "additional_cost": 10
   },
   {
     "id": "forgefiend-wgo-mfm-2",
@@ -1295,7 +1296,7 @@
       "edition": "11th",
       "dataslate": "launch"
     },
-    "is_free": true,
+    "is_free": false,
     "replaces": [
       "hades-autocannon",
       "hades-autocannon",
@@ -1307,7 +1308,8 @@
     ],
     "model_constraint": {
       "any_number": true
-    }
+    },
+    "additional_cost": 5
   },
   {
     "id": "chaos-lord-in-terminator-armour-wgo-mfm-1",

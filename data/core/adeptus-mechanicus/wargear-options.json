@@ -157,7 +157,7 @@
       "edition": "11th",
       "dataslate": "launch"
     },
-    "is_free": true,
+    "is_free": false,
     "replaces": [
       "twin-cognis-autocannon",
       "ironstrider-feet"
@@ -167,7 +167,8 @@
     ],
     "model_constraint": {
       "any_number": true
-    }
+    },
+    "additional_cost": 10
   },
   {
     "id": "tech-priest-manipulus-wgo-mfm-1",
@@ -222,7 +223,7 @@
       "edition": "11th",
       "dataslate": "launch"
     },
-    "is_free": true,
+    "is_free": false,
     "replaces": [
       "belleros-energy-cannon",
       "cognis-heavy-stubber",
@@ -236,7 +237,8 @@
     ],
     "model_constraint": {
       "max_count": 1
-    }
+    },
+    "additional_cost": 10
   },
   {
     "id": "sydonian-skatros-wgo-mfm-1",

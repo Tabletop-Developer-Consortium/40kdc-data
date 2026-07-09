@@ -170,6 +170,20 @@ export function templateById(id: string | undefined): TerrainTemplate | undefine
   return id ? ds.terrainTemplates.get(id) ?? undefined : undefined;
 }
 
+/**
+ * Whether a template is an elevated walkway (catwalk/gantry) that overhangs the
+ * board — `ground_accessible: false` (elevated-only) AND carrying an `upper_floor`.
+ * Such a piece's plan-view footprint legitimately spills over the areas below it,
+ * so it is exempt from collision warnings. A solid ground obstacle (a generator,
+ * also `ground_accessible: false`) has no `upper_floor` and is NOT exempt.
+ */
+function isOverhangFeature(templateId: string | undefined): boolean {
+  const t = templateById(templateId) as
+    | (TerrainTemplate & { ground_accessible?: boolean; upper_floor?: unknown })
+    | undefined;
+  return !!t && t.kind === "feature" && t.ground_accessible === false && t.upper_floor != null;
+}
+
 /** The footprint a piece resolves against (inline wins over template). */
 export function footprintOf(piece: EditPiece): TerrainTemplate["footprint"] | undefined {
   return piece.footprint ?? templateById(piece.template)?.footprint;
@@ -1483,10 +1497,16 @@ function collisionWarnings(layout: EditLayout): LayoutWarning[] {
   const linkByPieceId = new Map<string, string>();
   for (const p of pieces) if (p.id && p.link_group) linkByPieceId.set(p.id, p.link_group);
   const governingArea: (string | null)[] = new Array(resolved.length).fill(null);
+  // Elevated walkways (catwalk/gantry) overhang the areas below them, so their
+  // plan-view footprint legitimately spills onto ground pieces — they never
+  // collide-warn. Marked by an elevated-only template: `ground_accessible: false`
+  // WITH an `upper_floor` (which excludes a solid ground obstacle like a generator).
+  const overhang: boolean[] = new Array(resolved.length).fill(false);
   let cursor = 0;
   for (const p of pieces) {
     const self = cursor;
     cursor += 1;
+    overhang[self] = isOverhangFeature(p.template);
     if (p.parent_area_id) {
       governingArea[self] = p.parent_area_id;
     } else {
@@ -1506,6 +1526,7 @@ function collisionWarnings(layout: EditLayout): LayoutWarning[] {
   for (let a = 0; a < resolved.length; a++) {
     for (let b = a + 1; b < resolved.length; b++) {
       if (groupKey(a) === groupKey(b)) continue;
+      if (overhang[a] || overhang[b]) continue; // catwalk/gantry overhang — not a collision
       const pa = resolved[a];
       const pb = resolved[b];
       if (!bboxOverlap(pa.vertices, pb.vertices)) continue;

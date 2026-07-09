@@ -16,6 +16,7 @@
     addKeystone,
     removeKeystone,
     keystoneDisplays,
+    layoutWarnings,
     setParentArea,
     snapToAreaCenter,
     snapFeatureToAreaCorner,
@@ -85,6 +86,12 @@
     selectedPiece ? boardCentroid(layout, selectedPiece) : { x: 0, y: 0 },
   );
   const markers = $derived(objectiveMarkers(layout));
+  // "Needs review" warnings for the working layout: overlapping pieces + off-grid
+  // keystones. The banner lists them; the board dims every piece one names.
+  const warnings = $derived(layoutWarnings(layout));
+  const warnPieceIds = $derived(
+    new Set(warnings.flatMap((w) => w.pieceIds).filter((id): id is string => !!id)),
+  );
   // The selected piece's keystones with live derived distances (inspector list).
   const selectedKeystones = $derived(
     selectedPiece ? keystoneDisplays(layout).filter((d) => d.pieceId === selectedPiece.id) : [],
@@ -382,10 +389,21 @@
         {markers}
         {showKeystones}
         {keystoneFacing}
+        {warnPieceIds}
         onselect={(id) => (selectedId = id)}
         {onmove}
         {onorient}
       />
+      {#if warnings.length > 0}
+        <div class="warnings" role="status">
+          <span class="warn-head">⚠ {warnings.length} to review</span>
+          <ul>
+            {#each warnings as w, i (i)}
+              <li class="warn {w.kind}">{w.message}</li>
+            {/each}
+          </ul>
+        </div>
+      {/if}
       <p class="status">
         {layout.pieces.length} pieces · drag to move · rotate/flip handles on the selected piece
         {#if symmetric}· edits mirror across the centre{/if}
@@ -518,6 +536,36 @@
     font-size: 0.78rem;
     margin: 0.4rem 0 0;
     flex: 0 0 auto;
+  }
+  .warnings {
+    flex: 0 0 auto;
+    margin: 0.5rem 0 0;
+    padding: 0.5rem 0.7rem;
+    border: 1px solid oklch(0.6 0.14 70);
+    border-left-width: 3px;
+    border-radius: 4px;
+    background: oklch(0.7 0.13 70 / 0.12);
+    font-size: 0.78rem;
+    max-height: 8.5rem;
+    overflow-y: auto;
+  }
+  .warn-head {
+    font-weight: 600;
+    color: oklch(0.7 0.14 70);
+  }
+  .warnings ul {
+    margin: 0.35rem 0 0;
+    padding-left: 1.1rem;
+  }
+  .warnings li {
+    margin: 0.1rem 0;
+    color: var(--text-dim);
+  }
+  .warnings li.collision::marker {
+    content: "⤫ ";
+  }
+  .warnings li.keystone-not-round::marker {
+    content: "⌖ ";
   }
   select.ctrl,
   .export textarea {

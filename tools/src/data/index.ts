@@ -56,7 +56,7 @@ export type {
 } from "./loadout.js";
 
 // Unit point-cost maths: ordinal-aware tier selection over `points` bands.
-export { baseUnitPoints, pointsTierMissing } from "./pricing.js";
+export { baseUnitPoints, pointsTierMissing, wargearPoints } from "./pricing.js";
 
 // The cruncher surface — buff types + the engine — re-exported from the data
 // package so downstream callers can import their whole 40kdc API from

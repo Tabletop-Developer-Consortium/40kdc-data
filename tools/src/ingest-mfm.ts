@@ -57,6 +57,7 @@ import {
   runWargear,
   buildWargearReport,
   runWargearBudgets,
+  runWargearCosts,
   runCompositionNames,
   runCompositionTiers,
 } from "./mfm/wargear.js";
@@ -728,6 +729,19 @@ async function runWargearBudgetsCmd(dump: MfmDump, write: boolean, onlyDir?: str
   if (!write) console.log("DRY RUN — no files written. Re-run with --write to apply.");
 }
 
+async function runWargearCostsCmd(dump: MfmDump, write: boolean, onlyDir?: string): Promise<void> {
+  const report = runWargearCosts(dump, onlyDir);
+  const sum = (f: (d: (typeof report.dirs)[number]) => number) =>
+    report.dirs.reduce((a, d) => a + f(d), 0);
+  console.log(
+    `Wargear costs — matched ${sum((d) => d.matched)}, ` +
+      `units with costs ${sum((d) => d.unitsWithCosts)}, total priced items ${sum((d) => d.costs)}, ` +
+      `additional_cost stripped ${sum((d) => d.strippedAdditionalCost)}.`,
+  );
+  await applyWrites(report.staged, { write, label: "wargear-costs" });
+  if (!write) console.log("DRY RUN — no files written. Re-run with --write to apply.");
+}
+
 async function runCompositionNamesCmd(dump: MfmDump, write: boolean, onlyDir?: string): Promise<void> {
   const report = runCompositionNames(dump, onlyDir);
   const sum = (f: (d: (typeof report.dirs)[number]) => number) =>
@@ -931,6 +945,7 @@ async function main(): Promise<void> {
     "chapter-scope",
     "wargear",
     "wargear-budgets",
+    "wargear-costs",
     "composition-names",
     "composition-tiers",
     "attachment-role",
@@ -958,6 +973,7 @@ async function main(): Promise<void> {
   else if (cmd === "chapter-scope") await runChapterScopeCmd(dump, write);
   else if (cmd === "wargear") await runWargearCmd(dump, write, onlyDir);
   else if (cmd === "wargear-budgets") await runWargearBudgetsCmd(dump, write, onlyDir);
+  else if (cmd === "wargear-costs") await runWargearCostsCmd(dump, write, onlyDir);
   else if (cmd === "composition-names") await runCompositionNamesCmd(dump, write, onlyDir);
   else if (cmd === "composition-tiers") await runCompositionTiersCmd(dump, write, onlyDir);
   else if (cmd === "attachment-role") await runAttachmentRoleCmd(dump, write, onlyDir);

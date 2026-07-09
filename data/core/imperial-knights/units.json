@@ -566,7 +566,13 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "wargear_costs": [
+      {
+        "item_id": "rapid-fire-battle-cannon",
+        "cost": 15
+      }
+    ]
   },
   {
     "id": "knight-warden",

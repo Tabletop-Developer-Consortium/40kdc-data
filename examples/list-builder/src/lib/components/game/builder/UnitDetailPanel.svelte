@@ -107,7 +107,7 @@ function setAttachment(key: string) {
 				<span class="w-6 text-center tabular-nums">{unit.modelCount}</span>
 				<button
 					class="btn btn-icon"
-					disabled={unit.modelCount >= (modelRange?.max ?? Infinity)}
+					disabled={unit.modelCount >= (modelRange?.max ?? Number.MAX_SAFE_INTEGER)}
 					onclick={() => setModelCount(unit.modelCount + 1)}
 					aria-label="more models">+</button
 				>

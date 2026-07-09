@@ -23,7 +23,8 @@
         "unit_count_max": 2
       },
       {
-        "models": 6,
+        "models": 4,
+        "models_max": 6,
         "cost": 170,
         "unit_count_min": 1,
         "unit_count_max": 2
@@ -35,7 +36,8 @@
         "unit_count_max": null
       },
       {
-        "models": 6,
+        "models": 4,
+        "models_max": 6,
         "cost": 180,
         "unit_count_min": 3,
         "unit_count_max": null
@@ -229,6 +231,12 @@
         ],
         "count": 3,
         "per_models": 3
+      }
+    ],
+    "wargear_costs": [
+      {
+        "item_id": "missile-pod",
+        "cost": 5
       }
     ]
   },
@@ -704,6 +712,12 @@
         "count": 1,
         "per_models": 0
       }
+    ],
+    "wargear_costs": [
+      {
+        "item_id": "ion-rifle",
+        "cost": 5
+      }
     ]
   },
   {
@@ -924,6 +938,12 @@
         ],
         "count": 3,
         "per_models": 3
+      }
+    ],
+    "wargear_costs": [
+      {
+        "item_id": "tau-flamer",
+        "cost": 5
       }
     ]
   },
@@ -1216,7 +1236,8 @@
         "cost": 45
       },
       {
-        "models": 10,
+        "models": 6,
+        "models_max": 10,
         "cost": 65
       }
     ],
@@ -1375,7 +1396,13 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "wargear_costs": [
+      {
+        "item_id": "ion-accelerator",
+        "cost": 20
+      }
+    ]
   },
   {
     "id": "commander-farsight",
@@ -1631,7 +1658,13 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "wargear_costs": [
+      {
+        "item_id": "cyclic-ion-raker",
+        "cost": 10
+      }
+    ]
   },
   {
     "id": "ax-1-0-tiger-shark",
@@ -1780,7 +1813,8 @@
         "cost": 70
       },
       {
-        "models": 10,
+        "models": 6,
+        "models_max": 10,
         "cost": 115
       }
     ],
@@ -2006,6 +2040,10 @@
       {
         "models": 1,
         "cost": 85
+      },
+      {
+        "models": 2,
+        "cost": 105
       }
     ],
     "keywords": [
@@ -2128,7 +2166,13 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "wargear_costs": [
+      {
+        "item_id": "high-yield-missile-pods",
+        "cost": 5
+      }
+    ]
   },
   {
     "id": "commander-in-enforcer-battlesuit",
@@ -2754,7 +2798,8 @@
         "cost": 65
       },
       {
-        "models": 20,
+        "models": 11,
+        "models_max": 20,
         "cost": 130
       }
     ],

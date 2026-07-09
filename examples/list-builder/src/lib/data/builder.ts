@@ -19,6 +19,7 @@ import {
 	pointsTierMissing,
 	tryImportRoster,
 	validateLoadout,
+	wargearPoints,
 	weaponBounds,
 	type AlliedRule,
 	type Detachment,
@@ -528,8 +529,9 @@ export function unitPoints(bu: BuilderUnit, armyFactionId?: string, ordinal = 1)
 	const unit = buRaw(bu, armyFactionId);
 	if (!unit) return 0;
 	const base = baseUnitPoints(unit, bu.modelCount, ordinal);
+	const wargear = wargearPoints(unit, bu.loadout);
 	const enh = bu.enhancementId ? (ds.enhancements.get(bu.enhancementId)?.cost ?? 0) : 0;
-	return base + enh;
+	return base + wargear + enh;
 }
 
 export function totalPoints(state: BuilderState): number {

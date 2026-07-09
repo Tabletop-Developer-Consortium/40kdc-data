@@ -48,6 +48,8 @@ import {
   deriveWargear,
   aggregateComposition,
   makeResolver,
+  WEAPON_ALIASES,
+  WEAPON_ALIASES_BY_UNIT,
   type AutoResolution,
 } from "./wargear.js";
 import { repoDirForFactionName } from "./faction-map.js";
@@ -79,6 +81,12 @@ export interface WeaponRecord {
   type: "ranged" | "melee";
   profiles: WeaponProfile[];
   game_version: GameVersion;
+}
+export interface WargearRecord {
+  id: string;
+  name: string;
+  game_version: GameVersion;
+  category?: string;
 }
 interface UnitProfile {
   name: string;
@@ -275,6 +283,21 @@ export function mintWeapon(ctx: MintContext, item: WargearItemRow, id: string, n
   return { id, name, type, profiles: built, game_version: ctx.gv };
 }
 
+/**
+ * Build a repo `wargear.json` record for a non-weapon wargear item the dump lists
+ * in a unit's loadout (e.g. a banner or icon a special model carries). These have
+ * no weapon profile — they are equipment whose game effect is an authored ability —
+ * so they land in `wargear.json` (not `weapons.json`) yet still participate in the
+ * loadout so a per-item MFM cost (`wargear_costs`) can attach. Category is left to
+ * the dump's own grouping where present, else omitted (the schema allows absent).
+ */
+export function mintWargear(ctx: MintContext, item: WargearItemRow, id: string, name: string): WargearRecord {
+  const rec: WargearRecord = { id, name, game_version: ctx.gv };
+  const category = (item as { category?: string }).category?.trim();
+  if (category) rec.category = category;
+  return rec;
+}
+
 // ───────────────────────── datasheet lookup ─────────────────────────
 export function findDatasheet(dump: MfmDump, unitId: string, dir: string): DatasheetRow | null {
   const matches: DatasheetRow[] = [];
@@ -305,12 +328,14 @@ export function findDatasheet(dump: MfmDump, unitId: string, dir: string): Datas
 interface FactionFiles {
   units: UnitRecord[];
   weapons: WeaponRecord[];
+  wargear: WargearRecord[];
   comps: any[];
   options: any[];
 }
 interface Projection {
   unitId: string;
   mintedWeapons: WeaponRecord[];
+  mintedWargear: WargearRecord[];
   weaponIds: string[];
   invuln: number | null;
   composition: any;
@@ -343,22 +368,33 @@ function projectUnit(
     if (n) itemByName.set(n.trim().toLowerCase(), it);
   }
 
+  // Resolve dump weapon names against the same faction (and per-unit) aliases the
+  // wargear reconcile uses, so a shared chassis reuses the faction's existing id
+  // (e.g. the dump's "Shearing claws" → the repo's `defiler-claws`) instead of
+  // minting a divergent duplicate on refresh.
   const audit: AutoResolution[] = [];
-  const baseResolve = makeResolver(validIds, audit);
+  const baseResolve = makeResolver(
+    validIds,
+    audit,
+    WEAPON_ALIASES[dir] ?? {},
+    WEAPON_ALIASES_BY_UNIT[dir]?.[unitId],
+  );
   const ctx: MintContext = { dump, gv, warnings };
   const minted = new Map<string, WeaponRecord>();
+  const mintedWargear = new Map<string, WargearRecord>();
 
   const resolve = (name: string): string | null => {
     const hit = baseResolve(name);
     if (hit) return hit;
     const item = itemByName.get(name.trim().toLowerCase());
-    if (item?.wargearType === "weapon") {
-      let id: string;
-      try {
-        id = nameToId(name);
-      } catch {
-        return null;
-      }
+    if (!item) return null;
+    let id: string;
+    try {
+      id = nameToId(name);
+    } catch {
+      return null;
+    }
+    if (item.wargearType === "weapon") {
       if (!minted.has(id)) {
         try {
           minted.set(id, mintWeapon(ctx, item, id, name.trim()));
@@ -370,7 +406,13 @@ function projectUnit(
       validIds.add(id); // visible to subsequent default/option resolution
       return id;
     }
-    return null; // non-weapon wargear (medikit, banner, …) — out of loadout scope
+    // Non-weapon wargear (banner, icon, relic): mint a wargear.json entity so a
+    // priced item the dump lists in the loadout (e.g. Banner of Macragge, 10 pts on
+    // the Chapter Ancient) participates in the loadout and can carry a per-item cost,
+    // rather than being silently dropped. Its game effect stays an authored ability.
+    if (!mintedWargear.has(id)) mintedWargear.set(id, mintWargear(ctx, item, id, name.trim()));
+    validIds.add(id);
+    return id;
   };
 
   const dsId = ds.id!;
@@ -390,7 +432,9 @@ function projectUnit(
   for (const name of orderedNames) {
     const env = agg.envelope.get(name) ?? { min: 1, max: 1 };
     const def = derived.defaultsByModel.get(name) ?? [];
-    for (const w of def) weaponIdSet.add(w);
+    // `weapon_ids` is the unit's WEAPON vocabulary; a non-weapon wargear default
+    // (e.g. the banner) belongs in the model's loadout but not here.
+    for (const w of def) if (!mintedWargear.has(w)) weaponIdSet.add(w);
     const m: any = { name, min: env.min, max: env.max };
     if (def.length) m.default_weapon_ids = def;
     models.push(m);
@@ -448,6 +492,7 @@ function projectUnit(
   return {
     unitId,
     mintedWeapons: [...minted.values()],
+    mintedWargear: [...mintedWargear.values()],
     weaponIds: [...weaponIdSet],
     invuln,
     composition,
@@ -467,22 +512,39 @@ async function main() {
   const dir = dirFlag >= 0 ? argv[dirFlag + 1] : undefined;
   const write = argv.includes("--write");
   const allSkeletons = argv.includes("--all-skeletons");
+  // --refresh re-derives an EXISTING unit's dump-owned loadout from the dump and
+  // REPLACES it (weapon_ids, minted weapons, composition, options), instead of the
+  // default seed-only behaviour that never clobbers a populated unit. This is the
+  // importer path for units whose loadout drifted stale against a newer dataslate
+  // (e.g. a shared chassis GW re-profiled: the World Eaters defiler was authored
+  // fresh for 11e while the CSM/Death Guard/Thousand Sons copies kept their pre-11e
+  // weapons). Restricted to explicitly-named `--unit` targets — never `--all-skeletons`
+  // — so a wholesale re-projection can't silently overwrite hand-curated loadouts.
+  const refresh = argv.includes("--refresh");
   const unitIds: string[] = [];
   for (let i = 0; i < argv.length; i++) if (argv[i] === "--unit") unitIds.push(argv[i + 1]);
   if (!dir) {
-    console.error("Usage: project-loadout --dir <faction> (--unit <id> ... | --all-skeletons) [--write]");
+    console.error(
+      "Usage: project-loadout --dir <faction> (--unit <id> ... | --all-skeletons) [--refresh] [--write]",
+    );
+    process.exit(2);
+  }
+  if (refresh && (allSkeletons || unitIds.length === 0)) {
+    console.error("--refresh requires explicit --unit <id> targets (it replaces existing loadout data).");
     process.exit(2);
   }
 
   const factionRoot = path.join(DATA_CORE, dir);
   const unitsPath = path.join(factionRoot, "units.json");
   const weaponsPath = path.join(factionRoot, "weapons.json");
+  const wargearPath = path.join(factionRoot, "wargear.json");
   const compsPath = path.join(factionRoot, "unit-compositions.json");
   const optionsPath = path.join(factionRoot, "wargear-options.json");
 
   const files: FactionFiles = {
     units: readArr<UnitRecord>(unitsPath),
     weapons: readArr<WeaponRecord>(weaponsPath),
+    wargear: readArr<WargearRecord>(wargearPath),
     comps: readArr<any>(compsPath),
     options: readArr<any>(optionsPath),
   };
@@ -511,6 +573,7 @@ async function main() {
       projections.push({
         unitId,
         mintedWeapons: [],
+        mintedWargear: [],
         weaponIds: [],
         invuln: null,
         composition: null,
@@ -520,9 +583,11 @@ async function main() {
     }
   }
 
-  // Apply projections additively onto in-memory copies of the four files.
+  // Apply projections additively onto in-memory copies of the five files.
   const weaponsOut = files.weapons.slice();
   const weaponIdsPresent = new Set(weaponsOut.map((w) => w.id));
+  const wargearOut = files.wargear.slice();
+  const wargearIdsPresent = new Set(wargearOut.map((w) => w.id));
   const compsOut = files.comps.slice();
   const optionsOut = files.options.slice();
   const unitsOut = files.units.map((u) => ({ ...u }));
@@ -537,6 +602,9 @@ async function main() {
     console.log(`   invuln: ${p.invuln ?? "—"}   composition: ${p.composition ? "yes" : "no"}   options: ${p.options.length}`);
     for (const w of p.warnings) console.log(`   ⚠ ${w}`);
 
+    console.log(
+      `   minted ${p.mintedWargear.length} wargear: ${p.mintedWargear.map((w) => w.id).join(", ") || "—"}`,
+    );
     // Mint new weapons (skip ids already present — idempotent).
     for (const w of p.mintedWeapons) {
       if (!weaponIdsPresent.has(w.id)) {
@@ -544,22 +612,57 @@ async function main() {
         weaponIdsPresent.add(w.id);
       }
     }
-    // Patch unit: weapon_ids (only if currently empty — never clobber) + invuln.
+    // Mint new wargear entities (non-weapon loadout items — skip ids already present).
+    for (const w of p.mintedWargear) {
+      if (!wargearIdsPresent.has(w.id)) {
+        wargearOut.push(w);
+        wargearIdsPresent.add(w.id);
+      }
+    }
+    // --refresh preserves any per-unit weapon VARIANT the repo split out
+    // (`${base}-${unitId}`, e.g. Victrix's A5 master-crafted power weapon vs the A7
+    // base): the dump derivation only knows base ids, so remap each derived id back to
+    // the unit's variant where one exists — on weapon_ids AND the composition loadout —
+    // so a refresh can't silently downgrade the variant's stats to the base.
+    const toVariant = (id: string): string =>
+      refresh && weaponIdsPresent.has(`${id}-${p.unitId}`) ? `${id}-${p.unitId}` : id;
+    const weaponIds = p.weaponIds.map(toVariant);
+    if (p.composition?.models) {
+      for (const m of p.composition.models) {
+        if (Array.isArray(m.default_weapon_ids)) m.default_weapon_ids = m.default_weapon_ids.map(toVariant);
+      }
+    }
+
+    // Patch unit: weapon_ids + invuln. Seed-only by default (never clobber a
+    // populated unit); --refresh REPLACES the dump-owned weapon_ids outright so a
+    // stale loadout is brought current. `ability_ids` and other authored fields are
+    // never touched here, so a co-landing ability fix (e.g. the Defiler leak) survives.
     const u = unitsOut.find((x) => x.id === p.unitId);
     if (u) {
-      if ((u.weapon_ids?.length ?? 0) === 0 && p.weaponIds.length) u.weapon_ids = p.weaponIds;
+      if (((u.weapon_ids?.length ?? 0) === 0 || refresh) && weaponIds.length) u.weapon_ids = weaponIds;
       if (p.invuln && Array.isArray(u.profiles)) {
         for (const prof of u.profiles) if (prof.invuln_sv == null) prof.invuln_sv = p.invuln;
       }
     }
-    // Composition: add only if the unit has none yet.
+    // Composition: seed if the unit has none; --refresh replaces its existing rows.
+    if (refresh) {
+      const rest = compsOut.filter((c) => c.unit_id !== p.unitId);
+      compsOut.length = 0;
+      compsOut.push(...rest);
+    }
     if (p.composition && !compsOut.some((c) => c.unit_id === p.unitId)) compsOut.push(p.composition);
-    // Options: add only if the unit has none yet.
+    // Options: seed if the unit has none; --refresh replaces its existing rows.
+    if (refresh) {
+      const rest = optionsOut.filter((o) => o.unit_id !== p.unitId);
+      optionsOut.length = 0;
+      optionsOut.push(...rest);
+    }
     if (p.options.length && !optionsOut.some((o) => o.unit_id === p.unitId)) optionsOut.push(...p.options);
   }
 
   const staged: StagedWrite[] = [
     { path: weaponsPath, value: weaponsOut },
+    { path: wargearPath, value: wargearOut },
     { path: unitsPath, value: unitsOut },
     { path: compsPath, value: compsOut },
     { path: optionsPath, value: optionsOut },

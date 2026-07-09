@@ -4,4 +4,4 @@ Kept in lockstep with tools/package.json and crates/wh40kdc/Cargo.toml;
 CI hard-fails on mismatch.
 """
 
-__version__ = "1.0.25"
+__version__ = "1.0.24"

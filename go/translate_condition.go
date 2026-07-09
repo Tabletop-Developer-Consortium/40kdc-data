@@ -154,6 +154,7 @@ var eventPhrases = map[string]string{
 	"on-model-destroyed":              "when a model in the unit is destroyed",
 	"first-model-destroyed":           "the first time a model in the unit is destroyed",
 	"before-bearer-removed":           "before this model is removed from play",
+	"enemy-unit-destroyed":            "each time an enemy unit is destroyed",
 	"enemy-unit-destroyed-in-melee":   "when an enemy unit is destroyed in melee",
 	"on-damage-allocated":             "when damage is allocated",
 	"battle-shock-test":               "when the unit takes a Battle-shock test",

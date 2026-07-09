@@ -118,7 +118,7 @@ function readJson<T>(p: string): T[] {
  * the per-faction orphan diagnosis (adversarially verified: the two are the same
  * physical weapon and the target id is genuinely in the unit's weapon_ids).
  */
-const WEAPON_ALIASES: Record<string, Record<string, string>> = {
+export const WEAPON_ALIASES: Record<string, Record<string, string>> = {
   aeldari: {
     "kha-vir": "kha-vir-the-sword-of-sorrows",
     "fire-axe": "the-fire-axe",
@@ -148,7 +148,7 @@ const WEAPON_ALIASES: Record<string, Record<string, string>> = {
  * `knight-preceptor`. Mapping the dump name to `chainbreaker-multi-laser` for canis-rex
  * only keeps both correct (and the override harmlessly no-ops if GW reverts the name).
  */
-const WEAPON_ALIASES_BY_UNIT: Record<string, Record<string, Record<string, string>>> = {
+export const WEAPON_ALIASES_BY_UNIT: Record<string, Record<string, Record<string, string>>> = {
   "imperial-knights": {
     "canis-rex": { "questoris-multi-laser": "chainbreaker-multi-laser" },
   },
@@ -1520,6 +1520,170 @@ export function runWargearBudgets(dump: MfmDump, onlyDir?: string): BudgetReport
     }
     if (changed) staged.push({ path: upath, value: units });
     reportDirs.push({ dir, matched, unitsWithBudgets, budgets: budgetCount });
+  }
+  return { dirs: reportDirs, staged };
+}
+
+export interface WargearCost {
+  item_id: string;
+  cost: number;
+}
+
+/**
+ * Per-item MFM wargear prices for a datasheet: every priced `wargear_option`
+ * row (`points > 0`) across the datasheet's option groups, resolved to its repo
+ * item id and charged **per copy** present in the final loadout. This is the
+ * authoritative form of the prices the option-level `additional_cost` on
+ * wargear-option records cannot express — priced default-loadout items (which
+ * have no swap option to hang a cost on, e.g. a Terminator Assault Squad's
+ * thunder hammers) and heterogeneous choice groups where only some items in a
+ * group cost points (e.g. only the storm shield in a Thunderwolf Cavalry
+ * plasma-pistol/storm-shield/boltgun group). It also subsumes the expressible
+ * swaps: the dump prices per copy (a swap granting two of an item is two priced
+ * rows at the per-item cost, so `additional_cost = n * cost`), so a per-copy sum
+ * over the final loadout reproduces those totals too — letting `wargear_costs`
+ * be the single per-item price representation.
+ *
+ * Deduped by repo id: the same item recurs across a checkbox + a stepper group
+ * at the same price, and the dump never prices one item two different ways
+ * within a datasheet (verified). Sorted by id for deterministic output.
+ */
+export function pricedWargearItems(
+  dump: MfmDump,
+  datasheetId: string,
+  resolve: (name: string) => string | null,
+): WargearCost[] {
+  const wiName = dump.byId<WargearItemRow>("wargear_item");
+  const woByGroup = dump.groupBy<WargearOptionRow>("wargear_option", "wargearOptionGroupId");
+  const groups = dump.groupBy<WargearOptionGroupRow>("wargear_option_group", "datasheetId").get(datasheetId) ?? [];
+  const byItem = new Map<string, number>();
+  for (const g of groups) {
+    for (const o of woByGroup.get(g.id) ?? []) {
+      if (!o.points || o.points <= 0) continue;
+      const id = resolve(dump.enName(wiName.get(o.wargearItemId)) ?? "");
+      if (!id) continue;
+      // Same item can appear in several groups (checkbox + stepper) at the same
+      // price; keep the max defensively so a stray lower row can't under-price it.
+      const prev = byItem.get(id);
+      byItem.set(id, prev == null ? o.points : Math.max(prev, o.points));
+    }
+  }
+  return [...byItem.entries()]
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([item_id, cost]) => ({ item_id, cost }));
+}
+
+export interface WargearCostsReport {
+  dirs: { dir: string; matched: number; unitsWithCosts: number; costs: number; strippedAdditionalCost: number }[];
+  staged: StagedWrite[];
+}
+
+/**
+ * Backfill each unit's {@link pricedWargearItems} onto `units.json`
+ * `wargear_costs`, faction-scoped — the per-item MFM prices consumers charge per
+ * copy in the final loadout. Mirrors {@link runWargear}'s datasheet→repo-unit
+ * matching (home-faction first, shared-roster fallback) and resolver so item
+ * names resolve to the same ids the loadout uses. Field-additive on units.json:
+ * only `wargear_costs` changes; a unit with no priced wargear has the field
+ * removed.
+ *
+ * Because `wargear_costs` is the single per-item price representation (it
+ * subsumes the expressible swaps the interim option-level `additional_cost`
+ * carried), this pass also **strips** any `additional_cost` from the dir's
+ * wargear-options.json in the same write — retiring the redundant encoding so no
+ * consumer can double-charge. The `additional_cost` field remains in the schema
+ * (additive-optional) but is no longer populated.
+ */
+export function runWargearCosts(dump: MfmDump, onlyDir?: string): WargearCostsReport {
+  const dirs = repoDirs();
+  const byDir = new Map<string, DatasheetRow[]>();
+  for (const ds of dump.table<DatasheetRow>("datasheet")) {
+    if (ds.isLegends) continue;
+    for (const dir of candidateDirs(dump, ds)) {
+      if (!dirs.has(dir)) continue;
+      (byDir.get(dir) ?? byDir.set(dir, []).get(dir)!).push(ds);
+    }
+  }
+
+  const reportDirs: WargearCostsReport["dirs"] = [];
+  const staged: StagedWrite[] = [];
+  for (const dir of [...dirs].sort()) {
+    if (onlyDir && dir !== onlyDir) continue;
+    const upath = path.join(CORE_DIR, dir, "units.json");
+    const wpath = path.join(CORE_DIR, dir, "wargear-options.json");
+    if (!fs.existsSync(upath)) continue;
+    const units = readJson<UnitRecord>(upath);
+    const byId = new Map(units.map((u) => [u.id, u]));
+    const wopts = readJson<WargearOptionRecord>(wpath);
+
+    // A priced item can be non-weapon wargear the unit carries (e.g. the Banner of
+    // Macragge on the Chapter Ancient): those live in `wargear.json` and the model's
+    // `default_weapon_ids`, not `weapons.json`. Extend the pricing vocabulary with both
+    // so such items resolve — the weapon reconcile's narrower `dirValidIds` never sees them.
+    const validIds = dirValidIds(dir, units, wopts);
+    for (const w of readJson<{ id?: string }>(path.join(CORE_DIR, dir, "wargear.json"))) {
+      if (w.id) validIds.add(w.id);
+    }
+    for (const c of readJson<CompRecord>(path.join(CORE_DIR, dir, "unit-compositions.json"))) {
+      for (const m of c.models ?? []) for (const id of m.default_weapon_ids ?? []) validIds.add(id);
+    }
+    const autoResolved: AutoResolution[] = [];
+    const resolve = makeResolver(validIds, autoResolved, WEAPON_ALIASES[dir] ?? {});
+
+    const dsList = (byDir.get(dir) ?? [])
+      .slice()
+      .sort((a, b) => homeScore(dump, a, dir) - homeScore(dump, b, dir));
+    const matchedRepoIds = new Set<string>();
+    let matched = 0;
+    let unitsWithCosts = 0;
+    let costCount = 0;
+    let unitsChanged = false;
+    for (const ds of dsList) {
+      const name = dump.enName(ds);
+      if (!name) continue;
+      let id: string;
+      try {
+        id = nameToId(name);
+      } catch {
+        continue;
+      }
+      const rec = byId.get(id);
+      if (!rec || matchedRepoIds.has(id)) continue;
+      matchedRepoIds.add(id);
+      matched++;
+
+      const unitAliases = WEAPON_ALIASES_BY_UNIT[dir]?.[id];
+      const unitResolve = unitAliases
+        ? makeResolver(validIds, autoResolved, WEAPON_ALIASES[dir] ?? {}, unitAliases)
+        : resolve;
+      const costs = pricedWargearItems(dump, ds.id!, unitResolve);
+
+      const before = JSON.stringify(rec.wargear_costs ?? null);
+      if (costs.length) {
+        rec.wargear_costs = costs;
+        unitsWithCosts++;
+        costCount += costs.length;
+      } else {
+        delete (rec as { wargear_costs?: unknown }).wargear_costs;
+      }
+      if (JSON.stringify(rec.wargear_costs ?? null) !== before) unitsChanged = true;
+    }
+
+    // Retire the interim option-level `additional_cost` — `wargear_costs` is now
+    // the single per-item price source, so leaving these would double-charge.
+    let stripped = 0;
+    let optsChanged = false;
+    for (const o of wopts) {
+      if (o.additional_cost != null) {
+        delete (o as { additional_cost?: unknown }).additional_cost;
+        stripped++;
+        optsChanged = true;
+      }
+    }
+
+    if (unitsChanged) staged.push({ path: upath, value: units });
+    if (optsChanged) staged.push({ path: wpath, value: wopts });
+    reportDirs.push({ dir, matched, unitsWithCosts, costs: costCount, strippedAdditionalCost: stripped });
   }
   return { dirs: reportDirs, staged };
 }

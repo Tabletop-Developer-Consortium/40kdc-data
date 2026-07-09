@@ -2498,11 +2498,17 @@
             "properties": {
               "models": {
                 "type": "integer",
-                "minimum": 1
+                "minimum": 1,
+                "description": "Lowest model count this tier's cost applies to. For a single-size tier this is the only size; for a GW range-priced tier (block pricing) it is the range floor and `models_max` is the ceiling. `baseUnitPoints` prices a squad at the highest `models` threshold its count reaches."
               },
               "cost": {
                 "type": "integer",
                 "minimum": 0
+              },
+              "models_max": {
+                "type": "integer",
+                "minimum": 1,
+                "description": "Inclusive upper model count for a range-priced tier (GW block pricing, e.g. Venatari Custodians are 4–6 models for 320). `models` is the range floor; every size in [models, models_max] costs `cost`. Absent when the tier prices a single size (equivalent to models_max == models)."
               },
               "unit_count_min": {
                 "type": "integer",
@@ -2546,6 +2552,10 @@
                 "type": "integer",
                 "minimum": 0
               },
+              "models_max": {
+                "type": "integer",
+                "minimum": 1
+              },
               "unit_count_min": {
                 "type": "integer",
                 "minimum": 1
@@ -2574,6 +2584,29 @@
           "type": "boolean",
           "default": false,
           "description": "True when point costs are carried over provisionally (e.g. seeded from a prior edition during migration) and not yet confirmed against the current dataslate."
+        },
+        "wargear_costs": {
+          "type": "array",
+          "description": "Per-item MFM wargear prices that the option-level `additional_cost` on wargear-option records cannot express: priced default-loadout items (e.g. a Terminator Assault Squad's thunder hammers, which are the default with only a swap-away option to hang a cost on) and heterogeneous choice groups where only some items in a group cost points. Each entry charges `cost` points for every copy of `item_id` in the unit's FINAL loadout (defaults included). Additive and optional — a consumer that ignores it prices this wargear as free, exactly as before. Sourced authoritatively from the MFM dump (`wargear_option.points`).",
+          "items": {
+            "type": "object",
+            "properties": {
+              "item_id": {
+                "$ref": "#/$defs/entity-id",
+                "description": "The weapon or wargear id this per-copy cost applies to, matched against the unit's final loadout."
+              },
+              "cost": {
+                "type": "integer",
+                "minimum": 0,
+                "description": "Points charged per copy of `item_id` present in the final loadout."
+              }
+            },
+            "required": [
+              "item_id",
+              "cost"
+            ],
+            "additionalProperties": false
+          }
         },
         "keywords": {
           "$ref": "#/$defs/keyword-list"

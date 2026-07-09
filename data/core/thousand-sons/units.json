@@ -627,7 +627,8 @@
         "unit_count_max": 3
       },
       {
-        "models": 10,
+        "models": 6,
+        "models_max": 10,
         "cost": 190,
         "unit_count_min": 1,
         "unit_count_max": 3
@@ -639,7 +640,8 @@
         "unit_count_max": null
       },
       {
-        "models": 10,
+        "models": 6,
+        "models_max": 10,
         "cost": 200,
         "unit_count_min": 4,
         "unit_count_max": null
@@ -785,7 +787,8 @@
         "cost": 45
       },
       {
-        "models": 6,
+        "models": 4,
+        "models_max": 6,
         "cost": 90
       }
     ],
@@ -845,7 +848,8 @@
         "cost": 55
       },
       {
-        "models": 6,
+        "models": 4,
+        "models_max": 6,
         "cost": 110
       }
     ],
@@ -917,7 +921,8 @@
         "unit_count_max": 2
       },
       {
-        "models": 10,
+        "models": 6,
+        "models_max": 10,
         "cost": 370,
         "unit_count_min": 1,
         "unit_count_max": 2
@@ -929,7 +934,8 @@
         "unit_count_max": null
       },
       {
-        "models": 10,
+        "models": 6,
+        "models_max": 10,
         "cost": 385,
         "unit_count_min": 3,
         "unit_count_max": null
@@ -1169,31 +1175,39 @@
       "max": 1
     },
     "weapon_ids": [
-      "defiler-cannon",
-      "defiler-claws",
-      "defiler-scourge",
-      "havoc-launcher",
-      "inferno-combi-weapon",
-      "reaper-autocannon",
-      "twin-heavy-flamer",
-      "twin-inferno-heavy-bolter",
-      "twin-lascannon"
+      "shearing-claws",
+      "hades-battle-cannon",
+      "excruciator-cannon",
+      "heavy-missile-launcher",
+      "heavy-baleflamer",
+      "ectoplasma-destructor",
+      "pyraflux-magma-cutters",
+      "electroscourge",
+      "heavy-reaper-autocannon",
+      "hades-lascannon"
     ],
     "ability_ids": [
-      "barrage-of-filth",
-      "daemonforge",
-      "deadly-demise-d3",
+      "deadly-demise-d6",
       "destroyer-of-futures",
       "feel-no-pain-6",
-      "scuttling-walker",
-      "unleash-wrath"
+      "scuttling-walker"
     ],
     "game_version": {
       "edition": "11th",
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "wargear_costs": [
+      {
+        "item_id": "hades-lascannon",
+        "cost": 10
+      },
+      {
+        "item_id": "heavy-reaper-autocannon",
+        "cost": 10
+      }
+    ]
   },
   {
     "id": "daemon-prince-of-tzeentch-with-wings",
@@ -1285,7 +1299,8 @@
         "cost": 75
       },
       {
-        "models": 20,
+        "models": 11,
+        "models_max": 20,
         "cost": 145
       }
     ],
@@ -1362,7 +1377,8 @@
         "cost": 80
       },
       {
-        "models": 4,
+        "models": 3,
+        "models_max": 4,
         "cost": 160
       }
     ],

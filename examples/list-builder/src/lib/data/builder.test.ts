@@ -10,6 +10,7 @@ import {
 	emptyBuilderState,
 	baseUnitPoints,
 	pointsTierMissing,
+	unitPoints,
 	unitsForFaction,
 	detachmentsForFaction,
 	eligibleEnhancements,
@@ -92,6 +93,57 @@ describe('builder points', () => {
 		const minModels = Math.min(...(u.points ?? []).map((t) => t.models));
 		expect(pointsTierMissing(u, minModels - 1)).toBe(true);
 		expect(pointsTierMissing(u, minModels)).toBe(false);
+	});
+
+	// Regression for the reported crash: resizing a range-priced unit (Venatari
+	// Custodians: 3 models @160, or 4–6 models @320) must price every size in the
+	// range at 320 — not fall through to the 3-model tier (160) — and a count
+	// outside the range must be flagged, never silently mispriced.
+	it('prices every size of a range-priced unit and flags oversize (Venatari resize)', () => {
+		const fac = 'adeptus-custodes';
+		const raw = unitRaw('venatari-custodians', undefined, fac)!;
+		expect(baseUnitPoints(raw, 3)).toBe(160);
+		for (const n of [4, 5, 6]) expect(baseUnitPoints(raw, n)).toBe(320);
+		const mk = (mc: number, key: string): BuilderUnit => ({
+			key,
+			datasheetId: 'venatari-custodians',
+			modelCount: mc,
+			loadout: defaultLoadout(raw, mc),
+			enhancementId: null,
+			isWarlord: false,
+		});
+		// A 5-model squad totals 320 (the regression priced it at 160).
+		expect(totalPoints({ ...emptyBuilderState(), factionId: fac, units: [mk(5, 'v')] })).toBe(320);
+		// Below the floor and above the ceiling are flagged; legal sizes are not.
+		expect(pointsTierMissing(raw, 2)).toBe(true);
+		expect(pointsTierMissing(raw, 6)).toBe(false);
+		expect(pointsTierMissing(raw, 7)).toBe(true);
+		const over = { ...emptyBuilderState(), factionId: fac, units: [mk(7, 'o')] };
+		expect(builderViolations(over).some((iss) => iss.unitKey === 'o')).toBe(true);
+	});
+
+	// Issue 75: a unit's displayed cost includes its per-item MFM wargear costs
+	// summed over the final loadout. A Terminator Assault Squad's five thunder
+	// hammers (5 pts each) are a priced default, so unitPoints = base + 25.
+	it('charges wargear_costs over the loadout (Terminator Assault Squad hammers)', () => {
+		const fac = 'adeptus-astartes';
+		const raw = unitRaw('terminator-assault-squad', undefined, fac)!;
+		expect(raw.wargear_costs).toContainEqual({ item_id: 'thunder-hammer', cost: 5 });
+		const bu: BuilderUnit = {
+			key: 'tas',
+			datasheetId: 'terminator-assault-squad',
+			modelCount: 5,
+			loadout: defaultLoadout(raw, 5), // five thunder hammers by default
+			enhancementId: null,
+			isWarlord: false,
+		};
+		const base = baseUnitPoints(raw, 5);
+		const hammers = bu.loadout.get('thunder-hammer') ?? 0;
+		expect(hammers).toBe(5);
+		expect(unitPoints(bu, fac)).toBe(base + hammers * 5); // base + 25
+		// Swapping hammers away for free lightning claws drops the surcharge.
+		const noHammers: BuilderUnit = { ...bu, loadout: new Map(bu.loadout).set('thunder-hammer', 0) };
+		expect(unitPoints(noHammers, fac)).toBe(base);
 	});
 
 	it('sums unit points across the draft', () => {

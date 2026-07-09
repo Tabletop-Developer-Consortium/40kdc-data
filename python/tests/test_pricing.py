@@ -38,6 +38,24 @@ def test_points_tier_missing(dataset: Any) -> None:
     assert points_tier_missing(ct, 4, 1)
 
 
+def test_range_priced_tier_venatari(dataset: Any) -> None:
+    # 3 models @160, or 4-6 models @320 (a GW range-priced tier, models_max=6).
+    ven = dataset.units.get_in_faction("venatari-custodians", "adeptus-custodes").raw
+    assert ven["points"] == [
+        {"models": 3, "cost": 160},
+        {"models": 4, "models_max": 6, "cost": 320},
+    ]
+    assert base_unit_points(ven, 3) == 160
+    assert base_unit_points(ven, 4) == 320
+    assert base_unit_points(ven, 5) == 320
+    assert base_unit_points(ven, 6) == 320
+    # Outside every tier range → missing (below floor, above ceiling).
+    assert points_tier_missing(ven, 2)
+    assert not points_tier_missing(ven, 4)
+    assert not points_tier_missing(ven, 6)
+    assert points_tier_missing(ven, 7)
+
+
 def test_base_loadout_is_legal_default(dataset: Any) -> None:
     bz = dataset.units.get_any("khorne-berzerkers")
     options = dataset.wargear_options_of(bz.raw)

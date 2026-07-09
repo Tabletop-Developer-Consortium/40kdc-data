@@ -1208,7 +1208,8 @@
       "duration": "permanent"
     },
     "unit_ids": [
-      "chaos-land-raider"
+      "chaos-land-raider",
+      "defiler"
     ],
     "ability_type": "core",
     "behavior": "reactive"
@@ -2286,9 +2287,7 @@
       "range": "unit",
       "duration": "phase"
     },
-    "unit_ids": [
-      "defiler"
-    ],
+    "unit_ids": [],
     "ability_type": "unit",
     "behavior": "passive"
   },
@@ -2312,9 +2311,7 @@
       "range": "unit",
       "duration": "permanent"
     },
-    "unit_ids": [
-      "defiler"
-    ],
+    "unit_ids": [],
     "ability_type": "core",
     "behavior": "passive"
   },
@@ -2341,9 +2338,7 @@
       "range": "aura-9",
       "duration": "permanent"
     },
-    "unit_ids": [
-      "defiler"
-    ],
+    "unit_ids": [],
     "ability_type": "unit",
     "behavior": "passive"
   },
@@ -2367,9 +2362,7 @@
       "range": "aura-12",
       "duration": "permanent"
     },
-    "unit_ids": [
-      "defiler"
-    ],
+    "unit_ids": [],
     "ability_type": "unit",
     "behavior": "passive"
   },

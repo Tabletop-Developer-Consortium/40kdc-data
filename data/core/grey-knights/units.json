@@ -145,7 +145,17 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "wargear_costs": [
+      {
+        "item_id": "heavy-psycannon",
+        "cost": 15
+      },
+      {
+        "item_id": "sublimator",
+        "cost": 15
+      }
+    ]
   },
   {
     "id": "land-raider-crusader",
@@ -369,7 +379,8 @@
         "unit_count_max": 2
       },
       {
-        "models": 10,
+        "models": 6,
+        "models_max": 10,
         "cost": 260,
         "unit_count_min": 1,
         "unit_count_max": 2
@@ -381,7 +392,8 @@
         "unit_count_max": null
       },
       {
-        "models": 10,
+        "models": 6,
+        "models_max": 10,
         "cost": 270,
         "unit_count_min": 3,
         "unit_count_max": null
@@ -433,6 +445,12 @@
         ],
         "count": 4,
         "per_models": 10
+      }
+    ],
+    "wargear_costs": [
+      {
+        "item_id": "psycannon",
+        "cost": 5
       }
     ]
   },
@@ -501,7 +519,13 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "wargear_costs": [
+      {
+        "item_id": "heavy-psycannon",
+        "cost": 15
+      }
+    ]
   },
   {
     "id": "grey-knights-thunderhawk-gunship",
@@ -859,7 +883,8 @@
         "cost": 120
       },
       {
-        "models": 10,
+        "models": 6,
+        "models_max": 10,
         "cost": 240
       }
     ],
@@ -1127,7 +1152,8 @@
         "unit_count_max": 2
       },
       {
-        "models": 10,
+        "models": 6,
+        "models_max": 10,
         "cost": 220,
         "unit_count_min": 1,
         "unit_count_max": 2
@@ -1139,7 +1165,8 @@
         "unit_count_max": null
       },
       {
-        "models": 10,
+        "models": 6,
+        "models_max": 10,
         "cost": 230,
         "unit_count_min": 3,
         "unit_count_max": null
@@ -1190,6 +1217,12 @@
         ],
         "count": 4,
         "per_models": 0
+      }
+    ],
+    "wargear_costs": [
+      {
+        "item_id": "psycannon",
+        "cost": 5
       }
     ]
   },
@@ -1276,7 +1309,8 @@
         "unit_count_max": 2
       },
       {
-        "models": 10,
+        "models": 6,
+        "models_max": 10,
         "cost": 250,
         "unit_count_min": 1,
         "unit_count_max": 2
@@ -1288,7 +1322,8 @@
         "unit_count_max": null
       },
       {
-        "models": 10,
+        "models": 6,
+        "models_max": 10,
         "cost": 260,
         "unit_count_min": 3,
         "unit_count_max": null
@@ -1432,13 +1467,15 @@
         "unit_count_max": 2
       },
       {
-        "models": 8,
+        "models": 6,
+        "models_max": 8,
         "cost": 360,
         "unit_count_min": 1,
         "unit_count_max": 2
       },
       {
-        "models": 10,
+        "models": 9,
+        "models_max": 10,
         "cost": 450,
         "unit_count_min": 1,
         "unit_count_max": 2
@@ -1456,13 +1493,15 @@
         "unit_count_max": null
       },
       {
-        "models": 8,
+        "models": 6,
+        "models_max": 8,
         "cost": 375,
         "unit_count_min": 3,
         "unit_count_max": null
       },
       {
-        "models": 10,
+        "models": 9,
+        "models_max": 10,
         "cost": 465,
         "unit_count_min": 3,
         "unit_count_max": null
@@ -1515,6 +1554,12 @@
         ],
         "count": 2,
         "per_models": 5
+      }
+    ],
+    "wargear_costs": [
+      {
+        "item_id": "psycannon",
+        "cost": 5
       }
     ]
   },
@@ -1680,13 +1725,15 @@
         "unit_count_max": 3
       },
       {
-        "models": 8,
+        "models": 6,
+        "models_max": 8,
         "cost": 300,
         "unit_count_min": 1,
         "unit_count_max": 3
       },
       {
-        "models": 10,
+        "models": 9,
+        "models_max": 10,
         "cost": 375,
         "unit_count_min": 1,
         "unit_count_max": 3
@@ -1704,13 +1751,15 @@
         "unit_count_max": null
       },
       {
-        "models": 8,
+        "models": 6,
+        "models_max": 8,
         "cost": 310,
         "unit_count_min": 4,
         "unit_count_max": null
       },
       {
-        "models": 10,
+        "models": 9,
+        "models_max": 10,
         "cost": 385,
         "unit_count_min": 4,
         "unit_count_max": null
@@ -1761,6 +1810,12 @@
         ],
         "count": 1,
         "per_models": 5
+      }
+    ],
+    "wargear_costs": [
+      {
+        "item_id": "psycannon",
+        "cost": 5
       }
     ]
   },

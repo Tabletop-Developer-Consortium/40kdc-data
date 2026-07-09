@@ -2026,8 +2026,15 @@ export interface Unit {
     }[]
   ];
   points?: {
+    /**
+     * Lowest model count this tier's cost applies to. For a single-size tier this is the only size; for a GW range-priced tier (block pricing) it is the range floor and `models_max` is the ceiling. `baseUnitPoints` prices a squad at the highest `models` threshold its count reaches.
+     */
     models: number;
     cost: number;
+    /**
+     * Inclusive upper model count for a range-priced tier (GW block pricing, e.g. Venatari Custodians are 4–6 models for 320). `models` is the range floor; every size in [models, models_max] costs `cost`. Absent when the tier prices a single size (equivalent to models_max == models).
+     */
+    models_max?: number;
     /**
      * 11e per-army-ordinal pricing: the first army-copy count (1-based) this tier's cost applies to. Absent (together with unit_count_max) means the cost applies to every copy — the common case. Present only for datasheets the MFM prices by how many you have taken (e.g. 'your 1st-2nd units cost X, your 3rd+ unit costs Y').
      */
@@ -2048,6 +2055,7 @@ export interface Unit {
     host_faction: string;
     models: number;
     cost: number;
+    models_max?: number;
     unit_count_min?: number;
     unit_count_max?: number | null;
   }[];
@@ -2055,6 +2063,19 @@ export interface Unit {
    * True when point costs are carried over provisionally (e.g. seeded from a prior edition during migration) and not yet confirmed against the current dataslate.
    */
   points_provisional?: boolean;
+  /**
+   * Per-item MFM wargear prices that the option-level `additional_cost` on wargear-option records cannot express: priced default-loadout items (e.g. a Terminator Assault Squad's thunder hammers, which are the default with only a swap-away option to hang a cost on) and heterogeneous choice groups where only some items in a group cost points. Each entry charges `cost` points for every copy of `item_id` in the unit's FINAL loadout (defaults included). Additive and optional — a consumer that ignores it prices this wargear as free, exactly as before. Sourced authoritatively from the MFM dump (`wargear_option.points`).
+   */
+  wargear_costs?: {
+    /**
+     * Kebab-case identifier
+     */
+    item_id: string;
+    /**
+     * Points charged per copy of `item_id` present in the final loadout.
+     */
+    cost: number;
+  }[];
   keywords?: KeywordList;
   faction_keywords?: KeywordList;
   /**

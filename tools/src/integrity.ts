@@ -97,19 +97,34 @@ export const KNOWN_REPLICATED_DRIFT: ReadonlySet<string> = new Set<string>([]);
  */
 const LEGACY_DUP_CHECKED = new Set(["units", "wargear-options", "unit-compositions"]);
 
+interface PointsTierLike {
+  models?: number;
+  models_max?: number;
+  cost?: number;
+  unit_count_min?: number;
+  unit_count_max?: number | null;
+}
 interface UnitLike {
   id?: string;
   ability_ids?: string[];
   faction_keywords?: string[];
   weapon_ids?: string[];
+  points?: PointsTierLike[];
+  model_count?: { min?: number; max?: number };
 }
 interface CompModelLike {
   name?: string;
+  min?: number;
+  max?: number;
   default_weapon_ids?: string[];
+}
+interface CompTierLike {
+  models?: CompModelLike[];
 }
 interface CompLike {
   unit_id?: string;
   models?: CompModelLike[];
+  tiers?: CompTierLike[];
 }
 interface AbilityLike {
   ability_id?: string;
@@ -545,6 +560,67 @@ export async function checkReferentialIntegrity(dataRoot?: string): Promise<Vali
         result.errors.push({ file, index: i, errors: errs });
       } else {
         result.passed++;
+      }
+    }
+
+    // Points ↔ composition-tier coverage. A composition's `tiers` are the
+    // structural authority for the legal squad sizes; `points` is the priced
+    // projection. Every whole-squad model count a tier admits must resolve to
+    // exactly one `points` tier — otherwise a builder that resizes into the gap
+    // misprices or crashes (the Venatari 4–6 range regression: tiers said 4–6
+    // was legal, points priced only 3 and 6). This is the invariant that would
+    // have caught that bug; a range-priced tier must carry `models_max`.
+    //
+    // Units whose tier size-ranges OVERLAP are choice-based / optional-attachment
+    // shapes a flat size→cost array cannot model (e.g. Outrider Squad's Invader
+    // ATV builds, per-build wargear prices); their price is derived per build, so
+    // skip the coverage check rather than false-flag — mirroring the ambiguity
+    // guard in tools/src/mfm/points.ts deriveDatasheet.
+    const unitsById = new Map(units.map((u) => [u.id ?? "", u]));
+    for (const c of comps) {
+      const u = unitsById.get(c.unit_id ?? "");
+      const points = u?.points;
+      const tiers = c.tiers;
+      if (!u || !points?.length || !tiers?.length) continue; // nothing to cross-check
+      const ranges = tiers
+        .map((t) => {
+          const rows = t.models ?? [];
+          return {
+            min: rows.reduce((n, m) => n + (m.min ?? 0), 0),
+            max: rows.reduce((n, m) => n + (m.max ?? 0), 0),
+          };
+        })
+        .filter((r) => r.max > 0);
+      if (!ranges.length) continue;
+      const overlap = ranges.some((a, i) =>
+        ranges.some((b, j) => i < j && a.min <= b.max && b.min <= a.max),
+      );
+      if (overlap) continue; // choice-based pricing — not a flat size→cost map
+      // First-copy prices (army ordinal 1): every legal size must be covered.
+      const firstCopy = points.filter((p) => p.unit_count_min == null || p.unit_count_min <= 1);
+      const active = firstCopy.length ? firstCopy : points;
+      const covers = (n: number) =>
+        active.some((p) => (p.models ?? 0) <= n && n <= (p.models_max ?? p.models ?? 0));
+      const shown = points
+        .map((p) => (p.models_max && p.models_max !== p.models ? `${p.models}-${p.models_max}` : `${p.models}`))
+        .join(", ");
+      const errs: Array<{ path: string; message: string }> = [];
+      for (const r of ranges) {
+        let gap: number | undefined;
+        for (let n = r.min; n <= r.max; n++)
+          if (!covers(n)) {
+            gap = n;
+            break;
+          }
+        if (gap !== undefined)
+          errs.push({
+            path: `/${c.unit_id}`,
+            message: `unit "${c.unit_id}": composition tier admits ${gap} model(s) but no points tier prices that size (points sizes: ${shown}) — a range-priced tier is missing its models_max, or points and composition tiers are misaligned`,
+          });
+      }
+      if (errs.length > 0) {
+        result.failed++;
+        result.errors.push({ file: resolve(dir, "units.json"), index: 0, errors: errs });
       }
     }
   }

@@ -29,12 +29,12 @@ import {
   MfmDump,
   REPO_ROOT,
   type DatasheetRow,
-  type PublicationRow,
   type UnitCompositionRow,
   type UnitCompositionMiniatureRow,
   type DatasheetPointsStepRow,
 } from "./loader.js";
-import { repoDirForFactionName, repoDirs } from "./faction-map.js";
+import { repoDirs } from "./faction-map.js";
+import { candidateDirs, homeScore } from "./wargear.js";
 import type { StagedWrite } from "./apply.js";
 
 const CORE_DIR = path.join(REPO_ROOT, "data", "core");
@@ -42,6 +42,13 @@ const CONFIRMED = { edition: "11th", dataslate: "launch" };
 
 export interface Tier {
   models: number;
+  /**
+   * Inclusive upper model count for a range-priced tier (GW block pricing, e.g.
+   * Venatari Custodians are 4–6 models for 320). `models` is the range floor;
+   * every size in [models, models_max] costs `cost`. Absent (undefined) for a
+   * single-size tier, where the tier prices exactly `models` models.
+   */
+  models_max?: number;
   cost: number;
   unit_count_min?: number;
   unit_count_max?: number | null;
@@ -55,6 +62,7 @@ interface UnitRecord {
   points?: Tier[];
   allied_points?: AlliedTier[];
   points_provisional?: boolean;
+  model_count?: { min: number; max: number };
   game_version?: { edition: string; dataslate: string };
   [k: string]: unknown;
 }
@@ -69,20 +77,35 @@ function readJson<T>(p: string): T[] {
   return fs.existsSync(p) ? (JSON.parse(fs.readFileSync(p, "utf8")) as T[]) : [];
 }
 
-/** Expand base (models→cost) tiers by a single ordinal step, if present. */
+/** A derived base tier: a model-count *range* [models, models_max] at one cost. */
+interface BaseTier {
+  models: number;
+  models_max: number;
+  cost: number;
+}
+
+/** Expand base (range→cost) tiers by a single ordinal step, if present. */
 function applyStep<T extends Tier>(
-  base: { models: number; cost: number }[],
+  base: BaseTier[],
   step: DatasheetPointsStepRow | undefined,
   extra: (t: Tier) => T
 ): T[] {
-  if (!step) return base.map((b) => extra({ models: b.models, cost: b.cost }));
+  if (!step)
+    return base.map((b) => extra({ models: b.models, models_max: b.models_max, cost: b.cost }));
   return [
     ...base.map((b) =>
-      extra({ models: b.models, cost: b.cost, unit_count_min: 1, unit_count_max: step.stepAt - 1 })
+      extra({
+        models: b.models,
+        models_max: b.models_max,
+        cost: b.cost,
+        unit_count_min: 1,
+        unit_count_max: step.stepAt - 1,
+      })
     ),
     ...base.map((b) =>
       extra({
         models: b.models,
+        models_max: b.models_max,
         cost: b.cost + step.stepPoints,
         unit_count_min: step.stepAt,
         unit_count_max: null,
@@ -106,29 +129,44 @@ export function deriveDatasheet(dump: MfmDump, datasheetId: string): Derived {
     .groupBy<DatasheetPointsStepRow>("datasheet_points_step", "datasheetId")
     .get(datasheetId)?.[0];
 
-  const sizeOf = (compId: string) =>
-    (miniByComp.get(compId) ?? []).reduce((n, m) => n + m.max, 0);
+  // A composition prices a model-count *range* [Σmin, Σmax] over its miniature
+  // rows (GW block pricing — e.g. Venatari's second build option is 4–6 models
+  // for a flat 320). `models` is the range floor, `models_max` the ceiling.
+  const rangeOf = (compId: string) => {
+    const rows = miniByComp.get(compId) ?? [];
+    return {
+      min: rows.reduce((n, m) => n + m.min, 0),
+      max: rows.reduce((n, m) => n + m.max, 0),
+    };
+  };
 
-  // Native (untagged) base tiers, de-duplicated on (models, cost).
+  // Native (untagged) base tiers, de-duplicated on (min, max, cost).
   const nativeSeen = new Set<string>();
-  const nativeBase: { models: number; cost: number }[] = [];
-  const byModel = new Map<number, Set<number>>();
+  const nativeBase: BaseTier[] = [];
   for (const c of comps) {
     if (c.referenceGroupingKeywordId || c.points == null) continue;
-    const models = sizeOf(c.id!);
+    const { min, max } = rangeOf(c.id!);
+    if (max <= 0) continue; // no model rows (data-only / attachment-at-0) — no size
     const cost = c.points;
-    (byModel.get(models) ?? byModel.set(models, new Set()).get(models)!).add(cost);
-    const k = `${models}:${cost}`;
+    const k = `${min}:${max}:${cost}`;
     if (!nativeSeen.has(k)) {
       nativeSeen.add(k);
-      nativeBase.push({ models, cost });
+      nativeBase.push({ models: min, models_max: max, cost });
     }
   }
-  // Ambiguous: a model count priced more than one way by distinct native comps.
-  const ambiguous = [...byModel.values()].some((costs) => costs.size > 1);
+  // Ambiguous: two distinct native tiers whose model-count ranges overlap but
+  // disagree on cost, so a squad of the shared size has no single price. This is
+  // the choice-based / optional-attachment shape (e.g. Outrider Squad's Invader
+  // ATV builds, per-build wargear prices) the flat `points` array can't model —
+  // leave such datasheets untouched rather than guess a price.
+  const ambiguous = nativeBase.some((a, i) =>
+    nativeBase.some(
+      (b, j) => i < j && a.cost !== b.cost && a.models <= b.models_max && b.models <= a.models_max
+    )
+  );
 
   // Allied (grouped) tiers, keyed by host faction keyword.
-  const alliedBaseByHost = new Map<string, { models: number; cost: number }[]>();
+  const alliedBaseByHost = new Map<string, BaseTier[]>();
   for (const c of comps) {
     if (!c.referenceGroupingKeywordId || c.points == null) continue;
     const kwName = dump.enName(dump.byId("keyword").get(c.referenceGroupingKeywordId));
@@ -140,9 +178,10 @@ export function deriveDatasheet(dump: MfmDump, datasheetId: string): Derived {
       continue;
     }
     const arr = alliedBaseByHost.get(host) ?? alliedBaseByHost.set(host, []).get(host)!;
-    const models = sizeOf(c.id!);
-    if (!arr.some((b) => b.models === models && b.cost === c.points))
-      arr.push({ models, cost: c.points });
+    const { min, max } = rangeOf(c.id!);
+    if (max <= 0) continue;
+    if (!arr.some((b) => b.models === min && b.models_max === max && b.cost === c.points))
+      arr.push({ models: min, models_max: max, cost: c.points });
   }
 
   const native = applyStep(nativeBase, step, (t) => t);
@@ -153,26 +192,48 @@ export function deriveDatasheet(dump: MfmDump, datasheetId: string): Derived {
   return { native, allied, ambiguous };
 }
 
-/** Strip band keys when absent, to keep the simple case clean (mirrors MFM applyUnit). */
+/**
+ * Strip absent optional keys to keep the simple case clean (mirrors MFM
+ * applyUnit): band keys when unbanded, and `models_max` when the tier prices a
+ * single size (models_max == models).
+ */
 export function cleanTier<T extends Tier>(t: T): T {
-  if (t.unit_count_min === undefined) {
-    const { unit_count_min, unit_count_max, ...rest } = t;
+  let out: T = t;
+  if (out.models_max === out.models) {
+    const { models_max, ...rest } = out;
+    out = rest as T;
+  }
+  if (out.unit_count_min === undefined) {
+    const { unit_count_min, unit_count_max, ...rest } = out;
     return rest as T;
   }
-  return { ...t, unit_count_max: t.unit_count_max ?? null };
+  return { ...out, unit_count_max: out.unit_count_max ?? null };
 }
 
 function normNative(ts: Tier[] = []): string {
   return JSON.stringify(
     ts
-      .map((t) => [t.models, t.cost, t.unit_count_min ?? null, t.unit_count_max ?? null])
-      .sort((a, b) => a[0]! - b[0]! || (a[2] ?? 0)! - (b[2] ?? 0)! || a[1]! - b[1]!)
+      .map((t) => [
+        t.models,
+        t.models_max ?? t.models,
+        t.cost,
+        t.unit_count_min ?? null,
+        t.unit_count_max ?? null,
+      ])
+      .sort((a, b) => a[0]! - b[0]! || (a[3] ?? 0)! - (b[3] ?? 0)! || a[2]! - b[2]!)
   );
 }
 function normAllied(ts: AlliedTier[] = []): string {
   return JSON.stringify(
     ts
-      .map((t) => [t.host_faction, t.models, t.cost, t.unit_count_min ?? null, t.unit_count_max ?? null])
+      .map((t) => [
+        t.host_faction,
+        t.models,
+        t.models_max ?? t.models,
+        t.cost,
+        t.unit_count_min ?? null,
+        t.unit_count_max ?? null,
+      ])
       .sort()
   );
 }
@@ -195,22 +256,27 @@ export interface PointsReport {
 
 export function runPoints(dump: MfmDump, write: boolean): PointsReport {
   const dirs = new Set(repoDirs());
-  const pubFk = dump.byId<PublicationRow>("publication");
-  const fkName = dump.byId("faction_keyword");
 
-  // datasheet → repo dir (per faction), live (non-Legends) only.
+  // datasheet → candidate repo dirs (its own faction dir PLUS any shared-roster
+  // parent), live (non-Legends) only. A Space Marine chapter datasheet (Blood
+  // Angels' Death Company) has no chapter-dir units.json — its unit lives in the
+  // shared `adeptus-astartes` roster — so, exactly like composition-tiers, points
+  // must be allowed to match it in the parent dir. Matching on the home dir alone
+  // (the old behaviour) left every chapter unit's `points` un-reconciled, which is
+  // how the range-tier regression survived for Death Company, Sanguinary Guard,
+  // Ravenwing, Thunderwolf Cavalry, Deathwatch Veterans, etc.
   const byDir = new Map<string, DatasheetRow[]>();
   for (const ds of dump.table<DatasheetRow>("datasheet")) {
     if (ds.isLegends) continue;
-    const fkId = pubFk.get(ds.publicationId)?.factionKeywordId ?? null;
-    const dir = repoDirForFactionName(fkId ? dump.enName(fkName.get(fkId)) : undefined);
-    if (!dir || !dirs.has(dir)) continue;
-    (byDir.get(dir) ?? byDir.set(dir, []).get(dir)!).push(ds);
+    for (const dir of candidateDirs(dump, ds)) {
+      if (!dirs.has(dir)) continue;
+      (byDir.get(dir) ?? byDir.set(dir, []).get(dir)!).push(ds);
+    }
   }
 
   const results: DirPointsResult[] = [];
   const staged: StagedWrite[] = [];
-  const newInDump: { dir: string; id: string }[] = [];
+  const matchedDatasheets = new Set<string>(); // ds.id that found a repo unit somewhere
 
   for (const dir of [...dirs].sort()) {
     const p = path.join(CORE_DIR, dir, "units.json");
@@ -228,7 +294,13 @@ export function runPoints(dump: MfmDump, write: boolean): PointsReport {
     };
     const matchedRepoIds = new Set<string>();
 
-    for (const ds of byDir.get(dir) ?? []) {
+    // Home-faction datasheets before shared-roster imports, so a unit is priced
+    // from its own datasheet where it has one; the matched-set guard keeps the
+    // first (home) match and ignores the parent-dir duplicate.
+    const dsList = (byDir.get(dir) ?? [])
+      .slice()
+      .sort((a, b) => homeScore(dump, a, dir) - homeScore(dump, b, dir));
+    for (const ds of dsList) {
       const name = dump.enName(ds);
       if (!name) continue;
       let id: string;
@@ -237,12 +309,11 @@ export function runPoints(dump: MfmDump, write: boolean): PointsReport {
       } catch {
         continue;
       }
+      if (matchedRepoIds.has(id)) continue;
       const rec = byId.get(id);
-      if (!rec) {
-        newInDump.push({ dir, id });
-        continue;
-      }
+      if (!rec) continue; // not in this dir — may still match in another candidate dir
       matchedRepoIds.add(id);
+      matchedDatasheets.add(ds.id!);
       res.matched++;
       const { native, allied, ambiguous } = deriveDatasheet(dump, ds.id!);
       if (!native.length) continue; // no dump price (e.g. data-only datasheet)
@@ -254,27 +325,37 @@ export function runPoints(dump: MfmDump, write: boolean): PointsReport {
 
       // Model count isn't reliably derivable for choice-based compositions
       // (Σ of miniature max overcounts mutually-exclusive model choices). Only
-      // reconcile when the derived size set matches the repo's known-good sizes;
-      // that covers all cost/band corrections safely. Genuine size additions
-      // (and the over/undercount cases) are reported for manual review instead.
-      const repoSizes = new Set((rec.points ?? []).map((t) => t.models));
-      const derivedSizes = new Set(native.map((t) => t.models));
-      const sizesMatch =
-        repoSizes.size > 0 &&
-        repoSizes.size === derivedSizes.size &&
-        [...derivedSizes].every((s) => repoSizes.has(s));
-      if (!sizesMatch) {
+      // reconcile when the derived size *envelope* — floor of the smallest tier
+      // to ceiling of the largest — matches the unit's known-good model_count.
+      // That admits range-priced tiers (whose floor differs from the old
+      // max-keyed size) while still punting genuine over/undercount cases for
+      // manual review. Records without a model_count fall back to the size-set
+      // match (all single-size in practice, so floor == ceiling == the size).
+      const derivedMin = Math.min(...native.map((t) => t.models));
+      const derivedMax = Math.max(...native.map((t) => t.models_max ?? t.models));
+      const mc = rec.model_count;
+      const repoSizes = new Set((rec.points ?? []).map((t) => t.models_max ?? t.models));
+      const derivedSizes = new Set(native.map((t) => t.models_max ?? t.models));
+      const structureMatch = mc
+        ? mc.min === derivedMin && mc.max === derivedMax
+        : repoSizes.size > 0 &&
+          repoSizes.size === derivedSizes.size &&
+          [...derivedSizes].every((s) => repoSizes.has(s));
+      if (!structureMatch) {
         res.structureSkipped.push({
           id,
-          repo: [...repoSizes].sort((a, b) => a - b),
-          derived: [...derivedSizes].sort((a, b) => a - b),
+          repo: mc ? [mc.min, mc.max] : [...repoSizes].sort((a, b) => a - b),
+          derived: mc ? [derivedMin, derivedMax] : [...derivedSizes].sort((a, b) => a - b),
         });
         continue;
       }
 
       const nativeClean = native.map(cleanTier);
-      // Allied tiers are trusted only at sizes the repo already knows.
-      const alliedClean = allied.map(cleanTier).filter((a) => repoSizes.has(a.models));
+      // Allied tiers are trusted only at ranges the native derivation produced.
+      const nativeRanges = new Set(native.map((t) => `${t.models}:${t.models_max ?? t.models}`));
+      const alliedClean = allied
+        .map(cleanTier)
+        .filter((a) => nativeRanges.has(`${a.models}:${a.models_max ?? a.models}`));
       if (normNative(rec.points) !== normNative(nativeClean)) {
         res.pointsChanged.push({ id, from: rec.points ?? [], to: nativeClean });
       }
@@ -300,19 +381,40 @@ export function runPoints(dump: MfmDump, write: boolean): PointsReport {
     staged.push({ path: p, value: units });
     results.push(res);
   }
+
+  // A live datasheet with candidate dirs that matched no repo unit anywhere is
+  // genuinely new (a seed-units candidate), reported once against its home dir.
+  const newInDump: { dir: string; id: string }[] = [];
+  const seenNew = new Set<string>();
+  for (const ds of dump.table<DatasheetRow>("datasheet")) {
+    if (ds.isLegends || matchedDatasheets.has(ds.id!) || seenNew.has(ds.id!)) continue;
+    const cands = candidateDirs(dump, ds).filter((d) => dirs.has(d));
+    if (!cands.length) continue;
+    const name = dump.enName(ds);
+    if (!name) continue;
+    try {
+      nameToId(name);
+    } catch {
+      continue;
+    }
+    seenNew.add(ds.id!);
+    newInDump.push({ dir: cands[0], id: nameToId(name) });
+  }
   return { dirs: results, newInDump, staged };
 }
 
 export function buildPointsReport(report: PointsReport, write: boolean): string {
   const { dirs, newInDump } = report;
   const sum = (f: (d: DirPointsResult) => number) => dirs.reduce((a, d) => a + f(d), 0);
+  const size = (x: Tier) =>
+    x.models_max != null && x.models_max !== x.models ? `${x.models}-${x.models_max}` : `${x.models}`;
   const fmt = (t: Tier[]) =>
     t.length
       ? t
           .map((x) =>
             x.unit_count_min === undefined
-              ? `${x.models}m=${x.cost}`
-              : `${x.models}m=${x.cost}[#${x.unit_count_min}-${x.unit_count_max ?? "+"}]`
+              ? `${size(x)}m=${x.cost}`
+              : `${size(x)}m=${x.cost}[#${x.unit_count_min}-${x.unit_count_max ?? "+"}]`
           )
           .join(", ")
       : "(none)";
@@ -351,7 +453,7 @@ export function buildPointsReport(report: PointsReport, write: boolean): string 
     if (d.alliedAdded.length) {
       L.push("", "**Allied pricing added:**");
       d.alliedAdded.forEach((c) =>
-        L.push(`- ${c.id}: ${c.allied.map((a) => `${a.host_faction}:${a.models}m=${a.cost}`).join(", ")}`)
+        L.push(`- ${c.id}: ${c.allied.map((a) => `${a.host_faction}:${size(a)}m=${a.cost}`).join(", ")}`)
       );
     }
     if (d.ambiguousSkipped.length) {

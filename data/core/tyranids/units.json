@@ -130,7 +130,8 @@
         "cost": 60
       },
       {
-        "models": 6,
+        "models": 4,
+        "models_max": 6,
         "cost": 120
       }
     ],
@@ -464,7 +465,8 @@
         "cost": 60
       },
       {
-        "models": 6,
+        "models": 4,
+        "models_max": 6,
         "cost": 120
       }
     ],
@@ -716,7 +718,8 @@
         "cost": 55
       },
       {
-        "models": 6,
+        "models": 4,
+        "models_max": 6,
         "cost": 110
       }
     ],
@@ -773,7 +776,8 @@
         "cost": 75
       },
       {
-        "models": 6,
+        "models": 4,
+        "models_max": 6,
         "cost": 150
       }
     ],
@@ -829,7 +833,8 @@
         "cost": 55
       },
       {
-        "models": 6,
+        "models": 4,
+        "models_max": 6,
         "cost": 110
       }
     ],
@@ -1368,7 +1373,17 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "wargear_costs": [
+      {
+        "item_id": "acid-spray",
+        "cost": 10
+      },
+      {
+        "item_id": "rupture-cannon",
+        "cost": 20
+      }
+    ]
   },
   {
     "id": "neurolictor",
@@ -1511,7 +1526,8 @@
         "cost": 100
       },
       {
-        "models": 6,
+        "models": 4,
+        "models_max": 6,
         "cost": 200
       }
     ],
@@ -1748,7 +1764,8 @@
         "cost": 80
       },
       {
-        "models": 6,
+        "models": 4,
+        "models_max": 6,
         "cost": 160
       }
     ],
@@ -1923,7 +1940,8 @@
         "cost": 70
       },
       {
-        "models": 20,
+        "models": 11,
+        "models_max": 20,
         "cost": 120
       }
     ],
@@ -1982,7 +2000,8 @@
         "unit_count_max": 2
       },
       {
-        "models": 10,
+        "models": 6,
+        "models_max": 10,
         "cost": 140,
         "unit_count_min": 1,
         "unit_count_max": 2
@@ -1994,7 +2013,8 @@
         "unit_count_max": null
       },
       {
-        "models": 10,
+        "models": 6,
+        "models_max": 10,
         "cost": 150,
         "unit_count_min": 3,
         "unit_count_max": null
@@ -2252,7 +2272,8 @@
         "cost": 60
       },
       {
-        "models": 20,
+        "models": 11,
+        "models_max": 20,
         "cost": 110
       }
     ],
@@ -2375,7 +2396,8 @@
         "unit_count_max": 2
       },
       {
-        "models": 6,
+        "models": 4,
+        "models_max": 6,
         "cost": 160,
         "unit_count_min": 1,
         "unit_count_max": 2
@@ -2387,7 +2409,8 @@
         "unit_count_max": null
       },
       {
-        "models": 6,
+        "models": 4,
+        "models_max": 6,
         "cost": 170,
         "unit_count_min": 3,
         "unit_count_max": null
@@ -2446,7 +2469,8 @@
         "cost": 55
       },
       {
-        "models": 10,
+        "models": 6,
+        "models_max": 10,
         "cost": 110
       }
     ],
@@ -2500,6 +2524,11 @@
       {
         "models": 11,
         "cost": 45
+      },
+      {
+        "models": 12,
+        "models_max": 21,
+        "cost": 90
       },
       {
         "models": 22,
@@ -2923,7 +2952,8 @@
         "cost": 80
       },
       {
-        "models": 20,
+        "models": 11,
+        "models_max": 20,
         "cost": 155
       }
     ],

@@ -686,27 +686,6 @@
     }
   },
   {
-    "id": "defiler-wgo-mfm-1",
-    "unit_id": "defiler",
-    "faction_id": "chaos-space-marines",
-    "game_version": {
-      "edition": "11th",
-      "dataslate": "launch"
-    },
-    "is_free": true,
-    "replaces": [
-      "excruciator-cannon",
-      "excruciator-cannon"
-    ],
-    "replacement": [
-      "magma-cutters",
-      "magma-cutters"
-    ],
-    "model_constraint": {
-      "any_number": true
-    }
-  },
-  {
     "id": "chaos-predator-destructor-wgo-mfm-1",
     "unit_id": "chaos-predator-destructor",
     "faction_id": "chaos-space-marines",
@@ -1273,7 +1252,7 @@
       "edition": "11th",
       "dataslate": "launch"
     },
-    "is_free": true,
+    "is_free": false,
     "replaces": [
       "hades-autocannon",
       "hades-autocannon",
@@ -1295,7 +1274,7 @@
       "edition": "11th",
       "dataslate": "launch"
     },
-    "is_free": true,
+    "is_free": false,
     "replaces": [
       "hades-autocannon",
       "hades-autocannon",
@@ -2410,5 +2389,159 @@
     "model_constraint": {
       "max_count": 1
     }
+  },
+  {
+    "id": "defiler-wgo-mfm-1",
+    "unit_id": "defiler",
+    "faction_id": "chaos-space-marines",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_free": true,
+    "model_constraint": {
+      "max_count": 1
+    },
+    "replaces": [
+      "defiler-claws",
+      "defiler-cannon",
+      "excruciator-cannon",
+      "excruciator-cannon",
+      "heavy-missile-launcher"
+    ],
+    "replacement_choice": [
+      [
+        "heavy-reaper-autocannon"
+      ],
+      [
+        "hades-lascannon"
+      ],
+      [
+        "electroscourge"
+      ]
+    ]
+  },
+  {
+    "id": "defiler-wgo-mfm-2",
+    "unit_id": "defiler",
+    "faction_id": "chaos-space-marines",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_free": true,
+    "model_constraint": {
+      "max_count": 1
+    },
+    "replaces": [
+      "defiler-claws",
+      "defiler-cannon",
+      "excruciator-cannon",
+      "excruciator-cannon",
+      "heavy-missile-launcher",
+      "heavy-baleflamer"
+    ],
+    "replacement_choice": [
+      [
+        "electroscourge",
+        "hades-lascannon"
+      ],
+      [
+        "electroscourge",
+        "heavy-reaper-autocannon"
+      ],
+      [
+        "hades-lascannon",
+        "hades-lascannon"
+      ],
+      [
+        "heavy-reaper-autocannon",
+        "heavy-reaper-autocannon"
+      ],
+      [
+        "hades-lascannon",
+        "heavy-reaper-autocannon"
+      ]
+    ]
+  },
+  {
+    "id": "defiler-wgo-mfm-3",
+    "unit_id": "defiler",
+    "faction_id": "chaos-space-marines",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_free": true,
+    "model_constraint": {
+      "max_count": 1
+    },
+    "replaces": [
+      "defiler-claws",
+      "defiler-cannon",
+      "excruciator-cannon",
+      "excruciator-cannon",
+      "heavy-baleflamer"
+    ],
+    "replacement_choice": [
+      [
+        "hades-lascannon"
+      ],
+      [
+        "heavy-reaper-autocannon"
+      ],
+      [
+        "electroscourge"
+      ]
+    ]
+  },
+  {
+    "id": "defiler-wgo-mfm-4",
+    "unit_id": "defiler",
+    "faction_id": "chaos-space-marines",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_free": true,
+    "model_constraint": {
+      "max_count": 1
+    },
+    "replaces": [
+      "defiler-claws",
+      "defiler-cannon",
+      "excruciator-cannon",
+      "excruciator-cannon",
+      "heavy-missile-launcher",
+      "heavy-baleflamer"
+    ],
+    "replacement": [
+      "ectoplasma-destructor"
+    ]
+  },
+  {
+    "id": "defiler-wgo-mfm-5",
+    "unit_id": "defiler",
+    "faction_id": "chaos-space-marines",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_free": true,
+    "model_constraint": {
+      "any_number": true
+    },
+    "replaces": [
+      "defiler-claws",
+      "defiler-cannon",
+      "excruciator-cannon",
+      "excruciator-cannon",
+      "heavy-missile-launcher",
+      "heavy-baleflamer"
+    ],
+    "replacement": [
+      "magma-cutters",
+      "magma-cutters"
+    ]
   }
 ]

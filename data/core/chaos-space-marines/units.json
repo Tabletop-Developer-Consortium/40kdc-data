@@ -204,7 +204,8 @@
         "cost": 110
       },
       {
-        "models": 10,
+        "models": 6,
+        "models_max": 10,
         "cost": 190
       }
     ],
@@ -636,7 +637,8 @@
         "cost": 180
       },
       {
-        "models": 10,
+        "models": 6,
+        "models_max": 10,
         "cost": 360
       }
     ],
@@ -873,7 +875,8 @@
         "unit_count_max": 2
       },
       {
-        "models": 10,
+        "models": 6,
+        "models_max": 10,
         "cost": 250,
         "unit_count_min": 1,
         "unit_count_max": 2
@@ -885,7 +888,8 @@
         "unit_count_max": null
       },
       {
-        "models": 10,
+        "models": 6,
+        "models_max": 10,
         "cost": 260,
         "unit_count_min": 3,
         "unit_count_max": null
@@ -1418,7 +1422,8 @@
         "unit_count_max": 2
       },
       {
-        "models": 10,
+        "models": 6,
+        "models_max": 10,
         "cost": 210,
         "unit_count_min": 1,
         "unit_count_max": 2
@@ -1430,7 +1435,8 @@
         "unit_count_max": null
       },
       {
-        "models": 10,
+        "models": 6,
+        "models_max": 10,
         "cost": 220,
         "unit_count_min": 3,
         "unit_count_max": null
@@ -1542,32 +1548,38 @@
       "max": 1
     },
     "weapon_ids": [
-      "combi-bolter",
-      "combi-weapon",
-      "defiler-cannon",
       "defiler-claws",
-      "defiler-scourge",
-      "havoc-launcher",
-      "reaper-autocannon",
-      "twin-heavy-bolter",
-      "twin-heavy-flamer",
-      "twin-lascannon"
+      "defiler-cannon",
+      "excruciator-cannon",
+      "heavy-missile-launcher",
+      "heavy-baleflamer",
+      "heavy-reaper-autocannon",
+      "hades-lascannon",
+      "electroscourge",
+      "ectoplasma-destructor",
+      "magma-cutters"
     ],
     "ability_ids": [
-      "barrage-of-filth",
       "daemonforge",
-      "deadly-demise-d3",
-      "destroyer-of-futures",
-      "feel-no-pain-6",
-      "scuttling-walker",
-      "unleash-wrath"
+      "deadly-demise-d6",
+      "scuttling-walker"
     ],
     "game_version": {
       "edition": "11th",
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "wargear_costs": [
+      {
+        "item_id": "hades-lascannon",
+        "cost": 10
+      },
+      {
+        "item_id": "heavy-reaper-autocannon",
+        "cost": 10
+      }
+    ]
   },
   {
     "id": "chaos-predator-destructor",
@@ -1665,7 +1677,8 @@
         "unit_count_max": 1
       },
       {
-        "models": 10,
+        "models": 6,
+        "models_max": 10,
         "cost": 250,
         "unit_count_min": 1,
         "unit_count_max": 1
@@ -1677,7 +1690,8 @@
         "unit_count_max": null
       },
       {
-        "models": 10,
+        "models": 6,
+        "models_max": 10,
         "cost": 260,
         "unit_count_min": 2,
         "unit_count_max": null
@@ -2028,7 +2042,13 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "wargear_costs": [
+      {
+        "item_id": "ectoplasma-cannon",
+        "cost": 5
+      }
+    ]
   },
   {
     "id": "warpsmith",
@@ -2178,7 +2198,8 @@
         "unit_count_max": 2
       },
       {
-        "models": 10,
+        "models": 6,
+        "models_max": 10,
         "cost": 210,
         "unit_count_min": 1,
         "unit_count_max": 2
@@ -2190,7 +2211,8 @@
         "unit_count_max": null
       },
       {
-        "models": 10,
+        "models": 6,
+        "models_max": 10,
         "cost": 220,
         "unit_count_min": 3,
         "unit_count_max": null
@@ -2327,7 +2349,8 @@
         "unit_count_max": 1
       },
       {
-        "models": 16,
+        "models": 9,
+        "models_max": 16,
         "cost": 195,
         "unit_count_min": 1,
         "unit_count_max": 1
@@ -2339,7 +2362,8 @@
         "unit_count_max": null
       },
       {
-        "models": 16,
+        "models": 9,
+        "models_max": 16,
         "cost": 215,
         "unit_count_min": 2,
         "unit_count_max": null
@@ -2533,7 +2557,8 @@
         "cost": 50
       },
       {
-        "models": 20,
+        "models": 11,
+        "models_max": 20,
         "cost": 90
       }
     ],
@@ -2653,7 +2678,8 @@
         "cost": 70
       },
       {
-        "models": 6,
+        "models": 4,
+        "models_max": 6,
         "cost": 130
       }
     ],
@@ -2741,7 +2767,8 @@
         "unit_count_max": 2
       },
       {
-        "models": 10,
+        "models": 6,
+        "models_max": 10,
         "cost": 280,
         "unit_count_min": 1,
         "unit_count_max": 2
@@ -2753,7 +2780,8 @@
         "unit_count_max": null
       },
       {
-        "models": 10,
+        "models": 6,
+        "models_max": 10,
         "cost": 290,
         "unit_count_min": 3,
         "unit_count_max": null
@@ -3026,7 +3054,8 @@
         "cost": 90
       },
       {
-        "models": 10,
+        "models": 6,
+        "models_max": 10,
         "cost": 170
       }
     ],

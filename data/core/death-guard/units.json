@@ -109,32 +109,38 @@
       "max": 1
     },
     "weapon_ids": [
-      "battle-cannon",
-      "combi-bolter",
-      "combi-weapon",
-      "defiler-claws",
-      "defiler-scourge",
-      "havoc-launcher",
-      "reaper-autocannon",
-      "twin-heavy-bolter",
-      "twin-heavy-flamer",
-      "twin-lascannon"
+      "shearing-claws",
+      "hades-battle-cannon",
+      "excruciator-cannon",
+      "heavy-missile-launcher",
+      "heavy-baleflamer",
+      "ectoplasma-destructor",
+      "magma-cutters",
+      "heavy-reaper-autocannon",
+      "hades-lascannon",
+      "electroscourge"
     ],
     "ability_ids": [
       "barrage-of-filth",
-      "daemonforge",
-      "deadly-demise-d3",
-      "destroyer-of-futures",
-      "feel-no-pain-6",
-      "scuttling-walker",
-      "unleash-wrath"
+      "deadly-demise-d6",
+      "scuttling-walker"
     ],
     "game_version": {
       "edition": "11th",
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "wargear_costs": [
+      {
+        "item_id": "hades-lascannon",
+        "cost": 10
+      },
+      {
+        "item_id": "heavy-reaper-autocannon",
+        "cost": 10
+      }
+    ]
   },
   {
     "id": "chaos-spawn",
@@ -276,7 +282,8 @@
         "cost": 65
       },
       {
-        "models": 20,
+        "models": 11,
+        "models_max": 20,
         "cost": 130
       }
     ],
@@ -723,11 +730,13 @@
         "cost": 90
       },
       {
-        "models": 7,
+        "models": 6,
+        "models_max": 7,
         "cost": 125
       },
       {
-        "models": 10,
+        "models": 8,
+        "models_max": 10,
         "cost": 190
       }
     ],
@@ -926,7 +935,8 @@
         "unit_count_max": 2
       },
       {
-        "models": 6,
+        "models": 4,
+        "models_max": 6,
         "cost": 320,
         "unit_count_min": 1,
         "unit_count_max": 2
@@ -938,7 +948,8 @@
         "unit_count_max": null
       },
       {
-        "models": 6,
+        "models": 4,
+        "models_max": 6,
         "cost": 330,
         "unit_count_min": 3,
         "unit_count_max": null
@@ -1864,11 +1875,13 @@
         "cost": 115
       },
       {
-        "models": 5,
+        "models": 4,
+        "models_max": 5,
         "cost": 185
       },
       {
-        "models": 10,
+        "models": 6,
+        "models_max": 10,
         "cost": 370
       }
     ],

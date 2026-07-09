@@ -16684,6 +16684,10 @@ impl ::std::convert::TryFrom<::std::string::String> for TriggerSubject {
 ///            "type": "integer",
 ///            "minimum": 1.0
 ///          },
+///          "models_max": {
+///            "type": "integer",
+///            "minimum": 1.0
+///          },
 ///          "unit_count_max": {
 ///            "oneOf": [
 ///              {
@@ -16798,6 +16802,12 @@ impl ::std::convert::TryFrom<::std::string::String> for TriggerSubject {
 ///            "minimum": 0.0
 ///          },
 ///          "models": {
+///            "description": "Lowest model count this tier's cost applies to. For a single-size tier this is the only size; for a GW range-priced tier (block pricing) it is the range floor and `models_max` is the ceiling. `baseUnitPoints` prices a squad at the highest `models` threshold its count reaches.",
+///            "type": "integer",
+///            "minimum": 1.0
+///          },
+///          "models_max": {
+///            "description": "Inclusive upper model count for a range-priced tier (GW block pricing, e.g. Venatari Custodians are 4–6 models for 320). `models` is the range floor; every size in [models, models_max] costs `cost`. Absent when the tier prices a single size (equivalent to models_max == models).",
 ///            "type": "integer",
 ///            "minimum": 1.0
 ///          },
@@ -16967,6 +16977,29 @@ impl ::std::convert::TryFrom<::std::string::String> for TriggerSubject {
 ///        "additionalProperties": false
 ///      }
 ///    },
+///    "wargear_costs": {
+///      "description": "Per-item MFM wargear prices that the option-level `additional_cost` on wargear-option records cannot express: priced default-loadout items (e.g. a Terminator Assault Squad's thunder hammers, which are the default with only a swap-away option to hang a cost on) and heterogeneous choice groups where only some items in a group cost points. Each entry charges `cost` points for every copy of `item_id` in the unit's FINAL loadout (defaults included). Additive and optional — a consumer that ignores it prices this wargear as free, exactly as before. Sourced authoritatively from the MFM dump (`wargear_option.points`).",
+///      "type": "array",
+///      "items": {
+///        "type": "object",
+///        "required": [
+///          "cost",
+///          "item_id"
+///        ],
+///        "properties": {
+///          "cost": {
+///            "description": "Points charged per copy of `item_id` present in the final loadout.",
+///            "type": "integer",
+///            "minimum": 0.0
+///          },
+///          "item_id": {
+///            "description": "The weapon or wargear id this per-copy cost applies to, matched against the unit's final loadout.",
+///            "$ref": "#/$defs/entity-id"
+///          }
+///        },
+///        "additionalProperties": false
+///      }
+///    },
 ///    "weapon_ids": {
 ///      "type": "array",
 ///      "items": {
@@ -17027,6 +17060,9 @@ pub struct Unit {
     ///Limited-wargear squad allowances the per-weapon bounds cannot express: a GW `limited_wargear_choice_set` that is either (a) SHARED across several weapons (a 'for every N models, one model can take one of A/B/C' line) or (b) a FLAT per-unit cap ('up to 1 per unit'). A loadout is legal only if the summed count of a budget's items is at most the cap: `floor(model_count * count / per_models)` for a ratio, or just `count` when `per_models` is 0 (a flat per-unit cap). Single-weapon per-N allowances are NOT budgets — the per-weapon bounds already model them (they correctly sum a weapon's capacity across the model types that may take it).
     #[serde(default, skip_serializing_if = "::std::vec::Vec::is_empty")]
     pub wargear_budgets: ::std::vec::Vec<UnitWargearBudgetsItem>,
+    ///Per-item MFM wargear prices that the option-level `additional_cost` on wargear-option records cannot express: priced default-loadout items (e.g. a Terminator Assault Squad's thunder hammers, which are the default with only a swap-away option to hang a cost on) and heterogeneous choice groups where only some items in a group cost points. Each entry charges `cost` points for every copy of `item_id` in the unit's FINAL loadout (defaults included). Additive and optional — a consumer that ignores it prices this wargear as free, exactly as before. Sourced authoritatively from the MFM dump (`wargear_option.points`).
+    #[serde(default, skip_serializing_if = "::std::vec::Vec::is_empty")]
+    pub wargear_costs: ::std::vec::Vec<UnitWargearCostsItem>,
     #[serde(default, skip_serializing_if = "::std::vec::Vec::is_empty")]
     pub weapon_ids: ::std::vec::Vec<EntityId>,
 }
@@ -17127,6 +17163,10 @@ impl<'de> ::serde::Deserialize<'de> for UnitAliasesItem {
 ///      "type": "integer",
 ///      "minimum": 1.0
 ///    },
+///    "models_max": {
+///      "type": "integer",
+///      "minimum": 1.0
+///    },
 ///    "unit_count_max": {
 ///      "oneOf": [
 ///        {
@@ -17154,6 +17194,8 @@ pub struct UnitAlliedPointsItem {
     ///The host-army faction/super-faction keyword this cost applies under (e.g. `imperium`).
     pub host_faction: EntityId,
     pub models: ::std::num::NonZeroU64,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub models_max: ::std::option::Option<::std::num::NonZeroU64>,
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub unit_count_max: ::std::option::Option<::std::num::NonZeroU64>,
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
@@ -18152,6 +18194,12 @@ impl<'de> ::serde::Deserialize<'de> for UnitName {
 ///      "minimum": 0.0
 ///    },
 ///    "models": {
+///      "description": "Lowest model count this tier's cost applies to. For a single-size tier this is the only size; for a GW range-priced tier (block pricing) it is the range floor and `models_max` is the ceiling. `baseUnitPoints` prices a squad at the highest `models` threshold its count reaches.",
+///      "type": "integer",
+///      "minimum": 1.0
+///    },
+///    "models_max": {
+///      "description": "Inclusive upper model count for a range-priced tier (GW block pricing, e.g. Venatari Custodians are 4–6 models for 320). `models` is the range floor; every size in [models, models_max] costs `cost`. Absent when the tier prices a single size (equivalent to models_max == models).",
 ///      "type": "integer",
 ///      "minimum": 1.0
 ///    },
@@ -18179,7 +18227,11 @@ impl<'de> ::serde::Deserialize<'de> for UnitName {
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
 pub struct UnitPointsItem {
     pub cost: u64,
+    ///Lowest model count this tier's cost applies to. For a single-size tier this is the only size; for a GW range-priced tier (block pricing) it is the range floor and `models_max` is the ceiling. `baseUnitPoints` prices a squad at the highest `models` threshold its count reaches.
     pub models: ::std::num::NonZeroU64,
+    ///Inclusive upper model count for a range-priced tier (GW block pricing, e.g. Venatari Custodians are 4–6 models for 320). `models` is the range floor; every size in [models, models_max] costs `cost`. Absent when the tier prices a single size (equivalent to models_max == models).
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub models_max: ::std::option::Option<::std::num::NonZeroU64>,
     ///Inclusive upper army-copy count for this tier's band, or null for an open-ended top band ('3rd+ unit'). Absent when unit_count_min is absent.
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub unit_count_max: ::std::option::Option<::std::num::NonZeroU64>,
@@ -18455,6 +18507,40 @@ pub struct UnitWargearBudgetsItem {
     pub items: ::std::vec::Vec<EntityId>,
     ///Models per `count` allowance; 0 means a flat per-unit cap of `count` (independent of squad size).
     pub per_models: u64,
+}
+///`UnitWargearCostsItem`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "object",
+///  "required": [
+///    "cost",
+///    "item_id"
+///  ],
+///  "properties": {
+///    "cost": {
+///      "description": "Points charged per copy of `item_id` present in the final loadout.",
+///      "type": "integer",
+///      "minimum": 0.0
+///    },
+///    "item_id": {
+///      "description": "The weapon or wargear id this per-copy cost applies to, matched against the unit's final loadout.",
+///      "$ref": "#/$defs/entity-id"
+///    }
+///  },
+///  "additionalProperties": false
+///}
+/// ```
+/// </details>
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
+#[serde(deny_unknown_fields)]
+pub struct UnitWargearCostsItem {
+    ///Points charged per copy of `item_id` present in the final loadout.
+    pub cost: u64,
+    ///The weapon or wargear id this per-copy cost applies to, matched against the unit's final loadout.
+    pub item_id: EntityId,
 }
 ///A 2D point in board inches. Origin at a board corner; JSON uses y-down (downstream renderers may flip to y-up).
 ///

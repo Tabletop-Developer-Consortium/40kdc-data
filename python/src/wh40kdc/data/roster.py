@@ -21,7 +21,7 @@ from wh40kdc.data.battle_sizes import (
 )
 from wh40kdc.data.dataset import Dataset
 from wh40kdc.data.loadout import check_unit_legality
-from wh40kdc.data.pricing import base_unit_points
+from wh40kdc.data.pricing import base_unit_points, wargear_points
 
 #: Army-construction violation codes (distinct from per-unit loadout codes).
 ROSTER_VIOLATION_CODES = (
@@ -227,6 +227,7 @@ def validate_roster_core(spec: dict[str, Any], dataset: Dataset) -> dict[str, An
         ordinal = ordinals.get(unit_id, 0) + 1
         ordinals[unit_id] = ordinal
         total += base_unit_points(view.raw, su.get("model_count") or 0, ordinal)
+        total += wargear_points(view.raw, su.get("counts") or {})
         enhancement_id = su.get("enhancement_id")
         if enhancement_id:
             total += (dataset.enhancements.get(enhancement_id) or {}).get("cost") or 0

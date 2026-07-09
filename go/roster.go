@@ -198,6 +198,7 @@ func validateRosterCore(spec normRoster, ds *Dataset) ([]unitLoadoutResult, []ro
 		ord := ordinals[su.unitID] + 1
 		ordinals[su.unitID] = ord
 		total += baseUnitPoints(view.Raw, su.modelCount, ord)
+		total += wargearPoints(view.Raw, su.counts)
 		if su.enhancementID != "" {
 			if eAny, ok := ds.Enhancements.Get(su.enhancementID); ok {
 				total += asInt(eAny.(map[string]any)["cost"])

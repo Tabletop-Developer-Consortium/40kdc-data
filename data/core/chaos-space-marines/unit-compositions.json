@@ -950,37 +950,6 @@
     ]
   },
   {
-    "unit_id": "defiler",
-    "faction_id": "chaos-space-marines",
-    "models": [
-      {
-        "name": "Defiler",
-        "min": 1,
-        "max": 1,
-        "is_leader_model": false,
-        "base_size_mm": {
-          "shape": "round",
-          "diameter": 160
-        }
-      }
-    ],
-    "game_version": {
-      "edition": "11th",
-      "dataslate": "pre-launch-provisional"
-    },
-    "tiers": [
-      {
-        "models": [
-          {
-            "name": "Defiler",
-            "min": 1,
-            "max": 1
-          }
-        ]
-      }
-    ]
-  },
-  {
     "unit_id": "chaos-predator-destructor",
     "faction_id": "chaos-space-marines",
     "models": [
@@ -2418,6 +2387,29 @@
           "combi-bolter-kravek-morne",
           "last-argument-and-power-fist",
           "servo-harness"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
+    "unit_id": "defiler",
+    "faction_id": "chaos-space-marines",
+    "models": [
+      {
+        "name": "Defiler",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "defiler-claws",
+          "defiler-cannon",
+          "excruciator-cannon",
+          "excruciator-cannon",
+          "heavy-missile-launcher",
+          "heavy-baleflamer"
         ]
       }
     ],

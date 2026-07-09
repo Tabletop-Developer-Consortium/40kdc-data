@@ -2601,5 +2601,340 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     }
+  },
+  {
+    "id": "shearing-claws",
+    "name": "Shearing claws",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "strike",
+        "range": "Melee",
+        "stats": {
+          "A": 6,
+          "S": 16,
+          "AP": -3,
+          "D": "D6+1",
+          "WS": 3
+        }
+      },
+      {
+        "name": "sweep",
+        "range": "Melee",
+        "stats": {
+          "A": 12,
+          "S": 6,
+          "AP": -2,
+          "D": 1,
+          "WS": 3
+        }
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
+    "id": "hades-battle-cannon",
+    "name": "Hades battle cannon",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Hades battle cannon",
+        "range": 48,
+        "stats": {
+          "A": "D6+3",
+          "S": 10,
+          "AP": -1,
+          "D": 3,
+          "BS": 4
+        },
+        "keywords": [
+          {
+            "keyword_id": "blast"
+          },
+          {
+            "keyword_id": "rapid-fire",
+            "parameters": {
+              "value": 3
+            }
+          }
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
+    "id": "excruciator-cannon",
+    "name": "Excruciator cannon",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Excruciator cannon",
+        "range": 36,
+        "stats": {
+          "A": 6,
+          "S": 6,
+          "AP": -2,
+          "D": 2,
+          "BS": 3
+        }
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
+    "id": "heavy-missile-launcher",
+    "name": "Heavy missile launcher",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "krak",
+        "range": 48,
+        "stats": {
+          "A": 2,
+          "S": 12,
+          "AP": -2,
+          "D": "D6+1",
+          "BS": 4
+        },
+        "keywords": [
+          {
+            "keyword_id": "rapid-fire",
+            "parameters": {
+              "value": 1
+            }
+          }
+        ]
+      },
+      {
+        "name": "frag",
+        "range": 48,
+        "stats": {
+          "A": "2D6",
+          "S": 5,
+          "AP": -1,
+          "D": 1,
+          "BS": 4
+        },
+        "keywords": [
+          {
+            "keyword_id": "blast"
+          },
+          {
+            "keyword_id": "rapid-fire",
+            "parameters": {
+              "value": 3
+            }
+          }
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
+    "id": "heavy-baleflamer",
+    "name": "Heavy baleflamer",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Heavy baleflamer",
+        "range": 12,
+        "stats": {
+          "A": "D6+3",
+          "S": 7,
+          "AP": -2,
+          "D": 2,
+          "BS": null
+        },
+        "keywords": [
+          {
+            "keyword_id": "ignores-cover"
+          },
+          {
+            "keyword_id": "torrent"
+          }
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
+    "id": "ectoplasma-destructor",
+    "name": "Ectoplasma destructor",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Ectoplasma destructor",
+        "range": 36,
+        "stats": {
+          "A": "D6",
+          "S": 12,
+          "AP": -3,
+          "D": 3,
+          "BS": 4
+        },
+        "keywords": [
+          {
+            "keyword_id": "blast"
+          },
+          {
+            "keyword_id": "rapid-fire",
+            "parameters": {
+              "value": 2
+            }
+          }
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
+    "id": "pyraflux-magma-cutters",
+    "name": "Pyraflux magma cutters",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Pyraflux magma cutters",
+        "range": 12,
+        "stats": {
+          "A": 2,
+          "S": 10,
+          "AP": -4,
+          "D": "D6",
+          "BS": 3
+        },
+        "keywords": [
+          {
+            "keyword_id": "melta",
+            "parameters": {
+              "value": 2
+            }
+          }
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
+    "id": "electroscourge",
+    "name": "Electroscourge",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Electroscourge",
+        "range": "Melee",
+        "stats": {
+          "A": 7,
+          "S": 12,
+          "AP": -2,
+          "D": 2,
+          "WS": 3
+        },
+        "keywords": [
+          {
+            "keyword_id": "extra-attacks"
+          },
+          {
+            "keyword_id": "sustained-hits",
+            "parameters": {
+              "value": 2
+            }
+          }
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
+    "id": "hades-lascannon",
+    "name": "Hades lascannon",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Hades lascannon",
+        "range": 48,
+        "stats": {
+          "A": 2,
+          "S": 12,
+          "AP": -3,
+          "D": "D6+1",
+          "BS": 4
+        },
+        "keywords": [
+          {
+            "keyword_id": "rapid-fire",
+            "parameters": {
+              "value": 1
+            }
+          }
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
+    "id": "heavy-reaper-autocannon",
+    "name": "Heavy reaper autocannon",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Heavy reaper autocannon",
+        "range": 48,
+        "stats": {
+          "A": 4,
+          "S": 9,
+          "AP": -1,
+          "D": 3,
+          "BS": 4
+        },
+        "keywords": [
+          {
+            "keyword_id": "devastating-wounds"
+          },
+          {
+            "keyword_id": "rapid-fire",
+            "parameters": {
+              "value": 2
+            }
+          },
+          {
+            "keyword_id": "sustained-hits",
+            "parameters": {
+              "value": 1
+            }
+          }
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
   }
 ]

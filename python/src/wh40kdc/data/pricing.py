@@ -18,6 +18,7 @@ Python mirror of ``tools/src/data/pricing.ts`` /
 
 from __future__ import annotations
 
+from collections.abc import Mapping
 from typing import Any
 
 Unit = dict[str, Any]
@@ -40,8 +41,11 @@ def base_unit_points(unit: Unit, model_count: int, ordinal: int = 1) -> int:
 
     Among the tiers whose ordinal band covers this copy (1-based; defaults to the
     1st copy), returns the cost of the highest ``models`` threshold the count
-    reaches (lowest tier when none is reached). Returns 0 when no tier applies —
-    the caller surfaces a violation rather than guessing.
+    reaches (lowest tier when none is reached). ``models`` is the tier's range
+    floor (a range-priced tier spans ``models``..``models_max`` at one cost, e.g.
+    Venatari 4–6 @320), so a count inside a range resolves to that range's cost.
+    Returns 0 when no tier applies — the caller surfaces a violation rather than
+    guessing.
     """
     tiers = sorted(
         (t for t in unit.get("points") or [] if _tier_covers_ordinal(t, ordinal)),
@@ -59,9 +63,31 @@ def base_unit_points(unit: Unit, model_count: int, ordinal: int = 1) -> int:
 def points_tier_missing(unit: Unit, model_count: int, ordinal: int = 1) -> bool:
     """True when no points tier covers ``model_count`` for this ``ordinal``.
 
-    Mirrors the band filter of :func:`base_unit_points`.
+    The count falls outside every tier's ``[models, models_max]`` range (below the
+    smallest tier, above the largest, or in a gap between non-contiguous tiers),
+    or the ordinal has no banded price. A single-size tier (no ``models_max``)
+    covers only ``models``. Mirrors the band filter of :func:`base_unit_points`.
     """
-    models = [t["models"] for t in unit.get("points") or [] if _tier_covers_ordinal(t, ordinal)]
-    if not models:
+    tiers = [t for t in unit.get("points") or [] if _tier_covers_ordinal(t, ordinal)]
+    if not tiers:
         return True
-    return model_count < min(models)
+    return not any(
+        t["models"] <= model_count <= (t.get("models_max") or t["models"]) for t in tiers
+    )
+
+
+def wargear_points(unit: Unit, counts: Mapping[str, int]) -> int:
+    """Per-item MFM wargear surcharge for a unit whose final loadout has ``counts``
+    copies of each weapon/wargear id.
+
+    Each ``wargear_costs`` entry charges ``cost`` for every copy of ``item_id``
+    present — a Terminator Assault Squad's five thunder hammers add 25, a Chapter
+    Ancient's Banner of Macragge adds 10. Items with no cost entry are free; absent
+    ``wargear_costs`` contributes 0, so a unit's total is
+    ``base_unit_points + wargear_points + enhancement``. Mirror of
+    ``tools/src/data/pricing.ts`` ``wargearPoints``.
+    """
+    total = 0
+    for wc in unit.get("wargear_costs") or []:
+        total += wc["cost"] * max(0, counts.get(wc["item_id"], 0))
+    return total

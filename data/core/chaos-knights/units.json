@@ -429,7 +429,17 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "wargear_costs": [
+      {
+        "item_id": "despoiler-battle-cannon",
+        "cost": 15
+      },
+      {
+        "item_id": "despoiler-gatling-cannon",
+        "cost": 25
+      }
+    ]
   },
   {
     "id": "chaos-cerastus-knight-acheron",

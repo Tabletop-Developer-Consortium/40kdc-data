@@ -537,5 +537,84 @@
       ]
     },
     "expected": []
+  },
+  {
+    "name": "points-over-limit-from-wargear-costs",
+    "note": "6 Terminator Assault Squads at 6 models = 1860 base (legal at 2000), but each squad's five thunder hammers (wargear_costs 5 pts each = 25/squad, +150) push the army to 2010 — over the limit. points-over-limit here is produced ONLY by charging wargear_costs over the loadout, so every port must sum them identically (issue 75).",
+    "args": {
+      "factionId": "adeptus-astartes",
+      "battleSize": "strike-force",
+      "forceDisposition": "priority-assets",
+      "detachments": [
+        {
+          "id": "gladius-task-force"
+        }
+      ],
+      "units": [
+        {
+          "unitId": "terminator-assault-squad",
+          "modelCount": 6,
+          "isWarlord": true,
+          "enhancementId": null,
+          "leaderBodyguardId": null,
+          "counts": {
+            "thunder-hammer": 5
+          }
+        },
+        {
+          "unitId": "terminator-assault-squad",
+          "modelCount": 6,
+          "isWarlord": false,
+          "enhancementId": null,
+          "leaderBodyguardId": null,
+          "counts": {
+            "thunder-hammer": 5
+          }
+        },
+        {
+          "unitId": "terminator-assault-squad",
+          "modelCount": 6,
+          "isWarlord": false,
+          "enhancementId": null,
+          "leaderBodyguardId": null,
+          "counts": {
+            "thunder-hammer": 5
+          }
+        },
+        {
+          "unitId": "terminator-assault-squad",
+          "modelCount": 6,
+          "isWarlord": false,
+          "enhancementId": null,
+          "leaderBodyguardId": null,
+          "counts": {
+            "thunder-hammer": 5
+          }
+        },
+        {
+          "unitId": "terminator-assault-squad",
+          "modelCount": 6,
+          "isWarlord": false,
+          "enhancementId": null,
+          "leaderBodyguardId": null,
+          "counts": {
+            "thunder-hammer": 5
+          }
+        },
+        {
+          "unitId": "terminator-assault-squad",
+          "modelCount": 6,
+          "isWarlord": false,
+          "enhancementId": null,
+          "leaderBodyguardId": null,
+          "counts": {
+            "thunder-hammer": 5
+          }
+        }
+      ]
+    },
+    "expected": [
+      "army|error|points-over-limit:roster"
+    ]
   }
 ]

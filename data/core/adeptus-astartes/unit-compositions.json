@@ -3748,43 +3748,6 @@
     ]
   },
   {
-    "unit_id": "victrix-honour-guard",
-    "faction_id": "adeptus-astartes",
-    "models": [
-      {
-        "name": "Victrix Honour Guard",
-        "min": 3,
-        "max": 6,
-        "is_leader_model": false,
-        "base_size_mm": {
-          "shape": "round",
-          "diameter": 40
-        },
-        "default_weapon_ids": [
-          "master-crafted-power-weapon-victrix-honour-guard",
-          "master-crafted-bolt-carbine"
-        ]
-      },
-      {
-        "name": "Chapter Champion",
-        "min": 0,
-        "max": 1,
-        "is_leader_model": false,
-        "base_size_mm": {
-          "shape": "round",
-          "diameter": 40
-        },
-        "default_weapon_ids": [
-          "blades-of-honour"
-        ]
-      }
-    ],
-    "game_version": {
-      "edition": "11th",
-      "dataslate": "pre-launch-provisional"
-    }
-  },
-  {
     "unit_id": "captain-in-terminator-armour",
     "faction_id": "adeptus-astartes",
     "models": [
@@ -8031,7 +7994,8 @@
           "diameter": 40
         },
         "default_weapon_ids": [
-          "wulfen-weapons"
+          "wulfen-weapons",
+          "death-totem"
         ]
       }
     ],
@@ -8139,6 +8103,156 @@
           "multi-melta",
           "stormfury-missile-launcher",
           "close-combat-weapon-land-speeder"
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
+    "unit_id": "victrix-honour-guard",
+    "faction_id": "adeptus-astartes",
+    "models": [
+      {
+        "name": "Victrix Honour Guard",
+        "min": 1,
+        "max": 6,
+        "default_weapon_ids": [
+          "master-crafted-bolt-carbine",
+          "master-crafted-power-weapon-victrix-honour-guard"
+        ]
+      },
+      {
+        "name": "Chapter Champion",
+        "min": 0,
+        "max": 1,
+        "default_weapon_ids": [
+          "blades-of-honour"
+        ]
+      },
+      {
+        "name": "Chapter Ancient",
+        "min": 0,
+        "max": 1,
+        "default_weapon_ids": [
+          "master-crafted-power-weapon-victrix-honour-guard",
+          "banner-of-macragge"
+        ]
+      }
+    ],
+    "tiers": [
+      {
+        "models": [
+          {
+            "name": "Victrix Honour Guard",
+            "min": 3,
+            "max": 3
+          }
+        ]
+      },
+      {
+        "models": [
+          {
+            "name": "Chapter Champion",
+            "min": 1,
+            "max": 1
+          },
+          {
+            "name": "Victrix Honour Guard",
+            "min": 2,
+            "max": 2
+          }
+        ]
+      },
+      {
+        "models": [
+          {
+            "name": "Chapter Ancient",
+            "min": 1,
+            "max": 1
+          },
+          {
+            "name": "Victrix Honour Guard",
+            "min": 2,
+            "max": 2
+          }
+        ]
+      },
+      {
+        "models": [
+          {
+            "name": "Chapter Ancient",
+            "min": 1,
+            "max": 1
+          },
+          {
+            "name": "Chapter Champion",
+            "min": 1,
+            "max": 1
+          },
+          {
+            "name": "Victrix Honour Guard",
+            "min": 1,
+            "max": 1
+          }
+        ]
+      },
+      {
+        "models": [
+          {
+            "name": "Victrix Honour Guard",
+            "min": 4,
+            "max": 6
+          }
+        ]
+      },
+      {
+        "models": [
+          {
+            "name": "Chapter Champion",
+            "min": 1,
+            "max": 1
+          },
+          {
+            "name": "Victrix Honour Guard",
+            "min": 3,
+            "max": 5
+          }
+        ]
+      },
+      {
+        "models": [
+          {
+            "name": "Chapter Ancient",
+            "min": 1,
+            "max": 1
+          },
+          {
+            "name": "Victrix Honour Guard",
+            "min": 3,
+            "max": 5
+          }
+        ]
+      },
+      {
+        "models": [
+          {
+            "name": "Chapter Ancient",
+            "min": 1,
+            "max": 1
+          },
+          {
+            "name": "Chapter Champion",
+            "min": 1,
+            "max": 1
+          },
+          {
+            "name": "Victrix Honour Guard",
+            "min": 2,
+            "max": 4
+          }
         ]
       }
     ],

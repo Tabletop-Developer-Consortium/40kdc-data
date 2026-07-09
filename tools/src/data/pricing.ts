@@ -36,8 +36,11 @@ function tierCoversOrdinal(tier: PointsTier, ordinal: number): boolean {
  * Base point cost for a unit of `modelCount` models taken as its `ordinal`-th
  * army copy (1-based; defaults to the 1st copy). Among the tiers whose ordinal
  * band covers this copy, returns the cost of the highest `models` threshold the
- * count reaches (lowest tier when none is reached). Returns 0 when no tier
- * applies — the caller surfaces a violation rather than guessing.
+ * count reaches (lowest tier when none is reached). `models` is the tier's range
+ * floor (a range-priced tier spans `models`..`models_max` at one cost, e.g.
+ * Venatari 4–6 @320), so a count inside a range resolves to that range's cost.
+ * Returns 0 when no tier applies — the caller surfaces a violation rather than
+ * guessing.
  */
 export function baseUnitPoints(unit: Unit, modelCount: number, ordinal = 1): number {
   const tiers = (unit.points ?? [])
@@ -53,13 +56,29 @@ export function baseUnitPoints(unit: Unit, modelCount: number, ordinal = 1): num
 }
 
 /**
- * True when no points tier covers `modelCount` for this `ordinal` (an
- * out-of-composition count, or an ordinal with no banded price). Mirrors the
- * band filter of {@link baseUnitPoints}.
+ * True when no points tier covers `modelCount` for this `ordinal` — the count
+ * falls outside every tier's `[models, models_max]` range (below the smallest
+ * tier, above the largest, or in a gap between non-contiguous tiers), or the
+ * ordinal has no banded price. A single-size tier (no `models_max`) covers only
+ * `models`. Mirrors the band filter of {@link baseUnitPoints}.
  */
 export function pointsTierMissing(unit: Unit, modelCount: number, ordinal = 1): boolean {
   const tiers = (unit.points ?? []).filter((t) => tierCoversOrdinal(t, ordinal));
   if (tiers.length === 0) return true;
-  const minModels = Math.min(...tiers.map((t) => t.models));
-  return modelCount < minModels;
+  return !tiers.some((t) => t.models <= modelCount && modelCount <= (t.models_max ?? t.models));
+}
+
+/**
+ * Per-item MFM wargear surcharge for a unit whose final loadout has `counts`
+ * copies of each weapon/wargear id (see {@link Loadout}). Each `unit.wargear_costs`
+ * entry charges `cost` for every copy of `item_id` present — a Terminator Assault
+ * Squad's five thunder hammers add 25, a Chapter Ancient's Banner of Macragge adds
+ * 10. Items with no cost entry are free. Absent `wargear_costs` (the common case)
+ * contributes 0, so a unit's total is `baseUnitPoints + wargearPoints + enhancement`.
+ * Mirror of `crates/wh40kdc/src/data/pricing.rs`.
+ */
+export function wargearPoints(unit: Unit, counts: ReadonlyMap<string, number>): number {
+  let total = 0;
+  for (const wc of unit.wargear_costs ?? []) total += wc.cost * (counts.get(wc.item_id) ?? 0);
+  return total;
 }

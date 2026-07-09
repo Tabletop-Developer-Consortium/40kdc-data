@@ -380,7 +380,13 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "wargear_costs": [
+      {
+        "item_id": "twin-arachnus-heavy-blaze-cannon",
+        "cost": 15
+      }
+    ]
   },
   {
     "id": "allarus-custodians",
@@ -408,7 +414,8 @@
         "cost": 165
       },
       {
-        "models": 5,
+        "models": 4,
+        "models_max": 5,
         "cost": 275
       },
       {
@@ -547,7 +554,8 @@
         "cost": 55
       },
       {
-        "models": 9,
+        "models": 6,
+        "models_max": 9,
         "cost": 90
       },
       {
@@ -666,7 +674,8 @@
         "cost": 55
       },
       {
-        "models": 9,
+        "models": 6,
+        "models_max": 9,
         "cost": 90
       },
       {
@@ -1129,7 +1138,8 @@
         "cost": 225
       },
       {
-        "models": 6,
+        "models": 4,
+        "models_max": 6,
         "cost": 450
       }
     ],
@@ -1504,7 +1514,8 @@
         "cost": 160
       },
       {
-        "models": 6,
+        "models": 4,
+        "models_max": 6,
         "cost": 320
       }
     ],
@@ -1623,7 +1634,8 @@
         "cost": 195
       },
       {
-        "models": 6,
+        "models": 4,
+        "models_max": 6,
         "cost": 390
       }
     ],
@@ -1815,7 +1827,8 @@
         "cost": 50
       },
       {
-        "models": 9,
+        "models": 6,
+        "models_max": 9,
         "cost": 75
       },
       {

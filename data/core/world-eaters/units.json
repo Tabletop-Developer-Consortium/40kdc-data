@@ -211,7 +211,8 @@
         "cost": 180
       },
       {
-        "models": 20,
+        "models": 11,
+        "models_max": 20,
         "cost": 345
       }
     ],
@@ -651,7 +652,17 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "wargear_costs": [
+      {
+        "item_id": "hades-lascannon",
+        "cost": 10
+      },
+      {
+        "item_id": "heavy-reaper-autocannon",
+        "cost": 10
+      }
+    ]
   },
   {
     "id": "heldrake",
@@ -795,7 +806,8 @@
         "unit_count_max": 2
       },
       {
-        "models": 6,
+        "models": 4,
+        "models_max": 6,
         "cost": 270,
         "unit_count_min": 1,
         "unit_count_max": 2
@@ -807,7 +819,8 @@
         "unit_count_max": null
       },
       {
-        "models": 6,
+        "models": 4,
+        "models_max": 6,
         "cost": 280,
         "unit_count_min": 3,
         "unit_count_max": null
@@ -931,7 +944,8 @@
         "unit_count_max": 2
       },
       {
-        "models": 6,
+        "models": 4,
+        "models_max": 6,
         "cost": 280,
         "unit_count_min": 1,
         "unit_count_max": 2
@@ -943,7 +957,8 @@
         "unit_count_max": null
       },
       {
-        "models": 6,
+        "models": 4,
+        "models_max": 6,
         "cost": 290,
         "unit_count_min": 3,
         "unit_count_max": null
@@ -1397,7 +1412,8 @@
         "unit_count_max": 2
       },
       {
-        "models": 10,
+        "models": 6,
+        "models_max": 10,
         "cost": 350,
         "unit_count_min": 1,
         "unit_count_max": 2
@@ -1409,7 +1425,8 @@
         "unit_count_max": null
       },
       {
-        "models": 10,
+        "models": 6,
+        "models_max": 10,
         "cost": 360,
         "unit_count_min": 3,
         "unit_count_max": null

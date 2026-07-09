@@ -5,6 +5,7 @@
     pairKey,
     canonicalMatchupId,
     libraryIndex,
+    layoutWarningsFor,
     type LibraryEntry,
   } from "./model.js";
   import LayoutThumb from "./LayoutThumb.svelte";
@@ -68,6 +69,33 @@
     index ? [...index.cells.values()].reduce((n, c) => n + c.byVariant.size, 0) : 0,
   );
 
+  /** Whether a library layout has any "needs review" warning (memoized in the model). */
+  function needsReview(id: string): boolean {
+    return layoutWarningsFor(id).length > 0;
+  }
+  /** Multi-line tooltip listing a layout's warnings. */
+  function reviewTitle(id: string): string {
+    const w = layoutWarningsFor(id);
+    return w.length ? `${w.length} to review:\n${w.map((x) => `• ${x.message}`).join("\n")}` : "";
+  }
+  /** Count of distinct layouts in the grid that need review (for the header). */
+  const flaggedCount = $derived.by(() => {
+    if (!index) return 0;
+    const seen = new Set<string>();
+    let n = 0;
+    const bump = (e: LibraryEntry): void => {
+      if (seen.has(e.id)) return;
+      seen.add(e.id);
+      if (needsReview(e.id)) n++;
+    };
+    for (const cell of index.cells.values()) {
+      for (const list of cell.byVariant.values()) list.forEach(bump);
+      cell.unnumbered.forEach(bump);
+    }
+    index.unassigned.forEach(bump);
+    return n;
+  });
+
   function pick(id: string): void {
     open = false;
     onpick(id);
@@ -89,6 +117,11 @@
     <header>
       <h2>Layout Library</h2>
       <span class="coverage">{filled} / 45 slots</span>
+      {#if flaggedCount > 0}
+        <span class="review-count" title="Layouts with overlapping pieces or off-grid keystones">
+          ⚠ {flaggedCount} to review
+        </span>
+      {/if}
       <span class="spacer"></span>
       <button type="button" class="blank" onclick={blank}>＋ Blank layout</button>
       <button type="button" class="close" aria-label="Close" onclick={() => (open = false)}>×</button>
@@ -123,6 +156,7 @@
                       onclick={() => pick(e.id)}
                     >
                       <span class="num">{v}</span>
+                      {#if needsReview(e.id)}<span class="review-badge" title={reviewTitle(e.id)}>⚠</span>{/if}
                       <LayoutThumb layoutId={e.id} patternId={e.deploymentPatternId} />
                       <span class="name">{e.name}</span>
                     </button>
@@ -138,6 +172,7 @@
                     onclick={() => pick(e.id)}
                   >
                     <span class="num">{v}</span>
+                    {#if needsReview(e.id)}<span class="review-badge" title={reviewTitle(e.id)}>⚠</span>{/if}
                     <LayoutThumb layoutId={e.id} patternId={e.deploymentPatternId} />
                     <span class="name">{e.name}</span>
                   </button>
@@ -168,6 +203,7 @@
                 title={e.name}
                 onclick={() => pick(e.id)}
               >
+                {#if needsReview(e.id)}<span class="review-badge" title={reviewTitle(e.id)}>⚠</span>{/if}
                 <LayoutThumb layoutId={e.id} patternId={e.deploymentPatternId} />
                 <span class="name">{e.name}</span>
               </button>
@@ -222,6 +258,11 @@
   .coverage {
     color: var(--text-mute);
     font-size: 0.85rem;
+  }
+  .review-count {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: oklch(0.72 0.16 70);
   }
   .spacer {
     flex: 1 1 auto;
@@ -336,6 +377,17 @@
     font-size: 0.68rem;
     color: var(--text-mute);
     z-index: 1;
+  }
+  .slot .review-badge {
+    position: absolute;
+    top: 0.15rem;
+    right: 0.25rem;
+    z-index: 1;
+    font-size: 0.8rem;
+    line-height: 1;
+    color: oklch(0.72 0.16 70);
+    text-shadow: 0 0 2px rgba(0, 0, 0, 0.6);
+    pointer-events: none;
   }
   .slot .name {
     font-size: 0.7rem;

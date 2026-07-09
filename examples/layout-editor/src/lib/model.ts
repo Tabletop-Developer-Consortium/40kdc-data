@@ -1148,6 +1148,280 @@ export function keystoneDisplays(layout: EditLayout): KeystoneDisplay[] {
   }));
 }
 
+// ── layout warnings ("needs review" flag) ─────────────────────────────────────
+// Advisory, editor-side checks that surface layouts a human should look at: two
+// pieces that overlap when they shouldn't (a feature mirrored onto the wrong side
+// "flies across the map"), and keystone distances that aren't clean ¼″ increments
+// (a symptom of a coordinate that's slightly off — 15.92″ where the card says
+// 16.25″). These are hints, never a gate: some overlaps/near-values are genuine, so
+// false positives are tolerable and nothing here blocks saving or loading.
+
+/** The kind of problem a {@link LayoutWarning} reports. */
+export type LayoutWarningKind = "collision" | "keystone-not-round";
+
+export interface LayoutWarning {
+  kind: LayoutWarningKind;
+  /** Human-readable summary for the banner/tooltip. */
+  message: string;
+  /** Resolved id(s) of the offending piece(s), for on-board highlighting (may be null when a piece has no id). */
+  pieceIds: (string | null)[];
+}
+
+/** Card measurements are clean quarter-inch increments; anything off by more than
+ *  this (in inches) is treated as a data-entry rounding error worth reviewing. */
+const KEYSTONE_INCREMENT = 0.25;
+const KEYSTONE_ROUND_TOL = 0.03;
+/** Minimum overlap area (in²) that counts as a collision. Edge-abutting pieces
+ *  share vertices exactly and overlap by ~0, so they never trip this; a real
+ *  overlap — even a small ruin nub onto a neighbouring baseplate — clears it. */
+const COLLISION_MIN_AREA = 0.25;
+
+const nearestIncrement = (n: number): number =>
+  Math.round(n / KEYSTONE_INCREMENT) * KEYSTONE_INCREMENT;
+
+/** Whether a keystone distance sits on (or within tolerance of) a clean ¼″ mark. */
+export function isRoundKeystone(distance: number): boolean {
+  return Math.abs(distance - nearestIncrement(distance)) <= KEYSTONE_ROUND_TOL;
+}
+
+const pieceLabel = (p: ResolvedPiece): string => p.name ?? p.id ?? "piece";
+
+/** Signed polygon area (shoelace); sign encodes winding. */
+function signedArea(poly: Vec2[]): number {
+  let a = 0;
+  for (let i = 0; i < poly.length; i++) {
+    const p = poly[i];
+    const q = poly[(i + 1) % poly.length];
+    a += p.x * q.y - q.x * p.y;
+  }
+  return a / 2;
+}
+
+/** Whether two polygons' axis-aligned bounding boxes overlap (cheap pre-filter). */
+function bboxOverlap(a: Vec2[], b: Vec2[]): boolean {
+  const ba = bbox(a);
+  const bb = bbox(b);
+  return ba.minX <= bb.maxX && bb.minX <= ba.maxX && ba.minY <= bb.maxY && bb.minY <= ba.maxY;
+}
+
+/** Barycentric-sign point-in-triangle (boundary counts as inside). */
+function inTriangle(p: Vec2, a: Vec2, b: Vec2, c: Vec2): boolean {
+  const s = (u: Vec2, v: Vec2, w: Vec2): number =>
+    (u.x - w.x) * (v.y - w.y) - (v.x - w.x) * (u.y - w.y);
+  const d1 = s(p, a, b);
+  const d2 = s(p, b, c);
+  const d3 = s(p, c, a);
+  const hasNeg = d1 < 0 || d2 < 0 || d3 < 0;
+  const hasPos = d1 > 0 || d2 > 0 || d3 > 0;
+  return !(hasNeg && hasPos);
+}
+
+/**
+ * Ear-clipping triangulation of a simple polygon (handles the concave L-shaped
+ * ruins). Returns CCW triangles; degenerate input yields no triangles rather than
+ * throwing — a warning check must never crash the editor.
+ */
+function triangulate(poly: Vec2[]): [Vec2, Vec2, Vec2][] {
+  const n = poly.length;
+  if (n < 3) return [];
+  // Normalise to CCW so the convex-vertex test below is orientation-independent.
+  const verts = signedArea(poly) < 0 ? poly.slice().reverse() : poly.slice();
+  const idx = verts.map((_, i) => i);
+  const tris: [Vec2, Vec2, Vec2][] = [];
+  let guard = n * n + 16;
+  while (idx.length > 3 && guard-- > 0) {
+    let clipped = false;
+    for (let k = 0; k < idx.length; k++) {
+      const a = verts[idx[(k - 1 + idx.length) % idx.length]];
+      const b = verts[idx[k]];
+      const c = verts[idx[(k + 1) % idx.length]];
+      // Convex (ear tip) in CCW winding: cross > 0.
+      const cross = (b.x - a.x) * (c.y - a.y) - (b.y - a.y) * (c.x - a.x);
+      if (cross <= 0) continue;
+      let empty = true;
+      for (const j of idx) {
+        const v = verts[j];
+        if (v === a || v === b || v === c) continue;
+        if (inTriangle(v, a, b, c)) {
+          empty = false;
+          break;
+        }
+      }
+      if (!empty) continue;
+      tris.push([a, b, c]);
+      idx.splice(k, 1);
+      clipped = true;
+      break;
+    }
+    if (!clipped) break; // no ear found (self-intersecting / degenerate): bail
+  }
+  if (idx.length === 3) tris.push([verts[idx[0]], verts[idx[1]], verts[idx[2]]]);
+  return tris;
+}
+
+/** Intersection point of segment s→e with the infinite line a→b. */
+function lineIntersect(s: Vec2, e: Vec2, a: Vec2, b: Vec2): Vec2 {
+  const dc = { x: a.x - b.x, y: a.y - b.y };
+  const dp = { x: s.x - e.x, y: s.y - e.y };
+  const n1 = a.x * b.y - a.y * b.x;
+  const n2 = s.x * e.y - s.y * e.x;
+  const denom = dc.x * dp.y - dc.y * dp.x;
+  return { x: (n1 * dp.x - n2 * dc.x) / denom, y: (n1 * dp.y - n2 * dc.y) / denom };
+}
+
+/** Clip convex polygon `subject` by convex polygon `clip` (both CCW) — Sutherland–Hodgman. */
+function clipConvex(subject: Vec2[], clip: Vec2[]): Vec2[] {
+  let output = subject;
+  for (let i = 0; i < clip.length && output.length > 0; i++) {
+    const a = clip[i];
+    const b = clip[(i + 1) % clip.length];
+    const inside = (p: Vec2): boolean =>
+      (b.x - a.x) * (p.y - a.y) - (b.y - a.y) * (p.x - a.x) >= 0;
+    const input = output;
+    output = [];
+    for (let j = 0; j < input.length; j++) {
+      const cur = input[j];
+      const prev = input[(j + input.length - 1) % input.length];
+      const curIn = inside(cur);
+      const prevIn = inside(prev);
+      if (curIn) {
+        if (!prevIn) output.push(lineIntersect(prev, cur, a, b));
+        output.push(cur);
+      } else if (prevIn) {
+        output.push(lineIntersect(prev, cur, a, b));
+      }
+    }
+  }
+  return output;
+}
+
+/** Exact overlap area of two (possibly concave) polygons, via triangulation + clipping. */
+function polygonOverlapArea(a: Vec2[], b: Vec2[]): number {
+  let area = 0;
+  for (const t1 of triangulate(a)) {
+    for (const t2 of triangulate(b)) {
+      const clipped = clipConvex(t1.slice(), t2);
+      if (clipped.length >= 3) area += Math.abs(signedArea(clipped));
+    }
+  }
+  return area;
+}
+
+/**
+ * Overlapping-piece warnings. Resolves the layout, then assigns every resolved
+ * piece a "collision group" keyed by the logical area it belongs to — an area and
+ * everything anchored to it (its parented features + its template's composed
+ * features), with linked areas (shared `link_group`) folded into one group. Pairs
+ * within a group are expected to overlap and are skipped:
+ *   - a ruin sits on its own baseplate (same area), and
+ *   - two linked baseplates interlock as one piece, so a ruin on one legitimately
+ *     spans onto its partner (the Take-and-Hold centre trapezoid pair).
+ * Every other pair with a real overlap area is flagged. Returns [] if the layout
+ * can't resolve mid-edit.
+ */
+function collisionWarnings(layout: EditLayout): LayoutWarning[] {
+  let resolved: ResolvedPiece[];
+  try {
+    resolved = resolve(layout);
+  } catch {
+    return [];
+  }
+  const pieces = layout.pieces ?? [];
+
+  // The governing-area id of each resolved piece: itself for a top-level piece,
+  // the parent for a parented feature, the templated area for a composed feature.
+  // Walk the resolver's emission contract (mirrored from keystones.ts): one slot
+  // per layout piece, plus a templated unparented piece's composed features after.
+  const linkByPieceId = new Map<string, string>();
+  for (const p of pieces) if (p.id && p.link_group) linkByPieceId.set(p.id, p.link_group);
+  const governingArea: (string | null)[] = new Array(resolved.length).fill(null);
+  let cursor = 0;
+  for (const p of pieces) {
+    const self = cursor;
+    cursor += 1;
+    if (p.parent_area_id) {
+      governingArea[self] = p.parent_area_id;
+    } else {
+      governingArea[self] = p.id ?? `#${self}`;
+      const fcount = p.template ? templateById(p.template)?.features?.length ?? 0 : 0;
+      for (let f = 1; f <= fcount; f++) governingArea[self + f] = p.id ?? `#${self}`;
+    }
+  }
+  // Pieces sharing a group key never collide-warn against each other.
+  const groupKey = (i: number): string => {
+    const aid = governingArea[i];
+    const link = aid ? linkByPieceId.get(aid) : undefined;
+    return link ? `lg:${link}` : `a:${aid ?? i}`;
+  };
+
+  const out: LayoutWarning[] = [];
+  for (let a = 0; a < resolved.length; a++) {
+    for (let b = a + 1; b < resolved.length; b++) {
+      if (groupKey(a) === groupKey(b)) continue;
+      const pa = resolved[a];
+      const pb = resolved[b];
+      if (!bboxOverlap(pa.vertices, pb.vertices)) continue;
+      const overlap = polygonOverlapArea(pa.vertices, pb.vertices);
+      if (overlap > COLLISION_MIN_AREA) {
+        out.push({
+          kind: "collision",
+          message: `${pieceLabel(pa)} overlaps ${pieceLabel(pb)} (${round2(overlap)} in²)`,
+          pieceIds: [pa.id, pb.id],
+        });
+      }
+    }
+  }
+  return out;
+}
+
+/** Non-round keystone warnings: every derived distance that isn't a clean ¼″ mark. */
+function keystoneRoundnessWarnings(layout: EditLayout): LayoutWarning[] {
+  const out: LayoutWarning[] = [];
+  for (const d of keystoneDisplays(layout)) {
+    if (d.distance == null || isRoundKeystone(d.distance)) continue;
+    const target = nearestIncrement(d.distance);
+    out.push({
+      kind: "keystone-not-round",
+      message: `${d.keystone.edge} keystone ${round2(d.distance)}″ (nearest ¼″ is ${round2(target)}″)`,
+      pieceIds: [d.pieceId],
+    });
+  }
+  return out;
+}
+
+/**
+ * Every "needs review" warning for a layout: overlapping pieces first, then
+ * off-grid keystones. Symmetric twins produce the same warning on both board
+ * halves, so identical messages are collapsed (their piece ids merged for the
+ * board highlight). Pure and cheap; components call it in a `$derived`.
+ */
+export function layoutWarnings(layout: EditLayout): LayoutWarning[] {
+  const raw = [...collisionWarnings(layout), ...keystoneRoundnessWarnings(layout)];
+  const byMessage = new Map<string, LayoutWarning>();
+  for (const w of raw) {
+    const key = `${w.kind}|${w.message}`;
+    const seen = byMessage.get(key);
+    if (seen) {
+      for (const id of w.pieceIds) if (!seen.pieceIds.includes(id)) seen.pieceIds.push(id);
+    } else {
+      byMessage.set(key, { ...w, pieceIds: [...w.pieceIds] });
+    }
+  }
+  return [...byMessage.values()];
+}
+
+/** Warnings for an embedded (library) layout by id. Memoized — the dataset is
+ *  immutable for the life of the build (same contract as {@link resolveEmbedded}). */
+const warningCache = new Map<string, LayoutWarning[]>();
+export function layoutWarningsFor(layoutId: string): LayoutWarning[] {
+  const hit = warningCache.get(layoutId);
+  if (hit) return hit;
+  const raw = ds.terrainLayouts.get(layoutId) as unknown as EditLayout | undefined;
+  const warnings = raw ? layoutWarnings(raw) : [];
+  warningCache.set(layoutId, warnings);
+  return warnings;
+}
+
 export type ObjectiveRole = "home" | "expansion" | "center";
 
 /** Every piece that forms the same objective as `p`: its link_group union, else just itself — each with its twin. */

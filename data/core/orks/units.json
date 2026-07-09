@@ -145,7 +145,8 @@
         "cost": 60
       },
       {
-        "models": 6,
+        "models": 4,
+        "models_max": 6,
         "cost": 120
       }
     ],
@@ -207,7 +208,8 @@
         "cost": 75
       },
       {
-        "models": 6,
+        "models": 4,
+        "models_max": 6,
         "cost": 140
       }
     ],
@@ -384,7 +386,8 @@
         "unit_count_max": 2
       },
       {
-        "models": 6,
+        "models": 4,
+        "models_max": 6,
         "cost": 240,
         "unit_count_min": 1,
         "unit_count_max": 2
@@ -396,7 +399,8 @@
         "unit_count_max": null
       },
       {
-        "models": 6,
+        "models": 4,
+        "models_max": 6,
         "cost": 250,
         "unit_count_min": 3,
         "unit_count_max": null
@@ -824,7 +828,13 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "wargear_costs": [
+      {
+        "item_id": "ard-case",
+        "cost": 15
+      }
+    ]
   },
   {
     "id": "boss-snikrot",
@@ -1465,7 +1475,8 @@
         "cost": 75
       },
       {
-        "models": 20,
+        "models": 11,
+        "models_max": 20,
         "cost": 150
       }
     ],
@@ -1829,7 +1840,8 @@
         "cost": 65
       },
       {
-        "models": 10,
+        "models": 6,
+        "models_max": 10,
         "cost": 130
       }
     ],
@@ -2285,7 +2297,8 @@
       "fix-dat-armour-up",
       "grot-oiler",
       "kustom-force-field",
-      "leader"
+      "leader",
+      "more-dakka"
     ],
     "game_version": {
       "edition": "11th",
@@ -2383,7 +2396,8 @@
         "cost": 90
       },
       {
-        "models": 20,
+        "models": 11,
+        "models_max": 20,
         "cost": 170
       }
     ],
@@ -3000,7 +3014,8 @@
         "unit_count_max": 2
       },
       {
-        "models": 10,
+        "models": 6,
+        "models_max": 10,
         "cost": 210,
         "unit_count_min": 1,
         "unit_count_max": 2
@@ -3012,7 +3027,8 @@
         "unit_count_max": null
       },
       {
-        "models": 10,
+        "models": 6,
+        "models_max": 10,
         "cost": 220,
         "unit_count_min": 3,
         "unit_count_max": null
@@ -3141,7 +3157,8 @@
         "unit_count_max": 2
       },
       {
-        "models": 5,
+        "models": 4,
+        "models_max": 5,
         "cost": 150,
         "unit_count_min": 1,
         "unit_count_max": 2
@@ -3165,7 +3182,8 @@
         "unit_count_max": null
       },
       {
-        "models": 5,
+        "models": 4,
+        "models_max": 5,
         "cost": 170,
         "unit_count_min": 3,
         "unit_count_max": null

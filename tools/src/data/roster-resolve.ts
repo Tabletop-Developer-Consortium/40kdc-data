@@ -12,7 +12,7 @@ import type { Dataset } from "./dataset.js";
 import type { UnitView, WeaponView } from "./entities.js";
 import { detachmentCapForBattleSize, pointsLimitForBattleSize } from "./battle-sizes.js";
 import { checkUnitLegality, type Violation } from "./loadout.js";
-import { baseUnitPoints } from "./pricing.js";
+import { baseUnitPoints, wargearPoints } from "./pricing.js";
 
 /**
  * Resolve a roster's unit entry against the dataset, returning the linked
@@ -308,7 +308,7 @@ export function validateRosterCore(spec: NormRoster, dataset: Dataset): RosterLe
     }
   });
 
-  // --- Points total (ordinal-aware) + enhancement costs. --------------------
+  // --- Points total (ordinal-aware) + wargear + enhancement costs. ----------
   const ordinals = new Map<string, number>();
   let total = 0;
   spec.units.forEach((su, idx) => {
@@ -317,6 +317,7 @@ export function validateRosterCore(spec: NormRoster, dataset: Dataset): RosterLe
     const ord = (ordinals.get(su.unitId) ?? 0) + 1;
     ordinals.set(su.unitId, ord);
     total += baseUnitPoints(view.raw, su.modelCount, ord);
+    total += wargearPoints(view.raw, su.counts);
     if (su.enhancementId) total += dataset.enhancements.get(su.enhancementId)?.cost ?? 0;
   });
   const limit = pointsLimitForBattleSize(spec.battleSize);

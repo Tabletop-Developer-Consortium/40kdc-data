@@ -36,6 +36,8 @@
     showKeystones?: boolean;
     /** Rotate keystone labels to face the player whose board half holds the piece — always an axis-aligned top/bottom or left/right split (needs `divider`). */
     keystoneFacing?: boolean;
+    /** Resolved ids of pieces named by a "needs review" warning, outlined on the board. */
+    warnPieceIds?: Set<string>;
     onselect: (id: string | null) => void;
     onmove: (id: string, position: Vec2) => void;
     onorient: (id: string, patch: { rotation_degrees?: number; mirror?: Mirror }) => void;
@@ -51,6 +53,7 @@
     markers,
     showKeystones = true,
     keystoneFacing = false,
+    warnPieceIds = new Set<string>(),
     onselect,
     onmove,
     onorient,
@@ -295,7 +298,9 @@
         points={pts(p)}
         class="piece {p.piece_type} {tplCat} {p.id === selectedId ? 'selected' : ''} {p.id === twinId
           ? 'twin'
-          : ''} {ep && isGroundBlocked(ep) ? 'blocked' : ''}"
+          : ''} {ep && isGroundBlocked(ep) ? 'blocked' : ''} {p.id && warnPieceIds.has(p.id)
+          ? 'needs-review'
+          : ''}"
         role="button"
         tabindex="0"
         aria-label={p.name ?? p.id ?? "piece"}
@@ -508,6 +513,14 @@
     stroke: oklch(0.48 0.15 195);
     stroke-width: 0.36;
   }
+  /* "Needs review" pieces (overlap / off-grid keystone): red dashed outline,
+     placed after .selected/.twin so it wins when a flagged piece is also
+     selected. */
+  .piece.needs-review {
+    stroke: oklch(0.58 0.21 25);
+    stroke-width: 0.5;
+    stroke-dasharray: 0.7 0.4;
+  }
   .upper {
     fill: none;
     stroke: oklch(0.4 0.02 255);
@@ -524,25 +537,28 @@
   .ind {
     pointer-events: none;
   }
+  /* Pinning-panel edge/vertex highlight: magenta (hue 330), deliberately clear of
+     the teal (195) used by selected/twin outlines and measure guides — teal on
+     teal made the pinned feature nearly impossible to pick out. */
   .ind.hover {
-    fill: oklch(0.52 0.14 195);
-    opacity: 0.7;
+    fill: oklch(0.64 0.26 330);
+    opacity: 0.95;
   }
   .ind.active {
-    fill: oklch(0.42 0.15 195);
+    fill: oklch(0.55 0.27 330);
   }
   .ind-edge {
     pointer-events: none;
     fill: none;
   }
   .ind-edge.hover {
-    stroke: oklch(0.52 0.14 195);
-    stroke-width: 0.4;
-    opacity: 0.7;
+    stroke: oklch(0.64 0.26 330);
+    stroke-width: 0.55;
+    opacity: 0.95;
   }
   .ind-edge.active {
-    stroke: oklch(0.42 0.15 195);
-    stroke-width: 0.4;
+    stroke: oklch(0.55 0.27 330);
+    stroke-width: 0.55;
   }
   .measure {
     stroke: oklch(0.4 0.15 195);

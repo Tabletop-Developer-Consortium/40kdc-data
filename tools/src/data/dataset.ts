@@ -455,8 +455,15 @@ export class Dataset {
    * array for a unit that no leader can attach to (including leader units).
    */
   leadersAttachableTo(bodyguardUnitId: string): UnitView[] {
+    const bodyguard = this.units.getAny(bodyguardUnitId);
     return this.leaderAttachments
-      .filter((la) => la.eligible_bodyguard_ids.includes(bodyguardUnitId))
+      .filter(
+        (la) =>
+          la.eligible_bodyguard_ids.includes(bodyguardUnitId) ||
+          // Keyword eligibility (e.g. an Inquisitor leading any Imperium
+          // Battleline Infantry unit): match on the bodyguard's keyword set.
+          (bodyguard !== undefined && matchesBodyguardKeywords(la, bodyguard.raw)),
+      )
       // Attachment data is faction-agnostic (no faction context here); accept
       // first-wins for a shared leader/bodyguard chassis via getAny.
       .map((la) => this.units.getAny(la.leader_id))
@@ -475,14 +482,19 @@ export class Dataset {
   bodyguardsAttachableFrom(leaderUnitId: string): UnitView[] {
     const seen = new Set<string>();
     const out: UnitView[] = [];
+    const add = (unit: UnitView | undefined) => {
+      if (!unit || seen.has(unit.id)) return;
+      seen.add(unit.id);
+      out.push(unit);
+    };
     for (const la of this.leaderAttachments) {
       if (la.leader_id !== leaderUnitId) continue;
-      for (const bodyguardId of la.eligible_bodyguard_ids) {
-        if (seen.has(bodyguardId)) continue;
-        const unit = this.units.getAny(bodyguardId);
-        if (!unit) continue;
-        seen.add(bodyguardId);
-        out.push(unit);
+      for (const bodyguardId of la.eligible_bodyguard_ids) add(this.units.getAny(bodyguardId));
+      // Keyword eligibility: every unit whose keyword set contains all of the
+      // entry's keywords is also a valid bodyguard (e.g. Imperium Battleline
+      // Infantry for an Inquisitor).
+      if (la.eligible_bodyguard_keywords?.length) {
+        for (const view of this.units.all) if (matchesBodyguardKeywords(la, view.raw)) add(view);
       }
     }
     return out.sort((a, b) => a.name.localeCompare(b.name));
@@ -761,6 +773,19 @@ function unitKeywordSet(unit: Unit): Set<string> {
   for (const k of unit.keywords ?? []) out.add(k.toLowerCase());
   for (const k of unit.faction_keywords ?? []) out.add(k.toLowerCase());
   return out;
+}
+
+/**
+ * Does `unit` satisfy an attachment entry's optional keyword eligibility — i.e.
+ * its keyword set (keywords ∪ faction_keywords, case-insensitive) contains ALL
+ * of `eligible_bodyguard_keywords`? Absent/empty keywords never match (the entry
+ * then relies solely on `eligible_bodyguard_ids`).
+ */
+function matchesBodyguardKeywords(la: LeaderAttachment, unit: Unit): boolean {
+  const req = la.eligible_bodyguard_keywords;
+  if (!req || req.length === 0) return false;
+  const have = unitKeywordSet(unit);
+  return req.every((k) => have.has(k.toLowerCase()));
 }
 
 /** Map an EligibleAbility back to the BuffSource the translator expects. */

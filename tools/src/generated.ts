@@ -911,6 +911,12 @@ export interface LeaderAttachment {
    * @minItems 1
    */
   eligible_bodyguard_ids: [EntityId, ...EntityId[]];
+  /**
+   * Optional keyword-based eligibility: any unit whose keyword set (keywords ∪ faction_keywords, case-insensitive) contains ALL of these is also an eligible bodyguard, in addition to eligible_bodyguard_ids. Models rules like an Inquisitor leading any IMPERIUM BATTLELINE INFANTRY unit.
+   *
+   * @minItems 1
+   */
+  eligible_bodyguard_keywords?: [string, ...string[]];
   game_version: GameVersionReference;
 }
 /**

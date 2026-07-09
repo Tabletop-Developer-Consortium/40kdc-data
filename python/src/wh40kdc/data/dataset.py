@@ -56,6 +56,21 @@ class ReactiveTrigger(TypedDict):
     trigger: dict[str, Any]
 
 
+def _matches_bodyguard_keywords(la: dict[str, Any], unit: dict[str, Any]) -> bool:
+    """Whether ``unit`` satisfies an attachment entry's optional keyword eligibility.
+
+    True when the unit's keyword set (``keywords`` ∪ ``faction_keywords``,
+    case-insensitive) contains ALL of ``eligible_bodyguard_keywords``. Absent or
+    empty keywords never match (the entry then relies solely on
+    ``eligible_bodyguard_ids``). Mirror of TS ``matchesBodyguardKeywords``.
+    """
+    req = la.get("eligible_bodyguard_keywords") or []
+    if not req:
+        return False
+    have = {k.lower() for k in (unit.get("keywords") or []) + (unit.get("faction_keywords") or [])}
+    return all(k.lower() in have for k in req)
+
+
 class Dataset:
     """The whole dataset, with linked accessors over every entity collection."""
 
@@ -405,9 +420,14 @@ class Dataset:
         the attachment list. Sorted by name. Empty for a unit that no leader
         can attach to (including leader units).
         """
+        bodyguard = self.units.get_any(bodyguard_unit_id)
         out = []
         for la in self.leader_attachments:
-            if bodyguard_unit_id not in la.get("eligible_bodyguard_ids", []):
+            # Keyword eligibility (e.g. an Inquisitor leading any Imperium
+            # Battleline Infantry unit) matches on the bodyguard's keyword set.
+            if bodyguard_unit_id not in la.get("eligible_bodyguard_ids", []) and not (
+                bodyguard is not None and _matches_bodyguard_keywords(la, bodyguard.raw)
+            ):
                 continue
             # Attachment data is faction-agnostic (no faction context
             # here); accept first-wins for a shared chassis via get_any.
@@ -427,14 +447,20 @@ class Dataset:
             if la.get("leader_id") != leader_unit_id:
                 continue
             for bodyguard_id in la.get("eligible_bodyguard_ids", []):
-                if bodyguard_id in seen:
-                    continue
                 # Faction-agnostic attachment data — get_any, as above.
                 unit = self.units.get_any(bodyguard_id)
-                if unit is None:
+                if unit is None or unit.id in seen:
                     continue
-                seen.add(bodyguard_id)
+                seen.add(unit.id)
                 out.append(unit)
+            # Keyword eligibility: every unit whose keyword set contains all of
+            # the entry's keywords is also a valid bodyguard (e.g. Imperium
+            # Battleline Infantry for an Inquisitor).
+            if la.get("eligible_bodyguard_keywords"):
+                for unit in self.units.all:
+                    if unit.id not in seen and _matches_bodyguard_keywords(la, unit.raw):
+                        seen.add(unit.id)
+                        out.append(unit)
         return sorted(out, key=lambda u: u.name)
 
     def eligible_abilities(self, input: dict[str, Any], phase: str) -> list[dict[str, Any]]:

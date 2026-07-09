@@ -11,6 +11,12 @@
       "items": { "$ref": "../defs/common.schema.json#/$defs/entity-id" },
       "minItems": 1
     },
+    "eligible_bodyguard_keywords": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "minItems": 1,
+      "description": "Optional keyword-based eligibility: any unit whose keyword set (keywords ∪ faction_keywords, case-insensitive) contains ALL of these is also an eligible bodyguard, in addition to eligible_bodyguard_ids. Models rules like an Inquisitor leading any IMPERIUM BATTLELINE INFANTRY unit."
+    },
     "game_version": { "$ref": "../defs/game-version-ref.schema.json" }
   },
   "required": ["leader_id", "eligible_bodyguard_ids", "game_version"],

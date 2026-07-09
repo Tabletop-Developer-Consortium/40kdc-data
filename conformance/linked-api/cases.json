@@ -757,6 +757,99 @@
     ]
   },
   {
+    "name": "bodyguards_attachable_from inquisitor-draxus (id-list + Imperium Battleline Infantry keywords)",
+    "query": "bodyguards_attachable_from",
+    "args": {
+      "leaderId": "inquisitor-draxus"
+    },
+    "comparison": "set",
+    "expected": [
+      "aquila-kill-team",
+      "askars-wolfpack-blood-claws",
+      "assault-force-intercessor-squad",
+      "assault-intercessor-squad",
+      "battle-sisters-squad",
+      "blood-claws",
+      "brotherhood-terminator-squad",
+      "cadian-shock-troops",
+      "catachan-jungle-fighters",
+      "crowes-sanctifiers-brotherhood-terminator-squad",
+      "crowes-sanctifiers-strike-squad",
+      "crusader-squad",
+      "custodian-guard",
+      "death-korps-of-krieg",
+      "deathwatch-kill-team",
+      "deathwatch-veterans",
+      "decimus-kill-team",
+      "exaction-squad",
+      "gilded-blades-custodian-guard",
+      "grey-hunters",
+      "heavy-intercessor-squad",
+      "imperial-navy-breachers",
+      "inquisitorial-agents",
+      "inquisitors-hand-vigilant-squad",
+      "intercessor-squad",
+      "purge-corps-skitarii-vanguard",
+      "sanctuary-guardians-battle-sisters-squad",
+      "sanguinary-spearhead-assault-intercessor-squad",
+      "skitarii-rangers",
+      "skitarii-vanguard",
+      "strike-squad",
+      "subductor-squad",
+      "tactical-squad",
+      "vengeful-brethren-intercessor-squad",
+      "vigilant-squad",
+      "vow-sworn-crusader-squad"
+    ]
+  },
+  {
+    "name": "bodyguards_attachable_from kharn-the-betrayer (id-list only)",
+    "query": "bodyguards_attachable_from",
+    "args": {
+      "leaderId": "kharn-the-betrayer"
+    },
+    "comparison": "set",
+    "expected": [
+      "khorne-berzerkers"
+    ]
+  },
+  {
+    "name": "leaders_attachable_to cadian-shock-troops (Battleline → includes inquisitor-draxus)",
+    "query": "leaders_attachable_to",
+    "args": {
+      "bodyguardId": "cadian-shock-troops"
+    },
+    "comparison": "set",
+    "expected": [
+      "cadian-castellan",
+      "cadian-command-squad",
+      "commissar",
+      "inquisitor-draxus",
+      "lord-solar-leontus",
+      "ministorum-priest",
+      "primaris-psyker",
+      "tech-priest-enginseer",
+      "ursula-creed"
+    ]
+  },
+  {
+    "name": "leaders_attachable_to kasrkin (not Battleline → excludes inquisitor-draxus)",
+    "query": "leaders_attachable_to",
+    "args": {
+      "bodyguardId": "kasrkin"
+    },
+    "comparison": "set",
+    "expected": [
+      "cadian-castellan",
+      "commissar",
+      "lord-solar-leontus",
+      "ministorum-priest",
+      "primaris-psyker",
+      "tech-priest-enginseer",
+      "ursula-creed"
+    ]
+  },
+  {
     "name": "base_loadout chaos-terminators @5 (legal default, no swaps)",
     "query": "base_loadout",
     "args": {

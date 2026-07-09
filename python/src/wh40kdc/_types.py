@@ -332,9 +332,13 @@ class HullShape(TypedDict):
     game_version: GameVersionRef
 
 
+EligibleBodyguardKeyword: TypeAlias = str
+
+
 class LeaderAttachment(TypedDict):
     leader_id: EntityId
     eligible_bodyguard_ids: list[EntityId]
+    eligible_bodyguard_keywords: NotRequired[list[EligibleBodyguardKeyword]]
     game_version: GameVersionRef
 
 

@@ -221,6 +221,18 @@ fn run_query(ds: &Dataset, query: &str, args: &Value) -> Value {
                 .map(|u| Value::String(u.id.to_string()))
                 .collect(),
         ),
+        "leaders_attachable_to" => Value::Array(
+            ds.leaders_attachable_to(arg_str("bodyguardId"))
+                .into_iter()
+                .map(|u| Value::String(u.id.to_string()))
+                .collect(),
+        ),
+        "bodyguards_attachable_from" => Value::Array(
+            ds.bodyguards_attachable_from(arg_str("leaderId"))
+                .into_iter()
+                .map(|u| Value::String(u.id.to_string()))
+                .collect(),
+        ),
         "reactive_trigger_ability_ids" => {
             let mut ids: Vec<String> = ds
                 .reactive_triggers()

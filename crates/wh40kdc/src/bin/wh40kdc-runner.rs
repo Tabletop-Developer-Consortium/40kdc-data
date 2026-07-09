@@ -905,6 +905,24 @@ fn handle_linked_query(state: &mut RunnerState, args: &Value) -> Value {
                     .collect(),
             ))
         }
+        "leaders_attachable_to" => {
+            let bodyguard_id = str_arg("bodyguardId");
+            ok_value(Value::Array(
+                ds.leaders_attachable_to(bodyguard_id)
+                    .into_iter()
+                    .map(|u| Value::String(u.id.to_string()))
+                    .collect(),
+            ))
+        }
+        "bodyguards_attachable_from" => {
+            let leader_id = str_arg("leaderId");
+            ok_value(Value::Array(
+                ds.bodyguards_attachable_from(leader_id)
+                    .into_iter()
+                    .map(|u| Value::String(u.id.to_string()))
+                    .collect(),
+            ))
+        }
         "reactive_trigger_ability_ids" => {
             let mut ids: Vec<String> = ds
                 .reactive_triggers()

@@ -290,6 +290,8 @@ type LinkedApiQuery =
       comparison: "ordered";
     }
   | { name: string; query: "ally_units_for"; args: { ruleId: string }; comparison: "set" }
+  | { name: string; query: "leaders_attachable_to"; args: { bodyguardId: string }; comparison: "set" }
+  | { name: string; query: "bodyguards_attachable_from"; args: { leaderId: string }; comparison: "set" }
   | { name: string; query: "reactive_trigger_ability_ids"; args: Record<string, never>; comparison: "ordered" }
   | { name: string; query: "events_with_triggers"; args: Record<string, never>; comparison: "ordered" }
   | { name: string; query: "triggers_for_event"; args: { event: string }; comparison: "ordered" };
@@ -348,6 +350,15 @@ const LINKED_API_QUERIES: LinkedApiQuery[] = [
   { name: "ally_units_for imperial-knights-questor-forgepact (5 AdMech datasheets)", query: "ally_units_for", args: { ruleId: "imperial-knights-questor-forgepact" }, comparison: "set" },
   { name: "ally_units_for agents-of-the-imperium-allies (29 datasheets)", query: "ally_units_for", args: { ruleId: "agents-of-the-imperium-allies" }, comparison: "set" },
   { name: "ally_units_for chaos-knights-allies (20 datasheets)", query: "ally_units_for", args: { ruleId: "chaos-knights-allies" }, comparison: "set" },
+  // leader attachment (both directions); compared as set (accessors sort by name).
+  // inquisitor-draxus mixes explicit eligible_bodyguard_ids with keyword eligibility
+  // (Imperium ∧ Battleline ∧ Infantry), so the expected pool is her 6 Agents units
+  // plus every Imperium Battleline Infantry datasheet. kharn-the-betrayer has no
+  // keyword rule (id-list only) — the baseline that keyword logic must not perturb.
+  { name: "bodyguards_attachable_from inquisitor-draxus (id-list + Imperium Battleline Infantry keywords)", query: "bodyguards_attachable_from", args: { leaderId: "inquisitor-draxus" }, comparison: "set" },
+  { name: "bodyguards_attachable_from kharn-the-betrayer (id-list only)", query: "bodyguards_attachable_from", args: { leaderId: "kharn-the-betrayer" }, comparison: "set" },
+  { name: "leaders_attachable_to cadian-shock-troops (Battleline → includes inquisitor-draxus)", query: "leaders_attachable_to", args: { bodyguardId: "cadian-shock-troops" }, comparison: "set" },
+  { name: "leaders_attachable_to kasrkin (not Battleline → excludes inquisitor-draxus)", query: "leaders_attachable_to", args: { bodyguardId: "kasrkin" }, comparison: "set" },
   // base_loadout(unit, modelCount): the pinned legal default loadout, encoded as a
   // sorted "weaponId:count" multiset. chaos-terminators is a uniform squad (per-model
   // scaling); crusader-squad exercises leader+bulk per-figure allocation.
@@ -445,6 +456,10 @@ function runLinkedQuery(ds: Dataset, q: LinkedApiQuery): string | null | string[
       return ds.alliesFor(q.args.factionId, q.args.detachmentIds ?? []).map((r) => r.id);
     case "ally_units_for":
       return ds.allyUnitsFor(q.args.ruleId).map((u) => u.id).sort();
+    case "leaders_attachable_to":
+      return ds.leadersAttachableTo(q.args.bodyguardId).map((u) => u.id).sort();
+    case "bodyguards_attachable_from":
+      return ds.bodyguardsAttachableFrom(q.args.leaderId).map((u) => u.id).sort();
     case "reactive_trigger_ability_ids":
       return ds.reactiveTriggers().map((rt) => rt.abilityId);
     case "events_with_triggers":

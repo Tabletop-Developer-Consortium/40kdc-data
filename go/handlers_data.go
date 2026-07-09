@@ -343,6 +343,18 @@ func (s *RunnerState) handleLinkedQuery(args any) map[string]any {
 			out = append(out, u.ID())
 		}
 		return okResp(out)
+	case "leaders_attachable_to":
+		out := []any{}
+		for _, u := range ds.leadersAttachableTo(getStr(in, "bodyguardId")) {
+			out = append(out, u.ID())
+		}
+		return okResp(out)
+	case "bodyguards_attachable_from":
+		out := []any{}
+		for _, u := range ds.bodyguardsAttachableFrom(getStr(in, "leaderId")) {
+			out = append(out, u.ID())
+		}
+		return okResp(out)
 	case "reactive_trigger_ability_ids":
 		ids := []string{}
 		for _, rt := range ds.ReactiveTriggers() {

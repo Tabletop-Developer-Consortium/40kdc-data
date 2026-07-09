@@ -7331,6 +7331,15 @@ impl ::std::convert::From<Vec<Keyword>> for KeywordList {
 ///      },
 ///      "minItems": 1
 ///    },
+///    "eligible_bodyguard_keywords": {
+///      "description": "Optional keyword-based eligibility: any unit whose keyword set (keywords ∪ faction_keywords, case-insensitive) contains ALL of these is also an eligible bodyguard, in addition to eligible_bodyguard_ids. Models rules like an Inquisitor leading any IMPERIUM BATTLELINE INFANTRY unit.",
+///      "type": "array",
+///      "items": {
+///        "type": "string",
+///        "minLength": 1
+///      },
+///      "minItems": 1
+///    },
 ///    "game_version": {
 ///      "$ref": "#/$defs/game-version-ref"
 ///    },
@@ -7346,8 +7355,88 @@ impl ::std::convert::From<Vec<Keyword>> for KeywordList {
 #[serde(deny_unknown_fields)]
 pub struct LeaderAttachment {
     pub eligible_bodyguard_ids: ::std::vec::Vec<EntityId>,
+    ///Optional keyword-based eligibility: any unit whose keyword set (keywords ∪ faction_keywords, case-insensitive) contains ALL of these is also an eligible bodyguard, in addition to eligible_bodyguard_ids. Models rules like an Inquisitor leading any IMPERIUM BATTLELINE INFANTRY unit.
+    #[serde(default, skip_serializing_if = "::std::vec::Vec::is_empty")]
+    pub eligible_bodyguard_keywords: ::std::vec::Vec<
+        LeaderAttachmentEligibleBodyguardKeywordsItem,
+    >,
     pub game_version: GameVersionRef,
     pub leader_id: EntityId,
+}
+///`LeaderAttachmentEligibleBodyguardKeywordsItem`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "string",
+///  "minLength": 1
+///}
+/// ```
+/// </details>
+#[derive(::serde::Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+#[serde(transparent)]
+pub struct LeaderAttachmentEligibleBodyguardKeywordsItem(::std::string::String);
+impl ::std::ops::Deref for LeaderAttachmentEligibleBodyguardKeywordsItem {
+    type Target = ::std::string::String;
+    fn deref(&self) -> &::std::string::String {
+        &self.0
+    }
+}
+impl ::std::convert::From<LeaderAttachmentEligibleBodyguardKeywordsItem>
+for ::std::string::String {
+    fn from(value: LeaderAttachmentEligibleBodyguardKeywordsItem) -> Self {
+        value.0
+    }
+}
+impl ::std::str::FromStr for LeaderAttachmentEligibleBodyguardKeywordsItem {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        if value.chars().count() < 1usize {
+            return Err("shorter than 1 characters".into());
+        }
+        Ok(Self(value.to_string()))
+    }
+}
+impl ::std::convert::TryFrom<&str> for LeaderAttachmentEligibleBodyguardKeywordsItem {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+for LeaderAttachmentEligibleBodyguardKeywordsItem {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+for LeaderAttachmentEligibleBodyguardKeywordsItem {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl<'de> ::serde::Deserialize<'de> for LeaderAttachmentEligibleBodyguardKeywordsItem {
+    fn deserialize<D>(deserializer: D) -> ::std::result::Result<Self, D::Error>
+    where
+        D: ::serde::Deserializer<'de>,
+    {
+        ::std::string::String::deserialize(deserializer)?
+            .parse()
+            .map_err(|e: self::error::ConversionError| {
+                <D::Error as ::serde::de::Error>::custom(e.to_string())
+            })
+    }
 }
 ///An 11e primary mission (the objective a player scores). Which mission a player plays is selected by the Force Disposition matchup matrix (see mission-matchup), keyed on the player's own disposition and their opponent's. Victory points are capped per game and per battle round.
 ///

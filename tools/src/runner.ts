@@ -567,6 +567,10 @@ function handleLinkedQuery(state: RunnerState, args: unknown): RunnerResponse {
       }
       case "ally_units_for":
         return ok(ds.allyUnitsFor(input.ruleId ?? "").map((u) => u.id));
+      case "leaders_attachable_to":
+        return ok(ds.leadersAttachableTo(input.bodyguardId ?? "").map((u) => u.id));
+      case "bodyguards_attachable_from":
+        return ok(ds.bodyguardsAttachableFrom(input.leaderId ?? "").map((u) => u.id));
       case "reactive_trigger_ability_ids":
         return ok(ds.reactiveTriggers().map((rt) => rt.abilityId));
       case "events_with_triggers":

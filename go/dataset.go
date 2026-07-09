@@ -337,6 +337,93 @@ func (ds *Dataset) allyUnitsFor(ruleID string) []*UnitView {
 	return out
 }
 
+// matchesBodyguardKeywords reports whether unit satisfies an attachment entry's
+// optional keyword eligibility: its keyword set (keywords ∪ faction_keywords,
+// case-insensitive) contains ALL of eligible_bodyguard_keywords. Empty keywords
+// never match (the entry then relies solely on eligible_bodyguard_ids). Go
+// mirror of TS matchesBodyguardKeywords.
+func matchesBodyguardKeywords(la, unit map[string]any) bool {
+	req := getStrList(la, "eligible_bodyguard_keywords")
+	if len(req) == 0 {
+		return false
+	}
+	have := map[string]struct{}{}
+	for _, k := range append(getStrList(unit, "keywords"), getStrList(unit, "faction_keywords")...) {
+		have[lower(k)] = struct{}{}
+	}
+	return allIn(have, lowerAll(req))
+}
+
+// leadersAttachableTo returns the leaders whose leader-attachment data lists
+// bodyguardUnitID among its eligible bodyguards — by explicit id or by keyword
+// eligibility (e.g. an Inquisitor leading any Imperium Battleline Infantry
+// unit) — sorted by name. Faction-agnostic (GetAny). Go mirror of TS
+// Dataset.leadersAttachableTo.
+func (ds *Dataset) leadersAttachableTo(bodyguardUnitID string) []*UnitView {
+	var bodyguard map[string]any
+	if bg, ok := ds.Units.GetAny(bodyguardUnitID); ok {
+		bodyguard = bg.Raw
+	}
+	var out []*UnitView
+	for _, laAny := range ds.LeaderAttachments {
+		la := laAny.(map[string]any)
+		eligible := false
+		for _, id := range getStrList(la, "eligible_bodyguard_ids") {
+			if id == bodyguardUnitID {
+				eligible = true
+				break
+			}
+		}
+		if !eligible && bodyguard != nil {
+			eligible = matchesBodyguardKeywords(la, bodyguard)
+		}
+		if !eligible {
+			continue
+		}
+		if leader, ok := ds.Units.GetAny(getStr(la, "leader_id")); ok {
+			out = append(out, leader)
+		}
+	}
+	sort.SliceStable(out, func(i, j int) bool { return out[i].Name() < out[j].Name() })
+	return out
+}
+
+// bodyguardsAttachableFrom is the inverse of leadersAttachableTo: the body units
+// the given leader can attach to — by explicit id or keyword eligibility —
+// deduped by id and sorted by name. Go mirror of TS
+// Dataset.bodyguardsAttachableFrom.
+func (ds *Dataset) bodyguardsAttachableFrom(leaderUnitID string) []*UnitView {
+	seen := map[string]struct{}{}
+	var out []*UnitView
+	add := func(u *UnitView) {
+		if _, dup := seen[u.ID()]; dup {
+			return
+		}
+		seen[u.ID()] = struct{}{}
+		out = append(out, u)
+	}
+	for _, laAny := range ds.LeaderAttachments {
+		la := laAny.(map[string]any)
+		if getStr(la, "leader_id") != leaderUnitID {
+			continue
+		}
+		for _, id := range getStrList(la, "eligible_bodyguard_ids") {
+			if u, ok := ds.Units.GetAny(id); ok {
+				add(u)
+			}
+		}
+		if len(getStrList(la, "eligible_bodyguard_keywords")) > 0 {
+			for _, u := range ds.Units.All() {
+				if matchesBodyguardKeywords(la, u.Raw) {
+					add(u)
+				}
+			}
+		}
+	}
+	sort.SliceStable(out, func(i, j int) bool { return out[i].Name() < out[j].Name() })
+	return out
+}
+
 // ReactiveTrigger is an ability's reactive trigger block plus the units that
 // list it. Go mirror of the TS ReactiveTrigger shape.
 type ReactiveTrigger struct {

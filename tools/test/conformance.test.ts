@@ -562,6 +562,10 @@ function runLinkedApi(ds: Dataset, c: LinkedApiCase): string | null | string[] {
     }
     case "ally_units_for":
       return ds.allyUnitsFor(c.args.ruleId).map((u) => u.id);
+    case "leaders_attachable_to":
+      return ds.leadersAttachableTo(c.args.bodyguardId).map((u) => u.id);
+    case "bodyguards_attachable_from":
+      return ds.bodyguardsAttachableFrom(c.args.leaderId).map((u) => u.id);
     case "reactive_trigger_ability_ids":
       return ds.reactiveTriggers().map((rt) => rt.abilityId);
     case "events_with_triggers":

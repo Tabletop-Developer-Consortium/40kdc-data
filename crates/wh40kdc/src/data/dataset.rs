@@ -770,6 +770,7 @@ impl Dataset {
     /// attach to this unit?" means scanning the attachment list. Returns an
     /// empty vec for a unit nothing attaches to (including leader units).
     pub fn leaders_attachable_to(&self, bodyguard_unit_id: &str) -> Vec<&Unit> {
+        let bodyguard = self.units.get_any(bodyguard_unit_id);
         let mut out: Vec<&Unit> = self
             .leader_attachments
             .iter()
@@ -777,6 +778,10 @@ impl Dataset {
                 la.eligible_bodyguard_ids
                     .iter()
                     .any(|id| id.as_str() == bodyguard_unit_id)
+                    // Keyword eligibility (e.g. an Inquisitor leading any
+                    // Imperium Battleline Infantry unit): match the bodyguard's
+                    // keyword set.
+                    || bodyguard.is_some_and(|b| matches_bodyguard_keywords(la, b))
             })
             // Attachment data is faction-agnostic (no faction context here);
             // accept first-wins for a shared leader chassis via get_any.
@@ -799,12 +804,21 @@ impl Dataset {
                 continue;
             }
             for bodyguard_id in &la.eligible_bodyguard_ids {
-                if !seen.insert(bodyguard_id.as_str()) {
-                    continue;
-                }
                 // Faction-agnostic attachment data — get_any, as above.
                 if let Some(unit) = self.units.get_any(bodyguard_id.as_str()) {
-                    out.push(unit);
+                    if seen.insert(unit.id.as_str()) {
+                        out.push(unit);
+                    }
+                }
+            }
+            // Keyword eligibility: every unit whose keyword set contains all of
+            // the entry's keywords is also a valid bodyguard (e.g. Imperium
+            // Battleline Infantry for an Inquisitor).
+            if !la.eligible_bodyguard_keywords.is_empty() {
+                for unit in self.units.all() {
+                    if matches_bodyguard_keywords(la, unit) && seen.insert(unit.id.as_str()) {
+                        out.push(unit);
+                    }
                 }
             }
         }
@@ -866,6 +880,20 @@ fn unit_keyword_set(unit: &Unit) -> std::collections::HashSet<String> {
         .chain(unit.faction_keywords.iter().flat_map(|k| k.0.iter()))
         .map(|k| k.to_lowercase())
         .collect()
+}
+
+/// Whether `unit` satisfies an attachment entry's optional keyword eligibility:
+/// its keyword set (keywords ∪ faction_keywords, case-insensitive) contains ALL
+/// of `eligible_bodyguard_keywords`. Empty keywords never match (the entry then
+/// relies solely on `eligible_bodyguard_ids`).
+fn matches_bodyguard_keywords(la: &LeaderAttachment, unit: &Unit) -> bool {
+    if la.eligible_bodyguard_keywords.is_empty() {
+        return false;
+    }
+    let have = unit_keyword_set(unit);
+    la.eligible_bodyguard_keywords
+        .iter()
+        .all(|k| have.contains(&k.to_lowercase()))
 }
 
 /// Build ability-id→units, weapon-id→units, and keyword→units reverse indexes

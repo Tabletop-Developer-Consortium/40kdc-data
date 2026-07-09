@@ -78,6 +78,10 @@ def run_linked_query(ds: Any, query: str, args: dict[str, Any]) -> Any:
         return [r["id"] for r in ds.allies_for(args["factionId"], args.get("detachmentIds") or [])]
     if query == "ally_units_for":
         return [u.id for u in ds.ally_units_for(args["ruleId"])]
+    if query == "leaders_attachable_to":
+        return [u.id for u in ds.leaders_attachable_to(args["bodyguardId"])]
+    if query == "bodyguards_attachable_from":
+        return [u.id for u in ds.bodyguards_attachable_from(args["leaderId"])]
     if query == "reactive_trigger_ability_ids":
         return sorted(rt["ability_id"] for rt in ds.reactive_triggers())
     if query == "events_with_triggers":

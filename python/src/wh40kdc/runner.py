@@ -460,6 +460,10 @@ def _handle_linked_query(state: RunnerState, args: Any) -> Response:
             )
         if query == "ally_units_for":
             return _ok([u.id for u in ds.ally_units_for(input_.get("ruleId") or "")])
+        if query == "leaders_attachable_to":
+            return _ok([u.id for u in ds.leaders_attachable_to(input_.get("bodyguardId") or "")])
+        if query == "bodyguards_attachable_from":
+            return _ok([u.id for u in ds.bodyguards_attachable_from(input_.get("leaderId") or "")])
         if query == "reactive_trigger_ability_ids":
             return _ok(sorted(rt["ability_id"] for rt in ds.reactive_triggers()))
         if query == "events_with_triggers":

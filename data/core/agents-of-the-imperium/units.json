@@ -485,11 +485,16 @@
     "points": [
       {
         "models": 6,
-        "cost": 60
+        "cost": 50
+      },
+      {
+        "models": 7,
+        "models_max": 11,
+        "cost": 100
       },
       {
         "models": 12,
-        "cost": 120
+        "cost": 100
       }
     ],
     "keywords": [
@@ -545,6 +550,24 @@
         ],
         "count": 1,
         "per_models": 0
+      }
+    ],
+    "allied_points": [
+      {
+        "models": 6,
+        "cost": 60,
+        "host_faction": "imperium"
+      },
+      {
+        "models": 7,
+        "models_max": 11,
+        "cost": 120,
+        "host_faction": "imperium"
+      },
+      {
+        "models": 12,
+        "cost": 120,
+        "host_faction": "imperium"
       }
     ]
   },
@@ -796,6 +819,11 @@
       {
         "models": 5,
         "cost": 100
+      },
+      {
+        "models": 6,
+        "models_max": 10,
+        "cost": 190
       }
     ],
     "keywords": [
@@ -899,6 +927,19 @@
         ],
         "count": 2,
         "per_models": 10
+      }
+    ],
+    "allied_points": [
+      {
+        "models": 5,
+        "cost": 100,
+        "host_faction": "imperium"
+      },
+      {
+        "models": 6,
+        "models_max": 10,
+        "cost": 200,
+        "host_faction": "imperium"
       }
     ]
   },

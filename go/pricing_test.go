@@ -22,7 +22,7 @@ func TestBaseUnitPointsOrdinalBands(t *testing.T) {
 	}{
 		{5, 1, 175}, {5, 2, 175}, {10, 1, 350},
 		{5, 3, 185}, {10, 3, 360}, {5, 7, 185},
-		{7, 1, 175}, // reaches the 5-model tier within band 1
+		{7, 1, 350}, // inside the 6-10 range tier (not the 5-model tier)
 	}
 	for _, c := range cases {
 		if got := baseUnitPoints(ct, c.models, c.ordinal); got != c.want {
@@ -49,6 +49,27 @@ func TestPointsTierMissing(t *testing.T) {
 	}
 	if !pointsTierMissing(ct, 4, 1) {
 		t.Error("4 models is below the smallest tier")
+	}
+}
+
+// Venatari Custodians: 3 models @160, or 4-6 models @320 (a GW range-priced tier
+// with models_max=6). Every size in the range prices at 320.
+func TestRangePricedTierVenatari(t *testing.T) {
+	ds := EmbeddedDataset()
+	ven, ok := ds.Units.GetInFaction("venatari-custodians", "adeptus-custodes")
+	if !ok {
+		t.Fatal("venatari-custodians not in dataset")
+	}
+	for _, c := range []struct{ models, want int }{{3, 160}, {4, 320}, {5, 320}, {6, 320}} {
+		if got := baseUnitPoints(ven.Raw, c.models, 1); got != c.want {
+			t.Errorf("baseUnitPoints(%d models) = %d, want %d", c.models, got, c.want)
+		}
+	}
+	if !pointsTierMissing(ven.Raw, 2, 1) || !pointsTierMissing(ven.Raw, 7, 1) {
+		t.Error("2 and 7 models fall outside every tier range")
+	}
+	if pointsTierMissing(ven.Raw, 4, 1) || pointsTierMissing(ven.Raw, 6, 1) {
+		t.Error("4 and 6 models are covered by the 4-6 range tier")
 	}
 }
 

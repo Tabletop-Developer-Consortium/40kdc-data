@@ -32,8 +32,10 @@ func tierCoversOrdinal(tier map[string]any, ordinal int) bool {
 // baseUnitPoints is the base point cost for a unit of modelCount models taken as
 // its ordinal-th army copy (1-based). Among the tiers whose ordinal band covers
 // this copy, returns the cost of the highest models threshold the count reaches
-// (lowest tier when none is reached). Returns 0 when no tier applies — the caller
-// surfaces a violation rather than guessing.
+// (lowest tier when none is reached). models is the tier's range floor (a
+// range-priced tier spans models..models_max at one cost, e.g. Venatari 4-6
+// @320), so a count inside a range resolves to that range's cost. Returns 0 when
+// no tier applies — the caller surfaces a violation rather than guessing.
 func baseUnitPoints(unit map[string]any, modelCount, ordinal int) int {
 	var tiers []map[string]any
 	for _, tAny := range getList(unit, "points") {
@@ -58,20 +60,26 @@ func baseUnitPoints(unit map[string]any, modelCount, ordinal int) int {
 }
 
 // pointsTierMissing reports whether no points tier covers modelCount for this
-// ordinal. Mirrors the band filter of baseUnitPoints.
+// ordinal — the count falls outside every tier's [models, models_max] range
+// (below the smallest tier, above the largest, or in a gap between non-contiguous
+// tiers), or the ordinal has no banded price. A single-size tier (no models_max)
+// covers only models. Mirrors the band filter of baseUnitPoints.
 func pointsTierMissing(unit map[string]any, modelCount, ordinal int) bool {
-	minModels := -1
 	for _, tAny := range getList(unit, "points") {
 		t, ok := asMap(tAny)
 		if !ok || !tierCoversOrdinal(t, ordinal) {
 			continue
 		}
-		if m := asInt(t["models"]); minModels == -1 || m < minModels {
-			minModels = m
+		lo := asInt(t["models"])
+		hi := lo
+		if t["models_max"] != nil {
+			hi = asInt(t["models_max"])
+		}
+		if lo <= modelCount && modelCount <= hi {
+			return false
 		}
 	}
-	if minModels == -1 {
-		return true
-	}
-	return modelCount < minModels
+	// Reached only when no covering tier exists (none present, or none contains
+	// the count) — the count is unpriced.
+	return true
 }

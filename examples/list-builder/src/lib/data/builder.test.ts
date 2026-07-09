@@ -91,6 +91,33 @@ describe('builder points', () => {
 		expect(pointsTierMissing(u, minModels)).toBe(false);
 	});
 
+	// Regression for the reported crash: resizing a range-priced unit (Venatari
+	// Custodians: 3 models @160, or 4–6 models @320) must price every size in the
+	// range at 320 — not fall through to the 3-model tier (160) — and a count
+	// outside the range must be flagged, never silently mispriced.
+	it('prices every size of a range-priced unit and flags oversize (Venatari resize)', () => {
+		const fac = 'adeptus-custodes';
+		const raw = unitRaw('venatari-custodians', undefined, fac)!;
+		expect(baseUnitPoints(raw, 3)).toBe(160);
+		for (const n of [4, 5, 6]) expect(baseUnitPoints(raw, n)).toBe(320);
+		const mk = (mc: number, key: string): BuilderUnit => ({
+			key,
+			datasheetId: 'venatari-custodians',
+			modelCount: mc,
+			loadout: defaultLoadout(raw, mc),
+			enhancementId: null,
+			isWarlord: false,
+		});
+		// A 5-model squad totals 320 (the regression priced it at 160).
+		expect(totalPoints({ ...emptyBuilderState(), factionId: fac, units: [mk(5, 'v')] })).toBe(320);
+		// Below the floor and above the ceiling are flagged; legal sizes are not.
+		expect(pointsTierMissing(raw, 2)).toBe(true);
+		expect(pointsTierMissing(raw, 6)).toBe(false);
+		expect(pointsTierMissing(raw, 7)).toBe(true);
+		const over = { ...emptyBuilderState(), factionId: fac, units: [mk(7, 'o')] };
+		expect(builderViolations(over).some((iss) => iss.unitKey === 'o')).toBe(true);
+	});
+
 	it('sums unit points across the draft', () => {
 		const u = sampleUnit();
 		const minModels = u.model_count?.min ?? 1;

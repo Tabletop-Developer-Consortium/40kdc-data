@@ -16589,6 +16589,10 @@ impl ::std::convert::TryFrom<::std::string::String> for TriggerSubject {
 ///            "type": "integer",
 ///            "minimum": 1.0
 ///          },
+///          "models_max": {
+///            "type": "integer",
+///            "minimum": 1.0
+///          },
 ///          "unit_count_max": {
 ///            "oneOf": [
 ///              {
@@ -16703,6 +16707,12 @@ impl ::std::convert::TryFrom<::std::string::String> for TriggerSubject {
 ///            "minimum": 0.0
 ///          },
 ///          "models": {
+///            "description": "Lowest model count this tier's cost applies to. For a single-size tier this is the only size; for a GW range-priced tier (block pricing) it is the range floor and `models_max` is the ceiling. `baseUnitPoints` prices a squad at the highest `models` threshold its count reaches.",
+///            "type": "integer",
+///            "minimum": 1.0
+///          },
+///          "models_max": {
+///            "description": "Inclusive upper model count for a range-priced tier (GW block pricing, e.g. Venatari Custodians are 4–6 models for 320). `models` is the range floor; every size in [models, models_max] costs `cost`. Absent when the tier prices a single size (equivalent to models_max == models).",
 ///            "type": "integer",
 ///            "minimum": 1.0
 ///          },
@@ -17032,6 +17042,10 @@ impl<'de> ::serde::Deserialize<'de> for UnitAliasesItem {
 ///      "type": "integer",
 ///      "minimum": 1.0
 ///    },
+///    "models_max": {
+///      "type": "integer",
+///      "minimum": 1.0
+///    },
 ///    "unit_count_max": {
 ///      "oneOf": [
 ///        {
@@ -17059,6 +17073,8 @@ pub struct UnitAlliedPointsItem {
     ///The host-army faction/super-faction keyword this cost applies under (e.g. `imperium`).
     pub host_faction: EntityId,
     pub models: ::std::num::NonZeroU64,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub models_max: ::std::option::Option<::std::num::NonZeroU64>,
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub unit_count_max: ::std::option::Option<::std::num::NonZeroU64>,
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
@@ -18057,6 +18073,12 @@ impl<'de> ::serde::Deserialize<'de> for UnitName {
 ///      "minimum": 0.0
 ///    },
 ///    "models": {
+///      "description": "Lowest model count this tier's cost applies to. For a single-size tier this is the only size; for a GW range-priced tier (block pricing) it is the range floor and `models_max` is the ceiling. `baseUnitPoints` prices a squad at the highest `models` threshold its count reaches.",
+///      "type": "integer",
+///      "minimum": 1.0
+///    },
+///    "models_max": {
+///      "description": "Inclusive upper model count for a range-priced tier (GW block pricing, e.g. Venatari Custodians are 4–6 models for 320). `models` is the range floor; every size in [models, models_max] costs `cost`. Absent when the tier prices a single size (equivalent to models_max == models).",
 ///      "type": "integer",
 ///      "minimum": 1.0
 ///    },
@@ -18084,7 +18106,11 @@ impl<'de> ::serde::Deserialize<'de> for UnitName {
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
 pub struct UnitPointsItem {
     pub cost: u64,
+    ///Lowest model count this tier's cost applies to. For a single-size tier this is the only size; for a GW range-priced tier (block pricing) it is the range floor and `models_max` is the ceiling. `baseUnitPoints` prices a squad at the highest `models` threshold its count reaches.
     pub models: ::std::num::NonZeroU64,
+    ///Inclusive upper model count for a range-priced tier (GW block pricing, e.g. Venatari Custodians are 4–6 models for 320). `models` is the range floor; every size in [models, models_max] costs `cost`. Absent when the tier prices a single size (equivalent to models_max == models).
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub models_max: ::std::option::Option<::std::num::NonZeroU64>,
     ///Inclusive upper army-copy count for this tier's band, or null for an open-ended top band ('3rd+ unit'). Absent when unit_count_min is absent.
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub unit_count_max: ::std::option::Option<::std::num::NonZeroU64>,

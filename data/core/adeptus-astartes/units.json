@@ -55,10 +55,10 @@
     ],
     "game_version": {
       "edition": "11th",
-      "dataslate": "pre-launch-provisional"
+      "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": true,
+    "points_provisional": false,
     "attachment_role": "leader"
   },
   {
@@ -149,7 +149,8 @@
         "cost": 160
       },
       {
-        "models": 10,
+        "models": 6,
+        "models_max": 10,
         "cost": 320
       }
     ],
@@ -227,7 +228,15 @@
     "points": [
       {
         "models": 1,
-        "cost": 80
+        "cost": 80,
+        "unit_count_min": 1,
+        "unit_count_max": 1
+      },
+      {
+        "models": 1,
+        "cost": 90,
+        "unit_count_min": 2,
+        "unit_count_max": null
       }
     ],
     "keywords": [
@@ -263,10 +272,10 @@
     ],
     "game_version": {
       "edition": "11th",
-      "dataslate": "pre-launch-provisional"
+      "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": true,
+    "points_provisional": false,
     "attachment_role": "leader"
   },
   {
@@ -288,19 +297,53 @@
     "points": [
       {
         "models": 4,
-        "cost": 105
+        "cost": 105,
+        "unit_count_min": 1,
+        "unit_count_max": 2
       },
       {
         "models": 5,
-        "cost": 130
+        "cost": 130,
+        "unit_count_min": 1,
+        "unit_count_max": 2
       },
       {
-        "models": 9,
-        "cost": 235
+        "models": 6,
+        "models_max": 9,
+        "cost": 235,
+        "unit_count_min": 1,
+        "unit_count_max": 2
       },
       {
         "models": 10,
-        "cost": 260
+        "cost": 260,
+        "unit_count_min": 1,
+        "unit_count_max": 2
+      },
+      {
+        "models": 4,
+        "cost": 120,
+        "unit_count_min": 3,
+        "unit_count_max": null
+      },
+      {
+        "models": 5,
+        "cost": 145,
+        "unit_count_min": 3,
+        "unit_count_max": null
+      },
+      {
+        "models": 6,
+        "models_max": 9,
+        "cost": 250,
+        "unit_count_min": 3,
+        "unit_count_max": null
+      },
+      {
+        "models": 10,
+        "cost": 275,
+        "unit_count_min": 3,
+        "unit_count_max": null
       }
     ],
     "keywords": [
@@ -337,10 +380,10 @@
     ],
     "game_version": {
       "edition": "11th",
-      "dataslate": "pre-launch-provisional"
+      "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": true
+    "points_provisional": false
   },
   {
     "id": "crusader-squad",
@@ -376,7 +419,7 @@
       },
       {
         "models": 20,
-        "cost": 300
+        "cost": 290
       }
     ],
     "keywords": [
@@ -416,10 +459,10 @@
     ],
     "game_version": {
       "edition": "11th",
-      "dataslate": "pre-launch-provisional"
+      "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": true,
+    "points_provisional": false,
     "wargear_budgets": [
       {
         "items": [
@@ -489,10 +532,10 @@
     ],
     "game_version": {
       "edition": "11th",
-      "dataslate": "pre-launch-provisional"
+      "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": true,
+    "points_provisional": false,
     "attachment_role": "leader"
   },
   {
@@ -517,7 +560,8 @@
         "cost": 100
       },
       {
-        "models": 10,
+        "models": 6,
+        "models_max": 10,
         "cost": 190
       }
     ],
@@ -712,10 +756,10 @@
     ],
     "game_version": {
       "edition": "11th",
-      "dataslate": "pre-launch-provisional"
+      "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": true,
+    "points_provisional": false,
     "attachment_role": "leader"
   },
   {
@@ -775,10 +819,10 @@
     ],
     "game_version": {
       "edition": "11th",
-      "dataslate": "pre-launch-provisional"
+      "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": true,
+    "points_provisional": false,
     "attachment_role": "support"
   },
   {
@@ -833,10 +877,10 @@
     ],
     "game_version": {
       "edition": "11th",
-      "dataslate": "pre-launch-provisional"
+      "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": true,
+    "points_provisional": false,
     "attachment_role": "leader"
   },
   {
@@ -1064,7 +1108,7 @@
     "points": [
       {
         "models": 1,
-        "cost": 55
+        "cost": 45
       }
     ],
     "keywords": [
@@ -1099,10 +1143,10 @@
     ],
     "game_version": {
       "edition": "11th",
-      "dataslate": "pre-launch-provisional"
+      "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": true,
+    "points_provisional": false,
     "attachment_role": "support"
   },
   {
@@ -1259,7 +1303,15 @@
     "points": [
       {
         "models": 1,
-        "cost": 160
+        "cost": 150,
+        "unit_count_min": 1,
+        "unit_count_max": 2
+      },
+      {
+        "models": 1,
+        "cost": 160,
+        "unit_count_min": 3,
+        "unit_count_max": null
       }
     ],
     "keywords": [
@@ -1297,10 +1349,10 @@
     ],
     "game_version": {
       "edition": "11th",
-      "dataslate": "pre-launch-provisional"
+      "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": true
+    "points_provisional": false
   },
   {
     "id": "sanguinary-priest",
@@ -1322,7 +1374,15 @@
     "points": [
       {
         "models": 1,
-        "cost": 75
+        "cost": 75,
+        "unit_count_min": 1,
+        "unit_count_max": 2
+      },
+      {
+        "models": 1,
+        "cost": 85,
+        "unit_count_min": 3,
+        "unit_count_max": null
       }
     ],
     "keywords": [
@@ -1356,10 +1416,10 @@
     ],
     "game_version": {
       "edition": "11th",
-      "dataslate": "pre-launch-provisional"
+      "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": true,
+    "points_provisional": false,
     "attachment_role": "support"
   },
   {
@@ -1423,10 +1483,10 @@
     ],
     "game_version": {
       "edition": "11th",
-      "dataslate": "pre-launch-provisional"
+      "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": true,
+    "points_provisional": false,
     "attachment_role": "leader"
   },
   {
@@ -1448,11 +1508,29 @@
     "points": [
       {
         "models": 5,
-        "cost": 85
+        "cost": 85,
+        "unit_count_min": 1,
+        "unit_count_max": 2
       },
       {
-        "models": 10,
-        "cost": 160
+        "models": 6,
+        "models_max": 10,
+        "cost": 160,
+        "unit_count_min": 1,
+        "unit_count_max": 2
+      },
+      {
+        "models": 5,
+        "cost": 95,
+        "unit_count_min": 3,
+        "unit_count_max": null
+      },
+      {
+        "models": 6,
+        "models_max": 10,
+        "cost": 170,
+        "unit_count_min": 3,
+        "unit_count_max": null
       }
     ],
     "keywords": [
@@ -1491,10 +1569,10 @@
     ],
     "game_version": {
       "edition": "11th",
-      "dataslate": "pre-launch-provisional"
+      "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": true,
+    "points_provisional": false,
     "wargear_budgets": [
       {
         "items": [
@@ -1579,10 +1657,10 @@
     ],
     "game_version": {
       "edition": "11th",
-      "dataslate": "pre-launch-provisional"
+      "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": true,
+    "points_provisional": false,
     "attachment_role": "leader"
   },
   {
@@ -1642,10 +1720,10 @@
     ],
     "game_version": {
       "edition": "11th",
-      "dataslate": "pre-launch-provisional"
+      "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": true,
+    "points_provisional": false,
     "attachment_role": "leader"
   },
   {
@@ -1668,7 +1746,7 @@
     "points": [
       {
         "models": 1,
-        "cost": 120
+        "cost": 110
       }
     ],
     "keywords": [
@@ -1707,10 +1785,10 @@
     ],
     "game_version": {
       "edition": "11th",
-      "dataslate": "pre-launch-provisional"
+      "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": true
+    "points_provisional": false
   },
   {
     "id": "lemartes",
@@ -1770,10 +1848,10 @@
     ],
     "game_version": {
       "edition": "11th",
-      "dataslate": "pre-launch-provisional"
+      "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": true,
+    "points_provisional": false,
     "attachment_role": "leader"
   },
   {
@@ -1796,7 +1874,7 @@
     "points": [
       {
         "models": 1,
-        "cost": 120
+        "cost": 125
       }
     ],
     "keywords": [
@@ -1834,10 +1912,10 @@
     ],
     "game_version": {
       "edition": "11th",
-      "dataslate": "pre-launch-provisional"
+      "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": true,
+    "points_provisional": false,
     "attachment_role": "leader"
   },
   {
@@ -1859,11 +1937,29 @@
     "points": [
       {
         "models": 5,
-        "cost": 85
+        "cost": 80,
+        "unit_count_min": 1,
+        "unit_count_max": 2
       },
       {
-        "models": 10,
-        "cost": 160
+        "models": 6,
+        "models_max": 10,
+        "cost": 155,
+        "unit_count_min": 1,
+        "unit_count_max": 2
+      },
+      {
+        "models": 5,
+        "cost": 90,
+        "unit_count_min": 3,
+        "unit_count_max": null
+      },
+      {
+        "models": 6,
+        "models_max": 10,
+        "cost": 165,
+        "unit_count_min": 3,
+        "unit_count_max": null
       }
     ],
     "keywords": [
@@ -1905,10 +2001,10 @@
     ],
     "game_version": {
       "edition": "11th",
-      "dataslate": "pre-launch-provisional"
+      "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": true,
+    "points_provisional": false,
     "wargear_budgets": [
       {
         "items": [
@@ -1993,10 +2089,10 @@
     ],
     "game_version": {
       "edition": "11th",
-      "dataslate": "pre-launch-provisional"
+      "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": true
+    "points_provisional": false
   },
   {
     "id": "sanguinary-guard",
@@ -2017,11 +2113,29 @@
     "points": [
       {
         "models": 3,
-        "cost": 125
+        "cost": 125,
+        "unit_count_min": 1,
+        "unit_count_max": 2
       },
       {
-        "models": 6,
-        "cost": 260
+        "models": 4,
+        "models_max": 6,
+        "cost": 260,
+        "unit_count_min": 1,
+        "unit_count_max": 2
+      },
+      {
+        "models": 3,
+        "cost": 145,
+        "unit_count_min": 3,
+        "unit_count_max": null
+      },
+      {
+        "models": 4,
+        "models_max": 6,
+        "cost": 280,
+        "unit_count_min": 3,
+        "unit_count_max": null
       }
     ],
     "keywords": [
@@ -2058,10 +2172,10 @@
     ],
     "game_version": {
       "edition": "11th",
-      "dataslate": "pre-launch-provisional"
+      "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": true,
+    "points_provisional": false,
     "wargear_budgets": [
       {
         "items": [
@@ -2098,7 +2212,15 @@
     "points": [
       {
         "models": 1,
-        "cost": 125
+        "cost": 125,
+        "unit_count_min": 1,
+        "unit_count_max": 2
+      },
+      {
+        "models": 1,
+        "cost": 135,
+        "unit_count_min": 3,
+        "unit_count_max": null
       }
     ],
     "keywords": [
@@ -2132,10 +2254,10 @@
     ],
     "game_version": {
       "edition": "11th",
-      "dataslate": "pre-launch-provisional"
+      "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": true
+    "points_provisional": false
   },
   {
     "id": "death-company-marines-with-jump-packs",
@@ -2156,11 +2278,29 @@
     "points": [
       {
         "models": 5,
-        "cost": 120
+        "cost": 120,
+        "unit_count_min": 1,
+        "unit_count_max": 2
       },
       {
-        "models": 10,
-        "cost": 230
+        "models": 6,
+        "models_max": 10,
+        "cost": 230,
+        "unit_count_min": 1,
+        "unit_count_max": 2
+      },
+      {
+        "models": 5,
+        "cost": 135,
+        "unit_count_min": 3,
+        "unit_count_max": null
+      },
+      {
+        "models": 6,
+        "models_max": 10,
+        "cost": 245,
+        "unit_count_min": 3,
+        "unit_count_max": null
       }
     ],
     "keywords": [
@@ -2200,10 +2340,10 @@
     ],
     "game_version": {
       "edition": "11th",
-      "dataslate": "pre-launch-provisional"
+      "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": true,
+    "points_provisional": false,
     "wargear_budgets": [
       {
         "items": [
@@ -2288,10 +2428,10 @@
     ],
     "game_version": {
       "edition": "11th",
-      "dataslate": "pre-launch-provisional"
+      "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": true,
+    "points_provisional": false,
     "attachment_role": "leader"
   },
   {
@@ -2313,7 +2453,7 @@
     "points": [
       {
         "models": 1,
-        "cost": 100
+        "cost": 80
       }
     ],
     "keywords": [
@@ -2348,10 +2488,10 @@
     ],
     "game_version": {
       "edition": "11th",
-      "dataslate": "pre-launch-provisional"
+      "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": true
+    "points_provisional": false
   },
   {
     "id": "ravenwing-black-knights",
@@ -2372,11 +2512,29 @@
     "points": [
       {
         "models": 3,
-        "cost": 80
+        "cost": 75,
+        "unit_count_min": 1,
+        "unit_count_max": 2
       },
       {
-        "models": 6,
-        "cost": 160
+        "models": 4,
+        "models_max": 6,
+        "cost": 150,
+        "unit_count_min": 1,
+        "unit_count_max": 2
+      },
+      {
+        "models": 3,
+        "cost": 85,
+        "unit_count_min": 3,
+        "unit_count_max": null
+      },
+      {
+        "models": 4,
+        "models_max": 6,
+        "cost": 160,
+        "unit_count_min": 3,
+        "unit_count_max": null
       }
     ],
     "keywords": [
@@ -2410,10 +2568,10 @@
     ],
     "game_version": {
       "edition": "11th",
-      "dataslate": "pre-launch-provisional"
+      "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": true,
+    "points_provisional": false,
     "wargear_budgets": [
       {
         "items": [
@@ -2483,10 +2641,10 @@
     ],
     "game_version": {
       "edition": "11th",
-      "dataslate": "pre-launch-provisional"
+      "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": true,
+    "points_provisional": false,
     "attachment_role": "leader"
   },
   {
@@ -2508,11 +2666,12 @@
     "points": [
       {
         "models": 5,
-        "cost": 180
+        "cost": 165
       },
       {
-        "models": 10,
-        "cost": 360
+        "models": 6,
+        "models_max": 10,
+        "cost": 330
       }
     ],
     "keywords": [
@@ -2550,10 +2709,10 @@
     ],
     "game_version": {
       "edition": "11th",
-      "dataslate": "pre-launch-provisional"
+      "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": true,
+    "points_provisional": false,
     "wargear_budgets": [
       {
         "items": [
@@ -2586,11 +2745,29 @@
     "points": [
       {
         "models": 3,
-        "cost": 90
+        "cost": 80,
+        "unit_count_min": 1,
+        "unit_count_max": 2
       },
       {
-        "models": 6,
-        "cost": 180
+        "models": 4,
+        "models_max": 6,
+        "cost": 170,
+        "unit_count_min": 1,
+        "unit_count_max": 2
+      },
+      {
+        "models": 3,
+        "cost": 90,
+        "unit_count_min": 3,
+        "unit_count_max": null
+      },
+      {
+        "models": 4,
+        "models_max": 6,
+        "cost": 180,
+        "unit_count_min": 3,
+        "unit_count_max": null
       }
     ],
     "keywords": [
@@ -2622,10 +2799,10 @@
     ],
     "game_version": {
       "edition": "11th",
-      "dataslate": "pre-launch-provisional"
+      "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": true
+    "points_provisional": false
   },
   {
     "id": "azrael",
@@ -2647,7 +2824,7 @@
     "points": [
       {
         "models": 1,
-        "cost": 125
+        "cost": 140
       }
     ],
     "keywords": [
@@ -2685,10 +2862,10 @@
     ],
     "game_version": {
       "edition": "11th",
-      "dataslate": "pre-launch-provisional"
+      "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": true,
+    "points_provisional": false,
     "attachment_role": "leader"
   },
   {
@@ -2710,7 +2887,15 @@
     "points": [
       {
         "models": 1,
-        "cost": 120
+        "cost": 120,
+        "unit_count_min": 1,
+        "unit_count_max": 2
+      },
+      {
+        "models": 1,
+        "cost": 130,
+        "unit_count_min": 3,
+        "unit_count_max": null
       }
     ],
     "keywords": [
@@ -2746,10 +2931,10 @@
     ],
     "game_version": {
       "edition": "11th",
-      "dataslate": "pre-launch-provisional"
+      "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": true
+    "points_provisional": false
   },
   {
     "id": "nephilim-jetfighter",
@@ -2807,10 +2992,10 @@
     ],
     "game_version": {
       "edition": "11th",
-      "dataslate": "pre-launch-provisional"
+      "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": true
+    "points_provisional": false
   },
   {
     "id": "asmodai",
@@ -2869,10 +3054,10 @@
     ],
     "game_version": {
       "edition": "11th",
-      "dataslate": "pre-launch-provisional"
+      "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": true,
+    "points_provisional": false,
     "attachment_role": "leader"
   },
   {
@@ -2894,7 +3079,15 @@
     "points": [
       {
         "models": 5,
-        "cost": 250
+        "cost": 240,
+        "unit_count_min": 1,
+        "unit_count_max": 1
+      },
+      {
+        "models": 5,
+        "cost": 260,
+        "unit_count_min": 2,
+        "unit_count_max": null
       }
     ],
     "keywords": [
@@ -2927,10 +3120,10 @@
     ],
     "game_version": {
       "edition": "11th",
-      "dataslate": "pre-launch-provisional"
+      "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": true
+    "points_provisional": false
   },
   {
     "id": "belial",
@@ -2952,7 +3145,7 @@
     "points": [
       {
         "models": 1,
-        "cost": 85
+        "cost": 75
       }
     ],
     "keywords": [
@@ -2988,10 +3181,10 @@
     ],
     "game_version": {
       "edition": "11th",
-      "dataslate": "pre-launch-provisional"
+      "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": true,
+    "points_provisional": false,
     "attachment_role": "leader"
   },
   {
@@ -3014,7 +3207,7 @@
     "points": [
       {
         "models": 1,
-        "cost": 315
+        "cost": 285
       }
     ],
     "keywords": [
@@ -3052,10 +3245,10 @@
     ],
     "game_version": {
       "edition": "11th",
-      "dataslate": "pre-launch-provisional"
+      "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": true
+    "points_provisional": false
   },
   {
     "id": "ravenwing-command-squad",
@@ -3077,7 +3270,15 @@
     "points": [
       {
         "models": 3,
-        "cost": 120
+        "cost": 115,
+        "unit_count_min": 1,
+        "unit_count_max": 2
+      },
+      {
+        "models": 3,
+        "cost": 125,
+        "unit_count_min": 3,
+        "unit_count_max": null
       }
     ],
     "keywords": [
@@ -3116,10 +3317,10 @@
     ],
     "game_version": {
       "edition": "11th",
-      "dataslate": "pre-launch-provisional"
+      "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": true,
+    "points_provisional": false,
     "attachment_role": "leader",
     "wargear_budgets": [
       {
@@ -3188,10 +3389,10 @@
     ],
     "game_version": {
       "edition": "11th",
-      "dataslate": "pre-launch-provisional"
+      "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": true,
+    "points_provisional": false,
     "attachment_role": "leader"
   },
   {
@@ -3213,7 +3414,7 @@
     "points": [
       {
         "models": 1,
-        "cost": 210
+        "cost": 200
       }
     ],
     "keywords": [
@@ -3247,10 +3448,10 @@
     ],
     "game_version": {
       "edition": "11th",
-      "dataslate": "pre-launch-provisional"
+      "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": true
+    "points_provisional": false
   },
   {
     "id": "sammael",
@@ -3272,7 +3473,7 @@
     "points": [
       {
         "models": 1,
-        "cost": 115
+        "cost": 105
       }
     ],
     "keywords": [
@@ -3314,10 +3515,10 @@
     ],
     "game_version": {
       "edition": "11th",
-      "dataslate": "pre-launch-provisional"
+      "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": true,
+    "points_provisional": false,
     "attachment_role": "leader"
   },
   {
@@ -3376,10 +3577,10 @@
     ],
     "game_version": {
       "edition": "11th",
-      "dataslate": "pre-launch-provisional"
+      "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": true,
+    "points_provisional": false,
     "attachment_role": "leader"
   },
   {
@@ -3400,8 +3601,30 @@
     ],
     "points": [
       {
-        "models": 16,
-        "cost": 265
+        "models": 10,
+        "cost": 275,
+        "unit_count_min": 1,
+        "unit_count_max": 2
+      },
+      {
+        "models": 3,
+        "models_max": 16,
+        "cost": 275,
+        "unit_count_min": 1,
+        "unit_count_max": 2
+      },
+      {
+        "models": 10,
+        "cost": 290,
+        "unit_count_min": 3,
+        "unit_count_max": null
+      },
+      {
+        "models": 3,
+        "models_max": 16,
+        "cost": 290,
+        "unit_count_min": 3,
+        "unit_count_max": null
       }
     ],
     "keywords": [
@@ -3441,10 +3664,10 @@
     ],
     "game_version": {
       "edition": "11th",
-      "dataslate": "pre-launch-provisional"
+      "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": true,
+    "points_provisional": false,
     "wargear_budgets": [
       {
         "items": [
@@ -3484,7 +3707,12 @@
     ],
     "points": [
       {
-        "models": 10,
+        "models": 5,
+        "cost": 100
+      },
+      {
+        "models": 6,
+        "models_max": 10,
         "cost": 190
       }
     ],
@@ -3527,10 +3755,10 @@
     ],
     "game_version": {
       "edition": "11th",
-      "dataslate": "pre-launch-provisional"
+      "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": true,
+    "points_provisional": false,
     "wargear_budgets": [
       {
         "items": [
@@ -3814,10 +4042,10 @@
     ],
     "game_version": {
       "edition": "11th",
-      "dataslate": "pre-launch-provisional"
+      "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": true,
+    "points_provisional": false,
     "attachment_role": "leader"
   },
   {
@@ -3884,10 +4112,10 @@
     },
     "game_version": {
       "edition": "11th",
-      "dataslate": "pre-launch-provisional"
+      "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": true
+    "points_provisional": false
   },
   {
     "id": "deathwatch-terminator-squad",
@@ -3907,8 +4135,13 @@
     ],
     "points": [
       {
-        "models": 10,
-        "cost": 350
+        "models": 5,
+        "cost": 180
+      },
+      {
+        "models": 6,
+        "models_max": 10,
+        "cost": 330
       }
     ],
     "keywords": [
@@ -3948,10 +4181,10 @@
     ],
     "game_version": {
       "edition": "11th",
-      "dataslate": "pre-launch-provisional"
+      "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": true,
+    "points_provisional": false,
     "wargear_budgets": [
       {
         "items": [
@@ -3983,8 +4216,30 @@
     ],
     "points": [
       {
-        "models": 24,
-        "cost": 180
+        "models": 10,
+        "cost": 195,
+        "unit_count_min": 1,
+        "unit_count_max": 2
+      },
+      {
+        "models": 3,
+        "models_max": 24,
+        "cost": 195,
+        "unit_count_min": 1,
+        "unit_count_max": 2
+      },
+      {
+        "models": 10,
+        "cost": 210,
+        "unit_count_min": 3,
+        "unit_count_max": null
+      },
+      {
+        "models": 3,
+        "models_max": 24,
+        "cost": 210,
+        "unit_count_min": 3,
+        "unit_count_max": null
       }
     ],
     "keywords": [
@@ -4031,10 +4286,10 @@
     ],
     "game_version": {
       "edition": "11th",
-      "dataslate": "pre-launch-provisional"
+      "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": true,
+    "points_provisional": false,
     "wargear_budgets": [
       {
         "items": [
@@ -4063,8 +4318,30 @@
     ],
     "points": [
       {
-        "models": 21,
-        "cost": 180
+        "models": 10,
+        "cost": 170,
+        "unit_count_min": 1,
+        "unit_count_max": 2
+      },
+      {
+        "models": 3,
+        "models_max": 21,
+        "cost": 170,
+        "unit_count_min": 1,
+        "unit_count_max": 2
+      },
+      {
+        "models": 10,
+        "cost": 180,
+        "unit_count_min": 3,
+        "unit_count_max": null
+      },
+      {
+        "models": 3,
+        "models_max": 21,
+        "cost": 180,
+        "unit_count_min": 3,
+        "unit_count_max": null
       }
     ],
     "keywords": [
@@ -4110,10 +4387,10 @@
     ],
     "game_version": {
       "edition": "11th",
-      "dataslate": "pre-launch-provisional"
+      "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": true,
+    "points_provisional": false,
     "wargear_budgets": [
       {
         "items": [
@@ -4338,7 +4615,8 @@
         "unit_count_max": 2
       },
       {
-        "models": 6,
+        "models": 4,
+        "models_max": 6,
         "cost": 240,
         "unit_count_min": 1,
         "unit_count_max": 2
@@ -4350,7 +4628,8 @@
         "unit_count_max": null
       },
       {
-        "models": 6,
+        "models": 4,
+        "models_max": 6,
         "cost": 255,
         "unit_count_min": 3,
         "unit_count_max": null
@@ -4787,7 +5066,8 @@
         "unit_count_max": 2
       },
       {
-        "models": 6,
+        "models": 4,
+        "models_max": 6,
         "cost": 180,
         "unit_count_min": 1,
         "unit_count_max": 2
@@ -4799,7 +5079,8 @@
         "unit_count_max": null
       },
       {
-        "models": 6,
+        "models": 4,
+        "models_max": 6,
         "cost": 190,
         "unit_count_min": 3,
         "unit_count_max": null
@@ -5056,7 +5337,8 @@
         "cost": 155
       },
       {
-        "models": 10,
+        "models": 6,
+        "models_max": 10,
         "cost": 310
       }
     ],
@@ -5503,7 +5785,8 @@
         "unit_count_max": 1
       },
       {
-        "models": 6,
+        "models": 4,
+        "models_max": 6,
         "cost": 220,
         "unit_count_min": 1,
         "unit_count_max": 1
@@ -5515,7 +5798,8 @@
         "unit_count_max": null
       },
       {
-        "models": 6,
+        "models": 4,
+        "models_max": 6,
         "cost": 240,
         "unit_count_min": 2,
         "unit_count_max": null
@@ -6063,7 +6347,8 @@
         "cost": 120
       },
       {
-        "models": 10,
+        "models": 6,
+        "models_max": 10,
         "cost": 200
       }
     ],
@@ -6215,7 +6500,8 @@
         "cost": 175
       },
       {
-        "models": 6,
+        "models": 4,
+        "models_max": 6,
         "cost": 350
       }
     ],
@@ -6276,7 +6562,8 @@
         "cost": 110
       },
       {
-        "models": 10,
+        "models": 6,
+        "models_max": 10,
         "cost": 220
       }
     ],
@@ -6337,7 +6624,8 @@
         "cost": 100
       },
       {
-        "models": 10,
+        "models": 6,
+        "models_max": 10,
         "cost": 200
       }
     ],
@@ -6472,7 +6760,8 @@
         "unit_count_max": 2
       },
       {
-        "models": 10,
+        "models": 6,
+        "models_max": 10,
         "cost": 120,
         "unit_count_min": 1,
         "unit_count_max": 2
@@ -6484,7 +6773,8 @@
         "unit_count_max": null
       },
       {
-        "models": 10,
+        "models": 6,
+        "models_max": 10,
         "cost": 130,
         "unit_count_min": 3,
         "unit_count_max": null
@@ -7461,7 +7751,8 @@
         "cost": 150
       },
       {
-        "models": 6,
+        "models": 4,
+        "models_max": 6,
         "cost": 300
       }
     ],
@@ -8199,7 +8490,8 @@
         "unit_count_max": 2
       },
       {
-        "models": 10,
+        "models": 6,
+        "models_max": 10,
         "cost": 150,
         "unit_count_min": 1,
         "unit_count_max": 2
@@ -8211,7 +8503,8 @@
         "unit_count_max": null
       },
       {
-        "models": 10,
+        "models": 6,
+        "models_max": 10,
         "cost": 160,
         "unit_count_min": 3,
         "unit_count_max": null
@@ -8565,7 +8858,8 @@
         "unit_count_max": 2
       },
       {
-        "models": 6,
+        "models": 4,
+        "models_max": 6,
         "cost": 180,
         "unit_count_min": 1,
         "unit_count_max": 2
@@ -8577,7 +8871,8 @@
         "unit_count_max": null
       },
       {
-        "models": 6,
+        "models": 4,
+        "models_max": 6,
         "cost": 190,
         "unit_count_min": 3,
         "unit_count_max": null
@@ -9146,7 +9441,8 @@
         "cost": 80
       },
       {
-        "models": 10,
+        "models": 6,
+        "models_max": 10,
         "cost": 150
       }
     ],
@@ -9547,7 +9843,8 @@
         "unit_count_max": 2
       },
       {
-        "models": 10,
+        "models": 6,
+        "models_max": 10,
         "cost": 180,
         "unit_count_min": 1,
         "unit_count_max": 2
@@ -9559,7 +9856,8 @@
         "unit_count_max": null
       },
       {
-        "models": 10,
+        "models": 6,
+        "models_max": 10,
         "cost": 190,
         "unit_count_min": 3,
         "unit_count_max": null
@@ -9701,7 +9999,8 @@
         "cost": 85
       },
       {
-        "models": 10,
+        "models": 6,
+        "models_max": 10,
         "cost": 170
       }
     ],
@@ -9944,7 +10243,8 @@
         "cost": 75
       },
       {
-        "models": 10,
+        "models": 6,
+        "models_max": 10,
         "cost": 150
       }
     ],
@@ -10181,7 +10481,15 @@
     "points": [
       {
         "models": 1,
-        "cost": 130
+        "cost": 125,
+        "unit_count_min": 1,
+        "unit_count_max": 2
+      },
+      {
+        "models": 1,
+        "cost": 135,
+        "unit_count_min": 3,
+        "unit_count_max": null
       }
     ],
     "keywords": [
@@ -10220,10 +10528,10 @@
     ],
     "game_version": {
       "edition": "11th",
-      "dataslate": "pre-launch-provisional"
+      "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": true
+    "points_provisional": false
   },
   {
     "id": "ragnar-blackmane",
@@ -10281,10 +10589,10 @@
     ],
     "game_version": {
       "edition": "11th",
-      "dataslate": "pre-launch-provisional"
+      "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": true,
+    "points_provisional": false,
     "attachment_role": "leader"
   },
   {
@@ -10306,11 +10614,29 @@
     "points": [
       {
         "models": 3,
-        "cost": 115
+        "cost": 100,
+        "unit_count_min": 1,
+        "unit_count_max": 2
       },
       {
-        "models": 6,
-        "cost": 230
+        "models": 4,
+        "models_max": 6,
+        "cost": 200,
+        "unit_count_min": 1,
+        "unit_count_max": 2
+      },
+      {
+        "models": 3,
+        "cost": 110,
+        "unit_count_min": 3,
+        "unit_count_max": null
+      },
+      {
+        "models": 4,
+        "models_max": 6,
+        "cost": 210,
+        "unit_count_min": 3,
+        "unit_count_max": null
       }
     ],
     "keywords": [
@@ -10343,10 +10669,10 @@
     ],
     "game_version": {
       "edition": "11th",
-      "dataslate": "pre-launch-provisional"
+      "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": true,
+    "points_provisional": false,
     "wargear_budgets": [
       {
         "items": [
@@ -10413,10 +10739,10 @@
     ],
     "game_version": {
       "edition": "11th",
-      "dataslate": "pre-launch-provisional"
+      "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": true
+    "points_provisional": false
   },
   {
     "id": "fenrisian-wolves",
@@ -10437,11 +10763,29 @@
     "points": [
       {
         "models": 5,
-        "cost": 40
+        "cost": 45,
+        "unit_count_min": 1,
+        "unit_count_max": 2
       },
       {
-        "models": 10,
-        "cost": 80
+        "models": 6,
+        "models_max": 10,
+        "cost": 75,
+        "unit_count_min": 1,
+        "unit_count_max": 2
+      },
+      {
+        "models": 5,
+        "cost": 50,
+        "unit_count_min": 3,
+        "unit_count_max": null
+      },
+      {
+        "models": 6,
+        "models_max": 10,
+        "cost": 80,
+        "unit_count_min": 3,
+        "unit_count_max": null
       }
     ],
     "keywords": [
@@ -10470,10 +10814,10 @@
     ],
     "game_version": {
       "edition": "11th",
-      "dataslate": "pre-launch-provisional"
+      "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": true
+    "points_provisional": false
   },
   {
     "id": "wolf-priest",
@@ -10526,10 +10870,10 @@
     ],
     "game_version": {
       "edition": "11th",
-      "dataslate": "pre-launch-provisional"
+      "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": true,
+    "points_provisional": false,
     "attachment_role": "leader"
   },
   {
@@ -10668,10 +11012,10 @@
     ],
     "game_version": {
       "edition": "11th",
-      "dataslate": "pre-launch-provisional"
+      "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": true,
+    "points_provisional": false,
     "attachment_role": "leader"
   },
   {
@@ -10730,10 +11074,10 @@
     ],
     "game_version": {
       "edition": "11th",
-      "dataslate": "pre-launch-provisional"
+      "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": true,
+    "points_provisional": false,
     "attachment_role": "leader"
   },
   {
@@ -10759,8 +11103,9 @@
         "cost": 135
       },
       {
-        "models": 20,
-        "cost": 285
+        "models": 11,
+        "models_max": 20,
+        "cost": 270
       }
     ],
     "keywords": [
@@ -10794,10 +11139,10 @@
     ],
     "game_version": {
       "edition": "11th",
-      "dataslate": "pre-launch-provisional"
+      "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": true
+    "points_provisional": false
   },
   {
     "id": "ulrik-the-slayer",
@@ -10854,10 +11199,10 @@
     ],
     "game_version": {
       "edition": "11th",
-      "dataslate": "pre-launch-provisional"
+      "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": true,
+    "points_provisional": false,
     "attachment_role": "leader"
   },
   {
@@ -10917,10 +11262,10 @@
     ],
     "game_version": {
       "edition": "11th",
-      "dataslate": "pre-launch-provisional"
+      "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": true,
+    "points_provisional": false,
     "attachment_role": "leader"
   },
   {
@@ -10942,11 +11287,29 @@
     "points": [
       {
         "models": 5,
-        "cost": 170
+        "cost": 150,
+        "unit_count_min": 1,
+        "unit_count_max": 1
       },
       {
-        "models": 10,
-        "cost": 340
+        "models": 6,
+        "models_max": 10,
+        "cost": 300,
+        "unit_count_min": 1,
+        "unit_count_max": 1
+      },
+      {
+        "models": 5,
+        "cost": 160,
+        "unit_count_min": 2,
+        "unit_count_max": null
+      },
+      {
+        "models": 6,
+        "models_max": 10,
+        "cost": 310,
+        "unit_count_min": 2,
+        "unit_count_max": null
       }
     ],
     "keywords": [
@@ -10981,10 +11344,10 @@
     ],
     "game_version": {
       "edition": "11th",
-      "dataslate": "pre-launch-provisional"
+      "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": true,
+    "points_provisional": false,
     "wargear_budgets": [
       {
         "items": [
@@ -11015,7 +11378,15 @@
     "points": [
       {
         "models": 1,
-        "cost": 135
+        "cost": 135,
+        "unit_count_min": 1,
+        "unit_count_max": 2
+      },
+      {
+        "models": 1,
+        "cost": 145,
+        "unit_count_min": 3,
+        "unit_count_max": null
       }
     ],
     "keywords": [
@@ -11049,10 +11420,10 @@
     ],
     "game_version": {
       "edition": "11th",
-      "dataslate": "pre-launch-provisional"
+      "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": true
+    "points_provisional": false
   },
   {
     "id": "wulfen-with-storm-shields",
@@ -11073,11 +11444,29 @@
     "points": [
       {
         "models": 5,
-        "cost": 100
+        "cost": 100,
+        "unit_count_min": 1,
+        "unit_count_max": 2
       },
       {
-        "models": 10,
-        "cost": 200
+        "models": 6,
+        "models_max": 10,
+        "cost": 200,
+        "unit_count_min": 1,
+        "unit_count_max": 2
+      },
+      {
+        "models": 5,
+        "cost": 110,
+        "unit_count_min": 3,
+        "unit_count_max": null
+      },
+      {
+        "models": 6,
+        "models_max": 10,
+        "cost": 210,
+        "unit_count_min": 3,
+        "unit_count_max": null
       }
     ],
     "keywords": [
@@ -11108,10 +11497,10 @@
     ],
     "game_version": {
       "edition": "11th",
-      "dataslate": "pre-launch-provisional"
+      "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": true
+    "points_provisional": false
   },
   {
     "id": "bjorn-the-fell-handed",
@@ -11171,10 +11560,10 @@
     ],
     "game_version": {
       "edition": "11th",
-      "dataslate": "pre-launch-provisional"
+      "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": true
+    "points_provisional": false
   },
   {
     "id": "arjac-rockfist",
@@ -11229,10 +11618,10 @@
     ],
     "game_version": {
       "edition": "11th",
-      "dataslate": "pre-launch-provisional"
+      "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": true,
+    "points_provisional": false,
     "attachment_role": "leader"
   },
   {
@@ -11292,10 +11681,10 @@
     ],
     "game_version": {
       "edition": "11th",
-      "dataslate": "pre-launch-provisional"
+      "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": true,
+    "points_provisional": false,
     "attachment_role": "leader"
   },
   {
@@ -11327,11 +11716,27 @@
     "points": [
       {
         "models": 6,
-        "cost": 105
+        "cost": 95,
+        "unit_count_min": 1,
+        "unit_count_max": 2
       },
       {
         "models": 12,
-        "cost": 210
+        "cost": 190,
+        "unit_count_min": 1,
+        "unit_count_max": 2
+      },
+      {
+        "models": 6,
+        "cost": 105,
+        "unit_count_min": 3,
+        "unit_count_max": null
+      },
+      {
+        "models": 12,
+        "cost": 200,
+        "unit_count_min": 3,
+        "unit_count_max": null
       }
     ],
     "keywords": [
@@ -11372,10 +11777,10 @@
     ],
     "game_version": {
       "edition": "11th",
-      "dataslate": "pre-launch-provisional"
+      "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": true
+    "points_provisional": false
   },
   {
     "id": "wulfen",
@@ -11396,11 +11801,29 @@
     "points": [
       {
         "models": 5,
-        "cost": 85
+        "cost": 85,
+        "unit_count_min": 1,
+        "unit_count_max": 2
       },
       {
-        "models": 10,
-        "cost": 170
+        "models": 6,
+        "models_max": 10,
+        "cost": 170,
+        "unit_count_min": 1,
+        "unit_count_max": 2
+      },
+      {
+        "models": 5,
+        "cost": 95,
+        "unit_count_min": 3,
+        "unit_count_max": null
+      },
+      {
+        "models": 6,
+        "models_max": 10,
+        "cost": 180,
+        "unit_count_min": 3,
+        "unit_count_max": null
       }
     ],
     "keywords": [
@@ -11429,10 +11852,10 @@
     ],
     "game_version": {
       "edition": "11th",
-      "dataslate": "pre-launch-provisional"
+      "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": true
+    "points_provisional": false
   },
   {
     "id": "murderfang",
@@ -11491,10 +11914,10 @@
     ],
     "game_version": {
       "edition": "11th",
-      "dataslate": "pre-launch-provisional"
+      "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": true
+    "points_provisional": false
   },
   {
     "id": "eradicator-squad-with-heavy-bolters",

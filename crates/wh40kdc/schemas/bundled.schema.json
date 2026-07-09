@@ -2489,11 +2489,17 @@
             "properties": {
               "models": {
                 "type": "integer",
-                "minimum": 1
+                "minimum": 1,
+                "description": "Lowest model count this tier's cost applies to. For a single-size tier this is the only size; for a GW range-priced tier (block pricing) it is the range floor and `models_max` is the ceiling. `baseUnitPoints` prices a squad at the highest `models` threshold its count reaches."
               },
               "cost": {
                 "type": "integer",
                 "minimum": 0
+              },
+              "models_max": {
+                "type": "integer",
+                "minimum": 1,
+                "description": "Inclusive upper model count for a range-priced tier (GW block pricing, e.g. Venatari Custodians are 4–6 models for 320). `models` is the range floor; every size in [models, models_max] costs `cost`. Absent when the tier prices a single size (equivalent to models_max == models)."
               },
               "unit_count_min": {
                 "type": "integer",
@@ -2536,6 +2542,10 @@
               "cost": {
                 "type": "integer",
                 "minimum": 0
+              },
+              "models_max": {
+                "type": "integer",
+                "minimum": 1
               },
               "unit_count_min": {
                 "type": "integer",

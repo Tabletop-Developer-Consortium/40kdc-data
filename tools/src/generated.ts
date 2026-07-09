@@ -2019,8 +2019,15 @@ export interface Unit {
     }[]
   ];
   points?: {
+    /**
+     * Lowest model count this tier's cost applies to. For a single-size tier this is the only size; for a GW range-priced tier (block pricing) it is the range floor and `models_max` is the ceiling. `baseUnitPoints` prices a squad at the highest `models` threshold its count reaches.
+     */
     models: number;
     cost: number;
+    /**
+     * Inclusive upper model count for a range-priced tier (GW block pricing, e.g. Venatari Custodians are 4–6 models for 320). `models` is the range floor; every size in [models, models_max] costs `cost`. Absent when the tier prices a single size (equivalent to models_max == models).
+     */
+    models_max?: number;
     /**
      * 11e per-army-ordinal pricing: the first army-copy count (1-based) this tier's cost applies to. Absent (together with unit_count_max) means the cost applies to every copy — the common case. Present only for datasheets the MFM prices by how many you have taken (e.g. 'your 1st-2nd units cost X, your 3rd+ unit costs Y').
      */
@@ -2041,6 +2048,7 @@ export interface Unit {
     host_faction: string;
     models: number;
     cost: number;
+    models_max?: number;
     unit_count_min?: number;
     unit_count_max?: number | null;
   }[];

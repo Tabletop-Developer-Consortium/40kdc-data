@@ -40,8 +40,11 @@ def base_unit_points(unit: Unit, model_count: int, ordinal: int = 1) -> int:
 
     Among the tiers whose ordinal band covers this copy (1-based; defaults to the
     1st copy), returns the cost of the highest ``models`` threshold the count
-    reaches (lowest tier when none is reached). Returns 0 when no tier applies —
-    the caller surfaces a violation rather than guessing.
+    reaches (lowest tier when none is reached). ``models`` is the tier's range
+    floor (a range-priced tier spans ``models``..``models_max`` at one cost, e.g.
+    Venatari 4–6 @320), so a count inside a range resolves to that range's cost.
+    Returns 0 when no tier applies — the caller surfaces a violation rather than
+    guessing.
     """
     tiers = sorted(
         (t for t in unit.get("points") or [] if _tier_covers_ordinal(t, ordinal)),
@@ -59,9 +62,14 @@ def base_unit_points(unit: Unit, model_count: int, ordinal: int = 1) -> int:
 def points_tier_missing(unit: Unit, model_count: int, ordinal: int = 1) -> bool:
     """True when no points tier covers ``model_count`` for this ``ordinal``.
 
-    Mirrors the band filter of :func:`base_unit_points`.
+    The count falls outside every tier's ``[models, models_max]`` range (below the
+    smallest tier, above the largest, or in a gap between non-contiguous tiers),
+    or the ordinal has no banded price. A single-size tier (no ``models_max``)
+    covers only ``models``. Mirrors the band filter of :func:`base_unit_points`.
     """
-    models = [t["models"] for t in unit.get("points") or [] if _tier_covers_ordinal(t, ordinal)]
-    if not models:
+    tiers = [t for t in unit.get("points") or [] if _tier_covers_ordinal(t, ordinal)]
+    if not tiers:
         return True
-    return model_count < min(models)
+    return not any(
+        t["models"] <= model_count <= (t.get("models_max") or t["models"]) for t in tiers
+    )

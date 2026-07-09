@@ -145,7 +145,8 @@
         "cost": 100
       },
       {
-        "models": 6,
+        "models": 4,
+        "models_max": 6,
         "cost": 210
       }
     ],
@@ -631,7 +632,8 @@
         "cost": 70
       },
       {
-        "models": 10,
+        "models": 6,
+        "models_max": 10,
         "cost": 140
       }
     ],
@@ -809,7 +811,8 @@
         "unit_count_max": 2
       },
       {
-        "models": 10,
+        "models": 6,
+        "models_max": 10,
         "cost": 155,
         "unit_count_min": 1,
         "unit_count_max": 2
@@ -821,7 +824,8 @@
         "unit_count_max": null
       },
       {
-        "models": 10,
+        "models": 6,
+        "models_max": 10,
         "cost": 165,
         "unit_count_min": 3,
         "unit_count_max": null
@@ -1107,7 +1111,8 @@
         "unit_count_max": 2
       },
       {
-        "models": 10,
+        "models": 6,
+        "models_max": 10,
         "cost": 150,
         "unit_count_min": 1,
         "unit_count_max": 2
@@ -1119,7 +1124,8 @@
         "unit_count_max": null
       },
       {
-        "models": 10,
+        "models": 6,
+        "models_max": 10,
         "cost": 160,
         "unit_count_min": 3,
         "unit_count_max": null
@@ -1184,7 +1190,8 @@
         "cost": 150
       },
       {
-        "models": 6,
+        "models": 4,
+        "models_max": 6,
         "cost": 320
       }
     ],
@@ -1246,7 +1253,8 @@
         "unit_count_max": 2
       },
       {
-        "models": 10,
+        "models": 6,
+        "models_max": 10,
         "cost": 160,
         "unit_count_min": 1,
         "unit_count_max": 2
@@ -1258,7 +1266,8 @@
         "unit_count_max": null
       },
       {
-        "models": 10,
+        "models": 6,
+        "models_max": 10,
         "cost": 170,
         "unit_count_min": 3,
         "unit_count_max": null
@@ -1376,6 +1385,11 @@
       {
         "models": 5,
         "cost": 65
+      },
+      {
+        "models": 6,
+        "models_max": 10,
+        "cost": 130
       }
     ],
     "keywords": [
@@ -1431,7 +1445,8 @@
         "cost": 60
       },
       {
-        "models": 6,
+        "models": 4,
+        "models_max": 6,
         "cost": 120
       }
     ],
@@ -1565,7 +1580,8 @@
         "cost": 55
       },
       {
-        "models": 6,
+        "models": 4,
+        "models_max": 6,
         "cost": 110
       }
     ],
@@ -1822,7 +1838,8 @@
         "unit_count_max": 1
       },
       {
-        "models": 4,
+        "models": 3,
+        "models_max": 4,
         "cost": 320,
         "unit_count_min": 1,
         "unit_count_max": 1
@@ -1834,7 +1851,8 @@
         "unit_count_max": null
       },
       {
-        "models": 4,
+        "models": 3,
+        "models_max": 4,
         "cost": 340,
         "unit_count_min": 2,
         "unit_count_max": null
@@ -1902,7 +1920,8 @@
         "unit_count_max": 2
       },
       {
-        "models": 10,
+        "models": 6,
+        "models_max": 10,
         "cost": 160,
         "unit_count_min": 1,
         "unit_count_max": 2
@@ -1914,7 +1933,8 @@
         "unit_count_max": null
       },
       {
-        "models": 10,
+        "models": 6,
+        "models_max": 10,
         "cost": 170,
         "unit_count_min": 3,
         "unit_count_max": null

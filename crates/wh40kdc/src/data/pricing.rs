@@ -30,8 +30,10 @@ fn tier_covers_ordinal(tier: &UnitPointsItem, ordinal: u64) -> bool {
 /// Base point cost for a unit of `model_count` models taken as its `ordinal`-th
 /// army copy (1-based). Among the tiers whose ordinal band covers this copy,
 /// returns the cost of the highest `models` threshold the count reaches (lowest
-/// tier when none is reached). Returns 0 when no tier applies — the caller
-/// surfaces a violation rather than guessing.
+/// tier when none is reached). `models` is the tier's range floor (a range-priced
+/// tier spans `models`..`models_max` at one cost, e.g. Venatari 4–6 @320), so a
+/// count inside a range resolves to that range's cost. Returns 0 when no tier
+/// applies — the caller surfaces a violation rather than guessing.
 pub fn base_unit_points(unit: &Unit, model_count: u64, ordinal: u64) -> u64 {
     let mut tiers: Vec<&UnitPointsItem> = unit
         .points
@@ -51,20 +53,25 @@ pub fn base_unit_points(unit: &Unit, model_count: u64, ordinal: u64) -> u64 {
     chosen.cost
 }
 
-/// True when no points tier covers `model_count` for this `ordinal` (an
-/// out-of-composition count, or an ordinal with no banded price). Mirrors the
-/// band filter of [`base_unit_points`].
+/// True when no points tier covers `model_count` for this `ordinal` — the count
+/// falls outside every tier's `[models, models_max]` range (below the smallest
+/// tier, above the largest, or in a gap between non-contiguous tiers), or the
+/// ordinal has no banded price. A single-size tier (no `models_max`) covers only
+/// `models`. Mirrors the band filter of [`base_unit_points`].
 pub fn points_tier_missing(unit: &Unit, model_count: u64, ordinal: u64) -> bool {
-    match unit
+    for t in unit
         .points
         .iter()
         .filter(|t| tier_covers_ordinal(t, ordinal))
-        .map(|t| t.models.get())
-        .min()
     {
-        Some(min_models) => model_count < min_models,
-        None => true,
+        let lo = t.models.get();
+        let hi = t.models_max.map(|m| m.get()).unwrap_or(lo);
+        if lo <= model_count && model_count <= hi {
+            return false;
+        }
     }
+    // No covering tier: either none present for this ordinal, or none contains the count.
+    true
 }
 
 #[cfg(all(test, feature = "bundled-data"))]
@@ -94,8 +101,9 @@ mod tests {
         assert_eq!(base_unit_points(ct, 5, 3), 185);
         assert_eq!(base_unit_points(ct, 10, 3), 360);
         assert_eq!(base_unit_points(ct, 5, 7), 185);
-        // Defaults to the 1st copy's model selection within the band.
-        assert_eq!(base_unit_points(ct, 7, 1), 175);
+        // The second build is a 6–10 range tier, so 7 models prices at it (350),
+        // not the 5-model tier — a count inside a range resolves to that range.
+        assert_eq!(base_unit_points(ct, 7, 1), 350);
     }
 
     #[test]
@@ -111,5 +119,27 @@ mod tests {
         assert!(!points_tier_missing(ct, 5, 1));
         assert!(!points_tier_missing(ct, 5, 3));
         assert!(points_tier_missing(ct, 4, 1));
+    }
+
+    /// Venatari Custodians: 3 models @160, or 4–6 models @320 (a GW range-priced
+    /// tier with `models_max = 6`). Every size in the range prices at 320.
+    #[test]
+    fn range_priced_tier_venatari() {
+        let ds = Dataset::embedded();
+        let ven = ds
+            .units
+            .by_faction("adeptus-custodes")
+            .into_iter()
+            .find(|u| u.id.as_str() == "venatari-custodians")
+            .expect("venatari custodians in dataset");
+        assert_eq!(base_unit_points(ven, 3, 1), 160);
+        assert_eq!(base_unit_points(ven, 4, 1), 320);
+        assert_eq!(base_unit_points(ven, 5, 1), 320);
+        assert_eq!(base_unit_points(ven, 6, 1), 320);
+        // Outside every tier range → missing (below the floor, above the ceiling).
+        assert!(points_tier_missing(ven, 2, 1));
+        assert!(!points_tier_missing(ven, 4, 1));
+        assert!(!points_tier_missing(ven, 6, 1));
+        assert!(points_tier_missing(ven, 7, 1));
     }
 }

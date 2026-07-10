@@ -971,6 +971,7 @@
           "x": 2.153,
           "y": 0.4596
         },
+        "rotation_degrees": 180,
         "parent_area_id": "area-medium-8"
       },
       {
@@ -982,6 +983,7 @@
           "x": 2.153,
           "y": 0.4596
         },
+        "rotation_degrees": 180,
         "parent_area_id": "area-medium-7"
       },
       {
@@ -993,7 +995,6 @@
           "x": -1.917,
           "y": -0.5904
         },
-        "rotation_degrees": 180,
         "parent_area_id": "area-medium-8"
       },
       {
@@ -1005,7 +1006,6 @@
           "x": -1.917,
           "y": -0.5904
         },
-        "rotation_degrees": 180,
         "parent_area_id": "area-medium-7"
       },
       {
@@ -1560,7 +1560,7 @@
           "x": -1.67,
           "y": 5.74
         },
-        "rotation_degrees": 90,
+        "rotation_degrees": 270,
         "parent_area_id": "area-trapezoid-44"
       },
       {
@@ -1572,7 +1572,7 @@
           "x": -1.67,
           "y": 5.74
         },
-        "rotation_degrees": 90,
+        "rotation_degrees": 270,
         "parent_area_id": "area-trapezoid-43"
       }
     ],
@@ -6243,6 +6243,52 @@
           "y": 0
         },
         "parent_area_id": "area-short-line-40"
+      },
+      {
+        "id": "corner-ruin-right-1",
+        "name": "Corner Ruin (Right)",
+        "piece_type": "feature",
+        "template": "corner-ruin-right",
+        "position": {
+          "x": 4.7854,
+          "y": -1.0408
+        },
+        "parent_area_id": "area-large-37"
+      },
+      {
+        "id": "corner-ruin-right-2",
+        "name": "Corner Ruin (Right)",
+        "piece_type": "feature",
+        "template": "corner-ruin-right",
+        "position": {
+          "x": 4.7854,
+          "y": -1.0408
+        },
+        "parent_area_id": "area-large-38"
+      },
+      {
+        "id": "corner-ruin-left-3",
+        "name": "Corner Ruin (Left)",
+        "piece_type": "feature",
+        "template": "corner-ruin-left",
+        "position": {
+          "x": -2.9158,
+          "y": 2.4067
+        },
+        "rotation_degrees": 270,
+        "parent_area_id": "area-large-37"
+      },
+      {
+        "id": "corner-ruin-left-4",
+        "name": "Corner Ruin (Left)",
+        "piece_type": "feature",
+        "template": "corner-ruin-left",
+        "position": {
+          "x": -2.9158,
+          "y": 2.4067
+        },
+        "rotation_degrees": 270,
+        "parent_area_id": "area-large-38"
       }
     ],
     "game_version": {
@@ -6297,7 +6343,7 @@
           "x": -1.1,
           "y": 5.03
         },
-        "rotation_degrees": 90,
+        "rotation_degrees": 270,
         "parent_area_id": "area-trapezoid-2"
       },
       {
@@ -6309,7 +6355,7 @@
           "x": -1.1,
           "y": 5.03
         },
-        "rotation_degrees": 90,
+        "rotation_degrees": 270,
         "parent_area_id": "area-trapezoid-1"
       },
       {
@@ -6554,7 +6600,7 @@
           "x": -2.7218,
           "y": 2.2434
         },
-        "rotation_degrees": 90,
+        "rotation_degrees": 270,
         "parent_area_id": "area-large-16"
       },
       {
@@ -6566,7 +6612,7 @@
           "x": -2.7218,
           "y": 2.2434
         },
-        "rotation_degrees": 90,
+        "rotation_degrees": 270,
         "parent_area_id": "area-large-15"
       },
       {
@@ -6578,7 +6624,6 @@
           "x": 4.7182,
           "y": -1.0066
         },
-        "rotation_degrees": 180,
         "parent_area_id": "area-large-16"
       },
       {
@@ -6590,7 +6635,6 @@
           "x": 4.7182,
           "y": -1.0066
         },
-        "rotation_degrees": 180,
         "parent_area_id": "area-large-15"
       },
       {
@@ -6660,6 +6704,7 @@
           "x": -3.8518,
           "y": 1.6934
         },
+        "rotation_degrees": 180,
         "parent_area_id": "area-large-22"
       },
       {
@@ -6671,6 +6716,7 @@
           "x": -3.8518,
           "y": 1.6934
         },
+        "rotation_degrees": 180,
         "parent_area_id": "area-large-21"
       },
       {
@@ -34737,7 +34783,7 @@
     "id": "kotc-colosseum",
     "name": "KOTC Colosseum",
     "source": "kotc",
-    "description": "King of the Colosseum (Play On Tabletop): 36″×36″ arena. LoS-blocking impassable walls with four entryways (scale a wall at +4″), four ruins inside and four outside, five objectives, 9″ deployment strips.",
+    "description": "King of the Colosseum (Play On Tabletop): 36″×36″ arena. Four 6″ LoS-blocking arena walls (13″ radius, 14⅛″ arc) with entryways on the cardinals; four dense inner ruins and four dense deployment ruins as open right-angle L-walls; five objectives; 9″ deployment strips.",
     "board": {
       "width": 36,
       "height": 36
@@ -34749,503 +34795,1112 @@
         "name": "Colosseum Wall (NE)",
         "piece_type": "feature",
         "template": "impassable-wall",
+        "height_inches": 6,
         "footprint": {
           "type": "polygon",
           "points": [
             {
-              "x": 5.0037,
-              "y": 6.7804
+              "x": -5.4594,
+              "y": -4.0444
             },
             {
-              "x": 3.4839,
-              "y": 2.6616
+              "x": -4.6102,
+              "y": -3.8038
             },
             {
-              "x": 0.8574,
-              "y": -0.8574
+              "x": -3.7793,
+              "y": -3.5061
             },
             {
-              "x": -2.6616,
-              "y": -3.4839
+              "x": -2.9705,
+              "y": -3.1527
             },
             {
-              "x": -6.7804,
-              "y": -5.0037
+              "x": -2.1875,
+              "y": -2.7453
             },
             {
-              "x": -6.9051,
-              "y": -4.4168
+              "x": -1.4339,
+              "y": -2.2857
             },
             {
-              "x": -2.9479,
-              "y": -2.9566
+              "x": -0.7133,
+              "y": -1.776
             },
             {
-              "x": 0.4331,
-              "y": -0.4331
+              "x": -0.029,
+              "y": -1.2185
             },
             {
-              "x": 2.9566,
-              "y": 2.9479
+              "x": 0.616,
+              "y": -0.616
             },
             {
-              "x": 4.4168,
-              "y": 6.9051
+              "x": 1.2185,
+              "y": 0.029
+            },
+            {
+              "x": 1.776,
+              "y": 0.7133
+            },
+            {
+              "x": 2.2857,
+              "y": 1.4339
+            },
+            {
+              "x": 2.7453,
+              "y": 2.1875
+            },
+            {
+              "x": 3.1527,
+              "y": 2.9705
+            },
+            {
+              "x": 3.5061,
+              "y": 3.7793
+            },
+            {
+              "x": 3.8038,
+              "y": 4.6102
+            },
+            {
+              "x": 4.0444,
+              "y": 5.4594
+            },
+            {
+              "x": 3.5589,
+              "y": 5.5793
+            },
+            {
+              "x": 3.3276,
+              "y": 4.7628
+            },
+            {
+              "x": 3.0414,
+              "y": 3.9638
+            },
+            {
+              "x": 2.7016,
+              "y": 3.1861
+            },
+            {
+              "x": 2.3098,
+              "y": 2.4332
+            },
+            {
+              "x": 1.8679,
+              "y": 1.7087
+            },
+            {
+              "x": 1.3778,
+              "y": 1.0158
+            },
+            {
+              "x": 0.8418,
+              "y": 0.3577
+            },
+            {
+              "x": 0.2624,
+              "y": -0.2624
+            },
+            {
+              "x": -0.3577,
+              "y": -0.8418
+            },
+            {
+              "x": -1.0158,
+              "y": -1.3778
+            },
+            {
+              "x": -1.7087,
+              "y": -1.8679
+            },
+            {
+              "x": -2.4332,
+              "y": -2.3098
+            },
+            {
+              "x": -3.1861,
+              "y": -2.7016
+            },
+            {
+              "x": -3.9638,
+              "y": -3.0414
+            },
+            {
+              "x": -4.7628,
+              "y": -3.3276
+            },
+            {
+              "x": -5.5793,
+              "y": -3.5589
             }
           ]
         },
         "position": {
-          "x": 27.9617,
-          "y": 8.0383
-        },
-        "height_inches": 4
-      },
-      {
-        "id": "colosseum-wall-nw",
-        "name": "Colosseum Wall (NW)",
-        "piece_type": "feature",
-        "template": "impassable-wall",
-        "footprint": {
-          "type": "polygon",
-          "points": [
-            {
-              "x": 6.7804,
-              "y": -5.0037
-            },
-            {
-              "x": 2.6616,
-              "y": -3.4839
-            },
-            {
-              "x": -0.8574,
-              "y": -0.8574
-            },
-            {
-              "x": -3.4839,
-              "y": 2.6616
-            },
-            {
-              "x": -5.0037,
-              "y": 6.7804
-            },
-            {
-              "x": -4.4168,
-              "y": 6.9051
-            },
-            {
-              "x": -2.9566,
-              "y": 2.9479
-            },
-            {
-              "x": -0.4331,
-              "y": -0.4331
-            },
-            {
-              "x": 2.9479,
-              "y": -2.9566
-            },
-            {
-              "x": 6.9051,
-              "y": -4.4168
-            }
-          ]
-        },
-        "position": {
-          "x": 8.0383,
-          "y": 8.0383
-        },
-        "height_inches": 4
-      },
-      {
-        "id": "colosseum-wall-sw",
-        "name": "Colosseum Wall (SW)",
-        "piece_type": "feature",
-        "template": "impassable-wall",
-        "footprint": {
-          "type": "polygon",
-          "points": [
-            {
-              "x": -5.0037,
-              "y": -6.7804
-            },
-            {
-              "x": -3.4839,
-              "y": -2.6616
-            },
-            {
-              "x": -0.8574,
-              "y": 0.8574
-            },
-            {
-              "x": 2.6616,
-              "y": 3.4839
-            },
-            {
-              "x": 6.7804,
-              "y": 5.0037
-            },
-            {
-              "x": 6.9051,
-              "y": 4.4168
-            },
-            {
-              "x": 2.9479,
-              "y": 2.9566
-            },
-            {
-              "x": -0.4331,
-              "y": 0.4331
-            },
-            {
-              "x": -2.9566,
-              "y": -2.9479
-            },
-            {
-              "x": -4.4168,
-              "y": -6.9051
-            }
-          ]
-        },
-        "position": {
-          "x": 8.0383,
-          "y": 27.9617
-        },
-        "height_inches": 4
+          "x": 26.5764,
+          "y": 9.4236
+        }
       },
       {
         "id": "colosseum-wall-se",
         "name": "Colosseum Wall (SE)",
         "piece_type": "feature",
         "template": "impassable-wall",
+        "height_inches": 6,
         "footprint": {
           "type": "polygon",
           "points": [
             {
-              "x": -6.7804,
-              "y": 5.0037
+              "x": 4.0444,
+              "y": -5.4594
             },
             {
-              "x": -2.6616,
-              "y": 3.4839
+              "x": 3.8038,
+              "y": -4.6102
             },
             {
-              "x": 0.8574,
-              "y": 0.8574
+              "x": 3.5061,
+              "y": -3.7793
             },
             {
-              "x": 3.4839,
-              "y": -2.6616
+              "x": 3.1527,
+              "y": -2.9705
             },
             {
-              "x": 5.0037,
-              "y": -6.7804
+              "x": 2.7453,
+              "y": -2.1875
             },
             {
-              "x": 4.4168,
-              "y": -6.9051
+              "x": 2.2857,
+              "y": -1.4339
             },
             {
-              "x": 2.9566,
-              "y": -2.9479
+              "x": 1.776,
+              "y": -0.7133
             },
             {
-              "x": 0.4331,
-              "y": 0.4331
+              "x": 1.2185,
+              "y": -0.029
             },
             {
-              "x": -2.9479,
-              "y": 2.9566
+              "x": 0.616,
+              "y": 0.616
             },
             {
-              "x": -6.9051,
-              "y": 4.4168
+              "x": -0.029,
+              "y": 1.2185
+            },
+            {
+              "x": -0.7133,
+              "y": 1.776
+            },
+            {
+              "x": -1.4339,
+              "y": 2.2857
+            },
+            {
+              "x": -2.1875,
+              "y": 2.7453
+            },
+            {
+              "x": -2.9705,
+              "y": 3.1527
+            },
+            {
+              "x": -3.7793,
+              "y": 3.5061
+            },
+            {
+              "x": -4.6102,
+              "y": 3.8038
+            },
+            {
+              "x": -5.4594,
+              "y": 4.0444
+            },
+            {
+              "x": -5.5793,
+              "y": 3.5589
+            },
+            {
+              "x": -4.7628,
+              "y": 3.3276
+            },
+            {
+              "x": -3.9638,
+              "y": 3.0414
+            },
+            {
+              "x": -3.1861,
+              "y": 2.7016
+            },
+            {
+              "x": -2.4332,
+              "y": 2.3098
+            },
+            {
+              "x": -1.7087,
+              "y": 1.8679
+            },
+            {
+              "x": -1.0158,
+              "y": 1.3778
+            },
+            {
+              "x": -0.3577,
+              "y": 0.8418
+            },
+            {
+              "x": 0.2624,
+              "y": 0.2624
+            },
+            {
+              "x": 0.8418,
+              "y": -0.3577
+            },
+            {
+              "x": 1.3778,
+              "y": -1.0158
+            },
+            {
+              "x": 1.8679,
+              "y": -1.7087
+            },
+            {
+              "x": 2.3098,
+              "y": -2.4332
+            },
+            {
+              "x": 2.7016,
+              "y": -3.1861
+            },
+            {
+              "x": 3.0414,
+              "y": -3.9638
+            },
+            {
+              "x": 3.3276,
+              "y": -4.7628
+            },
+            {
+              "x": 3.5589,
+              "y": -5.5793
             }
           ]
         },
         "position": {
-          "x": 27.9617,
-          "y": 27.9617
-        },
-        "height_inches": 4
-      },
-      {
-        "id": "ruin-inner-1",
-        "name": "Ruin (inner 1)",
-        "piece_type": "area",
-        "footprint": {
-          "type": "rectangle",
-          "width": 6,
-          "height": 4
-        },
-        "position": {
-          "x": 11.5,
-          "y": 11.5
+          "x": 26.5764,
+          "y": 26.5764
         }
       },
       {
-        "id": "ruin-inner-1-walls",
-        "name": "Ruin (inner 1) Walls",
+        "id": "colosseum-wall-sw",
+        "name": "Colosseum Wall (SW)",
         "piece_type": "feature",
+        "template": "impassable-wall",
+        "height_inches": 6,
         "footprint": {
-          "type": "rectangle",
-          "width": 6,
-          "height": 4
+          "type": "polygon",
+          "points": [
+            {
+              "x": 5.4594,
+              "y": 4.0444
+            },
+            {
+              "x": 4.6102,
+              "y": 3.8038
+            },
+            {
+              "x": 3.7793,
+              "y": 3.5061
+            },
+            {
+              "x": 2.9705,
+              "y": 3.1527
+            },
+            {
+              "x": 2.1875,
+              "y": 2.7453
+            },
+            {
+              "x": 1.4339,
+              "y": 2.2857
+            },
+            {
+              "x": 0.7133,
+              "y": 1.776
+            },
+            {
+              "x": 0.029,
+              "y": 1.2185
+            },
+            {
+              "x": -0.616,
+              "y": 0.616
+            },
+            {
+              "x": -1.2185,
+              "y": -0.029
+            },
+            {
+              "x": -1.776,
+              "y": -0.7133
+            },
+            {
+              "x": -2.2857,
+              "y": -1.4339
+            },
+            {
+              "x": -2.7453,
+              "y": -2.1875
+            },
+            {
+              "x": -3.1527,
+              "y": -2.9705
+            },
+            {
+              "x": -3.5061,
+              "y": -3.7793
+            },
+            {
+              "x": -3.8038,
+              "y": -4.6102
+            },
+            {
+              "x": -4.0444,
+              "y": -5.4594
+            },
+            {
+              "x": -3.5589,
+              "y": -5.5793
+            },
+            {
+              "x": -3.3276,
+              "y": -4.7628
+            },
+            {
+              "x": -3.0414,
+              "y": -3.9638
+            },
+            {
+              "x": -2.7016,
+              "y": -3.1861
+            },
+            {
+              "x": -2.3098,
+              "y": -2.4332
+            },
+            {
+              "x": -1.8679,
+              "y": -1.7087
+            },
+            {
+              "x": -1.3778,
+              "y": -1.0158
+            },
+            {
+              "x": -0.8418,
+              "y": -0.3577
+            },
+            {
+              "x": -0.2624,
+              "y": 0.2624
+            },
+            {
+              "x": 0.3577,
+              "y": 0.8418
+            },
+            {
+              "x": 1.0158,
+              "y": 1.3778
+            },
+            {
+              "x": 1.7087,
+              "y": 1.8679
+            },
+            {
+              "x": 2.4332,
+              "y": 2.3098
+            },
+            {
+              "x": 3.1861,
+              "y": 2.7016
+            },
+            {
+              "x": 3.9638,
+              "y": 3.0414
+            },
+            {
+              "x": 4.7628,
+              "y": 3.3276
+            },
+            {
+              "x": 5.5793,
+              "y": 3.5589
+            }
+          ]
         },
         "position": {
-          "x": 0,
-          "y": 0
-        },
-        "parent_area_id": "ruin-inner-1",
-        "height_inches": 4
-      },
-      {
-        "id": "ruin-inner-2",
-        "name": "Ruin (inner 2)",
-        "piece_type": "area",
-        "footprint": {
-          "type": "rectangle",
-          "width": 4,
-          "height": 6
-        },
-        "position": {
-          "x": 24.5,
-          "y": 11.5
+          "x": 9.4236,
+          "y": 26.5764
         }
       },
       {
-        "id": "ruin-inner-2-walls",
-        "name": "Ruin (inner 2) Walls",
+        "id": "colosseum-wall-nw",
+        "name": "Colosseum Wall (NW)",
         "piece_type": "feature",
+        "template": "impassable-wall",
+        "height_inches": 6,
         "footprint": {
-          "type": "rectangle",
-          "width": 4,
-          "height": 6
+          "type": "polygon",
+          "points": [
+            {
+              "x": -4.0444,
+              "y": 5.4594
+            },
+            {
+              "x": -3.8038,
+              "y": 4.6102
+            },
+            {
+              "x": -3.5061,
+              "y": 3.7793
+            },
+            {
+              "x": -3.1527,
+              "y": 2.9705
+            },
+            {
+              "x": -2.7453,
+              "y": 2.1875
+            },
+            {
+              "x": -2.2857,
+              "y": 1.4339
+            },
+            {
+              "x": -1.776,
+              "y": 0.7133
+            },
+            {
+              "x": -1.2185,
+              "y": 0.029
+            },
+            {
+              "x": -0.616,
+              "y": -0.616
+            },
+            {
+              "x": 0.029,
+              "y": -1.2185
+            },
+            {
+              "x": 0.7133,
+              "y": -1.776
+            },
+            {
+              "x": 1.4339,
+              "y": -2.2857
+            },
+            {
+              "x": 2.1875,
+              "y": -2.7453
+            },
+            {
+              "x": 2.9705,
+              "y": -3.1527
+            },
+            {
+              "x": 3.7793,
+              "y": -3.5061
+            },
+            {
+              "x": 4.6102,
+              "y": -3.8038
+            },
+            {
+              "x": 5.4594,
+              "y": -4.0444
+            },
+            {
+              "x": 5.5793,
+              "y": -3.5589
+            },
+            {
+              "x": 4.7628,
+              "y": -3.3276
+            },
+            {
+              "x": 3.9638,
+              "y": -3.0414
+            },
+            {
+              "x": 3.1861,
+              "y": -2.7016
+            },
+            {
+              "x": 2.4332,
+              "y": -2.3098
+            },
+            {
+              "x": 1.7087,
+              "y": -1.8679
+            },
+            {
+              "x": 1.0158,
+              "y": -1.3778
+            },
+            {
+              "x": 0.3577,
+              "y": -0.8418
+            },
+            {
+              "x": -0.2624,
+              "y": -0.2624
+            },
+            {
+              "x": -0.8418,
+              "y": 0.3577
+            },
+            {
+              "x": -1.3778,
+              "y": 1.0158
+            },
+            {
+              "x": -1.8679,
+              "y": 1.7087
+            },
+            {
+              "x": -2.3098,
+              "y": 2.4332
+            },
+            {
+              "x": -2.7016,
+              "y": 3.1861
+            },
+            {
+              "x": -3.0414,
+              "y": 3.9638
+            },
+            {
+              "x": -3.3276,
+              "y": 4.7628
+            },
+            {
+              "x": -3.5589,
+              "y": 5.5793
+            }
+          ]
         },
         "position": {
-          "x": 0,
-          "y": 0
-        },
-        "parent_area_id": "ruin-inner-2",
-        "height_inches": 4
-      },
-      {
-        "id": "ruin-inner-3",
-        "name": "Ruin (inner 3)",
-        "piece_type": "area",
-        "footprint": {
-          "type": "rectangle",
-          "width": 6,
-          "height": 4
-        },
-        "position": {
-          "x": 24.5,
-          "y": 24.5
+          "x": 9.4236,
+          "y": 9.4236
         }
       },
       {
-        "id": "ruin-inner-3-walls",
-        "name": "Ruin (inner 3) Walls",
+        "id": "ruin-inner-nw",
+        "name": "Ruin (inner NW)",
+        "piece_type": "area",
+        "template": "kotc-ruin-inner",
+        "position": {
+          "x": 10.625,
+          "y": 15.625
+        },
+        "keystones": [
+          {
+            "edge": "top",
+            "ref": {
+              "kind": "vertex",
+              "index": 0
+            }
+          },
+          {
+            "edge": "left",
+            "ref": {
+              "kind": "vertex",
+              "index": 0
+            }
+          }
+        ]
+      },
+      {
+        "id": "ruin-inner-nw-walls",
+        "name": "Ruin (inner NW) Walls",
         "piece_type": "feature",
         "footprint": {
-          "type": "rectangle",
-          "width": 6,
-          "height": 4
+          "type": "polygon",
+          "points": [
+            {
+              "x": 1.4969,
+              "y": 1.4969
+            },
+            {
+              "x": 1.4969,
+              "y": -3.7531
+            },
+            {
+              "x": 0.9969,
+              "y": -3.7531
+            },
+            {
+              "x": 0.9969,
+              "y": 0.9969
+            },
+            {
+              "x": -3.7531,
+              "y": 0.9969
+            },
+            {
+              "x": -3.7531,
+              "y": 1.4969
+            }
+          ]
         },
         "position": {
-          "x": 0,
-          "y": 0
+          "x": 1.1281,
+          "y": 1.1281
         },
-        "parent_area_id": "ruin-inner-3",
-        "height_inches": 4
+        "parent_area_id": "ruin-inner-nw",
+        "height_inches": 3
       },
       {
-        "id": "ruin-inner-4",
-        "name": "Ruin (inner 4)",
+        "id": "ruin-inner-ne",
+        "name": "Ruin (inner NE)",
         "piece_type": "area",
-        "footprint": {
-          "type": "rectangle",
-          "width": 4,
-          "height": 6
-        },
+        "template": "kotc-ruin-inner",
         "position": {
-          "x": 11.5,
-          "y": 24.5
-        }
+          "x": 20.375,
+          "y": 10.625
+        },
+        "keystones": [
+          {
+            "edge": "top",
+            "ref": {
+              "kind": "vertex",
+              "index": 1
+            }
+          },
+          {
+            "edge": "right",
+            "ref": {
+              "kind": "vertex",
+              "index": 1
+            }
+          }
+        ]
       },
       {
-        "id": "ruin-inner-4-walls",
-        "name": "Ruin (inner 4) Walls",
+        "id": "ruin-inner-ne-walls",
+        "name": "Ruin (inner NE) Walls",
         "piece_type": "feature",
         "footprint": {
-          "type": "rectangle",
-          "width": 4,
-          "height": 6
+          "type": "polygon",
+          "points": [
+            {
+              "x": -1.4969,
+              "y": 1.4969
+            },
+            {
+              "x": 3.7531,
+              "y": 1.4969
+            },
+            {
+              "x": 3.7531,
+              "y": 0.9969
+            },
+            {
+              "x": -0.9969,
+              "y": 0.9969
+            },
+            {
+              "x": -0.9969,
+              "y": -3.7531
+            },
+            {
+              "x": -1.4969,
+              "y": -3.7531
+            }
+          ]
         },
         "position": {
-          "x": 0,
-          "y": 0
+          "x": -1.1281,
+          "y": 1.1281
         },
-        "parent_area_id": "ruin-inner-4",
-        "height_inches": 4
+        "parent_area_id": "ruin-inner-ne",
+        "height_inches": 3
       },
       {
-        "id": "ruin-outer-1",
-        "name": "Ruin (outer 1)",
+        "id": "ruin-inner-se",
+        "name": "Ruin (inner SE)",
         "piece_type": "area",
-        "footprint": {
-          "type": "rectangle",
-          "width": 6,
-          "height": 4
+        "template": "kotc-ruin-inner",
+        "position": {
+          "x": 25.375,
+          "y": 20.375
         },
+        "keystones": [
+          {
+            "edge": "bottom",
+            "ref": {
+              "kind": "vertex",
+              "index": 2
+            }
+          },
+          {
+            "edge": "right",
+            "ref": {
+              "kind": "vertex",
+              "index": 2
+            }
+          }
+        ]
+      },
+      {
+        "id": "ruin-inner-se-walls",
+        "name": "Ruin (inner SE) Walls",
+        "piece_type": "feature",
+        "footprint": {
+          "type": "polygon",
+          "points": [
+            {
+              "x": -1.4969,
+              "y": -1.4969
+            },
+            {
+              "x": -1.4969,
+              "y": 3.7531
+            },
+            {
+              "x": -0.9969,
+              "y": 3.7531
+            },
+            {
+              "x": -0.9969,
+              "y": -0.9969
+            },
+            {
+              "x": 3.7531,
+              "y": -0.9969
+            },
+            {
+              "x": 3.7531,
+              "y": -1.4969
+            }
+          ]
+        },
+        "position": {
+          "x": -1.1281,
+          "y": -1.1281
+        },
+        "parent_area_id": "ruin-inner-se",
+        "height_inches": 3
+      },
+      {
+        "id": "ruin-inner-sw",
+        "name": "Ruin (inner SW)",
+        "piece_type": "area",
+        "template": "kotc-ruin-inner",
+        "position": {
+          "x": 15.625,
+          "y": 25.375
+        },
+        "keystones": [
+          {
+            "edge": "bottom",
+            "ref": {
+              "kind": "vertex",
+              "index": 3
+            }
+          },
+          {
+            "edge": "left",
+            "ref": {
+              "kind": "vertex",
+              "index": 3
+            }
+          }
+        ]
+      },
+      {
+        "id": "ruin-inner-sw-walls",
+        "name": "Ruin (inner SW) Walls",
+        "piece_type": "feature",
+        "footprint": {
+          "type": "polygon",
+          "points": [
+            {
+              "x": 1.4969,
+              "y": -1.4969
+            },
+            {
+              "x": -3.7531,
+              "y": -1.4969
+            },
+            {
+              "x": -3.7531,
+              "y": -0.9969
+            },
+            {
+              "x": 0.9969,
+              "y": -0.9969
+            },
+            {
+              "x": 0.9969,
+              "y": 3.7531
+            },
+            {
+              "x": 1.4969,
+              "y": 3.7531
+            }
+          ]
+        },
+        "position": {
+          "x": 1.1281,
+          "y": -1.1281
+        },
+        "parent_area_id": "ruin-inner-sw",
+        "height_inches": 3
+      },
+      {
+        "id": "ruin-deploy-nw",
+        "name": "Ruin (deployment NW)",
+        "piece_type": "area",
+        "template": "kotc-ruin-deployment",
         "position": {
           "x": 4,
-          "y": 4
+          "y": 3.875
         }
       },
       {
-        "id": "ruin-outer-1-walls",
-        "name": "Ruin (outer 1) Walls",
+        "id": "ruin-deploy-nw-walls",
+        "name": "Ruin (deployment NW) Walls",
         "piece_type": "feature",
         "footprint": {
-          "type": "rectangle",
-          "width": 6,
-          "height": 4
+          "type": "polygon",
+          "points": [
+            {
+              "x": 1.8086,
+              "y": 0.8086
+            },
+            {
+              "x": 1.8086,
+              "y": -2.4414
+            },
+            {
+              "x": 1.3086,
+              "y": -2.4414
+            },
+            {
+              "x": 1.3086,
+              "y": 0.3086
+            },
+            {
+              "x": -3.4414,
+              "y": 0.3086
+            },
+            {
+              "x": -3.4414,
+              "y": 0.8086
+            }
+          ]
         },
         "position": {
-          "x": 0,
-          "y": 0
+          "x": 0.8164,
+          "y": 0.8164
         },
-        "parent_area_id": "ruin-outer-1",
-        "height_inches": 4
+        "parent_area_id": "ruin-deploy-nw",
+        "height_inches": 3
       },
       {
-        "id": "ruin-outer-2",
-        "name": "Ruin (outer 2)",
+        "id": "ruin-deploy-ne",
+        "name": "Ruin (deployment NE)",
         "piece_type": "area",
-        "footprint": {
-          "type": "rectangle",
-          "width": 6,
-          "height": 4
-        },
+        "template": "kotc-ruin-deployment",
         "position": {
           "x": 32,
-          "y": 4
+          "y": 3.875
         }
       },
       {
-        "id": "ruin-outer-2-walls",
-        "name": "Ruin (outer 2) Walls",
+        "id": "ruin-deploy-ne-walls",
+        "name": "Ruin (deployment NE) Walls",
         "piece_type": "feature",
         "footprint": {
-          "type": "rectangle",
-          "width": 6,
-          "height": 4
+          "type": "polygon",
+          "points": [
+            {
+              "x": -1.8086,
+              "y": 0.8086
+            },
+            {
+              "x": -1.8086,
+              "y": -2.4414
+            },
+            {
+              "x": -1.3086,
+              "y": -2.4414
+            },
+            {
+              "x": -1.3086,
+              "y": 0.3086
+            },
+            {
+              "x": 3.4414,
+              "y": 0.3086
+            },
+            {
+              "x": 3.4414,
+              "y": 0.8086
+            }
+          ]
         },
         "position": {
-          "x": 0,
-          "y": 0
+          "x": -0.8164,
+          "y": 0.8164
         },
-        "parent_area_id": "ruin-outer-2",
-        "height_inches": 4
+        "parent_area_id": "ruin-deploy-ne",
+        "height_inches": 3
       },
       {
-        "id": "ruin-outer-3",
-        "name": "Ruin (outer 3)",
+        "id": "ruin-deploy-sw",
+        "name": "Ruin (deployment SW)",
         "piece_type": "area",
-        "footprint": {
-          "type": "rectangle",
-          "width": 6,
-          "height": 4
-        },
-        "position": {
-          "x": 32,
-          "y": 32
-        }
-      },
-      {
-        "id": "ruin-outer-3-walls",
-        "name": "Ruin (outer 3) Walls",
-        "piece_type": "feature",
-        "footprint": {
-          "type": "rectangle",
-          "width": 6,
-          "height": 4
-        },
-        "position": {
-          "x": 0,
-          "y": 0
-        },
-        "parent_area_id": "ruin-outer-3",
-        "height_inches": 4
-      },
-      {
-        "id": "ruin-outer-4",
-        "name": "Ruin (outer 4)",
-        "piece_type": "area",
-        "footprint": {
-          "type": "rectangle",
-          "width": 6,
-          "height": 4
-        },
+        "template": "kotc-ruin-deployment",
         "position": {
           "x": 4,
-          "y": 32
+          "y": 32.125
         }
       },
       {
-        "id": "ruin-outer-4-walls",
-        "name": "Ruin (outer 4) Walls",
+        "id": "ruin-deploy-sw-walls",
+        "name": "Ruin (deployment SW) Walls",
         "piece_type": "feature",
         "footprint": {
-          "type": "rectangle",
-          "width": 6,
-          "height": 4
+          "type": "polygon",
+          "points": [
+            {
+              "x": 1.8086,
+              "y": -0.8086
+            },
+            {
+              "x": 1.8086,
+              "y": 2.4414
+            },
+            {
+              "x": 1.3086,
+              "y": 2.4414
+            },
+            {
+              "x": 1.3086,
+              "y": -0.3086
+            },
+            {
+              "x": -3.4414,
+              "y": -0.3086
+            },
+            {
+              "x": -3.4414,
+              "y": -0.8086
+            }
+          ]
         },
         "position": {
-          "x": 0,
-          "y": 0
+          "x": 0.8164,
+          "y": -0.8164
         },
-        "parent_area_id": "ruin-outer-4",
-        "height_inches": 4
+        "parent_area_id": "ruin-deploy-sw",
+        "height_inches": 3
+      },
+      {
+        "id": "ruin-deploy-se",
+        "name": "Ruin (deployment SE)",
+        "piece_type": "area",
+        "template": "kotc-ruin-deployment",
+        "position": {
+          "x": 32,
+          "y": 32.125
+        }
+      },
+      {
+        "id": "ruin-deploy-se-walls",
+        "name": "Ruin (deployment SE) Walls",
+        "piece_type": "feature",
+        "footprint": {
+          "type": "polygon",
+          "points": [
+            {
+              "x": -1.8086,
+              "y": -0.8086
+            },
+            {
+              "x": -1.8086,
+              "y": 2.4414
+            },
+            {
+              "x": -1.3086,
+              "y": 2.4414
+            },
+            {
+              "x": -1.3086,
+              "y": -0.3086
+            },
+            {
+              "x": 3.4414,
+              "y": -0.3086
+            },
+            {
+              "x": 3.4414,
+              "y": -0.8086
+            }
+          ]
+        },
+        "position": {
+          "x": -0.8164,
+          "y": -0.8164
+        },
+        "parent_area_id": "ruin-deploy-se",
+        "height_inches": 3
       },
       {
         "id": "obj-center",
         "name": "Objective (Center)",
         "piece_type": "area",
+        "terrain": false,
         "footprint": {
           "type": "polygon",
           "points": [
             {
-              "x": 1.5,
+              "x": 3,
               "y": 0
             },
             {
-              "x": 1.0607,
-              "y": 1.0607
+              "x": 2.1213,
+              "y": 2.1213
             },
             {
               "x": 0,
-              "y": 1.5
+              "y": 3
             },
             {
-              "x": -1.0607,
-              "y": 1.0607
+              "x": -2.1213,
+              "y": 2.1213
             },
             {
-              "x": -1.5,
+              "x": -3,
               "y": 0
             },
             {
-              "x": -1.0607,
-              "y": -1.0607
+              "x": -2.1213,
+              "y": -2.1213
             },
             {
               "x": 0,
-              "y": -1.5
+              "y": -3
             },
             {
-              "x": 1.0607,
-              "y": -1.0607
+              "x": 2.1213,
+              "y": -2.1213
             }
           ]
         },
@@ -35263,45 +35918,46 @@
         "id": "obj-west",
         "name": "Objective (West)",
         "piece_type": "area",
+        "terrain": false,
         "footprint": {
           "type": "polygon",
           "points": [
             {
-              "x": 1.5,
+              "x": 3,
               "y": 0
             },
             {
-              "x": 1.0607,
-              "y": 1.0607
+              "x": 2.1213,
+              "y": 2.1213
             },
             {
               "x": 0,
-              "y": 1.5
+              "y": 3
             },
             {
-              "x": -1.0607,
-              "y": 1.0607
+              "x": -2.1213,
+              "y": 2.1213
             },
             {
-              "x": -1.5,
+              "x": -3,
               "y": 0
             },
             {
-              "x": -1.0607,
-              "y": -1.0607
+              "x": -2.1213,
+              "y": -2.1213
             },
             {
               "x": 0,
-              "y": -1.5
+              "y": -3
             },
             {
-              "x": 1.0607,
-              "y": -1.0607
+              "x": 2.1213,
+              "y": -2.1213
             }
           ]
         },
         "position": {
-          "x": 9,
+          "x": 5.5,
           "y": 18
         },
         "objective_role": "expansion",
@@ -35314,45 +35970,46 @@
         "id": "obj-east",
         "name": "Objective (East)",
         "piece_type": "area",
+        "terrain": false,
         "footprint": {
           "type": "polygon",
           "points": [
             {
-              "x": 1.5,
+              "x": 3,
               "y": 0
             },
             {
-              "x": 1.0607,
-              "y": 1.0607
+              "x": 2.1213,
+              "y": 2.1213
             },
             {
               "x": 0,
-              "y": 1.5
+              "y": 3
             },
             {
-              "x": -1.0607,
-              "y": 1.0607
+              "x": -2.1213,
+              "y": 2.1213
             },
             {
-              "x": -1.5,
+              "x": -3,
               "y": 0
             },
             {
-              "x": -1.0607,
-              "y": -1.0607
+              "x": -2.1213,
+              "y": -2.1213
             },
             {
               "x": 0,
-              "y": -1.5
+              "y": -3
             },
             {
-              "x": 1.0607,
-              "y": -1.0607
+              "x": 2.1213,
+              "y": -2.1213
             }
           ]
         },
         "position": {
-          "x": 27,
+          "x": 30.5,
           "y": 18
         },
         "objective_role": "expansion",
@@ -35365,46 +36022,47 @@
         "id": "obj-north",
         "name": "Objective (North)",
         "piece_type": "area",
+        "terrain": false,
         "footprint": {
           "type": "polygon",
           "points": [
             {
-              "x": 1.5,
+              "x": 3,
               "y": 0
             },
             {
-              "x": 1.0607,
-              "y": 1.0607
+              "x": 2.1213,
+              "y": 2.1213
             },
             {
               "x": 0,
-              "y": 1.5
+              "y": 3
             },
             {
-              "x": -1.0607,
-              "y": 1.0607
+              "x": -2.1213,
+              "y": 2.1213
             },
             {
-              "x": -1.5,
+              "x": -3,
               "y": 0
             },
             {
-              "x": -1.0607,
-              "y": -1.0607
+              "x": -2.1213,
+              "y": -2.1213
             },
             {
               "x": 0,
-              "y": -1.5
+              "y": -3
             },
             {
-              "x": 1.0607,
-              "y": -1.0607
+              "x": 2.1213,
+              "y": -2.1213
             }
           ]
         },
         "position": {
           "x": 18,
-          "y": 9
+          "y": 5.5
         },
         "objective_role": "expansion",
         "is_objective": true,
@@ -35416,46 +36074,47 @@
         "id": "obj-south",
         "name": "Objective (South)",
         "piece_type": "area",
+        "terrain": false,
         "footprint": {
           "type": "polygon",
           "points": [
             {
-              "x": 1.5,
+              "x": 3,
               "y": 0
             },
             {
-              "x": 1.0607,
-              "y": 1.0607
+              "x": 2.1213,
+              "y": 2.1213
             },
             {
               "x": 0,
-              "y": 1.5
+              "y": 3
             },
             {
-              "x": -1.0607,
-              "y": 1.0607
+              "x": -2.1213,
+              "y": 2.1213
             },
             {
-              "x": -1.5,
+              "x": -3,
               "y": 0
             },
             {
-              "x": -1.0607,
-              "y": -1.0607
+              "x": -2.1213,
+              "y": -2.1213
             },
             {
               "x": 0,
-              "y": -1.5
+              "y": -3
             },
             {
-              "x": 1.0607,
-              "y": -1.0607
+              "x": 2.1213,
+              "y": -2.1213
             }
           ]
         },
         "position": {
           "x": 18,
-          "y": 27
+          "y": 30.5
         },
         "objective_role": "expansion",
         "is_objective": true,

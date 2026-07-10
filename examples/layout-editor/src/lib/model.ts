@@ -126,6 +126,10 @@ export interface EditPiece {
   position: Vec2;
   rotation_degrees: number;
   mirror: Mirror;
+  /** Whether this area is gameplay terrain. `false` = an empty area (e.g. a
+   *  10th-ed objective marker on open ground): has a footprint but is not
+   *  terrain and grants no cover. Absent means true. */
+  terrain?: boolean;
   /** For a feature: the layout-local id of the area it is anchored to. */
   parent_area_id?: string;
   floor?: number;
@@ -1297,6 +1301,7 @@ export function keystoneDisplays(layout: EditLayout): KeystoneDisplay[] {
     measured = keystoneMeasurements(
       { ...layout, pieces } as unknown as Parameters<typeof keystoneMeasurements>[0],
       CATALOG as unknown as Parameters<typeof keystoneMeasurements>[1],
+      boardOf(layout),
     ).map((m) => m.distance);
   } catch {
     // Layout doesn't resolve mid-edit (e.g. a piece lost its footprint):
@@ -1766,6 +1771,7 @@ export function loadEmbedded(id: string, symmetric = true): EditLayout | undefin
     id: p.id ?? `piece-${i + 1}`,
     name: p.name,
     piece_type: (p.piece_type ?? "area") as "area" | "feature",
+    terrain: (p as { terrain?: boolean }).terrain,
     template: p.template,
     footprint: p.footprint,
     position: { x: p.position.x, y: p.position.y },
@@ -1815,6 +1821,7 @@ export function toCanonicalJson(layout: EditLayout): unknown {
         id: p.id,
         ...(p.name ? { name: p.name } : {}),
         piece_type: p.piece_type,
+        ...(p.terrain === false ? { terrain: false } : {}),
         ...(p.template ? { template: p.template } : {}),
         ...(p.footprint ? { footprint: p.footprint } : {}),
         position: { x: round(p.position.x), y: round(p.position.y) },

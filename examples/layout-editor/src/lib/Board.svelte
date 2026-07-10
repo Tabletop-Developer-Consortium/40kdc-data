@@ -296,7 +296,9 @@
       {@const tplCat = templateById(ep?.template)?.terrain_category ?? ''}
       <polygon
         points={pts(p)}
-        class="piece {p.piece_type} {tplCat} {p.id === selectedId ? 'selected' : ''} {p.id === twinId
+        class="piece {p.piece_type} {tplCat} {ep?.terrain === false ? 'empty' : ''} {p.id === selectedId
+          ? 'selected'
+          : ''} {p.id === twinId
           ? 'twin'
           : ''} {ep && isGroundBlocked(ep) ? 'blocked' : ''} {p.id && warnPieceIds.has(p.id)
           ? 'needs-review'
@@ -500,6 +502,15 @@
   .piece.feature.light {
     fill: oklch(0.68 0.15 62 / 0.55);
     stroke: oklch(0.5 0.16 58);
+  }
+  /* Empty area (terrain: false) — a 10th-ed objective marker on open ground:
+     a dashed ring in the objective colour, no terrain fill. Equal specificity
+     to .piece.area, placed after it so it wins. */
+  .piece.empty {
+    fill: none;
+    stroke: oklch(0.55 0.13 85);
+    stroke-width: 0.16;
+    stroke-dasharray: 0.45 0.3;
   }
   .piece.blocked {
     stroke-dasharray: 0.5 0.4;

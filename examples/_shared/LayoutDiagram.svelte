@@ -136,6 +136,15 @@
     fill: oklch(0.74 0.14 75 / 0.5);
     stroke: oklch(0.74 0.15 75);
   }
+  /* Empty area (terrain: false) — e.g. a 10th-ed objective marker on open
+     ground: a dashed ring in the objective colour, never a terrain fill.
+     Placed after .piece.area so it wins the equal-specificity override. */
+  .piece.empty {
+    fill: none;
+    stroke: oklch(0.4 0.02 235);
+    stroke-width: 0.16;
+    stroke-dasharray: 0.45 0.3;
+  }
   .obj-ring {
     fill: none;
     stroke: oklch(0.4 0.02 235);

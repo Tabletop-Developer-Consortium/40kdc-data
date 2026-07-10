@@ -8994,7 +8994,7 @@ pub struct PhaseMapping {
 ///      "$ref": "#/$defs/entity-id"
 ///    },
 ///    "piece_type": {
-///      "description": "An `area` is a gameplay terrain zone (the 11e 'terrain area'); a `feature` is physical scenery (walls, containers, pipes) placed on an area.",
+///      "description": "An `area` is a gameplay zone with extent (an 11e 'terrain area' by default; set `terrain: false` for an EMPTY area such as a bare objective marker); a `feature` is physical scenery (walls, containers, pipes) placed on an area.",
 ///      "default": "area",
 ///      "type": "string",
 ///      "enum": [
@@ -9015,6 +9015,11 @@ pub struct PhaseMapping {
 ///    "template": {
 ///      "description": "Id of the terrain-template this piece instances. Footprint and defaults (height, blocking, keywords) are taken from that template unless overridden here.",
 ///      "$ref": "#/$defs/entity-id"
+///    },
+///    "terrain": {
+///      "description": "Whether this area is gameplay terrain — an 11e terrain area that confers cover / area-terrain rules. `false` marks an EMPTY area: it still has a footprint (extent, for measurement and control-range display) but is not terrain and grants no cover, e.g. a 10th-edition objective marker sitting on open ground. Only meaningful for `area` pieces; absent means true (a terrain area). This is the data signal that distinguishes a 10th-style bare objective marker from an 11th objective embedded in a terrain area.",
+///      "default": true,
+///      "type": "boolean"
 ///    },
 ///    "terrain_area_keywords": {
 ///      "description": "Terrain-area keywords this piece's area carries; overrides the template default.",
@@ -9066,7 +9071,7 @@ pub struct Piece {
     ///For a feature: the layout-local id of the area it sits on. The feature's `position`/`rotation_degrees`/`mirror` are composed with the parent area's placement, so moving, rotating, or mirroring the area carries the feature with it.
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub parent_area_id: ::std::option::Option<EntityId>,
-    ///An `area` is a gameplay terrain zone (the 11e 'terrain area'); a `feature` is physical scenery (walls, containers, pipes) placed on an area.
+    ///An `area` is a gameplay zone with extent (an 11e 'terrain area' by default; set `terrain: false` for an EMPTY area such as a bare objective marker); a `feature` is physical scenery (walls, containers, pipes) placed on an area.
     #[serde(default = "defaults::piece_piece_type")]
     pub piece_type: PiecePieceType,
     ///Placement of the piece's CENTROID (the polygon area centroid of its footprint). Rotation- and mirror-invariant: changing `rotation_degrees` or `mirror` never moves this point. In board inches, unless the piece is a feature with `parent_area_id`, in which case it is in the parent area's centroid-local frame.
@@ -9077,6 +9082,9 @@ pub struct Piece {
     ///Id of the terrain-template this piece instances. Footprint and defaults (height, blocking, keywords) are taken from that template unless overridden here.
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub template: ::std::option::Option<EntityId>,
+    ///Whether this area is gameplay terrain — an 11e terrain area that confers cover / area-terrain rules. `false` marks an EMPTY area: it still has a footprint (extent, for measurement and control-range display) but is not terrain and grants no cover, e.g. a 10th-edition objective marker sitting on open ground. Only meaningful for `area` pieces; absent means true (a terrain area). This is the data signal that distinguishes a 10th-style bare objective marker from an 11th objective embedded in a terrain area.
+    #[serde(default = "defaults::default_bool::<true>")]
+    pub terrain: bool,
     ///Terrain-area keywords this piece's area carries; overrides the template default.
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub terrain_area_keywords: ::std::option::Option<Vec<TerrainAreaKeyword>>,
@@ -9757,13 +9765,13 @@ impl ::std::convert::TryFrom<::std::string::String> for PieceObjectiveRole {
         value.parse()
     }
 }
-///An `area` is a gameplay terrain zone (the 11e 'terrain area'); a `feature` is physical scenery (walls, containers, pipes) placed on an area.
+///An `area` is a gameplay zone with extent (an 11e 'terrain area' by default; set `terrain: false` for an EMPTY area such as a bare objective marker); a `feature` is physical scenery (walls, containers, pipes) placed on an area.
 ///
 /// <details><summary>JSON schema</summary>
 ///
 /// ```json
 ///{
-///  "description": "An `area` is a gameplay terrain zone (the 11e 'terrain area'); a `feature` is physical scenery (walls, containers, pipes) placed on an area.",
+///  "description": "An `area` is a gameplay zone with extent (an 11e 'terrain area' by default; set `terrain: false` for an EMPTY area such as a bare objective marker); a `feature` is physical scenery (walls, containers, pipes) placed on an area.",
 ///  "default": "area",
 ///  "type": "string",
 ///  "enum": [

@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { facingAngle } from "../../../_shared/layout-geometry.js";
+import { Dataset } from "@alpaca-software/40kdc-data";
+import { diagramModel, facingAngle } from "../../../_shared/layout-geometry.js";
 
 // Real divider endpoints (board frame, 60×44) for the patterns whose facing
 // behavior matters: the orthogonal pair locks in the unchanged baseline, the
@@ -43,5 +44,26 @@ describe("facingAngle", () => {
 
   it("degenerate divider yields 0", () => {
     expect(facingAngle({ from: { x: 30, y: 22 }, to: { x: 30, y: 22 } }, { x: 10, y: 10 })).toBe(0);
+  });
+});
+
+describe("diagramModel classifies empty areas", () => {
+  const ds = Dataset.embedded();
+
+  it("marks KOTC objectives (terrain:false) as empty, so they render as markers not terrain", () => {
+    const kotc = ds.terrainLayouts.get("kotc-colosseum")!;
+    const { pieceCategories } = diagramModel(ds, kotc);
+    for (const id of ["obj-center", "obj-west", "obj-east", "obj-north", "obj-south"]) {
+      expect(pieceCategories.get(id)).toBe("empty");
+    }
+  });
+
+  it("leaves 11e terrain-area objectives unclassified as empty", () => {
+    const th = ds.terrainLayouts.get("take-and-hold-vs-disruption-2")!;
+    const { pieceCategories } = diagramModel(ds, th);
+    // The large-area objectives are real terrain areas — never "empty".
+    for (const id of ["area-large-31", "area-large-37"]) {
+      expect(pieceCategories.get(id)).not.toBe("empty");
+    }
   });
 });

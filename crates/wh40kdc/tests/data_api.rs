@@ -499,11 +499,24 @@ fn collection_is_iterable() {
 fn terrain_catalog_and_layouts_are_embedded() {
     let ds = Dataset::embedded();
     // 5 areas + 11 GW features after the catalog correction (walls / old corners
-    // / old scenery removed), plus the KOTC `impassable-wall`. Elevated-only and
-    // solid pieces set ground_accessible = false; ruins/platforms carry an
-    // upper_floor.
-    assert_eq!(ds.terrain_templates.len(), 17);
+    // / old scenery removed), plus the KOTC `impassable-wall` and the two dense
+    // KOTC ruin area templates (`kotc-ruin-inner`, `kotc-ruin-deployment`).
+    // Elevated-only and solid pieces set ground_accessible = false;
+    // ruins/platforms carry an upper_floor.
+    assert_eq!(ds.terrain_templates.len(), 19);
     assert!(ds.terrain_templates.get("area-large").is_some());
+    for ruin in ["kotc-ruin-inner", "kotc-ruin-deployment"] {
+        assert_eq!(
+            ds.terrain_templates
+                .get(ruin)
+                .unwrap()
+                .terrain_category
+                .as_ref()
+                .map(|c| c.to_string())
+                .as_deref(),
+            Some("dense")
+        );
+    }
     assert!(ds
         .terrain_templates
         .get("corner-ruin-balanced-left")

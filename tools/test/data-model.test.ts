@@ -17,9 +17,12 @@ describe("terrain (embedded catalog + layout resolution)", () => {
     // 5 areas + 11 GW features (walls/old corners/old scenery removed; see the
     // catalog-correction migration), plus the KOTC `impassable-wall`. Pieces
     // carrying an elevated platform expose `upper_floor`; elevated-only / solid
-    // pieces set `ground_accessible: false`.
-    expect(dataset.terrainTemplates.all.length).toBe(17);
+    // pieces set `ground_accessible: false`. Plus the two dense KOTC ruin area
+    // templates (`kotc-ruin-inner`, `kotc-ruin-deployment`).
+    expect(dataset.terrainTemplates.all.length).toBe(19);
     expect(dataset.terrainTemplates.get("area-large")).toBeDefined();
+    expect(dataset.terrainTemplates.get("kotc-ruin-inner")?.terrain_category).toBe("dense");
+    expect(dataset.terrainTemplates.get("kotc-ruin-deployment")?.terrain_category).toBe("dense");
     expect(dataset.terrainTemplates.get("corner-ruin-balanced-left")?.upper_floor).toBeDefined();
     expect(dataset.terrainTemplates.get("gantry")?.ground_accessible).toBe(false);
     expect(dataset.terrainTemplates.get("impassable-wall")?.ground_accessible).toBe(false);

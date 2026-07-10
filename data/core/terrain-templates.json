@@ -945,5 +945,39 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     }
+  },
+  {
+    "id": "kotc-ruin-inner",
+    "name": "KOTC Inner Ruin",
+    "kind": "area",
+    "source": "kotc",
+    "footprint": {
+      "type": "rectangle",
+      "width": 5.25,
+      "height": 5.25
+    },
+    "default_height_inches": 3,
+    "terrain_category": "dense",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "pre-launch-provisional"
+    }
+  },
+  {
+    "id": "kotc-ruin-deployment",
+    "name": "KOTC Deployment Ruin",
+    "kind": "area",
+    "source": "kotc",
+    "footprint": {
+      "type": "rectangle",
+      "width": 5.25,
+      "height": 3.25
+    },
+    "default_height_inches": 3,
+    "terrain_category": "dense",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "pre-launch-provisional"
+    }
   }
 ]

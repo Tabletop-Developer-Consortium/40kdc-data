@@ -2,6 +2,8 @@ import { describe, it, expect } from "vitest";
 import {
   layoutWarnings,
   isRoundKeystone,
+  keystoneDisplays,
+  toCanonicalJson,
   orientPiece,
   verticesOf,
   boardCentroid,
@@ -116,6 +118,49 @@ describe("keystone-not-round warnings", () => {
     expect(ks).toHaveLength(1);
     expect(ks[0].message).toContain("15.92");
     expect(ks[0].pieceIds).toEqual(["k"]);
+  });
+});
+
+describe("keystoneDisplays honours the layout board", () => {
+  // Regression: a far-edge keystone on the 36×36 KOTC board must measure against
+  // 36, not the 60×44 package default. The bug read a near-centre ruin wall at
+  // 21″ (44−23) instead of its true 13″ (36−23).
+  function bottomFaceKeystoneAtY23(): EditPiece {
+    // Rectangle height 8, centroid at y=19 → max-y face at board y=23.
+    return rect("k", 8, 8, { x: 10, y: 19 }, {
+      keystones: [{ edge: "bottom", ref: { kind: "face", side: "max-y" } }],
+    });
+  }
+
+  it("measures against the layout's board, not the 60×44 default", () => {
+    const on36: EditLayout = {
+      id: "t",
+      name: "T",
+      board: { width: 36, height: 36 },
+      pieces: [bottomFaceKeystoneAtY23()],
+    };
+    expect(keystoneDisplays(on36).find((d) => d.pieceId === "k")?.distance).toBe(13);
+  });
+
+  it("falls back to the 60×44 default when the layout has no board override", () => {
+    const onDefault: EditLayout = { id: "t", name: "T", pieces: [bottomFaceKeystoneAtY23()] };
+    expect(keystoneDisplays(onDefault).find((d) => d.pieceId === "k")?.distance).toBe(21);
+  });
+});
+
+describe("empty-area (terrain:false) round-trips through canonical JSON", () => {
+  it("emits terrain:false for an empty area and omits it for a terrain area", () => {
+    const emptyObj = rect("obj-west", 6, 6, { x: 5.5, y: 18 }, {
+      terrain: false,
+      is_objective: true,
+      objective_role: "expansion",
+      objective: { control_range_inches: 3 },
+    });
+    const terrainArea = rect("cover", 6, 6, { x: 12, y: 12 });
+    const json = toCanonicalJson(layout([emptyObj, terrainArea])) as [{ pieces: Record<string, unknown>[] }];
+    const [obj, cover] = json[0].pieces;
+    expect(obj.terrain).toBe(false);
+    expect("terrain" in cover).toBe(false); // terrain area: default true, key omitted
   });
 });
 

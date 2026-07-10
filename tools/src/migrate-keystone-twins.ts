@@ -79,12 +79,13 @@ function mirrorKeystone(
   k: Keystone,
   primaryVerts: Vec2[],
   twinVerts: Vec2[],
+  board: { width: number; height: number },
 ): { keystone: Keystone } | { error: string } {
   const edge = flipEdge(k.edge);
   if (k.ref.kind === "face") return { keystone: { edge, ref: { kind: "face", side: flipSide(k.ref.side) } } };
   const anchor = primaryVerts[k.ref.index];
   if (!anchor) return { error: `vertex index ${k.ref.index} out of range` };
-  const reflected = { x: BOARD.width - anchor.x, y: BOARD.height - anchor.y };
+  const reflected = { x: board.width - anchor.x, y: board.height - anchor.y };
   let bestIndex = -1;
   let best = Infinity;
   twinVerts.forEach((v, i) => {
@@ -135,15 +136,19 @@ export function pairKeystones(
 
   for (const layout of layouts) {
     const pieces = layout.pieces ?? [];
+    // Twin reflection is through the board centre, so it must use THIS layout's
+    // board (e.g. the 36×36 KOTC colosseum), not the 60×44 default — otherwise
+    // a non-standard board reflects every piece into empty space and nothing pairs.
+    const board = (layout as { board?: { width: number; height: number } }).board ?? BOARD;
     // Twin pairing pass (unparented, off-centre, same template, reflected centroid).
     const twin = new Map<LayoutPiece, LayoutPiece>();
     for (const p of pieces) {
       if (twin.has(p) || p.parent_area_id) continue;
       const onCentre =
-        Math.abs(p.position.x - BOARD.width / 2) < CENTRE_TOL &&
-        Math.abs(p.position.y - BOARD.height / 2) < CENTRE_TOL;
+        Math.abs(p.position.x - board.width / 2) < CENTRE_TOL &&
+        Math.abs(p.position.y - board.height / 2) < CENTRE_TOL;
       if (onCentre) continue;
-      const want = { x: BOARD.width - p.position.x, y: BOARD.height - p.position.y };
+      const want = { x: board.width - p.position.x, y: board.height - p.position.y };
       const match = pieces.find(
         (q) =>
           q !== p &&
@@ -168,8 +173,8 @@ export function pairKeystones(
       const t = twin.get(p);
       if (!t) {
         const onCentre =
-          Math.abs(p.position.x - BOARD.width / 2) < CENTRE_TOL &&
-          Math.abs(p.position.y - BOARD.height / 2) < CENTRE_TOL;
+          Math.abs(p.position.x - board.width / 2) < CENTRE_TOL &&
+          Math.abs(p.position.y - board.height / 2) < CENTRE_TOL;
         if (!onCentre) warnings.push(`${label}: no symmetry twin found — pair by hand`);
         continue; // centre pieces are their own mirror; nothing to do
       }
@@ -180,7 +185,7 @@ export function pairKeystones(
         continue;
       }
       for (const k of p.keystones) {
-        const m = mirrorKeystone(k, pv, tv);
+        const m = mirrorKeystone(k, pv, tv, board);
         if ("error" in m) {
           warnings.push(`${label} [${k.edge}/${JSON.stringify(k.ref)}]: ${m.error}`);
           continue;

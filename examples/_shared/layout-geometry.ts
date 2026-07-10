@@ -234,6 +234,7 @@ export function diagramModel(
     measurements = keystoneMeasurements(
       layout as Parameters<typeof keystoneMeasurements>[0],
       ds.terrainTemplates.all as unknown as Parameters<typeof keystoneMeasurements>[1],
+      layout.board,
     );
   } catch {
     // A stale keystone (re-authored footprint) must not take the card down;
@@ -280,7 +281,14 @@ export function diagramModel(
 
   const pieceCategories = new Map<string, string>();
   for (const piece of layout.pieces ?? []) {
-    if (!piece.id || !piece.template) continue;
+    if (!piece.id) continue;
+    // An empty area (terrain: false) is not terrain — e.g. a 10th-edition
+    // objective marker on open ground. It renders as a ring, not a terrain fill.
+    if ((piece as { terrain?: boolean }).terrain === false) {
+      pieceCategories.set(piece.id, "empty");
+      continue;
+    }
+    if (!piece.template) continue;
     const tpl = ds.terrainTemplates.get(piece.template) as { terrain_category?: string } | undefined;
     if (tpl?.terrain_category) pieceCategories.set(piece.id, tpl.terrain_category);
   }

@@ -452,6 +452,7 @@ class Piece(TypedDict):
     id: NotRequired[EntityId]
     name: NotRequired[str]
     piece_type: NotRequired[Literal["area", "feature"]]
+    terrain: NotRequired[bool]
     template: NotRequired[EntityId]
     footprint: NotRequired[Footprint]
     position: Vec2

@@ -173,20 +173,27 @@
         "piece_type": "area",
         "template": "area-long-line",
         "position": {
-          "x": 23.5547,
-          "y": 9.5311
+          "x": 23.56,
+          "y": 9.53
         },
         "rotation_degrees": 46.79,
         "keystones": [
           {
-            "edge": "left",
+            "edge": "top",
             "ref": {
               "kind": "vertex",
-              "index": 17
+              "index": 0
             }
           },
           {
             "edge": "top",
+            "ref": {
+              "kind": "vertex",
+              "index": 16
+            }
+          },
+          {
+            "edge": "left",
             "ref": {
               "kind": "vertex",
               "index": 16
@@ -200,20 +207,27 @@
         "piece_type": "area",
         "template": "area-long-line",
         "position": {
-          "x": 36.4453,
-          "y": 34.4689
+          "x": 36.44,
+          "y": 34.47
         },
         "rotation_degrees": 226.79,
         "keystones": [
           {
-            "edge": "right",
+            "edge": "bottom",
             "ref": {
               "kind": "vertex",
-              "index": 17
+              "index": 0
             }
           },
           {
             "edge": "bottom",
+            "ref": {
+              "kind": "vertex",
+              "index": 16
+            }
+          },
+          {
+            "edge": "right",
             "ref": {
               "kind": "vertex",
               "index": 16
@@ -1639,23 +1653,23 @@
         "piece_type": "area",
         "template": "area-medium",
         "position": {
-          "x": 17.1042,
-          "y": 26.227
+          "x": 17.11,
+          "y": 26.39
         },
         "rotation_degrees": 62.73,
         "keystones": [
           {
-            "edge": "left",
+            "edge": "bottom",
             "ref": {
               "kind": "vertex",
               "index": 15
             }
           },
           {
-            "edge": "bottom",
+            "edge": "left",
             "ref": {
               "kind": "vertex",
-              "index": 15
+              "index": 0
             }
           }
         ]
@@ -1666,23 +1680,23 @@
         "piece_type": "area",
         "template": "area-medium",
         "position": {
-          "x": 42.8958,
-          "y": 17.773
+          "x": 42.89,
+          "y": 17.61
         },
         "rotation_degrees": 242.73,
         "keystones": [
           {
-            "edge": "right",
+            "edge": "top",
             "ref": {
               "kind": "vertex",
               "index": 15
             }
           },
           {
-            "edge": "top",
+            "edge": "right",
             "ref": {
               "kind": "vertex",
-              "index": 15
+              "index": 0
             }
           }
         ]
@@ -2479,6 +2493,7 @@
           "x": 38.04,
           "y": 10.03
         },
+        "mirror": "horizontal",
         "keystones": [
           {
             "edge": "right",
@@ -2494,8 +2509,7 @@
               "index": 13
             }
           }
-        ],
-        "mirror": "horizontal"
+        ]
       },
       {
         "id": "area-medium-8",
@@ -2507,6 +2521,7 @@
           "y": 33.97
         },
         "rotation_degrees": 180,
+        "mirror": "horizontal",
         "keystones": [
           {
             "edge": "left",
@@ -2522,8 +2537,7 @@
               "index": 13
             }
           }
-        ],
-        "mirror": "horizontal"
+        ]
       },
       {
         "id": "area-short-line-9",
@@ -2611,8 +2625,8 @@
           "y": 0
         },
         "rotation_degrees": 270,
-        "parent_area_id": "area-medium-7",
-        "mirror": "horizontal"
+        "mirror": "horizontal",
+        "parent_area_id": "area-medium-7"
       },
       {
         "id": "generator-14",
@@ -2624,8 +2638,8 @@
           "y": 0
         },
         "rotation_degrees": 270,
-        "parent_area_id": "area-medium-8",
-        "mirror": "horizontal"
+        "mirror": "horizontal",
+        "parent_area_id": "area-medium-8"
       },
       {
         "id": "area-trapezoid-15",
@@ -2801,7 +2815,6 @@
           "x": 4.6663,
           "y": -0.8247
         },
-        "rotation_degrees": 180,
         "parent_area_id": "area-large-22"
       },
       {
@@ -2813,7 +2826,6 @@
           "x": 4.6663,
           "y": -0.8247
         },
-        "rotation_degrees": 180,
         "parent_area_id": "area-large-21"
       },
       {
@@ -2846,23 +2858,23 @@
         "piece_type": "area",
         "template": "area-medium",
         "position": {
-          "x": 48.5049,
-          "y": 29.951
+          "x": 48.5,
+          "y": 29.93
         },
-        "rotation_degrees": 311.81,
+        "rotation_degrees": 312.17,
         "keystones": [
-          {
-            "edge": "right",
-            "ref": {
-              "kind": "vertex",
-              "index": 0
-            }
-          },
           {
             "edge": "bottom",
             "ref": {
               "kind": "vertex",
-              "index": 0
+              "index": 15
+            }
+          },
+          {
+            "edge": "right",
+            "ref": {
+              "kind": "vertex",
+              "index": 15
             }
           }
         ]
@@ -2873,23 +2885,23 @@
         "piece_type": "area",
         "template": "area-medium",
         "position": {
-          "x": 11.4951,
-          "y": 14.049
+          "x": 11.5,
+          "y": 14.07
         },
-        "rotation_degrees": 131.81,
+        "rotation_degrees": 132.17,
         "keystones": [
-          {
-            "edge": "left",
-            "ref": {
-              "kind": "vertex",
-              "index": 0
-            }
-          },
           {
             "edge": "top",
             "ref": {
               "kind": "vertex",
-              "index": 0
+              "index": 15
+            }
+          },
+          {
+            "edge": "left",
+            "ref": {
+              "kind": "vertex",
+              "index": 15
             }
           }
         ]
@@ -2900,9 +2912,10 @@
         "piece_type": "feature",
         "template": "corner-short",
         "position": {
-          "x": -2.1001,
-          "y": -0.601
+          "x": -2.1038,
+          "y": -0.5878
         },
+        "rotation_degrees": 359.64,
         "parent_area_id": "area-medium-27"
       },
       {
@@ -2911,9 +2924,10 @@
         "piece_type": "feature",
         "template": "corner-short",
         "position": {
-          "x": -2.1001,
-          "y": -0.601
+          "x": -2.1038,
+          "y": -0.5878
         },
+        "rotation_degrees": 359.64,
         "parent_area_id": "area-medium-28"
       },
       {
@@ -2922,10 +2936,10 @@
         "piece_type": "feature",
         "template": "corner-short",
         "position": {
-          "x": 2.0718,
-          "y": 0.5162
+          "x": 2.075,
+          "y": 0.5032
         },
-        "rotation_degrees": 180,
+        "rotation_degrees": 179.64,
         "parent_area_id": "area-medium-27"
       },
       {
@@ -2934,10 +2948,10 @@
         "piece_type": "feature",
         "template": "corner-short",
         "position": {
-          "x": 2.0718,
-          "y": 0.5162
+          "x": 2.075,
+          "y": 0.5032
         },
-        "rotation_degrees": 180,
+        "rotation_degrees": 179.64,
         "parent_area_id": "area-medium-28"
       },
       {
@@ -2946,20 +2960,20 @@
         "piece_type": "area",
         "template": "area-short-line",
         "position": {
-          "x": 49.5037,
-          "y": 36.2461
+          "x": 49.48,
+          "y": 36.24
         },
-        "rotation_degrees": 43,
+        "rotation_degrees": 42.96,
         "keystones": [
           {
-            "edge": "right",
+            "edge": "bottom",
             "ref": {
               "kind": "vertex",
-              "index": 1
+              "index": 0
             }
           },
           {
-            "edge": "bottom",
+            "edge": "right",
             "ref": {
               "kind": "vertex",
               "index": 0
@@ -2973,20 +2987,20 @@
         "piece_type": "area",
         "template": "area-short-line",
         "position": {
-          "x": 10.4963,
-          "y": 7.7539
+          "x": 10.52,
+          "y": 7.76
         },
-        "rotation_degrees": 223,
+        "rotation_degrees": 222.96,
         "keystones": [
           {
-            "edge": "left",
+            "edge": "top",
             "ref": {
               "kind": "vertex",
-              "index": 1
+              "index": 0
             }
           },
           {
-            "edge": "top",
+            "edge": "left",
             "ref": {
               "kind": "vertex",
               "index": 0
@@ -3003,6 +3017,7 @@
           "x": 0,
           "y": 0
         },
+        "rotation_degrees": 0.04,
         "parent_area_id": "area-short-line-33"
       },
       {
@@ -3014,6 +3029,7 @@
           "x": 0,
           "y": 0
         },
+        "rotation_degrees": 0.04,
         "parent_area_id": "area-short-line-34"
       },
       {

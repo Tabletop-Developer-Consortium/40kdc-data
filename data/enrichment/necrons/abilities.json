@@ -5752,5 +5752,6 @@
       "duration": "permanent"
     },
     "community_notes": "community-authored from 10e source (provisional 11e); see #21"
-  }
+  },
+  {"ability_id": "hover", "name": "Hover", "authored_by": "40kdc-community", "game_version": {"edition": "11th", "dataslate": "pre-launch-provisional"}, "version": "2025-q3", "effect": {"type": "unit-keyword", "target": "self", "modifier": {"keyword_id": "hover"}}, "scope": {"range": "self", "duration": "permanent"}, "unit_ids": ["night-scythe"], "ability_type": "core", "behavior": "activated"}
 ]

@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<roster id="roster0" name="Imported roster" gameSystemId="sys-352e-adc2-7639-d6a9" gameSystemName="Warhammer 40,000">
+  <forces>
+    <force id="force0" name="Emperors Children" catalogueName="Emperors Children">
+      <selections>
+        <selection id="unit0" name="Emperor’s Children Rhino" type="unit" number="1">
+          <profiles>
+            <profile name="Chaos Rhino" typeName="Unit">
+              <characteristics>
+                <characteristic name="M">12"</characteristic>
+                <characteristic name="T">9</characteristic>
+                <characteristic name="SV">3+</characteristic>
+                <characteristic name="W">10</characteristic>
+                <characteristic name="LD">6+</characteristic>
+                <characteristic name="OC">2</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Assault Vehicle" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">Units can disembark from this model after it has Advanced; such units count as having made a Normal move, but cannot declare a charge this turn.</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Fire Support" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">During the Shooting phase, until the end of the phase, you can re-roll the Wound roll.</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Firing Deck 2" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">The unit gains the Firing Deck ability (2).</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Meet Any Challenge" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">An enemy unit ends a move, the unit can make a Reactive move.</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Self Repair" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">This model regains up to 1 lost wound.</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Sorcerous Support" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">During the Shooting phase, until the end of the phase:
+  -&gt; The unit gets +1 to Hit rolls.
+  -&gt; The unit gets +1 to Wound rolls.</characteristic>
+              </characteristics>
+            </profile>
+          </profiles>
+          <categories>
+            <category name="Faction: Emperor’s Children"/>
+            <category name="Vehicle"/>
+            <category name="Transport"/>
+            <category name="Dedicated Transport"/>
+            <category name="Smoke"/>
+            <category name="Chaos"/>
+            <category name="Slaanesh"/>
+            <category name="Rhino"/>
+          </categories>
+          <selections>
+            <selection id="unit0-m0" name="Chaos Rhino" type="model" number="1">
+              <selections>
+                <selection id="unit0-m0-w0" name="Armoured tracks" type="upgrade" number="1">
+                  <profiles>
+                    <profile name="Armoured tracks" typeName="Melee Weapons">
+                      <characteristics>
+                        <characteristic name="Range">Melee</characteristic>
+                        <characteristic name="A">3</characteristic>
+                        <characteristic name="WS">4+</characteristic>
+                        <characteristic name="S">6</characteristic>
+                        <characteristic name="AP">0</characteristic>
+                        <characteristic name="D">1</characteristic>
+                        <characteristic name="Keywords"></characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+                <selection id="unit0-m0-w1" name="Combi-bolter" type="upgrade" number="1">
+                  <profiles>
+                    <profile name="Combi-bolter" typeName="Ranged Weapons">
+                      <characteristics>
+                        <characteristic name="Range">24"</characteristic>
+                        <characteristic name="A">2</characteristic>
+                        <characteristic name="BS">3+</characteristic>
+                        <characteristic name="S">4</characteristic>
+                        <characteristic name="AP">0</characteristic>
+                        <characteristic name="D">1</characteristic>
+                        <characteristic name="Keywords">Rapid Fire 2</characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+              </selections>
+            </selection>
+          </selections>
+        </selection>
+        <selection id="unit1" name="Emperor’s Children Chaos Spawn" type="unit" number="1">
+          <profiles>
+            <profile name="Chaos Spawn" typeName="Unit">
+              <characteristics>
+                <characteristic name="M">10"</characteristic>
+                <characteristic name="T">5</characteristic>
+                <characteristic name="SV">4+</characteristic>
+                <characteristic name="W">4</characteristic>
+                <characteristic name="LD">7+</characteristic>
+                <characteristic name="OC">1</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Deadly Demise 1" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">Before this model is removed from play:
+  -&gt; Roll one D6: on a 6+, each enemy unit within 6" suffers 1 mortal wound.</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Feel No Pain 5+" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">The unit has the Feel No Pain 5+ ability.</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Lethal Ichor" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">During the Fight phase, the target suffers 1 mortal wound.</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Mind-breaking Mutations (Aura)" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">Modify the unit's characteristics.</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Regenerating Monstrosities" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">This model regains up to 3 lost wounds.</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Scouts 6&quot;" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">Before the first battle round, the unit can make a Scout move of up to 6".</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Scouts 8&quot;" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">Before the first battle round, the unit can make a Scout move of up to 8".</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Scuttling Horrors" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">An enemy unit ends a move, once per turn, the unit can make a Reactive move.</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="To Slake its Rage" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">The unit gains the Advance &amp; Charge ability.</characteristic>
+              </characteristics>
+            </profile>
+          </profiles>
+          <categories>
+            <category name="Faction: Emperor’s Children"/>
+            <category name="Beast"/>
+            <category name="Chaos"/>
+            <category name="Slaanesh"/>
+            <category name="Chaos Spawn"/>
+          </categories>
+          <selections>
+            <selection id="unit1-m0" name="Chaos Spawn" type="model" number="1">
+              <selections>
+                <selection id="unit1-m0-w0" name="Hideous mutations" type="upgrade" number="2">
+                  <profiles>
+                    <profile name="Hideous mutations" typeName="Melee Weapons">
+                      <characteristics>
+                        <characteristic name="Range">Melee</characteristic>
+                        <characteristic name="A">D6+2</characteristic>
+                        <characteristic name="WS">4+</characteristic>
+                        <characteristic name="S">5</characteristic>
+                        <characteristic name="AP">-1</characteristic>
+                        <characteristic name="D">2</characteristic>
+                        <characteristic name="Keywords"></characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+              </selections>
+            </selection>
+          </selections>
+        </selection>
+      </selections>
+    </force>
+  </forces>
+</roster>

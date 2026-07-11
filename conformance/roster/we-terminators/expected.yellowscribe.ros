@@ -1,0 +1,463 @@
+<?xml version="1.0" encoding="utf-8"?>
+<roster id="roster0" name="Terminator Loadout Decomposition" gameSystemId="sys-352e-adc2-7639-d6a9" gameSystemName="Warhammer 40,000">
+  <forces>
+    <force id="force0" name="World Eaters" catalogueName="World Eaters">
+      <selections>
+        <selection id="unit0" name="Daemon Prince of Khorne" type="unit" number="1">
+          <profiles>
+            <profile name="Daemon Prince of Khorne" typeName="Unit">
+              <characteristics>
+                <characteristic name="M">10"</characteristic>
+                <characteristic name="T">10</characteristic>
+                <characteristic name="SV">2+</characteristic>
+                <characteristic name="W">10</characteristic>
+                <characteristic name="LD">6+</characteristic>
+                <characteristic name="OC">3</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Invulnerable Save" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">4+ invulnerable save</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Deadly Demise D3" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">When a model in the unit is destroyed, until the end of the phase:
+  -&gt; Roll one D6: on a 6+, each enemy unit within 6" suffers D3 mortal wounds.</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Devastating Assault" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">Before a Hit roll is made, if the unit charged this turn, until the end of the turn, this model's hellforged weapons gains [DEVASTATING WOUNDS].</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Direct the Slaughter" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">At the start of the phase, if within 12" of a friendly unit, until the end of the battle round, you can use one Stratagem on this model for 0CP.</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Lord of Murder" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">If within 3" of friendly infantry, this model gains the Lone Operative ability.</characteristic>
+              </characteristics>
+            </profile>
+          </profiles>
+          <categories>
+            <category name="Faction: World Eaters"/>
+            <category name="Monster"/>
+            <category name="Character"/>
+            <category name="Chaos"/>
+            <category name="Khorne"/>
+            <category name="Daemon"/>
+            <category name="Daemon Prince"/>
+          </categories>
+          <selections>
+            <selection id="unit0-m0" name="Daemon Prince of Khorne" type="model" number="1">
+              <selections>
+                <selection id="unit0-m0-w0" name="Infernal cannon" type="upgrade" number="1">
+                  <profiles>
+                    <profile name="Infernal cannon" typeName="Ranged Weapons">
+                      <characteristics>
+                        <characteristic name="Range">24"</characteristic>
+                        <characteristic name="A">3</characteristic>
+                        <characteristic name="BS">3+</characteristic>
+                        <characteristic name="S">5</characteristic>
+                        <characteristic name="AP">-1</characteristic>
+                        <characteristic name="D">2</characteristic>
+                        <characteristic name="Keywords">Rapid Fire 1</characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+                <selection id="unit0-m0-w1" name="Hellforged weapons" type="upgrade" number="1">
+                  <profiles>
+                    <profile name="Sweep" typeName="Melee Weapons">
+                      <characteristics>
+                        <characteristic name="Range">Melee</characteristic>
+                        <characteristic name="A">16</characteristic>
+                        <characteristic name="WS">2+</characteristic>
+                        <characteristic name="S">6</characteristic>
+                        <characteristic name="AP">-1</characteristic>
+                        <characteristic name="D">1</characteristic>
+                        <characteristic name="Keywords"></characteristic>
+                      </characteristics>
+                    </profile>
+                    <profile name="Strike" typeName="Melee Weapons">
+                      <characteristics>
+                        <characteristic name="Range">Melee</characteristic>
+                        <characteristic name="A">8</characteristic>
+                        <characteristic name="WS">2+</characteristic>
+                        <characteristic name="S">8</characteristic>
+                        <characteristic name="AP">-2</characteristic>
+                        <characteristic name="D">3</characteristic>
+                        <characteristic name="Keywords"></characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+              </selections>
+            </selection>
+          </selections>
+        </selection>
+        <selection id="unit1" name="Chaos Terminators" type="unit" number="1">
+          <profiles>
+            <profile name="World Eaters Terminator" typeName="Unit">
+              <characteristics>
+                <characteristic name="M">7"</characteristic>
+                <characteristic name="T">5</characteristic>
+                <characteristic name="SV">2+</characteristic>
+                <characteristic name="W">3</characteristic>
+                <characteristic name="LD">6+</characteristic>
+                <characteristic name="OC">1</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Invulnerable Save" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">4+ invulnerable save</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Bloody Fury" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">Before a Hit roll is made:
+While making ranged attacks, if the target is the closest eligible target, you can re-roll the Hit roll.
+If the target is the closest eligible target, you can re-roll the Charge roll.</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Deep Strike" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">At the start of the phase, the unit has the Deep Strike ability.</characteristic>
+              </characteristics>
+            </profile>
+          </profiles>
+          <categories>
+            <category name="Faction: World Eaters"/>
+            <category name="Infantry"/>
+            <category name="Chaos"/>
+            <category name="Terminator"/>
+            <category name="Terminator Squad"/>
+            <category name="Khorne"/>
+          </categories>
+          <selections>
+            <selection id="unit1-m0" name="World Eaters Terminator Champion" type="model" number="1">
+              <selections>
+                <selection id="unit1-m0-w0" name="Chainfist" type="upgrade" number="1">
+                  <profiles>
+                    <profile name="Chainfist" typeName="Melee Weapons">
+                      <characteristics>
+                        <characteristic name="Range">Melee</characteristic>
+                        <characteristic name="A">3</characteristic>
+                        <characteristic name="WS">4+</characteristic>
+                        <characteristic name="S">8</characteristic>
+                        <characteristic name="AP">-3</characteristic>
+                        <characteristic name="D">2</characteristic>
+                        <characteristic name="Keywords">Anti-Vehicle 3+</characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+                <selection id="unit1-m0-w1" name="Combi-weapon" type="upgrade" number="1">
+                  <profiles>
+                    <profile name="Combi-weapon" typeName="Ranged Weapons">
+                      <characteristics>
+                        <characteristic name="Range">24"</characteristic>
+                        <characteristic name="A">1</characteristic>
+                        <characteristic name="BS">4+</characteristic>
+                        <characteristic name="S">4</characteristic>
+                        <characteristic name="AP">0</characteristic>
+                        <characteristic name="D">1</characteristic>
+                        <characteristic name="Keywords">Anti-Infantry 4+, Devastating Wounds, Rapid Fire 1</characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+              </selections>
+            </selection>
+            <selection id="unit1-m1" name="World Eaters Terminator" type="model" number="4">
+              <selections>
+                <selection id="unit1-m1-w0" name="Combi-weapon" type="upgrade" number="4">
+                  <profiles>
+                    <profile name="Combi-weapon" typeName="Ranged Weapons">
+                      <characteristics>
+                        <characteristic name="Range">24"</characteristic>
+                        <characteristic name="A">1</characteristic>
+                        <characteristic name="BS">4+</characteristic>
+                        <characteristic name="S">4</characteristic>
+                        <characteristic name="AP">0</characteristic>
+                        <characteristic name="D">1</characteristic>
+                        <characteristic name="Keywords">Anti-Infantry 4+, Devastating Wounds, Rapid Fire 1</characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+                <selection id="unit1-m1-w1" name="Power fist" type="upgrade" number="4">
+                  <profiles>
+                    <profile name="Power fist" typeName="Melee Weapons">
+                      <characteristics>
+                        <characteristic name="Range">Melee</characteristic>
+                        <characteristic name="A">3</characteristic>
+                        <characteristic name="WS">3+</characteristic>
+                        <characteristic name="S">8</characteristic>
+                        <characteristic name="AP">-2</characteristic>
+                        <characteristic name="D">2</characteristic>
+                        <characteristic name="Keywords"></characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+              </selections>
+            </selection>
+            <selection id="unit1-m2" name="World Eaters Terminator" type="model" number="2">
+              <selections>
+                <selection id="unit1-m2-w0" name="Paired accursed weapons" type="upgrade" number="2">
+                  <profiles>
+                    <profile name="Paired accursed weapons" typeName="Melee Weapons">
+                      <characteristics>
+                        <characteristic name="Range">Melee</characteristic>
+                        <characteristic name="A">5</characteristic>
+                        <characteristic name="WS">3+</characteristic>
+                        <characteristic name="S">5</characteristic>
+                        <characteristic name="AP">-2</characteristic>
+                        <characteristic name="D">1</characteristic>
+                        <characteristic name="Keywords">Twin-linked</characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+              </selections>
+            </selection>
+            <selection id="unit1-m3" name="World Eaters Terminator" type="model" number="2">
+              <selections>
+                <selection id="unit1-m3-w0" name="Power fist" type="upgrade" number="2">
+                  <profiles>
+                    <profile name="Power fist" typeName="Melee Weapons">
+                      <characteristics>
+                        <characteristic name="Range">Melee</characteristic>
+                        <characteristic name="A">3</characteristic>
+                        <characteristic name="WS">3+</characteristic>
+                        <characteristic name="S">8</characteristic>
+                        <characteristic name="AP">-2</characteristic>
+                        <characteristic name="D">2</characteristic>
+                        <characteristic name="Keywords"></characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+                <selection id="unit1-m3-w1" name="Reaper autocannon" type="upgrade" number="2">
+                  <profiles>
+                    <profile name="Reaper autocannon" typeName="Ranged Weapons">
+                      <characteristics>
+                        <characteristic name="Range">36"</characteristic>
+                        <characteristic name="A">4</characteristic>
+                        <characteristic name="BS">4+</characteristic>
+                        <characteristic name="S">7</characteristic>
+                        <characteristic name="AP">-1</characteristic>
+                        <characteristic name="D">1</characteristic>
+                        <characteristic name="Keywords">Devastating Wounds, Rapid Fire 2, Sustained Hits 1</characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+              </selections>
+            </selection>
+            <selection id="unit1-m4" name="World Eaters Terminator" type="model" number="1">
+              <selections>
+                <selection id="unit1-m4-w0" name="Chainfist" type="upgrade" number="1">
+                  <profiles>
+                    <profile name="Chainfist" typeName="Melee Weapons">
+                      <characteristics>
+                        <characteristic name="Range">Melee</characteristic>
+                        <characteristic name="A">3</characteristic>
+                        <characteristic name="WS">4+</characteristic>
+                        <characteristic name="S">8</characteristic>
+                        <characteristic name="AP">-3</characteristic>
+                        <characteristic name="D">2</characteristic>
+                        <characteristic name="Keywords">Anti-Vehicle 3+</characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+                <selection id="unit1-m4-w1" name="Combi-weapon" type="upgrade" number="1">
+                  <profiles>
+                    <profile name="Combi-weapon" typeName="Ranged Weapons">
+                      <characteristics>
+                        <characteristic name="Range">24"</characteristic>
+                        <characteristic name="A">1</characteristic>
+                        <characteristic name="BS">4+</characteristic>
+                        <characteristic name="S">4</characteristic>
+                        <characteristic name="AP">0</characteristic>
+                        <characteristic name="D">1</characteristic>
+                        <characteristic name="Keywords">Anti-Infantry 4+, Devastating Wounds, Rapid Fire 1</characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+              </selections>
+            </selection>
+          </selections>
+        </selection>
+        <selection id="unit2" name="Chaos Terminators" type="unit" number="1">
+          <profiles>
+            <profile name="World Eaters Terminator" typeName="Unit">
+              <characteristics>
+                <characteristic name="M">7"</characteristic>
+                <characteristic name="T">5</characteristic>
+                <characteristic name="SV">2+</characteristic>
+                <characteristic name="W">3</characteristic>
+                <characteristic name="LD">6+</characteristic>
+                <characteristic name="OC">1</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Invulnerable Save" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">4+ invulnerable save</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Bloody Fury" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">Before a Hit roll is made:
+While making ranged attacks, if the target is the closest eligible target, you can re-roll the Hit roll.
+If the target is the closest eligible target, you can re-roll the Charge roll.</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Deep Strike" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">At the start of the phase, the unit has the Deep Strike ability.</characteristic>
+              </characteristics>
+            </profile>
+          </profiles>
+          <categories>
+            <category name="Faction: World Eaters"/>
+            <category name="Infantry"/>
+            <category name="Chaos"/>
+            <category name="Terminator"/>
+            <category name="Terminator Squad"/>
+            <category name="Khorne"/>
+          </categories>
+          <selections>
+            <selection id="unit2-m0" name="World Eaters Terminator Champion" type="model" number="1">
+              <selections>
+                <selection id="unit2-m0-w0" name="Chainfist" type="upgrade" number="1">
+                  <profiles>
+                    <profile name="Chainfist" typeName="Melee Weapons">
+                      <characteristics>
+                        <characteristic name="Range">Melee</characteristic>
+                        <characteristic name="A">3</characteristic>
+                        <characteristic name="WS">4+</characteristic>
+                        <characteristic name="S">8</characteristic>
+                        <characteristic name="AP">-3</characteristic>
+                        <characteristic name="D">2</characteristic>
+                        <characteristic name="Keywords">Anti-Vehicle 3+</characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+                <selection id="unit2-m0-w1" name="Combi-weapon" type="upgrade" number="1">
+                  <profiles>
+                    <profile name="Combi-weapon" typeName="Ranged Weapons">
+                      <characteristics>
+                        <characteristic name="Range">24"</characteristic>
+                        <characteristic name="A">1</characteristic>
+                        <characteristic name="BS">4+</characteristic>
+                        <characteristic name="S">4</characteristic>
+                        <characteristic name="AP">0</characteristic>
+                        <characteristic name="D">1</characteristic>
+                        <characteristic name="Keywords">Anti-Infantry 4+, Devastating Wounds, Rapid Fire 1</characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+              </selections>
+            </selection>
+            <selection id="unit2-m1" name="World Eaters Terminator" type="model" number="2">
+              <selections>
+                <selection id="unit2-m1-w0" name="Combi-weapon" type="upgrade" number="2">
+                  <profiles>
+                    <profile name="Combi-weapon" typeName="Ranged Weapons">
+                      <characteristics>
+                        <characteristic name="Range">24"</characteristic>
+                        <characteristic name="A">1</characteristic>
+                        <characteristic name="BS">4+</characteristic>
+                        <characteristic name="S">4</characteristic>
+                        <characteristic name="AP">0</characteristic>
+                        <characteristic name="D">1</characteristic>
+                        <characteristic name="Keywords">Anti-Infantry 4+, Devastating Wounds, Rapid Fire 1</characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+                <selection id="unit2-m1-w1" name="Power fist" type="upgrade" number="2">
+                  <profiles>
+                    <profile name="Power fist" typeName="Melee Weapons">
+                      <characteristics>
+                        <characteristic name="Range">Melee</characteristic>
+                        <characteristic name="A">3</characteristic>
+                        <characteristic name="WS">3+</characteristic>
+                        <characteristic name="S">8</characteristic>
+                        <characteristic name="AP">-2</characteristic>
+                        <characteristic name="D">2</characteristic>
+                        <characteristic name="Keywords"></characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+              </selections>
+            </selection>
+            <selection id="unit2-m2" name="World Eaters Terminator" type="model" number="1">
+              <selections>
+                <selection id="unit2-m2-w0" name="Paired accursed weapons" type="upgrade" number="1">
+                  <profiles>
+                    <profile name="Paired accursed weapons" typeName="Melee Weapons">
+                      <characteristics>
+                        <characteristic name="Range">Melee</characteristic>
+                        <characteristic name="A">5</characteristic>
+                        <characteristic name="WS">3+</characteristic>
+                        <characteristic name="S">5</characteristic>
+                        <characteristic name="AP">-2</characteristic>
+                        <characteristic name="D">1</characteristic>
+                        <characteristic name="Keywords">Twin-linked</characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+              </selections>
+            </selection>
+            <selection id="unit2-m3" name="World Eaters Terminator" type="model" number="1">
+              <selections>
+                <selection id="unit2-m3-w0" name="Power fist" type="upgrade" number="1">
+                  <profiles>
+                    <profile name="Power fist" typeName="Melee Weapons">
+                      <characteristics>
+                        <characteristic name="Range">Melee</characteristic>
+                        <characteristic name="A">3</characteristic>
+                        <characteristic name="WS">3+</characteristic>
+                        <characteristic name="S">8</characteristic>
+                        <characteristic name="AP">-2</characteristic>
+                        <characteristic name="D">2</characteristic>
+                        <characteristic name="Keywords"></characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+                <selection id="unit2-m3-w1" name="Reaper autocannon" type="upgrade" number="1">
+                  <profiles>
+                    <profile name="Reaper autocannon" typeName="Ranged Weapons">
+                      <characteristics>
+                        <characteristic name="Range">36"</characteristic>
+                        <characteristic name="A">4</characteristic>
+                        <characteristic name="BS">4+</characteristic>
+                        <characteristic name="S">7</characteristic>
+                        <characteristic name="AP">-1</characteristic>
+                        <characteristic name="D">1</characteristic>
+                        <characteristic name="Keywords">Devastating Wounds, Rapid Fire 2, Sustained Hits 1</characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+              </selections>
+            </selection>
+          </selections>
+        </selection>
+      </selections>
+    </force>
+  </forces>
+</roster>

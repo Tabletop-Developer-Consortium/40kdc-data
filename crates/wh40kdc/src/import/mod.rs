@@ -57,8 +57,8 @@ mod rosterizer;
 
 pub use types::{
     AttachmentRole, BattleSize, Candidate, Diagnostics, GameVersionRef, ParsedRoster, ParsedUnit,
-    ParsedWargear, ResolvedRef, Roster, RosterFormat, RosterLeaderAttachment, RosterPoints,
-    RosterSource, RosterUnit, RosterWargear, Warning, WarningCode,
+    ParsedWargear, ResolvedRef, Roster, RosterFormat, RosterLeaderAttachment, RosterLoadoutGroup,
+    RosterPoints, RosterSource, RosterUnit, RosterWargear, Warning, WarningCode,
 };
 
 #[cfg(feature = "import")]

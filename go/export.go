@@ -20,12 +20,44 @@ var exportSerializers = map[string]func(map[string]any) string{
 	"atc-2026-full":          serializeAtc2026Full,
 }
 
+// exportDataSerializers are the Dataset-backed export-only formats: they read
+// full datasheet data the Roster doesn't carry (stat lines, weapon profiles,
+// keywords, ability text), so they take the extra *Dataset argument. Dispatched
+// through exportRosterWithDataset. The eight Dataset-free serializers keep the
+// func(map[string]any) string signature untouched.
+var exportDataSerializers = map[string]func(map[string]any, *Dataset) string{
+	"yellowscribe": serializeYellowscribe,
+}
+
+// isExportFormat reports whether format is a registered export format (either
+// Dataset-free or Dataset-backed).
+func isExportFormat(format string) bool {
+	return exportSerializers[format] != nil || exportDataSerializers[format] != nil
+}
+
 func exportRoster(roster map[string]any, format string) (string, error) {
 	ser := exportSerializers[format]
 	if ser == nil {
 		return "", errors.New("unknown export format: " + format)
 	}
 	return ser(roster), nil
+}
+
+// exportRosterWithDataset serializes a Roster into the named format, supplying
+// the Dataset to Dataset-backed formats. Dataset-free formats ignore ds. A
+// Dataset-backed format with a nil ds errors rather than emitting an empty
+// roster. Go mirror of python export_roster's optional-dataset dispatch.
+func exportRosterWithDataset(roster map[string]any, format string, ds *Dataset) (string, error) {
+	if ser := exportSerializers[format]; ser != nil {
+		return ser(roster), nil
+	}
+	if dser := exportDataSerializers[format]; dser != nil {
+		if ds == nil {
+			return "", errors.New("export format '" + format + "' requires a dataset argument")
+		}
+		return dser(roster, ds), nil
+	}
+	return "", errors.New("unknown export format: " + format)
 }
 
 // --- helpers ---

@@ -187,7 +187,7 @@ def _handle_try_import(state: RunnerState, args: Any) -> Response:
     return _ok({"format": result["format"], "roster": result["roster"]})
 
 
-def _handle_export(args: Any) -> Response:
+def _handle_export(state: RunnerState, args: Any) -> Response:
     if not isinstance(args, dict):
         return _err("INVALID_INPUT", {"detail": "export args must be an object"})
     fmt = args.get("format")
@@ -196,7 +196,9 @@ def _handle_export(args: Any) -> Response:
     if not isinstance(args.get("roster"), dict):
         return _err("INVALID_INPUT", {"detail": "export.roster must be an object"})
     try:
-        return _ok(export_roster(args["roster"], fmt))
+        # Dataset-backed formats (yellowscribe) get the embedded dataset; the
+        # Dataset-free formats ignore it.
+        return _ok(export_roster(args["roster"], fmt, state.dataset()))
     except Exception as e:
         return _err("EXPORT_FAILED", {"detail": str(e)})
 
@@ -913,7 +915,7 @@ def dispatch(state: RunnerState, req: dict[str, Any]) -> Response:
     if op == "try_import":
         return _handle_try_import(state, args)
     if op == "export":
-        return _handle_export(args)
+        return _handle_export(state, args)
     if op == "linked_query":
         return _handle_linked_query(state, args)
     if op == "check_unit_legality":

@@ -73,6 +73,12 @@ const JSON_EXPORTS: { format: ExportFormat; filename: string }[] = [
   { format: "rosterizer", filename: "expected.rosterizer.json" },
 ];
 
+// Dataset-backed export-only formats — resolved against the embedded dataset,
+// so `exportRoster` takes the extra `ds` argument. Text goldens.
+const DATASET_EXPORTS: { format: ExportFormat; filename: string }[] = [
+  { format: "yellowscribe", filename: "expected.yellowscribe.ros" },
+];
+
 function inputsFor(caseDir: string): InputDescriptor[] {
   const entries = readdirSync(caseDir);
   const inputs: InputDescriptor[] = [];
@@ -257,6 +263,15 @@ describe("conformance corpus (ties out with the Rust crate)", () => {
           ? JSON.stringify(readJson(path), null, 2) + "\n"
           : readText(path);
         const actual = exportRoster(roster, format);
+        expect(actual, `export ${format} for roster/${entry.name}`).toBe(goldenText);
+      }
+
+      // Dataset-backed exports (yellowscribe .ros) — same seed, but the
+      // serializer reads the embedded dataset for stat lines/weapons/abilities.
+      const dsPresent = DATASET_EXPORTS.filter((e) => dirEntries.includes(e.filename));
+      for (const { format, filename } of dsPresent) {
+        const goldenText = readText(join(caseDir, filename));
+        const actual = exportRoster(roster, format, ds);
         expect(actual, `export ${format} for roster/${entry.name}`).toBe(goldenText);
       }
     });

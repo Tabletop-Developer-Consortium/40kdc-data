@@ -15,6 +15,7 @@ mod newrecruit_simple;
 mod newrecruit_wtc;
 mod roster_json;
 mod rosterizer;
+mod yellowscribe;
 
 pub use atc_2026::{Atc2026CompactSerializer, Atc2026FullSerializer};
 pub use newrecruit_json::NewRecruitJsonSerializer;
@@ -23,6 +24,7 @@ pub use newrecruit_wtc::{NewRecruitWtcCompactSerializer, NewRecruitWtcFullSerial
 pub use roster_json::RosterJsonSerializer;
 pub use rosterizer::RosterizerSerializer;
 
+use crate::data::Dataset;
 use crate::import::Roster;
 
 /// The formats `exportRoster` can emit. Mirrors the TS `ExportFormat`
@@ -40,6 +42,10 @@ pub enum ExportFormat {
     Rosterizer,
     Atc2026Compact,
     Atc2026Full,
+    /// Dataset-backed BattleScribe `.ros` for Yellowscribe → Tabletop Simulator.
+    /// Export-only, and the sole format that requires a [`Dataset`]; reach it
+    /// through [`export_roster_with_dataset`] (a bare [`export_roster`] panics).
+    Yellowscribe,
 }
 
 /// Symmetric counterpart to [`FormatAdapter`](crate::import::FormatAdapter):
@@ -50,6 +56,11 @@ pub trait RosterSerializer {
 }
 
 /// Serialize a [`Roster`] into the named target format.
+///
+/// Every format here is Dataset-free. The one Dataset-backed format
+/// ([`ExportFormat::Yellowscribe`]) needs full datasheet data, so it is served
+/// by [`export_roster_with_dataset`] instead — calling `export_roster` with it
+/// panics rather than silently emitting an incomplete roster.
 pub fn export_roster(roster: &Roster, format: ExportFormat) -> String {
     match format {
         ExportFormat::NewrecruitJson => NewRecruitJsonSerializer.serialize(roster),
@@ -60,5 +71,26 @@ pub fn export_roster(roster: &Roster, format: ExportFormat) -> String {
         ExportFormat::Rosterizer => RosterizerSerializer.serialize(roster),
         ExportFormat::Atc2026Compact => Atc2026CompactSerializer.serialize(roster),
         ExportFormat::Atc2026Full => Atc2026FullSerializer.serialize(roster),
+        ExportFormat::Yellowscribe => {
+            panic!("export format 'yellowscribe' is Dataset-backed; use export_roster_with_dataset")
+        }
+    }
+}
+
+/// Serialize a [`Roster`] into the named target format, with a [`Dataset`]
+/// available for Dataset-backed formats.
+///
+/// The [`ExportFormat::Yellowscribe`] format resolves each unit's datasheet
+/// (stat lines, weapon profiles, keywords, ability text) against `dataset`;
+/// every other format is Dataset-free and ignores it, delegating to
+/// [`export_roster`]. Mirror of the TS `exportRoster(roster, format, dataset)`.
+pub fn export_roster_with_dataset(
+    roster: &Roster,
+    format: ExportFormat,
+    dataset: &Dataset,
+) -> String {
+    match format {
+        ExportFormat::Yellowscribe => yellowscribe::serialize(roster, dataset),
+        other => export_roster(roster, other),
     }
 }

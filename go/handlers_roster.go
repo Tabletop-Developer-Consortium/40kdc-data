@@ -84,14 +84,14 @@ func (s *RunnerState) handleExport(args any) map[string]any {
 		return errResp("INVALID_INPUT", detail("export args must be an object"))
 	}
 	format, ok := a["format"].(string)
-	if !ok || exportSerializers[format] == nil {
+	if !ok || !isExportFormat(format) {
 		return errResp("INVALID_INPUT", detail("unknown export format: "+format))
 	}
 	roster, ok := getMap(a, "roster")
 	if !ok {
 		return errResp("INVALID_INPUT", detail("export.roster must be an object"))
 	}
-	out, err := exportRoster(roster, format)
+	out, err := exportRosterWithDataset(roster, format, s.dataset())
 	if err != nil {
 		return errResp("EXPORT_FAILED", detail(err.Error()))
 	}

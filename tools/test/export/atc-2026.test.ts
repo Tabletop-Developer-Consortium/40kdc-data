@@ -5,6 +5,7 @@
  * exercised here against a hand-built Roster instead.
  */
 import { describe, it, expect } from "vitest";
+import { Dataset } from "../../src/data/dataset.js";
 import { EXPORT_FORMATS, exportRoster } from "../../src/export/index.js";
 import type { ExportFormat } from "../../src/export/index.js";
 import type { ResolvedRef, Roster, RosterUnit } from "../../src/import/types.js";
@@ -198,6 +199,7 @@ describe("EXPORT_FORMATS picker descriptor", () => {
     "rosterizer",
     "atc-2026-compact",
     "atc-2026-full",
+    "yellowscribe",
   ];
 
   it("lists every export format the dispatcher supports", () => {
@@ -216,9 +218,12 @@ describe("EXPORT_FORMATS picker descriptor", () => {
 
   it("every listed format is actually dispatchable", () => {
     const r = roster({ units: populatedUnits });
+    // Dataset-backed formats (yellowscribe) need the dataset; passing it to the
+    // Dataset-free formats is harmless (they ignore it).
+    const ds = Dataset.embedded();
     for (const f of EXPORT_FORMATS) {
-      expect(() => exportRoster(r, f.id), `format ${f.id} should export`).not.toThrow();
-      expect(exportRoster(r, f.id).length).toBeGreaterThan(0);
+      expect(() => exportRoster(r, f.id, ds), `format ${f.id} should export`).not.toThrow();
+      expect(exportRoster(r, f.id, ds).length).toBeGreaterThan(0);
     }
   });
 });

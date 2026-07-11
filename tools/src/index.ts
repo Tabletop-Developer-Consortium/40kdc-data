@@ -103,8 +103,9 @@ export {
   rosterizerSerializer,
   atc2026CompactSerializer,
   atc2026FullSerializer,
+  yellowscribeSerializer,
 } from "./export/index.js";
-export type { ExportFormat, RosterSerializer } from "./export/index.js";
+export type { DatasetSerializer, ExportFormat, RosterSerializer } from "./export/index.js";
 export type { FormatAdapter } from "./import/index.js";
 export type {
   ImportOptions,

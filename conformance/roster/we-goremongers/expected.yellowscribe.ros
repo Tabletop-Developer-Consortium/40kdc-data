@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<roster id="roster0" name="Blood for the Blood God" gameSystemId="sys-352e-adc2-7639-d6a9" gameSystemName="Warhammer 40,000">
+  <forces>
+    <force id="force0" name="World Eaters" catalogueName="World Eaters">
+      <selections>
+        <selection id="unit0" name="Goremongers" type="unit" number="1">
+          <profiles>
+            <profile name="Goremongers" typeName="Unit">
+              <characteristics>
+                <characteristic name="M">9"</characteristic>
+                <characteristic name="T">4</characteristic>
+                <characteristic name="SV">6+</characteristic>
+                <characteristic name="W">1</characteristic>
+                <characteristic name="LD">7+</characteristic>
+                <characteristic name="OC">1</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Infiltrators" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">At the start of the phase, the unit has the Infiltrators ability.</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Loping Speed" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">An enemy unit ends a Normal, Advance or Fall Back move within 9" of this model, once per turn, during the Movement phase, in the opponent's turn, if not an enemy unit is within engagement range, until the end of the phase, the unit can make a Normal move of up to D6".</characteristic>
+              </characteristics>
+            </profile>
+          </profiles>
+          <categories>
+            <category name="Faction: World Eaters"/>
+            <category name="Infantry"/>
+            <category name="Grenades"/>
+            <category name="Chaos"/>
+            <category name="Khorne"/>
+            <category name="Goremongers"/>
+          </categories>
+          <selections>
+            <selection id="unit0-m0" name="Blood Herald" type="model" number="1">
+              <selections>
+                <selection id="unit0-m0-w0" name="Autopistol" type="upgrade" number="1">
+                  <profiles>
+                    <profile name="Autopistol" typeName="Ranged Weapons">
+                      <characteristics>
+                        <characteristic name="Range">12"</characteristic>
+                        <characteristic name="A">1</characteristic>
+                        <characteristic name="BS">4+</characteristic>
+                        <characteristic name="S">3</characteristic>
+                        <characteristic name="AP">0</characteristic>
+                        <characteristic name="D">1</characteristic>
+                        <characteristic name="Keywords">Pistol</characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+                <selection id="unit0-m0-w1" name="Chainblade" type="upgrade" number="1">
+                  <profiles>
+                    <profile name="Chainblade" typeName="Melee Weapons">
+                      <characteristics>
+                        <characteristic name="Range">Melee</characteristic>
+                        <characteristic name="A">3</characteristic>
+                        <characteristic name="WS">4+</characteristic>
+                        <characteristic name="S">3</characteristic>
+                        <characteristic name="AP">0</characteristic>
+                        <characteristic name="D">1</characteristic>
+                        <characteristic name="Keywords">Lance</characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+                <selection id="unit0-m0-w2" name="Close combat weapon" type="upgrade" number="1">
+                  <profiles>
+                    <profile name="Close combat weapon" typeName="Melee Weapons">
+                      <characteristics>
+                        <characteristic name="Range">Melee</characteristic>
+                        <characteristic name="A">2</characteristic>
+                        <characteristic name="WS">4+</characteristic>
+                        <characteristic name="S">3</characteristic>
+                        <characteristic name="AP">0</characteristic>
+                        <characteristic name="D">1</characteristic>
+                        <characteristic name="Keywords"></characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+              </selections>
+            </selection>
+            <selection id="unit0-m1" name="Goremongers" type="model" number="6">
+              <selections>
+                <selection id="unit0-m1-w0" name="Autopistol" type="upgrade" number="6">
+                  <profiles>
+                    <profile name="Autopistol" typeName="Ranged Weapons">
+                      <characteristics>
+                        <characteristic name="Range">12"</characteristic>
+                        <characteristic name="A">1</characteristic>
+                        <characteristic name="BS">4+</characteristic>
+                        <characteristic name="S">3</characteristic>
+                        <characteristic name="AP">0</characteristic>
+                        <characteristic name="D">1</characteristic>
+                        <characteristic name="Keywords">Pistol</characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+                <selection id="unit0-m1-w1" name="Chainblade" type="upgrade" number="6">
+                  <profiles>
+                    <profile name="Chainblade" typeName="Melee Weapons">
+                      <characteristics>
+                        <characteristic name="Range">Melee</characteristic>
+                        <characteristic name="A">3</characteristic>
+                        <characteristic name="WS">4+</characteristic>
+                        <characteristic name="S">3</characteristic>
+                        <characteristic name="AP">0</characteristic>
+                        <characteristic name="D">1</characteristic>
+                        <characteristic name="Keywords">Lance</characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+                <selection id="unit0-m1-w2" name="Close combat weapon" type="upgrade" number="6">
+                  <profiles>
+                    <profile name="Close combat weapon" typeName="Melee Weapons">
+                      <characteristics>
+                        <characteristic name="Range">Melee</characteristic>
+                        <characteristic name="A">2</characteristic>
+                        <characteristic name="WS">4+</characteristic>
+                        <characteristic name="S">3</characteristic>
+                        <characteristic name="AP">0</characteristic>
+                        <characteristic name="D">1</characteristic>
+                        <characteristic name="Keywords"></characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+              </selections>
+            </selection>
+            <selection id="unit0-m2" name="Goremongers" type="model" number="1">
+              <selections>
+                <selection id="unit0-m2-w0" name="Autopistol" type="upgrade" number="1">
+                  <profiles>
+                    <profile name="Autopistol" typeName="Ranged Weapons">
+                      <characteristics>
+                        <characteristic name="Range">12"</characteristic>
+                        <characteristic name="A">1</characteristic>
+                        <characteristic name="BS">4+</characteristic>
+                        <characteristic name="S">3</characteristic>
+                        <characteristic name="AP">0</characteristic>
+                        <characteristic name="D">1</characteristic>
+                        <characteristic name="Keywords">Pistol</characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+                <selection id="unit0-m2-w1" name="Blood harpoon" type="upgrade" number="1">
+                  <profiles>
+                    <profile name="Blood harpoon" typeName="Ranged Weapons">
+                      <characteristics>
+                        <characteristic name="Range">18"</characteristic>
+                        <characteristic name="A">1</characteristic>
+                        <characteristic name="BS">4+</characteristic>
+                        <characteristic name="S">5</characteristic>
+                        <characteristic name="AP">-1</characteristic>
+                        <characteristic name="D">2</characteristic>
+                        <characteristic name="Keywords">Assault, Sustained Hits D3</characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+                <selection id="unit0-m2-w2" name="Close combat weapon" type="upgrade" number="1">
+                  <profiles>
+                    <profile name="Close combat weapon" typeName="Melee Weapons">
+                      <characteristics>
+                        <characteristic name="Range">Melee</characteristic>
+                        <characteristic name="A">2</characteristic>
+                        <characteristic name="WS">4+</characteristic>
+                        <characteristic name="S">3</characteristic>
+                        <characteristic name="AP">0</characteristic>
+                        <characteristic name="D">1</characteristic>
+                        <characteristic name="Keywords"></characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+              </selections>
+            </selection>
+          </selections>
+        </selection>
+      </selections>
+    </force>
+  </forces>
+</roster>

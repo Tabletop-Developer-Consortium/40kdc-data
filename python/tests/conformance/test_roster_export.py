@@ -7,6 +7,7 @@ from pathlib import Path
 
 import pytest
 
+from wh40kdc.data.dataset import Dataset
 from wh40kdc.export import export_roster
 
 from ..conftest import CORPUS
@@ -26,6 +27,12 @@ _FORMAT_GOLDENS = {
     "atc-2026-full": "expected.atc-2026-full.txt",
 }
 
+#: Dataset-backed export-only formats — resolved against the embedded dataset,
+#: so ``export_roster`` takes the extra dataset argument. Text goldens.
+_DATASET_FORMAT_GOLDENS = {
+    "yellowscribe": "expected.yellowscribe.ros",
+}
+
 
 @pytest.mark.skipif(not _CASES, reason="conformance corpus not available")
 @pytest.mark.parametrize("fmt", sorted(_FORMAT_GOLDENS))
@@ -35,6 +42,16 @@ def test_export_golden(case: str, fmt: str) -> None:
     roster = json.loads((case_dir / "expected.roster.json").read_text(encoding="utf-8"))
     golden = Path(case_dir / _FORMAT_GOLDENS[fmt]).read_text(encoding="utf-8")
     assert export_roster(roster, fmt) == golden
+
+
+@pytest.mark.skipif(not _CASES, reason="conformance corpus not available")
+@pytest.mark.parametrize("fmt", sorted(_DATASET_FORMAT_GOLDENS))
+@pytest.mark.parametrize("case", _CASES)
+def test_dataset_export_golden(case: str, fmt: str) -> None:
+    case_dir = _ROSTER_DIR / case
+    roster = json.loads((case_dir / "expected.roster.json").read_text(encoding="utf-8"))
+    golden = Path(case_dir / _DATASET_FORMAT_GOLDENS[fmt]).read_text(encoding="utf-8")
+    assert export_roster(roster, fmt, Dataset.embedded()) == golden
 
 
 def test_unknown_format_raises() -> None:

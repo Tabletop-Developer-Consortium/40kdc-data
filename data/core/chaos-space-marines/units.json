@@ -107,7 +107,8 @@
     "ability_ids": [
       "daemonic-destruction",
       "deep-strike",
-      "flying-horror"
+      "flying-horror",
+      "deadly-demise-d3"
     ],
     "game_version": {
       "edition": "11th",
@@ -172,7 +173,8 @@
       "empyric-guidance-psychic",
       "leader",
       "marked-by-fate-psychic",
-      "warptime-psychic"
+      "warptime-psychic",
+      "deep-strike"
     ],
     "game_version": {
       "edition": "11th",
@@ -544,7 +546,8 @@
       "fleshmetal-guns"
     ],
     "ability_ids": [
-      "warp-rift-firepower"
+      "warp-rift-firepower",
+      "deep-strike"
     ],
     "game_version": {
       "edition": "11th",
@@ -670,7 +673,8 @@
       "reaper-autocannon"
     ],
     "ability_ids": [
-      "despoilers"
+      "despoilers",
+      "deep-strike"
     ],
     "game_version": {
       "edition": "11th",
@@ -1202,7 +1206,8 @@
       "annihilator",
       "blood-hungry-annihilator",
       "ensorcelled-annihilation",
-      "metalophagic-infection"
+      "metalophagic-infection",
+      "deadly-demise-d3"
     ],
     "game_version": {
       "edition": "11th",
@@ -1264,7 +1269,8 @@
       "soulflayer-tendrils-and-claws"
     ],
     "ability_ids": [
-      "soul-eater"
+      "soul-eater",
+      "deadly-demise-d3"
     ],
     "game_version": {
       "edition": "11th",
@@ -1389,7 +1395,8 @@
     "ability_ids": [
       "fortification",
       "malevolent-locus-aura",
-      "malign-cover"
+      "malign-cover",
+      "deadly-demise-d6"
     ],
     "game_version": {
       "edition": "11th",
@@ -1475,7 +1482,8 @@
     ],
     "ability_ids": [
       "fearsome-aura",
-      "terrifying-assault"
+      "terrifying-assault",
+      "deep-strike"
     ],
     "game_version": {
       "edition": "11th",
@@ -1502,9 +1510,9 @@
     "profiles": [
       {
         "name": "Defiler",
-        "M": 8,
-        "T": 10,
-        "W": 14,
+        "M": 12,
+        "T": 11,
+        "W": 18,
         "Sv": 3,
         "invuln_sv": 5,
         "Ld": 6,
@@ -1644,7 +1652,8 @@
       "destructor",
       "ensorcelled-destruction",
       "hail-of-corrosive-disease",
-      "punishing-suppression"
+      "punishing-suppression",
+      "deadly-demise-d3"
     ],
     "game_version": {
       "edition": "11th",
@@ -1899,7 +1908,8 @@
     "ability_ids": [
       "airborne-predator",
       "flame-wreathed",
-      "hover"
+      "hover",
+      "deadly-demise-d3"
     ],
     "game_version": {
       "edition": "11th",
@@ -2035,7 +2045,8 @@
     "ability_ids": [
       "blazing-salvoes",
       "daemonic-ordnance",
-      "furious-onslaught"
+      "furious-onslaught",
+      "deadly-demise-d3"
     ],
     "game_version": {
       "edition": "11th",
@@ -2164,7 +2175,8 @@
     ],
     "ability_ids": [
       "formidably-resilient",
-      "leader"
+      "leader",
+      "deep-strike"
     ],
     "game_version": {
       "edition": "11th",
@@ -2391,7 +2403,9 @@
       "hideous-mutations-accursed-cultists"
     ],
     "ability_ids": [
-      "howling-horde"
+      "howling-horde",
+      "feel-no-pain-6",
+      "scouts-6"
     ],
     "game_version": {
       "edition": "11th",
@@ -2524,7 +2538,8 @@
     ],
     "ability_ids": [
       "cruel-hunter",
-      "leader"
+      "leader",
+      "deep-strike"
     ],
     "game_version": {
       "edition": "11th",
@@ -2811,7 +2826,8 @@
       "warp-claws"
     ],
     "ability_ids": [
-      "warp-strike"
+      "warp-strike",
+      "deep-strike"
     ],
     "game_version": {
       "edition": "11th",
@@ -2949,7 +2965,8 @@
       "savage-exaltation",
       "siege-crawler",
       "snarling-protector",
-      "the-scent-of-blood"
+      "the-scent-of-blood",
+      "deadly-demise-d3"
     ],
     "game_version": {
       "edition": "11th",
@@ -3016,7 +3033,8 @@
       "firing-deck-2",
       "meet-any-challenge",
       "self-repair",
-      "sorcerous-support"
+      "sorcerous-support",
+      "deadly-demise-d3"
     ],
     "transport_capacity": {
       "capacity": 12,
@@ -3192,7 +3210,8 @@
     "ability_ids": [
       "brutal-raider",
       "leader",
-      "raider-s-due"
+      "raider-s-due",
+      "infiltrators"
     ],
     "game_version": {
       "edition": "11th",
@@ -3330,7 +3349,9 @@
     "ability_ids": [
       "indentured-daemon-engines",
       "reorder-reality",
-      "unholy-mechanisms-aura"
+      "unholy-mechanisms-aura",
+      "deep-strike",
+      "deadly-demise-d3"
     ],
     "game_version": {
       "edition": "11th",
@@ -3388,7 +3409,9 @@
     "ability_ids": [
       "hamadrya-s-knowledge-psychic",
       "leader",
-      "lord-of-badab-aura"
+      "lord-of-badab-aura",
+      "deep-strike",
+      "feel-no-pain-5"
     ],
     "game_version": {
       "edition": "11th",
@@ -3449,7 +3472,8 @@
     "ability_ids": [
       "head-taker",
       "herald-of-the-apocalypse-aura",
-      "leader"
+      "leader",
+      "deep-strike"
     ],
     "game_version": {
       "edition": "11th",
@@ -3510,7 +3534,8 @@
       "dark-destiny",
       "leader",
       "supreme-commander",
-      "warmaster"
+      "warmaster",
+      "deep-strike"
     ],
     "game_version": {
       "edition": "11th",
@@ -3582,7 +3607,8 @@
       "chirurgeon",
       "enhanced-warriors",
       "leader",
-      "surgeon-acolyte"
+      "surgeon-acolyte",
+      "feel-no-pain-5"
     ],
     "game_version": {
       "edition": "11th",
@@ -3773,7 +3799,8 @@
     ],
     "ability_ids": [
       "cult-of-destruction",
-      "death-frenzy"
+      "death-frenzy",
+      "deep-strike"
     ],
     "game_version": {
       "edition": "11th",

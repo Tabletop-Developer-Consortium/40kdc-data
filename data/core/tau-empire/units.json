@@ -536,7 +536,9 @@
     ],
     "ability_ids": [
       "bounty-hunters",
-      "pech-ra"
+      "pech-ra",
+      "stealth",
+      "infiltrators"
     ],
     "game_version": {
       "edition": "11th",
@@ -678,7 +680,8 @@
       "grav-inhibitor-drone",
       "pulse-accelerator-drone",
       "recon-drone",
-      "target-uploaded"
+      "target-uploaded",
+      "scouts-7"
     ],
     "game_version": {
       "edition": "11th",
@@ -844,7 +847,8 @@
       "mv15-gun-drone",
       "neocapacitor-shields",
       "retro-thrusters",
-      "scouts-8"
+      "scouts-8",
+      "deep-strike"
     ],
     "game_version": {
       "edition": "11th",
@@ -909,7 +913,8 @@
     ],
     "ability_ids": [
       "battlesuit-support-systems",
-      "starscythe"
+      "starscythe",
+      "deep-strike"
     ],
     "game_version": {
       "edition": "11th",
@@ -1147,7 +1152,8 @@
     "ability_ids": [
       "heavy-walker",
       "support-system",
-      "titan-killer"
+      "titan-killer",
+      "deadly-demise-d6-2"
     ],
     "game_version": {
       "edition": "11th",
@@ -1202,7 +1208,8 @@
     "ability_ids": [
       "firing-deck-11",
       "fortification",
-      "tidewall-cover"
+      "tidewall-cover",
+      "deadly-demise-d3"
     ],
     "transport_capacity": {
       "capacity": 11
@@ -1262,7 +1269,9 @@
     ],
     "ability_ids": [
       "hunting-hounds",
-      "loping-pounce"
+      "loping-pounce",
+      "stealth",
+      "scouts-7"
     ],
     "game_version": {
       "edition": "11th",
@@ -1455,7 +1464,8 @@
       "independent-power",
       "leader",
       "puretide-s-teachings",
-      "way-of-the-short-blade"
+      "way-of-the-short-blade",
+      "deep-strike"
     ],
     "game_version": {
       "edition": "11th",
@@ -1519,7 +1529,8 @@
       "tanglecannon"
     ],
     "ability_ids": [
-      "kroot-packmates"
+      "kroot-packmates",
+      "scouts-7"
     ],
     "game_version": {
       "edition": "11th",
@@ -1583,7 +1594,9 @@
       "command-link-drone-aura",
       "hero-of-the-empire-aura",
       "lone-operative",
-      "supreme-commander"
+      "supreme-commander",
+      "stealth",
+      "infiltrators"
     ],
     "game_version": {
       "edition": "11th",
@@ -1651,7 +1664,11 @@
       "twin-tau-flamer"
     ],
     "ability_ids": [
-      "stealth-drones"
+      "stealth-drones",
+      "stealth",
+      "infiltrators",
+      "deadly-demise-d3",
+      "lone-operative"
     ],
     "game_version": {
       "edition": "11th",
@@ -1722,7 +1739,8 @@
       "twin-heavy-rail-cannon"
     ],
     "ability_ids": [
-      "titan-hunter"
+      "titan-hunter",
+      "deadly-demise-d6-2"
     ],
     "game_version": {
       "edition": "11th",
@@ -1782,7 +1800,8 @@
     ],
     "ability_ids": [
       "targeting-array",
-      "velocity-tracker"
+      "velocity-tracker",
+      "deadly-demise-d3"
     ],
     "game_version": {
       "edition": "11th",
@@ -1843,7 +1862,8 @@
     ],
     "ability_ids": [
       "airborne-agility",
-      "oversight-drone"
+      "oversight-drone",
+      "deep-strike"
     ],
     "game_version": {
       "edition": "11th",
@@ -1908,7 +1928,8 @@
     "ability_ids": [
       "coldstar-commander",
       "leader",
-      "shield-generator"
+      "shield-generator",
+      "deep-strike"
     ],
     "game_version": {
       "edition": "11th",
@@ -2010,7 +2031,10 @@
     "ability_ids": [
       "kroot-ambush",
       "leader",
-      "trail-finding"
+      "trail-finding",
+      "stealth",
+      "infiltrators",
+      "scouts-7"
     ],
     "game_version": {
       "edition": "11th",
@@ -2067,7 +2091,8 @@
     "weapon_ids": [],
     "ability_ids": [
       "firing-deck-20",
-      "tidewall-defence-platform"
+      "tidewall-defence-platform",
+      "deadly-demise-d3"
     ],
     "transport_capacity": {
       "capacity": 11
@@ -2228,7 +2253,8 @@
     ],
     "ability_ids": [
       "enforcer-commander",
-      "leader"
+      "leader",
+      "deep-strike"
     ],
     "game_version": {
       "edition": "11th",
@@ -2380,7 +2406,8 @@
       "seeker-missile"
     ],
     "ability_ids": [
-      "ground-strike-fighter"
+      "ground-strike-fighter",
+      "deadly-demise-d3"
     ],
     "game_version": {
       "edition": "11th",
@@ -2441,7 +2468,8 @@
       "twin-pulse-carbine"
     ],
     "ability_ids": [
-      "rapid-deployment"
+      "rapid-deployment",
+      "deadly-demise-d3"
     ],
     "transport_capacity": {
       "capacity": 12
@@ -2501,7 +2529,9 @@
     "ability_ids": [
       "jammer-array",
       "leader",
-      "structural-analyser"
+      "structural-analyser",
+      "infiltrators",
+      "scouts-7"
     ],
     "game_version": {
       "edition": "11th",
@@ -2570,7 +2600,8 @@
       "twin-pulse-carbine-hammerhead-gunship"
     ],
     "ability_ids": [
-      "armour-hunter"
+      "armour-hunter",
+      "deadly-demise-d3"
     ],
     "game_version": {
       "edition": "11th",
@@ -2623,7 +2654,9 @@
       "drone-defenders"
     ],
     "ability_ids": [
-      "droneport"
+      "droneport",
+      "deadly-demise-d3",
+      "firing-deck-11"
     ],
     "transport_capacity": {
       "capacity": 11
@@ -2689,7 +2722,8 @@
       "fusion-blaster"
     ],
     "ability_ids": [
-      "sunforge"
+      "sunforge",
+      "deep-strike"
     ],
     "game_version": {
       "edition": "11th",
@@ -2767,7 +2801,10 @@
       "pulse-pistol-firesight-team"
     ],
     "ability_ids": [
-      "precise-targeting"
+      "precise-targeting",
+      "stealth",
+      "infiltrators",
+      "lone-operative"
     ],
     "game_version": {
       "edition": "11th",
@@ -2829,7 +2866,9 @@
     ],
     "ability_ids": [
       "bodyguard",
-      "fieldcraft"
+      "fieldcraft",
+      "stealth",
+      "scouts-7"
     ],
     "game_version": {
       "edition": "11th",
@@ -2888,7 +2927,10 @@
     "ability_ids": [
       "leader",
       "root-of-honour",
-      "war-leader"
+      "war-leader",
+      "stealth",
+      "infiltrators",
+      "scouts-7"
     ],
     "game_version": {
       "edition": "11th",
@@ -2948,7 +2990,10 @@
     ],
     "ability_ids": [
       "advanced-scouting",
-      "fire-and-fade"
+      "fire-and-fade",
+      "stealth",
+      "lone-operative",
+      "scouts-7"
     ],
     "game_version": {
       "edition": "11th",
@@ -3005,7 +3050,10 @@
     "ability_ids": [
       "leader",
       "rites-of-feasting",
-      "ritual-butchery"
+      "ritual-butchery",
+      "stealth",
+      "infiltrators",
+      "scouts-7"
     ],
     "game_version": {
       "edition": "11th",

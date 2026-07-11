@@ -873,7 +873,8 @@
       "bolt-pistol-emperors-champion"
     ],
     "ability_ids": [
-      "leader"
+      "leader",
+      "lone-operative"
     ],
     "game_version": {
       "edition": "11th",
@@ -936,7 +937,8 @@
       "assault-vehicle",
       "firing-deck-6",
       "orbital-comms-array-aura",
-      "shield-dome"
+      "shield-dome",
+      "deadly-demise-d3"
     ],
     "transport_capacity": {
       "capacity": 7,
@@ -1012,7 +1014,8 @@
     ],
     "ability_ids": [
       "executioner",
-      "interception-strike"
+      "interception-strike",
+      "deadly-demise-d6"
     ],
     "transport_capacity": {
       "capacity": 7
@@ -1079,7 +1082,8 @@
       "twin-las-talon"
     ],
     "ability_ids": [
-      "priority-target-acquisition"
+      "priority-target-acquisition",
+      "deadly-demise-d3"
     ],
     "game_version": {
       "edition": "11th",
@@ -1208,7 +1212,8 @@
     ],
     "ability_ids": [
       "emergency-combat-embarkation",
-      "stabilised-disembarkation"
+      "stabilised-disembarkation",
+      "deadly-demise-d6"
     ],
     "transport_capacity": {
       "capacity": 14
@@ -1275,7 +1280,8 @@
       "twin-heavy-onslaught-gatling-cannon"
     ],
     "ability_ids": [
-      "reaping-tally"
+      "reaping-tally",
+      "deadly-demise-d3"
     ],
     "game_version": {
       "edition": "11th",
@@ -1345,7 +1351,8 @@
     "ability_ids": [
       "black-rage",
       "driven-by-fury",
-      "feel-no-pain-6"
+      "feel-no-pain-6",
+      "deadly-demise-d3"
     ],
     "game_version": {
       "edition": "11th",
@@ -1479,7 +1486,9 @@
     "ability_ids": [
       "death-vision-of-sanguinius",
       "leader",
-      "lost-to-fury"
+      "lost-to-fury",
+      "deep-strike",
+      "feel-no-pain-6"
     ],
     "game_version": {
       "edition": "11th",
@@ -1565,7 +1574,8 @@
       "thunder-hammer-death-company-marines"
     ],
     "ability_ids": [
-      "an-honourable-death-in-combat"
+      "an-honourable-death-in-combat",
+      "feel-no-pain-6"
     ],
     "game_version": {
       "edition": "11th",
@@ -1653,7 +1663,8 @@
     "ability_ids": [
       "leader",
       "mass-of-doom",
-      "redeemer-of-the-lost"
+      "redeemer-of-the-lost",
+      "deep-strike"
     ],
     "game_version": {
       "edition": "11th",
@@ -1844,7 +1855,9 @@
     "ability_ids": [
       "fury-unbound",
       "guardian-of-the-lost",
-      "leader"
+      "leader",
+      "deep-strike",
+      "feel-no-pain-6"
     ],
     "game_version": {
       "edition": "11th",
@@ -1908,7 +1921,8 @@
     "ability_ids": [
       "death-mask-of-sanguinius",
       "leader",
-      "warden-of-the-imperium-nihilus"
+      "warden-of-the-imperium-nihilus",
+      "deep-strike"
     ],
     "game_version": {
       "edition": "11th",
@@ -1997,7 +2011,8 @@
       "thunder-hammer-death-company-marines-with-bolt-rifles"
     ],
     "ability_ids": [
-      "visions-of-heresy"
+      "visions-of-heresy",
+      "feel-no-pain-6"
     ],
     "game_version": {
       "edition": "11th",
@@ -2085,7 +2100,10 @@
     ],
     "ability_ids": [
       "aura-of-fervour-aura",
-      "miraculous-saviour"
+      "miraculous-saviour",
+      "deep-strike",
+      "lone-operative",
+      "fights-first"
     ],
     "game_version": {
       "edition": "11th",
@@ -2168,7 +2186,8 @@
     "ability_ids": [
       "angelic-visage",
       "heirs-of-azkaellon",
-      "sanguinary-banner"
+      "sanguinary-banner",
+      "deep-strike"
     ],
     "game_version": {
       "edition": "11th",
@@ -2250,7 +2269,8 @@
       "twin-assault-cannon-baal-predator"
     ],
     "ability_ids": [
-      "overcharged-engines"
+      "overcharged-engines",
+      "deadly-demise-d3"
     ],
     "game_version": {
       "edition": "11th",
@@ -2336,7 +2356,9 @@
       "power-weapon"
     ],
     "ability_ids": [
-      "savage-fury"
+      "savage-fury",
+      "deep-strike",
+      "feel-no-pain-6"
     ],
     "game_version": {
       "edition": "11th",
@@ -2424,7 +2446,8 @@
     ],
     "ability_ids": [
       "forlorn-hero",
-      "leader"
+      "leader",
+      "feel-no-pain-6"
     ],
     "game_version": {
       "edition": "11th",
@@ -2484,7 +2507,8 @@
       "heavy-bolter-ravenwing-darkshroud"
     ],
     "ability_ids": [
-      "icon-of-old-caliban-aura"
+      "icon-of-old-caliban-aura",
+      "deadly-demise-d3"
     ],
     "game_version": {
       "edition": "11th",
@@ -2705,7 +2729,8 @@
     ],
     "ability_ids": [
       "deathwing",
-      "watcher-in-the-dark"
+      "watcher-in-the-dark",
+      "deep-strike"
     ],
     "game_version": {
       "edition": "11th",
@@ -2927,7 +2952,8 @@
       "plasma-storm-battery"
     ],
     "ability_ids": [
-      "storm-of-vengeance"
+      "storm-of-vengeance",
+      "deadly-demise-d3"
     ],
     "game_version": {
       "edition": "11th",
@@ -2988,7 +3014,8 @@
     ],
     "ability_ids": [
       "hover",
-      "lightning-fast-manoeuvres"
+      "lightning-fast-manoeuvres",
+      "deadly-demise-d3"
     ],
     "game_version": {
       "edition": "11th",
@@ -3116,7 +3143,8 @@
       "relic-weapon-deathwing-knights"
     ],
     "ability_ids": [
-      "inner-circle"
+      "inner-circle",
+      "deep-strike"
     ],
     "game_version": {
       "edition": "11th",
@@ -3177,7 +3205,8 @@
     "ability_ids": [
       "grand-master-of-the-deathwing",
       "leader",
-      "strikes-of-retribution"
+      "strikes-of-retribution",
+      "deep-strike"
     ],
     "game_version": {
       "edition": "11th",
@@ -3444,7 +3473,8 @@
       "rift-cannon"
     ],
     "ability_ids": [
-      "stasis-bomb"
+      "stasis-bomb",
+      "deadly-demise-d3"
     ],
     "game_version": {
       "edition": "11th",
@@ -3970,7 +4000,8 @@
       "power-weapon"
     ],
     "ability_ids": [
-      "talonstrike-doctrines"
+      "talonstrike-doctrines",
+      "deep-strike"
     ],
     "game_version": {
       "edition": "11th",
@@ -4177,7 +4208,8 @@
     ],
     "ability_ids": [
       "storm-shield",
-      "terminatus-assault"
+      "terminatus-assault",
+      "deep-strike"
     ],
     "game_version": {
       "edition": "11th",
@@ -4666,7 +4698,8 @@
       "plasma-exterminators"
     ],
     "ability_ids": [
-      "meteoric-descent"
+      "meteoric-descent",
+      "deep-strike"
     ],
     "game_version": {
       "edition": "11th",
@@ -4792,7 +4825,9 @@
       "twin-ironhail-heavy-stubber"
     ],
     "ability_ids": [
-      "hailstrike"
+      "hailstrike",
+      "deep-strike",
+      "deadly-demise-d3"
     ],
     "game_version": {
       "edition": "11th",
@@ -5039,7 +5074,10 @@
     "ability_ids": [
       "blackwing-mantle",
       "chapter-master-of-the-raven-guard",
-      "master-of-shadows"
+      "master-of-shadows",
+      "deep-strike",
+      "stealth",
+      "lone-operative"
     ],
     "game_version": {
       "edition": "11th",
@@ -5249,7 +5287,8 @@
       "icon-of-obstinacy",
       "inspiring-commander",
       "leader",
-      "rampart"
+      "rampart",
+      "deep-strike"
     ],
     "game_version": {
       "edition": "11th",
@@ -5448,7 +5487,8 @@
       "storm-bolter"
     ],
     "ability_ids": [
-      "destructor"
+      "destructor",
+      "deadly-demise-d3"
     ],
     "game_version": {
       "edition": "11th",
@@ -5645,7 +5685,9 @@
       "melta-destroyer"
     ],
     "ability_ids": [
-      "hammerstrike"
+      "hammerstrike",
+      "deep-strike",
+      "deadly-demise-d3"
     ],
     "game_version": {
       "edition": "11th",
@@ -5911,7 +5953,8 @@
     ],
     "ability_ids": [
       "leader",
-      "unstoppable-valour"
+      "unstoppable-valour",
+      "deep-strike"
     ],
     "game_version": {
       "edition": "11th",
@@ -6027,7 +6070,9 @@
       "combat-disembarkation",
       "deployment-complete",
       "designer-s-note",
-      "drop-pod-assault"
+      "drop-pod-assault",
+      "deep-strike",
+      "deadly-demise-1"
     ],
     "transport_capacity": {
       "capacity": 12,
@@ -6098,7 +6143,8 @@
     "ability_ids": [
       "angel-s-wrath",
       "leader",
-      "relic-shield"
+      "relic-shield",
+      "deep-strike"
     ],
     "game_version": {
       "edition": "11th",
@@ -6162,7 +6208,9 @@
       "twin-icarus-rocket-pod"
     ],
     "ability_ids": [
-      "thunderstrike"
+      "thunderstrike",
+      "deep-strike",
+      "deadly-demise-d3"
     ],
     "game_version": {
       "edition": "11th",
@@ -6218,7 +6266,8 @@
     "ability_ids": [
       "ceramite-cover",
       "defensive-array",
-      "fortification"
+      "fortification",
+      "deadly-demise-d6"
     ],
     "game_version": {
       "edition": "11th",
@@ -6275,7 +6324,8 @@
       "close-combat-weapon"
     ],
     "ability_ids": [
-      "suppression-fire"
+      "suppression-fire",
+      "deep-strike"
     ],
     "game_version": {
       "edition": "11th",
@@ -6334,7 +6384,8 @@
     ],
     "ability_ids": [
       "leader",
-      "veil-of-time-psychic"
+      "veil-of-time-psychic",
+      "deep-strike"
     ],
     "game_version": {
       "edition": "11th",
@@ -6490,7 +6541,8 @@
       "spear-of-vulkan"
     ],
     "ability_ids": [
-      "leader"
+      "leader",
+      "feel-no-pain-6"
     ],
     "game_version": {
       "edition": "11th",
@@ -6832,7 +6884,9 @@
       "scout-sniper-rifle"
     ],
     "ability_ids": [
-      "guerrilla-tactics-vanguard-spearhead"
+      "guerrilla-tactics-vanguard-spearhead",
+      "infiltrators",
+      "scouts-6"
     ],
     "game_version": {
       "edition": "11th",
@@ -6905,7 +6959,8 @@
       "inspiring-leader",
       "leader",
       "lord-calgar",
-      "master-tactician"
+      "master-tactician",
+      "deep-strike"
     ],
     "game_version": {
       "edition": "11th",
@@ -7034,7 +7089,8 @@
       "twin-multi-melta"
     ],
     "ability_ids": [
-      "brutalis-charge"
+      "brutalis-charge",
+      "deadly-demise-d3"
     ],
     "game_version": {
       "edition": "11th",
@@ -7093,7 +7149,8 @@
     ],
     "ability_ids": [
       "leader",
-      "shrouding-psychic"
+      "shrouding-psychic",
+      "infiltrators"
     ],
     "game_version": {
       "edition": "11th",
@@ -7416,7 +7473,9 @@
       "typhoon-missile-launcher"
     ],
     "ability_ids": [
-      "strafing-run"
+      "strafing-run",
+      "deadly-demise-d3",
+      "hover"
     ],
     "game_version": {
       "edition": "11th",
@@ -7478,7 +7537,8 @@
     "ability_ids": [
       "demetrian-titus",
       "honour-of-ultramar",
-      "press-the-attack"
+      "press-the-attack",
+      "feel-no-pain-5"
     ],
     "game_version": {
       "edition": "11th",
@@ -7539,7 +7599,8 @@
     ],
     "ability_ids": [
       "fire-focus",
-      "fire-support"
+      "fire-support",
+      "deadly-demise-d3"
     ],
     "transport_capacity": {
       "capacity": 6,
@@ -7603,7 +7664,9 @@
     ],
     "ability_ids": [
       "mark-the-target",
-      "reposition-under-covering-fire"
+      "reposition-under-covering-fire",
+      "stealth",
+      "infiltrators"
     ],
     "game_version": {
       "edition": "11th",
@@ -7866,7 +7929,8 @@
       "storm-bolter"
     ],
     "ability_ids": [
-      "siege-shield"
+      "siege-shield",
+      "deadly-demise-d3"
     ],
     "game_version": {
       "edition": "11th",
@@ -8036,7 +8100,8 @@
       "whirlwind-vengeance-launcher"
     ],
     "ability_ids": [
-      "pinning-bombardment"
+      "pinning-bombardment",
+      "deadly-demise-d3"
     ],
     "game_version": {
       "edition": "11th",
@@ -8239,7 +8304,8 @@
       "twin-storm-bolter-redemptor-dreadnought"
     ],
     "ability_ids": [
-      "duty-eternal"
+      "duty-eternal",
+      "deadly-demise-d3"
     ],
     "game_version": {
       "edition": "11th",
@@ -8367,7 +8433,8 @@
       "crimson-fists",
       "leader",
       "oath-of-rynn",
-      "to-the-last"
+      "to-the-last",
+      "feel-no-pain-6"
     ],
     "game_version": {
       "edition": "11th",
@@ -8425,7 +8492,8 @@
     "ability_ids": [
       "leader",
       "litany-of-hate",
-      "recitation-of-faith"
+      "recitation-of-faith",
+      "deep-strike"
     ],
     "game_version": {
       "edition": "11th",
@@ -8485,7 +8553,11 @@
     "ability_ids": [
       "evade-and-survive",
       "last-survivor",
-      "priority-objective-identified"
+      "priority-objective-identified",
+      "stealth",
+      "infiltrators",
+      "lone-operative",
+      "feel-no-pain-5"
     ],
     "game_version": {
       "edition": "11th",
@@ -8564,7 +8636,8 @@
     ],
     "ability_ids": [
       "haywire-mine",
-      "multi-spectrum-array"
+      "multi-spectrum-array",
+      "scouts-6"
     ],
     "game_version": {
       "edition": "11th",
@@ -8653,7 +8726,8 @@
       "power-weapon"
     ],
     "ability_ids": [
-      "hammer-of-wrath"
+      "hammer-of-wrath",
+      "deep-strike"
     ],
     "game_version": {
       "edition": "11th",
@@ -8713,7 +8787,9 @@
     "ability_ids": [
       "cerebrex-logic-engine",
       "cold-and-calculating",
-      "leader"
+      "leader",
+      "deep-strike",
+      "feel-no-pain-5"
     ],
     "game_version": {
       "edition": "11th",
@@ -8794,7 +8870,8 @@
       "vanguard-veteran-weapon"
     ],
     "ability_ids": [
-      "vanguard-assault"
+      "vanguard-assault",
+      "deep-strike"
     ],
     "game_version": {
       "edition": "11th",
@@ -8991,7 +9068,8 @@
       "typhoon-missile-launcher"
     ],
     "ability_ids": [
-      "interceptor"
+      "interceptor",
+      "deadly-demise-d3"
     ],
     "game_version": {
       "edition": "11th",
@@ -9119,7 +9197,8 @@
       "storm-bolter"
     ],
     "ability_ids": [
-      "annihilator"
+      "annihilator",
+      "deadly-demise-d3"
     ],
     "game_version": {
       "edition": "11th",
@@ -9249,7 +9328,9 @@
       "typhoon-missile-launcher"
     ],
     "ability_ids": [
-      "armoured-resilience"
+      "armoured-resilience",
+      "hover",
+      "deadly-demise-d6"
     ],
     "transport_capacity": {
       "capacity": 12
@@ -9311,7 +9392,8 @@
     ],
     "ability_ids": [
       "deadly-terror",
-      "leader"
+      "leader",
+      "scouts-6"
     ],
     "game_version": {
       "edition": "11th",
@@ -9370,7 +9452,9 @@
     ],
     "ability_ids": [
       "leader",
-      "master-of-deceit"
+      "master-of-deceit",
+      "stealth",
+      "infiltrators"
     ],
     "game_version": {
       "edition": "11th",
@@ -9436,7 +9520,8 @@
     ],
     "ability_ids": [
       "exhortation-of-rage",
-      "leader"
+      "leader",
+      "deep-strike"
     ],
     "game_version": {
       "edition": "11th",
@@ -9717,7 +9802,9 @@
     "ability_ids": [
       "aerial-assault",
       "thunderhawk",
-      "thunderhawk-cluster-bombs"
+      "thunderhawk-cluster-bombs",
+      "deadly-demise-d6-2",
+      "hover"
     ],
     "game_version": {
       "edition": "11th",
@@ -9776,7 +9863,8 @@
     "ability_ids": [
       "firing-deck-2",
       "self-repair",
-      "truesilver-aegis-aura"
+      "truesilver-aegis-aura",
+      "deadly-demise-d3"
     ],
     "transport_capacity": {
       "capacity": 12,
@@ -9916,7 +10004,8 @@
       "marksman-bolt-carbine"
     ],
     "ability_ids": [
-      "omni-scramblers"
+      "omni-scramblers",
+      "infiltrators"
     ],
     "game_version": {
       "edition": "11th",
@@ -9996,7 +10085,8 @@
       "twin-storm-bolter-ballistus-dreadnought"
     ],
     "ability_ids": [
-      "ballistus-strike"
+      "ballistus-strike",
+      "deadly-demise-d3"
     ],
     "game_version": {
       "edition": "11th",
@@ -10118,7 +10208,10 @@
     "ability_ids": [
       "echo-of-the-ravenspire",
       "leader",
-      "trifold-path-of-shadow"
+      "trifold-path-of-shadow",
+      "deep-strike",
+      "stealth",
+      "lone-operative"
     ],
     "game_version": {
       "edition": "11th",
@@ -10239,7 +10332,10 @@
     ],
     "ability_ids": [
       "leader",
-      "strategic-dispersal"
+      "strategic-dispersal",
+      "deep-strike",
+      "infiltrators",
+      "scouts-6"
     ],
     "game_version": {
       "edition": "11th",
@@ -10305,7 +10401,8 @@
       "fearsome-assault",
       "grapnel-launcher",
       "reiver-grav-chute",
-      "terror-troops-aura"
+      "terror-troops-aura",
+      "scouts-6"
     ],
     "game_version": {
       "edition": "11th",
@@ -10422,7 +10519,8 @@
     ],
     "ability_ids": [
       "scouts-8",
-      "vanguard-support"
+      "vanguard-support",
+      "deadly-demise-d3"
     ],
     "game_version": {
       "edition": "11th",
@@ -10497,7 +10595,7 @@
     "profiles": [
       {
         "name": "Venerable Dreadnought",
-        "M": 6,
+        "M": 8,
         "T": 9,
         "W": 8,
         "Sv": 2,
@@ -11229,7 +11327,8 @@
     "ability_ids": [
       "leader",
       "oathbound",
-      "slayer-s-oath"
+      "slayer-s-oath",
+      "feel-no-pain-6"
     ],
     "game_version": {
       "edition": "11th",
@@ -11292,7 +11391,8 @@
       "embarking-within-transports",
       "guile-of-the-wolf-aura",
       "high-king-of-fenris",
-      "leader"
+      "leader",
+      "deep-strike"
     ],
     "game_version": {
       "edition": "11th",
@@ -11374,7 +11474,8 @@
       "twin-lightning-claws-wolf-guard-terminators"
     ],
     "ability_ids": [
-      "rugged-resilience"
+      "rugged-resilience",
+      "deep-strike"
     ],
     "game_version": {
       "edition": "11th",
@@ -11456,7 +11557,9 @@
     ],
     "ability_ids": [
       "bestial-rage",
-      "violent-fury"
+      "violent-fury",
+      "feel-no-pain-6",
+      "deadly-demise-1"
     ],
     "game_version": {
       "edition": "11th",
@@ -11596,7 +11699,9 @@
     ],
     "ability_ids": [
       "ancient-tactician",
-      "legendary-tenacity"
+      "legendary-tenacity",
+      "deadly-demise-1",
+      "feel-no-pain-5"
     ],
     "game_version": {
       "edition": "11th",
@@ -11654,7 +11759,8 @@
     "ability_ids": [
       "anvil-of-endurance",
       "champion-of-the-kingsguard",
-      "leader"
+      "leader",
+      "deep-strike"
     ],
     "game_version": {
       "edition": "11th",
@@ -11813,7 +11919,8 @@
     ],
     "ability_ids": [
       "deadly-stalkers",
-      "scouts-7"
+      "scouts-7",
+      "infiltrators"
     ],
     "game_version": {
       "edition": "11th",
@@ -11951,7 +12058,9 @@
     "ability_ids": [
       "bestial-fury",
       "force-of-untamed-destruction",
-      "murder-maker"
+      "murder-maker",
+      "feel-no-pain-6",
+      "deadly-demise-1"
     ],
     "game_version": {
       "edition": "11th",

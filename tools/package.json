@@ -64,6 +64,7 @@
     "import:catalog": "tsx src/import-catalog.ts",
     "audit:missing-units": "tsx src/audit-missing-units.ts",
     "audit:loadout-coverage": "tsx src/audit-loadout-coverage.ts",
+    "audit:atc": "tsx src/audit-atc.ts",
     "validate": "tsx src/cli.ts validate-all",
     "validate:core": "tsx src/cli.ts validate-core",
     "validate:enrichment": "tsx src/cli.ts validate-enrichment",

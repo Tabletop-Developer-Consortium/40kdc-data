@@ -20,6 +20,8 @@ export const meta = {
 // Returns { batch_id, skitarius, cogitator, psyker: [...] } — the driver interprets:
 // !overall_pass, verdict:"regressed", or any severity-3 finding fails the batch.
 
+// The runtime may deliver args as a JSON string — normalize before touching fields.
+if (typeof args === 'string') args = JSON.parse(args)
 if (!args || !Array.isArray(args.ability_ids) || !args.ability_ids.length) throw new Error('args.ability_ids required')
 if (!Array.isArray(args.faction_ids) || !args.faction_ids.length) throw new Error('args.faction_ids required')
 const GATES = args.gates || ['validate', 'test', 'translate-smoke', 'drift']

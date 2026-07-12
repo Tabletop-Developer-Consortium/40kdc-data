@@ -20,6 +20,8 @@ export const meta = {
 // NO repo writes happen here. Prose (GW IP) transits agent JSON and this run's
 // journal only — the driver must never copy it into a repo file.
 
+// The runtime may deliver args as a JSON string — normalize before touching fields.
+if (typeof args === 'string') args = JSON.parse(args)
 if (!args || !Array.isArray(args.abilities)) throw new Error('args.abilities required')
 if (args.abilities.length > 8) throw new Error(`batch too large: ${args.abilities.length} > 8 (grain is 5–6)`)
 const NEW_SHAPES = args.new_shapes || []

@@ -20,6 +20,8 @@ export const meta = {
 // Returns { scouts, curation }. The DRIVER materializes the worklist, writes the
 // registry entry and roundtrip-<target>.md — no writes happen in this workflow.
 
+// The runtime may deliver args as a JSON string — normalize before touching fields.
+if (typeof args === 'string') args = JSON.parse(args)
 if (!args || !args.artifacts) throw new Error('args.artifacts required')
 const CAP = args.worklist_cap || 30
 if (CAP > 40) throw new Error(`worklist_cap ${CAP} exceeds the hard cap of 40`)

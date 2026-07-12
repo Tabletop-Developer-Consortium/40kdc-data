@@ -5,12 +5,17 @@
  * The dump models loadouts at a different altitude than the repo schema:
  *   - `base_miniature_loadout` gives each model-type's out-of-the-box weapons →
  *     maps directly onto `unit-composition.models[].default_weapon_ids`.
- *   - `loadout_choice_set` enumerates the *complete* per-model loadouts (the
- *     cross-product of every swappable slot), base branch included. Every weapon
- *     a model can field appears in some branch, so translating each set into one
- *     `replaces` (the base set) + `replacement_choice` (the non-base branches)
- *     option makes every weapon reachable — no orphans — without trying to factor
- *     the cross-product back into independent per-slot swaps (fragile + lossy).
+ *   - `loadout_choice_set` ships two shapes: a whole-loadout *cross-product*
+ *     (every swappable slot enumerated, base branch included) and a *per-slot*
+ *     set (one set per independent choice, e.g. Necron Warriors' {ccw} +
+ *     {gauss flayer | gauss reaper}). Each set is translated into one
+ *     `replaces` + `replacement_choice` option by diffing its branches against
+ *     the base loadout **restricted to the set's own scope** (the union of
+ *     weapons its branches mention): the restriction is the identity for a
+ *     cross-product set, keeps unrelated slots out of `replaces` for a per-slot
+ *     set, and turns base-disjoint sets (icons, instruments) into pure
+ *     additions. Every weapon a model can field appears in some branch, so
+ *     every weapon stays reachable — no orphans.
  *   - `limited_wargear_choice_set` + `wargear_limit` carry per-weapon squad caps
  *     ("1 heavy weapon per 5 models"). The repo's per-option `model_constraint`
  *     can't express a per-weapon cap inside a cross-product option, so caps are
@@ -278,6 +283,33 @@ export function makeResolver(
       return near[0];
     }
     return null;
+  };
+}
+
+/**
+ * Per-unit resolver: layers the unit's reviewed alias overrides (when any) on the
+ * faction resolver, then prefers the unit's own **stat variant** of the resolved
+ * id. The `weapon-variants` pass splits stat-conflicting weapons into a bare entry
+ * plus `${baseId}-${unitId}` variants and rewires this unit's references to the
+ * variant — so resolving a dump name back to the bare id on a wargear re-run would
+ * silently undo that rewiring and orphan the variant. If the faction vocabulary
+ * holds a variant of the resolved id for this unit, the variant wins.
+ */
+export function unitScopedResolver(
+  validIds: Set<string>,
+  autoResolved: AutoResolution[],
+  dir: string,
+  unitId: string,
+  factionResolve: (name: string) => string | null,
+): (name: string) => string | null {
+  const unitAliases = WEAPON_ALIASES_BY_UNIT[dir]?.[unitId];
+  const base = unitAliases
+    ? makeResolver(validIds, autoResolved, WEAPON_ALIASES[dir] ?? {}, unitAliases)
+    : factionResolve;
+  return (name: string) => {
+    const id = base(name);
+    if (id && validIds.has(`${id}-${unitId}`)) return `${id}-${unitId}`;
+    return id;
   };
 }
 
@@ -772,12 +804,26 @@ export function deriveWargear(
     }
     if (branches.length === 0) continue;
 
-    const baseSet = base ?? branches[0];
-    // Factor each branch into its DELTA vs the model's base loadout: only the
-    // weapons that actually change become a swap, so an unchanged slot's weapon
-    // never lands on both the `replaces` and `replacement` side (which would make
-    // a fixed base weapon look swappable and corrupt its bounds). Branches that
-    // remove the same set are grouped into one option's `replacement_choice`.
+    // Factor each branch into its DELTA vs the model's base loadout, restricted
+    // to the SET'S OWN SCOPE (the union of weapons its branches mention). The
+    // dump ships two shapes under `loadout_choice_set`:
+    //   - a whole-loadout cross-product (every slot enumerated, base branch
+    //     included) — the scope covers the full base, so the restriction is the
+    //     identity and the delta is the branch's real diff;
+    //   - a PER-SLOT set (e.g. Necron Warriors: one set = {ccw}, another =
+    //     {gauss flayer | gauss reaper}) — diffing against the FULL base would
+    //     drag every other slot's weapon into `replaces` (the reaper swap ate
+    //     the ccw), so the base is first restricted to the slot's weapons.
+    // A set none of whose branches touch the base at all (icons, instruments)
+    // restricts the base to ∅ and correctly becomes a pure addition rather than
+    // a corrupt "replaces the whole kit" swap. Only weapons that actually change
+    // become a swap, so an unchanged slot's weapon never lands on both the
+    // `replaces` and `replacement` side (which would make a fixed base weapon
+    // look swappable and corrupt its bounds). Branches that remove the same set
+    // are grouped into one option's `replacement_choice`.
+    const fullBase = base ?? branches[0];
+    const scope = new Set<string>(branches.flat());
+    const baseSet = fullBase.filter((id) => scope.has(id));
     const groups = new Map<string, { removed: string[]; added: string[][] }>();
     const seenAdded = new Set<string>();
     for (const b of branches) {
@@ -1184,10 +1230,8 @@ export function runWargear(dump: MfmDump, write: boolean, onlyDir?: string): War
       // A unit with reviewed per-unit overrides gets a resolver that layers them on
       // top of the faction aliases — for this datasheet only; every other unit keeps
       // the shared `resolve` (so a dump name reused across two profiles maps correctly).
-      const unitAliases = WEAPON_ALIASES_BY_UNIT[dir]?.[id];
-      const unitResolve = unitAliases
-        ? makeResolver(validIds, autoResolved, WEAPON_ALIASES[dir] ?? {}, unitAliases)
-        : resolve;
+      // Either way the unit's own stat variants win (see unitScopedResolver).
+      const unitResolve = unitScopedResolver(validIds, autoResolved, dir, id, resolve);
       const derived = deriveWargear(dump, ds.id!, unitResolve);
       for (const u of derived.unresolved) res.unresolvedNames.push({ id, name: u.name, context: u.context });
       for (const n of derived.notes) res.notes.push({ id, note: n });
@@ -1371,10 +1415,7 @@ export function forEachDirDatasheet(dump: MfmDump, cb: (ctx: DirDatasheetCtx) =>
       if (!byId.has(id)) continue; // dump datasheet with no repo unit → caught by unitInventory
       if (matchedRepoIds.has(id)) continue; // first candidate dir wins
       matchedRepoIds.add(id);
-      const unitAliases = WEAPON_ALIASES_BY_UNIT[dir]?.[id];
-      const unitResolve = unitAliases
-        ? makeResolver(validIds, autoResolved, WEAPON_ALIASES[dir] ?? {}, unitAliases)
-        : resolve;
+      const unitResolve = unitScopedResolver(validIds, autoResolved, dir, id, resolve);
       cb({ dir, ds, unitId: id, resolve: unitResolve });
     }
   }
@@ -1502,10 +1543,7 @@ export function runWargearBudgets(dump: MfmDump, onlyDir?: string): BudgetReport
       matchedRepoIds.add(id);
       matched++;
 
-      const unitAliases = WEAPON_ALIASES_BY_UNIT[dir]?.[id];
-      const unitResolve = unitAliases
-        ? makeResolver(validIds, autoResolved, WEAPON_ALIASES[dir] ?? {}, unitAliases)
-        : resolve;
+      const unitResolve = unitScopedResolver(validIds, autoResolved, dir, id, resolve);
       const budgets = limitedSetBudgets(dump, ds.id!, unitResolve);
 
       const before = JSON.stringify(rec.wargear_budgets ?? null);

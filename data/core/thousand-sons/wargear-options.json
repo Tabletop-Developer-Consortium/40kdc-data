@@ -10,8 +10,7 @@
     "is_free": true,
     "replaces": [
       "missile-launcher",
-      "multi-melta",
-      "close-combat-weapon"
+      "multi-melta"
     ],
     "replacement_choice": [
       [
@@ -177,8 +176,7 @@
     },
     "is_free": true,
     "replaces": [
-      "missile-launcher",
-      "close-combat-weapon"
+      "missile-launcher"
     ],
     "replacement_choice": [
       [
@@ -213,8 +211,7 @@
     },
     "is_free": true,
     "replaces": [
-      "multi-melta",
-      "close-combat-weapon"
+      "multi-melta"
     ],
     "replacement_choice": [
       [
@@ -254,12 +251,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "soulshatter-lascannon",
-      "soulshatter-lascannon",
-      "twin-inferno-heavy-bolter",
-      "armoured-tracks"
-    ],
     "replacement": [
       "havoc-launcher"
     ],
@@ -276,12 +267,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "soulshatter-lascannon",
-      "soulshatter-lascannon",
-      "twin-inferno-heavy-bolter",
-      "armoured-tracks"
-    ],
     "replacement_choice": [
       [
         "inferno-combi-bolter"
@@ -303,11 +288,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "pandaemonic-delusion",
-      "inferno-bolt-pistol",
-      "force-weapon"
-    ],
     "replacement": [
       "prosperine-khopesh"
     ],
@@ -324,10 +304,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "demolisher-cannon",
-      "armoured-tracks-chaos-vindicator"
-    ],
     "replacement": [
       "havoc-launcher"
     ],
@@ -344,10 +320,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "demolisher-cannon",
-      "armoured-tracks-chaos-vindicator"
-    ],
     "replacement_choice": [
       [
         "inferno-combi-weapon"
@@ -369,9 +341,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "armoured-tracks-chaos-rhino"
-    ],
     "replacement_choice": [
       [
         "inferno-combi-weapon"
@@ -405,8 +374,7 @@
     },
     "is_free": true,
     "replaces": [
-      "inferno-combi-bolter",
-      "armoured-tracks-chaos-rhino"
+      "inferno-combi-bolter"
     ],
     "replacement_choice": [
       [
@@ -431,9 +399,7 @@
     },
     "is_free": true,
     "replaces": [
-      "inferno-bolt-pistol",
-      "malefic-curse",
-      "force-weapon-rubric-marines"
+      "inferno-bolt-pistol"
     ],
     "replacement": [
       "warpflame-pistol"
@@ -453,8 +419,7 @@
     },
     "is_free": true,
     "replaces": [
-      "inferno-boltgun",
-      "close-combat-weapon-rubric-marines"
+      "inferno-boltgun"
     ],
     "replacement_choice": [
       [
@@ -478,10 +443,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "inferno-boltgun",
-      "close-combat-weapon-rubric-marines"
-    ],
     "replacement": [
       "icon-of-flame"
     ],
@@ -541,10 +502,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "inferno-combi-bolter",
-      "prosperine-khopesh"
-    ],
     "replacement": [
       "hellfyre-missile-rack"
     ],
@@ -563,8 +520,7 @@
     },
     "is_free": true,
     "replaces": [
-      "inferno-combi-bolter",
-      "prosperine-khopesh"
+      "inferno-combi-bolter"
     ],
     "replacement_choice": [
       [
@@ -589,9 +545,7 @@
     },
     "is_free": true,
     "replaces": [
-      "inferno-combi-bolter",
-      "malefic-curse",
-      "force-weapon"
+      "inferno-combi-bolter"
     ],
     "replacement": [
       "prosperine-khopesh"
@@ -610,10 +564,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "predator-autocannon",
-      "armoured-tracks-chaos-predator-destructor"
-    ],
     "replacement_choice": [
       [
         "inferno-combi-bolter"
@@ -635,10 +585,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "predator-autocannon",
-      "armoured-tracks-chaos-predator-destructor"
-    ],
     "replacement": [
       "havoc-launcher"
     ],
@@ -655,10 +601,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "predator-autocannon",
-      "armoured-tracks-chaos-predator-destructor"
-    ],
     "replacement_choice": [
       [
         "inferno-heavy-bolter",
@@ -671,6 +613,139 @@
     ],
     "model_constraint": {
       "any_number": true
+    }
+  },
+  {
+    "id": "defiler-wgo-mfm-1",
+    "unit_id": "defiler",
+    "faction_id": "thousand-sons",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_free": true,
+    "replaces": [
+      "hades-battle-cannon"
+    ],
+    "replacement": [
+      "ectoplasma-destructor"
+    ],
+    "model_constraint": {
+      "max_count": 1
+    }
+  },
+  {
+    "id": "defiler-wgo-mfm-2",
+    "unit_id": "defiler",
+    "faction_id": "thousand-sons",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_free": true,
+    "replaces": [
+      "excruciator-cannon",
+      "excruciator-cannon"
+    ],
+    "replacement": [
+      "pyraflux-magma-cutters",
+      "pyraflux-magma-cutters"
+    ],
+    "model_constraint": {
+      "any_number": true
+    }
+  },
+  {
+    "id": "defiler-wgo-mfm-3",
+    "unit_id": "defiler",
+    "faction_id": "thousand-sons",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_free": true,
+    "replaces": [
+      "heavy-missile-launcher"
+    ],
+    "replacement_choice": [
+      [
+        "electroscourge"
+      ],
+      [
+        "heavy-reaper-autocannon"
+      ],
+      [
+        "hades-lascannon"
+      ]
+    ],
+    "model_constraint": {
+      "max_count": 1
+    }
+  },
+  {
+    "id": "defiler-wgo-mfm-4",
+    "unit_id": "defiler",
+    "faction_id": "thousand-sons",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_free": true,
+    "replaces": [
+      "heavy-missile-launcher",
+      "heavy-baleflamer"
+    ],
+    "replacement_choice": [
+      [
+        "hades-lascannon",
+        "heavy-reaper-autocannon"
+      ],
+      [
+        "heavy-reaper-autocannon",
+        "heavy-reaper-autocannon"
+      ],
+      [
+        "hades-lascannon",
+        "hades-lascannon"
+      ],
+      [
+        "hades-lascannon",
+        "electroscourge"
+      ],
+      [
+        "electroscourge",
+        "heavy-reaper-autocannon"
+      ]
+    ],
+    "model_constraint": {
+      "max_count": 1
+    }
+  },
+  {
+    "id": "defiler-wgo-mfm-5",
+    "unit_id": "defiler",
+    "faction_id": "thousand-sons",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_free": true,
+    "replaces": [
+      "heavy-baleflamer"
+    ],
+    "replacement_choice": [
+      [
+        "hades-lascannon"
+      ],
+      [
+        "electroscourge"
+      ],
+      [
+        "heavy-reaper-autocannon"
+      ]
+    ],
+    "model_constraint": {
+      "max_count": 1
     }
   },
   {
@@ -759,10 +834,7 @@
     },
     "is_free": true,
     "replaces": [
-      "heavy-warpflamer",
-      "hellfyre-missile-rack-sekhetar-robots",
-      "pyreflux-meltagun",
-      "close-combat-weapon-sekhetar-robots"
+      "pyreflux-meltagun"
     ],
     "replacement": [
       "warpflame-projector",
@@ -781,11 +853,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "arcane-fire",
-      "inferno-bolt-pistol-exalted-sorcerer-on-disc-of-tzeentch",
-      "force-weapon-exalted-sorcerer-on-disc-of-tzeentch"
-    ],
     "replacement": [
       "prosperine-khopesh-exalted-sorcerer-on-disc-of-tzeentch"
     ],
@@ -822,11 +889,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "astral-blast",
-      "inferno-bolt-pistol-exalted-sorcerer",
-      "force-weapon-exalted-sorcerer"
-    ],
     "replacement": [
       "prosperine-khopesh-exalted-sorcerer"
     ],
@@ -844,9 +906,7 @@
     },
     "is_free": true,
     "replaces": [
-      "gaze-of-hate",
-      "inferno-combi-bolter",
-      "force-weapon-sorcerer-in-terminator-armour"
+      "inferno-combi-bolter"
     ],
     "replacement": [
       "inferno-combi-weapon"
@@ -864,10 +924,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "predator-twin-lascannon",
-      "armoured-tracks-chaos-predator-annihilator"
-    ],
     "replacement": [
       "havoc-launcher"
     ],
@@ -884,10 +940,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "predator-twin-lascannon",
-      "armoured-tracks-chaos-predator-annihilator"
-    ],
     "replacement_choice": [
       [
         "lascannon",
@@ -911,10 +963,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "predator-twin-lascannon",
-      "armoured-tracks-chaos-predator-annihilator"
-    ],
     "replacement_choice": [
       [
         "inferno-combi-weapon"
@@ -1010,159 +1058,5 @@
     "model_constraint": {
       "max_count": 1
     }
-  },
-  {
-    "id": "defiler-wgo-mfm-1",
-    "unit_id": "defiler",
-    "faction_id": "thousand-sons",
-    "game_version": {
-      "edition": "11th",
-      "dataslate": "launch"
-    },
-    "is_free": true,
-    "model_constraint": {
-      "max_count": 1
-    },
-    "replaces": [
-      "shearing-claws",
-      "hades-battle-cannon",
-      "excruciator-cannon",
-      "excruciator-cannon",
-      "heavy-missile-launcher",
-      "heavy-baleflamer"
-    ],
-    "replacement": [
-      "ectoplasma-destructor"
-    ]
-  },
-  {
-    "id": "defiler-wgo-mfm-2",
-    "unit_id": "defiler",
-    "faction_id": "thousand-sons",
-    "game_version": {
-      "edition": "11th",
-      "dataslate": "launch"
-    },
-    "is_free": true,
-    "model_constraint": {
-      "any_number": true
-    },
-    "replaces": [
-      "shearing-claws",
-      "hades-battle-cannon",
-      "excruciator-cannon",
-      "excruciator-cannon",
-      "heavy-missile-launcher",
-      "heavy-baleflamer"
-    ],
-    "replacement": [
-      "pyraflux-magma-cutters",
-      "pyraflux-magma-cutters"
-    ]
-  },
-  {
-    "id": "defiler-wgo-mfm-3",
-    "unit_id": "defiler",
-    "faction_id": "thousand-sons",
-    "game_version": {
-      "edition": "11th",
-      "dataslate": "launch"
-    },
-    "is_free": true,
-    "model_constraint": {
-      "max_count": 1
-    },
-    "replaces": [
-      "shearing-claws",
-      "hades-battle-cannon",
-      "excruciator-cannon",
-      "excruciator-cannon",
-      "heavy-missile-launcher"
-    ],
-    "replacement_choice": [
-      [
-        "electroscourge"
-      ],
-      [
-        "heavy-reaper-autocannon"
-      ],
-      [
-        "hades-lascannon"
-      ]
-    ]
-  },
-  {
-    "id": "defiler-wgo-mfm-4",
-    "unit_id": "defiler",
-    "faction_id": "thousand-sons",
-    "game_version": {
-      "edition": "11th",
-      "dataslate": "launch"
-    },
-    "is_free": true,
-    "model_constraint": {
-      "max_count": 1
-    },
-    "replaces": [
-      "shearing-claws",
-      "hades-battle-cannon",
-      "excruciator-cannon",
-      "excruciator-cannon",
-      "heavy-missile-launcher",
-      "heavy-baleflamer"
-    ],
-    "replacement_choice": [
-      [
-        "hades-lascannon",
-        "heavy-reaper-autocannon"
-      ],
-      [
-        "heavy-reaper-autocannon",
-        "heavy-reaper-autocannon"
-      ],
-      [
-        "hades-lascannon",
-        "hades-lascannon"
-      ],
-      [
-        "hades-lascannon",
-        "electroscourge"
-      ],
-      [
-        "electroscourge",
-        "heavy-reaper-autocannon"
-      ]
-    ]
-  },
-  {
-    "id": "defiler-wgo-mfm-5",
-    "unit_id": "defiler",
-    "faction_id": "thousand-sons",
-    "game_version": {
-      "edition": "11th",
-      "dataslate": "launch"
-    },
-    "is_free": true,
-    "model_constraint": {
-      "max_count": 1
-    },
-    "replaces": [
-      "shearing-claws",
-      "hades-battle-cannon",
-      "excruciator-cannon",
-      "excruciator-cannon",
-      "heavy-baleflamer"
-    ],
-    "replacement_choice": [
-      [
-        "hades-lascannon"
-      ],
-      [
-        "electroscourge"
-      ],
-      [
-        "heavy-reaper-autocannon"
-      ]
-    ]
   }
 ]

@@ -75,12 +75,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "multi-laser",
-      "heavy-bolter",
-      "lasgun-array",
-      "armoured-tracks"
-    ],
     "replacement": [
       "hunter-killer-missile"
     ],
@@ -97,10 +91,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "lasgun-array",
-      "armoured-tracks"
-    ],
     "replacement_choice": [
       [
         "heavy-stubber"
@@ -124,9 +114,7 @@
     "is_free": true,
     "replaces": [
       "multi-laser",
-      "heavy-bolter",
-      "lasgun-array",
-      "armoured-tracks"
+      "heavy-bolter"
     ],
     "replacement_choice": [
       [
@@ -161,9 +149,7 @@
     },
     "is_free": true,
     "replaces": [
-      "heavy-bolter",
-      "lasgun-array",
-      "armoured-tracks"
+      "heavy-bolter"
     ],
     "replacement_choice": [
       [
@@ -188,9 +174,7 @@
     },
     "is_free": true,
     "replaces": [
-      "multi-laser",
-      "lasgun-array",
-      "armoured-tracks"
+      "multi-laser"
     ],
     "replacement_choice": [
       [
@@ -230,9 +214,7 @@
     },
     "is_free": true,
     "replaces": [
-      "heavy-bolter-sisters-of-battle-immolator",
-      "immolation-flamers",
-      "armoured-tracks"
+      "immolation-flamers"
     ],
     "replacement_choice": [
       [
@@ -255,11 +237,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "heavy-bolter-sisters-of-battle-immolator",
-      "immolation-flamers",
-      "armoured-tracks"
-    ],
     "replacement": [
       "hunter-killer-missile-sisters-of-battle-immolator"
     ],
@@ -434,8 +411,7 @@
     },
     "is_free": true,
     "replaces": [
-      "storm-bolter-grey-knights-terminator-squad",
-      "nemesis-force-weapon"
+      "storm-bolter-grey-knights-terminator-squad"
     ],
     "replacement_choice": [
       [
@@ -465,9 +441,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "nemesis-force-weapon"
-    ],
     "replacement": [
       "ancients-banner"
     ],
@@ -794,11 +767,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "arbites-combat-shotgun",
-      "arbites-shotpistol",
-      "close-combat-weapon-exaction-squad"
-    ],
     "replacement": [
       "nuncio-aquila"
     ],
@@ -817,11 +785,21 @@
     },
     "is_free": true,
     "replaces": [
-      "arbites-shotpistol",
-      "close-combat-weapon-exaction-squad"
+      "arbites-combat-shotgun"
     ],
-    "replacement": [
-      "excruciator-maul"
+    "replacement_choice": [
+      [
+        "arbites-grenade-launcher"
+      ],
+      [
+        "heavy-stubber"
+      ],
+      [
+        "executioner-shotgun"
+      ],
+      [
+        "webber"
+      ]
     ],
     "model_constraint": {
       "model_name": "Exaction Vigilant",
@@ -837,24 +815,8 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "arbites-combat-shotgun",
-      "arbites-shotpistol",
-      "close-combat-weapon-exaction-squad"
-    ],
-    "replacement_choice": [
-      [
-        "arbites-grenade-launcher"
-      ],
-      [
-        "heavy-stubber"
-      ],
-      [
-        "executioner-shotgun"
-      ],
-      [
-        "webber"
-      ]
+    "replacement": [
+      "excruciator-maul"
     ],
     "model_constraint": {
       "model_name": "Exaction Vigilant",
@@ -910,8 +872,7 @@
     },
     "is_free": true,
     "replaces": [
-      "navis-shotgun",
-      "close-combat-weapon-imperial-navy-breachers"
+      "navis-shotgun"
     ],
     "replacement_choice": [
       [
@@ -937,11 +898,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "arbites-combat-shotgun",
-      "arbites-shotpistol",
-      "close-combat-weapon-vigilant-squad"
-    ],
     "replacement": [
       "nuncio-aquila"
     ],
@@ -960,9 +916,7 @@
     },
     "is_free": true,
     "replaces": [
-      "arbites-combat-shotgun",
-      "arbites-shotpistol",
-      "close-combat-weapon-vigilant-squad"
+      "arbites-combat-shotgun"
     ],
     "replacement_choice": [
       [
@@ -992,10 +946,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "arbites-shotpistol",
-      "shock-maul"
-    ],
     "replacement": [
       "nuncio-aquila"
     ],
@@ -1014,9 +964,7 @@
     },
     "is_free": true,
     "replaces": [
-      "bolt-pistol",
-      "boltgun-sisters-of-battle-squad",
-      "close-combat-weapon-sisters-of-battle-squad"
+      "boltgun-sisters-of-battle-squad"
     ],
     "replacement_choice": [
       [
@@ -1053,8 +1001,7 @@
     },
     "is_free": true,
     "replaces": [
-      "boltgun-sisters-of-battle-squad",
-      "close-combat-weapon-sisters-of-battle-squad"
+      "boltgun-sisters-of-battle-squad"
     ],
     "replacement_choice": [
       [
@@ -1090,11 +1037,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "bolt-pistol",
-      "boltgun-sisters-of-battle-squad",
-      "close-combat-weapon-sisters-of-battle-squad"
-    ],
     "replacement_choice": [
       [
         "chainsword-sisters-of-battle-squad"
@@ -1117,12 +1059,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "blackstar-rocket-launcher",
-      "blackstar-rocket-launcher",
-      "twin-assault-cannon",
-      "armoured-hull"
-    ],
     "replacement_choice": [
       [
         "infernum-halo-launcher"
@@ -1145,10 +1081,7 @@
     },
     "is_free": true,
     "replaces": [
-      "blackstar-rocket-launcher",
-      "blackstar-rocket-launcher",
-      "twin-assault-cannon",
-      "armoured-hull"
+      "twin-assault-cannon"
     ],
     "replacement": [
       "twin-lascannon"
@@ -1168,9 +1101,7 @@
     "is_free": true,
     "replaces": [
       "blackstar-rocket-launcher",
-      "blackstar-rocket-launcher",
-      "twin-assault-cannon",
-      "armoured-hull"
+      "blackstar-rocket-launcher"
     ],
     "replacement": [
       "stormstrike-missile-launcher",
@@ -1189,12 +1120,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "blackstar-rocket-launcher",
-      "blackstar-rocket-launcher",
-      "twin-assault-cannon",
-      "armoured-hull"
-    ],
     "replacement": [
       "hurricane-bolter"
     ],

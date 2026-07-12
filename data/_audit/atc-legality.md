@@ -12,7 +12,7 @@ is a data or checker bug, not mass cheating.
 - `examples/atc-viewer/src/data/atc-2026.json`: 248 lists (0 without text skipped)
 - `examples/atc-viewer/src/data/atc-5s.json`: 230 lists (2 without text skipped)
 - **Lists**: 478, parse failures: 18
-- **Legality**: 842 violating units across 243 lists
+- **Legality**: 904 violating units across 263 lists
 - **Composition drift**: 38 dataset units
 
 ### Warnings by code
@@ -33,12 +33,12 @@ is a data or checker bug, not mass cheating.
 
 | outcome | count |
 |---|--:|
-| `grouped` | 1238 |
+| `grouped` | 1774 |
 | `unit-unresolved` | 111 |
 | `wargear-unresolved` | 1842 |
 | `single-model` | 3134 |
 | `no-recorded-defaults` | 12 |
-| `solver-null` | 815 |
+| `solver-null` | 279 |
 
 ## Legality violations (ranked `code:unitId`)
 
@@ -56,6 +56,8 @@ is a data or checker bug, not mass cheating.
 | `exceeds-max:scout-squad` | 26 |
 | `exceeds-max:commander-in-coldstar-battlesuit` | 24 |
 | `exceeds-max:chaos-predator-destructor` | 21 |
+| `swap-conflict:rogal-dorn-commander` | 21 |
+| `swap-conflict:sekhetar-robots` | 21 |
 | `below-min:servitor-battleclade` | 20 |
 | `exceeds-max:commander-in-enforcer-battlesuit` | 20 |
 | `exceeds-max:hammerhead-gunship` | 20 |
@@ -65,14 +67,17 @@ is a data or checker bug, not mass cheating.
 | `exceeds-allowance:boyz` | 15 |
 | `exceeds-allowance:kommandos` | 15 |
 | `exceeds-max:cthonian-beserks` | 15 |
+| `below-min:tormentors` | 14 |
 | `exceeds-allowance:plague-marines` | 14 |
 | `exceeds-allowance:skitarii-rangers` | 14 |
 | `below-min:acolyte-hybrids-with-autopistols` | 12 |
 | `below-min:company-heroes` | 12 |
 | `exceeds-allowance:battle-sisters-squad` | 12 |
 | `exceeds-max:cadian-shock-troops` | 12 |
+| `below-min:death-korps-of-krieg` | 11 |
 | `exceeds-allowance:paladin-squad` | 11 |
 | `exceeds-max:sky-ray-gunship` | 11 |
+| `below-min:kabalite-warriors` | 10 |
 | `below-min:militarum-tempestus-command-squad` | 10 |
 | `exceeds-allowance:wolf-guard-terminators` | 10 |
 | `exceeds-max:decimus-kill-team` | 10 |
@@ -80,19 +85,21 @@ is a data or checker bug, not mass cheating.
 | `exceeds-max:wraithlord` | 10 |
 | `below-min:cadian-command-squad` | 9 |
 | `exceeds-max:cadian-command-squad` | 9 |
+| `swap-conflict:rogal-dorn-battle-tank` | 9 |
+| `below-min:cadian-shock-troops` | 8 |
 | `below-min:imperial-navy-breachers` | 8 |
 | `exceeds-allowance:seraphim-squad` | 8 |
 | `exceeds-allowance:skitarii-vanguard` | 8 |
 | `exceeds-max:armoured-sentinels` | 8 |
 | `exceeds-max:blue-horrors` | 8 |
-| `exceeds-max:kroot-farstalkers` | 8 |
 | `exceeds-max:raptors` | 8 |
 | `invalid-model-count:pathfinder-team` | 8 |
 | `exceeds-allowance:cadian-recon-squad` | 7 |
 | `exceeds-allowance:chosen` | 7 |
 | `exceeds-max:broadside-battlesuits` | 7 |
 | `below-min:fellgor-beastmen` | 6 |
-| `below-min:kabalite-warriors` | 6 |
+| `below-min:hand-of-the-archon` | 6 |
+| `below-min:indomitor-kill-team` | 6 |
 | `below-min:plague-marines` | 6 |
 | `exceeds-allowance:catachan-jungle-fighters` | 6 |
 | `exceeds-allowance:inquisitorial-agents` | 6 |
@@ -104,22 +111,24 @@ is a data or checker bug, not mass cheating.
 | `exceeds-max:hippogriff-afv` | 6 |
 | `exceeds-max:sword-brethren-squad` | 6 |
 | `invalid-model-count:stormboyz` | 6 |
+| `swap-conflict:noise-marines` | 6 |
 | `exceeds-max:baal-predator` | 5 |
 | `exceeds-max:battlewagon` | 5 |
 | `exceeds-max:maulerfiend` | 5 |
 | `invalid-model-count:boyz` | 5 |
 | `invalid-model-count:stealth-battlesuits` | 5 |
 | `below-min:decimus-kill-team` | 4 |
-| `below-min:hand-of-the-archon` | 4 |
+| `below-min:kroot-farstalkers` | 4 |
 | `below-min:pink-horrors` | 4 |
 | `below-min:scout-squad` | 4 |
+| `below-min:spectrus-kill-team` | 4 |
 | `exceeds-allowance:storm-guardians` | 4 |
 | `exceeds-max:canoptek-spyders` | 4 |
 | `exceeds-max:gladiator-lancer` | 4 |
 | `exceeds-max:hastarii-fusiliers` | 4 |
+| `exceeds-max:kroot-farstalkers` | 4 |
 | `exceeds-max:plague-marines` | 4 |
 | `exceeds-max:rhino` | 4 |
-| `exceeds-max:serberys-raiders` | 4 |
 | `exceeds-max:sicarian-infiltrators` | 4 |
 | `invalid-model-count:crisis-starscythe-battlesuits` | 4 |
 | `invalid-model-count:mandrakes` | 4 |
@@ -131,20 +140,11 @@ is a data or checker bug, not mass cheating.
 | `exceeds-max:baneblade` | 3 |
 | `exceeds-max:indomitor-kill-team` | 3 |
 | `exceeds-max:predator-destructor` | 3 |
+| `exceeds-max:serberys-raiders` | 3 |
 | `exceeds-max:tiger-shark` | 3 |
 | `exceeds-max:wolf-scouts` | 3 |
 | `invalid-model-count:crisis-fireknife-battlesuits` | 3 |
-| `invalid-model-count:kommandos` | 3 |
-| `invalid-model-count:militarum-tempestus-command-squad` | 3 |
-| `invalid-model-count:tempestus-scions` | 3 |
-| `invalid-model-count:the-twin-lance` | 3 |
-| `invalid-model-count:vespid-stingwings` | 3 |
-| `invalid-model-count:wyches` | 3 |
-| `below-min:indomitor-kill-team` | 2 |
-| `below-min:kroot-farstalkers` | 2 |
-| `below-min:raptors` | 2 |
-| `below-min:sanctifiers` | 2 |
-| … 88 more | |
+| … 101 more | |
 
 ## `solver-null` grouping failures (ranked unit)
 
@@ -155,65 +155,41 @@ partition solver could not decompose — bad `replaces` data or genuinely illega
 |---|--:|
 | `scout-squad` | 47 |
 | `cultist-mob` | 45 |
-| `canoptek-wraiths` | 35 |
-| `wyches` | 34 |
-| `scarab-occult-terminators` | 33 |
-| `intercessor-squad` | 31 |
 | `hyperadapted-raveners` | 29 |
-| `hernkyn-yaegirs` | 26 |
-| `assault-intercessors-with-jump-packs` | 24 |
-| `stormboyz` | 24 |
-| `noise-marines` | 23 |
-| `brokhyr-thunderkyn` | 22 |
-| `sekhetar-robots` | 21 |
-| `scourges-with-heavy-weapons` | 20 |
-| `warbikers` | 17 |
 | `cthonian-beserks` | 15 |
 | `death-company-marines-with-jump-packs` | 15 |
-| `assault-intercessor-squad` | 12 |
-| `atalan-jackals` | 12 |
 | `attilan-rough-riders` | 12 |
-| `bladeguard-veteran-squad` | 12 |
-| `necron-warriors` | 12 |
-| `sternguard-veteran-squad` | 12 |
-| `canoptek-tomb-crawlers` | 11 |
 | `plague-marines` | 11 |
 | `sicarian-infiltrators` | 11 |
-| `vanguard-veteran-squad-with-jump-packs` | 11 |
-| `vertus-praetors` | 11 |
-| `lokhust-heavy-destroyers` | 10 |
 | `raptors` | 10 |
 | `red-corsairs-raiders` | 10 |
 | `servitor-battleclade` | 10 |
-| `allarus-custodians` | 9 |
-| `celestian-sacresants` | 9 |
-| `immortals` | 9 |
-| `seraphim-squad` | 8 |
-| `armoured-sentinels` | 7 |
-| `inceptor-squad` | 7 |
 | `pink-horrors` | 7 |
 | `company-heroes` | 6 |
 | `fellgor-beastmen` | 6 |
-| `warlock-conclave` | 6 |
-| `catachan-heavy-weapons-squad` | 5 |
-| `chaos-terminator-squad` | 5 |
 | `havocs` | 5 |
 | `lootas` | 5 |
 | `blue-horrors` | 4 |
-| `chaos-terminators` | 4 |
-| `cronos` | 4 |
-| `paragon-warsuits` | 4 |
-| `termagants` | 4 |
-| `deffkoptas` | 3 |
-| `eradicator-squad` | 3 |
-| `grey-hunters` | 3 |
+| `chaos-terminator-squad` | 4 |
+| `chaos-terminators` | 3 |
 | `kabalite-warriors` | 3 |
-| `kastelan-robots` | 3 |
-| `kataphron-destroyers` | 3 |
-| `kommandos` | 3 |
-| `krieg-heavy-weapons-squad` | 3 |
-| `scourges-with-shardcarbines` | 3 |
-| … 34 more | |
+| `blightlord-terminators` | 2 |
+| `breaka-boyz` | 2 |
+| `indomitor-kill-team` | 2 |
+| `termagants` | 2 |
+| `atalan-jackals` | 1 |
+| `battle-sisters-squad` | 1 |
+| `death-company-marines` | 1 |
+| `decimus-kill-team` | 1 |
+| `fortis-kill-team` | 1 |
+| `inquisitorial-agents` | 1 |
+| `piranhas` | 1 |
+| `pteraxii-sterylizors` | 1 |
+| `serberys-sulphurhounds` | 1 |
+| `sicarian-ruststalkers` | 1 |
+| `sisters-of-battle-squad` | 1 |
+| `tempestus-aquilons` | 1 |
+| `zoanthropes` | 1 |
 
 ## Unresolved names: `battle-size-unmapped`
 
@@ -556,11 +532,10 @@ partition solver could not decompose — bad `replaces` data or genuinely illega
 Units whose composition `default_weapon_ids` reference ids unreachable from
 `weapon_ids` ∪ wargear-option grants (stale defaults under a newer loadout).
 
-- `adeptus-astartes/decimus-kill-team` — unreachable: boltgun
+- `adeptus-astartes/decimus-kill-team` — unreachable: boltgun, plasma-pistol
 - `adeptus-astartes/drop-pod` — unreachable: drop-pod
 - `adeptus-astartes/terminator-assault-squad` — unreachable: storm-shield
 - `adeptus-astartes/thunderhawk-gunship` — unreachable: thunderhawk-cluster-bombs
-- `adeptus-astartes/victrix-honour-guard` — unreachable: banner-of-macragge
 - `adeptus-astartes/wardens-of-ultramar` — unreachable: storm-shield
 - `adeptus-astartes/wolf-guard-battle-leader` — unreachable: storm-shield
 - `adeptus-astartes/wolf-guard-headtakers` — unreachable: storm-shield
@@ -569,9 +544,10 @@ Units whose composition `default_weapon_ids` reference ids unreachable from
 - `adeptus-mechanicus/archaeopter-fusilave` — unreachable: command-uplink
 - `adeptus-mechanicus/archaeopter-stratoraptor` — unreachable: command-uplink
 - `adeptus-mechanicus/archaeopter-transvector` — unreachable: command-uplink
+- `aeldari/corsair-voidscarred` — unreachable: close-combat-weapon
 - `aeldari/wraithknight` — unreachable: scattershield
 - `aeldari/wraithknight-with-ghostglaive` — unreachable: scattershield
-- `agents-of-the-imperium/aquila-kill-team` — unreachable: boltgun
+- `agents-of-the-imperium/aquila-kill-team` — unreachable: boltgun, plasma-pistol
 - `agents-of-the-imperium/inquisitor` — unreachable: blessed-wardings
 - `astra-militarum/aegis-defence-line` — unreachable: aegis-defence-line
 - `astra-militarum/bullgryn-squad` — unreachable: slabshield

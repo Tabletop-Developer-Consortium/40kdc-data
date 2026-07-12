@@ -23,6 +23,13 @@ export const meta = {
 if (!args || !args.artifacts) throw new Error('args.artifacts required')
 const CAP = args.worklist_cap || 30
 if (CAP > 40) throw new Error(`worklist_cap ${CAP} exceeds the hard cap of 40`)
+// Pin every agent to the loop workspace: subagents inherit the DRIVER session's cwd,
+// which may be a different checkout of this repo (a parallel session's working copy).
+const PRE = args.repo_root
+  ? `Repo root: ${args.repo_root} — cd there first; run every command and resolve every ` +
+    `relative path (including ../40kdc-abilities and ../40kdc-embeddings) against it. ` +
+    `Never read or write any other checkout of this repo.\n`
+  : ''
 
 // ---- frozen Output contracts, transcribed to JSON Schema (do not redesign) ----
 const SWARMLORD_OUT = {
@@ -57,7 +64,7 @@ const INQUISITOR_OUT = {
 phase('Scout')
 const scouts = (await parallel((args.scout_shapes || []).map(s => () =>
   agent(
-    `Scout the cross-faction family for this shape. estimated_family_size counts exact+near only ` +
+    PRE + `Scout the cross-faction family for this shape. estimated_family_size counts exact+near only ` +
     `— stretches don't justify shapes. Input:\n` + JSON.stringify(s),
     { agentType: 'swarmlord', phase: 'Scout', schema: SWARMLORD_OUT,
       label: `scout:${s.shape.effect_type || s.shape.condition_type || s.shape.pattern}` }
@@ -66,7 +73,7 @@ const scouts = (await parallel((args.scout_shapes || []).map(s => () =>
 
 phase('Curate')
 const curation = await agent(
-  `Curate the next campaign. Pick ONE coherent worklist chunk (≤ ${CAP} abilities) from the ` +
+  PRE + `Curate the next campaign. Pick ONE coherent worklist chunk (≤ ${CAP} abilities) from the ` +
   `sub-0.80-cosine corpus: per-faction worst tail, a swarmlord family (exact+near, family size ≥ 4), ` +
   `or an inbox schema-unblock. Do not re-propose anything in registry blocked_shapes (its reopen_when ` +
   `must be met with the new evidence cited). No cherry-picking easy chunks — draw from the worst tail ` +

@@ -23,6 +23,13 @@ export const meta = {
 if (!args || !Array.isArray(args.ability_ids) || !args.ability_ids.length) throw new Error('args.ability_ids required')
 if (!Array.isArray(args.faction_ids) || !args.faction_ids.length) throw new Error('args.faction_ids required')
 const GATES = args.gates || ['validate', 'test', 'translate-smoke', 'drift']
+// Pin every agent to the loop workspace: subagents inherit the DRIVER session's cwd,
+// which may be a different checkout of this repo (a parallel session's working copy).
+const PRE = args.repo_root
+  ? `Repo root: ${args.repo_root} — cd there first; run every command and resolve every ` +
+    `relative path (including ../40kdc-abilities and ../40kdc-embeddings) against it. ` +
+    `Never read or write any other checkout of this repo.\n`
+  : ''
 
 // ---- frozen Output contracts, transcribed to JSON Schema (do not redesign) ----
 const SKITARIUS_OUT = {
@@ -70,13 +77,13 @@ for (const id of args.ability_ids) {
 
 const [skitarius, cogitator, ...psyker] = await parallel([
   () => agent(
-    `Run exactly these mechanical gates in this workspace and report honestly (a gate you ` +
+    PRE + `Run exactly these mechanical gates in this workspace and report honestly (a gate you ` +
     `could not run goes in not_run, never in gates_run as passed). Input:\n` +
     JSON.stringify({ gates: GATES, touched: { factions: args.faction_ids, files: args.touched_files || [] } }),
     { agentType: 'skitarius', phase: 'Gates', schema: SKITARIUS_OUT, label: `gates:${args.batch_id}` }
   ),
   () => agent(
-    `Diff cruncher levers for these abilities, working tree vs committed. Any dropped lever is a ` +
+    PRE + `Diff cruncher levers for these abilities, working tree vs committed. Any dropped lever is a ` +
     `regression regardless of how much prettier the new phrasing reads. Input:\n` +
     JSON.stringify({ ability_ids: args.ability_ids.map(i => i.includes('/') ? i.split('/')[1] : i),
       factions: args.faction_ids, baseline: 'committed' }),
@@ -84,7 +91,7 @@ const [skitarius, cogitator, ...psyker] = await parallel([
   ),
   ...args.faction_ids.map(f => () =>
     agent(
-      `Cold-read the describer renders for these just-edited abilities. Input:\n` +
+      PRE + `Cold-read the describer renders for these just-edited abilities. Input:\n` +
       JSON.stringify({ faction_id: f, scope: idsByFaction[f] }),
       { agentType: 'psyker', phase: 'ColdRead', schema: PSYKER_OUT, label: `coldread:${f}:${args.batch_id}` }
     )

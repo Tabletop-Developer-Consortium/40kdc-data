@@ -13,7 +13,10 @@ run a campaign from it alone.
 
 Companion files: `workflows/wf-prioritize.js`, `workflows/wf-author-batch.js`,
 `workflows/wf-verify-batch.js` (invoke via `Workflow({scriptPath, args})`; each embeds the
-frozen agent Output contracts as JSON Schemas — never redesign those). The worked example
+frozen agent Output contracts as JSON Schemas — never redesign those). Always pass
+`repo_root: "/Users/will.mitchell/40kdc-dsl"` in every workflow's args — subagents inherit
+the driver session's cwd, and the preamble it generates pins them to the workspace even
+when the driver was launched from another checkout. The worked example
 of one converged campaign is `_private/loop-state/{roundtrip,inbox}-world-eaters.md`.
 
 ## Preconditions (fail loudly if unmet)

@@ -23,6 +23,13 @@ export const meta = {
 if (!args || !Array.isArray(args.abilities)) throw new Error('args.abilities required')
 if (args.abilities.length > 8) throw new Error(`batch too large: ${args.abilities.length} > 8 (grain is 5–6)`)
 const NEW_SHAPES = args.new_shapes || []
+// Pin every agent to the loop workspace: subagents inherit the DRIVER session's cwd,
+// which may be a different checkout of this repo (a parallel session's working copy).
+const PRE = args.repo_root
+  ? `Repo root: ${args.repo_root} — cd there first; run every command and resolve every ` +
+    `relative path (including ../40kdc-abilities and ../40kdc-embeddings) against it. ` +
+    `Never read or write any other checkout of this repo.\n`
+  : ''
 
 // ---- frozen Output contracts, transcribed to JSON Schema (do not redesign) ----
 const ENGINSEER_OUT = {
@@ -102,7 +109,7 @@ const results = await pipeline(
   args.abilities,
 
   a => agent(
-    `Look up this ability's raw prose and committed DSL. Input:\n` +
+    PRE + `Look up this ability's raw prose and committed DSL. Input:\n` +
     JSON.stringify({ query: { ability_id: a.ability_id, faction_id: a.faction_id } }),
     { agentType: 'data-enginseer', phase: 'Retrieve', schema: ENGINSEER_OUT, label: `retrieve:${a.ability_id}` }
   ),
@@ -121,11 +128,11 @@ const results = await pipeline(
     }
     const dec = JSON.stringify(baseInput)
     const [who, when, what] = await parallel([
-      () => agent(`Decompose WHO for this ability. Input:\n${dec}`,
+      () => agent(PRE + `Decompose WHO for this ability. Input:\n${dec}`,
         { agentType: 'target-dummy', phase: 'Decompose', schema: WHO_OUT, label: `who:${a.ability_id}` }),
-      () => agent(`Decompose WHEN for this ability. Input:\n${dec}`,
+      () => agent(PRE + `Decompose WHEN for this ability. Input:\n${dec}`,
         { agentType: 'chronomancer', phase: 'Decompose', schema: WHEN_OUT, label: `when:${a.ability_id}` }),
-      () => agent(`Decompose WHAT for this ability. Input:\n${dec}`,
+      () => agent(PRE + `Decompose WHAT for this ability. Input:\n${dec}`,
         { agentType: 'vox-hound', phase: 'Decompose', schema: WHAT_OUT, label: `what:${a.ability_id}` }),
     ])
 
@@ -146,7 +153,7 @@ const results = await pipeline(
           JSON.stringify(verdicts.flatMap(v => v.divergences || []))
         : ''
       candidate = await agent(
-        `Assemble the DSL entry. The prose is authoritative over every decomposer block; ` +
+        PRE + `Assemble the DSL entry. The prose is authoritative over every decomposer block; ` +
         `placeholder lies are banned — if the schema cannot express the mechanic honestly, return resisted_schema. ` +
         `Input:\n${JSON.stringify(assembleInput)}${revision}`,
         { agentType: 'arch-magos', phase: 'Assemble', schema: ARCHMAGOS_OUT, label: `assemble:${a.ability_id}#${attempts}` }
@@ -168,7 +175,7 @@ const results = await pipeline(
       })
       verdicts = (await parallel(Array.from({ length: n }, (_, i) => () =>
         agent(
-          `You are refuter ${i + 1} of ${n}; work independently — do not assume the encoding is right. ` +
+          PRE + `You are refuter ${i + 1} of ${n}; work independently — do not assume the encoding is right. ` +
           `Derive expected behavior from the PROSE ONLY (never from the DSL's own vocabulary or describer render). ` +
           `refuted:true requires a CONCRETE constructed game state. A clause declared in approx_notes is not a divergence; ` +
           `an undeclared gap is. Input:\n${refuteInput}`,

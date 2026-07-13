@@ -1,0 +1,7 @@
+# Project-local OMP settings for the 40kdc DSL-campaign harness.
+# The dsl-campaign suite lives in .omp/agents (OMP task discovery skips .claude/agents),
+# and its kroot shape-scout agents spawn helper agents themselves (flesh-shaper ->
+# decomposers, lone-spear -> swarmlord, war-shaper -> eversor/swarmlord). Nested spawns
+# need the recursion gate to allow depth-1 agents to spawn depth-2 helpers.
+task:
+  maxRecursionDepth: 3

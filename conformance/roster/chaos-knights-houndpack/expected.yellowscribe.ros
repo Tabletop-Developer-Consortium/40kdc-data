@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="utf-8"?>
+<roster id="roster0" name="Dog Kill God?" gameSystemId="sys-352e-adc2-7639-d6a9" gameSystemName="Warhammer 40,000">
+  <forces>
+    <force id="force0" name="Chaos Knights" catalogueName="Chaos Knights">
+      <selections>
+        <selection id="unit0" name="War Dog Karnivore" type="unit" number="1">
+          <profiles>
+            <profile name="War Dog Karnivore" typeName="Unit">
+              <characteristics>
+                <characteristic name="M">14"</characteristic>
+                <characteristic name="T">9</characteristic>
+                <characteristic name="SV">3+</characteristic>
+                <characteristic name="W">14</characteristic>
+                <characteristic name="LD">7+</characteristic>
+                <characteristic name="OC">6</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Invulnerable Save" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">5+ invulnerable save</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Karnivore" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">You can re-roll the Charge roll.</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Deadly Demise D3" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">Before this model is removed from play:
+  -&gt; Roll one D6: on a 6+, each enemy unit within 6" suffers D3 mortal wounds.</characteristic>
+              </characteristics>
+            </profile>
+          </profiles>
+          <categories>
+            <category name="Faction: Chaos Knights"/>
+            <category name="Vehicle"/>
+            <category name="Walker"/>
+            <category name="Chaos"/>
+            <category name="War Dog"/>
+            <category name="Karnivore"/>
+          </categories>
+          <selections>
+            <selection id="unit0-m0" name="War Dog Karnivore" type="model" number="1">
+              <selections>
+                <selection id="unit0-m0-w0" name="Reaper chaintalon" type="upgrade" number="1">
+                  <profiles>
+                    <profile name="Reaper chaintalon" typeName="Melee Weapons">
+                      <characteristics>
+                        <characteristic name="Range">Melee</characteristic>
+                        <characteristic name="A">12</characteristic>
+                        <characteristic name="WS">3+</characteristic>
+                        <characteristic name="S">8</characteristic>
+                        <characteristic name="AP">-2</characteristic>
+                        <characteristic name="D">1</characteristic>
+                        <characteristic name="Keywords">Sustained Hits 1</characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+                <selection id="unit0-m0-w1" name="Slaughterclaw" type="upgrade" number="1">
+                  <profiles>
+                    <profile name="Slaughterclaw" typeName="Melee Weapons">
+                      <characteristics>
+                        <characteristic name="Range">Melee</characteristic>
+                        <characteristic name="A">6</characteristic>
+                        <characteristic name="WS">3+</characteristic>
+                        <characteristic name="S">12</characteristic>
+                        <characteristic name="AP">-3</characteristic>
+                        <characteristic name="D">D6+2</characteristic>
+                        <characteristic name="Keywords">Sustained Hits 1</characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+                <selection id="unit0-m0-w2" name="Havoc multi-launcher" type="upgrade" number="1">
+                  <profiles>
+                    <profile name="Havoc multi-launcher" typeName="Ranged Weapons">
+                      <characteristics>
+                        <characteristic name="Range">48"</characteristic>
+                        <characteristic name="A">D6</characteristic>
+                        <characteristic name="BS">3+</characteristic>
+                        <characteristic name="S">5</characteristic>
+                        <characteristic name="AP">0</characteristic>
+                        <characteristic name="D">1</characteristic>
+                        <characteristic name="Keywords">Blast, Indirect Fire</characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+              </selections>
+            </selection>
+          </selections>
+        </selection>
+        <selection id="unit1" name="War Dog Karnivore" type="unit" number="1">
+          <profiles>
+            <profile name="War Dog Karnivore" typeName="Unit">
+              <characteristics>
+                <characteristic name="M">14"</characteristic>
+                <characteristic name="T">9</characteristic>
+                <characteristic name="SV">3+</characteristic>
+                <characteristic name="W">14</characteristic>
+                <characteristic name="LD">7+</characteristic>
+                <characteristic name="OC">6</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Invulnerable Save" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">5+ invulnerable save</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Karnivore" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">You can re-roll the Charge roll.</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Deadly Demise D3" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">Before this model is removed from play:
+  -&gt; Roll one D6: on a 6+, each enemy unit within 6" suffers D3 mortal wounds.</characteristic>
+              </characteristics>
+            </profile>
+          </profiles>
+          <categories>
+            <category name="Faction: Chaos Knights"/>
+            <category name="Vehicle"/>
+            <category name="Walker"/>
+            <category name="Chaos"/>
+            <category name="War Dog"/>
+            <category name="Karnivore"/>
+          </categories>
+          <selections>
+            <selection id="unit1-m0" name="War Dog Karnivore" type="model" number="1">
+              <selections>
+                <selection id="unit1-m0-w0" name="Reaper chaintalon" type="upgrade" number="1">
+                  <profiles>
+                    <profile name="Reaper chaintalon" typeName="Melee Weapons">
+                      <characteristics>
+                        <characteristic name="Range">Melee</characteristic>
+                        <characteristic name="A">12</characteristic>
+                        <characteristic name="WS">3+</characteristic>
+                        <characteristic name="S">8</characteristic>
+                        <characteristic name="AP">-2</characteristic>
+                        <characteristic name="D">1</characteristic>
+                        <characteristic name="Keywords">Sustained Hits 1</characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+                <selection id="unit1-m0-w1" name="Slaughterclaw" type="upgrade" number="1">
+                  <profiles>
+                    <profile name="Slaughterclaw" typeName="Melee Weapons">
+                      <characteristics>
+                        <characteristic name="Range">Melee</characteristic>
+                        <characteristic name="A">6</characteristic>
+                        <characteristic name="WS">3+</characteristic>
+                        <characteristic name="S">12</characteristic>
+                        <characteristic name="AP">-3</characteristic>
+                        <characteristic name="D">D6+2</characteristic>
+                        <characteristic name="Keywords">Sustained Hits 1</characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+                <selection id="unit1-m0-w2" name="Havoc multi-launcher" type="upgrade" number="1">
+                  <profiles>
+                    <profile name="Havoc multi-launcher" typeName="Ranged Weapons">
+                      <characteristics>
+                        <characteristic name="Range">48"</characteristic>
+                        <characteristic name="A">D6</characteristic>
+                        <characteristic name="BS">3+</characteristic>
+                        <characteristic name="S">5</characteristic>
+                        <characteristic name="AP">0</characteristic>
+                        <characteristic name="D">1</characteristic>
+                        <characteristic name="Keywords">Blast, Indirect Fire</characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+              </selections>
+            </selection>
+          </selections>
+        </selection>
+        <selection id="unit2" name="War Dog Executioner" type="unit" number="1">
+          <profiles>
+            <profile name="War Dog Executioner" typeName="Unit">
+              <characteristics>
+                <characteristic name="M">12"</characteristic>
+                <characteristic name="T">9</characteristic>
+                <characteristic name="SV">3+</characteristic>
+                <characteristic name="W">14</characteristic>
+                <characteristic name="LD">7+</characteristic>
+                <characteristic name="OC">6</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Invulnerable Save" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">5+ invulnerable save</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Executioner" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">While the unit is below half strength against A targets, the unit gets +1 to Hit rolls.</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Deadly Demise D3" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">Before this model is removed from play:
+  -&gt; Roll one D6: on a 6+, each enemy unit within 6" suffers D3 mortal wounds.</characteristic>
+              </characteristics>
+            </profile>
+          </profiles>
+          <categories>
+            <category name="Faction: Chaos Knights"/>
+            <category name="Vehicle"/>
+            <category name="Walker"/>
+            <category name="Chaos"/>
+            <category name="War Dog"/>
+            <category name="Executioner"/>
+          </categories>
+          <selections>
+            <selection id="unit2-m0" name="War Dog Executioner" type="model" number="1">
+              <selections>
+                <selection id="unit2-m0-w0" name="Armoured feet" type="upgrade" number="1">
+                  <profiles>
+                    <profile name="Armoured feet" typeName="Melee Weapons">
+                      <characteristics>
+                        <characteristic name="Range">Melee</characteristic>
+                        <characteristic name="A">4</characteristic>
+                        <characteristic name="WS">3+</characteristic>
+                        <characteristic name="S">6</characteristic>
+                        <characteristic name="AP">0</characteristic>
+                        <characteristic name="D">1</characteristic>
+                        <characteristic name="Keywords"></characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+                <selection id="unit2-m0-w1" name="War Dog autocannon" type="upgrade" number="2">
+                  <profiles>
+                    <profile name="War Dog autocannon" typeName="Ranged Weapons">
+                      <characteristics>
+                        <characteristic name="Range">48"</characteristic>
+                        <characteristic name="A">4</characteristic>
+                        <characteristic name="BS">3+</characteristic>
+                        <characteristic name="S">9</characteristic>
+                        <characteristic name="AP">-1</characteristic>
+                        <characteristic name="D">3</characteristic>
+                        <characteristic name="Keywords"></characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+                <selection id="unit2-m0-w2" name="Diabolus heavy stubber" type="upgrade" number="1">
+                  <profiles>
+                    <profile name="Diabolus heavy stubber" typeName="Ranged Weapons">
+                      <characteristics>
+                        <characteristic name="Range">36"</characteristic>
+                        <characteristic name="A">3</characteristic>
+                        <characteristic name="BS">3+</characteristic>
+                        <characteristic name="S">5</characteristic>
+                        <characteristic name="AP">0</characteristic>
+                        <characteristic name="D">1</characteristic>
+                        <characteristic name="Keywords">Rapid Fire 3</characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+              </selections>
+            </selection>
+          </selections>
+        </selection>
+        <selection id="unit3" name="Nurglings" type="unit" number="1">
+          <profiles>
+            <profile name="Nurglings" typeName="Unit">
+              <characteristics>
+                <characteristic name="M">5"</characteristic>
+                <characteristic name="T">3</characteristic>
+                <characteristic name="SV">7+</characteristic>
+                <characteristic name="W">4</characteristic>
+                <characteristic name="LD">8+</characteristic>
+                <characteristic name="OC">0</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Invulnerable Save" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">5+ invulnerable save</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Infiltrators" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">Once per battle, the unit has the Infiltrators ability.</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Mischief Makers" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">During the Fight phase, until the end of the phase, the attacking unit gets -1 to Hit rolls.</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Deep Strike" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">The unit has the Deep Strike ability.</characteristic>
+              </characteristics>
+            </profile>
+          </profiles>
+          <categories>
+            <category name="Faction: Legiones Daemonica"/>
+            <category name="Swarm"/>
+            <category name="Battleline"/>
+            <category name="Chaos"/>
+            <category name="Daemon"/>
+            <category name="Nurgle"/>
+            <category name="Nurglings"/>
+          </categories>
+          <selections>
+            <selection id="unit3-m0" name="Nurglings" type="model" number="3">
+              <selections>
+                <selection id="unit3-m0-w0" name="Diseased claws and teeth" type="upgrade" number="3">
+                  <profiles>
+                    <profile name="Diseased claws and teeth" typeName="Melee Weapons">
+                      <characteristics>
+                        <characteristic name="Range">Melee</characteristic>
+                        <characteristic name="A">4</characteristic>
+                        <characteristic name="WS">5+</characteristic>
+                        <characteristic name="S">2</characteristic>
+                        <characteristic name="AP">0</characteristic>
+                        <characteristic name="D">1</characteristic>
+                        <characteristic name="Keywords">Lethal Hits</characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+              </selections>
+            </selection>
+          </selections>
+        </selection>
+      </selections>
+    </force>
+  </forces>
+</roster>

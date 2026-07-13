@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="utf-8"?>
+<roster id="roster0" name="all gas no breaks" gameSystemId="sys-352e-adc2-7639-d6a9" gameSystemName="Warhammer 40,000">
+  <forces>
+    <force id="force0" name="Chaos Daemons" catalogueName="Chaos Daemons">
+      <selections>
+        <selection id="unit0" name="Rotigus" type="unit" number="1">
+          <profiles>
+            <profile name="Rotigus" typeName="Unit">
+              <characteristics>
+                <characteristic name="M">7"</characteristic>
+                <characteristic name="T">12</characteristic>
+                <characteristic name="SV">5+</characteristic>
+                <characteristic name="W">22</characteristic>
+                <characteristic name="LD">6+</characteristic>
+                <characteristic name="OC">5</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Invulnerable Save" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">4+ invulnerable save</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Deadly Demise D6" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">Before this model is removed from play:
+  -&gt; Roll one D6: on a 6+, each enemy unit within 6" suffers D6 mortal wounds.</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Deluge of Nurgle (Aura)" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">Subtract 2 from the Move characteristic of enemy units within 6".
+Enemy units within 6" get -1 to their Objective Control characteristic.</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Feel No Pain 6+" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">The unit has the Feel No Pain 6+ ability.</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Greater Daemon of Nurgle (Aura)" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">If the unit has the nurgle keyword, if the unit has the legiones-daemonica keyword, for the rest of the battle, friendly units within 6" gain the Shadow of Chaos ability.</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Virulent Blessing (Psychic)" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">During the Fight phase, until the end of the phase, add 1 to the unit's Damage characteristic.</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Deep Strike" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">The unit has the Deep Strike ability.</characteristic>
+              </characteristics>
+            </profile>
+          </profiles>
+          <categories>
+            <category name="Faction: Legiones Daemonica"/>
+            <category name="Monster"/>
+            <category name="Character"/>
+            <category name="Epic Hero"/>
+            <category name="Psyker"/>
+            <category name="Chaos"/>
+            <category name="Daemon"/>
+            <category name="Nurgle"/>
+            <category name="Rotigus"/>
+          </categories>
+          <selections>
+            <selection id="unit0-m0" name="Rotigus" type="model" number="1">
+              <selections>
+                <selection id="unit0-m0-w0" name="Gnarlrod" type="upgrade" number="1">
+                  <profiles>
+                    <profile name="Sweep" typeName="Melee Weapons">
+                      <characteristics>
+                        <characteristic name="Range">Melee</characteristic>
+                        <characteristic name="A">14</characteristic>
+                        <characteristic name="WS">2+</characteristic>
+                        <characteristic name="S">8</characteristic>
+                        <characteristic name="AP">-1</characteristic>
+                        <characteristic name="D">1</characteristic>
+                        <characteristic name="Keywords">Lethal Hits, Psychic</characteristic>
+                      </characteristics>
+                    </profile>
+                    <profile name="Strike" typeName="Melee Weapons">
+                      <characteristics>
+                        <characteristic name="Range">Melee</characteristic>
+                        <characteristic name="A">7</characteristic>
+                        <characteristic name="WS">2+</characteristic>
+                        <characteristic name="S">10</characteristic>
+                        <characteristic name="AP">-3</characteristic>
+                        <characteristic name="D">3</characteristic>
+                        <characteristic name="Keywords">Lethal Hits, Psychic</characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+                <selection id="unit0-m0-w1" name="Streams of brackish filth" type="upgrade" number="1">
+                  <profiles>
+                    <profile name="Streams of brackish filth" typeName="Ranged Weapons">
+                      <characteristics>
+                        <characteristic name="Range">12"</characteristic>
+                        <characteristic name="A">2D6</characteristic>
+                        <characteristic name="BS">N/A</characteristic>
+                        <characteristic name="S">8</characteristic>
+                        <characteristic name="AP">-2</characteristic>
+                        <characteristic name="D">1</characteristic>
+                        <characteristic name="Keywords">Devastating Wounds, Ignores Cover, Torrent</characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+              </selections>
+            </selection>
+          </selections>
+        </selection>
+        <selection id="unit1" name="Great Unclean One" type="unit" number="1">
+          <profiles>
+            <profile name="Great Unclean One" typeName="Unit">
+              <characteristics>
+                <characteristic name="M">7"</characteristic>
+                <characteristic name="T">12</characteristic>
+                <characteristic name="SV">5+</characteristic>
+                <characteristic name="W">20</characteristic>
+                <characteristic name="LD">6+</characteristic>
+                <characteristic name="OC">5</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Invulnerable Save" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">4+ invulnerable save</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Daemon Lord of Nurgle (Aura)" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">Against nurgle targets against legiones-daemonica targets, until the end of the battle round, add 1 to the Toughness characteristic of friendly units within 6".</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Nurgle’s Rot (Psychic)" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">Subtract 1 from the Toughness characteristic of enemy units within 12".</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Deep Strike" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">The unit has the Deep Strike ability.</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Feel No Pain 6+" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">The unit has the Feel No Pain 6+ ability.</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Deadly Demise D6" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">Before this model is removed from play:
+  -&gt; Roll one D6: on a 6+, each enemy unit within 6" suffers D6 mortal wounds.</characteristic>
+              </characteristics>
+            </profile>
+          </profiles>
+          <categories>
+            <category name="Faction: Legiones Daemonica"/>
+            <category name="Monster"/>
+            <category name="Character"/>
+            <category name="Psyker"/>
+            <category name="Chaos"/>
+            <category name="Daemon"/>
+            <category name="Nurgle"/>
+            <category name="Great Unclean One"/>
+          </categories>
+          <selections>
+            <selection id="unit1-m0" name="Great Unclean One" type="model" number="1">
+              <selections>
+                <selection id="unit1-m0-w0" name="Putrid vomit" type="upgrade" number="1">
+                  <profiles>
+                    <profile name="Putrid vomit" typeName="Ranged Weapons">
+                      <characteristics>
+                        <characteristic name="Range">12"</characteristic>
+                        <characteristic name="A">D6+3</characteristic>
+                        <characteristic name="BS">N/A</characteristic>
+                        <characteristic name="S">5</characteristic>
+                        <characteristic name="AP">-2</characteristic>
+                        <characteristic name="D">1</characteristic>
+                        <characteristic name="Keywords">Ignores Cover, Torrent</characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+                <selection id="unit1-m0-w1" name="Bileblade" type="upgrade" number="1">
+                  <profiles>
+                    <profile name="Bileblade" typeName="Melee Weapons">
+                      <characteristics>
+                        <characteristic name="Range">Melee</characteristic>
+                        <characteristic name="A">3</characteristic>
+                        <characteristic name="WS">2+</characteristic>
+                        <characteristic name="S">6</characteristic>
+                        <characteristic name="AP">-2</characteristic>
+                        <characteristic name="D">2</characteristic>
+                        <characteristic name="Keywords">Extra Attacks, Lethal Hits</characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+                <selection id="unit1-m0-w2" name="Bilesword" type="upgrade" number="1">
+                  <profiles>
+                    <profile name="Sweep" typeName="Melee Weapons">
+                      <characteristics>
+                        <characteristic name="Range">Melee</characteristic>
+                        <characteristic name="A">12</characteristic>
+                        <characteristic name="WS">2+</characteristic>
+                        <characteristic name="S">7</characteristic>
+                        <characteristic name="AP">-1</characteristic>
+                        <characteristic name="D">1</characteristic>
+                        <characteristic name="Keywords">Lethal Hits</characteristic>
+                      </characteristics>
+                    </profile>
+                    <profile name="Strike" typeName="Melee Weapons">
+                      <characteristics>
+                        <characteristic name="Range">Melee</characteristic>
+                        <characteristic name="A">6</characteristic>
+                        <characteristic name="WS">2+</characteristic>
+                        <characteristic name="S">10</characteristic>
+                        <characteristic name="AP">-2</characteristic>
+                        <characteristic name="D">D6+1</characteristic>
+                        <characteristic name="Keywords">Lethal Hits</characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+              </selections>
+            </selection>
+          </selections>
+        </selection>
+        <selection id="unit2" name="Bloodmaster" type="unit" number="1">
+          <profiles>
+            <profile name="Bloodmaster" typeName="Unit">
+              <characteristics>
+                <characteristic name="M">8"</characteristic>
+                <characteristic name="T">4</characteristic>
+                <characteristic name="SV">5+</characteristic>
+                <characteristic name="W">4</characteristic>
+                <characteristic name="LD">7+</characteristic>
+                <characteristic name="OC">1</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Invulnerable Save" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">4+ invulnerable save</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="A Gory Path" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">The unit can Consolidate up to 6".</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Bloodmaster" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">After being attached to a unit, the unit gets +1 to Wound rolls.</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Leader" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">The unit gains the Leader ability.</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Deep Strike" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">The unit has the Deep Strike ability.</characteristic>
+              </characteristics>
+            </profile>
+          </profiles>
+          <categories>
+            <category name="Faction: Legiones Daemonica"/>
+            <category name="Infantry"/>
+            <category name="Character"/>
+            <category name="Chaos"/>
+            <category name="Daemon"/>
+            <category name="Khorne"/>
+            <category name="Bloodmaster"/>
+          </categories>
+          <selections>
+            <selection id="unit2-m0" name="Bloodmaster" type="model" number="1">
+              <selections>
+                <selection id="unit2-m0-w0" name="Blade of blood" type="upgrade" number="1">
+                  <profiles>
+                    <profile name="Blade of blood" typeName="Melee Weapons">
+                      <characteristics>
+                        <characteristic name="Range">Melee</characteristic>
+                        <characteristic name="A">5</characteristic>
+                        <characteristic name="WS">2+</characteristic>
+                        <characteristic name="S">6</characteristic>
+                        <characteristic name="AP">-2</characteristic>
+                        <characteristic name="D">3</characteristic>
+                        <characteristic name="Keywords"></characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+              </selections>
+            </selection>
+          </selections>
+        </selection>
+        <selection id="unit3" name="Bloodletters" type="unit" number="1">
+          <profiles>
+            <profile name="Bloodletter" typeName="Unit">
+              <characteristics>
+                <characteristic name="M">8"</characteristic>
+                <characteristic name="T">4</characteristic>
+                <characteristic name="SV">7+</characteristic>
+                <characteristic name="W">1</characteristic>
+                <characteristic name="LD">7+</characteristic>
+                <characteristic name="OC">2</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Invulnerable Save" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">5+ invulnerable save</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Bane of Cowards" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">Enemy units nearby cannot Fall Back.</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Deep Strike" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">The unit has the Deep Strike ability.</characteristic>
+              </characteristics>
+            </profile>
+          </profiles>
+          <categories>
+            <category name="Faction: Legiones Daemonica"/>
+            <category name="Infantry"/>
+            <category name="Battleline"/>
+            <category name="Chaos"/>
+            <category name="Daemon"/>
+            <category name="Khorne"/>
+            <category name="Bloodletters"/>
+          </categories>
+          <selections>
+            <selection id="unit3-m0" name="Bloodletters" type="model" number="10">
+              <selections>
+                <selection id="unit3-m0-w0" name="Hellblade" type="upgrade" number="100">
+                  <profiles>
+                    <profile name="Hellblade" typeName="Melee Weapons">
+                      <characteristics>
+                        <characteristic name="Range">Melee</characteristic>
+                        <characteristic name="A">2</characteristic>
+                        <characteristic name="WS">3+</characteristic>
+                        <characteristic name="S">5</characteristic>
+                        <characteristic name="AP">-2</characteristic>
+                        <characteristic name="D">2</characteristic>
+                        <characteristic name="Keywords"></characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+              </selections>
+            </selection>
+          </selections>
+        </selection>
+        <selection id="unit4" name="Flesh Hounds" type="unit" number="1">
+          <profiles>
+            <profile name="Flesh Hound" typeName="Unit">
+              <characteristics>
+                <characteristic name="M">12"</characteristic>
+                <characteristic name="T">4</characteristic>
+                <characteristic name="SV">7+</characteristic>
+                <characteristic name="W">2</characteristic>
+                <characteristic name="LD">7+</characteristic>
+                <characteristic name="OC">1</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Invulnerable Save" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">5+ invulnerable save</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Collar of Khorne" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">The unit has the Feel No Pain 3+ ability.</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Hunters from the Warp" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">The unit can be placed into Strategic Reserves.</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Deep Strike" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">The unit has the Deep Strike ability.</characteristic>
+              </characteristics>
+            </profile>
+          </profiles>
+          <categories>
+            <category name="Faction: Legiones Daemonica"/>
+            <category name="Beast"/>
+            <category name="Chaos"/>
+            <category name="Daemon"/>
+            <category name="Khorne"/>
+            <category name="Flesh Hounds"/>
+          </categories>
+          <selections>
+            <selection id="unit4-m0" name="Flesh Hounds" type="model" number="5">
+              <selections>
+                <selection id="unit4-m0-w2" name="Gore-drenched fangs" type="upgrade" number="25">
+                  <profiles>
+                    <profile name="Gore-drenched fangs" typeName="Melee Weapons">
+                      <characteristics>
+                        <characteristic name="Range">Melee</characteristic>
+                        <characteristic name="A">3</characteristic>
+                        <characteristic name="WS">3+</characteristic>
+                        <characteristic name="S">5</characteristic>
+                        <characteristic name="AP">-1</characteristic>
+                        <characteristic name="D">1</characteristic>
+                        <characteristic name="Keywords"></characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+              </selections>
+            </selection>
+          </selections>
+        </selection>
+      </selections>
+    </force>
+  </forces>
+</roster>

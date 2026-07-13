@@ -10,9 +10,7 @@
     "is_free": true,
     "replaces": [
       "iliastus-accelerator-culverin",
-      "iliastus-accelerator-culverin",
-      "spiculus-bolt-launcher",
-      "armoured-feet"
+      "iliastus-accelerator-culverin"
     ],
     "replacement_choice": [
       [
@@ -45,9 +43,7 @@
     },
     "is_free": true,
     "replaces": [
-      "iliastus-accelerator-culverin",
-      "spiculus-bolt-launcher",
-      "armoured-feet"
+      "iliastus-accelerator-culverin"
     ],
     "replacement_choice": [
       [
@@ -72,8 +68,7 @@
     },
     "is_free": true,
     "replaces": [
-      "lastrum-storm-bolter",
-      "achillus-dreadspear"
+      "lastrum-storm-bolter"
     ],
     "replacement_choice": [
       [
@@ -98,8 +93,7 @@
     "is_free": true,
     "replaces": [
       "lastrum-storm-bolter",
-      "lastrum-storm-bolter",
-      "achillus-dreadspear"
+      "lastrum-storm-bolter"
     ],
     "replacement_choice": [
       [
@@ -129,9 +123,7 @@
     },
     "is_free": true,
     "replaces": [
-      "combi-bolter",
-      "multi-melta",
-      "contemptor-combat-weapon"
+      "multi-melta"
     ],
     "replacement": [
       "kheres-pattern-assault-cannon"
@@ -148,11 +140,9 @@
       "edition": "11th",
       "dataslate": "launch"
     },
-    "is_free": false,
+    "is_free": true,
     "replaces": [
-      "twin-iliastus-accelerator-cannon",
-      "twin-lastrum-bolt-cannon",
-      "armoured-hull"
+      "twin-iliastus-accelerator-cannon"
     ],
     "replacement": [
       "twin-arachnus-heavy-blaze-cannon"
@@ -171,7 +161,6 @@
     },
     "is_free": true,
     "replaces": [
-      "balistus-grenade-launcher",
       "guardian-spear"
     ],
     "replacement_choice": [
@@ -179,7 +168,8 @@
         "castellan-axe"
       ],
       [
-        "misericordia"
+        "misericordia",
+        "vexilla"
       ]
     ],
     "model_constraint": {
@@ -196,8 +186,7 @@
     },
     "is_free": true,
     "replaces": [
-      "salvo-launcher",
-      "interceptor-lance"
+      "salvo-launcher"
     ],
     "replacement": [
       "vertus-hurricane-bolter"
@@ -223,30 +212,12 @@
         "sentinel-blade"
       ],
       [
+        "vexilla",
         "misericordia"
       ]
     ],
     "model_constraint": {
       "any_number": true
-    }
-  },
-  {
-    "id": "custodian-guard-wgo-mfm-2",
-    "unit_id": "custodian-guard",
-    "faction_id": "adeptus-custodes",
-    "game_version": {
-      "edition": "11th",
-      "dataslate": "launch"
-    },
-    "is_free": true,
-    "replaces": [
-      "guardian-spear"
-    ],
-    "replacement": [
-      "vexilla"
-    ],
-    "model_constraint": {
-      "max_count": 1
     }
   },
   {
@@ -284,10 +255,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "storm-bolter",
-      "armoured-tracks"
-    ],
     "replacement": [
       "hunter-killer-missile"
     ],
@@ -305,8 +272,7 @@
     },
     "is_free": true,
     "replaces": [
-      "lastrum-bolt-cannon",
-      "interceptor-lance-agamatus-custodians"
+      "lastrum-bolt-cannon"
     ],
     "replacement_choice": [
       [
@@ -329,12 +295,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "godhammer-lascannon",
-      "godhammer-lascannon",
-      "twin-heavy-bolter",
-      "armoured-tracks-venerable-land-raider"
-    ],
     "replacement": [
       "storm-bolter-venerable-land-raider"
     ],
@@ -351,12 +311,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "godhammer-lascannon",
-      "godhammer-lascannon",
-      "twin-heavy-bolter",
-      "armoured-tracks-venerable-land-raider"
-    ],
     "replacement": [
       "hunter-killer-missile"
     ],
@@ -366,6 +320,22 @@
   },
   {
     "id": "custodian-wardens-wgo-mfm-1",
+    "unit_id": "custodian-wardens",
+    "faction_id": "adeptus-custodes",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_free": true,
+    "replacement": [
+      "vexilla"
+    ],
+    "model_constraint": {
+      "max_count": 1
+    }
+  },
+  {
+    "id": "custodian-wardens-wgo-mfm-2",
     "unit_id": "custodian-wardens",
     "faction_id": "adeptus-custodes",
     "game_version": {
@@ -393,8 +363,7 @@
     },
     "is_free": true,
     "replaces": [
-      "salvo-launcher",
-      "interceptor-lance-vertus-praetors"
+      "salvo-launcher"
     ],
     "replacement": [
       "vertus-hurricane-bolter"
@@ -432,7 +401,6 @@
     },
     "is_free": true,
     "replaces": [
-      "balistus-grenade-launcher",
       "guardian-spear-shield-captain-in-allarus-terminator-armour"
     ],
     "replacement": [
@@ -452,8 +420,7 @@
     },
     "is_free": true,
     "replaces": [
-      "lastrum-storm-bolter",
-      "solerite-power-gauntlet"
+      "lastrum-storm-bolter"
     ],
     "replacement_choice": [
       [
@@ -477,7 +444,6 @@
     },
     "is_free": true,
     "replaces": [
-      "lastrum-storm-bolter",
       "solerite-power-gauntlet"
     ],
     "replacement": [

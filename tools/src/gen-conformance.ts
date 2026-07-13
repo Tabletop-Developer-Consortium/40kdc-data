@@ -183,6 +183,14 @@ const EXPORT_ONLY_TEXT_FORMATS: { format: ExportFormat; goldenName: string }[] =
   { format: "atc-2026-full", goldenName: "expected.atc-2026-full.txt" },
 ];
 
+// Export-only *Dataset-backed* formats — no importer, and the serializer reads
+// the dataset (not just the Roster), so the golden is generated with `ds`
+// passed through `exportRoster`. Byte-parity holds across ports because every
+// port embeds the same dataset.
+const EXPORT_ONLY_DATASET_FORMATS: { format: ExportFormat; goldenName: string }[] = [
+  { format: "yellowscribe", goldenName: "expected.yellowscribe.ros" },
+];
+
 function genRosters(): void {
   const ds = Dataset.embedded();
   const rosterDir = join(CONFORMANCE, "roster");
@@ -230,6 +238,13 @@ function genRosters(): void {
     // Export-only text formats (ATC 2026) — golden only, never a round-trip input.
     for (const { format, goldenName } of EXPORT_ONLY_TEXT_FORMATS) {
       writeText(join(caseDir, goldenName), exportRoster(seed, format));
+    }
+
+    // Export-only Dataset-backed formats (Yellowscribe `.ros`) — golden only.
+    // Pass the dataset so the serializer can resolve stat lines / weapons /
+    // abilities; there's no importer, so no round-trip input.
+    for (const { format, goldenName } of EXPORT_ONLY_DATASET_FORMATS) {
+      writeText(join(caseDir, goldenName), exportRoster(seed, format, ds));
     }
 
     // Rosterizer JSON export + a derived round-trip input. The exporter is

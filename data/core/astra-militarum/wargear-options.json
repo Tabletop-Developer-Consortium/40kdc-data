@@ -8,10 +8,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "multi-laser",
-      "close-combat-weapon"
-    ],
     "replacement": [
       "sentinel-chainsaw"
     ],
@@ -28,10 +24,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "multi-laser",
-      "close-combat-weapon"
-    ],
     "replacement": [
       "hunter-killer-missile"
     ],
@@ -49,8 +41,7 @@
     },
     "is_free": true,
     "replaces": [
-      "multi-laser",
-      "close-combat-weapon"
+      "multi-laser"
     ],
     "replacement_choice": [
       [
@@ -83,8 +74,7 @@
     },
     "is_free": true,
     "replaces": [
-      "laspistol",
-      "chainsword"
+      "laspistol"
     ],
     "replacement_choice": [
       [
@@ -108,7 +98,6 @@
     },
     "is_free": true,
     "replaces": [
-      "laspistol",
       "chainsword"
     ],
     "replacement_choice": [
@@ -178,9 +167,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "close-combat-weapon-cadian-shock-troops"
-    ],
     "replacement": [
       "vox-caster"
     ],
@@ -199,8 +185,7 @@
     },
     "is_free": true,
     "replaces": [
-      "lasgun",
-      "close-combat-weapon-cadian-shock-troops"
+      "lasgun"
     ],
     "replacement_choice": [
       [
@@ -231,8 +216,7 @@
     },
     "is_free": true,
     "replaces": [
-      "hot-shot-lasgun",
-      "close-combat-weapon-militarum-tempestus-command-squad"
+      "hot-shot-lasgun"
     ],
     "replacement_choice": [
       [
@@ -272,9 +256,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "close-combat-weapon-militarum-tempestus-command-squad"
-    ],
     "replacement_choice": [
       [
         "regimental-standard"
@@ -298,8 +279,7 @@
     },
     "is_free": true,
     "replaces": [
-      "bolt-pistol",
-      "tempestus-dagger"
+      "bolt-pistol"
     ],
     "replacement_choice": [
       [
@@ -324,8 +304,7 @@
     },
     "is_free": true,
     "replaces": [
-      "hot-shot-lascarbine",
-      "close-combat-weapon-tempestus-aquilons"
+      "hot-shot-lascarbine"
     ],
     "replacement_choice": [
       [
@@ -377,9 +356,7 @@
     },
     "is_free": true,
     "replaces": [
-      "hot-shot-lascarbine",
-      "sentry-flamer",
-      "close-combat-weapon-tempestus-aquilons"
+      "hot-shot-lascarbine"
     ],
     "replacement_choice": [
       [
@@ -430,10 +407,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "sentry-flamer",
-      "close-combat-weapon-tempestus-aquilons"
-    ],
     "replacement_choice": [
       [
         "bolt-pistol"
@@ -457,9 +430,7 @@
     },
     "is_free": true,
     "replaces": [
-      "hot-shot-lascarbine",
-      "sentry-flamer",
-      "close-combat-weapon-tempestus-aquilons"
+      "sentry-flamer"
     ],
     "replacement_choice": [
       [
@@ -484,9 +455,7 @@
     },
     "is_free": true,
     "replaces": [
-      "lascannon-krieg-heavy-weapons-squad",
-      "laspistol-krieg-heavy-weapons-squad",
-      "close-combat-weapon-krieg-heavy-weapons-squad"
+      "lascannon-krieg-heavy-weapons-squad"
     ],
     "replacement_choice": [
       [
@@ -529,10 +498,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "sniper-rifle",
-      "close-combat-weapon-ratlings"
-    ],
     "replacement": [
       "ratling-battlemutt"
     ],
@@ -549,10 +514,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "sniper-rifle",
-      "close-combat-weapon-ratlings"
-    ],
     "replacement": [
       "demolition-gear"
     ],
@@ -569,11 +530,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "lascannon",
-      "leman-russ-battle-cannon",
-      "armoured-tracks"
-    ],
     "replacement": [
       "hunter-killer-missile"
     ],
@@ -591,9 +547,7 @@
     },
     "is_free": true,
     "replaces": [
-      "lascannon",
-      "leman-russ-battle-cannon",
-      "armoured-tracks"
+      "lascannon"
     ],
     "replacement_choice": [
       [
@@ -656,10 +610,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "leman-russ-battle-cannon",
-      "armoured-tracks"
-    ],
     "replacement_choice": [
       [
         "heavy-bolter",
@@ -691,11 +641,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "lascannon",
-      "leman-russ-battle-cannon",
-      "armoured-tracks"
-    ],
     "replacement_choice": [
       [
         "storm-bolter"
@@ -717,10 +662,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "stormsword-siege-cannon",
-      "armoured-tracks-stormsword"
-    ],
     "replacement_choice": [
       [
         "twin-heavy-flamer",
@@ -749,10 +690,8 @@
     },
     "is_free": true,
     "replaces": [
-      "stormsword-siege-cannon",
       "twin-heavy-flamer",
-      "twin-heavy-flamer",
-      "armoured-tracks-stormsword"
+      "twin-heavy-flamer"
     ],
     "replacement_choice": [
       [
@@ -782,9 +721,7 @@
     },
     "is_free": true,
     "replaces": [
-      "taurox-battle-cannon",
-      "twin-taurox-hot-shot-volley-gun",
-      "armoured-tracks-taurox-prime"
+      "twin-taurox-hot-shot-volley-gun"
     ],
     "replacement": [
       "twin-autocannon"
@@ -803,9 +740,7 @@
     },
     "is_free": true,
     "replaces": [
-      "taurox-battle-cannon",
-      "twin-taurox-hot-shot-volley-gun",
-      "armoured-tracks-taurox-prime"
+      "taurox-battle-cannon"
     ],
     "replacement_choice": [
       [
@@ -828,11 +763,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "taurox-battle-cannon",
-      "twin-taurox-hot-shot-volley-gun",
-      "armoured-tracks-taurox-prime"
-    ],
     "replacement": [
       "storm-bolter-taurox-prime"
     ],
@@ -850,10 +780,7 @@
     },
     "is_free": true,
     "replaces": [
-      "malleus-rocket-launcher",
-      "lasgun",
-      "laspistol-field-ordnance-battery",
-      "battery-close-combat-weapons"
+      "malleus-rocket-launcher"
     ],
     "replacement_choice": [
       [
@@ -877,10 +804,7 @@
     },
     "is_free": true,
     "replaces": [
-      "castigator-gatling-cannon",
-      "heavy-stubber",
-      "twin-battle-cannon",
-      "armoured-tracks"
+      "castigator-gatling-cannon"
     ],
     "replacement": [
       "pulveriser-cannon"
@@ -899,10 +823,7 @@
     },
     "is_free": true,
     "replaces": [
-      "castigator-gatling-cannon",
-      "heavy-stubber",
-      "twin-battle-cannon",
-      "armoured-tracks"
+      "twin-battle-cannon"
     ],
     "replacement": [
       "coaxial-autocannon",
@@ -921,12 +842,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "castigator-gatling-cannon",
-      "heavy-stubber",
-      "twin-battle-cannon",
-      "armoured-tracks"
-    ],
     "replacement_choice": [
       [
         "heavy-bolter",
@@ -950,11 +865,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "castigator-gatling-cannon",
-      "twin-battle-cannon",
-      "armoured-tracks"
-    ],
     "replacement_choice": [
       [
         "meltagun",
@@ -978,10 +888,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "exterminator-autocannon",
-      "armoured-tracks"
-    ],
     "replacement_choice": [
       [
         "plasma-cannon",
@@ -1014,9 +920,7 @@
     },
     "is_free": true,
     "replaces": [
-      "exterminator-autocannon",
-      "lascannon",
-      "armoured-tracks"
+      "lascannon"
     ],
     "replacement_choice": [
       [
@@ -1079,11 +983,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "exterminator-autocannon",
-      "lascannon",
-      "armoured-tracks"
-    ],
     "replacement_choice": [
       [
         "storm-bolter"
@@ -1105,11 +1004,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "exterminator-autocannon",
-      "lascannon",
-      "armoured-tracks"
-    ],
     "replacement": [
       "hunter-killer-missile"
     ],
@@ -1127,9 +1021,7 @@
     },
     "is_free": true,
     "replaces": [
-      "grenadier-gauntlet",
-      "close-combat-weapon-bullgryn-squad",
-      "slabshield"
+      "grenadier-gauntlet"
     ],
     "replacement": [
       "bullgryn-maul"
@@ -1149,9 +1041,7 @@
     },
     "is_free": true,
     "replaces": [
-      "grenadier-gauntlet",
-      "close-combat-weapon-bullgryn-squad",
-      "slabshield"
+      "grenadier-gauntlet"
     ],
     "replacement": [
       "bullgryn-maul"
@@ -1171,8 +1061,6 @@
     },
     "is_free": true,
     "replaces": [
-      "grenadier-gauntlet",
-      "close-combat-weapon-bullgryn-squad",
       "slabshield"
     ],
     "replacement": [
@@ -1193,8 +1081,6 @@
     },
     "is_free": true,
     "replaces": [
-      "grenadier-gauntlet",
-      "close-combat-weapon-bullgryn-squad",
       "slabshield"
     ],
     "replacement": [
@@ -1215,9 +1101,7 @@
     },
     "is_free": true,
     "replaces": [
-      "heavy-bolter-cadian-heavy-weapons-squad",
-      "laspistol-cadian-heavy-weapons-squad",
-      "weapons-team-close-combat-weapons"
+      "heavy-bolter-cadian-heavy-weapons-squad"
     ],
     "replacement_choice": [
       [
@@ -1247,9 +1131,7 @@
     },
     "is_free": true,
     "replaces": [
-      "heavy-bolter-catachan-heavy-weapons-squad",
-      "lasgun",
-      "weapons-team-close-combat-weapons"
+      "heavy-bolter-catachan-heavy-weapons-squad"
     ],
     "replacement_choice": [
       [
@@ -1278,13 +1160,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "coaxial-autocannon",
-      "demolisher-cannon",
-      "heavy-stubber",
-      "hellhammer-cannon",
-      "armoured-tracks-hellhammer"
-    ],
     "replacement_choice": [
       [
         "twin-heavy-bolter",
@@ -1313,13 +1188,8 @@
     },
     "is_free": true,
     "replaces": [
-      "coaxial-autocannon",
-      "demolisher-cannon",
-      "heavy-stubber",
-      "hellhammer-cannon",
       "twin-heavy-flamer-hellhammer",
-      "twin-heavy-flamer-hellhammer",
-      "armoured-tracks-hellhammer"
+      "twin-heavy-flamer-hellhammer"
     ],
     "replacement_choice": [
       [
@@ -1349,8 +1219,7 @@
     },
     "is_free": true,
     "replaces": [
-      "multi-laser",
-      "close-combat-weapon"
+      "multi-laser"
     ],
     "replacement_choice": [
       [
@@ -1382,10 +1251,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "multi-laser",
-      "close-combat-weapon"
-    ],
     "replacement": [
       "sentinel-chainsaw"
     ],
@@ -1402,10 +1267,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "multi-laser",
-      "close-combat-weapon"
-    ],
     "replacement": [
       "hunter-killer-missile"
     ],
@@ -1423,8 +1284,7 @@
     },
     "is_free": true,
     "replaces": [
-      "bolt-pistol",
-      "chainsword-commissar"
+      "bolt-pistol"
     ],
     "replacement": [
       "plasma-pistol"
@@ -1443,7 +1303,6 @@
     },
     "is_free": true,
     "replaces": [
-      "bolt-pistol",
       "chainsword-commissar"
     ],
     "replacement": [
@@ -1462,11 +1321,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "heavy-bolter",
-      "deathstrike-missile",
-      "armoured-tracks-deathstrike"
-    ],
     "replacement": [
       "hunter-killer-missile-deathstrike"
     ],
@@ -1484,9 +1338,7 @@
     },
     "is_free": true,
     "replaces": [
-      "heavy-bolter",
-      "deathstrike-missile",
-      "armoured-tracks-deathstrike"
+      "heavy-bolter"
     ],
     "replacement": [
       "heavy-flamer"
@@ -1505,9 +1357,7 @@
     },
     "is_free": true,
     "replaces": [
-      "heavy-mortar",
-      "lasgun",
-      "crew-close-combat-weapons"
+      "heavy-mortar"
     ],
     "replacement_choice": [
       [
@@ -1534,9 +1384,7 @@
     },
     "is_free": true,
     "replaces": [
-      "executioner-plasma-cannon",
-      "lascannon",
-      "armoured-tracks"
+      "lascannon"
     ],
     "replacement_choice": [
       [
@@ -1599,10 +1447,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "executioner-plasma-cannon",
-      "armoured-tracks"
-    ],
     "replacement_choice": [
       [
         "heavy-bolter",
@@ -1634,11 +1478,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "executioner-plasma-cannon",
-      "lascannon",
-      "armoured-tracks"
-    ],
     "replacement_choice": [
       [
         "heavy-stubber"
@@ -1660,11 +1499,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "executioner-plasma-cannon",
-      "lascannon",
-      "armoured-tracks"
-    ],
     "replacement": [
       "hunter-killer-missile"
     ],
@@ -1682,8 +1516,7 @@
     },
     "is_free": true,
     "replaces": [
-      "hot-shot-laspistol",
-      "chainsword-tempestus-scions"
+      "hot-shot-laspistol"
     ],
     "replacement_choice": [
       [
@@ -1708,7 +1541,6 @@
     },
     "is_free": true,
     "replaces": [
-      "hot-shot-laspistol",
       "chainsword-tempestus-scions"
     ],
     "replacement_choice": [
@@ -1734,8 +1566,7 @@
     },
     "is_free": true,
     "replaces": [
-      "hot-shot-lasgun",
-      "close-combat-weapon-tempestus-scions"
+      "hot-shot-lasgun"
     ],
     "replacement_choice": [
       [
@@ -1773,21 +1604,19 @@
     },
     "is_free": true,
     "replaces": [
-      "heavy-stubber",
-      "heavy-stubber",
-      "vulcan-mega-bolter",
-      "armoured-tracks-stormlord"
+      "twin-heavy-flamer-stormlord",
+      "twin-heavy-flamer-stormlord"
     ],
     "replacement_choice": [
       [
-        "twin-heavy-flamer-stormlord",
-        "twin-heavy-flamer-stormlord",
+        "twin-heavy-bolter",
+        "twin-heavy-bolter",
+        "twin-heavy-bolter",
+        "twin-heavy-bolter",
         "lascannon",
         "lascannon"
       ],
       [
-        "lascannon",
-        "lascannon",
         "twin-heavy-bolter",
         "twin-heavy-bolter"
       ]
@@ -1805,24 +1634,16 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "heavy-stubber",
-      "heavy-stubber",
-      "twin-heavy-flamer-stormlord",
-      "twin-heavy-flamer-stormlord",
-      "vulcan-mega-bolter",
-      "armoured-tracks-stormlord"
-    ],
     "replacement_choice": [
       [
-        "twin-heavy-bolter",
-        "twin-heavy-bolter",
-        "twin-heavy-bolter",
-        "twin-heavy-bolter",
+        "twin-heavy-flamer-stormlord",
+        "twin-heavy-flamer-stormlord",
         "lascannon",
         "lascannon"
       ],
       [
+        "lascannon",
+        "lascannon",
         "twin-heavy-bolter",
         "twin-heavy-bolter"
       ]
@@ -1841,9 +1662,7 @@
     },
     "is_free": true,
     "replaces": [
-      "ripper-gun-ogryn-bodyguard",
-      "close-combat-weapon-ogryn-bodyguard",
-      "huge-knife-ogryn-bodyguard"
+      "ripper-gun-ogryn-bodyguard"
     ],
     "replacement_choice": [
       [
@@ -1867,8 +1686,6 @@
     },
     "is_free": true,
     "replaces": [
-      "ripper-gun-ogryn-bodyguard",
-      "close-combat-weapon-ogryn-bodyguard",
       "huge-knife-ogryn-bodyguard"
     ],
     "replacement_choice": [
@@ -1893,8 +1710,7 @@
     },
     "is_free": true,
     "replaces": [
-      "hot-shot-lasgun",
-      "close-combat-weapon-kasrkin"
+      "hot-shot-lasgun"
     ],
     "replacement_choice": [
       [
@@ -1933,9 +1749,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "close-combat-weapon-kasrkin"
-    ],
     "replacement": [
       "vox-caster"
     ],
@@ -1954,7 +1767,6 @@
     },
     "is_free": true,
     "replaces": [
-      "hot-shot-laspistol",
       "chainsword-kasrkin"
     ],
     "replacement": [
@@ -1975,8 +1787,7 @@
     },
     "is_free": true,
     "replaces": [
-      "hot-shot-laspistol",
-      "chainsword-kasrkin"
+      "hot-shot-laspistol"
     ],
     "replacement_choice": [
       [
@@ -2001,8 +1812,7 @@
     },
     "is_free": true,
     "replaces": [
-      "laspistol-cadian-command-squad",
-      "chainsword-cadian-command-squad"
+      "laspistol-cadian-command-squad"
     ],
     "replacement_choice": [
       [
@@ -2027,7 +1837,6 @@
     },
     "is_free": true,
     "replaces": [
-      "laspistol-cadian-command-squad",
       "chainsword-cadian-command-squad"
     ],
     "replacement_choice": [
@@ -2053,7 +1862,6 @@
     },
     "is_free": true,
     "replaces": [
-      "laspistol-cadian-command-squad",
       "chainsword-cadian-command-squad"
     ],
     "replacement_choice": [
@@ -2127,8 +1935,7 @@
     },
     "is_free": true,
     "replaces": [
-      "laspistol-cadian-command-squad",
-      "chainsword-cadian-command-squad"
+      "laspistol-cadian-command-squad"
     ],
     "replacement_choice": [
       [
@@ -2177,10 +1984,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "laspistol-catachan-command-squad",
-      "close-combat-weapon-catachan-command-squad"
-    ],
     "replacement_choice": [
       [
         "power-weapon-catachan-command-squad"
@@ -2209,10 +2012,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "laspistol-catachan-command-squad",
-      "close-combat-weapon-catachan-command-squad"
-    ],
     "replacement_choice": [
       [
         "regimental-standard"
@@ -2236,9 +2035,7 @@
     },
     "is_free": true,
     "replaces": [
-      "lasgun",
-      "laspistol-catachan-command-squad",
-      "close-combat-weapon-catachan-command-squad"
+      "lasgun"
     ],
     "replacement_choice": [
       [
@@ -2275,10 +2072,8 @@
     },
     "is_free": true,
     "replaces": [
-      "magma-cannon",
       "twin-heavy-flamer-doomhammer",
-      "twin-heavy-flamer-doomhammer",
-      "armoured-tracks-doomhammer"
+      "twin-heavy-flamer-doomhammer"
     ],
     "replacement_choice": [
       [
@@ -2307,10 +2102,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "magma-cannon",
-      "armoured-tracks-doomhammer"
-    ],
     "replacement_choice": [
       [
         "twin-heavy-flamer-doomhammer",
@@ -2339,10 +2130,7 @@
     },
     "is_free": true,
     "replaces": [
-      "castigator-gatling-cannon",
-      "heavy-stubber",
-      "twin-battle-cannon",
-      "armoured-tracks"
+      "castigator-gatling-cannon"
     ],
     "replacement": [
       "pulveriser-cannon"
@@ -2360,11 +2148,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "castigator-gatling-cannon",
-      "twin-battle-cannon",
-      "armoured-tracks"
-    ],
     "replacement_choice": [
       [
         "meltagun",
@@ -2389,10 +2172,7 @@
     },
     "is_free": true,
     "replaces": [
-      "castigator-gatling-cannon",
-      "heavy-stubber",
-      "twin-battle-cannon",
-      "armoured-tracks"
+      "twin-battle-cannon"
     ],
     "replacement": [
       "coaxial-autocannon",
@@ -2411,12 +2191,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "castigator-gatling-cannon",
-      "heavy-stubber",
-      "twin-battle-cannon",
-      "armoured-tracks"
-    ],
     "replacement_choice": [
       [
         "multi-melta",
@@ -2460,10 +2234,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "lasgun",
-      "close-combat-weapon-death-korps-of-krieg"
-    ],
     "replacement": [
       "vox-caster"
     ],
@@ -2559,8 +2329,7 @@
     },
     "is_free": true,
     "replaces": [
-      "lasgun",
-      "close-combat-weapon-death-korps-of-krieg"
+      "lasgun"
     ],
     "replacement_choice": [
       [
@@ -2593,10 +2362,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "quake-cannon",
-      "armoured-tracks-banesword"
-    ],
     "replacement_choice": [
       [
         "lascannon",
@@ -2625,10 +2390,8 @@
     },
     "is_free": true,
     "replaces": [
-      "quake-cannon",
       "twin-heavy-flamer-banesword",
-      "twin-heavy-flamer-banesword",
-      "armoured-tracks-banesword"
+      "twin-heavy-flamer-banesword"
     ],
     "replacement_choice": [
       [
@@ -2658,9 +2421,7 @@
     },
     "is_free": true,
     "replaces": [
-      "heavy-bolter",
-      "wyvern-quad-stormshard-mortar",
-      "armoured-tracks-wyvern"
+      "heavy-bolter"
     ],
     "replacement": [
       "heavy-flamer"
@@ -2678,11 +2439,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "heavy-bolter",
-      "wyvern-quad-stormshard-mortar",
-      "armoured-tracks-wyvern"
-    ],
     "replacement": [
       "hunter-killer-missile"
     ],
@@ -2700,10 +2456,7 @@
     },
     "is_free": true,
     "replaces": [
-      "lasgun",
-      "laspistol-attilan-rough-riders",
-      "hunting-lance",
-      "steeds-hooves"
+      "hunting-lance"
     ],
     "replacement": [
       "goad-lance"
@@ -2723,10 +2476,7 @@
     },
     "is_free": true,
     "replaces": [
-      "lasgun",
-      "laspistol-attilan-rough-riders",
-      "hunting-lance",
-      "steeds-hooves"
+      "hunting-lance"
     ],
     "replacement": [
       "goad-lance"
@@ -2745,12 +2495,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "lasgun",
-      "laspistol-attilan-rough-riders",
-      "hunting-lance",
-      "steeds-hooves"
-    ],
     "replacement": [
       "power-sabre-attilan-rough-riders"
     ],
@@ -2769,9 +2513,7 @@
     },
     "is_free": true,
     "replaces": [
-      "heavy-flamer",
-      "inferno-cannon",
-      "armoured-tracks-hellhound"
+      "inferno-cannon"
     ],
     "replacement_choice": [
       [
@@ -2794,11 +2536,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "heavy-flamer",
-      "inferno-cannon",
-      "armoured-tracks-hellhound"
-    ],
     "replacement": [
       "hunter-killer-missile"
     ],
@@ -2816,9 +2553,7 @@
     },
     "is_free": true,
     "replaces": [
-      "heavy-flamer",
-      "inferno-cannon",
-      "armoured-tracks-hellhound"
+      "heavy-flamer"
     ],
     "replacement_choice": [
       [
@@ -2841,10 +2576,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "punisher-gatling-cannon",
-      "armoured-tracks"
-    ],
     "replacement_choice": [
       [
         "multi-melta",
@@ -2877,9 +2608,7 @@
     },
     "is_free": true,
     "replaces": [
-      "lascannon",
-      "punisher-gatling-cannon",
-      "armoured-tracks"
+      "lascannon"
     ],
     "replacement_choice": [
       [
@@ -2942,11 +2671,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "lascannon",
-      "punisher-gatling-cannon",
-      "armoured-tracks"
-    ],
     "replacement": [
       "hunter-killer-missile"
     ],
@@ -2963,11 +2687,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "lascannon",
-      "punisher-gatling-cannon",
-      "armoured-tracks"
-    ],
     "replacement_choice": [
       [
         "storm-bolter"
@@ -2990,8 +2709,7 @@
     },
     "is_free": true,
     "replaces": [
-      "laspistol-krieg-command-squad",
-      "chainsword-krieg-command-squad"
+      "laspistol-krieg-command-squad"
     ],
     "replacement_choice": [
       [
@@ -3016,7 +2734,6 @@
     },
     "is_free": true,
     "replaces": [
-      "laspistol-krieg-command-squad",
       "power-weapon-krieg-command-squad"
     ],
     "replacement": [
@@ -3068,7 +2785,6 @@
     },
     "is_free": true,
     "replaces": [
-      "laspistol-krieg-command-squad",
       "chainsword-krieg-command-squad"
     ],
     "replacement_choice": [
@@ -3093,10 +2809,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "laspistol-krieg-command-squad",
-      "power-weapon-krieg-command-squad"
-    ],
     "replacement": [
       "plasma-pistol-krieg-command-squad"
     ],
@@ -3114,11 +2826,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "demolisher-battle-cannon",
-      "lascannon",
-      "armoured-tracks"
-    ],
     "replacement": [
       "hunter-killer-missile"
     ],
@@ -3135,11 +2842,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "demolisher-battle-cannon",
-      "lascannon",
-      "armoured-tracks"
-    ],
     "replacement_choice": [
       [
         "storm-bolter"
@@ -3162,9 +2864,7 @@
     },
     "is_free": true,
     "replaces": [
-      "demolisher-battle-cannon",
-      "lascannon",
-      "armoured-tracks"
+      "lascannon"
     ],
     "replacement_choice": [
       [
@@ -3227,10 +2927,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "demolisher-battle-cannon",
-      "armoured-tracks"
-    ],
     "replacement_choice": [
       [
         "heavy-flamer",
@@ -3262,10 +2958,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "twin-autocannon-taurox",
-      "armoured-tracks-taurox"
-    ],
     "replacement": [
       "storm-bolter"
     ],
@@ -3282,10 +2974,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "tremor-cannon",
-      "armoured-tracks-banehammer"
-    ],
     "replacement_choice": [
       [
         "twin-heavy-bolter",
@@ -3314,10 +3002,8 @@
     },
     "is_free": true,
     "replaces": [
-      "tremor-cannon",
       "twin-heavy-flamer-banehammer",
-      "twin-heavy-flamer-banehammer",
-      "armoured-tracks-banehammer"
+      "twin-heavy-flamer-banehammer"
     ],
     "replacement_choice": [
       [
@@ -3347,8 +3033,7 @@
     },
     "is_free": true,
     "replaces": [
-      "lasgun",
-      "close-combat-weapon-catachan-jungle-fighters"
+      "lasgun"
     ],
     "replacement": [
       "flamer"
@@ -3367,9 +3052,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "close-combat-weapon-catachan-jungle-fighters"
-    ],
     "replacement": [
       "vox-caster"
     ],
@@ -3387,11 +3069,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "lascannon",
-      "leman-russ-battle-cannon",
-      "armoured-tracks"
-    ],
     "replacement": [
       "hunter-killer-missile"
     ],
@@ -3408,11 +3085,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "lascannon",
-      "leman-russ-battle-cannon",
-      "armoured-tracks"
-    ],
     "replacement_choice": [
       [
         "storm-bolter"
@@ -3435,9 +3107,7 @@
     },
     "is_free": true,
     "replaces": [
-      "lascannon",
-      "leman-russ-battle-cannon",
-      "armoured-tracks"
+      "leman-russ-battle-cannon"
     ],
     "replacement_choice": [
       [
@@ -3473,9 +3143,7 @@
     },
     "is_free": true,
     "replaces": [
-      "lascannon",
-      "leman-russ-battle-cannon",
-      "armoured-tracks"
+      "lascannon"
     ],
     "replacement_choice": [
       [
@@ -3538,10 +3206,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "leman-russ-battle-cannon",
-      "armoured-tracks"
-    ],
     "replacement_choice": [
       [
         "plasma-cannon",
@@ -3574,9 +3238,7 @@
     },
     "is_free": true,
     "replaces": [
-      "hellstrike-missiles",
-      "multi-laser",
-      "armoured-hull"
+      "multi-laser"
     ],
     "replacement": [
       "lascannon"
@@ -3594,11 +3256,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "hellstrike-missiles",
-      "multi-laser",
-      "armoured-hull"
-    ],
     "replacement": [
       "heavy-bolter",
       "heavy-bolter"
@@ -3617,9 +3274,7 @@
     },
     "is_free": true,
     "replaces": [
-      "hellstrike-missiles",
-      "multi-laser",
-      "armoured-hull"
+      "hellstrike-missiles"
     ],
     "replacement": [
       "multiple-rocket-pod",
@@ -3638,10 +3293,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "volcano-cannon",
-      "armoured-tracks-shadowsword"
-    ],
     "replacement_choice": [
       [
         "lascannon",
@@ -3671,9 +3322,7 @@
     "is_free": true,
     "replaces": [
       "twin-heavy-flamer-shadowsword",
-      "twin-heavy-flamer-shadowsword",
-      "volcano-cannon",
-      "armoured-tracks-shadowsword"
+      "twin-heavy-flamer-shadowsword"
     ],
     "replacement_choice": [
       [
@@ -3702,11 +3351,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "heavy-bolter",
-      "storm-eagle-rockets",
-      "armoured-tracks-manticore"
-    ],
     "replacement": [
       "hunter-killer-missile"
     ],
@@ -3724,9 +3368,7 @@
     },
     "is_free": true,
     "replaces": [
-      "heavy-bolter",
-      "storm-eagle-rockets",
-      "armoured-tracks-manticore"
+      "heavy-bolter"
     ],
     "replacement": [
       "heavy-flamer"
@@ -3744,12 +3386,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "multi-laser",
-      "heavy-bolter",
-      "lasgun-array",
-      "armoured-tracks-chimera"
-    ],
     "replacement": [
       "hunter-killer-missile"
     ],
@@ -3766,12 +3402,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "multi-laser",
-      "heavy-bolter",
-      "lasgun-array",
-      "armoured-tracks-chimera"
-    ],
     "replacement_choice": [
       [
         "storm-bolter"
@@ -3794,9 +3424,7 @@
     },
     "is_free": true,
     "replaces": [
-      "heavy-bolter",
-      "lasgun-array",
-      "armoured-tracks-chimera"
+      "heavy-bolter"
     ],
     "replacement": [
       "heavy-flamer"
@@ -3815,9 +3443,7 @@
     },
     "is_free": true,
     "replaces": [
-      "multi-laser",
-      "lasgun-array",
-      "armoured-tracks-chimera"
+      "multi-laser"
     ],
     "replacement_choice": [
       [
@@ -3842,9 +3468,7 @@
     "is_free": true,
     "replaces": [
       "multi-laser",
-      "heavy-bolter",
-      "lasgun-array",
-      "armoured-tracks-chimera"
+      "heavy-bolter"
     ],
     "replacement": [
       "heavy-flamer",
@@ -3863,10 +3487,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "vanquisher-battle-cannon",
-      "armoured-tracks"
-    ],
     "replacement_choice": [
       [
         "plasma-cannon",
@@ -3899,9 +3519,7 @@
     },
     "is_free": true,
     "replaces": [
-      "lascannon",
-      "vanquisher-battle-cannon",
-      "armoured-tracks"
+      "lascannon"
     ],
     "replacement_choice": [
       [
@@ -3964,11 +3582,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "lascannon",
-      "vanquisher-battle-cannon",
-      "armoured-tracks"
-    ],
     "replacement": [
       "hunter-killer-missile"
     ],
@@ -3985,11 +3598,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "lascannon",
-      "vanquisher-battle-cannon",
-      "armoured-tracks"
-    ],
     "replacement_choice": [
       [
         "storm-bolter"
@@ -4012,9 +3620,7 @@
     },
     "is_free": true,
     "replaces": [
-      "earthshaker-cannon",
-      "heavy-bolter",
-      "armoured-tracks-basilisk"
+      "heavy-bolter"
     ],
     "replacement": [
       "heavy-flamer"
@@ -4032,11 +3638,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "earthshaker-cannon",
-      "heavy-bolter",
-      "armoured-tracks-basilisk"
-    ],
     "replacement": [
       "hunter-killer-missile"
     ],
@@ -4053,13 +3654,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "baneblade-cannon",
-      "coaxial-autocannon",
-      "demolisher-cannon",
-      "heavy-stubber",
-      "armoured-tracks-baneblade"
-    ],
     "replacement_choice": [
       [
         "lascannon",
@@ -4088,13 +3682,8 @@
     },
     "is_free": true,
     "replaces": [
-      "baneblade-cannon",
-      "coaxial-autocannon",
-      "demolisher-cannon",
-      "heavy-stubber",
       "twin-heavy-flamer-baneblade",
-      "twin-heavy-flamer-baneblade",
-      "armoured-tracks-baneblade"
+      "twin-heavy-flamer-baneblade"
     ],
     "replacement_choice": [
       [
@@ -4273,9 +3862,7 @@
     },
     "is_free": true,
     "replaces": [
-      "heavy-bolter",
-      "hydra-autocannon",
-      "armoured-tracks-hydra"
+      "heavy-bolter"
     ],
     "replacement": [
       "heavy-flamer"
@@ -4293,11 +3880,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "heavy-bolter",
-      "hydra-autocannon",
-      "armoured-tracks-hydra"
-    ],
     "replacement": [
       "hunter-killer-missile"
     ],
@@ -4314,11 +3896,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "eradicator-nova-cannon",
-      "lascannon",
-      "armoured-tracks"
-    ],
     "replacement_choice": [
       [
         "heavy-stubber"
@@ -4341,9 +3918,7 @@
     },
     "is_free": true,
     "replaces": [
-      "eradicator-nova-cannon",
-      "lascannon",
-      "armoured-tracks"
+      "lascannon"
     ],
     "replacement_choice": [
       [
@@ -4406,10 +3981,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "eradicator-nova-cannon",
-      "armoured-tracks"
-    ],
     "replacement_choice": [
       [
         "heavy-flamer",
@@ -4441,11 +4012,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "eradicator-nova-cannon",
-      "lascannon",
-      "armoured-tracks"
-    ],
     "replacement": [
       "hunter-killer-missile"
     ],
@@ -4462,9 +4028,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "close-combat-weapon-cadian-recon-squad"
-    ],
     "replacement": [
       "vox-caster"
     ],
@@ -4483,7 +4046,6 @@
     },
     "is_free": true,
     "replaces": [
-      "close-combat-weapon-cadian-recon-squad",
       "lasgun"
     ],
     "replacement_choice": [
@@ -4522,9 +4084,7 @@
     },
     "is_free": true,
     "replaces": [
-      "vigilator-cannon",
-      "heavy-stubber-hippogriff-afv",
-      "armoured-hull-hippogriff-afv"
+      "vigilator-cannon"
     ],
     "replacement_choice": [
       [
@@ -4551,9 +4111,7 @@
     },
     "is_free": true,
     "replaces": [
-      "vigilator-cannon",
-      "heavy-stubber-hippogriff-afv",
-      "armoured-hull-hippogriff-afv"
+      "heavy-stubber-hippogriff-afv"
     ],
     "replacement": [
       "meltagun-hippogriff-afv"

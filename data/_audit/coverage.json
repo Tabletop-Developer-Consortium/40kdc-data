@@ -102,9 +102,9 @@
     {
       "faction": "chaos-knights",
       "total": 115,
-      "offensive": 29,
+      "offensive": 28,
       "defensive": 9,
-      "inert": 78,
+      "inert": 79,
       "stub": 2,
       "stubStructural": 3,
       "gwTextLeak": 0,
@@ -200,12 +200,12 @@
     },
     {
       "faction": "necrons",
-      "total": 157,
-      "offensive": 31,
+      "total": 158,
+      "offensive": 30,
       "defensive": 23,
-      "inert": 111,
+      "inert": 113,
       "stub": 2,
-      "stubStructural": 0,
+      "stubStructural": 1,
       "gwTextLeak": 0,
       "defensiveSkipped": 1
     },
@@ -266,23 +266,23 @@
     }
   ],
   "totals": {
-    "total": 3121,
-    "offensive": 770,
+    "total": 3122,
+    "offensive": 768,
     "defensive": 266,
-    "inert": 2171,
+    "inert": 2174,
     "stub": 118,
-    "stubStructural": 41,
+    "stubStructural": 42,
     "gwTextLeak": 0,
     "defensiveSkipped": 57
   },
   "unsupportedReasons": [
     {
       "reason": "effect type \"ability-grant\" is not modelled by the buff layer",
-      "count": 458
+      "count": 456
     },
     {
       "reason": "effect type \"movement-modifier\" is not modelled by the buff layer",
-      "count": 157
+      "count": 158
     },
     {
       "reason": "effect type \"mortal-wounds\" is not modelled by the buff layer",
@@ -294,7 +294,7 @@
     },
     {
       "reason": "effect type \"leadership-modifier\" is not modelled by the buff layer",
-      "count": 86
+      "count": 85
     },
     {
       "reason": "effect type \"attack-restriction\" is not modelled by the buff layer",
@@ -306,7 +306,7 @@
     },
     {
       "reason": "effect type \"cp-refund\" is not modelled by the buff layer",
-      "count": 52
+      "count": 53
     },
     {
       "reason": "effect type \"objective-control-modifier\" is not modelled by the buff layer",
@@ -321,12 +321,12 @@
       "count": 33
     },
     {
-      "reason": "effect type \"cp-gain\" is not modelled by the buff layer",
+      "reason": "effect type \"unit-keyword\" is not modelled by the buff layer",
       "count": 33
     },
     {
-      "reason": "effect type \"unit-keyword\" is not modelled by the buff layer",
-      "count": 32
+      "reason": "effect type \"cp-gain\" is not modelled by the buff layer",
+      "count": 33
     },
     {
       "reason": "effect type \"rule-state\" is not modelled by the buff layer",
@@ -373,15 +373,15 @@
       "count": 14
     },
     {
+      "reason": "designate-target debuff on the marked unit: not a buff on the bearer",
+      "count": 14
+    },
+    {
       "reason": "roll-modifier: operation \"ignore-modifiers\" not supported",
       "count": 14
     },
     {
       "reason": "roll-modifier on \"charge\" is outside the damage path",
-      "count": 13
-    },
-    {
-      "reason": "designate-target debuff on the marked unit: not a buff on the bearer",
       "count": 13
     },
     {
@@ -557,6 +557,10 @@
       "count": 2
     },
     {
+      "reason": "effect type \"remove-battle-shock\" is not modelled by the buff layer",
+      "count": 2
+    },
+    {
       "reason": "re-roll on \"leadership\" (subset …) is outside the damage path",
       "count": 2
     },
@@ -598,10 +602,6 @@
     },
     {
       "reason": "stat-modifier: narrows by \"weapon_filter\" which the cruncher can't resolve here",
-      "count": 1
-    },
-    {
-      "reason": "effect type \"remove-battle-shock\" is not modelled by the buff layer",
       "count": 1
     },
     {
@@ -14310,9 +14310,9 @@
       "faction": "chaos-knights",
       "ability_id": "consumed-with-hunger-aura",
       "name": "Consumed with Hunger (Aura)",
-      "shape": "re-roll",
+      "shape": "conditional",
       "stub": false,
-      "offensive": true,
+      "offensive": false,
       "defensive": false,
       "gap": null
     },
@@ -14680,11 +14680,11 @@
       "faction": "chaos-knights",
       "ability_id": "octagram-of-conjuration-helhunt-lance",
       "name": "Octagram of Conjuration",
-      "shape": "leadership-modifier",
+      "shape": "designate-target",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"leadership-modifier\" is not modelled by the buff layer"
+      "gap": "designate-target debuff on the marked unit: not a buff on the bearer"
     },
     {
       "faction": "chaos-knights",
@@ -14790,7 +14790,7 @@
       "faction": "chaos-knights",
       "ability_id": "tyrannical-court",
       "name": "Tyrannical Court",
-      "shape": "objective-control-modifier",
+      "shape": "sequence",
       "stub": false,
       "offensive": false,
       "defensive": false,
@@ -23890,11 +23890,11 @@
       "faction": "necrons",
       "ability_id": "engrammatic-logic",
       "name": "Engrammatic Logic",
-      "shape": "ability-grant",
-      "stub": false,
+      "shape": "select-units",
+      "stub": true,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"ability-grant\" is not modelled by the buff layer"
+      "gap": "effect type \"remove-battle-shock\" is not modelled by the buff layer"
     },
     {
       "faction": "necrons",
@@ -24500,9 +24500,9 @@
       "faction": "necrons",
       "ability_id": "infectious-murder-madness-aura",
       "name": "Infectious Murder-Madness (Aura)",
-      "shape": "keyword-grant",
+      "shape": "conditional",
       "stub": false,
-      "offensive": true,
+      "offensive": false,
       "defensive": false,
       "gap": null
     },
@@ -24800,11 +24800,11 @@
       "faction": "necrons",
       "ability_id": "teleportation-matrix",
       "name": "Teleportation Matrix",
-      "shape": "ability-grant",
+      "shape": "movement-modifier",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"ability-grant\" is not modelled by the buff layer"
+      "gap": "effect type \"movement-modifier\" is not modelled by the buff layer"
     },
     {
       "faction": "necrons",
@@ -25245,6 +25245,16 @@
       "offensive": true,
       "defensive": false,
       "gap": null
+    },
+    {
+      "faction": "necrons",
+      "ability_id": "hover",
+      "name": "Hover",
+      "shape": "unit-keyword",
+      "stub": false,
+      "offensive": false,
+      "defensive": false,
+      "gap": "effect type \"unit-keyword\" is not modelled by the buff layer"
     },
     {
       "faction": "orks",

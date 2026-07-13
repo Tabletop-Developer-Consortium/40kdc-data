@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<roster id="roster0" name="Over-Cap Detachment List" gameSystemId="sys-352e-adc2-7639-d6a9" gameSystemName="Warhammer 40,000">
+  <forces>
+    <force id="force0" name="Adeptus Astartes" catalogueName="Adeptus Astartes">
+      <selections>
+        <selection id="unit0" name="Gladiator Lancer" type="unit" number="1">
+          <profiles>
+            <profile name="Gladiator Lancer" typeName="Unit">
+              <characteristics>
+                <characteristic name="M">10"</characteristic>
+                <characteristic name="T">10</characteristic>
+                <characteristic name="SV">3+</characteristic>
+                <characteristic name="W">12</characteristic>
+                <characteristic name="LD">6+</characteristic>
+                <characteristic name="OC">3</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Aquilon Optics" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">You can re-roll the Damage roll.</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Deadly Demise D3" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">Before this model is removed from play:
+  -&gt; Roll one D6: on a 6+, each enemy unit within 6" suffers D3 mortal wounds.</characteristic>
+              </characteristics>
+            </profile>
+          </profiles>
+          <categories>
+            <category name="Faction: Adeptus Astartes"/>
+            <category name="Frame"/>
+            <category name="Vehicle"/>
+            <category name="Smoke"/>
+            <category name="Imperium"/>
+            <category name="Gladiator Lancer"/>
+          </categories>
+          <selections>
+            <selection id="unit0-m0" name="Gladiator Lancer" type="model" number="1"/>
+          </selections>
+        </selection>
+        <selection id="unit1" name="Redemptor Dreadnought" type="unit" number="1">
+          <profiles>
+            <profile name="Redemptor Dreadnought" typeName="Unit">
+              <characteristics>
+                <characteristic name="M">8"</characteristic>
+                <characteristic name="T">10</characteristic>
+                <characteristic name="SV">2+</characteristic>
+                <characteristic name="W">12</characteristic>
+                <characteristic name="LD">6+</characteristic>
+                <characteristic name="OC">4</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Duty Eternal" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">Each time an attack targets the unit, reduce the Damage of that attack by 1.</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Deadly Demise D3" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">Before this model is removed from play:
+  -&gt; Roll one D6: on a 6+, each enemy unit within 6" suffers D3 mortal wounds.</characteristic>
+              </characteristics>
+            </profile>
+          </profiles>
+          <categories>
+            <category name="Faction: Adeptus Astartes"/>
+            <category name="Vehicle"/>
+            <category name="Walker"/>
+            <category name="Imperium"/>
+            <category name="Dreadnought"/>
+            <category name="Redemptor Dreadnought"/>
+          </categories>
+          <selections>
+            <selection id="unit1-m0" name="Redemptor Dreadnought" type="model" number="1"/>
+          </selections>
+        </selection>
+      </selections>
+    </force>
+  </forces>
+</roster>

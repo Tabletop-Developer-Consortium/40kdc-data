@@ -206,6 +206,101 @@ describe("deriveWargear — multi-slot replaces delta (over-listing guard)", () 
   });
 });
 
+/**
+ * A datasheet whose loadout choices come as PER-SLOT sets (the other dump shape;
+ * Necron Warriors is the canonical case): one set per independent choice, each
+ * mentioning only its own slot's weapons —
+ *   set 1: {ccw}                      (fixed melee slot, sole branch)
+ *   set 2: {gauss flayer | gauss reaper}  (the ranged either-or)
+ * Pins that the branch delta is computed against the base RESTRICTED to the
+ * set's own scope: the reaper swap replaces only the flayer, never the ccw
+ * (diffing against the full base dragged the ccw into `replaces`, which made a
+ * legal ccw+reaper loadout look undecomposable and broke slot conservation).
+ * Also pins the base-disjoint shape (icons/instruments): a set none of whose
+ * branches touch the base becomes a pure ADDITION, not a whole-kit swap.
+ */
+function perSlotDump(): MfmDump {
+  const wi = (id: string, name: string) => ({ id, wargearType: "weapon", localisations: { en: { name } } });
+  const lcwi = (id: string, wargearItemId: string, loadoutChoiceId: string) => ({ id, count: 1, wargearItemId, loadoutChoiceId });
+  return new MfmDump({
+    data: {
+      miniature: [{ id: "m-nw", displayOrder: 0, localisations: { en: { name: "Necron Warrior" } } }],
+      unit_composition: [
+        { id: "uc1", datasheetId: "ds1", isDefault: true, displayOrder: 1, points: 80, referenceGroupingKeywordId: null },
+      ],
+      unit_composition_miniature: [{ id: "ucm1", min: 10, max: 20, unitCompositionId: "uc1", miniatureId: "m-nw" }],
+      wargear_item: [
+        wi("wi-ccw", "Close combat weapon"),
+        wi("wi-flayer", "Gauss flayer"),
+        wi("wi-reaper", "Gauss reaper"),
+        wi("wi-icon", "Daemonic icon"),
+      ],
+      // Base loadout (default>0): ccw + gauss flayer on every model.
+      wargear_option_group: [
+        { id: "g-nw", displayOrder: 1, datasheetId: "ds1", miniatureId: "m-nw", isStaticWargear: false },
+      ],
+      wargear_option: [
+        { id: "wo-ccw", wargearItemId: "wi-ccw", wargearOptionGroupId: "g-nw", inputType: "stepper", defaultValue: 10, points: 0, displayOrder: 1 },
+        { id: "wo-flayer", wargearItemId: "wi-flayer", wargearOptionGroupId: "g-nw", inputType: "stepper", defaultValue: 10, points: 0, displayOrder: 2 },
+      ],
+      loadout_choice_set: [
+        { id: "lcs-melee", limit: 1, allowDuplicates: false, datasheetId: "ds1", miniatureId: "m-nw", alternate: false },
+        { id: "lcs-ranged", limit: 1, allowDuplicates: false, datasheetId: "ds1", miniatureId: "m-nw", alternate: false },
+        { id: "lcs-icon", limit: 1, allowDuplicates: false, datasheetId: "ds1", miniatureId: "m-nw", alternate: false },
+      ],
+      loadout_choice: [
+        { id: "lc-melee", loadoutChoiceSetId: "lcs-melee" }, // sole branch = the fixed ccw
+        { id: "lc-flayer", loadoutChoiceSetId: "lcs-ranged" }, // base branch
+        { id: "lc-reaper", loadoutChoiceSetId: "lcs-ranged" }, // the swap
+        { id: "lc-icon", loadoutChoiceSetId: "lcs-icon" }, // base-disjoint addition
+      ],
+      loadout_choice_wargear_item: [
+        lcwi("k1", "wi-ccw", "lc-melee"),
+        lcwi("k2", "wi-flayer", "lc-flayer"),
+        lcwi("k3", "wi-reaper", "lc-reaper"),
+        lcwi("k4", "wi-icon", "lc-icon"),
+      ],
+      limited_wargear_choice_set: [],
+      limited_wargear_choice: [],
+      limited_wargear_choice_wargear_item: [],
+      wargear_limit: [],
+    },
+  });
+}
+
+describe("deriveWargear — per-slot choice sets (slot-scoped delta)", () => {
+  const PS_VALID = new Set(["close-combat-weapon", "gauss-flayer", "gauss-reaper", "daemonic-icon"]);
+  const resolvePS = (name: string) => {
+    const id = name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+    return PS_VALID.has(id) ? id : null;
+  };
+  const d = deriveWargear(perSlotDump(), "ds1", resolvePS);
+
+  it("resolves the full vocabulary", () => {
+    expect(d.unresolved).toEqual([]);
+    expect(d.defaultsByModel.get("Necron Warrior")).toEqual(["close-combat-weapon", "gauss-flayer"]);
+  });
+
+  it("scopes a slot's swap to its own base weapon — the ccw stays out of replaces", () => {
+    const reaperSwap = d.options.find((o) => (o.replacement ?? []).includes("gauss-reaper"));
+    expect(reaperSwap, "gauss-reaper swap option").toBeDefined();
+    expect(reaperSwap!.replaces).toEqual(["gauss-flayer"]);
+  });
+
+  it("emits no option at all for a fixed single-branch slot (it equals the base)", () => {
+    for (const o of d.options) {
+      expect(o.replacement ?? []).not.toContain("close-combat-weapon");
+      expect(o.replaces ?? []).not.toContain("close-combat-weapon");
+    }
+  });
+
+  it("turns a base-disjoint set (icon/instrument) into a pure addition, not a kit swap", () => {
+    const icon = d.options.find((o) => (o.replacement ?? []).includes("daemonic-icon"));
+    expect(icon, "daemonic-icon option").toBeDefined();
+    expect(icon!.replaces).toBeUndefined();
+  });
+});
+
 describe("dumpComposition + reconcileModels (Category ② synthesis)", () => {
   const dump = fixtureDump();
   const defaults = deriveWargear(dump, "ds1", resolve).defaultsByModel;

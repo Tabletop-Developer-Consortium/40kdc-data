@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<roster id="roster0" name="Imported roster" gameSystemId="sys-352e-adc2-7639-d6a9" gameSystemName="Warhammer 40,000">
+  <forces>
+    <force id="force0" name="Aeldari" catalogueName="Aeldari">
+      <selections>
+        <selection id="unit0" name="Jain Zar" type="unit" number="1">
+          <profiles>
+            <profile name="Jain Zar" typeName="Unit">
+              <characteristics>
+                <characteristic name="M">8"</characteristic>
+                <characteristic name="T">3</characteristic>
+                <characteristic name="SV">2+</characteristic>
+                <characteristic name="W">5</characteristic>
+                <characteristic name="LD">6+</characteristic>
+                <characteristic name="OC">1</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Invulnerable Save" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">4+ invulnerable save</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Leader" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">The unit gains the Leader ability.</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Storm of Silence" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">Against CHARACTER targets, you can re-roll the Wound roll.</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Whirling Death" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">After being attached to a unit, until the end of the phase, the unit ignores vertical distances when it moves.</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Fights First" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">The unit has the Fights First ability.</characteristic>
+              </characteristics>
+            </profile>
+          </profiles>
+          <categories>
+            <category name="Faction: Asuryani"/>
+            <category name="Infantry"/>
+            <category name="Character"/>
+            <category name="Epic Hero"/>
+            <category name="Aeldari"/>
+            <category name="Aspect Warrior"/>
+            <category name="Phoenix Lord"/>
+            <category name="Jain Zar"/>
+          </categories>
+          <selections>
+            <selection id="unit0-m0" name="Jain Zar" type="model" number="1">
+              <selections>
+                <selection id="unit0-m0-w0" name="Silent Death" type="upgrade" number="1">
+                  <profiles>
+                    <profile name="Silent Death" typeName="Ranged Weapons">
+                      <characteristics>
+                        <characteristic name="Range">12"</characteristic>
+                        <characteristic name="A">6</characteristic>
+                        <characteristic name="BS">2+</characteristic>
+                        <characteristic name="S">6</characteristic>
+                        <characteristic name="AP">-2</characteristic>
+                        <characteristic name="D">1</characteristic>
+                        <characteristic name="Keywords">Assault</characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+                <selection id="unit0-m0-w1" name="Blade of Destruction" type="upgrade" number="1">
+                  <profiles>
+                    <profile name="Blade of Destruction" typeName="Melee Weapons">
+                      <characteristics>
+                        <characteristic name="Range">Melee</characteristic>
+                        <characteristic name="A">8</characteristic>
+                        <characteristic name="WS">2+</characteristic>
+                        <characteristic name="S">6</characteristic>
+                        <characteristic name="AP">-3</characteristic>
+                        <characteristic name="D">2</characteristic>
+                        <characteristic name="Keywords">Anti-Infantry 3+</characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+              </selections>
+            </selection>
+          </selections>
+        </selection>
+      </selections>
+    </force>
+  </forces>
+</roster>

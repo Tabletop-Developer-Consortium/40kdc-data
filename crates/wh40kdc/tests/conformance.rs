@@ -460,3 +460,71 @@ fn exported_rosters_match_reference_goldens() {
 
     assert!(total_assertions > 0, "no export goldens exercised");
 }
+
+/// The Dataset-backed `yellowscribe` exporter reproduces every
+/// `expected.yellowscribe.ros` golden byte-for-byte. Unlike the other formats
+/// this one resolves each unit's datasheet (stat lines, weapon profiles,
+/// keywords, ability text) against the embedded [`Dataset`], so it is driven
+/// through `export_roster_with_dataset`. Mirrors the same check in
+/// `tools/test/conformance.test.ts` / the Python suite.
+#[cfg(feature = "export")]
+#[test]
+fn exported_yellowscribe_matches_reference_goldens() {
+    use wh40kdc::export::export_roster_with_dataset;
+
+    let ds = Dataset::embedded();
+    let roster_dir = conformance_dir().join("roster");
+    let cases = case_dirs(&roster_dir);
+    assert!(!cases.is_empty(), "no roster conformance cases found");
+
+    let mut total = 0;
+    for case_dir in &cases {
+        let case_name = case_dir.file_name().and_then(|s| s.to_str()).unwrap_or("?");
+        let golden_path = case_dir.join("expected.yellowscribe.ros");
+        if !golden_path.exists() {
+            continue;
+        }
+        let files = list_files(case_dir);
+
+        // Pick the canonical seed the same way the other export test does.
+        let seed_filename = files
+            .iter()
+            .find(|n| n.as_str() == "input.json")
+            .or_else(|| {
+                files
+                    .iter()
+                    .find(|n| n.as_str() == "input.newrecruit-json.json")
+            })
+            .or_else(|| files.iter().find(|n| n.as_str() == "input.gw.txt"))
+            .or_else(|| {
+                files
+                    .iter()
+                    .find(|n| n.as_str() == "input.listforge-text.txt")
+            })
+            .or_else(|| {
+                files
+                    .iter()
+                    .find(|n| n.as_str() == "input.roster-json.json")
+            })
+            .unwrap_or_else(|| {
+                panic!("roster/{case_name}: yellowscribe golden present but no canonical input")
+            });
+        let seed_path = case_dir.join(seed_filename);
+        let roster = if seed_filename.ends_with(".json") {
+            import_roster(&read_json(&seed_path), ds)
+        } else {
+            import_roster_text(&read_text(&seed_path), ds)
+        }
+        .unwrap_or_else(|e| panic!("seed import roster/{case_name}: {e}"));
+
+        let golden = read_text(&golden_path);
+        let actual = export_roster_with_dataset(&roster, ExportFormat::Yellowscribe, ds);
+        assert_eq!(
+            actual, golden,
+            "export expected.yellowscribe.ros for roster/{case_name} diverged from the TS golden"
+        );
+        total += 1;
+    }
+
+    assert!(total > 0, "no yellowscribe goldens exercised");
+}

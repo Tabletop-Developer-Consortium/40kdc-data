@@ -23,6 +23,7 @@
       }
     ],
     "keywords": [
+      "Frame",
       "Vehicle",
       "Fly",
       "Transport",
@@ -92,6 +93,7 @@
       }
     ],
     "keywords": [
+      "Frame",
       "Vehicle",
       "Walker",
       "Titanic",
@@ -376,7 +378,7 @@
     "profiles": [
       {
         "name": "Night Scythe",
-        "M": 20,
+        "M": 14,
         "T": 9,
         "W": 12,
         "Sv": 3,
@@ -392,8 +394,8 @@
       }
     ],
     "keywords": [
+      "Frame",
       "Vehicle",
-      "Aircraft",
       "Fly",
       "Transport",
       "Night Scythe"
@@ -415,8 +417,11 @@
       "twin-tesla-destructor"
     ],
     "ability_ids": [
+      "hover",
       "invasion-beams",
-      "quantum-invader"
+      "quantum-invader",
+      "deep-strike",
+      "deadly-demise-d3"
     ],
     "transport_capacity": {
       "capacity": 1
@@ -589,7 +594,8 @@
       "twin-gauss-flayer"
     ],
     "ability_ids": [
-      "sentinel-construct"
+      "sentinel-construct",
+      "deadly-demise-d3"
     ],
     "game_version": {
       "edition": "11th",
@@ -800,6 +806,7 @@
       }
     ],
     "keywords": [
+      "Frame",
       "Vehicle",
       "Titanic",
       "Fly",
@@ -1170,6 +1177,7 @@
       }
     ],
     "keywords": [
+      "Frame",
       "Fortification",
       "Vehicle",
       "Convergence of Dominion"
@@ -1323,7 +1331,8 @@
       "synaptic-disintegrator"
     ],
     "ability_ids": [
-      "hyperspace-hunters"
+      "hyperspace-hunters",
+      "deep-strike"
     ],
     "game_version": {
       "edition": "11th",
@@ -1363,6 +1372,7 @@
       }
     ],
     "keywords": [
+      "Frame",
       "Vehicle",
       "Walker",
       "Triarch",
@@ -1386,7 +1396,9 @@
       "stalkers-forelimbs"
     ],
     "ability_ids": [
-      "targeting-relay"
+      "targeting-relay",
+      "scouts-8",
+      "deadly-demise-d3"
     ],
     "game_version": {
       "edition": "11th",
@@ -1484,6 +1496,7 @@
       }
     ],
     "keywords": [
+      "Frame",
       "Vehicle",
       "Titanic",
       "Fly",
@@ -1508,7 +1521,8 @@
     ],
     "ability_ids": [
       "deadly-demise-d6",
-      "gravitic-pulse"
+      "gravitic-pulse",
+      "deep-strike"
     ],
     "game_version": {
       "edition": "11th",
@@ -1595,6 +1609,7 @@
       }
     ],
     "keywords": [
+      "Frame",
       "Vehicle",
       "Character",
       "Fly",
@@ -1822,6 +1837,7 @@
       }
     ],
     "keywords": [
+      "Frame",
       "Vehicle",
       "Titanic",
       "Fly",
@@ -1846,7 +1862,9 @@
       "portal-of-exile"
     ],
     "ability_ids": [
-      "eternity-gate"
+      "eternity-gate",
+      "deep-strike",
+      "deadly-demise-d6"
     ],
     "game_version": {
       "edition": "11th",
@@ -2306,6 +2324,7 @@
       }
     ],
     "keywords": [
+      "Frame",
       "Vehicle",
       "Fly",
       "Annihilation Barge"
@@ -2331,7 +2350,8 @@
       "twin-tesla-destructor"
     ],
     "ability_ids": [
-      "malevolent-arcing"
+      "malevolent-arcing",
+      "deadly-demise-1"
     ],
     "game_version": {
       "edition": "11th",
@@ -2388,7 +2408,8 @@
     "ability_ids": [
       "atomic-energy-manipulator",
       "illuminor",
-      "mechanical-augmentation-aura"
+      "mechanical-augmentation-aura",
+      "feel-no-pain-4"
     ],
     "game_version": {
       "edition": "11th",
@@ -2576,7 +2597,8 @@
       "ophydian-hyperphase-weapons"
     ],
     "ability_ids": [
-      "tunnelling-horrors"
+      "tunnelling-horrors",
+      "deep-strike"
     ],
     "game_version": {
       "edition": "11th",
@@ -2696,7 +2718,8 @@
       "gauss-flayer-array"
     ],
     "ability_ids": [
-      "overwhelming-obliteration"
+      "overwhelming-obliteration",
+      "deadly-demise-d3"
     ],
     "game_version": {
       "edition": "11th",
@@ -2752,7 +2775,8 @@
     "ability_ids": [
       "inescapable-death",
       "lone-operative",
-      "multi-threat-eliminator"
+      "multi-threat-eliminator",
+      "deep-strike"
     ],
     "game_version": {
       "edition": "11th",
@@ -2931,7 +2955,8 @@
       "twin-tesla-destructor"
     ],
     "ability_ids": [
-      "atavistic-instigation"
+      "atavistic-instigation",
+      "deadly-demise-d3"
     ],
     "game_version": {
       "edition": "11th",
@@ -3252,7 +3277,8 @@
     "ability_ids": [
       "canoptek-swarm",
       "fabricator-claw-array-aura",
-      "gloom-prism-aura"
+      "gloom-prism-aura",
+      "deadly-demise-1"
     ],
     "game_version": {
       "edition": "11th",

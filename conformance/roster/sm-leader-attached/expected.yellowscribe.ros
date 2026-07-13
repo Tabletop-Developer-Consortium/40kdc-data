@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<roster id="roster0" name="Helbrecht Attached" gameSystemId="sys-352e-adc2-7639-d6a9" gameSystemName="Warhammer 40,000">
+  <forces>
+    <force id="force0" name="Adeptus Astartes" catalogueName="Adeptus Astartes">
+      <selections>
+        <selection id="unit0" name="High Marshal Helbrecht" type="unit" number="1">
+          <profiles>
+            <profile name="High Marshal Helbrecht" typeName="Unit">
+              <characteristics>
+                <characteristic name="M">6"</characteristic>
+                <characteristic name="T">4</characteristic>
+                <characteristic name="SV">2+</characteristic>
+                <characteristic name="W">6</characteristic>
+                <characteristic name="LD">6+</characteristic>
+                <characteristic name="OC">3</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Invulnerable Save" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">4+ invulnerable save</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Crusade of Wrath" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">After being attached to a unit, add 1 to the unit's Strength characteristic.</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="High Marshal" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">During the Fight phase, the target suffers d3 mortal wounds.</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Leader" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">The unit gains the Leader ability.</characteristic>
+              </characteristics>
+            </profile>
+          </profiles>
+          <categories>
+            <category name="Faction: Adeptus Astartes"/>
+            <category name="Faction: Black Templars"/>
+            <category name="Infantry"/>
+            <category name="Character"/>
+            <category name="Epic Hero"/>
+            <category name="Grenades"/>
+            <category name="Imperium"/>
+            <category name="Tacticus"/>
+            <category name="Chapter Master"/>
+            <category name="High Marshal Helbrecht"/>
+          </categories>
+          <selections>
+            <selection id="unit0-m0" name="High Marshal Helbrecht" type="model" number="1">
+              <selections>
+                <selection id="unit0-m0-w0" name="Sword of the High Marshals" type="upgrade" number="1">
+                  <profiles>
+                    <profile name="Sweep" typeName="Melee Weapons">
+                      <characteristics>
+                        <characteristic name="Range">Melee</characteristic>
+                        <characteristic name="A">12</characteristic>
+                        <characteristic name="WS">2+</characteristic>
+                        <characteristic name="S">6</characteristic>
+                        <characteristic name="AP">-3</characteristic>
+                        <characteristic name="D">1</characteristic>
+                        <characteristic name="Keywords"></characteristic>
+                      </characteristics>
+                    </profile>
+                    <profile name="Strike" typeName="Melee Weapons">
+                      <characteristics>
+                        <characteristic name="Range">Melee</characteristic>
+                        <characteristic name="A">6</characteristic>
+                        <characteristic name="WS">2+</characteristic>
+                        <characteristic name="S">8</characteristic>
+                        <characteristic name="AP">-3</characteristic>
+                        <characteristic name="D">3</characteristic>
+                        <characteristic name="Keywords"></characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+                <selection id="unit0-m0-w1" name="Ferocity" type="upgrade" number="1">
+                  <profiles>
+                    <profile name="Ferocity" typeName="Ranged Weapons">
+                      <characteristics>
+                        <characteristic name="Range">24"</characteristic>
+                        <characteristic name="A">2</characteristic>
+                        <characteristic name="BS">2+</characteristic>
+                        <characteristic name="S">5</characteristic>
+                        <characteristic name="AP">-1</characteristic>
+                        <characteristic name="D">2</characteristic>
+                        <characteristic name="Keywords">Anti-Infantry 4+, Devastating Wounds</characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+              </selections>
+            </selection>
+          </selections>
+        </selection>
+        <selection id="unit1" name="Assault Intercessor Squad" type="unit" number="1">
+          <profiles>
+            <profile name="Assault Intercessor" typeName="Unit">
+              <characteristics>
+                <characteristic name="M">6"</characteristic>
+                <characteristic name="T">4</characteristic>
+                <characteristic name="SV">3+</characteristic>
+                <characteristic name="W">2</characteristic>
+                <characteristic name="LD">6+</characteristic>
+                <characteristic name="OC">2</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Targeted Intercession" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">During the Fight phase, you can re-roll a Wound roll of 1.</characteristic>
+              </characteristics>
+            </profile>
+          </profiles>
+          <categories>
+            <category name="Faction: Adeptus Astartes"/>
+            <category name="Infantry"/>
+            <category name="Battleline"/>
+            <category name="Grenades"/>
+            <category name="Imperium"/>
+            <category name="Tacticus"/>
+            <category name="Assault Intercessor Squad"/>
+          </categories>
+          <selections>
+            <selection id="unit1-m0" name="Assault Intercessor Sergeant" type="model" number="1">
+              <selections>
+                <selection id="unit1-m0-w0" name="Astartes chainsword" type="upgrade" number="1">
+                  <profiles>
+                    <profile name="Astartes chainsword" typeName="Melee Weapons">
+                      <characteristics>
+                        <characteristic name="Range">Melee</characteristic>
+                        <characteristic name="A">4</characteristic>
+                        <characteristic name="WS">3+</characteristic>
+                        <characteristic name="S">4</characteristic>
+                        <characteristic name="AP">-1</characteristic>
+                        <characteristic name="D">1</characteristic>
+                        <characteristic name="Keywords"></characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+                <selection id="unit1-m0-w1" name="Heavy bolt pistol" type="upgrade" number="1">
+                  <profiles>
+                    <profile name="Heavy bolt pistol" typeName="Ranged Weapons">
+                      <characteristics>
+                        <characteristic name="Range">18"</characteristic>
+                        <characteristic name="A">1</characteristic>
+                        <characteristic name="BS">3+</characteristic>
+                        <characteristic name="S">4</characteristic>
+                        <characteristic name="AP">-1</characteristic>
+                        <characteristic name="D">1</characteristic>
+                        <characteristic name="Keywords">Pistol</characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+              </selections>
+            </selection>
+            <selection id="unit1-m1" name="Assault Intercessor" type="model" number="4">
+              <selections>
+                <selection id="unit1-m1-w0" name="Astartes chainsword" type="upgrade" number="4">
+                  <profiles>
+                    <profile name="Astartes chainsword" typeName="Melee Weapons">
+                      <characteristics>
+                        <characteristic name="Range">Melee</characteristic>
+                        <characteristic name="A">4</characteristic>
+                        <characteristic name="WS">3+</characteristic>
+                        <characteristic name="S">4</characteristic>
+                        <characteristic name="AP">-1</characteristic>
+                        <characteristic name="D">1</characteristic>
+                        <characteristic name="Keywords"></characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+                <selection id="unit1-m1-w1" name="Heavy bolt pistol" type="upgrade" number="4">
+                  <profiles>
+                    <profile name="Heavy bolt pistol" typeName="Ranged Weapons">
+                      <characteristics>
+                        <characteristic name="Range">18"</characteristic>
+                        <characteristic name="A">1</characteristic>
+                        <characteristic name="BS">3+</characteristic>
+                        <characteristic name="S">4</characteristic>
+                        <characteristic name="AP">-1</characteristic>
+                        <characteristic name="D">1</characteristic>
+                        <characteristic name="Keywords">Pistol</characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+              </selections>
+            </selection>
+          </selections>
+        </selection>
+      </selections>
+    </force>
+  </forces>
+</roster>

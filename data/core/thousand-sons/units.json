@@ -167,6 +167,7 @@
       }
     ],
     "keywords": [
+      "Frame",
       "Vehicle",
       "Transport",
       "Smoke",
@@ -427,6 +428,7 @@
       }
     ],
     "keywords": [
+      "Frame",
       "Vehicle",
       "Smoke",
       "Chaos",
@@ -486,6 +488,7 @@
       }
     ],
     "keywords": [
+      "Frame",
       "Vehicle",
       "Transport",
       "Dedicated Transport",
@@ -517,7 +520,8 @@
       "firing-deck-2",
       "meet-any-challenge",
       "self-repair",
-      "sorcerous-support"
+      "sorcerous-support",
+      "deadly-demise-d3"
     ],
     "transport_capacity": {
       "capacity": 12
@@ -1045,7 +1049,9 @@
     "ability_ids": [
       "lord-of-the-planet-of-the-sorcerers-psychic",
       "supreme-commander",
-      "unearthly-power"
+      "unearthly-power",
+      "deep-strike",
+      "deadly-demise-d6"
     ],
     "game_version": {
       "edition": "11th",
@@ -1085,6 +1091,7 @@
       }
     ],
     "keywords": [
+      "Frame",
       "Vehicle",
       "Smoke",
       "Chaos",
@@ -1115,7 +1122,8 @@
       "destructor",
       "ensorcelled-destruction",
       "hail-of-corrosive-disease",
-      "punishing-suppression"
+      "punishing-suppression",
+      "deadly-demise-d3"
     ],
     "game_version": {
       "edition": "11th",
@@ -1131,9 +1139,9 @@
     "profiles": [
       {
         "name": "Defiler",
-        "M": 8,
-        "T": 10,
-        "W": 14,
+        "M": 12,
+        "T": 11,
+        "W": 18,
         "Sv": 3,
         "invuln_sv": 5,
         "Ld": 6,
@@ -1268,7 +1276,9 @@
     ],
     "ability_ids": [
       "aetherstride-psychic",
-      "hunter-of-souls"
+      "hunter-of-souls",
+      "deep-strike",
+      "deadly-demise-d3"
     ],
     "game_version": {
       "edition": "11th",
@@ -1330,7 +1340,8 @@
     "ability_ids": [
       "ambushing-hunters",
       "brayhorn",
-      "herd-banner"
+      "herd-banner",
+      "scouts-6"
     ],
     "game_version": {
       "edition": "11th",
@@ -1544,7 +1555,8 @@
       "savage-exaltation",
       "siege-crawler",
       "snarling-protector",
-      "the-scent-of-blood"
+      "the-scent-of-blood",
+      "deadly-demise-d3"
     ],
     "game_version": {
       "edition": "11th",
@@ -1678,7 +1690,8 @@
       "empyric-guidance-psychic",
       "leader",
       "marked-by-fate-psychic",
-      "warptime-psychic"
+      "warptime-psychic",
+      "deep-strike"
     ],
     "game_version": {
       "edition": "11th",
@@ -1719,6 +1732,7 @@
       }
     ],
     "keywords": [
+      "Frame",
       "Vehicle",
       "Smoke",
       "Chaos",
@@ -1749,7 +1763,8 @@
       "annihilator",
       "blood-hungry-annihilator",
       "ensorcelled-annihilation",
-      "metalophagic-infection"
+      "metalophagic-infection",
+      "deadly-demise-d3"
     ],
     "game_version": {
       "edition": "11th",
@@ -1818,7 +1833,8 @@
     "ability_ids": [
       "blazing-salvoes",
       "daemonic-ordnance",
-      "furious-onslaught"
+      "furious-onslaught",
+      "deadly-demise-d3"
     ],
     "game_version": {
       "edition": "11th",
@@ -1834,7 +1850,7 @@
     "profiles": [
       {
         "name": "Heldrake",
-        "M": 20,
+        "M": 12,
         "T": 9,
         "W": 12,
         "Sv": 3,
@@ -1851,7 +1867,6 @@
     ],
     "keywords": [
       "Vehicle",
-      "Aircraft",
       "Fly",
       "Daemon",
       "Chaos",
@@ -1878,7 +1893,8 @@
     "ability_ids": [
       "airborne-predator",
       "flame-wreathed",
-      "hover"
+      "hover",
+      "deadly-demise-d3"
     ],
     "game_version": {
       "edition": "11th",
@@ -1938,7 +1954,8 @@
     "ability_ids": [
       "glamour-of-tzeentch-aura-psychic",
       "servile-pawns",
-      "spirit-snare"
+      "spirit-snare",
+      "deadly-demise-d3"
     ],
     "game_version": {
       "edition": "11th",

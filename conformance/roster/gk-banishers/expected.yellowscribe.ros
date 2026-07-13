@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8"?>
+<roster id="roster0" name="Banishers Test List" gameSystemId="sys-352e-adc2-7639-d6a9" gameSystemName="Warhammer 40,000">
+  <forces>
+    <force id="force0" name="Grey Knights" catalogueName="Grey Knights">
+      <selections>
+        <selection id="unit0" name="Castellan Crowe" type="unit" number="1">
+          <profiles>
+            <profile name="Castellan Crowe" typeName="Unit">
+              <characteristics>
+                <characteristic name="M">6"</characteristic>
+                <characteristic name="T">4</characteristic>
+                <characteristic name="SV">2+</characteristic>
+                <characteristic name="W">5</characteristic>
+                <characteristic name="LD">6+</characteristic>
+                <characteristic name="OC">1</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Invulnerable Save" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">4+ invulnerable save</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Champion of the Order of Purifiers (Psychic)" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">After being attached to a unit, add 1 to the unit's Attacks characteristic.</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Foesight (Psychic)" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">Against CHARACTER targets, you can re-roll the Hit roll.</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Leader" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">The unit gains the Leader ability.</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Deep Strike" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">The unit has the Deep Strike ability.</characteristic>
+              </characteristics>
+            </profile>
+          </profiles>
+          <categories>
+            <category name="Faction: Grey Knights"/>
+            <category name="Infantry"/>
+            <category name="Character"/>
+            <category name="Epic Hero"/>
+            <category name="Psyker"/>
+            <category name="Grenades"/>
+            <category name="Imperium"/>
+            <category name="Castellan Crowe"/>
+          </categories>
+          <selections>
+            <selection id="unit0-m0" name="Castellan Crowe" type="model" number="1">
+              <selections>
+                <selection id="unit0-m0-w0" name="Black Blade of Antwyr" type="upgrade" number="1">
+                  <profiles>
+                    <profile name="Black Blade of Antwyr" typeName="Melee Weapons">
+                      <characteristics>
+                        <characteristic name="Range">Melee</characteristic>
+                        <characteristic name="A">5</characteristic>
+                        <characteristic name="WS">2+</characteristic>
+                        <characteristic name="S">6</characteristic>
+                        <characteristic name="AP">-2</characteristic>
+                        <characteristic name="D">2</characteristic>
+                        <characteristic name="Keywords">Devastating Wounds, Precision</characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+                <selection id="unit0-m0-w1" name="Purifying Flame" type="upgrade" number="1">
+                  <profiles>
+                    <profile name="Purifying Flame" typeName="Ranged Weapons">
+                      <characteristics>
+                        <characteristic name="Range">18"</characteristic>
+                        <characteristic name="A">3</characteristic>
+                        <characteristic name="BS">2+</characteristic>
+                        <characteristic name="S">4</characteristic>
+                        <characteristic name="AP">-2</characteristic>
+                        <characteristic name="D">1</characteristic>
+                        <characteristic name="Keywords">Anti-Infantry 2+, Ignores Cover, Psychic</characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+                <selection id="unit0-m0-w2" name="Storm bolter" type="upgrade" number="1">
+                  <profiles>
+                    <profile name="Storm bolter" typeName="Ranged Weapons">
+                      <characteristics>
+                        <characteristic name="Range">24"</characteristic>
+                        <characteristic name="A">2</characteristic>
+                        <characteristic name="BS">2+</characteristic>
+                        <characteristic name="S">4</characteristic>
+                        <characteristic name="AP">0</characteristic>
+                        <characteristic name="D">1</characteristic>
+                        <characteristic name="Keywords">Rapid Fire 2</characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+              </selections>
+            </selection>
+          </selections>
+        </selection>
+        <selection id="unit1" name="Grand Master in Nemesis Dreadknight" type="unit" number="1">
+          <profiles>
+            <profile name="Grand Master in Nemesis Dreadknight" typeName="Unit">
+              <characteristics>
+                <characteristic name="M">8"</characteristic>
+                <characteristic name="T">8</characteristic>
+                <characteristic name="SV">2+</characteristic>
+                <characteristic name="W">13</characteristic>
+                <characteristic name="LD">6+</characteristic>
+                <characteristic name="OC">4</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Invulnerable Save" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">4+ invulnerable save</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Deadly Demise D3" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">Before this model is removed from play:
+  -&gt; Roll one D6: on a 6+, each enemy unit within 6" suffers D3 mortal wounds.</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Deep Strike" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">The unit has the Deep Strike ability.</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Surge of Wrath (Psychic)" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">During the Fight phase:
+  -&gt; You can re-roll the Hit roll.
+  -&gt; You can re-roll the Wound roll.
+  -&gt; You can re-roll the Damage roll.</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Warrior Strategist" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">Once per battle, you can use one Stratagem on this model for 0CP.</characteristic>
+              </characteristics>
+            </profile>
+          </profiles>
+          <categories>
+            <category name="Faction: Grey Knights"/>
+            <category name="Vehicle"/>
+            <category name="Character"/>
+            <category name="Walker"/>
+            <category name="Psyker"/>
+            <category name="Imperium"/>
+            <category name="Grand Master in Nemesis Dreadknight"/>
+          </categories>
+          <selections>
+            <selection id="unit1-m0" name="Grand Master in Nemesis Dreadknight" type="model" number="1">
+              <selections>
+                <selection id="unit1-m0-w0" name="Heavy psycannon" type="upgrade" number="1">
+                  <profiles>
+                    <profile name="Heavy psycannon" typeName="Ranged Weapons">
+                      <characteristics>
+                        <characteristic name="Range">24"</characteristic>
+                        <characteristic name="A">6</characteristic>
+                        <characteristic name="BS">3+</characteristic>
+                        <characteristic name="S">10</characteristic>
+                        <characteristic name="AP">-2</characteristic>
+                        <characteristic name="D">3</characteristic>
+                        <characteristic name="Keywords">Ignores Cover, Psychic</characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+                <selection id="unit1-m0-w1" name="Fragstorm grenade launcher" type="upgrade" number="1">
+                  <profiles>
+                    <profile name="Fragstorm grenade launcher" typeName="Ranged Weapons">
+                      <characteristics>
+                        <characteristic name="Range">18"</characteristic>
+                        <characteristic name="A">D6</characteristic>
+                        <characteristic name="BS">3+</characteristic>
+                        <characteristic name="S">4</characteristic>
+                        <characteristic name="AP">0</characteristic>
+                        <characteristic name="D">1</characteristic>
+                        <characteristic name="Keywords">Blast</characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+                <selection id="unit1-m0-w2" name="Nemesis daemon greathammer" type="upgrade" number="1">
+                  <profiles>
+                    <profile name="Nemesis daemon greathammer" typeName="Melee Weapons">
+                      <characteristics>
+                        <characteristic name="Range">Melee</characteristic>
+                        <characteristic name="A">5</characteristic>
+                        <characteristic name="WS">3+</characteristic>
+                        <characteristic name="S">14</characteristic>
+                        <characteristic name="AP">-3</characteristic>
+                        <characteristic name="D">D6+1</characteristic>
+                        <characteristic name="Keywords">Psychic</characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+              </selections>
+            </selection>
+          </selections>
+        </selection>
+        <selection id="unit2" name="Purifier Squad" type="unit" number="1">
+          <profiles>
+            <profile name="Purifier" typeName="Unit">
+              <characteristics>
+                <characteristic name="M">6"</characteristic>
+                <characteristic name="T">4</characteristic>
+                <characteristic name="SV">2+</characteristic>
+                <characteristic name="W">2</characteristic>
+                <characteristic name="LD">6+</characteristic>
+                <characteristic name="OC">1</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Sanctity of Purpose" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">You can re-roll a Wound roll of 1.</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Deep Strike" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">The unit has the Deep Strike ability.</characteristic>
+              </characteristics>
+            </profile>
+          </profiles>
+          <categories>
+            <category name="Faction: Grey Knights"/>
+            <category name="Infantry"/>
+            <category name="Psyker"/>
+            <category name="Grenades"/>
+            <category name="Imperium"/>
+            <category name="Purifier Squad"/>
+          </categories>
+          <selections>
+            <selection id="unit2-m0" name="Purifier Squad" type="model" number="10">
+              <selections>
+                <selection id="unit2-m0-w0" name="Purifying Flame" type="upgrade" number="10">
+                  <profiles>
+                    <profile name="Purifying Flame" typeName="Ranged Weapons">
+                      <characteristics>
+                        <characteristic name="Range">18"</characteristic>
+                        <characteristic name="A">1</characteristic>
+                        <characteristic name="BS">3+</characteristic>
+                        <characteristic name="S">4</characteristic>
+                        <characteristic name="AP">-2</characteristic>
+                        <characteristic name="D">1</characteristic>
+                        <characteristic name="Keywords">Anti-Infantry 2+, Ignores Cover, Psychic</characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+                <selection id="unit2-m0-w1" name="Storm bolter" type="upgrade" number="90">
+                  <profiles>
+                    <profile name="Storm bolter" typeName="Ranged Weapons">
+                      <characteristics>
+                        <characteristic name="Range">24"</characteristic>
+                        <characteristic name="A">2</characteristic>
+                        <characteristic name="BS">3+</characteristic>
+                        <characteristic name="S">4</characteristic>
+                        <characteristic name="AP">0</characteristic>
+                        <characteristic name="D">1</characteristic>
+                        <characteristic name="Keywords">Rapid Fire 2</characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+              </selections>
+            </selection>
+          </selections>
+        </selection>
+      </selections>
+    </force>
+  </forces>
+</roster>

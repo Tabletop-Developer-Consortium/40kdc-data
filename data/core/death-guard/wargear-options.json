@@ -1,5 +1,138 @@
 [
   {
+    "id": "defiler-wgo-mfm-1",
+    "unit_id": "defiler",
+    "faction_id": "death-guard",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_free": true,
+    "replaces": [
+      "hades-battle-cannon"
+    ],
+    "replacement": [
+      "ectoplasma-destructor"
+    ],
+    "model_constraint": {
+      "max_count": 1
+    }
+  },
+  {
+    "id": "defiler-wgo-mfm-2",
+    "unit_id": "defiler",
+    "faction_id": "death-guard",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_free": true,
+    "replaces": [
+      "excruciator-cannon",
+      "excruciator-cannon"
+    ],
+    "replacement": [
+      "magma-cutters",
+      "magma-cutters"
+    ],
+    "model_constraint": {
+      "any_number": true
+    }
+  },
+  {
+    "id": "defiler-wgo-mfm-3",
+    "unit_id": "defiler",
+    "faction_id": "death-guard",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_free": true,
+    "replaces": [
+      "heavy-baleflamer"
+    ],
+    "replacement_choice": [
+      [
+        "heavy-reaper-autocannon"
+      ],
+      [
+        "hades-lascannon"
+      ],
+      [
+        "electroscourge"
+      ]
+    ],
+    "model_constraint": {
+      "max_count": 1
+    }
+  },
+  {
+    "id": "defiler-wgo-mfm-4",
+    "unit_id": "defiler",
+    "faction_id": "death-guard",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_free": true,
+    "replaces": [
+      "heavy-missile-launcher",
+      "heavy-baleflamer"
+    ],
+    "replacement_choice": [
+      [
+        "heavy-reaper-autocannon",
+        "heavy-reaper-autocannon"
+      ],
+      [
+        "hades-lascannon",
+        "heavy-reaper-autocannon"
+      ],
+      [
+        "electroscourge",
+        "hades-lascannon"
+      ],
+      [
+        "electroscourge",
+        "heavy-reaper-autocannon"
+      ],
+      [
+        "hades-lascannon",
+        "hades-lascannon"
+      ]
+    ],
+    "model_constraint": {
+      "max_count": 1
+    }
+  },
+  {
+    "id": "defiler-wgo-mfm-5",
+    "unit_id": "defiler",
+    "faction_id": "death-guard",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_free": true,
+    "replaces": [
+      "heavy-missile-launcher"
+    ],
+    "replacement_choice": [
+      [
+        "heavy-reaper-autocannon"
+      ],
+      [
+        "hades-lascannon"
+      ],
+      [
+        "electroscourge"
+      ]
+    ],
+    "model_constraint": {
+      "max_count": 1
+    }
+  },
+  {
     "id": "chaos-predator-annihilator-wgo-mfm-1",
     "unit_id": "chaos-predator-annihilator",
     "faction_id": "death-guard",
@@ -8,10 +141,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "predator-twin-lascannon",
-      "armoured-tracks"
-    ],
     "replacement_choice": [
       [
         "combi-weapon"
@@ -33,10 +162,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "predator-twin-lascannon",
-      "armoured-tracks"
-    ],
     "replacement": [
       "havoc-launcher"
     ],
@@ -53,10 +178,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "predator-twin-lascannon",
-      "armoured-tracks"
-    ],
     "replacement_choice": [
       [
         "lascannon",
@@ -80,10 +201,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "predator-autocannon",
-      "armoured-tracks"
-    ],
     "replacement": [
       "havoc-launcher"
     ],
@@ -100,10 +217,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "predator-autocannon",
-      "armoured-tracks"
-    ],
     "replacement_choice": [
       [
         "combi-weapon"
@@ -125,10 +238,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "predator-autocannon",
-      "armoured-tracks"
-    ],
     "replacement_choice": [
       [
         "lascannon",
@@ -154,10 +263,7 @@
     "is_free": true,
     "replaces": [
       "entropy-cannon",
-      "entropy-cannon",
-      "heavy-slugger",
-      "plagueburst-mortar",
-      "armoured-tracks"
+      "entropy-cannon"
     ],
     "replacement": [
       "plaguespitter",
@@ -177,11 +283,7 @@
     },
     "is_free": true,
     "replaces": [
-      "entropy-cannon",
-      "entropy-cannon",
-      "heavy-slugger",
-      "plagueburst-mortar",
-      "armoured-tracks"
+      "heavy-slugger"
     ],
     "replacement": [
       "rothail-volley-gun"
@@ -200,8 +302,7 @@
     },
     "is_free": true,
     "replaces": [
-      "boltgun",
-      "plague-knives-plague-marines"
+      "boltgun"
     ],
     "replacement_choice": [
       [
@@ -229,7 +330,6 @@
     },
     "is_free": true,
     "replaces": [
-      "boltgun",
       "plague-knives-plague-marines"
     ],
     "replacement_choice": [
@@ -255,8 +355,7 @@
     },
     "is_free": true,
     "replaces": [
-      "boltgun",
-      "plague-knives-plague-marines"
+      "boltgun"
     ],
     "replacement_choice": [
       [
@@ -313,8 +412,7 @@
     },
     "is_free": true,
     "replaces": [
-      "fleshmower",
-      "plague-probe"
+      "fleshmower"
     ],
     "replacement": [
       "plaguespitter",
@@ -334,8 +432,7 @@
     },
     "is_free": true,
     "replaces": [
-      "multi-melta",
-      "close-combat-weapon-helbrute"
+      "multi-melta"
     ],
     "replacement_choice": [
       [
@@ -456,8 +553,7 @@
     },
     "is_free": true,
     "replaces": [
-      "helbrute-fist",
-      "close-combat-weapon-helbrute"
+      "helbrute-fist"
     ],
     "replacement_choice": [
       [
@@ -485,8 +581,7 @@
     "is_free": true,
     "replaces": [
       "multi-melta",
-      "helbrute-fist",
-      "close-combat-weapon-helbrute"
+      "helbrute-fist"
     ],
     "replacement_choice": [
       [
@@ -559,9 +654,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "close-combat-weapon-helbrute"
-    ],
     "replacement_choice": [
       [
         "combi-bolter"
@@ -583,9 +675,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "armoured-tracks"
-    ],
     "replacement_choice": [
       [
         "combi-bolter"
@@ -619,8 +708,7 @@
     },
     "is_free": true,
     "replaces": [
-      "combi-bolter",
-      "armoured-tracks"
+      "combi-bolter"
     ],
     "replacement_choice": [
       [
@@ -644,12 +732,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "soulshatter-lascannon",
-      "soulshatter-lascannon",
-      "twin-heavy-bolter",
-      "armoured-tracks-chaos-land-raider"
-    ],
     "replacement_choice": [
       [
         "combi-bolter"
@@ -671,12 +753,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "soulshatter-lascannon",
-      "soulshatter-lascannon",
-      "twin-heavy-bolter",
-      "armoured-tracks-chaos-land-raider"
-    ],
     "replacement": [
       "havoc-launcher"
     ],
@@ -694,8 +770,7 @@
     },
     "is_free": true,
     "replaces": [
-      "combi-bolter",
-      "bubotic-blade"
+      "combi-bolter"
     ],
     "replacement": [
       "combi-weapon"
@@ -762,159 +837,5 @@
       "model_name": "Blightlord Terminator",
       "per_n_models": 5
     }
-  },
-  {
-    "id": "defiler-wgo-mfm-1",
-    "unit_id": "defiler",
-    "faction_id": "death-guard",
-    "game_version": {
-      "edition": "11th",
-      "dataslate": "launch"
-    },
-    "is_free": true,
-    "model_constraint": {
-      "max_count": 1
-    },
-    "replaces": [
-      "shearing-claws",
-      "hades-battle-cannon",
-      "excruciator-cannon",
-      "excruciator-cannon",
-      "heavy-missile-launcher",
-      "heavy-baleflamer"
-    ],
-    "replacement": [
-      "ectoplasma-destructor"
-    ]
-  },
-  {
-    "id": "defiler-wgo-mfm-2",
-    "unit_id": "defiler",
-    "faction_id": "death-guard",
-    "game_version": {
-      "edition": "11th",
-      "dataslate": "launch"
-    },
-    "is_free": true,
-    "model_constraint": {
-      "any_number": true
-    },
-    "replaces": [
-      "shearing-claws",
-      "hades-battle-cannon",
-      "excruciator-cannon",
-      "excruciator-cannon",
-      "heavy-missile-launcher",
-      "heavy-baleflamer"
-    ],
-    "replacement": [
-      "magma-cutters",
-      "magma-cutters"
-    ]
-  },
-  {
-    "id": "defiler-wgo-mfm-3",
-    "unit_id": "defiler",
-    "faction_id": "death-guard",
-    "game_version": {
-      "edition": "11th",
-      "dataslate": "launch"
-    },
-    "is_free": true,
-    "model_constraint": {
-      "max_count": 1
-    },
-    "replaces": [
-      "shearing-claws",
-      "hades-battle-cannon",
-      "excruciator-cannon",
-      "excruciator-cannon",
-      "heavy-baleflamer"
-    ],
-    "replacement_choice": [
-      [
-        "heavy-reaper-autocannon"
-      ],
-      [
-        "hades-lascannon"
-      ],
-      [
-        "electroscourge"
-      ]
-    ]
-  },
-  {
-    "id": "defiler-wgo-mfm-4",
-    "unit_id": "defiler",
-    "faction_id": "death-guard",
-    "game_version": {
-      "edition": "11th",
-      "dataslate": "launch"
-    },
-    "is_free": true,
-    "model_constraint": {
-      "max_count": 1
-    },
-    "replaces": [
-      "shearing-claws",
-      "hades-battle-cannon",
-      "excruciator-cannon",
-      "excruciator-cannon",
-      "heavy-missile-launcher",
-      "heavy-baleflamer"
-    ],
-    "replacement_choice": [
-      [
-        "heavy-reaper-autocannon",
-        "heavy-reaper-autocannon"
-      ],
-      [
-        "hades-lascannon",
-        "heavy-reaper-autocannon"
-      ],
-      [
-        "electroscourge",
-        "hades-lascannon"
-      ],
-      [
-        "electroscourge",
-        "heavy-reaper-autocannon"
-      ],
-      [
-        "hades-lascannon",
-        "hades-lascannon"
-      ]
-    ]
-  },
-  {
-    "id": "defiler-wgo-mfm-5",
-    "unit_id": "defiler",
-    "faction_id": "death-guard",
-    "game_version": {
-      "edition": "11th",
-      "dataslate": "launch"
-    },
-    "is_free": true,
-    "model_constraint": {
-      "max_count": 1
-    },
-    "replaces": [
-      "shearing-claws",
-      "hades-battle-cannon",
-      "excruciator-cannon",
-      "excruciator-cannon",
-      "heavy-missile-launcher"
-    ],
-    "replacement_choice": [
-      [
-        "heavy-reaper-autocannon"
-      ],
-      [
-        "hades-lascannon"
-      ],
-      [
-        "electroscourge"
-      ]
-    ]
   }
 ]

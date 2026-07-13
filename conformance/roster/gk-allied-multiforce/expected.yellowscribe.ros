@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<roster id="roster0" name="Allied Test List" gameSystemId="sys-352e-adc2-7639-d6a9" gameSystemName="Warhammer 40,000">
+  <forces>
+    <force id="force0" name="Grey Knights" catalogueName="Grey Knights">
+      <selections>
+        <selection id="unit0" name="Grand Master in Nemesis Dreadknight" type="unit" number="1">
+          <profiles>
+            <profile name="Grand Master in Nemesis Dreadknight" typeName="Unit">
+              <characteristics>
+                <characteristic name="M">8"</characteristic>
+                <characteristic name="T">8</characteristic>
+                <characteristic name="SV">2+</characteristic>
+                <characteristic name="W">13</characteristic>
+                <characteristic name="LD">6+</characteristic>
+                <characteristic name="OC">4</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Invulnerable Save" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">4+ invulnerable save</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Deadly Demise D3" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">Before this model is removed from play:
+  -&gt; Roll one D6: on a 6+, each enemy unit within 6" suffers D3 mortal wounds.</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Deep Strike" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">The unit has the Deep Strike ability.</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Surge of Wrath (Psychic)" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">During the Fight phase:
+  -&gt; You can re-roll the Hit roll.
+  -&gt; You can re-roll the Wound roll.
+  -&gt; You can re-roll the Damage roll.</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Warrior Strategist" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">Once per battle, you can use one Stratagem on this model for 0CP.</characteristic>
+              </characteristics>
+            </profile>
+          </profiles>
+          <categories>
+            <category name="Faction: Grey Knights"/>
+            <category name="Vehicle"/>
+            <category name="Character"/>
+            <category name="Walker"/>
+            <category name="Psyker"/>
+            <category name="Imperium"/>
+            <category name="Grand Master in Nemesis Dreadknight"/>
+          </categories>
+          <selections>
+            <selection id="unit0-m0" name="Grand Master in Nemesis Dreadknight" type="model" number="1"/>
+          </selections>
+        </selection>
+        <selection id="unit1" name="Callidus Assassin" type="unit" number="1">
+          <profiles>
+            <profile name="Callidus Assassin" typeName="Unit">
+              <characteristics>
+                <characteristic name="M">7"</characteristic>
+                <characteristic name="T">4</characteristic>
+                <characteristic name="SV">6+</characteristic>
+                <characteristic name="W">4</characteristic>
+                <characteristic name="LD">6+</characteristic>
+                <characteristic name="OC">1</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Invulnerable Save" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">4+ invulnerable save</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Acrobatic Escape" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">During the Fight phase, the unit is eligible to shoot and declare a charge in a turn in which it Fell Back.</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Deep Strike" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">The unit has the Deep Strike ability.</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Fights First" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">The unit has the Fights First ability.</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Infiltrators" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">Once per battle, the unit has the Infiltrators ability.</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Lone Operative" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">This model can only be selected as the target of ranged attacks if the attacking unit is within 12".</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Lord of Deceit (Aura)" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">Against A targets, Stratagems that target enemy units within 12" cost 1 more CP.</characteristic>
+              </characteristics>
+            </profile>
+            <profile name="Shadow Assignment" typeName="Abilities">
+              <characteristics>
+                <characteristic name="Description">You can include only one of this unit in your army.</characteristic>
+              </characteristics>
+            </profile>
+          </profiles>
+          <categories>
+            <category name="Faction: Agents of the Imperium"/>
+            <category name="Infantry"/>
+            <category name="Character"/>
+            <category name="Epic Hero"/>
+            <category name="Imperium"/>
+            <category name="Officio Assassinorum"/>
+            <category name="Callidus Assassin"/>
+          </categories>
+          <selections>
+            <selection id="unit1-m0" name="Callidus Assassin" type="model" number="1"/>
+          </selections>
+        </selection>
+      </selections>
+    </force>
+  </forces>
+</roster>

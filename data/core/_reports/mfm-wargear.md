@@ -1,34 +1,34 @@
-# MFM wargear — DRY RUN
+# MFM wargear — APPLIED
 
 Dump-primary `default_weapon_ids` + wargear-options. BSData retained only for
 dump-absent (repo-only) units. Unresolved weapon names are triaged, never guessed.
 
 | Dir | Matched | Options | Defaults Δ | Synth | Unresolved | Fuzzy | Notes | New-in-dump | Repo-only (fallback) |
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|
-| adepta-sororitas | 37 | 56 | 16 | 0 | 12 | 0 | 0 | 0 | 0 |
-| adeptus-astartes | 194 | 264 | 118 | 0 | 58 | 1 | 10 | 0 | 0 |
-| adeptus-custodes | 35 | 23 | 11 | 0 | 7 | 0 | 0 | 0 | 0 |
-| adeptus-mechanicus | 38 | 34 | 14 | 0 | 9 | 0 | 8 | 0 | 0 |
-| aeldari | 76 | 92 | 42 | 0 | 32 | 2 | 1 | 0 | 0 |
-| agents-of-the-imperium | 33 | 47 | 18 | 0 | 42 | 2 | 4 | 0 | 0 |
-| astra-militarum | 75 | 159 | 51 | 0 | 33 | 0 | 7 | 0 | 0 |
-| chaos-daemons | 53 | 14 | 7 | 0 | 6 | 0 | 1 | 92 | 0 |
-| chaos-knights | 20 | 20 | 5 | 0 | 0 | 0 | 0 | 0 | 0 |
-| chaos-space-marines | 58 | 91 | 25 | 0 | 38 | 3 | 6 | 99 | 0 |
-| death-guard | 35 | 24 | 10 | 0 | 41 | 0 | 0 | 6 | 0 |
-| drukhari | 27 | 39 | 7 | 0 | 3 | 1 | 0 | 0 | 0 |
-| emperors-children | 20 | 24 | 7 | 0 | 0 | 0 | 4 | 6 | 0 |
-| genestealer-cults | 28 | 17 | 15 | 0 | 18 | 1 | 0 | 0 | 0 |
-| grey-knights | 30 | 39 | 20 | 0 | 14 | 1 | 2 | 0 | 0 |
-| imperial-knights | 23 | 31 | 7 | 0 | 0 | 0 | 1 | 0 | 0 |
-| leagues-of-votann | 26 | 31 | 12 | 0 | 18 | 1 | 1 | 0 | 0 |
-| necrons | 57 | 25 | 14 | 0 | 23 | 0 | 1 | 0 | 0 |
-| orks | 63 | 49 | 30 | 0 | 20 | 2 | 1 | 0 | 0 |
-| tau-empire | 47 | 74 | 25 | 0 | 23 | 0 | 1 | 0 | 0 |
-| thousand-sons | 32 | 36 | 14 | 0 | 45 | 0 | 0 | 6 | 0 |
-| tyranids | 57 | 17 | 14 | 0 | 2 | 1 | 1 | 0 | 0 |
-| world-eaters | 29 | 40 | 10 | 0 | 0 | 0 | 1 | 5 | 0 |
-| **TOTAL** | **1093** | **1246** | **492** | **0** | **444** | **15** | **50** | **214** | **0** |
+| adepta-sororitas | 37 | 56 | 0 | 0 | 12 | 0 | 0 | 0 | 0 |
+| adeptus-astartes | 194 | 264 | 2 | 0 | 58 | 1 | 10 | 0 | 0 |
+| adeptus-custodes | 35 | 23 | 0 | 0 | 7 | 0 | 0 | 0 | 0 |
+| adeptus-mechanicus | 38 | 34 | 0 | 0 | 9 | 0 | 8 | 0 | 0 |
+| aeldari | 76 | 92 | 6 | 0 | 32 | 2 | 1 | 0 | 0 |
+| agents-of-the-imperium | 33 | 47 | 1 | 0 | 42 | 2 | 4 | 0 | 0 |
+| astra-militarum | 75 | 159 | 0 | 0 | 33 | 0 | 7 | 0 | 0 |
+| chaos-daemons | 53 | 14 | 0 | 0 | 6 | 0 | 1 | 92 | 0 |
+| chaos-knights | 20 | 20 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+| chaos-space-marines | 58 | 95 | 0 | 0 | 11 | 3 | 6 | 99 | 0 |
+| death-guard | 35 | 29 | 0 | 0 | 4 | 0 | 0 | 6 | 0 |
+| drukhari | 27 | 39 | 0 | 0 | 3 | 1 | 0 | 0 | 0 |
+| emperors-children | 20 | 24 | 0 | 0 | 0 | 0 | 4 | 6 | 0 |
+| genestealer-cults | 28 | 17 | 0 | 0 | 18 | 1 | 0 | 0 | 0 |
+| grey-knights | 30 | 39 | 0 | 0 | 14 | 1 | 2 | 0 | 0 |
+| imperial-knights | 23 | 31 | 0 | 0 | 0 | 0 | 1 | 0 | 0 |
+| leagues-of-votann | 26 | 31 | 0 | 0 | 18 | 1 | 1 | 0 | 0 |
+| necrons | 57 | 25 | 2 | 0 | 23 | 0 | 1 | 0 | 0 |
+| orks | 63 | 49 | 0 | 0 | 20 | 2 | 1 | 0 | 0 |
+| tau-empire | 47 | 74 | 5 | 0 | 23 | 0 | 0 | 0 | 0 |
+| thousand-sons | 32 | 41 | 0 | 0 | 6 | 0 | 0 | 6 | 0 |
+| tyranids | 57 | 17 | 0 | 0 | 2 | 1 | 1 | 0 | 0 |
+| world-eaters | 29 | 40 | 0 | 0 | 0 | 0 | 1 | 5 | 0 |
+| **TOTAL** | **1093** | **1260** | **16** | **0** | **341** | **15** | **49** | **214** | **0** |
 
 ## adepta-sororitas
 
@@ -178,13 +178,7 @@ dump-absent (repo-only) units. Unresolved weapon names are triaged, never guesse
 
 **Unresolved weapon names (no repo id — option/default incomplete):**
 - `Blades and Cudgels` — zarkans-daemonkin-cultist-mob
-- `Ectoplasma destructor` — defiler
-- `Electroscourge` — defiler
 - `Fists and Knives` — zarkans-daemonkin-legionaries
-- `Hades lascannon` — defiler
-- `Heavy baleflamer` — defiler
-- `Heavy missile launcher` — defiler
-- `Heavy reaper autocannon` — defiler
 - `Voice Eater` — nemesis-claw
 
 **Notes (cap approximations / alternates):**
@@ -198,18 +192,8 @@ dump-absent (repo-only) units. Unresolved weapon names are triaged, never guesse
 ## death-guard
 
 **Unresolved weapon names (no repo id — option/default incomplete):**
-- `Ectoplasma destructor` — defiler
-- `Electroscourge` — defiler
-- `Excruciator cannon` — defiler
-- `Hades battle cannon` — defiler
-- `Hades lascannon` — defiler
-- `Heavy baleflamer` — defiler
-- `Heavy missile launcher` — defiler
-- `Heavy reaper autocannon` — defiler
 - `Icon of Despair (Aura)` — deathshroud-terminators, plague-marines
-- `Magma cutters` — defiler
 - `Numerological Artefacts` — septimol-fulg-maggot-lords-tallyman
-- `Shearing claws` — defiler
 
 ## drukhari
 
@@ -327,22 +311,9 @@ dump-absent (repo-only) units. Unresolved weapon names are triaged, never guesse
 - `Missile Drone` — broadside-battlesuits, riptide-battlesuit
 - `Pech’ra` — kroot-farstalkers
 
-**Notes (cap approximations / alternates):**
-- kroot-farstalkers: composition has row(s) absent from the dump (Kill-Broker) while 1 dump row(s) are missing — manual reconcile, not auto-synthesized
-
 ## thousand-sons
 
 **Unresolved weapon names (no repo id — option/default incomplete):**
-- `Ectoplasma destructor` — defiler
-- `Electroscourge` — defiler
-- `Excruciator cannon` — defiler
-- `Hades battle cannon` — defiler
-- `Hades lascannon` — defiler
-- `Heavy baleflamer` — defiler
-- `Heavy missile launcher` — defiler
-- `Heavy reaper autocannon` — defiler
-- `Pyraflux magma cutters` — defiler
-- `Shearing claws` — defiler
 - `Stocks and Fists` — prism-of-zadophon-rubric-marines
 
 ## tyranids

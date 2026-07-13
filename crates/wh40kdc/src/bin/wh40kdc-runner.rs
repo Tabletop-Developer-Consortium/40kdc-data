@@ -17,7 +17,7 @@ use wh40kdc::cruncher::{
     attribute_stages, crunch, AttackProfileRef, AttributedStage, Buff, BuffSource, EngineContext,
     EngineInput, StageLift, StageName, TargetProfileRef,
 };
-use wh40kdc::export::{export_roster, ExportFormat};
+use wh40kdc::export::{export_roster_with_dataset, ExportFormat};
 use wh40kdc::import::{
     import_roster, try_import_roster, AdapterTrial, ImportFailureReason, ImportResult, Roster,
     RosterFormat,
@@ -318,6 +318,7 @@ fn handle_export(state: &mut RunnerState, args: &Value) -> Value {
         "rosterizer" => ExportFormat::Rosterizer,
         "atc-2026-compact" => ExportFormat::Atc2026Compact,
         "atc-2026-full" => ExportFormat::Atc2026Full,
+        "yellowscribe" => ExportFormat::Yellowscribe,
         other => {
             return err_value(
                 ErrorKind::InvalidInput,
@@ -340,8 +341,10 @@ fn handle_export(state: &mut RunnerState, args: &Value) -> Value {
             );
         }
     };
-    let _ = state; // dataset not needed for export — kept for handler symmetry
-    match std::panic::catch_unwind(|| export_roster(&roster, format)) {
+    // Most formats are Dataset-free; yellowscribe resolves datasheets against
+    // the embedded dataset. Route both through the Dataset-backed entry point.
+    let dataset = state.dataset();
+    match std::panic::catch_unwind(|| export_roster_with_dataset(&roster, format, dataset)) {
         Ok(s) => ok_value(Value::String(s)),
         Err(_) => err_value(
             ErrorKind::ExportFailed,

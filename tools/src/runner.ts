@@ -259,9 +259,10 @@ const EXPORT_FORMATS: ExportFormat[] = [
   "rosterizer",
   "atc-2026-compact",
   "atc-2026-full",
+  "yellowscribe",
 ];
 
-function handleExport(args: unknown): RunnerResponse {
+function handleExport(state: RunnerState, args: unknown): RunnerResponse {
   if (typeof args !== "object" || args === null) {
     return err("INVALID_INPUT", { detail: "export args must be an object" });
   }
@@ -274,9 +275,10 @@ function handleExport(args: unknown): RunnerResponse {
   }
   try {
     // We assume the caller passes the canonical resolved Roster shape; if they
-    // pass something the serializer can't handle, this throws.
+    // pass something the serializer can't handle, this throws. Dataset-backed
+    // formats (yellowscribe) get the embedded dataset; the others ignore it.
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return ok(exportRoster(a.roster as any, a.format as ExportFormat));
+    return ok(exportRoster(a.roster as any, a.format as ExportFormat, getDataset(state)));
   } catch (e) {
     return err("EXPORT_FAILED", { detail: (e as Error).message });
   }
@@ -1147,7 +1149,7 @@ export function dispatch(state: RunnerState, req: { op: string; args?: unknown }
     case "try_import":
       return handleTryImport(state, req.args);
     case "export":
-      return handleExport(req.args);
+      return handleExport(state, req.args);
     case "linked_query":
       return handleLinkedQuery(state, req.args);
     case "check_unit_legality":

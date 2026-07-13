@@ -9,8 +9,6 @@
     },
     "is_free": true,
     "replaces": [
-      "cloudburst-missile-launcher",
-      "revenant-feet",
       "sonic-lance"
     ],
     "replacement": [
@@ -30,8 +28,6 @@
     },
     "is_free": true,
     "replaces": [
-      "cloudburst-missile-launcher",
-      "revenant-feet",
       "revenant-pulsar"
     ],
     "replacement": [
@@ -93,11 +89,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "shuriken-catapult-wraithlord",
-      "shuriken-catapult-wraithlord",
-      "wraithbone-fists"
-    ],
     "replacement": [
       "ghostglaive"
     ],
@@ -116,8 +107,7 @@
     "is_free": true,
     "replaces": [
       "shuriken-catapult-wraithlord",
-      "shuriken-catapult-wraithlord",
-      "wraithbone-fists"
+      "shuriken-catapult-wraithlord"
     ],
     "replacement": [
       "flamer"
@@ -135,11 +125,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "shuriken-catapult-wraithlord",
-      "shuriken-catapult-wraithlord",
-      "wraithbone-fists"
-    ],
     "replacement_choice": [
       [
         "scatter-laser"
@@ -171,9 +156,7 @@
     },
     "is_free": true,
     "replaces": [
-      "twin-shuriken-cannon",
-      "twin-shuriken-catapult",
-      "wraithbone-hull"
+      "twin-shuriken-catapult"
     ],
     "replacement": [
       "shuriken-cannon-wave-serpent"
@@ -192,9 +175,7 @@
     },
     "is_free": true,
     "replaces": [
-      "twin-shuriken-cannon",
-      "twin-shuriken-catapult",
-      "wraithbone-hull"
+      "twin-shuriken-cannon"
     ],
     "replacement_choice": [
       [
@@ -223,11 +204,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "shuriken-pistol",
-      "power-sword",
-      "close-combat-weapon-corsair-voidscarred"
-    ],
     "replacement": [
       "mistshield"
     ],
@@ -329,9 +305,7 @@
     },
     "is_free": true,
     "replaces": [
-      "prism-cannon",
-      "twin-shuriken-catapult",
-      "wraithbone-hull"
+      "twin-shuriken-catapult"
     ],
     "replacement": [
       "shuriken-cannon-fire-prism"
@@ -350,7 +324,6 @@
     },
     "is_free": true,
     "replaces": [
-      "shuriken-pistol-autarch",
       "star-glaive"
     ],
     "replacement_choice": [
@@ -375,8 +348,7 @@
     },
     "is_free": true,
     "replaces": [
-      "shuriken-pistol-autarch",
-      "star-glaive"
+      "shuriken-pistol-autarch"
     ],
     "replacement_choice": [
       [
@@ -426,8 +398,7 @@
     },
     "is_free": true,
     "replaces": [
-      "exarchs-dragon-fusion-gun",
-      "close-combat-weapon"
+      "exarchs-dragon-fusion-gun"
     ],
     "replacement_choice": [
       [
@@ -501,9 +472,6 @@
     },
     "is_free": true,
     "replaces": [
-      "destructor",
-      "shuriken-pistol",
-      "twin-shuriken-catapult",
       "witchblade"
     ],
     "replacement": [
@@ -523,9 +491,6 @@
     },
     "is_free": true,
     "replaces": [
-      "shuriken-pistol",
-      "twin-shuriken-catapult",
-      "eldritch-storm",
       "witchblade-farseer-skyrunner"
     ],
     "replacement": [
@@ -606,8 +571,7 @@
     },
     "is_free": true,
     "replaces": [
-      "shuriken-cannon-guardian-defenders",
-      "close-combat-weapon-guardian-defenders"
+      "shuriken-cannon-guardian-defenders"
     ],
     "replacement_choice": [
       [
@@ -638,9 +602,7 @@
     },
     "is_free": true,
     "replaces": [
-      "d-bombard",
-      "voidstorm-missile-launcher",
-      "phantom-feet"
+      "d-bombard"
     ],
     "replacement_choice": [
       [
@@ -677,9 +639,7 @@
     "is_free": true,
     "replaces": [
       "d-bombard",
-      "phantom-pulsar",
-      "voidstorm-missile-launcher",
-      "phantom-feet"
+      "phantom-pulsar"
     ],
     "replacement_choice": [
       [
@@ -739,9 +699,7 @@
     "replaces": [
       "d-bombard",
       "phantom-pulsar",
-      "phantom-starcannon",
-      "voidstorm-missile-launcher",
-      "phantom-feet"
+      "phantom-starcannon"
     ],
     "replacement": [
       "pulse-laser",
@@ -767,9 +725,7 @@
     "is_free": true,
     "replaces": [
       "phantom-pulsar",
-      "phantom-starcannon",
-      "voidstorm-missile-launcher",
-      "phantom-feet"
+      "phantom-starcannon"
     ],
     "replacement": [
       "wraith-glaive",
@@ -790,9 +746,7 @@
     },
     "is_free": true,
     "replaces": [
-      "phantom-pulsar",
-      "voidstorm-missile-launcher",
-      "phantom-feet"
+      "phantom-pulsar"
     ],
     "replacement_choice": [
       [
@@ -832,9 +786,7 @@
     },
     "is_free": true,
     "replaces": [
-      "phantom-starcannon",
-      "voidstorm-missile-launcher",
-      "phantom-feet"
+      "phantom-starcannon"
     ],
     "replacement": [
       "pulse-laser"
@@ -854,9 +806,7 @@
     "is_free": true,
     "replaces": [
       "d-bombard",
-      "phantom-starcannon",
-      "voidstorm-missile-launcher",
-      "phantom-feet"
+      "phantom-starcannon"
     ],
     "replacement": [
       "pulse-laser",
@@ -879,8 +829,7 @@
     "is_free": true,
     "replaces": [
       "shuriken-cannon-war-walkers",
-      "shuriken-cannon-war-walkers",
-      "war-walker-feet"
+      "shuriken-cannon-war-walkers"
     ],
     "replacement_choice": [
       [
@@ -909,11 +858,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "suncannon",
-      "titanic-feet",
-      "scattershield"
-    ],
     "replacement_choice": [
       [
         "shuriken-cannon-wraithknight"
@@ -937,10 +881,9 @@
       "edition": "11th",
       "dataslate": "launch"
     },
-    "is_free": false,
+    "is_free": true,
     "replaces": [
       "suncannon",
-      "titanic-feet",
       "scattershield"
     ],
     "replacement": [
@@ -959,9 +902,8 @@
       "edition": "11th",
       "dataslate": "launch"
     },
-    "is_free": false,
+    "is_free": true,
     "replaces": [
-      "titanic-feet",
       "scattershield"
     ],
     "replacement": [
@@ -979,10 +921,9 @@
       "edition": "11th",
       "dataslate": "launch"
     },
-    "is_free": false,
+    "is_free": true,
     "replaces": [
-      "suncannon",
-      "titanic-feet"
+      "suncannon"
     ],
     "replacement": [
       "heavy-wraithcannon"
@@ -1001,9 +942,7 @@
     },
     "is_free": true,
     "replaces": [
-      "splinter-pistol",
-      "splinter-rifle",
-      "bladevanes"
+      "splinter-rifle"
     ],
     "replacement_choice": [
       [
@@ -1028,9 +967,7 @@
     },
     "is_free": true,
     "replaces": [
-      "splinter-pistol",
-      "splinter-rifle",
-      "bladevanes"
+      "splinter-rifle"
     ],
     "replacement_choice": [
       [
@@ -1054,11 +991,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "splinter-pistol",
-      "splinter-rifle",
-      "bladevanes"
-    ],
     "replacement_choice": [
       [
         "cluster-caltrops"
@@ -1081,11 +1013,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "splinter-pistol",
-      "splinter-rifle",
-      "bladevanes"
-    ],
     "replacement_choice": [
       [
         "grav-talon"
@@ -1108,11 +1035,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "splinter-pistol",
-      "splinter-rifle",
-      "bladevanes"
-    ],
     "replacement": [
       "agoniser"
     ],
@@ -1131,8 +1053,7 @@
     },
     "is_free": true,
     "replaces": [
-      "hawks-talon",
-      "close-combat-weapon"
+      "hawks-talon"
     ],
     "replacement_choice": [
       [
@@ -1161,8 +1082,7 @@
     },
     "is_free": true,
     "replaces": [
-      "wraithcannon-wraithguard",
-      "close-combat-weapon-wraithguard"
+      "wraithcannon-wraithguard"
     ],
     "replacement": [
       "d-scythe"
@@ -1180,9 +1100,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "succubus-weapons"
-    ],
     "replacement_choice": [
       [
         "splinter-pistol-ynnari-succubus"
@@ -1205,7 +1122,6 @@
     },
     "is_free": true,
     "replaces": [
-      "laser-lance",
       "twin-shuriken-catapult"
     ],
     "replacement": [
@@ -1225,10 +1141,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "laser-lance",
-      "twin-shuriken-catapult"
-    ],
     "replacement": [
       "shimmershield"
     ],
@@ -1247,8 +1159,7 @@
     },
     "is_free": true,
     "replaces": [
-      "laser-lance",
-      "twin-shuriken-catapult"
+      "laser-lance"
     ],
     "replacement_choice": [
       [
@@ -1357,11 +1268,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "shuriken-pistol",
-      "power-sword-corsair-voidreavers",
-      "close-combat-weapon"
-    ],
     "replacement": [
       "mistshield"
     ],
@@ -1380,8 +1286,7 @@
     },
     "is_free": true,
     "replaces": [
-      "shuriken-pistol-shadowseer",
-      "miststave"
+      "shuriken-pistol-shadowseer"
     ],
     "replacement": [
       "neuro-disruptor-shadowseer"
@@ -1458,8 +1363,7 @@
     },
     "is_free": true,
     "replaces": [
-      "splinter-rifle",
-      "close-combat-weapon"
+      "splinter-rifle"
     ],
     "replacement_choice": [
       [
@@ -1483,10 +1387,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "splinter-rifle",
-      "close-combat-weapon"
-    ],
     "replacement": [
       "phantasm-grenade-launcher"
     ],
@@ -1505,7 +1405,6 @@
     },
     "is_free": true,
     "replaces": [
-      "splinter-rifle",
       "close-combat-weapon"
     ],
     "replacement": [
@@ -1526,8 +1425,7 @@
     },
     "is_free": true,
     "replaces": [
-      "splinter-rifle",
-      "close-combat-weapon"
+      "splinter-rifle"
     ],
     "replacement_choice": [
       [
@@ -1558,10 +1456,7 @@
     },
     "is_free": true,
     "replaces": [
-      "shuriken-cannon-voidweaver",
-      "shuriken-cannon-voidweaver",
-      "voidweaver-haywire-cannon",
-      "close-combat-weapon-voidweaver"
+      "voidweaver-haywire-cannon"
     ],
     "replacement": [
       "prismatic-cannon"
@@ -1580,8 +1475,6 @@
     },
     "is_free": true,
     "replaces": [
-      "destructor",
-      "shuriken-pistol",
       "witchblade"
     ],
     "replacement": [
@@ -1601,7 +1494,6 @@
     },
     "is_free": true,
     "replaces": [
-      "titanic-ghostglaive",
       "scattershield"
     ],
     "replacement": [
@@ -1620,10 +1512,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "titanic-ghostglaive",
-      "scattershield"
-    ],
     "replacement_choice": [
       [
         "scatter-laser-wraithknight-with-ghostglaive"
@@ -1649,8 +1537,7 @@
     },
     "is_free": true,
     "replaces": [
-      "splinter-pistol",
-      "hekatarii-blade"
+      "splinter-pistol"
     ],
     "replacement": [
       "blast-pistol-ynnari-wyches"
@@ -1670,8 +1557,6 @@
     },
     "is_free": true,
     "replaces": [
-      "destructor",
-      "shuriken-pistol",
       "witchblade"
     ],
     "replacement": [
@@ -1691,8 +1576,6 @@
     },
     "is_free": true,
     "replaces": [
-      "shuriken-pistol-farseer",
-      "eldritch-storm",
       "witchblade-farseer"
     ],
     "replacement": [
@@ -1712,9 +1595,7 @@
     },
     "is_free": true,
     "replaces": [
-      "doomweaver",
-      "twin-shuriken-catapult",
-      "wraithbone-hull"
+      "twin-shuriken-catapult"
     ],
     "replacement": [
       "shuriken-cannon-night-spinner"
@@ -1733,7 +1614,6 @@
     },
     "is_free": true,
     "replaces": [
-      "shuriken-pistol-autarch-wayleaper",
       "star-glaive"
     ],
     "replacement_choice": [
@@ -1758,8 +1638,7 @@
     },
     "is_free": true,
     "replaces": [
-      "shuriken-pistol-autarch-wayleaper",
-      "star-glaive"
+      "shuriken-pistol-autarch-wayleaper"
     ],
     "replacement_choice": [
       [
@@ -1911,9 +1790,7 @@
     },
     "is_free": true,
     "replaces": [
-      "pulse-laser",
-      "twin-shuriken-catapult",
-      "wraithbone-hull"
+      "twin-shuriken-catapult"
     ],
     "replacement": [
       "shuriken-cannon-falcon"
@@ -1932,9 +1809,7 @@
     },
     "is_free": true,
     "replaces": [
-      "pulse-laser",
-      "scatter-laser-falcon",
-      "wraithbone-hull"
+      "scatter-laser-falcon"
     ],
     "replacement_choice": [
       [
@@ -1964,10 +1839,8 @@
     },
     "is_free": true,
     "replaces": [
-      "pulse-laser",
       "scatter-laser-falcon",
-      "twin-shuriken-catapult",
-      "wraithbone-hull"
+      "twin-shuriken-catapult"
     ],
     "replacement_choice": [
       [
@@ -2001,8 +1874,7 @@
     },
     "is_free": true,
     "replaces": [
-      "twin-shuriken-catapult",
-      "close-combat-weapon-windriders"
+      "twin-shuriken-catapult"
     ],
     "replacement_choice": [
       [
@@ -2026,8 +1898,7 @@
     },
     "is_free": true,
     "replaces": [
-      "shuriken-pistol-troupe-master",
-      "troupe-masters-blade"
+      "shuriken-pistol-troupe-master"
     ],
     "replacement_choice": [
       [
@@ -2051,7 +1922,6 @@
     },
     "is_free": true,
     "replaces": [
-      "shuriken-pistol-troupe-master",
       "troupe-masters-blade"
     ],
     "replacement": [
@@ -2072,9 +1942,7 @@
     "is_free": true,
     "replaces": [
       "starcannon-crimson-hunter",
-      "starcannon-crimson-hunter",
-      "pulse-laser",
-      "wraithbone-hull"
+      "starcannon-crimson-hunter"
     ],
     "replacement": [
       "bright-lance-crimson-hunter",
@@ -2094,8 +1962,7 @@
     },
     "is_free": true,
     "replaces": [
-      "dark-lance-ynnari-raider",
-      "bladevanes-ynnari-raider"
+      "dark-lance-ynnari-raider"
     ],
     "replacement": [
       "disintegrator-cannon"
@@ -2114,9 +1981,7 @@
     },
     "is_free": true,
     "replaces": [
-      "shuriken-cannon-skyweavers",
-      "star-bolas",
-      "close-combat-weapon-skyweavers"
+      "star-bolas"
     ],
     "replacement": [
       "zephyrglaive"
@@ -2135,9 +2000,7 @@
     },
     "is_free": true,
     "replaces": [
-      "shuriken-cannon-skyweavers",
-      "star-bolas",
-      "close-combat-weapon-skyweavers"
+      "shuriken-cannon-skyweavers"
     ],
     "replacement": [
       "skyweaver-haywire-cannon"
@@ -2194,7 +2057,6 @@
     },
     "is_free": true,
     "replaces": [
-      "shuriken-pistol",
       "harlequins-blade"
     ],
     "replacement": [
@@ -2215,7 +2077,6 @@
     },
     "is_free": true,
     "replaces": [
-      "shuriken-pistol",
       "harlequins-blade"
     ],
     "replacement_choice": [
@@ -2241,8 +2102,7 @@
     },
     "is_free": true,
     "replaces": [
-      "shuriken-pistol",
-      "harlequins-blade"
+      "shuriken-pistol"
     ],
     "replacement_choice": [
       [
@@ -2267,8 +2127,7 @@
     },
     "is_free": true,
     "replaces": [
-      "shuriken-pistol",
-      "harlequins-blade"
+      "shuriken-pistol"
     ],
     "replacement_choice": [
       [
@@ -2312,9 +2171,7 @@
     },
     "is_free": true,
     "replaces": [
-      "shuriken-cannon-vyper",
-      "bright-lance-vyper",
-      "wraithbone-hull"
+      "bright-lance-vyper"
     ],
     "replacement_choice": [
       [
@@ -2338,9 +2195,7 @@
     },
     "is_free": true,
     "replaces": [
-      "shuriken-cannon-vyper",
-      "bright-lance-vyper",
-      "wraithbone-hull"
+      "shuriken-cannon-vyper"
     ],
     "replacement": [
       "missile-launcher-vyper"

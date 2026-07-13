@@ -15,7 +15,7 @@ abilities that translate into cruncher buffs via the real `effectToBuffs`
 | agents-of-the-imperium | 133 | 34 | 13 | 89 | 0 | 0 | 0 | 2 |
 | astra-militarum | 205 | 44 | 16 | 147 | 2 | 3 | 0 | 5 |
 | chaos-daemons | 157 | 39 | 14 | 110 | 0 | 7 | 0 | 4 |
-| chaos-knights | 115 | 29 | 9 | 78 | 3 | 2 | 0 | 0 |
+| chaos-knights | 115 | 28 | 9 | 79 | 3 | 2 | 0 | 0 |
 | chaos-space-marines | 236 | 69 | 17 | 157 | 5 | 17 | 0 | 6 |
 | death-guard | 119 | 24 | 6 | 91 | 4 | 7 | 0 | 3 |
 | drukhari | 100 | 25 | 7 | 70 | 1 | 5 | 0 | 1 |
@@ -24,31 +24,31 @@ abilities that translate into cruncher buffs via the real `effectToBuffs`
 | grey-knights | 61 | 16 | 5 | 41 | 1 | 2 | 0 | 1 |
 | imperial-knights | 76 | 29 | 6 | 43 | 1 | 5 | 0 | 1 |
 | leagues-of-votann | 76 | 22 | 7 | 49 | 0 | 0 | 0 | 0 |
-| necrons | 157 | 31 | 23 | 111 | 0 | 2 | 0 | 1 |
+| necrons | 158 | 30 | 23 | 113 | 1 | 2 | 0 | 1 |
 | orks | 159 | 34 | 14 | 116 | 2 | 5 | 0 | 3 |
 | tau-empire | 129 | 31 | 6 | 94 | 0 | 3 | 0 | 3 |
 | thousand-sons | 130 | 32 | 9 | 94 | 7 | 12 | 0 | 2 |
 | tyranids | 114 | 22 | 8 | 87 | 1 | 5 | 0 | 5 |
 | world-eaters | 133 | 17 | 10 | 107 | 3 | 0 | 0 | 0 |
-| **TOTAL** | **3121** | **770** | **266** | **2171** | **41** | **118** | **0** | **57** |
+| **TOTAL** | **3122** | **768** | **266** | **2174** | **42** | **118** | **0** | **57** |
 
 `stub*` = structural (empty-modifier placeholder node) — the authoring worklist. `notes-stub` = flagged in community_notes.
 
 ## Unsupported-effect reasons (offensive walk)
 
-- `458` — effect type "ability-grant" is not modelled by the buff layer
-- `157` — effect type "movement-modifier" is not modelled by the buff layer
+- `456` — effect type "ability-grant" is not modelled by the buff layer
+- `158` — effect type "movement-modifier" is not modelled by the buff layer
 - `128` — effect type "mortal-wounds" is not modelled by the buff layer
 - `102` — conditional: cannot evaluate condition "undefined" against current context
-- `86` — effect type "leadership-modifier" is not modelled by the buff layer
+- `85` — effect type "leadership-modifier" is not modelled by the buff layer
 - `62` — effect type "attack-restriction" is not modelled by the buff layer
 - `57` — effect type "resurrection" is not modelled by the buff layer
-- `52` — effect type "cp-refund" is not modelled by the buff layer
+- `53` — effect type "cp-refund" is not modelled by the buff layer
 - `52` — effect type "objective-control-modifier" is not modelled by the buff layer
 - `38` — re-roll on "charge" (subset …) is outside the damage path
 - `33` — effect type "deep-strike" is not modelled by the buff layer
+- `33` — effect type "unit-keyword" is not modelled by the buff layer
 - `33` — effect type "cp-gain" is not modelled by the buff layer
-- `32` — effect type "unit-keyword" is not modelled by the buff layer
 - `32` — effect type "rule-state" is not modelled by the buff layer
 - `31` — stat-modifier: operation "set" not supported
 - `31` — effect type "disembark-after-move" is not modelled by the buff layer
@@ -60,9 +60,9 @@ abilities that translate into cruncher buffs via the real `effectToBuffs`
 - `19` — effect type "targeting-permission" is not modelled by the buff layer
 - `19` — roll-modifier: operation "set" not supported
 - `14` — conditional: cannot evaluate condition "unit-below-starting-strength" against current context
+- `14` — designate-target debuff on the marked unit: not a buff on the bearer
 - `14` — roll-modifier: operation "ignore-modifiers" not supported
 - `13` — roll-modifier on "charge" is outside the damage path
-- `13` — designate-target debuff on the marked unit: not a buff on the bearer
 - `13` — conditional: cannot evaluate condition "unit-within-range-of" against current context
 - `12` — stat-modifier on "D" is outside the damage path
 - `10` — stat-modifier T: defender-side stat; applies when the buffed unit is the target
@@ -106,6 +106,7 @@ abilities that translate into cruncher buffs via the real `effectToBuffs`
 - `2` — re-roll on "eviscerating-fly-by-wounds" (subset …) is outside the damage path
 - `2` — stat-modifier on "detection-range" is outside the damage path
 - `2` — effect type "stratagem-cost-modifier" is not modelled by the buff layer
+- `2` — effect type "remove-battle-shock" is not modelled by the buff layer
 - `2` — re-roll on "leadership" (subset …) is outside the damage path
 - `2` — re-roll on "blood-surge" (subset …) is outside the damage path
 - `2` — conditional: cannot evaluate condition "destroyed-by-attack-type" against current context
@@ -117,7 +118,6 @@ abilities that translate into cruncher buffs via the real `effectToBuffs`
 - `1` — conditional: cannot evaluate condition "unit-has-tag" against current context
 - `1` — conditional: cannot evaluate condition "was-hit-by-attack" against current context
 - `1` — stat-modifier: narrows by "weapon_filter" which the cruncher can't resolve here
-- `1` — effect type "remove-battle-shock" is not modelled by the buff layer
 - `1` — stat-modifier on "OC" is outside the damage path
 - `1` — re-roll on "dread-ability-selection" (subset …) is outside the damage path
 - `1` — conditional: cannot evaluate condition "has-fought-this-phase" against current context

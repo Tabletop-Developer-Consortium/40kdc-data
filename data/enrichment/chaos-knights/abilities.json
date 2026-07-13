@@ -758,22 +758,59 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "re-roll",
-      "target": "unit",
-      "modifier": {
-        "roll": "hit",
-        "subset": "all-failures"
+      "type": "conditional",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          {
+            "type": "unit-has-keyword",
+            "parameters": {
+              "keyword": "WAR DOG"
+            }
+          },
+          {
+            "operator": "or",
+            "operands": [
+              {
+                "type": "target-has-keyword",
+                "parameters": {
+                  "keyword": "TITANIC"
+                }
+              },
+              {
+                "type": "target-has-keyword",
+                "parameters": {
+                  "keyword": "TOWERING"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "effect": {
+        "type": "re-roll",
+        "target": "unit",
+        "modifier": {
+          "roll": "hit",
+          "subset": "all-failures"
+        }
       }
     },
     "scope": {
       "range": "aura-6",
-      "duration": "permanent"
+      "duration": "permanent",
+      "range_inches": 6
+    },
+    "applies_to": {
+      "required_keywords": [
+        "WAR DOG"
+      ]
     },
     "unit_ids": [
       "chaos-cerastus-knight-atrapos"
     ],
     "ability_type": "unit",
-    "behavior": "passive"
+    "behavior": "aura"
   },
   {
     "ability_id": "sunderer-of-fortresses",
@@ -2072,17 +2109,49 @@
     "ability_type": "enhancement",
     "behavior": "aura",
     "effect": {
-      "type": "leadership-modifier",
-      "target": "enemy-within-aura",
-      "modifier": {
-        "test": "battle-shock"
+      "type": "designate-target",
+      "designation": "octagram-battle-shock",
+      "select": {
+        "scope": "enemy-unit",
+        "count": 1,
+        "timing": "after-friendly-war-dog-within-9-shoots"
+      },
+      "applies": {
+        "to": "target",
+        "effect": {
+          "type": "leadership-modifier",
+          "target": "target",
+          "modifier": {
+            "test": "battle-shock"
+          }
+        }
       }
+    },
+    "trigger": {
+      "event": "after-unit-resolves-attacks",
+      "subject": "friendly-unit",
+      "proximity": {
+        "of": "bearer",
+        "range": 9
+      },
+      "condition": {
+        "type": "unit-has-keyword",
+        "parameters": {
+          "keyword": "WAR DOG"
+        }
+      },
+      "optional": true
     },
     "scope": {
       "range": "aura-9",
       "duration": "phase"
     },
-    "community_notes": "Knight Abominant only. While a friendly War Dog model is within 9\", after that War Dog shoots, one enemy unit it hit must take a Battle-shock test."
+    "applies_to": {
+      "required_keywords": [
+        "Knight Abominant"
+      ]
+    },
+    "community_notes": "Enhancement, Knight Abominant model only. Aura: while a friendly War Dog model is within 9\" of the bearer, after that War Dog shoots you can select one enemy unit hit by one or more of those attacks; that unit must take a Battle-shock test. [APPROX] Selection is restricted to an enemy unit that was hit by that War Dog's shooting attacks; the effect tree names the forced Battle-shock test but does not gate the pick on the hit."
   },
   {
     "ability_id": "throne-tyrannicus-helhunt-lance",
@@ -2491,19 +2560,37 @@
     "ability_type": "detachment",
     "behavior": "passive",
     "effect": {
-      "type": "objective-control-modifier",
-      "target": "all-friendly",
-      "modifier": {
-        "stat": "OC",
-        "operation": "add",
-        "value": 2
-      }
+      "type": "sequence",
+      "steps": [
+        {
+          "type": "objective-control-modifier",
+          "target": "all-friendly",
+          "modifier": {
+            "stat": "OC",
+            "operation": "add",
+            "value": 2
+          }
+        },
+        {
+          "type": "cp-refund",
+          "target": "self",
+          "modifier": {
+            "stratagem": "claimed-for-the-dark-gods-lords-of-dread"
+          }
+        }
+      ]
     },
     "scope": {
-      "range": "unit",
+      "range": "any-on-battlefield",
       "duration": "permanent"
     },
-    "community_notes": "Improve the OC of CHAOS KNIGHTS CHARACTER models by 2. Once per battle round, if your Warlord is on the battlefield, use Claimed for the Dark Gods for 0CP."
+    "applies_to": {
+      "required_keywords": [
+        "Chaos Knights",
+        "Character"
+      ]
+    },
+    "community_notes": "Friendly CHAOS KNIGHTS CHARACTER models have +2 Objective Control. In addition, once per battle round, if your Warlord is on the battlefield, you can use the Claimed for the Dark Gods Stratagem for 0CP. [APPROX] The once-per-battle-round limit and the Warlord-on-battlefield gate on the free Stratagem are not encoded in the effect tree (no once-per-battle-round usage frequency; no warlord-presence condition id)."
   },
   {
     "ability_id": "claimed-for-the-dark-gods-lords-of-dread",

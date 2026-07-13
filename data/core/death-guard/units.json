@@ -65,9 +65,9 @@
     "profiles": [
       {
         "name": "Defiler",
-        "M": 8,
+        "M": 12,
         "T": 11,
-        "W": 14,
+        "W": 18,
         "Sv": 3,
         "invuln_sv": 5,
         "Ld": 6,
@@ -309,7 +309,8 @@
     ],
     "ability_ids": [
       "curse-of-the-walking-pox",
-      "infiltrators"
+      "infiltrators",
+      "feel-no-pain-5"
     ],
     "game_version": {
       "edition": "11th",
@@ -409,6 +410,7 @@
       }
     ],
     "keywords": [
+      "Frame",
       "Vehicle",
       "Smoke",
       "Chaos",
@@ -439,7 +441,8 @@
       "annihilator",
       "blood-hungry-annihilator",
       "ensorcelled-annihilation",
-      "metalophagic-infection"
+      "metalophagic-infection",
+      "deadly-demise-d3"
     ],
     "game_version": {
       "edition": "11th",
@@ -479,6 +482,7 @@
       }
     ],
     "keywords": [
+      "Frame",
       "Vehicle",
       "Smoke",
       "Chaos",
@@ -509,7 +513,8 @@
       "destructor",
       "ensorcelled-destruction",
       "hail-of-corrosive-disease",
-      "punishing-suppression"
+      "punishing-suppression",
+      "deadly-demise-d3"
     ],
     "game_version": {
       "edition": "11th",
@@ -572,7 +577,8 @@
       "plague-probe"
     ],
     "ability_ids": [
-      "explosive-blight"
+      "explosive-blight",
+      "deadly-demise-d3"
     ],
     "game_version": {
       "edition": "11th",
@@ -638,7 +644,8 @@
       "rothail-volley-gun"
     ],
     "ability_ids": [
-      "spore-laced-shock-waves"
+      "spore-laced-shock-waves",
+      "deadly-demise-d3"
     ],
     "game_version": {
       "edition": "11th",
@@ -697,7 +704,8 @@
     "ability_ids": [
       "extraction-of-fresh-disease",
       "foul-infusion",
-      "leader"
+      "leader",
+      "deadly-demise-1"
     ],
     "game_version": {
       "edition": "11th",
@@ -902,7 +910,8 @@
     "ability_ids": [
       "death-guard-defenders",
       "fevered-strategist",
-      "miasma-of-pestilence-aura"
+      "miasma-of-pestilence-aura",
+      "deadly-demise-d3"
     ],
     "game_version": {
       "edition": "11th",
@@ -979,7 +988,8 @@
     ],
     "ability_ids": [
       "death-approaches",
-      "silent-bodyguard"
+      "silent-bodyguard",
+      "deep-strike"
     ],
     "game_version": {
       "edition": "11th",
@@ -1037,7 +1047,8 @@
     "ability_ids": [
       "blight-bombardment",
       "leader",
-      "virulent-aura"
+      "virulent-aura",
+      "deep-strike"
     ],
     "game_version": {
       "edition": "11th",
@@ -1102,7 +1113,8 @@
       "plaguespitter"
     ],
     "ability_ids": [
-      "hovering-death"
+      "hovering-death",
+      "deadly-demise-d3"
     ],
     "game_version": {
       "edition": "11th",
@@ -1218,7 +1230,9 @@
     ],
     "ability_ids": [
       "enfeebling-miasma",
-      "horrifying-visage"
+      "horrifying-visage",
+      "deep-strike",
+      "deadly-demise-d3"
     ],
     "game_version": {
       "edition": "11th",
@@ -1272,7 +1286,8 @@
     "ability_ids": [
       "diseased-cover",
       "fortification",
-      "putrescent-fog"
+      "putrescent-fog",
+      "deadly-demise-d3"
     ],
     "game_version": {
       "edition": "11th",
@@ -1468,7 +1483,9 @@
       "deadly-demise-d6",
       "host-of-plagues",
       "lord-of-the-death-guard",
-      "supreme-commander"
+      "supreme-commander",
+      "deep-strike",
+      "feel-no-pain-5"
     ],
     "game_version": {
       "edition": "11th",
@@ -1561,6 +1578,7 @@
       }
     ],
     "keywords": [
+      "Frame",
       "Vehicle",
       "Smoke",
       "Chaos",
@@ -1592,7 +1610,8 @@
       "firing-deck-2",
       "meet-any-challenge",
       "self-repair",
-      "sorcerous-support"
+      "sorcerous-support",
+      "deadly-demise-d3"
     ],
     "transport_capacity": {
       "capacity": 12
@@ -1635,6 +1654,7 @@
       }
     ],
     "keywords": [
+      "Frame",
       "Vehicle",
       "Transport",
       "Smoke",
@@ -1843,7 +1863,8 @@
     "ability_ids": [
       "destroyer-hive",
       "eater-plague-psychic",
-      "leader"
+      "leader",
+      "deep-strike"
     ],
     "game_version": {
       "edition": "11th",
@@ -1914,7 +1935,8 @@
       "reaper-autocannon"
     ],
     "ability_ids": [
-      "blistering-fusillade"
+      "blistering-fusillade",
+      "deep-strike"
     ],
     "game_version": {
       "edition": "11th",

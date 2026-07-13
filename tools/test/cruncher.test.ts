@@ -218,3 +218,26 @@ describe("crunch: FNP", () => {
     near(stage(withFnp, "after-fnp"), stage(baseline, "damage") * (4 / 6), "FNP applies");
   });
 });
+
+describe("crunch: attack-scoped invulnerable save (issue #87)", () => {
+  // judiciar is a scoped-only defender: invuln_sv null, invuln_sv_melee 4, no
+  // ranged invuln. Sv3 vs an AP-3 weapon → armour 6+, so the 4++ (melee-only)
+  // must bind for a melee attack and must NOT bind for a ranged one. The
+  // unsaved-per-wound fraction isolates the effective save (no devastating/mortal
+  // streams on these plain profiles, so unsaved/wounds == 1 − P(save)).
+  it("a melee attack applies the melee-scoped invuln (4++ over armour 6+)", () => {
+    const out = crunch(
+      inputFor("sword-of-the-high-marshals", 0, 1, "judiciar", { phase: "fight" }),
+    );
+    // effective save min(6+, 4++) = 4+ → P(save)=3/6 → unsaved fraction 0.5.
+    near(stage(out, "unsaved") / stage(out, "wounds"), 0.5, "melee-scoped invuln applied");
+  });
+
+  it("a ranged attack does NOT apply the melee-scoped invuln (armour 6+ only)", () => {
+    const out = crunch(
+      inputFor("las-talon", 0, 1, "judiciar", { phase: "shooting" }),
+    );
+    // no ranged/unconditional invuln → effective save armour 6+ → unsaved 5/6.
+    near(stage(out, "unsaved") / stage(out, "wounds"), 5 / 6, "melee invuln not leaked to ranged");
+  });
+});

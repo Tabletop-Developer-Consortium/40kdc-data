@@ -224,7 +224,10 @@ def crunch(input: EngineInput, dataset: Dataset | None = None) -> EngineOutput:
     # The unit's printed invuln (from the profile) and any ability-granted
     # invuln combine best-wins (lowest threshold). Invuln bypasses AP, so the
     # final save is min(armor-after-AP, invuln).
-    printed_invuln = unit_profile.get("invuln_sv")
+    # Attack-scoped invuln (issue #87): a ranged-/melee-only save applies only to
+    # that attack type; fall back to the unconditional invuln_sv when unscoped.
+    scoped_invuln = unit_profile.get("invuln_sv_melee" if is_melee else "invuln_sv_ranged")
+    printed_invuln = scoped_invuln if scoped_invuln is not None else unit_profile.get("invuln_sv")
     invulnerable = resolved["invulnerable"]
     ability_invuln = invulnerable["threshold"] if invulnerable is not None else None
     if printed_invuln is not None and ability_invuln is not None:

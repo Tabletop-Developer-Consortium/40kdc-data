@@ -16894,6 +16894,32 @@ impl ::std::convert::TryFrom<::std::string::String> for TriggerSubject {
 ///              }
 ///            ]
 ///          },
+///          "invuln_sv_melee": {
+///            "description": "Attack-scoped invulnerable save that applies only to melee attacks.",
+///            "oneOf": [
+///              {
+///                "type": "integer",
+///                "maximum": 6.0,
+///                "minimum": 2.0
+///              },
+///              {
+///                "type": "null"
+///              }
+///            ]
+///          },
+///          "invuln_sv_ranged": {
+///            "description": "Attack-scoped invulnerable save that applies only to ranged attacks.",
+///            "oneOf": [
+///              {
+///                "type": "integer",
+///                "maximum": 6.0,
+///                "minimum": 2.0
+///              },
+///              {
+///                "type": "null"
+///              }
+///            ]
+///          },
 ///          "name": {
 ///            "description": "Profile name (e.g., 'Wounded' for degrading)",
 ///            "type": "string"
@@ -18300,6 +18326,32 @@ pub struct UnitPointsItem {
 ///        }
 ///      ]
 ///    },
+///    "invuln_sv_melee": {
+///      "description": "Attack-scoped invulnerable save that applies only to melee attacks.",
+///      "oneOf": [
+///        {
+///          "type": "integer",
+///          "maximum": 6.0,
+///          "minimum": 2.0
+///        },
+///        {
+///          "type": "null"
+///        }
+///      ]
+///    },
+///    "invuln_sv_ranged": {
+///      "description": "Attack-scoped invulnerable save that applies only to ranged attacks.",
+///      "oneOf": [
+///        {
+///          "type": "integer",
+///          "maximum": 6.0,
+///          "minimum": 2.0
+///        },
+///        {
+///          "type": "null"
+///        }
+///      ]
+///    },
 ///    "name": {
 ///      "description": "Profile name (e.g., 'Wounded' for degrading)",
 ///      "type": "string"
@@ -18312,6 +18364,12 @@ pub struct UnitPointsItem {
 pub struct UnitProfilesItem {
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub invuln_sv: ::std::option::Option<i64>,
+    ///Attack-scoped invulnerable save that applies only to melee attacks.
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub invuln_sv_melee: ::std::option::Option<i64>,
+    ///Attack-scoped invulnerable save that applies only to ranged attacks.
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub invuln_sv_ranged: ::std::option::Option<i64>,
     #[serde(rename = "Ld")]
     pub ld: i64,
     #[serde(rename = "M")]

@@ -2010,6 +2010,14 @@ export interface Unit {
       W: number;
       Sv: number;
       invuln_sv?: number | null;
+      /**
+       * Attack-scoped invulnerable save that applies only to ranged attacks.
+       */
+      invuln_sv_ranged?: number | null;
+      /**
+       * Attack-scoped invulnerable save that applies only to melee attacks.
+       */
+      invuln_sv_melee?: number | null;
       Ld: number;
       OC: number;
       [k: string]: unknown;
@@ -2024,6 +2032,14 @@ export interface Unit {
       W: number;
       Sv: number;
       invuln_sv?: number | null;
+      /**
+       * Attack-scoped invulnerable save that applies only to ranged attacks.
+       */
+      invuln_sv_ranged?: number | null;
+      /**
+       * Attack-scoped invulnerable save that applies only to melee attacks.
+       */
+      invuln_sv_melee?: number | null;
       Ld: number;
       OC: number;
       [k: string]: unknown;

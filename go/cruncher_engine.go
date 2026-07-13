@@ -234,7 +234,17 @@ func crunch(input map[string]any, ds *Dataset) ([]map[string]any, *resolved, err
 	armorTargetRaw := numOr0(unitProfile["Sv"]) - ap - res.saveMod
 	armorFinal := clampF(armorTargetRaw, 2, 7)
 	var effectiveInvuln *float64
-	if pv := unitProfile["invuln_sv"]; isNumber(pv) {
+	// Attack-scoped invuln (issue #87): a ranged-/melee-only save applies only to
+	// that attack type; fall back to the unconditional invuln_sv when unscoped.
+	scopedKey := "invuln_sv_ranged"
+	if isMelee {
+		scopedKey = "invuln_sv_melee"
+	}
+	pv := unitProfile[scopedKey]
+	if !isNumber(pv) {
+		pv = unitProfile["invuln_sv"]
+	}
+	if isNumber(pv) {
 		p, _ := num(pv)
 		effectiveInvuln = &p
 	}

@@ -2475,6 +2475,32 @@
                   }
                 ]
               },
+              "invuln_sv_ranged": {
+                "description": "Attack-scoped invulnerable save that applies only to ranged attacks.",
+                "oneOf": [
+                  {
+                    "type": "integer",
+                    "minimum": 2,
+                    "maximum": 6
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "invuln_sv_melee": {
+                "description": "Attack-scoped invulnerable save that applies only to melee attacks.",
+                "oneOf": [
+                  {
+                    "type": "integer",
+                    "minimum": 2,
+                    "maximum": 6
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
               "Ld": {
                 "type": "integer",
                 "minimum": 2,

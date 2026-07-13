@@ -554,6 +554,8 @@ class Profile(TypedDict):
     W: int
     Sv: int
     invuln_sv: NotRequired[int | None]
+    invuln_sv_ranged: NotRequired[int | None]
+    invuln_sv_melee: NotRequired[int | None]
     Ld: int
     OC: int
 

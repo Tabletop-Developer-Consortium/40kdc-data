@@ -91,6 +91,8 @@ export interface WargearRecord {
 interface UnitProfile {
   name: string;
   invuln_sv?: number | null;
+  invuln_sv_ranged?: number | null;
+  invuln_sv_melee?: number | null;
   [k: string]: unknown;
 }
 interface UnitRecord {
@@ -215,6 +217,187 @@ function parseSkill(s: string | null | undefined): number | null {
   const n = Number(m[1]);
   return n >= 2 && n <= 6 ? n : null;
 }
+
+/** One `invulnerable_save` dump row (only the fields this projection reads). */
+interface InvulnerableSaveRow {
+  miniatureId?: string | null;
+  save?: string | null;
+  rangedSave?: string | null;
+  meleeSave?: string | null;
+  localisations?: { en?: { rules?: string | null } | null } | null;
+}
+
+/**
+ * The whole-unit invulnerable-save projection: an unconditional `invuln_sv` plus
+ * the attack-scoped `invuln_sv_ranged` / `invuln_sv_melee`. `found` records whether
+ * any universal (miniatureId-null) row existed; `warnings` collects every
+ * unparseable value, footnote/save disagreement, and unrecognized-prose case.
+ */
+export interface InvulnerableSaveProjection {
+  invuln_sv: number | null;
+  invuln_sv_ranged: number | null;
+  invuln_sv_melee: number | null;
+  found: boolean;
+  warnings: string[];
+}
+
+// The narrow, closed set of English attack-scope footnotes issue #87 normalizes.
+// Everything else (See Shadow Field, model-only / exclusion caveats, re-roll notes)
+// is deliberately NOT scope and stays outside the static attack-type model. Matched
+// after stripping `*`, trimming, lower-casing, and removing a terminal `.`.
+const INVULN_RANGED_PLAIN = /^against ranged attacks only$/;
+const INVULN_MELEE_PLAIN = /^against melee attacks only$/;
+const INVULN_RANGED_N = /^(\d)\+ against ranged attacks only$/;
+const INVULN_MELEE_N = /^(\d)\+ against melee attacks only$/;
+const INVULN_RANGED_MODEL = /^this model has a (\d)\+ invulnerable save against ranged attacks$/;
+const INVULN_MELEE_MODEL = /^this model has a (\d)\+ invulnerable save against melee attacks$/;
+
+/**
+ * Project the `invulnerable_save` rows of ONE datasheet into a static, whole-unit
+ * invulnerable-save shape (issue #87). Structured scoped columns win first and
+ * coexist with an unconditional save; otherwise the closed footnote set above
+ * narrows a `save` to one attack scope. The value is ALWAYS the parsed
+ * save/rangedSave/meleeSave column — a footnote `<N>+` is only an equality guard,
+ * never a value source. Universal rows disagreeing on any output field throw.
+ */
+export function projectInvulnerableSave(rows: readonly unknown[]): InvulnerableSaveProjection {
+  const warnings: string[] = [];
+  let invulnSv: number | null = null;
+  let rangedSv: number | null = null;
+  let meleeSv: number | null = null;
+  let found = false;
+
+  const combine = (current: number | null, incoming: number, label: string): number => {
+    if (current != null && current !== incoming) {
+      throw new Error(`conflicting ${label} invulnerable saves for one datasheet: ${current}+ vs ${incoming}+`);
+    }
+    return incoming;
+  };
+
+  for (const raw of rows) {
+    const row = raw as InvulnerableSaveRow;
+    if (row.miniatureId != null) continue; // model-level exception: not representable here
+    found = true;
+
+    const parseSource = (value: string | null | undefined, label: string): number | null => {
+      if (value == null || value.trim() === "") return null;
+      const n = parseSkill(value);
+      if (n == null) {
+        warnings.push(`unparseable ${label} invulnerable save "${value}"`);
+        return null;
+      }
+      return n;
+    };
+
+    const rangedVal = parseSource(row.rangedSave, "ranged");
+    const meleeVal = parseSource(row.meleeSave, "melee");
+    const saveVal = parseSource(row.save, "save");
+    const structuredScope = row.rangedSave != null || row.meleeSave != null;
+
+    if (rangedVal != null) rangedSv = combine(rangedSv, rangedVal, "ranged");
+    if (meleeVal != null) meleeSv = combine(meleeSv, meleeVal, "melee");
+
+    if (structuredScope) {
+      // Structured columns are authoritative; a non-null save stays unconditional.
+      if (saveVal != null) invulnSv = combine(invulnSv, saveVal, "unconditional");
+      continue;
+    }
+    if (saveVal == null) continue;
+
+    const rules = (row.localisations?.en?.rules ?? "")
+      .replace(/\*/g, "")
+      .trim()
+      .toLowerCase()
+      .replace(/\.$/, "");
+    const rangedN = INVULN_RANGED_N.exec(rules) ?? INVULN_RANGED_MODEL.exec(rules);
+    const meleeN = INVULN_MELEE_N.exec(rules) ?? INVULN_MELEE_MODEL.exec(rules);
+
+    if (INVULN_RANGED_PLAIN.test(rules)) {
+      rangedSv = combine(rangedSv, saveVal, "ranged");
+    } else if (INVULN_MELEE_PLAIN.test(rules)) {
+      meleeSv = combine(meleeSv, saveVal, "melee");
+    } else if (rangedN) {
+      if (Number(rangedN[1]) !== saveVal) {
+        warnings.push(`ranged footnote ${rangedN[1]}+ disagrees with save ${saveVal}+; row left unprojected`);
+      } else {
+        rangedSv = combine(rangedSv, saveVal, "ranged");
+      }
+    } else if (meleeN) {
+      if (Number(meleeN[1]) !== saveVal) {
+        warnings.push(`melee footnote ${meleeN[1]}+ disagrees with save ${saveVal}+; row left unprojected`);
+      } else {
+        meleeSv = combine(meleeSv, saveVal, "melee");
+      }
+    } else {
+      // Unrecognized / ability-governed prose: the save stays unconditional.
+      invulnSv = combine(invulnSv, saveVal, "unconditional");
+    }
+  }
+
+  return { invuln_sv: invulnSv, invuln_sv_ranged: rangedSv, invuln_sv_melee: meleeSv, found, warnings };
+}
+
+/** One-line render of a projection for the CLI summary (never an object). */
+function invulnSummary(projection: InvulnerableSaveProjection): string {
+  const parts: string[] = [];
+  if (projection.invuln_sv != null) parts.push(`${projection.invuln_sv}+`);
+  if (projection.invuln_sv_ranged != null) parts.push(`${projection.invuln_sv_ranged}+ ranged`);
+  if (projection.invuln_sv_melee != null) parts.push(`${projection.invuln_sv_melee}+ melee`);
+  return parts.length ? parts.join(", ") : "—";
+}
+
+/**
+ * Authoritative --invulns-only migration for one profile: overwrite the three
+ * invulnerable fields from the projection. invuln_sv is written even when null (a
+ * scoped-only source clears the stale phantom all-attack save); an absent scoped
+ * value deletes its key rather than serializing null.
+ */
+function syncInvulnProfile(profile: UnitProfile, projection: InvulnerableSaveProjection): void {
+  profile.invuln_sv = projection.invuln_sv;
+  if (projection.invuln_sv_ranged != null) profile.invuln_sv_ranged = projection.invuln_sv_ranged;
+  else delete profile.invuln_sv_ranged;
+  if (projection.invuln_sv_melee != null) profile.invuln_sv_melee = projection.invuln_sv_melee;
+  else delete profile.invuln_sv_melee;
+}
+
+/**
+ * --invulns-only entry point: for each targeted unit, look up its dump datasheet,
+ * project the invulnerable_save rows, synchronize every profile, and stage ONLY
+ * units.json (no weapons / wargear / composition / options).
+ */
+async function runInvulnsOnly(opts: {
+  dump: MfmDump;
+  dir: string;
+  targets: string[];
+  files: FactionFiles;
+  unitsPath: string;
+  write: boolean;
+}): Promise<void> {
+  const { dump, dir, targets, files, unitsPath, write } = opts;
+  const unitsOut = files.units.map((u) => ({ ...u }));
+  console.log(
+    `\n${"=".repeat(64)}\n  project-loadout --invulns-only — ${dir} (${write ? "WRITE" : "DRY RUN"})\n${"=".repeat(64)}`,
+  );
+  for (const unitId of targets) {
+    const unit = unitsOut.find((u) => u.id === unitId);
+    if (!unit) {
+      console.error(`[${dir}] ${unitId}: not found in units.json`);
+      continue;
+    }
+    const ds = findDatasheet(dump, unitId, dir);
+    if (!ds) {
+      console.error(`[${dir}] ${unitId}: no unambiguous dump datasheet`);
+      continue;
+    }
+    const rows = dump.groupBy<InvulnerableSaveRow>("invulnerable_save", "datasheetId").get(ds.id!) ?? [];
+    const projection = projectInvulnerableSave(rows);
+    console.log(`\n## ${unitId}\n   invuln: ${invulnSummary(projection)}`);
+    for (const w of projection.warnings) console.log(`   ⚠ ${w}`);
+    if (Array.isArray(unit.profiles)) for (const prof of unit.profiles) syncInvulnProfile(prof, projection);
+  }
+  await applyWrites([{ path: unitsPath, value: unitsOut }], { write, label: "project-loadout --invulns-only" });
+  if (!write) console.log("\nDRY RUN — no files written. Re-run with --write to apply.");
+}
 function parseAP(s: string | null | undefined): number {
   const v = (s ?? "0").trim();
   const n = parseInt(v, 10);
@@ -337,7 +520,7 @@ interface Projection {
   mintedWeapons: WeaponRecord[];
   mintedWargear: WargearRecord[];
   weaponIds: string[];
-  invuln: number | null;
+  invuln: InvulnerableSaveProjection;
   composition: any;
   options: any[];
   warnings: string[];
@@ -471,12 +654,13 @@ function projectUnit(
     options.push(rec);
   });
 
-  // Invuln from invulnerable_save (miniatureId null → all profiles).
-  let invuln: number | null = null;
-  for (const s of dump.groupBy<any>("invulnerable_save", "datasheetId").get(dsId) ?? []) {
-    const n = parseSkill(s.save);
-    if (n) invuln = n;
-  }
+  // Invuln from invulnerable_save (miniatureId-null rows → whole unit). The
+  // projection normalizes structured scoped columns and the narrow English
+  // attack-scope footnotes; a recognized scoped save stays off the unconditional field.
+  const invuln = projectInvulnerableSave(
+    dump.groupBy<InvulnerableSaveRow>("invulnerable_save", "datasheetId").get(dsId) ?? [],
+  );
+  for (const w of invuln.warnings) warnings.push(w);
 
   const composition =
     models.length > 0
@@ -512,6 +696,17 @@ async function main() {
   const dir = dirFlag >= 0 ? argv[dirFlag + 1] : undefined;
   const write = argv.includes("--write");
   const allSkeletons = argv.includes("--all-skeletons");
+  // --invulns-only re-derives ONLY the invulnerable-save fields (invuln_sv plus the
+  // scoped invuln_sv_ranged / invuln_sv_melee) for explicitly-named units from the
+  // dump and stages just units.json — it mints no weapons/wargear and touches no
+  // composition/options. Authoritative migration behaviour: every targeted profile
+  // is synchronised to the projection (absent scoped keys deleted rather than
+  // serialised null, and invuln_sv written null when the source is scoped-only).
+  const invulnsOnly = argv.includes("--invulns-only");
+  // --dump overrides the default _private/dump.json source, so a user can point at
+  // their own local export without the repo ever containing that JSON.
+  const dumpFlag = argv.indexOf("--dump");
+  const dumpPath = dumpFlag >= 0 ? argv[dumpFlag + 1] : undefined;
   // --refresh re-derives an EXISTING unit's dump-owned loadout from the dump and
   // REPLACES it (weapon_ids, minted weapons, composition, options), instead of the
   // default seed-only behaviour that never clobbers a populated unit. This is the
@@ -525,12 +720,16 @@ async function main() {
   for (let i = 0; i < argv.length; i++) if (argv[i] === "--unit") unitIds.push(argv[i + 1]);
   if (!dir) {
     console.error(
-      "Usage: project-loadout --dir <faction> (--unit <id> ... | --all-skeletons) [--refresh] [--write]",
+      "Usage: project-loadout --dir <faction> --unit <id> [--unit <id> ...] [--invulns-only] [--dump <path>] [--write]",
     );
     process.exit(2);
   }
   if (refresh && (allSkeletons || unitIds.length === 0)) {
     console.error("--refresh requires explicit --unit <id> targets (it replaces existing loadout data).");
+    process.exit(2);
+  }
+  if (invulnsOnly && (allSkeletons || unitIds.length === 0)) {
+    console.error("--invulns-only requires one or more explicit --unit <id> targets.");
     process.exit(2);
   }
 
@@ -563,7 +762,11 @@ async function main() {
     return;
   }
 
-  const dump = loadDump();
+  const dump = loadDump(dumpPath);
+  if (invulnsOnly) {
+    await runInvulnsOnly({ dump, dir, targets, files, unitsPath, write });
+    return;
+  }
   const projections: Projection[] = [];
   for (const unitId of targets) {
     try {
@@ -575,7 +778,7 @@ async function main() {
         mintedWeapons: [],
         mintedWargear: [],
         weaponIds: [],
-        invuln: null,
+        invuln: { invuln_sv: null, invuln_sv_ranged: null, invuln_sv_melee: null, found: false, warnings: [] },
         composition: null,
         options: [],
         warnings: [`FAILED: ${(e as Error).message}`],
@@ -599,7 +802,7 @@ async function main() {
       `   minted ${p.mintedWeapons.length} weapon(s): ${p.mintedWeapons.map((w) => w.id).join(", ") || "—"}`,
     );
     console.log(`   weapon_ids (${p.weaponIds.length}): ${p.weaponIds.join(", ") || "—"}`);
-    console.log(`   invuln: ${p.invuln ?? "—"}   composition: ${p.composition ? "yes" : "no"}   options: ${p.options.length}`);
+    console.log(`   invuln: ${invulnSummary(p.invuln)}   composition: ${p.composition ? "yes" : "no"}   options: ${p.options.length}`);
     for (const w of p.warnings) console.log(`   ⚠ ${w}`);
 
     console.log(
@@ -640,8 +843,22 @@ async function main() {
     const u = unitsOut.find((x) => x.id === p.unitId);
     if (u) {
       if (((u.weapon_ids?.length ?? 0) === 0 || refresh) && weaponIds.length) u.weapon_ids = weaponIds;
-      if (p.invuln && Array.isArray(u.profiles)) {
-        for (const prof of u.profiles) if (prof.invuln_sv == null) prof.invuln_sv = p.invuln;
+      if (p.invuln.found && Array.isArray(u.profiles)) {
+        const scoped = p.invuln.invuln_sv_ranged != null || p.invuln.invuln_sv_melee != null;
+        for (const prof of u.profiles) {
+          if (scoped) {
+            // Recognized scoped source: never seed a phantom all-attack save. Clear
+            // this profile's stale unconditional invuln_sv and set the scoped field(s).
+            if (prof.invuln_sv != null) prof.invuln_sv = null;
+            if (p.invuln.invuln_sv_ranged != null && prof.invuln_sv_ranged == null)
+              prof.invuln_sv_ranged = p.invuln.invuln_sv_ranged;
+            if (p.invuln.invuln_sv_melee != null && prof.invuln_sv_melee == null)
+              prof.invuln_sv_melee = p.invuln.invuln_sv_melee;
+          } else if (p.invuln.invuln_sv != null && prof.invuln_sv == null) {
+            // Unconditional source: seed-only, as before.
+            prof.invuln_sv = p.invuln.invuln_sv;
+          }
+        }
       }
     }
     // Composition: seed if the unit has none; --refresh replaces its existing rows.

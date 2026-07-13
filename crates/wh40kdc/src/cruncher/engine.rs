@@ -386,7 +386,15 @@ pub fn crunch(
     // The unit's printed invuln (from the profile) and any ability-granted
     // invuln combine best-wins (lowest threshold). Invuln bypasses AP, so the
     // final save is min(armor-after-AP, effective-invuln).
-    let printed_invuln = unit_profile.invuln_sv.map(|n| n as f64);
+    // Attack-scoped invuln (issue #87): a ranged-/melee-only save applies only to
+    // that attack type; fall back to the unconditional invuln_sv when unscoped.
+    let printed_invuln = if is_melee {
+        unit_profile.invuln_sv_melee
+    } else {
+        unit_profile.invuln_sv_ranged
+    }
+    .or(unit_profile.invuln_sv)
+    .map(|n| n as f64);
     let ability_invuln = resolved.invulnerable.as_ref().map(|i| i.threshold);
     let effective_invuln = match (printed_invuln, ability_invuln) {
         (Some(a), Some(b)) => Some(a.min(b)),

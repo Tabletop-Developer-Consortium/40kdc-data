@@ -3300,10 +3300,11 @@
         ]
       },
       "effect": {
-        "type": "ability-grant",
-        "target": "self",
+        "type": "attack-restriction",
+        "target": "enemy-within-aura",
         "modifier": {
-          "grant_type": "enemy-reserve-setup-exclusion-zone"
+          "restriction": "prevent-reserve-setup",
+          "range": 12
         }
       }
     },
@@ -3316,7 +3317,7 @@
     ],
     "ability_type": "unit",
     "behavior": "passive",
-    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
+    "community_notes": "[APPROX] While the bearer is within range of an objective marker it controls, the enemy Reserves-setup exclusion zone around it is pushed out to 12\"; the proximity and control conditions are modeled as an AND of two predicates rather than bound to the same objective marker ([APPROX] same-objective binding)."
   },
   {
     "ability_id": "vanguard-protocols",
@@ -4558,14 +4559,15 @@
           "modifier": {
             "keywords": [
               "Assault"
-            ]
+            ],
+            "weapon_type": "ranged"
           }
         },
         {
           "type": "ability-grant",
           "target": "unit",
           "modifier": {
-            "ability_id": "act-after-advancing"
+            "grant_type": "eligible-to-start-an-action-after-an-advance-move"
           }
         }
       ]
@@ -4574,7 +4576,7 @@
       "range": "any-on-battlefield",
       "duration": "permanent"
     },
-    "community_notes": "Applies to friendly IMMORTALS and NECRON WARRIORS units: their ranged attacks gain [ASSAULT], and advancing does not prevent the unit from starting an Action."
+    "community_notes": "Applies per-unit to friendly Immortals and Necron Warriors: their ranged weapons gain [Assault], and being selected to Advance does not stop them starting an Action. The detachment's DYNASTY tag / mutual-exclusion is list-construction metadata, not modeled as an effect here."
   },
   {
     "ability_id": "transdimensional-deployment",

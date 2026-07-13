@@ -201,11 +201,11 @@
     {
       "faction": "necrons",
       "total": 157,
-      "offensive": 31,
+      "offensive": 30,
       "defensive": 23,
-      "inert": 111,
+      "inert": 112,
       "stub": 2,
-      "stubStructural": 0,
+      "stubStructural": 1,
       "gwTextLeak": 0,
       "defensiveSkipped": 1
     },
@@ -267,22 +267,22 @@
   ],
   "totals": {
     "total": 3121,
-    "offensive": 770,
+    "offensive": 769,
     "defensive": 266,
-    "inert": 2171,
+    "inert": 2172,
     "stub": 118,
-    "stubStructural": 41,
+    "stubStructural": 42,
     "gwTextLeak": 0,
     "defensiveSkipped": 57
   },
   "unsupportedReasons": [
     {
       "reason": "effect type \"ability-grant\" is not modelled by the buff layer",
-      "count": 458
+      "count": 456
     },
     {
       "reason": "effect type \"movement-modifier\" is not modelled by the buff layer",
-      "count": 157
+      "count": 158
     },
     {
       "reason": "effect type \"mortal-wounds\" is not modelled by the buff layer",
@@ -557,6 +557,10 @@
       "count": 2
     },
     {
+      "reason": "effect type \"remove-battle-shock\" is not modelled by the buff layer",
+      "count": 2
+    },
+    {
       "reason": "re-roll on \"leadership\" (subset …) is outside the damage path",
       "count": 2
     },
@@ -598,10 +602,6 @@
     },
     {
       "reason": "stat-modifier: narrows by \"weapon_filter\" which the cruncher can't resolve here",
-      "count": 1
-    },
-    {
-      "reason": "effect type \"remove-battle-shock\" is not modelled by the buff layer",
       "count": 1
     },
     {
@@ -23890,11 +23890,11 @@
       "faction": "necrons",
       "ability_id": "engrammatic-logic",
       "name": "Engrammatic Logic",
-      "shape": "ability-grant",
-      "stub": false,
+      "shape": "select-units",
+      "stub": true,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"ability-grant\" is not modelled by the buff layer"
+      "gap": "effect type \"remove-battle-shock\" is not modelled by the buff layer"
     },
     {
       "faction": "necrons",
@@ -24500,9 +24500,9 @@
       "faction": "necrons",
       "ability_id": "infectious-murder-madness-aura",
       "name": "Infectious Murder-Madness (Aura)",
-      "shape": "keyword-grant",
+      "shape": "conditional",
       "stub": false,
-      "offensive": true,
+      "offensive": false,
       "defensive": false,
       "gap": null
     },
@@ -24800,11 +24800,11 @@
       "faction": "necrons",
       "ability_id": "teleportation-matrix",
       "name": "Teleportation Matrix",
-      "shape": "ability-grant",
+      "shape": "movement-modifier",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"ability-grant\" is not modelled by the buff layer"
+      "gap": "effect type \"movement-modifier\" is not modelled by the buff layer"
     },
     {
       "faction": "necrons",

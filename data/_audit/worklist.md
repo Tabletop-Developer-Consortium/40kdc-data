@@ -5,7 +5,7 @@ structural stub — an effect carrying an empty-modifier placeholder node that s
 DSL authored. This is the actionable counterpart to the per-faction `stub*` counts in
 [`CONTRIBUTING.md`](../../CONTRIBUTING.md) and [`summary.md`](summary.md).
 
-Total: 41 stub abilities.
+Total: 42 stub abilities.
 
 | faction | ability | shape | needs |
 |---|---|---|---|
@@ -37,6 +37,7 @@ Total: 41 stub abilities.
 | genestealer-cults | underground-egress | conditional | empty modifier |
 | grey-knights | hallowed-ground | sequence | effect type "terrain-area-tag" is not modelled by the buff layer |
 | imperial-knights | super-heavy-walker | conditional | effect type "movement-modifier" is not modelled by the buff layer |
+| necrons | engrammatic-logic | select-units | effect type "remove-battle-shock" is not modelled by the buff layer |
 | orks | aerial-deployment | conditional | empty modifier |
 | orks | tuff-git-blitz-brigade | conditional | conditional: cannot evaluate condition "undefined" against current context |
 | thousand-sons | daemonforge | stat-modifier | stat-modifier: operation "undefined" not supported |

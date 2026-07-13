@@ -1,0 +1,27 @@
+{
+  "tables": {
+    "invulnerable_save": {
+      "description": "Invulnerable save values keyed by datasheet (and optionally by model). A save applies to every attack unless a typed scoped column (rangedSave/meleeSave) is populated, or the MFM importer's explicit, narrowly-defined English-footnote mapping narrows its scope.",
+      "fields": {
+        "datasheetId": {
+          "description": "Identifies the owning datasheet this invulnerable save belongs to."
+        },
+        "miniatureId": {
+          "description": "Identifies the owning model (miniature) when the save is model-specific rather than whole-unit; null for whole-datasheet saves."
+        },
+        "save": {
+          "description": "Unconditional invulnerable save: applies to all attacks unless a typed scoped column (rangedSave/meleeSave) is populated or the importer's explicit footnote mapping applies.",
+          "x-40kdc-scope": "unconditional"
+        },
+        "rangedSave": {
+          "description": "Attack-scoped numeric invulnerable save that applies only to ranged attacks.",
+          "x-40kdc-scope": "ranged"
+        },
+        "meleeSave": {
+          "description": "Attack-scoped numeric invulnerable save that applies only to melee attacks.",
+          "x-40kdc-scope": "melee"
+        }
+      }
+    }
+  }
+}

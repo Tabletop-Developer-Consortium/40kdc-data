@@ -86,6 +86,7 @@
     "author:review": "tsx src/author-batch.ts review",
     "author:report": "tsx src/audit-phrasing.ts --review",
     "mfm:golden": "tsx src/ingest-mfm.ts golden",
+    "mfm:schema": "tsx src/mfm/gen-dump-schema.ts",
     "bundle:schemas": "tsx src/bundle-schemas.ts",
     "codegen:types": "json2ts -i ../crates/wh40kdc/schemas/bundled.schema.json -o src/generated.ts --unreachableDefinitions --bannerComment \"/* Generated from crates/wh40kdc/schemas/bundled.schema.json by 'npm run codegen:types'. DO NOT EDIT BY HAND. */\"",
     "copy:schemas": "rm -rf schemas && cp -R ../schemas schemas",

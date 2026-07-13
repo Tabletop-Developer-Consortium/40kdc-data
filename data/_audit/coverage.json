@@ -102,9 +102,9 @@
     {
       "faction": "chaos-knights",
       "total": 115,
-      "offensive": 29,
+      "offensive": 28,
       "defensive": 9,
-      "inert": 78,
+      "inert": 79,
       "stub": 2,
       "stubStructural": 3,
       "gwTextLeak": 0,
@@ -267,9 +267,9 @@
   ],
   "totals": {
     "total": 3121,
-    "offensive": 770,
+    "offensive": 769,
     "defensive": 266,
-    "inert": 2171,
+    "inert": 2172,
     "stub": 118,
     "stubStructural": 41,
     "gwTextLeak": 0,
@@ -294,7 +294,7 @@
     },
     {
       "reason": "effect type \"leadership-modifier\" is not modelled by the buff layer",
-      "count": 86
+      "count": 85
     },
     {
       "reason": "effect type \"attack-restriction\" is not modelled by the buff layer",
@@ -306,7 +306,7 @@
     },
     {
       "reason": "effect type \"cp-refund\" is not modelled by the buff layer",
-      "count": 52
+      "count": 53
     },
     {
       "reason": "effect type \"objective-control-modifier\" is not modelled by the buff layer",
@@ -373,15 +373,15 @@
       "count": 14
     },
     {
+      "reason": "designate-target debuff on the marked unit: not a buff on the bearer",
+      "count": 14
+    },
+    {
       "reason": "roll-modifier: operation \"ignore-modifiers\" not supported",
       "count": 14
     },
     {
       "reason": "roll-modifier on \"charge\" is outside the damage path",
-      "count": 13
-    },
-    {
-      "reason": "designate-target debuff on the marked unit: not a buff on the bearer",
       "count": 13
     },
     {
@@ -14310,9 +14310,9 @@
       "faction": "chaos-knights",
       "ability_id": "consumed-with-hunger-aura",
       "name": "Consumed with Hunger (Aura)",
-      "shape": "re-roll",
+      "shape": "conditional",
       "stub": false,
-      "offensive": true,
+      "offensive": false,
       "defensive": false,
       "gap": null
     },
@@ -14680,11 +14680,11 @@
       "faction": "chaos-knights",
       "ability_id": "octagram-of-conjuration-helhunt-lance",
       "name": "Octagram of Conjuration",
-      "shape": "leadership-modifier",
+      "shape": "designate-target",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"leadership-modifier\" is not modelled by the buff layer"
+      "gap": "designate-target debuff on the marked unit: not a buff on the bearer"
     },
     {
       "faction": "chaos-knights",
@@ -14790,7 +14790,7 @@
       "faction": "chaos-knights",
       "ability_id": "tyrannical-court",
       "name": "Tyrannical Court",
-      "shape": "objective-control-modifier",
+      "shape": "sequence",
       "stub": false,
       "offensive": false,
       "defensive": false,

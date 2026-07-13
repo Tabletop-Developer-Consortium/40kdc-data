@@ -15,7 +15,7 @@ abilities that translate into cruncher buffs via the real `effectToBuffs`
 | agents-of-the-imperium | 133 | 34 | 13 | 89 | 0 | 0 | 0 | 2 |
 | astra-militarum | 205 | 44 | 16 | 147 | 2 | 3 | 0 | 5 |
 | chaos-daemons | 157 | 39 | 14 | 110 | 0 | 7 | 0 | 4 |
-| chaos-knights | 115 | 29 | 9 | 78 | 3 | 2 | 0 | 0 |
+| chaos-knights | 115 | 28 | 9 | 79 | 3 | 2 | 0 | 0 |
 | chaos-space-marines | 236 | 69 | 17 | 157 | 5 | 17 | 0 | 6 |
 | death-guard | 119 | 24 | 6 | 91 | 4 | 7 | 0 | 3 |
 | drukhari | 100 | 25 | 7 | 70 | 1 | 5 | 0 | 1 |
@@ -30,7 +30,7 @@ abilities that translate into cruncher buffs via the real `effectToBuffs`
 | thousand-sons | 130 | 32 | 9 | 94 | 7 | 12 | 0 | 2 |
 | tyranids | 114 | 22 | 8 | 87 | 1 | 5 | 0 | 5 |
 | world-eaters | 133 | 17 | 10 | 107 | 3 | 0 | 0 | 0 |
-| **TOTAL** | **3121** | **770** | **266** | **2171** | **41** | **118** | **0** | **57** |
+| **TOTAL** | **3121** | **769** | **266** | **2172** | **41** | **118** | **0** | **57** |
 
 `stub*` = structural (empty-modifier placeholder node) — the authoring worklist. `notes-stub` = flagged in community_notes.
 
@@ -40,10 +40,10 @@ abilities that translate into cruncher buffs via the real `effectToBuffs`
 - `157` — effect type "movement-modifier" is not modelled by the buff layer
 - `128` — effect type "mortal-wounds" is not modelled by the buff layer
 - `102` — conditional: cannot evaluate condition "undefined" against current context
-- `86` — effect type "leadership-modifier" is not modelled by the buff layer
+- `85` — effect type "leadership-modifier" is not modelled by the buff layer
 - `62` — effect type "attack-restriction" is not modelled by the buff layer
 - `57` — effect type "resurrection" is not modelled by the buff layer
-- `52` — effect type "cp-refund" is not modelled by the buff layer
+- `53` — effect type "cp-refund" is not modelled by the buff layer
 - `52` — effect type "objective-control-modifier" is not modelled by the buff layer
 - `38` — re-roll on "charge" (subset …) is outside the damage path
 - `33` — effect type "deep-strike" is not modelled by the buff layer
@@ -60,9 +60,9 @@ abilities that translate into cruncher buffs via the real `effectToBuffs`
 - `19` — effect type "targeting-permission" is not modelled by the buff layer
 - `19` — roll-modifier: operation "set" not supported
 - `14` — conditional: cannot evaluate condition "unit-below-starting-strength" against current context
+- `14` — designate-target debuff on the marked unit: not a buff on the bearer
 - `14` — roll-modifier: operation "ignore-modifiers" not supported
 - `13` — roll-modifier on "charge" is outside the damage path
-- `13` — designate-target debuff on the marked unit: not a buff on the bearer
 - `13` — conditional: cannot evaluate condition "unit-within-range-of" against current context
 - `12` — stat-modifier on "D" is outside the damage path
 - `10` — stat-modifier T: defender-side stat; applies when the buffed unit is the target

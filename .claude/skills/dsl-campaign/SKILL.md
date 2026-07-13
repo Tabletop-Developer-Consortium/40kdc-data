@@ -202,6 +202,12 @@ resolved}.
 ## Field notes
 
 - Cull/stop driver-spawned agents as soon as their output is verified.
+- The DRIVER owns all jj operations. Tell warpsmith explicitly: no `jj describe`/`jj new`/
+  `jj commit` — it edits data files only. Verify the commit topology (`jj log`, `jj st`)
+  after every apply and BEFORE wf-verify-batch: cogitator's `baseline:"committed"` is
+  meaningless if the batch edit got folded into a commit (c002 saw exactly this — the
+  batch landed inside an unrelated wip commit and had to be split back out with
+  `jj squash --from <rev> --into @ <path>`).
 - `execSync`-based repo tools resolve path args against the repo root, not shell cwd.
 - The dump/store/report debugging rule applies to prose lookups: before concluding an
   ability "has no prose", make data-enginseer show the failing grep, not the theory.

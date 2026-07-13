@@ -15,7 +15,7 @@ import {
   type ShareList,
 } from "../src/share/codec.js";
 import { rosterToShareList } from "../src/share/from-roster.js";
-import { ShareRegistryIndex } from "../src/share/registry.js";
+import { SHARE_KINDS, ShareRegistryIndex, type ShareKind } from "../src/share/registry.js";
 import { SHARE_REGISTRY } from "../src/share/registry.generated.js";
 import type { ResolvedRef, Roster, RosterUnit } from "../src/import/types.js";
 
@@ -75,6 +75,39 @@ function sampleList(): ShareList {
 }
 
 describe("share-v1 codec", () => {
+  it("allocates every current shareable id and documents stale slots", () => {
+    const currentIds: Record<ShareKind, Set<string>> = {
+      faction: new Set(dataset.factions.all.map((entity) => entity.id)),
+      detachment: new Set(dataset.detachments.all.map((entity) => entity.id)),
+      unit: new Set(dataset.units.all.map((entity) => entity.id)),
+      wargear: new Set(
+        [...dataset.weapons.all, ...dataset.wargear.all].map((entity) => entity.id),
+      ),
+      enhancement: new Set(dataset.enhancements.all.map((entity) => entity.id)),
+      ally_rule: new Set(dataset.alliedRules.all.map((entity) => entity.id)),
+      disposition: new Set(dataset.forceDispositions.all.map((entity) => entity.id)),
+    };
+
+    const missing = Object.fromEntries(
+      SHARE_KINDS.map((kind) => [
+        kind,
+        [...currentIds[kind]].filter((id) => !SHARE_REGISTRY.kinds[kind].includes(id)),
+      ]).filter(([, ids]) => ids.length > 0),
+    );
+    expect(missing).toEqual({});
+
+    const aliases = new Set(Object.keys(SHARE_REGISTRY.aliases));
+    const tombstones = new Set(SHARE_REGISTRY.tombstones);
+    const undocumentedStale = Object.fromEntries(
+      SHARE_KINDS.map((kind) => [
+        kind,
+        SHARE_REGISTRY.kinds[kind].filter(
+          (id) => !currentIds[kind].has(id) && !aliases.has(id) && !tombstones.has(id),
+        ),
+      ]).filter(([, ids]) => ids.length > 0),
+    );
+    expect(undocumentedStale).toEqual({});
+  });
   it("round-trips a list losslessly, including allies/grants/disposition/attachment", () => {
     const list = sampleList();
     const token = encodeShareList(list, index);

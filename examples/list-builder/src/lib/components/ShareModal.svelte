@@ -3,8 +3,12 @@
 	import EntitlementGate from "../../../../_shared/EntitlementGate.svelte";
 	import { entitlement, storedEntitlement } from "../../../../_shared/entitlement.svelte";
 	import { mintLink, shortlinkUrl } from "../../../../_shared/sync-api";
-	import { exportRoster, EXPORT_FORMATS, encodeShareToken, type Roster, type ExportFormat } from "@alpaca-software/40kdc-data";
-	import { builderStateToShareList, type BuilderState } from "../data/builder";
+	import { exportRoster, EXPORT_FORMATS, type Roster, type ExportFormat } from "@alpaca-software/40kdc-data";
+	import { type BuilderState } from "../data/builder";
+	import {
+		tryEncodeCompactShareLink,
+		type CompactShareLinkResult,
+	} from "../data/share-link";
 	import { identity } from "../identity.svelte";
 	import { applyAtcIdentity, isAtcFormat } from "../atc-identity";
 
@@ -38,11 +42,12 @@
 	}
 
 	const exportText = $derived(roster ? safeExport(roster, format) : "");
-	const shareLink = $derived(
+	const shareLinkResult: CompactShareLinkResult = $derived(
 		draft
-			? `${location.origin}${location.pathname}#l=${encodeShareToken(builderStateToShareList(draft))}`
-			: "",
+			? tryEncodeCompactShareLink(draft, location.origin + location.pathname)
+			: { ok: true, link: "" },
 	);
+	const shareLink = $derived(shareLinkResult.ok ? shareLinkResult.link : "");
 
 	// ── Short link (patron feature) ────────────────────────────────────────────
 	let gateOpen = $state(false);
@@ -174,12 +179,16 @@
 			/>
 			<div>
 				<button
-					class="bg-accent text-accent-foreground hover:bg-accent-hover rounded px-3 py-1.5 text-xs font-semibold transition-colors"
+					class="bg-accent text-accent-foreground hover:bg-accent-hover rounded px-3 py-1.5 text-xs font-semibold transition-colors disabled:opacity-40"
+					disabled={!shareLinkResult.ok}
 					onclick={() => copy("link", shareLink)}
 				>
 					{copied === "link" ? "Copied!" : "Copy share link"}
 				</button>
 			</div>
+			{#if !shareLinkResult.ok}
+				<span class="text-[11px] text-red-400">{shareLinkResult.error}</span>
+			{/if}
 		</div>
 
 		<!-- Server-backed short link (patron feature; opening it is free, and it

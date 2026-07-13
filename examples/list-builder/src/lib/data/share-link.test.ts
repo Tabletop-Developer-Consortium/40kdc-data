@@ -3,7 +3,12 @@
  * full builder → roster-json → link → import round-trip against the embedded data.
  */
 import { describe, it, expect } from "vitest";
-import { encodeShareLink, decodeShareLink } from "./share-link";
+import { decodeShareToken } from "@alpaca-software/40kdc-data";
+import {
+	encodeShareLink,
+	decodeShareLink,
+	tryEncodeCompactShareLink,
+} from "./share-link";
 import {
 	emptyBuilderState,
 	builderToRosterJson,
@@ -60,5 +65,108 @@ describe("share-link list round-trip", () => {
 		expect(back!.detachmentIds).toEqual(state.detachmentIds);
 		expect(back!.units).toHaveLength(1);
 		expect(back!.units[0].datasheetId).toBe(unit.id);
+	});
+});
+
+describe("compact share links", () => {
+	it("returns the codec error instead of throwing for an unknown registry id", () => {
+		const result = tryEncodeCompactShareLink(
+			{ ...emptyBuilderState(), factionId: "not-in-registry" },
+			"https://list-builder.example/",
+		);
+
+		expect(result).toEqual({
+			ok: false,
+			error:
+				'share registry has no faction id "not-in-registry" — run `npm run registry:build` and commit the result',
+		});
+	});
+
+	it("encodes the imported Norn Silliness roster with The Red Terror's current weapon id", () => {
+		const roster = {
+			name: "Norn Silliness",
+			source: { format: "roster-json", generated_by: "test" },
+			faction_id: "Tyranids",
+			detachments: [],
+			battle_size: "strike-force",
+			force_disposition: "take-and-hold",
+			points: {
+				declared_limit: 2000,
+				detachment_cap: 3,
+				total_reported: 130,
+				total_computed: 130,
+			},
+			units: [
+				{
+					ref: {
+						id: "the-red-terror",
+						raw_name: "The Red Terror",
+						resolved: true,
+						candidates: [],
+					},
+					model_count: 1,
+					points: 130,
+					is_warlord: true,
+					enhancement: null,
+					enhancement_points: null,
+					wargear: [
+						{
+							ref: {
+								id: "gaping-maw",
+								raw_name: "Gaping maw",
+								resolved: true,
+								candidates: [],
+							},
+							count: 1,
+						},
+						{
+							ref: {
+								id: "scything-talons-the-red-terror",
+								raw_name: "Scything talons",
+								resolved: true,
+								candidates: [],
+							},
+							count: 1,
+						},
+					],
+					leader_attachment: null,
+				},
+			],
+			game_version: { edition: "11th", dataslate: "pre-launch-provisional" },
+			diagnostics: {
+				resolved_units: 1,
+				unresolved_units: 0,
+				resolved_weapons: 2,
+				unresolved_weapons: 0,
+				warnings: [],
+			},
+		};
+		const state = rosterTextToBuilderState(
+			JSON.stringify(roster),
+			"Norn Silliness",
+			"take-and-hold",
+		);
+
+		expect(state).not.toBeNull();
+		if (!state) throw new Error("expected the canonical roster to import");
+		expect(state.factionId).toBe("tyranids");
+		expect(state.units).toHaveLength(1);
+		expect(state.units[0].datasheetId).toBe("the-red-terror");
+		expect(state.units[0].loadout.get("scything-talons-the-red-terror")).toBe(1);
+
+		const result = tryEncodeCompactShareLink(state, "https://list-builder.example/");
+		expect(result.ok).toBe(true);
+		if (!result.ok) throw new Error(result.error);
+		expect(result.link).toMatch(/^https:\/\/list-builder\.example\/#l=/);
+
+		const decoded = decodeShareToken(result.link.split("#l=")[1]);
+		expect(decoded.ok).toBe(true);
+		if (!decoded.ok) throw new Error("expected the compact token to decode");
+		expect(decoded.list.factionId).toBe("tyranids");
+		expect(decoded.list.units[0].datasheetId).toBe("the-red-terror");
+		expect(decoded.list.units[0].loadout).toContainEqual([
+			"scything-talons-the-red-terror",
+			1,
+		]);
 	});
 });

@@ -8,6 +8,8 @@
  * server. Browser-only (btoa/atob); fflate is already a dependency.
  */
 import { gzipSync, gunzipSync, strToU8, strFromU8 } from "fflate";
+import { encodeShareToken } from "@alpaca-software/40kdc-data";
+import { builderStateToShareList, type BuilderState } from "./builder";
 
 function bytesToBase64url(bytes: Uint8Array): string {
   let bin = "";
@@ -39,4 +41,23 @@ export function decodeShareLink(token: string): string | null {
   } catch {
     return null;
   }
+}
+
+export type CompactShareLinkResult =
+	| { ok: true; link: string }
+	| { ok: false; error: string };
+
+/** Encodes a builder draft into a compact share URL without leaking codec errors into the UI. */
+export function tryEncodeCompactShareLink(
+	state: BuilderState,
+	baseUrl: string,
+): CompactShareLinkResult {
+	try {
+		return { ok: true, link: `${baseUrl}#l=${encodeShareToken(builderStateToShareList(state))}` };
+	} catch (error) {
+		return {
+			ok: false,
+			error: error instanceof Error ? error.message : "Couldn’t create a share link.",
+		};
+	}
 }

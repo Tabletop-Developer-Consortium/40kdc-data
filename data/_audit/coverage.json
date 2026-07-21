@@ -223,9 +223,9 @@
     {
       "faction": "tau-empire",
       "total": 129,
-      "offensive": 31,
+      "offensive": 29,
       "defensive": 6,
-      "inert": 94,
+      "inert": 96,
       "stub": 3,
       "stubStructural": 0,
       "gwTextLeak": 0,
@@ -267,9 +267,9 @@
   ],
   "totals": {
     "total": 3122,
-    "offensive": 768,
+    "offensive": 766,
     "defensive": 266,
-    "inert": 2174,
+    "inert": 2176,
     "stub": 118,
     "stubStructural": 42,
     "gwTextLeak": 0,
@@ -290,7 +290,7 @@
     },
     {
       "reason": "conditional: cannot evaluate condition \"undefined\" against current context",
-      "count": 102
+      "count": 103
     },
     {
       "reason": "effect type \"leadership-modifier\" is not modelled by the buff layer",
@@ -370,7 +370,7 @@
     },
     {
       "reason": "conditional: cannot evaluate condition \"unit-below-starting-strength\" against current context",
-      "count": 14
+      "count": 15
     },
     {
       "reason": "designate-target debuff on the marked unit: not a buff on the bearer",
@@ -26922,9 +26922,9 @@
       "name": "Fireknife",
       "shape": "conditional",
       "stub": false,
-      "offensive": false,
+      "offensive": true,
       "defensive": false,
-      "gap": null
+      "gap": "conditional: cannot evaluate condition \"unit-below-starting-strength\" against current context"
     },
     {
       "faction": "tau-empire",
@@ -27022,7 +27022,7 @@
       "name": "Forward Observers",
       "shape": "conditional",
       "stub": false,
-      "offensive": true,
+      "offensive": false,
       "defensive": false,
       "gap": null
     },
@@ -27162,9 +27162,9 @@
       "name": "Exemplars of Mont’ka",
       "shape": "conditional",
       "stub": false,
-      "offensive": true,
+      "offensive": false,
       "defensive": false,
-      "gap": null
+      "gap": "conditional: cannot evaluate condition \"undefined\" against current context"
     },
     {
       "faction": "tau-empire",
@@ -27752,7 +27752,7 @@
       "name": "Sunforge",
       "shape": "conditional",
       "stub": false,
-      "offensive": true,
+      "offensive": false,
       "defensive": false,
       "gap": null
     },

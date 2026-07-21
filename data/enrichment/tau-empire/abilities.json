@@ -231,29 +231,41 @@
     "effect": {
       "type": "conditional",
       "condition": {
-        "operator": "and",
-        "operands": [
+        "type": "phase-is",
+        "parameters": {
+          "phase": "shooting"
+        }
+      },
+      "effect": {
+        "type": "sequence",
+        "steps": [
           {
-            "type": "phase-is",
-            "parameters": {
-              "phase": "shooting"
+            "type": "re-roll",
+            "target": "unit",
+            "modifier": {
+              "roll": "hit",
+              "subset": "ones"
             }
           },
           {
-            "type": "target-has-keyword",
-            "parameters": {
-              "keyword": "A"
+            "type": "conditional",
+            "condition": {
+              "type": "unit-below-starting-strength",
+              "parameters": {
+                "subject": "target"
+              },
+              "negated": true
+            },
+            "effect": {
+              "type": "re-roll",
+              "target": "unit",
+              "modifier": {
+                "roll": "hit",
+                "subset": "all-failures"
+              }
             }
           }
         ]
-      },
-      "effect": {
-        "type": "re-roll",
-        "target": "unit",
-        "modifier": {
-          "roll": "hit",
-          "subset": "ones"
-        }
       }
     },
     "scope": {
@@ -563,10 +575,27 @@
     "effect": {
       "type": "conditional",
       "condition": {
-        "type": "phase-is",
-        "parameters": {
-          "phase": "shooting"
-        }
+        "operator": "and",
+        "operands": [
+          {
+            "type": "phase-is",
+            "parameters": {
+              "phase": "shooting"
+            }
+          },
+          {
+            "type": "unit-has-keyword",
+            "parameters": {
+              "keyword": "GUIDED"
+            }
+          },
+          {
+            "type": "target-has-keyword",
+            "parameters": {
+              "keyword": "SPOTTED"
+            }
+          }
+        ]
       },
       "effect": {
         "type": "sequence",
@@ -1057,10 +1086,21 @@
     "effect": {
       "type": "conditional",
       "condition": {
-        "type": "phase-is",
-        "parameters": {
-          "phase": "shooting"
-        }
+        "operator": "and",
+        "operands": [
+          {
+            "type": "phase-is",
+            "parameters": {
+              "phase": "shooting"
+            }
+          },
+          {
+            "type": "opponent-unit-within-range",
+            "parameters": {
+              "target_qualifier": "closest-eligible-enemy-unit"
+            }
+          }
+        ]
       },
       "effect": {
         "type": "sequence",
@@ -2328,7 +2368,7 @@
           {
             "type": "target-has-keyword",
             "parameters": {
-              "keyword": "A"
+              "keyword": "FLY"
             }
           }
         ]
@@ -2977,10 +3017,32 @@
     "effect": {
       "type": "conditional",
       "condition": {
-        "type": "phase-is",
-        "parameters": {
-          "phase": "shooting"
-        }
+        "operator": "and",
+        "operands": [
+          {
+            "type": "phase-is",
+            "parameters": {
+              "phase": "shooting"
+            }
+          },
+          {
+            "operator": "or",
+            "operands": [
+              {
+                "type": "target-has-keyword",
+                "parameters": {
+                  "keyword": "MONSTER"
+                }
+              },
+              {
+                "type": "target-has-keyword",
+                "parameters": {
+                  "keyword": "VEHICLE"
+                }
+              }
+            ]
+          }
+        ]
       },
       "effect": {
         "type": "sequence",

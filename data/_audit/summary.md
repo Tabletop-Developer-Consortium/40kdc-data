@@ -26,11 +26,11 @@ abilities that translate into cruncher buffs via the real `effectToBuffs`
 | leagues-of-votann | 76 | 22 | 7 | 49 | 0 | 0 | 0 | 0 |
 | necrons | 158 | 30 | 23 | 113 | 1 | 2 | 0 | 1 |
 | orks | 159 | 34 | 14 | 116 | 2 | 5 | 0 | 3 |
-| tau-empire | 129 | 31 | 6 | 94 | 0 | 3 | 0 | 3 |
+| tau-empire | 129 | 29 | 6 | 96 | 0 | 3 | 0 | 3 |
 | thousand-sons | 130 | 32 | 9 | 94 | 7 | 12 | 0 | 2 |
 | tyranids | 114 | 22 | 8 | 87 | 1 | 5 | 0 | 5 |
 | world-eaters | 133 | 17 | 10 | 107 | 3 | 0 | 0 | 0 |
-| **TOTAL** | **3122** | **768** | **266** | **2174** | **42** | **118** | **0** | **57** |
+| **TOTAL** | **3122** | **766** | **266** | **2176** | **42** | **118** | **0** | **57** |
 
 `stub*` = structural (empty-modifier placeholder node) — the authoring worklist. `notes-stub` = flagged in community_notes.
 
@@ -39,7 +39,7 @@ abilities that translate into cruncher buffs via the real `effectToBuffs`
 - `456` — effect type "ability-grant" is not modelled by the buff layer
 - `158` — effect type "movement-modifier" is not modelled by the buff layer
 - `128` — effect type "mortal-wounds" is not modelled by the buff layer
-- `102` — conditional: cannot evaluate condition "undefined" against current context
+- `103` — conditional: cannot evaluate condition "undefined" against current context
 - `85` — effect type "leadership-modifier" is not modelled by the buff layer
 - `62` — effect type "attack-restriction" is not modelled by the buff layer
 - `57` — effect type "resurrection" is not modelled by the buff layer
@@ -59,7 +59,7 @@ abilities that translate into cruncher buffs via the real `effectToBuffs`
 - `22` — effect type "fight-first" is not modelled by the buff layer
 - `19` — effect type "targeting-permission" is not modelled by the buff layer
 - `19` — roll-modifier: operation "set" not supported
-- `14` — conditional: cannot evaluate condition "unit-below-starting-strength" against current context
+- `15` — conditional: cannot evaluate condition "unit-below-starting-strength" against current context
 - `14` — designate-target debuff on the marked unit: not a buff on the bearer
 - `14` — roll-modifier: operation "ignore-modifiers" not supported
 - `13` — roll-modifier on "charge" is outside the damage path

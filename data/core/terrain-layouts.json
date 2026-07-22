@@ -3,7 +3,7 @@
     "id": "take-and-hold-vs-purge-the-foe-2",
     "name": "Take and Hold vs Purge the Foe 2",
     "source": "gw-11e",
-    "description": "180°-rotationally symmetric.",
+    "description": "180\u00b0-rotationally symmetric.",
     "mission_matchup_id": "take-and-hold-vs-purge-the-foe",
     "variant": 2,
     "deployment_pattern_id": "search-and-destroy",
@@ -809,24 +809,25 @@
         "piece_type": "area",
         "template": "area-large",
         "position": {
-          "x": 41.2309,
-          "y": 36.5583
+          "x": 41.23,
+          "y": 36.44
         },
+        "mirror": "vertical",
         "objective_role": "expansion",
         "is_objective": true,
         "keystones": [
           {
-            "edge": "right",
-            "ref": {
-              "kind": "vertex",
-              "index": 23
-            }
-          },
-          {
             "edge": "bottom",
             "ref": {
               "kind": "vertex",
-              "index": 23
+              "index": 24
+            }
+          },
+          {
+            "edge": "right",
+            "ref": {
+              "kind": "vertex",
+              "index": 24
             }
           }
         ]
@@ -837,25 +838,26 @@
         "piece_type": "area",
         "template": "area-large",
         "position": {
-          "x": 18.7691,
-          "y": 7.4417
+          "x": 18.77,
+          "y": 7.56
         },
         "rotation_degrees": 180,
+        "mirror": "vertical",
         "objective_role": "expansion",
         "is_objective": true,
         "keystones": [
           {
-            "edge": "left",
-            "ref": {
-              "kind": "vertex",
-              "index": 23
-            }
-          },
-          {
             "edge": "top",
             "ref": {
               "kind": "vertex",
-              "index": 23
+              "index": 24
+            }
+          },
+          {
+            "edge": "left",
+            "ref": {
+              "kind": "vertex",
+              "index": 24
             }
           }
         ]
@@ -867,9 +869,10 @@
         "template": "corner-ruin-balanced-right",
         "position": {
           "x": -4.07,
-          "y": -1.52
+          "y": 1.52
         },
         "rotation_degrees": 270,
+        "mirror": "horizontal",
         "parent_area_id": "area-large-1"
       },
       {
@@ -879,9 +882,10 @@
         "template": "corner-ruin-balanced-right",
         "position": {
           "x": -4.07,
-          "y": -1.52
+          "y": 1.52
         },
         "rotation_degrees": 270,
+        "mirror": "horizontal",
         "parent_area_id": "area-large-2"
       },
       {
@@ -891,9 +895,10 @@
         "template": "corner-ruin-right",
         "position": {
           "x": 2.8281,
-          "y": 2.3181
+          "y": -2.3181
         },
         "rotation_degrees": 90,
+        "mirror": "horizontal",
         "parent_area_id": "area-large-1"
       },
       {
@@ -903,9 +908,10 @@
         "template": "corner-ruin-right",
         "position": {
           "x": 2.8281,
-          "y": 2.3181
+          "y": -2.3181
         },
         "rotation_degrees": 90,
+        "mirror": "horizontal",
         "parent_area_id": "area-large-2"
       },
       {
@@ -914,23 +920,24 @@
         "piece_type": "area",
         "template": "area-medium",
         "position": {
-          "x": 10.9698,
-          "y": 12.9585
+          "x": 10.97,
+          "y": 14.04
         },
-        "rotation_degrees": 90,
+        "rotation_degrees": 270,
+        "mirror": "vertical",
         "keystones": [
-          {
-            "edge": "left",
-            "ref": {
-              "kind": "vertex",
-              "index": 0
-            }
-          },
           {
             "edge": "top",
             "ref": {
               "kind": "vertex",
-              "index": 0
+              "index": 15
+            }
+          },
+          {
+            "edge": "left",
+            "ref": {
+              "kind": "vertex",
+              "index": 15
             }
           }
         ]
@@ -941,23 +948,24 @@
         "piece_type": "area",
         "template": "area-medium",
         "position": {
-          "x": 49.0302,
-          "y": 31.0415
+          "x": 49.03,
+          "y": 29.96
         },
-        "rotation_degrees": 270,
+        "rotation_degrees": 90,
+        "mirror": "vertical",
         "keystones": [
-          {
-            "edge": "right",
-            "ref": {
-              "kind": "vertex",
-              "index": 0
-            }
-          },
           {
             "edge": "bottom",
             "ref": {
               "kind": "vertex",
-              "index": 0
+              "index": 15
+            }
+          },
+          {
+            "edge": "right",
+            "ref": {
+              "kind": "vertex",
+              "index": 15
             }
           }
         ]
@@ -968,10 +976,11 @@
         "piece_type": "feature",
         "template": "corner-short",
         "position": {
-          "x": 2.153,
+          "x": -2.153,
           "y": 0.4596
         },
         "rotation_degrees": 180,
+        "mirror": "horizontal",
         "parent_area_id": "area-medium-8"
       },
       {
@@ -980,10 +989,11 @@
         "piece_type": "feature",
         "template": "corner-short",
         "position": {
-          "x": 2.153,
+          "x": -2.153,
           "y": 0.4596
         },
         "rotation_degrees": 180,
+        "mirror": "horizontal",
         "parent_area_id": "area-medium-7"
       },
       {
@@ -992,9 +1002,10 @@
         "piece_type": "feature",
         "template": "corner-short",
         "position": {
-          "x": -1.917,
+          "x": 1.917,
           "y": -0.5904
         },
+        "mirror": "horizontal",
         "parent_area_id": "area-medium-8"
       },
       {
@@ -1003,9 +1014,10 @@
         "piece_type": "feature",
         "template": "corner-short",
         "position": {
-          "x": -1.917,
+          "x": 1.917,
           "y": -0.5904
         },
+        "mirror": "horizontal",
         "parent_area_id": "area-medium-7"
       },
       {
@@ -1014,24 +1026,25 @@
         "piece_type": "area",
         "template": "area-large",
         "position": {
-          "x": 48.2209,
-          "y": 17.5583
+          "x": 48.27,
+          "y": 17.56
         },
+        "mirror": "horizontal",
         "objective_role": "home",
         "is_objective": true,
         "keystones": [
           {
-            "edge": "right",
-            "ref": {
-              "kind": "vertex",
-              "index": 24
-            }
-          },
-          {
             "edge": "top",
             "ref": {
               "kind": "vertex",
-              "index": 24
+              "index": 25
+            }
+          },
+          {
+            "edge": "right",
+            "ref": {
+              "kind": "vertex",
+              "index": 25
             }
           }
         ]
@@ -1042,25 +1055,26 @@
         "piece_type": "area",
         "template": "area-large",
         "position": {
-          "x": 11.7791,
-          "y": 26.4417
+          "x": 11.73,
+          "y": 26.44
         },
         "rotation_degrees": 180,
+        "mirror": "horizontal",
         "objective_role": "home",
         "is_objective": true,
         "keystones": [
           {
-            "edge": "left",
-            "ref": {
-              "kind": "vertex",
-              "index": 24
-            }
-          },
-          {
             "edge": "bottom",
             "ref": {
               "kind": "vertex",
-              "index": 24
+              "index": 25
+            }
+          },
+          {
+            "edge": "left",
+            "ref": {
+              "kind": "vertex",
+              "index": 25
             }
           }
         ]
@@ -1071,9 +1085,10 @@
         "piece_type": "feature",
         "template": "corner-ruin-left",
         "position": {
-          "x": -4.8181,
+          "x": 4.8181,
           "y": -1.1481
         },
+        "mirror": "horizontal",
         "parent_area_id": "area-large-13"
       },
       {
@@ -1082,9 +1097,10 @@
         "piece_type": "feature",
         "template": "corner-ruin-left",
         "position": {
-          "x": -4.8181,
+          "x": 4.8181,
           "y": -1.1481
         },
+        "mirror": "horizontal",
         "parent_area_id": "area-large-14"
       },
       {
@@ -1093,10 +1109,9 @@
         "piece_type": "feature",
         "template": "corner-short",
         "position": {
-          "x": 4.83,
+          "x": -4.83,
           "y": -1.98
         },
-        "mirror": "horizontal",
         "parent_area_id": "area-large-13"
       },
       {
@@ -1105,10 +1120,9 @@
         "piece_type": "feature",
         "template": "corner-short",
         "position": {
-          "x": 4.83,
+          "x": -4.83,
           "y": -1.98
         },
-        "mirror": "horizontal",
         "parent_area_id": "area-large-14"
       },
       {
@@ -1117,23 +1131,24 @@
         "piece_type": "area",
         "template": "area-short-line",
         "position": {
-          "x": 41.484,
-          "y": 24.0064
+          "x": 41.48,
+          "y": 23.99
         },
         "rotation_degrees": 90,
+        "mirror": "horizontal",
         "keystones": [
-          {
-            "edge": "right",
-            "ref": {
-              "kind": "vertex",
-              "index": 1
-            }
-          },
           {
             "edge": "bottom",
             "ref": {
               "kind": "vertex",
-              "index": 1
+              "index": 8
+            }
+          },
+          {
+            "edge": "right",
+            "ref": {
+              "kind": "vertex",
+              "index": 8
             }
           }
         ]
@@ -1144,23 +1159,24 @@
         "piece_type": "area",
         "template": "area-short-line",
         "position": {
-          "x": 18.516,
-          "y": 19.9936
+          "x": 18.52,
+          "y": 20.01
         },
         "rotation_degrees": 270,
+        "mirror": "horizontal",
         "keystones": [
-          {
-            "edge": "left",
-            "ref": {
-              "kind": "vertex",
-              "index": 1
-            }
-          },
           {
             "edge": "top",
             "ref": {
               "kind": "vertex",
-              "index": 1
+              "index": 8
+            }
+          },
+          {
+            "edge": "left",
+            "ref": {
+              "kind": "vertex",
+              "index": 8
             }
           }
         ]
@@ -1174,6 +1190,7 @@
           "x": 0,
           "y": 0
         },
+        "mirror": "horizontal",
         "parent_area_id": "area-short-line-23"
       },
       {
@@ -1185,6 +1202,7 @@
           "x": 0,
           "y": 0
         },
+        "mirror": "horizontal",
         "parent_area_id": "area-short-line-24"
       },
       {
@@ -1193,23 +1211,24 @@
         "piece_type": "area",
         "template": "area-long-line",
         "position": {
-          "x": 44.7613,
-          "y": 7.0533
+          "x": 44.74,
+          "y": 7.05
         },
-        "rotation_degrees": 90,
+        "rotation_degrees": 270,
+        "mirror": "horizontal",
         "keystones": [
-          {
-            "edge": "right",
-            "ref": {
-              "kind": "vertex",
-              "index": 16
-            }
-          },
           {
             "edge": "top",
             "ref": {
               "kind": "vertex",
-              "index": 16
+              "index": 17
+            }
+          },
+          {
+            "edge": "right",
+            "ref": {
+              "kind": "vertex",
+              "index": 17
             }
           }
         ]
@@ -1220,23 +1239,24 @@
         "piece_type": "area",
         "template": "area-long-line",
         "position": {
-          "x": 15.2387,
-          "y": 36.9467
+          "x": 15.26,
+          "y": 36.95
         },
-        "rotation_degrees": 270,
+        "rotation_degrees": 90,
+        "mirror": "horizontal",
         "keystones": [
-          {
-            "edge": "left",
-            "ref": {
-              "kind": "vertex",
-              "index": 16
-            }
-          },
           {
             "edge": "bottom",
             "ref": {
               "kind": "vertex",
-              "index": 16
+              "index": 17
+            }
+          },
+          {
+            "edge": "left",
+            "ref": {
+              "kind": "vertex",
+              "index": 17
             }
           }
         ]
@@ -1250,6 +1270,8 @@
           "x": 0,
           "y": 0
         },
+        "rotation_degrees": 180,
+        "mirror": "horizontal",
         "parent_area_id": "area-long-line-27"
       },
       {
@@ -1261,6 +1283,8 @@
           "x": 0,
           "y": 0
         },
+        "rotation_degrees": 180,
+        "mirror": "horizontal",
         "parent_area_id": "area-long-line-28"
       },
       {
@@ -1270,9 +1294,9 @@
         "template": "barricade",
         "position": {
           "x": 2.93,
-          "y": -0.03
+          "y": 0.03
         },
-        "rotation_degrees": 180,
+        "mirror": "horizontal",
         "parent_area_id": "area-long-line-27"
       },
       {
@@ -1282,9 +1306,9 @@
         "template": "barricade",
         "position": {
           "x": 2.93,
-          "y": -0.03
+          "y": 0.03
         },
-        "rotation_degrees": 180,
+        "mirror": "horizontal",
         "parent_area_id": "area-long-line-28"
       },
       {
@@ -1294,9 +1318,9 @@
         "template": "barricade",
         "position": {
           "x": -2.91,
-          "y": -0.02
+          "y": 0.02
         },
-        "rotation_degrees": 180,
+        "mirror": "horizontal",
         "parent_area_id": "area-long-line-27"
       },
       {
@@ -1306,9 +1330,9 @@
         "template": "barricade",
         "position": {
           "x": -2.91,
-          "y": -0.02
+          "y": 0.02
         },
-        "rotation_degrees": 180,
+        "mirror": "horizontal",
         "parent_area_id": "area-long-line-28"
       },
       {
@@ -1320,6 +1344,7 @@
           "x": 35.04,
           "y": 10.03
         },
+        "mirror": "horizontal",
         "keystones": [
           {
             "edge": "right",
@@ -1335,8 +1360,7 @@
               "index": 13
             }
           }
-        ],
-        "mirror": "horizontal"
+        ]
       },
       {
         "id": "area-medium-36",
@@ -1348,6 +1372,7 @@
           "y": 33.97
         },
         "rotation_degrees": 180,
+        "mirror": "horizontal",
         "keystones": [
           {
             "edge": "left",
@@ -1363,8 +1388,7 @@
               "index": 13
             }
           }
-        ],
-        "mirror": "horizontal"
+        ]
       },
       {
         "id": "generator-37",
@@ -1376,8 +1400,8 @@
           "y": 0
         },
         "rotation_degrees": 270,
-        "parent_area_id": "area-medium-35",
-        "mirror": "horizontal"
+        "mirror": "horizontal",
+        "parent_area_id": "area-medium-35"
       },
       {
         "id": "generator-38",
@@ -1389,8 +1413,8 @@
           "y": 0
         },
         "rotation_degrees": 270,
-        "parent_area_id": "area-medium-36",
-        "mirror": "horizontal"
+        "mirror": "horizontal",
+        "parent_area_id": "area-medium-36"
       },
       {
         "id": "area-short-line-39",
@@ -34783,7 +34807,7 @@
     "id": "kotc-colosseum",
     "name": "KOTC Colosseum",
     "source": "kotc",
-    "description": "King of the Colosseum (Play On Tabletop): 36″×36″ arena. Four 6″ LoS-blocking arena walls (13″ radius, 14⅛″ arc) with entryways on the cardinals; four dense inner ruins and four dense deployment ruins as open right-angle L-walls; five objectives; 9″ deployment strips.",
+    "description": "King of the Colosseum (Play On Tabletop): 36\u2033\u00d736\u2033 arena. Four 6\u2033 LoS-blocking arena walls (13\u2033 radius, 14\u215b\u2033 arc) with entryways on the cardinals; four dense inner ruins and four dense deployment ruins as open right-angle L-walls; five objectives; 9\u2033 deployment strips.",
     "board": {
       "width": 36,
       "height": 36

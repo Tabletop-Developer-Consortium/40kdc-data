@@ -91,6 +91,43 @@ describe("referential integrity", () => {
     expect(messages.filter((m) => m.includes("drifted across factions"))).toEqual([]);
   });
 
+  it("flags an ambiguous points ladder, and spares legitimate ordinal bands", async () => {
+    const result = await checkReferentialIntegrity(resolve(FIXTURES, "integrity-points-ambiguous"));
+    const messages = result.errors.flatMap((e) => e.errors.map((x) => x.message));
+
+    // Two tiers priced at 6 models with no ordinal band to separate them.
+    expect(
+      messages.some(
+        (m) => m.includes('"ambiguous-flat"') && m.includes("6 models @ 170pts vs 6 models @ 110pts"),
+      ),
+    ).toBe(true);
+    // A range tier (6-9) swallowing a single-size tier (8) is equally ambiguous.
+    expect(
+      messages.some(
+        (m) => m.includes('"ambiguous-range"') && m.includes("6-9 models @ 235pts vs 8 models @ 250pts"),
+      ),
+    ).toBe(true);
+    // Same size, different army-ordinal band — this is 11e pricing, not a bug.
+    expect(messages.some((m) => m.includes('"ordinal-banded"'))).toBe(false);
+    // A single-size tier nested in a range at the SAME cost is redundant, not
+    // ambiguous — whichever wins prices identically, so it must not fire.
+    expect(messages.some((m) => m.includes('"same-cost-overlap"'))).toBe(false);
+    // Adjacent, non-overlapping tiers are fine.
+    expect(messages.some((m) => m.includes('"clean-ladder"'))).toBe(false);
+  });
+
+  it("reports a stale KNOWN_AMBIGUOUS_POINTS entry once its ladder is fixed", async () => {
+    const result = await checkReferentialIntegrity(resolve(FIXTURES, "integrity-points-stale"));
+    const messages = result.errors.flatMap((e) => e.errors.map((x) => x.message));
+    expect(
+      messages.some(
+        (m) =>
+          m.includes('"adeptus-astartes/wolf-guard-headtakers"') &&
+          m.includes("no longer has an ambiguous"),
+      ),
+    ).toBe(true);
+  });
+
   it("registers the chaos cult factions with bare-legion home keywords", () => {
     expect(FACTION_HOME_KEYWORD["world-eaters"]).toBe("World Eaters");
     expect(FACTION_HOME_KEYWORD["chaos-space-marines"]).toBe("Heretic Astartes");

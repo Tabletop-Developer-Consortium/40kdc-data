@@ -1,0 +1,43 @@
+[
+  {
+    "id": "ambiguous-flat",
+    "faction_keywords": ["World Eaters"],
+    "points": [
+      { "models": 3, "cost": 85 },
+      { "models": 6, "cost": 170 },
+      { "models": 6, "cost": 110 }
+    ]
+  },
+  {
+    "id": "ambiguous-range",
+    "faction_keywords": ["World Eaters"],
+    "points": [
+      { "models": 6, "models_max": 9, "cost": 235 },
+      { "models": 8, "cost": 250 }
+    ]
+  },
+  {
+    "id": "ordinal-banded",
+    "faction_keywords": ["World Eaters"],
+    "points": [
+      { "models": 5, "cost": 240, "unit_count_min": 1, "unit_count_max": 2 },
+      { "models": 5, "cost": 260, "unit_count_min": 3, "unit_count_max": null }
+    ]
+  },
+  {
+    "id": "same-cost-overlap",
+    "faction_keywords": ["World Eaters"],
+    "points": [
+      { "models": 3, "models_max": 16, "cost": 275 },
+      { "models": 10, "cost": 275 }
+    ]
+  },
+  {
+    "id": "clean-ladder",
+    "faction_keywords": ["World Eaters"],
+    "points": [
+      { "models": 5, "cost": 70 },
+      { "models": 6, "models_max": 8, "cost": 140 }
+    ]
+  }
+]

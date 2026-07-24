@@ -148,6 +148,23 @@ interface AbilityLike {
  * the loadout, never to silence a fixable data gap.
  */
 export const KNOWN_LOADOUT_ORPHANS: ReadonlySet<string> = new Set<string>([]);
+
+/**
+ * Known, accepted ambiguous points ladders — a `<faction>/<unit_id>` whose
+ * `points` array gives one squad size two DIFFERENT costs inside a single
+ * army-ordinal band. The sole entry predates this check and is a real data bug,
+ * not resolvable from what this repo ships: the correct costs live in the GW
+ * MFM dump, so repairing it is an ingest fix, not a hand-edit.
+ *
+ * Fix the tiers and delete the entry. A listed unit that is no longer ambiguous
+ * is reported as stale so the list stays minimal. Do NOT add to this list to
+ * silence a fresh ingest regression — that is the case the gate exists for.
+ */
+export const KNOWN_AMBIGUOUS_POINTS: ReadonlySet<string> = new Set<string>([
+  // 3=85, 6=170, 6=110, 12=220 — two prices for 6 models. The stray 12-model
+  // tier also drives model_count.max to 12 on a datasheet that caps at 6.
+  "adeptus-astartes/wolf-guard-headtakers",
+]);
 interface WargearOptionLike {
   id?: string;
   replaces?: string[];
@@ -212,6 +229,11 @@ export async function checkReferentialIntegrity(dataRoot?: string): Promise<Vali
   const unitFiles = await glob("core/*/units.json", { cwd: root, absolute: true });
   unitFiles.sort();
 
+  // `<faction>/<unit_id>` keys for the ambiguous-points gate below: every unit
+  // actually examined, and the allowlisted ones found still ambiguous.
+  const pricedUnits = new Set<string>();
+  const seenAmbiguous = new Set<string>();
+
   for (const file of unitFiles) {
     const faction = basename(dirname(file));
     if (faction.startsWith("_")) continue; // scratch/example/report dirs
@@ -241,6 +263,58 @@ export async function checkReferentialIntegrity(dataRoot?: string): Promise<Vali
         errors: dupIds.map((id) => ({
           path: "/",
           message: `duplicate unit id "${id}" appears ${idCounts.get(id)}× in ${faction}/units.json — the linked API keys by id (first-wins), so the later entry is silently shadowed; keep exactly one`,
+        })),
+      });
+    }
+
+    // Within one army-ordinal band a squad size must resolve to exactly ONE
+    // price. Two tiers covering the same size with no distinct `unit_count_*`
+    // band to separate them leave the cost ambiguous: `baseUnitPoints` prices at
+    // the highest `models` threshold the squad reaches, so it silently takes
+    // whichever of the pair it lands on. Worse, a stray oversized tier drags the
+    // unit's legal maximum up with it (Wolf Guard Headtakers: a spurious
+    // 12-model tier put model_count.max at 12 on a 6-model datasheet).
+    //
+    // The points↔composition coverage check further down cannot catch this — it
+    // requires composition `tiers`, which 15 compositions still lack, and those
+    // are exactly the units an ingest is most likely to get wrong. Overlap, not
+    // equality, is the test so a range-priced tier (`models`..`models_max`)
+    // colliding with a single-size tier is caught too. An append-instead-of-
+    // replace ingest is the recurring cause, same as the duplicate-id check.
+    const band = (p: PointsTierLike) => `${p.unit_count_min ?? ""}:${p.unit_count_max ?? ""}`;
+    const lo = (p: PointsTierLike) => p.models ?? 0;
+    const hi = (p: PointsTierLike) => p.models_max ?? p.models ?? 0;
+    for (const u of units) {
+      const tiers = u.points ?? [];
+      if (!u.id || tiers.length < 2) continue;
+      const key = `${faction}/${u.id}`;
+      pricedUnits.add(key);
+      const clashes: string[] = [];
+      for (let i = 0; i < tiers.length; i++)
+        for (let j = i + 1; j < tiers.length; j++) {
+          const a = tiers[i];
+          const b = tiers[j];
+          if (band(a) !== band(b)) continue; // different army-ordinal bands never collide
+          if (lo(a) > hi(b) || lo(b) > hi(a)) continue;
+          // Same-cost overlap is redundant, not ambiguous — a single-size tier
+          // nested inside a range at the identical price (the kill-team shape)
+          // prices correctly whichever one wins. Only a cost CONFLICT is a bug.
+          if (a.cost === b.cost) continue;
+          const span = (p: PointsTierLike) => (hi(p) === lo(p) ? `${lo(p)}` : `${lo(p)}-${hi(p)}`);
+          clashes.push(`${span(a)} models @ ${a.cost}pts vs ${span(b)} models @ ${b.cost}pts`);
+        }
+      if (clashes.length === 0) continue;
+      if (KNOWN_AMBIGUOUS_POINTS.has(key)) {
+        seenAmbiguous.add(key);
+        continue;
+      }
+      result.failed++;
+      result.errors.push({
+        file,
+        index: 0,
+        errors: clashes.map((c) => ({
+          path: `/${u.id}`,
+          message: `unit "${u.id}": ambiguous points ladder — ${c}. Two tiers price the same squad size in the same army-ordinal band, so the cost a builder picks is arbitrary; give them distinct unit_count_min/unit_count_max bands, merge them into one models/models_max range, or drop the stale tier`,
         })),
       });
     }
@@ -706,6 +780,25 @@ export async function checkReferentialIntegrity(dataRoot?: string): Promise<Vali
       errors: stale.map((k) => ({
         path: "/KNOWN_LOADOUT_ORPHANS",
         message: `allowlist entry "${k}" is no longer an orphan — remove it`,
+      })),
+    });
+  }
+
+  // A fixed points ladder must drop its allowlist entry, so the list can't mask
+  // a later regression on the same unit. Only units actually scanned are
+  // eligible — a partial dataset (e.g. a fixture with one faction) never
+  // spuriously flags the rest.
+  const staleAmbiguous = [...KNOWN_AMBIGUOUS_POINTS].filter(
+    (k) => pricedUnits.has(k) && !seenAmbiguous.has(k),
+  );
+  if (staleAmbiguous.length > 0) {
+    result.failed++;
+    result.errors.push({
+      file: "tools/src/integrity.ts",
+      index: 0,
+      errors: staleAmbiguous.map((k) => ({
+        path: "/KNOWN_AMBIGUOUS_POINTS",
+        message: `allowlist entry "${k}" no longer has an ambiguous points ladder — remove it`,
       })),
     });
   }

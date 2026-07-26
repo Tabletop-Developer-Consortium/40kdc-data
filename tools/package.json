@@ -75,7 +75,6 @@
     "audit:phrasing": "tsx src/cli.ts audit-phrasing --write",
     "scrub:defensive-flag": "tsx src/scrub-defensive-flag.ts",
     "extract:faction-pack": "tsx src/extract-faction-pack.ts",
-    "ingest:battlemaster": "tsx src/ingest-battlemaster-layouts.ts",
     "author:input": "tsx src/author-input.ts",
     "author:ingest": "tsx src/author-ingest.ts",
     "author:seed": "tsx src/author-seed.ts",

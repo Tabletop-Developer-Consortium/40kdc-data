@@ -278,7 +278,7 @@
   "unsupportedReasons": [
     {
       "reason": "effect type \"ability-grant\" is not modelled by the buff layer",
-      "count": 456
+      "count": 455
     },
     {
       "reason": "effect type \"movement-modifier\" is not modelled by the buff layer",
@@ -294,7 +294,7 @@
     },
     {
       "reason": "effect type \"leadership-modifier\" is not modelled by the buff layer",
-      "count": 85
+      "count": 84
     },
     {
       "reason": "effect type \"attack-restriction\" is not modelled by the buff layer",
@@ -333,12 +333,12 @@
       "count": 32
     },
     {
-      "reason": "stat-modifier: operation \"set\" not supported",
+      "reason": "effect type \"disembark-after-move\" is not modelled by the buff layer",
       "count": 31
     },
     {
-      "reason": "effect type \"disembark-after-move\" is not modelled by the buff layer",
-      "count": 31
+      "reason": "stat-modifier: operation \"set\" not supported",
+      "count": 30
     },
     {
       "reason": "effect type \"fallback-and-act\" is not modelled by the buff layer",
@@ -493,10 +493,6 @@
       "count": 4
     },
     {
-      "reason": "stat-modifier on \"WS\" is outside the damage path",
-      "count": 4
-    },
-    {
       "reason": "conditional: cannot evaluate condition \"terrain-area-control\" against current context",
       "count": 4
     },
@@ -522,6 +518,10 @@
     },
     {
       "reason": "stat-modifier: operation \"multiply\" not supported",
+      "count": 3
+    },
+    {
+      "reason": "stat-modifier on \"WS\" is outside the damage path",
       "count": 3
     },
     {
@@ -638,6 +638,10 @@
     },
     {
       "reason": "conditional: cannot evaluate condition \"engagement-state\" against current context",
+      "count": 1
+    },
+    {
+      "reason": "effect type \"stratagem-targeting-permission\" is not modelled by the buff layer",
       "count": 1
     },
     {
@@ -23714,7 +23718,7 @@
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"leadership-modifier\" is not modelled by the buff layer"
+      "gap": null
     },
     {
       "faction": "necrons",
@@ -23794,7 +23798,7 @@
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "stat-modifier on \"WS\" is outside the damage path"
+      "gap": null
     },
     {
       "faction": "necrons",
@@ -24070,7 +24074,7 @@
       "faction": "necrons",
       "ability_id": "whirling-onslaught",
       "name": "Whirling Onslaught",
-      "shape": "conditional",
+      "shape": "sequence",
       "stub": false,
       "offensive": true,
       "defensive": false,
@@ -24670,7 +24674,7 @@
       "faction": "necrons",
       "ability_id": "triarch-abilities",
       "name": "Triarch Abilities",
-      "shape": "conditional",
+      "shape": "stance-select",
       "stub": false,
       "offensive": false,
       "defensive": false,
@@ -24884,7 +24888,7 @@
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"ability-grant\" is not modelled by the buff layer"
+      "gap": "effect type \"stratagem-targeting-permission\" is not modelled by the buff layer"
     },
     {
       "faction": "necrons",
@@ -24910,11 +24914,11 @@
       "faction": "necrons",
       "ability_id": "reanimation-protocols",
       "name": "Reanimation Protocols",
-      "shape": "stat-modifier",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "stat-modifier: operation \"set\" not supported"
+      "gap": null
     },
     {
       "faction": "necrons",

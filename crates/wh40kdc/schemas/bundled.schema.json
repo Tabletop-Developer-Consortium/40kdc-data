@@ -3534,6 +3534,9 @@
           "$ref": "#/$defs/single-effect"
         },
         {
+          "$ref": "#/$defs/stance-select-effect"
+        },
+        {
           "$ref": "#/$defs/choice-effect"
         },
         {
@@ -3552,6 +3555,9 @@
           "$ref": "#/$defs/select-units-effect"
         },
         {
+          "$ref": "#/$defs/for-each-unit-effect"
+        },
+        {
           "$ref": "#/$defs/movement-modifier-effect"
         },
         {
@@ -3559,9 +3565,6 @@
         },
         {
           "$ref": "#/$defs/designate-target-effect"
-        },
-        {
-          "$ref": "#/$defs/stance-select-effect"
         },
         {
           "$ref": "#/$defs/risk-reward-effect"
@@ -3727,8 +3730,10 @@
             "modifier-immunity",
             "stratagem-cost-modifier",
             "targeting-permission",
+            "stratagem-targeting-permission",
             "unit-attachment",
-            "fight-eligibility-extension"
+            "fight-eligibility-extension",
+            "recovery-pool"
           ]
         },
         "target": {
@@ -3783,6 +3788,18 @@
           "$comment": "`disembark-after-move`: a Transport modifies disembarkation. `after` is the move that enables it (`normal-move` | `advance` | `deployment` | `before-move`); `can_charge` is whether the disembarked unit may then declare a charge; `requires_keyword` gates it on a keyword (e.g. Deep Strike for Aerial Assault); `counts_as_normal_move` marks the disembarked unit as having made a Normal move (Assault Vehicle). An absent modifier renders the bare 'after it has moved' form. `mandatory` marks a Reserves-transport whose cargo MUST disembark on arrival (Drop Pod); `min_enemy_distance` is the inches the disembarking units must be set up away from all enemy models. For `after: deployment` the charge tail renders only when `can_charge` is explicit (a deployment-step disembark has no charge window)."
         },
         {
+          "$comment": "`recovery-pool`: recover a unit's wounds using the closed dice expression, first healing wounded models and then returning destroyed models at one wound. With `target: all-friendly`, `per_target_unit: true` rolls and allocates an independent pool for every eligible friendly unit."
+        },
+        {
+          "$comment": "`stratagem-targeting-permission`: an attached unit can be selected as a Stratagem target despite the named exception."
+        },
+        {
+          "$comment": "`bind_count_as` binds a dice-valued mortal-wound count for a following local consumer."
+        },
+        {
+          "$comment": "`count_from` consumes a preceding local bound count for a wounds-form resurrection."
+        },
+        {
           "$comment": "`unit-attachment`: this unit can join another friendly unit during the Declare Battle Formations step, becoming part of that Bodyguard unit. `led_by` (optional) is the keyword the joined unit must be led by; `mandatory` (optional) marks the attachment as forced (the unit must be attached to a Leader or it counts as destroyed)."
         }
       ]
@@ -3802,6 +3819,10 @@
         },
         "choice_label": {
           "type": "string"
+        },
+        "choice_prompt": {
+          "type": "string",
+          "minLength": 1
         }
       },
       "required": [
@@ -3970,7 +3991,7 @@
     },
     "select-units-effect": {
       "type": "object",
-      "$comment": "Targeting wrapper: choose up to `selector.max_count` units matching `selector.keywords` of the named `owner`, then apply the nested `effect` to each. Models 'select up to N <keyword> units and do X' (redeploy, army-wide one-off buffs) that bare ability-grant labels previously flattened.",
+      "$comment": "Targeting wrapper: choose an exact `selector.count` or up to legacy `selector.max_count` units matching `selector.keywords` of the named `owner`, then apply the nested `effect` to each.",
       "properties": {
         "type": {
           "const": "select-units"
@@ -3979,6 +4000,10 @@
           "type": "object",
           "additionalProperties": false,
           "properties": {
+            "count": {
+              "type": "integer",
+              "minimum": 1
+            },
             "max_count": {
               "type": "integer",
               "minimum": 1
@@ -3995,10 +4020,76 @@
                 "friendly",
                 "enemy"
               ]
+            },
+            "within_inches": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "eligibility": {
+              "$ref": "#/$defs/condition"
             }
           },
           "required": [
-            "max_count",
+            "owner"
+          ],
+          "oneOf": [
+            {
+              "required": [
+                "count"
+              ],
+              "not": {
+                "required": [
+                  "max_count"
+                ]
+              }
+            },
+            {
+              "required": [
+                "max_count"
+              ],
+              "not": {
+                "required": [
+                  "count"
+                ]
+              }
+            }
+          ]
+        },
+        "effect": {
+          "$ref": "#/$defs/effect-node"
+        }
+      },
+      "required": [
+        "type",
+        "selector",
+        "effect"
+      ]
+    },
+    "for-each-unit-effect": {
+      "type": "object",
+      "additionalProperties": false,
+      "$comment": "Resolve `effect` independently once for every matching unit, binding that unit as its target. `selector` has no count because it selects every eligible unit.",
+      "properties": {
+        "type": {
+          "const": "for-each-unit"
+        },
+        "selector": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "owner": {
+              "type": "string",
+              "enum": [
+                "friendly",
+                "enemy"
+              ]
+            },
+            "within_inches": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            }
+          },
+          "required": [
             "owner"
           ]
         },
@@ -4190,6 +4281,29 @@
             },
             "effect": {
               "$ref": "#/$defs/effect-node"
+            },
+            "eligible": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "required_keywords": {
+                  "type": "array",
+                  "minItems": 1,
+                  "items": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "excluded_keywords": {
+                  "type": "array",
+                  "minItems": 1,
+                  "items": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              },
+              "minProperties": 1
             }
           }
         }
@@ -4446,6 +4560,7 @@
             "battle-round",
             "battle",
             "until-next-command-phase",
+            "until-next-battle-round",
             "one-use",
             "permanent"
           ]

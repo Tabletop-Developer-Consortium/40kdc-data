@@ -41,6 +41,15 @@ def _count(n: Any, noun: str) -> str:
     return f"{_str(n)}+ {noun}s"
 
 
+def _or_list(items: list[str]) -> str:
+    """Oxford-free disjunction matching the TypeScript condition renderer."""
+    if len(items) <= 1:
+        return items[0] if items else ""
+    if len(items) == 2:
+        return f"{items[0]} or {items[1]}"
+    return f"{', '.join(items[:-1])} or {items[-1]}"
+
+
 def _round_number(v: Any) -> float | int | None:
     """JS ``Number(v)`` collapsing integral floats to int; None on non-numeric."""
     try:
@@ -79,7 +88,6 @@ _TIMING_ALIASES: dict[str, str] = {
     "model-destroyed": "on-model-destroyed",
     "on-destroyed": "on-unit-destroyed",
     "before-this-model-removed": "before-bearer-removed",
-    "command-phase": "start-of-command-phase",
     "reinforcements-step": "reinforcements",
     "setup": "unit-set-up",
     "set-up-this-turn": "unit-set-up",
@@ -98,11 +106,13 @@ _TIMING_ONLY_PHRASES: dict[str, str] = {
     "first-this-battle": "the first time this battle",
     "first-time-this-phase": "the first time this phase",
     "in-reserves": "while it is in Reserves",
+    "command-phase": "during the Command phase",
     "shooting-phase": "in the Shooting phase",
     "start-of-fight-phase": "at the start of the Fight phase",
     "first-movement-phase": "in your first Movement phase",
     "start-of-first-battle-round": "at the start of the first battle round",
     "start-of-movement-phase": "at the start of the Movement phase",
+    "start-of-shooting-phase": "at the start of your Shooting phase",
     "shooting-or-fight-phase": "in the Shooting or Fight phase",
     "this-model-starts-or-ends-a-move": "each time this model starts or ends a move",
     "end-of-normal-move": "when the unit ends a Normal move",
@@ -213,12 +223,29 @@ def event_clause(event: Any) -> str:
     return _EVENT_PHRASES.get(e, f"when {dekebab(e)}")
 
 
+def describe_selection_eligibility(c: Condition) -> str:
+    """Render a condition as a predicate on an already-named candidate unit."""
+    if c.get("type") == "is-battle-shocked" and not c.get("operator"):
+        return "that is not Battle-shocked" if c.get("negated") else "that is Battle-shocked"
+    phrase = describe_condition(c)
+    if phrase.startswith("the unit is "):
+        return f"that is {phrase[len('the unit is '):]}"
+    if phrase.startswith("not the unit is "):
+        return f"that is not {phrase[len('not the unit is '):]}"
+    if phrase.startswith("the unit has "):
+        return f"with {phrase[len('the unit has '):]}"
+    return f"if {phrase}"
+
+
 def describe_condition(c: Condition) -> str:
     # Compound nodes first — join the operands with lowercase connectives.
     operands = c.get("operands")
     if c.get("operator") == "and" and operands:
         return " and ".join(describe_condition(o) for o in operands)
     if c.get("operator") == "or" and operands:
+        if all(not o.get("negated") and o.get("type") == "unit-has-keyword" for o in operands):
+            keywords = [_str((o.get("parameters") or {}).get("keyword")) for o in operands]
+            return f"the unit has the {_or_list(keywords)} keywords"
         return " or ".join(describe_condition(o) for o in operands)
     if c.get("operator") == "not" and operands:
         return f"not ({', '.join(describe_condition(o) for o in operands)})"
@@ -229,7 +256,8 @@ def describe_condition(c: Condition) -> str:
 
     # ── Ability-DSL conditions ───────────────────────────────────────────────
     if ctype == "phase-is":
-        return f"{negate}during the {_str(p.get('phase'))} phase"
+        phase = _str(p.get("phase"))
+        return f"{negate}during the {'Command' if phase in ('command', 'command-phase') else phase} phase"
     if ctype == "timing-is":
         timing = p.get("timing")
         return negated_timing(timing) if c.get("negated") else describe_timing(timing)
@@ -261,7 +289,7 @@ def describe_condition(c: Condition) -> str:
         return f"{negate}the model is leading a unit"
     if ctype == "is-attached":
         kw = f"{_str(p.get('keyword'))} " if p.get("keyword") else ""
-        return f"{negate}attached to a {kw}unit"
+        return f"{negate}the model is leading a {kw}unit"
     if ctype == "attack-is-type":
         if p.get("comparison") == "strength-greater-than-toughness":
             return f"{negate}when this attack's Strength is greater than the target's Toughness"

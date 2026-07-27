@@ -58,5 +58,125 @@
       "effect": { "type": "cp-gain", "target": "self", "modifier": { "count": 1 } }
     },
     "scope": { "range": "any-on-battlefield", "duration": "turn" }
+  },
+  {
+    "ability_id": "bad-recovery-pool-wrong-target",
+    "name": "recovery-pool targeting self instead of the required unit",
+    "authored_by": "40kdc-community",
+    "game_version": { "edition": "11th", "dataslate": "pre-launch-provisional" },
+    "effect": { "type": "recovery-pool", "target": "self", "modifier": { "dice": "D3" } },
+    "scope": { "range": "unit", "duration": "permanent" }
+  },
+  {
+    "ability_id": "bad-recovery-pool-extra-modifier-field",
+    "name": "recovery-pool modifier with a disallowed extra field",
+    "authored_by": "40kdc-community",
+    "game_version": { "edition": "11th", "dataslate": "pre-launch-provisional" },
+    "effect": { "type": "recovery-pool", "target": "unit", "modifier": { "dice": "D3", "threshold": 4 } },
+    "scope": { "range": "unit", "duration": "permanent" }
+  },
+  {
+    "ability_id": "bad-select-units-selector-both-count-and-max-count",
+    "name": "select-units selector setting both count and legacy max_count",
+    "authored_by": "40kdc-community",
+    "game_version": { "edition": "11th", "dataslate": "pre-launch-provisional" },
+    "effect": {
+      "type": "select-units",
+      "selector": { "count": 1, "max_count": 1, "keywords": ["VEHICLE"], "owner": "enemy", "within_inches": 12 },
+      "effect": { "type": "fight-first", "target": "unit" }
+    },
+    "scope": { "range": "unit", "duration": "permanent" }
+  },
+  {
+    "ability_id": "bad-select-units-selector-missing-count-and-max-count",
+    "name": "select-units selector with neither count nor legacy max_count",
+    "authored_by": "40kdc-community",
+    "game_version": { "edition": "11th", "dataslate": "pre-launch-provisional" },
+    "effect": {
+      "type": "select-units",
+      "selector": { "keywords": ["VEHICLE"], "owner": "enemy", "within_inches": 12 },
+      "effect": { "type": "fight-first", "target": "unit" }
+    },
+    "scope": { "range": "unit", "duration": "permanent" }
+  },
+  {
+    "ability_id": "bad-count-from-non-string",
+    "name": "resurrection count_from given a number instead of a bind_count_as label",
+    "authored_by": "40kdc-community",
+    "game_version": { "edition": "11th", "dataslate": "pre-launch-provisional" },
+    "effect": {
+      "type": "sequence",
+      "steps": [
+        { "type": "mortal-wounds", "target": "unit", "modifier": { "count": "D3", "bind_count_as": "bad-ref-d3" } },
+        { "type": "resurrection", "target": "self", "modifier": { "type": "wounds", "count_from": 3 } }
+      ]
+    },
+    "scope": { "range": "self", "duration": "permanent" }
+  },
+  {
+    "ability_id": "bad-recovery-pool-all-friendly-without-per-target-unit",
+    "name": "all-friendly recovery-pool without independent per-unit allocation",
+    "authored_by": "40kdc-community",
+    "game_version": { "edition": "11th", "dataslate": "pre-launch-provisional" },
+    "effect": { "type": "recovery-pool", "target": "all-friendly", "modifier": { "dice": "D3" } },
+    "scope": { "range": "any-on-battlefield", "duration": "permanent" }
+  },
+  {
+    "ability_id": "bad-for-each-unit-selector-count",
+    "name": "for-each-unit selector with disallowed player count",
+    "authored_by": "40kdc-community",
+    "game_version": { "edition": "11th", "dataslate": "pre-launch-provisional" },
+    "effect": {
+      "type": "for-each-unit",
+      "selector": { "owner": "enemy", "within_inches": 6, "count": 1 },
+      "effect": { "type": "mortal-wounds", "target": "unit", "modifier": { "count": "D3" } }
+    },
+    "scope": { "range": "aura-6", "duration": "permanent" }
+  },
+  {
+    "ability_id": "bad-select-units-selector-invalid-eligibility",
+    "name": "select-units selector eligibility that is not a condition node",
+    "authored_by": "40kdc-community",
+    "game_version": { "edition": "11th", "dataslate": "pre-launch-provisional" },
+    "effect": {
+      "type": "select-units",
+      "selector": {
+        "count": 1,
+        "keywords": ["VEHICLE"],
+        "owner": "enemy",
+        "within_inches": 12,
+        "eligibility": { "type": "not-a-condition" }
+      },
+      "effect": { "type": "fight-first", "target": "unit" }
+    },
+    "scope": { "range": "unit", "duration": "permanent" }
+  },
+  {
+    "ability_id": "bad-stratagem-targeting-permission-invalid-exception",
+    "name": "Stratagem targeting permission with an unsupported exception",
+    "authored_by": "40kdc-community",
+    "game_version": { "edition": "11th", "dataslate": "pre-launch-provisional" },
+    "effect": {
+      "type": "stratagem-targeting-permission",
+      "target": "attached-unit",
+      "modifier": { "exception": "not-battle-shocked" }
+    },
+    "scope": { "range": "self", "duration": "permanent" }
+  },
+  {
+    "ability_id": "bad-aura-eligible-empty",
+    "name": "aura eligibility without an inclusion or exclusion restriction",
+    "authored_by": "40kdc-community",
+    "game_version": { "edition": "11th", "dataslate": "pre-launch-provisional" },
+    "effect": {
+      "type": "aura",
+      "target": "friendly-within-aura",
+      "modifier": {
+        "range": 6,
+        "eligible": {},
+        "effect": { "type": "reroll", "target": "unit", "modifier": { "roll": "hit", "of": "1" } }
+      }
+    },
+    "scope": { "range": "aura-6", "duration": "permanent" }
   }
 ]

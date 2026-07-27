@@ -6,16 +6,17 @@
     "effect-node": {
       "oneOf": [
         { "$ref": "#/$defs/single-effect" },
+        { "$ref": "#/$defs/stance-select-effect" },
         { "$ref": "#/$defs/choice-effect" },
         { "$ref": "#/$defs/sequence-effect" },
         { "$ref": "#/$defs/dice-gated-effect" },
         { "$ref": "#/$defs/conditional-effect" },
         { "$ref": "#/$defs/dice-pool-allocation-effect" },
         { "$ref": "#/$defs/select-units-effect" },
+        { "$ref": "#/$defs/for-each-unit-effect" },
         { "$ref": "#/$defs/movement-modifier-effect" },
         { "$ref": "#/$defs/aura-effect" },
         { "$ref": "#/$defs/designate-target-effect" },
-        { "$ref": "#/$defs/stance-select-effect" },
         { "$ref": "#/$defs/risk-reward-effect" },
         { "$ref": "#/$defs/issue-orders-effect" }
       ]
@@ -104,7 +105,8 @@
             "pool-add-die", "replace-roll-from-pool",
             "flyover", "cp-on-destroy", "battle-shock-test",
             "modifier-immunity", "stratagem-cost-modifier", "targeting-permission",
-            "unit-attachment", "fight-eligibility-extension"
+            "stratagem-targeting-permission",
+            "unit-attachment", "fight-eligibility-extension", "recovery-pool"
           ]
         },
         "target": {
@@ -479,6 +481,113 @@
           }
         },
         {
+          "$comment": "`recovery-pool`: recover a unit's wounds using the closed dice expression, first healing wounded models and then returning destroyed models at one wound. With `target: all-friendly`, `per_target_unit: true` rolls and allocates an independent pool for every eligible friendly unit.",
+          "if": {
+            "properties": { "type": { "const": "recovery-pool" } },
+            "required": ["type"]
+          },
+          "then": {
+            "oneOf": [
+              {
+                "properties": {
+                  "target": { "const": "unit" },
+                  "modifier": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "dice": { "type": "string", "pattern": "^[dD][3-6](?:[+-][1-9][0-9]*)?$|^[1-9][0-9]*[dD][3-6](?:[+-][1-9][0-9]*)?$" }
+                    },
+                    "required": ["dice"]
+                  }
+                },
+                "required": ["target", "modifier"]
+              },
+              {
+                "properties": {
+                  "target": { "const": "all-friendly" },
+                  "modifier": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "dice": { "type": "string", "pattern": "^[dD][3-6](?:[+-][1-9][0-9]*)?$|^[1-9][0-9]*[dD][3-6](?:[+-][1-9][0-9]*)?$" },
+                      "per_target_unit": { "const": true }
+                    },
+                    "required": ["dice", "per_target_unit"]
+                  }
+                },
+                "required": ["target", "modifier"]
+              }
+            ]
+          }
+        },
+        {
+          "$comment": "`stratagem-targeting-permission`: an attached unit can be selected as a Stratagem target despite the named exception.",
+          "if": {
+            "properties": { "type": { "const": "stratagem-targeting-permission" } },
+            "required": ["type"]
+          },
+          "then": {
+            "properties": {
+              "target": { "const": "attached-unit" },
+              "modifier": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "exception": { "const": "battle-shocked" }
+                },
+                "required": ["exception"]
+              }
+            },
+            "required": ["target", "modifier"]
+          }
+        },
+        {
+          "$comment": "`bind_count_as` binds a dice-valued mortal-wound count for a following local consumer.",
+          "if": {
+            "properties": {
+              "type": { "const": "mortal-wounds" },
+              "modifier": { "required": ["bind_count_as"] }
+            },
+            "required": ["type", "modifier"]
+          },
+          "then": {
+            "properties": {
+              "modifier": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "count": { "type": "string", "pattern": "^[dD][3-6](?:[+-][1-9][0-9]*)?$|^[1-9][0-9]*[dD][3-6](?:[+-][1-9][0-9]*)?$" },
+                  "bind_count_as": { "type": "string", "minLength": 1 }
+                },
+                "required": ["count", "bind_count_as"]
+              }
+            }
+          }
+        },
+        {
+          "$comment": "`count_from` consumes a preceding local bound count for a wounds-form resurrection.",
+          "if": {
+            "properties": {
+              "type": { "const": "resurrection" },
+              "modifier": { "required": ["count_from"] }
+            },
+            "required": ["type", "modifier"]
+          },
+          "then": {
+            "properties": {
+              "modifier": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "type": { "const": "wounds" },
+                  "count_from": { "type": "string", "minLength": 1 }
+                },
+                "required": ["type", "count_from"]
+              }
+            }
+          }
+        },
+        {
           "$comment": "`unit-attachment`: this unit can join another friendly unit during the Declare Battle Formations step, becoming part of that Bodyguard unit. `led_by` (optional) is the keyword the joined unit must be led by; `mandatory` (optional) marks the attachment as forced (the unit must be attached to a Leader or it counts as destroyed).",
           "if": {
             "properties": { "type": { "const": "unit-attachment" } },
@@ -503,7 +612,8 @@
       "properties": {
         "type": { "const": "choice" },
         "options": { "type": "array", "items": { "$ref": "#/$defs/effect-node" }, "minItems": 2 },
-        "choice_label": { "type": "string" }
+        "choice_label": { "type": "string" },
+        "choice_prompt": { "type": "string", "minLength": 1 }
       },
       "required": ["type", "options"]
     },
@@ -587,18 +697,44 @@
     },
     "select-units-effect": {
       "type": "object",
-      "$comment": "Targeting wrapper: choose up to `selector.max_count` units matching `selector.keywords` of the named `owner`, then apply the nested `effect` to each. Models 'select up to N <keyword> units and do X' (redeploy, army-wide one-off buffs) that bare ability-grant labels previously flattened.",
+      "$comment": "Targeting wrapper: choose an exact `selector.count` or up to legacy `selector.max_count` units matching `selector.keywords` of the named `owner`, then apply the nested `effect` to each.",
       "properties": {
         "type": { "const": "select-units" },
         "selector": {
           "type": "object",
           "additionalProperties": false,
           "properties": {
+            "count": { "type": "integer", "minimum": 1 },
             "max_count": { "type": "integer", "minimum": 1 },
             "keywords": { "type": "array", "items": { "type": "string" } },
-            "owner": { "type": "string", "enum": ["friendly", "enemy"] }
+            "owner": { "type": "string", "enum": ["friendly", "enemy"] },
+            "within_inches": { "type": "number", "exclusiveMinimum": 0 },
+            "eligibility": { "$ref": "condition.schema.json" }
           },
-          "required": ["max_count", "owner"]
+          "required": ["owner"],
+          "oneOf": [
+            { "required": ["count"], "not": { "required": ["max_count"] } },
+            { "required": ["max_count"], "not": { "required": ["count"] } }
+          ]
+        },
+        "effect": { "$ref": "#/$defs/effect-node" }
+      },
+      "required": ["type", "selector", "effect"]
+    },
+    "for-each-unit-effect": {
+      "type": "object",
+      "additionalProperties": false,
+      "$comment": "Resolve `effect` independently once for every matching unit, binding that unit as its target. `selector` has no count because it selects every eligible unit.",
+      "properties": {
+        "type": { "const": "for-each-unit" },
+        "selector": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "owner": { "type": "string", "enum": ["friendly", "enemy"] },
+            "within_inches": { "type": "number", "exclusiveMinimum": 0 }
+          },
+          "required": ["owner"]
         },
         "effect": { "$ref": "#/$defs/effect-node" }
       },
@@ -699,7 +835,16 @@
             },
             "range_bonus": { "type": "integer" },
             "of": { "type": "string" },
-            "effect": { "$ref": "#/$defs/effect-node" }
+            "effect": { "$ref": "#/$defs/effect-node" },
+            "eligible": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "required_keywords": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
+                "excluded_keywords": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } }
+              },
+              "minProperties": 1
+            }
           }
         }
       },

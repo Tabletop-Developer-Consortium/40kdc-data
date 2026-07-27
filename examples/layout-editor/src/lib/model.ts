@@ -36,8 +36,9 @@ import type {
   TerrainTemplate,
   TerrainLayout,
 } from "@alpaca-software/40kdc-data";
-// Type-only circular dependency (sets.ts imports Vec2/Mirror back): erased at compile.
-import type { TerrainSetDef } from "./sets.js";
+// Type-only circular dependency (sets.ts imports Mirror/FeatureSeat back): erased
+// at compile, so sets.ts stays a pure declarative data module with no runtime cycle.
+import type { TerrainSetDef, SetFeatureDef } from "./sets.js";
 
 /** Board extents in inches. Most 40kdc layouts use the standard 60×44; one-offs
  *  (the 36×36 KOTC colosseum) carry a per-layout `board` that overrides it. */
@@ -297,12 +298,151 @@ export function cardinalCornerIndices(fp: TerrainTemplate["footprint"]): number[
   return out;
 }
 
+// ── plate seating (the Battlemaster feature-placement rule) ───────────────────
+// Every one of the 69 feature placements captured from Battlemaster's composites
+// (`data/core/_reports/terrain-composite-prebuilds.json`, covering all 720 area
+// placements across the 46 layouts) is reproduced to ≤0.005″ by ONE rule: seat the
+// feature's oriented bounding box into a corner of the area's *artwork rectangle*
+// with an inset. 60 of 69 use a 0.5″ inset on both axes, 5 (the `area-long-line`
+// barricades) are flush on x and 0.5″ on y, and 4 are centred. Every gap
+// measurement lands on a clean ¼″. So the placements are a rule, not a table —
+// which is why `TERRAIN_SETS` declares seats rather than coordinates.
+
+/** A rect in a piece's centroid-local frame. y-down: `minY` is the TOP edge. */
+export interface LocalRect {
+  minX: number;
+  maxX: number;
+  minY: number;
+  maxY: number;
+}
+
+/** Which corner of an area's plate a feature seats into (AREA-LOCAL, y-down). */
+export type PlateCorner = "top-left" | "top-right" | "bottom-right" | "bottom-left";
+export const PLATE_CORNERS: readonly PlateCorner[] = [
+  "top-left",
+  "top-right",
+  "bottom-right",
+  "bottom-left",
+];
+
+/** Battlemaster's default corner inset — 60 of the 69 captured placements. */
+export const DEFAULT_SEAT_INSET: Vec2 = { x: 0.5, y: 0.5 };
+
+/** How a feature sits inside its parent area's plate. */
+export type FeatureSeat =
+  | { kind: "corner"; corner: PlateCorner; inset?: Vec2 }
+  | { kind: "centred" };
+
+/**
+ * An area's *artwork rectangle* ("plate") in its centroid-local frame: the bbox of
+ * its {@link cardinalCornerIndices} vertices, **not** of all its vertices. Nubbed
+ * die-cut outlines bulge past the printed plate — `area-large` is 11.5 × 7.536
+ * all-vertex but 11.5 × 7.0 as a plate, and Battlemaster's own editor reports
+ * `11.503 × 7.003` for that piece — so seating against the all-vertex bbox would
+ * inset every feature by an arbitrary nub depth.
+ *
+ * NOTE the plate centre is *not* the centroid (`area-large`: +0.0191, −0.0583),
+ * which is exactly why quantizing a piece's `position` does not produce round
+ * printed distances. See {@link snapToKeystoneGrid}.
+ */
+export function plateRect(fp: TerrainTemplate["footprint"]): LocalRect {
+  // orientedOffsets at identity == vertices relative to the polygon-area centroid,
+  // i.e. the same frame `position` is measured in. Reusing it keeps this on the
+  // resolver's frozen math rather than re-deriving the centroid here.
+  const local = orientedOffsets(fp as never, 0, "none") as Vec2[];
+  const idx = cardinalCornerIndices(fp);
+  return bbox(idx.map((i) => local[i]));
+}
+
+/** The inset a seat applies (defaulting to Battlemaster's 0.5″ on both axes). */
+const seatInset = (seat: FeatureSeat): Vec2 =>
+  seat.kind === "corner" ? seat.inset ?? DEFAULT_SEAT_INSET : { x: 0, y: 0 };
+
+/**
+ * The area-local centroid that seats a feature's oriented bounding box into `seat`
+ * of the parent area's plate rect. The result drops straight into a parented
+ * feature's `position`: a parented feature's position/rotation/mirror already live
+ * in the area's centroid-local frame, so this is pure local algebra — no board
+ * round-trip (which would also spend precision on `clampToBoard`'s rounding).
+ *
+ * The FEATURE side deliberately uses the plain bbox of `orientedOffsets`, **never**
+ * `cardinalCornerIndices`: the corner-ruin templates are L-shaped, so their outer
+ * bbox corner has no vertex anywhere near it (up to 4.0″ away for
+ * `corner-ruin-balanced-right`, 3.25″ for `-balanced-left`, 2.5″/2.0″ for
+ * `corner-ruin-right`/`-left`). Using cardinal vertices here would silently break
+ * the snap for precisely the pieces it matters most for.
+ */
+export function seatPositionInPlate(
+  areaFp: TerrainTemplate["footprint"],
+  featureFp: TerrainTemplate["footprint"],
+  rotation: number,
+  mirror: Mirror,
+  seat: FeatureSeat,
+): Vec2 {
+  const pr = plateRect(areaFp);
+  const fb = bbox(orientedOffsets(featureFp as never, rotation, mirror) as Vec2[]);
+  if (seat.kind === "centred") {
+    return {
+      x: (pr.minX + pr.maxX) / 2 - (fb.minX + fb.maxX) / 2,
+      y: (pr.minY + pr.maxY) / 2 - (fb.minY + fb.maxY) / 2,
+    };
+  }
+  const inset = seatInset(seat);
+  const left = seat.corner === "top-left" || seat.corner === "bottom-left";
+  const top = seat.corner === "top-left" || seat.corner === "top-right";
+  return {
+    x: left ? pr.minX + inset.x - fb.minX : pr.maxX - inset.x - fb.maxX,
+    y: top ? pr.minY + inset.y - fb.minY : pr.maxY - inset.y - fb.maxY,
+  };
+}
+
+/**
+ * The plate corner whose *seat position* lands nearest `current` (area-local).
+ *
+ * Deliberately minimum-seat-displacement rather than nearest-corner-to-centroid:
+ * nearest-corner picks the wrong corner for 13 of the 65 captured corner
+ * placements (20%), and for the same reason as the bbox trap above — an L-shaped
+ * ruin's centroid sits diagonally *away* from the corner it wraps. Minimum
+ * displacement is 0/65 wrong on the corpus and degrades gracefully under the
+ * jitter of a real drop.
+ */
+export function nearestPlateSeat(
+  areaFp: TerrainTemplate["footprint"],
+  featureFp: TerrainTemplate["footprint"],
+  rotation: number,
+  mirror: Mirror,
+  current: Vec2,
+  inset: Vec2 = DEFAULT_SEAT_INSET,
+): PlateCorner {
+  let best: PlateCorner = PLATE_CORNERS[0];
+  let bestD = Infinity;
+  for (const corner of PLATE_CORNERS) {
+    const p = seatPositionInPlate(areaFp, featureFp, rotation, mirror, {
+      kind: "corner",
+      corner,
+      inset,
+    });
+    const d = Math.hypot(p.x - current.x, p.y - current.y);
+    if (d < bestD) {
+      bestD = d;
+      best = corner;
+    }
+  }
+  return best;
+}
+
 function mirrorVec(v: Vec2, m: Mirror): Vec2 {
   if (m === "horizontal") return { x: -v.x, y: v.y };
   if (m === "vertical") return { x: v.x, y: -v.y };
   return v;
 }
-function rotateCw(v: Vec2, deg: number): Vec2 {
+/**
+ * Rotate a vector clockwise in the board's y-down frame — the same sense
+ * `orientedOffsets` and the resolver use. Exported so callers that must compose an
+ * area's rotation onto a child themselves (the set thumbnail) reuse this rather
+ * than re-deriving a rotation and drifting from the resolver.
+ */
+export function rotateCw(v: Vec2, deg: number): Vec2 {
   if (!deg) return v;
   const r = (deg * Math.PI) / 180;
   const c = Math.cos(r);
@@ -373,9 +513,17 @@ function inverseAreaFrame(board: Vec2, area: EditPiece): Vec2 {
   // mirror is its own inverse; undo rotate first, then mirror.
   return mirrorVec(rotateCw(d, -area.rotation_degrees), area.mirror);
 }
-/** Clamp a board-space point to the table (2-dp), so pieces can't leave the map. */
+/**
+ * Clamp a board-space point to the table, so pieces can't leave the map.
+ *
+ * 4-dp, matching the committed layout corpus. This is load-bearing for the ¼″
+ * keystone snap: the snap back-solves a centroid from rounded printed distances,
+ * and at 2-dp that solved centroid was quantized by up to 0.005″ — enough to make
+ * an exactly-solved 16.25″ export as 16.2503″.
+ */
+const round4 = (n: number): number => Math.round(n * 1e4) / 1e4;
 function clampToBoard(p: Vec2, board: BoardDims = DEFAULT_BOARD): Vec2 {
-  const c = (n: number, hi: number): number => Math.max(0, Math.min(hi, Math.round(n * 100) / 100));
+  const c = (n: number, hi: number): number => Math.max(0, Math.min(hi, round4(n)));
   return { x: c(p.x, board.width), y: c(p.y, board.height) };
 }
 /** The area a feature is parented to, if any (and still present). */
@@ -721,6 +869,65 @@ export function eventCompanionPage(
   return 9 + pairOrdinal * 3 + (variant - 1);
 }
 
+/** How a reference background is fitted over the board. All fields optional; see {@link referenceImageBox}. */
+export interface ReferenceFit {
+  /** Quarter turns clockwise, as displayed. */
+  quarterTurns?: number;
+  /** Nudge right, in board inches, **as the board appears on screen**. */
+  offsetX?: number;
+  /** Nudge down, in board inches, **as the board appears on screen**. */
+  offsetY?: number;
+  /** Uniform zoom about the board centre; 1 fills the board. */
+  scale?: number;
+}
+
+/**
+ * Placement for a reference background image: the rectangle to stretch it into, plus the
+ * SVG transform that turns, zooms and nudges it over the board.
+ *
+ * ## Why the dimensions swap on an odd turn
+ *
+ * The board is drawn portrait — `Board` wraps its content in a 90° rotation — so a landscape
+ * reference (a Battlemaster card face is exactly the 60×44 board, no margin) arrives sideways
+ * and needs a quarter turn. Under an odd number of turns the image's width and height
+ * exchange roles, so a box sized `board.width × board.height` would no longer cover the board
+ * once rotated. Sizing it swapped and centring it makes all four turns fill the board exactly.
+ *
+ * ## Why the nudge axes are swapped too
+ *
+ * `offsetX`/`offsetY` are what the user sees, not board axes. The board layer is rotated 90°,
+ * which maps board `(x, y)` to screen `(board.height − y, x)`: board +x runs DOWN the screen
+ * and board +y runs LEFT. So a screen-space nudge of `(sx, sy)` is a board-space translation
+ * of `(sy, −sx)`. Passing the user's numbers straight through would send the image sideways
+ * relative to the button they pressed.
+ *
+ * Rotation and a uniform scale about the same centre commute, so their order here is free;
+ * the nudge is applied outermost so it stays a pure screen translation at any rotation.
+ */
+export function referenceImageBox(
+  board: BoardDims,
+  fit: ReferenceFit = {},
+): { x: number; y: number; width: number; height: number; transform: string } {
+  const turns = ((Math.round(fit.quarterTurns ?? 0) % 4) + 4) % 4;
+  const scale = fit.scale && fit.scale > 0 ? fit.scale : 1;
+  const swapped = turns % 2 === 1;
+  const width = swapped ? board.height : board.width;
+  const height = swapped ? board.width : board.height;
+  const cx = board.width / 2;
+  const cy = board.height / 2;
+
+  // Screen-space nudge → board-space translation (see the doc comment).
+  const dx = fit.offsetY ?? 0;
+  const dy = -(fit.offsetX ?? 0);
+
+  const r = (n: number): number => Math.round(n * 1e4) / 1e4;
+  const parts = [`translate(${r(dx)} ${r(dy)})`, `rotate(${turns * 90} ${cx} ${cy})`];
+  if (scale !== 1) {
+    parts.push(`translate(${cx} ${cy})`, `scale(${r(scale)})`, `translate(${-cx} ${-cy})`);
+  }
+  return { x: cx - width / 2, y: cy - height / 2, width, height, transform: parts.join(" ") };
+}
+
 /** Unordered-pair key for a matchup grid cell: the two dispositions in DISPOSITIONS order. */
 export function pairKey(a: string, b: string): string {
   const [lo, hi] = (DISPOSITION_INDEX.get(a) ?? 99) <= (DISPOSITION_INDEX.get(b) ?? 99) ? [a, b] : [b, a];
@@ -794,6 +1001,143 @@ export function libraryIndex(): LibraryIndex {
   return { cells, unassigned };
 }
 
+// ── the re-authoring worklist ─────────────────────────────────────────────────
+// The 46 committed layouts have an EXACT child/feature layer (every feature was
+// authored in its Battlemaster part's own frame) but wrong board-level area
+// placement, which is why they are being re-authored by hand. So the old data is
+// authoritative for *what a layout contains* and worthless for *where it goes*.
+//
+// The worklist exposes exactly that split: the expected inventory of areas and
+// the feature seats on each, as a checklist to stamp against. It deliberately
+// does NOT surface the old rotations — essentially every layout has at least one
+// footprint rotated wrong, so showing them would launder a known-bad number into
+// the new authoring pass. Advisory throughout: it writes nothing.
+
+/** One expected feature on a worklist row. */
+export interface WorklistSeat {
+  template: string;
+  name: string;
+  count: number;
+}
+
+/** One expected area configuration, with how many are placed so far. */
+export interface WorklistRow {
+  /** Signature: area template + its sorted child-template multiset. */
+  key: string;
+  areaTemplate: string;
+  areaName: string;
+  seats: WorklistSeat[];
+  /** A `TERRAIN_SETS` id that stamps this exact configuration, when one does. */
+  setId?: string;
+  expected: number;
+  placed: number;
+}
+
+export interface Worklist {
+  /** The embedded layout the inventory came from, or null when there is none. */
+  sourceId: string | null;
+  rows: WorklistRow[];
+  expected: number;
+  placed: number;
+}
+
+/**
+ * Which embedded layout describes the working layout's expected inventory: itself
+ * by id, else the layout sharing its `mission_matchup_id` + `variant`. The latter
+ * is what makes the worklist usable from a BLANK board, and it is the same key
+ * {@link eventCompanionPage} uses for the reference background — so the worklist
+ * and the card photo behind the board always describe the same layout.
+ */
+export function worklistSourceId(layout: EditLayout): string | null {
+  if (ds.terrainLayouts.get(layout.id)) return layout.id;
+  if (!layout.mission_matchup_id) return null;
+  const hit = (ds.terrainLayouts.all as unknown as TerrainLayout[]).find(
+    (l) =>
+      l.mission_matchup_id === layout.mission_matchup_id &&
+      (l.variant ?? undefined) === (layout.variant ?? undefined),
+  );
+  return hit?.id ?? null;
+}
+
+/** Group a layout's areas into `areaTemplate + sorted child templates` signatures. */
+function inventorySignatures(pieces: EditPiece[]): Map<string, { areaTemplate: string; children: string[] }> {
+  const out = new Map<string, { areaTemplate: string; children: string[] }>();
+  for (const p of pieces) {
+    if (p.piece_type !== "area" || !p.template) continue;
+    const children = pieces
+      .filter((c) => c.parent_area_id === p.id && c.template)
+      .map((c) => c.template as string)
+      .sort();
+    // Rotation is deliberately NOT part of the key: it is edited after stamping
+    // (and a twin carries +180°), so including it would make rows flicker between
+    // matched and unmatched as the author works.
+    out.set(`${p.id}`, { areaTemplate: p.template, children });
+  }
+  return out;
+}
+const signatureKey = (areaTemplate: string, children: string[]): string =>
+  `${areaTemplate}|${children.join(",")}`;
+
+/**
+ * The expected-vs-placed inventory for the working layout. `sets` is passed in
+ * rather than imported: `model.ts` only imports `sets.ts` as *types*, and a
+ * runtime import would close a real module cycle.
+ */
+export function worklistFor(layout: EditLayout, sets: TerrainSetDef[] = []): Worklist {
+  const sourceId = worklistSourceId(layout);
+  const source = sourceId
+    ? (ds.terrainLayouts.get(sourceId) as unknown as EditLayout | undefined)
+    : undefined;
+  if (!source) return { sourceId: null, rows: [], expected: 0, placed: 0 };
+
+  const tally = (pieces: EditPiece[]): Map<string, { areaTemplate: string; children: string[]; n: number }> => {
+    const m = new Map<string, { areaTemplate: string; children: string[]; n: number }>();
+    for (const sig of inventorySignatures(pieces).values()) {
+      const key = signatureKey(sig.areaTemplate, sig.children);
+      const hit = m.get(key);
+      if (hit) hit.n++;
+      else m.set(key, { ...sig, n: 1 });
+    }
+    return m;
+  };
+  const want = tally(source.pieces);
+  const have = tally(layout.pieces);
+
+  // A set whose stamped configuration matches the signature, so a row can name
+  // the palette card to grab.
+  const setKeyOf = (s: TerrainSetDef): string =>
+    signatureKey(s.area.template, s.features.map((f) => f.template).sort());
+  const setByKey = new Map(sets.map((s) => [setKeyOf(s), s.id]));
+
+  const rows: WorklistRow[] = [...want.entries()]
+    .map(([key, w]) => {
+      const seats = new Map<string, WorklistSeat>();
+      for (const t of w.children) {
+        const hit = seats.get(t);
+        if (hit) hit.count++;
+        else seats.set(t, { template: t, name: templateById(t)?.name ?? t, count: 1 });
+      }
+      return {
+        key,
+        areaTemplate: w.areaTemplate,
+        areaName: templateById(w.areaTemplate)?.name ?? w.areaTemplate,
+        seats: [...seats.values()].sort((a, b) => a.name.localeCompare(b.name)),
+        setId: setByKey.get(key),
+        expected: w.n,
+        placed: have.get(key)?.n ?? 0,
+      };
+    })
+    .sort((a, b) => a.areaName.localeCompare(b.areaName) || a.key.localeCompare(b.key));
+
+  return {
+    sourceId,
+    rows,
+    expected: rows.reduce((n, r) => n + r.expected, 0),
+    // Cap per row: 3 placed against 2 expected shouldn't read as "over 100%".
+    placed: rows.reduce((n, r) => n + Math.min(r.placed, r.expected), 0),
+  };
+}
+
 /**
  * Resolved board geometry of an embedded layout, for library thumbnails.
  * Memoized: dataset layouts are immutable for the life of the build.
@@ -835,11 +1179,14 @@ export function blankLayoutFor(matchupId: string, variant: number): EditLayout {
 
 // ── symmetry twins (180° rotation about board centre) ─────────────────────────
 
+/** 2-dp, for human-readable warning text only — geometry uses {@link round4}. */
 const round2 = (n: number): number => Math.round(n * 100) / 100;
 const norm360 = (deg: number): number => ((deg % 360) + 360) % 360;
 
+/** 4-dp like `clampToBoard`, so reflecting a snapped centroid keeps its printed
+ *  distances exactly round on the twin as well as the primary. */
 export function twinPosition(p: Vec2, board: BoardDims = DEFAULT_BOARD): Vec2 {
-  return { x: round2(board.width - p.x), y: round2(board.height - p.y) };
+  return { x: round4(board.width - p.x), y: round4(board.height - p.y) };
 }
 export function twinRotation(deg: number): number {
   return norm360(deg + 180);
@@ -854,14 +1201,26 @@ const twinOf = (layout: EditLayout, p: EditPiece): EditPiece | undefined =>
   p.twin_id ? byId(layout, p.twin_id) : undefined;
 
 let counter = 0;
-function freshId(prefix: string): string {
-  counter += 1;
-  return `${prefix}-${counter}`;
+/**
+ * A layout-unique `<template>-<n>` id.
+ *
+ * `layout` is not optional in practice: a loaded layout keeps its AUTHORED ids
+ * (`area-large-1`, …) while the counter restarts at 0, so without the collision
+ * skip the first `area-large` added to a committed layout re-used `area-large-1`
+ * and Svelte's keyed `{#each}` threw `each_key_duplicate`, aborting the board
+ * render — i.e. adding a piece to a loaded layout silently did nothing.
+ */
+function freshId(prefix: string, layout?: EditLayout): string {
+  for (;;) {
+    counter += 1;
+    const id = `${prefix}-${counter}`;
+    if (!layout?.pieces.some((p) => p.id === id)) return id;
+  }
 }
 
-function makePiece(template: TerrainTemplate, position: Vec2): EditPiece {
+function makePiece(template: TerrainTemplate, position: Vec2, layout?: EditLayout): EditPiece {
   return {
-    id: freshId(template.id),
+    id: freshId(template.id, layout),
     name: template.name,
     piece_type: template.kind,
     template: template.id,
@@ -886,10 +1245,11 @@ export function addTemplate(
   const primary = makePiece(
     template,
     at ? clampToBoard(at, b) : { x: b.width * 0.32, y: b.height * 0.32 },
+    layout,
   );
   layout.pieces.push(primary);
   if (symmetric && !isBoardCentre(primary.position, b)) {
-    const twin = makePiece(template, twinPosition(primary.position, b));
+    const twin = makePiece(template, twinPosition(primary.position, b), layout);
     twin.rotation_degrees = twinRotation(primary.rotation_degrees);
     twin.mirror = primary.mirror;
     primary.twin_id = twin.id;
@@ -897,6 +1257,30 @@ export function addTemplate(
     layout.pieces.push(twin);
   }
   return primary;
+}
+
+/**
+ * A set feature's resolved area-local placement — the single seam `addSet` and the
+ * palette thumbnail both go through, so the preview provably is what lands and
+ * neither can drift from interactive seating (both end up in
+ * {@link seatPositionInPlate}). Null when the template is unknown, which callers
+ * skip; a set declares *seats*, not coordinates, so a re-measured plate re-derives
+ * instead of going silently stale.
+ */
+export function resolveSetFeature(
+  areaFp: TerrainTemplate["footprint"],
+  def: SetFeatureDef,
+): { template: TerrainTemplate; position: Vec2; rotation: number; mirror: Mirror } | null {
+  const template = templateById(def.template);
+  if (!template) return null;
+  const rotation = norm360(def.rotation);
+  const mirror = def.mirror ?? "none";
+  return {
+    template,
+    rotation,
+    mirror,
+    position: seatPositionInPlate(areaFp, template.footprint, rotation, mirror, def.seat),
+  };
 }
 
 /**
@@ -919,13 +1303,14 @@ export function addSet(
   const area = makePiece(
     areaTmpl,
     at ? clampToBoard(at, b) : { x: b.width * 0.32, y: b.height * 0.32 },
+    layout,
   );
   if (set.area.rotation) area.rotation_degrees = norm360(set.area.rotation);
   layout.pieces.push(area);
 
   let areaTwin: EditPiece | undefined;
   if (symmetric && !isBoardCentre(area.position, b)) {
-    areaTwin = makePiece(areaTmpl, twinPosition(area.position, b));
+    areaTwin = makePiece(areaTmpl, twinPosition(area.position, b), layout);
     areaTwin.rotation_degrees = twinRotation(area.rotation_degrees);
     areaTwin.mirror = area.mirror;
     area.twin_id = areaTwin.id;
@@ -934,15 +1319,15 @@ export function addSet(
   }
 
   for (const f of set.features) {
-    const ft = templateById(f.template);
-    if (!ft) continue;
-    const feat = makePiece(ft, { x: f.position.x, y: f.position.y });
-    feat.rotation_degrees = norm360(f.rotation);
-    feat.mirror = f.mirror ?? "none";
+    const r = resolveSetFeature(areaTmpl.footprint, f);
+    if (!r) continue;
+    const feat = makePiece(r.template, { x: r.position.x, y: r.position.y }, layout);
+    feat.rotation_degrees = r.rotation;
+    feat.mirror = r.mirror;
     feat.parent_area_id = area.id;
     layout.pieces.push(feat);
     if (areaTwin) {
-      const featTwin = makePiece(ft, { x: f.position.x, y: f.position.y });
+      const featTwin = makePiece(r.template, { x: r.position.x, y: r.position.y }, layout);
       featTwin.rotation_degrees = feat.rotation_degrees;
       featTwin.mirror = feat.mirror;
       featTwin.parent_area_id = areaTwin.id;
@@ -968,10 +1353,10 @@ export function addCenterRuin(layout: EditLayout, rotated = false): EditPiece | 
   if (!tmpl) return null;
   const pos = rotated ? { x: 28.85, y: 19.8 } : { x: 32.2, y: 20.85 };
   const rot = rotated ? 270 : 0;
-  const a = makePiece(tmpl, pos);
+  const a = makePiece(tmpl, pos, layout);
   a.rotation_degrees = rot;
   a.mirror = "horizontal";
-  const b = makePiece(tmpl, twinPosition(pos));
+  const b = makePiece(tmpl, twinPosition(pos), layout);
   b.rotation_degrees = twinRotation(rot);
   b.mirror = "horizontal";
   a.twin_id = b.id;
@@ -1114,19 +1499,76 @@ export function setParentArea(layout: EditLayout, id: string, parentId: string |
   }
 }
 
-/** Snap a parented feature's centroid to the area's centroid (area-local {0,0}). */
+/**
+ * Centre a parented feature in the parent area's PLATE (its artwork rectangle) —
+ * how the 4 centred captures (generator/pipe/catwalk/gantry) are actually laid out.
+ * Not the raw centroid: a nubbed outline's polygon centroid is pulled off the plate
+ * centre by the nubs, and the corpus says the plate centre is the intended anchor
+ * (0.004″ vs 0.047″ error against the captured `area-medium` generator). Falls back
+ * to area-local {0,0} when the area has no resolvable footprint.
+ */
 export function snapToAreaCenter(layout: EditLayout, id: string): void {
   const p = byId(layout, id);
   if (!p || !p.parent_area_id) return;
-  p.position = { x: 0, y: 0 };
+  const area = parentAreaOf(layout, p);
+  const areaFp = area ? footprintOf(area) : undefined;
+  const featureFp = footprintOf(p);
+  p.position =
+    areaFp && featureFp
+      ? seatPositionInPlate(areaFp, featureFp, p.rotation_degrees, p.mirror, { kind: "centred" })
+      : { x: 0, y: 0 };
   const t = twinOf(layout, p);
-  if (t) t.position = { x: 0, y: 0 };
+  if (t) t.position = { x: p.position.x, y: p.position.y };
+}
+
+/**
+ * Seat a parented feature into a corner of the parent area's PLATE rect with an
+ * inset — the rule that reproduces all 69 captured Battlemaster feature placements
+ * to ≤0.005″ (see the plate-seating section above). `corner` defaults to the
+ * minimum-displacement seat, so this can run unattended on a rough drop; `inset`
+ * defaults to Battlemaster's 0.5″.
+ *
+ * Writes `position` in area-local coords directly and copies it onto the symmetry
+ * twin, which is parented to the AREA's twin at the identical local placement —
+ * the convention `movePiece`/`setParentArea` already maintain.
+ *
+ * Distinct from {@link snapFeatureToAreaCorner}, which is vertex-coincident with no
+ * inset (and can reach a non-cardinal vertex). Both are exposed: this one
+ * reproduces real Battlemaster boards, that one is the free-form nudge.
+ */
+export function seatFeatureInAreaCorner(
+  layout: EditLayout,
+  id: string,
+  corner?: PlateCorner,
+  inset: Vec2 = DEFAULT_SEAT_INSET,
+): void {
+  const p = byId(layout, id);
+  if (!p || !p.parent_area_id) return;
+  const area = parentAreaOf(layout, p);
+  if (!area) return;
+  const areaFp = footprintOf(area);
+  const featureFp = footprintOf(p);
+  if (!areaFp || !featureFp) return;
+  const at =
+    corner ??
+    nearestPlateSeat(areaFp, featureFp, p.rotation_degrees, p.mirror, p.position, inset);
+  p.position = seatPositionInPlate(areaFp, featureFp, p.rotation_degrees, p.mirror, {
+    kind: "corner",
+    corner: at,
+    inset,
+  });
+  const t = twinOf(layout, p);
+  if (t) t.position = { x: p.position.x, y: p.position.y };
 }
 
 /**
  * Snap a parented feature so its nearest vertex aligns with the nearest corner of
  * the parent area. Template-agnostic: the feature is already approximately placed,
  * so the closest (featureVert, areaCorner) pair is always the intended one.
+ *
+ * Vertex-coincident and inset-free, so it does NOT reproduce Battlemaster's 0.5″
+ * seating and on a nubbed outline it can land on a nub — use
+ * {@link seatFeatureInAreaCorner} to match a real board.
  */
 export function snapFeatureToAreaCorner(layout: EditLayout, id: string): void {
   const p = byId(layout, id);
@@ -1303,6 +1745,34 @@ export function removeKeystone(layout: EditLayout, id: string, index: number): v
   }
 }
 
+/**
+ * Swap the keystone at `index` for `k`, keeping its position in the list and
+ * re-deriving the twin's mirror. Used by the Inspector's near/far edge flip and
+ * its corner↔face swap: the clock picker always guesses the nearest edge and a
+ * corner, and both guesses are right most of the time but not always.
+ */
+export function replaceKeystone(
+  layout: EditLayout,
+  id: string,
+  index: number,
+  k: EditKeystone,
+): void {
+  const p = byId(layout, id);
+  if (!p?.keystones?.[index]) return;
+  const kept = [...p.keystones];
+  removeKeystone(layout, id, index);
+  addKeystone(layout, id, k);
+  // `addKeystone` appends; restore the original slot so the list doesn't reorder
+  // under the author's cursor mid-edit.
+  const now = p.keystones ?? [];
+  const added = now[now.length - 1];
+  if (added && now.length === kept.length) {
+    const reordered = [...now.slice(0, now.length - 1)];
+    reordered.splice(index, 0, added);
+    p.keystones = reordered;
+  }
+}
+
 /** One keystone with its live derived distance (null when unmeasurable). */
 export interface KeystoneDisplay {
   pieceId: string;
@@ -1347,6 +1817,363 @@ export function keystoneDisplays(layout: EditLayout): KeystoneDisplay[] {
   }));
 }
 
+// ── keystone-grid snapping and the corner ("clock") picker ────────────────────
+// Printed card dimensions are clean ¼″ increments, so authoring wants to snap to
+// them. Crucially that is NOT a grid on `position`: a piece's `position` is the
+// centroid of its (nubbed) polygon, and the centroid→plate-corner offsets are not
+// multiples of ¼″ — `area-large`'s are (−5.7309, −3.5583) and friends. Quantizing
+// the centroid therefore lands every *measured* vertex off-grid and would trip
+// `keystoneRoundnessWarnings` on every piece placed.
+//
+// So the snap quantizes the thing the card actually prints — the keystone
+// distances — and back-solves the centroid through the package's `solveCentroid`,
+// the pinned inverse of the resolver's placement. That is the same call the
+// Inspector's "solve & place" uses, so the two placement routes cannot disagree.
+//
+// A piece is "armed" for snapping iff its OWN keystones pin exactly one x-axis and
+// one y-axis measurement. That is derived, never stored: committing a corner pick
+// is just `addKeystone` ×2, which already mirrors onto the symmetry twin and
+// already renders live dimension lines. It also means a 3-keystone triangulation
+// piece is automatically not armed, so off-axis areas fall through to the typed
+// solver — which is the only thing that can place them anyway.
+
+/**
+ * Card measurements are clean quarter-inch increments; anything off by more than
+ * {@link isRoundKeystone}'s tolerance is treated as a data-entry rounding error
+ * worth reviewing. Exported because it is also the default snap step.
+ */
+export const KEYSTONE_INCREMENT = 0.25;
+
+/** Which board axis a keystone edge measures along. */
+const edgeAxis = (e: EditKeystone["edge"]): "x" | "y" =>
+  e === "left" || e === "right" ? "x" : "y";
+/** Whether an edge is the near one (distance reads the coordinate directly). */
+const edgeIsNear = (e: EditKeystone["edge"]): boolean => e === "left" || e === "top";
+
+/** The one x-axis and one y-axis keystone that arm a piece for grid snapping. */
+export interface SnapAnchor {
+  x: EditKeystone;
+  y: EditKeystone;
+}
+
+/**
+ * The snap anchor implied by a piece's own keystones: exactly one x-axis
+ * (left/right) and one y-axis (top/bottom) measurement, both currently
+ * measurable. Null for 0, 1, or 3+ keystones and for two on the same axis —
+ * precisely the cases that belong to the typed solver instead.
+ */
+export function snapAnchorOf(piece: EditPiece): SnapAnchor | null {
+  const ks = (piece.keystones ?? []).filter((k) => keystoneValid(piece, k));
+  const xs = ks.filter((k) => edgeAxis(k.edge) === "x");
+  const ys = ks.filter((k) => edgeAxis(k.edge) === "y");
+  if (xs.length !== 1 || ys.length !== 1 || ks.length !== 2) return null;
+  return { x: xs[0], y: ys[0] };
+}
+
+/**
+ * The distance a keystone would read if `piece` were centred at `at` — the
+ * forward measurement `keystoneMeasurements` performs, evaluated on a
+ * hypothetical placement so a drag can be snapped before it is committed. Null
+ * when the ref doesn't resolve against the current footprint.
+ */
+export function measureLine(
+  piece: EditPiece,
+  board: BoardDims,
+  at: Vec2,
+  k: EditKeystone,
+): number | null {
+  const fp = footprintOf(piece);
+  if (!fp || !keystoneValid(piece, k)) return null;
+  const offsets = orientedOffsets(fp as never, piece.rotation_degrees, piece.mirror) as Vec2[];
+  const axis = edgeAxis(k.edge);
+  let off: number;
+  if (k.ref.kind === "vertex") {
+    const v = offsets[k.ref.index];
+    if (!v) return null;
+    off = axis === "x" ? v.x : v.y;
+  } else {
+    const vals = offsets.map((o) => (axis === "x" ? o.x : o.y));
+    off = k.ref.side === "min-x" || k.ref.side === "min-y" ? Math.min(...vals) : Math.max(...vals);
+  }
+  const coord = (axis === "x" ? at.x : at.y) + off;
+  const extent = axis === "x" ? board.width : board.height;
+  return edgeIsNear(k.edge) ? coord : extent - coord;
+}
+
+/** What {@link snapToKeystoneGrid} resolved: the placement and both distances. */
+export interface SnapResult {
+  position: Vec2;
+  /** The snapped (printed) distances, x-axis then y-axis. */
+  distances: { x: number; y: number };
+  /** What they read before snapping, for a live delta readout. */
+  before: { x: number; y: number };
+}
+
+/**
+ * Round an armed piece's two keystone distances to `step` and back-solve the
+ * centroid that produces them. `at` is the candidate board centroid (the raw drag
+ * point), so a caller can snap a placement it has not committed yet.
+ *
+ * Returns null — never throws — when the piece isn't armed, has no footprint, or
+ * carries a stale vertex index. Top-level pieces only: `position` must be a board
+ * centroid, so callers gate on `!parent_area_id`.
+ */
+export function snapToKeystoneGrid(
+  piece: EditPiece,
+  board: BoardDims,
+  at: Vec2,
+  step: number = KEYSTONE_INCREMENT,
+): SnapResult | null {
+  const anchor = snapAnchorOf(piece);
+  const fp = footprintOf(piece);
+  if (!anchor || !fp || step <= 0) return null;
+  const bx = measureLine(piece, board, at, anchor.x);
+  const by = measureLine(piece, board, at, anchor.y);
+  if (bx === null || by === null) return null;
+  const q = (n: number): number => round4(Math.round(n / step) * step);
+  const distances = { x: q(bx), y: q(by) };
+  try {
+    const pos = solveCentroid({
+      footprint: fp as never,
+      rotation: piece.rotation_degrees,
+      mirror: piece.mirror,
+      board,
+      lines: [
+        { edge: anchor.x.edge, distance: distances.x, feature: anchor.x.ref },
+        { edge: anchor.y.edge, distance: distances.y, feature: anchor.y.ref },
+      ],
+    } as unknown as SolveInput);
+    return {
+      position: { x: round4(pos.x), y: round4(pos.y) },
+      distances,
+      before: { x: round4(bx), y: round4(by) },
+    };
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * The board edges a keystone pair should measure from, given the anchor vertex's
+ * board position: the nearest edge on each axis.
+ *
+ * Measured against the committed corpus this agrees with 1070 of 1150 authored
+ * vertex keystones. The tempting alternative — "the edge the corner faces" —
+ * agrees with only 594, i.e. a coin flip, so do not "simplify" to it. The ~5%
+ * that legitimately measure from the far edge are centre-straddling pieces; they
+ * need the Inspector's per-axis flip.
+ */
+export function nearestEdgesFor(
+  at: Vec2,
+  board: BoardDims,
+): { x: "left" | "right"; y: "top" | "bottom" } {
+  return {
+    x: at.x <= board.width / 2 ? "left" : "right",
+    y: at.y <= board.height / 2 ? "top" : "bottom",
+  };
+}
+
+/** A cardinal corner of a placed piece, in board space, with its vertex index. */
+export interface CornerCandidate {
+  index: number;
+  at: Vec2;
+}
+
+/**
+ * The vertices the corner picker offers: the piece's cardinal corners, in board
+ * space. Confirmed against the corpus — all 1150 authored vertex keystones point
+ * at a cardinal corner, never at a die-cut nub.
+ */
+export function cornerCandidates(piece: EditPiece, layout: EditLayout): CornerCandidate[] {
+  const fp = footprintOf(piece);
+  const of = orientedFootprint(piece, layout);
+  if (!fp || !of) return [];
+  return cardinalCornerIndices(fp)
+    .map((index) => ({ index, at: of.verticesBoard[index] }))
+    .filter((c): c is CornerCandidate => !!c.at);
+}
+
+/**
+ * Which corner the pointer is aiming at, by direction from the piece's centroid —
+ * the "clock" pick. Compares direction only (not distance), so it is independent
+ * of the footprint's aspect ratio and of how far out the pointer has strayed.
+ *
+ * `previous` + `margin` give hysteresis so a pointer resting on a sector boundary
+ * doesn't flicker; a pointer inside `deadZone` inches of the centroid has no
+ * meaningful direction and keeps `previous`. All in board space, which is why the
+ * board's 90° display rotation needs no special handling: the pointer and the
+ * corners go through the same CTM, so the direction the user sees is this one.
+ */
+export function pickCornerByDirection(
+  candidates: CornerCandidate[],
+  centroid: Vec2,
+  pointer: Vec2,
+  opts: { previous?: number | null; margin?: number; deadZone?: number } = {},
+): number | null {
+  const { previous = null, margin = 0.03, deadZone = 0.5 } = opts;
+  if (candidates.length === 0) return null;
+  const d = { x: pointer.x - centroid.x, y: pointer.y - centroid.y };
+  const len = Math.hypot(d.x, d.y);
+  if (len < deadZone) return previous;
+  const cosOf = (c: CornerCandidate): number => {
+    const v = { x: c.at.x - centroid.x, y: c.at.y - centroid.y };
+    const vl = Math.hypot(v.x, v.y);
+    return vl === 0 ? -Infinity : (v.x * d.x + v.y * d.y) / (vl * len);
+  };
+  let best = candidates[0];
+  let bestCos = cosOf(candidates[0]);
+  for (const c of candidates.slice(1)) {
+    const k = cosOf(c);
+    if (k > bestCos) {
+      bestCos = k;
+      best = c;
+    }
+  }
+  if (previous !== null) {
+    const prev = candidates.find((c) => c.index === previous);
+    if (prev && bestCos - cosOf(prev) < margin) return previous;
+  }
+  return best.index;
+}
+
+/**
+ * The H+V keystone pair that measures a piece's vertex `index` from its two
+ * nearest board edges — the 1-horizontal/1-vertical-on-the-same-corner shape 430
+ * of the corpus's 432 two-keystone areas use.
+ */
+export function keystonesForCorner(
+  piece: EditPiece,
+  layout: EditLayout,
+  index: number,
+): EditKeystone[] | null {
+  const of = orientedFootprint(piece, layout);
+  const at = of?.verticesBoard[index];
+  if (!at) return null;
+  const edges = nearestEdgesFor(at, boardOf(layout));
+  return [
+    { edge: edges.x, ref: { kind: "vertex", index } },
+    { edge: edges.y, ref: { kind: "vertex", index } },
+  ];
+}
+
+/**
+ * Pin a piece's snap anchor to cardinal corner `index`, replacing any existing
+ * anchor (and its twin mirrors). Refuses — returning false — on a piece carrying
+ * 3+ keystones rather than destroying a hand-authored triangulation set, and on a
+ * piece whose vertex doesn't resolve.
+ */
+export function setCornerAnchor(layout: EditLayout, id: string, index: number): boolean {
+  const p = byId(layout, id);
+  if (!p) return false;
+  if ((p.keystones ?? []).length >= 3) return false;
+  const next = keystonesForCorner(p, layout, index);
+  if (!next) return false;
+  // Remove from the end so earlier indices stay valid; each removal also strips
+  // the twin's mirror.
+  for (let i = (p.keystones ?? []).length - 1; i >= 0; i--) removeKeystone(layout, id, i);
+  for (const k of next) addKeystone(layout, id, k);
+  return true;
+}
+
+/** A keystone edge named in CARD directions (the board is displayed rotated 90°). */
+export function cardEdgeName(e: EditKeystone["edge"]): "left" | "right" | "top" | "bottom" {
+  return e === "bottom" ? "left" : e === "top" ? "right" : e === "left" ? "top" : "bottom";
+}
+
+/** Whether a rotation is one of the four axis-aligned quarter turns. */
+export function isAxisAligned(deg: number, tol = 0.01): boolean {
+  const r = norm360(deg);
+  return [0, 90, 180, 270].some((q) => Math.abs(r - q) < tol || Math.abs(r - q - 360) < tol);
+}
+
+/** A pre-filled solver form: two lines for an axis-aligned piece, three for a
+ *  rotated one (which needs the angle solved too). */
+export interface SolverSeed {
+  axisAligned: boolean;
+  two: { edge: EditKeystone["edge"]; ref: SolverRef; distance: number }[];
+  three: { edge: EditKeystone["edge"]; vertex: number; distance: number }[];
+}
+
+/**
+ * Seed the typed-distance solver from a piece's current rough pose, so the author
+ * corrects digits instead of typing from scratch. Distances are rounded to `step`
+ * because the printed card's are.
+ *
+ * The 3-line form is built so `solveCentroidTriangulated`'s precondition holds:
+ * two corners extreme along one axis, measured from that axis' nearest edge (so
+ * the vertices are distinct and the angle equation is well conditioned), plus the
+ * extreme corner on the other axis.
+ */
+export function suggestSolverSeed(
+  piece: EditPiece,
+  layout: EditLayout,
+  board: BoardDims,
+  step: number = KEYSTONE_INCREMENT,
+): SolverSeed | null {
+  const candidates = cornerCandidates(piece, layout);
+  if (candidates.length === 0) return null;
+  const q = (n: number): number => round4(Math.round(n / step) * step);
+  const at = orientedFootprint(piece, layout)?.centroid ?? piece.position;
+  const dist = (edge: EditKeystone["edge"], ref: SolverRef): number =>
+    q(measureLine(piece, board, at, { edge, ref }) ?? 0);
+
+  const anchor = snapAnchorOf(piece);
+  const seedCorner =
+    anchor?.x.ref.kind === "vertex"
+      ? anchor.x.ref.index
+      : (pickCornerByDirection(candidates, at, candidates[0].at, { deadZone: 0 }) ??
+        candidates[0].index);
+  const seedAt = candidates.find((c) => c.index === seedCorner)?.at ?? candidates[0].at;
+  const edges = nearestEdgesFor(seedAt, board);
+  const two = anchor
+    ? [
+        { edge: anchor.x.edge, ref: anchor.x.ref, distance: dist(anchor.x.edge, anchor.x.ref) },
+        { edge: anchor.y.edge, ref: anchor.y.ref, distance: dist(anchor.y.edge, anchor.y.ref) },
+      ]
+    : [
+        {
+          edge: edges.x,
+          ref: { kind: "vertex" as const, index: seedCorner },
+          distance: dist(edges.x, { kind: "vertex", index: seedCorner }),
+        },
+        {
+          edge: edges.y,
+          ref: { kind: "vertex" as const, index: seedCorner },
+          distance: dist(edges.y, { kind: "vertex", index: seedCorner }),
+        },
+      ];
+
+  // Pick the axis with the widest spread for the two same-edge lines: the larger
+  // the separation between those vertices, the better conditioned the angle solve.
+  const xs = candidates.map((c) => c.at.x);
+  const ys = candidates.map((c) => c.at.y);
+  const spreadX = Math.max(...xs) - Math.min(...xs);
+  const useX = spreadX >= Math.max(...ys) - Math.min(...ys);
+  const along = [...candidates].sort((a, b) => (useX ? a.at.x - b.at.x : a.at.y - b.at.y));
+  const pairEdge = useX ? edges.x : edges.y;
+  const otherEdge = useX ? edges.y : edges.x;
+  const lo = along[0];
+  const hi = along[along.length - 1];
+  // The extreme corner on the OTHER axis, excluding the two already used.
+  const rest = candidates.filter((c) => c.index !== lo.index && c.index !== hi.index);
+  const third =
+    rest.sort((a, b) =>
+      otherEdge === "left" || otherEdge === "top"
+        ? (useX ? a.at.y - b.at.y : a.at.x - b.at.x)
+        : (useX ? b.at.y - a.at.y : b.at.x - a.at.x),
+    )[0] ?? hi;
+
+  return {
+    axisAligned: isAxisAligned(piece.rotation_degrees),
+    two,
+    three: [
+      { edge: pairEdge, vertex: lo.index, distance: dist(pairEdge, { kind: "vertex", index: lo.index }) },
+      { edge: pairEdge, vertex: hi.index, distance: dist(pairEdge, { kind: "vertex", index: hi.index }) },
+      { edge: otherEdge, vertex: third.index, distance: dist(otherEdge, { kind: "vertex", index: third.index }) },
+    ],
+  };
+}
+
 // ── layout warnings ("needs review" flag) ─────────────────────────────────────
 // Advisory, editor-side checks that surface layouts a human should look at: two
 // pieces that overlap when they shouldn't (a feature mirrored onto the wrong side
@@ -1366,9 +2193,6 @@ export interface LayoutWarning {
   pieceIds: (string | null)[];
 }
 
-/** Card measurements are clean quarter-inch increments; anything off by more than
- *  this (in inches) is treated as a data-entry rounding error worth reviewing. */
-const KEYSTONE_INCREMENT = 0.25;
 const KEYSTONE_ROUND_TOL = 0.03;
 /** Minimum overlap area (in²) that counts as a collision. Edge-abutting pieces
  *  share vertices exactly and overlap by ~0, so they never trip this; a real

@@ -12,6 +12,7 @@ import {
   reanchorAllFeatures,
   templateById,
   eventCompanionPage,
+  referenceImageBox,
   type EditLayout,
   type EditPiece,
 } from "./model.js";
@@ -274,5 +275,69 @@ describe("eventCompanionPage", () => {
     { mission_matchup_id: "take-and-hold-vs-purge-the-foe", variant: 1.5 },
   ])("rejects layouts without a mapped drawing", (layout) => {
     expect(eventCompanionPage(layout)).toBeNull();
+  });
+});
+
+describe("referenceImageBox", () => {
+  const board = { width: 60, height: 44 };
+
+  it("fills the board unrotated", () => {
+    const box = referenceImageBox(board, {});
+    expect(box).toMatchObject({ x: 0, y: 0, width: 60, height: 44 });
+    expect(box.transform).toContain("rotate(0 30 22)");
+  });
+
+  it("swaps the box dimensions on a quarter turn so it still covers the board", () => {
+    // Sized board.height x board.width and centred: after rotate(90) about the centre it
+    // lands back on 0,0..60,44. Keeping 60x44 here would leave the board uncovered.
+    for (const turns of [1, 3]) {
+      const box = referenceImageBox(board, { quarterTurns: turns });
+      expect(box.width).toBe(44);
+      expect(box.height).toBe(60);
+      expect(box.x).toBeCloseTo(30 - 22, 6);
+      expect(box.y).toBeCloseTo(22 - 30, 6);
+      expect(box.transform).toContain(`rotate(${turns * 90} 30 22)`);
+    }
+  });
+
+  it("keeps the full-board box on a half turn", () => {
+    const box = referenceImageBox(board, { quarterTurns: 2 });
+    expect(box).toMatchObject({ x: 0, y: 0, width: 60, height: 44 });
+    expect(box.transform).toContain("rotate(180 30 22)");
+  });
+
+  it("normalises the turn count, including negatives", () => {
+    expect(referenceImageBox(board, { quarterTurns: -1 }).transform).toContain("rotate(270");
+    expect(referenceImageBox(board, { quarterTurns: 5 }).transform).toContain("rotate(90");
+    expect(referenceImageBox(board, { quarterTurns: 4 }).transform).toContain("rotate(0");
+  });
+
+  it("maps a screen-space nudge onto the board's rotated axes", () => {
+    // The board layer is rotated 90°, mapping board (x,y) to screen (height-y, x). So a
+    // nudge of screen-right must translate board -y, and screen-down must translate +x.
+    // Passing the numbers through unswapped would move the image at right angles to the
+    // control the user pressed.
+    expect(referenceImageBox(board, { offsetX: 3 }).transform).toContain("translate(0 -3)");
+    expect(referenceImageBox(board, { offsetY: 2 }).transform).toContain("translate(2 0)");
+    expect(referenceImageBox(board, { offsetX: 3, offsetY: 2 }).transform).toContain("translate(2 -3)");
+  });
+
+  it("scales about the board centre, and omits the scale entirely at 1", () => {
+    expect(referenceImageBox(board, { scale: 1 }).transform).not.toContain("scale(");
+    const zoomed = referenceImageBox(board, { scale: 1.25 }).transform;
+    expect(zoomed).toContain("translate(30 22) scale(1.25) translate(-30 -22)");
+  });
+
+  it("ignores a non-positive scale rather than collapsing the image", () => {
+    for (const scale of [0, -2, Number.NaN]) {
+      expect(referenceImageBox(board, { scale }).transform).not.toContain("scale(");
+    }
+  });
+
+  it("applies the nudge outermost so it stays screen-aligned under turn and zoom", () => {
+    const t = referenceImageBox(board, { quarterTurns: 1, offsetX: 4, offsetY: -1, scale: 2 }).transform;
+    expect(t.indexOf("translate(-1 -4)")).toBe(0);
+    expect(t.indexOf("rotate(90")).toBeGreaterThan(0);
+    expect(t.indexOf("scale(2)")).toBeGreaterThan(t.indexOf("rotate(90"));
   });
 });

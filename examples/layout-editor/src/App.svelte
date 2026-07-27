@@ -21,6 +21,16 @@
     reanchorAllFeatures,
     snapToAreaCenter,
     snapFeatureToAreaCorner,
+    seatFeatureInAreaCorner,
+    setCornerAnchor,
+    cornerCandidates,
+    pickCornerByDirection,
+    snapAnchorOf,
+    snapToKeystoneGrid,
+    suggestSolverSeed,
+    replaceKeystone,
+    orientedFootprint,
+    KEYSTONE_INCREMENT,
     setObjectiveRole,
     boardCentroid,
     boardOf,
@@ -35,7 +45,9 @@
     DEPLOYMENT_PATTERNS,
     MISSION_MATCHUPS,
     type EditLayout,
+    type ReferenceFit,
     type EditPiece,
+    type EditKeystone,
     type Mirror,
     type SolverHover,
     type SolverLine,
@@ -47,10 +59,11 @@
   import type { TerrainTemplate } from "@alpaca-software/40kdc-data";
   import type { TerrainSetDef } from "./lib/sets.js";
   import Board from "./lib/Board.svelte";
-  import EventCompanionReference from "./lib/EventCompanionReference.svelte";
+  import ReferenceBackground from "./lib/ReferenceBackground.svelte";
   import Inspector from "./lib/Inspector.svelte";
   import Library from "./lib/Library.svelte";
   import Palette from "./lib/Palette.svelte";
+  import Worklist from "./lib/Worklist.svelte";
   import Thumbnail from "./lib/Thumbnail.svelte";
   import SetThumbnail from "./lib/SetThumbnail.svelte";
   import SupportModal from "../../_shared/SupportModal.svelte";
@@ -65,6 +78,24 @@
   let showKeystones = $state(true);
   // Rotate keystone labels to face each player (off: upright authoring view).
   let keystoneFacing = $state(false);
+  // ¼″ keystone-grid snapping. On by default: a loaded layout arrives already
+  // keystoned, so its off-grid distances get corrected by any nudge. Alt suspends
+  // it live, and it is a no-op for anything without a 1H+1V anchor.
+  let snapEnabled = $state(true);
+  let snapStep = $state(KEYSTONE_INCREMENT);
+  /**
+   * The corner ("clock") pick in progress. Dropping an area enters it immediately;
+   * `viaKey` means it was entered by holding K on an already-placed piece, so
+   * releasing the key commits. NOT the snap-armed flag — that is derived from the
+   * piece's own keystones (see `snapAnchorOf`), so committing a pick is just
+   * `addKeystone` ×2 and there is no parallel state to keep in sync.
+   */
+  let clockPick = $state<{ pieceId: string; viaKey: boolean; candidate: number | null } | null>(null);
+  /** Bumped to ask the Inspector to reveal + seed the typed-distance solver. */
+  let solverFocus = $state(0);
+  /** One-slot undo for keystone edits: the clock pick writes data and the app has
+   *  no undo stack, so an accidental re-pick would otherwise be unrecoverable. */
+  let lastPin = $state<{ label: string; pieces: { id: string; keystones?: EditKeystone[] }[] } | null>(null);
   let layout = $state<EditLayout>(initialLayout);
   let libraryOpen = $state(false);
   let selectedId = $state<string | null>(null);
@@ -75,7 +106,11 @@
   const zones = $derived<DeployZone[]>(deploymentZones(deployment));
   const divider = $derived<TerritoryDivider | null>(territoryDivider(deployment, board));
   let referenceImage = $state<string | null>(null);
+  /** Turn / nudge / zoom applied to the reference background. Session-only, like the image. */
+  let referenceFit = $state<ReferenceFit>({ quarterTurns: 0, offsetX: 0, offsetY: 0, scale: 1 });
   let referenceOpacity = $state(0.45);
+  // Session-only fade for the authored terrain overlay while tracing a reference map.
+  let terrainOpacity = $state(1);
 
   let solverHover = $state<SolverHover | null>(null);
   let solverLines = $state<SolverLine[]>([]);
@@ -171,9 +206,12 @@
     const added = addTemplate(layout, t, symmetric);
     if (parent) setParentArea(layout, added.id, parent.id);
     selectedId = added.id;
+    if (canClockPick(added)) beginClockPick(added.id, false);
   }
   function addTerrainSet(s: TerrainSetDef): void {
-    selectedId = addSet(layout, s, symmetric)?.id ?? selectedId;
+    const added = addSet(layout, s, symmetric);
+    selectedId = added?.id ?? selectedId;
+    if (added && canClockPick(added)) beginClockPick(added.id, false);
   }
   function addCenter(rotated: boolean): void {
     selectedId = addCenterRuin(layout, rotated)?.id ?? selectedId;
@@ -190,9 +228,11 @@
   let paletteDrag = $state<{ payload: DragPayload; x: number; y: number } | null>(null);
 
   function onPaletteDragStart(t: TerrainTemplate, e: PointerEvent): void {
+    clockPick = null;
     paletteDrag = { payload: { kind: "template", template: t }, x: e.clientX, y: e.clientY };
   }
   function onPaletteDragStartSet(s: TerrainSetDef, e: PointerEvent): void {
+    clockPick = null;
     paletteDrag = { payload: { kind: "set", set: s }, x: e.clientX, y: e.clientY };
   }
   function onDragPointerMove(e: PointerEvent): void {
@@ -211,8 +251,14 @@
         const added = addTemplate(layout, p.template, symmetric, at);
         if (parent) setParentArea(layout, added.id, parent.id);
         selectedId = added.id;
+        // An area lands needing its two printed measurements; go straight to
+        // picking which corner they measure from. Safe here: the palette drag
+        // ended on pointerup, so no pointer is down and no capture is held.
+        if (canClockPick(added)) beginClockPick(added.id, false);
       } else {
-        selectedId = addSet(layout, p.set, symmetric, at)?.id ?? selectedId;
+        const added = addSet(layout, p.set, symmetric, at);
+        selectedId = added?.id ?? selectedId;
+        if (added && canClockPick(added)) beginClockPick(added.id, false);
       }
     }
     paletteDrag = null;
@@ -235,6 +281,9 @@
   function onsnapcenter(id: string): void {
     snapToAreaCenter(layout, id);
   }
+  function onseatcorner(id: string): void {
+    seatFeatureInAreaCorner(layout, id);
+  }
   function onsnapcorner(id: string): void {
     snapFeatureToAreaCorner(layout, id);
   }
@@ -250,28 +299,124 @@
   }
   function remove(id: string): void {
     const twin = layout.pieces.find((p) => p.id === id)?.twin_id;
+    if (clockPick?.pieceId === id || clockPick?.pieceId === twin) clockPick = null;
+    if (lastPin?.pieces.some((q) => q.id === id || q.id === twin)) lastPin = null;
     deletePiece(layout, id);
     if (selectedId === id || selectedId === twin) selectedId = null;
   }
 
-  // Delete/Backspace removes the selected piece — but never while the caret is
-  // in a text field (the title input, inspector fields), where those keys edit
-  // text.
-  function onKeydown(e: KeyboardEvent): void {
-    if (e.key !== "Delete" && e.key !== "Backspace") return;
-    if (!selectedId || libraryOpen) return;
-    const t = e.target as HTMLElement | null;
-    if (
-      t &&
+  // ── corner ("clock") picking ──────────────────────────────────────────────
+  // Flow: drop an area → pick a corner by pointing at it → the H+V keystones pin
+  // there and the ¼″ snap arms → drag to fine-tune → Escape falls back to the
+  // typed-distance solver (the only thing that can place an off-axis area).
+
+  const clockPiece = $derived<EditPiece | null>(
+    clockPick ? (layout.pieces.find((p) => p.id === clockPick!.pieceId) ?? null) : null,
+  );
+  /** Only a top-level area carries keystones, so only one can be clock-picked. */
+  const canClockPick = (p: EditPiece | null | undefined): boolean =>
+    !!p && p.piece_type === "area" && !p.parent_area_id;
+
+  function beginClockPick(pieceId: string, viaKey: boolean): void {
+    clockPick = { pieceId, viaKey, candidate: null };
+  }
+  function onClockHover(index: number | null, pointer: { x: number; y: number }): void {
+    if (!clockPick || !clockPiece) return;
+    const cands = cornerCandidates(clockPiece, layout);
+    const centroid = orientedFootprint(clockPiece, layout)?.centroid ?? clockPiece.position;
+    clockPick.candidate = pickCornerByDirection(cands, centroid, pointer, {
+      previous: clockPick.candidate ?? index,
+    });
+  }
+  function onClockCommit(index: number): void {
+    if (!clockPiece) return;
+    const p = clockPiece;
+    const twin = p.twin_id ? layout.pieces.find((q) => q.id === p.twin_id) : undefined;
+    const snapshot = [p, ...(twin ? [twin] : [])].map((q) => ({
+      id: q.id,
+      keystones: q.keystones?.map((k) => ({ ...k })),
+    }));
+    if (setCornerAnchor(layout, p.id, index)) {
+      lastPin = { label: p.name ?? p.id, pieces: snapshot };
+      // Apply the snap once, so the piece lands on the distances the picker's
+      // preview just showed. Without this the preview promises 13.5″ and the
+      // commit leaves 13.47″ — off-grid, warning lit, until the author happens to
+      // nudge it.
+      if (snapEnabled && !p.parent_area_id) {
+        const s = snapToKeystoneGrid(p, board, p.position, snapStep);
+        if (s) movePiece(layout, p.id, s.position);
+      }
+    }
+    clockPick = null;
+  }
+  function onreplacekeystone(id: string, index: number, k: EditKeystone): void {
+    replaceKeystone(layout, id, index, k);
+  }
+  /** Prefill for the typed-distance solver, from the selection's current pose. */
+  const solverSeed = $derived(
+    selectedPiece && !selectedPiece.parent_area_id
+      ? suggestSolverSeed(selectedPiece, layout, board, snapStep)
+      : null,
+  );
+
+  function undoPin(): void {
+    if (!lastPin) return;
+    for (const snap of lastPin.pieces) {
+      const p = layout.pieces.find((q) => q.id === snap.id);
+      if (p) p.keystones = snap.keystones?.length ? snap.keystones : undefined;
+    }
+    lastPin = null;
+  }
+
+  // Delete/Backspace removes the selected piece; Escape leaves clock mode for the
+  // typed-distance solver; K re-picks a corner on the selection. None of them fire
+  // while the caret is in a text field (the title input, inspector fields), where
+  // those keys edit text.
+  function isTextTarget(target: EventTarget | null): boolean {
+    const t = target as HTMLElement | null;
+    return (
+      !!t &&
       (t.tagName === "INPUT" ||
         t.tagName === "TEXTAREA" ||
         t.tagName === "SELECT" ||
         t.isContentEditable)
-    ) {
+    );
+  }
+  function onKeydown(e: KeyboardEvent): void {
+    if (isTextTarget(e.target) || libraryOpen) return;
+    if (e.key === "Escape") {
+      if (!clockPick) return;
+      clockPick = null;
+      // Reveal + seed the keystone method; the Inspector picks the 2- or 3-line
+      // form by whether the piece is axis-aligned.
+      solverFocus++;
+      e.preventDefault();
       return;
     }
+    if ((e.key === "k" || e.key === "K") && !e.repeat) {
+      if (!clockPick && canClockPick(selectedPiece) && selectedId) {
+        beginClockPick(selectedId, true);
+        e.preventDefault();
+      }
+      return;
+    }
+    if (e.key !== "Delete" && e.key !== "Backspace") return;
+    if (!selectedId) return;
     e.preventDefault();
     remove(selectedId);
+  }
+  function onKeyup(e: KeyboardEvent): void {
+    if (e.key !== "k" && e.key !== "K") return;
+    if (!clockPick?.viaKey) return;
+    if (clockPick.candidate !== null) {
+      // Held K, swivelled to a corner, released: commit it.
+      onClockCommit(clockPick.candidate);
+      return;
+    }
+    // Tapped K without swivelling anywhere. Don't punish that by cancelling —
+    // stay in the pick and let a click choose the corner, the same as after a
+    // drop. Clearing `viaKey` stops a later stray keyup from committing.
+    clockPick.viaKey = false;
   }
 
   let copied = $state(false);
@@ -293,6 +438,7 @@
 
 <svelte:window
   onkeydown={onKeydown}
+  onkeyup={onKeyup}
   onpointermove={onDragPointerMove}
   onpointerup={onDragPointerUp}
   onpointercancel={onDragCancel}
@@ -324,6 +470,29 @@
       >
         {keystoneFacing ? "↻ Facing on" : "↻ Facing off"}
       </button>
+      <button
+        class="sym {snapEnabled ? 'on' : ''}"
+        aria-pressed={snapEnabled}
+        onclick={() => (snapEnabled = !snapEnabled)}
+        title="Snap a dragged area so its printed keystone distances land on clean increments (hold Alt to suspend)"
+      >
+        {snapEnabled ? "⌗ Snap on" : "⌗ Snap off"}
+      </button>
+      <select
+        class="ctrl"
+        aria-label="Snap increment"
+        value={String(snapStep)}
+        onchange={(e) => (snapStep = Number(e.currentTarget.value))}
+      >
+        <option value="0.25">¼″</option>
+        <option value="0.5">½″</option>
+        <option value="1">1″</option>
+      </select>
+      {#if lastPin}
+        <button class="sym" onclick={undoPin} title="Restore the keystones {lastPin.label} had before the last corner pick">
+          ↶ Undo pin
+        </button>
+      {/if}
       <button
         class="sym"
         onclick={onreanchor}
@@ -371,6 +540,7 @@
 
   <main>
     <aside class="rail palette-rail">
+      <Worklist {layout} onstampset={addTerrainSet} />
       <Palette
         {areas}
         {features}
@@ -391,43 +561,51 @@
         aria-label="Layout title"
         placeholder="Untitled layout"
       />
-      <EventCompanionReference
+      <ReferenceBackground
         {layout}
         bind:opacity={referenceOpacity}
+        bind:fit={referenceFit}
+        bind:terrainOpacity
         onimage={(image) => (referenceImage = image)}
       />
-      <Board
-        bind:this={boardRef}
-        {layout}
-        {resolved}
-        {selectedId}
-        {selectedPiece}
-        solver={solverViz}
-        {zones}
-        {divider}
-        {markers}
-        {showKeystones}
-        {keystoneFacing}
-        {warnPieceIds}
-        {referenceImage}
-        {referenceOpacity}
-        onselect={(id) => (selectedId = id)}
-        {onmove}
-        {onorient}
-      />
-      {#if warnings.length > 0}
-        <div class="warnings" role="status">
-          <span class="warn-head">⚠ {warnings.length} to review</span>
-          <ul>
-            {#each warnings as w, i (i)}
-              <li class="warn {w.kind}">{w.message}</li>
-            {/each}
-          </ul>
-        </div>
-      {/if}
+      <div class="board-stage">
+        <Board
+          bind:this={boardRef}
+          {layout}
+          {resolved}
+          {selectedId}
+          {selectedPiece}
+          solver={solverViz}
+          {zones}
+          {divider}
+          {markers}
+          {showKeystones}
+          {keystoneFacing}
+          {warnPieceIds}
+          {referenceImage}
+          {referenceOpacity}
+          {referenceFit}
+        {terrainOpacity}
+          snap={{ enabled: snapEnabled, step: snapStep }}
+          {clockPiece}
+          clockCandidate={clockPick?.candidate ?? null}
+          onselect={(id) => (selectedId = id)}
+          {onmove}
+          {onorient}
+          onclockhover={onClockHover}
+          onclockcommit={onClockCommit}
+          onclockcancel={() => (clockPick = null)}
+        />
+      </div>
       <p class="status">
-        {layout.pieces.length} pieces · drag to move · rotate/flip handles on the selected piece
-        {#if symmetric}· edits mirror across the centre{/if}
+        {#if clockPiece}
+          Pick the keystone corner — point at it and click · <kbd>Esc</kbd> for the keystone method
+        {:else}
+          {layout.pieces.length} pieces · drag to move · rotate/flip handles on the selected piece
+          {#if symmetric}· edits mirror across the centre{/if}
+          {#if snapEnabled && selectedPiece && snapAnchorOf(selectedPiece)}· snapping to {snapStep}″ (Alt to suspend){/if}
+          {#if selectedPiece && !selectedPiece.parent_area_id && selectedPiece.piece_type === "area" && !snapAnchorOf(selectedPiece)}· <kbd>K</kbd> to pin a corner{/if}
+        {/if}
       </p>
     </section>
 
@@ -445,13 +623,27 @@
         {onparent}
         {onsnapcenter}
         {onsnapcorner}
+        {onseatcorner}
         {onobjectiverole}
         onsolverhover={(ref) => (solverHover = ref)}
         onsolverlines={(lines) => (solverLines = lines)}
         keystones={selectedKeystones}
         onaddkeystone={(id, k) => addKeystone(layout, id, k)}
         onremovekeystone={(id, i) => removeKeystone(layout, id, i)}
+        {onreplacekeystone}
+        {solverFocus}
+        {solverSeed}
       />
+      {#if warnings.length > 0}
+        <section class="warnings" role="status" aria-label="Layout issues">
+          <span class="warn-head">⚠ {warnings.length} to review</span>
+          <ul>
+            {#each warnings as w, i (i)}
+              <li class="warn {w.kind}">{w.message}</li>
+            {/each}
+          </ul>
+        </section>
+      {/if}
       <section class="export">
         <h2>
           Canonical JSON
@@ -519,9 +711,14 @@
     min-height: 0;
     min-width: 0;
   }
-  .canvas :global(.board) {
+  .board-stage {
+    position: relative;
     flex: 1 1 auto;
     min-height: 0;
+  }
+  .board-stage :global(.board) {
+    width: 100%;
+    height: 100%;
   }
   .layout-title {
     flex: 0 0 auto;
@@ -559,16 +756,14 @@
     flex: 0 0 auto;
   }
   .warnings {
-    flex: 0 0 auto;
-    margin: 0.5rem 0 0;
+    max-block-size: 13rem;
+    overflow-y: auto;
+    margin: 0.75rem 0;
     padding: 0.5rem 0.7rem;
     border: 1px solid oklch(0.6 0.14 70);
-    border-left-width: 3px;
     border-radius: 4px;
     background: oklch(0.7 0.13 70 / 0.12);
     font-size: 0.78rem;
-    max-height: 8.5rem;
-    overflow-y: auto;
   }
   .warn-head {
     font-weight: 600;

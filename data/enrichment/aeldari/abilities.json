@@ -1945,7 +1945,7 @@
       },
       "effect": {
         "type": "roll-modifier",
-        "target": "self",
+        "target": "unit",
         "modifier": {
           "roll": "any",
           "operation": "set",
@@ -5474,7 +5474,7 @@
       },
       "effect": {
         "type": "re-roll",
-        "target": "self",
+        "target": "unit",
         "modifier": {
           "roll": "charge",
           "subset": "all-failures"
@@ -5509,7 +5509,7 @@
       },
       "effect": {
         "type": "ability-grant",
-        "target": "self",
+        "target": "unit",
         "modifier": {
           "grant_type": "infiltrators"
         }

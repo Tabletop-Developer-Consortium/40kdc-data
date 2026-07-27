@@ -73,6 +73,52 @@
           }
         ]
       }
+    },
+    {
+      "_comment": "Core rule 19.04, attacker side: a model-scoped keyword grant ('the bearer has the Psyker keyword') applies when the bearer is the unit being crunched.",
+      "abilityId": "psychic-gifts",
+      "source": { "kind": "ability", "abilityId": "psychic-gifts", "abilityKind": "unit" },
+      "context": { "phase": "fight" },
+      "expected": {
+        "applied": [
+          { "type": "extra-keyword", "keywordRef": { "keyword_id": "psyker" } }
+        ],
+        "unsupportedReasons": []
+      }
+    },
+    {
+      "_comment": "…and stays on that model when pooled in from an attached member — the gate is perspective-independent, so an attached character's personal grant never rides the squad's weapons.",
+      "abilityId": "psychic-gifts",
+      "source": {
+        "kind": "ability",
+        "abilityId": "psychic-gifts",
+        "abilityKind": "attached",
+        "sourceUnitId": "inquisitor"
+      },
+      "context": { "phase": "fight" },
+      "expected": {
+        "applied": [],
+        "unsupportedReasons": [
+          "model-scoped effect from an attached model: applies to that model only (core rule 19.04)"
+        ]
+      }
+    },
+    {
+      "_comment": "The counterpart: a unit-scoped grant ('this unit's melee weapons have [SUSTAINED HITS 1]') still reaches the combined unit from an attached source.",
+      "abilityId": "breakin-heads",
+      "source": {
+        "kind": "ability",
+        "abilityId": "breakin-heads",
+        "abilityKind": "attached",
+        "sourceUnitId": "bigboss"
+      },
+      "context": { "phase": "fight" },
+      "expected": {
+        "applied": [
+          { "type": "extra-keyword", "keywordRef": { "keyword_id": "sustained-hits" } }
+        ],
+        "unsupportedReasons": []
+      }
     }
   ]
 }

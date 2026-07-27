@@ -2491,7 +2491,7 @@
       },
       "effect": {
         "type": "stat-modifier",
-        "target": "self",
+        "target": "unit",
         "modifier": {
           "stat": "M",
           "operation": "set",

@@ -41,7 +41,7 @@ abilities that translate into cruncher buffs via the real `effectToBuffs`
 - `128` — effect type "mortal-wounds" is not modelled by the buff layer
 - `105` — conditional: cannot evaluate condition "undefined" against current context
 - `85` — effect type "leadership-modifier" is not modelled by the buff layer
-- `62` — effect type "attack-restriction" is not modelled by the buff layer
+- `59` — effect type "attack-restriction" is not modelled by the buff layer
 - `57` — effect type "resurrection" is not modelled by the buff layer
 - `53` — effect type "cp-refund" is not modelled by the buff layer
 - `52` — effect type "objective-control-modifier" is not modelled by the buff layer
@@ -57,7 +57,7 @@ abilities that translate into cruncher buffs via the real `effectToBuffs`
 - `23` — stat-modifier on "M" is outside the damage path
 - `23` — stat-modifier: operation "undefined" not supported
 - `22` — effect type "fight-first" is not modelled by the buff layer
-- `19` — effect type "targeting-permission" is not modelled by the buff layer
+- `22` — effect type "targeting-permission" is not modelled by the buff layer
 - `19` — roll-modifier: operation "set" not supported
 - `15` — conditional: cannot evaluate condition "unit-below-starting-strength" against current context
 - `14` — designate-target debuff on the marked unit: not a buff on the bearer

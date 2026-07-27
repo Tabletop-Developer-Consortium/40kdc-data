@@ -298,7 +298,7 @@
     },
     {
       "reason": "effect type \"attack-restriction\" is not modelled by the buff layer",
-      "count": 62
+      "count": 59
     },
     {
       "reason": "effect type \"resurrection\" is not modelled by the buff layer",
@@ -362,7 +362,7 @@
     },
     {
       "reason": "effect type \"targeting-permission\" is not modelled by the buff layer",
-      "count": 19
+      "count": 22
     },
     {
       "reason": "roll-modifier: operation \"set\" not supported",
@@ -3534,7 +3534,7 @@
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"attack-restriction\" is not modelled by the buff layer"
+      "gap": "effect type \"targeting-permission\" is not modelled by the buff layer"
     },
     {
       "faction": "adeptus-astartes",
@@ -4194,7 +4194,7 @@
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"attack-restriction\" is not modelled by the buff layer"
+      "gap": "effect type \"targeting-permission\" is not modelled by the buff layer"
     },
     {
       "faction": "adeptus-astartes",
@@ -17634,7 +17634,7 @@
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"attack-restriction\" is not modelled by the buff layer"
+      "gap": "effect type \"targeting-permission\" is not modelled by the buff layer"
     },
     {
       "faction": "death-guard",

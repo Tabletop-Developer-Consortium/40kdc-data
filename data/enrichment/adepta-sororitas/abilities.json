@@ -800,7 +800,7 @@
       },
       "effect": {
         "type": "stat-modifier",
-        "target": "self",
+        "target": "unit",
         "modifier": {
           "stat": "Sv",
           "operation": "set",

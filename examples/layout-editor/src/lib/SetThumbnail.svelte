@@ -1,11 +1,17 @@
 <script lang="ts">
-  import { templateById, orientedOffsets } from "./model.js";
+  import { templateById, orientedOffsets, resolveSetFeature, rotateCw } from "./model.js";
   import type { TerrainSetDef } from "./sets.js";
 
   /**
    * Composite thumbnail for a terrain set: the area footprint centred at the
-   * origin with each feature's oriented footprint at its area-local placement —
-   * the same frame the stamp uses, so the preview is exactly what lands.
+   * origin with each feature's oriented footprint at its area-local placement.
+   *
+   * Feature placements come from `resolveSetFeature` — the same seam `addSet`
+   * stamps through — so the preview provably is what lands. The area's own
+   * `rotation` is composed onto each feature too (offsets rotate with it, and the
+   * local centroid rotates about the area centroid at the origin); without that a
+   * set declaring an area rotation would render its features detached from the
+   * plate they sit on.
    */
   interface Props {
     set: TerrainSetDef;
@@ -21,20 +27,18 @@
   const polys = $derived.by((): Poly[] => {
     const out: Poly[] = [];
     const areaTmpl = templateById(set.area.template);
-    if (areaTmpl) {
-      out.push({
-        kind: "area",
-        points: orientedOffsets(areaTmpl.footprint, set.area.rotation ?? 0, "none"),
-      });
-    }
+    if (!areaTmpl) return out;
+    const areaRot = set.area.rotation ?? 0;
+    out.push({ kind: "area", points: orientedOffsets(areaTmpl.footprint, areaRot, "none") });
     for (const f of set.features) {
-      const ft = templateById(f.template);
-      if (!ft) continue;
+      const r = resolveSetFeature(areaTmpl.footprint, f);
+      if (!r) continue;
+      const centroid = rotateCw(r.position, areaRot);
       out.push({
         kind: "feature",
-        points: orientedOffsets(ft.footprint, f.rotation, f.mirror ?? "none").map((o) => ({
-          x: o.x + f.position.x,
-          y: o.y + f.position.y,
+        points: orientedOffsets(r.template.footprint, r.rotation + areaRot, r.mirror).map((o) => ({
+          x: o.x + centroid.x,
+          y: o.y + centroid.y,
         })),
       });
     }

@@ -17,6 +17,7 @@
     type SolverRef,
     type SolverHover,
     type SolverLine,
+    type SolverSeed,
     type ObjectiveRole,
   } from "./model.js";
 
@@ -40,10 +41,17 @@
     onobjectiverole: (id: string, role: ObjectiveRole | undefined) => void;
     onsnapcenter: (id: string) => void;
     onsnapcorner: (id: string) => void;
+    onseatcorner: (id: string) => void;
     onsolverhover: (hover: SolverHover | null) => void;
     onsolverlines: (lines: SolverLine[]) => void;
     onaddkeystone: (id: string, k: EditKeystone) => void;
     onremovekeystone: (id: string, index: number) => void;
+    /** Replace the keystone at `index` in place (edge flip / corner↔face swap). */
+    onreplacekeystone: (id: string, index: number, k: EditKeystone) => void;
+    /** Bumped by the host (Escape out of a corner pick) to reveal + seed the solver. */
+    solverFocus?: number;
+    /** Seed for the solver form, derived from the piece's current rough pose. */
+    solverSeed?: SolverSeed | null;
   }
   let {
     piece,
@@ -60,10 +68,14 @@
     onobjectiverole,
     onsnapcenter,
     onsnapcorner,
+    onseatcorner,
     onsolverhover,
     onsolverlines,
     onaddkeystone,
     onremovekeystone,
+    onreplacekeystone,
+    solverFocus = 0,
+    solverSeed = null,
   }: Props = $props();
 
   // The card is shown portrait (board rotated 90° CW), so the card's own
@@ -79,6 +91,41 @@
     e === "bottom" ? "left" : e === "top" ? "right" : e === "left" ? "top" : "bottom";
   const refLabel = (r: SolverRef): string =>
     r.kind === "vertex" ? `v${r.index}` : r.side;
+
+  // A keystone can measure from the NEAR or the FAR board edge on its axis. The
+  // default is the nearest edge (which matches 1070 of the 1150 authored vertex
+  // keystones in the committed corpus), but ~5% of pieces straddle the centre and
+  // genuinely measure from the far one, so the flip has to be reachable.
+  const oppositeEdge = (e: SolverLine["edge"]): SolverLine["edge"] =>
+    e === "left" ? "right" : e === "right" ? "left" : e === "top" ? "bottom" : "top";
+  /**
+   * The face ref equivalent to a vertex ref on this keystone's axis, and back.
+   * These are NOT interchangeable: on a nubbed footprint a cardinal corner sits up
+   * to 0.6″ inside the bbox, so swapping changes the printed number. 228 of the
+   * corpus's 1378 keystones are faces, and the clock picker only offers corners.
+   */
+  function swappedRef(k: EditKeystone): SolverRef | null {
+    if (!piece) return null;
+    const fp = footprintOf(piece);
+    if (!fp) return null;
+    const onX = k.edge === "left" || k.edge === "right";
+    if (k.ref.kind === "face") {
+      // Face → the cardinal corner nearest that face, on the measured axis.
+      const o = orientedOffsets(fp as never, piece.rotation_degrees, piece.mirror) as { x: number; y: number }[];
+      const wantMax = k.ref.side === "max-x" || k.ref.side === "max-y";
+      const idx = cardinalCornerIndices(fp);
+      let best = idx[0];
+      for (const i of idx) {
+        const a = onX ? o[i].x : o[i].y;
+        const b = onX ? o[best].x : o[best].y;
+        if (wantMax ? a > b : a < b) best = i;
+      }
+      return { kind: "vertex", index: best };
+    }
+    // Vertex → the face on the same side of the measured axis as this edge.
+    const near = k.edge === "left" || k.edge === "top";
+    return { kind: "face", side: onX ? (near ? "min-x" : "max-x") : near ? "min-y" : "max-y" };
+  }
 
   // The keystone vertex pickers default to the 4 cardinal corners — the only
   // vertices anyone measures against — hiding the ~20 detail "nub" vertices a
@@ -169,6 +216,38 @@
   let bLockV = $state<{ edge: "top" | "bottom"; dist: number }>({ edge: "top", dist: 0 });
 
   const targetPiece = $derived(attachTargets.find((p) => p.id === attachTargetId) ?? null);
+
+  // The host bumps `solverFocus` when the author escapes out of a corner pick —
+  // "go to the keystone method". Open the form that can actually place this piece
+  // (an off-axis area needs the 3-line triangulation, which solves angle as well
+  // as position) and prefill it from the current rough pose, so the author edits
+  // digits instead of typing from scratch.
+  let solverEl = $state<HTMLFieldSetElement | null>(null);
+  let seededAt = 0;
+  $effect(() => {
+    if (solverFocus === seededAt || !solverSeed || !piece) return;
+    seededAt = solverFocus;
+    if (solverSeed.axisAligned) {
+      solverMode = "two";
+      const [h, v] = solverSeed.two;
+      hEdge = fromBoardEdge(h.edge) as "left" | "right";
+      hRef = h.ref;
+      hDist = h.distance;
+      vEdge = fromBoardEdge(v.edge) as "top" | "bottom";
+      vRef = v.ref;
+      vDist = v.distance;
+    } else {
+      solverMode = "three";
+      tri = solverSeed.three.map((t) => ({
+        edge: fromBoardEdge(t.edge),
+        dist: t.distance,
+        vertex: t.vertex,
+      }));
+    }
+    solveError = null;
+    solverEl?.scrollIntoView({ block: "nearest" });
+    solverEl?.querySelector<HTMLInputElement>("input[type=number]")?.focus();
+  });
   const targetVertexCount = $derived.by(() => {
     if (!targetPiece) return 0;
     const fp = footprintOf(targetPiece);
@@ -478,8 +557,9 @@
         </label>
         {#if piece.parent_area_id}
           <div class="snaps">
-            <button class="feat" onclick={() => onsnapcenter(piece.id)}>⊙ center</button>
-            <button class="feat" onclick={() => onsnapcorner(piece.id)}>◻ corner</button>
+            <button class="feat" onclick={() => onsnapcenter(piece.id)} title="Centre in the area's artwork rectangle">⊙ center</button>
+            <button class="feat" onclick={() => onseatcorner(piece.id)} title="Seat into the nearest plate corner at Battlemaster's 0.5″ inset">◻ seat</button>
+            <button class="feat" onclick={() => onsnapcorner(piece.id)} title="Align the nearest vertex to the nearest area vertex (no inset)">◻ vertex</button>
           </div>
         {/if}
       {/if}
@@ -847,6 +927,29 @@
                 <span class="ks-dist">{Math.round(k.distance * 100) / 100}″</span>
               {:else}
                 <span class="ks-dist invalid" title="The referenced feature no longer exists on this footprint (re-authored template?). Remove and re-pin.">unmeasurable</span>
+              {/if}
+              <button
+                class="small"
+                title="Measure from the opposite board edge on this axis"
+                aria-label="flip keystone {k.index + 1} to the opposite edge"
+                onclick={() =>
+                  onreplacekeystone(piece.id, k.index, {
+                    edge: oppositeEdge(k.keystone.edge),
+                    ref: k.keystone.ref,
+                  })}>⇄</button
+              >
+              {#if swappedRef(k.keystone)}
+                <button
+                  class="small"
+                  title={k.keystone.ref.kind === "vertex"
+                    ? "Measure to the whole face instead of this corner"
+                    : "Measure to a corner instead of the whole face"}
+                  aria-label="swap keystone {k.index + 1} between corner and face"
+                  onclick={() => {
+                    const ref = swappedRef(k.keystone);
+                    if (ref) onreplacekeystone(piece.id, k.index, { edge: k.keystone.edge, ref });
+                  }}>{k.keystone.ref.kind === "vertex" ? "▭" : "◻"}</button
+                >
               {/if}
               <button
                 class="danger small"

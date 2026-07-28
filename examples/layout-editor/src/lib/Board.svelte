@@ -1,5 +1,6 @@
 <script lang="ts">
   import Handles from "./Handles.svelte";
+  import ClockPicker from "./ClockPicker.svelte";
   import {
     boardOf,
     orientedFootprint,
@@ -7,6 +8,9 @@
     isGroundBlocked,
     bbox,
     keystoneDisplays,
+    snapToKeystoneGrid,
+    KEYSTONE_INCREMENT,
+    referenceImageBox,
     templateById,
     type EditLayout,
     type EditPiece,
@@ -19,6 +23,7 @@
     type DeployZone,
     type TerritoryDivider,
     type ObjectiveMarker,
+    type ReferenceFit,
   } from "./model.js";
   import type { ResolvedPiece } from "@alpaca-software/40kdc-data";
   import { facingAngle } from "../../../_shared/layout-geometry.js";
@@ -38,12 +43,23 @@
     keystoneFacing?: boolean;
     /** Resolved ids of pieces named by a "needs review" warning, outlined on the board. */
     warnPieceIds?: Set<string>;
-    /** Ephemeral reference image rendered from a locally selected PDF. */
+    /** Ephemeral reference image: a rendered Event Companion page, or a chosen photo. */
     referenceImage?: string | null;
     referenceOpacity?: number;
+    /** How that image is fitted over the board — turn, nudge and zoom. See `referenceImageBox`. */
+    referenceFit?: ReferenceFit;
+    /** ¼″ keystone-grid snapping for armed top-level areas. Alt suspends it live. */
+    snap?: { enabled: boolean; step: number };
+    /** The piece whose keystone anchor is being picked, if any (clock mode). */
+    clockPiece?: EditPiece | null;
+    /** The corner index under the pointer during a clock pick. */
+    clockCandidate?: number | null;
     onselect: (id: string | null) => void;
     onmove: (id: string, position: Vec2) => void;
     onorient: (id: string, patch: { rotation_degrees?: number; mirror?: Mirror }) => void;
+    onclockhover?: (index: number | null, pointer: Vec2) => void;
+    onclockcommit?: (index: number) => void;
+    onclockcancel?: () => void;
   }
   let {
     layout,
@@ -59,9 +75,16 @@
     warnPieceIds = new Set<string>(),
     referenceImage = null,
     referenceOpacity = 0.45,
+    referenceFit = {},
+    snap = { enabled: true, step: KEYSTONE_INCREMENT },
+    clockPiece = null,
+    clockCandidate = null,
     onselect,
     onmove,
     onorient,
+    onclockhover,
+    onclockcommit,
+    onclockcancel,
   }: Props = $props();
 
   // The board is shown rotated 90° CW for portrait terrain cards. Board coords stay
@@ -70,9 +93,15 @@
   // active layout's extents (the 60×44 standard, or a per-layout override).
   const board = $derived(boardOf(layout));
   const centre = $derived({ x: board.width / 2, y: board.height / 2 });
+  const referenceBox = $derived(referenceImageBox(board, referenceFit));
   let gEl = $state<SVGGElement | null>(null);
   let svgEl = $state<SVGSVGElement | null>(null);
-  let drag = $state<{ id: string; offset: Vec2 } | null>(null);
+  let drag = $state<{ id: string; offset: Vec2; from: Vec2; moved: boolean } | null>(null);
+  // The clock picker shields the board, so a drag begun before it mounted could
+  // never be released onto a piece — drop it rather than leave it live.
+  $effect(() => {
+    if (clockPiece) drag = null;
+  });
 
   /**
    * Map a client-space point into board inches, for drops that originate
@@ -102,7 +131,10 @@
   function toDisplay(b: Vec2): Vec2 {
     return { x: board.height - b.y, y: b.x };
   }
-  const clamp = (n: number, hi: number): number => Math.max(0, Math.min(hi, Math.round(n * 100) / 100));
+  // 4-dp, matching `clampToBoard` — a snapped centroid is generally not a round
+  // number, and rounding it to 2-dp would push its printed distance off the ¼″ mark
+  // the snap just put it on.
+  const clamp = (n: number, hi: number): number => Math.max(0, Math.min(hi, Math.round(n * 1e4) / 1e4));
 
   function onPointerDown(e: PointerEvent, p: ResolvedPiece): void {
     if (!p.id) return;
@@ -115,12 +147,30 @@
     // Drag in board space; for a parented feature the stored centroid is
     // area-local, so anchor the grab offset to its board-space centroid.
     const c = orientedFootprint(piece, layout)?.centroid ?? piece.position;
-    drag = { id: p.id, offset: { x: b.x - c.x, y: b.y - c.y } };
+    drag = { id: p.id, offset: { x: b.x - c.x, y: b.y - c.y }, from: b, moved: false };
   }
+  /** Board inches the pointer must travel before a press counts as a drag, so
+   *  clicking a piece to select it never moves (or snaps) it. */
+  const DRAG_EPS_IN = 0.05;
   function onPointerMove(e: PointerEvent): void {
     if (!drag) return;
     const b = toBoard(e);
-    onmove(drag.id, { x: clamp(b.x - drag.offset.x, board.width), y: clamp(b.y - drag.offset.y, board.height) });
+    if (!drag.moved) {
+      if (Math.hypot(b.x - drag.from.x, b.y - drag.from.y) < DRAG_EPS_IN) return;
+      drag.moved = true;
+    }
+    const raw = { x: b.x - drag.offset.x, y: b.y - drag.offset.y };
+    // Snap an ARMED top-level area to the ¼″ grid of its own printed distances —
+    // never to a grid on the centroid, which would put every measurement off-mark.
+    // Alt suspends it live (read per-move, so it can be pressed mid-drag), and a
+    // parented feature or a piece with no 1H+1V anchor drags exactly as before.
+    const piece = layout.pieces.find((q) => q.id === drag!.id);
+    const snapped =
+      snap.enabled && !e.altKey && piece && !piece.parent_area_id
+        ? snapToKeystoneGrid(piece, board, raw, snap.step)
+        : null;
+    const at = snapped?.position ?? raw;
+    onmove(drag.id, { x: clamp(at.x, board.width), y: clamp(at.y, board.height) });
   }
   function endDrag(): void {
     drag = null;
@@ -271,10 +321,11 @@
     {#if referenceImage}
       <image
         href={referenceImage}
-        x="0"
-        y="0"
-        width={board.width}
-        height={board.height}
+        x={referenceBox.x}
+        y={referenceBox.y}
+        width={referenceBox.width}
+        height={referenceBox.height}
+        transform={referenceBox.transform}
         preserveAspectRatio="none"
         opacity={referenceOpacity}
         pointer-events="none"
@@ -378,8 +429,26 @@
       <circle cx={selOriented.centroid.x} cy={selOriented.centroid.y} r="0.3" class="anchor" />
     {/if}
 
-    {#if selectedPiece}
+    {#if selectedPiece && !clockPiece}
       <Handles piece={selectedPiece} {layout} {toBoard} {pxPerInch} onorient={(patch) => onorient(selectedPiece.id, patch)} />
+    {/if}
+
+    <!-- Last child of the rotated group: SVG paint/hit order puts the picker's
+         shield above every polygon AND every handle grip. -->
+    {#if clockPiece}
+      <ClockPicker
+        layer="board"
+        piece={clockPiece}
+        {layout}
+        {toBoard}
+        {toDisplay}
+        {pxPerInch}
+        candidate={clockCandidate}
+        step={snap.step}
+        onhover={(i, at) => onclockhover?.(i, at)}
+        oncommit={(i) => onclockcommit?.(i)}
+        oncancel={() => onclockcancel?.()}
+      />
     {/if}
   </g>
 
@@ -412,6 +481,21 @@
       {@const d = toDisplay(g.labelAt)}
       <text x={d.x} y={d.y} transform="rotate({g.angle}, {d.x}, {d.y})" class="keystone-label {g.invalid ? 'invalid' : ''}">{g.text}</text>
     {/each}
+    {#if clockPiece}
+      <ClockPicker
+        layer="labels"
+        piece={clockPiece}
+        {layout}
+        {toBoard}
+        {toDisplay}
+        {pxPerInch}
+        candidate={clockCandidate}
+        step={snap.step}
+        onhover={() => {}}
+        oncommit={() => {}}
+        oncancel={() => {}}
+      />
+    {/if}
   </g>
 </svg>
 

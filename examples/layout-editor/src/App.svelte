@@ -565,42 +565,44 @@
         bind:fit={referenceFit}
         onimage={(image) => (referenceImage = image)}
       />
-      <Board
-        bind:this={boardRef}
-        {layout}
-        {resolved}
-        {selectedId}
-        {selectedPiece}
-        solver={solverViz}
-        {zones}
-        {divider}
-        {markers}
-        {showKeystones}
-        {keystoneFacing}
-        {warnPieceIds}
-        {referenceImage}
-        {referenceOpacity}
-        {referenceFit}
-        snap={{ enabled: snapEnabled, step: snapStep }}
-        {clockPiece}
-        clockCandidate={clockPick?.candidate ?? null}
-        onselect={(id) => (selectedId = id)}
-        {onmove}
-        {onorient}
-        onclockhover={onClockHover}
-        onclockcommit={onClockCommit}
-        onclockcancel={() => (clockPick = null)}
-      />
-      {#if warnings.length > 0}
-        <div class="warnings" role="status">
-          <span class="warn-head">⚠ {warnings.length} to review</span>
-          <ul>
-            {#each warnings as w, i (i)}
-              <li class="warn {w.kind}">{w.message}</li>
-            {/each}
-          </ul>
-        </div>
-      {/if}
+      <div class="board-stage">
+        <Board
+          bind:this={boardRef}
+          {layout}
+          {resolved}
+          {selectedId}
+          {selectedPiece}
+          solver={solverViz}
+          {zones}
+          {divider}
+          {markers}
+          {showKeystones}
+          {keystoneFacing}
+          {warnPieceIds}
+          {referenceImage}
+          {referenceOpacity}
+          {referenceFit}
+          snap={{ enabled: snapEnabled, step: snapStep }}
+          {clockPiece}
+          clockCandidate={clockPick?.candidate ?? null}
+          onselect={(id) => (selectedId = id)}
+          {onmove}
+          {onorient}
+          onclockhover={onClockHover}
+          onclockcommit={onClockCommit}
+          onclockcancel={() => (clockPick = null)}
+        />
+        {#if warnings.length > 0}
+          <div class="warnings" role="status">
+            <span class="warn-head">⚠ {warnings.length} to review</span>
+            <ul>
+              {#each warnings as w, i (i)}
+                <li class="warn {w.kind}">{w.message}</li>
+              {/each}
+            </ul>
+          </div>
+        {/if}
+      </div>
       <p class="status">
         {#if clockPiece}
           Pick the keystone corner — point at it and click · <kbd>Esc</kbd> for the keystone method
@@ -705,9 +707,14 @@
     min-height: 0;
     min-width: 0;
   }
-  .canvas :global(.board) {
+  .board-stage {
+    position: relative;
     flex: 1 1 auto;
     min-height: 0;
+  }
+  .board-stage :global(.board) {
+    width: 100%;
+    height: 100%;
   }
   .layout-title {
     flex: 0 0 auto;
@@ -745,16 +752,21 @@
     flex: 0 0 auto;
   }
   .warnings {
-    flex: 0 0 auto;
-    margin: 0.5rem 0 0;
+    position: absolute;
+    right: 0.5rem;
+    bottom: 0.5rem;
+    z-index: 1;
+    pointer-events: none;
+    inline-size: min(26rem, calc(100% - 1rem));
+    max-block-size: min(8.5rem, calc(100% - 1rem));
+    overflow-y: auto;
+    margin: 0;
     padding: 0.5rem 0.7rem;
     border: 1px solid oklch(0.6 0.14 70);
-    border-left-width: 3px;
     border-radius: 4px;
-    background: oklch(0.7 0.13 70 / 0.12);
+    background: oklch(0.7 0.13 70 / 0.92);
     font-size: 0.78rem;
-    max-height: 8.5rem;
-    overflow-y: auto;
+    box-shadow: 0 0.2rem 0.8rem oklch(0.2 0.02 250 / 0.35);
   }
   .warn-head {
     font-weight: 600;

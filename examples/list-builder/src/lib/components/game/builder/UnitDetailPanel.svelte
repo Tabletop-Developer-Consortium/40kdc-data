@@ -10,6 +10,8 @@ import {
 	canBeWarlord,
 	isLeader,
 	attachableBodyguards,
+	configurationSuggestionsFor,
+	type UnitConfigurationSuggestion,
 	selectableGrantsFor,
 	grantSelectionCount,
 	type BuilderState,
@@ -23,9 +25,10 @@ interface Props {
 	unit: BuilderUnit | null;
 	draft: BuilderState;
 	onchange: (next: BuilderUnit) => void;
+	onconfiguration: (suggestion: UnitConfigurationSuggestion) => void;
 	onwarlord: () => void;
 }
-let { unit, draft, onchange, onwarlord }: Props = $props();
+let { unit, draft, onchange, onconfiguration, onwarlord }: Props = $props();
 
 const armyFaction = $derived(draft.factionId ?? undefined);
 const raw = $derived(unit ? unitRaw(unit.datasheetId, unit.factionId, armyFaction) : undefined);
@@ -38,6 +41,7 @@ const points = $derived(
 const modelRange = $derived(raw?.model_count ?? null);
 const warlordEligible = $derived(unit ? canBeWarlord(unit, draft.detachmentIds, armyFaction) : false);
 const leader = $derived(!!raw && isLeader(raw));
+const suggestions = $derived(unit ? configurationSuggestionsFor(draft, unit) : []);
 /** Count-limited detachment grants this unit can take (e.g. Houndpack CHARACTER). */
 const grants = $derived(
 	raw
@@ -147,6 +151,54 @@ function setAttachment(key: string) {
 				>
 					{unit.isWarlord ? '★ Warlord' : 'Make Warlord'}
 				</button>
+			{/if}
+
+			{#if suggestions.length > 0}
+				<section class="border-panel-border/50 flex flex-col gap-2 border-t pt-2">
+					<h4 class="text-text-muted text-xs font-semibold uppercase tracking-wider">Improve this unit</h4>
+					{#each suggestions as suggestion (`${suggestion.kind}:${suggestion.providerUnitId}:${suggestion.abilityId}`)}
+						<div class="border-panel-border bg-panel/40 flex flex-col gap-2 rounded border p-2">
+							<div class="min-w-0">
+								<div class="text-text text-sm font-medium">
+									{suggestion.providerName} · {suggestion.abilityName}
+								</div>
+								<p class="text-text-muted mt-0.5 text-xs leading-relaxed">{suggestion.description}</p>
+								{#if suggestion.kind === 'aura-position'}
+									<p class="text-text-muted mt-1 text-xs">
+										Position {suggestion.providerName} within its aura.
+									</p>
+								{/if}
+							</div>
+							<div class="self-start">
+								{#if suggestion.kind === 'leader-attachment'}
+									{#if suggestion.state === 'available'}
+										<button
+											type="button"
+											class="btn btn-toggle"
+											onclick={() => onconfiguration(suggestion)}
+										>
+											{suggestion.attachExistingLeaderKey
+												? `Attach ${suggestion.providerName}`
+												: `Add ${suggestion.providerName} and attach`}
+										</button>
+									{:else}
+										<span class="text-text-muted text-xs uppercase tracking-wider">Attached</span>
+									{/if}
+								{:else if suggestion.state === 'add-source'}
+									<button
+										type="button"
+										class="btn btn-toggle"
+										onclick={() => onconfiguration(suggestion)}
+									>
+										Add {suggestion.providerName}
+									</button>
+								{:else}
+									<span class="text-text-muted text-xs uppercase tracking-wider">In roster</span>
+								{/if}
+							</div>
+						</div>
+					{/each}
+				</section>
 			{/if}
 
 			<!-- Leader attachment (11e attaches leaders at list-building time). -->

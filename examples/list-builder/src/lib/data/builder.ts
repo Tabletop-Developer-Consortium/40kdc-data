@@ -133,6 +133,38 @@ export function unitRaw(
 }
 
 /**
+ * Build a fresh draft row with the minimum legal model count and its reconciled
+ * default loadout. Own-army callers leave `factionId` unset so the row remains
+ * compatible with the roster and share-token encoding.
+ */
+export function createBuilderUnit(
+	datasheetId: string,
+	key: string,
+	armyFactionId?: string,
+	factionId?: string,
+	allyRuleId?: string,
+): BuilderUnit | undefined {
+	const raw = unitRaw(datasheetId, factionId, armyFactionId);
+	if (!raw) return undefined;
+	const modelCount = raw.model_count?.min ?? 1;
+	return {
+		key,
+		datasheetId,
+		...(factionId ? { factionId } : {}),
+		...(allyRuleId ? { allyRuleId } : {}),
+		modelCount,
+		loadout: reconcileLoadout(
+			datasheetId,
+			modelCount,
+			defaultLoadout(raw, modelCount),
+			factionId ?? armyFactionId,
+		),
+		enhancementId: null,
+		isWarlord: false,
+	};
+}
+
+/**
  * Resolve a builder unit's datasheet, honouring its (possibly allied) faction.
  * `armyFactionId` scopes own-army units (those with no ally `factionId`) to the
  * army's faction; pass `state.factionId` / `draft.factionId` from the call site.
@@ -780,6 +812,202 @@ export function attachedLeaders(state: BuilderState, bodyguard: BuilderUnit): Bu
 	return state.units.filter((u) => u.attachedToKey === bodyguard.key);
 }
 
+export type UnitConfigurationSuggestion =
+	| {
+			kind: 'leader-attachment';
+			targetKey: string;
+			providerUnitId: string;
+			providerFactionId: string;
+			providerName: string;
+			abilityId: string;
+			abilityName: string;
+			description: string;
+			state: 'available' | 'attached';
+			attachExistingLeaderKey?: string;
+	  }
+	| {
+			kind: 'aura-position';
+			targetKey: string;
+			providerUnitId: string;
+			providerFactionId: string;
+			providerName: string;
+			abilityId: string;
+			abilityName: string;
+			description: string;
+			state: 'add-source' | 'source-present';
+	  };
+
+type RecordValue = Record<string, unknown>;
+
+function isRecord(value: unknown): value is RecordValue {
+	return typeof value === 'object' && value !== null && !Array.isArray(value);
+}
+
+function isParameterlessAttachmentCondition(condition: unknown): boolean {
+	if (!isRecord(condition)) return false;
+	if (condition.type === 'is-attached') {
+		return condition.parameters === undefined || (isRecord(condition.parameters) && Object.keys(condition.parameters).length === 0);
+	}
+	if (condition.operator !== 'and' || !Array.isArray(condition.operands)) return false;
+	return condition.operands.some(isParameterlessAttachmentCondition);
+}
+
+function hasAttachedUnitLeaf(effect: unknown): boolean {
+	if (!isRecord(effect)) return false;
+	if (effect.target === 'unit' || effect.target === 'attached-unit') return true;
+	if (effect.type !== 'sequence' || !Array.isArray(effect.steps)) return false;
+	return effect.steps.some(hasAttachedUnitLeaf);
+}
+
+function isAttachmentBenefit(effect: unknown): boolean {
+	if (!isRecord(effect) || effect.type !== 'conditional') return false;
+	return isParameterlessAttachmentCondition(effect.condition) && hasAttachedUnitLeaf(effect.effect);
+}
+
+function isAuraScope(scope: unknown): boolean {
+	if (!isRecord(scope)) return false;
+	if (scope.range === 'aura-6' || scope.range === 'aura-9' || scope.range === 'aura-12') return true;
+	return scope.range === 'aura-custom' && typeof scope.range_inches === 'number';
+}
+
+function isOwnArmyUnit(unit: BuilderUnit): boolean {
+	return unit.factionId === undefined && unit.allyRuleId === undefined;
+}
+
+function suggestionKey(suggestion: UnitConfigurationSuggestion): string {
+	return `${suggestion.kind}:${suggestion.providerUnitId}:${suggestion.abilityId}`;
+}
+
+/**
+ * Returns the passive leader and aura configurations that structured data can
+ * prove improve `target`. Allied and unresolved rows intentionally return no
+ * suggestions: this resolver only creates own-army providers.
+ */
+export function configurationSuggestionsFor(
+	state: BuilderState,
+	target: BuilderUnit,
+): UnitConfigurationSuggestion[] {
+	const factionId = state.factionId;
+	if (!factionId || !isOwnArmyUnit(target)) return [];
+	const targetView = ds.units.getInFaction(target.datasheetId, factionId);
+	if (!targetView) return [];
+
+	const suggestions: UnitConfigurationSuggestion[] = [];
+	for (const leader of ds.leadersAttachableTo(target.datasheetId)) {
+		const provider = ds.units.getInFaction(leader.id, factionId);
+		if (!provider) continue;
+		for (const ability of provider.abilities) {
+			if (
+				(ability.raw.behavior !== 'passive' && ability.raw.behavior !== 'aura') ||
+				!isAttachmentBenefit(ability.raw.effect)
+			) {
+				continue;
+			}
+			const matchingRows = state.units.filter(
+				(unit) => isOwnArmyUnit(unit) && unit.datasheetId === provider.id,
+			);
+			const attached = matchingRows.find((unit) => unit.attachedToKey === target.key);
+			const unattached = matchingRows.find((unit) => unit.attachedToKey === undefined);
+			suggestions.push({
+				kind: 'leader-attachment',
+				targetKey: target.key,
+				providerUnitId: provider.id,
+				providerFactionId: factionId,
+				providerName: provider.name,
+				abilityId: ability.id,
+				abilityName: ability.name,
+				description: ability.describe(),
+				state: attached ? 'attached' : 'available',
+				...(unattached ? { attachExistingLeaderKey: unattached.key } : {}),
+			});
+		}
+	}
+
+	for (const provider of ds.units.byFaction(factionId)) {
+		for (const ability of provider.abilities) {
+			if (
+				(ability.raw.behavior !== 'passive' && ability.raw.behavior !== 'aura') ||
+				!isAuraScope(ability.raw.scope) ||
+				!ability.affectsUnit(targetView)
+			) {
+				continue;
+			}
+			const present = state.units.some(
+				(unit) => isOwnArmyUnit(unit) && unit.datasheetId === provider.id,
+			);
+			suggestions.push({
+				kind: 'aura-position',
+				targetKey: target.key,
+				providerUnitId: provider.id,
+				providerFactionId: factionId,
+				providerName: provider.name,
+				abilityId: ability.id,
+				abilityName: ability.name,
+				description: ability.describe(),
+				state: present ? 'source-present' : 'add-source',
+			});
+		}
+	}
+
+	const deduped = new Map<string, UnitConfigurationSuggestion>();
+	for (const suggestion of suggestions) deduped.set(suggestionKey(suggestion), suggestion);
+	return [...deduped.values()].sort(
+		(a, b) =>
+			(a.kind === 'leader-attachment' ? 0 : 1) - (b.kind === 'leader-attachment' ? 0 : 1) ||
+			a.providerName.localeCompare(b.providerName) ||
+			a.abilityName.localeCompare(b.abilityName),
+	);
+}
+
+/**
+ * Applies a current configuration recommendation. The suggestion is resolved
+ * again before mutating so a stale button click cannot create duplicate rows or
+ * attach an ineligible leader.
+ */
+export function applyConfigurationSuggestion(
+	state: BuilderState,
+	suggestion: UnitConfigurationSuggestion,
+	makeKey: () => string,
+): BuilderState {
+	const target = state.units.find((unit) => unit.key === suggestion.targetKey);
+	if (!target) return state;
+	const current = configurationSuggestionsFor(state, target).find(
+		(candidate) =>
+			candidate.kind === suggestion.kind &&
+			candidate.providerUnitId === suggestion.providerUnitId &&
+			candidate.abilityId === suggestion.abilityId,
+	);
+	if (!current || current.state !== suggestion.state) return state;
+
+	if (current.kind === 'leader-attachment') {
+		if (current.state !== 'available') return state;
+		if (current.attachExistingLeaderKey) {
+			return {
+				...state,
+				units: state.units.map((unit) =>
+					unit.key === current.attachExistingLeaderKey
+						? { ...unit, attachedToKey: target.key }
+						: unit,
+				),
+			};
+		}
+		const key = makeKey();
+		if (state.units.some((unit) => unit.key === key)) return state;
+		const leader = createBuilderUnit(current.providerUnitId, key, state.factionId ?? undefined);
+		if (!leader) return state;
+		return {
+			...state,
+			units: [...state.units, { ...leader, attachedToKey: target.key }],
+		};
+	}
+
+	if (current.state !== 'add-source') return state;
+	const key = makeKey();
+	if (state.units.some((unit) => unit.key === key)) return state;
+	const provider = createBuilderUnit(current.providerUnitId, key, state.factionId ?? undefined);
+	return provider ? { ...state, units: [...state.units, provider] } : state;
+}
+
 // ── Effective keywords (detachment grants) ───────────────────────────────────────
 
 /**
@@ -1181,7 +1409,8 @@ export function builderToRoster(state: BuilderState): Roster {
 		// the overwhelming majority of attachers are Characters that lead.
 		const bodyguard = bu.attachedToKey ? byKey.get(bu.attachedToKey) : undefined;
 		const bodyguardRaw = bodyguard ? buRaw(bodyguard, armyFaction) : undefined;
-		const attachmentRole = unit?.attachment_role === "support" ? "support" : "leader";
+		const attachmentRole: 'leader' | 'support' =
+			unit?.attachment_role === "support" ? "support" : "leader";
 		const leader_attachment = bodyguard
 			? {
 					bodyguard_ref: ref(bodyguard.datasheetId, bodyguardRaw?.name ?? bodyguard.datasheetId),

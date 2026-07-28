@@ -8,8 +8,8 @@ import {
 	detachmentPointCost,
 	totalDetachmentPoints,
 	detachmentPointCap,
-	defaultLoadout,
-	reconcileLoadout,
+	createBuilderUnit,
+	applyConfigurationSuggestion,
 	totalPoints,
 	pointsLimit,
 	builderViolations,
@@ -20,6 +20,7 @@ import {
 	unitRaw,
 	type BuilderState,
 	type BuilderUnit,
+	type UnitConfigurationSuggestion,
 	type BattleSize,
 } from '$lib/data/builder';
 import UnitPicker from './UnitPicker.svelte';
@@ -180,26 +181,14 @@ function toggleDetachment(id: string, on: boolean) {
 }
 
 function addUnit(datasheetId: string, factionId?: string, allyRuleId?: string) {
-	// Own-army units carry no factionId (kept out of the share encoding); resolve
-	// them against the army faction so shared datasheet ids (e.g. Chaos Spawn)
-	// pick this faction's copy rather than whichever was registered first.
-	const armyFaction = draft.factionId ?? undefined;
-	const raw = unitRaw(datasheetId, factionId, armyFaction);
-	if (!raw) return;
-	const modelCount = raw.model_count?.min ?? 1;
-	const bu: BuilderUnit = {
-		key: nextKey(),
+	const bu = createBuilderUnit(
 		datasheetId,
-		...(factionId ? { factionId } : {}),
-		...(allyRuleId ? { allyRuleId } : {}),
-		modelCount,
-		// Reconcile so always-on base weapons are seeded and phantom negatives
-		// (a replacement-target weapon that's never carried) don't surface as
-		// "below min" violations on fresh adds.
-		loadout: reconcileLoadout(datasheetId, modelCount, defaultLoadout(raw, modelCount), factionId ?? armyFaction),
-		enhancementId: null,
-		isWarlord: false,
-	};
+		nextKey(),
+		draft.factionId ?? undefined,
+		factionId,
+		allyRuleId,
+	);
+	if (!bu) return;
 	draft.units = [...draft.units, bu];
 	selectedKey = bu.key;
 	// On mobile, close the picker sheet so the new unit shows in the roster
@@ -218,6 +207,10 @@ function cloneUnit(key: string) {
 
 function updateUnit(next: BuilderUnit) {
 	draft.units = draft.units.map((u) => (u.key === next.key ? next : u));
+}
+
+function applyConfiguration(suggestion: UnitConfigurationSuggestion) {
+	draft = applyConfigurationSuggestion(draft, suggestion, nextKey);
 }
 
 function removeUnit(key: string) {
@@ -432,6 +425,7 @@ function save() {
 			unit={selected}
 			draft={draft}
 			onchange={updateUnit}
+			onconfiguration={applyConfiguration}
 			onwarlord={() => selected && setWarlord(selected.key)}
 		/>
 	{/snippet}

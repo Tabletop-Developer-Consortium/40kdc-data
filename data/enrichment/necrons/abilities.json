@@ -2650,6 +2650,11 @@
     ],
     "ability_type": "unit",
     "behavior": "passive",
+    "applies_to": {
+      "required_keywords": [
+        "Necrons"
+      ]
+    },
     "community_notes": "defensive ability (skipped for damage calc)"
   },
   {

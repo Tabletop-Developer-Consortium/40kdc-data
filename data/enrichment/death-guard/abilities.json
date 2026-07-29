@@ -82,10 +82,11 @@
         ]
       },
       "effect": {
-        "type": "attack-restriction",
-        "target": "self",
+        "type": "targeting-permission",
+        "target": "unit",
         "modifier": {
-          "restriction": "targeting-range-limit",
+          "attack_type": "ranged",
+          "gate": "within-range",
           "range": 18
         }
       }

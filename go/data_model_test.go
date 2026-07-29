@@ -131,3 +131,136 @@ func TestGetPanicsForSharedAbilityIDWithoutFaction(t *testing.T) {
 	}()
 	ds.Abilities.Get("idol-of-blessed-blood")
 }
+
+// Core rule 19.04 — a rule affecting a single specified model only ever applies
+// to that model, even while part of an attached unit. Mirror of the TS
+// `defensive-buffs.test.ts` / Python `test_data_model.py` blocks; pinned
+// cross-impl by conformance/abilities-resolver/{from-dsl,defensive-from-dsl}.json.
+
+const modelScopedReasonTest = "model-scoped effect from an attached model: applies to that model only (core rule 19.04)"
+
+// contribTypesFrom projects the contributions a named ability put on the stack.
+func contribTypesFrom(buffs []any, abilityID string) []map[string]any {
+	var out []map[string]any
+	for _, bAny := range buffs {
+		b, _ := asMap(bAny)
+		source, _ := getMap(b, "source")
+		if getStr(source, "abilityId") != abilityID {
+			continue
+		}
+		contribution, _ := getMap(b, "contribution")
+		out = append(out, contribution)
+	}
+	return out
+}
+
+func TestLeaderPersonalInvulnDoesNotBuffBodyguardUnit(t *testing.T) {
+	ds := EmbeddedDataset()
+	// Shadowfield reads "the bearer has a 4+ invulnerable save" — one model out
+	// of eleven, so it is not the Kabalite squad's invulnerable save.
+	attached := ds.defensiveBuffsFor(map[string]any{
+		"unitId":          "kabalite-warriors",
+		"factionId":       "drukhari",
+		"attachedUnitIds": []any{"archon"},
+	}, map[string]any{"phase": "shooting"})
+	if got := contribTypesFrom(attached, "shadowfield"); len(got) != 0 {
+		t.Errorf("shadowfield buffs on the bodyguard unit = %v, want none", got)
+	}
+
+	// The Archon crunched as itself still keeps it (source kind "unit").
+	own := ds.defensiveBuffsFor(
+		map[string]any{"unitId": "archon", "factionId": "drukhari"},
+		map[string]any{"phase": "shooting"},
+	)
+	got := contribTypesFrom(own, "shadowfield")
+	if len(got) != 1 || getStr(got[0], "type") != "invulnerable-save" || asInt(got[0]["threshold"]) != 4 {
+		t.Errorf("shadowfield buffs on the Archon itself = %v, want one 4+ invulnerable-save", got)
+	}
+}
+
+func TestUnitScopedLeaderRuleStillBuffsAttachedUnit(t *testing.T) {
+	ds := EmbeddedDataset()
+	// Mental Fortress reads "models in that unit have a 4+ invulnerable save" —
+	// authored `target: "unit"`, so the model-scope gate must not touch it.
+	attached := ds.defensiveBuffsFor(map[string]any{
+		"unitId":          "intercessor-squad",
+		"factionId":       "adeptus-astartes",
+		"attachedUnitIds": []any{"librarian"},
+	}, map[string]any{"phase": "fight"})
+	got := contribTypesFrom(attached, "mental-fortress-psychic")
+	if len(got) != 1 || asInt(got[0]["threshold"]) != 4 {
+		t.Errorf("mental-fortress-psychic buffs = %v, want one 4+ invulnerable-save", got)
+	}
+}
+
+func TestDroppedModelScopedEffectIsReportedUnsupported(t *testing.T) {
+	ds := EmbeddedDataset()
+	ability, ok := ds.Abilities.GetAny("shadowfield")
+	if !ok {
+		t.Fatal("shadowfield missing from the embedded dataset")
+	}
+	result := effectToBuffs(
+		ability.Raw["effect"],
+		map[string]any{
+			"kind":         "ability",
+			"abilityId":    "shadowfield",
+			"abilityKind":  "attached",
+			"sourceUnitId": "archon",
+		},
+		map[string]any{"phase": "shooting"},
+		"target",
+	)
+	if len(result.applied) != 0 {
+		t.Errorf("applied = %v, want none", result.applied)
+	}
+	if len(result.unsupported) != 1 {
+		t.Fatalf("unsupported = %v, want exactly one diagnostic", result.unsupported)
+	}
+	u, _ := asMap(result.unsupported[0])
+	if getStr(u, "reason") != modelScopedReasonTest {
+		t.Errorf("reason = %q, want %q", getStr(u, "reason"), modelScopedReasonTest)
+	}
+}
+
+func TestModelScopeGateIsAttackerSideTooAndSparesUnitScopedGrants(t *testing.T) {
+	ds := EmbeddedDataset()
+	keywords := func(buffs []any, abilityID string) []string {
+		var out []string
+		for _, c := range contribTypesFrom(buffs, abilityID) {
+			if getStr(c, "type") != "extra-keyword" {
+				continue
+			}
+			ref, _ := getMap(c, "keywordRef")
+			out = append(out, getStr(ref, "keyword_id"))
+		}
+		return out
+	}
+
+	// Psychic Gifts reads "the bearer has the Psyker keyword" — model-scoped.
+	led := ds.buffsFor(map[string]any{
+		"unitId":          "inquisitorial-agents",
+		"factionId":       "agents-of-the-imperium",
+		"attachedUnitIds": []any{"inquisitor"},
+	}, map[string]any{"phase": "command"})
+	if got := keywords(led, "psychic-gifts"); len(got) != 0 {
+		t.Errorf("psychic-gifts keywords on the led unit = %v, want none", got)
+	}
+	alone := ds.buffsFor(
+		map[string]any{"unitId": "inquisitor", "factionId": "agents-of-the-imperium"},
+		map[string]any{"phase": "command"},
+	)
+	if got := keywords(alone, "psychic-gifts"); len(got) != 1 || got[0] != "psyker" {
+		t.Errorf("psychic-gifts keywords on the Inquisitor itself = %v, want [psyker]", got)
+	}
+
+	// Surgical Precision is unit-scoped, so an attached Apothecary Biologis
+	// still grants [LETHAL HITS] to the squad it joined.
+	aggressors := ds.buffsFor(map[string]any{
+		"unitId":          "aggressor-squad",
+		"factionId":       "adeptus-astartes",
+		"attachedUnitIds": []any{"apothecary-biologis"},
+	}, map[string]any{"phase": "shooting"})
+	if got := keywords(aggressors, "surgical-precision"); len(got) != 1 || got[0] != "lethal-hits" {
+		t.Errorf("surgical-precision keywords = %v, want [lethal-hits]", got)
+	}
+}

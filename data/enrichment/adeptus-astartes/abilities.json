@@ -1168,7 +1168,7 @@
       },
       "effect": {
         "type": "fight-on-death",
-        "target": "self",
+        "target": "unit",
         "modifier": {}
       }
     },
@@ -1717,7 +1717,7 @@
       },
       "effect": {
         "type": "fight-on-death",
-        "target": "self",
+        "target": "unit",
         "modifier": {}
       }
     },
@@ -2426,7 +2426,7 @@
       },
       "effect": {
         "type": "ability-grant",
-        "target": "self",
+        "target": "unit",
         "modifier": {
           "ability_id": "special-embark-rule"
         }
@@ -3209,7 +3209,7 @@
       },
       "effect": {
         "type": "fight-on-death",
-        "target": "self",
+        "target": "unit",
         "modifier": {}
       }
     },
@@ -4740,7 +4740,7 @@
       },
       "effect": {
         "type": "invulnerable-save",
-        "target": "self",
+        "target": "unit",
         "modifier": {
           "invuln_sv": 4
         }
@@ -6374,10 +6374,11 @@
         ]
       },
       "effect": {
-        "type": "attack-restriction",
-        "target": "self",
+        "type": "targeting-permission",
+        "target": "unit",
         "modifier": {
-          "restriction": "targeting-range-limit",
+          "attack_type": "ranged",
+          "gate": "within-range",
           "range": 12
         }
       }
@@ -8014,7 +8015,7 @@
       },
       "effect": {
         "type": "stat-modifier",
-        "target": "self",
+        "target": "unit",
         "modifier": {
           "stat": "aura-range",
           "operation": "add",
@@ -8520,10 +8521,11 @@
         ]
       },
       "effect": {
-        "type": "attack-restriction",
-        "target": "self",
+        "type": "targeting-permission",
+        "target": "unit",
         "modifier": {
-          "restriction": "targeting-range-limit",
+          "attack_type": "ranged",
+          "gate": "within-range",
           "range": 12
         }
       }
@@ -11193,7 +11195,7 @@
       },
       "effect": {
         "type": "fight-on-death",
-        "target": "self",
+        "target": "unit",
         "modifier": {}
       }
     },

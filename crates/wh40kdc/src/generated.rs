@@ -1749,6 +1749,29 @@ impl ::std::default::Default for ArmyCompositionPredicateUnitFilter {
 ///        "effect": {
 ///          "$ref": "#/$defs/effect-node"
 ///        },
+///        "eligible": {
+///          "type": "object",
+///          "minProperties": 1,
+///          "properties": {
+///            "excluded_keywords": {
+///              "type": "array",
+///              "items": {
+///                "type": "string",
+///                "minLength": 1
+///              },
+///              "minItems": 1
+///            },
+///            "required_keywords": {
+///              "type": "array",
+///              "items": {
+///                "type": "string",
+///                "minLength": 1
+///              },
+///              "minItems": 1
+///            }
+///          },
+///          "additionalProperties": false
+///        },
 ///        "of": {
 ///          "type": "string"
 ///        },
@@ -1809,6 +1832,29 @@ pub struct AuraEffect {
 ///    "effect": {
 ///      "$ref": "#/$defs/effect-node"
 ///    },
+///    "eligible": {
+///      "type": "object",
+///      "minProperties": 1,
+///      "properties": {
+///        "excluded_keywords": {
+///          "type": "array",
+///          "items": {
+///            "type": "string",
+///            "minLength": 1
+///          },
+///          "minItems": 1
+///        },
+///        "required_keywords": {
+///          "type": "array",
+///          "items": {
+///            "type": "string",
+///            "minLength": 1
+///          },
+///          "minItems": 1
+///        }
+///      },
+///      "additionalProperties": false
+///    },
 ///    "of": {
 ///      "type": "string"
 ///    },
@@ -1842,6 +1888,8 @@ pub struct AuraEffectModifier {
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub effect: ::std::option::Option<::std::boxed::Box<EffectNode>>,
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub eligible: ::std::option::Option<AuraEffectModifierEligible>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub of: ::std::option::Option<::std::string::String>,
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub range: ::std::option::Option<AuraEffectModifierRange>,
@@ -1852,10 +1900,211 @@ impl ::std::default::Default for AuraEffectModifier {
     fn default() -> Self {
         Self {
             effect: Default::default(),
+            eligible: Default::default(),
             of: Default::default(),
             range: Default::default(),
             range_bonus: Default::default(),
         }
+    }
+}
+///`AuraEffectModifierEligible`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "object",
+///  "minProperties": 1,
+///  "properties": {
+///    "excluded_keywords": {
+///      "type": "array",
+///      "items": {
+///        "type": "string",
+///        "minLength": 1
+///      },
+///      "minItems": 1
+///    },
+///    "required_keywords": {
+///      "type": "array",
+///      "items": {
+///        "type": "string",
+///        "minLength": 1
+///      },
+///      "minItems": 1
+///    }
+///  },
+///  "additionalProperties": false
+///}
+/// ```
+/// </details>
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
+#[serde(deny_unknown_fields)]
+pub struct AuraEffectModifierEligible {
+    #[serde(default, skip_serializing_if = "::std::vec::Vec::is_empty")]
+    pub excluded_keywords: ::std::vec::Vec<
+        AuraEffectModifierEligibleExcludedKeywordsItem,
+    >,
+    #[serde(default, skip_serializing_if = "::std::vec::Vec::is_empty")]
+    pub required_keywords: ::std::vec::Vec<
+        AuraEffectModifierEligibleRequiredKeywordsItem,
+    >,
+}
+impl ::std::default::Default for AuraEffectModifierEligible {
+    fn default() -> Self {
+        Self {
+            excluded_keywords: Default::default(),
+            required_keywords: Default::default(),
+        }
+    }
+}
+///`AuraEffectModifierEligibleExcludedKeywordsItem`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "string",
+///  "minLength": 1
+///}
+/// ```
+/// </details>
+#[derive(::serde::Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+#[serde(transparent)]
+pub struct AuraEffectModifierEligibleExcludedKeywordsItem(::std::string::String);
+impl ::std::ops::Deref for AuraEffectModifierEligibleExcludedKeywordsItem {
+    type Target = ::std::string::String;
+    fn deref(&self) -> &::std::string::String {
+        &self.0
+    }
+}
+impl ::std::convert::From<AuraEffectModifierEligibleExcludedKeywordsItem>
+for ::std::string::String {
+    fn from(value: AuraEffectModifierEligibleExcludedKeywordsItem) -> Self {
+        value.0
+    }
+}
+impl ::std::str::FromStr for AuraEffectModifierEligibleExcludedKeywordsItem {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        if value.chars().count() < 1usize {
+            return Err("shorter than 1 characters".into());
+        }
+        Ok(Self(value.to_string()))
+    }
+}
+impl ::std::convert::TryFrom<&str> for AuraEffectModifierEligibleExcludedKeywordsItem {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+for AuraEffectModifierEligibleExcludedKeywordsItem {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+for AuraEffectModifierEligibleExcludedKeywordsItem {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl<'de> ::serde::Deserialize<'de> for AuraEffectModifierEligibleExcludedKeywordsItem {
+    fn deserialize<D>(deserializer: D) -> ::std::result::Result<Self, D::Error>
+    where
+        D: ::serde::Deserializer<'de>,
+    {
+        ::std::string::String::deserialize(deserializer)?
+            .parse()
+            .map_err(|e: self::error::ConversionError| {
+                <D::Error as ::serde::de::Error>::custom(e.to_string())
+            })
+    }
+}
+///`AuraEffectModifierEligibleRequiredKeywordsItem`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "string",
+///  "minLength": 1
+///}
+/// ```
+/// </details>
+#[derive(::serde::Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+#[serde(transparent)]
+pub struct AuraEffectModifierEligibleRequiredKeywordsItem(::std::string::String);
+impl ::std::ops::Deref for AuraEffectModifierEligibleRequiredKeywordsItem {
+    type Target = ::std::string::String;
+    fn deref(&self) -> &::std::string::String {
+        &self.0
+    }
+}
+impl ::std::convert::From<AuraEffectModifierEligibleRequiredKeywordsItem>
+for ::std::string::String {
+    fn from(value: AuraEffectModifierEligibleRequiredKeywordsItem) -> Self {
+        value.0
+    }
+}
+impl ::std::str::FromStr for AuraEffectModifierEligibleRequiredKeywordsItem {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        if value.chars().count() < 1usize {
+            return Err("shorter than 1 characters".into());
+        }
+        Ok(Self(value.to_string()))
+    }
+}
+impl ::std::convert::TryFrom<&str> for AuraEffectModifierEligibleRequiredKeywordsItem {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+for AuraEffectModifierEligibleRequiredKeywordsItem {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+for AuraEffectModifierEligibleRequiredKeywordsItem {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl<'de> ::serde::Deserialize<'de> for AuraEffectModifierEligibleRequiredKeywordsItem {
+    fn deserialize<D>(deserializer: D) -> ::std::result::Result<Self, D::Error>
+    where
+        D: ::serde::Deserializer<'de>,
+    {
+        ::std::string::String::deserialize(deserializer)?
+            .parse()
+            .map_err(|e: self::error::ConversionError| {
+                <D::Error as ::serde::de::Error>::custom(e.to_string())
+            })
     }
 }
 ///`AuraEffectModifierRange`
@@ -2299,6 +2548,10 @@ impl ::std::convert::TryFrom<::std::string::String> for BattleSize {
 ///    "choice_label": {
 ///      "type": "string"
 ///    },
+///    "choice_prompt": {
+///      "type": "string",
+///      "minLength": 1
+///    },
 ///    "options": {
 ///      "type": "array",
 ///      "items": {
@@ -2317,9 +2570,83 @@ impl ::std::convert::TryFrom<::std::string::String> for BattleSize {
 pub struct ChoiceEffect {
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub choice_label: ::std::option::Option<::std::string::String>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub choice_prompt: ::std::option::Option<ChoiceEffectChoicePrompt>,
     pub options: ::std::vec::Vec<EffectNode>,
     #[serde(rename = "type")]
     pub type_: ::serde_json::Value,
+}
+///`ChoiceEffectChoicePrompt`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "string",
+///  "minLength": 1
+///}
+/// ```
+/// </details>
+#[derive(::serde::Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+#[serde(transparent)]
+pub struct ChoiceEffectChoicePrompt(::std::string::String);
+impl ::std::ops::Deref for ChoiceEffectChoicePrompt {
+    type Target = ::std::string::String;
+    fn deref(&self) -> &::std::string::String {
+        &self.0
+    }
+}
+impl ::std::convert::From<ChoiceEffectChoicePrompt> for ::std::string::String {
+    fn from(value: ChoiceEffectChoicePrompt) -> Self {
+        value.0
+    }
+}
+impl ::std::str::FromStr for ChoiceEffectChoicePrompt {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        if value.chars().count() < 1usize {
+            return Err("shorter than 1 characters".into());
+        }
+        Ok(Self(value.to_string()))
+    }
+}
+impl ::std::convert::TryFrom<&str> for ChoiceEffectChoicePrompt {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for ChoiceEffectChoicePrompt {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for ChoiceEffectChoicePrompt {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl<'de> ::serde::Deserialize<'de> for ChoiceEffectChoicePrompt {
+    fn deserialize<D>(deserializer: D) -> ::std::result::Result<Self, D::Error>
+    where
+        D: ::serde::Deserializer<'de>,
+    {
+        ::std::string::String::deserialize(deserializer)?
+            .parse()
+            .map_err(|e: self::error::ConversionError| {
+                <D::Error as ::serde::de::Error>::custom(e.to_string())
+            })
+    }
 }
 ///A feature placed on an area template, positioned in the area's centroid-local frame (y-down inches). When the area is placed, rotated, or mirrored, its composed features are carried along.
 ///
@@ -4885,6 +5212,9 @@ impl ::std::convert::From<EffectNode> for Effect {
 ///      "$ref": "#/$defs/single-effect"
 ///    },
 ///    {
+///      "$ref": "#/$defs/stance-select-effect"
+///    },
+///    {
 ///      "$ref": "#/$defs/choice-effect"
 ///    },
 ///    {
@@ -4903,6 +5233,9 @@ impl ::std::convert::From<EffectNode> for Effect {
 ///      "$ref": "#/$defs/select-units-effect"
 ///    },
 ///    {
+///      "$ref": "#/$defs/for-each-unit-effect"
+///    },
+///    {
 ///      "$ref": "#/$defs/movement-modifier-effect"
 ///    },
 ///    {
@@ -4910,9 +5243,6 @@ impl ::std::convert::From<EffectNode> for Effect {
 ///    },
 ///    {
 ///      "$ref": "#/$defs/designate-target-effect"
-///    },
-///    {
-///      "$ref": "#/$defs/stance-select-effect"
 ///    },
 ///    {
 ///      "$ref": "#/$defs/risk-reward-effect"
@@ -4928,22 +5258,28 @@ impl ::std::convert::From<EffectNode> for Effect {
 #[serde(untagged)]
 pub enum EffectNode {
     SingleEffect(SingleEffect),
+    StanceSelectEffect(StanceSelectEffect),
     ChoiceEffect(ChoiceEffect),
     SequenceEffect(SequenceEffect),
     DiceGatedEffect(DiceGatedEffect),
     ConditionalEffect(ConditionalEffect),
     DicePoolAllocationEffect(DicePoolAllocationEffect),
     SelectUnitsEffect(SelectUnitsEffect),
+    ForEachUnitEffect(ForEachUnitEffect),
     MovementModifierEffect(MovementModifierEffect),
     AuraEffect(AuraEffect),
     DesignateTargetEffect(DesignateTargetEffect),
-    StanceSelectEffect(StanceSelectEffect),
     RiskRewardEffect(RiskRewardEffect),
     IssueOrdersEffect(IssueOrdersEffect),
 }
 impl ::std::convert::From<SingleEffect> for EffectNode {
     fn from(value: SingleEffect) -> Self {
         Self::SingleEffect(value)
+    }
+}
+impl ::std::convert::From<StanceSelectEffect> for EffectNode {
+    fn from(value: StanceSelectEffect) -> Self {
+        Self::StanceSelectEffect(value)
     }
 }
 impl ::std::convert::From<ChoiceEffect> for EffectNode {
@@ -4976,6 +5312,11 @@ impl ::std::convert::From<SelectUnitsEffect> for EffectNode {
         Self::SelectUnitsEffect(value)
     }
 }
+impl ::std::convert::From<ForEachUnitEffect> for EffectNode {
+    fn from(value: ForEachUnitEffect) -> Self {
+        Self::ForEachUnitEffect(value)
+    }
+}
 impl ::std::convert::From<MovementModifierEffect> for EffectNode {
     fn from(value: MovementModifierEffect) -> Self {
         Self::MovementModifierEffect(value)
@@ -4989,11 +5330,6 @@ impl ::std::convert::From<AuraEffect> for EffectNode {
 impl ::std::convert::From<DesignateTargetEffect> for EffectNode {
     fn from(value: DesignateTargetEffect) -> Self {
         Self::DesignateTargetEffect(value)
-    }
-}
-impl ::std::convert::From<StanceSelectEffect> for EffectNode {
-    fn from(value: StanceSelectEffect) -> Self {
-        Self::StanceSelectEffect(value)
     }
 }
 impl ::std::convert::From<RiskRewardEffect> for EffectNode {
@@ -5527,6 +5863,169 @@ pub enum Footprint {
     RightTriangle { height: f64, width: f64 },
     #[serde(rename = "polygon")]
     Polygon { points: ::std::vec::Vec<Vec2> },
+}
+///`ForEachUnitEffect`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "object",
+///  "required": [
+///    "effect",
+///    "selector",
+///    "type"
+///  ],
+///  "properties": {
+///    "effect": {
+///      "$ref": "#/$defs/effect-node"
+///    },
+///    "selector": {
+///      "type": "object",
+///      "required": [
+///        "owner"
+///      ],
+///      "properties": {
+///        "owner": {
+///          "type": "string",
+///          "enum": [
+///            "friendly",
+///            "enemy"
+///          ]
+///        },
+///        "within_inches": {
+///          "type": "number",
+///          "exclusiveMinimum": 0.0
+///        }
+///      },
+///      "additionalProperties": false
+///    },
+///    "type": {
+///      "const": "for-each-unit"
+///    }
+///  },
+///  "additionalProperties": false,
+///  "$comment": "Resolve `effect` independently once for every matching unit, binding that unit as its target. `selector` has no count because it selects every eligible unit."
+///}
+/// ```
+/// </details>
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
+#[serde(deny_unknown_fields)]
+pub struct ForEachUnitEffect {
+    pub effect: ::std::boxed::Box<EffectNode>,
+    pub selector: ForEachUnitEffectSelector,
+    #[serde(rename = "type")]
+    pub type_: ::serde_json::Value,
+}
+///`ForEachUnitEffectSelector`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "object",
+///  "required": [
+///    "owner"
+///  ],
+///  "properties": {
+///    "owner": {
+///      "type": "string",
+///      "enum": [
+///        "friendly",
+///        "enemy"
+///      ]
+///    },
+///    "within_inches": {
+///      "type": "number",
+///      "exclusiveMinimum": 0.0
+///    }
+///  },
+///  "additionalProperties": false
+///}
+/// ```
+/// </details>
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
+#[serde(deny_unknown_fields)]
+pub struct ForEachUnitEffectSelector {
+    pub owner: ForEachUnitEffectSelectorOwner,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub within_inches: ::std::option::Option<f64>,
+}
+///`ForEachUnitEffectSelectorOwner`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "string",
+///  "enum": [
+///    "friendly",
+///    "enemy"
+///  ]
+///}
+/// ```
+/// </details>
+#[derive(
+    ::serde::Deserialize,
+    ::serde::Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd
+)]
+pub enum ForEachUnitEffectSelectorOwner {
+    #[serde(rename = "friendly")]
+    Friendly,
+    #[serde(rename = "enemy")]
+    Enemy,
+}
+impl ::std::fmt::Display for ForEachUnitEffectSelectorOwner {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::Friendly => f.write_str("friendly"),
+            Self::Enemy => f.write_str("enemy"),
+        }
+    }
+}
+impl ::std::str::FromStr for ForEachUnitEffectSelectorOwner {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "friendly" => Ok(Self::Friendly),
+            "enemy" => Ok(Self::Enemy),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for ForEachUnitEffectSelectorOwner {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for ForEachUnitEffectSelectorOwner {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for ForEachUnitEffectSelectorOwner {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
 }
 ///A 11e strategic-intent tag granted by detachments. Players compare dispositions at game start to determine the shared mission; asymmetric primary objectives result.
 ///
@@ -10716,6 +11215,7 @@ impl ::std::default::Default for ScalingRound {
 ///        "battle-round",
 ///        "battle",
 ///        "until-next-command-phase",
+///        "until-next-battle-round",
 ///        "one-use",
 ///        "permanent"
 ///      ]
@@ -10763,6 +11263,7 @@ pub struct Scope {
 ///    "battle-round",
 ///    "battle",
 ///    "until-next-command-phase",
+///    "until-next-battle-round",
 ///    "one-use",
 ///    "permanent"
 ///  ]
@@ -10792,6 +11293,8 @@ pub enum ScopeDuration {
     Battle,
     #[serde(rename = "until-next-command-phase")]
     UntilNextCommandPhase,
+    #[serde(rename = "until-next-battle-round")]
+    UntilNextBattleRound,
     #[serde(rename = "one-use")]
     OneUse,
     #[serde(rename = "permanent")]
@@ -10805,6 +11308,7 @@ impl ::std::fmt::Display for ScopeDuration {
             Self::BattleRound => f.write_str("battle-round"),
             Self::Battle => f.write_str("battle"),
             Self::UntilNextCommandPhase => f.write_str("until-next-command-phase"),
+            Self::UntilNextBattleRound => f.write_str("until-next-battle-round"),
             Self::OneUse => f.write_str("one-use"),
             Self::Permanent => f.write_str("permanent"),
         }
@@ -10821,6 +11325,7 @@ impl ::std::str::FromStr for ScopeDuration {
             "battle-round" => Ok(Self::BattleRound),
             "battle" => Ok(Self::Battle),
             "until-next-command-phase" => Ok(Self::UntilNextCommandPhase),
+            "until-next-battle-round" => Ok(Self::UntilNextBattleRound),
             "one-use" => Ok(Self::OneUse),
             "permanent" => Ok(Self::Permanent),
             _ => Err("invalid value".into()),
@@ -12877,11 +13382,39 @@ impl ::std::convert::TryFrom<::std::string::String> for SecondaryCardWhenDrawnOp
 ///    },
 ///    "selector": {
 ///      "type": "object",
+///      "oneOf": [
+///        {
+///          "not": {
+///            "required": [
+///              "max_count"
+///            ]
+///          },
+///          "required": [
+///            "count"
+///          ]
+///        },
+///        {
+///          "not": {
+///            "required": [
+///              "count"
+///            ]
+///          },
+///          "required": [
+///            "max_count"
+///          ]
+///        }
+///      ],
 ///      "required": [
-///        "max_count",
 ///        "owner"
 ///      ],
 ///      "properties": {
+///        "count": {
+///          "type": "integer",
+///          "minimum": 1.0
+///        },
+///        "eligibility": {
+///          "$ref": "#/$defs/condition"
+///        },
 ///        "keywords": {
 ///          "type": "array",
 ///          "items": {
@@ -12898,6 +13431,10 @@ impl ::std::convert::TryFrom<::std::string::String> for SecondaryCardWhenDrawnOp
 ///            "friendly",
 ///            "enemy"
 ///          ]
+///        },
+///        "within_inches": {
+///          "type": "number",
+///          "exclusiveMinimum": 0.0
 ///        }
 ///      },
 ///      "additionalProperties": false
@@ -12906,7 +13443,7 @@ impl ::std::convert::TryFrom<::std::string::String> for SecondaryCardWhenDrawnOp
 ///      "const": "select-units"
 ///    }
 ///  },
-///  "$comment": "Targeting wrapper: choose up to `selector.max_count` units matching `selector.keywords` of the named `owner`, then apply the nested `effect` to each. Models 'select up to N <keyword> units and do X' (redeploy, army-wide one-off buffs) that bare ability-grant labels previously flattened."
+///  "$comment": "Targeting wrapper: choose an exact `selector.count` or up to legacy `selector.max_count` units matching `selector.keywords` of the named `owner`, then apply the nested `effect` to each."
 ///}
 /// ```
 /// </details>
@@ -12924,11 +13461,39 @@ pub struct SelectUnitsEffect {
 /// ```json
 ///{
 ///  "type": "object",
+///  "oneOf": [
+///    {
+///      "not": {
+///        "required": [
+///          "max_count"
+///        ]
+///      },
+///      "required": [
+///        "count"
+///      ]
+///    },
+///    {
+///      "not": {
+///        "required": [
+///          "count"
+///        ]
+///      },
+///      "required": [
+///        "max_count"
+///      ]
+///    }
+///  ],
 ///  "required": [
-///    "max_count",
 ///    "owner"
 ///  ],
 ///  "properties": {
+///    "count": {
+///      "type": "integer",
+///      "minimum": 1.0
+///    },
+///    "eligibility": {
+///      "$ref": "#/$defs/condition"
+///    },
 ///    "keywords": {
 ///      "type": "array",
 ///      "items": {
@@ -12945,6 +13510,10 @@ pub struct SelectUnitsEffect {
 ///        "friendly",
 ///        "enemy"
 ///      ]
+///    },
+///    "within_inches": {
+///      "type": "number",
+///      "exclusiveMinimum": 0.0
 ///    }
 ///  },
 ///  "additionalProperties": false
@@ -12952,14 +13521,30 @@ pub struct SelectUnitsEffect {
 /// ```
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
-#[serde(deny_unknown_fields)]
-pub struct SelectUnitsEffectSelector {
-    #[serde(default, skip_serializing_if = "::std::vec::Vec::is_empty")]
-    pub keywords: ::std::vec::Vec<::std::string::String>,
-    pub max_count: ::std::num::NonZeroU64,
-    pub owner: SelectUnitsEffectSelectorOwner,
+#[serde(untagged, deny_unknown_fields)]
+pub enum SelectUnitsEffectSelector {
+    Variant0 {
+        count: ::std::num::NonZeroU64,
+        #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+        eligibility: ::std::option::Option<Condition>,
+        #[serde(default, skip_serializing_if = "::std::vec::Vec::is_empty")]
+        keywords: ::std::vec::Vec<::std::string::String>,
+        owner: SelectUnitsEffectSelectorVariant0Owner,
+        #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+        within_inches: ::std::option::Option<f64>,
+    },
+    Variant1 {
+        #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+        eligibility: ::std::option::Option<Condition>,
+        #[serde(default, skip_serializing_if = "::std::vec::Vec::is_empty")]
+        keywords: ::std::vec::Vec<::std::string::String>,
+        max_count: ::std::num::NonZeroU64,
+        owner: SelectUnitsEffectSelectorVariant1Owner,
+        #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+        within_inches: ::std::option::Option<f64>,
+    },
 }
-///`SelectUnitsEffectSelectorOwner`
+///`SelectUnitsEffectSelectorVariant0Owner`
 ///
 /// <details><summary>JSON schema</summary>
 ///
@@ -12985,13 +13570,13 @@ pub struct SelectUnitsEffectSelector {
     PartialEq,
     PartialOrd
 )]
-pub enum SelectUnitsEffectSelectorOwner {
+pub enum SelectUnitsEffectSelectorVariant0Owner {
     #[serde(rename = "friendly")]
     Friendly,
     #[serde(rename = "enemy")]
     Enemy,
 }
-impl ::std::fmt::Display for SelectUnitsEffectSelectorOwner {
+impl ::std::fmt::Display for SelectUnitsEffectSelectorVariant0Owner {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
             Self::Friendly => f.write_str("friendly"),
@@ -12999,7 +13584,7 @@ impl ::std::fmt::Display for SelectUnitsEffectSelectorOwner {
         }
     }
 }
-impl ::std::str::FromStr for SelectUnitsEffectSelectorOwner {
+impl ::std::str::FromStr for SelectUnitsEffectSelectorVariant0Owner {
     type Err = self::error::ConversionError;
     fn from_str(
         value: &str,
@@ -13011,7 +13596,7 @@ impl ::std::str::FromStr for SelectUnitsEffectSelectorOwner {
         }
     }
 }
-impl ::std::convert::TryFrom<&str> for SelectUnitsEffectSelectorOwner {
+impl ::std::convert::TryFrom<&str> for SelectUnitsEffectSelectorVariant0Owner {
     type Error = self::error::ConversionError;
     fn try_from(
         value: &str,
@@ -13019,7 +13604,8 @@ impl ::std::convert::TryFrom<&str> for SelectUnitsEffectSelectorOwner {
         value.parse()
     }
 }
-impl ::std::convert::TryFrom<&::std::string::String> for SelectUnitsEffectSelectorOwner {
+impl ::std::convert::TryFrom<&::std::string::String>
+for SelectUnitsEffectSelectorVariant0Owner {
     type Error = self::error::ConversionError;
     fn try_from(
         value: &::std::string::String,
@@ -13027,7 +13613,86 @@ impl ::std::convert::TryFrom<&::std::string::String> for SelectUnitsEffectSelect
         value.parse()
     }
 }
-impl ::std::convert::TryFrom<::std::string::String> for SelectUnitsEffectSelectorOwner {
+impl ::std::convert::TryFrom<::std::string::String>
+for SelectUnitsEffectSelectorVariant0Owner {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+///`SelectUnitsEffectSelectorVariant1Owner`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "string",
+///  "enum": [
+///    "friendly",
+///    "enemy"
+///  ]
+///}
+/// ```
+/// </details>
+#[derive(
+    ::serde::Deserialize,
+    ::serde::Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd
+)]
+pub enum SelectUnitsEffectSelectorVariant1Owner {
+    #[serde(rename = "friendly")]
+    Friendly,
+    #[serde(rename = "enemy")]
+    Enemy,
+}
+impl ::std::fmt::Display for SelectUnitsEffectSelectorVariant1Owner {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::Friendly => f.write_str("friendly"),
+            Self::Enemy => f.write_str("enemy"),
+        }
+    }
+}
+impl ::std::str::FromStr for SelectUnitsEffectSelectorVariant1Owner {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "friendly" => Ok(Self::Friendly),
+            "enemy" => Ok(Self::Enemy),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for SelectUnitsEffectSelectorVariant1Owner {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+for SelectUnitsEffectSelectorVariant1Owner {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+for SelectUnitsEffectSelectorVariant1Owner {
     type Error = self::error::ConversionError;
     fn try_from(
         value: ::std::string::String,
@@ -13558,6 +14223,18 @@ impl ::std::convert::TryFrom<::std::string::String> for SimpleConditionType {
 ///      "$comment": "`disembark-after-move`: a Transport modifies disembarkation. `after` is the move that enables it (`normal-move` | `advance` | `deployment` | `before-move`); `can_charge` is whether the disembarked unit may then declare a charge; `requires_keyword` gates it on a keyword (e.g. Deep Strike for Aerial Assault); `counts_as_normal_move` marks the disembarked unit as having made a Normal move (Assault Vehicle). An absent modifier renders the bare 'after it has moved' form. `mandatory` marks a Reserves-transport whose cargo MUST disembark on arrival (Drop Pod); `min_enemy_distance` is the inches the disembarking units must be set up away from all enemy models. For `after: deployment` the charge tail renders only when `can_charge` is explicit (a deployment-step disembark has no charge window)."
 ///    },
 ///    {
+///      "$comment": "`recovery-pool`: recover a unit's wounds using the closed dice expression, first healing wounded models and then returning destroyed models at one wound. With `target: all-friendly`, `per_target_unit: true` rolls and allocates an independent pool for every eligible friendly unit."
+///    },
+///    {
+///      "$comment": "`stratagem-targeting-permission`: an attached unit can be selected as a Stratagem target despite the named exception."
+///    },
+///    {
+///      "$comment": "`bind_count_as` binds a dice-valued mortal-wound count for a following local consumer."
+///    },
+///    {
+///      "$comment": "`count_from` consumes a preceding local bound count for a wounds-form resurrection."
+///    },
+///    {
 ///      "$comment": "`unit-attachment`: this unit can join another friendly unit during the Declare Battle Formations step, becoming part of that Bodyguard unit. `led_by` (optional) is the keyword the joined unit must be led by; `mandatory` (optional) marks the attachment as forced (the unit must be attached to a Leader or it counts as destroyed)."
 ///    }
 ///  ],
@@ -13640,8 +14317,10 @@ impl ::std::convert::TryFrom<::std::string::String> for SimpleConditionType {
 ///        "modifier-immunity",
 ///        "stratagem-cost-modifier",
 ///        "targeting-permission",
+///        "stratagem-targeting-permission",
 ///        "unit-attachment",
-///        "fight-eligibility-extension"
+///        "fight-eligibility-extension",
+///        "recovery-pool"
 ///      ]
 ///    }
 ///  },
@@ -13836,8 +14515,10 @@ impl ::std::convert::TryFrom<::std::string::String> for SingleEffectTarget {
 ///    "modifier-immunity",
 ///    "stratagem-cost-modifier",
 ///    "targeting-permission",
+///    "stratagem-targeting-permission",
 ///    "unit-attachment",
-///    "fight-eligibility-extension"
+///    "fight-eligibility-extension",
+///    "recovery-pool"
 ///  ]
 ///}
 /// ```
@@ -13951,10 +14632,14 @@ pub enum SingleEffectType {
     StratagemCostModifier,
     #[serde(rename = "targeting-permission")]
     TargetingPermission,
+    #[serde(rename = "stratagem-targeting-permission")]
+    StratagemTargetingPermission,
     #[serde(rename = "unit-attachment")]
     UnitAttachment,
     #[serde(rename = "fight-eligibility-extension")]
     FightEligibilityExtension,
+    #[serde(rename = "recovery-pool")]
+    RecoveryPool,
 }
 impl ::std::fmt::Display for SingleEffectType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
@@ -14007,8 +14692,12 @@ impl ::std::fmt::Display for SingleEffectType {
             Self::ModifierImmunity => f.write_str("modifier-immunity"),
             Self::StratagemCostModifier => f.write_str("stratagem-cost-modifier"),
             Self::TargetingPermission => f.write_str("targeting-permission"),
+            Self::StratagemTargetingPermission => {
+                f.write_str("stratagem-targeting-permission")
+            }
             Self::UnitAttachment => f.write_str("unit-attachment"),
             Self::FightEligibilityExtension => f.write_str("fight-eligibility-extension"),
+            Self::RecoveryPool => f.write_str("recovery-pool"),
         }
     }
 }
@@ -14066,8 +14755,10 @@ impl ::std::str::FromStr for SingleEffectType {
             "modifier-immunity" => Ok(Self::ModifierImmunity),
             "stratagem-cost-modifier" => Ok(Self::StratagemCostModifier),
             "targeting-permission" => Ok(Self::TargetingPermission),
+            "stratagem-targeting-permission" => Ok(Self::StratagemTargetingPermission),
             "unit-attachment" => Ok(Self::UnitAttachment),
             "fight-eligibility-extension" => Ok(Self::FightEligibilityExtension),
+            "recovery-pool" => Ok(Self::RecoveryPool),
             _ => Err("invalid value".into()),
         }
     }

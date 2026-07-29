@@ -550,6 +550,13 @@ export class Dataset {
    *
    * `weaponProfiles` are ignored under target perspective — weapon-keyword
    * effects ride with the firing weapon, not the receiving unit.
+   *
+   * Abilities pooled in from `attachedUnitIds` obey core rule 19.04: an effect
+   * targeting a single model (DSL `self`/`bearer`, e.g. an attached character's
+   * personal invulnerable save) is *not* returned as a buff on the combined
+   * unit — it stays on its own model and surfaces in
+   * {@link AbilityView.describeBuffs}'s `unsupported` list instead. Effects
+   * targeting the unit (`unit`/`attached-unit`) do reach the whole unit.
    */
   defensiveBuffsFor(
     input: EligibilityInput & { optedInStratagemIds?: string[] },

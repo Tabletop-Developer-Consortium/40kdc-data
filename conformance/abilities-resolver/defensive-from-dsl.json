@@ -30,6 +30,51 @@
         "applied": [],
         "unsupportedReasons": []
       }
+    },
+    {
+      "_comment": "Core rule 19.04: a model-scoped effect (target self/bearer) read as the chosen unit's own ability still buffs it — the Archon's personal 4+ invulnerable save applies when the Archon is the unit being crunched.",
+      "abilityId": "shadowfield",
+      "source": { "kind": "ability", "abilityId": "shadowfield", "abilityKind": "unit" },
+      "context": { "phase": "shooting" },
+      "perspective": "target",
+      "expected": {
+        "applied": [{ "type": "invulnerable-save", "threshold": 4 }],
+        "unsupportedReasons": []
+      }
+    },
+    {
+      "_comment": "…but the same effect pooled in from an attached member stays on that model: no buff on the combined unit, one diagnostic instead.",
+      "abilityId": "shadowfield",
+      "source": {
+        "kind": "ability",
+        "abilityId": "shadowfield",
+        "abilityKind": "attached",
+        "sourceUnitId": "archon"
+      },
+      "context": { "phase": "shooting" },
+      "perspective": "target",
+      "expected": {
+        "applied": [],
+        "unsupportedReasons": [
+          "model-scoped effect from an attached model: applies to that model only (core rule 19.04)"
+        ]
+      }
+    },
+    {
+      "_comment": "The counterpart: a genuinely unit-scoped leader rule (target unit — 'models in that unit have a 4+ invulnerable save') still reaches the whole combined unit from an attached source. Guards against the 19.04 gate over-reaching.",
+      "abilityId": "mental-fortress-psychic",
+      "source": {
+        "kind": "ability",
+        "abilityId": "mental-fortress-psychic",
+        "abilityKind": "attached",
+        "sourceUnitId": "librarian"
+      },
+      "context": { "phase": "shooting", "attackerAttached": true },
+      "perspective": "target",
+      "expected": {
+        "applied": [{ "type": "invulnerable-save", "threshold": 4 }],
+        "unsupportedReasons": []
+      }
     }
   ]
 }

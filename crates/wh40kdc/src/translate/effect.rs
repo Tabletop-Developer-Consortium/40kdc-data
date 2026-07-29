@@ -14,13 +14,13 @@ use super::{
 };
 use crate::generated::{
     Ability, AbilityAppliesTo, AbilityTrigger, AbilityUsage, AbilityUsageFrequency, AuraEffect,
-    AuraEffectModifierRange, AuraEffectTarget, CompoundConditionOperator, ConditionNode,
+    AuraEffectModifierRange, AuraEffectTarget, CompoundConditionOperator, Condition, ConditionNode,
     DesignateTargetEffectAppliesTo, DesignateTargetEffectSelectScope, DiceGatedEffect,
     DiceGatedEffectComparison, DiceGatedEffectThreshold, DicePoolAllocationEffect,
     DiceRequirementSpec, EffectNode, MovementModifierEffect, Scaling, ScalingOf, ScalingRound,
-    Scope, ScopeRange, SelectUnitsEffectSelector, SelectUnitsEffectSelectorOwner,
-    SimpleConditionType, SingleEffect, SingleEffectType, StanceSelectEffectMode, Trigger,
-    TriggerMoveTypesItem, TriggerProximityOf,
+    Scope, ScopeRange, SelectUnitsEffectSelector, SimpleConditionType, SingleEffect,
+    SingleEffectTarget, SingleEffectType, StanceSelectEffectMode, Trigger, TriggerMoveTypesItem,
+    TriggerProximityOf,
 };
 
 /// Rendering context threaded from the ability (scope info the leaf needs).
@@ -33,6 +33,9 @@ struct Ctx {
     /// `any-on-battlefield`) whose within-aura subjects have a real extent the
     /// generic " nearby" fallback would drop.
     scope_range: Option<ScopeRange>,
+    /// True inside a `select-units` nested effect: a bare `unit` target refers
+    /// to the selected unit ("that unit"), not the ability's generic subject.
+    selected_unit: bool,
 }
 
 /// JS-template stringification (`String(v)`; numbers print without `.0`, null → `?`).
@@ -317,6 +320,7 @@ fn subject(target: &str, ctx: &Ctx) -> String {
     };
     match target {
         "self" | "bearer" => "this model".to_string(),
+        "unit" if ctx.selected_unit => "that unit".to_string(),
         "unit" => "the unit".to_string(),
         "attached-unit" => "the unit this model leads".to_string(),
         "target" => "the target".to_string(),
@@ -405,7 +409,14 @@ fn duration_clauses(duration: &str) -> (String, String) {
             String::new(),
             "until the end of the battle round".to_string(),
         ),
-        "until-next-command-phase" => (String::new(), "until your next Command phase".to_string()),
+        "until-next-command-phase" => (
+            String::new(),
+            "until the start of your next Command phase".to_string(),
+        ),
+        "until-next-battle-round" => (
+            String::new(),
+            "until the start of the next battle round".to_string(),
+        ),
         "one-use" => ("once per battle".to_string(), String::new()),
         _ => (String::new(), String::new()),
     }
@@ -532,16 +543,39 @@ fn join_and_lead_ins(operands: &[ConditionNode]) -> String {
     acc
 }
 
+/// Join `or` operands exactly as the TypeScript lead-in renderer: an
+/// all-keyword disjunction becomes a shared keyword list; mixed disjunctions
+/// retain each operand's natural framing.
+fn join_or_lead_ins(operands: &[ConditionNode]) -> String {
+    let keyword_operands = operands.iter().all(|operand| {
+        matches!(
+            operand,
+            ConditionNode::SimpleCondition(s)
+                if !s.negated && s.type_ == SimpleConditionType::UnitHasKeyword
+        )
+    });
+    if keyword_operands {
+        let keywords = operands
+            .iter()
+            .filter_map(|operand| match operand {
+                ConditionNode::SimpleCondition(s) => Some(jv(&s.parameters, "keyword")),
+                _ => None,
+            })
+            .collect::<Vec<_>>();
+        return format!("if the unit has the {} keywords", or_list(&keywords));
+    }
+    operands
+        .iter()
+        .map(condition_lead_in)
+        .collect::<Vec<_>>()
+        .join(" or ")
+}
+
 fn condition_lead_in(n: &ConditionNode) -> String {
     match n {
         ConditionNode::CompoundCondition(c) => match c.operator {
             CompoundConditionOperator::And => join_and_lead_ins(&c.operands),
-            CompoundConditionOperator::Or => c
-                .operands
-                .iter()
-                .map(condition_lead_in)
-                .collect::<Vec<_>>()
-                .join(" or "),
+            CompoundConditionOperator::Or => join_or_lead_ins(&c.operands),
             CompoundConditionOperator::Not => {
                 let parts: Vec<String> = c.operands.iter().map(condition_lead_in).collect();
                 format!(
@@ -582,7 +616,7 @@ fn condition_lead_in(n: &ConditionNode) -> String {
                         Some(k) => format!("{k} "),
                         None => String::new(),
                     };
-                    format!("after being attached to a {kw}unit")
+                    format!("while this model is leading a {kw}unit")
                 }
                 T::TimingIs => describe_timing(nstr(p, "timing").unwrap_or("?")),
                 T::PlayerTurnIs => match nstr(p, "turn") {
@@ -1097,19 +1131,51 @@ fn aura_clause(e: &AuraEffect, ctx: &Ctx) -> String {
         Some(AuraEffectModifierRange::Integer(n)) => Some(format!("{n}\"")),
         None => None,
     };
+    let eligibility = aura_eligibility(m.eligible.as_ref());
     let who = if e.target == AuraEffectTarget::FriendlyWithinAura {
-        "each friendly unit"
+        format!("each friendly{eligibility} unit")
     } else {
-        "each enemy unit"
+        format!("each enemy{eligibility} unit")
     };
     let within = match &range_text {
         Some(rt) => format!("{who} within {rt}"),
         None => who.to_string(),
     };
     match &m.effect {
-        Some(inner) => format!("{within} {}", inline(inner, ctx)),
+        Some(inner) => {
+            let recipient_ctx = Ctx {
+                selected_unit: m.eligible.is_some(),
+                ..*ctx
+            };
+            format!("{within} {}", inline(inner, &recipient_ctx))
+        }
         None => format!("{within} is affected"),
     }
+}
+
+/// Keyword constraints on an aura recipient, rendered as part of its noun phrase.
+fn aura_eligibility(eligible: Option<&impl serde::Serialize>) -> String {
+    let Some(eligible) = eligible else {
+        return String::new();
+    };
+    let Ok(Value::Object(eligible)) = serde_json::to_value(eligible) else {
+        return String::new();
+    };
+    let required = eligible
+        .get("required_keywords")
+        .and_then(Value::as_array)
+        .map(|keywords| keywords.iter().map(jval).collect::<Vec<_>>().join(" "))
+        .filter(|keywords| !keywords.is_empty())
+        .map(|keywords| format!(" {keywords}"))
+        .unwrap_or_default();
+    let excluded = eligible
+        .get("excluded_keywords")
+        .and_then(Value::as_array)
+        .map(|keywords| keywords.iter().map(jval).collect::<Vec<_>>().join(" "))
+        .filter(|keywords| !keywords.is_empty())
+        .map(|keywords| format!(" (excluding {keywords} units)"))
+        .unwrap_or_default();
+    format!("{required}{excluded}")
 }
 
 /// Resurrection `placement` modifier → a "where it is set up" clause.
@@ -1147,7 +1213,9 @@ fn describe_single(e: &SingleEffect, ctx: &Ctx) -> String {
 
     match e.type_ {
         T::StatModifier => {
-            let scope = if truthy(m, "attack_type") {
+            let scope = if notnull(m, "weapon_type") {
+                format!(" for {} weapons", jv(m, "weapon_type"))
+            } else if truthy(m, "attack_type") {
                 format!(" ({})", jv(m, "attack_type"))
             } else {
                 String::new()
@@ -1161,6 +1229,19 @@ fn describe_single(e: &SingleEffect, ctx: &Ctx) -> String {
             if nstr(m, "operation") == Some("set") {
                 return format!(
                     "modify {} to {}{scope}",
+                    of_or_possessive(
+                        &subj,
+                        &format!(
+                            "{} characteristic",
+                            stat_name(m.get("stat").unwrap_or(&Value::Null))
+                        )
+                    ),
+                    jv(m, "value")
+                );
+            }
+            if nstr(m, "operation") == Some("improve") {
+                return format!(
+                    "improve {} by {}{scope}",
                     of_or_possessive(
                         &subj,
                         &format!(
@@ -1346,6 +1427,9 @@ fn describe_single(e: &SingleEffect, ctx: &Ctx) -> String {
                 );
             }
             let amt = a.unwrap_or_else(|| "?".to_string());
+            if notnull(m, "bind_count_as") {
+                return format!("roll one {amt}: {subj_mw} {verb} that many mortal wounds");
+            }
             let noun = if amt == "1" {
                 "mortal wound"
             } else {
@@ -1515,6 +1599,16 @@ fn describe_single(e: &SingleEffect, ctx: &Ctx) -> String {
                 .unwrap_or_else(|| "1".to_string());
             // `type: "wounds"` is a heal (regained wounds), not a revive.
             if nstr(m, "type") == Some("wounds") || notnull(m, "wounds") {
+                // A bound scalar count (Matter Absorption-style): the healed
+                // amount was already rolled and reported upstream by a
+                // `bind_count_as` producer; refer to it instead of repeating
+                // the dice expression.
+                if notnull(m, "count_from") {
+                    return format!(
+                        "{subj} {} up to that many lost wounds",
+                        agree(&subj, "regains")
+                    );
+                }
                 let healed = first(m, &["wounds"]).map(dice_case).unwrap_or(count);
                 let noun = if healed == "1" {
                     "lost wound"
@@ -1552,6 +1646,20 @@ fn describe_single(e: &SingleEffect, ctx: &Ctx) -> String {
                 "destroyed models"
             };
             format!("return {count} {noun} to {subj} with {wounds} wounds{tail_clause}")
+        }
+        T::RecoveryPool => {
+            let allocation = "first using them to regain lost wounds on wounded models and then using any remaining points to return destroyed models to the unit with 1 wound remaining, stopping when the unit is at full strength and all its models have their full wounds; any unallocated points are lost";
+            if e.target == SingleEffectTarget::AllFriendly {
+                format!(
+                    "roll {} recovery points independently for each friendly unit, {allocation}",
+                    dice_case(m.get("dice").unwrap_or(&Value::Null))
+                )
+            } else {
+                format!(
+                    "roll {} recovery points for the unit, {allocation}",
+                    dice_case(m.get("dice").unwrap_or(&Value::Null))
+                )
+            }
         }
         T::ModelDestruction => {
             let count = first(m, &["count"])
@@ -1752,6 +1860,12 @@ fn describe_single(e: &SingleEffect, ctx: &Ctx) -> String {
             };
             format!("{subj} can only be selected as the target of {at} if {gate}")
         }
+        T::StratagemTargetingPermission => match nstr(m, "exception") {
+            Some("battle-shocked") => {
+                format!("{subj} can be targeted with Stratagems even while Battle-shocked")
+            }
+            _ => format!("{subj} can be targeted with Stratagems"),
+        },
         T::ResourceGain => {
             let amount = first(m, &["amount", "value"])
                 .map(jval)
@@ -2156,13 +2270,20 @@ fn inline(e: &EffectNode, ctx: &Ctx) -> String {
             .collect::<Vec<_>>()
             .join("; "),
         EffectNode::ChoiceEffect(c) => {
-            let label = c
-                .choice_label
+            let prompt = c
+                .choice_prompt
                 .as_deref()
-                .map(|l| format!(" ({})", title_case(l)))
-                .unwrap_or_default();
+                .map(|prompt| prompt.to_string())
+                .unwrap_or_else(|| {
+                    let label = c
+                        .choice_label
+                        .as_deref()
+                        .map(|l| format!(" ({})", title_case(l)))
+                        .unwrap_or_default();
+                    format!("select one of the following{label}")
+                });
             format!(
-                "select one of the following{label}: {}",
+                "{prompt}: {}",
                 c.options
                     .iter()
                     .map(|o| inline(o, ctx))
@@ -2177,11 +2298,28 @@ fn inline(e: &EffectNode, ctx: &Ctx) -> String {
             d.pool.die,
             dice_pool_options_inline(d, ctx)
         ),
-        EffectNode::SelectUnitsEffect(s) => format!(
-            "select {}: {}",
-            select_units_subject(&s.selector),
-            inline(&s.effect, ctx)
-        ),
+        EffectNode::SelectUnitsEffect(s) => {
+            let inner_ctx = Ctx {
+                selected_unit: true,
+                ..*ctx
+            };
+            format!(
+                "select {}: {}",
+                select_units_subject(&s.selector),
+                inline(&s.effect, &inner_ctx)
+            )
+        }
+        EffectNode::ForEachUnitEffect(f) => {
+            let inner_ctx = Ctx {
+                selected_unit: true,
+                ..*ctx
+            };
+            format!(
+                "for each {}: {}",
+                for_each_unit_subject(&f.selector),
+                inline(&f.effect, &inner_ctx)
+            )
+        }
         EffectNode::DesignateTargetEffect(d) => {
             let scope_noun = match d.select.scope {
                 DesignateTargetEffectSelectScope::FriendlyUnit => "friendly",
@@ -2261,27 +2399,103 @@ fn movement_modifier_map(mm: &MovementModifierEffect) -> Map<String, Value> {
 
 /// "up to 3 friendly Orks Vehicle units" — the `select-units` selector phrase.
 fn select_units_subject(sel: &SelectUnitsEffectSelector) -> String {
-    let kw = sel
-        .keywords
+    match sel {
+        SelectUnitsEffectSelector::Variant0 {
+            count,
+            keywords,
+            owner,
+            within_inches,
+            eligibility,
+        } => select_units_subject_parts(
+            *count,
+            true,
+            keywords,
+            *owner,
+            *within_inches,
+            eligibility.as_ref(),
+        ),
+        SelectUnitsEffectSelector::Variant1 {
+            keywords,
+            max_count,
+            owner,
+            within_inches,
+            eligibility,
+        } => select_units_subject_parts(
+            *max_count,
+            false,
+            keywords,
+            *owner,
+            *within_inches,
+            eligibility.as_ref(),
+        ),
+    }
+}
+
+fn select_units_subject_parts(
+    count: std::num::NonZeroU64,
+    exact_count: bool,
+    keywords: &[String],
+    owner: impl std::fmt::Display,
+    within_inches: Option<f64>,
+    eligibility: Option<&Condition>,
+) -> String {
+    let eligibility = eligibility
+        .map(selection_eligibility)
+        .map(|predicate| format!(" that {predicate}"))
+        .unwrap_or_default();
+    let keywords = keywords
         .iter()
-        .map(|k| title_case(k))
+        .map(|keyword| title_case(keyword))
         .collect::<Vec<_>>()
         .join(" ");
-    let owner = match sel.owner {
-        SelectUnitsEffectSelectorOwner::Friendly => "friendly",
-        SelectUnitsEffectSelectorOwner::Enemy => "enemy",
-    };
-    let noun = if sel.max_count.get() == 1 {
-        "unit"
-    } else {
-        "units"
-    };
-    let kw = if kw.is_empty() {
+    let keywords = if keywords.is_empty() {
         String::new()
     } else {
-        format!(" {kw}")
+        format!(" {keywords}")
     };
-    format!("up to {} {owner}{kw} {noun}", sel.max_count)
+    let within = within_inches
+        .map(|range| format!(" within {}\"", fmt_num(range)))
+        .unwrap_or_default();
+    let quantity = if exact_count && count.get() == 1 {
+        "one".to_string()
+    } else {
+        count.get().to_string()
+    };
+    let noun = if count.get() == 1 { "unit" } else { "units" };
+    if exact_count {
+        format!("{quantity} {owner}{keywords} {noun}{within}{eligibility}")
+    } else {
+        format!("up to {quantity} {owner}{keywords} {noun}{within}{eligibility}")
+    }
+}
+
+fn selection_eligibility(condition: &Condition) -> String {
+    if matches!(
+        &condition.0,
+        ConditionNode::SimpleCondition(simple)
+            if !simple.negated && simple.type_ == SimpleConditionType::IsBattleShocked
+    ) {
+        return "is Battle-shocked".to_string();
+    }
+    let predicate = describe_node(&condition.0);
+    predicate
+        .strip_prefix("the unit ")
+        .unwrap_or(&predicate)
+        .to_string()
+}
+
+/// "each enemy unit within 6\"" — the `for-each-unit` selector phrase.
+fn for_each_unit_subject(selector: &impl serde::Serialize) -> String {
+    let selector = serde_json::to_value(selector).unwrap_or(Value::Null);
+    let owner = selector
+        .get("owner")
+        .map(jval)
+        .unwrap_or_else(|| "?".to_string());
+    let within = selector
+        .get("within_inches")
+        .map(|range| format!(" within {}\"", jval(range)))
+        .unwrap_or_default();
+    format!("{owner} unit{within}")
 }
 
 fn dice_gated_inline(d: &DiceGatedEffect, ctx: &Ctx) -> String {
@@ -2359,6 +2573,7 @@ fn is_container(e: &EffectNode) -> bool {
             | EffectNode::DiceGatedEffect(_)
             | EffectNode::DicePoolAllocationEffect(_)
             | EffectNode::SelectUnitsEffect(_)
+            | EffectNode::ForEachUnitEffect(_)
             | EffectNode::DesignateTargetEffect(_)
             | EffectNode::StanceSelectEffect(_)
             | EffectNode::RiskRewardEffect(_)
@@ -2399,18 +2614,25 @@ fn block(e: &EffectNode, depth: usize, ctx: &Ctx) -> String {
             .collect::<Vec<_>>()
             .join("\n"),
         EffectNode::ChoiceEffect(c) => {
-            let label = c
-                .choice_label
+            let prompt = c
+                .choice_prompt
                 .as_deref()
-                .map(|l| format!(" ({})", title_case(l)))
-                .unwrap_or_default();
+                .map(|prompt| prompt.to_string())
+                .unwrap_or_else(|| {
+                    let label = c
+                        .choice_label
+                        .as_deref()
+                        .map(|l| format!(" ({})", title_case(l)))
+                        .unwrap_or_default();
+                    format!("select one of the following{label}")
+                });
             let options = c
                 .options
                 .iter()
                 .map(|o| format!("{indent}  - {}.", capitalize(&inline(o, ctx))))
                 .collect::<Vec<_>>()
                 .join("\n");
-            format!("{indent}Select one of the following{label}:\n{options}")
+            format!("{indent}{}:\n{options}", capitalize(&prompt))
         }
         EffectNode::DiceGatedEffect(d) => {
             let comp = format_comparison(d.comparison, &d.threshold);
@@ -2446,11 +2668,34 @@ fn block(e: &EffectNode, depth: usize, ctx: &Ctx) -> String {
         }
         EffectNode::SelectUnitsEffect(s) => {
             let inner = &*s.effect;
+            let inner_ctx = Ctx {
+                selected_unit: true,
+                ..*ctx
+            };
             let lead = format!("Select {}", select_units_subject(&s.selector));
             if is_container(inner) {
-                format!("{indent}{arrow}{lead}:\n{}", block(inner, depth + 1, ctx))
+                format!("{indent}{lead}:\n{}", block(inner, depth + 1, &inner_ctx))
             } else {
-                format!("{indent}{arrow}{lead}: {}.", inline(inner, ctx))
+                format!(
+                    "{indent}{lead}: {}.",
+                    capitalize(&inline(inner, &inner_ctx))
+                )
+            }
+        }
+        EffectNode::ForEachUnitEffect(f) => {
+            let inner = &*f.effect;
+            let inner_ctx = Ctx {
+                selected_unit: true,
+                ..*ctx
+            };
+            let lead = format!("For each {}", for_each_unit_subject(&f.selector));
+            if is_container(inner) {
+                format!("{indent}{lead}:\n{}", block(inner, depth + 1, &inner_ctx))
+            } else {
+                format!(
+                    "{indent}{lead}: {}.",
+                    capitalize(&inline(inner, &inner_ctx))
+                )
             }
         }
         EffectNode::DesignateTargetEffect(d) => {
@@ -2723,6 +2968,7 @@ fn render_top_level(
             .map(|s| matches!(s.range, ScopeRange::EngagementRange))
             .unwrap_or(false),
         scope_range: scope.map(|s| s.range),
+        selected_unit: false,
     };
     let duration = scope.map(|s| s.duration.to_string()).unwrap_or_default();
     let (dur_lead, trail) = duration_clauses(&duration);

@@ -2377,7 +2377,7 @@
       },
       "effect": {
         "type": "invulnerable-save",
-        "target": "self",
+        "target": "unit",
         "modifier": {
           "invuln_sv": 4
         }
@@ -2772,7 +2772,7 @@
       },
       "effect": {
         "type": "fight-on-death",
-        "target": "self",
+        "target": "unit",
         "modifier": {}
       }
     },
@@ -6124,7 +6124,7 @@
     "version": "2025-q3",
     "effect": {
       "type": "keyword-grant",
-      "target": "self",
+      "target": "unit",
       "modifier": {
         "keywords": [
           "sustained-hits"

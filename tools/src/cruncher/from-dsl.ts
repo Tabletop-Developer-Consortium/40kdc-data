@@ -18,6 +18,11 @@
  * unsupported — those are defender-side mods and would surface from the
  * target's perspective (M3 work), not the attacker's.
  *
+ * The one exception is core rule 19.04: `self`/`bearer` name a single *model*,
+ * so when such an effect is pooled in from another member of a combined unit
+ * (`source.abilityKind === "attached"`) it stays on that model and is reported
+ * as `unsupported` rather than buffing the whole unit.
+ *
  * @packageDocumentation
  */
 import type {
@@ -106,6 +111,41 @@ const SELF_TARGETS = new Set([
   "all-friendly",
 ]);
 
+/**
+ * The subset of {@link SELF_TARGETS} that names a single *model* — the ability's
+ * bearer — rather than its unit. Core rule 19.04: a rule affecting one specified
+ * model applies only to that model, even while it is part of an attached unit.
+ * So when such an effect arrives from an attached member (a leader pooled onto
+ * its bodyguard, or vice-versa), it is not a buff on the combined unit — see
+ * {@link isModelScopedFromAttachedMember}.
+ */
+const MODEL_TARGETS = new Set(["self", "bearer"]);
+
+/** Diagnostic emitted for a model-scoped effect pooled in from an attached member. */
+const MODEL_SCOPED_REASON =
+  "model-scoped effect from an attached model: applies to that model only (core rule 19.04)";
+
+/**
+ * Is this node a model-scoped effect reaching the buffed unit from *another*
+ * member of the combined unit? Those are the ones core rule 19.04 keeps on their
+ * own model: an attached Librarian's personal 4+ invulnerable save is not a 4+
+ * invulnerable save for the ten Intercessors it joined.
+ *
+ * Keyed on the buff *source*, not on the DSL condition: the leak is not limited
+ * to abilities gated on `is-attached` (an Archon's Shadowfield says only "the
+ * bearer"), and the resolver already tags pooled member abilities as
+ * `abilityKind: "attached"`. An ability read as the chosen unit's own
+ * (`abilityKind: "unit"`) is unaffected, so crunching the leader itself still
+ * sees its personal buffs.
+ */
+function isModelScopedFromAttachedMember(
+  node: Record<string, unknown>,
+  source: BuffSource,
+): boolean {
+  if (source.kind !== "ability" || source.abilityKind !== "attached") return false;
+  return typeof node.target === "string" && MODEL_TARGETS.has(node.target);
+}
+
 /** Aliases the DSL uses when a node specifically calls out "the attacker". */
 const ATTACKER_TARGET = "attacker";
 /** Aliases the DSL uses when a node specifically calls out "the defender". */
@@ -142,6 +182,15 @@ function walk(
   out: EffectTranslation,
 ): void {
   if (!isObject(node)) return;
+  // Core rule 19.04 gate, applied before any leaf translation and under both
+  // perspectives: a model-scoped effect from an attached member never buffs the
+  // combined unit. Safe at this level because no container node (`sequence`,
+  // `conditional`, `choice`, …) carries a `self`/`bearer` target — only leaves
+  // do — so this can never swallow a subtree that also holds unit-scoped effects.
+  if (isModelScopedFromAttachedMember(node, source)) {
+    out.unsupported.push({ reason: MODEL_SCOPED_REASON, effectFragment: node });
+    return;
+  }
   const type = node.type;
   switch (type) {
     case "re-roll":

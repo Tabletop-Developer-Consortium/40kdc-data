@@ -126,9 +126,9 @@
     "effect": {
       "type": "conditional",
       "condition": {
-        "type": "phase-is",
+        "type": "timing-is",
         "parameters": {
-          "phase": "fight"
+          "timing": "start-of-fight-phase"
         }
       },
       "effect": {
@@ -140,14 +140,14 @@
       }
     },
     "scope": {
-      "range": "unit",
+      "range": "engagement-range",
       "duration": "permanent"
     },
     "unit_ids": [
       "seraptek-heavy-construct"
     ],
     "ability_type": "unit",
-    "behavior": "passive"
+    "behavior": "reactive"
   },
   {
     "ability_id": "titanic-walker",
@@ -354,19 +354,20 @@
     "effect": {
       "type": "conditional",
       "condition": {
-        "type": "phase-is",
+        "type": "timing-is",
         "parameters": {
-          "phase": "fight"
+          "timing": "start-of-fight-phase"
         }
       },
       "effect": {
         "type": "select-units",
         "selector": {
-          "max_count": 1,
+          "count": 1,
           "keywords": [
             "CANOPTEK"
           ],
-          "owner": "friendly"
+          "owner": "friendly",
+          "within_inches": 3
         },
         "effect": {
           "type": "stat-modifier",
@@ -388,7 +389,7 @@
     ],
     "ability_type": "unit",
     "behavior": "activated",
-    "community_notes": "[APPROX] The selected friendly CANOPTEK unit must be within 3\" of this unit; that 3\" range is not encoded. Full rule in raw-text store."
+    "community_notes": "[APPROX] Full rule in raw-text store."
   },
   {
     "ability_id": "leader",
@@ -656,7 +657,9 @@
     "effect": {
       "type": "fallback-and-act",
       "target": "unit",
-      "modifier": {}
+      "modifier": {
+        "can_charge": true
+      }
     },
     "scope": {
       "range": "unit",
@@ -680,11 +683,15 @@
     "effect": {
       "type": "select-units",
       "selector": {
-        "max_count": 1,
+        "count": 1,
         "keywords": [
           "NECRONS"
         ],
-        "owner": "friendly"
+        "owner": "friendly",
+        "within_inches": 12,
+        "eligibility": {
+          "type": "is-battle-shocked"
+        }
       },
       "effect": {
         "type": "remove-battle-shock",
@@ -710,7 +717,7 @@
         "Necrons"
       ]
     },
-    "community_notes": "[APPROX] Once per battle, at the start of any phase, the bearer selects one friendly NECRONS unit that is Battle-shocked and within 12\", and that unit is no longer Battle-shocked. Two selection constraints are not held in the select-units selector (which carries only max_count/keywords/owner): the within-12\" gate is encoded on scope.range (aura-12) rather than the selector, and the 'must be Battle-shocked' selection criterion is left implicit in remove-battle-shock (which is meaningful only on a Battle-shocked unit) rather than being a hard selector gate. It is deliberately NOT modeled as a post-selection conditional, which would wrongly let any friendly NECRONS unit be selected and then no-op. Full rule in raw-text store."
+    "community_notes": "[APPROX] Once per battle, at the start of any phase, the bearer selects one friendly NECRONS unit that is Battle-shocked and within 12\", and that unit is no longer Battle-shocked. Battle-shock remains implicit in remove-battle-shock; full rule in raw-text store."
   },
   {
     "ability_id": "sentinel-construct",
@@ -869,7 +876,7 @@
       },
       "effect": {
         "type": "invulnerable-save",
-        "target": "self",
+        "target": "unit",
         "modifier": {
           "invuln_sv": 4
         }
@@ -1290,29 +1297,33 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "conditional",
-      "condition": {
-        "operator": "and",
-        "operands": [
-          {
-            "type": "phase-is",
-            "parameters": {
-              "phase": "fight"
-            }
-          },
-          {
-            "type": "charged-this-turn"
+      "type": "sequence",
+      "steps": [
+        {
+          "type": "re-roll",
+          "target": "unit",
+          "modifier": {
+            "roll": "hit",
+            "subset": "ones",
+            "weapon_type": "melee"
           }
-        ]
-      },
-      "effect": {
-        "type": "re-roll",
-        "target": "unit",
-        "modifier": {
-          "roll": "hit",
-          "subset": "ones"
+        },
+        {
+          "type": "conditional",
+          "condition": {
+            "type": "charged-this-turn"
+          },
+          "effect": {
+            "type": "re-roll",
+            "target": "unit",
+            "modifier": {
+              "roll": "hit",
+              "subset": "all-failures",
+              "weapon_type": "melee"
+            }
+          }
         }
-      }
+      ]
     },
     "scope": {
       "range": "unit",
@@ -2650,6 +2661,11 @@
     ],
     "ability_type": "unit",
     "behavior": "passive",
+    "applies_to": {
+      "required_keywords": [
+        "Necrons"
+      ]
+    },
     "community_notes": "defensive ability (skipped for damage calc)"
   },
   {
@@ -3407,24 +3423,101 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "conditional",
-      "condition": {
-        "type": "timing-is",
-        "parameters": {
-          "timing": "start-of-battle-round"
+      "type": "stance-select",
+      "mode": "re-selectable",
+      "scope": "army",
+      "select": "start-of-battle-round",
+      "options": [
+        {
+          "name": "Phaeron of the Stars",
+          "effect": {
+            "type": "aura",
+            "target": "friendly-within-aura",
+            "modifier": {
+              "range": 6,
+              "eligible": {
+                "required_keywords": ["NECRONS"],
+                "excluded_keywords": ["MONSTER"]
+              },
+              "effect": {
+                "type": "sequence",
+                "steps": [
+                  {
+                    "type": "re-roll",
+                    "target": "unit",
+                    "modifier": { "roll": "hit", "subset": "ones" }
+                  },
+                  {
+                    "type": "re-roll",
+                    "target": "unit",
+                    "modifier": { "roll": "wound", "subset": "ones" }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "name": "Phaeron of the Blades",
+          "effect": {
+            "type": "aura",
+            "target": "friendly-within-aura",
+            "modifier": {
+              "range": 6,
+              "eligible": {
+                "required_keywords": ["NECRONS"],
+                "excluded_keywords": ["MONSTER"]
+              },
+              "effect": {
+                "type": "sequence",
+                "steps": [
+                  {
+                    "type": "re-roll",
+                    "target": "unit",
+                    "modifier": { "roll": "charge", "subset": "all-failures" }
+                  },
+                  {
+                    "type": "stat-modifier",
+                    "target": "unit",
+                    "modifier": {
+                      "stat": "S",
+                      "operation": "add",
+                      "value": 1,
+                      "weapon_type": "melee"
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "name": "Relentless March",
+          "effect": {
+            "type": "aura",
+            "target": "friendly-within-aura",
+            "modifier": {
+              "range": 6,
+              "eligible": {
+                "required_keywords": ["NECRONS"]
+              },
+              "effect": {
+                "type": "stat-modifier",
+                "target": "unit",
+                "modifier": {
+                  "stat": "M",
+                  "operation": "add",
+                  "value": 2
+                }
+              }
+            }
+          }
         }
-      },
-      "effect": {
-        "type": "ability-grant",
-        "target": "self",
-        "modifier": {
-          "ability_id": "triarch-ability-selection"
-        }
-      }
+      ]
     },
     "scope": {
       "range": "self",
-      "duration": "battle-round"
+      "duration": "until-next-battle-round"
     },
     "unit_ids": [
       "the-silent-king"
@@ -4124,10 +4217,10 @@
         "type": "model-is-leader"
       },
       "effect": {
-        "type": "ability-grant",
-        "target": "unit",
+        "type": "stratagem-targeting-permission",
+        "target": "attached-unit",
         "modifier": {
-          "ability_id": "stratagem-target-while-battle-shocked"
+          "exception": "battle-shocked"
         }
       }
     },
@@ -4236,27 +4329,35 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "stat-modifier",
-      "target": "self",
-      "modifier": {
-        "stat": "W",
-        "operation": "set",
-        "value": 3
+      "type": "conditional",
+      "condition": {
+        "type": "timing-is",
+        "parameters": {
+          "timing": "end-of-command-phase"
+        }
+      },
+      "effect": {
+        "type": "recovery-pool",
+        "target": "all-friendly",
+        "modifier": {
+          "dice": "D3",
+          "per_target_unit": true
+        }
       }
     },
     "scope": {
-      "range": "unit",
+      "range": "any-on-battlefield",
       "duration": "permanent"
     },
     "faction_id": "necrons",
-    "ability_type": "faction",
-    "behavior": "passive",
     "unit_ids": [
       "ctan-shard-of-the-nightbringer",
       "ctan-shard-of-the-void-dragon",
       "ctan-shard-of-the-deceiver",
       "transcendent-ctan"
-    ]
+    ],
+    "ability_type": "faction",
+    "behavior": "reactive"
   },
   {
     "ability_id": "drain-life",
@@ -4281,28 +4382,35 @@
           {
             "type": "timing-is",
             "parameters": {
-              "timing": "end-of-turn"
+              "timing": "end-of-phase"
             }
           }
         ]
       },
       "effect": {
-        "type": "dice-gated",
-        "dice": "D6",
-        "threshold": 4,
-        "comparison": "gte",
-        "on_success": {
-          "type": "mortal-wounds",
-          "target": "enemy-within-aura",
-          "modifier": {
-            "count": "D3"
+        "type": "for-each-unit",
+        "selector": {
+          "owner": "enemy",
+          "within_inches": 6
+        },
+        "effect": {
+          "type": "dice-gated",
+          "dice": "D6",
+          "threshold": 4,
+          "comparison": "gte",
+          "on_success": {
+            "type": "mortal-wounds",
+            "target": "unit",
+            "modifier": {
+              "count": "D3"
+            }
           }
         }
       }
     },
     "scope": {
       "range": "aura-6",
-      "duration": "phase"
+      "duration": "permanent"
     },
     "unit_ids": [
       "ctan-shard-of-the-nightbringer"
@@ -4329,7 +4437,7 @@
     },
     "scope": {
       "range": "self",
-      "duration": "battle"
+      "duration": "permanent"
     },
     "unit_ids": [
       "ctan-shard-of-the-nightbringer",
@@ -4353,52 +4461,53 @@
     "effect": {
       "type": "conditional",
       "condition": {
-        "operator": "and",
-        "operands": [
-          {
-            "type": "timing-is",
-            "parameters": {
-              "timing": "start-of-shooting-phase"
-            }
-          },
-          {
-            "type": "target-has-keyword",
-            "parameters": {
-              "keyword": "VEHICLE"
-            }
-          }
-        ]
+        "type": "timing-is",
+        "parameters": {
+          "timing": "start-of-shooting-phase"
+        }
       },
       "effect": {
-        "type": "dice-gated",
-        "dice": "D6",
-        "threshold": 2,
-        "comparison": "gte",
-        "on_success": {
-          "type": "sequence",
-          "steps": [
-            {
-              "type": "mortal-wounds",
-              "target": "enemy-within-aura",
-              "modifier": {
-                "count": "D3"
+        "type": "select-units",
+        "selector": {
+          "count": 1,
+          "keywords": [
+            "VEHICLE"
+          ],
+          "owner": "enemy",
+          "within_inches": 12
+        },
+        "effect": {
+          "type": "dice-gated",
+          "dice": "D6",
+          "threshold": 2,
+          "comparison": "gte",
+          "on_success": {
+            "type": "sequence",
+            "steps": [
+              {
+                "type": "mortal-wounds",
+                "target": "unit",
+                "modifier": {
+                  "count": "D3",
+                  "bind_count_as": "matter-absorption-d3"
+                }
+              },
+              {
+                "type": "resurrection",
+                "target": "self",
+                "modifier": {
+                  "type": "wounds",
+                  "count_from": "matter-absorption-d3"
+                }
               }
-            },
-            {
-              "type": "resurrection",
-              "target": "self",
-              "modifier": {
-                "count": "D3"
-              }
-            }
-          ]
+            ]
+          }
         }
       }
     },
     "scope": {
-      "range": "aura-custom",
-      "duration": "phase",
-      "aura_range_inches": 12
+      "range": "self",
+      "duration": "permanent"
     },
     "unit_ids": [
       "ctan-shard-of-the-void-dragon"
@@ -5343,52 +5452,61 @@
           }
         },
         {
-          "type": "choice",
-          "choice_label": "Weapon ability chosen when the CRYPTEK unit is selected to shoot (until end of phase)",
-          "options": [
-            {
-              "type": "keyword-grant",
-              "target": "unit",
-              "modifier": {
-                "keyword": "Anti-Infantry",
-                "value": "3+",
-                "weapon_type": "ranged"
-              }
-            },
-            {
-              "type": "keyword-grant",
-              "target": "unit",
-              "modifier": {
-                "keyword": "Anti-Mounted",
-                "value": "4+",
-                "weapon_type": "ranged"
-              }
-            },
-            {
-              "type": "keyword-grant",
-              "target": "unit",
-              "modifier": {
-                "keyword": "Assault",
-                "weapon_type": "ranged"
-              }
-            },
-            {
-              "type": "keyword-grant",
-              "target": "unit",
-              "modifier": {
-                "keyword": "Heavy",
-                "weapon_type": "ranged"
-              }
-            },
-            {
-              "type": "keyword-grant",
-              "target": "unit",
-              "modifier": {
-                "keyword": "Ignores Cover",
-                "weapon_type": "ranged"
-              }
+          "type": "conditional",
+          "condition": {
+            "type": "timing-is",
+            "parameters": {
+              "timing": "selected-to-shoot"
             }
-          ]
+          },
+          "effect": {
+            "type": "choice",
+            "choice_prompt": "Select one weapon ability to apply until the end of the phase",
+            "options": [
+              {
+                "type": "keyword-grant",
+                "target": "unit",
+                "modifier": {
+                  "keyword": "Assault",
+                  "weapon_type": "ranged"
+                }
+              },
+              {
+                "type": "keyword-grant",
+                "target": "unit",
+                "modifier": {
+                  "keyword": "Anti-Infantry",
+                  "value": "3+",
+                  "weapon_type": "ranged"
+                }
+              },
+              {
+                "type": "keyword-grant",
+                "target": "unit",
+                "modifier": {
+                  "keyword": "Anti-Mounted",
+                  "value": "4+",
+                  "weapon_type": "ranged"
+                }
+              },
+              {
+                "type": "keyword-grant",
+                "target": "unit",
+                "modifier": {
+                  "keyword": "Heavy",
+                  "weapon_type": "ranged"
+                }
+              },
+              {
+                "type": "keyword-grant",
+                "target": "unit",
+                "modifier": {
+                  "keyword": "Ignores Cover",
+                  "weapon_type": "ranged"
+                }
+              }
+            ]
+          }
         }
       ]
     },
@@ -5655,7 +5773,7 @@
       "select": {
         "scope": "enemy-unit",
         "count": 1,
-        "timing": "start-of-command-phase"
+        "timing": "command-phase"
       },
       "applies": {
         "to": "attackers-of-target",

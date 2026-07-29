@@ -874,8 +874,10 @@ class SingleEffect(TypedDict):
         "modifier-immunity",
         "stratagem-cost-modifier",
         "targeting-permission",
+        "stratagem-targeting-permission",
         "unit-attachment",
         "fight-eligibility-extension",
+        "recovery-pool",
     ]
     target: Literal[
         "self",
@@ -899,10 +901,9 @@ class Pool(TypedDict):
     die: str
 
 
-class Selector(TypedDict):
-    max_count: int
-    keywords: NotRequired[list[str]]
+class Selector2(TypedDict):
     owner: Literal["friendly", "enemy"]
+    within_inches: NotRequired[float]
 
 
 class Marker(TypedDict):
@@ -915,13 +916,24 @@ class Marker(TypedDict):
 RangeItem: TypeAlias = int
 
 
+RequiredKeyword: TypeAlias = str
+
+
+ExcludedKeyword: TypeAlias = str
+
+
+class Eligible(TypedDict):
+    required_keywords: NotRequired[list[RequiredKeyword]]
+    excluded_keywords: NotRequired[list[ExcludedKeyword]]
+
+
 class Select(TypedDict):
     scope: Literal["enemy-unit", "friendly-unit"]
     count: NotRequired[int]
     timing: NotRequired[str]
 
 
-class Eligible(TypedDict):
+class Eligible1(TypedDict):
     keyword: NotRequired[str]
 
 
@@ -945,6 +957,7 @@ class Scope(TypedDict):
         "battle-round",
         "battle",
         "until-next-command-phase",
+        "until-next-battle-round",
         "one-use",
         "permanent",
     ]
@@ -1091,16 +1104,17 @@ Condition: TypeAlias = ConditionNode
 
 EffectNode: TypeAlias = Union[
     SingleEffect,
+    "StanceSelectEffect",
     "ChoiceEffect",
     "SequenceEffect",
     "DiceGatedEffect",
     "ConditionalEffect",
     "DicePoolAllocationEffect",
     "SelectUnitsEffect",
+    "ForEachUnitEffect",
     "MovementModifierEffect",
     "AuraEffect",
     "DesignateTargetEffect",
-    "StanceSelectEffect",
     "RiskRewardEffect",
     "IssueOrdersEffect",
 ]
@@ -1110,6 +1124,7 @@ class ChoiceEffect(TypedDict):
     type: Literal["choice"]
     options: list[EffectNode]
     choice_label: NotRequired[str]
+    choice_prompt: NotRequired[str]
 
 
 class SequenceEffect(TypedDict):
@@ -1145,9 +1160,33 @@ class DicePoolAllocationEffect(TypedDict):
     options: list[Option]
 
 
+class Selector(TypedDict):
+    count: int
+    max_count: NotRequired[int]
+    keywords: NotRequired[list[str]]
+    owner: Literal["friendly", "enemy"]
+    within_inches: NotRequired[float]
+    eligibility: NotRequired[Condition]
+
+
+class Selector1(TypedDict):
+    count: NotRequired[int]
+    max_count: int
+    keywords: NotRequired[list[str]]
+    owner: Literal["friendly", "enemy"]
+    within_inches: NotRequired[float]
+    eligibility: NotRequired[Condition]
+
+
 class SelectUnitsEffect(TypedDict):
     type: Literal["select-units"]
-    selector: Selector
+    selector: Selector | Selector1
+    effect: EffectNode
+
+
+class ForEachUnitEffect(TypedDict):
+    type: Literal["for-each-unit"]
+    selector: Selector2
     effect: EffectNode
 
 
@@ -1214,6 +1253,7 @@ class Modifier1(TypedDict):
     range_bonus: NotRequired[int]
     of: NotRequired[str]
     effect: NotRequired[EffectNode]
+    eligible: NotRequired[Eligible]
 
 
 class AuraEffect(TypedDict):
@@ -1265,7 +1305,7 @@ class IssueOrdersEffect(TypedDict):
     type: Literal["issue-orders"]
     count: NotRequired[int]
     range: NotRequired[float]
-    eligible: NotRequired[Eligible]
+    eligible: NotRequired[Eligible1]
     options: list[Option1]
 
 

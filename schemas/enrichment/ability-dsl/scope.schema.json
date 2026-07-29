@@ -5,7 +5,7 @@
   "type": "object",
   "properties": {
     "range": { "type": "string", "enum": ["self", "unit", "attached", "aura-6", "aura-9", "aura-12", "aura-custom", "engagement-range", "any-visible", "any-on-battlefield", "terrain-within-range"] },
-    "duration": { "type": "string", "enum": ["phase", "turn", "battle-round", "battle", "until-next-command-phase", "one-use", "permanent"] },
+    "duration": { "type": "string", "enum": ["phase", "turn", "battle-round", "battle", "until-next-command-phase", "until-next-battle-round", "one-use", "permanent"] },
     "range_inches": { "type": "number" }
   },
   "required": ["range", "duration"]

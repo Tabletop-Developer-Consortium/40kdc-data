@@ -279,16 +279,17 @@ export type AbilityCondition1 = SimpleCondition | CompoundCondition;
  */
 export type AbilityEffect =
   | SingleEffect
+  | StanceSelectEffect
   | ChoiceEffect
   | SequenceEffect
   | DiceGatedEffect
   | ConditionalEffect
   | DicePoolAllocationEffect
   | SelectUnitsEffect
+  | ForEachUnitEffect
   | MovementModifierEffect
   | AuraEffect
   | DesignateTargetEffect
-  | StanceSelectEffect
   | RiskRewardEffect
   | IssueOrdersEffect;
 /**
@@ -347,8 +348,10 @@ export type SingleEffect = {
     | "modifier-immunity"
     | "stratagem-cost-modifier"
     | "targeting-permission"
+    | "stratagem-targeting-permission"
     | "unit-attachment"
-    | "fight-eligibility-extension";
+    | "fight-eligibility-extension"
+    | "recovery-pool";
   target:
     | "self"
     | "bearer"
@@ -373,16 +376,17 @@ export type SingleEffect = {
  */
 export type EffectNode =
   | SingleEffect
+  | StanceSelectEffect
   | ChoiceEffect
   | SequenceEffect
   | DiceGatedEffect
   | ConditionalEffect
   | DicePoolAllocationEffect
   | SelectUnitsEffect
+  | ForEachUnitEffect
   | MovementModifierEffect
   | AuraEffect
   | DesignateTargetEffect
-  | StanceSelectEffect
   | RiskRewardEffect
   | IssueOrdersEffect;
 export type AbilityCondition2 = SimpleCondition | CompoundCondition;
@@ -424,16 +428,17 @@ export type GameModes3 = [GameModeId, ...GameModeId[]];
 export type GameModes4 = [GameModeId, ...GameModeId[]];
 export type AbilityEffect1 =
   | SingleEffect
+  | StanceSelectEffect
   | ChoiceEffect
   | SequenceEffect
   | DiceGatedEffect
   | ConditionalEffect
   | DicePoolAllocationEffect
   | SelectUnitsEffect
+  | ForEachUnitEffect
   | MovementModifierEffect
   | AuraEffect
   | DesignateTargetEffect
-  | StanceSelectEffect
   | RiskRewardEffect
   | IssueOrdersEffect;
 /**
@@ -478,16 +483,17 @@ export type RuleStateCoreRuleSlug =
  */
 export type AbilityEffect2 =
   | SingleEffect
+  | StanceSelectEffect
   | ChoiceEffect
   | SequenceEffect
   | DiceGatedEffect
   | ConditionalEffect
   | DicePoolAllocationEffect
   | SelectUnitsEffect
+  | ForEachUnitEffect
   | MovementModifierEffect
   | AuraEffect
   | DesignateTargetEffect
-  | StanceSelectEffect
   | RiskRewardEffect
   | IssueOrdersEffect;
 
@@ -1276,6 +1282,33 @@ export interface Scaling {
 }
 /**
  * This interface was referenced by `0KdcBundledSchemas`'s JSON-Schema
+ * via the `definition` "stance-select-effect".
+ */
+export interface StanceSelectEffect {
+  type: "stance-select";
+  mode: "re-selectable" | "consumable";
+  scope?: "army" | "unit";
+  select?: string;
+  /**
+   * @minItems 2
+   */
+  options: [
+    {
+      name: string;
+      effect: EffectNode;
+    },
+    {
+      name: string;
+      effect: EffectNode;
+    },
+    ...{
+      name: string;
+      effect: EffectNode;
+    }[]
+  ];
+}
+/**
+ * This interface was referenced by `0KdcBundledSchemas`'s JSON-Schema
  * via the `definition` "choice-effect".
  */
 export interface ChoiceEffect {
@@ -1285,6 +1318,7 @@ export interface ChoiceEffect {
    */
   options: [EffectNode, EffectNode, ...EffectNode[]];
   choice_label?: string;
+  choice_prompt?: string;
   [k: string]: unknown;
 }
 /**
@@ -1374,12 +1408,22 @@ export interface DiceRequirement {
 export interface SelectUnitsEffect {
   type: "select-units";
   selector: {
-    max_count: number;
-    keywords?: string[];
-    owner: "friendly" | "enemy";
+    [k: string]: unknown;
   };
   effect: EffectNode;
   [k: string]: unknown;
+}
+/**
+ * This interface was referenced by `0KdcBundledSchemas`'s JSON-Schema
+ * via the `definition` "for-each-unit-effect".
+ */
+export interface ForEachUnitEffect {
+  type: "for-each-unit";
+  selector: {
+    owner: "friendly" | "enemy";
+    within_inches?: number;
+  };
+  effect: EffectNode;
 }
 /**
  * This interface was referenced by `0KdcBundledSchemas`'s JSON-Schema
@@ -1449,6 +1493,16 @@ export interface AuraEffect {
     range_bonus?: number;
     of?: string;
     effect?: EffectNode;
+    eligible?: {
+      /**
+       * @minItems 1
+       */
+      required_keywords?: [string, ...string[]];
+      /**
+       * @minItems 1
+       */
+      excluded_keywords?: [string, ...string[]];
+    };
   };
 }
 /**
@@ -1468,33 +1522,6 @@ export interface DesignateTargetEffect {
     effect: EffectNode;
   };
   duration?: "phase" | "turn" | "battle-round" | "battle" | "until-next-command-phase";
-}
-/**
- * This interface was referenced by `0KdcBundledSchemas`'s JSON-Schema
- * via the `definition` "stance-select-effect".
- */
-export interface StanceSelectEffect {
-  type: "stance-select";
-  mode: "re-selectable" | "consumable";
-  scope?: "army" | "unit";
-  select?: string;
-  /**
-   * @minItems 2
-   */
-  options: [
-    {
-      name: string;
-      effect: EffectNode;
-    },
-    {
-      name: string;
-      effect: EffectNode;
-    },
-    ...{
-      name: string;
-      effect: EffectNode;
-    }[]
-  ];
 }
 /**
  * This interface was referenced by `0KdcBundledSchemas`'s JSON-Schema
@@ -2411,7 +2438,15 @@ export interface AbilityScope {
     | "any-visible"
     | "any-on-battlefield"
     | "terrain-within-range";
-  duration: "phase" | "turn" | "battle-round" | "battle" | "until-next-command-phase" | "one-use" | "permanent";
+  duration:
+    | "phase"
+    | "turn"
+    | "battle-round"
+    | "battle"
+    | "until-next-command-phase"
+    | "until-next-battle-round"
+    | "one-use"
+    | "permanent";
   range_inches?: number;
   [k: string]: unknown;
 }

@@ -78,3 +78,120 @@ def test_get_raises_for_shared_ability_id_without_faction(dataset: Any) -> None:
     with pytest.raises(LookupError, match="Ambiguous ability lookup"):
         dataset.abilities.get("idol-of-blessed-blood")
     assert dataset.abilities.get_any("idol-of-blessed-blood") is not None
+
+
+# ---------------------------------------------------------------------------
+# Core rule 19.04 — a rule affecting a single specified model only ever applies
+# to that model, even while part of an attached unit. Mirror of the TS
+# `defensive-buffs.test.ts` "attached members" block; pinned cross-impl by
+# `conformance/abilities-resolver/{from-dsl,defensive-from-dsl}.json`.
+# ---------------------------------------------------------------------------
+
+_MODEL_SCOPED_REASON = (
+    "model-scoped effect from an attached model: applies to that model only (core rule 19.04)"
+)
+
+
+def _invulns(buffs: list[dict[str, Any]], ability_id: str) -> list[dict[str, Any]]:
+    return [
+        b
+        for b in buffs
+        if b["contribution"]["type"] == "invulnerable-save"
+        and b["source"].get("abilityId") == ability_id
+    ]
+
+
+def test_leader_personal_invuln_does_not_buff_the_bodyguard_unit(dataset: Any) -> None:
+    """Shadowfield reads "the bearer has a 4+ invulnerable save" — one model out
+    of eleven, so it is not the Kabalite squad's invulnerable save."""
+    attached = dataset.defensive_buffs_for(
+        {
+            "unitId": "kabalite-warriors",
+            "factionId": "drukhari",
+            "attachedUnitIds": ["archon"],
+        },
+        {"phase": "shooting"},
+    )
+    assert _invulns(attached, "shadowfield") == []
+
+    # The Archon crunched as itself still keeps it (source kind "unit").
+    own = dataset.defensive_buffs_for(
+        {"unitId": "archon", "factionId": "drukhari"}, {"phase": "shooting"}
+    )
+    assert [b["contribution"] for b in _invulns(own, "shadowfield")] == [
+        {"type": "invulnerable-save", "threshold": 4}
+    ]
+
+
+def test_unit_scoped_leader_rule_still_buffs_the_attached_unit(dataset: Any) -> None:
+    """Mental Fortress reads "models in that unit have a 4+ invulnerable save" —
+    authored `target: "unit"`, so the model-scope gate must not touch it."""
+    attached = dataset.defensive_buffs_for(
+        {
+            "unitId": "intercessor-squad",
+            "factionId": "adeptus-astartes",
+            "attachedUnitIds": ["librarian"],
+        },
+        {"phase": "fight"},
+    )
+    buffs = _invulns(attached, "mental-fortress-psychic")
+    assert len(buffs) == 1
+    assert buffs[0]["source"]["abilityKind"] == "attached"
+    assert buffs[0]["source"]["sourceUnitId"] == "librarian"
+
+
+def test_dropped_model_scoped_effect_is_reported_as_unsupported(dataset: Any) -> None:
+    from wh40kdc.cruncher import effect_to_buffs
+
+    ability = dataset.abilities.get_any("shadowfield")
+    translated = effect_to_buffs(
+        ability.raw.get("effect"),
+        {
+            "kind": "ability",
+            "abilityId": "shadowfield",
+            "abilityKind": "attached",
+            "sourceUnitId": "archon",
+        },
+        {"phase": "shooting"},
+        "target",
+    )
+    assert translated["applied"] == []
+    assert [u["reason"] for u in translated["unsupported"]] == [_MODEL_SCOPED_REASON]
+
+
+def test_gate_is_attacker_side_too_and_spares_unit_scoped_grants(dataset: Any) -> None:
+    def keywords_from(buffs: list[dict[str, Any]], ability_id: str) -> list[str]:
+        return [
+            b["contribution"]["keywordRef"]["keyword_id"]
+            for b in buffs
+            if b["source"].get("abilityId") == ability_id
+            and b["contribution"]["type"] == "extra-keyword"
+        ]
+
+    # Psychic Gifts reads "the bearer has the Psyker keyword" — model-scoped.
+    led = dataset.buffs_for(
+        {
+            "unitId": "inquisitorial-agents",
+            "factionId": "agents-of-the-imperium",
+            "attachedUnitIds": ["inquisitor"],
+        },
+        {"phase": "command"},
+    )
+    assert keywords_from(led, "psychic-gifts") == []
+    alone = dataset.buffs_for(
+        {"unitId": "inquisitor", "factionId": "agents-of-the-imperium"},
+        {"phase": "command"},
+    )
+    assert keywords_from(alone, "psychic-gifts") == ["psyker"]
+
+    # Surgical Precision is unit-scoped, so an attached Apothecary Biologis
+    # still grants [LETHAL HITS] to the squad it joined.
+    aggressors = dataset.buffs_for(
+        {
+            "unitId": "aggressor-squad",
+            "factionId": "adeptus-astartes",
+            "attachedUnitIds": ["apothecary-biologis"],
+        },
+        {"phase": "shooting"},
+    )
+    assert keywords_from(aggressors, "surgical-precision") == ["lethal-hits"]

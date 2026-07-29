@@ -50,6 +50,109 @@ describe("Dataset.defensiveBuffsFor", () => {
   });
 });
 
+// Core rule 19.04 — "abilities that affect a single specified model only ever
+// apply to that model, even while part of an attached unit". The buff layer
+// treats `self`/`bearer` as model-scoped and drops such effects when they arrive
+// from an attached member; `unit`-scoped leader rules still reach the squad.
+describe("attached members: model-scoped vs unit-scoped abilities", () => {
+  const invulns = (buffs: ReturnType<Dataset["defensiveBuffsFor"]>, abilityId: string) =>
+    buffs.filter(
+      (b) =>
+        b.contribution.type === "invulnerable-save" &&
+        b.source.kind === "ability" &&
+        b.source.abilityId === abilityId,
+    );
+
+  it("a leader's personal invulnerable save does not buff its bodyguard unit", () => {
+    // Shadowfield reads "the bearer has a 4+ invulnerable save" — one model out
+    // of eleven, so it is not the Kabalite squad's invuln.
+    const attached = ds.defensiveBuffsFor(
+      { unitId: "kabalite-warriors", factionId: "drukhari", attachedUnitIds: ["archon"] },
+      { phase: "shooting" },
+    );
+    expect(invulns(attached, "shadowfield")).toEqual([]);
+
+    // …but the Archon crunched as itself keeps it (source kind "unit").
+    const own = ds.defensiveBuffsFor(
+      { unitId: "archon", factionId: "drukhari" },
+      { phase: "shooting" },
+    );
+    expect(invulns(own, "shadowfield")).toHaveLength(1);
+    expect(invulns(own, "shadowfield")[0].contribution).toEqual({
+      type: "invulnerable-save",
+      threshold: 4,
+    });
+  });
+
+  it("a unit-scoped leader rule still buffs the whole attached unit", () => {
+    // Mental Fortress reads "models in that unit have a 4+ invulnerable save" —
+    // authored `target: "unit"`, so the gate must not touch it (issue #105's
+    // repro, which is a legitimately unit-wide rule).
+    const attached = ds.defensiveBuffsFor(
+      { unitId: "intercessor-squad", factionId: "adeptus-astartes", attachedUnitIds: ["librarian"] },
+      { phase: "fight" },
+    );
+    const buffs = invulns(attached, "mental-fortress-psychic");
+    expect(buffs).toHaveLength(1);
+    expect(buffs[0].source).toMatchObject({ abilityKind: "attached", sourceUnitId: "librarian" });
+  });
+
+  it("the dropped effect is reported as unsupported, not silently discarded", () => {
+    const shadowfield = ds.abilities.getAny("shadowfield")!;
+    const translated = shadowfield.describeBuffs(
+      { kind: "ability", abilityId: "shadowfield", abilityKind: "attached", sourceUnitId: "archon" },
+      { phase: "shooting" },
+      "target",
+    );
+    expect(translated.applied).toEqual([]);
+    expect(translated.unsupported.map((u) => u.reason)).toEqual([
+      "model-scoped effect from an attached model: applies to that model only (core rule 19.04)",
+    ]);
+  });
+
+  it("the gate is attacker-side too, and spares unit-scoped grants", () => {
+    const keywordsFrom = (
+      buffs: ReturnType<Dataset["buffsFor"]>,
+      abilityId: string,
+    ): string[] =>
+      buffs
+        .filter((b) => b.source.kind === "ability" && b.source.abilityId === abilityId)
+        .flatMap((b) =>
+          b.contribution.type === "extra-keyword" ? [b.contribution.keywordRef.keyword_id] : [],
+        );
+
+    // Psychic Gifts reads "the bearer has the Psyker keyword" — model-scoped, so
+    // it must not ride an attached Inquisitor onto the squad it joined…
+    const led = ds.buffsFor(
+      {
+        unitId: "inquisitorial-agents",
+        factionId: "agents-of-the-imperium",
+        attachedUnitIds: ["inquisitor"],
+      },
+      { phase: "command" },
+    );
+    expect(keywordsFrom(led, "psychic-gifts")).toEqual([]);
+    // …while the Inquisitor crunched as itself still carries it.
+    const alone = ds.buffsFor(
+      { unitId: "inquisitor", factionId: "agents-of-the-imperium" },
+      { phase: "command" },
+    );
+    expect(keywordsFrom(alone, "psychic-gifts")).toEqual(["psyker"]);
+
+    // Surgical Precision is unit-scoped ("that unit's ranged weapons have
+    // [LETHAL HITS]"), so an attached Apothecary Biologis still grants it.
+    const aggressors = ds.buffsFor(
+      {
+        unitId: "aggressor-squad",
+        factionId: "adeptus-astartes",
+        attachedUnitIds: ["apothecary-biologis"],
+      },
+      { phase: "shooting" },
+    );
+    expect(keywordsFrom(aggressors, "surgical-precision")).toEqual(["lethal-hits"]);
+  });
+});
+
 describe("end-to-end: defensive FNP buff plumbed through crunch", () => {
   it("FNP buff added manually to the engine input reduces damage", () => {
     const bolt = ds.weapons.getAny("bolt-rifle")!;

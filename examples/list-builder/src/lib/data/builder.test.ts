@@ -48,6 +48,8 @@ import {
 	isLeader,
 	attachableBodyguards,
 	effectiveKeywords,
+	configurationSuggestionsFor,
+	applyConfigurationSuggestion,
 	selectableGrantsFor,
 	type BuilderState,
 	type BuilderUnit,
@@ -889,6 +891,114 @@ describe('leader attachment (11e)', () => {
 		const seededLeader = seeded.units.find((u) => u.datasheetId === leaderId)!;
 		const seededBody = seeded.units.find((u) => u.datasheetId === bodyguardId)!;
 		expect(seededLeader.attachedToKey).toBe(seededBody.key);
+	});
+});
+
+describe('unit configuration suggestions', () => {
+	const factionId = 'necrons';
+
+	function necronUnit(datasheetId: string, key: string): BuilderUnit {
+		const raw = unitRaw(datasheetId, undefined, factionId);
+		if (!raw) throw new Error(`missing Necron datasheet ${datasheetId}`);
+		const modelCount = raw.model_count?.min ?? 1;
+		return {
+			key,
+			datasheetId,
+			modelCount,
+			loadout: defaultLoadout(raw, modelCount),
+			enhancementId: null,
+			isWarlord: false,
+		};
+	}
+
+	function suggestionFor(
+		state: BuilderState,
+		target: BuilderUnit,
+		abilityId: string,
+	) {
+		const suggestion = configurationSuggestionsFor(state, target).find(
+			(candidate) => candidate.abilityId === abilityId,
+		);
+		if (!suggestion) throw new Error(`missing ${abilityId} suggestion`);
+		return suggestion;
+	}
+
+	it('discovers Necron leader and positional configurations from structured data', () => {
+		const warriors = necronUnit('necron-warriors', 'warriors');
+		const warriorState = { ...emptyBuilderState(), factionId, units: [warriors] };
+		const plasmancer = suggestionFor(warriorState, warriors, 'harbinger-of-destruction');
+		const szeras = suggestionFor(warriorState, warriors, 'mechanical-augmentation-aura');
+
+		expect(plasmancer).toMatchObject({
+			kind: 'leader-attachment',
+			providerUnitId: 'plasmancer',
+			state: 'available',
+		});
+		expect(szeras).toMatchObject({
+			kind: 'aura-position',
+			providerUnitId: 'illuminor-szeras',
+			state: 'add-source',
+		});
+		expect(szeras.description).not.toHaveLength(0);
+
+		const destroyers = necronUnit('lokhust-destroyers', 'destroyers');
+		const destroyerState = { ...emptyBuilderState(), factionId, units: [destroyers] };
+		expect(suggestionFor(destroyerState, destroyers, 'destroyer-cult')).toMatchObject({
+			kind: 'leader-attachment',
+			providerUnitId: 'lokhust-lord',
+			state: 'available',
+		});
+	});
+
+	it('reuses an unattached leader and makes stale configuration clicks no-ops', () => {
+		const warriors = necronUnit('necron-warriors', 'warriors');
+		const plasmancer = necronUnit('plasmancer', 'plasmancer');
+		const state = { ...emptyBuilderState(), factionId, units: [warriors, plasmancer] };
+		const suggestion = suggestionFor(state, warriors, 'harbinger-of-destruction');
+		expect(suggestion).toMatchObject({
+			state: 'available',
+			attachExistingLeaderKey: 'plasmancer',
+		});
+
+		const configured = applyConfigurationSuggestion(state, suggestion, () => 'unexpected');
+		expect(configured.units).toHaveLength(2);
+		expect(configured.units.find((unit) => unit.key === 'plasmancer')?.attachedToKey).toBe('warriors');
+		expect(applyConfigurationSuggestion(configured, suggestion, () => 'duplicate')).toBe(configured);
+		expect(suggestionFor(configured, warriors, 'harbinger-of-destruction').state).toBe('attached');
+	});
+
+	it('adds an aura source without claiming placement or attachment state', () => {
+		const warriors = necronUnit('necron-warriors', 'warriors');
+		const state = { ...emptyBuilderState(), factionId, units: [warriors] };
+		const suggestion = suggestionFor(state, warriors, 'mechanical-augmentation-aura');
+		const configured = applyConfigurationSuggestion(state, suggestion, () => 'szeras');
+		const szeras = configured.units.find((unit) => unit.key === 'szeras');
+
+		expect(szeras).toMatchObject({ datasheetId: 'illuminor-szeras' });
+		expect(szeras?.attachedToKey).toBeUndefined();
+		expect(configured.units.find((unit) => unit.key === 'warriors')?.attachedToKey).toBeUndefined();
+		expect(suggestionFor(configured, warriors, 'mechanical-augmentation-aura').state).toBe('source-present');
+	});
+
+	it('suppresses ability audiences and attachment conditions that cannot prove a bodyguard benefit', () => {
+		const warriors = necronUnit('necron-warriors', 'warriors');
+		const state = { ...emptyBuilderState(), factionId, units: [warriors] };
+		const suggestions = configurationSuggestionsFor(state, warriors);
+
+		expect(suggestions.some((candidate) => candidate.abilityId === 'illuminor')).toBe(false);
+		expect(suggestions.some((candidate) => candidate.abilityId === 'vanguard-protocols')).toBe(false);
+		expect(
+			configurationSuggestionsFor(
+				{ ...state, factionId: null },
+				warriors,
+			),
+		).toEqual([]);
+		expect(
+			configurationSuggestionsFor(
+				{ ...state, units: [{ ...warriors, factionId: 'chaos-daemons' }] },
+				{ ...warriors, factionId: 'chaos-daemons' },
+			),
+		).toEqual([]);
 	});
 });
 

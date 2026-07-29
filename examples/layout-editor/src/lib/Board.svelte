@@ -48,6 +48,8 @@
     referenceOpacity?: number;
     /** How that image is fitted over the board — turn, nudge and zoom. See `referenceImageBox`. */
     referenceFit?: ReferenceFit;
+    /** Opacity of the authored terrain/grid overlay, leaving the reference image fully visible. */
+    terrainOpacity?: number;
     /** ¼″ keystone-grid snapping for armed top-level areas. Alt suspends it live. */
     snap?: { enabled: boolean; step: number };
     /** The piece whose keystone anchor is being picked, if any (clock mode). */
@@ -76,6 +78,7 @@
     referenceImage = null,
     referenceOpacity = 0.45,
     referenceFit = {},
+    terrainOpacity = 1,
     snap = { enabled: true, step: KEYSTONE_INCREMENT },
     clockPiece = null,
     clockCandidate = null,
@@ -331,6 +334,7 @@
         pointer-events="none"
       />
     {/if}
+    <g class="map-content" opacity={terrainOpacity}>
 
     <!-- deployment zones (under the grid, like the printed card) -->
     {#each zones as z, i (z.player + i)}
@@ -450,10 +454,11 @@
         oncancel={() => onclockcancel?.()}
       />
     {/if}
+    </g>
   </g>
 
   <!-- upright label layer (not rotated) -->
-  <g class="labels">
+  <g class="labels" opacity={terrainOpacity}>
     {#each edgeLabels as l (l.text)}
       <text x={l.at.x} y={l.at.y} class="edge-label">{l.text}</text>
     {/each}

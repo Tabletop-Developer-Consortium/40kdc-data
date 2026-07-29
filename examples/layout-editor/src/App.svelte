@@ -109,6 +109,8 @@
   /** Turn / nudge / zoom applied to the reference background. Session-only, like the image. */
   let referenceFit = $state<ReferenceFit>({ quarterTurns: 0, offsetX: 0, offsetY: 0, scale: 1 });
   let referenceOpacity = $state(0.45);
+  // Session-only fade for the authored terrain overlay while tracing a reference map.
+  let terrainOpacity = $state(1);
 
   let solverHover = $state<SolverHover | null>(null);
   let solverLines = $state<SolverLine[]>([]);
@@ -563,6 +565,7 @@
         {layout}
         bind:opacity={referenceOpacity}
         bind:fit={referenceFit}
+        bind:terrainOpacity
         onimage={(image) => (referenceImage = image)}
       />
       <div class="board-stage">
@@ -582,6 +585,7 @@
           {referenceImage}
           {referenceOpacity}
           {referenceFit}
+        {terrainOpacity}
           snap={{ enabled: snapEnabled, step: snapStep }}
           {clockPiece}
           clockCandidate={clockPick?.candidate ?? null}

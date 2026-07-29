@@ -22,6 +22,8 @@
     layout: Pick<EditLayout, "mission_matchup_id" | "variant">;
     onimage: (image: string | null) => void;
     opacity?: number;
+    /** Opacity of the editor's terrain/grid overlay, kept in the session only. */
+    terrainOpacity?: number;
     fit?: ReferenceFit;
   }
 
@@ -29,6 +31,7 @@
     layout,
     onimage,
     opacity = $bindable(0.45),
+    terrainOpacity = $bindable(1),
     fit = $bindable<ReferenceFit>({ quarterTurns: 0, offsetX: 0, offsetY: 0, scale: 1 }),
   }: Props = $props();
 
@@ -223,9 +226,21 @@
     <input type="file" accept="image/*" onchange={selectPhoto} />
   </label>
   <label>
-    Opacity
+    Reference opacity
     <input type="range" min="0.10" max="0.90" step="0.05" bind:value={opacity} disabled={!hasImage} />
     <output>{Math.round(opacity * 100)}%</output>
+  </label>
+  <label>
+    Terrain opacity
+    <input
+      type="range"
+      min="0.10"
+      max="1"
+      step="0.05"
+      aria-label="Terrain opacity"
+      bind:value={terrainOpacity}
+    />
+    <output>{Math.round(terrainOpacity * 100)}%</output>
   </label>
 
   {#if hasImage}

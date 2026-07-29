@@ -8,10 +8,11 @@
   the board rather than letterboxed.
 
   Both sources feed the same single `onimage` slot, so choosing one clears the other; the
-  fit controls (turn / nudge / zoom) then apply to whichever is showing. Everything here is
-  session-only — no upload, no persistence.
+  fit controls (turn / nudge / zoom) then apply to whichever is showing. The selected source
+  is retained locally in this browser so it survives an editor reload.
 -->
 <script lang="ts">
+  import { onMount } from "svelte";
   import { getDocument, GlobalWorkerOptions, type PDFDocumentProxy, type RenderTask } from "pdfjs-dist";
   import workerUrl from "pdfjs-dist/build/pdf.worker.min.js?url";
   import { eventCompanionPage, type EditLayout, type ReferenceFit } from "./model.js";
@@ -55,6 +56,74 @@
     const n = Number.parseFloat(raw);
     return Number.isFinite(n) ? Math.min(hi, Math.max(lo, n)) : fallback;
   };
+
+  type ReferenceKind = "pdf" | "photo";
+  interface CachedReference {
+    id: "active";
+    kind: ReferenceKind;
+    name: string;
+    blob: Blob;
+  }
+
+  const REFERENCE_CACHE_DATABASE = "40kdc-layout-editor";
+  const REFERENCE_CACHE_STORE = "reference-background";
+  const REFERENCE_CACHE_KEY = "active";
+
+  function openReferenceCache(): Promise<IDBDatabase> {
+    return new Promise((resolve, reject) => {
+      const request = indexedDB.open(REFERENCE_CACHE_DATABASE, 1);
+      request.onupgradeneeded = () => {
+        request.result.createObjectStore(REFERENCE_CACHE_STORE, { keyPath: "id" });
+      };
+      request.onerror = () => reject(request.error);
+      request.onsuccess = () => resolve(request.result);
+    });
+  }
+
+  async function useReferenceCache<T>(
+    mode: IDBTransactionMode,
+    action: (store: IDBObjectStore) => IDBRequest<T>,
+  ): Promise<T> {
+    const database = await openReferenceCache();
+    try {
+      return await new Promise<T>((resolve, reject) => {
+        const transaction = database.transaction(REFERENCE_CACHE_STORE, mode);
+        const request = action(transaction.objectStore(REFERENCE_CACHE_STORE));
+        request.onerror = () => reject(request.error);
+        request.onsuccess = () => resolve(request.result);
+      });
+    } finally {
+      database.close();
+    }
+  }
+
+  async function cacheReference(kind: ReferenceKind, file: File): Promise<void> {
+    try {
+      await useReferenceCache("readwrite", (store) =>
+        store.put({ id: REFERENCE_CACHE_KEY, kind, name: file.name, blob: file } satisfies CachedReference),
+      );
+    } catch {
+      // Reference selection remains usable when private browsing or quota policy blocks storage.
+    }
+  }
+
+  async function readCachedReference(): Promise<CachedReference | undefined> {
+    try {
+      return await useReferenceCache("readonly", (store) => store.get(REFERENCE_CACHE_KEY));
+    } catch {
+      return undefined;
+    }
+  }
+
+  async function forgetCachedReference(): Promise<void> {
+    try {
+      await useReferenceCache("readwrite", (store) => store.delete(REFERENCE_CACHE_KEY));
+    } catch {
+      // The in-memory reference has already been cleared.
+    }
+  }
+
+  let referenceGeneration = 0;
   let documentProxy = $state<PDFDocumentProxy | null>(null);
   let error = $state<string | null>(null);
   let loading = $state(false);
@@ -117,13 +186,45 @@
     }
   }
 
+  async function loadPdf(file: Blob, generation: number): Promise<boolean> {
+    error = null;
+    await destroyDocument();
+    if (generation !== referenceGeneration) return false;
+    clearImage();
+    photoName = null;
+    loading = true;
+    try {
+      const loaded = await getDocument({ data: new Uint8Array(await file.arrayBuffer()) }).promise;
+      if (generation !== referenceGeneration) {
+        await loaded.destroy();
+        return false;
+      }
+      documentProxy = loaded;
+      return true;
+    } catch {
+      if (generation === referenceGeneration) {
+        error = "This PDF could not be opened.";
+        documentProxy = null;
+      }
+      return false;
+    } finally {
+      if (generation === referenceGeneration) loading = false;
+    }
+  }
+
+  async function loadPhoto(file: Blob, name: string, generation: number): Promise<boolean> {
+    error = null;
+    await destroyDocument();
+    if (generation !== referenceGeneration) return false;
+    clearImage();
+    photoName = name;
+    publish(URL.createObjectURL(file));
+    return true;
+  }
+
   async function selectFile(event: Event): Promise<void> {
     const input = event.currentTarget as HTMLInputElement;
     const file = input.files?.[0];
-    error = null;
-    await destroyDocument();
-    clearImage();
-    photoName = null;
     if (!file) return;
     if (file.type !== "application/pdf") {
       error = "Choose a PDF file.";
@@ -131,15 +232,8 @@
       return;
     }
 
-    loading = true;
-    try {
-      documentProxy = await getDocument({ data: new Uint8Array(await file.arrayBuffer()) }).promise;
-    } catch {
-      error = "This PDF could not be opened.";
-      documentProxy = null;
-    } finally {
-      loading = false;
-    }
+    const generation = ++referenceGeneration;
+    if (await loadPdf(file, generation)) void cacheReference("pdf", file);
   }
 
   /**
@@ -153,20 +247,42 @@
   async function selectPhoto(event: Event): Promise<void> {
     const input = event.currentTarget as HTMLInputElement;
     const file = input.files?.[0];
-    error = null;
-    await destroyDocument();
-    clearImage();
-    photoName = null;
     if (!file) return;
     if (!file.type.startsWith("image/")) {
       error = "Choose an image file.";
       input.value = "";
       return;
     }
-    photoName = file.name;
-    publish(URL.createObjectURL(file));
+
+    const generation = ++referenceGeneration;
+    if (await loadPhoto(file, file.name, generation)) void cacheReference("photo", file);
   }
 
+  async function clearSavedReference(): Promise<void> {
+    referenceGeneration += 1;
+    error = null;
+    await destroyDocument();
+    clearImage();
+    photoName = null;
+    await forgetCachedReference();
+  }
+
+  onMount(() => {
+    void (async () => {
+      const cached = await readCachedReference();
+      if (!cached || referenceGeneration !== 0) return;
+      const generation = ++referenceGeneration;
+      if (cached.kind === "pdf") {
+        if (!(await loadPdf(cached.blob, generation))) await forgetCachedReference();
+      } else if (cached.kind === "photo") {
+        await loadPhoto(cached.blob, cached.name, generation);
+      } else {
+        await forgetCachedReference();
+      }
+    })();
+  });
+
+  const hasReference = $derived(documentProxy !== null || photoName !== null);
   $effect(() => {
     const pdf = documentProxy;
     const page = pageNumber;
@@ -243,6 +359,10 @@
     <output>{Math.round(terrainOpacity * 100)}%</output>
   </label>
 
+  {#if hasReference}
+    <button type="button" class="clear-reference" onclick={clearSavedReference}>Clear saved reference</button>
+  {/if}
+
   {#if hasImage}
     <div class="fit" role="group" aria-label="Fit the reference to the board">
       <span class="fit-label">Turn</span>
@@ -292,11 +412,11 @@
   {:else if error}
     <p class="error" role="status">{error}</p>
   {:else if photoName}
-    <p>{photoName} — nudge in inches, as shown. Kept in this browser session only.</p>
+    <p>{photoName} — nudge in inches, as shown. Saved locally in this browser.</p>
   {:else if pageNumber === null}
     <p>No Event Companion drawing matches this layout — a photo still works.</p>
   {:else}
-    <p>Page {pageNumber}. Kept in this browser session only.</p>
+    <p>Page {pageNumber}. Saved locally in this browser.</p>
   {/if}
 </section>
 
@@ -340,5 +460,15 @@
   .deg { min-inline-size: 2.6rem; text-align: right; }
   .num { gap: 0.25rem; }
   .num input { inline-size: 4.2rem; font: inherit; font-variant-numeric: tabular-nums; }
+  .clear-reference {
+    padding: 0.2rem 0.45rem;
+    font: inherit;
+    color: inherit;
+    background: transparent;
+    border: 1px solid var(--rule, #3a4150);
+    border-radius: 0.25rem;
+    cursor: pointer;
+  }
+  .clear-reference:hover { background: color-mix(in srgb, currentColor 12%, transparent); }
   .error { color: var(--danger, #9d3029); }
 </style>

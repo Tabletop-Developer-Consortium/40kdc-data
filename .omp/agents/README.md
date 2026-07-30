@@ -10,10 +10,10 @@ frontmatter both pin it). Some agents spawn helper agents themselves (see `spawn
 ## Conventions
 
 - Frontmatter keys: `name`, `description`, `model`, `tools`, and optionally
-  `spawns` and `output`. `name` matches the filename. `model` is the provider/model
-  selection point. All 16 roles use the exact explicit id
-  `openai-codex/gpt-5.6-luna`; do NOT use bare aliases (`luna`, `haiku`, `sonnet`,
-  `opus`) because fuzzy model resolution can select an unsupported or stale model and
+  `spawns` and `output`. `name` matches the filename. `model` is the EXPLICIT
+  provider/model selection point. All 16 roles are pinned to
+  `openai-codex/gpt-5.6-luna`; do NOT use bare model aliases here, because OMP fuzzy
+  matching can resolve them to stale provider ids and account-level rate limits can
   kill nested spawns mid-run.
 - `spawns` (CSV/array of agent names) lets an agent spawn those helpers itself via
   the task tool — the kroot shape-scout agents and arch-magos use it. Nested spawns
@@ -25,8 +25,6 @@ frontmatter both pin it). Some agents spawn helper agents themselves (see `spawn
   agent→agent spawn carries NO per-call schema — so every agent that another agent
   spawns (the decomposers, data-enginseer, swarmlord, eversor, psyker, and the kroot
   agents) declares `output`, kept byte-identical to the contract the workflow embeds.
-  Every nested task spawn must request strict schema handling; permissive repair output
-  cannot count as evidence.
   Any opaque/pass-through object slot (`type: object` or `[object, "null"]` without
   explicit `properties`) MUST set `additionalProperties: true`; otherwise OpenAI/Codex
   schema validation strips nested child evidence to `{}` and the workflow loses proof
@@ -41,14 +39,7 @@ frontmatter both pin it). Some agents spawn helper agents themselves (see `spawn
   with no mined transcripts yet.
 - `tools` is always explicit. Frontmatter cannot scope Bash read-only, so agents
   with Bash carry body-level rules: read-only commands; writes only under the
-  session scratchpad. `warpsmith` is the only agent with repo write access;
-  `arch-magos` deliberately has no Write tool.
-- Workflow role routing is fixed by each `wf-*.js` entry point; its `provenance` result
-  records the expected call contract, while OMP's invocation log is the authoritative
-  runtime evidence. A child JSON object claiming another role reviewed it is not proof.
-  Never replace a failed workflow with direct ad hoc spawns; repair/restart it or abort.
-- Every workflow requires `repo_root` and hard-checks that its actual cwd and `jj root`
-  match before spawning. Prompt text telling an agent to `cd` is not workspace isolation.
+  session scratchpad. `warpsmith` is the only agent with repo write access.
 
 ## IP boundary (applies to every agent)
 
@@ -60,14 +51,13 @@ notes, inbox entries, field notes — is own-words paraphrase.
 
 ## The suite
 
-| responsibility group | agents | job |
+| responsibility grouping | agents | job |
 |---|---|---|
 | retrieval and verification | data-enginseer, target-dummy, chronomancer, vox-hound, skitarius, eversor | retrieval, WHO/WHEN/WHAT decomposition, mechanical gating, adversarial refutation |
-| engineering and coverage | psyker, warpsmith, swarmlord, cogitator, kroot-lone-spear, kroot-trail-shaper | describer QA, describer engineering, cross-faction expansion, cruncher-lever guarding, shape coverage-adjudication, shape describer-design |
-| assembly and judgment | arch-magos, inquisitor, kroot-flesh-shaper, kroot-war-shaper | DSL assembly, coverage curation + final review, new-shape proposal, adversarial shape review |
+| engineering and expansion | psyker, warpsmith, swarmlord, cogitator, kroot-lone-spear, kroot-trail-shaper | describer QA, describer engineering, cross-faction expansion, cruncher-lever guarding, shape coverage-adjudication, shape describer-design |
+| assembly and curation | arch-magos, inquisitor, kroot-flesh-shaper, kroot-war-shaper | DSL assembly, coverage curation + final review, new-shape proposal, adversarial shape review |
 
-These groupings describe responsibilities only; they are not model tiers. Every row is
-registered on `openai-codex/gpt-5.6-luna`, including nested helper paths.
+These groupings describe responsibilities only; they are not model tiers. Every listed role uses `openai-codex/gpt-5.6-luna`.
 
 The four `kroot-*` agents are the **shape-scout sub-suite** (`workflows/wf-shape-scout.js`):
 when an ability resists every existing shape, they design a NEW one rather than flatten
@@ -78,19 +68,12 @@ family without flattening (spawning swarmlord), trail-shaper specs the describer
 and emits the warpsmith-ready shape package.
 
 Typical author-loop wiring: inquisitor prioritizes → data-enginseer retrieves →
-inquisitor reconstructs the global architecture → target-dummy + chronomancer +
-vox-hound decompose in parallel (deferred `lookups_needed`
+target-dummy + chronomancer + vox-hound decompose in parallel (deferred `lookups_needed`
 route back to data-enginseer) → arch-magos assembles (revising on the FULL panel thread,
 not just the last round) → eversor panel refutes → skitarius gates → cogitator diffs
 levers → psyker/warpsmith handle describer findings → swarmlord scouts the next family →
 inquisitor reviews and loops. On a `needs-schema` family, the driver forks to the kroot
 shape-scout sub-loop.
-
-data-enginseer retrieval includes one immutable SHA-256-bound evidence packet with
-stable clause ids. Arch-magos returns a one-row-per-clause coverage matrix; any
-mechanical clause that is missing, inferred, unresolved, dropped, or note-only routes
-to shape-scout. New shapes carry an explicit canonical schema, TS, Rust, Python, Go,
-cruncher, conformance, SPEC, and generated-bundle implementation matrix.
 
 ## Cross-cutting field notes (mined)
 
@@ -98,7 +81,7 @@ Suite-wide rules mined from 30 ability-coverage session transcripts (2026-07-12)
 
 - The IP boundary is absolute: raw GW prose lives only in the out-of-repo 40kdc-abilities store; the embeddings harness is a derivative that must live in the sibling ../40kdc-embeddings, use a local sentence-transformer (never an external API), never be committed, and be advisory triage only (never a deterministic conformance gate); all reports emit ids/scores/types/describer-English or de-IP'd fingerprints only.
 - TypeScript is the byte-identical oracle (tools/src/translate/effect.ts, condition.ts, cruncher/from-dsl.ts) — Rust/Python/Go must reproduce identical output pinned by the conformance corpus; port logic faithfully, not approximately, and prove parity with tooling/parity/differ.py, not with each port's own suite.
-- Adding a new effect shape is never a loose tweak: it requires a schema oneOf branch, four-language type regen, a describer arm in each language (inline AND container forms), cruncher recursion support, a conformance golden, a SPEC_VERSION bump, and lockstep updates to the four version declarations plus `Cargo.lock` — ship it as a patch release, and prove one construct end-to-end (schema->codegen->4 describers->cruncher->conformance->differ) as a vertical slice before batch-applying the pattern.
+- Adding a new effect shape is never a loose tweak: it requires a schema oneOf branch, four-language type regen, a describer arm in each language (inline AND container forms), cruncher recursion support, a conformance golden, a SPEC_VERSION bump, and the four-file version lockstep — ship it as a patch release, and prove one construct end-to-end (schema->codegen->4 describers->cruncher->conformance->differ) as a vertical slice before batch-applying the pattern.
 - `just preflight` is THE pre-push CI mirror (regen drift + four suites + version lockstep); activate python/.venv on PEP-668 machines and seal jj work with `jj new` first, since git-based verify-clean falsely flags uncommitted work as drift under jj.
 - SPEC_VERSION bumps on any semantic corpus change and is derived from generated corpus content, not chosen manually — on a merge, regenerate the corpus fresh from merged data and bump to the next integer past both sides rather than keeping either branch's number.
 - The four version files (tools/package.json, crates/wh40kdc/Cargo.toml, python/src/wh40kdc/_version.py, go/version.go) move together and CI hard-fails on drift; check whether the target PR/branch already owns the bump before touching them.

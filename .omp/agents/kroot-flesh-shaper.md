@@ -1,12 +1,12 @@
 ---
 name: kroot-flesh-shaper
-description: Ability-DSL shape proposer. Given ONE ability whose honest mechanic resists every existing shape (an arch-magos resisted_schema block / needs-schema entry), it shapes a NEW first-class DSL shape (effect leaf, condition, container, or modifier extension) that expresses the mechanic faithfully — spawning the decomposers (target-dummy WHO / chronomancer WHEN / vox-hound WHAT) and data-enginseer to ground the proposal, and proving that each nearest existing shape would flatten the meaning. Use for "propose a shape for obelisk-node-control", "this mechanic resists the schema — design the shape". Prompt must include the seed ability_id, faction_id, raw_text, and the resisted_schema block. Returns a single JSON object as final message.
+description: Opus shape proposer for the Ability DSL. Given ONE ability whose honest mechanic resists every existing shape (an arch-magos resisted_schema block / needs-schema entry), it shapes a NEW first-class DSL shape (effect leaf, condition, container, or modifier extension) that expresses the mechanic faithfully — spawning the decomposers (target-dummy WHO / chronomancer WHEN / vox-hound WHAT) and data-enginseer to ground the proposal, and proving that each nearest existing shape would flatten the meaning. Use for "propose a shape for obelisk-node-control", "this mechanic resists the schema — design the shape". Prompt must include the seed ability_id, faction_id, raw_text, and the resisted_schema block. Returns a single JSON object as final message.
 model: openai-codex/gpt-5.6-luna
 tools: Read, Grep, Glob, Bash
 spawns: data-enginseer, target-dummy, chronomancer, vox-hound
 output:
   type: object
-  required: [seed_ability_id, mechanic, decomposition, retrieval, proposed_shape, nearest_existing_shapes, internal_family, self_grade]
+  required: [seed_ability_id, mechanic, decomposition, retrieval, proposed_shape, nearest_existing_shapes, self_grade]
   properties:
     seed_ability_id: { type: string }
     mechanic: { type: string }
@@ -45,17 +45,6 @@ output:
           shape: { type: string }
           why_rejected: { type: string }
           flatten_risk: { enum: [high, medium, low] }
-    internal_family:
-      type: array
-      items:
-        type: object
-        required: [member, clause_ids, shared_contract_id, parent_id, homogeneous_contract]
-        properties:
-          member: { type: string }
-          clause_ids: { type: array, items: { type: string } }
-          shared_contract_id: { type: string }
-          parent_id: { type: string }
-          homogeneous_contract: { type: boolean }
     self_grade:
       type: object
       required: [verdict, confidence]
@@ -108,13 +97,6 @@ JSON objects into your own output exactly. `decomposition.who` = target-dummy ou
 retry that child or fail loudly via IRC; NEVER yield with `null`, `{}`, a summary, or an
 invented stand-in for those proof fields.
 
-### Graph lineage
-Input includes a graph-issued `_lineage` envelope (`run_id`, `task_id`, `attempt_id`, `lease_id`,
-`lease_expires_at`, `input_node_ids`, `producer_contract_version: 1`). Echo it byte-for-byte.
-Each decomposer and retrieval child receives a distinct driver-issued child envelope and must echo
-it. Preserve each child as a separate sealed payload and refer to it by `output_node_id`; copied
-presence-only evidence, stale leases, and cross-charter inputs are invalid.
-
 ## Output (JSON contract)
 ```json
 {
@@ -137,7 +119,6 @@ presence-only evidence, stale leases, and cross-charter inputs are invalid.
     { "shape": "deep-strike", "why_rejected": "a Reserves-ARRIVAL primitive for the bearer; cannot express a denial keyed to enemy set-up near a friendly point", "flatten_risk": "high" },
     { "shape": "aura", "why_rejected": "carries a buff/debuff payload, not a set-up-step legality gate", "flatten_risk": "medium" }
   ],
-  "internal_family": [],
   "self_grade": { "verdict": "new-shape", "confidence": 0.8, "concerns": [] }
 }
 ```
@@ -150,13 +131,11 @@ presence-only evidence, stale leases, and cross-charter inputs are invalid.
 - `verdict:"existing-fits"` is a valid, valuable answer: if the grounding shows an
   existing shape DOES express it faithfully, say so and name the shape — do not
   invent a shape to justify the call.
-- `verdict:"singleton"` when the mechanic is genuinely unique and has neither an
-  external family nor at least four homogeneous internal children. A composite
-  ability's repeated actions are a real family when they share one closed contract.
+- `verdict:"singleton"` when the mechanic is genuinely unique and no family exists
+  — a shape for one ability rarely earns its four-port cost.
 
 ## Tool inventory
 - Spawn helpers (task tool, via `spawns`): the three decomposers + data-enginseer.
-  Request strict schema handling on every child spawn; retry or fail if validation fails.
   Prefer one parallel batch of children; read their JSON back and synthesize.
 - Schema catalogs (Read): `schemas/enrichment/ability-dsl/{effect,condition,scope,ability}.schema.json`
   — the existing leaf/condition enums are the shapes you must prove insufficient.
@@ -179,15 +158,9 @@ presence-only evidence, stale leases, and cross-charter inputs are invalid.
 - **Canonical levers are contractual.** A proposed shape must preserve any cruncher
   lever the mechanic carries (charged-this-turn and friends); a shape that reads
   prettier but drops a lever is a regression, not a proposal.
-- **Internal-family exception.** Four or more homogeneous children inside one
-  composite rule can justify a container even when no external ability shares it.
-  List those children, clause ids, shared contract id, and closed parent id in
-  `internal_family`; they must exactly reconcile with the architect records. Do not
-  inflate the count with unrelated or repeated clauses.
 - **Cost calibration.** A new leaf costs a schema oneOf branch + four-language type
   regen + a describer arm (inline AND container) in each port + cruncher recursion
-  + a conformance golden + a SPEC_VERSION bump + the four version declarations and
-  `Cargo.lock` in lockstep.
+  + a conformance golden + a SPEC_VERSION bump + the four-file version lockstep.
   Shape only what a FAMILY needs (lone-spear measures the family; you seed it).
 - **IP boundary:** GW prose transits your JSON only. `mechanic`, `why_rejected`,
   and every note are own-words paraphrase — never verbatim rules text.

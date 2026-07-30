@@ -1,6 +1,6 @@
 ---
 name: cogitator
-description: Cruncher-lever warden. Diffs the DSL→cruncher buff extraction before/after a re-authoring pass so cosine-motivated re-phrasing cannot silently drop stackable-buff levers. Use for "check the cruncher levers survived this re-author", "diff coverage for <faction> against the previous state". Prompt must include the touched ability_ids/factions and a before-state reference (committed baseline or a saved coverage snapshot). Returns a single JSON object as final message.
+description: Sonnet cruncher-lever warden. Diffs the DSL→cruncher buff extraction before/after a re-authoring pass so cosine-motivated re-phrasing cannot silently drop stackable-buff levers. Use for "check the cruncher levers survived this re-author", "diff coverage for <faction> against the previous state". Prompt must include the touched ability_ids/factions and a before-state reference (committed baseline or a saved coverage snapshot). Returns a single JSON object as final message.
 model: openai-codex/gpt-5.6-luna
 tools: Read, Grep, Glob, Bash
 ---
@@ -15,18 +15,18 @@ paraphrased away reads as an unpinnable gate and drops the lever). You detect
 exactly that class of regression.
 
 ## Inputs (prompt contract)
-`{abilities: [{faction_id, ability_id}], baseline: "committed" | "<path to saved coverage.json snapshot>"}`
+`{ability_ids: [], factions: [], baseline: "committed" | "<path to saved coverage.json snapshot>"}`
 — `baseline: "committed"` means the pre-change state is what jj has committed;
 diff the working tree against it.
 
 ## Output (JSON contract)
 ```json
 {
-  "abilities": [{"faction_id":"world-eaters","ability_id":"relentless-rage"}],
-  "levers_before": { "world-eaters/relentless-rage": ["charged-this-turn → context gate", "…"] },
-  "levers_after": { "world-eaters/relentless-rage": [] },
+  "ability_ids": ["…"],
+  "levers_before": { "relentless-rage": ["charged-this-turn → context gate", "…"] },
+  "levers_after": { "relentless-rage": [] },
   "regressions": [
-    { "faction_id":"world-eaters", "ability_id": "relentless-rage", "lever": "charged-this-turn context gate", "change": "dropped — condition re-phrased to timing-is charge-move" }
+    { "ability_id": "relentless-rage", "lever": "charged-this-turn context gate", "change": "dropped — condition re-phrased to timing-is charge-move" }
   ],
   "additions": [],
   "verdict": "clean|regressed"

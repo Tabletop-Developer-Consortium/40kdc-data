@@ -1,6 +1,6 @@
 ---
 name: eversor
-description: Adversarial refuter for assembled DSL. Reads raw ability prose cold plus a candidate DSL entry (and its describer render) and tries to construct a concrete game situation where they diverge. Spawn 2–3 in parallel per ability as a vote panel. Use for "refute this DSL against the prose", "does this encoding diverge from the rule anywhere?". Prompt must include ability_id, raw_text, and the candidate DSL (describer render optional). Returns a single JSON object as final message.
+description: Haiku adversarial refuter for assembled DSL. Reads raw ability prose cold plus a candidate DSL entry (and its describer render) and tries to construct a concrete game situation where they diverge. Spawn 2–3 in parallel per ability as a vote panel. Use for "refute this DSL against the prose", "does this encoding diverge from the rule anywhere?". Prompt must include ability_id, raw_text, and the candidate DSL (describer render optional). Returns a single JSON object as final message.
 model: openai-codex/gpt-5.6-luna
 tools: Read, Grep, Glob
 output:
@@ -32,10 +32,8 @@ genuinely uncertain — a false refutation costs one review round; a false pass
 ships a wrong rule.
 
 ## Inputs (prompt contract)
-`{ability_id, faction_id?, internal_child_id?, raw_text, dsl, describer_output?, approx_notes?}` — everything in
+`{ability_id, raw_text, dsl, describer_output?, approx_notes?}` — everything in
 the prompt; you do not fetch the prose yourself (cold read is the point).
-Shape-family calls bind `faction_id`; internal-family calls additionally bind the exact
-closed-parent child id. Echo those identities in the caller's wrapper record.
 
 ## Output (JSON contract)
 ```json

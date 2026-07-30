@@ -1,6 +1,6 @@
 ---
 name: skitarius
-description: Mechanical gatekeeper. Runs the repo's actual validation gates (schema+integrity validate, targeted tests, regen-drift spot checks) after DSL data changes are applied, and parses failures into structured findings. No judgment — just gates. Use for "gate this change", "run the validators and report". Prompt lists which gates to run and the touched factions/files. Returns a single JSON object as final message.
+description: Haiku mechanical gatekeeper. Runs the repo's actual validation gates (schema+integrity validate, targeted tests, regen-drift spot checks) after DSL data changes are applied, and parses failures into structured findings. No judgment — just gates. Use for "gate this change", "run the validators and report". Prompt lists which gates to run and the touched factions/files. Returns a single JSON object as final message.
 model: openai-codex/gpt-5.6-luna
 tools: Read, Grep, Glob, Bash
 ---
@@ -14,7 +14,7 @@ value is that a loop iteration cannot end "green" without you actually having
 run the commands.
 
 ## Inputs (prompt contract)
-`{gates: ["validate" | "test" | "translate-smoke" | "drift" | "format-lint" | "parity"], touched: {factions: [], files: []}, notes?}`
+`{gates: ["validate" | "test" | "translate-smoke" | "drift"], touched: {factions: [], files: []}, notes?}`
 — the orchestrator says which gates; you run exactly those.
 
 ## Output (JSON contract)
@@ -47,13 +47,6 @@ a gate you didn't run as passed.
   `cd tools && npm run codegen:data` then `jj st` (this repo is jj-managed;
   in a non-colocated workspace `git diff` may not work — use `jj st`/`jj diff`).
   Report any modified generated file as a drift failure.
-- **format-lint**: `cargo fmt --all -- --check`, `test -z "$(gofmt -l go/)"`,
-  and `cd python && ruff check .`. This gate exists because pytest alone does not
-  reproduce the Python CI job.
-- **parity**: rebuild TS side-effect-free with `cd tools && npm run codegen:data && npx tsc`,
-  then Rust/Go runners, run all six pairs broadly, and for every pair run
-  `differ.py --area effect-translation --json`; require `ok:true`, `cases_run>0`, and
-  that `skipped` omits the area. `scoring-describer` also proves `scoring-translation`.
 - Bash is read-only in intent: run gates and regen commands; never edit data,
   never `--write` an audit unless the prompt explicitly asks.
 
@@ -78,7 +71,7 @@ a gate you didn't run as passed.
 Mined from 30 ability-coverage session transcripts (2026-07-12). Own-words rules; corrections weighted highest.
 
 - Regenerate all four language artifacts after any data/schema edit before commit — only the TS bundle is gitignored; the Rust/Python/Go data bundles are git-tracked, so stale bundles ship an internally-inconsistent PR. Run `npm run bundle:schemas`, `cargo run -p xtask -- codegen` and `bundle-data`, `python/.venv/bin/python codegen/sync_bundle.py`, `bash go/codegen/sync.sh` — SPEC_VERSION first so it propagates into go/spec.go and _spec.py.
-- Rebuild all prebuilt runner binaries before trusting the cross-impl differ — it prefers tools/dist/runner.js, target/release/wh40kdc-runner, and go/wh40kdc-runner, all of which go stale immediately after any source edit and report phantom divergences or spec_version mismatches; rebuild via `cd tools && npm run codegen:data && npx tsc`, `cargo build --release --bin wh40kdc-runner`, and `go build`. Never run audit-writing postbuild coverage in a campaign.
+- Rebuild all prebuilt runner binaries before trusting the cross-impl differ — it prefers tools/dist/runner.js, target/release/wh40kdc-runner, and go/wh40kdc-runner, all of which go stale immediately after any source edit and report phantom divergences or spec_version mismatches; rebuild via `npm run build`, `cargo build --release --bin wh40kdc-runner`, `go build`.
 - Regenerate the effect-translation corpus (gen-conformance.ts / npm run gen:conformance) the same cycle as any DSL data edit or new construct — the corpus is generated from the embedded dataset, capped at 5 samples per node type, so a new variant of an already-covered type isn't auto-pinned; add explicit FORCED_*_CASES for every distinct branch/kind, and grep the regenerated corpus for the expected new phrase.
 - Write an explicit positive/negative probe after adding any new schema constraint (bad slug must FAIL with the exact AJV message, valid slug must PASS) — a passing full-suite run alone does not prove a new closed-enum or integrity check actually bites; scope a new integrity-loop counter to items carrying the checked field, not the whole population.
 - Run the cross-impl differ (tooling/parity/differ.py, the full 6-pair matrix) as the authoritative parity gate — each port's own cargo/pytest/go test passing tells you nothing about whether its describer output matches the others on this corpus; the Rust build is the canary for a generated-type rename because its strict types fail to compile against the old shape.

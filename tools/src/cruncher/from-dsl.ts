@@ -281,6 +281,14 @@ function walk(
     case "resource-action-menu":
       enumerateMenuActions(currentNode, source, opts, out);
       return;
+    case "resource-action-menu":
+      // Each action is an INDEPENDENT reactive lever, not a pick-one group:
+      // unlike stance-select/issue-orders, multiple actions (and repeats of
+      // the same action by different units — see `usage.repeatable_if_different_unit`)
+      // can fire in the same phase, so no shared `group`/`maxActivations` cap
+      // is attached here.
+      enumerateMenuActions(node, source, opts, out);
+      return;
     default:
       out.unsupported.push({
         reason: `effect type "${String(type)}" is not modelled by the buff layer`,

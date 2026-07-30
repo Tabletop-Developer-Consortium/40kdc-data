@@ -921,20 +921,6 @@
         "keyword_restrictions": {
           "$ref": "#/$defs/keyword-list"
         },
-        "keyword_restriction_groups": {
-          "type": "array",
-          "minItems": 1,
-          "uniqueItems": true,
-          "items": {
-            "type": "array",
-            "minItems": 1,
-            "uniqueItems": true,
-            "items": {
-              "$ref": "#/$defs/keyword"
-            }
-          },
-          "description": "Alternative bearer eligibility groups. Every keyword in one group is required (AND), while satisfying any group is sufficient (OR). When present, this supersedes the legacy flat `keyword_restrictions` field."
-        },
         "exclusion_keywords": {
           "oneOf": [
             {
@@ -944,15 +930,6 @@
               "type": "null"
             }
           ]
-        },
-        "attachment_bodyguard_ids": {
-          "type": "array",
-          "items": {
-            "$ref": "#/$defs/entity-id"
-          },
-          "minItems": 1,
-          "uniqueItems": true,
-          "description": "Additional bodyguard units the bearer may attach to because it carries this enhancement."
         },
         "ability_id": {
           "oneOf": [
@@ -1291,18 +1268,6 @@
           "minimum": 0,
           "default": 15,
           "description": "Maximum primary VP scorable in a single battle round. 11e default is 15."
-        },
-        "secondary_vp_per_game_cap": {
-          "type": "integer",
-          "minimum": 0,
-          "default": 45,
-          "description": "Maximum secondary VP scorable across the whole game. 11e default is 45."
-        },
-        "secondary_vp_per_round_cap": {
-          "type": "integer",
-          "minimum": 0,
-          "default": 15,
-          "description": "Maximum secondary VP scorable in a single battle round. 11e default is 15."
         },
         "deployment_pattern_ids": {
           "type": "array",
@@ -2682,42 +2647,6 @@
         "faction_keywords": {
           "$ref": "#/$defs/keyword-list"
         },
-        "conditional_keywords": {
-          "type": "array",
-          "description": "Keywords granted to this unit only when roster construction satisfies the source condition. Conditions are conjunctive within an entry; entries are independent grants.",
-          "items": {
-            "type": "object",
-            "properties": {
-              "keyword": {
-                "$ref": "#/$defs/keyword"
-              },
-              "required_detachment_id": {
-                "oneOf": [
-                  {
-                    "$ref": "#/$defs/entity-id"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ]
-              },
-              "required_faction_keyword": {
-                "oneOf": [
-                  {
-                    "$ref": "#/$defs/keyword"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ]
-              }
-            },
-            "required": [
-              "keyword"
-            ],
-            "additionalProperties": false
-          }
-        },
         "excluded_faction_keywords": {
           "description": "Faction keywords whose armies are barred from taking this otherwise-generic unit. Used where the game removes a generic unit from a specific sub-faction without printing a replacement (e.g. Black Templars cannot field Librarians; Deathwatch cannot field the generic Tactical Squad). An army may take this unit only if none of its faction keywords appear here. Absent/empty = available to every keyword-eligible army. Distinct from `faction_keywords`, which is the positive access list; this is the negative one for the rare exclusions a flat shared pool cannot otherwise express.",
           "oneOf": [
@@ -3627,9 +3556,6 @@
           "$ref": "#/$defs/single-effect"
         },
         {
-          "$ref": "#/$defs/stance-select-effect"
-        },
-        {
           "$ref": "#/$defs/choice-effect"
         },
         {
@@ -3648,9 +3574,6 @@
           "$ref": "#/$defs/select-units-effect"
         },
         {
-          "$ref": "#/$defs/for-each-unit-effect"
-        },
-        {
           "$ref": "#/$defs/movement-modifier-effect"
         },
         {
@@ -3660,6 +3583,9 @@
           "$ref": "#/$defs/designate-target-effect"
         },
         {
+          "$ref": "#/$defs/stance-select-effect"
+        },
+        {
           "$ref": "#/$defs/risk-reward-effect"
         },
         {
@@ -3667,12 +3593,6 @@
         },
         {
           "$ref": "#/$defs/resource-action-menu-effect"
-        },
-        {
-          "$ref": "#/$defs/leader-model-ability-grant-effect"
-        },
-        {
-          "$ref": "#/$defs/persistent-designation-effect"
         }
       ]
     },
@@ -3712,6 +3632,30 @@
       "required": [
         "per",
         "of"
+      ],
+      "additionalProperties": false
+    },
+    "resource-gain-battle-size-counts": {
+      "type": "object",
+      "description": "Token/resource count keyed by the three supported battle sizes. The renderer intentionally refers players to the accompanying table rather than spelling these values out.",
+      "properties": {
+        "incursion": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "strike-force": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "onslaught": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "incursion",
+        "strike-force",
+        "onslaught"
       ],
       "additionalProperties": false
     },
@@ -3832,10 +3776,8 @@
             "modifier-immunity",
             "stratagem-cost-modifier",
             "targeting-permission",
-            "stratagem-targeting-permission",
             "unit-attachment",
             "fight-eligibility-extension",
-            "recovery-pool",
             "resource-clear"
           ]
         },
@@ -3891,18 +3833,6 @@
           "$comment": "`disembark-after-move`: a Transport modifies disembarkation. `after` is the move that enables it (`normal-move` | `advance` | `deployment` | `before-move`); `can_charge` is whether the disembarked unit may then declare a charge; `requires_keyword` gates it on a keyword (e.g. Deep Strike for Aerial Assault); `counts_as_normal_move` marks the disembarked unit as having made a Normal move (Assault Vehicle). An absent modifier renders the bare 'after it has moved' form. `mandatory` marks a Reserves-transport whose cargo MUST disembark on arrival (Drop Pod); `min_enemy_distance` is the inches the disembarking units must be set up away from all enemy models. For `after: deployment` the charge tail renders only when `can_charge` is explicit (a deployment-step disembark has no charge window)."
         },
         {
-          "$comment": "`recovery-pool`: recover a unit's wounds using the closed dice expression, first healing wounded models and then returning destroyed models at one wound. With `target: all-friendly`, `per_target_unit: true` rolls and allocates an independent pool for every eligible friendly unit."
-        },
-        {
-          "$comment": "`stratagem-targeting-permission`: an attached unit can be selected as a Stratagem target despite the named exception."
-        },
-        {
-          "$comment": "`bind_count_as` binds a dice-valued mortal-wound count for a following local consumer."
-        },
-        {
-          "$comment": "`count_from` consumes a preceding local bound count for a wounds-form resurrection."
-        },
-        {
           "$comment": "`unit-attachment`: this unit can join another friendly unit during the Declare Battle Formations step, becoming part of that Bodyguard unit. `led_by` (optional) is the keyword the joined unit must be led by; `mandatory` (optional) marks the attachment as forced (the unit must be attached to a Leader or it counts as destroyed)."
         }
       ]
@@ -3922,10 +3852,6 @@
         },
         "choice_label": {
           "type": "string"
-        },
-        "choice_prompt": {
-          "type": "string",
-          "minLength": 1
         }
       },
       "required": [
@@ -4094,7 +4020,7 @@
     },
     "select-units-effect": {
       "type": "object",
-      "$comment": "Targeting wrapper: choose up to `selector.max_count` units, or a bounded exact/inclusive count when `selector.min_count` is present, matching `selector.keywords` of the named `owner`; apply the nested `effect` to each selected unit. Optional range, visibility, and engagement gates are bearer-relative candidate predicates evaluated before the nested effect.",
+      "$comment": "Targeting wrapper: choose up to `selector.max_count` units matching `selector.keywords` of the named `owner`, then apply the nested `effect` to each. Models 'select up to N <keyword> units and do X' (redeploy, army-wide one-off buffs) that bare ability-grant labels previously flattened.",
       "properties": {
         "type": {
           "const": "select-units"
@@ -4103,10 +4029,6 @@
           "type": "object",
           "additionalProperties": false,
           "properties": {
-            "count": {
-              "type": "integer",
-              "minimum": 1
-            },
             "max_count": {
               "type": "integer",
               "minimum": 1
@@ -4123,99 +4045,10 @@
                 "friendly",
                 "enemy"
               ]
-            },
-            "within_inches": {
-              "type": "number",
-              "exclusiveMinimum": 0
-            },
-            "eligibility": {
-              "$ref": "#/$defs/condition"
-            },
-            "min_count": {
-              "type": "integer",
-              "minimum": 1
-            },
-            "range_inches": {
-              "type": "number",
-              "minimum": 0,
-              "description": "Distance from bearer to each selected unit."
-            },
-            "visibility_required": {
-              "type": "boolean",
-              "description": "When true, each selected candidate must be visible to the bearer."
-            },
-            "engagement_relation": {
-              "type": "string",
-              "enum": [
-                "any",
-                "engaged-with-bearer",
-                "not-engaged-with-bearer"
-              ],
-              "description": "Candidate engagement relation to the bearer; evaluated independently of range_inches."
             }
           },
           "required": [
-            "owner"
-          ],
-          "oneOf": [
-            {
-              "required": [
-                "count"
-              ],
-              "not": {
-                "required": [
-                  "max_count"
-                ]
-              }
-            },
-            {
-              "required": [
-                "max_count"
-              ],
-              "not": {
-                "required": [
-                  "count"
-                ]
-              }
-            }
-          ],
-          "description": "Legacy selectors omit min_count and retain up-to semantics. Bounded authoring requires min_count, max_count, and owner, with min_count <= max_count."
-        },
-        "effect": {
-          "$ref": "#/$defs/effect-node"
-        }
-      },
-      "required": [
-        "type",
-        "selector",
-        "effect"
-      ]
-    },
-    "for-each-unit-effect": {
-      "type": "object",
-      "additionalProperties": false,
-      "$comment": "Resolve `effect` independently once for every matching unit, binding that unit as its target. `selector` has no count because it selects every eligible unit.",
-      "properties": {
-        "type": {
-          "const": "for-each-unit"
-        },
-        "selector": {
-          "type": "object",
-          "additionalProperties": false,
-          "properties": {
-            "owner": {
-              "type": "string",
-              "enum": [
-                "friendly",
-                "enemy"
-              ]
-            },
-            "within_inches": {
-              "type": "number",
-              "exclusiveMinimum": 0
-            }
-          },
-          "required": [
+            "max_count",
             "owner"
           ]
         },
@@ -4407,35 +4240,6 @@
             },
             "effect": {
               "$ref": "#/$defs/effect-node"
-            },
-            "eligible": {
-              "type": "object",
-              "additionalProperties": false,
-              "properties": {
-                "required_keywords": {
-                  "type": "array",
-                  "minItems": 1,
-                  "items": {
-                    "type": "string",
-                    "minLength": 1
-                  }
-                },
-                "excluded_keywords": {
-                  "type": "array",
-                  "minItems": 1,
-                  "items": {
-                    "type": "string",
-                    "minLength": 1
-                  }
-                }
-              },
-              "minProperties": 1
-            },
-            "emitter_filter": {
-              "$ref": "#/$defs/keyword-filter"
-            },
-            "recipient_filter": {
-              "$ref": "#/$defs/keyword-filter"
             }
           }
         }
@@ -4659,30 +4463,6 @@
         "type",
         "options"
       ]
-    },
-    "resource-gain-battle-size-counts": {
-      "type": "object",
-      "description": "Token/resource count keyed by the three supported battle sizes. The renderer intentionally refers players to the accompanying table rather than spelling these values out.",
-      "properties": {
-        "incursion": {
-          "type": "integer",
-          "minimum": 0
-        },
-        "strike-force": {
-          "type": "integer",
-          "minimum": 0
-        },
-        "onslaught": {
-          "type": "integer",
-          "minimum": 0
-        }
-      },
-      "required": [
-        "incursion",
-        "strike-force",
-        "onslaught"
-      ],
-      "additionalProperties": false
     },
     "resource-action-menu-effect": {
       "type": "object",
@@ -4922,681 +4702,6 @@
         "event"
       ]
     },
-    "named-region-ref": {
-      "type": "object",
-      "properties": {
-        "region_id": {
-          "type": "string",
-          "minLength": 1
-        },
-        "owner_faction": {
-          "type": "string",
-          "minLength": 1
-        }
-      },
-      "required": [
-        "region_id",
-        "owner_faction"
-      ],
-      "additionalProperties": false
-    },
-    "named-region-source-gate": {
-      "type": "object",
-      "properties": {
-        "gate_ref": {
-          "type": "string",
-          "minLength": 1
-        },
-        "owner": {
-          "type": "string",
-          "minLength": 1
-        },
-        "unit_predicate": {
-          "type": "object",
-          "properties": {
-            "faction": {
-              "type": "string",
-              "minLength": 1
-            },
-            "keywords": {
-              "type": "array",
-              "minItems": 1,
-              "items": {
-                "type": "string",
-                "minLength": 1
-              }
-            }
-          },
-          "required": [
-            "faction",
-            "keywords"
-          ],
-          "additionalProperties": false
-        },
-        "range_to_marker_inches": {
-          "type": "number",
-          "exclusiveMinimum": 0
-        }
-      },
-      "required": [
-        "gate_ref",
-        "owner",
-        "unit_predicate"
-      ],
-      "additionalProperties": false
-    },
-    "named-region-membership": {
-      "type": "object",
-      "properties": {
-        "unit_scope": {
-          "type": "string",
-          "enum": [
-            "model",
-            "whole-unit"
-          ]
-        },
-        "relation": {
-          "type": "string",
-          "minLength": 1
-        }
-      },
-      "required": [
-        "unit_scope",
-        "relation"
-      ],
-      "additionalProperties": true
-    },
-    "named-region-branch-actor": {
-      "type": "object",
-      "properties": {
-        "role": {
-          "type": "string",
-          "minLength": 1
-        },
-        "gate_ref": {
-          "type": "string",
-          "minLength": 1
-        }
-      },
-      "required": [
-        "role",
-        "gate_ref"
-      ],
-      "additionalProperties": false
-    },
-    "named-region-branch-timing": {
-      "type": "object",
-      "properties": {
-        "event": {
-          "type": "string",
-          "minLength": 1
-        }
-      },
-      "required": [
-        "event"
-      ],
-      "additionalProperties": false
-    },
-    "named-region-branch": {
-      "type": "object",
-      "properties": {
-        "source": {
-          "$ref": "#/$defs/named-region-branch-actor"
-        },
-        "beneficiary": {
-          "$ref": "#/$defs/named-region-branch-actor"
-        },
-        "target": {
-          "type": "string",
-          "enum": [
-            "self",
-            "bearer",
-            "unit",
-            "attached-unit",
-            "attacker",
-            "defender",
-            "target",
-            "friendly-within-aura",
-            "enemy-within-aura",
-            "all-friendly",
-            "all-enemy"
-          ]
-        },
-        "timing": {
-          "$ref": "#/$defs/named-region-branch-timing"
-        },
-        "duration": {
-          "type": "string",
-          "minLength": 1
-        },
-        "effect": {
-          "$ref": "#/$defs/effect-node"
-        },
-        "optional": {
-          "type": "boolean"
-        }
-      },
-      "required": [
-        "source",
-        "beneficiary",
-        "target",
-        "timing",
-        "duration",
-        "effect",
-        "optional"
-      ],
-      "additionalProperties": false
-    },
-    "named-region-baseline": {
-      "type": "object",
-      "properties": {
-        "kind": {
-          "const": "fixed-zone"
-        },
-        "zone": {
-          "const": "own-deployment-zone"
-        },
-        "activation": {
-          "type": "object",
-          "properties": {
-            "event": {
-              "const": "always-active"
-            }
-          },
-          "required": [
-            "event"
-          ],
-          "additionalProperties": false
-        },
-        "expiry": {
-          "type": "object",
-          "properties": {
-            "event": {
-              "const": "never"
-            }
-          },
-          "required": [
-            "event"
-          ],
-          "additionalProperties": false
-        }
-      },
-      "required": [
-        "kind",
-        "zone",
-        "activation",
-        "expiry"
-      ],
-      "additionalProperties": false
-    },
-    "named-region-phase-extension": {
-      "type": "object",
-      "properties": {
-        "kind": {
-          "const": "objective-majority-zone"
-        },
-        "zone": {
-          "type": "string",
-          "enum": [
-            "no-mans-land",
-            "opponent-deployment-zone"
-          ]
-        },
-        "control_gate": {
-          "type": "object",
-          "properties": {
-            "marker_scope": {
-              "const": "markers-in-zone"
-            },
-            "controlled_by": {
-              "const": "owner-army"
-            },
-            "threshold": {
-              "type": "object",
-              "properties": {
-                "comparison": {
-                  "const": "at-least"
-                },
-                "fraction": {
-                  "const": 0.5
-                }
-              },
-              "required": [
-                "comparison",
-                "fraction"
-              ],
-              "additionalProperties": false
-            }
-          },
-          "required": [
-            "marker_scope",
-            "controlled_by",
-            "threshold"
-          ],
-          "additionalProperties": false
-        },
-        "activation": {
-          "type": "object",
-          "properties": {
-            "event": {
-              "const": "phase-start"
-            },
-            "evaluation": {
-              "const": "snapshot-once"
-            },
-            "canonical_condition_ids": {
-              "const": [
-                "timing-is",
-                "objective-majority"
-              ]
-            }
-          },
-          "required": [
-            "event",
-            "evaluation",
-            "canonical_condition_ids"
-          ],
-          "additionalProperties": false
-        },
-        "expiry": {
-          "type": "object",
-          "properties": {
-            "event": {
-              "const": "phase-end"
-            }
-          },
-          "required": [
-            "event"
-          ],
-          "additionalProperties": false
-        }
-      },
-      "required": [
-        "kind",
-        "zone",
-        "control_gate",
-        "activation",
-        "expiry"
-      ],
-      "additionalProperties": false
-    },
-    "named-region-producer": {
-      "type": "object",
-      "properties": {
-        "region_ref": {
-          "$ref": "#/$defs/named-region-ref"
-        },
-        "mode": {
-          "type": "string",
-          "enum": [
-            "complete",
-            "extension"
-          ]
-        },
-        "parent_ref": {
-          "oneOf": [
-            {
-              "$ref": "#/$defs/named-region-ref"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "baseline": {
-          "type": "array",
-          "items": {
-            "$ref": "#/$defs/named-region-baseline"
-          }
-        },
-        "phase_extensions": {
-          "type": "array",
-          "items": {
-            "$ref": "#/$defs/named-region-phase-extension"
-          }
-        },
-        "additive_extensions": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "kind": {
-                "type": "string",
-                "minLength": 1
-              },
-              "source_gate": {
-                "$ref": "#/$defs/named-region-source-gate"
-              }
-            },
-            "required": [
-              "kind",
-              "source_gate"
-            ],
-            "additionalProperties": true
-          }
-        }
-      },
-      "required": [
-        "region_ref",
-        "mode",
-        "parent_ref",
-        "baseline",
-        "phase_extensions",
-        "additive_extensions"
-      ],
-      "additionalProperties": false
-    },
-    "named-region-consumer": {
-      "type": "object",
-      "properties": {
-        "state_ref": {
-          "$ref": "#/$defs/named-region-ref"
-        },
-        "beneficiary_gate": {
-          "type": "object",
-          "properties": {
-            "owner": {
-              "type": "string",
-              "minLength": 1
-            },
-            "faction": {
-              "type": "string",
-              "minLength": 1
-            },
-            "operator": {
-              "type": "string",
-              "enum": [
-                "and",
-                "or"
-              ]
-            },
-            "keywords": {
-              "type": "array",
-              "minItems": 1,
-              "items": {
-                "type": "string",
-                "minLength": 1
-              }
-            }
-          },
-          "required": [
-            "owner",
-            "operator",
-            "keywords"
-          ],
-          "additionalProperties": true
-        },
-        "membership": {
-          "$ref": "#/$defs/named-region-membership"
-        },
-        "qualified_condition": {
-          "$ref": "#/$defs/condition"
-        },
-        "default_branch": {
-          "$ref": "#/$defs/named-region-branch"
-        },
-        "qualified_branch": {
-          "$ref": "#/$defs/named-region-branch"
-        }
-      },
-      "required": [
-        "state_ref",
-        "beneficiary_gate",
-        "membership",
-        "qualified_condition",
-        "default_branch",
-        "qualified_branch"
-      ],
-      "additionalProperties": false
-    },
-    "named-region-state": {
-      "type": "object",
-      "properties": {
-        "region_ref": {
-          "$ref": "#/$defs/named-region-ref"
-        },
-        "producer": {
-          "$ref": "#/$defs/named-region-producer"
-        },
-        "consumer": {
-          "$ref": "#/$defs/named-region-consumer"
-        },
-        "branch_precedence": {
-          "const": "qualified-replaces-default"
-        }
-      },
-      "required": [
-        "region_ref",
-        "producer",
-        "consumer",
-        "branch_precedence"
-      ],
-      "additionalProperties": false
-    },
-    "keyword-filter": {
-      "type": "object",
-      "description": "Independent keyword predicate for the aura emitter or each aura recipient. Required keywords all match; excluded keywords none match.",
-      "additionalProperties": false,
-      "properties": {
-        "required_keywords": {
-          "type": "array",
-          "items": {
-            "type": "string",
-            "minLength": 1
-          },
-          "minItems": 1
-        },
-        "excluded_keywords": {
-          "type": "array",
-          "items": {
-            "type": "string",
-            "minLength": 1
-          },
-          "minItems": 1
-        }
-      },
-      "required": [
-        "required_keywords"
-      ]
-    },
-    "beneficiary-bound-effect-node": {
-      "type": "object",
-      "description": "Targetless effect dispatched to a relation-resolved beneficiary model; bearer and unit targets are intentionally not representable.",
-      "properties": {
-        "type": {
-          "type": "string",
-          "minLength": 1
-        },
-        "modifier": {
-          "type": "object",
-          "additionalProperties": true
-        },
-        "scaling": {
-          "$ref": "#/$defs/scaling"
-        }
-      },
-      "required": [
-        "type"
-      ],
-      "additionalProperties": false
-    },
-    "leader-model-ability-grant-effect": {
-      "type": "object",
-      "description": "Resolve the attached qualifying leader model and dispatch a targetless effect to that model while it leads the bearer unit.",
-      "additionalProperties": false,
-      "properties": {
-        "type": {
-          "const": "leader-model-ability-grant"
-        },
-        "source": {
-          "const": "bearer-unit"
-        },
-        "beneficiary": {
-          "type": "string",
-          "enum": [
-            "leading-leader-model",
-            "attached-character-leader"
-          ]
-        },
-        "leader_filter": {
-          "type": "object",
-          "properties": {
-            "identity": {
-              "type": "string",
-              "minLength": 1
-            },
-            "keywords": {
-              "type": "array",
-              "items": {
-                "type": "string",
-                "minLength": 1
-              },
-              "minItems": 1
-            }
-          },
-          "minProperties": 1,
-          "additionalProperties": false
-        },
-        "attached_unit_filter": {
-          "oneOf": [
-            {
-              "type": "array",
-              "items": {
-                "type": "string",
-                "minLength": 1
-              },
-              "minItems": 1
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "duration": {
-          "const": "while-leading"
-        },
-        "grant": {
-          "type": "object",
-          "additionalProperties": false,
-          "properties": {
-            "recipient": {
-              "const": "beneficiary"
-            },
-            "effect": {
-              "$ref": "#/$defs/beneficiary-bound-effect-node"
-            }
-          },
-          "required": [
-            "recipient",
-            "effect"
-          ]
-        },
-        "recipient_binding": {
-          "const": "beneficiary-only"
-        }
-      },
-      "required": [
-        "type",
-        "source",
-        "beneficiary",
-        "attached_unit_filter",
-        "duration",
-        "grant",
-        "recipient_binding"
-      ]
-    },
-    "persistent-designation-effect": {
-      "type": "object",
-      "additionalProperties": false,
-      "$comment": "Retain one selected enemy unit or objective marker, then resolve a bearer-only consumer relation against that exact reference for the declared duration. The seed policy is one-time selection at the start of the first battle round.",
-      "properties": {
-        "type": {
-          "const": "persistent-designation"
-        },
-        "designation": {
-          "type": "string",
-          "minLength": 1
-        },
-        "select": {
-          "type": "object",
-          "additionalProperties": false,
-          "properties": {
-            "scope": {
-              "type": "string",
-              "enum": [
-                "enemy-unit",
-                "objective-marker"
-              ]
-            },
-            "count": {
-              "type": "integer",
-              "const": 1
-            },
-            "timing": {
-              "type": "string",
-              "minLength": 1
-            },
-            "selection_policy": {
-              "type": "string",
-              "enum": [
-                "one-time"
-              ]
-            }
-          },
-          "required": [
-            "scope",
-            "timing",
-            "selection_policy"
-          ]
-        },
-        "consumer": {
-          "type": "object",
-          "additionalProperties": false,
-          "description": "The retained reference is consumed by the bearer model only; the renderer names both the bearer recipient and the exact selected-reference relation.",
-          "properties": {
-            "relation": {
-              "type": "string",
-              "enum": [
-                "attacks-selected-unit",
-                "within-selected-marker"
-              ],
-              "description": "Resolve this relation from the bearer to its retained enemy unit or marker; do not substitute a generic target or nearby-object predicate."
-            },
-            "beneficiary": {
-              "type": "string",
-              "const": "bearer",
-              "description": "For the seed, beneficiary bearer resolves to this model; the selected unit or marker is never the effect recipient."
-            },
-            "effect": {
-              "$ref": "#/$defs/effect-node",
-              "description": "Nested effects target the bearer. Objective Control operation set is an assignment and renders as setting the characteristic to the value, not as a signed delta."
-            }
-          },
-          "required": [
-            "relation",
-            "beneficiary",
-            "effect"
-          ]
-        },
-        "duration": {
-          "type": "string",
-          "enum": [
-            "phase",
-            "turn",
-            "battle-round",
-            "battle",
-            "until-next-command-phase"
-          ]
-        }
-      },
-      "required": [
-        "type",
-        "designation",
-        "select",
-        "consumer",
-        "duration"
-      ]
-    },
     "effect": {
       "title": "Ability Effect",
       "$ref": "#/$defs/effect-node"
@@ -5629,7 +4734,6 @@
             "battle-round",
             "battle",
             "until-next-command-phase",
-            "until-next-battle-round",
             "one-use",
             "permanent"
           ]

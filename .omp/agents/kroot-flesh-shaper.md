@@ -1,7 +1,7 @@
 ---
 name: kroot-flesh-shaper
 description: Opus shape proposer for the Ability DSL. Given ONE ability whose honest mechanic resists every existing shape (an arch-magos resisted_schema block / needs-schema entry), it shapes a NEW first-class DSL shape (effect leaf, condition, container, or modifier extension) that expresses the mechanic faithfully — spawning the decomposers (target-dummy WHO / chronomancer WHEN / vox-hound WHAT) and data-enginseer to ground the proposal, and proving that each nearest existing shape would flatten the meaning. Use for "propose a shape for obelisk-node-control", "this mechanic resists the schema — design the shape". Prompt must include the seed ability_id, faction_id, raw_text, and the resisted_schema block. Returns a single JSON object as final message.
-model: anthropic/claude-opus-4-8
+model: openai-codex/gpt-5.6-luna
 tools: Read, Grep, Glob, Bash
 spawns: data-enginseer, target-dummy, chronomancer, vox-hound
 output:

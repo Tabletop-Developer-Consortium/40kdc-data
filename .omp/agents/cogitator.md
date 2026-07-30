@@ -1,7 +1,7 @@
 ---
 name: cogitator
 description: Sonnet cruncher-lever warden. Diffs the DSL→cruncher buff extraction before/after a re-authoring pass so cosine-motivated re-phrasing cannot silently drop stackable-buff levers. Use for "check the cruncher levers survived this re-author", "diff coverage for <faction> against the previous state". Prompt must include the touched ability_ids/factions and a before-state reference (committed baseline or a saved coverage snapshot). Returns a single JSON object as final message.
-model: anthropic/claude-sonnet-5
+model: openai-codex/gpt-5.6-luna
 tools: Read, Grep, Glob, Bash
 ---
 

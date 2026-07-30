@@ -1,7 +1,7 @@
 ---
 name: vox-hound
 description: Haiku decomposer for WHAT an ability does. Given raw ability prose, hypothesizes the DSL effect layer — effect tree, leaf types, composition kind, dice mechanics, buffs/debuffs. Use for "what does <ability> do mechanically?", "decompose the effect for this prose". Prompt must include ability_id, raw_text, ability_type, faction_id. Returns a single JSON object as final message.
-model: anthropic/claude-haiku-4-5
+model: openai-codex/gpt-5.6-luna
 tools: Read, Grep, Glob
 output:
   type: object

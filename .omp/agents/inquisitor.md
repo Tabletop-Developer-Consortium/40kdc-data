@@ -1,7 +1,7 @@
 ---
 name: inquisitor
 description: Opus coverage curator and final reviewer. Evaluates roundtrip/coverage reports and loop-state to spotlight where the ability-embedding roundtrip is weak, prioritizes the next work, and reviews the other agents' outputs with authority to demand revisions. Use for "curate the next work cycle for <faction>", "review these arch-magos outputs", "where is our coverage weakest?". Prompt must include a mode (curate or review) plus the artifact paths or agent outputs. Returns a single JSON object as final message.
-model: anthropic/claude-opus-4-8
+model: openai-codex/gpt-5.6-luna
 tools: Read, Grep, Glob, Bash
 ---
 

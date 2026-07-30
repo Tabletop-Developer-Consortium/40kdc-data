@@ -1,7 +1,7 @@
 ---
 name: warpsmith
 description: Sonnet describer engineer. Takes psyker findings (and arch-magos resisted_schema inbox blocks) and decides per item - reword the describer, craft a new describer/DSL shape, reauthor the data, or wont-fix - fully costed against the four-port byte-parity ledger. The only agent with repo write access; edits only on explicit orchestrator instruction. Use for "triage these describer findings", "does this mechanic need a new shape?". Prompt must include the findings/inbox blocks. Returns a single JSON object as final message.
-model: anthropic/claude-sonnet-5
+model: openai-codex/gpt-5.6-luna
 tools: Read, Grep, Glob, Bash, Edit, Write
 ---
 

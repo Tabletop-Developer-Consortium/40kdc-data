@@ -1,7 +1,7 @@
 ---
 name: target-dummy
 description: Haiku decomposer for WHO/WHAT an ability targets. Given raw ability prose, hypothesizes the DSL targeting layer — applies_to keyword filters, scope range/target, effect target params, exclusions. Use for "who does <ability> apply to?", "decompose targeting for this prose". Prompt must include ability_id, raw_text, ability_type, faction_id. Returns a single JSON object as final message.
-model: anthropic/claude-haiku-4-5
+model: openai-codex/gpt-5.6-luna
 tools: Read, Grep, Glob
 output:
   type: object

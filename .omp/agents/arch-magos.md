@@ -1,7 +1,7 @@
 ---
 name: arch-magos
 description: Opus assembler for the Ability DSL. Takes decomposer outputs (target-dummy, chronomancer, vox-hound) plus data-enginseer retrieval and assembles one complete, schema-valid DSL ability entry, self-checked against the raw prose via the translate CLI. Use for "assemble the DSL for <ability_id> from these decomposer results", "author this ability given target/timing/effect analyses". Prompt must include ability_id, faction_id, raw_text, and the decomposer JSON blocks (any may be null). Returns a single JSON object as final message.
-model: anthropic/claude-opus-4-8
+model: openai-codex/gpt-5.6-luna
 tools: Read, Grep, Glob, Bash, Write
 spawns: data-enginseer
 ---

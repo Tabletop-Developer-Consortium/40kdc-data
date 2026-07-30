@@ -10,11 +10,11 @@ frontmatter both pin it). Some agents spawn helper agents themselves (see `spawn
 ## Conventions
 
 - Frontmatter keys: `name`, `description`, `model`, `tools`, and optionally
-  `spawns` and `output`. `name` matches the filename. `model` is an EXPLICIT provider/model
-  id. This suite is pinned to explicit Anthropic ids (`anthropic/claude-opus-4-8`,
-  `anthropic/claude-sonnet-5`, `anthropic/claude-haiku-4-5`, per the tier table below); do NOT use
-  bare tier aliases (`haiku`/`sonnet`/`opus`) here — OMP fuzzy matching has resolved them
-  to stale Anthropic ids and account-level rate limits can kill nested spawns mid-run.
+  `spawns` and `output`. `name` matches the filename. `model` is the EXPLICIT
+  provider/model selection point. All 16 roles are pinned to
+  `openai-codex/gpt-5.6-luna`; do NOT use bare model aliases here, because OMP fuzzy
+  matching can resolve them to stale provider ids and account-level rate limits can
+  kill nested spawns mid-run.
 - `spawns` (CSV/array of agent names) lets an agent spawn those helpers itself via
   the task tool — the kroot shape-scout agents and arch-magos use it. Nested spawns
   need `task.maxRecursionDepth >= 2` (set in `.omp/config.yml`); keep spawn trees ONE
@@ -51,11 +51,13 @@ notes, inbox entries, field notes — is own-words paraphrase.
 
 ## The suite
 
-| tier | agents | job |
+| responsibility grouping | agents | job |
 |---|---|---|
-| haiku | data-enginseer, target-dummy, chronomancer, vox-hound, skitarius, eversor | retrieval, WHO/WHEN/WHAT decomposition, mechanical gating, adversarial refutation |
-| sonnet | psyker, warpsmith, swarmlord, cogitator, kroot-lone-spear, kroot-trail-shaper | describer QA, describer engineering, cross-faction expansion, cruncher-lever guarding, shape coverage-adjudication, shape describer-design |
-| opus | arch-magos, inquisitor, kroot-flesh-shaper, kroot-war-shaper | DSL assembly, coverage curation + final review, new-shape proposal, adversarial shape review |
+| retrieval and verification | data-enginseer, target-dummy, chronomancer, vox-hound, skitarius, eversor | retrieval, WHO/WHEN/WHAT decomposition, mechanical gating, adversarial refutation |
+| engineering and expansion | psyker, warpsmith, swarmlord, cogitator, kroot-lone-spear, kroot-trail-shaper | describer QA, describer engineering, cross-faction expansion, cruncher-lever guarding, shape coverage-adjudication, shape describer-design |
+| assembly and curation | arch-magos, inquisitor, kroot-flesh-shaper, kroot-war-shaper | DSL assembly, coverage curation + final review, new-shape proposal, adversarial shape review |
+
+These groupings describe responsibilities only; they are not model tiers. Every listed role uses `openai-codex/gpt-5.6-luna`.
 
 The four `kroot-*` agents are the **shape-scout sub-suite** (`workflows/wf-shape-scout.js`):
 when an ability resists every existing shape, they design a NEW one rather than flatten

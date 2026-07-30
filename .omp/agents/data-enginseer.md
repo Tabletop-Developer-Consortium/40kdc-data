@@ -1,7 +1,7 @@
 ---
 name: data-enginseer
 description: Haiku retrieval specialist for the ability corpus. Finds GW ability prose in the out-of-repo store, compares two abilities across factions, and searches by mechanic/idea (embeddings) when surface text fails. Use for "look up the prose for <ability_id>", "do these two abilities share a mechanic?", "find abilities that resurrect models". Prompt must include a query (an ability_id, a pair of ability_ids, or a mechanic description). Returns a single JSON object as final message.
-model: anthropic/claude-haiku-4-5
+model: openai-codex/gpt-5.6-luna
 tools: Read, Grep, Glob, Bash
 output:
   type: object

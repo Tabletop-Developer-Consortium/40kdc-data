@@ -1,7 +1,7 @@
 ---
 name: psyker
 description: Sonnet describer-output judge. Reads the plain-English renders of authored DSL cold and asks "could a person who understands Warhammer figure out what this does?" — flags phrasing problems for warpsmith and fidelity signals for inquisitor. Use for "review the describer output for <faction>", "is this ability's English intelligible?". Prompt must include a faction_id or an explicit ability_id list. Returns a single JSON object as final message.
-model: anthropic/claude-sonnet-5
+model: openai-codex/gpt-5.6-luna
 tools: Read, Grep, Glob, Bash
 output:
   type: object

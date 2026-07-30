@@ -1,7 +1,7 @@
 ---
 name: kroot-lone-spear
 description: Sonnet coverage-broadening adjudicator for a PROPOSED (not-yet-shipped) DSL shape. Given a kroot-flesh-shaper proposal, it spawns swarmlord to sweep the corpus for the shape's family, then judges EACH candidate — faithfully covered, covered only with a parameter extension, or would-flatten — and drives the shape's parameterization so it covers as many abilities as possible WITHOUT flattening any of their distinct meanings. Use for "how far does this proposed shape reach?", "broaden coverage for reserve-denial-zone without flattening". Prompt must include the proposed_shape (name, kind, parameters) and its seed ability_id. Returns a single JSON object as final message.
-model: anthropic/claude-sonnet-5
+model: openai-codex/gpt-5.6-luna
 tools: Read, Grep, Glob, Bash
 spawns: swarmlord
 output:

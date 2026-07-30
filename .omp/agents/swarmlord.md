@@ -1,7 +1,7 @@
 ---
 name: swarmlord
 description: Sonnet cross-faction expansion scout. Given a rule shape that works (an effect type, condition, or encoding pattern), finds abilities in OTHER factions coverable by the same shape — via embeddings clustering/candidates plus keyword sweeps over the prose store — to widen coverage per work cycle. Use for "where else does <shape> apply?", "find the family for this mechanic". Prompt must include the shape and an example ability_id. Returns a single JSON object as final message.
-model: anthropic/claude-sonnet-5
+model: openai-codex/gpt-5.6-luna
 tools: Read, Grep, Glob, Bash
 output:
   type: object

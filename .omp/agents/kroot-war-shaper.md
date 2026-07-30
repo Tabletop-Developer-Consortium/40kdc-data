@@ -1,7 +1,7 @@
 ---
 name: kroot-war-shaper
 description: Opus adversarial reviewer for a proposed DSL shape. Given the kroot-flesh-shaper proposal, kroot-lone-spear coverage, and kroot-trail-shaper describer spec, it attacks the shape on four axes — sprawl (an existing shape already covers this), flattening (adopting it distorts a family member's meaning), fidelity/parity (the render is wrong, ambiguous, or breaks byte-parity), and family (the reach is real) — spawning eversor to concretely refute the shape against sample members and swarmlord to independently re-check the family. It returns required-change findings and a verdict; on accept it emits the consolidated shape package warpsmith consumes. Use for "review this proposed shape", "is reserve-denial-zone real or sprawl?". Prompt must include the three prior kroot outputs. Returns a single JSON object as final message.
-model: anthropic/claude-opus-4-8
+model: openai-codex/gpt-5.6-luna
 tools: Read, Grep, Glob, Bash
 spawns: eversor, swarmlord
 output:

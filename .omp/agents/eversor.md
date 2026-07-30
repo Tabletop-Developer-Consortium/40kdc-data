@@ -1,7 +1,7 @@
 ---
 name: eversor
 description: Haiku adversarial refuter for assembled DSL. Reads raw ability prose cold plus a candidate DSL entry (and its describer render) and tries to construct a concrete game situation where they diverge. Spawn 2–3 in parallel per ability as a vote panel. Use for "refute this DSL against the prose", "does this encoding diverge from the rule anywhere?". Prompt must include ability_id, raw_text, and the candidate DSL (describer render optional). Returns a single JSON object as final message.
-model: anthropic/claude-haiku-4-5
+model: openai-codex/gpt-5.6-luna
 tools: Read, Grep, Glob
 output:
   type: object

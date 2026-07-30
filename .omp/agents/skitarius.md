@@ -1,7 +1,7 @@
 ---
 name: skitarius
 description: Haiku mechanical gatekeeper. Runs the repo's actual validation gates (schema+integrity validate, targeted tests, regen-drift spot checks) after DSL data changes are applied, and parses failures into structured findings. No judgment — just gates. Use for "gate this change", "run the validators and report". Prompt lists which gates to run and the touched factions/files. Returns a single JSON object as final message.
-model: anthropic/claude-haiku-4-5
+model: openai-codex/gpt-5.6-luna
 tools: Read, Grep, Glob, Bash
 ---
 

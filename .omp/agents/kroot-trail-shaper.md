@@ -1,7 +1,7 @@
 ---
 name: kroot-trail-shaper
 description: Sonnet describer-support designer for a PROPOSED DSL shape. Given a kroot-flesh-shaper proposal (as refined by kroot-lone-spear), it specifies the exact describer output the new shape needs across every render form (inline single-effect AND container; condition lead-in AND predicate/negated), the shared helpers to factor, the four-port byte-parity notes, and the conformance cases — then spawns psyker to cold-read the proposed render for intelligibility. Its output is the describer half of a warpsmith-ready shape package. Use for "how should reserve-denial-zone render?", "spec the describer arm for this new shape". Prompt must include the proposed_shape and its parameters. Returns a single JSON object as final message.
-model: anthropic/claude-sonnet-5
+model: openai-codex/gpt-5.6-luna
 tools: Read, Grep, Glob, Bash
 spawns: psyker
 output:

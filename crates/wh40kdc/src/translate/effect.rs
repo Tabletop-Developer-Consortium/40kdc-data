@@ -17,10 +17,14 @@ use crate::generated::{
     AuraEffectModifierRange, AuraEffectTarget, CompoundConditionOperator, ConditionNode,
     DesignateTargetEffectAppliesTo, DesignateTargetEffectSelectScope, DiceGatedEffect,
     DiceGatedEffectComparison, DiceGatedEffectThreshold, DicePoolAllocationEffect,
-    DiceRequirementSpec, EffectNode, MovementModifierEffect, Scaling, ScalingOf, ScalingRound,
-    Scope, ScopeRange, SelectUnitsEffectSelector, SelectUnitsEffectSelectorOwner,
+    DiceRequirementSpec, EffectNode, MovementModifierEffect, ResourceActionMenuEffect,
+    ResourceActionMenuEffectActionsItem, ResourceActionMenuEffectActionsItemDuration,
+    ResourceActionMenuEffectActionsItemWhen, ResourceActionMenuEffectSharedUsage,
+    ResourceActionMenuTrigger, ResourceActionMenuTriggerMoveTypesItem,
+    ResourceActionMenuTriggerProximityOf, ResourceActionMenuTriggerSubject, Scaling, ScalingOf,
+    ScalingRound, Scope, ScopeRange, SelectUnitsEffectSelector, SelectUnitsEffectSelectorOwner,
     SimpleConditionType, SingleEffect, SingleEffectType, StanceSelectEffectMode, Trigger,
-    TriggerMoveTypesItem, TriggerProximityOf,
+    TriggerMoveTypesItem, TriggerProximityOf, TriggerSubject,
 };
 
 /// Rendering context threaded from the ability (scope info the leaf needs).
@@ -251,6 +255,29 @@ fn pool_name(v: &Value) -> String {
         "CP".to_string()
     } else {
         title_case(&p)
+    }
+}
+
+/// Player-facing noun for a resource pool. An explicit singular label is
+/// pluralized by count; otherwise the internal pool id is title-cased.
+fn resource_noun(m: &Map<String, Value>, count: Option<&Value>) -> String {
+    let label = m
+        .get("resource_label")
+        .and_then(Value::as_str)
+        .filter(|s| !s.is_empty());
+    let Some(label) = label else {
+        return first(m, &["pool_id", "resource"])
+            .map(pool_name)
+            .unwrap_or_else(|| "?".to_string());
+    };
+    let singular = count
+        .map(jval)
+        .and_then(|s| s.parse::<f64>().ok())
+        .is_some_and(|n| n == 1.0);
+    if singular {
+        label.to_string()
+    } else {
+        format!("{label}s")
     }
 }
 
@@ -1753,22 +1780,31 @@ fn describe_single(e: &SingleEffect, ctx: &Ctx) -> String {
             format!("{subj} can only be selected as the target of {at} if {gate}")
         }
         T::ResourceGain => {
-            let amount = first(m, &["amount", "value"])
-                .map(jval)
-                .unwrap_or_else(|| "?".to_string());
-            let pool = first(m, &["pool_id", "resource"])
-                .map(pool_name)
-                .unwrap_or_else(|| "?".to_string());
-            format!("you gain {amount} {pool}")
+            if nstr(m, "count_mode") == Some("by-battle-size")
+                || m.get("count_by_battle_size").is_some()
+            {
+                format!(
+                    "you gain {} based on the current battle size (see the accompanying table)",
+                    resource_noun(m, None)
+                )
+            } else {
+                let amount = first(m, &["amount", "value"])
+                    .map(jval)
+                    .unwrap_or_else(|| "?".to_string());
+                format!(
+                    "you gain {amount} {}",
+                    resource_noun(m, first(m, &["amount", "value"]))
+                )
+            }
         }
         T::ResourceSpend => {
             let amount = first(m, &["amount", "value"])
                 .map(jval)
                 .unwrap_or_else(|| "?".to_string());
-            let pool = first(m, &["pool_id", "resource"])
-                .map(pool_name)
-                .unwrap_or_else(|| "?".to_string());
-            let base = format!("spend {amount} {pool}");
+            let base = format!(
+                "spend {amount} {}",
+                resource_noun(m, first(m, &["amount", "value"]))
+            );
             match m.get("cap") {
                 Some(Value::Object(cap))
                     if cap.get("count").is_some_and(|v| !v.is_null())
@@ -1782,6 +1818,14 @@ fn describe_single(e: &SingleEffect, ctx: &Ctx) -> String {
                 }
                 _ => base,
             }
+        }
+        T::ResourceClear => {
+            let scope = if nstr(m, "scope") == Some("all") {
+                "all"
+            } else {
+                "all unspent"
+            };
+            format!("{scope} {} are lost", resource_noun(m, None))
         }
         T::LeadershipModifier => {
             let has_test = notnull(m, "test");
@@ -2107,6 +2151,184 @@ fn describe_single(e: &SingleEffect, ctx: &Ctx) -> String {
         }
     }
 }
+fn describe_menu_trigger(t: &ResourceActionMenuTrigger) -> String {
+    let mut s = event_clause(&t.event.to_string());
+    if t.event.to_string() == "falls-back"
+        && t.subject == Some(ResourceActionMenuTriggerSubject::EnemyUnit)
+    {
+        s = "an enemy unit Falls Back".to_string();
+    }
+    if !t.move_types.is_empty() {
+        let kinds = or_list(
+            &t.move_types
+                .iter()
+                .map(|mt| match mt {
+                    ResourceActionMenuTriggerMoveTypesItem::FallBack => "Fall Back".to_string(),
+                    other => cap_word(&other.to_string()),
+                })
+                .collect::<Vec<_>>(),
+        );
+        s = replace_first_word(&s, "move", &format!("{kinds} move"));
+    }
+    if let Some(prox) = &t.proximity {
+        let of = match prox.of {
+            Some(ResourceActionMenuTriggerProximityOf::AttachedUnit) => "the unit this model leads",
+            Some(ResourceActionMenuTriggerProximityOf::Self_)
+            | Some(ResourceActionMenuTriggerProximityOf::Bearer) => "this model",
+            None => "this unit",
+        };
+        s.push_str(&format!(" within {}\" of {of}", fmt_num(prox.range)));
+    }
+    if let Some(cond) = &t.condition {
+        s.push_str(&format!(", if {}", describe_node(&cond.0)));
+    }
+    s
+}
+
+fn normalize_menu_triggers(
+    when: &ResourceActionMenuEffectActionsItemWhen,
+) -> Vec<&ResourceActionMenuTrigger> {
+    match when {
+        ResourceActionMenuEffectActionsItemWhen::ResourceActionMenuTrigger(t) => vec![t],
+        ResourceActionMenuEffectActionsItemWhen::Array(ts) => ts.iter().collect(),
+    }
+}
+
+fn menu_action_subject(
+    eligibility: Option<&crate::generated::ResourceActionMenuEffectActionsItemEligibility>,
+) -> String {
+    let Some(eligibility) = eligibility else {
+        return "the unit".to_string();
+    };
+    if !eligibility.excludes_keyword.is_empty() {
+        return format!(
+            "one friendly non-{} unit",
+            eligibility.excludes_keyword.join("/")
+        );
+    }
+    if !eligibility.requires_keyword.is_empty() {
+        return format!("a friendly {} unit", eligibility.requires_keyword.join(" "));
+    }
+    "the unit".to_string()
+}
+
+fn menu_action_eligibility_clause(
+    eligibility: Option<&crate::generated::ResourceActionMenuEffectActionsItemEligibility>,
+) -> String {
+    let Some(eligibility) = eligibility else {
+        return String::new();
+    };
+    let has_keyword_gate =
+        !eligibility.requires_keyword.is_empty() || !eligibility.excludes_keyword.is_empty();
+    if !has_keyword_gate && eligibility.requires.is_empty() {
+        return String::new();
+    }
+    let mut parts = Vec::new();
+    if has_keyword_gate {
+        parts.push(format!(
+            "only usable by {}",
+            menu_action_subject(Some(eligibility))
+        ));
+    }
+    if !eligibility.requires.is_empty() {
+        parts.push(
+            eligibility
+                .requires
+                .iter()
+                .map(|c| describe_node(&c.0))
+                .collect::<Vec<_>>()
+                .join(" and "),
+        );
+    }
+    format!(" ({})", parts.join(", "))
+}
+
+fn menu_resource_noun(cost: &crate::generated::ResourceActionMenuEffectActionsItemCost) -> String {
+    let pool = pool_name(&Value::String(cost.pool_id.as_str().to_string()));
+    match &cost.resource_label {
+        Some(label) if cost.amount.get() == 1 => label.as_str().to_string(),
+        Some(label) => format!("{}s", label.as_str()),
+        None => pool,
+    }
+}
+
+fn describe_menu_action(a: &ResourceActionMenuEffectActionsItem, ctx: &Ctx) -> String {
+    let label = a.label.as_str();
+    let trig = normalize_menu_triggers(&a.when)
+        .iter()
+        .map(|t| describe_menu_trigger(t))
+        .filter(|s| !s.is_empty())
+        .collect::<Vec<_>>()
+        .join(" or ");
+    let cost = format!("spend {} {}", a.cost.amount, menu_resource_noun(&a.cost));
+    let duration = match a.duration {
+        Some(ResourceActionMenuEffectActionsItemDuration::UntilEndOfPhase) => {
+            "until the end of the phase"
+        }
+        Some(ResourceActionMenuEffectActionsItemDuration::UntilEndOfTurn) => {
+            "until the end of the turn"
+        }
+        _ => "",
+    };
+    let usage = if a
+        .usage
+        .as_ref()
+        .and_then(|u| u.repeatable_if_different_unit)
+        .unwrap_or(false)
+    {
+        " (may be triggered more than once per phase if a different unit performs it each time)"
+    } else {
+        ""
+    };
+    let mut parts = vec![
+        format!(
+            "{trig}{}",
+            menu_action_eligibility_clause(a.eligibility.as_ref())
+        ),
+        cost,
+        inline(&a.effect, ctx),
+    ];
+    if !duration.is_empty() {
+        parts.push(duration.to_string());
+    }
+    format!("{label}: {}{usage}.", parts.join(", "))
+}
+
+fn shared_usage_clause(shared: Option<&ResourceActionMenuEffectSharedUsage>) -> String {
+    let Some(shared) = shared else {
+        return String::new();
+    };
+    let mut parts = Vec::new();
+    if let Some(max) = shared.unit_max_manoeuvres_per_phase {
+        parts.push(if max.get() == 1 {
+            "a unit may perform at most one action per phase".to_string()
+        } else {
+            format!("a unit may perform at most {} actions per phase", max)
+        });
+    }
+    if let Some(max) = shared.default_manoeuvre_max_per_phase {
+        parts.push(if max.get() == 1 {
+            "unless stated otherwise, a given action may be triggered once per phase".to_string()
+        } else {
+            format!(
+                "unless stated otherwise, a given action may be triggered up to {} times per phase",
+                max
+            )
+        });
+    }
+    parts.join("; ")
+}
+
+fn describe_menu_inline(e: &ResourceActionMenuEffect, ctx: &Ctx) -> String {
+    format!(
+        "actions may be performed when their conditions are met: {}",
+        e.actions
+            .iter()
+            .map(|a| describe_menu_action(a, ctx))
+            .collect::<Vec<_>>()
+            .join(" / ")
+    )
+}
 
 /// Single-clause translation for leaf effects (lowercase-initial, no period).
 pub fn describe_effect_inline(e: &EffectNode) -> String {
@@ -2238,6 +2460,7 @@ fn inline(e: &EffectNode, ctx: &Ctx) -> String {
                 .join(" / ");
             format!("issue Orders, each one of: {names}")
         }
+        EffectNode::ResourceActionMenuEffect(e) => describe_menu_inline(e, ctx),
         EffectNode::MovementModifierEffect(mm) => {
             let subj = subject(&mm.target.to_string(), ctx);
             movement_clause(&movement_modifier_map(mm), &subj)
@@ -2363,6 +2586,7 @@ fn is_container(e: &EffectNode) -> bool {
             | EffectNode::StanceSelectEffect(_)
             | EffectNode::RiskRewardEffect(_)
             | EffectNode::IssueOrdersEffect(_)
+            | EffectNode::ResourceActionMenuEffect(_)
     )
 }
 
@@ -2543,6 +2767,22 @@ fn block(e: &EffectNode, depth: usize, ctx: &Ctx) -> String {
             }
             lines.join("\n")
         }
+        EffectNode::ResourceActionMenuEffect(e) => {
+            let su = shared_usage_clause(e.shared_usage.as_ref());
+            let intro = if su.is_empty() {
+                "Actions may be performed when their conditions are met".to_string()
+            } else {
+                format!(
+                    "Actions may be performed when their conditions are met. {}",
+                    capitalize(&su)
+                )
+            };
+            let mut lines = vec![format!("{indent}{arrow}{intro}:")];
+            for action in &e.actions {
+                lines.push(format!("{indent}  - {}", describe_menu_action(action, ctx)));
+            }
+            lines.join("\n")
+        }
         EffectNode::SingleEffect(_)
         | EffectNode::MovementModifierEffect(_)
         | EffectNode::AuraEffect(_) => {
@@ -2593,11 +2833,13 @@ fn replace_first_word(haystack: &str, word: &str, replacement: &str) -> String {
     }
     haystack.to_string()
 }
-
 /// Reactive-trigger opener ("an enemy unit ends a move within 9" of this model,
 /// if ..."). Mirrors `describeTrigger` for ability `trigger` blocks.
 fn describe_ability_trigger(t: &Trigger) -> String {
     let mut s = event_clause(&t.event.to_string());
+    if t.event.to_string() == "falls-back" && t.subject == Some(TriggerSubject::EnemyUnit) {
+        s = "an enemy unit Falls Back".to_string();
+    }
     // Narrow a move event to its move kinds: "ends a move" → "ends a Normal,
     // Advance or Fall Back move".
     if !t.move_types.is_empty() {

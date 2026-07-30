@@ -11,7 +11,7 @@ abilities that translate into cruncher buffs via the real `effectToBuffs`
 | adeptus-astartes | 364 | 112 | 38 | 228 | 3 | 16 | 0 | 7 |
 | adeptus-custodes | 90 | 21 | 12 | 61 | 0 | 3 | 0 | 3 |
 | adeptus-mechanicus | 111 | 27 | 12 | 76 | 0 | 0 | 0 | 2 |
-| aeldari | 180 | 39 | 13 | 133 | 3 | 8 | 0 | 5 |
+| aeldari | 180 | 40 | 13 | 132 | 2 | 7 | 0 | 5 |
 | agents-of-the-imperium | 133 | 34 | 13 | 89 | 0 | 0 | 0 | 2 |
 | astra-militarum | 205 | 44 | 16 | 147 | 2 | 3 | 0 | 5 |
 | chaos-daemons | 157 | 39 | 14 | 110 | 0 | 7 | 0 | 4 |
@@ -30,7 +30,7 @@ abilities that translate into cruncher buffs via the real `effectToBuffs`
 | thousand-sons | 130 | 32 | 9 | 94 | 7 | 12 | 0 | 2 |
 | tyranids | 115 | 22 | 8 | 88 | 1 | 5 | 0 | 5 |
 | world-eaters | 133 | 17 | 10 | 107 | 3 | 0 | 0 | 0 |
-| **TOTAL** | **3123** | **768** | **266** | **2175** | **40** | **118** | **0** | **57** |
+| **TOTAL** | **3123** | **769** | **266** | **2174** | **39** | **117** | **0** | **57** |
 
 `stub*` = structural (empty-modifier placeholder node) — the authoring worklist. `notes-stub` = flagged in community_notes.
 
@@ -55,8 +55,8 @@ abilities that translate into cruncher buffs via the real `effectToBuffs`
 - `30` — effect type "fallback-and-act" is not modelled by the buff layer
 - `23` — effect type "fight-on-death" is not modelled by the buff layer
 - `23` — stat-modifier on "M" is outside the damage path
-- `23` — stat-modifier: operation "undefined" not supported
 - `22` — effect type "fight-first" is not modelled by the buff layer
+- `22` — stat-modifier: operation "undefined" not supported
 - `19` — effect type "targeting-permission" is not modelled by the buff layer
 - `19` — roll-modifier: operation "set" not supported
 - `14` — conditional: cannot evaluate condition "unit-below-starting-strength" against current context

@@ -100,6 +100,7 @@ fn event_phrase(e: &str) -> Option<&'static str> {
         "fall-back-move" => "when the unit makes a Fall Back move",
         "falls-back" => "when the unit Falls Back",
         "charge-move" => "when the unit makes a Charge move",
+        "charge-declaration" => "when a Charge is declared",
         "moved-through-terrain" => "when the unit moves through terrain",
         "moved-through-tall-terrain" => "when the unit moves through terrain over 4\" tall",
         "enemy-unit-ended-move" => "an enemy unit ends a move",
@@ -451,10 +452,10 @@ fn describe_simple(s: &SimpleCondition) -> String {
             pu(p, "threshold", 0)
         ),
         T::WasHitByAttack => {
-            let subject = if ps(p, "subject") == Some("target") {
-                "the target"
-            } else {
-                "the unit"
+            let subject = match ps(p, "subject") {
+                Some("target") => "the target",
+                Some("selected-friendly-unit") => "the selected friendly unit",
+                _ => "the unit",
             };
             let atk = match ps(p, "attack_type") {
                 Some(t) => format!("{t} "),
@@ -464,13 +465,27 @@ fn describe_simple(s: &SimpleCondition) -> String {
                 Some(w) => format!(" by {w}"),
                 None => String::new(),
             };
+            let bound_source = match p.get("source") {
+                Some(Value::Object(source)) if source.get("event_var").is_some() => {
+                    " from that enemy unit".to_string()
+                }
+                Some(v) if !v.is_null() => format!(" from {}", effect::jval(v)),
+                _ => String::new(),
+            };
+            let window = if ps(p, "window") == Some("just-finished-shooting-sequence") {
+                " during its just-finished shooting sequence"
+            } else {
+                " this phase"
+            };
             let n = pu(p, "count_min", 1);
             if n > 1 {
-                format!("{negate}{subject} was hit by {n}+ {atk}attacks{weapon} this phase")
+                format!(
+                    "{negate}{subject} was hit by {n}+ {atk}attacks{weapon}{bound_source}{window}"
+                )
             } else if atk.is_empty() {
-                format!("{negate}{subject} was hit by an attack{weapon} this phase")
+                format!("{negate}{subject} was hit by an attack{weapon}{bound_source}{window}")
             } else {
-                format!("{negate}{subject} was hit by a {atk}attack{weapon} this phase")
+                format!("{negate}{subject} was hit by a {atk}attack{weapon}{bound_source}{window}")
             }
         }
         T::OpponentUnitWithinRange => {
@@ -763,6 +778,16 @@ fn describe_simple(s: &SimpleCondition) -> String {
             }
             Some(other) => format!("{negate}the unit is {}", dekebab(other)),
         },
+        T::UnitWasInEngagementRangeOf => {
+            let snapshot_point = if ps(p, "snapshot") == Some("turn-start") {
+                "the turn"
+            } else {
+                "the phase"
+            };
+            format!(
+                "{negate}the selected friendly unit started {snapshot_point} within Engagement Range of that enemy unit"
+            )
+        }
         T::FightsFirst => format!("{negate}the unit has Fights First"),
         T::DispositionMatches => match ps(p, "disposition") {
             Some("strategic-reserves") => format!("{negate}the unit is in Strategic Reserves"),

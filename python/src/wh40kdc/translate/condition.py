@@ -148,6 +148,7 @@ _EVENT_PHRASES: dict[str, str] = {
     "start-of-phase": "at the start of the phase",
     "end-of-phase": "at the end of the phase",
     "start-of-turn": "at the start of the turn",
+    "charge-declaration": "when a Charge is declared",
     "end-of-turn": "at the end of the turn",
     "start-of-opponent-turn": "at the start of the opponent's turn",
     "end-of-opponent-turn": "at the end of the opponent's turn",
@@ -277,15 +278,33 @@ def describe_condition(c: Condition) -> str:
         threshold = threshold if threshold is not None else 0
         return f"{negate}the model has {_str(threshold)} or fewer wounds remaining"
     if ctype == "was-hit-by-attack":
-        subject = "the target" if p.get("subject") == "target" else "the unit"
+        subject = (
+            "the target"
+            if p.get("subject") == "target"
+            else "the selected friendly unit"
+            if p.get("subject") == "selected-friendly-unit"
+            else "the unit"
+        )
         atk = f"{_str(p.get('attack_type'))} " if p.get("attack_type") else ""
         weapon = f" by {_str(p.get('weapon_name'))}" if p.get("weapon_name") else ""
-        count_min = p.get("count_min")
-        n = count_min if count_min is not None else 1
-        if isinstance(n, (int, float)) and n > 1:
-            return f"{negate}{subject} was hit by {_str(n)}+ {atk}attacks{weapon} this phase"
-        article = "an attack" if atk == "" else f"a {atk}attack"
-        return f"{negate}{subject} was hit by {article}{weapon} this phase"
+        source = p.get("source")
+        bound_source = (
+            " from that enemy unit"
+            if isinstance(source, dict) and source.get("event_var") is not None
+            else f" from {_str(source)}"
+            if source is not None
+            else ""
+        )
+        window = (
+            " during its just-finished shooting sequence"
+            if p.get("window") == "just-finished-shooting-sequence"
+            else " this phase"
+        )
+        n = int(p.get("count_min") or 1)
+        if n > 1:
+            return f"{negate}{subject} was hit by {n}+ {atk}attacks{weapon}{bound_source}{window}"
+        attack = "an attack" if not atk else f"a {atk}attack"
+        return f"{negate}{subject} was hit by {attack}{weapon}{bound_source}{window}"
     if ctype == "opponent-unit-within-range":
         if p.get("weapon_name") is not None:
             within = f"range of {dekebab(_str(p.get('weapon_name')))}"
@@ -347,6 +366,18 @@ def describe_condition(c: Condition) -> str:
         if st in ("engaged", "within-engagement-range", "in-engagement-range"):
             return f"{negate}the unit is within Engagement Range"
         return f"{negate}the unit is {dekebab(st)}"
+    if ctype == "unit-was-in-engagement-range-of":
+        # `object` is a bound event-variable reference (schema
+        # `#/$defs/event-bound-reference`, e.g. the enemy unit a sibling
+        # trigger's `binds_event_variable` names as the one that ended a Fall
+        # Back move). `event_var` is an internal linking id, never rendered —
+        # the relationship always reads as "that enemy unit", with no game
+        # phase assumed.
+        snapshot_point = "the turn" if p.get("snapshot") == "turn-start" else "the phase"
+        return (
+            f"{negate}the selected friendly unit started {snapshot_point} "
+            "within Engagement Range of that enemy unit"
+        )
     if ctype == "disposition-matches":
         d = _str(p.get("disposition"))
         if d == "strategic-reserves":

@@ -67,6 +67,7 @@ GameEvent: TypeAlias = Literal[
     "fall-back-move",
     "falls-back",
     "charge-move",
+    "charge-declaration",
     "moved-through-terrain",
     "moved-through-tall-terrain",
     "enemy-unit-ended-move",
@@ -733,6 +734,10 @@ class Interaction(TypedDict):
     notes: NotRequired[str]
 
 
+class EventBoundReference(TypedDict):
+    event_var: str
+
+
 class SimpleCondition(TypedDict):
     type: Literal[
         "phase-is",
@@ -781,6 +786,7 @@ class SimpleCondition(TypedDict):
         "faction-rule-active",
         "battle-round",
         "token-count-at-or-above",
+        "unit-was-in-engagement-range-of",
     ]
     parameters: NotRequired[dict[str, Any]]
     negated: NotRequired[bool]
@@ -798,6 +804,16 @@ class Scaling(TypedDict):
     within_inches: NotRequired[float]
     round: NotRequired[Literal["down", "up"]]
     max_value: NotRequired[int]
+
+
+ResourceGainBattleSizeCounts = TypedDict(
+    "ResourceGainBattleSizeCounts",
+    {
+        "incursion": int,
+        "strike-force": int,
+        "onslaught": int,
+    },
+)
 
 
 RuleStateCoreRuleSlug: TypeAlias = Literal[
@@ -876,6 +892,7 @@ class SingleEffect(TypedDict):
         "targeting-permission",
         "unit-attachment",
         "fight-eligibility-extension",
+        "resource-clear",
     ]
     target: Literal[
         "self",
@@ -923,6 +940,25 @@ class Select(TypedDict):
 
 class Eligible(TypedDict):
     keyword: NotRequired[str]
+
+
+class SharedUsage(TypedDict):
+    unit_max_manoeuvres_per_phase: NotRequired[int]
+    default_manoeuvre_max_per_phase: NotRequired[int]
+
+
+class Cost1(TypedDict):
+    pool_id: str
+    amount: int
+    resource_label: NotRequired[str]
+
+
+class Usage1(TypedDict):
+    repeatable_if_different_unit: NotRequired[bool]
+
+
+class Cost2(TypedDict):
+    cp: NotRequired[int]
 
 
 class Scope(TypedDict):
@@ -1051,6 +1087,7 @@ class Trigger(TypedDict):
     optional: NotRequired[bool]
     cost: NotRequired[Cost]
     window: NotRequired[str]
+    binds_event_variable: NotRequired[str]
 
 
 class Ability(TypedDict):
@@ -1103,6 +1140,7 @@ EffectNode: TypeAlias = Union[
     "StanceSelectEffect",
     "RiskRewardEffect",
     "IssueOrdersEffect",
+    "ResourceActionMenuEffect",
 ]
 
 
@@ -1267,6 +1305,46 @@ class IssueOrdersEffect(TypedDict):
     range: NotRequired[float]
     eligible: NotRequired[Eligible]
     options: list[Option1]
+
+
+class Eligibility(TypedDict):
+    requires_keyword: NotRequired[list[str]]
+    excludes_keyword: NotRequired[list[str]]
+    selector_count: NotRequired[int]
+    requires: NotRequired[list[Condition]]
+
+
+class Action1(TypedDict):
+    id: str
+    label: str
+    when: ResourceActionMenuTrigger | list[ResourceActionMenuTrigger]
+    cost: Cost1
+    eligibility: NotRequired[Eligibility]
+    usage: NotRequired[Usage1]
+    duration: NotRequired[Literal["immediate", "until-end-of-phase", "until-end-of-turn"]]
+    effect: EffectNode
+
+
+class ResourceActionMenuEffect(TypedDict):
+    type: Literal["resource-action-menu"]
+    menu_id: str
+    pool_id: str
+    shared_usage: NotRequired[SharedUsage]
+    actions: list[Action1]
+
+
+class ResourceActionMenuTrigger(TypedDict):
+    event: GameEvent
+    subject: NotRequired[
+        Literal["self", "bearer", "friendly-unit", "enemy-unit", "any-unit", "model-in-bearer"]
+    ]
+    proximity: NotRequired[Proximity]
+    move_types: NotRequired[list[Literal["normal", "advance", "fall-back", "charge"]]]
+    condition: NotRequired[Condition]
+    optional: NotRequired[bool]
+    cost: NotRequired[Cost2]
+    window: NotRequired[str]
+    binds_event_variable: NotRequired[str]
 
 
 Effect: TypeAlias = EffectNode

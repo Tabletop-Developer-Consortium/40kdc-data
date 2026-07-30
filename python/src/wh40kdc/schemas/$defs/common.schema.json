@@ -27,14 +27,22 @@
     },
     "keyword-list": {
       "type": "array",
-      "items": { "$ref": "#/$defs/keyword" },
+      "items": {
+        "$ref": "#/$defs/keyword"
+      },
       "uniqueItems": true
     },
     "stat-value": {
       "description": "A stat that can be a fixed number or a dice expression",
       "oneOf": [
-        { "type": "integer", "minimum": 0 },
-        { "type": "string", "pattern": "^\\d*[Dd]\\d+(\\+\\d+)?$" }
+        {
+          "type": "integer",
+          "minimum": 0
+        },
+        {
+          "type": "string",
+          "pattern": "^\\d*[Dd]\\d+(\\+\\d+)?$"
+        }
       ]
     },
     "contributor-ref": {
@@ -43,65 +51,141 @@
     },
     "phase": {
       "type": "string",
-      "enum": ["command", "movement", "shooting", "charge", "fight"],
-      "description": "The five official game phases. Unchanged between 10th and 11th edition — 11e reorders Pile In timing within the Fight phase but adds no top-level phase."
+      "enum": [
+        "command",
+        "movement",
+        "shooting",
+        "charge",
+        "fight"
+      ],
+      "description": "The five official game phases. Unchanged between 10th and 11th edition \u2014 11e reorders Pile In timing within the Fight phase but adds no top-level phase."
     },
     "phase-list": {
       "type": "array",
-      "items": { "$ref": "#/$defs/phase" },
+      "items": {
+        "$ref": "#/$defs/phase"
+      },
       "uniqueItems": true,
       "minItems": 1
     },
     "source-type": {
       "type": "string",
-      "enum": ["ability", "stratagem", "enhancement", "detachment-rule", "faction-rule"],
+      "enum": [
+        "ability",
+        "stratagem",
+        "enhancement",
+        "detachment-rule",
+        "faction-rule"
+      ],
       "description": "Type of game element that is the source of an enrichment entry"
     },
     "player-turn": {
       "type": "string",
-      "enum": ["your-turn", "opponent-turn", "either"],
+      "enum": [
+        "your-turn",
+        "opponent-turn",
+        "either"
+      ],
       "description": "Which player's turn this applies during"
     },
     "game-event": {
       "type": "string",
       "description": "The single canonical 'when' vocabulary, shared by the reactive `trigger.event` (the dispatch key an event-driven consumer subscribes on) and the `timing-is` condition. Supersedes the former timing-flag entity's step-level vocabulary, adding movement/lifecycle/targeting events. Grouped: phase/turn structure, setup/reserves, movement, combat dice steps, attack lifecycle, destruction, and tests.",
       "enum": [
-        "start-of-phase", "end-of-phase", "start-of-turn", "end-of-turn",
-        "start-of-opponent-turn", "end-of-opponent-turn", "start-of-battle-round", "start-of-command-phase",
-        "declare-battle-formations", "post-deployment", "unit-set-up", "set-up-from-reserves",
-        "arrives-from-strategic-reserves", "starts-in-strategic-reserves", "game-start-in-reserves",
-        "deep-strike-setup", "reinforcements",
-        "normal-move", "advance-move", "advances", "fall-back-move", "falls-back", "charge-move",
-        "moved-through-terrain", "moved-through-tall-terrain", "enemy-unit-ended-move", "enemy-unit-fell-back",
-        "before-hit-roll", "after-hit-roll", "before-wound-roll", "after-wound-roll",
-        "before-save-roll", "after-save-roll", "before-damage-roll", "after-damage-roll",
-        "before-charge-roll", "after-charge-roll", "before-advance-roll", "after-advance-roll",
-        "before-battle-shock", "after-battle-shock",
-        "on-unit-selected", "selected-to-shoot", "selected-to-fight", "selected-to-advance",
-        "after-unit-resolves-attacks", "after-scoring-hit", "after-enemy-unit-fires",
-        "on-unit-destroyed", "on-model-destroyed", "first-model-destroyed", "before-bearer-removed",
-        "enemy-unit-destroyed-in-melee", "on-damage-allocated",
-        "battle-shock-test", "leadership-test", "desperate-escape-test"
+        "start-of-phase",
+        "end-of-phase",
+        "start-of-turn",
+        "end-of-turn",
+        "start-of-opponent-turn",
+        "end-of-opponent-turn",
+        "start-of-battle-round",
+        "start-of-command-phase",
+        "declare-battle-formations",
+        "post-deployment",
+        "unit-set-up",
+        "set-up-from-reserves",
+        "arrives-from-strategic-reserves",
+        "starts-in-strategic-reserves",
+        "game-start-in-reserves",
+        "deep-strike-setup",
+        "reinforcements",
+        "normal-move",
+        "advance-move",
+        "advances",
+        "fall-back-move",
+        "falls-back",
+        "charge-move",
+        "charge-declaration",
+        "moved-through-terrain",
+        "moved-through-tall-terrain",
+        "enemy-unit-ended-move",
+        "enemy-unit-fell-back",
+        "before-hit-roll",
+        "after-hit-roll",
+        "before-wound-roll",
+        "after-wound-roll",
+        "before-save-roll",
+        "after-save-roll",
+        "before-damage-roll",
+        "after-damage-roll",
+        "before-charge-roll",
+        "after-charge-roll",
+        "before-advance-roll",
+        "after-advance-roll",
+        "before-battle-shock",
+        "after-battle-shock",
+        "on-unit-selected",
+        "selected-to-shoot",
+        "selected-to-fight",
+        "selected-to-advance",
+        "after-unit-resolves-attacks",
+        "after-scoring-hit",
+        "after-enemy-unit-fires",
+        "on-unit-destroyed",
+        "on-model-destroyed",
+        "first-model-destroyed",
+        "before-bearer-removed",
+        "enemy-unit-destroyed-in-melee",
+        "on-damage-allocated",
+        "battle-shock-test",
+        "leadership-test",
+        "desperate-escape-test"
       ]
     },
     "battle-size": {
       "type": "string",
-      "enum": ["incursion", "strike-force"],
+      "enum": [
+        "incursion",
+        "strike-force"
+      ],
       "description": "11e battle size, which sets the army's points limit and detachment-point budget: 'incursion' = 1000 pts / 2 detachment points; 'strike-force' = 2000 pts / 3 detachment points."
     },
     "force-disposition-id": {
       "type": "string",
-      "enum": ["take-and-hold", "disruption", "purge-the-foe", "priority-assets", "reconnaissance"],
+      "enum": [
+        "take-and-hold",
+        "disruption",
+        "purge-the-foe",
+        "priority-assets",
+        "reconnaissance"
+      ],
       "description": "One of the five confirmed 11e launch Force Dispositions. Shared by force-disposition entities and the mission-matchup matrix."
     },
     "game-mode-id": {
       "type": "string",
-      "enum": ["matched-play", "combat-patrol", "boarding-actions", "crusade"],
+      "enum": [
+        "matched-play",
+        "combat-patrol",
+        "boarding-actions",
+        "crusade"
+      ],
       "description": "The game mode an army-construction entity is legal or authored for, parallel to the game_version edition axis. 'matched-play' is the competitive default: when an entity omits `game_modes`, treat it as matched-play only. 'combat-patrol', 'boarding-actions', and 'crusade' are non-competitive modes; of these only combat-patrol currently has an ingest source and coverage measurement (the others are schema-homed for hand-authoring)."
     },
     "game-modes": {
       "type": "array",
-      "items": { "$ref": "#/$defs/game-mode-id" },
+      "items": {
+        "$ref": "#/$defs/game-mode-id"
+      },
       "uniqueItems": true,
       "minItems": 1,
       "description": "Game modes this entity is legal or authored for. Absent implies ['matched-play'] (the competitive default), so existing matched-play entities need not carry the field."
@@ -110,67 +194,138 @@
       "type": "object",
       "description": "A 2D point in board inches. Origin at a board corner; JSON uses y-down (downstream renderers may flip to y-up).",
       "properties": {
-        "x": { "type": "number" },
-        "y": { "type": "number" }
+        "x": {
+          "type": "number"
+        },
+        "y": {
+          "type": "number"
+        }
       },
-      "required": ["x", "y"],
+      "required": [
+        "x",
+        "y"
+      ],
       "additionalProperties": false
     },
     "footprint": {
-      "description": "A terrain piece's 2D footprint in local inches (y-down): an axis-aligned rectangle with its min corner at the local origin, a right triangle with the right angle at the local origin and legs along +x/+y, or an explicit polygon (>= 3 points). The placement resolver re-centers the footprint on its polygon area centroid, so the local-origin convention does not affect where the piece lands — only its shape matters.",
+      "description": "A terrain piece's 2D footprint in local inches (y-down): an axis-aligned rectangle with its min corner at the local origin, a right triangle with the right angle at the local origin and legs along +x/+y, or an explicit polygon (>= 3 points). The placement resolver re-centers the footprint on its polygon area centroid, so the local-origin convention does not affect where the piece lands \u2014 only its shape matters.",
       "oneOf": [
         {
           "type": "object",
           "properties": {
-            "type": { "const": "rectangle" },
-            "width": { "type": "number", "exclusiveMinimum": 0 },
-            "height": { "type": "number", "exclusiveMinimum": 0 }
+            "type": {
+              "const": "rectangle"
+            },
+            "width": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "height": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            }
           },
-          "required": ["type", "width", "height"],
+          "required": [
+            "type",
+            "width",
+            "height"
+          ],
           "additionalProperties": false
         },
         {
           "type": "object",
           "properties": {
-            "type": { "const": "right-triangle" },
-            "width": { "type": "number", "exclusiveMinimum": 0 },
-            "height": { "type": "number", "exclusiveMinimum": 0 }
+            "type": {
+              "const": "right-triangle"
+            },
+            "width": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "height": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            }
           },
-          "required": ["type", "width", "height"],
+          "required": [
+            "type",
+            "width",
+            "height"
+          ],
           "additionalProperties": false
         },
         {
           "type": "object",
           "properties": {
-            "type": { "const": "polygon" },
+            "type": {
+              "const": "polygon"
+            },
             "points": {
               "type": "array",
-              "items": { "$ref": "#/$defs/vec2" },
+              "items": {
+                "$ref": "#/$defs/vec2"
+              },
               "minItems": 3
             }
           },
-          "required": ["type", "points"],
+          "required": [
+            "type",
+            "points"
+          ],
           "additionalProperties": false
         }
       ]
     },
     "terrain-area-keyword": {
       "type": "string",
-      "enum": ["obscuring", "hidden", "plunging-fire"],
+      "enum": [
+        "obscuring",
+        "hidden",
+        "plunging-fire"
+      ],
       "description": "An 11e terrain-area keyword. Confirmed launch set; extend as further keywords publish on dataslate."
     },
     "base-size": {
       "type": "object",
       "description": "A model's base. 'round' carries 'diameter'; 'oval' carries 'width'+'length'. 'flying-base' (with 'size': small/large), 'hull', and 'unique' are categories the GW base-size guide gives without standard millimetre dimensions; entries carrying such a category, or any millimetre value not taken from an authoritative source, set 'draft': true to mark them for later hand-authoring.",
       "properties": {
-        "shape": { "enum": ["round", "oval", "flying-base", "hull", "unique"] },
-        "diameter": { "type": "number", "exclusiveMinimum": 0 },
-        "width": { "type": "number", "exclusiveMinimum": 0 },
-        "length": { "type": "number", "exclusiveMinimum": 0 },
-        "size": { "enum": ["small", "large"], "description": "Flying-base size class, when 'shape' is 'flying-base'." },
-        "draft": { "type": "boolean", "default": false, "description": "True when the entry is provisional/guessed (e.g. a category without authoritative dimensions) and should be revisited." }
+        "shape": {
+          "enum": [
+            "round",
+            "oval",
+            "flying-base",
+            "hull",
+            "unique"
+          ]
+        },
+        "diameter": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "width": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "length": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "size": {
+          "enum": [
+            "small",
+            "large"
+          ],
+          "description": "Flying-base size class, when 'shape' is 'flying-base'."
+        },
+        "draft": {
+          "type": "boolean",
+          "default": false,
+          "description": "True when the entry is provisional/guessed (e.g. a category without authoritative dimensions) and should be revisited."
+        }
       },
-      "required": ["shape"],
+      "required": [
+        "shape"
+      ],
       "additionalProperties": false
     }
   }

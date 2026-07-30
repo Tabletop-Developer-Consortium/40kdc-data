@@ -124,7 +124,12 @@
           "properties": { "cp": { "type": "integer", "minimum": 0 } },
           "additionalProperties": false
         },
-        "window": { "type": "string" }
+        "window": { "type": "string" },
+        "binds_event_variable": {
+          "type": "string",
+          "minLength": 1,
+          "$comment": "Names the triggering event's bound object for later reference by a condition in the same reactive action. Internal only; never rendered."
+        }
       },
       "required": ["event"],
       "additionalProperties": false

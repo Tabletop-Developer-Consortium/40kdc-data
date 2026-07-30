@@ -58,11 +58,11 @@
     {
       "faction": "aeldari",
       "total": 180,
-      "offensive": 39,
+      "offensive": 40,
       "defensive": 13,
-      "inert": 133,
-      "stub": 8,
-      "stubStructural": 3,
+      "inert": 132,
+      "stub": 7,
+      "stubStructural": 2,
       "gwTextLeak": 0,
       "defensiveSkipped": 5
     },
@@ -267,11 +267,11 @@
   ],
   "totals": {
     "total": 3123,
-    "offensive": 768,
+    "offensive": 769,
     "defensive": 266,
-    "inert": 2175,
-    "stub": 118,
-    "stubStructural": 40,
+    "inert": 2174,
+    "stub": 117,
+    "stubStructural": 39,
     "gwTextLeak": 0,
     "defensiveSkipped": 57
   },
@@ -353,11 +353,11 @@
       "count": 23
     },
     {
-      "reason": "stat-modifier: operation \"undefined\" not supported",
-      "count": 23
+      "reason": "effect type \"fight-first\" is not modelled by the buff layer",
+      "count": 22
     },
     {
-      "reason": "effect type \"fight-first\" is not modelled by the buff layer",
+      "reason": "stat-modifier: operation \"undefined\" not supported",
       "count": 22
     },
     {
@@ -8850,11 +8850,11 @@
       "faction": "aeldari",
       "ability_id": "battle-focus",
       "name": "Battle Focus",
-      "shape": "stat-modifier",
-      "stub": true,
-      "offensive": false,
+      "shape": "sequence",
+      "stub": false,
+      "offensive": true,
       "defensive": false,
-      "gap": "stat-modifier: operation \"undefined\" not supported"
+      "gap": null
     },
     {
       "faction": "aeldari",

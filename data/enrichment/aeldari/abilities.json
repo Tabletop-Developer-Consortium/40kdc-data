@@ -5231,18 +5231,308 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {}
+      "type": "sequence",
+      "steps": [
+        {
+          "type": "conditional",
+          "condition": {
+            "type": "timing-is",
+            "parameters": {
+              "timing": "start-of-battle-round"
+            }
+          },
+          "effect": {
+            "type": "resource-gain",
+            "target": "self",
+            "modifier": {
+              "pool_id": "battle-focus-pool",
+              "count_mode": "by-battle-size",
+              "resource_label": "Battle Focus token",
+              "count_by_battle_size": {
+                "incursion": 2,
+                "strike-force": 4,
+                "onslaught": 6
+              }
+            }
+          }
+        },
+        {
+          "type": "resource-action-menu",
+          "menu_id": "agile-manoeuvres",
+          "pool_id": "battle-focus-pool",
+          "shared_usage": {
+            "unit_max_manoeuvres_per_phase": 1,
+            "default_manoeuvre_max_per_phase": 1
+          },
+          "actions": [
+            {
+              "id": "swift-as-the-wind",
+              "label": "Swift as the Wind",
+              "when": [
+                {
+                  "event": "normal-move",
+                  "subject": "friendly-unit"
+                },
+                {
+                  "event": "advance-move",
+                  "subject": "friendly-unit"
+                },
+                {
+                  "event": "fall-back-move",
+                  "subject": "friendly-unit"
+                }
+              ],
+              "cost": {
+                "pool_id": "battle-focus-pool",
+                "amount": 1,
+                "resource_label": "Battle Focus token"
+              },
+              "usage": {
+                "repeatable_if_different_unit": true
+              },
+              "duration": "until-end-of-phase",
+              "effect": {
+                "type": "stat-modifier",
+                "target": "unit",
+                "modifier": {
+                  "stat": "M",
+                  "operation": "add",
+                  "value": 2
+                }
+              }
+            },
+            {
+              "id": "flitting-shadows",
+              "label": "Flitting Shadows",
+              "when": [
+                {
+                  "event": "normal-move",
+                  "subject": "friendly-unit"
+                },
+                {
+                  "event": "advance-move",
+                  "subject": "friendly-unit"
+                },
+                {
+                  "event": "fall-back-move",
+                  "subject": "friendly-unit"
+                },
+                {
+                  "event": "unit-set-up",
+                  "subject": "friendly-unit"
+                },
+                {
+                  "event": "charge-declaration",
+                  "subject": "friendly-unit"
+                }
+              ],
+              "cost": {
+                "pool_id": "battle-focus-pool",
+                "amount": 1,
+                "resource_label": "Battle Focus token"
+              },
+              "duration": "until-end-of-turn",
+              "effect": {
+                "type": "rule-state",
+                "target": "unit",
+                "modifier": {
+                  "direction": "suppressed",
+                  "rule_kind": "core-rule",
+                  "rule": "overwatch-against-bearer"
+                }
+              }
+            },
+            {
+              "id": "star-engines",
+              "label": "Star Engines",
+              "when": {
+                "event": "selected-to-advance",
+                "subject": "friendly-unit"
+              },
+              "eligibility": {
+                "requires_keyword": [
+                  "VEHICLE"
+                ]
+              },
+              "cost": {
+                "pool_id": "battle-focus-pool",
+                "amount": 1,
+                "resource_label": "Battle Focus token"
+              },
+              "duration": "until-end-of-turn",
+              "effect": {
+                "type": "keyword-grant",
+                "target": "unit",
+                "modifier": {
+                  "keywords": [
+                    "Assault"
+                  ],
+                  "weapon_type": "ranged"
+                }
+              }
+            },
+            {
+              "id": "sudden-strike",
+              "label": "Sudden Strike",
+              "when": {
+                "event": "selected-to-fight",
+                "subject": "friendly-unit"
+              },
+              "cost": {
+                "pool_id": "battle-focus-pool",
+                "amount": 1,
+                "resource_label": "Battle Focus token"
+              },
+              "duration": "until-end-of-phase",
+              "effect": {
+                "type": "sequence",
+                "steps": [
+                  {
+                    "type": "movement-modifier",
+                    "target": "unit",
+                    "modifier": {
+                      "move_type": "pile-in",
+                      "distance": 6,
+                      "replaces_default": true
+                    }
+                  },
+                  {
+                    "type": "movement-modifier",
+                    "target": "unit",
+                    "modifier": {
+                      "move_type": "consolidation",
+                      "distance": 6,
+                      "replaces_default": true
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "id": "opportunity-seized",
+              "label": "Opportunity Seized",
+              "when": {
+                "event": "falls-back",
+                "subject": "enemy-unit",
+                "binds_event_variable": "triggering-enemy"
+              },
+              "eligibility": {
+                "selector_count": 1,
+                "excludes_keyword": [
+                  "TITANIC"
+                ],
+                "requires": [
+                  {
+                    "type": "unit-was-in-engagement-range-of",
+                    "parameters": {
+                      "subject": "selected-friendly-unit",
+                      "object": {
+                        "event_var": "triggering-enemy"
+                      },
+                      "snapshot": "phase-start"
+                    }
+                  }
+                ]
+              },
+              "cost": {
+                "pool_id": "battle-focus-pool",
+                "amount": 1,
+                "resource_label": "Battle Focus token"
+              },
+              "duration": "immediate",
+              "effect": {
+                "type": "movement-modifier",
+                "target": "unit",
+                "modifier": {
+                  "move_type": "normal",
+                  "distance": "D6+1"
+                }
+              }
+            },
+            {
+              "id": "fade-back",
+              "label": "Fade Back",
+              "when": {
+                "event": "after-enemy-unit-fires",
+                "subject": "enemy-unit",
+                "binds_event_variable": "triggering-shooter"
+              },
+              "eligibility": {
+                "selector_count": 1,
+                "excludes_keyword": [
+                  "TITANIC"
+                ],
+                "requires": [
+                  {
+                    "type": "phase-is",
+                    "parameters": {
+                      "phase": "shooting"
+                    }
+                  },
+                  {
+                    "type": "player-turn-is",
+                    "parameters": {
+                      "turn": "opponent"
+                    }
+                  },
+                  {
+                    "type": "was-hit-by-attack",
+                    "parameters": {
+                      "subject": "selected-friendly-unit",
+                      "source": {
+                        "event_var": "triggering-shooter"
+                      },
+                      "window": "just-finished-shooting-sequence",
+                      "count_min": 1
+                    }
+                  }
+                ]
+              },
+              "cost": {
+                "pool_id": "battle-focus-pool",
+                "amount": 1,
+                "resource_label": "Battle Focus token"
+              },
+              "duration": "immediate",
+              "effect": {
+                "type": "movement-modifier",
+                "target": "unit",
+                "modifier": {
+                  "move_type": "normal",
+                  "distance": "D6+1"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "conditional",
+          "condition": {
+            "type": "timing-is",
+            "parameters": {
+              "timing": "end-of-battle-round"
+            }
+          },
+          "effect": {
+            "type": "resource-clear",
+            "target": "self",
+            "modifier": {
+              "pool_id": "battle-focus-pool",
+              "scope": "all-unspent",
+              "resource_label": "Battle Focus token"
+            }
+          }
+        }
+      ]
     },
     "scope": {
       "range": "any-on-battlefield",
-      "duration": "permanent"
+      "duration": "battle"
     },
     "faction_id": "aeldari",
     "ability_type": "faction",
     "behavior": "passive",
-    "community_notes": "auto-generated stub \u2014 needs manual authoring (source: 10e Datasheets_abilities; rules text omitted for IP)",
+    "community_notes": "Aeldari army rule, active while the Army Faction is ASURYANI: at the start of each battle round the army gains Battle Focus tokens scaled by the current battle size (Incursion 2, Strike Force 4, Onslaught 6). Spending a token lets one eligible unit perform an Agile Manoeuvre this phase (Swift as the Wind, Flitting Shadows, Star Engines, Sudden Strike, Opportunity Seized, or Fade Back); a unit performs at most one Agile Manoeuvre per phase, and each named manoeuvre triggers at most once per phase, except Swift as the Wind, which different units may each perform. Unspent tokens are lost at the end of the battle round. Fade Back binds the enemy shooter and requires the selected friendly unit to have been hit by an attack from that shooter during its just-finished shooting sequence. Full rule in the raw-text store.",
     "unit_ids": []
   },
   {

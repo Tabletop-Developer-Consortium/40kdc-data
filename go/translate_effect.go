@@ -160,6 +160,149 @@ func poolName(pool any) string {
 	return titleCase(p)
 }
 
+// resourceNoun renders a player-facing noun for a resource-gain/resource-spend/
+// resource-clear modifier's pool, or a menu action's cost. resource_label (a
+// singular noun, e.g. "Battle Focus token") is an author-provided override
+// that pluralizes by count and never leaks the internal pool_id; absent,
+// falls back to the established poolName title-casing (backward compatible
+// with every pre-existing resource node).
+func resourceNoun(m map[string]any, count any) string {
+	label, ok := m["resource_label"].(string)
+	if !ok || label == "" {
+		pool := m["pool_id"]
+		if pool == nil {
+			pool = m["resource"]
+		}
+		return poolName(pool)
+	}
+	if f, ok := num(count); ok && f == 1 {
+		return label
+	}
+	return label + "s"
+}
+
+// menuActionSubject renders excludes_keyword/requires_keyword as the
+// eligible-unit noun phrase for a menu action ("one friendly non-TITANIC
+// unit" / "a friendly VEHICLE unit"). Absent eligibility keywords fall back
+// to the plain subject.
+func menuActionSubject(elig map[string]any) string {
+	requires := getStrList(elig, "requires_keyword")
+	excludes := getStrList(elig, "excludes_keyword")
+	if len(excludes) > 0 {
+		return "one friendly non-" + strings.Join(excludes, "/") + " unit"
+	}
+	if len(requires) > 0 {
+		return "a friendly " + strings.Join(requires, " ") + " unit"
+	}
+	return "the unit"
+}
+
+// menuActionEligibilityClause renders a menu action's eligibility as a
+// trailing parenthetical naming which unit may use it and any extra
+// requirements (eligibility.requires conditions, rendered via the shared
+// describeCondition and joined with "and"). "" when the action is open to
+// any unit with no further gate.
+func menuActionEligibilityClause(elig map[string]any) string {
+	if elig == nil {
+		return ""
+	}
+	requires := getStrList(elig, "requires_keyword")
+	excludes := getStrList(elig, "excludes_keyword")
+	hasKeywordGate := len(requires) > 0 || len(excludes) > 0
+	var requirementPhrases []string
+	for _, c := range getList(elig, "requires") {
+		cm, _ := asMap(c)
+		requirementPhrases = append(requirementPhrases, describeCondition(cm))
+	}
+	if !hasKeywordGate && len(requirementPhrases) == 0 {
+		return ""
+	}
+	var parts []string
+	if hasKeywordGate {
+		parts = append(parts, "only usable by "+menuActionSubject(elig))
+	}
+	if len(requirementPhrases) > 0 {
+		parts = append(parts, strings.Join(requirementPhrases, " and "))
+	}
+	if len(parts) == 0 {
+		return ""
+	}
+	return " (" + strings.Join(parts, ", ") + ")"
+}
+
+// menuActionDurationClause renders a menu action's duration as a trailing
+// clause. "immediate" (and absent) render with NO clause — a one-off action
+// whose only lasting result is the board position it leaves behind.
+func menuActionDurationClause(duration any) string {
+	switch duration {
+	case "until-end-of-phase":
+		return "until the end of the phase"
+	case "until-end-of-turn":
+		return "until the end of the turn"
+	default:
+		return ""
+	}
+}
+
+// describeMenuAction renders one resource-action-menu action as a bullet
+// body ("Label: trigger, spend N tokens, effect, duration (notes).").
+func describeMenuAction(a map[string]any, ctx map[string]any) string {
+	label := a["label"]
+	if label == nil {
+		label = a["id"]
+	}
+	var trigParts []string
+	for _, t := range normalizeTriggers(a["when"]) {
+		if s := describeReactiveTrigger(t); s != "" {
+			trigParts = append(trigParts, s)
+		}
+	}
+	trig := strings.Join(trigParts, " or ")
+	cost, _ := getMap(a, "cost")
+	costPhrase := "spend " + ejstr(cost["amount"]) + " " + resourceNoun(cost, cost["amount"])
+	effEff, _ := getMap(a, "effect")
+	effClause := describeEffectInline(effEff, ctx)
+	durClause := menuActionDurationClause(a["duration"])
+	usageNote := ""
+	if usage, ok := getMap(a, "usage"); ok && truthy(usage["repeatable_if_different_unit"]) {
+		usageNote = " (may be triggered more than once per phase if a different unit performs it each time)"
+	}
+	elig, _ := getMap(a, "eligibility")
+	body := joinNonEmpty([]string{
+		trig + menuActionEligibilityClause(elig),
+		costPhrase,
+		effClause,
+		durClause,
+	}, ", ")
+	return ejstr(label) + ": " + body + usageNote + "."
+}
+
+// sharedUsageClause renders shared_usage as a menu-level sentence fragment
+// ("a unit may perform at most one action per phase; unless stated
+// otherwise, a given action may be triggered once per phase"). "" when
+// absent.
+func sharedUsageClause(su map[string]any) string {
+	if su == nil {
+		return ""
+	}
+	var parts []string
+	if unitMax, ok := num(su["unit_max_manoeuvres_per_phase"]); ok {
+		if unitMax == 1 {
+			parts = append(parts, "a unit may perform at most one action per phase")
+		} else {
+			parts = append(parts, "a unit may perform at most "+ejstr(su["unit_max_manoeuvres_per_phase"])+" actions per phase")
+		}
+	}
+	if defaultMax, ok := num(su["default_manoeuvre_max_per_phase"]); ok {
+		if defaultMax == 1 {
+			parts = append(parts, "unless stated otherwise, a given action may be triggered once per phase")
+		} else {
+			parts = append(parts, "unless stated otherwise, a given action may be triggered up to "+ejstr(su["default_manoeuvre_max_per_phase"])+" times per phase")
+		}
+	}
+	return strings.Join(parts, "; ")
+}
+
 var rollNames = map[string]string{
 	"hit": "Hit", "wound": "Wound", "charge": "Charge", "damage": "Damage",
 	"advance": "Advance", "save": "Saving throw", "leadership": "Leadership",
@@ -1509,29 +1652,30 @@ func describeEffectInlineBase(e map[string]any, ctx map[string]any) string {
 		}
 		return subj + " can only be selected as the target of " + at + " if " + gate
 	case "resource-gain":
+		if m["count_mode"] == "by-battle-size" || m["count_by_battle_size"] != nil {
+			return "you gain " + resourceNoun(m, nil) + " based on the current battle size (see the accompanying table)"
+		}
 		amount := m["amount"]
 		if amount == nil {
 			amount = m["value"]
 		}
-		pool := m["pool_id"]
-		if pool == nil {
-			pool = m["resource"]
-		}
-		return "you gain " + ejstr(amount) + " " + poolName(pool)
+		return "you gain " + ejstr(amount) + " " + resourceNoun(m, amount)
 	case "resource-spend":
 		amount := m["amount"]
 		if amount == nil {
 			amount = m["value"]
 		}
-		pool := m["pool_id"]
-		if pool == nil {
-			pool = m["resource"]
-		}
-		base := "spend " + ejstr(amount) + " " + poolName(pool)
+		base := "spend " + ejstr(amount) + " " + resourceNoun(m, amount)
 		if capm, ok := m["cap"].(map[string]any); ok && capm["count"] != nil && capm["per"] != nil {
 			return base + " (no more than " + ejstr(capm["count"]) + " per " + ejstr(capm["per"]) + ")"
 		}
 		return base
+	case "resource-clear":
+		scope := "all unspent"
+		if m["scope"] == "all" {
+			scope = "all"
+		}
+		return scope + " " + resourceNoun(m, 2.0) + " are lost"
 	case "leadership-modifier":
 		hasTest := m["test"] != nil
 		if hasTest && m["operation"] == nil {
@@ -1816,6 +1960,13 @@ func describeEffectInlineBase(e map[string]any, ctx map[string]any) string {
 			names = append(names, ejstr(om["name"]))
 		}
 		return "issue Orders, each one of: " + strings.Join(names, " / ")
+	case "resource-action-menu":
+		var actions []string
+		for _, a := range getList(e, "actions") {
+			am, _ := asMap(a)
+			actions = append(actions, describeMenuAction(am, ctx))
+		}
+		return "actions may be performed when their conditions are met: " + strings.Join(actions, " / ")
 	}
 	t := "unknown"
 	if e["type"] != nil {
@@ -2119,6 +2270,19 @@ func describeEffect(e map[string]any, depth int, ctx map[string]any) string {
 			lines = append(lines, indent+"  - "+ejstr(om["name"])+": "+describeEffectInline(oe, ctx)+".")
 		}
 		return strings.Join(lines, "\n")
+	case "resource-action-menu":
+		su, _ := getMap(e, "shared_usage")
+		suClause := sharedUsageClause(su)
+		intro := "Actions may be performed when their conditions are met"
+		if suClause != "" {
+			intro = "Actions may be performed when their conditions are met. " + capitalize(suClause)
+		}
+		lines := []string{indent + arrow + intro + ":"}
+		for _, a := range getList(e, "actions") {
+			am, _ := asMap(a)
+			lines = append(lines, indent+"  - "+describeMenuAction(am, ctx))
+		}
+		return strings.Join(lines, "\n")
 	}
 	return indent + arrow + capitalize(describeEffectInline(e, ctx)) + "."
 }
@@ -2208,6 +2372,9 @@ var moveWordRe = regexp.MustCompile(`\bmove\b`)
 
 func describeReactiveTrigger(t map[string]any) string {
 	s := eventClause(t["event"])
+	if ejstr(t["event"]) == "falls-back" && ejstr(t["subject"]) == "enemy-unit" {
+		s = "an enemy unit Falls Back"
+	}
 	// Narrow a move event to its move kinds: "ends a move" -> "ends a Normal,
 	// Advance or Fall Back move".
 	if mts := getStrList(t, "move_types"); len(mts) > 0 {

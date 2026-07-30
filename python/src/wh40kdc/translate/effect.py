@@ -37,6 +37,7 @@ _CONTAINER_TYPES = {
     "stance-select",
     "risk-reward",
     "issue-orders",
+    "resource-action-menu",
 }
 
 
@@ -418,6 +419,364 @@ def _describe_trigger(t: dict[str, Any]) -> str:
     if t.get("condition"):
         s += f", if {describe_condition(t['condition'])}"
     return s
+
+
+def _resource_noun(m: dict[str, Any], count: Any = None) -> str:
+    """Player-facing noun for a ``resource-gain``/``resource-spend``/
+    ``resource-clear`` modifier's pool, or a menu action's ``cost``.
+    ``resource_label`` (a singular noun, e.g. "Battle Focus token") is an
+    author-provided override that pluralizes by count and never leaks the
+    internal ``pool_id``; absent, falls back to the established
+    ``_pool_name`` title-casing (backward compatible with every pre-existing
+    resource node)."""
+    label = m.get("resource_label")
+    if not isinstance(label, str) or not label:
+        pool = m.get("pool_id") if m.get("pool_id") is not None else m.get("resource")
+        return _pool_name(pool)
+    n = _round_number(count) if count is not None else None
+    return label if n == 1 else f"{label}s"
+
+
+# Narrowed feel-no-pain scopes -> trailing qualifier. Absent/`all` renders bare.
+_FNP_SCOPES = {
+    "mortal": " against mortal wounds",
+    "psychic": " against Psychic Attacks",
+    "psychic-and-mortal": " against Psychic Attacks and mortal wounds",
+}
+
+
+_ROLL_NAMES = {
+    "hit": "Hit",
+    "wound": "Wound",
+    "charge": "Charge",
+    "damage": "Damage",
+    "advance": "Advance",
+    "save": "Saving throw",
+    "leadership": "Leadership",
+}
+
+
+def _roll_name(roll: Any) -> str:
+    r = _jstr(roll)
+    return _ROLL_NAMES.get(r, _title_case(r))
+
+
+def _is_plural(subj: str) -> bool:
+    return bool(
+        re.search(r" units\b", subj)
+        or re.match(r"^all ", subj)
+        or re.match(r"^(enemy|friendly) units", subj)
+    )
+
+
+_PLURAL_VERBS = {
+    "has": "have",
+    "is": "are",
+    "gets": "get",
+    "gains": "gain",
+    "suffers": "suffer",
+    "retains": "retain",
+    "makes": "make",
+    "passes": "pass",
+    "fails": "fail",
+    "treats": "treat",
+}
+
+
+def _v(subj: str, singular: str) -> str:
+    if not _is_plural(subj):
+        return singular
+    return _PLURAL_VERBS.get(singular, re.sub(r"s$", "", singular))
+
+
+def _pronoun(subj: str) -> str:
+    return "their" if _is_plural(subj) else "its"
+
+
+def _subject(target: str | None, ctx: Ctx) -> str:
+    ri = ctx.get("range_inches")
+    if ri is not None:
+        within = f' within {_jstr(ri)}"'
+    elif ctx.get("engagement_range"):
+        within = " within Engagement Range"
+    elif ctx.get("scope_range") == "any-visible":
+        within = " that are visible"
+    elif ctx.get("scope_range") == "any-on-battlefield":
+        within = " anywhere on the battlefield"
+    else:
+        within = " nearby"
+    if target in ("self", "bearer"):
+        return "this model"
+    if target == "unit":
+        return "that unit" if ctx.get("selected_unit") else "the unit"
+    if target == "attached-unit":
+        return "the unit this model leads"
+    if target == "target":
+        return "the target"
+    if target == "attacker":
+        return "the attacking unit"
+    if target == "defender":
+        # The defending unit in an attack is the enemy from the bearer's view.
+        return "the target"
+    if target == "all-friendly":
+        return "all friendly units"
+    if target == "all-enemy":
+        return "all enemy units"
+    if target == "friendly-within-aura":
+        return f"friendly units{within}"
+    if target == "enemy-within-aura":
+        return f"enemy units{within}"
+    return "the unit"
+
+
+def _possessive(s: str) -> str:
+    return f"{s}'" if s.endswith("s") else f"{s}'s"
+
+
+def _of_or_possessive(subj: str, rest: str) -> str:
+    """`<subj>'s <rest>` for a simple subject; `the <rest> of <subj>` when the subject
+    is a clause (an aura target ending in an inch mark), where a trailing possessive
+    reads as garbage (`friendly units within 6"'s weapons`)."""
+    if subj.endswith('"'):
+        return f"the {rest} of {subj}"
+    return f"{_possessive(subj)} {rest}"
+
+
+def _signed(operation: Any, value: Any) -> str:
+    positive = operation in ("add", "improve")
+    sign = 1 if positive else -1
+    try:
+        n = float(value)
+        if n < 0:
+            sign = -sign
+            value = int(abs(n)) if float(abs(n)).is_integer() else abs(n)
+    except (TypeError, ValueError):
+        pass
+    return f"{'+' if sign > 0 else '-'}{_jstr(value)}"
+
+
+def _describe_requirement(req: dict[str, Any] | None) -> str:
+    """Dice-pool requirement phrase ("pair of 4+"); an ``any_of`` list joins its
+    alternatives with " or " ("pair of 4+ or triple of 1+")."""
+    req = req or {}
+
+    def one(r: dict[str, Any] | None) -> str:
+        r = r or {}
+        return f"{_jstr(r.get('type'))} of {_jstr(r.get('min_value'))}+"
+
+    any_of = req.get("any_of")
+    if isinstance(any_of, list):
+        return " or ".join(one(r) for r in any_of)
+    return one(req)
+
+
+def _pool_threshold(comp: str, threshold: Any) -> str:
+    """Dice-pool success phrase ("4+", "6", "3 or less") — no leading "a", as it
+    follows "for each" in a mortal-wounds pool."""
+    th = _jstr(threshold)
+    if comp == "lte":
+        return f"{th} or less"
+    if comp == "gt":
+        return f"more than {th}"
+    if comp == "lt":
+        return f"less than {th}"
+    if comp == "eq":
+        return th
+    return f"{th}+"
+
+
+def _format_comparison(comp: str, threshold: Any) -> str:
+    th = _jstr(threshold)
+    if comp == "gte":
+        return f"a {th}+"
+    if comp == "lte":
+        return f"a {th} or less"
+    if comp == "gt":
+        return f"greater than {th}"
+    if comp == "lt":
+        return f"less than {th}"
+    if comp == "eq":
+        return f"exactly {th}"
+    return f"a {th}+"
+
+
+def _duration_clauses(duration: str | None) -> tuple[str, str]:
+    """Return (lead, trail) clauses for a duration. permanent adds nothing."""
+    if duration == "phase":
+        return ("", "until the end of the phase")
+    if duration == "turn":
+        return ("", "until the end of the turn")
+    if duration == "battle":
+        return ("", "for the rest of the battle")
+    if duration == "battle-round":
+        return ("", "until the end of the battle round")
+    if duration == "until-next-command-phase":
+        return ("", "until your next Command phase")
+    if duration == "until-next-battle-round":
+        return ("", "until the start of the next battle round")
+    if duration == "one-use":
+        return ("once per battle", "")
+    return ("", "")
+
+
+_USAGE_FREQUENCIES = {
+    "once-per-turn": "once per turn",
+    "once-per-phase": "once per phase",
+    "once-per-command-phase": "once per Command phase",
+    "once-per-opponent-turn": "once per opponent's turn",
+    "first-this-battle": "the first time this battle",
+    "first-time-this-phase": "the first time this phase",
+}
+
+
+def _usage_clause(u: dict[str, Any]) -> str:
+    """Usage limit -> front-of-sentence lead clause ("once per turn", "twice per battle")."""
+    count = u.get("count")
+    try:
+        n = int(count) if count is not None else 1
+    except (TypeError, ValueError):
+        n = 1
+    freq = u.get("frequency")
+    base = _USAGE_FREQUENCIES.get(freq) if isinstance(freq, str) else None
+    if base is None:
+        if freq == "n-per-battle":
+            if n == 1:
+                base = "once per battle"
+            elif n == 2:
+                base = "twice per battle"
+            else:
+                base = f"{_jstr(n)} times per battle"
+        else:
+            base = dekebab(_jstr(freq))
+    return f"{base} per {_jstr(u['per'])}" if u.get("per") is not None else base
+
+
+def _describe_trigger(t: dict[str, Any]) -> str:
+    """Reactive trigger -> front-of-sentence lead clause
+    ("an enemy unit ends a move within 9\" of this model")."""
+    s = event_clause(t.get("event"))
+    if t.get("event") == "falls-back" and t.get("subject") == "enemy-unit":
+        s = "an enemy unit Falls Back"
+    # Narrow a move event to its move kinds: "ends a move" -> "ends a Normal,
+    # Advance or Fall Back move".
+    move_types = t.get("move_types")
+    if isinstance(move_types, list) and move_types:
+        kinds = _or_list(
+            ["Fall Back" if mt == "fall-back" else _cap_word(_jstr(mt)) for mt in move_types]
+        )
+        s = re.sub(r"\bmove\b", lambda _m: f"{kinds} move", s, count=1)
+    prox = t.get("proximity") or {}
+    if prox.get("range") is not None:
+        of_kind = prox.get("of")
+        if of_kind == "attached-unit":
+            of = "the unit this model leads"
+        elif of_kind in ("self", "bearer"):
+            of = "this model"
+        else:
+            of = "this unit"
+        s += f' within {_jstr(prox["range"])}" of {of}'
+    if t.get("condition"):
+        s += f", if {describe_condition(t['condition'])}"
+    return s
+
+
+def _menu_action_subject(elig: dict[str, Any] | None) -> str:
+    """``excludes_keyword``/``requires_keyword`` -> the eligible-unit noun
+    phrase for a menu action ("one friendly non-TITANIC unit" / "a friendly
+    VEHICLE unit"). Absent eligibility keywords fall back to the plain
+    subject."""
+    elig = elig or {}
+    requires = elig.get("requires_keyword") or []
+    excludes = elig.get("excludes_keyword") or []
+    if excludes:
+        return f"one friendly non-{'/'.join(_jstr(k) for k in excludes)} unit"
+    if requires:
+        return f"a friendly {' '.join(_jstr(k) for k in requires)} unit"
+    return "the unit"
+
+
+def _menu_action_eligibility_clause(elig: dict[str, Any] | None) -> str:
+    """A menu action's ``eligibility`` -> a trailing parenthetical naming
+    which unit may use it and any extra requirements (``eligibility.requires``
+    conditions, rendered via the shared ``describe_condition`` and joined
+    with "and"). ``""`` when the action is open to any unit with no further
+    gate."""
+    if not elig:
+        return ""
+    has_keyword_gate = bool(elig.get("requires_keyword")) or bool(elig.get("excludes_keyword"))
+    requirement_phrases = [describe_condition(c) for c in elig.get("requires") or []]
+    if not has_keyword_gate and not requirement_phrases:
+        return ""
+    parts: list[str] = []
+    if has_keyword_gate:
+        parts.append(f"only usable by {_menu_action_subject(elig)}")
+    if requirement_phrases:
+        parts.append(" and ".join(requirement_phrases))
+    return f" ({', '.join(parts)})" if parts else ""
+
+
+def _menu_action_duration_clause(duration: Any) -> str:
+    """A menu action's ``duration`` -> a trailing clause. ``immediate`` (and
+    absent) render with NO clause -- a one-off action whose only lasting
+    result is the board position it leaves behind."""
+    if duration == "until-end-of-phase":
+        return "until the end of the phase"
+    if duration == "until-end-of-turn":
+        return "until the end of the turn"
+    return ""
+
+
+def _describe_menu_action(a: dict[str, Any], ctx: Ctx) -> str:
+    """One ``resource-action-menu`` action -> a bullet body ("Label: trigger,
+    spend N tokens, effect, duration (notes).")."""
+    label = _jstr(a.get("label") if a.get("label") is not None else a.get("id"))
+    triggers = _normalize_triggers(a.get("when"))
+    trig = " or ".join(s for s in (_describe_trigger(t) for t in triggers) if s)
+    cost = a.get("cost") or {}
+    cost_phrase = f"spend {_jstr(cost.get('amount'))} {_resource_noun(cost, cost.get('amount'))}"
+    eff_clause = describe_effect_inline(a.get("effect") or {}, ctx)
+    dur_clause = _menu_action_duration_clause(a.get("duration"))
+    usage_note = (
+        " (may be triggered more than once per phase if a different unit performs it each time)"
+        if (a.get("usage") or {}).get("repeatable_if_different_unit")
+        else ""
+    )
+    body = ", ".join(
+        p
+        for p in (
+            f"{trig}{_menu_action_eligibility_clause(a.get('eligibility'))}",
+            cost_phrase,
+            eff_clause,
+            dur_clause,
+        )
+        if p
+    )
+    return f"{label}: {body}{usage_note}."
+
+
+def _shared_usage_clause(su: dict[str, Any] | None) -> str:
+    """``shared_usage`` -> a menu-level sentence fragment ("a unit may perform
+    at most one action per phase; unless stated otherwise, a given action may
+    be triggered once per phase"). ``""`` when absent."""
+    if not su:
+        return ""
+    parts: list[str] = []
+    unit_max = su.get("unit_max_manoeuvres_per_phase")
+    if unit_max is not None:
+        parts.append(
+            "a unit may perform at most one action per phase"
+            if unit_max == 1
+            else f"a unit may perform at most {_jstr(unit_max)} actions per phase"
+        )
+    default_max = su.get("default_manoeuvre_max_per_phase")
+    if default_max is not None:
+        parts.append(
+            "unless stated otherwise, a given action may be triggered once per phase"
+            if default_max == 1
+            else f"unless stated otherwise, a given action may be triggered up to {_jstr(default_max)} times per phase"
+        )
+    return "; ".join(parts)
+
 
 
 def _negated_target_keywords(keywords: list[str]) -> str:
@@ -1296,13 +1655,16 @@ def _describe_effect_inline_base(e: Effect, ctx: Ctx | None = None) -> str:
             gate = dekebab(gate_val)
         return f"{subj} can only be selected as the target of {at} if {gate}"
     if etype == "resource-gain":
+        if m.get("count_mode") == "by-battle-size" or m.get("count_by_battle_size") is not None:
+            return (
+                f"you gain {_resource_noun(m)} based on the current battle size "
+                "(see the accompanying table)"
+            )
         amount = m.get("amount") if m.get("amount") is not None else m.get("value")
-        pool = m.get("pool_id") if m.get("pool_id") is not None else m.get("resource")
-        return f"you gain {_jstr(amount)} {_pool_name(pool)}"
+        return f"you gain {_jstr(amount)} {_resource_noun(m, amount)}"
     if etype == "resource-spend":
         amount = m.get("amount") if m.get("amount") is not None else m.get("value")
-        pool = m.get("pool_id") if m.get("pool_id") is not None else m.get("resource")
-        base = f"spend {_jstr(amount)} {_pool_name(pool)}"
+        base = f"spend {_jstr(amount)} {_resource_noun(m, amount)}"
         cap_obj = m.get("cap")
         if (
             isinstance(cap_obj, dict)
@@ -1313,6 +1675,9 @@ def _describe_effect_inline_base(e: Effect, ctx: Ctx | None = None) -> str:
             per = _jstr(cap_obj.get("per"))
             return f"{base} (no more than {count} per {per})"
         return base
+    if etype == "resource-clear":
+        scope = "all" if m.get("scope") == "all" else "all unspent"
+        return f"{scope} {_resource_noun(m, 2)} are lost"
     if etype == "leadership-modifier":
         test = f"{_test_name(m.get('test'))} test" if m.get("test") is not None else None
         if test is not None and m.get("operation") is None:
@@ -1572,6 +1937,10 @@ def _describe_effect_inline_base(e: Effect, ctx: Ctx | None = None) -> str:
         names = " / ".join(_jstr(o.get("name")) for o in e.get("options") or [])
         return f"issue Orders, each one of: {names}"
 
+    if etype == "resource-action-menu":
+        actions = " / ".join(_describe_menu_action(a, ctx) for a in e.get("actions") or [])
+        return f"actions may be performed when their conditions are met: {actions}"
+
     return f"[{etype if etype is not None else 'unknown'}]"
 
 
@@ -1690,6 +2059,17 @@ def describe_effect(e: Effect, depth: int = 0, ctx: Ctx | None = None) -> str:
                 f"{indent}  - {_jstr(opt.get('name'))}: "
                 f"{describe_effect_inline(opt.get('effect') or {}, ctx)}."
             )
+        return "\n".join(lines)
+    if etype == "resource-action-menu":
+        su = _shared_usage_clause(e.get("shared_usage"))
+        intro = (
+            f"Actions may be performed when their conditions are met. {_capitalize(su)}"
+            if su
+            else "Actions may be performed when their conditions are met"
+        )
+        lines = [f"{indent}{arrow}{intro}:"]
+        for action in e.get("actions") or []:
+            lines.append(f"{indent}  - {_describe_menu_action(action, ctx)}")
         return "\n".join(lines)
     # Leaf at block position — a single capitalized sentence.
     return f"{indent}{arrow}{_capitalize(describe_effect_inline(e, ctx))}."

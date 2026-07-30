@@ -148,6 +148,7 @@ const EVENT_PHRASES: Record<string, string> = {
   "fall-back-move": "when the unit makes a Fall Back move",
   "falls-back": "when the unit Falls Back",
   "charge-move": "when the unit makes a Charge move",
+  "charge-declaration": "when a Charge is declared",
   "moved-through-terrain": "when the unit moves through terrain",
   "moved-through-tall-terrain": "when the unit moves through terrain over 4\" tall",
   "enemy-unit-ended-move": "an enemy unit ends a move",
@@ -251,12 +252,27 @@ export function describeCondition(c: Condition): string {
     case "wounds-remaining-at-or-below":
       return `${negate}the model has ${Number(p.threshold ?? 0)} or fewer wounds remaining`;
     case "was-hit-by-attack": {
-      const subject = p.subject === "target" ? "the target" : "the unit";
+      const subject =
+        p.subject === "target"
+          ? "the target"
+          : p.subject === "selected-friendly-unit"
+            ? "the selected friendly unit"
+            : "the unit";
       const atk = p.attack_type ? `${str(p.attack_type)} ` : "";
       const weapon = p.weapon_name ? ` by ${str(p.weapon_name)}` : "";
+      const boundSource =
+        p.source && typeof p.source === "object" && "event_var" in (p.source as Record<string, unknown>)
+          ? " from that enemy unit"
+          : p.source != null
+            ? ` from ${str(p.source)}`
+            : "";
+      const window =
+        p.window === "just-finished-shooting-sequence"
+          ? " during its just-finished shooting sequence"
+          : " this phase";
       const n = Number(p.count_min ?? 1);
-      if (n > 1) return `${negate}${subject} was hit by ${n}+ ${atk}attacks${weapon} this phase`;
-      return `${negate}${subject} was hit by ${atk === "" ? "an attack" : `a ${atk}attack`}${weapon} this phase`;
+      if (n > 1) return `${negate}${subject} was hit by ${n}+ ${atk}attacks${weapon}${boundSource}${window}`;
+      return `${negate}${subject} was hit by ${atk === "" ? "an attack" : `a ${atk}attack`}${weapon}${boundSource}${window}`;
     }
     case "opponent-unit-within-range": {
       let where: string;
@@ -310,6 +326,14 @@ export function describeCondition(c: Condition): string {
       if (st === "engaged" || st === "within-engagement-range" || st === "in-engagement-range")
         return `${negate}the unit is within Engagement Range`;
       return `${negate}the unit is ${dekebab(st)}`;
+    }
+    case "unit-was-in-engagement-range-of": {
+      // `object` is a bound event-variable reference (schema `#/$defs/event-bound-reference`,
+      // e.g. the enemy unit a sibling trigger's `binds_event_variable` names as the one that
+      // ended a Fall Back move). `event_var` is an internal linking id, never rendered — the
+      // relationship always reads as "that enemy unit", with no game phase assumed.
+      const snapshotPoint = p.snapshot === "turn-start" ? "the turn" : "the phase";
+      return `${negate}the selected friendly unit started ${snapshotPoint} within Engagement Range of that enemy unit`;
     }
     case "disposition-matches": {
       const d = str(p.disposition);

@@ -271,6 +271,14 @@ function walk(
       // Officer issues one Order from the menu — each is an opt-in lever.
       enumerateNamedOptions(node, source, opts, out, `${opts.abilityId}?order`, 1);
       return;
+    case "resource-action-menu":
+      // Each action is an INDEPENDENT reactive lever, not a pick-one group:
+      // unlike stance-select/issue-orders, multiple actions (and repeats of
+      // the same action by different units — see `usage.repeatable_if_different_unit`)
+      // can fire in the same phase, so no shared `group`/`maxActivations` cap
+      // is attached here.
+      enumerateMenuActions(node, source, opts, out);
+      return;
     default:
       // Unknown effect — record it. Covers ability-grant, deep-strike,
       // mortal-wounds, cp-gain, movement-modifier, etc.; the buff layer
@@ -916,6 +924,43 @@ function enumerateNamedOptions(
       buffs,
       group: { id: groupId, maxActivations },
     });
+  }
+}
+
+/**
+ * Emit one opt-in lever per buff-bearing `resource-action-menu` action.
+ * Unlike {@link enumerateNamedOptions} (stance-select / issue-orders, a
+ * pick-one group), each action here is an INDEPENDENT decision with its own
+ * trigger and cost — no shared `group`/`maxActivations` cap, since a unit's
+ * per-phase manoeuvre limit isn't a mutual-exclusion pool the cruncher can
+ * enforce (and `usage.repeatable_if_different_unit` explicitly allows the
+ * same action to recur via a different unit in one phase). A single
+ * `eligibility.requires_keyword` narrows the lever to attackers carrying that
+ * keyword; multiple required keywords have no single-field applicability
+ * representation today and are left ungated (correctness-conservative: the
+ * lever still surfaces, just without that extra restriction attached).
+ */
+function enumerateMenuActions(
+  node: Record<string, unknown>,
+  source: BuffSource,
+  opts: WalkOpts,
+  out: EffectTranslation,
+): void {
+  const actions = Array.isArray(node.actions) ? node.actions : [];
+  for (const action of actions) {
+    if (!isObject(action)) continue;
+    const eligibility = isObject(action.eligibility) ? action.eligibility : undefined;
+    const requiresKeyword = eligibility && Array.isArray(eligibility.requires_keyword) ? eligibility.requires_keyword : undefined;
+    const applicability: BuffApplicability =
+      requiresKeyword?.length === 1 && typeof requiresKeyword[0] === "string"
+        ? { requiresAttackerKeyword: requiresKeyword[0] }
+        : {};
+    const buffs: Buff[] = [];
+    collectGatedBuffs(action.effect, source, opts, applicability, buffs);
+    if (buffs.length === 0) continue;
+    const label = typeof action.label === "string" && action.label ? action.label : labelForBuffs(buffs);
+    const id = typeof action.id === "string" && action.id ? action.id : label;
+    out.activatable.push({ id: `${opts.abilityId}#${id}`, label, buffs });
   }
 }
 

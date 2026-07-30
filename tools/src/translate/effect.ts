@@ -73,6 +73,31 @@ export interface Effect {
   count?: number;
   range?: number;
   eligible?: { keyword?: string };
+  // resource-action-menu
+  menu_id?: string;
+  pool_id?: string;
+  shared_usage?: {
+    unit_max_manoeuvres_per_phase?: number;
+    default_manoeuvre_max_per_phase?: number;
+  };
+  actions?: MenuAction[];
+}
+
+/** One entry in a `resource-action-menu`'s `actions` array (a single reactive manoeuvre). */
+export interface MenuAction {
+  id?: string;
+  label?: string;
+  when?: AbilityTriggerSpec;
+  cost?: { pool_id?: string; amount?: number; resource_label?: string };
+  eligibility?: {
+    requires_keyword?: string[];
+    excludes_keyword?: string[];
+    selector_count?: number;
+    requires?: Condition[];
+  };
+  usage?: { repeatable_if_different_unit?: boolean };
+  duration?: string;
+  effect?: Effect;
 }
 
 /** Ability scope, as carried on enrichment ability entries. */
@@ -100,12 +125,14 @@ export interface AbilityTrigger {
   event?: string;
   subject?: string;
   proximity?: { of?: string; range?: number };
-  /** Restricts a move event (e.g. enemy-unit-ended-move) to these move kinds. */
+  /** Restricts a move event (e.g. enemy-unit-ended-move) to the given move kinds. */
   move_types?: string[];
   condition?: Condition;
   optional?: boolean;
   cost?: { cp?: number };
   window?: string;
+  /** Internal event-object binding; never rendered. */
+  binds_event_variable?: string;
 }
 
 /** A trigger is one object, or an array (the ability fires on ANY listed trigger). */
@@ -154,6 +181,7 @@ const CONTAINER_TYPES = new Set([
   "stance-select",
   "risk-reward",
   "issue-orders",
+  "resource-action-menu",
 ]);
 
 /** "one enemy Vehicle unit within 12\"" — the `select-units` selector phrase. */
@@ -314,6 +342,21 @@ function statName(stat: unknown): string {
 function poolName(pool: unknown): string {
   const p = jstr(pool);
   return p.toLowerCase() === "cp" ? "CP" : titleCase(p);
+}
+
+/**
+ * Player-facing noun for a `resource-gain`/`resource-spend`/`resource-clear`
+ * modifier's pool, or a menu action's `cost`. `resource_label` (a singular
+ * noun, e.g. "Battle Focus token") is an author-provided override that
+ * pluralizes by count and NEVER leaks the internal `pool_id`; absent, falls
+ * back to the established `poolName` title-casing (backward compatible with
+ * every pre-existing resource node).
+ */
+function resourceNoun(m: { pool_id?: unknown; resource?: unknown; resource_label?: unknown }, count?: unknown): string {
+  const label = typeof m.resource_label === "string" && m.resource_label.length > 0 ? m.resource_label : null;
+  if (!label) return poolName(m.pool_id ?? m.resource);
+  const n = count != null ? Number(jstr(count)) : NaN;
+  return n === 1 ? label : `${label}s`;
 }
 
 /** Roll noun for a roll token (`hit` → `Hit`, `attacks-characteristic` → `Attacks characteristic`). */
@@ -484,6 +527,7 @@ function durationClauses(duration: string | undefined): { lead: string; trail: s
 /** Reactive trigger → front-of-sentence lead clause ("an enemy unit ends a move within 9\" of this model"). */
 function describeTrigger(t: AbilityTrigger): string {
   let s = eventClause(t.event);
+  if (t.event === "falls-back" && t.subject === "enemy-unit") s = "an enemy unit Falls Back";
   // Narrow a move event to its move kinds: "ends a move" → "ends a Normal,
   // Advance or Fall Back move".
   if (t.move_types?.length) {
@@ -501,6 +545,78 @@ function describeTrigger(t: AbilityTrigger): string {
   }
   if (t.condition) s += `, if ${describeCondition(t.condition)}`;
   return s;
+}
+
+/** `excludes_keyword`/`requires_keyword` → the eligible-unit noun phrase for a menu action ("one friendly non-TITANIC unit" / "a friendly VEHICLE unit"). Absent eligibility keywords fall back to the plain subject. */
+function menuActionSubject(elig: MenuAction["eligibility"]): string {
+  const requires = elig?.requires_keyword ?? [];
+  const excludes = elig?.excludes_keyword ?? [];
+  if (excludes.length) return `one friendly non-${excludes.map(jstr).join("/")} unit`;
+  if (requires.length) return `a friendly ${requires.map(jstr).join(" ")} unit`;
+  return "the unit";
+}
+
+/** A menu action's `eligibility` → a trailing parenthetical naming which unit may use it and any extra requirements (`eligibility.requires` conditions, rendered via the shared `describeCondition` and joined with "and"). `""` when the action is open to any unit with no further gate. */
+function menuActionEligibilityClause(elig: MenuAction["eligibility"]): string {
+  if (!elig) return "";
+  const hasKeywordGate = (elig.requires_keyword?.length ?? 0) > 0 || (elig.excludes_keyword?.length ?? 0) > 0;
+  const requirementPhrases = (elig.requires ?? []).map(describeCondition);
+  if (!hasKeywordGate && requirementPhrases.length === 0) return "";
+  const parts: string[] = [];
+  if (hasKeywordGate) parts.push(`only usable by ${menuActionSubject(elig)}`);
+  if (requirementPhrases.length) parts.push(requirementPhrases.join(" and "));
+  return parts.length ? ` (${parts.join(", ")})` : "";
+}
+
+/** A menu action's `duration` → a trailing clause. `immediate` (and absent) render with NO clause — a one-off action whose only lasting result is the board position it leaves behind. */
+function menuActionDurationClause(duration: string | undefined): string {
+  switch (duration) {
+    case "until-end-of-phase":
+      return "until the end of the phase";
+    case "until-end-of-turn":
+      return "until the end of the turn";
+    default:
+      return "";
+  }
+}
+
+/** One `resource-action-menu` action → a bullet body ("Label: trigger, spend N tokens, effect, duration (notes)."). */
+function describeMenuAction(a: MenuAction, ctx: Ctx): string {
+  const label = jstr(a.label ?? a.id);
+  const triggers = normalizeTriggers(a.when);
+  const trig = triggers.map(describeTrigger).filter((s) => s.length > 0).join(" or ");
+  const cost = a.cost ?? {};
+  const costPhrase = `spend ${jstr(cost.amount)} ${resourceNoun(cost, cost.amount)}`;
+  const effClause = describeEffectInline(a.effect ?? {}, ctx);
+  const durClause = menuActionDurationClause(a.duration);
+  const usageNote = a.usage?.repeatable_if_different_unit
+    ? " (may be triggered more than once per phase if a different unit performs it each time)"
+    : "";
+  const body = [`${trig}${menuActionEligibilityClause(a.eligibility)}`, costPhrase, effClause, durClause]
+    .filter((p) => p.length > 0)
+    .join(", ");
+  return `${label}: ${body}${usageNote}.`;
+}
+
+/** `shared_usage` → a menu-level sentence fragment ("a unit may perform at most one action per phase; unless stated otherwise, a given action may be triggered once per phase"). `""` when absent. */
+function sharedUsageClause(su: Effect["shared_usage"]): string {
+  if (!su) return "";
+  const parts: string[] = [];
+  if (su.unit_max_manoeuvres_per_phase != null) {
+    parts.push(
+      su.unit_max_manoeuvres_per_phase === 1
+        ? "a unit may perform at most one action per phase"
+        : `a unit may perform at most ${jstr(su.unit_max_manoeuvres_per_phase)} actions per phase`,
+    );
+  }
+  if (su.default_manoeuvre_max_per_phase != null) {
+    parts.push(
+      su.default_manoeuvre_max_per_phase === 1
+        ? "unless stated otherwise, a given action may be triggered once per phase"
+        : `unless stated otherwise, a given action may be triggered up to ${jstr(su.default_manoeuvre_max_per_phase)} times per phase`,
+    );
+  }
+  return parts.join("; ");
 }
 
 /** Usage limit → front-of-sentence lead clause ("once per turn", "twice per battle per unit"). */
@@ -1230,14 +1346,21 @@ function describeEffectInlineBase(e: Effect, ctx: Ctx = {}): string {
     }
     case "stratagem-targeting-permission":
       return `${subj} can be targeted with Stratagems even while Battle-shocked`;
-    case "resource-gain":
-      return `you gain ${jstr(m.amount ?? m.value)} ${poolName(m.pool_id ?? m.resource)}`;
+    case "resource-gain": {
+      if (m.count_mode === "by-battle-size" || m.count_by_battle_size != null)
+        return `you gain ${resourceNoun(m)} based on the current battle size (see the accompanying table)`;
+      return `you gain ${jstr(m.amount ?? m.value)} ${resourceNoun(m, m.amount ?? m.value)}`;
+    }
     case "resource-spend": {
-      const base = `spend ${jstr(m.amount ?? m.value)} ${poolName(m.pool_id ?? m.resource)}`;
+      const base = `spend ${jstr(m.amount ?? m.value)} ${resourceNoun(m, m.amount ?? m.value)}`;
       const cap = m.cap as Record<string, unknown> | undefined;
       if (cap != null && cap.count != null && cap.per != null)
         return `${base} (no more than ${jstr(cap.count)} per ${jstr(cap.per)})`;
       return base;
+    }
+    case "resource-clear": {
+      const scope = m.scope === "all" ? "all" : "all unspent";
+      return `${scope} ${resourceNoun(m, 2)} are lost`;
     }
     case "pool-add-die": {
       const pool = poolName(m.pool_id);
@@ -1458,6 +1581,11 @@ function describeEffectInlineBase(e: Effect, ctx: Ctx = {}): string {
       return `take a ${testName(e.risk?.test)} test (on a failure, ${e.risk?.on_fail ? describeEffectInline(e.risk.on_fail, ctx) : "suffer a consequence"}), then ${describeEffectInline(e.reward ?? {}, ctx)}`;
     case "issue-orders":
       return `issue Orders, each one of: ${(e.options ?? []).map((o) => jstr(o.name)).join(" / ")}`;
+    case "resource-action-menu":
+      return `actions may be performed when their conditions are met: ${(e.actions ?? []).map((a) => describeMenuAction(a, ctx)).join(" / ")}`;
+
+
+
 
     default:
       return `[${e.type ?? "unknown"}]`;
@@ -1667,6 +1795,15 @@ export function describeEffect(e: Effect, depth: number = 0, ctx: Ctx = {}): str
       const lines = [`${indent}${arrow}Issue up to ${n} Orders to eligible friendly${elig} units${rng}, each one of:`];
       for (const opt of e.options ?? []) {
         lines.push(`${indent}  - ${jstr(opt.name)}: ${describeEffectInline(opt.effect ?? {}, ctx)}.`);
+      }
+      return lines.join("\n");
+    }
+    case "resource-action-menu": {
+      const su = sharedUsageClause(e.shared_usage);
+      const intro = su ? `Actions may be performed when their conditions are met. ${capitalize(su)}` : "Actions may be performed when their conditions are met";
+      const lines = [`${indent}${arrow}${intro}:`];
+      for (const action of e.actions ?? []) {
+        lines.push(`${indent}  - ${describeMenuAction(action, ctx)}`);
       }
       return lines.join("\n");
     }

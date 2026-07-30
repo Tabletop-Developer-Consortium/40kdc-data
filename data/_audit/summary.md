@@ -11,7 +11,7 @@ abilities that translate into cruncher buffs via the real `effectToBuffs`
 | adeptus-astartes | 364 | 112 | 38 | 228 | 3 | 16 | 0 | 7 |
 | adeptus-custodes | 90 | 21 | 12 | 61 | 0 | 3 | 0 | 3 |
 | adeptus-mechanicus | 111 | 27 | 12 | 76 | 0 | 0 | 0 | 2 |
-| aeldari | 180 | 39 | 13 | 133 | 3 | 8 | 0 | 5 |
+| aeldari | 180 | 40 | 13 | 132 | 2 | 7 | 0 | 5 |
 | agents-of-the-imperium | 133 | 34 | 13 | 89 | 0 | 0 | 0 | 2 |
 | astra-militarum | 205 | 44 | 16 | 147 | 2 | 3 | 0 | 5 |
 | chaos-daemons | 157 | 39 | 14 | 110 | 0 | 7 | 0 | 4 |
@@ -30,7 +30,7 @@ abilities that translate into cruncher buffs via the real `effectToBuffs`
 | thousand-sons | 130 | 32 | 9 | 94 | 7 | 12 | 0 | 2 |
 | tyranids | 115 | 22 | 8 | 88 | 1 | 5 | 0 | 5 |
 | world-eaters | 133 | 17 | 10 | 107 | 3 | 0 | 0 | 0 |
-| **TOTAL** | **3123** | **766** | **266** | **2177** | **40** | **118** | **0** | **57** |
+| **TOTAL** | **3123** | **767** | **266** | **2176** | **39** | **117** | **0** | **57** |
 
 `stub*` = structural (empty-modifier placeholder node) — the authoring worklist. `notes-stub` = flagged in community_notes.
 
@@ -39,7 +39,7 @@ abilities that translate into cruncher buffs via the real `effectToBuffs`
 - `455` — effect type "ability-grant" is not modelled by the buff layer
 - `159` — effect type "movement-modifier" is not modelled by the buff layer
 - `128` — effect type "mortal-wounds" is not modelled by the buff layer
-- `105` — conditional: cannot evaluate condition "undefined" against current context
+- `106` — conditional: cannot evaluate condition "undefined" against current context
 - `84` — effect type "leadership-modifier" is not modelled by the buff layer
 - `59` — effect type "attack-restriction" is not modelled by the buff layer
 - `57` — effect type "resurrection" is not modelled by the buff layer
@@ -55,9 +55,9 @@ abilities that translate into cruncher buffs via the real `effectToBuffs`
 - `30` — effect type "fallback-and-act" is not modelled by the buff layer
 - `23` — effect type "fight-on-death" is not modelled by the buff layer
 - `23` — stat-modifier on "M" is outside the damage path
-- `23` — stat-modifier: operation "undefined" not supported
 - `22` — effect type "fight-first" is not modelled by the buff layer
 - `22` — effect type "targeting-permission" is not modelled by the buff layer
+- `22` — stat-modifier: operation "undefined" not supported
 - `19` — roll-modifier: operation "set" not supported
 - `15` — conditional: cannot evaluate condition "unit-below-starting-strength" against current context
 - `14` — designate-target debuff on the marked unit: not a buff on the bearer
@@ -72,13 +72,13 @@ abilities that translate into cruncher buffs via the real `effectToBuffs`
 - `9` — dice-gated effect: stochastic; not expressible as a buff
 - `9` — effect type "resource-spend" is not modelled by the buff layer
 - `8` — conditional: cannot evaluate condition "advanced-this-turn" against current context
-- `7` — roll-modifier: operation "crit-on" not supported
 - `7` — stat-modifier AP on the attacker: defender-side AP reduction is not modelled by the buff layer
 - `7` — conditional: cannot evaluate condition "is-battle-shocked" against current context
 - `6` — conditional: cannot evaluate condition "opponent-unit-within-range" against current context
 - `6` — effect type "aura" is not modelled by the buff layer
 - `6` — re-roll on "advance" (subset …) is outside the damage path
 - `5` — effect type "unit-tag" is not modelled by the buff layer
+- `5` — roll-modifier: operation "crit-on" not supported
 - `5` — stat-modifier on "W" is outside the damage path
 - `5` — effect type "charge-roll-modifier" is not modelled by the buff layer
 - `5` — effect type "terrain-area-tag" is not modelled by the buff layer
@@ -99,6 +99,7 @@ abilities that translate into cruncher buffs via the real `effectToBuffs`
 - `3` — stat-modifier: operation "multiply" not supported
 - `3` — stat-modifier on "WS" is outside the damage path
 - `3` — conditional: cannot evaluate condition "within-range-of-objective" against current context
+- `3` — roll-modifier: operation "undefined" not supported
 - `2` — effect type "replace-roll-from-pool" is not modelled by the buff layer
 - `2` — re-roll on "attacks-characteristic" (subset …) is outside the damage path
 - `2` — stat-modifier on "Range" is outside the damage path
@@ -137,5 +138,4 @@ abilities that translate into cruncher buffs via the real `effectToBuffs`
 - `1` — effect type "pool-add-die" is not modelled by the buff layer
 - `1` — effect type "flyover" is not modelled by the buff layer
 - `1` — re-roll on "blessings-of-khorne" (subset …) is outside the damage path
-- `1` — roll-modifier: operation "undefined" not supported
 - `1` — effect type "fight-eligibility-extension" is not modelled by the buff layer

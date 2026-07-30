@@ -138,6 +138,7 @@ var eventPhrases = map[string]string{
 	"fall-back-move":                  "when the unit makes a Fall Back move",
 	"falls-back":                      "when the unit Falls Back",
 	"charge-move":                     "when the unit makes a Charge move",
+	"charge-declaration":              "when a Charge is declared",
 	"moved-through-terrain":           "when the unit moves through terrain",
 	"moved-through-tall-terrain":      "when the unit moves through terrain over 4\" tall",
 	"enemy-unit-ended-move":           "an enemy unit ends a move",
@@ -277,6 +278,8 @@ func describeCondition(c map[string]any) string {
 		subject := "the unit"
 		if p["subject"] == "target" {
 			subject = "the target"
+		} else if p["subject"] == "selected-friendly-unit" {
+			subject = "the selected friendly unit"
 		}
 		atk := ""
 		if p["attack_type"] != nil && truthy(p["attack_type"]) {
@@ -286,20 +289,30 @@ func describeCondition(c map[string]any) string {
 		if p["weapon_name"] != nil && truthy(p["weapon_name"]) {
 			weapon = " by " + cstr(p["weapon_name"])
 		}
+		boundSource := ""
+		if source, ok := p["source"].(map[string]any); ok && source["event_var"] != nil {
+			boundSource = " from that enemy unit"
+		} else if p["source"] != nil {
+			boundSource = " from " + cstr(p["source"])
+		}
+		window := " this phase"
+		if p["window"] == "just-finished-shooting-sequence" {
+			window = " during its just-finished shooting sequence"
+		}
 		var n any = 1
 		if p["count_min"] != nil {
 			n = p["count_min"]
 		}
 		if isNumber(n) {
 			if nf, _ := num(n); nf > 1 {
-				return negate + subject + " was hit by " + cstr(n) + "+ " + atk + "attacks" + weapon + " this phase"
+				return negate + subject + " was hit by " + cstr(n) + "+ " + atk + "attacks" + weapon + boundSource + window
 			}
 		}
 		article := "an attack"
 		if atk != "" {
 			article = "a " + atk + "attack"
 		}
-		return negate + subject + " was hit by " + article + weapon + " this phase"
+		return negate + subject + " was hit by " + article + weapon + boundSource + window
 	case "opponent-unit-within-range":
 		var within string
 		rng := p["range"]
@@ -382,6 +395,18 @@ func describeCondition(c map[string]any) string {
 			return negate + "the unit is within Engagement Range"
 		}
 		return negate + "the unit is " + dekebab(st)
+	case "unit-was-in-engagement-range-of":
+		// `object` is a bound event-variable reference (schema
+		// `#/$defs/event-bound-reference`, e.g. the enemy unit a sibling
+		// trigger's `binds_event_variable` names as the one that ended a Fall
+		// Back move). `event_var` is an internal linking id, never rendered —
+		// the relationship always reads as "that enemy unit", with no game
+		// phase assumed.
+		snapshotPoint := "the phase"
+		if p["snapshot"] == "turn-start" {
+			snapshotPoint = "the turn"
+		}
+		return negate + "the selected friendly unit started " + snapshotPoint + " within Engagement Range of that enemy unit"
 	case "disposition-matches":
 		d := cstr(p["disposition"])
 		if d == "strategic-reserves" {

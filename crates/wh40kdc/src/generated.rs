@@ -5249,6 +5249,9 @@ impl ::std::convert::From<EffectNode> for Effect {
 ///    },
 ///    {
 ///      "$ref": "#/$defs/issue-orders-effect"
+///    },
+///    {
+///      "$ref": "#/$defs/resource-action-menu-effect"
 ///    }
 ///  ]
 ///}
@@ -5271,6 +5274,7 @@ pub enum EffectNode {
     DesignateTargetEffect(DesignateTargetEffect),
     RiskRewardEffect(RiskRewardEffect),
     IssueOrdersEffect(IssueOrdersEffect),
+    ResourceActionMenuEffect(ResourceActionMenuEffect),
 }
 impl ::std::convert::From<SingleEffect> for EffectNode {
     fn from(value: SingleEffect) -> Self {
@@ -5340,6 +5344,11 @@ impl ::std::convert::From<RiskRewardEffect> for EffectNode {
 impl ::std::convert::From<IssueOrdersEffect> for EffectNode {
     fn from(value: IssueOrdersEffect) -> Self {
         Self::IssueOrdersEffect(value)
+    }
+}
+impl ::std::convert::From<ResourceActionMenuEffect> for EffectNode {
+    fn from(value: ResourceActionMenuEffect) -> Self {
+        Self::ResourceActionMenuEffect(value)
     }
 }
 ///A purchasable upgrade for a character unit, provided by a detachment.
@@ -5606,6 +5615,104 @@ impl ::std::convert::TryFrom<::std::string::String> for EntityId {
     }
 }
 impl<'de> ::serde::Deserialize<'de> for EntityId {
+    fn deserialize<D>(deserializer: D) -> ::std::result::Result<Self, D::Error>
+    where
+        D: ::serde::Deserializer<'de>,
+    {
+        ::std::string::String::deserialize(deserializer)?
+            .parse()
+            .map_err(|e: self::error::ConversionError| {
+                <D::Error as ::serde::de::Error>::custom(e.to_string())
+            })
+    }
+}
+///`EventBoundReference`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "object",
+///  "required": [
+///    "event_var"
+///  ],
+///  "properties": {
+///    "event_var": {
+///      "type": "string",
+///      "minLength": 1
+///    }
+///  },
+///  "additionalProperties": false,
+///  "$comment": "References a game-object bound to a named event variable by a sibling trigger (e.g. `binds_event_variable` on a resource-action-menu action's `when`, or any future producer of a bound event-variable). `event_var` is an internal linking id and MUST NOT be rendered to players — the describer always renders a generic relationship phrase instead of the id string. Reusable across any historical-relation condition that needs to reference a specific bound game-object rather than 'any unit of a kind'. Consumed today by `unit-was-in-engagement-range-of`'s `object` parameter: { \"type\": \"unit-was-in-engagement-range-of\", \"parameters\": { \"subject\": \"selected-friendly-unit\", \"object\": { \"event_var\": \"<name>\" }, \"snapshot\": \"phase-start\" } } tests whether the selected friendly unit was within Engagement Range of the game-object bound to `object.event_var`, snapshotted at the start of the current phase — no game phase is assumed. `snapshot` is currently only `phase-start`; the shape leaves room for future historical points (e.g. turn-start) without a new condition type."
+///}
+/// ```
+/// </details>
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
+#[serde(deny_unknown_fields)]
+pub struct EventBoundReference {
+    pub event_var: EventBoundReferenceEventVar,
+}
+///`EventBoundReferenceEventVar`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "string",
+///  "minLength": 1
+///}
+/// ```
+/// </details>
+#[derive(::serde::Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+#[serde(transparent)]
+pub struct EventBoundReferenceEventVar(::std::string::String);
+impl ::std::ops::Deref for EventBoundReferenceEventVar {
+    type Target = ::std::string::String;
+    fn deref(&self) -> &::std::string::String {
+        &self.0
+    }
+}
+impl ::std::convert::From<EventBoundReferenceEventVar> for ::std::string::String {
+    fn from(value: EventBoundReferenceEventVar) -> Self {
+        value.0
+    }
+}
+impl ::std::str::FromStr for EventBoundReferenceEventVar {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        if value.chars().count() < 1usize {
+            return Err("shorter than 1 characters".into());
+        }
+        Ok(Self(value.to_string()))
+    }
+}
+impl ::std::convert::TryFrom<&str> for EventBoundReferenceEventVar {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for EventBoundReferenceEventVar {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for EventBoundReferenceEventVar {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl<'de> ::serde::Deserialize<'de> for EventBoundReferenceEventVar {
     fn deserialize<D>(deserializer: D) -> ::std::result::Result<Self, D::Error>
     where
         D: ::serde::Deserializer<'de>,
@@ -6348,6 +6455,7 @@ impl<'de> ::serde::Deserialize<'de> for ForceDispositionText {
 ///    "fall-back-move",
 ///    "falls-back",
 ///    "charge-move",
+///    "charge-declaration",
 ///    "moved-through-terrain",
 ///    "moved-through-tall-terrain",
 ///    "enemy-unit-ended-move",
@@ -6445,6 +6553,8 @@ pub enum GameEvent {
     FallsBack,
     #[serde(rename = "charge-move")]
     ChargeMove,
+    #[serde(rename = "charge-declaration")]
+    ChargeDeclaration,
     #[serde(rename = "moved-through-terrain")]
     MovedThroughTerrain,
     #[serde(rename = "moved-through-tall-terrain")]
@@ -6544,6 +6654,7 @@ impl ::std::fmt::Display for GameEvent {
             Self::FallBackMove => f.write_str("fall-back-move"),
             Self::FallsBack => f.write_str("falls-back"),
             Self::ChargeMove => f.write_str("charge-move"),
+            Self::ChargeDeclaration => f.write_str("charge-declaration"),
             Self::MovedThroughTerrain => f.write_str("moved-through-terrain"),
             Self::MovedThroughTallTerrain => f.write_str("moved-through-tall-terrain"),
             Self::EnemyUnitEndedMove => f.write_str("enemy-unit-ended-move"),
@@ -6612,6 +6723,7 @@ impl ::std::str::FromStr for GameEvent {
             "fall-back-move" => Ok(Self::FallBackMove),
             "falls-back" => Ok(Self::FallsBack),
             "charge-move" => Ok(Self::ChargeMove),
+            "charge-declaration" => Ok(Self::ChargeDeclaration),
             "moved-through-terrain" => Ok(Self::MovedThroughTerrain),
             "moved-through-tall-terrain" => Ok(Self::MovedThroughTallTerrain),
             "enemy-unit-ended-move" => Ok(Self::EnemyUnitEndedMove),
@@ -10434,6 +10546,1614 @@ impl ::std::convert::TryFrom<::std::string::String> for PlayerTurn {
         value.parse()
     }
 }
+///`ResourceActionMenuEffect`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "object",
+///  "required": [
+///    "actions",
+///    "menu_id",
+///    "pool_id",
+///    "type"
+///  ],
+///  "properties": {
+///    "actions": {
+///      "type": "array",
+///      "items": {
+///        "type": "object",
+///        "required": [
+///          "cost",
+///          "effect",
+///          "id",
+///          "label",
+///          "when"
+///        ],
+///        "properties": {
+///          "cost": {
+///            "type": "object",
+///            "required": [
+///              "amount",
+///              "pool_id"
+///            ],
+///            "properties": {
+///              "amount": {
+///                "type": "integer",
+///                "minimum": 1.0
+///              },
+///              "pool_id": {
+///                "type": "string",
+///                "minLength": 1
+///              },
+///              "resource_label": {
+///                "type": "string",
+///                "minLength": 1,
+///                "$comment": "Optional player-facing singular noun for one unit of this pool (e.g. 'Battle Focus token'). Backward-compatible: when absent, the describer falls back to a title-cased `pool_id`."
+///              }
+///            },
+///            "additionalProperties": false
+///          },
+///          "duration": {
+///            "type": "string",
+///            "enum": [
+///              "immediate",
+///              "until-end-of-phase",
+///              "until-end-of-turn"
+///            ],
+///            "$comment": "'immediate' is a one-off action whose only lasting result is the resulting board position; the describer MUST render it with no 'until ...' clause."
+///          },
+///          "effect": {
+///            "$ref": "#/$defs/effect-node"
+///          },
+///          "eligibility": {
+///            "type": "object",
+///            "properties": {
+///              "excludes_keyword": {
+///                "type": "array",
+///                "items": {
+///                  "type": "string"
+///                },
+///                "minItems": 1
+///              },
+///              "requires": {
+///                "type": "array",
+///                "items": {
+///                  "$ref": "#/$defs/condition"
+///                },
+///                "minItems": 1
+///              },
+///              "requires_keyword": {
+///                "type": "array",
+///                "items": {
+///                  "type": "string"
+///                },
+///                "minItems": 1
+///              },
+///              "selector_count": {
+///                "type": "integer",
+///                "minimum": 1.0
+///              }
+///            },
+///            "additionalProperties": false
+///          },
+///          "id": {
+///            "type": "string",
+///            "minLength": 1,
+///            "$comment": "internal; MUST NOT be rendered"
+///          },
+///          "label": {
+///            "type": "string",
+///            "minLength": 1
+///          },
+///          "usage": {
+///            "type": "object",
+///            "properties": {
+///              "repeatable_if_different_unit": {
+///                "type": "boolean"
+///              }
+///            },
+///            "additionalProperties": false
+///          },
+///          "when": {
+///            "oneOf": [
+///              {
+///                "$ref": "#/$defs/resource-action-menu-trigger"
+///              },
+///              {
+///                "type": "array",
+///                "items": {
+///                  "$ref": "#/$defs/resource-action-menu-trigger"
+///                },
+///                "minItems": 1
+///              }
+///            ],
+///            "$comment": "Local variant of ability.schema.json#/$defs/trigger (see #/$defs/resource-action-menu-trigger) adding `binds_event_variable`, so a later `eligibility.requires` predicate can test a historical relation against the SAME game-object this trigger matched — not merely 'some enemy unit'."
+///          }
+///        },
+///        "additionalProperties": false
+///      },
+///      "minItems": 1
+///    },
+///    "menu_id": {
+///      "type": "string",
+///      "minLength": 1
+///    },
+///    "pool_id": {
+///      "type": "string",
+///      "minLength": 1
+///    },
+///    "shared_usage": {
+///      "type": "object",
+///      "properties": {
+///        "default_manoeuvre_max_per_phase": {
+///          "type": "integer",
+///          "minimum": 1.0
+///        },
+///        "unit_max_manoeuvres_per_phase": {
+///          "type": "integer",
+///          "minimum": 1.0
+///        }
+///      },
+///      "additionalProperties": false,
+///      "$comment": "Caps shared across every action, distinct from a single action's own `usage` override."
+///    },
+///    "type": {
+///      "const": "resource-action-menu"
+///    }
+///  },
+///  "additionalProperties": false,
+///  "$comment": "A pool of reactive actions ('manoeuvres') that share once-per-phase caps and draw from a single resource pool (e.g. Aeldari Battle Focus). Reactivity/timing lives per-action in `when` (reusing the committed ability.schema.json trigger $def, single or array — the action fires on ANY listed trigger, exactly like an ability-level `trigger`). Pool population/expiry is NOT modelled here — it is expressed by sibling `resource-gain` / `resource-clear` effects keyed on the same `pool_id`. `menu_id` and each action's `id` are internal slugs and MUST NOT be rendered to players; `label` is the player-facing manoeuvre name."
+///}
+/// ```
+/// </details>
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
+#[serde(deny_unknown_fields)]
+pub struct ResourceActionMenuEffect {
+    pub actions: ::std::vec::Vec<ResourceActionMenuEffectActionsItem>,
+    pub menu_id: ResourceActionMenuEffectMenuId,
+    pub pool_id: ResourceActionMenuEffectPoolId,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub shared_usage: ::std::option::Option<ResourceActionMenuEffectSharedUsage>,
+    #[serde(rename = "type")]
+    pub type_: ::serde_json::Value,
+}
+///`ResourceActionMenuEffectActionsItem`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "object",
+///  "required": [
+///    "cost",
+///    "effect",
+///    "id",
+///    "label",
+///    "when"
+///  ],
+///  "properties": {
+///    "cost": {
+///      "type": "object",
+///      "required": [
+///        "amount",
+///        "pool_id"
+///      ],
+///      "properties": {
+///        "amount": {
+///          "type": "integer",
+///          "minimum": 1.0
+///        },
+///        "pool_id": {
+///          "type": "string",
+///          "minLength": 1
+///        },
+///        "resource_label": {
+///          "type": "string",
+///          "minLength": 1,
+///          "$comment": "Optional player-facing singular noun for one unit of this pool (e.g. 'Battle Focus token'). Backward-compatible: when absent, the describer falls back to a title-cased `pool_id`."
+///        }
+///      },
+///      "additionalProperties": false
+///    },
+///    "duration": {
+///      "type": "string",
+///      "enum": [
+///        "immediate",
+///        "until-end-of-phase",
+///        "until-end-of-turn"
+///      ],
+///      "$comment": "'immediate' is a one-off action whose only lasting result is the resulting board position; the describer MUST render it with no 'until ...' clause."
+///    },
+///    "effect": {
+///      "$ref": "#/$defs/effect-node"
+///    },
+///    "eligibility": {
+///      "type": "object",
+///      "properties": {
+///        "excludes_keyword": {
+///          "type": "array",
+///          "items": {
+///            "type": "string"
+///          },
+///          "minItems": 1
+///        },
+///        "requires": {
+///          "type": "array",
+///          "items": {
+///            "$ref": "#/$defs/condition"
+///          },
+///          "minItems": 1
+///        },
+///        "requires_keyword": {
+///          "type": "array",
+///          "items": {
+///            "type": "string"
+///          },
+///          "minItems": 1
+///        },
+///        "selector_count": {
+///          "type": "integer",
+///          "minimum": 1.0
+///        }
+///      },
+///      "additionalProperties": false
+///    },
+///    "id": {
+///      "type": "string",
+///      "minLength": 1,
+///      "$comment": "internal; MUST NOT be rendered"
+///    },
+///    "label": {
+///      "type": "string",
+///      "minLength": 1
+///    },
+///    "usage": {
+///      "type": "object",
+///      "properties": {
+///        "repeatable_if_different_unit": {
+///          "type": "boolean"
+///        }
+///      },
+///      "additionalProperties": false
+///    },
+///    "when": {
+///      "oneOf": [
+///        {
+///          "$ref": "#/$defs/resource-action-menu-trigger"
+///        },
+///        {
+///          "type": "array",
+///          "items": {
+///            "$ref": "#/$defs/resource-action-menu-trigger"
+///          },
+///          "minItems": 1
+///        }
+///      ],
+///      "$comment": "Local variant of ability.schema.json#/$defs/trigger (see #/$defs/resource-action-menu-trigger) adding `binds_event_variable`, so a later `eligibility.requires` predicate can test a historical relation against the SAME game-object this trigger matched — not merely 'some enemy unit'."
+///    }
+///  },
+///  "additionalProperties": false
+///}
+/// ```
+/// </details>
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
+#[serde(deny_unknown_fields)]
+pub struct ResourceActionMenuEffectActionsItem {
+    pub cost: ResourceActionMenuEffectActionsItemCost,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub duration: ::std::option::Option<ResourceActionMenuEffectActionsItemDuration>,
+    pub effect: EffectNode,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub eligibility: ::std::option::Option<
+        ResourceActionMenuEffectActionsItemEligibility,
+    >,
+    pub id: ResourceActionMenuEffectActionsItemId,
+    pub label: ResourceActionMenuEffectActionsItemLabel,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub usage: ::std::option::Option<ResourceActionMenuEffectActionsItemUsage>,
+    pub when: ResourceActionMenuEffectActionsItemWhen,
+}
+///`ResourceActionMenuEffectActionsItemCost`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "object",
+///  "required": [
+///    "amount",
+///    "pool_id"
+///  ],
+///  "properties": {
+///    "amount": {
+///      "type": "integer",
+///      "minimum": 1.0
+///    },
+///    "pool_id": {
+///      "type": "string",
+///      "minLength": 1
+///    },
+///    "resource_label": {
+///      "type": "string",
+///      "minLength": 1,
+///      "$comment": "Optional player-facing singular noun for one unit of this pool (e.g. 'Battle Focus token'). Backward-compatible: when absent, the describer falls back to a title-cased `pool_id`."
+///    }
+///  },
+///  "additionalProperties": false
+///}
+/// ```
+/// </details>
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
+#[serde(deny_unknown_fields)]
+pub struct ResourceActionMenuEffectActionsItemCost {
+    pub amount: ::std::num::NonZeroU64,
+    pub pool_id: ResourceActionMenuEffectActionsItemCostPoolId,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub resource_label: ::std::option::Option<
+        ResourceActionMenuEffectActionsItemCostResourceLabel,
+    >,
+}
+///`ResourceActionMenuEffectActionsItemCostPoolId`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "string",
+///  "minLength": 1
+///}
+/// ```
+/// </details>
+#[derive(::serde::Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+#[serde(transparent)]
+pub struct ResourceActionMenuEffectActionsItemCostPoolId(::std::string::String);
+impl ::std::ops::Deref for ResourceActionMenuEffectActionsItemCostPoolId {
+    type Target = ::std::string::String;
+    fn deref(&self) -> &::std::string::String {
+        &self.0
+    }
+}
+impl ::std::convert::From<ResourceActionMenuEffectActionsItemCostPoolId>
+for ::std::string::String {
+    fn from(value: ResourceActionMenuEffectActionsItemCostPoolId) -> Self {
+        value.0
+    }
+}
+impl ::std::str::FromStr for ResourceActionMenuEffectActionsItemCostPoolId {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        if value.chars().count() < 1usize {
+            return Err("shorter than 1 characters".into());
+        }
+        Ok(Self(value.to_string()))
+    }
+}
+impl ::std::convert::TryFrom<&str> for ResourceActionMenuEffectActionsItemCostPoolId {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+for ResourceActionMenuEffectActionsItemCostPoolId {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+for ResourceActionMenuEffectActionsItemCostPoolId {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl<'de> ::serde::Deserialize<'de> for ResourceActionMenuEffectActionsItemCostPoolId {
+    fn deserialize<D>(deserializer: D) -> ::std::result::Result<Self, D::Error>
+    where
+        D: ::serde::Deserializer<'de>,
+    {
+        ::std::string::String::deserialize(deserializer)?
+            .parse()
+            .map_err(|e: self::error::ConversionError| {
+                <D::Error as ::serde::de::Error>::custom(e.to_string())
+            })
+    }
+}
+///`ResourceActionMenuEffectActionsItemCostResourceLabel`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "string",
+///  "minLength": 1,
+///  "$comment": "Optional player-facing singular noun for one unit of this pool (e.g. 'Battle Focus token'). Backward-compatible: when absent, the describer falls back to a title-cased `pool_id`."
+///}
+/// ```
+/// </details>
+#[derive(::serde::Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+#[serde(transparent)]
+pub struct ResourceActionMenuEffectActionsItemCostResourceLabel(::std::string::String);
+impl ::std::ops::Deref for ResourceActionMenuEffectActionsItemCostResourceLabel {
+    type Target = ::std::string::String;
+    fn deref(&self) -> &::std::string::String {
+        &self.0
+    }
+}
+impl ::std::convert::From<ResourceActionMenuEffectActionsItemCostResourceLabel>
+for ::std::string::String {
+    fn from(value: ResourceActionMenuEffectActionsItemCostResourceLabel) -> Self {
+        value.0
+    }
+}
+impl ::std::str::FromStr for ResourceActionMenuEffectActionsItemCostResourceLabel {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        if value.chars().count() < 1usize {
+            return Err("shorter than 1 characters".into());
+        }
+        Ok(Self(value.to_string()))
+    }
+}
+impl ::std::convert::TryFrom<&str>
+for ResourceActionMenuEffectActionsItemCostResourceLabel {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+for ResourceActionMenuEffectActionsItemCostResourceLabel {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+for ResourceActionMenuEffectActionsItemCostResourceLabel {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl<'de> ::serde::Deserialize<'de>
+for ResourceActionMenuEffectActionsItemCostResourceLabel {
+    fn deserialize<D>(deserializer: D) -> ::std::result::Result<Self, D::Error>
+    where
+        D: ::serde::Deserializer<'de>,
+    {
+        ::std::string::String::deserialize(deserializer)?
+            .parse()
+            .map_err(|e: self::error::ConversionError| {
+                <D::Error as ::serde::de::Error>::custom(e.to_string())
+            })
+    }
+}
+///`ResourceActionMenuEffectActionsItemDuration`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "string",
+///  "enum": [
+///    "immediate",
+///    "until-end-of-phase",
+///    "until-end-of-turn"
+///  ],
+///  "$comment": "'immediate' is a one-off action whose only lasting result is the resulting board position; the describer MUST render it with no 'until ...' clause."
+///}
+/// ```
+/// </details>
+#[derive(
+    ::serde::Deserialize,
+    ::serde::Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd
+)]
+pub enum ResourceActionMenuEffectActionsItemDuration {
+    #[serde(rename = "immediate")]
+    Immediate,
+    #[serde(rename = "until-end-of-phase")]
+    UntilEndOfPhase,
+    #[serde(rename = "until-end-of-turn")]
+    UntilEndOfTurn,
+}
+impl ::std::fmt::Display for ResourceActionMenuEffectActionsItemDuration {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::Immediate => f.write_str("immediate"),
+            Self::UntilEndOfPhase => f.write_str("until-end-of-phase"),
+            Self::UntilEndOfTurn => f.write_str("until-end-of-turn"),
+        }
+    }
+}
+impl ::std::str::FromStr for ResourceActionMenuEffectActionsItemDuration {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "immediate" => Ok(Self::Immediate),
+            "until-end-of-phase" => Ok(Self::UntilEndOfPhase),
+            "until-end-of-turn" => Ok(Self::UntilEndOfTurn),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for ResourceActionMenuEffectActionsItemDuration {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+for ResourceActionMenuEffectActionsItemDuration {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+for ResourceActionMenuEffectActionsItemDuration {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+///`ResourceActionMenuEffectActionsItemEligibility`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "object",
+///  "properties": {
+///    "excludes_keyword": {
+///      "type": "array",
+///      "items": {
+///        "type": "string"
+///      },
+///      "minItems": 1
+///    },
+///    "requires": {
+///      "type": "array",
+///      "items": {
+///        "$ref": "#/$defs/condition"
+///      },
+///      "minItems": 1
+///    },
+///    "requires_keyword": {
+///      "type": "array",
+///      "items": {
+///        "type": "string"
+///      },
+///      "minItems": 1
+///    },
+///    "selector_count": {
+///      "type": "integer",
+///      "minimum": 1.0
+///    }
+///  },
+///  "additionalProperties": false
+///}
+/// ```
+/// </details>
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
+#[serde(deny_unknown_fields)]
+pub struct ResourceActionMenuEffectActionsItemEligibility {
+    #[serde(default, skip_serializing_if = "::std::vec::Vec::is_empty")]
+    pub excludes_keyword: ::std::vec::Vec<::std::string::String>,
+    #[serde(default, skip_serializing_if = "::std::vec::Vec::is_empty")]
+    pub requires: ::std::vec::Vec<Condition>,
+    #[serde(default, skip_serializing_if = "::std::vec::Vec::is_empty")]
+    pub requires_keyword: ::std::vec::Vec<::std::string::String>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub selector_count: ::std::option::Option<::std::num::NonZeroU64>,
+}
+impl ::std::default::Default for ResourceActionMenuEffectActionsItemEligibility {
+    fn default() -> Self {
+        Self {
+            excludes_keyword: Default::default(),
+            requires: Default::default(),
+            requires_keyword: Default::default(),
+            selector_count: Default::default(),
+        }
+    }
+}
+///`ResourceActionMenuEffectActionsItemId`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "string",
+///  "minLength": 1,
+///  "$comment": "internal; MUST NOT be rendered"
+///}
+/// ```
+/// </details>
+#[derive(::serde::Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+#[serde(transparent)]
+pub struct ResourceActionMenuEffectActionsItemId(::std::string::String);
+impl ::std::ops::Deref for ResourceActionMenuEffectActionsItemId {
+    type Target = ::std::string::String;
+    fn deref(&self) -> &::std::string::String {
+        &self.0
+    }
+}
+impl ::std::convert::From<ResourceActionMenuEffectActionsItemId>
+for ::std::string::String {
+    fn from(value: ResourceActionMenuEffectActionsItemId) -> Self {
+        value.0
+    }
+}
+impl ::std::str::FromStr for ResourceActionMenuEffectActionsItemId {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        if value.chars().count() < 1usize {
+            return Err("shorter than 1 characters".into());
+        }
+        Ok(Self(value.to_string()))
+    }
+}
+impl ::std::convert::TryFrom<&str> for ResourceActionMenuEffectActionsItemId {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+for ResourceActionMenuEffectActionsItemId {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+for ResourceActionMenuEffectActionsItemId {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl<'de> ::serde::Deserialize<'de> for ResourceActionMenuEffectActionsItemId {
+    fn deserialize<D>(deserializer: D) -> ::std::result::Result<Self, D::Error>
+    where
+        D: ::serde::Deserializer<'de>,
+    {
+        ::std::string::String::deserialize(deserializer)?
+            .parse()
+            .map_err(|e: self::error::ConversionError| {
+                <D::Error as ::serde::de::Error>::custom(e.to_string())
+            })
+    }
+}
+///`ResourceActionMenuEffectActionsItemLabel`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "string",
+///  "minLength": 1
+///}
+/// ```
+/// </details>
+#[derive(::serde::Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+#[serde(transparent)]
+pub struct ResourceActionMenuEffectActionsItemLabel(::std::string::String);
+impl ::std::ops::Deref for ResourceActionMenuEffectActionsItemLabel {
+    type Target = ::std::string::String;
+    fn deref(&self) -> &::std::string::String {
+        &self.0
+    }
+}
+impl ::std::convert::From<ResourceActionMenuEffectActionsItemLabel>
+for ::std::string::String {
+    fn from(value: ResourceActionMenuEffectActionsItemLabel) -> Self {
+        value.0
+    }
+}
+impl ::std::str::FromStr for ResourceActionMenuEffectActionsItemLabel {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        if value.chars().count() < 1usize {
+            return Err("shorter than 1 characters".into());
+        }
+        Ok(Self(value.to_string()))
+    }
+}
+impl ::std::convert::TryFrom<&str> for ResourceActionMenuEffectActionsItemLabel {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+for ResourceActionMenuEffectActionsItemLabel {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+for ResourceActionMenuEffectActionsItemLabel {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl<'de> ::serde::Deserialize<'de> for ResourceActionMenuEffectActionsItemLabel {
+    fn deserialize<D>(deserializer: D) -> ::std::result::Result<Self, D::Error>
+    where
+        D: ::serde::Deserializer<'de>,
+    {
+        ::std::string::String::deserialize(deserializer)?
+            .parse()
+            .map_err(|e: self::error::ConversionError| {
+                <D::Error as ::serde::de::Error>::custom(e.to_string())
+            })
+    }
+}
+///`ResourceActionMenuEffectActionsItemUsage`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "object",
+///  "properties": {
+///    "repeatable_if_different_unit": {
+///      "type": "boolean"
+///    }
+///  },
+///  "additionalProperties": false
+///}
+/// ```
+/// </details>
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
+#[serde(deny_unknown_fields)]
+pub struct ResourceActionMenuEffectActionsItemUsage {
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub repeatable_if_different_unit: ::std::option::Option<bool>,
+}
+impl ::std::default::Default for ResourceActionMenuEffectActionsItemUsage {
+    fn default() -> Self {
+        Self {
+            repeatable_if_different_unit: Default::default(),
+        }
+    }
+}
+///`ResourceActionMenuEffectActionsItemWhen`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "oneOf": [
+///    {
+///      "$ref": "#/$defs/resource-action-menu-trigger"
+///    },
+///    {
+///      "type": "array",
+///      "items": {
+///        "$ref": "#/$defs/resource-action-menu-trigger"
+///      },
+///      "minItems": 1
+///    }
+///  ],
+///  "$comment": "Local variant of ability.schema.json#/$defs/trigger (see #/$defs/resource-action-menu-trigger) adding `binds_event_variable`, so a later `eligibility.requires` predicate can test a historical relation against the SAME game-object this trigger matched — not merely 'some enemy unit'."
+///}
+/// ```
+/// </details>
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
+#[serde(untagged)]
+pub enum ResourceActionMenuEffectActionsItemWhen {
+    ResourceActionMenuTrigger(ResourceActionMenuTrigger),
+    Array(::std::vec::Vec<ResourceActionMenuTrigger>),
+}
+impl ::std::convert::From<ResourceActionMenuTrigger>
+for ResourceActionMenuEffectActionsItemWhen {
+    fn from(value: ResourceActionMenuTrigger) -> Self {
+        Self::ResourceActionMenuTrigger(value)
+    }
+}
+impl ::std::convert::From<::std::vec::Vec<ResourceActionMenuTrigger>>
+for ResourceActionMenuEffectActionsItemWhen {
+    fn from(value: ::std::vec::Vec<ResourceActionMenuTrigger>) -> Self {
+        Self::Array(value)
+    }
+}
+///`ResourceActionMenuEffectMenuId`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "string",
+///  "minLength": 1
+///}
+/// ```
+/// </details>
+#[derive(::serde::Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+#[serde(transparent)]
+pub struct ResourceActionMenuEffectMenuId(::std::string::String);
+impl ::std::ops::Deref for ResourceActionMenuEffectMenuId {
+    type Target = ::std::string::String;
+    fn deref(&self) -> &::std::string::String {
+        &self.0
+    }
+}
+impl ::std::convert::From<ResourceActionMenuEffectMenuId> for ::std::string::String {
+    fn from(value: ResourceActionMenuEffectMenuId) -> Self {
+        value.0
+    }
+}
+impl ::std::str::FromStr for ResourceActionMenuEffectMenuId {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        if value.chars().count() < 1usize {
+            return Err("shorter than 1 characters".into());
+        }
+        Ok(Self(value.to_string()))
+    }
+}
+impl ::std::convert::TryFrom<&str> for ResourceActionMenuEffectMenuId {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for ResourceActionMenuEffectMenuId {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for ResourceActionMenuEffectMenuId {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl<'de> ::serde::Deserialize<'de> for ResourceActionMenuEffectMenuId {
+    fn deserialize<D>(deserializer: D) -> ::std::result::Result<Self, D::Error>
+    where
+        D: ::serde::Deserializer<'de>,
+    {
+        ::std::string::String::deserialize(deserializer)?
+            .parse()
+            .map_err(|e: self::error::ConversionError| {
+                <D::Error as ::serde::de::Error>::custom(e.to_string())
+            })
+    }
+}
+///`ResourceActionMenuEffectPoolId`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "string",
+///  "minLength": 1
+///}
+/// ```
+/// </details>
+#[derive(::serde::Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+#[serde(transparent)]
+pub struct ResourceActionMenuEffectPoolId(::std::string::String);
+impl ::std::ops::Deref for ResourceActionMenuEffectPoolId {
+    type Target = ::std::string::String;
+    fn deref(&self) -> &::std::string::String {
+        &self.0
+    }
+}
+impl ::std::convert::From<ResourceActionMenuEffectPoolId> for ::std::string::String {
+    fn from(value: ResourceActionMenuEffectPoolId) -> Self {
+        value.0
+    }
+}
+impl ::std::str::FromStr for ResourceActionMenuEffectPoolId {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        if value.chars().count() < 1usize {
+            return Err("shorter than 1 characters".into());
+        }
+        Ok(Self(value.to_string()))
+    }
+}
+impl ::std::convert::TryFrom<&str> for ResourceActionMenuEffectPoolId {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for ResourceActionMenuEffectPoolId {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for ResourceActionMenuEffectPoolId {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl<'de> ::serde::Deserialize<'de> for ResourceActionMenuEffectPoolId {
+    fn deserialize<D>(deserializer: D) -> ::std::result::Result<Self, D::Error>
+    where
+        D: ::serde::Deserializer<'de>,
+    {
+        ::std::string::String::deserialize(deserializer)?
+            .parse()
+            .map_err(|e: self::error::ConversionError| {
+                <D::Error as ::serde::de::Error>::custom(e.to_string())
+            })
+    }
+}
+///`ResourceActionMenuEffectSharedUsage`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "object",
+///  "properties": {
+///    "default_manoeuvre_max_per_phase": {
+///      "type": "integer",
+///      "minimum": 1.0
+///    },
+///    "unit_max_manoeuvres_per_phase": {
+///      "type": "integer",
+///      "minimum": 1.0
+///    }
+///  },
+///  "additionalProperties": false,
+///  "$comment": "Caps shared across every action, distinct from a single action's own `usage` override."
+///}
+/// ```
+/// </details>
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
+#[serde(deny_unknown_fields)]
+pub struct ResourceActionMenuEffectSharedUsage {
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub default_manoeuvre_max_per_phase: ::std::option::Option<::std::num::NonZeroU64>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub unit_max_manoeuvres_per_phase: ::std::option::Option<::std::num::NonZeroU64>,
+}
+impl ::std::default::Default for ResourceActionMenuEffectSharedUsage {
+    fn default() -> Self {
+        Self {
+            default_manoeuvre_max_per_phase: Default::default(),
+            unit_max_manoeuvres_per_phase: Default::default(),
+        }
+    }
+}
+///`ResourceActionMenuTrigger`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "object",
+///  "required": [
+///    "event"
+///  ],
+///  "properties": {
+///    "binds_event_variable": {
+///      "type": "string",
+///      "minLength": 1,
+///      "$comment": "Names the triggering event's bound object (e.g. 'triggering-enemy') for later reference by this action's eligibility.requires predicates. Purely an internal reference id; NEVER rendered to players."
+///    },
+///    "condition": {
+///      "$ref": "#/$defs/condition"
+///    },
+///    "cost": {
+///      "type": "object",
+///      "properties": {
+///        "cp": {
+///          "type": "integer",
+///          "minimum": 0.0
+///        }
+///      },
+///      "additionalProperties": false
+///    },
+///    "event": {
+///      "$ref": "#/$defs/game-event"
+///    },
+///    "move_types": {
+///      "type": "array",
+///      "items": {
+///        "type": "string",
+///        "enum": [
+///          "normal",
+///          "advance",
+///          "fall-back",
+///          "charge"
+///        ]
+///      },
+///      "minItems": 1
+///    },
+///    "optional": {
+///      "default": false,
+///      "type": "boolean"
+///    },
+///    "proximity": {
+///      "type": "object",
+///      "required": [
+///        "range"
+///      ],
+///      "properties": {
+///        "of": {
+///          "type": "string",
+///          "enum": [
+///            "self",
+///            "bearer",
+///            "attached-unit"
+///          ]
+///        },
+///        "range": {
+///          "type": "number",
+///          "exclusiveMinimum": 0.0
+///        }
+///      },
+///      "additionalProperties": false
+///    },
+///    "subject": {
+///      "type": "string",
+///      "enum": [
+///        "self",
+///        "bearer",
+///        "friendly-unit",
+///        "enemy-unit",
+///        "any-unit",
+///        "model-in-bearer"
+///      ]
+///    },
+///    "window": {
+///      "type": "string"
+///    }
+///  },
+///  "additionalProperties": false,
+///  "$comment": "Same shape as ability.schema.json#/$defs/trigger, plus an optional `binds_event_variable` naming the specific game-object this trigger's `event` matched (e.g. the enemy unit that just performed the triggering Fall Back move), so a sibling `eligibility.requires` predicate can test a historical relation against that SAME bound object rather than 'some enemy unit'. Local to resource-action-menu actions pending a general home for event-variable binding on the shared trigger $def."
+///}
+/// ```
+/// </details>
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
+#[serde(deny_unknown_fields)]
+pub struct ResourceActionMenuTrigger {
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub binds_event_variable: ::std::option::Option<
+        ResourceActionMenuTriggerBindsEventVariable,
+    >,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub condition: ::std::option::Option<Condition>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub cost: ::std::option::Option<ResourceActionMenuTriggerCost>,
+    pub event: GameEvent,
+    #[serde(default, skip_serializing_if = "::std::vec::Vec::is_empty")]
+    pub move_types: ::std::vec::Vec<ResourceActionMenuTriggerMoveTypesItem>,
+    #[serde(default)]
+    pub optional: bool,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub proximity: ::std::option::Option<ResourceActionMenuTriggerProximity>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub subject: ::std::option::Option<ResourceActionMenuTriggerSubject>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub window: ::std::option::Option<::std::string::String>,
+}
+///`ResourceActionMenuTriggerBindsEventVariable`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "string",
+///  "minLength": 1,
+///  "$comment": "Names the triggering event's bound object (e.g. 'triggering-enemy') for later reference by this action's eligibility.requires predicates. Purely an internal reference id; NEVER rendered to players."
+///}
+/// ```
+/// </details>
+#[derive(::serde::Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+#[serde(transparent)]
+pub struct ResourceActionMenuTriggerBindsEventVariable(::std::string::String);
+impl ::std::ops::Deref for ResourceActionMenuTriggerBindsEventVariable {
+    type Target = ::std::string::String;
+    fn deref(&self) -> &::std::string::String {
+        &self.0
+    }
+}
+impl ::std::convert::From<ResourceActionMenuTriggerBindsEventVariable>
+for ::std::string::String {
+    fn from(value: ResourceActionMenuTriggerBindsEventVariable) -> Self {
+        value.0
+    }
+}
+impl ::std::str::FromStr for ResourceActionMenuTriggerBindsEventVariable {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        if value.chars().count() < 1usize {
+            return Err("shorter than 1 characters".into());
+        }
+        Ok(Self(value.to_string()))
+    }
+}
+impl ::std::convert::TryFrom<&str> for ResourceActionMenuTriggerBindsEventVariable {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+for ResourceActionMenuTriggerBindsEventVariable {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+for ResourceActionMenuTriggerBindsEventVariable {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl<'de> ::serde::Deserialize<'de> for ResourceActionMenuTriggerBindsEventVariable {
+    fn deserialize<D>(deserializer: D) -> ::std::result::Result<Self, D::Error>
+    where
+        D: ::serde::Deserializer<'de>,
+    {
+        ::std::string::String::deserialize(deserializer)?
+            .parse()
+            .map_err(|e: self::error::ConversionError| {
+                <D::Error as ::serde::de::Error>::custom(e.to_string())
+            })
+    }
+}
+///`ResourceActionMenuTriggerCost`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "object",
+///  "properties": {
+///    "cp": {
+///      "type": "integer",
+///      "minimum": 0.0
+///    }
+///  },
+///  "additionalProperties": false
+///}
+/// ```
+/// </details>
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
+#[serde(deny_unknown_fields)]
+pub struct ResourceActionMenuTriggerCost {
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub cp: ::std::option::Option<u64>,
+}
+impl ::std::default::Default for ResourceActionMenuTriggerCost {
+    fn default() -> Self {
+        Self { cp: Default::default() }
+    }
+}
+///`ResourceActionMenuTriggerMoveTypesItem`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "string",
+///  "enum": [
+///    "normal",
+///    "advance",
+///    "fall-back",
+///    "charge"
+///  ]
+///}
+/// ```
+/// </details>
+#[derive(
+    ::serde::Deserialize,
+    ::serde::Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd
+)]
+pub enum ResourceActionMenuTriggerMoveTypesItem {
+    #[serde(rename = "normal")]
+    Normal,
+    #[serde(rename = "advance")]
+    Advance,
+    #[serde(rename = "fall-back")]
+    FallBack,
+    #[serde(rename = "charge")]
+    Charge,
+}
+impl ::std::fmt::Display for ResourceActionMenuTriggerMoveTypesItem {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::Normal => f.write_str("normal"),
+            Self::Advance => f.write_str("advance"),
+            Self::FallBack => f.write_str("fall-back"),
+            Self::Charge => f.write_str("charge"),
+        }
+    }
+}
+impl ::std::str::FromStr for ResourceActionMenuTriggerMoveTypesItem {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "normal" => Ok(Self::Normal),
+            "advance" => Ok(Self::Advance),
+            "fall-back" => Ok(Self::FallBack),
+            "charge" => Ok(Self::Charge),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for ResourceActionMenuTriggerMoveTypesItem {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+for ResourceActionMenuTriggerMoveTypesItem {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+for ResourceActionMenuTriggerMoveTypesItem {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+///`ResourceActionMenuTriggerProximity`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "object",
+///  "required": [
+///    "range"
+///  ],
+///  "properties": {
+///    "of": {
+///      "type": "string",
+///      "enum": [
+///        "self",
+///        "bearer",
+///        "attached-unit"
+///      ]
+///    },
+///    "range": {
+///      "type": "number",
+///      "exclusiveMinimum": 0.0
+///    }
+///  },
+///  "additionalProperties": false
+///}
+/// ```
+/// </details>
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
+#[serde(deny_unknown_fields)]
+pub struct ResourceActionMenuTriggerProximity {
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub of: ::std::option::Option<ResourceActionMenuTriggerProximityOf>,
+    pub range: f64,
+}
+///`ResourceActionMenuTriggerProximityOf`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "string",
+///  "enum": [
+///    "self",
+///    "bearer",
+///    "attached-unit"
+///  ]
+///}
+/// ```
+/// </details>
+#[derive(
+    ::serde::Deserialize,
+    ::serde::Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd
+)]
+pub enum ResourceActionMenuTriggerProximityOf {
+    #[serde(rename = "self")]
+    Self_,
+    #[serde(rename = "bearer")]
+    Bearer,
+    #[serde(rename = "attached-unit")]
+    AttachedUnit,
+}
+impl ::std::fmt::Display for ResourceActionMenuTriggerProximityOf {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::Self_ => f.write_str("self"),
+            Self::Bearer => f.write_str("bearer"),
+            Self::AttachedUnit => f.write_str("attached-unit"),
+        }
+    }
+}
+impl ::std::str::FromStr for ResourceActionMenuTriggerProximityOf {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "self" => Ok(Self::Self_),
+            "bearer" => Ok(Self::Bearer),
+            "attached-unit" => Ok(Self::AttachedUnit),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for ResourceActionMenuTriggerProximityOf {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+for ResourceActionMenuTriggerProximityOf {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+for ResourceActionMenuTriggerProximityOf {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+///`ResourceActionMenuTriggerSubject`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "string",
+///  "enum": [
+///    "self",
+///    "bearer",
+///    "friendly-unit",
+///    "enemy-unit",
+///    "any-unit",
+///    "model-in-bearer"
+///  ]
+///}
+/// ```
+/// </details>
+#[derive(
+    ::serde::Deserialize,
+    ::serde::Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd
+)]
+pub enum ResourceActionMenuTriggerSubject {
+    #[serde(rename = "self")]
+    Self_,
+    #[serde(rename = "bearer")]
+    Bearer,
+    #[serde(rename = "friendly-unit")]
+    FriendlyUnit,
+    #[serde(rename = "enemy-unit")]
+    EnemyUnit,
+    #[serde(rename = "any-unit")]
+    AnyUnit,
+    #[serde(rename = "model-in-bearer")]
+    ModelInBearer,
+}
+impl ::std::fmt::Display for ResourceActionMenuTriggerSubject {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::Self_ => f.write_str("self"),
+            Self::Bearer => f.write_str("bearer"),
+            Self::FriendlyUnit => f.write_str("friendly-unit"),
+            Self::EnemyUnit => f.write_str("enemy-unit"),
+            Self::AnyUnit => f.write_str("any-unit"),
+            Self::ModelInBearer => f.write_str("model-in-bearer"),
+        }
+    }
+}
+impl ::std::str::FromStr for ResourceActionMenuTriggerSubject {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "self" => Ok(Self::Self_),
+            "bearer" => Ok(Self::Bearer),
+            "friendly-unit" => Ok(Self::FriendlyUnit),
+            "enemy-unit" => Ok(Self::EnemyUnit),
+            "any-unit" => Ok(Self::AnyUnit),
+            "model-in-bearer" => Ok(Self::ModelInBearer),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for ResourceActionMenuTriggerSubject {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+for ResourceActionMenuTriggerSubject {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+for ResourceActionMenuTriggerSubject {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+///Token/resource count keyed by the three supported battle sizes. The renderer intentionally refers players to the accompanying table rather than spelling these values out.
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "description": "Token/resource count keyed by the three supported battle sizes. The renderer intentionally refers players to the accompanying table rather than spelling these values out.",
+///  "type": "object",
+///  "required": [
+///    "incursion",
+///    "onslaught",
+///    "strike-force"
+///  ],
+///  "properties": {
+///    "incursion": {
+///      "type": "integer",
+///      "minimum": 0.0
+///    },
+///    "onslaught": {
+///      "type": "integer",
+///      "minimum": 0.0
+///    },
+///    "strike-force": {
+///      "type": "integer",
+///      "minimum": 0.0
+///    }
+///  },
+///  "additionalProperties": false
+///}
+/// ```
+/// </details>
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
+#[serde(deny_unknown_fields)]
+pub struct ResourceGainBattleSizeCounts {
+    pub incursion: u64,
+    pub onslaught: u64,
+    #[serde(rename = "strike-force")]
+    pub strike_force: u64,
+}
 ///A faction's resource system (Miracle Dice, Pain tokens, Blessings dice pool, etc.).
 ///
 /// <details><summary>JSON schema</summary>
@@ -13826,7 +15546,8 @@ impl ::std::convert::TryFrom<::std::string::String> for Side {
 ///    },
 ///    "parameters": {
 ///      "type": "object",
-///      "additionalProperties": true
+///      "additionalProperties": true,
+///      "$comment": "For `was-hit-by-attack`, optional `source` is an event-bound-reference supplied by the sibling trigger and optional `window` may be `just-finished-shooting-sequence`; these fields keep source-sensitive predicates reusable without closing the shared parameter bag."
 ///    },
 ///    "type": {
 ///      "type": "string",
@@ -13876,7 +15597,8 @@ impl ::std::convert::TryFrom<::std::string::String> for Side {
 ///        "disembarked-from-transport",
 ///        "faction-rule-active",
 ///        "battle-round",
-///        "token-count-at-or-above"
+///        "token-count-at-or-above",
+///        "unit-was-in-engagement-range-of"
 ///      ]
 ///    }
 ///  },
@@ -13946,7 +15668,8 @@ pub struct SimpleCondition {
 ///    "disembarked-from-transport",
 ///    "faction-rule-active",
 ///    "battle-round",
-///    "token-count-at-or-above"
+///    "token-count-at-or-above",
+///    "unit-was-in-engagement-range-of"
 ///  ]
 ///}
 /// ```
@@ -14056,6 +15779,8 @@ pub enum SimpleConditionType {
     BattleRound,
     #[serde(rename = "token-count-at-or-above")]
     TokenCountAtOrAbove,
+    #[serde(rename = "unit-was-in-engagement-range-of")]
+    UnitWasInEngagementRangeOf,
 }
 impl ::std::fmt::Display for SimpleConditionType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
@@ -14110,6 +15835,9 @@ impl ::std::fmt::Display for SimpleConditionType {
             Self::FactionRuleActive => f.write_str("faction-rule-active"),
             Self::BattleRound => f.write_str("battle-round"),
             Self::TokenCountAtOrAbove => f.write_str("token-count-at-or-above"),
+            Self::UnitWasInEngagementRangeOf => {
+                f.write_str("unit-was-in-engagement-range-of")
+            }
         }
     }
 }
@@ -14165,6 +15893,7 @@ impl ::std::str::FromStr for SimpleConditionType {
             "faction-rule-active" => Ok(Self::FactionRuleActive),
             "battle-round" => Ok(Self::BattleRound),
             "token-count-at-or-above" => Ok(Self::TokenCountAtOrAbove),
+            "unit-was-in-engagement-range-of" => Ok(Self::UnitWasInEngagementRangeOf),
             _ => Err("invalid value".into()),
         }
     }
@@ -14320,7 +16049,8 @@ impl ::std::convert::TryFrom<::std::string::String> for SimpleConditionType {
 ///        "stratagem-targeting-permission",
 ///        "unit-attachment",
 ///        "fight-eligibility-extension",
-///        "recovery-pool"
+///        "recovery-pool",
+///        "resource-clear"
 ///      ]
 ///    }
 ///  },
@@ -14518,7 +16248,8 @@ impl ::std::convert::TryFrom<::std::string::String> for SingleEffectTarget {
 ///    "stratagem-targeting-permission",
 ///    "unit-attachment",
 ///    "fight-eligibility-extension",
-///    "recovery-pool"
+///    "recovery-pool",
+///    "resource-clear"
 ///  ]
 ///}
 /// ```
@@ -14640,6 +16371,8 @@ pub enum SingleEffectType {
     FightEligibilityExtension,
     #[serde(rename = "recovery-pool")]
     RecoveryPool,
+    #[serde(rename = "resource-clear")]
+    ResourceClear,
 }
 impl ::std::fmt::Display for SingleEffectType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
@@ -14698,6 +16431,7 @@ impl ::std::fmt::Display for SingleEffectType {
             Self::UnitAttachment => f.write_str("unit-attachment"),
             Self::FightEligibilityExtension => f.write_str("fight-eligibility-extension"),
             Self::RecoveryPool => f.write_str("recovery-pool"),
+            Self::ResourceClear => f.write_str("resource-clear"),
         }
     }
 }
@@ -14759,6 +16493,7 @@ impl ::std::str::FromStr for SingleEffectType {
             "unit-attachment" => Ok(Self::UnitAttachment),
             "fight-eligibility-extension" => Ok(Self::FightEligibilityExtension),
             "recovery-pool" => Ok(Self::RecoveryPool),
+            "resource-clear" => Ok(Self::ResourceClear),
             _ => Err("invalid value".into()),
         }
     }
@@ -16914,6 +18649,11 @@ pub struct TerrainTemplateUpperFloor {
 ///    "event"
 ///  ],
 ///  "properties": {
+///    "binds_event_variable": {
+///      "type": "string",
+///      "minLength": 1,
+///      "$comment": "Names the triggering event's bound object for later reference by a condition in the same reactive action. Internal only; never rendered."
+///    },
 ///    "condition": {
 ///      "$ref": "#/$defs/condition"
 ///    },
@@ -16992,6 +18732,8 @@ pub struct TerrainTemplateUpperFloor {
 #[serde(deny_unknown_fields)]
 pub struct Trigger {
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub binds_event_variable: ::std::option::Option<TriggerBindsEventVariable>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub condition: ::std::option::Option<Condition>,
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub cost: ::std::option::Option<TriggerCost>,
@@ -17007,6 +18749,79 @@ pub struct Trigger {
     pub subject: ::std::option::Option<TriggerSubject>,
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub window: ::std::option::Option<::std::string::String>,
+}
+///`TriggerBindsEventVariable`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "string",
+///  "minLength": 1,
+///  "$comment": "Names the triggering event's bound object for later reference by a condition in the same reactive action. Internal only; never rendered."
+///}
+/// ```
+/// </details>
+#[derive(::serde::Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+#[serde(transparent)]
+pub struct TriggerBindsEventVariable(::std::string::String);
+impl ::std::ops::Deref for TriggerBindsEventVariable {
+    type Target = ::std::string::String;
+    fn deref(&self) -> &::std::string::String {
+        &self.0
+    }
+}
+impl ::std::convert::From<TriggerBindsEventVariable> for ::std::string::String {
+    fn from(value: TriggerBindsEventVariable) -> Self {
+        value.0
+    }
+}
+impl ::std::str::FromStr for TriggerBindsEventVariable {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        if value.chars().count() < 1usize {
+            return Err("shorter than 1 characters".into());
+        }
+        Ok(Self(value.to_string()))
+    }
+}
+impl ::std::convert::TryFrom<&str> for TriggerBindsEventVariable {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for TriggerBindsEventVariable {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for TriggerBindsEventVariable {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl<'de> ::serde::Deserialize<'de> for TriggerBindsEventVariable {
+    fn deserialize<D>(deserializer: D) -> ::std::result::Result<Self, D::Error>
+    where
+        D: ::serde::Deserializer<'de>,
+    {
+        ::std::string::String::deserialize(deserializer)?
+            .parse()
+            .map_err(|e: self::error::ConversionError| {
+                <D::Error as ::serde::de::Error>::custom(e.to_string())
+            })
+    }
 }
 ///`TriggerCost`
 ///

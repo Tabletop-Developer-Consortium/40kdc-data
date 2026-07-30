@@ -5,14 +5,13 @@ structural stub — an effect carrying an empty-modifier placeholder node that s
 DSL authored. This is the actionable counterpart to the per-faction `stub*` counts in
 [`CONTRIBUTING.md`](../../CONTRIBUTING.md) and [`summary.md`](summary.md).
 
-Total: 40 stub abilities.
+Total: 39 stub abilities.
 
 | faction | ability | shape | needs |
 |---|---|---|---|
 | adeptus-astartes | heroes-of-ultramar | unit-attachment | effect type "unit-attachment" is not modelled by the buff layer |
 | adeptus-astartes | mission-tactics | stat-modifier | stat-modifier: operation "undefined" not supported |
 | adeptus-astartes | sagas | stat-modifier | stat-modifier: operation "undefined" not supported |
-| aeldari | battle-focus | stat-modifier | stat-modifier: operation "undefined" not supported |
 | aeldari | far-reaching-doom | stat-modifier | stat-modifier: operation "undefined" not supported |
 | aeldari | support-artillery | unit-attachment | effect type "unit-attachment" is not modelled by the buff layer |
 | astra-militarum | aerial-deployment | conditional | empty modifier |

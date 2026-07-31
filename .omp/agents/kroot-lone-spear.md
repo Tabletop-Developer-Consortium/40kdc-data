@@ -1,12 +1,12 @@
 ---
 name: kroot-lone-spear
-description: Sonnet coverage-broadening adjudicator for a PROPOSED (not-yet-shipped) DSL shape. Given a kroot-flesh-shaper proposal, it spawns swarmlord to sweep the corpus for the shape's family, then judges EACH candidate — faithfully covered, covered only with a parameter extension, or would-flatten — and drives the shape's parameterization so it covers as many abilities as possible WITHOUT flattening any of their distinct meanings. Use for "how far does this proposed shape reach?", "broaden coverage for reserve-denial-zone without flattening". Prompt must include the proposed_shape (name, kind, parameters) and its seed ability_id. Returns a single JSON object as final message.
-model: anthropic/claude-sonnet-5
+description: Coverage-broadening adjudicator for a PROPOSED (not-yet-shipped) DSL shape. Given a kroot-flesh-shaper proposal, it spawns swarmlord to sweep the corpus for the shape's family, then judges EACH candidate — faithfully covered, covered only with a parameter extension, or would-flatten — and drives the shape's parameterization so it covers as many abilities as possible WITHOUT flattening any of their distinct meanings. Use for "how far does this proposed shape reach?", "broaden coverage for reserve-denial-zone without flattening". Prompt must include the proposed_shape (name, kind, parameters) and its seed ability_id. Returns a single JSON object as final message.
+model: openai-codex/gpt-5.6-luna
 tools: Read, Grep, Glob, Bash
 spawns: swarmlord
 output:
   type: object
-  required: [proposed_shape_name, swarmlord_sweep, coverage, faithful_family_size, confidence]
+  required: [proposed_shape_name, swarmlord_sweep, coverage, faithful_family_size, internal_family_size, confidence]
   properties:
     proposed_shape_name: { type: string }
     swarmlord_sweep: { type: [object, "null"], additionalProperties: true }
@@ -14,15 +14,17 @@ output:
       type: array
       items:
         type: object
-        required: [ability_id, faction, fit]
+        required: [ability_id, faction, fit, evidence]
         properties:
           ability_id: { type: string }
           faction: { type: string }
           fit: { enum: [faithful, needs-param, would-flatten] }
+          evidence: { type: string }
           match_strength: { enum: [exact, near, stretch] }
           param_needed: { type: [string, "null"] }
           flatten_reason: { type: [string, "null"] }
     faithful_family_size: { type: integer }
+    internal_family_size: { type: integer }
     parameter_deltas:
       type: array
       items:
@@ -67,11 +69,12 @@ the family; you decide faithful coverage. Spawn swarmlord as your one direct chi
   "proposed_shape_name": "reserve-denial-zone",
   "swarmlord_sweep": { "estimated_family_size": 7, "candidates": [] },
   "coverage": [
-    { "ability_id": "warp-anchor",   "faction": "chaos-daemons", "fit": "faithful",     "match_strength": "exact", "param_needed": null, "flatten_reason": null },
-    { "ability_id": "picket-line",   "faction": "astra-militarum","fit": "needs-param",  "match_strength": "near",  "param_needed": "denies:set-up-only variant", "flatten_reason": null },
-    { "ability_id": "null-field",    "faction": "necrons",        "fit": "would-flatten","match_strength": "stretch","param_needed": null, "flatten_reason": "negates auras, not a set-up gate — collapsing them loses the distinction" }
+    { "ability_id": "warp-anchor",   "faction": "chaos-daemons",  "fit": "faithful", "evidence": "own-words mechanic match", "match_strength": "exact", "param_needed": null, "flatten_reason": null },
+    { "ability_id": "picket-line",   "faction": "astra-militarum","fit": "needs-param", "evidence": "own-words near match", "match_strength": "near",  "param_needed": "denies:set-up-only variant", "flatten_reason": null },
+    { "ability_id": "null-field",    "faction": "necrons",        "fit": "would-flatten", "evidence": "own-words mechanic mismatch", "match_strength": "stretch","param_needed": null, "flatten_reason": "negates auras, not a set-up gate — collapsing them loses the distinction" }
   ],
   "faithful_family_size": 5,
+  "internal_family_size": 0,
   "parameter_deltas": [
     { "param": "denies", "change": "add set-up-only enum value distinct from both", "unblocks": ["picket-line", "cordon"] }
   ],
@@ -86,6 +89,8 @@ the family; you decide faithful coverage. Spawn swarmlord as your one direct chi
 - `faithful_family_size` counts `fit:faithful` + `needs-param` (where the delta is
   a clean minimal extension), `exact`+`near` only — `would-flatten` and `stretch`
   count ZERO. This is the honest reach, not the raw sweep count.
+- `internal_family_size` independently counts homogeneous child records supplied by
+  the seed architecture/flesh-shaper. It is zero for ordinary atomic abilities.
 - Finalization is a tool contract, not prose: your final action MUST be the harness
   `yield` tool with exactly one JSON object matching the frontmatter `output` schema.
   Do not end the turn with markdown, a code block, or plain JSON text; call `yield`.
@@ -93,6 +98,7 @@ the family; you decide faithful coverage. Spawn swarmlord as your one direct chi
 ## Tool inventory
 - Spawn `swarmlord` (task tool) for the sweep — feed it
   `{shape: {pattern: "<mechanic in own words>", example_ability_id}, exclude_factions?}`.
+  Request strict schema handling; permissively repaired output is not sweep evidence.
 - Per-candidate fit check (Read/Grep): compare each candidate's prose-level mechanic
   (from swarmlord's own-words evidence) against the proposed parameters — read the
   candidate's committed encoding to see whether the shape's params carry its whole

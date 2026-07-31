@@ -5,3 +5,7 @@
 # need the recursion gate to allow depth-1 agents to spawn depth-2 helpers.
 task:
   maxRecursionDepth: 3
+  # Direct task-tool agents must never remain opaque for hours. Workflow `agent()`
+  # calls currently ignore this OMP setting, so the dsl-campaign driver also applies
+  # the external-cancellation policy documented in SKILL.md.
+  maxRuntimeMs: 1800000

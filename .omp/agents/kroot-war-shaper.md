@@ -1,18 +1,38 @@
 ---
 name: kroot-war-shaper
-description: Opus adversarial reviewer for a proposed DSL shape. Given the kroot-flesh-shaper proposal, kroot-lone-spear coverage, and kroot-trail-shaper describer spec, it attacks the shape on four axes — sprawl (an existing shape already covers this), flattening (adopting it distorts a family member's meaning), fidelity/parity (the render is wrong, ambiguous, or breaks byte-parity), and family (the reach is real) — spawning eversor to concretely refute the shape against sample members and swarmlord to independently re-check the family. It returns required-change findings and a verdict; on accept it emits the consolidated shape package warpsmith consumes. Use for "review this proposed shape", "is reserve-denial-zone real or sprawl?". Prompt must include the three prior kroot outputs. Returns a single JSON object as final message.
-model: anthropic/claude-opus-4-8
+description: Adversarial reviewer for a proposed DSL shape. Given the kroot-flesh-shaper proposal, kroot-lone-spear coverage, and kroot-trail-shaper describer spec, it attacks the shape on four axes — sprawl (an existing shape already covers this), flattening (adopting it distorts a family member's meaning), fidelity/parity (the render is wrong, ambiguous, or breaks byte-parity), and family (the reach is real) — spawning eversor to concretely refute the shape against sample members and swarmlord to independently re-check the family. It returns required-change findings and a verdict; on accept it emits the consolidated shape package warpsmith consumes. Use for "review this proposed shape", "is reserve-denial-zone real or sprawl?". Prompt must include the three prior kroot outputs. Returns a single JSON object as final message.
+model: openai-codex/gpt-5.6-luna
 tools: Read, Grep, Glob, Bash
 spawns: eversor, swarmlord
 output:
   type: object
-  required: [proposed_shape_name, eversor_refutations, swarmlord_recheck, findings, verdict, confidence]
+  required: [proposed_shape_name, family_mode, eversor_refutations, swarmlord_recheck, prior_finding_resolutions, findings, verdict, confidence]
   properties:
     proposed_shape_name: { type: string }
+    family_mode: { enum: [external, internal] }
     eversor_refutations:
       type: array
-      items: { type: object, additionalProperties: true }
+      items:
+        type: object
+        required: [ability_id, faction, internal_child_id, refuted, divergences]
+        properties:
+          ability_id: { type: string }
+          faction: { type: string }
+          internal_child_id: { type: [string, "null"] }
+          refuted: { type: boolean }
+          divergences: { type: array, items: { type: object, additionalProperties: true } }
     swarmlord_recheck: { type: [object, "null"], additionalProperties: true }
+    prior_finding_resolutions:
+      type: array
+      items:
+        type: object
+        required: [round, axis, situation, resolved, evidence]
+        properties:
+          round: { type: integer, minimum: 1 }
+          axis: { type: string }
+          situation: { type: string }
+          resolved: { type: boolean }
+          evidence: { type: string }
     findings:
       type: array
       items:
@@ -24,7 +44,39 @@ output:
           situation: { type: string }
           required_change: { type: string }
     verdict: { enum: [accept, revise, reject-as-sprawl, reject-as-singleton] }
-    shape_package: { type: [object, "null"], additionalProperties: true }
+    shape_package:
+      oneOf:
+        - { type: "null" }
+        - type: object
+          additionalProperties: false
+          required: [name, kind, schema_branch, parameters, seed_encoding, describer, faithful_family, parameter_deltas, seed_ability_id, implementation_matrix]
+          properties:
+            name: { type: string }
+            kind: { enum: [effect-leaf, condition, container, modifier-extension] }
+            schema_branch: { type: object, additionalProperties: true }
+            parameters: { type: array, items: { type: object, additionalProperties: true, required: [name, type, load_bearing] } }
+            seed_encoding: { type: object, additionalProperties: true }
+            describer:
+              type: object
+              additionalProperties: false
+              required: [render_rules, conformance_cases]
+              properties:
+                render_rules: { type: array, minItems: 1, items: { type: object, additionalProperties: true } }
+                conformance_cases: { type: array, minItems: 1, items: { type: object, additionalProperties: true } }
+                port_notes: { type: array, items: { type: string } }
+            faithful_family:
+              type: array
+              items:
+                type: object
+                additionalProperties: false
+                required: [ability_id, faction, fit]
+                properties:
+                  ability_id: { type: string }
+                  faction: { type: string }
+                  fit: { enum: [faithful, needs-param] }
+            parameter_deltas: { type: array, items: { type: object, additionalProperties: true } }
+            seed_ability_id: { type: string }
+            implementation_matrix: { type: object, additionalProperties: true }
     confidence: { type: number }
 ---
 
@@ -49,13 +101,17 @@ You SPAWN two adversaries as your direct children:
   its rule anywhere? A refutation here is a flattening finding.
 - `swarmlord` — an INDEPENDENT family re-check (do not trust lone-spear's count on
   faith); if swarmlord disagrees with lone-spear's reach, that is a family finding.
+Request strict schema handling for every child spawn; permissively repaired output is
+not admissible review evidence.
 
 ## Output (JSON contract)
 ```json
 {
   "proposed_shape_name": "reserve-denial-zone",
-  "eversor_refutations": [ { "ability_id": "warp-anchor", "refuted": false, "divergences": [] } ],
+  "family_mode": "external",
+  "eversor_refutations": [ { "ability_id": "warp-anchor", "faction": "example-faction", "internal_child_id": null, "refuted": false, "divergences": [] } ],
   "swarmlord_recheck": { "estimated_family_size": 6 },
+  "prior_finding_resolutions": [],
   "findings": [
     { "axis": "flattening", "severity": 3, "situation": "encoding null-field on this shape drops its aura-negation — eversor built the divergence", "required_change": "exclude null-field from the family; it needs modifier-immunity, not this shape" },
     { "axis": "parity", "severity": 2, "situation": "trail-shaper spec omits the negated condition form", "required_change": "add condition-predicate render + a conformance case" }
@@ -70,18 +126,45 @@ You SPAWN two adversaries as your direct children:
 - `verdict:"accept"` REQUIRES: no un-rebutted severity-3 finding ∧ eversor found no
   flattening on the sampled members ∧ swarmlord's faithful family ≥ the threshold
   (default 4, exact+near) ∧ the describer spec covers every render form. On accept,
-  `shape_package` is non-null and complete.
+  `shape_package` is non-null and complete. External families require exact-set
+  reconciliation and eversor refutations of two distinct faction/ability pairs.
+  Internal families may use one seed ability, but refutations must bind two distinct
+  homogeneous internal child ids from the closed parent. Never fabricate a second ability.
 - Finalization is a tool contract, not prose: your final action MUST be the harness
   `yield` tool with exactly one JSON object matching the frontmatter `output` schema.
   Do not end the turn with markdown, a code block, or plain JSON text; call `yield`.
 - `shape_package` (on accept) — the warpsmith-ready deliverable:
+  Its `faithful_family` is restricted to qualifying entries already in the supplied
+  frozen campaign manifest and explicitly includes the seed faction/ability. Keep
+  out-of-manifest discoveries in review evidence for the next campaign; never put them
+  in the package or request tracked edits/renders for them.
 ```json
 {
   "name": "reserve-denial-zone", "kind": "effect-leaf",
-  "schema_branch": { }, "parameters": [ ],
+  "schema_branch": { }, "parameters": [ ], "seed_encoding": { },
   "describer": { "render_rules": [ ], "port_notes": [ ], "conformance_cases": [ ] },
   "faithful_family": [ { "ability_id": "", "faction": "", "fit": "faithful|needs-param" } ],
-  "cost": { "spec_bump": true, "schema_change": true, "files": [ ], "conformance_cases": 0 },
+  "implementation_matrix": {
+    "canonical_schema": {"required":true,"files":[]},
+    "typescript_describer": {"required":true,"files":[]},
+    "rust_describer": {"required":true,"files":[]},
+    "python_describer": {"required":true,"files":[]},
+    "go_describer": {"required":true,"files":[]},
+    "typescript_cruncher": {"required":true,"files":[]},
+    "rust_cruncher": {"required":true,"files":[]},
+    "python_cruncher": {"required":true,"files":[]},
+    "go_cruncher": {"required":true,"files":[]},
+    "conformance": {"required":true,"files":[]},
+    "spec_version": {"required":true,"files":["conformance/SPEC_VERSION","python/src/wh40kdc/_spec.py","go/spec.go"]},
+    "generated_types": {"required":true,"files":[]},
+    "embedded_schemas": {"required":true,"files":[]},
+    "rust_bundle": {"required":true,"files":["crates/wh40kdc/src/data/bundle.generated.json"]},
+    "python_bundle": {"required":true,"files":["python/src/wh40kdc/_bundle.json"]},
+    "go_bundle": {"required":true,"files":["go/bundle.json"]},
+    "version_lockstep": {"required":true,"files":["tools/package.json","crates/wh40kdc/Cargo.toml","python/src/wh40kdc/_version.py","go/version.go","Cargo.lock"]},
+    "data": {"required":true,"files":[]}
+  },
+  "parameter_deltas": [],
   "seed_ability_id": ""
 }
 ```
@@ -112,7 +195,8 @@ You SPAWN two adversaries as your direct children:
   inputs to attack, not conclusions to ratify.
 - **The package is contractual.** An `accept` with an incomplete `shape_package`
   is a false pass — warpsmith needs the schema branch, every render form, the
-  faithful family, and the full four-port cost.
+  faithful family, and the full four-port implementation matrix. Rust is explicit;
+  it may never be inferred from a generic “all ports” note.
 - **IP boundary:** own-words findings; never paste GW prose.
 
 ## Failure modes

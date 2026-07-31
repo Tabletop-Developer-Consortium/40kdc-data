@@ -47,7 +47,7 @@ regen:
     cd python && python3 -m pip install -e ".[dev]" --quiet
     python3 python/codegen/gen_typeddicts.py
     bash go/codegen/sync.sh
-    cd tools && npm run build && npm run gen:conformance
+    cd tools && npm run codegen:data && npx tsc && npm run gen:conformance
 
 # Apply Rust + Go formatting (CI checks these; applying keeps a re-run clean).
 fmt:
@@ -58,11 +58,31 @@ fmt:
 # Drift gate: committed generated artifacts must equal what regen just produced.
 verify-clean:
     @echo "▸ checking generated artifacts match regen output (CI drift gate)"
-    @if ! git diff --exit-code -- {{ARTIFACTS}}; then \
+    @if jj root >/dev/null 2>&1; then \
+        drift=$(jj diff --name-only -r @ -- {{ARTIFACTS}}); \
+      elif git rev-parse --is-inside-work-tree >/dev/null 2>&1; then \
+        drift=$(git diff --name-only -- {{ARTIFACTS}}); \
+      else \
+        echo "✗ neither a git worktree nor a jj workspace; cannot verify generated drift." >&2; \
+        exit 1; \
+      fi; \
+      if [ -n "$drift" ]; then \
         echo "✗ generated artifacts drifted — regen changed them; commit the result (CI fails on this same diff)." >&2; \
+        printf '%s\n' "$drift" >&2; \
         exit 1; \
     fi
     @echo "  artifacts up to date."
+
+# Pre-commit drift gate: intended uncommitted generated outputs are the baseline.
+# Snapshot their bytes, regenerate, and require byte-for-byte stability.
+verify-regen-stable:
+    @before=$$(mktemp); after=$$(mktemp); trap 'rm -f "$$before" "$$after"' EXIT; \
+      find {{ARTIFACTS}} -type f -print0 2>/dev/null | sort -z | xargs -0 sha256sum >"$$before"; \
+      just regen; \
+      find {{ARTIFACTS}} -type f -print0 2>/dev/null | sort -z | xargs -0 sha256sum >"$$after"; \
+      if ! cmp -s "$$before" "$$after"; then \
+        echo "✗ regeneration changed the pre-gate generated snapshot." >&2; diff -u "$$before" "$$after" >&2 || true; exit 1; \
+      fi
 
 # All four language suites + conformance.
 test-all: test-ts test-rust test-python test-go conformance
@@ -70,7 +90,7 @@ test-all: test-ts test-rust test-python test-go conformance
 # TS: build + unit tests + data validation.
 test-ts:
     @echo "▸ TS: build + unit tests + data validation"
-    cd tools && npm run build && npm test && npm run validate
+    cd tools && npm run codegen:data && npx tsc && npm test && npm run validate
 
 # Rust: fmt-check + build + test.
 test-rust:

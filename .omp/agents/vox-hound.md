@@ -1,20 +1,29 @@
 ---
 name: vox-hound
-description: Haiku decomposer for WHAT an ability does. Given raw ability prose, hypothesizes the DSL effect layer — effect tree, leaf types, composition kind, dice mechanics, buffs/debuffs. Use for "what does <ability> do mechanically?", "decompose the effect for this prose". Prompt must include ability_id, raw_text, ability_type, faction_id. Returns a single JSON object as final message.
-model: anthropic/claude-haiku-4-5
+description: Effect decomposer for WHAT an ability does. Given raw ability prose, hypothesizes the DSL effect layer — effect tree, leaf types, composition kind, dice mechanics, buffs/debuffs. Use for "what does <ability> do mechanically?", "decompose the effect for this prose". Prompt must include ability_id, raw_text, ability_type, faction_id. Returns a single JSON object as final message.
+model: openai-codex/gpt-5.6-luna
 tools: Read, Grep, Glob
 output:
   type: object
-  required: [ability_id, leaf_types_used, composition, buff_or_debuff, confidence]
+  required: [status, ability_id, leaf_types_used, composition, buff_or_debuff, unresolved_clauses, confidence]
   properties:
+    status: { enum: [resolved, ambiguous, needs-schema, source-missing, error] }
     ability_id: { type: string }
     effect_tree: { type: [object, "null"], additionalProperties: true }
     leaf_types_used: { type: array, items: { type: string } }
-    composition: { enum: [choice, sequence, conditional, dice-gated, aura, none] }
+    composition: { enum: [choice, sequence, conditional, dice-gated, aura, none, null] }
     dice_mechanics: { type: array, items: { type: object, additionalProperties: true } }
-    buff_or_debuff: { enum: [buff, debuff, both, neutral] }
+    buff_or_debuff: { enum: [buff, debuff, both, neutral, null] }
     unmodelable_clauses: { type: array, items: { type: string } }
-    lookups_needed: { type: array, items: { type: object, additionalProperties: true } }
+    lookups_needed:
+      type: array
+      items:
+        type: object
+        required: [lookup_id, question]
+        properties:
+          lookup_id: { type: string }
+          question: { type: string }
+    unresolved_clauses: { type: array, items: { type: string } }
     confidence: { type: number }
 ---
 
@@ -27,11 +36,13 @@ the assembler (arch-magos); you never write DSL files.
 
 ## Inputs (prompt contract)
 `{ability_id, name, raw_text, ability_type, faction_id, detachment_id?}` — prose in
-the prompt. Cross-references go in `lookups_needed`, not fetched yourself.
+the prompt. Cross-references go in `lookups_needed` with a unique stable
+`lookup_id` and precise `question`, not fetched yourself.
 
 ## Output (JSON contract)
 ```json
 {
+  "status": "resolved|ambiguous|needs-schema|source-missing|error",
   "ability_id": "…",
   "effect_tree": { "…effect.schema.json-shaped hypothesis…": null },
   "leaf_types_used": ["feel-no-pain", "re-roll"],
@@ -40,9 +51,13 @@ the prompt. Cross-references go in `lookups_needed`, not fetched yourself.
   "buff_or_debuff": "buff|debuff|both|neutral",
   "unmodelable_clauses": ["own-words description of any clause no leaf covers"],
   "lookups_needed": [],
+  "unresolved_clauses": [],
   "confidence": 0.9
 }
 ```
+Use a non-resolved status and null hypothesis fields when the effect is ambiguous or
+not expressible. `unmodelable_clauses`/`needs-schema` is a successful diagnosis, not a
+reason to force a plausible neighboring leaf.
 
 ## Tool inventory
 - `schemas/enrichment/ability-dsl/effect.schema.json` — the authority. Composition

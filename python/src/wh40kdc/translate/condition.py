@@ -455,8 +455,8 @@ def describe_condition(c: Condition) -> str:
             plural = "" if min_ == 1 else "s"
             s = f"exactly {_str(min_)} {side}operation marker{plural} on the battlefield"
         else:
-            n = _str(min_ if min_ is not None else 1)
-            s = f"{n}+ {side}operation markers on the battlefield"
+            n_text = _str(min_ if min_ is not None else 1)
+            s = f"{n_text}+ {side}operation markers on the battlefield"
         if p.get("within_range_of") is not None:
             s += f" within range of {dekebab(_str(p['within_range_of']))}"
         if p.get("friendly_unit_in_same_terrain_area"):

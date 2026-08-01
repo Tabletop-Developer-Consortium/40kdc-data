@@ -394,31 +394,6 @@ def _usage_clause(u: dict[str, Any]) -> str:
     return f"{base} per {_jstr(u['per'])}" if u.get("per") is not None else base
 
 
-def _describe_trigger(t: dict[str, Any]) -> str:
-    """Reactive trigger -> front-of-sentence lead clause
-    ("an enemy unit ends a move within 9\" of this model")."""
-    s = event_clause(t.get("event"))
-    # Narrow a move event to its move kinds: "ends a move" -> "ends a Normal,
-    # Advance or Fall Back move".
-    move_types = t.get("move_types")
-    if isinstance(move_types, list) and move_types:
-        kinds = _or_list(
-            ["Fall Back" if mt == "fall-back" else _cap_word(_jstr(mt)) for mt in move_types]
-        )
-        s = re.sub(r"\bmove\b", lambda _m: f"{kinds} move", s, count=1)
-    prox = t.get("proximity") or {}
-    if prox.get("range") is not None:
-        of_kind = prox.get("of")
-        if of_kind == "attached-unit":
-            of = "the unit this model leads"
-        elif of_kind in ("self", "bearer"):
-            of = "this model"
-        else:
-            of = "this unit"
-        s += f' within {_jstr(prox["range"])}" of {of}'
-    if t.get("condition"):
-        s += f", if {describe_condition(t['condition'])}"
-    return s
 
 
 def _resource_noun(m: dict[str, Any], count: Any = None) -> str:
@@ -437,218 +412,20 @@ def _resource_noun(m: dict[str, Any], count: Any = None) -> str:
     return label if n == 1 else f"{label}s"
 
 
-# Narrowed feel-no-pain scopes -> trailing qualifier. Absent/`all` renders bare.
-_FNP_SCOPES = {
-    "mortal": " against mortal wounds",
-    "psychic": " against Psychic Attacks",
-    "psychic-and-mortal": " against Psychic Attacks and mortal wounds",
-}
-
-
-_ROLL_NAMES = {
-    "hit": "Hit",
-    "wound": "Wound",
-    "charge": "Charge",
-    "damage": "Damage",
-    "advance": "Advance",
-    "save": "Saving throw",
-    "leadership": "Leadership",
-}
-
-
-def _roll_name(roll: Any) -> str:
-    r = _jstr(roll)
-    return _ROLL_NAMES.get(r, _title_case(r))
-
-
-def _is_plural(subj: str) -> bool:
-    return bool(
-        re.search(r" units\b", subj)
-        or re.match(r"^all ", subj)
-        or re.match(r"^(enemy|friendly) units", subj)
+def _is_end_of_phase_disembark_battle_shock(t: dict[str, Any]) -> bool:
+    condition = t.get("condition")
+    if t.get("event") != "end-of-phase" or not isinstance(condition, dict):
+        return False
+    operands = condition.get("operands")
+    return (
+        condition.get("operator") == "and"
+        and isinstance(operands, list)
+        and len(operands) == 2
+        and not operands[0].get("negated")
+        and not operands[1].get("negated")
+        and operands[0].get("type") == "disembarked-from-transport"
+        and operands[1].get("type") == "is-battle-shocked"
     )
-
-
-_PLURAL_VERBS = {
-    "has": "have",
-    "is": "are",
-    "gets": "get",
-    "gains": "gain",
-    "suffers": "suffer",
-    "retains": "retain",
-    "makes": "make",
-    "passes": "pass",
-    "fails": "fail",
-    "treats": "treat",
-}
-
-
-def _v(subj: str, singular: str) -> str:
-    if not _is_plural(subj):
-        return singular
-    return _PLURAL_VERBS.get(singular, re.sub(r"s$", "", singular))
-
-
-def _pronoun(subj: str) -> str:
-    return "their" if _is_plural(subj) else "its"
-
-
-def _subject(target: str | None, ctx: Ctx) -> str:
-    ri = ctx.get("range_inches")
-    if ri is not None:
-        within = f' within {_jstr(ri)}"'
-    elif ctx.get("engagement_range"):
-        within = " within Engagement Range"
-    elif ctx.get("scope_range") == "any-visible":
-        within = " that are visible"
-    elif ctx.get("scope_range") == "any-on-battlefield":
-        within = " anywhere on the battlefield"
-    else:
-        within = " nearby"
-    if target in ("self", "bearer"):
-        return "this model"
-    if target == "unit":
-        return "that unit" if ctx.get("selected_unit") else "the unit"
-    if target == "attached-unit":
-        return "the unit this model leads"
-    if target == "target":
-        return "the target"
-    if target == "attacker":
-        return "the attacking unit"
-    if target == "defender":
-        # The defending unit in an attack is the enemy from the bearer's view.
-        return "the target"
-    if target == "all-friendly":
-        return "all friendly units"
-    if target == "all-enemy":
-        return "all enemy units"
-    if target == "friendly-within-aura":
-        return f"friendly units{within}"
-    if target == "enemy-within-aura":
-        return f"enemy units{within}"
-    return "the unit"
-
-
-def _possessive(s: str) -> str:
-    return f"{s}'" if s.endswith("s") else f"{s}'s"
-
-
-def _of_or_possessive(subj: str, rest: str) -> str:
-    """`<subj>'s <rest>` for a simple subject; `the <rest> of <subj>` when the subject
-    is a clause (an aura target ending in an inch mark), where a trailing possessive
-    reads as garbage (`friendly units within 6"'s weapons`)."""
-    if subj.endswith('"'):
-        return f"the {rest} of {subj}"
-    return f"{_possessive(subj)} {rest}"
-
-
-def _signed(operation: Any, value: Any) -> str:
-    positive = operation in ("add", "improve")
-    sign = 1 if positive else -1
-    try:
-        n = float(value)
-        if n < 0:
-            sign = -sign
-            value = int(abs(n)) if float(abs(n)).is_integer() else abs(n)
-    except (TypeError, ValueError):
-        pass
-    return f"{'+' if sign > 0 else '-'}{_jstr(value)}"
-
-
-def _describe_requirement(req: dict[str, Any] | None) -> str:
-    """Dice-pool requirement phrase ("pair of 4+"); an ``any_of`` list joins its
-    alternatives with " or " ("pair of 4+ or triple of 1+")."""
-    req = req or {}
-
-    def one(r: dict[str, Any] | None) -> str:
-        r = r or {}
-        return f"{_jstr(r.get('type'))} of {_jstr(r.get('min_value'))}+"
-
-    any_of = req.get("any_of")
-    if isinstance(any_of, list):
-        return " or ".join(one(r) for r in any_of)
-    return one(req)
-
-
-def _pool_threshold(comp: str, threshold: Any) -> str:
-    """Dice-pool success phrase ("4+", "6", "3 or less") — no leading "a", as it
-    follows "for each" in a mortal-wounds pool."""
-    th = _jstr(threshold)
-    if comp == "lte":
-        return f"{th} or less"
-    if comp == "gt":
-        return f"more than {th}"
-    if comp == "lt":
-        return f"less than {th}"
-    if comp == "eq":
-        return th
-    return f"{th}+"
-
-
-def _format_comparison(comp: str, threshold: Any) -> str:
-    th = _jstr(threshold)
-    if comp == "gte":
-        return f"a {th}+"
-    if comp == "lte":
-        return f"a {th} or less"
-    if comp == "gt":
-        return f"greater than {th}"
-    if comp == "lt":
-        return f"less than {th}"
-    if comp == "eq":
-        return f"exactly {th}"
-    return f"a {th}+"
-
-
-def _duration_clauses(duration: str | None) -> tuple[str, str]:
-    """Return (lead, trail) clauses for a duration. permanent adds nothing."""
-    if duration == "phase":
-        return ("", "until the end of the phase")
-    if duration == "turn":
-        return ("", "until the end of the turn")
-    if duration == "battle":
-        return ("", "for the rest of the battle")
-    if duration == "battle-round":
-        return ("", "until the end of the battle round")
-    if duration == "until-next-command-phase":
-        return ("", "until your next Command phase")
-    if duration == "until-next-battle-round":
-        return ("", "until the start of the next battle round")
-    if duration == "one-use":
-        return ("once per battle", "")
-    return ("", "")
-
-
-_USAGE_FREQUENCIES = {
-    "once-per-turn": "once per turn",
-    "once-per-phase": "once per phase",
-    "once-per-command-phase": "once per Command phase",
-    "once-per-opponent-turn": "once per opponent's turn",
-    "first-this-battle": "the first time this battle",
-    "first-time-this-phase": "the first time this phase",
-}
-
-
-def _usage_clause(u: dict[str, Any]) -> str:
-    """Usage limit -> front-of-sentence lead clause ("once per turn", "twice per battle")."""
-    count = u.get("count")
-    try:
-        n = int(count) if count is not None else 1
-    except (TypeError, ValueError):
-        n = 1
-    freq = u.get("frequency")
-    base = _USAGE_FREQUENCIES.get(freq) if isinstance(freq, str) else None
-    if base is None:
-        if freq == "n-per-battle":
-            if n == 1:
-                base = "once per battle"
-            elif n == 2:
-                base = "twice per battle"
-            else:
-                base = f"{_jstr(n)} times per battle"
-        else:
-            base = dekebab(_jstr(freq))
-    return f"{base} per {_jstr(u['per'])}" if u.get("per") is not None else base
 
 
 def _describe_trigger(t: dict[str, Any]) -> str:
@@ -675,7 +452,9 @@ def _describe_trigger(t: dict[str, Any]) -> str:
         else:
             of = "this unit"
         s += f' within {_jstr(prox["range"])}" of {of}'
-    if t.get("condition"):
+    if _is_end_of_phase_disembark_battle_shock(t):
+        s += ", if the unit disembarked from a Transport this turn and is Battle-shocked"
+    elif t.get("condition"):
         s += f", if {describe_condition(t['condition'])}"
     return s
 
@@ -773,7 +552,10 @@ def _shared_usage_clause(su: dict[str, Any] | None) -> str:
         parts.append(
             "unless stated otherwise, a given action may be triggered once per phase"
             if default_max == 1
-            else f"unless stated otherwise, a given action may be triggered up to {_jstr(default_max)} times per phase"
+            else (
+                f"unless stated otherwise, a given action may be triggered up to "
+                f"{_jstr(default_max)} times per phase"
+            )
         )
     return "; ".join(parts)
 

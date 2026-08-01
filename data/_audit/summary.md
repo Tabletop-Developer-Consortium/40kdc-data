@@ -39,7 +39,7 @@ abilities that translate into cruncher buffs via the real `effectToBuffs`
 - `456` — effect type "ability-grant" is not modelled by the buff layer
 - `159` — effect type "movement-modifier" is not modelled by the buff layer
 - `128` — effect type "mortal-wounds" is not modelled by the buff layer
-- `104` — conditional: cannot evaluate condition "undefined" against current context
+- `103` — conditional: cannot evaluate condition "undefined" against current context
 - `85` — effect type "leadership-modifier" is not modelled by the buff layer
 - `62` — effect type "attack-restriction" is not modelled by the buff layer
 - `57` — effect type "resurrection" is not modelled by the buff layer
@@ -98,6 +98,7 @@ abilities that translate into cruncher buffs via the real `effectToBuffs`
 - `3` — conditional: cannot evaluate condition "has-lost-wounds" against current context
 - `3` — conditional: cannot evaluate condition "battle-round" against current context
 - `3` — stat-modifier: operation "multiply" not supported
+- `3` — effect type "remove-battle-shock" is not modelled by the buff layer
 - `3` — conditional: cannot evaluate condition "within-range-of-objective" against current context
 - `2` — effect type "replace-roll-from-pool" is not modelled by the buff layer
 - `2` — re-roll on "attacks-characteristic" (subset …) is outside the damage path
@@ -106,7 +107,6 @@ abilities that translate into cruncher buffs via the real `effectToBuffs`
 - `2` — re-roll on "eviscerating-fly-by-wounds" (subset …) is outside the damage path
 - `2` — stat-modifier on "detection-range" is outside the damage path
 - `2` — effect type "stratagem-cost-modifier" is not modelled by the buff layer
-- `2` — effect type "remove-battle-shock" is not modelled by the buff layer
 - `2` — re-roll on "leadership" (subset …) is outside the damage path
 - `2` — re-roll on "blood-surge" (subset …) is outside the damage path
 - `2` — conditional: cannot evaluate condition "destroyed-by-attack-type" against current context

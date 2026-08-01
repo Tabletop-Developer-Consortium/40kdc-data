@@ -184,6 +184,25 @@ func eventClause(event any) string {
 	}
 	return "when " + dekebab(e)
 }
+func isEndOfPhaseDisembarkBattleShock(t map[string]any) bool {
+	if t["event"] != "end-of-phase" {
+		return false
+	}
+	condition, ok := asMap(t["condition"])
+	if !ok || condition["operator"] != "and" {
+		return false
+	}
+	operands, ok := asList(condition["operands"])
+	if !ok || len(operands) != 2 {
+		return false
+	}
+	first, firstOK := asMap(operands[0])
+	second, secondOK := asMap(operands[1])
+	return firstOK && secondOK &&
+		first["negated"] != true && second["negated"] != true &&
+		first["type"] == "disembarked-from-transport" &&
+		second["type"] == "is-battle-shocked"
+}
 
 func describeCondition(c map[string]any) string {
 	operands, _ := asList(c["operands"])

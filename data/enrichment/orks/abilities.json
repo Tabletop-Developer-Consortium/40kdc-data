@@ -5286,9 +5286,15 @@
     "faction_id": "orks",
     "detachment_id": "blitz-brigade",
     "ability_type": "enhancement",
-    "behavior": "passive",
+    "behavior": "reactive",
     "effect": {
-      "type": "conditional",
+      "type": "remove-battle-shock",
+      "target": "unit",
+      "modifier": {}
+    },
+    "trigger": {
+      "event": "end-of-phase",
+      "subject": "self",
       "condition": {
         "operator": "and",
         "operands": [
@@ -5301,11 +5307,6 @@
             "parameters": {}
           }
         ]
-      },
-      "effect": {
-        "type": "remove-battle-shock",
-        "target": "unit",
-        "modifier": {}
       }
     },
     "scope": {

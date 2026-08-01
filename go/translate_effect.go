@@ -2401,7 +2401,9 @@ func describeReactiveTrigger(t map[string]any) string {
 		}
 		s += " within " + ejstr(prox["range"]) + "\" of " + of
 	}
-	if t["condition"] != nil {
+	if isEndOfPhaseDisembarkBattleShock(t) {
+		s += ", if the unit disembarked from a Transport this turn and is Battle-shocked"
+	} else if t["condition"] != nil {
 		cond, _ := asMap(t["condition"])
 		s += ", if " + describeCondition(cond)
 	}

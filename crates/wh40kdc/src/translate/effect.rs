@@ -2833,6 +2833,31 @@ fn replace_first_word(haystack: &str, word: &str, replacement: &str) -> String {
     }
     haystack.to_string()
 }
+fn is_end_of_phase_disembark_battle_shock(t: &Trigger) -> bool {
+    if t.event.to_string() != "end-of-phase" {
+        return false;
+    }
+    let Some(condition) = &t.condition else {
+        return false;
+    };
+    let ConditionNode::CompoundCondition(compound) = &condition.0 else {
+        return false;
+    };
+    if compound.operator != CompoundConditionOperator::And || compound.operands.len() != 2 {
+        return false;
+    }
+    matches!(
+        (&compound.operands[0], &compound.operands[1]),
+        (
+            ConditionNode::SimpleCondition(first),
+            ConditionNode::SimpleCondition(second),
+        ) if !first.negated
+            && !second.negated
+            && first.type_ == SimpleConditionType::DisembarkedFromTransport
+            && second.type_ == SimpleConditionType::IsBattleShocked
+    )
+}
+
 /// Reactive-trigger opener ("an enemy unit ends a move within 9" of this model,
 /// if ..."). Mirrors `describeTrigger` for ability `trigger` blocks.
 fn describe_ability_trigger(t: &Trigger) -> String {
@@ -2862,7 +2887,9 @@ fn describe_ability_trigger(t: &Trigger) -> String {
         };
         s.push_str(&format!(" within {}\" of {of}", fmt_num(prox.range)));
     }
-    if let Some(cond) = &t.condition {
+    if is_end_of_phase_disembark_battle_shock(t) {
+        s.push_str(", if the unit disembarked from a Transport this turn and is Battle-shocked");
+    } else if let Some(cond) = &t.condition {
         s.push_str(&format!(", if {}", describe_node(&cond.0)));
     }
     s

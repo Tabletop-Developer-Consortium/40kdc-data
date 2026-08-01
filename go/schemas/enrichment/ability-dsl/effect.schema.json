@@ -273,8 +273,7 @@
                   "count_by_battle_size": {
                     "$ref": "#/$defs/resource-gain-battle-size-counts"
                   }
-                },
-                "required": ["count_by_battle_size"]
+                }
               }
             }
           }

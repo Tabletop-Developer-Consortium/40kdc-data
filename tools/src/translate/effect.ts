@@ -524,6 +524,17 @@ function durationClauses(duration: string | undefined): { lead: string; trail: s
   }
 }
 
+function endOfPhaseDisembarkBattleShockCondition(c: Condition | undefined): boolean {
+  if (c?.operator !== "and" || c.operands?.length !== 2) return false;
+  const [first, second] = c.operands;
+  return (
+    !first.negated &&
+    !second.negated &&
+    first.type === "disembarked-from-transport" &&
+    second.type === "is-battle-shocked"
+  );
+}
+
 /** Reactive trigger → front-of-sentence lead clause ("an enemy unit ends a move within 9\" of this model"). */
 function describeTrigger(t: AbilityTrigger): string {
   let s = eventClause(t.event);
@@ -543,7 +554,9 @@ function describeTrigger(t: AbilityTrigger): string {
           : "this unit";
     s += ` within ${jstr(t.proximity.range)}" of ${of}`;
   }
-  if (t.condition) s += `, if ${describeCondition(t.condition)}`;
+  if (t.event === "end-of-phase" && endOfPhaseDisembarkBattleShockCondition(t.condition))
+    s += ", if the unit disembarked from a Transport this turn and is Battle-shocked";
+  else if (t.condition) s += `, if ${describeCondition(t.condition)}`;
   return s;
 }
 

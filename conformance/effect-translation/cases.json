@@ -12130,7 +12130,17 @@
   {
     "caseId": "tuff-git-blitz-brigade#301",
     "effect": {
-      "type": "conditional",
+      "type": "remove-battle-shock",
+      "target": "unit",
+      "modifier": {}
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "trigger": {
+      "event": "end-of-phase",
+      "subject": "self",
       "condition": {
         "operator": "and",
         "operands": [
@@ -12143,19 +12153,10 @@
             "parameters": {}
           }
         ]
-      },
-      "effect": {
-        "type": "remove-battle-shock",
-        "target": "unit",
-        "modifier": {}
       }
     },
-    "scope": {
-      "range": "unit",
-      "duration": "permanent"
-    },
     "expected": {
-      "text": "If the unit disembarked from a Transport this turn, while the unit is Battle-shocked, the unit is no longer Battle-shocked."
+      "text": "At the end of the phase, if the unit disembarked from a Transport this turn and is Battle-shocked, the unit is no longer Battle-shocked."
     }
   },
   {

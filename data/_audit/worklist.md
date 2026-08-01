@@ -36,7 +36,7 @@ Total: 39 stub abilities.
 | grey-knights | hallowed-ground | sequence | effect type "terrain-area-tag" is not modelled by the buff layer |
 | necrons | engrammatic-logic | select-units | effect type "remove-battle-shock" is not modelled by the buff layer |
 | orks | aerial-deployment | conditional | empty modifier |
-| orks | tuff-git-blitz-brigade | conditional | conditional: cannot evaluate condition "undefined" against current context |
+| orks | tuff-git-blitz-brigade | remove-battle-shock | effect type "remove-battle-shock" is not modelled by the buff layer |
 | thousand-sons | daemonforge | stat-modifier | stat-modifier: operation "undefined" not supported |
 | thousand-sons | dark-ascension-aura | stat-modifier | stat-modifier: operation "undefined" not supported |
 | thousand-sons | flow-of-magic | sequence | effect type "terrain-area-tag" is not modelled by the buff layer |

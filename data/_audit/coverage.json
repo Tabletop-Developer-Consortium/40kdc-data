@@ -290,7 +290,7 @@
     },
     {
       "reason": "conditional: cannot evaluate condition \"undefined\" against current context",
-      "count": 106
+      "count": 105
     },
     {
       "reason": "effect type \"leadership-modifier\" is not modelled by the buff layer",
@@ -521,6 +521,10 @@
       "count": 3
     },
     {
+      "reason": "effect type \"remove-battle-shock\" is not modelled by the buff layer",
+      "count": 3
+    },
+    {
       "reason": "stat-modifier on \"WS\" is outside the damage path",
       "count": 3
     },
@@ -558,10 +562,6 @@
     },
     {
       "reason": "effect type \"stratagem-cost-modifier\" is not modelled by the buff layer",
-      "count": 2
-    },
-    {
-      "reason": "effect type \"remove-battle-shock\" is not modelled by the buff layer",
       "count": 2
     },
     {
@@ -26674,11 +26674,11 @@
       "faction": "orks",
       "ability_id": "tuff-git-blitz-brigade",
       "name": "Tuff Git",
-      "shape": "conditional",
+      "shape": "remove-battle-shock",
       "stub": true,
       "offensive": false,
       "defensive": false,
-      "gap": "conditional: cannot evaluate condition \"undefined\" against current context"
+      "gap": "effect type \"remove-battle-shock\" is not modelled by the buff layer"
     },
     {
       "faction": "orks",

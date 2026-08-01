@@ -13,7 +13,14 @@ import { readFileSync, existsSync } from "node:fs";
 import { resolve, dirname, basename } from "node:path";
 import { fileURLToPath } from "node:url";
 
-import { describeAbility, type Effect, type AbilityScope } from "../translate/effect.js";
+import {
+  describeAbility,
+  type AbilityAppliesTo,
+  type AbilityScope,
+  type AbilityTriggerSpec,
+  type AbilityUsage,
+  type Effect,
+} from "../translate/effect.js";
 
 const __dirname = fileURLToPath(new URL(".", import.meta.url));
 const REPO_ROOT = resolve(__dirname, "../../..");
@@ -28,6 +35,9 @@ interface Ability {
   unit_ids?: string[];
   effect: Effect;
   scope?: AbilityScope;
+  trigger?: AbilityTriggerSpec | null;
+  usage?: AbilityUsage | null;
+  applies_to?: AbilityAppliesTo | null;
 }
 
 interface AuditEntry {
@@ -85,7 +95,15 @@ export async function translateCommand(
       console.log(`\n  [GW]\n${indent(gw, "  ")}`);
       console.log(`\n  [DSL→EN]`);
     }
-    console.log(describeAbility({ effect: a.effect, scope: a.scope }));
+    console.log(
+      describeAbility({
+        effect: a.effect,
+        scope: a.scope,
+        trigger: a.trigger,
+        usage: a.usage,
+        applies_to: a.applies_to,
+      }),
+    );
   }
 
   const gwCoverage = gwText.size > 0

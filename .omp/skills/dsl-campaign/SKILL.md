@@ -12,9 +12,9 @@ the second checkpoint. This file is the driver contract — a fresh session must
 run a campaign from it alone.
 
 Companion files: `workflows/wf-prioritize.js`, `workflows/wf-author-batch.js`,
-`workflows/wf-verify-batch.js`, and `workflows/wf-shape-scout.js` (invoke via
-`Workflow({scriptPath, args})`; each embeds the frozen agent Output contracts as JSON
-Schemas — never redesign those). Always pass
+`workflows/wf-verify-batch.js`, `workflows/wf-audit-batch.js`, and
+`workflows/wf-shape-scout.js` (invoke via `Workflow({scriptPath, args})`; each embeds
+the frozen agent Output contracts as JSON Schemas — never redesign those). Always pass
 `repo_root: "/Users/will.mitchell/40kdc-dsl"` in every workflow's args — subagents inherit
 the driver session's cwd, and the preamble it generates pins them to the workspace even
 when the driver was launched from another checkout. The worked example
@@ -202,9 +202,20 @@ resisted mechanic is a FAMILY (≥ ~4 abilities, exact+near) or a singleton:
    ```
    Any ability below its `cos_start` needs a recorded correctness-first justification or
    another attempt (within its 4-attempt budget).
-5. Inquisitor batch review (`mode:"review"`, arch-magos outputs + verify results +
-   scores). `revise` re-enters step 2 for that ability; `reject` → terminal per step 2.
-6. On accept: `jj commit -m "feat: dsl-campaign cNNN batch K — <target>"`, update
+5. **Final maintainer audit — required before terminal review.** Invoke:
+   ```
+   Workflow({ scriptPath: ".omp/skills/dsl-campaign/workflows/wf-audit-batch.js",
+     args: { repo_root, batch_id, abilities: [{ ability_id, faction_id }, …],
+             baseline_roundtrip_report_path, updated_roundtrip_report_path } })
+   ```
+   Present every returned entry to the maintainer in input order: verbatim original rule,
+   baseline describer output + score, and updated describer output + score. The original
+   rule is ephemeral session output; never persist it in the repo, loop-state, PR body, or
+   commit message. Do not call the batch accepted until this comparison was surfaced.
+6. Inquisitor batch review (`mode:"review"`, arch-magos outputs + verify results +
+   scores + final audit). `revise` re-enters step 2 for that ability; `reject` → terminal
+   per step 2.
+7. On accept: `jj commit -m "feat: dsl-campaign cNNN batch K — <target>"`, update
    `roundtrip-<target>.md` + `registry.json` (statuses, cos_best, attempts).
 
 ### 4 — Close

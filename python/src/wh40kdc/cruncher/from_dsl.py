@@ -74,6 +74,8 @@ def _walk(node: Any, source: BuffSource, opts: dict[str, Any], out: EffectTransl
         _translate_damage_reduction(node, source, opts, out)
     elif node_type == "invulnerable-save":
         _translate_invulnerable_save(node, source, opts, out)
+    elif node_type == "named-region-state":
+        _translate_named_region_state(node, source, opts, out)
     elif node_type == "conditional":
         _translate_conditional(node, source, opts, out)
     elif node_type == "sequence":
@@ -110,8 +112,7 @@ def _walk(node: Any, source: BuffSource, opts: dict[str, Any], out: EffectTransl
             out["unsupported"].append(
                 {
                     "reason": (
-                        "designate-target debuff on the marked unit: "
-                        "not a buff on the bearer"
+                        "designate-target debuff on the marked unit: not a buff on the bearer"
                     ),
                     "effectFragment": node,
                 }
@@ -194,8 +195,7 @@ def _translate_reroll(
         out["unsupported"].append(
             {
                 "reason": (
-                    f're-roll: narrows by "{narrowed}" which the cruncher '
-                    "can't resolve here"
+                    f're-roll: narrows by "{narrowed}" which the cruncher can\'t resolve here'
                 ),
                 "effectFragment": node,
             }
@@ -239,8 +239,7 @@ def _translate_roll_modifier(
         out["unsupported"].append(
             {
                 "reason": (
-                    f'roll-modifier: narrows by "{narrowed}" which the cruncher '
-                    "can't resolve here"
+                    f'roll-modifier: narrows by "{narrowed}" which the cruncher can\'t resolve here'
                 ),
                 "effectFragment": node,
             }
@@ -251,8 +250,7 @@ def _translate_roll_modifier(
         out["unsupported"].append(
             {
                 "reason": (
-                    f'roll-modifier: operation "{_js_str(modifier.get("operation"))}" '
-                    "not supported"
+                    f'roll-modifier: operation "{_js_str(modifier.get("operation"))}" not supported'
                 ),
                 "effectFragment": node,
             }
@@ -278,12 +276,16 @@ def _translate_roll_modifier(
                 return
         else:
             return
-    contribution_type = {
-        "hit": "hit-mod",
-        "wound": "wound-mod",
-        "save": "save-mod",
-        "damage": "damage-mod",
-    }.get(roll) if isinstance(roll, str) else None
+    contribution_type = (
+        {
+            "hit": "hit-mod",
+            "wound": "wound-mod",
+            "save": "save-mod",
+            "damage": "damage-mod",
+        }.get(roll)
+        if isinstance(roll, str)
+        else None
+    )
     if contribution_type is None:
         out["unsupported"].append(
             {
@@ -311,8 +313,7 @@ def _translate_stat_modifier(
         out["unsupported"].append(
             {
                 "reason": (
-                    f'stat-modifier: narrows by "{narrowed}" which the cruncher '
-                    "can't resolve here"
+                    f'stat-modifier: narrows by "{narrowed}" which the cruncher can\'t resolve here'
                 ),
                 "effectFragment": node,
             }
@@ -340,8 +341,7 @@ def _translate_stat_modifier(
         out["unsupported"].append(
             {
                 "reason": (
-                    f'stat-modifier: operation "{_js_str(modifier.get("operation"))}" '
-                    "not supported"
+                    f'stat-modifier: operation "{_js_str(modifier.get("operation"))}" not supported'
                 ),
                 "effectFragment": node,
             }
@@ -682,6 +682,85 @@ def _translate_bs_modifier(
     out["applied"].append({"source": source, "contribution": {"type": "hit-mod", "value": value}})
 
 
+def _translate_named_region_state(
+    node: dict[str, Any], source: BuffSource, opts: dict[str, Any], out: EffectTranslation
+) -> None:
+    """Recover a named region's default attacker branch when its gate matches."""
+    if opts["perspective"] != "attacker":
+        return
+    modifier_raw = node.get("modifier")
+    modifier: dict[str, Any] = {}
+    if _is_object(modifier_raw):
+        modifier = modifier_raw
+    consumer_raw = modifier.get("consumer")
+    consumer: dict[str, Any] = {}
+    if _is_object(consumer_raw):
+        consumer = consumer_raw
+    gate_raw = consumer.get("beneficiary_gate")
+    gate: dict[str, Any] = {}
+    if _is_object(gate_raw):
+        gate = gate_raw
+    raw_keywords = gate.get("keywords")
+    keywords = (
+        [keyword for keyword in raw_keywords if isinstance(keyword, str)]
+        if isinstance(raw_keywords, list)
+        else []
+    )
+    operator = gate.get("operator")
+    attacker_keywords = opts["context"].get("attackerKeywords")
+    if (
+        not gate
+        or not keywords
+        or operator not in ("and", "or")
+        or not isinstance(attacker_keywords, list)
+    ):
+        out["unsupported"].append(
+            {
+                "reason": (
+                    "named-region-state beneficiary gate cannot be evaluated "
+                    "against current attacker keywords"
+                ),
+                "effectFragment": node,
+            }
+        )
+        return
+    current = {keyword.lower() for keyword in attacker_keywords if isinstance(keyword, str)}
+    eligible = (
+        all(keyword.lower() in current for keyword in keywords)
+        if operator == "and"
+        else any(keyword.lower() in current for keyword in keywords)
+    )
+    if not eligible:
+        return
+    default_branch_raw = consumer.get("default_branch")
+    default_branch: dict[str, Any] | None = (
+        default_branch_raw if _is_object(default_branch_raw) else None
+    )
+    if default_branch is None:
+        out["unsupported"].append(
+            {
+                "reason": "named-region-state default branch is missing",
+                "effectFragment": node,
+            }
+        )
+        return
+    _walk(default_branch.get("effect"), source, opts, out)
+    qualified_branch_raw = consumer.get("qualified_branch")
+    qualified_branch = (
+        qualified_branch_raw if _is_object(qualified_branch_raw) else None
+    )
+    if qualified_branch is not None:
+        out["unsupported"].append(
+            {
+                "reason": (
+                    "named-region-state qualified branch: region membership is unavailable "
+                    "in EngineContext; qualified replacement is unsupported"
+                ),
+                "effectFragment": qualified_branch,
+            }
+        )
+
+
 def _translate_conditional(
     node: dict[str, Any], source: BuffSource, opts: dict[str, Any], out: EffectTranslation
 ) -> None:
@@ -923,9 +1002,7 @@ def _condition_mentions_timing(condition: dict[str, Any]) -> bool:
     if condition.get("type") == "timing-is":
         return True
     if isinstance(condition.get("operator"), str) and isinstance(condition.get("operands"), list):
-        return any(
-            _is_object(o) and _condition_mentions_timing(o) for o in condition["operands"]
-        )
+        return any(_is_object(o) and _condition_mentions_timing(o) for o in condition["operands"])
     return False
 
 
@@ -1080,9 +1157,7 @@ def _keyword_label(ref: dict[str, Any]) -> str:
         is_num = isinstance(th, (int, float)) and not isinstance(th, bool)
         suffix = f" {_num_str(th)}+" if is_num else ""
         return f"Anti-{params['target_keyword']}{suffix}"
-    base = " ".join(
-        w[0].upper() + w[1:] if w else w for w in ref.get("keyword_id", "").split("-")
-    )
+    base = " ".join(w[0].upper() + w[1:] if w else w for w in ref.get("keyword_id", "").split("-"))
     value = params.get("value")
     if isinstance(value, (int, float)) and not isinstance(value, bool):
         return f"{base} {_num_str(value)}"

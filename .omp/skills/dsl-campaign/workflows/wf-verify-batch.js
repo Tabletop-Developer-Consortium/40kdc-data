@@ -13,6 +13,7 @@ export const meta = {
 //   ability_ids: string[],           // the batch (worklist ids just applied by warpsmith)
 //   faction_ids: string[],           // factions touched by the batch
 //   touched_files: string[],         // data files warpsmith edited
+//   generated_artifacts?: string[],  // derived files relevant to the drift probe
 //   gates?: string[],                // default: all four
 // }
 // Run AFTER warpsmith applied the batch to the working tree and BEFORE the batch
@@ -32,6 +33,18 @@ const PRE = args.repo_root
     `relative path (including ../40kdc-abilities and ../40kdc-embeddings) against it. ` +
     `Never read or write any other checkout of this repo.\n`
   : ''
+
+const DRIFT_PROTOCOL = {
+  mode: 'regen-idempotence',
+  artifacts: Array.isArray(args.generated_artifacts) ? args.generated_artifacts : [],
+  instructions: [
+    'Before regeneration, capture each relevant generated artifact checksum and its diff/state relative to the pre-run snapshot.',
+    'Regenerate the requested artifacts once using the repository generator.',
+    'After regeneration, capture the same checksums and compare them with the pre-run snapshot.',
+    'Pass drift when regeneration is idempotent (pre-run and post-run generated artifacts are identical), even if intended campaign edits remain uncommitted.',
+    'Do not use jj st or repository cleanliness as the drift result; uncommitted campaign work is expected.',
+  ],
+}
 
 // ---- frozen Output contracts, transcribed to JSON Schema (do not redesign) ----
 const SKITARIUS_OUT = {
@@ -67,7 +80,6 @@ const PSYKER_OUT = {
     clean: { type: 'array', items: { type: 'string' } },
   },
 }
-
 const idsByFaction = {}
 for (const f of args.faction_ids) idsByFaction[f] = []
 for (const id of args.ability_ids) {
@@ -80,8 +92,13 @@ for (const id of args.ability_ids) {
 const [skitarius, cogitator, ...psyker] = await parallel([
   () => agent(
     PRE + `Run exactly these mechanical gates in this workspace and report honestly (a gate you ` +
-    `could not run goes in not_run, never in gates_run as passed). Input:\n` +
-    JSON.stringify({ gates: GATES, touched: { factions: args.faction_ids, files: args.touched_files || [] } }),
+    `could not run goes in not_run, never in gates_run as passed). ` +
+    `For the drift gate, follow the supplied regen-idempotence protocol: capture the relevant ` +
+    `generated-artifact checksum/diff state before regeneration, regenerate, capture it again, ` +
+    `and compare before versus after. Treat an unchanged post-run artifact set as a pass even ` +
+    `when intended campaign edits remain uncommitted; do not use jj st or repository cleanliness ` +
+    `as the drift result. Input:\n` +
+    JSON.stringify({ gates: GATES, touched: { factions: args.faction_ids, files: args.touched_files || [] }, drift: DRIFT_PROTOCOL }),
     { agentType: 'skitarius', phase: 'Gates', schema: SKITARIUS_OUT, label: `gates:${args.batch_id}` }
   ),
   () => agent(

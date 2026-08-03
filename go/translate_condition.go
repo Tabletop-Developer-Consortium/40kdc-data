@@ -204,6 +204,37 @@ func isEndOfPhaseDisembarkBattleShock(t map[string]any) bool {
 		second["type"] == "is-battle-shocked"
 }
 
+func regionMembershipPhrase(p map[string]any, negated bool) string {
+	raw := p["region_id"]
+	if raw == nil {
+		if state, ok := asMap(p["state_ref"]); ok {
+			raw = state["region_id"]
+		}
+	}
+	words := strings.Fields(dekebab(cstr(raw)))
+	for i, word := range words {
+		if len(word) > 0 {
+			words[i] = strings.ToUpper(word[:1]) + word[1:]
+		}
+	}
+	region := strings.Join(words, " ")
+	relation := dekebab(cstr(p["relation"]))
+	if p["relation"] == nil {
+		relation = "within"
+	} else if p["relation"] == "wholly-within" {
+		relation = "wholly within"
+	}
+	subject := "the eligible attacking model"
+	if p["unit_scope"] == "whole-unit" {
+		subject = "every model in the eligible attacking unit"
+	}
+	prefix := ""
+	if negated {
+		prefix = "not "
+	}
+	return prefix + subject + " is " + relation + " " + region
+}
+
 func describeCondition(c map[string]any) string {
 	operands, _ := asList(c["operands"])
 	switch c["operator"] {
@@ -612,6 +643,8 @@ func describeCondition(c map[string]any) string {
 			n = cstr(p["min_models"])
 		}
 		return negate + "you control a terrain area with " + n + "+ models"
+	case "region-membership":
+		return regionMembershipPhrase(p, c["negated"] == true)
 	case "territory-control":
 		ref := "your-territory"
 		if p["territory_ref"] != nil {

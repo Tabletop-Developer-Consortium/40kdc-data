@@ -19,11 +19,7 @@ from ..conftest import CORPUS
 
 _DIR = CORPUS / "abilities-resolver"
 _RESOLVER_CASES = (
-    sorted(
-        p.name
-        for p in _DIR.glob("*.json")
-        if not p.name.endswith("from-dsl.json")
-    )
+    sorted(p.name for p in _DIR.glob("*.json") if not p.name.endswith("from-dsl.json"))
     if _DIR.exists()
     else []
 )
@@ -62,9 +58,7 @@ def _run_dsl_corpus(dataset: Any, filename: str) -> None:
                 }
                 for a in result["activatable"]
             ]
-            expected_acts = [
-                {**e, "group": e.get("group")} for e in c["expected"]["activatable"]
-            ]
+            expected_acts = [{**e, "group": e.get("group")} for e in c["expected"]["activatable"]]
             assert acts == expected_acts, f"{c['abilityId']} ({perspective})"
 
 

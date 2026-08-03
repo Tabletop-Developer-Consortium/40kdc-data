@@ -190,6 +190,25 @@ export function eventClause(event: unknown): string {
   return EVENT_PHRASES[e] ?? `when ${dekebab(e)}`;
 }
 
+function titleWords(value: unknown): string {
+  return dekebab(str(value))
+    .split(" ")
+    .filter((word) => word.length > 0)
+    .map((word) => word[0].toUpperCase() + word.slice(1))
+    .join(" ");
+}
+
+function regionMembershipPhrase(p: Record<string, unknown>, negated = false): string {
+  const region = titleWords(p.region_id ?? (p.state_ref as Record<string, unknown> | undefined)?.region_id);
+  const relation = str(p.relation ?? "within");
+  const relationPhrase = relation === "wholly-within" ? "wholly within" : dekebab(relation);
+  const subject =
+    p.unit_scope === "whole-unit"
+      ? "every model in the eligible attacking unit"
+      : "the eligible attacking model";
+  return `${negated ? "not " : ""}${subject} is ${relationPhrase} ${region}`;
+}
+
 export function describeCondition(c: Condition): string {
   // Compound nodes first — join the operands with lowercase connectives so the
   // result reads naturally inside a "... when X and Y" clause.
@@ -435,6 +454,8 @@ export function describeCondition(c: Condition): string {
     }
     case "terrain-area-control":
       return `${negate}you control a terrain area with ${str(p.min_models ?? 1)}+ models`;
+    case "region-membership":
+      return regionMembershipPhrase(p, Boolean(c.negated));
     case "territory-control": {
       let s = `${negate}you control ${dekebab(str(p.territory_ref ?? "your-territory"))}`;
       if (p.enemy_units_max != null) s += ` with at most ${str(p.enemy_units_max)} enemy units`;

@@ -11,6 +11,7 @@ import {
   freezeShapeCharter,
   mergeDeferredCandidates,
   normalizeFindingLedger,
+  psykerSeverityFindings,
   prototypeAgentInput,
   prototypeAgentOptions,
   prototypeGateDecision,
@@ -184,6 +185,15 @@ describe('shape scout state', () => {
     assert.deepEqual(prototypeAgentOptions(), { isolated: true, apply: false, merge: false })
     assert.equal(input.prototype.worktree_mode, 'isolated-non-applied')
     assert.deepEqual(input.prototype.proposed_shape, { name: 'stable-shape' })
+    const jjInput = prototypeAgentInput({
+      proposed_shape: { name: 'stable-shape' },
+      shape_charter: charter(),
+      lone_spear: { coverage: [] },
+      workspace: '/tmp/jj-prototype',
+    })
+    assert.deepEqual(prototypeAgentOptions('/tmp/jj-prototype'), { isolated: false })
+    assert.equal(jjInput.prototype.worktree_mode, 'jj-isolated-non-applied')
+    assert.equal(jjInput.prototype.workspace, '/tmp/jj-prototype')
 
     const proposed_shape = { name: 'stable-shape' }
     const evidence = {
@@ -204,6 +214,10 @@ describe('shape scout state', () => {
       },
     }
     assert.deepEqual(prototypeGateDecision(evidence, proposed_shape), { passes: true, reason: 'prototype-verified' })
+    assert.deepEqual(prototypeGateDecision(evidence, proposed_shape, '/tmp/prototype'),
+      { passes: true, reason: 'prototype-verified' })
+    assert.deepEqual(prototypeGateDecision(evidence, proposed_shape, '/tmp/other'),
+      { passes: false, reason: 'prototype-workspace-drift' })
     assert.deepEqual(prototypeGateDecision({ ...evidence, prototype: { ...evidence.prototype, proposed_shape: { name: 'other' } } }, proposed_shape),
       { passes: false, reason: 'prototype-candidate-drift' })
     assert.deepEqual(prototypeGateDecision({ ...evidence, skitarius: { overall_pass: false } }, proposed_shape),
@@ -225,6 +239,30 @@ describe('shape scout state', () => {
     assert.throws(() => applyRevision(prior, { changes: [{ op: 'replace', path: '/modifier/missing', finding_id: 'f1', value: 9 }] }), /path does not exist/)
     assert.throws(() => applyRevision(prior, { changes: [{ op: 'remove', path: '/modifier/missing', finding_id: 'f1' }] }), /path does not exist/)
     assert.throws(() => applyRevision(prior, { changes: [{ op: 'replace', path: '/', finding_id: 'f1', value: {} }] }), /machine-applicable/)
+  })
+
+  test('turns every severity-3 psyker finding into an open fidelity blocker', () => {
+    const findings = psykerSeverityFindings({
+      findings: [
+        { severity: '2', phrase: 'minor', issue: 'wording' },
+        { severity: '3', phrase: 'undefined source', issue: 'source gate is missing' },
+      ],
+    })
+    assert.deepEqual(findings, [{
+      key: 'psyker:severity-3:1',
+      state: 'open',
+      axis: 'fidelity',
+      severity: 3,
+      situation: 'undefined source — source gate is missing',
+      required_change: 'source gate is missing',
+      blocker_evidence: {
+        concrete_slice_divergence: true,
+        frozen_exact_member: true,
+        not_honestly_composable_or_separate: true,
+        resolved_or_out_of_scope: false,
+      },
+    }])
+    assert.equal(classifyBlocker(findings[0]).blocks, true)
   })
 
   test('strictly binds shape packages to candidate, trail, prototype, coverage, and ports', () => {
@@ -254,8 +292,10 @@ describe('shape scout state', () => {
     }
     const validate = value => validateShapePackage(value, charter(), seed, candidate, coverage, trail, prototype)
     assert.doesNotThrow(() => validate(shape_package))
+    assert.doesNotThrow(() => validate({ ...shape_package, parameters: [{ name: 'radius', type: 'integer', load_bearing: true }] }))
     assert.throws(() => validate({}), /identity/)
     assert.throws(() => validate({ ...shape_package, name: 'drifted' }), /candidate artifact/)
+    assert.throws(() => validate({ ...shape_package, parameters: [{ name: 'radius', type: 'integer', load_bearing: false }] }), /candidate artifact/)
     assert.throws(() => validate({ ...shape_package, schema_branch: { type: 'other' } }), /candidate artifact/)
     assert.throws(() => validate({ ...shape_package, seed_encoding: { type: 'other' } }), /candidate artifact/)
     assert.throws(() => validate({ ...shape_package, faithful_family: [{ ...coverage[0], match_strength: 'near' }, coverage[1]] }), /coverage drift/)

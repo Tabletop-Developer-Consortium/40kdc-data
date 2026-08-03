@@ -368,6 +368,40 @@ pub(super) fn describe_node(n: &ConditionNode) -> String {
     }
 }
 
+fn region_membership_phrase(p: &Map<String, Value>, negated: bool) -> String {
+    let raw = p
+        .get("region_id")
+        .or_else(|| po(p, "state_ref").and_then(|r| r.get("region_id")))
+        .map(effect::jval)
+        .unwrap_or_else(|| "?".to_string());
+    let region = dekebab(&raw)
+        .split_whitespace()
+        .map(|word| {
+            let mut chars = word.chars();
+            match chars.next() {
+                Some(first) => first.to_uppercase().collect::<String>() + chars.as_str(),
+                None => String::new(),
+            }
+        })
+        .collect::<Vec<_>>()
+        .join(" ");
+    let relation = match ps(p, "relation") {
+        Some("wholly-within") => "wholly within",
+        Some(value) => value,
+        None => "within",
+    };
+    let subject = if ps(p, "unit_scope") == Some("whole-unit") {
+        "every model in the eligible attacking unit"
+    } else {
+        "the eligible attacking model"
+    };
+    format!(
+        "{}{} is {relation} {region}",
+        if negated { "not " } else { "" },
+        subject
+    )
+}
+
 fn describe_simple(s: &SimpleCondition) -> String {
     let negate = if s.negated { "not " } else { "" };
     let p = &s.parameters;
@@ -747,6 +781,7 @@ fn describe_simple(s: &SimpleCondition) -> String {
             "{negate}you control a terrain area with {}+ models",
             pu(p, "min_models", 1)
         ),
+        T::RegionMembership => region_membership_phrase(p, s.negated),
         T::TerritoryControl => {
             let mut out = format!(
                 "{negate}you control {}",

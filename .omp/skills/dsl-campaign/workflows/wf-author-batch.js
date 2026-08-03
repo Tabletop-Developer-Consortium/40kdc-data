@@ -113,13 +113,18 @@ const EVERSOR_OUT = {
 const results = await pipeline(
   args.abilities,
 
-  a => agent(
-    PRE + `Look up this ability's raw prose and committed DSL. Input:\n` +
-    JSON.stringify({ query: { ability_id: a.ability_id, faction_id: a.faction_id } }),
-    { agentType: 'data-enginseer', phase: 'Retrieve', schema: ENGINSEER_OUT, label: `retrieve:${a.ability_id}` }
-  ),
+  async a => ({
+    ability: a,
+    retrieval: await agent(
+      PRE + `Look up this ability's raw prose and committed DSL. Input:\n` +
+      JSON.stringify({ query: { ability_id: a.ability_id, faction_id: a.faction_id } }),
+      { agentType: 'data-enginseer', phase: 'Retrieve', schema: ENGINSEER_OUT, label: `retrieve:${a.ability_id}` }
+    ),
+  }),
 
-  async (ret, a) => {
+  async retrieved => {
+    const { ability: a, retrieval: ret } = retrieved || {}
+    if (!a) return { ability: a, status: 'agent-error', candidate: null, verdicts: [], attempts: 0 }
     if (!ret) return { ability: a, status: 'agent-error', candidate: null, verdicts: [], attempts: 0 }
     const match =
       (ret.matches || []).find(m => m.faction === a.faction_id) || (ret.matches || [])[0] || null

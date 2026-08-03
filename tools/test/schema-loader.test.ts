@@ -116,4 +116,161 @@ describe("schema-loader", () => {
     expect(validate!({ ...base, game_modes: [] })).toBe(false);
     expect(validate!({ ...base, game_modes: ["combat-patrol", "combat-patrol"] })).toBe(false);
   });
+  it("rejects named-region lifecycle, control, and precedence drift", () => {
+    const ajv = createValidator();
+    const validate = ajv.getSchema("https://40kdc.dev/schemas/enrichment/ability-dsl/effect.schema.json");
+    expect(validate).toBeDefined();
+    const regionRef = { region_id: "fixture-region", owner_faction: "fixture-faction" };
+    const producer = {
+      region_ref: regionRef,
+      mode: "complete",
+      parent_ref: null,
+      baseline: [
+        {
+          kind: "fixed-zone",
+          zone: "own-deployment-zone",
+          activation: { event: "always-active" },
+          expiry: { event: "never" },
+        },
+      ],
+      phase_extensions: [
+        {
+          kind: "objective-majority-zone",
+          zone: "no-mans-land",
+          control_gate: {
+            marker_scope: "markers-in-zone",
+            controlled_by: "owner-army",
+            threshold: { comparison: "at-least", fraction: 0.5 },
+          },
+          activation: {
+            event: "phase-start",
+            evaluation: "snapshot-once",
+            canonical_condition_ids: ["timing-is", "objective-majority"],
+          },
+          expiry: { event: "phase-end" },
+        },
+        {
+          kind: "objective-majority-zone",
+          zone: "opponent-deployment-zone",
+          control_gate: {
+            marker_scope: "markers-in-zone",
+            controlled_by: "owner-army",
+            threshold: { comparison: "at-least", fraction: 0.5 },
+          },
+          activation: {
+            event: "phase-start",
+            evaluation: "snapshot-once",
+            canonical_condition_ids: ["timing-is", "objective-majority"],
+          },
+          expiry: { event: "phase-end" },
+        },
+      ],
+      additive_extensions: [],
+    };
+    const branch = (effect: Record<string, unknown>) => ({
+      source: { role: "eligible-source", gate_ref: "beneficiary_gate" },
+      beneficiary: { role: "eligible-beneficiary", gate_ref: "beneficiary_gate" },
+      target: "attacker",
+      timing: { event: "each-attack" },
+      duration: "attack-resolution",
+      effect,
+      optional: true,
+    });
+    const valid = {
+      type: "named-region-state",
+      target: "all-friendly",
+      modifier: {
+        region_ref: regionRef,
+        producer,
+        consumer: {
+          state_ref: regionRef,
+          beneficiary_gate: { owner: "owner-army", faction: "fixture-faction", operator: "or", keywords: ["FIXTURE"] },
+          membership: { unit_scope: "model", relation: "within" },
+          qualified_condition: { type: "region-membership", parameters: { unit_scope: "model", relation: "within" } },
+          default_branch: branch({ type: "re-roll", target: "attacker", modifier: { roll: "hit", subset: "ones" } }),
+          qualified_branch: branch({ type: "roll-modifier", target: "attacker", modifier: { operation: "add", value: 1, roll: "wound" } }),
+        },
+        branch_precedence: "qualified-replaces-default",
+      },
+    };
+    expect(validate!(valid)).toBe(true);
+    expect(
+      validate!({
+        ...valid,
+        modifier: {
+          ...valid.modifier,
+          producer: {
+            ...producer,
+            phase_extensions: [producer.phase_extensions[0], producer.phase_extensions[0]],
+          },
+        },
+      }),
+    ).toBe(false);
+    expect(
+      validate!({
+        ...valid,
+        modifier: {
+          ...valid.modifier,
+          producer: {
+            ...producer,
+            phase_extensions: [
+              { ...producer.phase_extensions[0], zone: "opponent-deployment-zone" },
+              producer.phase_extensions[1],
+            ],
+          },
+        },
+      }),
+    ).toBe(false);
+    expect(
+      validate!({
+        ...valid,
+        modifier: {
+          ...valid.modifier,
+          producer: {
+            ...producer,
+            phase_extensions: [producer.phase_extensions[0]],
+          },
+        },
+      }),
+    ).toBe(false);
+    expect(
+      validate!({
+        ...valid,
+        modifier: { ...valid.modifier, branch_precedence: "qualified-adds-to-default" },
+      }),
+    ).toBe(false);
+    expect(
+      validate!({
+        ...valid,
+        modifier: {
+          ...valid.modifier,
+          producer: {
+            ...producer,
+            baseline: [{ ...producer.baseline[0], activation: { event: "phase-start" } }],
+          },
+        },
+      }),
+    ).toBe(false);
+    expect(
+      validate!({
+        ...valid,
+        modifier: {
+          ...valid.modifier,
+          producer: {
+            ...producer,
+            phase_extensions: [
+              {
+                ...producer.phase_extensions[0],
+                control_gate: {
+                  ...producer.phase_extensions[0].control_gate,
+                  threshold: { comparison: "at-least", fraction: 0.25 },
+                },
+              },
+              producer.phase_extensions[1],
+            ],
+          },
+        },
+      }),
+    ).toBe(false);
+  });
 });

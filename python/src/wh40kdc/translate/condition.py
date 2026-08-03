@@ -214,6 +214,24 @@ def event_clause(event: Any) -> str:
     return _EVENT_PHRASES.get(e, f"when {dekebab(e)}")
 
 
+def _region_membership_phrase(p: dict[str, Any], negated: bool = False) -> str:
+    state_ref = p.get("state_ref")
+    state_region = state_ref.get("region_id") if isinstance(state_ref, dict) else None
+    raw_region = p.get("region_id", state_region)
+    region = " ".join(word.capitalize() for word in dekebab(_str(raw_region)).split())
+    relation = (
+        "wholly within"
+        if p.get("relation") == "wholly-within"
+        else dekebab(_str(p.get("relation", "within")))
+    )
+    subject = (
+        "every model in the eligible attacking unit"
+        if p.get("unit_scope") == "whole-unit"
+        else "the eligible attacking model"
+    )
+    return f"{'not ' if negated else ''}{subject} is {relation} {region}"
+
+
 def describe_condition(c: Condition) -> str:
     # Compound nodes first — join the operands with lowercase connectives.
     operands = c.get("operands")
@@ -520,6 +538,8 @@ def describe_condition(c: Condition) -> str:
         min_models = p.get("min_models")
         n = min_models if min_models is not None else 1
         return f"{negate}you control a terrain area with {_str(n)}+ models"
+    if ctype == "region-membership":
+        return _region_membership_phrase(p, bool(c.get("negated")))
     if ctype == "territory-control":
         ref = p.get("territory_ref")
         ref = ref if ref is not None else "your-territory"

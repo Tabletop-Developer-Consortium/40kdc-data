@@ -351,7 +351,8 @@ export type SingleEffect = {
     | "targeting-permission"
     | "unit-attachment"
     | "fight-eligibility-extension"
-    | "resource-clear";
+    | "resource-clear"
+    | "named-region-state";
   target:
     | "self"
     | "bearer"
@@ -1222,6 +1223,7 @@ export interface SimpleCondition {
     | "controls-objective"
     | "is-attached"
     | "terrain-area-control"
+    | "region-membership"
     | "engagement-state"
     | "territory-control"
     | "fights-first"
@@ -2541,6 +2543,163 @@ export interface ResourceGainBattleSizeCounts {
   incursion: number;
   "strike-force": number;
   onslaught: number;
+}
+/**
+ * This interface was referenced by `0KdcBundledSchemas`'s JSON-Schema
+ * via the `definition` "named-region-ref".
+ */
+export interface NamedRegionRef {
+  region_id: string;
+  owner_faction: string;
+}
+/**
+ * This interface was referenced by `0KdcBundledSchemas`'s JSON-Schema
+ * via the `definition` "named-region-source-gate".
+ */
+export interface NamedRegionSourceGate {
+  gate_ref: string;
+  owner: string;
+  unit_predicate: {
+    faction: string;
+    /**
+     * @minItems 1
+     */
+    keywords: [string, ...string[]];
+  };
+  range_to_marker_inches?: number;
+}
+/**
+ * This interface was referenced by `0KdcBundledSchemas`'s JSON-Schema
+ * via the `definition` "named-region-membership".
+ */
+export interface NamedRegionMembership {
+  unit_scope: "model" | "whole-unit";
+  relation: string;
+  [k: string]: unknown;
+}
+/**
+ * This interface was referenced by `0KdcBundledSchemas`'s JSON-Schema
+ * via the `definition` "named-region-branch-actor".
+ */
+export interface NamedRegionBranchActor {
+  role: string;
+  gate_ref: string;
+}
+/**
+ * This interface was referenced by `0KdcBundledSchemas`'s JSON-Schema
+ * via the `definition` "named-region-branch-timing".
+ */
+export interface NamedRegionBranchTiming {
+  event: string;
+}
+/**
+ * This interface was referenced by `0KdcBundledSchemas`'s JSON-Schema
+ * via the `definition` "named-region-branch".
+ */
+export interface NamedRegionBranch {
+  source: NamedRegionBranchActor;
+  beneficiary: NamedRegionBranchActor;
+  target:
+    | "self"
+    | "bearer"
+    | "unit"
+    | "attached-unit"
+    | "attacker"
+    | "defender"
+    | "target"
+    | "friendly-within-aura"
+    | "enemy-within-aura"
+    | "all-friendly"
+    | "all-enemy";
+  timing: NamedRegionBranchTiming;
+  duration: string;
+  effect: EffectNode;
+  optional: boolean;
+}
+/**
+ * This interface was referenced by `0KdcBundledSchemas`'s JSON-Schema
+ * via the `definition` "named-region-baseline".
+ */
+export interface NamedRegionBaseline {
+  kind: "fixed-zone";
+  zone: "own-deployment-zone";
+  activation: {
+    event: "always-active";
+  };
+  expiry: {
+    event: "never";
+  };
+}
+/**
+ * This interface was referenced by `0KdcBundledSchemas`'s JSON-Schema
+ * via the `definition` "named-region-phase-extension".
+ */
+export interface NamedRegionPhaseExtension {
+  kind: "objective-majority-zone";
+  zone: "no-mans-land" | "opponent-deployment-zone";
+  control_gate: {
+    marker_scope: "markers-in-zone";
+    controlled_by: "owner-army";
+    threshold: {
+      comparison: "at-least";
+      fraction: 0.5;
+    };
+  };
+  activation: {
+    event: "phase-start";
+    evaluation: "snapshot-once";
+    canonical_condition_ids: ["timing-is", "objective-majority"];
+  };
+  expiry: {
+    event: "phase-end";
+  };
+}
+/**
+ * This interface was referenced by `0KdcBundledSchemas`'s JSON-Schema
+ * via the `definition` "named-region-producer".
+ */
+export interface NamedRegionProducer {
+  region_ref: NamedRegionRef;
+  mode: "complete" | "extension";
+  parent_ref: NamedRegionRef | null;
+  baseline: NamedRegionBaseline[];
+  phase_extensions: NamedRegionPhaseExtension[];
+  additive_extensions: {
+    kind: string;
+    source_gate: NamedRegionSourceGate;
+    [k: string]: unknown;
+  }[];
+}
+/**
+ * This interface was referenced by `0KdcBundledSchemas`'s JSON-Schema
+ * via the `definition` "named-region-consumer".
+ */
+export interface NamedRegionConsumer {
+  state_ref: NamedRegionRef;
+  beneficiary_gate: {
+    owner: string;
+    faction?: string;
+    operator: "and" | "or";
+    /**
+     * @minItems 1
+     */
+    keywords: [string, ...string[]];
+    [k: string]: unknown;
+  };
+  membership: NamedRegionMembership;
+  qualified_condition: AbilityCondition2;
+  default_branch: NamedRegionBranch;
+  qualified_branch: NamedRegionBranch;
+}
+/**
+ * This interface was referenced by `0KdcBundledSchemas`'s JSON-Schema
+ * via the `definition` "named-region-state".
+ */
+export interface NamedRegionState {
+  region_ref: NamedRegionRef;
+  producer: NamedRegionProducer;
+  consumer: NamedRegionConsumer;
+  branch_precedence: "qualified-replaces-default";
 }
 /**
  * This interface was referenced by `0KdcBundledSchemas`'s JSON-Schema

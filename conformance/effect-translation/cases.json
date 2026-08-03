@@ -8257,100 +8257,172 @@
   {
     "caseId": "flow-of-magic#215",
     "effect": {
-      "type": "sequence",
-      "steps": [
-        {
-          "type": "terrain-area-tag",
-          "target": "self",
-          "modifier": {}
+      "type": "named-region-state",
+      "target": "all-friendly",
+      "modifier": {
+        "region_ref": {
+          "region_id": "flow-of-magic",
+          "owner_faction": "thousand-sons"
         },
-        {
-          "type": "conditional",
-          "condition": {
-            "operator": "and",
-            "operands": [
-              {
-                "type": "timing-is",
-                "parameters": {
-                  "timing": "start"
+        "producer": {
+          "region_ref": {
+            "region_id": "flow-of-magic",
+            "owner_faction": "thousand-sons"
+          },
+          "mode": "complete",
+          "parent_ref": null,
+          "baseline": [
+            {
+              "kind": "fixed-zone",
+              "zone": "own-deployment-zone",
+              "activation": {
+                "event": "always-active"
+              },
+              "expiry": {
+                "event": "never"
+              }
+            }
+          ],
+          "phase_extensions": [
+            {
+              "kind": "objective-majority-zone",
+              "zone": "no-mans-land",
+              "control_gate": {
+                "marker_scope": "markers-in-zone",
+                "controlled_by": "owner-army",
+                "threshold": {
+                  "comparison": "at-least",
+                  "fraction": 0.5
                 }
               },
-              {
-                "type": "objective-majority",
-                "parameters": {
-                  "zone": "no-mans-land"
-                }
+              "activation": {
+                "event": "phase-start",
+                "evaluation": "snapshot-once",
+                "canonical_condition_ids": [
+                  "timing-is",
+                  "objective-majority"
+                ]
+              },
+              "expiry": {
+                "event": "phase-end"
               }
-            ]
-          },
-          "effect": {
-            "type": "terrain-area-tag",
-            "target": "self",
-            "modifier": {}
-          }
-        },
-        {
-          "type": "conditional",
-          "condition": {
-            "operator": "and",
-            "operands": [
-              {
-                "type": "timing-is",
-                "parameters": {
-                  "timing": "start"
+            },
+            {
+              "kind": "objective-majority-zone",
+              "zone": "opponent-deployment-zone",
+              "control_gate": {
+                "marker_scope": "markers-in-zone",
+                "controlled_by": "owner-army",
+                "threshold": {
+                  "comparison": "at-least",
+                  "fraction": 0.5
                 }
               },
-              {
-                "type": "objective-majority",
-                "parameters": {
-                  "zone": "opponent-deployment-zone"
-                }
+              "activation": {
+                "event": "phase-start",
+                "evaluation": "snapshot-once",
+                "canonical_condition_ids": [
+                  "timing-is",
+                  "objective-majority"
+                ]
+              },
+              "expiry": {
+                "event": "phase-end"
               }
+            }
+          ],
+          "additive_extensions": []
+        },
+        "consumer": {
+          "state_ref": {
+            "region_id": "flow-of-magic",
+            "owner_faction": "thousand-sons"
+          },
+          "beneficiary_gate": {
+            "owner": "owner-army",
+            "faction": "thousand-sons",
+            "operator": "and",
+            "keywords": [
+              "THOUSAND SONS"
             ]
           },
-          "effect": {
-            "type": "terrain-area-tag",
-            "target": "self",
-            "modifier": {}
-          }
-        },
-        {
-          "type": "re-roll",
-          "target": "self",
-          "modifier": {
-            "roll": "wound",
-            "subset": "ones",
-            "weapon_keyword": "Psychic"
-          }
-        },
-        {
-          "type": "conditional",
-          "condition": {
-            "type": "terrain-area-control",
-            "parameters": {
-              "area": "flow-of-magic",
-              "relation": "wholly-within"
-            }
+          "membership": {
+            "unit_scope": "model",
+            "relation": "wholly-within"
           },
-          "effect": {
-            "type": "roll-modifier",
-            "target": "self",
-            "modifier": {
-              "roll": "wound",
-              "operation": "add",
-              "value": 1,
-              "weapon_keyword": "Psychic"
-            }
+          "qualified_condition": {
+            "type": "region-membership",
+            "state_ref": {
+              "region_id": "flow-of-magic",
+              "owner_faction": "thousand-sons"
+            },
+            "unit_scope": "model",
+            "relation": "wholly-within",
+            "canonical_condition_ids": [
+              "terrain-area-control"
+            ]
+          },
+          "default_branch": {
+            "source": {
+              "role": "eligible-source",
+              "gate_ref": "beneficiary_gate"
+            },
+            "beneficiary": {
+              "role": "eligible-beneficiary",
+              "gate_ref": "beneficiary_gate"
+            },
+            "target": "attacker",
+            "timing": {
+              "event": "each-attack"
+            },
+            "duration": "attack-resolution",
+            "effect": {
+              "type": "re-roll",
+              "target": "attacker",
+              "modifier": {
+                "roll": "wound",
+                "subset": "ones",
+                "weapon_keyword": "Psychic"
+              }
+            },
+            "optional": false
+          },
+          "qualified_branch": {
+            "source": {
+              "role": "eligible-source",
+              "gate_ref": "beneficiary_gate"
+            },
+            "beneficiary": {
+              "role": "eligible-beneficiary",
+              "gate_ref": "beneficiary_gate"
+            },
+            "target": "attacker",
+            "timing": {
+              "event": "each-attack"
+            },
+            "duration": "attack-resolution",
+            "effect": {
+              "type": "roll-modifier",
+              "target": "attacker",
+              "modifier": {
+                "operation": "add",
+                "value": 1,
+                "roll": "wound",
+                "weapon_keyword": "Psychic"
+              }
+            },
+            "optional": false
           }
-        }
-      ]
+        },
+        "branch_precedence": "qualified-replaces-default"
+      }
     },
     "scope": {
-      "range": "unit",
-      "duration": "battle"
+      "range": "any-on-battlefield",
+      "duration": "permanent"
     },
     "expected": {
-      "text": "For the rest of the battle:\nThe terrain area is marked.\nAt the start of the turn, if you hold more objectives than the opponent, the terrain area is marked.\nAt the start of the turn, if you hold more objectives than the opponent, the terrain area is marked.\nYou can re-roll a Wound roll of 1.\nIf you control a terrain area with 1+ models, this model gets +1 to Wound rolls."
+      "text": "Your deployment zone is always within Flow of Magic. At the start of each phase, No Man's Land is within Flow of Magic until the end of that phase if you control at least half of its objective markers. The same applies separately to your opponent's deployment zone. Models in THOUSAND SONS units from your Thousand Sons army can re-roll Wound rolls of 1 for Psychic attacks. If such a model is wholly within Flow of Magic, it gets +1 to Wound for those Psychic attacks instead."
     }
   },
   {
@@ -10459,61 +10531,170 @@
   {
     "caseId": "power-matrix#262",
     "effect": {
-      "type": "conditional",
-      "condition": {
-        "operator": "or",
-        "operands": [
-          {
-            "type": "unit-has-keyword",
-            "parameters": {
-              "keyword": "CRYPTEK"
-            }
+      "type": "named-region-state",
+      "target": "all-friendly",
+      "modifier": {
+        "region_ref": {
+          "region_id": "power-matrix",
+          "owner_faction": "necrons"
+        },
+        "producer": {
+          "region_ref": {
+            "region_id": "power-matrix",
+            "owner_faction": "necrons"
           },
-          {
-            "type": "unit-has-keyword",
-            "parameters": {
-              "keyword": "CANOPTEK"
+          "mode": "complete",
+          "parent_ref": null,
+          "baseline": [
+            {
+              "kind": "fixed-zone",
+              "zone": "own-deployment-zone",
+              "activation": {
+                "event": "always-active"
+              },
+              "expiry": {
+                "event": "never"
+              }
             }
-          }
-        ]
-      },
-      "effect": {
-        "type": "sequence",
-        "steps": [
-          {
-            "type": "re-roll",
-            "target": "attacker",
-            "modifier": {
-              "roll": "hit",
-              "subset": "ones"
-            }
-          },
-          {
-            "type": "conditional",
-            "condition": {
-              "type": "terrain-area-control",
-              "parameters": {
-                "area": "power-matrix"
+          ],
+          "phase_extensions": [
+            {
+              "kind": "objective-majority-zone",
+              "zone": "no-mans-land",
+              "control_gate": {
+                "marker_scope": "markers-in-zone",
+                "controlled_by": "owner-army",
+                "threshold": {
+                  "comparison": "at-least",
+                  "fraction": 0.5
+                }
+              },
+              "activation": {
+                "event": "phase-start",
+                "evaluation": "snapshot-once",
+                "canonical_condition_ids": [
+                  "timing-is",
+                  "objective-majority"
+                ]
+              },
+              "expiry": {
+                "event": "phase-end"
               }
             },
+            {
+              "kind": "objective-majority-zone",
+              "zone": "opponent-deployment-zone",
+              "control_gate": {
+                "marker_scope": "markers-in-zone",
+                "controlled_by": "owner-army",
+                "threshold": {
+                  "comparison": "at-least",
+                  "fraction": 0.5
+                }
+              },
+              "activation": {
+                "event": "phase-start",
+                "evaluation": "snapshot-once",
+                "canonical_condition_ids": [
+                  "timing-is",
+                  "objective-majority"
+                ]
+              },
+              "expiry": {
+                "event": "phase-end"
+              }
+            }
+          ],
+          "additive_extensions": []
+        },
+        "consumer": {
+          "state_ref": {
+            "region_id": "power-matrix",
+            "owner_faction": "necrons"
+          },
+          "beneficiary_gate": {
+            "owner": "owner-army",
+            "faction": "necrons",
+            "operator": "or",
+            "keywords": [
+              "CRYPTEK",
+              "CANOPTEK"
+            ]
+          },
+          "membership": {
+            "unit_scope": "whole-unit",
+            "relation": "wholly-within"
+          },
+          "qualified_condition": {
+            "type": "region-membership",
+            "state_ref": {
+              "region_id": "power-matrix",
+              "owner_faction": "necrons"
+            },
+            "unit_scope": "whole-unit",
+            "relation": "wholly-within",
+            "canonical_condition_ids": [
+              "terrain-area-control"
+            ]
+          },
+          "default_branch": {
+            "source": {
+              "role": "eligible-source",
+              "gate_ref": "beneficiary_gate"
+            },
+            "beneficiary": {
+              "role": "eligible-beneficiary",
+              "gate_ref": "beneficiary_gate"
+            },
+            "target": "attacker",
+            "timing": {
+              "event": "each-attack"
+            },
+            "duration": "attack-resolution",
             "effect": {
               "type": "re-roll",
               "target": "attacker",
               "modifier": {
                 "roll": "hit",
-                "subset": "all-failures"
+                "subset": "ones"
               }
-            }
+            },
+            "optional": true
+          },
+          "qualified_branch": {
+            "source": {
+              "role": "eligible-source",
+              "gate_ref": "beneficiary_gate"
+            },
+            "beneficiary": {
+              "role": "eligible-beneficiary",
+              "gate_ref": "beneficiary_gate"
+            },
+            "target": "attacker",
+            "timing": {
+              "event": "each-attack"
+            },
+            "duration": "attack-resolution",
+            "effect": {
+              "type": "re-roll",
+              "target": "attacker",
+              "modifier": {
+                "roll": "hit",
+                "result_scope": "any-result"
+              }
+            },
+            "optional": true
           }
-        ]
+        },
+        "branch_precedence": "qualified-replaces-default"
       }
     },
     "scope": {
       "range": "any-on-battlefield",
-      "duration": "battle"
+      "duration": "permanent"
     },
     "expected": {
-      "text": "If the unit has the CRYPTEK keyword or if the unit has the CANOPTEK keyword, for the rest of the battle:\n  -> You can re-roll a Hit roll of 1.\n  -> If you control a terrain area with 1+ models, you can re-roll the Hit roll."
+      "text": "Your deployment zone is always within Power Matrix. At the start of each phase, No Man's Land is within Power Matrix until the end of that phase if you control at least half of its objective markers. The same applies separately to your opponent's deployment zone. Models in CRYPTEK or CANOPTEK units from your Necrons army can re-roll Hit rolls of 1. If such a unit is wholly within Power Matrix, those models can re-roll the Hit roll instead."
     }
   },
   {
@@ -11846,7 +12027,24 @@
     }
   },
   {
-    "caseId": "the-emperors-shield#293",
+    "caseId": "the-dark-master-aura#293",
+    "effect": {
+      "type": "terrain-area-tag",
+      "target": "self",
+      "modifier": {
+        "tag": "shadow-of-chaos"
+      }
+    },
+    "scope": {
+      "range": "aura-6",
+      "duration": "permanent"
+    },
+    "expected": {
+      "text": "The terrain area is marked as shadow of chaos."
+    }
+  },
+  {
+    "caseId": "the-emperors-shield#294",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -11876,7 +12074,7 @@
     }
   },
   {
-    "caseId": "titanic-agility#294",
+    "caseId": "titanic-agility#295",
     "effect": {
       "type": "sequence",
       "steps": [
@@ -11908,7 +12106,7 @@
     }
   },
   {
-    "caseId": "torture-device#295",
+    "caseId": "torture-device#296",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -11937,7 +12135,7 @@
     }
   },
   {
-    "caseId": "tox-cycler#296",
+    "caseId": "tox-cycler#297",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -11982,7 +12180,7 @@
     }
   },
   {
-    "caseId": "tuff-git-blitz-brigade#297",
+    "caseId": "tuff-git-blitz-brigade#298",
     "effect": {
       "type": "remove-battle-shock",
       "target": "unit",
@@ -12014,7 +12212,7 @@
     }
   },
   {
-    "caseId": "voice-of-command#298",
+    "caseId": "voice-of-command#299",
     "effect": {
       "type": "issue-orders",
       "range": 6,
@@ -12115,7 +12313,7 @@
     }
   },
   {
-    "caseId": "waaagh-banner#299",
+    "caseId": "waaagh-banner#300",
     "effect": {
       "type": "sequence",
       "steps": [
@@ -12155,7 +12353,7 @@
     }
   },
   {
-    "caseId": "warp-tainted-warpstrike-champions#300",
+    "caseId": "warp-tainted-warpstrike-champions#301",
     "effect": {
       "type": "objective-tag",
       "target": "unit",
@@ -12179,7 +12377,7 @@
     }
   },
   {
-    "caseId": "yooz-in-trouble-now-blitz-brigade#301",
+    "caseId": "yooz-in-trouble-now-blitz-brigade#302",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -12250,7 +12448,7 @@
     }
   },
   {
-    "caseId": "movement-modifier-scouts#302",
+    "caseId": "movement-modifier-scouts#303",
     "effect": {
       "type": "movement-modifier",
       "target": "unit",
@@ -12268,7 +12466,7 @@
     }
   },
   {
-    "caseId": "grant-label-charge-after-disembark#303",
+    "caseId": "grant-label-charge-after-disembark#304",
     "effect": {
       "type": "ability-grant",
       "target": "unit",
@@ -12285,7 +12483,7 @@
     }
   },
   {
-    "caseId": "grant-label-charge-after-fallback#304",
+    "caseId": "grant-label-charge-after-fallback#305",
     "effect": {
       "type": "ability-grant",
       "target": "self",
@@ -12302,7 +12500,1471 @@
     }
   },
   {
-    "caseId": "engagement-state-engaged#305",
+    "caseId": "named-region-state-model-inline#306",
+    "effect": {
+      "type": "named-region-state",
+      "target": "all-friendly",
+      "modifier": {
+        "region_ref": {
+          "region_id": "fixture-region",
+          "owner_faction": "fixture-faction"
+        },
+        "producer": {
+          "region_ref": {
+            "region_id": "fixture-region",
+            "owner_faction": "fixture-faction"
+          },
+          "mode": "complete",
+          "parent_ref": null,
+          "baseline": [
+            {
+              "kind": "fixed-zone",
+              "zone": "own-deployment-zone",
+              "activation": {
+                "event": "always-active"
+              },
+              "expiry": {
+                "event": "never"
+              }
+            }
+          ],
+          "phase_extensions": [
+            {
+              "kind": "objective-majority-zone",
+              "zone": "no-mans-land",
+              "control_gate": {
+                "marker_scope": "markers-in-zone",
+                "controlled_by": "owner-army",
+                "threshold": {
+                  "comparison": "at-least",
+                  "fraction": 0.5
+                }
+              },
+              "activation": {
+                "event": "phase-start",
+                "evaluation": "snapshot-once",
+                "canonical_condition_ids": [
+                  "timing-is",
+                  "objective-majority"
+                ]
+              },
+              "expiry": {
+                "event": "phase-end"
+              }
+            },
+            {
+              "kind": "objective-majority-zone",
+              "zone": "opponent-deployment-zone",
+              "control_gate": {
+                "marker_scope": "markers-in-zone",
+                "controlled_by": "owner-army",
+                "threshold": {
+                  "comparison": "at-least",
+                  "fraction": 0.5
+                }
+              },
+              "activation": {
+                "event": "phase-start",
+                "evaluation": "snapshot-once",
+                "canonical_condition_ids": [
+                  "timing-is",
+                  "objective-majority"
+                ]
+              },
+              "expiry": {
+                "event": "phase-end"
+              }
+            }
+          ],
+          "additive_extensions": []
+        },
+        "consumer": {
+          "state_ref": {
+            "region_id": "fixture-region",
+            "owner_faction": "fixture-faction"
+          },
+          "beneficiary_gate": {
+            "owner": "owner-army",
+            "faction": "fixture-faction",
+            "operator": "or",
+            "keywords": [
+              "BENEFICIARY-KEYWORD"
+            ]
+          },
+          "membership": {
+            "unit_scope": "model",
+            "relation": "within"
+          },
+          "qualified_condition": {
+            "type": "and",
+            "operands": [
+              {
+                "type": "beneficiary-gate-ref",
+                "ref": "beneficiary_gate"
+              },
+              {
+                "type": "region-membership",
+                "state_ref": {
+                  "region_id": "fixture-region",
+                  "owner_faction": "fixture-faction"
+                },
+                "unit_scope": "model",
+                "relation": "within",
+                "canonical_condition_ids": [
+                  "terrain-area-control"
+                ]
+              }
+            ]
+          },
+          "default_branch": {
+            "source": {
+              "role": "eligible-source",
+              "gate_ref": "beneficiary_gate"
+            },
+            "beneficiary": {
+              "role": "eligible-beneficiary",
+              "gate_ref": "beneficiary_gate"
+            },
+            "target": "attacker",
+            "timing": {
+              "event": "each-attack"
+            },
+            "duration": "attack-resolution",
+            "effect": {
+              "type": "re-roll",
+              "target": "attacker",
+              "modifier": {
+                "roll": "hit",
+                "subset": "ones"
+              }
+            },
+            "optional": true
+          },
+          "qualified_branch": {
+            "source": {
+              "role": "eligible-source",
+              "gate_ref": "beneficiary_gate"
+            },
+            "beneficiary": {
+              "role": "eligible-beneficiary",
+              "gate_ref": "beneficiary_gate"
+            },
+            "target": "attacker",
+            "timing": {
+              "event": "each-attack"
+            },
+            "duration": "attack-resolution",
+            "effect": {
+              "type": "re-roll",
+              "target": "attacker",
+              "modifier": {
+                "roll": "hit",
+                "result_scope": "any-result"
+              }
+            },
+            "optional": true
+          }
+        },
+        "branch_precedence": "qualified-replaces-default"
+      }
+    },
+    "scope": {
+      "range": "any-on-battlefield",
+      "duration": "permanent"
+    },
+    "expected": {
+      "text": "Your deployment zone is always within Fixture Region. At the start of each phase, No Man's Land is within Fixture Region until the end of that phase if you control at least half of its objective markers. The same applies separately to your opponent's deployment zone. Models in BENEFICIARY-KEYWORD units from your Fixture Faction army can re-roll Hit rolls of 1. If such a model is within Fixture Region, it can re-roll the Hit roll instead."
+    }
+  },
+  {
+    "caseId": "named-region-state-whole-container#307",
+    "effect": {
+      "type": "sequence",
+      "steps": [
+        {
+          "type": "named-region-state",
+          "target": "all-friendly",
+          "modifier": {
+            "region_ref": {
+              "region_id": "fixture-region",
+              "owner_faction": "fixture-faction"
+            },
+            "producer": {
+              "region_ref": {
+                "region_id": "fixture-region",
+                "owner_faction": "fixture-faction"
+              },
+              "mode": "complete",
+              "parent_ref": null,
+              "baseline": [
+                {
+                  "kind": "fixed-zone",
+                  "zone": "own-deployment-zone",
+                  "activation": {
+                    "event": "always-active"
+                  },
+                  "expiry": {
+                    "event": "never"
+                  }
+                }
+              ],
+              "phase_extensions": [
+                {
+                  "kind": "objective-majority-zone",
+                  "zone": "no-mans-land",
+                  "control_gate": {
+                    "marker_scope": "markers-in-zone",
+                    "controlled_by": "owner-army",
+                    "threshold": {
+                      "comparison": "at-least",
+                      "fraction": 0.5
+                    }
+                  },
+                  "activation": {
+                    "event": "phase-start",
+                    "evaluation": "snapshot-once",
+                    "canonical_condition_ids": [
+                      "timing-is",
+                      "objective-majority"
+                    ]
+                  },
+                  "expiry": {
+                    "event": "phase-end"
+                  }
+                },
+                {
+                  "kind": "objective-majority-zone",
+                  "zone": "opponent-deployment-zone",
+                  "control_gate": {
+                    "marker_scope": "markers-in-zone",
+                    "controlled_by": "owner-army",
+                    "threshold": {
+                      "comparison": "at-least",
+                      "fraction": 0.5
+                    }
+                  },
+                  "activation": {
+                    "event": "phase-start",
+                    "evaluation": "snapshot-once",
+                    "canonical_condition_ids": [
+                      "timing-is",
+                      "objective-majority"
+                    ]
+                  },
+                  "expiry": {
+                    "event": "phase-end"
+                  }
+                }
+              ],
+              "additive_extensions": [
+                {
+                  "kind": "source-radius",
+                  "source_gate": {
+                    "gate_ref": "fixture-source-gate",
+                    "owner": "owner-army",
+                    "unit_predicate": {
+                      "faction": "fixture-faction",
+                      "keywords": [
+                        "SOURCE-KEYWORD"
+                      ]
+                    }
+                  },
+                  "radius_inches": 6
+                }
+              ]
+            },
+            "consumer": {
+              "state_ref": {
+                "region_id": "fixture-region",
+                "owner_faction": "fixture-faction"
+              },
+              "beneficiary_gate": {
+                "owner": "owner-army",
+                "faction": "fixture-faction",
+                "operator": "or",
+                "keywords": [
+                  "BENEFICIARY-KEYWORD"
+                ]
+              },
+              "membership": {
+                "unit_scope": "whole-unit",
+                "relation": "wholly-within"
+              },
+              "qualified_condition": {
+                "type": "and",
+                "operands": [
+                  {
+                    "type": "beneficiary-gate-ref",
+                    "ref": "beneficiary_gate"
+                  },
+                  {
+                    "type": "region-membership",
+                    "state_ref": {
+                      "region_id": "fixture-region",
+                      "owner_faction": "fixture-faction"
+                    },
+                    "unit_scope": "whole-unit",
+                    "relation": "wholly-within",
+                    "canonical_condition_ids": [
+                      "terrain-area-control"
+                    ]
+                  }
+                ]
+              },
+              "default_branch": {
+                "source": {
+                  "role": "eligible-source",
+                  "gate_ref": "beneficiary_gate"
+                },
+                "beneficiary": {
+                  "role": "eligible-beneficiary",
+                  "gate_ref": "beneficiary_gate"
+                },
+                "target": "attacker",
+                "timing": {
+                  "event": "each-attack"
+                },
+                "duration": "attack-resolution",
+                "effect": {
+                  "type": "re-roll",
+                  "target": "attacker",
+                  "modifier": {
+                    "roll": "hit",
+                    "subset": "ones"
+                  }
+                },
+                "optional": true
+              },
+              "qualified_branch": {
+                "source": {
+                  "role": "eligible-source",
+                  "gate_ref": "beneficiary_gate"
+                },
+                "beneficiary": {
+                  "role": "eligible-beneficiary",
+                  "gate_ref": "beneficiary_gate"
+                },
+                "target": "attacker",
+                "timing": {
+                  "event": "each-attack"
+                },
+                "duration": "attack-resolution",
+                "effect": {
+                  "type": "re-roll",
+                  "target": "attacker",
+                  "modifier": {
+                    "roll": "hit",
+                    "result_scope": "any-result"
+                  }
+                },
+                "optional": true
+              }
+            },
+            "branch_precedence": "qualified-replaces-default"
+          }
+        }
+      ]
+    },
+    "scope": {
+      "range": "any-on-battlefield",
+      "duration": "permanent"
+    },
+    "expected": {
+      "text": "Your deployment zone is always within Fixture Region. At the start of each phase, No Man's Land is within Fixture Region until the end of that phase if you control at least half of its objective markers. The same applies separately to your opponent's deployment zone. Selected objective markers extend Fixture Region around Fixture Faction units with SOURCE-KEYWORD within 6\". Models in BENEFICIARY-KEYWORD units from your Fixture Faction army can re-roll Hit rolls of 1. If such a unit is wholly within Fixture Region, those models can re-roll the Hit roll instead."
+    }
+  },
+  {
+    "caseId": "named-region-state-condition-lead-in#308",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "region-membership",
+        "parameters": {
+          "unit_scope": "whole-unit",
+          "relation": "wholly-within",
+          "region_id": "fixture-region"
+        }
+      },
+      "effect": {
+        "type": "named-region-state",
+        "target": "all-friendly",
+        "modifier": {
+          "region_ref": {
+            "region_id": "fixture-region",
+            "owner_faction": "fixture-faction"
+          },
+          "producer": {
+            "region_ref": {
+              "region_id": "fixture-region",
+              "owner_faction": "fixture-faction"
+            },
+            "mode": "extension",
+            "parent_ref": {
+              "region_id": "fixture-region",
+              "owner_faction": "fixture-faction"
+            },
+            "baseline": [],
+            "phase_extensions": [],
+            "additive_extensions": [
+              {
+                "kind": "source-radius",
+                "source_gate": {
+                  "gate_ref": "fixture-source-gate",
+                  "owner": "owner-army",
+                  "unit_predicate": {
+                    "faction": "fixture-faction",
+                    "keywords": [
+                      "SOURCE-KEYWORD"
+                    ]
+                  }
+                },
+                "radius_inches": 6
+              }
+            ]
+          },
+          "consumer": {
+            "state_ref": {
+              "region_id": "fixture-region",
+              "owner_faction": "fixture-faction"
+            },
+            "beneficiary_gate": {
+              "owner": "owner-army",
+              "faction": "fixture-faction",
+              "operator": "or",
+              "keywords": [
+                "BENEFICIARY-KEYWORD"
+              ]
+            },
+            "membership": {
+              "unit_scope": "whole-unit",
+              "relation": "wholly-within"
+            },
+            "qualified_condition": {
+              "type": "and",
+              "operands": [
+                {
+                  "type": "beneficiary-gate-ref",
+                  "ref": "beneficiary_gate"
+                },
+                {
+                  "type": "region-membership",
+                  "state_ref": {
+                    "region_id": "fixture-region",
+                    "owner_faction": "fixture-faction"
+                  },
+                  "unit_scope": "whole-unit",
+                  "relation": "wholly-within",
+                  "canonical_condition_ids": [
+                    "terrain-area-control"
+                  ]
+                }
+              ]
+            },
+            "default_branch": {
+              "source": {
+                "role": "eligible-source",
+                "gate_ref": "beneficiary_gate"
+              },
+              "beneficiary": {
+                "role": "eligible-beneficiary",
+                "gate_ref": "beneficiary_gate"
+              },
+              "target": "attacker",
+              "timing": {
+                "event": "each-attack"
+              },
+              "duration": "attack-resolution",
+              "effect": {
+                "type": "re-roll",
+                "target": "attacker",
+                "modifier": {
+                  "roll": "hit",
+                  "subset": "ones"
+                }
+              },
+              "optional": true
+            },
+            "qualified_branch": {
+              "source": {
+                "role": "eligible-source",
+                "gate_ref": "beneficiary_gate"
+              },
+              "beneficiary": {
+                "role": "eligible-beneficiary",
+                "gate_ref": "beneficiary_gate"
+              },
+              "target": "attacker",
+              "timing": {
+                "event": "each-attack"
+              },
+              "duration": "attack-resolution",
+              "effect": {
+                "type": "re-roll",
+                "target": "attacker",
+                "modifier": {
+                  "roll": "hit",
+                  "result_scope": "any-result"
+                }
+              },
+              "optional": true
+            }
+          },
+          "branch_precedence": "qualified-replaces-default"
+        }
+      }
+    },
+    "scope": {
+      "range": "any-on-battlefield",
+      "duration": "permanent"
+    },
+    "expected": {
+      "text": "Selected objective markers extend Fixture Region around Fixture Faction units with SOURCE-KEYWORD within 6\". When every model in the eligible attacking unit is wholly within Fixture Region, Models in BENEFICIARY-KEYWORD units from your Fixture Faction army can re-roll the Hit roll. Otherwise, Models in BENEFICIARY-KEYWORD units from your Fixture Faction army can re-roll Hit rolls of 1."
+    }
+  },
+  {
+    "caseId": "named-region-state-negated#309",
+    "effect": {
+      "type": "conditional",
+      "condition": {
+        "type": "region-membership",
+        "negated": true,
+        "parameters": {
+          "unit_scope": "model",
+          "relation": "within",
+          "region_id": "fixture-region"
+        }
+      },
+      "effect": {
+        "type": "named-region-state",
+        "target": "all-friendly",
+        "modifier": {
+          "region_ref": {
+            "region_id": "fixture-region",
+            "owner_faction": "fixture-faction"
+          },
+          "producer": {
+            "region_ref": {
+              "region_id": "fixture-region",
+              "owner_faction": "fixture-faction"
+            },
+            "mode": "complete",
+            "parent_ref": null,
+            "baseline": [
+              {
+                "kind": "fixed-zone",
+                "zone": "own-deployment-zone",
+                "activation": {
+                  "event": "always-active"
+                },
+                "expiry": {
+                  "event": "never"
+                }
+              }
+            ],
+            "phase_extensions": [
+              {
+                "kind": "objective-majority-zone",
+                "zone": "no-mans-land",
+                "control_gate": {
+                  "marker_scope": "markers-in-zone",
+                  "controlled_by": "owner-army",
+                  "threshold": {
+                    "comparison": "at-least",
+                    "fraction": 0.5
+                  }
+                },
+                "activation": {
+                  "event": "phase-start",
+                  "evaluation": "snapshot-once",
+                  "canonical_condition_ids": [
+                    "timing-is",
+                    "objective-majority"
+                  ]
+                },
+                "expiry": {
+                  "event": "phase-end"
+                }
+              },
+              {
+                "kind": "objective-majority-zone",
+                "zone": "opponent-deployment-zone",
+                "control_gate": {
+                  "marker_scope": "markers-in-zone",
+                  "controlled_by": "owner-army",
+                  "threshold": {
+                    "comparison": "at-least",
+                    "fraction": 0.5
+                  }
+                },
+                "activation": {
+                  "event": "phase-start",
+                  "evaluation": "snapshot-once",
+                  "canonical_condition_ids": [
+                    "timing-is",
+                    "objective-majority"
+                  ]
+                },
+                "expiry": {
+                  "event": "phase-end"
+                }
+              }
+            ],
+            "additive_extensions": [
+              {
+                "kind": "source-radius",
+                "source_gate": {
+                  "gate_ref": "fixture-source-gate",
+                  "owner": "owner-army",
+                  "unit_predicate": {
+                    "faction": "fixture-faction",
+                    "keywords": [
+                      "SOURCE-KEYWORD"
+                    ]
+                  }
+                },
+                "radius_inches": 6
+              }
+            ]
+          },
+          "consumer": {
+            "state_ref": {
+              "region_id": "fixture-region",
+              "owner_faction": "fixture-faction"
+            },
+            "beneficiary_gate": {
+              "owner": "owner-army",
+              "faction": "fixture-faction",
+              "operator": "or",
+              "keywords": [
+                "BENEFICIARY-KEYWORD"
+              ]
+            },
+            "membership": {
+              "unit_scope": "model",
+              "relation": "within"
+            },
+            "qualified_condition": {
+              "type": "and",
+              "operands": [
+                {
+                  "type": "beneficiary-gate-ref",
+                  "ref": "beneficiary_gate"
+                },
+                {
+                  "type": "region-membership",
+                  "state_ref": {
+                    "region_id": "fixture-region",
+                    "owner_faction": "fixture-faction"
+                  },
+                  "unit_scope": "model",
+                  "relation": "within",
+                  "canonical_condition_ids": [
+                    "terrain-area-control"
+                  ]
+                }
+              ]
+            },
+            "default_branch": {
+              "source": {
+                "role": "eligible-source",
+                "gate_ref": "beneficiary_gate"
+              },
+              "beneficiary": {
+                "role": "eligible-beneficiary",
+                "gate_ref": "beneficiary_gate"
+              },
+              "target": "attacker",
+              "timing": {
+                "event": "each-attack"
+              },
+              "duration": "attack-resolution",
+              "effect": {
+                "type": "re-roll",
+                "target": "attacker",
+                "modifier": {
+                  "roll": "hit",
+                  "subset": "ones"
+                }
+              },
+              "optional": true
+            },
+            "qualified_branch": {
+              "source": {
+                "role": "eligible-source",
+                "gate_ref": "beneficiary_gate"
+              },
+              "beneficiary": {
+                "role": "eligible-beneficiary",
+                "gate_ref": "beneficiary_gate"
+              },
+              "target": "attacker",
+              "timing": {
+                "event": "each-attack"
+              },
+              "duration": "attack-resolution",
+              "effect": {
+                "type": "re-roll",
+                "target": "attacker",
+                "modifier": {
+                  "roll": "hit",
+                  "result_scope": "any-result"
+                }
+              },
+              "optional": true
+            }
+          },
+          "branch_precedence": "qualified-replaces-default"
+        }
+      }
+    },
+    "scope": {
+      "range": "any-on-battlefield",
+      "duration": "permanent"
+    },
+    "expected": {
+      "text": "Your deployment zone is always within Fixture Region. At the start of each phase, No Man's Land is within Fixture Region until the end of that phase if you control at least half of its objective markers. The same applies separately to your opponent's deployment zone. Selected objective markers extend Fixture Region around Fixture Faction units with SOURCE-KEYWORD within 6\". Unless the eligible attacking model is within Fixture Region, Models in BENEFICIARY-KEYWORD units from your Fixture Faction army can re-roll Hit rolls of 1. If the eligible attacking model is within Fixture Region, Models in BENEFICIARY-KEYWORD units from your Fixture Faction army can re-roll the Hit roll."
+    }
+  },
+  {
+    "caseId": "named-region-state-default-wound-reroll#310",
+    "effect": {
+      "type": "named-region-state",
+      "target": "all-friendly",
+      "modifier": {
+        "region_ref": {
+          "region_id": "fixture-region",
+          "owner_faction": "fixture-faction"
+        },
+        "producer": {
+          "region_ref": {
+            "region_id": "fixture-region",
+            "owner_faction": "fixture-faction"
+          },
+          "mode": "complete",
+          "parent_ref": null,
+          "baseline": [
+            {
+              "kind": "fixed-zone",
+              "zone": "own-deployment-zone",
+              "activation": {
+                "event": "always-active"
+              },
+              "expiry": {
+                "event": "never"
+              }
+            }
+          ],
+          "phase_extensions": [
+            {
+              "kind": "objective-majority-zone",
+              "zone": "no-mans-land",
+              "control_gate": {
+                "marker_scope": "markers-in-zone",
+                "controlled_by": "owner-army",
+                "threshold": {
+                  "comparison": "at-least",
+                  "fraction": 0.5
+                }
+              },
+              "activation": {
+                "event": "phase-start",
+                "evaluation": "snapshot-once",
+                "canonical_condition_ids": [
+                  "timing-is",
+                  "objective-majority"
+                ]
+              },
+              "expiry": {
+                "event": "phase-end"
+              }
+            },
+            {
+              "kind": "objective-majority-zone",
+              "zone": "opponent-deployment-zone",
+              "control_gate": {
+                "marker_scope": "markers-in-zone",
+                "controlled_by": "owner-army",
+                "threshold": {
+                  "comparison": "at-least",
+                  "fraction": 0.5
+                }
+              },
+              "activation": {
+                "event": "phase-start",
+                "evaluation": "snapshot-once",
+                "canonical_condition_ids": [
+                  "timing-is",
+                  "objective-majority"
+                ]
+              },
+              "expiry": {
+                "event": "phase-end"
+              }
+            }
+          ],
+          "additive_extensions": []
+        },
+        "consumer": {
+          "state_ref": {
+            "region_id": "fixture-region",
+            "owner_faction": "fixture-faction"
+          },
+          "beneficiary_gate": {
+            "owner": "owner-army",
+            "faction": "fixture-faction",
+            "operator": "or",
+            "keywords": [
+              "BENEFICIARY-KEYWORD"
+            ]
+          },
+          "membership": {
+            "unit_scope": "model",
+            "relation": "within"
+          },
+          "qualified_condition": {
+            "type": "and",
+            "operands": [
+              {
+                "type": "beneficiary-gate-ref",
+                "ref": "beneficiary_gate"
+              },
+              {
+                "type": "region-membership",
+                "state_ref": {
+                  "region_id": "fixture-region",
+                  "owner_faction": "fixture-faction"
+                },
+                "unit_scope": "model",
+                "relation": "within",
+                "canonical_condition_ids": [
+                  "terrain-area-control"
+                ]
+              }
+            ]
+          },
+          "default_branch": {
+            "source": {
+              "role": "eligible-source",
+              "gate_ref": "beneficiary_gate"
+            },
+            "beneficiary": {
+              "role": "eligible-beneficiary",
+              "gate_ref": "beneficiary_gate"
+            },
+            "target": "attacker",
+            "timing": {
+              "event": "each-attack"
+            },
+            "duration": "attack-resolution",
+            "effect": {
+              "type": "re-roll",
+              "target": "attacker",
+              "modifier": {
+                "roll": "wound",
+                "subset": "ones"
+              }
+            },
+            "optional": false
+          },
+          "qualified_branch": {
+            "source": {
+              "role": "eligible-source",
+              "gate_ref": "beneficiary_gate"
+            },
+            "beneficiary": {
+              "role": "eligible-beneficiary",
+              "gate_ref": "beneficiary_gate"
+            },
+            "target": "attacker",
+            "timing": {
+              "event": "each-attack"
+            },
+            "duration": "attack-resolution",
+            "effect": {
+              "type": "re-roll",
+              "target": "attacker",
+              "modifier": {
+                "roll": "hit",
+                "result_scope": "any-result"
+              }
+            },
+            "optional": true
+          }
+        },
+        "branch_precedence": "qualified-replaces-default"
+      }
+    },
+    "scope": {
+      "range": "any-on-battlefield",
+      "duration": "permanent"
+    },
+    "expected": {
+      "text": "Your deployment zone is always within Fixture Region. At the start of each phase, No Man's Land is within Fixture Region until the end of that phase if you control at least half of its objective markers. The same applies separately to your opponent's deployment zone. Models in BENEFICIARY-KEYWORD units from your Fixture Faction army can re-roll Wound rolls of 1. If such a model is within Fixture Region, it can re-roll the Hit roll instead."
+    }
+  },
+  {
+    "caseId": "named-region-state-qualified-plus-one-wound#311",
+    "effect": {
+      "type": "named-region-state",
+      "target": "all-friendly",
+      "modifier": {
+        "region_ref": {
+          "region_id": "fixture-region",
+          "owner_faction": "fixture-faction"
+        },
+        "producer": {
+          "region_ref": {
+            "region_id": "fixture-region",
+            "owner_faction": "fixture-faction"
+          },
+          "mode": "complete",
+          "parent_ref": null,
+          "baseline": [
+            {
+              "kind": "fixed-zone",
+              "zone": "own-deployment-zone",
+              "activation": {
+                "event": "always-active"
+              },
+              "expiry": {
+                "event": "never"
+              }
+            }
+          ],
+          "phase_extensions": [
+            {
+              "kind": "objective-majority-zone",
+              "zone": "no-mans-land",
+              "control_gate": {
+                "marker_scope": "markers-in-zone",
+                "controlled_by": "owner-army",
+                "threshold": {
+                  "comparison": "at-least",
+                  "fraction": 0.5
+                }
+              },
+              "activation": {
+                "event": "phase-start",
+                "evaluation": "snapshot-once",
+                "canonical_condition_ids": [
+                  "timing-is",
+                  "objective-majority"
+                ]
+              },
+              "expiry": {
+                "event": "phase-end"
+              }
+            },
+            {
+              "kind": "objective-majority-zone",
+              "zone": "opponent-deployment-zone",
+              "control_gate": {
+                "marker_scope": "markers-in-zone",
+                "controlled_by": "owner-army",
+                "threshold": {
+                  "comparison": "at-least",
+                  "fraction": 0.5
+                }
+              },
+              "activation": {
+                "event": "phase-start",
+                "evaluation": "snapshot-once",
+                "canonical_condition_ids": [
+                  "timing-is",
+                  "objective-majority"
+                ]
+              },
+              "expiry": {
+                "event": "phase-end"
+              }
+            }
+          ],
+          "additive_extensions": []
+        },
+        "consumer": {
+          "state_ref": {
+            "region_id": "fixture-region",
+            "owner_faction": "fixture-faction"
+          },
+          "beneficiary_gate": {
+            "owner": "owner-army",
+            "faction": "fixture-faction",
+            "operator": "or",
+            "keywords": [
+              "BENEFICIARY-KEYWORD"
+            ]
+          },
+          "membership": {
+            "unit_scope": "model",
+            "relation": "within"
+          },
+          "qualified_condition": {
+            "type": "and",
+            "operands": [
+              {
+                "type": "beneficiary-gate-ref",
+                "ref": "beneficiary_gate"
+              },
+              {
+                "type": "region-membership",
+                "state_ref": {
+                  "region_id": "fixture-region",
+                  "owner_faction": "fixture-faction"
+                },
+                "unit_scope": "model",
+                "relation": "within",
+                "canonical_condition_ids": [
+                  "terrain-area-control"
+                ]
+              }
+            ]
+          },
+          "default_branch": {
+            "source": {
+              "role": "eligible-source",
+              "gate_ref": "beneficiary_gate"
+            },
+            "beneficiary": {
+              "role": "eligible-beneficiary",
+              "gate_ref": "beneficiary_gate"
+            },
+            "target": "attacker",
+            "timing": {
+              "event": "each-attack"
+            },
+            "duration": "attack-resolution",
+            "effect": {
+              "type": "re-roll",
+              "target": "attacker",
+              "modifier": {
+                "roll": "hit",
+                "subset": "ones"
+              }
+            },
+            "optional": true
+          },
+          "qualified_branch": {
+            "source": {
+              "role": "eligible-source",
+              "gate_ref": "beneficiary_gate"
+            },
+            "beneficiary": {
+              "role": "eligible-beneficiary",
+              "gate_ref": "beneficiary_gate"
+            },
+            "target": "attacker",
+            "timing": {
+              "event": "each-attack"
+            },
+            "duration": "attack-resolution",
+            "effect": {
+              "type": "roll-modifier",
+              "target": "attacker",
+              "modifier": {
+                "operation": "add",
+                "value": 1,
+                "roll": "wound"
+              }
+            },
+            "optional": true
+          }
+        },
+        "branch_precedence": "qualified-replaces-default"
+      }
+    },
+    "scope": {
+      "range": "any-on-battlefield",
+      "duration": "permanent"
+    },
+    "expected": {
+      "text": "Your deployment zone is always within Fixture Region. At the start of each phase, No Man's Land is within Fixture Region until the end of that phase if you control at least half of its objective markers. The same applies separately to your opponent's deployment zone. Models in BENEFICIARY-KEYWORD units from your Fixture Faction army can re-roll Hit rolls of 1. If such a model is within Fixture Region, it gets +1 to Wound instead."
+    }
+  },
+  {
+    "caseId": "named-region-state-qualified-wound-reroll#312",
+    "effect": {
+      "type": "named-region-state",
+      "target": "all-friendly",
+      "modifier": {
+        "region_ref": {
+          "region_id": "fixture-region",
+          "owner_faction": "fixture-faction"
+        },
+        "producer": {
+          "region_ref": {
+            "region_id": "fixture-region",
+            "owner_faction": "fixture-faction"
+          },
+          "mode": "complete",
+          "parent_ref": null,
+          "baseline": [
+            {
+              "kind": "fixed-zone",
+              "zone": "own-deployment-zone",
+              "activation": {
+                "event": "always-active"
+              },
+              "expiry": {
+                "event": "never"
+              }
+            }
+          ],
+          "phase_extensions": [
+            {
+              "kind": "objective-majority-zone",
+              "zone": "no-mans-land",
+              "control_gate": {
+                "marker_scope": "markers-in-zone",
+                "controlled_by": "owner-army",
+                "threshold": {
+                  "comparison": "at-least",
+                  "fraction": 0.5
+                }
+              },
+              "activation": {
+                "event": "phase-start",
+                "evaluation": "snapshot-once",
+                "canonical_condition_ids": [
+                  "timing-is",
+                  "objective-majority"
+                ]
+              },
+              "expiry": {
+                "event": "phase-end"
+              }
+            },
+            {
+              "kind": "objective-majority-zone",
+              "zone": "opponent-deployment-zone",
+              "control_gate": {
+                "marker_scope": "markers-in-zone",
+                "controlled_by": "owner-army",
+                "threshold": {
+                  "comparison": "at-least",
+                  "fraction": 0.5
+                }
+              },
+              "activation": {
+                "event": "phase-start",
+                "evaluation": "snapshot-once",
+                "canonical_condition_ids": [
+                  "timing-is",
+                  "objective-majority"
+                ]
+              },
+              "expiry": {
+                "event": "phase-end"
+              }
+            }
+          ],
+          "additive_extensions": []
+        },
+        "consumer": {
+          "state_ref": {
+            "region_id": "fixture-region",
+            "owner_faction": "fixture-faction"
+          },
+          "beneficiary_gate": {
+            "owner": "owner-army",
+            "faction": "fixture-faction",
+            "operator": "or",
+            "keywords": [
+              "BENEFICIARY-KEYWORD"
+            ]
+          },
+          "membership": {
+            "unit_scope": "whole-unit",
+            "relation": "wholly-within"
+          },
+          "qualified_condition": {
+            "type": "and",
+            "operands": [
+              {
+                "type": "beneficiary-gate-ref",
+                "ref": "beneficiary_gate"
+              },
+              {
+                "type": "region-membership",
+                "state_ref": {
+                  "region_id": "fixture-region",
+                  "owner_faction": "fixture-faction"
+                },
+                "unit_scope": "whole-unit",
+                "relation": "wholly-within",
+                "canonical_condition_ids": [
+                  "terrain-area-control"
+                ]
+              }
+            ]
+          },
+          "default_branch": {
+            "source": {
+              "role": "eligible-source",
+              "gate_ref": "beneficiary_gate"
+            },
+            "beneficiary": {
+              "role": "eligible-beneficiary",
+              "gate_ref": "beneficiary_gate"
+            },
+            "target": "attacker",
+            "timing": {
+              "event": "each-attack"
+            },
+            "duration": "attack-resolution",
+            "effect": {
+              "type": "re-roll",
+              "target": "attacker",
+              "modifier": {
+                "roll": "hit",
+                "subset": "ones"
+              }
+            },
+            "optional": true
+          },
+          "qualified_branch": {
+            "source": {
+              "role": "eligible-source",
+              "gate_ref": "beneficiary_gate"
+            },
+            "beneficiary": {
+              "role": "eligible-beneficiary",
+              "gate_ref": "beneficiary_gate"
+            },
+            "target": "attacker",
+            "timing": {
+              "event": "each-attack"
+            },
+            "duration": "attack-resolution",
+            "effect": {
+              "type": "re-roll",
+              "target": "attacker",
+              "modifier": {
+                "roll": "wound",
+                "subset": "ones"
+              }
+            },
+            "optional": true
+          }
+        },
+        "branch_precedence": "qualified-replaces-default"
+      }
+    },
+    "scope": {
+      "range": "any-on-battlefield",
+      "duration": "permanent"
+    },
+    "expected": {
+      "text": "Your deployment zone is always within Fixture Region. At the start of each phase, No Man's Land is within Fixture Region until the end of that phase if you control at least half of its objective markers. The same applies separately to your opponent's deployment zone. Models in BENEFICIARY-KEYWORD units from your Fixture Faction army can re-roll Hit rolls of 1. If such a unit is wholly within Fixture Region, those models can re-roll Wound rolls of 1 instead."
+    }
+  },
+  {
+    "caseId": "named-region-state-duplicate-source-predicates#313",
+    "effect": {
+      "type": "named-region-state",
+      "target": "all-friendly",
+      "modifier": {
+        "region_ref": {
+          "region_id": "fixture-region",
+          "owner_faction": "fixture-faction"
+        },
+        "producer": {
+          "region_ref": {
+            "region_id": "fixture-region",
+            "owner_faction": "fixture-faction"
+          },
+          "mode": "complete",
+          "parent_ref": null,
+          "baseline": [
+            {
+              "kind": "fixed-zone",
+              "zone": "own-deployment-zone",
+              "activation": {
+                "event": "always-active"
+              },
+              "expiry": {
+                "event": "never"
+              }
+            }
+          ],
+          "phase_extensions": [
+            {
+              "kind": "objective-majority-zone",
+              "zone": "no-mans-land",
+              "control_gate": {
+                "marker_scope": "markers-in-zone",
+                "controlled_by": "owner-army",
+                "threshold": {
+                  "comparison": "at-least",
+                  "fraction": 0.5
+                }
+              },
+              "activation": {
+                "event": "phase-start",
+                "evaluation": "snapshot-once",
+                "canonical_condition_ids": [
+                  "timing-is",
+                  "objective-majority"
+                ]
+              },
+              "expiry": {
+                "event": "phase-end"
+              }
+            },
+            {
+              "kind": "objective-majority-zone",
+              "zone": "opponent-deployment-zone",
+              "control_gate": {
+                "marker_scope": "markers-in-zone",
+                "controlled_by": "owner-army",
+                "threshold": {
+                  "comparison": "at-least",
+                  "fraction": 0.5
+                }
+              },
+              "activation": {
+                "event": "phase-start",
+                "evaluation": "snapshot-once",
+                "canonical_condition_ids": [
+                  "timing-is",
+                  "objective-majority"
+                ]
+              },
+              "expiry": {
+                "event": "phase-end"
+              }
+            }
+          ],
+          "additive_extensions": [
+            {
+              "kind": "source-radius",
+              "source_gate": {
+                "gate_ref": "fixture-source-gate",
+                "owner": "owner-army",
+                "unit_predicate": {
+                  "faction": "fixture-faction",
+                  "keywords": [
+                    "SOURCE-KEYWORD"
+                  ]
+                }
+              },
+              "radius_inches": 6
+            },
+            {
+              "kind": "source-radius",
+              "source_gate": {
+                "gate_ref": "fixture-source-gate",
+                "owner": "owner-army",
+                "unit_predicate": {
+                  "faction": "fixture-faction",
+                  "keywords": [
+                    "SOURCE-KEYWORD"
+                  ]
+                }
+              },
+              "radius_inches": 6
+            }
+          ]
+        },
+        "consumer": {
+          "state_ref": {
+            "region_id": "fixture-region",
+            "owner_faction": "fixture-faction"
+          },
+          "beneficiary_gate": {
+            "owner": "owner-army",
+            "faction": "fixture-faction",
+            "operator": "or",
+            "keywords": [
+              "BENEFICIARY-KEYWORD"
+            ]
+          },
+          "membership": {
+            "unit_scope": "model",
+            "relation": "within"
+          },
+          "qualified_condition": {
+            "type": "and",
+            "operands": [
+              {
+                "type": "beneficiary-gate-ref",
+                "ref": "beneficiary_gate"
+              },
+              {
+                "type": "region-membership",
+                "state_ref": {
+                  "region_id": "fixture-region",
+                  "owner_faction": "fixture-faction"
+                },
+                "unit_scope": "model",
+                "relation": "within",
+                "canonical_condition_ids": [
+                  "terrain-area-control"
+                ]
+              }
+            ]
+          },
+          "default_branch": {
+            "source": {
+              "role": "eligible-source",
+              "gate_ref": "beneficiary_gate"
+            },
+            "beneficiary": {
+              "role": "eligible-beneficiary",
+              "gate_ref": "beneficiary_gate"
+            },
+            "target": "attacker",
+            "timing": {
+              "event": "each-attack"
+            },
+            "duration": "attack-resolution",
+            "effect": {
+              "type": "re-roll",
+              "target": "attacker",
+              "modifier": {
+                "roll": "hit",
+                "subset": "ones"
+              }
+            },
+            "optional": true
+          },
+          "qualified_branch": {
+            "source": {
+              "role": "eligible-source",
+              "gate_ref": "beneficiary_gate"
+            },
+            "beneficiary": {
+              "role": "eligible-beneficiary",
+              "gate_ref": "beneficiary_gate"
+            },
+            "target": "attacker",
+            "timing": {
+              "event": "each-attack"
+            },
+            "duration": "attack-resolution",
+            "effect": {
+              "type": "re-roll",
+              "target": "attacker",
+              "modifier": {
+                "roll": "hit",
+                "result_scope": "any-result"
+              }
+            },
+            "optional": true
+          }
+        },
+        "branch_precedence": "qualified-replaces-default"
+      }
+    },
+    "scope": {
+      "range": "any-on-battlefield",
+      "duration": "permanent"
+    },
+    "expected": {
+      "text": "Your deployment zone is always within Fixture Region. At the start of each phase, No Man's Land is within Fixture Region until the end of that phase if you control at least half of its objective markers. The same applies separately to your opponent's deployment zone. Selected objective markers extend Fixture Region around Fixture Faction units with SOURCE-KEYWORD within 6\". Models in BENEFICIARY-KEYWORD units from your Fixture Faction army can re-roll Hit rolls of 1. If such a model is within Fixture Region, it can re-roll the Hit roll instead."
+    }
+  },
+  {
+    "caseId": "engagement-state-engaged#314",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -12325,7 +13987,7 @@
     }
   },
   {
-    "caseId": "engagement-state-on-battlefield#306",
+    "caseId": "engagement-state-on-battlefield#315",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -12348,7 +14010,7 @@
     }
   },
   {
-    "caseId": "engagement-state-embarked#307",
+    "caseId": "engagement-state-embarked#316",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -12371,7 +14033,7 @@
     }
   },
   {
-    "caseId": "engagement-state-empty#308",
+    "caseId": "engagement-state-empty#317",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -12392,7 +14054,7 @@
     }
   },
   {
-    "caseId": "engagement-state-negated#309",
+    "caseId": "engagement-state-negated#318",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -12416,7 +14078,7 @@
     }
   },
   {
-    "caseId": "disposition-matches-reserves#310",
+    "caseId": "disposition-matches-reserves#319",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -12439,7 +14101,7 @@
     }
   },
   {
-    "caseId": "disposition-matches-enemy#311",
+    "caseId": "disposition-matches-enemy#320",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -12462,7 +14124,7 @@
     }
   },
   {
-    "caseId": "fights-first-cond#312",
+    "caseId": "fights-first-cond#321",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -12488,7 +14150,7 @@
     }
   },
   {
-    "caseId": "scaling-attacks-per-models#313",
+    "caseId": "scaling-attacks-per-models#322",
     "effect": {
       "type": "stat-modifier",
       "target": "unit",
@@ -12512,7 +14174,7 @@
     }
   },
   {
-    "caseId": "scaling-strength-wounds-lost#314",
+    "caseId": "scaling-strength-wounds-lost#323",
     "effect": {
       "type": "stat-modifier",
       "target": "self",
@@ -12537,7 +14199,7 @@
     }
   },
   {
-    "caseId": "dice-pool-inline-label#315",
+    "caseId": "dice-pool-inline-label#324",
     "effect": {
       "type": "choice",
       "options": [
@@ -12580,7 +14242,7 @@
     }
   },
   {
-    "caseId": "unit-within-range-closest-eligible#316",
+    "caseId": "unit-within-range-closest-eligible#325",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -12608,7 +14270,7 @@
     }
   },
   {
-    "caseId": "dice-pool-requirement-anyof#317",
+    "caseId": "dice-pool-requirement-anyof#326",
     "effect": {
       "type": "dice-pool-allocation",
       "pool": {
@@ -12651,7 +14313,7 @@
     }
   },
   {
-    "caseId": "rule-state-forgo-faction-rule#318",
+    "caseId": "rule-state-forgo-faction-rule#327",
     "effect": {
       "type": "rule-state",
       "target": "self",
@@ -12675,7 +14337,7 @@
     }
   },
   {
-    "caseId": "rule-state-faction-rule-granted#319",
+    "caseId": "rule-state-faction-rule-granted#328",
     "effect": {
       "type": "rule-state",
       "target": "self",
@@ -12694,7 +14356,7 @@
     }
   },
   {
-    "caseId": "rule-state-cover-granted#320",
+    "caseId": "rule-state-cover-granted#329",
     "effect": {
       "type": "rule-state",
       "target": "self",
@@ -12713,7 +14375,7 @@
     }
   },
   {
-    "caseId": "rule-state-advance-suppressed#321",
+    "caseId": "rule-state-advance-suppressed#330",
     "effect": {
       "type": "rule-state",
       "target": "unit",
@@ -12732,7 +14394,7 @@
     }
   },
   {
-    "caseId": "rule-state-overwatch-against-bearer#322",
+    "caseId": "rule-state-overwatch-against-bearer#331",
     "effect": {
       "type": "rule-state",
       "target": "unit",
@@ -12751,7 +14413,7 @@
     }
   },
   {
-    "caseId": "rule-state-desperate-escape-granted#323",
+    "caseId": "rule-state-desperate-escape-granted#332",
     "effect": {
       "type": "rule-state",
       "target": "all-enemy",
@@ -12770,7 +14432,7 @@
     }
   },
   {
-    "caseId": "rule-state-desperate-escape-suppressed#324",
+    "caseId": "rule-state-desperate-escape-suppressed#333",
     "effect": {
       "type": "rule-state",
       "target": "self",
@@ -12789,7 +14451,7 @@
     }
   },
   {
-    "caseId": "rule-state-ability-granted#325",
+    "caseId": "rule-state-ability-granted#334",
     "effect": {
       "type": "rule-state",
       "target": "unit",
@@ -12808,7 +14470,7 @@
     }
   },
   {
-    "caseId": "rule-state-keyword-suppressed#326",
+    "caseId": "rule-state-keyword-suppressed#335",
     "effect": {
       "type": "rule-state",
       "target": "unit",
@@ -12827,7 +14489,7 @@
     }
   },
   {
-    "caseId": "rule-state-ordered-retreat-suppressed#327",
+    "caseId": "rule-state-ordered-retreat-suppressed#336",
     "effect": {
       "type": "rule-state",
       "target": "enemy-within-aura",
@@ -12846,7 +14508,7 @@
     }
   },
   {
-    "caseId": "rule-state-ordered-retreat-granted#328",
+    "caseId": "rule-state-ordered-retreat-granted#337",
     "effect": {
       "type": "rule-state",
       "target": "unit",
@@ -12865,7 +14527,7 @@
     }
   },
   {
-    "caseId": "keyword-grant-anti-string#329",
+    "caseId": "keyword-grant-anti-string#338",
     "effect": {
       "type": "keyword-grant",
       "target": "unit",
@@ -12882,7 +14544,7 @@
     }
   },
   {
-    "caseId": "keyword-grant-anti-structured#330",
+    "caseId": "keyword-grant-anti-structured#339",
     "effect": {
       "type": "keyword-grant",
       "target": "unit",
@@ -12900,7 +14562,7 @@
     }
   },
   {
-    "caseId": "keyword-grant-rated-value#331",
+    "caseId": "keyword-grant-rated-value#340",
     "effect": {
       "type": "keyword-grant",
       "target": "unit",
@@ -12918,7 +14580,7 @@
     }
   },
   {
-    "caseId": "auto-result-battle-shock-pass#332",
+    "caseId": "auto-result-battle-shock-pass#341",
     "effect": {
       "type": "auto-result",
       "target": "unit",
@@ -12936,7 +14598,7 @@
     }
   },
   {
-    "caseId": "auto-result-hit-six#333",
+    "caseId": "auto-result-hit-six#342",
     "effect": {
       "type": "auto-result",
       "target": "unit",
@@ -12954,7 +14616,7 @@
     }
   },
   {
-    "caseId": "firing-deck#334",
+    "caseId": "firing-deck#343",
     "effect": {
       "type": "firing-deck",
       "target": "self",
@@ -12971,7 +14633,7 @@
     }
   },
   {
-    "caseId": "disembark-after-move#335",
+    "caseId": "disembark-after-move#344",
     "effect": {
       "type": "disembark-after-move",
       "target": "self",
@@ -12986,7 +14648,7 @@
     }
   },
   {
-    "caseId": "usage-once-per-turn#336",
+    "caseId": "usage-once-per-turn#345",
     "effect": {
       "type": "cp-gain",
       "target": "self",
@@ -13006,7 +14668,7 @@
     }
   },
   {
-    "caseId": "usage-n-per-battle-per-unit#337",
+    "caseId": "usage-n-per-battle-per-unit#346",
     "effect": {
       "type": "stat-modifier",
       "target": "unit",
@@ -13030,7 +14692,7 @@
     }
   },
   {
-    "caseId": "trigger-enemy-ended-move#338",
+    "caseId": "trigger-enemy-ended-move#347",
     "effect": {
       "type": "movement-modifier",
       "target": "self",
@@ -13056,7 +14718,7 @@
     }
   },
   {
-    "caseId": "trigger-on-model-destroyed#339",
+    "caseId": "trigger-on-model-destroyed#348",
     "effect": {
       "type": "mortal-wounds",
       "target": "all-enemy",
@@ -13077,7 +14739,7 @@
     }
   },
   {
-    "caseId": "trigger-before-save-with-condition#340",
+    "caseId": "trigger-before-save-with-condition#349",
     "effect": {
       "type": "re-roll",
       "target": "unit",
@@ -13102,7 +14764,7 @@
     }
   },
   {
-    "caseId": "move-passthrough-models-terrain#341",
+    "caseId": "move-passthrough-models-terrain#350",
     "effect": {
       "type": "movement-modifier",
       "target": "self",
@@ -13122,7 +14784,7 @@
     }
   },
   {
-    "caseId": "move-passthrough-applies-excludes#342",
+    "caseId": "move-passthrough-applies-excludes#351",
     "effect": {
       "type": "movement-modifier",
       "target": "unit",
@@ -13148,7 +14810,7 @@
     }
   },
   {
-    "caseId": "move-ignore-vertical#343",
+    "caseId": "move-ignore-vertical#352",
     "effect": {
       "type": "movement-modifier",
       "target": "unit",
@@ -13165,7 +14827,7 @@
     }
   },
   {
-    "caseId": "move-normal-applies#344",
+    "caseId": "move-normal-applies#353",
     "effect": {
       "type": "movement-modifier",
       "target": "unit",
@@ -13188,7 +14850,7 @@
     }
   },
   {
-    "caseId": "move-normal-negative#345",
+    "caseId": "move-normal-negative#354",
     "effect": {
       "type": "movement-modifier",
       "target": "defender",
@@ -13206,7 +14868,7 @@
     }
   },
   {
-    "caseId": "move-advance-bonus#346",
+    "caseId": "move-advance-bonus#355",
     "effect": {
       "type": "movement-modifier",
       "target": "unit",
@@ -13224,7 +14886,7 @@
     }
   },
   {
-    "caseId": "move-pile-in#347",
+    "caseId": "move-pile-in#356",
     "effect": {
       "type": "movement-modifier",
       "target": "unit",
@@ -13243,7 +14905,7 @@
     }
   },
   {
-    "caseId": "move-consolidation#348",
+    "caseId": "move-consolidation#357",
     "effect": {
       "type": "movement-modifier",
       "target": "unit",
@@ -13262,7 +14924,7 @@
     }
   },
   {
-    "caseId": "move-surge#349",
+    "caseId": "move-surge#358",
     "effect": {
       "type": "movement-modifier",
       "target": "unit",
@@ -13280,7 +14942,7 @@
     }
   },
   {
-    "caseId": "move-shoot-and-scoot#350",
+    "caseId": "move-shoot-and-scoot#359",
     "effect": {
       "type": "movement-modifier",
       "target": "unit",
@@ -13298,7 +14960,7 @@
     }
   },
   {
-    "caseId": "move-redeploy-reserves-max#351",
+    "caseId": "move-redeploy-reserves-max#360",
     "effect": {
       "type": "movement-modifier",
       "target": "unit",
@@ -13317,7 +14979,7 @@
     }
   },
   {
-    "caseId": "move-redeploy-marker#352",
+    "caseId": "move-redeploy-marker#361",
     "effect": {
       "type": "movement-modifier",
       "target": "unit",
@@ -13338,7 +15000,7 @@
     }
   },
   {
-    "caseId": "move-redeploy-placement#353",
+    "caseId": "move-redeploy-placement#362",
     "effect": {
       "type": "movement-modifier",
       "target": "unit",
@@ -13359,7 +15021,7 @@
     }
   },
   {
-    "caseId": "move-infiltrate#354",
+    "caseId": "move-infiltrate#363",
     "effect": {
       "type": "movement-modifier",
       "target": "unit",
@@ -13376,7 +15038,7 @@
     }
   },
   {
-    "caseId": "aura-range-bonus#355",
+    "caseId": "aura-range-bonus#364",
     "effect": {
       "type": "aura",
       "target": "enemy-within-aura",
@@ -13394,7 +15056,7 @@
     }
   },
   {
-    "caseId": "aura-tiered-effect#356",
+    "caseId": "aura-tiered-effect#365",
     "effect": {
       "type": "aura",
       "target": "enemy-within-aura",
@@ -13424,7 +15086,7 @@
     }
   },
   {
-    "caseId": "rehome-deep-strike-min-distance#357",
+    "caseId": "rehome-deep-strike-min-distance#366",
     "effect": {
       "type": "deep-strike",
       "target": "unit",
@@ -13442,7 +15104,7 @@
     }
   },
   {
-    "caseId": "rehome-engagement-no-end#358",
+    "caseId": "rehome-engagement-no-end#367",
     "effect": {
       "type": "engagement-passthrough",
       "target": "self",
@@ -13459,7 +15121,7 @@
     }
   },
   {
-    "caseId": "fallback-and-act-shoot-only#359",
+    "caseId": "fallback-and-act-shoot-only#368",
     "effect": {
       "type": "fallback-and-act",
       "target": "unit",
@@ -13474,7 +15136,7 @@
     }
   },
   {
-    "caseId": "fallback-and-act-can-charge#360",
+    "caseId": "fallback-and-act-can-charge#369",
     "effect": {
       "type": "fallback-and-act",
       "target": "unit",
@@ -13491,7 +15153,7 @@
     }
   },
   {
-    "caseId": "superlative-strategist#361",
+    "caseId": "superlative-strategist#370",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -13537,7 +15199,7 @@
     }
   },
   {
-    "caseId": "deceptive-feint#362",
+    "caseId": "deceptive-feint#371",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -13601,7 +15263,7 @@
     }
   },
   {
-    "caseId": "moved-through-tall-terrain-inline#363",
+    "caseId": "moved-through-tall-terrain-inline#372",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -13629,7 +15291,7 @@
     }
   },
   {
-    "caseId": "moved-through-tall-terrain-trigger-condition#364",
+    "caseId": "moved-through-tall-terrain-trigger-condition#373",
     "effect": {
       "type": "keyword-grant",
       "target": "self",
@@ -13657,7 +15319,7 @@
     }
   },
   {
-    "caseId": "moved-through-tall-terrain-negated-inline#365",
+    "caseId": "moved-through-tall-terrain-negated-inline#374",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -13686,7 +15348,7 @@
     }
   },
   {
-    "caseId": "moved-through-tall-terrain-negated-trigger-condition#366",
+    "caseId": "moved-through-tall-terrain-negated-trigger-condition#375",
     "effect": {
       "type": "keyword-grant",
       "target": "self",
@@ -13715,7 +15377,7 @@
     }
   },
   {
-    "caseId": "moved-through-tall-terrain-trigger-event#367",
+    "caseId": "moved-through-tall-terrain-trigger-event#376",
     "effect": {
       "type": "keyword-grant",
       "target": "self",
@@ -13737,7 +15399,7 @@
     }
   },
   {
-    "caseId": "moved-through-tall-terrain-legacy-aliases#368",
+    "caseId": "moved-through-tall-terrain-legacy-aliases#377",
     "effect": {
       "type": "sequence",
       "steps": [
@@ -13788,7 +15450,7 @@
     }
   },
   {
-    "caseId": "moved-through-terrain-generic-unaffected#369",
+    "caseId": "moved-through-terrain-generic-unaffected#378",
     "effect": {
       "type": "conditional",
       "condition": {

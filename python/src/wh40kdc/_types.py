@@ -764,6 +764,7 @@ class SimpleCondition(TypedDict):
         "controls-objective",
         "is-attached",
         "terrain-area-control",
+        "region-membership",
         "engagement-state",
         "territory-control",
         "fights-first",
@@ -826,6 +827,105 @@ RuleStateCoreRuleSlug: TypeAlias = Literal[
     "overwatch-against-bearer",
     "desperate-escape",
 ]
+
+
+class NamedRegionRef(TypedDict):
+    region_id: str
+    owner_faction: str
+
+
+Keyword2: TypeAlias = str
+
+
+class UnitPredicate(TypedDict):
+    faction: str
+    keywords: list[Keyword2]
+
+
+class NamedRegionSourceGate(TypedDict):
+    gate_ref: str
+    owner: str
+    unit_predicate: UnitPredicate
+    range_to_marker_inches: NotRequired[float]
+
+
+class NamedRegionMembership(TypedDict):
+    unit_scope: Literal["model", "whole-unit"]
+    relation: str
+
+
+class NamedRegionBranchActor(TypedDict):
+    role: str
+    gate_ref: str
+
+
+class NamedRegionBranchTiming(TypedDict):
+    event: str
+
+
+class Activation(TypedDict):
+    event: Literal["always-active"]
+
+
+class Expiry(TypedDict):
+    event: Literal["never"]
+
+
+class NamedRegionBaseline(TypedDict):
+    kind: Literal["fixed-zone"]
+    zone: Literal["own-deployment-zone"]
+    activation: Activation
+    expiry: Expiry
+
+
+class Threshold(TypedDict):
+    comparison: Literal["at-least"]
+    fraction: float
+
+
+class ControlGate(TypedDict):
+    marker_scope: Literal["markers-in-zone"]
+    controlled_by: Literal["owner-army"]
+    threshold: Threshold
+
+
+class Activation1(TypedDict):
+    event: Literal["phase-start"]
+    evaluation: Literal["snapshot-once"]
+    canonical_condition_ids: list[str]
+
+
+class Expiry1(TypedDict):
+    event: Literal["phase-end"]
+
+
+class NamedRegionPhaseExtension(TypedDict):
+    kind: Literal["objective-majority-zone"]
+    zone: Literal["no-mans-land", "opponent-deployment-zone"]
+    control_gate: ControlGate
+    activation: Activation1
+    expiry: Expiry1
+
+
+class AdditiveExtension(TypedDict):
+    kind: str
+    source_gate: NamedRegionSourceGate
+
+
+class NamedRegionProducer(TypedDict):
+    region_ref: NamedRegionRef
+    mode: Literal["complete", "extension"]
+    parent_ref: NamedRegionRef | None
+    baseline: list[NamedRegionBaseline]
+    phase_extensions: list[NamedRegionPhaseExtension]
+    additive_extensions: list[AdditiveExtension]
+
+
+class BeneficiaryGate(TypedDict):
+    owner: str
+    faction: NotRequired[str]
+    operator: Literal["and", "or"]
+    keywords: list[Keyword2]
 
 
 class DiceRequirement(TypedDict):
@@ -893,6 +993,7 @@ class SingleEffect(TypedDict):
         "unit-attachment",
         "fight-eligibility-extension",
         "resource-clear",
+        "named-region-state",
     ]
     target: Literal[
         "self",
@@ -1142,6 +1243,44 @@ EffectNode: TypeAlias = Union[
     "IssueOrdersEffect",
     "ResourceActionMenuEffect",
 ]
+
+
+class NamedRegionBranch(TypedDict):
+    source: NamedRegionBranchActor
+    beneficiary: NamedRegionBranchActor
+    target: Literal[
+        "self",
+        "bearer",
+        "unit",
+        "attached-unit",
+        "attacker",
+        "defender",
+        "target",
+        "friendly-within-aura",
+        "enemy-within-aura",
+        "all-friendly",
+        "all-enemy",
+    ]
+    timing: NamedRegionBranchTiming
+    duration: str
+    effect: EffectNode
+    optional: bool
+
+
+class NamedRegionConsumer(TypedDict):
+    state_ref: NamedRegionRef
+    beneficiary_gate: BeneficiaryGate
+    membership: NamedRegionMembership
+    qualified_condition: Condition
+    default_branch: NamedRegionBranch
+    qualified_branch: NamedRegionBranch
+
+
+class NamedRegionState(TypedDict):
+    region_ref: NamedRegionRef
+    producer: NamedRegionProducer
+    consumer: NamedRegionConsumer
+    branch_precedence: Literal["qualified-replaces-default"]
 
 
 class ChoiceEffect(TypedDict):

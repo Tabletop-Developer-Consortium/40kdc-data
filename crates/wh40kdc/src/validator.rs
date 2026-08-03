@@ -34,7 +34,7 @@ fn keyword_to_code(keyword: &str) -> Option<&'static str> {
     Some(match keyword {
         "required" => "REQUIRED_MISSING",
         "type" => "TYPE_MISMATCH",
-        "enum" => "ENUM_VIOLATION",
+        "enum" | "const" => "ENUM_VIOLATION",
         "pattern" | "format" => "PATTERN_MISMATCH",
         "minimum" | "maximum" | "exclusiveMinimum" | "exclusiveMaximum" | "minLength"
         | "maxLength" | "minItems" | "maxItems" => "RANGE_VIOLATION",

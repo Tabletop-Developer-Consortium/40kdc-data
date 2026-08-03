@@ -27,10 +27,10 @@ abilities that translate into cruncher buffs via the real `effectToBuffs`
 | necrons | 158 | 30 | 23 | 113 | 1 | 2 | 0 | 1 |
 | orks | 159 | 34 | 14 | 116 | 2 | 5 | 0 | 3 |
 | tau-empire | 129 | 31 | 6 | 94 | 0 | 3 | 0 | 3 |
-| thousand-sons | 130 | 32 | 9 | 94 | 7 | 12 | 0 | 2 |
+| thousand-sons | 130 | 32 | 9 | 94 | 6 | 12 | 0 | 2 |
 | tyranids | 115 | 22 | 8 | 88 | 1 | 5 | 0 | 5 |
 | world-eaters | 133 | 17 | 10 | 107 | 3 | 0 | 0 | 0 |
-| **TOTAL** | **3123** | **769** | **266** | **2174** | **39** | **117** | **0** | **57** |
+| **TOTAL** | **3123** | **769** | **266** | **2174** | **38** | **117** | **0** | **57** |
 
 `stub*` = structural (empty-modifier placeholder node) — the authoring worklist. `notes-stub` = flagged in community_notes.
 
@@ -81,7 +81,6 @@ abilities that translate into cruncher buffs via the real `effectToBuffs`
 - `5` — effect type "unit-tag" is not modelled by the buff layer
 - `5` — stat-modifier on "W" is outside the damage path
 - `5` — effect type "charge-roll-modifier" is not modelled by the buff layer
-- `5` — effect type "terrain-area-tag" is not modelled by the buff layer
 - `5` — effect type "auto-result" is not modelled by the buff layer
 - `5` — conditional: cannot evaluate condition "faction-rule-active" against current context
 - `5` — effect type "unit-keyword-grant" is not modelled by the buff layer
@@ -90,8 +89,8 @@ abilities that translate into cruncher buffs via the real `effectToBuffs`
 - `4` — conditional: cannot evaluate condition "attack-stat-compare" against current context
 - `4` — conditional: cannot evaluate condition "disembarked-from-transport" against current context
 - `4` — stat-modifier on "Ld" is outside the damage path
+- `4` — effect type "terrain-area-tag" is not modelled by the buff layer
 - `4` — stat-modifier on "WS" is outside the damage path
-- `4` — conditional: cannot evaluate condition "terrain-area-control" against current context
 - `3` — effect type "resource-gain" is not modelled by the buff layer
 - `3` — effect type "shoot-on-death" is not modelled by the buff layer
 - `3` — conditional: cannot evaluate condition "attack-is-type" against current context
@@ -100,6 +99,7 @@ abilities that translate into cruncher buffs via the real `effectToBuffs`
 - `3` — stat-modifier: operation "multiply" not supported
 - `3` — effect type "remove-battle-shock" is not modelled by the buff layer
 - `3` — conditional: cannot evaluate condition "within-range-of-objective" against current context
+- `3` — conditional: cannot evaluate condition "terrain-area-control" against current context
 - `2` — effect type "replace-roll-from-pool" is not modelled by the buff layer
 - `2` — re-roll on "attacks-characteristic" (subset …) is outside the damage path
 - `2` — stat-modifier on "Range" is outside the damage path
@@ -131,7 +131,6 @@ abilities that translate into cruncher buffs via the real `effectToBuffs`
 - `1` — stat-modifier AP: operation "set-on-crit-wound" not supported
 - `1` — stat-modifier on "R" is outside the damage path
 - `1` — stat-modifier on "BS" is outside the damage path
-- `1` — re-roll: narrows by "weapon_keyword" which the cruncher can't resolve here
 - `1` — effect type "battle-shock-test" is not modelled by the buff layer
 - `1` — effect type "pool-add-die" is not modelled by the buff layer
 - `1` — effect type "flyover" is not modelled by the buff layer

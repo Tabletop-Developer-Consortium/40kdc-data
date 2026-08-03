@@ -113,6 +113,296 @@
         "desperate-escape"
       ]
     },
+    "named-region-ref": {
+      "type": "object",
+      "properties": {
+        "region_id": { "type": "string", "minLength": 1 },
+        "owner_faction": { "type": "string", "minLength": 1 }
+      },
+      "required": ["region_id", "owner_faction"],
+      "additionalProperties": false
+    },
+    "named-region-source-gate": {
+      "type": "object",
+      "properties": {
+        "gate_ref": { "type": "string", "minLength": 1 },
+        "owner": { "type": "string", "minLength": 1 },
+        "unit_predicate": {
+          "type": "object",
+          "properties": {
+            "faction": { "type": "string", "minLength": 1 },
+            "keywords": {
+              "type": "array",
+              "minItems": 1,
+              "items": { "type": "string", "minLength": 1 }
+            }
+          },
+          "required": ["faction", "keywords"],
+          "additionalProperties": false
+        },
+        "range_to_marker_inches": { "type": "number", "exclusiveMinimum": 0 }
+      },
+      "required": ["gate_ref", "owner", "unit_predicate"],
+      "additionalProperties": false
+    },
+    "named-region-membership": {
+      "type": "object",
+      "properties": {
+        "unit_scope": { "type": "string", "enum": ["model", "whole-unit"] },
+        "relation": { "type": "string", "minLength": 1 }
+      },
+      "required": ["unit_scope", "relation"],
+      "additionalProperties": true
+    },
+    "named-region-branch-actor": {
+      "type": "object",
+      "properties": {
+        "role": { "type": "string", "minLength": 1 },
+        "gate_ref": { "type": "string", "minLength": 1 }
+      },
+      "required": ["role", "gate_ref"],
+      "additionalProperties": false
+    },
+    "named-region-branch-timing": {
+      "type": "object",
+      "properties": {
+        "event": { "type": "string", "minLength": 1 }
+      },
+      "required": ["event"],
+      "additionalProperties": false
+    },
+    "named-region-branch": {
+      "type": "object",
+      "properties": {
+        "source": { "$ref": "#/$defs/named-region-branch-actor" },
+        "beneficiary": { "$ref": "#/$defs/named-region-branch-actor" },
+        "target": {
+          "type": "string",
+          "enum": [
+            "self",
+            "bearer",
+            "unit",
+            "attached-unit",
+            "attacker",
+            "defender",
+            "target",
+            "friendly-within-aura",
+            "enemy-within-aura",
+            "all-friendly",
+            "all-enemy"
+          ]
+        },
+        "timing": { "$ref": "#/$defs/named-region-branch-timing" },
+        "duration": { "type": "string", "minLength": 1 },
+        "effect": { "$ref": "#/$defs/effect-node" },
+        "optional": { "type": "boolean" }
+      },
+      "required": ["source", "beneficiary", "target", "timing", "duration", "effect", "optional"],
+      "additionalProperties": false
+    },
+    "named-region-baseline": {
+      "type": "object",
+      "properties": {
+        "kind": { "const": "fixed-zone" },
+        "zone": { "const": "own-deployment-zone" },
+        "activation": {
+          "type": "object",
+          "properties": { "event": { "const": "always-active" } },
+          "required": ["event"],
+          "additionalProperties": false
+        },
+        "expiry": {
+          "type": "object",
+          "properties": { "event": { "const": "never" } },
+          "required": ["event"],
+          "additionalProperties": false
+        }
+      },
+      "required": ["kind", "zone", "activation", "expiry"],
+      "additionalProperties": false
+    },
+    "named-region-phase-extension": {
+      "type": "object",
+      "properties": {
+        "kind": { "const": "objective-majority-zone" },
+        "zone": {
+          "type": "string",
+          "enum": ["no-mans-land", "opponent-deployment-zone"]
+        },
+        "control_gate": {
+          "type": "object",
+          "properties": {
+            "marker_scope": { "const": "markers-in-zone" },
+            "controlled_by": { "const": "owner-army" },
+            "threshold": {
+              "type": "object",
+              "properties": {
+                "comparison": { "const": "at-least" },
+                "fraction": { "const": 0.5 }
+              },
+              "required": ["comparison", "fraction"],
+              "additionalProperties": false
+            }
+          },
+          "required": ["marker_scope", "controlled_by", "threshold"],
+          "additionalProperties": false
+        },
+        "activation": {
+          "type": "object",
+          "properties": {
+            "event": { "const": "phase-start" },
+            "evaluation": { "const": "snapshot-once" },
+            "canonical_condition_ids": {
+              "const": ["timing-is", "objective-majority"]
+            }
+          },
+          "required": ["event", "evaluation", "canonical_condition_ids"],
+          "additionalProperties": false
+        },
+        "expiry": {
+          "type": "object",
+          "properties": { "event": { "const": "phase-end" } },
+          "required": ["event"],
+          "additionalProperties": false
+        }
+      },
+      "required": ["kind", "zone", "control_gate", "activation", "expiry"],
+      "additionalProperties": false
+    },
+    "named-region-producer": {
+      "type": "object",
+      "properties": {
+        "region_ref": { "$ref": "#/$defs/named-region-ref" },
+        "mode": { "type": "string", "enum": ["complete", "extension"] },
+        "parent_ref": {
+          "oneOf": [
+            { "$ref": "#/$defs/named-region-ref" },
+            { "type": "null" }
+          ]
+        },
+        "baseline": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/named-region-baseline" }
+        },
+        "phase_extensions": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/named-region-phase-extension" }
+        },
+        "additive_extensions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "kind": { "type": "string", "minLength": 1 },
+              "source_gate": { "$ref": "#/$defs/named-region-source-gate" }
+            },
+            "required": ["kind", "source_gate"],
+            "additionalProperties": true
+          }
+        }
+      },
+      "required": ["region_ref", "mode", "parent_ref", "baseline", "phase_extensions", "additive_extensions"],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": { "mode": { "const": "complete" } },
+            "required": ["mode"]
+          },
+          "then": {
+            "properties": {
+              "parent_ref": { "type": "null" },
+              "baseline": { "minItems": 1, "maxItems": 1 },
+              "phase_extensions": {
+                "minItems": 2,
+                "maxItems": 2,
+                "uniqueItems": true,
+                "contains": {
+                  "type": "object",
+                  "required": ["zone"],
+                  "properties": { "zone": { "const": "no-mans-land" } }
+                },
+                "allOf": [
+                  {
+                    "contains": {
+                      "type": "object",
+                      "required": ["zone"],
+                      "properties": { "zone": { "const": "opponent-deployment-zone" } }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": { "mode": { "const": "extension" } },
+            "required": ["mode"]
+          },
+          "then": {
+            "properties": {
+              "parent_ref": { "$ref": "#/$defs/named-region-ref" },
+              "baseline": { "maxItems": 0 },
+              "phase_extensions": { "maxItems": 0 },
+              "additive_extensions": { "minItems": 1 }
+            }
+          }
+        }
+      ]
+    },
+    "named-region-consumer": {
+      "type": "object",
+      "properties": {
+        "state_ref": { "$ref": "#/$defs/named-region-ref" },
+        "beneficiary_gate": {
+          "type": "object",
+          "properties": {
+            "owner": { "type": "string", "minLength": 1 },
+            "faction": { "type": "string", "minLength": 1 },
+            "operator": { "type": "string", "enum": ["and", "or"] },
+            "keywords": {
+              "type": "array",
+              "minItems": 1,
+              "items": { "type": "string", "minLength": 1 }
+            }
+          },
+          "required": ["owner", "operator", "keywords"],
+          "additionalProperties": true
+        },
+        "membership": { "$ref": "#/$defs/named-region-membership" },
+        "qualified_condition": { "$ref": "condition.schema.json" },
+        "default_branch": { "$ref": "#/$defs/named-region-branch" },
+        "qualified_branch": { "$ref": "#/$defs/named-region-branch" }
+      },
+      "required": [
+        "state_ref",
+        "beneficiary_gate",
+        "membership",
+        "qualified_condition",
+        "default_branch",
+        "qualified_branch"
+      ],
+      "additionalProperties": false
+    },
+    "named-region-state": {
+      "type": "object",
+      "properties": {
+        "region_ref": { "$ref": "#/$defs/named-region-ref" },
+        "producer": { "$ref": "#/$defs/named-region-producer" },
+        "consumer": { "$ref": "#/$defs/named-region-consumer" },
+        "branch_precedence": {
+          "const": "qualified-replaces-default"
+        }
+      },
+      "required": [
+        "region_ref",
+        "producer",
+        "consumer",
+        "branch_precedence"
+      ],
+      "additionalProperties": false
+    },
     "dice-requirement": {
       "$comment": "A single dice-allocation requirement: a pair/triple/single/run of dice at or above min_value.",
       "type": "object",
@@ -218,7 +508,8 @@
             "targeting-permission",
             "unit-attachment",
             "fight-eligibility-extension",
-            "resource-clear"
+            "resource-clear",
+            "named-region-state"
           ]
         },
         "target": {
@@ -304,11 +595,18 @@
                       "ones",
                       "all-failures"
                     ]
+                  },
+                  "result_scope": {
+                    "type": "string",
+                    "enum": ["any-result"]
                   }
                 },
                 "required": [
-                  "roll",
-                  "subset"
+                  "roll"
+                ],
+                "anyOf": [
+                  { "required": ["subset"] },
+                  { "required": ["result_scope"] }
                 ]
               }
             },
@@ -1014,6 +1312,21 @@
                 }
               }
             }
+          }
+        },
+        {
+          "$comment": "`named-region-state` carries its structured producer and consumer state in the modifier object.",
+          "if": {
+            "properties": {
+              "type": { "const": "named-region-state" }
+            },
+            "required": ["type"]
+          },
+          "then": {
+            "properties": {
+              "modifier": { "$ref": "#/$defs/named-region-state" }
+            },
+            "required": ["modifier"]
           }
         }
       ]

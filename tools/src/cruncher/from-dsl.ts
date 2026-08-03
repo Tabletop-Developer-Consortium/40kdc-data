@@ -168,6 +168,9 @@ function walk(
     case "invulnerable-save":
       translateInvulnerableSave(node, source, opts, out);
       return;
+    case "named-region-state":
+      translateNamedRegionState(node, source, opts, out);
+      return;
     case "conditional":
       translateConditional(node, source, opts, out);
       return;
@@ -764,6 +767,60 @@ function translateBsModifier(
   out.applied.push({ source, contribution: { type: "hit-mod", value } });
 }
 
+
+function translateNamedRegionState(
+  node: Record<string, unknown>,
+  source: BuffSource,
+  opts: WalkOpts,
+  out: EffectTranslation,
+): void {
+  // The cruncher has no region-membership state. It can still recover the
+  // unconditional branch when the beneficiary keyword gate matches, but must
+  // never apply the qualified replacement on top of it.
+  if (opts.perspective !== "attacker") return;
+  const modifier = isObject(node.modifier) ? node.modifier : {};
+  const consumer = isObject(modifier.consumer) ? modifier.consumer : {};
+  const gate = isObject(consumer.beneficiary_gate) ? consumer.beneficiary_gate : undefined;
+  const keywords = gate && Array.isArray(gate.keywords)
+    ? gate.keywords.filter((keyword): keyword is string => typeof keyword === "string")
+    : [];
+  const operator = gate?.operator;
+  const attackerKeywords = opts.context.attackerKeywords;
+  if (
+    !gate ||
+    keywords.length === 0 ||
+    (operator !== "and" && operator !== "or") ||
+    !Array.isArray(attackerKeywords)
+  ) {
+    out.unsupported.push({
+      reason: "named-region-state beneficiary gate cannot be evaluated against current attacker keywords",
+      effectFragment: node,
+    });
+    return;
+  }
+  const current = new Set(attackerKeywords.map((keyword) => keyword.toLowerCase()));
+  const eligible = operator === "and"
+    ? keywords.every((keyword) => current.has(keyword.toLowerCase()))
+    : keywords.some((keyword) => current.has(keyword.toLowerCase()));
+  if (!eligible) return;
+  const defaultBranch = isObject(consumer.default_branch) ? consumer.default_branch : undefined;
+  if (!defaultBranch) {
+    out.unsupported.push({
+      reason: "named-region-state default branch is missing",
+      effectFragment: node,
+    });
+    return;
+  }
+  walk(defaultBranch.effect, source, opts, out);
+  const qualifiedBranch = isObject(consumer.qualified_branch) ? consumer.qualified_branch : undefined;
+  if (qualifiedBranch) {
+    out.unsupported.push({
+      reason:
+        "named-region-state qualified branch: region membership is unavailable in EngineContext; qualified replacement is unsupported",
+      effectFragment: qualifiedBranch,
+    });
+  }
+}
 function translateConditional(
   node: Record<string, unknown>,
   source: BuffSource,

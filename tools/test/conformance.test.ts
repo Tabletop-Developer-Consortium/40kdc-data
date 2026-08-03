@@ -679,6 +679,7 @@ function ajvKeywordToCode(keyword: string): string {
     case "type":
       return "TYPE_MISMATCH";
     case "enum":
+    case "const":
       return "ENUM_VIOLATION";
     case "pattern":
     case "format":

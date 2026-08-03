@@ -44,6 +44,7 @@ _KEYWORD_TO_CODE = {
     "required": "REQUIRED_MISSING",
     "type": "TYPE_MISMATCH",
     "enum": "ENUM_VIOLATION",
+    "const": "ENUM_VIOLATION",
     "pattern": "PATTERN_MISMATCH",
     "format": "PATTERN_MISMATCH",
     "minimum": "RANGE_VIOLATION",

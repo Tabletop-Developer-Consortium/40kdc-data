@@ -4100,104 +4100,179 @@
       "dataslate": "pre-launch-provisional"
     },
     "version": "2025-q3",
+    "supersedes": null,
+    "unit_ids": [],
+    "faction_id": "thousand-sons",
+    "detachment_id": "hexwarp-thrallband",
+    "ability_type": "detachment",
+    "behavior": "aura",
     "effect": {
-      "type": "sequence",
-      "steps": [
-        {
-          "type": "terrain-area-tag",
-          "target": "self",
-          "modifier": {}
+      "type": "named-region-state",
+      "target": "all-friendly",
+      "modifier": {
+        "region_ref": {
+          "region_id": "flow-of-magic",
+          "owner_faction": "thousand-sons"
         },
-        {
-          "type": "conditional",
-          "condition": {
-            "operator": "and",
-            "operands": [
-              {
-                "type": "timing-is",
-                "parameters": {
-                  "timing": "start"
+        "producer": {
+          "region_ref": {
+            "region_id": "flow-of-magic",
+            "owner_faction": "thousand-sons"
+          },
+          "mode": "complete",
+          "parent_ref": null,
+          "baseline": [
+            {
+              "kind": "fixed-zone",
+              "zone": "own-deployment-zone",
+              "activation": {
+                "event": "always-active"
+              },
+              "expiry": {
+                "event": "never"
+              }
+            }
+          ],
+          "phase_extensions": [
+            {
+              "kind": "objective-majority-zone",
+              "zone": "no-mans-land",
+              "control_gate": {
+                "marker_scope": "markers-in-zone",
+                "controlled_by": "owner-army",
+                "threshold": {
+                  "comparison": "at-least",
+                  "fraction": 0.5
                 }
               },
-              {
-                "type": "objective-majority",
-                "parameters": {
-                  "zone": "no-mans-land"
-                }
+              "activation": {
+                "event": "phase-start",
+                "evaluation": "snapshot-once",
+                "canonical_condition_ids": [
+                  "timing-is",
+                  "objective-majority"
+                ]
+              },
+              "expiry": {
+                "event": "phase-end"
               }
-            ]
-          },
-          "effect": {
-            "type": "terrain-area-tag",
-            "target": "self",
-            "modifier": {}
-          }
-        },
-        {
-          "type": "conditional",
-          "condition": {
-            "operator": "and",
-            "operands": [
-              {
-                "type": "timing-is",
-                "parameters": {
-                  "timing": "start"
+            },
+            {
+              "kind": "objective-majority-zone",
+              "zone": "opponent-deployment-zone",
+              "control_gate": {
+                "marker_scope": "markers-in-zone",
+                "controlled_by": "owner-army",
+                "threshold": {
+                  "comparison": "at-least",
+                  "fraction": 0.5
                 }
               },
-              {
-                "type": "objective-majority",
-                "parameters": {
-                  "zone": "opponent-deployment-zone"
-                }
+              "activation": {
+                "event": "phase-start",
+                "evaluation": "snapshot-once",
+                "canonical_condition_ids": [
+                  "timing-is",
+                  "objective-majority"
+                ]
+              },
+              "expiry": {
+                "event": "phase-end"
               }
+            }
+          ],
+          "additive_extensions": []
+        },
+        "consumer": {
+          "state_ref": {
+            "region_id": "flow-of-magic",
+            "owner_faction": "thousand-sons"
+          },
+          "beneficiary_gate": {
+            "owner": "owner-army",
+            "faction": "thousand-sons",
+            "operator": "and",
+            "keywords": [
+              "THOUSAND SONS"
             ]
           },
-          "effect": {
-            "type": "terrain-area-tag",
-            "target": "self",
-            "modifier": {}
-          }
-        },
-        {
-          "type": "re-roll",
-          "target": "self",
-          "modifier": {
-            "roll": "wound",
-            "subset": "ones",
-            "weapon_keyword": "Psychic"
-          }
-        },
-        {
-          "type": "conditional",
-          "condition": {
-            "type": "terrain-area-control",
-            "parameters": {
-              "area": "flow-of-magic",
-              "relation": "wholly-within"
-            }
+          "membership": {
+            "unit_scope": "model",
+            "relation": "wholly-within"
           },
-          "effect": {
-            "type": "roll-modifier",
-            "target": "self",
-            "modifier": {
-              "roll": "wound",
-              "operation": "add",
-              "value": 1,
-              "weapon_keyword": "Psychic"
-            }
+          "qualified_condition": {
+            "type": "region-membership",
+            "state_ref": {
+              "region_id": "flow-of-magic",
+              "owner_faction": "thousand-sons"
+            },
+            "unit_scope": "model",
+            "relation": "wholly-within",
+            "canonical_condition_ids": [
+              "terrain-area-control"
+            ]
+          },
+          "default_branch": {
+            "source": {
+              "role": "eligible-source",
+              "gate_ref": "beneficiary_gate"
+            },
+            "beneficiary": {
+              "role": "eligible-beneficiary",
+              "gate_ref": "beneficiary_gate"
+            },
+            "target": "attacker",
+            "timing": {
+              "event": "each-attack"
+            },
+            "duration": "attack-resolution",
+            "effect": {
+              "type": "re-roll",
+              "target": "attacker",
+              "modifier": {
+                "roll": "wound",
+                "subset": "ones",
+                "weapon_keyword": "Psychic"
+              }
+            },
+            "optional": false
+          },
+          "qualified_branch": {
+            "source": {
+              "role": "eligible-source",
+              "gate_ref": "beneficiary_gate"
+            },
+            "beneficiary": {
+              "role": "eligible-beneficiary",
+              "gate_ref": "beneficiary_gate"
+            },
+            "target": "attacker",
+            "timing": {
+              "event": "each-attack"
+            },
+            "duration": "attack-resolution",
+            "effect": {
+              "type": "roll-modifier",
+              "target": "attacker",
+              "modifier": {
+                "operation": "add",
+                "value": 1,
+                "roll": "wound",
+                "weapon_keyword": "Psychic"
+              }
+            },
+            "optional": false
           }
-        }
-      ]
+        },
+        "branch_precedence": "qualified-replaces-default"
+      }
     },
     "scope": {
-      "range": "unit",
-      "duration": "battle"
+      "range": "any-on-battlefield",
+      "duration": "permanent"
     },
-    "unit_ids": [],
-    "ability_type": "detachment",
-    "behavior": "passive",
-    "detachment_id": "hexwarp-thrallband",
-    "community_notes": "[APPROX] Follows the Hallowed Ground terrain-area pattern: the enhanced in-Flow effect (+1 to the Wound roll for Psychic Attacks) is modeled as additive to the base reroll-1s rather than replacing it, and the deployment-zone/objective-majority zone tagging is approximated. Full rule in raw-text store."
+    "applies_to": null,
+    "community_notes": "community-authored from 11e faction pack"
   },
   {
     "ability_id": "arcane-might-hexwarp-thrallband",

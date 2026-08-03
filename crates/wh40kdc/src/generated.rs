@@ -8787,6 +8787,2444 @@ impl ::std::convert::TryFrom<::std::string::String> for MovementModifierEffectTa
         value.parse()
     }
 }
+///`NamedRegionBaseline`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "object",
+///  "required": [
+///    "activation",
+///    "expiry",
+///    "kind",
+///    "zone"
+///  ],
+///  "properties": {
+///    "activation": {
+///      "type": "object",
+///      "required": [
+///        "event"
+///      ],
+///      "properties": {
+///        "event": {
+///          "const": "always-active"
+///        }
+///      },
+///      "additionalProperties": false
+///    },
+///    "expiry": {
+///      "type": "object",
+///      "required": [
+///        "event"
+///      ],
+///      "properties": {
+///        "event": {
+///          "const": "never"
+///        }
+///      },
+///      "additionalProperties": false
+///    },
+///    "kind": {
+///      "const": "fixed-zone"
+///    },
+///    "zone": {
+///      "const": "own-deployment-zone"
+///    }
+///  },
+///  "additionalProperties": false
+///}
+/// ```
+/// </details>
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
+#[serde(deny_unknown_fields)]
+pub struct NamedRegionBaseline {
+    pub activation: NamedRegionBaselineActivation,
+    pub expiry: NamedRegionBaselineExpiry,
+    pub kind: ::serde_json::Value,
+    pub zone: ::serde_json::Value,
+}
+///`NamedRegionBaselineActivation`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "object",
+///  "required": [
+///    "event"
+///  ],
+///  "properties": {
+///    "event": {
+///      "const": "always-active"
+///    }
+///  },
+///  "additionalProperties": false
+///}
+/// ```
+/// </details>
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
+#[serde(deny_unknown_fields)]
+pub struct NamedRegionBaselineActivation {
+    pub event: ::serde_json::Value,
+}
+///`NamedRegionBaselineExpiry`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "object",
+///  "required": [
+///    "event"
+///  ],
+///  "properties": {
+///    "event": {
+///      "const": "never"
+///    }
+///  },
+///  "additionalProperties": false
+///}
+/// ```
+/// </details>
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
+#[serde(deny_unknown_fields)]
+pub struct NamedRegionBaselineExpiry {
+    pub event: ::serde_json::Value,
+}
+///`NamedRegionBranch`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "object",
+///  "required": [
+///    "beneficiary",
+///    "duration",
+///    "effect",
+///    "optional",
+///    "source",
+///    "target",
+///    "timing"
+///  ],
+///  "properties": {
+///    "beneficiary": {
+///      "$ref": "#/$defs/named-region-branch-actor"
+///    },
+///    "duration": {
+///      "type": "string",
+///      "minLength": 1
+///    },
+///    "effect": {
+///      "$ref": "#/$defs/effect-node"
+///    },
+///    "optional": {
+///      "type": "boolean"
+///    },
+///    "source": {
+///      "$ref": "#/$defs/named-region-branch-actor"
+///    },
+///    "target": {
+///      "type": "string",
+///      "enum": [
+///        "self",
+///        "bearer",
+///        "unit",
+///        "attached-unit",
+///        "attacker",
+///        "defender",
+///        "target",
+///        "friendly-within-aura",
+///        "enemy-within-aura",
+///        "all-friendly",
+///        "all-enemy"
+///      ]
+///    },
+///    "timing": {
+///      "$ref": "#/$defs/named-region-branch-timing"
+///    }
+///  },
+///  "additionalProperties": false
+///}
+/// ```
+/// </details>
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
+#[serde(deny_unknown_fields)]
+pub struct NamedRegionBranch {
+    pub beneficiary: NamedRegionBranchActor,
+    pub duration: NamedRegionBranchDuration,
+    pub effect: EffectNode,
+    pub optional: bool,
+    pub source: NamedRegionBranchActor,
+    pub target: NamedRegionBranchTarget,
+    pub timing: NamedRegionBranchTiming,
+}
+///`NamedRegionBranchActor`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "object",
+///  "required": [
+///    "gate_ref",
+///    "role"
+///  ],
+///  "properties": {
+///    "gate_ref": {
+///      "type": "string",
+///      "minLength": 1
+///    },
+///    "role": {
+///      "type": "string",
+///      "minLength": 1
+///    }
+///  },
+///  "additionalProperties": false
+///}
+/// ```
+/// </details>
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
+#[serde(deny_unknown_fields)]
+pub struct NamedRegionBranchActor {
+    pub gate_ref: NamedRegionBranchActorGateRef,
+    pub role: NamedRegionBranchActorRole,
+}
+///`NamedRegionBranchActorGateRef`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "string",
+///  "minLength": 1
+///}
+/// ```
+/// </details>
+#[derive(::serde::Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+#[serde(transparent)]
+pub struct NamedRegionBranchActorGateRef(::std::string::String);
+impl ::std::ops::Deref for NamedRegionBranchActorGateRef {
+    type Target = ::std::string::String;
+    fn deref(&self) -> &::std::string::String {
+        &self.0
+    }
+}
+impl ::std::convert::From<NamedRegionBranchActorGateRef> for ::std::string::String {
+    fn from(value: NamedRegionBranchActorGateRef) -> Self {
+        value.0
+    }
+}
+impl ::std::str::FromStr for NamedRegionBranchActorGateRef {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        if value.chars().count() < 1usize {
+            return Err("shorter than 1 characters".into());
+        }
+        Ok(Self(value.to_string()))
+    }
+}
+impl ::std::convert::TryFrom<&str> for NamedRegionBranchActorGateRef {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for NamedRegionBranchActorGateRef {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for NamedRegionBranchActorGateRef {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl<'de> ::serde::Deserialize<'de> for NamedRegionBranchActorGateRef {
+    fn deserialize<D>(deserializer: D) -> ::std::result::Result<Self, D::Error>
+    where
+        D: ::serde::Deserializer<'de>,
+    {
+        ::std::string::String::deserialize(deserializer)?
+            .parse()
+            .map_err(|e: self::error::ConversionError| {
+                <D::Error as ::serde::de::Error>::custom(e.to_string())
+            })
+    }
+}
+///`NamedRegionBranchActorRole`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "string",
+///  "minLength": 1
+///}
+/// ```
+/// </details>
+#[derive(::serde::Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+#[serde(transparent)]
+pub struct NamedRegionBranchActorRole(::std::string::String);
+impl ::std::ops::Deref for NamedRegionBranchActorRole {
+    type Target = ::std::string::String;
+    fn deref(&self) -> &::std::string::String {
+        &self.0
+    }
+}
+impl ::std::convert::From<NamedRegionBranchActorRole> for ::std::string::String {
+    fn from(value: NamedRegionBranchActorRole) -> Self {
+        value.0
+    }
+}
+impl ::std::str::FromStr for NamedRegionBranchActorRole {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        if value.chars().count() < 1usize {
+            return Err("shorter than 1 characters".into());
+        }
+        Ok(Self(value.to_string()))
+    }
+}
+impl ::std::convert::TryFrom<&str> for NamedRegionBranchActorRole {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for NamedRegionBranchActorRole {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for NamedRegionBranchActorRole {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl<'de> ::serde::Deserialize<'de> for NamedRegionBranchActorRole {
+    fn deserialize<D>(deserializer: D) -> ::std::result::Result<Self, D::Error>
+    where
+        D: ::serde::Deserializer<'de>,
+    {
+        ::std::string::String::deserialize(deserializer)?
+            .parse()
+            .map_err(|e: self::error::ConversionError| {
+                <D::Error as ::serde::de::Error>::custom(e.to_string())
+            })
+    }
+}
+///`NamedRegionBranchDuration`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "string",
+///  "minLength": 1
+///}
+/// ```
+/// </details>
+#[derive(::serde::Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+#[serde(transparent)]
+pub struct NamedRegionBranchDuration(::std::string::String);
+impl ::std::ops::Deref for NamedRegionBranchDuration {
+    type Target = ::std::string::String;
+    fn deref(&self) -> &::std::string::String {
+        &self.0
+    }
+}
+impl ::std::convert::From<NamedRegionBranchDuration> for ::std::string::String {
+    fn from(value: NamedRegionBranchDuration) -> Self {
+        value.0
+    }
+}
+impl ::std::str::FromStr for NamedRegionBranchDuration {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        if value.chars().count() < 1usize {
+            return Err("shorter than 1 characters".into());
+        }
+        Ok(Self(value.to_string()))
+    }
+}
+impl ::std::convert::TryFrom<&str> for NamedRegionBranchDuration {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for NamedRegionBranchDuration {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for NamedRegionBranchDuration {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl<'de> ::serde::Deserialize<'de> for NamedRegionBranchDuration {
+    fn deserialize<D>(deserializer: D) -> ::std::result::Result<Self, D::Error>
+    where
+        D: ::serde::Deserializer<'de>,
+    {
+        ::std::string::String::deserialize(deserializer)?
+            .parse()
+            .map_err(|e: self::error::ConversionError| {
+                <D::Error as ::serde::de::Error>::custom(e.to_string())
+            })
+    }
+}
+///`NamedRegionBranchTarget`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "string",
+///  "enum": [
+///    "self",
+///    "bearer",
+///    "unit",
+///    "attached-unit",
+///    "attacker",
+///    "defender",
+///    "target",
+///    "friendly-within-aura",
+///    "enemy-within-aura",
+///    "all-friendly",
+///    "all-enemy"
+///  ]
+///}
+/// ```
+/// </details>
+#[derive(
+    ::serde::Deserialize,
+    ::serde::Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd
+)]
+pub enum NamedRegionBranchTarget {
+    #[serde(rename = "self")]
+    Self_,
+    #[serde(rename = "bearer")]
+    Bearer,
+    #[serde(rename = "unit")]
+    Unit,
+    #[serde(rename = "attached-unit")]
+    AttachedUnit,
+    #[serde(rename = "attacker")]
+    Attacker,
+    #[serde(rename = "defender")]
+    Defender,
+    #[serde(rename = "target")]
+    Target,
+    #[serde(rename = "friendly-within-aura")]
+    FriendlyWithinAura,
+    #[serde(rename = "enemy-within-aura")]
+    EnemyWithinAura,
+    #[serde(rename = "all-friendly")]
+    AllFriendly,
+    #[serde(rename = "all-enemy")]
+    AllEnemy,
+}
+impl ::std::fmt::Display for NamedRegionBranchTarget {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::Self_ => f.write_str("self"),
+            Self::Bearer => f.write_str("bearer"),
+            Self::Unit => f.write_str("unit"),
+            Self::AttachedUnit => f.write_str("attached-unit"),
+            Self::Attacker => f.write_str("attacker"),
+            Self::Defender => f.write_str("defender"),
+            Self::Target => f.write_str("target"),
+            Self::FriendlyWithinAura => f.write_str("friendly-within-aura"),
+            Self::EnemyWithinAura => f.write_str("enemy-within-aura"),
+            Self::AllFriendly => f.write_str("all-friendly"),
+            Self::AllEnemy => f.write_str("all-enemy"),
+        }
+    }
+}
+impl ::std::str::FromStr for NamedRegionBranchTarget {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "self" => Ok(Self::Self_),
+            "bearer" => Ok(Self::Bearer),
+            "unit" => Ok(Self::Unit),
+            "attached-unit" => Ok(Self::AttachedUnit),
+            "attacker" => Ok(Self::Attacker),
+            "defender" => Ok(Self::Defender),
+            "target" => Ok(Self::Target),
+            "friendly-within-aura" => Ok(Self::FriendlyWithinAura),
+            "enemy-within-aura" => Ok(Self::EnemyWithinAura),
+            "all-friendly" => Ok(Self::AllFriendly),
+            "all-enemy" => Ok(Self::AllEnemy),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for NamedRegionBranchTarget {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for NamedRegionBranchTarget {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for NamedRegionBranchTarget {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+///`NamedRegionBranchTiming`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "object",
+///  "required": [
+///    "event"
+///  ],
+///  "properties": {
+///    "event": {
+///      "type": "string",
+///      "minLength": 1
+///    }
+///  },
+///  "additionalProperties": false
+///}
+/// ```
+/// </details>
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
+#[serde(deny_unknown_fields)]
+pub struct NamedRegionBranchTiming {
+    pub event: NamedRegionBranchTimingEvent,
+}
+///`NamedRegionBranchTimingEvent`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "string",
+///  "minLength": 1
+///}
+/// ```
+/// </details>
+#[derive(::serde::Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+#[serde(transparent)]
+pub struct NamedRegionBranchTimingEvent(::std::string::String);
+impl ::std::ops::Deref for NamedRegionBranchTimingEvent {
+    type Target = ::std::string::String;
+    fn deref(&self) -> &::std::string::String {
+        &self.0
+    }
+}
+impl ::std::convert::From<NamedRegionBranchTimingEvent> for ::std::string::String {
+    fn from(value: NamedRegionBranchTimingEvent) -> Self {
+        value.0
+    }
+}
+impl ::std::str::FromStr for NamedRegionBranchTimingEvent {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        if value.chars().count() < 1usize {
+            return Err("shorter than 1 characters".into());
+        }
+        Ok(Self(value.to_string()))
+    }
+}
+impl ::std::convert::TryFrom<&str> for NamedRegionBranchTimingEvent {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for NamedRegionBranchTimingEvent {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for NamedRegionBranchTimingEvent {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl<'de> ::serde::Deserialize<'de> for NamedRegionBranchTimingEvent {
+    fn deserialize<D>(deserializer: D) -> ::std::result::Result<Self, D::Error>
+    where
+        D: ::serde::Deserializer<'de>,
+    {
+        ::std::string::String::deserialize(deserializer)?
+            .parse()
+            .map_err(|e: self::error::ConversionError| {
+                <D::Error as ::serde::de::Error>::custom(e.to_string())
+            })
+    }
+}
+///`NamedRegionConsumer`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "object",
+///  "required": [
+///    "beneficiary_gate",
+///    "default_branch",
+///    "membership",
+///    "qualified_branch",
+///    "qualified_condition",
+///    "state_ref"
+///  ],
+///  "properties": {
+///    "beneficiary_gate": {
+///      "type": "object",
+///      "required": [
+///        "keywords",
+///        "operator",
+///        "owner"
+///      ],
+///      "properties": {
+///        "faction": {
+///          "type": "string",
+///          "minLength": 1
+///        },
+///        "keywords": {
+///          "type": "array",
+///          "items": {
+///            "type": "string",
+///            "minLength": 1
+///          },
+///          "minItems": 1
+///        },
+///        "operator": {
+///          "type": "string",
+///          "enum": [
+///            "and",
+///            "or"
+///          ]
+///        },
+///        "owner": {
+///          "type": "string",
+///          "minLength": 1
+///        }
+///      },
+///      "additionalProperties": true
+///    },
+///    "default_branch": {
+///      "$ref": "#/$defs/named-region-branch"
+///    },
+///    "membership": {
+///      "$ref": "#/$defs/named-region-membership"
+///    },
+///    "qualified_branch": {
+///      "$ref": "#/$defs/named-region-branch"
+///    },
+///    "qualified_condition": {
+///      "$ref": "#/$defs/condition"
+///    },
+///    "state_ref": {
+///      "$ref": "#/$defs/named-region-ref"
+///    }
+///  },
+///  "additionalProperties": false
+///}
+/// ```
+/// </details>
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
+#[serde(deny_unknown_fields)]
+pub struct NamedRegionConsumer {
+    pub beneficiary_gate: NamedRegionConsumerBeneficiaryGate,
+    pub default_branch: NamedRegionBranch,
+    pub membership: NamedRegionMembership,
+    pub qualified_branch: NamedRegionBranch,
+    pub qualified_condition: Condition,
+    pub state_ref: NamedRegionRef,
+}
+///`NamedRegionConsumerBeneficiaryGate`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "object",
+///  "required": [
+///    "keywords",
+///    "operator",
+///    "owner"
+///  ],
+///  "properties": {
+///    "faction": {
+///      "type": "string",
+///      "minLength": 1
+///    },
+///    "keywords": {
+///      "type": "array",
+///      "items": {
+///        "type": "string",
+///        "minLength": 1
+///      },
+///      "minItems": 1
+///    },
+///    "operator": {
+///      "type": "string",
+///      "enum": [
+///        "and",
+///        "or"
+///      ]
+///    },
+///    "owner": {
+///      "type": "string",
+///      "minLength": 1
+///    }
+///  },
+///  "additionalProperties": true
+///}
+/// ```
+/// </details>
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
+pub struct NamedRegionConsumerBeneficiaryGate {
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub faction: ::std::option::Option<NamedRegionConsumerBeneficiaryGateFaction>,
+    pub keywords: ::std::vec::Vec<NamedRegionConsumerBeneficiaryGateKeywordsItem>,
+    pub operator: NamedRegionConsumerBeneficiaryGateOperator,
+    pub owner: NamedRegionConsumerBeneficiaryGateOwner,
+}
+///`NamedRegionConsumerBeneficiaryGateFaction`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "string",
+///  "minLength": 1
+///}
+/// ```
+/// </details>
+#[derive(::serde::Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+#[serde(transparent)]
+pub struct NamedRegionConsumerBeneficiaryGateFaction(::std::string::String);
+impl ::std::ops::Deref for NamedRegionConsumerBeneficiaryGateFaction {
+    type Target = ::std::string::String;
+    fn deref(&self) -> &::std::string::String {
+        &self.0
+    }
+}
+impl ::std::convert::From<NamedRegionConsumerBeneficiaryGateFaction>
+for ::std::string::String {
+    fn from(value: NamedRegionConsumerBeneficiaryGateFaction) -> Self {
+        value.0
+    }
+}
+impl ::std::str::FromStr for NamedRegionConsumerBeneficiaryGateFaction {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        if value.chars().count() < 1usize {
+            return Err("shorter than 1 characters".into());
+        }
+        Ok(Self(value.to_string()))
+    }
+}
+impl ::std::convert::TryFrom<&str> for NamedRegionConsumerBeneficiaryGateFaction {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+for NamedRegionConsumerBeneficiaryGateFaction {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+for NamedRegionConsumerBeneficiaryGateFaction {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl<'de> ::serde::Deserialize<'de> for NamedRegionConsumerBeneficiaryGateFaction {
+    fn deserialize<D>(deserializer: D) -> ::std::result::Result<Self, D::Error>
+    where
+        D: ::serde::Deserializer<'de>,
+    {
+        ::std::string::String::deserialize(deserializer)?
+            .parse()
+            .map_err(|e: self::error::ConversionError| {
+                <D::Error as ::serde::de::Error>::custom(e.to_string())
+            })
+    }
+}
+///`NamedRegionConsumerBeneficiaryGateKeywordsItem`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "string",
+///  "minLength": 1
+///}
+/// ```
+/// </details>
+#[derive(::serde::Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+#[serde(transparent)]
+pub struct NamedRegionConsumerBeneficiaryGateKeywordsItem(::std::string::String);
+impl ::std::ops::Deref for NamedRegionConsumerBeneficiaryGateKeywordsItem {
+    type Target = ::std::string::String;
+    fn deref(&self) -> &::std::string::String {
+        &self.0
+    }
+}
+impl ::std::convert::From<NamedRegionConsumerBeneficiaryGateKeywordsItem>
+for ::std::string::String {
+    fn from(value: NamedRegionConsumerBeneficiaryGateKeywordsItem) -> Self {
+        value.0
+    }
+}
+impl ::std::str::FromStr for NamedRegionConsumerBeneficiaryGateKeywordsItem {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        if value.chars().count() < 1usize {
+            return Err("shorter than 1 characters".into());
+        }
+        Ok(Self(value.to_string()))
+    }
+}
+impl ::std::convert::TryFrom<&str> for NamedRegionConsumerBeneficiaryGateKeywordsItem {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+for NamedRegionConsumerBeneficiaryGateKeywordsItem {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+for NamedRegionConsumerBeneficiaryGateKeywordsItem {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl<'de> ::serde::Deserialize<'de> for NamedRegionConsumerBeneficiaryGateKeywordsItem {
+    fn deserialize<D>(deserializer: D) -> ::std::result::Result<Self, D::Error>
+    where
+        D: ::serde::Deserializer<'de>,
+    {
+        ::std::string::String::deserialize(deserializer)?
+            .parse()
+            .map_err(|e: self::error::ConversionError| {
+                <D::Error as ::serde::de::Error>::custom(e.to_string())
+            })
+    }
+}
+///`NamedRegionConsumerBeneficiaryGateOperator`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "string",
+///  "enum": [
+///    "and",
+///    "or"
+///  ]
+///}
+/// ```
+/// </details>
+#[derive(
+    ::serde::Deserialize,
+    ::serde::Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd
+)]
+pub enum NamedRegionConsumerBeneficiaryGateOperator {
+    #[serde(rename = "and")]
+    And,
+    #[serde(rename = "or")]
+    Or,
+}
+impl ::std::fmt::Display for NamedRegionConsumerBeneficiaryGateOperator {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::And => f.write_str("and"),
+            Self::Or => f.write_str("or"),
+        }
+    }
+}
+impl ::std::str::FromStr for NamedRegionConsumerBeneficiaryGateOperator {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "and" => Ok(Self::And),
+            "or" => Ok(Self::Or),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for NamedRegionConsumerBeneficiaryGateOperator {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+for NamedRegionConsumerBeneficiaryGateOperator {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+for NamedRegionConsumerBeneficiaryGateOperator {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+///`NamedRegionConsumerBeneficiaryGateOwner`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "string",
+///  "minLength": 1
+///}
+/// ```
+/// </details>
+#[derive(::serde::Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+#[serde(transparent)]
+pub struct NamedRegionConsumerBeneficiaryGateOwner(::std::string::String);
+impl ::std::ops::Deref for NamedRegionConsumerBeneficiaryGateOwner {
+    type Target = ::std::string::String;
+    fn deref(&self) -> &::std::string::String {
+        &self.0
+    }
+}
+impl ::std::convert::From<NamedRegionConsumerBeneficiaryGateOwner>
+for ::std::string::String {
+    fn from(value: NamedRegionConsumerBeneficiaryGateOwner) -> Self {
+        value.0
+    }
+}
+impl ::std::str::FromStr for NamedRegionConsumerBeneficiaryGateOwner {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        if value.chars().count() < 1usize {
+            return Err("shorter than 1 characters".into());
+        }
+        Ok(Self(value.to_string()))
+    }
+}
+impl ::std::convert::TryFrom<&str> for NamedRegionConsumerBeneficiaryGateOwner {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+for NamedRegionConsumerBeneficiaryGateOwner {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+for NamedRegionConsumerBeneficiaryGateOwner {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl<'de> ::serde::Deserialize<'de> for NamedRegionConsumerBeneficiaryGateOwner {
+    fn deserialize<D>(deserializer: D) -> ::std::result::Result<Self, D::Error>
+    where
+        D: ::serde::Deserializer<'de>,
+    {
+        ::std::string::String::deserialize(deserializer)?
+            .parse()
+            .map_err(|e: self::error::ConversionError| {
+                <D::Error as ::serde::de::Error>::custom(e.to_string())
+            })
+    }
+}
+///`NamedRegionMembership`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "object",
+///  "required": [
+///    "relation",
+///    "unit_scope"
+///  ],
+///  "properties": {
+///    "relation": {
+///      "type": "string",
+///      "minLength": 1
+///    },
+///    "unit_scope": {
+///      "type": "string",
+///      "enum": [
+///        "model",
+///        "whole-unit"
+///      ]
+///    }
+///  },
+///  "additionalProperties": true
+///}
+/// ```
+/// </details>
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
+pub struct NamedRegionMembership {
+    pub relation: NamedRegionMembershipRelation,
+    pub unit_scope: NamedRegionMembershipUnitScope,
+}
+///`NamedRegionMembershipRelation`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "string",
+///  "minLength": 1
+///}
+/// ```
+/// </details>
+#[derive(::serde::Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+#[serde(transparent)]
+pub struct NamedRegionMembershipRelation(::std::string::String);
+impl ::std::ops::Deref for NamedRegionMembershipRelation {
+    type Target = ::std::string::String;
+    fn deref(&self) -> &::std::string::String {
+        &self.0
+    }
+}
+impl ::std::convert::From<NamedRegionMembershipRelation> for ::std::string::String {
+    fn from(value: NamedRegionMembershipRelation) -> Self {
+        value.0
+    }
+}
+impl ::std::str::FromStr for NamedRegionMembershipRelation {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        if value.chars().count() < 1usize {
+            return Err("shorter than 1 characters".into());
+        }
+        Ok(Self(value.to_string()))
+    }
+}
+impl ::std::convert::TryFrom<&str> for NamedRegionMembershipRelation {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for NamedRegionMembershipRelation {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for NamedRegionMembershipRelation {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl<'de> ::serde::Deserialize<'de> for NamedRegionMembershipRelation {
+    fn deserialize<D>(deserializer: D) -> ::std::result::Result<Self, D::Error>
+    where
+        D: ::serde::Deserializer<'de>,
+    {
+        ::std::string::String::deserialize(deserializer)?
+            .parse()
+            .map_err(|e: self::error::ConversionError| {
+                <D::Error as ::serde::de::Error>::custom(e.to_string())
+            })
+    }
+}
+///`NamedRegionMembershipUnitScope`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "string",
+///  "enum": [
+///    "model",
+///    "whole-unit"
+///  ]
+///}
+/// ```
+/// </details>
+#[derive(
+    ::serde::Deserialize,
+    ::serde::Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd
+)]
+pub enum NamedRegionMembershipUnitScope {
+    #[serde(rename = "model")]
+    Model,
+    #[serde(rename = "whole-unit")]
+    WholeUnit,
+}
+impl ::std::fmt::Display for NamedRegionMembershipUnitScope {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::Model => f.write_str("model"),
+            Self::WholeUnit => f.write_str("whole-unit"),
+        }
+    }
+}
+impl ::std::str::FromStr for NamedRegionMembershipUnitScope {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "model" => Ok(Self::Model),
+            "whole-unit" => Ok(Self::WholeUnit),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for NamedRegionMembershipUnitScope {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for NamedRegionMembershipUnitScope {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for NamedRegionMembershipUnitScope {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+///`NamedRegionPhaseExtension`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "object",
+///  "required": [
+///    "activation",
+///    "control_gate",
+///    "expiry",
+///    "kind",
+///    "zone"
+///  ],
+///  "properties": {
+///    "activation": {
+///      "type": "object",
+///      "required": [
+///        "canonical_condition_ids",
+///        "evaluation",
+///        "event"
+///      ],
+///      "properties": {
+///        "canonical_condition_ids": {
+///          "const": [
+///            "timing-is",
+///            "objective-majority"
+///          ]
+///        },
+///        "evaluation": {
+///          "const": "snapshot-once"
+///        },
+///        "event": {
+///          "const": "phase-start"
+///        }
+///      },
+///      "additionalProperties": false
+///    },
+///    "control_gate": {
+///      "type": "object",
+///      "required": [
+///        "controlled_by",
+///        "marker_scope",
+///        "threshold"
+///      ],
+///      "properties": {
+///        "controlled_by": {
+///          "const": "owner-army"
+///        },
+///        "marker_scope": {
+///          "const": "markers-in-zone"
+///        },
+///        "threshold": {
+///          "type": "object",
+///          "required": [
+///            "comparison",
+///            "fraction"
+///          ],
+///          "properties": {
+///            "comparison": {
+///              "const": "at-least"
+///            },
+///            "fraction": {
+///              "const": 0.5
+///            }
+///          },
+///          "additionalProperties": false
+///        }
+///      },
+///      "additionalProperties": false
+///    },
+///    "expiry": {
+///      "type": "object",
+///      "required": [
+///        "event"
+///      ],
+///      "properties": {
+///        "event": {
+///          "const": "phase-end"
+///        }
+///      },
+///      "additionalProperties": false
+///    },
+///    "kind": {
+///      "const": "objective-majority-zone"
+///    },
+///    "zone": {
+///      "type": "string",
+///      "enum": [
+///        "no-mans-land",
+///        "opponent-deployment-zone"
+///      ]
+///    }
+///  },
+///  "additionalProperties": false
+///}
+/// ```
+/// </details>
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
+#[serde(deny_unknown_fields)]
+pub struct NamedRegionPhaseExtension {
+    pub activation: NamedRegionPhaseExtensionActivation,
+    pub control_gate: NamedRegionPhaseExtensionControlGate,
+    pub expiry: NamedRegionPhaseExtensionExpiry,
+    pub kind: ::serde_json::Value,
+    pub zone: NamedRegionPhaseExtensionZone,
+}
+///`NamedRegionPhaseExtensionActivation`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "object",
+///  "required": [
+///    "canonical_condition_ids",
+///    "evaluation",
+///    "event"
+///  ],
+///  "properties": {
+///    "canonical_condition_ids": {
+///      "const": [
+///        "timing-is",
+///        "objective-majority"
+///      ]
+///    },
+///    "evaluation": {
+///      "const": "snapshot-once"
+///    },
+///    "event": {
+///      "const": "phase-start"
+///    }
+///  },
+///  "additionalProperties": false
+///}
+/// ```
+/// </details>
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
+#[serde(deny_unknown_fields)]
+pub struct NamedRegionPhaseExtensionActivation {
+    pub canonical_condition_ids: ::serde_json::Value,
+    pub evaluation: ::serde_json::Value,
+    pub event: ::serde_json::Value,
+}
+///`NamedRegionPhaseExtensionControlGate`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "object",
+///  "required": [
+///    "controlled_by",
+///    "marker_scope",
+///    "threshold"
+///  ],
+///  "properties": {
+///    "controlled_by": {
+///      "const": "owner-army"
+///    },
+///    "marker_scope": {
+///      "const": "markers-in-zone"
+///    },
+///    "threshold": {
+///      "type": "object",
+///      "required": [
+///        "comparison",
+///        "fraction"
+///      ],
+///      "properties": {
+///        "comparison": {
+///          "const": "at-least"
+///        },
+///        "fraction": {
+///          "const": 0.5
+///        }
+///      },
+///      "additionalProperties": false
+///    }
+///  },
+///  "additionalProperties": false
+///}
+/// ```
+/// </details>
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
+#[serde(deny_unknown_fields)]
+pub struct NamedRegionPhaseExtensionControlGate {
+    pub controlled_by: ::serde_json::Value,
+    pub marker_scope: ::serde_json::Value,
+    pub threshold: NamedRegionPhaseExtensionControlGateThreshold,
+}
+///`NamedRegionPhaseExtensionControlGateThreshold`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "object",
+///  "required": [
+///    "comparison",
+///    "fraction"
+///  ],
+///  "properties": {
+///    "comparison": {
+///      "const": "at-least"
+///    },
+///    "fraction": {
+///      "const": 0.5
+///    }
+///  },
+///  "additionalProperties": false
+///}
+/// ```
+/// </details>
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
+#[serde(deny_unknown_fields)]
+pub struct NamedRegionPhaseExtensionControlGateThreshold {
+    pub comparison: ::serde_json::Value,
+    pub fraction: ::serde_json::Value,
+}
+///`NamedRegionPhaseExtensionExpiry`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "object",
+///  "required": [
+///    "event"
+///  ],
+///  "properties": {
+///    "event": {
+///      "const": "phase-end"
+///    }
+///  },
+///  "additionalProperties": false
+///}
+/// ```
+/// </details>
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
+#[serde(deny_unknown_fields)]
+pub struct NamedRegionPhaseExtensionExpiry {
+    pub event: ::serde_json::Value,
+}
+///`NamedRegionPhaseExtensionZone`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "string",
+///  "enum": [
+///    "no-mans-land",
+///    "opponent-deployment-zone"
+///  ]
+///}
+/// ```
+/// </details>
+#[derive(
+    ::serde::Deserialize,
+    ::serde::Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd
+)]
+pub enum NamedRegionPhaseExtensionZone {
+    #[serde(rename = "no-mans-land")]
+    NoMansLand,
+    #[serde(rename = "opponent-deployment-zone")]
+    OpponentDeploymentZone,
+}
+impl ::std::fmt::Display for NamedRegionPhaseExtensionZone {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::NoMansLand => f.write_str("no-mans-land"),
+            Self::OpponentDeploymentZone => f.write_str("opponent-deployment-zone"),
+        }
+    }
+}
+impl ::std::str::FromStr for NamedRegionPhaseExtensionZone {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "no-mans-land" => Ok(Self::NoMansLand),
+            "opponent-deployment-zone" => Ok(Self::OpponentDeploymentZone),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for NamedRegionPhaseExtensionZone {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for NamedRegionPhaseExtensionZone {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for NamedRegionPhaseExtensionZone {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+///`NamedRegionProducer`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "object",
+///  "required": [
+///    "additive_extensions",
+///    "baseline",
+///    "mode",
+///    "parent_ref",
+///    "phase_extensions",
+///    "region_ref"
+///  ],
+///  "properties": {
+///    "additive_extensions": {
+///      "type": "array",
+///      "items": {
+///        "type": "object",
+///        "required": [
+///          "kind",
+///          "source_gate"
+///        ],
+///        "properties": {
+///          "kind": {
+///            "type": "string",
+///            "minLength": 1
+///          },
+///          "source_gate": {
+///            "$ref": "#/$defs/named-region-source-gate"
+///          }
+///        },
+///        "additionalProperties": true
+///      }
+///    },
+///    "baseline": {
+///      "type": "array",
+///      "items": {
+///        "$ref": "#/$defs/named-region-baseline"
+///      }
+///    },
+///    "mode": {
+///      "type": "string",
+///      "enum": [
+///        "complete",
+///        "extension"
+///      ]
+///    },
+///    "parent_ref": {
+///      "oneOf": [
+///        {
+///          "$ref": "#/$defs/named-region-ref"
+///        },
+///        {
+///          "type": "null"
+///        }
+///      ]
+///    },
+///    "phase_extensions": {
+///      "type": "array",
+///      "items": {
+///        "$ref": "#/$defs/named-region-phase-extension"
+///      }
+///    },
+///    "region_ref": {
+///      "$ref": "#/$defs/named-region-ref"
+///    }
+///  },
+///  "additionalProperties": false
+///}
+/// ```
+/// </details>
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
+#[serde(deny_unknown_fields)]
+pub struct NamedRegionProducer {
+    pub additive_extensions: ::std::vec::Vec<NamedRegionProducerAdditiveExtensionsItem>,
+    pub baseline: ::std::vec::Vec<NamedRegionBaseline>,
+    pub mode: NamedRegionProducerMode,
+    pub parent_ref: ::std::option::Option<NamedRegionRef>,
+    pub phase_extensions: ::std::vec::Vec<NamedRegionPhaseExtension>,
+    pub region_ref: NamedRegionRef,
+}
+///`NamedRegionProducerAdditiveExtensionsItem`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "object",
+///  "required": [
+///    "kind",
+///    "source_gate"
+///  ],
+///  "properties": {
+///    "kind": {
+///      "type": "string",
+///      "minLength": 1
+///    },
+///    "source_gate": {
+///      "$ref": "#/$defs/named-region-source-gate"
+///    }
+///  },
+///  "additionalProperties": true
+///}
+/// ```
+/// </details>
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
+pub struct NamedRegionProducerAdditiveExtensionsItem {
+    pub kind: NamedRegionProducerAdditiveExtensionsItemKind,
+    pub source_gate: NamedRegionSourceGate,
+}
+///`NamedRegionProducerAdditiveExtensionsItemKind`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "string",
+///  "minLength": 1
+///}
+/// ```
+/// </details>
+#[derive(::serde::Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+#[serde(transparent)]
+pub struct NamedRegionProducerAdditiveExtensionsItemKind(::std::string::String);
+impl ::std::ops::Deref for NamedRegionProducerAdditiveExtensionsItemKind {
+    type Target = ::std::string::String;
+    fn deref(&self) -> &::std::string::String {
+        &self.0
+    }
+}
+impl ::std::convert::From<NamedRegionProducerAdditiveExtensionsItemKind>
+for ::std::string::String {
+    fn from(value: NamedRegionProducerAdditiveExtensionsItemKind) -> Self {
+        value.0
+    }
+}
+impl ::std::str::FromStr for NamedRegionProducerAdditiveExtensionsItemKind {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        if value.chars().count() < 1usize {
+            return Err("shorter than 1 characters".into());
+        }
+        Ok(Self(value.to_string()))
+    }
+}
+impl ::std::convert::TryFrom<&str> for NamedRegionProducerAdditiveExtensionsItemKind {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+for NamedRegionProducerAdditiveExtensionsItemKind {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+for NamedRegionProducerAdditiveExtensionsItemKind {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl<'de> ::serde::Deserialize<'de> for NamedRegionProducerAdditiveExtensionsItemKind {
+    fn deserialize<D>(deserializer: D) -> ::std::result::Result<Self, D::Error>
+    where
+        D: ::serde::Deserializer<'de>,
+    {
+        ::std::string::String::deserialize(deserializer)?
+            .parse()
+            .map_err(|e: self::error::ConversionError| {
+                <D::Error as ::serde::de::Error>::custom(e.to_string())
+            })
+    }
+}
+///`NamedRegionProducerMode`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "string",
+///  "enum": [
+///    "complete",
+///    "extension"
+///  ]
+///}
+/// ```
+/// </details>
+#[derive(
+    ::serde::Deserialize,
+    ::serde::Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd
+)]
+pub enum NamedRegionProducerMode {
+    #[serde(rename = "complete")]
+    Complete,
+    #[serde(rename = "extension")]
+    Extension,
+}
+impl ::std::fmt::Display for NamedRegionProducerMode {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::Complete => f.write_str("complete"),
+            Self::Extension => f.write_str("extension"),
+        }
+    }
+}
+impl ::std::str::FromStr for NamedRegionProducerMode {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "complete" => Ok(Self::Complete),
+            "extension" => Ok(Self::Extension),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for NamedRegionProducerMode {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for NamedRegionProducerMode {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for NamedRegionProducerMode {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+///`NamedRegionRef`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "object",
+///  "required": [
+///    "owner_faction",
+///    "region_id"
+///  ],
+///  "properties": {
+///    "owner_faction": {
+///      "type": "string",
+///      "minLength": 1
+///    },
+///    "region_id": {
+///      "type": "string",
+///      "minLength": 1
+///    }
+///  },
+///  "additionalProperties": false
+///}
+/// ```
+/// </details>
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
+#[serde(deny_unknown_fields)]
+pub struct NamedRegionRef {
+    pub owner_faction: NamedRegionRefOwnerFaction,
+    pub region_id: NamedRegionRefRegionId,
+}
+///`NamedRegionRefOwnerFaction`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "string",
+///  "minLength": 1
+///}
+/// ```
+/// </details>
+#[derive(::serde::Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+#[serde(transparent)]
+pub struct NamedRegionRefOwnerFaction(::std::string::String);
+impl ::std::ops::Deref for NamedRegionRefOwnerFaction {
+    type Target = ::std::string::String;
+    fn deref(&self) -> &::std::string::String {
+        &self.0
+    }
+}
+impl ::std::convert::From<NamedRegionRefOwnerFaction> for ::std::string::String {
+    fn from(value: NamedRegionRefOwnerFaction) -> Self {
+        value.0
+    }
+}
+impl ::std::str::FromStr for NamedRegionRefOwnerFaction {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        if value.chars().count() < 1usize {
+            return Err("shorter than 1 characters".into());
+        }
+        Ok(Self(value.to_string()))
+    }
+}
+impl ::std::convert::TryFrom<&str> for NamedRegionRefOwnerFaction {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for NamedRegionRefOwnerFaction {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for NamedRegionRefOwnerFaction {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl<'de> ::serde::Deserialize<'de> for NamedRegionRefOwnerFaction {
+    fn deserialize<D>(deserializer: D) -> ::std::result::Result<Self, D::Error>
+    where
+        D: ::serde::Deserializer<'de>,
+    {
+        ::std::string::String::deserialize(deserializer)?
+            .parse()
+            .map_err(|e: self::error::ConversionError| {
+                <D::Error as ::serde::de::Error>::custom(e.to_string())
+            })
+    }
+}
+///`NamedRegionRefRegionId`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "string",
+///  "minLength": 1
+///}
+/// ```
+/// </details>
+#[derive(::serde::Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+#[serde(transparent)]
+pub struct NamedRegionRefRegionId(::std::string::String);
+impl ::std::ops::Deref for NamedRegionRefRegionId {
+    type Target = ::std::string::String;
+    fn deref(&self) -> &::std::string::String {
+        &self.0
+    }
+}
+impl ::std::convert::From<NamedRegionRefRegionId> for ::std::string::String {
+    fn from(value: NamedRegionRefRegionId) -> Self {
+        value.0
+    }
+}
+impl ::std::str::FromStr for NamedRegionRefRegionId {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        if value.chars().count() < 1usize {
+            return Err("shorter than 1 characters".into());
+        }
+        Ok(Self(value.to_string()))
+    }
+}
+impl ::std::convert::TryFrom<&str> for NamedRegionRefRegionId {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for NamedRegionRefRegionId {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for NamedRegionRefRegionId {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl<'de> ::serde::Deserialize<'de> for NamedRegionRefRegionId {
+    fn deserialize<D>(deserializer: D) -> ::std::result::Result<Self, D::Error>
+    where
+        D: ::serde::Deserializer<'de>,
+    {
+        ::std::string::String::deserialize(deserializer)?
+            .parse()
+            .map_err(|e: self::error::ConversionError| {
+                <D::Error as ::serde::de::Error>::custom(e.to_string())
+            })
+    }
+}
+///`NamedRegionSourceGate`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "object",
+///  "required": [
+///    "gate_ref",
+///    "owner",
+///    "unit_predicate"
+///  ],
+///  "properties": {
+///    "gate_ref": {
+///      "type": "string",
+///      "minLength": 1
+///    },
+///    "owner": {
+///      "type": "string",
+///      "minLength": 1
+///    },
+///    "range_to_marker_inches": {
+///      "type": "number",
+///      "exclusiveMinimum": 0.0
+///    },
+///    "unit_predicate": {
+///      "type": "object",
+///      "required": [
+///        "faction",
+///        "keywords"
+///      ],
+///      "properties": {
+///        "faction": {
+///          "type": "string",
+///          "minLength": 1
+///        },
+///        "keywords": {
+///          "type": "array",
+///          "items": {
+///            "type": "string",
+///            "minLength": 1
+///          },
+///          "minItems": 1
+///        }
+///      },
+///      "additionalProperties": false
+///    }
+///  },
+///  "additionalProperties": false
+///}
+/// ```
+/// </details>
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
+#[serde(deny_unknown_fields)]
+pub struct NamedRegionSourceGate {
+    pub gate_ref: NamedRegionSourceGateGateRef,
+    pub owner: NamedRegionSourceGateOwner,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub range_to_marker_inches: ::std::option::Option<f64>,
+    pub unit_predicate: NamedRegionSourceGateUnitPredicate,
+}
+///`NamedRegionSourceGateGateRef`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "string",
+///  "minLength": 1
+///}
+/// ```
+/// </details>
+#[derive(::serde::Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+#[serde(transparent)]
+pub struct NamedRegionSourceGateGateRef(::std::string::String);
+impl ::std::ops::Deref for NamedRegionSourceGateGateRef {
+    type Target = ::std::string::String;
+    fn deref(&self) -> &::std::string::String {
+        &self.0
+    }
+}
+impl ::std::convert::From<NamedRegionSourceGateGateRef> for ::std::string::String {
+    fn from(value: NamedRegionSourceGateGateRef) -> Self {
+        value.0
+    }
+}
+impl ::std::str::FromStr for NamedRegionSourceGateGateRef {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        if value.chars().count() < 1usize {
+            return Err("shorter than 1 characters".into());
+        }
+        Ok(Self(value.to_string()))
+    }
+}
+impl ::std::convert::TryFrom<&str> for NamedRegionSourceGateGateRef {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for NamedRegionSourceGateGateRef {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for NamedRegionSourceGateGateRef {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl<'de> ::serde::Deserialize<'de> for NamedRegionSourceGateGateRef {
+    fn deserialize<D>(deserializer: D) -> ::std::result::Result<Self, D::Error>
+    where
+        D: ::serde::Deserializer<'de>,
+    {
+        ::std::string::String::deserialize(deserializer)?
+            .parse()
+            .map_err(|e: self::error::ConversionError| {
+                <D::Error as ::serde::de::Error>::custom(e.to_string())
+            })
+    }
+}
+///`NamedRegionSourceGateOwner`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "string",
+///  "minLength": 1
+///}
+/// ```
+/// </details>
+#[derive(::serde::Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+#[serde(transparent)]
+pub struct NamedRegionSourceGateOwner(::std::string::String);
+impl ::std::ops::Deref for NamedRegionSourceGateOwner {
+    type Target = ::std::string::String;
+    fn deref(&self) -> &::std::string::String {
+        &self.0
+    }
+}
+impl ::std::convert::From<NamedRegionSourceGateOwner> for ::std::string::String {
+    fn from(value: NamedRegionSourceGateOwner) -> Self {
+        value.0
+    }
+}
+impl ::std::str::FromStr for NamedRegionSourceGateOwner {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        if value.chars().count() < 1usize {
+            return Err("shorter than 1 characters".into());
+        }
+        Ok(Self(value.to_string()))
+    }
+}
+impl ::std::convert::TryFrom<&str> for NamedRegionSourceGateOwner {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for NamedRegionSourceGateOwner {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for NamedRegionSourceGateOwner {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl<'de> ::serde::Deserialize<'de> for NamedRegionSourceGateOwner {
+    fn deserialize<D>(deserializer: D) -> ::std::result::Result<Self, D::Error>
+    where
+        D: ::serde::Deserializer<'de>,
+    {
+        ::std::string::String::deserialize(deserializer)?
+            .parse()
+            .map_err(|e: self::error::ConversionError| {
+                <D::Error as ::serde::de::Error>::custom(e.to_string())
+            })
+    }
+}
+///`NamedRegionSourceGateUnitPredicate`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "object",
+///  "required": [
+///    "faction",
+///    "keywords"
+///  ],
+///  "properties": {
+///    "faction": {
+///      "type": "string",
+///      "minLength": 1
+///    },
+///    "keywords": {
+///      "type": "array",
+///      "items": {
+///        "type": "string",
+///        "minLength": 1
+///      },
+///      "minItems": 1
+///    }
+///  },
+///  "additionalProperties": false
+///}
+/// ```
+/// </details>
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
+#[serde(deny_unknown_fields)]
+pub struct NamedRegionSourceGateUnitPredicate {
+    pub faction: NamedRegionSourceGateUnitPredicateFaction,
+    pub keywords: ::std::vec::Vec<NamedRegionSourceGateUnitPredicateKeywordsItem>,
+}
+///`NamedRegionSourceGateUnitPredicateFaction`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "string",
+///  "minLength": 1
+///}
+/// ```
+/// </details>
+#[derive(::serde::Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+#[serde(transparent)]
+pub struct NamedRegionSourceGateUnitPredicateFaction(::std::string::String);
+impl ::std::ops::Deref for NamedRegionSourceGateUnitPredicateFaction {
+    type Target = ::std::string::String;
+    fn deref(&self) -> &::std::string::String {
+        &self.0
+    }
+}
+impl ::std::convert::From<NamedRegionSourceGateUnitPredicateFaction>
+for ::std::string::String {
+    fn from(value: NamedRegionSourceGateUnitPredicateFaction) -> Self {
+        value.0
+    }
+}
+impl ::std::str::FromStr for NamedRegionSourceGateUnitPredicateFaction {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        if value.chars().count() < 1usize {
+            return Err("shorter than 1 characters".into());
+        }
+        Ok(Self(value.to_string()))
+    }
+}
+impl ::std::convert::TryFrom<&str> for NamedRegionSourceGateUnitPredicateFaction {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+for NamedRegionSourceGateUnitPredicateFaction {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+for NamedRegionSourceGateUnitPredicateFaction {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl<'de> ::serde::Deserialize<'de> for NamedRegionSourceGateUnitPredicateFaction {
+    fn deserialize<D>(deserializer: D) -> ::std::result::Result<Self, D::Error>
+    where
+        D: ::serde::Deserializer<'de>,
+    {
+        ::std::string::String::deserialize(deserializer)?
+            .parse()
+            .map_err(|e: self::error::ConversionError| {
+                <D::Error as ::serde::de::Error>::custom(e.to_string())
+            })
+    }
+}
+///`NamedRegionSourceGateUnitPredicateKeywordsItem`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "string",
+///  "minLength": 1
+///}
+/// ```
+/// </details>
+#[derive(::serde::Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+#[serde(transparent)]
+pub struct NamedRegionSourceGateUnitPredicateKeywordsItem(::std::string::String);
+impl ::std::ops::Deref for NamedRegionSourceGateUnitPredicateKeywordsItem {
+    type Target = ::std::string::String;
+    fn deref(&self) -> &::std::string::String {
+        &self.0
+    }
+}
+impl ::std::convert::From<NamedRegionSourceGateUnitPredicateKeywordsItem>
+for ::std::string::String {
+    fn from(value: NamedRegionSourceGateUnitPredicateKeywordsItem) -> Self {
+        value.0
+    }
+}
+impl ::std::str::FromStr for NamedRegionSourceGateUnitPredicateKeywordsItem {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        if value.chars().count() < 1usize {
+            return Err("shorter than 1 characters".into());
+        }
+        Ok(Self(value.to_string()))
+    }
+}
+impl ::std::convert::TryFrom<&str> for NamedRegionSourceGateUnitPredicateKeywordsItem {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+for NamedRegionSourceGateUnitPredicateKeywordsItem {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+for NamedRegionSourceGateUnitPredicateKeywordsItem {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl<'de> ::serde::Deserialize<'de> for NamedRegionSourceGateUnitPredicateKeywordsItem {
+    fn deserialize<D>(deserializer: D) -> ::std::result::Result<Self, D::Error>
+    where
+        D: ::serde::Deserializer<'de>,
+    {
+        ::std::string::String::deserialize(deserializer)?
+            .parse()
+            .map_err(|e: self::error::ConversionError| {
+                <D::Error as ::serde::de::Error>::custom(e.to_string())
+            })
+    }
+}
+///`NamedRegionState`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "object",
+///  "required": [
+///    "branch_precedence",
+///    "consumer",
+///    "producer",
+///    "region_ref"
+///  ],
+///  "properties": {
+///    "branch_precedence": {
+///      "const": "qualified-replaces-default"
+///    },
+///    "consumer": {
+///      "$ref": "#/$defs/named-region-consumer"
+///    },
+///    "producer": {
+///      "$ref": "#/$defs/named-region-producer"
+///    },
+///    "region_ref": {
+///      "$ref": "#/$defs/named-region-ref"
+///    }
+///  },
+///  "additionalProperties": false
+///}
+/// ```
+/// </details>
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
+#[serde(deny_unknown_fields)]
+pub struct NamedRegionState {
+    pub branch_precedence: ::serde_json::Value,
+    pub consumer: NamedRegionConsumer,
+    pub producer: NamedRegionProducer,
+    pub region_ref: NamedRegionRef,
+}
 ///The five official game phases. Unchanged between 10th and 11th edition — 11e reorders Pile In timing within the Fight phase but adds no top-level phase.
 ///
 /// <details><summary>JSON schema</summary>
@@ -14911,6 +17349,7 @@ impl ::std::convert::TryFrom<::std::string::String> for Side {
 ///        "controls-objective",
 ///        "is-attached",
 ///        "terrain-area-control",
+///        "region-membership",
 ///        "engagement-state",
 ///        "territory-control",
 ///        "fights-first",
@@ -14982,6 +17421,7 @@ pub struct SimpleCondition {
 ///    "controls-objective",
 ///    "is-attached",
 ///    "terrain-area-control",
+///    "region-membership",
 ///    "engagement-state",
 ///    "territory-control",
 ///    "fights-first",
@@ -15070,6 +17510,8 @@ pub enum SimpleConditionType {
     IsAttached,
     #[serde(rename = "terrain-area-control")]
     TerrainAreaControl,
+    #[serde(rename = "region-membership")]
+    RegionMembership,
     #[serde(rename = "engagement-state")]
     EngagementState,
     #[serde(rename = "territory-control")]
@@ -15146,6 +17588,7 @@ impl ::std::fmt::Display for SimpleConditionType {
             Self::ControlsObjective => f.write_str("controls-objective"),
             Self::IsAttached => f.write_str("is-attached"),
             Self::TerrainAreaControl => f.write_str("terrain-area-control"),
+            Self::RegionMembership => f.write_str("region-membership"),
             Self::EngagementState => f.write_str("engagement-state"),
             Self::TerritoryControl => f.write_str("territory-control"),
             Self::FightsFirst => f.write_str("fights-first"),
@@ -15206,6 +17649,7 @@ impl ::std::str::FromStr for SimpleConditionType {
             "controls-objective" => Ok(Self::ControlsObjective),
             "is-attached" => Ok(Self::IsAttached),
             "terrain-area-control" => Ok(Self::TerrainAreaControl),
+            "region-membership" => Ok(Self::RegionMembership),
             "engagement-state" => Ok(Self::EngagementState),
             "territory-control" => Ok(Self::TerritoryControl),
             "fights-first" => Ok(Self::FightsFirst),
@@ -15288,6 +17732,9 @@ impl ::std::convert::TryFrom<::std::string::String> for SimpleConditionType {
 ///    },
 ///    {
 ///      "$comment": "`unit-attachment`: this unit can join another friendly unit during the Declare Battle Formations step, becoming part of that Bodyguard unit. `led_by` (optional) is the keyword the joined unit must be led by; `mandatory` (optional) marks the attachment as forced (the unit must be attached to a Leader or it counts as destroyed)."
+///    },
+///    {
+///      "$comment": "`named-region-state` carries its structured producer and consumer state in the modifier object."
 ///    }
 ///  ],
 ///  "required": [
@@ -15371,7 +17818,8 @@ impl ::std::convert::TryFrom<::std::string::String> for SimpleConditionType {
 ///        "targeting-permission",
 ///        "unit-attachment",
 ///        "fight-eligibility-extension",
-///        "resource-clear"
+///        "resource-clear",
+///        "named-region-state"
 ///      ]
 ///    }
 ///  },
@@ -15568,7 +18016,8 @@ impl ::std::convert::TryFrom<::std::string::String> for SingleEffectTarget {
 ///    "targeting-permission",
 ///    "unit-attachment",
 ///    "fight-eligibility-extension",
-///    "resource-clear"
+///    "resource-clear",
+///    "named-region-state"
 ///  ]
 ///}
 /// ```
@@ -15688,6 +18137,8 @@ pub enum SingleEffectType {
     FightEligibilityExtension,
     #[serde(rename = "resource-clear")]
     ResourceClear,
+    #[serde(rename = "named-region-state")]
+    NamedRegionState,
 }
 impl ::std::fmt::Display for SingleEffectType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
@@ -15743,6 +18194,7 @@ impl ::std::fmt::Display for SingleEffectType {
             Self::UnitAttachment => f.write_str("unit-attachment"),
             Self::FightEligibilityExtension => f.write_str("fight-eligibility-extension"),
             Self::ResourceClear => f.write_str("resource-clear"),
+            Self::NamedRegionState => f.write_str("named-region-state"),
         }
     }
 }
@@ -15803,6 +18255,7 @@ impl ::std::str::FromStr for SingleEffectType {
             "unit-attachment" => Ok(Self::UnitAttachment),
             "fight-eligibility-extension" => Ok(Self::FightEligibilityExtension),
             "resource-clear" => Ok(Self::ResourceClear),
+            "named-region-state" => Ok(Self::NamedRegionState),
             _ => Err("invalid value".into()),
         }
     }

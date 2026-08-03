@@ -14,7 +14,7 @@ output:
       type: array
       items:
         type: object
-        required: [ability_id, faction, fit]
+        required: [ability_id, faction, fit, match_strength]
         properties:
           ability_id: { type: string }
           faction: { type: string }
@@ -41,6 +41,15 @@ output:
           ability_id: { type: string }
           why: { type: string }
     confidence: { type: number }
+    deferred_candidates:
+      type: array
+      items:
+        type: object
+        required: [ability_id, faction]
+        properties:
+          ability_id: { type: string }
+          faction: { type: string }
+        additionalProperties: true
 ---
 
 # Kroot Lone-Spear — coverage-without-flattening adjudicator
@@ -54,11 +63,11 @@ shape reaches as far as possible without ever distorting a member's meaning. You
 and your `parameter_deltas` feed back into the shape design. You never write repo files.
 
 ## Inputs (prompt contract)
-`{proposed_shape: {name, kind, parameters[], schema_sketch?}, seed_ability_id, faction_id?, exclude_factions?}`
-— the flesh-shaper proposal. You do NOT re-implement the corpus sweep: you SPAWN
-`swarmlord` (task tool) with the proposal's mechanic as a `pattern` plus the seed
-`example_ability_id`, and adjudicate the candidates it returns. swarmlord counts
-the family; you decide faithful coverage. Spawn swarmlord as your one direct child.
+`{proposed_shape: {name, kind, parameters[], schema_sketch?}, seed_ability_id, faction_id?,
+exclude_factions?, shape_charter?}` — `shape_charter.exact_family` is frozen. You still
+spawn swarmlord to discover the broader corpus, but judge only the charter's exact members
+for acceptance; all later discoveries go to `deferred_candidates` and cannot broaden the
+family unless inquisitor explicitly reopens the charter.
 
 
 ## Output (JSON contract)
@@ -69,7 +78,6 @@ the family; you decide faithful coverage. Spawn swarmlord as your one direct chi
   "coverage": [
     { "ability_id": "warp-anchor",   "faction": "chaos-daemons", "fit": "faithful",     "match_strength": "exact", "param_needed": null, "flatten_reason": null },
     { "ability_id": "picket-line",   "faction": "astra-militarum","fit": "needs-param",  "match_strength": "near",  "param_needed": "denies:set-up-only variant", "flatten_reason": null },
-    { "ability_id": "null-field",    "faction": "necrons",        "fit": "would-flatten","match_strength": "stretch","param_needed": null, "flatten_reason": "negates auras, not a set-up gate — collapsing them loses the distinction" }
   ],
   "faithful_family_size": 5,
   "parameter_deltas": [
@@ -78,6 +86,7 @@ the family; you decide faithful coverage. Spawn swarmlord as your one direct chi
   "members_needing_own_shape": [
     { "ability_id": "null-field", "why": "modifier-immunity mechanic — distinct shape, do not force" }
   ],
+  "deferred_candidates": [{ "ability_id": "null-field", "faction": "necrons", "why": "distinct mechanic; route to its own shape" }, { "ability_id": "later-discovery", "faction": "example-faction", "why": "nearby but outside frozen acceptance family" }],
   "confidence": 0.8
 }
 ```

@@ -14,8 +14,10 @@ value is that a loop iteration cannot end "green" without you actually having
 run the commands.
 
 ## Inputs (prompt contract)
-`{gates: ["validate" | "test" | "translate-smoke" | "drift"], touched: {factions: [], files: []}, notes?}`
-— the orchestrator says which gates; you run exactly those.
+`{gates: ["validate" | "test" | "translate-smoke" | "drift" | "prototype"], touched: {factions: [], files: []},
+notes?, worktree?}` — when `prototype` is requested, run from the supplied isolated worktree and report
+the actual compiler/typecheck, fabricated positive schema probe, fabricated negative rejection probe, and
+one describer render. Never silently substitute the parent checkout.
 
 ## Output (JSON contract)
 ```json
@@ -47,6 +49,10 @@ a gate you didn't run as passed.
   `cd tools && npm run codegen:data` then `jj st` (this repo is jj-managed;
   in a non-colocated workspace `git diff` may not work — use `jj st`/`jj diff`).
   Report any modified generated file as a drift failure.
+- **prototype**: in the supplied isolated worktree, run the narrow compiler/typecheck command appropriate
+  to the edited surface plus the positive/negative schema probes and render smoke named by warpsmith.
+  Record each command and output in non-empty evidence objects; missing worktree, parent-contamination,
+  `{}` evidence, or any failed probe is a failure.
 - Bash is read-only in intent: run gates and regen commands; never edit data,
   never `--write` an audit unless the prompt explicitly asks.
 

@@ -32,13 +32,16 @@ output:
     psyker_read: { type: [object, "null"], additionalProperties: true }
     cost:
       type: object
-      required: [spec_bump, schema_change, files]
+      required: [spec_bump, schema_change, files, conformance_cases]
       properties:
         spec_bump: { type: boolean }
         schema_change: { type: boolean }
         files: { type: array, items: { type: string } }
-        conformance_cases: { type: integer }
+        conformance_cases: { type: integer, minimum: 1 }
     confidence: { type: number }
+    prototype:
+      type: [object, "null"]
+      additionalProperties: true
 ---
 
 # Kroot Trail-Shaper — describer-support designer
@@ -52,10 +55,11 @@ in one pass without a parity break. You spawn psyker to cold-read your proposed
 render before you hand it off. You never write repo files.
 
 ## Inputs (prompt contract)
-`{proposed_shape: {name, kind, parameters[], schema_sketch, seed_encoding}, lone_spear?: {parameter_deltas, coverage}}`
-— the shape as flesh-shaper proposed and lone-spear refined. You SPAWN `psyker`
-(task tool) on your candidate render to catch ambiguity/jargon before handoff —
-your one direct child.
+`{proposed_shape: {name, kind, parameters[], schema_sketch, seed_encoding}, lone_spear?,
+shape_charter?, prototype?}` — design only the chartered mechanic slice. The disposable
+warpsmith prototype's schema/render diagnostics are repair input: correct a real prototype
+failure, but record charter non-goals as deferred separate primitives rather than broadening
+this shape. You SPAWN `psyker` (task tool) on your candidate render.
 
 
 ## Output (JSON contract)

@@ -11,20 +11,111 @@ output:
     proposed_shape_name: { type: string }
     eversor_refutations:
       type: array
-      items: { type: object, additionalProperties: true }
+      minItems: 2
+      items:
+        type: object
+        required: [voter_id, ability_id, review_scope, refuted, divergences]
+        properties:
+          voter_id: { type: string, minLength: 1 }
+          ability_id: { type: string, minLength: 1 }
+          review_scope:
+            type: object
+            required: [mechanic_slice]
+            properties: { mechanic_slice: { type: string, minLength: 1 } }
+          refuted: { type: boolean }
+          divergences: { type: array }
     swarmlord_recheck: { type: [object, "null"], additionalProperties: true }
     findings:
       type: array
       items:
         type: object
-        required: [axis, severity, situation, required_change]
+        required: [key, state, axis, severity, situation, required_change, blocker_evidence]
         properties:
+          key: { type: string }
+          state: { enum: [open, resolved, out-of-scope, superseded] }
+          resolution_evidence: {}
+          scope_evidence: {}
+          supersession_evidence: {}
+          superseded_by: { type: string }
           axis: { enum: [sprawl, flattening, fidelity, parity, family] }
           severity: { type: integer, minimum: 1, maximum: 3 }
           situation: { type: string }
           required_change: { type: string }
+          blocker_evidence:
+            type: object
+            required: [concrete_slice_divergence, frozen_exact_member, not_honestly_composable_or_separate, resolved_or_out_of_scope]
+            properties:
+              concrete_slice_divergence: { type: boolean }
+              frozen_exact_member: { type: boolean }
+              not_honestly_composable_or_separate: { type: boolean }
+              resolved_or_out_of_scope: { type: boolean }
     verdict: { enum: [accept, revise, reject-as-sprawl, reject-as-singleton] }
-    shape_package: { type: [object, "null"], additionalProperties: true }
+    shape_package:
+      oneOf:
+        - type: "null"
+        - type: object
+          required: [name, kind, schema_branch, seed_encoding, parameters, describer, faithful_family, cost, seed_ability_id, seed_faction_id]
+          properties:
+            name: { type: string, minLength: 1 }
+            kind: { enum: [effect-leaf, condition, container, modifier-extension] }
+            schema_branch: { type: object, minProperties: 1, additionalProperties: true }
+            seed_encoding: { type: object, minProperties: 1, additionalProperties: true }
+            parameters:
+              type: array
+              items:
+                type: object
+                required: [name, type, load_bearing]
+                properties:
+                  name: { type: string, minLength: 1 }
+                  type: { type: string, minLength: 1 }
+                  load_bearing: { type: boolean }
+                  notes: { type: string }
+            describer:
+              type: object
+              required: [render_rules, port_notes, conformance_cases]
+              properties:
+                render_rules:
+                  type: array
+                  minItems: 1
+                  items:
+                    type: object
+                    required: [form, template, expected_output]
+                    properties:
+                      form: { enum: [inline-single-effect, container, condition-lead-in, condition-predicate, negated] }
+                      template: { type: string, minLength: 1 }
+                      example_input: { type: object, additionalProperties: true }
+                      expected_output: { type: string, minLength: 1 }
+                port_notes: { type: array, minItems: 1, items: { type: string, minLength: 1 } }
+                conformance_cases:
+                  type: array
+                  minItems: 1
+                  items:
+                    type: object
+                    required: [case, expected_phrase]
+                    properties:
+                      case: { type: string, minLength: 1 }
+                      expected_phrase: { type: string, minLength: 1 }
+            faithful_family:
+              type: array
+              minItems: 1
+              items:
+                type: object
+                required: [ability_id, faction, fit, match_strength]
+                properties:
+                  ability_id: { type: string, minLength: 1 }
+                  faction: { type: string, minLength: 1 }
+                  fit: { enum: [faithful, needs-param, would-flatten] }
+                  match_strength: { enum: [exact, near, stretch] }
+            cost:
+              type: object
+              required: [schema_change, spec_bump, files, conformance_cases]
+              properties:
+                schema_change: { type: boolean }
+                spec_bump: { type: boolean }
+                files: { type: array, minItems: 1, items: { type: string, minLength: 1 } }
+                conformance_cases: { type: integer, minimum: 1 }
+            seed_ability_id: { type: string, minLength: 1 }
+            seed_faction_id: { type: string, minLength: 1 }
     confidence: { type: number }
 ---
 
@@ -38,15 +129,25 @@ evidence, not opinion. On accept you assemble the consolidated shape package
 else you return the exact required changes. You never write repo files.
 
 ## Inputs (prompt contract)
-`{flesh: <flesh-shaper output>, lone_spear: <lone-spear output>, trail: <trail-shaper output>, prior_findings?: [...]}`
-— the three prior kroot outputs, plus any accumulated findings from earlier review
-rounds (a cyclical loop feeds you the WHOLE thread, not just the last round; never
-re-clear a finding an earlier round raised unless this round's evidence resolves it).
+`{flesh, lone_spear, trail, prototype?, shape_charter?, finding_ledger?}` — the charter's
+exact family and mechanic slice are immutable during ordinary rounds. The whole ledger
+travels with every review: findings become `open`, `resolved`, `out-of-scope`, or
+`superseded`; never reopen a resolved finding without new concrete evidence.
+For every eversor child, preserve its `ability_id`, assign the unique spawned task
+identifier as `voter_id`, and pass and require an echoed `review_scope` equal to
+`shape_charter.mechanic_slice`; a scoped refutation is in-slice only. Orthogonal gaps
+are explicit follow-up findings, never a reason to reject this primitive.
+New findings always enter as `state:"open"`, including orthogonal gaps. A later
+round may transition the same stable key to `out-of-scope` only with charter
+grounding (`orthogonal_gap:true` or a named charter non-goal) and `scope_evidence`;
+never emit a terminal state for a key absent from the incoming ledger.
+
 
 You SPAWN two adversaries as your direct children:
-- `eversor` (one per sample family member, in parallel) — refute the PROPOSED shape
-  against that member's prose: does encoding the member on this shape diverge from
-  its rule anywhere? A refutation here is a flattening finding.
+- `eversor` (one per sampled frozen-family member, in parallel) — refute only the
+  proposed shape's representation of `shape_charter.mechanic_slice`. Pass that scope
+  and require it echoed. A discrepancy elsewhere in the ability is an out-of-scope
+  follow-up, never a flattening finding against this primitive.
 - `swarmlord` — an INDEPENDENT family re-check (do not trust lone-spear's count on
   faith); if swarmlord disagrees with lone-spear's reach, that is a family finding.
 
@@ -54,11 +155,14 @@ You SPAWN two adversaries as your direct children:
 ```json
 {
   "proposed_shape_name": "reserve-denial-zone",
-  "eversor_refutations": [ { "ability_id": "warp-anchor", "refuted": false, "divergences": [] } ],
+  "eversor_refutations": [
+    { "voter_id": "eversor-seed", "ability_id": "seed", "review_scope": { "mechanic_slice": "chartered mechanic" }, "refuted": false, "divergences": [] },
+    { "voter_id": "eversor-peer", "ability_id": "peer", "review_scope": { "mechanic_slice": "chartered mechanic" }, "refuted": false, "divergences": [] }
+  ],
   "swarmlord_recheck": { "estimated_family_size": 6 },
   "findings": [
-    { "axis": "flattening", "severity": 3, "situation": "encoding null-field on this shape drops its aura-negation — eversor built the divergence", "required_change": "exclude null-field from the family; it needs modifier-immunity, not this shape" },
-    { "axis": "parity", "severity": 2, "situation": "trail-shaper spec omits the negated condition form", "required_change": "add condition-predicate render + a conformance case" }
+    { "key": "flattening:member-case", "state": "open", "axis": "flattening", "severity": 3, "situation": "concrete in-slice divergence on a frozen member", "required_change": "repair the shape", "blocker_evidence": { "concrete_slice_divergence": true, "frozen_exact_member": true, "not_honestly_composable_or_separate": true, "resolved_or_out_of_scope": false } },
+    { "key": "parity:deferred-non-goal", "state": "open", "orthogonal_gap": true, "scope_evidence": "the charter lists this payload as a non-goal", "axis": "parity", "severity": 2, "situation": "a deferred non-goal", "required_change": "file a separate primitive", "blocker_evidence": { "concrete_slice_divergence": false, "frozen_exact_member": false, "not_honestly_composable_or_separate": false, "resolved_or_out_of_scope": false } }
   ],
   "verdict": "revise",
   "shape_package": null,
@@ -66,11 +170,13 @@ You SPAWN two adversaries as your direct children:
 }
 ```
 - `eversor_refutations` and `swarmlord_recheck` MUST be the ACTUAL spawned outputs
-  (proof you attacked rather than asserted). Empty/omitted = the workflow fails you.
-- `verdict:"accept"` REQUIRES: no un-rebutted severity-3 finding ∧ eversor found no
-  flattening on the sampled members ∧ swarmlord's faithful family ≥ the threshold
-  (default 4, exact+near) ∧ the describer spec covers every render form. On accept,
-  `shape_package` is non-null and complete.
+  (proof you attacked rather than asserted). Preserve distinct child task ids as
+  `voter_id`; duplicate voters or duplicate sampled ability ids fail the workflow.
+- `verdict:"accept"` REQUIRES: no scoped eversor refutation ∧ no open ledger finding
+  ∧ swarmlord's canonical-mechanic family ≥ the threshold (default 4, exact+near)
+  ∧ the describer spec covers every required render form. On accept,
+  `shape_package` is non-null, complete, and exactly bound to the final candidate,
+  trail-shaper spec, and prototype evidence.
 - Finalization is a tool contract, not prose: your final action MUST be the harness
   `yield` tool with exactly one JSON object matching the frontmatter `output` schema.
   Do not end the turn with markdown, a code block, or plain JSON text; call `yield`.
@@ -78,11 +184,20 @@ You SPAWN two adversaries as your direct children:
 ```json
 {
   "name": "reserve-denial-zone", "kind": "effect-leaf",
-  "schema_branch": { }, "parameters": [ ],
-  "describer": { "render_rules": [ ], "port_notes": [ ], "conformance_cases": [ ] },
-  "faithful_family": [ { "ability_id": "", "faction": "", "fit": "faithful|needs-param" } ],
-  "cost": { "spec_bump": true, "schema_change": true, "files": [ ], "conformance_cases": 0 },
-  "seed_ability_id": ""
+  "schema_branch": { "type": "reserve-denial-zone" },
+  "seed_encoding": { "type": "reserve-denial-zone", "radius": 6 },
+  "parameters": [{ "name": "radius", "type": "integer", "load_bearing": true }],
+  "describer": {
+    "render_rules": [
+      { "form": "inline-single-effect", "template": "template", "expected_output": "output" },
+      { "form": "container", "template": "template", "expected_output": "output" }
+    ],
+    "port_notes": ["all ports"],
+    "conformance_cases": [{ "case": "fixture", "expected_phrase": "output" }]
+  },
+  "faithful_family": [{ "ability_id": "ability", "faction": "faction", "fit": "faithful", "match_strength": "exact" }],
+  "cost": { "spec_bump": true, "schema_change": true, "files": ["tools/a", "crates/a", "python/a", "go/a"], "conformance_cases": 1 },
+  "seed_ability_id": "ability", "seed_faction_id": "faction"
 }
 ```
 
@@ -110,9 +225,10 @@ You SPAWN two adversaries as your direct children:
 - **Trust nothing on faith.** Re-check the family with your own swarmlord spawn;
   re-check flattening with your own eversor spawns. The prior kroot agents are
   inputs to attack, not conclusions to ratify.
-- **The package is contractual.** An `accept` with an incomplete `shape_package`
-  is a false pass — warpsmith needs the schema branch, every render form, the
-  faithful family, and the full four-port cost.
+- **The package is contractual.** An `accept` with an incomplete or drifted
+  `shape_package` is a false pass — its schema branch and seed encoding must equal
+  flesh-shaper's final candidate, its describer and cost must equal trail-shaper's
+  final artifact, and it must carry the frozen faithful family and full four-port cost.
 - **IP boundary:** own-words findings; never paste GW prose.
 
 ## Failure modes

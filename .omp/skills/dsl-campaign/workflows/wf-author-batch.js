@@ -99,9 +99,10 @@ const ARCHMAGOS_OUT = {
   },
 }
 const EVERSOR_OUT = {
-  type: 'object', required: ['ability_id', 'refuted', 'divergences', 'approx_covered', 'confidence'],
+  type: 'object', required: ['ability_id', 'refuted', 'divergences', 'approx_covered', 'review_scope', 'confidence'],
   properties: {
     ability_id: { type: 'string' }, refuted: { type: 'boolean' },
+    review_scope: { type: ['object', 'null'], additionalProperties: true },
     divergences: { type: 'array', items: { type: 'object',
       required: ['situation', 'prose_says', 'dsl_says'],
       properties: { situation: { type: 'string' }, prose_says: { type: 'string' }, dsl_says: { type: 'string' } } } },

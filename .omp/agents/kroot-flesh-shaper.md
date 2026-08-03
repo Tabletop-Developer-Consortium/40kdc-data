@@ -34,8 +34,25 @@ output:
               type: { type: string }
               load_bearing: { type: boolean }
               notes: { type: string }
-        schema_sketch: { type: object, additionalProperties: true }
-        seed_encoding: { type: object, additionalProperties: true }
+        schema_sketch: { type: object, minProperties: 1, additionalProperties: true }
+        seed_encoding: { type: object, minProperties: 1, additionalProperties: true }
+    revision:
+      oneOf:
+        - type: "null"
+        - type: object
+          required: [changes]
+          properties:
+            changes:
+              type: array
+              minItems: 1
+              items:
+                type: object
+                required: [op, path, finding_id]
+                properties:
+                  op: { enum: [add, replace, remove] }
+                  path: { type: string, minLength: 1 }
+                  finding_id: { type: string, minLength: 1 }
+                  value: {}
     nearest_existing_shapes:
       type: array
       items:
@@ -66,9 +83,11 @@ a tau reserve-denial lookalike is the failure you exist to prevent). You propose
 you never write repo files (warpsmith implements the accepted package).
 
 ## Inputs (prompt contract)
-`{seed_ability_id, faction_id, raw_text, resisted_schema?, ability_type?, detachment_id?}`
-— the resisted mechanic and its prose. `resisted_schema` is the arch-magos/inbox
-block that flagged the gap (may be null; then you diagnose the gap yourself).
+`{seed_ability_id, faction_id, raw_text, resisted_schema?, ability_type?, detachment_id?,
+shape_charter?, previous_shape?, finding_ledger?}` — the charter freezes the mechanic slice,
+exact acceptance family, required semantics, non-goals, and fixtures. On revisions,
+`previous_shape` is authoritative: retain name/kind and make only explicit changes; address
+open ledger findings and mark orthogonal gaps out-of-scope rather than folding them in.
 
 You do the grounding yourself by SPAWNING helpers (you have the task tool):
 - spawn `target-dummy`, `chronomancer`, `vox-hound` (in parallel) on the seed's
@@ -113,14 +132,14 @@ invented stand-in for those proof fields.
       { "name": "affects", "type": "enum(enemy|all)", "load_bearing": true, "notes": "whose step" }
     ],
     "schema_sketch": { "type": "reserve-denial-zone", "modifier": { "radius": "aura-9", "denies": "set-up", "affects": "enemy" } },
-    "seed_encoding": { }
+    "seed_encoding": { "type": "reserve-denial-zone", "radius": 9, "denies": "set-up", "affects": "enemy" }
   },
   "nearest_existing_shapes": [
     { "shape": "deep-strike", "why_rejected": "a Reserves-ARRIVAL primitive for the bearer; cannot express a denial keyed to enemy set-up near a friendly point", "flatten_risk": "high" },
     { "shape": "aura", "why_rejected": "carries a buff/debuff payload, not a set-up-step legality gate", "flatten_risk": "medium" }
   ],
+  "revision": null,
   "self_grade": { "verdict": "new-shape", "confidence": 0.8, "concerns": [] }
-}
 ```
 - `decomposition.{who,when,what}` and `retrieval` MUST be the ACTUAL spawned
   outputs (they are the proof you did the grounding). Empty/omitted = the workflow

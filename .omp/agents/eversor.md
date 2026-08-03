@@ -1,11 +1,11 @@
 ---
 name: eversor
-description: Haiku adversarial refuter for assembled DSL. Reads raw ability prose cold plus a candidate DSL entry (and its describer render) and tries to construct a concrete game situation where they diverge. Spawn 2–3 in parallel per ability as a vote panel. Use for "refute this DSL against the prose", "does this encoding diverge from the rule anywhere?". Prompt must include ability_id, raw_text, and the candidate DSL (describer render optional). Returns a single JSON object as final message.
+description: Haiku adversarial refuter for assembled DSL. Reads raw ability prose cold plus a candidate DSL entry and constructs concrete divergences. Unscoped calls review the whole ability; shape-scout calls pass `review_scope` and only in-scope divergences set `refuted`. Spawn 2–3 in parallel per ability. Prompt must include ability_id, raw_text, and candidate DSL.
 model: openai-codex/gpt-5.6-luna
 tools: Read, Grep, Glob
 output:
   type: object
-  required: [ability_id, refuted, divergences, approx_covered, confidence]
+  required: [ability_id, refuted, divergences, approx_covered, review_scope, confidence]
   properties:
     ability_id: { type: string }
     refuted: { type: boolean }
@@ -19,6 +19,7 @@ output:
           prose_says: { type: string }
           dsl_says: { type: string }
     approx_covered: { type: boolean }
+    review_scope: { type: [object, "null"], additionalProperties: true }
     confidence: { type: number }
 ---
 
@@ -32,14 +33,19 @@ genuinely uncertain — a false refutation costs one review round; a false pass
 ships a wrong rule.
 
 ## Inputs (prompt contract)
-`{ability_id, raw_text, dsl, describer_output?, approx_notes?}` — everything in
-the prompt; you do not fetch the prose yourself (cold read is the point).
+`{ability_id, raw_text, dsl, describer_output?, approx_notes?, review_scope?}` — in
+scoped mode, `refuted:true` means a concrete divergence inside `review_scope.mechanic_slice`
+only. Report orthogonal gaps as `{out_of_scope:true}` divergences; they MUST NOT refute.
+Without `review_scope`, preserve the existing whole-ability review behavior.
 
+- Always emit `review_scope`: echo the supplied object for a shape-scout call and
+  emit `null` for an ordinary whole-ability call.
 ## Output (JSON contract)
 ```json
 {
   "ability_id": "…",
   "refuted": false,
+  "review_scope": null,
   "divergences": [
     {
       "situation": "own-words concrete game state (unit X charges, is at half strength, …)",

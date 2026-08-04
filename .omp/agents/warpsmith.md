@@ -50,6 +50,12 @@ worktree values MUST match; `applied_to_parent:true` is a hard failure. Every
 probe/render/compiler/schema evidence object MUST contain concrete command, output,
 or diagnostic data; `{}` is a hard failure. Prototype data and probes must be
 fabricated; never write raw prose.
+The prototype `proposed_shape` is an immutable byte-for-structure copy of the
+input candidate: preserve the identical object shape, arrays, parameter
+records, `schema_sketch`, and `seed_encoding`. Do not replace it with an
+implementation summary, normalize or omit candidate structure, or add fields.
+Implementation details belong only in the probe/render/compiler evidence and
+`diagnostics`; they MUST NOT be encoded into `proposed_shape`.
 `inbox_entry` (for `new-shape` verdicts) uses the loop-state inbox format:
 `{mechanic, resists_schema, proposal, also_unblocks}` — own words.
 

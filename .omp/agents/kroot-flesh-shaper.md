@@ -143,6 +143,16 @@ invented stand-in for those proof fields.
 ```
 - `revision` is a REQUIRED top-level sibling of `proposed_shape`: `null` on round
   one, then a non-empty machine-applicable `changes` array on every later round.
+Revision binding is strict and always relative to `previous_shape`: interpret each
+`path` against the shape as it existed before that change, and apply the ordered
+changes sequentially. A `replace` or `remove` path MUST already exist at the time
+it is applied. An `add` may create only a child path whose parent already exists;
+it MUST NOT create a missing ancestor. Never target diagnostic or evidence paths
+that are absent from `previous_shape`—revision changes describe the candidate
+shape only. After all changes, the reconstructed value MUST equal
+`proposed_shape` exactly (including names, kinds, parameters, and schema/seed
+contents). Minimal valid add example:
+`{"op":"add","path":"/parameters/1/notes","finding_id":"f-2","value":"zone size"}`.
   Never nest `revision` inside the candidate.
 - `decomposition.{who,when,what}` and `retrieval` MUST be the ACTUAL spawned
   outputs (they are the proof you did the grounding). Empty/omitted = the workflow

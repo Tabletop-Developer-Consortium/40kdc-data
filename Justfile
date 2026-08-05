@@ -85,7 +85,12 @@ verify-regen-stable:
       fi
 
 # All four language suites + conformance.
-test-all: test-ts test-rust test-python test-go conformance
+test-all: test-dsl-campaign test-ts test-rust test-python test-go conformance
+
+# Private campaign graph runtime and workflow contracts (requires Node >=22.18).
+test-dsl-campaign:
+    @echo "▸ DSL campaign graph + workflow tests"
+    node --test .omp/skills/dsl-campaign/graph/*.test.js .omp/skills/dsl-campaign/workflows/*.test.js
 
 # TS: build + unit tests + data validation.
 test-ts:

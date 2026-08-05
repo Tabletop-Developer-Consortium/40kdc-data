@@ -18,6 +18,8 @@ jobs:
         run: git diff --exit-code tools/src/generated.ts
       - run: cd tools && npm run build
       - run: cd tools && npm test
+      - name: Test DSL campaign graph and workflow contracts
+        run: node --test .omp/skills/dsl-campaign/graph/*.test.js .omp/skills/dsl-campaign/workflows/*.test.js
       - run: cd tools && npm run validate
       # Catch malformed packages on PRs instead of at publish time on main.
       # `npm pack --dry-run` exercises the prepack pipeline and prints the
@@ -172,9 +174,9 @@ jobs:
       # The examples resolve @alpaca-software/40kdc-data through the workspace,
       # so the package's dist must exist first.
       - run: cd tools && npm run build
-      - run: npm run check --workspace @40kdc/salvo --workspace @40kdc/mission-matrix --workspace @40kdc/layout-editor
-      - run: npm test --workspace @40kdc/salvo --workspace @40kdc/mission-matrix
-      - run: npm run build --workspace @40kdc/salvo --workspace @40kdc/mission-matrix --workspace @40kdc/layout-editor
+      - run: npm run check --workspace @40kdc/salvo --workspace @40kdc/mission-matrix --workspace @40kdc/layout-editor --workspace @40kdc/mechanic-evidence
+      - run: npm test --workspace @40kdc/salvo --workspace @40kdc/mission-matrix --workspace @40kdc/mechanic-evidence
+      - run: npm run build --workspace @40kdc/salvo --workspace @40kdc/mission-matrix --workspace @40kdc/layout-editor --workspace @40kdc/mechanic-evidence
 
   sync-worker:
     # The cloud-sync worker (workers/sync): typecheck + vitest workers pool

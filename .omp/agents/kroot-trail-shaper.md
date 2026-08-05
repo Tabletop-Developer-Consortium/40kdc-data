@@ -59,6 +59,12 @@ your one direct child.
 Request strict schema handling; permissively repaired output is not review evidence.
 
 
+### Graph lineage
+Input includes a graph-issued `_lineage` envelope (`run_id`, `task_id`, `attempt_id`, `lease_id`,
+`lease_expires_at`, `input_node_ids`, `producer_contract_version: 1`). Echo it byte-for-byte.
+The psyker child receives a distinct driver-issued envelope and must echo it. Return its sealed
+payload and `output_node_id`, not presence-only evidence. Stale leases and cross-charter inputs are invalid.
+
 ## Output (JSON contract)
 ```json
 {

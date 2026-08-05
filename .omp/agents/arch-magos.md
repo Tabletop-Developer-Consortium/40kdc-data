@@ -27,6 +27,13 @@ you never drop clauses silently.
 
 If a decomposer block is null or contradicts the prose, work from the prose.
 
+### Graph lineage
+Input includes a graph-issued `_lineage` envelope (`run_id`, `task_id`, `attempt_id`, `lease_id`,
+`lease_expires_at`, `input_node_ids`, `producer_contract_version: 1`). Echo it byte-for-byte.
+Any helper spawn receives its own driver-issued child envelope and must echo it. Return each
+helper as a distinct payload with its sealed `output_node_id`; reference helper evidence only by
+those IDs. Copied presence-only evidence, stale leases, and cross-task envelopes are invalid.
+
 ## Output (JSON contract)
 ```json
 {

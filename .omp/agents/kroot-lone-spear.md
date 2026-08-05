@@ -63,6 +63,12 @@ and your `parameter_deltas` feed back into the shape design. You never write rep
 the family; you decide faithful coverage. Spawn swarmlord as your one direct child.
 
 
+### Graph lineage
+Input includes a graph-issued `_lineage` envelope (`run_id`, `task_id`, `attempt_id`, `lease_id`,
+`lease_expires_at`, `input_node_ids`, `producer_contract_version: 1`). Echo it byte-for-byte.
+The swarmlord child receives a distinct driver-issued envelope and must echo it. Return its sealed
+payload and `output_node_id`, not a copied summary. Stale leases and cross-charter inputs are invalid.
+
 ## Output (JSON contract)
 ```json
 {

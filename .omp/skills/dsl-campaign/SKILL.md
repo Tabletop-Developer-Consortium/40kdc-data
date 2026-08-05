@@ -12,13 +12,19 @@ the second checkpoint. This file is the driver contract — a fresh session must
 run a campaign from it alone.
 
 Companion files: `workflows/wf-prioritize.js`, `workflows/wf-author-batch.js`,
-`workflows/wf-verify-batch.js`, `workflows/wf-review-batch.js`, `workflows/wf-shape-scout.js`, and
-`workflows/wf-close-campaign.js` (invoke via `Workflow({scriptPath, args})`; each embeds
-the agent Output contracts as JSON Schemas). Always pass
-`repo_root: "/Users/will.mitchell/40kdc-dsl"` in every workflow's args — subagents inherit
-the driver session's cwd, and every workflow hard-fails unless cwd and `jj root` both
-resolve to that exact path. Prompt-only workspace pinning is not a safeguard. The worked example
-of one converged campaign is `_private/loop-state/{roundtrip,inbox}-world-eaters.md`.
+`workflows/wf-verify-batch.js`, `workflows/wf-audit-batch.js`, and
+`workflows/wf-shape-scout.js` (invoke via `Workflow({scriptPath, args})`; each embeds
+the frozen agent Output contracts as JSON Schemas — never redesign those). Every workflow
+invocation must pass `repo_root: "/Users/will.mitchell/40kdc-dsl"`,
+`graph_root: "/Users/will.mitchell/40kdc-dsl/_private/claim-graph"`, and
+`execution_envelopes: complete_graph_issued_execution_envelopes`. That variable means the
+complete scheduler-issued map for every agent label the workflow can invoke; every value
+must contain `run_id`, `task_id`, `attempt_id`, `lease_id`, `lease_expires_at`,
+`input_node_ids`, and `producer_contract_version`. A partial/sample map is invalid.
+Trusted output is not sealed or persisted without both `graph_root` and a matching active
+graph-issued envelope. `repo_root` pins subagents to this workspace even when the driver
+was launched elsewhere. The worked example of one converged campaign is
+`_private/loop-state/{roundtrip,inbox}-world-eaters.md`.
 
 ## Preconditions (fail loudly if unmet)
 
@@ -33,16 +39,15 @@ of one converged campaign is `_private/loop-state/{roundtrip,inbox}-world-eaters
 - Toolchain in THIS workspace: `tools/node_modules` + `tools/dist`, `python/.venv`,
   `target/release/wh40kdc-runner`, `go/wh40kdc-runner`. Rebuild all three runners after
   ANY source edit before parity checks — stale runners give phantom verdicts.
-- `jj st` clean apart from `_private/` (reconcile, never clobber, if not); run `jj new` before
-  any work, then capture the full **`@-`** commit id as `campaign_base_commit_id` (never `@`);
-  never touch other
-  workspaces' commits (`<name>@`); never move `main`.
-- Before invoking a workflow, build one allowed-role manifest from the 16 discovered
-  definitions and verify every role resolves to exactly `openai-codex/gpt-5.6-luna`.
-  Every workflow repeats this hard check before spawning. Invoke no generic or
-  unlisted reviewer. Directly spawning campaign roles to imitate a failed workflow is
-  forbidden: it bypasses fixed workflow routing and is a blocking escalation. Treat
-  OMP's invocation log—not a model-returned role name—as the runtime provenance record.
+- `jj st` clean apart from `_private/` (reconcile, never clobber, if not). Create `jj new`
+  only after the second readiness gate atomically starts the graph campaign; never touch
+  other workspaces' commits (`<name>@`) and never move `main`.
+- Prototype isolation is backend-explicit. In a colocated Git/JJ checkout, omit
+  `prototype_workspaces` and the task runtime creates disposable isolation. In a pure-JJ
+  secondary workspace, the driver MUST create one dedicated `jj workspace` per possible
+  review round outside the repo, pass their absolute paths as `prototype_workspaces`, and
+  verify both those workspaces and the parent checkout after the scout. Never disable
+  isolation or reuse one prototype workspace across rounds.
 
 ## Non-negotiables (pinned decisions)
 
@@ -57,12 +62,6 @@ of one converged campaign is `_private/loop-state/{roundtrip,inbox}-world-eaters
 - **Cosine selects and measures; it never gates.** The embeddings harness is advisory.
 - **warpsmith is the only agent that writes repo files.** The driver writes loop-state,
   runs jj/gh. Workflow agents are read-only.
-- **Evidence is immutable.** data-enginseer emits a SHA-256-bound source packet with a
-  stable id for every independently testable clause. Every later role consumes that
-  packet; the driver never re-summarizes the source between roles.
-- **Architecture precedes decomposition.** Inquisitor classifies the global control
-  structure and can route a mechanic to shape-scout before leaf assembly. Every
-  mechanical clause must map exactly to DSL; note-only coverage is needs-schema.
 - **IP boundary:** GW prose may transit agent JSON, harness reports, and the session
   scratchpad; it must NEVER be written into any file inside this repo — including
   community_notes, [APPROX] notes, inbox entries, PR bodies, and commit messages
@@ -76,14 +75,13 @@ of one converged campaign is `_private/loop-state/{roundtrip,inbox}-world-eaters
 - **Campaign done (draft PR opens)** = every worklist entry has a terminal status —
   `converged` / `improved` (skeptic PASS) / `needs-schema` (inbox block filed) /
   `abandoned` (reason recorded) — ∧ full gates green at head ∧ whole-dataset prose diff
-  touches only worklist ids ∧ every target faction's independently computed mean has
-  not regressed (no justification bypass) ∧ draft PR opened.
+  touches only worklist ids ∧ faction mean not regressed ∧ draft PR opened.
 
 ## Does NOT count as done (ten hard rejects — inquisitor enforces per batch AND at close)
 
 1. **Placeholder lies** — valid DSL encoding a different mechanic.
 2. **Cosine-chasing lever drops** — e.g. `charged-this-turn` → `timing-is charge-move`.
-3. **APPROX-stuffing** — any mechanical clause evacuated into `[APPROX]` notes.
+3. **APPROX-stuffing** — clauses evacuated into `[APPROX]` notes to dodge refutation.
 4. **needs-schema as escape hatch** when an honest existing-shape fit exists.
 5. **Weakened verification** — panel <2 voters, goldens loosened/deleted, unrun gates
    reported passed, "pending" counted as PASS.
@@ -104,17 +102,34 @@ confidence < 0.7, or prior reject). ≤ 2 full gate re-runs per batch. Batch gra
 clean stop, never dressed as convergence): IP breach, gate failure surviving 2 re-runs,
 blocking escalation.
 
-OMP gives direct task-tool agents the configured 30-minute `task.maxRuntimeMs`, but
-workflow `agent()` calls currently ignore that setting. Until the runtime exposes
-per-call cancellation, the driver MUST externally cancel and inspect any workflow role
-with no terminal output by 20 minutes, and abort/restart the phase at 30 minutes.
-Repeating blind waits is forbidden. Log the current phase, role label, and last artifact
-before each wait so “running” is distinguishable from progress.
-
 Shape-scout (`wf-shape-scout.js`): ≤ 3 cyclical review rounds per shape, then forced
-terminal; the family bar is either lone-spear external `faithful_family_size` ≥ 4 or at
-least four homogeneous internal children in one closed composite mechanic. Kroot leads
-spawn leaf helpers only (spawn tree depth ≤ 2).
+terminal; the family bar counts unique canonical mechanics (`ability_id`) in the frozen
+exact family with `fit:faithful|needs-param` and `match_strength:exact|near`.
+Cross-faction copies remain mandatory evidence but do not add headcount;
+stretch/flattened/outside members count zero. Kroot leads spawn leaf helpers only
+(spawn tree depth ≤ 2).
+- **Frozen shape charter:** before cycle one, inquisitor freezes `shape_charter` with
+  the mechanic slice, exact acceptance family, required semantics, non-goals, deferred
+  candidates, fabricated acceptance fixtures, and explicit reopening rules. Collections
+  and members are deep-frozen; ordinary rounds may not change acceptance. Existing
+  deferred candidates merge with later discoveries as follow-ups. Every revision carries
+  `previous_shape` plus a finding ledger (`open|resolved|out-of-scope|superseded`) and
+  must retain the shape name/kind. Exhaustion returns either
+  `rounds-exhausted-unresolved-slice-tradeoff` (maintainer decision required) or the
+  conservative `rounds-exhausted-conservative-defer`.
+- **Prototype before acceptance:** each candidate receives a disposable, isolated,
+  non-applied warpsmith vertical slice. Colocated checkouts use runtime
+  `prototype.worktree_mode:"isolated-non-applied"`; pure-JJ secondary workspaces use a
+  driver-created, round-specific `prototype.worktree_mode:"jj-isolated-non-applied"`.
+  Warpsmith spawns skitarius in that same worktree for non-empty
+  compiler/schema/positive-negative/render evidence and echoes the exact candidate and
+  expected workspace it probed. Prototype diagnostics remain repair input and never
+  land in the campaign checkout.
+- **Closed blockers:** blocker closure derives only from evidence-gated ledger state,
+  never a self-reported boolean. Supersession requires a real replacement finding.
+  War-shaper may accept only after every finding is terminal, two distinct scoped
+  eversors pass on distinct frozen mechanics, and the final package exactly matches
+  the revised candidate, trail artifact, and prototype evidence.
 
 ## Procedure
 
@@ -122,10 +137,14 @@ spawn leaf helpers only (spawn tree depth ≤ 2).
 
 ```bash
 cd /Users/will.mitchell/40kdc-dsl
+node .omp/skills/dsl-campaign/graph/cli.js readiness --next --json
 jj workspace update-stale 2>/dev/null; jj st   # reconcile surprises; never clobber
-jj new -m "wip: dsl-campaign cNNN"             # NNN = next id from registry.json
-campaign_base_commit_id=$(jj log -r @- --no-graph -T 'commit_id')
 ```
+
+The readiness gate must report `ready:true`, `next_campaign_id:"c010"`, and the active
+`excluded_claims`. Do not create a jj change yet. A missing/stale source formalization,
+legacy recovery, projection checksum, repository identity, certificate, lease, or apply
+transaction fails closed.
 
 Refresh the full-corpus scores (fast when embedding cache is warm):
 
@@ -139,8 +158,6 @@ Snapshot `_reports/roundtrip-all.json` to the session scratchpad as
 7): at close, a fresh `--faction all` run's describer outputs are diffed against it and
 any changed non-worklist id fails the campaign. (Coverage is store-paired abilities; the
 `drift`/conformance gates cover the goldens beyond it.)
-Record the snapshot's SHA-256. `wf-prioritize.js` reads the file and refuses a hash
-mismatch, preventing a stale or replaced baseline from entering curation.
 
 ### 1 — Prioritize
 
@@ -150,88 +167,82 @@ ids+scores). Then:
 ```
 Workflow({ scriptPath: ".omp/skills/dsl-campaign/workflows/wf-prioritize.js", args: {
   repo_root: "/Users/will.mitchell/40kdc-dsl",
-  campaign_id: "cNNN",
-  campaign_base_commit_id,
+  graph_root: "/Users/will.mitchell/40kdc-dsl/_private/claim-graph",
+  execution_envelopes: complete_graph_issued_execution_envelopes,
   scout_shapes: [ …recently shipped shapes + any user bias… ],
-  artifacts: { roundtrip_report_path, roundtrip_report_sha256, sub080_summary,
-               loop_state_paths, registry_excerpt },
+  excluded_claims: readiness.excluded_claims,
+  artifacts: { roundtrip_report_path, sub080_summary, loop_state_paths, registry_excerpt },
   worklist_cap: 30 } })
 ```
 
-From `curation.priorities`, materialize the worklist (ability_id, faction_id, cos_start,
-prior_reject from the ledger). Honor a user targeting bias from `$ARGUMENTS` as round-1
-priority. Then: append the campaign entry to `_private/loop-state/registry.json`
-(`status:"open"`, `mean_before` from the report), create `roundtrip-<target>.md` in the
-world-eaters table format, and file any `escalate_to_user` items into
-`registry.escalations`. If an escalation **blocks** target choice, stop and ask the user.
-Persist the workflow-returned `campaign_manifest_json` byte-for-byte in the session
-scratchpad and record its returned SHA-256; closure requires that frozen manifest.
-It freezes `campaign_base_commit_id`; prioritization verifies that id resolves and is
-an ancestor of the current campaign commit.
+From `curation.priorities`, materialize a private JSON worklist containing `ability_id`,
+`faction_id`, `cos_start`, and `prior_reject`. Exclude every graph-issued active claim.
+Honor a user targeting bias from `$ARGUMENTS` as round-1 priority. Immediately before
+creation, run:
+
+```bash
+node .omp/skills/dsl-campaign/graph/cli.js readiness --next --worklist <worklist.json> --json
+node .omp/skills/dsl-campaign/graph/cli.js start-campaign --id c010 --worklist <worklist.json>
+jj new -m "wip: dsl-campaign c010"
+```
+
+Only `start-campaign` creates the run, claims, source-formalization tasks, readiness parent,
+and registry projection. An overlap is rejected transactionally; rerun curation with the
+new exclusion set. Never append or edit `registry.json` directly. Blocking escalations are
+answered as graph decisions before retrying readiness.
+
+Before authoring each ability, complete its graph tasks in dependency order:
+`source-formalization certificate -> certified retrieval -> construction plan -> author`.
+Primitive/embedding similarity is discovery-only. Pass `wf-author-batch.js` only selected
+current certified ancestor node IDs, explicit unmatched claims, the construction-plan ID,
+and graph-issued execution envelopes. Never replay a transcript or use c007–c009 legacy
+observations as authority.
 
 ### 2 — Author (per batch of 5–6)
 
 ```
-Workflow({ scriptPath: ".omp/skills/dsl-campaign/workflows/wf-author-batch.js",
-  args: { repo_root: "/Users/will.mitchell/40kdc-dsl", campaign_id: "cNNN", batch_id: "cNNN-bK",
-          campaign_manifest_sha256, candidate_commit_id, // current pre-application @ commit
-          new_shapes: […], abilities: […5–6 worklist entries…] } })
+Workflow({ scriptPath: ".omp/skills/dsl-campaign/workflows/wf-author-batch.js", args: {
+  repo_root: "/Users/will.mitchell/40kdc-dsl",
+  graph_root: "/Users/will.mitchell/40kdc-dsl/_private/claim-graph",
+  execution_envelopes: complete_graph_issued_execution_envelopes,
+  batch_id: "cNNN-bK", new_shapes: […], abilities: […5–6 worklist entries…] } })
 ```
 
-The workflow retrieves one immutable evidence packet, invokes inquisitor in
-`architect` mode, and checks that the architecture accounts for every clause before
-WHO/WHEN/WHAT decomposition. Unsupported menus, resource systems, state machines, or
-actor/event bindings return `needs-schema` immediately. Arch-magos output is accepted
-only when its clause-coverage matrix maps every mechanical clause exactly with
-source-explicit or schema-derived evidence; dropped, inferred, unresolved, or note-only
-mechanics route to shape-scout.
-
 Statuses back: `accepted` → apply (step 3). `needs-schema` → **step 2a** (family check,
-then shape-scout or inbox). A `rejected` result at the four-attempt budget is terminal
-`abandoned`, with that author envelope as evidence. Before the budget is exhausted,
-adjudication feedback must re-enter `wf-author-batch` and produce a fresh `accepted` or
-`needs-schema` author status; adjudication can never relabel a rejected author artifact.
-`no-prose` / `agent-error` → terminal
+then shape-scout or inbox). `rejected` → adjudicate: spawn inquisitor (`mode:"review"`,
+the candidate + verdicts as `agent_outputs`); `accept` overrides a bad refutation (record
+why), otherwise terminal `abandoned` with reason — or `needs-schema` (→ step 2a) if the
+divergences show the schema can't express it. `no-prose` / `agent-error` → terminal
 `abandoned` (reason recorded). Each result's `thread` is the FULL per-round revision
 history (every attempt's divergences, not just the last) — record it in the
 ledger/roundtrip notes so cyclical revisions stay auditable.
 
-For terminal workflow evidence, the driver constructs inbox envelopes, never loose
-one-key snippets. Each is `{binding,payload}` with
-`kind,campaign_id,batch_id,campaign_manifest_sha256,ability_keys,candidate_commit_id,payload_sha256`;
-`ability_keys` is the full referenced batch key set and `payload_sha256` hashes the exact
-payload JSON. Inbox payload is `{entries:[{faction_id,ability_id,resisted_schema}]}`. Different
-batches may legitimately bind different applied candidate commits; author artifacts bind
-their earlier `author_candidate_commit_id`. Closure validates the full batch envelope and
-then requires the terminal key's inclusion rather than pretending the envelope covered
-only `[key]`.
-
 ### 2a — Shape-scout on a needs-schema result
 
-A `needs-schema` is not automatically terminal. Use the architect output and inquisitor
-to judge whether the resisted mechanic has either an external family (≥4 abilities,
-exact+near) or an internal family (≥4 homogeneous children in one closed composite):
+A `needs-schema` is not automatically terminal. Spawn inquisitor to judge whether the
+resisted mechanic is a FAMILY (≥ ~4 abilities, exact+near) or a singleton:
 - **Singleton** → append the `resisted_schema` block to `inbox-<faction>.md` (own words),
   ledger `needs-schema`; committed entry untouched (never a placeholder). Terminal.
 - **Family** → fork to the shape-scout, seeding the resisted_schema block:
   ```
   Workflow({ scriptPath: ".omp/skills/dsl-campaign/workflows/wf-shape-scout.js", args: {
     repo_root: "/Users/will.mitchell/40kdc-dsl",
-    campaign_id: "cNNN", campaign_manifest_sha256,
-    campaign_manifest_path,
-    seed: { ability_id, faction_id, raw_text, evidence_packet, architecture,
-            resisted_schema }, family_threshold: 4 } })
+    graph_root: "/Users/will.mitchell/40kdc-dsl/_private/claim-graph",
+    execution_envelopes: complete_graph_issued_execution_envelopes,
+    seed: { ability_id, faction_id, raw_text, resisted_schema }, family_threshold: 4 } })
   ```
-  The kroot suite (flesh-shaper → lone-spear → trail-shaper → war-shaper, each spawning
-  its OWN helpers) returns `status`:
-  - `shipped-ready` (war-shaper `accept` ∧ external or internal family threshold) →
-    **auto-apply only its `faithful_family` entries already present in the frozen manifest**:
-    hand `shape_package` to warpsmith (`implement`) to land the schema
+  In a pure-JJ secondary workspace, include `prototype_workspaces` with one absolute,
+  driver-created workspace path per possible round.
+  The shape-scout runs inquisitor charter → flesh-shaper → lone-spear →
+  isolated warpsmith+skitarius prototype → trail-shaper → war-shaper; each lead
+  spawns its own declared helpers. It returns `status`:
+  - `shipped-ready` (war-shaper `accept` ∧ unique canonical exact/near mechanic count
+    ≥ threshold ∧ every ledger finding terminal ∧ immutable-charter checks pass ∧
+    isolated prototype skitarius evidence passes ∧ final package artifacts match) →
+    **auto-apply**: hand `shape_package` to warpsmith (`implement`) to land the schema
     oneOf branch + all four describer ports + conformance cases + SPEC bump + version
     lockstep, then re-author the seed AND every `faithful_family` member onto the new
-    shape as accepted candidates (step 3). Any family member discovered outside the
-    manifest is recorded in loop-state for the next campaign and receives no tracked
-    edit or render in this campaign; the frozen manifest is never amended. The campaign is now shape-led — expect a
+    shape as accepted candidates (step 3). The campaign is now shape-led — expect a
     heavier PR, and the full close gate (step 4) must cover the port/SPEC work.
   - `existing-fits` → the scout proved an existing shape fits after all; re-enter step 2
     authoring with that shape named (the resist was a false alarm).
@@ -243,137 +254,85 @@ exact+near) or an internal family (≥4 homogeneous children in one closed compo
 
 ### 3 — Apply + verify (per batch)
 
-1. **warpsmith applies** the accepted candidates (Agent tool, sole writer), then performs
-   **all regeneration** required by those edits before any verification identity is captured:
+1. **warpsmith applies** the accepted candidates (Agent tool, sole writer):
    `implement` decisions referencing each candidate's dsl JSON; it edits
-   `data/enrichment/<faction>/abilities.json` only for data work. Before source work it
-   must return a complete implementation matrix and exact changed-path allowlist.
-2. Only after warpsmith edits and all regen are final, run
-   `jj describe -m "feat: dsl-campaign cNNN batch K — <target>"`, capture the final full
-   `@` commit id, and use that immutable candidate identity for verification, review,
-   and rescore. No writer may run between identity capture and verification.
-3. The side-effect-free TS build equivalent is
-   `cd tools && npm run codegen:data && npx tsc` (never use the package lifecycle build
-   script in a campaign; its postbuild writes audit coverage). Rebuild runners if any source changed. Audit docs
-   are forbidden campaign outputs.
-4. ```
-   Workflow({ scriptPath: ".omp/skills/dsl-campaign/workflows/wf-verify-batch.js",
-     args: { repo_root, campaign_id, batch_id, campaign_manifest_sha256,
-             candidate_commit_id, ability_ids, faction_ids, touched_files,
-             allowed_files, decision_kind, implementation_matrix,
-             expected_candidate_dsl_hashes,
-             baseline_commit_id, // explicit committed parent/current baseline
-             sealed_head: false, campaign_base_commit_id: null } })
+   `data/enrichment/<faction>/abilities.json` only.
+2. Regenerate + rebuild what the edit touches (TS bundle at minimum:
+   `cd tools && npm run build`); rebuild runners if any source changed.
+3. ```
+   Workflow({ scriptPath: ".omp/skills/dsl-campaign/workflows/wf-verify-batch.js", args: {
+     repo_root: "/Users/will.mitchell/40kdc-dsl",
+     graph_root: "/Users/will.mitchell/40kdc-dsl/_private/claim-graph",
+     execution_envelopes: complete_graph_issued_execution_envelopes,
+     batch_id, ability_ids, faction_ids, touched_files } })
    ```
-   The workflow inventories `jj diff --name-only -r @` itself and fails on any path
-   outside warpsmith's exact-path allowlist. `new-shape` changes require exact rows for
-   canonical schema, each port's actual describer source, each port's cruncher source,
-   conformance, SPEC, generated types/schemas, each tracked language bundle, exact faction
-   data, and version lockstep including `Cargo.lock` alongside the four declared version
-    files. Scoring-describer surfaces are exactly `tools/src/translate/scoring.ts`,
-    `python/src/wh40kdc/translate/scoring.py`, and `go/translate_scoring.go`; there is no
-    Rust scoring-describer mirror, so none is invented.
-   Ordinary `new-shape` and `describer-reword` neither require nor accept scoring files.
-   A distinct `scoring-describer` decision requires exactly the TS/Python/Go scoring
-   describers, scoring conformance, and SPEC mirrors (there is no Rust scoring mirror).
-   `describer-reword` requires the four ordinary describer ports plus conformance/SPEC; `data`
-   requires exact faction data and each tracked Rust/Python/Go bundle path. Verification
-   recognizes `data-conformance` when data-generated conformance also changes: require
-   data, all tracked bundles, conformance outputs, `conformance/SPEC_VERSION`,
-   `python/src/wh40kdc/_spec.py`, and `go/spec.go`. Diff-derived decision validation
-   distinguishes it from plain data.
-   also requires format/lint (including Ruff) and six-pair
-   parity; `not_run` is failure.
    Fail the batch on `!overall_pass` (≤2 re-runs after fixes), `verdict:"regressed"`
    (drop/fix the offending ability — levers outrank cosine), or any severity-3 psyker
    finding. Psyker `missing-clause-signal` routes to inquisitor as fidelity, not to
    warpsmith as wording.
-5. Re-score just the batch:
+4. Re-score just the batch:
    ```bash
    cd /Users/will.mitchell/40kdc-embeddings && .venv/bin/python -m wh40kdc_embeddings \
      roundtrip --faction <f> --ids <id,id,…> --scope batch-cNNN-bK \
      --enrichment-dir /Users/will.mitchell/40kdc-dsl/data/enrichment
    ```
-   Save the unmodified `{kind:"roundtrip",abilities:[...]}` report. Put campaign/batch/
-   manifest/key/commit binding in its artifact reference, never in embeddings JSON.
    Any ability below its `cos_start` needs a recorded correctness-first justification or
    another attempt (within its 4-attempt budget).
-6. Invoke `wf-review-batch.js` with `repo_root,campaign_id,batch_id,
-   campaign_manifest_sha256,candidate_commit_id,candidate_dsl_hashes,faction_ids,
-   ability_keys,author_artifact,verify_artifact,rescore_artifact,agent_outputs`. It invokes
-   inquisitor with Luna strict and emits a bound `{binding,payload}` with exactly one
-   terminal review per key. `revise` or `reject` requires rollback/revision and then a
-   fresh `wf-author-batch` result before any new apply; never directly relabel the
-   previously accepted artifact terminal.
-7. On accept: save artifact references for author workflow, verification workflow,
-   inquisitor review, and rescore in every ledger row; then seal with plain `jj new`
-   and update statuses/scores/attempts. Never use `jj commit -m` after verification.
-   Author/verify/review files use `{binding,payload}`; binding contains
-   `kind,campaign_id,batch_id,campaign_manifest_sha256,ability_keys,payload_sha256` plus
-   its phase commit and candidate hashes. Author uses `author_candidate_commit_id` and
-   per-key `candidate_dsl_hashes`; verify uses `candidate_commit_id` and independently
-   recomputed applied hashes. The read-only author artifact binds the pre-application commit it actually inspected;
-   verify/review bind the applied candidate commit. Never predict a future jj commit id.
-   Canonical hashing is UTF-8 SHA-256 of compact JSON with object keys recursively sorted
-   and array order preserved. The ledger stores `author_candidate_commit_id` and
-   `candidate_dsl_sha256`. References include file hash, payload hash, and exact keys. Review rows include
-   `faction_id`. A todo is complete only when its required artifact id/path or commit id exists.
+5. **Final maintainer audit — required before terminal review.** Invoke:
+   ```
+   Workflow({ scriptPath: ".omp/skills/dsl-campaign/workflows/wf-audit-batch.js", args: {
+     repo_root: "/Users/will.mitchell/40kdc-dsl",
+     graph_root: "/Users/will.mitchell/40kdc-dsl/_private/claim-graph",
+     execution_envelopes: complete_graph_issued_execution_envelopes,
+     batch_id, abilities: [{ ability_id, faction_id }, …],
+     baseline_roundtrip_report_path, updated_roundtrip_report_path } })
+   ```
+   Present every returned entry to the maintainer in input order: verbatim original rule,
+   baseline describer output + score, and updated describer output + score. The original
+   rule is ephemeral session output; never persist it in the repo, loop-state, PR body, or
+   commit message. Do not call the batch accepted until this comparison was surfaced.
+6. Inquisitor batch review (`mode:"review"`, arch-magos outputs + verify results +
+   scores + final audit). `revise` re-enters step 2 for that ability; `reject` → terminal
+   per step 2.
+7. On accept: seal the review, persist the apply transaction and post-apply repository
+   snapshot/checks, then `jj commit -m "feat: dsl-campaign cNNN batch K — <target>"`.
+   Advance leases/checkpoints and regenerate the registry projection through the graph;
+   never write `registry.json` directly. Worker errors become durable `failed-final`,
+   `invalid-output`, or `stale` transitions instead of bypassing the reducer.
 
 ### 4 — Close
 
-1. All worklist entries terminal (anti-condition 6) — else keep batching. Each converged
-   or improved row has author/verify/review/rescore artifact references and scores.
-2. Fresh-run the whole-corpus roundtrip and normalize the comparison against the
-   baseline into a scratchpad JSON artifact:
-   `{baseline_sha256,current_sha256,changes:[{faction_id,ability_id}],
-   non_worklist_changes:[],generated_at}`.
-3. Seal the completed stack with plain `jj new`, capture `@-`'s commit id, and produce one
-   final `wf-verify-batch` envelope (`sealed_head:true`, `decision_kind:"sealed-campaign"`)
-   at that sealed head covering every converged/improved faction/ability pair. Pass every
-   required argument: `campaign_id`, manifest hash, sealed candidate ID, expected candidate
-   hashes, `decision_kind:"sealed-campaign"`, `sealed_head:true`,
-   `campaign_base_commit_id`, exact paths, factions/abilities, and implementation matrix. It declares
-   every changed path under its exact recognized matrix surface (intermediate verification
-   is not closure evidence). It inventories `jj diff --from
-   <campaign_base_commit_id> --to @-` and binds `sealed_head:true`, the frozen base, and
-   exact sealed head in its envelope. Then invoke
-   `wf-close-campaign.js` with the frozen campaign-manifest path/hash, hashed
-   author/verify/review/rescore artifact files, baseline/current report paths, ledger,
-   per-faction means, final verification, normalized prose diff, and expected head. It hard-runs jj-compatible `just preflight`, rebuilds all four runners, runs
-   all six parity pairs, validates score/terminal artifacts, and invokes inquisitor in
-   close mode over all ten anti-conditions.
-4. Ship ONLY when the workflow returns `ready_to_publish:true`: `jj bookmark create
-   wnmitch/dsl-cNNN-<slug> -r "commit_id(<publish_commit_id>)"` (never re-resolve
-   symbolic `@-` after the gate), then `jj git push --bookmark
-   wnmitch/dsl-cNNN-<slug> --allow-new`, `gh pr create --draft` — PR body:
+1. All worklist entries terminal (anti-condition 6) — else keep batching.
+2. Full gate: `PATH="$PWD/python/.venv/bin:$PATH" just regen fmt test-all
+   version-lockstep` in the workspace, plus parity differ with **freshly rebuilt**
+   runners. Drift-check by committing regen output and confirming `jj st` clean.
+3. Prose diff: fresh `--faction all` run vs `prose-baseline.json`; any non-worklist id
+   whose describer output changed ⇒ anti-condition 7, fix before closing.
+4. Inquisitor close-out (`mode:"review"` over the campaign summary): re-checks all ten
+   anti-conditions campaign-wide; faction mean ≥ `mean_before`.
+5. Ship: `jj bookmark create wnmitch/dsl-cNNN-<slug> -r @-` (the batch stack), `jj git
+   push --bookmark wnmitch/dsl-cNNN-<slug> --allow-new`, `gh pr create --draft` — PR body:
    own-words summary, worklist table (ids, statuses, cos start→best), justifications for
    any cosine drops, inbox blocks filed, escalations. No GW prose, no personal info.
-5. Before calling the campaign converged, confirm the PR has no merge conflict and all
-   required CI checks pass. A red/conflicted draft remains `open`, never converged.
-6. Persist: registry entry → `converged` (+pr, mean_after, finished); `memory_store`
-   (tags: `40kdc-data`, `dsl-loop`) one-paragraph campaign summary.
+6. Persist the terminal run/certificates through graph events, regenerate the compatibility
+   registry with `graph/cli.js project-registry`, then `memory_store` (tags:
+   `40kdc-data`, `dsl-loop`) one-paragraph campaign summary.
 7. Report to the user: PR link, mean before→after, statuses, escalations, and anything
    `blocked_shapes` gained. If aborted instead: exact reason, what converged first,
    registry state — never dress an abort as convergence.
 
 ## Registry (`_private/loop-state/registry.json`)
 
-Machine source of truth; driver-written only; gitignored (never rides the PR).
-`campaigns[]` {id, kind: faction-led|shape-led|inbox-led|describer-led|shape-scout, target, bookmark,
-status: open|converged|aborted, pr, worklist_size, mean_before, mean_after, started,
-finished, notes} · `blocked_shapes[]` {proposal, why, reopen_when} — dedup source for
-swarmlord/warpsmith proposals (full seen-set; reopen only when `reopen_when` is met with
-cited new evidence) · `ability_ledger` {"faction/id": {status, campaign, cos_start,
-cos_best, attempts, justification, artifacts:{author,verify,review,rescore}}} ·
-`escalations[]` {question, raised_by, campaign,
-resolved}.
+Generated compatibility projection; `_private/claim-graph/index.sqlite` is authoritative.
+The driver MUST NOT write this file. `graph/cli.js project-registry` is its sole writer and
+preserves human fields while projecting graph lifecycle state. The graph owns campaigns,
+active claims, decisions, findings, certificates, apply transactions, and authority edges;
+legacy ledger status never grants reuse authority. c005 remains resumable through this same
+event path, and its nine active claims remain excluded from every new campaign.
 
 ## Field notes
 
 - Cull/stop driver-spawned agents as soon as their output is verified.
-- A workflow failure is not permission to hand-simulate its roles. Diagnose/restart
-  the workflow or abort with a blocking escalation; the fixed routing and OMP
-  invocation log are part of the evidence.
 - `execSync`-based repo tools resolve path args against the repo root, not shell cwd.
 - The dump/store/report debugging rule applies to prose lookups: before concluding an
   ability "has no prose", make data-enginseer show the failing grep, not the theory.

@@ -1,29 +1,52 @@
+import { createTrustedAgent } from '../graph/workflow-runtime.js'
+
+import {
+  assertCharterFamily,
+  assertScopedRefutations,
+  assertRevision,
+  assertShapeIdentity,
+  classifyBlocker,
+  countFamilyMechanics,
+  freezeShapeCharter,
+  mergeDeferredCandidates,
+  normalizeFindingLedger,
+  prototypeAgentInput,
+  psykerSeverityFindings,
+  prototypeAgentOptions,
+  prototypeGateDecision,
+  resolveFindingLedger,
+  terminalOutcome,
+  validateShapeCharter,
+  validateShapePackage,
+} from './wf-shape-scout-state.js'
+
 export const meta = {
   name: 'dsl-shape-scout',
   description: 'Design a new DSL shape for a resisted mechanic — the kroot suite proposes, broadens, renders, and adversarially reviews it, emitting a warpsmith-ready shape package.',
   phases: [
     { title: 'Seed', detail: 'data-enginseer retrieves the resisted ability prose + committed DSL' },
+    { title: 'Charter', detail: 'inquisitor freezes the exact mechanic slice, family, fixtures, and reopening rule' },
     { title: 'Shape', detail: 'kroot-flesh-shaper proposes a new shape (spawns decomposers + enginseer)' },
     { title: 'Broaden', detail: 'kroot-lone-spear adjudicates faithful coverage (spawns swarmlord)' },
+    { title: 'Prototype', detail: 'warpsmith validates a disposable isolated vertical slice with skitarius evidence' },
     { title: 'Trail', detail: 'kroot-trail-shaper specs the describer (spawns psyker)' },
     { title: 'War', detail: 'kroot-war-shaper attacks sprawl/flattening/parity/family (spawns eversor + swarmlord)' },
   ],
 }
 
 // args: {
-//   repo_root: string,
-//   campaign_id: string,
-//   campaign_manifest_sha256: string,
-//   campaign_manifest_path: string, // frozen; discoveries are next-campaign only
-//   seed: { ability_id, faction_id, raw_text?, evidence_packet?, architecture?, resisted_schema? },
+//   repo_root?,
+//   seed: { ability_id, faction_id, raw_text?, resisted_schema? },  // the needs-schema ability
 //   family_threshold?: 4,      // faithful family bar (exact+near, flatten-excluded) — the shape gate
 //   max_rounds?: 3,            // cyclical review rounds before forcing terminal
+//   prototype_workspaces?: string[], // driver-created jj workspaces for pure-JJ checkouts
 // }
-// Returns { seed, status, shape_package, rounds } where status ∈
+// Returns { seed, shape_charter, status, terminal, shape_package, rounds } where status ∈
 //   shipped-ready | existing-fits | rejected-sprawl | rejected-singleton | not-converged | no-prose
-//   rounds: [{ round, flesh, lone, trail, war, verdict }] — the FULL review thread (loop-round capture).
+//   rounds retain the full revision/prototype/review thread. `shape_charter.exact_family` is immutable:
+//   discoveries outside it are deferred follow-ups unless inquisitor explicitly reopens the charter.
 //   shape_package (on shipped-ready) is warpsmith's implement input: schema branch + describer + faithful family + cost.
-// NO repo writes happen here. Prose (GW IP) transits agent JSON and this run's journal only.
+// NO parent repo writes happen here. A prototype is a disposable isolated warpsmith worktree only.
 //
 // Spawn-native: the kroot leads spawn their OWN helper children (flesh -> decomposers+enginseer,
 // lone-spear -> swarmlord, trail -> psyker, war -> eversor+swarmlord). Nested spawns need
@@ -33,62 +56,24 @@ export const meta = {
 
 if (typeof args === 'string') args = JSON.parse(args)
 if (!args || !args.seed || !args.seed.ability_id) throw new Error('args.seed.ability_id required')
-if (!args.campaign_id || !args.campaign_manifest_sha256 || !args.campaign_manifest_path)
-  throw new Error('campaign_id, campaign_manifest_path, and campaign_manifest_sha256 required')
-const manifestFile = Bun.file(args.campaign_manifest_path)
-if (!(await manifestFile.exists())) throw new Error('campaign manifest not found')
-const manifestBytes = new Uint8Array(await manifestFile.arrayBuffer())
-if (new Bun.CryptoHasher('sha256').update(manifestBytes).digest('hex') !== args.campaign_manifest_sha256)
-  throw new Error('campaign manifest hash mismatch')
-const campaignManifest = JSON.parse(new TextDecoder().decode(manifestBytes))
-if (campaignManifest.campaign_id !== args.campaign_id || !Array.isArray(campaignManifest.worklist))
-  throw new Error('campaign manifest identity/worklist mismatch')
-const MANIFEST_KEYS = new Set(campaignManifest.worklist.map(x => `${x.faction_id}/${x.ability_id}`))
-const SEED_KEY = `${args.seed.faction_id}/${args.seed.ability_id}`
-if (MANIFEST_KEYS.size !== campaignManifest.worklist.length || !MANIFEST_KEYS.has(SEED_KEY))
-  throw new Error('shape seed must occur exactly once in the frozen campaign manifest')
-if (!args.repo_root) throw new Error('args.repo_root required (workspace identity is enforced, not advisory)')
-const THRESHOLD = args.family_threshold || 4
-const MAX_ROUNDS = args.max_rounds || 3
-if (THRESHOLD !== 4) throw new Error('family_threshold is fixed at 4 and cannot be weakened')
-if (!Number.isInteger(MAX_ROUNDS) || MAX_ROUNDS < 1 || MAX_ROUNDS > 3)
-  throw new Error('max_rounds must be an integer from 1 through 3')
-const quote = s => `'${String(s).replaceAll("'", "'\\''")}'`
-const ROLE_MANIFEST = ['arch-magos', 'chronomancer', 'cogitator', 'data-enginseer', 'eversor',
-  'inquisitor', 'kroot-flesh-shaper', 'kroot-lone-spear', 'kroot-trail-shaper',
-  'kroot-war-shaper', 'psyker', 'skitarius', 'swarmlord', 'target-dummy', 'vox-hound', 'warpsmith']
-function resultText(v) {
-  if (typeof v === 'string') return v
-  if (!v) return ''
-  if (typeof v.text === 'string') return v.text
-  if (typeof v.output === 'string') return v.output
-  if (typeof v.stdout === 'string') return v.stdout
-  if (Array.isArray(v.content)) return v.content.map(x => typeof x === 'string' ? x : (x.text || '')).join('\n')
-  return ''
+const THRESHOLD = Math.max(args.family_threshold || 4, 4)
+const MAX_ROUNDS = Math.min(Math.max(args.max_rounds || 3, 1), 3)
+if (args.prototype_workspaces && (!Array.isArray(args.prototype_workspaces) ||
+  args.prototype_workspaces.length < MAX_ROUNDS ||
+  args.prototype_workspaces.some(workspace => typeof workspace !== 'string' || !workspace.startsWith('/')))) {
+  throw new Error(`prototype_workspaces requires ${MAX_ROUNDS} absolute jj workspace paths`)
 }
-const runAgent = (prompt, options) => agent(prompt, {
-  ...options, model: 'openai-codex/gpt-5.6-luna', schemaMode: 'strict',
-})
-async function assertWorkspace() {
-  const root = quote(args.repo_root)
-  const check = await tool.bash({ command:
-    `set -eu; expected=$(cd ${root} && pwd -P); ` +
-    `test "$(pwd -P)" = "$expected"; test "$(jj root)" = "$expected"; ` +
-    `test -f AGENTS.md; test -f .omp/skills/dsl-campaign/SKILL.md; ` +
-    `for role in ${ROLE_MANIFEST.map(quote).join(' ')}; do file=".omp/agents/$role.md"; ` +
-    `test -f "$file"; model=$(sed -n 's/^model: //p' "$file"); test "$model" = "openai-codex/gpt-5.6-luna"; done; ` +
-    `grep -q '40kdc-data' AGENTS.md; printf '__DSL_WORKSPACE_OK__:%s\\n' "$expected"`, timeout: 20 })
-  if (!resultText(check).includes('__DSL_WORKSPACE_OK__'))
-    throw new Error(`workspace preflight failed: cwd and jj root must both equal ${args.repo_root}`)
-  return { repo_root: args.repo_root, verified: true, role_manifest_verified: ROLE_MANIFEST }
-}
-const workspace = await assertWorkspace()
-const PRE = `Verified repo root: ${args.repo_root}. The workflow hard-checked that its cwd and jj root ` +
-  `match this path. Run every command there; never read or write another checkout.\n`
+const graphAgent = createTrustedAgent({ driverArgs: args, invokeAgent: agent })
+// Pin every agent to the loop workspace (subagents inherit the DRIVER cwd, which may be another checkout).
+const PRE = args.repo_root
+  ? `Repo root: ${args.repo_root} — cd there first; run every command and resolve every ` +
+    `relative path (including ../40kdc-abilities and ../40kdc-embeddings) against it. ` +
+    `Never read or write any other checkout of this repo.\n`
+  : ''
 
 // ---- frozen Output contracts, transcribed to JSON Schema (mirror the agent output: frontmatter) ----
 const ENGINSEER_OUT = {
-  type: 'object', required: ['matches', 'method', 'evidence_packet'],
+  type: 'object', required: ['matches', 'method'],
   properties: {
     matches: { type: 'array', items: { type: 'object', required: ['ability_id', 'faction', 'raw_text', 'has_dsl'],
       properties: { ability_id: { type: 'string' }, faction: { type: 'string' },
@@ -97,41 +82,35 @@ const ENGINSEER_OUT = {
         other_faction_copies: { type: 'array', items: { type: 'string' } } } } },
     comparison: { type: ['object', 'null'], additionalProperties: true }, method: { enum: ['index-lookup', 'grep', 'embeddings'] },
     notes: { type: 'array', items: { type: 'string' } },
-    evidence_packet: { type: ['object', 'null'], additionalProperties: true },
   },
 }
-function evidencePayload(packet) {
-  return {
-    ability_id: packet.ability_id, faction_id: packet.faction_id, source_hash: packet.source_hash,
-    clauses: packet.clauses.map(c => ({ clause_id: c.clause_id, start: c.start, end: c.end,
-      source_text_hash: c.source_text_hash, mechanical: c.mechanical, kind: c.kind })),
-    relationships: packet.relationships || [], tables: packet.tables || [],
-  }
+const CHARTER_OUT = {
+  type: 'object', required: ['mechanic_slice', 'exact_family', 'required_semantics', 'non_goals', 'deferred_candidates', 'acceptance_fixtures', 'reopening_rules'],
+  properties: {
+    mechanic_slice: { type: 'string' },
+    exact_family: { type: 'array', minItems: 1, items: { type: 'object', required: ['ability_id', 'faction'], properties: { ability_id: { type: 'string' }, faction: { type: 'string' }, rationale: { type: 'string' } } } },
+    required_semantics: { type: 'array', minItems: 1, items: { type: 'string' } },
+    non_goals: { type: 'array', items: { type: 'string' } },
+    deferred_candidates: { type: 'array', items: { type: 'object', required: ['ability_id', 'faction'], properties: { ability_id: { type: 'string' }, faction: { type: 'string' } }, additionalProperties: true } },
+    acceptance_fixtures: { type: 'array', minItems: 1, items: { type: 'object', additionalProperties: true } },
+    reopening_rules: { type: 'string' },
+  },
 }
-function validateEvidencePacket(packet, source) {
-  if (!packet || packet.ability_id !== args.seed.ability_id || packet.faction_id !== args.seed.faction_id ||
-      !Array.isArray(packet.clauses) || !packet.clauses.length || !packet.source_hash || !packet.packet_hash)
-    return 'missing or misidentified source evidence packet'
-  if (packet.source_hash !== new Bun.CryptoHasher('sha256').update(source).digest('hex'))
-    return 'source evidence hash does not match complete raw text'
-  let cursor = 0
-  const ids = new Set()
-  for (const clause of packet.clauses) {
-    if (!clause.clause_id || ids.has(clause.clause_id) || clause.start !== cursor ||
-        !Number.isInteger(clause.end) || clause.end <= clause.start || clause.end > source.length ||
-        typeof clause.mechanical !== 'boolean' || !clause.kind) return 'invalid clause partition'
-    ids.add(clause.clause_id)
-    const hash = new Bun.CryptoHasher('sha256').update(source.slice(clause.start, clause.end)).digest('hex')
-    if (hash !== clause.source_text_hash) return `source slice hash mismatch for ${clause.clause_id}`
-    cursor = clause.end
-  }
-  if (cursor !== source.length) return 'clause partition does not cover complete raw text'
-  const packetHash = new Bun.CryptoHasher('sha256').update(JSON.stringify(evidencePayload(packet))).digest('hex')
-  return packetHash === packet.packet_hash ? null : 'evidence packet hash mismatch'
+const PROTOTYPE_OUT = {
+  type: 'object', required: ['prototype', 'skitarius', 'diagnostics'],
+  properties: {
+    prototype: { type: 'object', required: ['worktree', 'applied_to_parent', 'proposed_shape', 'positive_probe', 'negative_probe', 'render_evidence'],
+      properties: { worktree: { type: 'string', minLength: 1 }, applied_to_parent: { const: false }, proposed_shape: { type: 'object', minProperties: 1, additionalProperties: true }, positive_probe: { type: 'object', minProperties: 1, additionalProperties: true }, negative_probe: { type: 'object', minProperties: 1, additionalProperties: true }, render_evidence: { type: 'object', minProperties: 1, additionalProperties: true } } },
+    skitarius: { type: 'object', required: ['worktree', 'gates_run', 'overall_pass', 'compiler_evidence', 'schema_evidence', 'render_evidence'], properties: {
+      worktree: { type: 'string', minLength: 1 }, gates_run: { type: 'array', minItems: 1 }, overall_pass: { type: 'boolean' },
+      compiler_evidence: { type: 'object', minProperties: 1, additionalProperties: true }, schema_evidence: { type: 'object', minProperties: 1, additionalProperties: true }, render_evidence: { type: 'object', minProperties: 1, additionalProperties: true },
+    }, additionalProperties: true },
+    diagnostics: { type: 'array', items: { type: 'string' } },
+  },
 }
 const FLESH_OUT = {
   type: 'object',
-  required: ['seed_ability_id', 'mechanic', 'decomposition', 'retrieval', 'proposed_shape', 'nearest_existing_shapes', 'internal_family', 'self_grade'],
+  required: ['seed_ability_id', 'mechanic', 'decomposition', 'retrieval', 'proposed_shape', 'revision', 'nearest_existing_shapes', 'self_grade'],
   properties: {
     seed_ability_id: { type: 'string' }, mechanic: { type: 'string' },
     decomposition: { type: 'object', required: ['who', 'when', 'what'],
@@ -141,33 +120,43 @@ const FLESH_OUT = {
       properties: { name: { type: 'string' }, kind: { enum: ['effect-leaf', 'condition', 'container', 'modifier-extension'] },
         parameters: { type: 'array', items: { type: 'object', required: ['name', 'type', 'load_bearing'],
           properties: { name: { type: 'string' }, type: { type: 'string' }, load_bearing: { type: 'boolean' }, notes: { type: 'string' } } } },
-        schema_sketch: { type: 'object', additionalProperties: true }, seed_encoding: { type: 'object', additionalProperties: true } } },
+        schema_sketch: { type: 'object', minProperties: 1, additionalProperties: true }, seed_encoding: { type: 'object', minProperties: 1, additionalProperties: true } } },
+    revision: {
+      oneOf: [
+        { type: 'null' },
+        { type: 'object', required: ['changes'], properties: {
+          changes: { type: 'array', minItems: 1, items: {
+            type: 'object', required: ['op', 'path', 'finding_id'],
+            properties: {
+              op: { enum: ['add', 'replace', 'remove'] },
+              path: { type: 'string', minLength: 1 },
+              finding_id: { type: 'string', minLength: 1 },
+              value: {},
+            },
+          } },
+        } },
+      ],
+    },
     nearest_existing_shapes: { type: 'array', items: { type: 'object', required: ['shape', 'why_rejected', 'flatten_risk'],
       properties: { shape: { type: 'string' }, why_rejected: { type: 'string' }, flatten_risk: { enum: ['high', 'medium', 'low'] } } } },
-    internal_family: { type: 'array', items: { type: 'object',
-      required: ['member', 'clause_ids', 'shared_contract_id', 'parent_id', 'homogeneous_contract'],
-      properties: { member: { type: 'string' }, clause_ids: { type: 'array', items: { type: 'string' } },
-        shared_contract_id: { type: 'string' }, parent_id: { type: 'string' }, homogeneous_contract: { type: 'boolean' } } } },
     self_grade: { type: 'object', required: ['verdict', 'confidence'],
       properties: { verdict: { enum: ['new-shape', 'existing-fits', 'singleton'] }, confidence: { type: 'number' }, concerns: { type: 'array', items: { type: 'string' } } } },
   },
 }
 const LONESPEAR_OUT = {
-  type: 'object', required: ['proposed_shape_name', 'swarmlord_sweep', 'coverage', 'faithful_family_size', 'internal_family_size', 'confidence'],
+  type: 'object', required: ['proposed_shape_name', 'swarmlord_sweep', 'coverage', 'faithful_family_size', 'confidence'],
   properties: {
     proposed_shape_name: { type: 'string' }, swarmlord_sweep: { type: ['object', 'null'], additionalProperties: true },
-    coverage: { type: 'array', items: { type: 'object', required: ['ability_id', 'faction', 'fit', 'evidence'],
+    coverage: { type: 'array', items: { type: 'object', required: ['ability_id', 'faction', 'fit', 'match_strength'],
       properties: { ability_id: { type: 'string' }, faction: { type: 'string' },
         fit: { enum: ['faithful', 'needs-param', 'would-flatten'] },
-        evidence: { type: 'string' },
         match_strength: { enum: ['exact', 'near', 'stretch'] },
         param_needed: { type: ['string', 'null'] }, flatten_reason: { type: ['string', 'null'] } } } },
     faithful_family_size: { type: 'integer' },
-    internal_family_size: { type: 'integer' },
     parameter_deltas: { type: 'array', items: { type: 'object', required: ['param', 'change', 'unblocks'],
       properties: { param: { type: 'string' }, change: { type: 'string' }, unblocks: { type: 'array', items: { type: 'string' } } } } },
-    members_needing_own_shape: { type: 'array', items: { type: 'object', required: ['ability_id', 'why'],
-      properties: { ability_id: { type: 'string' }, why: { type: 'string' } } } }, confidence: { type: 'number' },
+    deferred_candidates: { type: 'array', items: { type: 'object', required: ['ability_id', 'faction'], properties: { ability_id: { type: 'string' }, faction: { type: 'string' } }, additionalProperties: true } },
+    members_needing_own_shape: { type: 'array', items: { type: 'object', additionalProperties: true } }, confidence: { type: 'number' },
   },
 }
 const TRAIL_OUT = {
@@ -180,58 +169,53 @@ const TRAIL_OUT = {
     shared_helpers: { type: 'array', items: { type: 'string' } }, port_notes: { type: 'array', items: { type: 'string' } },
     conformance_cases: { type: 'array', items: { type: 'object', required: ['case', 'expected_phrase'],
       properties: { case: { type: 'string' }, expected_phrase: { type: 'string' } } } },
-    psyker_read: { type: ['object', 'null'], additionalProperties: false,
-      required: ['faction_id', 'findings', 'clean'], properties: {
-        faction_id: { type: 'string' },
-        findings: { type: 'array', items: { type: 'object', additionalProperties: false,
-          required: ['ability_id', 'describer_output', 'problem', 'player_reading', 'severity'], properties: {
-            ability_id: { type: 'string' }, describer_output: { type: 'string' },
-            problem: { enum: ['ambiguous', 'misleading', 'ungrammatical', 'jargon-leak', 'missing-clause-signal'] },
-            player_reading: { type: 'string' }, severity: { type: 'integer', minimum: 1, maximum: 3 } } } },
-        clean: { type: 'array', items: { type: 'string' } } } },
-    cost: { type: 'object', required: ['spec_bump', 'schema_change', 'files'],
+    psyker_read: { type: ['object', 'null'], additionalProperties: true },
+    cost: { type: 'object', required: ['spec_bump', 'schema_change', 'files', 'conformance_cases'],
       properties: { spec_bump: { type: 'boolean' }, schema_change: { type: 'boolean' },
-        files: { type: 'array', items: { type: 'string' } }, conformance_cases: { type: 'integer' } } },
+        files: { type: 'array', items: { type: 'string' } }, conformance_cases: { type: 'integer', minimum: 1 } } },
     confidence: { type: 'number' },
+    prototype: { type: ['object', 'null'], additionalProperties: true },
+  },
+}
+const SHAPE_PACKAGE_OUT = {
+  type: 'object',
+  required: ['name', 'kind', 'schema_branch', 'seed_encoding', 'parameters', 'describer', 'faithful_family', 'cost', 'seed_ability_id', 'seed_faction_id'],
+  properties: {
+    name: { type: 'string', minLength: 1 },
+    kind: { enum: ['effect-leaf', 'condition', 'container', 'modifier-extension'] },
+    schema_branch: { type: 'object', minProperties: 1, additionalProperties: true },
+    seed_encoding: { type: 'object', minProperties: 1, additionalProperties: true },
+    parameters: { type: 'array', items: { type: 'object', required: ['name', 'type', 'load_bearing'],
+      properties: { name: { type: 'string', minLength: 1 }, type: { type: 'string', minLength: 1 }, load_bearing: { type: 'boolean' }, notes: { type: 'string' } } } },
+    describer: { type: 'object', required: ['render_rules', 'port_notes', 'conformance_cases'],
+      properties: {
+        render_rules: { type: 'array', minItems: 1, items: { type: 'object', required: ['form', 'template', 'expected_output'],
+          properties: { form: { enum: ['inline-single-effect', 'container', 'condition-lead-in', 'condition-predicate', 'negated'] }, template: { type: 'string', minLength: 1 }, example_input: { type: 'object', additionalProperties: true }, expected_output: { type: 'string', minLength: 1 } } } },
+        port_notes: { type: 'array', minItems: 1, items: { type: 'string', minLength: 1 } },
+        conformance_cases: { type: 'array', minItems: 1, items: { type: 'object', required: ['case', 'expected_phrase'],
+          properties: { case: { type: 'string', minLength: 1 }, expected_phrase: { type: 'string', minLength: 1 } } } },
+      } },
+    faithful_family: { type: 'array', minItems: 1, items: { type: 'object', required: ['ability_id', 'faction', 'fit', 'match_strength'],
+      properties: { ability_id: { type: 'string', minLength: 1 }, faction: { type: 'string', minLength: 1 }, fit: { enum: ['faithful', 'needs-param', 'would-flatten'] }, match_strength: { enum: ['exact', 'near', 'stretch'] } } } },
+    cost: { type: 'object', required: ['schema_change', 'spec_bump', 'files', 'conformance_cases'],
+      properties: { schema_change: { type: 'boolean' }, spec_bump: { type: 'boolean' }, files: { type: 'array', minItems: 1, items: { type: 'string', minLength: 1 } }, conformance_cases: { type: 'integer', minimum: 1 } } },
+    seed_ability_id: { type: 'string', minLength: 1 },
+    seed_faction_id: { type: 'string', minLength: 1 },
   },
 }
 const WAR_OUT = {
-  type: 'object', required: ['proposed_shape_name', 'family_mode', 'eversor_refutations', 'swarmlord_recheck',
-    'prior_finding_resolutions', 'findings', 'verdict', 'confidence'],
+  type: 'object', required: ['proposed_shape_name', 'eversor_refutations', 'swarmlord_recheck', 'findings', 'verdict', 'confidence'],
   properties: {
     proposed_shape_name: { type: 'string' },
-    family_mode: { enum: ['external', 'internal'] },
-    eversor_refutations: { type: 'array', items: { type: 'object',
-      required: ['ability_id', 'faction', 'internal_child_id', 'refuted', 'divergences'], properties: {
-        ability_id: { type: 'string' }, faction: { type: 'string' }, refuted: { type: 'boolean' },
-        internal_child_id: { type: ['string', 'null'] },
-        divergences: { type: 'array', items: { type: 'object', additionalProperties: true } } } } },
+    eversor_refutations: { type: 'array', minItems: 2, items: { type: 'object', required: ['voter_id', 'ability_id', 'review_scope', 'refuted', 'divergences'],
+      properties: { voter_id: { type: 'string', minLength: 1 }, ability_id: { type: 'string', minLength: 1 }, review_scope: { type: 'object', required: ['mechanic_slice'], properties: { mechanic_slice: { type: 'string', minLength: 1 } } }, refuted: { type: 'boolean' }, divergences: { type: 'array' } } } },
     swarmlord_recheck: { type: ['object', 'null'], additionalProperties: true },
-    prior_finding_resolutions: { type: 'array', items: { type: 'object', additionalProperties: false,
-      required: ['round', 'axis', 'situation', 'resolved', 'evidence'], properties: {
-        round: { type: 'integer', minimum: 1 }, axis: { type: 'string' }, situation: { type: 'string' },
-        resolved: { type: 'boolean' }, evidence: { type: 'string' } } } },
-    findings: { type: 'array', items: { type: 'object', required: ['axis', 'severity', 'situation', 'required_change'],
-      properties: { axis: { enum: ['sprawl', 'flattening', 'fidelity', 'parity', 'family'] },
-        severity: { type: 'integer', minimum: 1, maximum: 3 }, situation: { type: 'string' }, required_change: { type: 'string' } } } },
+    findings: { type: 'array', items: { type: 'object', required: ['key', 'state', 'axis', 'severity', 'situation', 'required_change', 'blocker_evidence'],
+      properties: { key: { type: 'string' }, state: { enum: ['open', 'resolved', 'out-of-scope', 'superseded'] }, resolution_evidence: {}, scope_evidence: {}, supersession_evidence: {}, superseded_by: { type: 'string' },
+        axis: { enum: ['sprawl', 'flattening', 'fidelity', 'parity', 'family'] }, severity: { type: 'integer', minimum: 1, maximum: 3 }, situation: { type: 'string' }, required_change: { type: 'string' },
+        blocker_evidence: { type: 'object', required: ['concrete_slice_divergence', 'frozen_exact_member', 'not_honestly_composable_or_separate', 'resolved_or_out_of_scope'], properties: { concrete_slice_divergence: { type: 'boolean' }, frozen_exact_member: { type: 'boolean' }, not_honestly_composable_or_separate: { type: 'boolean' }, resolved_or_out_of_scope: { type: 'boolean' } } } } } },
     verdict: { enum: ['accept', 'revise', 'reject-as-sprawl', 'reject-as-singleton'] },
-    shape_package: { oneOf: [{ type: 'null' }, { type: 'object', additionalProperties: false,
-      required: ['name', 'kind', 'schema_branch', 'parameters', 'seed_encoding', 'describer',
-        'faithful_family', 'parameter_deltas', 'seed_ability_id', 'implementation_matrix'],
-      properties: {
-        name: { type: 'string' }, kind: { enum: ['effect-leaf', 'condition', 'container', 'modifier-extension'] },
-        schema_branch: { type: 'object', additionalProperties: true },
-        parameters: { type: 'array', items: { type: 'object', required: ['name', 'type', 'load_bearing'], additionalProperties: true } },
-        seed_encoding: { type: 'object', additionalProperties: true },
-        describer: { type: 'object', required: ['render_rules', 'conformance_cases'], properties: {
-          render_rules: { type: 'array', minItems: 1, items: { type: 'object', additionalProperties: true } },
-          conformance_cases: { type: 'array', minItems: 1, items: { type: 'object', additionalProperties: true } },
-          port_notes: { type: 'array', items: { type: 'string' } } } },
-        faithful_family: { type: 'array', items: { type: 'object', required: ['ability_id', 'faction', 'fit'],
-          properties: { ability_id: { type: 'string' }, faction: { type: 'string' }, fit: { enum: ['faithful', 'needs-param'] } } } },
-        parameter_deltas: { type: 'array', items: { type: 'object', additionalProperties: true } },
-        seed_ability_id: { type: 'string' }, implementation_matrix: { type: 'object', additionalProperties: true },
-      } }] }, confidence: { type: 'number' },
+    shape_package: { ...SHAPE_PACKAGE_OUT, type: ['object', 'null'] }, confidence: { type: 'number' },
   },
 }
 
@@ -251,245 +235,167 @@ function assertSpawned(agentLabel, obj, checks) {
 }
 
 phase('Seed')
-const retrieval = await runAgent(
-  PRE + `Look up this resisted ability's raw prose and committed DSL. Input:\n` +
-  JSON.stringify({ query: { ability_id: args.seed.ability_id, faction_id: args.seed.faction_id } }),
-  { agent: 'data-enginseer', schema: ENGINSEER_OUT, label: `seed:${args.seed.ability_id}` }
-)
+const retrieval = await graphAgent(PRE + `Look up this resisted ability's raw prose and committed DSL. Input:\n` +
+JSON.stringify({ query: { ability_id: args.seed.ability_id, faction_id: args.seed.faction_id } }),
+{ agentType: 'data-enginseer', phase: 'Seed', schema: ENGINSEER_OUT, label: `seed:${args.seed.ability_id}`, graphEphemeralKeys: ['raw_text', 'original_rule'] })
 const seedMatches = (retrieval && retrieval.matches) || []
-const exactMatches = seedMatches.filter(m => m.ability_id === args.seed.ability_id && m.faction === args.seed.faction_id)
-const match = exactMatches.length === 1 ? exactMatches[0] : null
-const raw_text = match && match.raw_text
-if (!raw_text) return { seed: args.seed, status: 'no-prose', shape_package: null, rounds: [], workspace,
-  provenance: { workflow: 'dsl-shape-scout', required_roles: ['data-enginseer'] } }
-const evidence_packet = args.seed.evidence_packet || (retrieval && retrieval.evidence_packet) || null
-const packetError = validateEvidencePacket(evidence_packet, raw_text)
-if (packetError) throw new Error(packetError)
-const sourceClauseIds = new Set(evidence_packet.clauses.map(c => c.clause_id))
-if (sourceClauseIds.size !== evidence_packet.clauses.length || sourceClauseIds.has(undefined))
-  throw new Error('shape-scout source evidence has missing or duplicate clause ids')
+const match = seedMatches.find(m => m.faction === args.seed.faction_id) || seedMatches[0] || null
+const raw_text = args.seed.raw_text || (match && match.raw_text) || null
+if (!raw_text) return { seed: args.seed, status: 'no-prose', shape_package: null, rounds: [] }
+
+phase('Charter')
+const charterDraft = await graphAgent(PRE + `Act as the authoritative shape-scout charterer. Freeze the smallest exact mechanic family before design.
+The family threshold remains ${THRESHOLD} unique ability ids; retain cross-faction copies as evidence but count a
+shared ability id once. Include only exact/near candidates honestly sharing this mechanic slice. State required
+semantics, explicit non-goals/orthogonal gaps, deferred candidates, fabricated acceptance fixtures, and the rule
+that only an explicit inquisitor reopening may change this exact family. Never include raw prose. Input:\n` +
+JSON.stringify({ mode: 'charter', seed: args.seed, raw_text, resisted_schema: args.seed.resisted_schema || null, retrieval, family_threshold: THRESHOLD }),
+{ agentType: 'inquisitor', phase: 'Charter', schema: CHARTER_OUT, label: `charter:${args.seed.ability_id}` })
+const shape_charter = freezeShapeCharter({ seed: args.seed, mechanic_slice: charterDraft.mechanic_slice,
+  family: charterDraft.exact_family, required_semantics: charterDraft.required_semantics, non_goals: charterDraft.non_goals,
+  deferred_candidates: charterDraft.deferred_candidates, acceptance_fixtures: charterDraft.acceptance_fixtures,
+  reopening_rules: charterDraft.reopening_rules })
+const charterFamilySize = countFamilyMechanics(shape_charter.exact_family)
+if (charterFamilySize < THRESHOLD) throw new Error(`shape_charter canonical mechanic family below threshold: ${charterFamilySize} < ${THRESHOLD}`)
 
 const rounds = []
-let prior_findings = []   // accumulated across review rounds (thread capture)
+let finding_ledger = []
+let previous_shape = null
 let status = 'not-converged'
 let shape_package = null
 
 for (let round = 0; round < MAX_ROUNDS; round++) {
   const rn = round + 1
   phase(`Shape (round ${rn})`)
-  const revision = prior_findings.length
-    ? `\n\nPrior review rounds raised the findings below — resolve EACH (the WHOLE thread, not just ` +
-      `the last round), and never reintroduce a flattening/sprawl an earlier round already fixed:\n` +
-      JSON.stringify(prior_findings)
-    : ''
-  const flesh = await runAgent(
-    PRE + `Propose a new DSL shape for this resisted mechanic. SPAWN the decomposers (target-dummy, ` +
-    `chronomancer, vox-hound) and data-enginseer to ground it. COPY the child JSON outputs verbatim: ` +
-    `decomposition.who=target-dummy, decomposition.when=chronomancer, decomposition.what=vox-hound, ` +
-    `retrieval=data-enginseer. If any child is missing, retry or fail loudly; do NOT yield null/empty ` +
-    `proof fields. Then prove each nearest existing shape would flatten it (the obelisk/tau collision is ` +
-    `the defect to avoid). Input:\n` +
-    JSON.stringify({ seed_ability_id: args.seed.ability_id, faction_id: args.seed.faction_id,
-      raw_text, evidence_packet, architecture: args.seed.architecture || null,
-      resisted_schema: args.seed.resisted_schema || null, retrieval }) + revision,
-    { agent: 'kroot-flesh-shaper', schema: FLESH_OUT, label: `flesh:${args.seed.ability_id}#${rn}` }
-  )
+  const flesh = await graphAgent(PRE + `Design the chartered mechanic slice only. On round one propose the smallest honest shape; on later rounds
+  REVISE previous_shape rather than resynthesizing it: retain its name/kind and report explicit changes. Every open
+  ledger finding must be addressed; orthogonal gaps remain deferred separate primitives. Spawn the required grounding
+  helpers and copy their outputs verbatim. Input:\n` + JSON.stringify({
+    seed_ability_id: args.seed.ability_id, faction_id: args.seed.faction_id, raw_text,
+    resisted_schema: args.seed.resisted_schema || null, retrieval, shape_charter, previous_shape, finding_ledger }),
+  { agentType: 'kroot-flesh-shaper', phase: 'Shape', schema: FLESH_OUT, label: `flesh:${args.seed.ability_id}#${rn}` })
   assertSpawned('kroot-flesh-shaper', flesh, [
-    { path: 'decomposition.who', msg: 'flesh-shaper must spawn target-dummy' },
-    { path: 'decomposition.when', msg: 'flesh-shaper must spawn chronomancer' },
-    { path: 'decomposition.what', msg: 'flesh-shaper must spawn vox-hound' },
+    { path: 'decomposition.what', msg: 'flesh-shaper must spawn the decomposers' },
     { path: 'retrieval', msg: 'flesh-shaper must spawn data-enginseer' },
     { path: 'proposed_shape', msg: 'no shape proposed' },
   ])
-  if (flesh.seed_ability_id !== args.seed.ability_id)
-    throw new Error('flesh-shaper output is bound to another seed')
-  for (const [role, child] of Object.entries(flesh.decomposition)) {
-    if (!child || child.ability_id !== args.seed.ability_id || child.status !== 'resolved' ||
-        !Array.isArray(child.unresolved_clauses) || child.unresolved_clauses.length)
-      throw new Error(`flesh-shaper ${role} child is missing, unresolved, or misidentified`)
-  }
-  const fleshRetrievalMatches = flesh.retrieval?.matches || []
-  if (fleshRetrievalMatches.filter(x => x.ability_id === args.seed.ability_id &&
-    x.faction === args.seed.faction_id).length !== 1 ||
-    validateEvidencePacket(flesh.retrieval?.evidence_packet, raw_text) ||
-    flesh.retrieval.evidence_packet.packet_hash !== evidence_packet.packet_hash)
-    throw new Error('flesh-shaper retrieval is not exactly bound to the seed evidence packet')
+  assertShapeIdentity(previous_shape, flesh.proposed_shape)
+  if (previous_shape) assertRevision(previous_shape, flesh.proposed_shape, flesh.revision, finding_ledger)
+  else if (flesh.revision != null) throw new Error('first-round revision must be null')
   const fverdict = flesh.self_grade && flesh.self_grade.verdict
-  const internalMembers = (flesh.internal_family || []).filter(m => m.homogeneous_contract)
-  const uniqueInternalMembers = new Set(internalMembers.map(m => m.member))
-  const invalidInternal = internalMembers.some(m => !m.member || !m.clause_ids.length ||
-    m.clause_ids.some(id => !sourceClauseIds.has(id)))
-  if (invalidInternal || uniqueInternalMembers.size !== internalMembers.length)
-    throw new Error('internal-family evidence has duplicate members or unknown/empty clause ids')
   if (fverdict === 'existing-fits') {
-    rounds.push({ round: rn, flesh, verdict: 'existing-fits' })
-    return { seed: args.seed, status: 'existing-fits', shape_package: null, rounds, workspace,
-      provenance: { workflow: 'dsl-shape-scout', required_roles: ['data-enginseer', 'kroot-flesh-shaper'] } }
+    rounds.push({ round: rn, flesh, finding_ledger, verdict: 'existing-fits' })
+    return { seed: args.seed, shape_charter, status: 'existing-fits', shape_package: null, rounds }
   }
   if (fverdict === 'singleton') {
-    rounds.push({ round: rn, flesh, verdict: 'singleton' })
-    if (uniqueInternalMembers.size < THRESHOLD) { status = 'rejected-singleton'; break }
+    rounds.push({ round: rn, flesh, finding_ledger, verdict: 'singleton' })
+    status = 'rejected-singleton'
+    break
   }
+  previous_shape = flesh.proposed_shape
 
   phase(`Broaden (round ${rn})`)
-  const lone = await runAgent(
-    PRE + `Broaden coverage for this proposed shape WITHOUT flattening. SPAWN swarmlord for the corpus ` +
-    `sweep, then adjudicate each candidate faithful / needs-param / would-flatten. Input:\n` +
-    JSON.stringify({ proposed_shape: flesh.proposed_shape, seed_ability_id: args.seed.ability_id,
-      faction_id: args.seed.faction_id, internal_family: flesh.internal_family }),
-    { agent: 'kroot-lone-spear', schema: LONESPEAR_OUT, label: `spear:${args.seed.ability_id}#${rn}` }
-  )
+  const lone = await graphAgent(PRE + `The coverage array MUST contain exactly one entry for every frozen exact-family member and no other
+  ability. Put every discovery outside that frozen family in deferred_candidates, even when it is near or needs a
+  parameter. Count a shared ability id once while retaining cross-faction copies as evidence. Do not mutate the
+  charter or inflate acceptance. Input:\n` +
+  JSON.stringify({ proposed_shape: flesh.proposed_shape, seed_ability_id: args.seed.ability_id,
+    faction_id: args.seed.faction_id, shape_charter, previous_shape }),
+  { agentType: 'kroot-lone-spear', phase: 'Broaden', schema: LONESPEAR_OUT, label: `spear:${args.seed.ability_id}#${rn}` })
   assertSpawned('kroot-lone-spear', lone, [{ path: 'swarmlord_sweep', msg: 'lone-spear must spawn swarmlord' }])
+  const deferred_family = mergeDeferredCandidates(shape_charter, lone.deferred_candidates)
+  const exactFamilySize = assertCharterFamily(shape_charter, lone.coverage)
+  if (lone.faithful_family_size !== exactFamilySize) throw new Error('faithful_family_size must count canonical exact-or-near frozen mechanics')
+  if (exactFamilySize < THRESHOLD) { status = 'rejected-singleton'; rounds.push({ round: rn, flesh, lone, finding_ledger, verdict: status }); break }
+
+  phase(`Prototype (round ${rn})`)
+  const prototypeWorkspace = args.prototype_workspaces ? args.prototype_workspaces[round] : null
+  const prototypePRE = prototypeWorkspace
+    ? `Prototype workspace: ${prototypeWorkspace}. Every Read/Grep/Glob/Edit/Write path MUST be an absolute path ` +
+      `under that exact workspace, and every Bash call MUST set cwd to that exact workspace or a descendant. ` +
+      `Never use a relative file-tool path: the agent session itself remains rooted in the parent checkout. ` +
+      `Pass the same absolute workspace path and path rule to every child spawn. Never read, edit, generate into, ` +
+      `or run a command in the parent checkout ${args.repo_root}. `
+    : PRE
+  const prototype = await graphAgent(prototypePRE + `Implement a disposable minimal vertical prototype of this proposed shape in an ISOLATED,
+  NON-APPLIED worktree. Do not edit the parent checkout or data. Implement the actual schema branch, necessary
+  generated/TS surface, one describer path, and fabricated positive/negative probes. In that SAME worktree SPAWN
+  skitarius to run the targeted compiler/schema/render gates. Return concrete commands/results and diagnostics;
+  applied_to_parent MUST be false. Input:\n` + JSON.stringify(prototypeAgentInput({
+    proposed_shape: flesh.proposed_shape,
+    shape_charter,
+    deferred_family,
+    lone_spear: lone,
+    workspace: prototypeWorkspace,
+  })),
+  { agentType: 'warpsmith', phase: 'Prototype', schema: PROTOTYPE_OUT, label: `prototype:${args.seed.ability_id}#${rn}`,
+    ...prototypeAgentOptions(prototypeWorkspace) })
+  const prototypeDecision = prototypeGateDecision(prototype, flesh.proposed_shape, prototypeWorkspace)
+  if (!prototypeDecision.passes) {
+    const prototypeFinding = {
+      key: `prototype:${rn}`,
+      axis: 'parity',
+      situation: prototypeDecision.reason,
+      required_change: 'repair prototype evidence',
+      blocker_evidence: {
+        concrete_slice_divergence: false,
+        frozen_exact_member: false,
+        not_honestly_composable_or_separate: false,
+        resolved_or_out_of_scope: false,
+      },
+    }
+    finding_ledger = normalizeFindingLedger(finding_ledger, [prototypeFinding], shape_charter)
+    rounds.push({ round: rn, flesh, lone, prototype, finding_ledger, verdict: 'prototype-revise' })
+    continue
+  }
 
   phase(`Trail (round ${rn})`)
-  const trail = await runAgent(
-    PRE + `Spec the describer output for this proposed shape across EVERY render form (inline + container; ` +
-    `condition lead-in + predicate/negated). SPAWN psyker to cold-read the render. Input:\n` +
-    JSON.stringify({ proposed_shape: flesh.proposed_shape,
-      lone_spear: { parameter_deltas: lone.parameter_deltas || [], coverage: lone.coverage || [] } }),
-    { agent: 'kroot-trail-shaper', schema: TRAIL_OUT, label: `trail:${args.seed.ability_id}#${rn}` }
-  )
+  const trail = await graphAgent(PRE + `Spec the describer for the chartered mechanic slice across all applicable forms. Prototype diagnostics
+  are binding repair input; do not solve charter non-goals. Spawn psyker. Input:\n` +
+  JSON.stringify({ proposed_shape: flesh.proposed_shape, shape_charter, prototype,
+    lone_spear: { parameter_deltas: lone.parameter_deltas || [], coverage: lone.coverage || [] } }),
+  { agentType: 'kroot-trail-shaper', phase: 'Trail', schema: TRAIL_OUT, label: `trail:${args.seed.ability_id}#${rn}` })
   assertSpawned('kroot-trail-shaper', trail, [
     { path: 'psyker_read', msg: 'trail-shaper must spawn psyker' },
     { path: 'render_rules', msg: 'no render rules specified' },
   ])
-  if (trail.psyker_read.faction_id !== args.seed.faction_id ||
-      trail.psyker_read.findings.some(x => x.ability_id !== args.seed.ability_id) ||
-      trail.psyker_read.clean.some(x => x !== args.seed.ability_id) ||
-      trail.psyker_read.findings.length + trail.psyker_read.clean.length !== 1 ||
-      trail.psyker_read.findings.some(x => x.severity === 3))
-    throw new Error('trail psyker read must exactly cover the seed faction/ability and contain no severity-3 finding')
-  const forms = new Set(trail.render_rules.map(x => x.form))
-  const requiredForms = flesh.proposed_shape.kind === 'condition'
-    ? ['condition-lead-in', 'condition-predicate', 'negated']
-    : flesh.proposed_shape.kind === 'effect-leaf'
-      ? ['inline-single-effect', 'container']
-      : flesh.proposed_shape.kind === 'container'
-        ? ['container'] : ['inline-single-effect', 'container']
-  if (requiredForms.some(form => !forms.has(form)))
-    throw new Error(`render rules omit forms required for ${flesh.proposed_shape.kind}: ${requiredForms.join(', ')}`)
+  finding_ledger = normalizeFindingLedger(
+    finding_ledger,
+    psykerSeverityFindings(trail.psyker_read),
+    shape_charter,
+  )
 
   phase(`War (round ${rn})`)
-  const war = await runAgent(
-    PRE + `Adversarially review this proposed shape on all four axes (sprawl / flattening / fidelity-parity / ` +
-    `family). SPAWN eversor per sample family member and swarmlord for an INDEPENDENT family recheck. Family ` +
-    `threshold is ${THRESHOLD} (exact+near, flatten-excluded). On accept, return a complete shape_package. Input:\n` +
-    JSON.stringify({ flesh, lone_spear: lone, trail, prior_findings, family_threshold: THRESHOLD,
-      frozen_manifest_keys: [...MANIFEST_KEYS],
-      package_policy: 'faithful_family is the manifest intersection; report other discoveries for next campaign only' }),
-    { agent: 'kroot-war-shaper', schema: WAR_OUT, label: `war:${args.seed.ability_id}#${rn}` }
-  )
+  const war = await graphAgent(PRE + `Adversarially review the frozen charter mechanic slice on all four axes. A blocker requires a
+  concrete in-slice divergence on a frozen exact member that is not honestly composable/separate. Closure derives
+  only from an evidence-gated terminal ledger state; blocker_evidence.resolved_or_out_of_scope cannot close an open
+  finding. Accept only when every finding is terminal. Preserve all four booleans, distinct eversor voter/task ids,
+  and distinct frozen sample ability ids. Orthogonal gaps are deferred, not failures of this shape. Prototype
+  evidence is mandatory review input. Input:\n` +
+  JSON.stringify({ flesh, lone_spear: lone, trail, prototype, shape_charter, finding_ledger, family_threshold: THRESHOLD }),
+  { agentType: 'kroot-war-shaper', phase: 'War', schema: WAR_OUT, label: `war:${args.seed.ability_id}#${rn}` })
   assertSpawned('kroot-war-shaper', war, [
     { path: 'eversor_refutations', msg: 'war-shaper must spawn eversor against sample members' },
     { path: 'swarmlord_recheck', msg: 'war-shaper must spawn swarmlord for an independent recheck' },
   ])
-
-  rounds.push({ round: rn, flesh, lone, trail, war, verdict: war.verdict })
+  assertScopedRefutations(war.eversor_refutations, shape_charter.mechanic_slice, shape_charter)
+  finding_ledger = normalizeFindingLedger(finding_ledger, (war.findings || []).map(finding => ({ round: rn, ...finding })), shape_charter)
+  const openFindings = finding_ledger.filter(finding => finding.state === 'open')
+  const blockers = openFindings.map(classifyBlocker).filter(result => result.blocks)
+  rounds.push({ round: rn, flesh, lone, prototype, trail, war, finding_ledger, blockers, verdict: war.verdict })
 
   if (war.verdict === 'accept') {
-    // A shape may have an external cross-ability family OR an internal family of
-    // homogeneous child records in one closed composite mechanic.
-    const faithfulExternal = new Set((lone.coverage || [])
-      .filter(m => ['faithful', 'needs-param'].includes(m.fit) && ['exact', 'near'].includes(m.match_strength) && m.evidence.trim())
-      .map(m => `${m.faction}/${m.ability_id}`))
-    const invalidParamMember = (lone.coverage || []).some(m => m.fit === 'needs-param' &&
-      (!m.param_needed || !(lone.parameter_deltas || []).some(d => d.param === m.param_needed &&
-        (d.unblocks || []).includes(m.ability_id))))
-    if (invalidParamMember) throw new Error('needs-param family member lacks a matching parameter delta')
-    if (lone.faithful_family_size !== faithfulExternal.size ||
-        lone.internal_family_size !== uniqueInternalMembers.size)
-      throw new Error('lone-spear family counts do not match the supplied member evidence')
-    const internalArchitectureCount = args.seed.architecture?.architecture?.internal_family_size ??
-      args.seed.architecture?.internal_family_size ?? 0
-    const architect = args.seed.architecture?.architecture || args.seed.architecture || {}
-    const architectChildren = (architect.local_actions || []).filter(x => x.parent_closed)
-    const architectIds = new Set(architectChildren.map(x => x.child_id))
-    const architectClauses = architectChildren.flatMap(x => x.clause_ids || [])
-    const fleshClauses = internalMembers.flatMap(x => x.clause_ids)
-    const oneContract = new Set(architectChildren.map(x => x.shared_contract_id)).size === 1 &&
-      new Set(internalMembers.map(x => x.shared_contract_id)).size === 1 &&
-      architectChildren[0]?.shared_contract_id === internalMembers[0]?.shared_contract_id
-    const oneParent = new Set(architectChildren.map(x => x.parent_id)).size === 1 &&
-      new Set(internalMembers.map(x => x.parent_id)).size === 1 &&
-      architectChildren[0]?.parent_id === internalMembers[0]?.parent_id
-    const internalSetsMatch = architectIds.size === uniqueInternalMembers.size &&
-      [...architectIds].every(id => uniqueInternalMembers.has(id)) &&
-      new Set(architectClauses).size === architectClauses.length &&
-      new Set(fleshClauses).size === fleshClauses.length &&
-      architectClauses.length === fleshClauses.length &&
-      architectClauses.every(id => fleshClauses.includes(id)) && oneContract && oneParent
-    const independentFamily = new Set((war.swarmlord_recheck?.candidates || [])
-      .filter(m => ['exact', 'near'].includes(m.match_strength) && m.evidence && m.evidence.trim())
-      .map(m => `${m.faction}/${m.ability_id}`))
-    if (independentFamily.size !== (war.swarmlord_recheck?.candidates || [])
-      .filter(m => ['exact', 'near'].includes(m.match_strength) && m.evidence && m.evidence.trim()).length)
-      throw new Error('independent family sweep contains duplicate qualifying pairs')
-    const externalQualifies = faithfulExternal.size >= THRESHOLD &&
-      faithfulExternal.size === independentFamily.size &&
-      [...faithfulExternal].every(key => independentFamily.has(key))
-    const internalQualifies = uniqueInternalMembers.size >= THRESHOLD &&
-      internalArchitectureCount === uniqueInternalMembers.size && internalSetsMatch
-    const familyQualifies = externalQualifies || internalQualifies
-    if (!familyQualifies) { status = 'rejected-singleton'; break }
-    const unresolvedPrior = prior_findings.filter(prior => !(war.prior_finding_resolutions || []).some(row =>
-      row.round === prior.round && row.axis === prior.axis && row.situation === prior.situation && row.resolved && row.evidence.trim()))
-    const resolutionKeys = (war.prior_finding_resolutions || []).map(row => `${row.round}\0${row.axis}\0${row.situation}`)
-    const priorKeys = prior_findings.map(row => `${row.round}\0${row.axis}\0${row.situation}`)
-    if (new Set(resolutionKeys).size !== resolutionKeys.length || resolutionKeys.length !== priorKeys.length ||
-        resolutionKeys.some(key => !priorKeys.includes(key)) || unresolvedPrior.length ||
-        (war.findings || []).some(x => x.severity === 3))
-      throw new Error('war-shaper cannot accept with a current severity-3 or unresolved prior finding')
-    if ((war.eversor_refutations || []).length < 2 ||
-        war.eversor_refutations.some(x => x.refuted !== false || x.divergences.length))
-      throw new Error('war-shaper acceptance requires at least two non-refuting eversor results')
-    if (!war.shape_package) throw new Error('war-shaper accepted but returned no shape_package (false pass)')
-    const sampled = new Set(war.eversor_refutations.map(x => `${x.faction}/${x.ability_id}`))
-    const sampledChildren = new Set(war.eversor_refutations.map(x => x.internal_child_id).filter(Boolean))
-    const family = new Set(war.shape_package.faithful_family.map(x => `${x.faction}/${x.ability_id}`))
-    const campaignExternal = new Set([...faithfulExternal].filter(key => MANIFEST_KEYS.has(key)))
-    if (!family.has(SEED_KEY)) throw new Error('shape package faithful_family must explicitly contain its seed faction/ability pair')
-    const outOfManifest = [...family].filter(key => !MANIFEST_KEYS.has(key))
-    if (outOfManifest.length)
-      throw new Error(`shape package includes out-of-manifest discoveries (record for next campaign; do not edit/render): ${outOfManifest.join(', ')}`)
-    if (war.family_mode === 'external' && (!externalQualifies || family.size !== campaignExternal.size ||
-        [...family].some(key => !campaignExternal.has(key)) || sampled.size < 2 ||
-        [...sampled].some(key => !faithfulExternal.has(key)) || sampledChildren.size))
-      throw new Error('external family requires two distinct faithful refutations; package is manifest-intersection only')
-    if (war.family_mode === 'internal' && (!internalQualifies || sampled.size !== 1 || !sampled.has(SEED_KEY) ||
-        sampledChildren.size < 2 || [...sampledChildren].some(id => !uniqueInternalMembers.has(id))))
-      throw new Error('internal family requires one seed ability and two distinct machine-bound internal-child refutations')
-    if (war.shape_package.name !== flesh.proposed_shape.name || war.shape_package.kind !== flesh.proposed_shape.kind ||
-        war.shape_package.seed_ability_id !== args.seed.ability_id ||
-        JSON.stringify(war.shape_package.schema_branch) !== JSON.stringify(flesh.proposed_shape.schema_sketch) ||
-        JSON.stringify(war.shape_package.parameters) !== JSON.stringify(flesh.proposed_shape.parameters) ||
-        JSON.stringify(war.shape_package.seed_encoding) !== JSON.stringify(flesh.proposed_shape.seed_encoding) ||
-        JSON.stringify(war.shape_package.parameter_deltas) !== JSON.stringify(lone.parameter_deltas) ||
-        JSON.stringify(war.shape_package.describer.render_rules) !== JSON.stringify(trail.render_rules) ||
-        JSON.stringify(war.shape_package.describer.conformance_cases) !== JSON.stringify(trail.conformance_cases))
-      throw new Error('shape_package is inconsistent with the accepted flesh/lone/trail artifacts')
-    const matrix = war.shape_package.implementation_matrix
-    const requiredSurfaces = ['canonical_schema', 'typescript_describer', 'rust_describer',
-      'python_describer', 'go_describer', 'typescript_cruncher', 'rust_cruncher',
-      'python_cruncher', 'go_cruncher', 'conformance', 'spec_version', 'generated_types',
-      'embedded_schemas', 'rust_bundle', 'python_bundle', 'go_bundle', 'version_lockstep', 'data']
-    const missingSurfaces = requiredSurfaces.filter(k => !matrix || !matrix[k] ||
-      matrix[k].required !== true || !Array.isArray(matrix[k].files) || matrix[k].files.length === 0)
-    if (missingSurfaces.length)
-      throw new Error(`war-shaper accepted an incomplete implementation matrix: ${missingSurfaces.join(', ')}`)
+    if (openFindings.length) throw new Error('war-shaper accepted with unresolved findings')
+    if (!prototype.skitarius.overall_pass) { status = 'not-converged'; continue }
+    validateShapePackage(war.shape_package, shape_charter, args.seed, flesh.proposed_shape, lone.coverage, trail, prototype)
     status = 'shipped-ready'
     shape_package = war.shape_package
     break
   }
   if (war.verdict === 'reject-as-sprawl') { status = 'rejected-sprawl'; break }
   if (war.verdict === 'reject-as-singleton') { status = 'rejected-singleton'; break }
-  // revise → accumulate this round's findings into the thread and loop
-  prior_findings = prior_findings.concat((war.findings || []).map(f => ({ round: rn, ...f })))
 }
 
+const terminal = status === 'not-converged' ? terminalOutcome({ rounds: rounds.length, max_rounds: MAX_ROUNDS, finding_ledger }) : null
 log(`shape-scout ${args.seed.ability_id}: ${status} after ${rounds.length} round(s)`)
-return {
-  seed: args.seed, status, shape_package, rounds, workspace,
-  provenance: { workflow: 'dsl-shape-scout', required_roles: ['data-enginseer', 'kroot-flesh-shaper',
-    'target-dummy', 'chronomancer', 'vox-hound', 'kroot-lone-spear', 'swarmlord',
-    'kroot-trail-shaper', 'psyker', 'kroot-war-shaper', 'eversor'] },
-}
+return { seed: args.seed, shape_charter: validateShapeCharter(shape_charter, args.seed), status, terminal, shape_package, rounds }

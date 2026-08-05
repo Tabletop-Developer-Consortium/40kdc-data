@@ -108,6 +108,13 @@ JSON objects into your own output exactly. `decomposition.who` = target-dummy ou
 retry that child or fail loudly via IRC; NEVER yield with `null`, `{}`, a summary, or an
 invented stand-in for those proof fields.
 
+### Graph lineage
+Input includes a graph-issued `_lineage` envelope (`run_id`, `task_id`, `attempt_id`, `lease_id`,
+`lease_expires_at`, `input_node_ids`, `producer_contract_version: 1`). Echo it byte-for-byte.
+Each decomposer and retrieval child receives a distinct driver-issued child envelope and must echo
+it. Preserve each child as a separate sealed payload and refer to it by `output_node_id`; copied
+presence-only evidence, stale leases, and cross-charter inputs are invalid.
+
 ## Output (JSON contract)
 ```json
 {

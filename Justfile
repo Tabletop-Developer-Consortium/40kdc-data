@@ -58,14 +58,20 @@ fmt:
 # Drift gate: committed generated artifacts must equal what regen just produced.
 verify-clean:
     @echo "▸ checking generated artifacts match regen output (CI drift gate)"
-    @if ! git diff --exit-code -- {{ARTIFACTS}}; then \
+    @if [[ -n "$(jj diff --summary -- {{ARTIFACTS}})" ]]; then \
+        jj diff --summary -- {{ARTIFACTS}} >&2; \
         echo "✗ generated artifacts drifted — regen changed them; commit the result (CI fails on this same diff)." >&2; \
         exit 1; \
     fi
     @echo "  artifacts up to date."
 
 # All four language suites + conformance.
-test-all: test-ts test-rust test-python test-go conformance
+test-all: test-dsl-campaign test-ts test-rust test-python test-go conformance
+
+# Private campaign graph runtime and workflow contracts (requires Node >=22.18).
+test-dsl-campaign:
+    @echo "▸ DSL campaign graph + workflow tests"
+    node --test .omp/skills/dsl-campaign/graph/*.test.js .omp/skills/dsl-campaign/workflows/*.test.js
 
 # TS: build + unit tests + data validation.
 test-ts:
@@ -127,3 +133,17 @@ mfm-bsdata bsdata ref:
 # then curate mfm-gaps.json for any newly-authored data (see test/mfm-completeness.test.ts).
 mfm-golden:
     cd tools && npm run mfm:golden
+
+# Local-only Mechanic Evidence Graph API over the private graph store.
+mechanic-evidence-api:
+    node .omp/skills/dsl-campaign/graph/server.js
+
+# Run the Mechanic Evidence Graph API and SPA together; Ctrl-C stops both.
+mechanic-evidence:
+    @node .omp/skills/dsl-campaign/graph/server.js & api_pid=$!; \
+     cleanup() { kill "$api_pid" 2>/dev/null || true; wait "$api_pid" 2>/dev/null || true; }; \
+     trap cleanup EXIT; \
+     trap 'exit 130' INT TERM; \
+     sleep 0.2; \
+     if ! kill -0 "$api_pid" 2>/dev/null; then wait "$api_pid"; exit $?; fi; \
+     npm run dev --workspace @40kdc/mechanic-evidence

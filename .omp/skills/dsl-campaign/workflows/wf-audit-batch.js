@@ -1,3 +1,5 @@
+import { createTrustedAgent } from '../graph/workflow-runtime.js'
+
 export const meta = {
   name: 'dsl-audit-batch',
   description: 'Final human audit: source rule plus baseline and updated describer renders',
@@ -21,6 +23,7 @@ if (!args || !Array.isArray(args.abilities) || !args.abilities.length)
   throw new Error('args.abilities required')
 if (!args.baseline_roundtrip_report_path || !args.updated_roundtrip_report_path)
   throw new Error('both roundtrip report paths are required')
+const graphAgent = createTrustedAgent({ driverArgs: args, invokeAgent: agent })
 
 const PRE = args.repo_root
   ? `Repo root: ${args.repo_root} — cd there first; resolve every relative path there. ` +
@@ -56,21 +59,19 @@ const AUDIT_OUT = {
 }
 
 phase('Audit')
-const audit = await agent(
-  PRE + `Produce a maintainer-facing final audit for exactly these abilities. Read the specified ` +
-  `baseline and updated roundtrip reports. Retrieve every original rule verbatim from the raw-text ` +
-  `store; do not reconstruct it from a report preview. For each requested key, pair that source text with ` +
-  `the baseline report's English render and score, then the updated report's English render and score. ` +
-  `Return entries in input order. This output is ephemeral: it will be shown to the maintainer but never ` +
-  `written to the repository. Input:\n` +
-  JSON.stringify({
-    batch_id: args.batch_id,
-    abilities: args.abilities,
-    baseline_roundtrip_report_path: args.baseline_roundtrip_report_path,
-    updated_roundtrip_report_path: args.updated_roundtrip_report_path,
-  }),
-  { agentType: 'data-enginseer', phase: 'Audit', schema: AUDIT_OUT, label: `audit:${args.batch_id}` },
-)
+const audit = await graphAgent(PRE + `Produce a maintainer-facing final audit for exactly these abilities. Read the specified ` +
+`baseline and updated roundtrip reports. Retrieve every original rule verbatim from the raw-text ` +
+`store; do not reconstruct it from a report preview. For each requested key, pair that source text with ` +
+`the baseline report's English render and score, then the updated report's English render and score. ` +
+`Return entries in input order. This output is ephemeral: it will be shown to the maintainer but never ` +
+`written to the repository. Input:\n` +
+JSON.stringify({
+  batch_id: args.batch_id,
+  abilities: args.abilities,
+  baseline_roundtrip_report_path: args.baseline_roundtrip_report_path,
+  updated_roundtrip_report_path: args.updated_roundtrip_report_path,
+}),
+{ agentType: 'data-enginseer', phase: 'Audit', schema: AUDIT_OUT, label: `audit:${args.batch_id}`, graphEphemeralKeys: ['raw_text', 'original_rule'] })
 if (!audit) throw new Error('data-enginseer returned nothing — cannot surface final audit')
 if (audit.audits.length !== args.abilities.length)
   throw new Error(`audit count ${audit.audits.length} does not match requested ${args.abilities.length}`)

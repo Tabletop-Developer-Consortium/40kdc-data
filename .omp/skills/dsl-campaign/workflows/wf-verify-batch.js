@@ -1,3 +1,5 @@
+import { createTrustedAgent } from '../graph/workflow-runtime.js'
+
 export const meta = {
   name: 'dsl-verify-batch',
   description: 'Post-apply verification: skitarius gates ∥ cogitator lever diff ∥ psyker cold-read',
@@ -26,6 +28,7 @@ if (typeof args === 'string') args = JSON.parse(args)
 if (!args || !Array.isArray(args.ability_ids) || !args.ability_ids.length) throw new Error('args.ability_ids required')
 if (!Array.isArray(args.faction_ids) || !args.faction_ids.length) throw new Error('args.faction_ids required')
 const GATES = args.gates || ['validate', 'test', 'translate-smoke', 'drift']
+const graphAgent = createTrustedAgent({ driverArgs: args, invokeAgent: agent })
 // Pin every agent to the loop workspace: subagents inherit the DRIVER session's cwd,
 // which may be a different checkout of this repo (a parallel session's working copy).
 const PRE = args.repo_root
@@ -90,30 +93,24 @@ for (const id of args.ability_ids) {
 }
 
 const [skitarius, cogitator, ...psyker] = await parallel([
-  () => agent(
-    PRE + `Run exactly these mechanical gates in this workspace and report honestly (a gate you ` +
-    `could not run goes in not_run, never in gates_run as passed). ` +
-    `For the drift gate, follow the supplied regen-idempotence protocol: capture the relevant ` +
-    `generated-artifact checksum/diff state before regeneration, regenerate, capture it again, ` +
-    `and compare before versus after. Treat an unchanged post-run artifact set as a pass even ` +
-    `when intended campaign edits remain uncommitted; do not use jj st or repository cleanliness ` +
-    `as the drift result. Input:\n` +
-    JSON.stringify({ gates: GATES, touched: { factions: args.faction_ids, files: args.touched_files || [] }, drift: DRIFT_PROTOCOL }),
-    { agentType: 'skitarius', phase: 'Gates', schema: SKITARIUS_OUT, label: `gates:${args.batch_id}` }
-  ),
-  () => agent(
-    PRE + `Diff cruncher levers for these abilities, working tree vs committed. Any dropped lever is a ` +
-    `regression regardless of how much prettier the new phrasing reads. Input:\n` +
-    JSON.stringify({ ability_ids: args.ability_ids.map(i => i.includes('/') ? i.split('/')[1] : i),
-      factions: args.faction_ids, baseline: 'committed' }),
-    { agentType: 'cogitator', phase: 'Levers', schema: COGITATOR_OUT, label: `levers:${args.batch_id}` }
-  ),
+  () => graphAgent(PRE + `Run exactly these mechanical gates in this workspace and report honestly (a gate you ` +
+  `could not run goes in not_run, never in gates_run as passed). ` +
+  `For the drift gate, follow the supplied regen-idempotence protocol: capture the relevant ` +
+  `generated-artifact checksum/diff state before regeneration, regenerate, capture it again, ` +
+  `and compare before versus after. Treat an unchanged post-run artifact set as a pass even ` +
+  `when intended campaign edits remain uncommitted; do not use jj st or repository cleanliness ` +
+  `as the drift result. Input:\n` +
+  JSON.stringify({ gates: GATES, touched: { factions: args.faction_ids, files: args.touched_files || [] }, drift: DRIFT_PROTOCOL }),
+  { agentType: 'skitarius', phase: 'Gates', schema: SKITARIUS_OUT, label: `gates:${args.batch_id}` }),
+  () => graphAgent(PRE + `Diff cruncher levers for these abilities, working tree vs committed. Any dropped lever is a ` +
+  `regression regardless of how much prettier the new phrasing reads. Input:\n` +
+  JSON.stringify({ ability_ids: args.ability_ids.map(i => i.includes('/') ? i.split('/')[1] : i),
+    factions: args.faction_ids, baseline: 'committed' }),
+  { agentType: 'cogitator', phase: 'Levers', schema: COGITATOR_OUT, label: `levers:${args.batch_id}` }),
   ...args.faction_ids.map(f => () =>
-    agent(
-      PRE + `Cold-read the describer renders for these just-edited abilities. Input:\n` +
-      JSON.stringify({ faction_id: f, scope: idsByFaction[f] }),
-      { agentType: 'psyker', phase: 'ColdRead', schema: PSYKER_OUT, label: `coldread:${f}:${args.batch_id}` }
-    )
+    graphAgent(PRE + `Cold-read the describer renders for these just-edited abilities. Input:\n` +
+    JSON.stringify({ faction_id: f, scope: idsByFaction[f] }),
+    { agentType: 'psyker', phase: 'ColdRead', schema: PSYKER_OUT, label: `coldread:${f}:${args.batch_id}` })
   ),
 ])
 

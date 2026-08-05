@@ -2385,8 +2385,7 @@
         "target": "unit",
         "modifier": {
           "roll": "hit",
-          "operation": "crit-on",
-          "value": 5
+          "critical_on": 5
         }
       }
     },
@@ -2543,13 +2542,16 @@
         "operator": "and",
         "operands": [
           {
-            "type": "phase-is",
+            "type": "attack-is-type",
             "parameters": {
-              "phase": "fight"
+              "attack_type": "melee"
             }
           },
           {
-            "type": "unit-below-half-strength"
+            "type": "unit-below-half-strength",
+            "parameters": {
+              "subject": "target"
+            }
           }
         ]
       },
@@ -2558,8 +2560,7 @@
         "target": "unit",
         "modifier": {
           "roll": "hit",
-          "operation": "crit-on",
-          "value": 1
+          "critical_on": 1
         }
       }
     },
@@ -3024,8 +3025,7 @@
         "target": "unit",
         "modifier": {
           "roll": "hit",
-          "operation": "crit-on",
-          "value": 5
+          "critical_on": 5
         }
       }
     },

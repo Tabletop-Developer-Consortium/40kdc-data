@@ -1749,6 +1749,9 @@ impl ::std::default::Default for ArmyCompositionPredicateUnitFilter {
 ///        "effect": {
 ///          "$ref": "#/$defs/effect-node"
 ///        },
+///        "emitter_filter": {
+///          "$ref": "#/$defs/keyword-filter"
+///        },
 ///        "of": {
 ///          "type": "string"
 ///        },
@@ -1770,6 +1773,9 @@ impl ::std::default::Default for ArmyCompositionPredicateUnitFilter {
 ///        },
 ///        "range_bonus": {
 ///          "type": "integer"
+///        },
+///        "recipient_filter": {
+///          "$ref": "#/$defs/keyword-filter"
 ///        }
 ///      },
 ///      "additionalProperties": false
@@ -1809,6 +1815,9 @@ pub struct AuraEffect {
 ///    "effect": {
 ///      "$ref": "#/$defs/effect-node"
 ///    },
+///    "emitter_filter": {
+///      "$ref": "#/$defs/keyword-filter"
+///    },
 ///    "of": {
 ///      "type": "string"
 ///    },
@@ -1830,6 +1839,9 @@ pub struct AuraEffect {
 ///    },
 ///    "range_bonus": {
 ///      "type": "integer"
+///    },
+///    "recipient_filter": {
+///      "$ref": "#/$defs/keyword-filter"
 ///    }
 ///  },
 ///  "additionalProperties": false
@@ -1842,19 +1854,25 @@ pub struct AuraEffectModifier {
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub effect: ::std::option::Option<::std::boxed::Box<EffectNode>>,
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub emitter_filter: ::std::option::Option<KeywordFilter>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub of: ::std::option::Option<::std::string::String>,
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub range: ::std::option::Option<AuraEffectModifierRange>,
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub range_bonus: ::std::option::Option<i64>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub recipient_filter: ::std::option::Option<KeywordFilter>,
 }
 impl ::std::default::Default for AuraEffectModifier {
     fn default() -> Self {
         Self {
             effect: Default::default(),
+            emitter_filter: Default::default(),
             of: Default::default(),
             range: Default::default(),
             range_bonus: Default::default(),
+            recipient_filter: Default::default(),
         }
     }
 }
@@ -2282,6 +2300,116 @@ impl ::std::convert::TryFrom<::std::string::String> for BattleSize {
         value: ::std::string::String,
     ) -> ::std::result::Result<Self, self::error::ConversionError> {
         value.parse()
+    }
+}
+///Targetless effect dispatched to a relation-resolved beneficiary model; bearer and unit targets are intentionally not representable.
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "description": "Targetless effect dispatched to a relation-resolved beneficiary model; bearer and unit targets are intentionally not representable.",
+///  "type": "object",
+///  "required": [
+///    "type"
+///  ],
+///  "properties": {
+///    "modifier": {
+///      "type": "object",
+///      "additionalProperties": true
+///    },
+///    "scaling": {
+///      "$ref": "#/$defs/scaling"
+///    },
+///    "type": {
+///      "type": "string",
+///      "minLength": 1
+///    }
+///  },
+///  "additionalProperties": false
+///}
+/// ```
+/// </details>
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
+#[serde(deny_unknown_fields)]
+pub struct BeneficiaryBoundEffectNode {
+    #[serde(default, skip_serializing_if = "::serde_json::Map::is_empty")]
+    pub modifier: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub scaling: ::std::option::Option<Scaling>,
+    #[serde(rename = "type")]
+    pub type_: BeneficiaryBoundEffectNodeType,
+}
+///`BeneficiaryBoundEffectNodeType`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "string",
+///  "minLength": 1
+///}
+/// ```
+/// </details>
+#[derive(::serde::Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+#[serde(transparent)]
+pub struct BeneficiaryBoundEffectNodeType(::std::string::String);
+impl ::std::ops::Deref for BeneficiaryBoundEffectNodeType {
+    type Target = ::std::string::String;
+    fn deref(&self) -> &::std::string::String {
+        &self.0
+    }
+}
+impl ::std::convert::From<BeneficiaryBoundEffectNodeType> for ::std::string::String {
+    fn from(value: BeneficiaryBoundEffectNodeType) -> Self {
+        value.0
+    }
+}
+impl ::std::str::FromStr for BeneficiaryBoundEffectNodeType {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        if value.chars().count() < 1usize {
+            return Err("shorter than 1 characters".into());
+        }
+        Ok(Self(value.to_string()))
+    }
+}
+impl ::std::convert::TryFrom<&str> for BeneficiaryBoundEffectNodeType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for BeneficiaryBoundEffectNodeType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for BeneficiaryBoundEffectNodeType {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl<'de> ::serde::Deserialize<'de> for BeneficiaryBoundEffectNodeType {
+    fn deserialize<D>(deserializer: D) -> ::std::result::Result<Self, D::Error>
+    where
+        D: ::serde::Deserializer<'de>,
+    {
+        ::std::string::String::deserialize(deserializer)?
+            .parse()
+            .map_err(|e: self::error::ConversionError| {
+                <D::Error as ::serde::de::Error>::custom(e.to_string())
+            })
     }
 }
 ///`ChoiceEffect`
@@ -4909,6 +5037,12 @@ impl ::std::convert::From<EffectNode> for Effect {
 ///      "$ref": "#/$defs/aura-effect"
 ///    },
 ///    {
+///      "$ref": "#/$defs/leader-model-ability-grant-effect"
+///    },
+///    {
+///      "$ref": "#/$defs/persistent-designation-effect"
+///    },
+///    {
 ///      "$ref": "#/$defs/designate-target-effect"
 ///    },
 ///    {
@@ -4939,6 +5073,8 @@ pub enum EffectNode {
     SelectUnitsEffect(SelectUnitsEffect),
     MovementModifierEffect(MovementModifierEffect),
     AuraEffect(AuraEffect),
+    LeaderModelAbilityGrantEffect(LeaderModelAbilityGrantEffect),
+    PersistentDesignationEffect(PersistentDesignationEffect),
     DesignateTargetEffect(DesignateTargetEffect),
     StanceSelectEffect(StanceSelectEffect),
     RiskRewardEffect(RiskRewardEffect),
@@ -4988,6 +5124,16 @@ impl ::std::convert::From<MovementModifierEffect> for EffectNode {
 impl ::std::convert::From<AuraEffect> for EffectNode {
     fn from(value: AuraEffect) -> Self {
         Self::AuraEffect(value)
+    }
+}
+impl ::std::convert::From<LeaderModelAbilityGrantEffect> for EffectNode {
+    fn from(value: LeaderModelAbilityGrantEffect) -> Self {
+        Self::LeaderModelAbilityGrantEffect(value)
+    }
+}
+impl ::std::convert::From<PersistentDesignationEffect> for EffectNode {
+    fn from(value: PersistentDesignationEffect) -> Self {
+        Self::PersistentDesignationEffect(value)
     }
 }
 impl ::std::convert::From<DesignateTargetEffect> for EffectNode {
@@ -7393,6 +7539,194 @@ impl<'de> ::serde::Deserialize<'de> for Keyword {
             })
     }
 }
+///Independent keyword predicate for the aura emitter or each aura recipient. Required keywords all match; excluded keywords none match.
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "description": "Independent keyword predicate for the aura emitter or each aura recipient. Required keywords all match; excluded keywords none match.",
+///  "type": "object",
+///  "required": [
+///    "required_keywords"
+///  ],
+///  "properties": {
+///    "excluded_keywords": {
+///      "type": "array",
+///      "items": {
+///        "type": "string",
+///        "minLength": 1
+///      },
+///      "minItems": 1
+///    },
+///    "required_keywords": {
+///      "type": "array",
+///      "items": {
+///        "type": "string",
+///        "minLength": 1
+///      },
+///      "minItems": 1
+///    }
+///  },
+///  "additionalProperties": false
+///}
+/// ```
+/// </details>
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
+#[serde(deny_unknown_fields)]
+pub struct KeywordFilter {
+    #[serde(default, skip_serializing_if = "::std::vec::Vec::is_empty")]
+    pub excluded_keywords: ::std::vec::Vec<KeywordFilterExcludedKeywordsItem>,
+    pub required_keywords: ::std::vec::Vec<KeywordFilterRequiredKeywordsItem>,
+}
+///`KeywordFilterExcludedKeywordsItem`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "string",
+///  "minLength": 1
+///}
+/// ```
+/// </details>
+#[derive(::serde::Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+#[serde(transparent)]
+pub struct KeywordFilterExcludedKeywordsItem(::std::string::String);
+impl ::std::ops::Deref for KeywordFilterExcludedKeywordsItem {
+    type Target = ::std::string::String;
+    fn deref(&self) -> &::std::string::String {
+        &self.0
+    }
+}
+impl ::std::convert::From<KeywordFilterExcludedKeywordsItem> for ::std::string::String {
+    fn from(value: KeywordFilterExcludedKeywordsItem) -> Self {
+        value.0
+    }
+}
+impl ::std::str::FromStr for KeywordFilterExcludedKeywordsItem {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        if value.chars().count() < 1usize {
+            return Err("shorter than 1 characters".into());
+        }
+        Ok(Self(value.to_string()))
+    }
+}
+impl ::std::convert::TryFrom<&str> for KeywordFilterExcludedKeywordsItem {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+for KeywordFilterExcludedKeywordsItem {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+for KeywordFilterExcludedKeywordsItem {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl<'de> ::serde::Deserialize<'de> for KeywordFilterExcludedKeywordsItem {
+    fn deserialize<D>(deserializer: D) -> ::std::result::Result<Self, D::Error>
+    where
+        D: ::serde::Deserializer<'de>,
+    {
+        ::std::string::String::deserialize(deserializer)?
+            .parse()
+            .map_err(|e: self::error::ConversionError| {
+                <D::Error as ::serde::de::Error>::custom(e.to_string())
+            })
+    }
+}
+///`KeywordFilterRequiredKeywordsItem`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "string",
+///  "minLength": 1
+///}
+/// ```
+/// </details>
+#[derive(::serde::Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+#[serde(transparent)]
+pub struct KeywordFilterRequiredKeywordsItem(::std::string::String);
+impl ::std::ops::Deref for KeywordFilterRequiredKeywordsItem {
+    type Target = ::std::string::String;
+    fn deref(&self) -> &::std::string::String {
+        &self.0
+    }
+}
+impl ::std::convert::From<KeywordFilterRequiredKeywordsItem> for ::std::string::String {
+    fn from(value: KeywordFilterRequiredKeywordsItem) -> Self {
+        value.0
+    }
+}
+impl ::std::str::FromStr for KeywordFilterRequiredKeywordsItem {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        if value.chars().count() < 1usize {
+            return Err("shorter than 1 characters".into());
+        }
+        Ok(Self(value.to_string()))
+    }
+}
+impl ::std::convert::TryFrom<&str> for KeywordFilterRequiredKeywordsItem {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+for KeywordFilterRequiredKeywordsItem {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+for KeywordFilterRequiredKeywordsItem {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl<'de> ::serde::Deserialize<'de> for KeywordFilterRequiredKeywordsItem {
+    fn deserialize<D>(deserializer: D) -> ::std::result::Result<Self, D::Error>
+    where
+        D: ::serde::Deserializer<'de>,
+    {
+        ::std::string::String::deserialize(deserializer)?
+            .parse()
+            .map_err(|e: self::error::ConversionError| {
+                <D::Error as ::serde::de::Error>::custom(e.to_string())
+            })
+    }
+}
 ///`KeywordList`
 ///
 /// <details><summary>JSON schema</summary>
@@ -7544,6 +7878,496 @@ for LeaderAttachmentEligibleBodyguardKeywordsItem {
     }
 }
 impl<'de> ::serde::Deserialize<'de> for LeaderAttachmentEligibleBodyguardKeywordsItem {
+    fn deserialize<D>(deserializer: D) -> ::std::result::Result<Self, D::Error>
+    where
+        D: ::serde::Deserializer<'de>,
+    {
+        ::std::string::String::deserialize(deserializer)?
+            .parse()
+            .map_err(|e: self::error::ConversionError| {
+                <D::Error as ::serde::de::Error>::custom(e.to_string())
+            })
+    }
+}
+///Resolve the attached qualifying leader model and dispatch a targetless effect to that model while it leads the bearer unit.
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "description": "Resolve the attached qualifying leader model and dispatch a targetless effect to that model while it leads the bearer unit.",
+///  "type": "object",
+///  "required": [
+///    "attached_unit_filter",
+///    "beneficiary",
+///    "duration",
+///    "grant",
+///    "recipient_binding",
+///    "source",
+///    "type"
+///  ],
+///  "properties": {
+///    "attached_unit_filter": {
+///      "oneOf": [
+///        {
+///          "type": "array",
+///          "items": {
+///            "type": "string",
+///            "minLength": 1
+///          },
+///          "minItems": 1
+///        },
+///        {
+///          "type": "null"
+///        }
+///      ]
+///    },
+///    "beneficiary": {
+///      "type": "string",
+///      "enum": [
+///        "leading-leader-model",
+///        "attached-character-leader"
+///      ]
+///    },
+///    "duration": {
+///      "const": "while-leading"
+///    },
+///    "grant": {
+///      "type": "object",
+///      "required": [
+///        "effect",
+///        "recipient"
+///      ],
+///      "properties": {
+///        "effect": {
+///          "$ref": "#/$defs/beneficiary-bound-effect-node"
+///        },
+///        "recipient": {
+///          "const": "beneficiary"
+///        }
+///      },
+///      "additionalProperties": false
+///    },
+///    "leader_filter": {
+///      "type": "object",
+///      "minProperties": 1,
+///      "properties": {
+///        "identity": {
+///          "type": "string",
+///          "minLength": 1
+///        },
+///        "keywords": {
+///          "type": "array",
+///          "items": {
+///            "type": "string",
+///            "minLength": 1
+///          },
+///          "minItems": 1
+///        }
+///      },
+///      "additionalProperties": false
+///    },
+///    "recipient_binding": {
+///      "const": "beneficiary-only"
+///    },
+///    "source": {
+///      "const": "bearer-unit"
+///    },
+///    "type": {
+///      "const": "leader-model-ability-grant"
+///    }
+///  },
+///  "additionalProperties": false
+///}
+/// ```
+/// </details>
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
+#[serde(deny_unknown_fields)]
+pub struct LeaderModelAbilityGrantEffect {
+    pub attached_unit_filter: ::std::option::Option<
+        ::std::vec::Vec<LeaderModelAbilityGrantEffectAttachedUnitFilterItem>,
+    >,
+    pub beneficiary: LeaderModelAbilityGrantEffectBeneficiary,
+    pub duration: ::serde_json::Value,
+    pub grant: LeaderModelAbilityGrantEffectGrant,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub leader_filter: ::std::option::Option<LeaderModelAbilityGrantEffectLeaderFilter>,
+    pub recipient_binding: ::serde_json::Value,
+    pub source: ::serde_json::Value,
+    #[serde(rename = "type")]
+    pub type_: ::serde_json::Value,
+}
+///`LeaderModelAbilityGrantEffectAttachedUnitFilterItem`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "string",
+///  "minLength": 1
+///}
+/// ```
+/// </details>
+#[derive(::serde::Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+#[serde(transparent)]
+pub struct LeaderModelAbilityGrantEffectAttachedUnitFilterItem(::std::string::String);
+impl ::std::ops::Deref for LeaderModelAbilityGrantEffectAttachedUnitFilterItem {
+    type Target = ::std::string::String;
+    fn deref(&self) -> &::std::string::String {
+        &self.0
+    }
+}
+impl ::std::convert::From<LeaderModelAbilityGrantEffectAttachedUnitFilterItem>
+for ::std::string::String {
+    fn from(value: LeaderModelAbilityGrantEffectAttachedUnitFilterItem) -> Self {
+        value.0
+    }
+}
+impl ::std::str::FromStr for LeaderModelAbilityGrantEffectAttachedUnitFilterItem {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        if value.chars().count() < 1usize {
+            return Err("shorter than 1 characters".into());
+        }
+        Ok(Self(value.to_string()))
+    }
+}
+impl ::std::convert::TryFrom<&str>
+for LeaderModelAbilityGrantEffectAttachedUnitFilterItem {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+for LeaderModelAbilityGrantEffectAttachedUnitFilterItem {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+for LeaderModelAbilityGrantEffectAttachedUnitFilterItem {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl<'de> ::serde::Deserialize<'de>
+for LeaderModelAbilityGrantEffectAttachedUnitFilterItem {
+    fn deserialize<D>(deserializer: D) -> ::std::result::Result<Self, D::Error>
+    where
+        D: ::serde::Deserializer<'de>,
+    {
+        ::std::string::String::deserialize(deserializer)?
+            .parse()
+            .map_err(|e: self::error::ConversionError| {
+                <D::Error as ::serde::de::Error>::custom(e.to_string())
+            })
+    }
+}
+///`LeaderModelAbilityGrantEffectBeneficiary`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "string",
+///  "enum": [
+///    "leading-leader-model",
+///    "attached-character-leader"
+///  ]
+///}
+/// ```
+/// </details>
+#[derive(
+    ::serde::Deserialize,
+    ::serde::Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd
+)]
+pub enum LeaderModelAbilityGrantEffectBeneficiary {
+    #[serde(rename = "leading-leader-model")]
+    LeadingLeaderModel,
+    #[serde(rename = "attached-character-leader")]
+    AttachedCharacterLeader,
+}
+impl ::std::fmt::Display for LeaderModelAbilityGrantEffectBeneficiary {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::LeadingLeaderModel => f.write_str("leading-leader-model"),
+            Self::AttachedCharacterLeader => f.write_str("attached-character-leader"),
+        }
+    }
+}
+impl ::std::str::FromStr for LeaderModelAbilityGrantEffectBeneficiary {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "leading-leader-model" => Ok(Self::LeadingLeaderModel),
+            "attached-character-leader" => Ok(Self::AttachedCharacterLeader),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for LeaderModelAbilityGrantEffectBeneficiary {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+for LeaderModelAbilityGrantEffectBeneficiary {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+for LeaderModelAbilityGrantEffectBeneficiary {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+///`LeaderModelAbilityGrantEffectGrant`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "object",
+///  "required": [
+///    "effect",
+///    "recipient"
+///  ],
+///  "properties": {
+///    "effect": {
+///      "$ref": "#/$defs/beneficiary-bound-effect-node"
+///    },
+///    "recipient": {
+///      "const": "beneficiary"
+///    }
+///  },
+///  "additionalProperties": false
+///}
+/// ```
+/// </details>
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
+#[serde(deny_unknown_fields)]
+pub struct LeaderModelAbilityGrantEffectGrant {
+    pub effect: BeneficiaryBoundEffectNode,
+    pub recipient: ::serde_json::Value,
+}
+///`LeaderModelAbilityGrantEffectLeaderFilter`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "object",
+///  "minProperties": 1,
+///  "properties": {
+///    "identity": {
+///      "type": "string",
+///      "minLength": 1
+///    },
+///    "keywords": {
+///      "type": "array",
+///      "items": {
+///        "type": "string",
+///        "minLength": 1
+///      },
+///      "minItems": 1
+///    }
+///  },
+///  "additionalProperties": false
+///}
+/// ```
+/// </details>
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
+#[serde(deny_unknown_fields)]
+pub struct LeaderModelAbilityGrantEffectLeaderFilter {
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub identity: ::std::option::Option<
+        LeaderModelAbilityGrantEffectLeaderFilterIdentity,
+    >,
+    #[serde(default, skip_serializing_if = "::std::vec::Vec::is_empty")]
+    pub keywords: ::std::vec::Vec<LeaderModelAbilityGrantEffectLeaderFilterKeywordsItem>,
+}
+impl ::std::default::Default for LeaderModelAbilityGrantEffectLeaderFilter {
+    fn default() -> Self {
+        Self {
+            identity: Default::default(),
+            keywords: Default::default(),
+        }
+    }
+}
+///`LeaderModelAbilityGrantEffectLeaderFilterIdentity`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "string",
+///  "minLength": 1
+///}
+/// ```
+/// </details>
+#[derive(::serde::Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+#[serde(transparent)]
+pub struct LeaderModelAbilityGrantEffectLeaderFilterIdentity(::std::string::String);
+impl ::std::ops::Deref for LeaderModelAbilityGrantEffectLeaderFilterIdentity {
+    type Target = ::std::string::String;
+    fn deref(&self) -> &::std::string::String {
+        &self.0
+    }
+}
+impl ::std::convert::From<LeaderModelAbilityGrantEffectLeaderFilterIdentity>
+for ::std::string::String {
+    fn from(value: LeaderModelAbilityGrantEffectLeaderFilterIdentity) -> Self {
+        value.0
+    }
+}
+impl ::std::str::FromStr for LeaderModelAbilityGrantEffectLeaderFilterIdentity {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        if value.chars().count() < 1usize {
+            return Err("shorter than 1 characters".into());
+        }
+        Ok(Self(value.to_string()))
+    }
+}
+impl ::std::convert::TryFrom<&str>
+for LeaderModelAbilityGrantEffectLeaderFilterIdentity {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+for LeaderModelAbilityGrantEffectLeaderFilterIdentity {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+for LeaderModelAbilityGrantEffectLeaderFilterIdentity {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl<'de> ::serde::Deserialize<'de>
+for LeaderModelAbilityGrantEffectLeaderFilterIdentity {
+    fn deserialize<D>(deserializer: D) -> ::std::result::Result<Self, D::Error>
+    where
+        D: ::serde::Deserializer<'de>,
+    {
+        ::std::string::String::deserialize(deserializer)?
+            .parse()
+            .map_err(|e: self::error::ConversionError| {
+                <D::Error as ::serde::de::Error>::custom(e.to_string())
+            })
+    }
+}
+///`LeaderModelAbilityGrantEffectLeaderFilterKeywordsItem`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "string",
+///  "minLength": 1
+///}
+/// ```
+/// </details>
+#[derive(::serde::Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+#[serde(transparent)]
+pub struct LeaderModelAbilityGrantEffectLeaderFilterKeywordsItem(::std::string::String);
+impl ::std::ops::Deref for LeaderModelAbilityGrantEffectLeaderFilterKeywordsItem {
+    type Target = ::std::string::String;
+    fn deref(&self) -> &::std::string::String {
+        &self.0
+    }
+}
+impl ::std::convert::From<LeaderModelAbilityGrantEffectLeaderFilterKeywordsItem>
+for ::std::string::String {
+    fn from(value: LeaderModelAbilityGrantEffectLeaderFilterKeywordsItem) -> Self {
+        value.0
+    }
+}
+impl ::std::str::FromStr for LeaderModelAbilityGrantEffectLeaderFilterKeywordsItem {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        if value.chars().count() < 1usize {
+            return Err("shorter than 1 characters".into());
+        }
+        Ok(Self(value.to_string()))
+    }
+}
+impl ::std::convert::TryFrom<&str>
+for LeaderModelAbilityGrantEffectLeaderFilterKeywordsItem {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+for LeaderModelAbilityGrantEffectLeaderFilterKeywordsItem {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+for LeaderModelAbilityGrantEffectLeaderFilterKeywordsItem {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl<'de> ::serde::Deserialize<'de>
+for LeaderModelAbilityGrantEffectLeaderFilterKeywordsItem {
     fn deserialize<D>(deserializer: D) -> ::std::result::Result<Self, D::Error>
     where
         D: ::serde::Deserializer<'de>,
@@ -11224,6 +12048,682 @@ pub struct NamedRegionState {
     pub consumer: NamedRegionConsumer,
     pub producer: NamedRegionProducer,
     pub region_ref: NamedRegionRef,
+}
+///`PersistentDesignationEffect`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "object",
+///  "required": [
+///    "consumer",
+///    "designation",
+///    "duration",
+///    "select",
+///    "type"
+///  ],
+///  "properties": {
+///    "consumer": {
+///      "description": "The retained reference is consumed by the bearer model only; the renderer names both the bearer recipient and the exact selected-reference relation.",
+///      "type": "object",
+///      "required": [
+///        "beneficiary",
+///        "effect",
+///        "relation"
+///      ],
+///      "properties": {
+///        "beneficiary": {
+///          "description": "For the seed, beneficiary bearer resolves to this model; the selected unit or marker is never the effect recipient.",
+///          "type": "string",
+///          "const": "bearer"
+///        },
+///        "effect": {
+///          "description": "Nested effects target the bearer. Objective Control operation set is an assignment and renders as setting the characteristic to the value, not as a signed delta.",
+///          "$ref": "#/$defs/effect-node"
+///        },
+///        "relation": {
+///          "description": "Resolve this relation from the bearer to its retained enemy unit or marker; do not substitute a generic target or nearby-object predicate.",
+///          "type": "string",
+///          "enum": [
+///            "attacks-selected-unit",
+///            "within-selected-marker"
+///          ]
+///        }
+///      },
+///      "additionalProperties": false
+///    },
+///    "designation": {
+///      "type": "string",
+///      "minLength": 1
+///    },
+///    "duration": {
+///      "type": "string",
+///      "enum": [
+///        "phase",
+///        "turn",
+///        "battle-round",
+///        "battle",
+///        "until-next-command-phase"
+///      ]
+///    },
+///    "select": {
+///      "type": "object",
+///      "required": [
+///        "scope",
+///        "selection_policy",
+///        "timing"
+///      ],
+///      "properties": {
+///        "count": {
+///          "type": "integer",
+///          "const": 1
+///        },
+///        "scope": {
+///          "type": "string",
+///          "enum": [
+///            "enemy-unit",
+///            "objective-marker"
+///          ]
+///        },
+///        "selection_policy": {
+///          "type": "string",
+///          "enum": [
+///            "one-time"
+///          ]
+///        },
+///        "timing": {
+///          "type": "string",
+///          "minLength": 1
+///        }
+///      },
+///      "additionalProperties": false
+///    },
+///    "type": {
+///      "const": "persistent-designation"
+///    }
+///  },
+///  "additionalProperties": false,
+///  "$comment": "Retain one selected enemy unit or objective marker, then resolve a bearer-only consumer relation against that exact reference for the declared duration. The seed policy is one-time selection at the start of the first battle round."
+///}
+/// ```
+/// </details>
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
+#[serde(deny_unknown_fields)]
+pub struct PersistentDesignationEffect {
+    pub consumer: PersistentDesignationEffectConsumer,
+    pub designation: PersistentDesignationEffectDesignation,
+    pub duration: PersistentDesignationEffectDuration,
+    pub select: PersistentDesignationEffectSelect,
+    #[serde(rename = "type")]
+    pub type_: ::serde_json::Value,
+}
+///The retained reference is consumed by the bearer model only; the renderer names both the bearer recipient and the exact selected-reference relation.
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "description": "The retained reference is consumed by the bearer model only; the renderer names both the bearer recipient and the exact selected-reference relation.",
+///  "type": "object",
+///  "required": [
+///    "beneficiary",
+///    "effect",
+///    "relation"
+///  ],
+///  "properties": {
+///    "beneficiary": {
+///      "description": "For the seed, beneficiary bearer resolves to this model; the selected unit or marker is never the effect recipient.",
+///      "type": "string",
+///      "const": "bearer"
+///    },
+///    "effect": {
+///      "description": "Nested effects target the bearer. Objective Control operation set is an assignment and renders as setting the characteristic to the value, not as a signed delta.",
+///      "$ref": "#/$defs/effect-node"
+///    },
+///    "relation": {
+///      "description": "Resolve this relation from the bearer to its retained enemy unit or marker; do not substitute a generic target or nearby-object predicate.",
+///      "type": "string",
+///      "enum": [
+///        "attacks-selected-unit",
+///        "within-selected-marker"
+///      ]
+///    }
+///  },
+///  "additionalProperties": false
+///}
+/// ```
+/// </details>
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
+#[serde(deny_unknown_fields)]
+pub struct PersistentDesignationEffectConsumer {
+    ///For the seed, beneficiary bearer resolves to this model; the selected unit or marker is never the effect recipient.
+    pub beneficiary: ::std::string::String,
+    ///Nested effects target the bearer. Objective Control operation set is an assignment and renders as setting the characteristic to the value, not as a signed delta.
+    pub effect: ::std::boxed::Box<EffectNode>,
+    ///Resolve this relation from the bearer to its retained enemy unit or marker; do not substitute a generic target or nearby-object predicate.
+    pub relation: PersistentDesignationEffectConsumerRelation,
+}
+///Resolve this relation from the bearer to its retained enemy unit or marker; do not substitute a generic target or nearby-object predicate.
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "description": "Resolve this relation from the bearer to its retained enemy unit or marker; do not substitute a generic target or nearby-object predicate.",
+///  "type": "string",
+///  "enum": [
+///    "attacks-selected-unit",
+///    "within-selected-marker"
+///  ]
+///}
+/// ```
+/// </details>
+#[derive(
+    ::serde::Deserialize,
+    ::serde::Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd
+)]
+pub enum PersistentDesignationEffectConsumerRelation {
+    #[serde(rename = "attacks-selected-unit")]
+    AttacksSelectedUnit,
+    #[serde(rename = "within-selected-marker")]
+    WithinSelectedMarker,
+}
+impl ::std::fmt::Display for PersistentDesignationEffectConsumerRelation {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::AttacksSelectedUnit => f.write_str("attacks-selected-unit"),
+            Self::WithinSelectedMarker => f.write_str("within-selected-marker"),
+        }
+    }
+}
+impl ::std::str::FromStr for PersistentDesignationEffectConsumerRelation {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "attacks-selected-unit" => Ok(Self::AttacksSelectedUnit),
+            "within-selected-marker" => Ok(Self::WithinSelectedMarker),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for PersistentDesignationEffectConsumerRelation {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+for PersistentDesignationEffectConsumerRelation {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+for PersistentDesignationEffectConsumerRelation {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+///`PersistentDesignationEffectDesignation`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "string",
+///  "minLength": 1
+///}
+/// ```
+/// </details>
+#[derive(::serde::Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+#[serde(transparent)]
+pub struct PersistentDesignationEffectDesignation(::std::string::String);
+impl ::std::ops::Deref for PersistentDesignationEffectDesignation {
+    type Target = ::std::string::String;
+    fn deref(&self) -> &::std::string::String {
+        &self.0
+    }
+}
+impl ::std::convert::From<PersistentDesignationEffectDesignation>
+for ::std::string::String {
+    fn from(value: PersistentDesignationEffectDesignation) -> Self {
+        value.0
+    }
+}
+impl ::std::str::FromStr for PersistentDesignationEffectDesignation {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        if value.chars().count() < 1usize {
+            return Err("shorter than 1 characters".into());
+        }
+        Ok(Self(value.to_string()))
+    }
+}
+impl ::std::convert::TryFrom<&str> for PersistentDesignationEffectDesignation {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+for PersistentDesignationEffectDesignation {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+for PersistentDesignationEffectDesignation {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl<'de> ::serde::Deserialize<'de> for PersistentDesignationEffectDesignation {
+    fn deserialize<D>(deserializer: D) -> ::std::result::Result<Self, D::Error>
+    where
+        D: ::serde::Deserializer<'de>,
+    {
+        ::std::string::String::deserialize(deserializer)?
+            .parse()
+            .map_err(|e: self::error::ConversionError| {
+                <D::Error as ::serde::de::Error>::custom(e.to_string())
+            })
+    }
+}
+///`PersistentDesignationEffectDuration`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "string",
+///  "enum": [
+///    "phase",
+///    "turn",
+///    "battle-round",
+///    "battle",
+///    "until-next-command-phase"
+///  ]
+///}
+/// ```
+/// </details>
+#[derive(
+    ::serde::Deserialize,
+    ::serde::Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd
+)]
+pub enum PersistentDesignationEffectDuration {
+    #[serde(rename = "phase")]
+    Phase,
+    #[serde(rename = "turn")]
+    Turn,
+    #[serde(rename = "battle-round")]
+    BattleRound,
+    #[serde(rename = "battle")]
+    Battle,
+    #[serde(rename = "until-next-command-phase")]
+    UntilNextCommandPhase,
+}
+impl ::std::fmt::Display for PersistentDesignationEffectDuration {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::Phase => f.write_str("phase"),
+            Self::Turn => f.write_str("turn"),
+            Self::BattleRound => f.write_str("battle-round"),
+            Self::Battle => f.write_str("battle"),
+            Self::UntilNextCommandPhase => f.write_str("until-next-command-phase"),
+        }
+    }
+}
+impl ::std::str::FromStr for PersistentDesignationEffectDuration {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "phase" => Ok(Self::Phase),
+            "turn" => Ok(Self::Turn),
+            "battle-round" => Ok(Self::BattleRound),
+            "battle" => Ok(Self::Battle),
+            "until-next-command-phase" => Ok(Self::UntilNextCommandPhase),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for PersistentDesignationEffectDuration {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+for PersistentDesignationEffectDuration {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+for PersistentDesignationEffectDuration {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+///`PersistentDesignationEffectSelect`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "object",
+///  "required": [
+///    "scope",
+///    "selection_policy",
+///    "timing"
+///  ],
+///  "properties": {
+///    "count": {
+///      "type": "integer",
+///      "const": 1
+///    },
+///    "scope": {
+///      "type": "string",
+///      "enum": [
+///        "enemy-unit",
+///        "objective-marker"
+///      ]
+///    },
+///    "selection_policy": {
+///      "type": "string",
+///      "enum": [
+///        "one-time"
+///      ]
+///    },
+///    "timing": {
+///      "type": "string",
+///      "minLength": 1
+///    }
+///  },
+///  "additionalProperties": false
+///}
+/// ```
+/// </details>
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
+#[serde(deny_unknown_fields)]
+pub struct PersistentDesignationEffectSelect {
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub count: ::std::option::Option<i64>,
+    pub scope: PersistentDesignationEffectSelectScope,
+    pub selection_policy: PersistentDesignationEffectSelectSelectionPolicy,
+    pub timing: PersistentDesignationEffectSelectTiming,
+}
+///`PersistentDesignationEffectSelectScope`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "string",
+///  "enum": [
+///    "enemy-unit",
+///    "objective-marker"
+///  ]
+///}
+/// ```
+/// </details>
+#[derive(
+    ::serde::Deserialize,
+    ::serde::Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd
+)]
+pub enum PersistentDesignationEffectSelectScope {
+    #[serde(rename = "enemy-unit")]
+    EnemyUnit,
+    #[serde(rename = "objective-marker")]
+    ObjectiveMarker,
+}
+impl ::std::fmt::Display for PersistentDesignationEffectSelectScope {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::EnemyUnit => f.write_str("enemy-unit"),
+            Self::ObjectiveMarker => f.write_str("objective-marker"),
+        }
+    }
+}
+impl ::std::str::FromStr for PersistentDesignationEffectSelectScope {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "enemy-unit" => Ok(Self::EnemyUnit),
+            "objective-marker" => Ok(Self::ObjectiveMarker),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for PersistentDesignationEffectSelectScope {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+for PersistentDesignationEffectSelectScope {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+for PersistentDesignationEffectSelectScope {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+///`PersistentDesignationEffectSelectSelectionPolicy`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "string",
+///  "enum": [
+///    "one-time"
+///  ]
+///}
+/// ```
+/// </details>
+#[derive(
+    ::serde::Deserialize,
+    ::serde::Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd
+)]
+pub enum PersistentDesignationEffectSelectSelectionPolicy {
+    #[serde(rename = "one-time")]
+    OneTime,
+}
+impl ::std::fmt::Display for PersistentDesignationEffectSelectSelectionPolicy {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::OneTime => f.write_str("one-time"),
+        }
+    }
+}
+impl ::std::str::FromStr for PersistentDesignationEffectSelectSelectionPolicy {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "one-time" => Ok(Self::OneTime),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for PersistentDesignationEffectSelectSelectionPolicy {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+for PersistentDesignationEffectSelectSelectionPolicy {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+for PersistentDesignationEffectSelectSelectionPolicy {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+///`PersistentDesignationEffectSelectTiming`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "string",
+///  "minLength": 1
+///}
+/// ```
+/// </details>
+#[derive(::serde::Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+#[serde(transparent)]
+pub struct PersistentDesignationEffectSelectTiming(::std::string::String);
+impl ::std::ops::Deref for PersistentDesignationEffectSelectTiming {
+    type Target = ::std::string::String;
+    fn deref(&self) -> &::std::string::String {
+        &self.0
+    }
+}
+impl ::std::convert::From<PersistentDesignationEffectSelectTiming>
+for ::std::string::String {
+    fn from(value: PersistentDesignationEffectSelectTiming) -> Self {
+        value.0
+    }
+}
+impl ::std::str::FromStr for PersistentDesignationEffectSelectTiming {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        if value.chars().count() < 1usize {
+            return Err("shorter than 1 characters".into());
+        }
+        Ok(Self(value.to_string()))
+    }
+}
+impl ::std::convert::TryFrom<&str> for PersistentDesignationEffectSelectTiming {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+for PersistentDesignationEffectSelectTiming {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+for PersistentDesignationEffectSelectTiming {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl<'de> ::serde::Deserialize<'de> for PersistentDesignationEffectSelectTiming {
+    fn deserialize<D>(deserializer: D) -> ::std::result::Result<Self, D::Error>
+    where
+        D: ::serde::Deserializer<'de>,
+    {
+        ::std::string::String::deserialize(deserializer)?
+            .parse()
+            .map_err(|e: self::error::ConversionError| {
+                <D::Error as ::serde::de::Error>::custom(e.to_string())
+            })
+    }
 }
 ///The five official game phases. Unchanged between 10th and 11th edition — 11e reorders Pile In timing within the Fight phase but adds no top-level phase.
 ///
@@ -17034,12 +18534,22 @@ impl ::std::convert::TryFrom<::std::string::String> for SecondaryCardWhenDrawnOp
 ///      "$ref": "#/$defs/effect-node"
 ///    },
 ///    "selector": {
+///      "description": "Legacy selectors omit min_count and retain up-to semantics. Bounded authoring requires min_count, max_count, and owner, with min_count <= max_count.",
 ///      "type": "object",
 ///      "required": [
 ///        "max_count",
 ///        "owner"
 ///      ],
 ///      "properties": {
+///        "engagement_relation": {
+///          "description": "Candidate engagement relation to the bearer; evaluated independently of range_inches.",
+///          "type": "string",
+///          "enum": [
+///            "any",
+///            "engaged-with-bearer",
+///            "not-engaged-with-bearer"
+///          ]
+///        },
 ///        "keywords": {
 ///          "type": "array",
 ///          "items": {
@@ -17050,12 +18560,25 @@ impl ::std::convert::TryFrom<::std::string::String> for SecondaryCardWhenDrawnOp
 ///          "type": "integer",
 ///          "minimum": 1.0
 ///        },
+///        "min_count": {
+///          "type": "integer",
+///          "minimum": 1.0
+///        },
 ///        "owner": {
 ///          "type": "string",
 ///          "enum": [
 ///            "friendly",
 ///            "enemy"
 ///          ]
+///        },
+///        "range_inches": {
+///          "description": "Distance from bearer to each selected unit.",
+///          "type": "number",
+///          "minimum": 0.0
+///        },
+///        "visibility_required": {
+///          "description": "When true, each selected candidate must be visible to the bearer.",
+///          "type": "boolean"
 ///        }
 ///      },
 ///      "additionalProperties": false
@@ -17064,7 +18587,7 @@ impl ::std::convert::TryFrom<::std::string::String> for SecondaryCardWhenDrawnOp
 ///      "const": "select-units"
 ///    }
 ///  },
-///  "$comment": "Targeting wrapper: choose up to `selector.max_count` units matching `selector.keywords` of the named `owner`, then apply the nested `effect` to each. Models 'select up to N <keyword> units and do X' (redeploy, army-wide one-off buffs) that bare ability-grant labels previously flattened."
+///  "$comment": "Targeting wrapper: choose up to `selector.max_count` units, or a bounded exact/inclusive count when `selector.min_count` is present, matching `selector.keywords` of the named `owner`; apply the nested `effect` to each selected unit. Optional range, visibility, and engagement gates are bearer-relative candidate predicates evaluated before the nested effect."
 ///}
 /// ```
 /// </details>
@@ -17075,18 +18598,28 @@ pub struct SelectUnitsEffect {
     #[serde(rename = "type")]
     pub type_: ::serde_json::Value,
 }
-///`SelectUnitsEffectSelector`
+///Legacy selectors omit min_count and retain up-to semantics. Bounded authoring requires min_count, max_count, and owner, with min_count <= max_count.
 ///
 /// <details><summary>JSON schema</summary>
 ///
 /// ```json
 ///{
+///  "description": "Legacy selectors omit min_count and retain up-to semantics. Bounded authoring requires min_count, max_count, and owner, with min_count <= max_count.",
 ///  "type": "object",
 ///  "required": [
 ///    "max_count",
 ///    "owner"
 ///  ],
 ///  "properties": {
+///    "engagement_relation": {
+///      "description": "Candidate engagement relation to the bearer; evaluated independently of range_inches.",
+///      "type": "string",
+///      "enum": [
+///        "any",
+///        "engaged-with-bearer",
+///        "not-engaged-with-bearer"
+///      ]
+///    },
 ///    "keywords": {
 ///      "type": "array",
 ///      "items": {
@@ -17097,12 +18630,25 @@ pub struct SelectUnitsEffect {
 ///      "type": "integer",
 ///      "minimum": 1.0
 ///    },
+///    "min_count": {
+///      "type": "integer",
+///      "minimum": 1.0
+///    },
 ///    "owner": {
 ///      "type": "string",
 ///      "enum": [
 ///        "friendly",
 ///        "enemy"
 ///      ]
+///    },
+///    "range_inches": {
+///      "description": "Distance from bearer to each selected unit.",
+///      "type": "number",
+///      "minimum": 0.0
+///    },
+///    "visibility_required": {
+///      "description": "When true, each selected candidate must be visible to the bearer.",
+///      "type": "boolean"
 ///    }
 ///  },
 ///  "additionalProperties": false
@@ -17112,10 +18658,107 @@ pub struct SelectUnitsEffect {
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
 #[serde(deny_unknown_fields)]
 pub struct SelectUnitsEffectSelector {
+    ///Candidate engagement relation to the bearer; evaluated independently of range_inches.
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub engagement_relation: ::std::option::Option<
+        SelectUnitsEffectSelectorEngagementRelation,
+    >,
     #[serde(default, skip_serializing_if = "::std::vec::Vec::is_empty")]
     pub keywords: ::std::vec::Vec<::std::string::String>,
     pub max_count: ::std::num::NonZeroU64,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub min_count: ::std::option::Option<::std::num::NonZeroU64>,
     pub owner: SelectUnitsEffectSelectorOwner,
+    ///Distance from bearer to each selected unit.
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub range_inches: ::std::option::Option<f64>,
+    ///When true, each selected candidate must be visible to the bearer.
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub visibility_required: ::std::option::Option<bool>,
+}
+///Candidate engagement relation to the bearer; evaluated independently of range_inches.
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "description": "Candidate engagement relation to the bearer; evaluated independently of range_inches.",
+///  "type": "string",
+///  "enum": [
+///    "any",
+///    "engaged-with-bearer",
+///    "not-engaged-with-bearer"
+///  ]
+///}
+/// ```
+/// </details>
+#[derive(
+    ::serde::Deserialize,
+    ::serde::Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd
+)]
+pub enum SelectUnitsEffectSelectorEngagementRelation {
+    #[serde(rename = "any")]
+    Any,
+    #[serde(rename = "engaged-with-bearer")]
+    EngagedWithBearer,
+    #[serde(rename = "not-engaged-with-bearer")]
+    NotEngagedWithBearer,
+}
+impl ::std::fmt::Display for SelectUnitsEffectSelectorEngagementRelation {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::Any => f.write_str("any"),
+            Self::EngagedWithBearer => f.write_str("engaged-with-bearer"),
+            Self::NotEngagedWithBearer => f.write_str("not-engaged-with-bearer"),
+        }
+    }
+}
+impl ::std::str::FromStr for SelectUnitsEffectSelectorEngagementRelation {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "any" => Ok(Self::Any),
+            "engaged-with-bearer" => Ok(Self::EngagedWithBearer),
+            "not-engaged-with-bearer" => Ok(Self::NotEngagedWithBearer),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for SelectUnitsEffectSelectorEngagementRelation {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+for SelectUnitsEffectSelectorEngagementRelation {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+for SelectUnitsEffectSelectorEngagementRelation {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
 }
 ///`SelectUnitsEffectSelectorOwner`
 ///

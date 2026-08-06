@@ -106,12 +106,19 @@ test('IP boundary verification reports exact and contained fabricated prose with
   const rawStore = join(root, 'raw-store')
   mkdirSync(rawStore)
   const prohibited = 'Fabricated defenders reduce incoming harm during the test window.'
+  const incidentalFragment = 'selected target'
   writeFileSync(join(rawStore, 'index.json'), JSON.stringify({
     schema_version: 1,
-    factions: { fixture: { 'defensive-primitive': { faction: 'Fixture', raw_text: prohibited } } },
+    factions: {
+      fixture: {
+        'defensive-primitive': { faction: 'Fixture', raw_text: prohibited },
+        'structured-fragment': { faction: 'Fixture', target: incidentalFragment },
+      },
+    },
   }))
   const store = new GraphStore(join(root, 'graph'))
   store.createNode({ kind: 'finding', payload: { faction_id: 'fixture', ability_id: 'safe-name', summary: 'community-authored defensive summary' } })
+  store.createNode({ kind: 'finding', payload: { summary: incidentalFragment } })
   assert.equal(verifyGraphIpBoundary(store, rawStore).clean, true)
   const exact = store.createNode({ kind: 'finding', payload: { summary: prohibited } })
   const contained = store.createNode({ kind: 'finding', payload: { summary: `prefix ${prohibited} suffix` } })

@@ -10,7 +10,7 @@ abilities that translate into cruncher buffs via the real `effectToBuffs`
 | adepta-sororitas | 100 | 29 | 10 | 64 | 0 | 7 | 0 | 1 |
 | adeptus-astartes | 364 | 112 | 38 | 228 | 3 | 16 | 0 | 7 |
 | adeptus-custodes | 90 | 21 | 12 | 61 | 0 | 3 | 0 | 3 |
-| adeptus-mechanicus | 111 | 27 | 12 | 76 | 0 | 0 | 0 | 2 |
+| adeptus-mechanicus | 111 | 27 | 10 | 78 | 0 | 0 | 0 | 2 |
 | aeldari | 180 | 40 | 13 | 132 | 2 | 7 | 0 | 5 |
 | agents-of-the-imperium | 133 | 34 | 13 | 89 | 0 | 0 | 0 | 2 |
 | astra-militarum | 205 | 44 | 16 | 147 | 2 | 3 | 0 | 5 |
@@ -28,9 +28,9 @@ abilities that translate into cruncher buffs via the real `effectToBuffs`
 | orks | 159 | 34 | 14 | 116 | 2 | 5 | 0 | 3 |
 | tau-empire | 129 | 31 | 6 | 94 | 0 | 3 | 0 | 3 |
 | thousand-sons | 130 | 32 | 9 | 94 | 6 | 12 | 0 | 2 |
-| tyranids | 115 | 22 | 8 | 88 | 1 | 5 | 0 | 5 |
+| tyranids | 115 | 21 | 7 | 89 | 1 | 5 | 0 | 5 |
 | world-eaters | 133 | 17 | 10 | 107 | 3 | 0 | 0 | 0 |
-| **TOTAL** | **3123** | **769** | **266** | **2174** | **38** | **117** | **0** | **57** |
+| **TOTAL** | **3123** | **768** | **263** | **2177** | **38** | **117** | **0** | **57** |
 
 `stub*` = structural (empty-modifier placeholder node) — the authoring worklist. `notes-stub` = flagged in community_notes.
 
@@ -102,6 +102,7 @@ abilities that translate into cruncher buffs via the real `effectToBuffs`
 - `3` — conditional: cannot evaluate condition "terrain-area-control" against current context
 - `2` — effect type "replace-roll-from-pool" is not modelled by the buff layer
 - `2` — re-roll on "attacks-characteristic" (subset …) is outside the damage path
+- `2` — leader-model-ability-grant: attached leader beneficiary is not resolved by the buff engine
 - `2` — stat-modifier on "Range" is outside the damage path
 - `2` — roll-modifier: operation "guarantee-crit" not supported
 - `2` — re-roll on "eviscerating-fly-by-wounds" (subset …) is outside the damage path

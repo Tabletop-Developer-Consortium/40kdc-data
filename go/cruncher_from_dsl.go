@@ -28,9 +28,10 @@ type effectTranslation struct {
 }
 
 type dslOpts struct {
-	context     map[string]any
-	perspective string
-	abilityID   string
+	context       map[string]any
+	perspective   string
+	abilityID     string
+	defaultTarget string
 }
 
 // effectToBuffs walks an ability DSL effect tree, producing the buff stack plus
@@ -47,11 +48,20 @@ func effectToBuffs(effect any, source map[string]any, context map[string]any, pe
 	dslWalk(effect, source, opts, out)
 	return out
 }
-
 func dslWalk(node any, source map[string]any, opts dslOpts, out *effectTranslation) {
 	n, ok := asMap(node)
 	if !ok {
 		return
+	}
+	if opts.defaultTarget != "" {
+		if _, present := n["target"]; !present {
+			decorated := make(map[string]any, len(n)+1)
+			for key, value := range n {
+				decorated[key] = value
+			}
+			decorated["target"] = opts.defaultTarget
+			n = decorated
+		}
 	}
 	switch getStr(n, "type") {
 	case "re-roll":
@@ -87,6 +97,10 @@ func dslWalk(node any, source map[string]any, opts dslOpts, out *effectTranslati
 	case "select-units":
 		// Targeting wrapper — the selected units receive the nested effect.
 		dslWalk(n["effect"], source, opts, out)
+	case "leader-model-ability-grant":
+		out.unsupported = append(out.unsupported, unsup("leader-model-ability-grant: attached leader beneficiary is not resolved by the buff engine", n))
+	case "persistent-designation":
+		out.unsupported = append(out.unsupported, unsup("persistent-designation: retained selection state is not resolved by the buff engine", n))
 	case "designate-target":
 		// Mark an enemy unit; when `to: attackers-of-target` the nested effect is
 		// a buff every friendly attack against that unit receives (Oath of Moment).

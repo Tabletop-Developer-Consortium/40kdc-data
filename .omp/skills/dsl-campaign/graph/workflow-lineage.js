@@ -104,6 +104,7 @@ function pointerToken(value) {
 function normalizedProhibitedText(value) {
   return value.normalize('NFKC').replace(/\s+/gu, ' ').trim()
 }
+const MIN_PROHIBITED_TEXT_LENGTH = 20
 
 export function prohibitedStoreStrings(storePath) {
   const indexPath = existsSync(storePath) && statSync(storePath).isDirectory() ? join(storePath, 'index.json') : storePath
@@ -114,7 +115,7 @@ export function prohibitedStoreStrings(storePath) {
   const collect = (value, storeKey) => {
     if (typeof value === 'string') {
       const normalized = normalizedProhibitedText(value)
-      if (normalized) entries.push({ store_key: storeKey, text: normalized })
+      if (normalized.length >= MIN_PROHIBITED_TEXT_LENGTH) entries.push({ store_key: storeKey, text: normalized })
       return
     }
     if (Array.isArray(value)) {

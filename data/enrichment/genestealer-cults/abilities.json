@@ -858,35 +858,71 @@
   },
   {
     "ability_id": "nexus-of-devotion",
-    "name": "Nexus of Devotion",
+    "ability_type": "unit",
     "authored_by": "40kdc-community",
-    "game_version": {
-      "edition": "11th",
-      "dataslate": "pre-launch-provisional"
-    },
-    "version": "2025-q3",
+    "behavior": "passive",
     "effect": {
-      "type": "conditional",
       "condition": {
-        "type": "is-attached"
+        "parameters": {},
+        "type": "model-is-leader"
       },
       "effect": {
-        "type": "feel-no-pain",
-        "target": "unit",
-        "modifier": {
-          "threshold": 5
-        }
-      }
+        "steps": [
+          {
+            "condition": {
+              "operands": [
+                {
+                  "parameters": {
+                    "keyword": "HYBRID METAMORPHS"
+                  },
+                  "type": "unit-has-keyword"
+                }
+              ],
+              "operator": "not"
+            },
+            "effect": {
+              "modifier": {
+                "threshold": 5
+              },
+              "target": "unit",
+              "type": "feel-no-pain"
+            },
+            "type": "conditional"
+          },
+          {
+            "condition": {
+              "parameters": {
+                "keyword": "HYBRID METAMORPHS"
+              },
+              "type": "unit-has-keyword"
+            },
+            "effect": {
+              "modifier": {
+                "threshold": 4
+              },
+              "target": "unit",
+              "type": "feel-no-pain"
+            },
+            "type": "conditional"
+          }
+        ],
+        "type": "sequence"
+      },
+      "type": "conditional"
     },
+    "game_version": {
+      "dataslate": "pre-launch-provisional",
+      "edition": "11th"
+    },
+    "name": "Nexus of Devotion",
     "scope": {
-      "range": "unit",
-      "duration": "permanent"
+      "duration": "permanent",
+      "range": "unit"
     },
     "unit_ids": [
       "acolyte-iconward"
     ],
-    "ability_type": "unit",
-    "behavior": "passive"
+    "version": "2025-q3"
   },
   {
     "ability_id": "summon-the-cult",

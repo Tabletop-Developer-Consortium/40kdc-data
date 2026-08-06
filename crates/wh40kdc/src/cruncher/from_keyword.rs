@@ -71,13 +71,27 @@ pub fn buffs_from_keyword(
     let Some(effect) = effect else {
         return Vec::new();
     };
-    walk(effect, &source, context)
+    walk(effect, &source, context, None)
 }
 
-fn walk(node: &Value, source: &BuffSource, ctx: &EngineContext) -> Vec<Buff> {
+fn walk(
+    node: &Value,
+    source: &BuffSource,
+    ctx: &EngineContext,
+    default_target: Option<&str>,
+) -> Vec<Buff> {
     let Some(obj) = node.as_object() else {
         return Vec::new();
     };
+    let decorated = default_target.and_then(|target| {
+        if obj.contains_key("target") {
+            return None;
+        }
+        let mut copy = obj.clone();
+        copy.insert("target".to_string(), Value::String(target.to_string()));
+        Some(copy)
+    });
+    let obj = decorated.as_ref().unwrap_or(obj);
     let Some(node_type) = obj.get("type").and_then(Value::as_str) else {
         return Vec::new();
     };
@@ -86,17 +100,28 @@ fn walk(node: &Value, source: &BuffSource, ctx: &EngineContext) -> Vec<Buff> {
         "roll-modifier" => roll_modifier_buffs(obj, source),
         "feel-no-pain" => feel_no_pain_buffs(obj, source),
         "keyword-grant" => keyword_grant_buffs(obj, source),
-        "conditional" => conditional_buffs(obj, source, ctx),
-        "sequence" => walk_children(obj.get("steps"), source, ctx),
+        "conditional" => conditional_buffs(obj, source, ctx, default_target),
+        "sequence" => walk_children(obj.get("steps"), source, ctx, default_target),
+        // These relationship containers require runtime recipient/selection state
+        // that EngineContext does not currently carry. Treat them as unsupported
+        // rather than applying their nested effects to the wrong unit or target.
+        "leader-model-ability-grant" | "persistent-designation" => Vec::new(),
         _ => Vec::new(),
     }
 }
 
-fn walk_children(steps: Option<&Value>, source: &BuffSource, ctx: &EngineContext) -> Vec<Buff> {
+fn walk_children(
+    steps: Option<&Value>,
+    source: &BuffSource,
+    ctx: &EngineContext,
+    default_target: Option<&str>,
+) -> Vec<Buff> {
     let Some(arr) = steps.and_then(Value::as_array) else {
         return Vec::new();
     };
-    arr.iter().flat_map(|c| walk(c, source, ctx)).collect()
+    arr.iter()
+        .flat_map(|c| walk(c, source, ctx, default_target))
+        .collect()
 }
 
 fn reroll_buffs(obj: &serde_json::Map<String, Value>, source: &BuffSource) -> Vec<Buff> {
@@ -194,6 +219,7 @@ fn conditional_buffs(
     obj: &serde_json::Map<String, Value>,
     source: &BuffSource,
     ctx: &EngineContext,
+    default_target: Option<&str>,
 ) -> Vec<Buff> {
     let Some(condition) = obj.get("condition").and_then(Value::as_object) else {
         return Vec::new();
@@ -209,7 +235,7 @@ fn conditional_buffs(
         return Vec::new();
     }
     obj.get("effect")
-        .map(|e| walk(e, source, ctx))
+        .map(|e| walk(e, source, ctx, default_target))
         .unwrap_or_default()
 }
 
@@ -251,5 +277,59 @@ fn evaluate_condition(condition: &serde_json::Map<String, Value>, ctx: &EngineCo
             }
         }
         _ => Verdict::Unknown,
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::Phase;
+    use serde_json::json;
+
+    fn context() -> EngineContext {
+        EngineContext {
+            phase: Phase::Shooting,
+            attacker_stationary: None,
+            attacker_charged: None,
+            within_half_range: None,
+            distance_inches: None,
+            attacker_in_cover: None,
+            target_in_cover: None,
+            attacker_keywords: None,
+            target_keywords: None,
+            timing: None,
+            attacker_attached: None,
+        }
+    }
+
+    #[test]
+    fn leader_model_ability_grant_requires_resolved_beneficiary() {
+        let effect = json!({
+            "type": "leader-model-ability-grant",
+            "grant": {
+                "effect": {
+                    "type": "feel-no-pain",
+                    "modifier": {"threshold": 4}
+                }
+            }
+        });
+        let buffs = buffs_from_keyword("test", "test-weapon", Some(&effect), None, &context());
+        assert!(buffs.is_empty());
+    }
+
+    #[test]
+    fn persistent_designation_requires_retained_selection_state() {
+        let effect = json!({
+            "type": "persistent-designation",
+            "consumer": {
+                "effect": {
+                    "type": "re-roll",
+                    "target": "bearer",
+                    "modifier": {"roll": "hit", "subset": "all-failures"}
+                }
+            }
+        });
+        let buffs = buffs_from_keyword("test", "test-weapon", Some(&effect), None, &context());
+        assert!(buffs.is_empty());
     }
 }

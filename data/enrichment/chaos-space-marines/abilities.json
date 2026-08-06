@@ -5966,35 +5966,36 @@
   },
   {
     "ability_id": "lord-of-fate",
-    "name": "Lord of Fate",
+    "ability_type": "unit",
     "authored_by": "40kdc-community",
-    "game_version": {
-      "edition": "11th",
-      "dataslate": "pre-launch-provisional"
-    },
-    "version": "2025-q3",
+    "behavior": "passive",
     "effect": {
-      "type": "conditional",
       "condition": {
         "type": "is-attached"
       },
       "effect": {
-        "type": "feel-no-pain",
-        "target": "unit",
         "modifier": {
+          "scope": "mortal",
           "threshold": 5
-        }
-      }
+        },
+        "target": "unit",
+        "type": "feel-no-pain"
+      },
+      "type": "conditional"
     },
+    "game_version": {
+      "dataslate": "pre-launch-provisional",
+      "edition": "11th"
+    },
+    "name": "Lord of Fate",
     "scope": {
-      "range": "unit",
-      "duration": "permanent"
+      "duration": "permanent",
+      "range": "unit"
     },
     "unit_ids": [
       "chaos-lord-on-disc-of-tzeentch"
     ],
-    "ability_type": "unit",
-    "behavior": "passive"
+    "version": "2025-q3"
   },
   {
     "ability_id": "swift-assault",

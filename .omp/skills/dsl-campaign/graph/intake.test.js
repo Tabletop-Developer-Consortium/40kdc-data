@@ -5,9 +5,10 @@ import { join, resolve } from 'node:path'
 import test from 'node:test'
 import { GraphStore } from './store.js'
 import { acceptIntake, INTAKE_SELECTION_TEXT, prepareIntake, validateIntakeManifest } from './intake.js'
+import { intakeManifest } from './test-fixtures.js'
 
 const repoRoot = resolve('.')
-const manifest = JSON.parse(await (await import('node:fs/promises')).readFile('_private/loop-state/claim-graph-intake-c004-c006-c008.json', 'utf8'))
+const manifest = intakeManifest(repoRoot)
 function root() { return mkdtempSync(join(tmpdir(), 'intake-graph-')) }
 function validOutcomes(prepared) {
   return prepared.prepared.entries.map(entry => ({

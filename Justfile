@@ -76,12 +76,12 @@ verify-clean:
 # Pre-commit drift gate: intended uncommitted generated outputs are the baseline.
 # Snapshot their bytes, regenerate, and require byte-for-byte stability.
 verify-regen-stable:
-    @before=$$(mktemp); after=$$(mktemp); trap 'rm -f "$$before" "$$after"' EXIT; \
-      find {{ARTIFACTS}} -type f -print0 2>/dev/null | sort -z | xargs -0 sha256sum >"$$before"; \
+    @before=$(mktemp); after=$(mktemp); trap 'rm -f "$before" "$after"' EXIT; \
+      find {{ARTIFACTS}} -type f -print0 2>/dev/null | sort -z | xargs -0 sha256sum >"$before"; \
       just regen; \
-      find {{ARTIFACTS}} -type f -print0 2>/dev/null | sort -z | xargs -0 sha256sum >"$$after"; \
-      if ! cmp -s "$$before" "$$after"; then \
-        echo "✗ regeneration changed the pre-gate generated snapshot." >&2; diff -u "$$before" "$$after" >&2 || true; exit 1; \
+      find {{ARTIFACTS}} -type f -print0 2>/dev/null | sort -z | xargs -0 sha256sum >"$after"; \
+      if ! cmp -s "$before" "$after"; then \
+        echo "✗ regeneration changed the pre-gate generated snapshot." >&2; diff -u "$before" "$after" >&2 || true; exit 1; \
       fi
 
 # All four language suites + conformance.

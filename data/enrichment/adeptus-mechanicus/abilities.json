@@ -1233,35 +1233,80 @@
   },
   {
     "ability_id": "lord-of-the-machine-cult",
-    "name": "Lord of the Machine Cult",
+    "ability_type": "unit",
     "authored_by": "40kdc-community",
-    "game_version": {
-      "edition": "11th",
-      "dataslate": "pre-launch-provisional"
-    },
-    "version": "2025-q3",
+    "behavior": "passive",
     "effect": {
-      "type": "conditional",
-      "condition": {
-        "type": "is-attached"
-      },
-      "effect": {
-        "type": "feel-no-pain",
-        "target": "unit",
-        "modifier": {
-          "threshold": 5
+      "steps": [
+        {
+          "condition": {
+            "operands": [
+              {
+                "type": "is-attached"
+              },
+              {
+                "operands": [
+                  {
+                    "parameters": {
+                      "keyword": "ELECTRO-PRIESTS"
+                    },
+                    "type": "unit-has-keyword"
+                  }
+                ],
+                "operator": "not"
+              }
+            ],
+            "operator": "and"
+          },
+          "effect": {
+            "modifier": {
+              "threshold": 5
+            },
+            "target": "unit",
+            "type": "feel-no-pain"
+          },
+          "type": "conditional"
+        },
+        {
+          "condition": {
+            "operands": [
+              {
+                "type": "is-attached"
+              },
+              {
+                "parameters": {
+                  "keyword": "ELECTRO-PRIESTS"
+                },
+                "type": "unit-has-keyword"
+              }
+            ],
+            "operator": "and"
+          },
+          "effect": {
+            "modifier": {
+              "threshold": 4
+            },
+            "target": "unit",
+            "type": "feel-no-pain"
+          },
+          "type": "conditional"
         }
-      }
+      ],
+      "type": "sequence"
     },
+    "game_version": {
+      "dataslate": "pre-launch-provisional",
+      "edition": "11th"
+    },
+    "name": "Lord of the Machine Cult",
     "scope": {
-      "range": "unit",
-      "duration": "permanent"
+      "duration": "permanent",
+      "range": "unit"
     },
     "unit_ids": [
       "tech-priest-dominus"
     ],
-    "ability_type": "unit",
-    "behavior": "passive"
+    "version": "2025-q3"
   },
   {
     "ability_id": "dataspike",
@@ -1912,35 +1957,44 @@
   },
   {
     "ability_id": "robotic-bodyguard",
-    "name": "Robotic Bodyguard",
+    "ability_type": "unit",
     "authored_by": "40kdc-community",
-    "game_version": {
-      "edition": "11th",
-      "dataslate": "pre-launch-provisional"
-    },
-    "version": "2025-q3",
+    "behavior": "passive",
     "effect": {
-      "type": "conditional",
-      "condition": {
-        "type": "is-attached"
+      "attached_unit_filter": null,
+      "beneficiary": "leading-leader-model",
+      "duration": "while-leading",
+      "grant": {
+        "effect": {
+          "modifier": {
+            "threshold": 4
+          },
+          "type": "feel-no-pain"
+        },
+        "recipient": "beneficiary"
       },
-      "effect": {
-        "type": "feel-no-pain",
-        "target": "unit",
-        "modifier": {
-          "threshold": 4
-        }
-      }
+      "leader_filter": {
+        "keywords": [
+          "CYBERNETICA DATASMITH"
+        ]
+      },
+      "recipient_binding": "beneficiary-only",
+      "source": "bearer-unit",
+      "type": "leader-model-ability-grant"
     },
+    "game_version": {
+      "dataslate": "pre-launch-provisional",
+      "edition": "11th"
+    },
+    "name": "Robotic Bodyguard",
     "scope": {
-      "range": "unit",
-      "duration": "permanent"
+      "duration": "permanent",
+      "range": "unit"
     },
     "unit_ids": [
       "kastelan-robots"
     ],
-    "ability_type": "unit",
-    "behavior": "passive"
+    "version": "2025-q3"
   },
   {
     "ability_id": "repulsor-grid",
@@ -2199,35 +2253,44 @@
   },
   {
     "ability_id": "bound-creation",
-    "name": "Bound Creation",
+    "ability_type": "unit",
     "authored_by": "40kdc-community",
-    "game_version": {
-      "edition": "11th",
-      "dataslate": "pre-launch-provisional"
-    },
-    "version": "2025-q3",
+    "behavior": "passive",
     "effect": {
-      "type": "conditional",
-      "condition": {
-        "type": "is-attached"
+      "attached_unit_filter": null,
+      "beneficiary": "leading-leader-model",
+      "duration": "while-leading",
+      "grant": {
+        "effect": {
+          "modifier": {
+            "threshold": 5
+          },
+          "type": "feel-no-pain"
+        },
+        "recipient": "beneficiary"
       },
-      "effect": {
-        "type": "feel-no-pain",
-        "target": "unit",
-        "modifier": {
-          "threshold": 5
-        }
-      }
+      "leader_filter": {
+        "keywords": [
+          "TECH-PRIEST"
+        ]
+      },
+      "recipient_binding": "beneficiary-only",
+      "source": "bearer-unit",
+      "type": "leader-model-ability-grant"
     },
+    "game_version": {
+      "dataslate": "pre-launch-provisional",
+      "edition": "11th"
+    },
+    "name": "Bound Creation",
     "scope": {
-      "range": "unit",
-      "duration": "permanent"
+      "duration": "permanent",
+      "range": "unit"
     },
     "unit_ids": [
       "x-101"
     ],
-    "ability_type": "unit",
-    "behavior": "passive"
+    "version": "2025-q3"
   },
   {
     "ability_id": "servitor-bodyguard",

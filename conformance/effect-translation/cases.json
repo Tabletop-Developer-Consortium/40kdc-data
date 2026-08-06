@@ -522,7 +522,7 @@
       "duration": "phase"
     },
     "expected": {
-      "text": "At the start of the Fight phase, until the end of the phase:\n  Select one friendly CANOPTEK unit within 3\": Improve that unit's Weapon Skill characteristic by 1."
+      "text": "At the start of the Fight phase, until the end of the phase:\n  -> Select one friendly CANOPTEK unit within 3\": improve that unit's Weapon Skill characteristic by 1."
     }
   },
   {
@@ -4358,7 +4358,7 @@
       "duration": "one-use"
     },
     "expected": {
-      "text": "Once per battle:\nSelect up to 3 friendly Orks Vehicle units: That unit gains the Redeploy ability."
+      "text": "Once per battle:\nSelect up to 3 friendly Orks Vehicle units: that unit gains the Redeploy ability."
     }
   },
   {
@@ -4820,24 +4820,33 @@
   {
     "caseId": "bound-creation#134",
     "effect": {
-      "type": "conditional",
-      "condition": {
-        "type": "is-attached"
+      "attached_unit_filter": null,
+      "beneficiary": "leading-leader-model",
+      "duration": "while-leading",
+      "grant": {
+        "effect": {
+          "modifier": {
+            "threshold": 5
+          },
+          "type": "feel-no-pain"
+        },
+        "recipient": "beneficiary"
       },
-      "effect": {
-        "type": "feel-no-pain",
-        "target": "unit",
-        "modifier": {
-          "threshold": 5
-        }
-      }
+      "leader_filter": {
+        "keywords": [
+          "TECH-PRIEST"
+        ]
+      },
+      "recipient_binding": "beneficiary-only",
+      "source": "bearer-unit",
+      "type": "leader-model-ability-grant"
     },
     "scope": {
-      "range": "unit",
-      "duration": "permanent"
+      "duration": "permanent",
+      "range": "unit"
     },
     "expected": {
-      "text": "While this model is leading a unit, the unit has the Feel No Pain 5+ ability."
+      "text": "While the attached leader model with [TECH PRIEST] leads the bearer unit, that leader model has the Feel No Pain 5+ ability."
     }
   },
   {
@@ -4866,7 +4875,24 @@
     }
   },
   {
-    "caseId": "brazen-idol-cult-of-blood#136",
+    "caseId": "brass-collar-of-bloody-vengeance#136",
+    "effect": {
+      "type": "feel-no-pain",
+      "target": "unit",
+      "modifier": {
+        "threshold": 3
+      }
+    },
+    "scope": {
+      "range": "unit",
+      "duration": "permanent"
+    },
+    "expected": {
+      "text": "The unit has the Feel No Pain 3+ ability."
+    }
+  },
+  {
+    "caseId": "brazen-idol-cult-of-blood#137",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -4953,7 +4979,7 @@
     }
   },
   {
-    "caseId": "broad-spectrum-data-tether#137",
+    "caseId": "broad-spectrum-data-tether#138",
     "effect": {
       "type": "cp-gain",
       "target": "self",
@@ -4970,7 +4996,7 @@
     }
   },
   {
-    "caseId": "brood-surge#138",
+    "caseId": "brood-surge#139",
     "effect": {
       "type": "shoot-on-death",
       "target": "self",
@@ -4985,7 +5011,7 @@
     }
   },
   {
-    "caseId": "brutal-disciplinarian#139",
+    "caseId": "brutal-disciplinarian#140",
     "effect": {
       "type": "select-units",
       "selector": {
@@ -5010,11 +5036,11 @@
       "frequency": "once-per-turn"
     },
     "expected": {
-      "text": "Once per turn:\nSelect up to 1 friendly ASTRA MILITARUM INFANTRY unit: That unit is no longer Battle-shocked."
+      "text": "Once per turn:\nSelect up to 1 friendly ASTRA MILITARUM INFANTRY unit: that unit is no longer Battle-shocked."
     }
   },
   {
-    "caseId": "brutal-example#140",
+    "caseId": "brutal-example#141",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -5040,7 +5066,7 @@
     }
   },
   {
-    "caseId": "burning-lance#141",
+    "caseId": "burning-lance#142",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -5063,7 +5089,7 @@
     }
   },
   {
-    "caseId": "butcher-lord-cult-of-blood#142",
+    "caseId": "butcher-lord-cult-of-blood#143",
     "effect": {
       "type": "sequence",
       "steps": [
@@ -5105,7 +5131,7 @@
     }
   },
   {
-    "caseId": "cacophonic-accompaniment-elegant-brutes#143",
+    "caseId": "cacophonic-accompaniment-elegant-brutes#144",
     "effect": {
       "type": "sequence",
       "steps": [
@@ -5142,7 +5168,7 @@
     }
   },
   {
-    "caseId": "call-to-murder-lords-of-the-warp#144",
+    "caseId": "call-to-murder-lords-of-the-warp#145",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -5178,7 +5204,7 @@
     }
   },
   {
-    "caseId": "callous-competition#145",
+    "caseId": "callous-competition#146",
     "effect": {
       "type": "sequence",
       "steps": [
@@ -5240,7 +5266,7 @@
     }
   },
   {
-    "caseId": "canoptek-retinue#146",
+    "caseId": "canoptek-retinue#147",
     "effect": {
       "type": "unit-attachment",
       "target": "unit",
@@ -5257,7 +5283,7 @@
     }
   },
   {
-    "caseId": "canoptek-swarm#147",
+    "caseId": "canoptek-swarm#148",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -5293,7 +5319,7 @@
     }
   },
   {
-    "caseId": "carnival-of-excess-lords-of-the-warp#148",
+    "caseId": "carnival-of-excess-lords-of-the-warp#149",
     "effect": {
       "type": "fight-first",
       "target": "unit",
@@ -5320,7 +5346,7 @@
     }
   },
   {
-    "caseId": "channelled-force#149",
+    "caseId": "channelled-force#150",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -5372,7 +5398,7 @@
     }
   },
   {
-    "caseId": "channeller-stones#150",
+    "caseId": "channeller-stones#151",
     "effect": {
       "type": "damage-reduction",
       "target": "self",
@@ -5392,7 +5418,7 @@
     }
   },
   {
-    "caseId": "chaos-icon#151",
+    "caseId": "chaos-icon#152",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -5419,7 +5445,7 @@
     }
   },
   {
-    "caseId": "chaos-lord#152",
+    "caseId": "chaos-lord#153",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -5443,7 +5469,7 @@
     }
   },
   {
-    "caseId": "chapter-master-of-the-raven-guard#153",
+    "caseId": "chapter-master-of-the-raven-guard#154",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -5511,7 +5537,7 @@
     }
   },
   {
-    "caseId": "chittering-swarm#154",
+    "caseId": "chittering-swarm#155",
     "effect": {
       "type": "sequence",
       "steps": [
@@ -5559,7 +5585,7 @@
     }
   },
   {
-    "caseId": "choice-samples#155",
+    "caseId": "choice-samples#156",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -5582,7 +5608,7 @@
     }
   },
   {
-    "caseId": "chosen-of-the-blood-god-cult-of-blood#156",
+    "caseId": "chosen-of-the-blood-god-cult-of-blood#157",
     "effect": {
       "type": "aura",
       "target": "friendly-within-aura",
@@ -5606,7 +5632,7 @@
     }
   },
   {
-    "caseId": "claimed-for-the-cult#157",
+    "caseId": "claimed-for-the-cult#158",
     "effect": {
       "type": "cp-gain",
       "target": "self",
@@ -5623,7 +5649,7 @@
     }
   },
   {
-    "caseId": "cloaked-assassin#158",
+    "caseId": "cloaked-assassin#159",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -5651,7 +5677,7 @@
     }
   },
   {
-    "caseId": "close-range-eradication#159",
+    "caseId": "close-range-eradication#160",
     "effect": {
       "type": "sequence",
       "steps": [
@@ -5693,7 +5719,7 @@
     }
   },
   {
-    "caseId": "cogbound-alliance#160",
+    "caseId": "cogbound-alliance#161",
     "effect": {
       "type": "sequence",
       "steps": [
@@ -5767,7 +5793,7 @@
     }
   },
   {
-    "caseId": "combat-doctrines#161",
+    "caseId": "combat-doctrines#162",
     "effect": {
       "type": "stance-select",
       "mode": "consumable",
@@ -5815,7 +5841,7 @@
     }
   },
   {
-    "caseId": "combat-drugs#162",
+    "caseId": "combat-drugs#163",
     "effect": {
       "type": "stance-select",
       "mode": "re-selectable",
@@ -5922,7 +5948,7 @@
     }
   },
   {
-    "caseId": "command-link-drone-aura#163",
+    "caseId": "command-link-drone-aura#164",
     "effect": {
       "type": "cp-gain",
       "target": "self",
@@ -5939,7 +5965,7 @@
     }
   },
   {
-    "caseId": "command-protocols#164",
+    "caseId": "command-protocols#165",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -5964,7 +5990,7 @@
     }
   },
   {
-    "caseId": "command-uplink#165",
+    "caseId": "command-uplink#166",
     "effect": {
       "type": "cp-gain",
       "target": "self",
@@ -5981,7 +6007,7 @@
     }
   },
   {
-    "caseId": "company-heroes#166",
+    "caseId": "company-heroes#167",
     "effect": {
       "type": "unit-attachment",
       "target": "unit",
@@ -5998,7 +6024,7 @@
     }
   },
   {
-    "caseId": "cosmic-distortion#167",
+    "caseId": "cosmic-distortion#168",
     "effect": {
       "type": "aura",
       "target": "enemy-within-aura",
@@ -6024,7 +6050,7 @@
     }
   },
   {
-    "caseId": "covert-stealth-team#168",
+    "caseId": "covert-stealth-team#169",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -6068,7 +6094,7 @@
     }
   },
   {
-    "caseId": "creeping-dread-aura#169",
+    "caseId": "creeping-dread-aura#170",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -6140,7 +6166,7 @@
     }
   },
   {
-    "caseId": "crewed-platform#170",
+    "caseId": "crewed-platform#171",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -6169,7 +6195,7 @@
     }
   },
   {
-    "caseId": "cry-of-the-wind#171",
+    "caseId": "cry-of-the-wind#172",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -6204,7 +6230,7 @@
     }
   },
   {
-    "caseId": "cryptek-retinue#172",
+    "caseId": "cryptek-retinue#173",
     "effect": {
       "type": "unit-attachment",
       "target": "unit",
@@ -6221,7 +6247,7 @@
     }
   },
   {
-    "caseId": "cyberstimms#173",
+    "caseId": "cyberstimms#174",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -6245,7 +6271,7 @@
     }
   },
   {
-    "caseId": "daemonic-allegiance#174",
+    "caseId": "daemonic-allegiance#175",
     "effect": {
       "type": "stance-select",
       "mode": "consumable",
@@ -6351,7 +6377,7 @@
     }
   },
   {
-    "caseId": "daemonic-empowerment#175",
+    "caseId": "daemonic-empowerment#176",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -6383,7 +6409,7 @@
     }
   },
   {
-    "caseId": "daemonic-fury-khorne-daemonkin#176",
+    "caseId": "daemonic-fury-khorne-daemonkin#177",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -6455,11 +6481,11 @@
       ]
     },
     "expected": {
-      "text": "At the start of the Fight phase, in your turn, until the end of the turn:\n  Select up to 1 friendly WORLD EATERS unit:\n    -> That unit's melee weapons gain [LANCE].\n    -> If the unit has the Daemonic Rage active keyword, that unit's melee weapons gain [TWIN LINKED].\nApplies to: units with Blood Legions."
+      "text": "At the start of the Fight phase, in your turn, until the end of the turn:\n  -> Select up to 1 friendly WORLD EATERS unit:\n    -> That unit's melee weapons gain [LANCE].\n    -> If the unit has the Daemonic Rage active keyword, that unit's melee weapons gain [TWIN LINKED].\nApplies to: units with Blood Legions."
     }
   },
   {
-    "caseId": "daemonic-patrons#177",
+    "caseId": "daemonic-patrons#178",
     "effect": {
       "type": "sequence",
       "steps": [
@@ -6521,7 +6547,7 @@
     }
   },
   {
-    "caseId": "damaged-1-6-wounds-remaining#178",
+    "caseId": "damaged-1-6-wounds-remaining#179",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -6546,7 +6572,7 @@
     }
   },
   {
-    "caseId": "dark-angels-bodyguard#179",
+    "caseId": "dark-angels-bodyguard#180",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -6577,7 +6603,7 @@
     }
   },
   {
-    "caseId": "dark-pacts#180",
+    "caseId": "dark-pacts#181",
     "effect": {
       "type": "risk-reward",
       "reward": {
@@ -6636,7 +6662,7 @@
     }
   },
   {
-    "caseId": "dauntless-defenders#181",
+    "caseId": "dauntless-defenders#182",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -6676,7 +6702,7 @@
     }
   },
   {
-    "caseId": "dead-shot#182",
+    "caseId": "dead-shot#183",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -6704,7 +6730,7 @@
     }
   },
   {
-    "caseId": "deadly-vectors#183",
+    "caseId": "deadly-vectors#184",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -6788,7 +6814,7 @@
     }
   },
   {
-    "caseId": "death-approaches#184",
+    "caseId": "death-approaches#185",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -6823,7 +6849,7 @@
     }
   },
   {
-    "caseId": "death-befitting-an-officer#185",
+    "caseId": "death-befitting-an-officer#186",
     "effect": {
       "type": "dice-gated",
       "dice": "D6",
@@ -6844,7 +6870,7 @@
     }
   },
   {
-    "caseId": "death-korps-medi-pack#186",
+    "caseId": "death-korps-medi-pack#187",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -6868,7 +6894,7 @@
     }
   },
   {
-    "caseId": "decoy-targets#187",
+    "caseId": "decoy-targets#188",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -6927,11 +6953,11 @@
       "count": 2
     },
     "expected": {
-      "text": "Twice per battle, during the Movement phase, in your turn, for the rest of the battle:\n  Select up to 1 friendly INFANTRY unit:\n    -> Destroy 1 model in that unit.\n    -> This model can be redeployed."
+      "text": "Twice per battle, during the Movement phase, in your turn, for the rest of the battle:\n  -> Select up to 1 friendly INFANTRY unit:\n    -> Destroy 1 model in that unit.\n    -> This model can be redeployed."
     }
   },
   {
-    "caseId": "denuncia-oratory#188",
+    "caseId": "denuncia-oratory#189",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -6958,7 +6984,7 @@
     }
   },
   {
-    "caseId": "devastating-assault#189",
+    "caseId": "devastating-assault#190",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -6986,7 +7012,7 @@
     }
   },
   {
-    "caseId": "devastating-drift-rollin-deff#190",
+    "caseId": "devastating-drift-rollin-deff#191",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -7012,7 +7038,7 @@
     }
   },
   {
-    "caseId": "direct-the-slaughter#191",
+    "caseId": "direct-the-slaughter#192",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -7050,7 +7076,7 @@
     }
   },
   {
-    "caseId": "disciple-of-khorne-khorne-daemonkin#192",
+    "caseId": "disciple-of-khorne-khorne-daemonkin#193",
     "effect": {
       "type": "sequence",
       "steps": [
@@ -7100,7 +7126,7 @@
     }
   },
   {
-    "caseId": "disdain-for-the-weak-traitoris-lance#193",
+    "caseId": "disdain-for-the-weak-traitoris-lance#194",
     "effect": {
       "type": "sequence",
       "steps": [
@@ -7138,7 +7164,7 @@
     }
   },
   {
-    "caseId": "dividends-of-agony-tools-of-torment#194",
+    "caseId": "dividends-of-agony-tools-of-torment#195",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -7190,7 +7216,7 @@
     }
   },
   {
-    "caseId": "doctrina-imperatives#195",
+    "caseId": "doctrina-imperatives#196",
     "effect": {
       "type": "stance-select",
       "mode": "re-selectable",
@@ -7321,7 +7347,7 @@
     }
   },
   {
-    "caseId": "drain-life#196",
+    "caseId": "drain-life#197",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -7371,7 +7397,7 @@
     }
   },
   {
-    "caseId": "eager-for-the-fight#197",
+    "caseId": "eager-for-the-fight#198",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -7409,7 +7435,7 @@
     }
   },
   {
-    "caseId": "eager-to-kill#198",
+    "caseId": "eager-to-kill#199",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -7442,7 +7468,7 @@
     }
   },
   {
-    "caseId": "earthshaker-rounds#199",
+    "caseId": "earthshaker-rounds#200",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -7506,7 +7532,7 @@
     }
   },
   {
-    "caseId": "efficient-aggression-tharanatoi-hammerblow#200",
+    "caseId": "efficient-aggression-tharanatoi-hammerblow#201",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -7536,7 +7562,7 @@
     }
   },
   {
-    "caseId": "eldritch-suppression-path-of-the-outcast#201",
+    "caseId": "eldritch-suppression-path-of-the-outcast#202",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -7598,7 +7624,7 @@
     }
   },
   {
-    "caseId": "empowered-manifestation-hexwarp-thrallband#202",
+    "caseId": "empowered-manifestation-hexwarp-thrallband#203",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -7636,7 +7662,7 @@
     }
   },
   {
-    "caseId": "enfeebling-miasma#203",
+    "caseId": "enfeebling-miasma#204",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -7706,7 +7732,7 @@
     }
   },
   {
-    "caseId": "engrammatic-logic#204",
+    "caseId": "engrammatic-logic#205",
     "effect": {
       "type": "select-units",
       "selector": {
@@ -7740,11 +7766,11 @@
       "optional": true
     },
     "expected": {
-      "text": "At the start of the phase, once per battle:\nSelect one friendly NECRONS unit within 12\" that is Battle-shocked: That unit is no longer Battle-shocked.\nApplies to: units with Necrons."
+      "text": "At the start of the phase, once per battle:\nSelect one friendly NECRONS unit within 12\" that is Battle-shocked: that unit is no longer Battle-shocked.\nApplies to: units with Necrons."
     }
   },
   {
-    "caseId": "enraged-abjuration#205",
+    "caseId": "enraged-abjuration#206",
     "effect": {
       "type": "sequence",
       "steps": [
@@ -7779,7 +7805,7 @@
     }
   },
   {
-    "caseId": "experimental-augmentations#206",
+    "caseId": "experimental-augmentations#207",
     "effect": {
       "type": "stance-select",
       "mode": "consumable",
@@ -7871,7 +7897,7 @@
     }
   },
   {
-    "caseId": "explosive-blight#207",
+    "caseId": "explosive-blight#208",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -7957,7 +7983,7 @@
     }
   },
   {
-    "caseId": "faithful-fortitude-sacred-champions#208",
+    "caseId": "faithful-fortitude-sacred-champions#209",
     "effect": {
       "type": "feel-no-pain",
       "target": "unit",
@@ -7980,7 +8006,7 @@
     }
   },
   {
-    "caseId": "fates-in-flux#209",
+    "caseId": "fates-in-flux#210",
     "effect": {
       "type": "replace-roll-from-pool",
       "target": "unit",
@@ -8009,7 +8035,7 @@
     }
   },
   {
-    "caseId": "fear-incarnate-aura#210",
+    "caseId": "fear-incarnate-aura#211",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -8032,7 +8058,7 @@
     }
   },
   {
-    "caseId": "feral-arrogance-helhunt-lance#211",
+    "caseId": "feral-arrogance-helhunt-lance#212",
     "effect": {
       "type": "feel-no-pain",
       "target": "unit",
@@ -8050,7 +8076,7 @@
     }
   },
   {
-    "caseId": "fervent-purgation#212",
+    "caseId": "fervent-purgation#213",
     "effect": {
       "type": "sequence",
       "steps": [
@@ -8092,7 +8118,7 @@
     }
   },
   {
-    "caseId": "final-duty#213",
+    "caseId": "final-duty#214",
     "effect": {
       "type": "shoot-on-death",
       "target": "self",
@@ -8107,7 +8133,7 @@
     }
   },
   {
-    "caseId": "first-prince-of-chaos#214",
+    "caseId": "first-prince-of-chaos#215",
     "effect": {
       "type": "sequence",
       "steps": [
@@ -8280,7 +8306,7 @@
     }
   },
   {
-    "caseId": "flawless-construction-might-of-the-moritoi#215",
+    "caseId": "flawless-construction-might-of-the-moritoi#216",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -8314,7 +8340,7 @@
     }
   },
   {
-    "caseId": "flow-of-magic#216",
+    "caseId": "flow-of-magic#217",
     "effect": {
       "type": "sequence",
       "steps": [
@@ -8413,7 +8439,7 @@
     }
   },
   {
-    "caseId": "flush-the-quarry-helhunt-lance#217",
+    "caseId": "flush-the-quarry-helhunt-lance#218",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -8469,7 +8495,7 @@
     }
   },
   {
-    "caseId": "fog-of-dreams-psychic#218",
+    "caseId": "fog-of-dreams-psychic#219",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -8494,7 +8520,7 @@
     }
   },
   {
-    "caseId": "for-the-chapter#219",
+    "caseId": "for-the-chapter#220",
     "effect": {
       "type": "shoot-on-death",
       "target": "self",
@@ -8509,7 +8535,7 @@
     }
   },
   {
-    "caseId": "formless-horror#220",
+    "caseId": "formless-horror#221",
     "effect": {
       "type": "sequence",
       "steps": [
@@ -8546,7 +8572,7 @@
     }
   },
   {
-    "caseId": "frantic-focus#221",
+    "caseId": "frantic-focus#222",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -8580,7 +8606,7 @@
     }
   },
   {
-    "caseId": "frenzon#222",
+    "caseId": "frenzon#223",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -8604,7 +8630,7 @@
     }
   },
   {
-    "caseId": "fury-unleashed-goretrack-onslaught#223",
+    "caseId": "fury-unleashed-goretrack-onslaught#224",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -8657,7 +8683,7 @@
     }
   },
   {
-    "caseId": "gateways-to-glory-vessels-of-wrath#224",
+    "caseId": "gateways-to-glory-vessels-of-wrath#225",
     "effect": {
       "type": "sequence",
       "steps": [
@@ -8693,7 +8719,7 @@
     }
   },
   {
-    "caseId": "gift-of-poxes#225",
+    "caseId": "gift-of-poxes#226",
     "effect": {
       "type": "aura",
       "target": "enemy-within-aura",
@@ -8711,7 +8737,7 @@
     }
   },
   {
-    "caseId": "gnarlskin-experimentor-tools-of-torment#226",
+    "caseId": "gnarlskin-experimentor-tools-of-torment#227",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -8741,7 +8767,7 @@
     }
   },
   {
-    "caseId": "guile-of-the-wolf-aura#227",
+    "caseId": "guile-of-the-wolf-aura#228",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -8769,7 +8795,7 @@
     }
   },
   {
-    "caseId": "hagiomnifex-sanctified-orators#228",
+    "caseId": "hagiomnifex-sanctified-orators#229",
     "effect": {
       "type": "choice",
       "choice_label": "hagiomnifex-sermon",
@@ -8838,7 +8864,7 @@
     }
   },
   {
-    "caseId": "hallowed-ground#229",
+    "caseId": "hallowed-ground#230",
     "effect": {
       "type": "sequence",
       "steps": [
@@ -8959,7 +8985,7 @@
     }
   },
   {
-    "caseId": "haloed-in-soulfire-psychic#230",
+    "caseId": "haloed-in-soulfire-psychic#231",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -8984,7 +9010,7 @@
     }
   },
   {
-    "caseId": "harbingers-of-dread#231",
+    "caseId": "harbingers-of-dread#232",
     "effect": {
       "type": "sequence",
       "steps": [
@@ -9072,7 +9098,7 @@
     }
   },
   {
-    "caseId": "headlong-destruction#232",
+    "caseId": "headlong-destruction#233",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -9100,7 +9126,7 @@
     }
   },
   {
-    "caseId": "hover#233",
+    "caseId": "hover#234",
     "effect": {
       "type": "unit-keyword",
       "target": "self",
@@ -9117,7 +9143,7 @@
     }
   },
   {
-    "caseId": "icon-of-khorne#234",
+    "caseId": "icon-of-khorne#235",
     "effect": {
       "type": "sequence",
       "steps": [
@@ -9159,7 +9185,7 @@
     }
   },
   {
-    "caseId": "idol-of-blessed-blood#235",
+    "caseId": "idol-of-blessed-blood#236",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -9187,7 +9213,7 @@
     }
   },
   {
-    "caseId": "idols-of-khorne#236",
+    "caseId": "idols-of-khorne#237",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -9377,7 +9403,7 @@
     }
   },
   {
-    "caseId": "illusions-of-tzeentch-psychic#237",
+    "caseId": "illusions-of-tzeentch-psychic#238",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -9402,7 +9428,7 @@
     }
   },
   {
-    "caseId": "immaterial-flare-aura#238",
+    "caseId": "immaterial-flare-aura#239",
     "effect": {
       "type": "aura",
       "target": "friendly-within-aura",
@@ -9437,7 +9463,7 @@
     }
   },
   {
-    "caseId": "imperious-advance-traitoris-lance#239",
+    "caseId": "imperious-advance-traitoris-lance#240",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -9505,7 +9531,7 @@
     }
   },
   {
-    "caseId": "impervious-blitz-brigade#240",
+    "caseId": "impervious-blitz-brigade#241",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -9535,7 +9561,7 @@
     }
   },
   {
-    "caseId": "inevitable-death#241",
+    "caseId": "inevitable-death#242",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -9596,7 +9622,7 @@
     }
   },
   {
-    "caseId": "infiltrators#242",
+    "caseId": "infiltrators#243",
     "effect": {
       "type": "unit-keyword",
       "target": "unit",
@@ -9613,7 +9639,7 @@
     }
   },
   {
-    "caseId": "inspirational-battle-canticles-chorus-of-condemnation#243",
+    "caseId": "inspirational-battle-canticles-chorus-of-condemnation#244",
     "effect": {
       "type": "unit-tag",
       "target": "unit",
@@ -9636,7 +9662,7 @@
     }
   },
   {
-    "caseId": "internal-rivalries#244",
+    "caseId": "internal-rivalries#245",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -9694,7 +9720,7 @@
     }
   },
   {
-    "caseId": "killing-blow#245",
+    "caseId": "killing-blow#246",
     "effect": {
       "type": "sequence",
       "steps": [
@@ -9758,7 +9784,7 @@
     }
   },
   {
-    "caseId": "leader-beasts#246",
+    "caseId": "leader-beasts#247",
     "effect": {
       "type": "sequence",
       "steps": [
@@ -9828,7 +9854,7 @@
     }
   },
   {
-    "caseId": "lissen-ere#247",
+    "caseId": "lissen-ere#248",
     "effect": {
       "type": "sequence",
       "steps": [
@@ -9886,7 +9912,7 @@
     }
   },
   {
-    "caseId": "lone-operative#248",
+    "caseId": "lone-operative#249",
     "effect": {
       "type": "targeting-permission",
       "target": "self",
@@ -9905,7 +9931,7 @@
     }
   },
   {
-    "caseId": "lord-of-deceit-aura#249",
+    "caseId": "lord-of-deceit-aura#250",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -9933,7 +9959,31 @@
     }
   },
   {
-    "caseId": "malicious-vigour-possessed-slaughterband#250",
+    "caseId": "lord-of-fate#251",
+    "effect": {
+      "condition": {
+        "type": "is-attached"
+      },
+      "effect": {
+        "modifier": {
+          "scope": "mortal",
+          "threshold": 5
+        },
+        "target": "unit",
+        "type": "feel-no-pain"
+      },
+      "type": "conditional"
+    },
+    "scope": {
+      "duration": "permanent",
+      "range": "unit"
+    },
+    "expected": {
+      "text": "While this model is leading a unit, the unit has the Feel No Pain 5+ ability against mortal wounds."
+    }
+  },
+  {
+    "caseId": "malicious-vigour-possessed-slaughterband#252",
     "effect": {
       "type": "auto-result",
       "target": "self",
@@ -9956,7 +10006,7 @@
     }
   },
   {
-    "caseId": "malign-presence-aura#251",
+    "caseId": "malign-presence-aura#253",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -9984,7 +10034,7 @@
     }
   },
   {
-    "caseId": "martial-leverage#252",
+    "caseId": "martial-leverage#254",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -10013,7 +10063,7 @@
     }
   },
   {
-    "caseId": "mind-like-a-steel-trap-aura#253",
+    "caseId": "mind-like-a-steel-trap-aura#255",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -10041,7 +10091,7 @@
     }
   },
   {
-    "caseId": "murder-forged-entity-brazen-engines#254",
+    "caseId": "murder-forged-entity-brazen-engines#256",
     "effect": {
       "type": "unit-keyword-grant",
       "target": "unit",
@@ -10064,7 +10114,7 @@
     }
   },
   {
-    "caseId": "murderous-imperative#255",
+    "caseId": "murderous-imperative#257",
     "effect": {
       "type": "sequence",
       "steps": [
@@ -10118,7 +10168,7 @@
     }
   },
   {
-    "caseId": "neurostatic-interference-aura#256",
+    "caseId": "neurostatic-interference-aura#258",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -10163,7 +10213,7 @@
     }
   },
   {
-    "caseId": "noospheric-recon#257",
+    "caseId": "noospheric-recon#259",
     "effect": {
       "type": "sequence",
       "steps": [
@@ -10218,7 +10268,7 @@
     }
   },
   {
-    "caseId": "omnicogitator-eradication-cohort#258",
+    "caseId": "omnicogitator-eradication-cohort#260",
     "effect": {
       "type": "sequence",
       "steps": [
@@ -10252,7 +10302,7 @@
     }
   },
   {
-    "caseId": "pact-of-destruction-devotees-of-destruction#259",
+    "caseId": "pact-of-destruction-devotees-of-destruction#261",
     "effect": {
       "type": "sequence",
       "steps": [
@@ -10299,7 +10349,7 @@
     }
   },
   {
-    "caseId": "parasitic-woe-reaper-contagion-engines#260",
+    "caseId": "parasitic-woe-reaper-contagion-engines#262",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -10329,7 +10379,7 @@
     }
   },
   {
-    "caseId": "patient-hunter#261",
+    "caseId": "patient-hunter#263",
     "effect": {
       "type": "sequence",
       "steps": [
@@ -10417,7 +10467,7 @@
     }
   },
   {
-    "caseId": "pledges-to-the-dark-prince#262",
+    "caseId": "pledges-to-the-dark-prince#264",
     "effect": {
       "type": "sequence",
       "steps": [
@@ -10516,7 +10566,7 @@
     }
   },
   {
-    "caseId": "power-matrix#263",
+    "caseId": "power-matrix#265",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -10576,7 +10626,7 @@
     }
   },
   {
-    "caseId": "psychic-disciplines#264",
+    "caseId": "psychic-disciplines#266",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -10708,7 +10758,7 @@
     }
   },
   {
-    "caseId": "quantum-invader#265",
+    "caseId": "quantum-invader#267",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -10748,7 +10798,7 @@
     }
   },
   {
-    "caseId": "rad-bombardment#266",
+    "caseId": "rad-bombardment#268",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -10782,7 +10832,7 @@
     }
   },
   {
-    "caseId": "raiders-and-reavers#267",
+    "caseId": "raiders-and-reavers#269",
     "effect": {
       "type": "sequence",
       "steps": [
@@ -10826,7 +10876,7 @@
     }
   },
   {
-    "caseId": "rain-of-cruelty#268",
+    "caseId": "rain-of-cruelty#270",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -10867,7 +10917,7 @@
     }
   },
   {
-    "caseId": "rapid-deployment#269",
+    "caseId": "rapid-deployment#271",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -10893,7 +10943,7 @@
     }
   },
   {
-    "caseId": "reanimation-protocols#270",
+    "caseId": "reanimation-protocols#272",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -10920,7 +10970,7 @@
     }
   },
   {
-    "caseId": "rearm-reload-fire#271",
+    "caseId": "rearm-reload-fire#273",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -10945,7 +10995,7 @@
     }
   },
   {
-    "caseId": "relentless-onslaught#272",
+    "caseId": "relentless-onslaught#274",
     "effect": {
       "type": "sequence",
       "steps": [
@@ -10983,7 +11033,7 @@
     }
   },
   {
-    "caseId": "relentless-rebirth-ritual-of-regeneration#273",
+    "caseId": "relentless-rebirth-ritual-of-regeneration#275",
     "effect": {
       "type": "feel-no-pain",
       "target": "unit",
@@ -11007,7 +11057,7 @@
     }
   },
   {
-    "caseId": "ride-the-wind#274",
+    "caseId": "ride-the-wind#276",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -11077,7 +11127,39 @@
     }
   },
   {
-    "caseId": "rune-cursed-stronghold-bastions-of-tyranny#275",
+    "caseId": "robotic-bodyguard#277",
+    "effect": {
+      "attached_unit_filter": null,
+      "beneficiary": "leading-leader-model",
+      "duration": "while-leading",
+      "grant": {
+        "effect": {
+          "modifier": {
+            "threshold": 4
+          },
+          "type": "feel-no-pain"
+        },
+        "recipient": "beneficiary"
+      },
+      "leader_filter": {
+        "keywords": [
+          "CYBERNETICA DATASMITH"
+        ]
+      },
+      "recipient_binding": "beneficiary-only",
+      "source": "bearer-unit",
+      "type": "leader-model-ability-grant"
+    },
+    "scope": {
+      "duration": "permanent",
+      "range": "unit"
+    },
+    "expected": {
+      "text": "While the attached leader model with [CYBERNETICA DATASMITH] leads the bearer unit, that leader model has the Feel No Pain 4+ ability."
+    }
+  },
+  {
+    "caseId": "rune-cursed-stronghold-bastions-of-tyranny#278",
     "effect": {
       "type": "feel-no-pain",
       "target": "unit",
@@ -11095,7 +11177,7 @@
     }
   },
   {
-    "caseId": "runnin-boots-blitz-brigade#276",
+    "caseId": "runnin-boots-blitz-brigade#279",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -11120,7 +11202,7 @@
     }
   },
   {
-    "caseId": "saturation-fire#277",
+    "caseId": "saturation-fire#280",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -11146,25 +11228,7 @@
     }
   },
   {
-    "caseId": "scorn-the-witch-vessels-of-wrath#278",
-    "effect": {
-      "type": "feel-no-pain",
-      "target": "unit",
-      "modifier": {
-        "threshold": 4,
-        "scope": "mortal"
-      }
-    },
-    "scope": {
-      "range": "unit",
-      "duration": "phase"
-    },
-    "expected": {
-      "text": "Until the end of the phase, the unit has the Feel No Pain 4+ ability against mortal wounds."
-    }
-  },
-  {
-    "caseId": "scouring-warpflame-hexwarp-thrallband#279",
+    "caseId": "scouring-warpflame-hexwarp-thrallband#281",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -11219,7 +11283,7 @@
     }
   },
   {
-    "caseId": "seed-the-garden-of-nurgle#280",
+    "caseId": "seed-the-garden-of-nurgle#282",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -11268,7 +11332,7 @@
     }
   },
   {
-    "caseId": "seized-opportunity#281",
+    "caseId": "seized-opportunity#283",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -11300,7 +11364,7 @@
     }
   },
   {
-    "caseId": "shadow-of-khorne#282",
+    "caseId": "shadow-of-khorne#284",
     "effect": {
       "type": "sequence",
       "steps": [
@@ -11350,7 +11414,7 @@
     }
   },
   {
-    "caseId": "shadow-of-khorne-aura#283",
+    "caseId": "shadow-of-khorne-aura#285",
     "effect": {
       "type": "sequence",
       "steps": [
@@ -11400,7 +11464,7 @@
     }
   },
   {
-    "caseId": "shield-of-the-imperium#284",
+    "caseId": "shield-of-the-imperium#286",
     "effect": {
       "type": "sequence",
       "steps": [
@@ -11440,7 +11504,7 @@
     }
   },
   {
-    "caseId": "shokk-boosta#285",
+    "caseId": "shokk-boosta#287",
     "effect": {
       "type": "sequence",
       "steps": [
@@ -11501,7 +11565,7 @@
     }
   },
   {
-    "caseId": "shroud-of-disease#286",
+    "caseId": "shroud-of-disease#288",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -11538,7 +11602,7 @@
     }
   },
   {
-    "caseId": "shudderblink#287",
+    "caseId": "shudderblink#289",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -11592,7 +11656,94 @@
     }
   },
   {
-    "caseId": "solemn-procession#288",
+    "caseId": "singular-purpose#290",
+    "effect": {
+      "choice_label": "Singular Purpose",
+      "options": [
+        {
+          "consumer": {
+            "beneficiary": "bearer",
+            "effect": {
+              "steps": [
+                {
+                  "modifier": {
+                    "roll": "hit",
+                    "subset": "all-failures"
+                  },
+                  "target": "bearer",
+                  "type": "re-roll"
+                },
+                {
+                  "modifier": {
+                    "roll": "wound",
+                    "subset": "all-failures"
+                  },
+                  "target": "bearer",
+                  "type": "re-roll"
+                }
+              ],
+              "type": "sequence"
+            },
+            "relation": "attacks-selected-unit"
+          },
+          "designation": "singular-purpose-enemy",
+          "duration": "battle",
+          "select": {
+            "count": 1,
+            "scope": "enemy-unit",
+            "selection_policy": "one-time",
+            "timing": "start-of-first-battle-round"
+          },
+          "type": "persistent-designation"
+        },
+        {
+          "consumer": {
+            "beneficiary": "bearer",
+            "effect": {
+              "steps": [
+                {
+                  "modifier": {
+                    "threshold": 5
+                  },
+                  "target": "bearer",
+                  "type": "feel-no-pain"
+                },
+                {
+                  "modifier": {
+                    "operation": "set",
+                    "value": 15
+                  },
+                  "target": "bearer",
+                  "type": "objective-control-modifier"
+                }
+              ],
+              "type": "sequence"
+            },
+            "relation": "within-selected-marker"
+          },
+          "designation": "singular-purpose-marker",
+          "duration": "battle",
+          "select": {
+            "count": 1,
+            "scope": "objective-marker",
+            "selection_policy": "one-time",
+            "timing": "start-of-first-battle-round"
+          },
+          "type": "persistent-designation"
+        }
+      ],
+      "type": "choice"
+    },
+    "scope": {
+      "duration": "battle",
+      "range": "self"
+    },
+    "expected": {
+      "text": "For the rest of the battle:\nSelect one of the following (Singular Purpose):\n  - At the start of the first battle round, select one enemy unit (your Singular Purpose Enemy target). For the rest of the battle, each time this model makes an attack against it, you can re-roll the Hit roll; you can re-roll the Wound roll.\n  - At the start of the first battle round, select one objective marker (your Singular Purpose Marker). For the rest of the battle, while this model is within range of your Singular Purpose Marker, this model has the Feel No Pain 5+ ability; modify this model's Objective Control characteristic to 15."
+    }
+  },
+  {
+    "caseId": "solemn-procession#291",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -11619,7 +11770,7 @@
     }
   },
   {
-    "caseId": "stitchflesh-abominations#289",
+    "caseId": "stitchflesh-abominations#292",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -11649,7 +11800,7 @@
     }
   },
   {
-    "caseId": "super-heavy-walker#290",
+    "caseId": "super-heavy-walker#293",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -11736,7 +11887,7 @@
     }
   },
   {
-    "caseId": "swooping-predator#291",
+    "caseId": "swooping-predator#294",
     "effect": {
       "type": "flyover",
       "target": "defender",
@@ -11755,7 +11906,7 @@
     }
   },
   {
-    "caseId": "synapse#292",
+    "caseId": "synapse#295",
     "effect": {
       "type": "sequence",
       "steps": [
@@ -11787,7 +11938,7 @@
     }
   },
   {
-    "caseId": "target-sighted#293",
+    "caseId": "target-sighted#296",
     "effect": {
       "type": "sequence",
       "steps": [
@@ -11858,7 +12009,7 @@
     }
   },
   {
-    "caseId": "targetin-gizmos-rollin-deff#294",
+    "caseId": "targetin-gizmos-rollin-deff#297",
     "effect": {
       "type": "sequence",
       "steps": [
@@ -11898,7 +12049,7 @@
     }
   },
   {
-    "caseId": "the-betrayer#295",
+    "caseId": "the-betrayer#298",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -11969,7 +12120,7 @@
     }
   },
   {
-    "caseId": "the-emperors-shield#296",
+    "caseId": "the-emperors-shield#299",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -11999,7 +12150,7 @@
     }
   },
   {
-    "caseId": "the-lord-s-will#297",
+    "caseId": "the-lord-s-will#300",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -12022,7 +12173,7 @@
     }
   },
   {
-    "caseId": "titanic-agility#298",
+    "caseId": "titanic-agility#301",
     "effect": {
       "type": "sequence",
       "steps": [
@@ -12054,7 +12205,7 @@
     }
   },
   {
-    "caseId": "torture-device#299",
+    "caseId": "torture-device#302",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -12083,7 +12234,7 @@
     }
   },
   {
-    "caseId": "tox-cycler#300",
+    "caseId": "tox-cycler#303",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -12128,7 +12279,7 @@
     }
   },
   {
-    "caseId": "tuff-git-blitz-brigade#301",
+    "caseId": "tuff-git-blitz-brigade#304",
     "effect": {
       "type": "remove-battle-shock",
       "target": "unit",
@@ -12160,7 +12311,7 @@
     }
   },
   {
-    "caseId": "voice-of-command#302",
+    "caseId": "voice-of-command#305",
     "effect": {
       "type": "issue-orders",
       "range": 6,
@@ -12261,7 +12412,7 @@
     }
   },
   {
-    "caseId": "waaagh-banner#303",
+    "caseId": "waaagh-banner#306",
     "effect": {
       "type": "sequence",
       "steps": [
@@ -12301,7 +12452,7 @@
     }
   },
   {
-    "caseId": "warp-tainted-warpstrike-champions#304",
+    "caseId": "warp-tainted-warpstrike-champions#307",
     "effect": {
       "type": "objective-tag",
       "target": "unit",
@@ -12325,7 +12476,7 @@
     }
   },
   {
-    "caseId": "yooz-in-trouble-now-blitz-brigade#305",
+    "caseId": "yooz-in-trouble-now-blitz-brigade#308",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -12392,11 +12543,11 @@
       "duration": "phase"
     },
     "expected": {
-      "text": "During the Shooting phase, in the opponent's turn, after an enemy unit shoots, if the unit was hit by a ranged attack this phase, until the end of the phase:\n  Select up to 1 friendly Orks Infantry unit:\n    -> That unit can disembark.\n    -> That unit can make a Surge move of up to D6\"."
+      "text": "During the Shooting phase, in the opponent's turn, after an enemy unit shoots, if the unit was hit by a ranged attack this phase, until the end of the phase:\n  -> Select up to 1 friendly Orks Infantry unit:\n    -> That unit can disembark.\n    -> That unit can make a Surge move of up to D6\"."
     }
   },
   {
-    "caseId": "movement-modifier-scouts#306",
+    "caseId": "movement-modifier-scouts#309",
     "effect": {
       "type": "movement-modifier",
       "target": "unit",
@@ -12414,7 +12565,7 @@
     }
   },
   {
-    "caseId": "grant-label-charge-after-disembark#307",
+    "caseId": "grant-label-charge-after-disembark#310",
     "effect": {
       "type": "ability-grant",
       "target": "unit",
@@ -12431,7 +12582,7 @@
     }
   },
   {
-    "caseId": "grant-label-charge-after-fallback#308",
+    "caseId": "grant-label-charge-after-fallback#311",
     "effect": {
       "type": "ability-grant",
       "target": "self",
@@ -12448,7 +12599,7 @@
     }
   },
   {
-    "caseId": "engagement-state-engaged#309",
+    "caseId": "engagement-state-engaged#312",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -12471,7 +12622,7 @@
     }
   },
   {
-    "caseId": "engagement-state-on-battlefield#310",
+    "caseId": "engagement-state-on-battlefield#313",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -12494,7 +12645,7 @@
     }
   },
   {
-    "caseId": "engagement-state-embarked#311",
+    "caseId": "engagement-state-embarked#314",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -12517,7 +12668,7 @@
     }
   },
   {
-    "caseId": "engagement-state-empty#312",
+    "caseId": "engagement-state-empty#315",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -12538,7 +12689,7 @@
     }
   },
   {
-    "caseId": "engagement-state-negated#313",
+    "caseId": "engagement-state-negated#316",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -12562,7 +12713,7 @@
     }
   },
   {
-    "caseId": "disposition-matches-reserves#314",
+    "caseId": "disposition-matches-reserves#317",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -12585,7 +12736,7 @@
     }
   },
   {
-    "caseId": "disposition-matches-enemy#315",
+    "caseId": "disposition-matches-enemy#318",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -12608,7 +12759,7 @@
     }
   },
   {
-    "caseId": "fights-first-cond#316",
+    "caseId": "fights-first-cond#319",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -12634,7 +12785,7 @@
     }
   },
   {
-    "caseId": "scaling-attacks-per-models#317",
+    "caseId": "scaling-attacks-per-models#320",
     "effect": {
       "type": "stat-modifier",
       "target": "unit",
@@ -12658,7 +12809,7 @@
     }
   },
   {
-    "caseId": "scaling-strength-wounds-lost#318",
+    "caseId": "scaling-strength-wounds-lost#321",
     "effect": {
       "type": "stat-modifier",
       "target": "self",
@@ -12683,7 +12834,7 @@
     }
   },
   {
-    "caseId": "dice-pool-inline-label#319",
+    "caseId": "dice-pool-inline-label#322",
     "effect": {
       "type": "choice",
       "options": [
@@ -12726,7 +12877,7 @@
     }
   },
   {
-    "caseId": "unit-within-range-closest-eligible#320",
+    "caseId": "unit-within-range-closest-eligible#323",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -12754,7 +12905,7 @@
     }
   },
   {
-    "caseId": "dice-pool-requirement-anyof#321",
+    "caseId": "dice-pool-requirement-anyof#324",
     "effect": {
       "type": "dice-pool-allocation",
       "pool": {
@@ -12797,7 +12948,7 @@
     }
   },
   {
-    "caseId": "rule-state-forgo-faction-rule#322",
+    "caseId": "rule-state-forgo-faction-rule#325",
     "effect": {
       "type": "rule-state",
       "target": "self",
@@ -12821,7 +12972,7 @@
     }
   },
   {
-    "caseId": "rule-state-faction-rule-granted#323",
+    "caseId": "rule-state-faction-rule-granted#326",
     "effect": {
       "type": "rule-state",
       "target": "self",
@@ -12840,7 +12991,7 @@
     }
   },
   {
-    "caseId": "rule-state-cover-granted#324",
+    "caseId": "rule-state-cover-granted#327",
     "effect": {
       "type": "rule-state",
       "target": "self",
@@ -12859,7 +13010,7 @@
     }
   },
   {
-    "caseId": "rule-state-advance-suppressed#325",
+    "caseId": "rule-state-advance-suppressed#328",
     "effect": {
       "type": "rule-state",
       "target": "unit",
@@ -12878,7 +13029,7 @@
     }
   },
   {
-    "caseId": "rule-state-overwatch-against-bearer#326",
+    "caseId": "rule-state-overwatch-against-bearer#329",
     "effect": {
       "type": "rule-state",
       "target": "unit",
@@ -12897,7 +13048,7 @@
     }
   },
   {
-    "caseId": "rule-state-desperate-escape-granted#327",
+    "caseId": "rule-state-desperate-escape-granted#330",
     "effect": {
       "type": "rule-state",
       "target": "all-enemy",
@@ -12916,7 +13067,7 @@
     }
   },
   {
-    "caseId": "rule-state-desperate-escape-suppressed#328",
+    "caseId": "rule-state-desperate-escape-suppressed#331",
     "effect": {
       "type": "rule-state",
       "target": "self",
@@ -12935,7 +13086,7 @@
     }
   },
   {
-    "caseId": "rule-state-ability-granted#329",
+    "caseId": "rule-state-ability-granted#332",
     "effect": {
       "type": "rule-state",
       "target": "unit",
@@ -12954,7 +13105,7 @@
     }
   },
   {
-    "caseId": "rule-state-keyword-suppressed#330",
+    "caseId": "rule-state-keyword-suppressed#333",
     "effect": {
       "type": "rule-state",
       "target": "unit",
@@ -12973,7 +13124,7 @@
     }
   },
   {
-    "caseId": "rule-state-ordered-retreat-suppressed#331",
+    "caseId": "rule-state-ordered-retreat-suppressed#334",
     "effect": {
       "type": "rule-state",
       "target": "enemy-within-aura",
@@ -12992,7 +13143,7 @@
     }
   },
   {
-    "caseId": "rule-state-ordered-retreat-granted#332",
+    "caseId": "rule-state-ordered-retreat-granted#335",
     "effect": {
       "type": "rule-state",
       "target": "unit",
@@ -13011,7 +13162,7 @@
     }
   },
   {
-    "caseId": "keyword-grant-anti-string#333",
+    "caseId": "keyword-grant-anti-string#336",
     "effect": {
       "type": "keyword-grant",
       "target": "unit",
@@ -13028,7 +13179,7 @@
     }
   },
   {
-    "caseId": "keyword-grant-anti-structured#334",
+    "caseId": "keyword-grant-anti-structured#337",
     "effect": {
       "type": "keyword-grant",
       "target": "unit",
@@ -13046,7 +13197,7 @@
     }
   },
   {
-    "caseId": "keyword-grant-rated-value#335",
+    "caseId": "keyword-grant-rated-value#338",
     "effect": {
       "type": "keyword-grant",
       "target": "unit",
@@ -13064,7 +13215,7 @@
     }
   },
   {
-    "caseId": "auto-result-battle-shock-pass#336",
+    "caseId": "auto-result-battle-shock-pass#339",
     "effect": {
       "type": "auto-result",
       "target": "unit",
@@ -13082,7 +13233,7 @@
     }
   },
   {
-    "caseId": "auto-result-hit-six#337",
+    "caseId": "auto-result-hit-six#340",
     "effect": {
       "type": "auto-result",
       "target": "unit",
@@ -13100,7 +13251,7 @@
     }
   },
   {
-    "caseId": "firing-deck#338",
+    "caseId": "firing-deck#341",
     "effect": {
       "type": "firing-deck",
       "target": "self",
@@ -13117,7 +13268,7 @@
     }
   },
   {
-    "caseId": "disembark-after-move#339",
+    "caseId": "disembark-after-move#342",
     "effect": {
       "type": "disembark-after-move",
       "target": "self",
@@ -13132,7 +13283,7 @@
     }
   },
   {
-    "caseId": "usage-once-per-turn#340",
+    "caseId": "usage-once-per-turn#343",
     "effect": {
       "type": "cp-gain",
       "target": "self",
@@ -13152,7 +13303,7 @@
     }
   },
   {
-    "caseId": "usage-n-per-battle-per-unit#341",
+    "caseId": "usage-n-per-battle-per-unit#344",
     "effect": {
       "type": "stat-modifier",
       "target": "unit",
@@ -13176,7 +13327,7 @@
     }
   },
   {
-    "caseId": "trigger-enemy-ended-move#342",
+    "caseId": "trigger-enemy-ended-move#345",
     "effect": {
       "type": "movement-modifier",
       "target": "self",
@@ -13202,7 +13353,7 @@
     }
   },
   {
-    "caseId": "trigger-on-model-destroyed#343",
+    "caseId": "trigger-on-model-destroyed#346",
     "effect": {
       "type": "mortal-wounds",
       "target": "all-enemy",
@@ -13223,7 +13374,7 @@
     }
   },
   {
-    "caseId": "trigger-before-save-with-condition#344",
+    "caseId": "trigger-before-save-with-condition#347",
     "effect": {
       "type": "re-roll",
       "target": "unit",
@@ -13248,7 +13399,7 @@
     }
   },
   {
-    "caseId": "move-passthrough-models-terrain#345",
+    "caseId": "move-passthrough-models-terrain#348",
     "effect": {
       "type": "movement-modifier",
       "target": "self",
@@ -13268,7 +13419,7 @@
     }
   },
   {
-    "caseId": "move-passthrough-applies-excludes#346",
+    "caseId": "move-passthrough-applies-excludes#349",
     "effect": {
       "type": "movement-modifier",
       "target": "unit",
@@ -13294,7 +13445,7 @@
     }
   },
   {
-    "caseId": "move-ignore-vertical#347",
+    "caseId": "move-ignore-vertical#350",
     "effect": {
       "type": "movement-modifier",
       "target": "unit",
@@ -13311,7 +13462,7 @@
     }
   },
   {
-    "caseId": "move-normal-applies#348",
+    "caseId": "move-normal-applies#351",
     "effect": {
       "type": "movement-modifier",
       "target": "unit",
@@ -13334,7 +13485,7 @@
     }
   },
   {
-    "caseId": "move-normal-negative#349",
+    "caseId": "move-normal-negative#352",
     "effect": {
       "type": "movement-modifier",
       "target": "defender",
@@ -13352,7 +13503,7 @@
     }
   },
   {
-    "caseId": "move-advance-bonus#350",
+    "caseId": "move-advance-bonus#353",
     "effect": {
       "type": "movement-modifier",
       "target": "unit",
@@ -13370,7 +13521,7 @@
     }
   },
   {
-    "caseId": "move-pile-in#351",
+    "caseId": "move-pile-in#354",
     "effect": {
       "type": "movement-modifier",
       "target": "unit",
@@ -13389,7 +13540,7 @@
     }
   },
   {
-    "caseId": "move-consolidation#352",
+    "caseId": "move-consolidation#355",
     "effect": {
       "type": "movement-modifier",
       "target": "unit",
@@ -13408,7 +13559,7 @@
     }
   },
   {
-    "caseId": "move-surge#353",
+    "caseId": "move-surge#356",
     "effect": {
       "type": "movement-modifier",
       "target": "unit",
@@ -13426,7 +13577,7 @@
     }
   },
   {
-    "caseId": "move-shoot-and-scoot#354",
+    "caseId": "move-shoot-and-scoot#357",
     "effect": {
       "type": "movement-modifier",
       "target": "unit",
@@ -13444,7 +13595,7 @@
     }
   },
   {
-    "caseId": "move-redeploy-reserves-max#355",
+    "caseId": "move-redeploy-reserves-max#358",
     "effect": {
       "type": "movement-modifier",
       "target": "unit",
@@ -13463,7 +13614,7 @@
     }
   },
   {
-    "caseId": "move-redeploy-marker#356",
+    "caseId": "move-redeploy-marker#359",
     "effect": {
       "type": "movement-modifier",
       "target": "unit",
@@ -13484,7 +13635,7 @@
     }
   },
   {
-    "caseId": "move-redeploy-placement#357",
+    "caseId": "move-redeploy-placement#360",
     "effect": {
       "type": "movement-modifier",
       "target": "unit",
@@ -13505,7 +13656,7 @@
     }
   },
   {
-    "caseId": "move-infiltrate#358",
+    "caseId": "move-infiltrate#361",
     "effect": {
       "type": "movement-modifier",
       "target": "unit",
@@ -13522,7 +13673,7 @@
     }
   },
   {
-    "caseId": "aura-range-bonus#359",
+    "caseId": "aura-range-bonus#362",
     "effect": {
       "type": "aura",
       "target": "enemy-within-aura",
@@ -13540,7 +13691,7 @@
     }
   },
   {
-    "caseId": "aura-tiered-effect#360",
+    "caseId": "aura-tiered-effect#363",
     "effect": {
       "type": "aura",
       "target": "enemy-within-aura",
@@ -13570,7 +13721,7 @@
     }
   },
   {
-    "caseId": "rehome-deep-strike-min-distance#361",
+    "caseId": "rehome-deep-strike-min-distance#364",
     "effect": {
       "type": "deep-strike",
       "target": "unit",
@@ -13588,7 +13739,7 @@
     }
   },
   {
-    "caseId": "rehome-engagement-no-end#362",
+    "caseId": "rehome-engagement-no-end#365",
     "effect": {
       "type": "engagement-passthrough",
       "target": "self",
@@ -13605,7 +13756,7 @@
     }
   },
   {
-    "caseId": "fallback-and-act-shoot-only#363",
+    "caseId": "fallback-and-act-shoot-only#366",
     "effect": {
       "type": "fallback-and-act",
       "target": "unit",
@@ -13620,7 +13771,7 @@
     }
   },
   {
-    "caseId": "fallback-and-act-can-charge#364",
+    "caseId": "fallback-and-act-can-charge#367",
     "effect": {
       "type": "fallback-and-act",
       "target": "unit",
@@ -13637,7 +13788,7 @@
     }
   },
   {
-    "caseId": "superlative-strategist#365",
+    "caseId": "superlative-strategist#368",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -13683,7 +13834,7 @@
     }
   },
   {
-    "caseId": "deceptive-feint#366",
+    "caseId": "deceptive-feint#369",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -13747,7 +13898,7 @@
     }
   },
   {
-    "caseId": "moved-through-tall-terrain-inline#367",
+    "caseId": "moved-through-tall-terrain-inline#370",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -13775,7 +13926,7 @@
     }
   },
   {
-    "caseId": "moved-through-tall-terrain-trigger-condition#368",
+    "caseId": "moved-through-tall-terrain-trigger-condition#371",
     "effect": {
       "type": "keyword-grant",
       "target": "self",
@@ -13803,7 +13954,7 @@
     }
   },
   {
-    "caseId": "moved-through-tall-terrain-negated-inline#369",
+    "caseId": "moved-through-tall-terrain-negated-inline#372",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -13832,7 +13983,7 @@
     }
   },
   {
-    "caseId": "moved-through-tall-terrain-negated-trigger-condition#370",
+    "caseId": "moved-through-tall-terrain-negated-trigger-condition#373",
     "effect": {
       "type": "keyword-grant",
       "target": "self",
@@ -13861,7 +14012,7 @@
     }
   },
   {
-    "caseId": "moved-through-tall-terrain-trigger-event#371",
+    "caseId": "moved-through-tall-terrain-trigger-event#374",
     "effect": {
       "type": "keyword-grant",
       "target": "self",
@@ -13883,7 +14034,7 @@
     }
   },
   {
-    "caseId": "moved-through-tall-terrain-legacy-aliases#372",
+    "caseId": "moved-through-tall-terrain-legacy-aliases#375",
     "effect": {
       "type": "sequence",
       "steps": [
@@ -13934,7 +14085,7 @@
     }
   },
   {
-    "caseId": "moved-through-terrain-generic-unaffected#373",
+    "caseId": "moved-through-terrain-generic-unaffected#376",
     "effect": {
       "type": "conditional",
       "condition": {

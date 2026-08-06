@@ -394,50 +394,99 @@
   },
   {
     "ability_id": "singular-purpose",
-    "name": "Singular Purpose",
+    "ability_type": "unit",
     "authored_by": "40kdc-community",
-    "game_version": {
-      "edition": "11th",
-      "dataslate": "pre-launch-provisional"
-    },
-    "version": "2025-q3",
+    "behavior": "activated",
     "effect": {
-      "type": "sequence",
-      "steps": [
+      "choice_label": "Singular Purpose",
+      "options": [
         {
-          "type": "re-roll",
-          "target": "unit",
-          "modifier": {
-            "roll": "hit",
-            "subset": "all-failures"
-          }
+          "consumer": {
+            "beneficiary": "bearer",
+            "effect": {
+              "steps": [
+                {
+                  "modifier": {
+                    "roll": "hit",
+                    "subset": "all-failures"
+                  },
+                  "target": "bearer",
+                  "type": "re-roll"
+                },
+                {
+                  "modifier": {
+                    "roll": "wound",
+                    "subset": "all-failures"
+                  },
+                  "target": "bearer",
+                  "type": "re-roll"
+                }
+              ],
+              "type": "sequence"
+            },
+            "relation": "attacks-selected-unit"
+          },
+          "designation": "singular-purpose-enemy",
+          "duration": "battle",
+          "select": {
+            "count": 1,
+            "scope": "enemy-unit",
+            "selection_policy": "one-time",
+            "timing": "start-of-first-battle-round"
+          },
+          "type": "persistent-designation"
         },
         {
-          "type": "re-roll",
-          "target": "unit",
-          "modifier": {
-            "roll": "wound",
-            "subset": "all-failures"
-          }
-        },
-        {
-          "type": "feel-no-pain",
-          "target": "unit",
-          "modifier": {
-            "threshold": 5
-          }
+          "consumer": {
+            "beneficiary": "bearer",
+            "effect": {
+              "steps": [
+                {
+                  "modifier": {
+                    "threshold": 5
+                  },
+                  "target": "bearer",
+                  "type": "feel-no-pain"
+                },
+                {
+                  "modifier": {
+                    "operation": "set",
+                    "value": 15
+                  },
+                  "target": "bearer",
+                  "type": "objective-control-modifier"
+                }
+              ],
+              "type": "sequence"
+            },
+            "relation": "within-selected-marker"
+          },
+          "designation": "singular-purpose-marker",
+          "duration": "battle",
+          "select": {
+            "count": 1,
+            "scope": "objective-marker",
+            "selection_policy": "one-time",
+            "timing": "start-of-first-battle-round"
+          },
+          "type": "persistent-designation"
         }
-      ]
+      ],
+      "type": "choice"
     },
+    "game_version": {
+      "dataslate": "pre-launch-provisional",
+      "edition": "11th"
+    },
+    "name": "Singular Purpose",
     "scope": {
-      "range": "unit",
-      "duration": "permanent"
+      "duration": "battle",
+      "range": "self"
     },
     "unit_ids": [
       "norn-emissary"
     ],
-    "ability_type": "unit",
-    "behavior": "passive"
+    "version": "2025-q3"
   },
   {
     "ability_id": "unnatural-resilience",

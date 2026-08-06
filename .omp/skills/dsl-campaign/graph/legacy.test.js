@@ -1,19 +1,19 @@
 import assert from 'node:assert/strict'
-import { copyFileSync, mkdtempSync } from 'node:fs'
+import { mkdtempSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join, resolve } from 'node:path'
 import test from 'node:test'
 import { bootstrapRegistry, campaignView, recoverLegacy } from './legacy.js'
 import { projectRegistry, verifyProjection } from './projection.js'
 import { GraphStore } from './store.js'
+import { legacyFixture } from './test-fixtures.js'
 
 const repoRoot = resolve('.')
 function fixture() {
   const root = mkdtempSync(join(tmpdir(), 'legacy-graph-'))
-  const registryPath = join(root, 'registry.json')
-  copyFileSync('_private/loop-state/registry.json', registryPath)
+  const { registryPath, loopStateRoot } = legacyFixture(root)
   const store = new GraphStore(join(root, 'graph'))
-  return { root, registryPath, store }
+  return { root, registryPath, loopStateRoot, store }
 }
 
 test('bootstrap imports all allowlisted state and migrates c005 claims', () => {
@@ -28,11 +28,11 @@ test('bootstrap imports all allowlisted state and migrates c005 claims', () => {
 })
 
 test('legacy recovery preserves c007-c009 without granting authority', () => {
-  const { store, registryPath } = fixture()
+  const { store, registryPath, loopStateRoot } = fixture()
   bootstrapRegistry(store, { repoRoot, registryPath })
-  const first = recoverLegacy(store, { repoRoot })
+  const first = recoverLegacy(store, { repoRoot, loopStateRoot })
   const sequence = store.sequence()
-  const second = recoverLegacy(store, { repoRoot })
+  const second = recoverLegacy(store, { repoRoot, loopStateRoot })
   assert.equal(first.idempotent, false)
   assert.equal(second.idempotent, true)
   assert.equal(store.sequence(), sequence)
@@ -50,9 +50,9 @@ test('legacy recovery preserves c007-c009 without granting authority', () => {
 })
 
 test('registry projection is byte-stable and maps superseded to aborted', () => {
-  const { store, registryPath } = fixture()
+  const { store, registryPath, loopStateRoot } = fixture()
   bootstrapRegistry(store, { repoRoot, registryPath })
-  recoverLegacy(store, { repoRoot })
+  recoverLegacy(store, { repoRoot, loopStateRoot })
   const first = projectRegistry(store, registryPath)
   const second = projectRegistry(store, registryPath)
   assert.equal(first.hash, second.hash)

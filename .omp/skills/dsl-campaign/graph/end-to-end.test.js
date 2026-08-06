@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict'
-import { copyFileSync, mkdtempSync, mkdirSync, writeFileSync } from 'node:fs'
+import { mkdirSync, mkdtempSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join, resolve } from 'node:path'
 import test from 'node:test'
@@ -10,14 +10,14 @@ import { nextCampaignId, readiness, startCampaign } from './readiness.js'
 import { wholeGraphPriorities } from './retrieval.js'
 import { GraphStore } from './store.js'
 import { repositoryVersionPayload } from './versions.js'
+import { intakeManifest, legacyFixture } from './test-fixtures.js'
 
 const repoRoot = resolve('.')
-const manifest = JSON.parse(await (await import('node:fs/promises')).readFile('_private/loop-state/claim-graph-intake-c004-c006-c008.json', 'utf8'))
+const manifest = intakeManifest(repoRoot)
 
 function completeFixture() {
   const temp = mkdtempSync(join(tmpdir(), 'graph-e2e-'))
-  const registryPath = join(temp, 'registry.json')
-  copyFileSync('_private/loop-state/registry.json', registryPath)
+  const { registryPath, loopStateRoot } = legacyFixture(temp)
   const store = new GraphStore(join(temp, 'graph'))
   bootstrapRegistry(store, { repoRoot, registryPath })
   const prepared = prepareIntake(store, { repoRoot, manifest })
@@ -34,7 +34,7 @@ function completeFixture() {
     store.db.prepare("UPDATE leases SET state='released' WHERE id=?").run(envelope.lease_id)
   }
   acceptIntake(store, { repoRoot, result: { schema_version: 1, run_id: prepared.runId, manifest_hash: prepared.prepared.manifest_hash, outcomes } })
-  recoverLegacy(store, { repoRoot })
+  recoverLegacy(store, { repoRoot, loopStateRoot })
   const repository = store.db.prepare("SELECT node_id FROM nodes WHERE kind='repository-version' ORDER BY rowid DESC LIMIT 1").get()
   reconcileAbilityCatalog(store, repoRoot, repository.node_id)
   projectRegistry(store, registryPath)

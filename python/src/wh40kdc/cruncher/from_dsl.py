@@ -5,9 +5,9 @@ translator could not auto-apply.
 The buff layer is intentionally a subset of the DSL: it covers the math the
 cruncher's expected-value engine reads and reports everything else — choice
 nodes (player decisions), dice-gated effects (stochastic), defender-side
-bs-modifier, attack-restrictions, ability grants, mortal wound triggers — as
-``unsupported`` so a UI can surface "this ability has effects we can't
-auto-apply" rather than silently dropping them.
+bs-modifier, attack-restrictions, unsupported ability grants, mortal wound
+triggers — as ``unsupported`` so a UI can surface "this ability has effects
+we can't auto-apply" rather than silently dropping them.
 
 Python mirror of ``tools/src/cruncher/from-dsl.ts``. Applied-buff list order
 and unsupported-reason strings are pinned by
@@ -89,6 +89,8 @@ def _walk(node: Any, source: BuffSource, opts: dict[str, Any], out: EffectTransl
     if _is_model_scoped_from_attached_member(node, source):
         out["unsupported"].append({"reason": _MODEL_SCOPED_REASON, "effectFragment": node})
         return
+    if opts.get("defaultTarget") is not None and "target" not in node:
+        node = {**node, "target": opts["defaultTarget"]}
     node_type = node.get("type")
     if node_type == "re-roll":
         _translate_reroll(node, source, opts, out)
@@ -129,6 +131,26 @@ def _walk(node: Any, source: BuffSource, opts: dict[str, Any], out: EffectTransl
     elif node_type == "select-units":
         # Targeting wrapper — the selected units receive the nested effect.
         _walk(node.get("effect"), source, opts, out)
+    elif node_type == "leader-model-ability-grant":
+        out["unsupported"].append(
+            {
+                "reason": (
+                    "leader-model-ability-grant: attached leader beneficiary "
+                    "is not resolved by the buff engine"
+                ),
+                "effectFragment": node,
+            }
+        )
+    elif node_type == "persistent-designation":
+        out["unsupported"].append(
+            {
+                "reason": (
+                    "persistent-designation: retained selection state "
+                    "is not resolved by the buff engine"
+                ),
+                "effectFragment": node,
+            }
+        )
     elif node_type == "designate-target":
         # Mark an enemy unit; when `to: attackers-of-target` the nested effect is
         # a buff every friendly attack against that unit receives (Oath of Moment).

@@ -48,8 +48,8 @@
       "faction": "adeptus-mechanicus",
       "total": 111,
       "offensive": 27,
-      "defensive": 12,
-      "inert": 76,
+      "defensive": 10,
+      "inert": 78,
       "stub": 0,
       "stubStructural": 0,
       "gwTextLeak": 0,
@@ -245,9 +245,9 @@
     {
       "faction": "tyranids",
       "total": 115,
-      "offensive": 22,
-      "defensive": 8,
-      "inert": 88,
+      "offensive": 21,
+      "defensive": 7,
+      "inert": 89,
       "stub": 5,
       "stubStructural": 1,
       "gwTextLeak": 0,
@@ -267,9 +267,9 @@
   ],
   "totals": {
     "total": 3123,
-    "offensive": 767,
-    "defensive": 266,
-    "inert": 2176,
+    "offensive": 766,
+    "defensive": 263,
+    "inert": 2179,
     "stub": 117,
     "stubStructural": 39,
     "gwTextLeak": 0,
@@ -542,6 +542,10 @@
     },
     {
       "reason": "re-roll on \"attacks-characteristic\" (subset …) is outside the damage path",
+      "count": 2
+    },
+    {
+      "reason": "leader-model-ability-grant: attached leader beneficiary is not resolved by the buff engine",
       "count": 2
     },
     {
@@ -6624,7 +6628,7 @@
       "faction": "adeptus-mechanicus",
       "ability_id": "lord-of-the-machine-cult",
       "name": "Lord of the Machine Cult",
-      "shape": "conditional",
+      "shape": "sequence",
       "stub": false,
       "offensive": false,
       "defensive": true,
@@ -6814,11 +6818,11 @@
       "faction": "adeptus-mechanicus",
       "ability_id": "robotic-bodyguard",
       "name": "Robotic Bodyguard",
-      "shape": "conditional",
+      "shape": "leader-model-ability-grant",
       "stub": false,
       "offensive": false,
-      "defensive": true,
-      "gap": null
+      "defensive": false,
+      "gap": "leader-model-ability-grant: attached leader beneficiary is not resolved by the buff engine"
     },
     {
       "faction": "adeptus-mechanicus",
@@ -6894,11 +6898,11 @@
       "faction": "adeptus-mechanicus",
       "ability_id": "bound-creation",
       "name": "Bound Creation",
-      "shape": "conditional",
+      "shape": "leader-model-ability-grant",
       "stub": false,
       "offensive": false,
-      "defensive": true,
-      "gap": null
+      "defensive": false,
+      "gap": "leader-model-ability-grant: attached leader beneficiary is not resolved by the buff engine"
     },
     {
       "faction": "adeptus-mechanicus",
@@ -29554,10 +29558,10 @@
       "faction": "tyranids",
       "ability_id": "singular-purpose",
       "name": "Singular Purpose",
-      "shape": "sequence",
+      "shape": "choice",
       "stub": false,
-      "offensive": true,
-      "defensive": true,
+      "offensive": false,
+      "defensive": false,
       "gap": null
     },
     {

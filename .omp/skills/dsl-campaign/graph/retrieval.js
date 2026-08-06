@@ -118,7 +118,7 @@ export class GraphQueryError extends Error {
   }
 }
 
-function graphRevision(store) {
+export function graphRevision(store) {
   return sha256(canonicalJson({ sequence: store.sequence(), projection: store.projectionChecksum() }))
 }
 
@@ -153,7 +153,61 @@ function compareTuple(left, right) {
   return 0
 }
 
-function campaignRefsByNode(store) {
+function parsedWorkflowEnvelope(row) {
+  if (row.kind !== 'workflow-output') return null
+  const payload = JSON.parse(row.payload_json || '{}')
+  const envelope = payload.envelope
+  if (!envelope || typeof envelope !== 'object') return null
+  const outputKind = typeof payload.output_kind === 'string' ? payload.output_kind : null
+  const runId = typeof envelope.run_id === 'string' ? envelope.run_id : null
+  const taskId = typeof envelope.task_id === 'string' ? envelope.task_id : null
+  const attemptId = typeof envelope.attempt_id === 'string' ? envelope.attempt_id : null
+  if (!outputKind || !runId || !taskId || !attemptId || envelope.producer_contract_version !== Number(row.producer_contract_version)) return null
+  const provenance = {
+    run_id: runId,
+    task_id: taskId,
+    attempt_id: attemptId,
+    output_kind: outputKind,
+  }
+  const taskParts = taskId.split(':')
+  const attemptParts = attemptId.split(':')
+  const taskMarker = taskParts.lastIndexOf('task')
+  const attemptMarker = attemptParts.lastIndexOf('attempt')
+  if (
+    taskMarker >= 6 &&
+    attemptMarker >= 6 &&
+    /^\d+$/.test(taskParts[taskMarker + 1] || '') &&
+    /^\d+$/.test(attemptParts[attemptMarker + 1] || '') &&
+    taskParts.slice(0, taskMarker).join(':') === attemptParts.slice(0, attemptMarker).join(':') &&
+    outputKind === taskParts[taskMarker - 1]
+  ) {
+    provenance.workflow_stage = taskParts[2]
+    provenance.workflow_task = taskParts[3]
+    provenance.workflow_round = taskParts[4]
+    provenance.workflow_lane = taskParts[5]
+    provenance.attempt_number = Number(attemptParts[attemptMarker + 1])
+  } else {
+    const attemptNumber = attemptId.match(/(?:^|-)attempt-(\d+)$/)?.[1]
+    if (attemptNumber) provenance.attempt_number = Number(attemptNumber)
+  }
+  return provenance
+}
+
+function trustedWorkflowEnvelopes(store) {
+  const tasks = new Map(store.db.prepare('SELECT id,run_id,node_id FROM tasks').all().map(row => [row.id, row]))
+  const attempts = new Map(store.db.prepare('SELECT id,run_id,node_id FROM attempts').all().map(row => [row.id, row]))
+  const envelopes = new Map()
+  for (const row of store.db.prepare("SELECT node_id,kind,producer_contract_version,payload_json FROM nodes WHERE kind='workflow-output'").all()) {
+    const envelope = parsedWorkflowEnvelope(row)
+    const task = envelope ? tasks.get(envelope.task_id) : null
+    const attempt = envelope ? attempts.get(envelope.attempt_id) : null
+    if (!envelope || task?.run_id !== envelope.run_id || task.node_id !== row.node_id || attempt?.run_id !== envelope.run_id || attempt.node_id !== row.node_id) continue
+    envelopes.set(row.node_id, envelope)
+  }
+  return envelopes
+}
+
+function campaignRefsByNode(store, workflowEnvelopes = trustedWorkflowEnvelopes(store)) {
   const refs = new Map()
   const runs = new Map(store.db.prepare('SELECT run_id,campaign_id FROM runs').all().map(row => [row.run_id, row.campaign_id]))
   const add = (nodeId, campaignId) => {
@@ -165,17 +219,7 @@ function campaignRefsByNode(store) {
     for (const row of store.db.prepare(`SELECT node_id,run_id FROM ${table} WHERE node_id IS NOT NULL AND run_id IS NOT NULL`).all()) add(row.node_id, runs.get(row.run_id))
   }
   for (const row of store.db.prepare('SELECT node_id,aggregate_id FROM events WHERE node_id IS NOT NULL').all()) add(row.node_id, runs.get(row.aggregate_id) || store.db.prepare('SELECT campaign_id FROM runs WHERE campaign_id=?').get(row.aggregate_id)?.campaign_id)
-  const visit = (value, nodeId) => {
-    if (!value || typeof value !== 'object') return
-    if (Array.isArray(value)) {
-      for (const child of value) visit(child, nodeId)
-      return
-    }
-    if (typeof value.run_id === 'string') add(nodeId, runs.get(value.run_id))
-    if (typeof value.campaign_id === 'string') add(nodeId, value.campaign_id)
-    for (const child of Object.values(value)) visit(child, nodeId)
-  }
-  for (const row of store.db.prepare('SELECT node_id,payload_json FROM nodes').all()) visit(JSON.parse(row.payload_json), row.node_id)
+  for (const [nodeId, envelope] of workflowEnvelopes) add(nodeId, runs.get(envelope.run_id))
   return new Map([...refs].map(([nodeId, values]) => [nodeId, [...values].sort()]))
 }
 
@@ -285,17 +329,39 @@ function abilityNode(row, statusMetadata = {}) {
   }
 }
 
-function evidenceNode(row, abilityRefs, campaignRefs, metadata) {
+function browserWorkflowProvenance(envelope) {
+  if (!envelope) return {}
+  return {
+    output_kind: envelope.output_kind,
+    task_id: envelope.task_id,
+    attempt_id: envelope.attempt_id,
+    workflow_stage: envelope.workflow_stage,
+    workflow_task: envelope.workflow_task,
+    workflow_round: envelope.workflow_round,
+    workflow_lane: envelope.workflow_lane,
+    attempt_number: envelope.attempt_number,
+  }
+}
+
+function evidenceLabel(row, provenance) {
+  const role = provenance.output_kind || row.kind
+  return `${role.replaceAll('-', ' ')}${provenance.output_kind ? ' output' : ''}`
+}
+
+
+function evidenceNode(row, abilityRefs, campaignRefs, metadata, workflowEnvelopes) {
   const refs = abilityRefs.get(row.node_id) || []
+  const provenance = browserWorkflowProvenance(workflowEnvelopes.get(row.node_id))
   return {
     id: row.node_id,
     kind: row.kind,
-    label: `${row.kind.replaceAll('-', ' ')} · ${row.node_id.slice(0, 12)}`,
+    label: evidenceLabel(row, provenance),
     scope: projectionScope(refs),
     ability_refs: refs,
     campaign_refs: campaignRefs.get(row.node_id) || [],
     metadata: {
       ...(metadata.get(row.node_id) || { run_ids: [], statuses: [], certificates: [], findings: [] }),
+      ...provenance,
       lineage_distance: Number(row.lineage_distance),
       producer_contract_version: Number(row.producer_contract_version),
     },
@@ -306,13 +372,15 @@ function edge(id, source, target, kind, metadata = {}) {
   return { id, source, target, kind, metadata }
 }
 
-function selectedEdges(store, nodeIds, abilityRows) {
+function selectedEdges(store, nodeIds, abilityRows, evidenceNodeIds = new Set(nodeIds), availableNodeIds = new Set(nodeIds)) {
   const selected = new Set(nodeIds)
   const edges = []
   const incoming = new Set()
   for (const row of store.db.prepare('SELECT parent_node_id,child_node_id,edge_type,authorizes_reuse FROM edges ORDER BY parent_node_id,child_node_id,edge_type').all()) {
-    if (!selected.has(row.parent_node_id) || !selected.has(row.child_node_id)) continue
+    if (!evidenceNodeIds.has(row.parent_node_id) || !evidenceNodeIds.has(row.child_node_id)) continue
     incoming.add(row.child_node_id)
+    if (!selected.has(row.parent_node_id) && !selected.has(row.child_node_id)) continue
+    if (!availableNodeIds.has(row.parent_node_id) || !availableNodeIds.has(row.child_node_id)) continue
     edges.push(edge(sha256(`${row.parent_node_id}:${row.child_node_id}:${row.edge_type}`), row.parent_node_id, row.child_node_id, row.edge_type, { authorizes_reuse: Boolean(row.authorizes_reuse) }))
   }
   for (const row of abilityRows) {
@@ -345,6 +413,27 @@ function validateFilters(mode, filters) {
   if (mode === 'campaign' && (!filters.campaign_id || filters.faction_id || filters.ability_id)) throw new GraphQueryError(400, 'campaign-filter-required')
 }
 
+export function graphSubscriptionRevision(store, query = {}) {
+  const mode = query.mode || 'index'
+  const filters = {
+    mode,
+    faction_id: query.faction_id || null,
+    ability_id: query.ability_id || null,
+    campaign_id: query.campaign_id || null,
+  }
+  validateFilters(mode, filters)
+  boundedInteger(query.limit, mode === 'index' ? 2 : 3, mode === 'index' ? 250 : 400, mode === 'index' ? 1 : 3)
+  if (mode !== 'index') boundedInteger(query.depth, 4, 8, 0)
+  if (
+    mode === 'ability' &&
+    !projectionAbilityRows(store).some(row => row.faction_id === filters.faction_id && row.ability_id === filters.ability_id)
+  ) throw new GraphQueryError(404, 'ability-not-found')
+  if (mode === 'campaign' && !store.db.prepare('SELECT 1 FROM runs WHERE campaign_id=?').get(filters.campaign_id)) {
+    throw new GraphQueryError(404, 'campaign-not-found')
+  }
+  return graphRevision(store)
+}
+
 export function globalGraphSnapshot(store, query = {}) {
   const mode = query.mode || 'index'
   const filters = {
@@ -355,7 +444,8 @@ export function globalGraphSnapshot(store, query = {}) {
   }
   validateFilters(mode, filters)
   const revision = graphRevision(store)
-  const campaignRefs = campaignRefsByNode(store)
+  const workflowEnvelopes = trustedWorkflowEnvelopes(store)
+  const campaignRefs = campaignRefsByNode(store, workflowEnvelopes)
   const metadata = projectionMetadataByNode(store)
   const abilityRefs = abilityRefsByNode(store)
   const projectionAbilities = projectionAbilityRows(store)
@@ -401,14 +491,16 @@ export function globalGraphSnapshot(store, query = {}) {
     ? { sql: 'refs.faction_id=? AND refs.ability_id=?', args: [filters.faction_id, filters.ability_id] }
     : null
   let rows = mode === 'ability'
-    ? store.db.prepare(`SELECT n.node_id,n.kind,n.producer_contract_version,MIN(refs.distance) AS lineage_distance FROM nodes n JOIN node_ability_refs refs USING(node_id) WHERE ${conditions.sql} GROUP BY n.node_id,n.kind,n.producer_contract_version`).all(...conditions.args)
-    : store.db.prepare('SELECT n.node_id,n.kind,n.producer_contract_version,MIN(refs.distance) AS lineage_distance FROM nodes n JOIN node_ability_refs refs USING(node_id) GROUP BY n.node_id,n.kind,n.producer_contract_version').all()
+    ? store.db.prepare(`SELECT n.node_id,n.kind,n.producer_contract_version,n.payload_json,MIN(refs.distance) AS lineage_distance FROM nodes n JOIN node_ability_refs refs USING(node_id) WHERE ${conditions.sql} GROUP BY n.node_id,n.kind,n.producer_contract_version,n.payload_json`).all(...conditions.args)
+    : store.db.prepare('SELECT n.node_id,n.kind,n.producer_contract_version,n.payload_json,MIN(refs.distance) AS lineage_distance FROM nodes n JOIN node_ability_refs refs USING(node_id) GROUP BY n.node_id,n.kind,n.producer_contract_version,n.payload_json').all()
         .filter(row => (campaignRefs.get(row.node_id) || []).includes(filters.campaign_id))
   rows = rows.filter(row => Number(row.lineage_distance) <= depth)
     .map(row => ({ ...row, tuple: [Number(row.lineage_distance), row.kind, row.node_id] }))
     .sort((a, b) => compareTuple(a.tuple, b.tuple))
+  const evidenceNodeIds = new Set(rows.map(row => row.node_id))
   const fingerprint = sha256(canonicalJson({ ...filters, depth }))
   const after = cursorDecode(query.after, revision, fingerprint)
+  const precedingNodeIds = new Set(rows.filter(row => after && compareTuple(row.tuple, after) <= 0).map(row => row.node_id))
   rows = rows.filter(row => !after || compareTuple(row.tuple, after) > 0)
   let pageRows
   let pageAbilityRows
@@ -435,9 +527,10 @@ export function globalGraphSnapshot(store, query = {}) {
     pageAbilityRows = [...selectedAbilities.values()].sort((a, b) => (a.faction_name || a.faction_id).localeCompare(b.faction_name || b.faction_id) || (a.ability_name || a.ability_id).localeCompare(b.ability_name || b.ability_id))
   }
   const truncated = rows.length > pageRows.length
-  const evidenceNodes = pageRows.map(row => evidenceNode(row, abilityRefs, campaignRefs, metadata))
+  const evidenceNodes = pageRows.map(row => evidenceNode(row, abilityRefs, campaignRefs, metadata, workflowEnvelopes))
   const nodes = [rootNode(revision), ...pageAbilityRows.map(row => abilityNode(row, abilityStatusMetadata(store, row.faction_id, row.ability_id, campaignRefs, metadata))), ...evidenceNodes]
-  const edges = selectedEdges(store, evidenceNodes.map(node => node.id), pageAbilityRows)
+  const availableNodeIds = new Set([...precedingNodeIds, ...evidenceNodes.map(node => node.id)])
+  const edges = selectedEdges(store, evidenceNodes.map(node => node.id), pageAbilityRows, evidenceNodeIds, availableNodeIds)
   const next = truncated ? cursorEncode({ graph_revision: revision, fingerprint, tuple: pageRows.at(-1).tuple }) : null
   return { graph_revision: revision, root: GLOBAL_ROOT_ID, nodes, edges, page: { next_cursor: next, truncated }, filters: { ...filters, depth } }
 }

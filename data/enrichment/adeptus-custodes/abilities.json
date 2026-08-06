@@ -3224,58 +3224,82 @@
   },
   {
     "ability_id": "revered-companions",
-    "name": "Revered Companions",
-    "authored_by": "40kdc-community",
-    "game_version": {
-      "edition": "11th",
-      "dataslate": "pre-launch-provisional"
-    },
-    "version": "2025-q3",
-    "supersedes": null,
-    "unit_ids": [],
-    "faction_id": "adeptus-custodes",
-    "detachment_id": "talons-of-the-emperor",
     "ability_type": "detachment",
+    "authored_by": "40kdc-community",
     "behavior": "passive",
+    "community_notes": "Structured using the accepted aura-keyword-predicates shape; all source clauses are represented.",
+    "detachment_id": "talons-of-the-emperor",
     "effect": {
-      "type": "sequence",
       "steps": [
         {
-          "type": "aura",
-          "target": "friendly-within-aura",
           "modifier": {
-            "range": 6,
             "effect": {
-              "type": "feel-no-pain",
-              "target": "unit",
               "modifier": {
+                "scope": "psychic-and-mortal",
                 "threshold": 5
-              }
+              },
+              "target": "unit",
+              "type": "feel-no-pain"
+            },
+            "emitter_filter": {
+              "required_keywords": [
+                "ANATHEMA PSYKANA"
+              ]
+            },
+            "range": 6,
+            "recipient_filter": {
+              "required_keywords": [
+                "ADEPTUS CUSTODES"
+              ]
             }
-          }
+          },
+          "target": "friendly-within-aura",
+          "type": "aura"
         },
         {
-          "type": "aura",
-          "target": "friendly-within-aura",
           "modifier": {
-            "range": 6,
             "effect": {
-              "type": "roll-modifier",
-              "target": "unit",
               "modifier": {
-                "roll": "hit",
                 "operation": "add",
+                "roll": "hit",
                 "value": 1
-              }
+              },
+              "target": "unit",
+              "type": "roll-modifier"
+            },
+            "emitter_filter": {
+              "excluded_keywords": [
+                "ANATHEMA PSYKANA"
+              ],
+              "required_keywords": [
+                "ADEPTUS CUSTODES"
+              ]
+            },
+            "range": 6,
+            "recipient_filter": {
+              "required_keywords": [
+                "ANATHEMA PSYKANA"
+              ]
             }
-          }
+          },
+          "target": "friendly-within-aura",
+          "type": "aura"
         }
-      ]
+      ],
+      "type": "sequence"
     },
+    "faction_id": "adeptus-custodes",
+    "game_version": {
+      "dataslate": "pre-launch-provisional",
+      "edition": "11th"
+    },
+    "name": "Revered Companions",
     "scope": {
-      "range": "aura-6",
-      "duration": "permanent"
+      "duration": "permanent",
+      "range": "aura-6"
     },
-    "community_notes": "[APPROX] Grants two auras. Null Aegis: ANATHEMA PSYKANA units give friendly ADEPTUS CUSTODES within 6\" Feel No Pain 5+, but only against Psychic Attacks and mortal wounds — that restriction is not encoded. Deadly Unity: other ADEPTUS CUSTODES units give +1 to Hit to a nearby ANATHEMA PSYKANA unit's attacks; the reciprocal keyword gating is simplified. Full rule in raw-text store."
+    "supersedes": null,
+    "unit_ids": [],
+    "version": "2025-q3"
   }
 ]

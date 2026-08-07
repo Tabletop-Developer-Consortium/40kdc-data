@@ -1,0 +1,34 @@
+{
+  "certificate": {
+    "claims": [
+      {
+        "id": "legacy-fnp",
+        "subject": "ability:adeptus-astartes/helix-gauntlet",
+        "relation": "has-threshold",
+        "object": "5+"
+      },
+      {
+        "id": "residual",
+        "shape": "open-ended"
+      },
+      "residual"
+    ]
+  },
+  "workflow_output": {
+    "result": {
+      "claims": [
+        {
+          "id": "legacy-fnp",
+          "subject": "ability:adeptus-astartes/helix-gauntlet",
+          "relation": "has-threshold",
+          "object": "5+"
+        },
+        {
+          "id": "residual",
+          "shape": "open-ended"
+        },
+        "residual"
+      ]
+    }
+  }
+}

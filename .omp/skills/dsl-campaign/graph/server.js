@@ -1,6 +1,6 @@
 import http from 'node:http'
 import { pathToFileURL } from 'node:url'
-import { GraphQueryError, graphRevision, graphSubscriptionRevision, globalGraphSnapshot, globalGraphUpdates } from './retrieval.js'
+import { GraphQueryError, graphRevision, graphSubscriptionRevision, globalGraphSnapshot, globalGraphUpdates, queryClaims, queryUnresolved } from './retrieval.js'
 import { GraphStore } from './store.js'
 
 const HOST = '127.0.0.1'
@@ -27,6 +27,15 @@ function graphQuery(url, includeSince = false) {
   }
   if (includeSince) query.since = url.searchParams.get('since')
   return query
+}
+
+function claimQuery(url) {
+  return Object.fromEntries([
+    'subject_ref', 'faction_id', 'ability_id', 'lifecycle_state', 'state',
+    'proposition_schema_id', 'schema_id', 'predicate', 'actor', 'affected_entity',
+    'event', 'duration', 'has_precondition', 'semantic_key', 'source_snapshot_id',
+    'kind', 'unresolved_kind', 'obligation', 'after', 'limit',
+  ].map(key => [key, url.searchParams.get(key)]))
 }
 
 
@@ -97,6 +106,12 @@ export function createMechanicGraphServer({
       }
       if (request.method === 'GET' && url.pathname === '/api/v1/graph/updates') {
         return sendJson(response, 200, globalGraphUpdates(store, graphQuery(url, true)))
+      }
+      if (request.method === 'GET' && url.pathname === '/api/v1/claims') {
+        return sendJson(response, 200, queryClaims(store, claimQuery(url)))
+      }
+      if (request.method === 'GET' && url.pathname === '/api/v1/unresolved') {
+        return sendJson(response, 200, queryUnresolved(store, claimQuery(url)))
       }
       if (request.method === 'GET' && url.pathname === '/api/v1/graph/stream') {
         const query = graphQuery(url)

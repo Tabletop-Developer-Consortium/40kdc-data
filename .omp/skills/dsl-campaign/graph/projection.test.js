@@ -51,17 +51,21 @@ test('refs are direct, forward-inherited, family-unioned, cycle-safe, and never 
   const { store } = fixture()
   const repository = store.createNode({ kind: 'repository-version', payload: { workspace_hash: 'b'.repeat(64), files: [], tool_versions: {}, runner_hashes: [], schema_version: 2, policy_version: 1 } })
   const alpha = store.createNode({ kind: 'finding', payload: { faction_id: 'fabricated-faction', ability_id: 'alpha', state: 'open' } })
-  const inherited = store.createNode({ kind: 'finding', payload: { state: 'open' }, input_node_ids: [alpha.node_id] })
-  const cycle = store.createNode({ kind: 'finding', payload: { state: 'open', marker: 'cycle' }, input_node_ids: [inherited.node_id] })
+  const inherited = store.createNode({ kind: 'finding', payload: { state: 'open' }, parents: [{ node_id: alpha.node_id, edge_type: 'derived_from', authorizes_reuse: false, metadata: {} }] })
+  const cycle = store.createNode({ kind: 'finding', payload: { state: 'open', marker: 'cycle' }, parents: [{ node_id: inherited.node_id, edge_type: 'derived_from', authorizes_reuse: false, metadata: {} }] })
   store.db.prepare("INSERT INTO edges(parent_node_id,child_node_id,edge_type,metadata_json) VALUES (?,?, 'derived_from','{}')").run(cycle.node_id, alpha.node_id)
 
   const template = store.createNode({ kind: 'family-template', payload: { state: 'current' } })
-  const alphaInstance = store.createNode({ kind: 'family-instance', payload: { faction_id: 'fabricated-faction', ability_id: 'alpha' } })
-  const betaInstance = store.createNode({ kind: 'family-instance', payload: { faction_id: 'fabricated-faction', ability_id: 'beta' } })
-  for (const [id, node] of [['alpha-instance', alphaInstance], ['beta-instance', betaInstance]]) {
-    store.db.prepare('INSERT INTO family_instances(id,state,node_id,payload_json) VALUES (?,?,?,?)').run(id, 'current', node.node_id, JSON.stringify({ family_template_node_id: template.node_id }))
-  }
-  rebuildNodeAbilityRefs(store)
+  const alphaInstance = store.createNode({ kind: 'family-instance', payload: { faction_id: 'fabricated-faction', ability_id: 'alpha' }, parents: [{ node_id: template.node_id, edge_type: 'generalizes', authorizes_reuse: true, metadata: {} }] })
+  const betaInstance = store.createNode({ kind: 'family-instance', payload: { faction_id: 'fabricated-faction', ability_id: 'beta' }, parents: [{ node_id: template.node_id, edge_type: 'generalizes', authorizes_reuse: true, metadata: {} }] })
+  store.appendEvent('shape-family-certified', {
+    run_id: 'fixture',
+    template: { id: 'template', state: 'current', node_id: template.node_id, payload: {} },
+    instances: [
+      { id: 'alpha-instance', state: 'current', node_id: alphaInstance.node_id, payload: { family_template_node_id: template.node_id } },
+      { id: 'beta-instance', state: 'current', node_id: betaInstance.node_id, payload: { family_template_node_id: template.node_id } },
+    ],
+  }, { aggregate_kind: 'family-template', aggregate_id: 'template', node_id: template.node_id })
 
   assert.deepEqual(refsFor(store, inherited.node_id).map(ref => ({ ...ref })), [{ faction_id: 'fabricated-faction', ability_id: 'alpha', source_kind: 'lineage', distance: 1 }])
   assert.deepEqual(refsFor(store, cycle.node_id).map(ref => ({ ...ref })), [{ faction_id: 'fabricated-faction', ability_id: 'alpha', source_kind: 'lineage', distance: 2 }])
@@ -72,18 +76,48 @@ test('refs are direct, forward-inherited, family-unioned, cycle-safe, and never 
   store.close()
 })
 
+test('normalized claim nodes and claim-set certificates project their subject ability ownership', () => {
+  const { store } = fixture()
+  const node = kind => store.createNode({ kind, payload: {} }).node_id
+  const source = node('source-snapshot')
+  const origin = store.createNode({ kind: 'claim-origin', payload: { origin_id: 'origin', subject_ref: 'ability:fabricated-faction/alpha', origin_kind: 'primary-source', source_snapshot_id: 'snapshot', current_state: 'current' }, parents: [{ node_id: source, edge_type: 'derived_from', authorizes_reuse: false, metadata: {} }] }).node_id
+  const extraction = node('extraction-identity')
+  const semantic = node('semantic-claim')
+  const occurrence = node('claim-occurrence')
+  const assertion = node('claim-assertion')
+  const evidence = node('claim-evidence-binding')
+  const claimSet = store.createNode({ kind: 'claim-set', payload: { subject_ref: 'ability:fabricated-faction/alpha' } }).node_id
+  const unresolved = node('unresolved-item')
+  const certificate = node('claim-set-certificate')
+  store.db.prepare('INSERT INTO source_snapshots(id,run_id,state,node_id,payload_json) VALUES (?,?,?,?,?)').run('snapshot', null, 'current', source, '{}')
+  store.db.prepare('INSERT INTO claim_origins(origin_id,subject_ref,origin_kind,source_snapshot_id,current_state,node_id) VALUES (?,?,?,?,?,?)').run('origin', 'ability:fabricated-faction/alpha', 'primary-source', 'snapshot', 'current', origin)
+  store.db.prepare('INSERT INTO claim_extractions(extraction_id,origin_id,adapter_id,ontology_version,identity_json,node_id) VALUES (?,?,?,?,?,?)').run('extraction', 'origin', '40k-mechanic', '1', '{}', extraction)
+  store.db.prepare('INSERT INTO semantic_claims(semantic_key,adapter_id,proposition_schema_id,proposition_schema_version,identity_ontology_version,polarity,modality,proposition_json,node_id) VALUES (?,?,?,?,?,?,?,?,?)').run('semantic', '40k-mechanic', '40k.mechanic-claim', '1', '1', 'affirms', 'asserted', '{"schema_id":"40k.mechanic-claim","schema_version":"1","value":{"predicate":"mechanic.trigger","arguments":[],"qualifiers":[]}}', semantic)
+  store.db.prepare('INSERT INTO claim_occurrences(claim_occurrence_id,origin_id,semantic_key,subject_ref,state,node_id) VALUES (?,?,?,?,?,?)').run('occurrence', 'origin', 'semantic', 'ability:fabricated-faction/alpha', 'accepted', occurrence)
+  store.db.prepare('INSERT INTO claim_assertions(assertion_id,extraction_id,extraction_local_id,claim_occurrence_id,decision_state,independence_group_id,node_id) VALUES (?,?,?,?,?,?,?)').run('assertion', 'extraction', 'local', 'occurrence', 'accepted', 'fixture', assertion)
+  store.db.prepare('INSERT INTO claim_evidence_bindings(binding_id,kind,origin_id,node_id) VALUES (?,?,?,?)').run('binding', 'source_span', 'origin', evidence)
+  store.db.prepare('INSERT INTO claim_unresolved(unresolved_key,extraction_id,kind,focus_json,blocks_obligations_json,resolution_state,node_id) VALUES (?,?,?,?,?,?,?)').run('unresolved', 'extraction', 'unsupported', '[]', '[]', 'open', unresolved)
+  store.db.prepare('INSERT INTO claim_sets(claim_set_id,subject_ref,origin_id,adapter_id,ontology_version,completeness_state,obligations_checked_json,state,certificate_node_id) VALUES (?,?,?,?,?,?,?,?,?)').run('set', 'ability:fabricated-faction/alpha', 'origin', '40k-mechanic', '1', 'incomplete', '[]', 'current', certificate)
+  rebuildNodeAbilityRefs(store)
+  for (const nodeId of [origin, extraction, semantic, occurrence, assertion, evidence, unresolved, claimSet, certificate]) {
+    assert.deepEqual(refsFor(store, nodeId).map(ref => [ref.faction_id, ref.ability_id]), [['fabricated-faction', 'alpha']])
+  }
+  store.close()
+})
+
 test('projection rebuild preserves immutable object and event bytes', () => {
   const { repoRoot, store } = fixture()
   const repository = store.createNode({ kind: 'repository-version', payload: { workspace_hash: 'c'.repeat(64), files: [], tool_versions: {}, runner_hashes: [], schema_version: 2, policy_version: 1 } })
   const evidence = store.createNode({ kind: 'finding', payload: { faction_id: 'fabricated-faction', ability_id: 'alpha', state: 'resolved' } })
-  store.appendEvent('finding-resolved', { finding_id: 'fixture' }, { aggregate_kind: 'finding', aggregate_id: 'fixture', node_id: evidence.node_id })
+  store.appendEvent('finding-opened', { row: { id: 'fixture', run_id: 'run', state: 'open', node_id: evidence.node_id, payload: {} } }, { aggregate_kind: 'finding', aggregate_id: 'fixture', node_id: evidence.node_id })
+  store.appendEvent('finding-resolved', { expected_state: 'open' }, { aggregate_kind: 'finding', aggregate_id: 'fixture', node_id: evidence.node_id })
+  reconcileAbilityCatalog(store, repoRoot, repository.node_id)
   const objectHash = sha256(readFileSync(store.objectPath(evidence.node_id)))
   const eventHash = sha256(readFileSync(join(store.root, 'events.jsonl')))
   reconcileAbilityCatalog(store, repoRoot, repository.node_id)
-  rebuildNodeAbilityRefs(store)
   assert.equal(sha256(readFileSync(store.objectPath(evidence.node_id))), objectHash)
   assert.equal(sha256(readFileSync(join(store.root, 'events.jsonl'))), eventHash)
-  assert.equal(store.verifyEvents().sequence, 1)
+  assert.equal(store.verifyEvents().sequence, 3)
   store.close()
 })
 

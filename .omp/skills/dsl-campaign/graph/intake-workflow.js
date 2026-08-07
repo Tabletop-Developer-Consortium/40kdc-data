@@ -64,7 +64,7 @@ const result = await executePreparedIntake({
       outcome: certified ? 'certified' : review?.refuted ? 'refuted' : 'represented-gap',
       reason: certified ? 'independent formalization and cold review cover the current encoding' : review?.reason || 'certification gate retained a represented gap',
       claims,
-      coverage: { covered_claims: certified ? claims.map(claim => claim.id) : [], composition_seams: [], required_checks: ['schema', 'integrity', 'four-port-render', 'lever-diff', 'cold-read'] },
+      coverage: { covered_claim_occurrence_ids: certified ? claims.map(claim => claim.claim_occurrence_id) : [], composition_seams: [], required_checks: ['schema', 'integrity', 'four-port-render', 'lever-diff', 'cold-read'] },
       unresolved_findings: [...unresolved_findings, ...uncovered],
       approximation,
       reusable_fragment_ids: [],

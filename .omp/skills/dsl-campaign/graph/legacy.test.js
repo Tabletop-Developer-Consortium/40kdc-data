@@ -3,7 +3,7 @@ import { copyFileSync, mkdtempSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join, resolve } from 'node:path'
 import test from 'node:test'
-import { bootstrapRegistry, campaignView, recoverLegacy } from './legacy.js'
+import { bootstrapRegistry, campaignView, recordPreV1ClaimObservations, recoverLegacy } from './legacy.js'
 import { projectRegistry, verifyProjection } from './projection.js'
 import { GraphStore } from './store.js'
 
@@ -59,5 +59,36 @@ test('registry projection is byte-stable and maps superseded to aborted', () => 
   assert.equal(second.changed, false)
   assert.equal(second.projection.campaigns.find(campaign => campaign.id === 'c009').status, 'aborted')
   assert.equal(verifyProjection(store, registryPath).ok, true)
+  store.close()
+})
+
+test('pre-v1 formalization claims become non-authoritative observations without mutating certificates', () => {
+  const store = new GraphStore(mkdtempSync(join(tmpdir(), 'legacy-claim-observation-')))
+  const certificate = store.createNode({
+    kind: 'source-formalization-certificate',
+    payload: { faction_id: 'faction', ability_id: 'ability', status: 'certified', fingerprints: {}, claims: [{ claim_id: 'legacy-a', shape: 'open-ended' }, { claim_id: 'legacy-b', shape: 'open-ended' }] },
+  })
+  const result = recordPreV1ClaimObservations(store)
+  assert.equal(result.excluded_pre_v1_claim_payload_count, 2)
+  assert.equal(store.hasNode(certificate.node_id), true)
+  const observation = store.db.prepare('SELECT state,node_id,payload_json FROM legacy_observations WHERE id=?').get(`pre-v1-claim:${certificate.node_id}`)
+  assert.equal(observation.state, 'pre-v1-open-claim-contract')
+  assert.equal(JSON.parse(observation.payload_json).authorizes_reuse, false)
+  assert.equal(store.db.prepare('SELECT authorizes_reuse FROM edges WHERE parent_node_id=? AND child_node_id=?').get(certificate.node_id, observation.node_id).authorizes_reuse, 0)
+  store.close()
+})
+
+test('pre-v1 claim observation creation rolls back atomically', () => {
+  const store = new GraphStore(mkdtempSync(join(tmpdir(), 'legacy-claim-observation-rollback-')))
+  store.createNode({
+    kind: 'source-formalization-certificate',
+    payload: { faction_id: 'faction', ability_id: 'ability', status: 'certified', fingerprints: {}, claims: [{ claim_id: 'legacy' }] },
+  })
+  assert.throws(() => store.transaction(() => {
+    recordPreV1ClaimObservations(store)
+    throw new Error('rollback')
+  }), /rollback/)
+  assert.equal(store.db.prepare("SELECT count(*) AS n FROM legacy_observations WHERE id LIKE 'pre-v1-claim:%'").get().n, 0)
+  assert.equal(store.db.prepare("SELECT count(*) AS n FROM events WHERE event_type='legacy-observation-recorded'").get().n, 0)
   store.close()
 })

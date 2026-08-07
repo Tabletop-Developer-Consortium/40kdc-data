@@ -4,6 +4,7 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import test from 'node:test'
 import { reconcileAbilityCatalog } from './projection.js'
+import { PRODUCER_CONTRACT_VERSION } from './schema.js'
 import { createMechanicGraphServer } from './server.js'
 
 function fixture() {
@@ -28,10 +29,10 @@ function fixture() {
   }
   const first = store.createNode({ kind: 'finding', payload: { faction_id: 'fabricated-faction', ability_id: 'alpha', state: 'resolved' } })
   const second = store.createNode({ kind: 'candidate-certificate', payload: { faction_id: 'fabricated-faction', ability_id: 'alpha', status: 'certified', fingerprints: {}, checks: [] } })
-  store.db.prepare('INSERT INTO findings(id,run_id,state,node_id,payload_json) VALUES (?,?,?,?,?)').run('finding-1', 'run-1', 'resolved', first.node_id, '{}')
-  store.db.prepare('INSERT INTO certificates(id,run_id,state,node_id,payload_json) VALUES (?,?,?,?,?)').run('certificate-2', 'run-2', 'certified', second.node_id, '{}')
-  store.appendEvent('finding-resolved', { run_id: 'run-1' }, { aggregate_kind: 'run', aggregate_id: 'run-1', node_id: first.node_id })
-  store.appendEvent('certificate-certified', { run_id: 'run-2' }, { aggregate_kind: 'run', aggregate_id: 'run-2', node_id: second.node_id })
+  store.db.prepare('INSERT INTO findings(id,run_id,state,node_id,payload_json) VALUES (?,?,?,?,?)').run('finding-1', 'run-1', 'open', first.node_id, '{}')
+  store.db.prepare('INSERT INTO certificates(id,run_id,state,node_id,payload_json) VALUES (?,?,?,?,?)').run('certificate-2', 'run-2', 'provisional', second.node_id, '{}')
+  store.appendEvent('finding-resolved', { run_id: 'run-1' }, { aggregate_kind: 'finding', aggregate_id: 'finding-1', node_id: first.node_id })
+  store.appendEvent('certificate-certified', { run_id: 'run-2' }, { aggregate_kind: 'certificate', aggregate_id: 'certificate-2', node_id: second.node_id })
   return { runtime, repoRoot, repository, first, second }
 }
 
@@ -127,7 +128,7 @@ test('workflow evidence projects structural provenance without result payloads',
         run_id: 'run-1',
         task_id: taskId,
         attempt_id: attemptId,
-        producer_contract_version: 1,
+        producer_contract_version: PRODUCER_CONTRACT_VERSION,
       },
       result: { campaign_id: 'campaign-2', private_payload: 'must not cross the browser boundary' },
     },
@@ -146,7 +147,7 @@ test('workflow evidence projects structural provenance without result payloads',
         run_id: 'run-1',
         task_id: intakeTaskId,
         attempt_id: intakeAttemptId,
-        producer_contract_version: 1,
+        producer_contract_version: PRODUCER_CONTRACT_VERSION,
       },
     },
   })
@@ -214,6 +215,8 @@ test('non-workflow payload fields cannot impersonate workflow provenance or camp
   })
   runtime.store.db.prepare('INSERT INTO findings(id,run_id,state,node_id,payload_json) VALUES (?,?,?,?,?)')
     .run('finding-spoof', 'run-1', 'open', finding.node_id, '{}')
+  runtime.store.db.prepare('INSERT INTO node_ability_refs(node_id,faction_id,ability_id,source_kind,distance) VALUES (?,?,?,?,?)')
+    .run(finding.node_id, 'fabricated-faction', 'alpha', 'direct', 0)
   const unboundWorkflow = runtime.store.createNode({
     kind: 'workflow-output',
     payload: {
@@ -254,7 +257,7 @@ test('index pagination is deterministic and stale revisions fail with current re
   assert.equal(page1.page.truncated, true)
   const page2 = await fetch(`${origin}/api/v1/graph/snapshot?mode=index&limit=1&after=${encodeURIComponent(page1.page.next_cursor)}`).then(response => response.json())
   assert.equal(page2.nodes[1].metadata.ability_id, 'beta')
-  runtime.store.appendEvent('finding-reopened', { run_id: 'run-1' }, { aggregate_kind: 'run', aggregate_id: 'run-1', node_id: first.node_id })
+  runtime.store.appendEvent('lineage-mismatch', { campaign_id: 'campaign-1', classification: 'fixture', reason: 'advance revision' }, { aggregate_kind: 'run', aggregate_id: 'run-1', node_id: first.node_id })
   const stale = await fetch(`${origin}/api/v1/graph/snapshot?mode=index&limit=1&after=${encodeURIComponent(page1.page.next_cursor)}`)
   assert.equal(stale.status, 409)
   const staleBody = await stale.json()
@@ -266,7 +269,7 @@ test('index pagination is deterministic and stale revisions fail with current re
 test('paginated ability lineage retains real cross-page edges without synthetic evidence roots', async () => {
   const { runtime } = fixture()
   const parent = runtime.store.createNode({ kind: 'finding', payload: { state: 'resolved' } })
-  const child = runtime.store.createNode({ kind: 'finding', payload: { state: 'open' }, input_node_ids: [parent.node_id] })
+  const child = runtime.store.createNode({ kind: 'finding', payload: { state: 'open' }, parents: [{ node_id: parent.node_id, edge_type: 'derived_from', authorizes_reuse: false, metadata: {} }] })
   const insertRef = runtime.store.db.prepare('INSERT INTO node_ability_refs(node_id,faction_id,ability_id,source_kind,distance) VALUES (?,?,?,?,?)')
   insertRef.run(parent.node_id, 'fabricated-faction', 'gamma', 'direct', 0)
   insertRef.run(child.node_id, 'fabricated-faction', 'gamma', 'lineage', 1)
@@ -288,7 +291,7 @@ test('filters fail closed, legacy graph routes are removed, and updates stay bou
   assert.equal((await fetch(`${origin}/api/v1/graph/snapshot?mode=ability&faction_id=fabricated-faction`)).status, 400)
   assert.equal((await fetch(`${origin}/api/v1/graph/snapshot?mode=ability&faction_id=fabricated-faction&ability_id=unknown`)).status, 404)
   assert.equal((await fetch(`${origin}/api/v1/campaigns/campaign-1/snapshot`)).status, 404)
-  const update = await fetch(`${origin}/api/v1/graph/updates?since=0&mode=ability&faction_id=fabricated-faction&ability_id=alpha&limit=1`).then(response => response.json())
+  const update = await fetch(`${origin}/api/v1/graph/updates?since=1&mode=ability&faction_id=fabricated-faction&ability_id=alpha&limit=1`).then(response => response.json())
   assert.equal(update.page.truncated, true)
   assert.deepEqual(update.affected_ability_ids, [{ faction_id: 'fabricated-faction', ability_id: 'alpha' }])
   assert.equal('nodes' in update, false)
@@ -333,7 +336,7 @@ test('stream opening sends the current graph revision in an ordinary update noti
   try {
     const origin = await listen(runtime)
     const snapshot = await fetch(`${origin}/api/v1/graph/snapshot?mode=ability&faction_id=fabricated-faction&ability_id=alpha`).then(response => response.json())
-    runtime.store.appendEvent('finding-reopened', { run_id: 'run-1' }, { aggregate_kind: 'run', aggregate_id: 'run-1', node_id: first.node_id })
+    runtime.store.appendEvent('lineage-mismatch', { campaign_id: 'campaign-1', classification: 'fixture', reason: 'advance revision' }, { aggregate_kind: 'run', aggregate_id: 'run-1', node_id: first.node_id })
 
     stream = sseDataReader(await fetch(`${origin}/api/v1/graph/stream?mode=ability&faction_id=fabricated-faction&ability_id=alpha`))
     const notice = await within(stream.next(), 2_000)
@@ -364,7 +367,7 @@ test('stream watcher emits exactly one notice for a projection-only revision cha
       { ability_id: 'gamma', name: 'Gamma' },
     ]))
     reconcileAbilityCatalog(runtime.store, repoRoot, repository.node_id)
-    assert.equal(runtime.store.sequence(), sequence)
+    assert.equal(runtime.store.sequence(), sequence + 1)
 
     const changed = await within(stream.next(), 2_000)
     assert.notEqual(changed.graph_revision, initial.graph_revision)
@@ -494,5 +497,36 @@ test('campaign progress is active-first and aggregates state counts without payl
   assert.deepEqual(empty.check_states, {})
   assert.equal(empty.check_total, 0)
   assert.equal(JSON.stringify(c011).includes('payload'), false)
+  await close(runtime)
+})
+
+test('claim routes expose filtered safe projections and cursor errors', async () => {
+  const { runtime } = fixture()
+  const node = kind => runtime.store.createNode({ kind, payload: {} }).node_id
+  const source = node('source-snapshot'); const originNode = node('claim-origin')
+  const extraction = node('extraction-identity'); const semantic = node('semantic-claim')
+  const occurrence = node('claim-occurrence'); const evidence = node('claim-evidence-binding')
+  const assertion = node('claim-assertion'); const unresolved = node('unresolved-item')
+  const db = runtime.store.db
+  db.prepare('INSERT INTO source_snapshots(id,run_id,state,node_id,payload_json) VALUES (?,?,?,?,?)').run('query-snapshot', null, 'current', source, '{}')
+  db.prepare('INSERT INTO claim_origins(origin_id,subject_ref,origin_kind,artifact_node_id,content_sha256,current_state,node_id) VALUES (?,?,?,?,?,?,?)').run('query-origin', 'ability:fabricated-faction/alpha', 'generated-render', source, 'a'.repeat(64), 'current', originNode)
+  db.prepare('INSERT INTO claim_extractions(extraction_id,origin_id,adapter_id,ontology_version,identity_json,node_id) VALUES (?,?,?,?,?,?)').run('query-extraction', 'query-origin', '40k-mechanic', '1', '{}', extraction)
+  db.prepare('INSERT INTO semantic_claims(semantic_key,adapter_id,proposition_schema_id,proposition_schema_version,identity_ontology_version,polarity,modality,proposition_json,node_id) VALUES (?,?,?,?,?,?,?,?,?)').run('query-semantic', '40k-mechanic', '40k.mechanic-claim', '1', '1', 'affirms', 'asserted', JSON.stringify({ schema_id: '40k.mechanic-claim', schema_version: '1', value: { predicate: 'mechanic.duration', arguments: [], qualifiers: [] } }), semantic)
+  db.prepare('INSERT INTO claim_occurrences(claim_occurrence_id,origin_id,semantic_key,subject_ref,state,node_id) VALUES (?,?,?,?,?,?)').run('query-occurrence', 'query-origin', 'query-semantic', 'ability:fabricated-faction/alpha', 'accepted', occurrence)
+  db.prepare('INSERT INTO mechanic_claim_facets(claim_occurrence_id,predicate,actor,affected_entity,event,duration,has_precondition) VALUES (?,?,?,?,?,?,?)').run('query-occurrence', 'mechanic.duration', 'fabricated-unit', 'selected-friendly', 'start-of-turn', 'end-of-turn', 1)
+  db.prepare('INSERT INTO claim_evidence_bindings(binding_id,kind,origin_id,private_locator_hash,locator_authority,node_id) VALUES (?,?,?,?,?,?)').run('query-evidence', 'private_source_ref', 'query-origin', 'safe-hash', 'fixture', evidence)
+  db.prepare('INSERT INTO claim_assertions(assertion_id,extraction_id,extraction_local_id,claim_occurrence_id,decision_state,independence_group_id,node_id) VALUES (?,?,?,?,?,?,?)').run('query-assertion', 'query-extraction', 'local', 'query-occurrence', 'accepted', 'group', assertion)
+  db.prepare('INSERT INTO claim_assertion_evidence(assertion_id,binding_id) VALUES (?,?)').run('query-assertion', 'query-evidence')
+  db.prepare('INSERT INTO claim_unresolved(unresolved_key,extraction_id,kind,focus_json,blocks_obligations_json,resolution_state,node_id) VALUES (?,?,?,?,?,?,?)').run('query-unresolved', 'query-extraction', 'contradictory', '["fabricated-focus"]', '["represent"]', 'open', unresolved)
+  db.prepare('INSERT INTO claim_unresolved_evidence(unresolved_key,binding_id) VALUES (?,?)').run('query-unresolved', 'query-evidence')
+  const origin = await listen(runtime)
+  const claims = await fetch(`${origin}/api/v1/claims?faction_id=fabricated-faction&ability_id=alpha&has_precondition=true`).then(response => response.json())
+  assert.deepEqual(claims.claims.map(claim => claim.claim_occurrence_id), ['query-occurrence'])
+  assert.equal('private_locator' in claims.claims[0].evidence[0], false)
+  const unresolvedResponse = await fetch(`${origin}/api/v1/unresolved?kind=contradictory&obligation=represent`).then(response => response.json())
+  assert.deepEqual(unresolvedResponse.unresolved.map(item => item.unresolved_key), ['query-unresolved'])
+  const malformed = await fetch(`${origin}/api/v1/claims?has_precondition=maybe`)
+  assert.equal(malformed.status, 400)
+  assert.equal((await malformed.json()).code, 'invalid-precondition-filter')
   await close(runtime)
 })

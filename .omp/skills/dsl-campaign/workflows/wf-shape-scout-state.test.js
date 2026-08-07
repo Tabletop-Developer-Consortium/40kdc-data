@@ -15,6 +15,7 @@ import {
   prototypeAgentInput,
   prototypeAgentOptions,
   prototypeGateDecision,
+  preflightShapeCharter,
   resolveFindingLedger,
   terminalOutcome,
   validateShapePackage,
@@ -32,7 +33,59 @@ const charter = () => freezeShapeCharter({
   reopening_rules: 'inquisitor must explicitly reopen',
 })
 
+const sliceSignature = {
+  actor: 'source', affected_entity: 'target', event: 'selection', producer_ports: ['source'],
+  consumer_ports: ['target'], polarity: 'positive', quantifier: 'one', timing: 'before battle',
+  duration: 'battle', scope: 'army', ordering: 'before deployment', restrictions: [], exclusions: [],
+}
+
+function preflightCharter(overrides = {}) {
+  return {
+    exact_family: ['one', 'two', 'three', 'four'].map((ability_id, index) => ({
+      ability_id,
+      faction: `faction-${index}`,
+      slice_signature: sliceSignature,
+      parameter_values: { distance: index + 1 },
+    })),
+    acceptance_fixtures: [
+      { id: 'positive', polarity: 'positive', input: { enabled: true }, expected: { applies: true } },
+      { id: 'negative', polarity: 'negative', input: { enabled: false }, expected: { applies: false } },
+    ],
+    ...overrides,
+  }
+}
+
 describe('shape scout state', () => {
+  test('preflights a homogeneous family with distinct parameter values', () => {
+    const result = preflightShapeCharter(preflightCharter(), 4)
+    assert.equal(result.ok, true)
+    assert.equal(result.family_size, 4)
+    assert.deepEqual(result.fixture_ids, ['negative', 'positive'])
+  })
+
+  test('rejects below-threshold families before shape work', () => {
+    const value = preflightCharter()
+    assert.deepEqual(preflightShapeCharter({ ...value, exact_family: value.exact_family.slice(0, 3) }, 4), {
+      ok: false, reason: 'below-threshold',
+    })
+  })
+
+  test('rejects heterogeneous family signatures', () => {
+    const value = preflightCharter()
+    value.exact_family[3] = { ...value.exact_family[3], slice_signature: { ...sliceSignature, scope: 'unit' } }
+    assert.deepEqual(preflightShapeCharter(value, 4), { ok: false, reason: 'heterogeneous-family' })
+  })
+
+  test('rejects malformed and positive-only fixture contracts', () => {
+    const value = preflightCharter()
+    assert.deepEqual(preflightShapeCharter({ ...value, acceptance_fixtures: [{ id: 'positive', polarity: 'positive', input: {}, expected: {}, note: 'extra' }] }, 4), {
+      ok: false, reason: 'invalid-fixture-contract',
+    })
+    assert.deepEqual(preflightShapeCharter({ ...value, acceptance_fixtures: [value.acceptance_fixtures[0]] }, 4), {
+      ok: false, reason: 'missing-negative-fixture',
+    })
+  })
+
   test('rejects acceptance-family drift after a charter freezes it', () => {
     assert.throws(() => assertCharterFamily(charter(), [
       { ability_id: 'seed', faction: 'example', fit: 'faithful', match_strength: 'exact' },

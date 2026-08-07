@@ -1,8 +1,10 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
-import { chooseConstructionPlan, normalizeMechanicSignature, rankMechanicCandidates, retrieveEvidence } from './retrieval.js'
+import { chooseConstructionPlan, normalizeMechanicSignature, rankMechanicCandidates, retrieveEvidence, validateCandidateClaimCoverage, validateCoveredClaimOccurrenceIds } from './retrieval.js'
 
 const signature = { actor: 'bearer', affected_entity: 'enemy unit', event: 'attack', producer_ports: ['source'], consumer_ports: ['target'], polarity: 'positive', quantifier: 'each', timing: 'during attack', duration: 'instant', scope: 'visible', ordering: 'before roll', restrictions: ['ranged'], exclusions: [] }
+const claimSetId = 's'.repeat(64)
+const representAuthorization = { status: 'full', obligation: 'represent', claim_set_id: claimSetId }
 
 test('signature normalization is stable and covers every dimension', () => {
   const one = normalizeMechanicSignature(signature)
@@ -12,37 +14,100 @@ test('signature normalization is stable and covers every dimension', () => {
 })
 
 test('exact evidence outranks substitution and discovery', () => {
-  const matches = retrieveEvidence({ target_signature: signature, target_claim_ids: ['c1'], candidates: [
+  const matches = retrieveEvidence({ target_signature: signature, target_claim_occurrence_ids: ['c1'], candidates: [
     { node_id: 'c'.repeat(64), status: 'certified', current: true, signature: { ...signature, scope: 'within region' }, discovery_kind: 'embedding-llm-discovery' },
-    { node_id: 'b'.repeat(64), status: 'certified', current: true, signature: { ...signature, actor: 'friendly bearer' }, admissible_substitutions: { actor: [{ from: 'friendly bearer', to: 'bearer' }] } },
-    { node_id: 'a'.repeat(64), status: 'certified', current: true, signature },
+    { node_id: 'b'.repeat(64), status: 'certified', current: true, signature: { ...signature, actor: 'friendly bearer' }, admissible_substitutions: { actor: [{ from: 'friendly bearer', to: 'bearer' }] }, covers_claim_occurrence_ids: ['c1'] },
+    { node_id: 'a'.repeat(64), status: 'certified', current: true, signature, covers_claim_occurrence_ids: ['c1'] },
   ] })
   assert.deepEqual(matches.map(match => match.match_type), ['exact-family-instance', 'admissible-family-substitution', 'embedding-llm-discovery'])
-  assert.deepEqual(matches[2].covers_claim_ids, [])
+  assert.deepEqual(matches[2].covers_claim_occurrence_ids, [])
   assert.ok(matches[2].rejected_reason)
 })
 
-test('incompatible bindings and primitive discovery never cover claims', () => {
-  const matches = retrieveEvidence({ target_signature: signature, target_claim_ids: ['c1'], candidates: [
+test('incompatible bindings and primitive discovery never cover occurrences', () => {
+  const matches = retrieveEvidence({ target_signature: signature, target_claim_occurrence_ids: ['c1'], candidates: [
     { node_id: 'a'.repeat(64), status: 'certified', current: true, signature: { ...signature, quantifier: 'one' }, discovery_kind: 'primitive-discovery' },
     { node_id: 'b'.repeat(64), status: 'provisional', current: true, signature },
   ] })
-  assert.ok(matches.every(match => match.covers_claim_ids.length === 0))
+  assert.ok(matches.every(match => match.covers_claim_occurrence_ids.length === 0))
 })
 
-test('construction plan records unmatched claims, conflicts, substitutions, and seams', () => {
-  const claims = [{ id: 'c1' }, { id: 'c2' }]
+test('construction plan records occurrence ownership, substitutions, and seams', () => {
+  const claims = [{ claim_occurrence_id: 'c1' }, { claim_occurrence_id: 'c2' }]
   const matches = [
-    { evidence_node_id: 'a', match_type: 'exact-family-instance', covers_claim_ids: ['c1'], bindings: [], rejected_reason: null },
-    { evidence_node_id: 'b', match_type: 'admissible-family-substitution', covers_claim_ids: ['c2'], bindings: [{ field: 'actor', from: 'unit', to: 'bearer' }], rejected_reason: null },
-    { evidence_node_id: 'c', match_type: 'primitive-discovery', covers_claim_ids: [], bindings: [], rejected_reason: 'discovery only' },
+    { evidence_node_id: 'a', match_type: 'exact-family-instance', covers_claim_occurrence_ids: ['c1'], bindings: [], rejected_reason: null },
+    { evidence_node_id: 'b', match_type: 'admissible-family-substitution', covers_claim_occurrence_ids: ['c2'], bindings: [{ field: 'actor', from: 'unit', to: 'bearer' }], rejected_reason: null },
+    { evidence_node_id: 'c', match_type: 'primitive-discovery', covers_claim_occurrence_ids: [], bindings: [], rejected_reason: 'discovery only' },
   ]
-  const plan = chooseConstructionPlan({ faction_id: 'fixture', ability_id: 'ability', source_claims: claims, matches, required_checks: ['schema'] })
-  assert.deepEqual(plan.covered_claims.sort(), ['c1', 'c2'])
-  assert.deepEqual(plan.unmatched_claims, [])
-  assert.equal(plan.new_specializations.length, 1)
+  const plan = chooseConstructionPlan({ faction_id: 'fixture', ability_id: 'ability', claim_set_id: claimSetId, source_claims: claims, matches, authorization: representAuthorization, required_checks: ['schema'] })
+  assert.deepEqual(plan.covered_claim_occurrence_ids.sort(), ['c1', 'c2'])
+  assert.deepEqual(plan.unmatched_claim_occurrence_ids, [])
+  assert.equal(plan.substitutions.length, 1)
   assert.equal(plan.composition_seams.length, 1)
   assert.equal(plan.rejected_conflicts.length, 1)
+})
+test('construction plans reject missing or wrong-obligation authorization', () => {
+  const input = { faction_id: 'fixture', ability_id: 'ability', claim_set_id: claimSetId, source_claims: [{ claim_occurrence_id: 'c1' }], matches: [] }
+  assert.throws(() => chooseConstructionPlan(input), /requires full represent authorization/)
+  assert.throws(() => chooseConstructionPlan({ ...input, authorization: { ...representAuthorization, obligation: 'retrieve' } }), /requires full represent authorization/)
+})
+
+
+test('candidate coverage rejects omitted or foreign occurrences before representation acceptance', () => {
+  const source_claims = [{ claim_occurrence_id: 'c1' }, { claim_occurrence_id: 'c2' }]
+  const plan = {
+    state: 'ready',
+    covered_claim_occurrence_ids: ['c1', 'c2'],
+    unmatched_claim_occurrence_ids: [],
+    composition_seams: [{ left: 'one', right: 'two', after_claim_occurrence_id: 'c1', before_claim_occurrence_id: 'c2' }],
+  }
+  const input = {
+    source_claims, plan, current_claim_occurrence_ids: ['c1', 'c2'],
+    composition_seams: plan.composition_seams,
+  }
+  assert.equal(validateCandidateClaimCoverage({ ...input, covered_claim_occurrence_ids: ['c1'] }).reason, 'candidate-coverage-not-exact')
+  assert.equal(validateCandidateClaimCoverage({ ...input, covered_claim_occurrence_ids: ['c1', 'foreign'] }).reason, 'foreign-covered-claim-occurrence-id')
+  assert.equal(validateCandidateClaimCoverage({ ...input, covered_claim_occurrence_ids: ['c1', 'c2'] }).ok, true)
+})
+
+test('coverage rejects foreign, overlapping, and non-contiguous occurrence ownership', () => {
+  assert.equal(validateCoveredClaimOccurrenceIds(['c1', 'c2', 'c3'], ['c1', 'foreign']).reason, 'foreign-covered-claim-occurrence-id')
+  assert.equal(validateCoveredClaimOccurrenceIds(['c1', 'c2', 'c3'], ['c1', 'c3']).reason, 'covered-claim-occurrences-non-contiguous')
+  const plan = chooseConstructionPlan({
+    faction_id: 'fixture', ability_id: 'ability', claim_set_id: claimSetId,
+    authorization: representAuthorization,
+    source_claims: [{ claim_occurrence_id: 'c1' }, { claim_occurrence_id: 'c2' }],
+    matches: [
+      { evidence_node_id: 'a', match_type: 'exact-family-instance', covers_claim_occurrence_ids: ['c1', 'c2'], bindings: [], rejected_reason: null },
+      { evidence_node_id: 'b', match_type: 'exact-family-instance', covers_claim_occurrence_ids: ['c2'], bindings: [], rejected_reason: null },
+    ],
+  })
+  assert.deepEqual(plan.selected_evidence_node_ids, ['a'])
+})
+
+test('blocked represent obligation prevents a ready construction plan', () => {
+  const plan = chooseConstructionPlan({
+    faction_id: 'fixture', ability_id: 'ability', claim_set_id: claimSetId,
+    authorization: representAuthorization,
+    source_claims: [{ claim_occurrence_id: 'c1' }],
+    matches: [{ evidence_node_id: 'a', match_type: 'exact-family-instance', covers_claim_occurrence_ids: ['c1'], bindings: [], rejected_reason: null }],
+    unresolved: [{ unresolved_key: 'u1', resolution_state: 'open', blocks_obligations: ['represent'] }],
+  })
+  assert.equal(plan.state, 'blocked')
+  assert.deepEqual(plan.blocking_unresolved_keys, ['u1'])
+})
+
+test('more than twenty valid candidates fails instead of truncating', () => {
+  const matches = Array.from({ length: 21 }, (_, index) => ({
+    evidence_node_id: `node-${index.toString().padStart(2, '0')}`,
+    match_type: 'exact-family-instance',
+    covers_claim_occurrence_ids: ['c1'],
+    bindings: [],
+    rejected_reason: null,
+  }))
+  assert.throws(() => chooseConstructionPlan({
+    faction_id: 'fixture', ability_id: 'ability', claim_set_id: claimSetId, source_claims: [{ claim_occurrence_id: 'c1' }], matches, authorization: representAuthorization,
+  }), /construction-plan-candidate-limit-exceeded: 21 > 20/)
 })
 
 test('whole-graph ranking advances repeated primitives then certified-precedent compounds', () => {

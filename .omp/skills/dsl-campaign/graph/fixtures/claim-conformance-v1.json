@@ -1,0 +1,1170 @@
+{
+  "fixture_version": 1,
+  "fixture_sha256": "bf8d9e3221cfea5f5067c619def7bb03babc23d195a797d74051160c0776ff31",
+  "fixture_sha256_excludes": [
+    "fixture_sha256"
+  ],
+  "adapter": {
+    "adapter_id": "40k-mechanic",
+    "ontology_version": 1,
+    "identity_ontology_version": 1,
+    "proposition_schema_id": "40k.mechanic-claim",
+    "proposition_schema_version": "1"
+  },
+  "fabricated_notice": "All prose and identifiers in this fixture are fabricated test material.",
+  "mechanics": {
+    "a_t0": {
+      "source_snapshot_id": "00198056d5ee3f215d06182129e6ad77ee588484e7ae0b96aa95a93a09b65eba",
+      "prose": "FABRICATED: At the start of your turn, add 1 to the fabricated unit’s Fabrication characteristic until the start of your next turn.",
+      "extraction_identity": {
+        "origin_id": "c9b34f73180b37f60cc27904d1d4bdb9fc29031fe0d6ff9975ff7de57e2cf5bf",
+        "extractor_contract_version": 1,
+        "formalization_policy_version": 1,
+        "normalization_version": 1,
+        "extractor_implementation": "fixture-formalizer@1",
+        "extractor_identity": {
+          "kind": "model",
+          "model_id": "fabricated-model@1",
+          "prompt_sha256": "da91c350b6fb6684c7d2781e7569befa12d28ee02438b7ec722d86a9255ea02e",
+          "output_schema_sha256": "903c16663205df5cac079ce20aafb878537aa02d5cfdc6a2f5e2a411b44ae58a",
+          "agent_contract_id": "fixture-formalizer@1"
+        },
+        "ordered_parent_evidence_ids": [
+          "c4bfbba1c67cab70d183321a1b6c9a7a3ba0ec8ac73968f03c142f3c1849ef77",
+          "487aac83c70e685766d458547af4bceddb2bbfb05fa40d03bbe1d89692aa4cea",
+          "3a31ba972b98f003f445c34ee6f5b74c108861e24d3e631653900ca26be3c6a5"
+        ],
+        "lineage_root_origin_ids": []
+      },
+      "extraction_id": "1ca253e162640c496f3ca496746e3d315d51a518585a721ab5babc8be266deaa",
+      "evidence_bindings": [
+        {
+          "kind": "source_span",
+          "start": 0,
+          "end": 133,
+          "coordinate_unit": "utf8_byte",
+          "origin_id": "c9b34f73180b37f60cc27904d1d4bdb9fc29031fe0d6ff9975ff7de57e2cf5bf"
+        },
+        {
+          "kind": "source_span",
+          "start": 1,
+          "end": 133,
+          "coordinate_unit": "utf8_byte",
+          "origin_id": "c9b34f73180b37f60cc27904d1d4bdb9fc29031fe0d6ff9975ff7de57e2cf5bf"
+        },
+        {
+          "kind": "source_span",
+          "start": 2,
+          "end": 133,
+          "coordinate_unit": "utf8_byte",
+          "origin_id": "c9b34f73180b37f60cc27904d1d4bdb9fc29031fe0d6ff9975ff7de57e2cf5bf"
+        }
+      ],
+      "assertions": [
+        {
+          "extraction_id": "1ca253e162640c496f3ca496746e3d315d51a518585a721ab5babc8be266deaa",
+          "extraction_local_id": "a0-1",
+          "proposition": {
+            "schema_id": "40k.mechanic-claim",
+            "schema_version": "1",
+            "value": {
+              "predicate": "mechanic.trigger",
+              "arguments": [
+                {
+                  "role": "actor",
+                  "value": "fabricated-unit"
+                },
+                {
+                  "role": "event",
+                  "value": "start-of-turn"
+                }
+              ],
+              "qualifiers": [
+                {
+                  "kind": "ability-dsl.event.start-of-turn",
+                  "value": true
+                }
+              ]
+            }
+          },
+          "polarity": "affirms",
+          "modality": "asserted",
+          "evidence_binding_ids": [
+            "c4bfbba1c67cab70d183321a1b6c9a7a3ba0ec8ac73968f03c142f3c1849ef77"
+          ],
+          "derivation_parent_claim_occurrence_ids": [],
+          "semantic_key": "e3786c43d80ceb22ea85f51b2577e55aac69245c7cecd565c564b3d8a76905f8",
+          "claim_occurrence_id": "c3eb2dc0b868dedceff38feecf3217ff9dbc78c0e6b6e48ae59dc4f55ef76720",
+          "facets": {
+            "predicate": "mechanic.trigger",
+            "actor": "fabricated-unit",
+            "affected_entity": null,
+            "event": "start-of-turn",
+            "duration": null,
+            "has_precondition": false
+          },
+          "assertion_id": "f463ad31027c962bfa8f77f50131abfa47e867dfe961266f305b4f016ae89f91"
+        },
+        {
+          "extraction_id": "1ca253e162640c496f3ca496746e3d315d51a518585a721ab5babc8be266deaa",
+          "extraction_local_id": "a0-2",
+          "proposition": {
+            "schema_id": "40k.mechanic-claim",
+            "schema_version": "1",
+            "value": {
+              "predicate": "mechanic.effect.characteristic-modifier",
+              "arguments": [
+                {
+                  "role": "characteristic",
+                  "value": "fabrication"
+                },
+                {
+                  "role": "operation",
+                  "value": {
+                    "add": 1
+                  }
+                },
+                {
+                  "role": "target",
+                  "value": "fabricated-unit"
+                }
+              ],
+              "qualifiers": []
+            }
+          },
+          "polarity": "affirms",
+          "modality": "asserted",
+          "evidence_binding_ids": [
+            "487aac83c70e685766d458547af4bceddb2bbfb05fa40d03bbe1d89692aa4cea"
+          ],
+          "derivation_parent_claim_occurrence_ids": [],
+          "semantic_key": "fda7f5b985c3a35e6ec7d1ddd9e970a02e01a9743320d5bb31b4897b899003e2",
+          "claim_occurrence_id": "ea066eb2ede122db523c7bb8b3298e409533d9efffc12a1163a655c0b9076b36",
+          "facets": {
+            "predicate": "mechanic.effect.characteristic-modifier",
+            "actor": null,
+            "affected_entity": "fabricated-unit",
+            "event": null,
+            "duration": null,
+            "has_precondition": false
+          },
+          "assertion_id": "474725312f8e0149ccef33499a39ff2d9792fa97e82a4c9778298da1cb50f41e"
+        },
+        {
+          "extraction_id": "1ca253e162640c496f3ca496746e3d315d51a518585a721ab5babc8be266deaa",
+          "extraction_local_id": "a0-3",
+          "proposition": {
+            "schema_id": "40k.mechanic-claim",
+            "schema_version": "1",
+            "value": {
+              "predicate": "mechanic.duration",
+              "arguments": [
+                {
+                  "role": "duration",
+                  "value": "until-start-of-next-turn"
+                }
+              ],
+              "qualifiers": []
+            }
+          },
+          "polarity": "affirms",
+          "modality": "asserted",
+          "evidence_binding_ids": [
+            "3a31ba972b98f003f445c34ee6f5b74c108861e24d3e631653900ca26be3c6a5"
+          ],
+          "derivation_parent_claim_occurrence_ids": [],
+          "semantic_key": "97f9afd72c9eb51349eb891a4824d1346c6742be947d96e1d6c01f803047a69f",
+          "claim_occurrence_id": "07095110320dcc094bdd2967210f82324dc70ecbd5d2179550b34a740a218e20",
+          "facets": {
+            "predicate": "mechanic.duration",
+            "actor": null,
+            "affected_entity": null,
+            "event": null,
+            "duration": "until-start-of-next-turn",
+            "has_precondition": false
+          },
+          "assertion_id": "d7398c78981e358f9219fd31f63dc8139126ca8fc7e68008a6539ccf4b68c9f5"
+        }
+      ],
+      "claim_set_id": "d3909b6a5e43996870739a03aaca66eec1ee48cf9cda43cb22064f246bc0caf0",
+      "origin_id": "c9b34f73180b37f60cc27904d1d4bdb9fc29031fe0d6ff9975ff7de57e2cf5bf"
+    },
+    "a_reordered_resegmented": {
+      "source_snapshot_id": "00198056d5ee3f215d06182129e6ad77ee588484e7ae0b96aa95a93a09b65eba",
+      "prose": "FABRICATED: At the start of your turn, add 1 to the fabricated unit’s Fabrication characteristic until the start of your next turn.",
+      "extraction_identity": {
+        "origin_id": "c9b34f73180b37f60cc27904d1d4bdb9fc29031fe0d6ff9975ff7de57e2cf5bf",
+        "extractor_contract_version": 1,
+        "formalization_policy_version": 1,
+        "normalization_version": 1,
+        "extractor_implementation": "fixture-formalizer@1",
+        "extractor_identity": {
+          "kind": "model",
+          "model_id": "fabricated-model@1",
+          "prompt_sha256": "da91c350b6fb6684c7d2781e7569befa12d28ee02438b7ec722d86a9255ea02e",
+          "output_schema_sha256": "903c16663205df5cac079ce20aafb878537aa02d5cfdc6a2f5e2a411b44ae58a",
+          "agent_contract_id": "fixture-formalizer@1"
+        },
+        "ordered_parent_evidence_ids": [
+          "c4bfbba1c67cab70d183321a1b6c9a7a3ba0ec8ac73968f03c142f3c1849ef77",
+          "487aac83c70e685766d458547af4bceddb2bbfb05fa40d03bbe1d89692aa4cea",
+          "3a31ba972b98f003f445c34ee6f5b74c108861e24d3e631653900ca26be3c6a5"
+        ],
+        "lineage_root_origin_ids": []
+      },
+      "extraction_id": "1ca253e162640c496f3ca496746e3d315d51a518585a721ab5babc8be266deaa",
+      "evidence_bindings": [
+        {
+          "kind": "source_span",
+          "start": 0,
+          "end": 133,
+          "coordinate_unit": "utf8_byte",
+          "origin_id": "c9b34f73180b37f60cc27904d1d4bdb9fc29031fe0d6ff9975ff7de57e2cf5bf"
+        },
+        {
+          "kind": "source_span",
+          "start": 1,
+          "end": 133,
+          "coordinate_unit": "utf8_byte",
+          "origin_id": "c9b34f73180b37f60cc27904d1d4bdb9fc29031fe0d6ff9975ff7de57e2cf5bf"
+        },
+        {
+          "kind": "source_span",
+          "start": 2,
+          "end": 133,
+          "coordinate_unit": "utf8_byte",
+          "origin_id": "c9b34f73180b37f60cc27904d1d4bdb9fc29031fe0d6ff9975ff7de57e2cf5bf"
+        }
+      ],
+      "assertions": [
+        {
+          "extraction_id": "1ca253e162640c496f3ca496746e3d315d51a518585a721ab5babc8be266deaa",
+          "extraction_local_id": "a-resegmented-1",
+          "proposition": {
+            "schema_id": "40k.mechanic-claim",
+            "schema_version": "1",
+            "value": {
+              "predicate": "mechanic.duration",
+              "arguments": [
+                {
+                  "role": "duration",
+                  "value": "until-start-of-next-turn"
+                }
+              ],
+              "qualifiers": []
+            }
+          },
+          "polarity": "affirms",
+          "modality": "asserted",
+          "evidence_binding_ids": [
+            "c4bfbba1c67cab70d183321a1b6c9a7a3ba0ec8ac73968f03c142f3c1849ef77"
+          ],
+          "derivation_parent_claim_occurrence_ids": [],
+          "semantic_key": "97f9afd72c9eb51349eb891a4824d1346c6742be947d96e1d6c01f803047a69f",
+          "claim_occurrence_id": "07095110320dcc094bdd2967210f82324dc70ecbd5d2179550b34a740a218e20",
+          "facets": {
+            "predicate": "mechanic.duration",
+            "actor": null,
+            "affected_entity": null,
+            "event": null,
+            "duration": "until-start-of-next-turn",
+            "has_precondition": false
+          },
+          "assertion_id": "4f2c250f55d94b1290a9d567b2f5b73e4813250c4700fe8ebd183685f41009d9"
+        },
+        {
+          "extraction_id": "1ca253e162640c496f3ca496746e3d315d51a518585a721ab5babc8be266deaa",
+          "extraction_local_id": "a-resegmented-2",
+          "proposition": {
+            "schema_id": "40k.mechanic-claim",
+            "schema_version": "1",
+            "value": {
+              "predicate": "mechanic.trigger",
+              "arguments": [
+                {
+                  "role": "actor",
+                  "value": "fabricated-unit"
+                },
+                {
+                  "role": "event",
+                  "value": "start-of-turn"
+                }
+              ],
+              "qualifiers": [
+                {
+                  "kind": "ability-dsl.event.start-of-turn",
+                  "value": true
+                }
+              ]
+            }
+          },
+          "polarity": "affirms",
+          "modality": "asserted",
+          "evidence_binding_ids": [
+            "487aac83c70e685766d458547af4bceddb2bbfb05fa40d03bbe1d89692aa4cea"
+          ],
+          "derivation_parent_claim_occurrence_ids": [],
+          "semantic_key": "e3786c43d80ceb22ea85f51b2577e55aac69245c7cecd565c564b3d8a76905f8",
+          "claim_occurrence_id": "c3eb2dc0b868dedceff38feecf3217ff9dbc78c0e6b6e48ae59dc4f55ef76720",
+          "facets": {
+            "predicate": "mechanic.trigger",
+            "actor": "fabricated-unit",
+            "affected_entity": null,
+            "event": "start-of-turn",
+            "duration": null,
+            "has_precondition": false
+          },
+          "assertion_id": "6543bda61665559774e38a7faed94695c5b93282b7e304607d33c95937fb19f3"
+        },
+        {
+          "extraction_id": "1ca253e162640c496f3ca496746e3d315d51a518585a721ab5babc8be266deaa",
+          "extraction_local_id": "a-resegmented-3",
+          "proposition": {
+            "schema_id": "40k.mechanic-claim",
+            "schema_version": "1",
+            "value": {
+              "predicate": "mechanic.effect.characteristic-modifier",
+              "arguments": [
+                {
+                  "role": "characteristic",
+                  "value": "fabrication"
+                },
+                {
+                  "role": "operation",
+                  "value": {
+                    "add": 1
+                  }
+                },
+                {
+                  "role": "target",
+                  "value": "fabricated-unit"
+                }
+              ],
+              "qualifiers": []
+            }
+          },
+          "polarity": "affirms",
+          "modality": "asserted",
+          "evidence_binding_ids": [
+            "3a31ba972b98f003f445c34ee6f5b74c108861e24d3e631653900ca26be3c6a5"
+          ],
+          "derivation_parent_claim_occurrence_ids": [],
+          "semantic_key": "fda7f5b985c3a35e6ec7d1ddd9e970a02e01a9743320d5bb31b4897b899003e2",
+          "claim_occurrence_id": "ea066eb2ede122db523c7bb8b3298e409533d9efffc12a1163a655c0b9076b36",
+          "facets": {
+            "predicate": "mechanic.effect.characteristic-modifier",
+            "actor": null,
+            "affected_entity": "fabricated-unit",
+            "event": null,
+            "duration": null,
+            "has_precondition": false
+          },
+          "assertion_id": "a2e2d90b5003b89a06e17aa840b407e5887eaa3d5b792fd64d8f997eda83d19c"
+        }
+      ],
+      "claim_set_id": "d3909b6a5e43996870739a03aaca66eec1ee48cf9cda43cb22064f246bc0caf0",
+      "origin_id": "c9b34f73180b37f60cc27904d1d4bdb9fc29031fe0d6ff9975ff7de57e2cf5bf"
+    },
+    "a_t1_same_semantics": {
+      "source_snapshot_id": "227947d64dd39abb3ed1ab214e843933207f39e96f47435acdc08b95d162a0c5",
+      "prose": "FABRICATED: At the start of your turn, add 1 to the fabricated unit’s Fabrication characteristic until the start of your next turn.",
+      "extraction_identity": {
+        "origin_id": "576468f4b7e1139e557cd7c540b00faf5ddb4cbb0bbe2ff078dcefc486c52111",
+        "extractor_contract_version": 1,
+        "formalization_policy_version": 1,
+        "normalization_version": 1,
+        "extractor_implementation": "fixture-formalizer@1",
+        "extractor_identity": {
+          "kind": "model",
+          "model_id": "fabricated-model@1",
+          "prompt_sha256": "da91c350b6fb6684c7d2781e7569befa12d28ee02438b7ec722d86a9255ea02e",
+          "output_schema_sha256": "903c16663205df5cac079ce20aafb878537aa02d5cfdc6a2f5e2a411b44ae58a",
+          "agent_contract_id": "fixture-formalizer@1"
+        },
+        "ordered_parent_evidence_ids": [
+          "aff52ff22b2b1bca6f2ad50f33153b07a4d5a90ed9076cde4228075988d9f233",
+          "2cd3aac9aae81a05d3da82fbb3b37e263d999bc9020feabe51d828b4135c0a37",
+          "f9832773652197bc9f1fb5d544bf191cd521c89e067bf18b53994988bff33b69"
+        ],
+        "lineage_root_origin_ids": []
+      },
+      "extraction_id": "627e86f4b2d8824ade17bb267b2107b40a7cb5f3119f08063382d7b40e9b697f",
+      "evidence_bindings": [
+        {
+          "kind": "source_span",
+          "start": 0,
+          "end": 133,
+          "coordinate_unit": "utf8_byte",
+          "origin_id": "576468f4b7e1139e557cd7c540b00faf5ddb4cbb0bbe2ff078dcefc486c52111"
+        },
+        {
+          "kind": "source_span",
+          "start": 1,
+          "end": 133,
+          "coordinate_unit": "utf8_byte",
+          "origin_id": "576468f4b7e1139e557cd7c540b00faf5ddb4cbb0bbe2ff078dcefc486c52111"
+        },
+        {
+          "kind": "source_span",
+          "start": 2,
+          "end": 133,
+          "coordinate_unit": "utf8_byte",
+          "origin_id": "576468f4b7e1139e557cd7c540b00faf5ddb4cbb0bbe2ff078dcefc486c52111"
+        }
+      ],
+      "assertions": [
+        {
+          "extraction_id": "627e86f4b2d8824ade17bb267b2107b40a7cb5f3119f08063382d7b40e9b697f",
+          "extraction_local_id": "a1-1",
+          "proposition": {
+            "schema_id": "40k.mechanic-claim",
+            "schema_version": "1",
+            "value": {
+              "predicate": "mechanic.trigger",
+              "arguments": [
+                {
+                  "role": "actor",
+                  "value": "fabricated-unit"
+                },
+                {
+                  "role": "event",
+                  "value": "start-of-turn"
+                }
+              ],
+              "qualifiers": [
+                {
+                  "kind": "ability-dsl.event.start-of-turn",
+                  "value": true
+                }
+              ]
+            }
+          },
+          "polarity": "affirms",
+          "modality": "asserted",
+          "evidence_binding_ids": [
+            "aff52ff22b2b1bca6f2ad50f33153b07a4d5a90ed9076cde4228075988d9f233"
+          ],
+          "derivation_parent_claim_occurrence_ids": [],
+          "semantic_key": "e3786c43d80ceb22ea85f51b2577e55aac69245c7cecd565c564b3d8a76905f8",
+          "claim_occurrence_id": "a53970e1606d989838c44c71b9e37235ca38f7b78ca74c618acb3d1ca8d7b66e",
+          "facets": {
+            "predicate": "mechanic.trigger",
+            "actor": "fabricated-unit",
+            "affected_entity": null,
+            "event": "start-of-turn",
+            "duration": null,
+            "has_precondition": false
+          },
+          "assertion_id": "12d15ef808f777a4f9591b153686801913436e75aaaf870dffc4313afdaa705d"
+        },
+        {
+          "extraction_id": "627e86f4b2d8824ade17bb267b2107b40a7cb5f3119f08063382d7b40e9b697f",
+          "extraction_local_id": "a1-2",
+          "proposition": {
+            "schema_id": "40k.mechanic-claim",
+            "schema_version": "1",
+            "value": {
+              "predicate": "mechanic.effect.characteristic-modifier",
+              "arguments": [
+                {
+                  "role": "characteristic",
+                  "value": "fabrication"
+                },
+                {
+                  "role": "operation",
+                  "value": {
+                    "add": 1
+                  }
+                },
+                {
+                  "role": "target",
+                  "value": "fabricated-unit"
+                }
+              ],
+              "qualifiers": []
+            }
+          },
+          "polarity": "affirms",
+          "modality": "asserted",
+          "evidence_binding_ids": [
+            "2cd3aac9aae81a05d3da82fbb3b37e263d999bc9020feabe51d828b4135c0a37"
+          ],
+          "derivation_parent_claim_occurrence_ids": [],
+          "semantic_key": "fda7f5b985c3a35e6ec7d1ddd9e970a02e01a9743320d5bb31b4897b899003e2",
+          "claim_occurrence_id": "0a838afaacb25f58cfae421240fc5d02f1b5134aa60191962a6648f70558235b",
+          "facets": {
+            "predicate": "mechanic.effect.characteristic-modifier",
+            "actor": null,
+            "affected_entity": "fabricated-unit",
+            "event": null,
+            "duration": null,
+            "has_precondition": false
+          },
+          "assertion_id": "1f1416dc5d1f17fcb8ab630b0b46aec733ce4b5b1705d80a459ef77558c0ab5f"
+        },
+        {
+          "extraction_id": "627e86f4b2d8824ade17bb267b2107b40a7cb5f3119f08063382d7b40e9b697f",
+          "extraction_local_id": "a1-3",
+          "proposition": {
+            "schema_id": "40k.mechanic-claim",
+            "schema_version": "1",
+            "value": {
+              "predicate": "mechanic.duration",
+              "arguments": [
+                {
+                  "role": "duration",
+                  "value": "until-start-of-next-turn"
+                }
+              ],
+              "qualifiers": []
+            }
+          },
+          "polarity": "affirms",
+          "modality": "asserted",
+          "evidence_binding_ids": [
+            "f9832773652197bc9f1fb5d544bf191cd521c89e067bf18b53994988bff33b69"
+          ],
+          "derivation_parent_claim_occurrence_ids": [],
+          "semantic_key": "97f9afd72c9eb51349eb891a4824d1346c6742be947d96e1d6c01f803047a69f",
+          "claim_occurrence_id": "1dc0fc2b8a3f737b495a0664cbedf5dd421627c25d79692067241fe804466329",
+          "facets": {
+            "predicate": "mechanic.duration",
+            "actor": null,
+            "affected_entity": null,
+            "event": null,
+            "duration": "until-start-of-next-turn",
+            "has_precondition": false
+          },
+          "assertion_id": "5b33a7d7f3b533fb0afa5d3567e90f5999e9064a6856f4b5514df8abb5bd6129"
+        }
+      ],
+      "claim_set_id": "f4f249f5fa5843a2805ccd8887f7fa2a3e6a0eab2d1e358d72a0ce67bcf941a6",
+      "origin_id": "576468f4b7e1139e557cd7c540b00faf5ddb4cbb0bbe2ff078dcefc486c52111"
+    },
+    "a_t1_changed_duration": {
+      "source_snapshot_id": "7633cd366298495e697aced2aac996ba56195d2ed13204109fcfad41c9e72129",
+      "prose": "FABRICATED: At the start of your turn, add 1 to the fabricated unit’s Fabrication characteristic until the end of your turn.",
+      "extraction_identity": {
+        "origin_id": "68cff79e9ba35616fb6dcce92028647ff887ffbdfc651566f1588100944b5847",
+        "extractor_contract_version": 1,
+        "formalization_policy_version": 1,
+        "normalization_version": 1,
+        "extractor_implementation": "fixture-formalizer@1",
+        "extractor_identity": {
+          "kind": "model",
+          "model_id": "fabricated-model@1",
+          "prompt_sha256": "da91c350b6fb6684c7d2781e7569befa12d28ee02438b7ec722d86a9255ea02e",
+          "output_schema_sha256": "903c16663205df5cac079ce20aafb878537aa02d5cfdc6a2f5e2a411b44ae58a",
+          "agent_contract_id": "fixture-formalizer@1"
+        },
+        "ordered_parent_evidence_ids": [
+          "99a00a6f0d5d3e430315398f8da1850cd2aa8fc8a9f037d6586aec1b52fc2fb0",
+          "603cc10021edade4f3ebb8dc438c005b03fa5f19c5c26a516bdb4182686fddbb",
+          "c3b2fec3bd3a9125e51d30aa5fcc2f29a971bc300a2fe3e6ce059e9931f68ebc"
+        ],
+        "lineage_root_origin_ids": []
+      },
+      "extraction_id": "720b5022dedccc80cb77442996781fc2bf018f4b8fdbc78c9bd0a1928531d388",
+      "evidence_bindings": [
+        {
+          "kind": "source_span",
+          "start": 0,
+          "end": 126,
+          "coordinate_unit": "utf8_byte",
+          "origin_id": "68cff79e9ba35616fb6dcce92028647ff887ffbdfc651566f1588100944b5847"
+        },
+        {
+          "kind": "source_span",
+          "start": 1,
+          "end": 126,
+          "coordinate_unit": "utf8_byte",
+          "origin_id": "68cff79e9ba35616fb6dcce92028647ff887ffbdfc651566f1588100944b5847"
+        },
+        {
+          "kind": "source_span",
+          "start": 2,
+          "end": 126,
+          "coordinate_unit": "utf8_byte",
+          "origin_id": "68cff79e9ba35616fb6dcce92028647ff887ffbdfc651566f1588100944b5847"
+        }
+      ],
+      "assertions": [
+        {
+          "extraction_id": "720b5022dedccc80cb77442996781fc2bf018f4b8fdbc78c9bd0a1928531d388",
+          "extraction_local_id": "a2-1",
+          "proposition": {
+            "schema_id": "40k.mechanic-claim",
+            "schema_version": "1",
+            "value": {
+              "predicate": "mechanic.trigger",
+              "arguments": [
+                {
+                  "role": "actor",
+                  "value": "fabricated-unit"
+                },
+                {
+                  "role": "event",
+                  "value": "start-of-turn"
+                }
+              ],
+              "qualifiers": [
+                {
+                  "kind": "ability-dsl.event.start-of-turn",
+                  "value": true
+                }
+              ]
+            }
+          },
+          "polarity": "affirms",
+          "modality": "asserted",
+          "evidence_binding_ids": [
+            "99a00a6f0d5d3e430315398f8da1850cd2aa8fc8a9f037d6586aec1b52fc2fb0"
+          ],
+          "derivation_parent_claim_occurrence_ids": [],
+          "semantic_key": "e3786c43d80ceb22ea85f51b2577e55aac69245c7cecd565c564b3d8a76905f8",
+          "claim_occurrence_id": "9c6a7fed6ff451695305fceb9ff35e7c1ebcbc05d18f7fca4cfe74b0cc59e543",
+          "facets": {
+            "predicate": "mechanic.trigger",
+            "actor": "fabricated-unit",
+            "affected_entity": null,
+            "event": "start-of-turn",
+            "duration": null,
+            "has_precondition": false
+          },
+          "assertion_id": "ea5ef5935dea5eca39ba99f80e8a6d98a81a47bcf873141320a37a0474a76a9f"
+        },
+        {
+          "extraction_id": "720b5022dedccc80cb77442996781fc2bf018f4b8fdbc78c9bd0a1928531d388",
+          "extraction_local_id": "a2-2",
+          "proposition": {
+            "schema_id": "40k.mechanic-claim",
+            "schema_version": "1",
+            "value": {
+              "predicate": "mechanic.effect.characteristic-modifier",
+              "arguments": [
+                {
+                  "role": "characteristic",
+                  "value": "fabrication"
+                },
+                {
+                  "role": "operation",
+                  "value": {
+                    "add": 1
+                  }
+                },
+                {
+                  "role": "target",
+                  "value": "fabricated-unit"
+                }
+              ],
+              "qualifiers": []
+            }
+          },
+          "polarity": "affirms",
+          "modality": "asserted",
+          "evidence_binding_ids": [
+            "603cc10021edade4f3ebb8dc438c005b03fa5f19c5c26a516bdb4182686fddbb"
+          ],
+          "derivation_parent_claim_occurrence_ids": [],
+          "semantic_key": "fda7f5b985c3a35e6ec7d1ddd9e970a02e01a9743320d5bb31b4897b899003e2",
+          "claim_occurrence_id": "455bce8881f56b115f39a9223ad86ce94776fb00405c17fc276686bf1c5aafcc",
+          "facets": {
+            "predicate": "mechanic.effect.characteristic-modifier",
+            "actor": null,
+            "affected_entity": "fabricated-unit",
+            "event": null,
+            "duration": null,
+            "has_precondition": false
+          },
+          "assertion_id": "cb772f56e4b8237eb9848873b4764993f816a6fce101f1e2c343c1556f6e648a"
+        },
+        {
+          "extraction_id": "720b5022dedccc80cb77442996781fc2bf018f4b8fdbc78c9bd0a1928531d388",
+          "extraction_local_id": "a2-3",
+          "proposition": {
+            "schema_id": "40k.mechanic-claim",
+            "schema_version": "1",
+            "value": {
+              "predicate": "mechanic.duration",
+              "arguments": [
+                {
+                  "role": "duration",
+                  "value": "end-of-turn"
+                }
+              ],
+              "qualifiers": [
+                {
+                  "kind": "ability-dsl.duration.end-of-turn",
+                  "value": true
+                }
+              ]
+            }
+          },
+          "polarity": "affirms",
+          "modality": "asserted",
+          "evidence_binding_ids": [
+            "c3b2fec3bd3a9125e51d30aa5fcc2f29a971bc300a2fe3e6ce059e9931f68ebc"
+          ],
+          "derivation_parent_claim_occurrence_ids": [],
+          "semantic_key": "4401bd92da6b19420021232a8dd0dce9b8422fc228657f54ce747f4f19266b15",
+          "claim_occurrence_id": "ff2ab401703e7e2263e47384bb8848172443656369db7ee30ea5f32b41c99402",
+          "facets": {
+            "predicate": "mechanic.duration",
+            "actor": null,
+            "affected_entity": null,
+            "event": null,
+            "duration": "end-of-turn",
+            "has_precondition": false
+          },
+          "assertion_id": "c3c03115e871249f2fa2da00ab000899a212768f035d42c26535dc97e283a851"
+        }
+      ],
+      "claim_set_id": "adcba18dbd20fe8a76f3d8562ac38dfb1faceb6c17572da229019b81f9dae296",
+      "origin_id": "68cff79e9ba35616fb6dcce92028647ff887ffbdfc651566f1588100944b5847"
+    },
+    "b": {
+      "source_snapshot_id": "32d17dcccdcdb5b5dfb2a35d1872c62332d6d8911ced3577b24894646a413cdc",
+      "prose": "FABRICATED: At the start of your turn, if this fabricated unit did not Advance, select one friendly fabricated unit within 6 inches; add 1 to its Fabrication characteristic until the end of your turn.",
+      "extraction_identity": {
+        "origin_id": "0dc5781ee40f8479971d991e48c3cbc72a867477323f1ddbe31d0eb963d9d9a8",
+        "extractor_contract_version": 1,
+        "formalization_policy_version": 1,
+        "normalization_version": 1,
+        "extractor_implementation": "fixture-formalizer@1",
+        "extractor_identity": {
+          "kind": "model",
+          "model_id": "fabricated-model@1",
+          "prompt_sha256": "da91c350b6fb6684c7d2781e7569befa12d28ee02438b7ec722d86a9255ea02e",
+          "output_schema_sha256": "903c16663205df5cac079ce20aafb878537aa02d5cfdc6a2f5e2a411b44ae58a",
+          "agent_contract_id": "fixture-formalizer@1"
+        },
+        "ordered_parent_evidence_ids": [
+          "d0a02f34bc9d047b433c6aa9bc879129dce90ccd7ae5ff84b1b80c6f2d8dd700",
+          "b7f7995317cc291a2910876db09352fb52ca5025c3fb24d04dc8f37a6b7f6c5a",
+          "da6c39f0be8378db28b2da04b2f7900e3ab65230b62e8a169d1733b7a292ed15",
+          "d96316bdddf393def0c63454272fa1eb887a334bc6340c9c53aa72be5a9713cd",
+          "5d70444f54a5445a5343b59114e38abdea19d88cdd9cc0dd1e62f246b5da5072"
+        ],
+        "lineage_root_origin_ids": []
+      },
+      "extraction_id": "1a2cc94d2fbfd75d0588aa317b5608ad3d627d94e50c625b5d9196d856917487",
+      "evidence_bindings": [
+        {
+          "kind": "source_span",
+          "start": 0,
+          "end": 200,
+          "coordinate_unit": "utf8_byte",
+          "origin_id": "0dc5781ee40f8479971d991e48c3cbc72a867477323f1ddbe31d0eb963d9d9a8"
+        },
+        {
+          "kind": "source_span",
+          "start": 1,
+          "end": 200,
+          "coordinate_unit": "utf8_byte",
+          "origin_id": "0dc5781ee40f8479971d991e48c3cbc72a867477323f1ddbe31d0eb963d9d9a8"
+        },
+        {
+          "kind": "source_span",
+          "start": 2,
+          "end": 200,
+          "coordinate_unit": "utf8_byte",
+          "origin_id": "0dc5781ee40f8479971d991e48c3cbc72a867477323f1ddbe31d0eb963d9d9a8"
+        },
+        {
+          "kind": "source_span",
+          "start": 3,
+          "end": 200,
+          "coordinate_unit": "utf8_byte",
+          "origin_id": "0dc5781ee40f8479971d991e48c3cbc72a867477323f1ddbe31d0eb963d9d9a8"
+        },
+        {
+          "kind": "source_span",
+          "start": 4,
+          "end": 200,
+          "coordinate_unit": "utf8_byte",
+          "origin_id": "0dc5781ee40f8479971d991e48c3cbc72a867477323f1ddbe31d0eb963d9d9a8"
+        }
+      ],
+      "assertions": [
+        {
+          "extraction_id": "1a2cc94d2fbfd75d0588aa317b5608ad3d627d94e50c625b5d9196d856917487",
+          "extraction_local_id": "b-1",
+          "proposition": {
+            "schema_id": "40k.mechanic-claim",
+            "schema_version": "1",
+            "value": {
+              "predicate": "mechanic.trigger",
+              "arguments": [
+                {
+                  "role": "actor",
+                  "value": "fabricated-unit"
+                },
+                {
+                  "role": "event",
+                  "value": "start-of-turn"
+                }
+              ],
+              "qualifiers": [
+                {
+                  "kind": "ability-dsl.event.start-of-turn",
+                  "value": true
+                }
+              ]
+            }
+          },
+          "polarity": "affirms",
+          "modality": "asserted",
+          "evidence_binding_ids": [
+            "d0a02f34bc9d047b433c6aa9bc879129dce90ccd7ae5ff84b1b80c6f2d8dd700"
+          ],
+          "derivation_parent_claim_occurrence_ids": [],
+          "semantic_key": "e3786c43d80ceb22ea85f51b2577e55aac69245c7cecd565c564b3d8a76905f8",
+          "claim_occurrence_id": "a306f6dba9590b69030016b9f7aa2ef674e9e5a4e0490f6e67a9b32fc2e5158c",
+          "facets": {
+            "predicate": "mechanic.trigger",
+            "actor": "fabricated-unit",
+            "affected_entity": null,
+            "event": "start-of-turn",
+            "duration": null,
+            "has_precondition": false
+          },
+          "assertion_id": "0d39718b8ba71a989392c92912786b2a414c22ce9cab34745060809395c7f39c"
+        },
+        {
+          "extraction_id": "1a2cc94d2fbfd75d0588aa317b5608ad3d627d94e50c625b5d9196d856917487",
+          "extraction_local_id": "b-2",
+          "proposition": {
+            "schema_id": "40k.mechanic-claim",
+            "schema_version": "1",
+            "value": {
+              "predicate": "mechanic.precondition.no-advance",
+              "arguments": [
+                {
+                  "role": "source-unit",
+                  "value": "fabricated-unit"
+                }
+              ],
+              "qualifiers": [
+                {
+                  "kind": "condition.no-advance",
+                  "value": true
+                }
+              ]
+            }
+          },
+          "polarity": "affirms",
+          "modality": "asserted",
+          "evidence_binding_ids": [
+            "b7f7995317cc291a2910876db09352fb52ca5025c3fb24d04dc8f37a6b7f6c5a"
+          ],
+          "derivation_parent_claim_occurrence_ids": [],
+          "semantic_key": "7171faa8fcec6b43f901af24195eb8b923b1626f3bfc57fc045d60c88077a39d",
+          "claim_occurrence_id": "9f322fe81e2bf5f2c27bbd0b1b37d1673c0e5a91aeaffe48800b6234c8fa1897",
+          "facets": {
+            "predicate": "mechanic.precondition.no-advance",
+            "actor": null,
+            "affected_entity": null,
+            "event": null,
+            "duration": null,
+            "has_precondition": true
+          },
+          "assertion_id": "558e660fc357b2f4c19db30a336df4f5684d687b6480bd84a326962f468f677e"
+        },
+        {
+          "extraction_id": "1a2cc94d2fbfd75d0588aa317b5608ad3d627d94e50c625b5d9196d856917487",
+          "extraction_local_id": "b-3",
+          "proposition": {
+            "schema_id": "40k.mechanic-claim",
+            "schema_version": "1",
+            "value": {
+              "predicate": "mechanic.selection.nearby-friendly",
+              "arguments": [
+                {
+                  "role": "range",
+                  "value": "6in"
+                },
+                {
+                  "role": "target",
+                  "value": "friendly-fabricated-unit"
+                }
+              ],
+              "qualifiers": [
+                {
+                  "kind": "selection.friendly",
+                  "value": true
+                },
+                {
+                  "kind": "selection.nearby",
+                  "value": true
+                }
+              ]
+            }
+          },
+          "polarity": "affirms",
+          "modality": "asserted",
+          "evidence_binding_ids": [
+            "da6c39f0be8378db28b2da04b2f7900e3ab65230b62e8a169d1733b7a292ed15"
+          ],
+          "derivation_parent_claim_occurrence_ids": [],
+          "semantic_key": "7629ac0e2ee59c894119e42868e784cad7b629e3b722527b797a0eb490a22d43",
+          "claim_occurrence_id": "9217baba28426780b9c888fa7144a3efb5a192cc55c80c47c3e79ecec9fe5d7d",
+          "facets": {
+            "predicate": "mechanic.selection.nearby-friendly",
+            "actor": null,
+            "affected_entity": "friendly-fabricated-unit",
+            "event": null,
+            "duration": null,
+            "has_precondition": false
+          },
+          "assertion_id": "1f0c78b5a9777d112875fff11d8ff982a7829ec9272f1846536999456c80d650"
+        },
+        {
+          "extraction_id": "1a2cc94d2fbfd75d0588aa317b5608ad3d627d94e50c625b5d9196d856917487",
+          "extraction_local_id": "b-4",
+          "proposition": {
+            "schema_id": "40k.mechanic-claim",
+            "schema_version": "1",
+            "value": {
+              "predicate": "mechanic.effect.characteristic-modifier",
+              "arguments": [
+                {
+                  "role": "characteristic",
+                  "value": "fabrication"
+                },
+                {
+                  "role": "operation",
+                  "value": {
+                    "add": 1
+                  }
+                },
+                {
+                  "role": "target",
+                  "value": "friendly-fabricated-unit"
+                }
+              ],
+              "qualifiers": []
+            }
+          },
+          "polarity": "affirms",
+          "modality": "asserted",
+          "evidence_binding_ids": [
+            "d96316bdddf393def0c63454272fa1eb887a334bc6340c9c53aa72be5a9713cd"
+          ],
+          "derivation_parent_claim_occurrence_ids": [],
+          "semantic_key": "b516b4c88d6878de91bcdc0b74de805b7c68d42a6d18604539c182b6c99c7b5e",
+          "claim_occurrence_id": "ab36680c5d92cfb73c03a971b6490d6cb69f7c0c3f9e12d250abc52d40d5641e",
+          "facets": {
+            "predicate": "mechanic.effect.characteristic-modifier",
+            "actor": null,
+            "affected_entity": "friendly-fabricated-unit",
+            "event": null,
+            "duration": null,
+            "has_precondition": false
+          },
+          "assertion_id": "f307974cd83050e1594c3cf040aa033661c57a6fdf0800ca0b477fea6f84e45a"
+        },
+        {
+          "extraction_id": "1a2cc94d2fbfd75d0588aa317b5608ad3d627d94e50c625b5d9196d856917487",
+          "extraction_local_id": "b-5",
+          "proposition": {
+            "schema_id": "40k.mechanic-claim",
+            "schema_version": "1",
+            "value": {
+              "predicate": "mechanic.duration",
+              "arguments": [
+                {
+                  "role": "duration",
+                  "value": "end-of-turn"
+                }
+              ],
+              "qualifiers": [
+                {
+                  "kind": "ability-dsl.duration.end-of-turn",
+                  "value": true
+                }
+              ]
+            }
+          },
+          "polarity": "affirms",
+          "modality": "asserted",
+          "evidence_binding_ids": [
+            "5d70444f54a5445a5343b59114e38abdea19d88cdd9cc0dd1e62f246b5da5072"
+          ],
+          "derivation_parent_claim_occurrence_ids": [],
+          "semantic_key": "4401bd92da6b19420021232a8dd0dce9b8422fc228657f54ce747f4f19266b15",
+          "claim_occurrence_id": "0a5ccfa89d24ee25ae31d35090b5d10ca1f79230cf8f7d3736a62871311a05b0",
+          "facets": {
+            "predicate": "mechanic.duration",
+            "actor": null,
+            "affected_entity": null,
+            "event": null,
+            "duration": "end-of-turn",
+            "has_precondition": false
+          },
+          "assertion_id": "f3a54e6efc6908f8a4ef1f4fc8140fb2ab336906a5e040cfae1de0a12151df1f"
+        }
+      ],
+      "claim_set_id": "51e5d431052a65a622d96a4177555b9e80458e5a0e828e6a5d92f81ffea4ef88",
+      "origin_id": "0dc5781ee40f8479971d991e48c3cbc72a867477323f1ddbe31d0eb963d9d9a8"
+    }
+  },
+  "risk_c": {
+    "subject_ref": "risk:00000000-0000-4000-8000-000000000001/fabricated-risk-c",
+    "prose": "FABRICATED: A demonstration service is exposed to a fabricated network; exploitability is disputed.",
+    "policy_versions": [
+      {
+        "policy_id": "fabricated-policy",
+        "revision": 1,
+        "content_sha256": "b16eca1de0b53185a4a6ea5190aa7d6945fb86706ec694d0af3cda803bcf4dc6"
+      },
+      {
+        "policy_id": "fabricated-policy",
+        "revision": 2,
+        "content_sha256": "c73948a04b77e0fb0df073f6a3c99fb8926890ef24f25a82fb5cf9c6dbe46f92"
+      }
+    ],
+    "unresolved": {
+      "kind": "contradictory",
+      "canonical_focus": [
+        "fabricated-exploitability"
+      ],
+      "candidate_semantic_keys": [
+        "b516b4c88d6878de91bcdc0b74de805b7c68d42a6d18604539c182b6c99c7b5e"
+      ],
+      "blocks_obligations": [
+        "assess"
+      ],
+      "unresolved_key": "eb771fa935ea382aeea55adf04c0edcc23a4003918e4f42f1099641c92c6aa30",
+      "origin_id": "73dc8a3f536833c21bfc8ff55fde35736a4560051c2a2df303f5e7f410fdbaf4"
+    },
+    "origin_id": "73dc8a3f536833c21bfc8ff55fde35736a4560051c2a2df303f5e7f410fdbaf4"
+  },
+  "relations": {
+    "same_semantics_exact_equivalence": [
+      {
+        "source_claim_occurrence_id": "c3eb2dc0b868dedceff38feecf3217ff9dbc78c0e6b6e48ae59dc4f55ef76720",
+        "target_claim_occurrence_id": "a53970e1606d989838c44c71b9e37235ca38f7b78ca74c618acb3d1ca8d7b66e",
+        "relation_type": "semantically_equivalent_to",
+        "decision_node_id": "2d014386c3ea895d51d2cc379baedb44b17c79fa0a4f07062cad10b83ca43646",
+        "relation_id": "ff1895a0b7d9800e5d43474abdc133679bc8fff6603a1de6f083556854a1d8c5"
+      },
+      {
+        "source_claim_occurrence_id": "ea066eb2ede122db523c7bb8b3298e409533d9efffc12a1163a655c0b9076b36",
+        "target_claim_occurrence_id": "0a838afaacb25f58cfae421240fc5d02f1b5134aa60191962a6648f70558235b",
+        "relation_type": "semantically_equivalent_to",
+        "decision_node_id": "a3d61d3d9f13b035804fd190bb27528e45592505a71d14f5f1da054d1e2ef383",
+        "relation_id": "ec83341974a5386e6e756a4448218ccfdb33669322ddb59651f3b27b1970ec3a"
+      },
+      {
+        "source_claim_occurrence_id": "07095110320dcc094bdd2967210f82324dc70ecbd5d2179550b34a740a218e20",
+        "target_claim_occurrence_id": "1dc0fc2b8a3f737b495a0664cbedf5dd421627c25d79692067241fe804466329",
+        "relation_type": "semantically_equivalent_to",
+        "decision_node_id": "3506cbc2c0f6b0064a53664e4f5bac385d49a5e7657b8cf4acbb45922a3e72a3",
+        "relation_id": "149450f0765d46db208ac32cf2e37f56c4267fff5763ed232661a01c89d7b956"
+      }
+    ],
+    "changed_duration_requires_reviewed_relation": true
+  },
+  "invalidations": {
+    "source_snapshot_change": {
+      "reextract": true,
+      "rebuild_adapter_projections": false,
+      "rebuild_retrieval_and_construction": false,
+      "recertify_representations": true,
+      "reassess": true,
+      "invalidated": {
+        "claim_occurrence_ids": [
+          "07095110320dcc094bdd2967210f82324dc70ecbd5d2179550b34a740a218e20",
+          "c3eb2dc0b868dedceff38feecf3217ff9dbc78c0e6b6e48ae59dc4f55ef76720",
+          "ea066eb2ede122db523c7bb8b3298e409533d9efffc12a1163a655c0b9076b36"
+        ],
+        "claim_set_ids": [
+          "d3909b6a5e43996870739a03aaca66eec1ee48cf9cda43cb22064f246bc0caf0"
+        ],
+        "representation_certificate_ids": [
+          "b851668c44968481f215905fdc673f25d2c6bc8ebd1677076a5f523732045dff"
+        ],
+        "assessment_ids": [
+          "81c0e5673283f7ba6de361c388720eb6126b91fbdc6ef73459619715d56e5bdc"
+        ]
+      }
+    },
+    "extraction_identity_unchanged_projection": {
+      "reextract": true,
+      "rebuild_adapter_projections": false,
+      "rebuild_retrieval_and_construction": false,
+      "recertify_representations": false,
+      "reassess": false,
+      "invalidated": {
+        "claim_occurrence_ids": [],
+        "claim_set_ids": [],
+        "representation_certificate_ids": [],
+        "assessment_ids": []
+      }
+    }
+  },
+  "expectations": {
+    "reordered_a_semantic_keys_equal": true,
+    "reordered_a_occurrence_ids_equal": true,
+    "reordered_a_claim_set_id_equal": true,
+    "same_semantics_new_snapshot_semantic_keys_equal": true,
+    "same_semantics_new_snapshot_occurrence_ids_differ": true,
+    "same_semantics_new_snapshot_claim_set_id_differs": true,
+    "changed_duration_only_duration_semantic_key_differs": true,
+    "false_authorization": {
+      "mechanic_a_cannot_cover_b_precondition": true,
+      "mechanic_a_cannot_cover_b_selection": true,
+      "mechanic_a_cannot_cover_b_duration": true,
+      "rate": 0
+    }
+  },
+  "partitions": {
+    "family_train": [
+      "a_t0"
+    ],
+    "family_holdout": [
+      "b"
+    ],
+    "temporal_t0": [
+      "a_t0"
+    ],
+    "temporal_t1": [
+      "a_t1_same_semantics",
+      "a_t1_changed_duration"
+    ],
+    "policy_v1": [
+      "risk_c"
+    ],
+    "policy_v2": [
+      "risk_c"
+    ],
+    "contrast_pairs": [
+      [
+        "a_t0",
+        "b"
+      ]
+    ],
+    "question_holdout": [
+      {
+        "question": "What is Mechanic B duration?",
+        "answer": "answered"
+      },
+      {
+        "question": "Is exploitability established?",
+        "answer": "unsupported"
+      },
+      {
+        "question": "Which unregistered mechanic applies?",
+        "answer": "ontology_gap"
+      }
+    ]
+  },
+  "utf16_canonical_order": {
+    "value": {
+      "": "bmp",
+      "𐀀": "astral"
+    },
+    "expected_canonical_json": "{\"𐀀\":\"astral\",\"\":\"bmp\"}",
+    "expected_canonical_hash": "5e72745dd500f8b8d997ef851679707b89099da29d2aca4b93dfd85810ebaa20"
+  }
+}

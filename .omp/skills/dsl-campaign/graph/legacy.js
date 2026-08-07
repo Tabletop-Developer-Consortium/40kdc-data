@@ -26,16 +26,19 @@ export function bootstrapRegistry(store, { repoRoot, registryPath }) {
   }
   const registry = JSON.parse(readFileSync(absolute, 'utf8'))
   const nodes = []
+  const legacyRows = []
   for (const campaign of registry.campaigns || []) {
     const payload = { campaign_id: campaign.id, observation_type: 'campaign', status: campaign.status, summary: canonicalJson(allow(campaign, CAMPAIGN_FIELDS)), artifact_hashes: { registry: sourceHash }, known_members: [], unknown_count: campaign.worklist_size || 0, authorizes_reuse: false }
     const node = store.createNode({ kind: 'legacy-observation', payload })
     nodes.push(node.node_id)
+    legacyRows.push({ id: `${campaign.id}:campaign:${node.node_id.slice(0, 8)}`, run_id: `legacy-${campaign.id}`, state: campaign.status, node_id: node.node_id, payload: { summary: payload.summary } })
   }
   for (const [key, row] of Object.entries(registry.ability_ledger || {})) {
     const [faction_id, ability_id] = key.split('/')
     const payload = { campaign_id: row.campaign, observation_type: 'ability-ledger', status: row.status, summary: canonicalJson({ faction_id, ability_id, ...allow(row, LEDGER_FIELDS) }), artifact_hashes: { registry: sourceHash }, known_members: [key], unknown_count: 0, authorizes_reuse: false }
     const node = store.createNode({ kind: 'legacy-observation', payload })
     nodes.push(node.node_id)
+    legacyRows.push({ id: key, run_id: `legacy-${row.campaign}`, state: row.status, node_id: node.node_id, payload: allow(row, LEDGER_FIELDS) })
   }
   for (const [index, escalation] of (registry.escalations || []).entries()) {
     const payload = { campaign_id: escalation.campaign, observation_type: 'escalation', status: escalation.resolved === false ? 'open' : 'answered', summary: canonicalJson({ raised_by: escalation.raised_by, resolved: escalation.resolved === false ? false : true }), artifact_hashes: { registry: sourceHash, row: sha256(canonicalJson(escalation)) }, known_members: [], unknown_count: 0, authorizes_reuse: false }
@@ -45,32 +48,94 @@ export function bootstrapRegistry(store, { repoRoot, registryPath }) {
     const payload = { campaign_id: null, observation_type: 'blocked-shape', status: 'blocked', summary: canonicalJson({ artifact_only: true }), artifact_hashes: { registry: sourceHash, row: sha256(canonicalJson(shape)) }, known_members: [], unknown_count: 0, authorizes_reuse: false }
     nodes.push(store.createNode({ kind: 'legacy-observation', payload }).node_id)
   }
-  store.appendEvent('registry-bootstrapped', { source_hash: sourceHash, campaigns: (registry.campaigns || []).length, ability_rows: Object.keys(registry.ability_ledger || {}).length }, {
-    projection: (db, sequence) => {
-      for (const campaign of registry.campaigns || []) db.prepare('INSERT OR IGNORE INTO runs(run_id,campaign_id,state,kind,target,started,finished,source_hash) VALUES (?,?,?,?,?,?,?,?)').run(`legacy-${campaign.id}`, campaign.id, campaign.status === 'open' ? 'active' : campaign.status, campaign.kind, campaign.target, campaign.started, campaign.finished, sourceHash)
-      for (const [key, row] of Object.entries(registry.ability_ledger || {})) db.prepare('INSERT OR REPLACE INTO legacy_observations(id,run_id,state,node_id,payload_json) VALUES (?,?,?,?,?)').run(key, `legacy-${row.campaign}`, row.status, null, canonicalJson(allow(row, LEDGER_FIELDS)))
-      const c005 = Object.entries(registry.ability_ledger || {}).filter(([, row]) => row.campaign === 'c005')
-      for (const [key] of c005) {
-        const [faction, ability] = key.split('/')
-        db.prepare('INSERT OR IGNORE INTO claims(faction_id,ability_id,run_id,state,claimed_sequence) VALUES (?,?,?,?,?)').run(faction, ability, 'legacy-c005', 'active', sequence)
-      }
-      const c009 = C009
-      for (const key of c009) {
-        const [faction, ability] = key.split('/')
-        db.prepare('INSERT OR IGNORE INTO claims(faction_id,ability_id,run_id,state,claimed_sequence) VALUES (?,?,?,?,?)').run(faction, ability, 'legacy-c009', 'active', sequence)
-      }
-      db.prepare("INSERT INTO meta(key,value) VALUES ('registry_bootstrap_hash',?)").run(sourceHash)
-      db.prepare("INSERT INTO meta(key,value) VALUES ('registry_writer_frozen','1')").run()
-      if (registry.claim_graph?.authority) db.prepare("INSERT INTO meta(key,value) VALUES ('registry_is_graph_projection','1')").run()
-    },
+  const sequence = store.sequence() + 1
+  const rows = {
+    runs: (registry.campaigns || []).map(campaign => ({
+      run_id: `legacy-${campaign.id}`,
+      campaign_id: campaign.id,
+      state: campaign.status === 'open' ? 'active' : campaign.status,
+      kind: campaign.kind,
+      target: campaign.target,
+      started: campaign.started,
+      finished: campaign.finished,
+      source_hash: sourceHash,
+    })),
+    legacy_observations: legacyRows,
+    claims: [],
+  }
+  for (const [key, row] of Object.entries(registry.ability_ledger || {})) {
+    if (row.campaign !== 'c005') continue
+    const [faction_id, ability_id] = key.split('/')
+    rows.claims.push({ faction_id, ability_id, run_id: 'legacy-c005', state: 'active', claimed_sequence: sequence })
+  }
+  for (const key of C009) {
+    const [faction_id, ability_id] = key.split('/')
+    rows.claims.push({ faction_id, ability_id, run_id: 'legacy-c009', state: 'active', claimed_sequence: sequence })
+  }
+  store.appendEvent('registry-bootstrapped', {
+    source_hash: sourceHash,
+    campaigns: (registry.campaigns || []).length,
+    ability_rows: Object.keys(registry.ability_ledger || {}).length,
+    rows,
+    graph_projection: Boolean(registry.claim_graph?.authority),
   })
   return { idempotent: false, source_hash: sourceHash, node_ids: nodes }
 }
 
 function observation(store, campaignId, observation_type, status, summary, artifact_hashes, known_members = [], unknown_count = 0) {
   const node = store.createNode({ kind: 'legacy-observation', payload: { campaign_id: campaignId, observation_type, status, summary, artifact_hashes, known_members, unknown_count, authorizes_reuse: false } })
-  store.db.prepare('INSERT OR IGNORE INTO legacy_observations(id,run_id,state,node_id,payload_json) VALUES (?,?,?,?,?)').run(`${campaignId}:${observation_type}:${node.node_id.slice(0, 8)}`, `legacy-${campaignId}`, status, node.node_id, canonicalJson({ summary }))
+  store.appendEvent('legacy-observation-recorded', {
+    campaign_id: campaignId,
+    rows: {
+      legacy_observations: [{ id: `${campaignId}:${observation_type}:${node.node_id.slice(0, 8)}`, run_id: `legacy-${campaignId}`, state: status, node_id: node.node_id, payload: { summary } }],
+    },
+  }, { aggregate_kind: 'run', aggregate_id: `legacy-${campaignId}`, node_id: node.node_id })
   return node
+}
+
+export function recordPreV1ClaimObservations(store) {
+  const certificates = store.db.prepare(
+    "SELECT node_id,payload_json FROM nodes WHERE kind='source-formalization-certificate' ORDER BY node_id",
+  ).all()
+  const rows = []
+  const nodeIds = []
+  let excludedClaimCount = 0
+  for (const certificate of certificates) {
+    const payload = JSON.parse(certificate.payload_json)
+    if (!Array.isArray(payload.claims) || payload.claims.length === 0) continue
+    excludedClaimCount += payload.claims.length
+    const observationNode = store.createNode({
+      kind: 'legacy-observation',
+      payload: {
+        campaign_id: 'schema-3-migration',
+        observation_type: 'legacy-claim-observation',
+        status: 'pre-v1-open-claim-contract',
+        reason: 'pre-v1-open-claim-contract',
+        summary: 'legacy source-formalization claim payload excluded from v1 reuse authority',
+        artifact_hashes: { certificate_node_id: certificate.node_id },
+        known_members: [],
+        unknown_count: payload.claims.length,
+        authorizes_reuse: false,
+      },
+      parents: [{ node_id: certificate.node_id, edge_type: 'derived_from', authorizes_reuse: false, metadata: { authorizes_reuse: false } }],
+    })
+    rows.push({
+      id: `pre-v1-claim:${certificate.node_id}`,
+      run_id: 'legacy-schema-3-migration',
+      state: 'pre-v1-open-claim-contract',
+      node_id: observationNode.node_id,
+      payload: { reason: 'pre-v1-open-claim-contract', certificate_node_id: certificate.node_id, authorizes_reuse: false },
+    })
+    nodeIds.push(observationNode.node_id)
+  }
+  if (rows.length > 0) {
+    store.appendEvent('legacy-observation-recorded', { campaign_id: 'schema-3-migration', rows: { legacy_observations: rows } }, {
+      aggregate_kind: 'run',
+      aggregate_id: 'legacy-schema-3-migration',
+      node_id: nodeIds.at(-1),
+    })
+  }
+  return { excluded_pre_v1_claim_payload_count: excludedClaimCount, node_ids: nodeIds }
 }
 
 export function recoverLegacy(store, { repoRoot, campaigns = ['c007', 'c008', 'c009'] }) {
@@ -98,8 +163,11 @@ export function recoverLegacy(store, { repoRoot, campaigns = ['c007', 'c008', 'c
     nodes.push(observation(store, 'c008', 'targeted-gates', 'passed-targeted', 'targeted parity, lever, audit, and review claims retained without close authority', { region: artifacts.region }, ['necrons/power-matrix', 'thousand-sons/flow-of-magic']).node_id)
     for (const key of ['chaos-daemons/the-shadow-of-chaos', 'grey-knights/hallowed-ground']) nodes.push(observation(store, 'c008', `needs-schema-${key}`, 'needs-schema', 'negative observation remains discovery-only', { region: artifacts.region }, [key]).node_id)
     for (const key of ['necrons/power-matrix', 'thousand-sons/flow-of-magic']) {
-      const correspondence = store.createNode({ kind: 'retrieval-match', payload: { campaign_id: 'c008', ability_key: key, match_type: 'corresponds_to_current_implementation', authorizes_reuse: false } })
-      store.db.prepare('INSERT OR IGNORE INTO edges(parent_node_id,child_node_id,edge_type,authorizes_reuse,metadata_json) VALUES (?,?,?,?,?)').run(implementation.node_id, correspondence.node_id, 'corresponds_to_current_implementation', 0, '{"authorizes_reuse":false}')
+      const correspondence = store.createNode({
+        kind: 'retrieval-match',
+        payload: { campaign_id: 'c008', ability_key: key, match_type: 'corresponds_to_current_implementation', authorizes_reuse: false },
+        parents: [{ node_id: implementation.node_id, edge_type: 'corresponds_to_current_implementation', authorizes_reuse: false, metadata: { authorizes_reuse: false } }],
+      })
       nodes.push(correspondence.node_id)
     }
   }
@@ -108,23 +176,32 @@ export function recoverLegacy(store, { repoRoot, campaigns = ['c007', 'c008', 'c
     const branchA = observation(store, 'c009', 'charter-A-current_attack_target_visibility', 'untrusted', 'fixed attacking-model observer with visible or not-visible polarity', { visibility: artifacts.visibility, prototype: 'unavailable' }, ['adeptus-astartes/specialised-weapon-system', 'astra-militarum/born-soldiers', 'grey-knights/hallowed-ground', 'necrons/power-matrix'], 0)
     const branchB = observation(store, 'c009', 'charter-B-attack-target-visibility', 'untrusted', 'configurable or aggregate observer scope; claimed seven members', { visibility: artifacts.visibility, prototype: 'unavailable' }, C009, 1)
     nodes.push(open.node_id, branchA.node_id, branchB.node_id)
-    const oldDecision = store.createNode({ kind: 'decision', payload: { campaign_id: 'c009', state: 'superseded', choice: 'unresolved-contract-choice', authorizes_reuse: false }, input_node_ids: [open.node_id] })
-    const recovery = store.createNode({ kind: 'maintainer-decision', payload: { decision_id: 'c009-recovery', state: 'answered', text: 'both branches are preserved and neither selected', authorizes_reuse: false }, input_node_ids: [branchA.node_id, branchB.node_id] })
+    const oldDecision = store.createNode({ kind: 'decision', payload: { campaign_id: 'c009', state: 'superseded', choice: 'unresolved-contract-choice', authorizes_reuse: false }, parents: [{ node_id: open.node_id, edge_type: 'derived_from', authorizes_reuse: false, metadata: {} }] })
+    const recovery = store.createNode({ kind: 'maintainer-decision', payload: { decision_id: 'c009-recovery', state: 'answered', text: 'both branches are preserved and neither selected', authorizes_reuse: false }, parents: [branchA.node_id, branchB.node_id].map(node_id => ({ node_id, edge_type: 'derived_from', authorizes_reuse: false, metadata: {} })) })
     nodes.push(oldDecision.node_id, recovery.node_id)
     store.appendEvent('lineage-mismatch', { campaign_id: 'c009', classification: 'invalid-output', reason: 'cross-branch attachment rejected' }, { aggregate_kind: 'run', aggregate_id: 'legacy-c009' })
-    store.appendEvent('run-superseded', { campaign_id: 'c009', observed_parent_node_id: open.node_id, recovery_decision_node_id: recovery.node_id }, { aggregate_kind: 'run', aggregate_id: 'legacy-c009', node_id: recovery.node_id, projection: (db, sequence) => {
-      db.prepare("UPDATE runs SET state='superseded',finished='2026-08-05' WHERE campaign_id='c009'").run()
-      db.prepare("UPDATE claims SET state='released',released_sequence=? WHERE run_id='legacy-c009' AND state='active'").run(sequence)
-    } })
+    const releaseSequence = store.sequence() + 1
+    const releasedClaims = store.db.prepare("SELECT * FROM claims WHERE run_id='legacy-c009' AND state='active' ORDER BY faction_id,ability_id").all()
+      .map(row => ({ ...row, state: 'released', released_sequence: releaseSequence }))
+    store.appendEvent('run-superseded', {
+      campaign_id: 'c009',
+      observed_parent_node_id: open.node_id,
+      recovery_decision_node_id: recovery.node_id,
+      row: { finished: '2026-08-05' },
+      rows: { claims: releasedClaims },
+    }, { aggregate_kind: 'run', aggregate_id: 'legacy-c009', node_id: recovery.node_id })
   }
-  store.db.prepare('INSERT INTO meta(key,value) VALUES (?,?)').run(marker, sha256(canonicalJson({ campaigns, artifacts })))
-  store.syncMirror()
+  store.appendEvent('legacy-observation-recorded', {
+    campaign_id: campaigns.at(-1),
+    rows: {},
+    marker: { key: marker, value: sha256(canonicalJson({ campaigns, artifacts })) },
+  }, { aggregate_kind: 'run', aggregate_id: `legacy-${campaigns.at(-1)}` })
   return { idempotent: false, node_ids: nodes, artifacts }
 }
 
 export function campaignView(store, campaignId) {
   const run = store.db.prepare('SELECT * FROM runs WHERE campaign_id=?').get(campaignId) || null
-  const observations = run ? store.db.prepare("SELECT id,state,node_id,payload_json FROM legacy_observations WHERE run_id=? AND id LIKE ? ORDER BY id").all(run.run_id, `${campaignId}:%`) : []
+  const observations = run ? store.db.prepare("SELECT id,state,node_id,payload_json FROM legacy_observations WHERE run_id=? AND id LIKE ? AND id NOT LIKE ? ORDER BY id").all(run.run_id, `${campaignId}:%`, `${campaignId}:campaign:%`) : []
   const claims = run ? store.db.prepare('SELECT faction_id,ability_id,state FROM claims WHERE run_id=? ORDER BY faction_id,ability_id').all(run.run_id) : []
   const events = run ? store.db.prepare('SELECT sequence,event_type,payload_json FROM events WHERE aggregate_id=? ORDER BY sequence').all(run.run_id) : []
   return { run, observations, claims, events }

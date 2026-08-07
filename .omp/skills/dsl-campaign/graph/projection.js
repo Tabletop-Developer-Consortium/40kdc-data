@@ -1,6 +1,7 @@
 import { closeSync, existsSync, fsyncSync, openSync, readFileSync, readdirSync, renameSync, writeFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { canonicalJson, sha256 } from './canonical.js'
+import { SCHEMA_VERSION } from './schema.js'
 
 export const GLOBAL_ROOT_ID = 'root:mechanic-evidence'
 
@@ -39,7 +40,7 @@ function jsonArray(path) {
   return value
 }
 
-function repositoryCatalog(repoRoot, repositoryVersionId) {
+export function buildAbilityCatalog(repoRoot, repositoryVersionId) {
   const factions = new Map()
   const coreRoot = join(repoRoot, 'data', 'core')
   if (existsSync(coreRoot)) {
@@ -120,6 +121,10 @@ function projectionOwnershipRefs(store) {
     }
     const ref = compositeRef(value.ability_key)
     if (ref) ownership.push({ node_id: nodeId, ...ref })
+    if (typeof value.subject_ref === 'string' && value.subject_ref.startsWith('ability:')) {
+      const ref = compositeRef(value.subject_ref.slice('ability:'.length))
+      if (ref) ownership.push({ node_id: nodeId, ...ref })
+    }
     if (Array.isArray(value.known_members)) {
       for (const member of value.known_members) {
         const ref = compositeRef(member)
@@ -134,6 +139,44 @@ function projectionOwnershipRefs(store) {
     if (ref) ownership.push({ node_id: row.node_id, ...ref })
   }
   return ownership.sort((a, b) => a.node_id.localeCompare(b.node_id) || a.faction_id.localeCompare(b.faction_id) || a.ability_id.localeCompare(b.ability_id))
+}
+
+function claimOwnershipRefs(store) {
+  const rows = store.db.prepare(`
+    SELECT node_id,subject_ref FROM claim_origins
+    UNION
+    SELECT node_id,subject_ref FROM claim_occurrences
+    UNION
+    SELECT s.node_id,o.subject_ref FROM semantic_claims s JOIN claim_occurrences o USING(semantic_key)
+    UNION
+    SELECT a.node_id,o.subject_ref FROM claim_assertions a JOIN claim_occurrences o USING(claim_occurrence_id)
+    UNION
+    SELECT e.node_id,o.subject_ref FROM claim_extractions e JOIN claim_origins o USING(origin_id)
+    UNION
+    SELECT b.node_id,o.subject_ref FROM claim_evidence_bindings b JOIN claim_origins o USING(origin_id)
+    UNION
+    SELECT u.node_id,o.subject_ref FROM claim_unresolved u JOIN claim_extractions e USING(extraction_id) JOIN claim_origins o USING(origin_id)
+    UNION
+    SELECT cs.certificate_node_id,cs.subject_ref FROM claim_sets cs
+    UNION
+    SELECT rc.representation_node_id,cs.subject_ref FROM representation_claim_coverage rc JOIN claim_sets cs USING(claim_set_id)
+    UNION
+    SELECT rc.construction_plan_node_id,cs.subject_ref FROM representation_claim_coverage rc JOIN claim_sets cs USING(claim_set_id)
+    UNION
+    SELECT d.node_id,o.subject_ref FROM claim_review_decisions d JOIN claim_assertions a ON a.node_id=d.subject_node_id JOIN claim_occurrences o USING(claim_occurrence_id)
+    UNION
+    SELECT d.node_id,o.subject_ref FROM claim_review_decisions d JOIN claim_occurrences o ON o.node_id=d.subject_node_id
+    UNION
+    SELECT d.node_id,o.subject_ref FROM claim_review_decisions d JOIN claim_unresolved u ON u.node_id=d.subject_node_id JOIN claim_extractions e USING(extraction_id) JOIN claim_origins o USING(origin_id)
+    UNION
+    SELECT r.decision_node_id,o.subject_ref FROM claim_relations r JOIN claim_occurrences o ON o.claim_occurrence_id=r.source_occurrence_id
+    ORDER BY node_id,subject_ref
+  `).all()
+  return rows.flatMap(row => {
+    if (typeof row.subject_ref !== 'string' || !row.subject_ref.startsWith('ability:')) return []
+    const ref = compositeRef(row.subject_ref.slice('ability:'.length))
+    return ref ? [{ node_id: row.node_id, ...ref }] : []
+  })
 }
 
 
@@ -193,6 +236,7 @@ export function rebuildNodeAbilityRefs(store) {
     for (const ref of directRefs(JSON.parse(row.payload_json))) addRef(refs, row.node_id, ref.faction_id, ref.ability_id, 'direct', 0)
   }
   for (const ref of projectionOwnershipRefs(store)) addRef(refs, ref.node_id, ref.faction_id, ref.ability_id, 'ownership', 0)
+  for (const ref of claimOwnershipRefs(store)) addRef(refs, ref.node_id, ref.faction_id, ref.ability_id, 'ownership', 0)
   for (const ref of existing) {
     if (store.hasNode(ref.node_id)) addRef(refs, ref.node_id, ref.faction_id, ref.ability_id, 'explicit-ownership', Number(ref.distance))
   }
@@ -215,14 +259,20 @@ export function rebuildNodeAbilityRefs(store) {
 }
 
 export function reconcileAbilityCatalog(store, repoRoot, repositoryVersionId) {
-  const catalog = repositoryCatalog(repoRoot, repositoryVersionId)
-  store.transaction(() => {
-    store.db.exec('DELETE FROM ability_catalog')
-    const insert = store.db.prepare('INSERT INTO ability_catalog(faction_id,ability_id,ability_name,faction_name,repository_version_id) VALUES (?,?,?,?,?)')
-    for (const row of catalog) insert.run(row.faction_id, row.ability_id, row.ability_name, row.faction_name, row.repository_version_id)
-  })
-  const refs = rebuildNodeAbilityRefs(store)
-  return { catalog_count: catalog.length, ref_count: refs.length }
+  const catalog = buildAbilityCatalog(repoRoot, repositoryVersionId)
+  const current = store.db.prepare('SELECT * FROM ability_catalog ORDER BY faction_id,ability_id').all().map(row => ({ ...row }))
+  if (canonicalJson(current) !== canonicalJson(catalog)) {
+    store.appendEvent('repository-reconciled', {
+      repository_version_node_id: repositoryVersionId,
+      catalog_rows: catalog,
+    }, {
+      aggregate_kind: 'repository',
+      aggregate_id: repositoryVersionId,
+      node_id: repositoryVersionId,
+    })
+  }
+  const refCount = Number(store.db.prepare('SELECT count(*) AS n FROM node_ability_refs').get().n)
+  return { catalog_count: catalog.length, ref_count: refCount }
 }
 
 function projectedCampaignStatus(state, fallback = 'open') {
@@ -247,19 +297,38 @@ function runScoreSummary(store, runId) {
   return summary
 }
 
+function familyProjectionPending(store, runId) {
+  const templates = store.db.prepare("SELECT node_id,payload_json FROM family_templates WHERE run_id=? AND state='current' ORDER BY id").all(runId)
+  for (const template of templates) {
+    const payload = JSON.parse(template.payload_json || '{}')
+    const expected = new Set(payload.member_keys || [])
+    const instances = store.db.prepare("SELECT payload_json FROM family_instances WHERE run_id=? AND state='current'").all(runId)
+      .map(row => JSON.parse(row.payload_json || '{}'))
+      .filter(instance => instance.family_template_node_id === template.node_id)
+    const actual = new Set(instances.map(instance => `${instance.faction_id}/${instance.ability_id}`))
+    if (expected.size !== actual.size || [...expected].some(key => !actual.has(key))) return true
+    const verified = store.db.prepare("SELECT payload_json FROM apply_transactions WHERE run_id=? AND state='verified'").all(runId)
+      .map(row => JSON.parse(row.payload_json || '{}'))
+      .some(transaction => transaction.family_template_node_id === template.node_id)
+    if (!verified) return true
+  }
+  return false
+}
+
 function projectCampaign(store, run, current = null) {
   const scores = runScoreSummary(store, run.run_id)
   const worklistSize = Number(store.db.prepare('SELECT count(*) AS n FROM claims WHERE run_id=?').get(run.run_id).n)
   const superseded = run.state === 'superseded'
+  const status = projectedCampaignStatus(run.state, current?.status)
   return {
     ...(current || {}),
     id: run.campaign_id,
     kind: current?.kind ?? run.kind,
     target: current?.target ?? run.target,
     bookmark: scores.bookmark ?? current?.bookmark ?? null,
-    status: projectedCampaignStatus(run.state, current?.status),
+    status: status === 'converged' && familyProjectionPending(store, run.run_id) ? 'open' : status,
     pr: scores.pr ?? current?.pr ?? null,
-    worklist_size: current?.worklist_size ?? worklistSize,
+    worklist_size: worklistSize,
     mean_before: current?.mean_before ?? scores.mean_before ?? null,
     mean_after: current?.mean_after ?? scores.mean_after ?? null,
     started: current?.started ?? run.started ?? null,
@@ -288,7 +357,7 @@ export function registryProjection(store, current) {
     if (!seen.has(campaignId)) projected.campaigns.push(projectCampaign(store, run))
   }
   projected.claim_graph = {
-    schema_version: 2,
+    schema_version: SCHEMA_VERSION,
     authority: '_private/claim-graph/index.sqlite',
     registry_writer_frozen: true,
     graph_sequence: store.sequence(),

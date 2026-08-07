@@ -2,17 +2,19 @@
 import { existsSync, readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { DatabaseSync } from 'node:sqlite'
+import { importExtantClaimCandidates } from './claim-import.js'
+import { migrateGraphRoot, replayProjectionCheck } from './migration.js'
 import { acceptIntake, intakeReport, prepareIntake } from './intake.js'
 import { bootstrapRegistry, campaignView, recoverLegacy } from './legacy.js'
 import { projectRegistry, reconcileAbilityCatalog, verifyProjection } from './projection.js'
-import { readiness, startCampaign } from './readiness.js'
+import { prepareCampaign, readiness, startCampaign } from './readiness.js'
 import { GraphStore } from './store.js'
 import { createRepositoryVersion } from './versions.js'
 import { verifyGraphIpBoundary } from './workflow-lineage.js'
 
 const EXIT = { negative: 1, usage: 2, integrity: 3, external: 4 }
 
-const BOOLEAN_OPTIONS = new Set(['json', 'next', 'dry_run', 'ip_boundary'])
+const BOOLEAN_OPTIONS = new Set(['json', 'next', 'dry_run', 'ip_boundary', 'write', 'check', 'import_candidates'])
 
 function readJson(repoRoot, path) {
   return JSON.parse(readFileSync(resolve(repoRoot, path), 'utf8'))
@@ -74,7 +76,9 @@ try {
   if (!command) throw new TypeError('command required')
   const repoRoot = resolve(options.repo_root || '.')
   const root = resolve(repoRoot, options.graph_root || options.root || process.env.DSL_CLAIM_GRAPH_ROOT || '_private/claim-graph')
-  store = new GraphStore(root, { repositoryRoot: repoRoot })
+  store = command === 'migrate-projections'
+    ? undefined
+    : new GraphStore(root, { repositoryRoot: repoRoot })
   const registryPath = resolve(repoRoot, options.registry || '_private/loop-state/registry.json')
   let result
   switch (command) {
@@ -94,13 +98,40 @@ try {
       const selectedPaths = store.db.prepare("SELECT payload_json FROM nodes WHERE kind='repository-version' ORDER BY rowid DESC LIMIT 1").get()
       const selected = selectedPaths ? JSON.parse(selectedPaths.payload_json).files.filter(file => file.path.startsWith('data/')).map(file => file.path) : []
       const repository = createRepositoryVersion(store, repoRoot, selected)
-      store.appendEvent('repository-reconciled', { repository_version_node_id: repository.node.node_id }, { aggregate_kind: 'repository', aggregate_id: repository.node.node_id, node_id: repository.node.node_id })
       const projection = reconcileAbilityCatalog(store, repoRoot, repository.node.node_id)
       const registry = existsSync(registryPath) ? projectRegistry(store, registryPath) : null
       result = { repository_version_node_id: repository.node.node_id, workspace_hash: repository.payload.workspace_hash, projection, registry_projection: registry }
       break
     }
-    case 'replay': result = { ...store.verifyEvents(), replay_checksum: store.replayChecksum() }; break
+    case 'migrate-projections': {
+      const rawStorePath = resolve(repoRoot, requireOption(options, 'raw_store'))
+      store = undefined
+      result = migrateGraphRoot({
+        graph_root: root,
+        repo_root: repoRoot,
+        raw_store_root: rawStorePath,
+        write: options.write === true,
+        import_candidates: options.import_candidates === true,
+      })
+      store = undefined
+      break
+    }
+    case 'import-claim-candidates': {
+      if (options.write !== true) throw new TypeError('import-claim-candidates requires --write')
+      const repository = store.db.prepare("SELECT node_id FROM nodes WHERE kind='repository-version' ORDER BY rowid DESC LIMIT 1").get()
+      if (!repository) throw new Error('repository-version node required for candidate import')
+      result = importExtantClaimCandidates(store, {
+        repo_root: repoRoot,
+        repository_version_node_id: repository.node_id,
+      })
+      break
+    }
+    case 'replay-projections': {
+      if (options.check !== true) throw new TypeError('replay-projections requires --check')
+      result = replayProjectionCheck(store)
+      if (!result.projection_match) process.exitCode = EXIT.integrity
+      break
+    }
     case 'verify': {
       const integrity = store.reconcile()
       const projection = existsSync(registryPath) && store.db.prepare("SELECT value FROM meta WHERE key='registry_projection_hash'").get() ? verifyProjection(store, registryPath) : null
@@ -109,6 +140,16 @@ try {
         : null
       result = { integrity, projection, ip_boundary: ipBoundary, verified: (!projection || projection.ok) && (!ipBoundary || ipBoundary.clean) }
       if (!result.verified) process.exitCode = EXIT.integrity
+      break
+    }
+    case 'prepare-campaign': {
+      result = prepareCampaign(store, {
+        id: requireOption(options, 'id'),
+        repoRoot,
+        registryPath,
+        prioritizeInput: readJson(repoRoot, requireOption(options, 'prioritize_input')),
+      })
+      if (!result.prepared) process.exitCode = EXIT.negative
       break
     }
     case 'campaign': result = campaignView(store, options._[0] || requireOption(options, 'id')); break

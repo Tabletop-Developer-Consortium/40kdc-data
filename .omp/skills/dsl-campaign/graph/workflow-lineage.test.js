@@ -1,3 +1,4 @@
+import { canonicalJson, sha256 } from './canonical.js'
 import assert from 'node:assert/strict'
 import { mkdirSync, mkdtempSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
@@ -5,22 +6,30 @@ import { join } from 'node:path'
 import test from 'node:test'
 import { createTrustedAgent } from './workflow-runtime.js'
 import { GraphStore } from './store.js'
-import { assertInputEnvelope, createExecutionEnvelope, sanitizeGraphPayload, sealOutput, verifyGraphIpBoundary } from './workflow-lineage.js'
+import { assertInputEnvelope, createExecutionEnvelope, sanitizeGraphPayload, sealOutput, trustedExecutionIdentity, verifyGraphIpBoundary } from './workflow-lineage.js'
 
 function envelope(overrides = {}) {
   return createExecutionEnvelope({
     run_id: 'run-1', task_id: 'task-1', attempt_id: 'attempt-1', lease_id: 'lease-1',
-    lease_expires_at: '2099-01-01T00:00:00.000Z', input_node_ids: [], ...overrides,
+    lease_expires_at: '2099-01-01T00:00:00.000Z', input_node_ids: [], input_hash: 'a'.repeat(64), ...overrides,
   })
 }
-function leaseFixture(expected, { leaseState = 'active', leaseId = expected.lease_id, expiresAt = expected.lease_expires_at, taskId = expected.task_id, attemptId = expected.attempt_id } = {}, root = mkdtempSync(join(tmpdir(), 'trusted-agent-graph-'))) {
+
+function activeRunFixture(parent = null) {
+  const root = mkdtempSync(join(tmpdir(), 'trusted-agent-graph-'))
   const store = new GraphStore(root)
-  store.db.prepare('INSERT INTO runs(run_id,campaign_id,state) VALUES (?,?,?)').run(expected.run_id, `campaign-${expected.run_id}`, 'active')
-  store.db.prepare('INSERT INTO tasks(id,run_id,state,payload_json) VALUES (?,?,?,?)').run(expected.task_id, expected.run_id, 'running', '{}')
-  store.db.prepare('INSERT INTO attempts(id,run_id,state,payload_json) VALUES (?,?,?,?)').run(expected.attempt_id, expected.run_id, 'running', '{}')
-  store.db.prepare('INSERT INTO leases(id,run_id,state,payload_json) VALUES (?,?,?,?)').run(leaseId, expected.run_id, leaseState, JSON.stringify({ task_id: taskId, attempt_id: attemptId, expires_at: expiresAt }))
+  const input = parent || store.createNode({ kind: 'decision', payload: { state: 'answered' } })
+  store.appendEvent('run-created', {
+    row: { run_id: 'run-1', campaign_id: 'campaign-run-1', state: 'planned' },
+    input_node_id: input.node_id,
+  }, { aggregate_kind: 'run', aggregate_id: 'run-1', node_id: input.node_id })
+  store.appendEvent('run-started', { expected_state: 'planned' }, { aggregate_kind: 'run', aggregate_id: 'run-1' })
   store.close()
-  return root
+  return { root, input }
+}
+
+function returnedLineage(prompt) {
+  return JSON.parse(prompt.split('_lineage:\n').at(-1))
 }
 
 
@@ -44,57 +53,178 @@ test('sealed outputs bind exact lineage and parent ids', () => {
   const two = sealOutput('child', { finding: 'clear' }, input)
   assert.equal(one.output_node_id, two.output_node_id)
   assert.notEqual(one.output_node_id, sealOutput('child', { finding: 'changed' }, input).output_node_id)
-  assert.deepEqual(one.input_node_ids, input.input_node_ids)
+  assert.deepEqual(one.parents.map(parent => parent.node_id), input.input_node_ids)
 })
 
-test('trusted agent persists and returns the lineage-bound child', async () => {
-  const graphRoot = mkdtempSync(join(tmpdir(), 'trusted-agent-parent-'))
-  const parentStore = new GraphStore(graphRoot)
-  const parent = parentStore.createNode({ kind: 'decision', payload: { state: 'answered' } })
-  parentStore.close()
-  const expected = envelope({ input_node_ids: [parent.node_id] })
-  leaseFixture(expected, {}, graphRoot)
+test('trusted execution identity is deterministic, prompt-sensitive, and model-sensitive', () => {
+  const identity = {
+    source_snapshot_id: 'snapshot-1',
+    agent_contract_id: 'formalizer-contract@1',
+    model_id: 'provider/model-2026-08',
+    prompt_id: 'formalizer',
+    prompt_version: 1,
+    prompt_sha256: sha256('rendered prompt'),
+    invoked_prompt_sha256: sha256('rendered prompt\nlineage'),
+    output_schema_sha256: sha256(canonicalJson({ type: 'object' })),
+    ordered_parent_evidence_ids: ['a'.repeat(64), 'b'.repeat(64)],
+  }
+  const one = trustedExecutionIdentity(identity)
+  const two = trustedExecutionIdentity(identity)
+  assert.deepEqual(one, two)
+  assert.equal(one.independence_group_id, sha256(canonicalJson({
+    source_snapshot_id: identity.source_snapshot_id,
+    agent_contract_id: identity.agent_contract_id,
+    model_id: identity.model_id,
+    prompt_sha256: identity.prompt_sha256,
+    output_schema_sha256: identity.output_schema_sha256,
+    ordered_parent_evidence_ids: identity.ordered_parent_evidence_ids,
+  })))
+  assert.notEqual(one.independence_group_id, trustedExecutionIdentity({
+    ...identity,
+    prompt_sha256: sha256('changed prompt'),
+  }).independence_group_id)
+  assert.notEqual(one.independence_group_id, trustedExecutionIdentity({
+    ...identity,
+    model_id: 'provider/model-2026-09',
+  }).independence_group_id)
+})
+
+test('sealed outputs persist authoritative execution identity', () => {
+  const executionIdentity = trustedExecutionIdentity({
+    source_snapshot_id: 'snapshot-1',
+    agent_contract_id: 'formalizer-contract@1',
+    model_id: 'provider/model-2026-08',
+    prompt_id: 'formalizer',
+    prompt_version: 1,
+    prompt_sha256: sha256('rendered prompt'),
+    invoked_prompt_sha256: sha256('rendered prompt\nlineage'),
+    output_schema_sha256: sha256(canonicalJson({ type: 'object' })),
+    ordered_parent_evidence_ids: [],
+  })
+  const sealed = sealOutput('child', { finding: 'clear' }, envelope(), { execution_identity: executionIdentity })
+  assert.deepEqual(sealed.payload.execution_identity, executionIdentity)
+})
+
+test('trusted agent persists and returns the scheduler-issued lineage-bound child', async () => {
+  const { root, input } = activeRunFixture()
   const graphAgent = createTrustedAgent({
-    driverArgs: { graph_root: graphRoot, execution_envelopes: { child: expected } },
-    invokeAgent: async (_prompt, options) => {
+    driverArgs: { graph_root: root, run_id: 'run-1' },
+    invokeAgent: async (prompt, options) => {
       assert.ok(options.schema.required.includes('_lineage'))
-      return { value: 1, _lineage: expected }
+      return { value: 1, _lineage: returnedLineage(prompt) }
     },
   })
-  const result = await graphAgent('work', { label: 'child', agentType: 'helper', schema: { type: 'object', required: ['value'], properties: { value: { type: 'number' } } } })
+  const result = await graphAgent('work', {
+    label: 'child', agentType: 'helper', inputNodeIds: [input.node_id],
+    schema: { type: 'object', required: ['value'], properties: { value: { type: 'number' } } },
+  })
   assert.equal(result.value, 1)
-  const store = new GraphStore(graphRoot)
+  const store = new GraphStore(root)
   assert.ok(store.hasNode(result.sealed_output_node_id))
-  assert.deepEqual(store.db.prepare('SELECT parent_node_id FROM edges WHERE child_node_id=?').all(result.sealed_output_node_id).map(row => ({ ...row })), [{ parent_node_id: parent.node_id }])
+  assert.deepEqual(store.db.prepare('SELECT parent_node_id FROM edges WHERE child_node_id=?').all(result.sealed_output_node_id).map(row => ({ ...row })), [{ parent_node_id: input.node_id }])
+  assert.equal(store.db.prepare("SELECT state FROM tasks WHERE id='run-1:child'").get().state, 'succeeded')
+  store.close()
+})
+
+test('authoritative trusted agent fails closed before scheduling or model invocation when identity is absent', async () => {
+  for (const missing of ['modelId', 'promptId', 'promptVersion', 'agentContractId']) {
+    const { root, input } = activeRunFixture()
+    let calls = 0
+    const graphAgent = createTrustedAgent({
+      driverArgs: { graph_root: root, run_id: 'run-1' },
+      invokeAgent: async () => {
+        calls += 1
+        return null
+      },
+    })
+    const options = {
+      label: 'authoritative-child',
+      agentType: 'formalizer',
+      authoritative: true,
+      modelId: 'provider/model-2026-08',
+      promptId: 'formalizer',
+      promptVersion: 1,
+      agentContractId: 'formalizer-contract@1',
+      sourceSnapshotId: 'snapshot-1',
+      inputNodeIds: [input.node_id],
+      schema: { type: 'object', properties: {} },
+    }
+    delete options[missing]
+    await assert.rejects(() => graphAgent('work', options), /nonempty/)
+    assert.equal(calls, 0)
+    const store = new GraphStore(root)
+    assert.equal(store.db.prepare("SELECT count(*) AS n FROM tasks WHERE id='run-1:authoritative-child'").get().n, 0)
+    store.close()
+  }
+})
+
+test('authoritative trusted agent seals exact execution identity and reuses a correlation group', async () => {
+  const { root, input } = activeRunFixture()
+  const calls = []
+  const graphAgent = createTrustedAgent({
+    driverArgs: { graph_root: root, run_id: 'run-1' },
+    invokeAgent: async (prompt, options) => {
+      calls.push({ prompt, schema: options.schema })
+      return { value: 1, _lineage: returnedLineage(prompt) }
+    },
+  })
+  const options = {
+    agentType: 'formalizer',
+    authoritative: true,
+    modelId: 'provider/model-2026-08',
+    promptId: 'formalizer',
+    promptVersion: 1,
+    agentContractId: 'formalizer-contract@1',
+    sourceSnapshotId: 'snapshot-1',
+    orderedParentEvidenceNodeIds: [input.node_id],
+    inputNodeIds: [input.node_id],
+    schema: { type: 'object', required: ['value'], properties: { value: { type: 'number' } } },
+  }
+  const first = await graphAgent('work', { ...options, label: 'authoritative-first' })
+  const second = await graphAgent('work', { ...options, label: 'authoritative-second' })
+  assert.equal(first.execution_identity.independence_group_id, second.execution_identity.independence_group_id)
+  assert.equal(first.execution_identity.prompt_sha256, sha256('work'))
+  assert.equal(first.execution_identity.invoked_prompt_sha256, sha256(calls[0].prompt))
+  assert.equal(first.execution_identity.output_schema_sha256, sha256(canonicalJson(calls[0].schema)))
+  const store = new GraphStore(root)
+  const persisted = JSON.parse(store.db.prepare('SELECT payload_json FROM nodes WHERE node_id=?').get(first.sealed_output_node_id).payload_json)
+  assert.deepEqual(persisted.execution_identity, first.execution_identity)
   store.close()
 })
 
 test('trusted agent rejects copied cross-task echo', async () => {
-  const expected = envelope()
+  const { root } = activeRunFixture()
   const graphAgent = createTrustedAgent({
-    driverArgs: { graph_root: leaseFixture(expected), execution_envelopes: { child: expected } },
-    invokeAgent: async () => ({ value: 1, _lineage: { ...expected, task_id: 'wrong' } }),
+    driverArgs: { graph_root: root, run_id: 'run-1' },
+    invokeAgent: async prompt => ({ value: 1, _lineage: { ...returnedLineage(prompt), task_id: 'wrong' } }),
   })
   await assert.rejects(() => graphAgent('work', { label: 'child', agentType: 'helper', schema: { type: 'object', properties: {} } }), /lineage mismatch/)
 })
 
-test('trusted agent rejects released, expired, superseded, and mismatched graph leases atomically', async () => {
-  for (const fixture of [
-    { leaseState: 'released' },
-    { leaseState: 'superseded' },
-    { expiresAt: '2000-01-01T00:00:00.000Z' },
-    { leaseId: 'other-lease' },
-    { taskId: 'other-task' },
-    { attemptId: 'other-attempt' },
+test('trusted agent rejects released, expired, and mismatched scheduler leases atomically', async () => {
+  for (const mutation of [
+    payload => ({ state: 'released', payload }),
+    payload => ({ state: 'superseded', payload }),
+    payload => ({ state: 'active', payload: { ...payload, expires_at: '2000-01-01T00:00:00.000Z' } }),
+    payload => ({ state: 'active', payload: { ...payload, task_id: 'other-task' } }),
+    payload => ({ state: 'active', payload: { ...payload, attempt_id: 'other-attempt' } }),
+    payload => ({ state: 'active', payload: { ...payload, input_hash: 'b'.repeat(64) } }),
   ]) {
-    const expected = envelope()
-    const graphRoot = leaseFixture(expected, fixture)
+    const { root } = activeRunFixture()
     const graphAgent = createTrustedAgent({
-      driverArgs: { graph_root: graphRoot, execution_envelopes: { child: expected } },
-      invokeAgent: async () => ({ value: 1, _lineage: expected }),
+      driverArgs: { graph_root: root, run_id: 'run-1' },
+      invokeAgent: async prompt => {
+        const issued = returnedLineage(prompt)
+        const mutator = new GraphStore(root)
+        const lease = mutator.db.prepare('SELECT payload_json FROM leases WHERE id=?').get(issued.lease_id)
+        const next = mutation(JSON.parse(lease.payload_json))
+        mutator.db.prepare('UPDATE leases SET state=?,payload_json=? WHERE id=?').run(next.state, JSON.stringify(next.payload), issued.lease_id)
+        mutator.close()
+        return { value: 1, _lineage: issued }
+      },
     })
     await assert.rejects(() => graphAgent('work', { label: 'child', agentType: 'helper', schema: { type: 'object', properties: {} } }), /active graph lease/)
-    const store = new GraphStore(graphRoot)
+    const store = new GraphStore(root)
     assert.equal(store.db.prepare("SELECT count(*) AS n FROM nodes WHERE kind='workflow-output'").get().n, 0)
     assert.equal(store.db.prepare("SELECT count(*) AS n FROM events WHERE event_type='workflow-output-sealed'").get().n, 0)
     store.close()

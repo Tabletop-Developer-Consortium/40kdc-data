@@ -1,3 +1,6 @@
+import { canonicalJson, sha256 } from '../graph/canonical.js'
+import { normalizeMechanicSignature } from '../graph/retrieval.js'
+
 export const FINDING_STATES = Object.freeze(['open', 'resolved', 'out-of-scope', 'superseded'])
 const OPEN_FINDING_STATE = 'open'
 const TERMINAL_FINDING_STATES = new Set(['resolved', 'out-of-scope', 'superseded'])
@@ -51,6 +54,42 @@ export function assertCharterFamily(charter, coverage) {
 }
 export function countFamilyMechanics(members) {
   return mechanicKeys(members).size
+}
+
+export function preflightShapeCharter(charter, threshold) {
+  if (countFamilyMechanics(charter?.exact_family) < threshold) {
+    return { ok: false, reason: 'below-threshold' }
+  }
+  let signatures
+  try {
+    signatures = charter.exact_family.map(member => canonicalJson(normalizeMechanicSignature(member.slice_signature).signature))
+  } catch {
+    return { ok: false, reason: 'heterogeneous-family' }
+  }
+  if (new Set(signatures).size !== 1) return { ok: false, reason: 'heterogeneous-family' }
+  const fixtures = charter.acceptance_fixtures
+  if (!Array.isArray(fixtures)) return { ok: false, reason: 'invalid-fixture-contract' }
+  const fixtureIds = new Set()
+  let positives = 0
+  let negatives = 0
+  for (const fixture of fixtures) {
+    if (!isPlainObject(fixture) || canonicalJson(Object.keys(fixture).sort()) !== canonicalJson(['expected', 'id', 'input', 'polarity']) ||
+      !isNonEmptyString(fixture.id) || !['positive', 'negative'].includes(fixture.polarity) || fixtureIds.has(fixture.id)) {
+      return { ok: false, reason: 'invalid-fixture-contract' }
+    }
+    fixtureIds.add(fixture.id)
+    if (fixture.polarity === 'positive') positives += 1
+    else negatives += 1
+  }
+  if (!positives) return { ok: false, reason: 'invalid-fixture-contract' }
+  if (!negatives) return { ok: false, reason: 'missing-negative-fixture' }
+  return {
+    ok: true,
+    reason: null,
+    family_size: countFamilyMechanics(charter.exact_family),
+    signature_hash: sha256(signatures[0]),
+    fixture_ids: [...fixtureIds].sort(),
+  }
 }
 
 

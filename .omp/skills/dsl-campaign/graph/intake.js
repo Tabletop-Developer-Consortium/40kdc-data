@@ -2,6 +2,7 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { canonicalJson, sha256 } from './canonical.js'
 import { createExecutionEnvelope, sanitizeGraphPayload } from './workflow-lineage.js'
+import { LEASE_TTL_MS } from './scheduler.js'
 import { createRepositoryVersion } from './versions.js'
 
 export const INTAKE_SELECTION_TEXT = 'maintainer selected all data-changing terminal entries from c004, c006, and c008 for intake; certification gates remain authoritative'
@@ -33,6 +34,19 @@ export function validateIntakeManifest(repoRoot, manifest) {
   return manifest
 }
 
+function intakeEnvelope(runId, taskId, taskPayload, inputNodeIds, leaseExpiresAt) {
+  const input_node_ids = [...inputNodeIds].sort()
+  return createExecutionEnvelope({
+    run_id: runId,
+    task_id: taskId,
+    attempt_id: `${taskId}-attempt-1`,
+    lease_id: `${taskId}-attempt-1-lease-1`,
+    lease_expires_at: leaseExpiresAt,
+    input_node_ids,
+    input_hash: sha256(canonicalJson({ task_id: taskId, task_payload: taskPayload, input_node_ids })),
+  })
+}
+
 export function prepareIntake(store, { repoRoot, manifest }) {
   validateIntakeManifest(repoRoot, manifest)
   const manifestHash = sha256(canonicalJson(manifest))
@@ -41,8 +55,8 @@ export function prepareIntake(store, { repoRoot, manifest }) {
   const repository = createRepositoryVersion(store, repoRoot, manifest.entries.map(entry => entry.dsl_path))
   const decision = store.createNode({ kind: 'maintainer-decision', payload: {
     decision_id: `${runId}-selection`, state: 'answered', text: INTAKE_SELECTION_TEXT, authorizes_reuse: false,
-  }, input_node_ids: [repository.node.node_id] })
-  const leaseExpiresAt = '2099-01-01T00:00:00.000Z'
+  }, parents: [{ node_id: repository.node.node_id, edge_type: 'derived_from', authorizes_reuse: false, metadata: {} }] })
+  const leaseExpiresAt = new Date(Date.now() + LEASE_TTL_MS).toISOString()
   const entries = manifest.entries.map((entry, index) => {
     const ordinal = String(index + 1).padStart(2, '0')
     const taskId = `${runId}-task-${ordinal}`
@@ -50,39 +64,42 @@ export function prepareIntake(store, { repoRoot, manifest }) {
     for (const stage of ['who', 'when', 'what', 'refute']) {
       const label = `intake-${stage}:${entry.ability_id}`
       const stageTaskId = `${taskId}-${stage}`
-      execution_envelopes[label] = createExecutionEnvelope({
-        run_id: runId,
-        task_id: stageTaskId,
-        attempt_id: `${stageTaskId}-attempt-1`,
-        lease_id: `${stageTaskId}-attempt-1-lease-1`,
-        lease_expires_at: leaseExpiresAt,
-        input_node_ids: [decision.node_id, repository.node.node_id],
-      })
+      execution_envelopes[label] = intakeEnvelope(
+        runId,
+        stageTaskId,
+        { faction_id: entry.faction_id, ability_id: entry.ability_id },
+        [decision.node_id, repository.node.node_id],
+        leaseExpiresAt,
+      )
     }
     return {
       ...entry,
-      envelope: createExecutionEnvelope({
-        run_id: runId, task_id: taskId, attempt_id: `${taskId}-attempt-1`,
-        lease_id: `${taskId}-attempt-1-lease-1`, lease_expires_at: leaseExpiresAt,
-        input_node_ids: [decision.node_id, repository.node.node_id],
-      }),
+      envelope: intakeEnvelope(
+        runId,
+        taskId,
+        { faction_id: entry.faction_id, ability_id: entry.ability_id },
+        [decision.node_id, repository.node.node_id],
+        leaseExpiresAt,
+      ),
       execution_envelopes,
     }
   })
   if (!existing) {
-    store.appendEvent('intake-prepared', { run_id: runId, manifest_hash: manifestHash, task_count: entries.length }, {
+    const rows = {
+      runs: [{ run_id: runId, campaign_id: runId, state: 'active', kind: 'certification-intake', target: 'c004-c006-c008', source_hash: manifestHash }],
+      tasks: [],
+      attempts: [],
+      leases: [],
+    }
+    for (const item of entries) {
+      for (const envelope of [item.envelope, ...Object.values(item.execution_envelopes)]) {
+        rows.tasks.push({ id: envelope.task_id, run_id: runId, state: 'running', payload: { faction_id: item.faction_id, ability_id: item.ability_id } })
+        rows.attempts.push({ id: envelope.attempt_id, run_id: runId, state: 'running', payload: { input_node_ids: envelope.input_node_ids, input_hash: envelope.input_hash } })
+        rows.leases.push({ id: envelope.lease_id, run_id: runId, state: 'active', payload: { task_id: envelope.task_id, attempt_id: envelope.attempt_id, input_hash: envelope.input_hash, input_node_ids: envelope.input_node_ids, expires_at: envelope.lease_expires_at } })
+      }
+    }
+    store.appendEvent('intake-prepared', { run_id: runId, manifest_hash: manifestHash, task_count: entries.length, rows }, {
       aggregate_kind: 'run', aggregate_id: runId, node_id: decision.node_id,
-      projection: (db, sequence) => {
-        db.prepare('INSERT INTO runs(run_id,campaign_id,state,kind,target,source_hash) VALUES (?,?,?,?,?,?)').run(runId, runId, 'active', 'certification-intake', 'c004-c006-c008', manifestHash)
-        for (const item of entries) {
-          const envelopes = [item.envelope, ...Object.values(item.execution_envelopes)]
-          for (const envelope of envelopes) {
-            db.prepare('INSERT INTO tasks(id,run_id,state,node_id,payload_json) VALUES (?,?,?,?,?)').run(envelope.task_id, runId, 'running', null, canonicalJson({ faction_id: item.faction_id, ability_id: item.ability_id }))
-            db.prepare('INSERT INTO attempts(id,run_id,state,node_id,payload_json) VALUES (?,?,?,?,?)').run(envelope.attempt_id, runId, 'running', null, '{}')
-            db.prepare('INSERT INTO leases(id,run_id,state,node_id,payload_json) VALUES (?,?,?,?,?)').run(envelope.lease_id, runId, 'active', null, canonicalJson({ task_id: envelope.task_id, attempt_id: envelope.attempt_id, expires_at: envelope.lease_expires_at }))
-          }
-        }
-      },
     })
   }
   const prepared = sanitizeGraphPayload({ schema_version: 1, run_id: runId, manifest_hash: manifestHash, repository_node_id: repository.node.node_id, decision_node_id: decision.node_id, entries })
@@ -98,16 +115,6 @@ function sourceEntry(rawStoreRoot, entry) {
   return JSON.parse(readFileSync(path, 'utf8')).find(record => (record.ability_id ?? record.id) === entry.ability_id) || null
 }
 
-function clauseOffsets(text) {
-  const offsets = []
-  let start = 0
-  for (const match of text.matchAll(/[.;](?:\s+|$)/g)) {
-    offsets.push([start, match.index + 1])
-    start = match.index + match[0].length
-  }
-  if (start < text.length) offsets.push([start, text.length])
-  return offsets
-}
 
 export async function executePreparedIntake({ repoRoot, rawStoreRoot, prepared, analyze }) {
   const outcomes = []
@@ -117,7 +124,7 @@ export async function executePreparedIntake({ repoRoot, rawStoreRoot, prepared, 
       outcomes.push({ faction_id: entry.faction_id, ability_id: entry.ability_id, envelope: entry.envelope, outcome: 'source-unavailable', reason: 'current raw source unavailable', source: null })
       continue
     }
-    const sourceMeta = { store_key: entry.ability_id, provenance: source.source || null, byte_hash: sha256(source.raw_text), clause_offsets: clauseOffsets(source.raw_text) }
+    const sourceMeta = { store_key: entry.ability_id, provenance: source.source || null, byte_hash: sha256(source.raw_text) }
     const analysis = await analyze({ entry, source_text: source.raw_text, source_meta: sourceMeta })
     outcomes.push(sanitizeGraphPayload({ faction_id: entry.faction_id, ability_id: entry.ability_id, envelope: entry.envelope, source: sourceMeta, ...analysis }, { source_texts: [source.raw_text] }))
   }
@@ -150,32 +157,42 @@ export function acceptIntake(store, { repoRoot, result }) {
       throw new Error(`certification gate incomplete: ${key}`)
     }
     const parents = item.envelope.input_node_ids
+    const derivedParents = ids => ids.map(node_id => ({ node_id, edge_type: 'derived_from', authorizes_reuse: false, metadata: {} }))
     let terminalParents = parents
     if (outcome.source) {
-      const source = store.createNode({ kind: 'source-snapshot', payload: { faction_id: outcome.faction_id, ability_id: outcome.ability_id, store_key: outcome.source.store_key, provenance: outcome.source.provenance, byte_hash: outcome.source.byte_hash, clause_offsets: outcome.source.clause_offsets }, input_node_ids: parents })
+      const sourceSnapshotId = sha256(canonicalJson({ subject_ref: `ability:${outcome.faction_id}/${outcome.ability_id}`, store_key: outcome.source.store_key, byte_hash: outcome.source.byte_hash, provenance: outcome.source.provenance }))
+      const source = store.createNode({ kind: 'source-snapshot', payload: { source_snapshot_id: sourceSnapshotId, faction_id: outcome.faction_id, ability_id: outcome.ability_id, store_key: outcome.source.store_key, provenance: outcome.source.provenance, byte_hash: outcome.source.byte_hash }, parents: derivedParents(parents) })
       nodes.push(source.node_id)
       terminalParents = [source.node_id]
     }
     if (outcome.outcome === 'certified') {
-      const formal = store.createNode({ kind: 'source-formalization-certificate', payload: { faction_id: outcome.faction_id, ability_id: outcome.ability_id, status: 'certified', fingerprints: { dsl_hash: item.dsl_hash, manifest_hash: result.manifest_hash }, claims: outcome.claims }, input_node_ids: terminalParents, authorizes_reuse: true })
-      const plan = store.createNode({ kind: 'construction-plan', payload: { faction_id: outcome.faction_id, ability_id: outcome.ability_id, source_claims: outcome.claims, selected_parents: [formal.node_id], covered_claims: outcome.coverage.covered_claims || outcome.claims.map(claim => claim.id), unmatched_claims: [], rejected_conflicts: [], new_specializations: [], composition_seams: outcome.coverage.composition_seams || [], required_checks: outcome.coverage.required_checks || [] }, input_node_ids: [formal.node_id], authorizes_reuse: true })
-      const evidence = store.createNode({ kind: 'certified-ability-evidence', payload: { faction_id: outcome.faction_id, ability_id: outcome.ability_id, status: 'certified', reusable_fragment_ids: outcome.reusable_fragment_ids || [], family_instance_ids: outcome.family_instance_ids || [], fingerprints: { dsl_hash: item.dsl_hash, manifest_hash: result.manifest_hash } }, input_node_ids: [formal.node_id, plan.node_id], authorizes_reuse: true })
-      nodes.push(formal.node_id, plan.node_id, evidence.node_id)
-      terminalParents = [evidence.node_id]
+      const legacy = store.createNode({ kind: 'legacy-observation', payload: {
+        campaign_id: result.run_id, observation_type: 'pre-v1-claim-contract', status: 'historical',
+        summary: `${outcome.faction_id}/${outcome.ability_id} intake formalization is discovery-only`,
+        artifact_hashes: [item.dsl_hash, result.manifest_hash], known_members: [], unknown_count: Array.isArray(outcome.claims) ? outcome.claims.length : 0,
+        authorizes_reuse: false, reason: 'pre-v1-open-claim-contract',
+      }, parents: terminalParents.map(node_id => ({ node_id, edge_type: 'derived_from', authorizes_reuse: false, metadata: {} })) })
+      nodes.push(legacy.node_id)
+      terminalParents = [legacy.node_id]
     }
-    const terminal = store.createNode({ kind: 'intake-outcome', payload: { faction_id: outcome.faction_id, ability_id: outcome.ability_id, outcome: outcome.outcome, reason: outcome.reason || null, fingerprints: { dsl_hash: item.dsl_hash, manifest_hash: result.manifest_hash } }, input_node_ids: terminalParents, authorizes_reuse: outcome.outcome === 'certified' })
-    nodes.push(terminal.node_id)
-    store.appendEvent('intake-outcome-recorded', { run_id: result.run_id, faction_id: outcome.faction_id, ability_id: outcome.ability_id, outcome: outcome.outcome }, {
-      aggregate_kind: 'task', aggregate_id: item.envelope.task_id, node_id: terminal.node_id,
-      projection: db => {
-        db.prepare("UPDATE tasks SET state=?,node_id=? WHERE id=?").run(outcome.outcome === 'certified' ? 'succeeded' : 'failed-final', terminal.node_id, item.envelope.task_id)
-        db.prepare("UPDATE attempts SET state=?,node_id=? WHERE id=?").run(outcome.outcome === 'certified' ? 'succeeded' : 'failed-final', terminal.node_id, item.envelope.attempt_id)
-        db.prepare("UPDATE leases SET state='released' WHERE id=?").run(item.envelope.lease_id)
-        db.prepare('INSERT OR REPLACE INTO ability_evidence(id,run_id,state,node_id,payload_json) VALUES (?,?,?,?,?)').run(key, result.run_id, outcome.outcome, terminal.node_id, '{}')
+    const terminal = store.createNode({ kind: 'intake-outcome', payload: { faction_id: outcome.faction_id, ability_id: outcome.ability_id, outcome: outcome.outcome, reason: outcome.reason || null, fingerprints: { dsl_hash: item.dsl_hash, manifest_hash: result.manifest_hash } }, parents: terminalParents.map(node_id => ({ node_id, edge_type: 'derived_from', authorizes_reuse: false, metadata: {} })) })
+    const finalState = outcome.outcome === 'certified' ? 'succeeded' : 'failed-final'
+    store.appendEvent('intake-outcome-recorded', {
+      run_id: result.run_id,
+      faction_id: outcome.faction_id,
+      ability_id: outcome.ability_id,
+      outcome: outcome.outcome,
+      rows: {
+        tasks: [{ id: item.envelope.task_id, run_id: result.run_id, state: finalState, node_id: terminal.node_id, payload: { faction_id: outcome.faction_id, ability_id: outcome.ability_id } }],
+        attempts: [{ id: item.envelope.attempt_id, run_id: result.run_id, state: finalState, node_id: terminal.node_id, payload: { input_hash: item.envelope.input_hash, input_node_ids: item.envelope.input_node_ids } }],
+        leases: [{ id: item.envelope.lease_id, run_id: result.run_id, state: 'released', payload: { task_id: item.envelope.task_id, attempt_id: item.envelope.attempt_id, input_hash: item.envelope.input_hash, input_node_ids: item.envelope.input_node_ids, expires_at: item.envelope.lease_expires_at } }],
+        ability_evidence: [{ id: key, run_id: result.run_id, state: outcome.outcome, node_id: terminal.node_id, payload: {} }],
       },
+    }, {
+      aggregate_kind: 'task', aggregate_id: item.envelope.task_id, node_id: terminal.node_id,
     })
   }
-  store.appendEvent('intake-completed', { run_id: result.run_id, outcome_count: 12 }, { aggregate_kind: 'run', aggregate_id: result.run_id, projection: db => db.prepare("UPDATE runs SET state='completed',finished=? WHERE run_id=?").run(new Date().toISOString(), result.run_id) })
+  store.appendEvent('intake-completed', { run_id: result.run_id, outcome_count: 12, row: { finished: new Date().toISOString() } }, { aggregate_kind: 'run', aggregate_id: result.run_id })
   return { idempotent: false, outcomes: intakeReport(store, result.run_id), node_ids: nodes }
 }
 

@@ -1,13 +1,13 @@
 import { existsSync, readFileSync, statSync } from 'node:fs'
 import { join } from 'node:path'
 
-import { nodeIdentity } from './canonical.js'
+import { canonicalJson, nodeIdentity, sha256 } from './canonical.js'
 import { PRODUCER_CONTRACT_VERSION } from './schema.js'
 
 const PROHIBITED_KEY = /^(raw_text|original_rule|prompt|transcript|prose|source_text|verbatim|messages?)$/i
 const ENVELOPE_KEYS = [
   'run_id', 'task_id', 'attempt_id', 'lease_id', 'lease_expires_at', 'input_node_ids',
-  'producer_contract_version',
+  'input_hash', 'producer_contract_version',
 ]
 
 function normalizeWords(text) {
@@ -54,18 +54,18 @@ export function sanitizeGraphPayload(value, { source_texts = [] } = {}) {
   return visit(value, '$')
 }
 
-export function assertInputEnvelope(envelope, expected = null, { now = Date.now() } = {}) {
+export function assertEnvelopeIdentity(envelope, expected = null) {
   if (!envelope || Object.getPrototypeOf(envelope) !== Object.prototype) throw new TypeError('lineage envelope required')
   for (const key of Object.keys(envelope)) if (!ENVELOPE_KEYS.includes(key)) throw new TypeError(`unknown envelope key ${key}`)
-  for (const key of ['run_id', 'task_id', 'attempt_id', 'lease_id', 'lease_expires_at']) {
+  for (const key of ['run_id', 'task_id', 'attempt_id', 'lease_id', 'lease_expires_at', 'input_hash']) {
     if (typeof envelope[key] !== 'string' || !envelope[key]) throw new TypeError(`${key} required`)
   }
+  if (!/^[a-f0-9]{64}$/.test(envelope.input_hash)) throw new TypeError('input_hash must be sha256')
   if (!Array.isArray(envelope.input_node_ids) || new Set(envelope.input_node_ids).size !== envelope.input_node_ids.length) {
     throw new TypeError('unique input_node_ids required')
   }
+  if (canonicalOrder(envelope.input_node_ids) !== JSON.stringify(envelope.input_node_ids)) throw new TypeError('input_node_ids must be sorted')
   if (envelope.producer_contract_version !== PRODUCER_CONTRACT_VERSION) throw new TypeError('producer contract mismatch')
-  const expiry = Date.parse(envelope.lease_expires_at)
-  if (!Number.isFinite(expiry) || expiry <= now) throw new TypeError('lease expired')
   if (expected) {
     for (const key of ENVELOPE_KEYS) {
       if (JSON.stringify(envelope[key]) !== JSON.stringify(expected[key])) throw new TypeError(`lineage mismatch: ${key}`)
@@ -74,27 +74,94 @@ export function assertInputEnvelope(envelope, expected = null, { now = Date.now(
   return envelope
 }
 
+function canonicalOrder(values) { return JSON.stringify([...values].sort()) }
+
+export function assertInputEnvelope(envelope, expected = null, { now = Date.now() } = {}) {
+  assertEnvelopeIdentity(envelope, expected)
+  const expiry = Date.parse(envelope.lease_expires_at)
+  if (!Number.isFinite(expiry) || expiry <= now) throw new TypeError('lease expired')
+  return envelope
+}
+
+export function trustedExecutionIdentity({
+  source_snapshot_id,
+  agent_contract_id,
+  model_id,
+  prompt_sha256,
+  invoked_prompt_sha256,
+  output_schema_sha256,
+  ordered_parent_evidence_ids,
+  prompt_id,
+  prompt_version,
+}) {
+  for (const [name, value] of Object.entries({
+    source_snapshot_id,
+    agent_contract_id,
+    model_id,
+    prompt_sha256,
+    invoked_prompt_sha256,
+    output_schema_sha256,
+  })) {
+    if (typeof value !== 'string' || value.trim() !== value || !value || (name === 'model_id' && /^unknown$/iu.test(value))) {
+      throw new TypeError(`${name} must be a nonempty immutable string`)
+    }
+  }
+  if (typeof prompt_id !== 'string' || prompt_id.trim() !== prompt_id || !prompt_id) throw new TypeError('prompt_id must be a nonempty string')
+  if (!((typeof prompt_version === 'string' && prompt_version.trim() === prompt_version && prompt_version) || (Number.isInteger(prompt_version) && prompt_version > 0))) {
+    throw new TypeError('prompt_version must be a nonempty string or positive integer')
+  }
+  if (!Array.isArray(ordered_parent_evidence_ids) || ordered_parent_evidence_ids.some(id => typeof id !== 'string' || !/^[a-f0-9]{64}$/u.test(id))) {
+    throw new TypeError('ordered_parent_evidence_ids must contain SHA-256 node IDs')
+  }
+  return {
+    source_snapshot_id,
+    agent_contract_id,
+    model_id,
+    prompt_id,
+    prompt_version,
+    rendered_prompt_sha256: prompt_sha256,
+    prompt_sha256,
+    invoked_prompt_sha256,
+    output_schema_sha256,
+    ordered_parent_evidence_ids: [...ordered_parent_evidence_ids],
+    independence_group_id: sha256(canonicalJson({
+      source_snapshot_id,
+      agent_contract_id,
+      model_id,
+      prompt_sha256,
+      output_schema_sha256,
+      ordered_parent_evidence_ids,
+    })),
+  }
+}
+
 export function sealOutput(kind, payload, envelope, options = {}) {
-  assertInputEnvelope(envelope, options.expected, options)
+  assertEnvelopeIdentity(envelope, options.expected)
   const result = sanitizeGraphPayload(payload, options)
+  const objectPayload = {
+    output_kind: kind,
+    envelope,
+    result,
+    ...(options.execution_identity ? { execution_identity: options.execution_identity } : {}),
+  }
   const identity = nodeIdentity({
     kind: 'workflow-output',
-    payload: { output_kind: kind, envelope, result },
+    payload: objectPayload,
     input_node_ids: envelope.input_node_ids,
     producer_contract_version: envelope.producer_contract_version,
   })
   return {
     kind: 'workflow-output',
-    payload: { output_kind: kind, envelope, result },
-    input_node_ids: envelope.input_node_ids,
+    payload: objectPayload,
+    parents: envelope.input_node_ids.map(node_id => ({ node_id, edge_type: 'derived_from', authorizes_reuse: false, metadata: {} })),
     producer_contract_version: envelope.producer_contract_version,
     ...identity,
     output_node_id: identity.node_id,
   }
 }
 
-export function createExecutionEnvelope({ run_id, task_id, attempt_id, lease_id, lease_expires_at, input_node_ids = [] }) {
-  return { run_id, task_id, attempt_id, lease_id, lease_expires_at, input_node_ids, producer_contract_version: PRODUCER_CONTRACT_VERSION }
+export function createExecutionEnvelope({ run_id, task_id, attempt_id, lease_id, lease_expires_at, input_node_ids = [], input_hash }) {
+  return { run_id, task_id, attempt_id, lease_id, lease_expires_at, input_node_ids: [...input_node_ids].sort(), input_hash, producer_contract_version: PRODUCER_CONTRACT_VERSION }
 }
 
 function pointerToken(value) {

@@ -13,9 +13,9 @@ function validOutcomes(prepared) {
   return prepared.prepared.entries.map(entry => ({
     faction_id: entry.faction_id, ability_id: entry.ability_id, envelope: entry.envelope,
     outcome: 'certified', reason: 'covered',
-    source: { store_key: entry.ability_id, provenance: { kind: 'fixture' }, byte_hash: 'a'.repeat(64), clause_offsets: [[0, 1]] },
-    claims: [{ id: 'claim-1', actor: 'bearer', effect: 'fixture effect' }],
-    coverage: { covered_claims: ['claim-1'], required_checks: ['schema'] }, unresolved_findings: [], approximation: false,
+    source: { store_key: entry.ability_id, provenance: { kind: 'fixture' }, byte_hash: 'a'.repeat(64) },
+    claims: [{ claim_occurrence_id: 'claim-1', actor: 'bearer', effect: 'fixture effect' }],
+    coverage: { covered_claim_occurrence_ids: ['claim-1'], required_checks: ['schema'] }, unresolved_findings: [], approximation: false,
   }))
 }
 
@@ -44,14 +44,15 @@ test('accept records one terminal outcome and reusable evidence only for certifi
   const outcomes = prepared.prepared.entries.map((entry, index) => ({
     faction_id: entry.faction_id, ability_id: entry.ability_id, envelope: entry.envelope,
     outcome: index === 0 ? 'represented-gap' : 'certified', reason: index === 0 ? 'known approximation' : 'covered',
-    source: { store_key: entry.ability_id, provenance: { kind: 'fixture' }, byte_hash: 'a'.repeat(64), clause_offsets: [[0, 1]] },
-    claims: [{ id: 'claim-1', actor: 'bearer', effect: 'fixture effect' }],
-    coverage: { covered_claims: ['claim-1'], required_checks: ['schema'] }, unresolved_findings: [], approximation: index === 0,
+    source: { store_key: entry.ability_id, provenance: { kind: 'fixture' }, byte_hash: 'a'.repeat(64) },
+    claims: [{ claim_occurrence_id: 'claim-1', actor: 'bearer', effect: 'fixture effect' }],
+    coverage: { covered_claim_occurrence_ids: ['claim-1'], required_checks: ['schema'] }, unresolved_findings: [], approximation: index === 0,
   }))
   const result = { schema_version: 1, run_id: prepared.runId, manifest_hash: prepared.prepared.manifest_hash, outcomes }
   const accepted = acceptIntake(store, { repoRoot, result })
   assert.equal(accepted.outcomes.outcomes.length, 12)
-  assert.equal(store.db.prepare("SELECT count(*) AS n FROM nodes WHERE kind='certified-ability-evidence'").get().n, 11)
+  assert.equal(store.db.prepare("SELECT count(*) AS n FROM nodes WHERE kind='certified-ability-evidence'").get().n, 0)
+  assert.equal(store.db.prepare("SELECT count(*) AS n FROM nodes WHERE kind='legacy-observation'").get().n, 11)
   assert.equal(store.db.prepare("SELECT count(*) AS n FROM ability_evidence WHERE state='represented-gap'").get().n, 1)
   assert.equal(acceptIntake(store, { repoRoot, result }).idempotent, true)
   store.close()

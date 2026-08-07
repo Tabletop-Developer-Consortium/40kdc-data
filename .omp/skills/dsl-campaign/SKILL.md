@@ -198,7 +198,30 @@ current certified ancestor node IDs, explicit unmatched claims, the construction
 and graph-issued execution envelopes. Never replay a transcript or use c007–c009 legacy
 observations as authority.
 
-### 2 — Author (per batch of 5–6)
+### 2 — Formalize source claims (per ready batch)
+
+```
+Workflow({ scriptPath: ".omp/skills/dsl-campaign/workflows/wf-formalize-batch.js", args: {
+  repo_root: "/workspace/40kdc-dsl",
+  graph_root: "/workspace/40kdc-dsl/_private/claim-graph",
+  run_id: "cNNN",
+  model_identities: {
+    who: "provider/model-or-agent-manifest-digest",
+    when: "provider/model-or-agent-manifest-digest",
+    what: "provider/model-or-agent-manifest-digest",
+    formalizer: "provider/model-or-agent-manifest-digest"
+  },
+  abilities: […ready worklist entries…] } })
+```
+
+`model_identities` is mandatory: every value is a non-empty immutable provider model ID
+or configured agent-manifest digest. The workflow freezes the authoritative source snapshot
+before any model call, then runs WHO/WHEN/WHAT against that source node and persists only
+the formalizer's closed extraction-local propositions, evidence, derivation, unresolved,
+signature, and completeness output. There is no LLM source-binding confirmation and no
+default or `"unknown"` identity path.
+
+### 3 — Author (per batch of 5–6)
 
 ```
 Workflow({ scriptPath: ".omp/skills/dsl-campaign/workflows/wf-author-batch.js", args: {

@@ -1,0 +1,76 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "campaign_id",
+    "faction_id",
+    "ability_id",
+    "role",
+    "verdict",
+    "payload",
+    "findings"
+  ],
+  "properties": {
+    "campaign_id": {
+      "type": "string"
+    },
+    "faction_id": {
+      "type": "string"
+    },
+    "ability_id": {
+      "type": "string"
+    },
+    "role": {
+      "type": "string"
+    },
+    "verdict": {
+      "type": "string",
+      "enum": [
+        "accept",
+        "revise",
+        "needs-schema",
+        "reject",
+        "pass",
+        "fail"
+      ]
+    },
+    "payload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "json"
+      ],
+      "properties": {
+        "json": {
+          "type": "string"
+        }
+      }
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "code",
+          "severity",
+          "clause_id"
+        ],
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "severity": {
+            "type": "integer"
+          },
+          "clause_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

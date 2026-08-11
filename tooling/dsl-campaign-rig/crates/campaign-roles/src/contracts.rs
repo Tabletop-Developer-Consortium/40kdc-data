@@ -16,9 +16,10 @@ pub fn validate_role_result(value: &Value) -> Result<(), RoleError> {
 }
 
 pub fn validate_contract_bundle() -> Result<(), RoleError> {
-    const CONTRACTS: [&str; 11] = [
+    const CONTRACTS: [&str; 12] = [
         include_str!("../../../contracts/role-request.schema.json"),
         ROLE_RESULT_SCHEMA,
+        include_str!("../../../contracts/provider-role-result.schema.json"),
         include_str!("../../../contracts/evidence-packet.schema.json"),
         include_str!("../../../contracts/architecture.schema.json"),
         include_str!("../../../contracts/decomposition.schema.json"),

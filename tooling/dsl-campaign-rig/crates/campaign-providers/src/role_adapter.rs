@@ -15,7 +15,7 @@ impl<T> TransportRoleAdapter<T> {
         Ok(Self {
             transport,
             output_schema: serde_json::from_str(include_str!(
-                "../../../contracts/role-result.schema.json"
+                "../../../contracts/provider-role-result.schema.json"
             ))?,
             tool_contract_hash,
         })
@@ -33,10 +33,11 @@ impl<T: SubscriptionTransport> RoleTransport for TransportRoleAdapter<T> {
             "{}\n\nYou are a model-only role inside an explicit engine DAG. Do not call tools, \
              spawn agents, read files, or claim you did so. All admissible evidence is in task; \
              missing evidence requires a failing/revision verdict. Return one JSON object matching \
-             RoleResult. Copy campaign_id, faction_id, ability_id, and role from the input exactly. \
-             Put your role-specific native output under payload. Set verdict to accept, revise, \
-             needs-schema, reject, pass, or fail; findings must contain only deidentified codes, \
-             severities, and clause ids.\n",
+             the supplied schema. Copy campaign_id, faction_id, ability_id, and role from the input \
+             exactly. Serialize your complete role-specific native output as JSON text in \
+             payload.json. Set verdict to accept, revise, needs-schema, reject, pass, or fail. \
+             Always include findings; use an empty array when there are none. Each finding must \
+             contain only a deidentified code, severity, and nullable clause_id.\n",
             spec.prompt
         );
         let input = serde_json::json!({
@@ -62,12 +63,24 @@ impl<T: SubscriptionTransport> RoleTransport for TransportRoleAdapter<T> {
             .start_or_resume(transport_request, None)
             .await
             .map_err(map_provider_error)?;
+        let mut response = exchange.response;
+        let payload = response
+            .pointer("/payload/json")
+            .and_then(serde_json::Value::as_str)
+            .ok_or(RoleError::SchemaInvalid)
+            .and_then(|payload| {
+                serde_json::from_str(payload).map_err(|_| RoleError::SchemaInvalid)
+            })?;
+        response
+            .as_object_mut()
+            .ok_or(RoleError::SchemaInvalid)?
+            .insert("payload".into(), payload);
         Ok(RoleTransportExchange {
             response_hash: Hash256::digest(
-                serde_json::to_vec(&exchange.response).map_err(|_| RoleError::Transport)?,
+                serde_json::to_vec(&response).map_err(|_| RoleError::Transport)?,
             ),
             provider_identity_hash: self.transport.identity().canonical_hash(),
-            response: exchange.response,
+            response,
             repaired: exchange.repaired,
             transport: self.transport.identity().transport.clone(),
             fallback_reason: None,

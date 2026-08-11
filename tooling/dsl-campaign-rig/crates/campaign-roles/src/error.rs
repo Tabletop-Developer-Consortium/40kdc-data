@@ -18,6 +18,8 @@ pub enum RoleError {
     RepairedOutput,
     #[error("transport failed before a valid result")]
     Transport,
+    #[error("provider rejected the role turn: {0}")]
+    ProviderFailure(&'static str),
     #[error("provider turn outcome is ambiguous")]
     Unreconciled,
 }

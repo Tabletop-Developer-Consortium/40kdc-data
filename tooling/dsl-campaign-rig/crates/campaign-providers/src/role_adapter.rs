@@ -81,6 +81,17 @@ fn map_provider_error(error: ProviderError) -> RoleError {
     match error {
         ProviderError::Unreconciled(_) => RoleError::Unreconciled,
         ProviderError::InvalidStructuredOutput => RoleError::SchemaInvalid,
-        _ => RoleError::Transport,
+        ProviderError::ProtocolMismatch => RoleError::ProviderFailure("protocol-mismatch"),
+        ProviderError::IdentityMismatch => RoleError::ProviderFailure("identity-mismatch"),
+        ProviderError::CapabilityDenied => RoleError::ProviderFailure("capability-denied"),
+        ProviderError::ProcessEnded => RoleError::ProviderFailure("process-ended"),
+        ProviderError::SubscriptionRequired => RoleError::ProviderFailure("subscription-required"),
+        ProviderError::ApiKeyForbidden => RoleError::ProviderFailure("api-key-forbidden"),
+        ProviderError::UsageUnavailable => RoleError::ProviderFailure("usage-unavailable"),
+        ProviderError::DirectUnavailable => RoleError::ProviderFailure("direct-unavailable"),
+        ProviderError::Role => RoleError::ProviderFailure("role-contract"),
+        ProviderError::Timeout | ProviderError::Io(_) | ProviderError::Json(_) => {
+            RoleError::Transport
+        }
     }
 }

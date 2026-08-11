@@ -87,6 +87,15 @@ pub fn validate_semantics(request: &RoleRequest, result: &RoleResult) -> Result<
                 {
                     Ok(())
                 }
+                Some("fail")
+                    if result
+                        .payload
+                        .pointer("/self_grade/concerns")
+                        .and_then(|value| value.as_array())
+                        .is_some_and(|concerns| !concerns.is_empty()) =>
+                {
+                    Ok(())
+                }
                 _ => Err(RoleError::SemanticInvalid("shape-verdict")),
             }
         }

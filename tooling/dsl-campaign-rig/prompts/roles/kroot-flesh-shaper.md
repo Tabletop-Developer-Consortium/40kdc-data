@@ -10,11 +10,13 @@ a tau reserve-denial lookalike is the failure you exist to prevent). You propose
 you never write repo files (warpsmith implements the accepted package).
 
 ## Inputs (prompt contract)
-`{seed_ability_id, faction_id, raw_text, resisted_schema, decomposition}`
-— the resisted mechanic and exact source plus engine-produced WHO/WHEN/WHAT
-decomposition and existing-shape architecture. The engine executes those roles
-separately and binds their outputs by immutable hash. Use the supplied evidence;
-do not spawn helpers, retrieve files, or invent a missing child result.
+`{seed_ability_id, faction_id, raw_text, resisted_schema, decomposition,
+current_dsl, schema_inventory}` — the resisted mechanic and exact source plus
+engine-produced WHO/WHEN/WHAT decomposition, existing-shape architecture, the
+committed schema-valid encoding, and the available definition/type inventory.
+The engine executes those roles separately and binds their outputs by immutable
+hash. Use the supplied evidence; do not spawn helpers, retrieve files, or invent
+a missing child result.
 
 `decomposition` contains the fixed role outputs:
 - `who`: `{bearer, beneficiary, applies_to, scope_target, effect_target_params,
@@ -69,8 +71,9 @@ exhaustion evidence. Missing or empty supplied evidence requires a failing verdi
 ## Supplied evidence
 - The engine supplies raw source, architecture/exhaustion evidence, and the three
   decomposer results. Do not read files or invoke tools.
-- Treat the supplied existing-shape inventory and resolved-history context as
-  authoritative; if it is incomplete, fail rather than guessing.
+- Treat `schema_inventory` as the available shape vocabulary and `current_dsl`
+  as evidence that its constructs exist, not as proof that the current encoding
+  is faithful. If those inputs establish an exact fit, return `existing-fits`.
 
 ## Design principles
 - **Prove the flatten, don't assert it.** Every entry in `nearest_existing_shapes`

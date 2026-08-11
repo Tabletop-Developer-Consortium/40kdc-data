@@ -219,6 +219,28 @@ fn typed_executor_accepts_retrieval_with_matches_for_deterministic_partition_fal
 }
 
 #[test]
+fn typed_executor_accepts_grounded_shape_failure_for_needs_schema_routing() {
+    let request = request(Role::KrootFleshShaper, None);
+    let executor = TypedRoleExecutor::new(FakeRoleTransport {
+        exchange: exchange(result_for(
+            &request,
+            json!({
+                "mechanic": "Fabricated unresolved mechanic",
+                "proposed_shape": null,
+                "self_grade": {
+                    "verdict": "fail",
+                    "concerns": ["Existing shape inventory was insufficient."]
+                }
+            }),
+        )),
+    });
+
+    let validated = run_ready(executor.execute(&spec(Role::KrootFleshShaper), request)).unwrap();
+
+    assert_eq!(validated.result.role, Role::KrootFleshShaper);
+}
+
+#[test]
 fn typed_executor_returns_validated_result_with_transport_metadata_and_usage() {
     let request = request(Role::ArchMagos, None);
     let response_hash = Hash256::digest("response-metadata");

@@ -552,6 +552,8 @@ impl NodeExecutor for CampaignNodeExecutor {
                 let evidence_hash = ability.evidence_hash.ok_or(EngineError::Policy)?;
                 let evidence: Value =
                     serde_json::from_slice(&self.engine.store().read_artifact(evidence_hash)?)?;
+                let current_dsl = self.current_dsl(&key)?;
+                let schema_inventory = dsl_shape_inventory(&self.repository_root)?;
                 let result = self
                     .run_role(
                         node,
@@ -566,6 +568,8 @@ impl NodeExecutor for CampaignNodeExecutor {
                             "faction_id": key.faction_id,
                             "raw_text": source.source_text,
                             "evidence_packet": evidence,
+                            "current_dsl": current_dsl,
+                            "schema_inventory": schema_inventory,
                         }),
                     )
                     .await?;
@@ -638,6 +642,8 @@ impl NodeExecutor for CampaignNodeExecutor {
                     "when": decomposition.get(Role::Chronomancer.as_str()).ok_or(EngineError::Policy)?,
                     "what": decomposition.get(Role::VoxHound.as_str()).ok_or(EngineError::Policy)?,
                 });
+                let current_dsl = self.current_dsl(&key)?;
+                let schema_inventory = dsl_shape_inventory(&self.repository_root)?;
                 let result = self
                     .run_role(
                         node,
@@ -654,6 +660,8 @@ impl NodeExecutor for CampaignNodeExecutor {
                                 &self.engine.store().read_artifact(architecture_hash)?
                             )?,
                             "decomposition": decomposition,
+                            "current_dsl": current_dsl,
+                            "schema_inventory": schema_inventory,
                         }),
                     )
                     .await?;
@@ -674,6 +682,10 @@ impl NodeExecutor for CampaignNodeExecutor {
                         artifact_hash: package_hash,
                     },
                     "singleton" => CommandAction::MarkNeedsSchema {
+                        key,
+                        evidence_hash: package_hash,
+                    },
+                    "fail" => CommandAction::MarkNeedsSchema {
                         key,
                         evidence_hash: package_hash,
                     },
@@ -4338,6 +4350,57 @@ fn full_evidence_packet(source: &str) -> EvidencePacket {
             classification: ClauseClassification::Mechanical,
             slice_hash: Hash256::digest(source.as_bytes()),
         }],
+    }
+}
+
+fn dsl_shape_inventory(repository_root: &Path) -> Result<Value, EngineError> {
+    let schema_root = repository_root.join("schemas/enrichment/ability-dsl");
+    let mut inventory = serde_json::Map::new();
+    for name in ["ability", "condition", "effect", "scope"] {
+        let schema: Value =
+            serde_json::from_slice(&fs::read(schema_root.join(format!("{name}.schema.json")))?)?;
+        let definitions = schema
+            .get("$defs")
+            .and_then(Value::as_object)
+            .map(|definitions| definitions.keys().cloned().collect::<Vec<_>>())
+            .unwrap_or_default();
+        let mut type_values = BTreeSet::new();
+        collect_type_values(&schema, &mut type_values);
+        inventory.insert(
+            name.into(),
+            json!({
+                "definitions": definitions,
+                "type_values": type_values,
+            }),
+        );
+    }
+    Ok(Value::Object(inventory))
+}
+
+fn collect_type_values(value: &Value, values: &mut BTreeSet<String>) {
+    if let Some(type_values) = value
+        .pointer("/properties/type/enum")
+        .and_then(Value::as_array)
+    {
+        values.extend(
+            type_values
+                .iter()
+                .filter_map(Value::as_str)
+                .map(str::to_owned),
+        );
+    }
+    match value {
+        Value::Array(items) => {
+            for item in items {
+                collect_type_values(item, values);
+            }
+        }
+        Value::Object(fields) => {
+            for field in fields.values() {
+                collect_type_values(field, values);
+            }
+        }
+        _ => {}
     }
 }
 

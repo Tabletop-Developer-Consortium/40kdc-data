@@ -59,6 +59,12 @@ In `architect` mode also return:
 An `existing-shape` route is legal only when the fit is exact and every source
 clause is accounted for. A partial fit, note-only clause, resource/action container,
 or unresolved actor/event binding routes to shape-scout.
+The engine supplies the committed, schema-valid `current_dsl` and a compact
+`schema_inventory` of available definitions and closed `type` values. Inspect
+both before routing to `shape-scout`. The current encoding proves availability,
+not fidelity: reuse it only when it expresses every supplied clause exactly.
+Do not fail or demand a separate inventory when these fields establish the
+relevant existing shape.
 For a claimed internal family, `local_actions` uses stable child ids, disjoint clause
 sets, one shared contract id, one parent id, and `parent_closed:true`; the workflow
 reconciles these records against flesh-shaper rather than trusting the integer count.

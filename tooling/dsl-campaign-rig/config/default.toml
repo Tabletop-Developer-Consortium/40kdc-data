@@ -1,0 +1,16 @@
+protocol_version = 1
+transport = "app-server"
+read_only = true
+allow_direct_transport = false
+allow_repository_mutation = false
+allow_shape_application = false
+allow_publication = false
+allow_api_key_authentication = false
+max_abilities = 40
+max_batch_size = 8
+max_assembly_attempts = 4
+routine_refuters = 2
+escalated_refuters = 3
+max_shape_review_rounds = 3
+max_full_gate_reruns = 2
+family_threshold = 4

@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "FrozenFiveAbilityBenchmark",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "base_commit", "prompt_manifest_hash", "model", "reasoning", "abilities"],
+  "properties": {
+    "version": { "const": 1 },
+    "base_commit": { "type": "string", "pattern": "^[0-9a-f]{40,64}$" },
+    "prompt_manifest_hash": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "model": { "type": "string", "minLength": 1 },
+    "reasoning": { "type": "string", "minLength": 1 },
+    "abilities": {
+      "type": "array",
+      "minItems": 5,
+      "maxItems": 5,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["faction_id", "ability_id", "stratum", "source_hash", "baseline_dsl_hash", "expected_verdict_hash"],
+        "properties": {
+          "faction_id": { "type": "string" },
+          "ability_id": { "type": "string" },
+          "stratum": { "type": "integer", "minimum": 1, "maximum": 5 },
+          "source_hash": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+          "baseline_dsl_hash": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+          "expected_verdict_hash": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+        }
+      }
+    }
+  }
+}

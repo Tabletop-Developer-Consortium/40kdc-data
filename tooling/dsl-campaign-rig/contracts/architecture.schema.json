@@ -1,0 +1,35 @@
+{
+  "title": "Architecture",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "clause_ids",
+    "shape_route",
+    "closed_parent"
+  ],
+  "properties": {
+    "clause_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "shape_route": {
+      "enum": [
+        "existing",
+        "shape-analysis"
+      ]
+    },
+    "closed_parent": {
+      "type": "boolean"
+    },
+    "unresolved_bindings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema"
+}

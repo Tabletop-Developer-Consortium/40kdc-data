@@ -1,0 +1,51 @@
+{
+  "title": "Refutation",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "candidate_hash",
+    "voter",
+    "verdict",
+    "divergences"
+  ],
+  "properties": {
+    "candidate_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "voter": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "verdict": {
+      "enum": [
+        "accept",
+        "diverge"
+      ]
+    },
+    "divergences": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "clause_id",
+          "situation",
+          "difference"
+        ],
+        "properties": {
+          "clause_id": {
+            "type": "string"
+          },
+          "situation": {
+            "type": "string"
+          },
+          "difference": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema"
+}

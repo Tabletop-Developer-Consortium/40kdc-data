@@ -1,0 +1,35 @@
+{
+  "title": "Decomposition",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "clause_ids",
+    "who",
+    "when",
+    "what",
+    "deferred_lookups"
+  ],
+  "properties": {
+    "clause_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "who": {
+      "type": "object"
+    },
+    "when": {
+      "type": "object"
+    },
+    "what": {
+      "type": "object"
+    },
+    "deferred_lookups": {
+      "type": "array",
+      "maxItems": 0
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema"
+}

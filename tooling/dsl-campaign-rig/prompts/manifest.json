@@ -1,0 +1,165 @@
+{
+  "version": 1,
+  "roles": [
+    {
+      "role": "arch-magos",
+      "prompt": "roles/arch-magos.md",
+      "prompt_sha256": "72effd4cab4a858d8230f83b1443ad819cf1407d3756d23d2a818ff029d3bff3",
+      "schema": "../contracts/role-result.schema.json",
+      "schema_sha256": "2732ecc729cdb4d5751ae79a994473d2de103cbb236e45c63c1e10f558fcb0ab",
+      "model": "gpt-5.6-luna",
+      "reasoning": "high",
+      "capabilities": []
+    },
+    {
+      "role": "chronomancer",
+      "prompt": "roles/chronomancer.md",
+      "prompt_sha256": "c9e341ab961be0ef477f1d8dcbf933baa9a5cfc7102c7dec916f4aac2569ba4c",
+      "schema": "../contracts/role-result.schema.json",
+      "schema_sha256": "2732ecc729cdb4d5751ae79a994473d2de103cbb236e45c63c1e10f558fcb0ab",
+      "model": "gpt-5.6-luna",
+      "reasoning": "high",
+      "capabilities": []
+    },
+    {
+      "role": "cogitator",
+      "prompt": "roles/cogitator.md",
+      "prompt_sha256": "5460faa9df79b7cdb095672fe4181280173da948ba76ffcbb695b3f163102ffc",
+      "schema": "../contracts/role-result.schema.json",
+      "schema_sha256": "2732ecc729cdb4d5751ae79a994473d2de103cbb236e45c63c1e10f558fcb0ab",
+      "model": "gpt-5.6-luna",
+      "reasoning": "high",
+      "capabilities": []
+    },
+    {
+      "role": "data-enginseer",
+      "prompt": "roles/data-enginseer.md",
+      "prompt_sha256": "cf43862917e9ec8bcbc20a27ac8c17dec1d15f6aa0f5485b222f8ea88e3f0d82",
+      "schema": "../contracts/role-result.schema.json",
+      "schema_sha256": "2732ecc729cdb4d5751ae79a994473d2de103cbb236e45c63c1e10f558fcb0ab",
+      "model": "gpt-5.6-luna",
+      "reasoning": "high",
+      "capabilities": []
+    },
+    {
+      "role": "eversor",
+      "prompt": "roles/eversor.md",
+      "prompt_sha256": "f3bf48c9fd46a1f5f5bd51714cf6ffa5b6df4e20287b7e978e16ae93c1d3f514",
+      "schema": "../contracts/role-result.schema.json",
+      "schema_sha256": "2732ecc729cdb4d5751ae79a994473d2de103cbb236e45c63c1e10f558fcb0ab",
+      "model": "gpt-5.6-luna",
+      "reasoning": "high",
+      "capabilities": []
+    },
+    {
+      "role": "inquisitor",
+      "prompt": "roles/inquisitor.md",
+      "prompt_sha256": "7350fa856a96ed54061221355e3c0add5d6952faf350ae5df53d80426f6ca738",
+      "schema": "../contracts/role-result.schema.json",
+      "schema_sha256": "2732ecc729cdb4d5751ae79a994473d2de103cbb236e45c63c1e10f558fcb0ab",
+      "model": "gpt-5.6-luna",
+      "reasoning": "high",
+      "capabilities": []
+    },
+    {
+      "role": "kroot-flesh-shaper",
+      "prompt": "roles/kroot-flesh-shaper.md",
+      "prompt_sha256": "d5f9d90e5f7ee794cef7b377efaba9b5a8533a8833cbf56c0253fb097aed7b8a",
+      "schema": "../contracts/role-result.schema.json",
+      "schema_sha256": "2732ecc729cdb4d5751ae79a994473d2de103cbb236e45c63c1e10f558fcb0ab",
+      "model": "gpt-5.6-luna",
+      "reasoning": "high",
+      "capabilities": []
+    },
+    {
+      "role": "kroot-lone-spear",
+      "prompt": "roles/kroot-lone-spear.md",
+      "prompt_sha256": "83bc00822816e42f9d6a37e83ce13714b0ea95e818f08358b34bda45de08a53f",
+      "schema": "../contracts/role-result.schema.json",
+      "schema_sha256": "2732ecc729cdb4d5751ae79a994473d2de103cbb236e45c63c1e10f558fcb0ab",
+      "model": "gpt-5.6-luna",
+      "reasoning": "high",
+      "capabilities": []
+    },
+    {
+      "role": "kroot-trail-shaper",
+      "prompt": "roles/kroot-trail-shaper.md",
+      "prompt_sha256": "e18d7bb8a668d10b1efedd0ea75e2719f4ee6d9dfa2786fc92be7871be1b3a9e",
+      "schema": "../contracts/role-result.schema.json",
+      "schema_sha256": "2732ecc729cdb4d5751ae79a994473d2de103cbb236e45c63c1e10f558fcb0ab",
+      "model": "gpt-5.6-luna",
+      "reasoning": "high",
+      "capabilities": []
+    },
+    {
+      "role": "kroot-war-shaper",
+      "prompt": "roles/kroot-war-shaper.md",
+      "prompt_sha256": "29e4073e68c837d0e95ef26c9e174a62ea9d874a9ebfc512ccc641821ca70086",
+      "schema": "../contracts/role-result.schema.json",
+      "schema_sha256": "2732ecc729cdb4d5751ae79a994473d2de103cbb236e45c63c1e10f558fcb0ab",
+      "model": "gpt-5.6-luna",
+      "reasoning": "high",
+      "capabilities": []
+    },
+    {
+      "role": "psyker",
+      "prompt": "roles/psyker.md",
+      "prompt_sha256": "ba3e3e9bb26d33ad82bcd43e3147fa9ad5f29c7f0d2f3cfd4e85e40f2f9b22b8",
+      "schema": "../contracts/role-result.schema.json",
+      "schema_sha256": "2732ecc729cdb4d5751ae79a994473d2de103cbb236e45c63c1e10f558fcb0ab",
+      "model": "gpt-5.6-luna",
+      "reasoning": "high",
+      "capabilities": []
+    },
+    {
+      "role": "skitarius",
+      "prompt": "roles/skitarius.md",
+      "prompt_sha256": "da035c16679874522809e85d74882793dc74a8aa3fb99a1c4ed22e24993436b3",
+      "schema": "../contracts/role-result.schema.json",
+      "schema_sha256": "2732ecc729cdb4d5751ae79a994473d2de103cbb236e45c63c1e10f558fcb0ab",
+      "model": "gpt-5.6-luna",
+      "reasoning": "high",
+      "capabilities": []
+    },
+    {
+      "role": "swarmlord",
+      "prompt": "roles/swarmlord.md",
+      "prompt_sha256": "cc1f980cb6be15883fb6108b5494f8c01b6411c1e08aabbd6a63189ca1f9247c",
+      "schema": "../contracts/role-result.schema.json",
+      "schema_sha256": "2732ecc729cdb4d5751ae79a994473d2de103cbb236e45c63c1e10f558fcb0ab",
+      "model": "gpt-5.6-luna",
+      "reasoning": "high",
+      "capabilities": []
+    },
+    {
+      "role": "target-dummy",
+      "prompt": "roles/target-dummy.md",
+      "prompt_sha256": "dd5d0bfc848ebec1415bb703f1b7e470ebaa59b08eb05df3182be58a48783278",
+      "schema": "../contracts/role-result.schema.json",
+      "schema_sha256": "2732ecc729cdb4d5751ae79a994473d2de103cbb236e45c63c1e10f558fcb0ab",
+      "model": "gpt-5.6-luna",
+      "reasoning": "high",
+      "capabilities": []
+    },
+    {
+      "role": "vox-hound",
+      "prompt": "roles/vox-hound.md",
+      "prompt_sha256": "32e3b03e194ee465e397f6f9aae195c6ce79520564d73b55a6e6d49394e6ded1",
+      "schema": "../contracts/role-result.schema.json",
+      "schema_sha256": "2732ecc729cdb4d5751ae79a994473d2de103cbb236e45c63c1e10f558fcb0ab",
+      "model": "gpt-5.6-luna",
+      "reasoning": "high",
+      "capabilities": []
+    },
+    {
+      "role": "warpsmith",
+      "prompt": "roles/warpsmith.md",
+      "prompt_sha256": "53c5dea48b28a5df7cf6e0677a280da15bec2ee5184efe65226aaccaae1db1a1",
+      "schema": "../contracts/role-result.schema.json",
+      "schema_sha256": "2732ecc729cdb4d5751ae79a994473d2de103cbb236e45c63c1e10f558fcb0ab",
+      "model": "gpt-5.6-luna",
+      "reasoning": "high",
+      "capabilities": []
+    }
+  ]
+}

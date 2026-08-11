@@ -1,0 +1,21 @@
+CREATE TABLE IF NOT EXISTS provider_runs (
+  run_id TEXT PRIMARY KEY,
+  campaign_id TEXT NOT NULL,
+  role TEXT NOT NULL,
+  transport TEXT NOT NULL,
+  provider_identity_hash TEXT NOT NULL,
+  model_identity_hash TEXT NOT NULL,
+  prompt_hash TEXT NOT NULL,
+  request_hash TEXT NOT NULL,
+  response_hash TEXT,
+  status TEXT NOT NULL,
+  input_tokens INTEGER,
+  cached_tokens INTEGER,
+  output_tokens INTEGER,
+  reasoning_tokens INTEGER,
+  quota_before_hash TEXT,
+  quota_after_hash TEXT,
+  started_at INTEGER NOT NULL,
+  completed_at INTEGER,
+  error_code TEXT
+);

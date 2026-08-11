@@ -1,0 +1,33 @@
+{
+  "title": "Review",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "candidate_hash",
+    "verification_hash",
+    "verdict",
+    "severity3_count"
+  ],
+  "properties": {
+    "candidate_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "verification_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "verdict": {
+      "enum": [
+        "accept",
+        "revise",
+        "needs-schema"
+      ]
+    },
+    "severity3_count": {
+      "type": "integer",
+      "minimum": 0
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema"
+}

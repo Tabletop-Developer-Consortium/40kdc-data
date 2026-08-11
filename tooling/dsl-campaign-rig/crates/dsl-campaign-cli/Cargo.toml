@@ -1,0 +1,27 @@
+[package]
+name = "dsl-campaign-cli"
+version = "0.1.0"
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[[bin]]
+name = "dsl-campaign"
+path = "src/main.rs"
+
+[dependencies]
+anyhow.workspace = true
+campaign-domain = { path = "../campaign-domain" }
+campaign-engine = { path = "../campaign-engine" }
+campaign-executors = { path = "../campaign-executors" }
+campaign-providers = { path = "../campaign-providers", features = ["direct-chatgpt"] }
+campaign-roles = { path = "../campaign-roles" }
+campaign-store = { path = "../campaign-store" }
+clap.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+time.workspace = true
+tokio.workspace = true
+which.workspace = true
+walkdir.workspace = true

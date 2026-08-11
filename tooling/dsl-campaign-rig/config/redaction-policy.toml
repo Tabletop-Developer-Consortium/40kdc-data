@@ -1,0 +1,13 @@
+version = 1
+minimum_prohibited_fragment_bytes = 16
+allowed_fields = [
+  "campaign_id", "faction_id", "ability_id", "shape_id", "state",
+  "hash", "verdict", "error_code", "attempt", "voter", "gate",
+  "input_tokens", "cached_tokens", "output_tokens", "reasoning_tokens",
+  "byte_len", "exit_code", "event_seq", "stream_version"
+]
+sensitive_kinds = [
+  "source-bytes", "provider-conversation", "prose-baseline", "prose-diff",
+  "subprocess-output", "describer-output"
+]
+forbidden_environment = ["OPENAI_API_KEY"]

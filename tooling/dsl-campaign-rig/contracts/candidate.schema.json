@@ -1,0 +1,53 @@
+{
+  "title": "Candidate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "candidate_hash",
+    "clause_coverage",
+    "placeholder_encoding",
+    "approx_mechanical"
+  ],
+  "properties": {
+    "candidate_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "clause_coverage": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "clause_id",
+          "disposition",
+          "evidence"
+        ],
+        "properties": {
+          "clause_id": {
+            "type": "string"
+          },
+          "disposition": {
+            "enum": [
+              "exact",
+              "declared-nonmechanical"
+            ]
+          },
+          "evidence": {
+            "enum": [
+              "source-explicit",
+              "schema-derived"
+            ]
+          }
+        }
+      }
+    },
+    "placeholder_encoding": {
+      "const": false
+    },
+    "approx_mechanical": {
+      "const": false
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema"
+}

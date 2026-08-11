@@ -1,0 +1,53 @@
+{
+  "title": "ShapePackage",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "shape_id",
+    "manifest_members",
+    "family_members",
+    "flattening_exclusions",
+    "render_forms",
+    "implementation_matrix"
+  ],
+  "properties": {
+    "shape_id": {
+      "type": "string"
+    },
+    "manifest_members": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "family_members": {
+      "type": "array",
+      "minItems": 4,
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "flattening_exclusions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "render_forms": {
+      "type": "array",
+      "minItems": 4,
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "implementation_matrix": {
+      "type": "object"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema"
+}

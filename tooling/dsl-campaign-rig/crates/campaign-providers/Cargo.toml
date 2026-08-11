@@ -1,0 +1,31 @@
+[package]
+name = "campaign-providers"
+version = "0.1.0"
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[features]
+default = []
+direct-chatgpt = ["dep:rig-core", "dep:rig-agent", "dep:schemars"]
+
+[dependencies]
+async-trait.workspace = true
+campaign-domain = { path = "../campaign-domain" }
+campaign-roles = { path = "../campaign-roles" }
+futures-util.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+schemars = { workspace = true, optional = true }
+sha2.workspace = true
+thiserror.workspace = true
+tokio.workspace = true
+tracing.workspace = true
+uuid.workspace = true
+which.workspace = true
+rig-core = { workspace = true, optional = true }
+rig-agent = { workspace = true, optional = true }
+
+[dev-dependencies]
+tempfile.workspace = true

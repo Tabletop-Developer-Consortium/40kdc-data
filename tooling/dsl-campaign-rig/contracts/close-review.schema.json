@@ -1,0 +1,85 @@
+{
+  "title": "CloseReview",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "sealed_head",
+    "worklist",
+    "parity_pairs",
+    "anti_conditions",
+    "drift_clean",
+    "means_non_regressing",
+    "verdict"
+  ],
+  "properties": {
+    "sealed_head": {
+      "type": "string"
+    },
+    "worklist": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "parity_pairs": {
+      "type": "array",
+      "minItems": 6,
+      "maxItems": 6,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "pair",
+          "ok",
+          "case_count"
+        ],
+        "properties": {
+          "pair": {
+            "type": "string"
+          },
+          "ok": {
+            "const": true
+          },
+          "case_count": {
+            "type": "integer",
+            "minimum": 1
+          }
+        }
+      }
+    },
+    "anti_conditions": {
+      "type": "array",
+      "minItems": 10,
+      "maxItems": 10,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "pass"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 10
+          },
+          "pass": {
+            "const": true
+          }
+        }
+      }
+    },
+    "drift_clean": {
+      "const": true
+    },
+    "means_non_regressing": {
+      "const": true
+    },
+    "verdict": {
+      "const": "accept-close"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema"
+}

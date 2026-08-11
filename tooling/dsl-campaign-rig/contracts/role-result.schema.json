@@ -1,0 +1,68 @@
+{
+  "title": "RoleResult",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "campaign_id",
+    "faction_id",
+    "ability_id",
+    "role",
+    "verdict",
+    "payload"
+  ],
+  "properties": {
+    "campaign_id": {
+      "type": "string"
+    },
+    "faction_id": {
+      "type": "string"
+    },
+    "ability_id": {
+      "type": "string"
+    },
+    "role": {
+      "type": "string"
+    },
+    "verdict": {
+      "enum": [
+        "accept",
+        "revise",
+        "needs-schema",
+        "reject",
+        "pass",
+        "fail"
+      ]
+    },
+    "payload": {
+      "type": "object"
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "code",
+          "severity"
+        ],
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "severity": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 3
+          },
+          "clause_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema"
+}

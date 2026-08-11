@@ -4264,7 +4264,7 @@ fn parse_evidence_packet(value: &Value, source: &str) -> Result<EvidencePacket, 
     let Some(clauses) = value.get("clauses").and_then(Value::as_array) else {
         return Ok(full_evidence_packet(source));
     };
-    let mut clauses = clauses
+    let parsed = clauses
         .iter()
         .map(|clause| {
             let id = clause
@@ -4300,7 +4300,11 @@ fn parse_evidence_packet(value: &Value, source: &str) -> Result<EvidencePacket, 
                 slice_hash: Hash256::digest(slice.as_bytes()),
             })
         })
-        .collect::<Result<Vec<_>, EngineError>>()?;
+        .collect::<Result<Vec<_>, EngineError>>();
+    let mut clauses = match parsed {
+        Ok(clauses) => clauses,
+        Err(_) => return Ok(full_evidence_packet(source)),
+    };
     let source_utf16_len = source.encode_utf16().count();
     if let Some(last) = clauses.last_mut()
         && last.end_utf16 < source_utf16_len
@@ -4385,6 +4389,26 @@ mod evidence_tests {
         assert_eq!(packet.source_utf16_len, source.encode_utf16().count());
         assert_eq!(packet.clauses.len(), 1);
         assert_eq!(packet.clauses[0].start_utf16, 0);
+        assert_eq!(packet.clauses[0].end_utf16, source.encode_utf16().count());
+    }
+
+    #[test]
+    fn out_of_range_model_partition_falls_back_to_the_complete_source() {
+        let source = "Fabricated rule.";
+        let packet = parse_evidence_packet(
+            &json!({
+                "clauses": [{
+                    "clause_id": "C1",
+                    "start": 0,
+                    "end": 99,
+                    "mechanical": true
+                }]
+            }),
+            source,
+        )
+        .unwrap();
+
+        assert_eq!(packet.clauses.len(), 1);
         assert_eq!(packet.clauses[0].end_utf16, source.encode_utf16().count());
     }
 }

@@ -491,7 +491,6 @@ impl SubscriptionTransport for AppServerTransport {
                     Ok(Some(turn)) => {
                         let usage = parsed.usage.clone().unwrap_or_default();
                         let exchange = Self::finish_turn(turn, checkpoint, usage)?;
-                        self.remove_checkpoint(request_hash)?;
                         return Ok(exchange);
                     }
                     Ok(None) => {}
@@ -608,7 +607,6 @@ impl SubscriptionTransport for AppServerTransport {
         };
         self.write_checkpoint(request_hash, &durable_checkpoint)?;
         let exchange = Self::finish_turn(turn, durable_checkpoint, usage)?;
-        self.remove_checkpoint(request_hash)?;
         Ok(exchange)
     }
 

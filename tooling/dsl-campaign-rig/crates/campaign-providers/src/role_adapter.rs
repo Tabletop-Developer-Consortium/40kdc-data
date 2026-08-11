@@ -67,13 +67,14 @@ impl<T: SubscriptionTransport> RoleTransport for TransportRoleAdapter<T> {
         let payload = response
             .pointer("/payload/json")
             .and_then(serde_json::Value::as_str)
-            .ok_or(RoleError::SchemaInvalid)
+            .ok_or(RoleError::ProviderFailure("payload-envelope-invalid"))
             .and_then(|payload| {
-                serde_json::from_str(payload).map_err(|_| RoleError::SchemaInvalid)
+                serde_json::from_str(payload)
+                    .map_err(|_| RoleError::ProviderFailure("payload-json-invalid"))
             })?;
         response
             .as_object_mut()
-            .ok_or(RoleError::SchemaInvalid)?
+            .ok_or(RoleError::ProviderFailure("response-envelope-invalid"))?
             .insert("payload".into(), payload);
         Ok(RoleTransportExchange {
             response_hash: Hash256::digest(
@@ -93,7 +94,9 @@ impl<T: SubscriptionTransport> RoleTransport for TransportRoleAdapter<T> {
 fn map_provider_error(error: ProviderError) -> RoleError {
     match error {
         ProviderError::Unreconciled(_) => RoleError::Unreconciled,
-        ProviderError::InvalidStructuredOutput => RoleError::SchemaInvalid,
+        ProviderError::InvalidStructuredOutput => {
+            RoleError::ProviderFailure("invalid-structured-output")
+        }
         ProviderError::ProtocolMismatch => RoleError::ProviderFailure("protocol-mismatch"),
         ProviderError::IdentityMismatch => RoleError::ProviderFailure("identity-mismatch"),
         ProviderError::CapabilityDenied => RoleError::ProviderFailure("capability-denied"),

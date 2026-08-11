@@ -4262,18 +4262,7 @@ fn string_set(value: &Value, keys: &[&str]) -> BTreeSet<String> {
 
 fn parse_evidence_packet(value: &Value, source: &str) -> Result<EvidencePacket, EngineError> {
     let Some(clauses) = value.get("clauses").and_then(Value::as_array) else {
-        let source_utf16_len = source.encode_utf16().count();
-        return Ok(EvidencePacket {
-            source_hash: Hash256::digest(source.as_bytes()),
-            source_utf16_len,
-            clauses: vec![EvidenceClause {
-                id: "C1".into(),
-                start_utf16: 0,
-                end_utf16: source_utf16_len,
-                classification: ClauseClassification::Mechanical,
-                slice_hash: Hash256::digest(source.as_bytes()),
-            }],
-        });
+        return Ok(full_evidence_packet(source));
     };
     let mut clauses = clauses
         .iter()
@@ -4319,7 +4308,7 @@ fn parse_evidence_packet(value: &Value, source: &str) -> Result<EvidencePacket, 
         let suffix =
             utf16_slice(source, last.end_utf16, source_utf16_len).ok_or(EngineError::Policy)?;
         if suffix.chars().any(char::is_alphanumeric) {
-            return Err(EngineError::Policy);
+            return Ok(full_evidence_packet(source));
         }
         last.end_utf16 = source_utf16_len;
         let slice =
@@ -4331,6 +4320,21 @@ fn parse_evidence_packet(value: &Value, source: &str) -> Result<EvidencePacket, 
         source_utf16_len: source.encode_utf16().count(),
         clauses,
     })
+}
+
+fn full_evidence_packet(source: &str) -> EvidencePacket {
+    let source_utf16_len = source.encode_utf16().count();
+    EvidencePacket {
+        source_hash: Hash256::digest(source.as_bytes()),
+        source_utf16_len,
+        clauses: vec![EvidenceClause {
+            id: "C1".into(),
+            start_utf16: 0,
+            end_utf16: source_utf16_len,
+            classification: ClauseClassification::Mechanical,
+            slice_hash: Hash256::digest(source.as_bytes()),
+        }],
+    }
 }
 
 fn utf16_slice(source: &str, start: usize, end: usize) -> Option<&str> {
@@ -4354,4 +4358,33 @@ fn utf16_slice(source: &str, start: usize, end: usize) -> Option<&str> {
         byte_end = Some(source.len());
     }
     source.get(byte_start?..byte_end?)
+}
+
+#[cfg(test)]
+mod evidence_tests {
+    use serde_json::json;
+
+    use super::parse_evidence_packet;
+
+    #[test]
+    fn incomplete_model_partition_falls_back_to_the_complete_source() {
+        let source = "Fabricated first rule. Fabricated second rule.";
+        let packet = parse_evidence_packet(
+            &json!({
+                "clauses": [{
+                    "clause_id": "C1",
+                    "start": 0,
+                    "end": 22,
+                    "mechanical": true
+                }]
+            }),
+            source,
+        )
+        .unwrap();
+
+        assert_eq!(packet.source_utf16_len, source.encode_utf16().count());
+        assert_eq!(packet.clauses.len(), 1);
+        assert_eq!(packet.clauses[0].start_utf16, 0);
+        assert_eq!(packet.clauses[0].end_utf16, source.encode_utf16().count());
+    }
 }

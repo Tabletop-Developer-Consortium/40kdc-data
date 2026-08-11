@@ -4265,7 +4265,7 @@ fn parse_evidence_packet(value: &Value, source: &str) -> Result<EvidencePacket, 
         .get("clauses")
         .and_then(Value::as_array)
         .ok_or(EngineError::Policy)?;
-    let clauses = clauses
+    let mut clauses = clauses
         .iter()
         .map(|clause| {
             let id = clause
@@ -4302,6 +4302,20 @@ fn parse_evidence_packet(value: &Value, source: &str) -> Result<EvidencePacket, 
             })
         })
         .collect::<Result<Vec<_>, EngineError>>()?;
+    let source_utf16_len = source.encode_utf16().count();
+    if let Some(last) = clauses.last_mut()
+        && last.end_utf16 < source_utf16_len
+    {
+        let suffix =
+            utf16_slice(source, last.end_utf16, source_utf16_len).ok_or(EngineError::Policy)?;
+        if suffix.chars().any(char::is_alphanumeric) {
+            return Err(EngineError::Policy);
+        }
+        last.end_utf16 = source_utf16_len;
+        let slice =
+            utf16_slice(source, last.start_utf16, last.end_utf16).ok_or(EngineError::Policy)?;
+        last.slice_hash = Hash256::digest(slice.as_bytes());
+    }
     Ok(EvidencePacket {
         source_hash: Hash256::digest(source.as_bytes()),
         source_utf16_len: source.encode_utf16().count(),

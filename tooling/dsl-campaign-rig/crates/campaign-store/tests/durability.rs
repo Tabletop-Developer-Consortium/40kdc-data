@@ -112,6 +112,26 @@ fn external_root_is_persistent_and_owner_only_where_supported() {
     drop(store);
     assert!(CampaignStore::open(&fixture.state_root, &fixture.repository_root).is_ok());
 }
+#[cfg(unix)]
+#[test]
+fn store_ignores_provider_runtime_symlinks_but_protects_its_cas() {
+    use std::os::unix::fs::symlink;
+
+    let fixture = StoreFixture::new();
+    drop(fixture.open());
+    let runtime_tmp = fixture.state_root.join("codex-home/tmp");
+    std::fs::create_dir_all(&runtime_tmp).unwrap();
+    symlink("/usr/bin/true", runtime_tmp.join("codex-runtime-wrapper")).unwrap();
+    drop(fixture.open());
+
+    let protected = StoreFixture::new();
+    std::fs::create_dir_all(&protected.state_root).unwrap();
+    symlink("/tmp", protected.state_root.join("cas")).unwrap();
+    assert!(matches!(
+        CampaignStore::open(&protected.state_root, &protected.repository_root),
+        Err(StoreError::RepositoryLocalState)
+    ));
+}
 
 #[test]
 fn commands_replay_deduplicate_and_fence_conflicts() {

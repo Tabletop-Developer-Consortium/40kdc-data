@@ -38,12 +38,15 @@ impl CampaignStore {
         reject_protected_overlap(&prospective, &protected_roots)?;
         fs::create_dir_all(&prospective)?;
         let state_root = prospective.canonicalize()?;
-        reject_symlink_descendants(&state_root)?;
         reject_protected_overlap(&state_root, &protected_roots)?;
         set_owner_only(&state_root)?;
-        fs::create_dir_all(state_root.join("cas/sensitive/sha256"))?;
-        fs::create_dir_all(state_root.join("cas/deidentified/sha256"))?;
+        let cas_root = state_root.join("cas");
+        reject_symlink_path(&cas_root)?;
+        fs::create_dir_all(cas_root.join("sensitive/sha256"))?;
+        fs::create_dir_all(cas_root.join("deidentified/sha256"))?;
+        reject_symlink_descendants(&cas_root)?;
         let database_path = state_root.join("campaign.sqlite3");
+        reject_symlink_path(&database_path)?;
         let mut connection = Connection::open(database_path)?;
         connection.pragma_update(None, "foreign_keys", true)?;
         connection.pragma_update(None, "journal_mode", "WAL")?;
@@ -123,6 +126,15 @@ fn reject_protected_overlap(
         Err(StoreError::RepositoryLocalState)
     } else {
         Ok(())
+    }
+}
+
+fn reject_symlink_path(path: &Path) -> Result<(), StoreError> {
+    match fs::symlink_metadata(path) {
+        Ok(metadata) if metadata.file_type().is_symlink() => Err(StoreError::RepositoryLocalState),
+        Ok(_) => Ok(()),
+        Err(error) if error.kind() == std::io::ErrorKind::NotFound => Ok(()),
+        Err(error) => Err(error.into()),
     }
 }
 

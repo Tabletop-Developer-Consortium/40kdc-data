@@ -350,7 +350,10 @@ impl AppServerTransport {
                 continue;
             }
             let usage = checkpoint.usage.clone().unwrap_or_default();
-            return Ok((turn.clone(), usage));
+            let canonical_turn = Self::completed_turn_from_checkpoint(session, checkpoint)
+                .await?
+                .ok_or(ProviderError::ProtocolMismatch)?;
+            return Ok((canonical_turn, usage));
         }
     }
 

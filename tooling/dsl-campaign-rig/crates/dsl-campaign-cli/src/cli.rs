@@ -9,7 +9,7 @@ use clap::{Args, Parser, Subcommand, ValueEnum};
     about = "Crash-safe contributor DSL campaign harness"
 )]
 pub struct Cli {
-    #[arg(long, env = "DSL_CAMPAIGN_STATE_ROOT", global = true)]
+    #[arg(long, env = "DSL_CAMPAIGN_STATE_ROOT")]
     pub state_root: PathBuf,
     #[arg(long, global = true, default_value = ".")]
     pub repo: PathBuf,

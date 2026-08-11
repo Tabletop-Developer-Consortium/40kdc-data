@@ -269,6 +269,52 @@ impl CampaignNodeExecutor {
         input_artifacts: Vec<Hash256>,
         task: Value,
     ) -> Result<ValidatedRoleResult, EngineError> {
+        let mut retry_task = task;
+        for retry in 0..2 {
+            let current_attempt = attempt.saturating_add(retry);
+            match self
+                .run_role_once(
+                    node,
+                    lease,
+                    role,
+                    current_attempt,
+                    voter,
+                    input_artifacts.clone(),
+                    retry_task.clone(),
+                )
+                .await
+            {
+                Ok(result) => return Ok(result),
+                Err(EngineError::Role(
+                    RoleError::SchemaInvalid | RoleError::SemanticInvalid(_),
+                )) if retry == 0 => {
+                    if let Some(task) = retry_task.as_object_mut() {
+                        task.insert(
+                            "retry_context".into(),
+                            json!({
+                                "prior_attempt": current_attempt,
+                                "failure": "strict-output-invalid",
+                                "instruction": "Return a fresh result matching the supplied schema and semantic contract exactly; finding severity must be an integer from 1 through 3."
+                            }),
+                        );
+                    }
+                }
+                Err(error) => return Err(error),
+            }
+        }
+        Err(EngineError::Policy)
+    }
+
+    async fn run_role_once(
+        &self,
+        node: &WorkNode,
+        lease: &Lease,
+        role: Role,
+        attempt: u8,
+        voter: Option<u8>,
+        input_artifacts: Vec<Hash256>,
+        task: Value,
+    ) -> Result<ValidatedRoleResult, EngineError> {
         let state = self.state(node)?;
         let ability = node
             .ability

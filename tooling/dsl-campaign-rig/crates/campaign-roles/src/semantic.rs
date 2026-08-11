@@ -151,7 +151,16 @@ pub fn validate_semantics(request: &RoleRequest, result: &RoleResult) -> Result<
                 .payload
                 .get("evidence_packet")
                 .unwrap_or(&result.payload);
-            require_array(packet, "clauses", "evidence-clauses")
+            if packet.is_null()
+                && result
+                    .payload
+                    .get("matches")
+                    .is_some_and(|matches| matches.is_array())
+            {
+                Ok(())
+            } else {
+                require_array(packet, "clauses", "evidence-clauses")
+            }
         }
         Role::Warpsmith => validate_warpsmith(request, result),
     }

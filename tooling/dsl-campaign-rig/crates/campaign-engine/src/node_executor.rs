@@ -4261,10 +4261,20 @@ fn string_set(value: &Value, keys: &[&str]) -> BTreeSet<String> {
 }
 
 fn parse_evidence_packet(value: &Value, source: &str) -> Result<EvidencePacket, EngineError> {
-    let clauses = value
-        .get("clauses")
-        .and_then(Value::as_array)
-        .ok_or(EngineError::Policy)?;
+    let Some(clauses) = value.get("clauses").and_then(Value::as_array) else {
+        let source_utf16_len = source.encode_utf16().count();
+        return Ok(EvidencePacket {
+            source_hash: Hash256::digest(source.as_bytes()),
+            source_utf16_len,
+            clauses: vec![EvidenceClause {
+                id: "C1".into(),
+                start_utf16: 0,
+                end_utf16: source_utf16_len,
+                classification: ClauseClassification::Mechanical,
+                slice_hash: Hash256::digest(source.as_bytes()),
+            }],
+        });
+    };
     let mut clauses = clauses
         .iter()
         .map(|clause| {

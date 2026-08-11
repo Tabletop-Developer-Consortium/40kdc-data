@@ -201,6 +201,24 @@ fn typed_executor_rejects_refuter_vote_without_divergences() {
 }
 
 #[test]
+fn typed_executor_accepts_retrieval_with_matches_for_deterministic_partition_fallback() {
+    let request = request(Role::DataEnginseer, None);
+    let executor = TypedRoleExecutor::new(FakeRoleTransport {
+        exchange: exchange(result_for(
+            &request,
+            json!({
+                "matches": [{"ability_id": "test-ability"}],
+                "evidence_packet": {"clauses": null}
+            }),
+        )),
+    });
+
+    let validated = run_ready(executor.execute(&spec(Role::DataEnginseer), request)).unwrap();
+
+    assert_eq!(validated.result.role, Role::DataEnginseer);
+}
+
+#[test]
 fn typed_executor_returns_validated_result_with_transport_metadata_and_usage() {
     let request = request(Role::ArchMagos, None);
     let response_hash = Hash256::digest("response-metadata");

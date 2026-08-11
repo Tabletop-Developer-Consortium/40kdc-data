@@ -212,7 +212,7 @@ impl AppServerTransport {
         let _version_hash = Hash256::digest(version.trim().as_bytes());
         let checkpoint_root = safe_cwd.join("provider-checkpoints");
         fs::create_dir_all(&checkpoint_root)?;
-        reject_symlink_descendants(&safe_cwd)?;
+        reject_symlink_descendants(&checkpoint_root)?;
         set_owner_only_directory(&checkpoint_root)?;
         let execution_root = std::env::temp_dir()
             .join("dsl-campaign-rig-app-server")

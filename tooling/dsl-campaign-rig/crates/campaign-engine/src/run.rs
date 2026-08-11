@@ -26,6 +26,7 @@ pub async fn run_until_idle<E: NodeExecutor>(
         owner_id: owner_id.to_owned(),
         lease_ttl_seconds: 300,
     };
+    let started = std::time::Instant::now();
     let mut executed = 0;
     let mut seen_versions = BTreeSet::new();
     loop {
@@ -46,7 +47,12 @@ pub async fn run_until_idle<E: NodeExecutor>(
             if executed >= max_nodes {
                 break;
             }
-            worker.run_node(&node, now).await?;
+            worker
+                .run_node(
+                    &node,
+                    now.saturating_add(started.elapsed().as_secs() as i64),
+                )
+                .await?;
             executed += 1;
             if node.kind == crate::WorkKind::Publish
                 && engine.state(campaign_id)?.phase == CampaignPhase::Publishing

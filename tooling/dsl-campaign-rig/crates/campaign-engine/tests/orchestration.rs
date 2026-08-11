@@ -281,6 +281,7 @@ async fn worker_fences_append_and_retries_are_idempotent_after_a_crash() {
     let engine = CampaignEngine::new(store.clone(), engine_hash, false);
     let worker = Worker {
         engine: &engine,
+        campaign_id: campaign_id.clone(),
         executor: &executor,
         owner_id: "owner-a".into(),
         lease_ttl_seconds: 10,
@@ -303,6 +304,7 @@ async fn worker_fences_append_and_retries_are_idempotent_after_a_crash() {
     let stale_engine = CampaignEngine::new(store.clone(), engine_hash, false);
     let stale_worker = Worker {
         engine: &stale_engine,
+        campaign_id: CampaignId::new("stale-campaign").unwrap(),
         executor: &stale_executor,
         owner_id: "owner-b".into(),
         lease_ttl_seconds: 10,

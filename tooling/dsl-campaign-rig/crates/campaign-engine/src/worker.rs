@@ -1,5 +1,5 @@
 use async_trait::async_trait;
-use campaign_domain::{ArtifactKind, Command, Hash256, Sensitivity};
+use campaign_domain::{ArtifactKind, CampaignId, Command, Hash256, Sensitivity};
 use campaign_store::{EffectIntent, Lease};
 
 use crate::{CampaignEngine, EngineError, WorkNode};
@@ -35,6 +35,7 @@ impl Drop for AbortOnDrop {
 
 pub struct Worker<'a, E> {
     pub engine: &'a CampaignEngine,
+    pub campaign_id: CampaignId,
     pub executor: &'a E,
     pub owner_id: String,
     pub lease_ttl_seconds: i64,
@@ -42,7 +43,7 @@ pub struct Worker<'a, E> {
 
 impl<E: NodeExecutor> Worker<'_, E> {
     pub async fn run_node(&self, node: &WorkNode, now: i64) -> Result<(), EngineError> {
-        let resource_key = format!("work:{}", node.work_id);
+        let resource_key = format!("campaign:{}:work:{}", self.campaign_id, node.work_id);
         let lease = self.engine.store().acquire_lease(
             &resource_key,
             &self.owner_id,

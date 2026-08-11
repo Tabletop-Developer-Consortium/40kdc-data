@@ -22,6 +22,7 @@ pub async fn run_until_idle<E: NodeExecutor>(
     let worker = Worker {
         engine,
         executor,
+        campaign_id: campaign_id.clone(),
         owner_id: owner_id.to_owned(),
         lease_ttl_seconds: 300,
     };

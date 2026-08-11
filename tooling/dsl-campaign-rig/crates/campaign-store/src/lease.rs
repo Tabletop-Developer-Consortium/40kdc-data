@@ -60,6 +60,23 @@ impl CampaignStore {
             expires_at,
         })
     }
+    pub fn expire_lease(&self, lease: &Lease, now: i64) -> Result<(), StoreError> {
+        let connection = self.connection.lock();
+        let changed = connection.execute(
+            "UPDATE leases SET heartbeat_at=?4, expires_at=?4
+             WHERE resource_key=?1 AND owner_id=?2 AND fencing_token=?3",
+            params![
+                lease.resource_key,
+                lease.owner_id,
+                lease.fencing_token as i64,
+                now,
+            ],
+        )?;
+        if changed != 1 {
+            return Err(StoreError::StaleLease);
+        }
+        Ok(())
+    }
 
     pub fn heartbeat_lease(
         &self,

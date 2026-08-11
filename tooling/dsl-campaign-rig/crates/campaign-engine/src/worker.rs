@@ -68,11 +68,25 @@ impl<E: NodeExecutor> Worker<'_, E> {
                 }
             }
         }));
-        let completion = tokio::select! {
-            result = self.executor.execute(node, &lease) => result?,
+        let execution = tokio::select! {
+            result = self.executor.execute(node, &lease) => result,
             _ = &mut lease_lost_rx => return Err(campaign_store::StoreError::StaleLease.into()),
         };
         drop(heartbeat);
+        let completion = match execution {
+            Ok(completion) => completion,
+            Err(error) => {
+                if !matches!(
+                    error,
+                    EngineError::Role(campaign_roles::RoleError::Unreconciled)
+                ) {
+                    self.engine
+                        .store()
+                        .expire_lease(&lease, time::OffsetDateTime::now_utc().unix_timestamp())?;
+                }
+                return Err(error);
+            }
+        };
         let completed_at = time::OffsetDateTime::now_utc().unix_timestamp();
         self.engine
             .store()
@@ -104,6 +118,9 @@ impl<E: NodeExecutor> Worker<'_, E> {
         } else {
             self.engine.execute(&completion.follow_up)?;
         }
+        self.engine
+            .store()
+            .expire_lease(&lease, time::OffsetDateTime::now_utc().unix_timestamp())?;
         Ok(())
     }
 }

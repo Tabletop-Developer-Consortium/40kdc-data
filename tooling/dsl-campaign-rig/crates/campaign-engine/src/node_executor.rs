@@ -286,7 +286,11 @@ impl CampaignNodeExecutor {
             {
                 Ok(result) => return Ok(result),
                 Err(EngineError::Role(
-                    RoleError::SchemaInvalid | RoleError::SemanticInvalid(_),
+                    RoleError::SchemaInvalid
+                    | RoleError::SemanticInvalid(_)
+                    | RoleError::ProviderFailure(
+                        "payload-json-invalid" | "response-envelope-invalid",
+                    ),
                 )) if retry == 0 => {
                     if let Some(task) = retry_task.as_object_mut() {
                         task.insert(

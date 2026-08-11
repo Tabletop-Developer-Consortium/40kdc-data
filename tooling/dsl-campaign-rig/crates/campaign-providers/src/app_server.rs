@@ -153,7 +153,6 @@ impl AppServerTransport {
         }
         let codex_path = codex_path.canonicalize()?;
         let safe_cwd = safe_cwd.canonicalize()?;
-        reject_symlink_descendants(&safe_cwd)?;
         let binary_hash = Hash256::digest(std::fs::read(&codex_path)?);
         let version_output = Command::new(&codex_path).arg("--version").output().await?;
         if !version_output.status.success() {
@@ -162,7 +161,6 @@ impl AppServerTransport {
         let version = String::from_utf8(version_output.stdout)
             .map_err(|_| ProviderError::ProtocolMismatch)?;
         let codex_home = prepare_codex_home(&safe_cwd)?;
-        reject_symlink_descendants(&safe_cwd)?;
         let mut session = RpcSession::start(&codex_path, &codex_home).await?;
         let account = session
             .request("account/read", json!({"refreshToken": false}))
@@ -633,7 +631,6 @@ fn prepare_codex_home(state_root: &Path) -> Result<PathBuf, ProviderError> {
     let runtime_home = state_root.join("codex-home");
     reject_symlink_path(&runtime_home)?;
     fs::create_dir_all(&runtime_home)?;
-    reject_symlink_descendants(&runtime_home)?;
     set_owner_only_directory(&runtime_home)?;
     let source_home = std::env::var_os("CODEX_HOME")
         .map(PathBuf::from)

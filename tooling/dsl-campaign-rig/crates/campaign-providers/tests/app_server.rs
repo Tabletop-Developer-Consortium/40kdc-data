@@ -1,6 +1,9 @@
 #![cfg(unix)]
 
-use std::{fs, os::unix::fs::PermissionsExt};
+use std::{
+    fs,
+    os::unix::fs::{PermissionsExt, symlink},
+};
 
 use campaign_domain::Hash256;
 use campaign_providers::{
@@ -111,6 +114,9 @@ async fn subscription_probe_turn_and_crash_resume_are_bounded() {
     assert!(exchange.usage.available);
     assert_eq!(exchange.usage.input_tokens, 11);
 
+    let runtime_tmp = root.path().join("codex-home/tmp");
+    fs::create_dir_all(&runtime_tmp).unwrap();
+    symlink("/usr/bin/true", runtime_tmp.join("codex-runtime-wrapper")).unwrap();
     fs::write(root.path().join("mode"), "crash").unwrap();
     let crashing = AppServerTransport::connect(&codex, root.path(), "gpt-5.6-luna", "high")
         .await

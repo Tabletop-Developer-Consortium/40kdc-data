@@ -269,6 +269,33 @@ impl CampaignNodeExecutor {
         input_artifacts: Vec<Hash256>,
         task: Value,
     ) -> Result<ValidatedRoleResult, EngineError> {
+        self.run_role_checked(
+            node,
+            lease,
+            role,
+            attempt,
+            voter,
+            input_artifacts,
+            task,
+            |_| Ok(()),
+        )
+        .await
+    }
+
+    async fn run_role_checked<F>(
+        &self,
+        node: &WorkNode,
+        lease: &Lease,
+        role: Role,
+        attempt: u8,
+        voter: Option<u8>,
+        input_artifacts: Vec<Hash256>,
+        task: Value,
+        validate: F,
+    ) -> Result<ValidatedRoleResult, EngineError>
+    where
+        F: Fn(&ValidatedRoleResult) -> Result<(), RoleError> + Send + Sync,
+    {
         let state = self.state(node)?;
         let max_attempts = state
             .manifest
@@ -280,7 +307,7 @@ impl CampaignNodeExecutor {
         let mut retry_task = task;
         for retry_index in 0..attempt_count {
             let current_attempt = attempt.saturating_add(retry_index);
-            match self
+            let result = self
                 .run_role_once(
                     node,
                     lease,
@@ -291,7 +318,11 @@ impl CampaignNodeExecutor {
                     retry_task.clone(),
                 )
                 .await
-            {
+                .and_then(|result| {
+                    validate(&result).map_err(EngineError::Role)?;
+                    Ok(result)
+                });
+            match result {
                 Ok(result) => return Ok(result),
                 Err(EngineError::Role(error))
                     if retry_index.saturating_add(1) < attempt_count
@@ -524,6 +555,9 @@ fn role_retry_instruction(error: &RoleError) -> &'static str {
     match error {
         RoleError::SemanticInvalid("missing-clause-coverage") => {
             "Return the full Arch-Magos authoring envelope, not a bare abilities.json entry. Put the complete candidate under payload.json's dsl field and include clause_coverage with exactly one row for every supplied clause_id, plus dropped_clauses, placeholder_encoding, approx_mechanical, resisted_schema, self_grade, and confidence."
+        }
+        RoleError::SemanticInvalid("source-prose-copy") => {
+            "The candidate copied source prose into a DSL string field and was discarded. Return a fresh candidate using canonical DSL identifiers and independently authored mechanic descriptions; do not quote or closely reproduce the supplied raw text."
         }
         RoleError::PayloadJsonInvalid(_) => {
             "Return a fresh result matching the supplied schema and semantic contract exactly. Validate payload.json as one standalone JSON object. Finding severity must be an integer from 1 through 3."
@@ -979,30 +1013,40 @@ impl NodeExecutor for CampaignNodeExecutor {
                     .get("detachment_id")
                     .cloned()
                     .unwrap_or(Value::Null);
-                let result = self.run_role(
-                    node,
-                    lease,
-                    Role::ArchMagos,
-                    ability.attempt.saturating_add(1),
-                    None,
-                    vec![evidence_hash, architecture_hash, decomposition_hash],
-                    json!({
-                        "ability_id": key.ability_id,
-                        "faction_id": key.faction_id,
-                        "raw_text": source.source_text,
-                        "name": name,
-                        "ability_type": ability_type,
-                        "detachment_id": detachment_id,
-                        "previous_dsl": previous_dsl,
-                        "previous_cosine": ability.score_start,
-                        "clause_ids": ability.clauses.as_ref().ok_or(EngineError::Policy)?.all,
-                        "mechanical_clause_ids": ability.clauses.as_ref().ok_or(EngineError::Policy)?.mechanical,
-                        "evidence_packet": serde_json::from_slice::<Value>(&self.engine.store().read_artifact(evidence_hash)?)?,
-                        "architecture": serde_json::from_slice::<Value>(&self.engine.store().read_artifact(architecture_hash)?)?,
-                        "decomposition": serde_json::from_slice::<Value>(&self.engine.store().read_artifact(decomposition_hash)?)?,
-                        "revision_thread": ability.revision_thread_hash.map(|hash| self.engine.store().read_artifact(hash)).transpose()?.map(|bytes| serde_json::from_slice::<Value>(&bytes)).transpose()?,
-                    }),
-                ).await?;
+                let result = self
+                    .run_role_checked(
+                        node,
+                        lease,
+                        Role::ArchMagos,
+                        ability.attempt.saturating_add(1),
+                        None,
+                        vec![evidence_hash, architecture_hash, decomposition_hash],
+                        json!({
+                            "ability_id": key.ability_id,
+                            "faction_id": key.faction_id,
+                            "raw_text": source.source_text,
+                            "name": name,
+                            "ability_type": ability_type,
+                            "detachment_id": detachment_id,
+                            "previous_dsl": previous_dsl,
+                            "previous_cosine": ability.score_start,
+                            "clause_ids": ability.clauses.as_ref().ok_or(EngineError::Policy)?.all,
+                            "mechanical_clause_ids": ability.clauses.as_ref().ok_or(EngineError::Policy)?.mechanical,
+                            "evidence_packet": serde_json::from_slice::<Value>(&self.engine.store().read_artifact(evidence_hash)?)?,
+                            "architecture": serde_json::from_slice::<Value>(&self.engine.store().read_artifact(architecture_hash)?)?,
+                            "decomposition": serde_json::from_slice::<Value>(&self.engine.store().read_artifact(decomposition_hash)?)?,
+                            "revision_thread": ability.revision_thread_hash.map(|hash| self.engine.store().read_artifact(hash)).transpose()?.map(|bytes| serde_json::from_slice::<Value>(&bytes)).transpose()?,
+                        }),
+                        |result| {
+                            validate_candidate_role_result(
+                                &previous_dsl,
+                                &key,
+                                &source.source_text,
+                                result,
+                            )
+                        },
+                    )
+                    .await?;
                 if matches!(
                     result.result.verdict,
                     campaign_roles::RoleVerdict::NeedsSchema
@@ -4399,6 +4443,38 @@ fn candidate_from_role_payload(current: &Value, payload: &Value) -> Result<Value
     Ok(Value::Object(candidate))
 }
 
+fn validate_candidate_role_result(
+    current: &Value,
+    key: &campaign_domain::AbilityKey,
+    source_text: &str,
+    result: &ValidatedRoleResult,
+) -> Result<(), RoleError> {
+    if matches!(
+        result.result.verdict,
+        campaign_roles::RoleVerdict::NeedsSchema
+    ) {
+        return Ok(());
+    }
+    validate_candidate_payload(current, key, source_text, &result.result.payload)
+}
+
+fn validate_candidate_payload(
+    current: &Value,
+    key: &campaign_domain::AbilityKey,
+    source_text: &str,
+    payload: &Value,
+) -> Result<(), RoleError> {
+    let candidate = candidate_from_role_payload(current, payload)
+        .map_err(|_| RoleError::SemanticInvalid("candidate-dsl"))?;
+    ensure_candidate_identity(&candidate, current, key)
+        .map_err(|_| RoleError::SemanticInvalid("candidate-identity"))?;
+    SensitiveCorpus::new([source_text.as_bytes()])
+        .reject_sensitive_bytes(
+            &serde_json::to_vec(&candidate).map_err(|_| RoleError::SchemaInvalid)?,
+        )
+        .map_err(|_| RoleError::SemanticInvalid("source-prose-copy"))
+}
+
 fn ensure_candidate_identity(
     candidate: &Value,
     current: &Value,
@@ -4622,13 +4698,14 @@ fn utf16_slice(source: &str, start: usize, end: usize) -> Option<&str> {
 
 #[cfg(test)]
 mod evidence_tests {
+    use campaign_domain::{AbilityId, AbilityKey, FactionId};
     use campaign_roles::RoleError;
     use serde_json::json;
 
     use super::{
         candidate_from_role_payload, normalized_evidence_packet, parse_evidence_packet,
         retryable_role_error, role_error_diagnostic, role_retry_instruction,
-        shape_internal_family_size,
+        shape_internal_family_size, validate_candidate_payload,
     };
     #[test]
     fn malformed_nested_payload_is_retryable_with_parser_diagnostics() {
@@ -4650,6 +4727,47 @@ mod evidence_tests {
 
         assert!(role_retry_instruction(&error).contains("full Arch-Magos authoring envelope"));
         assert!(role_retry_instruction(&error).contains("exactly one row"));
+    }
+
+    #[test]
+    fn copied_source_prose_is_discarded_and_retried() {
+        let current = json!({
+            "ability_id": "fabricated-ability",
+            "name": "Example Mechanic",
+            "authored_by": ["Example Contributor"],
+            "game_version": {"edition": "11th", "dataslate": "test"},
+            "ability_type": "unit",
+            "effect": {"type": "deep-strike"}
+        });
+        let key = AbilityKey::new(
+            FactionId::new("test-faction").unwrap(),
+            AbilityId::new("fabricated-ability").unwrap(),
+        );
+        let source = "Select this model to include in your army, then choose one fabricated mark.";
+        let copied = json!({
+            "dsl": {
+                "trigger": {
+                    "event": "army-inclusion",
+                    "condition": "select this model to include in your army"
+                }
+            }
+        });
+
+        let error = validate_candidate_payload(&current, &key, source, &copied).unwrap_err();
+
+        assert_eq!(error, RoleError::SemanticInvalid("source-prose-copy"));
+        assert!(retryable_role_error(&error));
+        assert!(role_retry_instruction(&error).contains("independently authored"));
+
+        let paraphrased = json!({
+            "dsl": {
+                "trigger": {
+                    "event": "army-inclusion",
+                    "condition": "during roster construction"
+                }
+            }
+        });
+        validate_candidate_payload(&current, &key, source, &paraphrased).unwrap();
     }
 
     #[test]

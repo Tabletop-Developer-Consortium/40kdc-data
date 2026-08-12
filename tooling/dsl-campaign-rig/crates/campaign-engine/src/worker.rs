@@ -33,6 +33,12 @@ impl Drop for AbortOnDrop {
     }
 }
 
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum WorkRunStatus {
+    Completed,
+    LeaseHeld,
+}
+
 pub struct Worker<'a, E> {
     pub engine: &'a CampaignEngine,
     pub campaign_id: CampaignId,
@@ -42,14 +48,18 @@ pub struct Worker<'a, E> {
 }
 
 impl<E: NodeExecutor> Worker<'_, E> {
-    pub async fn run_node(&self, node: &WorkNode, now: i64) -> Result<(), EngineError> {
+    pub async fn run_node(&self, node: &WorkNode, now: i64) -> Result<WorkRunStatus, EngineError> {
         let resource_key = format!("campaign:{}:work:{}", self.campaign_id, node.work_id);
-        let lease = self.engine.store().acquire_lease(
+        let lease = match self.engine.store().acquire_lease(
             &resource_key,
             &self.owner_id,
             now,
             self.lease_ttl_seconds,
-        )?;
+        ) {
+            Ok(lease) => lease,
+            Err(campaign_store::StoreError::LeaseHeld) => return Ok(WorkRunStatus::LeaseHeld),
+            Err(error) => return Err(error.into()),
+        };
         let heartbeat_store = self.engine.store().clone();
         let mut heartbeat_lease = lease.clone();
         let heartbeat_every = (self.lease_ttl_seconds / 3).max(1) as u64;
@@ -121,6 +131,6 @@ impl<E: NodeExecutor> Worker<'_, E> {
         self.engine
             .store()
             .expire_lease(&lease, time::OffsetDateTime::now_utc().unix_timestamp())?;
-        Ok(())
+        Ok(WorkRunStatus::Completed)
     }
 }

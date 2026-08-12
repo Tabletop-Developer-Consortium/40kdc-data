@@ -1,5 +1,6 @@
 import { defineConfig, type Plugin } from "vite";
 import { svelte } from "@sveltejs/vite-plugin-svelte";
+import { projectBattlemaster, type BattlemasterProjection } from "../../tools/src/project-battlemaster.js";
 import { buildSha, dataPackageVersion } from "../_shared/build-stamp.js";
 
 /**
@@ -67,8 +68,36 @@ function stubNodeOnlyModules(): Plugin {
   };
 }
 
+/** Local authoring endpoint for the read-only Battlemaster projection. The
+ * browser never receives Steam/BSON/Lua plumbing; it receives canonical shapes. */
+function battlemasterProjection(): Plugin {
+  let projection: Promise<BattlemasterProjection> | null = null;
+  return {
+    name: "layout-editor:battlemaster-projection",
+    apply: "serve",
+    configureServer(server) {
+      server.middlewares.use("/__battlemaster-projection", async (_request, response) => {
+        try {
+          projection ??= projectBattlemaster();
+          const payload = await projection;
+          response.statusCode = 200;
+          response.setHeader("content-type", "application/json; charset=utf-8");
+          response.end(JSON.stringify(payload));
+        } catch (error) {
+          projection = null;
+          response.statusCode = 502;
+          response.setHeader("content-type", "application/json; charset=utf-8");
+          response.end(JSON.stringify({
+            error: error instanceof Error ? error.message : String(error),
+          }));
+        }
+      });
+    },
+  };
+}
+
 export default defineConfig({
-  plugins: [stubNodeOnlyModules(), svelte()],
+  plugins: [stubNodeOnlyModules(), battlemasterProjection(), svelte()],
   base: process.env.TOOLLET_BASE ?? "/",
   define: {
     // Footer staleness stamp: bundled dataset version + build commit.

@@ -13,7 +13,7 @@ use campaign_domain::{
 };
 use campaign_engine::{
     CampaignEngine, CloseEvidence, EngineError, NodeExecutor, WorkCompletion, WorkKind, WorkNode,
-    Worker, import_omp_evidence, ready_work, validate_close,
+    WorkRunStatus, Worker, import_omp_evidence, ready_work, validate_close,
 };
 use campaign_executors::{ParityAreaResult, SIX_PAIRS};
 use campaign_store::{CampaignStore, Lease};
@@ -316,6 +316,40 @@ async fn worker_fences_append_and_retries_are_idempotent_after_a_crash() {
             .unwrap()
             .is_empty()
     );
+}
+
+#[tokio::test]
+async fn worker_reports_an_active_orphan_lease_without_running_the_node() {
+    let paths = TestPaths::new();
+    let store = paths.store();
+    let campaign_id = CampaignId::new("busy-worker-campaign").unwrap();
+    let node = test_node();
+    let resource_key = format!("campaign:{campaign_id}:work:{}", node.work_id);
+    let now = time::OffsetDateTime::now_utc().unix_timestamp();
+    store
+        .acquire_lease(&resource_key, "interrupted-worker", now, 300)
+        .unwrap();
+    let executor = FakeNodeExecutor {
+        campaign_id: campaign_id.clone(),
+        engine_hash: hash("engine"),
+        command_id: CommandId::new(),
+        wrong_fence: false,
+        observed_fences: Mutex::new(vec![]),
+    };
+    let engine = CampaignEngine::new(store, hash("engine"), false);
+    let worker = Worker {
+        engine: &engine,
+        campaign_id,
+        executor: &executor,
+        owner_id: "replacement-worker".into(),
+        lease_ttl_seconds: 300,
+    };
+
+    assert_eq!(
+        worker.run_node(&node, now + 1).await.unwrap(),
+        WorkRunStatus::LeaseHeld
+    );
+    assert!(executor.observed_fences.lock().unwrap().is_empty());
 }
 
 fn valid_close_evidence() -> CloseEvidence {

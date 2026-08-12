@@ -40,7 +40,7 @@ impl CampaignStore {
             .as_ref()
             .is_some_and(|(_, _, expires_at)| *expires_at > now)
         {
-            return Err(StoreError::StaleLease);
+            return Err(StoreError::LeaseHeld);
         }
         let token = existing.map_or(1, |(_, token, _)| token as u64 + 1);
         let expires_at = now + ttl_seconds;

@@ -2,7 +2,9 @@ use std::collections::BTreeSet;
 
 use campaign_domain::{CampaignId, CampaignPhase};
 
-use crate::{CampaignEngine, EngineError, NodeExecutor, Worker, ready_work_with_policy};
+use crate::{
+    CampaignEngine, EngineError, NodeExecutor, WorkRunStatus, Worker, ready_work_with_policy,
+};
 
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct RunSummary {
@@ -43,17 +45,28 @@ pub async fn run_until_idle<E: NodeExecutor>(
                 idle: nodes.is_empty(),
             });
         }
+        let mut made_progress = false;
+        let mut held_leases = 0;
         for node in nodes {
             if executed >= max_nodes {
                 break;
             }
-            worker
+            match worker
                 .run_node(
                     &node,
                     now.saturating_add(started.elapsed().as_secs() as i64),
                 )
-                .await?;
-            executed += 1;
+                .await?
+            {
+                WorkRunStatus::Completed => {
+                    executed += 1;
+                    made_progress = true;
+                }
+                WorkRunStatus::LeaseHeld => {
+                    held_leases += 1;
+                    continue;
+                }
+            }
             if node.kind == crate::WorkKind::Publish
                 && engine.state(campaign_id)?.phase == CampaignPhase::Publishing
             {
@@ -63,6 +76,13 @@ pub async fn run_until_idle<E: NodeExecutor>(
                     idle: false,
                 });
             }
+        }
+        if !made_progress && held_leases > 0 {
+            return Ok(RunSummary {
+                executed_work: executed,
+                remaining_work: held_leases,
+                idle: false,
+            });
         }
     }
 }

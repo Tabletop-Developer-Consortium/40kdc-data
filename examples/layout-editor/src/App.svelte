@@ -10,6 +10,8 @@
     loadEmbedded,
     resolve,
     toCanonicalJson,
+    loadTerrainLayout,
+    registerTerrainTemplates,
     movePiece,
     orientPiece,
     setLinkGroup,
@@ -56,7 +58,7 @@
     type TerritoryDivider,
     type ObjectiveRole,
   } from "./lib/model.js";
-  import type { TerrainTemplate } from "@alpaca-software/40kdc-data";
+  import type { TerrainLayout, TerrainTemplate } from "@alpaca-software/40kdc-data";
   import type { TerrainSetDef } from "./lib/sets.js";
   import Board from "./lib/Board.svelte";
   import ReferenceBackground from "./lib/ReferenceBackground.svelte";
@@ -111,6 +113,18 @@
   let referenceOpacity = $state(0.45);
   // Session-only fade for the authored terrain overlay while tracing a reference map.
   let terrainOpacity = $state(1);
+  interface BattlemasterProjectionPayload {
+    readonly: true;
+    source: { baked_at: string; catalog_id: string };
+    terrain_templates: TerrainTemplate[];
+    terrain_layouts: TerrainLayout[];
+  }
+
+  let battlemasterLoading = $state(false);
+  let battlemasterError = $state<string | null>(null);
+  let battlemasterProjection = $state<BattlemasterProjectionPayload | null>(null);
+  let battlemasterSource = $state<string | null>(null);
+  let battlemasterSelectedId = $state("");
 
   let solverHover = $state<SolverHover | null>(null);
   let solverLines = $state<SolverLine[]>([]);
@@ -124,6 +138,8 @@
   const selectedBoardPos = $derived(
     selectedPiece ? boardCentroid(layout, selectedPiece) : { x: 0, y: 0 },
   );
+  const areas = $derived(CATALOG.filter((t) => t.kind === "area"));
+  const features = $derived(CATALOG.filter((t) => t.kind === "feature"));
   const markers = $derived(objectiveMarkers(layout));
   // "Needs review" warnings for the working layout: overlapping pieces + off-grid
   // keystones. The banner lists them; the board dims every piece one names.
@@ -136,9 +152,6 @@
     selectedPiece ? keystoneDisplays(layout).filter((d) => d.pieceId === selectedPiece.id) : [],
   );
   const exportText = $derived(JSON.stringify(toCanonicalJson(layout), null, 2));
-
-  const areas = CATALOG.filter((t) => t.kind === "area");
-  const features = CATALOG.filter((t) => t.kind === "feature");
 
   // Area pieces the selected feature can be anchored to. In symmetric mode each
   // area has a twin; we list only one of each pair, since parenting to it carries
@@ -195,6 +208,84 @@
     if (symmetric) repairTwins(layout);
     else unpairTwins(layout);
   }
+
+  function isRecord(value: unknown): value is Record<string, unknown> {
+    return typeof value === "object" && value !== null && !Array.isArray(value);
+  }
+
+  function isTerrainTemplate(value: unknown): value is TerrainTemplate {
+    return isRecord(value) &&
+      typeof value.id === "string" &&
+      typeof value.name === "string" &&
+      (value.kind === "area" || value.kind === "feature") &&
+      isRecord(value.footprint);
+  }
+
+  function isTerrainLayout(value: unknown): value is TerrainLayout {
+    if (!isRecord(value) || typeof value.id !== "string" || typeof value.name !== "string" ||
+      !Array.isArray(value.pieces)) return false;
+    return value.pieces.every((piece) =>
+      isRecord(piece) &&
+      isRecord(piece.position) &&
+      typeof piece.position.x === "number" &&
+      typeof piece.position.y === "number",
+    );
+  }
+
+  function readBattlemasterProjection(value: unknown): BattlemasterProjectionPayload {
+    if (!isRecord(value) ||
+      value.readonly !== true ||
+      !isRecord(value.source) ||
+      typeof value.source.baked_at !== "string" ||
+      typeof value.source.catalog_id !== "string" ||
+      !Array.isArray(value.terrain_templates) ||
+      !value.terrain_templates.every(isTerrainTemplate) ||
+      !Array.isArray(value.terrain_layouts) ||
+      !value.terrain_layouts.every(isTerrainLayout)) {
+      throw new Error("Battlemaster returned an invalid terrain projection.");
+    }
+    return {
+      readonly: true,
+      source: {
+        baked_at: value.source.baked_at,
+        catalog_id: value.source.catalog_id,
+      },
+      terrain_templates: value.terrain_templates,
+      terrain_layouts: value.terrain_layouts,
+    };
+  }
+
+  function applyBattlemasterLayout(projected: TerrainLayout): void {
+    battlemasterSelectedId = projected.id;
+    selectedId = null;
+    deployment = projected.deployment_pattern_id ?? defaultDeploymentFor(projected.id);
+  }
+    const projected = battlemasterProjection?.terrain_layouts.find((candidate) => candidate.id === id);
+    if (projected) battlemasterSelectedId = projected.id;
+
+  async function importBattlemaster(): Promise<void> {
+    battlemasterLoading = true;
+    battlemasterError = null;
+    try {
+      const response = await fetch(`${import.meta.env.BASE_URL}__battlemaster-projection`);
+      const body: unknown = await response.json();
+      if (!response.ok) {
+        const detail = isRecord(body) && typeof body.error === "string" ? body.error : `HTTP ${response.status}`;
+        throw new Error(detail);
+      }
+      battlemasterProjection = projection;
+      battlemasterLayouts = projection.terrain_layouts;
+      battlemasterSource = `${projection.source.catalog_id} · ${projection.source.baked_at}`;
+      const target = projection.terrain_layouts.find((candidate) => candidate.id === layout.id) ??
+        projection.terrain_layouts[0];
+      if (target) applyBattlemasterLayout(target);
+    } catch (error) {
+      battlemasterError = error instanceof Error ? error.message : String(error);
+    } finally {
+      battlemasterLoading = false;
+    }
+  }
+
 
   // A feature added while an AREA is selected anchors to that area on arrival
   // (the usual flow: select the area, then stock it with features).
@@ -561,6 +652,34 @@
         aria-label="Layout title"
         placeholder="Untitled layout"
       />
+      {#if import.meta.env.DEV}
+        <section class="battlemaster-import" aria-label="Battlemaster projection">
+          <strong>Battlemaster overlay</strong>
+          <button type="button" onclick={importBattlemaster} disabled={battlemasterLoading}>
+            {battlemasterLoading ? "Loading…" : battlemasterLayouts.length ? "Refresh source" : "Load live source"}
+          </button>
+          <select
+            aria-label="Battlemaster layout"
+            value={battlemasterSelectedId}
+            onchange={(event) => onBattlemasterLayoutChange(event.currentTarget.value)}
+            disabled={battlemasterLayouts.length === 0}
+          >
+            <option value="">Choose layout</option>
+            {#each battlemasterLayouts as projected (projected.id)}
+              <option value={projected.id}>{projected.name}</option>
+            {/each}
+          </select>
+          <span class="battlemaster-note">
+            {#if battlemasterError}
+              <span class="battlemaster-error" role="status">{battlemasterError}</span>
+            {:else if battlemasterSource}
+              {battlemasterLayouts.length} layouts · {battlemasterSource} · load the map PDF below
+            {:else}
+              Imports 40kdc schema shapes; it does not modify repository data.
+            {/if}
+          </span>
+        </section>
+      {/if}
       <ReferenceBackground
         {layout}
         bind:opacity={referenceOpacity}
@@ -585,7 +704,7 @@
           {referenceImage}
           {referenceOpacity}
           {referenceFit}
-        {terrainOpacity}
+          {terrainOpacity}
           snap={{ enabled: snapEnabled, step: snapStep }}
           {clockPiece}
           clockCandidate={clockPick?.candidate ?? null}
@@ -740,6 +859,56 @@
     outline: none;
     border-color: var(--accent);
     background: var(--bg);
+  }
+  .battlemaster-import {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.45rem 0.65rem;
+    margin: 0 0 0.55rem;
+    padding: 0.45rem 0.55rem;
+    color: var(--text-dim);
+    background: var(--surface-2);
+    border: 1px solid var(--rim-strong);
+    border-radius: 4px;
+    font-size: 0.78rem;
+  }
+  .battlemaster-import strong {
+    color: var(--text);
+    font-weight: 600;
+  }
+  .battlemaster-import button,
+  .battlemaster-import select {
+    padding: 0.2rem 0.45rem;
+    color: var(--text);
+    background: var(--bg);
+    border: 1px solid var(--rim-strong);
+    border-radius: 4px;
+    font: inherit;
+  }
+  .battlemaster-import button {
+    cursor: pointer;
+  }
+  .battlemaster-import button:hover:not(:disabled) {
+    border-color: var(--accent);
+    background: var(--accent-fill);
+  }
+  .battlemaster-import button:focus-visible,
+  .battlemaster-import select:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 1px;
+  }
+  .battlemaster-import button:disabled,
+  .battlemaster-import select:disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+  }
+  .battlemaster-note {
+    flex: 1 1 20rem;
+    color: var(--text-mute);
+  }
+  .battlemaster-error {
+    color: var(--danger, #9d3029);
   }
   .layout-title::placeholder {
     color: var(--text-mute);

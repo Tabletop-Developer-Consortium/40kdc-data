@@ -255,7 +255,7 @@ fn leases_fence_replacements_and_outbox_claims() {
         .unwrap();
     assert!(matches!(
         store.acquire_lease("fabricated-resource", "worker-b", 101, 10),
-        Err(StoreError::StaleLease)
+        Err(StoreError::LeaseHeld)
     ));
     let replacement = store
         .acquire_lease("fabricated-resource", "worker-b", 110, 10)

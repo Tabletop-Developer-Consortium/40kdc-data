@@ -14,6 +14,8 @@ pub enum StoreError {
     MissingArtifact,
     #[error("command receipt conflicts with the requested command")]
     ReceiptConflict,
+    #[error("lease is currently held")]
+    LeaseHeld,
     #[error("lease is stale or superseded")]
     StaleLease,
     #[error("outbox effect cannot be reconciled")]

@@ -1005,14 +1005,9 @@ impl NodeExecutor for CampaignNodeExecutor {
                         effect,
                     });
                 }
-                let candidate = result
-                    .result
-                    .payload
-                    .get("dsl")
-                    .or_else(|| result.result.payload.get("candidate"))
-                    .cloned()
-                    .unwrap_or_else(|| result.result.payload.clone());
-                ensure_candidate_identity(&candidate, &self.current_dsl(&key)?, &key)?;
+                let current_dsl = self.current_dsl(&key)?;
+                let candidate = candidate_from_role_payload(&current_dsl, &result.result.payload)?;
+                ensure_candidate_identity(&candidate, &current_dsl, &key)?;
                 let candidate_bytes = serde_json::to_vec(&candidate)?;
                 SensitiveCorpus::new([source.source_text.as_bytes()])
                     .reject_sensitive_bytes(&candidate_bytes)?;
@@ -4267,6 +4262,39 @@ fn observe_applied(
     }))
 }
 
+fn candidate_from_role_payload(current: &Value, payload: &Value) -> Result<Value, EngineError> {
+    let authored = payload
+        .get("dsl")
+        .or_else(|| payload.get("candidate"))
+        .unwrap_or(payload)
+        .as_object()
+        .ok_or(EngineError::Policy)?;
+    let mut candidate = current.as_object().cloned().ok_or(EngineError::Policy)?;
+    for field in [
+        "behavior",
+        "effect",
+        "trigger",
+        "scope",
+        "applies_to",
+        "usage",
+        "interactions",
+        "disputed",
+        "dispute_notes",
+        "community_notes",
+    ] {
+        match authored.get(field) {
+            Some(Value::Null) if field != "applies_to" => {
+                candidate.remove(field);
+            }
+            Some(value) => {
+                candidate.insert(field.into(), value.clone());
+            }
+            None => {}
+        }
+    }
+    Ok(Value::Object(candidate))
+}
+
 fn ensure_candidate_identity(
     candidate: &Value,
     current: &Value,
@@ -4481,7 +4509,7 @@ fn utf16_slice(source: &str, start: usize, end: usize) -> Option<&str> {
 mod evidence_tests {
     use serde_json::json;
 
-    use super::parse_evidence_packet;
+    use super::{candidate_from_role_payload, parse_evidence_packet};
 
     #[test]
     fn incomplete_model_partition_falls_back_to_the_complete_source() {
@@ -4523,5 +4551,36 @@ mod evidence_tests {
 
         assert_eq!(packet.clauses.len(), 1);
         assert_eq!(packet.clauses[0].end_utf16, source.encode_utf16().count());
+    }
+
+    #[test]
+    fn candidate_projection_preserves_identity_and_discards_review_metadata() {
+        let current = json!({
+            "ability_id": "fabricated-ability",
+            "name": "Fabricated Ability",
+            "authored_by": ["Example Contributor"],
+            "game_version": {"edition": "11th", "dataslate": "test"},
+            "ability_type": "unit",
+            "detachment_id": null,
+            "effect": {"type": "deep-strike"},
+            "scope": {"target": "self"},
+            "trigger": {"event": "command-phase-start"}
+        });
+        let payload = json!({
+            "ability_id": "fabricated-ability",
+            "effect": {"type": "feel-no-pain", "value": 5},
+            "scope": {"target": "self"},
+            "trigger": null,
+            "self_grade": {"verdict": "faithful"},
+            "clause_coverage": [{"clause_id": "C1"}]
+        });
+
+        let candidate = candidate_from_role_payload(&current, &payload).unwrap();
+
+        assert_eq!(candidate["authored_by"], current["authored_by"]);
+        assert_eq!(candidate["effect"], payload["effect"]);
+        assert!(candidate.get("trigger").is_none());
+        assert!(candidate.get("self_grade").is_none());
+        assert!(candidate.get("clause_coverage").is_none());
     }
 }

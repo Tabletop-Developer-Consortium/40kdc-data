@@ -550,8 +550,7 @@ impl NodeExecutor for CampaignNodeExecutor {
                     .payload
                     .get("evidence_packet")
                     .unwrap_or(&result.result.payload);
-                let packet = parse_evidence_packet(native, &source.source_text)?;
-                validate_evidence_packet(&source.source_text, &packet)?;
+                let packet = normalized_evidence_packet(native, &source.source_text)?;
                 let packet_bytes = serde_json::to_vec(&packet)?;
                 let packet_hash = Hash256::digest(&packet_bytes);
                 let all_clause_ids = packet
@@ -4329,6 +4328,17 @@ fn find_entry<'a>(entries: &'a [Value], key: &campaign_domain::AbilityKey) -> Op
     })
 }
 
+fn normalized_evidence_packet(value: &Value, source: &str) -> Result<EvidencePacket, EngineError> {
+    let packet = parse_evidence_packet(value, source)?;
+    if validate_evidence_packet(source, &packet).is_ok() {
+        Ok(packet)
+    } else {
+        let fallback = full_evidence_packet(source);
+        validate_evidence_packet(source, &fallback)?;
+        Ok(fallback)
+    }
+}
+
 fn process_bytes(result: &campaign_executors::ProcessResult) -> Vec<u8> {
     serde_json::to_vec(&json!({
         "exit_code": result.exit_code,
@@ -4509,7 +4519,7 @@ fn utf16_slice(source: &str, start: usize, end: usize) -> Option<&str> {
 mod evidence_tests {
     use serde_json::json;
 
-    use super::{candidate_from_role_payload, parse_evidence_packet};
+    use super::{candidate_from_role_payload, normalized_evidence_packet, parse_evidence_packet};
 
     #[test]
     fn incomplete_model_partition_falls_back_to_the_complete_source() {
@@ -4550,6 +4560,30 @@ mod evidence_tests {
         .unwrap();
 
         assert_eq!(packet.clauses.len(), 1);
+        assert_eq!(packet.clauses[0].end_utf16, source.encode_utf16().count());
+    }
+
+    #[test]
+    fn non_contiguous_model_partition_falls_back_to_the_complete_source() {
+        let source = "Fabricated first and second rule.";
+        let packet = normalized_evidence_packet(
+            &json!({
+                "clauses": [
+                    {"clause_id": "C1", "start": 0, "end": 10, "mechanical": true},
+                    {
+                        "clause_id": "C2",
+                        "start": 11,
+                        "end": source.encode_utf16().count(),
+                        "mechanical": true
+                    }
+                ]
+            }),
+            source,
+        )
+        .unwrap();
+
+        assert_eq!(packet.clauses.len(), 1);
+        assert_eq!(packet.clauses[0].start_utf16, 0);
         assert_eq!(packet.clauses[0].end_utf16, source.encode_utf16().count());
     }
 

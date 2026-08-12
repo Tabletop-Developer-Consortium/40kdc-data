@@ -344,6 +344,7 @@ fn map_provider_error(error: ProviderError) -> RoleError {
         ProviderError::IdentityMismatch => RoleError::ProviderFailure("identity-mismatch"),
         ProviderError::CapabilityDenied => RoleError::ProviderFailure("capability-denied"),
         ProviderError::ProcessEnded => RoleError::ProviderFailure("process-ended"),
+        ProviderError::TerminalTurnFailed => RoleError::ProviderFailure("terminal-turn-failed"),
         ProviderError::SubscriptionRequired => RoleError::ProviderFailure("subscription-required"),
         ProviderError::ApiKeyForbidden => RoleError::ProviderFailure("api-key-forbidden"),
         ProviderError::UsageUnavailable => RoleError::ProviderFailure("usage-unavailable"),

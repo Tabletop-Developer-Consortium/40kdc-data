@@ -383,26 +383,29 @@ impl AppServerTransport {
         };
         match turn.get("status").and_then(Value::as_str) {
             Some("completed") => Ok(Some(turn.clone())),
-            Some("failed" | "interrupted") => Err(ProviderError::ProcessEnded),
+            Some("failed" | "interrupted") => Err(ProviderError::TerminalTurnFailed),
             _ => Err(ProviderError::Unreconciled(None)),
         }
     }
 
-    fn finish_turn(
-        turn: Value,
-        checkpoint: TransportCheckpoint,
-        usage: UsageSample,
-    ) -> Result<TransportExchange, ProviderError> {
-        if contains_tool_item(&turn) {
+    fn completed_turn_response(turn: &Value) -> Result<Value, ProviderError> {
+        if contains_tool_item(turn) {
             return Err(ProviderError::CapabilityDenied);
         }
         if turn.get("status").and_then(Value::as_str) != Some("completed") {
-            return Err(ProviderError::ProcessEnded);
+            return Err(ProviderError::TerminalTurnFailed);
         }
-        let text = extract_agent_message(&turn).ok_or(ProviderError::InvalidStructuredOutput)?;
-        let response =
-            serde_json::from_str(text).map_err(|_| ProviderError::InvalidStructuredOutput)?;
-        Ok(TransportExchange {
+        let text = extract_agent_message(turn).ok_or(ProviderError::InvalidStructuredOutput)?;
+        serde_json::from_str(text).map_err(|_| ProviderError::InvalidStructuredOutput)
+    }
+
+    fn finish_turn(
+        turn: &Value,
+        response: Value,
+        checkpoint: TransportCheckpoint,
+        usage: UsageSample,
+    ) -> TransportExchange {
+        TransportExchange {
             response,
             sensitive_checkpoint: Some(checkpoint),
             remote_run_hash: turn
@@ -411,7 +414,21 @@ impl AppServerTransport {
                 .map(|id| Hash256::digest(id.as_bytes())),
             usage,
             repaired: false,
-        })
+        }
+    }
+
+    fn classify_terminal_turn(
+        &self,
+        request_hash: Hash256,
+        turn: &Value,
+    ) -> Result<Value, ProviderError> {
+        match Self::completed_turn_response(turn) {
+            Ok(response) => Ok(response),
+            Err(error) => {
+                self.remove_checkpoint(request_hash)?;
+                Err(error)
+            }
+        }
     }
 }
 
@@ -493,16 +510,16 @@ impl SubscriptionTransport for AppServerTransport {
                 match Self::completed_turn_from_checkpoint(&mut session, &parsed).await {
                     Ok(Some(turn)) => {
                         let usage = parsed.usage.clone().unwrap_or_default();
-                        let exchange = Self::finish_turn(turn, checkpoint, usage)?;
-                        return Ok(exchange);
+                        let response = self.classify_terminal_turn(request_hash, &turn)?;
+                        return Ok(Self::finish_turn(&turn, response, checkpoint, usage));
                     }
                     Ok(None) => {}
-                    Err(ProviderError::Unreconciled(value)) => {
-                        return Err(ProviderError::Unreconciled(value));
-                    }
-                    Err(error) => {
+                    Err(ProviderError::TerminalTurnFailed) => {
                         self.remove_checkpoint(request_hash)?;
-                        return Err(error);
+                        return Err(ProviderError::TerminalTurnFailed);
+                    }
+                    Err(_) => {
+                        return Err(ProviderError::Unreconciled(Some(checkpoint)));
                     }
                 }
             }
@@ -592,12 +609,15 @@ impl SubscriptionTransport for AppServerTransport {
         )
         .await
         .map_err(|_| ProviderError::Unreconciled(Some(durable_checkpoint.clone())))?;
-        let (turn, mut usage) = wait_result.map_err(|error| match error {
-            ProviderError::ProcessEnded | ProviderError::Io(_) | ProviderError::Timeout => {
-                ProviderError::Unreconciled(Some(durable_checkpoint.clone()))
+        let (turn, mut usage) = match wait_result {
+            Ok(result) => result,
+            Err(ProviderError::TerminalTurnFailed) => {
+                self.remove_checkpoint(request_hash)?;
+                return Err(ProviderError::TerminalTurnFailed);
             }
-            other => other,
-        })?;
+            Err(_) => return Err(ProviderError::Unreconciled(Some(durable_checkpoint))),
+        };
+        let response = self.classify_terminal_turn(request_hash, &turn)?;
         let rate_limits = session
             .request("account/rateLimits/read", Value::Null)
             .await?;
@@ -609,8 +629,12 @@ impl SubscriptionTransport for AppServerTransport {
             turn_started: true,
         };
         self.write_checkpoint(request_hash, &durable_checkpoint)?;
-        let exchange = Self::finish_turn(turn, durable_checkpoint, usage)?;
-        Ok(exchange)
+        Ok(Self::finish_turn(
+            &turn,
+            response,
+            durable_checkpoint,
+            usage,
+        ))
     }
 
     async fn usage_sample(&self) -> Result<UsageSample, ProviderError> {

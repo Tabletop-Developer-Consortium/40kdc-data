@@ -24,6 +24,8 @@ pub enum ProviderError {
     CapabilityDenied,
     #[error("provider process ended unexpectedly")]
     ProcessEnded,
+    #[error("provider turn reached a terminal failure state")]
+    TerminalTurnFailed,
     #[error("provider operation timed out")]
     Timeout,
     #[error("provider I/O failed: {0}")]

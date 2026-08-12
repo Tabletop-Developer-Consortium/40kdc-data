@@ -293,6 +293,10 @@ pub enum CommandAction {
         shape_id: ShapeId,
         singleton: bool,
     },
+    MarkShapeNotConverged {
+        shape_id: ShapeId,
+        artifact_hash: Hash256,
+    },
     RequestSeal,
     RecordSealedHead {
         base: String,

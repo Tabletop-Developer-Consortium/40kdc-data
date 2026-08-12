@@ -349,6 +349,14 @@ pub fn evolve(state: &mut CampaignState, event: &DomainEvent) -> Result<(), Doma
                 ShapePhase::RejectedSprawl
             };
         }
+        E::ShapeNotConverged {
+            shape_id,
+            artifact_hash,
+        } => {
+            let shape = shape_mut(state, shape_id)?;
+            shape.phase = ShapePhase::NotConverged;
+            shape.verification_hash = Some(*artifact_hash);
+        }
         E::SealRequested => state.phase = CampaignPhase::Sealing,
         E::CampaignSealed { base, head } => {
             state.phase = CampaignPhase::Sealed;

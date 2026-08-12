@@ -886,6 +886,28 @@ fn decide_action(
                 singleton: *singleton,
             })
         }
+        C::MarkShapeNotConverged {
+            shape_id,
+            artifact_hash,
+        } => {
+            let shape = state.shapes.get(shape_id).ok_or(DomainError::WrongState)?;
+            if shape.phase != ShapePhase::RevisionRequested {
+                return Err(DomainError::WrongState);
+            }
+            let max_review_rounds = state
+                .manifest
+                .as_ref()
+                .unwrap()
+                .budgets
+                .max_shape_review_rounds;
+            if shape.review_round < max_review_rounds {
+                return Err(DomainError::WrongState);
+            }
+            one(E::ShapeNotConverged {
+                shape_id: shape_id.clone(),
+                artifact_hash: *artifact_hash,
+            })
+        }
         C::RequestSeal => {
             if state.phase != CampaignPhase::Running || !state.all_work_terminal() {
                 return Err(DomainError::CloseInvariant("terminal-ledger"));

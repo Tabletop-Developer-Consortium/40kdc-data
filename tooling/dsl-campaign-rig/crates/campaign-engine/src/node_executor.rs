@@ -1663,6 +1663,20 @@ impl CampaignNodeExecutor {
                         shape_id,
                         singleton: true,
                     },
+                    _ if !accepted
+                        && shape.review_round + 1
+                            >= state
+                                .manifest
+                                .as_ref()
+                                .ok_or(EngineError::Policy)?
+                                .budgets
+                                .max_shape_review_rounds =>
+                    {
+                        CommandAction::MarkShapeNotConverged {
+                            shape_id,
+                            artifact_hash,
+                        }
+                    }
                     _ => CommandAction::RecordShapeReview {
                         shape_id,
                         artifact_hash,

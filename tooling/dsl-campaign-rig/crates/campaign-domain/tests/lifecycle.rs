@@ -413,6 +413,43 @@ fn closed_internal_family_can_justify_shape_lifecycle() {
 }
 
 #[test]
+fn exhausted_shape_review_budget_terminates_as_not_converged() {
+    let mut state = running_state();
+    let shape_id = ShapeId::new("shape-review-exhausted").unwrap();
+    dispatch(
+        &mut state,
+        CommandAction::ProposeShape {
+            shape_id: shape_id.clone(),
+            package_hash: hash("shape-package"),
+        },
+    );
+    let max_review_rounds = state
+        .manifest
+        .as_ref()
+        .unwrap()
+        .budgets
+        .max_shape_review_rounds;
+    let shape = state.shapes.get_mut(&shape_id).unwrap();
+    shape.phase = ShapePhase::RevisionRequested;
+    shape.review_round = max_review_rounds;
+    let artifact_hash = hash("terminal-review");
+
+    dispatch(
+        &mut state,
+        CommandAction::MarkShapeNotConverged {
+            shape_id: shape_id.clone(),
+            artifact_hash,
+        },
+    );
+
+    assert_eq!(state.shapes[&shape_id].phase, ShapePhase::NotConverged);
+    assert_eq!(
+        state.shapes[&shape_id].verification_hash,
+        Some(artifact_hash)
+    );
+}
+
+#[test]
 fn shape_surveys_cannot_change_the_internal_family() {
     let mut state = running_state();
     let shape_id = ShapeId::new("shape-internal-family").unwrap();

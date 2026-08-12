@@ -181,6 +181,10 @@ pub enum EventPayload {
         shape_id: ShapeId,
         singleton: bool,
     },
+    ShapeNotConverged {
+        shape_id: ShapeId,
+        artifact_hash: Hash256,
+    },
     SealRequested,
     CampaignSealed {
         base: String,
@@ -257,6 +261,7 @@ impl EventPayload {
             Self::ShapeVerificationRecorded { .. } => "shape-verification-recorded",
             Self::ShapeRolledBack { .. } => "shape-rolled-back",
             Self::ShapeRejected { .. } => "shape-rejected",
+            Self::ShapeNotConverged { .. } => "shape-not-converged",
             Self::SealRequested => "seal-requested",
             Self::CampaignSealed { .. } => "campaign-sealed",
             Self::CloseVerificationRecorded { .. } => "close-verification-recorded",

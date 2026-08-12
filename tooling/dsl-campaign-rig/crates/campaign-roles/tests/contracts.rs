@@ -189,6 +189,69 @@ fn typed_executor_rejects_arch_magos_clause_coverage_violation() {
 }
 
 #[test]
+fn typed_executor_requires_exact_architecture_clause_coverage() {
+    for (case, source_clause_ids, should_pass) in [
+        ("missing-nonmechanical", json!(["mechanical"]), false),
+        (
+            "extra",
+            json!(["mechanical", "nonmechanical", "foreign"]),
+            false,
+        ),
+        (
+            "duplicate",
+            json!(["mechanical", "nonmechanical", "nonmechanical"]),
+            false,
+        ),
+        ("exact", json!(["nonmechanical", "mechanical"]), true),
+    ] {
+        let mut request = request(Role::Inquisitor, None);
+        request.sensitive_input = json!({
+            "mode": "architect",
+            "evidence_packet": {
+                "clauses": [
+                    {"id": "mechanical", "classification": "mechanical"},
+                    {"id": "nonmechanical", "classification": "nonmechanical"}
+                ]
+            }
+        });
+        let executor = TypedRoleExecutor::new(FakeRoleTransport {
+            exchange: exchange(result_for(
+                &request,
+                json!({
+                    "architecture": {
+                        "form": "linear",
+                        "source_clause_ids": source_clause_ids,
+                        "shared_invariants": [],
+                        "local_actions": [],
+                        "resource_lifecycle": null,
+                        "event_bindings": [],
+                        "existing_shape_fit": {
+                            "verdict": "none",
+                            "shapes_checked": [],
+                            "unmapped_clause_ids": ["mechanical", "nonmechanical"]
+                        },
+                        "internal_family_size": 0,
+                        "route": "shape-scout",
+                        "resisted_schema": "Fabricated missing shape."
+                    }
+                }),
+            )),
+        });
+
+        let result = run_ready(executor.execute(&spec(Role::Inquisitor), request));
+        if should_pass {
+            assert!(result.is_ok(), "{case}: {result:?}");
+        } else {
+            assert_eq!(
+                result.unwrap_err(),
+                RoleError::SemanticInvalid("architecture-clause-coverage"),
+                "{case}"
+            );
+        }
+    }
+}
+
+#[test]
 fn typed_executor_rejects_refuter_vote_without_divergences() {
     let request = request(Role::Eversor, Some(2));
     let executor = TypedRoleExecutor::new(FakeRoleTransport {

@@ -10,7 +10,12 @@ orchestrator applies anything.
 ## Inputs (prompt contract)
 ```
 { mode: "curate" | "architect" | "review" | "close",
-  artifacts: {
+  ability_id?, faction_id?,
+  raw_text?,                    // architect mode only; sensitive
+  evidence_packet?,             // architect mode; includes clauses[].id/classification
+  current_dsl?,                 // architect mode; committed schema-valid entry
+  schema_inventory?,            // architect mode; available definitions/type values
+  artifacts?: {
     roundtrip_report_path?,      // ../40kdc-embeddings/_reports/roundtrip-<faction>.{md,json}
     coverage_paths?,             // data/_audit/{coverage.json,summary.md,store-coverage.md}
     loop_state_paths?,           // _private/loop-state/*.md
@@ -56,6 +61,9 @@ In `architect` mode also return:
   }
 }
 ```
+`source_clause_ids` must contain every `evidence_packet.clauses[].id` exactly once,
+including structural and declared non-mechanical clauses. Do not add, omit, or
+duplicate clause ids.
 An `existing-shape` route is legal only when the fit is exact and every source
 clause is accounted for. A partial fit, note-only clause, resource/action container,
 or unresolved actor/event binding routes to shape-scout.

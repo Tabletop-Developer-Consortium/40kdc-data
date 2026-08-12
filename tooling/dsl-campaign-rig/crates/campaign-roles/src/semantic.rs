@@ -342,12 +342,39 @@ fn validate_inquisitor(request: &RoleRequest, result: &RoleResult) -> Result<(),
         let route = architecture.get("route").and_then(|value| value.as_str());
         let source_clauses = architecture
             .get("source_clause_ids")
-            .and_then(|value| value.as_array());
+            .and_then(|value| value.as_array())
+            .ok_or(RoleError::SemanticInvalid("architecture-clause-coverage"))?;
+        let expected_source_clauses = request
+            .sensitive_input
+            .pointer("/evidence_packet/clauses")
+            .and_then(|value| value.as_array())
+            .ok_or(RoleError::SemanticInvalid("architecture-clause-coverage"))?
+            .iter()
+            .map(|clause| {
+                clause
+                    .get("id")
+                    .and_then(|value| value.as_str())
+                    .ok_or(RoleError::SemanticInvalid("architecture-clause-coverage"))
+            })
+            .collect::<Result<BTreeSet<_>, _>>()?;
+        let reported_source_clauses = source_clauses
+            .iter()
+            .map(|value| {
+                value
+                    .as_str()
+                    .ok_or(RoleError::SemanticInvalid("architecture-clause-coverage"))
+            })
+            .collect::<Result<BTreeSet<_>, _>>()?;
         let exact_fit = architecture
             .get("existing_shape_fit")
             .and_then(|value| value.as_object());
-        if source_clauses.is_none_or(Vec::is_empty)
-            || !matches!(route, Some("existing-shape" | "shape-scout"))
+        if expected_source_clauses != reported_source_clauses
+            || source_clauses.len() != reported_source_clauses.len()
+            || source_clauses.is_empty()
+        {
+            return Err(RoleError::SemanticInvalid("architecture-clause-coverage"));
+        }
+        if !matches!(route, Some("existing-shape" | "shape-scout"))
             || (route == Some("existing-shape")
                 && exact_fit
                     .and_then(|fit| fit.get("verdict"))

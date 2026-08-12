@@ -556,6 +556,9 @@ fn role_retry_instruction(error: &RoleError) -> &'static str {
         RoleError::SemanticInvalid("missing-clause-coverage") => {
             "Return the full Arch-Magos authoring envelope, not a bare abilities.json entry. Put the complete candidate under payload.json's dsl field and include clause_coverage with exactly one row for every supplied clause_id, plus dropped_clauses, placeholder_encoding, approx_mechanical, resisted_schema, self_grade, and confidence."
         }
+        RoleError::SemanticInvalid("architecture-clause-coverage") => {
+            "Return a fresh architecture whose source_clause_ids contains every supplied evidence_packet clause id exactly once, including structural and declared non-mechanical clauses. Do not add, omit, or duplicate clause ids."
+        }
         RoleError::SemanticInvalid("source-prose-copy") => {
             "The candidate copied source prose into a DSL string field and was discarded. Return a fresh candidate using canonical DSL identifiers and independently authored mechanic descriptions; do not quote or closely reproduce the supplied raw text."
         }
@@ -4700,20 +4703,71 @@ fn utf16_slice(source: &str, start: usize, end: usize) -> Option<&str> {
 
 #[cfg(test)]
 mod evidence_tests {
-    use std::collections::{BTreeMap, BTreeSet};
-
-    use campaign_domain::{
-        AbilityAggregate, AbilityId, AbilityKey, AbilityPhase, CampaignState, FactionId, Hash256,
-        ShapeAggregate, ShapeId, ShapePhase,
+    use std::{
+        collections::{BTreeMap, BTreeSet, VecDeque},
+        path::Path,
+        sync::Arc,
     };
-    use campaign_roles::RoleError;
-    use serde_json::json;
+
+    use async_trait::async_trait;
+    use campaign_domain::{
+        AbilityAggregate, AbilityId, AbilityKey, AbilityPhase, ActorId, Budgets, CampaignId,
+        CampaignManifest, CampaignState, CausationId, Command, CommandAction, CommandId,
+        CommandMeta, CorrelationId, FactionId, Hash256, IdentitySet, ShapeAggregate, ShapeId,
+        ShapePhase, WorkItem,
+    };
+    use campaign_roles::{
+        RoleError, RoleExecutor, RoleRequest, RoleSpec, RoleTransport, RoleTransportExchange,
+        TypedRoleExecutor,
+    };
+    use campaign_store::CampaignStore;
+    use parking_lot::Mutex;
+    use serde_json::{Value, json};
+    use tempfile::TempDir;
 
     use super::{
-        candidate_from_role_payload, normalized_evidence_packet, parse_evidence_packet,
-        retryable_role_error, role_error_diagnostic, role_retry_instruction,
+        CampaignNodeExecutor, candidate_from_role_payload, normalized_evidence_packet,
+        parse_evidence_packet, retryable_role_error, role_error_diagnostic, role_retry_instruction,
         shape_internal_family_size, shape_seed, validate_candidate_payload,
     };
+    use crate::{CampaignEngine, WorkKind, WorkNode};
+
+    #[derive(Clone)]
+    struct SequencedRoleTransport {
+        payloads: Arc<Mutex<VecDeque<Value>>>,
+        requests: Arc<Mutex<Vec<Value>>>,
+    }
+
+    #[async_trait]
+    impl RoleTransport for SequencedRoleTransport {
+        async fn exchange(
+            &self,
+            _spec: &RoleSpec,
+            request: &RoleRequest,
+        ) -> Result<RoleTransportExchange, RoleError> {
+            self.requests.lock().push(request.sensitive_input.clone());
+            let payload = self.payloads.lock().pop_front().expect("queued response");
+            let response = json!({
+                "campaign_id": request.campaign_id,
+                "faction_id": request.ability.faction_id,
+                "ability_id": request.ability.ability_id,
+                "role": request.role,
+                "verdict": "accept",
+                "payload": payload,
+                "findings": []
+            });
+            Ok(RoleTransportExchange {
+                response_hash: Hash256::digest(serde_json::to_vec(&response).unwrap()),
+                response,
+                provider_identity_hash: Hash256::digest("fabricated-provider"),
+                repaired: false,
+                transport: "fabricated-transport".into(),
+                fallback_reason: None,
+                remote_run_hash: None,
+                usage: json!({"input_tokens": 1, "output_tokens": 1}),
+            })
+        }
+    }
     #[test]
     fn malformed_nested_payload_is_retryable_with_parser_diagnostics() {
         let error = RoleError::PayloadJsonInvalid("Syntax at line 1, column 42".into());
@@ -4734,6 +4788,185 @@ mod evidence_tests {
 
         assert!(role_retry_instruction(&error).contains("full Arch-Magos authoring envelope"));
         assert!(role_retry_instruction(&error).contains("exactly one row"));
+    }
+
+    #[test]
+    fn incomplete_architecture_gets_exact_coverage_retry_instructions() {
+        let error = RoleError::SemanticInvalid("architecture-clause-coverage");
+
+        assert!(
+            role_retry_instruction(&error).contains("every supplied evidence_packet clause id")
+        );
+        assert!(role_retry_instruction(&error).contains("Do not add, omit, or duplicate"));
+    }
+
+    #[tokio::test]
+    async fn architecture_semantic_failure_is_retried_with_exact_coverage_instruction() {
+        let campaign_id = CampaignId::new("retry-campaign").unwrap();
+        let ability = AbilityKey::new(
+            FactionId::new("test-faction").unwrap(),
+            AbilityId::new("test-ability").unwrap(),
+        );
+        let repository = TempDir::new().unwrap();
+        let state_root = TempDir::new().unwrap();
+        let store = CampaignStore::open(state_root.path(), repository.path()).unwrap();
+        let engine_hash = Hash256::digest("fabricated-engine");
+        let engine = CampaignEngine::new(store.clone(), engine_hash, false);
+        let manifest = CampaignManifest {
+            campaign_id: campaign_id.clone(),
+            repository_canonical_path_hash: Hash256::digest("fabricated-repository"),
+            workspace_id: "fabricated-workspace".into(),
+            base_commit_id: "fabricated-base".into(),
+            ordered_worklist: vec![WorkItem {
+                key: ability.clone(),
+                cosine_start: 0.5,
+                source_hash: Hash256::digest("fabricated-source"),
+                baseline_dsl_hash: Hash256::digest("fabricated-dsl"),
+            }],
+            baseline_report_hash: Hash256::digest("fabricated-report"),
+            baseline_rows_hash: Hash256::digest("fabricated-rows"),
+            identities: IdentitySet {
+                provider_precedence: vec!["app-server".into()],
+                allowed_transports: BTreeSet::from(["app-server".into()]),
+                model: "fabricated-model".into(),
+                reasoning: "fabricated-reasoning".into(),
+                rig_version: "fabricated-rig".into(),
+                rig_lockfile_hash: Hash256::digest("fabricated-lock"),
+                app_server_binary_hash: Hash256::digest("fabricated-binary"),
+                app_server_version: "fabricated-server".into(),
+                app_server_protocol_hash: Hash256::digest("fabricated-protocol"),
+                direct_provider_hash: None,
+                prompt_manifest_hash: Hash256::digest("fabricated-prompts"),
+                role_schema_hashes: (0..16)
+                    .map(|index| Hash256::digest(format!("fabricated-role-{index}")))
+                    .collect(),
+                semantic_validator_hash: Hash256::digest("fabricated-validator"),
+                tool_contract_hash: Hash256::digest("fabricated-tools"),
+                engine_version: "fabricated-engine".into(),
+                protocol_version: 1,
+                executable_hash: engine_hash,
+            },
+            budgets: Budgets::default(),
+            gate_definitions_hash: Hash256::digest("fabricated-gates"),
+            path_policy_hash: Hash256::digest("fabricated-paths"),
+            privacy_policy_hash: Hash256::digest("fabricated-privacy"),
+            parity_areas: BTreeSet::from(["fabricated-area".into()]),
+        };
+        let execute = |action| {
+            let state = engine.state(&campaign_id).unwrap();
+            engine
+                .execute(&Command {
+                    meta: CommandMeta {
+                        command_id: CommandId::new(),
+                        campaign_id: campaign_id.clone(),
+                        expected_stream_version: state.stream_version,
+                        causation_id: CausationId::new(),
+                        correlation_id: CorrelationId::new(),
+                        actor: ActorId::new("fabricated-test").unwrap(),
+                        expected_manifest_hash: state.manifest_hash,
+                        expected_engine_hash: engine_hash,
+                        outbox_id: None,
+                        fencing_token: None,
+                        lease_resource: None,
+                        lease_owner: None,
+                    },
+                    action,
+                })
+                .unwrap();
+        };
+        execute(CommandAction::CreateCampaign);
+        execute(CommandAction::FreezeManifest { manifest });
+        execute(CommandAction::StartCampaign);
+        execute(CommandAction::QueueAbility {
+            key: ability.clone(),
+        });
+
+        let architecture = |source_clause_ids| {
+            json!({
+                "architecture": {
+                    "form": "linear",
+                    "source_clause_ids": source_clause_ids,
+                    "shared_invariants": [],
+                    "local_actions": [],
+                    "resource_lifecycle": null,
+                    "event_bindings": [],
+                    "existing_shape_fit": {
+                        "verdict": "none",
+                        "shapes_checked": [],
+                        "unmapped_clause_ids": ["mechanical", "nonmechanical"]
+                    },
+                    "internal_family_size": 0,
+                    "route": "shape-scout",
+                    "resisted_schema": "Fabricated missing shape."
+                }
+            })
+        };
+        let requests = Arc::new(Mutex::new(Vec::new()));
+        let transport = SequencedRoleTransport {
+            payloads: Arc::new(Mutex::new(VecDeque::from([
+                architecture(json!(["mechanical"])),
+                architecture(json!(["mechanical", "nonmechanical"])),
+            ]))),
+            requests: requests.clone(),
+        };
+        let executor = CampaignNodeExecutor::new(
+            campaign_id,
+            engine,
+            Arc::new(TypedRoleExecutor::new(transport)),
+            repository.path(),
+            repository.path(),
+            false,
+            None,
+        );
+        let node = WorkNode {
+            work_id: Hash256::digest("fabricated-work"),
+            ability: Some(ability),
+            shape_id: None,
+            kind: WorkKind::Architecture,
+            roles: vec![],
+            capabilities: vec![],
+        };
+        let now = time::OffsetDateTime::now_utc().unix_timestamp();
+        let lease = store
+            .acquire_lease("fabricated-resource", "fabricated-worker", now, 120)
+            .unwrap();
+        let result = executor
+            .run_role(
+                &node,
+                &lease,
+                campaign_roles::Role::Inquisitor,
+                1,
+                None,
+                vec![],
+                json!({
+                    "mode": "architect",
+                    "evidence_packet": {
+                        "clauses": [
+                            {"id": "mechanical", "classification": "mechanical"},
+                            {"id": "nonmechanical", "classification": "nonmechanical"}
+                        ]
+                    }
+                }),
+            )
+            .await
+            .unwrap();
+
+        assert_eq!(
+            result
+                .result
+                .payload
+                .pointer("/architecture/source_clause_ids"),
+            Some(&json!(["mechanical", "nonmechanical"]))
+        );
+        let requests = requests.lock();
+        assert_eq!(requests.len(), 2);
+        assert!(
+            requests[1]
+                .pointer("/retry_context/instruction")
+                .and_then(Value::as_str)
+                .unwrap()
+                .contains("every supplied evidence_packet clause id")
+        );
     }
 
     #[test]

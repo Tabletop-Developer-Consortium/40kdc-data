@@ -10,10 +10,10 @@ and your `parameter_deltas` feed back into the shape design. You never write rep
 
 ## Inputs (prompt contract)
 `{proposed_shape: {name, kind, parameters[], schema_sketch?}, seed_ability_id,
-faction_id?, swarmlord_sweep}`
-— the flesh-shaper proposal plus the engine's separately provenance-bound
-swarmlord sweep. Adjudicate every supplied candidate; do not invent or retrieve
-additional candidates.
+faction_id?, internal_family, swarmlord_sweep}`
+— the flesh-shaper proposal plus its architecture-bound internal children and the
+engine's separately provenance-bound swarmlord sweep. Adjudicate every supplied
+sweep candidate; do not invent or retrieve additional candidates.
 
 
 ## Output (JSON contract)
@@ -39,6 +39,9 @@ additional candidates.
 ```
 - `swarmlord_sweep` MUST reproduce the supplied immutable child output. Empty or
   omitted child evidence fails the workflow.
+- `coverage` MUST contain exactly one row for every `swarmlord_sweep.candidates`
+  row and no other rows. Do not put the seed or `internal_family` children in
+  `coverage`; they are represented only by `internal_family_size`.
 - `faithful_family_size` counts `fit:faithful` + `needs-param` (where the delta is
   a clean minimal extension), `exact`+`near` only — `would-flatten` and `stretch`
   count ZERO. This is the honest reach, not the raw sweep count.

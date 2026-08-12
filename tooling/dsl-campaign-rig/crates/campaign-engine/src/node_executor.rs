@@ -568,6 +568,9 @@ fn role_retry_instruction(error: &RoleError) -> &'static str {
         RoleError::SemanticInvalid("shape-kind") => {
             "Return a fresh shape proposal whose proposed_shape.kind is exactly one canonical value: condition, container, effect-leaf, or modifier-extension. Do not invent synonyms such as effect-container."
         }
+        RoleError::SemanticInvalid("shape-sweep-coverage") => {
+            "Return a fresh coverage array with exactly one row for every task.swarmlord_sweep.candidates row and no other rows. Preserve each candidate's faction or faction_id and ability_id exactly. Do not add the seed or task.internal_family children to coverage; report those only through internal_family_size."
+        }
         RoleError::SemanticInvalid("source-prose-copy") => {
             "The candidate copied source prose into a DSL string field and was discarded. Return a fresh candidate using canonical DSL identifiers and independently authored mechanic descriptions; do not quote or closely reproduce the supplied raw text."
         }
@@ -4937,6 +4940,16 @@ mod evidence_tests {
         );
         assert!(role_retry_instruction(&error).contains("preserve the array order"));
         assert!(role_retry_instruction(&error).contains("every field/value"));
+    }
+
+    #[test]
+    fn shape_sweep_mismatch_gets_exact_membership_retry_instructions() {
+        let error = RoleError::SemanticInvalid("shape-sweep-coverage");
+        let instruction = role_retry_instruction(&error);
+
+        assert!(instruction.contains("exactly one row"));
+        assert!(instruction.contains("task.swarmlord_sweep.candidates"));
+        assert!(instruction.contains("Do not add the seed or task.internal_family"));
     }
 
     #[test]

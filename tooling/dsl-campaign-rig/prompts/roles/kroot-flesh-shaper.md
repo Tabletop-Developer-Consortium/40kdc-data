@@ -90,9 +90,11 @@ their artifact hashes. Missing or empty supplied evidence requires a failing ver
   prettier but drops a lever is a regression, not a proposal.
 - **Internal-family exception.** Four or more homogeneous children inside one
   composite rule can justify a container even when no external ability shares it.
-  List those children, clause ids, shared contract id, and closed parent id in
-  `internal_family`; they must exactly reconcile with the architect records. Do not
-  inflate the count with unrelated or repeated clauses.
+  For `self_grade.verdict:"new-shape"`, `internal_family` MUST be an exact JSON
+  copy of `resisted_schema.architecture.local_actions`: preserve its array order
+  and every field/value. Never summarize rows, rename fields, omit mechanics, or
+  wrap the array in another object. This proves the children, clause ids, shared
+  contract, and closed parent exactly reconcile with the architect record.
 - **Cost calibration.** A new leaf costs a schema oneOf branch + four-language type
   regen + a describer arm (inline AND container) in each port + cruncher recursion
   + a conformance golden + a SPEC_VERSION bump + the four version declarations and

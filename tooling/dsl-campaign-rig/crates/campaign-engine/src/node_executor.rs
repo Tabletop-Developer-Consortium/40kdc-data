@@ -562,6 +562,9 @@ fn role_retry_instruction(error: &RoleError) -> &'static str {
         RoleError::SemanticInvalid("architecture-clause-coverage") => {
             "Return a fresh architecture whose source_clause_ids contains every supplied evidence_packet clause id exactly once, including structural and declared non-mechanical clauses. Do not add, omit, or duplicate clause ids."
         }
+        RoleError::SemanticInvalid("shape-internal-family") => {
+            "Return a fresh shape proposal whose internal_family is an exact JSON copy of task.resisted_schema.architecture.local_actions: preserve the array order and every field/value. Do not summarize rows, rename fields, omit mechanics, or wrap the array in another object."
+        }
         RoleError::SemanticInvalid("source-prose-copy") => {
             "The candidate copied source prose into a DSL string field and was discarded. Return a fresh candidate using canonical DSL identifiers and independently authored mechanic descriptions; do not quote or closely reproduce the supplied raw text."
         }
@@ -4806,6 +4809,18 @@ mod evidence_tests {
             role_retry_instruction(&error).contains("every supplied evidence_packet clause id")
         );
         assert!(role_retry_instruction(&error).contains("Do not add, omit, or duplicate"));
+    }
+
+    #[test]
+    fn shape_family_mismatch_gets_exact_copy_retry_instructions() {
+        let error = RoleError::SemanticInvalid("shape-internal-family");
+
+        assert!(
+            role_retry_instruction(&error)
+                .contains("task.resisted_schema.architecture.local_actions")
+        );
+        assert!(role_retry_instruction(&error).contains("preserve the array order"));
+        assert!(role_retry_instruction(&error).contains("every field/value"));
     }
 
     #[tokio::test]

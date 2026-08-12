@@ -715,8 +715,6 @@ impl NodeExecutor for CampaignNodeExecutor {
                     )
                     .await?;
                 let bytes = Self::payload_bytes(&result)?;
-                SensitiveCorpus::new([source.source_text.as_bytes()])
-                    .reject_sensitive_bytes(&bytes)?;
                 let package_hash = Hash256::digest(&bytes);
                 let verdict = result
                     .result
@@ -764,7 +762,7 @@ impl NodeExecutor for CampaignNodeExecutor {
                 Ok(WorkCompletion {
                     artifacts: vec![Self::produced(
                         ArtifactKind::ShapePackage,
-                        Sensitivity::Deidentified,
+                        Sensitivity::Sensitive,
                         bytes,
                         vec![architecture_hash, decomposition_hash],
                     )],

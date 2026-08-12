@@ -105,6 +105,7 @@ fn command_contract_scrubs_unlisted_environment_and_rejects_unknown_executable()
         timeout: Duration::from_secs(2),
         output_limit: 16 * 1024,
         binary_hash: hash_file(&executable).expect("hash env executable"),
+        allow_jj_write: false,
     };
 
     let result = run_fixed(
@@ -138,6 +139,19 @@ fn command_contract_scrubs_unlisted_environment_and_rejects_unknown_executable()
             .contains("LANG=")
     );
 
+    let mut alternate_environment = environment.clone();
+    alternate_environment.insert(OsString::from("LANG"), OsString::from("alternate-locale"));
+    let environment_result = run_fixed(
+        &CapabilityGrant::from_capabilities([Capability::RunValidator]),
+        &contract,
+        &alternate_environment,
+    )
+    .expect("alternate bound environment succeeds");
+    assert_ne!(
+        result.command_hash, environment_result.command_hash,
+        "command identity must bind inherited tool-resolution environment"
+    );
+
     let unknown = CommandContract {
         executable: "rig-not-an-allowlisted-command".into(),
         ..contract
@@ -163,7 +177,7 @@ fn preflight_contract_cannot_read_operator_credentials() {
     let executable = repository.path().join("just");
     fs::write(
         &executable,
-        "#!/bin/sh\ncat \"$HOME/.codex/auth.json\" 2>/dev/null || true\nprintf sandbox-ran\n",
+        "#!/bin/sh\ncat \"$HOME/.codex/auth.json\" 2>/dev/null || true\ncat \"$HOME/.local/share/app/token\" 2>/dev/null || true\nprintf sandbox-ran\n",
     )
     .expect("write fake just");
     let mut permissions = fs::metadata(&executable)
@@ -177,6 +191,13 @@ fn preflight_contract_cannot_read_operator_credentials() {
         "fabricated-secret",
     )
     .expect("write fabricated credential");
+    fs::create_dir_all(operator_home.path().join(".local/share/app"))
+        .expect("create local application state");
+    fs::write(
+        operator_home.path().join(".local/share/app/token"),
+        "fabricated-local-secret",
+    )
+    .expect("write local application secret");
     let contract = CommandContract {
         executable: executable.to_string_lossy().into_owned(),
         argv: vec!["preflight".into()],
@@ -188,6 +209,7 @@ fn preflight_contract_cannot_read_operator_credentials() {
         timeout: Duration::from_secs(2),
         output_limit: 16 * 1024,
         binary_hash: hash_file(&executable).expect("hash fake just"),
+        allow_jj_write: false,
     };
     let environment = BTreeMap::from([
         (OsString::from("PATH"), OsString::from("/usr/bin:/bin")),
@@ -203,12 +225,75 @@ fn preflight_contract_cannot_read_operator_credentials() {
         &environment,
     )
     .expect("sandboxed command runs");
-    let stdout = String::from_utf8(result.stdout).expect("UTF-8 output");
-    assert!(
-        result.exit_code != 0 || stdout == "sandbox-ran",
-        "successful sandbox run must produce only the expected marker"
+    assert_eq!(
+        result.exit_code,
+        0,
+        "sandbox stderr: {}",
+        String::from_utf8_lossy(&result.stderr)
     );
-    assert!(!stdout.contains("fabricated-secret"));
+    assert_eq!(result.stdout, b"sandbox-ran");
+}
+
+#[cfg(target_os = "macos")]
+#[test]
+fn preflight_contract_reads_cloned_dependencies_without_mutating_them() {
+    use std::os::unix::fs::PermissionsExt;
+
+    let repository = TemporaryRoot::new("sandbox-snapshot");
+    let operator_home = TemporaryRoot::new("sandbox-snapshot-home");
+    let dependency_root = repository.path().join("node_modules");
+    fs::create_dir(&dependency_root).expect("create cloned dependency root");
+    fs::write(dependency_root.join("marker"), b"dependency-visible")
+        .expect("write dependency marker");
+    fs::create_dir(repository.path().join(".jj")).expect("create snapshot Jj metadata");
+    let executable = repository.path().join("just");
+    fs::write(
+        &executable,
+        "#!/bin/sh\ncat node_modules/marker\nif printf tampered >node_modules/marker 2>/dev/null; then exit 9; fi\ntouch .jj/observed-write\n",
+    )
+    .expect("write fake just");
+    fs::set_permissions(&executable, fs::Permissions::from_mode(0o700))
+        .expect("make fake just executable");
+    let contract = CommandContract {
+        executable: executable.to_string_lossy().into_owned(),
+        argv: vec!["preflight".into()],
+        cwd: repository
+            .path()
+            .canonicalize()
+            .expect("canonical repository"),
+        required_capability: Capability::RunValidator,
+        timeout: Duration::from_secs(2),
+        output_limit: 16 * 1024,
+        binary_hash: hash_file(&executable).expect("hash fake just"),
+        allow_jj_write: true,
+    };
+    let environment = BTreeMap::from([
+        (OsString::from("PATH"), OsString::from("/usr/bin:/bin")),
+        (
+            OsString::from("HOME"),
+            operator_home.path().as_os_str().to_owned(),
+        ),
+    ]);
+
+    let result = campaign_executors::run_observed(
+        &CapabilityGrant::from_capabilities([Capability::RunValidator]),
+        &contract,
+        &environment,
+    )
+    .expect("sandboxed preflight runs");
+
+    assert_eq!(
+        result.exit_code,
+        0,
+        "sandbox stderr: {}",
+        String::from_utf8_lossy(&result.stderr)
+    );
+    assert_eq!(result.stdout, b"dependency-visible");
+    assert_eq!(
+        fs::read(dependency_root.join("marker")).expect("read cloned dependency marker"),
+        b"dependency-visible"
+    );
+    assert!(repository.path().join(".jj/observed-write").is_file());
 }
 
 #[test]
@@ -226,6 +311,7 @@ fn command_contract_rejects_binary_identity_or_relative_working_directory() {
         timeout: Duration::from_secs(2),
         output_limit: 16 * 1024,
         binary_hash: Hash256::ZERO,
+        allow_jj_write: false,
     };
     let environment = BTreeMap::new();
 
@@ -322,6 +408,122 @@ fn exact_plan(client: &JjClient, replacement: Hash256) -> ApplyPlan {
             new_bytes_artifact: replacement,
         }],
     }
+}
+
+#[test]
+fn current_archive_copies_only_tracked_regular_files() {
+    let (repository, state, client, _store) = temporary_jj_repo("tracked-archive");
+    fs::write(repository.path().join(".gitignore"), "ignored.txt\n").expect("write ignore rule");
+    fs::write(
+        repository.path().join("ignored.txt"),
+        b"private runtime bytes\n",
+    )
+    .expect("write ignored file");
+    let spaced_name = " leading and trailing ";
+    fs::write(repository.path().join(spaced_name), b"exact path bytes\n")
+        .expect("write whitespace-bearing tracked file");
+    #[cfg(unix)]
+    {
+        use std::os::unix::fs::PermissionsExt;
+        fs::set_permissions(
+            repository.path().join(spaced_name),
+            fs::Permissions::from_mode(0o755),
+        )
+        .expect("make tracked file executable");
+    }
+    let destination = state.path().join("snapshot");
+
+    client
+        .archive_current(&destination)
+        .expect("archive current tracked files");
+
+    assert_eq!(
+        fs::read(destination.join("allowed.txt")).expect("read archived tracked file"),
+        b"before\n"
+    );
+    assert_eq!(
+        fs::read(destination.join(spaced_name)).expect("read exact archived path"),
+        b"exact path bytes\n"
+    );
+    #[cfg(unix)]
+    {
+        use std::os::unix::fs::PermissionsExt;
+        assert_ne!(
+            fs::metadata(destination.join(spaced_name))
+                .expect("read archived permissions")
+                .permissions()
+                .mode()
+                & 0o111,
+            0
+        );
+    }
+    assert!(destination.join(".gitignore").is_file());
+    assert!(!destination.join("ignored.txt").exists());
+    assert!(!destination.join(".jj").exists());
+}
+
+#[test]
+fn archived_tree_initializes_as_a_clean_snapshot_workspace() {
+    let (_repository, state, client, _store) = temporary_jj_repo("snapshot-workspace");
+    let destination = state.path().join("snapshot");
+    client
+        .archive_current(&destination)
+        .expect("archive current tree");
+
+    let snapshot = JjClient::initialize_snapshot(&destination)
+        .expect("initialize isolated snapshot workspace");
+
+    assert!(destination.join(".jj").is_dir());
+    assert!(
+        snapshot
+            .changed_paths("@-", "@")
+            .expect("compare snapshot baseline")
+            .is_empty()
+    );
+}
+
+#[cfg(unix)]
+#[test]
+fn current_archive_rejects_tracked_symlinks_and_removes_partial_output() {
+    use std::os::unix::fs::symlink;
+
+    let (repository, state, client, _store) = temporary_jj_repo("archive-symlink");
+    let outside = state.path().join("outside.txt");
+    fs::write(&outside, b"outside bytes\n").expect("write outside file");
+    symlink(&outside, repository.path().join("z-linked.txt")).expect("create tracked symlink");
+    let destination = state.path().join("snapshot");
+
+    error_is(
+        client
+            .archive_current(&destination)
+            .expect_err("tracked symlink must not be archived"),
+        is_unexpected_path,
+    );
+    assert!(!destination.exists(), "partial snapshot must be removed");
+}
+
+#[cfg(unix)]
+#[test]
+fn current_archive_never_removes_a_preexisting_dangling_destination() {
+    use std::os::unix::fs::symlink;
+
+    let (_repository, state, client, _store) = temporary_jj_repo("archive-destination");
+    let destination = state.path().join("snapshot");
+    symlink(state.path().join("missing-target"), &destination)
+        .expect("create dangling destination");
+
+    error_is(
+        client
+            .archive_current(&destination)
+            .expect_err("preexisting destination must be rejected"),
+        is_unexpected_path,
+    );
+    assert!(
+        fs::symlink_metadata(&destination)
+            .expect("destination symlink remains")
+            .file_type()
+            .is_symlink()
+    );
 }
 
 #[test]

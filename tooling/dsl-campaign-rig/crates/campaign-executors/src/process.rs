@@ -27,6 +27,7 @@ pub struct CommandContract {
     pub timeout: Duration,
     pub output_limit: usize,
     pub binary_hash: Hash256,
+    pub allow_jj_write: bool,
 }
 
 #[derive(Clone, Debug, PartialEq, Eq)]
@@ -61,14 +62,32 @@ pub fn run_observed(
         .map_err(|_| ExecutorError::CommandNotAllowed)?
         .canonicalize()?;
     let observed_binary_hash = hash_file(&executable)?;
-    if observed_binary_hash != contract.binary_hash || !contract.cwd.is_absolute() {
+    if observed_binary_hash != contract.binary_hash
+        || !contract.cwd.is_absolute()
+        || (contract.allow_jj_write && !contract.cwd.join(".jj").is_dir())
+    {
         return Err(ExecutorError::IdentityMismatch);
     }
+    let environment_identity = Hash256::digest(serde_json::to_vec(
+        &["PATH", "HOME", "LANG", "LC_ALL"]
+            .into_iter()
+            .map(|key| {
+                (
+                    key,
+                    inherited_environment
+                        .get(&OsString::from(key))
+                        .map(|value| value.to_string_lossy().into_owned()),
+                )
+            })
+            .collect::<BTreeMap<_, _>>(),
+    )?);
     let command_hash = Hash256::digest(serde_json::to_vec(&serde_json::json!({
         "executable": executable,
         "argv": contract.argv,
         "cwd": contract.cwd,
         "binary_hash": contract.binary_hash,
+        "environment_identity": environment_identity,
+        "allow_jj_write": contract.allow_jj_write,
     }))?);
     let temp_parent = if cfg!(target_os = "macos") {
         PathBuf::from("/private/tmp")
@@ -78,8 +97,32 @@ pub fn run_observed(
     let sandbox_temp = tempfile::Builder::new()
         .prefix("dsl-campaign-rig-")
         .tempdir_in(temp_parent)?;
+    let python_user = sandbox_temp.path().join("python-user");
+    let python_bin = python_user.join("bin");
+    let pip_cache = sandbox_temp.path().join("pip-cache");
+    let npm_cache = sandbox_temp.path().join("npm-cache");
+    let go_cache = sandbox_temp.path().join("go-build");
+    for path in [&python_bin, &pip_cache, &npm_cache, &go_cache] {
+        std::fs::create_dir_all(path)?;
+    }
+    let mut child_path = vec![python_bin];
+    if let Some(path) = inherited_environment.get(&OsString::from("PATH")) {
+        child_path.extend(std::env::split_paths(path));
+    }
+    let child_path = std::env::join_paths(child_path)
+        .map_err(|error| std::io::Error::new(std::io::ErrorKind::InvalidInput, error))?;
+    let execution_path = if protected_just_contract(contract) {
+        let copied = sandbox_temp.path().join("protected-command");
+        std::fs::copy(&executable, &copied)?;
+        if hash_file(&copied)? != observed_binary_hash {
+            return Err(ExecutorError::IdentityMismatch);
+        }
+        copied
+    } else {
+        executable.clone()
+    };
     let mut command = sandboxed_command(
-        &executable,
+        &execution_path,
         contract,
         inherited_environment,
         sandbox_temp.path(),
@@ -90,12 +133,18 @@ pub fn run_observed(
         .stdin(Stdio::null())
         .stdout(Stdio::piped())
         .stderr(Stdio::piped());
-    for key in ["PATH", "HOME", "LANG", "LC_ALL"] {
+    for key in ["HOME", "LANG", "LC_ALL"] {
         if let Some(value) = inherited_environment.get(&OsString::from(key)) {
             command.env(key, value);
         }
     }
-    command.env("TMPDIR", sandbox_temp.path());
+    command
+        .env("PATH", child_path)
+        .env("TMPDIR", sandbox_temp.path())
+        .env("PYTHONUSERBASE", &python_user)
+        .env("PIP_CACHE_DIR", &pip_cache)
+        .env("NPM_CONFIG_CACHE", &npm_cache)
+        .env("GOCACHE", &go_cache);
     #[cfg(unix)]
     command.process_group(0);
     let mut child = command.spawn()?;
@@ -200,7 +249,14 @@ fn sandboxed_command(
     let rustup_home = home.join(".rustup");
     let go_modules = home.join("go/pkg/mod");
     let go_build_cache = home.join("Library/Caches/go-build");
-    let read_paths = [
+    let local_bin = home.join(".local/bin");
+    let node_runtime = which::which("node")
+        .ok()
+        .and_then(|path| path.canonicalize().ok())
+        .and_then(|path| path.parent()?.parent().map(Path::to_path_buf))
+        .filter(|path| path.starts_with(&home));
+    let operator_temp = std::env::temp_dir().canonicalize()?;
+    let mut read_paths = vec![
         contract.cwd.as_path(),
         Path::new("/System"),
         Path::new("/Library"),
@@ -217,13 +273,13 @@ fn sandboxed_command(
         rustup_home.as_path(),
         go_modules.as_path(),
         go_build_cache.as_path(),
+        local_bin.as_path(),
         sandbox_temp,
     ];
-    let write_paths = [
-        contract.cwd.as_path(),
-        go_build_cache.as_path(),
-        sandbox_temp,
-    ];
+    if let Some(node_runtime) = &node_runtime {
+        read_paths.push(node_runtime);
+    }
+    let write_paths = [contract.cwd.as_path(), sandbox_temp];
     let mut denied_read_paths = vec![contract.cwd.join("_private")];
     for entry in std::fs::read_dir(&contract.cwd)? {
         let entry = entry?;
@@ -244,17 +300,33 @@ fn sandboxed_command(
         .iter()
         .map(PathBuf::as_path)
         .collect::<Vec<_>>();
+    let mut denied_write_paths = vec![
+        contract.cwd.join("_private"),
+        contract.cwd.join(".git"),
+        contract.cwd.join("node_modules"),
+    ];
+    if !contract.allow_jj_write {
+        denied_write_paths.push(contract.cwd.join(".jj"));
+    }
+    let denied_write_paths = denied_write_paths
+        .iter()
+        .map(PathBuf::as_path)
+        .collect::<Vec<_>>();
     let profile = format!(
         "(version 1) (deny default) (allow process*) (allow sysctl-read) (allow mach-lookup) \
+         (allow file-read* (require-all \
+           (require-not (subpath {home})) \
+           (require-not (subpath {private_tmp})) \
+           (require-not (subpath {operator_temp})))) \
          (allow file-read* {}) (allow file-write* {}) \
-         (deny file-read* {}) \
-         (deny file-write* (subpath {private}) (subpath {jj}) (subpath {git}))",
+         (deny file-read* {}) (deny file-write* {})",
         sandbox_path_rules(&read_paths),
         sandbox_path_rules(&write_paths),
         sandbox_path_rules(&denied_read_paths),
-        private = sandbox_literal(&contract.cwd.join("_private")),
-        jj = sandbox_literal(&contract.cwd.join(".jj")),
-        git = sandbox_literal(&contract.cwd.join(".git")),
+        sandbox_path_rules(&denied_write_paths),
+        home = sandbox_literal(&home),
+        private_tmp = sandbox_literal(Path::new("/private/tmp")),
+        operator_temp = sandbox_literal(&operator_temp),
     );
     let mut command = Command::new("/usr/bin/sandbox-exec");
     command

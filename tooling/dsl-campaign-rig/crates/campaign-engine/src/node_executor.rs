@@ -3722,6 +3722,8 @@ impl CampaignNodeExecutor {
             CapabilityGrant::from_capabilities([Capability::ReadJj]),
         )?
         .archive_current(&snapshot)?;
+        clone_runtime_dependencies(&self.repository_root, &snapshot)?;
+        JjClient::initialize_snapshot(&snapshot)?;
         Ok((temporary, snapshot))
     }
 
@@ -3756,11 +3758,12 @@ impl CampaignNodeExecutor {
         let contract = CommandContract {
             executable: binary.to_string_lossy().into_owned(),
             argv,
-            cwd,
+            cwd: cwd.clone(),
             required_capability: capability,
             timeout,
             output_limit,
             binary_hash: hash_file(&binary)?,
+            allow_jj_write: cwd.join(".jj").is_dir(),
         };
         let inherited = std::env::vars_os().collect::<BTreeMap<OsString, OsString>>();
         Ok(run_observed(
@@ -4247,9 +4250,67 @@ fn validate_applied_inventory(
     }
     Ok(())
 }
+
+#[cfg(target_os = "macos")]
+fn clone_runtime_dependencies(repository_root: &Path, snapshot: &Path) -> Result<(), EngineError> {
+    let source = repository_root.join("node_modules");
+    if !source.is_dir() {
+        return Ok(());
+    }
+    let output = std::process::Command::new("/bin/cp")
+        .args(["-c", "-R"])
+        .arg(&source)
+        .arg(snapshot.join("node_modules"))
+        .env_clear()
+        .output()?;
+    if !output.status.success() {
+        return Err(campaign_executors::ExecutorError::ProcessFailed(
+            output.status.code().unwrap_or(128),
+        )
+        .into());
+    }
+    Ok(())
+}
+
+#[cfg(not(target_os = "macos"))]
+fn clone_runtime_dependencies(
+    _repository_root: &Path,
+    _snapshot: &Path,
+) -> Result<(), EngineError> {
+    Ok(())
+}
+
+fn snapshot_ephemeral(root: &Path, path: &Path) -> bool {
+    path.strip_prefix(root).is_ok_and(|relative| {
+        relative.components().any(|component| {
+            let std::path::Component::Normal(name) = component else {
+                return true;
+            };
+            matches!(
+                name.to_str(),
+                Some(
+                    ".jj"
+                        | "node_modules"
+                        | "target"
+                        | "dist"
+                        | ".venv"
+                        | "__pycache__"
+                        | ".pytest_cache"
+                        | ".mypy_cache"
+                        | ".ruff_cache"
+                )
+            ) || name.to_string_lossy().ends_with(".egg-info")
+        })
+    })
+}
+
 fn snapshot_file_hashes(root: &Path) -> Result<BTreeMap<String, Hash256>, EngineError> {
     let mut hashes = BTreeMap::new();
-    for entry in walkdir::WalkDir::new(root).follow_links(false) {
+    let walker = walkdir::WalkDir::new(root)
+        .follow_links(false)
+        .into_iter()
+        .filter_entry(|entry| !snapshot_ephemeral(root, entry.path()));
+    for entry in walker {
         let entry = entry.map_err(|error| std::io::Error::other(error.to_string()))?;
         if entry.file_type().is_symlink() {
             return Err(EngineError::Policy);

@@ -527,7 +527,7 @@ fn typed_executor_accepts_reconciled_internal_shape_family() {
         exchange: exchange(result_for(
             &request,
             json!({
-                "proposed_shape": {"name": "closed-menu-shape"},
+                "proposed_shape": {"name": "closed-menu-shape", "kind": "container"},
                 "internal_family": family,
                 "self_grade": {"verdict": "new-shape"}
             }),
@@ -537,6 +537,44 @@ fn typed_executor_accepts_reconciled_internal_shape_family() {
     let validated = run_ready(executor.execute(&spec(Role::KrootFleshShaper), request)).unwrap();
 
     assert_eq!(validated.result.role, Role::KrootFleshShaper);
+}
+
+#[test]
+fn typed_executor_rejects_noncanonical_shape_kind() {
+    let family = json!([{
+        "child_id": "action-one",
+        "clause_ids": ["clause-a"],
+        "parent_closed": true,
+        "parent_id": "closed-menu",
+        "shared_contract_id": "menu-choice"
+    }]);
+    let mut request = request(Role::KrootFleshShaper, None);
+    request.sensitive_input = json!({
+        "resisted_schema": {
+            "architecture": {
+                "internal_family_size": 1,
+                "local_actions": family.clone()
+            }
+        }
+    });
+    let executor = TypedRoleExecutor::new(FakeRoleTransport {
+        exchange: exchange(result_for(
+            &request,
+            json!({
+                "proposed_shape": {
+                    "name": "closed-menu-shape",
+                    "kind": "effect-container"
+                },
+                "internal_family": family,
+                "self_grade": {"verdict": "new-shape"}
+            }),
+        )),
+    });
+
+    assert_eq!(
+        run_ready(executor.execute(&spec(Role::KrootFleshShaper), request)),
+        Err(RoleError::SemanticInvalid("shape-kind"))
+    );
 }
 #[test]
 fn typed_executor_rejects_shape_family_that_does_not_match_architecture() {
@@ -559,7 +597,7 @@ fn typed_executor_rejects_shape_family_that_does_not_match_architecture() {
         exchange: exchange(result_for(
             &request,
             json!({
-                "proposed_shape": {"name": "closed-menu-shape"},
+                "proposed_shape": {"name": "closed-menu-shape", "kind": "container"},
                 "internal_family": [],
                 "self_grade": {"verdict": "new-shape"}
             }),

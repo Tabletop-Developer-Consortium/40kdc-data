@@ -565,6 +565,9 @@ fn role_retry_instruction(error: &RoleError) -> &'static str {
         RoleError::SemanticInvalid("shape-internal-family") => {
             "Return a fresh shape proposal whose internal_family is an exact JSON copy of task.resisted_schema.architecture.local_actions: preserve the array order and every field/value. Do not summarize rows, rename fields, omit mechanics, or wrap the array in another object."
         }
+        RoleError::SemanticInvalid("shape-kind") => {
+            "Return a fresh shape proposal whose proposed_shape.kind is exactly one canonical value: condition, container, effect-leaf, or modifier-extension. Do not invent synonyms such as effect-container."
+        }
         RoleError::SemanticInvalid("source-prose-copy") => {
             "The candidate copied source prose into a DSL string field and was discarded. Return a fresh candidate using canonical DSL identifiers and independently authored mechanic descriptions; do not quote or closely reproduce the supplied raw text."
         }
@@ -4720,7 +4723,7 @@ mod evidence_tests {
         RoleError, RoleExecutor, RoleRequest, RoleSpec, RoleTransport, RoleTransportExchange,
         TypedRoleExecutor,
     };
-    use campaign_store::CampaignStore;
+    use campaign_store::{CampaignStore, OutboxStatus};
     use parking_lot::Mutex;
     use serde_json::{Value, json};
     use tempfile::TempDir;
@@ -4823,9 +4826,26 @@ mod evidence_tests {
         assert!(role_retry_instruction(&error).contains("every field/value"));
     }
 
-    #[tokio::test]
-    async fn architecture_semantic_failure_is_retried_with_exact_coverage_instruction() {
-        let campaign_id = CampaignId::new("retry-campaign").unwrap();
+    #[test]
+    fn noncanonical_shape_kind_gets_exact_retry_instructions() {
+        let error = RoleError::SemanticInvalid("shape-kind");
+        let instruction = role_retry_instruction(&error);
+
+        assert!(instruction.contains("condition, container, effect-leaf, or modifier-extension"));
+        assert!(instruction.contains("Do not invent synonyms"));
+    }
+
+    struct RoleRetryHarness {
+        campaign_id: CampaignId,
+        ability: AbilityKey,
+        repository: TempDir,
+        _state_root: TempDir,
+        store: CampaignStore,
+        engine: CampaignEngine,
+    }
+
+    fn role_retry_harness(campaign_name: &str) -> RoleRetryHarness {
+        let campaign_id = CampaignId::new(campaign_name).unwrap();
         let ability = AbilityKey::new(
             FactionId::new("test-faction").unwrap(),
             AbilityId::new("test-ability").unwrap(),
@@ -4875,7 +4895,14 @@ mod evidence_tests {
             privacy_policy_hash: Hash256::digest("fabricated-privacy"),
             parity_areas: BTreeSet::from(["fabricated-area".into()]),
         };
-        let execute = |action| {
+        for action in [
+            CommandAction::CreateCampaign,
+            CommandAction::FreezeManifest { manifest },
+            CommandAction::StartCampaign,
+            CommandAction::QueueAbility {
+                key: ability.clone(),
+            },
+        ] {
             let state = engine.state(&campaign_id).unwrap();
             engine
                 .execute(&Command {
@@ -4896,13 +4923,27 @@ mod evidence_tests {
                     action,
                 })
                 .unwrap();
-        };
-        execute(CommandAction::CreateCampaign);
-        execute(CommandAction::FreezeManifest { manifest });
-        execute(CommandAction::StartCampaign);
-        execute(CommandAction::QueueAbility {
-            key: ability.clone(),
-        });
+        }
+        RoleRetryHarness {
+            campaign_id,
+            ability,
+            repository,
+            _state_root: state_root,
+            store,
+            engine,
+        }
+    }
+
+    #[tokio::test]
+    async fn architecture_semantic_failure_is_retried_with_exact_coverage_instruction() {
+        let RoleRetryHarness {
+            campaign_id,
+            ability,
+            repository,
+            _state_root,
+            store,
+            engine,
+        } = role_retry_harness("retry-campaign");
 
         let architecture = |source_clause_ids| {
             json!({
@@ -4989,6 +5030,122 @@ mod evidence_tests {
                 .and_then(Value::as_str)
                 .unwrap()
                 .contains("every supplied evidence_packet clause id")
+        );
+    }
+
+    #[tokio::test]
+    async fn noncanonical_shape_kind_is_retried_before_role_evidence_is_accepted() {
+        let RoleRetryHarness {
+            campaign_id,
+            ability,
+            repository,
+            _state_root,
+            store,
+            engine,
+        } = role_retry_harness("shape-kind-retry");
+        let family = json!([{
+            "child_id": "action-one",
+            "clause_ids": ["mechanical"],
+            "parent_closed": true,
+            "parent_id": "closed-menu",
+            "shared_contract_id": "menu-choice"
+        }]);
+        let proposal = |kind| {
+            json!({
+                "proposed_shape": {
+                    "name": "closed-menu-shape",
+                    "kind": kind
+                },
+                "internal_family": family,
+                "self_grade": {"verdict": "new-shape"}
+            })
+        };
+        let requests = Arc::new(Mutex::new(Vec::new()));
+        let transport = SequencedRoleTransport {
+            payloads: Arc::new(Mutex::new(VecDeque::from([
+                proposal("effect-container"),
+                proposal("container"),
+            ]))),
+            requests: requests.clone(),
+        };
+        let executor = CampaignNodeExecutor::new(
+            campaign_id.clone(),
+            engine,
+            Arc::new(TypedRoleExecutor::new(transport)),
+            repository.path(),
+            repository.path(),
+            false,
+            None,
+        );
+        let work_id = Hash256::digest("shape-kind-work");
+        let node = WorkNode {
+            work_id,
+            ability: Some(ability),
+            shape_id: None,
+            kind: WorkKind::ShapeRoute,
+            roles: vec![],
+            capabilities: vec![],
+        };
+        let now = time::OffsetDateTime::now_utc().unix_timestamp();
+        let lease = store
+            .acquire_lease("fabricated-resource", "fabricated-worker", now, 120)
+            .unwrap();
+        let result = executor
+            .run_role(
+                &node,
+                &lease,
+                campaign_roles::Role::KrootFleshShaper,
+                1,
+                None,
+                vec![],
+                json!({
+                    "resisted_schema": {
+                        "architecture": {
+                            "internal_family_size": 1,
+                            "local_actions": family
+                        }
+                    }
+                }),
+            )
+            .await
+            .unwrap();
+
+        assert_eq!(
+            result.result.payload.pointer("/proposed_shape/kind"),
+            Some(&json!("container"))
+        );
+        let requests = requests.lock();
+        assert_eq!(requests.len(), 2);
+        assert!(
+            requests[1]
+                .pointer("/retry_context/diagnostic")
+                .and_then(Value::as_str)
+                .unwrap()
+                .contains("shape-kind")
+        );
+        assert!(
+            requests[1]
+                .pointer("/retry_context/instruction")
+                .and_then(Value::as_str)
+                .unwrap()
+                .contains("condition, container, effect-leaf, or modifier-extension")
+        );
+        let first_key = format!("provider:{campaign_id}:{work_id}:kroot-flesh-shaper:1:single");
+        let second_key = format!("provider:{campaign_id}:{work_id}:kroot-flesh-shaper:2:single");
+        assert_eq!(
+            store.outbox_by_key(&first_key).unwrap().unwrap().status,
+            OutboxStatus::Failed
+        );
+        assert_eq!(store.observed_effect_artifact(&first_key).unwrap(), None);
+        assert_eq!(
+            store.outbox_by_key(&second_key).unwrap().unwrap().status,
+            OutboxStatus::Observed
+        );
+        assert!(
+            store
+                .observed_effect_artifact(&second_key)
+                .unwrap()
+                .is_some()
         );
     }
 

@@ -58,6 +58,9 @@ their artifact hashes. Missing or empty supplied evidence requires a failing ver
 - Return only the decision fields shown above. The engine binds the immutable
   decomposition and architecture inputs by artifact hash; repeating them makes
   the provider JSON boundary needlessly fragile.
+- `proposed_shape.kind` MUST be exactly one canonical category: `condition`,
+  `container`, `effect-leaf`, or `modifier-extension`. Do not invent synonyms
+  such as `effect-container`.
 - Keep the object compact: at most three `nearest_existing_shapes`; one sentence
   per rationale or note; no duplicate keys or repeated input evidence.
 - Return exactly one JSON object matching this contract. Do not use markdown or

@@ -65,6 +65,17 @@ pub fn validate_semantics(request: &RoleRequest, result: &RoleResult) -> Result<
             match verdict {
                 Some("new-shape") => {
                     require_object(&result.payload, "proposed_shape", "shape-proposal")?;
+                    let kind = result
+                        .payload
+                        .pointer("/proposed_shape/kind")
+                        .and_then(|value| value.as_str())
+                        .ok_or(RoleError::SemanticInvalid("shape-kind"))?;
+                    if !matches!(
+                        kind,
+                        "condition" | "container" | "effect-leaf" | "modifier-extension"
+                    ) {
+                        return Err(RoleError::SemanticInvalid("shape-kind"));
+                    }
                     let resisted_schema = request
                         .sensitive_input
                         .get("resisted_schema")

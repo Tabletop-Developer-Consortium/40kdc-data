@@ -97,6 +97,9 @@ pub fn evolve(state: &mut CampaignState, event: &DomainEvent) -> Result<(), Doma
             ability.phase = AbilityPhase::ShapeRequired;
             ability.required_shape_id = Some(shape_id.clone());
             if let Some(shape) = state.shapes.get_mut(shape_id) {
+                if shape.originating_ability.is_none() {
+                    shape.originating_ability = Some(key.clone());
+                }
                 shape.family_members.insert(key.clone());
             }
         }
@@ -234,12 +237,14 @@ pub fn evolve(state: &mut CampaignState, event: &DomainEvent) -> Result<(), Doma
         }
         E::AbilityConverged { key } => ability_mut(state, key)?.phase = AbilityPhase::Converged,
         E::ShapeProposed {
+            originating_ability,
             shape_id,
             package_hash,
         } => {
             state.shapes.insert(
                 shape_id.clone(),
                 ShapeAggregate {
+                    originating_ability: originating_ability.clone(),
                     phase: ShapePhase::Proposed,
                     family_hashes: Vec::new(),
                     family_members: Default::default(),

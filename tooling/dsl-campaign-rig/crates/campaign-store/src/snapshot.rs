@@ -3,7 +3,7 @@ use rusqlite::{OptionalExtension, params};
 
 use crate::{CampaignStore, StoreError};
 
-pub const REDUCER_VERSION: u32 = 1;
+pub const REDUCER_VERSION: u32 = 2;
 
 impl CampaignStore {
     pub fn save_snapshot(&self, state: &CampaignState) -> Result<Hash256, StoreError> {

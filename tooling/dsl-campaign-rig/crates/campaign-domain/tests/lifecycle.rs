@@ -3,8 +3,8 @@ use std::collections::{BTreeMap, BTreeSet};
 use campaign_domain::{
     AbilityId, AbilityKey, AbilityPhase, ActorId, Budgets, CampaignId, CampaignManifest,
     CampaignPhase, CampaignState, CandidateFacts, Command, CommandAction, CommandId, CommandMeta,
-    DomainError, EvidenceFacts, Hash256, IdentitySet, RefutationFacts, ShapeId, ShapePhase,
-    WorkItem, decide, evolve, replay,
+    DomainError, DomainEvent, EventPayload, EvidenceFacts, Hash256, IdentitySet, RefutationFacts,
+    ShapeId, ShapePhase, WorkItem, decide, evolve, replay,
 };
 
 fn hash(label: &str) -> Hash256 {
@@ -331,6 +331,46 @@ fn refutation_quorum_blocks_acceptance_and_unresolved_findings_require_revision(
             thread_hash: hash("thread"),
             resolved_divergence_ids: BTreeSet::from(["finding-a".into()]),
         },
+    );
+}
+
+#[test]
+fn first_shape_requirement_backfills_legacy_origin_provenance() {
+    let mut state = running_state();
+    let ability = key();
+    let shape_id = ShapeId::new("shape-legacy-origin").unwrap();
+    dispatch(
+        &mut state,
+        CommandAction::QueueAbility {
+            key: ability.clone(),
+        },
+    );
+    dispatch(
+        &mut state,
+        CommandAction::ProposeShape {
+            shape_id: shape_id.clone(),
+            package_hash: hash("shape-package"),
+        },
+    );
+    assert!(state.shapes[&shape_id].originating_ability.is_none());
+    let next_stream_version = state.stream_version + 1;
+
+    evolve(
+        &mut state,
+        &DomainEvent {
+            command_id: CommandId::new(),
+            stream_version: next_stream_version,
+            payload: EventPayload::ShapeRequired {
+                key: ability.clone(),
+                shape_id: shape_id.clone(),
+            },
+        },
+    )
+    .unwrap();
+
+    assert_eq!(
+        state.shapes[&shape_id].originating_ability.as_ref(),
+        Some(&ability)
     );
 }
 

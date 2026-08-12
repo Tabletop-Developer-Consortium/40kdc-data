@@ -118,6 +118,8 @@ pub struct AbilityAggregate {
 
 #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
 pub struct ShapeAggregate {
+    #[serde(default)]
+    pub originating_ability: Option<AbilityKey>,
     pub phase: ShapePhase,
     pub family_hashes: Vec<Hash256>,
     pub family_members: BTreeSet<AbilityKey>,

@@ -229,6 +229,7 @@ fn decide_action(
             }
             Ok(vec![
                 E::ShapeProposed {
+                    originating_ability: Some(key.clone()),
                     shape_id: shape_id.clone(),
                     package_hash: *package_hash,
                 },
@@ -666,6 +667,7 @@ fn decide_action(
                 return Err(DomainError::Duplicate);
             }
             one(E::ShapeProposed {
+                originating_ability: None,
                 shape_id: shape_id.clone(),
                 package_hash: *package_hash,
             })

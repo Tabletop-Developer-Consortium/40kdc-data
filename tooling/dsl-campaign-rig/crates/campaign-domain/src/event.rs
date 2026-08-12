@@ -129,6 +129,8 @@ pub enum EventPayload {
         key: AbilityKey,
     },
     ShapeProposed {
+        #[serde(default)]
+        originating_ability: Option<AbilityKey>,
         shape_id: ShapeId,
         package_hash: Hash256,
     },

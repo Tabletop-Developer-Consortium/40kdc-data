@@ -3938,14 +3938,16 @@ fn shape_seed<'a>(
     state: &'a campaign_domain::CampaignState,
 ) -> Result<&'a campaign_domain::AbilityKey, EngineError> {
     shape
-        .family_members
-        .iter()
-        .next()
+        .originating_ability
+        .as_ref()
         .or_else(|| {
-            state.abilities.iter().find_map(|(key, ability)| {
-                (ability.required_shape_id.as_ref() == Some(shape_id)).then_some(key)
-            })
+            state
+                .abilities
+                .iter()
+                .find(|(_, ability)| ability.required_shape_id.as_ref() == Some(shape_id))
+                .map(|(key, _)| key)
         })
+        .or_else(|| shape.family_members.iter().next())
         .or_else(|| {
             state
                 .manifest
@@ -4698,14 +4700,19 @@ fn utf16_slice(source: &str, start: usize, end: usize) -> Option<&str> {
 
 #[cfg(test)]
 mod evidence_tests {
-    use campaign_domain::{AbilityId, AbilityKey, FactionId};
+    use std::collections::{BTreeMap, BTreeSet};
+
+    use campaign_domain::{
+        AbilityAggregate, AbilityId, AbilityKey, AbilityPhase, CampaignState, FactionId, Hash256,
+        ShapeAggregate, ShapeId, ShapePhase,
+    };
     use campaign_roles::RoleError;
     use serde_json::json;
 
     use super::{
         candidate_from_role_payload, normalized_evidence_packet, parse_evidence_packet,
         retryable_role_error, role_error_diagnostic, role_retry_instruction,
-        shape_internal_family_size, validate_candidate_payload,
+        shape_internal_family_size, shape_seed, validate_candidate_payload,
     };
     #[test]
     fn malformed_nested_payload_is_retryable_with_parser_diagnostics() {
@@ -4786,6 +4793,75 @@ mod evidence_tests {
             4
         );
         assert!(shape_internal_family_size(&package, &json!({"internal_family_size": 5})).is_err());
+    }
+
+    #[test]
+    fn family_survey_uses_the_shape_originating_ability_as_its_seed() {
+        let shape_id = ShapeId::new("shape-fabricated-menu").unwrap();
+        let seed = AbilityKey::new(
+            FactionId::new("zeta-faction").unwrap(),
+            AbilityId::new("seed-ability").unwrap(),
+        );
+        let earlier_member = AbilityKey::new(
+            FactionId::new("alpha-faction").unwrap(),
+            AbilityId::new("family-member").unwrap(),
+        );
+        let mut state = CampaignState::default();
+        state.abilities.insert(
+            seed.clone(),
+            AbilityAggregate {
+                phase: AbilityPhase::ShapeRequired,
+                evidence_hash: None,
+                source_hash: Hash256::digest("source"),
+                clauses: None,
+                architecture_hash: None,
+                required_shape_id: Some(shape_id.clone()),
+                requires_shape: true,
+                decomposer_hashes: BTreeMap::new(),
+                decomposition_hash: None,
+                candidate_hash: None,
+                revision_thread_hash: None,
+                attempt: 0,
+                escalated: false,
+                voters: BTreeMap::new(),
+                voter_identity_hashes: BTreeSet::new(),
+                blocking_divergences: BTreeSet::new(),
+                applied_hash: None,
+                apply_plan_hash: None,
+                applied_commit: None,
+                rollback_evidence_hash: None,
+                rollback_head: None,
+                rollback_terminal: false,
+                verification_hash: None,
+                review_hash: None,
+                reviewer_hashes: BTreeMap::new(),
+                score_start: 0.0,
+                score_final: None,
+                correctness_justification_hash: None,
+            },
+        );
+        state.abilities.insert(
+            earlier_member.clone(),
+            state.abilities.get(&seed).unwrap().clone(),
+        );
+        let shape = ShapeAggregate {
+            originating_ability: Some(seed.clone()),
+            phase: ShapePhase::FamilySurveyed,
+            family_hashes: vec![Hash256::digest("survey")],
+            family_members: BTreeSet::from([earlier_member]),
+            excluded_members: BTreeSet::new(),
+            internal_family_size: 4,
+            review_hashes: vec![],
+            review_round: 0,
+            describer_hash: None,
+            package_hash: Some(Hash256::digest("package")),
+            apply_plan_hash: None,
+            applied_hash: None,
+            applied_commit: None,
+            verification_hash: None,
+        };
+
+        assert_eq!(shape_seed(&shape_id, &shape, &state).unwrap(), &seed);
     }
 
     #[test]

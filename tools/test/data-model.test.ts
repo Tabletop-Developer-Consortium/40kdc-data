@@ -15,13 +15,13 @@ import {
 import { RAW_DATA } from "../src/data/bundle.generated.js";
 
 describe("terrain (embedded catalog + layout resolution)", () => {
-  it("embeds the 11e template catalog and migrated layouts", () => {
-    // 5 areas + 11 GW features (walls/old corners/old scenery removed; see the
-    // catalog-correction migration), plus the KOTC `impassable-wall`. Pieces
-    // carrying an elevated platform expose `upper_floor`; elevated-only / solid
-    // pieces set `ground_accessible: false`. Plus the two dense KOTC ruin area
-    // templates (`kotc-ruin-inner`, `kotc-ruin-deployment`).
-    expect(dataset.terrainTemplates.all.length).toBe(19);
+  it("embeds the 11e template catalog and imported layouts", () => {
+    // 19 canonical/KOTC templates plus Battlemaster's 12 feature and 44 composed
+    // area templates. Composed areas retain their source scenery as child features.
+    expect(dataset.terrainTemplates.all.length).toBe(75);
+    expect(
+      dataset.terrainTemplates.get("bm-bm-terrain-11e-1-composite-01")?.features,
+    ).toHaveLength(2);
     expect(dataset.terrainTemplates.get("area-large")).toBeDefined();
     expect(dataset.terrainTemplates.get("kotc-ruin-inner")?.terrain_category).toBe("dense");
     expect(dataset.terrainTemplates.get("kotc-ruin-deployment")?.terrain_category).toBe("dense");

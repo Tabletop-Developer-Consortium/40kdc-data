@@ -90,6 +90,8 @@
     "mfm:contract": "tsx src/mfm/gen-dump-schema.ts",
     "mfm:sync": "tsx src/mfm/sync.ts",
     "mfm:bsdata": "tsx src/mfm/bsdata-backstop.ts",
+    "terrain:project-battlemaster": "tsx src/project-battlemaster.ts",
+    "terrain:import-battlemaster": "tsx src/project-battlemaster.ts --write",
     "bundle:schemas": "tsx src/bundle-schemas.ts",
     "codegen:types": "json2ts -i ../crates/wh40kdc/schemas/bundled.schema.json -o src/generated.ts --unreachableDefinitions --bannerComment \"/* Generated from crates/wh40kdc/schemas/bundled.schema.json by 'npm run codegen:types'. DO NOT EDIT BY HAND. */\"",
     "copy:schemas": "rm -rf schemas && cp -R ../schemas schemas",
@@ -101,6 +103,7 @@
   "dependencies": {
     "ajv": "^8.17.0",
     "ajv-formats": "^3.0.0",
+    "bson": "^6.10.4",
     "chalk": "^5.3.0",
     "commander": "^12.0.0",
     "fast-xml-parser": "^4.5.6",

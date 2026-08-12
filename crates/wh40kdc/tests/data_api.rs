@@ -498,12 +498,17 @@ fn collection_is_iterable() {
 #[test]
 fn terrain_catalog_and_layouts_are_embedded() {
     let ds = Dataset::embedded();
-    // 5 areas + 11 GW features after the catalog correction (walls / old corners
-    // / old scenery removed), plus the KOTC `impassable-wall` and the two dense
-    // KOTC ruin area templates (`kotc-ruin-inner`, `kotc-ruin-deployment`).
-    // Elevated-only and solid pieces set ground_accessible = false;
-    // ruins/platforms carry an upper_floor.
-    assert_eq!(ds.terrain_templates.len(), 19);
+    // 19 canonical/KOTC templates plus Battlemaster's 12 feature and 44 composed
+    // area templates. Composed areas retain their source scenery as child features.
+    assert_eq!(ds.terrain_templates.len(), 75);
+    assert_eq!(
+        ds.terrain_templates
+            .get("bm-bm-terrain-11e-1-composite-01")
+            .unwrap()
+            .features
+            .len(),
+        2
+    );
     assert!(ds.terrain_templates.get("area-large").is_some());
     for ruin in ["kotc-ruin-inner", "kotc-ruin-deployment"] {
         assert_eq!(

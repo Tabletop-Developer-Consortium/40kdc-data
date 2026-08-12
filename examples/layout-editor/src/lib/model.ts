@@ -164,15 +164,30 @@ export interface EditLayout {
 
 export const ds = Dataset.embedded();
 
-/** The catalog, areas first then features, each alphabetical by name. */
+/** Runtime catalog used by both the editor and resolver. Battlemaster projections
+ * register their read-only templates here before loading a projected layout. */
 export const CATALOG: TerrainTemplate[] = ds.terrainTemplates.all
   .slice()
   .sort((a, b) =>
     a.kind === b.kind ? a.name.localeCompare(b.name) : a.kind === "area" ? -1 : 1,
   );
+const catalogById = new Map(CATALOG.map((template) => [template.id, template]));
+
+/** Add or refresh source-projected templates for this browser session. */
+export function registerTerrainTemplates(templates: TerrainTemplate[]): void {
+  for (const template of templates) {
+    const existing = CATALOG.findIndex((candidate) => candidate.id === template.id);
+    if (existing === -1) CATALOG.push(template);
+    else CATALOG[existing] = template;
+    catalogById.set(template.id, template);
+  }
+  CATALOG.sort((a, b) =>
+    a.kind === b.kind ? a.name.localeCompare(b.name) : a.kind === "area" ? -1 : 1,
+  );
+}
 
 export function templateById(id: string | undefined): TerrainTemplate | undefined {
-  return id ? ds.terrainTemplates.get(id) ?? undefined : undefined;
+  return id ? catalogById.get(id) : undefined;
 }
 
 /**
@@ -2589,6 +2604,7 @@ export function unpairTwins(layout: EditLayout): void {
   for (const p of layout.pieces) p.twin_id = undefined;
 }
 
+
 /** A blank layout. */
 export function blankLayout(): EditLayout {
   counter = 0;
@@ -2618,16 +2634,14 @@ export function renameLayout(layout: EditLayout, name: string): void {
   layout.id = slugify(name);
 }
 
-/** Deep-clone an embedded layout into the editable model, pairing symmetric twins. */
-export function loadEmbedded(id: string, symmetric = true): EditLayout | undefined {
-  const raw = ds.terrainLayouts.get(id) as TerrainLayout | undefined;
-  if (!raw) return undefined;
+/** Deep-clone a canonical layout into the editable model. */
+export function loadTerrainLayout(raw: TerrainLayout, symmetric = true): EditLayout {
   counter = 0;
   const pieces: EditPiece[] = (raw.pieces ?? []).map((p, i) => ({
     id: p.id ?? `piece-${i + 1}`,
     name: p.name,
     piece_type: (p.piece_type ?? "area") as "area" | "feature",
-    terrain: (p as { terrain?: boolean }).terrain,
+    terrain: "terrain" in p && typeof p.terrain === "boolean" ? p.terrain : undefined,
     template: p.template,
     footprint: p.footprint,
     position: { x: p.position.x, y: p.position.y },
@@ -2655,6 +2669,12 @@ export function loadEmbedded(id: string, symmetric = true): EditLayout | undefin
     board,
     pieces,
   };
+}
+
+/** Load an embedded layout into the editable model. */
+export function loadEmbedded(id: string, symmetric = true): EditLayout | undefined {
+  const raw = ds.terrainLayouts.get(id) as TerrainLayout | undefined;
+  return raw ? loadTerrainLayout(raw, symmetric) : undefined;
 }
 
 const round = (n: number): number => Math.round(n * 1e4) / 1e4;

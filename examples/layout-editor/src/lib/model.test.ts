@@ -1,4 +1,5 @@
 import { describe, it, expect } from "vitest";
+import type { TerrainLayout, TerrainTemplate } from "@alpaca-software/40kdc-data";
 import {
   layoutWarnings,
   isRoundKeystone,
@@ -13,6 +14,9 @@ import {
   templateById,
   eventCompanionPage,
   referenceImageBox,
+  loadTerrainLayout,
+  registerTerrainTemplates,
+  resolve,
   type EditLayout,
   type EditPiece,
 } from "./model.js";
@@ -339,5 +343,56 @@ describe("referenceImageBox", () => {
     expect(t.indexOf("translate(-1 -4)")).toBe(0);
     expect(t.indexOf("rotate(90")).toBeGreaterThan(0);
     expect(t.indexOf("scale(2)")).toBeGreaterThan(t.indexOf("rotate(90"));
+  });
+});
+
+describe("source-projected layouts", () => {
+  it("registers composed templates and resolves a projected layout without flattening it", () => {
+    const templates: TerrainTemplate[] = [
+      {
+        id: "test-bm-wall",
+        name: "Projected wall",
+        kind: "feature",
+        footprint: { type: "rectangle", width: 4, height: 1 },
+        game_version: { edition: "11th", dataslate: "pre-launch-provisional" },
+      },
+      {
+        id: "test-bm-area",
+        name: "Projected area",
+        kind: "area",
+        footprint: { type: "rectangle", width: 8, height: 6 },
+        features: [
+          { id: "wall", template: "test-bm-wall", position: { x: 1, y: 0 } },
+        ],
+        game_version: { edition: "11th", dataslate: "pre-launch-provisional" },
+      },
+    ];
+    const projected: TerrainLayout = {
+      id: "test-bm-layout",
+      name: "Projected layout",
+      source: "battlemaster-tts-cache",
+      mission_matchup_id: "take-and-hold-vs-take-and-hold",
+      variant: 1,
+      deployment_pattern_id: "tipping-point",
+      pieces: [
+        {
+          id: "area-01",
+          piece_type: "area",
+          template: "test-bm-area",
+          position: { x: 30, y: 22 },
+        },
+      ],
+      game_version: { edition: "11th", dataslate: "pre-launch-provisional" },
+    };
+
+    registerTerrainTemplates(templates);
+    const editable = loadTerrainLayout(projected, false);
+
+    expect(editable).toMatchObject({
+      id: "test-bm-layout",
+      source: "battlemaster-tts-cache",
+      pieces: [{ id: "area-01", rotation_degrees: 0, mirror: "none" }],
+    });
+    expect(resolve(editable).map((piece) => piece.piece_type)).toEqual(["area", "feature"]);
   });
 });

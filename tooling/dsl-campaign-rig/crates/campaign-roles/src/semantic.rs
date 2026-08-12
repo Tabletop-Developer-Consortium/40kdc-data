@@ -64,7 +64,27 @@ pub fn validate_semantics(request: &RoleRequest, result: &RoleResult) -> Result<
                 .and_then(|value| value.as_str());
             match verdict {
                 Some("new-shape") => {
-                    require_object(&result.payload, "proposed_shape", "shape-proposal")
+                    require_object(&result.payload, "proposed_shape", "shape-proposal")?;
+                    let resisted_schema = request
+                        .sensitive_input
+                        .get("resisted_schema")
+                        .and_then(|value| {
+                            value
+                                .get("architecture")
+                                .and_then(|architecture| architecture.as_object())
+                                .or_else(|| value.as_object())
+                        })
+                        .ok_or(RoleError::SemanticInvalid("architecture"))?;
+                    let expected_family = architecture_local_actions(resisted_schema)?;
+                    let proposed_family = result
+                        .payload
+                        .get("internal_family")
+                        .and_then(|value| value.as_array())
+                        .ok_or(RoleError::SemanticInvalid("shape-internal-family"))?;
+                    if proposed_family != expected_family {
+                        return Err(RoleError::SemanticInvalid("shape-internal-family"));
+                    }
+                    Ok(())
                 }
                 Some("existing-fits") => {
                     let grounded = result
@@ -99,7 +119,25 @@ pub fn validate_semantics(request: &RoleRequest, result: &RoleResult) -> Result<
                 _ => Err(RoleError::SemanticInvalid("shape-verdict")),
             }
         }
-        Role::KrootLoneSpear => require_array(&result.payload, "coverage", "shape-coverage"),
+        Role::KrootLoneSpear => {
+            require_array(&result.payload, "coverage", "shape-coverage")?;
+            let supplied_size = request
+                .sensitive_input
+                .get("internal_family")
+                .and_then(|value| value.as_array())
+                .map_or(0, Vec::len);
+            let reported_size = result
+                .payload
+                .get("internal_family_size")
+                .and_then(|value| value.as_u64())
+                .and_then(|value| usize::try_from(value).ok())
+                .ok_or(RoleError::SemanticInvalid("shape-internal-family-size"))?;
+            if supplied_size == reported_size {
+                Ok(())
+            } else {
+                Err(RoleError::SemanticInvalid("shape-internal-family-size"))
+            }
+        }
         Role::KrootTrailShaper => {
             let forms = result
                 .payload
@@ -301,6 +339,7 @@ fn validate_inquisitor(request: &RoleRequest, result: &RoleResult) -> Result<(),
         {
             return Err(RoleError::SemanticInvalid("architecture"));
         }
+        architecture_local_actions(architecture)?;
     }
     if let Some(rows) = result
         .payload
@@ -317,6 +356,67 @@ fn validate_inquisitor(request: &RoleRequest, result: &RoleResult) -> Result<(),
         }
     }
     Ok(())
+}
+
+fn architecture_local_actions(
+    architecture: &serde_json::Map<String, serde_json::Value>,
+) -> Result<&Vec<serde_json::Value>, RoleError> {
+    let actions = architecture
+        .get("local_actions")
+        .and_then(|value| value.as_array())
+        .ok_or(RoleError::SemanticInvalid("architecture-internal-family"))?;
+    let declared_size = architecture
+        .get("internal_family_size")
+        .and_then(|value| value.as_u64())
+        .and_then(|value| usize::try_from(value).ok())
+        .ok_or(RoleError::SemanticInvalid("architecture-internal-family"))?;
+    if declared_size != actions.len() {
+        return Err(RoleError::SemanticInvalid("architecture-internal-family"));
+    }
+
+    let mut child_ids = BTreeSet::new();
+    let mut clause_ids = BTreeSet::new();
+    let mut parent_id = None;
+    let mut contract_id = None;
+    for action in actions {
+        let child_id = action
+            .get("child_id")
+            .and_then(|value| value.as_str())
+            .filter(|value| !value.is_empty())
+            .ok_or(RoleError::SemanticInvalid("architecture-internal-family"))?;
+        let action_parent = action
+            .get("parent_id")
+            .and_then(|value| value.as_str())
+            .filter(|value| !value.is_empty())
+            .ok_or(RoleError::SemanticInvalid("architecture-internal-family"))?;
+        let action_contract = action
+            .get("shared_contract_id")
+            .and_then(|value| value.as_str())
+            .filter(|value| !value.is_empty())
+            .ok_or(RoleError::SemanticInvalid("architecture-internal-family"))?;
+        let action_clauses = action
+            .get("clause_ids")
+            .and_then(|value| value.as_array())
+            .ok_or(RoleError::SemanticInvalid("architecture-internal-family"))?;
+        if !child_ids.insert(child_id)
+            || action
+                .get("parent_closed")
+                .and_then(|value| value.as_bool())
+                != Some(true)
+            || parent_id.is_some_and(|value| value != action_parent)
+            || contract_id.is_some_and(|value| value != action_contract)
+            || action_clauses.iter().any(|clause| {
+                clause
+                    .as_str()
+                    .is_none_or(|clause_id| !clause_ids.insert(clause_id))
+            })
+        {
+            return Err(RoleError::SemanticInvalid("architecture-internal-family"));
+        }
+        parent_id = Some(action_parent);
+        contract_id = Some(action_contract);
+    }
+    Ok(actions)
 }
 
 fn validate_warpsmith(request: &RoleRequest, result: &RoleResult) -> Result<(), RoleError> {

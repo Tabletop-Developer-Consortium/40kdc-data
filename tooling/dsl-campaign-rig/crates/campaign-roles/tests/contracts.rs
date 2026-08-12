@@ -241,6 +241,104 @@ fn typed_executor_accepts_grounded_shape_failure_for_needs_schema_routing() {
 }
 
 #[test]
+fn typed_executor_accepts_reconciled_internal_shape_family() {
+    let family = json!([
+        {
+            "child_id": "action-one",
+            "clause_ids": ["clause-a"],
+            "parent_closed": true,
+            "parent_id": "closed-menu",
+            "shared_contract_id": "menu-choice"
+        },
+        {
+            "child_id": "action-two",
+            "clause_ids": ["clause-b"],
+            "parent_closed": true,
+            "parent_id": "closed-menu",
+            "shared_contract_id": "menu-choice"
+        }
+    ]);
+    let mut request = request(Role::KrootFleshShaper, None);
+    request.sensitive_input = json!({
+        "resisted_schema": {
+            "architecture": {
+                "internal_family_size": 2,
+                "local_actions": family.clone()
+            }
+        }
+    });
+    let executor = TypedRoleExecutor::new(FakeRoleTransport {
+        exchange: exchange(result_for(
+            &request,
+            json!({
+                "proposed_shape": {"name": "closed-menu-shape"},
+                "internal_family": family,
+                "self_grade": {"verdict": "new-shape"}
+            }),
+        )),
+    });
+
+    let validated = run_ready(executor.execute(&spec(Role::KrootFleshShaper), request)).unwrap();
+
+    assert_eq!(validated.result.role, Role::KrootFleshShaper);
+}
+#[test]
+fn typed_executor_rejects_shape_family_that_does_not_match_architecture() {
+    let mut request = request(Role::KrootFleshShaper, None);
+    request.sensitive_input = json!({
+        "resisted_schema": {
+            "architecture": {
+                "internal_family_size": 1,
+                "local_actions": [{
+                    "child_id": "action-one",
+                    "clause_ids": ["clause-a"],
+                    "parent_closed": true,
+                    "parent_id": "closed-menu",
+                    "shared_contract_id": "menu-choice"
+                }]
+            }
+        }
+    });
+    let executor = TypedRoleExecutor::new(FakeRoleTransport {
+        exchange: exchange(result_for(
+            &request,
+            json!({
+                "proposed_shape": {"name": "closed-menu-shape"},
+                "internal_family": [],
+                "self_grade": {"verdict": "new-shape"}
+            }),
+        )),
+    });
+
+    assert_eq!(
+        run_ready(executor.execute(&spec(Role::KrootFleshShaper), request)),
+        Err(RoleError::SemanticInvalid("shape-internal-family"))
+    );
+}
+
+#[test]
+fn typed_executor_rejects_unreconciled_internal_shape_family_count() {
+    let mut request = request(Role::KrootLoneSpear, None);
+    request.sensitive_input = json!({
+        "internal_family": [{"child_id": "one"}, {"child_id": "two"}]
+    });
+    let executor = TypedRoleExecutor::new(FakeRoleTransport {
+        exchange: exchange(result_for(
+            &request,
+            json!({
+                "coverage": [{"ability_id": "test-ability", "fit": "faithful"}],
+                "internal_family_size": 0
+            }),
+        )),
+    });
+
+    assert_eq!(
+        run_ready(executor.execute(&spec(Role::KrootLoneSpear), request)),
+        Err(RoleError::SemanticInvalid("shape-internal-family-size"))
+    );
+}
+
+#[test]
 fn typed_executor_accepts_singleton_shape_survey() {
     let request = request(Role::Swarmlord, None);
     let executor = TypedRoleExecutor::new(FakeRoleTransport {

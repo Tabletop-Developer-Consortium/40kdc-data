@@ -1304,6 +1304,7 @@ impl CampaignNodeExecutor {
                         "example_ability_id": seed.ability_id,
                     },
                     "proposed_shape": package.get("proposed_shape").unwrap_or(&package),
+                    "internal_family": package.get("internal_family").unwrap_or(&Value::Null),
                     "seed_ability_id": seed.ability_id,
                     "faction_id": seed.faction_id,
                     "candidate_evidence": candidate_evidence,

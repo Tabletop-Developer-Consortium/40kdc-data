@@ -26,17 +26,16 @@ a missing child result.
 - `what`: `{effect_tree, leaf_types_used, composition, dice_mechanics,
   buff_or_debuff, unmodelable_clauses, confidence}`
 
-Copy those objects into your output without renaming fields. Ground
-`nearest_existing_shapes` in `resisted_schema.existing_shape_fit` and its
-exhaustion evidence. Missing or empty supplied evidence requires a failing verdict.
+Use the supplied decomposition and architecture as immutable evidence. Do not echo
+`decomposition`, `resisted_schema`, `current_dsl`, `schema_inventory`, `raw_text`,
+or a fabricated `retrieval` block in your output; the engine binds those inputs by
+their artifact hashes. Missing or empty supplied evidence requires a failing verdict.
 
 ## Output (JSON contract)
 ```json
 {
   "seed_ability_id": "obelisk-node-control",
   "mechanic": "own-words: restrict the OPPONENT's Reserves/set-up within N\" of a friendly node",
-  "decomposition": { "who": { }, "when": { }, "what": { } },
-  "retrieval": { },
   "proposed_shape": {
     "name": "reserve-denial-zone",
     "kind": "effect-leaf",
@@ -56,9 +55,11 @@ exhaustion evidence. Missing or empty supplied evidence requires a failing verdi
   "self_grade": { "verdict": "new-shape", "confidence": 0.8, "concerns": [] }
 }
 ```
-- `decomposition.{who,when,what}` and `retrieval` MUST reproduce the supplied,
-  immutable child and architecture evidence. Empty or omitted evidence fails the
-  workflow.
+- Return only the decision fields shown above. The engine binds the immutable
+  decomposition and architecture inputs by artifact hash; repeating them makes
+  the provider JSON boundary needlessly fragile.
+- Keep the object compact: at most three `nearest_existing_shapes`; one sentence
+  per rationale or note; no duplicate keys or repeated input evidence.
 - Return exactly one JSON object matching this contract. Do not use markdown or
   call a finalization tool.
 - `verdict:"existing-fits"` is a valid, valuable answer: if the grounding shows an

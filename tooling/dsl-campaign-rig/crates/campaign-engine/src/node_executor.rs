@@ -1304,27 +1304,41 @@ impl CampaignNodeExecutor {
                     Role::KrootLoneSpear
                 };
                 let seed = shape_seed(&shape_id, shape, &state)?;
-                let candidate_evidence = retrieve_family_candidates(
-                    &CapabilityGrant::from_capabilities([Capability::ReadRawStore]),
-                    &self.raw_store_root,
-                    seed,
-                    40,
-                )?;
-                let task = json!({
-                    "shape": {
-                        "pattern": package.get("mechanic")
-                            .or_else(|| package.pointer("/proposed_shape/name"))
-                            .and_then(Value::as_str)
-                            .ok_or(EngineError::Policy)?,
-                        "example_ability_id": seed.ability_id,
-                    },
-                    "proposed_shape": package.get("proposed_shape").unwrap_or(&package),
-                    "internal_family": package.get("internal_family").unwrap_or(&Value::Null),
-                    "seed_ability_id": seed.ability_id,
-                    "faction_id": seed.faction_id,
-                    "candidate_evidence": candidate_evidence,
-                });
-                let survey_parents = vec![package_hash];
+                let mut survey_parents = vec![package_hash];
+                let task = if *survey == 1 {
+                    let candidate_evidence = retrieve_family_candidates(
+                        &CapabilityGrant::from_capabilities([Capability::ReadRawStore]),
+                        &self.raw_store_root,
+                        seed,
+                        40,
+                    )?;
+                    json!({
+                        "shape": {
+                            "pattern": package.get("mechanic")
+                                .or_else(|| package.pointer("/proposed_shape/name"))
+                                .and_then(Value::as_str)
+                                .ok_or(EngineError::Policy)?,
+                            "example_ability_id": seed.ability_id,
+                        },
+                        "proposed_shape": package.get("proposed_shape").unwrap_or(&package),
+                        "internal_family": package.get("internal_family").unwrap_or(&Value::Null),
+                        "seed_ability_id": seed.ability_id,
+                        "faction_id": seed.faction_id,
+                        "candidate_evidence": candidate_evidence,
+                    })
+                } else {
+                    let sweep_hash = *shape.family_hashes.last().ok_or(EngineError::Policy)?;
+                    let swarmlord_sweep: Value =
+                        serde_json::from_slice(&self.engine.store().read_artifact(sweep_hash)?)?;
+                    survey_parents.push(sweep_hash);
+                    json!({
+                        "proposed_shape": package.get("proposed_shape").unwrap_or(&package),
+                        "internal_family": package.get("internal_family").unwrap_or(&Value::Null),
+                        "seed_ability_id": seed.ability_id,
+                        "faction_id": seed.faction_id,
+                        "swarmlord_sweep": swarmlord_sweep,
+                    })
+                };
                 let result = self
                     .run_role(
                         node,

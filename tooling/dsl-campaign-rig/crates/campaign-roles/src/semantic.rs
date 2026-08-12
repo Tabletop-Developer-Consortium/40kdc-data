@@ -120,7 +120,11 @@ pub fn validate_semantics(request: &RoleRequest, result: &RoleResult) -> Result<
             }
         }
         Role::KrootLoneSpear => {
-            require_array(&result.payload, "coverage", "shape-coverage")?;
+            let coverage = result
+                .payload
+                .get("coverage")
+                .and_then(|value| value.as_array())
+                .ok_or(RoleError::SemanticInvalid("shape-coverage"))?;
             let supplied_size = request
                 .sensitive_input
                 .get("internal_family")
@@ -132,11 +136,24 @@ pub fn validate_semantics(request: &RoleRequest, result: &RoleResult) -> Result<
                 .and_then(|value| value.as_u64())
                 .and_then(|value| usize::try_from(value).ok())
                 .ok_or(RoleError::SemanticInvalid("shape-internal-family-size"))?;
-            if supplied_size == reported_size {
-                Ok(())
-            } else {
-                Err(RoleError::SemanticInvalid("shape-internal-family-size"))
+            if supplied_size != reported_size {
+                return Err(RoleError::SemanticInvalid("shape-internal-family-size"));
             }
+            let supplied_sweep = request
+                .sensitive_input
+                .get("swarmlord_sweep")
+                .ok_or(RoleError::SemanticInvalid("shape-sweep-provenance"))?;
+            if result.payload.get("swarmlord_sweep") != Some(supplied_sweep) {
+                return Err(RoleError::SemanticInvalid("shape-sweep-provenance"));
+            }
+            let candidates = supplied_sweep
+                .get("candidates")
+                .and_then(|value| value.as_array())
+                .ok_or(RoleError::SemanticInvalid("shape-sweep-provenance"))?;
+            if survey_row_ids(candidates)? != survey_row_ids(coverage)? {
+                return Err(RoleError::SemanticInvalid("shape-sweep-coverage"));
+            }
+            Ok(())
         }
         Role::KrootTrailShaper => {
             let forms = result
@@ -416,7 +433,33 @@ fn architecture_local_actions(
         parent_id = Some(action_parent);
         contract_id = Some(action_contract);
     }
+
     Ok(actions)
+}
+fn survey_row_ids<'a>(
+    rows: &'a [serde_json::Value],
+) -> Result<BTreeSet<(&'a str, &'a str)>, RoleError> {
+    let ids = rows
+        .iter()
+        .map(|row| {
+            let faction = row
+                .get("faction")
+                .or_else(|| row.get("faction_id"))
+                .and_then(|value| value.as_str())
+                .filter(|value| !value.is_empty())
+                .ok_or(RoleError::SemanticInvalid("shape-sweep-coverage"))?;
+            let ability = row
+                .get("ability_id")
+                .and_then(|value| value.as_str())
+                .filter(|value| !value.is_empty())
+                .ok_or(RoleError::SemanticInvalid("shape-sweep-coverage"))?;
+            Ok((faction, ability))
+        })
+        .collect::<Result<BTreeSet<_>, RoleError>>()?;
+    if ids.len() != rows.len() {
+        return Err(RoleError::SemanticInvalid("shape-sweep-coverage"));
+    }
+    Ok(ids)
 }
 
 fn validate_warpsmith(request: &RoleRequest, result: &RoleResult) -> Result<(), RoleError> {

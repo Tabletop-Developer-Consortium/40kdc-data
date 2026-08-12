@@ -1,3 +1,5 @@
+use std::collections::BTreeSet;
+
 use crate::{
     AbilityPhase, CampaignPhase, CampaignState, Command, CommandAction, DomainError, DomainEvent,
     EventPayload, ShapePhase, guard,
@@ -700,9 +702,13 @@ fn decide_action(
                 return Err(DomainError::FamilyThresholdNotMet);
             }
             if !shape.family_hashes.is_empty()
-                && (&shape.family_members != members
-                    || &shape.excluded_members != flattening_exclusions
-                    || shape.internal_family_size != *internal_family_size)
+                && (shape.internal_family_size != *internal_family_size
+                    || !same_family_roster(
+                        &shape.family_members,
+                        &shape.excluded_members,
+                        members,
+                        flattening_exclusions,
+                    ))
             {
                 return Err(DomainError::ImplementationMatrixIncomplete);
             }
@@ -1031,4 +1037,18 @@ fn ensure_quorum(
     } else {
         Err(DomainError::InsufficientQuorum)
     }
+}
+
+fn same_family_roster(
+    prior_members: &BTreeSet<crate::AbilityKey>,
+    prior_exclusions: &BTreeSet<crate::AbilityKey>,
+    members: &BTreeSet<crate::AbilityKey>,
+    exclusions: &BTreeSet<crate::AbilityKey>,
+) -> bool {
+    prior_members
+        .union(prior_exclusions)
+        .all(|key| members.contains(key) || exclusions.contains(key))
+        && members
+            .union(exclusions)
+            .all(|key| prior_members.contains(key) || prior_exclusions.contains(key))
 }

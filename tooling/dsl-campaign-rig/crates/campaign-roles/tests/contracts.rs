@@ -339,6 +339,67 @@ fn typed_executor_rejects_unreconciled_internal_shape_family_count() {
 }
 
 #[test]
+fn typed_executor_binds_adjudication_to_the_supplied_sweep() {
+    let sweep = json!({
+        "candidates": [
+            {"faction": "faction-a", "ability_id": "ability-a"},
+            {"faction": "faction-b", "ability_id": "ability-b"}
+        ]
+    });
+    let mut request = request(Role::KrootLoneSpear, None);
+    request.sensitive_input = json!({
+        "internal_family": [],
+        "swarmlord_sweep": sweep.clone()
+    });
+    let executor = TypedRoleExecutor::new(FakeRoleTransport {
+        exchange: exchange(result_for(
+            &request,
+            json!({
+                "coverage": [
+                    {"faction": "faction-a", "ability_id": "ability-a"},
+                    {"faction": "faction-b", "ability_id": "ability-b"}
+                ],
+                "internal_family_size": 0,
+                "swarmlord_sweep": sweep
+            }),
+        )),
+    });
+
+    let validated = run_ready(executor.execute(&spec(Role::KrootLoneSpear), request)).unwrap();
+    assert_eq!(validated.result.role, Role::KrootLoneSpear);
+}
+
+#[test]
+fn typed_executor_rejects_incomplete_sweep_adjudication() {
+    let sweep = json!({
+        "candidates": [
+            {"faction": "faction-a", "ability_id": "ability-a"},
+            {"faction": "faction-b", "ability_id": "ability-b"}
+        ]
+    });
+    let mut request = request(Role::KrootLoneSpear, None);
+    request.sensitive_input = json!({
+        "internal_family": [],
+        "swarmlord_sweep": sweep.clone()
+    });
+    let executor = TypedRoleExecutor::new(FakeRoleTransport {
+        exchange: exchange(result_for(
+            &request,
+            json!({
+                "coverage": [{"faction": "faction-a", "ability_id": "ability-a"}],
+                "internal_family_size": 0,
+                "swarmlord_sweep": sweep
+            }),
+        )),
+    });
+
+    assert_eq!(
+        run_ready(executor.execute(&spec(Role::KrootLoneSpear), request)),
+        Err(RoleError::SemanticInvalid("shape-sweep-coverage"))
+    );
+}
+
+#[test]
 fn typed_executor_accepts_singleton_shape_survey() {
     let request = request(Role::Swarmlord, None);
     let executor = TypedRoleExecutor::new(FakeRoleTransport {

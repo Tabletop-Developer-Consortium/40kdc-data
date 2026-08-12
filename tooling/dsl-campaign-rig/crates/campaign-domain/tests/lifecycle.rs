@@ -413,6 +413,84 @@ fn shape_surveys_cannot_change_the_internal_family() {
 }
 
 #[test]
+fn adjudicator_can_reclassify_the_scouted_family_without_changing_its_roster() {
+    let mut state = running_state();
+    let shape_id = ShapeId::new("shape-refined-family").unwrap();
+    dispatch(
+        &mut state,
+        CommandAction::ProposeShape {
+            shape_id: shape_id.clone(),
+            package_hash: hash("shape-package"),
+        },
+    );
+    dispatch(
+        &mut state,
+        CommandAction::RecordFamilySurvey {
+            shape_id: shape_id.clone(),
+            survey_hash: hash("scout-survey"),
+            internal_family_size: 4,
+            members: BTreeSet::from([key()]),
+            flattening_exclusions: BTreeSet::new(),
+        },
+    );
+    dispatch(
+        &mut state,
+        CommandAction::RecordFamilySurvey {
+            shape_id: shape_id.clone(),
+            survey_hash: hash("adjudicator-survey"),
+            internal_family_size: 4,
+            members: BTreeSet::new(),
+            flattening_exclusions: BTreeSet::from([key()]),
+        },
+    );
+
+    let shape = &state.shapes[&shape_id];
+    assert_eq!(shape.family_hashes.len(), 2);
+    assert!(shape.family_members.is_empty());
+    assert_eq!(shape.excluded_members, BTreeSet::from([key()]));
+}
+
+#[test]
+fn adjudicator_cannot_change_the_scouted_candidate_roster() {
+    let mut state = running_state();
+    let shape_id = ShapeId::new("shape-invented-family").unwrap();
+    dispatch(
+        &mut state,
+        CommandAction::ProposeShape {
+            shape_id: shape_id.clone(),
+            package_hash: hash("shape-package"),
+        },
+    );
+    dispatch(
+        &mut state,
+        CommandAction::RecordFamilySurvey {
+            shape_id: shape_id.clone(),
+            survey_hash: hash("scout-survey"),
+            internal_family_size: 4,
+            members: BTreeSet::new(),
+            flattening_exclusions: BTreeSet::new(),
+        },
+    );
+
+    assert_eq!(
+        decide(
+            &state,
+            &command(
+                &state,
+                CommandAction::RecordFamilySurvey {
+                    shape_id,
+                    survey_hash: hash("adjudicator-survey"),
+                    internal_family_size: 4,
+                    members: BTreeSet::from([key()]),
+                    flattening_exclusions: BTreeSet::new(),
+                },
+            ),
+        ),
+        Err(DomainError::ImplementationMatrixIncomplete)
+    );
+}
+
+#[test]
 fn applied_patch_must_match_the_accepted_candidate() {
     let mut state = running_state();
     candidate_panel(&mut state);

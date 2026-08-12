@@ -1601,6 +1601,17 @@ impl CampaignNodeExecutor {
                 });
                 let child_bytes = serde_json::to_vec(&child_results)?;
                 let child_hash = Hash256::digest(&child_bytes);
+                let child_artifact = self.engine.store().put_artifact(
+                    ArtifactKind::ProviderConversation,
+                    Sensitivity::Sensitive,
+                    &child_bytes,
+                    "application/json",
+                    "serde-json",
+                    &[package_hash, describer_hash],
+                )?;
+                if child_artifact.artifact_id != child_hash {
+                    return Err(EngineError::Policy);
+                }
                 let mut review_task = base_task;
                 review_task
                     .as_object_mut()
@@ -1658,20 +1669,12 @@ impl CampaignNodeExecutor {
                     },
                 };
                 Ok(WorkCompletion {
-                    artifacts: vec![
-                        Self::produced(
-                            ArtifactKind::ProviderConversation,
-                            Sensitivity::Sensitive,
-                            child_bytes,
-                            vec![package_hash, describer_hash],
-                        ),
-                        Self::produced(
-                            ArtifactKind::Review,
-                            Sensitivity::Sensitive,
-                            bytes,
-                            vec![package_hash, describer_hash, child_hash],
-                        ),
-                    ],
+                    artifacts: vec![Self::produced(
+                        ArtifactKind::Review,
+                        Sensitivity::Sensitive,
+                        bytes,
+                        vec![package_hash, describer_hash, child_hash],
+                    )],
                     follow_up: self.command(node, lease, action)?,
                     effect: None,
                 })
@@ -4706,26 +4709,26 @@ fn utf16_slice(source: &str, start: usize, end: usize) -> Option<&str> {
 
 #[cfg(test)]
 mod evidence_tests {
-    use std::{
-        collections::{BTreeMap, BTreeSet, VecDeque},
-        path::Path,
-        sync::Arc,
-    };
-
     use async_trait::async_trait;
     use campaign_domain::{
-        AbilityAggregate, AbilityId, AbilityKey, AbilityPhase, ActorId, Budgets, CampaignId,
-        CampaignManifest, CampaignState, CausationId, Command, CommandAction, CommandId,
-        CommandMeta, CorrelationId, FactionId, Hash256, IdentitySet, ShapeAggregate, ShapeId,
-        ShapePhase, WorkItem,
+        AbilityAggregate, AbilityId, AbilityKey, AbilityPhase, ActorId, ArchitectureFacts,
+        ArtifactKind, Budgets, CampaignId, CampaignManifest, CampaignState, CausationId, Command,
+        CommandAction, CommandId, CommandMeta, CorrelationId, DecompositionFacts, EvidenceFacts,
+        FactionId, Hash256, IdentitySet, Sensitivity, ShapeAggregate, ShapeId, ShapePhase,
+        WorkItem,
     };
     use campaign_roles::{
-        RoleError, RoleExecutor, RoleRequest, RoleSpec, RoleTransport, RoleTransportExchange,
-        TypedRoleExecutor,
+        Role, RoleError, RoleExecutor, RoleRequest, RoleResult, RoleSpec, RoleTransport,
+        RoleTransportExchange, RoleVerdict, TypedRoleExecutor, ValidatedRoleResult,
     };
     use campaign_store::{CampaignStore, OutboxStatus};
     use parking_lot::Mutex;
     use serde_json::{Value, json};
+    use std::{
+        collections::{BTreeMap, BTreeSet, VecDeque},
+        fs,
+        sync::Arc,
+    };
     use tempfile::TempDir;
 
     use super::{
@@ -4733,8 +4736,7 @@ mod evidence_tests {
         parse_evidence_packet, retryable_role_error, role_error_diagnostic, role_retry_instruction,
         shape_internal_family_size, shape_seed, validate_candidate_payload,
     };
-    use crate::{CampaignEngine, WorkKind, WorkNode};
-
+    use crate::{CampaignEngine, NodeExecutor, WorkKind, WorkNode};
     #[derive(Clone)]
     struct SequencedRoleTransport {
         payloads: Arc<Mutex<VecDeque<Value>>>,
@@ -4762,6 +4764,56 @@ mod evidence_tests {
             Ok(RoleTransportExchange {
                 response_hash: Hash256::digest(serde_json::to_vec(&response).unwrap()),
                 response,
+                provider_identity_hash: Hash256::digest("fabricated-provider"),
+                repaired: false,
+                transport: "fabricated-transport".into(),
+                fallback_reason: None,
+                remote_run_hash: None,
+                usage: json!({"input_tokens": 1, "output_tokens": 1}),
+            })
+        }
+    }
+
+    #[derive(Clone)]
+    struct ShapeReviewRoleExecutor {
+        requests: Arc<Mutex<Vec<RoleRequest>>>,
+    }
+
+    #[async_trait]
+    impl RoleExecutor for ShapeReviewRoleExecutor {
+        async fn execute(
+            &self,
+            _spec: &RoleSpec,
+            request: RoleRequest,
+        ) -> Result<ValidatedRoleResult, RoleError> {
+            self.requests.lock().push(request.clone());
+            let payload = match request.role {
+                Role::KrootWarShaper => json!({
+                    "verdict": "accept",
+                    "shape_package": {"name": "fabricated-container"}
+                }),
+                Role::Eversor => json!({"divergences": []}),
+                Role::Swarmlord => json!({
+                    "candidates": [],
+                    "estimated_family_size": 1
+                }),
+                _ => return Err(RoleError::SemanticInvalid("unexpected-test-role")),
+            };
+            Ok(ValidatedRoleResult {
+                result: RoleResult {
+                    campaign_id: request.campaign_id,
+                    faction_id: request.ability.faction_id,
+                    ability_id: request.ability.ability_id,
+                    role: request.role,
+                    verdict: RoleVerdict::Accept,
+                    payload,
+                    findings: vec![],
+                },
+                response_hash: Hash256::digest(format!(
+                    "fabricated-response-{}-{:?}",
+                    request.role.as_str(),
+                    request.voter
+                )),
                 provider_identity_hash: Hash256::digest("fabricated-provider"),
                 repaired: false,
                 transport: "fabricated-transport".into(),
@@ -4844,6 +4896,33 @@ mod evidence_tests {
         engine: CampaignEngine,
     }
 
+    fn execute_test_action(
+        engine: &CampaignEngine,
+        campaign_id: &CampaignId,
+        action: CommandAction,
+    ) {
+        let state = engine.state(campaign_id).unwrap();
+        engine
+            .execute(&Command {
+                meta: CommandMeta {
+                    command_id: CommandId::new(),
+                    campaign_id: campaign_id.clone(),
+                    expected_stream_version: state.stream_version,
+                    causation_id: CausationId::new(),
+                    correlation_id: CorrelationId::new(),
+                    actor: ActorId::new("fabricated-test").unwrap(),
+                    expected_manifest_hash: state.manifest_hash,
+                    expected_engine_hash: Hash256::digest("fabricated-engine"),
+                    outbox_id: None,
+                    fencing_token: None,
+                    lease_resource: None,
+                    lease_owner: None,
+                },
+                action,
+            })
+            .unwrap();
+    }
+
     fn role_retry_harness(campaign_name: &str) -> RoleRetryHarness {
         let campaign_id = CampaignId::new(campaign_name).unwrap();
         let ability = AbilityKey::new(
@@ -4903,26 +4982,7 @@ mod evidence_tests {
                 key: ability.clone(),
             },
         ] {
-            let state = engine.state(&campaign_id).unwrap();
-            engine
-                .execute(&Command {
-                    meta: CommandMeta {
-                        command_id: CommandId::new(),
-                        campaign_id: campaign_id.clone(),
-                        expected_stream_version: state.stream_version,
-                        causation_id: CausationId::new(),
-                        correlation_id: CorrelationId::new(),
-                        actor: ActorId::new("fabricated-test").unwrap(),
-                        expected_manifest_hash: state.manifest_hash,
-                        expected_engine_hash: engine_hash,
-                        outbox_id: None,
-                        fencing_token: None,
-                        lease_resource: None,
-                        lease_owner: None,
-                    },
-                    action,
-                })
-                .unwrap();
+            execute_test_action(&engine, &campaign_id, action);
         }
         RoleRetryHarness {
             campaign_id,
@@ -5155,6 +5215,7 @@ mod evidence_tests {
             "ability_id": "fabricated-ability",
             "name": "Example Mechanic",
             "authored_by": ["Example Contributor"],
+
             "game_version": {"edition": "11th", "dataslate": "test"},
             "ability_type": "unit",
             "effect": {"type": "deep-strike"}
@@ -5188,6 +5249,224 @@ mod evidence_tests {
             }
         });
         validate_candidate_payload(&current, &key, source, &paraphrased).unwrap();
+    }
+    #[tokio::test]
+    async fn shape_review_persists_child_evidence_before_parent_provider_turn() {
+        let RoleRetryHarness {
+            campaign_id,
+            ability,
+            repository,
+            _state_root: state_root,
+            store,
+            engine,
+        } = role_retry_harness("shape-review-ordering");
+        let raw_store = TempDir::new().unwrap();
+        fs::write(
+            raw_store.path().join("index.json"),
+            serde_json::to_vec(&json!({
+                "schema_version": 2,
+                "factions": {
+                    "test-faction": {
+                        "test-ability": {
+                            "raw_text": "Fabricated source mechanic."
+                        }
+                    }
+                }
+            }))
+            .unwrap(),
+        )
+        .unwrap();
+        let package = serde_json::to_vec(&json!({
+            "proposed_shape": {
+                "name": "fabricated-container",
+                "kind": "container"
+            }
+        }))
+        .unwrap();
+        let package_hash = store
+            .put_artifact(
+                ArtifactKind::ShapePackage,
+                Sensitivity::Sensitive,
+                &package,
+                "application/json",
+                "serde-json",
+                &[],
+            )
+            .unwrap()
+            .artifact_id;
+        let describer =
+            serde_json::to_vec(&json!({"render_rules": [{"form": "container"}]})).unwrap();
+        let describer_hash = store
+            .put_artifact(
+                ArtifactKind::ShapePackage,
+                Sensitivity::Sensitive,
+                &describer,
+                "application/json",
+                "serde-json",
+                &[package_hash],
+            )
+            .unwrap()
+            .artifact_id;
+        let clauses = BTreeSet::from(["mechanical".to_owned()]);
+        let evidence_hash = Hash256::digest("fabricated-evidence");
+        let architecture_hash = Hash256::digest("fabricated-architecture");
+        let decomposition_hash = Hash256::digest("fabricated-decomposition");
+        let shape_id = ShapeId::new("shape-fabricated-container").unwrap();
+        for action in [
+            CommandAction::BindEvidence {
+                key: ability.clone(),
+                facts: EvidenceFacts {
+                    artifact_hash: evidence_hash,
+                    source_hash: Hash256::digest("fabricated-source"),
+                    all_clause_ids: clauses.clone(),
+                    mechanical_clause_ids: clauses.clone(),
+                    contiguous_partition: true,
+                },
+            },
+            CommandAction::RecordArchitecture {
+                key: ability.clone(),
+                facts: ArchitectureFacts {
+                    artifact_hash: architecture_hash,
+                    evidence_hash,
+                    covered_clause_ids: clauses.clone(),
+                    requires_shape: true,
+                    closed_parent: true,
+                    unresolved_bindings: BTreeSet::new(),
+                },
+            },
+            CommandAction::RecordDecomposerResult {
+                key: ability.clone(),
+                role: "target-dummy".into(),
+                architecture_hash,
+                artifact_hash: Hash256::digest("fabricated-who"),
+            },
+            CommandAction::RecordDecomposerResult {
+                key: ability.clone(),
+                role: "chronomancer".into(),
+                architecture_hash,
+                artifact_hash: Hash256::digest("fabricated-when"),
+            },
+            CommandAction::RecordDecomposerResult {
+                key: ability.clone(),
+                role: "vox-hound".into(),
+                architecture_hash,
+                artifact_hash: Hash256::digest("fabricated-what"),
+            },
+            CommandAction::RecordDecomposition {
+                key: ability.clone(),
+                facts: DecompositionFacts {
+                    artifact_hash: decomposition_hash,
+                    architecture_hash,
+                    covered_clause_ids: clauses,
+                    who_complete: true,
+                    when_complete: true,
+                    what_complete: true,
+                    deferred_lookups: BTreeSet::new(),
+                },
+            },
+            CommandAction::OpenShapeLifecycle {
+                key: ability.clone(),
+                shape_id: shape_id.clone(),
+                package_hash,
+            },
+            CommandAction::RecordFamilySurvey {
+                shape_id: shape_id.clone(),
+                survey_hash: Hash256::digest("fabricated-family-one"),
+                internal_family_size: 4,
+                members: BTreeSet::from([ability.clone()]),
+                flattening_exclusions: BTreeSet::new(),
+            },
+            CommandAction::RecordFamilySurvey {
+                shape_id: shape_id.clone(),
+                survey_hash: Hash256::digest("fabricated-family-two"),
+                internal_family_size: 4,
+                members: BTreeSet::from([ability.clone()]),
+                flattening_exclusions: BTreeSet::new(),
+            },
+            CommandAction::RecordDescriberSpec {
+                shape_id: shape_id.clone(),
+                artifact_hash: describer_hash,
+                render_form_count: 1,
+            },
+        ] {
+            execute_test_action(&engine, &campaign_id, action);
+        }
+        let requests = Arc::new(Mutex::new(Vec::new()));
+        let executor = CampaignNodeExecutor::new(
+            campaign_id,
+            engine,
+            Arc::new(ShapeReviewRoleExecutor {
+                requests: requests.clone(),
+            }),
+            repository.path(),
+            raw_store.path(),
+            false,
+            None,
+        );
+        let node = WorkNode {
+            work_id: Hash256::digest("shape-review-work"),
+            ability: None,
+            shape_id: Some(shape_id),
+            kind: WorkKind::ShapeReview,
+            roles: vec![],
+            capabilities: vec![],
+        };
+        let now = time::OffsetDateTime::now_utc().unix_timestamp();
+        let lease = store
+            .acquire_lease("fabricated-resource", "fabricated-worker", now, 120)
+            .unwrap();
+
+        let completion = executor.execute(&node, &lease).await.unwrap();
+
+        let requests_guard = requests.lock();
+        assert_eq!(requests_guard.len(), 4);
+        let war_request = requests_guard
+            .iter()
+            .find(|request| request.role == Role::KrootWarShaper)
+            .unwrap();
+        let child_hash = war_request.input_artifacts[2];
+        drop(requests_guard);
+        let child_bytes = store.read_artifact(child_hash).unwrap();
+        assert!(
+            store
+                .sensitive_artifact_bytes()
+                .unwrap()
+                .contains(&child_bytes)
+        );
+        let connection =
+            rusqlite::Connection::open(state_root.path().join("campaign.sqlite3")).unwrap();
+        let mut statement = connection
+            .prepare(
+                "SELECT parent_artifact_id FROM artifact_parents
+                 WHERE artifact_id = ?1 ORDER BY parent_artifact_id",
+            )
+            .unwrap();
+        let child_parents = statement
+            .query_map([child_hash.to_string()], |row| row.get::<_, String>(0))
+            .unwrap()
+            .collect::<Result<BTreeSet<_>, _>>()
+            .unwrap();
+        assert_eq!(
+            child_parents,
+            BTreeSet::from([package_hash.to_string(), describer_hash.to_string()])
+        );
+        assert_eq!(completion.artifacts.len(), 1);
+        assert_eq!(completion.artifacts[0].kind, ArtifactKind::Review);
+        assert_eq!(
+            completion.artifacts[0].parent_hashes,
+            vec![package_hash, describer_hash, child_hash]
+        );
+
+        store.expire_lease(&lease, now).unwrap();
+        let replay_lease = store
+            .acquire_lease("fabricated-resource", "replay-worker", now + 1, 120)
+            .unwrap();
+        let replay = executor.execute(&node, &replay_lease).await.unwrap();
+        assert_eq!(
+            replay.artifacts[0].expected_hash,
+            completion.artifacts[0].expected_hash
+        );
+        assert_eq!(requests.lock().len(), 4);
     }
 
     #[test]

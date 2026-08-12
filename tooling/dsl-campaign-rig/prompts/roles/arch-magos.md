@@ -43,15 +43,18 @@ If a decomposer block is null or contradicts the prose, work from the prose.
 }
 ```
 - `clause_coverage` contains exactly one row for every id in the immutable source
-  evidence packet. Every mechanical clause must be `disposition:"exact"` and use
-  `source-explicit` or `schema-derived` evidence. `inference` and `unresolved` are
-  review signals, never substitutes for source mechanics.
+  evidence packet. For an `accept` verdict, every mechanical clause must be
+  `disposition:"exact"` and use `source-explicit` or `schema-derived` evidence.
+  `inference` is never admissible evidence.
+- For a `needs-schema` verdict, a mechanical clause that the current schema cannot
+  faithfully represent uses `disposition:"unresolved"` with `source-explicit` or
+  `schema-derived` evidence. At least one mechanical clause must be unresolved and
+  `resisted_schema` must be a non-null inbox-format block:
+  `{mechanic, resists_schema, proposal, also_unblocks}`. Exact clauses remain exact.
 - `dropped_clauses` MUST be empty. A mechanically meaningful clause that would
   otherwise land in `approx_notes` is `resisted_schema`, not an accepted partial fit.
-- `resisted_schema`, when non-null, is an inbox-format block:
-  `{mechanic, resists_schema, proposal, also_unblocks}` (own words, matching
-  `_private/loop-state/inbox-<faction>.md` sections). In that case `dsl` holds the
-  best HONEST fit (or the unchanged `previous_dsl`) — never a placeholder lie.
+  In that case `dsl` holds the best HONEST fit (or the unchanged `previous_dsl`) —
+  never a placeholder lie. `placeholder_encoding` and `approx_mechanical` remain false.
 
 ## Tool inventory
 - Schemas: Read `schemas/enrichment/ability-dsl/{ability,effect,condition,scope}.schema.json`

@@ -1,6 +1,6 @@
 use std::collections::BTreeSet;
 
-use crate::{Role, RoleError, RoleRequest, RoleResult};
+use crate::{Role, RoleError, RoleRequest, RoleResult, RoleVerdict};
 
 pub fn validate_semantics(request: &RoleRequest, result: &RoleResult) -> Result<(), RoleError> {
     if result.campaign_id != request.campaign_id
@@ -252,24 +252,24 @@ pub fn validate_semantics(request: &RoleRequest, result: &RoleResult) -> Result<
 }
 
 fn validate_arch_magos(request: &RoleRequest, result: &RoleResult) -> Result<(), RoleError> {
-    let expected = request
-        .sensitive_input
-        .get("clause_ids")
-        .and_then(|value| value.as_array())
-        .ok_or(RoleError::SemanticInvalid("missing-clause-contract"))?
-        .iter()
-        .filter_map(|value| value.as_str())
-        .collect::<BTreeSet<_>>();
-    let mechanical = request
-        .sensitive_input
-        .get("mechanical_clause_ids")
-        .and_then(|value| value.as_array())
-        .ok_or(RoleError::SemanticInvalid(
-            "missing-mechanical-clause-contract",
-        ))?
-        .iter()
-        .filter_map(|value| value.as_str())
-        .collect::<BTreeSet<_>>();
+    let needs_schema = match result.verdict {
+        RoleVerdict::Accept => false,
+        RoleVerdict::NeedsSchema => true,
+        _ => return Err(RoleError::SemanticInvalid("arch-magos-verdict")),
+    };
+    let coverage_error = if needs_schema {
+        "needs-schema-clause-coverage"
+    } else {
+        "clause-coverage"
+    };
+    let expected = string_array_set(
+        request.sensitive_input.get("clause_ids"),
+        "missing-clause-contract",
+    )?;
+    let mechanical = string_array_set(
+        request.sensitive_input.get("mechanical_clause_ids"),
+        "missing-mechanical-clause-contract",
+    )?;
     let coverage = result
         .payload
         .get("clause_coverage")
@@ -277,23 +277,66 @@ fn validate_arch_magos(request: &RoleRequest, result: &RoleResult) -> Result<(),
         .ok_or(RoleError::SemanticInvalid("missing-clause-coverage"))?;
     let actual = coverage
         .iter()
-        .filter_map(|row| row.get("clause_id").and_then(|value| value.as_str()))
-        .collect::<BTreeSet<_>>();
-    if expected != actual
-        || coverage.iter().any(|row| {
-            let clause_id = row.get("clause_id").and_then(|value| value.as_str());
-            let disposition = row.get("disposition").and_then(|value| value.as_str());
-            clause_id.is_none()
-                || if mechanical.contains(clause_id.expect("checked")) {
-                    disposition != Some("exact")
-                } else {
-                    !matches!(disposition, Some("exact" | "declared-nonmechanical"))
-                }
-                || !matches!(
-                    row.get("evidence").and_then(|value| value.as_str()),
-                    Some("source-explicit" | "schema-derived")
-                )
+        .map(|row| {
+            row.get("clause_id")
+                .and_then(|value| value.as_str())
+                .ok_or(RoleError::SemanticInvalid(coverage_error))
         })
+        .collect::<Result<BTreeSet<_>, _>>()?;
+    let mut unresolved_mechanical = false;
+    let invalid_row = coverage.iter().any(|row| {
+        let clause_id = row
+            .get("clause_id")
+            .and_then(|value| value.as_str())
+            .expect("parsed above");
+        let disposition = row.get("disposition").and_then(|value| value.as_str());
+        let evidence = row.get("evidence").and_then(|value| value.as_str());
+        if mechanical.contains(clause_id)
+            && needs_schema
+            && disposition == Some("unresolved")
+            && matches!(evidence, Some("source-explicit" | "schema-derived"))
+        {
+            unresolved_mechanical = true;
+            false
+        } else if mechanical.contains(clause_id) {
+            disposition != Some("exact")
+                || !matches!(evidence, Some("source-explicit" | "schema-derived"))
+        } else {
+            !matches!(disposition, Some("exact" | "declared-nonmechanical"))
+                || !matches!(evidence, Some("source-explicit" | "schema-derived"))
+        }
+    });
+    let dropped_clauses_empty = result
+        .payload
+        .get("dropped_clauses")
+        .and_then(|value| value.as_array())
+        .is_some_and(Vec::is_empty);
+    let resisted_schema_complete = result
+        .payload
+        .get("resisted_schema")
+        .and_then(|value| value.as_object())
+        .is_some_and(|package| {
+            ["mechanic", "resists_schema", "proposal", "also_unblocks"]
+                .iter()
+                .all(|field| {
+                    package
+                        .get(*field)
+                        .and_then(|value| value.as_str())
+                        .is_some_and(|value| !value.trim().is_empty())
+                })
+        });
+    let needs_schema_dsl_present = result
+        .payload
+        .get("dsl")
+        .and_then(|value| value.as_object())
+        .and_then(|dsl| dsl.get("ability_id"))
+        .and_then(|value| value.as_str())
+        == Some(request.ability.ability_id.as_str());
+    if expected != actual
+        || coverage.len() != actual.len()
+        || !mechanical.is_subset(&expected)
+        || invalid_row
+        || !dropped_clauses_empty
         || result
             .payload
             .get("placeholder_encoding")
@@ -304,11 +347,25 @@ fn validate_arch_magos(request: &RoleRequest, result: &RoleResult) -> Result<(),
             .get("approx_mechanical")
             .and_then(|value| value.as_bool())
             != Some(false)
+        || (needs_schema
+            && (!unresolved_mechanical || !resisted_schema_complete || !needs_schema_dsl_present))
     {
-        Err(RoleError::SemanticInvalid("clause-coverage"))
+        Err(RoleError::SemanticInvalid(coverage_error))
     } else {
         Ok(())
     }
+}
+
+fn string_array_set<'a>(
+    value: Option<&'a serde_json::Value>,
+    error: &'static str,
+) -> Result<BTreeSet<&'a str>, RoleError> {
+    value
+        .and_then(|value| value.as_array())
+        .ok_or(RoleError::SemanticInvalid(error))?
+        .iter()
+        .map(|value| value.as_str().ok_or(RoleError::SemanticInvalid(error)))
+        .collect()
 }
 
 fn validate_skitarius(result: &RoleResult) -> Result<(), RoleError> {

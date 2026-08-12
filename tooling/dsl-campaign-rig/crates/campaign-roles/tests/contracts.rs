@@ -84,7 +84,39 @@ fn valid_arch_magos_payload() -> Value {
             {"clause_id": "clause-b", "disposition": "declared-nonmechanical", "evidence": "schema-derived"}
         ],
         "placeholder_encoding": false,
+        "dropped_clauses": [],
         "approx_mechanical": false
+    })
+}
+
+fn valid_resisted_schema() -> Value {
+    json!({
+        "mechanic": "Fabricated mechanic",
+        "resists_schema": "No exact fabricated shape.",
+        "proposal": "Add a fabricated shape.",
+        "also_unblocks": "Fabricated family."
+    })
+}
+
+fn valid_needs_schema_payload() -> Value {
+    json!({
+        "dsl": {"ability_id": "test-ability"},
+        "clause_coverage": [
+            {
+                "clause_id": "clause-a",
+                "disposition": "unresolved",
+                "evidence": "source-explicit"
+            },
+            {
+                "clause_id": "clause-b",
+                "disposition": "declared-nonmechanical",
+                "evidence": "schema-derived"
+            }
+        ],
+        "dropped_clauses": [],
+        "placeholder_encoding": false,
+        "approx_mechanical": false,
+        "resisted_schema": valid_resisted_schema()
     })
 }
 
@@ -186,6 +218,167 @@ fn typed_executor_rejects_arch_magos_clause_coverage_violation() {
     let error = run_ready(executor.execute(&spec(Role::ArchMagos), request)).unwrap_err();
 
     assert_eq!(error, RoleError::SemanticInvalid("clause-coverage"));
+}
+
+#[test]
+fn typed_executor_requires_strict_accept_clause_matrix() {
+    for (case, mutate) in [
+        ("unresolved-mechanical", "unresolved-mechanical"),
+        ("inferred-mechanical", "inferred-mechanical"),
+        ("duplicate", "duplicate"),
+        ("missing", "missing"),
+        ("extra", "extra"),
+        ("malformed", "malformed"),
+        ("dropped", "dropped"),
+        ("placeholder", "placeholder"),
+        ("approximate", "approximate"),
+    ] {
+        let request = request(Role::ArchMagos, None);
+        let mut payload = valid_arch_magos_payload();
+        match mutate {
+            "unresolved-mechanical" => {
+                payload["clause_coverage"][0]["disposition"] = json!("unresolved")
+            }
+            "inferred-mechanical" => payload["clause_coverage"][0]["evidence"] = json!("inference"),
+            "duplicate" => {
+                let duplicate = payload["clause_coverage"][1].clone();
+                payload["clause_coverage"]
+                    .as_array_mut()
+                    .unwrap()
+                    .push(duplicate);
+            }
+            "missing" => {
+                payload["clause_coverage"].as_array_mut().unwrap().pop();
+            }
+            "extra" => payload["clause_coverage"]
+                .as_array_mut()
+                .unwrap()
+                .push(json!({
+                    "clause_id": "foreign-clause",
+                    "disposition": "declared-nonmechanical",
+                    "evidence": "schema-derived"
+                })),
+            "malformed" => payload["clause_coverage"][0]["clause_id"] = json!(7),
+            "dropped" => payload["dropped_clauses"] = json!(["clause-a"]),
+            "placeholder" => payload["placeholder_encoding"] = json!(true),
+            "approximate" => payload["approx_mechanical"] = json!(true),
+            _ => unreachable!(),
+        }
+        let executor = TypedRoleExecutor::new(FakeRoleTransport {
+            exchange: exchange(result_for(&request, payload)),
+        });
+
+        let error = run_ready(executor.execute(&spec(Role::ArchMagos), request)).unwrap_err();
+
+        assert_eq!(
+            error,
+            RoleError::SemanticInvalid("clause-coverage"),
+            "{case}"
+        );
+    }
+}
+
+#[test]
+fn typed_executor_accepts_honest_needs_schema_clause_matrix() {
+    let request = request(Role::ArchMagos, None);
+    let mut response = result_for(&request, valid_needs_schema_payload());
+    response["verdict"] = json!("needs-schema");
+    let executor = TypedRoleExecutor::new(FakeRoleTransport {
+        exchange: exchange(response),
+    });
+
+    let validated = run_ready(executor.execute(&spec(Role::ArchMagos), request)).unwrap();
+
+    assert_eq!(
+        validated.result.verdict,
+        campaign_roles::RoleVerdict::NeedsSchema
+    );
+}
+
+#[test]
+fn typed_executor_rejects_unjustified_needs_schema_clause_matrix() {
+    for (case, mutate) in [
+        ("inference", "inference"),
+        ("no-gap", "no-gap"),
+        ("no-package", "no-package"),
+        ("empty-package", "empty-package"),
+        ("partial-package", "partial-package"),
+        ("wrong-package-type", "wrong-package-type"),
+        ("missing-dsl", "missing-dsl"),
+        ("wrong-dsl-identity", "wrong-dsl-identity"),
+        ("duplicate", "duplicate"),
+        ("missing", "missing"),
+        ("extra", "extra"),
+        ("malformed", "malformed"),
+    ] {
+        let request = request(Role::ArchMagos, None);
+        let mut payload = valid_needs_schema_payload();
+        match mutate {
+            "inference" => payload["clause_coverage"][0]["evidence"] = json!("inference"),
+            "no-gap" => payload["clause_coverage"][0]["disposition"] = json!("exact"),
+            "no-package" => payload["resisted_schema"] = Value::Null,
+            "empty-package" => payload["resisted_schema"] = json!({}),
+            "partial-package" => payload["resisted_schema"] = json!({"mechanic": "Fabricated"}),
+            "wrong-package-type" => payload["resisted_schema"]["proposal"] = json!(3),
+            "missing-dsl" => {
+                payload.as_object_mut().unwrap().remove("dsl");
+            }
+            "wrong-dsl-identity" => payload["dsl"]["ability_id"] = json!("other-ability"),
+            "duplicate" => {
+                let duplicate = payload["clause_coverage"][1].clone();
+                payload["clause_coverage"]
+                    .as_array_mut()
+                    .unwrap()
+                    .push(duplicate);
+            }
+            "missing" => {
+                payload["clause_coverage"].as_array_mut().unwrap().pop();
+            }
+            "extra" => payload["clause_coverage"]
+                .as_array_mut()
+                .unwrap()
+                .push(json!({
+                    "clause_id": "foreign-clause",
+                    "disposition": "declared-nonmechanical",
+                    "evidence": "schema-derived"
+                })),
+            "malformed" => payload["clause_coverage"][0]["clause_id"] = json!(7),
+            _ => unreachable!(),
+        }
+        let mut response = result_for(&request, payload);
+        response["verdict"] = json!("needs-schema");
+        let executor = TypedRoleExecutor::new(FakeRoleTransport {
+            exchange: exchange(response),
+        });
+
+        let error = run_ready(executor.execute(&spec(Role::ArchMagos), request)).unwrap_err();
+
+        assert_eq!(
+            error,
+            RoleError::SemanticInvalid("needs-schema-clause-coverage"),
+            "{case}"
+        );
+    }
+}
+
+#[test]
+fn typed_executor_rejects_non_candidate_arch_magos_verdicts() {
+    for verdict in ["revise", "reject", "pass", "fail"] {
+        let request = request(Role::ArchMagos, None);
+        let mut response = result_for(&request, valid_arch_magos_payload());
+        response["verdict"] = json!(verdict);
+        let executor = TypedRoleExecutor::new(FakeRoleTransport {
+            exchange: exchange(response),
+        });
+
+        let error = run_ready(executor.execute(&spec(Role::ArchMagos), request)).unwrap_err();
+
+        assert_eq!(
+            error,
+            RoleError::SemanticInvalid("arch-magos-verdict"),
+            "{verdict}"
+        );
+    }
 }
 
 #[test]

@@ -556,6 +556,9 @@ fn role_retry_instruction(error: &RoleError) -> &'static str {
         RoleError::SemanticInvalid("missing-clause-coverage") => {
             "Return the full Arch-Magos authoring envelope, not a bare abilities.json entry. Put the complete candidate under payload.json's dsl field and include clause_coverage with exactly one row for every supplied clause_id, plus dropped_clauses, placeholder_encoding, approx_mechanical, resisted_schema, self_grade, and confidence."
         }
+        RoleError::SemanticInvalid("needs-schema-clause-coverage") => {
+            "Return a fresh needs-schema result with exactly one clause_coverage row for every supplied clause id. Mechanical gaps may use disposition unresolved only with source-explicit or schema-derived evidence and a non-null resisted_schema package; exact mechanical rows must remain exact. Keep dropped_clauses empty, placeholder_encoding false, and approx_mechanical false."
+        }
         RoleError::SemanticInvalid("architecture-clause-coverage") => {
             "Return a fresh architecture whose source_clause_ids contains every supplied evidence_packet clause id exactly once, including structural and declared non-mechanical clauses. Do not add, omit, or duplicate clause ids."
         }
@@ -4454,12 +4457,6 @@ fn validate_candidate_role_result(
     source_text: &str,
     result: &ValidatedRoleResult,
 ) -> Result<(), RoleError> {
-    if matches!(
-        result.result.verdict,
-        campaign_roles::RoleVerdict::NeedsSchema
-    ) {
-        return Ok(());
-    }
     validate_candidate_payload(current, key, source_text, &result.result.payload)
 }
 
@@ -4788,6 +4785,17 @@ mod evidence_tests {
 
         assert!(role_retry_instruction(&error).contains("full Arch-Magos authoring envelope"));
         assert!(role_retry_instruction(&error).contains("exactly one row"));
+    }
+
+    #[test]
+    fn needs_schema_coverage_gets_honest_gap_retry_instructions() {
+        let error = RoleError::SemanticInvalid("needs-schema-clause-coverage");
+
+        assert!(
+            role_retry_instruction(&error)
+                .contains("Mechanical gaps may use disposition unresolved")
+        );
+        assert!(role_retry_instruction(&error).contains("non-null resisted_schema"));
     }
 
     #[test]

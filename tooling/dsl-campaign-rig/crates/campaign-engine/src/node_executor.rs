@@ -269,9 +269,17 @@ impl CampaignNodeExecutor {
         input_artifacts: Vec<Hash256>,
         task: Value,
     ) -> Result<ValidatedRoleResult, EngineError> {
+        let state = self.state(node)?;
+        let max_attempts = state
+            .manifest
+            .as_ref()
+            .ok_or(EngineError::Policy)?
+            .budgets
+            .max_assembly_attempts;
+        let attempt_count = max_attempts.saturating_sub(attempt).saturating_add(1);
         let mut retry_task = task;
-        for retry in 0..2 {
-            let current_attempt = attempt.saturating_add(retry);
+        for retry_index in 0..attempt_count {
+            let current_attempt = attempt.saturating_add(retry_index);
             match self
                 .run_role_once(
                     node,
@@ -285,7 +293,10 @@ impl CampaignNodeExecutor {
                 .await
             {
                 Ok(result) => return Ok(result),
-                Err(EngineError::Role(error)) if retry == 0 && retryable_role_error(&error) => {
+                Err(EngineError::Role(error))
+                    if retry_index.saturating_add(1) < attempt_count
+                        && retryable_role_error(&error) =>
+                {
                     if let Some(task) = retry_task.as_object_mut() {
                         task.insert(
                             "retry_context".into(),
@@ -497,6 +508,7 @@ fn retryable_role_error(error: &RoleError) -> bool {
         RoleError::SchemaInvalid
             | RoleError::SemanticInvalid(_)
             | RoleError::PayloadJsonInvalid(_)
+            | RoleError::RepairedOutput
             | RoleError::ProviderFailure("response-envelope-invalid")
     )
 }
@@ -514,7 +526,10 @@ fn role_retry_instruction(error: &RoleError) -> &'static str {
             "Return the full Arch-Magos authoring envelope, not a bare abilities.json entry. Put the complete candidate under payload.json's dsl field and include clause_coverage with exactly one row for every supplied clause_id, plus dropped_clauses, placeholder_encoding, approx_mechanical, resisted_schema, self_grade, and confidence."
         }
         RoleError::PayloadJsonInvalid(_) => {
-            "Return a fresh result matching the supplied schema and semantic contract exactly. Validate payload.json as one standalone JSON object; do not append any envelope-closing brace inside that string. Finding severity must be an integer from 1 through 3."
+            "Return a fresh result matching the supplied schema and semantic contract exactly. Validate payload.json as one standalone JSON object. Finding severity must be an integer from 1 through 3."
+        }
+        RoleError::RepairedOutput => {
+            "The prior payload required automatic JSON closure and was discarded. Return a fresh result; ensure payload.json is a complete standalone JSON object with every opening delimiter closed exactly once."
         }
         _ => {
             "Return a fresh result matching the supplied schema and semantic contract exactly. Address the diagnostic directly; do not omit required evidence fields. Finding severity must be an integer from 1 through 3."
@@ -4607,6 +4622,12 @@ mod evidence_tests {
 
         assert!(retryable_role_error(&error));
         assert_eq!(role_error_diagnostic(&error), "Syntax at line 1, column 42");
+        let repaired = RoleError::RepairedOutput;
+        assert!(retryable_role_error(&repaired));
+        assert!(
+            role_retry_instruction(&repaired)
+                .contains("prior payload required automatic JSON closure")
+        );
     }
 
     #[test]

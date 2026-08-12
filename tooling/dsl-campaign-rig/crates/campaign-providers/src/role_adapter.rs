@@ -70,7 +70,7 @@ impl<T: SubscriptionTransport> RoleTransport for TransportRoleAdapter<T> {
             .ok_or(RoleError::ProviderFailure("payload-envelope-invalid"))
             .and_then(|payload| {
                 serde_json::from_str(payload)
-                    .map_err(|_| RoleError::ProviderFailure("payload-json-invalid"))
+                    .map_err(|error| RoleError::PayloadJsonInvalid(payload_json_diagnostic(&error)))
             })?;
         response
             .as_object_mut()
@@ -89,6 +89,15 @@ impl<T: SubscriptionTransport> RoleTransport for TransportRoleAdapter<T> {
             usage: serde_json::to_value(exchange.usage).map_err(|_| RoleError::Transport)?,
         })
     }
+}
+
+fn payload_json_diagnostic(error: &serde_json::Error) -> String {
+    format!(
+        "{:?} at line {}, column {}",
+        error.classify(),
+        error.line(),
+        error.column()
+    )
 }
 
 fn map_provider_error(error: ProviderError) -> RoleError {

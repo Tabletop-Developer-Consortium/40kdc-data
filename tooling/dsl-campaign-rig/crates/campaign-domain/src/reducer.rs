@@ -243,6 +243,7 @@ pub fn evolve(state: &mut CampaignState, event: &DomainEvent) -> Result<(), Doma
                     phase: ShapePhase::Proposed,
                     family_hashes: Vec::new(),
                     family_members: Default::default(),
+                    internal_family_size: 0,
                     describer_hash: None,
                     excluded_members: Default::default(),
                     review_hashes: Vec::new(),
@@ -258,6 +259,7 @@ pub fn evolve(state: &mut CampaignState, event: &DomainEvent) -> Result<(), Doma
         E::ShapeFamilySurveyed {
             shape_id,
             survey_hash,
+            internal_family_size,
             members,
             flattening_exclusions,
         } => {
@@ -265,6 +267,7 @@ pub fn evolve(state: &mut CampaignState, event: &DomainEvent) -> Result<(), Doma
             shape.phase = ShapePhase::FamilySurveyed;
             shape.family_hashes.push(*survey_hash);
             shape.family_members = members.clone();
+            shape.internal_family_size = *internal_family_size;
             shape.excluded_members = flattening_exclusions.clone();
         }
         E::ShapeDescriberSpecified {

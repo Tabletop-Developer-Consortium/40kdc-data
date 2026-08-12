@@ -285,20 +285,15 @@ impl CampaignNodeExecutor {
                 .await
             {
                 Ok(result) => return Ok(result),
-                Err(EngineError::Role(
-                    RoleError::SchemaInvalid
-                    | RoleError::SemanticInvalid(_)
-                    | RoleError::ProviderFailure(
-                        "payload-json-invalid" | "response-envelope-invalid",
-                    ),
-                )) if retry == 0 => {
+                Err(EngineError::Role(error)) if retry == 0 && retryable_role_error(&error) => {
                     if let Some(task) = retry_task.as_object_mut() {
                         task.insert(
                             "retry_context".into(),
                             json!({
                                 "prior_attempt": current_attempt,
                                 "failure": "strict-output-invalid",
-                                "instruction": "Return a fresh result matching the supplied schema and semantic contract exactly; finding severity must be an integer from 1 through 3."
+                                "diagnostic": role_error_diagnostic(&error),
+                                "instruction": role_retry_instruction(&error),
                             }),
                         );
                     }
@@ -493,6 +488,37 @@ impl CampaignNodeExecutor {
 
     fn payload_bytes(result: &ValidatedRoleResult) -> Result<Vec<u8>, EngineError> {
         Ok(serde_json::to_vec(&result.result.payload)?)
+    }
+}
+
+fn retryable_role_error(error: &RoleError) -> bool {
+    matches!(
+        error,
+        RoleError::SchemaInvalid
+            | RoleError::SemanticInvalid(_)
+            | RoleError::PayloadJsonInvalid(_)
+            | RoleError::ProviderFailure("response-envelope-invalid")
+    )
+}
+
+fn role_error_diagnostic(error: &RoleError) -> String {
+    match error {
+        RoleError::PayloadJsonInvalid(diagnostic) => diagnostic.clone(),
+        _ => error.to_string(),
+    }
+}
+
+fn role_retry_instruction(error: &RoleError) -> &'static str {
+    match error {
+        RoleError::SemanticInvalid("missing-clause-coverage") => {
+            "Return the full Arch-Magos authoring envelope, not a bare abilities.json entry. Put the complete candidate under payload.json's dsl field and include clause_coverage with exactly one row for every supplied clause_id, plus dropped_clauses, placeholder_encoding, approx_mechanical, resisted_schema, self_grade, and confidence."
+        }
+        RoleError::PayloadJsonInvalid(_) => {
+            "Return a fresh result matching the supplied schema and semantic contract exactly. Validate payload.json as one standalone JSON object; do not append any envelope-closing brace inside that string. Finding severity must be an integer from 1 through 3."
+        }
+        _ => {
+            "Return a fresh result matching the supplied schema and semantic contract exactly. Address the diagnostic directly; do not omit required evidence fields. Finding severity must be an integer from 1 through 3."
+        }
     }
 }
 
@@ -1302,9 +1328,16 @@ impl CampaignNodeExecutor {
                     .iter()
                     .map(|item| item.key.clone())
                     .collect::<BTreeSet<_>>();
-                let (members, exclusions) =
+                let (mut members, exclusions) =
                     shape_survey_members(&result.result.payload, *survey, &manifest_keys)?;
-                let action = if members.len() < usize::from(manifest.budgets.family_threshold) {
+                members.insert(seed.clone());
+                let internal_family_size =
+                    shape_internal_family_size(&package, &result.result.payload)?;
+                let family_size = members
+                    .difference(&exclusions)
+                    .count()
+                    .max(usize::from(internal_family_size));
+                let action = if family_size < usize::from(manifest.budgets.family_threshold) {
                     CommandAction::RejectShape {
                         shape_id,
                         singleton: true,
@@ -1313,6 +1346,7 @@ impl CampaignNodeExecutor {
                     CommandAction::RecordFamilySurvey {
                         shape_id,
                         survey_hash,
+                        internal_family_size,
                         members,
                         flattening_exclusions: exclusions,
                     }
@@ -2211,6 +2245,34 @@ impl CampaignNodeExecutor {
                     CapabilityGrant::from_capabilities([Capability::ReadJj]),
                 )?;
                 let head = jj.commit_id("@")?;
+                if head == manifest.base_commit_id {
+                    let terminal_keys = state
+                        .abilities
+                        .iter()
+                        .filter(|(_, ability)| ability.phase.terminal())
+                        .map(|(key, _)| key)
+                        .collect::<Vec<_>>();
+                    let report_bytes = serde_json::to_vec(&json!({
+                        "campaign_id": self.campaign_id,
+                        "outcome": "no-repository-change",
+                        "terminal_keys": terminal_keys,
+                    }))?;
+                    let reason_hash = Hash256::digest(&report_bytes);
+                    return Ok(WorkCompletion {
+                        artifacts: vec![Self::produced(
+                            ArtifactKind::CloseReview,
+                            Sensitivity::Deidentified,
+                            report_bytes,
+                            vec![],
+                        )],
+                        follow_up: self.command(
+                            node,
+                            lease,
+                            CommandAction::AbortCampaign { reason_hash },
+                        )?,
+                        effect: None,
+                    });
+                }
                 let (follow_up, effect) = self.command_with_effect(
                     node,
                     lease,
@@ -3820,6 +3882,21 @@ fn shape_seed<'a>(
         .ok_or(EngineError::Policy)
 }
 
+fn shape_internal_family_size(package: &Value, payload: &Value) -> Result<u8, EngineError> {
+    let package_size = package
+        .get("internal_family")
+        .and_then(Value::as_array)
+        .map_or(0, Vec::len);
+    let package_size = u8::try_from(package_size).map_err(|_| EngineError::Policy)?;
+    if let Some(reported_size) = payload.get("internal_family_size").and_then(Value::as_u64) {
+        let reported_size = u8::try_from(reported_size).map_err(|_| EngineError::Policy)?;
+        if reported_size != package_size {
+            return Err(EngineError::Policy);
+        }
+    }
+    Ok(package_size)
+}
+
 fn shape_survey_members(
     payload: &Value,
     survey: u8,
@@ -4515,9 +4592,47 @@ fn utf16_slice(source: &str, start: usize, end: usize) -> Option<&str> {
 
 #[cfg(test)]
 mod evidence_tests {
+    use campaign_roles::RoleError;
     use serde_json::json;
 
-    use super::{candidate_from_role_payload, normalized_evidence_packet, parse_evidence_packet};
+    use super::{
+        candidate_from_role_payload, normalized_evidence_packet, parse_evidence_packet,
+        retryable_role_error, role_error_diagnostic, role_retry_instruction,
+        shape_internal_family_size,
+    };
+    #[test]
+    fn malformed_nested_payload_is_retryable_with_parser_diagnostics() {
+        let error = RoleError::PayloadJsonInvalid("Syntax at line 1, column 42".into());
+
+        assert!(retryable_role_error(&error));
+        assert_eq!(role_error_diagnostic(&error), "Syntax at line 1, column 42");
+    }
+
+    #[test]
+    fn missing_clause_coverage_gets_role_specific_retry_instructions() {
+        let error = RoleError::SemanticInvalid("missing-clause-coverage");
+
+        assert!(role_retry_instruction(&error).contains("full Arch-Magos authoring envelope"));
+        assert!(role_retry_instruction(&error).contains("exactly one row"));
+    }
+
+    #[test]
+    fn internal_family_size_is_bound_to_the_shape_package() {
+        let package = json!({
+            "internal_family": [
+                {"child": "one"},
+                {"child": "two"},
+                {"child": "three"},
+                {"child": "four"}
+            ]
+        });
+
+        assert_eq!(
+            shape_internal_family_size(&package, &json!({"internal_family_size": 4})).unwrap(),
+            4
+        );
+        assert!(shape_internal_family_size(&package, &json!({"internal_family_size": 5})).is_err());
+    }
 
     #[test]
     fn incomplete_model_partition_falls_back_to_the_complete_source() {

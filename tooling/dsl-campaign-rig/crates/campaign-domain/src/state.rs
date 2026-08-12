@@ -122,6 +122,8 @@ pub struct ShapeAggregate {
     pub family_hashes: Vec<Hash256>,
     pub family_members: BTreeSet<AbilityKey>,
     pub excluded_members: BTreeSet<AbilityKey>,
+    #[serde(default)]
+    pub internal_family_size: u8,
     pub review_hashes: Vec<Hash256>,
     pub review_round: u8,
     pub describer_hash: Option<Hash256>,

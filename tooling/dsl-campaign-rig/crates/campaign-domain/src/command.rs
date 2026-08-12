@@ -245,6 +245,8 @@ pub enum CommandAction {
     RecordFamilySurvey {
         shape_id: ShapeId,
         survey_hash: Hash256,
+        #[serde(default)]
+        internal_family_size: u8,
         members: BTreeSet<AbilityKey>,
         flattening_exclusions: BTreeSet<AbilityKey>,
     },

@@ -671,6 +671,7 @@ fn decide_action(
         C::RecordFamilySurvey {
             shape_id,
             survey_hash,
+            internal_family_size,
             members,
             flattening_exclusions,
         } => {
@@ -692,20 +693,22 @@ fn decide_action(
             if members.iter().any(|member| !manifest_keys.contains(member)) {
                 return Err(DomainError::OutOfManifestMember);
             }
-            let exact_members = members.difference(flattening_exclusions).count();
-            if exact_members
+            let external_family_size = members.difference(flattening_exclusions).count();
+            if external_family_size.max(usize::from(*internal_family_size))
                 < usize::from(state.manifest.as_ref().unwrap().budgets.family_threshold)
             {
                 return Err(DomainError::FamilyThresholdNotMet);
             }
             if !shape.family_hashes.is_empty()
                 && (&shape.family_members != members
-                    || &shape.excluded_members != flattening_exclusions)
+                    || &shape.excluded_members != flattening_exclusions
+                    || shape.internal_family_size != *internal_family_size)
             {
                 return Err(DomainError::ImplementationMatrixIncomplete);
             }
             one(E::ShapeFamilySurveyed {
                 shape_id: shape_id.clone(),
+                internal_family_size: *internal_family_size,
                 survey_hash: *survey_hash,
                 members: members.clone(),
                 flattening_exclusions: flattening_exclusions.clone(),

@@ -241,6 +241,24 @@ fn typed_executor_accepts_grounded_shape_failure_for_needs_schema_routing() {
 }
 
 #[test]
+fn typed_executor_accepts_singleton_shape_survey() {
+    let request = request(Role::Swarmlord, None);
+    let executor = TypedRoleExecutor::new(FakeRoleTransport {
+        exchange: exchange(result_for(
+            &request,
+            json!({
+                "candidates": [],
+                "estimated_family_size": 1
+            }),
+        )),
+    });
+
+    let validated = run_ready(executor.execute(&spec(Role::Swarmlord), request)).unwrap();
+
+    assert_eq!(validated.result.role, Role::Swarmlord);
+}
+
+#[test]
 fn typed_executor_returns_validated_result_with_transport_metadata_and_usage() {
     let request = request(Role::ArchMagos, None);
     let response_hash = Hash256::digest("response-metadata");

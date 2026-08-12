@@ -140,7 +140,26 @@ pub fn validate_semantics(request: &RoleRequest, result: &RoleResult) -> Result<
                 Err(RoleError::SemanticInvalid("shape-review"))
             }
         }
-        Role::Swarmlord => require_array(&result.payload, "candidates", "shape-candidates"),
+        Role::Swarmlord => {
+            let candidates = result
+                .payload
+                .get("candidates")
+                .and_then(|value| value.as_array())
+                .ok_or(RoleError::SemanticInvalid("shape-candidates"))?;
+            let estimated_family_size = result
+                .payload
+                .get("estimated_family_size")
+                .and_then(|value| value.as_u64())
+                .ok_or(RoleError::SemanticInvalid("shape-family-size"))?;
+            if estimated_family_size >= 1
+                && (candidates.is_empty()
+                    || candidates.iter().all(|candidate| candidate.is_object()))
+            {
+                Ok(())
+            } else {
+                Err(RoleError::SemanticInvalid("shape-candidates"))
+            }
+        }
         Role::Psyker => {
             if result.findings.iter().any(|finding| finding.severity == 3)
                 && !matches!(

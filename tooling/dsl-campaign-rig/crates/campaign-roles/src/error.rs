@@ -20,6 +20,8 @@ pub enum RoleError {
     Transport,
     #[error("provider rejected the role turn: {0}")]
     ProviderFailure(&'static str),
+    #[error("provider returned invalid JSON in payload.json: {0}")]
+    PayloadJsonInvalid(String),
     #[error("provider turn outcome is ambiguous")]
     Unreconciled,
 }

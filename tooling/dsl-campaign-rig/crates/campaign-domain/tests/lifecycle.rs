@@ -3,8 +3,8 @@ use std::collections::{BTreeMap, BTreeSet};
 use campaign_domain::{
     AbilityId, AbilityKey, AbilityPhase, ActorId, Budgets, CampaignId, CampaignManifest,
     CampaignPhase, CampaignState, CandidateFacts, Command, CommandAction, CommandId, CommandMeta,
-    DomainError, EvidenceFacts, Hash256, IdentitySet, RefutationFacts, WorkItem, decide, evolve,
-    replay,
+    DomainError, EvidenceFacts, Hash256, IdentitySet, RefutationFacts, ShapeId, ShapePhase,
+    WorkItem, decide, evolve, replay,
 };
 
 fn hash(label: &str) -> Hash256 {
@@ -233,7 +233,7 @@ fn replay_is_deterministic_and_rejects_non_contiguous_events() {
 
 #[test]
 fn frozen_manifest_and_engine_identity_are_required() {
-    let mut state = running_state();
+    let state = running_state();
     let mut wrong_manifest = command(&state, CommandAction::QueueAbility { key: key() });
     wrong_manifest.meta.expected_manifest_hash = Some(hash("other-manifest"));
     assert_eq!(
@@ -331,6 +331,84 @@ fn refutation_quorum_blocks_acceptance_and_unresolved_findings_require_revision(
             thread_hash: hash("thread"),
             resolved_divergence_ids: BTreeSet::from(["finding-a".into()]),
         },
+    );
+}
+
+#[test]
+fn closed_internal_family_can_justify_shape_lifecycle() {
+    let mut state = running_state();
+    let shape_id = ShapeId::new("shape-internal-family").unwrap();
+    dispatch(
+        &mut state,
+        CommandAction::ProposeShape {
+            shape_id: shape_id.clone(),
+            package_hash: hash("shape-package"),
+        },
+    );
+    dispatch(
+        &mut state,
+        CommandAction::RecordFamilySurvey {
+            shape_id: shape_id.clone(),
+            survey_hash: hash("survey-one"),
+            internal_family_size: 4,
+            members: BTreeSet::new(),
+            flattening_exclusions: BTreeSet::new(),
+        },
+    );
+
+    assert_eq!(state.shapes[&shape_id].phase, ShapePhase::FamilySurveyed);
+    assert_eq!(state.shapes[&shape_id].internal_family_size, 4);
+
+    dispatch(
+        &mut state,
+        CommandAction::RecordFamilySurvey {
+            shape_id: shape_id.clone(),
+            survey_hash: hash("survey-two"),
+            internal_family_size: 4,
+            members: BTreeSet::new(),
+            flattening_exclusions: BTreeSet::new(),
+        },
+    );
+    assert_eq!(state.shapes[&shape_id].family_hashes.len(), 2);
+}
+
+#[test]
+fn shape_surveys_cannot_change_the_internal_family() {
+    let mut state = running_state();
+    let shape_id = ShapeId::new("shape-internal-family").unwrap();
+    dispatch(
+        &mut state,
+        CommandAction::ProposeShape {
+            shape_id: shape_id.clone(),
+            package_hash: hash("shape-package"),
+        },
+    );
+    dispatch(
+        &mut state,
+        CommandAction::RecordFamilySurvey {
+            shape_id: shape_id.clone(),
+            survey_hash: hash("survey-one"),
+            internal_family_size: 4,
+            members: BTreeSet::new(),
+            flattening_exclusions: BTreeSet::new(),
+        },
+    );
+
+    assert_eq!(
+        decide(
+            &state,
+            &command(
+                &state,
+                CommandAction::RecordFamilySurvey {
+                    shape_id,
+                    survey_hash: hash("survey-two"),
+                    internal_family_size: 5,
+                    members: BTreeSet::new(),
+                    flattening_exclusions: BTreeSet::new(),
+                },
+            ),
+        ),
+        Err(DomainError::ImplementationMatrixIncomplete)
     );
 }
 

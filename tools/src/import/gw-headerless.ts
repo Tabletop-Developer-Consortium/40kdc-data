@@ -82,9 +82,8 @@ const RE_NX_PREFIX = /^(\d+)x\s+(.+)$/i;
 const RE_ENHANCEMENT_ANNOT = /^(.+?)\s*\(\+\s*(\d+)\s*pts?\s*\)\s*$/i;
 /** `Enhancements: X` / `E: X` enhancement bullet. */
 const RE_ENHANCEMENT_LABEL = /^(?:e|enh|enhancement|enhancements)\s*:\s*(.+)$/i;
-/** `Attached as: <role>` — GW app v2.0.5 attachment annotation (captures the
- * role so `(Character)` can flag the unit). */
-const RE_ATTACHED_AS = /^attached\s+as\s*:\s*(.+)$/i;
+/** Attachment relationship annotations emitted by GW-family exports. */
+const RE_ATTACHMENT = /^(attached\s+as|leader|leading)\s*:\s*(.+)$/i;
 const RE_WITH_LINE = /^[\t ]*\d+\s+with\b/m;
 const RE_BULLET_ANYWHERE = /^[\t ]*[•◦]/mu;
 /** ListForge-text first line: `<name> - <faction> - <detachment> (N Points)`.
@@ -182,7 +181,7 @@ interface Bullet {
    * is an entry followed by a *deeper bulleted* line, so a lone bulleted weapon
    * with plain continuations (Fire Prism) is not mistaken for a model. */
   bulleted: boolean;
-  /** True for an `Attached as: …` v2.0.5 annotation — never a model or wargear,
+  /** True for an attachment relationship annotation — never a model or wargear,
    * even though it sits (bulleted) shallower than the models. */
   is_attachment: boolean;
   /** An `Attached as: … (Character)` annotation flags the unit as a character. */
@@ -199,12 +198,11 @@ interface UnitAcc {
 function parseBullet(indent: number, body: string, bulleted: boolean): Bullet {
   const base = { indent, bulleted, is_attachment: false, sets_character: false } as const;
 
-  // `Attached as: <role>` — the v2.0.5 multi-detachment export tags each unit
-  // with how it attaches. Pure annotation: never a model or wargear. Its `:`
-  // must be caught before the generic colon split below, else the role is read
-  // as inline wargear. A `(Character)` role flags the unit as a character.
-  const attached = RE_ATTACHED_AS.exec(body);
-  if (attached) {
+  // Attachment relationship metadata is never a model or wargear. Catch it
+  // before the generic colon split: otherwise `Leader: Character Name` becomes
+  // an inline model and inflates the bodyguard's model count by one.
+  const attachment = RE_ATTACHMENT.exec(body);
+  if (attachment) {
     return {
       ...base,
       count: null,
@@ -213,7 +211,9 @@ function parseBullet(indent: number, body: string, bulleted: boolean): Bullet {
       is_annotation: true,
       enhancement: null,
       is_attachment: true,
-      sets_character: /\(\s*Character\s*\)/i.test(attached[1]),
+      sets_character:
+        /^attached\s+as$/i.test(attachment[1]) &&
+        /\(\s*Character\s*\)/i.test(attachment[2]),
     };
   }
 
@@ -484,6 +484,22 @@ export const gwHeaderlessAdapter: FormatAdapter = {
           consumed_title = true;
           name = header_name;
           declared_limit = points;
+          continue;
+        }
+        // Some event exports prepend participant/team/faction lines without a
+        // fence. Their actual high-point roster title arrives after two bare
+        // preamble fields; recover it instead of emitting a phantom unit.
+        if (
+          declared_limit === null &&
+          current === null &&
+          units.length === 0 &&
+          detachment_raw_names.length === 1 &&
+          (points ?? 0) >= 1000
+        ) {
+          name = header_name;
+          declared_limit = points;
+          faction_raw_name = detachment_raw_names[0];
+          detachment_raw_names.length = 0;
           continue;
         }
         // Battle-size metadata (`Strike Force (2,000 Points)`).

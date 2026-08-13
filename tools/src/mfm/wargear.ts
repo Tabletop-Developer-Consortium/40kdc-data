@@ -653,10 +653,10 @@ export interface WargearBudget {
  *     bound would let each hit the cap independently; the budget enforces the sum.
  *   - **Flat** per-unit caps (a set whose ONLY `wargear_limit` rows have
  *     `modelCount = 0`, e.g. Khorne Berzerkers' `icon of Khorne`, 1 per unit).
- *     Emitted with `per_models = 0`. A `modelCount: 0` row alongside
- *     `modelCount > 0` rows is NOT flat — it is just the allowance at minimum
- *     size, and the scaling rows are binding (e.g. `(0,1)+(10,2)` is "1 per 5";
- *     reading it flat would halve a 10-model squad's legal allowance).
+ *     Emitted with `per_models = 0`. When a flat row accompanies scaling rows,
+ *     it is the allowance at the default composition size. Most such sets reduce
+ *     to the scaling ratio; an offset shape such as `(0,2)+(10,3)` needs both a
+ *     baseline ratio and a flat upper cap to preserve its 2-at-5 / 3-at-10 tiers.
  *
  * The dump caps **choices picked**, and one choice may bundle several item
  * copies (a Battle Sisters special-weapon *pair*, Custodian vexilla+misericordia,
@@ -704,6 +704,18 @@ export function limitedSetBudgets(
   const choicesBySet = dump.groupBy("limited_wargear_choice", "limitedWargearChoiceSetId");
   const itemsByChoice = dump.groupBy("limited_wargear_choice_wargear_item", "limitedWargearChoiceId");
   const wiName = dump.byId("wargear_item");
+
+  // A modelCount:0 limit paired with scaling rows describes the allowance at
+  // the default (minimum) composition, not necessarily a unit-wide flat cap.
+  // The default composition lets us detect offset progressions such as
+  // Death Company jump packs: 2 picks at 5 models, 3 at 10.
+  let defaultModelCount = 0;
+  try {
+    defaultModelCount = [...modelCountByMiniId(dump, datasheetId).values()]
+      .reduce((sum, count) => sum + count, 0);
+  } catch {
+    /* focused fixture without composition tables */
+  }
 
   // Derived defaults — stock copies of these would spend the allowance. Guarded:
   // a focused fixture may omit the default-loadout tables (the real dump never
@@ -826,7 +838,13 @@ export function limitedSetBudgets(
     let ratioCount: number | null = null;
     let ratioPer: number | null = null;
     let ratioDup: number | null = null;
+    let maximumCount = 0;
+    let maximumDup: number | null = null;
     for (const l of limitsBySet.get(s.id) ?? []) {
+      if (l.choiceLimit > maximumCount) {
+        maximumCount = l.choiceLimit;
+        maximumDup = l.duplicateLimit ?? null;
+      }
       if (l.choiceLimit <= 0) continue;
       if (l.modelCount === 0) {
         if (flat == null || l.choiceLimit < flat) {
@@ -845,17 +863,34 @@ export function limitedSetBudgets(
       if (items.size >= 2 || s.miniatureId == null) {
         // Shared ratio allowances (≥2 items) AND datasheet-wide single-weapon ratio
         // sets become summed budgets: the dump scopes these to the whole unit, so the
-        // squad-wide sum `floor(modelCount * count / per_models)` is the correct cap
-        // and a per-option `per_n_models` would mis-apply when several swap options
-        // add the same weapon. Mini-scoped single-weapon ratio sets are deliberately
-        // NOT budgets (a unit-wide budget would under-count a weapon a *different*
-        // model type can also carry) — those stay per-option in `deriveWargear`.
-        out.push({
-          items: sorted,
-          count: ratioCount * maxTake,
-          per_models: ratioPer,
-          ...(ratioDup != null ? { duplicate_limit: ratioDup } : {}),
-        });
+        // squad-wide sum is the correct cap. A flat baseline that is looser than the
+        // binding through-origin ratio is an offset progression. Intersect its
+        // baseline ratio with the maximum flat cap to preserve both legal tiers.
+        const hasOffsetBaseline =
+          flat != null &&
+          defaultModelCount > 0 &&
+          flat / defaultModelCount > ratioCount / ratioPer;
+        if (hasOffsetBaseline) {
+          out.push({
+            items: sorted,
+            count: flat! * maxTake,
+            per_models: defaultModelCount,
+            ...(flatDup != null ? { duplicate_limit: flatDup } : {}),
+          });
+          out.push({
+            items: sorted,
+            count: maximumCount * maxTake,
+            per_models: 0,
+            ...(maximumDup != null ? { duplicate_limit: maximumDup } : {}),
+          });
+        } else {
+          out.push({
+            items: sorted,
+            count: ratioCount * maxTake,
+            per_models: ratioPer,
+            ...(ratioDup != null ? { duplicate_limit: ratioDup } : {}),
+          });
+        }
       }
     } else if (flat != null) {
       // Flat per-unit cap (shared or single) — the per-weapon bound can't express it.

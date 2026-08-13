@@ -583,7 +583,10 @@ describe("limitedSetBudgets — per-item duplicate cap capture", () => {
   // dup must ride alongside its count/per_models. Faithful shape: one CHOICE per
   // alternative weapon (a multi-item choice is a bundle, not alternatives).
   const budgetResolve = (name: string) => name.toLowerCase().replace(/[^a-z0-9]+/g, "-");
-  const sharedDump = (limits: Array<{ modelCount: number; choiceLimit: number; duplicateLimit: number | null }>) =>
+  const sharedDump = (
+    limits: Array<{ modelCount: number; choiceLimit: number; duplicateLimit: number | null }>,
+    defaultModelCount?: number,
+  ) =>
     new MfmDump({
       data: {
         wargear_item: [
@@ -600,6 +603,22 @@ describe("limitedSetBudgets — per-item duplicate cap capture", () => {
           { id: "x2", count: 1, wargearItemId: "wi-b", limitedWargearChoiceId: "lwc-b" },
         ],
         wargear_limit: limits.map((l, i) => ({ id: `wl${i}`, ...l, limitedWargearChoiceSetId: "lim" })),
+        ...(defaultModelCount == null
+          ? {}
+          : {
+              unit_composition: [
+                { id: "uc1", datasheetId: "ds1", isDefault: true, displayOrder: 1 },
+              ],
+              unit_composition_miniature: [
+                {
+                  id: "ucm1",
+                  unitCompositionId: "uc1",
+                  miniatureId: "m1",
+                  min: defaultModelCount,
+                  max: defaultModelCount,
+                },
+              ],
+            }),
       },
     });
 
@@ -648,6 +667,24 @@ describe("limitedSetBudgets — per-item duplicate cap capture", () => {
       budgetResolve,
     );
     expect(budgets).toEqual([{ items: ["alpha", "beta"], count: 2, per_models: 10 }]);
+  });
+
+  it("preserves an offset flat baseline and its scaling upper tier", () => {
+    const budgets = limitedSetBudgets(
+      sharedDump(
+        [
+          { modelCount: 0, choiceLimit: 2, duplicateLimit: null },
+          { modelCount: 10, choiceLimit: 3, duplicateLimit: null },
+        ],
+        5,
+      ),
+      "ds1",
+      budgetResolve,
+    );
+    expect(budgets).toEqual([
+      { items: ["alpha", "beta"], count: 2, per_models: 5 },
+      { items: ["alpha", "beta"], count: 3, per_models: 0 },
+    ]);
   });
 });
 

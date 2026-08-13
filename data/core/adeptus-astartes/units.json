@@ -2451,8 +2451,16 @@
           "power-fist",
           "power-weapon"
         ],
+        "count": 2,
+        "per_models": 5
+      },
+      {
+        "items": [
+          "power-fist",
+          "power-weapon"
+        ],
         "count": 3,
-        "per_models": 10
+        "per_models": 0
       },
       {
         "items": [
@@ -2462,13 +2470,6 @@
         ],
         "count": 4,
         "per_models": 10
-      },
-      {
-        "items": [
-          "eviscerator"
-        ],
-        "count": 1,
-        "per_models": 5
       }
     ]
   },
@@ -3924,8 +3925,12 @@
     ],
     "points": [
       {
+        "models": 5,
+        "cost": 100
+      },
+      {
         "models": 10,
-        "cost": 200
+        "cost": 190
       }
     ],
     "keywords": [
@@ -3947,7 +3952,7 @@
       "diameter": 32
     },
     "model_count": {
-      "min": 10,
+      "min": 5,
       "max": 10
     },
     "weapon_ids": [

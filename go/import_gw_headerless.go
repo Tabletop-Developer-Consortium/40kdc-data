@@ -40,8 +40,8 @@ var gwhEnhAnnot = regexp.MustCompile(`(?i)^(.+?)\s*\(\+\s*(\d+)\s*pts?\s*\)\s*$`
 // `Enhancements: X` / `E: X` enhancement bullet.
 var gwhEnhLabel = regexp.MustCompile(`(?i)^(?:e|enh|enhancement|enhancements)\s*:\s*(.+)$`)
 
-// `Attached as: <role>` — GW app v2.0.5 attachment annotation.
-var gwhAttachedAs = regexp.MustCompile(`(?i)^attached\s+as\s*:\s*(.+)$`)
+// Attachment relationship annotations emitted by GW-family exports.
+var gwhAttachment = regexp.MustCompile(`(?i)^(attached\s+as|leader|leading)\s*:\s*(.+)$`)
 
 // `(Character)` inside an attachment role.
 var gwhCharacterRole = regexp.MustCompile(`(?i)\(\s*Character\s*\)`)
@@ -191,17 +191,19 @@ type gwhUnit struct {
 }
 
 func gwhParseBullet(indent int, body string, bulleted bool) gwhBullet {
-	// `Attached as: <role>` — pure annotation: never a model or wargear. Its `:`
-	// must be caught before the generic colon split below.
-	if m := gwhAttachedAs.FindStringSubmatch(body); m != nil {
+	// Attachment relationship metadata is never a model or wargear. Catch it
+	// before the generic colon split: otherwise `Leader: Character Name`
+	// becomes an inline model and inflates the bodyguard's model count by one.
+	if m := gwhAttachment.FindStringSubmatch(body); m != nil {
 		return gwhBullet{
-			indent:        indent,
-			count:         nil,
-			colonWargear:  nil,
-			isAnnotation:  true,
-			bulleted:      bulleted,
-			isAttachment:  true,
-			setsCharacter: gwhCharacterRole.MatchString(m[1]),
+			indent:       indent,
+			count:        nil,
+			colonWargear: nil,
+			isAnnotation: true,
+			bulleted:     bulleted,
+			isAttachment: true,
+			setsCharacter: strings.EqualFold(strings.Join(strings.Fields(m[1]), " "), "attached as") &&
+				gwhCharacterRole.MatchString(m[2]),
 		}
 	}
 
@@ -507,6 +509,18 @@ var gwHeaderlessAdapter = formatAdapter{
 					consumedTitle = true
 					name = headerName
 					declaredLimit = points
+					continue
+				}
+				// Some event exports prepend participant/team/faction lines
+				// without a fence. Recover their actual high-point roster title
+				// instead of emitting it as a phantom unit.
+				pointValue, hasPoints := points.(float64)
+				if declaredLimit == nil && current == nil && len(units) == 0 &&
+					len(detachmentRawNames) == 1 && hasPoints && pointValue >= 1000 {
+					name = headerName
+					declaredLimit = points
+					factionRawName = detachmentRawNames[0]
+					detachmentRawNames = detachmentRawNames[:0]
 					continue
 				}
 				// Battle-size metadata (`Strike Force (2,000 Points)`).

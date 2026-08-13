@@ -77,9 +77,8 @@ _RE_ENHANCEMENT_ANNOT = re.compile(r"^(.+?)\s*\(\+\s*(\d+)\s*pts?\s*\)\s*$", re.
 _RE_ENHANCEMENT_LABEL = re.compile(
     r"^(?:e|enh|enhancement|enhancements)\s*:\s*(.+)$", re.IGNORECASE
 )
-# `Attached as: <role>` — GW app v2.0.5 attachment annotation (captures the
-# role so `(Character)` can flag the unit).
-_RE_ATTACHED_AS = re.compile(r"^attached\s+as\s*:\s*(.+)$", re.IGNORECASE)
+# Attachment relationship annotations emitted by GW-family exports.
+_RE_ATTACHMENT = re.compile(r"^(attached\s+as|leader|leading)\s*:\s*(.+)$", re.IGNORECASE)
 # `(Character)` inside an attachment role.
 _RE_CHARACTER_ROLE = re.compile(r"\(\s*Character\s*\)", re.IGNORECASE)
 _RE_WITH_LINE = re.compile(r"^[\t ]*\d+\s+with\b", re.MULTILINE)
@@ -98,9 +97,7 @@ _SPLIT_LINES = re.compile(r"\r?\n")
 
 # Battle-size labels that look like unit headers (`Strike Force (2,000 Points)`)
 # but are army metadata, not datasheets.
-_BATTLE_SIZE_NAMES = frozenset(
-    {"combat patrol", "incursion", "strike force", "onslaught"}
-)
+_BATTLE_SIZE_NAMES = frozenset({"combat patrol", "incursion", "strike force", "onslaught"})
 
 # A line of only `+` characters — the BCP summary block's fence.
 _RE_PLUS_FENCE = re.compile(r"^\++$")
@@ -185,13 +182,11 @@ def _parse_bullet(indent: int, body: str, bulleted: bool) -> dict[str, Any]:
         "sets_character": False,
     }
 
-    # `Attached as: <role>` — the v2.0.5 multi-detachment export tags each unit
-    # with how it attaches. Pure annotation: never a model or wargear. Its `:`
-    # must be caught before the generic colon split below, else the role is
-    # read as inline wargear. A `(Character)` role flags the unit as a
-    # character.
-    attached = _RE_ATTACHED_AS.match(body)
-    if attached:
+    # Attachment relationship metadata is never a model or wargear. Catch it
+    # before the generic colon split: otherwise `Leader: Character Name`
+    # becomes an inline model and inflates the bodyguard's model count by one.
+    attachment = _RE_ATTACHMENT.match(body)
+    if attachment:
         return {
             **base,
             "count": None,
@@ -200,7 +195,10 @@ def _parse_bullet(indent: int, body: str, bulleted: bool) -> dict[str, Any]:
             "is_annotation": True,
             "enhancement": None,
             "is_attachment": True,
-            "sets_character": _RE_CHARACTER_ROLE.search(attached.group(1)) is not None,
+            "sets_character": (
+                attachment.group(1).lower().startswith("attached")
+                and _RE_CHARACTER_ROLE.search(attachment.group(2)) is not None
+            ),
         }
 
     # Enhancement label first — `Enhancements: X` must not read as a model.
@@ -458,6 +456,20 @@ def _parse(decoded: Any) -> dict[str, Any]:
                 consumed_title = True
                 name = header_name
                 declared_limit = points
+                continue
+            # Some event exports prepend participant/team/faction lines without
+            # a fence. Recover their actual high-point roster title instead of
+            # emitting it as a phantom unit.
+            if (
+                declared_limit is None
+                and current is None
+                and not units
+                and len(detachment_raw_names) == 1
+                and (points or 0) >= 1000
+            ):
+                name = header_name
+                declared_limit = points
+                faction_raw_name = detachment_raw_names.pop()
                 continue
             # Battle-size metadata (`Strike Force (2,000 Points)`).
             if _is_battle_size(header_name):

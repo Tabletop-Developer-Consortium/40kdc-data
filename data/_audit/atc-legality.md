@@ -12,66 +12,52 @@ is a data or checker bug, not mass cheating.
 - `examples/atc-viewer/src/data/atc-2026.json`: 248 lists (0 without text skipped)
 - `examples/atc-viewer/src/data/atc-5s.json`: 230 lists (2 without text skipped)
 - **Lists**: 478, parse failures: 18
-- **Legality**: 117 violating units across 75 lists
-- **Composition drift**: 37 dataset units
+- **Legality**: 79 violating units across 50 lists
+- **Composition drift**: 33 dataset units
 
 ### Warnings by code
 
 | code | count |
 |---|--:|
 | `weapon-unresolved` | 691 |
-| `detachment-unresolved` | 230 |
-| `faction-unresolved` | 210 |
+| `detachment-unresolved` | 219 |
+| `faction-unresolved` | 204 |
 | `leader-attachment-inferred` | 151 |
-| `unit-unresolved` | 111 |
 | `multi-force` | 52 |
-| `loadout-illegal` | 33 |
+| `unit-unresolved` | 38 |
+| `detachment-points-exceeded` | 17 |
 | `battle-size-unmapped` | 8 |
 | `enhancement-unresolved` | 8 |
+| `loadout-illegal` | 6 |
 | `points-mismatch` | 2 |
 
 ### Loadout grouping by outcome
 
 | outcome | count |
 |---|--:|
-| `grouped` | 2838 |
-| `unit-unresolved` | 111 |
-| `wargear-unresolved` | 570 |
-| `single-model` | 3361 |
+| `grouped` | 2876 |
+| `unit-unresolved` | 38 |
+| `wargear-unresolved` | 569 |
+| `single-model` | 3356 |
 | `no-recorded-defaults` | 0 |
-| `solver-null` | 272 |
+| `solver-null` | 234 |
 
 ## Legality violations (ranked `code:unitId`)
 
 | violation | count |
 |---|--:|
 | `below-min:hyperadapted-raveners` | 29 |
-| `exceeds-max:pink-horrors` | 26 |
 | `below-min:servitor-battleclade` | 24 |
 | `below-min:tormentors` | 14 |
 | `below-min:company-heroes` | 12 |
-| `exceeds-max:decimus-kill-team` | 10 |
+| `exceeds-max:cadian-command-squad` | 9 |
 | `below-min:imperial-navy-breachers` | 8 |
-| `exceeds-max:blue-horrors` | 8 |
-| `below-min:indomitor-kill-team` | 6 |
-| `below-min:cadian-command-squad` | 5 |
-| `exceeds-allowance:death-company-marines-with-jump-packs` | 5 |
-| `below-min:decimus-kill-team` | 4 |
-| `below-min:pink-horrors` | 4 |
-| `below-min:spectrus-kill-team` | 4 |
 | `exceeds-max:broadside-battlesuits` | 4 |
 | `exceeds-max:rhino` | 4 |
 | `below-min:red-corsairs-raiders` | 3 |
-| `exceeds-max:cadian-command-squad` | 3 |
-| `exceeds-max:indomitor-kill-team` | 3 |
 | `below-min:cultist-mob` | 2 |
 | `below-min:zoanthropes` | 2 |
 | `exceeds-allowance:khorne-berzerkers` | 2 |
-| `below-min:corsair-voidscarred` | 1 |
-| `below-min:fortis-kill-team` | 1 |
-| `below-min:wolf-guard-headtakers` | 1 |
-| `invalid-model-count:cadian-recon-squad` | 1 |
-| `invalid-model-count:squighog-boyz` | 1 |
 
 ## `solver-null` grouping failures (ranked unit)
 
@@ -83,7 +69,6 @@ partition solver could not decompose — bad `replaces` data or genuinely illega
 | `pathfinder-team` | 59 |
 | `hyperadapted-raveners` | 29 |
 | `tormentors` | 14 |
-| `pink-horrors` | 13 |
 | `plague-marines` | 13 |
 | `servitor-battleclade` | 12 |
 | `victrix-honour-guard` | 12 |
@@ -95,34 +80,24 @@ partition solver could not decompose — bad `replaces` data or genuinely illega
 | `deathwing-knights` | 6 |
 | `breacher-team` | 5 |
 | `havocs` | 5 |
-| `lootas` | 5 |
-| `blue-horrors` | 4 |
 | `brotherhood-terminator-squad` | 4 |
 | `chaos-terminator-squad` | 4 |
-| `cadian-shock-troops` | 3 |
 | `chaos-terminators` | 3 |
-| `decimus-kill-team` | 3 |
 | `fire-dragons` | 3 |
 | `flash-gitz` | 3 |
-| `jakhals` | 3 |
 | `piranhas` | 3 |
 | `blightlord-terminators` | 2 |
-| `indomitor-kill-team` | 2 |
 | `raptors` | 2 |
 | `sisters-of-battle-squad` | 2 |
-| `spectrus-kill-team` | 2 |
 | `swooping-hawks` | 2 |
 | `termagants` | 2 |
-| `atalan-jackals` | 1 |
 | `cultist-mob` | 1 |
 | `dark-reapers` | 1 |
 | `deathwing-terminator-squad` | 1 |
-| `fortis-kill-team` | 1 |
 | `inquisitorial-agents` | 1 |
 | `red-corsairs-raiders` | 1 |
 | `strike-team` | 1 |
 | `striking-scorpions` | 1 |
-| `wolf-guard-headtakers` | 1 |
 | `zoanthropes` | 1 |
 
 ## Unresolved names: `battle-size-unmapped`
@@ -135,67 +110,67 @@ partition solver could not decompose — bad `replaces` data or genuinely illega
 
 | raw name | count |
 |---|--:|
-| `++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++` | 8 |
+| `Attached unit 1` | 14 |
+| `Space Marines` | 13 |
+| `Orks` | 9 |
+| `T’au Empire` | 9 |
 | `Ultramarines` | 8 |
 | `Space Wolves` | 7 |
+| `Tyranids` | 7 |
+| `Chaos Space Marines` | 6 |
+| `Necrons` | 5 |
+| `Adeptus Custodes` | 4 |
+| `Astra Militarum` | 4 |
 | `Blood Angels` | 4 |
-| `Factions Used: Orks` | 4 |
-| `+++++++` | 3 |
-| `Factions Used: Adeptus Custodes` | 3 |
-| `Factions Used: Astra Militarum` | 3 |
-| `Factions Used: T'au Empire` | 3 |
-| `Necrons` | 3 |
+| `Chaos Daemons` | 4 |
+| `Thousand Sons` | 4 |
+| `++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++` | 3 |
+| `Emperor’s Children` | 3 |
+| `Imperial Knights` | 3 |
+| `Leagues of Votann` | 3 |
+| `World Eaters` | 3 |
 | `Armoured Trailblazers, Farseekers, and Hearthguard Covenant` | 2 |
 | `Attached Unit 1` | 2 |
+| `Attached Units` | 2 |
+| `Chaos Knights` | 2 |
 | `Dark Angels` | 2 |
 | `Deathwatch` | 2 |
-| `Factions Used: Adeptus Astartes (Dark Angels)` | 2 |
-| `Factions Used: Imperial Knights` | 2 |
-| `Factions Used: Necrons` | 2 |
-| `Factions Used: Tyranids` | 2 |
-| `Factions Used: World Eaters` | 2 |
-| `Force Dispositions: Reconnaissance` | 2 |
-| `Force Dispositions: Take and Hold` | 2 |
 | `Team Name: Canton Warhammer` | 2 |
-| `Tyranids` | 2 |
-| `World Eaters` | 2 |
-| `-Factions Used: Chaos Space Marinee` | 1 |
-| `.....have...` | 1 |
-| `(1990 points)` | 1 |
+| `———————————————-` | 1 |
+| `<br>` | 1 |
+| `~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~` | 1 |
 | `16 naked men walk into a bar` | 1 |
 | `1x Command-link Drone (Aura)` | 1 |
 | `1x Straight silver knife` | 1 |
+| `Adeptus Mechanicus` | 1 |
+| `Aeldari` | 1 |
 | `Air Force Gaming` | 1 |
-| `Army: Tyranids` | 1 |
-| `Astra Militarum` | 1 |
-| `Attached Units` | 1 |
 | `Battle Size: Strike Force (2000 point limit)` | 1 |
 | `Black Templars` | 1 |
 | `Brace for Impact` | 1 |
-| `Canton Warhammer` | 1 |
-| `Chaos daemons` | 1 |
-| `Chaos knights` | 1 |
-| `Chaos Knights` | 1 |
-| `Chaos Space Marines` | 1 |
 | `Death Guard` | 1 |
-| `Disposition : Reconaissance` | 1 |
-| `Disposition Selected: Priority Assets` | 1 |
-| `Disposition used: Disruption` | 1 |
-| `Disposition used: Purge the Foe` | 1 |
-| `Disposition Used: Purge the Foe (Reconnaissance)` | 1 |
-| `Disposition Used: Recon` | 1 |
-| `Disposition used: Take and hold` | 1 |
-| `Disposition: Purge` | 1 |
-| `Disruption` | 1 |
 | `Drukhari` | 1 |
-| `Emperor’s Children` | 1 |
-| `Eventually, da big boss couldn't crack every single skull 'imself—cuz dere's only so many 'eads ya can smash at once, right? So 'e needed some Nobs to do da delegatin'. 'E went out an' found da biggest, meanest boyz around—da ones dat were proper killy, but still smaller dan 'im, cuz nobody is bigger dan da Boss! 'E made 'em 'is under-bosses to keep da smaller gits in line.` | 1 |
-| `Faction Orks` | 1 |
-| `Faction Used: Necrons` | 1 |
-| `Faction Used: T'au Empire` | 1 |
 | `Faction Used: Tyranids` | 1 |
 | `Faction: Adeptus Custodes` | 1 |
-| … 120 more | |
+| `Faction: Chaos Space Marines` | 1 |
+| `Faction: Orks` | 1 |
+| `Faction: Thousand Sons` | 1 |
+| `Factions Used: Astra Militarum` | 1 |
+| `Factions Used: Chaos Daemons` | 1 |
+| `Factions Used: Death Guard` | 1 |
+| `Factions Used: Imperial Knights, Agents of the Imperium` | 1 |
+| `Factions used: Necrons` | 1 |
+| `Factions Used: T'au Empire` | 1 |
+| `Factions Used: World Eaters` | 1 |
+| `Force Dispositions: Disruption` | 1 |
+| `Force Dispositions: Disruption, Purge the Foe` | 1 |
+| `Force Dispositions: Disruption, Reconnaissance` | 1 |
+| `Force Dispositions: Priority Assets, Reconnaissance` | 1 |
+| `Force Dispositions: Reconnaissance` | 1 |
+| `Force Dispositions: Take and Hold` | 1 |
+| `Full Send 40K` | 1 |
+| `Genestealer Cults` | 1 |
+| … 58 more | |
 
 ## Unresolved names: `enhancement-unresolved`
 
@@ -212,67 +187,67 @@ partition solver could not decompose — bad `replaces` data or genuinely illega
 
 | raw name | count |
 |---|--:|
-| `++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++` | 27 |
+| `++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++` | 26 |
 | `Attached Unit 1` | 5 |
-| `Team Name: Devastating Dudes` | 4 |
-| `+++++` | 3 |
-| `Team Name: Big Dogs Howling` | 3 |
+| `Factions Used: Orks` | 4 |
+| `+++++++` | 3 |
+| `Disruption` | 3 |
+| `Factions Used: Adeptus Custodes` | 3 |
 | `+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++` | 2 |
 | `Attached Units` | 2 |
 | `Canton Warhammer` | 2 |
-| `Disruption` | 2 |
-| `Forge World Columbia` | 2 |
-| `Team Name: Canton Warhammer` | 2 |
-| `Team Name: Casual’ties of War` | 2 |
-| `Team Name: Full Send 40K` | 2 |
-| `Team Name: Hogs of War` | 2 |
-| `Team Name: Salem Wytch Hunters` | 2 |
-| `Team Name: The Gay Agenda` | 2 |
-| `-Team Name: Grimdark Gentlemen` | 1 |
-| `..I...` | 1 |
-| `(2,000 Points)` | 1 |
+| `Factions Used: Adeptus Astartes (Dark Angels)` | 2 |
+| `Factions Used: Astra Militarum` | 2 |
+| `Factions Used: Imperial Knights` | 2 |
+| `Factions Used: Necrons` | 2 |
+| `Factions Used: T'au Empire` | 2 |
+| `Factions Used: Tyranids` | 2 |
+| `-Factions Used: Chaos Space Marinee` | 1 |
+| `.....have...` | 1 |
+| `(1990 points)` | 1 |
 | `[1975 points]` | 1 |
 | `*************************************` | 1 |
-| `+++` | 1 |
-| `+++++++++++++++++++++++` | 1 |
-| `+++++++++++++++++++++++++++++++++` | 1 |
 | `++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++` | 1 |
-| `~Robert after to many drinks probably~` | 1 |
 | `1x Battlesuit fists` | 1 |
 | `1x Gaunt’s chainsword` | 1 |
 | `1x The Blade of Shadows` | 1 |
+| `Advanced Acquisition Cadre and Kauyon` | 1 |
 | `Air Force gaming` | 1 |
 | `Ambush Predators and Crusher Stampede (3 Detachment Points)` | 1 |
-| `Ambush Predators and Vanguard Onslaught (3 Detachment Points)` | 1 |
+| `Army: Tyranids` | 1 |
+| `Assimilation Swarm and Talons of the Norn Queen` | 1 |
 | `Awakened Dynasty (3 Detachment Points)` | 1 |
-| `Ballers on a Budget didn't just travel to the American Team Championships; they deployed. Chris, known as "Green," sat in the front seat issuing orders as if they were invading a small country instead of driving to a Warhammer 40K tournament. Daren sat beside him, glaring at traffic with the intensity of a Space Marine Chaplain who had skipped breakfast. In the back, Brent inventoried miniatures, Connor attempted to teach a gas station parrot how to play Tau, and Sam practiced smiling his way out of future disasters.` | 1 |
 | `Behind them thundered the infamous biker gang known as the Hogs of War. Their leader, Bryce, wore enough leather, chains, and bad decisions to sink a small boat. The bikers swerved around the convoy, revving engines and shouting threats that sounded suspiciously rehearsed. Chris merely adjusted his sunglasses and informed the team that things had become "interesting."` | 1 |
-| `Bourbon City Brawler's` | 1 |
 | `Bryce ordered the attack, and chaos erupted across the highway. Daren kicked open the van door and stood on the running board like an action hero who had absolutely no concern for insurance premiums. Several bikers attempted to block the road, only to discover that Brent had converted a tournament terrain crate into a makeshift battering ram. Nobody was seriously hurt, but motorcycles, hay bales, and at least one portable toilet achieved low orbit before crashing back to Earth.` | 1 |
 | `Coulter Cloward` | 1 |
 | `Dan Raymond` | 1 |
-| `Den, cuz 'e was doin' so much stompin', dis lad started gettin' BIGGER an' GREENER. An' ya know what dat means? More boyz saw 'im an' said, 'Ey, 'e looks like 'e knows where da best fightin' is!' So more boyz joined da mob, which brought in even more boyz, until da WAAAGH! was absolutely massive!` | 1 |
+| `Disposition : Reconaissance` | 1 |
+| `Disposition Selected: Priority Assets` | 1 |
+| `Disposition used: Disruption` | 1 |
+| `Disposition used: Purge the Foe` | 1 |
+| `Disposition Used: Purge the Foe (Reconnaissance)` | 1 |
+| `Disposition Used: Recon` | 1 |
+| `Disposition used: Take and hold` | 1 |
+| `Disposition: Purge` | 1 |
 | `Dumpster Protection Syndicate` | 1 |
 | `Evan Shelburne` | 1 |
-| `Exalted` | 1 |
-| `Factions Used: Orks` | 1 |
-| `Factions Used: Tau` | 1 |
-| `Flyblown Host and Tallyband Summoners (3 Detachment Points)` | 1 |
-| `Georgia Warlords` | 1 |
-| `Georgia Warlords Bravo` | 1 |
-| `Goretrack Onslaught and Vessels of Wrath` | 1 |
-| `Hexwarp Thrallband and Servants of Change (3 Detachment Points)` | 1 |
-| `https://suno.com/s/K24gnGnYXYMDHw4M` | 1 |
-| `https://www.youtube.com/watch?v=RYnFIRc0k6E&list=RDRYnFIRc0k6E&start_radio=1` | 1 |
-| `https://youtu.be/POdknqszMDY?is=m0S-txv3RvfhD9VC` | 1 |
-| `https://youtu.be/r6fO-Ki9LzE?is=6vd7TH8Rd_M_bUOZ` | 1 |
-| `I am so sick of feeling like if you have effective guns you get a discount on the points for your data sheet.  And Psychic…  Don’t get me started.   Basically if you are a coward and don’t have to play 40K but are dominant, you are cheaper than units that risk themselves to be effective.  Then there are nonsense pointed armies, WTH.  Look at Goats on disks in TSons, Necrons, or how all the Flying Battle Suits in Tau are vastly more broken and yet in some cases cheaper, and you will see why I am angry, and feel like MFM points are irrational.  Hell just look at the units that got discounts in SM but went up for BA making an even higher point differential even though there are only 2 (3DP, don’t get me started, why bother having 1DPs at all???) detachments (not the faction rule) that justify those points increases.  So if you do try to pivot and do something cool, well you’re paying more for less.  Which is just a kick in the teeth after being punched in the nuts at almost every opportunity in 10th.  I mean I have hope that maybe they will fix some of this and the all the fundamental underlying issues of edition change…  But really?` | 1 |
-| `Imperial Agents` | 1 |
-| `Jack Lord` | 1 |
-| `Justin Alford` | 1 |
-| `Kalen Ogle` | 1 |
-| `Knights of Caladrius` | 1 |
-| … 102 more | |
+| `Eventually, da big boss couldn't crack every single skull 'imself—cuz dere's only so many 'eads ya can smash at once, right? So 'e needed some Nobs to do da delegatin'. 'E went out an' found da biggest, meanest boyz around—da ones dat were proper killy, but still smaller dan 'im, cuz nobody is bigger dan da Boss! 'E made 'em 'is under-bosses to keep da smaller gits in line.` | 1 |
+| `Faction Orks` | 1 |
+| `Faction Used: Necrons` | 1 |
+| `Faction Used: T'au Empire` | 1 |
+| `Faction: Emperor’s Children` | 1 |
+| `Faction: Leagues of Votann` | 1 |
+| `Faction: Space Wolves` | 1 |
+| `Factions used:   Astra Militarum` | 1 |
+| `Factions Used: Admech` | 1 |
+| `Factions Used: Black Templars` | 1 |
+| `Factions Used: chaos space marines` | 1 |
+| `Factions used: Dark Angels` | 1 |
+| `Factions Used: Drukhari` | 1 |
+| `Factions Used: EC` | 1 |
+| `Factions Used: Genestealer Cult` | 1 |
+| `Factions used: Leagues of Votann` | 1 |
+| … 97 more | |
 
 ## Unresolved names: `leader-attachment-inferred`
 
@@ -307,12 +282,7 @@ partition solver could not decompose — bad `replaces` data or genuinely illega
 
 | raw name | count |
 |---|--:|
-| `Pink Horrors` | 13 |
-| `Death Company Marines with Jump Packs` | 5 |
-| `Blue Horrors` | 4 |
 | `Rhino` | 4 |
-| `Decimus Kill Team` | 3 |
-| `Indomitor Kill Team` | 2 |
 | `Khorne Berzerkers` | 2 |
 
 ## Unresolved names: `unit-unresolved`
@@ -324,62 +294,33 @@ partition solver could not decompose — bad `replaces` data or genuinely illega
 | `1x Foetid Bloat-drone` | 2 |
 | `1x Foetid Bloat-drone with heavy blight launcher` | 2 |
 | `4x Witchseekers` | 2 |
-| `“Fih”` | 1 |
-| `***Blade - Prio C` | 1 |
 | `**Beetle exterminator of the occult**` | 1 |
 | `*ATC Yellow knights` | 1 |
-| `++++ Be gay, bite nails` | 1 |
-| `++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++` | 1 |
-| `++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Ahhh` | 1 |
-| `++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Banesword and Friends` | 1 |
-| `1 Teams` | 1 |
-| `11th Aac+ret` | 1 |
 | `11x Storm Guardians` | 1 |
 | `1x Defiler` | 1 |
-| `2 big scary robots… minus the robots.` | 1 |
-| `2026 ATC 4.0` | 1 |
-| `2k Tools of Slaughter` | 1 |
 | `2x Chaos Spawn` | 1 |
 | `3x Deathshroud Terminators` | 1 |
 | `5x Corsair Voidreavers` | 1 |
 | `6x Deathshroud Terminators` | 1 |
-| `Allow me to, Plunder your booty` | 1 |
-| `Angels of the Unyielding Lion` | 1 |
-| `Arsenal/Darkflight/Librarius` | 1 |
-| `Asmodai is the greatest Chaplain the Dark Angels have ever had and in this essay I will…` | 1 |
-| `At least it’s not Berzerker Warband` | 1 |
-| `ATC 2026 - Ex Wives` | 1 |
 | `ATC FINAL` | 1 |
 | `ATC Necron SSA` | 1 |
 | `ATC test (Final Day/Purestrain)` | 1 |
-| `ATC5 Purge` | 1 |
 | `Awakened Dynasty` | 1 |
-| `BA LAG ATC` | 1 |
-| `Be Gay, Hunt Psykers` | 1 |
-| `Bet not even your mom has seen a train this big.` | 1 |
-| `Big Warrior Energy` | 1 |
-| `Bio-Digital Jazz, Man.` | 1 |
-| `Bullies and bikes` | 1 |
-| `Calgar in 11th (ATC)` | 1 |
-| `Chaos Knights if they were cool` | 1 |
 | `Char1: 1x Daemon Prince of Nurgle` | 1 |
 | `Char2: 1x Lord of Contagion` | 1 |
 | `Char3: 1x Lord of Contagion` | 1 |
 | `Char4: 1x Tallyman` | 1 |
 | `CHARACTERS` | 1 |
-| `Chicken à là King` | 1 |
 | `Commander in Enforcer Bdattlesuit` | 1 |
-| `Comp final` | 1 |
-| `DA BIGGEST AND DA BUGGIEST Prime` | 1 |
-| `Daddy's HoverCorvette Midlife Crisis` | 1 |
-| `Dead Dad Party` | 1 |
-| `Deep In Dem Skreets` | 1 |
-| `Descendants of Ulthwe’` | 1 |
-| `Disruption` | 1 |
-| `Doin the emperors work` | 1 |
-| `Doomsday Gods` | 1 |
-| `DOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOMhammer` | 1 |
-| … 45 more | |
+| `Draigo will be back, he just went to get milk and cigarettes...` | 1 |
+| `Drukhari` | 1 |
+| `eating ghazzz` | 1 |
+| `I hit on 2s, stop asking why.  idk man, GW made Psychic weapons dumb.` | 1 |
+| `Keep Rolling` | 1 |
+| `khroneocalypse` | 1 |
+| `The Maurauders` | 1 |
+| `This is America, We just wanna party!` | 1 |
+| `Triarch Stalker (Green)` | 1 |
 
 ## Unresolved names: `weapon-unresolved`
 
@@ -443,16 +384,15 @@ partition solver could not decompose — bad `replaces` data or genuinely illega
 | `Augury halo [+20 points]` | 2 |
 | `Bannernob` | 2 |
 | `Broadside Shas’ui` | 2 |
+| `Cadian Veteran Guardsman` | 2 |
 | `Cavalry sabre & clawed limbs` | 2 |
-| `Chaos Undivided` | 2 |
-| … 75 more | |
+| … 74 more | |
 
 ## Composition drift (dataset-wide)
 
 Units whose composition `default_weapon_ids` reference ids unreachable from
 `weapon_ids` ∪ wargear-option grants (stale defaults under a newer loadout).
 
-- `adeptus-astartes/decimus-kill-team` — unreachable: boltgun, plasma-pistol
 - `adeptus-astartes/drop-pod` — unreachable: drop-pod
 - `adeptus-astartes/terminator-assault-squad` — unreachable: storm-shield
 - `adeptus-astartes/thunderhawk-gunship` — unreachable: thunderhawk-cluster-bombs
@@ -464,18 +404,15 @@ Units whose composition `default_weapon_ids` reference ids unreachable from
 - `adeptus-mechanicus/archaeopter-fusilave` — unreachable: command-uplink
 - `adeptus-mechanicus/archaeopter-stratoraptor` — unreachable: command-uplink
 - `adeptus-mechanicus/archaeopter-transvector` — unreachable: command-uplink
-- `aeldari/corsair-voidscarred` — unreachable: close-combat-weapon
 - `aeldari/wraithknight` — unreachable: scattershield
 - `aeldari/wraithknight-with-ghostglaive` — unreachable: scattershield
 - `agents-of-the-imperium/aquila-kill-team` — unreachable: boltgun, plasma-pistol
 - `agents-of-the-imperium/inquisitor` — unreachable: blessed-wardings
 - `astra-militarum/aegis-defence-line` — unreachable: aegis-defence-line
 - `astra-militarum/bullgryn-squad` — unreachable: slabshield
-- `astra-militarum/cadian-command-squad` — unreachable: regimental-standard
+- `astra-militarum/cadian-command-squad` — unreachable: master-vox, regimental-standard
 - `astra-militarum/cyclops-demolition-vehicle` — unreachable: cyclops-demolition-vehicle
-- `chaos-daemons/blue-horrors` — unreachable: coruscating-flames
 - `chaos-daemons/feculent-gnarlmaw` — unreachable: feculent-gnarlmaw
-- `chaos-daemons/pink-horrors` — unreachable: coruscating-flames
 - `chaos-daemons/skull-altar` — unreachable: skull-altar
 - `chaos-space-marines/dark-commune` — unreachable: chaos-icon
 - `genestealer-cults/achilles-ridgerunners` — unreachable: flare-launcher

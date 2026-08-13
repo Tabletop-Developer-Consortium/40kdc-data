@@ -1571,13 +1571,60 @@
         }
       },
       {
-        "name": "Cadian Veteran Guardsman",
-        "min": 4,
-        "max": 4,
+        "name": "Cadian Veteran Guardsman with regimental standard",
+        "profile_name": "Cadian Veteran Guardsman",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "regimental-standard",
+          "lasgun",
+          "close-combat-weapon-cadian-command-squad"
+        ],
+        "is_leader_model": false,
+        "base_size_mm": {
+          "shape": "round",
+          "diameter": 28.5
+        }
+      },
+      {
+        "name": "Cadian Veteran Guardsman with master vox",
+        "profile_name": "Cadian Veteran Guardsman",
+        "min": 1,
+        "max": 1,
         "default_weapon_ids": [
           "lasgun",
-          "regimental-standard",
+          "master-vox",
           "close-combat-weapon-cadian-command-squad"
+        ],
+        "is_leader_model": false,
+        "base_size_mm": {
+          "shape": "round",
+          "diameter": 28.5
+        }
+      },
+      {
+        "name": "Cadian Veteran Guardsman with medi-pack",
+        "profile_name": "Cadian Veteran Guardsman",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "lasgun",
+          "close-combat-weapon-cadian-command-squad"
+        ],
+        "is_leader_model": false,
+        "base_size_mm": {
+          "shape": "round",
+          "diameter": 28.5
+        }
+      },
+      {
+        "name": "Cadian Veteran Guardsman with chainsword",
+        "profile_name": "Cadian Veteran Guardsman",
+        "min": 1,
+        "max": 1,
+        "default_weapon_ids": [
+          "chainsword-cadian-command-squad",
+          "laspistol-cadian-command-squad"
         ],
         "is_leader_model": false,
         "base_size_mm": {

@@ -453,6 +453,56 @@ function assignRowCounts(
   return out;
 }
 
+/**
+ * Every feasible per-row model allocation for `modelCount`, with the existing
+ * heuristic allocation first so established grouping output stays stable.
+ * Optional weapon-variant rows cannot be inferred reliably from their defaults
+ * alone because a replacement may remove the distinctive weapon; the exact
+ * loadout solver must therefore try the other bounded allocations too.
+ */
+function candidateRowCounts(
+  models: readonly LoadoutModel[],
+  modelCount: number,
+  counts: Map<string, number>,
+): number[][] {
+  const preferred = assignRowCounts(models, modelCount, counts);
+  const out: number[][] = [];
+  const seen = new Set<string>();
+  const add = (counts: number[]) => {
+    const key = counts.join(",");
+    if (!seen.has(key)) {
+      seen.add(key);
+      out.push(counts);
+    }
+  };
+  if (preferred.reduce((sum, count) => sum + count, 0) === modelCount) add(preferred);
+
+  const mins = models.map((model) => Math.max(0, model.min ?? 0));
+  const maxs = models.map((model, i) => Math.max(mins[i], model.max ?? mins[i]));
+  const suffixMin = Array(models.length + 1).fill(0) as number[];
+  const suffixMax = Array(models.length + 1).fill(0) as number[];
+  for (let i = models.length - 1; i >= 0; i--) {
+    suffixMin[i] = suffixMin[i + 1] + mins[i];
+    suffixMax[i] = suffixMax[i + 1] + maxs[i];
+  }
+
+  const current = Array(models.length).fill(0) as number[];
+  const visit = (i: number, remaining: number) => {
+    if (i === models.length) {
+      if (remaining === 0) add([...current]);
+      return;
+    }
+    const lo = Math.max(mins[i], remaining - suffixMax[i + 1]);
+    const hi = Math.min(maxs[i], remaining - suffixMin[i + 1]);
+    for (let count = hi; count >= lo; count--) {
+      current[i] = count;
+      visit(i + 1, remaining - count);
+    }
+  };
+  visit(0, Math.max(0, Math.floor(modelCount) || 0));
+  return out;
+}
+
 /** The bundles (added-id sets) an option offers: a fixed `replacement`, else each `replacement_choice` branch. */
 function optionBundles(option: WargearOption): string[][] {
   if (option.replacement) return [option.replacement];
@@ -633,50 +683,53 @@ export function groupLoadout(
   const bag = new Map<string, number>();
   for (const [id, c] of counts) if (c > 0) bag.set(id, c);
 
-  const rowN = assignRowCounts(models, n, bag);
-  const optionCaps = options.map((o) => optionCap(o, n, models));
+  for (const rowN of candidateRowCounts(models, n, bag)) {
+    const fixedModels = models.map((model, i) => ({ ...model, min: rowN[i], max: rowN[i] }));
+    const optionCaps = options.map((option) => optionCap(option, n, fixedModels));
+    const rows: SolverRow[] = [];
+    for (let i = 0; i < models.length; i++) {
+      const count = rowN[i];
+      if (count <= 0) continue;
+      const base = toMultiset(models[i].default_weapon_ids ?? []);
+      const candidates = enumerateRowCandidates(base, models[i].name ?? null, options).sort(
+        (a, b) =>
+          a.key.localeCompare(b.key) ||
+          a.usedOptions.length - b.usedOptions.length ||
+          a.usedOptions.join(",").localeCompare(b.usedOptions.join(",")),
+      );
+      rows.push({ name: models[i].name ?? null, count, candidates });
+    }
 
-  const rows: SolverRow[] = [];
-  for (let i = 0; i < models.length; i++) {
-    const k = rowN[i];
-    if (k <= 0) continue;
-    const base = toMultiset(models[i].default_weapon_ids ?? []);
-    const candidates = enumerateRowCandidates(base, models[i].name ?? null, options).sort(
-      (a, b) =>
-        a.key.localeCompare(b.key) ||
-        a.usedOptions.length - b.usedOptions.length ||
-        a.usedOptions.join(",").localeCompare(b.usedOptions.join(",")),
-    );
-    rows.push({ name: models[i].name ?? null, count: k, candidates });
+    const solution = solveAssignment(rows, bag, optionCaps);
+    if (!solution) continue;
+
+    // Merge identical (model-type, loadout) picks, then order deterministically: by row
+    // (leaders lead), then larger groups before smaller (bulk before variants), then by
+    // canonical loadout key. Stable across implementations and independent of the order
+    // the search happened to find picks in.
+    const byGroup = new Map<
+      string,
+      { ri: number; name: string | null; weapons: Map<string, number>; count: number; key: string }
+    >();
+    for (const s of solution) {
+      const key = multisetKey(s.weapons);
+      const gkey = `${s.name ?? ""}##${key}`;
+      const cur = byGroup.get(gkey);
+      if (cur) cur.count += s.count;
+      else byGroup.set(gkey, { ri: s.ri, name: s.name, weapons: s.weapons, count: s.count, key });
+    }
+    const live = [...byGroup.values()]
+      .filter((group) => group.count > 0)
+      .sort((a, b) => a.ri - b.ri || b.count - a.count || a.key.localeCompare(b.key));
+    if (live.length === 0) continue;
+    return live.map((group) => ({
+      model_name: group.name,
+      count: group.count,
+      weapons: sortedGroupWeapons(group.weapons),
+    }));
   }
+  return null;
 
-  const solution = solveAssignment(rows, bag, optionCaps);
-  if (!solution) return null;
-
-  // Merge identical (model-type, loadout) picks, then order deterministically: by row
-  // (leaders lead), then larger groups before smaller (bulk before variants), then by
-  // canonical loadout key. Stable across implementations and independent of the order
-  // the search happened to find picks in.
-  const byGroup = new Map<
-    string,
-    { ri: number; name: string | null; weapons: Map<string, number>; count: number; key: string }
-  >();
-  for (const s of solution) {
-    const key = multisetKey(s.weapons);
-    const gkey = `${s.name ?? ""}##${key}`;
-    const cur = byGroup.get(gkey);
-    if (cur) cur.count += s.count;
-    else byGroup.set(gkey, { ri: s.ri, name: s.name, weapons: s.weapons, count: s.count, key });
-  }
-  const live = [...byGroup.values()]
-    .filter((g) => g.count > 0)
-    .sort((a, b) => a.ri - b.ri || b.count - a.count || a.key.localeCompare(b.key));
-  if (live.length === 0) return null;
-  return live.map((g) => ({
-    model_name: g.name,
-    count: g.count,
-    weapons: sortedGroupWeapons(g.weapons),
-  }));
 }
 
 /** Report every weapon/wargear count that falls outside its valid range. */
@@ -687,6 +740,12 @@ export function validateLoadout(
   counts: Map<string, number>,
   models?: readonly LoadoutModel[],
 ): Violation[] {
+  const budgets = budgetViolations(unit, modelCount, counts);
+  // A complete per-model partition proves every ordinary weapon count and
+  // replacement slot is legal. Shared unit-wide allowances remain independent.
+  if ((models?.length ?? 0) > 1 && groupLoadout(unit, modelCount, options, models, counts) !== null) {
+    return budgets;
+  }
   const bounds = weaponBounds(unit, modelCount, options, models);
   const out: Violation[] = [];
   // Items governed by a shared-allowance budget are policed solely by
@@ -707,7 +766,7 @@ export function validateLoadout(
     }
   }
   out.push(...swapConflicts(unit, modelCount, options, counts, models));
-  out.push(...budgetViolations(unit, modelCount, counts));
+  out.push(...budgets);
   // Deterministic order so the result is stable for cross-impl comparison.
   out.sort((a, b) => (a.id === b.id ? a.code.localeCompare(b.code) : a.id.localeCompare(b.id)));
   return out;

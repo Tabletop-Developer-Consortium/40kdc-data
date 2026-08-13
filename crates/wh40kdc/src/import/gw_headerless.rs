@@ -81,10 +81,9 @@ static RE_ENHANCEMENT_ANNOT: Lazy<Regex> =
 /// `Enhancements: X` / `E: X` enhancement bullet.
 static RE_ENHANCEMENT_LABEL: Lazy<Regex> =
     Lazy::new(|| Regex::new(r"(?i)^(?:e|enh|enhancement|enhancements)\s*:\s*(.+)$").unwrap());
-/// `Attached as: <role>` — GW app v2.0.5 attachment annotation (captures the
-/// role so `(Character)` can flag the unit).
-static RE_ATTACHED_AS: Lazy<Regex> =
-    Lazy::new(|| Regex::new(r"(?i)^attached\s+as\s*:\s*(.+)$").unwrap());
+/// Attachment relationship annotations emitted by GW-family exports.
+static RE_ATTACHMENT: Lazy<Regex> =
+    Lazy::new(|| Regex::new(r"(?i)^(attached\s+as|leader|leading)\s*:\s*(.+)$").unwrap());
 /// `(Character)` inside an attachment role.
 static RE_CHARACTER_ROLE: Lazy<Regex> =
     Lazy::new(|| Regex::new(r"(?i)\(\s*Character\s*\)").unwrap());
@@ -212,11 +211,17 @@ struct UnitAcc {
 }
 
 fn parse_bullet(indent: usize, body: &str, bulleted: bool) -> Bullet {
-    // `Attached as: <role>` — the v2.0.5 multi-detachment export tags each unit
-    // with how it attaches. Pure annotation: never a model or wargear. Its `:`
-    // must be caught before the generic colon split below, else the role is read
-    // as inline wargear. A `(Character)` role flags the unit as a character.
-    if let Some(c) = RE_ATTACHED_AS.captures(body) {
+    // Attachment relationship metadata is never a model or wargear. Catch it
+    // before the generic colon split: otherwise `Leader: Character Name`
+    // becomes an inline model and inflates the bodyguard's model count by one.
+    if let Some(c) = RE_ATTACHMENT.captures(body) {
+        let mut label_words = c[1].split_whitespace();
+        let sets_character = matches!(
+            (label_words.next(), label_words.next(), label_words.next()),
+            (Some(first), Some(second), None)
+                if first.eq_ignore_ascii_case("attached")
+                    && second.eq_ignore_ascii_case("as")
+        ) && RE_CHARACTER_ROLE.is_match(&c[2]);
         return Bullet {
             indent,
             count: None,
@@ -226,7 +231,7 @@ fn parse_bullet(indent: usize, body: &str, bulleted: bool) -> Bullet {
             enhancement: None,
             bulleted,
             is_attachment: true,
-            sets_character: RE_CHARACTER_ROLE.is_match(&c[1]),
+            sets_character,
         };
     }
 
@@ -529,6 +534,20 @@ impl FormatAdapter for GwHeaderlessAdapter {
                     declared_limit = pts;
                     continue;
                 }
+                // Some event exports prepend participant/team/faction lines
+                // without a fence. Recover their actual high-point roster title
+                // instead of emitting it as a phantom unit.
+                if declared_limit.is_none()
+                    && current.is_none()
+                    && units.is_empty()
+                    && detachment_raw_names.len() == 1
+                    && pts.unwrap_or(0) >= 1000
+                {
+                    name = header_name;
+                    declared_limit = pts;
+                    faction_raw_name = detachment_raw_names.pop();
+                    continue;
+                }
                 // Battle-size metadata (`Strike Force (2,000 Points)`).
                 if is_battle_size(&header_name) {
                     battle_size_raw = Some(line.to_string());
@@ -761,13 +780,15 @@ Attached Unit 1
 
 Warlock Conclave (120 points)
 • Attached as: Leader
+• Leading: Eldrad Ulthran
   • 4x Warlock
     • 4x Destructor
       4x Shuriken pistol
       4x Singing Spear
 
 Eldrad Ulthran (130 points)
-• Attached as: Leader (Character)
+• Attached   as: Leader (Character)
+• Leader: Warlock Conclave
   • Warlord
   • 1x Mind War
     1x Shuriken pistol
@@ -814,6 +835,10 @@ Exported with App Version: v2.0.5 (128), Data Version: v886
             .wargear
             .iter()
             .any(|w| w.raw_name.to_lowercase().contains("leader")));
+        assert!(!conclave
+            .wargear
+            .iter()
+            .any(|w| w.raw_name.to_lowercase().contains("leading")));
 
         // `Attached as: … (Character)` flags the unit; `Warlord` is still read.
         let eldrad = unit("Eldrad Ulthran");
@@ -825,6 +850,10 @@ Exported with App Version: v2.0.5 (128), Data Version: v886
             count(eldrad, "The Staff of Ulthamar and witchblade"),
             Some(1)
         );
+        assert!(!eldrad
+            .wargear
+            .iter()
+            .any(|w| w.raw_name.to_lowercase().contains("leader")));
 
         // A lone bulleted weapon trailed by plain continuations is a single-model
         // unit whose bullet is wargear, not a model group.
@@ -840,5 +869,32 @@ Exported with App Version: v2.0.5 (128), Data Version: v886
         assert_eq!(count(dragons, "Close combat weapon"), Some(5));
         assert_eq!(count(dragons, "Firepike"), Some(1));
         assert_eq!(count(dragons, "Dragon fusion gun"), Some(4));
+    }
+    #[test]
+    fn recovers_unframed_event_preamble_without_phantom_unit() {
+        let input = "Participant
+Team
+Drukhari
+Recon (1995 points)
+Skysplinter Assault (3 Detachment Points)
+
+1995 points
+
+CHARACTERS
+
+Archon (100 points)
+• Warlord
+• 1x Huskblade
+";
+        let parsed = GwHeaderlessAdapter.parse(&json!(input)).unwrap();
+        assert_eq!(parsed.name, "Recon");
+        assert_eq!(parsed.declared_limit, Some(1995));
+        assert_eq!(parsed.faction_raw_name.as_deref(), Some("Drukhari"));
+        assert_eq!(
+            parsed.detachment_raw_names,
+            vec!["Skysplinter Assault".to_string()]
+        );
+        assert_eq!(parsed.units.len(), 1);
+        assert_eq!(parsed.units[0].raw_name, "Archon");
     }
 }

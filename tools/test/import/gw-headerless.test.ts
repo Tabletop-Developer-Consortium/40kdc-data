@@ -102,6 +102,7 @@ Attached Unit 1
 
 Warlock Conclave (120 points)
 • Attached as: Leader
+• Leading: Eldrad Ulthran
   • 4x Warlock
     • 4x Destructor
       4x Shuriken pistol
@@ -109,6 +110,7 @@ Warlock Conclave (120 points)
 
 Eldrad Ulthran (130 points)
 • Attached as: Leader (Character)
+• Leader: Warlock Conclave
   • Warlord
   • 1x Mind War
     1x Shuriken pistol
@@ -232,6 +234,7 @@ describe("gwHeaderlessAdapter.parse", () => {
     expect(conclave.wargear.some((w) => /attached as|leader/i.test(w.raw_name))).toBe(
       false,
     );
+    expect(conclave.wargear.some((w) => /leading/i.test(w.raw_name))).toBe(false);
 
     // `Attached as: … (Character)` flags the unit; `Warlord` is still read.
     const eldrad = byName("Eldrad Ulthran");
@@ -240,6 +243,7 @@ describe("gwHeaderlessAdapter.parse", () => {
     expect(eldrad.is_warlord).toBe(true);
     expect(wg(eldrad, "Shuriken pistol")?.count).toBe(1);
     expect(wg(eldrad, "The Staff of Ulthamar and witchblade")?.count).toBe(1);
+    expect(eldrad.wargear.some((w) => /leader/i.test(w.raw_name))).toBe(false);
 
     // A lone bulleted weapon trailed by plain continuations is a single-model
     // unit whose bullet is wargear, not a model group.
@@ -256,7 +260,30 @@ describe("gwHeaderlessAdapter.parse", () => {
     expect(wg(dragons, "Firepike")?.count).toBe(1);
     expect(wg(dragons, "Dragon fusion gun")?.count).toBe(4);
   });
+  it("recovers an unframed event preamble without creating a phantom unit", () => {
+    const parsed = gwHeaderlessAdapter.parse(`Participant
+Team
+Drukhari
+Recon (1995 points)
+Skysplinter Assault (3 Detachment Points)
+
+1995 points
+
+CHARACTERS
+
+Archon (100 points)
+• Warlord
+• 1x Huskblade
+`);
+
+    expect(parsed.name).toBe("Recon");
+    expect(parsed.declared_limit).toBe(1995);
+    expect(parsed.faction_raw_name).toBe("Drukhari");
+    expect(parsed.detachment_raw_names).toEqual(["Skysplinter Assault"]);
+    expect(parsed.units.map((unit) => unit.raw_name)).toEqual(["Archon"]);
+  });
 });
+
 
 describe("gwHeaderlessAdapter via tryImportRoster", () => {
   it("auto-detects the GW app export and resolves against the dataset", () => {

@@ -167,7 +167,7 @@
   {
     "name": "atc-exceeds-allowance-corsair-voidscarred",
     "args": { "unitId": "corsair-voidscarred", "factionId": "aeldari", "modelCount": 10, "counts": { "blaster": 2, "close-combat-weapon-corsair-voidscarred": 7, "executioner": 1, "fusion-pistol": 1, "long-rifle": 1, "neuro-disruptor": 1, "paired-hekatarii-blades": 1, "power-sword": 3, "shuriken-pistol": 5, "witch-staff": 1, "wraithcannon": 1 } },
-    "expected": ["below-min:close-combat-weapon-corsair-voidscarred"]
+    "expected": []
   },
   {
     "name": "atc-exceeds-allowance-custodian-guard",
@@ -612,6 +612,36 @@
   {
     "name": "atc-swap-conflict-sekhetar-robots",
     "args": { "unitId": "sekhetar-robots", "factionId": "thousand-sons", "modelCount": 4, "counts": { "close-combat-weapon-sekhetar-robots": 4, "heavy-warpflamer": 4, "hellfyre-missile-rack-sekhetar-robots": 4, "power-claw": 4, "warpflame-projector": 4 } },
+    "expected": []
+  },
+  {
+    "name": "atc-exceeds-max-blue-horrors",
+    "args": { "unitId": "blue-horrors", "factionId": "chaos-daemons", "modelCount": 10, "counts": { "blue-claws": 10, "coruscating-blue-flames": 10 } },
+    "expected": []
+  },
+  {
+    "name": "atc-exceeds-max-cadian-command-squad",
+    "args": { "unitId": "cadian-command-squad", "factionId": "astra-militarum", "modelCount": 5, "counts": { "chainsword-cadian-command-squad": 1, "close-combat-weapon-cadian-command-squad": 4, "lasgun": 2, "laspistol-cadian-command-squad": 2, "master-vox": 1, "plasma-gun": 2 } },
+    "expected": []
+  },
+  {
+    "name": "atc-exceeds-max-decimus-kill-team",
+    "args": { "unitId": "decimus-kill-team", "factionId": "adeptus-astartes", "modelCount": 10, "counts": { "bolt-pistol-decimus-kill-team": 6, "close-combat-weapon": 6, "deathwatch-marksman-bolt-carbine": 2, "heavy-thunder-hammer": 2, "infernus-heavy-bolter-decimus-kill-team": 2, "plasma-incinerator": 2, "plasma-pistol-decimus-kill-team": 1, "power-weapon-decimus-kill-team": 1, "special-issue-bolt-pistol": 3, "xenophase-blade": 1 } },
+    "expected": []
+  },
+  {
+    "name": "atc-exceeds-max-indomitor-kill-team",
+    "args": { "unitId": "indomitor-kill-team", "factionId": "adeptus-astartes", "modelCount": 10, "counts": { "auto-boltstorm-gauntlets": 3, "bolt-pistol": 7, "close-combat-weapon": 7, "deathwatch-heavy-bolt-rifle": 2, "deathwatch-heavy-bolter": 2, "fragstorm-grenade-launcher": 3, "melta-rifle": 2, "multi-melta-indomitor-kill-team": 1, "twin-power-fists": 3 } },
+    "expected": []
+  },
+  {
+    "name": "atc-exceeds-max-pink-horrors",
+    "args": { "unitId": "pink-horrors", "factionId": "chaos-daemons", "modelCount": 10, "counts": { "coruscating-pink-flames": 10, "daemonic-icon": 1, "instrument-of-chaos": 1, "pink-claws": 10 } },
+    "expected": []
+  },
+  {
+    "name": "atc-exceeds-max-wolf-guard-headtakers",
+    "args": { "unitId": "wolf-guard-headtakers", "factionId": "adeptus-astartes", "modelCount": 12, "counts": { "heavy-bolt-pistol": 6, "master-crafted-power-weapon-wolf-guard-headtakers": 6, "storm-shield": 6, "teeth-and-claws-wolf-guard-headtakers": 6 } },
     "expected": []
   }
 ]

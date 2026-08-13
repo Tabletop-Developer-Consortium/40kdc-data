@@ -15,35 +15,35 @@
   "headline": {
     "lists": 478,
     "parse_failures": 18,
-    "lists_with_violations": 75,
-    "violating_units": 117,
+    "lists_with_violations": 50,
+    "violating_units": 79,
     "warnings_by_code": {
       "weapon-unresolved": 691,
-      "detachment-unresolved": 230,
-      "faction-unresolved": 210,
+      "detachment-unresolved": 219,
+      "faction-unresolved": 204,
       "leader-attachment-inferred": 151,
-      "unit-unresolved": 111,
       "multi-force": 52,
-      "loadout-illegal": 33,
+      "unit-unresolved": 38,
+      "detachment-points-exceeded": 17,
       "battle-size-unmapped": 8,
       "enhancement-unresolved": 8,
+      "loadout-illegal": 6,
       "points-mismatch": 2
     },
     "violations_by_code": {
-      "below-min": 120,
-      "exceeds-max": 58,
-      "exceeds-allowance": 7,
-      "invalid-model-count": 2
+      "below-min": 94,
+      "exceeds-max": 17,
+      "exceeds-allowance": 2
     },
     "grouping_by_outcome": {
-      "grouped": 2838,
-      "unit-unresolved": 111,
-      "wargear-unresolved": 570,
-      "single-model": 3361,
+      "grouped": 2876,
+      "unit-unresolved": 38,
+      "wargear-unresolved": 569,
+      "single-model": 3356,
       "no-recorded-defaults": 0,
-      "solver-null": 272
+      "solver-null": 234
     },
-    "composition_drift_units": 37
+    "composition_drift_units": 33
   },
   "parse_failures": [
     {
@@ -161,10 +161,6 @@
       "count": 29
     },
     {
-      "key": "exceeds-max:pink-horrors",
-      "count": 26
-    },
-    {
       "key": "below-min:servitor-battleclade",
       "count": 24
     },
@@ -177,40 +173,12 @@
       "count": 12
     },
     {
-      "key": "exceeds-max:decimus-kill-team",
-      "count": 10
+      "key": "exceeds-max:cadian-command-squad",
+      "count": 9
     },
     {
       "key": "below-min:imperial-navy-breachers",
       "count": 8
-    },
-    {
-      "key": "exceeds-max:blue-horrors",
-      "count": 8
-    },
-    {
-      "key": "below-min:indomitor-kill-team",
-      "count": 6
-    },
-    {
-      "key": "below-min:cadian-command-squad",
-      "count": 5
-    },
-    {
-      "key": "exceeds-allowance:death-company-marines-with-jump-packs",
-      "count": 5
-    },
-    {
-      "key": "below-min:decimus-kill-team",
-      "count": 4
-    },
-    {
-      "key": "below-min:pink-horrors",
-      "count": 4
-    },
-    {
-      "key": "below-min:spectrus-kill-team",
-      "count": 4
     },
     {
       "key": "exceeds-max:broadside-battlesuits",
@@ -225,14 +193,6 @@
       "count": 3
     },
     {
-      "key": "exceeds-max:cadian-command-squad",
-      "count": 3
-    },
-    {
-      "key": "exceeds-max:indomitor-kill-team",
-      "count": 3
-    },
-    {
       "key": "below-min:cultist-mob",
       "count": 2
     },
@@ -243,26 +203,6 @@
     {
       "key": "exceeds-allowance:khorne-berzerkers",
       "count": 2
-    },
-    {
-      "key": "below-min:corsair-voidscarred",
-      "count": 1
-    },
-    {
-      "key": "below-min:fortis-kill-team",
-      "count": 1
-    },
-    {
-      "key": "below-min:wolf-guard-headtakers",
-      "count": 1
-    },
-    {
-      "key": "invalid-model-count:cadian-recon-squad",
-      "count": 1
-    },
-    {
-      "key": "invalid-model-count:squighog-boyz",
-      "count": 1
     }
   ],
   "unresolved_names": {
@@ -274,8 +214,20 @@
     ],
     "detachment-unresolved": [
       {
-        "key": "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++",
-        "count": 8
+        "key": "Attached unit 1",
+        "count": 14
+      },
+      {
+        "key": "Space Marines",
+        "count": 13
+      },
+      {
+        "key": "Orks",
+        "count": 9
+      },
+      {
+        "key": "T’au Empire",
+        "count": 9
       },
       {
         "key": "Ultramarines",
@@ -286,31 +238,55 @@
         "count": 7
       },
       {
+        "key": "Tyranids",
+        "count": 7
+      },
+      {
+        "key": "Chaos Space Marines",
+        "count": 6
+      },
+      {
+        "key": "Necrons",
+        "count": 5
+      },
+      {
+        "key": "Adeptus Custodes",
+        "count": 4
+      },
+      {
+        "key": "Astra Militarum",
+        "count": 4
+      },
+      {
         "key": "Blood Angels",
         "count": 4
       },
       {
-        "key": "Factions Used: Orks",
+        "key": "Chaos Daemons",
         "count": 4
       },
       {
-        "key": "+++++++",
+        "key": "Thousand Sons",
+        "count": 4
+      },
+      {
+        "key": "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++",
         "count": 3
       },
       {
-        "key": "Factions Used: Adeptus Custodes",
+        "key": "Emperor’s Children",
         "count": 3
       },
       {
-        "key": "Factions Used: Astra Militarum",
+        "key": "Imperial Knights",
         "count": 3
       },
       {
-        "key": "Factions Used: T'au Empire",
+        "key": "Leagues of Votann",
         "count": 3
       },
       {
-        "key": "Necrons",
+        "key": "World Eaters",
         "count": 3
       },
       {
@@ -322,6 +298,14 @@
         "count": 2
       },
       {
+        "key": "Attached Units",
+        "count": 2
+      },
+      {
+        "key": "Chaos Knights",
+        "count": 2
+      },
+      {
         "key": "Dark Angels",
         "count": 2
       },
@@ -330,55 +314,19 @@
         "count": 2
       },
       {
-        "key": "Factions Used: Adeptus Astartes (Dark Angels)",
-        "count": 2
-      },
-      {
-        "key": "Factions Used: Imperial Knights",
-        "count": 2
-      },
-      {
-        "key": "Factions Used: Necrons",
-        "count": 2
-      },
-      {
-        "key": "Factions Used: Tyranids",
-        "count": 2
-      },
-      {
-        "key": "Factions Used: World Eaters",
-        "count": 2
-      },
-      {
-        "key": "Force Dispositions: Reconnaissance",
-        "count": 2
-      },
-      {
-        "key": "Force Dispositions: Take and Hold",
-        "count": 2
-      },
-      {
         "key": "Team Name: Canton Warhammer",
         "count": 2
       },
       {
-        "key": "Tyranids",
-        "count": 2
-      },
-      {
-        "key": "World Eaters",
-        "count": 2
-      },
-      {
-        "key": "-Factions Used: Chaos Space Marinee",
+        "key": "———————————————-",
         "count": 1
       },
       {
-        "key": ".....have...",
+        "key": "<br>",
         "count": 1
       },
       {
-        "key": "(1990 points)",
+        "key": "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
         "count": 1
       },
       {
@@ -394,19 +342,15 @@
         "count": 1
       },
       {
+        "key": "Adeptus Mechanicus",
+        "count": 1
+      },
+      {
+        "key": "Aeldari",
+        "count": 1
+      },
+      {
         "key": "Air Force Gaming",
-        "count": 1
-      },
-      {
-        "key": "Army: Tyranids",
-        "count": 1
-      },
-      {
-        "key": "Astra Militarum",
-        "count": 1
-      },
-      {
-        "key": "Attached Units",
         "count": 1
       },
       {
@@ -422,87 +366,11 @@
         "count": 1
       },
       {
-        "key": "Canton Warhammer",
-        "count": 1
-      },
-      {
-        "key": "Chaos daemons",
-        "count": 1
-      },
-      {
-        "key": "Chaos knights",
-        "count": 1
-      },
-      {
-        "key": "Chaos Knights",
-        "count": 1
-      },
-      {
-        "key": "Chaos Space Marines",
-        "count": 1
-      },
-      {
         "key": "Death Guard",
         "count": 1
       },
       {
-        "key": "Disposition : Reconaissance",
-        "count": 1
-      },
-      {
-        "key": "Disposition Selected: Priority Assets",
-        "count": 1
-      },
-      {
-        "key": "Disposition used: Disruption",
-        "count": 1
-      },
-      {
-        "key": "Disposition used: Purge the Foe",
-        "count": 1
-      },
-      {
-        "key": "Disposition Used: Purge the Foe (Reconnaissance)",
-        "count": 1
-      },
-      {
-        "key": "Disposition Used: Recon",
-        "count": 1
-      },
-      {
-        "key": "Disposition used: Take and hold",
-        "count": 1
-      },
-      {
-        "key": "Disposition: Purge",
-        "count": 1
-      },
-      {
-        "key": "Disruption",
-        "count": 1
-      },
-      {
         "key": "Drukhari",
-        "count": 1
-      },
-      {
-        "key": "Emperor’s Children",
-        "count": 1
-      },
-      {
-        "key": "Eventually, da big boss couldn't crack every single skull 'imself—cuz dere's only so many 'eads ya can smash at once, right? So 'e needed some Nobs to do da delegatin'. 'E went out an' found da biggest, meanest boyz around—da ones dat were proper killy, but still smaller dan 'im, cuz nobody is bigger dan da Boss! 'E made 'em 'is under-bosses to keep da smaller gits in line.",
-        "count": 1
-      },
-      {
-        "key": "Faction Orks",
-        "count": 1
-      },
-      {
-        "key": "Faction Used: Necrons",
-        "count": 1
-      },
-      {
-        "key": "Faction Used: T'au Empire",
         "count": 1
       },
       {
@@ -518,19 +386,7 @@
         "count": 1
       },
       {
-        "key": "Faction: Emperor’s Children",
-        "count": 1
-      },
-      {
-        "key": "Faction: Leagues of Votann",
-        "count": 1
-      },
-      {
         "key": "Faction: Orks",
-        "count": 1
-      },
-      {
-        "key": "Faction: Space Wolves",
         "count": 1
       },
       {
@@ -538,15 +394,7 @@
         "count": 1
       },
       {
-        "key": "Factions used:   Astra Militarum",
-        "count": 1
-      },
-      {
-        "key": "Factions Used: Admech",
-        "count": 1
-      },
-      {
-        "key": "Factions Used: Black Templars",
+        "key": "Factions Used: Astra Militarum",
         "count": 1
       },
       {
@@ -554,27 +402,7 @@
         "count": 1
       },
       {
-        "key": "Factions Used: chaos space marines",
-        "count": 1
-      },
-      {
-        "key": "Factions used: Dark Angels",
-        "count": 1
-      },
-      {
         "key": "Factions Used: Death Guard",
-        "count": 1
-      },
-      {
-        "key": "Factions Used: Drukhari",
-        "count": 1
-      },
-      {
-        "key": "Factions Used: EC",
-        "count": 1
-      },
-      {
-        "key": "Factions Used: Genestealer Cult",
         "count": 1
       },
       {
@@ -582,39 +410,15 @@
         "count": 1
       },
       {
-        "key": "Factions used: Leagues of Votann",
-        "count": 1
-      },
-      {
-        "key": "Factions Used: Leagues of Votann",
-        "count": 1
-      },
-      {
         "key": "Factions used: Necrons",
         "count": 1
       },
       {
-        "key": "Factions Used: Space Marines",
+        "key": "Factions Used: T'au Empire",
         "count": 1
       },
       {
-        "key": "Factions Used: Space Marines, Dark Angels",
-        "count": 1
-      },
-      {
-        "key": "Factions used: T’au Empire",
-        "count": 1
-      },
-      {
-        "key": "Factions Used: Tau Empire",
-        "count": 1
-      },
-      {
-        "key": "Factions Used: Thousand Sons",
-        "count": 1
-      },
-      {
-        "key": "Force Disposition: Disruption",
+        "key": "Factions Used: World Eaters",
         "count": 1
       },
       {
@@ -634,7 +438,11 @@
         "count": 1
       },
       {
-        "key": "Force Dispositions: Purge the Foe",
+        "key": "Force Dispositions: Reconnaissance",
+        "count": 1
+      },
+      {
+        "key": "Force Dispositions: Take and Hold",
         "count": 1
       },
       {
@@ -642,19 +450,15 @@
         "count": 1
       },
       {
+        "key": "Genestealer Cults",
+        "count": 1
+      },
+      {
         "key": "Georgia Warlords",
         "count": 1
       },
       {
-        "key": "Grey Knights",
-        "count": 1
-      },
-      {
         "key": "Huckleberry",
-        "count": 1
-      },
-      {
-        "key": "Imperial knights / mechanicus",
         "count": 1
       },
       {
@@ -667,10 +471,6 @@
       },
       {
         "key": "Laughing corpse gaming",
-        "count": 1
-      },
-      {
-        "key": "Orks",
         "count": 1
       },
       {
@@ -698,10 +498,6 @@
         "count": 1
       },
       {
-        "key": "Player Name: Dan Meloro",
-        "count": 1
-      },
-      {
         "key": "Player Name: Davis Frye",
         "count": 1
       },
@@ -710,27 +506,11 @@
         "count": 1
       },
       {
-        "key": "Player Name: Heath Abrams",
-        "count": 1
-      },
-      {
         "key": "Player Name: Jack esseff",
         "count": 1
       },
       {
-        "key": "Player Name: Jack Murphy",
-        "count": 1
-      },
-      {
-        "key": "Player Name: Jay Chantler",
-        "count": 1
-      },
-      {
         "key": "Player Name: Jerad Berhow",
-        "count": 1
-      },
-      {
-        "key": "Player Name: Justin Crain",
         "count": 1
       },
       {
@@ -766,10 +546,6 @@
         "count": 1
       },
       {
-        "key": "Player Name: Ryan Hobbs",
-        "count": 1
-      },
-      {
         "key": "Player Name: Taylor Hudson",
         "count": 1
       },
@@ -790,14 +566,6 @@
         "count": 1
       },
       {
-        "key": "Player Name: Zach Point",
-        "count": 1
-      },
-      {
-        "key": "Player Name:Geoff Husser",
-        "count": 1
-      },
-      {
         "key": "Player Name:kyle jackling",
         "count": 1
       },
@@ -807,14 +575,6 @@
       },
       {
         "key": "Player Name:TJ Lanigan",
-        "count": 1
-      },
-      {
-        "key": "Player: Alex Herrara",
-        "count": 1
-      },
-      {
-        "key": "Player: Jason Bierbrauer",
         "count": 1
       },
       {
@@ -838,23 +598,7 @@
         "count": 1
       },
       {
-        "key": "Space marine",
-        "count": 1
-      },
-      {
-        "key": "Space Marines",
-        "count": 1
-      },
-      {
         "key": "Space Marines - Ultramarines",
-        "count": 1
-      },
-      {
-        "key": "T’au Empire",
-        "count": 1
-      },
-      {
-        "key": "Tall tales that help us",
         "count": 1
       },
       {
@@ -863,14 +607,6 @@
       },
       {
         "key": "Team Name- Huckleberry",
-        "count": 1
-      },
-      {
-        "key": "Team Name:  Team 3in",
-        "count": 1
-      },
-      {
-        "key": "Team Name: 40K FIGHT CLUB",
         "count": 1
       },
       {
@@ -886,14 +622,6 @@
         "count": 1
       },
       {
-        "key": "Team Name: Event Horizon",
-        "count": 1
-      },
-      {
-        "key": "Team Name: Georgia Warlords",
-        "count": 1
-      },
-      {
         "key": "Team Name: Georgia Warlords Bravo",
         "count": 1
       },
@@ -902,23 +630,7 @@
         "count": 1
       },
       {
-        "key": "Team Name: Huckleberry",
-        "count": 1
-      },
-      {
-        "key": "Team Name: Just Here For The Beer",
-        "count": 1
-      },
-      {
-        "key": "Team Name: Keelhaul Gaming",
-        "count": 1
-      },
-      {
         "key": "Team Name: Laughing Corpse WG club",
-        "count": 1
-      },
-      {
-        "key": "Team Name: Moo Crew - Moo Tang Clan",
         "count": 1
       },
       {
@@ -930,15 +642,7 @@
         "count": 1
       },
       {
-        "key": "Team name: Salem Wytch Hunters",
-        "count": 1
-      },
-      {
         "key": "Team Name: Salem Wytch Hunters",
-        "count": 1
-      },
-      {
-        "key": "Team Name: The Dojo",
         "count": 1
       },
       {
@@ -962,19 +666,15 @@
         "count": 1
       },
       {
-        "key": "Team: X-4 Presents: 2 Josh 2 Furious - The Sequel",
-        "count": 1
-      },
-      {
         "key": "Tempestus + 10 scions",
         "count": 1
       },
       {
-        "key": "The Scallywaaghs",
+        "key": "The Last Warning League",
         "count": 1
       },
       {
-        "key": "Thousand Sons",
+        "key": "The Scallywaaghs",
         "count": 1
       },
       {
@@ -983,14 +683,6 @@
       },
       {
         "key": "Victrix Gaming",
-        "count": 1
-      },
-      {
-        "key": "You can all play clearly broken and abusive lists, with points issued so glaringly obvious that Interns who have only played a handful of games should have caught, and yet people paid to think of the health of this game missed, or thought was fine.  I don’t know what to say about that.",
-        "count": 1
-      },
-      {
-        "key": "十十-",
         "count": 1
       }
     ],
@@ -1023,22 +715,26 @@
     "faction-unresolved": [
       {
         "key": "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++",
-        "count": 27
+        "count": 26
       },
       {
         "key": "Attached Unit 1",
         "count": 5
       },
       {
-        "key": "Team Name: Devastating Dudes",
+        "key": "Factions Used: Orks",
         "count": 4
       },
       {
-        "key": "+++++",
+        "key": "+++++++",
         "count": 3
       },
       {
-        "key": "Team Name: Big Dogs Howling",
+        "key": "Disruption",
+        "count": 3
+      },
+      {
+        "key": "Factions Used: Adeptus Custodes",
         "count": 3
       },
       {
@@ -1054,47 +750,39 @@
         "count": 2
       },
       {
-        "key": "Disruption",
+        "key": "Factions Used: Adeptus Astartes (Dark Angels)",
         "count": 2
       },
       {
-        "key": "Forge World Columbia",
+        "key": "Factions Used: Astra Militarum",
         "count": 2
       },
       {
-        "key": "Team Name: Canton Warhammer",
+        "key": "Factions Used: Imperial Knights",
         "count": 2
       },
       {
-        "key": "Team Name: Casual’ties of War",
+        "key": "Factions Used: Necrons",
         "count": 2
       },
       {
-        "key": "Team Name: Full Send 40K",
+        "key": "Factions Used: T'au Empire",
         "count": 2
       },
       {
-        "key": "Team Name: Hogs of War",
+        "key": "Factions Used: Tyranids",
         "count": 2
       },
       {
-        "key": "Team Name: Salem Wytch Hunters",
-        "count": 2
-      },
-      {
-        "key": "Team Name: The Gay Agenda",
-        "count": 2
-      },
-      {
-        "key": "-Team Name: Grimdark Gentlemen",
+        "key": "-Factions Used: Chaos Space Marinee",
         "count": 1
       },
       {
-        "key": "..I...",
+        "key": ".....have...",
         "count": 1
       },
       {
-        "key": "(2,000 Points)",
+        "key": "(1990 points)",
         "count": 1
       },
       {
@@ -1106,23 +794,7 @@
         "count": 1
       },
       {
-        "key": "+++",
-        "count": 1
-      },
-      {
-        "key": "+++++++++++++++++++++++",
-        "count": 1
-      },
-      {
-        "key": "+++++++++++++++++++++++++++++++++",
-        "count": 1
-      },
-      {
         "key": "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++",
-        "count": 1
-      },
-      {
-        "key": "~Robert after to many drinks probably~",
         "count": 1
       },
       {
@@ -1138,6 +810,10 @@
         "count": 1
       },
       {
+        "key": "Advanced Acquisition Cadre and Kauyon",
+        "count": 1
+      },
+      {
         "key": "Air Force gaming",
         "count": 1
       },
@@ -1146,7 +822,11 @@
         "count": 1
       },
       {
-        "key": "Ambush Predators and Vanguard Onslaught (3 Detachment Points)",
+        "key": "Army: Tyranids",
+        "count": 1
+      },
+      {
+        "key": "Assimilation Swarm and Talons of the Norn Queen",
         "count": 1
       },
       {
@@ -1154,15 +834,7 @@
         "count": 1
       },
       {
-        "key": "Ballers on a Budget didn't just travel to the American Team Championships; they deployed. Chris, known as \"Green,\" sat in the front seat issuing orders as if they were invading a small country instead of driving to a Warhammer 40K tournament. Daren sat beside him, glaring at traffic with the intensity of a Space Marine Chaplain who had skipped breakfast. In the back, Brent inventoried miniatures, Connor attempted to teach a gas station parrot how to play Tau, and Sam practiced smiling his way out of future disasters.",
-        "count": 1
-      },
-      {
         "key": "Behind them thundered the infamous biker gang known as the Hogs of War. Their leader, Bryce, wore enough leather, chains, and bad decisions to sink a small boat. The bikers swerved around the convoy, revving engines and shouting threats that sounded suspiciously rehearsed. Chris merely adjusted his sunglasses and informed the team that things had become \"interesting.\"",
-        "count": 1
-      },
-      {
-        "key": "Bourbon City Brawler's",
         "count": 1
       },
       {
@@ -1178,7 +850,35 @@
         "count": 1
       },
       {
-        "key": "Den, cuz 'e was doin' so much stompin', dis lad started gettin' BIGGER an' GREENER. An' ya know what dat means? More boyz saw 'im an' said, 'Ey, 'e looks like 'e knows where da best fightin' is!' So more boyz joined da mob, which brought in even more boyz, until da WAAAGH! was absolutely massive!",
+        "key": "Disposition : Reconaissance",
+        "count": 1
+      },
+      {
+        "key": "Disposition Selected: Priority Assets",
+        "count": 1
+      },
+      {
+        "key": "Disposition used: Disruption",
+        "count": 1
+      },
+      {
+        "key": "Disposition used: Purge the Foe",
+        "count": 1
+      },
+      {
+        "key": "Disposition Used: Purge the Foe (Reconnaissance)",
+        "count": 1
+      },
+      {
+        "key": "Disposition Used: Recon",
+        "count": 1
+      },
+      {
+        "key": "Disposition used: Take and hold",
+        "count": 1
+      },
+      {
+        "key": "Disposition: Purge",
         "count": 1
       },
       {
@@ -1190,15 +890,95 @@
         "count": 1
       },
       {
-        "key": "Exalted",
+        "key": "Eventually, da big boss couldn't crack every single skull 'imself—cuz dere's only so many 'eads ya can smash at once, right? So 'e needed some Nobs to do da delegatin'. 'E went out an' found da biggest, meanest boyz around—da ones dat were proper killy, but still smaller dan 'im, cuz nobody is bigger dan da Boss! 'E made 'em 'is under-bosses to keep da smaller gits in line.",
         "count": 1
       },
       {
-        "key": "Factions Used: Orks",
+        "key": "Faction Orks",
         "count": 1
       },
       {
-        "key": "Factions Used: Tau",
+        "key": "Faction Used: Necrons",
+        "count": 1
+      },
+      {
+        "key": "Faction Used: T'au Empire",
+        "count": 1
+      },
+      {
+        "key": "Faction: Emperor’s Children",
+        "count": 1
+      },
+      {
+        "key": "Faction: Leagues of Votann",
+        "count": 1
+      },
+      {
+        "key": "Faction: Space Wolves",
+        "count": 1
+      },
+      {
+        "key": "Factions used:   Astra Militarum",
+        "count": 1
+      },
+      {
+        "key": "Factions Used: Admech",
+        "count": 1
+      },
+      {
+        "key": "Factions Used: Black Templars",
+        "count": 1
+      },
+      {
+        "key": "Factions Used: chaos space marines",
+        "count": 1
+      },
+      {
+        "key": "Factions used: Dark Angels",
+        "count": 1
+      },
+      {
+        "key": "Factions Used: Drukhari",
+        "count": 1
+      },
+      {
+        "key": "Factions Used: EC",
+        "count": 1
+      },
+      {
+        "key": "Factions Used: Genestealer Cult",
+        "count": 1
+      },
+      {
+        "key": "Factions used: Leagues of Votann",
+        "count": 1
+      },
+      {
+        "key": "Factions Used: Leagues of Votann",
+        "count": 1
+      },
+      {
+        "key": "Factions Used: Space Marines",
+        "count": 1
+      },
+      {
+        "key": "Factions Used: Space Marines, Dark Angels",
+        "count": 1
+      },
+      {
+        "key": "Factions used: T’au Empire",
+        "count": 1
+      },
+      {
+        "key": "Factions Used: Tau Empire",
+        "count": 1
+      },
+      {
+        "key": "Factions Used: Thousand Sons",
+        "count": 1
+      },
+      {
+        "key": "Factions Used: World Eaters",
         "count": 1
       },
       {
@@ -1206,7 +986,23 @@
         "count": 1
       },
       {
-        "key": "Georgia Warlords",
+        "key": "Force Disposition: Disruption",
+        "count": 1
+      },
+      {
+        "key": "Force Dispositions: Purge the Foe",
+        "count": 1
+      },
+      {
+        "key": "Force Dispositions: Reconnaissance",
+        "count": 1
+      },
+      {
+        "key": "Force Dispositions: Take and Hold",
+        "count": 1
+      },
+      {
+        "key": "Forge World Columbia",
         "count": 1
       },
       {
@@ -1215,10 +1011,6 @@
       },
       {
         "key": "Goretrack Onslaught and Vessels of Wrath",
-        "count": 1
-      },
-      {
-        "key": "Hexwarp Thrallband and Servants of Change (3 Detachment Points)",
         "count": 1
       },
       {
@@ -1238,11 +1030,11 @@
         "count": 1
       },
       {
-        "key": "I am so sick of feeling like if you have effective guns you get a discount on the points for your data sheet.  And Psychic…  Don’t get me started.   Basically if you are a coward and don’t have to play 40K but are dominant, you are cheaper than units that risk themselves to be effective.  Then there are nonsense pointed armies, WTH.  Look at Goats on disks in TSons, Necrons, or how all the Flying Battle Suits in Tau are vastly more broken and yet in some cases cheaper, and you will see why I am angry, and feel like MFM points are irrational.  Hell just look at the units that got discounts in SM but went up for BA making an even higher point differential even though there are only 2 (3DP, don’t get me started, why bother having 1DPs at all???) detachments (not the faction rule) that justify those points increases.  So if you do try to pivot and do something cool, well you’re paying more for less.  Which is just a kick in the teeth after being punched in the nuts at almost every opportunity in 10th.  I mean I have hope that maybe they will fix some of this and the all the fundamental underlying issues of edition change…  But really?",
+        "key": "Imperial Agents",
         "count": 1
       },
       {
-        "key": "Imperial Agents",
+        "key": "Imperial knights / mechanicus",
         "count": 1
       },
       {
@@ -1254,10 +1046,6 @@
         "count": 1
       },
       {
-        "key": "Kalen Ogle",
-        "count": 1
-      },
-      {
         "key": "Knights of Caladrius",
         "count": 1
       },
@@ -1266,15 +1054,7 @@
         "count": 1
       },
       {
-        "key": "Laughing corpse",
-        "count": 1
-      },
-      {
         "key": "Laughing Corpse Gaming Club",
-        "count": 1
-      },
-      {
-        "key": "Laughing Corpses",
         "count": 1
       },
       {
@@ -1295,10 +1075,6 @@
       },
       {
         "key": "Mike (Primo) Annarelli",
-        "count": 1
-      },
-      {
-        "key": "Mont’ka (3 Detachment Points)",
         "count": 1
       },
       {
@@ -1334,27 +1110,15 @@
         "count": 1
       },
       {
-        "key": "Player Name: Bobo McCray",
-        "count": 1
-      },
-      {
-        "key": "Player Name: Brian luffman",
-        "count": 1
-      },
-      {
-        "key": "Player Name: Chris Johnson",
-        "count": 1
-      },
-      {
         "key": "Player Name: Cory Peterson",
         "count": 1
       },
       {
-        "key": "Player Name: Gerald Morris",
+        "key": "Player Name: Dan Meloro",
         "count": 1
       },
       {
-        "key": "Player Name: Harrison Abrams",
+        "key": "Player Name: Heath Abrams",
         "count": 1
       },
       {
@@ -1362,7 +1126,11 @@
         "count": 1
       },
       {
-        "key": "Player name: Jesse Reno",
+        "key": "Player Name: Jack Murphy",
+        "count": 1
+      },
+      {
+        "key": "Player Name: Jay Chantler",
         "count": 1
       },
       {
@@ -1371,6 +1139,10 @@
       },
       {
         "key": "Player name: Joshua Turner",
+        "count": 1
+      },
+      {
+        "key": "Player Name: Justin Crain",
         "count": 1
       },
       {
@@ -1386,11 +1158,11 @@
         "count": 1
       },
       {
-        "key": "Player Name: Leigh Brady",
+        "key": "Player Name: Ritesh Gautam",
         "count": 1
       },
       {
-        "key": "Player Name: Ritesh Gautam",
+        "key": "Player Name: Ryan Hobbs",
         "count": 1
       },
       {
@@ -1398,7 +1170,7 @@
         "count": 1
       },
       {
-        "key": "Player Name: William Lewis",
+        "key": "Player Name: Zach Point",
         "count": 1
       },
       {
@@ -1406,23 +1178,19 @@
         "count": 1
       },
       {
+        "key": "Player Name:Geoff Husser",
+        "count": 1
+      },
+      {
         "key": "Player name:Russell Crichton",
         "count": 1
       },
       {
-        "key": "Player name:Sage Childress",
+        "key": "Player: Alex Herrara",
         "count": 1
       },
       {
-        "key": "Player Name:Sebastian Arias",
-        "count": 1
-      },
-      {
-        "key": "Player: David Miracle",
-        "count": 1
-      },
-      {
-        "key": "Player: Joshua Henderson",
+        "key": "Player: Jason Bierbrauer",
         "count": 1
       },
       {
@@ -1446,10 +1214,6 @@
         "count": 1
       },
       {
-        "key": "Scallywaaghs",
-        "count": 1
-      },
-      {
         "key": "Scintillating Legion and Warptide (3 Detachment Points)",
         "count": 1
       },
@@ -1458,19 +1222,15 @@
         "count": 1
       },
       {
-        "key": "Skullforged Gaming",
+        "key": "Tall tales that help us",
         "count": 1
       },
       {
-        "key": "Team Name:   Advanced Warfare 40K",
+        "key": "Team Name:  Team 3in",
         "count": 1
       },
       {
-        "key": "Team Name: 3in (Errata to 6in) Deep Striking Your Mom",
-        "count": 1
-      },
-      {
-        "key": "Team name: Advanced Warfare and the Hotdog Flavored Water",
+        "key": "Team Name: 40K FIGHT CLUB",
         "count": 1
       },
       {
@@ -1478,15 +1238,11 @@
         "count": 1
       },
       {
-        "key": "Team Name: Big Dawgs Howlin",
-        "count": 1
-      },
-      {
         "key": "TEAM NAME: BIG DOGS HOWLIN",
         "count": 1
       },
       {
-        "key": "Team Name: Bourbon City Brawlers",
+        "key": "Team Name: Big Dogs Howling",
         "count": 1
       },
       {
@@ -1494,23 +1250,11 @@
         "count": 1
       },
       {
-        "key": "Team Name: Dark Bros",
-        "count": 1
-      },
-      {
-        "key": "Team Name: Dumpster Protection Syndicate",
-        "count": 1
-      },
-      {
-        "key": "Team Name: Florida Alliance",
+        "key": "Team Name: Event Horizon",
         "count": 1
       },
       {
         "key": "Team Name: Forge World Columbia",
-        "count": 1
-      },
-      {
-        "key": "Team Name: GateKeepers",
         "count": 1
       },
       {
@@ -1526,7 +1270,15 @@
         "count": 1
       },
       {
-        "key": "Team Name: Grimdark gentlemen omega",
+        "key": "Team Name: Huckleberry",
+        "count": 1
+      },
+      {
+        "key": "Team Name: Just Here For The Beer",
+        "count": 1
+      },
+      {
+        "key": "Team Name: Keelhaul Gaming",
         "count": 1
       },
       {
@@ -1534,15 +1286,7 @@
         "count": 1
       },
       {
-        "key": "Team Name: Melta Mafia",
-        "count": 1
-      },
-      {
-        "key": "Team Name: Midwest Monstars",
-        "count": 1
-      },
-      {
-        "key": "Team name: Patrick? No, this is hat trick",
+        "key": "Team Name: Moo Crew - Moo Tang Clan",
         "count": 1
       },
       {
@@ -1550,67 +1294,15 @@
         "count": 1
       },
       {
-        "key": "Team Name: Reavers of Southern Indiana",
+        "key": "Team name: Salem Wytch Hunters",
         "count": 1
       },
       {
-        "key": "Team name: Skullforge Gaming",
+        "key": "Team Name: Salem Wytch Hunters",
         "count": 1
       },
       {
-        "key": "Team Name: Steiner Math",
-        "count": 1
-      },
-      {
-        "key": "Team Name: SUPER.COOL.DUDES",
-        "count": 1
-      },
-      {
-        "key": "Team name: Tennessee Valley Intramural Shuffleboard Club",
-        "count": 1
-      },
-      {
-        "key": "Team Name: Turn Zero",
-        "count": 1
-      },
-      {
-        "key": "Team Name: TVA",
-        "count": 1
-      },
-      {
-        "key": "Team Name: Victrix Gaming",
-        "count": 1
-      },
-      {
-        "key": "Team Name: Warp Dust Crusaders",
-        "count": 1
-      },
-      {
-        "key": "Team Name: Wrong Way Kids",
-        "count": 1
-      },
-      {
-        "key": "Team Name: X-4",
-        "count": 1
-      },
-      {
-        "key": "Team name:Devastating Dudes",
-        "count": 1
-      },
-      {
-        "key": "Team Name:X-4 Team B",
-        "count": 1
-      },
-      {
-        "key": "Team:  Huckleberry",
-        "count": 1
-      },
-      {
-        "key": "Team: 41st Killennium",
-        "count": 1
-      },
-      {
-        "key": "Team: Advanced Warfare and the Hotdog Flavored Water",
+        "key": "Team Name: The Dojo",
         "count": 1
       },
       {
@@ -1618,7 +1310,7 @@
         "count": 1
       },
       {
-        "key": "Team: X-4 presents 2 Josh 2 Furious",
+        "key": "Team: X-4 Presents: 2 Josh 2 Furious - The Sequel",
         "count": 1
       },
       {
@@ -1626,27 +1318,7 @@
         "count": 1
       },
       {
-        "key": "That evening MWM launched an ambush at a roadside truck stop. Armored trucks skidded into position while masked operatives poured out carrying enough equipment to invade a moderately defended parking lot. Connor immediately volunteered to create a distraction, which was concerning because Connor's distractions usually violated several laws of physics. Ten minutes later there were fireworks, smoke grenades, a runaway barbecue smoker, and a forklift somehow driving itself through an MWM command tent.",
-        "count": 1
-      },
-      {
-        "key": "The final showdown erupted outside the championship hall. Bryce and the Hogs of War arrived from one direction while MWM attacked from the other, creating the sort of massive brawl normally reserved for season finales. Tables flipped, terrain exploded, motorcycles crashed into stacks of empty army cases, and villains were launched through suspiciously fragile walls with remarkable frequency. When the dust settled, Judge JD was safe, the American Team Championships could begin, and Ballers on a Budget marched into the venue as heroes—slightly bruised, extremely hungry, and somehow still arguing about list choices five minutes before round one.",
-        "count": 1
-      },
-      {
-        "key": "The next morning the team finally located Judge JD, who was hiding near the tournament venue while MWM closed in. Chris organized a defense worthy of a Saturday afternoon action marathon. Sam sweet-talked security guards into helping, Brent constructed barricades out of tournament tables, Tucker and Braden moved supplies, and Ben somehow acquired three traffic cones that became critically important later. Daren simply cracked his knuckles, which everyone agreed was probably enough.",
-        "count": 1
-      },
-      {
         "key": "The ScallyWaaghs",
-        "count": 1
-      },
-      {
-        "key": "The team escaped, but their troubles were only beginning. Intelligence reports revealed that the terrorist organization MWM had entered the game, instantly recognizable by the giant monster logos stitched onto their uniforms. Nobody knew exactly what MWM stood for, and every explanation seemed more ridiculous than the last. What everyone did know was that MWM wanted Judge JD, and they were willing to wreck an entire tournament weekend to get him.",
-        "count": 1
-      },
-      {
-        "key": "The trip was supposed to be simple, but simple had never survived first contact with Ballers on a Budget. Tucker, Braden, and Ben followed behind in the support vehicle carrying enough army cases, snacks, and energy drinks to sustain a minor crusade. Halfway across the state, Chris received troubling news that Judge JD needed protection if the tournament was to proceed. Before anyone could ask questions, Connor shouted that they were being followed by motorcycles and immediately climbed into the van's roof hatch for a better look.",
         "count": 1
       },
       {
@@ -1658,15 +1330,15 @@
         "count": 1
       },
       {
-        "key": "Virulent Vectorium (3 Detachment Points)",
-        "count": 1
-      },
-      {
-        "key": "was built on legends.",
-        "count": 1
-      },
-      {
         "key": "Wrong Way Kids",
+        "count": 1
+      },
+      {
+        "key": "You can all play clearly broken and abusive lists, with points issued so glaringly obvious that Interns who have only played a handful of games should have caught, and yet people paid to think of the health of this game missed, or thought was fine.  I don’t know what to say about that.",
+        "count": 1
+      },
+      {
+        "key": "十十-",
         "count": 1
       }
     ],
@@ -1770,28 +1442,8 @@
     ],
     "loadout-illegal": [
       {
-        "key": "Pink Horrors",
-        "count": 13
-      },
-      {
-        "key": "Death Company Marines with Jump Packs",
-        "count": 5
-      },
-      {
-        "key": "Blue Horrors",
-        "count": 4
-      },
-      {
         "key": "Rhino",
         "count": 4
-      },
-      {
-        "key": "Decimus Kill Team",
-        "count": 3
-      },
-      {
-        "key": "Indomitor Kill Team",
-        "count": 2
       },
       {
         "key": "Khorne Berzerkers",
@@ -1820,14 +1472,6 @@
         "count": 2
       },
       {
-        "key": "“Fih”",
-        "count": 1
-      },
-      {
-        "key": "***Blade - Prio C",
-        "count": 1
-      },
-      {
         "key": "**Beetle exterminator of the occult**",
         "count": 1
       },
@@ -1836,47 +1480,11 @@
         "count": 1
       },
       {
-        "key": "++++ Be gay, bite nails",
-        "count": 1
-      },
-      {
-        "key": "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++",
-        "count": 1
-      },
-      {
-        "key": "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Ahhh",
-        "count": 1
-      },
-      {
-        "key": "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Banesword and Friends",
-        "count": 1
-      },
-      {
-        "key": "1 Teams",
-        "count": 1
-      },
-      {
-        "key": "11th Aac+ret",
-        "count": 1
-      },
-      {
         "key": "11x Storm Guardians",
         "count": 1
       },
       {
         "key": "1x Defiler",
-        "count": 1
-      },
-      {
-        "key": "2 big scary robots… minus the robots.",
-        "count": 1
-      },
-      {
-        "key": "2026 ATC 4.0",
-        "count": 1
-      },
-      {
-        "key": "2k Tools of Slaughter",
         "count": 1
       },
       {
@@ -1896,30 +1504,6 @@
         "count": 1
       },
       {
-        "key": "Allow me to, Plunder your booty",
-        "count": 1
-      },
-      {
-        "key": "Angels of the Unyielding Lion",
-        "count": 1
-      },
-      {
-        "key": "Arsenal/Darkflight/Librarius",
-        "count": 1
-      },
-      {
-        "key": "Asmodai is the greatest Chaplain the Dark Angels have ever had and in this essay I will…",
-        "count": 1
-      },
-      {
-        "key": "At least it’s not Berzerker Warband",
-        "count": 1
-      },
-      {
-        "key": "ATC 2026 - Ex Wives",
-        "count": 1
-      },
-      {
         "key": "ATC FINAL",
         "count": 1
       },
@@ -1932,43 +1516,7 @@
         "count": 1
       },
       {
-        "key": "ATC5 Purge",
-        "count": 1
-      },
-      {
         "key": "Awakened Dynasty",
-        "count": 1
-      },
-      {
-        "key": "BA LAG ATC",
-        "count": 1
-      },
-      {
-        "key": "Be Gay, Hunt Psykers",
-        "count": 1
-      },
-      {
-        "key": "Bet not even your mom has seen a train this big.",
-        "count": 1
-      },
-      {
-        "key": "Big Warrior Energy",
-        "count": 1
-      },
-      {
-        "key": "Bio-Digital Jazz, Man.",
-        "count": 1
-      },
-      {
-        "key": "Bullies and bikes",
-        "count": 1
-      },
-      {
-        "key": "Calgar in 11th (ATC)",
-        "count": 1
-      },
-      {
-        "key": "Chaos Knights if they were cool",
         "count": 1
       },
       {
@@ -1992,51 +1540,7 @@
         "count": 1
       },
       {
-        "key": "Chicken à là King",
-        "count": 1
-      },
-      {
         "key": "Commander in Enforcer Bdattlesuit",
-        "count": 1
-      },
-      {
-        "key": "Comp final",
-        "count": 1
-      },
-      {
-        "key": "DA BIGGEST AND DA BUGGIEST Prime",
-        "count": 1
-      },
-      {
-        "key": "Daddy's HoverCorvette Midlife Crisis",
-        "count": 1
-      },
-      {
-        "key": "Dead Dad Party",
-        "count": 1
-      },
-      {
-        "key": "Deep In Dem Skreets",
-        "count": 1
-      },
-      {
-        "key": "Descendants of Ulthwe’",
-        "count": 1
-      },
-      {
-        "key": "Disruption",
-        "count": 1
-      },
-      {
-        "key": "Doin the emperors work",
-        "count": 1
-      },
-      {
-        "key": "Doomsday Gods",
-        "count": 1
-      },
-      {
-        "key": "DOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOMhammer",
         "count": 1
       },
       {
@@ -2052,35 +1556,7 @@
         "count": 1
       },
       {
-        "key": "Fast lord X",
-        "count": 1
-      },
-      {
-        "key": "GHAZ TIDE",
-        "count": 1
-      },
-      {
-        "key": "Green Watch",
-        "count": 1
-      },
-      {
-        "key": "Hold me now, I’m 6 inches from the edge and I’m thinking. Maybe 6 inches, ain’t so far down.",
-        "count": 1
-      },
-      {
-        "key": "Hold the Line",
-        "count": 1
-      },
-      {
-        "key": "I am not Matt McWatters (unfortunately for me)",
-        "count": 1
-      },
-      {
         "key": "I hit on 2s, stop asking why.  idk man, GW made Psychic weapons dumb.",
-        "count": 1
-      },
-      {
-        "key": "Juice Box",
         "count": 1
       },
       {
@@ -2092,91 +1568,7 @@
         "count": 1
       },
       {
-        "key": "Lawyer Fish",
-        "count": 1
-      },
-      {
-        "key": "Lictor Lockdown",
-        "count": 1
-      },
-      {
-        "key": "Machines of the Thrallband",
-        "count": 1
-      },
-      {
-        "key": "Meet me in the middle",
-        "count": 1
-      },
-      {
-        "key": "Mid life Crisis",
-        "count": 1
-      },
-      {
-        "key": "Migraine Simulator 2026",
-        "count": 1
-      },
-      {
-        "key": "One Thousands Sons, 40K in child support",
-        "count": 1
-      },
-      {
-        "key": "Orks speedWaagh",
-        "count": 1
-      },
-      {
-        "key": "Points:Strike Force",
-        "count": 1
-      },
-      {
-        "key": "power of the machine spirit",
-        "count": 1
-      },
-      {
-        "key": "QFP Hot Tub Celebrity Pool Party",
-        "count": 1
-      },
-      {
-        "key": "Reconnaissance",
-        "count": 1
-      },
-      {
-        "key": "Scint",
-        "count": 1
-      },
-      {
-        "key": "Sean, I’m getting tabled again…",
-        "count": 1
-      },
-      {
-        "key": "Stay Golden",
-        "count": 1
-      },
-      {
-        "key": "Stompy bois",
-        "count": 1
-      },
-      {
-        "key": "T'aukyo Drift",
-        "count": 1
-      },
-      {
-        "key": "Taktikal Speedwaagh",
-        "count": 1
-      },
-      {
-        "key": "The FitnessGram Pacer Test is a multistage aerobic capacity test that progressively gets more difficult as it continues. The 20 meter pacer test will begin in 30 seconds. Line up at the start. The running speed starts slowly but gets faster each minute after you hear this signal bodeboop. A sing lap should be completed every time you hear this sound. ding Remember to run in a straight line and run as long as possible. The second time you fail to complete a lap before the sound, your test is over. The test will begin on the word start. On your mark. Get ready!… Start",
-        "count": 1
-      },
-      {
         "key": "The Maurauders",
-        "count": 1
-      },
-      {
-        "key": "The Unbearable Weight of Massive Talent",
-        "count": 1
-      },
-      {
-        "key": "They be Hexing on my Thralls till I Warp",
         "count": 1
       },
       {
@@ -2184,39 +1576,7 @@
         "count": 1
       },
       {
-        "key": "This is the legend of the Ghost Rider.",
-        "count": 1
-      },
-      {
-        "key": "Tide (Copy)",
-        "count": 1
-      },
-      {
-        "key": "Toiling Away",
-        "count": 1
-      },
-      {
         "key": "Triarch Stalker (Green)",
-        "count": 1
-      },
-      {
-        "key": "Tricerahops",
-        "count": 1
-      },
-      {
-        "key": "unforgiven with libbies",
-        "count": 1
-      },
-      {
-        "key": "V’s choice",
-        "count": 1
-      },
-      {
-        "key": "Vets Defilers",
-        "count": 1
-      },
-      {
-        "key": "warp fury",
         "count": 1
       }
     ],
@@ -2454,6 +1814,10 @@
         "count": 2
       },
       {
+        "key": "Cadian Veteran Guardsman",
+        "count": 2
+      },
+      {
         "key": "Cavalry sabre & clawed limbs",
         "count": 2
       },
@@ -2570,10 +1934,6 @@
         "count": 1
       },
       {
-        "key": "Beastboss on Squigosaur",
-        "count": 1
-      },
-      {
         "key": "Channeller Stones",
         "count": 1
       },
@@ -2686,10 +2046,6 @@
         "count": 1
       },
       {
-        "key": "Squighog Boyz",
-        "count": 1
-      },
-      {
         "key": "Storm Guardian with Flamer: 2 with Close Combat Weapon, Flamer",
         "count": 1
       },
@@ -2777,10 +2133,6 @@
       "count": 14
     },
     {
-      "key": "pink-horrors",
-      "count": 13
-    },
-    {
       "key": "plague-marines",
       "count": 13
     },
@@ -2825,14 +2177,6 @@
       "count": 5
     },
     {
-      "key": "lootas",
-      "count": 5
-    },
-    {
-      "key": "blue-horrors",
-      "count": 4
-    },
-    {
       "key": "brotherhood-terminator-squad",
       "count": 4
     },
@@ -2841,15 +2185,7 @@
       "count": 4
     },
     {
-      "key": "cadian-shock-troops",
-      "count": 3
-    },
-    {
       "key": "chaos-terminators",
-      "count": 3
-    },
-    {
-      "key": "decimus-kill-team",
       "count": 3
     },
     {
@@ -2861,19 +2197,11 @@
       "count": 3
     },
     {
-      "key": "jakhals",
-      "count": 3
-    },
-    {
       "key": "piranhas",
       "count": 3
     },
     {
       "key": "blightlord-terminators",
-      "count": 2
-    },
-    {
-      "key": "indomitor-kill-team",
       "count": 2
     },
     {
@@ -2885,20 +2213,12 @@
       "count": 2
     },
     {
-      "key": "spectrus-kill-team",
-      "count": 2
-    },
-    {
       "key": "swooping-hawks",
       "count": 2
     },
     {
       "key": "termagants",
       "count": 2
-    },
-    {
-      "key": "atalan-jackals",
-      "count": 1
     },
     {
       "key": "cultist-mob",
@@ -2910,10 +2230,6 @@
     },
     {
       "key": "deathwing-terminator-squad",
-      "count": 1
-    },
-    {
-      "key": "fortis-kill-team",
       "count": 1
     },
     {
@@ -2933,23 +2249,11 @@
       "count": 1
     },
     {
-      "key": "wolf-guard-headtakers",
-      "count": 1
-    },
-    {
       "key": "zoanthropes",
       "count": 1
     }
   ],
   "composition_drift": [
-    {
-      "faction": "adeptus-astartes",
-      "unit_id": "decimus-kill-team",
-      "unreachable": [
-        "boltgun",
-        "plasma-pistol"
-      ]
-    },
     {
       "faction": "adeptus-astartes",
       "unit_id": "drop-pod",
@@ -3029,13 +2333,6 @@
     },
     {
       "faction": "aeldari",
-      "unit_id": "corsair-voidscarred",
-      "unreachable": [
-        "close-combat-weapon"
-      ]
-    },
-    {
-      "faction": "aeldari",
       "unit_id": "wraithknight",
       "unreachable": [
         "scattershield"
@@ -3081,6 +2378,7 @@
       "faction": "astra-militarum",
       "unit_id": "cadian-command-squad",
       "unreachable": [
+        "master-vox",
         "regimental-standard"
       ]
     },
@@ -3093,23 +2391,9 @@
     },
     {
       "faction": "chaos-daemons",
-      "unit_id": "blue-horrors",
-      "unreachable": [
-        "coruscating-flames"
-      ]
-    },
-    {
-      "faction": "chaos-daemons",
       "unit_id": "feculent-gnarlmaw",
       "unreachable": [
         "feculent-gnarlmaw"
-      ]
-    },
-    {
-      "faction": "chaos-daemons",
-      "unit_id": "pink-horrors",
-      "unreachable": [
-        "coruscating-flames"
       ]
     },
     {

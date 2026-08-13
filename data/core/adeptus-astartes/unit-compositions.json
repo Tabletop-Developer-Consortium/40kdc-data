@@ -2328,15 +2328,13 @@
     "faction_id": "adeptus-astartes",
     "models": [
       {
-        "name": "Watch Sergeant",
+        "name": "Kill Team Sergeant",
         "profile_name": "Deathwatch Veteran",
         "min": 1,
         "max": 1,
         "default_weapon_ids": [
-          "boltgun",
-          "close-combat-weapon",
           "plasma-pistol-decimus-kill-team",
-          "plasma-pistol"
+          "power-weapon-decimus-kill-team"
         ],
         "is_leader_model": true,
         "base_size_mm": {
@@ -2345,9 +2343,41 @@
         }
       },
       {
-        "name": "Deathwatch Veteran",
-        "min": 2,
-        "max": 7,
+        "name": "Deathwatch Veteran with stalker bolt rifle",
+        "profile_name": "Deathwatch Veteran",
+        "min": 1,
+        "max": 2,
+        "default_weapon_ids": [
+          "close-combat-weapon",
+          "stalker-bolt-rifle",
+          "bolt-pistol-decimus-kill-team"
+        ],
+        "is_leader_model": false,
+        "base_size_mm": {
+          "shape": "round",
+          "diameter": 32
+        }
+      },
+      {
+        "name": "Deathwatch Veteran with heavy thunder hammer",
+        "profile_name": "Deathwatch Veteran",
+        "min": 1,
+        "max": 2,
+        "default_weapon_ids": [
+          "heavy-thunder-hammer",
+          "bolt-pistol-decimus-kill-team"
+        ],
+        "is_leader_model": false,
+        "base_size_mm": {
+          "shape": "round",
+          "diameter": 32
+        }
+      },
+      {
+        "name": "Deathwatch Veteran with xenophase blade",
+        "profile_name": "Deathwatch Veteran",
+        "min": 0,
+        "max": 1,
         "default_weapon_ids": [
           "special-issue-bolt-pistol",
           "xenophase-blade"
@@ -2360,7 +2390,7 @@
       },
       {
         "name": "Gravis Veteran",
-        "min": 2,
+        "min": 1,
         "max": 2,
         "default_weapon_ids": [
           "close-combat-weapon",
@@ -2372,12 +2402,49 @@
           "shape": "round",
           "diameter": 32
         }
+      },
+      {
+        "name": "Deathwatch Veteran with marksman bolt carbine",
+        "profile_name": "Deathwatch Veteran",
+        "min": 1,
+        "max": 2,
+        "default_weapon_ids": [
+          "close-combat-weapon",
+          "deathwatch-marksman-bolt-carbine",
+          "special-issue-bolt-pistol"
+        ],
+        "is_leader_model": false,
+        "base_size_mm": {
+          "shape": "round",
+          "diameter": 32
+        }
       }
     ],
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "tiers": [
+      {
+        "models": [
+          { "name": "Kill Team Sergeant", "min": 1, "max": 1 },
+          { "name": "Deathwatch Veteran with stalker bolt rifle", "min": 1, "max": 1 },
+          { "name": "Deathwatch Veteran with heavy thunder hammer", "min": 1, "max": 1 },
+          { "name": "Gravis Veteran", "min": 1, "max": 1 },
+          { "name": "Deathwatch Veteran with marksman bolt carbine", "min": 1, "max": 1 }
+        ]
+      },
+      {
+        "models": [
+          { "name": "Kill Team Sergeant", "min": 1, "max": 1 },
+          { "name": "Deathwatch Veteran with stalker bolt rifle", "min": 2, "max": 2 },
+          { "name": "Deathwatch Veteran with heavy thunder hammer", "min": 2, "max": 2 },
+          { "name": "Deathwatch Veteran with xenophase blade", "min": 1, "max": 1 },
+          { "name": "Gravis Veteran", "min": 2, "max": 2 },
+          { "name": "Deathwatch Veteran with marksman bolt carbine", "min": 2, "max": 2 }
+        ]
+      }
+    ]
   },
   {
     "unit_id": "talonstrike-kill-team",
@@ -7693,7 +7760,7 @@
       {
         "name": "Wolf Guard Headtaker",
         "min": 3,
-        "max": 12,
+        "max": 6,
         "default_weapon_ids": [
           "heavy-bolt-pistol",
           "master-crafted-power-weapon-wolf-guard-headtakers",
@@ -7709,7 +7776,7 @@
         "name": "Hunting Wolf",
         "profile_name": "Hunting Wolves",
         "min": 0,
-        "max": 2,
+        "max": 6,
         "default_weapon_ids": [
           "teeth-and-claws-wolf-guard-headtakers"
         ],
@@ -7723,7 +7790,31 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "tiers": [
+      {
+        "models": [
+          { "name": "Wolf Guard Headtaker", "min": 3, "max": 3 }
+        ]
+      },
+      {
+        "models": [
+          { "name": "Wolf Guard Headtaker", "min": 3, "max": 3 },
+          { "name": "Hunting Wolf", "min": 3, "max": 3 }
+        ]
+      },
+      {
+        "models": [
+          { "name": "Wolf Guard Headtaker", "min": 6, "max": 6 }
+        ]
+      },
+      {
+        "models": [
+          { "name": "Wolf Guard Headtaker", "min": 6, "max": 6 },
+          { "name": "Hunting Wolf", "min": 6, "max": 6 }
+        ]
+      }
+    ]
   },
   {
     "unit_id": "iron-priest",

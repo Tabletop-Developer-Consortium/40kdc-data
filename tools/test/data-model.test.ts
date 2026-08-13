@@ -16,11 +16,11 @@ import { RAW_DATA } from "../src/data/bundle.generated.js";
 
 describe("terrain (embedded catalog + layout resolution)", () => {
   it("embeds the 11e template catalog and imported layouts", () => {
-    // 19 canonical/KOTC templates plus Battlemaster's 12 feature and 44 composed
-    // area templates. Composed areas retain their source scenery as child features.
-    expect(dataset.terrainTemplates.all.length).toBe(75);
+    // 13 canonical/KOTC templates plus Battlemaster's 12 feature and 44 composed
+    // area variants. Composed areas retain their source scenery as child features.
+    expect(dataset.terrainTemplates.all.length).toBe(69);
     expect(
-      dataset.terrainTemplates.get("bm-bm-terrain-11e-1-composite-01")?.features,
+      dataset.terrainTemplates.get("bm-bm-terrain-11e-1-composite-01-m0-p0")?.features,
     ).toHaveLength(2);
     expect(dataset.terrainTemplates.get("area-large")).toBeDefined();
     expect(dataset.terrainTemplates.get("kotc-ruin-inner")?.terrain_category).toBe("dense");

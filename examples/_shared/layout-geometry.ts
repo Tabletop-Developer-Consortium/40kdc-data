@@ -191,6 +191,13 @@ function resolvedByPieceIndex(ds: Dataset, layout: TerrainLayout, resolved: Reso
 
 const round2 = (n: number): string => String(Math.round(n * 100) / 100);
 
+/** Stable, unique Svelte key for a resolved piece within one diagram. */
+export function pieceRenderKey(piece: ResolvedPiece, index: number): string {
+  // Template features keep their template-local ids when the same template is
+  // placed more than once, so the id alone is not unique within the layout.
+  return `${piece.id ?? "piece"}:${index}`;
+}
+
 /** Board (x,y) → display, matching the card's translate(44,0) rotate(90). */
 const toDisplay = (b: Vec2): Vec2 => ({ x: BOARD.height - b.y, y: b.x });
 

@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { Dataset } from "@alpaca-software/40kdc-data";
-import { diagramModel, facingAngle } from "../../../_shared/layout-geometry.js";
+import { diagramModel, facingAngle, pieceRenderKey } from "../../../_shared/layout-geometry.js";
 
 // Real divider endpoints (board frame, 60×44) for the patterns whose facing
 // behavior matters: the orthogonal pair locks in the unchanged baseline, the
@@ -65,5 +65,19 @@ describe("diagramModel classifies empty areas", () => {
     for (const id of ["area-large-31", "area-large-37"]) {
       expect(pieceCategories.get(id)).not.toBe("empty");
     }
+  });
+});
+
+describe("resolved terrain piece render keys", () => {
+  const ds = Dataset.embedded();
+
+  it("remain unique when repeated templates reuse feature ids", () => {
+    const layout = ds.terrainLayouts.get("disruption-vs-disruption-1")!;
+    const { pieces } = diagramModel(ds, layout);
+    const rawIds = pieces.map((piece) => piece.id);
+    const keys = pieces.map(pieceRenderKey);
+
+    expect(new Set(rawIds).size).toBeLessThan(rawIds.length);
+    expect(new Set(keys).size).toBe(keys.length);
   });
 });

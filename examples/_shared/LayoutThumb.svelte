@@ -1,6 +1,6 @@
 <script lang="ts" module>
   import type { Dataset, TerrainLayout } from "@alpaca-software/40kdc-data";
-  import { BOARD, diagramModel, type DiagramModel } from "./layout-geometry.js";
+  import { BOARD, diagramModel, pieceRenderKey, type DiagramModel } from "./layout-geometry.js";
 
   // Memoized across every thumb instance: dataset layouts are immutable for
   // the life of the build, and a grid renders dozens of thumbs.
@@ -48,7 +48,7 @@
         class="divider"
       />
     {/if}
-    {#each model.pieces as p, i (p.id ?? i)}
+    {#each model.pieces as p, i (pieceRenderKey(p, i))}
       <polygon points={pts(p.vertices)} class="piece {p.piece_type} {model.pieceCategories.get(p.id ?? '') ?? ''}" />
     {/each}
   </g>

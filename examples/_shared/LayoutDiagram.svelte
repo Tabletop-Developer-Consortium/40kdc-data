@@ -7,6 +7,7 @@
     ResolvedPiece,
     Vec2,
   } from "./layout-geometry.js";
+  import { pieceRenderKey } from "./layout-geometry.js";
 
   // Read-only GW-style terrain card: the resolved layout drawn portrait
   // (board rotated 90° CW, like the printed cards and the layout editor) with
@@ -59,7 +60,7 @@
       <line x1={divider.from.x} y1={divider.from.y} x2={divider.to.x} y2={divider.to.y} class="divider" />
     {/if}
 
-    {#each pieces as p, i (p.id ?? i)}
+    {#each pieces as p, i (pieceRenderKey(p, i))}
       <polygon points={pts(p.vertices)} class="piece {p.piece_type} {pieceCategories.get(p.id ?? '') ?? ''}" />
     {/each}
 

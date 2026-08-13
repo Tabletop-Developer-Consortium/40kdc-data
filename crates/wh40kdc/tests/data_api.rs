@@ -498,12 +498,12 @@ fn collection_is_iterable() {
 #[test]
 fn terrain_catalog_and_layouts_are_embedded() {
     let ds = Dataset::embedded();
-    // 19 canonical/KOTC templates plus Battlemaster's 12 feature and 44 composed
-    // area templates. Composed areas retain their source scenery as child features.
-    assert_eq!(ds.terrain_templates.len(), 75);
+    // 13 canonical/KOTC templates plus Battlemaster's 12 feature and 44 composed
+    // area variants. Composed areas retain their source scenery as child features.
+    assert_eq!(ds.terrain_templates.len(), 69);
     assert_eq!(
         ds.terrain_templates
-            .get("bm-bm-terrain-11e-1-composite-01")
+            .get("bm-bm-terrain-11e-1-composite-01-m0-p0")
             .unwrap()
             .features
             .len(),

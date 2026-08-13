@@ -35,6 +35,8 @@ pub fn evolve(state: &mut CampaignState, event: &DomainEvent) -> Result<(), Doma
                     evidence_hash: None,
                     source_hash: *source_hash,
                     clauses: None,
+                    retrieval_hash: None,
+                    retrieval: None,
                     architecture_hash: None,
                     requires_shape: false,
                     required_shape_id: None,
@@ -70,6 +72,16 @@ pub fn evolve(state: &mut CampaignState, event: &DomainEvent) -> Result<(), Doma
                 all: facts.all_clause_ids.clone(),
                 mechanical: facts.mechanical_clause_ids.clone(),
             });
+        }
+        E::MechanicRetrievalRecorded {
+            key,
+            artifact_hash,
+            decision,
+        } => {
+            let ability = ability_mut(state, key)?;
+            ability.phase = AbilityPhase::MechanicRetrieved;
+            ability.retrieval_hash = Some(*artifact_hash);
+            ability.retrieval = Some(decision.clone());
         }
         E::ArchitectureRecorded { key, facts } => {
             let ability = ability_mut(state, key)?;

@@ -9,11 +9,13 @@ use rusqlite::Connection;
 
 use crate::StoreError;
 
-const MIGRATIONS: [&str; 4] = [
+const MIGRATIONS: [&str; 6] = [
     include_str!("../../../migrations/0001_event_store.sql"),
     include_str!("../../../migrations/0002_projections.sql"),
     include_str!("../../../migrations/0003_provider_usage.sql"),
     include_str!("../../../migrations/0004_command_identity.sql"),
+    include_str!("../../../migrations/0005_mechanic_registry.sql"),
+    include_str!("../../../migrations/0006_read_only_evidence.sql"),
 ];
 
 #[derive(Clone)]

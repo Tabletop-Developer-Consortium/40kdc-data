@@ -18,6 +18,10 @@ pub enum StoreError {
     LeaseHeld,
     #[error("lease is stale or superseded")]
     StaleLease,
+    #[error("mechanic registry revision checksum mismatch")]
+    CorruptRegistry,
+    #[error("mechanic registry head changed")]
+    RegistryConflict,
     #[error("outbox effect cannot be reconciled")]
     Unreconciled,
     #[error("domain rejected command: {0}")]

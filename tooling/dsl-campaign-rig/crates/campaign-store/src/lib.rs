@@ -1,11 +1,13 @@
 mod cas;
 mod error;
 mod events;
+mod evidence_cache;
 mod lease;
 mod migration;
 mod outbox;
 mod projection;
 mod reconcile;
+mod registry;
 mod snapshot;
 mod sqlite;
 
@@ -15,5 +17,6 @@ pub use events::*;
 pub use lease::*;
 pub use migration::*;
 pub use outbox::*;
+pub use registry::*;
 pub use snapshot::*;
 pub use sqlite::*;

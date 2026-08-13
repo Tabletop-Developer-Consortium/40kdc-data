@@ -2,7 +2,7 @@ use std::collections::BTreeSet;
 
 use crate::{
     AbilityPhase, CampaignPhase, CampaignState, Command, CommandAction, DomainError, DomainEvent,
-    EventPayload, ShapePhase, guard,
+    EventPayload, Hash256, ShapePhase, guard,
 };
 
 pub fn decide(state: &CampaignState, command: &Command) -> Result<Vec<DomainEvent>, DomainError> {
@@ -135,8 +135,33 @@ fn decide_action(
                 facts: facts.clone(),
             })
         }
+        C::RecordMechanicRetrieval {
+            key,
+            artifact_hash,
+            decision,
+        } => {
+            require_ability(state, key, AbilityPhase::EvidenceBound)?;
+            let manifest = state
+                .manifest
+                .as_ref()
+                .ok_or(DomainError::ManifestMismatch)?;
+            let decision_hash = Hash256::digest(
+                serde_json::to_vec(decision).map_err(|_| DomainError::HashMismatch)?,
+            );
+            if decision.registry_revision != manifest.mechanic_registry_revision
+                || *artifact_hash != decision_hash
+                || !decision.fast_path_valid()
+            {
+                return Err(DomainError::StaleParentArtifact);
+            }
+            one(E::MechanicRetrievalRecorded {
+                key: key.clone(),
+                artifact_hash: *artifact_hash,
+                decision: decision.clone(),
+            })
+        }
         C::RecordArchitecture { key, facts } => {
-            let ability = require_ability(state, key, AbilityPhase::EvidenceBound)?;
+            let ability = require_ability(state, key, AbilityPhase::MechanicRetrieved)?;
             if ability.evidence_hash != Some(facts.evidence_hash) {
                 return Err(DomainError::StaleParentArtifact);
             }
@@ -276,19 +301,29 @@ fn decide_action(
                 .abilities
                 .get(key)
                 .ok_or(DomainError::OutOfManifestMember)?;
-            if !matches!(
-                ability.phase,
-                AbilityPhase::Decomposed
-                    | AbilityPhase::ShapeSurveyed
-                    | AbilityPhase::RevisionRequested
-            ) {
+            let fast_retrieved = ability.phase == AbilityPhase::MechanicRetrieved
+                && ability.retrieval.as_ref().is_some_and(|retrieval| {
+                    retrieval.lane == crate::ExecutionLane::Fast
+                        && retrieval.selected_cluster.is_some()
+                        && retrieval.selected_template_hash.is_some()
+                });
+            if !fast_retrieved
+                && !matches!(
+                    ability.phase,
+                    AbilityPhase::Decomposed
+                        | AbilityPhase::ShapeSurveyed
+                        | AbilityPhase::RevisionRequested
+                )
+            {
                 return Err(DomainError::WrongState);
             }
-            if facts.decomposition_hash
-                != ability
-                    .decomposition_hash
-                    .ok_or(DomainError::StaleParentArtifact)?
-            {
+            let expected_parent = if fast_retrieved {
+                ability.retrieval_hash
+            } else {
+                ability.decomposition_hash
+            }
+            .ok_or(DomainError::StaleParentArtifact)?;
+            if facts.decomposition_hash != expected_parent {
                 return Err(DomainError::StaleParentArtifact);
             }
             let budgets = &state.manifest.as_ref().expect("running campaign").budgets;
@@ -388,8 +423,22 @@ fn decide_action(
             })
         }
         C::AcceptCandidate { key } => {
-            let ability = require_ability(state, key, AbilityPhase::RefutationPanel)?;
-            ensure_quorum(state, ability)?;
+            let ability = state
+                .abilities
+                .get(key)
+                .ok_or(DomainError::OutOfManifestMember)?;
+            let fast_retrieved = ability.phase == AbilityPhase::CandidateProposed
+                && ability.retrieval.as_ref().is_some_and(|retrieval| {
+                    retrieval.lane == crate::ExecutionLane::Fast
+                        && retrieval.selected_cluster.is_some()
+                        && retrieval.selected_template_hash.is_some()
+                });
+            if !fast_retrieved {
+                if ability.phase != AbilityPhase::RefutationPanel {
+                    return Err(DomainError::WrongState);
+                }
+                ensure_quorum(state, ability)?;
+            }
             if !ability.blocking_divergences.is_empty() {
                 return Err(DomainError::InsufficientQuorum);
             }

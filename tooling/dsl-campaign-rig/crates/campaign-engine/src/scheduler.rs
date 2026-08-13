@@ -10,12 +10,14 @@ use serde::{Deserialize, Serialize};
 pub enum WorkKind {
     BindEvidence,
     Architecture,
+    RetrieveMechanic,
     Decompose { role: Role },
     CombineDecomposition,
     ShapeRoute,
     ShapeSurvey,
     MarkNeedsSchema,
     Assemble,
+    AcceptRetrievedCandidate,
     OpenRefutationPanel,
     Refute { voter: u8 },
     ResolveRefutations,
@@ -133,7 +135,23 @@ pub fn ready_work_with_policy(
                 vec![Role::DataEnginseer],
                 vec![Capability::ReadRawStore, Capability::ReadRepo],
             ),
-            AbilityPhase::EvidenceBound => (WorkKind::Architecture, vec![Role::Inquisitor], vec![]),
+            AbilityPhase::EvidenceBound => (WorkKind::RetrieveMechanic, vec![], vec![]),
+            AbilityPhase::MechanicRetrieved => {
+                let lane = ability
+                    .retrieval
+                    .as_ref()
+                    .map(|decision| decision.lane)
+                    .unwrap_or(campaign_domain::ExecutionLane::Full);
+                match lane {
+                    campaign_domain::ExecutionLane::Fast => {
+                        (WorkKind::Assemble, vec![Role::ArchMagos], vec![])
+                    }
+                    campaign_domain::ExecutionLane::Review
+                    | campaign_domain::ExecutionLane::Full => {
+                        (WorkKind::Architecture, vec![Role::Inquisitor], vec![])
+                    }
+                }
+            }
             AbilityPhase::Architected => {
                 let next = [Role::TargetDummy, Role::Chronomancer, Role::VoxHound]
                     .into_iter()
@@ -143,11 +161,21 @@ pub fn ready_work_with_policy(
                     None => (WorkKind::CombineDecomposition, vec![], vec![]),
                 }
             }
-            AbilityPhase::Decomposed if ability.requires_shape => (
-                WorkKind::ShapeRoute,
-                vec![Role::KrootFleshShaper],
-                vec![Capability::ReadRawStore],
-            ),
+            AbilityPhase::Decomposed if ability.requires_shape => {
+                if ability
+                    .retrieval
+                    .as_ref()
+                    .is_some_and(|decision| !decision.requires_shape_tribunal())
+                {
+                    (WorkKind::Assemble, vec![Role::ArchMagos], vec![])
+                } else {
+                    (
+                        WorkKind::ShapeRoute,
+                        vec![Role::KrootFleshShaper],
+                        vec![Capability::ReadRawStore],
+                    )
+                }
+            }
             AbilityPhase::ShapeRequired => {
                 let Some(shape) = ability
                     .required_shape_id
@@ -168,6 +196,13 @@ pub fn ready_work_with_policy(
             | AbilityPhase::ShapeSurveyed
             | AbilityPhase::RevisionRequested => {
                 (WorkKind::Assemble, vec![Role::ArchMagos], vec![])
+            }
+            AbilityPhase::CandidateProposed
+                if ability.retrieval.as_ref().is_some_and(|decision| {
+                    decision.lane == campaign_domain::ExecutionLane::Fast
+                }) =>
+            {
+                (WorkKind::AcceptRetrievedCandidate, vec![], vec![])
             }
             AbilityPhase::CandidateProposed => (WorkKind::OpenRefutationPanel, vec![], vec![]),
             AbilityPhase::RefutationPanel => {

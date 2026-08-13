@@ -69,6 +69,7 @@ pub struct CampaignManifest {
     pub ordered_worklist: Vec<WorkItem>,
     pub baseline_report_hash: Hash256,
     pub baseline_rows_hash: Hash256,
+    pub mechanic_registry_revision: Hash256,
     pub identities: IdentitySet,
     pub budgets: Budgets,
     pub gate_definitions_hash: Hash256,
@@ -96,6 +97,7 @@ impl CampaignManifest {
             || self.budgets.max_shape_review_rounds != 3
             || self.budgets.max_full_gate_reruns != 2
             || self.budgets.family_threshold < 4
+            || self.mechanic_registry_revision == Hash256::ZERO
         {
             return Err(DomainError::ManifestMismatch);
         }

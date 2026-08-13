@@ -5,7 +5,7 @@ use serde::{Deserialize, Serialize};
 use crate::{
     AbilityKey, ArchitectureFacts, CampaignId, CampaignManifest, CandidateFacts, CloseFacts,
     CommandId, DecompositionFacts, EvidenceFacts, Hash256, MechanicalVerificationFacts,
-    RefutationFacts, ReviewFacts, ShapeId,
+    RefutationFacts, RetrievalDecision, ReviewFacts, ShapeId,
 };
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
@@ -26,6 +26,11 @@ pub enum EventPayload {
     EvidenceBound {
         key: AbilityKey,
         facts: EvidenceFacts,
+    },
+    MechanicRetrievalRecorded {
+        key: AbilityKey,
+        artifact_hash: Hash256,
+        decision: RetrievalDecision,
     },
     ArchitectureRecorded {
         key: AbilityKey,
@@ -229,6 +234,7 @@ impl EventPayload {
             Self::CampaignStarted => "campaign-started",
             Self::AbilityQueued { .. } => "ability-queued",
             Self::EvidenceBound { .. } => "evidence-bound",
+            Self::MechanicRetrievalRecorded { .. } => "mechanic-retrieval-recorded",
             Self::DecomposerResultRecorded { .. } => "decomposer-result-recorded",
             Self::ArchitectureRecorded { .. } => "architecture-recorded",
             Self::DecompositionRecorded { .. } => "decomposition-recorded",

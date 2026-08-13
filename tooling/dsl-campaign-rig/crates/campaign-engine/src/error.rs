@@ -18,6 +18,8 @@ pub enum EngineError {
     LegacyAmbiguous,
     #[error("benchmark comparison is invalid")]
     BenchmarkInvalid,
+    #[error("mechanic registry failure: {0}")]
+    Registry(String),
     #[error("JSON failure: {0}")]
     Json(#[from] serde_json::Error),
     #[error("filesystem failure: {0}")]

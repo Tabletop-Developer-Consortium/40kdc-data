@@ -88,6 +88,10 @@ pub enum Command {
         #[arg(long)]
         direct: PathBuf,
     },
+    CompoundingBenchmark {
+        #[arg(long)]
+        results: PathBuf,
+    },
     Authorize {
         #[command(subcommand)]
         command: AuthorizeCommand,
@@ -97,6 +101,10 @@ pub enum Command {
         #[command(subcommand)]
         command: ProjectionCommand,
     },
+    Registry {
+        #[command(subcommand)]
+        command: RegistryCommand,
+    },
     Privacy {
         #[command(subcommand)]
         command: PrivacyCommand,
@@ -104,6 +112,34 @@ pub enum Command {
     Artifact {
         #[command(subcommand)]
         command: ArtifactCommand,
+    },
+}
+
+#[derive(Debug, Subcommand)]
+pub enum RegistryCommand {
+    Seed {
+        #[arg(long)]
+        roundtrip_report: Option<PathBuf>,
+        #[arg(long)]
+        raw_store_index: Option<PathBuf>,
+        #[arg(long)]
+        verification_bundle: Option<PathBuf>,
+        #[arg(long)]
+        output_dir: Option<PathBuf>,
+    },
+    Status {
+        #[arg(long)]
+        revision: Option<String>,
+    },
+    Candidates {
+        #[arg(long, default_value_t = 30)]
+        limit: usize,
+        #[arg(long)]
+        json: bool,
+    },
+    Retrieve {
+        #[arg(long)]
+        ability: String,
     },
 }
 

@@ -32,6 +32,7 @@ fn manifest() -> CampaignManifest {
         }],
         baseline_report_hash: hash("report"),
         baseline_rows_hash: hash("rows"),
+        mechanic_registry_revision: hash("registry"),
         identities: IdentitySet {
             provider_precedence: vec!["app-server".into()],
             allowed_transports: BTreeSet::from(["app-server".into()]),
@@ -131,6 +132,23 @@ fn candidate_panel(state: &mut CampaignState) {
                 mechanical_clause_ids: clauses,
                 contiguous_partition: true,
             },
+        },
+    );
+    let retrieval = campaign_domain::RetrievalDecision {
+        registry_revision: state.manifest.as_ref().unwrap().mechanic_registry_revision,
+        lane: campaign_domain::ExecutionLane::Review,
+        selected_cluster: None,
+        selected_template_hash: None,
+        candidates: vec![],
+        reasons: BTreeSet::new(),
+    };
+    let retrieval_hash = Hash256::digest(serde_json::to_vec(&retrieval).unwrap());
+    dispatch(
+        state,
+        CommandAction::RecordMechanicRetrieval {
+            key: ability.clone(),
+            artifact_hash: retrieval_hash,
+            decision: retrieval,
         },
     );
     let evidence_hash = state.abilities[&ability].evidence_hash.unwrap();

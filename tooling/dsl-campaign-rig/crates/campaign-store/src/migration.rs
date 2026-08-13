@@ -1,6 +1,6 @@
 use crate::{CampaignStore, StoreError};
 
-pub const SCHEMA_VERSION: i64 = 4;
+pub const SCHEMA_VERSION: i64 = 6;
 
 impl CampaignStore {
     pub fn verify_schema_version(&self) -> Result<(), StoreError> {

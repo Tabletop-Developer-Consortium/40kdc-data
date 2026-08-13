@@ -2,6 +2,7 @@ mod cli;
 
 use std::{
     path::{Path, PathBuf},
+    process::Command as ProcessCommand,
     str::FromStr,
     sync::Arc,
 };
@@ -10,11 +11,13 @@ use anyhow::{Context, Result, bail};
 use campaign_domain::{
     AbilityId, AbilityKey, ActorId, ArtifactKind, Budgets, CampaignId, CampaignManifest,
     CausationId, Command as DomainCommand, CommandAction, CommandId, CommandMeta, CorrelationId,
-    FactionId, Hash256, IdentitySet, WorkItem,
+    FactionId, Hash256, IdentitySet, RegistryRevision, WorkItem,
 };
 use campaign_engine::{
-    CampaignEngine, CampaignNodeExecutor, decide_benchmark, import_omp_evidence, replay_campaign,
-    run_until_idle,
+    CampaignEngine, CampaignNodeExecutor, CompoundingCaseResult, DEFAULT_EMBEDDING_MODEL,
+    RegistrySeedConfig, decide_benchmark, evaluate_compounding_benchmark, import_omp_evidence,
+    prioritized_campaign_candidates, replay_campaign, retrieval_for_member, run_until_idle,
+    seed_registry, write_registry_reports,
 };
 use campaign_executors::{
     Capability, CapabilityGrant, JjClient, PublicationPlan, SensitiveCorpus, audit_tracked_tree,
@@ -32,12 +35,37 @@ use campaign_store::{CampaignStore, EffectIntent, EffectKind};
 use clap::Parser;
 use cli::{
     ArtifactCommand, AuthorizeCommand, Cli, Command, PrivacyCommand, ProjectionCommand,
-    TransportArg,
+    RegistryCommand, TransportArg,
 };
 use serde::de::DeserializeOwned;
 use serde_json::{Value, json};
 use time::OffsetDateTime;
 use walkdir::WalkDir;
+
+fn validate_seed_corpus(repo: &Path) -> Result<()> {
+    let status = ProcessCommand::new("npm")
+        .args(["run", "validate"])
+        .current_dir(repo.join("tools"))
+        .status()
+        .context("run repository schema and integrity validation")?;
+    if !status.success() {
+        bail!("repository schema and integrity validation failed");
+    }
+    Ok(())
+}
+
+fn load_registry_revision(store: &CampaignStore, revision: Hash256) -> Result<RegistryRevision> {
+    store
+        .registry_revision(revision)?
+        .context("mechanic registry revision is missing")
+}
+
+fn load_current_registry_revision(store: &CampaignStore) -> Result<RegistryRevision> {
+    let revision = store
+        .registry_head()?
+        .context("mechanic registry has no revision")?;
+    load_registry_revision(store, revision)
+}
 
 #[tokio::main]
 async fn main() -> Result<()> {
@@ -212,6 +240,23 @@ async fn main() -> Result<()> {
             );
             Ok(())
         }
+        Command::CompoundingBenchmark { results } => {
+            let results: Vec<CompoundingCaseResult> = read_json(&results)?;
+            let report = evaluate_compounding_benchmark(&results)?;
+            println!("{}", serde_json::to_string_pretty(&report)?);
+            if !report.passed {
+                bail!(
+                    "compounding benchmark failed: {}",
+                    report
+                        .failure_codes
+                        .iter()
+                        .cloned()
+                        .collect::<Vec<_>>()
+                        .join(", ")
+                );
+            }
+            Ok(())
+        }
         Command::Authorize {
             command:
                 AuthorizeCommand::Publish {
@@ -232,6 +277,7 @@ async fn main() -> Result<()> {
             println!("rebuilt {count} campaign projections");
             Ok(())
         }
+        Command::Registry { command } => registry_command(&cli.state_root, &repo, command),
         Command::Privacy {
             command: PrivacyCommand::Audit { campaign },
         } => {
@@ -253,6 +299,106 @@ async fn main() -> Result<()> {
                 bail!("artifact hash mismatch");
             }
             println!("verified {} bytes", bytes.len());
+            Ok(())
+        }
+    }
+}
+
+fn registry_command(state_root: &Path, repo: &Path, command: RegistryCommand) -> Result<()> {
+    let store = open_store(state_root, repo)?;
+    match command {
+        RegistryCommand::Seed {
+            roundtrip_report,
+            raw_store_index,
+            verification_bundle,
+            output_dir,
+        } => {
+            validate_seed_corpus(repo)?;
+            let parent = repo.parent().context("repository has no parent")?;
+            let embeddings_root = parent.join("40kdc-embeddings");
+            let roundtrip_report = roundtrip_report
+                .unwrap_or_else(|| embeddings_root.join("_reports/roundtrip-all.json"));
+            let raw_store_index =
+                raw_store_index.unwrap_or_else(|| parent.join("40kdc-abilities/index.json"));
+            let output_dir = output_dir.unwrap_or_else(|| state_root.join("mechanic-registry"));
+            let jj = JjClient::new(
+                repo,
+                CapabilityGrant::from_capabilities([Capability::ReadJj]),
+            )?;
+            let repository_revision = jj.commit_id("@")?;
+            let config = RegistrySeedConfig {
+                repository_root: repo.to_path_buf(),
+                raw_store_index,
+                roundtrip_report,
+                repository_revision: repository_revision.clone(),
+                corpus_version: repository_revision,
+                embedding_model: DEFAULT_EMBEDDING_MODEL.into(),
+                embeddings_root: embeddings_root.clone(),
+                python_binary: embeddings_root.join(".venv/bin/python"),
+                embedding_bridge: repo.join("tooling/dsl-campaign-rig/scripts/embed_registry.py"),
+                verification_bundle,
+                schema_valid: true,
+                integrity_valid: true,
+            };
+            let expected_head = store.registry_head()?;
+            let (revision, report) = seed_registry(&config, expected_head)?;
+            store.put_registry_revision(&revision, expected_head)?;
+            write_registry_reports(&output_dir, &revision, &report)?;
+            println!("{}", serde_json::to_string_pretty(&report)?);
+            Ok(())
+        }
+        RegistryCommand::Status { revision } => {
+            let revision = revision
+                .map(|value| Hash256::from_str(&value))
+                .transpose()?
+                .or(store.registry_head()?)
+                .context("mechanic registry has no revision")?;
+            let revision = load_registry_revision(&store, revision)?;
+            println!(
+                "{}",
+                serde_json::to_string_pretty(&json!({
+                    "revision_id": revision.revision_id,
+                    "parent_revision": revision.parent_revision,
+                    "repository_revision": revision.body.repository_revision,
+                    "corpus_root_hash": revision.body.corpus_root_hash,
+                    "members": revision.body.members.len(),
+                    "clusters": revision.body.clusters.len(),
+                    "contradictions": revision.body.contradiction_queue.len(),
+                    "suspects": revision.body.suspect_queue.len(),
+                    "novelty": revision.body.novelty_queue.len(),
+                }))?
+            );
+            Ok(())
+        }
+        RegistryCommand::Candidates {
+            limit,
+            json: as_json,
+        } => {
+            let revision = load_current_registry_revision(&store)?;
+            let candidates = prioritized_campaign_candidates(&revision, limit)?;
+            if as_json {
+                println!("{}", serde_json::to_string_pretty(&candidates)?);
+            } else {
+                for (key, decision, priority) in candidates {
+                    println!(
+                        "{key}\\tlane={:?}\\tpriority={priority}\\tcluster={}",
+                        decision.lane,
+                        decision
+                            .selected_cluster
+                            .map(|cluster| cluster.to_string())
+                            .unwrap_or_default()
+                    );
+                }
+            }
+            Ok(())
+        }
+        RegistryCommand::Retrieve { ability } => {
+            let revision = load_current_registry_revision(&store)?;
+            let key = parse_ability_key(&ability)?;
+            println!(
+                "{}",
+                serde_json::to_string_pretty(&retrieval_for_member(&revision, &key)?)?
+            );
             Ok(())
         }
     }
@@ -284,6 +430,10 @@ async fn doctor(state_root: &Path, repo: &Path, model: &str, reasoning: &str) ->
 }
 
 fn plan(state_root: &Path, repo: &Path, args: cli::PlanArgs) -> Result<()> {
+    let store = open_store(state_root, repo)?;
+    let registry_head = store
+        .registry_head()?
+        .context("mechanic registry must be seeded before planning a campaign")?;
     let (manifest, baseline) = if let Some(path) = args.manifest {
         let manifest: CampaignManifest = read_json(&path)?;
         let baseline = find_baseline_report(repo, manifest.baseline_report_hash)?;
@@ -303,6 +453,7 @@ fn plan(state_root: &Path, repo: &Path, args: cli::PlanArgs) -> Result<()> {
             &baseline,
             &args.model,
             &args.reasoning,
+            registry_head,
         )?;
         (manifest, baseline)
     };
@@ -364,9 +515,14 @@ fn plan(state_root: &Path, repo: &Path, args: cli::PlanArgs) -> Result<()> {
     if Hash256::digest(serde_json::to_vec(baseline_rows)?) != manifest.baseline_rows_hash {
         bail!("baseline row hash drift");
     }
+    if store
+        .registry_revision(manifest.mechanic_registry_revision)?
+        .is_none()
+    {
+        bail!("frozen mechanic registry revision is unavailable");
+    }
     let campaign_id = manifest.campaign_id.clone();
     let engine_hash = manifest.identities.executable_hash;
-    let store = open_store(state_root, repo)?;
     let stored = store.put_artifact(
         ArtifactKind::RescoreReport,
         campaign_domain::Sensitivity::Sensitive,
@@ -426,6 +582,7 @@ fn build_manifest(
     baseline: &[u8],
     model: &str,
     reasoning: &str,
+    mechanic_registry_revision: Hash256,
 ) -> Result<CampaignManifest> {
     if requested_worklist.is_empty() {
         bail!("--worklist must contain at least one FACTION/ABILITY");
@@ -526,6 +683,7 @@ fn build_manifest(
         ordered_worklist,
         baseline_report_hash: Hash256::digest(baseline),
         baseline_rows_hash: Hash256::digest(serde_json::to_vec(rows)?),
+        mechanic_registry_revision,
         identities: IdentitySet {
             provider_precedence: vec!["app-server".into()],
             allowed_transports: ["app-server".to_owned()].into_iter().collect(),

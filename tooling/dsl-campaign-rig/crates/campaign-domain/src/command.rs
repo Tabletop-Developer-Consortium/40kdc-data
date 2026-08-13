@@ -4,7 +4,7 @@ use serde::{Deserialize, Serialize};
 
 use crate::{
     AbilityKey, ActorId, CampaignId, CampaignManifest, CausationId, CommandId, CorrelationId,
-    FencingToken, Hash256, OutboxId, ShapeId,
+    FencingToken, Hash256, OutboxId, RetrievalDecision, ShapeId,
 };
 
 #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
@@ -130,6 +130,11 @@ pub enum CommandAction {
     BindEvidence {
         key: AbilityKey,
         facts: EvidenceFacts,
+    },
+    RecordMechanicRetrieval {
+        key: AbilityKey,
+        artifact_hash: Hash256,
+        decision: RetrievalDecision,
     },
     RecordArchitecture {
         key: AbilityKey,

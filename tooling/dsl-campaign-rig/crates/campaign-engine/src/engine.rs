@@ -1,7 +1,7 @@
-use campaign_domain::{CampaignId, CampaignState, Command, Hash256};
+use campaign_domain::{CampaignId, CampaignState, Command, CommandAction, Hash256};
 use campaign_store::{CampaignStore, CommandReceipt, EffectIntent};
 
-use crate::EngineError;
+use crate::{EngineError, retrieval_for_member};
 
 #[derive(Clone)]
 pub struct CampaignEngine {
@@ -21,10 +21,28 @@ impl CampaignEngine {
         }
     }
 
+    fn validate_registry_command(&self, command: &Command) -> Result<(), EngineError> {
+        let CommandAction::RecordMechanicRetrieval { key, decision, .. } = &command.action else {
+            return Ok(());
+        };
+        if decision.lane != campaign_domain::ExecutionLane::Fast {
+            return Ok(());
+        }
+        let revision = self
+            .store
+            .registry_revision(decision.registry_revision)?
+            .ok_or(EngineError::Policy)?;
+        if retrieval_for_member(&revision, key)? != *decision {
+            return Err(EngineError::Policy);
+        }
+        Ok(())
+    }
+
     pub fn execute(&self, command: &Command) -> Result<CommandReceipt, EngineError> {
         if command.meta.expected_engine_hash != self.engine_hash {
             return Err(EngineError::Policy);
         }
+        self.validate_registry_command(command)?;
         Ok(self.store.handle_command(command)?)
     }
 
@@ -41,6 +59,7 @@ impl CampaignEngine {
         {
             return Err(EngineError::Policy);
         }
+        self.validate_registry_command(command)?;
         Ok(self.store.handle_command_with_effect(command, intent)?)
     }
 

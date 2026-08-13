@@ -2,7 +2,7 @@ use std::collections::{BTreeMap, BTreeSet};
 
 use serde::{Deserialize, Serialize};
 
-use crate::{AbilityKey, CampaignId, CampaignManifest, Hash256, ShapeId};
+use crate::{AbilityKey, CampaignId, CampaignManifest, Hash256, RetrievalDecision, ShapeId};
 
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(rename_all = "kebab-case")]
@@ -27,6 +27,7 @@ pub enum CampaignPhase {
 pub enum AbilityPhase {
     Queued,
     EvidenceBound,
+    MechanicRetrieved,
     Architected,
     Decomposed,
     ShapeRequired,
@@ -89,6 +90,8 @@ pub struct AbilityAggregate {
     pub evidence_hash: Option<Hash256>,
     pub source_hash: Hash256,
     pub clauses: Option<ClauseSet>,
+    pub retrieval_hash: Option<Hash256>,
+    pub retrieval: Option<RetrievalDecision>,
     pub architecture_hash: Option<Hash256>,
     pub required_shape_id: Option<ShapeId>,
     pub requires_shape: bool,

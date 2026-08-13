@@ -7,6 +7,7 @@ mod guard;
 mod ids;
 mod manifest;
 mod reducer;
+mod registry;
 mod state;
 
 pub use artifact::*;
@@ -17,4 +18,5 @@ pub use event::*;
 pub use ids::*;
 pub use manifest::*;
 pub use reducer::{evolve, replay};
+pub use registry::*;
 pub use state::*;

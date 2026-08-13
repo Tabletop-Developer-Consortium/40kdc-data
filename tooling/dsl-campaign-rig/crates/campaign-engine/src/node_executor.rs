@@ -12,7 +12,8 @@ use async_trait::async_trait;
 use campaign_domain::{
     ActorId, ArchitectureFacts, ArtifactKind, CampaignId, CandidateFacts, CausationId, Command,
     CommandAction, CommandId, CommandMeta, CorrelationId, DecompositionFacts, EvidenceFacts,
-    Hash256, MechanicalVerificationFacts, RefutationFacts, ReviewFacts, RunManifest, Sensitivity,
+    Hash256, MechanicalVerificationFacts, ReadOnlyEvidenceIdentity, RefutationFacts, ReviewFacts,
+    RunManifest, Sensitivity,
 };
 use campaign_executors::{
     ApplyPlan, Capability, CapabilityGrant, ClauseClassification, CommandContract, EvidenceClause,
@@ -29,7 +30,8 @@ use serde_json::{Value, json};
 
 use crate::{
     CampaignEngine, CloseEvidence, EngineError, NodeExecutor, ProducedArtifact, WorkCompletion,
-    WorkKind, WorkNode, validate_close,
+    WorkKind, WorkNode, compute_structural_signature, deduplicate_shape_id,
+    instantiate_retrieved_template, normalized_mechanic_dsl, retrieval_for_member, validate_close,
 };
 
 pub struct CampaignNodeExecutor {
@@ -619,28 +621,92 @@ impl NodeExecutor for CampaignNodeExecutor {
                 if source_artifact.artifact_id != source.source_hash {
                     return Err(EngineError::Policy);
                 }
-                let result = self
-                    .run_role(
-                        node,
-                        lease,
-                        Role::DataEnginseer,
-                        1,
-                        None,
-                        vec![source.source_hash],
-                        json!({
-                            "mode": "bind-evidence",
-                            "ability_id": key.ability_id,
-                            "faction_id": key.faction_id,
-                            "raw_text": source.source_text,
-                        }),
+                let manifest = state.manifest.as_ref().ok_or(EngineError::Policy)?;
+                let normalized_dsl = normalized_mechanic_dsl(
+                    self.current_dsl(&key)?
+                        .as_object()
+                        .ok_or(EngineError::Policy)?,
+                );
+                let cache_identity = ReadOnlyEvidenceIdentity {
+                    source_hash: source.source_hash,
+                    normalized_dsl_hash: Hash256::digest(serde_json::to_vec(&normalized_dsl)?),
+                    semantic_validator_hash: manifest.identities.semantic_validator_hash,
+                    prompt_manifest_hash: manifest.identities.prompt_manifest_hash,
+                    role_schema_hashes: manifest.identities.role_schema_hashes.clone(),
+                };
+                let (packet, artifacts) = if let Some(packet_hash) = self
+                    .engine
+                    .store()
+                    .reusable_read_only_evidence(&cache_identity)?
+                {
+                    let packet_bytes = self.engine.store().read_artifact(packet_hash)?;
+                    if Hash256::digest(&packet_bytes) != packet_hash {
+                        return Err(EngineError::Policy);
+                    }
+                    let packet: EvidencePacket = serde_json::from_slice(&packet_bytes)?;
+                    validate_evidence_packet(&source.source_text, &packet)?;
+                    (
+                        packet,
+                        vec![Self::produced(
+                            ArtifactKind::EvidencePacket,
+                            Sensitivity::Deidentified,
+                            packet_bytes,
+                            vec![source.source_hash],
+                        )],
                     )
-                    .await?;
-                let native = result
-                    .result
-                    .payload
-                    .get("evidence_packet")
-                    .unwrap_or(&result.result.payload);
-                let packet = normalized_evidence_packet(native, &source.source_text)?;
+                } else {
+                    let result = self
+                        .run_role(
+                            node,
+                            lease,
+                            Role::DataEnginseer,
+                            1,
+                            None,
+                            vec![source.source_hash],
+                            json!({
+                                "mode": "bind-evidence",
+                                "ability_id": key.ability_id,
+                                "faction_id": key.faction_id,
+                                "raw_text": source.source_text,
+                            }),
+                        )
+                        .await?;
+                    let native = result
+                        .result
+                        .payload
+                        .get("evidence_packet")
+                        .unwrap_or(&result.result.payload);
+                    let packet = normalized_evidence_packet(native, &source.source_text)?;
+                    let packet_bytes = serde_json::to_vec(&packet)?;
+                    let stored = self.engine.store().put_artifact(
+                        ArtifactKind::EvidencePacket,
+                        Sensitivity::Deidentified,
+                        &packet_bytes,
+                        "application/json",
+                        "serde-json",
+                        &[source.source_hash],
+                    )?;
+                    self.engine
+                        .store()
+                        .put_reusable_read_only_evidence(&cache_identity, stored.artifact_id)?;
+                    (
+                        packet,
+                        vec![
+                            Self::produced(
+                                ArtifactKind::EvidencePacket,
+                                Sensitivity::Deidentified,
+                                packet_bytes,
+                                vec![source.source_hash],
+                            ),
+                            Self::produced(
+                                ArtifactKind::ProviderConversation,
+                                Sensitivity::Sensitive,
+                                serde_json::to_vec(&result.result)?,
+                                vec![source.source_hash],
+                            ),
+                        ],
+                    )
+                };
                 let packet_bytes = serde_json::to_vec(&packet)?;
                 let packet_hash = Hash256::digest(&packet_bytes);
                 let all_clause_ids = packet
@@ -655,20 +721,7 @@ impl NodeExecutor for CampaignNodeExecutor {
                     .map(|clause| clause.id.clone())
                     .collect();
                 Ok(WorkCompletion {
-                    artifacts: vec![
-                        Self::produced(
-                            ArtifactKind::EvidencePacket,
-                            Sensitivity::Deidentified,
-                            packet_bytes,
-                            vec![source.source_hash],
-                        ),
-                        Self::produced(
-                            ArtifactKind::ProviderConversation,
-                            Sensitivity::Sensitive,
-                            serde_json::to_vec(&result.result)?,
-                            vec![source.source_hash],
-                        ),
-                    ],
+                    artifacts,
                     follow_up: self.command(
                         node,
                         lease,
@@ -681,6 +734,35 @@ impl NodeExecutor for CampaignNodeExecutor {
                                 mechanical_clause_ids,
                                 contiguous_partition: true,
                             },
+                        },
+                    )?,
+                    effect: None,
+                })
+            }
+            WorkKind::RetrieveMechanic => {
+                let manifest = state.manifest.as_ref().ok_or(EngineError::Policy)?;
+                let revision = self
+                    .engine
+                    .store()
+                    .registry_revision(manifest.mechanic_registry_revision)?
+                    .ok_or(EngineError::Policy)?;
+                let decision = retrieval_for_member(&revision, &key)?;
+                let bytes = serde_json::to_vec(&decision)?;
+                let artifact_hash = Hash256::digest(&bytes);
+                Ok(WorkCompletion {
+                    artifacts: vec![Self::produced(
+                        ArtifactKind::Architecture,
+                        Sensitivity::Deidentified,
+                        bytes,
+                        vec![ability.evidence_hash.ok_or(EngineError::Policy)?],
+                    )],
+                    follow_up: self.command(
+                        node,
+                        lease,
+                        CommandAction::RecordMechanicRetrieval {
+                            key,
+                            artifact_hash,
+                            decision,
                         },
                     )?,
                     effect: None,
@@ -818,25 +900,38 @@ impl NodeExecutor for CampaignNodeExecutor {
                         key,
                         artifact_hash: package_hash,
                     },
-                    "singleton" => CommandAction::MarkNeedsSchema {
-                        key,
-                        evidence_hash: package_hash,
-                    },
-                    "fail" => CommandAction::MarkNeedsSchema {
+                    "singleton" | "fail" => CommandAction::MarkNeedsSchema {
                         key,
                         evidence_hash: package_hash,
                     },
                     "new-shape" => {
-                        let proposed_name = result
+                        let manifest = state.manifest.as_ref().ok_or(EngineError::Policy)?;
+                        let revision = self
+                            .engine
+                            .store()
+                            .registry_revision(manifest.mechanic_registry_revision)?
+                            .ok_or(EngineError::Policy)?;
+                        let current_dsl = self.current_dsl(&key)?;
+                        let normalized = normalized_mechanic_dsl(
+                            current_dsl.as_object().ok_or(EngineError::Policy)?,
+                        );
+                        let signature = compute_structural_signature(&normalized)?;
+                        let proposed_shape_ids = result
                             .result
                             .payload
                             .pointer("/proposed_shape/name")
                             .and_then(Value::as_str)
-                            .ok_or(EngineError::Policy)?;
-                        let shape_id = campaign_domain::ShapeId::new(format!(
-                            "shape-{}",
-                            slug(proposed_name)
-                        ))?;
+                            .map(str::to_owned)
+                            .into_iter()
+                            .collect();
+                        let (cluster_id, canonical_shape_ids) =
+                            deduplicate_shape_id(&revision, &signature, &proposed_shape_ids)?;
+                        let canonical_shape = canonical_shape_ids
+                            .iter()
+                            .next()
+                            .map(|shape| format!("shape-{}", slug(shape)))
+                            .unwrap_or_else(|| format!("shape-{}", cluster_id));
+                        let shape_id = campaign_domain::ShapeId::new(canonical_shape)?;
                         if state.shapes.contains_key(&shape_id) {
                             CommandAction::RequireShape { key, shape_id }
                         } else {
@@ -1013,9 +1108,73 @@ impl NodeExecutor for CampaignNodeExecutor {
             WorkKind::Assemble => {
                 let source = self.source(node)?;
                 let evidence_hash = ability.evidence_hash.ok_or(EngineError::Policy)?;
-                let architecture_hash = ability.architecture_hash.ok_or(EngineError::Policy)?;
-                let decomposition_hash = ability.decomposition_hash.ok_or(EngineError::Policy)?;
+                let retrieval_hash = ability.retrieval_hash.ok_or(EngineError::Policy)?;
+                let architecture_hash = ability.architecture_hash.unwrap_or(retrieval_hash);
+                let decomposition_hash = ability.decomposition_hash.unwrap_or(retrieval_hash);
+                let retrieval = ability.retrieval.as_ref().ok_or(EngineError::Policy)?;
                 let previous_dsl = self.current_dsl(&key)?;
+                if retrieval.lane == campaign_domain::ExecutionLane::Fast {
+                    let registry_revision_id = state
+                        .manifest
+                        .as_ref()
+                        .ok_or(EngineError::Policy)?
+                        .mechanic_registry_revision;
+                    let registry_revision = self
+                        .engine
+                        .store()
+                        .registry_revision(registry_revision_id)?
+                        .ok_or(EngineError::Policy)?;
+                    let mechanics =
+                        instantiate_retrieved_template(&registry_revision, &key, retrieval)?;
+                    let mut candidate = previous_dsl
+                        .as_object()
+                        .cloned()
+                        .ok_or(EngineError::Policy)?;
+                    for field in [
+                        "ability_type",
+                        "applies_to",
+                        "behavior",
+                        "effect",
+                        "scope",
+                        "trigger",
+                        "usage",
+                    ] {
+                        candidate.remove(field);
+                    }
+                    candidate.extend(mechanics.as_object().cloned().ok_or(EngineError::Policy)?);
+                    let candidate = Value::Object(candidate);
+                    ensure_candidate_identity(&candidate, &previous_dsl, &key)?;
+                    let candidate_bytes = serde_json::to_vec(&candidate)?;
+                    let candidate_hash = Hash256::digest(&candidate_bytes);
+                    let clauses = ability.clauses.as_ref().ok_or(EngineError::Policy)?;
+                    return Ok(WorkCompletion {
+                        artifacts: vec![Self::produced(
+                            ArtifactKind::CandidateDsl,
+                            Sensitivity::Deidentified,
+                            candidate_bytes,
+                            vec![evidence_hash, retrieval_hash],
+                        )],
+                        follow_up: self.command(
+                            node,
+                            lease,
+                            CommandAction::ProposeCandidate {
+                                key,
+                                facts: CandidateFacts {
+                                    artifact_hash: candidate_hash,
+                                    decomposition_hash,
+                                    attempt: ability.attempt.saturating_add(1),
+                                    exactly_mapped_clauses: clauses.mechanical.clone(),
+                                    source_or_schema_evidence_clauses: clauses.mechanical.clone(),
+                                    placeholder_encoding: false,
+                                    approx_mechanical_clause: false,
+                                    revision_thread_hash: ability.revision_thread_hash,
+                                    prior_divergence_ids: ability.blocking_divergences.clone(),
+                                },
+                            },
+                        )?,
+                        effect: None,
+                    });
+                }
                 let name = previous_dsl
                     .get("name")
                     .cloned()
@@ -1051,6 +1210,11 @@ impl NodeExecutor for CampaignNodeExecutor {
                             "architecture": serde_json::from_slice::<Value>(&self.engine.store().read_artifact(architecture_hash)?)?,
                             "decomposition": serde_json::from_slice::<Value>(&self.engine.store().read_artifact(decomposition_hash)?)?,
                             "revision_thread": ability.revision_thread_hash.map(|hash| self.engine.store().read_artifact(hash)).transpose()?.map(|bytes| serde_json::from_slice::<Value>(&bytes)).transpose()?,
+                            "mechanic_registry_revision": state.manifest.as_ref().ok_or(EngineError::Policy)?.mechanic_registry_revision,
+                            "retrieved_cluster": retrieval.selected_cluster,
+                            "retrieved_template_hash": retrieval.selected_template_hash,
+                            "execution_lane": retrieval.lane,
+                            "retrieval_reasons": retrieval.reasons,
                         }),
                         |result| {
                             validate_candidate_role_result(
@@ -1162,6 +1326,19 @@ impl NodeExecutor for CampaignNodeExecutor {
                             },
                         },
                     )?,
+                    effect: None,
+                })
+            }
+            WorkKind::AcceptRetrievedCandidate => {
+                if !ability.retrieval.as_ref().is_some_and(|decision| {
+                    decision.lane == campaign_domain::ExecutionLane::Fast
+                        && decision.selected_template_hash.is_some()
+                }) {
+                    return Err(EngineError::Policy);
+                }
+                Ok(WorkCompletion {
+                    artifacts: vec![],
+                    follow_up: self.command(node, lease, CommandAction::AcceptCandidate { key })?,
                     effect: None,
                 })
             }
@@ -5035,6 +5212,7 @@ mod evidence_tests {
             }],
             baseline_report_hash: Hash256::digest("fabricated-report"),
             baseline_rows_hash: Hash256::digest("fabricated-rows"),
+            mechanic_registry_revision: Hash256::digest("fabricated-registry"),
             identities: IdentitySet {
                 provider_precedence: vec!["app-server".into()],
                 allowed_transports: BTreeSet::from(["app-server".into()]),
@@ -5400,6 +5578,15 @@ mod evidence_tests {
         let architecture_hash = Hash256::digest("fabricated-architecture");
         let decomposition_hash = Hash256::digest("fabricated-decomposition");
         let shape_id = ShapeId::new("shape-fabricated-container").unwrap();
+        let retrieval_decision = campaign_domain::RetrievalDecision {
+            registry_revision: Hash256::digest("fabricated-registry"),
+            lane: campaign_domain::ExecutionLane::Full,
+            selected_cluster: None,
+            selected_template_hash: None,
+            candidates: vec![],
+            reasons: BTreeSet::new(),
+        };
+        let retrieval_hash = Hash256::digest(serde_json::to_vec(&retrieval_decision).unwrap());
         for action in [
             CommandAction::BindEvidence {
                 key: ability.clone(),
@@ -5410,6 +5597,11 @@ mod evidence_tests {
                     mechanical_clause_ids: clauses.clone(),
                     contiguous_partition: true,
                 },
+            },
+            CommandAction::RecordMechanicRetrieval {
+                key: ability.clone(),
+                artifact_hash: retrieval_hash,
+                decision: retrieval_decision,
             },
             CommandAction::RecordArchitecture {
                 key: ability.clone(),
@@ -5594,6 +5786,8 @@ mod evidence_tests {
                 evidence_hash: None,
                 source_hash: Hash256::digest("source"),
                 clauses: None,
+                retrieval_hash: None,
+                retrieval: None,
                 architecture_hash: None,
                 required_shape_id: Some(shape_id.clone()),
                 requires_shape: true,

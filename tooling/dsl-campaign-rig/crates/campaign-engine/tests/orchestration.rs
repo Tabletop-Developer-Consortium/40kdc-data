@@ -47,6 +47,7 @@ fn manifest(keys: Vec<AbilityKey>) -> CampaignManifest {
             .collect(),
         baseline_report_hash: hash("report"),
         baseline_rows_hash: hash("rows"),
+        mechanic_registry_revision: hash("registry"),
         identities: IdentitySet {
             provider_precedence: vec!["app-server".into()],
             allowed_transports: BTreeSet::from(["app-server".into()]),
@@ -82,6 +83,8 @@ fn ability(phase: AbilityPhase) -> AbilityAggregate {
         evidence_hash: None,
         source_hash: hash("source"),
         clauses: None,
+        retrieval_hash: None,
+        retrieval: None,
         architecture_hash: None,
         required_shape_id: None,
         requires_shape: false,
@@ -179,6 +182,39 @@ fn scheduler_assigns_deterministic_work_ids() {
         CampaignPhase::Running,
     );
     assert_ne!(first[0].work_id, ready_work(&changed, false)[0].work_id);
+}
+#[test]
+fn scheduler_retrieves_before_architecture_and_routes_fast_lane_without_shape_work() {
+    let ability_key = key("retrieval-first");
+    let mut state = state_with(
+        vec![(ability_key.clone(), AbilityPhase::EvidenceBound)],
+        CampaignPhase::Running,
+    );
+    assert_eq!(
+        ready_work(&state, false)[0].kind,
+        WorkKind::RetrieveMechanic
+    );
+
+    let retrieval = campaign_domain::RetrievalDecision {
+        registry_revision: hash("registry"),
+        lane: campaign_domain::ExecutionLane::Fast,
+        selected_cluster: Some(
+            campaign_domain::MechanicClusterId::new("mc-0123456789abcdefabcd").unwrap(),
+        ),
+        selected_template_hash: Some(hash("template")),
+        candidates: vec![],
+        reasons: BTreeSet::from(["structural-template-match".into()]),
+    };
+    let aggregate = state.abilities.get_mut(&ability_key).unwrap();
+    aggregate.phase = AbilityPhase::MechanicRetrieved;
+    aggregate.retrieval_hash = Some(hash("retrieval"));
+    aggregate.retrieval = Some(retrieval);
+    assert_eq!(ready_work(&state, false)[0].kind, WorkKind::Assemble);
+
+    let aggregate = state.abilities.get_mut(&ability_key).unwrap();
+    aggregate.phase = AbilityPhase::Decomposed;
+    aggregate.requires_shape = true;
+    assert_eq!(ready_work(&state, false)[0].kind, WorkKind::Assemble);
 }
 
 struct TestPaths {

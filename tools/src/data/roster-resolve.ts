@@ -288,7 +288,6 @@ export function validateRosterCore(spec: NormRoster, dataset: Dataset): RosterLe
         dataset.detachments.getAny(id),
     )
     .filter((d): d is Detachment => d !== undefined);
-  const primary = detachments[0];
 
   // --- Enhancements: per-unit eligibility + army-wide uniqueness. -----------
   const enhUses = new Map<string, number>();
@@ -353,10 +352,16 @@ export function validateRosterCore(spec: NormRoster, dataset: Dataset): RosterLe
     err("detachment-points-over", "roster", `detachments cost ${dpUsed} DP, over the ${cap} budget`);
 
   // --- Force disposition (advisory / warn). ---------------------------------
+  // Any selected detachment may grant the pick; detachments whose data does
+  // not record force_dispositions are skipped, and when none record them the
+  // check is inconclusive and stays silent.
   if (spec.forceDisposition == null) {
     push("warn", "disposition-not-picked", "roster", "no Force Disposition selected");
-  } else if (primary?.force_dispositions && !primary.force_dispositions.includes(spec.forceDisposition)) {
-    push("warn", "disposition-invalid", spec.forceDisposition, `${spec.forceDisposition} is not offered by ${primary.id}`);
+  } else {
+    const recorded = detachments.filter((d) => d.force_dispositions);
+    if (recorded.length > 0 && !recorded.some((d) => d.force_dispositions!.includes(spec.forceDisposition!))) {
+      push("warn", "disposition-invalid", spec.forceDisposition, `${spec.forceDisposition} is not offered by any selected detachment`);
+    }
   }
 
   // --- Detachment tag uniqueness (one per shared tag). ----------------------

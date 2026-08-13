@@ -256,7 +256,6 @@ pub fn validate_roster_core(spec: &NormRoster, dataset: &Dataset) -> RosterLegal
                 .or_else(|| dataset.detachments.get_any(id))
         })
         .collect();
-    let primary = detachments.first().copied();
 
     // --- Enhancements: per-unit eligibility + army-wide uniqueness. -----------
     let mut enh_uses: BTreeMap<String, u64> = BTreeMap::new();
@@ -434,18 +433,25 @@ pub fn validate_roster_core(spec: &NormRoster, dataset: &Dataset) -> RosterLegal
             severity: Severity::Warn,
         }),
         Some(disp) => {
-            if let Some(p) = primary {
-                if let Some(fds) = &p.force_dispositions {
-                    if !fds.iter().any(|d| d.as_str() == disp) {
-                        army.push(RosterViolation {
-                            code: RosterViolationCode::DispositionInvalid,
-                            id: disp.clone(),
-                            message: format!("{disp} is not offered by {}", p.id.as_str()),
-                            unit_index: None,
-                            severity: Severity::Warn,
-                        });
-                    }
-                }
+            // Any selected detachment may grant the pick; detachments whose
+            // data does not record force_dispositions are skipped, and when
+            // none record them the check is inconclusive and stays silent.
+            let recorded: Vec<_> = detachments
+                .iter()
+                .filter_map(|d| d.force_dispositions.as_ref())
+                .collect();
+            if !recorded.is_empty()
+                && !recorded
+                    .iter()
+                    .any(|fds| fds.iter().any(|d| d.as_str() == disp))
+            {
+                army.push(RosterViolation {
+                    code: RosterViolationCode::DispositionInvalid,
+                    id: disp.clone(),
+                    message: format!("{disp} is not offered by any selected detachment"),
+                    unit_index: None,
+                    severity: Severity::Warn,
+                });
             }
         }
     }

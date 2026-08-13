@@ -159,8 +159,6 @@ def validate_roster_core(spec: dict[str, Any], dataset: Dataset) -> dict[str, An
         )
         if d is not None
     ]
-    primary = detachments[0] if detachments else None
-
     # --- Enhancements: per-unit eligibility + army-wide uniqueness. -----------
     enh_uses: dict[str, int] = {}
     for idx, su in enumerate(spec_units):
@@ -270,20 +268,25 @@ def validate_roster_core(spec: dict[str, Any], dataset: Dataset) -> dict[str, An
         )
 
     # --- Force disposition (advisory / warn). ---------------------------------
+    # Any selected detachment may grant the pick; detachments whose data does
+    # not record force_dispositions are skipped, and when none record them the
+    # check is inconclusive and stays silent.
     force_disposition = spec.get("force_disposition")
     if force_disposition is None:
         push("warn", "disposition-not-picked", "roster", "no Force Disposition selected")
-    elif (
-        primary is not None
-        and primary.get("force_dispositions")
-        and force_disposition not in primary["force_dispositions"]
-    ):
-        push(
-            "warn",
-            "disposition-invalid",
-            force_disposition,
-            f"{force_disposition} is not offered by {primary['id']}",
-        )
+    else:
+        recorded = [
+            d for d in detachments if d.get("force_dispositions") is not None
+        ]
+        if recorded and not any(
+            force_disposition in d["force_dispositions"] for d in recorded
+        ):
+            push(
+                "warn",
+                "disposition-invalid",
+                force_disposition,
+                f"{force_disposition} is not offered by any selected detachment",
+            )
 
     # --- Detachment tag uniqueness (one per shared tag). ----------------------
     tag_counts: dict[str, int] = {}

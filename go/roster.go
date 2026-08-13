@@ -134,7 +134,7 @@ func validateRosterCore(spec normRoster, ds *Dataset) ([]unitLoadoutResult, []ro
 		})
 	}
 
-	// Resolved detachments (drop ids absent from the dataset); primary = first.
+	// Resolved detachments (drop ids absent from the dataset).
 	var detachments []map[string]any
 	// Shared detachment ids (Codex chapters) resolve within the roster's
 	// faction; fall back first-wins when the spec names no faction.
@@ -149,10 +149,6 @@ func validateRosterCore(spec normRoster, ds *Dataset) ([]unitLoadoutResult, []ro
 		if ok {
 			detachments = append(detachments, d.(map[string]any))
 		}
-	}
-	var primary map[string]any
-	if len(detachments) > 0 {
-		primary = detachments[0]
 	}
 
 	// --- Enhancements: per-unit eligibility + army-wide uniqueness. -----------
@@ -259,15 +255,23 @@ func validateRosterCore(spec normRoster, ds *Dataset) ([]unitLoadoutResult, []ro
 	}
 
 	// --- Force disposition (advisory / warn). ---------------------------------
+	// Any selected detachment may grant the pick; detachments whose data does
+	// not record force_dispositions (key absent or null) are skipped, and when
+	// none record them the check is inconclusive and stays silent.
 	if spec.forceDisposition == nil {
 		push("warn", "disposition-not-picked", "roster", -1)
-	} else if primary != nil {
-		// `primary?.force_dispositions` truthy in TS: the key is present and not
-		// null (an empty array still triggers the membership check).
-		if fd, ok := primary["force_dispositions"]; ok && fd != nil {
-			if !contains(toStrList(fd), *spec.forceDisposition) {
-				push("warn", "disposition-invalid", *spec.forceDisposition, -1)
+	} else {
+		recorded, granted := false, false
+		for _, d := range detachments {
+			if fd, ok := d["force_dispositions"]; ok && fd != nil {
+				recorded = true
+				if contains(toStrList(fd), *spec.forceDisposition) {
+					granted = true
+				}
 			}
+		}
+		if recorded && !granted {
+			push("warn", "disposition-invalid", *spec.forceDisposition, -1)
 		}
 	}
 

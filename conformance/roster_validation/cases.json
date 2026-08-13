@@ -416,6 +416,34 @@
     ]
   },
   {
+    "name": "disposition-granted-by-secondary-detachment",
+    "note": "The pick may be granted by ANY selected detachment, not only the primary: reconnaissance comes from librarius-conclave (second), so no disposition-invalid fires.",
+    "args": {
+      "factionId": "adeptus-astartes",
+      "battleSize": "strike-force",
+      "forceDisposition": "reconnaissance",
+      "detachments": [
+        {
+          "id": "1st-company-task-force"
+        },
+        {
+          "id": "librarius-conclave"
+        }
+      ],
+      "units": [
+        {
+          "unitId": "captain",
+          "modelCount": 1,
+          "isWarlord": true,
+          "enhancementId": null,
+          "leaderBodyguardId": null,
+          "counts": {}
+        }
+      ]
+    },
+    "expected": []
+  },
+  {
     "name": "detachment-tag-conflict",
     "args": {
       "factionId": "chaos-space-marines",

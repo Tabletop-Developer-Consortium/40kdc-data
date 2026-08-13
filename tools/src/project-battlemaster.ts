@@ -5,26 +5,34 @@ import { pathToFileURL } from "node:url";
 
 import type {
   ComposedFeature,
+  Footprint,
   LayoutPiece,
   Mirror,
   TerrainLayout,
   TerrainTemplate,
   Vec2,
 } from "./terrain/resolve.js";
-import { resolveLayout } from "./terrain/resolve.js";
+import {
+  footprintVertices,
+  polygonCentroid,
+  resolveLayout,
+} from "./terrain/resolve.js";
 import { applyWrites } from "./mfm/apply.js";
 import { CORE_DIR, readJsonArray } from "./mfm/repo-files.js";
 
 export const BATTLEMASTER_SPAWNER_WORKSHOP_ID = "3781889191";
-export const BATTLEMASTER_SPAWNER_PAGE =
-  `https://steamcommunity.com/sharedfiles/filedetails/?id=${BATTLEMASTER_SPAWNER_WORKSHOP_ID}`;
-export const BATTLEMASTER_PUBLIC_DATA_DOCS = "https://battlemaster.online/v1/public/docs#tag/data";
+export const BATTLEMASTER_SPAWNER_PAGE = `https://steamcommunity.com/sharedfiles/filedetails/?id=${BATTLEMASTER_SPAWNER_WORKSHOP_ID}`;
+export const BATTLEMASTER_PUBLIC_DATA_DOCS =
+  "https://battlemaster.online/v1/public/docs#tag/data";
 const WORKSHOP_DETAILS_URL =
   "https://api.steampowered.com/ISteamRemoteStorage/GetPublishedFileDetails/v1/";
 const CACHE_START = "-- BM_BAKED_CACHE_START";
 const CACHE_END = "-- BM_BAKED_CACHE_END";
 const SOURCE = "battlemaster-11e";
-const GAME_VERSION = { edition: "11th", dataslate: "pre-launch-provisional" } as const;
+const GAME_VERSION = {
+  edition: "11th",
+  dataslate: "pre-launch-provisional",
+} as const;
 const BOARD = { width: 60, height: 44 } as const;
 const ERROR_TOLERANCE = 1e-3;
 
@@ -36,16 +44,42 @@ const DEPLOYMENT_KEY_TO_PATTERN: Record<number, string> = {
   5: "sweeping-engagement",
   6: "tipping-point",
 };
-const OBJECTIVE_CODE_TO_ROLE: Record<string, "home" | "expansion" | "center"> = {
-  c: "center",
-  c1: "center",
-  c2: "center",
-  n: "expansion",
-  hb: "home",
-  hr: "home",
-  hl: "home",
-  ht: "home",
+const SIZE_CLASS_TO_AREA_TEMPLATE: Record<string, string> = {
+  br: "area-large",
+  tr: "area-trapezoid",
+  sr: "area-medium",
+  ll: "area-long-line",
+  sl: "area-short-line",
 };
+const EXPECTED_COMPOSITE_DIMENSIONS: Record<
+  string,
+  { width: number; height: number }
+> = {
+  br: { width: 11.503, height: 7.003 },
+  tr: { width: 11.503, height: 8.003 },
+  sr: { width: 6.003, height: 4.003 },
+  ll: { width: 10.003, height: 2.503 },
+  sl: { width: 6.003, height: 2.003 },
+};
+const NUBBED_SIZE_CLASSES = new Set(["br", "sr", "ll", "sl"]);
+const AREA_ORIENTATION_OFFSETS: Record<string, number> = {
+  "area-large": 180,
+  "area-trapezoid": 270,
+  "area-medium": 0,
+  "area-long-line": 0,
+  "area-short-line": 180,
+};
+const OBJECTIVE_CODE_TO_ROLE: Record<string, "home" | "expansion" | "center"> =
+  {
+    c: "center",
+    c1: "center",
+    c2: "center",
+    n: "expansion",
+    hb: "home",
+    hr: "home",
+    hl: "home",
+    ht: "home",
+  };
 const REQUIRED_CACHE_SECTIONS: Record<string, true> = {
   bakedAt: true,
   layoutCatalog: true,
@@ -140,6 +174,21 @@ interface ProjectedTemplate extends TerrainTemplate {
   game_version: typeof GAME_VERSION;
 }
 
+interface CompositeVariant {
+  template: ProjectedTemplate;
+  footprint: Footprint;
+  targetWidth: number;
+  targetHeight: number;
+  anchorDelta: Vec2;
+}
+
+interface Bounds {
+  minX: number;
+  maxX: number;
+  minY: number;
+  maxY: number;
+}
+
 export interface BattlemasterProjectionSummary {
   workshop_id: string;
   source_file: string;
@@ -189,18 +238,48 @@ function record(value: unknown, where: string): Record<string, unknown> {
   return value as Record<string, unknown>;
 }
 
+function binaryFlag(value: unknown, where: string): number {
+  if (value === undefined) return 0;
+  const flag = integer(value, where);
+  if (flag !== 0 && flag !== 1) fail(`${where}: expected binary 0 or 1`);
+  return flag;
+}
+
+function expectInteger(
+  value: unknown,
+  expected: number,
+  where: string,
+): number {
+  const actual = integer(value, where);
+  if (actual !== expected)
+    fail(`${where}: expected ${expected}, got ${actual}`);
+  return actual;
+}
+
+function expectString(value: unknown, expected: string, where: string): string {
+  const actual = string(value, where);
+  if (actual !== expected) {
+    fail(
+      `${where}: expected ${JSON.stringify(expected)}, got ${JSON.stringify(actual)}`,
+    );
+  }
+  return actual;
+}
+
 function array(value: unknown, where: string): unknown[] {
   if (!Array.isArray(value)) fail(`${where}: expected an array`);
   return value;
 }
 
 function string(value: unknown, where: string): string {
-  if (typeof value !== "string" || value.length === 0) fail(`${where}: expected a non-empty string`);
+  if (typeof value !== "string" || value.length === 0)
+    fail(`${where}: expected a non-empty string`);
   return value;
 }
 
 function number(value: unknown, where: string): number {
-  if (typeof value !== "number" || !Number.isFinite(value)) fail(`${where}: expected a finite number`);
+  if (typeof value !== "number" || !Number.isFinite(value))
+    fail(`${where}: expected a finite number`);
   return value;
 }
 
@@ -223,9 +302,11 @@ function tupleArray(value: unknown, where: string): unknown[] {
   if (Array.isArray(value)) return value;
   const obj = record(value, where);
   const keys = Object.keys(obj);
-  if (!keys.every((key) => /^\d+$/.test(key))) fail(`${where}: expected a positional array`);
+  if (!keys.every((key) => /^\d+$/.test(key)))
+    fail(`${where}: expected a positional array`);
   const ordered = keys.map(Number).sort((a, b) => a - b);
-  if (!ordered.every((key, index) => key === index + 1)) fail(`${where}: sparse positional array`);
+  if (!ordered.every((key, index) => key === index + 1))
+    fail(`${where}: sparse positional array`);
   return ordered.map((key) => obj[String(key)]);
 }
 
@@ -244,7 +325,10 @@ function toBoardFrame(x: number, y: number): Vec2 {
 }
 
 function slug(value: string): string {
-  const out = value.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  const out = value
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
   if (!out) fail(`cannot form an id from ${JSON.stringify(value)}`);
   return out;
 }
@@ -276,7 +360,8 @@ function partCentreYUp(part: RawPart, placed: RawTemplatePart): Vec2 {
     { x: part.width, y: 0 },
     { x: part.width, y: part.height },
     { x: 0, y: part.height },
-  ].map((point) => ({ x: placed.mirror ? -point.x : point.x, y: point.y }))
+  ]
+    .map((point) => ({ x: placed.mirror ? -point.x : point.x, y: point.y }))
     .map((point) => rotateCcwYUp(point, placed.rotation))
     .map((point) => ({ x: point.x + placed.x, y: point.y + placed.y }));
   const xs = corners.map((point) => point.x);
@@ -287,13 +372,330 @@ function partCentreYUp(part: RawPart, placed: RawTemplatePart): Vec2 {
   };
 }
 
+function orient(point: Vec2, rotation: number, mirror: Mirror): Vec2 {
+  if (mirror === "horizontal") {
+    return rotateCcwYUp({ x: -point.x, y: point.y }, rotation);
+  }
+  if (mirror === "vertical") {
+    return rotateCcwYUp({ x: point.x, y: -point.y }, rotation);
+  }
+  return rotateCcwYUp(point, rotation);
+}
+
+function boundsOf(points: Vec2[]): Bounds {
+  const xs = points.map((point) => point.x);
+  const ys = points.map((point) => point.y);
+  return {
+    minX: Math.min(...xs),
+    maxX: Math.max(...xs),
+    minY: Math.min(...ys),
+    maxY: Math.max(...ys),
+  };
+}
+
+function clippedArea(
+  polygon: Vec2[],
+  x0: number,
+  y0: number,
+  x1: number,
+  y1: number,
+): number {
+  let output = polygon;
+  const edges: Array<[(point: Vec2) => boolean, (a: Vec2, b: Vec2) => Vec2]> = [
+    [
+      (point) => point.x >= x0,
+      (a, b) => ({ x: x0, y: a.y + ((b.y - a.y) * (x0 - a.x)) / (b.x - a.x) }),
+    ],
+    [
+      (point) => point.x <= x1,
+      (a, b) => ({ x: x1, y: a.y + ((b.y - a.y) * (x1 - a.x)) / (b.x - a.x) }),
+    ],
+    [
+      (point) => point.y >= y0,
+      (a, b) => ({ x: a.x + ((b.x - a.x) * (y0 - a.y)) / (b.y - a.y), y: y0 }),
+    ],
+    [
+      (point) => point.y <= y1,
+      (a, b) => ({ x: a.x + ((b.x - a.x) * (y1 - a.y)) / (b.y - a.y), y: y1 }),
+    ],
+  ];
+  for (const [keep, intersect] of edges) {
+    const next: Vec2[] = [];
+    for (let index = 0; index < output.length; index += 1) {
+      const a = output[index]!;
+      const b = output[(index + 1) % output.length]!;
+      const keepA = keep(a);
+      const keepB = keep(b);
+      if (keepA) next.push(a);
+      if (keepA !== keepB) next.push(intersect(a, b));
+    }
+    output = next;
+    if (output.length === 0) return 0;
+  }
+  let twiceArea = 0;
+  for (let index = 0; index < output.length; index += 1) {
+    const a = output[index]!;
+    const b = output[(index + 1) % output.length]!;
+    twiceArea += a.x * b.y - b.x * a.y;
+  }
+  return Math.abs(twiceArea) / 2;
+}
+
+function artworkBoxCentre(
+  footprint: Footprint,
+  targetWidth: number,
+  targetHeight: number,
+): Vec2 {
+  const vertices = footprintVertices(footprint);
+  const bounds = boundsOf(vertices);
+  const slackX = Math.max(0, bounds.maxX - bounds.minX - targetWidth);
+  const slackY = Math.max(0, bounds.maxY - bounds.minY - targetHeight);
+  const search = (
+    x0: number,
+    x1: number,
+    y0: number,
+    y1: number,
+    steps: number,
+  ): { area: number; x: number; y: number } => {
+    let best = { area: -1, x: x0, y: y0 };
+    const nx = x1 - x0 < 1e-9 ? 0 : steps;
+    const ny = y1 - y0 < 1e-9 ? 0 : steps;
+    for (let xIndex = 0; xIndex <= nx; xIndex += 1) {
+      const x = nx === 0 ? x0 : x0 + ((x1 - x0) * xIndex) / nx;
+      for (let yIndex = 0; yIndex <= ny; yIndex += 1) {
+        const y = ny === 0 ? y0 : y0 + ((y1 - y0) * yIndex) / ny;
+        const area = clippedArea(
+          vertices,
+          x,
+          y,
+          x + targetWidth,
+          y + targetHeight,
+        );
+        if (area > best.area + 1e-9) best = { area, x, y };
+      }
+    }
+    return best;
+  };
+  const steps = 40;
+  const coarse = search(
+    bounds.minX,
+    bounds.minX + slackX,
+    bounds.minY,
+    bounds.minY + slackY,
+    steps,
+  );
+  const cellX = slackX / steps;
+  const cellY = slackY / steps;
+  const fine = search(
+    Math.max(bounds.minX, coarse.x - cellX),
+    Math.min(bounds.minX + slackX, coarse.x + cellX),
+    Math.max(bounds.minY, coarse.y - cellY),
+    Math.min(bounds.minY + slackY, coarse.y + cellY),
+    steps,
+  );
+  const best = fine.area >= coarse.area ? fine : coarse;
+  return { x: best.x + targetWidth / 2, y: best.y + targetHeight / 2 };
+}
+
+function transformFootprint(
+  footprint: Footprint,
+  transform: (point: Vec2, bounds: Bounds) => Vec2,
+): Footprint {
+  const vertices = footprintVertices(footprint);
+  const bounds = boundsOf(vertices);
+  return {
+    type: "polygon",
+    points: vertices.map((point) => {
+      const transformed = transform(point, bounds);
+      return { x: round6(transformed.x), y: round6(transformed.y) };
+    }),
+  };
+}
+
+function mirrorFootprint(footprint: Footprint): Footprint {
+  return transformFootprint(footprint, (point, bounds) => ({
+    x: bounds.minX + bounds.maxX - point.x,
+    y: point.y,
+  }));
+}
+
+function halfTurnFootprint(footprint: Footprint): Footprint {
+  return transformFootprint(footprint, (point, bounds) => ({
+    x: bounds.minX + bounds.maxX - point.x,
+    y: bounds.minY + bounds.maxY - point.y,
+  }));
+}
+
+function anchorDelta(
+  footprint: Footprint,
+  targetWidth: number,
+  targetHeight: number,
+): Vec2 {
+  const centre = artworkBoxCentre(footprint, targetWidth, targetHeight);
+  const centroid = polygonCentroid(footprintVertices(footprint));
+  return { x: centre.x - centroid.x, y: centre.y - centroid.y };
+}
+
+function partPositionInArea(
+  catalog: RawTemplateCatalog,
+  composite: RawComposite,
+  partIndex: number,
+  offset: number,
+  delta: Vec2,
+  areaMirrored: boolean,
+): Vec2 {
+  const placed = composite.parts[partIndex]!;
+  const part = catalog.parts[placed.partIndex]!;
+  const centre = partCentreYUp(part, placed);
+  const rotated = rotateCcwYUp(
+    { x: centre.x, y: -centre.y },
+    areaMirrored ? offset : -offset,
+  );
+  return { x: rotated.x + delta.x, y: rotated.y + delta.y };
+}
+
+function partRotation(
+  composite: RawComposite,
+  partIndex: number,
+  offset: number,
+  areaMirrored: boolean,
+): number {
+  const rotation = composite.parts[partIndex]!.rotation;
+  return norm360(areaMirrored ? -rotation + offset : -rotation - offset);
+}
+
+function placedFootprint(
+  footprint: Footprint,
+  position: Vec2,
+  rotation: number,
+  mirror: Mirror,
+): Vec2[] {
+  const centroid = polygonCentroid(footprintVertices(footprint));
+  return footprintVertices(footprint).map((point) => {
+    const placed = orient(
+      { x: point.x - centroid.x, y: point.y - centroid.y },
+      rotation,
+      mirror,
+    );
+    return { x: placed.x + position.x, y: placed.y + position.y };
+  });
+}
+
+function pointInPolygon(point: Vec2, polygon: Vec2[]): boolean {
+  let inside = false;
+  for (
+    let index = 0, previous = polygon.length - 1;
+    index < polygon.length;
+    previous = index++
+  ) {
+    const a = polygon[index]!;
+    const b = polygon[previous]!;
+    if (
+      a.y > point.y !== b.y > point.y &&
+      point.x < ((b.x - a.x) * (point.y - a.y)) / (b.y - a.y) + a.x
+    ) {
+      inside = !inside;
+    }
+  }
+  return inside;
+}
+
+function distanceOutside(point: Vec2, polygon: Vec2[]): number {
+  if (pointInPolygon(point, polygon)) return 0;
+  let best = Infinity;
+  for (let index = 0; index < polygon.length; index += 1) {
+    const a = polygon[index]!;
+    const b = polygon[(index + 1) % polygon.length]!;
+    const dx = b.x - a.x;
+    const dy = b.y - a.y;
+    const lengthSquared = dx * dx + dy * dy;
+    const along =
+      lengthSquared === 0
+        ? 0
+        : Math.max(
+            0,
+            Math.min(
+              1,
+              ((point.x - a.x) * dx + (point.y - a.y) * dy) / lengthSquared,
+            ),
+          );
+    best = Math.min(
+      best,
+      Math.hypot(point.x - (a.x + along * dx), point.y - (a.y + along * dy)),
+    );
+  }
+  return best <= 0.05 ? 0 : best;
+}
+
+function chooseFootprint(
+  catalog: RawTemplateCatalog,
+  composite: RawComposite,
+  candidates: Footprint[],
+  offset: number,
+  targetWidth: number,
+  targetHeight: number,
+  areaMirrored: boolean,
+): number {
+  const score = (footprint: Footprint): number => {
+    const delta = anchorDelta(footprint, targetWidth, targetHeight);
+    const parent = placedFootprint(footprint, { x: 0, y: 0 }, 0, "none");
+    let outside = 0;
+    for (let index = 0; index < composite.parts.length; index += 1) {
+      const placed = composite.parts[index]!;
+      const part = catalog.parts[placed.partIndex]!;
+      const position = partPositionInArea(
+        catalog,
+        composite,
+        index,
+        offset,
+        delta,
+        areaMirrored,
+      );
+      const rotation = partRotation(composite, index, offset, areaMirrored);
+      const child: Footprint = {
+        type: "rectangle",
+        width: part.width,
+        height: part.height,
+      };
+      for (const point of placedFootprint(
+        child,
+        position,
+        rotation,
+        placed.mirror ? "horizontal" : "none",
+      )) {
+        outside += distanceOutside(point, parent);
+      }
+    }
+    return outside;
+  };
+  // Candidate order is the source contract: the authored pose, its mirror,
+  // then their half-turns. Equal fits retain the earliest authored pose.
+  let bestIndex = 0;
+  let bestScore = score(candidates[0]!);
+  for (let index = 1; index < candidates.length; index += 1) {
+    const candidateScore = score(candidates[index]!);
+    if (candidateScore < bestScore - 1e-9) {
+      bestIndex = index;
+      bestScore = candidateScore;
+    }
+  }
+  if (bestScore > 1e-9) {
+    fail(
+      `${composite.id}: no canonical area pose contains its source features ` +
+        `(best outside-distance score ${bestScore.toFixed(6)})`,
+    );
+  }
+  return bestIndex;
+}
+
 function skipSpace(parser: LuaParser): void {
   while (/\s/.test(parser.text[parser.index] ?? "")) parser.index += 1;
 }
 
 function parseLuaString(parser: LuaParser): string {
   const quote = parser.text[parser.index];
-  if (quote !== '"' && quote !== "'") fail(`Lua offset ${parser.index}: expected a string`);
+  if (quote !== '"' && quote !== "'")
+    fail(`Lua offset ${parser.index}: expected a string`);
   parser.index += 1;
   let output = "";
   while (parser.index < parser.text.length) {
@@ -335,13 +737,17 @@ function parseLuaString(parser: LuaParser): string {
 
 function parseLuaIdentifier(parser: LuaParser): string {
   const start = parser.index;
-  while (/[A-Za-z0-9_]/.test(parser.text[parser.index] ?? "")) parser.index += 1;
-  if (parser.index === start) fail(`Lua offset ${parser.index}: expected an identifier`);
+  while (/[A-Za-z0-9_]/.test(parser.text[parser.index] ?? ""))
+    parser.index += 1;
+  if (parser.index === start)
+    fail(`Lua offset ${parser.index}: expected an identifier`);
   return parser.text.slice(start, parser.index);
 }
 
 function parseLuaNumber(parser: LuaParser): number {
-  const match = parser.text.slice(parser.index).match(/^-?(?:\d+(?:\.\d*)?|\.\d+)(?:[eE][+-]?\d+)?/);
+  const match = parser.text
+    .slice(parser.index)
+    .match(/^-?(?:\d+(?:\.\d*)?|\.\d+)(?:[eE][+-]?\d+)?/);
   if (!match) fail(`Lua offset ${parser.index}: expected a number`);
   parser.index += match[0].length;
   return Number(match[0]);
@@ -362,9 +768,11 @@ function parseLuaTable(parser: LuaParser): LuaField[] {
       skipSpace(parser);
       key = String(parseLuaValue(parser));
       skipSpace(parser);
-      if (parser.text[parser.index++] !== "]") fail(`Lua offset ${parser.index}: expected ]`);
+      if (parser.text[parser.index++] !== "]")
+        fail(`Lua offset ${parser.index}: expected ]`);
       skipSpace(parser);
-      if (parser.text[parser.index++] !== "=") fail(`Lua offset ${parser.index}: expected =`);
+      if (parser.text[parser.index++] !== "=")
+        fail(`Lua offset ${parser.index}: expected =`);
     } else {
       const saved = parser.index;
       if (/[A-Za-z_]/.test(parser.text[parser.index] ?? "")) {
@@ -381,14 +789,15 @@ function parseLuaTable(parser: LuaParser): LuaField[] {
     skipSpace(parser);
     fields.push({ key, value: parseLuaValue(parser) });
     skipSpace(parser);
-    if (parser.text[parser.index] === "," || parser.text[parser.index] === ";") parser.index += 1;
+    if (parser.text[parser.index] === "," || parser.text[parser.index] === ";")
+      parser.index += 1;
   }
 }
 
 function parseLuaValue(parser: LuaParser): LuaValue {
   skipSpace(parser);
   const char = parser.text[parser.index];
-  if (char === "{" ) return parseLuaTable(parser);
+  if (char === "{") return parseLuaTable(parser);
   if (char === '"' || char === "'") return parseLuaString(parser);
   if (char === "-" || /\d/.test(char ?? "")) return parseLuaNumber(parser);
   const identifier = parseLuaIdentifier(parser);
@@ -421,16 +830,21 @@ function luaToJs(value: LuaValue): unknown {
 export function decodeBakedCache(luaScript: string): Record<string, unknown> {
   const start = luaScript.indexOf(CACHE_START);
   const end = luaScript.indexOf(CACHE_END);
-  if (start < 0 || end <= start) fail("the object has no complete BM_BAKED_CACHE block");
+  if (start < 0 || end <= start)
+    fail("the object has no complete BM_BAKED_CACHE block");
   const body = luaScript.slice(start + CACHE_START.length, end);
   const cache: Record<string, unknown> = {};
   for (const statement of body.split(/\r?\n/)) {
     const line = statement.trim();
     if (!line || line === "BM_BAKED_CACHE={}") continue;
-    const match = line.match(/^BM_BAKED_CACHE\["((?:[^"\\]|\\.)+)"\](?:\["((?:[^"\\]|\\.)+)"\])?=(.*)$/);
+    const match = line.match(
+      /^BM_BAKED_CACHE\["((?:[^"\\]|\\.)+)"\](?:\["((?:[^"\\]|\\.)+)"\])?=(.*)$/,
+    );
     const sectionMatch = line.match(/^BM_BAKED_CACHE\["((?:[^"\\]|\\.)+)"\]/);
-    if (!sectionMatch) fail(`unsupported baked-cache statement: ${line.slice(0, 80)}`);
-    const decodeKey = (raw: string): string => parseLuaString({ text: `"${raw}"`, index: 0 });
+    if (!sectionMatch)
+      fail(`unsupported baked-cache statement: ${line.slice(0, 80)}`);
+    const decodeKey = (raw: string): string =>
+      parseLuaString({ text: `"${raw}"`, index: 0 });
     const section = decodeKey(sectionMatch[1]!);
     if (!REQUIRED_CACHE_SECTIONS[section]) continue;
     if (!match) fail(`unsupported ${section} statement: ${line.slice(0, 80)}`);
@@ -438,12 +852,17 @@ export function decodeBakedCache(luaScript: string): Record<string, unknown> {
     const parser: LuaParser = { text: match[3]!, index: 0 };
     const decoded = luaToJs(parseLuaValue(parser));
     skipSpace(parser);
-    if (parser.index !== parser.text.length) fail(`trailing Lua data in ${section}`);
+    if (parser.index !== parser.text.length)
+      fail(`trailing Lua data in ${section}`);
     if (nested === null) {
       cache[section] = decoded;
     } else {
       const target = cache[section];
-      if (typeof target !== "object" || target === null || Array.isArray(target)) {
+      if (
+        typeof target !== "object" ||
+        target === null ||
+        Array.isArray(target)
+      ) {
         fail(`${section}: nested assignment before table declaration`);
       }
       (target as Record<string, unknown>)[nested] = decoded;
@@ -454,9 +873,13 @@ export function decodeBakedCache(luaScript: string): Record<string, unknown> {
 
 function findSpawnerScript(save: TtsSave): string {
   const objects = save.ObjectStates ?? [];
-  const candidates = objects.filter((object) => object.LuaScript?.includes(CACHE_START));
+  const candidates = objects.filter((object) =>
+    object.LuaScript?.includes(CACHE_START),
+  );
   if (candidates.length !== 1) {
-    fail(`expected exactly one object with a baked cache, found ${candidates.length}`);
+    fail(
+      `expected exactly one object with a baked cache, found ${candidates.length}`,
+    );
   }
   return candidates[0]!.LuaScript!;
 }
@@ -465,51 +888,85 @@ export function decodeSpawnerSave(bytes: Uint8Array): Record<string, unknown> {
   try {
     save = BSON.deserialize(bytes) as TtsSave;
   } catch (error) {
-    fail(`cannot decode the Tabletop Simulator BSON save: ${(error as Error).message}`);
+    fail(
+      `cannot decode the Tabletop Simulator BSON save: ${(error as Error).message}`,
+    );
   }
   return decodeBakedCache(findSpawnerScript(save));
 }
 
 function decodeTemplateCatalog(rawValue: unknown): RawTemplateCatalog {
   const raw = record(rawValue, "templateCatalog");
+  expectInteger(raw.v, 1, "templateCatalog.v");
+  expectString(raw.k, "bmtc", "templateCatalog.k");
   const units = string(raw.u, "templateCatalog.u");
   const anchor = string(raw.a, "templateCatalog.a");
-  if (units !== "in") fail(`templateCatalog.u: expected "in", got ${JSON.stringify(units)}`);
-  if (anchor !== "c") fail(`templateCatalog.a: expected centre anchor "c", got ${JSON.stringify(anchor)}`);
-  const parts = tupleArray(raw.q, "templateCatalog.q").map((value, index): RawPart => {
-    const tuple = tupleArray(value, `templateCatalog.q[${index}]`);
-    return {
-      name: string(tuple[0], `templateCatalog.q[${index}][0]`),
-      width: number(tuple[1], `templateCatalog.q[${index}][1]`),
-      height: number(tuple[2], `templateCatalog.q[${index}][2]`),
-    };
-  });
-  const composites = tupleArray(raw.t, "templateCatalog.t").map((value, index): RawComposite => {
-    const tuple = tupleArray(value, `templateCatalog.t[${index}]`);
-    const placed = tupleArray(tuple[3], `templateCatalog.t[${index}][3]`).map((partValue, partIndex) => {
-      const part = tupleArray(partValue, `templateCatalog.t[${index}][3][${partIndex}]`);
-      const sourceIndex = integer(part[0], `templateCatalog.t[${index}][3][${partIndex}][0]`);
-      if (sourceIndex < 0 || sourceIndex >= parts.length) {
-        fail(`templateCatalog.t[${index}][3][${partIndex}]: part index ${sourceIndex} is out of range`);
-      }
+  if (units !== "in")
+    fail(`templateCatalog.u: expected "in", got ${JSON.stringify(units)}`);
+  if (anchor !== "c")
+    fail(
+      `templateCatalog.a: expected centre anchor "c", got ${JSON.stringify(anchor)}`,
+    );
+  const parts = tupleArray(raw.q, "templateCatalog.q").map(
+    (value, index): RawPart => {
+      const tuple = tupleArray(value, `templateCatalog.q[${index}]`);
       return {
-        partIndex: sourceIndex,
-        x: number(part[1], `templateCatalog.t[${index}][3][${partIndex}][1]`),
-        y: number(part[2], `templateCatalog.t[${index}][3][${partIndex}][2]`),
-        rotation: number(part[3], `templateCatalog.t[${index}][3][${partIndex}][3]`),
-        mirror: typeof part[4] === "number" ? part[4] : 0,
+        name: string(tuple[0], `templateCatalog.q[${index}][0]`),
+        width: number(tuple[1], `templateCatalog.q[${index}][1]`),
+        height: number(tuple[2], `templateCatalog.q[${index}][2]`),
       };
-    });
-    return {
-      id: string(tuple[0], `templateCatalog.t[${index}][0]`),
-      width: number(tuple[1], `templateCatalog.t[${index}][1]`),
-      height: number(tuple[2], `templateCatalog.t[${index}][2]`),
-      parts: placed,
-      sizeClass: string(tuple[4], `templateCatalog.t[${index}][4]`),
-      style: optionalString(tuple[5]) ?? "",
-      label: optionalString(tuple[6]) ?? "",
-    };
-  });
+    },
+  );
+  const composites = tupleArray(raw.t, "templateCatalog.t").map(
+    (value, index): RawComposite => {
+      const tuple = tupleArray(value, `templateCatalog.t[${index}]`);
+      const placed = tupleArray(tuple[3], `templateCatalog.t[${index}][3]`).map(
+        (partValue, partIndex) => {
+          const part = tupleArray(
+            partValue,
+            `templateCatalog.t[${index}][3][${partIndex}]`,
+          );
+          const sourceIndex = integer(
+            part[0],
+            `templateCatalog.t[${index}][3][${partIndex}][0]`,
+          );
+          if (sourceIndex < 0 || sourceIndex >= parts.length) {
+            fail(
+              `templateCatalog.t[${index}][3][${partIndex}]: part index ${sourceIndex} is out of range`,
+            );
+          }
+          return {
+            partIndex: sourceIndex,
+            x: number(
+              part[1],
+              `templateCatalog.t[${index}][3][${partIndex}][1]`,
+            ),
+            y: number(
+              part[2],
+              `templateCatalog.t[${index}][3][${partIndex}][2]`,
+            ),
+            rotation: number(
+              part[3],
+              `templateCatalog.t[${index}][3][${partIndex}][3]`,
+            ),
+            mirror: binaryFlag(
+              part[4],
+              `templateCatalog.t[${index}][3][${partIndex}][4]`,
+            ),
+          };
+        },
+      );
+      return {
+        id: string(tuple[0], `templateCatalog.t[${index}][0]`),
+        width: number(tuple[1], `templateCatalog.t[${index}][1]`),
+        height: number(tuple[2], `templateCatalog.t[${index}][2]`),
+        parts: placed,
+        sizeClass: string(tuple[4], `templateCatalog.t[${index}][4]`),
+        style: optionalString(tuple[5]) ?? "",
+        label: optionalString(tuple[6]) ?? "",
+      };
+    },
+  );
   return {
     id: string(raw.id, "templateCatalog.id"),
     units,
@@ -519,125 +976,306 @@ function decodeTemplateCatalog(rawValue: unknown): RawTemplateCatalog {
   };
 }
 
-function decodeLayouts(cache: Record<string, unknown>, templateCount: number): RawLayout[] {
+function decodeLayouts(
+  cache: Record<string, unknown>,
+  templateCount: number,
+): RawLayout[] {
   const catalog = record(cache.layoutCatalog, "layoutCatalog");
   const catalogRows = array(catalog.layouts, "layoutCatalog.layouts");
   const chapterRows = catalogRows.filter((value) => {
     const row = record(value, "layoutCatalog.layouts[]");
-    return row.missionPackId === "chapter-approved-2026" && row.chapterApprovedSlot !== undefined;
+    return (
+      row.missionPackId === "chapter-approved-2026" &&
+      row.chapterApprovedSlot !== undefined
+    );
   });
-  const byId = new Map(chapterRows.map((value) => {
-    const row = record(value, "layoutCatalog.layouts[]");
-    return [string(row.id, "layoutCatalog.layouts[].id"), row] as const;
-  }));
+  const byId = new Map(
+    chapterRows.map((value) => {
+      const row = record(value, "layoutCatalog.layouts[]");
+      return [string(row.id, "layoutCatalog.layouts[].id"), row] as const;
+    }),
+  );
   const payloads = record(cache.layoutPayloadCache, "layoutPayloadCache");
   const decoded: RawLayout[] = [];
   for (const value of Object.values(payloads)) {
     const entry = record(value, "layoutPayloadCache[]");
     const payload = record(entry.payload, "layoutPayloadCache[].payload");
-    const battlemasterId = string(payload.id, "layoutPayloadCache[].payload.id");
+    expectInteger(payload.v, 1, "layoutPayloadCache[].payload.v");
+    expectString(payload.k, "bml", "layoutPayloadCache[].payload.k");
+    const battlemasterId = string(
+      payload.id,
+      "layoutPayloadCache[].payload.id",
+    );
     const meta = byId.get(battlemasterId);
     if (!meta) continue;
-    const slot = record(meta.chapterApprovedSlot, `${battlemasterId}.chapterApprovedSlot`);
+    const slot = record(
+      meta.chapterApprovedSlot,
+      `${battlemasterId}.chapterApprovedSlot`,
+    );
     const board = string(payload.b, `${battlemasterId}.payload.b`);
-    if (board !== "sf60x44") fail(`${battlemasterId}: unsupported board ${JSON.stringify(board)}`);
-    if (payload.a !== "c") fail(`${battlemasterId}: expected centre anchor "c"`);
-    const instances = tupleArray(payload.i, `${battlemasterId}.payload.i`).map((instanceValue, index) => {
-      const instance = tupleArray(instanceValue, `${battlemasterId}.payload.i[${index}]`);
-      const templateIndex = integer(instance[0], `${battlemasterId}.payload.i[${index}][0]`);
-      if (templateIndex < 0 || templateIndex >= templateCount) {
-        fail(`${battlemasterId}.payload.i[${index}]: template index ${templateIndex} is out of range`);
-      }
-      return {
-        templateIndex,
-        x: number(instance[1], `${battlemasterId}.payload.i[${index}][1]`),
-        y: number(instance[2], `${battlemasterId}.payload.i[${index}][2]`),
-        rotation: number(instance[3], `${battlemasterId}.payload.i[${index}][3]`),
-        mirror: typeof instance[4] === "number" ? instance[4] : 0,
-        objectiveCode: optionalString(instance[5]),
-      };
-    });
+    if (board !== "sf60x44")
+      fail(`${battlemasterId}: unsupported board ${JSON.stringify(board)}`);
+    if (payload.a !== "c")
+      fail(`${battlemasterId}: expected centre anchor "c"`);
+    const instances = tupleArray(payload.i, `${battlemasterId}.payload.i`).map(
+      (instanceValue, index) => {
+        const instance = tupleArray(
+          instanceValue,
+          `${battlemasterId}.payload.i[${index}]`,
+        );
+        const templateIndex = integer(
+          instance[0],
+          `${battlemasterId}.payload.i[${index}][0]`,
+        );
+        if (templateIndex < 0 || templateIndex >= templateCount) {
+          fail(
+            `${battlemasterId}.payload.i[${index}]: template index ${templateIndex} is out of range`,
+          );
+        }
+        return {
+          templateIndex,
+          x: number(instance[1], `${battlemasterId}.payload.i[${index}][1]`),
+          y: number(instance[2], `${battlemasterId}.payload.i[${index}][2]`),
+          rotation: number(
+            instance[3],
+            `${battlemasterId}.payload.i[${index}][3]`,
+          ),
+          mirror: binaryFlag(
+            instance[4],
+            `${battlemasterId}.payload.i[${index}][4]`,
+          ),
+          objectiveCode: optionalString(instance[5]),
+        };
+      },
+    );
     decoded.push({
       battlemasterId,
       name: string(meta.name, `${battlemasterId}.name`),
-      archetypeA: string(slot.archetypeA, `${battlemasterId}.chapterApprovedSlot.archetypeA`),
-      archetypeB: string(slot.archetypeB, `${battlemasterId}.chapterApprovedSlot.archetypeB`),
-      slot: integer(slot.slotIndex, `${battlemasterId}.chapterApprovedSlot.slotIndex`),
-      deploymentKey: integer(meta.chapterApprovedDeploymentKey, `${battlemasterId}.chapterApprovedDeploymentKey`),
+      archetypeA: string(
+        slot.archetypeA,
+        `${battlemasterId}.chapterApprovedSlot.archetypeA`,
+      ),
+      archetypeB: string(
+        slot.archetypeB,
+        `${battlemasterId}.chapterApprovedSlot.archetypeB`,
+      ),
+      slot: integer(
+        slot.slotIndex,
+        `${battlemasterId}.chapterApprovedSlot.slotIndex`,
+      ),
+      deploymentKey: integer(
+        meta.chapterApprovedDeploymentKey,
+        `${battlemasterId}.chapterApprovedDeploymentKey`,
+      ),
       board,
       instances,
     });
   }
   decoded.sort((a, b) => layoutId(a).localeCompare(layoutId(b)));
   if (decoded.length !== chapterRows.length) {
-    fail(`layout payload coverage: ${decoded.length} payloads for ${chapterRows.length} Chapter Approved layouts`);
+    fail(
+      `layout payload coverage: ${decoded.length} payloads for ${chapterRows.length} Chapter Approved layouts`,
+    );
   }
   return decoded;
 }
 
-function partTemplateId(catalog: RawTemplateCatalog, partIndex: number): string {
+function partTemplateId(
+  catalog: RawTemplateCatalog,
+  partIndex: number,
+): string {
   return `bm-${slug(catalog.id)}-part-${slug(catalog.parts[partIndex]!.name)}`;
 }
 
-function compositeTemplateId(catalog: RawTemplateCatalog, index: number): string {
+function compositeTemplateId(
+  catalog: RawTemplateCatalog,
+  index: number,
+): string {
   return `bm-${slug(catalog.id)}-composite-${String(index + 1).padStart(2, "0")}`;
 }
-
-function projectTemplates(catalog: RawTemplateCatalog): ProjectedTemplate[] {
-  const featureTemplates: ProjectedTemplate[] = catalog.parts.map((part, index) => ({
-    id: partTemplateId(catalog, index),
-    name: `Battlemaster ${part.name}`,
-    kind: "feature",
-    source: SOURCE,
-    footprint: { type: "rectangle", width: part.width, height: part.height },
-    game_version: GAME_VERSION,
-  }));
-  const compositeTemplates: ProjectedTemplate[] = catalog.composites.map((composite, index) => ({
-    id: compositeTemplateId(catalog, index),
-    name: `Battlemaster ${composite.sizeClass.toUpperCase()} ${String(index + 1).padStart(2, "0")}`,
-    kind: "area",
-    source: SOURCE,
-    footprint: { type: "rectangle", width: composite.width, height: composite.height },
-    features: composite.parts.map((placed, partIndex) => {
-      const part = catalog.parts[placed.partIndex]!;
-      const centre = partCentreYUp(part, placed);
-      const feature: ComposedFeature = {
-        id: `feature-${partIndex + 1}`,
-        template: partTemplateId(catalog, placed.partIndex),
-        position: { x: round6(centre.x), y: round6(-centre.y) },
-      };
-      const rotation = norm360(-placed.rotation);
-      if (rotation !== 0) feature.rotation_degrees = rotation;
-      if (placed.mirror) feature.mirror = "horizontal";
-      return feature;
-    }),
-    game_version: GAME_VERSION,
-  }));
-  return [...featureTemplates, ...compositeTemplates];
+function validateAreaContracts(
+  catalog: RawTemplateCatalog,
+  canonicalById: Map<string, TerrainTemplate>,
+): void {
+  for (const composite of catalog.composites) {
+    const expected = EXPECTED_COMPOSITE_DIMENSIONS[composite.sizeClass];
+    if (!expected)
+      fail(`unknown area size class ${JSON.stringify(composite.sizeClass)}`);
+    if (
+      Math.abs(composite.width - expected.width) > ERROR_TOLERANCE ||
+      Math.abs(composite.height - expected.height) > ERROR_TOLERANCE
+    ) {
+      fail(
+        `${composite.id}: ${composite.sizeClass} dimensions changed from ` +
+          `${expected.width}x${expected.height} to ${composite.width}x${composite.height}`,
+      );
+    }
+    const areaTemplateId = SIZE_CLASS_TO_AREA_TEMPLATE[composite.sizeClass]!;
+    const canonical = canonicalById.get(areaTemplateId);
+    if (!canonical)
+      fail(
+        `missing canonical terrain template ${JSON.stringify(areaTemplateId)}`,
+      );
+    if (
+      NUBBED_SIZE_CLASSES.has(composite.sizeClass) &&
+      (canonical.footprint.type !== "polygon" ||
+        canonical.footprint.points.length <= 4)
+    ) {
+      fail(
+        `${areaTemplateId}: expected the canonical nubbed polygon footprint`,
+      );
+    }
+  }
 }
 
-function projectLayouts(catalog: RawTemplateCatalog, rawLayouts: RawLayout[]): ProjectedLayout[] {
-  return rawLayouts.map((raw) => {
+interface ProjectedGeometry {
+  templates: ProjectedTemplate[];
+  layouts: ProjectedLayout[];
+  variants: Map<string, CompositeVariant>;
+}
+
+function projectGeometry(
+  catalog: RawTemplateCatalog,
+  rawLayouts: RawLayout[],
+  canonicalTemplates: TerrainTemplate[],
+): ProjectedGeometry {
+  const canonicalById = new Map(
+    canonicalTemplates.map((template) => [template.id, template]),
+  );
+  validateAreaContracts(catalog, canonicalById);
+  const featureTemplates: ProjectedTemplate[] = catalog.parts.map(
+    (part, index) => ({
+      id: partTemplateId(catalog, index),
+      name: `Battlemaster ${part.name}`,
+      kind: "feature",
+      source: SOURCE,
+      footprint: { type: "rectangle", width: part.width, height: part.height },
+      game_version: GAME_VERSION,
+    }),
+  );
+  const variants = new Map<string, CompositeVariant>();
+  const variantsBySourceKey = new Map<string, CompositeVariant>();
+
+  const layouts = rawLayouts.map((raw): ProjectedLayout => {
     const deployment = DEPLOYMENT_KEY_TO_PATTERN[raw.deploymentKey];
-    if (!deployment) fail(`${raw.battlemasterId}: unknown deployment key ${raw.deploymentKey}`);
-    const pieces = raw.instances.map((instance, index) => {
+    if (!deployment)
+      fail(
+        `${raw.battlemasterId}: unknown deployment key ${raw.deploymentKey}`,
+      );
+    const pieces = raw.instances.map((instance, index): ProjectedPiece => {
+      const composite = catalog.composites[instance.templateIndex]!;
+      const areaTemplateId = SIZE_CLASS_TO_AREA_TEMPLATE[composite.sizeClass];
+      if (!areaTemplateId)
+        fail(`unknown area size class ${JSON.stringify(composite.sizeClass)}`);
+      const offset = AREA_ORIENTATION_OFFSETS[areaTemplateId];
+      if (offset === undefined)
+        fail(
+          `missing orientation offset for ${JSON.stringify(areaTemplateId)}`,
+        );
+      const areaMirrored = instance.mirror !== 0;
+      const sourceVariantKey = `${instance.templateIndex}-m${Number(areaMirrored)}`;
+      let variant = variantsBySourceKey.get(sourceVariantKey);
+      if (!variant) {
+        const canonical = canonicalById.get(areaTemplateId);
+        if (!canonical)
+          fail(
+            `missing canonical terrain template ${JSON.stringify(areaTemplateId)}`,
+          );
+        const targetWidth =
+          offset % 180 === 0 ? composite.width : composite.height;
+        const targetHeight =
+          offset % 180 === 0 ? composite.height : composite.width;
+        const candidates = [
+          canonical.footprint,
+          mirrorFootprint(canonical.footprint),
+          halfTurnFootprint(canonical.footprint),
+          mirrorFootprint(halfTurnFootprint(canonical.footprint)),
+        ];
+        const pose = chooseFootprint(
+          catalog,
+          composite,
+          candidates,
+          offset,
+          targetWidth,
+          targetHeight,
+          areaMirrored,
+        );
+        const footprint = candidates[pose]!;
+        const delta = anchorDelta(footprint, targetWidth, targetHeight);
+        const template: ProjectedTemplate = {
+          id: `${compositeTemplateId(catalog, instance.templateIndex)}-m${Number(areaMirrored)}-p${pose}`,
+          name: `Battlemaster ${composite.sizeClass.toUpperCase()} ${String(instance.templateIndex + 1).padStart(2, "0")}`,
+          kind: "area",
+          source: SOURCE,
+          footprint,
+          features: composite.parts.map(
+            (placed, partIndex): ComposedFeature => {
+              const position = partPositionInArea(
+                catalog,
+                composite,
+                partIndex,
+                offset,
+                delta,
+                areaMirrored,
+              );
+              const feature: ComposedFeature = {
+                id: `feature-${partIndex + 1}`,
+                template: partTemplateId(catalog, placed.partIndex),
+                position: { x: round6(position.x), y: round6(position.y) },
+              };
+              const rotation = partRotation(
+                composite,
+                partIndex,
+                offset,
+                areaMirrored,
+              );
+              if (rotation !== 0) feature.rotation_degrees = rotation;
+              if (placed.mirror) feature.mirror = "horizontal";
+              return feature;
+            },
+          ),
+          game_version: GAME_VERSION,
+        };
+        variant = {
+          template,
+          footprint,
+          targetWidth,
+          targetHeight,
+          anchorDelta: delta,
+        };
+        variants.set(template.id, variant);
+        variantsBySourceKey.set(sourceVariantKey, variant);
+      }
+
       const id = `area-${String(index + 1).padStart(2, "0")}`;
+      const rotation = norm360(-instance.rotation + offset);
+      const mirror: Mirror = areaMirrored ? "horizontal" : "none";
+      const sourcePosition = toBoardFrame(instance.x, instance.y);
+      const carried = orient(variant.anchorDelta, rotation, mirror);
       const piece: ProjectedPiece = {
         id,
         name: `Battlemaster area ${String(index + 1).padStart(2, "0")}`,
         piece_type: "area",
-        template: compositeTemplateId(catalog, instance.templateIndex),
-        position: toBoardFrame(instance.x, instance.y),
+        template: variant.template.id,
+        position: {
+          x: round6(sourcePosition.x - carried.x),
+          y: round6(sourcePosition.y - carried.y),
+        },
       };
-      const rotation = norm360(-instance.rotation);
       if (rotation !== 0) piece.rotation_degrees = rotation;
-      if (instance.mirror) piece.mirror = "horizontal";
+      if (areaMirrored) piece.mirror = "horizontal";
       if (instance.objectiveCode) {
         const role = OBJECTIVE_CODE_TO_ROLE[instance.objectiveCode];
-        if (!role) fail(`${raw.battlemasterId}/${id}: unknown objective code ${instance.objectiveCode}`);
+        if (!role)
+          fail(
+            `${raw.battlemasterId}/${id}: unknown objective code ${instance.objectiveCode}`,
+          );
         piece.objective_role = role;
         piece.is_objective = true;
-        if (instance.objectiveCode === "c1" || instance.objectiveCode === "c2") {
+        if (
+          instance.objectiveCode === "c1" ||
+          instance.objectiveCode === "c2"
+        ) {
           piece.link_group = "center";
         }
       }
@@ -655,9 +1293,21 @@ function projectLayouts(catalog: RawTemplateCatalog, rawLayouts: RawLayout[]): P
       game_version: GAME_VERSION,
     };
   });
+
+  return {
+    templates: [
+      ...featureTemplates,
+      ...[...variants.values()].map((variant) => variant.template),
+    ],
+    layouts,
+    variants,
+  };
 }
 
-function placedSourceArea(composite: RawComposite, instance: RawLayoutInstance): Vec2[] {
+function placedSourceArea(
+  composite: RawComposite,
+  instance: RawLayoutInstance,
+): Vec2[] {
   const local: Vec2[] = [
     { x: -composite.width / 2, y: -composite.height / 2 },
     { x: composite.width / 2, y: -composite.height / 2 },
@@ -685,7 +1335,8 @@ function placedSourcePart(
     { x: part.width, y: part.height },
     { x: 0, y: part.height },
   ];
-  return local.map((point) => ({ x: placed.mirror ? -point.x : point.x, y: point.y }))
+  return local
+    .map((point) => ({ x: placed.mirror ? -point.x : point.x, y: point.y }))
     .map((point) => rotateCcwYUp(point, placed.rotation))
     .map((point) => ({ x: point.x + placed.x, y: point.y + placed.y }))
     .map((point) => ({ x: instance.mirror ? -point.x : point.x, y: point.y }))
@@ -695,18 +1346,56 @@ function placedSourcePart(
 
 function pointSetError(actual: Vec2[], expected: Vec2[]): number {
   const directed = (from: Vec2[], to: Vec2[]): number =>
-    Math.max(...from.map((point) => Math.min(...to.map((candidate) => Math.hypot(
-      point.x - candidate.x,
-      point.y - candidate.y,
-    )))));
+    Math.max(
+      ...from.map((point) =>
+        Math.min(
+          ...to.map((candidate) =>
+            Math.hypot(point.x - candidate.x, point.y - candidate.y),
+          ),
+        ),
+      ),
+    );
   return Math.max(directed(actual, expected), directed(expected, actual));
+}
+function placedArtworkArea(
+  piece: ProjectedPiece,
+  variant: CompositeVariant,
+): Vec2[] {
+  const halfWidth = variant.targetWidth / 2;
+  const halfHeight = variant.targetHeight / 2;
+  const local = [
+    {
+      x: variant.anchorDelta.x - halfWidth,
+      y: variant.anchorDelta.y - halfHeight,
+    },
+    {
+      x: variant.anchorDelta.x + halfWidth,
+      y: variant.anchorDelta.y - halfHeight,
+    },
+    {
+      x: variant.anchorDelta.x + halfWidth,
+      y: variant.anchorDelta.y + halfHeight,
+    },
+    {
+      x: variant.anchorDelta.x - halfWidth,
+      y: variant.anchorDelta.y + halfHeight,
+    },
+  ];
+  const rotation = piece.rotation_degrees ?? 0;
+  const mirror = piece.mirror ?? "none";
+  return local.map((point) => {
+    const transformed = orient(point, rotation, mirror);
+    return {
+      x: transformed.x + piece.position.x,
+      y: transformed.y + piece.position.y,
+    };
+  });
 }
 
 function verifyProjection(
   catalog: RawTemplateCatalog,
   rawLayouts: RawLayout[],
-  layouts: ProjectedLayout[],
-  templates: ProjectedTemplate[],
+  geometry: ProjectedGeometry,
 ): Pick<
   BattlemasterProjectionSummary,
   "resolved_pieces" | "worst_area_error_inches" | "worst_feature_error_inches"
@@ -716,14 +1405,45 @@ function verifyProjection(
   let worstFeature = 0;
   for (let layoutIndex = 0; layoutIndex < rawLayouts.length; layoutIndex += 1) {
     const raw = rawLayouts[layoutIndex]!;
-    const resolved = resolveLayout(layouts[layoutIndex]!, templates);
+    const layout = geometry.layouts[layoutIndex]!;
+    const resolved = resolveLayout(layout, geometry.templates);
     resolvedPieces += resolved.length;
     let cursor = 0;
-    for (const instance of raw.instances) {
+    for (
+      let instanceIndex = 0;
+      instanceIndex < raw.instances.length;
+      instanceIndex += 1
+    ) {
+      const instance = raw.instances[instanceIndex]!;
       const composite = catalog.composites[instance.templateIndex]!;
-      const areaError = pointSetError(resolved[cursor++]!.vertices, placedSourceArea(composite, instance));
-      worstArea = Math.max(worstArea, areaError);
-      for (let partIndex = 0; partIndex < composite.parts.length; partIndex += 1) {
+      const piece = layout.pieces[instanceIndex]!;
+      const variant = piece.template
+        ? geometry.variants.get(piece.template)
+        : undefined;
+      if (!variant)
+        fail(
+          `${layout.id}/${piece.id}: projected composite variant is missing`,
+        );
+      const artworkError = pointSetError(
+        placedArtworkArea(piece, variant),
+        placedSourceArea(composite, instance),
+      );
+      const resolvedArea = resolved[cursor++]!;
+      const footprintError = pointSetError(
+        resolvedArea.vertices,
+        placedFootprint(
+          variant.footprint,
+          piece.position,
+          piece.rotation_degrees ?? 0,
+          piece.mirror ?? "none",
+        ),
+      );
+      worstArea = Math.max(worstArea, artworkError, footprintError);
+      for (
+        let partIndex = 0;
+        partIndex < composite.parts.length;
+        partIndex += 1
+      ) {
         const featureError = pointSetError(
           resolved[cursor++]!.vertices,
           placedSourcePart(catalog, composite, partIndex, instance),
@@ -732,13 +1452,15 @@ function verifyProjection(
       }
     }
     if (cursor !== resolved.length) {
-      fail(`${layoutId(raw)}: resolver emitted ${resolved.length} pieces, expected ${cursor}`);
+      fail(
+        `${layoutId(raw)}: resolver emitted ${resolved.length} pieces, expected ${cursor}`,
+      );
     }
   }
   if (worstArea > ERROR_TOLERANCE || worstFeature > ERROR_TOLERANCE) {
     fail(
       `projected transforms disagree with the baked source: area ${worstArea.toFixed(6)}", ` +
-      `feature ${worstFeature.toFixed(6)}" (limit ${ERROR_TOLERANCE}")`,
+        `feature ${worstFeature.toFixed(6)}" (limit ${ERROR_TOLERANCE}")`,
     );
   }
   return {
@@ -751,22 +1473,30 @@ function verifyProjection(
 export function projectBattlemasterCache(
   cache: Record<string, unknown>,
   sourceFile: string,
+  canonicalTemplates: TerrainTemplate[],
 ): BattlemasterProjection {
+  const cacheVersion = expectInteger(cache.version, 2, "version");
   const catalog = decodeTemplateCatalog(cache.templateCatalog);
   const rawLayouts = decodeLayouts(cache, catalog.composites.length);
-  const templates = projectTemplates(catalog);
-  const layouts = projectLayouts(catalog, rawLayouts);
-  const verification = verifyProjection(catalog, rawLayouts, layouts, templates);
-  const layoutInstances = rawLayouts.reduce((total, layout) => total + layout.instances.length, 0);
+  const geometry = projectGeometry(catalog, rawLayouts, canonicalTemplates);
+  const templates = geometry.templates;
+  const layouts = geometry.layouts;
+  const verification = verifyProjection(catalog, rawLayouts, geometry);
+  const layoutInstances = rawLayouts.reduce(
+    (total, layout) => total + layout.instances.length,
+    0,
+  );
   const featureInstances = rawLayouts.reduce(
-    (total, layout) => total + layout.instances.reduce(
-      (subtotal, instance) => subtotal + catalog.composites[instance.templateIndex]!.parts.length,
-      0,
-    ),
+    (total, layout) =>
+      total +
+      layout.instances.reduce(
+        (subtotal, instance) =>
+          subtotal + catalog.composites[instance.templateIndex]!.parts.length,
+        0,
+      ),
     0,
   );
   const bakedAt = string(cache.bakedAt, "bakedAt");
-  const cacheVersion = integer(cache.version, "version");
   const summary: BattlemasterProjectionSummary = {
     workshop_id: BATTLEMASTER_SPAWNER_WORKSHOP_ID,
     source_file: sourceFile,
@@ -798,7 +1528,9 @@ export function projectBattlemasterCache(
   };
 }
 
-async function workshopDownloadUrl(fetchImpl: typeof globalThis.fetch): Promise<string> {
+async function workshopDownloadUrl(
+  fetchImpl: typeof globalThis.fetch,
+): Promise<string> {
   const body = new URLSearchParams({
     itemcount: "1",
     "publishedfileids[0]": BATTLEMASTER_SPAWNER_WORKSHOP_ID,
@@ -808,13 +1540,22 @@ async function workshopDownloadUrl(fetchImpl: typeof globalThis.fetch): Promise<
     headers: { "content-type": "application/x-www-form-urlencoded" },
     body,
   });
-  if (!response.ok) fail(`Steam Workshop metadata request returned HTTP ${response.status}`);
+  if (!response.ok)
+    fail(`Steam Workshop metadata request returned HTTP ${response.status}`);
   const payload = record(await response.json(), "Steam Workshop response");
-  const responseBody = record(payload.response, "Steam Workshop response.response");
-  const details = array(responseBody.publishedfiledetails, "publishedfiledetails");
-  if (details.length !== 1) fail(`Steam returned ${details.length} Workshop records`);
+  const responseBody = record(
+    payload.response,
+    "Steam Workshop response.response",
+  );
+  const details = array(
+    responseBody.publishedfiledetails,
+    "publishedfiledetails",
+  );
+  if (details.length !== 1)
+    fail(`Steam returned ${details.length} Workshop records`);
   const detail = record(details[0], "publishedfiledetails[0]");
-  if (detail.result !== 1) fail(`Steam returned result ${JSON.stringify(detail.result)}`);
+  if (detail.result !== 1)
+    fail(`Steam returned result ${JSON.stringify(detail.result)}`);
   return string(detail.file_url, "publishedfiledetails[0].file_url");
 }
 
@@ -832,28 +1573,50 @@ export async function projectBattlemaster(
     const url = await workshopDownloadUrl(fetchImpl);
     sourceFile = `${BATTLEMASTER_SPAWNER_WORKSHOP_ID}.tts`;
     const response = await fetchImpl(url);
-    if (!response.ok) fail(`Workshop save download returned HTTP ${response.status}`);
+    if (!response.ok)
+      fail(`Workshop save download returned HTTP ${response.status}`);
     bytes = new Uint8Array(await response.arrayBuffer());
   }
-  return projectBattlemasterCache(decodeSpawnerSave(bytes), sourceFile);
+  const canonicalTemplates = readJsonArray<TerrainTemplate>(
+    resolve(CORE_DIR, "terrain-templates.json"),
+  ).filter((template) => !hasBattlemasterSource(template));
+  return projectBattlemasterCache(
+    decodeSpawnerSave(bytes),
+    sourceFile,
+    canonicalTemplates,
+  );
 }
 function hasBattlemasterSource(value: unknown): boolean {
-  return typeof value === "object" && value !== null && "source" in value && value.source === SOURCE;
+  return (
+    typeof value === "object" &&
+    value !== null &&
+    "source" in value &&
+    value.source === SOURCE
+  );
 }
-
 
 export function mergeBattlemasterProjection(
   existingLayouts: TerrainLayout[],
   existingTemplates: TerrainTemplate[],
   projection: BattlemasterProjection,
 ): { terrainLayouts: TerrainLayout[]; terrainTemplates: TerrainTemplate[] } {
-  const projectedLayoutIds = new Set(projection.terrain_layouts.map((layout) => layout.id));
+  const projectedLayoutIds = new Set(
+    projection.terrain_layouts.map((layout) => layout.id),
+  );
   const layouts = existingLayouts.filter(
-    (layout) => !hasBattlemasterSource(layout) && !projectedLayoutIds.has(layout.id),
+    (layout) =>
+      !hasBattlemasterSource(layout) && !projectedLayoutIds.has(layout.id),
   );
   layouts.push(...projection.terrain_layouts);
 
-  const templates = existingTemplates.filter((template) => !hasBattlemasterSource(template));
+  const projectedTemplateIds = new Set(
+    projection.terrain_templates.map((template) => template.id),
+  );
+  const templates = existingTemplates.filter(
+    (template) =>
+      !hasBattlemasterSource(template) &&
+      !projectedTemplateIds.has(template.id),
+  );
   templates.push(...projection.terrain_templates);
 
   return {
@@ -919,14 +1682,19 @@ export async function runProjectBattlemasterCli(args: string[]): Promise<void> {
   const projection = await projectBattlemaster({ inputPath });
   if (check || write) {
     await applyBattlemasterProjection(projection, write);
-    if (check) console.log("DRY RUN — no files written. Re-run with --write to apply.");
+    if (check)
+      console.log("DRY RUN — no files written. Re-run with --write to apply.");
     console.log(JSON.stringify(projection.summary, null, 2));
     return;
   }
-  process.stdout.write(`${JSON.stringify(summary ? projection.summary : projection, null, 2)}\n`);
+  process.stdout.write(
+    `${JSON.stringify(summary ? projection.summary : projection, null, 2)}\n`,
+  );
 }
 
-const invokedPath = process.argv[1] ? pathToFileURL(resolve(process.argv[1])).href : "";
+const invokedPath = process.argv[1]
+  ? pathToFileURL(resolve(process.argv[1])).href
+  : "";
 if (import.meta.url === invokedPath) {
   runProjectBattlemasterCli(process.argv.slice(2)).catch((error: unknown) => {
     console.error(error instanceof Error ? error.message : String(error));

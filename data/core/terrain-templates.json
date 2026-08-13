@@ -537,74 +537,135 @@
     }
   },
   {
-    "id": "bm-bm-terrain-11e-1-composite-01",
+    "id": "bm-bm-terrain-11e-1-composite-01-m0-p0",
     "name": "Battlemaster BR 01",
     "kind": "area",
     "source": "battlemaster-11e",
     "footprint": {
-      "type": "rectangle",
-      "width": 11.503,
-      "height": 7.003
+      "type": "polygon",
+      "points": [
+        {
+          "x": 0,
+          "y": 7
+        },
+        {
+          "x": 1.4827,
+          "y": 7
+        },
+        {
+          "x": 1.4887,
+          "y": 7.052
+        },
+        {
+          "x": 1.6514,
+          "y": 7.185
+        },
+        {
+          "x": 1.8679,
+          "y": 7.283
+        },
+        {
+          "x": 2.2431,
+          "y": 7.2668
+        },
+        {
+          "x": 2.4017,
+          "y": 7.3677
+        },
+        {
+          "x": 2.7891,
+          "y": 7.4309
+        },
+        {
+          "x": 3.0922,
+          "y": 7.536
+        },
+        {
+          "x": 3.3307,
+          "y": 7.3869
+        },
+        {
+          "x": 3.5594,
+          "y": 7
+        },
+        {
+          "x": 4.689,
+          "y": 7
+        },
+        {
+          "x": 4.7302,
+          "y": 7.0602
+        },
+        {
+          "x": 4.98,
+          "y": 7.144
+        },
+        {
+          "x": 5.242,
+          "y": 7.1396
+        },
+        {
+          "x": 5.875,
+          "y": 7
+        },
+        {
+          "x": 5.9034,
+          "y": 7.0519
+        },
+        {
+          "x": 6.6077,
+          "y": 7.3171
+        },
+        {
+          "x": 7.0147,
+          "y": 7.4122
+        },
+        {
+          "x": 7.5011,
+          "y": 7.2791
+        },
+        {
+          "x": 7.6351,
+          "y": 7.1687
+        },
+        {
+          "x": 7.7724,
+          "y": 7.1636
+        },
+        {
+          "x": 7.946,
+          "y": 7
+        },
+        {
+          "x": 11.5,
+          "y": 7
+        },
+        {
+          "x": 11.5,
+          "y": 0
+        },
+        {
+          "x": 0,
+          "y": 0
+        }
+      ]
     },
     "features": [
       {
         "id": "feature-1",
         "template": "bm-bm-terrain-11e-1-part-co",
         "position": {
-          "x": -4.0015,
-          "y": 0.0015
+          "x": 4.022115,
+          "y": -0.058252
         },
-        "rotation_degrees": 270
+        "rotation_degrees": 90
       },
       {
         "id": "feature-2",
         "template": "bm-bm-terrain-11e-1-part-gh",
         "position": {
-          "x": 2.2485,
-          "y": 1.5015
-        },
-        "rotation_degrees": 90
-      }
-    ],
-    "game_version": {
-      "edition": "11th",
-      "dataslate": "pre-launch-provisional"
-    }
-  },
-  {
-    "id": "bm-bm-terrain-11e-1-composite-02",
-    "name": "Battlemaster BR 02",
-    "kind": "area",
-    "source": "battlemaster-11e",
-    "footprint": {
-      "type": "rectangle",
-      "width": 11.503,
-      "height": 7.003
-    },
-    "features": [
-      {
-        "id": "feature-1",
-        "template": "bm-bm-terrain-11e-1-part-ef",
-        "position": {
-          "x": -3.0015,
-          "y": 0.0015
-        },
-        "rotation_degrees": 180
-      },
-      {
-        "id": "feature-2",
-        "template": "bm-bm-terrain-11e-1-part-corner",
-        "position": {
-          "x": 4.4985,
-          "y": 2.2515
-        }
-      },
-      {
-        "id": "feature-3",
-        "template": "bm-bm-terrain-11e-1-part-corner",
-        "position": {
-          "x": 4.4985,
-          "y": -2.2485
+          "x": -2.227885,
+          "y": -1.558252
         },
         "rotation_degrees": 270
       }
@@ -615,23 +676,104 @@
     }
   },
   {
-    "id": "bm-bm-terrain-11e-1-composite-03",
+    "id": "bm-bm-terrain-11e-1-composite-03-m1-p0",
     "name": "Battlemaster SL 03",
     "kind": "area",
     "source": "battlemaster-11e",
     "footprint": {
-      "type": "rectangle",
-      "width": 6.003,
-      "height": 2.003
+      "type": "polygon",
+      "points": [
+        {
+          "x": 6,
+          "y": 2
+        },
+        {
+          "x": 6,
+          "y": 0
+        },
+        {
+          "x": 2.0038,
+          "y": 0
+        },
+        {
+          "x": 1.955,
+          "y": -0.1925
+        },
+        {
+          "x": 1.8409,
+          "y": -0.26
+        },
+        {
+          "x": 1.4144,
+          "y": -0.2081
+        },
+        {
+          "x": 1.2091,
+          "y": -0.2338
+        },
+        {
+          "x": 0.9374,
+          "y": 0
+        },
+        {
+          "x": 0,
+          "y": 0
+        },
+        {
+          "x": 0,
+          "y": 2
+        },
+        {
+          "x": 3.477,
+          "y": 2
+        },
+        {
+          "x": 3.8062,
+          "y": 2.2976
+        },
+        {
+          "x": 4.3476,
+          "y": 2.4293
+        },
+        {
+          "x": 4.667,
+          "y": 2.3273
+        },
+        {
+          "x": 4.7814,
+          "y": 2.1465
+        },
+        {
+          "x": 4.9434,
+          "y": 2.0519
+        },
+        {
+          "x": 4.9507,
+          "y": 2
+        },
+        {
+          "x": 5.0984,
+          "y": 2
+        },
+        {
+          "x": 5.0992,
+          "y": 1.9472
+        },
+        {
+          "x": 5.8901,
+          "y": 1.9401
+        }
+      ]
     },
     "features": [
       {
         "id": "feature-1",
         "template": "bm-bm-terrain-11e-1-part-pipes",
         "position": {
-          "x": 0,
-          "y": 0
-        }
+          "x": -0.004857,
+          "y": -0.01461
+        },
+        "rotation_degrees": 180
       }
     ],
     "game_version": {
@@ -640,33 +782,136 @@
     }
   },
   {
-    "id": "bm-bm-terrain-11e-1-composite-04",
+    "id": "bm-bm-terrain-11e-1-composite-04-m1-p0",
     "name": "Battlemaster BR 04",
     "kind": "area",
     "source": "battlemaster-11e",
     "footprint": {
-      "type": "rectangle",
-      "width": 11.503,
-      "height": 7.003
+      "type": "polygon",
+      "points": [
+        {
+          "x": 0,
+          "y": 7
+        },
+        {
+          "x": 1.4827,
+          "y": 7
+        },
+        {
+          "x": 1.4887,
+          "y": 7.052
+        },
+        {
+          "x": 1.6514,
+          "y": 7.185
+        },
+        {
+          "x": 1.8679,
+          "y": 7.283
+        },
+        {
+          "x": 2.2431,
+          "y": 7.2668
+        },
+        {
+          "x": 2.4017,
+          "y": 7.3677
+        },
+        {
+          "x": 2.7891,
+          "y": 7.4309
+        },
+        {
+          "x": 3.0922,
+          "y": 7.536
+        },
+        {
+          "x": 3.3307,
+          "y": 7.3869
+        },
+        {
+          "x": 3.5594,
+          "y": 7
+        },
+        {
+          "x": 4.689,
+          "y": 7
+        },
+        {
+          "x": 4.7302,
+          "y": 7.0602
+        },
+        {
+          "x": 4.98,
+          "y": 7.144
+        },
+        {
+          "x": 5.242,
+          "y": 7.1396
+        },
+        {
+          "x": 5.875,
+          "y": 7
+        },
+        {
+          "x": 5.9034,
+          "y": 7.0519
+        },
+        {
+          "x": 6.6077,
+          "y": 7.3171
+        },
+        {
+          "x": 7.0147,
+          "y": 7.4122
+        },
+        {
+          "x": 7.5011,
+          "y": 7.2791
+        },
+        {
+          "x": 7.6351,
+          "y": 7.1687
+        },
+        {
+          "x": 7.7724,
+          "y": 7.1636
+        },
+        {
+          "x": 7.946,
+          "y": 7
+        },
+        {
+          "x": 11.5,
+          "y": 7
+        },
+        {
+          "x": 11.5,
+          "y": 0
+        },
+        {
+          "x": 0,
+          "y": 0
+        }
+      ]
     },
     "features": [
       {
         "id": "feature-1",
         "template": "bm-bm-terrain-11e-1-part-small-l",
         "position": {
-          "x": 4.4985,
-          "y": -1.7485
-        },
-        "rotation_degrees": 180
+          "x": -4.477885,
+          "y": 1.691748
+        }
       },
       {
         "id": "feature-2",
         "template": "bm-bm-terrain-11e-1-part-ef",
         "position": {
-          "x": -2.2515,
-          "y": 0.7515
+          "x": 2.272115,
+          "y": -0.808252
         },
-        "rotation_degrees": 90
+        "rotation_degrees": 270
       }
     ],
     "game_version": {
@@ -675,57 +920,134 @@
     }
   },
   {
-    "id": "bm-bm-terrain-11e-1-composite-05",
+    "id": "bm-bm-terrain-11e-1-composite-05-m0-p0",
     "name": "Battlemaster BR 05",
     "kind": "area",
     "source": "battlemaster-11e",
     "footprint": {
-      "type": "rectangle",
-      "width": 11.503,
-      "height": 7.003
+      "type": "polygon",
+      "points": [
+        {
+          "x": 0,
+          "y": 7
+        },
+        {
+          "x": 1.4827,
+          "y": 7
+        },
+        {
+          "x": 1.4887,
+          "y": 7.052
+        },
+        {
+          "x": 1.6514,
+          "y": 7.185
+        },
+        {
+          "x": 1.8679,
+          "y": 7.283
+        },
+        {
+          "x": 2.2431,
+          "y": 7.2668
+        },
+        {
+          "x": 2.4017,
+          "y": 7.3677
+        },
+        {
+          "x": 2.7891,
+          "y": 7.4309
+        },
+        {
+          "x": 3.0922,
+          "y": 7.536
+        },
+        {
+          "x": 3.3307,
+          "y": 7.3869
+        },
+        {
+          "x": 3.5594,
+          "y": 7
+        },
+        {
+          "x": 4.689,
+          "y": 7
+        },
+        {
+          "x": 4.7302,
+          "y": 7.0602
+        },
+        {
+          "x": 4.98,
+          "y": 7.144
+        },
+        {
+          "x": 5.242,
+          "y": 7.1396
+        },
+        {
+          "x": 5.875,
+          "y": 7
+        },
+        {
+          "x": 5.9034,
+          "y": 7.0519
+        },
+        {
+          "x": 6.6077,
+          "y": 7.3171
+        },
+        {
+          "x": 7.0147,
+          "y": 7.4122
+        },
+        {
+          "x": 7.5011,
+          "y": 7.2791
+        },
+        {
+          "x": 7.6351,
+          "y": 7.1687
+        },
+        {
+          "x": 7.7724,
+          "y": 7.1636
+        },
+        {
+          "x": 7.946,
+          "y": 7
+        },
+        {
+          "x": 11.5,
+          "y": 7
+        },
+        {
+          "x": 11.5,
+          "y": 0
+        },
+        {
+          "x": 0,
+          "y": 0
+        }
+      ]
     },
     "features": [
       {
         "id": "feature-1",
         "template": "bm-bm-terrain-11e-1-part-ef",
         "position": {
-          "x": -3.0015,
-          "y": 0.0015
-        },
-        "rotation_degrees": 180
+          "x": 3.022115,
+          "y": -0.058252
+        }
       },
       {
         "id": "feature-2",
         "template": "bm-bm-terrain-11e-1-part-gh",
         "position": {
-          "x": 2.2485,
-          "y": 1.5015
-        },
-        "rotation_degrees": 90
-      }
-    ],
-    "game_version": {
-      "edition": "11th",
-      "dataslate": "pre-launch-provisional"
-    }
-  },
-  {
-    "id": "bm-bm-terrain-11e-1-composite-06",
-    "name": "Battlemaster SR 06",
-    "kind": "area",
-    "source": "battlemaster-11e",
-    "footprint": {
-      "type": "rectangle",
-      "width": 6.003,
-      "height": 4.003
-    },
-    "features": [
-      {
-        "id": "feature-1",
-        "template": "bm-bm-terrain-11e-1-part-ab",
-        "position": {
-          "x": 0.2485,
-          "y": -0.3735
+          "x": -2.227885,
+          "y": -1.558252
         },
         "rotation_degrees": 270
       }
@@ -736,33 +1058,48 @@
     }
   },
   {
-    "id": "bm-bm-terrain-11e-1-composite-07",
+    "id": "bm-bm-terrain-11e-1-composite-07-m0-p3",
     "name": "Battlemaster TR 07",
     "kind": "area",
     "source": "battlemaster-11e",
     "footprint": {
-      "type": "rectangle",
-      "width": 11.503,
-      "height": 8.003
+      "type": "polygon",
+      "points": [
+        {
+          "x": 0,
+          "y": 11.5
+        },
+        {
+          "x": 8,
+          "y": 11.5
+        },
+        {
+          "x": 2,
+          "y": 0
+        },
+        {
+          "x": 0,
+          "y": 0
+        }
+      ]
     },
     "features": [
       {
         "id": "feature-1",
         "template": "bm-bm-terrain-11e-1-part-ab",
         "position": {
-          "x": 2.9985,
-          "y": 1.6265
-        },
-        "rotation_degrees": 270
+          "x": -0.425,
+          "y": 1.85
+        }
       },
       {
         "id": "feature-2",
         "template": "bm-bm-terrain-11e-1-part-corner",
         "position": {
-          "x": -4.5015,
-          "y": 2.7515
+          "x": -1.55,
+          "y": -5.65
         },
-        "rotation_degrees": 90
+        "rotation_degrees": 180
       }
     ],
     "game_version": {
@@ -771,33 +1108,136 @@
     }
   },
   {
-    "id": "bm-bm-terrain-11e-1-composite-08",
+    "id": "bm-bm-terrain-11e-1-composite-08-m0-p0",
     "name": "Battlemaster BR 08",
     "kind": "area",
     "source": "battlemaster-11e",
     "footprint": {
-      "type": "rectangle",
-      "width": 11.503,
-      "height": 7.003
+      "type": "polygon",
+      "points": [
+        {
+          "x": 0,
+          "y": 7
+        },
+        {
+          "x": 1.4827,
+          "y": 7
+        },
+        {
+          "x": 1.4887,
+          "y": 7.052
+        },
+        {
+          "x": 1.6514,
+          "y": 7.185
+        },
+        {
+          "x": 1.8679,
+          "y": 7.283
+        },
+        {
+          "x": 2.2431,
+          "y": 7.2668
+        },
+        {
+          "x": 2.4017,
+          "y": 7.3677
+        },
+        {
+          "x": 2.7891,
+          "y": 7.4309
+        },
+        {
+          "x": 3.0922,
+          "y": 7.536
+        },
+        {
+          "x": 3.3307,
+          "y": 7.3869
+        },
+        {
+          "x": 3.5594,
+          "y": 7
+        },
+        {
+          "x": 4.689,
+          "y": 7
+        },
+        {
+          "x": 4.7302,
+          "y": 7.0602
+        },
+        {
+          "x": 4.98,
+          "y": 7.144
+        },
+        {
+          "x": 5.242,
+          "y": 7.1396
+        },
+        {
+          "x": 5.875,
+          "y": 7
+        },
+        {
+          "x": 5.9034,
+          "y": 7.0519
+        },
+        {
+          "x": 6.6077,
+          "y": 7.3171
+        },
+        {
+          "x": 7.0147,
+          "y": 7.4122
+        },
+        {
+          "x": 7.5011,
+          "y": 7.2791
+        },
+        {
+          "x": 7.6351,
+          "y": 7.1687
+        },
+        {
+          "x": 7.7724,
+          "y": 7.1636
+        },
+        {
+          "x": 7.946,
+          "y": 7
+        },
+        {
+          "x": 11.5,
+          "y": 7
+        },
+        {
+          "x": 11.5,
+          "y": 0
+        },
+        {
+          "x": 0,
+          "y": 0
+        }
+      ]
     },
     "features": [
       {
         "id": "feature-1",
         "template": "bm-bm-terrain-11e-1-part-co",
         "position": {
-          "x": -2.2515,
-          "y": 1.7515
-        },
-        "rotation_degrees": 180
+          "x": 2.272115,
+          "y": -1.808252
+        }
       },
       {
         "id": "feature-2",
         "template": "bm-bm-terrain-11e-1-part-small-l",
         "position": {
-          "x": 3.9985,
-          "y": 2.2515
+          "x": -3.977885,
+          "y": -2.308252
         },
-        "rotation_degrees": 270
+        "rotation_degrees": 90
       }
     ],
     "game_version": {
@@ -806,22 +1246,122 @@
     }
   },
   {
-    "id": "bm-bm-terrain-11e-1-composite-09",
+    "id": "bm-bm-terrain-11e-1-composite-09-m1-p0",
     "name": "Battlemaster SR 09",
     "kind": "area",
     "source": "battlemaster-11e",
     "footprint": {
-      "type": "rectangle",
-      "width": 6.003,
-      "height": 4.003
+      "type": "polygon",
+      "points": [
+        {
+          "x": 0,
+          "y": 4
+        },
+        {
+          "x": 0.0517,
+          "y": 3.9456
+        },
+        {
+          "x": 0,
+          "y": 3.0208
+        },
+        {
+          "x": -0.2893,
+          "y": 2.8481
+        },
+        {
+          "x": -0.2943,
+          "y": 2.6726
+        },
+        {
+          "x": -0.2155,
+          "y": 2.4757
+        },
+        {
+          "x": -0.48,
+          "y": 1.875
+        },
+        {
+          "x": -0.3413,
+          "y": 1.5968
+        },
+        {
+          "x": -0.2935,
+          "y": 1.3654
+        },
+        {
+          "x": 0,
+          "y": 1.1755
+        },
+        {
+          "x": 0,
+          "y": 0.9973
+        },
+        {
+          "x": 0.0537,
+          "y": 0.9806
+        },
+        {
+          "x": 0.0537,
+          "y": 0.0834
+        },
+        {
+          "x": 0,
+          "y": 0
+        },
+        {
+          "x": 6,
+          "y": 0
+        },
+        {
+          "x": 6,
+          "y": 4
+        },
+        {
+          "x": 4.74,
+          "y": 4
+        },
+        {
+          "x": 4.708,
+          "y": 4.0903
+        },
+        {
+          "x": 4.5247,
+          "y": 4.2088
+        },
+        {
+          "x": 4,
+          "y": 4.3229
+        },
+        {
+          "x": 3.5463,
+          "y": 4.248
+        },
+        {
+          "x": 3.29,
+          "y": 4.0755
+        },
+        {
+          "x": 2.7256,
+          "y": 4.0955
+        },
+        {
+          "x": 2.668,
+          "y": 4
+        },
+        {
+          "x": 0.0542,
+          "y": 3.9457
+        }
+      ]
     },
     "features": [
       {
         "id": "feature-1",
         "template": "bm-bm-terrain-11e-1-part-generator",
         "position": {
-          "x": -0.0015,
-          "y": 0.0015
+          "x": 0.038463,
+          "y": -0.027204
         },
         "rotation_degrees": 180
       }
@@ -832,33 +1372,135 @@
     }
   },
   {
-    "id": "bm-bm-terrain-11e-1-composite-10",
+    "id": "bm-bm-terrain-11e-1-composite-10-m0-p0",
     "name": "Battlemaster BR 10",
     "kind": "area",
     "source": "battlemaster-11e",
     "footprint": {
-      "type": "rectangle",
-      "width": 11.503,
-      "height": 7.003
+      "type": "polygon",
+      "points": [
+        {
+          "x": 0,
+          "y": 7
+        },
+        {
+          "x": 1.4827,
+          "y": 7
+        },
+        {
+          "x": 1.4887,
+          "y": 7.052
+        },
+        {
+          "x": 1.6514,
+          "y": 7.185
+        },
+        {
+          "x": 1.8679,
+          "y": 7.283
+        },
+        {
+          "x": 2.2431,
+          "y": 7.2668
+        },
+        {
+          "x": 2.4017,
+          "y": 7.3677
+        },
+        {
+          "x": 2.7891,
+          "y": 7.4309
+        },
+        {
+          "x": 3.0922,
+          "y": 7.536
+        },
+        {
+          "x": 3.3307,
+          "y": 7.3869
+        },
+        {
+          "x": 3.5594,
+          "y": 7
+        },
+        {
+          "x": 4.689,
+          "y": 7
+        },
+        {
+          "x": 4.7302,
+          "y": 7.0602
+        },
+        {
+          "x": 4.98,
+          "y": 7.144
+        },
+        {
+          "x": 5.242,
+          "y": 7.1396
+        },
+        {
+          "x": 5.875,
+          "y": 7
+        },
+        {
+          "x": 5.9034,
+          "y": 7.0519
+        },
+        {
+          "x": 6.6077,
+          "y": 7.3171
+        },
+        {
+          "x": 7.0147,
+          "y": 7.4122
+        },
+        {
+          "x": 7.5011,
+          "y": 7.2791
+        },
+        {
+          "x": 7.6351,
+          "y": 7.1687
+        },
+        {
+          "x": 7.7724,
+          "y": 7.1636
+        },
+        {
+          "x": 7.946,
+          "y": 7
+        },
+        {
+          "x": 11.5,
+          "y": 7
+        },
+        {
+          "x": 11.5,
+          "y": 0
+        },
+        {
+          "x": 0,
+          "y": 0
+        }
+      ]
     },
     "features": [
       {
         "id": "feature-1",
         "template": "bm-bm-terrain-11e-1-part-ef",
         "position": {
-          "x": -3.0015,
-          "y": 0.0015
-        },
-        "rotation_degrees": 180
+          "x": 3.022115,
+          "y": -0.058252
+        }
       },
       {
         "id": "feature-2",
         "template": "bm-bm-terrain-11e-1-part-small-l",
         "position": {
-          "x": 4.4985,
-          "y": -1.7485
-        },
-        "rotation_degrees": 180
+          "x": -4.477885,
+          "y": 1.691748
+        }
       }
     ],
     "game_version": {
@@ -867,38 +1509,150 @@
     }
   },
   {
-    "id": "bm-bm-terrain-11e-1-composite-11",
+    "id": "bm-bm-terrain-11e-1-composite-11-m0-p0",
     "name": "Battlemaster LL 11",
     "kind": "area",
     "source": "battlemaster-11e",
     "footprint": {
-      "type": "rectangle",
-      "width": 10.003,
-      "height": 2.503
+      "type": "polygon",
+      "points": [
+        {
+          "x": 10,
+          "y": 2.5
+        },
+        {
+          "x": 10,
+          "y": 0
+        },
+        {
+          "x": 9.4616,
+          "y": 0
+        },
+        {
+          "x": 9.3842,
+          "y": -0.1625
+        },
+        {
+          "x": 9.0518,
+          "y": -0.2517
+        },
+        {
+          "x": 8.6688,
+          "y": -0.4939
+        },
+        {
+          "x": 8.1482,
+          "y": -0.6
+        },
+        {
+          "x": 7.8933,
+          "y": -0.5644
+        },
+        {
+          "x": 7.7668,
+          "y": -0.4805
+        },
+        {
+          "x": 7.4037,
+          "y": 0
+        },
+        {
+          "x": 2.5979,
+          "y": 0
+        },
+        {
+          "x": 2.5119,
+          "y": -0.1621
+        },
+        {
+          "x": 2.3849,
+          "y": -0.1913
+        },
+        {
+          "x": 1.7819,
+          "y": -0.1013
+        },
+        {
+          "x": 1.6753,
+          "y": -0.0553
+        },
+        {
+          "x": 1.6544,
+          "y": 0
+        },
+        {
+          "x": 0,
+          "y": 0
+        },
+        {
+          "x": 0,
+          "y": 2.5
+        },
+        {
+          "x": 2.8502,
+          "y": 2.5
+        },
+        {
+          "x": 2.8492,
+          "y": 2.6077
+        },
+        {
+          "x": 3.0845,
+          "y": 2.8689
+        },
+        {
+          "x": 3.4159,
+          "y": 3
+        },
+        {
+          "x": 3.7635,
+          "y": 3.0128
+        },
+        {
+          "x": 4.0544,
+          "y": 3.0851
+        },
+        {
+          "x": 4.155,
+          "y": 3.0725
+        },
+        {
+          "x": 4.2334,
+          "y": 3.0029
+        },
+        {
+          "x": 4.4469,
+          "y": 2.6698
+        },
+        {
+          "x": 4.502,
+          "y": 2.5
+        }
+      ]
     },
     "features": [
       {
         "id": "feature-1",
         "template": "bm-bm-terrain-11e-1-part-short-barrier",
         "position": {
-          "x": 3.1235,
-          "y": -0.4985
+          "x": 3.071729,
+          "y": -0.488735
         }
       },
       {
         "id": "feature-2",
         "template": "bm-bm-terrain-11e-1-part-short-barrier",
         "position": {
-          "x": -3.1265,
-          "y": -0.4985
+          "x": -3.178271,
+          "y": -0.488735
         }
       },
       {
         "id": "feature-3",
         "template": "bm-bm-terrain-11e-1-part-tower",
         "position": {
-          "x": 0,
-          "y": 0
+          "x": -0.051771,
+          "y": 0.009765
         }
       }
     ],
@@ -908,32 +1662,137 @@
     }
   },
   {
-    "id": "bm-bm-terrain-11e-1-composite-12",
+    "id": "bm-bm-terrain-11e-1-composite-12-m0-p0",
     "name": "Battlemaster BR 12",
     "kind": "area",
     "source": "battlemaster-11e",
     "footprint": {
-      "type": "rectangle",
-      "width": 11.503,
-      "height": 7.003
+      "type": "polygon",
+      "points": [
+        {
+          "x": 0,
+          "y": 7
+        },
+        {
+          "x": 1.4827,
+          "y": 7
+        },
+        {
+          "x": 1.4887,
+          "y": 7.052
+        },
+        {
+          "x": 1.6514,
+          "y": 7.185
+        },
+        {
+          "x": 1.8679,
+          "y": 7.283
+        },
+        {
+          "x": 2.2431,
+          "y": 7.2668
+        },
+        {
+          "x": 2.4017,
+          "y": 7.3677
+        },
+        {
+          "x": 2.7891,
+          "y": 7.4309
+        },
+        {
+          "x": 3.0922,
+          "y": 7.536
+        },
+        {
+          "x": 3.3307,
+          "y": 7.3869
+        },
+        {
+          "x": 3.5594,
+          "y": 7
+        },
+        {
+          "x": 4.689,
+          "y": 7
+        },
+        {
+          "x": 4.7302,
+          "y": 7.0602
+        },
+        {
+          "x": 4.98,
+          "y": 7.144
+        },
+        {
+          "x": 5.242,
+          "y": 7.1396
+        },
+        {
+          "x": 5.875,
+          "y": 7
+        },
+        {
+          "x": 5.9034,
+          "y": 7.0519
+        },
+        {
+          "x": 6.6077,
+          "y": 7.3171
+        },
+        {
+          "x": 7.0147,
+          "y": 7.4122
+        },
+        {
+          "x": 7.5011,
+          "y": 7.2791
+        },
+        {
+          "x": 7.6351,
+          "y": 7.1687
+        },
+        {
+          "x": 7.7724,
+          "y": 7.1636
+        },
+        {
+          "x": 7.946,
+          "y": 7
+        },
+        {
+          "x": 11.5,
+          "y": 7
+        },
+        {
+          "x": 11.5,
+          "y": 0
+        },
+        {
+          "x": 0,
+          "y": 0
+        }
+      ]
     },
     "features": [
       {
         "id": "feature-1",
         "template": "bm-bm-terrain-11e-1-part-ef",
         "position": {
-          "x": 2.9985,
-          "y": 0.0015
-        }
+          "x": -2.977885,
+          "y": -0.058252
+        },
+        "rotation_degrees": 180
       },
       {
         "id": "feature-2",
         "template": "bm-bm-terrain-11e-1-part-gh",
         "position": {
-          "x": -2.2515,
-          "y": -1.4985
+          "x": 2.272115,
+          "y": 1.441748
         },
-        "rotation_degrees": 270
+        "rotation_degrees": 90
       }
     ],
     "game_version": {
@@ -942,58 +1801,137 @@
     }
   },
   {
-    "id": "bm-bm-terrain-11e-1-composite-13",
-    "name": "Battlemaster SR 13",
-    "kind": "area",
-    "source": "battlemaster-11e",
-    "footprint": {
-      "type": "rectangle",
-      "width": 6.003,
-      "height": 4.003
-    },
-    "features": [
-      {
-        "id": "feature-1",
-        "template": "bm-bm-terrain-11e-1-part-gh",
-        "position": {
-          "x": 0.4985,
-          "y": 0.0015
-        },
-        "rotation_degrees": 270
-      }
-    ],
-    "game_version": {
-      "edition": "11th",
-      "dataslate": "pre-launch-provisional"
-    }
-  },
-  {
-    "id": "bm-bm-terrain-11e-1-composite-14",
+    "id": "bm-bm-terrain-11e-1-composite-14-m0-p0",
     "name": "Battlemaster BR 14",
     "kind": "area",
     "source": "battlemaster-11e",
     "footprint": {
-      "type": "rectangle",
-      "width": 11.503,
-      "height": 7.003
+      "type": "polygon",
+      "points": [
+        {
+          "x": 0,
+          "y": 7
+        },
+        {
+          "x": 1.4827,
+          "y": 7
+        },
+        {
+          "x": 1.4887,
+          "y": 7.052
+        },
+        {
+          "x": 1.6514,
+          "y": 7.185
+        },
+        {
+          "x": 1.8679,
+          "y": 7.283
+        },
+        {
+          "x": 2.2431,
+          "y": 7.2668
+        },
+        {
+          "x": 2.4017,
+          "y": 7.3677
+        },
+        {
+          "x": 2.7891,
+          "y": 7.4309
+        },
+        {
+          "x": 3.0922,
+          "y": 7.536
+        },
+        {
+          "x": 3.3307,
+          "y": 7.3869
+        },
+        {
+          "x": 3.5594,
+          "y": 7
+        },
+        {
+          "x": 4.689,
+          "y": 7
+        },
+        {
+          "x": 4.7302,
+          "y": 7.0602
+        },
+        {
+          "x": 4.98,
+          "y": 7.144
+        },
+        {
+          "x": 5.242,
+          "y": 7.1396
+        },
+        {
+          "x": 5.875,
+          "y": 7
+        },
+        {
+          "x": 5.9034,
+          "y": 7.0519
+        },
+        {
+          "x": 6.6077,
+          "y": 7.3171
+        },
+        {
+          "x": 7.0147,
+          "y": 7.4122
+        },
+        {
+          "x": 7.5011,
+          "y": 7.2791
+        },
+        {
+          "x": 7.6351,
+          "y": 7.1687
+        },
+        {
+          "x": 7.7724,
+          "y": 7.1636
+        },
+        {
+          "x": 7.946,
+          "y": 7
+        },
+        {
+          "x": 11.5,
+          "y": 7
+        },
+        {
+          "x": 11.5,
+          "y": 0
+        },
+        {
+          "x": 0,
+          "y": 0
+        }
+      ]
     },
     "features": [
       {
         "id": "feature-1",
         "template": "bm-bm-terrain-11e-1-part-small-l",
         "position": {
-          "x": -4.5015,
-          "y": 1.7515
-        }
+          "x": 4.522115,
+          "y": -1.808252
+        },
+        "rotation_degrees": 180
       },
       {
         "id": "feature-2",
         "template": "bm-bm-terrain-11e-1-part-co",
         "position": {
-          "x": 3.9985,
-          "y": 0.0015
+          "x": -3.977885,
+          "y": -0.058252
         },
-        "rotation_degrees": 90
+        "rotation_degrees": 270
       }
     ],
     "game_version": {
@@ -1002,76 +1940,135 @@
     }
   },
   {
-    "id": "bm-bm-terrain-11e-1-composite-15",
-    "name": "Battlemaster BR 15",
-    "kind": "area",
-    "source": "battlemaster-11e",
-    "footprint": {
-      "type": "rectangle",
-      "width": 11.503,
-      "height": 7.003
-    },
-    "features": [
-      {
-        "id": "feature-1",
-        "template": "bm-bm-terrain-11e-1-part-co",
-        "position": {
-          "x": -2.2515,
-          "y": 1.7515
-        },
-        "rotation_degrees": 180
-      },
-      {
-        "id": "feature-2",
-        "template": "bm-bm-terrain-11e-1-part-corner",
-        "position": {
-          "x": 4.4985,
-          "y": 2.2515
-        }
-      },
-      {
-        "id": "feature-3",
-        "template": "bm-bm-terrain-11e-1-part-small-l",
-        "position": {
-          "x": 4.4985,
-          "y": -1.7485
-        },
-        "rotation_degrees": 180
-      }
-    ],
-    "game_version": {
-      "edition": "11th",
-      "dataslate": "pre-launch-provisional"
-    }
-  },
-  {
-    "id": "bm-bm-terrain-11e-1-composite-16",
+    "id": "bm-bm-terrain-11e-1-composite-16-m0-p0",
     "name": "Battlemaster BR 16",
     "kind": "area",
     "source": "battlemaster-11e",
     "footprint": {
-      "type": "rectangle",
-      "width": 11.503,
-      "height": 7.003
+      "type": "polygon",
+      "points": [
+        {
+          "x": 0,
+          "y": 7
+        },
+        {
+          "x": 1.4827,
+          "y": 7
+        },
+        {
+          "x": 1.4887,
+          "y": 7.052
+        },
+        {
+          "x": 1.6514,
+          "y": 7.185
+        },
+        {
+          "x": 1.8679,
+          "y": 7.283
+        },
+        {
+          "x": 2.2431,
+          "y": 7.2668
+        },
+        {
+          "x": 2.4017,
+          "y": 7.3677
+        },
+        {
+          "x": 2.7891,
+          "y": 7.4309
+        },
+        {
+          "x": 3.0922,
+          "y": 7.536
+        },
+        {
+          "x": 3.3307,
+          "y": 7.3869
+        },
+        {
+          "x": 3.5594,
+          "y": 7
+        },
+        {
+          "x": 4.689,
+          "y": 7
+        },
+        {
+          "x": 4.7302,
+          "y": 7.0602
+        },
+        {
+          "x": 4.98,
+          "y": 7.144
+        },
+        {
+          "x": 5.242,
+          "y": 7.1396
+        },
+        {
+          "x": 5.875,
+          "y": 7
+        },
+        {
+          "x": 5.9034,
+          "y": 7.0519
+        },
+        {
+          "x": 6.6077,
+          "y": 7.3171
+        },
+        {
+          "x": 7.0147,
+          "y": 7.4122
+        },
+        {
+          "x": 7.5011,
+          "y": 7.2791
+        },
+        {
+          "x": 7.6351,
+          "y": 7.1687
+        },
+        {
+          "x": 7.7724,
+          "y": 7.1636
+        },
+        {
+          "x": 7.946,
+          "y": 7
+        },
+        {
+          "x": 11.5,
+          "y": 7
+        },
+        {
+          "x": 11.5,
+          "y": 0
+        },
+        {
+          "x": 0,
+          "y": 0
+        }
+      ]
     },
     "features": [
       {
         "id": "feature-1",
         "template": "bm-bm-terrain-11e-1-part-co",
         "position": {
-          "x": -2.2515,
-          "y": 1.7515
-        },
-        "rotation_degrees": 180
+          "x": 2.272115,
+          "y": -1.808252
+        }
       },
       {
         "id": "feature-2",
         "template": "bm-bm-terrain-11e-1-part-small-l",
         "position": {
-          "x": 4.4985,
-          "y": -1.7485
-        },
-        "rotation_degrees": 180
+          "x": -4.477885,
+          "y": 1.691748
+        }
       }
     ],
     "game_version": {
@@ -1080,33 +2077,136 @@
     }
   },
   {
-    "id": "bm-bm-terrain-11e-1-composite-17",
+    "id": "bm-bm-terrain-11e-1-composite-17-m0-p0",
     "name": "Battlemaster BR 17",
     "kind": "area",
     "source": "battlemaster-11e",
     "footprint": {
-      "type": "rectangle",
-      "width": 11.503,
-      "height": 7.003
+      "type": "polygon",
+      "points": [
+        {
+          "x": 0,
+          "y": 7
+        },
+        {
+          "x": 1.4827,
+          "y": 7
+        },
+        {
+          "x": 1.4887,
+          "y": 7.052
+        },
+        {
+          "x": 1.6514,
+          "y": 7.185
+        },
+        {
+          "x": 1.8679,
+          "y": 7.283
+        },
+        {
+          "x": 2.2431,
+          "y": 7.2668
+        },
+        {
+          "x": 2.4017,
+          "y": 7.3677
+        },
+        {
+          "x": 2.7891,
+          "y": 7.4309
+        },
+        {
+          "x": 3.0922,
+          "y": 7.536
+        },
+        {
+          "x": 3.3307,
+          "y": 7.3869
+        },
+        {
+          "x": 3.5594,
+          "y": 7
+        },
+        {
+          "x": 4.689,
+          "y": 7
+        },
+        {
+          "x": 4.7302,
+          "y": 7.0602
+        },
+        {
+          "x": 4.98,
+          "y": 7.144
+        },
+        {
+          "x": 5.242,
+          "y": 7.1396
+        },
+        {
+          "x": 5.875,
+          "y": 7
+        },
+        {
+          "x": 5.9034,
+          "y": 7.0519
+        },
+        {
+          "x": 6.6077,
+          "y": 7.3171
+        },
+        {
+          "x": 7.0147,
+          "y": 7.4122
+        },
+        {
+          "x": 7.5011,
+          "y": 7.2791
+        },
+        {
+          "x": 7.6351,
+          "y": 7.1687
+        },
+        {
+          "x": 7.7724,
+          "y": 7.1636
+        },
+        {
+          "x": 7.946,
+          "y": 7
+        },
+        {
+          "x": 11.5,
+          "y": 7
+        },
+        {
+          "x": 11.5,
+          "y": 0
+        },
+        {
+          "x": 0,
+          "y": 0
+        }
+      ]
     },
     "features": [
       {
         "id": "feature-1",
         "template": "bm-bm-terrain-11e-1-part-co",
         "position": {
-          "x": -4.0015,
-          "y": 0.0015
+          "x": 4.022115,
+          "y": -0.058252
         },
-        "rotation_degrees": 270
+        "rotation_degrees": 90
       },
       {
         "id": "feature-2",
         "template": "bm-bm-terrain-11e-1-part-small-l",
         "position": {
-          "x": 4.4985,
-          "y": -1.7485
-        },
-        "rotation_degrees": 180
+          "x": -4.477885,
+          "y": 1.691748
+        }
       }
     ],
     "game_version": {
@@ -1115,32 +2215,137 @@
     }
   },
   {
-    "id": "bm-bm-terrain-11e-1-composite-18",
+    "id": "bm-bm-terrain-11e-1-composite-18-m0-p0",
     "name": "Battlemaster BR 18",
     "kind": "area",
     "source": "battlemaster-11e",
     "footprint": {
-      "type": "rectangle",
-      "width": 11.503,
-      "height": 7.003
+      "type": "polygon",
+      "points": [
+        {
+          "x": 0,
+          "y": 7
+        },
+        {
+          "x": 1.4827,
+          "y": 7
+        },
+        {
+          "x": 1.4887,
+          "y": 7.052
+        },
+        {
+          "x": 1.6514,
+          "y": 7.185
+        },
+        {
+          "x": 1.8679,
+          "y": 7.283
+        },
+        {
+          "x": 2.2431,
+          "y": 7.2668
+        },
+        {
+          "x": 2.4017,
+          "y": 7.3677
+        },
+        {
+          "x": 2.7891,
+          "y": 7.4309
+        },
+        {
+          "x": 3.0922,
+          "y": 7.536
+        },
+        {
+          "x": 3.3307,
+          "y": 7.3869
+        },
+        {
+          "x": 3.5594,
+          "y": 7
+        },
+        {
+          "x": 4.689,
+          "y": 7
+        },
+        {
+          "x": 4.7302,
+          "y": 7.0602
+        },
+        {
+          "x": 4.98,
+          "y": 7.144
+        },
+        {
+          "x": 5.242,
+          "y": 7.1396
+        },
+        {
+          "x": 5.875,
+          "y": 7
+        },
+        {
+          "x": 5.9034,
+          "y": 7.0519
+        },
+        {
+          "x": 6.6077,
+          "y": 7.3171
+        },
+        {
+          "x": 7.0147,
+          "y": 7.4122
+        },
+        {
+          "x": 7.5011,
+          "y": 7.2791
+        },
+        {
+          "x": 7.6351,
+          "y": 7.1687
+        },
+        {
+          "x": 7.7724,
+          "y": 7.1636
+        },
+        {
+          "x": 7.946,
+          "y": 7
+        },
+        {
+          "x": 11.5,
+          "y": 7
+        },
+        {
+          "x": 11.5,
+          "y": 0
+        },
+        {
+          "x": 0,
+          "y": 0
+        }
+      ]
     },
     "features": [
       {
         "id": "feature-1",
         "template": "bm-bm-terrain-11e-1-part-ef",
         "position": {
-          "x": -2.2515,
-          "y": 0.7515
+          "x": 2.272115,
+          "y": -0.808252
         },
-        "rotation_degrees": 90
+        "rotation_degrees": 270
       },
       {
         "id": "feature-2",
         "template": "bm-bm-terrain-11e-1-part-gh",
         "position": {
-          "x": 3.7485,
-          "y": 0.0015
-        }
+          "x": -3.727885,
+          "y": -0.058252
+        },
+        "rotation_degrees": 180
       }
     ],
     "game_version": {
@@ -1149,66 +2354,135 @@
     }
   },
   {
-    "id": "bm-bm-terrain-11e-1-composite-19",
+    "id": "bm-bm-terrain-11e-1-composite-19-m0-p0",
     "name": "Battlemaster BR 19",
     "kind": "area",
     "source": "battlemaster-11e",
     "footprint": {
-      "type": "rectangle",
-      "width": 11.503,
-      "height": 7.003
+      "type": "polygon",
+      "points": [
+        {
+          "x": 0,
+          "y": 7
+        },
+        {
+          "x": 1.4827,
+          "y": 7
+        },
+        {
+          "x": 1.4887,
+          "y": 7.052
+        },
+        {
+          "x": 1.6514,
+          "y": 7.185
+        },
+        {
+          "x": 1.8679,
+          "y": 7.283
+        },
+        {
+          "x": 2.2431,
+          "y": 7.2668
+        },
+        {
+          "x": 2.4017,
+          "y": 7.3677
+        },
+        {
+          "x": 2.7891,
+          "y": 7.4309
+        },
+        {
+          "x": 3.0922,
+          "y": 7.536
+        },
+        {
+          "x": 3.3307,
+          "y": 7.3869
+        },
+        {
+          "x": 3.5594,
+          "y": 7
+        },
+        {
+          "x": 4.689,
+          "y": 7
+        },
+        {
+          "x": 4.7302,
+          "y": 7.0602
+        },
+        {
+          "x": 4.98,
+          "y": 7.144
+        },
+        {
+          "x": 5.242,
+          "y": 7.1396
+        },
+        {
+          "x": 5.875,
+          "y": 7
+        },
+        {
+          "x": 5.9034,
+          "y": 7.0519
+        },
+        {
+          "x": 6.6077,
+          "y": 7.3171
+        },
+        {
+          "x": 7.0147,
+          "y": 7.4122
+        },
+        {
+          "x": 7.5011,
+          "y": 7.2791
+        },
+        {
+          "x": 7.6351,
+          "y": 7.1687
+        },
+        {
+          "x": 7.7724,
+          "y": 7.1636
+        },
+        {
+          "x": 7.946,
+          "y": 7
+        },
+        {
+          "x": 11.5,
+          "y": 7
+        },
+        {
+          "x": 11.5,
+          "y": 0
+        },
+        {
+          "x": 0,
+          "y": 0
+        }
+      ]
     },
     "features": [
       {
         "id": "feature-1",
         "template": "bm-bm-terrain-11e-1-part-co",
         "position": {
-          "x": 3.9985,
-          "y": 0.0015
+          "x": -3.977885,
+          "y": -0.058252
         },
-        "rotation_degrees": 90
+        "rotation_degrees": 270
       },
       {
         "id": "feature-2",
         "template": "bm-bm-terrain-11e-1-part-small-l",
         "position": {
-          "x": -4.0015,
-          "y": -2.2485
-        },
-        "rotation_degrees": 90
-      }
-    ],
-    "game_version": {
-      "edition": "11th",
-      "dataslate": "pre-launch-provisional"
-    }
-  },
-  {
-    "id": "bm-bm-terrain-11e-1-composite-20",
-    "name": "Battlemaster BR 20",
-    "kind": "area",
-    "source": "battlemaster-11e",
-    "footprint": {
-      "type": "rectangle",
-      "width": 11.503,
-      "height": 7.003
-    },
-    "features": [
-      {
-        "id": "feature-1",
-        "template": "bm-bm-terrain-11e-1-part-co",
-        "position": {
-          "x": 3.9985,
-          "y": 0.0015
-        },
-        "rotation_degrees": 90
-      },
-      {
-        "id": "feature-2",
-        "template": "bm-bm-terrain-11e-1-part-gh",
-        "position": {
-          "x": -2.2515,
-          "y": -1.4985
+          "x": 4.022115,
+          "y": 2.191748
         },
         "rotation_degrees": 270
       }
@@ -1219,32 +2493,137 @@
     }
   },
   {
-    "id": "bm-bm-terrain-11e-1-composite-21",
-    "name": "Battlemaster BR 21",
+    "id": "bm-bm-terrain-11e-1-composite-20-m1-p0",
+    "name": "Battlemaster BR 20",
     "kind": "area",
     "source": "battlemaster-11e",
     "footprint": {
-      "type": "rectangle",
-      "width": 11.503,
-      "height": 7.003
+      "type": "polygon",
+      "points": [
+        {
+          "x": 0,
+          "y": 7
+        },
+        {
+          "x": 1.4827,
+          "y": 7
+        },
+        {
+          "x": 1.4887,
+          "y": 7.052
+        },
+        {
+          "x": 1.6514,
+          "y": 7.185
+        },
+        {
+          "x": 1.8679,
+          "y": 7.283
+        },
+        {
+          "x": 2.2431,
+          "y": 7.2668
+        },
+        {
+          "x": 2.4017,
+          "y": 7.3677
+        },
+        {
+          "x": 2.7891,
+          "y": 7.4309
+        },
+        {
+          "x": 3.0922,
+          "y": 7.536
+        },
+        {
+          "x": 3.3307,
+          "y": 7.3869
+        },
+        {
+          "x": 3.5594,
+          "y": 7
+        },
+        {
+          "x": 4.689,
+          "y": 7
+        },
+        {
+          "x": 4.7302,
+          "y": 7.0602
+        },
+        {
+          "x": 4.98,
+          "y": 7.144
+        },
+        {
+          "x": 5.242,
+          "y": 7.1396
+        },
+        {
+          "x": 5.875,
+          "y": 7
+        },
+        {
+          "x": 5.9034,
+          "y": 7.0519
+        },
+        {
+          "x": 6.6077,
+          "y": 7.3171
+        },
+        {
+          "x": 7.0147,
+          "y": 7.4122
+        },
+        {
+          "x": 7.5011,
+          "y": 7.2791
+        },
+        {
+          "x": 7.6351,
+          "y": 7.1687
+        },
+        {
+          "x": 7.7724,
+          "y": 7.1636
+        },
+        {
+          "x": 7.946,
+          "y": 7
+        },
+        {
+          "x": 11.5,
+          "y": 7
+        },
+        {
+          "x": 11.5,
+          "y": 0
+        },
+        {
+          "x": 0,
+          "y": 0
+        }
+      ]
     },
     "features": [
       {
         "id": "feature-1",
-        "template": "bm-bm-terrain-11e-1-part-gh",
+        "template": "bm-bm-terrain-11e-1-part-co",
         "position": {
-          "x": 3.7485,
-          "y": 0.0015
-        }
+          "x": -3.977885,
+          "y": -0.058252
+        },
+        "rotation_degrees": 270
       },
       {
         "id": "feature-2",
-        "template": "bm-bm-terrain-11e-1-part-co",
+        "template": "bm-bm-terrain-11e-1-part-gh",
         "position": {
-          "x": -2.2515,
-          "y": 1.7515
+          "x": 2.272115,
+          "y": 1.441748
         },
-        "rotation_degrees": 180
+        "rotation_degrees": 90
       }
     ],
     "game_version": {
@@ -1253,33 +2632,274 @@
     }
   },
   {
-    "id": "bm-bm-terrain-11e-1-composite-22",
+    "id": "bm-bm-terrain-11e-1-composite-21-m0-p0",
+    "name": "Battlemaster BR 21",
+    "kind": "area",
+    "source": "battlemaster-11e",
+    "footprint": {
+      "type": "polygon",
+      "points": [
+        {
+          "x": 0,
+          "y": 7
+        },
+        {
+          "x": 1.4827,
+          "y": 7
+        },
+        {
+          "x": 1.4887,
+          "y": 7.052
+        },
+        {
+          "x": 1.6514,
+          "y": 7.185
+        },
+        {
+          "x": 1.8679,
+          "y": 7.283
+        },
+        {
+          "x": 2.2431,
+          "y": 7.2668
+        },
+        {
+          "x": 2.4017,
+          "y": 7.3677
+        },
+        {
+          "x": 2.7891,
+          "y": 7.4309
+        },
+        {
+          "x": 3.0922,
+          "y": 7.536
+        },
+        {
+          "x": 3.3307,
+          "y": 7.3869
+        },
+        {
+          "x": 3.5594,
+          "y": 7
+        },
+        {
+          "x": 4.689,
+          "y": 7
+        },
+        {
+          "x": 4.7302,
+          "y": 7.0602
+        },
+        {
+          "x": 4.98,
+          "y": 7.144
+        },
+        {
+          "x": 5.242,
+          "y": 7.1396
+        },
+        {
+          "x": 5.875,
+          "y": 7
+        },
+        {
+          "x": 5.9034,
+          "y": 7.0519
+        },
+        {
+          "x": 6.6077,
+          "y": 7.3171
+        },
+        {
+          "x": 7.0147,
+          "y": 7.4122
+        },
+        {
+          "x": 7.5011,
+          "y": 7.2791
+        },
+        {
+          "x": 7.6351,
+          "y": 7.1687
+        },
+        {
+          "x": 7.7724,
+          "y": 7.1636
+        },
+        {
+          "x": 7.946,
+          "y": 7
+        },
+        {
+          "x": 11.5,
+          "y": 7
+        },
+        {
+          "x": 11.5,
+          "y": 0
+        },
+        {
+          "x": 0,
+          "y": 0
+        }
+      ]
+    },
+    "features": [
+      {
+        "id": "feature-1",
+        "template": "bm-bm-terrain-11e-1-part-gh",
+        "position": {
+          "x": -3.727885,
+          "y": -0.058252
+        },
+        "rotation_degrees": 180
+      },
+      {
+        "id": "feature-2",
+        "template": "bm-bm-terrain-11e-1-part-co",
+        "position": {
+          "x": 2.272115,
+          "y": -1.808252
+        }
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "pre-launch-provisional"
+    }
+  },
+  {
+    "id": "bm-bm-terrain-11e-1-composite-22-m0-p0",
     "name": "Battlemaster BR 22",
     "kind": "area",
     "source": "battlemaster-11e",
     "footprint": {
-      "type": "rectangle",
-      "width": 11.503,
-      "height": 7.003
+      "type": "polygon",
+      "points": [
+        {
+          "x": 0,
+          "y": 7
+        },
+        {
+          "x": 1.4827,
+          "y": 7
+        },
+        {
+          "x": 1.4887,
+          "y": 7.052
+        },
+        {
+          "x": 1.6514,
+          "y": 7.185
+        },
+        {
+          "x": 1.8679,
+          "y": 7.283
+        },
+        {
+          "x": 2.2431,
+          "y": 7.2668
+        },
+        {
+          "x": 2.4017,
+          "y": 7.3677
+        },
+        {
+          "x": 2.7891,
+          "y": 7.4309
+        },
+        {
+          "x": 3.0922,
+          "y": 7.536
+        },
+        {
+          "x": 3.3307,
+          "y": 7.3869
+        },
+        {
+          "x": 3.5594,
+          "y": 7
+        },
+        {
+          "x": 4.689,
+          "y": 7
+        },
+        {
+          "x": 4.7302,
+          "y": 7.0602
+        },
+        {
+          "x": 4.98,
+          "y": 7.144
+        },
+        {
+          "x": 5.242,
+          "y": 7.1396
+        },
+        {
+          "x": 5.875,
+          "y": 7
+        },
+        {
+          "x": 5.9034,
+          "y": 7.0519
+        },
+        {
+          "x": 6.6077,
+          "y": 7.3171
+        },
+        {
+          "x": 7.0147,
+          "y": 7.4122
+        },
+        {
+          "x": 7.5011,
+          "y": 7.2791
+        },
+        {
+          "x": 7.6351,
+          "y": 7.1687
+        },
+        {
+          "x": 7.7724,
+          "y": 7.1636
+        },
+        {
+          "x": 7.946,
+          "y": 7
+        },
+        {
+          "x": 11.5,
+          "y": 7
+        },
+        {
+          "x": 11.5,
+          "y": 0
+        },
+        {
+          "x": 0,
+          "y": 0
+        }
+      ]
     },
     "features": [
       {
         "id": "feature-1",
         "template": "bm-bm-terrain-11e-1-part-co",
         "position": {
-          "x": -2.2515,
-          "y": 1.7515
-        },
-        "rotation_degrees": 180
+          "x": 2.272115,
+          "y": -1.808252
+        }
       },
       {
         "id": "feature-2",
         "template": "bm-bm-terrain-11e-1-part-ef",
         "position": {
-          "x": 2.2485,
-          "y": -0.7485
+          "x": -2.227885,
+          "y": 0.691748
         },
-        "rotation_degrees": 270
+        "rotation_degrees": 90
       }
     ],
     "game_version": {
@@ -1288,31 +2908,49 @@
     }
   },
   {
-    "id": "bm-bm-terrain-11e-1-composite-23",
+    "id": "bm-bm-terrain-11e-1-composite-23-m1-p2",
     "name": "Battlemaster TR 23",
     "kind": "area",
     "source": "battlemaster-11e",
     "footprint": {
-      "type": "rectangle",
-      "width": 11.503,
-      "height": 8.003
+      "type": "polygon",
+      "points": [
+        {
+          "x": 8,
+          "y": 11.5
+        },
+        {
+          "x": 0,
+          "y": 11.5
+        },
+        {
+          "x": 6,
+          "y": 0
+        },
+        {
+          "x": 8,
+          "y": 0
+        }
+      ]
     },
     "features": [
       {
         "id": "feature-1",
         "template": "bm-bm-terrain-11e-1-part-ab",
         "position": {
-          "x": -3.3765,
-          "y": 1.2515
-        }
+          "x": 0.053,
+          "y": 2.228
+        },
+        "rotation_degrees": 270
       },
       {
         "id": "feature-2",
         "template": "bm-bm-terrain-11e-1-part-corner",
         "position": {
-          "x": 4.4985,
-          "y": 2.7515
-        }
+          "x": 1.553,
+          "y": -5.647
+        },
+        "rotation_degrees": 270
       }
     ],
     "game_version": {
@@ -1321,74 +2959,135 @@
     }
   },
   {
-    "id": "bm-bm-terrain-11e-1-composite-24",
+    "id": "bm-bm-terrain-11e-1-composite-24-m0-p0",
     "name": "Battlemaster BR 24",
     "kind": "area",
     "source": "battlemaster-11e",
     "footprint": {
-      "type": "rectangle",
-      "width": 11.503,
-      "height": 7.003
+      "type": "polygon",
+      "points": [
+        {
+          "x": 0,
+          "y": 7
+        },
+        {
+          "x": 1.4827,
+          "y": 7
+        },
+        {
+          "x": 1.4887,
+          "y": 7.052
+        },
+        {
+          "x": 1.6514,
+          "y": 7.185
+        },
+        {
+          "x": 1.8679,
+          "y": 7.283
+        },
+        {
+          "x": 2.2431,
+          "y": 7.2668
+        },
+        {
+          "x": 2.4017,
+          "y": 7.3677
+        },
+        {
+          "x": 2.7891,
+          "y": 7.4309
+        },
+        {
+          "x": 3.0922,
+          "y": 7.536
+        },
+        {
+          "x": 3.3307,
+          "y": 7.3869
+        },
+        {
+          "x": 3.5594,
+          "y": 7
+        },
+        {
+          "x": 4.689,
+          "y": 7
+        },
+        {
+          "x": 4.7302,
+          "y": 7.0602
+        },
+        {
+          "x": 4.98,
+          "y": 7.144
+        },
+        {
+          "x": 5.242,
+          "y": 7.1396
+        },
+        {
+          "x": 5.875,
+          "y": 7
+        },
+        {
+          "x": 5.9034,
+          "y": 7.0519
+        },
+        {
+          "x": 6.6077,
+          "y": 7.3171
+        },
+        {
+          "x": 7.0147,
+          "y": 7.4122
+        },
+        {
+          "x": 7.5011,
+          "y": 7.2791
+        },
+        {
+          "x": 7.6351,
+          "y": 7.1687
+        },
+        {
+          "x": 7.7724,
+          "y": 7.1636
+        },
+        {
+          "x": 7.946,
+          "y": 7
+        },
+        {
+          "x": 11.5,
+          "y": 7
+        },
+        {
+          "x": 11.5,
+          "y": 0
+        },
+        {
+          "x": 0,
+          "y": 0
+        }
+      ]
     },
     "features": [
       {
         "id": "feature-1",
         "template": "bm-bm-terrain-11e-1-part-ef",
         "position": {
-          "x": 2.2485,
-          "y": -0.7485
+          "x": -2.227885,
+          "y": 0.691748
         },
-        "rotation_degrees": 270
+        "rotation_degrees": 90
       },
       {
         "id": "feature-2",
         "template": "bm-bm-terrain-11e-1-part-small-l",
         "position": {
-          "x": -4.0015,
-          "y": -2.2485
-        },
-        "rotation_degrees": 90
-      }
-    ],
-    "game_version": {
-      "edition": "11th",
-      "dataslate": "pre-launch-provisional"
-    }
-  },
-  {
-    "id": "bm-bm-terrain-11e-1-composite-25",
-    "name": "Battlemaster BR 25",
-    "kind": "area",
-    "source": "battlemaster-11e",
-    "footprint": {
-      "type": "rectangle",
-      "width": 11.503,
-      "height": 7.003
-    },
-    "features": [
-      {
-        "id": "feature-1",
-        "template": "bm-bm-terrain-11e-1-part-ef",
-        "position": {
-          "x": -2.2515,
-          "y": 0.7515
-        },
-        "rotation_degrees": 90
-      },
-      {
-        "id": "feature-2",
-        "template": "bm-bm-terrain-11e-1-part-corner",
-        "position": {
-          "x": 4.4985,
-          "y": 2.2515
-        }
-      },
-      {
-        "id": "feature-3",
-        "template": "bm-bm-terrain-11e-1-part-corner",
-        "position": {
-          "x": 4.4985,
-          "y": -2.2485
+          "x": 4.022115,
+          "y": 2.191748
         },
         "rotation_degrees": 270
       }
@@ -1399,22 +3098,122 @@
     }
   },
   {
-    "id": "bm-bm-terrain-11e-1-composite-26",
+    "id": "bm-bm-terrain-11e-1-composite-26-m1-p0",
     "name": "Battlemaster SR 26",
     "kind": "area",
     "source": "battlemaster-11e",
     "footprint": {
-      "type": "rectangle",
-      "width": 6.003,
-      "height": 4.003
+      "type": "polygon",
+      "points": [
+        {
+          "x": 0,
+          "y": 4
+        },
+        {
+          "x": 0.0517,
+          "y": 3.9456
+        },
+        {
+          "x": 0,
+          "y": 3.0208
+        },
+        {
+          "x": -0.2893,
+          "y": 2.8481
+        },
+        {
+          "x": -0.2943,
+          "y": 2.6726
+        },
+        {
+          "x": -0.2155,
+          "y": 2.4757
+        },
+        {
+          "x": -0.48,
+          "y": 1.875
+        },
+        {
+          "x": -0.3413,
+          "y": 1.5968
+        },
+        {
+          "x": -0.2935,
+          "y": 1.3654
+        },
+        {
+          "x": 0,
+          "y": 1.1755
+        },
+        {
+          "x": 0,
+          "y": 0.9973
+        },
+        {
+          "x": 0.0537,
+          "y": 0.9806
+        },
+        {
+          "x": 0.0537,
+          "y": 0.0834
+        },
+        {
+          "x": 0,
+          "y": 0
+        },
+        {
+          "x": 6,
+          "y": 0
+        },
+        {
+          "x": 6,
+          "y": 4
+        },
+        {
+          "x": 4.74,
+          "y": 4
+        },
+        {
+          "x": 4.708,
+          "y": 4.0903
+        },
+        {
+          "x": 4.5247,
+          "y": 4.2088
+        },
+        {
+          "x": 4,
+          "y": 4.3229
+        },
+        {
+          "x": 3.5463,
+          "y": 4.248
+        },
+        {
+          "x": 3.29,
+          "y": 4.0755
+        },
+        {
+          "x": 2.7256,
+          "y": 4.0955
+        },
+        {
+          "x": 2.668,
+          "y": 4
+        },
+        {
+          "x": 0.0542,
+          "y": 3.9457
+        }
+      ]
     },
     "features": [
       {
         "id": "feature-1",
         "template": "bm-bm-terrain-11e-1-part-small-l-flip",
         "position": {
-          "x": -1.7515,
-          "y": -0.2485
+          "x": -1.711537,
+          "y": -0.277204
         },
         "rotation_degrees": 180
       },
@@ -1422,8 +3221,8 @@
         "id": "feature-2",
         "template": "bm-bm-terrain-11e-1-part-small-l-flip",
         "position": {
-          "x": 1.7485,
-          "y": 0.2515
+          "x": 1.788463,
+          "y": 0.222796
         }
       }
     ],
@@ -1433,22 +3232,122 @@
     }
   },
   {
-    "id": "bm-bm-terrain-11e-1-composite-27",
+    "id": "bm-bm-terrain-11e-1-composite-27-m0-p0",
     "name": "Battlemaster SR 27",
     "kind": "area",
     "source": "battlemaster-11e",
     "footprint": {
-      "type": "rectangle",
-      "width": 6.003,
-      "height": 4.003
+      "type": "polygon",
+      "points": [
+        {
+          "x": 0,
+          "y": 4
+        },
+        {
+          "x": 0.0517,
+          "y": 3.9456
+        },
+        {
+          "x": 0,
+          "y": 3.0208
+        },
+        {
+          "x": -0.2893,
+          "y": 2.8481
+        },
+        {
+          "x": -0.2943,
+          "y": 2.6726
+        },
+        {
+          "x": -0.2155,
+          "y": 2.4757
+        },
+        {
+          "x": -0.48,
+          "y": 1.875
+        },
+        {
+          "x": -0.3413,
+          "y": 1.5968
+        },
+        {
+          "x": -0.2935,
+          "y": 1.3654
+        },
+        {
+          "x": 0,
+          "y": 1.1755
+        },
+        {
+          "x": 0,
+          "y": 0.9973
+        },
+        {
+          "x": 0.0537,
+          "y": 0.9806
+        },
+        {
+          "x": 0.0537,
+          "y": 0.0834
+        },
+        {
+          "x": 0,
+          "y": 0
+        },
+        {
+          "x": 6,
+          "y": 0
+        },
+        {
+          "x": 6,
+          "y": 4
+        },
+        {
+          "x": 4.74,
+          "y": 4
+        },
+        {
+          "x": 4.708,
+          "y": 4.0903
+        },
+        {
+          "x": 4.5247,
+          "y": 4.2088
+        },
+        {
+          "x": 4,
+          "y": 4.3229
+        },
+        {
+          "x": 3.5463,
+          "y": 4.248
+        },
+        {
+          "x": 3.29,
+          "y": 4.0755
+        },
+        {
+          "x": 2.7256,
+          "y": 4.0955
+        },
+        {
+          "x": 2.668,
+          "y": 4
+        },
+        {
+          "x": 0.0542,
+          "y": 3.9457
+        }
+      ]
     },
     "features": [
       {
         "id": "feature-1",
         "template": "bm-bm-terrain-11e-1-part-generator",
         "position": {
-          "x": -0.0015,
-          "y": 0.0015
+          "x": 0.038463,
+          "y": -0.027204
         },
         "rotation_degrees": 180
       }
@@ -1459,31 +3358,274 @@
     }
   },
   {
-    "id": "bm-bm-terrain-11e-1-composite-28",
+    "id": "bm-bm-terrain-11e-1-composite-28-m0-p0",
     "name": "Battlemaster BR 28",
     "kind": "area",
     "source": "battlemaster-11e",
     "footprint": {
-      "type": "rectangle",
-      "width": 11.503,
-      "height": 7.003
+      "type": "polygon",
+      "points": [
+        {
+          "x": 0,
+          "y": 7
+        },
+        {
+          "x": 1.4827,
+          "y": 7
+        },
+        {
+          "x": 1.4887,
+          "y": 7.052
+        },
+        {
+          "x": 1.6514,
+          "y": 7.185
+        },
+        {
+          "x": 1.8679,
+          "y": 7.283
+        },
+        {
+          "x": 2.2431,
+          "y": 7.2668
+        },
+        {
+          "x": 2.4017,
+          "y": 7.3677
+        },
+        {
+          "x": 2.7891,
+          "y": 7.4309
+        },
+        {
+          "x": 3.0922,
+          "y": 7.536
+        },
+        {
+          "x": 3.3307,
+          "y": 7.3869
+        },
+        {
+          "x": 3.5594,
+          "y": 7
+        },
+        {
+          "x": 4.689,
+          "y": 7
+        },
+        {
+          "x": 4.7302,
+          "y": 7.0602
+        },
+        {
+          "x": 4.98,
+          "y": 7.144
+        },
+        {
+          "x": 5.242,
+          "y": 7.1396
+        },
+        {
+          "x": 5.875,
+          "y": 7
+        },
+        {
+          "x": 5.9034,
+          "y": 7.0519
+        },
+        {
+          "x": 6.6077,
+          "y": 7.3171
+        },
+        {
+          "x": 7.0147,
+          "y": 7.4122
+        },
+        {
+          "x": 7.5011,
+          "y": 7.2791
+        },
+        {
+          "x": 7.6351,
+          "y": 7.1687
+        },
+        {
+          "x": 7.7724,
+          "y": 7.1636
+        },
+        {
+          "x": 7.946,
+          "y": 7
+        },
+        {
+          "x": 11.5,
+          "y": 7
+        },
+        {
+          "x": 11.5,
+          "y": 0
+        },
+        {
+          "x": 0,
+          "y": 0
+        }
+      ]
     },
     "features": [
       {
         "id": "feature-1",
         "template": "bm-bm-terrain-11e-1-part-small-l",
         "position": {
-          "x": -4.0015,
-          "y": -2.2485
+          "x": 4.022115,
+          "y": 2.191748
         },
-        "rotation_degrees": 90
+        "rotation_degrees": 270
       },
       {
         "id": "feature-2",
         "template": "bm-bm-terrain-11e-1-part-co",
         "position": {
-          "x": 2.2485,
-          "y": -1.7485
+          "x": -2.227885,
+          "y": 1.691748
+        },
+        "rotation_degrees": 180
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "pre-launch-provisional"
+    }
+  },
+  {
+    "id": "bm-bm-terrain-11e-1-composite-29-m0-p0",
+    "name": "Battlemaster BR 29",
+    "kind": "area",
+    "source": "battlemaster-11e",
+    "footprint": {
+      "type": "polygon",
+      "points": [
+        {
+          "x": 0,
+          "y": 7
+        },
+        {
+          "x": 1.4827,
+          "y": 7
+        },
+        {
+          "x": 1.4887,
+          "y": 7.052
+        },
+        {
+          "x": 1.6514,
+          "y": 7.185
+        },
+        {
+          "x": 1.8679,
+          "y": 7.283
+        },
+        {
+          "x": 2.2431,
+          "y": 7.2668
+        },
+        {
+          "x": 2.4017,
+          "y": 7.3677
+        },
+        {
+          "x": 2.7891,
+          "y": 7.4309
+        },
+        {
+          "x": 3.0922,
+          "y": 7.536
+        },
+        {
+          "x": 3.3307,
+          "y": 7.3869
+        },
+        {
+          "x": 3.5594,
+          "y": 7
+        },
+        {
+          "x": 4.689,
+          "y": 7
+        },
+        {
+          "x": 4.7302,
+          "y": 7.0602
+        },
+        {
+          "x": 4.98,
+          "y": 7.144
+        },
+        {
+          "x": 5.242,
+          "y": 7.1396
+        },
+        {
+          "x": 5.875,
+          "y": 7
+        },
+        {
+          "x": 5.9034,
+          "y": 7.0519
+        },
+        {
+          "x": 6.6077,
+          "y": 7.3171
+        },
+        {
+          "x": 7.0147,
+          "y": 7.4122
+        },
+        {
+          "x": 7.5011,
+          "y": 7.2791
+        },
+        {
+          "x": 7.6351,
+          "y": 7.1687
+        },
+        {
+          "x": 7.7724,
+          "y": 7.1636
+        },
+        {
+          "x": 7.946,
+          "y": 7
+        },
+        {
+          "x": 11.5,
+          "y": 7
+        },
+        {
+          "x": 11.5,
+          "y": 0
+        },
+        {
+          "x": 0,
+          "y": 0
+        }
+      ]
+    },
+    "features": [
+      {
+        "id": "feature-1",
+        "template": "bm-bm-terrain-11e-1-part-co",
+        "position": {
+          "x": -3.977885,
+          "y": -0.058252
+        },
+        "rotation_degrees": 270
+      },
+      {
+        "id": "feature-2",
+        "template": "bm-bm-terrain-11e-1-part-gh",
+        "position": {
+          "x": 3.772115,
+          "y": -0.058252
         }
       }
     ],
@@ -1493,58 +3635,104 @@
     }
   },
   {
-    "id": "bm-bm-terrain-11e-1-composite-29",
-    "name": "Battlemaster BR 29",
-    "kind": "area",
-    "source": "battlemaster-11e",
-    "footprint": {
-      "type": "rectangle",
-      "width": 11.503,
-      "height": 7.003
-    },
-    "features": [
-      {
-        "id": "feature-1",
-        "template": "bm-bm-terrain-11e-1-part-co",
-        "position": {
-          "x": 3.9985,
-          "y": 0.0015
-        },
-        "rotation_degrees": 90
-      },
-      {
-        "id": "feature-2",
-        "template": "bm-bm-terrain-11e-1-part-gh",
-        "position": {
-          "x": -3.7515,
-          "y": 0.0015
-        },
-        "rotation_degrees": 180
-      }
-    ],
-    "game_version": {
-      "edition": "11th",
-      "dataslate": "pre-launch-provisional"
-    }
-  },
-  {
-    "id": "bm-bm-terrain-11e-1-composite-30",
+    "id": "bm-bm-terrain-11e-1-composite-30-m0-p0",
     "name": "Battlemaster SL 30",
     "kind": "area",
     "source": "battlemaster-11e",
     "footprint": {
-      "type": "rectangle",
-      "width": 6.003,
-      "height": 2.003
+      "type": "polygon",
+      "points": [
+        {
+          "x": 6,
+          "y": 2
+        },
+        {
+          "x": 6,
+          "y": 0
+        },
+        {
+          "x": 2.0038,
+          "y": 0
+        },
+        {
+          "x": 1.955,
+          "y": -0.1925
+        },
+        {
+          "x": 1.8409,
+          "y": -0.26
+        },
+        {
+          "x": 1.4144,
+          "y": -0.2081
+        },
+        {
+          "x": 1.2091,
+          "y": -0.2338
+        },
+        {
+          "x": 0.9374,
+          "y": 0
+        },
+        {
+          "x": 0,
+          "y": 0
+        },
+        {
+          "x": 0,
+          "y": 2
+        },
+        {
+          "x": 3.477,
+          "y": 2
+        },
+        {
+          "x": 3.8062,
+          "y": 2.2976
+        },
+        {
+          "x": 4.3476,
+          "y": 2.4293
+        },
+        {
+          "x": 4.667,
+          "y": 2.3273
+        },
+        {
+          "x": 4.7814,
+          "y": 2.1465
+        },
+        {
+          "x": 4.9434,
+          "y": 2.0519
+        },
+        {
+          "x": 4.9507,
+          "y": 2
+        },
+        {
+          "x": 5.0984,
+          "y": 2
+        },
+        {
+          "x": 5.0992,
+          "y": 1.9472
+        },
+        {
+          "x": 5.8901,
+          "y": 1.9401
+        }
+      ]
     },
     "features": [
       {
         "id": "feature-1",
         "template": "bm-bm-terrain-11e-1-part-pipes",
         "position": {
-          "x": 0,
-          "y": 0
-        }
+          "x": -0.004857,
+          "y": -0.01461
+        },
+        "rotation_degrees": 180
       }
     ],
     "game_version": {
@@ -1553,23 +3741,104 @@
     }
   },
   {
-    "id": "bm-bm-terrain-11e-1-composite-31",
+    "id": "bm-bm-terrain-11e-1-composite-31-m0-p0",
     "name": "Battlemaster SL 31",
     "kind": "area",
     "source": "battlemaster-11e",
     "footprint": {
-      "type": "rectangle",
-      "width": 6.003,
-      "height": 2.003
+      "type": "polygon",
+      "points": [
+        {
+          "x": 6,
+          "y": 2
+        },
+        {
+          "x": 6,
+          "y": 0
+        },
+        {
+          "x": 2.0038,
+          "y": 0
+        },
+        {
+          "x": 1.955,
+          "y": -0.1925
+        },
+        {
+          "x": 1.8409,
+          "y": -0.26
+        },
+        {
+          "x": 1.4144,
+          "y": -0.2081
+        },
+        {
+          "x": 1.2091,
+          "y": -0.2338
+        },
+        {
+          "x": 0.9374,
+          "y": 0
+        },
+        {
+          "x": 0,
+          "y": 0
+        },
+        {
+          "x": 0,
+          "y": 2
+        },
+        {
+          "x": 3.477,
+          "y": 2
+        },
+        {
+          "x": 3.8062,
+          "y": 2.2976
+        },
+        {
+          "x": 4.3476,
+          "y": 2.4293
+        },
+        {
+          "x": 4.667,
+          "y": 2.3273
+        },
+        {
+          "x": 4.7814,
+          "y": 2.1465
+        },
+        {
+          "x": 4.9434,
+          "y": 2.0519
+        },
+        {
+          "x": 4.9507,
+          "y": 2
+        },
+        {
+          "x": 5.0984,
+          "y": 2
+        },
+        {
+          "x": 5.0992,
+          "y": 1.9472
+        },
+        {
+          "x": 5.8901,
+          "y": 1.9401
+        }
+      ]
     },
     "features": [
       {
         "id": "feature-1",
         "template": "bm-bm-terrain-11e-1-part-long-barrier",
         "position": {
-          "x": 0,
-          "y": 0
-        }
+          "x": -0.004857,
+          "y": -0.01461
+        },
+        "rotation_degrees": 180
       }
     ],
     "game_version": {
@@ -1578,100 +3847,134 @@
     }
   },
   {
-    "id": "bm-bm-terrain-11e-1-composite-32",
+    "id": "bm-bm-terrain-11e-1-composite-32-m1-p0",
     "name": "Battlemaster BR 32",
     "kind": "area",
     "source": "battlemaster-11e",
     "footprint": {
-      "type": "rectangle",
-      "width": 11.503,
-      "height": 7.003
+      "type": "polygon",
+      "points": [
+        {
+          "x": 0,
+          "y": 7
+        },
+        {
+          "x": 1.4827,
+          "y": 7
+        },
+        {
+          "x": 1.4887,
+          "y": 7.052
+        },
+        {
+          "x": 1.6514,
+          "y": 7.185
+        },
+        {
+          "x": 1.8679,
+          "y": 7.283
+        },
+        {
+          "x": 2.2431,
+          "y": 7.2668
+        },
+        {
+          "x": 2.4017,
+          "y": 7.3677
+        },
+        {
+          "x": 2.7891,
+          "y": 7.4309
+        },
+        {
+          "x": 3.0922,
+          "y": 7.536
+        },
+        {
+          "x": 3.3307,
+          "y": 7.3869
+        },
+        {
+          "x": 3.5594,
+          "y": 7
+        },
+        {
+          "x": 4.689,
+          "y": 7
+        },
+        {
+          "x": 4.7302,
+          "y": 7.0602
+        },
+        {
+          "x": 4.98,
+          "y": 7.144
+        },
+        {
+          "x": 5.242,
+          "y": 7.1396
+        },
+        {
+          "x": 5.875,
+          "y": 7
+        },
+        {
+          "x": 5.9034,
+          "y": 7.0519
+        },
+        {
+          "x": 6.6077,
+          "y": 7.3171
+        },
+        {
+          "x": 7.0147,
+          "y": 7.4122
+        },
+        {
+          "x": 7.5011,
+          "y": 7.2791
+        },
+        {
+          "x": 7.6351,
+          "y": 7.1687
+        },
+        {
+          "x": 7.7724,
+          "y": 7.1636
+        },
+        {
+          "x": 7.946,
+          "y": 7
+        },
+        {
+          "x": 11.5,
+          "y": 7
+        },
+        {
+          "x": 11.5,
+          "y": 0
+        },
+        {
+          "x": 0,
+          "y": 0
+        }
+      ]
     },
     "features": [
       {
         "id": "feature-1",
         "template": "bm-bm-terrain-11e-1-part-co",
         "position": {
-          "x": -2.2515,
-          "y": 1.7515
-        },
-        "rotation_degrees": 180
-      },
-      {
-        "id": "feature-2",
-        "template": "bm-bm-terrain-11e-1-part-small-l",
-        "position": {
-          "x": 3.9985,
-          "y": 2.2515
-        },
-        "rotation_degrees": 270
-      }
-    ],
-    "game_version": {
-      "edition": "11th",
-      "dataslate": "pre-launch-provisional"
-    }
-  },
-  {
-    "id": "bm-bm-terrain-11e-1-composite-33",
-    "name": "Battlemaster BR 33",
-    "kind": "area",
-    "source": "battlemaster-11e",
-    "footprint": {
-      "type": "rectangle",
-      "width": 11.503,
-      "height": 7.003
-    },
-    "features": [
-      {
-        "id": "feature-1",
-        "template": "bm-bm-terrain-11e-1-part-ef",
-        "position": {
-          "x": 2.2485,
-          "y": -0.7485
-        },
-        "rotation_degrees": 270
-      },
-      {
-        "id": "feature-2",
-        "template": "bm-bm-terrain-11e-1-part-gh",
-        "position": {
-          "x": -3.7515,
-          "y": 0.0015
-        },
-        "rotation_degrees": 180
-      }
-    ],
-    "game_version": {
-      "edition": "11th",
-      "dataslate": "pre-launch-provisional"
-    }
-  },
-  {
-    "id": "bm-bm-terrain-11e-1-composite-34",
-    "name": "Battlemaster BR 34",
-    "kind": "area",
-    "source": "battlemaster-11e",
-    "footprint": {
-      "type": "rectangle",
-      "width": 11.503,
-      "height": 7.003
-    },
-    "features": [
-      {
-        "id": "feature-1",
-        "template": "bm-bm-terrain-11e-1-part-small-l",
-        "position": {
-          "x": -4.5015,
-          "y": 1.7515
+          "x": 2.272115,
+          "y": -1.808252
         }
       },
       {
         "id": "feature-2",
-        "template": "bm-bm-terrain-11e-1-part-gh",
+        "template": "bm-bm-terrain-11e-1-part-small-l",
         "position": {
-          "x": 2.2485,
-          "y": 1.5015
+          "x": -3.977885,
+          "y": -2.308252
         },
         "rotation_degrees": 90
       }
@@ -1682,98 +3985,412 @@
     }
   },
   {
-    "id": "bm-bm-terrain-11e-1-composite-35",
-    "name": "Battlemaster BR 35",
+    "id": "bm-bm-terrain-11e-1-composite-33-m0-p0",
+    "name": "Battlemaster BR 33",
     "kind": "area",
     "source": "battlemaster-11e",
     "footprint": {
-      "type": "rectangle",
-      "width": 11.503,
-      "height": 7.003
-    },
-    "features": [
-      {
-        "id": "feature-1",
-        "template": "bm-bm-terrain-11e-1-part-small-l",
-        "position": {
-          "x": -4.5015,
-          "y": 1.7515
-        }
-      },
-      {
-        "id": "feature-2",
-        "template": "bm-bm-terrain-11e-1-part-co",
-        "position": {
-          "x": 2.2485,
-          "y": -1.7485
-        }
-      }
-    ],
-    "game_version": {
-      "edition": "11th",
-      "dataslate": "pre-launch-provisional"
-    }
-  },
-  {
-    "id": "bm-bm-terrain-11e-1-composite-36",
-    "name": "Battlemaster BR 36",
-    "kind": "area",
-    "source": "battlemaster-11e",
-    "footprint": {
-      "type": "rectangle",
-      "width": 11.503,
-      "height": 7.003
-    },
-    "features": [
-      {
-        "id": "feature-1",
-        "template": "bm-bm-terrain-11e-1-part-co",
-        "position": {
-          "x": 2.2485,
-          "y": -1.7485
-        }
-      },
-      {
-        "id": "feature-2",
-        "template": "bm-bm-terrain-11e-1-part-gh",
-        "position": {
-          "x": -3.7515,
-          "y": 0.0015
+      "type": "polygon",
+      "points": [
+        {
+          "x": 0,
+          "y": 7
         },
-        "rotation_degrees": 180
-      }
-    ],
-    "game_version": {
-      "edition": "11th",
-      "dataslate": "pre-launch-provisional"
-    }
-  },
-  {
-    "id": "bm-bm-terrain-11e-1-composite-37",
-    "name": "Battlemaster BR 37",
-    "kind": "area",
-    "source": "battlemaster-11e",
-    "footprint": {
-      "type": "rectangle",
-      "width": 11.503,
-      "height": 7.003
+        {
+          "x": 1.4827,
+          "y": 7
+        },
+        {
+          "x": 1.4887,
+          "y": 7.052
+        },
+        {
+          "x": 1.6514,
+          "y": 7.185
+        },
+        {
+          "x": 1.8679,
+          "y": 7.283
+        },
+        {
+          "x": 2.2431,
+          "y": 7.2668
+        },
+        {
+          "x": 2.4017,
+          "y": 7.3677
+        },
+        {
+          "x": 2.7891,
+          "y": 7.4309
+        },
+        {
+          "x": 3.0922,
+          "y": 7.536
+        },
+        {
+          "x": 3.3307,
+          "y": 7.3869
+        },
+        {
+          "x": 3.5594,
+          "y": 7
+        },
+        {
+          "x": 4.689,
+          "y": 7
+        },
+        {
+          "x": 4.7302,
+          "y": 7.0602
+        },
+        {
+          "x": 4.98,
+          "y": 7.144
+        },
+        {
+          "x": 5.242,
+          "y": 7.1396
+        },
+        {
+          "x": 5.875,
+          "y": 7
+        },
+        {
+          "x": 5.9034,
+          "y": 7.0519
+        },
+        {
+          "x": 6.6077,
+          "y": 7.3171
+        },
+        {
+          "x": 7.0147,
+          "y": 7.4122
+        },
+        {
+          "x": 7.5011,
+          "y": 7.2791
+        },
+        {
+          "x": 7.6351,
+          "y": 7.1687
+        },
+        {
+          "x": 7.7724,
+          "y": 7.1636
+        },
+        {
+          "x": 7.946,
+          "y": 7
+        },
+        {
+          "x": 11.5,
+          "y": 7
+        },
+        {
+          "x": 11.5,
+          "y": 0
+        },
+        {
+          "x": 0,
+          "y": 0
+        }
+      ]
     },
     "features": [
       {
         "id": "feature-1",
         "template": "bm-bm-terrain-11e-1-part-ef",
         "position": {
-          "x": 2.2485,
-          "y": -0.7485
+          "x": -2.227885,
+          "y": 0.691748
         },
-        "rotation_degrees": 270
+        "rotation_degrees": 90
       },
       {
         "id": "feature-2",
         "template": "bm-bm-terrain-11e-1-part-gh",
         "position": {
-          "x": -3.7515,
-          "y": 0.0015
+          "x": 3.772115,
+          "y": -0.058252
+        }
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "pre-launch-provisional"
+    }
+  },
+  {
+    "id": "bm-bm-terrain-11e-1-composite-34-m0-p0",
+    "name": "Battlemaster BR 34",
+    "kind": "area",
+    "source": "battlemaster-11e",
+    "footprint": {
+      "type": "polygon",
+      "points": [
+        {
+          "x": 0,
+          "y": 7
+        },
+        {
+          "x": 1.4827,
+          "y": 7
+        },
+        {
+          "x": 1.4887,
+          "y": 7.052
+        },
+        {
+          "x": 1.6514,
+          "y": 7.185
+        },
+        {
+          "x": 1.8679,
+          "y": 7.283
+        },
+        {
+          "x": 2.2431,
+          "y": 7.2668
+        },
+        {
+          "x": 2.4017,
+          "y": 7.3677
+        },
+        {
+          "x": 2.7891,
+          "y": 7.4309
+        },
+        {
+          "x": 3.0922,
+          "y": 7.536
+        },
+        {
+          "x": 3.3307,
+          "y": 7.3869
+        },
+        {
+          "x": 3.5594,
+          "y": 7
+        },
+        {
+          "x": 4.689,
+          "y": 7
+        },
+        {
+          "x": 4.7302,
+          "y": 7.0602
+        },
+        {
+          "x": 4.98,
+          "y": 7.144
+        },
+        {
+          "x": 5.242,
+          "y": 7.1396
+        },
+        {
+          "x": 5.875,
+          "y": 7
+        },
+        {
+          "x": 5.9034,
+          "y": 7.0519
+        },
+        {
+          "x": 6.6077,
+          "y": 7.3171
+        },
+        {
+          "x": 7.0147,
+          "y": 7.4122
+        },
+        {
+          "x": 7.5011,
+          "y": 7.2791
+        },
+        {
+          "x": 7.6351,
+          "y": 7.1687
+        },
+        {
+          "x": 7.7724,
+          "y": 7.1636
+        },
+        {
+          "x": 7.946,
+          "y": 7
+        },
+        {
+          "x": 11.5,
+          "y": 7
+        },
+        {
+          "x": 11.5,
+          "y": 0
+        },
+        {
+          "x": 0,
+          "y": 0
+        }
+      ]
+    },
+    "features": [
+      {
+        "id": "feature-1",
+        "template": "bm-bm-terrain-11e-1-part-small-l",
+        "position": {
+          "x": 4.522115,
+          "y": -1.808252
+        },
+        "rotation_degrees": 180
+      },
+      {
+        "id": "feature-2",
+        "template": "bm-bm-terrain-11e-1-part-gh",
+        "position": {
+          "x": -2.227885,
+          "y": -1.558252
+        },
+        "rotation_degrees": 270
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "pre-launch-provisional"
+    }
+  },
+  {
+    "id": "bm-bm-terrain-11e-1-composite-35-m0-p0",
+    "name": "Battlemaster BR 35",
+    "kind": "area",
+    "source": "battlemaster-11e",
+    "footprint": {
+      "type": "polygon",
+      "points": [
+        {
+          "x": 0,
+          "y": 7
+        },
+        {
+          "x": 1.4827,
+          "y": 7
+        },
+        {
+          "x": 1.4887,
+          "y": 7.052
+        },
+        {
+          "x": 1.6514,
+          "y": 7.185
+        },
+        {
+          "x": 1.8679,
+          "y": 7.283
+        },
+        {
+          "x": 2.2431,
+          "y": 7.2668
+        },
+        {
+          "x": 2.4017,
+          "y": 7.3677
+        },
+        {
+          "x": 2.7891,
+          "y": 7.4309
+        },
+        {
+          "x": 3.0922,
+          "y": 7.536
+        },
+        {
+          "x": 3.3307,
+          "y": 7.3869
+        },
+        {
+          "x": 3.5594,
+          "y": 7
+        },
+        {
+          "x": 4.689,
+          "y": 7
+        },
+        {
+          "x": 4.7302,
+          "y": 7.0602
+        },
+        {
+          "x": 4.98,
+          "y": 7.144
+        },
+        {
+          "x": 5.242,
+          "y": 7.1396
+        },
+        {
+          "x": 5.875,
+          "y": 7
+        },
+        {
+          "x": 5.9034,
+          "y": 7.0519
+        },
+        {
+          "x": 6.6077,
+          "y": 7.3171
+        },
+        {
+          "x": 7.0147,
+          "y": 7.4122
+        },
+        {
+          "x": 7.5011,
+          "y": 7.2791
+        },
+        {
+          "x": 7.6351,
+          "y": 7.1687
+        },
+        {
+          "x": 7.7724,
+          "y": 7.1636
+        },
+        {
+          "x": 7.946,
+          "y": 7
+        },
+        {
+          "x": 11.5,
+          "y": 7
+        },
+        {
+          "x": 11.5,
+          "y": 0
+        },
+        {
+          "x": 0,
+          "y": 0
+        }
+      ]
+    },
+    "features": [
+      {
+        "id": "feature-1",
+        "template": "bm-bm-terrain-11e-1-part-small-l",
+        "position": {
+          "x": 4.522115,
+          "y": -1.808252
+        },
+        "rotation_degrees": 180
+      },
+      {
+        "id": "feature-2",
+        "template": "bm-bm-terrain-11e-1-part-co",
+        "position": {
+          "x": -2.227885,
+          "y": 1.691748
         },
         "rotation_degrees": 180
       }
@@ -1784,38 +4401,426 @@
     }
   },
   {
-    "id": "bm-bm-terrain-11e-1-composite-38",
+    "id": "bm-bm-terrain-11e-1-composite-36-m0-p0",
+    "name": "Battlemaster BR 36",
+    "kind": "area",
+    "source": "battlemaster-11e",
+    "footprint": {
+      "type": "polygon",
+      "points": [
+        {
+          "x": 0,
+          "y": 7
+        },
+        {
+          "x": 1.4827,
+          "y": 7
+        },
+        {
+          "x": 1.4887,
+          "y": 7.052
+        },
+        {
+          "x": 1.6514,
+          "y": 7.185
+        },
+        {
+          "x": 1.8679,
+          "y": 7.283
+        },
+        {
+          "x": 2.2431,
+          "y": 7.2668
+        },
+        {
+          "x": 2.4017,
+          "y": 7.3677
+        },
+        {
+          "x": 2.7891,
+          "y": 7.4309
+        },
+        {
+          "x": 3.0922,
+          "y": 7.536
+        },
+        {
+          "x": 3.3307,
+          "y": 7.3869
+        },
+        {
+          "x": 3.5594,
+          "y": 7
+        },
+        {
+          "x": 4.689,
+          "y": 7
+        },
+        {
+          "x": 4.7302,
+          "y": 7.0602
+        },
+        {
+          "x": 4.98,
+          "y": 7.144
+        },
+        {
+          "x": 5.242,
+          "y": 7.1396
+        },
+        {
+          "x": 5.875,
+          "y": 7
+        },
+        {
+          "x": 5.9034,
+          "y": 7.0519
+        },
+        {
+          "x": 6.6077,
+          "y": 7.3171
+        },
+        {
+          "x": 7.0147,
+          "y": 7.4122
+        },
+        {
+          "x": 7.5011,
+          "y": 7.2791
+        },
+        {
+          "x": 7.6351,
+          "y": 7.1687
+        },
+        {
+          "x": 7.7724,
+          "y": 7.1636
+        },
+        {
+          "x": 7.946,
+          "y": 7
+        },
+        {
+          "x": 11.5,
+          "y": 7
+        },
+        {
+          "x": 11.5,
+          "y": 0
+        },
+        {
+          "x": 0,
+          "y": 0
+        }
+      ]
+    },
+    "features": [
+      {
+        "id": "feature-1",
+        "template": "bm-bm-terrain-11e-1-part-co",
+        "position": {
+          "x": -2.227885,
+          "y": 1.691748
+        },
+        "rotation_degrees": 180
+      },
+      {
+        "id": "feature-2",
+        "template": "bm-bm-terrain-11e-1-part-gh",
+        "position": {
+          "x": 3.772115,
+          "y": -0.058252
+        }
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "pre-launch-provisional"
+    }
+  },
+  {
+    "id": "bm-bm-terrain-11e-1-composite-37-m1-p0",
+    "name": "Battlemaster BR 37",
+    "kind": "area",
+    "source": "battlemaster-11e",
+    "footprint": {
+      "type": "polygon",
+      "points": [
+        {
+          "x": 0,
+          "y": 7
+        },
+        {
+          "x": 1.4827,
+          "y": 7
+        },
+        {
+          "x": 1.4887,
+          "y": 7.052
+        },
+        {
+          "x": 1.6514,
+          "y": 7.185
+        },
+        {
+          "x": 1.8679,
+          "y": 7.283
+        },
+        {
+          "x": 2.2431,
+          "y": 7.2668
+        },
+        {
+          "x": 2.4017,
+          "y": 7.3677
+        },
+        {
+          "x": 2.7891,
+          "y": 7.4309
+        },
+        {
+          "x": 3.0922,
+          "y": 7.536
+        },
+        {
+          "x": 3.3307,
+          "y": 7.3869
+        },
+        {
+          "x": 3.5594,
+          "y": 7
+        },
+        {
+          "x": 4.689,
+          "y": 7
+        },
+        {
+          "x": 4.7302,
+          "y": 7.0602
+        },
+        {
+          "x": 4.98,
+          "y": 7.144
+        },
+        {
+          "x": 5.242,
+          "y": 7.1396
+        },
+        {
+          "x": 5.875,
+          "y": 7
+        },
+        {
+          "x": 5.9034,
+          "y": 7.0519
+        },
+        {
+          "x": 6.6077,
+          "y": 7.3171
+        },
+        {
+          "x": 7.0147,
+          "y": 7.4122
+        },
+        {
+          "x": 7.5011,
+          "y": 7.2791
+        },
+        {
+          "x": 7.6351,
+          "y": 7.1687
+        },
+        {
+          "x": 7.7724,
+          "y": 7.1636
+        },
+        {
+          "x": 7.946,
+          "y": 7
+        },
+        {
+          "x": 11.5,
+          "y": 7
+        },
+        {
+          "x": 11.5,
+          "y": 0
+        },
+        {
+          "x": 0,
+          "y": 0
+        }
+      ]
+    },
+    "features": [
+      {
+        "id": "feature-1",
+        "template": "bm-bm-terrain-11e-1-part-ef",
+        "position": {
+          "x": -2.227885,
+          "y": 0.691748
+        },
+        "rotation_degrees": 90
+      },
+      {
+        "id": "feature-2",
+        "template": "bm-bm-terrain-11e-1-part-gh",
+        "position": {
+          "x": 3.772115,
+          "y": -0.058252
+        }
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "pre-launch-provisional"
+    }
+  },
+  {
+    "id": "bm-bm-terrain-11e-1-composite-38-m1-p0",
     "name": "Battlemaster LL 38",
     "kind": "area",
     "source": "battlemaster-11e",
     "footprint": {
-      "type": "rectangle",
-      "width": 10.003,
-      "height": 2.503
+      "type": "polygon",
+      "points": [
+        {
+          "x": 10,
+          "y": 2.5
+        },
+        {
+          "x": 10,
+          "y": 0
+        },
+        {
+          "x": 9.4616,
+          "y": 0
+        },
+        {
+          "x": 9.3842,
+          "y": -0.1625
+        },
+        {
+          "x": 9.0518,
+          "y": -0.2517
+        },
+        {
+          "x": 8.6688,
+          "y": -0.4939
+        },
+        {
+          "x": 8.1482,
+          "y": -0.6
+        },
+        {
+          "x": 7.8933,
+          "y": -0.5644
+        },
+        {
+          "x": 7.7668,
+          "y": -0.4805
+        },
+        {
+          "x": 7.4037,
+          "y": 0
+        },
+        {
+          "x": 2.5979,
+          "y": 0
+        },
+        {
+          "x": 2.5119,
+          "y": -0.1621
+        },
+        {
+          "x": 2.3849,
+          "y": -0.1913
+        },
+        {
+          "x": 1.7819,
+          "y": -0.1013
+        },
+        {
+          "x": 1.6753,
+          "y": -0.0553
+        },
+        {
+          "x": 1.6544,
+          "y": 0
+        },
+        {
+          "x": 0,
+          "y": 0
+        },
+        {
+          "x": 0,
+          "y": 2.5
+        },
+        {
+          "x": 2.8502,
+          "y": 2.5
+        },
+        {
+          "x": 2.8492,
+          "y": 2.6077
+        },
+        {
+          "x": 3.0845,
+          "y": 2.8689
+        },
+        {
+          "x": 3.4159,
+          "y": 3
+        },
+        {
+          "x": 3.7635,
+          "y": 3.0128
+        },
+        {
+          "x": 4.0544,
+          "y": 3.0851
+        },
+        {
+          "x": 4.155,
+          "y": 3.0725
+        },
+        {
+          "x": 4.2334,
+          "y": 3.0029
+        },
+        {
+          "x": 4.4469,
+          "y": 2.6698
+        },
+        {
+          "x": 4.502,
+          "y": 2.5
+        }
+      ]
     },
     "features": [
       {
         "id": "feature-1",
         "template": "bm-bm-terrain-11e-1-part-short-barrier",
         "position": {
-          "x": -3.1235,
-          "y": -0.4985
+          "x": -3.175271,
+          "y": -0.488735
         }
       },
       {
         "id": "feature-2",
         "template": "bm-bm-terrain-11e-1-part-short-barrier",
         "position": {
-          "x": 3.1265,
-          "y": -0.4985
+          "x": 3.074729,
+          "y": -0.488735
         }
       },
       {
         "id": "feature-3",
         "template": "bm-bm-terrain-11e-1-part-tower",
         "position": {
-          "x": 0,
-          "y": 0
+          "x": -0.051771,
+          "y": 0.009765
         }
       }
     ],
@@ -1825,22 +4830,122 @@
     }
   },
   {
-    "id": "bm-bm-terrain-11e-1-composite-39",
+    "id": "bm-bm-terrain-11e-1-composite-39-m0-p0",
     "name": "Battlemaster SR 39",
     "kind": "area",
     "source": "battlemaster-11e",
     "footprint": {
-      "type": "rectangle",
-      "width": 6.003,
-      "height": 4.003
+      "type": "polygon",
+      "points": [
+        {
+          "x": 0,
+          "y": 4
+        },
+        {
+          "x": 0.0517,
+          "y": 3.9456
+        },
+        {
+          "x": 0,
+          "y": 3.0208
+        },
+        {
+          "x": -0.2893,
+          "y": 2.8481
+        },
+        {
+          "x": -0.2943,
+          "y": 2.6726
+        },
+        {
+          "x": -0.2155,
+          "y": 2.4757
+        },
+        {
+          "x": -0.48,
+          "y": 1.875
+        },
+        {
+          "x": -0.3413,
+          "y": 1.5968
+        },
+        {
+          "x": -0.2935,
+          "y": 1.3654
+        },
+        {
+          "x": 0,
+          "y": 1.1755
+        },
+        {
+          "x": 0,
+          "y": 0.9973
+        },
+        {
+          "x": 0.0537,
+          "y": 0.9806
+        },
+        {
+          "x": 0.0537,
+          "y": 0.0834
+        },
+        {
+          "x": 0,
+          "y": 0
+        },
+        {
+          "x": 6,
+          "y": 0
+        },
+        {
+          "x": 6,
+          "y": 4
+        },
+        {
+          "x": 4.74,
+          "y": 4
+        },
+        {
+          "x": 4.708,
+          "y": 4.0903
+        },
+        {
+          "x": 4.5247,
+          "y": 4.2088
+        },
+        {
+          "x": 4,
+          "y": 4.3229
+        },
+        {
+          "x": 3.5463,
+          "y": 4.248
+        },
+        {
+          "x": 3.29,
+          "y": 4.0755
+        },
+        {
+          "x": 2.7256,
+          "y": 4.0955
+        },
+        {
+          "x": 2.668,
+          "y": 4
+        },
+        {
+          "x": 0.0542,
+          "y": 3.9457
+        }
+      ]
     },
     "features": [
       {
         "id": "feature-1",
         "template": "bm-bm-terrain-11e-1-part-small-l-flip",
         "position": {
-          "x": -1.7515,
-          "y": -0.2485
+          "x": -1.711537,
+          "y": -0.277204
         },
         "rotation_degrees": 180
       },
@@ -1848,8 +4953,8 @@
         "id": "feature-2",
         "template": "bm-bm-terrain-11e-1-part-small-l-flip",
         "position": {
-          "x": 1.7485,
-          "y": 0.2515
+          "x": 1.788463,
+          "y": 0.222796
         }
       }
     ],
@@ -1859,31 +4964,240 @@
     }
   },
   {
-    "id": "bm-bm-terrain-11e-1-composite-40",
+    "id": "bm-bm-terrain-11e-1-composite-40-m0-p0",
     "name": "Battlemaster BR 40",
     "kind": "area",
     "source": "battlemaster-11e",
     "footprint": {
-      "type": "rectangle",
-      "width": 11.503,
-      "height": 7.003
+      "type": "polygon",
+      "points": [
+        {
+          "x": 0,
+          "y": 7
+        },
+        {
+          "x": 1.4827,
+          "y": 7
+        },
+        {
+          "x": 1.4887,
+          "y": 7.052
+        },
+        {
+          "x": 1.6514,
+          "y": 7.185
+        },
+        {
+          "x": 1.8679,
+          "y": 7.283
+        },
+        {
+          "x": 2.2431,
+          "y": 7.2668
+        },
+        {
+          "x": 2.4017,
+          "y": 7.3677
+        },
+        {
+          "x": 2.7891,
+          "y": 7.4309
+        },
+        {
+          "x": 3.0922,
+          "y": 7.536
+        },
+        {
+          "x": 3.3307,
+          "y": 7.3869
+        },
+        {
+          "x": 3.5594,
+          "y": 7
+        },
+        {
+          "x": 4.689,
+          "y": 7
+        },
+        {
+          "x": 4.7302,
+          "y": 7.0602
+        },
+        {
+          "x": 4.98,
+          "y": 7.144
+        },
+        {
+          "x": 5.242,
+          "y": 7.1396
+        },
+        {
+          "x": 5.875,
+          "y": 7
+        },
+        {
+          "x": 5.9034,
+          "y": 7.0519
+        },
+        {
+          "x": 6.6077,
+          "y": 7.3171
+        },
+        {
+          "x": 7.0147,
+          "y": 7.4122
+        },
+        {
+          "x": 7.5011,
+          "y": 7.2791
+        },
+        {
+          "x": 7.6351,
+          "y": 7.1687
+        },
+        {
+          "x": 7.7724,
+          "y": 7.1636
+        },
+        {
+          "x": 7.946,
+          "y": 7
+        },
+        {
+          "x": 11.5,
+          "y": 7
+        },
+        {
+          "x": 11.5,
+          "y": 0
+        },
+        {
+          "x": 0,
+          "y": 0
+        }
+      ]
     },
     "features": [
       {
         "id": "feature-1",
         "template": "bm-bm-terrain-11e-1-part-ef",
         "position": {
-          "x": -2.2515,
-          "y": 0.7515
+          "x": 2.272115,
+          "y": -0.808252
         },
-        "rotation_degrees": 90
+        "rotation_degrees": 270
       },
       {
         "id": "feature-2",
         "template": "bm-bm-terrain-11e-1-part-small-l",
         "position": {
-          "x": 4.4985,
-          "y": -1.7485
+          "x": -4.477885,
+          "y": 1.691748
+        }
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "pre-launch-provisional"
+    }
+  },
+  {
+    "id": "bm-bm-terrain-11e-1-composite-41-m1-p0",
+    "name": "Battlemaster SL 41",
+    "kind": "area",
+    "source": "battlemaster-11e",
+    "footprint": {
+      "type": "polygon",
+      "points": [
+        {
+          "x": 6,
+          "y": 2
+        },
+        {
+          "x": 6,
+          "y": 0
+        },
+        {
+          "x": 2.0038,
+          "y": 0
+        },
+        {
+          "x": 1.955,
+          "y": -0.1925
+        },
+        {
+          "x": 1.8409,
+          "y": -0.26
+        },
+        {
+          "x": 1.4144,
+          "y": -0.2081
+        },
+        {
+          "x": 1.2091,
+          "y": -0.2338
+        },
+        {
+          "x": 0.9374,
+          "y": 0
+        },
+        {
+          "x": 0,
+          "y": 0
+        },
+        {
+          "x": 0,
+          "y": 2
+        },
+        {
+          "x": 3.477,
+          "y": 2
+        },
+        {
+          "x": 3.8062,
+          "y": 2.2976
+        },
+        {
+          "x": 4.3476,
+          "y": 2.4293
+        },
+        {
+          "x": 4.667,
+          "y": 2.3273
+        },
+        {
+          "x": 4.7814,
+          "y": 2.1465
+        },
+        {
+          "x": 4.9434,
+          "y": 2.0519
+        },
+        {
+          "x": 4.9507,
+          "y": 2
+        },
+        {
+          "x": 5.0984,
+          "y": 2
+        },
+        {
+          "x": 5.0992,
+          "y": 1.9472
+        },
+        {
+          "x": 5.8901,
+          "y": 1.9401
+        }
+      ]
+    },
+    "features": [
+      {
+        "id": "feature-1",
+        "template": "bm-bm-terrain-11e-1-part-long-barrier",
+        "position": {
+          "x": -0.004857,
+          "y": -0.01461
         },
         "rotation_degrees": 180
       }
@@ -1894,80 +5208,47 @@
     }
   },
   {
-    "id": "bm-bm-terrain-11e-1-composite-41",
-    "name": "Battlemaster SL 41",
-    "kind": "area",
-    "source": "battlemaster-11e",
-    "footprint": {
-      "type": "rectangle",
-      "width": 6.003,
-      "height": 2.003
-    },
-    "features": [
-      {
-        "id": "feature-1",
-        "template": "bm-bm-terrain-11e-1-part-long-barrier",
-        "position": {
-          "x": 0,
-          "y": 0
-        }
-      }
-    ],
-    "game_version": {
-      "edition": "11th",
-      "dataslate": "pre-launch-provisional"
-    }
-  },
-  {
-    "id": "bm-bm-terrain-11e-1-composite-42",
+    "id": "bm-bm-terrain-11e-1-composite-42-m0-p0",
     "name": "Battlemaster TR 42",
     "kind": "area",
     "source": "battlemaster-11e",
     "footprint": {
-      "type": "rectangle",
-      "width": 11.503,
-      "height": 8.003
+      "type": "polygon",
+      "points": [
+        {
+          "x": 0,
+          "y": 0
+        },
+        {
+          "x": 8,
+          "y": 0
+        },
+        {
+          "x": 2,
+          "y": 11.5
+        },
+        {
+          "x": 0,
+          "y": 11.5
+        }
+      ]
     },
     "features": [
       {
         "id": "feature-1",
         "template": "bm-bm-terrain-11e-1-part-ab",
         "position": {
-          "x": -3.3765,
-          "y": 1.2515
-        }
+          "x": -0.05,
+          "y": -2.225
+        },
+        "rotation_degrees": 90
       },
       {
         "id": "feature-2",
         "template": "bm-bm-terrain-11e-1-part-corner",
         "position": {
-          "x": 4.4985,
-          "y": 2.7515
-        }
-      }
-    ],
-    "game_version": {
-      "edition": "11th",
-      "dataslate": "pre-launch-provisional"
-    }
-  },
-  {
-    "id": "bm-bm-terrain-11e-1-composite-43",
-    "name": "Battlemaster SR 43",
-    "kind": "area",
-    "source": "battlemaster-11e",
-    "footprint": {
-      "type": "rectangle",
-      "width": 6.003,
-      "height": 4.003
-    },
-    "features": [
-      {
-        "id": "feature-1",
-        "template": "bm-bm-terrain-11e-1-part-ab",
-        "position": {
-          "x": -0.2515,
-          "y": 0.3765
+          "x": -1.55,
+          "y": 5.65
         },
         "rotation_degrees": 90
       }
@@ -1978,32 +5259,137 @@
     }
   },
   {
-    "id": "bm-bm-terrain-11e-1-composite-44",
+    "id": "bm-bm-terrain-11e-1-composite-44-m1-p0",
     "name": "Battlemaster BR 44",
     "kind": "area",
     "source": "battlemaster-11e",
     "footprint": {
-      "type": "rectangle",
-      "width": 11.503,
-      "height": 7.003
+      "type": "polygon",
+      "points": [
+        {
+          "x": 0,
+          "y": 7
+        },
+        {
+          "x": 1.4827,
+          "y": 7
+        },
+        {
+          "x": 1.4887,
+          "y": 7.052
+        },
+        {
+          "x": 1.6514,
+          "y": 7.185
+        },
+        {
+          "x": 1.8679,
+          "y": 7.283
+        },
+        {
+          "x": 2.2431,
+          "y": 7.2668
+        },
+        {
+          "x": 2.4017,
+          "y": 7.3677
+        },
+        {
+          "x": 2.7891,
+          "y": 7.4309
+        },
+        {
+          "x": 3.0922,
+          "y": 7.536
+        },
+        {
+          "x": 3.3307,
+          "y": 7.3869
+        },
+        {
+          "x": 3.5594,
+          "y": 7
+        },
+        {
+          "x": 4.689,
+          "y": 7
+        },
+        {
+          "x": 4.7302,
+          "y": 7.0602
+        },
+        {
+          "x": 4.98,
+          "y": 7.144
+        },
+        {
+          "x": 5.242,
+          "y": 7.1396
+        },
+        {
+          "x": 5.875,
+          "y": 7
+        },
+        {
+          "x": 5.9034,
+          "y": 7.0519
+        },
+        {
+          "x": 6.6077,
+          "y": 7.3171
+        },
+        {
+          "x": 7.0147,
+          "y": 7.4122
+        },
+        {
+          "x": 7.5011,
+          "y": 7.2791
+        },
+        {
+          "x": 7.6351,
+          "y": 7.1687
+        },
+        {
+          "x": 7.7724,
+          "y": 7.1636
+        },
+        {
+          "x": 7.946,
+          "y": 7
+        },
+        {
+          "x": 11.5,
+          "y": 7
+        },
+        {
+          "x": 11.5,
+          "y": 0
+        },
+        {
+          "x": 0,
+          "y": 0
+        }
+      ]
     },
     "features": [
       {
         "id": "feature-1",
         "template": "bm-bm-terrain-11e-1-part-co",
         "position": {
-          "x": 3.9985,
-          "y": 0.0015
+          "x": -3.977885,
+          "y": -0.058252
         },
-        "rotation_degrees": 90
+        "rotation_degrees": 270
       },
       {
         "id": "feature-2",
         "template": "bm-bm-terrain-11e-1-part-small-l",
         "position": {
-          "x": -4.5015,
-          "y": 1.7515
-        }
+          "x": 4.522115,
+          "y": -1.808252
+        },
+        "rotation_degrees": 180
       }
     ],
     "game_version": {

@@ -20,7 +20,9 @@ function syntheticCache(): Record<string, unknown> {
       u: "in",
       a: "c",
       q: [["Wall", 2, 1]],
-      t: [["tpl-test", 4, 3, [[0, -1, -0.5, 90, 0]], "sr", "d", "wall"]],
+      t: [
+        ["tpl-test", 6.003, 4.003, [[0, -1, -0.5, 90, 0]], "sr", "d", "wall"],
+      ],
     },
     layoutCatalog: {
       layoutCount: 1,
@@ -51,6 +53,27 @@ function syntheticCache(): Record<string, unknown> {
       },
     },
   };
+}
+
+function canonicalTemplates(): TerrainTemplate[] {
+  return [
+    {
+      id: "area-medium",
+      kind: "area",
+      footprint: {
+        type: "polygon",
+        points: [
+          { x: 0, y: 0 },
+          { x: 6, y: 0 },
+          { x: 6, y: 4 },
+          { x: 3.5, y: 4 },
+          { x: 3, y: 4.2 },
+          { x: 2.5, y: 4 },
+          { x: 0, y: 4 },
+        ],
+      },
+    },
+  ];
 }
 
 function bakedLua(): string {
@@ -97,7 +120,11 @@ describe("Battlemaster read-only projector", () => {
   });
 
   it("projects source composites without flattening their features into layout pieces", () => {
-    const projection = projectBattlemasterCache(syntheticCache(), "synthetic.tts");
+    const projection = projectBattlemasterCache(
+      syntheticCache(),
+      "synthetic.tts",
+      canonicalTemplates(),
+    );
 
     expect(projection.readonly).toBe(true);
     expect(projection.summary).toMatchObject({
@@ -112,6 +139,12 @@ describe("Battlemaster read-only projector", () => {
     });
     expect(projection.terrain_templates).toHaveLength(2);
     expect(projection.terrain_templates[1].features).toHaveLength(1);
+    const footprint = projection.terrain_templates[1]!.footprint;
+    expect(footprint.type).toBe("polygon");
+    if (footprint.type !== "polygon") {
+      throw new Error("projected area footprint must be a polygon");
+    }
+    expect(footprint.points.length).toBeGreaterThan(4);
 
     const layout = projection.terrain_layouts[0]!;
     expect(layout).toMatchObject({
@@ -122,17 +155,22 @@ describe("Battlemaster read-only projector", () => {
     });
     expect(layout.pieces).toHaveLength(1);
     expect(layout.pieces[0]).toMatchObject({
-      position: { x: 35, y: 26 },
       rotation_degrees: 270,
       mirror: "horizontal",
       link_group: "center",
       objective_role: "center",
       is_objective: true,
     });
+    expect(layout.pieces[0]!.position.x).not.toBe(35);
+    expect(layout.pieces[0]!.position.y).toBeCloseTo(25.9985);
   });
 
   it("replaces all projected layouts while preserving unrelated terrain", () => {
-    const projection = projectBattlemasterCache(syntheticCache(), "synthetic.tts");
+    const projection = projectBattlemasterCache(
+      syntheticCache(),
+      "synthetic.tts",
+      canonicalTemplates(),
+    );
     const existingLayouts: TerrainLayout[] = [
       {
         ...projection.terrain_layouts[0]!,
@@ -158,6 +196,10 @@ describe("Battlemaster read-only projector", () => {
         game_version: { edition: "11th", dataslate: "pre-launch-provisional" },
       },
       {
+        ...projection.terrain_templates[0]!,
+        source: "custom",
+      },
+      {
         id: "kotc-template",
         name: "KOTC template",
         kind: "area",
@@ -167,7 +209,11 @@ describe("Battlemaster read-only projector", () => {
       },
     ];
 
-    const merged = mergeBattlemasterProjection(existingLayouts, existingTemplates, projection);
+    const merged = mergeBattlemasterProjection(
+      existingLayouts,
+      existingTemplates,
+      projection,
+    );
 
     expect(merged.terrainLayouts.map((layout) => layout.id)).toEqual([
       "kotc-layout",
@@ -175,7 +221,7 @@ describe("Battlemaster read-only projector", () => {
     ]);
     expect(merged.terrainLayouts[1]!.name).toBe("Take vs Take 01");
     expect(merged.terrainTemplates.map((template) => template.id)).toEqual([
-      "bm-bm-test-1-composite-01",
+      "bm-bm-test-1-composite-01-m1-p0",
       "bm-bm-test-1-part-wall",
       "kotc-template",
     ]);
@@ -185,8 +231,124 @@ describe("Battlemaster read-only projector", () => {
     const cache = syntheticCache();
     (cache.templateCatalog as Record<string, unknown>).a = "corner";
 
-    expect(() => projectBattlemasterCache(cache, "synthetic.tts")).toThrow(
-      'templateCatalog.a: expected centre anchor "c"',
-    );
+    expect(() =>
+      projectBattlemasterCache(cache, "synthetic.tts", canonicalTemplates()),
+    ).toThrow('templateCatalog.a: expected centre anchor "c"');
+  });
+
+  it("fails closed when source version or kind discriminators drift", () => {
+    for (const [mutate, expected] of [
+      [
+        (cache: Record<string, unknown>) => {
+          cache.version = 3;
+        },
+        "version: expected 2",
+      ],
+      [
+        (cache: Record<string, unknown>) => {
+          (cache.templateCatalog as Record<string, unknown>).v = 2;
+        },
+        "templateCatalog.v: expected 1",
+      ],
+      [
+        (cache: Record<string, unknown>) => {
+          (cache.templateCatalog as Record<string, unknown>).k = "next";
+        },
+        'templateCatalog.k: expected "bmtc"',
+      ],
+      [
+        (cache: Record<string, unknown>) => {
+          const payload = (
+            cache.layoutPayloadCache as Record<
+              string,
+              { payload: Record<string, unknown> }
+            >
+          ).test!.payload;
+          payload.v = 2;
+        },
+        "layoutPayloadCache[].payload.v: expected 1",
+      ],
+      [
+        (cache: Record<string, unknown>) => {
+          const payload = (
+            cache.layoutPayloadCache as Record<
+              string,
+              { payload: Record<string, unknown> }
+            >
+          ).test!.payload;
+          payload.k = "next";
+        },
+        'layoutPayloadCache[].payload.k: expected "bml"',
+      ],
+    ] as const) {
+      const cache = syntheticCache();
+      mutate(cache);
+      expect(() =>
+        projectBattlemasterCache(cache, "synthetic.tts", canonicalTemplates()),
+      ).toThrow(expected);
+    }
+  });
+
+  it("fails closed when source dimensions or mirror encodings drift", () => {
+    const dimensions = syntheticCache();
+    (
+      (dimensions.templateCatalog as Record<string, unknown>).t as unknown[][]
+    )[0]![1] = 7;
+    expect(() =>
+      projectBattlemasterCache(
+        dimensions,
+        "synthetic.tts",
+        canonicalTemplates(),
+      ),
+    ).toThrow("sr dimensions changed");
+
+    const partMirror = syntheticCache();
+    (
+      (
+        (partMirror.templateCatalog as Record<string, unknown>).t as unknown[][]
+      )[0]![3] as unknown[][]
+    )[0]![4] = 2;
+    expect(() =>
+      projectBattlemasterCache(
+        partMirror,
+        "synthetic.tts",
+        canonicalTemplates(),
+      ),
+    ).toThrow("expected binary 0 or 1");
+
+    const instanceMirror = syntheticCache();
+    const payload = (
+      instanceMirror.layoutPayloadCache as Record<
+        string,
+        { payload: { i: unknown[][] } }
+      >
+    ).test!.payload;
+    payload.i[0]![4] = -1;
+    expect(() =>
+      projectBattlemasterCache(
+        instanceMirror,
+        "synthetic.tts",
+        canonicalTemplates(),
+      ),
+    ).toThrow("expected binary 0 or 1");
+  });
+
+  it("fails closed when the canonical nub shape or every candidate pose is invalid", () => {
+    const flattened = canonicalTemplates();
+    flattened[0]!.footprint = { type: "rectangle", width: 6, height: 4 };
+    expect(() =>
+      projectBattlemasterCache(syntheticCache(), "synthetic.tts", flattened),
+    ).toThrow("expected the canonical nubbed polygon footprint");
+
+    const escaped = syntheticCache();
+    const part = (
+      (
+        (escaped.templateCatalog as Record<string, unknown>).t as unknown[][]
+      )[0]![3] as unknown[][]
+    )[0]!;
+    part[1] = 100;
+    expect(() =>
+      projectBattlemasterCache(escaped, "synthetic.tts", canonicalTemplates()),
+    ).toThrow("no canonical area pose contains its source features");
   });
 });

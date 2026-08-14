@@ -876,7 +876,13 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "conditional_keywords": [
+      {
+        "keyword": "Battleline",
+        "required_detachment_id": "spearhead-at-arms"
+      }
+    ]
   },
   {
     "id": "knight-gallant",
@@ -1008,7 +1014,13 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "conditional_keywords": [
+      {
+        "keyword": "Battleline",
+        "required_detachment_id": "spearhead-at-arms"
+      }
+    ]
   },
   {
     "id": "knight-valiant",
@@ -1328,7 +1340,13 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "conditional_keywords": [
+      {
+        "keyword": "Battleline",
+        "required_detachment_id": "spearhead-at-arms"
+      }
+    ]
   },
   {
     "id": "questoris-knight-magaera",
@@ -1601,7 +1619,9 @@
       "chastiser-gatling-cannon",
       "frag-bombard",
       "questoris-heavy-stubber",
-      "titanic-feet-knight-destrier"
+      "titanic-feet-knight-destrier",
+      "bellatus-reaper-chainsword",
+      "thundershock-spear"
     ],
     "ability_ids": [
       "ram-jets",

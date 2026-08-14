@@ -2936,5 +2936,27 @@
       "edition": "11th",
       "dataslate": "launch"
     }
+  },
+  {
+    "id": "stocks-and-fists",
+    "name": "Stocks and Fists",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Stocks and Fists",
+        "range": "Melee",
+        "stats": {
+          "A": 2,
+          "S": 4,
+          "AP": 0,
+          "D": 1,
+          "WS": 3
+        }
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
   }
 ]

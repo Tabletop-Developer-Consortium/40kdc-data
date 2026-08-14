@@ -357,13 +357,8 @@
     "replaces": [
       "boltgun"
     ],
-    "replacement_choice": [
-      [
-        "plague-spewer"
-      ],
-      [
-        "blight-launcher"
-      ]
+    "replacement": [
+      "plague-spewer"
     ],
     "model_constraint": {
       "model_name": "Plague Marine",
@@ -405,6 +400,43 @@
     }
   },
   {
+    "id": "plague-marines-wgo-mfm-5",
+    "unit_id": "plague-marines",
+    "faction_id": "death-guard",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_free": true,
+    "replaces": [
+      "boltgun"
+    ],
+    "replacement": [
+      "blight-launcher"
+    ],
+    "model_constraint": {
+      "model_name": "Plague Marine",
+      "per_n_models": 5
+    }
+  },
+  {
+    "id": "plague-marines-wgo-mfm-6",
+    "unit_id": "plague-marines",
+    "faction_id": "death-guard",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_free": true,
+    "replacement": [
+      "icon-of-despair-aura"
+    ],
+    "model_constraint": {
+      "model_name": "Plague Marine",
+      "any_number": true
+    }
+  },
+  {
     "id": "deathshroud-terminators-wgo-mfm-1",
     "unit_id": "deathshroud-terminators",
     "faction_id": "death-guard",
@@ -415,6 +447,23 @@
     "is_free": true,
     "replacement": [
       "plaguespurt-gauntlet"
+    ],
+    "model_constraint": {
+      "model_name": "Deathshroud Champion",
+      "any_number": true
+    }
+  },
+  {
+    "id": "deathshroud-terminators-wgo-mfm-2",
+    "unit_id": "deathshroud-terminators",
+    "faction_id": "death-guard",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_free": true,
+    "replacement": [
+      "icon-of-despair-aura"
     ],
     "model_constraint": {
       "model_name": "Deathshroud Champion",
@@ -812,14 +861,9 @@
       "combi-bolter",
       "bubotic-blade"
     ],
-    "replacement_choice": [
-      [
-        "plague-spewer",
-        "close-combat-weapon-blightlord-terminators"
-      ],
-      [
-        "flail-of-corruption"
-      ]
+    "replacement": [
+      "plague-spewer",
+      "close-combat-weapon-blightlord-terminators"
     ],
     "model_constraint": {
       "model_name": "Blightlord Terminator",
@@ -836,18 +880,11 @@
     },
     "is_free": true,
     "replaces": [
-      "combi-bolter"
+      "combi-bolter",
+      "bubotic-blade"
     ],
-    "replacement_choice": [
-      [
-        "blight-launcher"
-      ],
-      [
-        "plague-spewer"
-      ],
-      [
-        "reaper-autocannon"
-      ]
+    "replacement": [
+      "flail-of-corruption"
     ],
     "model_constraint": {
       "model_name": "Blightlord Terminator",
@@ -856,6 +893,66 @@
   },
   {
     "id": "blightlord-terminators-wgo-mfm-4",
+    "unit_id": "blightlord-terminators",
+    "faction_id": "death-guard",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_free": true,
+    "replaces": [
+      "combi-bolter"
+    ],
+    "replacement": [
+      "blight-launcher"
+    ],
+    "model_constraint": {
+      "model_name": "Blightlord Terminator",
+      "per_n_models": 5
+    }
+  },
+  {
+    "id": "blightlord-terminators-wgo-mfm-5",
+    "unit_id": "blightlord-terminators",
+    "faction_id": "death-guard",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_free": true,
+    "replaces": [
+      "combi-bolter"
+    ],
+    "replacement": [
+      "plague-spewer"
+    ],
+    "model_constraint": {
+      "model_name": "Blightlord Terminator",
+      "per_n_models": 5
+    }
+  },
+  {
+    "id": "blightlord-terminators-wgo-mfm-6",
+    "unit_id": "blightlord-terminators",
+    "faction_id": "death-guard",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_free": true,
+    "replaces": [
+      "combi-bolter"
+    ],
+    "replacement": [
+      "reaper-autocannon"
+    ],
+    "model_constraint": {
+      "model_name": "Blightlord Terminator",
+      "per_n_models": 5
+    }
+  },
+  {
+    "id": "blightlord-terminators-wgo-mfm-7",
     "unit_id": "blightlord-terminators",
     "faction_id": "death-guard",
     "game_version": {

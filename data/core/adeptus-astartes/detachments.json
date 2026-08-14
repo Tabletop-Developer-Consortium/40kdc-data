@@ -354,7 +354,8 @@
     "enhancement_ids": [
       "honour-indefatigable-ceramite-sentinels",
       "castellum-omnivox-ceramite-sentinels",
-      "defensive-mastery-ceramite-sentinels"
+      "defensive-mastery-ceramite-sentinels",
+      "spy-skull-data-link-ceramite-sentinels"
     ],
     "stratagem_ids": [
       "unyielding-might-ceramite-sentinels",
@@ -416,6 +417,23 @@
     "game_modes": [
       "combat-patrol"
     ],
+    "detachment_points": 1,
+    "force_dispositions": [
+      "take-and-hold"
+    ]
+  },
+  {
+    "id": "vengeful-hosts",
+    "name": "Vengeful Hosts",
+    "faction_id": "adeptus-astartes",
+    "enhancement_ids": [
+      "avenging-angel-vengeful-hosts",
+      "orksbane-vengeful-hosts"
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
     "detachment_points": 1,
     "force_dispositions": [
       "take-and-hold"

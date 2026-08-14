@@ -25,7 +25,12 @@
  * @packageDocumentation
  */
 import type { FormatAdapter } from "./adapter.js";
-import type { ParsedRoster, ParsedUnit, ParsedWargear } from "./types.js";
+import type {
+  ParsedLeaderAttachment,
+  ParsedRoster,
+  ParsedUnit,
+  ParsedWargear,
+} from "./types.js";
 
 // --- 40K rulebook Classification§Designation conventions. -------------------
 // These pin the strings the adapter looks for. Tune them in one place if a
@@ -36,12 +41,18 @@ const CLS_FACTION = "Faction";
 const CLS_DETACHMENT = "Detachment";
 const CLS_UNIT = "Unit";
 const CLS_SQUAD = "Squad"; // alternative unit class some rulebooks use
+const CLS_MODEL = "Model";
 const CLS_WEAPON = "Weapon";
 const CLS_ENHANCEMENT = "Enhancement";
 const CLS_BATTLE_SIZE = "Battle Size";
 const CLS_TRAIT = "Trait";
+const CLS_FORCE_DISPOSITION = "Force Disposition";
+const CLS_ATTACHMENT = "Attachment";
+const CLS_KEYWORD_OVERRIDE = "40kdc Keyword";
 const DSG_WARLORD = "Warlord";
-const CHAR_CLASSIFICATIONS = new Set(["Character", "Epic Hero"]);
+const CHAR_CLASSIFICATIONS: Record<string, true> = { Character: true, "Epic Hero": true };
+const ATTACHMENT =
+  /^Attachment:\s*(leader|support)\s*->\s*(.+?)(\s+\[provisional\])?\s*$/i;
 
 const POINTS_STAT_KEYS = ["Points", "Pts"];
 const POINTS_LIMIT = /(\d[\d,]*)\s*Point/i;
@@ -205,15 +216,15 @@ function isCharacterAsset(asset: RawAsset): boolean {
   if (keywords) {
     for (const list of Object.values(keywords)) {
       for (const kw of asArray(list)) {
-        if (typeof kw === "string" && CHAR_CLASSIFICATIONS.has(kw)) return true;
+        if (typeof kw === "string" && CHAR_CLASSIFICATIONS[kw]) return true;
       }
     }
   }
   // Any nested trait classified as Character also flags the unit.
   for (const t of traits(asset)) {
-    if (CHAR_CLASSIFICATIONS.has(classOf(t))) return true;
+    if (CHAR_CLASSIFICATIONS[classOf(t)]) return true;
     const dsg = displayName(t);
-    if (CHAR_CLASSIFICATIONS.has(dsg)) return true;
+    if (CHAR_CLASSIFICATIONS[dsg]) return true;
   }
   return false;
 }
@@ -234,7 +245,7 @@ function modelCount(unit: RawAsset): number {
   // child unit-class asset's quantity contributes.
   let nested = 0;
   for (const child of included(unit)) {
-    if (isUnitAsset(child)) nested += quantity(child);
+    if (isUnitAsset(child) || classOf(child) === CLS_MODEL) nested += quantity(child);
   }
   return nested > 0 ? nested : quantity(unit);
 }
@@ -244,9 +255,22 @@ function parseUnit(unit: RawAsset): ParsedUnit {
   let enhancement_raw_name: string | null = null;
   let enhancement_points: number | null = null;
   let is_warlord = false;
+  let leader_attachment: ParsedLeaderAttachment | null = null;
+  const keyword_overrides = new Set<string>();
 
   for (const child of included(unit)) {
     walk(child, (a) => {
+      if (classOf(a) === CLS_ATTACHMENT) {
+        const match = ATTACHMENT.exec(displayName(a));
+        if (match) {
+          leader_attachment = {
+            role: match[1].toLowerCase() as "leader" | "support",
+            bodyguard_raw_name: match[2],
+            provisional: match[3] !== undefined,
+          };
+        }
+        return;
+      }
       if (isEnhancementAsset(a)) {
         if (enhancement_raw_name === null) {
           enhancement_raw_name = displayName(a);
@@ -259,21 +283,49 @@ function parseUnit(unit: RawAsset): ParsedUnit {
       }
     });
   }
+  const loadout_groups = included(unit)
+    .filter((child) => classOf(child) === CLS_MODEL)
+    .map((model) => {
+      const count = quantity(model);
+      const groupWargear: ParsedWargear[] = [];
+      walk(model, (asset) => {
+        if (!isWeaponAsset(asset)) return;
+        const total = quantity(asset);
+        groupWargear.push({
+          raw_name: displayName(asset),
+          count: count > 0 && total % count === 0 ? total / count : total,
+        });
+      });
+      return {
+        model_name: displayName(model),
+        count,
+        wargear: groupWargear,
+      };
+    });
   for (const t of traits(unit)) {
     walk(t, (a) => {
       if (isWarlordTrait(a)) is_warlord = true;
+      const { classification, designation } = splitItem(a);
+      if (classification === CLS_KEYWORD_OVERRIDE) {
+        keyword_overrides.add(designation);
+      } else if (CHAR_CLASSIFICATIONS[classification]) {
+        keyword_overrides.add("Character");
+      }
     });
   }
 
   return {
     raw_name: displayName(unit),
     is_character: isCharacterAsset(unit),
+    ...(keyword_overrides.size ? { keyword_overrides: [...keyword_overrides] } : {}),
     model_count: modelCount(unit),
     points: pointsOf(unit),
     is_warlord,
     enhancement_raw_name,
     enhancement_points,
     wargear,
+    leader_attachment,
+    ...(loadout_groups.length > 0 ? { loadout_groups } : {}),
   };
 }
 
@@ -340,6 +392,7 @@ export const rosterizerAdapter: FormatAdapter = {
     let faction_raw_name: string | null = null;
     const detachment_raw_names: string[] = [];
     let battle_size_raw: string | null = null;
+    let force_disposition_raw_name: string | null = null;
     const factions: string[] = [];
     walk(root, (a) => {
       const cls = classOf(a);
@@ -351,6 +404,8 @@ export const rosterizerAdapter: FormatAdapter = {
         detachment_raw_names.push(displayName(a));
       } else if (cls === CLS_BATTLE_SIZE) {
         battle_size_raw ??= displayName(a);
+      } else if (cls === CLS_FORCE_DISPOSITION) {
+        force_disposition_raw_name ??= displayName(a);
       }
     });
 
@@ -406,6 +461,7 @@ export const rosterizerAdapter: FormatAdapter = {
       faction_raw_name,
       detachment_raw_names,
       battle_size_raw,
+      force_disposition_raw_name,
       declared_limit: parseLimit(battle_size_raw),
       total_reported,
       total_computed,

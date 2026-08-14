@@ -55,39 +55,18 @@ import {
 import { repoDirForFactionName } from "./faction-map.js";
 import { nameToId } from "../converters/id-generator.js";
 import { applyWrites, type StagedWrite } from "./apply.js";
+import {
+  mintWeapon,
+  mintWargear,
+  parseSkill,
+  type GameVersion,
+  type MintContext,
+  type WeaponRecord,
+  type WargearRecord,
+} from "./gear-projection.js";
 
 const DATA_CORE = CORE_DIR;
 
-export interface GameVersion {
-  edition: string;
-  dataslate: string;
-}
-export interface WeaponProfile {
-  name: string;
-  range: number | "Melee";
-  stats: {
-    A: number | string;
-    BS?: number | null;
-    WS?: number | null;
-    S: number | string;
-    AP: number;
-    D: number | string;
-  };
-  keywords?: { keyword_id: string; parameters?: Record<string, unknown> }[];
-}
-export interface WeaponRecord {
-  id: string;
-  name: string;
-  type: "ranged" | "melee";
-  profiles: WeaponProfile[];
-  game_version: GameVersion;
-}
-export interface WargearRecord {
-  id: string;
-  name: string;
-  game_version: GameVersion;
-  category?: string;
-}
 interface UnitProfile {
   name: string;
   invuln_sv?: number | null;
@@ -105,118 +84,6 @@ interface UnitRecord {
   [k: string]: unknown;
 }
 
-// ───────────────────────── weapon-keyword mapping ─────────────────────────
-// The dump prints a weapon ability as a single display string ("Melta 2",
-// "Anti-Infantry 4+", "Sustained Hits D3"); the repo splits it into a catalog
-// `keyword_id` + reference-site `parameters`. Case varies in the dump (UPPER and
-// Title forms both appear), so match case-insensitively. Every id below exists in
-// data/core/weapon-keywords.json; an unmapped ability is reported, never invented.
-
-/** Parse one dump wargear_ability display name → repo keyword reference(s). */
-function mapWeaponKeyword(
-  raw: string,
-): { keyword_id: string; parameters?: Record<string, unknown> }[] | null {
-  const name = raw.trim();
-  const lower = name.toLowerCase();
-
-  // Anti-<keyword> N+  →  anti { target_keyword, threshold }. "Monster/Vehicle"
-  // is two keywords mechanically; emit one `anti` per target.
-  const anti = lower.match(/^anti-([a-z/ ]+?)\s*(\d)\+$/);
-  if (anti) {
-    const threshold = Number(anti[2]);
-    const targets = anti[1]
-      .split("/")
-      .map((t) => t.trim())
-      .filter(Boolean)
-      .map((t) => t.replace(/\b\w/g, (c) => c.toUpperCase()));
-    return targets.map((target_keyword) => ({
-      keyword_id: "anti",
-      parameters: { target_keyword, threshold },
-    }));
-  }
-
-  // <keyword> <value>  for the parameterised flat keywords.
-  const valued = name.match(/^([A-Za-z\- ]+?)\s+(\d+|D\d+(?:\+\d+)?|\d*[dD]\d+(?:\+\d+)?)$/);
-  if (valued) {
-    const base = valued[1].trim().toLowerCase();
-    const valStr = valued[2];
-    const value: number | string = /^\d+$/.test(valStr) ? Number(valStr) : valStr.toUpperCase();
-    const byBase: Record<string, string> = {
-      melta: "melta",
-      "rapid fire": "rapid-fire",
-      "sustained hits": "sustained-hits",
-      cleave: "cleave",
-    };
-    if (byBase[base]) return [{ keyword_id: byBase[base], parameters: { value } }];
-    // "Blast 1/2" — repo `blast` takes no parameter; drop the value.
-    if (base === "blast") return [{ keyword_id: "blast" }];
-  }
-
-  // Flat, parameter-less keywords.
-  const flat: Record<string, string> = {
-    "lethal hits": "lethal-hits",
-    "devastating wounds": "devastating-wounds",
-    "twin-linked": "twin-linked",
-    "rapid fire": "rapid-fire", // bare (no value) — paramless variant in dump
-    heavy: "heavy",
-    assault: "assault",
-    pistol: "pistol",
-    torrent: "torrent",
-    blast: "blast",
-    melta: "melta",
-    anti: "anti", // bare "ANTI" with no target — skip below (needs params)
-    "ignores cover": "ignores-cover",
-    precision: "precision",
-    hazardous: "hazardous",
-    "indirect fire": "indirect-fire",
-    "extra attacks": "extra-attacks",
-    psychic: "psychic",
-    "one shot": "one-shot",
-    lance: "lance",
-    cleave: "cleave",
-    "close-quarters": "close-quarters",
-    overcharge: "overcharge",
-    conversion: "conversion",
-    "linked fire": "linked-fire",
-    "plasma warhead": "plasma-warhead",
-    "psychic assassin": "psychic-assassin",
-    "reverberating summons": "reverberating-summons",
-    bubblechukka: "bubblechukka",
-    "dead choppy": "dead-choppy",
-    harpooned: "harpooned",
-    hooked: "hooked",
-    impaled: "impaled",
-    snagged: "snagged",
-    sustained: "sustained-hits",
-  };
-  const id = flat[lower];
-  if (!id) return null;
-  // Bare "ANTI"/"MELTA"/"RAPID FIRE"/"SUSTAINED HITS"/"CLEAVE" with no number carry
-  // no usable parameter — the dump occasionally lists the header form. Skip the
-  // parameterised ones (they require a value); keep only genuinely paramless ids.
-  if (["anti", "melta", "cleave"].includes(id)) return null;
-  if (id === "rapid-fire" || id === "sustained-hits") return null;
-  return [{ keyword_id: id }];
-}
-
-// ───────────────────────── stat parsing ─────────────────────────
-function parseStatValue(s: string | null | undefined): number | string {
-  const v = (s ?? "").trim();
-  if (/^\d+$/.test(v)) return Number(v);
-  const dice = v.match(/^(\d*)[dD](\d+)(\+\d+)?$/);
-  if (dice) return `${dice[1]}D${dice[2]}${dice[3] ?? ""}`;
-  // Bare numbers with a leading sign or stray chars — best effort.
-  const n = Number(v);
-  if (Number.isFinite(n)) return n;
-  throw new Error(`unparseable stat-value "${s}"`);
-}
-function parseSkill(s: string | null | undefined): number | null {
-  const v = (s ?? "").trim();
-  const m = v.match(/^(\d)\+?$/);
-  if (!m) return null;
-  const n = Number(m[1]);
-  return n >= 2 && n <= 6 ? n : null;
-}
 
 
 /**
@@ -391,85 +258,6 @@ async function runInvulnsOnly(opts: {
   }
   await applyWrites([{ path: unitsPath, value: unitsOut }], { write, label: "project-loadout --invulns-only" });
   if (!write) console.log("\nDRY RUN — no files written. Re-run with --write to apply.");
-}
-function parseAP(s: string | null | undefined): number {
-  const v = (s ?? "0").trim();
-  const n = parseInt(v, 10);
-  return Number.isFinite(n) ? n : 0;
-}
-function parseRange(s: string | null | undefined, type: string): number | "Melee" {
-  if (type === "melee") return "Melee";
-  const v = (s ?? "").trim();
-  if (/melee/i.test(v)) return "Melee";
-  const n = parseInt(v.replace(/["”]/g, ""), 10);
-  if (!Number.isFinite(n)) throw new Error(`unparseable range "${s}"`);
-  return n;
-}
-
-// ───────────────────────── minting ─────────────────────────
-export interface MintContext {
-  dump: MfmDump;
-  gv: GameVersion;
-  warnings: string[];
-}
-
-/** Build a repo weapon record from the dump's wargear_item + its profiles. */
-export function mintWeapon(ctx: MintContext, item: WargearItemRow, id: string, name: string): WeaponRecord {
-  const { dump } = ctx;
-  const profiles = (dump.groupBy("wargear_item_profile", "wargearItemId").get(item.id!) ?? [])
-    .slice()
-    .sort((a, b) => a.displayOrder - b.displayOrder);
-  if (profiles.length === 0) throw new Error(`weapon "${name}" has no profile rows in the dump`);
-
-  const abilByProfile = dump.groupBy("wargear_item_profile_wargear_ability", "wargearItemProfileId");
-  const abilById = dump.byId("wargear_ability");
-
-  const built: WeaponProfile[] = profiles.map((p) => {
-    const ranged = p.type !== "melee";
-    const stats: WeaponProfile["stats"] = {
-      A: parseStatValue(p.attacks),
-      S: parseStatValue(p.strength),
-      AP: parseAP(p.armourPenetration),
-      D: parseStatValue(p.damage),
-    };
-    if (ranged) stats.BS = parseSkill(p.ballisticSkill);
-    else stats.WS = parseSkill(p.weaponSkill);
-
-    const keywords: WeaponProfile["keywords"] = [];
-    for (const link of abilByProfile.get(p.id) ?? []) {
-      const ab = abilById.get(link.wargearAbilityId);
-      const abName = dump.enName(ab);
-      if (!abName) continue;
-      const mapped = mapWeaponKeyword(abName);
-      if (!mapped) {
-        ctx.warnings.push(`weapon "${name}": unmapped keyword "${abName}" (skipped)`);
-        continue;
-      }
-      keywords.push(...mapped);
-    }
-
-    // Single-profile weapons name the profile after the weapon; multi-profile keep
-    // the dump's per-profile label (e.g. "Standard" / "Supercharge").
-    const profName = profiles.length > 1 ? dump.enName(p) ?? p.localisations?.en?.name ?? name : name;
-    const prof: WeaponProfile = { name: profName, range: parseRange(p.range, p.type), stats };
-    if (keywords.length) prof.keywords = keywords;
-    return prof;
-  });
-
-  const type: "ranged" | "melee" = profiles[0].type === "melee" ? "melee" : "ranged";
-  return { id, name, type, profiles: built, game_version: ctx.gv };
-}
-
-/**
- * Build a repo `wargear.json` record for a non-weapon wargear item the dump lists
- * in a unit's loadout (e.g. a banner or icon a special model carries). These have
- * no weapon profile — they are equipment whose game effect is an authored ability —
- * so they land in `wargear.json` (not `weapons.json`) yet still participate in the
- * loadout so a per-item MFM cost (`wargear_costs`) can attach. Category remains
- * unset because MFM's `wargearType` has no approved repository transform.
- */
-export function mintWargear(ctx: MintContext, item: WargearItemRow, id: string, name: string): WargearRecord {
-  return { id, name, game_version: ctx.gv };
 }
 
 // ───────────────────────── datasheet lookup ─────────────────────────
@@ -877,8 +665,8 @@ async function main() {
   if (!write) console.log("\nDRY RUN — no files written. Re-run with --write to apply.");
 }
 
-// Only run the CLI when invoked as the entry script — importing this module for
-// its exported primitives (mintWeapon / findDatasheet) must have no side effects.
+// Only run the CLI when invoked as the entry script; importing its projection
+// helpers must have no side effects.
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   main().catch((e) => {
     console.error(e);

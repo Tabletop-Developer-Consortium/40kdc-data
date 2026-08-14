@@ -58,6 +58,7 @@
         "ministorum-hand-flamer"
       ],
       [
+        "simulacrum-imperialis",
         "close-combat-weapon"
       ]
     ],
@@ -253,16 +254,8 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replacement_choice": [
-      [
-        "plasma-pistol"
-      ],
-      [
-        "mystic-stave"
-      ],
-      [
-        "eviscerator"
-      ]
+    "replacement": [
+      "plasma-pistol"
     ],
     "model_constraint": {
       "model_name": "Inquisitorial Agent",
@@ -271,6 +264,40 @@
   },
   {
     "id": "inquisitorial-agents-wgo-mfm-2",
+    "unit_id": "inquisitorial-agents",
+    "faction_id": "agents-of-the-imperium",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_free": true,
+    "replacement": [
+      "mystic-stave"
+    ],
+    "model_constraint": {
+      "model_name": "Inquisitorial Agent",
+      "per_n_models": 5
+    }
+  },
+  {
+    "id": "inquisitorial-agents-wgo-mfm-3",
+    "unit_id": "inquisitorial-agents",
+    "faction_id": "agents-of-the-imperium",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_free": true,
+    "replacement": [
+      "eviscerator"
+    ],
+    "model_constraint": {
+      "model_name": "Inquisitorial Agent",
+      "per_n_models": 5
+    }
+  },
+  {
+    "id": "inquisitorial-agents-wgo-mfm-4",
     "unit_id": "inquisitorial-agents",
     "faction_id": "agents-of-the-imperium",
     "game_version": {
@@ -292,6 +319,23 @@
     "model_constraint": {
       "model_name": "Gun Servitor",
       "any_number": true
+    }
+  },
+  {
+    "id": "inquisitorial-agents-wgo-mfm-5",
+    "unit_id": "inquisitorial-agents",
+    "faction_id": "agents-of-the-imperium",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_free": true,
+    "replacement": [
+      "tome-skull"
+    ],
+    "model_constraint": {
+      "any_number": true,
+      "max_count": 2
     }
   },
   {
@@ -768,7 +812,7 @@
     },
     "is_free": true,
     "replacement": [
-      "nuncio-aquila"
+      "nuncio-acquila"
     ],
     "model_constraint": {
       "model_name": "Proctor-Exactant",
@@ -777,6 +821,31 @@
   },
   {
     "id": "exaction-squad-wgo-mfm-2",
+    "unit_id": "exaction-squad",
+    "faction_id": "agents-of-the-imperium",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_free": true,
+    "replacement_choice": [
+      [
+        "soulguilt-scanner"
+      ],
+      [
+        "excruciator-maul"
+      ],
+      [
+        "arbites-medi-kit"
+      ]
+    ],
+    "model_constraint": {
+      "model_name": "Exaction Vigilant",
+      "any_number": true
+    }
+  },
+  {
+    "id": "exaction-squad-wgo-mfm-3",
     "unit_id": "exaction-squad",
     "faction_id": "agents-of-the-imperium",
     "game_version": {
@@ -807,23 +876,6 @@
     }
   },
   {
-    "id": "exaction-squad-wgo-mfm-3",
-    "unit_id": "exaction-squad",
-    "faction_id": "agents-of-the-imperium",
-    "game_version": {
-      "edition": "11th",
-      "dataslate": "launch"
-    },
-    "is_free": true,
-    "replacement": [
-      "excruciator-maul"
-    ],
-    "model_constraint": {
-      "model_name": "Exaction Vigilant",
-      "any_number": true
-    }
-  },
-  {
     "id": "imperial-navy-breachers-wgo-mfm-1",
     "unit_id": "imperial-navy-breachers",
     "faction_id": "agents-of-the-imperium",
@@ -841,6 +893,7 @@
         "power-weapon-imperial-navy-breachers"
       ],
       [
+        "endurant-shield",
         "navis-heavy-shotgun"
       ],
       [
@@ -864,6 +917,23 @@
   },
   {
     "id": "imperial-navy-breachers-wgo-mfm-2",
+    "unit_id": "imperial-navy-breachers",
+    "faction_id": "agents-of-the-imperium",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_free": true,
+    "replacement": [
+      "demolition-charge"
+    ],
+    "model_constraint": {
+      "model_name": "Navis Armsman",
+      "any_number": true
+    }
+  },
+  {
+    "id": "imperial-navy-breachers-wgo-mfm-3",
     "unit_id": "imperial-navy-breachers",
     "faction_id": "agents-of-the-imperium",
     "game_version": {
@@ -899,7 +969,7 @@
     },
     "is_free": true,
     "replacement": [
-      "nuncio-aquila"
+      "nuncio-acquila"
     ],
     "model_constraint": {
       "model_name": "Proctor-Vigilant",
@@ -947,7 +1017,7 @@
     },
     "is_free": true,
     "replacement": [
-      "nuncio-aquila"
+      "nuncio-acquila"
     ],
     "model_constraint": {
       "model_name": "Proctor-Subductor",
@@ -1000,6 +1070,23 @@
       "dataslate": "launch"
     },
     "is_free": true,
+    "replacement": [
+      "simulacrum-imperialis"
+    ],
+    "model_constraint": {
+      "model_name": "Battle Sister",
+      "any_number": true
+    }
+  },
+  {
+    "id": "sisters-of-battle-squad-wgo-mfm-3",
+    "unit_id": "sisters-of-battle-squad",
+    "faction_id": "agents-of-the-imperium",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_free": true,
     "replaces": [
       "boltgun-sisters-of-battle-squad"
     ],
@@ -1029,7 +1116,7 @@
     }
   },
   {
-    "id": "sisters-of-battle-squad-wgo-mfm-3",
+    "id": "sisters-of-battle-squad-wgo-mfm-4",
     "unit_id": "sisters-of-battle-squad",
     "faction_id": "agents-of-the-imperium",
     "game_version": {

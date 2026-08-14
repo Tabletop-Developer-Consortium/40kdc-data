@@ -72,6 +72,10 @@ import { runSeedUnits, buildSeedUnitsReport } from "./mfm/seed-units.js";
 import { runSeedDetachments, buildSeedDetachmentsReport } from "./mfm/seed-detachments.js";
 import { runAllies, buildAlliesReport } from "./mfm/allies.js";
 import { runWeaponVariants, buildWeaponVariantsReport } from "./mfm/weapon-variants.js";
+import {
+  runConditionalKeywords,
+  buildConditionalKeywordReport,
+} from "./mfm/conditional-keywords.js";
 import { applyWrites, type StagedWrite } from "./mfm/apply.js";
 import { writeGolden } from "./mfm/golden.js";
 import {
@@ -548,6 +552,8 @@ async function runEnhancementsCmd(
       {
         newInDump: report.newInDump,
         combatPatrolExcluded: report.cpExcluded,
+        seeded: report.seeded,
+        seedSkipped: report.seedSkipped,
         repoOnly: report.dirs
           .filter((d) => d.unmatchedRepo.length)
           .map((d) => ({ dir: d.dir, ids: d.unmatchedRepo })),
@@ -561,9 +567,10 @@ async function runEnhancementsCmd(
     report.dirs.reduce((a, d) => a + f(d), 0);
   console.log(`Enhancements report → ${path.relative(REPO_ROOT, reportPath)}`);
   console.log(
-    `Matched ${sum((d) => d.matched)}, cost changed ${sum((d) => d.costChanged.length)}, ` +
-      `confirmed ${sum((d) => d.confirmed)}, repo-only ${sum((d) => d.unmatchedRepo.length)}, ` +
-      `new-in-dump ${report.newInDump.length}, held back ${report.cpExcluded.length} Combat-Patrol.`
+    `Matched ${sum((d) => d.matched)}, seeded ${report.seeded.length}, ` +
+      `cost changed ${sum((d) => d.costChanged.length)}, confirmed ${sum((d) => d.confirmed)}, ` +
+      `repo-only ${sum((d) => d.unmatchedRepo.length)}, unresolved ${report.newInDump.length}, ` +
+      `held back ${report.cpExcluded.length} Combat-Patrol.`
   );
   await applyWrites(report.staged, { write, label: "enhancements" });
   if (!write) console.log("DRY RUN — no files written. Re-run with --write to apply.");
@@ -652,8 +659,8 @@ async function runDetachmentFieldsCmd(dump: MfmDump, write: boolean): Promise<vo
     path.join(UNMATCHED_DIR, "unmatched-detachment-fields.json"),
     JSON.stringify(
       {
-        tagsReview: report.dirs.flatMap((d) => d.tagsReview.map((r) => ({ dir: d.dir, ...r }))),
-        requiredKeywordsReview: report.dirs.flatMap((d) => d.reqReview.map((r) => ({ dir: d.dir, ...r }))),
+        tagsChanged: report.dirs.flatMap((d) => d.tagsChanged.map((r) => ({ dir: d.dir, ...r }))),
+        requiredKeywordsChanged: report.dirs.flatMap((d) => d.reqChanged.map((r) => ({ dir: d.dir, ...r }))),
         ruleReview: report.dirs.flatMap((d) => d.ruleReview.map((r) => ({ dir: d.dir, ...r }))),
         ruleUnauthored: report.dirs.flatMap((d) => d.ruleUnauthored.map((r) => ({ dir: d.dir, ...r }))),
         unresolvedKeywords: report.dirs.flatMap((d) => d.unresolvedKeywords.map((r) => ({ dir: d.dir, ...r }))),
@@ -666,8 +673,8 @@ async function runDetachmentFieldsCmd(dump: MfmDump, write: boolean): Promise<vo
   const sum = (f: (d: (typeof report.dirs)[number]) => number) => report.dirs.reduce((a, d) => a + f(d), 0);
   console.log(`Detachment fields report → ${path.relative(REPO_ROOT, reportPath)}`);
   console.log(
-    `tags filled ${sum((d) => d.tagsFilled.length)} (confirm ${sum((d) => d.tagsConfirmed)}, review ${sum((d) => d.tagsReview.length)}), ` +
-      `required_keywords filled ${sum((d) => d.reqFilled.length)} (confirm ${sum((d) => d.reqConfirmed)}, review ${sum((d) => d.reqReview.length)}), ` +
+    `tags changed ${sum((d) => d.tagsChanged.length)} (confirm ${sum((d) => d.tagsConfirmed)}), ` +
+      `required_keywords changed ${sum((d) => d.reqChanged.length)} (confirm ${sum((d) => d.reqConfirmed)}), ` +
       `detachment_rule_ids filled ${sum((d) => d.ruleFilled.length)} (confirm ${sum((d) => d.ruleConfirmed)}, review ${sum((d) => d.ruleReview.length)}, unauthored ${sum((d) => d.ruleUnauthored.length)}).`
   );
   await applyWrites(report.staged, { write, label: "detachment-fields" });
@@ -689,9 +696,6 @@ async function runPointsCmd(dump: MfmDump, write: boolean): Promise<void> {
         ambiguous: report.dirs
           .filter((d) => d.ambiguousSkipped.length)
           .map((d) => ({ dir: d.dir, ids: d.ambiguousSkipped })),
-        structure: report.dirs
-          .filter((d) => d.structureSkipped.length)
-          .map((d) => ({ dir: d.dir, units: d.structureSkipped })),
         repoOnly: report.dirs
           .filter((d) => d.repoOnly.length)
           .map((d) => ({ dir: d.dir, ids: d.repoOnly })),
@@ -936,9 +940,11 @@ async function runWargearCmd(dump: MfmDump, write: boolean, onlyDir?: string): P
   console.log(`Wargear report → ${path.relative(REPO_ROOT, reportPath)}`);
   console.log(
     `Matched ${sum((d) => d.matched)}, options ${sum((d) => d.optionsChanged)}, ` +
-      `defaults Δ ${sum((d) => d.defaultsChanged)}, synth ${sum((d) => d.synthesizedRows)}, ` +
-      `unresolved ${sum((d) => d.unresolvedNames.length)}, ` +
-      `new-in-dump ${sum((d) => d.newInDump.length)}, repo-only ${sum((d) => d.repoOnlyFallback.length)}.`
+      `defaults Δ ${sum((d) => d.defaultsChanged)}, weapon ids Δ ${sum((d) => d.weaponIdsChanged)}, ` +
+      `weapon names Δ ${sum((d) => d.weaponNamesChanged)}, weapons ${sum((d) => d.weaponsAdded)}, ` +
+      `wargear ${sum((d) => d.wargearAdded)}, synth ${sum((d) => d.synthesizedRows)}, ` +
+      `unresolved ${sum((d) => d.unresolvedNames.length)}, new-in-dump ${sum((d) => d.newInDump.length)}, ` +
+      `repo-only ${sum((d) => d.repoOnlyFallback.length)}.`
   );
   await applyWrites(report.staged, { write, label: "wargear" });
   if (!write) console.log("DRY RUN — no files written. Re-run with --write to apply.");
@@ -1151,6 +1157,33 @@ async function runWeaponVariantsCmd(dump: MfmDump, write: boolean, onlyDir?: str
   if (!write) console.log("DRY RUN — no files written. Re-run with --write to apply.");
 }
 
+async function runConditionalKeywordsCmd(
+  dump: MfmDump,
+  write: boolean,
+  onlyDir?: string,
+): Promise<void> {
+  const report = runConditionalKeywords(dump, onlyDir);
+  fs.mkdirSync(REPORT_DIR, { recursive: true });
+  const reportPath = path.join(REPORT_DIR, "mfm-conditional-keywords.md");
+  fs.writeFileSync(reportPath, buildConditionalKeywordReport(report, write));
+  fs.mkdirSync(UNMATCHED_DIR, { recursive: true });
+  fs.writeFileSync(
+    path.join(UNMATCHED_DIR, "unmatched-conditional-keywords.json"),
+    JSON.stringify(
+      { unsupported: report.unsupported, unresolved: report.unresolved },
+      null,
+      2,
+    ) + "\n",
+  );
+  console.log(`Conditional-keyword report → ${path.relative(REPO_ROOT, reportPath)}`);
+  console.log(
+    `Changed ${report.dirs.reduce((sum, entry) => sum + entry.changed, 0)} units; ` +
+      `${report.unsupported.length} unsupported conditions; ${report.unresolved.length} unresolved references.`,
+  );
+  await applyWrites(report.staged, { write, label: "conditional-keywords" });
+  if (!write) console.log("DRY RUN — no files written. Re-run with --write to apply.");
+}
+
 export const INGEST_MFM_COMMANDS = [
   "coverage",
   "golden",
@@ -1159,6 +1192,7 @@ export const INGEST_MFM_COMMANDS = [
   "normalize-enhancements",
   "faction-fields",
   "detachment-fields",
+  "conditional-keywords",
   "points",
   "cull-legends",
   "stratagems",
@@ -1201,6 +1235,7 @@ export async function runIngestMfmCommand(
   else if (command === "normalize-enhancements") await runNormalizeEnhancementsCmd(dump, options.write);
   else if (command === "faction-fields") await runFactionFieldsCmd(dump, options.write);
   else if (command === "detachment-fields") await runDetachmentFieldsCmd(dump, options.write);
+  else if (command === "conditional-keywords") await runConditionalKeywordsCmd(dump, options.write, options.onlyDir);
   else if (command === "points") await runPointsCmd(dump, options.write);
   else if (command === "cull-legends") await runCullCmd(dump, options.write);
   else if (command === "stratagems") await runStratagemsCmd(dump, options.write);

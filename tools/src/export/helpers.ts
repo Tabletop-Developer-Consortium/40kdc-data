@@ -38,6 +38,13 @@ export function totalArmyPoints(roster: Roster): number {
   }
   return total;
 }
+export function attachmentToken(u: RosterUnit): string | null {
+  const attachment = u.leader_attachment;
+  if (!attachment) return null;
+  const provisional = attachment.provisional ? " [provisional]" : "";
+  return `Attachment: ${attachment.role} -> ${attachment.bodyguard_ref.raw_name}${provisional}`;
+}
+
 
 /**
  * Heuristic re-derivation of which units would carry a `CharN:` prefix on

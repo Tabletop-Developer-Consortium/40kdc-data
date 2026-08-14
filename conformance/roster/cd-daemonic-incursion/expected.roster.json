@@ -17,7 +17,7 @@
     }
   ],
   "battle_size": "strike-force",
-  "force_disposition": null,
+  "force_disposition": "disruption",
   "points": {
     "declared_limit": 1995,
     "detachment_cap": 3,
@@ -79,15 +79,6 @@
       "wargear": [
         {
           "ref": {
-            "id": "putrid-vomit",
-            "raw_name": "Putrid vomit",
-            "resolved": true,
-            "candidates": []
-          },
-          "count": 1
-        },
-        {
-          "ref": {
             "id": "bileblade",
             "raw_name": "Bileblade",
             "resolved": true,
@@ -99,6 +90,15 @@
           "ref": {
             "id": "bilesword",
             "raw_name": "Bilesword",
+            "resolved": true,
+            "candidates": []
+          },
+          "count": 1
+        },
+        {
+          "ref": {
+            "id": "putrid-vomit",
+            "raw_name": "Putrid vomit",
             "resolved": true,
             "candidates": []
           },
@@ -156,8 +156,8 @@
         },
         {
           "ref": {
-            "id": "instrument-of-chaos",
-            "raw_name": "Instrument of Chaos",
+            "id": "daemonic-icon",
+            "raw_name": "Daemonic Icon",
             "resolved": true,
             "candidates": []
           },
@@ -165,8 +165,8 @@
         },
         {
           "ref": {
-            "id": "daemonic-icon",
-            "raw_name": "Daemonic Icon",
+            "id": "instrument-of-chaos",
+            "raw_name": "Instrument of Chaos",
             "resolved": true,
             "candidates": []
           },
@@ -279,9 +279,9 @@
         },
         {
           "ref": {
-            "id": null,
+            "id": "collar-of-khorne",
             "raw_name": "Collar of Khorne",
-            "resolved": false,
+            "resolved": true,
             "candidates": []
           },
           "count": 5
@@ -306,18 +306,13 @@
   "diagnostics": {
     "resolved_units": 5,
     "unresolved_units": 0,
-    "resolved_weapons": 10,
-    "unresolved_weapons": 2,
+    "resolved_weapons": 11,
+    "unresolved_weapons": 1,
     "warnings": [
       {
         "code": "weapon-unresolved",
         "message": "Weapon name did not match any 40kdc weapon.",
         "raw_name": "Burning maw"
-      },
-      {
-        "code": "weapon-unresolved",
-        "message": "Weapon name did not match any 40kdc weapon.",
-        "raw_name": "Collar of Khorne"
       },
       {
         "code": "points-mismatch",

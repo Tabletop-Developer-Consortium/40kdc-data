@@ -15,7 +15,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Death Guard"
+      ]
+    ]
   },
   {
     "id": "furnace-of-plagues-virulent-vectorium",
@@ -33,7 +38,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Death Guard"
+      ]
+    ]
   },
   {
     "id": "arch-contaminator-virulent-vectorium",
@@ -51,7 +61,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Death Guard"
+      ]
+    ]
   },
   {
     "id": "revolting-regeneration-virulent-vectorium",
@@ -69,7 +84,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Death Guard"
+      ]
+    ]
   },
   {
     "id": "eye-of-affliction-mortarions-hammer",
@@ -87,7 +107,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Death Guard"
+      ]
+    ]
   },
   {
     "id": "bilemaw-blight-mortarions-hammer",
@@ -105,7 +130,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Malignant Plaguecaster"
+      ]
+    ]
   },
   {
     "id": "insectile-murmuration-upgrade-flyblown-host",
@@ -123,7 +153,13 @@
     },
     "points_provisional": false,
     "upgrade_tag": true,
-    "max_targets": 3
+    "max_targets": 3,
+    "keyword_restriction_groups": [
+      [
+        "Death Guard",
+        "Plague Marines"
+      ]
+    ]
   },
   {
     "id": "rejuvenating-swarm-paragons-of-putrescence",
@@ -144,6 +180,12 @@
     "max_targets": 1,
     "exclusion_keywords": [
       "Terminator"
+    ],
+    "keyword_restriction_groups": [
+      [
+        "Death Guard",
+        "Infantry"
+      ]
     ]
   },
   {
@@ -162,7 +204,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Death Guard"
+      ]
+    ]
   },
   {
     "id": "plagueveil-upgrade-flyblown-host",
@@ -180,7 +227,13 @@
     },
     "points_provisional": false,
     "upgrade_tag": true,
-    "max_targets": 3
+    "max_targets": 3,
+    "keyword_restriction_groups": [
+      [
+        "Death Guard",
+        "Plague Marines"
+      ]
+    ]
   },
   {
     "id": "tendrilous-emissions-mortarions-hammer",
@@ -198,7 +251,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Lord of Virulence"
+      ]
+    ]
   },
   {
     "id": "final-ingredient-champions-of-contagion",
@@ -216,7 +274,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Biologus Putrifier"
+      ]
+    ]
   },
   {
     "id": "visions-of-virulence-champions-of-contagion",
@@ -234,7 +297,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Malignant Plaguecaster"
+      ]
+    ]
   },
   {
     "id": "needle-of-nurgle-champions-of-contagion",
@@ -252,7 +320,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Plague Surgeon"
+      ]
+    ]
   },
   {
     "id": "cornucophagus-champions-of-contagion",
@@ -270,7 +343,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Lord of Poxes"
+      ]
+    ]
   },
   {
     "id": "beckoning-blight-tallyband-summoners",
@@ -288,7 +366,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Death Guard"
+      ]
+    ]
   },
   {
     "id": "fell-harvester-tallyband-summoners",
@@ -306,7 +389,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Death Guard"
+      ]
+    ]
   },
   {
     "id": "entropic-knell-tallyband-summoners",
@@ -324,7 +412,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Great Unclean One"
+      ]
+    ]
   },
   {
     "id": "tome-of-bounteous-blessings-tallyband-summoners",
@@ -342,7 +435,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Malignant Plaguecaster"
+      ]
+    ]
   },
   {
     "id": "witherbone-pipes-shamblerot-vectorium",
@@ -360,7 +458,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Noxious Blightbringer"
+      ]
+    ]
   },
   {
     "id": "lord-of-the-walking-pox-shamblerot-vectorium",
@@ -378,7 +481,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Death Guard"
+      ]
+    ]
   },
   {
     "id": "sorrowsyphon-shamblerot-vectorium",
@@ -396,7 +504,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Malignant Plaguecaster"
+      ]
+    ]
   },
   {
     "id": "talisman-of-burgeoning-shamblerot-vectorium",
@@ -414,7 +527,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Death Guard"
+      ]
+    ]
   },
   {
     "id": "face-of-death-death-lords-chosen",
@@ -432,7 +550,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Terminator"
+      ]
+    ]
   },
   {
     "id": "vile-vigour-death-lords-chosen",
@@ -450,7 +573,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Terminator"
+      ]
+    ]
   },
   {
     "id": "warprot-talisman-death-lords-chosen",
@@ -468,7 +596,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Terminator"
+      ]
+    ]
   },
   {
     "id": "helm-of-the-fly-king-death-lords-chosen",
@@ -486,7 +619,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Terminator"
+      ]
+    ]
   },
   {
     "id": "parasitic-woe-reaper-upgrade-contagion-engines",
@@ -504,7 +642,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": true,
-    "max_targets": 3
+    "max_targets": 3,
+    "keyword_restriction_groups": [
+      [
+        "Contagion Engines"
+      ]
+    ]
   },
   {
     "id": "lancet-of-the-worldsore-upgrade-contagion-engines",
@@ -522,7 +665,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": true,
-    "max_targets": 3
+    "max_targets": 3,
+    "keyword_restriction_groups": [
+      [
+        "Death Guard",
+        "Helbrute"
+      ],
+      [
+        "Death Guard",
+        "Myphitic Blight-haulers"
+      ]
+    ]
   },
   {
     "id": "host-of-the-hybridised-pox-paragons-of-putrescence",
@@ -541,7 +694,13 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Death Guard",
+        "Infantry"
+      ]
+    ]
   },
   {
     "id": "bountiful-regeneration-maggot-lords",
@@ -560,6 +719,12 @@
     "keyword_restrictions": [
       "Lord of Virulence",
       "Maggot Lords"
+    ],
+    "keyword_restriction_groups": [
+      [
+        "Lord of Virulence",
+        "Maggot Lords"
+      ]
     ]
   },
   {
@@ -579,6 +744,12 @@
     "keyword_restrictions": [
       "Maggot Lords",
       "Tallyman"
+    ],
+    "keyword_restriction_groups": [
+      [
+        "Maggot Lords",
+        "Tallyman"
+      ]
     ]
   }
 ]

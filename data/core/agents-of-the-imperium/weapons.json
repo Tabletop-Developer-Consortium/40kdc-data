@@ -834,11 +834,11 @@
   },
   {
     "id": "agent-firearm",
-    "name": "Agent firearm",
+    "name": "Agent’s Firearm",
     "type": "ranged",
     "profiles": [
       {
-        "name": "Agent firearm",
+        "name": "Agent’s Firearm",
         "range": 12,
         "stats": {
           "A": 1,
@@ -856,7 +856,7 @@
     ],
     "game_version": {
       "edition": "11th",
-      "dataslate": "pre-launch-provisional"
+      "dataslate": "launch"
     }
   },
   {
@@ -4584,6 +4584,137 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
+    }
+  },
+  {
+    "id": "combat-shotgun",
+    "name": "Combat Shotgun",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Combat Shotgun",
+        "range": 18,
+        "stats": {
+          "A": 2,
+          "S": 4,
+          "AP": 0,
+          "D": 1,
+          "BS": 4
+        }
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
+    "id": "gun-stocks",
+    "name": "Gun Stocks",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Gun Stocks",
+        "range": "Melee",
+        "stats": {
+          "A": 2,
+          "S": 3,
+          "AP": 0,
+          "D": 1,
+          "WS": 4
+        }
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
+    "id": "shotpistol",
+    "name": "Shotpistol",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Shotpistol",
+        "range": 12,
+        "stats": {
+          "A": 1,
+          "S": 4,
+          "AP": 0,
+          "D": 1,
+          "BS": 4
+        },
+        "keywords": [
+          {
+            "keyword_id": "close-quarters"
+          }
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
+    "id": "grenade-launcher",
+    "name": "Grenade Launcher",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Frag",
+        "range": 24,
+        "stats": {
+          "A": "D3",
+          "S": 4,
+          "AP": 0,
+          "D": 1,
+          "BS": 4
+        },
+        "keywords": [
+          {
+            "keyword_id": "blast"
+          }
+        ]
+      },
+      {
+        "name": "Krak",
+        "range": 24,
+        "stats": {
+          "A": 1,
+          "S": 9,
+          "AP": -2,
+          "D": "D3",
+          "BS": 4
+        }
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
+    "id": "agents-implement",
+    "name": "Agent’s Implement",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Agent’s Implement",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 3,
+          "AP": 0,
+          "D": 1,
+          "WS": 3
+        }
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
     }
   }
 ]

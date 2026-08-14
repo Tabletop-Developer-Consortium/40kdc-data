@@ -1,32 +1,22 @@
 /**
- * seed-detachments.ts — create skeleton Combat-Patrol detachment + enhancement
- * entities for CP-box detachments the GW MFM dump defines but the repo has not
- * authored yet. The detachment/enhancement analog of {@link seed-units}.
+ * seed-detachments.ts — create source-backed skeleton detachments that the GW
+ * MFM dump defines but the repo has not authored yet.
  *
- * Every OTHER detachment/enhancement subcommand only ENRICHES entities that
- * already exist — `dispositions` and `enhancements` match a dump row to a repo
- * entity by slug and hold back anything with no match (their `cpExcluded`
- * branches). This command acts on exactly that branch: it emits schema- and
- * integrity-valid entities for the held-back Combat-Patrol content, mirroring the
- * World Eaters `frenzied-reavers` pilot.
+ * Matched-play detachments are seeded by default so downstream disposition,
+ * detachment-field, and enhancement passes can enrich them in the same ordered
+ * ingest. Combat Patrol detachments remain opt-in via
+ * `--include-combat-patrol`; their cost-0 enhancements are seeded alongside the
+ * parent because the matched-play enhancement producer intentionally excludes
+ * them.
  *
- * It is scoped to Combat Patrol only (`detachment.isCombatPatrol`) and, like
- * `seed-units`, holds those back unless `--include-combat-patrol` is passed (a
- * plain run reports what WOULD be created but writes nothing). New competitive
- * detachments are a separate concern (faction packs) and are NOT seeded here.
- *
- * Values come from the SAME dump fields the golden + reconcilers use, so an
- * emitted entity's id / DP / disposition cannot drift from them:
- *   - detachment id      = nameToId(name)                        (detIdsByDir / buildCanon)
+ * Values come from the same dump fields as the reconcilers:
+ *   - detachment id      = nameToId(name)
  *   - detachment_points  = detachmentPointsCost (+ per-faction override)
- *   - force_dispositions = detachment_force_disposition → force_disposition slug
- *   - enhancement id     = detachmentScopedId(name, detName)     (enhIdsByDir / buildEnhCanon)
- * Combat Patrol has no enhancement points (the dump's `basePointsCost` is null for
- * every CP enhancement), so enhancements are authored `cost: 0`, matching the
- * pilot — the values the `enhancements` reconcile pass leaves untouched for CP.
+ *   - force_dispositions = detachment_force_disposition → disposition slug
+ *   - CP enhancement id  = detachmentScopedId(name, detachment name)
  *
- * IP: reads ONLY numeric/id fields (detachmentPointsCost, force-disposition
- * names, enhancement names/costs). It NEVER dereferences GW rules/lore prose.
+ * IP: reads only numeric, identity, and localized entity-name fields. It never
+ * dereferences GW rules or lore prose.
  */
 import * as path from "path";
 import { nameToId, detachmentScopedId } from "../converters/id-generator.js";
@@ -50,7 +40,7 @@ interface SeedDetachment {
   faction_id: string;
   enhancement_ids: string[];
   game_version: { edition: string; dataslate: string };
-  game_modes: string[];
+  game_modes?: string[];
   detachment_points: number;
   force_dispositions: string[];
 }
@@ -107,24 +97,24 @@ export interface CandidateDet {
   name: string;
   dp: number;
   disposition: string;
+  combatPatrol: boolean;
   enhancements: SeedEnhancement[];
 }
 
 /**
- * Resolve every Combat-Patrol detachment in the dump to a repo dir plus the
- * complete detachment + enhancement skeletons, using the same derivation the
- * golden + reconcilers use. Throws on a genuinely unauthorable row (missing dir,
- * missing disposition, null DP, or an enhancement whose raw name would slug to a
- * DIFFERENT id than the cleaned name — which the golden and reconciler would then
- * disagree on; see the file header) so the failure is loud, not a silent gap.
+ * Resolve every supported detachment in the dump to a repo directory and its
+ * source-backed skeleton facts. Unsupported faction directories are ignored;
+ * incomplete rows for supported factions fail loudly.
  */
-export function collectCombatPatrolDetachments(dump: MfmDump): CandidateDet[] {
+export function collectSeedDetachments(dump: MfmDump): CandidateDet[] {
   const { overrideBySlugDir } = buildCanon(dump);
   const dispOf = dispositionIdMap(dump);
   const detDisp = dump.groupBy("detachment_force_disposition", "detachmentId");
   const knownDirs = repoDirs();
 
-  // Bucket CP enhancements by their detachment UUID.
+  // Combat Patrol enhancements are seeded with their parent. Matched-play
+  // enhancements are authored by the richer enhancement producer after the
+  // parent detachment exists.
   const enhByDet = new Map<string, EnhancementRow[]>();
   for (const e of dump.table("enhancement")) {
     if (!e.isCombatPatrol) continue;
@@ -133,29 +123,39 @@ export function collectCombatPatrolDetachments(dump: MfmDump): CandidateDet[] {
 
   const out: CandidateDet[] = [];
   for (const det of dump.table("detachment")) {
-    if (!det.isCombatPatrol || !det.id) continue;
+    if (!det.id) continue;
     const name = dump.enName(det);
-    if (!name) throw new Error(`CP detachment <${det.id}> has no English name`);
+    if (!name) throw new Error(`detachment <${det.id}> has no English name`);
     const id = nameToId(name);
-    const fkId = dump.factionKeywordOfDetachment(det.id);
-    const fkName = fkId ? dump.enName(dump.byId("faction_keyword").get(fkId)) : undefined;
-    const dir = repoDirForFactionName(fkName);
-    if (!dir || !knownDirs.has(dir)) {
-      throw new Error(`CP detachment "${name}" routes to unknown dir (faction "${fkName}")`);
+    const applicableDirs = new Set<string>();
+    for (const edge of dump.children("detachment_faction_keyword.detachmentId", det.id)) {
+      const label = dump.enName(dump.byId("faction_keyword").get(edge.factionKeywordId));
+      const dir = repoDirForFactionName(label);
+      if (dir && knownDirs.has(dir)) applicableDirs.add(dir);
     }
-    const dp = overrideBySlugDir.get(`${id}@@${dir}`) ?? det.detachmentPointsCost;
-    if (dp == null) throw new Error(`CP detachment "${name}" has no detachment_points in the dump`);
+    if (applicableDirs.size === 0) {
+      const fkId = dump.factionKeywordOfDetachment(det.id);
+      const fkName = fkId ? dump.enName(dump.byId("faction_keyword").get(fkId)) : undefined;
+      const ownedDir = repoDirForFactionName(fkName);
+      if (ownedDir && knownDirs.has(ownedDir)) applicableDirs.add(ownedDir);
+    }
+    if (applicableDirs.size === 0) {
+      if (det.isCombatPatrol) {
+        throw new Error(`Combat Patrol detachment "${name}" has no supported faction directory`);
+      }
+      continue;
+    }
+
     const dispUuid = detDisp.get(det.id)?.[0]?.forceDispositionId;
     const disposition = dispUuid ? dispOf.get(dispUuid) : undefined;
-    if (!disposition) throw new Error(`CP detachment "${name}" has no force disposition in the dump`);
+    if (!disposition) throw new Error(`detachment "${name}" has no force disposition in the dump`);
 
     const enhancements: SeedEnhancement[] = [];
     for (const e of enhByDet.get(det.id) ?? []) {
       const en = dump.enName(e);
       if (!en) throw new Error(`CP enhancement <${e.id}> of "${name}" has no English name`);
       // Seed the RAW GW name + id (keep any trailing " (Upgrade)"/" (Aura)" tag) —
-      // the import-correct canon, matching the golden (enhIdsByDir) and buildEnhCanon,
-      // both of which now slug the RAW dump name.
+      // the import-correct canon, matching the golden (enhIdsByDir) and buildEnhCanon.
       const enhId = detachmentScopedId(en, name);
       enhancements.push({
         id: enhId,
@@ -169,7 +169,21 @@ export function collectCombatPatrolDetachments(dump: MfmDump): CandidateDet[] {
       });
     }
     enhancements.sort((a, b) => a.id.localeCompare(b.id));
-    out.push({ dir, id, name, dp, disposition, enhancements });
+    for (const dir of [...applicableDirs].sort()) {
+      const dp = overrideBySlugDir.get(`${id}@@${dir}`) ?? det.detachmentPointsCost;
+      if (dp == null) {
+        throw new Error(`detachment "${name}" has no detachment_points for ${dir}`);
+      }
+      out.push({
+        dir,
+        id,
+        name,
+        dp,
+        disposition,
+        enhancements,
+        combatPatrol: det.isCombatPatrol,
+      });
+    }
   }
   return out;
 }
@@ -179,7 +193,7 @@ export function runSeedDetachments(
   opts: SeedDetachmentsOptions = {},
 ): SeedDetachmentsReport {
   const { onlyDir, includeCombatPatrol = false } = opts;
-  const candidates = collectCombatPatrolDetachments(dump);
+  const candidates = collectSeedDetachments(dump);
 
   // dir → mutated detachment/enhancement arrays (loaded once, appended in place).
   const detsByDir = new Map<string, IdRecord[]>();
@@ -214,16 +228,12 @@ export function runSeedDetachments(
     const res = result(c.dir);
     const dets = loadDets(c.dir);
 
-    // A detachment already in the repo is fully authored (its enhancements were
-    // seeded alongside it), so this is an idempotent skip in BOTH modes — a re-run
-    // is a no-op, mirroring how seed-units filters datasheets that already exist.
+    // Existing rows are enriched by subsequent ordered passes.
     if (dets.some((d) => d.id === c.id)) {
       res.skipped.push({ id: c.id, reason: `detachment "${c.id}" already in ${c.dir}` });
       continue;
     }
-    // Not yet authored: without the flag it is held back (reported, not created),
-    // mirroring how seed-units holds back Combat-Patrol datasheets.
-    if (!includeCombatPatrol) {
+    if (c.combatPatrol && !includeCombatPatrol) {
       res.cpExcluded.push({ id: c.id, name: c.name });
       continue;
     }
@@ -249,10 +259,10 @@ export function runSeedDetachments(
       faction_id: c.dir,
       enhancement_ids: enhancementIds,
       game_version: { ...CONFIRMED },
-      game_modes: [...COMBAT_PATROL_ONLY],
       detachment_points: c.dp,
       force_dispositions: [c.disposition],
     };
+    if (c.combatPatrol) detachment.game_modes = [...COMBAT_PATROL_ONLY];
     dets.push(detachment as unknown as IdRecord);
     touchedDets.add(c.dir);
     res.createdDetachments.push({ id: c.id, name: c.name });
@@ -270,9 +280,8 @@ export function buildSeedDetachmentsReport(report: SeedDetachmentsReport, write:
   const L: string[] = [];
   L.push(`# MFM seed-detachments — ${write ? "APPLIED" : "DRY RUN"}`);
   L.push("");
-  L.push("Skeleton Combat-Patrol detachments + enhancements created for dump CP-box");
-  L.push("detachments that had no repo entity. Stratagems are left as combat-patrol");
-  L.push("gaps (the dump has no structured `timing` field to author them faithfully).");
+  L.push("Source-backed matched-play detachment skeletons are created by default.");
+  L.push("Combat Patrol parents and their cost-0 enhancements remain opt-in.");
   L.push("");
   L.push("| Dir | Detachments created | Enhancements created | Held back (CP) | Skipped (exist) |");
   L.push("| --- | --- | --- | --- | --- |");

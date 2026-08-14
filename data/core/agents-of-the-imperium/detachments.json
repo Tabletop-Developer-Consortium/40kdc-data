@@ -60,7 +60,12 @@
     "name": "Veiled Blade Elimination Force",
     "faction_id": "agents-of-the-imperium",
     "detachment_rule_id": "extremis-sanction",
-    "enhancement_ids": [],
+    "enhancement_ids": [
+      "intraneural-biotech-veiled-blade-elimination-force",
+      "decoy-targets-veiled-blade-elimination-force",
+      "esoteric-explosives-veiled-blade-elimination-force",
+      "micromelta-rounds-veiled-blade-elimination-force"
+    ],
     "stratagem_ids": [
       "prime-target-veiled-blade-elimination-force",
       "hyperstimms-veiled-blade-elimination-force",

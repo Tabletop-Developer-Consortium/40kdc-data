@@ -428,5 +428,19 @@
     "force_dispositions": [
       "priority-assets"
     ]
+  },
+  {
+    "id": "vengeful-hosts",
+    "name": "Vengeful Hosts",
+    "faction_id": "deathwatch",
+    "enhancement_ids": [],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "detachment_points": 1,
+    "force_dispositions": [
+      "take-and-hold"
+    ]
   }
 ]

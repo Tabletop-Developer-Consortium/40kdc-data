@@ -32,6 +32,11 @@
           "quantity": 1
         },
         {
+          "item": "Force Disposition§Take And Hold",
+          "name": "Take And Hold",
+          "quantity": 1
+        },
+        {
           "item": "Battle Size§Strike Force (2000 Point limit)",
           "name": "Strike Force (2000 Point limit)",
           "quantity": 1
@@ -47,6 +52,11 @@
           },
           "assets": {
             "included": [
+              {
+                "item": "Attachment§Attachment: leader -> Assault Intercessor Squad",
+                "name": "Attachment: leader -> Assault Intercessor Squad",
+                "quantity": 1
+              },
               {
                 "item": "Weapon§Sword of the High Marshals",
                 "name": "Sword of the High Marshals",
@@ -79,14 +89,42 @@
           "assets": {
             "included": [
               {
-                "item": "Weapon§Heavy bolt pistol",
-                "name": "Heavy bolt pistol",
-                "quantity": 5
+                "item": "Model§Assault Intercessor Sergeant",
+                "name": "Assault Intercessor Sergeant",
+                "quantity": 1,
+                "assets": {
+                  "included": [
+                    {
+                      "item": "Weapon§Astartes chainsword",
+                      "name": "Astartes chainsword",
+                      "quantity": 1
+                    },
+                    {
+                      "item": "Weapon§Heavy bolt pistol",
+                      "name": "Heavy bolt pistol",
+                      "quantity": 1
+                    }
+                  ]
+                }
               },
               {
-                "item": "Weapon§Astartes chainsword",
-                "name": "Astartes chainsword",
-                "quantity": 5
+                "item": "Model§Assault Intercessor",
+                "name": "Assault Intercessor",
+                "quantity": 4,
+                "assets": {
+                  "included": [
+                    {
+                      "item": "Weapon§Astartes chainsword",
+                      "name": "Astartes chainsword",
+                      "quantity": 4
+                    },
+                    {
+                      "item": "Weapon§Heavy bolt pistol",
+                      "name": "Heavy bolt pistol",
+                      "quantity": 4
+                    }
+                  ]
+                }
               }
             ]
           }

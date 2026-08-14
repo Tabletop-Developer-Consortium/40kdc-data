@@ -830,6 +830,23 @@
       "dataslate": "launch"
     },
     "is_free": true,
+    "replacement": [
+      "stimm-needler"
+    ],
+    "model_constraint": {
+      "model_name": "Kabalite Agents",
+      "any_number": true
+    }
+  },
+  {
+    "id": "hand-of-the-archon-wgo-mfm-3",
+    "unit_id": "hand-of-the-archon",
+    "faction_id": "drukhari",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_free": true,
     "replaces": [
       "splinter-rifle"
     ],
@@ -847,7 +864,7 @@
     }
   },
   {
-    "id": "hand-of-the-archon-wgo-mfm-3",
+    "id": "hand-of-the-archon-wgo-mfm-4",
     "unit_id": "hand-of-the-archon",
     "faction_id": "drukhari",
     "game_version": {
@@ -867,7 +884,7 @@
     }
   },
   {
-    "id": "hand-of-the-archon-wgo-mfm-4",
+    "id": "hand-of-the-archon-wgo-mfm-5",
     "unit_id": "hand-of-the-archon",
     "faction_id": "drukhari",
     "game_version": {
@@ -934,11 +951,17 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replacement": [
-      "incubi-shrine-token"
+    "replacement_choice": [
+      [
+        "incubi-shrine-token"
+      ],
+      [
+        "incubi-shrine-token",
+        "incubi-shrine-token"
+      ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {

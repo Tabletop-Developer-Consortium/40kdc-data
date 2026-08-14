@@ -205,6 +205,12 @@
         "count": 2,
         "per_models": 10
       }
+    ],
+    "conditional_keywords": [
+      {
+        "keyword": "Deathwing",
+        "required_faction_keyword": "Dark Angels"
+      }
     ]
   },
   {
@@ -619,9 +625,16 @@
         "host_faction": "black-templars"
       },
       {
-        "models": 10,
+        "models": 6,
+        "models_max": 10,
         "cost": 160,
         "host_faction": "black-templars"
+      }
+    ],
+    "conditional_keywords": [
+      {
+        "keyword": "Deathwing",
+        "required_faction_keyword": "Dark Angels"
       }
     ]
   },
@@ -696,7 +709,13 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "conditional_keywords": [
+      {
+        "keyword": "Deathwing",
+        "required_faction_keyword": "Dark Angels"
+      }
+    ]
   },
   {
     "id": "chaplain-grimaldus",
@@ -1122,6 +1141,26 @@
         "unit_count_min": 3,
         "unit_count_max": null,
         "host_faction": "space-wolves"
+      },
+      {
+        "models": 1,
+        "cost": 255,
+        "unit_count_min": 1,
+        "unit_count_max": 2,
+        "host_faction": "black-templars"
+      },
+      {
+        "models": 1,
+        "cost": 275,
+        "unit_count_min": 3,
+        "unit_count_max": null,
+        "host_faction": "black-templars"
+      }
+    ],
+    "conditional_keywords": [
+      {
+        "keyword": "Deathwing",
+        "required_faction_keyword": "Dark Angels"
       }
     ]
   },
@@ -1321,7 +1360,13 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "conditional_keywords": [
+      {
+        "keyword": "Deathwing",
+        "required_faction_keyword": "Dark Angels"
+      }
+    ]
   },
   {
     "id": "gladiator-reaper",
@@ -1457,7 +1502,13 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "conditional_keywords": [
+      {
+        "keyword": "Deathwing",
+        "required_faction_keyword": "Dark Angels"
+      }
+    ]
   },
   {
     "id": "sanguinary-priest",
@@ -1701,6 +1752,12 @@
         ],
         "count": 1,
         "per_models": 0
+      }
+    ],
+    "conditional_keywords": [
+      {
+        "keyword": "Battleline",
+        "required_detachment_id": "the-lost-brethren"
       }
     ]
   },
@@ -2133,6 +2190,12 @@
         "count": 1,
         "per_models": 0
       }
+    ],
+    "conditional_keywords": [
+      {
+        "keyword": "Battleline",
+        "required_detachment_id": "the-lost-brethren"
+      }
     ]
   },
   {
@@ -2344,7 +2407,8 @@
       "heavy-bolter",
       "hunter-killer-missile",
       "storm-bolter",
-      "twin-assault-cannon-baal-predator"
+      "twin-assault-cannon-baal-predator",
+      "heavy-flamer"
     ],
     "ability_ids": [
       "overcharged-engines",
@@ -2464,7 +2528,6 @@
       },
       {
         "items": [
-          "hand-flamer",
           "inferno-pistol",
           "plasma-pistol-death-company-marines-with-jump-packs"
         ],
@@ -3414,7 +3477,7 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader",
+    "attachment_role": "support",
     "wargear_budgets": [
       {
         "items": [
@@ -3981,10 +4044,10 @@
     ],
     "game_version": {
       "edition": "11th",
-      "dataslate": "pre-launch-provisional"
+      "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": true
+    "points_provisional": false
   },
   {
     "id": "talonstrike-kill-team",
@@ -4014,8 +4077,30 @@
     ],
     "points": [
       {
-        "models": 15,
-        "cost": 275
+        "models": 10,
+        "cost": 265,
+        "unit_count_min": 1,
+        "unit_count_max": 2
+      },
+      {
+        "models": 3,
+        "models_max": 15,
+        "cost": 265,
+        "unit_count_min": 1,
+        "unit_count_max": 2
+      },
+      {
+        "models": 10,
+        "cost": 280,
+        "unit_count_min": 3,
+        "unit_count_max": null
+      },
+      {
+        "models": 3,
+        "models_max": 15,
+        "cost": 280,
+        "unit_count_min": 3,
+        "unit_count_max": null
       }
     ],
     "keywords": [
@@ -4036,7 +4121,7 @@
       "diameter": 32
     },
     "model_count": {
-      "min": 15,
+      "min": 3,
       "max": 15
     },
     "weapon_ids": [
@@ -4056,10 +4141,10 @@
     ],
     "game_version": {
       "edition": "11th",
-      "dataslate": "pre-launch-provisional"
+      "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": true
+    "points_provisional": false
   },
   {
     "id": "watch-master",
@@ -4455,7 +4540,8 @@
       "deathwatch-occulus-bolt-carbine",
       "las-fusil",
       "paired-combat-blades",
-      "special-issue-bolt-pistol-spectrus-kill-team"
+      "special-issue-bolt-pistol-spectrus-kill-team",
+      "instigator-bolt-carbine"
     ],
     "ability_ids": [
       "helix-gauntlet",
@@ -4823,7 +4909,13 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "support"
+    "attachment_role": "support",
+    "conditional_keywords": [
+      {
+        "keyword": "Deathwing",
+        "required_faction_keyword": "Dark Angels"
+      }
+    ]
   },
   {
     "id": "storm-speeder-hailstrike",
@@ -4888,7 +4980,17 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "conditional_keywords": [
+      {
+        "keyword": "Ravenwing",
+        "required_faction_keyword": "Dark Angels"
+      },
+      {
+        "keyword": "Speeder",
+        "required_detachment_id": "fulguris-task-force"
+      }
+    ]
   },
   {
     "id": "techmarine",
@@ -5411,7 +5513,13 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "conditional_keywords": [
+      {
+        "keyword": "Deathwing",
+        "required_faction_keyword": "Dark Angels"
+      }
+    ]
   },
   {
     "id": "terminator-assault-squad",
@@ -5481,6 +5589,12 @@
       {
         "item_id": "thunder-hammer",
         "cost": 5
+      }
+    ],
+    "conditional_keywords": [
+      {
+        "keyword": "Deathwing",
+        "required_faction_keyword": "Dark Angels"
       }
     ]
   },
@@ -5654,6 +5768,12 @@
         "unit_count_max": null,
         "host_faction": "blood-angels"
       }
+    ],
+    "conditional_keywords": [
+      {
+        "keyword": "Deathwing",
+        "required_faction_keyword": "Dark Angels"
+      }
     ]
   },
   {
@@ -5777,7 +5897,17 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "conditional_keywords": [
+      {
+        "keyword": "Ravenwing",
+        "required_faction_keyword": "Dark Angels"
+      },
+      {
+        "keyword": "Speeder",
+        "required_detachment_id": "fulguris-task-force"
+      }
+    ]
   },
   {
     "id": "tor-garadon",
@@ -6046,7 +6176,13 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "conditional_keywords": [
+      {
+        "keyword": "Deathwing",
+        "required_faction_keyword": "Dark Angels"
+      }
+    ]
   },
   {
     "id": "roboute-guilliman",
@@ -6316,7 +6452,17 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "conditional_keywords": [
+      {
+        "keyword": "Ravenwing",
+        "required_faction_keyword": "Dark Angels"
+      },
+      {
+        "keyword": "Speeder",
+        "required_detachment_id": "fulguris-task-force"
+      }
+    ]
   },
   {
     "id": "hammerfall-bunker",
@@ -6495,6 +6641,12 @@
     "attachment_role": "leader",
     "excluded_faction_keywords": [
       "Black Templars"
+    ],
+    "conditional_keywords": [
+      {
+        "keyword": "Deathwing",
+        "required_faction_keyword": "Dark Angels"
+      }
     ]
   },
   {
@@ -7193,7 +7345,13 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "conditional_keywords": [
+      {
+        "keyword": "Deathwing",
+        "required_faction_keyword": "Dark Angels"
+      }
+    ]
   },
   {
     "id": "librarian-in-phobos-armour",
@@ -7390,7 +7548,13 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "conditional_keywords": [
+      {
+        "keyword": "Deathwing",
+        "required_faction_keyword": "Dark Angels"
+      }
+    ]
   },
   {
     "id": "lieutenant",
@@ -7578,7 +7742,13 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "conditional_keywords": [
+      {
+        "keyword": "Ravenwing",
+        "required_faction_keyword": "Dark Angels"
+      }
+    ]
   },
   {
     "id": "captain-titus",
@@ -7861,6 +8031,16 @@
         "models": 6,
         "cost": 140,
         "host_faction": "blood-angels"
+      }
+    ],
+    "conditional_keywords": [
+      {
+        "keyword": "Battleline",
+        "required_detachment_id": "company-of-hunters"
+      },
+      {
+        "keyword": "Ravenwing",
+        "required_faction_keyword": "Dark Angels"
       }
     ]
   },
@@ -8420,6 +8600,12 @@
         "item_id": "macro-plasma-incinerator",
         "cost": 10
       }
+    ],
+    "conditional_keywords": [
+      {
+        "keyword": "Deathwing",
+        "required_faction_keyword": "Dark Angels"
+      }
     ]
   },
   {
@@ -8603,7 +8789,13 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "conditional_keywords": [
+      {
+        "keyword": "Deathwing",
+        "required_faction_keyword": "Dark Angels"
+      }
+    ]
   },
   {
     "id": "lieutenant-with-combi-weapon",
@@ -8999,7 +9191,9 @@
       "hand-flamer",
       "inferno-pistol",
       "plasma-pistol-vanguard-veteran-squad-with-jump-packs",
-      "vanguard-veteran-weapon"
+      "vanguard-veteran-weapon",
+      "master-crafted-power-weapon",
+      "heavy-bolt-pistol"
     ],
     "ability_ids": [
       "vanguard-assault",
@@ -9039,6 +9233,12 @@
         "unit_count_min": 3,
         "unit_count_max": null,
         "host_faction": "blood-angels"
+      }
+    ],
+    "conditional_keywords": [
+      {
+        "keyword": "Deathwing",
+        "required_faction_keyword": "Dark Angels"
       }
     ]
   },
@@ -9238,7 +9438,13 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "conditional_keywords": [
+      {
+        "keyword": "Ravenwing",
+        "required_faction_keyword": "Dark Angels"
+      }
+    ]
   },
   {
     "id": "captain",
@@ -9426,7 +9632,13 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "conditional_keywords": [
+      {
+        "keyword": "Ravenwing",
+        "required_faction_keyword": "Dark Angels"
+      }
+    ]
   },
   {
     "id": "stormraven-gunship",
@@ -9501,7 +9713,13 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "conditional_keywords": [
+      {
+        "keyword": "Ravenwing",
+        "required_faction_keyword": "Dark Angels"
+      }
+    ]
   },
   {
     "id": "lieutenant-in-reiver-armour",
@@ -9677,7 +9895,8 @@
       "inferno-pistol",
       "plasma-pistol-chaplain-with-jump-pack",
       "power-fist-chaplain-with-jump-pack",
-      "storm-bolter"
+      "storm-bolter",
+      "absolvor-bolt-pistol"
     ],
     "ability_ids": [
       "exhortation-of-rage",
@@ -9916,7 +10135,13 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "conditional_keywords": [
+      {
+        "keyword": "Deathwing",
+        "required_faction_keyword": "Dark Angels"
+      }
+    ]
   },
   {
     "id": "thunderhawk-gunship",
@@ -10110,7 +10335,13 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "conditional_keywords": [
+      {
+        "keyword": "Ravenwing",
+        "required_faction_keyword": "Dark Angels"
+      }
+    ]
   },
   {
     "id": "infiltrator-squad",
@@ -10270,7 +10501,13 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "conditional_keywords": [
+      {
+        "keyword": "Deathwing",
+        "required_faction_keyword": "Dark Angels"
+      }
+    ]
   },
   {
     "id": "infernus-squad",
@@ -10763,7 +11000,13 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "support"
+    "attachment_role": "support",
+    "conditional_keywords": [
+      {
+        "keyword": "Deathwing",
+        "required_faction_keyword": "Dark Angels"
+      }
+    ]
   },
   {
     "id": "venerable-dreadnought",
@@ -10820,7 +11063,9 @@
       "dreadnought-combat-weapon",
       "heavy-flamer",
       "multi-melta",
-      "storm-bolter"
+      "storm-bolter",
+      "fenrisian-great-axe",
+      "helfrost-cannon"
     ],
     "ability_ids": [
       "blizzard-shield",
@@ -12345,6 +12590,16 @@
       "stormfury-missile-launcher",
       "close-combat-weapon-land-speeder",
       "heavy-flamer"
+    ],
+    "conditional_keywords": [
+      {
+        "keyword": "Ravenwing",
+        "required_faction_keyword": "Dark Angels"
+      },
+      {
+        "keyword": "Speeder",
+        "required_detachment_id": "fulguris-task-force"
+      }
     ]
   },
   {

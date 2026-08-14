@@ -35,7 +35,55 @@
             <category name="Gladiator Lancer"/>
           </categories>
           <selections>
-            <selection id="unit0-m0" name="Gladiator Lancer" type="model" number="1"/>
+            <selection id="unit0-m0" name="Gladiator Lancer" type="model" number="1">
+              <selections>
+                <selection id="unit0-m0-w0" name="Armoured hull" type="upgrade" number="1">
+                  <profiles>
+                    <profile name="Armoured hull" typeName="Melee Weapons">
+                      <characteristics>
+                        <characteristic name="Range">Melee</characteristic>
+                        <characteristic name="A">3</characteristic>
+                        <characteristic name="WS">4+</characteristic>
+                        <characteristic name="S">6</characteristic>
+                        <characteristic name="AP">0</characteristic>
+                        <characteristic name="D">1</characteristic>
+                        <characteristic name="Keywords"></characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+                <selection id="unit0-m0-w1" name="Lancer laser destroyer" type="upgrade" number="1">
+                  <profiles>
+                    <profile name="Lancer laser destroyer" typeName="Ranged Weapons">
+                      <characteristics>
+                        <characteristic name="Range">72"</characteristic>
+                        <characteristic name="A">2</characteristic>
+                        <characteristic name="BS">3+</characteristic>
+                        <characteristic name="S">14</characteristic>
+                        <characteristic name="AP">-4</characteristic>
+                        <characteristic name="D">D6+3</characteristic>
+                        <characteristic name="Keywords">Heavy</characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+                <selection id="unit0-m0-w2" name="Storm bolter" type="upgrade" number="2">
+                  <profiles>
+                    <profile name="Storm bolter" typeName="Ranged Weapons">
+                      <characteristics>
+                        <characteristic name="Range">24"</characteristic>
+                        <characteristic name="A">2</characteristic>
+                        <characteristic name="BS">3+</characteristic>
+                        <characteristic name="S">4</characteristic>
+                        <characteristic name="AP">0</characteristic>
+                        <characteristic name="D">1</characteristic>
+                        <characteristic name="Keywords">Rapid Fire 2</characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+              </selections>
+            </selection>
           </selections>
         </selection>
         <selection id="unit1" name="Ballistus Dreadnought" type="unit" number="1">
@@ -71,7 +119,81 @@
             <category name="Ballistus Dreadnought"/>
           </categories>
           <selections>
-            <selection id="unit1-m0" name="Ballistus Dreadnought" type="model" number="1"/>
+            <selection id="unit1-m0" name="Ballistus Dreadnought" type="model" number="1">
+              <selections>
+                <selection id="unit1-m0-w0" name="Armoured feet" type="upgrade" number="1">
+                  <profiles>
+                    <profile name="Armoured feet" typeName="Melee Weapons">
+                      <characteristics>
+                        <characteristic name="Range">Melee</characteristic>
+                        <characteristic name="A">5</characteristic>
+                        <characteristic name="WS">3+</characteristic>
+                        <characteristic name="S">7</characteristic>
+                        <characteristic name="AP">0</characteristic>
+                        <characteristic name="D">1</characteristic>
+                        <characteristic name="Keywords"></characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+                <selection id="unit1-m0-w1" name="Ballistus lascannon" type="upgrade" number="1">
+                  <profiles>
+                    <profile name="Ballistus lascannon" typeName="Ranged Weapons">
+                      <characteristics>
+                        <characteristic name="Range">48"</characteristic>
+                        <characteristic name="A">2</characteristic>
+                        <characteristic name="BS">3+</characteristic>
+                        <characteristic name="S">12</characteristic>
+                        <characteristic name="AP">-3</characteristic>
+                        <characteristic name="D">D6+1</characteristic>
+                        <characteristic name="Keywords"></characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+                <selection id="unit1-m0-w2" name="Ballistus missile launcher" type="upgrade" number="1">
+                  <profiles>
+                    <profile name="Krak" typeName="Ranged Weapons">
+                      <characteristics>
+                        <characteristic name="Range">48"</characteristic>
+                        <characteristic name="A">2</characteristic>
+                        <characteristic name="BS">3+</characteristic>
+                        <characteristic name="S">10</characteristic>
+                        <characteristic name="AP">-2</characteristic>
+                        <characteristic name="D">D6</characteristic>
+                        <characteristic name="Keywords"></characteristic>
+                      </characteristics>
+                    </profile>
+                    <profile name="Frag" typeName="Ranged Weapons">
+                      <characteristics>
+                        <characteristic name="Range">48"</characteristic>
+                        <characteristic name="A">2D6</characteristic>
+                        <characteristic name="BS">3+</characteristic>
+                        <characteristic name="S">5</characteristic>
+                        <characteristic name="AP">0</characteristic>
+                        <characteristic name="D">1</characteristic>
+                        <characteristic name="Keywords">Blast</characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+                <selection id="unit1-m0-w3" name="Twin storm bolter" type="upgrade" number="1">
+                  <profiles>
+                    <profile name="Twin storm bolter" typeName="Ranged Weapons">
+                      <characteristics>
+                        <characteristic name="Range">24"</characteristic>
+                        <characteristic name="A">2</characteristic>
+                        <characteristic name="BS">3+</characteristic>
+                        <characteristic name="S">4</characteristic>
+                        <characteristic name="AP">0</characteristic>
+                        <characteristic name="D">1</characteristic>
+                        <characteristic name="Keywords">Rapid Fire 2, Twin-linked</characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+              </selections>
+            </selection>
           </selections>
         </selection>
       </selections>

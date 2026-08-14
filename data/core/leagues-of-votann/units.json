@@ -291,7 +291,21 @@
     "wargear_budgets": [
       {
         "items": [
-          "pan-spectral-scanner"
+          "rollbar-searchlight"
+        ],
+        "count": 1,
+        "per_models": 0
+      },
+      {
+        "items": [
+          "panspectral-scanner"
+        ],
+        "count": 1,
+        "per_models": 0
+      },
+      {
+        "items": [
+          "multiwave-comms-array"
         ],
         "count": 1,
         "per_models": 0
@@ -1286,7 +1300,13 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "conditional_keywords": [
+      {
+        "keyword": "Battleline",
+        "required_detachment_id": "delve-assault-shift"
+      }
+    ]
   },
   {
     "id": "sagitaur",

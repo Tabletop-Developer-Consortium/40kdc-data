@@ -27,7 +27,17 @@
       "is_warlord": false,
       "enhancement": null,
       "enhancement_points": null,
-      "wargear": [],
+      "wargear": [
+        {
+          "ref": {
+            "id": "dreadfists",
+            "raw_name": "Dreadfists",
+            "resolved": true,
+            "candidates": []
+          },
+          "count": 1
+        }
+      ],
       "leader_attachment": null
     },
     {
@@ -42,7 +52,26 @@
       "is_warlord": false,
       "enhancement": null,
       "enhancement_points": null,
-      "wargear": [],
+      "wargear": [
+        {
+          "ref": {
+            "id": "neural-shredder",
+            "raw_name": "Neural shredder",
+            "resolved": true,
+            "candidates": []
+          },
+          "count": 1
+        },
+        {
+          "ref": {
+            "id": "phase-sword-and-poison-blades",
+            "raw_name": "Phase sword and poison blades",
+            "resolved": true,
+            "candidates": []
+          },
+          "count": 1
+        }
+      ],
       "leader_attachment": null
     }
   ],
@@ -53,14 +82,8 @@
   "diagnostics": {
     "resolved_units": 2,
     "unresolved_units": 0,
-    "resolved_weapons": 0,
+    "resolved_weapons": 3,
     "unresolved_weapons": 0,
-    "warnings": [
-      {
-        "code": "multi-force",
-        "message": "Source list contains more than one faction; the primary faction was used for scoping.",
-        "raw_name": null
-      }
-    ]
+    "warnings": []
   }
 }

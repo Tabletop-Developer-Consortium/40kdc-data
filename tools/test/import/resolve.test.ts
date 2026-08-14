@@ -178,10 +178,10 @@ describe("resolve (against embedded grey-knights data)", () => {
     expect(r.diagnostics.warnings.some((w) => w.code === "unit-unresolved")).toBe(true);
   });
 
-  it("flags multi-force lists and resolves the primary faction", () => {
+  it("resolves allied units without treating a valid multi-force list as a warning", () => {
     const r = importRoster(fixture("gk-allied-multiforce.payload.json"), { dataset: ds });
     expect(r.faction_id).toBe("grey-knights");
-    expect(r.diagnostics.warnings.some((w) => w.code === "multi-force")).toBe(true);
+    expect(r.diagnostics.warnings.some((w) => w.code === "multi-force")).toBe(false);
     expect(r.units.length).toBe(2);
   });
 });

@@ -250,11 +250,11 @@
   },
   {
     "id": "choppa",
-    "name": "Choppa",
+    "name": "Choppas",
     "type": "melee",
     "profiles": [
       {
-        "name": "Choppa",
+        "name": "Choppas",
         "range": "Melee",
         "stats": {
           "A": 3,
@@ -268,7 +268,7 @@
     ],
     "game_version": {
       "edition": "11th",
-      "dataslate": "pre-launch-provisional"
+      "dataslate": "launch"
     }
   },
   {
@@ -3229,11 +3229,11 @@
   },
   {
     "id": "twin-killsaw",
-    "name": "Twin killsaw",
+    "name": "Twin killsaws",
     "type": "melee",
     "profiles": [
       {
-        "name": "Twin killsaw",
+        "name": "Twin killsaws",
         "range": "Melee",
         "stats": {
           "A": 2,
@@ -3251,7 +3251,7 @@
     ],
     "game_version": {
       "edition": "11th",
-      "dataslate": "pre-launch-provisional"
+      "dataslate": "launch"
     }
   },
   {
@@ -4831,6 +4831,254 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
+    }
+  },
+  {
+    "id": "kustom-choppa",
+    "name": "Kustom Choppa",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Kustom Choppa",
+        "range": "Melee",
+        "stats": {
+          "A": 6,
+          "S": 8,
+          "AP": -2,
+          "D": 2,
+          "WS": 2
+        },
+        "keywords": [
+          {
+            "keyword_id": "cleave",
+            "parameters": {
+              "value": 1
+            }
+          }
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
+    "id": "psychic-powers",
+    "name": "Psychic Powers",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Da Stomp",
+        "range": 24,
+        "stats": {
+          "A": "D6+2",
+          "S": 4,
+          "AP": 0,
+          "D": 1,
+          "BS": 4
+        },
+        "keywords": [
+          {
+            "keyword_id": "blast"
+          },
+          {
+            "keyword_id": "psychic"
+          }
+        ]
+      },
+      {
+        "name": "'Eadbanger",
+        "range": 24,
+        "stats": {
+          "A": 1,
+          "S": 8,
+          "AP": -3,
+          "D": 2,
+          "BS": 4
+        },
+        "keywords": [
+          {
+            "keyword_id": "precision"
+          },
+          {
+            "keyword_id": "psychic"
+          }
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
+    "id": "waaagh-staff",
+    "name": "Waaagh! Staff",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Bash",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 8,
+          "AP": -1,
+          "D": 2,
+          "WS": 3
+        },
+        "keywords": [
+          {
+            "keyword_id": "psychic"
+          }
+        ]
+      },
+      {
+        "name": "Clobber",
+        "range": "Melee",
+        "stats": {
+          "A": 4,
+          "S": 8,
+          "AP": -2,
+          "D": 2,
+          "WS": 3
+        },
+        "keywords": [
+          {
+            "keyword_id": "devastating-wounds"
+          },
+          {
+            "keyword_id": "hazardous"
+          },
+          {
+            "keyword_id": "psychic"
+          }
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
+    "id": "kombi-rokkit",
+    "name": "Kombi-rokkit",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Kombi-rokkit",
+        "range": 24,
+        "stats": {
+          "A": 1,
+          "S": 10,
+          "AP": -2,
+          "D": 3,
+          "BS": 5
+        }
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
+    "id": "kombi-shoota",
+    "name": "Kombi-shoota",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Kombi-shoota",
+        "range": 24,
+        "stats": {
+          "A": 2,
+          "S": 4,
+          "AP": 0,
+          "D": 1,
+          "BS": 5
+        }
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
+    "id": "blasta",
+    "name": "Blasta",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Blasta",
+        "range": 18,
+        "stats": {
+          "A": 1,
+          "S": 3,
+          "AP": 0,
+          "D": 1,
+          "BS": 4
+        },
+        "keywords": [
+          {
+            "keyword_id": "close-quarters"
+          }
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
+    "id": "lobbin-bombs",
+    "name": "Lobbin' Bombs",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Lobbin' Bombs",
+        "range": 6,
+        "stats": {
+          "A": 1,
+          "S": 4,
+          "AP": -1,
+          "D": 1,
+          "BS": 4
+        },
+        "keywords": [
+          {
+            "keyword_id": "hazardous"
+          }
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
+    "id": "scavenged-shivs",
+    "name": "Scavenged Shivs",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Scavenged Shivs",
+        "range": "Melee",
+        "stats": {
+          "A": 1,
+          "S": 2,
+          "AP": 0,
+          "D": 1,
+          "WS": 5
+        }
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
     }
   }
 ]

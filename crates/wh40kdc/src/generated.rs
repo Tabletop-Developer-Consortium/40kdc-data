@@ -5524,6 +5524,15 @@ impl ::std::convert::From<PersistentDesignationEffect> for EffectNode {
 ///        }
 ///      ]
 ///    },
+///    "attachment_bodyguard_ids": {
+///      "description": "Additional bodyguard units the bearer may attach to because it carries this enhancement.",
+///      "type": "array",
+///      "items": {
+///        "$ref": "#/$defs/entity-id"
+///      },
+///      "minItems": 1,
+///      "uniqueItems": true
+///    },
 ///    "cost": {
 ///      "type": "integer",
 ///      "minimum": 0.0
@@ -5554,6 +5563,20 @@ impl ::std::convert::From<PersistentDesignationEffect> for EffectNode {
 ///    "is_unique": {
 ///      "default": true,
 ///      "type": "boolean"
+///    },
+///    "keyword_restriction_groups": {
+///      "description": "Alternative bearer eligibility groups. Every keyword in one group is required (AND), while satisfying any group is sufficient (OR). When present, this supersedes the legacy flat `keyword_restrictions` field.",
+///      "type": "array",
+///      "items": {
+///        "type": "array",
+///        "items": {
+///          "$ref": "#/$defs/keyword"
+///        },
+///        "minItems": 1,
+///        "uniqueItems": true
+///      },
+///      "minItems": 1,
+///      "uniqueItems": true
 ///    },
 ///    "keyword_restrictions": {
 ///      "$ref": "#/$defs/keyword-list"
@@ -5589,6 +5612,9 @@ impl ::std::convert::From<PersistentDesignationEffect> for EffectNode {
 pub struct Enhancement {
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub ability_id: ::std::option::Option<EntityId>,
+    ///Additional bodyguard units the bearer may attach to because it carries this enhancement.
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub attachment_bodyguard_ids: ::std::option::Option<Vec<EntityId>>,
     pub cost: u64,
     pub detachment_id: EntityId,
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
@@ -5600,6 +5626,9 @@ pub struct Enhancement {
     pub id: EntityId,
     #[serde(default = "defaults::default_bool::<true>")]
     pub is_unique: bool,
+    ///Alternative bearer eligibility groups. Every keyword in one group is required (AND), while satisfying any group is sufficient (OR). When present, this supersedes the legacy flat `keyword_restrictions` field.
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub keyword_restriction_groups: ::std::option::Option<Vec<Vec<Keyword>>>,
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub keyword_restrictions: ::std::option::Option<KeywordList>,
     ///Number of units this enhancement may be applied to. Only meaningful when `upgrade_tag` is true; defaults to 1.
@@ -23431,6 +23460,42 @@ impl ::std::convert::TryFrom<::std::string::String> for TriggerSubject {
 ///        }
 ///      ]
 ///    },
+///    "conditional_keywords": {
+///      "description": "Keywords granted to this unit only when roster construction satisfies the source condition. Conditions are conjunctive within an entry; entries are independent grants.",
+///      "type": "array",
+///      "items": {
+///        "type": "object",
+///        "required": [
+///          "keyword"
+///        ],
+///        "properties": {
+///          "keyword": {
+///            "$ref": "#/$defs/keyword"
+///          },
+///          "required_detachment_id": {
+///            "oneOf": [
+///              {
+///                "$ref": "#/$defs/entity-id"
+///              },
+///              {
+///                "type": "null"
+///              }
+///            ]
+///          },
+///          "required_faction_keyword": {
+///            "oneOf": [
+///              {
+///                "$ref": "#/$defs/keyword"
+///              },
+///              {
+///                "type": "null"
+///              }
+///            ]
+///          }
+///        },
+///        "additionalProperties": false
+///      }
+///    },
 ///    "excluded_faction_keywords": {
 ///      "description": "Faction keywords whose armies are barred from taking this otherwise-generic unit. Used where the game removes a generic unit from a specific sub-faction without printing a replacement (e.g. Black Templars cannot field Librarians; Deathwatch cannot field the generic Tactical Squad). An army may take this unit only if none of its faction keywords appear here. Absent/empty = available to every keyword-eligible army. Distinct from `faction_keywords`, which is the positive access list; this is the negative one for the rare exclusions a flat shared pool cannot otherwise express.",
 ///      "oneOf": [
@@ -23758,6 +23823,9 @@ pub struct Unit {
     ///The unit's representative base (the most-numerous model's base). Mixed-model units carry the full per-model breakdown in unit-composition; this top-level value is a convenience for consumers that need a single base.
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub base_size_mm: ::std::option::Option<BaseSize>,
+    ///Keywords granted to this unit only when roster construction satisfies the source condition. Conditions are conjunctive within an entry; entries are independent grants.
+    #[serde(default, skip_serializing_if = "::std::vec::Vec::is_empty")]
+    pub conditional_keywords: ::std::vec::Vec<UnitConditionalKeywordsItem>,
     ///Faction keywords whose armies are barred from taking this otherwise-generic unit. Used where the game removes a generic unit from a specific sub-faction without printing a replacement (e.g. Black Templars cannot field Librarians; Deathwatch cannot field the generic Tactical Squad). An army may take this unit only if none of its faction keywords appear here. Absent/empty = available to every keyword-eligible army. Distinct from `faction_keywords`, which is the positive access list; this is the negative one for the rare exclusions a flat shared pool cannot otherwise express.
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub excluded_faction_keywords: ::std::option::Option<KeywordList>,
@@ -24554,6 +24622,54 @@ impl<'de> ::serde::Deserialize<'de> for UnitCompositionTiersItemModelsItemName {
                 <D::Error as ::serde::de::Error>::custom(e.to_string())
             })
     }
+}
+///`UnitConditionalKeywordsItem`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "object",
+///  "required": [
+///    "keyword"
+///  ],
+///  "properties": {
+///    "keyword": {
+///      "$ref": "#/$defs/keyword"
+///    },
+///    "required_detachment_id": {
+///      "oneOf": [
+///        {
+///          "$ref": "#/$defs/entity-id"
+///        },
+///        {
+///          "type": "null"
+///        }
+///      ]
+///    },
+///    "required_faction_keyword": {
+///      "oneOf": [
+///        {
+///          "$ref": "#/$defs/keyword"
+///        },
+///        {
+///          "type": "null"
+///        }
+///      ]
+///    }
+///  },
+///  "additionalProperties": false
+///}
+/// ```
+/// </details>
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
+#[serde(deny_unknown_fields)]
+pub struct UnitConditionalKeywordsItem {
+    pub keyword: Keyword,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub required_detachment_id: ::std::option::Option<EntityId>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub required_faction_keyword: ::std::option::Option<Keyword>,
 }
 ///Catalog entry for a universal unit ability (a 'Core ability' in the rulebook: Deep Strike, Scouts X", Feel No Pain X+, Deadly Demise X, etc.). These are the unit-side counterpart of weapon-keyword.schema.json — community-authored mechanic labels, not reproduced rules text. A unit references a parameterised instance from its `ability_ids` (e.g. `scouts-6`); this catalog records the value-agnostic definition keyed by base id (e.g. `scouts`). The optional `effect` describes the mechanic in the Ability DSL; null when the behaviour is modelled per-faction in enrichment data rather than here.
 ///

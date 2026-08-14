@@ -333,7 +333,8 @@
         },
         "default_weapon_ids": [
           "paired-hekatarii-blades",
-          "shuriken-pistol"
+          "shuriken-pistol",
+          "close-combat-weapon"
         ]
       },
       {
@@ -347,7 +348,9 @@
         },
         "default_weapon_ids": [
           "shuriken-pistol",
-          "power-sword"
+          "power-sword",
+          "channeller-stones",
+          "close-combat-weapon"
         ]
       },
       {
@@ -362,7 +365,8 @@
         "default_weapon_ids": [
           "shuriken-pistol",
           "witch-staff",
-          "executioner"
+          "executioner",
+          "close-combat-weapon"
         ]
       }
     ],
@@ -840,7 +844,8 @@
         "min": 1,
         "max": 1,
         "default_weapon_ids": [
-          "close-combat-weapon"
+          "close-combat-weapon",
+          "serpent-shield"
         ],
         "is_leader_model": false,
         "base_size_mm": {
@@ -1003,8 +1008,9 @@
           "diameter": 25
         },
         "default_weapon_ids": [
-          "jesters-blade",
-          "shrieker-cannon"
+          "flip-belt",
+          "shrieker-cannon",
+          "jesters-blade"
         ]
       }
     ],
@@ -1147,6 +1153,7 @@
           "diameter": 25
         },
         "default_weapon_ids": [
+          "flip-belt",
           "solitaire-weapons"
         ]
       }
@@ -2022,8 +2029,9 @@
           "diameter": 25
         },
         "default_weapon_ids": [
+          "shuriken-pistol-shadowseer",
           "miststave",
-          "shuriken-pistol-shadowseer"
+          "flip-belt"
         ]
       }
     ],
@@ -2875,8 +2883,9 @@
           "diameter": 25
         },
         "default_weapon_ids": [
+          "shuriken-pistol-troupe-master",
           "troupe-masters-blade",
-          "shuriken-pistol-troupe-master"
+          "flip-belt"
         ]
       }
     ],
@@ -3125,6 +3134,7 @@
           "diameter": 25
         },
         "default_weapon_ids": [
+          "shadow-field",
           "splinter-pistol-ynnari-archon",
           "huskblade"
         ]
@@ -3225,6 +3235,7 @@
         "min": 1,
         "max": 1,
         "default_weapon_ids": [
+          "flip-belt",
           "shuriken-pistol",
           "harlequins-blade"
         ],
@@ -3239,6 +3250,7 @@
         "min": 4,
         "max": 11,
         "default_weapon_ids": [
+          "flip-belt",
           "shuriken-pistol",
           "harlequins-blade"
         ],

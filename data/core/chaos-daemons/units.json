@@ -506,7 +506,13 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "conditional_keywords": [
+      {
+        "keyword": "Shadow Legion",
+        "required_detachment_id": "shadow-legion"
+      }
+    ]
   },
   {
     "id": "tranceweaver",
@@ -567,7 +573,13 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "conditional_keywords": [
+      {
+        "keyword": "Shadow Legion",
+        "required_detachment_id": "shadow-legion"
+      }
+    ]
   },
   {
     "id": "burning-chariot",
@@ -711,6 +723,13 @@
         "count": 1,
         "per_models": 0
       }
+    ],
+    "allied_points": [
+      {
+        "models": 10,
+        "cost": 115,
+        "host_faction": "thousand-sons"
+      }
     ]
   },
   {
@@ -773,7 +792,13 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "conditional_keywords": [
+      {
+        "keyword": "Shadow Legion",
+        "required_detachment_id": "shadow-legion"
+      }
+    ]
   },
   {
     "id": "plaguebearers",
@@ -918,7 +943,13 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "conditional_keywords": [
+      {
+        "keyword": "Shadow Legion",
+        "required_detachment_id": "shadow-legion"
+      }
+    ]
   },
   {
     "id": "shalaxi-helbane",
@@ -1253,6 +1284,13 @@
         "count": 1,
         "per_models": 0
       }
+    ],
+    "allied_points": [
+      {
+        "models": 10,
+        "cost": 90,
+        "host_faction": "world-eaters"
+      }
     ]
   },
   {
@@ -1325,7 +1363,13 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "conditional_keywords": [
+      {
+        "keyword": "Shadow Legion",
+        "required_detachment_id": "shadow-legion"
+      }
+    ]
   },
   {
     "id": "changecaster",
@@ -1386,7 +1430,13 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "conditional_keywords": [
+      {
+        "keyword": "Shadow Legion",
+        "required_detachment_id": "shadow-legion"
+      }
+    ]
   },
   {
     "id": "feculent-gnarlmaw",
@@ -1512,7 +1562,13 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "conditional_keywords": [
+      {
+        "keyword": "Shadow Legion",
+        "required_detachment_id": "shadow-legion"
+      }
+    ]
   },
   {
     "id": "bloodcrushers",
@@ -1791,7 +1847,13 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "conditional_keywords": [
+      {
+        "keyword": "Shadow Legion",
+        "required_detachment_id": "shadow-legion"
+      }
+    ]
   },
   {
     "id": "horticulous-slimux",
@@ -1915,7 +1977,13 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "conditional_keywords": [
+      {
+        "keyword": "Shadow Legion",
+        "required_detachment_id": "shadow-legion"
+      }
+    ]
   },
   {
     "id": "poxbringer",
@@ -1976,7 +2044,13 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "conditional_keywords": [
+      {
+        "keyword": "Shadow Legion",
+        "required_detachment_id": "shadow-legion"
+      }
+    ]
   },
   {
     "id": "fateskimmer",
@@ -2040,7 +2114,13 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "conditional_keywords": [
+      {
+        "keyword": "Shadow Legion",
+        "required_detachment_id": "shadow-legion"
+      }
+    ]
   },
   {
     "id": "hellflayers",
@@ -2254,7 +2334,13 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "conditional_keywords": [
+      {
+        "keyword": "Shadow Legion",
+        "required_detachment_id": "shadow-legion"
+      }
+    ]
   },
   {
     "id": "exalted-flamer",
@@ -2317,7 +2403,13 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "conditional_keywords": [
+      {
+        "keyword": "Shadow Legion",
+        "required_detachment_id": "shadow-legion"
+      }
+    ]
   },
   {
     "id": "skullmaster",
@@ -2378,7 +2470,13 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "conditional_keywords": [
+      {
+        "keyword": "Shadow Legion",
+        "required_detachment_id": "shadow-legion"
+      }
+    ]
   },
   {
     "id": "epidemius",
@@ -2561,7 +2659,13 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "conditional_keywords": [
+      {
+        "keyword": "Shadow Legion",
+        "required_detachment_id": "shadow-legion"
+      }
+    ]
   },
   {
     "id": "tormentbringer",
@@ -2624,7 +2728,13 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "conditional_keywords": [
+      {
+        "keyword": "Shadow Legion",
+        "required_detachment_id": "shadow-legion"
+      }
+    ]
   },
   {
     "id": "skulltaker",
@@ -2751,7 +2861,13 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "conditional_keywords": [
+      {
+        "keyword": "Shadow Legion",
+        "required_detachment_id": "shadow-legion"
+      }
+    ]
   },
   {
     "id": "skull-altar",
@@ -2862,7 +2978,13 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "conditional_keywords": [
+      {
+        "keyword": "Shadow Legion",
+        "required_detachment_id": "shadow-legion"
+      }
+    ]
   },
   {
     "id": "kairos-fateweaver",
@@ -2984,7 +3106,14 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "allied_points": [
+      {
+        "models": 10,
+        "cost": 90,
+        "host_faction": "thousand-sons"
+      }
+    ]
   },
   {
     "id": "the-blue-scribes",
@@ -3174,7 +3303,13 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "conditional_keywords": [
+      {
+        "keyword": "Shadow Legion",
+        "required_detachment_id": "shadow-legion"
+      }
+    ]
   },
   {
     "id": "flamers",
@@ -3295,7 +3430,19 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "allied_points": [
+      {
+        "models": 1,
+        "cost": 70,
+        "host_faction": "death-guard"
+      },
+      {
+        "models": 2,
+        "cost": 140,
+        "host_faction": "death-guard"
+      }
+    ]
   },
   {
     "id": "flesh-hounds",

@@ -81,6 +81,23 @@
     }
   },
   {
+    "id": "striking-scorpions-wgo-mfm-3",
+    "unit_id": "striking-scorpions",
+    "faction_id": "aeldari",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_free": true,
+    "replacement": [
+      "aspect-shrine-token"
+    ],
+    "model_constraint": {
+      "any_number": true,
+      "max_count": 2
+    }
+  },
+  {
     "id": "wraithlord-wgo-mfm-1",
     "unit_id": "wraithlord",
     "faction_id": "aeldari",
@@ -278,6 +295,23 @@
       "dataslate": "launch"
     },
     "is_free": true,
+    "replacement": [
+      "faolchu"
+    ],
+    "model_constraint": {
+      "model_name": "Corsair Voidscarred",
+      "any_number": true
+    }
+  },
+  {
+    "id": "corsair-voidscarred-wgo-mfm-5",
+    "unit_id": "corsair-voidscarred",
+    "faction_id": "aeldari",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_free": true,
     "replaces": [
       "power-sword"
     ],
@@ -290,7 +324,7 @@
     }
   },
   {
-    "id": "corsair-voidscarred-wgo-mfm-5",
+    "id": "corsair-voidscarred-wgo-mfm-6",
     "unit_id": "corsair-voidscarred",
     "faction_id": "aeldari",
     "game_version": {
@@ -434,6 +468,23 @@
     "model_constraint": {
       "model_name": "Fire Dragon Exarch",
       "any_number": true
+    }
+  },
+  {
+    "id": "fire-dragons-wgo-mfm-2",
+    "unit_id": "fire-dragons",
+    "faction_id": "aeldari",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_free": true,
+    "replacement": [
+      "aspect-shrine-token"
+    ],
+    "model_constraint": {
+      "any_number": true,
+      "max_count": 2
     }
   },
   {
@@ -1093,6 +1144,23 @@
     }
   },
   {
+    "id": "swooping-hawks-wgo-mfm-2",
+    "unit_id": "swooping-hawks",
+    "faction_id": "aeldari",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_free": true,
+    "replacement": [
+      "aspect-shrine-token"
+    ],
+    "model_constraint": {
+      "any_number": true,
+      "max_count": 2
+    }
+  },
+  {
     "id": "wraithguard-wgo-mfm-1",
     "unit_id": "wraithguard",
     "faction_id": "aeldari",
@@ -1324,6 +1392,23 @@
       "dataslate": "launch"
     },
     "is_free": true,
+    "replacement": [
+      "aspect-shrine-token"
+    ],
+    "model_constraint": {
+      "any_number": true,
+      "max_count": 2
+    }
+  },
+  {
+    "id": "warp-spiders-wgo-mfm-2",
+    "unit_id": "warp-spiders",
+    "faction_id": "aeldari",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_free": true,
     "replaces": [
       "exarchs-death-spinner"
     ],
@@ -1347,6 +1432,23 @@
   },
   {
     "id": "dark-reapers-wgo-mfm-1",
+    "unit_id": "dark-reapers",
+    "faction_id": "aeldari",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_free": true,
+    "replacement": [
+      "aspect-shrine-token"
+    ],
+    "model_constraint": {
+      "any_number": true,
+      "max_count": 2
+    }
+  },
+  {
+    "id": "dark-reapers-wgo-mfm-2",
     "unit_id": "dark-reapers",
     "faction_id": "aeldari",
     "game_version": {
@@ -1756,6 +1858,23 @@
     }
   },
   {
+    "id": "dire-avengers-wgo-mfm-3",
+    "unit_id": "dire-avengers",
+    "faction_id": "aeldari",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_free": true,
+    "replacement": [
+      "aspect-shrine-token"
+    ],
+    "model_constraint": {
+      "any_number": true,
+      "max_count": 2
+    }
+  },
+  {
     "id": "howling-banshees-wgo-mfm-1",
     "unit_id": "howling-banshees",
     "faction_id": "aeldari",
@@ -1799,6 +1918,23 @@
     "model_constraint": {
       "model_name": "Howling Banshee Exarch",
       "any_number": true
+    }
+  },
+  {
+    "id": "howling-banshees-wgo-mfm-3",
+    "unit_id": "howling-banshees",
+    "faction_id": "aeldari",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_free": true,
+    "replacement": [
+      "aspect-shrine-token"
+    ],
+    "model_constraint": {
+      "any_number": true,
+      "max_count": 2
     }
   },
   {
@@ -2062,7 +2198,8 @@
       "ghostswords"
     ],
     "replacement": [
-      "ghostaxe"
+      "ghostaxe",
+      "forceshield"
     ],
     "model_constraint": {
       "any_number": true
@@ -2223,6 +2360,23 @@
     ],
     "model_constraint": {
       "any_number": true
+    }
+  },
+  {
+    "id": "dragon-knights-wgo-mfm-1",
+    "unit_id": "dragon-knights",
+    "faction_id": "aeldari",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_free": true,
+    "replacement": [
+      "drakolithe-once-per-battle-per-token"
+    ],
+    "model_constraint": {
+      "any_number": true,
+      "max_count": 4
     }
   }
 ]

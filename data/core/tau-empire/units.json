@@ -554,6 +554,13 @@
         ],
         "count": 1,
         "per_models": 0
+      },
+      {
+        "items": [
+          "pechra"
+        ],
+        "count": 1,
+        "per_models": 0
       }
     ]
   },
@@ -2883,7 +2890,13 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "conditional_keywords": [
+      {
+        "keyword": "Battleline",
+        "required_detachment_id": "kroot-hunting-pack"
+      }
+    ]
   },
   {
     "id": "kroot-war-shaper",

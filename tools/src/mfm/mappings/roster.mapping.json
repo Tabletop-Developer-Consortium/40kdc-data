@@ -760,6 +760,32 @@
       ],
       "reason": "Roster field is supplied, selected, or computed from the imported roster; MFM does not supply this roster-specific value."
     },
+    "/units/*/keyword_overrides": {
+      "provenance": "runtime-input",
+      "coverage": "not-applicable",
+      "sources": [],
+      "joins": [],
+      "transforms": [],
+      "filters": [],
+      "precedence": [],
+      "consumers": [
+        "tools/src/import/resolve.ts#resolve"
+      ],
+      "reason": "Roster field is supplied, selected, or computed from the imported roster; MFM does not supply this roster-specific value."
+    },
+    "/units/*/keyword_overrides/*": {
+      "provenance": "runtime-input",
+      "coverage": "not-applicable",
+      "sources": [],
+      "joins": [],
+      "transforms": [],
+      "filters": [],
+      "precedence": [],
+      "consumers": [
+        "tools/src/import/resolve.ts#resolve"
+      ],
+      "reason": "Roster field is supplied, selected, or computed from the imported roster; MFM does not supply this roster-specific value."
+    },
     "/units/*/leader_attachment": {
       "provenance": "derived",
       "coverage": "partial",

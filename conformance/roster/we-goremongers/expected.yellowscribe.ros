@@ -35,9 +35,9 @@
             <category name="Goremongers"/>
           </categories>
           <selections>
-            <selection id="unit0-m0" name="Blood Herald" type="model" number="1">
+            <selection id="unit0-m0" name="Goremonger" type="model" number="8">
               <selections>
-                <selection id="unit0-m0-w0" name="Autopistol" type="upgrade" number="1">
+                <selection id="unit0-m0-w0" name="Autopistol" type="upgrade" number="8">
                   <profiles>
                     <profile name="Autopistol" typeName="Ranged Weapons">
                       <characteristics>
@@ -52,7 +52,7 @@
                     </profile>
                   </profiles>
                 </selection>
-                <selection id="unit0-m0-w1" name="Chainblade" type="upgrade" number="1">
+                <selection id="unit0-m0-w1" name="Chainblade" type="upgrade" number="56">
                   <profiles>
                     <profile name="Chainblade" typeName="Melee Weapons">
                       <characteristics>
@@ -67,7 +67,7 @@
                     </profile>
                   </profiles>
                 </selection>
-                <selection id="unit0-m0-w2" name="Close combat weapon" type="upgrade" number="1">
+                <selection id="unit0-m0-w2" name="Close combat weapon" type="upgrade" number="8">
                   <profiles>
                     <profile name="Close combat weapon" typeName="Melee Weapons">
                       <characteristics>
@@ -82,75 +82,7 @@
                     </profile>
                   </profiles>
                 </selection>
-              </selections>
-            </selection>
-            <selection id="unit0-m1" name="Goremongers" type="model" number="6">
-              <selections>
-                <selection id="unit0-m1-w0" name="Autopistol" type="upgrade" number="6">
-                  <profiles>
-                    <profile name="Autopistol" typeName="Ranged Weapons">
-                      <characteristics>
-                        <characteristic name="Range">12"</characteristic>
-                        <characteristic name="A">1</characteristic>
-                        <characteristic name="BS">4+</characteristic>
-                        <characteristic name="S">3</characteristic>
-                        <characteristic name="AP">0</characteristic>
-                        <characteristic name="D">1</characteristic>
-                        <characteristic name="Keywords">Pistol</characteristic>
-                      </characteristics>
-                    </profile>
-                  </profiles>
-                </selection>
-                <selection id="unit0-m1-w1" name="Chainblade" type="upgrade" number="6">
-                  <profiles>
-                    <profile name="Chainblade" typeName="Melee Weapons">
-                      <characteristics>
-                        <characteristic name="Range">Melee</characteristic>
-                        <characteristic name="A">3</characteristic>
-                        <characteristic name="WS">4+</characteristic>
-                        <characteristic name="S">3</characteristic>
-                        <characteristic name="AP">0</characteristic>
-                        <characteristic name="D">1</characteristic>
-                        <characteristic name="Keywords">Lance</characteristic>
-                      </characteristics>
-                    </profile>
-                  </profiles>
-                </selection>
-                <selection id="unit0-m1-w2" name="Close combat weapon" type="upgrade" number="6">
-                  <profiles>
-                    <profile name="Close combat weapon" typeName="Melee Weapons">
-                      <characteristics>
-                        <characteristic name="Range">Melee</characteristic>
-                        <characteristic name="A">2</characteristic>
-                        <characteristic name="WS">4+</characteristic>
-                        <characteristic name="S">3</characteristic>
-                        <characteristic name="AP">0</characteristic>
-                        <characteristic name="D">1</characteristic>
-                        <characteristic name="Keywords"></characteristic>
-                      </characteristics>
-                    </profile>
-                  </profiles>
-                </selection>
-              </selections>
-            </selection>
-            <selection id="unit0-m2" name="Goremongers" type="model" number="1">
-              <selections>
-                <selection id="unit0-m2-w0" name="Autopistol" type="upgrade" number="1">
-                  <profiles>
-                    <profile name="Autopistol" typeName="Ranged Weapons">
-                      <characteristics>
-                        <characteristic name="Range">12"</characteristic>
-                        <characteristic name="A">1</characteristic>
-                        <characteristic name="BS">4+</characteristic>
-                        <characteristic name="S">3</characteristic>
-                        <characteristic name="AP">0</characteristic>
-                        <characteristic name="D">1</characteristic>
-                        <characteristic name="Keywords">Pistol</characteristic>
-                      </characteristics>
-                    </profile>
-                  </profiles>
-                </selection>
-                <selection id="unit0-m2-w1" name="Blood harpoon" type="upgrade" number="1">
+                <selection id="unit0-m0-w3" name="Blood harpoon" type="upgrade" number="8">
                   <profiles>
                     <profile name="Blood harpoon" typeName="Ranged Weapons">
                       <characteristics>
@@ -161,21 +93,6 @@
                         <characteristic name="AP">-1</characteristic>
                         <characteristic name="D">2</characteristic>
                         <characteristic name="Keywords">Assault, Sustained Hits D3</characteristic>
-                      </characteristics>
-                    </profile>
-                  </profiles>
-                </selection>
-                <selection id="unit0-m2-w2" name="Close combat weapon" type="upgrade" number="1">
-                  <profiles>
-                    <profile name="Close combat weapon" typeName="Melee Weapons">
-                      <characteristics>
-                        <characteristic name="Range">Melee</characteristic>
-                        <characteristic name="A">2</characteristic>
-                        <characteristic name="WS">4+</characteristic>
-                        <characteristic name="S">3</characteristic>
-                        <characteristic name="AP">0</characteristic>
-                        <characteristic name="D">1</characteristic>
-                        <characteristic name="Keywords"></characteristic>
                       </characteristics>
                     </profile>
                   </profiles>

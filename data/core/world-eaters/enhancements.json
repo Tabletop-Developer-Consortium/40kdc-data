@@ -15,7 +15,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "World Eaters"
+      ]
+    ]
   },
   {
     "id": "helm-of-brazen-ire-berzerker-warband",
@@ -33,7 +38,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "World Eaters"
+      ]
+    ]
   },
   {
     "id": "favoured-of-khorne-berzerker-warband",
@@ -51,7 +61,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "World Eaters"
+      ]
+    ]
   },
   {
     "id": "battle-lust-berzerker-warband",
@@ -69,7 +84,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "World Eaters"
+      ]
+    ]
   },
   {
     "id": "archslaughterer-vessels-of-wrath",
@@ -87,7 +107,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "World Eaters"
+      ]
+    ]
   },
   {
     "id": "gateways-to-glory-vessels-of-wrath",
@@ -105,7 +130,13 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Daemon Prince",
+        "World Eaters"
+      ]
+    ]
   },
   {
     "id": "chosen-of-the-blood-god-cult-of-blood",
@@ -123,7 +154,13 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Monster",
+        "World Eaters"
+      ]
+    ]
   },
   {
     "id": "butcher-lord-cult-of-blood",
@@ -141,7 +178,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Infantry",
+        "World Eaters"
+      ]
+    ],
+    "attachment_bodyguard_ids": [
+      "goremongers",
+      "jakhals"
+    ]
   },
   {
     "id": "brazen-form-cult-of-blood",
@@ -159,7 +206,13 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Monster",
+        "World Eaters"
+      ]
+    ]
   },
   {
     "id": "strategic-slaughter-cult-of-blood",
@@ -177,7 +230,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "World Eaters"
+      ]
+    ]
   },
   {
     "id": "icon-of-war-khorne-daemonkin",
@@ -195,7 +253,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "World Eaters"
+      ]
+    ]
   },
   {
     "id": "blood-forged-armour-khorne-daemonkin",
@@ -213,7 +276,15 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "World Eaters"
+      ],
+      [
+        "Blood Legions"
+      ]
+    ]
   },
   {
     "id": "disciple-of-khorne-khorne-daemonkin",
@@ -231,7 +302,16 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Lord on Juggernaut"
+      ]
+    ],
+    "attachment_bodyguard_ids": [
+      "bloodcrushers",
+      "flesh-hounds"
+    ]
   },
   {
     "id": "blade-of-endless-bloodshed-khorne-daemonkin",
@@ -249,7 +329,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "World Eaters"
+      ]
+    ]
   },
   {
     "id": "malicious-vigour-possessed-slaughterband",
@@ -267,7 +352,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Slaughterbound"
+      ]
+    ]
   },
   {
     "id": "killing-clarity-possessed-slaughterband",
@@ -285,7 +375,13 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Daemon",
+        "World Eaters"
+      ]
+    ]
   },
   {
     "id": "frenzied-focus-possessed-slaughterband",
@@ -303,7 +399,13 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Daemon",
+        "World Eaters"
+      ]
+    ]
   },
   {
     "id": "violent-demise-possessed-slaughterband",
@@ -321,7 +423,13 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Daemon",
+        "World Eaters"
+      ]
+    ]
   },
   {
     "id": "murderous-onslaught-goretrack-onslaught",
@@ -339,7 +447,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "World Eaters"
+      ]
+    ]
   },
   {
     "id": "aggressive-deployment-goretrack-onslaught",
@@ -357,7 +470,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "World Eaters"
+      ]
+    ]
   },
   {
     "id": "unleash-hell-goretrack-onslaught",
@@ -375,7 +493,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "World Eaters"
+      ]
+    ]
   },
   {
     "id": "infernal-infusion-goretrack-onslaught",
@@ -393,7 +516,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "World Eaters"
+      ]
+    ]
   },
   {
     "id": "talons-of-butchery-upgrade-brazen-engines",
@@ -411,7 +539,13 @@
     },
     "points_provisional": false,
     "upgrade_tag": true,
-    "max_targets": 3
+    "max_targets": 3,
+    "keyword_restriction_groups": [
+      [
+        "Maulerfiend",
+        "World Eaters"
+      ]
+    ]
   },
   {
     "id": "murder-forged-entity-upgrade-brazen-engines",
@@ -429,7 +563,13 @@
     },
     "points_provisional": false,
     "upgrade_tag": true,
-    "max_targets": 3
+    "max_targets": 3,
+    "keyword_restriction_groups": [
+      [
+        "Vehicle",
+        "World Eaters"
+      ]
+    ]
   },
   {
     "id": "sanctified-in-slaughter-upgrade-butchers-of-khorne",
@@ -447,7 +587,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": true,
-    "max_targets": 3
+    "max_targets": 3,
+    "keyword_restriction_groups": [
+      [
+        "Terminator Squad"
+      ]
+    ]
   },
   {
     "id": "gore-stained-veterans-upgrade-butchers-of-khorne",
@@ -465,7 +610,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": true,
-    "max_targets": 3
+    "max_targets": 3,
+    "keyword_restriction_groups": [
+      [
+        "Terminator Squad"
+      ]
+    ]
   },
   {
     "id": "bane-of-the-craven-frenzied-reavers",
@@ -484,6 +634,11 @@
     "keyword_restrictions": [
       "Frenzied Reavers",
       "Master of Executions"
+    ],
+    "keyword_restriction_groups": [
+      [
+        "Frenzied Reavers Master of Executions"
+      ]
     ]
   },
   {
@@ -503,6 +658,12 @@
     "keyword_restrictions": [
       "Daemon Prince",
       "Frenzied Reavers"
+    ],
+    "keyword_restriction_groups": [
+      [
+        "Daemon Prince",
+        "Frenzied Reavers"
+      ]
     ]
   }
 ]

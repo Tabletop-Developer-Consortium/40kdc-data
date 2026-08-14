@@ -176,7 +176,8 @@
       "skwad-leader-taktikal-brigade",
       "mek-kaptin-taktikal-brigade",
       "morks-kunnin-taktikal-brigade",
-      "gob-boomer-taktikal-brigade"
+      "gob-boomer-taktikal-brigade",
+      "slippery-git-taktikal-brigade"
     ],
     "stratagem_ids": [
       "fight-proppa-taktikal-brigade",
@@ -317,7 +318,12 @@
     "name": "Speedwaaagh!",
     "faction_id": "orks",
     "detachment_rule_id": "turbo-boostas",
-    "enhancement_ids": [],
+    "enhancement_ids": [
+      "dakkamek-speedwaaagh",
+      "kustom-shokk-box-speedwaaagh",
+      "master-meknologist-speedwaaagh",
+      "supa-burny-fuel-speedwaaagh"
+    ],
     "stratagem_ids": [],
     "game_version": {
       "edition": "11th",
@@ -345,6 +351,23 @@
     "detachment_points": 1,
     "force_dispositions": [
       "purge-the-foe"
+    ]
+  },
+  {
+    "id": "equatorial-hordes",
+    "name": "Equatorial Hordes",
+    "faction_id": "orks",
+    "enhancement_ids": [
+      "kunnin-hunta-equatorial-hordes",
+      "unkillable-scourge-equatorial-hordes"
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "detachment_points": 1,
+    "force_dispositions": [
+      "disruption"
     ]
   }
 ]

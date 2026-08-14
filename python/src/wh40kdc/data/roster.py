@@ -185,11 +185,17 @@ def validate_roster_core(spec: dict[str, Any], dataset: Dataset) -> dict[str, An
                 idx,
             )
         kws = owned_keywords(view.raw)
-        if any(k not in kws for k in (enh.get("keyword_restrictions") or [])):
+        groups = enh.get("keyword_restriction_groups")
+        eligible = (
+            any(all(keyword in kws for keyword in group) for group in groups)
+            if groups is not None
+            else all(keyword in kws for keyword in (enh.get("keyword_restrictions") or []))
+        )
+        if not eligible:
             err(
                 "enhancement-keyword-mismatch",
                 enh["id"],
-                f"{view.id} lacks a keyword required by {enh['id']}",
+                f"{view.id} lacks an eligible keyword group for {enh['id']}",
                 idx,
             )
         if any(k in kws for k in (enh.get("exclusion_keywords") or [])):

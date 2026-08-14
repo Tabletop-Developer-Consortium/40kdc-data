@@ -1527,7 +1527,13 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 80
-        }
+        },
+        "default_weapon_ids": [
+          "enmitic-disintegrators",
+          "unmaker-gauntlet",
+          "blade-tail-and-whip-coils",
+          "nullstone-field-generator-aura"
+        ]
       }
     ],
     "game_version": {
@@ -1903,8 +1909,9 @@
         "max": 1,
         "default_weapon_ids": [
           "sceptre-of-eternal-glory",
-          "scythe-of-dust",
-          "staff-of-stars"
+          "staff-of-stars",
+          "weapons-of-the-final-triarch",
+          "scythe-of-dust"
         ],
         "is_leader_model": true,
         "base_size_mm": {

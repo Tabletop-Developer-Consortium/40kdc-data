@@ -2,7 +2,7 @@ import { describe, it, expect } from "vitest";
 import * as fs from "fs";
 import { DEFAULT_DUMP_PATH, loadDump } from "../src/mfm/loader.js";
 import {
-  collectCombatPatrolDetachments,
+  collectSeedDetachments,
   runSeedDetachments,
   type CandidateDet,
 } from "../src/mfm/seed-detachments.js";
@@ -14,7 +14,8 @@ import { repoDirs } from "../src/mfm/faction-map.js";
 // defines is authored (one per faction) with dump-derived DP + disposition and
 // cost-0 enhancements, and a re-run is idempotent.
 describe.skipIf(!fs.existsSync(DEFAULT_DUMP_PATH))("seed-detachments over the real dump", () => {
-  const collect = (): CandidateDet[] => collectCombatPatrolDetachments(loadDump());
+  const collect = (): CandidateDet[] =>
+    collectSeedDetachments(loadDump()).filter((candidate) => candidate.combatPatrol);
 
   it("derives one CP detachment per faction with a valid DP, disposition, and dir", () => {
     const candidates = collect();
@@ -66,12 +67,17 @@ describe.skipIf(!fs.existsSync(DEFAULT_DUMP_PATH))("seed-detachments over the re
     expect(sg!.disposition).toBe("take-and-hold");
     expect(sg!.enhancements.map((e) => e.id)).toContain("divine-miracle-sanctuary-guardians");
   });
-
-  it("is idempotent once seeded — a --write re-run creates nothing", () => {
-    const r = runSeedDetachments(loadDump(), { includeCombatPatrol: true });
-    const dets = r.dirs.reduce((a, d) => a + d.createdDetachments.length, 0);
-    const enhs = r.dirs.reduce((a, d) => a + d.createdEnhancements.length, 0);
-    // Every dump CP detachment already lives in the repo, so nothing is created.
-    expect({ dets, enhs }).toEqual({ dets: 0, enhs: 0 });
+  it("is idempotent for already-seeded Combat Patrol content", () => {
+    const candidates = collect();
+    const cpDetachmentIds = new Set(candidates.map((candidate) => candidate.id));
+    const cpEnhancementIds = new Set(
+      candidates.flatMap((candidate) => candidate.enhancements.map((enhancement) => enhancement.id)),
+    );
+    const report = runSeedDetachments(loadDump(), { includeCombatPatrol: true });
+    const created = report.dirs.flatMap((dir) => [
+      ...dir.createdDetachments.filter((detachment) => cpDetachmentIds.has(detachment.id)),
+      ...dir.createdEnhancements.filter((enhancement) => cpEnhancementIds.has(enhancement.id)),
+    ]);
+    expect(created).toEqual([]);
   });
 });

@@ -19,7 +19,8 @@ import { MfmDump, type DetachmentRow,
 type EnhancementRow,
 type MfmTableName, type MfmStringKey, type MfmRow, } from "./loader.js";
 import { readJsonArray, CORE_DIR } from "./repo-files.js";
-import { repoDirs } from "./faction-map.js";
+import { repoDirForFactionName, repoDirs } from "./faction-map.js";
+import { requiredKeywordsForDetachment } from "./detachment-fields.js";
 import { keywordLabel, factionKeywordLabel, keywordLabels } from "./keywords.js";
 import type { StagedWrite } from "./apply.js";
 
@@ -37,6 +38,14 @@ interface EnhRecord {
   max_targets?: number;
   exclusion_keywords?: string[] | null;
   keyword_restrictions?: string[] | null;
+  keyword_restriction_groups?: string[][] | null;
+  attachment_bodyguard_ids?: string[];
+  [k: string]: unknown;
+}
+
+interface DetachmentRecord {
+  id: string;
+  enhancement_ids?: string[];
   [k: string]: unknown;
 }
 
@@ -55,6 +64,8 @@ export interface DirEnhResult {
   exclusionFilled: { id: string; to: string[] }[];
   exclusionReview: { id: string; authored: string[]; derived: string[] }[];
   restrictionsFilled: { id: string; to: string[] }[];
+  attachmentBodyguardsChanged: { id: string; from: string[] | null; to: string[] | null }[];
+  restrictionGroupsChanged: { id: string; from: string[][] | null; to: string[][] | null }[];
   /** Populated authored restrictions that differ from the dump (kept, review). `reason`
    *  is "multi-group-or" (flat list can't hold the OR) or "differs" (authored is finer). */
   restrictionsReview: { id: string; authored: string[] | null; derived: string[]; reason: string }[];
@@ -64,6 +75,8 @@ export interface DirEnhResult {
 
 export interface EnhReport {
   dirs: DirEnhResult[];
+  seeded: { dir: string; id: string; name: string; detachment_id: string }[];
+  seedSkipped: { id: string; reason: string }[];
   newInDump: string[];
   cpExcluded: string[]; // CP-only dump enhancement ids held back from newInDump (default)
   staged: StagedWrite[];
@@ -126,6 +139,17 @@ function sameLabels(a: readonly string[] | null | undefined, b: readonly string[
   return x.length === y.length && x.every((v, i) => v === y[i]);
 }
 
+function sameGroups(
+  a: readonly (readonly string[])[] | null | undefined,
+  b: readonly (readonly string[])[] | null | undefined,
+): boolean {
+  const canonical = (groups: readonly (readonly string[])[] | null | undefined): string[] =>
+    (groups ?? [])
+      .map((group) => JSON.stringify([...group].sort((x, y) => x.localeCompare(y))))
+      .sort((x, y) => x.localeCompare(y));
+  return sameLabels(canonical(a), canonical(b));
+}
+
 /** Structured enhancement fields the dump can supply beyond cost. */
 export interface EnhFields {
   upgrade_tag: boolean;
@@ -134,8 +158,11 @@ export interface EnhFields {
   exclusion_keywords: string[] | null;
   /** Resolved required-keyword restriction labels, or null when the dump lists none. */
   keyword_restrictions: string[] | null;
-  /** True when >1 required-keyword group carries a *different* member set — an OR the
-   *  flat keyword_restrictions list can't express, so the reconcile preserves authored. */
+  /** Exact required-keyword groups: AND within each group, OR across groups. */
+  keyword_restriction_groups: string[][] | null;
+  /** Extra bodyguard datasheets the enhancement permits its bearer to join. */
+  attachment_bodyguard_ids: string[] | null;
+  /** True when >1 required-keyword group carries a different member set. */
   keywordRestrictionsAmbiguous: boolean;
   /** Dump keyword/faction-keyword ids that did not resolve to a repo label. */
   unresolvedKeywordIds: string[];
@@ -151,12 +178,11 @@ export interface EnhFields {
  *   - exclusion_keywords    ← enhancement_excluded_keyword.keywordId → labels
  *   - keyword_restrictions  ← required-keyword-group keyword + faction-keyword members
  *
- * Required-keyword groups model "bearer must have keyword(s)"; datasheet-scoped
- * groups carry no keyword members (verified in the dump), so unioning members
- * across all of an enhancement's groups is faithful for the single-group majority.
- * Multi-group enhancements with divergent member sets are an OR the flat list
- * can't hold — flagged `keywordRestrictionsAmbiguous` so the reconcile keeps the
- * authored value rather than over-claim an AND.
+ * Required-keyword groups model "bearer must have keyword(s)". Every non-empty
+ * source group becomes one conjunction in `keyword_restriction_groups`, including
+ * a datasheet name when the group is datasheet-scoped. The groups are alternatives
+ * (OR). The legacy flat union remains available for compatibility with authored
+ * records, but cannot faithfully encode divergent alternatives.
  */
 export function buildEnhFieldCanon(dump: MfmDump): Map<string, EnhFields> {
   const detName = dump.byId("detachment");
@@ -164,6 +190,12 @@ export function buildEnhFieldCanon(dump: MfmDump): Map<string, EnhFields> {
   const groupsByEnh = safeGroupBy(dump, "enhancement_required_keyword_group", "enhancementId");
   const kwByGroup = safeGroupBy(dump, "enhancement_required_keyword_group_keyword", "enhancementRequiredKeywordGroupId");
   const fkwByGroup = safeGroupBy(dump, "enhancement_required_keyword_group_faction_keyword", "enhancementRequiredKeywordGroupId");
+  const attachmentGroupsByEnh = safeGroupBy(dump, "enhancement_bodyguard_group", "enhancementId");
+  const attachmentDatasheetsByGroup = safeGroupBy(
+    dump,
+    "enhancement_bodyguard_group_datasheet",
+    "enhancementBodyguardGroupId",
+  );
 
   const out = new Map<string, EnhFields>();
   for (const e of dump.table("enhancement")) {
@@ -209,15 +241,27 @@ export function buildEnhFieldCanon(dump: MfmDump): Map<string, EnhFields> {
       }
       if (members.size) groupSets.push([...members].sort((a, b) => a.localeCompare(b)));
     }
-    const distinctSets = new Set(groupSets.map((s) => s.join(" ")));
-    const union = [...new Set(groupSets.flat())].sort((a, b) => a.localeCompare(b));
+    const distinctGroupSets = [...new Map(groupSets.map((s) => [JSON.stringify(s), s])).values()];
+    const union = [...new Set(distinctGroupSets.flat())].sort((a, b) => a.localeCompare(b));
+    const attachmentBodyguardIds = new Set<string>();
+    for (const group of attachmentGroupsByEnh.get(e.id) ?? []) {
+      for (const relation of attachmentDatasheetsByGroup.get(group.id) ?? []) {
+        const dsName = dump.enName(datasheetById?.get(relation.datasheetId));
+        if (dsName) attachmentBodyguardIds.add(nameToId(dsName));
+        else unresolved.push(relation.datasheetId);
+      }
+    }
 
     out.set(id, {
       upgrade_tag: e.enhancementType === "upgrade",
       max_targets: typeof e.limit === "number" ? e.limit : 1,
       exclusion_keywords,
       keyword_restrictions: union.length ? union : null,
-      keywordRestrictionsAmbiguous: distinctSets.size > 1,
+      keyword_restriction_groups: distinctGroupSets.length ? distinctGroupSets : null,
+      attachment_bodyguard_ids: attachmentBodyguardIds.size
+        ? [...attachmentBodyguardIds].sort((a, b) => a.localeCompare(b))
+        : null,
+      keywordRestrictionsAmbiguous: distinctGroupSets.length > 1,
       unresolvedKeywordIds: [...new Set(unresolved)],
     });
   }
@@ -350,7 +394,6 @@ export function normalizeEnhancementNames(dump: MfmDump): EnhNormResult {
 
   return { staged, renames, nameChanges, refRewrites, collisions: [...collided].sort() };
 }
-
 export function runEnhancements(
   dump: MfmDump,
   write: boolean,
@@ -364,11 +407,31 @@ export function runEnhancements(
   // CP enhancements carry the combat-patrol game mode so a reconcile of authored
   // Combat Patrol content keeps it filed on the non-competitive dimension.
   const cpIds = combatPatrolEnhIds(dump);
+  const seeded: EnhReport["seeded"] = [];
+  const seedSkipped: EnhReport["seedSkipped"] = [];
+  const newInDump: string[] = [];
+  const cpExcluded: string[] = [];
+  const enhancementsByDir = new Map<string, EnhRecord[]>();
+  const detachmentLocations = new Map<string, { dir: string; record: DetachmentRecord; path: string }[]>();
+  const detachmentsByDir = new Map<string, DetachmentRecord[]>();
+  for (const dir of [...repoDirs()].sort()) {
+    const detPath = path.join(CORE_DIR, dir, "detachments.json");
+    if (!fs.existsSync(detPath)) continue;
+    const records = readJsonArray<DetachmentRecord>(detPath);
+    detachmentsByDir.set(dir, records);
+    for (const record of records) {
+      const locations = detachmentLocations.get(record.id) ?? [];
+      locations.push({ dir, record, path: detPath });
+      detachmentLocations.set(record.id, locations);
+    }
+  }
+  const touchedDetachmentPaths = new Set<string>();
 
   for (const dir of [...repoDirs()].sort()) {
     const p = path.join(CORE_DIR, dir, "enhancements.json");
     if (!fs.existsSync(p)) continue;
     const enhs = readJsonArray<EnhRecord>(p);
+    enhancementsByDir.set(dir, enhs);
     const res: DirEnhResult = {
       dir,
       matched: 0,
@@ -381,6 +444,8 @@ export function runEnhancements(
       exclusionReview: [],
       restrictionsFilled: [],
       restrictionsReview: [],
+      restrictionGroupsChanged: [],
+      attachmentBodyguardsChanged: [],
       unresolvedKeywords: [],
     };
     for (const e of enhs) {
@@ -423,7 +488,29 @@ export function runEnhancements(
           res.maxTargetsChanged.push({ id: e.id, from: e.max_targets ?? 1, to: f.max_targets });
           e.max_targets = f.max_targets;
         }
-        // Exclusions — FILL-ONLY. Fill when the repo lists none; confirm when equal;
+        const groupsAuthored = e.keyword_restriction_groups ?? null;
+        if (
+          f.unresolvedKeywordIds.length === 0 &&
+          !sameGroups(groupsAuthored, f.keyword_restriction_groups)
+        ) {
+          res.restrictionGroupsChanged.push({
+            id: e.id,
+            from: groupsAuthored,
+            to: f.keyword_restriction_groups,
+          });
+          if (f.keyword_restriction_groups === null) delete e.keyword_restriction_groups;
+          else e.keyword_restriction_groups = f.keyword_restriction_groups;
+        }
+        const attachmentAuthored = e.attachment_bodyguard_ids ?? null;
+        if (!sameLabels(attachmentAuthored, f.attachment_bodyguard_ids)) {
+          res.attachmentBodyguardsChanged.push({
+            id: e.id,
+            from: attachmentAuthored,
+            to: f.attachment_bodyguard_ids,
+          });
+          if (f.attachment_bodyguard_ids === null) delete e.attachment_bodyguard_ids;
+          else e.attachment_bodyguard_ids = f.attachment_bodyguard_ids;
+        }
         // surface a populated disagreement rather than clobber an authored exclusion.
         const exclAuthored = e.exclusion_keywords ?? [];
         if (f.exclusion_keywords !== null) {
@@ -434,25 +521,19 @@ export function runEnhancements(
             res.exclusionReview.push({ id: e.id, authored: exclAuthored, derived: f.exclusion_keywords });
           }
         }
-        // Keyword restrictions — FILL-ONLY, and never fill from a multi-group OR the
-        // flat list can't hold. The dump's required-keyword group is army-level; the
-        // repo often authors a finer unit keyword, so a populated value is kept and any
-        // disagreement is surfaced for a human to reconcile, never auto-overwritten.
+        // Preserve the legacy flat AND field for consumers that do not yet know the
+        // OR groups. Never flatten several alternatives into one impossible AND.
         const restrAuthored = e.keyword_restrictions ?? [];
-        if (f.keyword_restrictions !== null) {
+        if (f.keyword_restrictions !== null && !f.keywordRestrictionsAmbiguous) {
           if (restrAuthored.length === 0) {
-            if (f.keywordRestrictionsAmbiguous) {
-              res.restrictionsReview.push({ id: e.id, authored: null, derived: f.keyword_restrictions, reason: "multi-group-or" });
-            } else {
-              res.restrictionsFilled.push({ id: e.id, to: f.keyword_restrictions });
-              e.keyword_restrictions = f.keyword_restrictions;
-            }
+            res.restrictionsFilled.push({ id: e.id, to: f.keyword_restrictions });
+            e.keyword_restrictions = f.keyword_restrictions;
           } else if (!sameLabels(restrAuthored, f.keyword_restrictions)) {
             res.restrictionsReview.push({
               id: e.id,
               authored: restrAuthored,
               derived: f.keyword_restrictions,
-              reason: f.keywordRestrictionsAmbiguous ? "multi-group-or" : "differs",
+              reason: "differs",
             });
           }
         }
@@ -462,41 +543,151 @@ export function runEnhancements(
     staged.push({ path: p, value: enhs });
     dirs.push(res);
   }
+  for (const source of dump.table("enhancement")) {
+    const name = dump.enName(source);
+    const sourceDetachment = dump.byId("detachment").get(source.detachmentId);
+    const detachmentName = dump.enName(sourceDetachment);
+    if (!name || !detachmentName) continue;
+    let id: string;
+    let detachmentId: string;
+    try {
+      id = detachmentScopedId(name, detachmentName);
+      detachmentId = nameToId(detachmentName);
+    } catch {
+      continue;
+    }
+    if (matchedIds.has(id)) continue;
+    if (!opts.includeCombatPatrol && cpIds.has(id)) {
+      cpExcluded.push(id);
+      continue;
+    }
+    if (source.basePointsCost === null) {
+      seedSkipped.push({ id, reason: "matched-play enhancement has no points cost" });
+      continue;
+    }
+
+    const sourceDirs = new Set<string>();
+    if (dump.tables.publication && dump.tables.faction_keyword) {
+      const ownFactionId = sourceDetachment?.id
+        ? dump.factionKeywordOfDetachment(sourceDetachment.id)
+        : null;
+      const ownFaction = ownFactionId
+        ? factionKeywordLabel(dump, ownFactionId)
+        : null;
+      const ownDir = repoDirForFactionName(ownFaction ?? undefined);
+      if (ownDir) sourceDirs.add(ownDir);
+    }
+    if (
+      sourceDetachment?.id &&
+      dump.tables.detachment_faction_keyword &&
+      dump.tables.publication &&
+      dump.tables.faction_keyword
+    ) {
+      for (const keyword of requiredKeywordsForDetachment(dump, sourceDetachment.id) ?? []) {
+        const dir = repoDirForFactionName(keyword);
+        if (dir) sourceDirs.add(dir);
+      }
+    }
+    const allLocations = detachmentLocations.get(detachmentId) ?? [];
+    const routed = allLocations.filter((location) => sourceDirs.has(location.dir));
+    const locations = routed.length > 0 ? routed : allLocations;
+    if (locations.length !== 1) {
+      seedSkipped.push({
+        id,
+        reason: locations.length === 0
+          ? `detachment ${detachmentId} has no repo entity`
+          : `detachment ${detachmentId} is ambiguous across ${locations.map((location) => location.dir).join(", ")}`,
+      });
+      continue;
+    }
+
+    const location = locations[0];
+    const fields = fieldCanon.get(id);
+    if (!fields) {
+      seedSkipped.push({ id, reason: "structured enhancement fields did not resolve" });
+      continue;
+    }
+    if (fields.unresolvedKeywordIds.length > 0) {
+      seedSkipped.push({
+        id,
+        reason: `eligibility keyword ids did not resolve: ${fields.unresolvedKeywordIds.join(", ")}`,
+      });
+      continue;
+    }
+    const record: EnhRecord = {
+      id,
+      name,
+      detachment_id: detachmentId,
+      cost: source.basePointsCost,
+      ability_id: null,
+      is_unique: true,
+      game_version: { ...CONFIRMED },
+      points_provisional: false,
+      upgrade_tag: fields.upgrade_tag,
+      max_targets: fields.max_targets,
+    };
+    if (fields.keyword_restriction_groups) {
+      record.keyword_restriction_groups = fields.keyword_restriction_groups;
+      if (!fields.keywordRestrictionsAmbiguous && fields.keyword_restrictions) {
+        record.keyword_restrictions = fields.keyword_restrictions;
+      }
+    }
+    if (fields.exclusion_keywords) record.exclusion_keywords = fields.exclusion_keywords;
+    if (fields.attachment_bodyguard_ids) {
+      record.attachment_bodyguard_ids = fields.attachment_bodyguard_ids;
+    }
+
+    const enhancements = enhancementsByDir.get(location.dir);
+    if (!enhancements) {
+      seedSkipped.push({ id, reason: `enhancements.json is absent in ${location.dir}` });
+      continue;
+    }
+    enhancements.push(record);
+    matchedIds.add(id);
+    const refs = location.record.enhancement_ids ?? [];
+    if (!refs.includes(id)) {
+      refs.push(id);
+      location.record.enhancement_ids = refs;
+      touchedDetachmentPaths.add(location.path);
+    }
+    seeded.push({ dir: location.dir, id, name, detachment_id: detachmentId });
+  }
+  for (const detachmentPath of [...touchedDetachmentPaths].sort()) {
+    const dir = path.basename(path.dirname(detachmentPath));
+    staged.push({ path: detachmentPath, value: detachmentsByDir.get(dir) });
+  }
 
   const unmatched = [...canon.keys()].filter((id) => !matchedIds.has(id));
-  const cp = cpIds;
-  const cpExcluded: string[] = [];
-  const newInDump: string[] = [];
   for (const id of unmatched) {
-    if (!opts.includeCombatPatrol && cp.has(id)) cpExcluded.push(id);
-    else newInDump.push(id);
+    if (!cpExcluded.includes(id)) newInDump.push(id);
   }
   newInDump.sort();
   cpExcluded.sort();
-  return { dirs, newInDump, cpExcluded, staged };
+  seeded.sort((a, b) => a.dir.localeCompare(b.dir) || a.id.localeCompare(b.id));
+  seedSkipped.sort((a, b) => a.id.localeCompare(b.id));
+  return { dirs, newInDump, cpExcluded, seeded, seedSkipped, staged };
 }
 
 export function buildEnhReport(report: EnhReport, write: boolean): string {
-  const { dirs, newInDump, cpExcluded } = report;
+  const { dirs, seeded, seedSkipped, newInDump, cpExcluded } = report;
   const sum = (f: (d: DirEnhResult) => number) => dirs.reduce((a, d) => a + f(d), 0);
   const L: string[] = [];
   L.push(`# MFM enhancement reconcile — ${write ? "APPLIED" : "DRY RUN"}`);
   L.push("");
-  L.push("Reconciles enhancement `cost` (confirmed → `points_provisional: false`, launch");
-  L.push("dataslate) and the GW-authoritative scalars `upgrade_tag`/`max_targets` (overwritten).");
-  L.push("`exclusion_keywords`/`keyword_restrictions` are FILL-ONLY — written only when the repo");
-  L.push("authored none; a populated disagreement is surfaced (review), never overwritten, so a");
-  L.push("finer authored unit keyword the dump's army-level group omits is preserved. Prose untouched.");
+  L.push("Reconciles source-owned fields and seeds source-complete matched-play");
+  L.push("enhancements whose detachment already exists. `keyword_restriction_groups`");
+  L.push("preserves exact OR-of-AND eligibility. `exclusion_keywords` and the legacy");
+  L.push("flat `keyword_restrictions` remain fill-only. Prose is never read or written.");
   L.push("");
-  L.push("| Dir | Matched | Cost | upgrade | max_tgt | excl-fill | excl-rev | restr-fill | restr-rev | Repo-only |");
-  L.push("|---|--:|--:|--:|--:|--:|--:|--:|--:|--:|");
+  L.push("| Dir | Matched | Cost | upgrade | max_tgt | groups | excl-fill | excl-rev | restr-fill | restr-rev | Repo-only |");
+  L.push("|---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|");
   for (const d of dirs.filter((d) => d.matched || d.unmatchedRepo.length)) {
     L.push(
-      `| ${d.dir} | ${d.matched} | ${d.costChanged.length} | ${d.upgradeChanged.length} | ${d.maxTargetsChanged.length} | ${d.exclusionFilled.length} | ${d.exclusionReview.length} | ${d.restrictionsFilled.length} | ${d.restrictionsReview.length} | ${d.unmatchedRepo.length} |`
+      `| ${d.dir} | ${d.matched} | ${d.costChanged.length} | ${d.upgradeChanged.length} | ${d.maxTargetsChanged.length} | ${d.restrictionGroupsChanged.length} | ${d.exclusionFilled.length} | ${d.exclusionReview.length} | ${d.restrictionsFilled.length} | ${d.restrictionsReview.length} | ${d.unmatchedRepo.length} |`
     );
   }
   L.push(
-    `| **TOTAL** | **${sum((d) => d.matched)}** | **${sum((d) => d.costChanged.length)}** | **${sum((d) => d.upgradeChanged.length)}** | **${sum((d) => d.maxTargetsChanged.length)}** | **${sum((d) => d.exclusionFilled.length)}** | **${sum((d) => d.exclusionReview.length)}** | **${sum((d) => d.restrictionsFilled.length)}** | **${sum((d) => d.restrictionsReview.length)}** | **${sum((d) => d.unmatchedRepo.length)}** |`
+    `| **TOTAL** | **${sum((d) => d.matched)}** | **${sum((d) => d.costChanged.length)}** | **${sum((d) => d.upgradeChanged.length)}** | **${sum((d) => d.maxTargetsChanged.length)}** | **${sum((d) => d.restrictionGroupsChanged.length)}** | **${sum((d) => d.exclusionFilled.length)}** | **${sum((d) => d.exclusionReview.length)}** | **${sum((d) => d.restrictionsFilled.length)}** | **${sum((d) => d.restrictionsReview.length)}** | **${sum((d) => d.unmatchedRepo.length)}** |`
   );
   L.push("");
   for (const d of dirs) {
@@ -504,6 +695,7 @@ export function buildEnhReport(report: EnhReport, write: boolean): string {
       d.costChanged.length ||
       d.upgradeChanged.length ||
       d.maxTargetsChanged.length ||
+      d.restrictionGroupsChanged.length ||
       d.exclusionFilled.length ||
       d.exclusionReview.length ||
       d.restrictionsFilled.length ||
@@ -523,6 +715,12 @@ export function buildEnhReport(report: EnhReport, write: boolean): string {
     if (d.maxTargetsChanged.length) {
       L.push("", "**max_targets changes:**");
       d.maxTargetsChanged.forEach((c) => L.push(`- ${c.id}: ${c.from} → ${c.to}`));
+    }
+    if (d.restrictionGroupsChanged.length) {
+      L.push("", "**keyword_restriction_groups changes:**");
+      d.restrictionGroupsChanged.forEach((c) =>
+        L.push(`- ${c.id}: ${JSON.stringify(c.from)} → ${JSON.stringify(c.to)}`),
+      );
     }
     if (d.exclusionFilled.length) {
       L.push("", "**exclusion_keywords filled:**");
@@ -554,8 +752,20 @@ export function buildEnhReport(report: EnhReport, write: boolean): string {
     }
     L.push("");
   }
+  if (seeded.length) {
+    L.push(`## Seeded matched-play enhancements (${seeded.length})`, "");
+    seeded.forEach((entry) =>
+      L.push(`- ${entry.dir}/${entry.id} (${entry.name}) → ${entry.detachment_id}`),
+    );
+    L.push("");
+  }
+  if (seedSkipped.length) {
+    L.push(`## Enhancement seeds skipped (${seedSkipped.length})`, "");
+    seedSkipped.forEach((entry) => L.push(`- ${entry.id}: ${entry.reason}`));
+    L.push("");
+  }
   if (newInDump.length) {
-    L.push("## New enhancements in dump (no repo entity — author in a follow-up)");
+    L.push("## Unresolved enhancements in dump (no unambiguous repo detachment)");
     L.push("");
     newInDump.slice(0, 200).forEach((s) => L.push(`- ${s}`));
     if (newInDump.length > 200) L.push(`- …and ${newInDump.length - 200} more`);

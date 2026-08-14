@@ -39,6 +39,26 @@
             ]
           },
           {
+            "id": "cfg-force-disposition",
+            "name": "Force Disposition",
+            "type": "upgrade",
+            "number": 1,
+            "categories": [
+              {
+                "name": "Configuration",
+                "primary": true
+              }
+            ],
+            "selections": [
+              {
+                "id": "cfg-force-disposition-val",
+                "name": "Take And Hold",
+                "type": "upgrade",
+                "number": 1
+              }
+            ]
+          },
+          {
             "id": "u-0",
             "name": "Death Guard Chaos Spawn",
             "type": "model",

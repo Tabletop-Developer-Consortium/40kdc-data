@@ -32,6 +32,11 @@
           "quantity": 1
         },
         {
+          "item": "Force Disposition§Disruption",
+          "name": "Disruption",
+          "quantity": 1
+        },
+        {
           "item": "Unit§Jain Zar",
           "name": "Jain Zar",
           "quantity": 1,
@@ -43,13 +48,20 @@
           "assets": {
             "included": [
               {
-                "item": "Weapon§Silent Death",
-                "name": "Silent Death",
+                "item": "Weapon§The Blade of Destruction",
+                "name": "The Blade of Destruction",
                 "quantity": 1
               },
               {
-                "item": "Weapon§The Blade of Destruction",
-                "name": "The Blade of Destruction",
+                "item": "Weapon§Silent Death",
+                "name": "Silent Death",
+                "quantity": 1
+              }
+            ],
+            "traits": [
+              {
+                "item": "Trait§Warlord",
+                "name": "Warlord",
                 "quantity": 1
               }
             ]

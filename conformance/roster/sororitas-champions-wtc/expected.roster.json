@@ -236,7 +236,7 @@
             "resolved": true,
             "candidates": []
           },
-          "count": 8
+          "count": 10
         },
         {
           "ref": {
@@ -246,6 +246,15 @@
             "candidates": []
           },
           "count": 10
+        },
+        {
+          "ref": {
+            "id": "power-weapon-battle-sisters-squad",
+            "raw_name": "Power weapon",
+            "resolved": true,
+            "candidates": []
+          },
+          "count": 1
         },
         {
           "ref": {
@@ -273,21 +282,12 @@
             "candidates": []
           },
           "count": 1
-        },
-        {
-          "ref": {
-            "id": "power-weapon-battle-sisters-squad",
-            "raw_name": "Power weapon",
-            "resolved": true,
-            "candidates": []
-          },
-          "count": 1
         }
       ],
       "loadout_groups": [
         {
-          "model_name": "Sister Superior",
-          "count": 1,
+          "model_name": "Battle Sister",
+          "count": 9,
           "wargear": [
             {
               "ref": {
@@ -302,6 +302,30 @@
               "ref": {
                 "id": "boltgun",
                 "raw_name": "Boltgun",
+                "resolved": true,
+                "candidates": []
+              },
+              "count": 1
+            },
+            {
+              "ref": {
+                "id": "close-combat-weapon-battle-sisters-squad",
+                "raw_name": "Close combat weapon",
+                "resolved": true,
+                "candidates": []
+              },
+              "count": 1
+            }
+          ]
+        },
+        {
+          "model_name": "Sister Superior",
+          "count": 1,
+          "wargear": [
+            {
+              "ref": {
+                "id": "bolt-pistol",
+                "raw_name": "Bolt pistol",
                 "resolved": true,
                 "candidates": []
               },
@@ -324,110 +348,11 @@
                 "candidates": []
               },
               "count": 1
-            }
-          ]
-        },
-        {
-          "model_name": "Battle Sister",
-          "count": 7,
-          "wargear": [
-            {
-              "ref": {
-                "id": "bolt-pistol",
-                "raw_name": "Bolt pistol",
-                "resolved": true,
-                "candidates": []
-              },
-              "count": 1
             },
             {
               "ref": {
                 "id": "boltgun",
                 "raw_name": "Boltgun",
-                "resolved": true,
-                "candidates": []
-              },
-              "count": 1
-            },
-            {
-              "ref": {
-                "id": "close-combat-weapon-battle-sisters-squad",
-                "raw_name": "Close combat weapon",
-                "resolved": true,
-                "candidates": []
-              },
-              "count": 1
-            }
-          ]
-        },
-        {
-          "model_name": "Battle Sister",
-          "count": 1,
-          "wargear": [
-            {
-              "ref": {
-                "id": "bolt-pistol",
-                "raw_name": "Bolt pistol",
-                "resolved": true,
-                "candidates": []
-              },
-              "count": 1
-            },
-            {
-              "ref": {
-                "id": "close-combat-weapon-battle-sisters-squad",
-                "raw_name": "Close combat weapon",
-                "resolved": true,
-                "candidates": []
-              },
-              "count": 1
-            },
-            {
-              "ref": {
-                "id": "meltagun-battle-sisters-squad",
-                "raw_name": "Meltagun",
-                "resolved": true,
-                "candidates": []
-              },
-              "count": 1
-            }
-          ]
-        },
-        {
-          "model_name": "Battle Sister",
-          "count": 1,
-          "wargear": [
-            {
-              "ref": {
-                "id": "bolt-pistol",
-                "raw_name": "Bolt pistol",
-                "resolved": true,
-                "candidates": []
-              },
-              "count": 1
-            },
-            {
-              "ref": {
-                "id": "close-combat-weapon-battle-sisters-squad",
-                "raw_name": "Close combat weapon",
-                "resolved": true,
-                "candidates": []
-              },
-              "count": 1
-            },
-            {
-              "ref": {
-                "id": "multi-melta",
-                "raw_name": "Multi-melta",
-                "resolved": true,
-                "candidates": []
-              },
-              "count": 1
-            },
-            {
-              "ref": {
-                "id": "simulacrum-imperialis",
-                "raw_name": "Simulacrum Imperialis",
                 "resolved": true,
                 "candidates": []
               },
@@ -486,8 +411,8 @@
           "wargear": [
             {
               "ref": {
-                "id": "bolt-pistol",
-                "raw_name": "Bolt pistol",
+                "id": "spear-of-the-faithful",
+                "raw_name": "Spear of the Faithful",
                 "resolved": true,
                 "candidates": []
               },
@@ -495,8 +420,8 @@
             },
             {
               "ref": {
-                "id": "spear-of-the-faithful",
-                "raw_name": "Spear of the Faithful",
+                "id": "bolt-pistol",
+                "raw_name": "Bolt pistol",
                 "resolved": true,
                 "candidates": []
               },
@@ -505,7 +430,7 @@
           ]
         },
         {
-          "model_name": "Celestian Sacresant",
+          "model_name": "Celestian Sacresant (Hallowed Mace)",
           "count": 9,
           "wargear": [
             {
@@ -606,99 +531,6 @@
             },
             {
               "ref": {
-                "id": "heavy-bolter",
-                "raw_name": "Heavy Bolter",
-                "resolved": true,
-                "candidates": []
-              },
-              "count": 1
-            },
-            {
-              "ref": {
-                "id": "paragon-grenade-launchers",
-                "raw_name": "Paragon Grenade Launchers",
-                "resolved": true,
-                "candidates": []
-              },
-              "count": 1
-            },
-            {
-              "ref": {
-                "id": "paragon-war-blade",
-                "raw_name": "Paragon War Blade",
-                "resolved": true,
-                "candidates": []
-              },
-              "count": 1
-            }
-          ]
-        },
-        {
-          "model_name": "Paragon",
-          "count": 1,
-          "wargear": [
-            {
-              "ref": {
-                "id": "bolt-pistol",
-                "raw_name": "Bolt pistol",
-                "resolved": true,
-                "candidates": []
-              },
-              "count": 1
-            },
-            {
-              "ref": {
-                "id": "heavy-bolter",
-                "raw_name": "Heavy Bolter",
-                "resolved": true,
-                "candidates": []
-              },
-              "count": 1
-            },
-            {
-              "ref": {
-                "id": "paragon-grenade-launchers",
-                "raw_name": "Paragon Grenade Launchers",
-                "resolved": true,
-                "candidates": []
-              },
-              "count": 1
-            },
-            {
-              "ref": {
-                "id": "paragon-war-blade",
-                "raw_name": "Paragon War Blade",
-                "resolved": true,
-                "candidates": []
-              },
-              "count": 1
-            }
-          ]
-        },
-        {
-          "model_name": "Paragon",
-          "count": 1,
-          "wargear": [
-            {
-              "ref": {
-                "id": "bolt-pistol",
-                "raw_name": "Bolt pistol",
-                "resolved": true,
-                "candidates": []
-              },
-              "count": 1
-            },
-            {
-              "ref": {
-                "id": "heavy-bolter",
-                "raw_name": "Heavy Bolter",
-                "resolved": true,
-                "candidates": []
-              },
-              "count": 1
-            },
-            {
-              "ref": {
                 "id": "paragon-storm-bolters",
                 "raw_name": "Paragon Storm Bolters",
                 "resolved": true,
@@ -710,6 +542,57 @@
               "ref": {
                 "id": "paragon-war-blade",
                 "raw_name": "Paragon War Blade",
+                "resolved": true,
+                "candidates": []
+              },
+              "count": 1
+            },
+            {
+              "ref": {
+                "id": "heavy-bolter",
+                "raw_name": "Heavy Bolter",
+                "resolved": true,
+                "candidates": []
+              },
+              "count": 1
+            }
+          ]
+        },
+        {
+          "model_name": "Paragon Warsuit",
+          "count": 2,
+          "wargear": [
+            {
+              "ref": {
+                "id": "bolt-pistol",
+                "raw_name": "Bolt pistol",
+                "resolved": true,
+                "candidates": []
+              },
+              "count": 1
+            },
+            {
+              "ref": {
+                "id": "paragon-grenade-launchers",
+                "raw_name": "Paragon Grenade Launchers",
+                "resolved": true,
+                "candidates": []
+              },
+              "count": 1
+            },
+            {
+              "ref": {
+                "id": "paragon-war-blade",
+                "raw_name": "Paragon War Blade",
+                "resolved": true,
+                "candidates": []
+              },
+              "count": 1
+            },
+            {
+              "ref": {
+                "id": "heavy-bolter",
+                "raw_name": "Heavy Bolter",
                 "resolved": true,
                 "candidates": []
               },
@@ -795,99 +678,6 @@
             },
             {
               "ref": {
-                "id": "heavy-bolter",
-                "raw_name": "Heavy Bolter",
-                "resolved": true,
-                "candidates": []
-              },
-              "count": 1
-            },
-            {
-              "ref": {
-                "id": "paragon-grenade-launchers",
-                "raw_name": "Paragon Grenade Launchers",
-                "resolved": true,
-                "candidates": []
-              },
-              "count": 1
-            },
-            {
-              "ref": {
-                "id": "paragon-war-blade",
-                "raw_name": "Paragon War Blade",
-                "resolved": true,
-                "candidates": []
-              },
-              "count": 1
-            }
-          ]
-        },
-        {
-          "model_name": "Paragon",
-          "count": 1,
-          "wargear": [
-            {
-              "ref": {
-                "id": "bolt-pistol",
-                "raw_name": "Bolt pistol",
-                "resolved": true,
-                "candidates": []
-              },
-              "count": 1
-            },
-            {
-              "ref": {
-                "id": "heavy-bolter",
-                "raw_name": "Heavy Bolter",
-                "resolved": true,
-                "candidates": []
-              },
-              "count": 1
-            },
-            {
-              "ref": {
-                "id": "paragon-grenade-launchers",
-                "raw_name": "Paragon Grenade Launchers",
-                "resolved": true,
-                "candidates": []
-              },
-              "count": 1
-            },
-            {
-              "ref": {
-                "id": "paragon-war-blade",
-                "raw_name": "Paragon War Blade",
-                "resolved": true,
-                "candidates": []
-              },
-              "count": 1
-            }
-          ]
-        },
-        {
-          "model_name": "Paragon",
-          "count": 1,
-          "wargear": [
-            {
-              "ref": {
-                "id": "bolt-pistol",
-                "raw_name": "Bolt pistol",
-                "resolved": true,
-                "candidates": []
-              },
-              "count": 1
-            },
-            {
-              "ref": {
-                "id": "heavy-bolter",
-                "raw_name": "Heavy Bolter",
-                "resolved": true,
-                "candidates": []
-              },
-              "count": 1
-            },
-            {
-              "ref": {
                 "id": "paragon-storm-bolters",
                 "raw_name": "Paragon Storm Bolters",
                 "resolved": true,
@@ -899,6 +689,57 @@
               "ref": {
                 "id": "paragon-war-blade",
                 "raw_name": "Paragon War Blade",
+                "resolved": true,
+                "candidates": []
+              },
+              "count": 1
+            },
+            {
+              "ref": {
+                "id": "heavy-bolter",
+                "raw_name": "Heavy Bolter",
+                "resolved": true,
+                "candidates": []
+              },
+              "count": 1
+            }
+          ]
+        },
+        {
+          "model_name": "Paragon Warsuit",
+          "count": 2,
+          "wargear": [
+            {
+              "ref": {
+                "id": "bolt-pistol",
+                "raw_name": "Bolt pistol",
+                "resolved": true,
+                "candidates": []
+              },
+              "count": 1
+            },
+            {
+              "ref": {
+                "id": "paragon-grenade-launchers",
+                "raw_name": "Paragon Grenade Launchers",
+                "resolved": true,
+                "candidates": []
+              },
+              "count": 1
+            },
+            {
+              "ref": {
+                "id": "paragon-war-blade",
+                "raw_name": "Paragon War Blade",
+                "resolved": true,
+                "candidates": []
+              },
+              "count": 1
+            },
+            {
+              "ref": {
+                "id": "heavy-bolter",
+                "raw_name": "Heavy Bolter",
                 "resolved": true,
                 "candidates": []
               },

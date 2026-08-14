@@ -2888,5 +2888,27 @@
       "edition": "11th",
       "dataslate": "launch"
     }
+  },
+  {
+    "id": "numerological-artefacts",
+    "name": "Numerological Artefacts",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Numerological Artefacts",
+        "range": "Melee",
+        "stats": {
+          "A": 4,
+          "S": 4,
+          "AP": 0,
+          "D": 1,
+          "WS": 3
+        }
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
   }
 ]

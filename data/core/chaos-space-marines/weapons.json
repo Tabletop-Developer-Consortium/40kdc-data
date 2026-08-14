@@ -5991,5 +5991,82 @@
       "edition": "11th",
       "dataslate": "launch"
     }
+  },
+  {
+    "id": "fists-and-knives",
+    "name": "Fists and Knives",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Fists and Knives",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 4,
+          "AP": 0,
+          "D": 1,
+          "WS": 3
+        }
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
+    "id": "blades-and-cudgels",
+    "name": "Blades and Cudgels",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Blades and Cudgels",
+        "range": "Melee",
+        "stats": {
+          "A": 2,
+          "S": 3,
+          "AP": 0,
+          "D": 1,
+          "WS": 4
+        }
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
+    "id": "tyrants-claw-heavy-flamer",
+    "name": "Tyrant’s Claw heavy flamer",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Tyrant’s Claw heavy flamer",
+        "range": 12,
+        "stats": {
+          "A": "D6+2",
+          "S": 6,
+          "AP": -1,
+          "D": 1,
+          "BS": null
+        },
+        "keywords": [
+          {
+            "keyword_id": "ignores-cover"
+          },
+          {
+            "keyword_id": "torrent"
+          },
+          {
+            "keyword_id": "pistol"
+          }
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
   }
 ]

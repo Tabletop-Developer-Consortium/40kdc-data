@@ -6,6 +6,7 @@
     "Houndpack Lance"
   ],
   "battle_size_raw": "Strike Force (2000 Point limit)",
+  "force_disposition_raw_name": null,
   "declared_limit": 2000,
   "total_reported": 485,
   "total_computed": 485,
@@ -13,11 +14,13 @@
     {
       "raw_name": "War Dog Karnivore",
       "is_character": true,
+      "keyword_overrides": [],
       "model_count": 1,
       "points": 150,
       "is_warlord": false,
       "enhancement_raw_name": "Preyslayer's Mantle",
       "enhancement_points": 15,
+      "leader_attachment": null,
       "wargear": [
         {
           "raw_name": "Reaper chaintalon",
@@ -36,11 +39,13 @@
     {
       "raw_name": "War Dog Karnivore",
       "is_character": false,
+      "keyword_overrides": [],
       "model_count": 1,
       "points": 150,
       "is_warlord": false,
       "enhancement_raw_name": null,
       "enhancement_points": null,
+      "leader_attachment": null,
       "wargear": [
         {
           "raw_name": "Reaper chaintalon",
@@ -59,11 +64,13 @@
     {
       "raw_name": "War Dog Executioner",
       "is_character": true,
+      "keyword_overrides": [],
       "model_count": 1,
       "points": 130,
       "is_warlord": true,
       "enhancement_raw_name": null,
       "enhancement_points": null,
+      "leader_attachment": null,
       "wargear": [
         {
           "raw_name": "Armoured feet",
@@ -82,15 +89,29 @@
     {
       "raw_name": "Nurglings",
       "is_character": false,
+      "keyword_overrides": [],
       "model_count": 3,
       "points": 40,
       "is_warlord": false,
       "enhancement_raw_name": null,
       "enhancement_points": null,
+      "leader_attachment": null,
       "wargear": [
         {
           "raw_name": "Diseased claws and teeth",
           "count": 3
+        }
+      ],
+      "loadout_groups": [
+        {
+          "model_name": "Nurgling Swarm",
+          "count": 3,
+          "wargear": [
+            {
+              "raw_name": "Diseased claws and teeth",
+              "count": 1
+            }
+          ]
         }
       ]
     }

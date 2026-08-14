@@ -36,7 +36,20 @@
                 "value": 225
               }
             ],
-            "selections": []
+            "selections": [
+              {
+                "id": "w-0",
+                "name": "Dreadfists",
+                "type": "upgrade",
+                "number": 1,
+                "categories": [
+                  {
+                    "name": "Ranged Weapon",
+                    "primary": false
+                  }
+                ]
+              }
+            ]
           },
           {
             "id": "u-1",
@@ -56,7 +69,32 @@
                 "value": 90
               }
             ],
-            "selections": []
+            "selections": [
+              {
+                "id": "w-0",
+                "name": "Neural shredder",
+                "type": "upgrade",
+                "number": 1,
+                "categories": [
+                  {
+                    "name": "Ranged Weapon",
+                    "primary": false
+                  }
+                ]
+              },
+              {
+                "id": "w-1",
+                "name": "Phase sword and poison blades",
+                "type": "upgrade",
+                "number": 1,
+                "categories": [
+                  {
+                    "name": "Ranged Weapon",
+                    "primary": false
+                  }
+                ]
+              }
+            ]
           }
         ]
       }

@@ -37,6 +37,7 @@ export interface ClassifiedTokens {
   wargear: ParsedWargear[];
   is_warlord: boolean;
   is_character: boolean;
+  keyword_overrides: string[];
   /** Enhancement raw name, when one was inlined in the wargear list (simple format). */
   enhancement_raw_name: string | null;
   /** Enhancement points cost when given inline (simple format), else null. */
@@ -45,7 +46,9 @@ export interface ClassifiedTokens {
 
 const NX_PREFIX = /^(\d+)x\s+(.+)$/;
 const INLINE_PTS = /^(.+?)\s*\[\s*(\d+)\s*pts?\s*\]\s*$/i;
+const INLINE_ENHANCEMENT = /^Enhancement:\s*(.+)$/i;
 const CHARACTER_SUFFIX = " Character";
+const INLINE_KEYWORD = /^40kdc Keywords?:\s*(.+)$/i;
 const WARLORD_MARKER = "Warlord";
 
 /**
@@ -60,6 +63,7 @@ export function classifyWargearList(tokens: readonly string[]): ClassifiedTokens
   const wargear: ParsedWargear[] = [];
   let is_warlord = false;
   let is_character = false;
+  const keyword_overrides = new Set<string>();
   let enhancement_raw_name: string | null = null;
   let enhancement_points: number | null = null;
 
@@ -73,6 +77,12 @@ export function classifyWargearList(tokens: readonly string[]): ClassifiedTokens
     }
     if (token.endsWith(CHARACTER_SUFFIX)) {
       is_character = true;
+      keyword_overrides.add("Character");
+      continue;
+    }
+    const keyword = INLINE_KEYWORD.exec(token);
+    if (keyword) {
+      keyword_overrides.add(keyword[1].trim());
       continue;
     }
 
@@ -82,6 +92,17 @@ export function classifyWargearList(tokens: readonly string[]): ClassifiedTokens
       if (enhancement_raw_name === null) {
         enhancement_raw_name = pts[1].trim();
         enhancement_points = Number.parseInt(pts[2], 10);
+      }
+      continue;
+    }
+    // Our simple serializer uses an explicit marker when the source did not
+    // report enhancement points; a bare name would be indistinguishable from
+    // ordinary wargear and disappear on re-import.
+    const enhancement = INLINE_ENHANCEMENT.exec(token);
+    if (enhancement) {
+      if (enhancement_raw_name === null) {
+        enhancement_raw_name = enhancement[1].trim();
+        enhancement_points = null;
       }
       continue;
     }
@@ -95,7 +116,14 @@ export function classifyWargearList(tokens: readonly string[]): ClassifiedTokens
     }
   }
 
-  return { wargear, is_warlord, is_character, enhancement_raw_name, enhancement_points };
+  return {
+    wargear,
+    is_warlord,
+    is_character,
+    keyword_overrides: [...keyword_overrides],
+    enhancement_raw_name,
+    enhancement_points,
+  };
 }
 
 /**

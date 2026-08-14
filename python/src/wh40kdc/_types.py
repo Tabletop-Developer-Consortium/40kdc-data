@@ -275,6 +275,9 @@ class Detachment(TypedDict):
     game_modes: NotRequired[GameModes]
 
 
+KeywordRestrictionGroup: TypeAlias = list[Keyword]
+
+
 class Enhancement(TypedDict):
     id: EntityId
     name: str
@@ -284,7 +287,9 @@ class Enhancement(TypedDict):
     upgrade_tag: NotRequired[bool]
     max_targets: NotRequired[int]
     keyword_restrictions: NotRequired[KeywordList]
+    keyword_restriction_groups: NotRequired[list[KeywordRestrictionGroup]]
     exclusion_keywords: NotRequired[KeywordList | None]
+    attachment_bodyguard_ids: NotRequired[list[EntityId]]
     ability_id: NotRequired[EntityId | None]
     is_unique: NotRequired[bool]
     game_version: GameVersionRef
@@ -584,6 +589,12 @@ class WargearCost(TypedDict):
     cost: int
 
 
+class ConditionalKeyword(TypedDict):
+    keyword: Keyword
+    required_detachment_id: NotRequired[EntityId | None]
+    required_faction_keyword: NotRequired[Keyword | None]
+
+
 class ModelCount(TypedDict):
     min: int
     max: int
@@ -620,6 +631,7 @@ class Unit(TypedDict):
     wargear_costs: NotRequired[list[WargearCost]]
     keywords: NotRequired[KeywordList]
     faction_keywords: NotRequired[KeywordList]
+    conditional_keywords: NotRequired[list[ConditionalKeyword]]
     excluded_faction_keywords: NotRequired[KeywordList | None]
     base_size_mm: NotRequired[BaseSize | None]
     model_count: NotRequired[ModelCount]

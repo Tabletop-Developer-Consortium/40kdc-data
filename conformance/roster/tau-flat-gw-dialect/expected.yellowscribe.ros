@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <roster id="roster0" name="Crossing the Damocles Gulf" gameSystemId="sys-352e-adc2-7639-d6a9" gameSystemName="Warhammer 40,000">
   <forces>
-    <force id="force0" name="Unknown" catalogueName="Unknown">
+    <force id="force0" name="Tau Empire" catalogueName="Tau Empire">
       <selections>
         <selection id="unit0" name="Darkstrider" type="unit" number="1">
           <profiles>
@@ -133,9 +133,9 @@ The unit gains the Infiltrators ability.</characteristic>
             <category name="Pathfinder Team"/>
           </categories>
           <selections>
-            <selection id="unit1-m0" name="Pathfinder Team" type="model" number="10">
+            <selection id="unit1-m0" name="Pathfinder Shas’ui" type="model" number="1">
               <selections>
-                <selection id="unit1-m0-w0" name="Close combat weapon" type="upgrade" number="100">
+                <selection id="unit1-m0-w0" name="Close combat weapon" type="upgrade" number="1">
                   <profiles>
                     <profile name="Close combat weapon" typeName="Melee Weapons">
                       <characteristics>
@@ -150,7 +150,7 @@ The unit gains the Infiltrators ability.</characteristic>
                     </profile>
                   </profiles>
                 </selection>
-                <selection id="unit1-m0-w3" name="Pulse carbine" type="upgrade" number="70">
+                <selection id="unit1-m0-w3" name="Pulse carbine" type="upgrade" number="1">
                   <profiles>
                     <profile name="Pulse carbine" typeName="Ranged Weapons">
                       <characteristics>
@@ -165,7 +165,7 @@ The unit gains the Infiltrators ability.</characteristic>
                     </profile>
                   </profiles>
                 </selection>
-                <selection id="unit1-m0-w4" name="Pulse pistol" type="upgrade" number="100">
+                <selection id="unit1-m0-w4" name="Pulse pistol" type="upgrade" number="1">
                   <profiles>
                     <profile name="Pulse pistol" typeName="Ranged Weapons">
                       <characteristics>
@@ -180,22 +180,7 @@ The unit gains the Infiltrators ability.</characteristic>
                     </profile>
                   </profiles>
                 </selection>
-                <selection id="unit1-m0-w6" name="Rail rifle" type="upgrade" number="30">
-                  <profiles>
-                    <profile name="Rail rifle" typeName="Ranged Weapons">
-                      <characteristics>
-                        <characteristic name="Range">30"</characteristic>
-                        <characteristic name="A">1</characteristic>
-                        <characteristic name="BS">5+</characteristic>
-                        <characteristic name="S">10</characteristic>
-                        <characteristic name="AP">-4</characteristic>
-                        <characteristic name="D">3</characteristic>
-                        <characteristic name="Keywords">Devastating Wounds, Heavy</characteristic>
-                      </characteristics>
-                    </profile>
-                  </profiles>
-                </selection>
-                <selection id="unit1-m0-w7" name="Semi-automatic grenade launcher" type="upgrade" number="10">
+                <selection id="unit1-m0-w5" name="Semi-automatic grenade launcher" type="upgrade" number="1">
                   <profiles>
                     <profile name="Fusion" typeName="Ranged Weapons">
                       <characteristics>
@@ -217,6 +202,104 @@ The unit gains the Infiltrators ability.</characteristic>
                         <characteristic name="AP">0</characteristic>
                         <characteristic name="D">1</characteristic>
                         <characteristic name="Keywords">Anti-Vehicle 4+, Devastating Wounds</characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+              </selections>
+            </selection>
+            <selection id="unit1-m1" name="Pathfinder" type="model" number="6">
+              <selections>
+                <selection id="unit1-m1-w0" name="Close combat weapon" type="upgrade" number="6">
+                  <profiles>
+                    <profile name="Close combat weapon" typeName="Melee Weapons">
+                      <characteristics>
+                        <characteristic name="Range">Melee</characteristic>
+                        <characteristic name="A">1</characteristic>
+                        <characteristic name="WS">5+</characteristic>
+                        <characteristic name="S">3</characteristic>
+                        <characteristic name="AP">0</characteristic>
+                        <characteristic name="D">1</characteristic>
+                        <characteristic name="Keywords"></characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+                <selection id="unit1-m1-w1" name="Pulse carbine" type="upgrade" number="6">
+                  <profiles>
+                    <profile name="Pulse carbine" typeName="Ranged Weapons">
+                      <characteristics>
+                        <characteristic name="Range">20"</characteristic>
+                        <characteristic name="A">2</characteristic>
+                        <characteristic name="BS">4+</characteristic>
+                        <characteristic name="S">5</characteristic>
+                        <characteristic name="AP">0</characteristic>
+                        <characteristic name="D">1</characteristic>
+                        <characteristic name="Keywords"></characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+                <selection id="unit1-m1-w2" name="Pulse pistol" type="upgrade" number="6">
+                  <profiles>
+                    <profile name="Pulse pistol" typeName="Ranged Weapons">
+                      <characteristics>
+                        <characteristic name="Range">12"</characteristic>
+                        <characteristic name="A">1</characteristic>
+                        <characteristic name="BS">4+</characteristic>
+                        <characteristic name="S">5</characteristic>
+                        <characteristic name="AP">0</characteristic>
+                        <characteristic name="D">1</characteristic>
+                        <characteristic name="Keywords">Pistol</characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+              </selections>
+            </selection>
+            <selection id="unit1-m2" name="Pathfinder" type="model" number="3">
+              <selections>
+                <selection id="unit1-m2-w0" name="Close combat weapon" type="upgrade" number="3">
+                  <profiles>
+                    <profile name="Close combat weapon" typeName="Melee Weapons">
+                      <characteristics>
+                        <characteristic name="Range">Melee</characteristic>
+                        <characteristic name="A">1</characteristic>
+                        <characteristic name="WS">5+</characteristic>
+                        <characteristic name="S">3</characteristic>
+                        <characteristic name="AP">0</characteristic>
+                        <characteristic name="D">1</characteristic>
+                        <characteristic name="Keywords"></characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+                <selection id="unit1-m2-w1" name="Pulse pistol" type="upgrade" number="3">
+                  <profiles>
+                    <profile name="Pulse pistol" typeName="Ranged Weapons">
+                      <characteristics>
+                        <characteristic name="Range">12"</characteristic>
+                        <characteristic name="A">1</characteristic>
+                        <characteristic name="BS">4+</characteristic>
+                        <characteristic name="S">5</characteristic>
+                        <characteristic name="AP">0</characteristic>
+                        <characteristic name="D">1</characteristic>
+                        <characteristic name="Keywords">Pistol</characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+                <selection id="unit1-m2-w2" name="Rail rifle" type="upgrade" number="3">
+                  <profiles>
+                    <profile name="Rail rifle" typeName="Ranged Weapons">
+                      <characteristics>
+                        <characteristic name="Range">30"</characteristic>
+                        <characteristic name="A">1</characteristic>
+                        <characteristic name="BS">5+</characteristic>
+                        <characteristic name="S">10</characteristic>
+                        <characteristic name="AP">-4</characteristic>
+                        <characteristic name="D">3</characteristic>
+                        <characteristic name="Keywords">Devastating Wounds, Heavy</characteristic>
                       </characteristics>
                     </profile>
                   </profiles>

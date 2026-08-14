@@ -32,7 +32,27 @@
             "selections": [
               {
                 "id": "cfg-detachment-val",
-                "name": "Slaaneshs Chosen",
+                "name": "Slaanesh’s Chosen",
+                "type": "upgrade",
+                "number": 1
+              }
+            ]
+          },
+          {
+            "id": "cfg-force-disposition",
+            "name": "Force Disposition",
+            "type": "upgrade",
+            "number": 1,
+            "categories": [
+              {
+                "name": "Configuration",
+                "primary": true
+              }
+            ],
+            "selections": [
+              {
+                "id": "cfg-force-disposition-val",
+                "name": "Purge The Foe",
                 "type": "upgrade",
                 "number": 1
               }

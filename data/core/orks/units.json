@@ -647,7 +647,16 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "wargear_budgets": [
+      {
+        "items": [
+          "bomb-squig"
+        ],
+        "count": 1,
+        "per_models": 4
+      }
+    ]
   },
   {
     "id": "warboss-in-mega-armour",
@@ -836,6 +845,12 @@
       {
         "item_id": "ard-case",
         "cost": 15
+      }
+    ],
+    "conditional_keywords": [
+      {
+        "keyword": "Wagon",
+        "required_detachment_id": "rollin-deff"
       }
     ]
   },
@@ -1314,7 +1329,17 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "wargear_budgets": [
+      {
+        "items": [
+          "pulsa-rokkit"
+        ],
+        "count": 2,
+        "per_models": 0,
+        "duplicate_limit": 1
+      }
+    ]
   },
   {
     "id": "kommandos",
@@ -1502,7 +1527,10 @@
       "power-klaw",
       "rokkit-launcha-boyz",
       "shoota",
-      "slugga"
+      "slugga",
+      "kombi-rokkit",
+      "kombi-shoota",
+      "kustom-shoota"
     ],
     "ability_ids": [
       "bodyguard",
@@ -1882,7 +1910,13 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "conditional_keywords": [
+      {
+        "keyword": "Battleline",
+        "required_detachment_id": "taktikal-brigade"
+      }
+    ]
   },
   {
     "id": "flash-gitz",
@@ -2784,7 +2818,19 @@
       },
       {
         "models": 22,
+        "cost": 90
+      },
+      {
+        "models": 10,
+        "cost": 45
+      },
+      {
+        "models": 20,
         "cost": 80
+      },
+      {
+        "models": 21,
+        "cost": 85
       }
     ],
     "keywords": [
@@ -2800,7 +2846,7 @@
       "diameter": 25
     },
     "model_count": {
-      "min": 11,
+      "min": 10,
       "max": 22
     },
     "weapon_ids": [
@@ -2818,7 +2864,13 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "conditional_keywords": [
+      {
+        "keyword": "Battleline",
+        "required_detachment_id": "dread-mob"
+      }
+    ]
   },
   {
     "id": "big-mek-with-shokk-attack-gun",
@@ -2948,7 +3000,13 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "conditional_keywords": [
+      {
+        "keyword": "Wagon",
+        "required_detachment_id": "rollin-deff"
+      }
+    ]
   },
   {
     "id": "burna-boyz",
@@ -3084,7 +3142,16 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "wargear_budgets": [
+      {
+        "items": [
+          "ammo-runt"
+        ],
+        "count": 1,
+        "per_models": 5
+      }
+    ]
   },
   {
     "id": "beastboss-on-squigosaur",
@@ -3494,7 +3561,13 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "conditional_keywords": [
+      {
+        "keyword": "Wagon",
+        "required_detachment_id": "rollin-deff"
+      }
+    ]
   },
   {
     "id": "warboss",
@@ -3541,7 +3614,9 @@
       "big-choppa-warboss",
       "kombi-weapon",
       "power-klaw-warboss",
-      "twin-sluggas"
+      "twin-sluggas",
+      "kustom-choppa",
+      "kustom-shoota"
     ],
     "ability_ids": [
       "da-biggest-and-da-best",

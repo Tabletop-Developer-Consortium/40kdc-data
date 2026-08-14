@@ -27,8 +27,13 @@
           "quantity": 1
         },
         {
-          "item": "Detachment§Champions Of Faith",
-          "name": "Champions Of Faith",
+          "item": "Detachment§Champions of Faith",
+          "name": "Champions of Faith",
+          "quantity": 1
+        },
+        {
+          "item": "Force Disposition§Disruption",
+          "name": "Disruption",
           "quantity": 1
         },
         {
@@ -47,6 +52,11 @@
           },
           "assets": {
             "included": [
+              {
+                "item": "Attachment§Attachment: support -> Battle Sisters Squad [provisional]",
+                "name": "Attachment: support -> Battle Sisters Squad [provisional]",
+                "quantity": 1
+              },
               {
                 "item": "Enhancement§Sanctified Amulet",
                 "name": "Sanctified Amulet",
@@ -81,6 +91,11 @@
           },
           "assets": {
             "included": [
+              {
+                "item": "Attachment§Attachment: support -> Battle Sisters Squad [provisional]",
+                "name": "Attachment: support -> Battle Sisters Squad [provisional]",
+                "quantity": 1
+              },
               {
                 "item": "Enhancement§Triptych of Judgement",
                 "name": "Triptych of Judgement",
@@ -181,39 +196,57 @@
           "assets": {
             "included": [
               {
-                "item": "Weapon§Bolt pistol",
-                "name": "Bolt pistol",
-                "quantity": 10
+                "item": "Model§Battle Sister",
+                "name": "Battle Sister",
+                "quantity": 9,
+                "assets": {
+                  "included": [
+                    {
+                      "item": "Weapon§Bolt pistol",
+                      "name": "Bolt pistol",
+                      "quantity": 9
+                    },
+                    {
+                      "item": "Weapon§Boltgun",
+                      "name": "Boltgun",
+                      "quantity": 9
+                    },
+                    {
+                      "item": "Weapon§Close combat weapon",
+                      "name": "Close combat weapon",
+                      "quantity": 9
+                    }
+                  ]
+                }
               },
               {
-                "item": "Weapon§Boltgun",
-                "name": "Boltgun",
-                "quantity": 8
-              },
-              {
-                "item": "Weapon§Close combat weapon",
-                "name": "Close combat weapon",
-                "quantity": 10
-              },
-              {
-                "item": "Weapon§Simulacrum Imperialis",
-                "name": "Simulacrum Imperialis",
-                "quantity": 1
-              },
-              {
-                "item": "Weapon§Multi-melta",
-                "name": "Multi-melta",
-                "quantity": 1
-              },
-              {
-                "item": "Weapon§Meltagun",
-                "name": "Meltagun",
-                "quantity": 1
-              },
-              {
-                "item": "Weapon§Power weapon",
-                "name": "Power weapon",
-                "quantity": 1
+                "item": "Model§Sister Superior",
+                "name": "Sister Superior",
+                "quantity": 1,
+                "assets": {
+                  "included": [
+                    {
+                      "item": "Weapon§Bolt pistol",
+                      "name": "Bolt pistol",
+                      "quantity": 1
+                    },
+                    {
+                      "item": "Weapon§Close combat weapon",
+                      "name": "Close combat weapon",
+                      "quantity": 1
+                    },
+                    {
+                      "item": "Weapon§Power weapon",
+                      "name": "Power weapon",
+                      "quantity": 1
+                    },
+                    {
+                      "item": "Weapon§Boltgun",
+                      "name": "Boltgun",
+                      "quantity": 1
+                    }
+                  ]
+                }
               }
             ]
           }
@@ -230,19 +263,42 @@
           "assets": {
             "included": [
               {
-                "item": "Weapon§Spear of the Faithful",
-                "name": "Spear of the Faithful",
-                "quantity": 1
+                "item": "Model§Sacresant Superior",
+                "name": "Sacresant Superior",
+                "quantity": 1,
+                "assets": {
+                  "included": [
+                    {
+                      "item": "Weapon§Spear of the Faithful",
+                      "name": "Spear of the Faithful",
+                      "quantity": 1
+                    },
+                    {
+                      "item": "Weapon§Bolt pistol",
+                      "name": "Bolt pistol",
+                      "quantity": 1
+                    }
+                  ]
+                }
               },
               {
-                "item": "Weapon§Bolt pistol",
-                "name": "Bolt pistol",
-                "quantity": 10
-              },
-              {
-                "item": "Weapon§Hallowed Mace",
-                "name": "Hallowed Mace",
-                "quantity": 9
+                "item": "Model§Celestian Sacresant (Hallowed Mace)",
+                "name": "Celestian Sacresant (Hallowed Mace)",
+                "quantity": 9,
+                "assets": {
+                  "included": [
+                    {
+                      "item": "Weapon§Bolt pistol",
+                      "name": "Bolt pistol",
+                      "quantity": 9
+                    },
+                    {
+                      "item": "Weapon§Hallowed Mace",
+                      "name": "Hallowed Mace",
+                      "quantity": 9
+                    }
+                  ]
+                }
               }
             ]
           }
@@ -259,29 +315,62 @@
           "assets": {
             "included": [
               {
-                "item": "Weapon§Bolt pistol",
-                "name": "Bolt pistol",
-                "quantity": 3
+                "item": "Model§Paragon Superior",
+                "name": "Paragon Superior",
+                "quantity": 1,
+                "assets": {
+                  "included": [
+                    {
+                      "item": "Weapon§Bolt pistol",
+                      "name": "Bolt pistol",
+                      "quantity": 1
+                    },
+                    {
+                      "item": "Weapon§Paragon Storm Bolters",
+                      "name": "Paragon Storm Bolters",
+                      "quantity": 1
+                    },
+                    {
+                      "item": "Weapon§Paragon War Blade",
+                      "name": "Paragon War Blade",
+                      "quantity": 1
+                    },
+                    {
+                      "item": "Weapon§Heavy Bolter",
+                      "name": "Heavy Bolter",
+                      "quantity": 1
+                    }
+                  ]
+                }
               },
               {
-                "item": "Weapon§Paragon Storm Bolters",
-                "name": "Paragon Storm Bolters",
-                "quantity": 1
-              },
-              {
-                "item": "Weapon§Paragon War Blade",
-                "name": "Paragon War Blade",
-                "quantity": 3
-              },
-              {
-                "item": "Weapon§Heavy Bolter",
-                "name": "Heavy Bolter",
-                "quantity": 3
-              },
-              {
-                "item": "Weapon§Paragon Grenade Launchers",
-                "name": "Paragon Grenade Launchers",
-                "quantity": 2
+                "item": "Model§Paragon Warsuit",
+                "name": "Paragon Warsuit",
+                "quantity": 2,
+                "assets": {
+                  "included": [
+                    {
+                      "item": "Weapon§Bolt pistol",
+                      "name": "Bolt pistol",
+                      "quantity": 2
+                    },
+                    {
+                      "item": "Weapon§Paragon Grenade Launchers",
+                      "name": "Paragon Grenade Launchers",
+                      "quantity": 2
+                    },
+                    {
+                      "item": "Weapon§Paragon War Blade",
+                      "name": "Paragon War Blade",
+                      "quantity": 2
+                    },
+                    {
+                      "item": "Weapon§Heavy Bolter",
+                      "name": "Heavy Bolter",
+                      "quantity": 2
+                    }
+                  ]
+                }
               }
             ]
           }
@@ -298,29 +387,62 @@
           "assets": {
             "included": [
               {
-                "item": "Weapon§Bolt pistol",
-                "name": "Bolt pistol",
-                "quantity": 3
+                "item": "Model§Paragon Superior",
+                "name": "Paragon Superior",
+                "quantity": 1,
+                "assets": {
+                  "included": [
+                    {
+                      "item": "Weapon§Bolt pistol",
+                      "name": "Bolt pistol",
+                      "quantity": 1
+                    },
+                    {
+                      "item": "Weapon§Paragon Storm Bolters",
+                      "name": "Paragon Storm Bolters",
+                      "quantity": 1
+                    },
+                    {
+                      "item": "Weapon§Paragon War Blade",
+                      "name": "Paragon War Blade",
+                      "quantity": 1
+                    },
+                    {
+                      "item": "Weapon§Heavy Bolter",
+                      "name": "Heavy Bolter",
+                      "quantity": 1
+                    }
+                  ]
+                }
               },
               {
-                "item": "Weapon§Paragon Storm Bolters",
-                "name": "Paragon Storm Bolters",
-                "quantity": 1
-              },
-              {
-                "item": "Weapon§Paragon War Blade",
-                "name": "Paragon War Blade",
-                "quantity": 3
-              },
-              {
-                "item": "Weapon§Heavy Bolter",
-                "name": "Heavy Bolter",
-                "quantity": 3
-              },
-              {
-                "item": "Weapon§Paragon Grenade Launchers",
-                "name": "Paragon Grenade Launchers",
-                "quantity": 2
+                "item": "Model§Paragon Warsuit",
+                "name": "Paragon Warsuit",
+                "quantity": 2,
+                "assets": {
+                  "included": [
+                    {
+                      "item": "Weapon§Bolt pistol",
+                      "name": "Bolt pistol",
+                      "quantity": 2
+                    },
+                    {
+                      "item": "Weapon§Paragon Grenade Launchers",
+                      "name": "Paragon Grenade Launchers",
+                      "quantity": 2
+                    },
+                    {
+                      "item": "Weapon§Paragon War Blade",
+                      "name": "Paragon War Blade",
+                      "quantity": 2
+                    },
+                    {
+                      "item": "Weapon§Heavy Bolter",
+                      "name": "Heavy Bolter",
+                      "quantity": 2
+                    }
+                  ]
+                }
               }
             ]
           }

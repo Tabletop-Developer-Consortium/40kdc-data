@@ -55,7 +55,25 @@
             <category name="Grand Master in Nemesis Dreadknight"/>
           </categories>
           <selections>
-            <selection id="unit0-m0" name="Grand Master in Nemesis Dreadknight" type="model" number="1"/>
+            <selection id="unit0-m0" name="Grand Master in Nemesis Dreadknight" type="model" number="1">
+              <selections>
+                <selection id="unit0-m0-w0" name="Dreadfists" type="upgrade" number="1">
+                  <profiles>
+                    <profile name="Dreadfists" typeName="Melee Weapons">
+                      <characteristics>
+                        <characteristic name="Range">Melee</characteristic>
+                        <characteristic name="A">6</characteristic>
+                        <characteristic name="WS">2+</characteristic>
+                        <characteristic name="S">6</characteristic>
+                        <characteristic name="AP">-1</characteristic>
+                        <characteristic name="D">1</characteristic>
+                        <characteristic name="Keywords"></characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+              </selections>
+            </selection>
           </selections>
         </selection>
         <selection id="unit1" name="Callidus Assassin" type="unit" number="1">
@@ -121,7 +139,40 @@
             <category name="Callidus Assassin"/>
           </categories>
           <selections>
-            <selection id="unit1-m0" name="Callidus Assassin" type="model" number="1"/>
+            <selection id="unit1-m0" name="Callidus Assassin" type="model" number="1">
+              <selections>
+                <selection id="unit1-m0-w0" name="Neural shredder" type="upgrade" number="1">
+                  <profiles>
+                    <profile name="Neural shredder" typeName="Ranged Weapons">
+                      <characteristics>
+                        <characteristic name="Range">12"</characteristic>
+                        <characteristic name="A">D6</characteristic>
+                        <characteristic name="BS">N/A</characteristic>
+                        <characteristic name="S">5</characteristic>
+                        <characteristic name="AP">-2</characteristic>
+                        <characteristic name="D">1</characteristic>
+                        <characteristic name="Keywords">Anti-Infantry 2+, Precision, Torrent</characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+                <selection id="unit1-m0-w1" name="Phase sword and poison blades" type="upgrade" number="1">
+                  <profiles>
+                    <profile name="Phase sword and poison blades" typeName="Melee Weapons">
+                      <characteristics>
+                        <characteristic name="Range">Melee</characteristic>
+                        <characteristic name="A">5</characteristic>
+                        <characteristic name="WS">2+</characteristic>
+                        <characteristic name="S">5</characteristic>
+                        <characteristic name="AP">-4</characteristic>
+                        <characteristic name="D">2</characteristic>
+                        <characteristic name="Keywords">Lethal Hits, Precision</characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+              </selections>
+            </selection>
           </selections>
         </selection>
       </selections>

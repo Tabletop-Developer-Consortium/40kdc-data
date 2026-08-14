@@ -68,7 +68,7 @@
         "Use the source unit's authored game_version; fall back to the repository launch default."
       ],
       "consumers": [
-        "tools/src/mfm/project-loadout.ts#mintWeapon"
+        "tools/src/mfm/gear-projection.ts#mintWeapon"
       ],
       "reason": "The minted weapon inherits repository game-version context rather than translating dump metadata."
     },
@@ -83,7 +83,7 @@
         "Use the source unit's authored game_version; fall back to the repository launch default."
       ],
       "consumers": [
-        "tools/src/mfm/project-loadout.ts#mintWeapon"
+        "tools/src/mfm/gear-projection.ts#mintWeapon"
       ],
       "reason": "The minted weapon inherits repository game-version context rather than translating dump metadata."
     },
@@ -98,7 +98,7 @@
         "Use the source unit's authored game_version; fall back to the repository launch default."
       ],
       "consumers": [
-        "tools/src/mfm/project-loadout.ts#mintWeapon"
+        "tools/src/mfm/gear-projection.ts#mintWeapon"
       ],
       "reason": "The minted weapon inherits repository game-version context rather than translating dump metadata."
     },
@@ -201,7 +201,7 @@
       ],
       "precedence": [],
       "consumers": [
-        "tools/src/mfm/project-loadout.ts#mintWeapon",
+        "tools/src/mfm/gear-projection.ts#mintWeapon",
         "tools/src/mfm/weapon-variants.ts#runWeaponVariants"
       ],
       "reason": "The current projection passes the item display name into the minted weapon."
@@ -222,7 +222,7 @@
       ],
       "transforms": [
         {
-          "symbol": "tools/src/mfm/project-loadout.ts#mintWeapon",
+          "symbol": "tools/src/mfm/gear-projection.ts#mintWeapon",
           "operation": "Collect the item profiles and sort them by display order before projecting each profile."
         }
       ],
@@ -233,7 +233,7 @@
         "Ascending displayOrder determines repository profile order."
       ],
       "consumers": [
-        "tools/src/mfm/project-loadout.ts#mintWeapon"
+        "tools/src/mfm/gear-projection.ts#mintWeapon"
       ],
       "reason": "One weapon record is built from its ordered wargear-item profile rows."
     },
@@ -253,7 +253,7 @@
       ],
       "transforms": [
         {
-          "symbol": "tools/src/mfm/project-loadout.ts#mintWeapon",
+          "symbol": "tools/src/mfm/gear-projection.ts#mintWeapon",
           "operation": "Project each ordered wargear-item profile into one repository profile."
         }
       ],
@@ -262,7 +262,7 @@
         "Ascending displayOrder determines repository profile order."
       ],
       "consumers": [
-        "tools/src/mfm/project-loadout.ts#mintWeapon"
+        "tools/src/mfm/gear-projection.ts#mintWeapon"
       ],
       "reason": "Each selected dump profile becomes one repository weapon profile."
     },
@@ -286,11 +286,11 @@
       ],
       "transforms": [
         {
-          "symbol": "tools/src/mfm/project-loadout.ts#mapWeaponKeyword",
+          "symbol": "tools/src/mfm/gear-projection.ts#mapWeaponKeyword",
           "operation": "Parse supported ability display names into catalog keyword ids and reference-site parameters."
         },
         {
-          "symbol": "tools/src/mfm/project-loadout.ts#mintWeapon",
+          "symbol": "tools/src/mfm/gear-projection.ts#mintWeapon",
           "operation": "Append each parseable profile ability mapping in dump link iteration order."
         }
       ],
@@ -302,7 +302,7 @@
         "Retain every parseable mapping; no deduplication or displayOrder sort is applied."
       ],
       "consumers": [
-        "tools/src/mfm/project-loadout.ts#mintWeapon"
+        "tools/src/mfm/gear-projection.ts#mintWeapon"
       ],
       "reason": "Only the closed current ability-name parser is projected; unmapped names remain warnings."
     },
@@ -326,7 +326,7 @@
       ],
       "transforms": [
         {
-          "symbol": "tools/src/mfm/project-loadout.ts#mapWeaponKeyword",
+          "symbol": "tools/src/mfm/gear-projection.ts#mapWeaponKeyword",
           "operation": "Emit one or more repository keyword references from a supported ability display name."
         }
       ],
@@ -335,7 +335,7 @@
       ],
       "precedence": [],
       "consumers": [
-        "tools/src/mfm/project-loadout.ts#mintWeapon"
+        "tools/src/mfm/gear-projection.ts#mintWeapon"
       ],
       "reason": "A mapped ability can yield one or several keyword references."
     },
@@ -359,7 +359,7 @@
       ],
       "transforms": [
         {
-          "symbol": "tools/src/mfm/project-loadout.ts#mapWeaponKeyword",
+          "symbol": "tools/src/mfm/gear-projection.ts#mapWeaponKeyword",
           "operation": "Map recognized ability names to authored weapon-keyword catalog identifiers."
         }
       ],
@@ -368,7 +368,7 @@
       ],
       "precedence": [],
       "consumers": [
-        "tools/src/mfm/project-loadout.ts#mintWeapon"
+        "tools/src/mfm/gear-projection.ts#mintWeapon"
       ],
       "reason": "The keyword catalog id is a parser result rather than a dump id."
     },
@@ -392,7 +392,7 @@
       ],
       "transforms": [
         {
-          "symbol": "tools/src/mfm/project-loadout.ts#mapWeaponKeyword",
+          "symbol": "tools/src/mfm/gear-projection.ts#mapWeaponKeyword",
           "operation": "Extract supported numeric, dice, target-keyword, and threshold parameters."
         }
       ],
@@ -401,7 +401,7 @@
       ],
       "precedence": [],
       "consumers": [
-        "tools/src/mfm/project-loadout.ts#mintWeapon"
+        "tools/src/mfm/gear-projection.ts#mintWeapon"
       ],
       "reason": "Parameters are parser-derived from recognized ability display-name forms."
     },
@@ -425,7 +425,7 @@
       ],
       "transforms": [
         {
-          "symbol": "tools/src/mfm/project-loadout.ts#mapWeaponKeyword",
+          "symbol": "tools/src/mfm/gear-projection.ts#mapWeaponKeyword",
           "operation": "Split supported Anti target labels into title-cased target_keyword values."
         }
       ],
@@ -434,7 +434,7 @@
       ],
       "precedence": [],
       "consumers": [
-        "tools/src/mfm/project-loadout.ts#mintWeapon"
+        "tools/src/mfm/gear-projection.ts#mintWeapon"
       ],
       "reason": "Only the Anti parser branch produces this reference-site parameter."
     },
@@ -458,7 +458,7 @@
       ],
       "transforms": [
         {
-          "symbol": "tools/src/mfm/project-loadout.ts#mapWeaponKeyword",
+          "symbol": "tools/src/mfm/gear-projection.ts#mapWeaponKeyword",
           "operation": "Parse the supported Anti threshold into an integer."
         }
       ],
@@ -467,7 +467,7 @@
       ],
       "precedence": [],
       "consumers": [
-        "tools/src/mfm/project-loadout.ts#mintWeapon"
+        "tools/src/mfm/gear-projection.ts#mintWeapon"
       ],
       "reason": "Only the Anti parser branch produces this reference-site parameter."
     },
@@ -491,7 +491,7 @@
       ],
       "transforms": [
         {
-          "symbol": "tools/src/mfm/project-loadout.ts#mapWeaponKeyword",
+          "symbol": "tools/src/mfm/gear-projection.ts#mapWeaponKeyword",
           "operation": "Parse supported flat or dice keyword values."
         }
       ],
@@ -500,7 +500,7 @@
       ],
       "precedence": [],
       "consumers": [
-        "tools/src/mfm/project-loadout.ts#mintWeapon"
+        "tools/src/mfm/gear-projection.ts#mintWeapon"
       ],
       "reason": "Only supported parameterized keyword forms produce value."
     },
@@ -520,7 +520,7 @@
       ],
       "transforms": [
         {
-          "symbol": "tools/src/mfm/project-loadout.ts#mintWeapon",
+          "symbol": "tools/src/mfm/gear-projection.ts#mintWeapon",
           "operation": "Use the item name for a single profile and the profile display name for a multi-profile weapon."
         }
       ],
@@ -531,7 +531,7 @@
         "Single-profile item name wins; otherwise prefer the English profile name and fall back to the item name."
       ],
       "consumers": [
-        "tools/src/mfm/project-loadout.ts#mintWeapon"
+        "tools/src/mfm/gear-projection.ts#mintWeapon"
       ],
       "reason": "Profile naming follows the current single-versus-multiple-profile projection rule."
     },
@@ -552,7 +552,7 @@
       "filters": [],
       "precedence": [],
       "consumers": [
-        "tools/src/mfm/project-loadout.ts#mintWeapon"
+        "tools/src/mfm/gear-projection.ts#mintWeapon"
       ],
       "reason": "Range is normalized by the existing profile parser."
     },
@@ -571,14 +571,14 @@
       "joins": [],
       "transforms": [
         {
-          "symbol": "tools/src/mfm/project-loadout.ts#mintWeapon",
+          "symbol": "tools/src/mfm/gear-projection.ts#mintWeapon",
           "operation": "Assemble the repository stat object and select ballistic or weapon skill by profile type."
         }
       ],
       "filters": [],
       "precedence": [],
       "consumers": [
-        "tools/src/mfm/project-loadout.ts#mintWeapon"
+        "tools/src/mfm/gear-projection.ts#mintWeapon"
       ],
       "reason": "Stat fields are directly read from each projected profile."
     },
@@ -598,7 +598,7 @@
       "filters": [],
       "precedence": [],
       "consumers": [
-        "tools/src/mfm/project-loadout.ts#mintWeapon"
+        "tools/src/mfm/gear-projection.ts#mintWeapon"
       ],
       "reason": "Attacks uses the existing stat-value parser."
     },
@@ -618,7 +618,7 @@
       "filters": [],
       "precedence": [],
       "consumers": [
-        "tools/src/mfm/project-loadout.ts#mintWeapon"
+        "tools/src/mfm/gear-projection.ts#mintWeapon"
       ],
       "reason": "Armour penetration uses the existing AP parser."
     },
@@ -632,7 +632,7 @@
       "joins": [],
       "transforms": [
         {
-          "symbol": "tools/src/mfm/project-loadout.ts#parseSkill",
+          "symbol": "tools/src/mfm/gear-projection.ts#parseSkill",
           "operation": "Parse the ballistic skill for non-melee profiles."
         }
       ],
@@ -641,7 +641,7 @@
       ],
       "precedence": [],
       "consumers": [
-        "tools/src/mfm/project-loadout.ts#mintWeapon"
+        "tools/src/mfm/gear-projection.ts#mintWeapon"
       ],
       "reason": "The current projection adds BS only for ranged profile types."
     },
@@ -661,7 +661,7 @@
       "filters": [],
       "precedence": [],
       "consumers": [
-        "tools/src/mfm/project-loadout.ts#mintWeapon"
+        "tools/src/mfm/gear-projection.ts#mintWeapon"
       ],
       "reason": "Damage uses the existing stat-value parser."
     },
@@ -681,7 +681,7 @@
       "filters": [],
       "precedence": [],
       "consumers": [
-        "tools/src/mfm/project-loadout.ts#mintWeapon"
+        "tools/src/mfm/gear-projection.ts#mintWeapon"
       ],
       "reason": "Strength uses the existing stat-value parser."
     },
@@ -695,7 +695,7 @@
       "joins": [],
       "transforms": [
         {
-          "symbol": "tools/src/mfm/project-loadout.ts#parseSkill",
+          "symbol": "tools/src/mfm/gear-projection.ts#parseSkill",
           "operation": "Parse the weapon skill for melee profiles."
         }
       ],
@@ -704,7 +704,7 @@
       ],
       "precedence": [],
       "consumers": [
-        "tools/src/mfm/project-loadout.ts#mintWeapon"
+        "tools/src/mfm/gear-projection.ts#mintWeapon"
       ],
       "reason": "The current projection adds WS only for melee profile types."
     },
@@ -723,7 +723,7 @@
       ],
       "transforms": [
         {
-          "symbol": "tools/src/mfm/project-loadout.ts#mintWeapon",
+          "symbol": "tools/src/mfm/gear-projection.ts#mintWeapon",
           "operation": "Classify the weapon from the first display-ordered profile type."
         }
       ],
@@ -734,7 +734,7 @@
         "The first display-ordered profile determines ranged versus melee."
       ],
       "consumers": [
-        "tools/src/mfm/project-loadout.ts#mintWeapon"
+        "tools/src/mfm/gear-projection.ts#mintWeapon"
       ],
       "reason": "Mixed-type multi-profile items are not independently represented by the root weapon type."
     }

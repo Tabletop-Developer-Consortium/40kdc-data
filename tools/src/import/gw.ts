@@ -51,18 +51,23 @@ const FACTION_KEYWORD_PREFIX = "+ FACTION KEYWORD:";
 const HEADER_FIELDS = {
   faction: /^\+\s*FACTION KEYWORD:\s*(.+?)\s*$/i,
   detachment: /^\+\s*DETACHMENT:\s*(.+?)\s*$/i,
+  disposition: /^\+\s*(?:FORCE DISPOSITION|DISPO):\s*(.+?)\s*$/i,
   totalPoints: /^\+\s*TOTAL ARMY POINTS:\s*(\d+)\s*pts?\s*$/i,
 } as const;
 
 const FENCE = /^\++\s*$/;
 const HEADER_LINE = /^\+/;
 const SECTION_HEADER = /^[A-Z][A-Z0-9 \-/&]+$/; // BATTLELINE, ALLIED UNITS, …
-const UNIT_HEADER = /^(.+?)\s*\(\s*(\d+)\s*pts?\s*\)\s*$/i;
-const BULLET_LINE = /^(\s*)•\s*(.+?)\s*$/u;
+const UNIT_HEADER = /^(.+?)\s*\(\s*(\d+)\s*(?:pts?|points?)\s*\)\s*$/i;
+const BULLET_LINE = /^(\s*)([•◦])\s*(.+?)\s*$/u;
 const NX_PREFIX = /^(\d+)x\s+(.+)$/;
 const ENHANCEMENT_ANNOT = /^(.+?)\s*\(\+\s*(\d+)\s*pts?\s*\)\s*$/i;
 const WITH_LINE = /^[\t ]*\d+\s+with\b/m;
 const BULLET = /^[\t ]*•/mu;
+const EMBEDDED_APP_BATTLE_SIZE =
+  /^\s*(?:Combat Patrol|Incursion|Strike Force|Onslaught)\s*\(\s*[\d.,]+\s*Points?\s*\)\s*$/im;
+const WTC_COMPACT_UNIT =
+  /^(?:Char\d+:\s*)?\d+x\s+.+?\(\s*\d+\s*pts?\s*\)\s*:/im;
 
 const ALLIED_SECTION = "ALLIED UNITS";
 const CHARACTERS_SECTION = "CHARACTERS";
@@ -76,6 +81,13 @@ function isGwText(decoded: unknown): string | null {
   if (!decoded.includes(FACTION_KEYWORD_PREFIX)) return null;
   if (!BULLET.test(decoded)) return null;
   if (WITH_LINE.test(decoded)) return null; // that's wtc-full
+  if (WTC_COMPACT_UNIT.test(decoded)) return null;
+  // BCP sometimes wraps a complete modern GW app export in the older `+`
+  // summary fence. The body then carries its own faction/detachment/battle-size
+  // preamble and belongs to gw-headerless, which strips the wrapper before
+  // parsing. Claiming it here would parse zero units because this dialect uses
+  // `Points`, not the framed format's `pts`.
+  if (EMBEDDED_APP_BATTLE_SIZE.test(decoded)) return null;
   return decoded;
 }
 
@@ -83,6 +95,7 @@ interface GwHeader {
   name: string;
   faction_raw_name: string | null;
   detachment_raw_name: string | null;
+  force_disposition_raw_name: string | null;
   total_reported: number | null;
   declared_limit: number | null;
   battle_size_raw: string | null;
@@ -92,6 +105,7 @@ function parseHeader(lines: string[]): { header: GwHeader; bodyStart: number } |
   let faction_raw_name: string | null = null;
   let detachment_raw_name: string | null = null;
   let total_reported: number | null = null;
+  let force_disposition_raw_name: string | null = null;
 
   const fenceIndices: number[] = [];
   for (let i = 0; i < lines.length && fenceIndices.length < 2; i += 1) {
@@ -112,6 +126,11 @@ function parseHeader(lines: string[]): { header: GwHeader; bodyStart: number } |
       detachment_raw_name = stripParenthetical(detMatch[1]);
       continue;
     }
+    const dispositionMatch = HEADER_FIELDS.disposition.exec(line);
+    if (dispositionMatch) {
+      force_disposition_raw_name = dispositionMatch[1];
+      continue;
+    }
     const ptsMatch = HEADER_FIELDS.totalPoints.exec(line);
     if (ptsMatch) {
       total_reported = Number.parseInt(ptsMatch[1], 10);
@@ -129,6 +148,7 @@ function parseHeader(lines: string[]): { header: GwHeader; bodyStart: number } |
       name: "Imported roster",
       faction_raw_name,
       detachment_raw_name,
+      force_disposition_raw_name,
       total_reported,
       declared_limit,
       battle_size_raw: inferBattleSizeRaw(declared_limit),
@@ -253,8 +273,8 @@ function parseBody(lines: string[], bodyStart: number): {
     const bulletMatch = BULLET_LINE.exec(raw);
     if (bulletMatch) {
       if (current) {
-        const indent = bulletMatch[1].length;
-        const rest = bulletMatch[2];
+        const indent = bulletMatch[1].length + (bulletMatch[2] === "◦" ? 1 : 0);
+        const rest = bulletMatch[3];
         const nx = NX_PREFIX.exec(rest);
         current.bullets.push({
           indent,
@@ -332,6 +352,7 @@ export const gwAdapter: FormatAdapter = {
       generated_by: null,
       faction_raw_name: header.faction_raw_name,
       detachment_raw_names: header.detachment_raw_name ? [header.detachment_raw_name] : [],
+      force_disposition_raw_name: header.force_disposition_raw_name,
       battle_size_raw: header.battle_size_raw,
       declared_limit: header.declared_limit,
       total_reported: header.total_reported,

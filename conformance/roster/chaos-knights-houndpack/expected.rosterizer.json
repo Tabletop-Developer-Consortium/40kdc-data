@@ -32,6 +32,11 @@
           "quantity": 1
         },
         {
+          "item": "Force Disposition§Reconnaissance",
+          "name": "Reconnaissance",
+          "quantity": 1
+        },
+        {
           "item": "Battle Size§Strike Force (2000 Point limit)",
           "name": "Strike Force (2000 Point limit)",
           "quantity": 1
@@ -58,6 +63,11 @@
                 }
               },
               {
+                "item": "Weapon§Havoc multi-launcher",
+                "name": "Havoc multi-launcher",
+                "quantity": 1
+              },
+              {
                 "item": "Weapon§Reaper chaintalon",
                 "name": "Reaper chaintalon",
                 "quantity": 1
@@ -66,10 +76,12 @@
                 "item": "Weapon§Slaughterclaw",
                 "name": "Slaughterclaw",
                 "quantity": 1
-              },
+              }
+            ],
+            "traits": [
               {
-                "item": "Weapon§Havoc multi-launcher",
-                "name": "Havoc multi-launcher",
+                "item": "Character§Detachment Character",
+                "name": "Detachment Character",
                 "quantity": 1
               }
             ]
@@ -87,6 +99,11 @@
           "assets": {
             "included": [
               {
+                "item": "Weapon§Havoc multi-launcher",
+                "name": "Havoc multi-launcher",
+                "quantity": 1
+              },
+              {
                 "item": "Weapon§Reaper chaintalon",
                 "name": "Reaper chaintalon",
                 "quantity": 1
@@ -94,11 +111,6 @@
               {
                 "item": "Weapon§Slaughterclaw",
                 "name": "Slaughterclaw",
-                "quantity": 1
-              },
-              {
-                "item": "Weapon§Havoc multi-launcher",
-                "name": "Havoc multi-launcher",
                 "quantity": 1
               }
             ]
@@ -121,20 +133,25 @@
                 "quantity": 1
               },
               {
-                "item": "Weapon§War Dog autocannon",
-                "name": "War Dog autocannon",
-                "quantity": 2
-              },
-              {
                 "item": "Weapon§Diabolus heavy stubber",
                 "name": "Diabolus heavy stubber",
                 "quantity": 1
+              },
+              {
+                "item": "Weapon§War Dog autocannon",
+                "name": "War Dog autocannon",
+                "quantity": 2
               }
             ],
             "traits": [
               {
                 "item": "Trait§Warlord",
                 "name": "Warlord",
+                "quantity": 1
+              },
+              {
+                "item": "Character§Detachment Character",
+                "name": "Detachment Character",
                 "quantity": 1
               }
             ]
@@ -152,9 +169,18 @@
           "assets": {
             "included": [
               {
-                "item": "Weapon§Diseased claws and teeth",
-                "name": "Diseased claws and teeth",
-                "quantity": 3
+                "item": "Model§Nurgling Swarm",
+                "name": "Nurgling Swarm",
+                "quantity": 3,
+                "assets": {
+                  "included": [
+                    {
+                      "item": "Weapon§Diseased claws and teeth",
+                      "name": "Diseased claws and teeth",
+                      "quantity": 3
+                    }
+                  ]
+                }
               }
             ]
           }

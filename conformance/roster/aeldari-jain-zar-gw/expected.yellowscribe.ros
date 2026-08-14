@@ -54,22 +54,7 @@
           <selections>
             <selection id="unit0-m0" name="Jain Zar" type="model" number="1">
               <selections>
-                <selection id="unit0-m0-w0" name="Silent Death" type="upgrade" number="1">
-                  <profiles>
-                    <profile name="Silent Death" typeName="Ranged Weapons">
-                      <characteristics>
-                        <characteristic name="Range">12"</characteristic>
-                        <characteristic name="A">6</characteristic>
-                        <characteristic name="BS">2+</characteristic>
-                        <characteristic name="S">6</characteristic>
-                        <characteristic name="AP">-2</characteristic>
-                        <characteristic name="D">1</characteristic>
-                        <characteristic name="Keywords">Assault</characteristic>
-                      </characteristics>
-                    </profile>
-                  </profiles>
-                </selection>
-                <selection id="unit0-m0-w1" name="Blade of Destruction" type="upgrade" number="1">
+                <selection id="unit0-m0-w0" name="Blade of Destruction" type="upgrade" number="1">
                   <profiles>
                     <profile name="Blade of Destruction" typeName="Melee Weapons">
                       <characteristics>
@@ -80,6 +65,21 @@
                         <characteristic name="AP">-3</characteristic>
                         <characteristic name="D">2</characteristic>
                         <characteristic name="Keywords">Anti-Infantry 3+</characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+                <selection id="unit0-m0-w1" name="Silent Death" type="upgrade" number="1">
+                  <profiles>
+                    <profile name="Silent Death" typeName="Ranged Weapons">
+                      <characteristics>
+                        <characteristic name="Range">12"</characteristic>
+                        <characteristic name="A">6</characteristic>
+                        <characteristic name="BS">2+</characteristic>
+                        <characteristic name="S">6</characteristic>
+                        <characteristic name="AP">-2</characteristic>
+                        <characteristic name="D">1</characteristic>
+                        <characteristic name="Keywords">Assault</characteristic>
                       </characteristics>
                     </profile>
                   </profiles>

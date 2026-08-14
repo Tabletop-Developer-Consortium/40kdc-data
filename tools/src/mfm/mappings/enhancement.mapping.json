@@ -20,6 +20,54 @@
       "consumers": [],
       "reason": "The edge names a datasheet ability related to an enhancement, but current projection does not establish that it is the core enhancement ability reference."
     },
+    "/attachment_bodyguard_ids": {
+      "provenance": "derived",
+      "coverage": "implemented",
+      "sources": [
+        "data.enhancement_bodyguard_group.enhancementId",
+        "data.enhancement_bodyguard_group_datasheet.enhancementBodyguardGroupId",
+        "data.enhancement_bodyguard_group_datasheet.datasheetId",
+        "data.datasheet.localisations.*.name"
+      ],
+      "joins": [],
+      "transforms": [
+        {
+          "symbol": "tools/src/mfm/enhancements.ts#buildEnhFieldCanon",
+          "operation": "Resolve each enhancement-specific bodyguard datasheet name to its repository unit id."
+        }
+      ],
+      "filters": [
+        "Do not write attachment bodyguards when a source datasheet id is unresolved."
+      ],
+      "precedence": [
+        "Resolved MFM bodyguards replace the field on matched entities and populate newly seeded matched-play entities."
+      ],
+      "consumers": [
+        "tools/src/mfm/enhancements.ts#runEnhancements"
+      ],
+      "reason": "Some enhancements grant their bearer attachment targets beyond the datasheet's ordinary leader or support eligibility."
+    },
+    "/attachment_bodyguard_ids/*": {
+      "provenance": "derived",
+      "coverage": "implemented",
+      "sources": [
+        "data.enhancement_bodyguard_group_datasheet.datasheetId",
+        "data.datasheet.localisations.*.name"
+      ],
+      "joins": [],
+      "transforms": [
+        {
+          "symbol": "tools/src/converters/id-generator.ts#nameToId",
+          "operation": "Convert the resolved English datasheet name to the repository unit id."
+        }
+      ],
+      "filters": [],
+      "precedence": [],
+      "consumers": [
+        "tools/src/mfm/enhancements.ts#runEnhancements"
+      ],
+      "reason": "Each source relation contributes one additional legal bodyguard unit id."
+    },
     "/cost": {
       "provenance": "direct",
       "coverage": "partial",
@@ -41,7 +89,7 @@
     },
     "/detachment_id": {
       "provenance": "joined",
-      "coverage": "partial",
+      "coverage": "implemented",
       "sources": [
         "data.enhancement.detachmentId",
         "data.detachment.localisations.*.name"
@@ -60,13 +108,14 @@
         }
       ],
       "filters": [
-        "Only Combat Patrol enhancements are seeded as new core entities."
+        "Seed only when the source detachment resolves to exactly one existing repository detachment."
       ],
       "precedence": [],
       "consumers": [
-        "tools/src/mfm/seed-detachments.ts#collectCombatPatrolDetachments"
+        "tools/src/mfm/enhancements.ts#runEnhancements",
+        "tools/src/mfm/seed-detachments.ts#collectSeedDetachments"
       ],
-      "reason": "Combat Patrol seeding resolves the enhancement's detachment then writes its repository slug."
+      "reason": "Matched-play and Combat Patrol seeders resolve the enhancement's detachment then write its repository slug."
     },
     "/exclusion_keywords": {
       "provenance": "derived",
@@ -141,7 +190,7 @@
       ],
       "consumers": [
         "tools/src/mfm/enhancements.ts#runEnhancements",
-        "tools/src/mfm/seed-detachments.ts#collectCombatPatrolDetachments"
+        "tools/src/mfm/seed-detachments.ts#collectSeedDetachments"
       ],
       "reason": "Current MFM ingestion represents the Combat Patrol flag as the core game-mode reference."
     },
@@ -166,7 +215,7 @@
       ],
       "consumers": [
         "tools/src/mfm/enhancements.ts#runEnhancements",
-        "tools/src/mfm/seed-detachments.ts#collectCombatPatrolDetachments"
+        "tools/src/mfm/seed-detachments.ts#collectSeedDetachments"
       ],
       "reason": "Current MFM ingestion represents the Combat Patrol flag as the core game-mode reference."
     },
@@ -244,7 +293,7 @@
     },
     "/id": {
       "provenance": "derived",
-      "coverage": "partial",
+      "coverage": "implemented",
       "sources": [
         "data.enhancement.localisations.*.name",
         "data.detachment.localisations.*.name"
@@ -267,14 +316,15 @@
         }
       ],
       "filters": [
-        "Only Combat Patrol rows are seeded as new entities; existing entities are matched by this id."
+        "Matched-play rows are seeded only when their detachment resolves unambiguously; Combat Patrol rows remain opt-in."
       ],
       "precedence": [],
       "consumers": [
         "tools/src/mfm/enhancements.ts#buildEnhCanon",
-        "tools/src/mfm/seed-detachments.ts#collectCombatPatrolDetachments"
+        "tools/src/mfm/enhancements.ts#runEnhancements",
+        "tools/src/mfm/seed-detachments.ts#collectSeedDetachments"
       ],
-      "reason": "The current projection identifies enhancements by the RAW (parenthetical-tagged) detachment-scoped display-name slug rather than the dump UUID; legacy stripped ids are migrated in place."
+      "reason": "Enhancements are identified by the RAW parenthetical-tagged detachment-scoped display-name slug; legacy stripped ids are migrated in place."
     },
     "/is_unique": {
       "provenance": "repo-authored",
@@ -283,13 +333,93 @@
       "joins": [],
       "transforms": [],
       "filters": [
-        "Only Combat Patrol enhancement seed rows are created by the current seeder."
+        "Applied to source-seeded matched-play and Combat Patrol enhancement rows."
       ],
       "precedence": [],
       "consumers": [
-        "tools/src/mfm/seed-detachments.ts#collectCombatPatrolDetachments"
+        "tools/src/mfm/enhancements.ts#runEnhancements",
+        "tools/src/mfm/seed-detachments.ts#collectSeedDetachments"
       ],
-      "reason": "Combat Patrol seed rows author the repository default true; MFM does not supply this core uniqueness semantic."
+      "reason": "Seed rows author the repository default true; MFM does not supply this core uniqueness semantic."
+    },
+    "/keyword_restriction_groups": {
+      "provenance": "derived",
+      "coverage": "implemented",
+      "sources": [
+        "data.enhancement_required_keyword_group.enhancementId",
+        "data.enhancement_required_keyword_group.datasheetId",
+        "data.enhancement_required_keyword_group_keyword.keywordId",
+        "data.enhancement_required_keyword_group_faction_keyword.factionKeywordId",
+        "data.keyword.localisations.*.name",
+        "data.faction_keyword.localisations.*.name",
+        "data.datasheet.localisations.*.name"
+      ],
+      "joins": [],
+      "transforms": [
+        {
+          "symbol": "tools/src/mfm/enhancements.ts#buildEnhFieldCanon",
+          "operation": "Preserve each required-keyword group as one sorted conjunction and preserve the set of groups as alternatives."
+        }
+      ],
+      "filters": [
+        "Do not write eligibility groups when any source keyword id is unresolved."
+      ],
+      "precedence": [
+        "Resolved MFM groups replace the field on matched entities and populate newly seeded matched-play entities."
+      ],
+      "consumers": [
+        "tools/src/mfm/enhancements.ts#runEnhancements"
+      ],
+      "reason": "The nested field exactly represents the source model: AND within a required-keyword group and OR across groups."
+    },
+    "/keyword_restriction_groups/*": {
+      "provenance": "derived",
+      "coverage": "implemented",
+      "sources": [
+        "data.enhancement_required_keyword_group.id"
+      ],
+      "joins": [],
+      "transforms": [
+        {
+          "symbol": "tools/src/mfm/enhancements.ts#buildEnhFieldCanon",
+          "operation": "Emit one nested list for each distinct non-empty source group."
+        }
+      ],
+      "filters": [
+        "Empty and duplicate source groups are omitted."
+      ],
+      "precedence": [],
+      "consumers": [
+        "tools/src/mfm/enhancements.ts#runEnhancements"
+      ],
+      "reason": "Each nested list is one alternative bearer-eligibility conjunction."
+    },
+    "/keyword_restriction_groups/*/*": {
+      "provenance": "derived",
+      "coverage": "implemented",
+      "sources": [
+        "data.enhancement_required_keyword_group.datasheetId",
+        "data.enhancement_required_keyword_group_keyword.keywordId",
+        "data.enhancement_required_keyword_group_faction_keyword.factionKeywordId",
+        "data.keyword.localisations.*.name",
+        "data.faction_keyword.localisations.*.name",
+        "data.datasheet.localisations.*.name"
+      ],
+      "joins": [],
+      "transforms": [
+        {
+          "symbol": "tools/src/mfm/enhancements.ts#buildEnhFieldCanon",
+          "operation": "Resolve each keyword, faction keyword, or datasheet member to its repository label."
+        }
+      ],
+      "filters": [
+        "Do not emit any group when one of its source ids is unresolved."
+      ],
+      "precedence": [],
+      "consumers": [
+        "tools/src/mfm/enhancements.ts#runEnhancements"
+      ],
+      "reason": "Every member of one nested list is required together for that eligibility alternative."
     },
     "/keyword_restrictions": {
       "provenance": "derived",
@@ -307,7 +437,7 @@
       "transforms": [
         {
           "symbol": "tools/src/mfm/enhancements.ts#buildEnhFieldCanon",
-          "operation": "Union each required-keyword group's keyword/faction-keyword members and its datasheet-scoped datasheet name; flag divergent multi-group OR sets."
+          "operation": "Union one unambiguous source group for the legacy flat compatibility field."
         },
         {
           "symbol": "tools/src/mfm/keywords.ts#keywordLabel",
@@ -315,13 +445,13 @@
         }
       ],
       "filters": [
-        "Fill-only: written when the repo authored none and the groups are unambiguous; multi-group OR sets and populated disagreements are surfaced for review, not written (the flat list can't express the OR and the repo authors a finer minimal restriction)."
+        "Fill-only: written when the repo authored none and exactly one source eligibility group exists; divergent alternatives are represented only by keyword_restriction_groups."
       ],
       "precedence": [],
       "consumers": [
         "tools/src/mfm/enhancements.ts#runEnhancements"
       ],
-      "reason": "Required-keyword groups give army/unit bearer eligibility; runEnhancements fills an empty keyword_restrictions and preserves authored curated values."
+      "reason": "The flat field remains a backward-compatible single-group representation; the nested field is authoritative."
     },
     "/keyword_restrictions/*": {
       "provenance": "derived",
@@ -342,13 +472,13 @@
         }
       ],
       "filters": [
-        "Fill-only member of a filled keyword_restrictions list; not emitted for review/ambiguous enhancements."
+        "Fill-only member of the legacy flat field; emitted only for a single source eligibility group."
       ],
       "precedence": [],
       "consumers": [
         "tools/src/mfm/enhancements.ts#runEnhancements"
       ],
-      "reason": "Each resolved required-keyword group member is one repository restriction label."
+      "reason": "Each member is required together in the one group representable by the legacy flat field."
     },
     "/max_targets": {
       "provenance": "direct",
@@ -386,7 +516,7 @@
       "precedence": [],
       "consumers": [
         "tools/src/mfm/enhancements.ts#normalizeEnhancementNames",
-        "tools/src/mfm/seed-detachments.ts#collectCombatPatrolDetachments"
+        "tools/src/mfm/seed-detachments.ts#collectSeedDetachments"
       ],
       "reason": "The display name is reconciled to the RAW localized dump name (parenthetical tag kept) across all matched enhancements; seeding writes the same RAW form for new entities."
     },

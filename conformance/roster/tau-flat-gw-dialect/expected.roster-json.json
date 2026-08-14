@@ -4,7 +4,7 @@
     "format": "gw",
     "generated_by": null
   },
-  "faction_id": null,
+  "faction_id": "tau-empire",
   "detachments": [],
   "battle_size": null,
   "force_disposition": null,
@@ -109,6 +109,15 @@
         },
         {
           "ref": {
+            "id": "semi-automatic-grenade-launcher",
+            "raw_name": "Semi-automatic grenade launcher",
+            "resolved": true,
+            "candidates": []
+          },
+          "count": 1
+        },
+        {
+          "ref": {
             "id": "shield-drone",
             "raw_name": "Shield Drone",
             "resolved": true,
@@ -124,15 +133,143 @@
             "candidates": []
           },
           "count": 3
+        }
+      ],
+      "loadout_groups": [
+        {
+          "model_name": "Pathfinder Shas’ui",
+          "count": 1,
+          "wargear": [
+            {
+              "ref": {
+                "id": "close-combat-weapon-pathfinder-team",
+                "raw_name": "Close combat weapon",
+                "resolved": true,
+                "candidates": []
+              },
+              "count": 1
+            },
+            {
+              "ref": {
+                "id": "grav-inhibitor-drone",
+                "raw_name": "Grav-inhibitor Drone",
+                "resolved": true,
+                "candidates": []
+              },
+              "count": 1
+            },
+            {
+              "ref": {
+                "id": "gun-drone",
+                "raw_name": "Gun Drone",
+                "resolved": true,
+                "candidates": []
+              },
+              "count": 1
+            },
+            {
+              "ref": {
+                "id": "pulse-carbine",
+                "raw_name": "Pulse carbine",
+                "resolved": true,
+                "candidates": []
+              },
+              "count": 1
+            },
+            {
+              "ref": {
+                "id": "pulse-pistol",
+                "raw_name": "Pulse pistol",
+                "resolved": true,
+                "candidates": []
+              },
+              "count": 1
+            },
+            {
+              "ref": {
+                "id": "semi-automatic-grenade-launcher",
+                "raw_name": "Semi-automatic grenade launcher",
+                "resolved": true,
+                "candidates": []
+              },
+              "count": 1
+            },
+            {
+              "ref": {
+                "id": "shield-drone",
+                "raw_name": "Shield Drone",
+                "resolved": true,
+                "candidates": []
+              },
+              "count": 1
+            }
+          ]
         },
         {
-          "ref": {
-            "id": "semi-automatic-grenade-launcher",
-            "raw_name": "Semi-automatic grenade launcher",
-            "resolved": true,
-            "candidates": []
-          },
-          "count": 1
+          "model_name": "Pathfinder",
+          "count": 6,
+          "wargear": [
+            {
+              "ref": {
+                "id": "close-combat-weapon-pathfinder-team",
+                "raw_name": "Close combat weapon",
+                "resolved": true,
+                "candidates": []
+              },
+              "count": 1
+            },
+            {
+              "ref": {
+                "id": "pulse-carbine",
+                "raw_name": "Pulse carbine",
+                "resolved": true,
+                "candidates": []
+              },
+              "count": 1
+            },
+            {
+              "ref": {
+                "id": "pulse-pistol",
+                "raw_name": "Pulse pistol",
+                "resolved": true,
+                "candidates": []
+              },
+              "count": 1
+            }
+          ]
+        },
+        {
+          "model_name": "Pathfinder",
+          "count": 3,
+          "wargear": [
+            {
+              "ref": {
+                "id": "close-combat-weapon-pathfinder-team",
+                "raw_name": "Close combat weapon",
+                "resolved": true,
+                "candidates": []
+              },
+              "count": 1
+            },
+            {
+              "ref": {
+                "id": "pulse-pistol",
+                "raw_name": "Pulse pistol",
+                "resolved": true,
+                "candidates": []
+              },
+              "count": 1
+            },
+            {
+              "ref": {
+                "id": "rail-rifle",
+                "raw_name": "Rail rifle",
+                "resolved": true,
+                "candidates": []
+              },
+              "count": 1
+            }
+          ]
         }
       ],
       "leader_attachment": null
@@ -170,6 +307,15 @@
         },
         {
           "ref": {
+            "id": "gun-drone",
+            "raw_name": "Gun Drone",
+            "resolved": true,
+            "candidates": []
+          },
+          "count": 2
+        },
+        {
+          "ref": {
             "id": "marker-drone",
             "raw_name": "Marker Drone",
             "resolved": true,
@@ -185,15 +331,6 @@
             "candidates": []
           },
           "count": 3
-        },
-        {
-          "ref": {
-            "id": "gun-drone",
-            "raw_name": "Gun Drone",
-            "resolved": true,
-            "candidates": []
-          },
-          "count": 2
         }
       ],
       "loadout_groups": [

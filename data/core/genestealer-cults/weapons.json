@@ -1989,5 +1989,98 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     }
+  },
+  {
+    "id": "leaders-weapon-symbiote",
+    "name": "Leader’s Weapon Symbiote",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Leader’s Weapon Symbiote",
+        "range": "Melee",
+        "stats": {
+          "A": 5,
+          "S": 5,
+          "AP": -1,
+          "D": 2,
+          "WS": 3
+        }
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
+    "id": "stolen-blade",
+    "name": "Stolen Blade",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Stolen Blade",
+        "range": "Melee",
+        "stats": {
+          "A": 1,
+          "S": 3,
+          "AP": 0,
+          "D": 1,
+          "WS": 3
+        }
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
+    "id": "stolen-firearms",
+    "name": "Stolen Firearms",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Stolen Firearms",
+        "range": 12,
+        "stats": {
+          "A": 1,
+          "S": 4,
+          "AP": 0,
+          "D": 1,
+          "BS": 4
+        },
+        "keywords": [
+          {
+            "keyword_id": "close-quarters"
+          }
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
+    "id": "missile-launcher",
+    "name": "Missile Launcher",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Missile Launcher",
+        "range": 36,
+        "stats": {
+          "A": 3,
+          "S": 9,
+          "AP": -2,
+          "D": 3,
+          "BS": 4
+        }
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
   }
 ]

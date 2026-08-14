@@ -4096,5 +4096,27 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     }
+  },
+  {
+    "id": "gun-stocks",
+    "name": "Gun Stocks",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Gun Stocks",
+        "range": "Melee",
+        "stats": {
+          "A": 1,
+          "S": 3,
+          "AP": 0,
+          "D": 1,
+          "WS": 5
+        }
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
   }
 ]

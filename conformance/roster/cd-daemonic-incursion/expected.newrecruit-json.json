@@ -59,6 +59,26 @@
             ]
           },
           {
+            "id": "cfg-force-disposition",
+            "name": "Force Disposition",
+            "type": "upgrade",
+            "number": 1,
+            "categories": [
+              {
+                "name": "Configuration",
+                "primary": true
+              }
+            ],
+            "selections": [
+              {
+                "id": "cfg-force-disposition-val",
+                "name": "Disruption",
+                "type": "upgrade",
+                "number": 1
+              }
+            ]
+          },
+          {
             "id": "u-0",
             "name": "Rotigus",
             "type": "model",
@@ -137,18 +157,6 @@
               },
               {
                 "id": "w-0",
-                "name": "Putrid vomit",
-                "type": "upgrade",
-                "number": 1,
-                "categories": [
-                  {
-                    "name": "Ranged Weapon",
-                    "primary": false
-                  }
-                ]
-              },
-              {
-                "id": "w-1",
                 "name": "Bileblade",
                 "type": "upgrade",
                 "number": 1,
@@ -160,8 +168,20 @@
                 ]
               },
               {
-                "id": "w-2",
+                "id": "w-1",
                 "name": "Bilesword",
+                "type": "upgrade",
+                "number": 1,
+                "categories": [
+                  {
+                    "name": "Ranged Weapon",
+                    "primary": false
+                  }
+                ]
+              },
+              {
+                "id": "w-2",
+                "name": "Putrid vomit",
                 "type": "upgrade",
                 "number": 1,
                 "categories": [
@@ -226,26 +246,54 @@
             ],
             "selections": [
               {
-                "id": "u3-model",
-                "name": "Bloodletters",
+                "id": "u3-model-0",
+                "name": "Bloodreaper",
                 "type": "model",
-                "number": 10,
+                "number": 1,
                 "selections": [
                   {
                     "id": "w-0",
                     "name": "Hellblade",
                     "type": "upgrade",
-                    "number": 10,
+                    "number": 1,
                     "categories": [
                       {
                         "name": "Ranged Weapon",
                         "primary": false
                       }
                     ]
-                  },
+                  }
+                ]
+              },
+              {
+                "id": "u3-model-1",
+                "name": "Bloodletter",
+                "type": "model",
+                "number": 7,
+                "selections": [
                   {
-                    "id": "w-1",
-                    "name": "Instrument of Chaos",
+                    "id": "w-0",
+                    "name": "Hellblade",
+                    "type": "upgrade",
+                    "number": 7,
+                    "categories": [
+                      {
+                        "name": "Ranged Weapon",
+                        "primary": false
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "u3-model-2",
+                "name": "Bloodletter",
+                "type": "model",
+                "number": 1,
+                "selections": [
+                  {
+                    "id": "w-0",
+                    "name": "Daemonic Icon",
                     "type": "upgrade",
                     "number": 1,
                     "categories": [
@@ -256,8 +304,40 @@
                     ]
                   },
                   {
-                    "id": "w-2",
-                    "name": "Daemonic Icon",
+                    "id": "w-1",
+                    "name": "Hellblade",
+                    "type": "upgrade",
+                    "number": 1,
+                    "categories": [
+                      {
+                        "name": "Ranged Weapon",
+                        "primary": false
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "u3-model-3",
+                "name": "Bloodletter",
+                "type": "model",
+                "number": 1,
+                "selections": [
+                  {
+                    "id": "w-0",
+                    "name": "Hellblade",
+                    "type": "upgrade",
+                    "number": 1,
+                    "categories": [
+                      {
+                        "name": "Ranged Weapon",
+                        "primary": false
+                      }
+                    ]
+                  },
+                  {
+                    "id": "w-1",
+                    "name": "Instrument of Chaos",
                     "type": "upgrade",
                     "number": 1,
                     "categories": [

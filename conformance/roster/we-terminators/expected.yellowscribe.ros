@@ -138,9 +138,9 @@ If the target is the closest eligible target, you can re-roll the Charge roll.</
             <category name="Khorne"/>
           </categories>
           <selections>
-            <selection id="unit1-m0" name="World Eaters Terminator Champion" type="model" number="1">
+            <selection id="unit1-m0" name="Chaos Terminator" type="model" number="10">
               <selections>
-                <selection id="unit1-m0-w0" name="Chainfist" type="upgrade" number="1">
+                <selection id="unit1-m0-w0" name="Chainfist" type="upgrade" number="20">
                   <profiles>
                     <profile name="Chainfist" typeName="Melee Weapons">
                       <characteristics>
@@ -155,7 +155,7 @@ If the target is the closest eligible target, you can re-roll the Charge roll.</
                     </profile>
                   </profiles>
                 </selection>
-                <selection id="unit1-m0-w1" name="Combi-weapon" type="upgrade" number="1">
+                <selection id="unit1-m0-w1" name="Combi-weapon" type="upgrade" number="60">
                   <profiles>
                     <profile name="Combi-weapon" typeName="Ranged Weapons">
                       <characteristics>
@@ -170,26 +170,7 @@ If the target is the closest eligible target, you can re-roll the Charge roll.</
                     </profile>
                   </profiles>
                 </selection>
-              </selections>
-            </selection>
-            <selection id="unit1-m1" name="World Eaters Terminator" type="model" number="4">
-              <selections>
-                <selection id="unit1-m1-w0" name="Combi-weapon" type="upgrade" number="4">
-                  <profiles>
-                    <profile name="Combi-weapon" typeName="Ranged Weapons">
-                      <characteristics>
-                        <characteristic name="Range">24"</characteristic>
-                        <characteristic name="A">1</characteristic>
-                        <characteristic name="BS">4+</characteristic>
-                        <characteristic name="S">4</characteristic>
-                        <characteristic name="AP">0</characteristic>
-                        <characteristic name="D">1</characteristic>
-                        <characteristic name="Keywords">Anti-Infantry 4+, Devastating Wounds, Rapid Fire 1</characteristic>
-                      </characteristics>
-                    </profile>
-                  </profiles>
-                </selection>
-                <selection id="unit1-m1-w1" name="Power fist" type="upgrade" number="4">
+                <selection id="unit1-m0-w2" name="Power fist" type="upgrade" number="60">
                   <profiles>
                     <profile name="Power fist" typeName="Melee Weapons">
                       <characteristics>
@@ -204,11 +185,7 @@ If the target is the closest eligible target, you can re-roll the Charge roll.</
                     </profile>
                   </profiles>
                 </selection>
-              </selections>
-            </selection>
-            <selection id="unit1-m2" name="World Eaters Terminator" type="model" number="2">
-              <selections>
-                <selection id="unit1-m2-w0" name="Paired accursed weapons" type="upgrade" number="2">
+                <selection id="unit1-m0-w3" name="Paired accursed weapons" type="upgrade" number="20">
                   <profiles>
                     <profile name="Paired accursed weapons" typeName="Melee Weapons">
                       <characteristics>
@@ -223,26 +200,7 @@ If the target is the closest eligible target, you can re-roll the Charge roll.</
                     </profile>
                   </profiles>
                 </selection>
-              </selections>
-            </selection>
-            <selection id="unit1-m3" name="World Eaters Terminator" type="model" number="2">
-              <selections>
-                <selection id="unit1-m3-w0" name="Power fist" type="upgrade" number="2">
-                  <profiles>
-                    <profile name="Power fist" typeName="Melee Weapons">
-                      <characteristics>
-                        <characteristic name="Range">Melee</characteristic>
-                        <characteristic name="A">3</characteristic>
-                        <characteristic name="WS">3+</characteristic>
-                        <characteristic name="S">8</characteristic>
-                        <characteristic name="AP">-2</characteristic>
-                        <characteristic name="D">2</characteristic>
-                        <characteristic name="Keywords"></characteristic>
-                      </characteristics>
-                    </profile>
-                  </profiles>
-                </selection>
-                <selection id="unit1-m3-w1" name="Reaper autocannon" type="upgrade" number="2">
+                <selection id="unit1-m0-w4" name="Reaper autocannon" type="upgrade" number="20">
                   <profiles>
                     <profile name="Reaper autocannon" typeName="Ranged Weapons">
                       <characteristics>
@@ -253,40 +211,6 @@ If the target is the closest eligible target, you can re-roll the Charge roll.</
                         <characteristic name="AP">-1</characteristic>
                         <characteristic name="D">1</characteristic>
                         <characteristic name="Keywords">Devastating Wounds, Rapid Fire 2, Sustained Hits 1</characteristic>
-                      </characteristics>
-                    </profile>
-                  </profiles>
-                </selection>
-              </selections>
-            </selection>
-            <selection id="unit1-m4" name="World Eaters Terminator" type="model" number="1">
-              <selections>
-                <selection id="unit1-m4-w0" name="Chainfist" type="upgrade" number="1">
-                  <profiles>
-                    <profile name="Chainfist" typeName="Melee Weapons">
-                      <characteristics>
-                        <characteristic name="Range">Melee</characteristic>
-                        <characteristic name="A">3</characteristic>
-                        <characteristic name="WS">4+</characteristic>
-                        <characteristic name="S">8</characteristic>
-                        <characteristic name="AP">-3</characteristic>
-                        <characteristic name="D">2</characteristic>
-                        <characteristic name="Keywords">Anti-Vehicle 3+</characteristic>
-                      </characteristics>
-                    </profile>
-                  </profiles>
-                </selection>
-                <selection id="unit1-m4-w1" name="Combi-weapon" type="upgrade" number="1">
-                  <profiles>
-                    <profile name="Combi-weapon" typeName="Ranged Weapons">
-                      <characteristics>
-                        <characteristic name="Range">24"</characteristic>
-                        <characteristic name="A">1</characteristic>
-                        <characteristic name="BS">4+</characteristic>
-                        <characteristic name="S">4</characteristic>
-                        <characteristic name="AP">0</characteristic>
-                        <characteristic name="D">1</characteristic>
-                        <characteristic name="Keywords">Anti-Infantry 4+, Devastating Wounds, Rapid Fire 1</characteristic>
                       </characteristics>
                     </profile>
                   </profiles>
@@ -334,9 +258,9 @@ If the target is the closest eligible target, you can re-roll the Charge roll.</
             <category name="Khorne"/>
           </categories>
           <selections>
-            <selection id="unit2-m0" name="World Eaters Terminator Champion" type="model" number="1">
+            <selection id="unit2-m0" name="Chaos Terminator" type="model" number="5">
               <selections>
-                <selection id="unit2-m0-w0" name="Chainfist" type="upgrade" number="1">
+                <selection id="unit2-m0-w0" name="Chainfist" type="upgrade" number="5">
                   <profiles>
                     <profile name="Chainfist" typeName="Melee Weapons">
                       <characteristics>
@@ -351,7 +275,7 @@ If the target is the closest eligible target, you can re-roll the Charge roll.</
                     </profile>
                   </profiles>
                 </selection>
-                <selection id="unit2-m0-w1" name="Combi-weapon" type="upgrade" number="1">
+                <selection id="unit2-m0-w1" name="Combi-weapon" type="upgrade" number="15">
                   <profiles>
                     <profile name="Combi-weapon" typeName="Ranged Weapons">
                       <characteristics>
@@ -366,26 +290,7 @@ If the target is the closest eligible target, you can re-roll the Charge roll.</
                     </profile>
                   </profiles>
                 </selection>
-              </selections>
-            </selection>
-            <selection id="unit2-m1" name="World Eaters Terminator" type="model" number="2">
-              <selections>
-                <selection id="unit2-m1-w0" name="Combi-weapon" type="upgrade" number="2">
-                  <profiles>
-                    <profile name="Combi-weapon" typeName="Ranged Weapons">
-                      <characteristics>
-                        <characteristic name="Range">24"</characteristic>
-                        <characteristic name="A">1</characteristic>
-                        <characteristic name="BS">4+</characteristic>
-                        <characteristic name="S">4</characteristic>
-                        <characteristic name="AP">0</characteristic>
-                        <characteristic name="D">1</characteristic>
-                        <characteristic name="Keywords">Anti-Infantry 4+, Devastating Wounds, Rapid Fire 1</characteristic>
-                      </characteristics>
-                    </profile>
-                  </profiles>
-                </selection>
-                <selection id="unit2-m1-w1" name="Power fist" type="upgrade" number="2">
+                <selection id="unit2-m0-w2" name="Power fist" type="upgrade" number="15">
                   <profiles>
                     <profile name="Power fist" typeName="Melee Weapons">
                       <characteristics>
@@ -400,11 +305,7 @@ If the target is the closest eligible target, you can re-roll the Charge roll.</
                     </profile>
                   </profiles>
                 </selection>
-              </selections>
-            </selection>
-            <selection id="unit2-m2" name="World Eaters Terminator" type="model" number="1">
-              <selections>
-                <selection id="unit2-m2-w0" name="Paired accursed weapons" type="upgrade" number="1">
+                <selection id="unit2-m0-w3" name="Paired accursed weapons" type="upgrade" number="5">
                   <profiles>
                     <profile name="Paired accursed weapons" typeName="Melee Weapons">
                       <characteristics>
@@ -419,26 +320,7 @@ If the target is the closest eligible target, you can re-roll the Charge roll.</
                     </profile>
                   </profiles>
                 </selection>
-              </selections>
-            </selection>
-            <selection id="unit2-m3" name="World Eaters Terminator" type="model" number="1">
-              <selections>
-                <selection id="unit2-m3-w0" name="Power fist" type="upgrade" number="1">
-                  <profiles>
-                    <profile name="Power fist" typeName="Melee Weapons">
-                      <characteristics>
-                        <characteristic name="Range">Melee</characteristic>
-                        <characteristic name="A">3</characteristic>
-                        <characteristic name="WS">3+</characteristic>
-                        <characteristic name="S">8</characteristic>
-                        <characteristic name="AP">-2</characteristic>
-                        <characteristic name="D">2</characteristic>
-                        <characteristic name="Keywords"></characteristic>
-                      </characteristics>
-                    </profile>
-                  </profiles>
-                </selection>
-                <selection id="unit2-m3-w1" name="Reaper autocannon" type="upgrade" number="1">
+                <selection id="unit2-m0-w4" name="Reaper autocannon" type="upgrade" number="5">
                   <profiles>
                     <profile name="Reaper autocannon" typeName="Ranged Weapons">
                       <characteristics>

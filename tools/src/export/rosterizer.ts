@@ -25,10 +25,15 @@ const CLS_ROSTER = "Roster";
 const CLS_FACTION = "Faction";
 const CLS_DETACHMENT = "Detachment";
 const CLS_UNIT = "Unit";
+const CLS_MODEL = "Model";
 const CLS_WEAPON = "Weapon";
 const CLS_ENHANCEMENT = "Enhancement";
 const CLS_BATTLE_SIZE = "Battle Size";
 const CLS_TRAIT = "Trait";
+const CLS_FORCE_DISPOSITION = "Force Disposition";
+const CLS_ATTACHMENT = "Attachment";
+const CLS_CHARACTER = "Character";
+const CLS_KEYWORD_OVERRIDE = "40kdc Keyword";
 const DSG_WARLORD = "Warlord";
 
 const RULEBOOK_NAME = "40kdc";
@@ -99,15 +104,57 @@ function warlordTraitAsset(): Asset {
     quantity: 1,
   };
 }
+function attachmentAsset(u: RosterUnit): Asset | null {
+  const attachment = u.leader_attachment;
+  if (!attachment) return null;
+  const provisional = attachment.provisional ? " [provisional]" : "";
+  const display = `Attachment: ${attachment.role} -> ${attachment.bodyguard_ref.raw_name}${provisional}`;
+  return { item: key(CLS_ATTACHMENT, display), name: display, quantity: 1 };
+}
 
+
+function keywordTraitAsset(keyword: string): Asset {
+  return {
+    item: key(
+      keyword === "Character" ? CLS_CHARACTER : CLS_KEYWORD_OVERRIDE,
+      keyword === "Character" ? "Detachment Character" : keyword,
+    ),
+    name: keyword === "Character" ? "Detachment Character" : keyword,
+    quantity: 1,
+  };
+}
+
+function loadoutGroupAssets(unit: RosterUnit): Asset[] | null {
+  if (!unit.loadout_groups || unit.loadout_groups.length === 0) return null;
+  return unit.loadout_groups.map((group) => ({
+    item: key(CLS_MODEL, group.model_name ?? unit.ref.raw_name),
+    name: group.model_name ?? unit.ref.raw_name,
+    quantity: group.count,
+    assets: {
+      included: group.wargear.map((item) =>
+        wargearAsset({
+          ...item,
+          count: item.count * group.count,
+        }),
+      ),
+    },
+  }));
+}
 function unitAsset(u: RosterUnit): Asset {
   const included: Asset[] = [];
   const enh = enhancementAsset(u);
+  const attachment = attachmentAsset(u);
+  if (attachment !== null) included.push(attachment);
   if (enh !== null) included.push(enh);
-  for (const w of u.wargear) included.push(wargearAsset(w));
+  const loadoutGroups = loadoutGroupAssets(u);
+  if (loadoutGroups) included.push(...loadoutGroups);
+  else for (const w of u.wargear) included.push(wargearAsset(w));
 
   const traits: Asset[] = [];
   if (u.is_warlord) traits.push(warlordTraitAsset());
+  for (const keyword of u.keyword_overrides ?? []) {
+    traits.push(keywordTraitAsset(keyword));
+  }
 
   const asset: Asset = {
     item: key(CLS_UNIT, u.ref.raw_name),
@@ -132,10 +179,16 @@ function factionAsset(roster: Roster): Asset | null {
 
 function detachmentAssets(roster: Roster): Asset[] {
   return roster.detachments.map((d) => {
-    const display = titleCaseId(d.ref.id) ?? d.ref.raw_name;
+    const display = d.ref.raw_name;
     return { item: key(CLS_DETACHMENT, display), name: display, quantity: 1 };
   });
 }
+function forceDispositionAsset(roster: Roster): Asset | null {
+  const display = titleCaseId(roster.force_disposition);
+  if (display === null) return null;
+  return { item: key(CLS_FORCE_DISPOSITION, display), name: display, quantity: 1 };
+}
+
 
 function battleSizeAsset(roster: Roster): Asset | null {
   if (roster.battle_size === "strike-force") {
@@ -159,6 +212,8 @@ export const rosterizerSerializer: RosterSerializer = {
     const faction = factionAsset(roster);
     if (faction) included.push(faction);
     for (const detachment of detachmentAssets(roster)) included.push(detachment);
+    const forceDisposition = forceDispositionAsset(roster);
+    if (forceDisposition) included.push(forceDisposition);
     const battleSize = battleSizeAsset(roster);
     if (battleSize) included.push(battleSize);
     for (const u of roster.units) included.push(unitAsset(u));

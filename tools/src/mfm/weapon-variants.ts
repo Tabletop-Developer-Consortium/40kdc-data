@@ -32,13 +32,13 @@
 import * as path from "path";
 import { MfmDump } from "./loader.js";
 import { readJsonArray, CORE_DIR } from "./repo-files.js";
+import { findDatasheet } from "./project-loadout.js";
 import {
   mintWeapon,
-  findDatasheet,
   type WeaponProfile,
   type WeaponRecord,
   type GameVersion,
-} from "./project-loadout.js";
+} from "./gear-projection.js";
 import { wargearItemsForDatasheet } from "./wargear.js";
 import { nameToId } from "../converters/id-generator.js";
 import { repoDirs } from "./faction-map.js";

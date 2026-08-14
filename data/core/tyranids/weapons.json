@@ -3151,5 +3151,27 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     }
+  },
+  {
+    "id": "chitinous-talons",
+    "name": "Chitinous Talons",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Chitinous Talons",
+        "range": "Melee",
+        "stats": {
+          "A": 6,
+          "S": 5,
+          "AP": -1,
+          "D": 1,
+          "WS": 3
+        }
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
   }
 ]

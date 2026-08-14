@@ -45,6 +45,7 @@ export {
   clampWeaponCount,
   validateLoadout,
   groupLoadout,
+  completeLoadout,
 } from "./loadout.js";
 export type {
   Loadout,
@@ -53,6 +54,7 @@ export type {
   LoadoutModel,
   LoadoutGroup,
   LoadoutGroupWeapon,
+  CompletedLoadout,
 } from "./loadout.js";
 
 // Unit point-cost maths: ordinal-aware tier selection over `points` bands.

@@ -8,7 +8,8 @@
       "incendiary-animus-companions-of-vehemence",
       "oathbound-examplar-companions-of-vehemence",
       "merciless-denunciation-companions-of-vehemence",
-      "zealous-vanguard-companions-of-vehemence"
+      "zealous-vanguard-companions-of-vehemence",
+      "oathbound-exemplar-companions-of-vehemence"
     ],
     "stratagem_ids": [
       "devout-push-companions-of-vehemence",
@@ -564,6 +565,20 @@
     "game_modes": [
       "combat-patrol"
     ],
+    "detachment_points": 1,
+    "force_dispositions": [
+      "take-and-hold"
+    ]
+  },
+  {
+    "id": "vengeful-hosts",
+    "name": "Vengeful Hosts",
+    "faction_id": "black-templars",
+    "enhancement_ids": [],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
     "detachment_points": 1,
     "force_dispositions": [
       "take-and-hold"

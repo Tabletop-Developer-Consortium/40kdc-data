@@ -651,6 +651,82 @@
       ],
       "reason": "runBaseSizes derives the representative base from the dump baseSize for confident round/oval datasheets; categories, per-model bases, and hand-authored conflicts remain authored, so coverage is partial."
     },
+    "/conditional_keywords": {
+      "provenance": "derived",
+      "coverage": "partial",
+      "sources": [
+        "data.conditional_keyword.datasheetId",
+        "data.conditional_keyword.keywordId",
+        "data.conditional_keyword.requiredDetachmentId",
+        "data.conditional_keyword.requiredRosterFactionKeywordId"
+      ],
+      "joins": [],
+      "transforms": [
+        {
+          "symbol": "tools/src/mfm/conditional-keywords.ts#runConditionalKeywords",
+          "operation": "Resolve supported conditional keyword rows to keyword labels and repository detachment ids."
+        }
+      ],
+      "filters": [
+        "Rows requiring an allegiance-ability choice or a specific warlord miniature are reported rather than flattened because those source choices live on the imported roster, not the unit datasheet."
+      ],
+      "precedence": [
+        "Supported MFM conditional-keyword rows are authoritative and replace the matched unit's prior conditional keyword list."
+      ],
+      "consumers": [
+        "tools/src/mfm/conditional-keywords.ts#runConditionalKeywords"
+      ],
+      "reason": "The source explicitly models detachment- and roster-faction-dependent unit keywords; allegiance and warlord choice conditions remain unsupported."
+    },
+    "/conditional_keywords/*": {
+      "provenance": "derived",
+      "coverage": "partial",
+      "sources": [
+        "data.conditional_keyword.datasheetId",
+        "data.conditional_keyword.keywordId",
+        "data.conditional_keyword.requiredDetachmentId",
+        "data.conditional_keyword.requiredRosterFactionKeywordId"
+      ],
+      "joins": [],
+      "transforms": [],
+      "filters": [],
+      "precedence": [],
+      "consumers": ["tools/src/mfm/conditional-keywords.ts#runConditionalKeywords"],
+      "reason": "One supported source row becomes one conditional keyword grant."
+    },
+    "/conditional_keywords/*/keyword": {
+      "provenance": "derived",
+      "coverage": "implemented",
+      "sources": ["data.conditional_keyword.keywordId", "data.keyword.localisations.*.name"],
+      "joins": [],
+      "transforms": [],
+      "filters": [],
+      "precedence": [],
+      "consumers": ["tools/src/mfm/conditional-keywords.ts#runConditionalKeywords"],
+      "reason": "The granted keyword id resolves to its source display label."
+    },
+    "/conditional_keywords/*/required_detachment_id": {
+      "provenance": "derived",
+      "coverage": "implemented",
+      "sources": ["data.conditional_keyword.requiredDetachmentId", "data.detachment.localisations.*.name"],
+      "joins": [],
+      "transforms": [],
+      "filters": [],
+      "precedence": [],
+      "consumers": ["tools/src/mfm/conditional-keywords.ts#runConditionalKeywords"],
+      "reason": "The source detachment requirement resolves to the repository detachment slug."
+    },
+    "/conditional_keywords/*/required_faction_keyword": {
+      "provenance": "derived",
+      "coverage": "implemented",
+      "sources": ["data.conditional_keyword.requiredRosterFactionKeywordId", "data.faction_keyword.localisations.*.name"],
+      "joins": [],
+      "transforms": [],
+      "filters": [],
+      "precedence": [],
+      "consumers": ["tools/src/mfm/conditional-keywords.ts#runConditionalKeywords"],
+      "reason": "The source roster-faction requirement resolves to its display keyword."
+    },
     "/excluded_faction_keywords": {
       "provenance": "repo-authored",
       "coverage": "unimplemented",
@@ -1766,7 +1842,7 @@
       ],
       "transforms": [
         {
-          "symbol": "tools/src/mfm/project-loadout.ts#parseSkill",
+          "symbol": "tools/src/mfm/gear-projection.ts#parseSkill",
           "operation": "Parse a structured save value into the nullable integer profile field."
         }
       ],
@@ -1797,7 +1873,7 @@
       ],
       "transforms": [
         {
-          "symbol": "tools/src/mfm/project-loadout.ts#parseSkill",
+          "symbol": "tools/src/mfm/gear-projection.ts#parseSkill",
           "operation": "Parse a structured save value into the nullable integer profile field."
         }
       ],
@@ -1828,7 +1904,7 @@
       ],
       "transforms": [
         {
-          "symbol": "tools/src/mfm/project-loadout.ts#parseSkill",
+          "symbol": "tools/src/mfm/gear-projection.ts#parseSkill",
           "operation": "Parse a structured save value into the nullable integer profile field."
         }
       ],

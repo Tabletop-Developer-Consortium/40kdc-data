@@ -183,16 +183,8 @@
     "replaces": [
       "fleshborer"
     ],
-    "replacement_choice": [
-      [
-        "strangleweb"
-      ],
-      [
-        "shardlauncher"
-      ],
-      [
-        "spike-rifle"
-      ]
+    "replacement": [
+      "strangleweb"
     ],
     "model_constraint": {
       "per_n_models": 10
@@ -220,6 +212,44 @@
     ],
     "model_constraint": {
       "any_number": true
+    }
+  },
+  {
+    "id": "termagants-wgo-mfm-3",
+    "unit_id": "termagants",
+    "faction_id": "tyranids",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_free": true,
+    "replaces": [
+      "fleshborer"
+    ],
+    "replacement": [
+      "shardlauncher"
+    ],
+    "model_constraint": {
+      "per_n_models": 10
+    }
+  },
+  {
+    "id": "termagants-wgo-mfm-4",
+    "unit_id": "termagants",
+    "faction_id": "tyranids",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_free": true,
+    "replaces": [
+      "fleshborer"
+    ],
+    "replacement": [
+      "spike-rifle"
+    ],
+    "model_constraint": {
+      "per_n_models": 10
     }
   },
   {

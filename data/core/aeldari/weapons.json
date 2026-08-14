@@ -7325,5 +7325,234 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     }
+  },
+  {
+    "id": "weapon-strike",
+    "name": "Weapon Strike",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Weapon Strike",
+        "range": "Melee",
+        "stats": {
+          "A": 2,
+          "S": 3,
+          "AP": 0,
+          "D": 1,
+          "WS": 3
+        }
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
+    "id": "drakesteed-fangs-and-talons",
+    "name": "Drakesteed Fangs and Talons",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Drakesteed Fangs and Talons",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 5,
+          "AP": -1,
+          "D": 1,
+          "WS": 3
+        },
+        "keywords": [
+          {
+            "keyword_id": "extra-attacks"
+          }
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
+    "id": "moonblades",
+    "name": "Moonblades",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Moonblades",
+        "range": "Melee",
+        "stats": {
+          "A": 5,
+          "S": 4,
+          "AP": -2,
+          "D": 2,
+          "WS": 2
+        },
+        "keywords": [
+          {
+            "keyword_id": "lethal-hits"
+          },
+          {
+            "keyword_id": "twin-linked"
+          }
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
+    "id": "solar-carbine",
+    "name": "Solar Carbine",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Solar Carbine",
+        "range": 18,
+        "stats": {
+          "A": 2,
+          "S": 4,
+          "AP": 0,
+          "D": 1,
+          "BS": 3
+        },
+        "keywords": [
+          {
+            "keyword_id": "rapid-fire",
+            "parameters": {
+              "value": 2
+            }
+          }
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
+    "id": "hunting-blades",
+    "name": "Hunting Blades",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Hunting Blades",
+        "range": "Melee",
+        "stats": {
+          "A": 2,
+          "S": 3,
+          "AP": -1,
+          "D": 1,
+          "WS": 3
+        }
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
+    "id": "song-of-waning",
+    "name": "Song of Waning",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Song of Waning",
+        "range": 24,
+        "stats": {
+          "A": 3,
+          "S": 4,
+          "AP": -2,
+          "D": 3,
+          "BS": 3
+        },
+        "keywords": [
+          {
+            "keyword_id": "anti",
+            "parameters": {
+              "target_keyword": "Monster",
+              "threshold": 3
+            }
+          },
+          {
+            "keyword_id": "anti",
+            "parameters": {
+              "target_keyword": "Vehicle",
+              "threshold": 3
+            }
+          },
+          {
+            "keyword_id": "psychic"
+          }
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
+    "id": "stone-stave",
+    "name": "Stone Stave",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Stone Stave",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 3,
+          "AP": -1,
+          "D": 2,
+          "WS": 3
+        },
+        "keywords": [
+          {
+            "keyword_id": "psychic"
+          }
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
+    "id": "venomcrest-spit",
+    "name": "Venomcrest Spit",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Venomcrest Spit",
+        "range": 12,
+        "stats": {
+          "A": 3,
+          "S": 3,
+          "AP": -2,
+          "D": 2,
+          "BS": null
+        },
+        "keywords": [
+          {
+            "keyword_id": "blast"
+          },
+          {
+            "keyword_id": "torrent"
+          }
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
   }
 ]

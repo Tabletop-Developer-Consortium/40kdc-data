@@ -170,7 +170,6 @@ export type ImportResult =
 /** Cheap predicate: does the input look like ListForge's URL-or-base64 wrapper? */
 function looksLikeListForgeEncoded(input: string): boolean {
   if (input.includes("/listforge/")) return true;
-  if (/^https?:\/\//i.test(input)) return true;
   // Every gzip-then-base64 payload starts with this prefix.
   if (input.startsWith("H4sIA")) return true;
   return false;

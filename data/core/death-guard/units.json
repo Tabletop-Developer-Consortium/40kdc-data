@@ -317,7 +317,13 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "conditional_keywords": [
+      {
+        "keyword": "Battleline",
+        "required_detachment_id": "shamblerot-vectorium"
+      }
+    ]
   },
   {
     "id": "lord-of-contagion",
@@ -583,7 +589,13 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "conditional_keywords": [
+      {
+        "keyword": "Contagion Engines",
+        "required_detachment_id": "contagion-engines"
+      }
+    ]
   },
   {
     "id": "plagueburst-crawler",
@@ -790,6 +802,13 @@
     "is_legend": false,
     "points_provisional": false,
     "wargear_budgets": [
+      {
+        "items": [
+          "icon-of-despair-aura"
+        ],
+        "count": 1,
+        "per_models": 0
+      },
       {
         "items": [
           "meltagun",
@@ -1118,7 +1137,13 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "conditional_keywords": [
+      {
+        "keyword": "Contagion Engines",
+        "required_detachment_id": "contagion-engines"
+      }
+    ]
   },
   {
     "id": "noxious-blightbringer",
@@ -1361,7 +1386,13 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "conditional_keywords": [
+      {
+        "keyword": "Contagion Engines",
+        "required_detachment_id": "contagion-engines"
+      }
+    ]
   },
   {
     "id": "myphitic-blight-haulers",
@@ -1422,7 +1453,13 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "conditional_keywords": [
+      {
+        "keyword": "Contagion Engines",
+        "required_detachment_id": "contagion-engines"
+      }
+    ]
   },
   {
     "id": "mortarion",

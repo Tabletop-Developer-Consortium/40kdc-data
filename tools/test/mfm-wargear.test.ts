@@ -1,6 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { MfmDump } from "../src/mfm/loader.js";
-import { deriveWargear, withinEditDistance1, dumpComposition, reconcileModels, makeResolver, limitedSetBudgets } from "../src/mfm/wargear.js";
+import { deriveWargear, withinEditDistance1, dumpComposition, reconcileModels, makeResolver, limitedSetBudgets, wargearItemsForDatasheet } from "../src/mfm/wargear.js";
+import { mintWeapon } from "../src/mfm/gear-projection.js";
 
 /**
  * A hand-built minimal dump exercising the full derivation: two model types
@@ -8,6 +9,58 @@ import { deriveWargear, withinEditDistance1, dumpComposition, reconcileModels, m
  * a heavy-weapon branch, and a 1-per-5 squad cap. Mirrors the shape verified
  * against World Eaters Chaos Terminators.
  */
+describe("mintWeapon", () => {
+  it("projects a source weapon profile into the core schema shape", () => {
+    const dump = new MfmDump({
+      data: {
+        wargear_item: [
+          { id: "weapon", wargearType: "weapon", localisations: { en: { name: "Fabricated axe" } } },
+        ],
+        wargear_item_profile: [
+          {
+            id: "profile",
+            wargearItemId: "weapon",
+            displayOrder: 1,
+            type: "melee",
+            range: "Melee",
+            attacks: "4",
+            ballisticSkill: null,
+            weaponSkill: "3+",
+            strength: "6",
+            armourPenetration: "-2",
+            damage: "2",
+            localisations: { en: { name: "Fabricated axe" } },
+          },
+        ],
+        wargear_item_profile_wargear_ability: [],
+        wargear_ability: [],
+      },
+    });
+    const item = dump.byId("wargear_item").get("weapon")!;
+
+    expect(
+      mintWeapon(
+        { dump, gv: { edition: "11th", dataslate: "launch" }, warnings: [] },
+        item,
+        "fabricated-axe",
+        "Fabricated axe",
+      ),
+    ).toEqual({
+      id: "fabricated-axe",
+      name: "Fabricated axe",
+      type: "melee",
+      profiles: [
+        {
+          name: "Fabricated axe",
+          range: "Melee",
+          stats: { A: 4, WS: 3, S: 6, AP: -2, D: 2 },
+        },
+      ],
+      game_version: { edition: "11th", dataslate: "launch" },
+    });
+  });
+});
+
 function fixtureDump(): MfmDump {
   const wi = (id: string, name: string) => ({ id, wargearType: "weapon", localisations: { en: { name } } });
   return new MfmDump({
@@ -78,6 +131,43 @@ const resolve = (name: string) => {
   const id = name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
   return VALID.has(id) ? id : null;
 };
+
+describe("wargearItemsForDatasheet", () => {
+  it("collects selectable non-weapon equipment from datasheet loadout paths", () => {
+    const dump = new MfmDump({
+      data: {
+        wargear_item: [
+          { id: "weapon", wargearType: "weapon", localisations: { en: { name: "Fabricated blade" } } },
+          { id: "shield", wargearType: "wargear", localisations: { en: { name: "Fabricated shield" } } },
+        ],
+        wargear_option_group: [
+          { id: "group", datasheetId: "datasheet", miniatureId: null, displayOrder: 1, isStaticWargear: false },
+        ],
+        wargear_option: [
+          { id: "option", wargearItemId: "shield", wargearOptionGroupId: "group" },
+        ],
+        all_model_wargear_choice_set: [],
+        all_model_wargear_choice: [],
+        all_model_wargear_choice_wargear_item: [],
+        loadout_choice_set: [],
+        loadout_choice: [],
+        loadout_choice_wargear_item: [],
+        base_miniature_loadout: [],
+        base_miniature_loadout_wargear_option: [],
+        limited_wargear_choice_set: [],
+        limited_wargear_choice: [],
+        limited_wargear_choice_wargear_item: [],
+      },
+    });
+
+    expect(
+      wargearItemsForDatasheet(dump, "datasheet").map((item) => ({
+        id: item.id,
+        type: item.wargearType,
+      })),
+    ).toEqual([{ id: "shield", type: "wargear" }]);
+  });
+});
 
 describe("deriveWargear", () => {
   const d = deriveWargear(fixtureDump(), "ds1", resolve);
@@ -234,6 +324,7 @@ function perSlotDump(): MfmDump {
         wi("wi-flayer", "Gauss flayer"),
         wi("wi-reaper", "Gauss reaper"),
         wi("wi-icon", "Daemonic icon"),
+        wi("wi-runt", "Ammo runt"),
       ],
       // Base loadout (default>0): ccw + gauss flayer on every model.
       wargear_option_group: [
@@ -247,18 +338,26 @@ function perSlotDump(): MfmDump {
         { id: "lcs-melee", limit: 1, allowDuplicates: false, datasheetId: "ds1", miniatureId: "m-nw", alternate: false },
         { id: "lcs-ranged", limit: 1, allowDuplicates: false, datasheetId: "ds1", miniatureId: "m-nw", alternate: false },
         { id: "lcs-icon", limit: 1, allowDuplicates: false, datasheetId: "ds1", miniatureId: "m-nw", alternate: false },
+        { id: "lcs-runt", limit: 1, allowDuplicates: false, datasheetId: "ds1", miniatureId: null, alternate: false },
+        { id: "lcs-extra-flayer", limit: 1, allowDuplicates: false, datasheetId: "ds1", miniatureId: "m-nw", alternate: false },
       ],
       loadout_choice: [
         { id: "lc-melee", loadoutChoiceSetId: "lcs-melee" }, // sole branch = the fixed ccw
         { id: "lc-flayer", loadoutChoiceSetId: "lcs-ranged" }, // base branch
         { id: "lc-reaper", loadoutChoiceSetId: "lcs-ranged" }, // the swap
         { id: "lc-icon", loadoutChoiceSetId: "lcs-icon" }, // base-disjoint addition
+        { id: "lc-no-runt", loadoutChoiceSetId: "lcs-runt" },
+        { id: "lc-runt", loadoutChoiceSetId: "lcs-runt" },
+        { id: "lc-no-extra-flayer", loadoutChoiceSetId: "lcs-extra-flayer" },
+        { id: "lc-extra-flayer", loadoutChoiceSetId: "lcs-extra-flayer" },
       ],
       loadout_choice_wargear_item: [
         lcwi("k1", "wi-ccw", "lc-melee"),
         lcwi("k2", "wi-flayer", "lc-flayer"),
         lcwi("k3", "wi-reaper", "lc-reaper"),
         lcwi("k4", "wi-icon", "lc-icon"),
+        lcwi("k5", "wi-runt", "lc-runt"),
+        lcwi("k6", "wi-flayer", "lc-extra-flayer"),
       ],
       limited_wargear_choice_set: [],
       limited_wargear_choice: [],
@@ -269,7 +368,13 @@ function perSlotDump(): MfmDump {
 }
 
 describe("deriveWargear — per-slot choice sets (slot-scoped delta)", () => {
-  const PS_VALID = new Set(["close-combat-weapon", "gauss-flayer", "gauss-reaper", "daemonic-icon"]);
+  const PS_VALID = new Set([
+    "close-combat-weapon",
+    "gauss-flayer",
+    "gauss-reaper",
+    "daemonic-icon",
+    "ammo-runt",
+  ]);
   const resolvePS = (name: string) => {
     const id = name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
     return PS_VALID.has(id) ? id : null;
@@ -298,6 +403,23 @@ describe("deriveWargear — per-slot choice sets (slot-scoped delta)", () => {
     const icon = d.options.find((o) => (o.replacement ?? []).includes("daemonic-icon"));
     expect(icon, "daemonic-icon option").toBeDefined();
     expect(icon!.replaces).toBeUndefined();
+  });
+
+  it("turns an optional unit-scoped choice into a pure addition", () => {
+    const runt = d.options.find((o) => (o.replacement ?? []).includes("ammo-runt"));
+    expect(runt, "ammo-runt option").toBeDefined();
+    expect(runt!.replaces).toBeUndefined();
+    expect(runt!.model_constraint).toEqual({ max_count: 1 });
+  });
+
+  it("keeps an optional extra copy of a default weapon as a pure addition", () => {
+    const extraFlayer = d.options.find(
+      (o) =>
+        o.replaces === undefined &&
+        (o.replacement ?? []).includes("gauss-flayer"),
+    );
+    expect(extraFlayer, "extra gauss-flayer option").toBeDefined();
+    expect(extraFlayer!.model_constraint).toEqual({ any_number: true });
   });
 });
 

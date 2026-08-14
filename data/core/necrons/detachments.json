@@ -64,7 +64,8 @@
       "destroyer-ankh-cursed-legion",
       "murdermind-cursed-legion",
       "mask-of-the-nekrosor-cursed-legion",
-      "cursed-circlet-cursed-legion"
+      "cursed-circlet-cursed-legion",
+      "mark-of-the-nekrosor-cursed-legion"
     ],
     "stratagem_ids": [
       "methodical-murder-cursed-legion",
@@ -147,7 +148,12 @@
     "name": "Pantheon of Woe",
     "faction_id": "necrons",
     "detachment_rule_id": "cosmic-distortion",
-    "enhancement_ids": [],
+    "enhancement_ids": [
+      "singularity-matrix-pantheon-of-woe",
+      "quantum-goad-pantheon-of-woe",
+      "animus-damper-pantheon-of-woe",
+      "reletavistic-tether-pantheon-of-woe"
+    ],
     "stratagem_ids": [
       "entrophasic-aura-targeting-pantheon-of-woe",
       "chronodistortion-pantheon-of-woe",
@@ -308,7 +314,8 @@
     "detachment_rule_id": "empowered-engines",
     "enhancement_ids": [
       "prelocational-optimiser-the-phaerons-armoury",
-      "mortality-shroud-aura-the-phaerons-armoury"
+      "mortality-shroud-aura-the-phaerons-armoury",
+      "mortality-shroud-aura-upgrade-the-phaerons-armoury"
     ],
     "stratagem_ids": [
       "subsurface-quantumweave-the-phaerons-armoury",

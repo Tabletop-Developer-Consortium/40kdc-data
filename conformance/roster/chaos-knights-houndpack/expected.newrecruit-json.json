@@ -59,6 +59,26 @@
             ]
           },
           {
+            "id": "cfg-force-disposition",
+            "name": "Force Disposition",
+            "type": "upgrade",
+            "number": 1,
+            "categories": [
+              {
+                "name": "Configuration",
+                "primary": true
+              }
+            ],
+            "selections": [
+              {
+                "id": "cfg-force-disposition-val",
+                "name": "Reconnaissance",
+                "type": "upgrade",
+                "number": 1
+              }
+            ]
+          },
+          {
             "id": "u-0",
             "name": "War Dog Karnivore",
             "type": "model",
@@ -66,6 +86,11 @@
             "categories": [
               {
                 "name": "Faction: Chaos Knights",
+                "primary": false
+              },
+              {
+                "id": "40kdc-keyword-0",
+                "name": "Character",
                 "primary": false
               }
             ],
@@ -93,7 +118,7 @@
               },
               {
                 "id": "w-0",
-                "name": "Reaper chaintalon",
+                "name": "Havoc multi-launcher",
                 "type": "upgrade",
                 "number": 1,
                 "categories": [
@@ -105,7 +130,7 @@
               },
               {
                 "id": "w-1",
-                "name": "Slaughterclaw",
+                "name": "Reaper chaintalon",
                 "type": "upgrade",
                 "number": 1,
                 "categories": [
@@ -117,7 +142,7 @@
               },
               {
                 "id": "w-2",
-                "name": "Havoc multi-launcher",
+                "name": "Slaughterclaw",
                 "type": "upgrade",
                 "number": 1,
                 "categories": [
@@ -150,7 +175,7 @@
             "selections": [
               {
                 "id": "w-0",
-                "name": "Reaper chaintalon",
+                "name": "Havoc multi-launcher",
                 "type": "upgrade",
                 "number": 1,
                 "categories": [
@@ -162,7 +187,7 @@
               },
               {
                 "id": "w-1",
-                "name": "Slaughterclaw",
+                "name": "Reaper chaintalon",
                 "type": "upgrade",
                 "number": 1,
                 "categories": [
@@ -174,7 +199,7 @@
               },
               {
                 "id": "w-2",
-                "name": "Havoc multi-launcher",
+                "name": "Slaughterclaw",
                 "type": "upgrade",
                 "number": 1,
                 "categories": [
@@ -194,6 +219,11 @@
             "categories": [
               {
                 "name": "Faction: Chaos Knights",
+                "primary": false
+              },
+              {
+                "id": "40kdc-keyword-0",
+                "name": "Character",
                 "primary": false
               }
             ],
@@ -225,9 +255,9 @@
               },
               {
                 "id": "w-1",
-                "name": "War Dog autocannon",
+                "name": "Diabolus heavy stubber",
                 "type": "upgrade",
-                "number": 2,
+                "number": 1,
                 "categories": [
                   {
                     "name": "Ranged Weapon",
@@ -237,9 +267,9 @@
               },
               {
                 "id": "w-2",
-                "name": "Diabolus heavy stubber",
+                "name": "War Dog autocannon",
                 "type": "upgrade",
-                "number": 1,
+                "number": 2,
                 "categories": [
                   {
                     "name": "Ranged Weapon",
@@ -269,8 +299,8 @@
             ],
             "selections": [
               {
-                "id": "u3-model",
-                "name": "Nurglings",
+                "id": "u3-model-0",
+                "name": "Nurgling Swarm",
                 "type": "model",
                 "number": 3,
                 "selections": [

@@ -39,6 +39,26 @@
             ]
           },
           {
+            "id": "cfg-force-disposition",
+            "name": "Force Disposition",
+            "type": "upgrade",
+            "number": 1,
+            "categories": [
+              {
+                "name": "Configuration",
+                "primary": true
+              }
+            ],
+            "selections": [
+              {
+                "id": "cfg-force-disposition-val",
+                "name": "Disruption",
+                "type": "upgrade",
+                "number": 1
+              }
+            ]
+          },
+          {
             "id": "u-0",
             "name": "Jain Zar",
             "type": "model",
@@ -58,8 +78,14 @@
             ],
             "selections": [
               {
+                "id": "u0-warlord",
+                "name": "Warlord",
+                "type": "upgrade",
+                "number": 1
+              },
+              {
                 "id": "w-0",
-                "name": "Silent Death",
+                "name": "The Blade of Destruction",
                 "type": "upgrade",
                 "number": 1,
                 "categories": [
@@ -71,7 +97,7 @@
               },
               {
                 "id": "w-1",
-                "name": "The Blade of Destruction",
+                "name": "Silent Death",
                 "type": "upgrade",
                 "number": 1,
                 "categories": [

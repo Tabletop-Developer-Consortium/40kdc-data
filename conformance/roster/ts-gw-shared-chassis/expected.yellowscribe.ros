@@ -167,6 +167,36 @@
                     </profile>
                   </profiles>
                 </selection>
+                <selection id="unit1-m0-w2" name="Soulshatter lascannon" type="upgrade" number="2">
+                  <profiles>
+                    <profile name="Soulshatter lascannon" typeName="Ranged Weapons">
+                      <characteristics>
+                        <characteristic name="Range">48"</characteristic>
+                        <characteristic name="A">2</characteristic>
+                        <characteristic name="BS">3+</characteristic>
+                        <characteristic name="S">12</characteristic>
+                        <characteristic name="AP">-3</characteristic>
+                        <characteristic name="D">D6+1</characteristic>
+                        <characteristic name="Keywords"></characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+                <selection id="unit1-m0-w3" name="Twin inferno heavy bolter" type="upgrade" number="1">
+                  <profiles>
+                    <profile name="Twin inferno heavy bolter" typeName="Ranged Weapons">
+                      <characteristics>
+                        <characteristic name="Range">36"</characteristic>
+                        <characteristic name="A">3</characteristic>
+                        <characteristic name="BS">3+</characteristic>
+                        <characteristic name="S">5</characteristic>
+                        <characteristic name="AP">-2</characteristic>
+                        <characteristic name="D">2</characteristic>
+                        <characteristic name="Keywords">Sustained Hits 1, Twin-linked</characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
               </selections>
             </selection>
           </selections>

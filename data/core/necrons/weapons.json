@@ -3204,5 +3204,206 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     }
+  },
+  {
+    "id": "hyperphase-blades",
+    "name": "Hyperphase Blades",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Hyperphase Blades",
+        "range": "Melee",
+        "stats": {
+          "A": 4,
+          "S": 7,
+          "AP": -2,
+          "D": 2,
+          "WS": 3
+        }
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
+    "id": "combat-attachments",
+    "name": "Combat Attachments",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Combat Attachments",
+        "range": "Melee",
+        "stats": {
+          "A": 1,
+          "S": 4,
+          "AP": 0,
+          "D": 1,
+          "WS": 4
+        }
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
+    "id": "times-arrow",
+    "name": "Time’s Arrow",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Time’s Arrow",
+        "range": 24,
+        "stats": {
+          "A": 1,
+          "S": 3,
+          "AP": -2,
+          "D": 6,
+          "BS": 2
+        },
+        "keywords": [
+          {
+            "keyword_id": "devastating-wounds"
+          },
+          {
+            "keyword_id": "anti",
+            "parameters": {
+              "target_keyword": "Character",
+              "threshold": 4
+            }
+          },
+          {
+            "keyword_id": "precision"
+          }
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
+    "id": "antimatter-meteor",
+    "name": "Antimatter Meteor",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Antimatter Meteor",
+        "range": 24,
+        "stats": {
+          "A": "D6+3",
+          "S": 10,
+          "AP": -3,
+          "D": 3,
+          "BS": 3
+        },
+        "keywords": [
+          {
+            "keyword_id": "blast"
+          },
+          {
+            "keyword_id": "devastating-wounds"
+          },
+          {
+            "keyword_id": "indirect-fire"
+          }
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
+    "id": "cosmic-fire",
+    "name": "Cosmic Fire",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Cosmic Fire",
+        "range": 18,
+        "stats": {
+          "A": "3D6",
+          "S": 6,
+          "AP": -2,
+          "D": 1,
+          "BS": null
+        },
+        "keywords": [
+          {
+            "keyword_id": "ignores-cover"
+          },
+          {
+            "keyword_id": "devastating-wounds"
+          },
+          {
+            "keyword_id": "torrent"
+          }
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
+    "id": "blade-tail-and-whip-coils",
+    "name": "Blade tail and whip coils",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Blade tail and whip coils",
+        "range": "Melee",
+        "stats": {
+          "A": 6,
+          "S": 6,
+          "AP": -1,
+          "D": 1,
+          "WS": 2
+        },
+        "keywords": [
+          {
+            "keyword_id": "extra-attacks"
+          }
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
+    "id": "weapons-of-the-final-triarch",
+    "name": "Weapons of the Final Triarch",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Weapons of the Final Triarch",
+        "range": "Melee",
+        "stats": {
+          "A": 12,
+          "S": 8,
+          "AP": -3,
+          "D": 2,
+          "WS": 2
+        },
+        "keywords": [
+          {
+            "keyword_id": "lethal-hits"
+          }
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
   }
 ]

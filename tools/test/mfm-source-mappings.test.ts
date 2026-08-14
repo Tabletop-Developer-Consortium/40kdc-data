@@ -116,7 +116,7 @@ describe("committed MFM source mappings", () => {
       ],
       transforms: [
         {
-          symbol: "tools/src/mfm/project-loadout.ts#parseSkill",
+          symbol: "tools/src/mfm/gear-projection.ts#parseSkill",
           operation: "Parse a structured save value into the nullable integer profile field.",
         },
       ],

@@ -52,7 +52,13 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "conditional_keywords": [
+      {
+        "keyword": "Burrower",
+        "required_detachment_id": "subterranean-assault"
+      }
+    ]
   },
   {
     "id": "mawloc",
@@ -107,7 +113,13 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "conditional_keywords": [
+      {
+        "keyword": "Burrower",
+        "required_detachment_id": "subterranean-assault"
+      }
+    ]
   },
   {
     "id": "tyranid-warriors-with-ranged-bio-weapons",
@@ -184,6 +196,12 @@
         ],
         "count": 2,
         "per_models": 6
+      }
+    ],
+    "conditional_keywords": [
+      {
+        "keyword": "Battleline",
+        "required_detachment_id": "warrior-bioform-onslaught"
       }
     ]
   },
@@ -815,7 +833,13 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "conditional_keywords": [
+      {
+        "keyword": "Battleline",
+        "required_detachment_id": "warrior-bioform-onslaught"
+      }
+    ]
   },
   {
     "id": "spore-mines",

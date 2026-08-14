@@ -96,7 +96,44 @@
                 "value": 160
               }
             ],
-            "selections": []
+            "selections": [
+              {
+                "id": "w-0",
+                "name": "Armoured hull",
+                "type": "upgrade",
+                "number": 1,
+                "categories": [
+                  {
+                    "name": "Ranged Weapon",
+                    "primary": false
+                  }
+                ]
+              },
+              {
+                "id": "w-1",
+                "name": "Lancer laser destroyer",
+                "type": "upgrade",
+                "number": 1,
+                "categories": [
+                  {
+                    "name": "Ranged Weapon",
+                    "primary": false
+                  }
+                ]
+              },
+              {
+                "id": "w-2",
+                "name": "Storm bolter",
+                "type": "upgrade",
+                "number": 2,
+                "categories": [
+                  {
+                    "name": "Ranged Weapon",
+                    "primary": false
+                  }
+                ]
+              }
+            ]
           },
           {
             "id": "u-1",
@@ -116,7 +153,56 @@
                 "value": 150
               }
             ],
-            "selections": []
+            "selections": [
+              {
+                "id": "w-0",
+                "name": "Armoured feet",
+                "type": "upgrade",
+                "number": 1,
+                "categories": [
+                  {
+                    "name": "Ranged Weapon",
+                    "primary": false
+                  }
+                ]
+              },
+              {
+                "id": "w-1",
+                "name": "Ballistus lascannon",
+                "type": "upgrade",
+                "number": 1,
+                "categories": [
+                  {
+                    "name": "Ranged Weapon",
+                    "primary": false
+                  }
+                ]
+              },
+              {
+                "id": "w-2",
+                "name": "Ballistus missile launcher",
+                "type": "upgrade",
+                "number": 1,
+                "categories": [
+                  {
+                    "name": "Ranged Weapon",
+                    "primary": false
+                  }
+                ]
+              },
+              {
+                "id": "w-3",
+                "name": "Twin storm bolter",
+                "type": "upgrade",
+                "number": 1,
+                "categories": [
+                  {
+                    "name": "Ranged Weapon",
+                    "primary": false
+                  }
+                ]
+              }
+            ]
           }
         ]
       }

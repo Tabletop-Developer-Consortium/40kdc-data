@@ -16,6 +16,7 @@
  */
 import type { Roster, RosterUnit } from "../import/types.js";
 import {
+  attachmentToken,
   charSlotAssignment,
   coarsenedLoadoutGroups,
   displayedUnitPoints,
@@ -26,6 +27,14 @@ import {
 import type { RosterSerializer } from "./serializer.js";
 
 export const FENCE = "+++++++++++++++++++++++++++++++++++++++++++++++";
+function keywordTokens(unit: RosterUnit): string[] {
+  return (unit.keyword_overrides ?? []).map((keyword) =>
+    keyword === "Character"
+      ? "Detachment Character"
+      : `40kdc Keyword: ${keyword}`,
+  );
+}
+
 
 function wargearListText(unit: RosterUnit, includeWarlordTag: boolean): string {
   const parts: string[] = [];
@@ -33,14 +42,34 @@ function wargearListText(unit: RosterUnit, includeWarlordTag: boolean): string {
     parts.push(w.count > 1 ? `${w.count}x ${w.ref.raw_name}` : w.ref.raw_name);
   }
   if (includeWarlordTag && unit.is_warlord) parts.push("Warlord");
+  parts.push(...keywordTokens(unit));
   return parts.join(", ");
+}
+function exactGroupLines(unit: RosterUnit): string[] | null {
+  if (
+    !unit.loadout_groups ||
+    unit.loadout_groups.length === 0 ||
+    unit.loadout_groups.some((group) => group.model_name === null)
+  ) {
+    return null;
+  }
+  return unit.loadout_groups.map((group, index) => {
+    const tags = [
+      ...(unit.is_warlord && index === 0 ? ["Warlord"] : []),
+      ...(index === 0 ? keywordTokens(unit) : []),
+    ];
+    const weapons = groupWeaponsText(group.wargear);
+    const contents = [weapons, ...tags].filter(Boolean).join(", ");
+    return `• ${group.count}x ${group.model_name}: ${contents}`;
+  });
 }
 
 function header(roster: Roster, units: readonly RosterUnit[], charSlots: readonly (number | null)[]): string {
   const faction = titleCaseId(roster.faction_id) ?? "Unknown";
-  const detachment = roster.detachments.length
-    ? roster.detachments.map((d) => titleCaseId(d.ref.id) ?? d.ref.raw_name).join(", ")
-    : null;
+  const detachmentLines =
+    roster.detachments.length > 0
+      ? roster.detachments.map((d) => `+ DETACHMENT: ${d.ref.raw_name}`)
+      : ["+ DETACHMENT: —"];
   const limit = roster.points.declared_limit ?? totalArmyPoints(roster);
   const total = roster.points.total_reported ?? totalArmyPoints(roster);
 
@@ -61,7 +90,7 @@ function header(roster: Roster, units: readonly RosterUnit[], charSlots: readonl
     FENCE,
     `+ LIST NAME: ${roster.name}`,
     `+ FACTION KEYWORD: ${faction}`,
-    `+ DETACHMENT: ${detachment ?? "—"}`,
+    ...detachmentLines,
     ...(roster.force_disposition !== null
       ? [`+ FORCE DISPOSITION: ${titleCaseId(roster.force_disposition)}`]
       : []),
@@ -103,7 +132,15 @@ export function wtcCompactBodyLines(units: readonly RosterUnit[], slots: readonl
     const prefix = slots[i] !== null ? `Char${slots[i]}: ` : "";
     const pts = displayedUnitPoints(u);
     const ptsText = pts === null ? "" : `${pts} pts`;
-    lines.push(`${prefix}${u.model_count}x ${u.ref.raw_name} (${ptsText}): ${wargearListText(u, true)}`);
+    const exactGroups = exactGroupLines(u);
+    lines.push(
+      `${prefix}${u.model_count}x ${u.ref.raw_name} (${ptsText}): ${
+        exactGroups ? "" : wargearListText(u, true)
+      }`,
+    );
+    if (exactGroups) lines.push(...exactGroups);
+    const attachment = attachmentToken(u);
+    if (attachment) lines.push(attachment);
     if (u.enhancement) {
       const enhText =
         u.enhancement_points === null
@@ -141,6 +178,7 @@ function multiModelWithLine(u: RosterUnit): string {
       })
       .filter((s) => s.length > 0);
     if (u.is_warlord) perModel.push("Warlord");
+    perModel.push(...keywordTokens(u));
     return `${u.model_count} with ${perModel.join(", ")}`;
   }
   return `1 with ${wargearListText(u, true)}`;
@@ -154,12 +192,19 @@ function multiModelWithLine(u: RosterUnit): string {
  * so uniform units render byte-identically to before.
  */
 export function wtcModelLines(u: RosterUnit): string[] {
+  const exactGroups = exactGroupLines(u);
+  if (exactGroups) return exactGroups;
   if (u.model_count > 1) {
     const coarse = coarsenedLoadoutGroups(u);
     if (coarse && coarse.length > 1) {
       return coarse.map((c, i) => {
-        const tag = u.is_warlord && i === 0 ? ", Warlord" : "";
-        return `${c.count} with ${groupWeaponsText(c.wargear)}${tag}`;
+        const tags = [
+          ...(u.is_warlord && i === 0 ? ["Warlord"] : []),
+          ...(i === 0 ? keywordTokens(u) : []),
+        ];
+        return `${c.count} with ${groupWeaponsText(c.wargear)}${
+          tags.length > 0 ? `, ${tags.join(", ")}` : ""
+        }`;
       });
     }
     return [multiModelWithLine(u)];
@@ -210,6 +255,8 @@ export function fullBodyLines(
     lines.push(`${prefix}${u.model_count}x ${u.ref.raw_name} (${ptsText})`);
 
     lines.push(...modelLines(u));
+    const attachment = attachmentToken(u);
+    if (attachment) lines.push(attachment);
 
     if (u.enhancement) {
       const enhText =

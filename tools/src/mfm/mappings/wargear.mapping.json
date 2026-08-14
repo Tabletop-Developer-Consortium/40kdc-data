@@ -31,7 +31,7 @@
       ],
       "consumers": [
         "tools/src/mfm/project-loadout.ts#projectUnit",
-        "tools/src/mfm/project-loadout.ts#mintWargear"
+        "tools/src/mfm/gear-projection.ts#mintWargear"
       ],
       "reason": "The mint inherits repository game-version context rather than deriving an edition or dataslate from MFM."
     },
@@ -79,7 +79,7 @@
       ],
       "consumers": [
         "tools/src/mfm/project-loadout.ts#projectUnit",
-        "tools/src/mfm/project-loadout.ts#mintWargear"
+        "tools/src/mfm/gear-projection.ts#mintWargear"
       ],
       "reason": "Non-weapon item identifiers are minted from their resolved display names; the dump item id is not emitted as the repository id."
     },
@@ -100,7 +100,7 @@
       ],
       "consumers": [
         "tools/src/mfm/project-loadout.ts#projectUnit",
-        "tools/src/mfm/project-loadout.ts#mintWargear"
+        "tools/src/mfm/gear-projection.ts#mintWargear"
       ],
       "reason": "The non-weapon mint preserves the resolved item display name."
     }

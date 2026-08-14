@@ -873,7 +873,7 @@
       },
       {
         "name": "Paladin",
-        "min": 3,
+        "min": 2,
         "max": 9,
         "default_weapon_ids": [
           "storm-bolter-paladin-squad",
@@ -884,12 +884,160 @@
           "shape": "round",
           "diameter": 40
         }
+      },
+      {
+        "name": "Paladin Ancient",
+        "min": 0,
+        "max": 1,
+        "is_leader_model": true,
+        "base_size_mm": {
+          "shape": "round",
+          "diameter": 40
+        },
+        "default_weapon_ids": [
+          "nemesis-force-weapon-paladin-squad",
+          "storm-bolter-paladin-squad"
+        ]
       }
     ],
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "tiers": [
+      {
+        "models": [
+          {
+            "name": "Paragon",
+            "min": 1,
+            "max": 1
+          },
+          {
+            "name": "Paladin",
+            "min": 3,
+            "max": 3
+          }
+        ]
+      },
+      {
+        "models": [
+          {
+            "name": "Paragon",
+            "min": 1,
+            "max": 1
+          },
+          {
+            "name": "Paladin",
+            "min": 2,
+            "max": 2
+          },
+          {
+            "name": "Paladin Ancient",
+            "min": 1,
+            "max": 1
+          }
+        ]
+      },
+      {
+        "models": [
+          {
+            "name": "Paragon",
+            "min": 1,
+            "max": 1
+          },
+          {
+            "name": "Paladin",
+            "min": 4,
+            "max": 4
+          }
+        ]
+      },
+      {
+        "models": [
+          {
+            "name": "Paragon",
+            "min": 1,
+            "max": 1
+          },
+          {
+            "name": "Paladin",
+            "min": 3,
+            "max": 3
+          },
+          {
+            "name": "Paladin Ancient",
+            "min": 1,
+            "max": 1
+          }
+        ]
+      },
+      {
+        "models": [
+          {
+            "name": "Paragon",
+            "min": 1,
+            "max": 1
+          },
+          {
+            "name": "Paladin",
+            "min": 5,
+            "max": 7
+          }
+        ]
+      },
+      {
+        "models": [
+          {
+            "name": "Paragon",
+            "min": 1,
+            "max": 1
+          },
+          {
+            "name": "Paladin",
+            "min": 4,
+            "max": 6
+          },
+          {
+            "name": "Paladin Ancient",
+            "min": 1,
+            "max": 1
+          }
+        ]
+      },
+      {
+        "models": [
+          {
+            "name": "Paragon",
+            "min": 1,
+            "max": 1
+          },
+          {
+            "name": "Paladin",
+            "min": 8,
+            "max": 9
+          }
+        ]
+      },
+      {
+        "models": [
+          {
+            "name": "Paragon",
+            "min": 1,
+            "max": 1
+          },
+          {
+            "name": "Paladin",
+            "min": 7,
+            "max": 8
+          },
+          {
+            "name": "Paladin Ancient",
+            "min": 1,
+            "max": 1
+          }
+        ]
+      }
+    ]
   },
   {
     "unit_id": "land-raider",
@@ -985,7 +1133,7 @@
       },
       {
         "name": "Terminator",
-        "min": 3,
+        "min": 2,
         "max": 9,
         "default_weapon_ids": [
           "storm-bolter",
@@ -996,12 +1144,160 @@
           "shape": "round",
           "diameter": 40
         }
+      },
+      {
+        "name": "Ancient",
+        "min": 0,
+        "max": 1,
+        "is_leader_model": true,
+        "base_size_mm": {
+          "shape": "round",
+          "diameter": 40
+        },
+        "default_weapon_ids": [
+          "nemesis-force-weapon-brotherhood-terminator-squad",
+          "storm-bolter"
+        ]
       }
     ],
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "tiers": [
+      {
+        "models": [
+          {
+            "name": "Justicar",
+            "min": 1,
+            "max": 1
+          },
+          {
+            "name": "Terminator",
+            "min": 2,
+            "max": 2
+          },
+          {
+            "name": "Ancient",
+            "min": 1,
+            "max": 1
+          }
+        ]
+      },
+      {
+        "models": [
+          {
+            "name": "Justicar",
+            "min": 1,
+            "max": 1
+          },
+          {
+            "name": "Terminator",
+            "min": 3,
+            "max": 3
+          }
+        ]
+      },
+      {
+        "models": [
+          {
+            "name": "Justicar",
+            "min": 1,
+            "max": 1
+          },
+          {
+            "name": "Terminator",
+            "min": 4,
+            "max": 4
+          }
+        ]
+      },
+      {
+        "models": [
+          {
+            "name": "Justicar",
+            "min": 1,
+            "max": 1
+          },
+          {
+            "name": "Terminator",
+            "min": 3,
+            "max": 3
+          },
+          {
+            "name": "Ancient",
+            "min": 1,
+            "max": 1
+          }
+        ]
+      },
+      {
+        "models": [
+          {
+            "name": "Justicar",
+            "min": 1,
+            "max": 1
+          },
+          {
+            "name": "Terminator",
+            "min": 5,
+            "max": 7
+          }
+        ]
+      },
+      {
+        "models": [
+          {
+            "name": "Justicar",
+            "min": 1,
+            "max": 1
+          },
+          {
+            "name": "Terminator",
+            "min": 4,
+            "max": 6
+          },
+          {
+            "name": "Ancient",
+            "min": 1,
+            "max": 1
+          }
+        ]
+      },
+      {
+        "models": [
+          {
+            "name": "Justicar",
+            "min": 1,
+            "max": 1
+          },
+          {
+            "name": "Terminator",
+            "min": 8,
+            "max": 9
+          }
+        ]
+      },
+      {
+        "models": [
+          {
+            "name": "Justicar",
+            "min": 1,
+            "max": 1
+          },
+          {
+            "name": "Terminator",
+            "min": 7,
+            "max": 8
+          },
+          {
+            "name": "Ancient",
+            "min": 1,
+            "max": 1
+          }
+        ]
+      }
+    ]
   },
   {
     "unit_id": "stormhawk-interceptor",

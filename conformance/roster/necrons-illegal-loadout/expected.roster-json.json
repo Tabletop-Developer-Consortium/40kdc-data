@@ -17,7 +17,7 @@
     }
   ],
   "battle_size": null,
-  "force_disposition": null,
+  "force_disposition": "take-and-hold",
   "points": {
     "declared_limit": 170,
     "detachment_cap": null,
@@ -42,6 +42,15 @@
           "ref": {
             "id": "overlords-blade",
             "raw_name": "Overlord's blade",
+            "resolved": true,
+            "candidates": []
+          },
+          "count": 1
+        },
+        {
+          "ref": {
+            "id": "tachyon-arrow",
+            "raw_name": "Tachyon arrow",
             "resolved": true,
             "candidates": []
           },
@@ -101,7 +110,7 @@
   "diagnostics": {
     "resolved_units": 2,
     "unresolved_units": 0,
-    "resolved_weapons": 4,
+    "resolved_weapons": 5,
     "unresolved_weapons": 0,
     "warnings": [
       {

@@ -174,7 +174,8 @@
     "faction_id": "blood-angels",
     "detachment_rule_id": null,
     "enhancement_ids": [
-      "instinctive-interception-wrath-of-the-doomed"
+      "instinctive-interception-wrath-of-the-doomed",
+      "on-the-archtraitors-bridge-wrath-of-the-doomed"
     ],
     "stratagem_ids": [
       "no-barrier-to-retribution-wrath-of-the-doomed",
@@ -637,6 +638,20 @@
     "game_modes": [
       "combat-patrol"
     ],
+    "detachment_points": 1,
+    "force_dispositions": [
+      "take-and-hold"
+    ]
+  },
+  {
+    "id": "vengeful-hosts",
+    "name": "Vengeful Hosts",
+    "faction_id": "blood-angels",
+    "enhancement_ids": [],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
     "detachment_points": 1,
     "force_dispositions": [
       "take-and-hold"

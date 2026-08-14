@@ -346,6 +346,23 @@
       "dataslate": "launch"
     },
     "is_free": true,
+    "replacement": [
+      "pechra"
+    ],
+    "model_constraint": {
+      "model_name": "Kroot Farstalker",
+      "any_number": true
+    }
+  },
+  {
+    "id": "kroot-farstalkers-wgo-mfm-2",
+    "unit_id": "kroot-farstalkers",
+    "faction_id": "tau-empire",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_free": true,
     "replaces": [
       "farstalker-firearm"
     ],
@@ -363,7 +380,7 @@
     }
   },
   {
-    "id": "kroot-farstalkers-wgo-mfm-2",
+    "id": "kroot-farstalkers-wgo-mfm-3",
     "unit_id": "kroot-farstalkers",
     "faction_id": "tau-empire",
     "game_version": {
@@ -589,6 +606,22 @@
     "model_constraint": {
       "model_name": "Fire Warrior",
       "any_number": true
+    }
+  },
+  {
+    "id": "strike-team-wgo-mfm-3",
+    "unit_id": "strike-team",
+    "faction_id": "tau-empire",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_free": true,
+    "replacement": [
+      "support-turret"
+    ],
+    "model_constraint": {
+      "max_count": 1
     }
   },
   {
@@ -867,6 +900,22 @@
       "dataslate": "launch"
     },
     "is_free": true,
+    "replacement": [
+      "support-turret"
+    ],
+    "model_constraint": {
+      "max_count": 1
+    }
+  },
+  {
+    "id": "breacher-team-wgo-mfm-2",
+    "unit_id": "breacher-team",
+    "faction_id": "tau-empire",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_free": true,
     "replacement_choice": [
       [
         "gun-drone"
@@ -939,6 +988,22 @@
       "dataslate": "launch"
     },
     "is_free": true,
+    "replacement": [
+      "hover-drone"
+    ],
+    "model_constraint": {
+      "any_number": true
+    }
+  },
+  {
+    "id": "ethereal-wgo-mfm-2",
+    "unit_id": "ethereal",
+    "faction_id": "tau-empire",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_free": true,
     "replacement_choice": [
       [
         "shield-drone"
@@ -964,6 +1029,23 @@
       "dataslate": "launch"
     },
     "is_free": true,
+    "replacement": [
+      "missile-drone"
+    ],
+    "model_constraint": {
+      "any_number": true,
+      "max_count": 2
+    }
+  },
+  {
+    "id": "riptide-battlesuit-wgo-mfm-2",
+    "unit_id": "riptide-battlesuit",
+    "faction_id": "tau-empire",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_free": true,
     "replaces": [
       "heavy-burst-cannon"
     ],
@@ -975,7 +1057,7 @@
     }
   },
   {
-    "id": "riptide-battlesuit-wgo-mfm-2",
+    "id": "riptide-battlesuit-wgo-mfm-3",
     "unit_id": "riptide-battlesuit",
     "faction_id": "tau-empire",
     "game_version": {
@@ -1153,16 +1235,8 @@
     "replaces": [
       "neutron-blaster"
     ],
-    "replacement_choice": [
-      [
-        "tau-flamer"
-      ],
-      [
-        "neutron-rail-rifle"
-      ],
-      [
-        "neutron-grenade-launcher"
-      ]
+    "replacement": [
+      "tau-flamer"
     ],
     "model_constraint": {
       "model_name": "Vespid Stingwing",
@@ -1171,6 +1245,46 @@
   },
   {
     "id": "vespid-stingwings-wgo-mfm-2",
+    "unit_id": "vespid-stingwings",
+    "faction_id": "tau-empire",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_free": true,
+    "replaces": [
+      "neutron-blaster"
+    ],
+    "replacement": [
+      "neutron-rail-rifle"
+    ],
+    "model_constraint": {
+      "model_name": "Vespid Stingwing",
+      "per_n_models": 10
+    }
+  },
+  {
+    "id": "vespid-stingwings-wgo-mfm-3",
+    "unit_id": "vespid-stingwings",
+    "faction_id": "tau-empire",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_free": true,
+    "replaces": [
+      "neutron-blaster"
+    ],
+    "replacement": [
+      "neutron-grenade-launcher"
+    ],
+    "model_constraint": {
+      "model_name": "Vespid Stingwing",
+      "per_n_models": 10
+    }
+  },
+  {
+    "id": "vespid-stingwings-wgo-mfm-4",
     "unit_id": "vespid-stingwings",
     "faction_id": "tau-empire",
     "game_version": {
@@ -1335,6 +1449,9 @@
     "is_free": true,
     "replacement_choice": [
       [
+        "missile-drone"
+      ],
+      [
         "shield-drone"
       ],
       [
@@ -1383,6 +1500,9 @@
       ],
       [
         "gun-drone"
+      ],
+      [
+        "missile-drone"
       ],
       [
         "shield-drone"

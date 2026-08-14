@@ -66,6 +66,21 @@
                     </profile>
                   </profiles>
                 </selection>
+                <selection id="unit0-m0-w1" name="Tachyon arrow" type="upgrade" number="1">
+                  <profiles>
+                    <profile name="Tachyon arrow" typeName="Ranged Weapons">
+                      <characteristics>
+                        <characteristic name="Range">72"</characteristic>
+                        <characteristic name="A">1</characteristic>
+                        <characteristic name="BS">2+</characteristic>
+                        <characteristic name="S">16</characteristic>
+                        <characteristic name="AP">-5</characteristic>
+                        <characteristic name="D">D6+2</characteristic>
+                        <characteristic name="Keywords">One Shot</characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
               </selections>
             </selection>
           </selections>

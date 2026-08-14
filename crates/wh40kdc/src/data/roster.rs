@@ -293,20 +293,27 @@ pub fn validate_roster_core(spec: &NormRoster, dataset: &Dataset) -> RosterLegal
             });
         }
         let kws = owned_keywords(view, &army_keywords);
-        if let Some(req) = &enh.keyword_restrictions {
-            if req.0.iter().any(|k| !kws.contains(k.as_str())) {
-                army.push(RosterViolation {
-                    code: RosterViolationCode::EnhancementKeywordMismatch,
-                    id: enh.id.as_str().to_string(),
-                    message: format!(
-                        "{} lacks a keyword required by {}",
-                        view.id.as_str(),
-                        enh.id.as_str()
-                    ),
-                    unit_index: Some(idx),
-                    severity: Severity::Error,
-                });
-            }
+        let eligible = if let Some(groups) = &enh.keyword_restriction_groups {
+            groups
+                .iter()
+                .any(|group| group.iter().all(|k| kws.contains(k.as_str())))
+        } else if let Some(req) = &enh.keyword_restrictions {
+            req.0.iter().all(|k| kws.contains(k.as_str()))
+        } else {
+            true
+        };
+        if !eligible {
+            army.push(RosterViolation {
+                code: RosterViolationCode::EnhancementKeywordMismatch,
+                id: enh.id.as_str().to_string(),
+                message: format!(
+                    "{} lacks an eligible keyword group for {}",
+                    view.id.as_str(),
+                    enh.id.as_str()
+                ),
+                unit_index: Some(idx),
+                severity: Severity::Error,
+            });
         }
         if let Some(excl) = &enh.exclusion_keywords {
             if excl.0.iter().any(|k| kws.contains(k.as_str())) {

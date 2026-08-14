@@ -157,22 +157,7 @@
           <selections>
             <selection id="unit1-m0" name="Grand Master in Nemesis Dreadknight" type="model" number="1">
               <selections>
-                <selection id="unit1-m0-w0" name="Heavy psycannon" type="upgrade" number="1">
-                  <profiles>
-                    <profile name="Heavy psycannon" typeName="Ranged Weapons">
-                      <characteristics>
-                        <characteristic name="Range">24"</characteristic>
-                        <characteristic name="A">6</characteristic>
-                        <characteristic name="BS">3+</characteristic>
-                        <characteristic name="S">10</characteristic>
-                        <characteristic name="AP">-2</characteristic>
-                        <characteristic name="D">3</characteristic>
-                        <characteristic name="Keywords">Ignores Cover, Psychic</characteristic>
-                      </characteristics>
-                    </profile>
-                  </profiles>
-                </selection>
-                <selection id="unit1-m0-w1" name="Fragstorm grenade launcher" type="upgrade" number="1">
+                <selection id="unit1-m0-w0" name="Fragstorm grenade launcher" type="upgrade" number="1">
                   <profiles>
                     <profile name="Fragstorm grenade launcher" typeName="Ranged Weapons">
                       <characteristics>
@@ -183,6 +168,21 @@
                         <characteristic name="AP">0</characteristic>
                         <characteristic name="D">1</characteristic>
                         <characteristic name="Keywords">Blast</characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+                <selection id="unit1-m0-w1" name="Heavy psycannon" type="upgrade" number="1">
+                  <profiles>
+                    <profile name="Heavy psycannon" typeName="Ranged Weapons">
+                      <characteristics>
+                        <characteristic name="Range">24"</characteristic>
+                        <characteristic name="A">6</characteristic>
+                        <characteristic name="BS">3+</characteristic>
+                        <characteristic name="S">10</characteristic>
+                        <characteristic name="AP">-2</characteristic>
+                        <characteristic name="D">3</characteristic>
+                        <characteristic name="Keywords">Ignores Cover, Psychic</characteristic>
                       </characteristics>
                     </profile>
                   </profiles>
@@ -238,9 +238,24 @@
             <category name="Purifier Squad"/>
           </categories>
           <selections>
-            <selection id="unit2-m0" name="Purifier Squad" type="model" number="10">
+            <selection id="unit2-m0" name="Knight of the Flame" type="model" number="1">
               <selections>
-                <selection id="unit2-m0-w0" name="Purifying Flame" type="upgrade" number="10">
+                <selection id="unit2-m0-w0" name="Nemesis force weapon" type="upgrade" number="1">
+                  <profiles>
+                    <profile name="Nemesis force weapon" typeName="Melee Weapons">
+                      <characteristics>
+                        <characteristic name="Range">Melee</characteristic>
+                        <characteristic name="A">3</characteristic>
+                        <characteristic name="WS">3+</characteristic>
+                        <characteristic name="S">6</characteristic>
+                        <characteristic name="AP">-2</characteristic>
+                        <characteristic name="D">2</characteristic>
+                        <characteristic name="Keywords">Psychic</characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+                <selection id="unit2-m0-w1" name="Purifying Flame" type="upgrade" number="1">
                   <profiles>
                     <profile name="Purifying Flame" typeName="Ranged Weapons">
                       <characteristics>
@@ -255,7 +270,56 @@
                     </profile>
                   </profiles>
                 </selection>
-                <selection id="unit2-m0-w1" name="Storm bolter" type="upgrade" number="90">
+                <selection id="unit2-m0-w2" name="Storm bolter" type="upgrade" number="1">
+                  <profiles>
+                    <profile name="Storm bolter" typeName="Ranged Weapons">
+                      <characteristics>
+                        <characteristic name="Range">24"</characteristic>
+                        <characteristic name="A">2</characteristic>
+                        <characteristic name="BS">3+</characteristic>
+                        <characteristic name="S">4</characteristic>
+                        <characteristic name="AP">0</characteristic>
+                        <characteristic name="D">1</characteristic>
+                        <characteristic name="Keywords">Rapid Fire 2</characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+              </selections>
+            </selection>
+            <selection id="unit2-m1" name="Purifier" type="model" number="9">
+              <selections>
+                <selection id="unit2-m1-w0" name="Nemesis force weapon" type="upgrade" number="9">
+                  <profiles>
+                    <profile name="Nemesis force weapon" typeName="Melee Weapons">
+                      <characteristics>
+                        <characteristic name="Range">Melee</characteristic>
+                        <characteristic name="A">3</characteristic>
+                        <characteristic name="WS">3+</characteristic>
+                        <characteristic name="S">6</characteristic>
+                        <characteristic name="AP">-2</characteristic>
+                        <characteristic name="D">2</characteristic>
+                        <characteristic name="Keywords">Psychic</characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+                <selection id="unit2-m1-w1" name="Purifying Flame" type="upgrade" number="9">
+                  <profiles>
+                    <profile name="Purifying Flame" typeName="Ranged Weapons">
+                      <characteristics>
+                        <characteristic name="Range">18"</characteristic>
+                        <characteristic name="A">1</characteristic>
+                        <characteristic name="BS">3+</characteristic>
+                        <characteristic name="S">4</characteristic>
+                        <characteristic name="AP">-2</characteristic>
+                        <characteristic name="D">1</characteristic>
+                        <characteristic name="Keywords">Anti-Infantry 2+, Ignores Cover, Psychic</characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+                <selection id="unit2-m1-w2" name="Storm bolter" type="upgrade" number="9">
                   <profiles>
                     <profile name="Storm bolter" typeName="Ranged Weapons">
                       <characteristics>

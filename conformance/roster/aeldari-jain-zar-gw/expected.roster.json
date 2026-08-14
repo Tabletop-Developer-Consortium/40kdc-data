@@ -17,7 +17,7 @@
     }
   ],
   "battle_size": null,
-  "force_disposition": null,
+  "force_disposition": "disruption",
   "points": {
     "declared_limit": 105,
     "detachment_cap": null,
@@ -34,14 +34,14 @@
       },
       "model_count": 1,
       "points": 105,
-      "is_warlord": false,
+      "is_warlord": true,
       "enhancement": null,
       "enhancement_points": null,
       "wargear": [
         {
           "ref": {
-            "id": "silent-death",
-            "raw_name": "Silent Death",
+            "id": "blade-of-destruction",
+            "raw_name": "The Blade of Destruction",
             "resolved": true,
             "candidates": []
           },
@@ -49,8 +49,8 @@
         },
         {
           "ref": {
-            "id": "blade-of-destruction",
-            "raw_name": "The Blade of Destruction",
+            "id": "silent-death",
+            "raw_name": "Silent Death",
             "resolved": true,
             "candidates": []
           },

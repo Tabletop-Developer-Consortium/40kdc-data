@@ -182,7 +182,29 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "allied_points": [
+      {
+        "models": 1,
+        "cost": 95,
+        "unit_count_min": 1,
+        "unit_count_max": 2,
+        "host_faction": "thousand-sons"
+      },
+      {
+        "models": 1,
+        "cost": 105,
+        "unit_count_min": 3,
+        "unit_count_max": null,
+        "host_faction": "thousand-sons"
+      }
+    ],
+    "conditional_keywords": [
+      {
+        "keyword": "Shadow Legion",
+        "required_detachment_id": "shadow-legion"
+      }
+    ]
   },
   {
     "id": "nemesis-claw",
@@ -262,7 +284,8 @@
       {
         "items": [
           "nostraman-chainglaive",
-          "paired-accursed-weapons"
+          "paired-accursed-weapons",
+          "voice-eater"
         ],
         "count": 4,
         "per_models": 0,
@@ -351,7 +374,34 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "allied_points": [
+      {
+        "models": 1,
+        "cost": 85,
+        "unit_count_min": 1,
+        "unit_count_max": 2,
+        "host_faction": "thousand-sons"
+      },
+      {
+        "models": 1,
+        "cost": 95,
+        "unit_count_min": 3,
+        "unit_count_max": null,
+        "host_faction": "thousand-sons"
+      },
+      {
+        "models": 1,
+        "cost": 55,
+        "host_faction": "emperors-children"
+      }
+    ],
+    "conditional_keywords": [
+      {
+        "keyword": "Shadow Legion",
+        "required_detachment_id": "shadow-legion"
+      }
+    ]
   },
   {
     "id": "dark-commune",
@@ -433,7 +483,13 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "conditional_keywords": [
+      {
+        "keyword": "Shadow Legion",
+        "required_detachment_id": "shadow-legion"
+      }
+    ]
   },
   {
     "id": "master-of-possession",
@@ -492,7 +548,13 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "conditional_keywords": [
+      {
+        "keyword": "Shadow Legion",
+        "required_detachment_id": "shadow-legion"
+      }
+    ]
   },
   {
     "id": "obliterators",
@@ -779,7 +841,13 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "conditional_keywords": [
+      {
+        "keyword": "Shadow Legion",
+        "required_detachment_id": "shadow-legion"
+      }
+    ]
   },
   {
     "id": "chaos-land-raider",
@@ -1006,7 +1074,13 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "conditional_keywords": [
+      {
+        "keyword": "Shadow Legion",
+        "required_detachment_id": "shadow-legion"
+      }
+    ]
   },
   {
     "id": "dark-apostle",
@@ -1076,7 +1150,13 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "conditional_keywords": [
+      {
+        "keyword": "Shadow Legion",
+        "required_detachment_id": "shadow-legion"
+      }
+    ]
   },
   {
     "id": "chaos-spawn",
@@ -1141,7 +1221,29 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "allied_points": [
+      {
+        "models": 2,
+        "cost": 95,
+        "host_faction": "world-eaters"
+      },
+      {
+        "models": 2,
+        "cost": 80,
+        "host_faction": "death-guard"
+      },
+      {
+        "models": 2,
+        "cost": 65,
+        "host_faction": "thousand-sons"
+      },
+      {
+        "models": 2,
+        "cost": 70,
+        "host_faction": "emperors-children"
+      }
+    ]
   },
   {
     "id": "chaos-predator-annihilator",
@@ -1214,7 +1316,51 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "allied_points": [
+      {
+        "models": 1,
+        "cost": 140,
+        "unit_count_min": 1,
+        "unit_count_max": 2,
+        "host_faction": "thousand-sons"
+      },
+      {
+        "models": 1,
+        "cost": 150,
+        "unit_count_min": 3,
+        "unit_count_max": null,
+        "host_faction": "thousand-sons"
+      },
+      {
+        "models": 1,
+        "cost": 135,
+        "unit_count_min": 1,
+        "unit_count_max": 2,
+        "host_faction": "death-guard"
+      },
+      {
+        "models": 1,
+        "cost": 145,
+        "unit_count_min": 3,
+        "unit_count_max": null,
+        "host_faction": "death-guard"
+      },
+      {
+        "models": 1,
+        "cost": 130,
+        "unit_count_min": 1,
+        "unit_count_max": 2,
+        "host_faction": "world-eaters"
+      },
+      {
+        "models": 1,
+        "cost": 140,
+        "unit_count_min": 3,
+        "unit_count_max": null,
+        "host_faction": "world-eaters"
+      }
+    ]
   },
   {
     "id": "venomcrawler",
@@ -1587,6 +1733,22 @@
         "item_id": "heavy-reaper-autocannon",
         "cost": 15
       }
+    ],
+    "allied_points": [
+      {
+        "models": 1,
+        "cost": 270,
+        "unit_count_min": 1,
+        "unit_count_max": 1,
+        "host_faction": "world-eaters"
+      },
+      {
+        "models": 1,
+        "cost": 310,
+        "unit_count_min": 2,
+        "unit_count_max": null,
+        "host_faction": "world-eaters"
+      }
     ]
   },
   {
@@ -1660,7 +1822,51 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "allied_points": [
+      {
+        "models": 1,
+        "cost": 145,
+        "unit_count_min": 1,
+        "unit_count_max": 2,
+        "host_faction": "death-guard"
+      },
+      {
+        "models": 1,
+        "cost": 155,
+        "unit_count_min": 3,
+        "unit_count_max": null,
+        "host_faction": "death-guard"
+      },
+      {
+        "models": 1,
+        "cost": 130,
+        "unit_count_min": 1,
+        "unit_count_max": 2,
+        "host_faction": "world-eaters"
+      },
+      {
+        "models": 1,
+        "cost": 140,
+        "unit_count_min": 3,
+        "unit_count_max": null,
+        "host_faction": "world-eaters"
+      },
+      {
+        "models": 1,
+        "cost": 140,
+        "unit_count_min": 1,
+        "unit_count_max": 2,
+        "host_faction": "thousand-sons"
+      },
+      {
+        "models": 1,
+        "cost": 150,
+        "unit_count_min": 3,
+        "unit_count_max": null,
+        "host_faction": "thousand-sons"
+      }
+    ]
   },
   {
     "id": "chosen",
@@ -1853,6 +2059,12 @@
         "count": 3,
         "per_models": 0,
         "duplicate_limit": 1
+      }
+    ],
+    "conditional_keywords": [
+      {
+        "keyword": "Battleline",
+        "required_detachment_id": "chaos-cult"
       }
     ]
   },
@@ -2059,6 +2271,36 @@
         "item_id": "ectoplasma-cannon",
         "cost": 5
       }
+    ],
+    "allied_points": [
+      {
+        "models": 1,
+        "cost": 135,
+        "unit_count_min": 1,
+        "unit_count_max": 2,
+        "host_faction": "thousand-sons"
+      },
+      {
+        "models": 1,
+        "cost": 145,
+        "unit_count_min": 3,
+        "unit_count_max": null,
+        "host_faction": "thousand-sons"
+      },
+      {
+        "models": 1,
+        "cost": 140,
+        "unit_count_min": 1,
+        "unit_count_max": 2,
+        "host_faction": "world-eaters"
+      },
+      {
+        "models": 1,
+        "cost": 155,
+        "unit_count_min": 3,
+        "unit_count_max": null,
+        "host_faction": "world-eaters"
+      }
     ]
   },
   {
@@ -2184,7 +2426,13 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "conditional_keywords": [
+      {
+        "keyword": "Shadow Legion",
+        "required_detachment_id": "shadow-legion"
+      }
+    ]
   },
   {
     "id": "red-corsairs-raiders",
@@ -2325,7 +2573,14 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "support"
+    "attachment_role": "support",
+    "allied_points": [
+      {
+        "models": 1,
+        "cost": 60,
+        "host_faction": "world-eaters"
+      }
+    ]
   },
   {
     "id": "accursed-cultists",
@@ -2484,7 +2739,30 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "allied_points": [
+      {
+        "models": 1,
+        "cost": 110,
+        "host_faction": "death-guard"
+      },
+      {
+        "models": 1,
+        "cost": 120,
+        "host_faction": "world-eaters"
+      },
+      {
+        "models": 1,
+        "cost": 110,
+        "host_faction": "thousand-sons"
+      }
+    ],
+    "conditional_keywords": [
+      {
+        "keyword": "Contagion Engines",
+        "required_detachment_id": "contagion-engines"
+      }
+    ]
   },
   {
     "id": "chaos-lord-with-jump-pack",
@@ -2547,7 +2825,13 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "conditional_keywords": [
+      {
+        "keyword": "Shadow Legion",
+        "required_detachment_id": "shadow-legion"
+      }
+    ]
   },
   {
     "id": "cultist-mob",
@@ -2669,7 +2953,13 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "conditional_keywords": [
+      {
+        "keyword": "Shadow Legion",
+        "required_detachment_id": "shadow-legion"
+      }
+    ]
   },
   {
     "id": "chaos-bikers",
@@ -2973,7 +3263,51 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "allied_points": [
+      {
+        "models": 1,
+        "cost": 120,
+        "unit_count_min": 1,
+        "unit_count_max": 2,
+        "host_faction": "emperors-children"
+      },
+      {
+        "models": 1,
+        "cost": 130,
+        "unit_count_min": 3,
+        "unit_count_max": null,
+        "host_faction": "emperors-children"
+      },
+      {
+        "models": 1,
+        "cost": 140,
+        "unit_count_min": 1,
+        "unit_count_max": 2,
+        "host_faction": "world-eaters"
+      },
+      {
+        "models": 1,
+        "cost": 150,
+        "unit_count_min": 3,
+        "unit_count_max": null,
+        "host_faction": "world-eaters"
+      },
+      {
+        "models": 1,
+        "cost": 120,
+        "unit_count_min": 1,
+        "unit_count_max": 2,
+        "host_faction": "thousand-sons"
+      },
+      {
+        "models": 1,
+        "cost": 130,
+        "unit_count_min": 3,
+        "unit_count_max": null,
+        "host_faction": "thousand-sons"
+      }
+    ]
   },
   {
     "id": "chaos-rhino",
@@ -3055,7 +3389,65 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "allied_points": [
+      {
+        "models": 1,
+        "cost": 75,
+        "unit_count_min": 1,
+        "unit_count_max": 3,
+        "host_faction": "world-eaters"
+      },
+      {
+        "models": 1,
+        "cost": 85,
+        "unit_count_min": 4,
+        "unit_count_max": null,
+        "host_faction": "world-eaters"
+      },
+      {
+        "models": 1,
+        "cost": 70,
+        "unit_count_min": 1,
+        "unit_count_max": 3,
+        "host_faction": "emperors-children"
+      },
+      {
+        "models": 1,
+        "cost": 80,
+        "unit_count_min": 4,
+        "unit_count_max": null,
+        "host_faction": "emperors-children"
+      },
+      {
+        "models": 1,
+        "cost": 80,
+        "unit_count_min": 1,
+        "unit_count_max": 3,
+        "host_faction": "thousand-sons"
+      },
+      {
+        "models": 1,
+        "cost": 90,
+        "unit_count_min": 4,
+        "unit_count_max": null,
+        "host_faction": "thousand-sons"
+      },
+      {
+        "models": 1,
+        "cost": 75,
+        "unit_count_min": 1,
+        "unit_count_max": 3,
+        "host_faction": "death-guard"
+      },
+      {
+        "models": 1,
+        "cost": 85,
+        "unit_count_min": 4,
+        "unit_count_max": null,
+        "host_faction": "death-guard"
+      }
+    ]
   },
   {
     "id": "legionaries",
@@ -3403,8 +3795,8 @@
       "max": 1
     },
     "weapon_ids": [
-      "ranged",
-      "tyrants-claw-and-exalted-power-weapon"
+      "tyrants-claw-and-exalted-power-weapon",
+      "tyrants-claw-heavy-flamer"
     ],
     "ability_ids": [
       "hamadrya-s-knowledge-psychic",
@@ -3745,7 +4137,23 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "allied_points": [
+      {
+        "models": 1,
+        "cost": 505,
+        "unit_count_min": 1,
+        "unit_count_max": 1,
+        "host_faction": "world-eaters"
+      },
+      {
+        "models": 1,
+        "cost": 535,
+        "unit_count_min": 2,
+        "unit_count_max": null,
+        "host_faction": "world-eaters"
+      }
+    ]
   },
   {
     "id": "mutilators",

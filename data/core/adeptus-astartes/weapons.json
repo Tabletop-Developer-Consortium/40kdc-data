@@ -4887,11 +4887,11 @@
   },
   {
     "id": "omnissiah-power-axe",
-    "name": "Omnissiah power axe",
+    "name": "Omnissian power axe",
     "type": "melee",
     "profiles": [
       {
-        "name": "Omnissiah power axe",
+        "name": "Omnissian power axe",
         "range": "Melee",
         "stats": {
           "A": 4,
@@ -4905,7 +4905,7 @@
     ],
     "game_version": {
       "edition": "11th",
-      "dataslate": "pre-launch-provisional"
+      "dataslate": "launch"
     }
   },
   {
@@ -15578,6 +15578,202 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
+    }
+  },
+  {
+    "id": "chainsword",
+    "name": "Chainsword",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Chainsword",
+        "range": "Melee",
+        "stats": {
+          "A": 5,
+          "S": 4,
+          "AP": -1,
+          "D": 1,
+          "WS": 3
+        }
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
+    "id": "knives-and-fists",
+    "name": "Knives and Fists",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Knives and Fists",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 4,
+          "AP": 0,
+          "D": 1,
+          "WS": 3
+        }
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
+    "id": "grenade-launcher",
+    "name": "Grenade Launcher",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Frag",
+        "range": 24,
+        "stats": {
+          "A": 2,
+          "S": 4,
+          "AP": -1,
+          "D": 1,
+          "BS": 3
+        },
+        "keywords": [
+          {
+            "keyword_id": "blast"
+          }
+        ]
+      },
+      {
+        "name": "Krak",
+        "range": 24,
+        "stats": {
+          "A": 2,
+          "S": 5,
+          "AP": -2,
+          "D": 3,
+          "BS": 3
+        },
+        "keywords": [
+          {
+            "keyword_id": "anti",
+            "parameters": {
+              "target_keyword": "Monster",
+              "threshold": 4
+            }
+          },
+          {
+            "keyword_id": "anti",
+            "parameters": {
+              "target_keyword": "Vehicle",
+              "threshold": 4
+            }
+          }
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
+    "id": "fulmination",
+    "name": "Fulmination",
+    "type": "ranged",
+    "profiles": [
+      {
+        "name": "Electropulse",
+        "range": 24,
+        "stats": {
+          "A": 2,
+          "S": 8,
+          "AP": -2,
+          "D": 3,
+          "BS": 3
+        },
+        "keywords": [
+          {
+            "keyword_id": "psychic"
+          }
+        ]
+      },
+      {
+        "name": "Electrosurge",
+        "range": 24,
+        "stats": {
+          "A": 3,
+          "S": 4,
+          "AP": -1,
+          "D": 1,
+          "BS": 3
+        },
+        "keywords": [
+          {
+            "keyword_id": "blast"
+          },
+          {
+            "keyword_id": "psychic"
+          }
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
+    "id": "armoured-impact",
+    "name": "Armoured Impact",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Armoured Impact",
+        "range": "Melee",
+        "stats": {
+          "A": 4,
+          "S": 4,
+          "AP": 0,
+          "D": 1,
+          "WS": 3
+        }
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
+    "id": "frost-blades-and-feral-claws",
+    "name": "Frost Blades and Feral Claws",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Frost Blades and Feral Claws",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 5,
+          "AP": -2,
+          "D": 2,
+          "WS": 3
+        },
+        "keywords": [
+          {
+            "keyword_id": "sustained-hits",
+            "parameters": {
+              "value": 1
+            }
+          }
+        ]
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
     }
   }
 ]

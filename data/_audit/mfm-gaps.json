@@ -8,18 +8,13 @@
         "hammer-of-avernii",
         "reclamation-force",
         "shadowmark-talon",
-        "spearpoint-task-force",
-        "vengeful-hosts"
-      ],
-      "orks": [
-        "equatorial-hordes"
+        "spearpoint-task-force"
       ]
     },
     "enhancements": {
       "adeptus-astartes": [
         "adamantine-mantle-forgefathers-seekers",
         "armour-of-antoninus-blade-of-ultramar",
-        "avenging-angel-vengeful-hosts",
         "avenging-avatar-aura-reclamation-force",
         "blackwing-shroud-shadowmark-talon",
         "champion-of-the-feast-emperors-shield",
@@ -36,12 +31,10 @@
         "malodraxian-standard-emperors-shield",
         "medusan-roar-aura-hammer-of-avernii",
         "oath-of-macragge-blade-of-ultramar",
-        "orksbane-vengeful-hosts",
         "scroll-of-proclamation-reclamation-force",
         "seals-of-reconquest-reclamation-force",
         "spearpoint-paragon-spearpoint-task-force",
         "spiritus-ferrum-hammer-of-avernii",
-        "spy-skull-data-link-ceramite-sentinels",
         "steel-font-hammer-of-avernii",
         "stormseers-wisdom-spearpoint-task-force",
         "student-of-the-codex-blade-of-ultramar",
@@ -49,59 +42,8 @@
         "veteran-of-behemoth-blade-of-ultramar",
         "war-tempered-artifice-forgefathers-seekers"
       ],
-      "aeldari": [
-        "assassins-eye-upgrade-path-of-the-outcast",
-        "stave-of-kurnous-spirit-conclave"
-      ],
-      "agents-of-the-imperium": [
-        "decoy-targets-veiled-blade-elimination-force",
-        "esoteric-explosives-veiled-blade-elimination-force",
-        "intraneural-biotech-veiled-blade-elimination-force",
-        "micromelta-rounds-veiled-blade-elimination-force"
-      ],
-      "astra-militarum": [
-        "sharp-eyes-upgrade-abhuman-auxiliaries"
-      ],
-      "black-templars": [
-        "oathbound-exemplar-companions-of-vehemence"
-      ],
-      "blood-angels": [
-        "on-the-archtraitors-bridge-wrath-of-the-doomed"
-      ],
-      "dark-angels": [
-        "deathwing-assault-wrath-of-the-rock"
-      ],
-      "emperors-children": [
-        "pledge-of-eternal-servitude-coterie-of-the-conceited"
-      ],
-      "grey-knights": [
-        "eye-of-the-augurium-hallowed-conclave"
-      ],
-      "leagues-of-votann": [
-        "farstrydr-node-hearthfyre-arsenal",
-        "high-kahl-hearthguard-covenant",
-        "shroudwerke-talismans-upgrade-farseekers"
-      ],
-      "necrons": [
-        "animus-damper-pantheon-of-woe",
-        "mark-of-the-nekrosor-cursed-legion",
-        "mortality-shroud-aura-upgrade-the-phaerons-armoury",
-        "quantum-goad-pantheon-of-woe",
-        "reletavistic-tether-pantheon-of-woe",
-        "singularity-matrix-pantheon-of-woe"
-      ],
       "orks": [
-        "dakkamek-speedwaaagh",
-        "extra-platin-ardmob",
-        "kunnin-hunta-equatorial-hordes",
-        "kustom-shokk-box-speedwaaagh",
-        "master-meknologist-speedwaaagh",
-        "slippery-git-taktikal-brigade",
-        "supa-burny-fuel-speedwaaagh",
-        "unkillable-scourge-equatorial-hordes"
-      ],
-      "tyranids": [
-        "synaptic-linchpin-invasion-fleet"
+        "extra-platin-ardmob"
       ]
     },
     "stratagems": {
@@ -197,10 +139,14 @@
         "purge-corps-skitarii-vanguard"
       ],
       "aeldari": [
+        "clanblade",
+        "dragon-knights",
         "kygharils-protectors-dire-avengers",
         "kygharils-protectors-warp-spiders",
         "kygharils-protectors-wraithblades",
-        "spiritseer-kygharil"
+        "leystalker",
+        "spiritseer-kygharil",
+        "stonesinger"
       ],
       "agents-of-the-imperium": [
         "inquisitors-hand-eversor-assassin",
@@ -441,28 +387,21 @@
         "rod-of-office",
         "sacred-banner",
         "salvationist-medikit",
-        "simulacrum-imperialis",
-        "stocks-and-fists"
+        "simulacrum-imperialis"
       ],
       "adeptus-astartes": [
-        "armoured-impact",
         "astartes-shield",
         "auspex-array",
         "banner-of-macragge",
         "blizzard-shield",
         "book-of-salvation",
         "centurion-assault-launcher",
-        "chainsword",
         "death-totem",
-        "frost-blades-and-feral-claws",
-        "fulmination",
         "grapnel-launcher",
-        "grenade-launcher",
         "haywire-mine",
         "helix-gauntlet",
         "infernum-halo-launcher",
         "infiltrator-comms-array",
-        "knives-and-fists",
         "orbital-comms-array-aura",
         "refractor-field",
         "reiver-grav-chute",
@@ -481,19 +420,17 @@
         "vexilla"
       ],
       "adeptus-mechanicus": [
-        "alphas-combat-artefact",
         "broad-spectrum-data-tether",
         "chaff-launcher",
         "command-uplink",
         "enhanced-data-tether",
-        "gun-stocks",
-        "omnispex",
-        "talons"
+        "omnispex"
       ],
       "aeldari": [
         "aspect-shrine-token",
         "channeller-stones",
         "cluster-caltrops",
+        "drakolithe-once-per-battle-per-token",
         "faolchu",
         "flip-belt",
         "forceshield",
@@ -503,47 +440,38 @@
         "scattershield",
         "serpent-shield",
         "shadow-field",
-        "shimmershield",
-        "weapon-strike"
+        "shimmershield"
       ],
       "agents-of-the-imperium": [
-        "agents-implement",
         "ancients-banner",
         "arbites-medi-kit",
         "astartes-shield",
         "auspex-array",
         "blessed-wardings",
-        "combat-shotgun",
         "endurant-shield",
         "glovodan-psyber-eagle",
-        "grenade-launcher",
-        "gun-stocks",
         "healing-serum",
         "infernum-halo-launcher",
         "narthecium",
-        "nuncio-aquila",
+        "nuncio-acquila",
         "psychic-gifts",
         "salvationist-medikit",
-        "shotpistol",
         "simulacrum-imperialis",
         "soulguilt-scanner",
         "tome-skull"
       ],
       "astra-militarum": [
-        "alchemyk-counteragents",
         "aquiline-prow",
         "brute-shield",
         "command-rod",
         "death-korps-medi-pack",
         "demolition-gear",
-        "gun-stocks",
         "master-vox",
         "medi-pack",
         "melta-mine",
         "ratling-battlemutt",
         "regimental-standard",
         "remote-mine",
-        "servo-scribes",
         "slabshield",
         "vox-caster",
         "vox-relay-beacon"
@@ -556,15 +484,12 @@
         "shining-aegis"
       ],
       "chaos-space-marines": [
-        "blades-and-cudgels",
         "chaos-familiar",
         "chaos-icon",
-        "fists-and-knives",
         "voice-eater"
       ],
       "death-guard": [
-        "icon-of-despair-aura",
-        "numerological-artefacts"
+        "icon-of-despair-aura"
       ],
       "drukhari": [
         "cluster-caltrops",
@@ -583,43 +508,29 @@
         "alchemicus-familiar",
         "cult-icon",
         "flare-launcher",
-        "leaders-weapon-symbiote",
-        "missile-launcher",
         "spotter",
-        "stolen-blade",
-        "stolen-firearms",
         "survey-augur"
       ],
       "grey-knights": [
         "ancients-banner",
         "apothecarys-narthecium",
-        "ceramite-fists",
-        "dreadnought-fist",
         "thunderhawk-cluster-bombs"
       ],
       "leagues-of-votann": [
-        "armoured-fists",
         "multiwave-comms-array",
-        "pan-spectral-scanner",
-        "powered-strikes",
+        "panspectral-scanner",
         "preymark-crest",
         "rampart-crest",
         "rollbar-searchlight",
         "smoke-launcher",
         "teleport-crest",
-        "theyns-armaments",
         "weavefield-crest"
       ],
       "necrons": [
         "accelerator-mandible",
-        "antimatter-meteor",
-        "blade-tail-and-whip-coils",
-        "combat-attachments",
-        "cosmic-fire",
         "dispersion-shield",
         "fabricator-claw-array-aura",
         "gloom-prism-aura",
-        "hyperphase-blades",
         "nanoscarab-amulet",
         "nanoscarab-projector",
         "nebuloscope",
@@ -627,29 +538,19 @@
         "plasmacyte",
         "resurrection-orb",
         "shadowloom",
-        "shieldvanes",
-        "times-arrow",
-        "weapons-of-the-final-triarch"
+        "shieldvanes"
       ],
       "orks": [
         "ammo-runt",
         "ard-case",
-        "blasta",
         "blastajet-force-field",
         "bomb-squig",
         "distraction-grot",
         "grot-assistant",
         "grot-oiler",
         "grot-orderly",
-        "kombi-rokkit",
-        "kombi-shoota",
-        "kustom-choppa",
         "kustom-force-field",
-        "lobbin-bombs",
-        "psychic-powers",
-        "pulsa-rokkit",
-        "scavenged-shivs",
-        "waaagh-staff"
+        "pulsa-rokkit"
       ],
       "tau-empire": [
         "advanced-guardian-drone",
@@ -658,7 +559,6 @@
         "grav-inhibitor-drone",
         "guardian-drone",
         "gun-drone",
-        "gun-stocks",
         "homing-beacon",
         "hover-drone",
         "marker-drone",
@@ -676,18 +576,14 @@
       "thousand-sons": [
         "brayhorn",
         "herd-banner",
-        "icon-of-flame",
-        "stocks-and-fists"
-      ],
-      "tyranids": [
-        "chitinous-talons"
+        "icon-of-flame"
       ],
       "world-eaters": [
         "icon-of-khorne"
       ]
     }
   },
-  "data_version": 909,
+  "data_version": 925,
   "modes": {
     "enhancements": {
       "orks": {
@@ -857,79 +753,6 @@
         "askars-wolfpack-wolf-guard-terminators": "combat-patrol",
         "askars-wolfpack-wulfen": "combat-patrol",
         "fyrri-askar": "combat-patrol"
-      }
-    },
-    "weapons": {
-      "adepta-sororitas": {
-        "stocks-and-fists": "combat-patrol"
-      },
-      "adeptus-astartes": {
-        "armoured-impact": "combat-patrol",
-        "chainsword": "combat-patrol",
-        "frost-blades-and-feral-claws": "combat-patrol",
-        "fulmination": "combat-patrol",
-        "grenade-launcher": "combat-patrol",
-        "knives-and-fists": "combat-patrol"
-      },
-      "adeptus-mechanicus": {
-        "alphas-combat-artefact": "combat-patrol",
-        "gun-stocks": "combat-patrol",
-        "talons": "combat-patrol"
-      },
-      "aeldari": {
-        "weapon-strike": "combat-patrol"
-      },
-      "agents-of-the-imperium": {
-        "agents-implement": "combat-patrol",
-        "combat-shotgun": "combat-patrol",
-        "grenade-launcher": "combat-patrol",
-        "gun-stocks": "combat-patrol",
-        "shotpistol": "combat-patrol"
-      },
-      "astra-militarum": {
-        "gun-stocks": "combat-patrol"
-      },
-      "chaos-space-marines": {
-        "blades-and-cudgels": "combat-patrol",
-        "fists-and-knives": "combat-patrol"
-      },
-      "death-guard": {
-        "numerological-artefacts": "combat-patrol"
-      },
-      "genestealer-cults": {
-        "leaders-weapon-symbiote": "combat-patrol",
-        "missile-launcher": "combat-patrol",
-        "stolen-blade": "combat-patrol",
-        "stolen-firearms": "combat-patrol"
-      },
-      "grey-knights": {
-        "ceramite-fists": "combat-patrol",
-        "dreadnought-fist": "combat-patrol"
-      },
-      "leagues-of-votann": {
-        "armoured-fists": "combat-patrol",
-        "powered-strikes": "combat-patrol",
-        "theyns-armaments": "combat-patrol"
-      },
-      "necrons": {
-        "combat-attachments": "combat-patrol",
-        "hyperphase-blades": "combat-patrol"
-      },
-      "orks": {
-        "blasta": "combat-patrol",
-        "lobbin-bombs": "combat-patrol",
-        "psychic-powers": "combat-patrol",
-        "scavenged-shivs": "combat-patrol",
-        "waaagh-staff": "combat-patrol"
-      },
-      "tau-empire": {
-        "gun-stocks": "combat-patrol"
-      },
-      "thousand-sons": {
-        "stocks-and-fists": "combat-patrol"
-      },
-      "tyranids": {
-        "chitinous-talons": "combat-patrol"
       }
     }
   }

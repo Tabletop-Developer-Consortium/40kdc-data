@@ -78,6 +78,7 @@
         "accelerator-mandible"
       ],
       [
+        "nanoscarab-projector",
         "atomiser-beam"
       ],
       [
@@ -138,6 +139,24 @@
     ],
     "model_constraint": {
       "any_number": true
+    }
+  },
+  {
+    "id": "tesseract-vault-wgo-mfm-1",
+    "unit_id": "tesseract-vault",
+    "faction_id": "necrons",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_free": true,
+    "replacement": [
+      "cosmic-fire",
+      "times-arrow",
+      "antimatter-meteor"
+    ],
+    "model_constraint": {
+      "max_count": 1
     }
   },
   {
@@ -505,6 +524,38 @@
     "replacement": [
       "particle-beamer-canoptek-spyders",
       "particle-beamer-canoptek-spyders"
+    ],
+    "model_constraint": {
+      "any_number": true
+    }
+  },
+  {
+    "id": "canoptek-spyders-wgo-mfm-2",
+    "unit_id": "canoptek-spyders",
+    "faction_id": "necrons",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_free": true,
+    "replacement": [
+      "gloom-prism-aura"
+    ],
+    "model_constraint": {
+      "any_number": true
+    }
+  },
+  {
+    "id": "canoptek-spyders-wgo-mfm-3",
+    "unit_id": "canoptek-spyders",
+    "faction_id": "necrons",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_free": true,
+    "replacement": [
+      "fabricator-claw-array-aura"
     ],
     "model_constraint": {
       "any_number": true

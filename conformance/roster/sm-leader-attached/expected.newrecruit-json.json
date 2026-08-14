@@ -59,6 +59,26 @@
             ]
           },
           {
+            "id": "cfg-force-disposition",
+            "name": "Force Disposition",
+            "type": "upgrade",
+            "number": 1,
+            "categories": [
+              {
+                "name": "Configuration",
+                "primary": true
+              }
+            ],
+            "selections": [
+              {
+                "id": "cfg-force-disposition-val",
+                "name": "Take And Hold",
+                "type": "upgrade",
+                "number": 1
+              }
+            ]
+          },
+          {
             "id": "u-0",
             "name": "High Marshal Helbrecht",
             "type": "model",
@@ -82,6 +102,13 @@
                 "name": "Warlord",
                 "type": "upgrade",
                 "number": 1
+              },
+              {
+                "id": "u0-attachment",
+                "name": "Assault Intercessor Squad",
+                "type": "upgrade",
+                "number": 1,
+                "group": "40kdc Attachment:leader:confirmed"
               },
               {
                 "id": "w-0",
@@ -129,16 +156,16 @@
             ],
             "selections": [
               {
-                "id": "u1-model",
-                "name": "Assault Intercessor Squad",
+                "id": "u1-model-0",
+                "name": "Assault Intercessor Sergeant",
                 "type": "model",
-                "number": 5,
+                "number": 1,
                 "selections": [
                   {
                     "id": "w-0",
-                    "name": "Heavy bolt pistol",
+                    "name": "Astartes chainsword",
                     "type": "upgrade",
-                    "number": 5,
+                    "number": 1,
                     "categories": [
                       {
                         "name": "Ranged Weapon",
@@ -148,9 +175,41 @@
                   },
                   {
                     "id": "w-1",
+                    "name": "Heavy bolt pistol",
+                    "type": "upgrade",
+                    "number": 1,
+                    "categories": [
+                      {
+                        "name": "Ranged Weapon",
+                        "primary": false
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "u1-model-1",
+                "name": "Assault Intercessor",
+                "type": "model",
+                "number": 4,
+                "selections": [
+                  {
+                    "id": "w-0",
                     "name": "Astartes chainsword",
                     "type": "upgrade",
-                    "number": 5,
+                    "number": 4,
+                    "categories": [
+                      {
+                        "name": "Ranged Weapon",
+                        "primary": false
+                      }
+                    ]
+                  },
+                  {
+                    "id": "w-1",
+                    "name": "Heavy bolt pistol",
+                    "type": "upgrade",
+                    "number": 4,
                     "categories": [
                       {
                         "name": "Ranged Weapon",

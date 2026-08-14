@@ -46,7 +46,35 @@
       "is_warlord": false,
       "enhancement": null,
       "enhancement_points": null,
-      "wargear": [],
+      "wargear": [
+        {
+          "ref": {
+            "id": "armoured-hull",
+            "raw_name": "Armoured hull",
+            "resolved": true,
+            "candidates": []
+          },
+          "count": 1
+        },
+        {
+          "ref": {
+            "id": "lancer-laser-destroyer",
+            "raw_name": "Lancer laser destroyer",
+            "resolved": true,
+            "candidates": []
+          },
+          "count": 1
+        },
+        {
+          "ref": {
+            "id": "storm-bolter",
+            "raw_name": "Storm bolter",
+            "resolved": true,
+            "candidates": []
+          },
+          "count": 2
+        }
+      ],
       "leader_attachment": null
     },
     {
@@ -61,7 +89,44 @@
       "is_warlord": false,
       "enhancement": null,
       "enhancement_points": null,
-      "wargear": [],
+      "wargear": [
+        {
+          "ref": {
+            "id": "armoured-feet",
+            "raw_name": "Armoured feet",
+            "resolved": true,
+            "candidates": []
+          },
+          "count": 1
+        },
+        {
+          "ref": {
+            "id": "ballistus-lascannon",
+            "raw_name": "Ballistus lascannon",
+            "resolved": true,
+            "candidates": []
+          },
+          "count": 1
+        },
+        {
+          "ref": {
+            "id": "ballistus-missile-launcher",
+            "raw_name": "Ballistus missile launcher",
+            "resolved": true,
+            "candidates": []
+          },
+          "count": 1
+        },
+        {
+          "ref": {
+            "id": "twin-storm-bolter-ballistus-dreadnought",
+            "raw_name": "Twin storm bolter",
+            "resolved": true,
+            "candidates": []
+          },
+          "count": 1
+        }
+      ],
       "leader_attachment": null
     }
   ],
@@ -72,7 +137,7 @@
   "diagnostics": {
     "resolved_units": 2,
     "unresolved_units": 0,
-    "resolved_weapons": 0,
+    "resolved_weapons": 7,
     "unresolved_weapons": 0,
     "warnings": []
   }

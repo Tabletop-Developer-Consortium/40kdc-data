@@ -72,7 +72,7 @@
       ],
       "transforms": [
         {
-          "symbol": "tools/src/mfm/project-loadout.ts#mapWeaponKeyword",
+          "symbol": "tools/src/mfm/gear-projection.ts#mapWeaponKeyword",
           "operation": "Parse recognized localized ability names into existing canonical keyword reference ids and reference-site parameters."
         }
       ],
@@ -85,7 +85,7 @@
         "An unrecognized ability name produces a warning and no keyword reference."
       ],
       "consumers": [
-        "tools/src/mfm/project-loadout.ts#mintWeapon"
+        "tools/src/mfm/gear-projection.ts#mintWeapon"
       ],
       "reason": "The static catalog owns canonical ids, while the supported profile-to-ability graph determines which existing ids are referenced by projected weapon profiles."
     },

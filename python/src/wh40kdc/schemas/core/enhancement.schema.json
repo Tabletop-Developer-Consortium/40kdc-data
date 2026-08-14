@@ -26,11 +26,30 @@
       "description": "Number of units this enhancement may be applied to. Only meaningful when `upgrade_tag` is true; defaults to 1."
     },
     "keyword_restrictions": { "$ref": "../defs/common.schema.json#/$defs/keyword-list" },
+    "keyword_restriction_groups": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "array",
+        "minItems": 1,
+        "uniqueItems": true,
+        "items": { "$ref": "../defs/common.schema.json#/$defs/keyword" }
+      },
+      "description": "Alternative bearer eligibility groups. Every keyword in one group is required (AND), while satisfying any group is sufficient (OR). When present, this supersedes the legacy flat `keyword_restrictions` field."
+    },
     "exclusion_keywords": {
       "oneOf": [
         { "$ref": "../defs/common.schema.json#/$defs/keyword-list" },
         { "type": "null" }
       ]
+    },
+    "attachment_bodyguard_ids": {
+      "type": "array",
+      "items": { "$ref": "../defs/common.schema.json#/$defs/entity-id" },
+      "minItems": 1,
+      "uniqueItems": true,
+      "description": "Additional bodyguard units the bearer may attach to because it carries this enhancement."
     },
     "ability_id": {
       "oneOf": [

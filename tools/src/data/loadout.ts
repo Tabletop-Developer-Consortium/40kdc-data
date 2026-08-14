@@ -524,9 +524,9 @@ function multisetKey(m: Map<string, number>): string {
 
 /**
  * One legal single-model loadout for a composition row: the `weapons` a model can
- * carry, plus the global option indices whose application produced it (`usedOptions`,
- * each at most once) so the assignment search can charge per-option {@link optionCap}s.
- * `key` is the {@link multisetKey} of `weapons`, for deterministic ordering/grouping.
+ * carry, plus the global option indices whose application produced it (`usedOptions`;
+ * repeated indices represent repeated no-replacement additions) so the assignment
+ * search can charge per-option {@link optionCap}s.
  */
 interface RowCandidate {
   weapons: Map<string, number>;
@@ -571,10 +571,14 @@ function enumerateRowCandidates(
     const cur = queue[head];
     result.push({ weapons: cur.weapons, usedOptions: cur.used, key: multisetKey(cur.weapons) });
     for (const oi of applicable) {
-      if (cur.used.includes(oi)) continue;
-      const replaces = options[oi].replaces ?? [];
+      const option = options[oi];
+      const replaces = option.replaces ?? [];
+      const uses = cur.used.filter((used) => used === oi).length;
+      const perModelLimit =
+        replaces.length === 0 ? option.model_constraint?.max_count ?? 1 : 1;
+      if (uses >= perModelLimit) continue;
       if (!replaces.every((id) => (cur.weapons.get(id) ?? 0) >= 1)) continue;
-      for (const bundle of optionBundles(options[oi])) {
+      for (const bundle of optionBundles(option)) {
         if (bundle.length === 0) continue;
         const w = new Map(cur.weapons);
         for (const id of replaces) w.set(id, (w.get(id) ?? 0) - 1);
@@ -599,27 +603,28 @@ interface SolverRow {
 }
 
 /**
- * A complete, deterministic exact-cover search: distribute each row's models across its
- * candidate loadouts so the chosen weapons sum to `bag` exactly, never exceeding any
- * option's `optionCaps` usage. Rows are taken in order; within a row, candidates in their
- * (pre-sorted) order, trying the largest feasible count first; the residual bag and
- * per-option usage prune branches that can't complete. Returns the first solution found
- * (so identical inputs yield identical groupings everywhere) as flat per-candidate picks,
- * or `null` when no exact partition exists. Unlike a greedy peeler, it finds a valid
- * partition whenever one exists.
+ * A complete, deterministic bounded-cover search: distribute each row's models
+ * across its candidate loadouts so every item count lands between `lower` and
+ * `upper`, never exceeding an option's usage cap. Exact grouping passes the
+ * same bag for both bounds; source-loadout completion gives omitted defaults a
+ * wider upper bound. Rows are taken in order; within a row, candidates in their
+ * pre-sorted order, trying the largest feasible count first. Returns the first
+ * solution found, or `null` when no bounded partition exists.
  */
 function solveAssignment(
   rows: readonly SolverRow[],
-  bag: Map<string, number>,
+  lower: Map<string, number>,
+  upper: Map<string, number>,
   optionCaps: readonly number[],
 ): { ri: number; name: string | null; weapons: Map<string, number>; count: number }[] | null {
-  const residual = new Map(bag);
+  const remainingLower = new Map(lower);
+  const remainingUpper = new Map(upper);
   const usage = optionCaps.map(() => 0);
   const picks: { ri: number; ci: number; count: number }[] = [];
 
   const assignRow = (ri: number): boolean => {
     if (ri === rows.length) {
-      for (const c of residual.values()) if (c !== 0) return false;
+      for (const c of remainingLower.values()) if (c > 0) return false;
       return true;
     }
     return distribute(ri, 0, rows[ri].count);
@@ -631,18 +636,33 @@ function solveAssignment(
     const cand = row.candidates[ci];
     let hi = left;
     for (const [id, per] of cand.weapons) {
-      if (per > 0) hi = Math.min(hi, Math.floor((residual.get(id) ?? 0) / per));
+      if (per > 0) hi = Math.min(hi, Math.floor((remainingUpper.get(id) ?? 0) / per));
     }
-    for (const oi of cand.usedOptions) hi = Math.min(hi, optionCaps[oi] - usage[oi]);
+    const optionUses = new Map<number, number>();
+    for (const oi of cand.usedOptions) {
+      optionUses.set(oi, (optionUses.get(oi) ?? 0) + 1);
+    }
+    for (const [oi, perModel] of optionUses) {
+      hi = Math.min(
+        hi,
+        Math.floor((optionCaps[oi] - usage[oi]) / perModel),
+      );
+    }
     hi = Math.max(0, hi);
     for (let take = hi; take >= 0; take--) {
-      for (const [id, per] of cand.weapons) residual.set(id, (residual.get(id) ?? 0) - per * take);
+      for (const [id, per] of cand.weapons) {
+        remainingLower.set(id, (remainingLower.get(id) ?? 0) - per * take);
+        remainingUpper.set(id, (remainingUpper.get(id) ?? 0) - per * take);
+      }
       for (const oi of cand.usedOptions) usage[oi] += take;
       if (take > 0) picks.push({ ri, ci, count: take });
       if (distribute(ri, ci + 1, left - take)) return true;
       if (take > 0) picks.pop();
       for (const oi of cand.usedOptions) usage[oi] -= take;
-      for (const [id, per] of cand.weapons) residual.set(id, (residual.get(id) ?? 0) + per * take);
+      for (const [id, per] of cand.weapons) {
+        remainingLower.set(id, (remainingLower.get(id) ?? 0) + per * take);
+        remainingUpper.set(id, (remainingUpper.get(id) ?? 0) + per * take);
+      }
     }
     return false;
   };
@@ -654,6 +674,72 @@ function solveAssignment(
     weapons: rows[p.ri].candidates[p.ci].weapons,
     count: p.count,
   }));
+}
+
+function groupsFromSolution(
+  solution: readonly {
+    ri: number;
+    name: string | null;
+    weapons: Map<string, number>;
+    count: number;
+  }[],
+): LoadoutGroup[] {
+  const byGroup = new Map<
+    string,
+    { ri: number; name: string | null; weapons: Map<string, number>; count: number; key: string }
+  >();
+  for (const item of solution) {
+    const key = multisetKey(item.weapons);
+    const groupKey = `${item.name ?? ""}##${key}`;
+    const current = byGroup.get(groupKey);
+    if (current) current.count += item.count;
+    else {
+      byGroup.set(groupKey, {
+        ri: item.ri,
+        name: item.name,
+        weapons: item.weapons,
+        count: item.count,
+        key,
+      });
+    }
+  }
+  return [...byGroup.values()]
+    .filter((group) => group.count > 0)
+    .sort((a, b) => a.ri - b.ri || b.count - a.count || a.key.localeCompare(b.key))
+    .map((group) => ({
+      model_name: group.name,
+      count: group.count,
+      weapons: sortedGroupWeapons(group.weapons),
+    }));
+}
+
+function optionsWithPrintedUnitAbilities(
+  unit: Unit,
+  options: readonly WargearOption[],
+  counts: ReadonlyMap<string, number>,
+): WargearOption[] {
+  const reachable = new Set<string>();
+  for (const option of options) {
+    for (const id of option.replaces ?? []) reachable.add(id);
+    for (const id of option.replacement ?? []) reachable.add(id);
+    for (const branch of option.replacement_choice ?? []) {
+      for (const id of branch) reachable.add(id);
+    }
+  }
+  const additions = (unit.ability_ids ?? [])
+    .filter((id) => (counts.get(id) ?? 0) > 0 && !reachable.has(id))
+    .map(
+      (id): WargearOption => ({
+        id: `${unit.id}-printed-ability-${id}`,
+        unit_id: unit.id,
+        faction_id: unit.faction_id,
+        game_version: unit.game_version,
+        is_free: true,
+        replacement: [id],
+        model_constraint: { max_count: counts.get(id)! },
+      }),
+    );
+  return additions.length === 0 ? [...options] : [...options, ...additions];
 }
 
 /**
@@ -682,54 +768,190 @@ export function groupLoadout(
 
   const bag = new Map<string, number>();
   for (const [id, c] of counts) if (c > 0) bag.set(id, c);
+  const effectiveOptions = optionsWithPrintedUnitAbilities(unit, options, bag);
 
   for (const rowN of candidateRowCounts(models, n, bag)) {
-    const fixedModels = models.map((model, i) => ({ ...model, min: rowN[i], max: rowN[i] }));
-    const optionCaps = options.map((option) => optionCap(option, n, fixedModels));
+    const fixedModels = models.map((model, i) => ({
+      ...model,
+      min: rowN[i],
+      max: rowN[i],
+    }));
+    const optionCaps = effectiveOptions.map((option) =>
+      optionCap(option, n, fixedModels),
+    );
     const rows: SolverRow[] = [];
     for (let i = 0; i < models.length; i++) {
       const count = rowN[i];
       if (count <= 0) continue;
       const base = toMultiset(models[i].default_weapon_ids ?? []);
-      const candidates = enumerateRowCandidates(base, models[i].name ?? null, options).sort(
-        (a, b) =>
-          a.key.localeCompare(b.key) ||
-          a.usedOptions.length - b.usedOptions.length ||
-          a.usedOptions.join(",").localeCompare(b.usedOptions.join(",")),
-      );
+      const candidates = enumerateRowCandidates(
+        base,
+        models[i].name ?? null,
+        effectiveOptions,
+      )
+        // A candidate that cannot be selected even once can contribute only a
+        // zero-count branch. Removing it preserves exact-cover solutions and
+        // prevents addon-heavy units from recursing through dead states.
+        .filter(
+          (candidate) =>
+            [...candidate.weapons].every(
+              ([id, per]) => per <= 0 || (bag.get(id) ?? 0) >= per,
+            ) &&
+            candidate.usedOptions.every(
+              (optionIndex) => optionCaps[optionIndex] >= 1,
+            ),
+        )
+        .sort(
+          (a, b) =>
+            a.key.localeCompare(b.key) ||
+            a.usedOptions.length - b.usedOptions.length ||
+            a.usedOptions.join(",").localeCompare(b.usedOptions.join(",")),
+        );
       rows.push({ name: models[i].name ?? null, count, candidates });
     }
 
-    const solution = solveAssignment(rows, bag, optionCaps);
+    const solution = solveAssignment(rows, bag, bag, optionCaps);
     if (!solution) continue;
-
-    // Merge identical (model-type, loadout) picks, then order deterministically: by row
-    // (leaders lead), then larger groups before smaller (bulk before variants), then by
-    // canonical loadout key. Stable across implementations and independent of the order
-    // the search happened to find picks in.
-    const byGroup = new Map<
-      string,
-      { ri: number; name: string | null; weapons: Map<string, number>; count: number; key: string }
-    >();
-    for (const s of solution) {
-      const key = multisetKey(s.weapons);
-      const gkey = `${s.name ?? ""}##${key}`;
-      const cur = byGroup.get(gkey);
-      if (cur) cur.count += s.count;
-      else byGroup.set(gkey, { ri: s.ri, name: s.name, weapons: s.weapons, count: s.count, key });
-    }
-    const live = [...byGroup.values()]
-      .filter((group) => group.count > 0)
-      .sort((a, b) => a.ri - b.ri || b.count - a.count || a.key.localeCompare(b.key));
-    if (live.length === 0) continue;
-    return live.map((group) => ({
-      model_name: group.name,
-      count: group.count,
-      weapons: sortedGroupWeapons(group.weapons),
-    }));
+    const groups = groupsFromSolution(solution);
+    if (groups.length > 0) return groups;
   }
   return null;
+}
 
+/** A source loadout completed with only omitted per-model defaults. */
+export interface CompletedLoadout {
+  counts: Map<string, number>;
+  groups: LoadoutGroup[] | null;
+}
+
+/**
+ * Complete a partial source loadout without inventing optional selections.
+ *
+ * Roster text commonly omits weapons every model carries implicitly. For each
+ * valid composition allocation, this searches the same legal per-model
+ * candidates as {@link groupLoadout}, but permits each item up to the greater
+ * of its explicit count and its aggregate default count. Items absent from both
+ * the source and the defaults remain forbidden. The result therefore fills
+ * only defaults displaced as required by explicitly printed swaps.
+ */
+export function completeLoadout(
+  unit: Unit,
+  modelCount: number,
+  options: readonly WargearOption[],
+  models: readonly LoadoutModel[] | undefined,
+  explicitCounts: Map<string, number>,
+): CompletedLoadout | null {
+  const n = Math.max(0, Math.floor(modelCount) || 0);
+  if (n === 0 || !hasRecordedDefaults(models)) return null;
+
+  const strictLower = new Map<string, number>();
+  for (const [id, count] of explicitCounts) {
+    if (count > 0) strictLower.set(id, count);
+  }
+  const lowerVariants = [strictLower];
+
+  // Some source exporters double-count a secondary item shared by several
+  // branches of one choice (the primary selections are still exact). A weapon
+  // repeated in at least two multi-item branches is mechanically determined by
+  // those primary selections, so a second pass may derive its count rather than
+  // requiring the duplicated aggregate. Defaults are never relaxed.
+  const defaultIds = new Set(
+    models.flatMap((model) => model.default_weapon_ids ?? []),
+  );
+  const repeatedCoItems = new Set<string>();
+  for (const option of options) {
+    const occurrences = new Map<string, number>();
+    for (const branch of option.replacement_choice ?? []) {
+      if (branch.length < 2) continue;
+      for (const id of new Set(branch)) {
+        occurrences.set(id, (occurrences.get(id) ?? 0) + 1);
+      }
+    }
+    for (const [id, count] of occurrences) {
+      if (count >= 2 && !defaultIds.has(id)) repeatedCoItems.add(id);
+    }
+  }
+  const relaxedLower = new Map(strictLower);
+  for (const id of repeatedCoItems) relaxedLower.delete(id);
+  if (relaxedLower.size !== strictLower.size) lowerVariants.push(relaxedLower);
+
+  const effectiveOptions = optionsWithPrintedUnitAbilities(
+    unit,
+    options,
+    explicitCounts,
+  );
+
+  for (const lower of lowerVariants) {
+    for (const rowCounts of candidateRowCounts(models, n, lower)) {
+      const fixedModels = models.map((model, index) => ({
+        ...model,
+        min: rowCounts[index],
+        max: rowCounts[index],
+      }));
+      const defaultCounts = new Map<string, number>();
+      for (let index = 0; index < fixedModels.length; index++) {
+        const count = rowCounts[index];
+        if (count <= 0) continue;
+        for (const id of fixedModels[index].default_weapon_ids ?? []) {
+          defaultCounts.set(id, (defaultCounts.get(id) ?? 0) + count);
+        }
+      }
+      const upper = new Map(defaultCounts);
+      for (const [id, explicit] of explicitCounts) {
+        upper.set(id, Math.max(explicit, upper.get(id) ?? 0));
+      }
+
+      const optionCaps = effectiveOptions.map((option) =>
+        optionCap(option, n, fixedModels),
+      );
+      const rows: SolverRow[] = [];
+      for (let index = 0; index < fixedModels.length; index++) {
+        const count = rowCounts[index];
+        if (count <= 0) continue;
+        const base = toMultiset(fixedModels[index].default_weapon_ids ?? []);
+        const candidates = enumerateRowCandidates(
+          base,
+          fixedModels[index].name ?? null,
+          effectiveOptions,
+        )
+          .filter(
+            (candidate) =>
+              [...candidate.weapons].every(
+                ([id, per]) => per <= 0 || (upper.get(id) ?? 0) >= per,
+              ) &&
+              candidate.usedOptions.every(
+                (optionIndex) => optionCaps[optionIndex] >= 1,
+              ),
+          )
+          .sort(
+            (a, b) =>
+              a.usedOptions.length - b.usedOptions.length ||
+              a.key.localeCompare(b.key) ||
+              a.usedOptions.join(",").localeCompare(b.usedOptions.join(",")),
+          );
+        rows.push({
+          name: fixedModels[index].name ?? null,
+          count,
+          candidates,
+        });
+      }
+
+      const solution = solveAssignment(rows, lower, upper, optionCaps);
+      if (!solution) continue;
+      const groups = groupsFromSolution(solution);
+      const counts = new Map<string, number>();
+      for (const group of groups) {
+        for (const weapon of group.weapons) {
+          counts.set(
+            weapon.id,
+            (counts.get(weapon.id) ?? 0) + weapon.count * group.count,
+          );
+        }
+      }
+      return { counts, groups: n > 1 ? groups : null };
+    }
+  }
+  return null;
 }
 
 /** Report every weapon/wargear count that falls outside its valid range. */

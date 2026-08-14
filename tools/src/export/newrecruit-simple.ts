@@ -22,7 +22,13 @@
  * @packageDocumentation
  */
 import type { Roster, RosterUnit } from "../import/types.js";
-import { displayedUnitPoints, groupWeaponsText, titleCaseId, totalArmyPoints } from "./helpers.js";
+import {
+  attachmentToken,
+  displayedUnitPoints,
+  groupWeaponsText,
+  titleCaseId,
+  totalArmyPoints,
+} from "./helpers.js";
 import type { RosterSerializer } from "./serializer.js";
 
 function battleSizeLabel(roster: Roster): string | null {
@@ -39,11 +45,23 @@ function battleSizeLabel(roster: Roster): string | null {
  * counts by model_count so the per-model render is clean. */
 function wargearText(u: RosterUnit, perModelDivisor: number): string {
   const parts: string[] = [];
+  const attachment = attachmentToken(u);
+  if (attachment) parts.push(attachment);
   if (u.enhancement) {
-    const ptsTag = u.enhancement_points === null ? "" : ` [${u.enhancement_points} pts]`;
-    parts.push(`${u.enhancement.raw_name}${ptsTag}`);
+    parts.push(
+      u.enhancement_points === null
+        ? `Enhancement: ${u.enhancement.raw_name}`
+        : `${u.enhancement.raw_name} [${u.enhancement_points} pts]`,
+    );
   }
   if (u.is_warlord) parts.push("Warlord");
+  for (const keyword of u.keyword_overrides ?? []) {
+    parts.push(
+      keyword === "Character"
+        ? "Detachment Character"
+        : `40kdc Keyword: ${keyword}`,
+    );
+  }
   for (const w of u.wargear) {
     const c = perModelDivisor > 0 ? w.count / perModelDivisor : w.count;
     parts.push(c > 1 ? `${c}x ${w.ref.raw_name}` : w.ref.raw_name);
@@ -54,11 +72,23 @@ function wargearText(u: RosterUnit, perModelDivisor: number): string {
 /** Unit-level tokens that lead the first wargear line: the enhancement then `Warlord`. */
 function leadTokens(u: RosterUnit): string[] {
   const parts: string[] = [];
+  const attachment = attachmentToken(u);
+  if (attachment) parts.push(attachment);
   if (u.enhancement) {
-    const ptsTag = u.enhancement_points === null ? "" : ` [${u.enhancement_points} pts]`;
-    parts.push(`${u.enhancement.raw_name}${ptsTag}`);
+    parts.push(
+      u.enhancement_points === null
+        ? `Enhancement: ${u.enhancement.raw_name}`
+        : `${u.enhancement.raw_name} [${u.enhancement_points} pts]`,
+    );
   }
   if (u.is_warlord) parts.push("Warlord");
+  for (const keyword of u.keyword_overrides ?? []) {
+    parts.push(
+      keyword === "Character"
+        ? "Detachment Character"
+        : `40kdc Keyword: ${keyword}`,
+    );
+  }
   return parts;
 }
 
@@ -66,11 +96,11 @@ function unitText(u: RosterUnit): string[] {
   const pts = displayedUnitPoints(u);
   const ptsText = pts === null ? "" : `${pts} pts`;
 
-  if (u.model_count <= 1) {
+  if (u.model_count <= 1 && (!u.loadout_groups || u.loadout_groups.length === 0)) {
     return [`${u.ref.raw_name} [${ptsText}]: ${wargearText(u, 1)}`];
   }
-  // Multi-model with an exact per-model breakdown: one bullet per model-type group,
-  // each named, with the enhancement/Warlord tokens leading the first group.
+  // Preserve exact per-model groups for both single- and multi-model units,
+  // with enhancement/Warlord tokens leading the first group.
   if (u.loadout_groups && u.loadout_groups.length > 0) {
     const lead = leadTokens(u);
     const lines = [`${u.ref.raw_name} [${ptsText}]:`];
@@ -81,12 +111,14 @@ function unitText(u: RosterUnit): string[] {
     });
     return lines;
   }
-  // No exact breakdown: homogeneous units divide cleanly; otherwise a single bullet
-  // with the full counts (the legacy fallback, unit-named).
-  const divisor = u.wargear.every((w) => w.count % u.model_count === 0) ? u.model_count : 1;
+  // No exact breakdown: homogeneous units divide cleanly. Heterogeneous
+  // aggregates use an explicit `Unit total:` marker so re-import preserves the
+  // model count without multiplying already-squad-wide weapon counts.
+  const divisible = u.wargear.every((w) => w.count % u.model_count === 0);
+  const loadout = wargearText(u, divisible ? u.model_count : 1);
   return [
     `${u.ref.raw_name} [${ptsText}]:`,
-    `• ${u.model_count}x ${u.ref.raw_name}: ${wargearText(u, divisor)}`,
+    `• ${u.model_count}x ${u.ref.raw_name}: ${divisible ? loadout : `Unit total: ${loadout}`}`,
   ];
 }
 
@@ -95,7 +127,7 @@ export const newRecruitSimpleSerializer: RosterSerializer = {
 
   serialize(roster: Roster): string {
     const faction = titleCaseId(roster.faction_id) ?? "Unknown";
-    const detachments = roster.detachments.map((d) => titleCaseId(d.ref.id) ?? d.ref.raw_name);
+    const detachments = roster.detachments.map((d) => d.ref.raw_name);
     const battle = battleSizeLabel(roster);
     const total = totalArmyPoints(roster);
 
@@ -108,8 +140,13 @@ export const newRecruitSimpleSerializer: RosterSerializer = {
     lines.push("");
     lines.push(`# ++ Army Roster ++ [${total} pts]`);
     lines.push("## Configuration");
+    lines.push(`List Name: ${roster.name}`);
+    lines.push(`Faction: ${faction}`);
     if (battle) lines.push(`Battle Size: ${battle}`);
     for (const detachment of detachments) lines.push(`Detachment: ${detachment}`);
+    if (roster.force_disposition !== null) {
+      lines.push(`Force Disposition: ${titleCaseId(roster.force_disposition)}`);
+    }
     lines.push("");
 
     // The Roster doesn't tag allied vs. battleline per unit; emit one section.

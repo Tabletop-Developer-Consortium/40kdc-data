@@ -32,6 +32,11 @@
           "quantity": 1
         },
         {
+          "item": "Force Disposition§Purge The Foe",
+          "name": "Purge The Foe",
+          "quantity": 1
+        },
+        {
           "item": "Battle Size§Strike Force (2000 Point limit)",
           "name": "Strike Force (2000 Point limit)",
           "quantity": 1
@@ -48,24 +53,33 @@
           "assets": {
             "included": [
               {
-                "item": "Weapon§Autopistol",
-                "name": "Autopistol",
-                "quantity": 8
-              },
-              {
-                "item": "Weapon§Chainblade",
-                "name": "Chainblade",
-                "quantity": 7
-              },
-              {
-                "item": "Weapon§Close combat weapon",
-                "name": "Close combat weapon",
-                "quantity": 8
-              },
-              {
-                "item": "Weapon§Blood harpoon",
-                "name": "Blood harpoon",
-                "quantity": 1
+                "item": "Model§Goremonger",
+                "name": "Goremonger",
+                "quantity": 8,
+                "assets": {
+                  "included": [
+                    {
+                      "item": "Weapon§Autopistol",
+                      "name": "Autopistol",
+                      "quantity": 8
+                    },
+                    {
+                      "item": "Weapon§Chainblade",
+                      "name": "Chainblade",
+                      "quantity": 56
+                    },
+                    {
+                      "item": "Weapon§Close combat weapon",
+                      "name": "Close combat weapon",
+                      "quantity": 8
+                    },
+                    {
+                      "item": "Weapon§Blood harpoon",
+                      "name": "Blood harpoon",
+                      "quantity": 8
+                    }
+                  ]
+                }
               }
             ]
           }

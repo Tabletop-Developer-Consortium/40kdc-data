@@ -22,6 +22,7 @@ import type { RosterSerializer } from "./serializer.js";
 const PTS_TYPE_ID = "pts-type";
 const NEWRECRUIT_XMLNS = "http://www.battlescribe.net/schema/rosterSchema";
 const NEWRECRUIT_GENERATED_BY = "https://newrecruit.eu";
+const ATTACHMENT_GROUP_PREFIX = "40kdc Attachment";
 
 interface JsonSelection {
   id: string;
@@ -80,6 +81,18 @@ function unitSelection(idx: number, u: RosterUnit, faction: { name: string; prim
   if (u.is_warlord) {
     inner.push({ id: `u${idx}-warlord`, name: "Warlord", type: "upgrade", number: 1 });
   }
+  if (u.leader_attachment) {
+    const attachment = u.leader_attachment;
+    inner.push({
+      id: `u${idx}-attachment`,
+      name: attachment.bodyguard_ref.raw_name,
+      type: "upgrade",
+      number: 1,
+      group: `${ATTACHMENT_GROUP_PREFIX}:${attachment.role}:${
+        attachment.provisional ? "provisional" : "confirmed"
+      }`,
+    });
+  }
   if (u.enhancement) {
     const enhCost =
       u.enhancement_points === null
@@ -96,10 +109,40 @@ function unitSelection(idx: number, u: RosterUnit, faction: { name: string; prim
   }
 
   const wargearSelections = u.wargear.map((w, wi) => wargearSelection(wi, w));
+  const modelSelections: JsonSelection[] =
+    u.loadout_groups && u.loadout_groups.length > 0
+      ? u.loadout_groups.map((group, groupIndex) => ({
+          id: `u${idx}-model-${groupIndex}`,
+          name: group.model_name ?? u.ref.raw_name,
+          type: "model",
+          number: group.count,
+          selections: group.wargear.map((item, itemIndex) =>
+            wargearSelection(itemIndex, {
+              ...item,
+              count: item.count * group.count,
+            }),
+          ),
+        }))
+      : [
+          {
+            id: `u${idx}-model`,
+            name: u.ref.raw_name,
+            type: "model",
+            number: u.model_count,
+            selections: wargearSelections,
+          },
+        ];
 
-  const ownCategories = faction ? [faction] : [];
+  const ownCategories = [
+    ...(faction ? [faction] : []),
+    ...(u.keyword_overrides ?? []).map((keyword, index) => ({
+      id: `40kdc-keyword-${index}`,
+      name: keyword,
+      primary: false,
+    })),
+  ];
 
-  if (u.model_count <= 1) {
+  if (u.model_count <= 1 && (!u.loadout_groups || u.loadout_groups.length === 0)) {
     return {
       id: `u-${idx}`,
       name: u.ref.raw_name,
@@ -111,8 +154,8 @@ function unitSelection(idx: number, u: RosterUnit, faction: { name: string; prim
     };
   }
 
-  // Multi-model: wrap in a `type: "unit"` with a nested `type: "model"` that
-  // carries the model count and the (collapsed, per-unit) wargear.
+  // Preserve exact groups under a unit wrapper. Multi-model units need this
+  // shape for counts; single-model units need it to retain the model name.
   return {
     id: `u-${idx}`,
     name: u.ref.raw_name,
@@ -122,13 +165,7 @@ function unitSelection(idx: number, u: RosterUnit, faction: { name: string; prim
     ...(u.points === null ? {} : { costs: [{ name: "pts", typeId: PTS_TYPE_ID, value: u.points }] }),
     selections: [
       ...inner,
-      {
-        id: `u${idx}-model`,
-        name: u.ref.raw_name,
-        type: "model",
-        number: u.model_count,
-        selections: wargearSelections,
-      },
+      ...modelSelections,
     ],
   };
 }
@@ -174,8 +211,16 @@ export const newRecruitJsonSerializer: RosterSerializer = {
     const config: JsonSelection[] = [];
     if (battleSize) config.push(configSelection("Battle Size", battleSize, "battle-size"));
     for (const d of roster.detachments) {
-      const display = titleCaseId(d.ref.id) ?? d.ref.raw_name;
-      config.push(configSelection("Detachment", display, "detachment"));
+      config.push(configSelection("Detachment", d.ref.raw_name, "detachment"));
+    }
+    if (roster.force_disposition !== null) {
+      config.push(
+        configSelection(
+          "Force Disposition",
+          titleCaseId(roster.force_disposition)!,
+          "force-disposition",
+        ),
+      );
     }
 
     const force: JsonForce = {

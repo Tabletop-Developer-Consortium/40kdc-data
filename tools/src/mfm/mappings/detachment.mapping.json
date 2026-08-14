@@ -14,9 +14,9 @@
       "sources": ["data.detachment.localisations.*.name"],
       "joins": [],
       "transforms": [{"symbol": "tools/src/converters/id-generator.ts#nameToId", "operation": "Slug the English detachment name into the repository entity id."}],
-      "filters": ["Seed only Combat Patrol detachments; existing detachments are matched by this slug."],
+      "filters": ["Seed missing detachments only for supported repository faction directories; existing detachments are matched by this slug."],
       "precedence": [],
-      "consumers": ["tools/src/mfm/seed-detachments.ts#collectCombatPatrolDetachments", "tools/src/mfm/dispositions.ts#buildCanon"],
+      "consumers": ["tools/src/mfm/seed-detachments.ts#collectSeedDetachments", "tools/src/mfm/dispositions.ts#buildCanon"],
       "reason": "Detachment ids are deterministic repository slugs, not dump UUIDs."
     },
     "/name": {
@@ -25,10 +25,10 @@
       "sources": ["data.detachment.localisations.*.name"],
       "joins": [],
       "transforms": [],
-      "filters": ["Seed only Combat Patrol detachments."],
+      "filters": ["Seed missing detachments only for supported repository faction directories."],
       "precedence": [],
-      "consumers": ["tools/src/mfm/seed-detachments.ts#collectCombatPatrolDetachments"],
-      "reason": "The Combat Patrol seeder copies the English detachment display name."
+      "consumers": ["tools/src/mfm/seed-detachments.ts#collectSeedDetachments"],
+      "reason": "The source-backed detachment seeder copies the English display name."
     },
     "/faction_id": {
       "provenance": "derived",
@@ -39,9 +39,9 @@
         {"relation": "publication.factionKeywordId", "direction": "parent", "purpose": "ownership"}
       ],
       "transforms": [{"symbol": "tools/src/mfm/faction-map.ts#repoDirForFactionName", "operation": "Resolve the owning faction keyword name to its repository faction directory."}],
-      "filters": ["Seed only Combat Patrol detachments with a known repository faction directory."],
+      "filters": ["Seed missing detachments only when publication ownership resolves to a known repository faction directory."],
       "precedence": [],
-      "consumers": ["tools/src/mfm/seed-detachments.ts#collectCombatPatrolDetachments"],
+      "consumers": ["tools/src/mfm/seed-detachments.ts#collectSeedDetachments"],
       "reason": "Ownership follows detachment publication ownership; applicability associations do not establish faction_id."
     },
     "/detachment_rule_id": {
@@ -88,8 +88,8 @@
       "transforms": [{"symbol": "tools/src/mfm/dispositions.ts#buildCanon", "operation": "Build base detachment points and faction-directory overrides."}],
       "filters": ["Match entities by slug and apply an override only for the resolved repository faction directory."],
       "precedence": ["The matching detachment_faction_detachment_points_cost row overrides detachment.detachmentPointsCost; otherwise retain the base cost."],
-      "consumers": ["tools/src/mfm/dispositions.ts#runDispositions", "tools/src/mfm/seed-detachments.ts#collectCombatPatrolDetachments"],
-      "reason": "The reconciler and Combat Patrol seeder use the authoritative base cost plus scoped override."
+      "consumers": ["tools/src/mfm/dispositions.ts#runDispositions", "tools/src/mfm/seed-detachments.ts#collectSeedDetachments"],
+      "reason": "The reconciler and source-backed detachment seeder use the authoritative base cost plus scoped override."
     },
     "/force_dispositions": {
       "provenance": "derived",
@@ -102,7 +102,7 @@
       "transforms": [{"symbol": "tools/src/mfm/dispositions.ts#dispositionIdMap", "operation": "Slug English force-disposition names into repository ids."}],
       "filters": ["Use the association rows for the current detachment."],
       "precedence": [],
-      "consumers": ["tools/src/mfm/dispositions.ts#buildCanon", "tools/src/mfm/seed-detachments.ts#collectCombatPatrolDetachments"],
+      "consumers": ["tools/src/mfm/dispositions.ts#buildCanon", "tools/src/mfm/seed-detachments.ts#collectSeedDetachments"],
       "reason": "Current tooling derives disposition references from the detachment association table."
     },
     "/force_dispositions/*": {
@@ -116,34 +116,34 @@
       "transforms": [{"symbol": "tools/src/mfm/dispositions.ts#dispositionIdMap", "operation": "Slug an English force-disposition name into one repository id."}],
       "filters": ["Use the association rows for the current detachment."],
       "precedence": [],
-      "consumers": ["tools/src/mfm/dispositions.ts#buildCanon", "tools/src/mfm/seed-detachments.ts#collectCombatPatrolDetachments"],
+      "consumers": ["tools/src/mfm/dispositions.ts#buildCanon", "tools/src/mfm/seed-detachments.ts#collectSeedDetachments"],
       "reason": "Each current disposition reference is derived from a verified association."
     },
     "/tags": {
       "provenance": "derived",
-      "coverage": "partial",
+      "coverage": "implemented",
       "sources": ["data.detachment_unique_keyword.keywordId", "data.keyword.localisations.*.name"],
       "joins": [
         {"relation": "detachment_unique_keyword.detachmentId", "direction": "children", "purpose": "eligibility"},
         {"relation": "detachment_unique_keyword.keywordId", "direction": "parent", "purpose": "eligibility"}
       ],
       "transforms": [{"symbol": "tools/src/mfm/detachment-fields.ts#tagsForDetachment", "operation": "Resolve the detachment's unique keyword(s) to labels and slug each into a mutual-exclusivity tag."}],
-      "filters": ["Fill-only: filled when the repo authored no tags; confirmed on match; a populated disagreement (a curated tag differing from the dump's shared keyword) is surfaced for review, never overwritten."],
-      "precedence": [],
+      "filters": ["For each matched detachment, replace the authored tag list with the exact sorted source-derived list; clear stale tags when the source derives none."],
+      "precedence": ["The current MFM unique-keyword relation is authoritative for matched detachments."],
       "consumers": ["tools/src/mfm/detachment-fields.ts#runDetachmentFields"],
       "reason": "The unique-keyword rows are GW's 'at most one detachment per shared tag' grouping; the reconcile derives the lowercase tag slug from them."
     },
     "/tags/*": {
       "provenance": "derived",
-      "coverage": "partial",
+      "coverage": "implemented",
       "sources": ["data.detachment_unique_keyword.keywordId", "data.keyword.localisations.*.name"],
       "joins": [
         {"relation": "detachment_unique_keyword.detachmentId", "direction": "children", "purpose": "eligibility"},
         {"relation": "detachment_unique_keyword.keywordId", "direction": "parent", "purpose": "eligibility"}
       ],
       "transforms": [{"symbol": "tools/src/mfm/detachment-fields.ts#tagsForDetachment", "operation": "Slug one unique-keyword label into a mutual-exclusivity tag."}],
-      "filters": ["Fill-only; a populated disagreement is surfaced for review, never overwritten."],
-      "precedence": [],
+      "filters": ["Emit each member of the exact source-derived tag list; remove members absent from the current source."],
+      "precedence": ["The current MFM unique-keyword relation is authoritative for matched detachments."],
       "consumers": ["tools/src/mfm/detachment-fields.ts#runDetachmentFields"],
       "reason": "Each mutual-exclusivity tag is the slug of one unique-keyword label."
     },
@@ -153,7 +153,7 @@
       "joins": [{"relation": "enhancement.detachmentId", "direction": "children", "purpose": "general"}],
       "transforms": [{"symbol": "tools/src/converters/id-generator.ts#detachmentScopedId", "operation": "Derive a detachment-scoped enhancement id from the selected names."}],
       "filters": ["Only Combat Patrol enhancements selected while seeding a new Combat Patrol detachment."], "precedence": [],
-      "consumers": ["tools/src/mfm/seed-detachments.ts#collectCombatPatrolDetachments"],
+      "consumers": ["tools/src/mfm/seed-detachments.ts#collectSeedDetachments"],
       "reason": "Only the Combat Patrol seeder currently derives and writes enhancement links from MFM."
     },
     "/enhancement_ids/*": {
@@ -162,7 +162,7 @@
       "joins": [{"relation": "enhancement.detachmentId", "direction": "children", "purpose": "general"}],
       "transforms": [{"symbol": "tools/src/converters/id-generator.ts#detachmentScopedId", "operation": "Derive one detachment-scoped enhancement id from the selected names."}],
       "filters": ["Only Combat Patrol enhancements selected while seeding a new Combat Patrol detachment."], "precedence": [],
-      "consumers": ["tools/src/mfm/seed-detachments.ts#collectCombatPatrolDetachments"],
+      "consumers": ["tools/src/mfm/seed-detachments.ts#collectSeedDetachments"],
       "reason": "Only the Combat Patrol seeder currently derives and writes enhancement links from MFM."
     },
     "/stratagem_ids": {

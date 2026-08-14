@@ -3315,5 +3315,71 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     }
+  },
+  {
+    "id": "talons",
+    "name": "Talons",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Talons",
+        "range": "Melee",
+        "stats": {
+          "A": 2,
+          "S": 4,
+          "AP": 0,
+          "D": 1,
+          "WS": 4
+        }
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
+    "id": "alphas-combat-artefact",
+    "name": "Alpha’s Combat Artefact",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Alpha’s Combat Artefact",
+        "range": "Melee",
+        "stats": {
+          "A": 2,
+          "S": 5,
+          "AP": -1,
+          "D": 1,
+          "WS": 4
+        }
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
+    "id": "gun-stocks",
+    "name": "Gun Stocks",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Gun Stocks",
+        "range": "Melee",
+        "stats": {
+          "A": 1,
+          "S": 3,
+          "AP": 0,
+          "D": 1,
+          "WS": 4
+        }
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
   }
 ]

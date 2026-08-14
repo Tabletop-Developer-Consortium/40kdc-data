@@ -17,7 +17,7 @@
     }
   ],
   "battle_size": "strike-force",
-  "force_disposition": null,
+  "force_disposition": "reconnaissance",
   "points": {
     "declared_limit": 2000,
     "detachment_cap": 3,
@@ -139,6 +139,9 @@
       "model_count": 1,
       "points": 130,
       "is_warlord": true,
+      "keyword_overrides": [
+        "Character"
+      ],
       "enhancement": null,
       "enhancement_points": null,
       "wargear": [
@@ -153,21 +156,21 @@
         },
         {
           "ref": {
-            "id": "war-dog-autocannon",
-            "raw_name": "War Dog autocannon",
-            "resolved": true,
-            "candidates": []
-          },
-          "count": 2
-        },
-        {
-          "ref": {
             "id": "diabolus-heavy-stubber",
             "raw_name": "Diabolus heavy stubber",
             "resolved": true,
             "candidates": []
           },
           "count": 1
+        },
+        {
+          "ref": {
+            "id": "war-dog-autocannon",
+            "raw_name": "War Dog autocannon",
+            "resolved": true,
+            "candidates": []
+          },
+          "count": 2
         }
       ],
       "leader_attachment": null
@@ -196,21 +199,21 @@
         },
         {
           "ref": {
-            "id": "war-dog-autocannon",
-            "raw_name": "War Dog autocannon",
-            "resolved": true,
-            "candidates": []
-          },
-          "count": 2
-        },
-        {
-          "ref": {
             "id": "diabolus-heavy-stubber",
             "raw_name": "Diabolus heavy stubber",
             "resolved": true,
             "candidates": []
           },
           "count": 1
+        },
+        {
+          "ref": {
+            "id": "war-dog-autocannon",
+            "raw_name": "War Dog autocannon",
+            "resolved": true,
+            "candidates": []
+          },
+          "count": 2
         }
       ],
       "leader_attachment": null
@@ -225,6 +228,9 @@
       "model_count": 1,
       "points": 150,
       "is_warlord": false,
+      "keyword_overrides": [
+        "Character"
+      ],
       "enhancement": {
         "id": "preyslayers-mantle-houndpack-lance",
         "raw_name": "Preyslayer's Mantle",
@@ -235,6 +241,15 @@
       "wargear": [
         {
           "ref": {
+            "id": "havoc-multi-launcher",
+            "raw_name": "Havoc multi-launcher",
+            "resolved": true,
+            "candidates": []
+          },
+          "count": 1
+        },
+        {
+          "ref": {
             "id": "reaper-chaintalon-war-dog-karnivore",
             "raw_name": "Reaper chaintalon",
             "resolved": true,
@@ -246,15 +261,6 @@
           "ref": {
             "id": "slaughterclaw-war-dog-karnivore",
             "raw_name": "Slaughterclaw",
-            "resolved": true,
-            "candidates": []
-          },
-          "count": 1
-        },
-        {
-          "ref": {
-            "id": "havoc-multi-launcher",
-            "raw_name": "Havoc multi-launcher",
             "resolved": true,
             "candidates": []
           },
@@ -278,6 +284,15 @@
       "wargear": [
         {
           "ref": {
+            "id": "havoc-multi-launcher",
+            "raw_name": "Havoc multi-launcher",
+            "resolved": true,
+            "candidates": []
+          },
+          "count": 1
+        },
+        {
+          "ref": {
             "id": "reaper-chaintalon-war-dog-karnivore",
             "raw_name": "Reaper chaintalon",
             "resolved": true,
@@ -289,15 +304,6 @@
           "ref": {
             "id": "slaughterclaw-war-dog-karnivore",
             "raw_name": "Slaughterclaw",
-            "resolved": true,
-            "candidates": []
-          },
-          "count": 1
-        },
-        {
-          "ref": {
-            "id": "havoc-multi-launcher",
-            "raw_name": "Havoc multi-launcher",
             "resolved": true,
             "candidates": []
           },
@@ -321,6 +327,15 @@
       "wargear": [
         {
           "ref": {
+            "id": "havoc-multi-launcher",
+            "raw_name": "Havoc multi-launcher",
+            "resolved": true,
+            "candidates": []
+          },
+          "count": 1
+        },
+        {
+          "ref": {
             "id": "reaper-chaintalon-war-dog-karnivore",
             "raw_name": "Reaper chaintalon",
             "resolved": true,
@@ -332,15 +347,6 @@
           "ref": {
             "id": "slaughterclaw-war-dog-karnivore",
             "raw_name": "Slaughterclaw",
-            "resolved": true,
-            "candidates": []
-          },
-          "count": 1
-        },
-        {
-          "ref": {
-            "id": "havoc-multi-launcher",
-            "raw_name": "Havoc multi-launcher",
             "resolved": true,
             "candidates": []
           },
@@ -364,6 +370,15 @@
       "wargear": [
         {
           "ref": {
+            "id": "havoc-multi-launcher",
+            "raw_name": "Havoc multi-launcher",
+            "resolved": true,
+            "candidates": []
+          },
+          "count": 1
+        },
+        {
+          "ref": {
             "id": "reaper-chaintalon-war-dog-karnivore",
             "raw_name": "Reaper chaintalon",
             "resolved": true,
@@ -379,15 +394,6 @@
             "candidates": []
           },
           "count": 1
-        },
-        {
-          "ref": {
-            "id": "havoc-multi-launcher",
-            "raw_name": "Havoc multi-launcher",
-            "resolved": true,
-            "candidates": []
-          },
-          "count": 1
         }
       ],
       "leader_attachment": null
@@ -407,6 +413,15 @@
       "wargear": [
         {
           "ref": {
+            "id": "daemonbreath-spear",
+            "raw_name": "Daemonbreath spear",
+            "resolved": true,
+            "candidates": []
+          },
+          "count": 1
+        },
+        {
+          "ref": {
             "id": "havoc-multi-launcher",
             "raw_name": "Havoc multi-launcher",
             "resolved": true,
@@ -416,8 +431,45 @@
         },
         {
           "ref": {
+            "id": "slaughterclaw",
+            "raw_name": "Slaughterclaw",
+            "resolved": true,
+            "candidates": []
+          },
+          "count": 1
+        }
+      ],
+      "leader_attachment": null
+    },
+    {
+      "ref": {
+        "id": "war-dog-stalker",
+        "raw_name": "War Dog Stalker",
+        "resolved": true,
+        "candidates": []
+      },
+      "model_count": 1,
+      "points": 140,
+      "is_warlord": false,
+      "keyword_overrides": [
+        "Character"
+      ],
+      "enhancement": null,
+      "enhancement_points": null,
+      "wargear": [
+        {
+          "ref": {
             "id": "daemonbreath-spear",
             "raw_name": "Daemonbreath spear",
+            "resolved": true,
+            "candidates": []
+          },
+          "count": 1
+        },
+        {
+          "ref": {
+            "id": "havoc-multi-launcher",
+            "raw_name": "Havoc multi-launcher",
             "resolved": true,
             "candidates": []
           },
@@ -450,8 +502,8 @@
       "wargear": [
         {
           "ref": {
-            "id": "havoc-multi-launcher",
-            "raw_name": "Havoc multi-launcher",
+            "id": "daemonbreath-spear",
+            "raw_name": "Daemonbreath spear",
             "resolved": true,
             "candidates": []
           },
@@ -459,8 +511,8 @@
         },
         {
           "ref": {
-            "id": "daemonbreath-spear",
-            "raw_name": "Daemonbreath spear",
+            "id": "havoc-multi-launcher",
+            "raw_name": "Havoc multi-launcher",
             "resolved": true,
             "candidates": []
           },
@@ -493,8 +545,8 @@
       "wargear": [
         {
           "ref": {
-            "id": "havoc-multi-launcher",
-            "raw_name": "Havoc multi-launcher",
+            "id": "daemonbreath-spear",
+            "raw_name": "Daemonbreath spear",
             "resolved": true,
             "candidates": []
           },
@@ -502,8 +554,8 @@
         },
         {
           "ref": {
-            "id": "daemonbreath-spear",
-            "raw_name": "Daemonbreath spear",
+            "id": "havoc-multi-launcher",
+            "raw_name": "Havoc multi-launcher",
             "resolved": true,
             "candidates": []
           },
@@ -536,15 +588,6 @@
       "wargear": [
         {
           "ref": {
-            "id": "havoc-multi-launcher",
-            "raw_name": "Havoc multi-launcher",
-            "resolved": true,
-            "candidates": []
-          },
-          "count": 1
-        },
-        {
-          "ref": {
             "id": "daemonbreath-spear",
             "raw_name": "Daemonbreath spear",
             "resolved": true,
@@ -554,42 +597,8 @@
         },
         {
           "ref": {
-            "id": "slaughterclaw",
-            "raw_name": "Slaughterclaw",
-            "resolved": true,
-            "candidates": []
-          },
-          "count": 1
-        }
-      ],
-      "leader_attachment": null
-    },
-    {
-      "ref": {
-        "id": "war-dog-stalker",
-        "raw_name": "War Dog Stalker",
-        "resolved": true,
-        "candidates": []
-      },
-      "model_count": 1,
-      "points": 140,
-      "is_warlord": false,
-      "enhancement": null,
-      "enhancement_points": null,
-      "wargear": [
-        {
-          "ref": {
             "id": "havoc-multi-launcher",
             "raw_name": "Havoc multi-launcher",
-            "resolved": true,
-            "candidates": []
-          },
-          "count": 1
-        },
-        {
-          "ref": {
-            "id": "daemonbreath-spear",
-            "raw_name": "Daemonbreath spear",
             "resolved": true,
             "candidates": []
           },
@@ -726,12 +735,6 @@
     "unresolved_units": 0,
     "resolved_weapons": 44,
     "unresolved_weapons": 0,
-    "warnings": [
-      {
-        "code": "multi-force",
-        "message": "Source list contains more than one faction; the primary faction was used for scoping.",
-        "raw_name": null
-      }
-    ]
+    "warnings": []
   }
 }

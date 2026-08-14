@@ -209,9 +209,11 @@
     ],
     "replacement_choice": [
       [
-        "sentinel-blade"
+        "sentinel-blade",
+        "praesidium-shield"
       ],
       [
+        "praesidium-shield",
         "vexilla",
         "misericordia"
       ]
@@ -385,6 +387,7 @@
       "venatari-lance"
     ],
     "replacement": [
+      "tarsis-buckler",
       "kinetic-destroyer"
     ],
     "model_constraint": {
@@ -489,10 +492,15 @@
         "castellan-axe-shield-captain"
       ],
       [
+        "praesidium-shield",
         "pyrithite-spear-shield-captain"
       ],
       [
         "sentinel-blade-shield-captain"
+      ],
+      [
+        "sentinel-blade-shield-captain",
+        "praesidium-shield"
       ]
     ],
     "model_constraint": {

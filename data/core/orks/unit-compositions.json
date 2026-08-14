@@ -1834,7 +1834,7 @@
     "models": [
       {
         "name": "Runtherd",
-        "min": 1,
+        "min": 0,
         "max": 2,
         "default_weapon_ids": [
           "runtherd-tools",
@@ -1886,6 +1886,38 @@
             "name": "Runtherd",
             "min": 2,
             "max": 2
+          },
+          {
+            "name": "Gretchin",
+            "min": 20,
+            "max": 20
+          }
+        ]
+      },
+      {
+        "models": [
+          {
+            "name": "Gretchin",
+            "min": 10,
+            "max": 10
+          }
+        ]
+      },
+      {
+        "models": [
+          {
+            "name": "Gretchin",
+            "min": 20,
+            "max": 20
+          }
+        ]
+      },
+      {
+        "models": [
+          {
+            "name": "Runtherd",
+            "min": 1,
+            "max": 1
           },
           {
             "name": "Gretchin",

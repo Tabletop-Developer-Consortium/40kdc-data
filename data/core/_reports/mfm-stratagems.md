@@ -10,7 +10,7 @@ Avarice→command, Scriptural Prognosis→all-five), so authored phases win.
 | Dir | Matched | cp | turn | type fill | type conflict | category | phases (review) | repo-only |
 |---|--:|--:|--:|--:|--:|--:|--:|--:|
 | (core) | 9 | 0 | 0 | 0 | 0 | 0 | 1 | 1 |
-| adepta-sororitas | 39 | 1 | 0 | 0 | 0 | 0 | 0 | 0 |
+| adepta-sororitas | 39 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
 | adeptus-astartes | 85 | 0 | 0 | 0 | 0 | 0 | 1 | 0 |
 | adeptus-custodes | 48 | 0 | 0 | 0 | 0 | 0 | 1 | 0 |
 | adeptus-mechanicus | 54 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
@@ -45,17 +45,12 @@ Avarice→command, Scriptural Prognosis→all-five), so authored phases win.
 | ultramarines | 77 | 0 | 0 | 0 | 0 | 0 | 1 | 0 |
 | white-scars | 71 | 0 | 0 | 0 | 0 | 0 | 1 | 0 |
 | world-eaters | 42 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
-| **TOTAL** | **2215** | **1** | **0** | **0** | **0** | **0** | **23** | **31** |
+| **TOTAL** | **2215** | **0** | **0** | **0** | **0** | **0** | **23** | **31** |
 
 ## (core)
 
 **Phases — authored vs prose-derived (review only, NOT applied):**
 - fire-overwatch: [movement,charge] vs [movement]
-
-## adepta-sororitas
-
-**CP changes (applied):**
-- light-of-the-emperor-army-of-faith: 1 → 2
 
 ## adeptus-astartes
 

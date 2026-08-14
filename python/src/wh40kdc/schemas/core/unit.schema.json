@@ -143,6 +143,30 @@
     },
     "keywords": { "$ref": "../defs/common.schema.json#/$defs/keyword-list" },
     "faction_keywords": { "$ref": "../defs/common.schema.json#/$defs/keyword-list" },
+    "conditional_keywords": {
+      "type": "array",
+      "description": "Keywords granted to this unit only when roster construction satisfies the source condition. Conditions are conjunctive within an entry; entries are independent grants.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "keyword": { "$ref": "../defs/common.schema.json#/$defs/keyword" },
+          "required_detachment_id": {
+            "oneOf": [
+              { "$ref": "../defs/common.schema.json#/$defs/entity-id" },
+              { "type": "null" }
+            ]
+          },
+          "required_faction_keyword": {
+            "oneOf": [
+              { "$ref": "../defs/common.schema.json#/$defs/keyword" },
+              { "type": "null" }
+            ]
+          }
+        },
+        "required": ["keyword"],
+        "additionalProperties": false
+      }
+    },
     "excluded_faction_keywords": {
       "description": "Faction keywords whose armies are barred from taking this otherwise-generic unit. Used where the game removes a generic unit from a specific sub-faction without printing a replacement (e.g. Black Templars cannot field Librarians; Deathwatch cannot field the generic Tactical Squad). An army may take this unit only if none of its faction keywords appear here. Absent/empty = available to every keyword-eligible army. Distinct from `faction_keywords`, which is the positive access list; this is the negative one for the rare exclusions a flat shared pool cannot otherwise express.",
       "oneOf": [

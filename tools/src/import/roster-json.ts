@@ -74,14 +74,30 @@ export const rosterJsonAdapter: FormatAdapter = {
 
     const units: ParsedUnit[] = roster.units.map((u) => ({
       raw_name: u.ref.raw_name,
-      // Keeps the inference gate for units without an explicit attachment.
-      is_character: u.leader_attachment != null,
+      // Keeps source-confirmed Character promotions and the inference gate for
+      // units without an explicit attachment.
+      is_character:
+        u.keyword_overrides?.includes("Character") === true ||
+        u.leader_attachment != null,
+      keyword_overrides: u.keyword_overrides,
       model_count: u.model_count,
       points: u.points,
       is_warlord: u.is_warlord,
       enhancement_raw_name: u.enhancement?.raw_name ?? null,
       enhancement_points: u.enhancement_points,
       wargear: u.wargear.map((w) => ({ raw_name: w.ref.raw_name, count: w.count })),
+      ...(u.loadout_groups
+        ? {
+            loadout_groups: u.loadout_groups.map((group) => ({
+              model_name: group.model_name,
+              count: group.count,
+              wargear: group.wargear.map((w) => ({
+                raw_name: w.ref.raw_name,
+                count: w.count,
+              })),
+            })),
+          }
+        : {}),
       // Carry an explicit attachment verbatim so resolve reconstructs it exactly
       // (lossless round-trip) rather than re-inferring — which would drop a
       // leader-role attachment entirely. The key is elided when absent (matching

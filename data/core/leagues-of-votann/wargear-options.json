@@ -115,13 +115,19 @@
     "is_free": true,
     "replacement_choice": [
       [
-        "pan-spectral-scanner"
+        "rollbar-searchlight"
+      ],
+      [
+        "panspectral-scanner"
       ],
       [
         "hylas-rotary-cannon"
       ],
       [
         "ion-beamer"
+      ],
+      [
+        "multiwave-comms-array"
       ]
     ],
     "model_constraint": {
@@ -235,7 +241,7 @@
     },
     "is_free": true,
     "replaces": [
-      "pan-spectral-scanner"
+      "panspectral-scanner"
     ],
     "replacement": [
       "hekaton-warhead"
@@ -486,14 +492,8 @@
     "replaces": [
       "heavy-plasma-axe"
     ],
-    "replacement_choice": [
-      [
-        "twin-concussion-gauntlet"
-      ],
-      [
-        "mole-grenade-launcher",
-        "concussion-maul"
-      ]
+    "replacement": [
+      "twin-concussion-gauntlet"
     ],
     "model_constraint": {
       "per_n_models": 5
@@ -501,6 +501,26 @@
   },
   {
     "id": "cthonian-beserks-wgo-mfm-3",
+    "unit_id": "cthonian-beserks",
+    "faction_id": "leagues-of-votann",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_free": true,
+    "replaces": [
+      "heavy-plasma-axe"
+    ],
+    "replacement": [
+      "mole-grenade-launcher",
+      "concussion-maul"
+    ],
+    "model_constraint": {
+      "per_n_models": 5
+    }
+  },
+  {
+    "id": "cthonian-beserks-wgo-mfm-4",
     "unit_id": "cthonian-beserks",
     "faction_id": "leagues-of-votann",
     "game_version": {

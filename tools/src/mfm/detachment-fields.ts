@@ -55,6 +55,17 @@ import { repoDirForFactionName, repoDirs } from "./faction-map.js";
 import { keywordLabel, factionKeywordLabel } from "./keywords.js";
 import type { StagedWrite } from "./apply.js";
 
+export interface DetachmentRestrictions {
+  required_keywords?: string[];
+  excluded_keywords?: string[];
+  notes?: string;
+}
+
+export interface DetachmentAuthorityTarget {
+  tags?: string[];
+  restrictions?: DetachmentRestrictions | null;
+}
+
 interface DetRecord {
   id: string;
   name: string;
@@ -62,7 +73,7 @@ interface DetRecord {
   tags?: string[];
   detachment_rule_id?: string | null;
   detachment_rule_ids?: string[] | null;
-  restrictions?: { required_keywords?: string[]; excluded_keywords?: string[]; notes?: string } | null;
+  restrictions?: DetachmentRestrictions | null;
   [k: string]: unknown;
 }
 
@@ -218,12 +229,10 @@ function dumpDetIdByRepoId(dump: MfmDump): Map<string, Map<string, string>> {
 export interface DirDetFieldResult {
   dir: string;
   matched: number;
-  tagsFilled: { id: string; to: string[] }[];
+  tagsChanged: { id: string; from: string[]; to: string[] }[];
   tagsConfirmed: number;
-  tagsReview: { id: string; authored: string[]; derived: string[] }[];
-  reqFilled: { id: string; to: string[] }[];
+  reqChanged: { id: string; from: string[]; to: string[] }[];
   reqConfirmed: number;
-  reqReview: { id: string; authored: string[]; derived: string[] }[];
   ruleFilled: { id: string; to: string[] }[];
   ruleConfirmed: number;
   ruleReview: { id: string; authored: string[]; derived: string[] }[];
@@ -242,6 +251,27 @@ function same(a: readonly string[] | null | undefined, b: readonly string[] | nu
   const y = [...(b ?? [])].sort();
   return x.length === y.length && x.every((v, i) => v === y[i]);
 }
+export function applyAuthoritativeDetachmentFields(
+  detachment: DetachmentAuthorityTarget,
+  tags: readonly string[],
+  requiredKeywords: readonly string[],
+): { tagsChanged: boolean; requiredKeywordsChanged: boolean } {
+  const tagsChanged = !same(detachment.tags, tags);
+  if (tagsChanged) detachment.tags = [...tags];
+
+  const requiredKeywordsChanged = !same(
+    detachment.restrictions?.required_keywords,
+    requiredKeywords,
+  );
+  if (requiredKeywordsChanged) {
+    detachment.restrictions = {
+      ...(detachment.restrictions ?? {}),
+      required_keywords: [...requiredKeywords],
+    };
+  }
+  return { tagsChanged, requiredKeywordsChanged };
+}
+
 
 export function runDetachmentFields(dump: MfmDump): DetFieldsReport {
   const detIdByRepoId = dumpDetIdByRepoId(dump);
@@ -257,12 +287,10 @@ export function runDetachmentFields(dump: MfmDump): DetFieldsReport {
     const res: DirDetFieldResult = {
       dir,
       matched: 0,
-      tagsFilled: [],
+      tagsChanged: [],
       tagsConfirmed: 0,
-      tagsReview: [],
-      reqFilled: [],
+      reqChanged: [],
       reqConfirmed: 0,
-      reqReview: [],
       ruleFilled: [],
       ruleConfirmed: 0,
       ruleReview: [],
@@ -277,38 +305,24 @@ export function runDetachmentFields(dump: MfmDump): DetFieldsReport {
       res.matched++;
       const unresolved: string[] = [];
 
-      // tags — FILL-ONLY. Fill when authored empty; confirm when equal; a populated
-      // disagreement is surfaced, never overwritten (a curated tag may encode intent
-      // the dump's shared mutual-exclusivity keyword doesn't, e.g. "retaliation").
+      // Dump-derived tags and required keywords are authoritative. Replace stale
+      // values and clear them when the source derives none.
       const tags = tagsForDetachment(dump, detId, unresolved);
-      const tagsAuthored = det.tags ?? [];
-      if (tags.length > 0) {
-        if (tagsAuthored.length === 0) {
-          det.tags = tags;
-          res.tagsFilled.push({ id: det.id, to: tags });
-          changed = true;
-        } else if (same(tagsAuthored, tags)) {
-          res.tagsConfirmed++;
-        } else {
-          res.tagsReview.push({ id: det.id, authored: tagsAuthored, derived: tags });
-        }
+      const tagsAuthored = [...(det.tags ?? [])];
+      const req = requiredKeywordsForDetachment(dump, detId, unresolved) ?? [];
+      const reqAuthored = [...(det.restrictions?.required_keywords ?? [])];
+      const authority = applyAuthoritativeDetachmentFields(det, tags, req);
+      if (authority.tagsChanged) {
+        res.tagsChanged.push({ id: det.id, from: tagsAuthored, to: tags });
+        changed = true;
+      } else {
+        res.tagsConfirmed++;
       }
-
-      // restrictions.required_keywords — FILL-ONLY within the restrictions object.
-      const req = requiredKeywordsForDetachment(dump, detId, unresolved);
-      if (req && req.length > 0) {
-        const reqAuthored = det.restrictions?.required_keywords ?? [];
-        if (reqAuthored.length === 0) {
-          const restrictions = det.restrictions ?? {};
-          restrictions.required_keywords = req;
-          det.restrictions = restrictions;
-          res.reqFilled.push({ id: det.id, to: req });
-          changed = true;
-        } else if (same(reqAuthored, req)) {
-          res.reqConfirmed++;
-        } else {
-          res.reqReview.push({ id: det.id, authored: reqAuthored, derived: req });
-        }
+      if (authority.requiredKeywordsChanged) {
+        res.reqChanged.push({ id: det.id, from: reqAuthored, to: req });
+        changed = true;
+      } else {
+        res.reqConfirmed++;
       }
 
       // detachment_rule_ids — structural link, FILL-ONLY and resolve-gated. Only
@@ -353,35 +367,32 @@ export function buildDetFieldsReport(report: DetFieldsReport, write: boolean): s
   const L: string[] = [];
   L.push(`# MFM detachment fields — ${write ? "APPLIED" : "DRY RUN"}`);
   L.push("");
-  L.push("Fill-only reconcile of `tags` (mutual-exclusivity unique keyword → slug),");
-  L.push("`restrictions.required_keywords` (chapter-lock applicability keyword), and");
-  L.push("`detachment_rule_ids` (named-rule → ability link, written only when the slug");
-  L.push("resolves to an authored ability). Authored values are confirmed or surfaced");
-  L.push("for review, never overwritten. Rule prose is authored separately — untouched.");
+  L.push("Authoritative reconcile of `tags` (mutual-exclusivity unique keyword → slug)");
+  L.push("and `restrictions.required_keywords` (chapter-lock applicability keyword).");
+  L.push("`detachment_rule_ids` remains resolve-gated and fill-only. Rule prose is");
+  L.push("authored separately and is untouched.");
   L.push("");
-  L.push("| Dir | Matched | tags-fill | tags-ok | tags-rev | req-fill | req-ok | req-rev | rule-fill | rule-ok | rule-rev | rule-unauth |");
-  L.push("|---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|");
+  L.push("| Dir | Matched | tags-chg | tags-ok | req-chg | req-ok | rule-fill | rule-ok | rule-rev | rule-unauth |");
+  L.push("|---|--:|--:|--:|--:|--:|--:|--:|--:|--:|");
   for (const d of dirs.filter((d) => d.matched)) {
     if (
-      !d.tagsFilled.length && !d.tagsConfirmed && !d.tagsReview.length &&
-      !d.reqFilled.length && !d.reqConfirmed && !d.reqReview.length &&
+      !d.tagsChanged.length && !d.tagsConfirmed &&
+      !d.reqChanged.length && !d.reqConfirmed &&
       !d.ruleFilled.length && !d.ruleConfirmed && !d.ruleReview.length && !d.ruleUnauthored.length
     )
       continue;
     L.push(
-      `| ${d.dir} | ${d.matched} | ${d.tagsFilled.length} | ${d.tagsConfirmed} | ${d.tagsReview.length} | ${d.reqFilled.length} | ${d.reqConfirmed} | ${d.reqReview.length} | ${d.ruleFilled.length} | ${d.ruleConfirmed} | ${d.ruleReview.length} | ${d.ruleUnauthored.length} |`,
+      `| ${d.dir} | ${d.matched} | ${d.tagsChanged.length} | ${d.tagsConfirmed} | ${d.reqChanged.length} | ${d.reqConfirmed} | ${d.ruleFilled.length} | ${d.ruleConfirmed} | ${d.ruleReview.length} | ${d.ruleUnauthored.length} |`,
     );
   }
   L.push(
-    `| **TOTAL** | **${sum((d) => d.matched)}** | **${sum((d) => d.tagsFilled.length)}** | **${sum((d) => d.tagsConfirmed)}** | **${sum((d) => d.tagsReview.length)}** | **${sum((d) => d.reqFilled.length)}** | **${sum((d) => d.reqConfirmed)}** | **${sum((d) => d.reqReview.length)}** | **${sum((d) => d.ruleFilled.length)}** | **${sum((d) => d.ruleConfirmed)}** | **${sum((d) => d.ruleReview.length)}** | **${sum((d) => d.ruleUnauthored.length)}** |`,
+    `| **TOTAL** | **${sum((d) => d.matched)}** | **${sum((d) => d.tagsChanged.length)}** | **${sum((d) => d.tagsConfirmed)}** | **${sum((d) => d.reqChanged.length)}** | **${sum((d) => d.reqConfirmed)}** | **${sum((d) => d.ruleFilled.length)}** | **${sum((d) => d.ruleConfirmed)}** | **${sum((d) => d.ruleReview.length)}** | **${sum((d) => d.ruleUnauthored.length)}** |`,
   );
   L.push("");
   for (const d of dirs) {
     const details: string[] = [];
-    d.tagsFilled.forEach((c) => details.push(`- tags filled ${c.id}: [${c.to.join(", ")}]`));
-    d.tagsReview.forEach((c) => details.push(`- tags REVIEW ${c.id}: authored [${c.authored.join(", ")}] vs dump [${c.derived.join(", ")}]`));
-    d.reqFilled.forEach((c) => details.push(`- required_keywords filled ${c.id}: [${c.to.join(", ")}]`));
-    d.reqReview.forEach((c) => details.push(`- required_keywords REVIEW ${c.id}: authored [${c.authored.join(", ")}] vs dump [${c.derived.join(", ")}]`));
+    d.tagsChanged.forEach((c) => details.push(`- tags changed ${c.id}: [${c.from.join(", ")}] -> [${c.to.join(", ")}]`));
+    d.reqChanged.forEach((c) => details.push(`- required_keywords changed ${c.id}: [${c.from.join(", ")}] -> [${c.to.join(", ")}]`));
     d.ruleFilled.forEach((c) => details.push(`- detachment_rule_ids filled ${c.id}: [${c.to.join(", ")}]`));
     d.ruleReview.forEach((c) => details.push(`- detachment_rule_ids REVIEW ${c.id}: authored [${c.authored.join(", ")}] vs dump [${c.derived.join(", ")}]`));
     d.ruleUnauthored.forEach((c) => details.push(`- detachment_rule_ids UNAUTHORED ${c.id}: dump rule(s) [${c.derived.join(", ")}] have no authored ability yet`));

@@ -282,6 +282,56 @@ Archon (100 points)
     expect(parsed.detachment_raw_names).toEqual(["Skysplinter Assault"]);
     expect(parsed.units.map((unit) => unit.raw_name)).toEqual(["Archon"]);
   });
+  it("promotes Character annotations without treating them as wargear", () => {
+    const parsed = gwHeaderlessAdapter.parse(`Example Roster (300 points)
+Fabricated Faction
+Fabricated Detachment
+
+OTHER DATASHEETS
+
+Burrower Alpha (100 points)
+• Houndpack Lance Keyword: Character
+• 1x Burrowing claw
+
+Tracker Beta (100 points)
+• Headhunter Task Force Keywords: Character
+• 1x Tracking blade
+
+Miner Gamma (100 points)
+• Subterranean assault character
+• 1x Mining tool
+`);
+
+    expect(parsed.units).toHaveLength(3);
+    for (const unit of parsed.units) {
+      expect(unit.is_character).toBe(true);
+      expect(
+        unit.wargear.some((item) =>
+          /keyword|subterranean assault character/i.test(item.raw_name),
+        ),
+      ).toBe(false);
+    }
+  });
+  it("uses hollow bullets as model-child depth without whitespace", () => {
+    const [unit] = gwHeaderlessAdapter.parse(`Fabricated Roster (200 points)
+Fabricated Faction
+Fabricated Detachment
+
+OTHER DATASHEETS
+
+Fabricated Battlesuits (200 points)
+• 2x Battlesuit
+◦ 2x Crushing bulk
+◦ 4x Fabricated drone
+`).units;
+
+    expect(unit.model_count).toBe(2);
+    expect(unit.wargear).toEqual([
+      { raw_name: "Crushing bulk", count: 2 },
+      { raw_name: "Fabricated drone", count: 4 },
+    ]);
+  });
+
 });
 
 
@@ -308,6 +358,134 @@ describe("gwHeaderlessAdapter via tryImportRoster", () => {
     expect(roster.faction_id).toBe("world-eaters");
     expect(roster.units.some((u) => u.ref.id === "kharn-the-betrayer")).toBe(true);
   });
+
+  it("accepts a modern GW export with an unfenced summary header", () => {
+    const result = tryImportRoster(`Fabricated roster (100 points)
++ PLAYER NAME: Example
++ FACTION KEYWORD: Chaos - World Eaters
++ DETACHMENT: Berzerker Warband
++ FORCE DISPOSITION: Take and Hold
+
+World Eaters
+Berzerker Warband (1 Detachment Point)
+Take and Hold
+Incursion (1000 points)
+
+CHARACTERS
+
+Khârn the Betrayer (100 points)
+• 1x Gorechild
+`, { dataset: ds });
+
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.format).toBe("gw");
+    expect(result.roster.units[0]?.ref.id).toBe("kharn-the-betrayer");
+  });
+
+});
+
+  it("reclassifies source model-role suffixes instead of resolving them as weapons", () => {
+    const roster = importRoster(`Fabricated roster (100 points)
+Leagues of Votann
+Needgaârd Oathband (2 Detachment Points)
+Purge the Foe
+Incursion (1000 points)
+
+OTHER DATASHEETS
+
+Cthonian Beserks (100 points)
+• 5x Beserk
+• 4x Concussion maul
+• 1x Mole grenade launcher
+• 1x Twin concussion gauntlets
+`, { dataset: ds });
+
+    expect(roster.units[0]?.model_count).toBe(5);
+    expect(roster.units[0]?.wargear.some((item) => item.ref.raw_name === "Beserk")).toBe(false);
+    expect(roster.diagnostics.warnings.some((warning) => warning.raw_name === "Beserk")).toBe(false);
+  });
+
+  it("reclassifies later source model groups from all composition tiers", () => {
+    const roster = importRoster(`Fabricated roster (150 points)
+T’au Empire
+Experimental Prototype Cadre (1 Detachment Point)
+Reconnaissance
+Incursion (1000 points)
+
+OTHER DATASHEETS
+
+Broadside Battlesuits (150 points)
+• 1x Broadside Shas’vre
+• 1x Crushing bulk
+• 1x Heavy rail rifle
+• 1x Broadside Shas’ui
+• 1x Crushing bulk
+• 1x Heavy rail rifle
+`, { dataset: ds });
+
+    expect(roster.units[0]?.model_count).toBe(2);
+    expect(roster.units[0]?.wargear.some((item) => item.ref.raw_name === "Broadside Shas’ui")).toBe(false);
+    expect(roster.diagnostics.warnings.some((warning) => warning.raw_name === "Broadside Shas’ui")).toBe(false);
+  });
+
+  it("strips a source model nickname before composition matching", () => {
+    const roster = importRoster(`Fabricated roster (90 points)
+Chaos Daemons
+Legion of Excess (1 Detachment Point)
+Reconnaissance
+Incursion (1000 points)
+
+BATTLELINE
+
+Daemonettes (90 points)
+• 1x Alluress "example
+• 1x Slashing claws
+• 9x Daemonette
+• 9x Slashing claws
+`, { dataset: ds });
+
+    expect(roster.units[0]?.model_count).toBe(10);
+    expect(roster.units[0]?.wargear.some((item) => item.ref.raw_name.startsWith("Alluress"))).toBe(false);
+    expect(roster.diagnostics.warnings.some((warning) => warning.raw_name?.startsWith("Alluress"))).toBe(false);
+  });
+
+it("reclassifies exact source model names in multi-row compositions", () => {
+  const orks = importRoster(`Fabricated roster (105 points)
+Orks
+Bully Boyz (1 Detachment Point)
+Take and Hold
+Incursion (1000 points)
+
+OTHER DATASHEETS
+
+Nobz (105 points)
+• 1x Boss Nob
+• 1x Power klaw
+• 4x Nob
+• 4x Power klaw
+`, { dataset: ds });
+  const agents = importRoster(`Fabricated roster (100 points)
+Agents of the Imperium
+Imperialis Fleet (1 Detachment Point)
+Take and Hold
+Incursion (1000 points)
+
+OTHER DATASHEETS
+
+Subductor Squad (100 points)
+• 1x Proctor-Subductor
+• 1x Shock maul
+• 9x Subductor
+• 9x Shock maul
+• 1x Cyber-mastiff
+• 1x Mechanical bite
+`, { dataset: ds });
+
+  expect(orks.units[0]?.model_count).toBe(5);
+  expect(orks.diagnostics.warnings.some((warning) => warning.raw_name === "Nob")).toBe(false);
+  expect(agents.units[0]?.model_count).toBe(11);
+  expect(agents.diagnostics.warnings.some((warning) => warning.raw_name === "Subductor")).toBe(false);
 });
 
 // BCP prepends a `++…++` summary block (Player Name / Factions Used / Army Points
@@ -320,6 +498,7 @@ Player Name:
 Team Name: Example Team
 Factions Used: World Eaters
 Disposition Used: Purge the Foe
+Warlord: Master of Executions
 Detachment Used: Berzerker Warband
 Army Upgrades and Enhancements (list on which model):
 Master of Executions: Berzerker Glaive
@@ -328,9 +507,30 @@ Army Points: 375
 
 ${GW_APP}`;
 
+const BCP_PLUS_WRAPPED = `+++++++++++++++++++++++++++++++++++++++++++++++
++ PLAYER NAME: Example
++ FACTION KEYWORD: Chaos - World Eaters
++ DETACHMENT: Berzerker Warband
++ TOTAL ARMY POINTS: 375pts
++
++ WARLORD: Master of Executions
++ NUMBER OF UNITS: 3
++++++++++++++++++++++++++++++++++++++++++++++++
+
+${GW_APP}`;
+
 describe("gwHeaderlessAdapter — BCP summary preamble", () => {
   it("matches despite the leading BCP `++…++` block", () => {
     expect(gwHeaderlessAdapter.matches(BCP_WRAPPED)).toBe(true);
+  });
+
+  it("accepts plus-prefixed BCP metadata around a GW app body", () => {
+    expect(gwHeaderlessAdapter.matches(BCP_PLUS_WRAPPED)).toBe(true);
+    const result = tryImportRoster(BCP_PLUS_WRAPPED, { dataset: ds });
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.format).toBe("gw");
+    expect(result.roster.units).toHaveLength(3);
   });
 
   it("strips the block: real title isn't a unit and points aren't doubled", () => {
@@ -342,6 +542,8 @@ describe("gwHeaderlessAdapter — BCP summary preamble", () => {
     expect(p.units.some((u) => u.raw_name === "Ding dong")).toBe(false);
     // 375 (Khârn 100 + MoE 95 + Berzerkers 180), NOT 375 + 1995.
     expect(p.total_computed).toBe(375);
+    expect(p.units.find((unit) => unit.raw_name === "Master of Executions")?.is_warlord).toBe(true);
+    expect(p.units.find((unit) => unit.raw_name === "Khârn the Betrayer")?.is_warlord).toBe(false);
     // Parsing the wrapped and unwrapped text yields the same units + total.
     const plain = gwHeaderlessAdapter.parse(GW_APP);
     expect(p.units.map((u) => u.raw_name)).toEqual(plain.units.map((u) => u.raw_name));
@@ -356,4 +558,68 @@ describe("gwHeaderlessAdapter — BCP summary preamble", () => {
     expect(result.roster.faction_id).toBe("world-eaters");
     expect(result.roster.units.length).toBe(3);
   });
+it("recovers omitted metadata from an enhancement and source-classified Character", () => {
+  const roster = importRoster(`Fabricated notes
+
+CHARACTERS
+
+Commander in Enforcer Battlesuit (90 points)
+• 1x Battlesuit fists
+• Enhancement: Exemplar of the Mont’ka
+`, { dataset: ds });
+
+  expect(roster.faction_id).toBe("tau-empire");
+  expect(roster.detachments.map((detachment) => detachment.ref.id)).toEqual(["montka"]);
+  expect(roster.force_disposition).toBe("priority-assets");
+  expect(roster.units[0]?.is_warlord).toBe(true);
 });
+
+});
+
+
+describe("gwHeaderlessAdapter — combined wargear counts", () => {
+  it("applies a leading count only to the first resolved item", () => {
+    const roster = importRoster(`Fabricated roster (85 points)
+Aeldari
+Ghosts of the Webway (1 Detachment Point)
+Take and Hold
+Incursion (1000 points)
+
+OTHER DATASHEETS
+
+War Walker (85 points)
+• 2 Bright lance and War walker feet
+`, { dataset: ds });
+    const walker = roster.units[0];
+    expect(
+      walker?.wargear.map((item) => [item.ref.id, item.count]),
+    ).toEqual([
+      ["bright-lance-war-walkers", 2],
+      ["war-walker-feet", 1],
+    ]);
+  });
+});
+
+  it("reconstructs aggregate counts from repeated inline model groups", () => {
+    const roster = importRoster(`Fabricated roster (90 points)
+Aeldari
+Ghosts of the Webway (1 Detachment Point)
+Take and Hold
+Incursion (1000 points)
+
+MOUNTED
+
+Windriders (90 points)
+• 1 Windriders with Close combat weapon and Shuriken cannon
+• 1 Windriders with Close combat weapon and Shuriken cannon
+• 1 Windriders with Close combat weapon and Shuriken cannon
+`, { dataset: ds });
+    const riders = roster.units[0];
+    expect(
+      riders?.wargear.map((item) => [item.ref.id, item.count]),
+    ).toEqual([
+      ["close-combat-weapon-windriders", 3],
+      ["shuriken-cannon-windriders", 3],
+    ]);
+    expect(riders?.loadout_groups?.[0]?.wargear.every((item) => item.ref.resolved)).toBe(true);
+  });

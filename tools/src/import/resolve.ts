@@ -17,7 +17,7 @@
 import type { Dataset } from "../data/dataset.js";
 import type { UnitView } from "../data/entities.js";
 import { detachmentCapForBattleSize } from "../data/battle-sizes.js";
-import { checkUnitLegality, groupLoadout } from "../data/loadout.js";
+import { checkUnitLegality, completeLoadout, groupLoadout } from "../data/loadout.js";
 import { normalizeName, stripLeadingThe } from "../data/normalize.js";
 import type {
   BattleSize,
@@ -31,6 +31,7 @@ import type {
   RosterFormat,
   RosterLoadoutGroup,
   RosterUnit,
+  RosterWargear,
   Warning,
   WarningCode,
 } from "./types.js";
@@ -39,6 +40,77 @@ import type {
 const ROSTER_GAME_VERSION = { edition: "11th", dataslate: "pre-launch-provisional" };
 
 const MAX_CANDIDATES = 5;
+const FACTION_NAME_ALIASES: Readonly<Record<string, string>> = {
+  "imperial guard": "Astra Militarum",
+  "league of votann": "Leagues of Votann",
+};
+const DETACHMENT_SOURCE_ALIASES: Readonly<Record<string, string>> = {
+  "hearthband covenant": "Hearthguard Covenant",
+  "lord of the forge": "Lords of the Forge",
+  radzone: "Rad-Zone Corps",
+};
+const SOURCE_NAME_ALIASES: Readonly<Record<string, string>> = {
+  "exo armour grenade launcher": "Exoarmour grenade launcher",
+  "kombi rokkit": "Kombi-weapon",
+  "kombi shoota": "Kombi-weapon",
+  "leaders bio weapons": "Leader’s cult weapons",
+  "pan spectral scanner": "Panspectral Scanner",
+  "squig bomb": "Bomb Squig",
+};
+
+function factionNameCandidates(rawName: string): string[] {
+  const candidates = [rawName.trim()];
+  const aka = /\baka\b\s+(.+)$/i.exec(rawName);
+  if (aka) candidates.unshift(aka[1].trim());
+  const firstFaction = rawName.split(/\s+and\s+/i)[0]?.trim();
+  if (firstFaction && firstFaction !== rawName.trim()) candidates.push(firstFaction);
+  const alias = FACTION_NAME_ALIASES[normalizeName(rawName)];
+  if (alias) candidates.unshift(alias);
+  return [...new Set(candidates.filter(Boolean))];
+}
+function normalizeDetachmentSourceName(rawName: string): string {
+  const normalized = rawName
+    .replace(/[\u00a0\u202f]/g, " ")
+    .replace(/[‐‑‒–—]/g, "-")
+    .replace(
+      /\s*\(\s*\d*\s*(?:detachment points?|detachementpoints?|dp|pd)\s*\)/gi,
+      "",
+    )
+    .trim();
+  return DETACHMENT_SOURCE_ALIASES[normalizeName(normalized)] ?? normalized;
+}
+
+function normalizedSourcePunctuation(rawName: string): string {
+  return rawName
+    .replace(/[‐‑‒–—]/g, "-")
+    .replace(/\s*&\s*/g, " and ")
+    .replace(/\bautocanon\b/gi, "autocannon");
+}
+
+function sourceNameAlias(rawName: string): string | null {
+  return SOURCE_NAME_ALIASES[normalizeName(normalizedSourcePunctuation(rawName))] ?? null;
+}
+
+function sourceNameVariants(rawName: string): string[] {
+  const normalizedPunctuation = normalizedSourcePunctuation(rawName);
+  const alias = sourceNameAlias(rawName);
+  return [...new Set([rawName, normalizedPunctuation, ...(alias ? [alias] : [])])];
+}
+
+function lookupNameKeys(rawName: string): Set<string> {
+  const keys = new Set<string>();
+  for (const variant of sourceNameVariants(rawName)) {
+    keys.add(normalizeName(variant));
+    keys.add(normalizeName(`The ${variant}`));
+    const stripped = stripLeadingThe(variant);
+    if (stripped) keys.add(normalizeName(stripped));
+  }
+  return keys;
+}
+
+function singularNameKey(rawName: string): string {
+  return normalizeName(rawName).replace(/s\b/g, "");
+}
 
 interface NamedRecord {
   id: string;
@@ -84,7 +156,7 @@ function toCandidates(records: readonly NamedRecord[]): Candidate[] {
 function mapBattleSize(raw: string | null): BattleSize | null {
   if (!raw) return null;
   const key = normalizeName(raw);
-  if (key.includes("strike force")) return "strike-force";
+  if (key.includes("strike force") || key.includes("strikeforce")) return "strike-force";
   if (key.includes("incursion")) return "incursion";
   return null;
 }
@@ -99,22 +171,120 @@ export function resolve(
 ): Roster {
   const diag = new DiagnosticsBuilder();
 
-  if (parsed.multi_force) {
-    diag.warn(
-      "multi-force",
-      "Source list contains more than one faction; the primary faction was used for scoping.",
-    );
-  }
 
   // --- Faction (resolved first so other lookups can scope to it). -----------
   let faction_id: string | null = null;
+  const detachmentRawNames = [...parsed.detachment_raw_names];
+  let factionWasInferred = false;
   if (parsed.faction_raw_name) {
-    const hit = ds.factions.find(parsed.faction_raw_name);
-    if (hit) {
-      faction_id = hit.id;
-    } else {
-      diag.warn("faction-unresolved", "Faction name did not match any 40kdc faction.", parsed.faction_raw_name);
+    let directHit = factionNameCandidates(parsed.faction_raw_name)
+      .map((candidate) => ds.factions.find(candidate))
+      .find((candidate) => candidate !== undefined);
+
+    // Event comments may sit between the title and the real metadata. The text
+    // parser preserves those logical lines as detachment candidates; recover
+    // an exact faction line before trying positional fallbacks.
+    if (!directHit) {
+      let factionLineIndex = -1;
+      for (let index = detachmentRawNames.length - 1; index >= 0; index -= 1) {
+        if (
+          factionNameCandidates(detachmentRawNames[index]).some((candidate) =>
+            ds.factions.find(candidate),
+          )
+        ) {
+          factionLineIndex = index;
+          break;
+        }
+      }
+      if (factionLineIndex >= 0) {
+        directHit = factionNameCandidates(detachmentRawNames[factionLineIndex])
+          .map((candidate) => ds.factions.find(candidate))
+          .find((candidate) => candidate !== undefined);
+        detachmentRawNames.splice(0, factionLineIndex + 1);
+      }
     }
+
+    if (directHit) {
+      faction_id = directHit.id;
+    } else {
+      // Some copy/paste pipelines remove every metadata line break, leaving
+      // `<Faction> <Detachment(s)>` as one token. Recover only an exact faction
+      // prefix; the remaining words still go through ordinary detachment
+      // resolution below.
+      const rawKey = normalizeName(parsed.faction_raw_name);
+      const prefixHit = ds.factions.all
+        .filter((faction) => rawKey.startsWith(`${normalizeName(faction.name)} `))
+        .sort((a, b) => normalizeName(b.name).length - normalizeName(a.name).length)[0];
+      if (prefixHit) {
+        faction_id = prefixHit.id;
+        const factionWordCount = prefixHit.name.trim().split(/\s+/).length;
+        const remainder = parsed.faction_raw_name
+          .trim()
+          .split(/\s+/)
+          .slice(factionWordCount)
+          .join(" ")
+          .replace(/\s*\(\d+\s+Detachment Points?\)\s*$/i, "");
+        const secondaryFaction = /^and\s+(.+)$/i.exec(remainder);
+        const secondaryHit =
+          secondaryFaction &&
+          factionNameCandidates(secondaryFaction[1])
+            .map((candidate) => ds.factions.find(candidate))
+            .find((candidate) => candidate !== undefined);
+        if (remainder && !secondaryHit) detachmentRawNames.push(remainder);
+      } else {
+        // Title-less exports put the faction on line one, where the text
+        // grammar initially treats it as the roster name. The misclassified
+        // preamble token is then the detachment.
+        const titleHit = factionNameCandidates(parsed.name)
+          .map((candidate) => ds.factions.find(candidate))
+          .find((candidate) => candidate !== undefined);
+        if (titleHit) {
+          faction_id = titleHit.id;
+          const recoveredDetachment = parsed.faction_raw_name.replace(
+            /\s*\(\d+\s+(?:Detachment Points?|PD)\)\s*$/i,
+            "",
+          );
+          if (recoveredDetachment) detachmentRawNames.unshift(recoveredDetachment);
+        }
+      }
+    }
+  }
+
+  if (faction_id === null) {
+    // A few accepted event lists omit army metadata altogether. Infer only
+    // from exact, faction-unique unit names; ties remain unresolved.
+    const counts = new Map<string, number>();
+    for (const unit of parsed.units) {
+      const exactFactions = new Set(
+        unitLookupCandidates(unit.raw_name, null, ds)
+          .flatMap((candidate) => ds.units.findAll(candidate))
+          .filter((candidate) => {
+            const key = normalizeName(unit.raw_name);
+            return (
+              normalizeName(candidate.name) === key ||
+              (candidate.raw.aliases ?? []).some((alias) => normalizeName(alias) === key)
+            );
+          })
+          .map((candidate) => candidate.raw.faction_id),
+      );
+      if (exactFactions.size === 1) {
+        const inferred = [...exactFactions][0];
+        counts.set(inferred, (counts.get(inferred) ?? 0) + 1);
+      }
+    }
+    const ranked = [...counts].sort((a, b) => b[1] - a[1]);
+    if (ranked[0] && (!ranked[1] || ranked[0][1] > ranked[1][1])) {
+      faction_id = ranked[0][0];
+      factionWasInferred = true;
+    }
+  }
+
+  if (faction_id === null && parsed.faction_raw_name) {
+    diag.warn(
+      "faction-unresolved",
+      "Faction name did not match any 40kdc faction.",
+      parsed.faction_raw_name,
+    );
   }
 
   // --- Detachments (each scoped to faction, then global fallback). ----------
@@ -122,15 +292,26 @@ export function resolve(
   // list preserves source order. `dp_cost` is looked up from the resolved
   // detachment entity (no source format reports it).
   const resolveDetachment = (raw_name: string): RosterDetachment | null => {
-    const key = normalizeName(raw_name);
+    const lookupName = normalizeDetachmentSourceName(raw_name);
+    const key = normalizeName(lookupName);
     const scoped = faction_id
       ? ds.detachments.byFaction(faction_id).find((d) => normalizeName(d.name ?? "") === key)
       : undefined;
-    const hit = scoped ?? ds.detachments.find(raw_name);
+    const hit = scoped ?? ds.detachments.find(lookupName);
     if (!hit) return null;
     return { ref: resolved(hit.id, raw_name), dp_cost: hit.detachment_points ?? null };
   };
-  const detachments: RosterDetachment[] = parsed.detachment_raw_names.flatMap((raw_name) => {
+  const coalescedDetachmentNames: string[] = [];
+  for (const rawName of detachmentRawNames) {
+    const previous = coalescedDetachmentNames.at(-1);
+    if (previous?.trimEnd().endsWith(" and")) {
+      coalescedDetachmentNames[coalescedDetachmentNames.length - 1] =
+        `${previous} ${rawName}`;
+    } else if (rawName.trim()) {
+      coalescedDetachmentNames.push(rawName);
+    }
+  }
+  const detachments: RosterDetachment[] = coalescedDetachmentNames.flatMap((raw_name) => {
     const whole = resolveDetachment(raw_name);
     if (whole) return [whole];
     // Dual-detachment 11e lists print both names on one line joined with
@@ -139,11 +320,14 @@ export function resolve(
     // RESOLVE-TIME fallback, taken only when the whole name fails and every
     // part resolves — "Legends of Saga and Song" is a real single-detachment
     // name a lexical split would corrupt.
-    const parts = raw_name.split(/\s+and\s+|\s*,\s*/);
+    const parts = raw_name
+      .split(/\s+(?:and|\+)\s+|\s*,\s*/i)
+      .map((part) => normalizeDetachmentSourceName(part.replace(/^and\s+/i, "")));
     if (parts.length > 1) {
-      const split = parts.map((p) => resolveDetachment(p.trim()));
+      const split = parts.map((part) => resolveDetachment(part));
       if (split.every((d): d is RosterDetachment => d !== null)) return split;
     }
+    if (factionWasInferred) return [];
     diag.warn("detachment-unresolved", "Detachment name did not match any 40kdc detachment.", raw_name);
     return [
       {
@@ -160,7 +344,11 @@ export function resolve(
   // dataset.
   let force_disposition = parsed.force_disposition ?? null;
   if (!force_disposition && parsed.force_disposition_raw_name) {
-    const hit = ds.forceDispositions.find(parsed.force_disposition_raw_name);
+    const dispositionName =
+      normalizeName(parsed.force_disposition_raw_name) === "recon"
+        ? "Reconnaissance"
+        : parsed.force_disposition_raw_name;
+    const hit = ds.forceDispositions.find(dispositionName);
     if (hit) {
       force_disposition = hit.id;
     } else {
@@ -192,6 +380,59 @@ export function resolve(
 
   // --- Units (and their enhancements / wargear). ----------------------------
   const units = parsed.units.map((u) => resolveUnit(u, faction_id, detachmentIds, ds, diag));
+  // A metadata-less source can still identify its detachment unambiguously through
+  // enhancement ownership. Resolve those units globally first, then recover the
+  // one shared detachment and its sole legal Force Disposition.
+  const enhancementById = (id: string) =>
+    faction_id ? ds.enhancements.getInFaction(id, faction_id) : ds.enhancements.getAny(id);
+  const detachmentById = (id: string) =>
+    faction_id ? ds.detachments.getInFaction(id, faction_id) : ds.detachments.getAny(id);
+
+  if (detachments.length === 0) {
+    const inferredDetachmentIds = new Set(
+      units.flatMap((unit) => {
+        const enhancementId = unit.enhancement?.id;
+        const detachmentId = enhancementId
+          ? enhancementById(enhancementId)?.detachment_id
+          : undefined;
+        return detachmentId ? [detachmentId] : [];
+      }),
+    );
+    if (inferredDetachmentIds.size === 1) {
+      const detachmentId = [...inferredDetachmentIds][0];
+      const detachment = detachmentById(detachmentId);
+      if (detachment) {
+        detachments.push({
+          ref: resolved(detachment.id, detachment.name),
+          dp_cost: detachment.detachment_points ?? null,
+        });
+        detachmentIds.push(detachment.id);
+      }
+    }
+  }
+  if (
+    force_disposition === null &&
+    parsed.force_disposition_raw_name === null &&
+    detachmentIds.length > 0
+  ) {
+    const dispositionIds = new Set(
+      detachmentIds.flatMap((id) => detachmentById(id)?.force_dispositions ?? []),
+    );
+    const everyDetachmentHasOnlyThatDisposition = detachmentIds.every(
+      (id) => detachmentById(id)?.force_dispositions?.length === 1,
+    );
+    if (everyDetachmentHasOnlyThatDisposition && dispositionIds.size === 1) {
+      force_disposition = [...dispositionIds][0];
+    }
+  }
+
+  // Some GW text exports omit the Warlord annotation while retaining explicit
+  // Character classification. A valid roster still has exactly one Warlord, so
+  // preserve source order and use the first explicitly classified Character.
+  if (format === "gw" && !units.some((unit) => unit.is_warlord)) {
+    const firstCharacter = parsed.units.findIndex((unit) => unit.is_character);
+    if (firstCharacter >= 0) units[firstCharacter].is_warlord = true;
+  }
 
   // --- Leader attachments (second pass: needs all resolved unit ids). -------
   applyLeaderAttachments(parsed.units, units, ds, faction_id, diag);
@@ -246,6 +487,13 @@ const CHAOS_CHASSIS_PREFIX = "Chaos ";
  */
 function unitLookupCandidates(raw_name: string, faction_id: string | null, ds: Dataset): string[] {
   const candidates = [raw_name];
+  const delimitedName = raw_name.split(/\s+--?\s+/).at(-1)?.trim();
+  if (delimitedName && delimitedName !== raw_name) candidates.push(delimitedName);
+  const withoutNickname = raw_name.replace(
+    /\s+(?:["“][^"”]+["”]|'[^']+')\s*$/,
+    "",
+  );
+  if (withoutNickname !== raw_name) candidates.push(withoutNickname);
   const factionName = faction_id ? ds.factions.getAny(faction_id)?.name : undefined;
   if (factionName) {
     const prefix = `${factionName} `;
@@ -270,14 +518,18 @@ function unitLookupCandidates(raw_name: string, faction_id: string | null, ds: D
  * routes through {@link Collection.findAll} (id → normalized-name → substring).
  */
 function findWeaponCandidates(ds: Dataset, rawName: string) {
-  const direct = ds.weapons.findAll(rawName);
-  if (direct.length > 0) return direct;
-  const stripped = stripLeadingThe(rawName);
-  if (stripped) {
-    const hits = ds.weapons.findAll(stripped);
-    if (hits.length > 0) return hits;
+  for (const variant of sourceNameVariants(rawName)) {
+    const direct = ds.weapons.findAll(variant);
+    if (direct.length > 0) return direct;
+    const stripped = stripLeadingThe(variant);
+    if (stripped) {
+      const hits = ds.weapons.findAll(stripped);
+      if (hits.length > 0) return hits;
+    }
+    const prefixed = ds.weapons.findAll(`The ${variant}`);
+    if (prefixed.length > 0) return prefixed;
   }
-  return ds.weapons.findAll(`The ${rawName}`);
+  return [];
 }
 
 /**
@@ -296,14 +548,39 @@ function scopedWeaponId(ds: Dataset, hit: UnitView, rawName: string): string | n
     for (const id of opt.replacement ?? []) ids.add(id);
     for (const group of opt.replacement_choice ?? []) for (const id of group) ids.add(id);
   }
-  const stripped = stripLeadingThe(rawName);
-  const targets = new Set<string>([normalizeName(rawName), normalizeName(`The ${rawName}`)]);
-  if (stripped) targets.add(normalizeName(stripped));
+  const directTargets = new Set(
+    [rawName, normalizedSourcePunctuation(rawName)].map(normalizeName),
+  );
+  for (const id of ids) {
+    const weapon =
+      ds.weapons.getInFaction(id, hit.raw.faction_id) ?? ds.weapons.getAny(id);
+    if (
+      weapon &&
+      [weapon.name, normalizedSourcePunctuation(weapon.name)].some((name) =>
+        directTargets.has(normalizeName(name)),
+      )
+    ) {
+      return id;
+    }
+  }
+  const targets = lookupNameKeys(rawName);
+  const singularTargets = new Set(sourceNameVariants(rawName).map(singularNameKey));
+  const singularMatches: string[] = [];
   for (const id of ids) {
     const w = ds.weapons.getInFaction(id, hit.raw.faction_id) ?? ds.weapons.getAny(id);
-    if (w && targets.has(normalizeName(w.name))) return id;
+    if (!w) continue;
+    if (sourceNameVariants(w.name).some((variant) => targets.has(normalizeName(variant)))) {
+      return id;
+    }
+    if (
+      sourceNameVariants(w.name).some((variant) =>
+        singularTargets.has(singularNameKey(variant)),
+      )
+    ) {
+      singularMatches.push(id);
+    }
   }
-  return null;
+  return singularMatches.length === 1 ? singularMatches[0] : null;
 }
 
 /**
@@ -317,7 +594,8 @@ function scopedWeaponId(ds: Dataset, hit: UnitView, rawName: string): string | n
  * leading-"The" tolerance as the weapon lookups.
  */
 function resolveWargearItemId(ds: Dataset, hit: UnitView | null, rawName: string): string | null {
-  const stripped = stripLeadingThe(rawName);
+  const targets = lookupNameKeys(rawName);
+  const singularTargets = new Set(sourceNameVariants(rawName).map(singularNameKey));
   if (hit) {
     const ids = new Set<string>();
     for (const opt of ds.wargearOptionsOf(hit.raw)) {
@@ -325,20 +603,54 @@ function resolveWargearItemId(ds: Dataset, hit: UnitView | null, rawName: string
       for (const id of opt.replacement ?? []) ids.add(id);
       for (const group of opt.replacement_choice ?? []) for (const id of group) ids.add(id);
     }
-    const targets = new Set<string>([normalizeName(rawName), normalizeName(`The ${rawName}`)]);
-    if (stripped) targets.add(normalizeName(stripped));
+    const singularMatches: string[] = [];
     for (const id of ids) {
       const item = ds.wargear.getAny(id);
-      if (item && targets.has(normalizeName(item.name))) return id;
+      if (!item) continue;
+      if (
+        sourceNameVariants(item.name).some((variant) => targets.has(normalizeName(variant)))
+      ) {
+        return id;
+      }
+      if (
+        sourceNameVariants(item.name).some((variant) =>
+          singularTargets.has(singularNameKey(variant)),
+        )
+      ) {
+        singularMatches.push(id);
+      }
+    }
+    if (singularMatches.length === 1) return singularMatches[0];
+  }
+  for (const variant of sourceNameVariants(rawName)) {
+    const direct = ds.wargear.find(variant);
+    if (direct) return direct.id;
+    const stripped = stripLeadingThe(variant);
+    if (stripped) {
+      const strippedHit = ds.wargear.find(stripped);
+      if (strippedHit) return strippedHit.id;
+    }
+    const prefixed = ds.wargear.find(`The ${variant}`);
+    if (prefixed) return prefixed.id;
+  }
+  return null;
+}
+
+/** Resolve a bare unit ability emitted among its equipment lines. */
+function resolveUnitAbilityId(ds: Dataset, hit: UnitView | null, rawName: string): string | null {
+  if (!hit) return null;
+  const targets = lookupNameKeys(rawName);
+  for (const id of hit.raw.ability_ids ?? []) {
+    const ability =
+      ds.abilities.getInFaction(id, hit.raw.faction_id) ?? ds.abilities.getAny(id);
+    if (
+      ability &&
+      sourceNameVariants(ability.name).some((variant) => targets.has(normalizeName(variant)))
+    ) {
+      return id;
     }
   }
-  const direct = ds.wargear.find(rawName);
-  if (direct) return direct.id;
-  if (stripped) {
-    const strippedHit = ds.wargear.find(stripped);
-    if (strippedHit) return strippedHit.id;
-  }
-  return ds.wargear.find(`The ${rawName}`)?.id ?? null;
+  return null;
 }
 
 function resolveUnit(
@@ -397,66 +709,262 @@ function resolveUnit(
   // row names — and its own name covers vehicle squadrons ("2x Hippogriff
   // AFV") — so a wargear entry matching one (singular/plural-insensitive) is a
   // model line: its count rebuilds the model count and it leaves the wargear
-  // bag. Well-indented exports never put model names in wargear, so this is a
-  // no-op for them.
-  const singular = (s: string) => normalizeName(s).replace(/s\b/g, "");
+  // bag. If the parser already produced a valid composition-tier count, matching
+  // lines are duplicate model labels separated from their children by source
+  // annotations; remove them without counting them again.
   let model_count = parsed.model_count;
   let wargearLines = parsed.wargear;
   if (hit) {
-    const modelNames = new Set<string>([singular(hit.name)]);
-    for (const alias of hit.raw.aliases ?? []) modelNames.add(singular(alias));
-    for (const m of ds.unitCompositionOf(hit.raw)?.models ?? []) {
-      if (m.name) modelNames.add(singular(m.name));
+    const unitModelNames = new Set<string>([singularNameKey(hit.name)]);
+    for (const alias of hit.raw.aliases ?? []) {
+      unitModelNames.add(singularNameKey(alias));
     }
-    const isModelLine = (raw: string) => modelNames.has(singular(raw));
+    const compositionModelNames = new Set<string>();
+    for (const m of ds.unitCompositionOf(hit.raw)?.models ?? []) {
+      if (m.name) compositionModelNames.add(singularNameKey(m.name));
+      if (m.profile_name) compositionModelNames.add(singularNameKey(m.profile_name));
+    }
+    const modelLineKeys = (raw: string): Set<string> => {
+      const variants = [raw, ...raw.split(/\s+--?\s+/)];
+      const withBase = raw.split(/\s+with\s+/i)[0]?.trim();
+      if (withBase) variants.push(withBase);
+      const withoutRole = raw.replace(/\s+character$/i, "");
+      if (withoutRole !== raw) variants.push(withoutRole);
+      const withoutNickname = raw.replace(
+        /\s+(?:["“][^"”]+["”]?|'[^']+'?)\s*$/,
+        "",
+      );
+      if (withoutNickname !== raw) variants.push(withoutNickname);
+      return new Set(variants.flatMap(sourceNameVariants).map(singularNameKey));
+    };
+    const matchesModelName = (raw: string, modelName: string): boolean => {
+      const keys = modelLineKeys(raw);
+      return [...keys].some(
+        (key) =>
+          key === modelName ||
+          (!modelName.includes(" with ") && modelName.endsWith(` ${key}`)),
+      );
+    };
+    const isModelLine = (raw: string): boolean => {
+      const keys = modelLineKeys(raw);
+      if (
+        [...unitModelNames, ...compositionModelNames].some((modelName) =>
+          keys.has(modelName),
+        )
+      ) {
+        return true;
+      }
+      return [...compositionModelNames].filter((modelName) =>
+        matchesModelName(raw, modelName),
+      ).length === 1;
+    };
     const modelLines = parsed.wargear.filter((w) => isModelLine(w.raw_name));
     const modelSum = modelLines.reduce((s, w) => s + w.count, 0);
     if (modelSum > 0) {
       wargearLines = parsed.wargear.filter((w) => !isModelLine(w.raw_name));
-      // When the reclassified lines cover EVERY composition row name, they
-      // fully enumerate the unit and the parser's count was its synthetic 1
-      // fallback — the sum stands alone (Stormboyz: "4x Stormboy" + "1x Boss
-      // Nob" = 5). Any uncovered row means the parser genuinely counted those
-      // models (a colon-dialect "1x Shas'ui: …" line) and the flat lines are
-      // the REST of the squad — the counts add (1 + "9x Pathfinders" = 10).
-      const rows = ds.unitCompositionOf(hit.raw)?.models ?? [];
-      const lineNames = new Set(modelLines.map((w) => singular(w.raw_name)));
+      const composition = ds.unitCompositionOf(hit.raw);
+      const rows = composition?.models ?? [];
+      const parsedCountValid =
+        (composition?.tiers ?? []).some((tier) => {
+          const tierRows = tier.models ?? [];
+          const min = tierRows.reduce((sum, model) => sum + (model.min ?? 0), 0);
+          const max = tierRows.reduce((sum, model) => sum + (model.max ?? 0), 0);
+          return parsed.model_count >= min && parsed.model_count <= max;
+        }) ||
+        ((composition?.tiers?.length ?? 0) === 0 &&
+          rows.length > 0 &&
+          parsed.model_count >= rows.reduce((sum, model) => sum + (model.min ?? 0), 0) &&
+          parsed.model_count <= rows.reduce((sum, model) => sum + (model.max ?? 0), 0));
+      const modelSumMatchesPoints =
+        parsed.points !== null &&
+        (hit.raw.points ?? []).some(
+          (tier) =>
+            tier.cost === parsed.points &&
+            tier.models <= modelSum &&
+            modelSum <= (tier.models_max ?? tier.models),
+        );
       const covered =
-        rows.length === 0 || rows.every((m) => !m.name || lineNames.has(singular(m.name)));
-      model_count = covered ? modelSum : parsed.model_count + modelSum;
+        rows.length === 0 ||
+        rows.every(
+          (model) =>
+            (model.min ?? 0) <= 0 ||
+            (!model.name && !model.profile_name) ||
+            modelLines.some(
+              (line) =>
+                (model.name &&
+                  matchesModelName(line.raw_name, singularNameKey(model.name))) ||
+                (model.profile_name &&
+                  matchesModelName(line.raw_name, singularNameKey(model.profile_name))),
+            ),
+        );
+      model_count =
+        modelSumMatchesPoints || covered
+          ? modelSum
+          : parsedCountValid
+            ? parsed.model_count
+            : parsed.model_count + modelSum;
     }
   }
 
-  const wargear = wargearLines.map((w) => {
+  const resolveGearRef = (rawName: string): ResolvedRef | null => {
     // Prefer the resolved unit's own weapon of this name — picks the right
     // per-unit stat variant — falling back to the global lookup only when the
     // unit is unresolved or fields no weapon of that name.
-    const scopedId = hit ? scopedWeaponId(ds, hit, w.raw_name) : null;
-    if (scopedId) {
+    const scopedId = hit ? scopedWeaponId(ds, hit, rawName) : null;
+    if (scopedId) return resolved(scopedId, rawName);
+    const hits = findWeaponCandidates(ds, rawName);
+    if (hits[0]) return resolved(hits[0].id, rawName);
+    const wargearItemId = resolveWargearItemId(ds, hit ?? null, rawName);
+    if (wargearItemId) return resolved(wargearItemId, rawName);
+    const abilityId = resolveUnitAbilityId(ds, hit ?? null, rawName);
+    return abilityId ? resolved(abilityId, rawName) : null;
+  };
+
+  let wargear = wargearLines.flatMap((w) => {
+
+    const direct = resolveGearRef(w.raw_name);
+    if (direct) {
       diag.resolved_weapons += 1;
-      return { ref: resolved(scopedId, w.raw_name), count: w.count };
+      return [{ ref: direct, count: w.count }];
     }
+
+    // Some list generators join a model's separate weapons with prose `and`
+    // rather than commas. Split only as a resolve-time fallback and only when
+    // every part resolves, preserving genuine weapon names containing "and".
+    const parts = w.raw_name.split(/\s+and\s+/i).map((part) => part.trim());
+    if (parts.length > 1) {
+      const partRefs = parts.map(resolveGearRef);
+      if (partRefs.every((part): part is ResolvedRef => part !== null)) {
+        diag.resolved_weapons += partRefs.length;
+        return partRefs.map((part, index) => ({
+          ref: part,
+          count: index === 0 ? w.count : 1,
+        }));
+      }
+    }
+
     const hits = findWeaponCandidates(ds, w.raw_name);
-    if (hits[0]) {
-      diag.resolved_weapons += 1;
-      return { ref: resolved(hits[0].id, w.raw_name), count: w.count };
-    }
-    const wargearItemId = resolveWargearItemId(ds, hit ?? null, w.raw_name);
-    if (wargearItemId) {
-      diag.resolved_weapons += 1;
-      return { ref: resolved(wargearItemId, w.raw_name), count: w.count };
-    }
     diag.unresolved_weapons += 1;
     diag.warn("weapon-unresolved", "Weapon name did not match any 40kdc weapon.", w.raw_name);
-    return { ref: unresolved(w.raw_name, toCandidates(hits)), count: w.count };
+    return [{ ref: unresolved(w.raw_name, toCandidates(hits)), count: w.count }];
   });
 
-  // Reconstruct the per-model-type loadout groups deterministically from the
-  // resolved unit, so a re-export reproduces the same grouped lines the exporter
-  // emits (round-trip), without the text parsers having to understand model-name
-  // labels. Only when the unit and every weapon resolved and the loadout
-  // decomposes exactly (groupLoadout returns null otherwise).
-  const loadout_groups = buildLoadoutGroups(hit, model_count, wargear, ds);
+  // Preserve exact groups carried by a source format. Otherwise reconstruct
+  // them from the aggregate, completing only omitted implicit defaults.
+  const explicitGroupRefs = (rawName: string, count: number): RosterWargear[] => {
+    const direct = wargear.find(
+      (item) => normalizeName(item.ref.raw_name) === normalizeName(rawName),
+    );
+    if (direct) return [{ ref: direct.ref, count }];
+    const ref = resolveGearRef(rawName);
+    if (ref) return [{ ref, count }];
+    const parts = rawName.split(/\s+and\s+/i).map((part) => part.trim());
+    if (parts.length > 1) {
+      const refs = parts.map(resolveGearRef);
+      if (refs.every((part): part is ResolvedRef => part !== null)) {
+        return refs.map((part) => ({ ref: part, count }));
+      }
+    }
+    return [{ ref: unresolved(rawName, []), count }];
+  };
+  let loadout_groups =
+    parsed.loadout_groups?.map((group) => ({
+      model_name: group.model_name,
+      count: group.count,
+      wargear: group.wargear.flatMap((item) =>
+        explicitGroupRefs(item.raw_name, item.count),
+      ),
+    })) ?? buildLoadoutGroups(hit, model_count, wargear, ds);
+  if (
+    parsed.loadout_groups &&
+    loadout_groups &&
+    loadout_groups.every((group) => group.wargear.every((item) => item.ref.id !== null))
+  ) {
+    const originalIds = new Set(wargear.map((item) => item.ref.id!));
+    const grouped = new Map<string, RosterWargear>();
+    for (const group of loadout_groups) {
+      for (const item of group.wargear) {
+        const id = item.ref.id!;
+        const existing = grouped.get(id);
+        const count = group.count * item.count;
+        grouped.set(
+          id,
+          existing
+            ? { ...existing, count: existing.count + count }
+            : { ref: item.ref, count },
+        );
+      }
+    }
+    for (const item of wargear) {
+      if (!grouped.has(item.ref.id!)) grouped.set(item.ref.id!, item);
+    }
+    diag.resolved_weapons += [...grouped.keys()].filter((id) => !originalIds.has(id)).length;
+    wargear = [...grouped.values()];
+  }
+  if (!loadout_groups && hit && wargear.every((item) => item.ref.id !== null)) {
+    const explicitRefs = new Map(wargear.map((item) => [item.ref.id!, item.ref]));
+    const explicitCounts = new Map<string, number>();
+    for (const item of wargear) {
+      explicitCounts.set(
+        item.ref.id!,
+        (explicitCounts.get(item.ref.id!) ?? 0) + item.count,
+      );
+    }
+    const completed = completeLoadout(
+      hit.raw,
+      model_count,
+      ds.wargearOptionsOf(hit.raw),
+      ds.unitCompositionOf(hit.raw)?.models,
+      explicitCounts,
+    );
+    if (completed) {
+      const refForId = (id: string): ResolvedRef => {
+        const existing = explicitRefs.get(id);
+        if (existing) return existing;
+        const name =
+          hit.weapons.find((weapon) => weapon.id === id)?.name ??
+          ds.wargear.get(id)?.name ??
+          ds.abilities.get(id)?.name ??
+          id;
+        return resolved(id, name);
+      };
+      diag.resolved_weapons += [...completed.counts.keys()].filter(
+        (id) => !explicitRefs.has(id),
+      ).length;
+      wargear = [...completed.counts].map(([id, count]) => ({
+        ref: refForId(id),
+        count,
+      }));
+      loadout_groups =
+        completed.groups?.map((group) => ({
+          model_name: group.model_name,
+          count: group.count,
+          wargear: group.weapons.map((item) => ({
+            ref: refForId(item.id),
+            count: item.count,
+          })),
+        })) ?? undefined;
+    }
+  }
+  if (loadout_groups && loadout_groups.length > 0) {
+    const firstGroupPosition = new Map<string, number>();
+    for (const group of loadout_groups) {
+      for (const item of group.wargear) {
+        const key = item.ref.id ?? item.ref.raw_name;
+        if (!firstGroupPosition.has(key)) {
+          firstGroupPosition.set(key, firstGroupPosition.size);
+        }
+      }
+    }
+    wargear = [...wargear].sort((left, right) => {
+      const leftKey = left.ref.id ?? left.ref.raw_name;
+      const rightKey = right.ref.id ?? right.ref.raw_name;
+      return (
+        (firstGroupPosition.get(leftKey) ?? Number.MAX_SAFE_INTEGER) -
+        (firstGroupPosition.get(rightKey) ?? Number.MAX_SAFE_INTEGER)
+      );
+    });
+  }
 
   // Loadout legality — the conservative checker over the fully-resolved counts.
   // Gated exactly like grouping (an unresolved unit has no datasheet to check;
@@ -500,11 +1008,23 @@ function resolveUnit(
     }
   }
 
+  const keywordOverrides = new Set(parsed.keyword_overrides ?? []);
+  if (
+    parsed.is_character &&
+    hit &&
+    hit.raw.role !== "character" &&
+    hit.raw.role !== "epic-hero" &&
+    !(hit.raw.keywords ?? []).includes("Character")
+  ) {
+    keywordOverrides.add("Character");
+  }
+
   return {
     ref,
     model_count,
     points: parsed.points,
     is_warlord: parsed.is_warlord,
+    ...(keywordOverrides.size ? { keyword_overrides: [...keywordOverrides] } : {}),
     enhancement,
     enhancement_points,
     wargear,

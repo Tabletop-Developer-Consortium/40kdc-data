@@ -52,7 +52,9 @@
     "weapon_ids": [
       "forgefiend-jaws",
       "hades-autocannon",
-      "hades-autocannon"
+      "hades-autocannon",
+      "ectoplasma-cannon",
+      "forgefiend-claws"
     ],
     "ability_ids": [
       "deadly-demise-d3",
@@ -327,7 +329,13 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "conditional_keywords": [
+      {
+        "keyword": "Battleline",
+        "required_detachment_id": "cult-of-blood"
+      }
+    ]
   },
   {
     "id": "lord-on-juggernaut",
@@ -1697,7 +1705,13 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "conditional_keywords": [
+      {
+        "keyword": "Battleline",
+        "required_detachment_id": "cult-of-blood"
+      }
+    ]
   },
   {
     "id": "frenzied-reavers-jakhals",

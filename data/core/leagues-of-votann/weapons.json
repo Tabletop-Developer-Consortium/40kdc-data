@@ -2310,5 +2310,71 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     }
+  },
+  {
+    "id": "armoured-fists",
+    "name": "Armoured Fists",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Armoured Fists",
+        "range": "Melee",
+        "stats": {
+          "A": 1,
+          "S": 4,
+          "AP": 0,
+          "D": 1,
+          "WS": 4
+        }
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
+    "id": "theyns-armaments",
+    "name": "Theyn’s Armaments",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Theyn’s Armaments",
+        "range": "Melee",
+        "stats": {
+          "A": 2,
+          "S": 5,
+          "AP": -2,
+          "D": 2,
+          "WS": 4
+        }
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
+    "id": "powered-strikes",
+    "name": "Powered Strikes",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Powered Strikes",
+        "range": "Melee",
+        "stats": {
+          "A": 2,
+          "S": 4,
+          "AP": 0,
+          "D": 1,
+          "WS": 4
+        }
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
   }
 ]

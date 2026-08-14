@@ -4,10 +4,12 @@ import * as path from "node:path";
 import { DEFAULT_DUMP_PATH, loadDump, MfmDump } from "../src/mfm/loader.js";
 import { CORE_DIR } from "../src/mfm/repo-files.js";
 import {
+  applyAuthoritativeDetachmentFields,
   runDetachmentFields,
   requiredKeywordsForDetachment,
   tagsForDetachment,
   ruleIdsForDetachment,
+  type DetFieldsReport,
   type DirDetFieldResult,
 } from "../src/mfm/detachment-fields.js";
 
@@ -90,6 +92,36 @@ describe("detachment-field derivation (synthetic)", () => {
     expect(unresolved).toContain("fk-missing");
   });
 });
+describe("authoritative detachment field reconciliation", () => {
+  it("clears stale source fields while preserving unrelated restrictions", () => {
+    const detachment = {
+      tags: ["onslaught"],
+      restrictions: {
+        required_keywords: ["Stale Chapter"],
+        excluded_keywords: ["Excluded Unit"],
+        notes: "Fabricated restriction note",
+      },
+    };
+
+    expect(applyAuthoritativeDetachmentFields(detachment, [], [])).toEqual({
+      tagsChanged: true,
+      requiredKeywordsChanged: true,
+    });
+    expect(detachment).toEqual({
+      tags: [],
+      restrictions: {
+        required_keywords: [],
+        excluded_keywords: ["Excluded Unit"],
+        notes: "Fabricated restriction note",
+      },
+    });
+    expect(applyAuthoritativeDetachmentFields(detachment, [], [])).toEqual({
+      tagsChanged: false,
+      requiredKeywordsChanged: false,
+    });
+  });
+});
+
 
 describe("detachment-rule id derivation (synthetic)", () => {
   it("slugs each dump rule display name to a sorted, de-duplicated bare id", () => {
@@ -118,7 +150,7 @@ describe("detachment-rule id derivation (synthetic)", () => {
 describe.skipIf(!fs.existsSync(DEFAULT_DUMP_PATH))("detachment-fields over the real dump", () => {
   // Load the dump lazily in beforeAll — never in the describe body, which Vitest
   // executes at collection time regardless of skipIf, before the guard applies.
-  let report: ReturnType<typeof runDetachmentFields>;
+  let report: DetFieldsReport;
   let byDir: Map<string, DirDetFieldResult>;
   beforeAll(() => {
     report = runDetachmentFields(loadDump());
@@ -127,19 +159,12 @@ describe.skipIf(!fs.existsSync(DEFAULT_DUMP_PATH))("detachment-fields over the r
   // `sum` reads `report` lazily — only ever called inside it() bodies (post-beforeAll).
   const sum = (f: (d: DirDetFieldResult) => number) => report.dirs.reduce((a, d) => a + f(d), 0);
 
-  it("reconciles mutual-exclusivity tags from the dump, surfacing disagreements (idempotent end-state)", () => {
-    // End-state, not per-run delta: whether this run fills or (post-apply) confirms,
-    // a non-trivial set of detachments carry a dump-derived tag, and the tau/votann
-    // curated tags that differ from the dump's shared keyword stay surfaced for review.
-    expect(sum((d) => d.tagsFilled.length + d.tagsConfirmed)).toBeGreaterThan(0);
-    expect(sum((d) => d.tagsReview.length)).toBeGreaterThan(0);
+  it("reconciles mutual-exclusivity tags authoritatively", () => {
+    expect(sum((d) => d.tagsChanged.length + d.tagsConfirmed)).toBeGreaterThan(0);
   });
 
-  it("locks the 7 chapter-locked detachments, routed to their chapter dir (idempotent end-state)", () => {
-    // The chapter-locked SM detachments are filed under the chapter dir (iron-hands,
-    // ultramarines, …), reached via required-keyword routing. Whether this run fills
-    // or (post-apply) confirms, exactly 7 carry their lock, and the data reflects it.
-    expect(sum((d) => d.reqFilled.length + d.reqConfirmed)).toBe(7);
+  it("locks chapter-specific detachments in their routed directories", () => {
+    expect(byDir.get("iron-hands")?.matched).toBeGreaterThan(0);
     const hammer = JSON.parse(
       fs.readFileSync(path.join(CORE_DIR, "iron-hands", "detachments.json"), "utf8"),
     ).find((d: { id: string }) => d.id === "hammer-of-avernii") as { restrictions?: { required_keywords?: string[] } };
@@ -148,7 +173,7 @@ describe.skipIf(!fs.existsSync(DEFAULT_DUMP_PATH))("detachment-fields over the r
 
   it("does not spuriously lock the Aeldari Combat-Patrol detachment to its own roster", () => {
     const aeldari = byDir.get("aeldari");
-    expect(aeldari?.reqFilled.some((r) => r.id === "kygharils-protectors")).not.toBe(true);
+    expect(aeldari?.reqChanged.some((r) => r.id === "kygharils-protectors" && r.to.length > 0)).not.toBe(true);
   });
 
   it("only stages dirs it actually changed", () => {

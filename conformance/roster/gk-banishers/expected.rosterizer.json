@@ -87,13 +87,13 @@
                 }
               },
               {
-                "item": "Weapon§Heavy psycannon",
-                "name": "Heavy psycannon",
+                "item": "Weapon§Fragstorm grenade launcher",
+                "name": "Fragstorm grenade launcher",
                 "quantity": 1
               },
               {
-                "item": "Weapon§Fragstorm grenade launcher",
-                "name": "Fragstorm grenade launcher",
+                "item": "Weapon§Heavy psycannon",
+                "name": "Heavy psycannon",
                 "quantity": 1
               },
               {
@@ -123,14 +123,52 @@
           "assets": {
             "included": [
               {
-                "item": "Weapon§Purifying Flame",
-                "name": "Purifying Flame",
-                "quantity": 1
+                "item": "Model§Knight of the Flame",
+                "name": "Knight of the Flame",
+                "quantity": 1,
+                "assets": {
+                  "included": [
+                    {
+                      "item": "Weapon§Nemesis force weapon",
+                      "name": "Nemesis force weapon",
+                      "quantity": 1
+                    },
+                    {
+                      "item": "Weapon§Purifying Flame",
+                      "name": "Purifying Flame",
+                      "quantity": 1
+                    },
+                    {
+                      "item": "Weapon§Storm bolter",
+                      "name": "Storm bolter",
+                      "quantity": 1
+                    }
+                  ]
+                }
               },
               {
-                "item": "Weapon§Storm bolter",
-                "name": "Storm bolter",
-                "quantity": 9
+                "item": "Model§Purifier",
+                "name": "Purifier",
+                "quantity": 9,
+                "assets": {
+                  "included": [
+                    {
+                      "item": "Weapon§Nemesis force weapon",
+                      "name": "Nemesis force weapon",
+                      "quantity": 9
+                    },
+                    {
+                      "item": "Weapon§Purifying Flame",
+                      "name": "Purifying Flame",
+                      "quantity": 9
+                    },
+                    {
+                      "item": "Weapon§Storm bolter",
+                      "name": "Storm bolter",
+                      "quantity": 9
+                    }
+                  ]
+                }
               }
             ]
           }

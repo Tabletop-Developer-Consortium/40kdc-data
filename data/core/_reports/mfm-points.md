@@ -3,34 +3,37 @@
 Per-faction reconciliation of `points` (+ `allied_points` for host-army pricing).
 Ambiguous units (multiple same-size base comps) are preserved, not overwritten.
 
-| Dir | Matched | Points changed | Allied added | Ambiguous (kept) | Structure (review) | Repo-only (Legends/FW) |
-|---|--:|--:|--:|--:|--:|--:|
-| adepta-sororitas | 37 | 0 | 0 | 0 | 0 | 0 |
-| adeptus-astartes | 194 | 0 | 0 | 9 | 2 | 0 |
-| adeptus-custodes | 35 | 0 | 0 | 0 | 0 | 0 |
-| adeptus-mechanicus | 38 | 0 | 0 | 0 | 0 | 0 |
-| aeldari | 76 | 0 | 0 | 0 | 0 | 0 |
-| agents-of-the-imperium | 33 | 0 | 0 | 3 | 0 | 0 |
-| astra-militarum | 75 | 0 | 0 | 0 | 0 | 0 |
-| chaos-daemons | 53 | 0 | 0 | 0 | 0 | 0 |
-| chaos-knights | 20 | 0 | 0 | 0 | 0 | 0 |
-| chaos-space-marines | 58 | 0 | 0 | 0 | 0 | 0 |
-| death-guard | 35 | 0 | 0 | 0 | 0 | 0 |
-| drukhari | 27 | 0 | 0 | 0 | 0 | 0 |
-| emperors-children | 20 | 0 | 0 | 0 | 0 | 0 |
-| genestealer-cults | 28 | 0 | 0 | 0 | 0 | 0 |
-| grey-knights | 30 | 0 | 0 | 0 | 0 | 0 |
-| imperial-knights | 23 | 0 | 0 | 0 | 0 | 0 |
-| leagues-of-votann | 26 | 0 | 0 | 0 | 0 | 0 |
-| necrons | 57 | 0 | 0 | 4 | 0 | 0 |
-| orks | 63 | 0 | 0 | 1 | 1 | 0 |
-| tau-empire | 47 | 0 | 0 | 0 | 0 | 0 |
-| thousand-sons | 32 | 0 | 0 | 0 | 0 | 0 |
-| tyranids | 57 | 0 | 0 | 0 | 0 | 0 |
-| world-eaters | 29 | 0 | 0 | 0 | 0 | 0 |
-| **TOTAL** | **1093** | **0** | **0** | **17** | **3** | **0** |
+| Dir | Matched | Points changed | Allied added | Ambiguous (kept) | Repo-only (Legends/FW) |
+|---|--:|--:|--:|--:|--:|
+| adepta-sororitas | 37 | 0 | 0 | 0 | 0 |
+| adeptus-astartes | 194 | 1 | 0 | 9 | 0 |
+| adeptus-custodes | 35 | 0 | 0 | 0 | 0 |
+| adeptus-mechanicus | 38 | 0 | 0 | 0 | 0 |
+| aeldari | 80 | 0 | 0 | 0 | 0 |
+| agents-of-the-imperium | 33 | 0 | 0 | 4 | 0 |
+| astra-militarum | 75 | 0 | 0 | 0 | 0 |
+| chaos-daemons | 53 | 0 | 0 | 0 | 0 |
+| chaos-knights | 20 | 0 | 0 | 0 | 0 |
+| chaos-space-marines | 58 | 0 | 0 | 0 | 0 |
+| death-guard | 35 | 0 | 0 | 0 | 0 |
+| drukhari | 27 | 0 | 0 | 0 | 0 |
+| emperors-children | 20 | 0 | 0 | 0 | 0 |
+| genestealer-cults | 28 | 0 | 0 | 0 | 0 |
+| grey-knights | 30 | 0 | 0 | 0 | 0 |
+| imperial-knights | 23 | 0 | 0 | 0 | 0 |
+| leagues-of-votann | 26 | 0 | 0 | 0 | 0 |
+| necrons | 57 | 0 | 0 | 4 | 0 |
+| orks | 63 | 1 | 0 | 1 | 0 |
+| tau-empire | 47 | 0 | 0 | 0 | 0 |
+| thousand-sons | 32 | 0 | 0 | 0 | 0 |
+| tyranids | 57 | 0 | 0 | 0 | 0 |
+| world-eaters | 29 | 0 | 0 | 0 | 0 |
+| **TOTAL** | **1097** | **2** | **0** | **18** | **0** |
 
 ## adeptus-astartes
+
+**Points changes** (old → new):
+- talonstrike-kill-team: 15m=275 → 10m=265[#1-2], 3-15m=265[#1-2], 10m=280[#3-+], 3-15m=280[#3-+]
 
 **Ambiguous (multiple same-size base comps — kept repo value):**
 - bladeguard-veteran-squad
@@ -43,32 +46,29 @@ Ambiguous units (multiple same-size base comps) are preserved, not overwritten.
 - vanguard-veteran-squad-with-jump-packs
 - wolf-guard-headtakers
 
-**Size structure differs — review (kept repo value):**
-- decimus-kill-team: repo sizes [10, 10] vs dump [5, 10]
-- talonstrike-kill-team: repo sizes [15, 15] vs dump [3, 15]
-
 ## agents-of-the-imperium
 
 **Ambiguous (multiple same-size base comps — kept repo value):**
 - callidus-assassin
+- eversor-assassin
 - culexus-assassin
 - vindicare-assassin
 
 ## necrons
 
 **Ambiguous (multiple same-size base comps — kept repo value):**
-- ctan-shard-of-the-void-dragon
-- ctan-shard-of-the-deceiver
 - ctan-shard-of-the-nightbringer
+- ctan-shard-of-the-deceiver
 - transcendent-ctan
+- ctan-shard-of-the-void-dragon
 
 ## orks
 
+**Points changes** (old → new):
+- gretchin: 11m=45, 22m=80 → 11m=45, 22m=90, 10m=45, 20m=80, 21m=85
+
 **Ambiguous (multiple same-size base comps — kept repo value):**
 - flash-gitz
-
-**Size structure differs — review (kept repo value):**
-- gretchin: repo sizes [11, 22] vs dump [10, 22]
 
 ## New units in dump (no repo entity — author in a follow-up): 41
 

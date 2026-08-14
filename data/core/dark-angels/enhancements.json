@@ -15,7 +15,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Adeptus Astartes"
+      ]
+    ]
   },
   {
     "id": "stubborn-tenacity-unforgiven-task-force",
@@ -33,7 +38,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Adeptus Astartes"
+      ]
+    ]
   },
   {
     "id": "weapons-of-the-first-legion-unforgiven-task-force",
@@ -51,7 +61,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Adeptus Astartes"
+      ]
+    ]
   },
   {
     "id": "pennant-of-remembrance-unforgiven-task-force",
@@ -69,7 +84,15 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Ancient"
+      ],
+      [
+        "Bladeguard Ancient"
+      ]
+    ]
   },
   {
     "id": "champion-of-the-deathwing-inner-circle-task-force",
@@ -87,7 +110,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Deathwing"
+      ]
+    ]
   },
   {
     "id": "eye-of-the-unseen-inner-circle-task-force",
@@ -105,7 +133,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Deathwing"
+      ]
+    ]
   },
   {
     "id": "singular-will-inner-circle-task-force",
@@ -123,7 +156,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Deathwing"
+      ]
+    ]
   },
   {
     "id": "deathwing-assault-inner-circle-task-force",
@@ -141,7 +179,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Deathwing"
+      ]
+    ]
   },
   {
     "id": "calibanite-armaments-lions-blade-task-force",
@@ -159,7 +202,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Adeptus Astartes"
+      ]
+    ]
   },
   {
     "id": "lord-of-the-hunt-lions-blade-task-force",
@@ -177,7 +225,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Ravenwing"
+      ]
+    ]
   },
   {
     "id": "stalwart-champion-lions-blade-task-force",
@@ -195,7 +248,18 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Captain"
+      ],
+      [
+        "Lieutenant"
+      ],
+      [
+        "Chaplain"
+      ]
+    ]
   },
   {
     "id": "fulgus-magna-lions-blade-task-force",
@@ -213,7 +277,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Deathwing"
+      ]
+    ]
   },
   {
     "id": "tempered-in-battle-aura-wrath-of-the-rock",
@@ -231,7 +300,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Adeptus Astartes"
+      ]
+    ]
   },
   {
     "id": "ancient-weapons-wrath-of-the-rock",
@@ -249,7 +323,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Adeptus Astartes"
+      ]
+    ]
   },
   {
     "id": "lord-of-the-ravenwing-wrath-of-the-rock",
@@ -267,7 +346,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Ravenwing"
+      ]
+    ]
   },
   {
     "id": "petition-of-stability-upgrade-dark-age-arsenal",
@@ -285,7 +369,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": true,
-    "max_targets": 3
+    "max_targets": 3,
+    "keyword_restriction_groups": [
+      [
+        "Adeptus Astartes"
+      ]
+    ]
   },
   {
     "id": "entreaty-of-perpetual-ardour-upgrade-dark-age-arsenal",
@@ -303,7 +392,13 @@
     },
     "points_provisional": false,
     "upgrade_tag": true,
-    "max_targets": 3
+    "max_targets": 3,
+    "keyword_restriction_groups": [
+      [
+        "Adeptus Astartes",
+        "Hellblaster Squad"
+      ]
+    ]
   },
   {
     "id": "thundercowl-turbines-upgrade-darkflight-pursuit",
@@ -321,7 +416,13 @@
     },
     "points_provisional": false,
     "upgrade_tag": true,
-    "max_targets": 3
+    "max_targets": 3,
+    "keyword_restriction_groups": [
+      [
+        "Fly",
+        "Ravenwing"
+      ]
+    ]
   },
   {
     "id": "nightforged-battery-upgrade-darkflight-pursuit",
@@ -339,7 +440,13 @@
     },
     "points_provisional": false,
     "upgrade_tag": true,
-    "max_targets": 3
+    "max_targets": 3,
+    "keyword_restriction_groups": [
+      [
+        "Dark Angels",
+        "Land Speeder Vengeance"
+      ]
+    ]
   },
   {
     "id": "limitless-zeal-interrogation-conclave",
@@ -357,7 +464,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Chaplain"
+      ]
+    ]
   },
   {
     "id": "inescapable-interrogation-interrogation-conclave",
@@ -375,7 +487,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Chaplain"
+      ]
+    ]
   },
   {
     "id": "master-crafted-weapon-company-of-hunters",
@@ -393,7 +510,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Ravenwing"
+      ]
+    ]
   },
   {
     "id": "mounted-strategist-company-of-hunters",
@@ -411,7 +533,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Ravenwing"
+      ]
+    ]
   },
   {
     "id": "master-of-manoeuvre-company-of-hunters",
@@ -429,7 +556,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Ravenwing"
+      ]
+    ]
   },
   {
     "id": "recon-hunter-company-of-hunters",
@@ -447,7 +579,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Ravenwing"
+      ]
+    ]
   },
   {
     "id": "the-imperiums-sword-1st-company-task-force",
@@ -465,7 +602,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Adeptus Astartes"
+      ]
+    ]
   },
   {
     "id": "fear-made-manifest-aura-1st-company-task-force",
@@ -483,7 +625,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Adeptus Astartes"
+      ]
+    ]
   },
   {
     "id": "rites-of-war-1st-company-task-force",
@@ -501,7 +648,13 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Adeptus Astartes",
+        "Terminator"
+      ]
+    ]
   },
   {
     "id": "iron-resolve-1st-company-task-force",
@@ -519,7 +672,13 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Adeptus Astartes",
+        "Terminator"
+      ]
+    ]
   },
   {
     "id": "artificer-armour-gladius-task-force",
@@ -537,7 +696,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Adeptus Astartes"
+      ]
+    ]
   },
   {
     "id": "the-honour-vehement-gladius-task-force",
@@ -555,7 +719,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Adeptus Astartes"
+      ]
+    ]
   },
   {
     "id": "adept-of-the-codex-gladius-task-force",
@@ -573,7 +742,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Captain"
+      ]
+    ]
   },
   {
     "id": "fire-discipline-gladius-task-force",
@@ -591,7 +765,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Adeptus Astartes"
+      ]
+    ]
   },
   {
     "id": "fury-of-the-storm-stormlance-task-force",
@@ -609,7 +788,13 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Adeptus Astartes",
+        "Mounted"
+      ]
+    ]
   },
   {
     "id": "portents-of-wisdom-stormlance-task-force",
@@ -627,7 +812,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Adeptus Astartes"
+      ]
+    ]
   },
   {
     "id": "feinting-withdrawal-stormlance-task-force",
@@ -645,7 +835,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Adeptus Astartes"
+      ]
+    ]
   },
   {
     "id": "hunters-instincts-stormlance-task-force",
@@ -663,7 +858,13 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Adeptus Astartes",
+        "Mounted"
+      ]
+    ]
   },
   {
     "id": "celerity-librarius-conclave",
@@ -681,7 +882,13 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Adeptus Astartes",
+        "Psyker"
+      ]
+    ]
   },
   {
     "id": "prescience-librarius-conclave",
@@ -699,7 +906,13 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Adeptus Astartes",
+        "Psyker"
+      ]
+    ]
   },
   {
     "id": "obfuscation-librarius-conclave",
@@ -717,7 +930,13 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Adeptus Astartes",
+        "Psyker"
+      ]
+    ]
   },
   {
     "id": "temporal-corridor-librarius-conclave",
@@ -735,7 +954,13 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Adeptus Astartes",
+        "Psyker"
+      ]
+    ]
   },
   {
     "id": "fusillade-librarius-conclave",
@@ -753,7 +978,13 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Adeptus Astartes",
+        "Psyker"
+      ]
+    ]
   },
   {
     "id": "the-blade-driven-deep-vanguard-spearhead",
@@ -771,7 +1002,13 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Adeptus Astartes",
+        "Infantry"
+      ]
+    ]
   },
   {
     "id": "ghostweave-cloak-vanguard-spearhead",
@@ -789,7 +1026,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Adeptus Astartes"
+      ]
+    ]
   },
   {
     "id": "execute-and-redeploy-vanguard-spearhead",
@@ -807,7 +1049,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Phobos"
+      ]
+    ]
   },
   {
     "id": "shadow-war-veteran-vanguard-spearhead",
@@ -825,7 +1072,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Phobos"
+      ]
+    ]
   },
   {
     "id": "laurels-of-thunder-orbital-assault-force",
@@ -843,7 +1095,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Adeptus Astartes"
+      ]
+    ]
   },
   {
     "id": "veteran-of-the-vanguard-orbital-assault-force",
@@ -861,7 +1118,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Adeptus Astartes"
+      ]
+    ]
   },
   {
     "id": "orbital-uplink-reliquary-orbital-assault-force",
@@ -879,7 +1141,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Adeptus Astartes"
+      ]
+    ]
   },
   {
     "id": "indomitable-fury-anvil-siege-force",
@@ -897,7 +1164,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Gravis"
+      ]
+    ]
   },
   {
     "id": "fleet-commander-anvil-siege-force",
@@ -915,7 +1187,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Captain"
+      ]
+    ]
   },
   {
     "id": "stoic-defender-anvil-siege-force",
@@ -933,7 +1210,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Adeptus Astartes"
+      ]
+    ]
   },
   {
     "id": "architect-of-war-anvil-siege-force",
@@ -951,7 +1233,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Adeptus Astartes"
+      ]
+    ]
   },
   {
     "id": "champion-of-humanity-firestorm-assault-force",
@@ -969,7 +1256,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Tacticus"
+      ]
+    ]
   },
   {
     "id": "war-tempered-artifice-firestorm-assault-force",
@@ -987,7 +1279,13 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Adeptus Astartes",
+        "Infantry"
+      ]
+    ]
   },
   {
     "id": "forged-in-battle-firestorm-assault-force",
@@ -1005,7 +1303,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Adeptus Astartes"
+      ]
+    ]
   },
   {
     "id": "adamantine-mantle-firestorm-assault-force",
@@ -1023,7 +1326,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Adeptus Astartes"
+      ]
+    ]
   },
   {
     "id": "target-augury-web-ironstorm-spearhead",
@@ -1041,7 +1349,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Techmarine"
+      ]
+    ]
   },
   {
     "id": "the-flesh-is-weak-ironstorm-spearhead",
@@ -1059,7 +1372,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Adeptus Astartes"
+      ]
+    ]
   },
   {
     "id": "adept-of-the-omnissiah-ironstorm-spearhead",
@@ -1077,7 +1395,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Techmarine"
+      ]
+    ]
   },
   {
     "id": "master-of-machine-war-ironstorm-spearhead",
@@ -1095,7 +1418,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Adeptus Astartes"
+      ]
+    ]
   },
   {
     "id": "bellicose-weapon-spirits-upgrade-fulguris-task-force",
@@ -1113,7 +1441,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": true,
-    "max_targets": 3
+    "max_targets": 3,
+    "keyword_restriction_groups": [
+      [
+        "Speeder"
+      ]
+    ]
   },
   {
     "id": "raptorial-cogitator-core-upgrade-fulguris-task-force",
@@ -1131,7 +1464,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": true,
-    "max_targets": 3
+    "max_targets": 3,
+    "keyword_restriction_groups": [
+      [
+        "Speeder"
+      ]
+    ]
   },
   {
     "id": "shroud-field-subversion-assets",
@@ -1149,7 +1487,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Phobos"
+      ]
+    ]
   },
   {
     "id": "death-in-the-dark-upgrade-subversion-assets",
@@ -1167,7 +1510,13 @@
     },
     "points_provisional": false,
     "upgrade_tag": true,
-    "max_targets": 3
+    "max_targets": 3,
+    "keyword_restriction_groups": [
+      [
+        "Infantry",
+        "Phobos"
+      ]
+    ]
   },
   {
     "id": "liberator-armoured-speartip",
@@ -1185,7 +1534,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Adeptus Astartes"
+      ]
+    ]
   },
   {
     "id": "tip-of-the-spear-armoured-speartip",
@@ -1203,7 +1557,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Adeptus Astartes"
+      ]
+    ]
   },
   {
     "id": "shock-deployment-armoured-speartip",
@@ -1221,7 +1580,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Adeptus Astartes",
+        "Terminator"
+      ],
+      [
+        "Adeptus Astartes",
+        "Gravis"
+      ]
+    ]
   },
   {
     "id": "armoured-commander-armoured-speartip",
@@ -1239,7 +1608,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Adeptus Astartes"
+      ]
+    ]
   },
   {
     "id": "eye-of-the-primarch-bastion-task-force",
@@ -1257,7 +1631,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Adeptus Astartes"
+      ]
+    ]
   },
   {
     "id": "hero-of-the-chapter-bastion-task-force",
@@ -1275,7 +1654,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Adeptus Astartes"
+      ]
+    ]
   },
   {
     "id": "blades-of-valour-bastion-task-force",
@@ -1293,7 +1677,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Adeptus Astartes"
+      ]
+    ]
   },
   {
     "id": "bombast-omnivox-bastion-task-force",
@@ -1311,7 +1700,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Adeptus Astartes"
+      ]
+    ]
   },
   {
     "id": "honour-indefatigable-ceramite-sentinels",
@@ -1329,7 +1723,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Gravis"
+      ]
+    ]
   },
   {
     "id": "castellum-omnivox-ceramite-sentinels",
@@ -1347,7 +1746,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Adeptus Astartes"
+      ]
+    ]
   },
   {
     "id": "defensive-mastery-ceramite-sentinels",
@@ -1365,7 +1769,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Adeptus Astartes"
+      ]
+    ]
   },
   {
     "id": "redoubtable-machine-spirit-headhunter-task-force",
@@ -1383,7 +1792,13 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Adeptus Astartes",
+        "Vehicle"
+      ]
+    ]
   },
   {
     "id": "gunnery-honours-headhunter-task-force",
@@ -1401,7 +1816,13 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Adeptus Astartes",
+        "Vehicle"
+      ]
+    ]
   },
   {
     "id": "firestorm-coordinators-headhunter-task-force",
@@ -1419,7 +1840,13 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Adeptus Astartes",
+        "Vehicle"
+      ]
+    ]
   },
   {
     "id": "astartes-tank-ace-aura-headhunter-task-force",
@@ -1437,7 +1864,13 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Adeptus Astartes",
+        "Vehicle"
+      ]
+    ]
   },
   {
     "id": "dedicated-gunship-orbital-assault-force",
@@ -1453,6 +1886,12 @@
     "keyword_restrictions": [
       "Adeptus Astartes",
       "Terminator"
+    ],
+    "keyword_restriction_groups": [
+      [
+        "Adeptus Astartes",
+        "Terminator"
+      ]
     ]
   },
   {
@@ -1473,7 +1912,12 @@
       "Bladeguard Veteran Squad",
       "Vengeful Brethren"
     ],
-    "upgrade_tag": true
+    "upgrade_tag": true,
+    "keyword_restriction_groups": [
+      [
+        "Vengeful Brethren Bladeguard Veteran Squad"
+      ]
+    ]
   },
   {
     "id": "supreme-combatant-the-vengeful-brethren",
@@ -1492,6 +1936,36 @@
     "keyword_restrictions": [
       "Gravis",
       "Vengeful Brethren"
+    ],
+    "keyword_restriction_groups": [
+      [
+        "Captain",
+        "Gravis",
+        "Vengeful Brethren"
+      ]
+    ]
+  },
+  {
+    "id": "deathwing-assault-wrath-of-the-rock",
+    "name": "Deathwing Assault",
+    "detachment_id": "wrath-of-the-rock",
+    "cost": 15,
+    "ability_id": null,
+    "is_unique": true,
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "points_provisional": false,
+    "upgrade_tag": false,
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Deathwing"
+      ]
+    ],
+    "keyword_restrictions": [
+      "Deathwing"
     ]
   }
 ]

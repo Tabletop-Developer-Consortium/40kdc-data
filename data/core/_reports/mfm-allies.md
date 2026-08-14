@@ -18,7 +18,7 @@ Pools emitted: **19**, skipped: **2**.
 | chaos-space-marines-renegades | Heretic Astartes | — | 4 | 16 | — | — |
 | daemonic-pact | Chaos Knights, Heretic Astartes | chaos-daemons | 53 | — | — | — |
 | death-guard-nurgle-daemons | Death Guard | chaos-daemons | 6 | 1 | — | — |
-| drukhari-aeldari | Drukhari | aeldari | 14 | 5 | — | — |
+| drukhari-aeldari | Drukhari | aeldari | 14 | 8 | — | — |
 | drukhari-harlequins | Drukhari | aeldari | 8 | 1 | — | — |
 | emperors-children-slaanesh-daemons | Emperor’s Children | chaos-daemons | 5 | 1 | — | — |
 | iconoclast-fiefdom-damned | Chaos Knights | chaos-space-marines | 7 | 1 | — | — |

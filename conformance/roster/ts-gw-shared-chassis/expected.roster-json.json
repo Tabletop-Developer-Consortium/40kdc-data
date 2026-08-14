@@ -17,7 +17,7 @@
     }
   ],
   "battle_size": null,
-  "force_disposition": null,
+  "force_disposition": "reconnaissance",
   "points": {
     "declared_limit": 310,
     "detachment_cap": null,
@@ -89,6 +89,24 @@
             "candidates": []
           },
           "count": 1
+        },
+        {
+          "ref": {
+            "id": "soulshatter-lascannon",
+            "raw_name": "Soulshatter lascannon",
+            "resolved": true,
+            "candidates": []
+          },
+          "count": 2
+        },
+        {
+          "ref": {
+            "id": "twin-inferno-heavy-bolter",
+            "raw_name": "Twin inferno heavy bolter",
+            "resolved": true,
+            "candidates": []
+          },
+          "count": 1
         }
       ],
       "leader_attachment": null
@@ -101,7 +119,7 @@
   "diagnostics": {
     "resolved_units": 2,
     "unresolved_units": 0,
-    "resolved_weapons": 4,
+    "resolved_weapons": 6,
     "unresolved_weapons": 0,
     "warnings": [
       {

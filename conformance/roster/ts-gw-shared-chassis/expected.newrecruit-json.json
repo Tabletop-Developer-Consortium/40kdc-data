@@ -32,7 +32,27 @@
             "selections": [
               {
                 "id": "cfg-detachment-val",
-                "name": "Changehost Of Deceit",
+                "name": "Changehost of Deceit",
+                "type": "upgrade",
+                "number": 1
+              }
+            ]
+          },
+          {
+            "id": "cfg-force-disposition",
+            "name": "Force Disposition",
+            "type": "upgrade",
+            "number": 1,
+            "categories": [
+              {
+                "name": "Configuration",
+                "primary": true
+              }
+            ],
+            "selections": [
+              {
+                "id": "cfg-force-disposition-val",
+                "name": "Reconnaissance",
                 "type": "upgrade",
                 "number": 1
               }
@@ -117,6 +137,30 @@
               {
                 "id": "w-1",
                 "name": "Inferno combi-bolter",
+                "type": "upgrade",
+                "number": 1,
+                "categories": [
+                  {
+                    "name": "Ranged Weapon",
+                    "primary": false
+                  }
+                ]
+              },
+              {
+                "id": "w-2",
+                "name": "Soulshatter lascannon",
+                "type": "upgrade",
+                "number": 2,
+                "categories": [
+                  {
+                    "name": "Ranged Weapon",
+                    "primary": false
+                  }
+                ]
+              },
+              {
+                "id": "w-3",
+                "name": "Twin inferno heavy bolter",
                 "type": "upgrade",
                 "number": 1,
                 "categories": [

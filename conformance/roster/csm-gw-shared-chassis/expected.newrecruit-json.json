@@ -32,7 +32,27 @@
             "selections": [
               {
                 "id": "cfg-detachment-val",
-                "name": "Hurons Marauders",
+                "name": "Huron’s Marauders",
+                "type": "upgrade",
+                "number": 1
+              }
+            ]
+          },
+          {
+            "id": "cfg-force-disposition",
+            "name": "Force Disposition",
+            "type": "upgrade",
+            "number": 1,
+            "categories": [
+              {
+                "name": "Configuration",
+                "primary": true
+              }
+            ],
+            "selections": [
+              {
+                "id": "cfg-force-disposition-val",
+                "name": "Disruption",
                 "type": "upgrade",
                 "number": 1
               }
@@ -117,6 +137,30 @@
               {
                 "id": "w-1",
                 "name": "Combi-bolter",
+                "type": "upgrade",
+                "number": 1,
+                "categories": [
+                  {
+                    "name": "Ranged Weapon",
+                    "primary": false
+                  }
+                ]
+              },
+              {
+                "id": "w-2",
+                "name": "Soulshatter lascannon",
+                "type": "upgrade",
+                "number": 2,
+                "categories": [
+                  {
+                    "name": "Ranged Weapon",
+                    "primary": false
+                  }
+                ]
+              },
+              {
+                "id": "w-3",
+                "name": "Twin heavy bolter",
                 "type": "upgrade",
                 "number": 1,
                 "categories": [

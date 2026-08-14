@@ -156,7 +156,7 @@
               },
               {
                 "id": "w-0",
-                "name": "Heavy psycannon",
+                "name": "Fragstorm grenade launcher",
                 "type": "upgrade",
                 "number": 1,
                 "categories": [
@@ -168,7 +168,7 @@
               },
               {
                 "id": "w-1",
-                "name": "Fragstorm grenade launcher",
+                "name": "Heavy psycannon",
                 "type": "upgrade",
                 "number": 1,
                 "categories": [
@@ -212,14 +212,14 @@
             ],
             "selections": [
               {
-                "id": "u2-model",
-                "name": "Purifier Squad",
+                "id": "u2-model-0",
+                "name": "Knight of the Flame",
                 "type": "model",
-                "number": 10,
+                "number": 1,
                 "selections": [
                   {
                     "id": "w-0",
-                    "name": "Purifying Flame",
+                    "name": "Nemesis force weapon",
                     "type": "upgrade",
                     "number": 1,
                     "categories": [
@@ -231,6 +231,62 @@
                   },
                   {
                     "id": "w-1",
+                    "name": "Purifying Flame",
+                    "type": "upgrade",
+                    "number": 1,
+                    "categories": [
+                      {
+                        "name": "Ranged Weapon",
+                        "primary": false
+                      }
+                    ]
+                  },
+                  {
+                    "id": "w-2",
+                    "name": "Storm bolter",
+                    "type": "upgrade",
+                    "number": 1,
+                    "categories": [
+                      {
+                        "name": "Ranged Weapon",
+                        "primary": false
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "u2-model-1",
+                "name": "Purifier",
+                "type": "model",
+                "number": 9,
+                "selections": [
+                  {
+                    "id": "w-0",
+                    "name": "Nemesis force weapon",
+                    "type": "upgrade",
+                    "number": 9,
+                    "categories": [
+                      {
+                        "name": "Ranged Weapon",
+                        "primary": false
+                      }
+                    ]
+                  },
+                  {
+                    "id": "w-1",
+                    "name": "Purifying Flame",
+                    "type": "upgrade",
+                    "number": 9,
+                    "categories": [
+                      {
+                        "name": "Ranged Weapon",
+                        "primary": false
+                      }
+                    ]
+                  },
+                  {
+                    "id": "w-2",
                     "name": "Storm bolter",
                     "type": "upgrade",
                     "number": 9,

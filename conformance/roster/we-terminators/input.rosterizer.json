@@ -32,6 +32,11 @@
           "quantity": 1
         },
         {
+          "item": "Force Disposition§Purge The Foe",
+          "name": "Purge The Foe",
+          "quantity": 1
+        },
+        {
           "item": "Battle Size§Strike Force (2000 Point limit)",
           "name": "Strike Force (2000 Point limit)",
           "quantity": 1
@@ -48,14 +53,23 @@
           "assets": {
             "included": [
               {
-                "item": "Weapon§Infernal cannon",
-                "name": "Infernal cannon",
-                "quantity": 1
-              },
-              {
-                "item": "Weapon§Hellforged weapons",
-                "name": "Hellforged weapons",
-                "quantity": 1
+                "item": "Model§Daemon Prince of Khorne",
+                "name": "Daemon Prince of Khorne",
+                "quantity": 1,
+                "assets": {
+                  "included": [
+                    {
+                      "item": "Weapon§Infernal cannon",
+                      "name": "Infernal cannon",
+                      "quantity": 1
+                    },
+                    {
+                      "item": "Weapon§Hellforged weapons",
+                      "name": "Hellforged weapons",
+                      "quantity": 1
+                    }
+                  ]
+                }
               }
             ],
             "traits": [
@@ -79,29 +93,38 @@
           "assets": {
             "included": [
               {
-                "item": "Weapon§Chainfist",
-                "name": "Chainfist",
-                "quantity": 2
-              },
-              {
-                "item": "Weapon§Combi-weapon",
-                "name": "Combi-weapon",
-                "quantity": 6
-              },
-              {
-                "item": "Weapon§Power fist",
-                "name": "Power fist",
-                "quantity": 6
-              },
-              {
-                "item": "Weapon§Paired accursed weapons",
-                "name": "Paired accursed weapons",
-                "quantity": 2
-              },
-              {
-                "item": "Weapon§Reaper autocannon",
-                "name": "Reaper autocannon",
-                "quantity": 2
+                "item": "Model§Chaos Terminator",
+                "name": "Chaos Terminator",
+                "quantity": 10,
+                "assets": {
+                  "included": [
+                    {
+                      "item": "Weapon§Chainfist",
+                      "name": "Chainfist",
+                      "quantity": 20
+                    },
+                    {
+                      "item": "Weapon§Combi-weapon",
+                      "name": "Combi-weapon",
+                      "quantity": 60
+                    },
+                    {
+                      "item": "Weapon§Power fist",
+                      "name": "Power fist",
+                      "quantity": 60
+                    },
+                    {
+                      "item": "Weapon§Paired accursed weapons",
+                      "name": "Paired accursed weapons",
+                      "quantity": 20
+                    },
+                    {
+                      "item": "Weapon§Reaper autocannon",
+                      "name": "Reaper autocannon",
+                      "quantity": 20
+                    }
+                  ]
+                }
               }
             ]
           }
@@ -118,29 +141,38 @@
           "assets": {
             "included": [
               {
-                "item": "Weapon§Chainfist",
-                "name": "Chainfist",
-                "quantity": 1
-              },
-              {
-                "item": "Weapon§Combi-weapon",
-                "name": "Combi-weapon",
-                "quantity": 3
-              },
-              {
-                "item": "Weapon§Power fist",
-                "name": "Power fist",
-                "quantity": 3
-              },
-              {
-                "item": "Weapon§Paired accursed weapons",
-                "name": "Paired accursed weapons",
-                "quantity": 1
-              },
-              {
-                "item": "Weapon§Reaper autocannon",
-                "name": "Reaper autocannon",
-                "quantity": 1
+                "item": "Model§Chaos Terminator",
+                "name": "Chaos Terminator",
+                "quantity": 5,
+                "assets": {
+                  "included": [
+                    {
+                      "item": "Weapon§Chainfist",
+                      "name": "Chainfist",
+                      "quantity": 5
+                    },
+                    {
+                      "item": "Weapon§Combi-weapon",
+                      "name": "Combi-weapon",
+                      "quantity": 15
+                    },
+                    {
+                      "item": "Weapon§Power fist",
+                      "name": "Power fist",
+                      "quantity": 15
+                    },
+                    {
+                      "item": "Weapon§Paired accursed weapons",
+                      "name": "Paired accursed weapons",
+                      "quantity": 5
+                    },
+                    {
+                      "item": "Weapon§Reaper autocannon",
+                      "name": "Reaper autocannon",
+                      "quantity": 5
+                    }
+                  ]
+                }
               }
             ]
           }

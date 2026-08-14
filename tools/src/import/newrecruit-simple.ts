@@ -25,7 +25,12 @@
  * @packageDocumentation
  */
 import type { FormatAdapter } from "./adapter.js";
-import type { ParsedRoster, ParsedUnit, ParsedWargear } from "./types.js";
+import type {
+  ParsedLeaderAttachment,
+  ParsedRoster,
+  ParsedUnit,
+  ParsedWargear,
+} from "./types.js";
 import { classifyWargearList, splitWargearList, stripParenthetical } from "./newrecruit-text.js";
 
 // Point brackets may carry comma-separated faction resources after the pts
@@ -38,15 +43,25 @@ const SECTION_HEADER = /^##\s*(.+?)(?:\s*\[\s*(\d+)\s*pts?\s*(?:,[^\]]*)?\])?\s*
 const UNIT_LINE = /^(.+?)\s*\[\s*(\d+)\s*pts?\s*(?:,[^\]]*)?\](?:\s*:\s*(.*))?$/i;
 const BULLET =
   /^\s*•\s*(\d+)x\s+(.+?)(?:\s*\[\s*(\d+)\s*pts?\s*(?:,[^\]]*)?\])?(?:\s*:\s*(.*))?\s*$/u;
+const UNIT_TOTAL_PREFIX = /^Unit total:\s*/i;
+const ATTACHMENT_TOKEN =
+  /^Attachment:\s*(leader|support)\s*->\s*(.+?)(\s+\[provisional\])?$/i;
 
 interface UnitBuilder {
   raw_name: string;
   is_character: boolean;
   is_warlord: boolean;
+  keyword_overrides: Set<string>;
   enhancement_raw_name: string | null;
-  enhancement_pts: number;
+  enhancement_pts: number | null;
   displayed_pts: number | null;
   model_count: number;
+  leader_attachment: ParsedLeaderAttachment | null;
+  loadout_groups: {
+    model_name: string | null;
+    count: number;
+    wargear: ParsedWargear[];
+  }[];
   /** Aggregated wargear, keyed by name. Counts sum across `• Nx ModelType` breakdowns. */
   wargear: Map<string, number>;
 }
@@ -56,10 +71,13 @@ function newUnit(name: string, displayed_pts: number | null): UnitBuilder {
     raw_name: name,
     is_character: false,
     is_warlord: false,
+    keyword_overrides: new Set(),
     enhancement_raw_name: null,
-    enhancement_pts: 0,
+    enhancement_pts: null,
     displayed_pts,
     model_count: 1,
+    leader_attachment: null,
+    loadout_groups: [],
     wargear: new Map(),
   };
 }
@@ -70,34 +88,60 @@ function addWargear(unit: UnitBuilder, items: ParsedWargear[]): void {
   }
 }
 
-function applyTokens(unit: UnitBuilder, tokensCsv: string, multiplier = 1): void {
-  const tokens = splitWargearList(tokensCsv);
-  const cls = classifyWargearList(tokens);
+function applyTokens(unit: UnitBuilder, tokensCsv: string, multiplier = 1): ParsedWargear[] {
+  const wargearTokens: string[] = [];
+  for (const token of splitWargearList(tokensCsv)) {
+    const attachment = ATTACHMENT_TOKEN.exec(token);
+    if (attachment) {
+      unit.leader_attachment = {
+        role: attachment[1].toLowerCase() as "leader" | "support",
+        bodyguard_raw_name: attachment[2],
+        provisional: attachment[3] !== undefined,
+      };
+    } else {
+      wargearTokens.push(token);
+    }
+  }
+  const cls = classifyWargearList(wargearTokens);
   if (cls.is_warlord) unit.is_warlord = true;
   if (cls.is_character) unit.is_character = true;
+  for (const keyword of cls.keyword_overrides) unit.keyword_overrides.add(keyword);
   if (cls.enhancement_raw_name && unit.enhancement_raw_name === null) {
     unit.enhancement_raw_name = cls.enhancement_raw_name;
-    unit.enhancement_pts = cls.enhancement_points ?? 0;
+    unit.enhancement_pts = cls.enhancement_points;
   }
-  const scaled = cls.wargear.map((w) => ({
-    raw_name: w.raw_name,
-    count: w.count * multiplier,
-  }));
-  addWargear(unit, scaled);
+  addWargear(
+    unit,
+    cls.wargear.map((w) => ({
+      raw_name: w.raw_name,
+      count: w.count * multiplier,
+    })),
+  );
+  return cls.wargear;
 }
 
 function finishUnit(unit: UnitBuilder): ParsedUnit {
   const points =
-    unit.displayed_pts === null ? null : unit.displayed_pts - unit.enhancement_pts;
+    unit.displayed_pts === null
+      ? null
+      : unit.displayed_pts - (unit.enhancement_pts ?? 0);
   return {
     raw_name: unit.raw_name,
     is_character: unit.is_character,
+    ...(unit.keyword_overrides.size
+      ? { keyword_overrides: [...unit.keyword_overrides] }
+      : {}),
     model_count: unit.model_count,
     points,
     is_warlord: unit.is_warlord,
     enhancement_raw_name: unit.enhancement_raw_name,
-    enhancement_points: unit.enhancement_raw_name === null ? null : unit.enhancement_pts,
+    enhancement_points:
+      unit.enhancement_raw_name === null ? null : unit.enhancement_pts,
+    leader_attachment: unit.leader_attachment,
     wargear: [...unit.wargear].map(([raw_name, count]) => ({ raw_name, count })),
+    ...(unit.loadout_groups.length > 0
+      ? { loadout_groups: unit.loadout_groups }
+      : {}),
   };
 }
 
@@ -141,13 +185,14 @@ export const newRecruitSimpleAdapter: FormatAdapter = {
     let faction_raw_name: string | null = null;
     let declared_limit: number | null = null;
     let total_reported: number | null = null;
-    let detachment_raw_name: string | null = null;
+    const detachment_raw_names: string[] = [];
     let battle_size_raw: string | null = null;
+    let force_disposition_raw_name: string | null = null;
     const units: ParsedUnit[] = [];
     let current: UnitBuilder | null = null;
     let multi_force = false;
     let section: Section = "preamble";
-    const enhancementPts: number[] = [];
+    const enhancementPts: (number | null)[] = [];
 
     const finalize = (): void => {
       if (current) {
@@ -203,9 +248,15 @@ export const newRecruitSimpleAdapter: FormatAdapter = {
             const key = line.slice(0, idx).trim().toLowerCase();
             const value = line.slice(idx + 1).trim();
             if (key === "battle size") battle_size_raw = value;
-            // Parenthetical suffixes ("(3 Detachment Points)") are presentation,
-            // not part of the detachment name — same strip as the WTC header.
-            else if (key === "detachment") detachment_raw_name = stripParenthetical(value);
+            else if (key === "list name") name = value;
+            else if (key === "faction") faction_raw_name = value;
+            else if (key === "force disposition") {
+              force_disposition_raw_name = value;
+            } else if (key === "detachment") {
+              // Parenthetical suffixes ("(3 Detachment Points)") are
+              // presentation, not part of the detachment name.
+              detachment_raw_names.push(stripParenthetical(value));
+            }
           }
           continue;
         }
@@ -223,7 +274,21 @@ export const newRecruitSimpleAdapter: FormatAdapter = {
         } else {
           current.model_count += count;
         }
-        if (bulletMatch[4]) applyTokens(current, bulletMatch[4], count);
+        if (bulletMatch[4]) {
+          const unitTotal = UNIT_TOTAL_PREFIX.test(bulletMatch[4]);
+          const groupWargear = applyTokens(
+            current,
+            bulletMatch[4].replace(UNIT_TOTAL_PREFIX, ""),
+            unitTotal ? 1 : count,
+          );
+          if (!unitTotal) {
+            current.loadout_groups.push({
+              model_name: bulletMatch[2].trim(),
+              count,
+              wargear: groupWargear,
+            });
+          }
+        }
         continue;
       }
 
@@ -254,8 +319,9 @@ export const newRecruitSimpleAdapter: FormatAdapter = {
       name,
       generated_by: null,
       faction_raw_name,
-      detachment_raw_names: detachment_raw_name ? [detachment_raw_name] : [],
+      detachment_raw_names,
       battle_size_raw,
+      force_disposition_raw_name,
       declared_limit,
       total_reported,
       total_computed,

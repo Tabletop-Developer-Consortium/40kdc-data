@@ -562,7 +562,8 @@
         "default_weapon_ids": [
           "fusion-eliminator",
           "xv-pulse-pistol",
-          "shardstorm-burst-system"
+          "shardstorm-burst-system",
+          "mv15-gun-drone"
         ]
       },
       {
@@ -576,8 +577,9 @@
         },
         "default_weapon_ids": [
           "ion-scattercannon",
+          "xv-pulse-pistol",
           "shardstorm-burst-system",
-          "xv-pulse-pistol"
+          "mv15-gun-drone"
         ]
       }
     ],
@@ -1049,12 +1051,14 @@
           "diameter": 50
         },
         "default_weapon_ids": [
+          "flechette-launcher",
+          "high-energy-fusion-blaster",
+          "high-energy-fusion-blaster",
+          "light-missile-pod",
           "pulse-pistol-commander-shadowsun",
           "battlesuit-fists-commander-shadowsun",
-          "high-energy-fusion-blaster",
-          "high-energy-fusion-blaster",
-          "flechette-launcher",
-          "light-missile-pod"
+          "advanced-guardian-drone",
+          "command-link-drone-aura"
         ]
       }
     ],
@@ -1336,7 +1340,17 @@
       {
         "name": "Tidewall Shieldline",
         "min": 1,
-        "max": 2,
+        "max": 1,
+        "is_leader_model": false,
+        "base_size_mm": {
+          "shape": "hull",
+          "draft": true
+        }
+      },
+      {
+        "name": "Tidewall Defence Platform",
+        "min": 0,
+        "max": 1,
         "is_leader_model": false,
         "base_size_mm": {
           "shape": "hull",
@@ -1347,7 +1361,32 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "tiers": [
+      {
+        "models": [
+          {
+            "name": "Tidewall Shieldline",
+            "min": 1,
+            "max": 1
+          }
+        ]
+      },
+      {
+        "models": [
+          {
+            "name": "Tidewall Shieldline",
+            "min": 1,
+            "max": 1
+          },
+          {
+            "name": "Tidewall Defence Platform",
+            "min": 1,
+            "max": 1
+          }
+        ]
+      }
+    ]
   },
   {
     "unit_id": "broadside-battlesuits",
@@ -1356,7 +1395,21 @@
       {
         "name": "Broadside Shas’vre",
         "min": 1,
-        "max": 3,
+        "max": 1,
+        "is_leader_model": false,
+        "base_size_mm": {
+          "shape": "round",
+          "diameter": 60
+        },
+        "default_weapon_ids": [
+          "crushing-bulk",
+          "heavy-rail-rifle"
+        ]
+      },
+      {
+        "name": "Broadside Shas’ui",
+        "min": 0,
+        "max": 2,
         "is_leader_model": false,
         "base_size_mm": {
           "shape": "round",
@@ -1371,7 +1424,46 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "tiers": [
+      {
+        "models": [
+          {
+            "name": "Broadside Shas’vre",
+            "min": 1,
+            "max": 1
+          }
+        ]
+      },
+      {
+        "models": [
+          {
+            "name": "Broadside Shas’vre",
+            "min": 1,
+            "max": 1
+          },
+          {
+            "name": "Broadside Shas’ui",
+            "min": 1,
+            "max": 1
+          }
+        ]
+      },
+      {
+        "models": [
+          {
+            "name": "Broadside Shas’vre",
+            "min": 1,
+            "max": 1
+          },
+          {
+            "name": "Broadside Shas’ui",
+            "min": 2,
+            "max": 2
+          }
+        ]
+      }
+    ]
   },
   {
     "unit_id": "commander-in-enforcer-battlesuit",

@@ -59,9 +59,29 @@
             ]
           },
           {
+            "id": "cfg-force-disposition",
+            "name": "Force Disposition",
+            "type": "upgrade",
+            "number": 1,
+            "categories": [
+              {
+                "name": "Configuration",
+                "primary": true
+              }
+            ],
+            "selections": [
+              {
+                "id": "cfg-force-disposition-val",
+                "name": "Purge The Foe",
+                "type": "upgrade",
+                "number": 1
+              }
+            ]
+          },
+          {
             "id": "u-0",
             "name": "Daemon Prince of Khorne",
-            "type": "model",
+            "type": "unit",
             "number": 1,
             "categories": [
               {
@@ -84,26 +104,34 @@
                 "number": 1
               },
               {
-                "id": "w-0",
-                "name": "Infernal cannon",
-                "type": "upgrade",
+                "id": "u0-model-0",
+                "name": "Daemon Prince of Khorne",
+                "type": "model",
                 "number": 1,
-                "categories": [
+                "selections": [
                   {
-                    "name": "Ranged Weapon",
-                    "primary": false
-                  }
-                ]
-              },
-              {
-                "id": "w-1",
-                "name": "Hellforged weapons",
-                "type": "upgrade",
-                "number": 1,
-                "categories": [
+                    "id": "w-0",
+                    "name": "Infernal cannon",
+                    "type": "upgrade",
+                    "number": 1,
+                    "categories": [
+                      {
+                        "name": "Ranged Weapon",
+                        "primary": false
+                      }
+                    ]
+                  },
                   {
-                    "name": "Ranged Weapon",
-                    "primary": false
+                    "id": "w-1",
+                    "name": "Hellforged weapons",
+                    "type": "upgrade",
+                    "number": 1,
+                    "categories": [
+                      {
+                        "name": "Ranged Weapon",
+                        "primary": false
+                      }
+                    ]
                   }
                 ]
               }
@@ -129,8 +157,8 @@
             ],
             "selections": [
               {
-                "id": "u1-model",
-                "name": "Chaos Terminators",
+                "id": "u1-model-0",
+                "name": "Chaos Terminator",
                 "type": "model",
                 "number": 10,
                 "selections": [
@@ -138,7 +166,7 @@
                     "id": "w-0",
                     "name": "Chainfist",
                     "type": "upgrade",
-                    "number": 2,
+                    "number": 20,
                     "categories": [
                       {
                         "name": "Ranged Weapon",
@@ -150,7 +178,7 @@
                     "id": "w-1",
                     "name": "Combi-weapon",
                     "type": "upgrade",
-                    "number": 6,
+                    "number": 60,
                     "categories": [
                       {
                         "name": "Ranged Weapon",
@@ -162,7 +190,7 @@
                     "id": "w-2",
                     "name": "Power fist",
                     "type": "upgrade",
-                    "number": 6,
+                    "number": 60,
                     "categories": [
                       {
                         "name": "Ranged Weapon",
@@ -174,7 +202,7 @@
                     "id": "w-3",
                     "name": "Paired accursed weapons",
                     "type": "upgrade",
-                    "number": 2,
+                    "number": 20,
                     "categories": [
                       {
                         "name": "Ranged Weapon",
@@ -186,7 +214,7 @@
                     "id": "w-4",
                     "name": "Reaper autocannon",
                     "type": "upgrade",
-                    "number": 2,
+                    "number": 20,
                     "categories": [
                       {
                         "name": "Ranged Weapon",
@@ -218,8 +246,8 @@
             ],
             "selections": [
               {
-                "id": "u2-model",
-                "name": "Chaos Terminators",
+                "id": "u2-model-0",
+                "name": "Chaos Terminator",
                 "type": "model",
                 "number": 5,
                 "selections": [
@@ -227,7 +255,7 @@
                     "id": "w-0",
                     "name": "Chainfist",
                     "type": "upgrade",
-                    "number": 1,
+                    "number": 5,
                     "categories": [
                       {
                         "name": "Ranged Weapon",
@@ -239,7 +267,7 @@
                     "id": "w-1",
                     "name": "Combi-weapon",
                     "type": "upgrade",
-                    "number": 3,
+                    "number": 15,
                     "categories": [
                       {
                         "name": "Ranged Weapon",
@@ -251,7 +279,7 @@
                     "id": "w-2",
                     "name": "Power fist",
                     "type": "upgrade",
-                    "number": 3,
+                    "number": 15,
                     "categories": [
                       {
                         "name": "Ranged Weapon",
@@ -263,7 +291,7 @@
                     "id": "w-3",
                     "name": "Paired accursed weapons",
                     "type": "upgrade",
-                    "number": 1,
+                    "number": 5,
                     "categories": [
                       {
                         "name": "Ranged Weapon",
@@ -275,7 +303,7 @@
                     "id": "w-4",
                     "name": "Reaper autocannon",
                     "type": "upgrade",
-                    "number": 1,
+                    "number": 5,
                     "categories": [
                       {
                         "name": "Ranged Weapon",

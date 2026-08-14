@@ -326,13 +326,8 @@
     "replaces": [
       "boltgun"
     ],
-    "replacement_choice": [
-      [
-        "meltagun"
-      ],
-      [
-        "plasma-gun"
-      ]
+    "replacement": [
+      "meltagun"
     ],
     "model_constraint": {
       "model_name": "Tormentor",
@@ -341,6 +336,26 @@
   },
   {
     "id": "tormentors-wgo-mfm-4",
+    "unit_id": "tormentors",
+    "faction_id": "emperors-children",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_free": true,
+    "replaces": [
+      "boltgun"
+    ],
+    "replacement": [
+      "plasma-gun"
+    ],
+    "model_constraint": {
+      "model_name": "Tormentor",
+      "per_n_models": 5
+    }
+  },
+  {
+    "id": "tormentors-wgo-mfm-5",
     "unit_id": "tormentors",
     "faction_id": "emperors-children",
     "game_version": {
@@ -360,7 +375,7 @@
     }
   },
   {
-    "id": "chaos-rhino-wgo-bsd-1",
+    "id": "chaos-rhino-wgo-mfm-1",
     "unit_id": "chaos-rhino",
     "faction_id": "emperors-children",
     "game_version": {
@@ -373,15 +388,26 @@
         "combi-bolter"
       ],
       [
+        "havoc-launcher",
+        "combi-weapon"
+      ],
+      [
+        "havoc-launcher",
+        "combi-bolter"
+      ],
+      [
+        "havoc-launcher"
+      ],
+      [
         "combi-weapon"
       ]
     ],
     "model_constraint": {
-      "max_count": 1
+      "any_number": true
     }
   },
   {
-    "id": "chaos-rhino-wgo-bsd-2",
+    "id": "chaos-rhino-wgo-mfm-2",
     "unit_id": "chaos-rhino",
     "faction_id": "emperors-children",
     "game_version": {
@@ -389,12 +415,21 @@
       "dataslate": "launch"
     },
     "is_free": true,
+    "replaces": [
+      "combi-bolter"
+    ],
+    "replacement_choice": [
+      [
+        "havoc-launcher"
+      ],
+      [
+        "combi-weapon",
+        "havoc-launcher"
+      ]
+    ],
     "model_constraint": {
-      "max_count": 1
-    },
-    "replacement": [
-      "havoc-launcher"
-    ]
+      "any_number": true
+    }
   },
   {
     "id": "heldrake-wgo-mfm-1",

@@ -284,8 +284,6 @@ export interface DirPointsResult {
   pointsChanged: { id: string; from: Tier[]; to: Tier[] }[];
   alliedAdded: { id: string; allied: AlliedTier[] }[];
   ambiguousSkipped: string[];
-  /** Derived size-set differs from repo (choice-based comps, or a genuine size add) — needs review. */
-  structureSkipped: { id: string; repo: number[]; derived: number[] }[];
   repoOnly: string[]; // repo unit absent from dump (Legends/FW → BSData)
 }
 export interface PointsReport {
@@ -329,7 +327,6 @@ export function runPoints(dump: MfmDump, write: boolean): PointsReport {
       pointsChanged: [],
       alliedAdded: [],
       ambiguousSkipped: [],
-      structureSkipped: [],
       repoOnly: [],
     };
     const matchedRepoIds = new Set<string>();
@@ -387,32 +384,12 @@ export function runPoints(dump: MfmDump, write: boolean): PointsReport {
         continue; // multiple same-size base comps differ in cost — can't pick
       }
 
-      // Model count isn't reliably derivable for choice-based compositions
-      // (Σ of miniature max overcounts mutually-exclusive model choices). Only
-      // reconcile when the derived size *envelope* — floor of the smallest tier
-      // to ceiling of the largest — matches the unit's known-good model_count.
-      // That admits range-priced tiers (whose floor differs from the old
-      // max-keyed size) while still punting genuine over/undercount cases for
-      // manual review. Records without a model_count fall back to the size-set
-      // match (all single-size in practice, so floor == ceiling == the size).
-      const derivedMin = Math.min(...native.map((t) => t.models));
-      const derivedMax = Math.max(...native.map((t) => t.models_max ?? t.models));
-      const mc = rec.model_count;
-      const repoSizes = new Set((rec.points ?? []).map((t) => t.models_max ?? t.models));
-      const derivedSizes = new Set(native.map((t) => t.models_max ?? t.models));
-      const structureMatch = mc
-        ? mc.min === derivedMin && mc.max === derivedMax
-        : repoSizes.size > 0 &&
-          repoSizes.size === derivedSizes.size &&
-          [...derivedSizes].every((s) => repoSizes.has(s));
-      if (!structureMatch) {
-        res.structureSkipped.push({
-          id,
-          repo: mc ? [mc.min, mc.max] : [...repoSizes].sort((a, b) => a - b),
-          derived: mc ? [derivedMin, derivedMax] : [...derivedSizes].sort((a, b) => a - b),
-        });
-        continue;
-      }
+      // Composition rows and their points are the authoritative matched-play
+      // size contract. The previous model-count envelope guard preserved stale
+      // repo tiers whenever the dump introduced an intermediate composition
+      // (for example 20 Gretchin + 1 Runtherd). Apply every unambiguous native
+      // tier; `composition-tiers` subsequently synchronizes `model_count` and
+      // the per-miniature envelopes from the same source rows.
 
       const nativeClean = native.map(cleanTier);
       // Allied tiers are trusted only at ranges the native derivation produced.
@@ -489,24 +466,23 @@ export function buildPointsReport(report: PointsReport, write: boolean): string 
   L.push("Ambiguous units (multiple same-size base comps) are preserved, not overwritten.");
   L.push("");
   L.push(
-    "| Dir | Matched | Points changed | Allied added | Ambiguous (kept) | Structure (review) | Repo-only (Legends/FW) |"
+    "| Dir | Matched | Points changed | Allied added | Ambiguous (kept) | Repo-only (Legends/FW) |"
   );
-  L.push("|---|--:|--:|--:|--:|--:|--:|");
+  L.push("|---|--:|--:|--:|--:|--:|");
   for (const d of dirs.filter((d) => d.matched || d.repoOnly.length)) {
     L.push(
-      `| ${d.dir} | ${d.matched} | ${d.pointsChanged.length} | ${d.alliedAdded.length} | ${d.ambiguousSkipped.length} | ${d.structureSkipped.length} | ${d.repoOnly.length} |`
+      `| ${d.dir} | ${d.matched} | ${d.pointsChanged.length} | ${d.alliedAdded.length} | ${d.ambiguousSkipped.length} | ${d.repoOnly.length} |`
     );
   }
   L.push(
-    `| **TOTAL** | **${sum((d) => d.matched)}** | **${sum((d) => d.pointsChanged.length)}** | **${sum((d) => d.alliedAdded.length)}** | **${sum((d) => d.ambiguousSkipped.length)}** | **${sum((d) => d.structureSkipped.length)}** | **${sum((d) => d.repoOnly.length)}** |`
+    `| **TOTAL** | **${sum((d) => d.matched)}** | **${sum((d) => d.pointsChanged.length)}** | **${sum((d) => d.alliedAdded.length)}** | **${sum((d) => d.ambiguousSkipped.length)}** | **${sum((d) => d.repoOnly.length)}** |`
   );
   L.push("");
   for (const d of dirs) {
     if (
       !d.pointsChanged.length &&
       !d.alliedAdded.length &&
-      !d.ambiguousSkipped.length &&
-      !d.structureSkipped.length
+      !d.ambiguousSkipped.length
     )
       continue;
     L.push(`## ${d.dir}`);
@@ -523,12 +499,6 @@ export function buildPointsReport(report: PointsReport, write: boolean): string 
     if (d.ambiguousSkipped.length) {
       L.push("", "**Ambiguous (multiple same-size base comps — kept repo value):**");
       d.ambiguousSkipped.forEach((id) => L.push(`- ${id}`));
-    }
-    if (d.structureSkipped.length) {
-      L.push("", "**Size structure differs — review (kept repo value):**");
-      d.structureSkipped.forEach((c) =>
-        L.push(`- ${c.id}: repo sizes [${c.repo.join(", ")}] vs dump [${c.derived.join(", ")}]`)
-      );
     }
     L.push("");
   }

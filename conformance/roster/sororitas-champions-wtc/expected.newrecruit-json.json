@@ -52,7 +52,27 @@
             "selections": [
               {
                 "id": "cfg-detachment-val",
-                "name": "Champions Of Faith",
+                "name": "Champions of Faith",
+                "type": "upgrade",
+                "number": 1
+              }
+            ]
+          },
+          {
+            "id": "cfg-force-disposition",
+            "name": "Force Disposition",
+            "type": "upgrade",
+            "number": 1,
+            "categories": [
+              {
+                "name": "Configuration",
+                "primary": true
+              }
+            ],
+            "selections": [
+              {
+                "id": "cfg-force-disposition-val",
+                "name": "Disruption",
                 "type": "upgrade",
                 "number": 1
               }
@@ -77,6 +97,13 @@
               }
             ],
             "selections": [
+              {
+                "id": "u0-attachment",
+                "name": "Battle Sisters Squad",
+                "type": "upgrade",
+                "number": 1,
+                "group": "40kdc Attachment:support:provisional"
+              },
               {
                 "id": "u0-enh",
                 "name": "Sanctified Amulet",
@@ -136,6 +163,13 @@
               }
             ],
             "selections": [
+              {
+                "id": "u1-attachment",
+                "name": "Battle Sisters Squad",
+                "type": "upgrade",
+                "number": 1,
+                "group": "40kdc Attachment:support:provisional"
+              },
               {
                 "id": "u1-enh",
                 "name": "Triptych of Judgement",
@@ -316,16 +350,16 @@
             ],
             "selections": [
               {
-                "id": "u4-model",
-                "name": "Battle Sisters Squad",
+                "id": "u4-model-0",
+                "name": "Battle Sister",
                 "type": "model",
-                "number": 10,
+                "number": 9,
                 "selections": [
                   {
                     "id": "w-0",
                     "name": "Bolt pistol",
                     "type": "upgrade",
-                    "number": 10,
+                    "number": 9,
                     "categories": [
                       {
                         "name": "Ranged Weapon",
@@ -337,7 +371,7 @@
                     "id": "w-1",
                     "name": "Boltgun",
                     "type": "upgrade",
-                    "number": 8,
+                    "number": 9,
                     "categories": [
                       {
                         "name": "Ranged Weapon",
@@ -349,7 +383,51 @@
                     "id": "w-2",
                     "name": "Close combat weapon",
                     "type": "upgrade",
-                    "number": 10,
+                    "number": 9,
+                    "categories": [
+                      {
+                        "name": "Ranged Weapon",
+                        "primary": false
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "u4-model-1",
+                "name": "Sister Superior",
+                "type": "model",
+                "number": 1,
+                "selections": [
+                  {
+                    "id": "w-0",
+                    "name": "Bolt pistol",
+                    "type": "upgrade",
+                    "number": 1,
+                    "categories": [
+                      {
+                        "name": "Ranged Weapon",
+                        "primary": false
+                      }
+                    ]
+                  },
+                  {
+                    "id": "w-1",
+                    "name": "Close combat weapon",
+                    "type": "upgrade",
+                    "number": 1,
+                    "categories": [
+                      {
+                        "name": "Ranged Weapon",
+                        "primary": false
+                      }
+                    ]
+                  },
+                  {
+                    "id": "w-2",
+                    "name": "Power weapon",
+                    "type": "upgrade",
+                    "number": 1,
                     "categories": [
                       {
                         "name": "Ranged Weapon",
@@ -359,43 +437,7 @@
                   },
                   {
                     "id": "w-3",
-                    "name": "Simulacrum Imperialis",
-                    "type": "upgrade",
-                    "number": 1,
-                    "categories": [
-                      {
-                        "name": "Ranged Weapon",
-                        "primary": false
-                      }
-                    ]
-                  },
-                  {
-                    "id": "w-4",
-                    "name": "Multi-melta",
-                    "type": "upgrade",
-                    "number": 1,
-                    "categories": [
-                      {
-                        "name": "Ranged Weapon",
-                        "primary": false
-                      }
-                    ]
-                  },
-                  {
-                    "id": "w-5",
-                    "name": "Meltagun",
-                    "type": "upgrade",
-                    "number": 1,
-                    "categories": [
-                      {
-                        "name": "Ranged Weapon",
-                        "primary": false
-                      }
-                    ]
-                  },
-                  {
-                    "id": "w-6",
-                    "name": "Power weapon",
+                    "name": "Boltgun",
                     "type": "upgrade",
                     "number": 1,
                     "categories": [
@@ -429,10 +471,10 @@
             ],
             "selections": [
               {
-                "id": "u5-model",
-                "name": "Celestian Sacresants",
+                "id": "u5-model-0",
+                "name": "Sacresant Superior",
                 "type": "model",
-                "number": 10,
+                "number": 1,
                 "selections": [
                   {
                     "id": "w-0",
@@ -450,7 +492,27 @@
                     "id": "w-1",
                     "name": "Bolt pistol",
                     "type": "upgrade",
-                    "number": 10,
+                    "number": 1,
+                    "categories": [
+                      {
+                        "name": "Ranged Weapon",
+                        "primary": false
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "u5-model-1",
+                "name": "Celestian Sacresant (Hallowed Mace)",
+                "type": "model",
+                "number": 9,
+                "selections": [
+                  {
+                    "id": "w-0",
+                    "name": "Bolt pistol",
+                    "type": "upgrade",
+                    "number": 9,
                     "categories": [
                       {
                         "name": "Ranged Weapon",
@@ -459,7 +521,7 @@
                     ]
                   },
                   {
-                    "id": "w-2",
+                    "id": "w-1",
                     "name": "Hallowed Mace",
                     "type": "upgrade",
                     "number": 9,
@@ -494,16 +556,16 @@
             ],
             "selections": [
               {
-                "id": "u6-model",
-                "name": "Paragon Warsuits",
+                "id": "u6-model-0",
+                "name": "Paragon Superior",
                 "type": "model",
-                "number": 3,
+                "number": 1,
                 "selections": [
                   {
                     "id": "w-0",
                     "name": "Bolt pistol",
                     "type": "upgrade",
-                    "number": 3,
+                    "number": 1,
                     "categories": [
                       {
                         "name": "Ranged Weapon",
@@ -527,7 +589,7 @@
                     "id": "w-2",
                     "name": "Paragon War Blade",
                     "type": "upgrade",
-                    "number": 3,
+                    "number": 1,
                     "categories": [
                       {
                         "name": "Ranged Weapon",
@@ -539,7 +601,27 @@
                     "id": "w-3",
                     "name": "Heavy Bolter",
                     "type": "upgrade",
-                    "number": 3,
+                    "number": 1,
+                    "categories": [
+                      {
+                        "name": "Ranged Weapon",
+                        "primary": false
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "u6-model-1",
+                "name": "Paragon Warsuit",
+                "type": "model",
+                "number": 2,
+                "selections": [
+                  {
+                    "id": "w-0",
+                    "name": "Bolt pistol",
+                    "type": "upgrade",
+                    "number": 2,
                     "categories": [
                       {
                         "name": "Ranged Weapon",
@@ -548,8 +630,32 @@
                     ]
                   },
                   {
-                    "id": "w-4",
+                    "id": "w-1",
                     "name": "Paragon Grenade Launchers",
+                    "type": "upgrade",
+                    "number": 2,
+                    "categories": [
+                      {
+                        "name": "Ranged Weapon",
+                        "primary": false
+                      }
+                    ]
+                  },
+                  {
+                    "id": "w-2",
+                    "name": "Paragon War Blade",
+                    "type": "upgrade",
+                    "number": 2,
+                    "categories": [
+                      {
+                        "name": "Ranged Weapon",
+                        "primary": false
+                      }
+                    ]
+                  },
+                  {
+                    "id": "w-3",
+                    "name": "Heavy Bolter",
                     "type": "upgrade",
                     "number": 2,
                     "categories": [
@@ -583,16 +689,16 @@
             ],
             "selections": [
               {
-                "id": "u7-model",
-                "name": "Paragon Warsuits",
+                "id": "u7-model-0",
+                "name": "Paragon Superior",
                 "type": "model",
-                "number": 3,
+                "number": 1,
                 "selections": [
                   {
                     "id": "w-0",
                     "name": "Bolt pistol",
                     "type": "upgrade",
-                    "number": 3,
+                    "number": 1,
                     "categories": [
                       {
                         "name": "Ranged Weapon",
@@ -616,7 +722,7 @@
                     "id": "w-2",
                     "name": "Paragon War Blade",
                     "type": "upgrade",
-                    "number": 3,
+                    "number": 1,
                     "categories": [
                       {
                         "name": "Ranged Weapon",
@@ -628,7 +734,27 @@
                     "id": "w-3",
                     "name": "Heavy Bolter",
                     "type": "upgrade",
-                    "number": 3,
+                    "number": 1,
+                    "categories": [
+                      {
+                        "name": "Ranged Weapon",
+                        "primary": false
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "u7-model-1",
+                "name": "Paragon Warsuit",
+                "type": "model",
+                "number": 2,
+                "selections": [
+                  {
+                    "id": "w-0",
+                    "name": "Bolt pistol",
+                    "type": "upgrade",
+                    "number": 2,
                     "categories": [
                       {
                         "name": "Ranged Weapon",
@@ -637,8 +763,32 @@
                     ]
                   },
                   {
-                    "id": "w-4",
+                    "id": "w-1",
                     "name": "Paragon Grenade Launchers",
+                    "type": "upgrade",
+                    "number": 2,
+                    "categories": [
+                      {
+                        "name": "Ranged Weapon",
+                        "primary": false
+                      }
+                    ]
+                  },
+                  {
+                    "id": "w-2",
+                    "name": "Paragon War Blade",
+                    "type": "upgrade",
+                    "number": 2,
+                    "categories": [
+                      {
+                        "name": "Ranged Weapon",
+                        "primary": false
+                      }
+                    ]
+                  },
+                  {
+                    "id": "w-3",
+                    "name": "Heavy Bolter",
                     "type": "upgrade",
                     "number": 2,
                     "categories": [

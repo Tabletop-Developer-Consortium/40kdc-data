@@ -116,6 +116,8 @@ export interface RosterUnit {
   /** Base unit cost (without the enhancement). */
   points: number | null;
   is_warlord: boolean;
+  /** Unit keywords explicitly selected or granted by source roster metadata. */
+  keyword_overrides?: string[];
   enhancement: ResolvedRef | null;
   /** Points cost of the enhancement when the source reported one; null otherwise. */
   enhancement_points: number | null;
@@ -224,11 +226,20 @@ export interface ParsedLeaderAttachment {
   provisional: boolean;
 }
 
+/** Explicit per-model loadout group before entity-id resolution. */
+export interface ParsedLoadoutGroup {
+  model_name: string | null;
+  count: number;
+  wargear: ParsedWargear[];
+}
+
 /** A unit selection before id resolution. */
 export interface ParsedUnit {
   raw_name: string;
   /** True when the source classifies this as a character/leader-capable model. */
   is_character: boolean;
+  /** Unit keywords explicitly selected or granted by source roster metadata. */
+  keyword_overrides?: string[];
   model_count: number;
   /** Base unit cost (without the enhancement). */
   points: number | null;
@@ -237,6 +248,8 @@ export interface ParsedUnit {
   /** Points cost of the enhancement when the source reported one; null otherwise. */
   enhancement_points: number | null;
   wargear: ParsedWargear[];
+  /** Exact per-model groups when the source format carries them explicitly. */
+  loadout_groups?: ParsedLoadoutGroup[];
   /**
    * Explicit leader→bodyguard attachment, when the source encoded one (only the
    * canonical roster-json round-trip does). Absent/null otherwise, in which case

@@ -15,7 +15,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Genestealer Cults"
+      ]
+    ]
   },
   {
     "id": "a-chink-in-their-armour-host-of-ascension",
@@ -33,7 +38,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Genestealer Cults"
+      ]
+    ]
   },
   {
     "id": "our-time-is-nigh-host-of-ascension",
@@ -51,7 +61,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Genestealer Cults"
+      ]
+    ]
   },
   {
     "id": "assassination-edict-host-of-ascension",
@@ -69,7 +84,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Genestealer Cults"
+      ]
+    ]
   },
   {
     "id": "gene-sires-reliquant-xenocreed-congregation",
@@ -87,7 +107,18 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Primus"
+      ],
+      [
+        "Magus"
+      ],
+      [
+        "Acolyte Iconward"
+      ]
+    ]
   },
   {
     "id": "denunciator-of-tyrants-xenocreed-congregation",
@@ -105,7 +136,18 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Magus"
+      ],
+      [
+        "Acolyte Iconward"
+      ],
+      [
+        "Primus"
+      ]
+    ]
   },
   {
     "id": "deeds-that-speak-to-the-masses-xenocreed-congregation",
@@ -123,7 +165,18 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Primus"
+      ],
+      [
+        "Magus"
+      ],
+      [
+        "Acolyte Iconward"
+      ]
+    ]
   },
   {
     "id": "incendiary-inspiration-xenocreed-congregation",
@@ -141,7 +194,18 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Primus"
+      ],
+      [
+        "Acolyte Iconward"
+      ],
+      [
+        "Magus"
+      ]
+    ]
   },
   {
     "id": "predatory-instincts-biosanctic-broodsurge",
@@ -159,7 +223,18 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Abominant"
+      ],
+      [
+        "Biophagus"
+      ],
+      [
+        "Patriarch"
+      ]
+    ]
   },
   {
     "id": "biomorph-adaptation-biosanctic-broodsurge",
@@ -177,7 +252,15 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Abominant"
+      ],
+      [
+        "Patriarch"
+      ]
+    ]
   },
   {
     "id": "mutagenic-regeneration-biosanctic-broodsurge",
@@ -195,7 +278,18 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Abominant"
+      ],
+      [
+        "Patriarch"
+      ],
+      [
+        "Biophagus"
+      ]
+    ]
   },
   {
     "id": "alien-majesty-biosanctic-broodsurge",
@@ -213,7 +307,18 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Abominant"
+      ],
+      [
+        "Patriarch"
+      ],
+      [
+        "Biophagus"
+      ]
+    ]
   },
   {
     "id": "serpentine-tactics-outlander-claw",
@@ -231,7 +336,13 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Genestealer Cults",
+        "Mounted"
+      ]
+    ]
   },
   {
     "id": "cartographic-data-leech-outlander-claw",
@@ -249,7 +360,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Genestealer Cults"
+      ]
+    ]
   },
   {
     "id": "starfall-shells-outlander-claw",
@@ -267,7 +383,13 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Genestealer Cults",
+        "Mounted"
+      ]
+    ]
   },
   {
     "id": "assault-commando-outlander-claw",
@@ -285,7 +407,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Genestealer Cults"
+      ]
+    ]
   },
   {
     "id": "martial-espionage-brood-brothers-auxilia",
@@ -303,7 +430,13 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Genestealer Cults",
+        "Infantry"
+      ]
+    ]
   },
   {
     "id": "adaptive-reprisal-brood-brothers-auxilia",
@@ -321,7 +454,13 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Genestealer Cults",
+        "Infantry"
+      ]
+    ]
   },
   {
     "id": "the-hero-returned-brood-brothers-auxilia",
@@ -339,7 +478,13 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Genestealer Cults",
+        "Infantry"
+      ]
+    ]
   },
   {
     "id": "fire-point-commander-brood-brothers-auxilia",
@@ -357,7 +502,13 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Genestealer Cults",
+        "Infantry"
+      ]
+    ]
   },
   {
     "id": "synaptic-auger-final-day",
@@ -375,7 +526,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Tyranids"
+      ]
+    ]
   },
   {
     "id": "enraptured-damnation-final-day",
@@ -393,7 +549,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Genestealer Cults"
+      ]
+    ]
   },
   {
     "id": "vanguard-tyrant-final-day",
@@ -411,7 +572,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Winged Hive Tyrant"
+      ]
+    ]
   },
   {
     "id": "inhuman-integration-final-day",
@@ -429,7 +595,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Genestealer Cults"
+      ]
+    ]
   },
   {
     "id": "gene-tailored-toxins-heroes-of-the-uprising",
@@ -447,7 +618,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Genestealer Cults",
+        "Locus"
+      ],
+      [
+        "Genestealer Cults",
+        "Sanctus"
+      ]
+    ]
   },
   {
     "id": "contraband-munitions-heroes-of-the-uprising",
@@ -465,7 +646,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Genestealer Cults",
+        "Kelermorph"
+      ],
+      [
+        "Genestealer Cults",
+        "Reductus Saboteur"
+      ]
+    ]
   },
   {
     "id": "mark-of-the-star-children-upgrade-purestrain-broodswarm",
@@ -483,7 +674,13 @@
     },
     "points_provisional": false,
     "upgrade_tag": true,
-    "max_targets": 3
+    "max_targets": 3,
+    "keyword_restriction_groups": [
+      [
+        "Genestealer Cults",
+        "Purestrain Genestealers"
+      ]
+    ]
   },
   {
     "id": "talons-of-the-sire-purestrain-broodswarm",
@@ -501,7 +698,13 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Genestealer Cults",
+        "Patriarch"
+      ]
+    ]
   },
   {
     "id": "inspired-to-greatness-xenocult-masses",
@@ -519,7 +722,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Genestealer Cults",
+        "Magus"
+      ],
+      [
+        "Genestealer Cults",
+        "Primus"
+      ]
+    ]
   },
   {
     "id": "devious-disguises-upgrade-xenocult-masses",
@@ -537,7 +750,13 @@
     },
     "points_provisional": false,
     "upgrade_tag": true,
-    "max_targets": 3
+    "max_targets": 3,
+    "keyword_restriction_groups": [
+      [
+        "Genestealer Cults",
+        "Neophyte Hybrids"
+      ]
+    ]
   },
   {
     "id": "heavy-munitions-claw-of-ascension",
@@ -557,7 +776,12 @@
       "Achilles Ridgerunners",
       "Claw of Ascension"
     ],
-    "upgrade_tag": true
+    "upgrade_tag": true,
+    "keyword_restriction_groups": [
+      [
+        "Claw of Ascension Achilles Ridgerunner"
+      ]
+    ]
   },
   {
     "id": "practiced-eye-claw-of-ascension",
@@ -576,6 +800,12 @@
     "keyword_restrictions": [
       "Claw of Ascension",
       "Jackal Alphus"
+    ],
+    "keyword_restriction_groups": [
+      [
+        "Claw of Ascension",
+        "Jackal Alphus"
+      ]
     ]
   }
 ]

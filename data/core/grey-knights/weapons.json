@@ -1101,11 +1101,11 @@
   },
   {
     "id": "omnissiah-power-axe",
-    "name": "Omnissiah power axe",
+    "name": "Omnissian power axe",
     "type": "melee",
     "profiles": [
       {
-        "name": "Omnissiah power axe",
+        "name": "Omnissian power axe",
         "range": "Melee",
         "stats": {
           "A": 4,
@@ -1119,7 +1119,7 @@
     ],
     "game_version": {
       "edition": "11th",
-      "dataslate": "pre-launch-provisional"
+      "dataslate": "launch"
     }
   },
   {
@@ -2484,6 +2484,50 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
+    }
+  },
+  {
+    "id": "ceramite-fists",
+    "name": "Ceramite Fists",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Ceramite Fists",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 4,
+          "AP": 0,
+          "D": 1,
+          "WS": 3
+        }
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
+    "id": "dreadnought-fist",
+    "name": "Dreadnought Fist",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Dreadnought Fist",
+        "range": "Melee",
+        "stats": {
+          "A": 5,
+          "S": 12,
+          "AP": -2,
+          "D": 3,
+          "WS": 3
+        }
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
     }
   }
 ]

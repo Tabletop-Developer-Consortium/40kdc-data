@@ -9,8 +9,8 @@ import {
   clampWeaponCount,
   validateLoadout,
   checkUnitLegality,
-  baseLoadout,
   groupLoadout,
+  completeLoadout,
   type LoadoutTier,
 } from "../src/data/loadout.js";
 import type { Unit, WargearOption } from "../src/generated.js";
@@ -352,6 +352,28 @@ describe("groupLoadout", () => {
     ]);
   });
 
+  it("applies a capped add-on option more than once to one eligible model", () => {
+    const models = [
+      { name: "Leader", min: 1, max: 1, default_weapon_ids: ["rifle"] },
+      { name: "Trooper", min: 2, max: 2, default_weapon_ids: ["rifle"] },
+    ];
+    const options = [
+      opt({
+        replacement_choice: [["shield-drone"], ["gun-drone"]],
+        model_constraint: { model_name: "Leader", any_number: true, max_count: 2 },
+      }),
+    ];
+    const counts = new Map([
+      ["rifle", 3],
+      ["shield-drone", 2],
+    ]);
+
+    expect(summarize(groupLoadout(u(), 3, options, models, counts))).toEqual([
+      "1x Leader: 1:rifle,2:shield-drone",
+      "2x Trooper: 1:rifle",
+    ]);
+  });
+
   it("infers opt-in weapon-variant rows from their distinctive default weapon", () => {
     const models = [
       { name: "Sgt", min: 1, max: 1, is_leader_model: true, default_weapon_ids: ["pistol", "rifle", "ccw"] },
@@ -416,5 +438,128 @@ describe("groupLoadout", () => {
       for (const w of g.weapons) totals.set(w.id, (totals.get(w.id) ?? 0) + w.count * g.count);
     }
     expect(totals).toEqual(counts);
+  });
+  it("prunes impossible addon candidates without losing an exact cover", () => {
+    const models = [
+      { name: "Trooper", min: 5, max: 5, default_weapon_ids: ["rifle"] },
+    ];
+    const validSwap = opt({
+      id: "plasma-swap",
+      replaces: ["rifle"],
+      replacement: ["plasma"],
+      model_constraint: { max_count: 1 },
+    });
+    const deadAddons = Array.from({ length: 14 }, (_, index) =>
+      opt({
+        id: `dead-addon-${index}`,
+        replacement: [`missing-${index}`],
+        model_constraint: { any_number: true },
+      }),
+    );
+    const counts = new Map([
+      ["rifle", 4],
+      ["plasma", 1],
+    ]);
+
+    expect(summarize(groupLoadout(u(), 5, [validSwap, ...deadAddons], models, counts))).toEqual([
+      "4x Trooper: 1:rifle",
+      "1x Trooper: 1:plasma",
+    ]);
+  });
+
+  it("completes omitted defaults around an explicit swap", () => {
+    const models = [
+      { name: "Trooper", min: 5, max: 5, default_weapon_ids: ["rifle", "knife"] },
+    ];
+    const options = [
+      opt({
+        id: "plasma-swap",
+        replaces: ["rifle"],
+        replacement: ["plasma"],
+        model_constraint: { max_count: 1 },
+      }),
+    ];
+    const completed = completeLoadout(
+      u(),
+      5,
+      options,
+      models,
+      new Map([["plasma", 1]]),
+    );
+
+    expect(completed?.counts).toEqual(
+      new Map([
+        ["knife", 5],
+        ["plasma", 1],
+        ["rifle", 4],
+      ]),
+    );
+    expect(summarize(completed?.groups ?? null)).toEqual([
+      "4x Trooper: 1:knife,1:rifle",
+      "1x Trooper: 1:knife,1:plasma",
+    ]);
+  });
+
+  it("does not invent an optional add-on omitted from the source", () => {
+    const models = [
+      { name: "Trooper", min: 2, max: 2, default_weapon_ids: ["rifle"] },
+    ];
+    const options = [
+      opt({
+        id: "optional-banner",
+        replacement: ["banner"],
+        model_constraint: { max_count: 1 },
+      }),
+    ];
+    const completed = completeLoadout(u(), 2, options, models, new Map());
+
+    expect(completed?.counts).toEqual(new Map([["rifle", 2]]));
+    expect(completed?.counts.has("banner")).toBe(false);
+  });
+
+  it("derives a repeated branch co-item instead of keeping an exporter duplicate", () => {
+    const models = [
+      {
+        name: "Trooper",
+        min: 5,
+        max: 5,
+        default_weapon_ids: ["rifle", "pistol"],
+      },
+    ];
+    const options = [
+      opt({
+        id: "special-swap",
+        replaces: ["rifle"],
+        replacement_choice: [
+          ["heavy", "close-combat"],
+          ["melta", "close-combat"],
+          ["plasma", "close-combat"],
+        ],
+        model_constraint: { any_number: true },
+      }),
+    ];
+    const completed = completeLoadout(
+      u(),
+      5,
+      options,
+      models,
+      new Map([
+        ["pistol", 5],
+        ["rifle", 2],
+        ["heavy", 2],
+        ["melta", 1],
+        ["close-combat", 4],
+      ]),
+    );
+
+    expect(completed?.counts).toEqual(
+      new Map([
+        ["close-combat", 3],
+        ["heavy", 2],
+        ["melta", 1],
+        ["pistol", 5],
+        ["rifle", 2],
+      ]),
+    );
   });
 });

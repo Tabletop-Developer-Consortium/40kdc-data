@@ -19,6 +19,7 @@
       "is_warlord": false,
       "enhancement_raw_name": "Sanctified Amulet",
       "enhancement_points": 25,
+      "leader_attachment": null,
       "wargear": [
         {
           "raw_name": "Bolt pistol",
@@ -38,6 +39,7 @@
       "is_warlord": false,
       "enhancement_raw_name": "Triptych of Judgement",
       "enhancement_points": 15,
+      "leader_attachment": null,
       "wargear": [
         {
           "raw_name": "Bolt pistol",
@@ -61,6 +63,7 @@
       "is_warlord": true,
       "enhancement_raw_name": null,
       "enhancement_points": null,
+      "leader_attachment": null,
       "wargear": [
         {
           "raw_name": "Fidelis",
@@ -84,6 +87,7 @@
       "is_warlord": false,
       "enhancement_raw_name": null,
       "enhancement_points": null,
+      "leader_attachment": null,
       "wargear": [
         {
           "raw_name": "Palatine blade",
@@ -103,6 +107,7 @@
       "is_warlord": false,
       "enhancement_raw_name": null,
       "enhancement_points": null,
+      "leader_attachment": null,
       "wargear": [
         {
           "raw_name": "Bolt pistol",
@@ -132,6 +137,48 @@
           "raw_name": "Power weapon",
           "count": 1
         }
+      ],
+      "loadout_groups": [
+        {
+          "model_name": "Battle Sister",
+          "count": 9,
+          "wargear": [
+            {
+              "raw_name": "Bolt pistol",
+              "count": 1
+            },
+            {
+              "raw_name": "Boltgun",
+              "count": 1
+            },
+            {
+              "raw_name": "Close combat weapon",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "model_name": "Sister Superior",
+          "count": 1,
+          "wargear": [
+            {
+              "raw_name": "Bolt pistol",
+              "count": 1
+            },
+            {
+              "raw_name": "Close combat weapon",
+              "count": 1
+            },
+            {
+              "raw_name": "Power weapon",
+              "count": 1
+            },
+            {
+              "raw_name": "Boltgun",
+              "count": 1
+            }
+          ]
+        }
       ]
     },
     {
@@ -142,6 +189,7 @@
       "is_warlord": false,
       "enhancement_raw_name": null,
       "enhancement_points": null,
+      "leader_attachment": null,
       "wargear": [
         {
           "raw_name": "Spear of the Faithful",
@@ -155,6 +203,36 @@
           "raw_name": "Hallowed Mace",
           "count": 9
         }
+      ],
+      "loadout_groups": [
+        {
+          "model_name": "Sacresant Superior",
+          "count": 1,
+          "wargear": [
+            {
+              "raw_name": "Spear of the Faithful",
+              "count": 1
+            },
+            {
+              "raw_name": "Bolt pistol",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "model_name": "Celestian Sacresant (Hallowed Mace)",
+          "count": 9,
+          "wargear": [
+            {
+              "raw_name": "Bolt pistol",
+              "count": 1
+            },
+            {
+              "raw_name": "Hallowed Mace",
+              "count": 1
+            }
+          ]
+        }
       ]
     },
     {
@@ -165,6 +243,7 @@
       "is_warlord": false,
       "enhancement_raw_name": null,
       "enhancement_points": null,
+      "leader_attachment": null,
       "wargear": [
         {
           "raw_name": "Bolt pistol",
@@ -186,6 +265,52 @@
           "raw_name": "Paragon Grenade Launchers",
           "count": 2
         }
+      ],
+      "loadout_groups": [
+        {
+          "model_name": "Paragon Superior",
+          "count": 1,
+          "wargear": [
+            {
+              "raw_name": "Bolt pistol",
+              "count": 1
+            },
+            {
+              "raw_name": "Paragon Storm Bolters",
+              "count": 1
+            },
+            {
+              "raw_name": "Paragon War Blade",
+              "count": 1
+            },
+            {
+              "raw_name": "Heavy Bolter",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "model_name": "Paragon Warsuit",
+          "count": 2,
+          "wargear": [
+            {
+              "raw_name": "Bolt pistol",
+              "count": 1
+            },
+            {
+              "raw_name": "Paragon Grenade Launchers",
+              "count": 1
+            },
+            {
+              "raw_name": "Paragon War Blade",
+              "count": 1
+            },
+            {
+              "raw_name": "Heavy Bolter",
+              "count": 1
+            }
+          ]
+        }
       ]
     },
     {
@@ -196,6 +321,7 @@
       "is_warlord": false,
       "enhancement_raw_name": null,
       "enhancement_points": null,
+      "leader_attachment": null,
       "wargear": [
         {
           "raw_name": "Bolt pistol",
@@ -216,6 +342,52 @@
         {
           "raw_name": "Paragon Grenade Launchers",
           "count": 2
+        }
+      ],
+      "loadout_groups": [
+        {
+          "model_name": "Paragon Superior",
+          "count": 1,
+          "wargear": [
+            {
+              "raw_name": "Bolt pistol",
+              "count": 1
+            },
+            {
+              "raw_name": "Paragon Storm Bolters",
+              "count": 1
+            },
+            {
+              "raw_name": "Paragon War Blade",
+              "count": 1
+            },
+            {
+              "raw_name": "Heavy Bolter",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "model_name": "Paragon Warsuit",
+          "count": 2,
+          "wargear": [
+            {
+              "raw_name": "Bolt pistol",
+              "count": 1
+            },
+            {
+              "raw_name": "Paragon Grenade Launchers",
+              "count": 1
+            },
+            {
+              "raw_name": "Paragon War Blade",
+              "count": 1
+            },
+            {
+              "raw_name": "Heavy Bolter",
+              "count": 1
+            }
+          ]
         }
       ]
     }

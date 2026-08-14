@@ -154,6 +154,12 @@
           "description": "Per-unit point value from the source, or null when absent."
         },
         "is_warlord": { "type": "boolean", "default": false },
+        "keyword_overrides": {
+          "type": "array",
+          "items": { "$ref": "../defs/common.schema.json#/$defs/keyword" },
+          "uniqueItems": true,
+          "description": "Unit keywords explicitly selected or granted by source roster metadata rather than intrinsic to the datasheet. Omitted when none."
+        },
         "enhancement": {
           "oneOf": [{ "$ref": "#/$defs/roster-resolved-ref" }, { "type": "null" }],
           "description": "Attached enhancement, or null when none."

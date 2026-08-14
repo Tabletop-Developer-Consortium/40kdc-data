@@ -1,6 +1,6 @@
 {
   "name": "@alpaca-software/40kdc-data",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "type": "module",
   "description": "The 40kdc Warhammer 40K dataset behind a linked, typed API — find units, follow them to their weapons, abilities, phases, and factions. Also validates data against the canonical JSON Schemas.",
   "keywords": [
@@ -65,6 +65,7 @@
     "audit:missing-units": "tsx src/audit-missing-units.ts",
     "audit:loadout-coverage": "tsx src/audit-loadout-coverage.ts",
     "audit:atc": "tsx src/audit-atc.ts",
+    "audit:wtc": "tsx src/audit-wtc.ts",
     "validate": "tsx src/cli.ts validate-all",
     "validate:core": "tsx src/cli.ts validate-core",
     "validate:enrichment": "tsx src/cli.ts validate-enrichment",

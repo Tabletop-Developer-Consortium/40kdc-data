@@ -594,6 +594,15 @@
         "cost": 120,
         "host_faction": "imperium"
       }
+    ],
+    "wargear_budgets": [
+      {
+        "items": [
+          "tome-skull"
+        ],
+        "count": 1,
+        "per_models": 6
+      }
     ]
   },
   {
@@ -1196,7 +1205,9 @@
       "power-weapon-aquila-kill-team",
       "special-issue-bolt-pistol",
       "stalker-bolt-rifle",
-      "xenophase-blade"
+      "xenophase-blade",
+      "boltgun",
+      "plasma-pistol"
     ],
     "ability_ids": [
       "kill-team"
@@ -1377,6 +1388,20 @@
         ],
         "count": 1,
         "per_models": 0
+      },
+      {
+        "items": [
+          "arbites-medi-kit"
+        ],
+        "count": 1,
+        "per_models": 0
+      },
+      {
+        "items": [
+          "soulguilt-scanner"
+        ],
+        "count": 1,
+        "per_models": 0
       }
     ]
   },
@@ -1430,13 +1455,13 @@
       "chainfist",
       "chainsword",
       "close-combat-weapon-imperial-navy-breachers",
-      "demolition-charge",
       "meltagun",
       "navis-heavy-shotgun",
       "navis-las-volley",
       "navis-shotgun",
       "plasma-gun-imperial-navy-breachers",
-      "power-weapon-imperial-navy-breachers"
+      "power-weapon-imperial-navy-breachers",
+      "demolition-charge"
     ],
     "ability_ids": [
       "breaching-team",
@@ -2022,6 +2047,13 @@
       }
     ],
     "wargear_budgets": [
+      {
+        "items": [
+          "simulacrum-imperialis"
+        ],
+        "count": 1,
+        "per_models": 0
+      },
       {
         "items": [
           "artificer-crafted-storm-bolter",

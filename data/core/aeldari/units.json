@@ -190,7 +190,16 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "wargear_budgets": [
+      {
+        "items": [
+          "aspect-shrine-token"
+        ],
+        "count": 2,
+        "per_models": 10
+      }
+    ]
   },
   {
     "id": "eldrad-ulthran",
@@ -529,7 +538,8 @@
       "shuriken-pistol",
       "shuriken-rifle",
       "witch-staff",
-      "wraithcannon"
+      "wraithcannon",
+      "close-combat-weapon"
     ],
     "ability_ids": [
       "channeller-stones",
@@ -545,6 +555,13 @@
     "is_legend": false,
     "points_provisional": false,
     "wargear_budgets": [
+      {
+        "items": [
+          "faolchu"
+        ],
+        "count": 1,
+        "per_models": 0
+      },
       {
         "items": [
           "shuriken-cannon-corsair-voidscarred",
@@ -861,7 +878,16 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "wargear_budgets": [
+      {
+        "items": [
+          "aspect-shrine-token"
+        ],
+        "count": 1,
+        "per_models": 5
+      }
+    ]
   },
   {
     "id": "asurmen",
@@ -2280,7 +2306,16 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "wargear_budgets": [
+      {
+        "items": [
+          "aspect-shrine-token"
+        ],
+        "count": 2,
+        "per_models": 10
+      }
+    ]
   },
   {
     "id": "wraithguard",
@@ -2334,7 +2369,13 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "conditional_keywords": [
+      {
+        "keyword": "Battleline",
+        "required_detachment_id": "spirit-conclave"
+      }
+    ]
   },
   {
     "id": "fuegan",
@@ -2943,7 +2984,16 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "wargear_budgets": [
+      {
+        "items": [
+          "aspect-shrine-token"
+        ],
+        "count": 1,
+        "per_models": 5
+      }
+    ]
   },
   {
     "id": "dark-reapers",
@@ -3015,7 +3065,16 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "wargear_budgets": [
+      {
+        "items": [
+          "aspect-shrine-token"
+        ],
+        "count": 2,
+        "per_models": 10
+      }
+    ]
   },
   {
     "id": "ynnari-kabalite-warriors",
@@ -3745,7 +3804,16 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "wargear_budgets": [
+      {
+        "items": [
+          "aspect-shrine-token"
+        ],
+        "count": 2,
+        "per_models": 10
+      }
+    ]
   },
   {
     "id": "howling-banshees",
@@ -3818,7 +3886,16 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "wargear_budgets": [
+      {
+        "items": [
+          "aspect-shrine-token"
+        ],
+        "count": 2,
+        "per_models": 10
+      }
+    ]
   },
   {
     "id": "falcon",
@@ -3950,7 +4027,13 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "conditional_keywords": [
+      {
+        "keyword": "Battleline",
+        "required_detachment_id": "windrider-host"
+      }
+    ]
   },
   {
     "id": "troupe-master",
@@ -4510,7 +4593,13 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "conditional_keywords": [
+      {
+        "keyword": "Battleline",
+        "required_detachment_id": "spirit-conclave"
+      }
+    ]
   },
   {
     "id": "troupe",
@@ -4595,6 +4684,16 @@
         ],
         "count": 4,
         "per_models": 10
+      }
+    ],
+    "conditional_keywords": [
+      {
+        "keyword": "Battleline",
+        "required_detachment_id": "ghosts-of-the-webway"
+      },
+      {
+        "keyword": "Battleline",
+        "required_detachment_id": "serpents-brood"
       }
     ]
   },
@@ -5066,5 +5165,196 @@
       "shape": "round",
       "diameter": 25
     }
+  },
+  {
+    "id": "clanblade",
+    "name": "Clanblade",
+    "faction_id": "aeldari",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Clanblade",
+        "M": 10,
+        "T": 5,
+        "W": 4,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 6,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 70
+      }
+    ],
+    "keywords": [
+      "Aeldari",
+      "Character",
+      "Exodite",
+      "Mobile",
+      "Mounted"
+    ],
+    "faction_keywords": [
+      "Asuryani"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_legend": false,
+    "points_provisional": false,
+    "attachment_role": "leader"
+  },
+  {
+    "id": "dragon-knights",
+    "name": "Dragon Knights",
+    "faction_id": "aeldari",
+    "profiles": [
+      {
+        "name": "Dragon Knight",
+        "M": 10,
+        "T": 5,
+        "W": 4,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 3,
+        "cost": 90
+      },
+      {
+        "models": 4,
+        "models_max": 6,
+        "cost": 180
+      }
+    ],
+    "keywords": [
+      "Aeldari",
+      "Exodite",
+      "Mobile",
+      "Mounted"
+    ],
+    "faction_keywords": [
+      "Asuryani"
+    ],
+    "model_count": {
+      "min": 3,
+      "max": 6
+    },
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_legend": false,
+    "points_provisional": false,
+    "wargear_budgets": [
+      {
+        "items": [
+          "drakolithe-once-per-battle-per-token"
+        ],
+        "count": 2,
+        "per_models": 3
+      }
+    ]
+  },
+  {
+    "id": "leystalker",
+    "name": "Leystalker",
+    "faction_id": "aeldari",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Leystalker",
+        "M": 10,
+        "T": 5,
+        "W": 4,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 80
+      }
+    ],
+    "keywords": [
+      "Aeldari",
+      "Character",
+      "Exodite",
+      "Mobile",
+      "Mounted"
+    ],
+    "faction_keywords": [
+      "Asuryani"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_legend": false,
+    "points_provisional": false
+  },
+  {
+    "id": "stonesinger",
+    "name": "Stonesinger",
+    "faction_id": "aeldari",
+    "role": "character",
+    "profiles": [
+      {
+        "name": "Stonesinger",
+        "M": 10,
+        "T": 5,
+        "W": 4,
+        "Sv": 4,
+        "invuln_sv": null,
+        "Ld": 7,
+        "OC": 2
+      }
+    ],
+    "points": [
+      {
+        "models": 1,
+        "cost": 60
+      }
+    ],
+    "keywords": [
+      "Aeldari",
+      "Character",
+      "Exodite",
+      "Mobile",
+      "Mounted",
+      "Psyker"
+    ],
+    "faction_keywords": [
+      "Asuryani"
+    ],
+    "model_count": {
+      "min": 1,
+      "max": 1
+    },
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_legend": false,
+    "points_provisional": false,
+    "attachment_role": "support"
   }
 ]

@@ -1542,7 +1542,8 @@
         "default_weapon_ids": [
           "the-deliverer",
           "mind-wipe",
-          "traitors-bane"
+          "traitors-bane",
+          "book-of-salvation"
         ]
       }
     ],
@@ -1689,7 +1690,8 @@
         },
         "default_weapon_ids": [
           "lions-wrath",
-          "the-sword-of-secrets"
+          "the-sword-of-secrets",
+          "the-lion-helm"
         ]
       }
     ],
@@ -2427,21 +2429,65 @@
     "tiers": [
       {
         "models": [
-          { "name": "Kill Team Sergeant", "min": 1, "max": 1 },
-          { "name": "Deathwatch Veteran with stalker bolt rifle", "min": 1, "max": 1 },
-          { "name": "Deathwatch Veteran with heavy thunder hammer", "min": 1, "max": 1 },
-          { "name": "Gravis Veteran", "min": 1, "max": 1 },
-          { "name": "Deathwatch Veteran with marksman bolt carbine", "min": 1, "max": 1 }
+          {
+            "name": "Kill Team Sergeant",
+            "min": 1,
+            "max": 1
+          },
+          {
+            "name": "Deathwatch Veteran with stalker bolt rifle",
+            "min": 1,
+            "max": 1
+          },
+          {
+            "name": "Deathwatch Veteran with heavy thunder hammer",
+            "min": 1,
+            "max": 1
+          },
+          {
+            "name": "Gravis Veteran",
+            "min": 1,
+            "max": 1
+          },
+          {
+            "name": "Deathwatch Veteran with marksman bolt carbine",
+            "min": 1,
+            "max": 1
+          }
         ]
       },
       {
         "models": [
-          { "name": "Kill Team Sergeant", "min": 1, "max": 1 },
-          { "name": "Deathwatch Veteran with stalker bolt rifle", "min": 2, "max": 2 },
-          { "name": "Deathwatch Veteran with heavy thunder hammer", "min": 2, "max": 2 },
-          { "name": "Deathwatch Veteran with xenophase blade", "min": 1, "max": 1 },
-          { "name": "Gravis Veteran", "min": 2, "max": 2 },
-          { "name": "Deathwatch Veteran with marksman bolt carbine", "min": 2, "max": 2 }
+          {
+            "name": "Kill Team Sergeant",
+            "min": 1,
+            "max": 1
+          },
+          {
+            "name": "Deathwatch Veteran with stalker bolt rifle",
+            "min": 2,
+            "max": 2
+          },
+          {
+            "name": "Deathwatch Veteran with heavy thunder hammer",
+            "min": 2,
+            "max": 2
+          },
+          {
+            "name": "Deathwatch Veteran with xenophase blade",
+            "min": 1,
+            "max": 1
+          },
+          {
+            "name": "Gravis Veteran",
+            "min": 2,
+            "max": 2
+          },
+          {
+            "name": "Deathwatch Veteran with marksman bolt carbine",
+            "min": 2,
+            "max": 2
+          }
         ]
       }
     ]
@@ -2451,9 +2497,23 @@
     "faction_id": "adeptus-astartes",
     "models": [
       {
+        "name": "Kill Team Sergeant with Jump Pack",
+        "min": 1,
+        "max": 1,
+        "is_leader_model": true,
+        "base_size_mm": {
+          "shape": "round",
+          "diameter": 32
+        },
+        "default_weapon_ids": [
+          "heavy-bolt-pistol",
+          "astartes-chainsword-talonstrike-kill-team"
+        ]
+      },
+      {
         "name": "Kill Team Intercessor with Jump Pack",
-        "min": 5,
-        "max": 10,
+        "min": 2,
+        "max": 9,
         "default_weapon_ids": [
           "astartes-chainsword-talonstrike-kill-team",
           "heavy-bolt-pistol"
@@ -2466,7 +2526,7 @@
       },
       {
         "name": "Kill Team Heavy Intercessor with Jump Pack",
-        "min": 5,
+        "min": 0,
         "max": 5,
         "default_weapon_ids": [
           "close-combat-weapon",
@@ -2482,7 +2542,42 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "tiers": [
+      {
+        "models": [
+          {
+            "name": "Kill Team Sergeant with Jump Pack",
+            "min": 1,
+            "max": 1
+          },
+          {
+            "name": "Kill Team Intercessor with Jump Pack",
+            "min": 9,
+            "max": 9
+          }
+        ]
+      },
+      {
+        "models": [
+          {
+            "name": "Kill Team Sergeant with Jump Pack",
+            "min": 1,
+            "max": 1
+          },
+          {
+            "name": "Kill Team Intercessor with Jump Pack",
+            "min": 2,
+            "max": 9
+          },
+          {
+            "name": "Kill Team Heavy Intercessor with Jump Pack",
+            "min": 0,
+            "max": 5
+          }
+        ]
+      }
+    ]
   },
   {
     "unit_id": "watch-master",
@@ -3082,62 +3177,6 @@
       "dataslate": "pre-launch-provisional"
     },
     "tiers": [
-      {
-        "models": [
-          {
-            "name": "Inceptor Sergeant",
-            "min": 1,
-            "max": 1
-          },
-          {
-            "name": "Inceptor",
-            "min": 2,
-            "max": 2
-          }
-        ]
-      },
-      {
-        "models": [
-          {
-            "name": "Inceptor Sergeant",
-            "min": 1,
-            "max": 1
-          },
-          {
-            "name": "Inceptor",
-            "min": 2,
-            "max": 2
-          }
-        ]
-      },
-      {
-        "models": [
-          {
-            "name": "Inceptor Sergeant",
-            "min": 1,
-            "max": 1
-          },
-          {
-            "name": "Inceptor",
-            "min": 2,
-            "max": 2
-          }
-        ]
-      },
-      {
-        "models": [
-          {
-            "name": "Inceptor Sergeant",
-            "min": 1,
-            "max": 1
-          },
-          {
-            "name": "Inceptor",
-            "min": 2,
-            "max": 2
-          }
-        ]
-      },
       {
         "models": [
           {
@@ -5753,7 +5792,8 @@
         "max": 1,
         "default_weapon_ids": [
           "archeotech-laspistol",
-          "power-weapon-wardens-of-ultramar"
+          "power-weapon-wardens-of-ultramar",
+          "refractor-field"
         ],
         "is_leader_model": false
       },
@@ -7773,18 +7813,17 @@
         }
       },
       {
-        "name": "Hunting Wolf",
-        "profile_name": "Hunting Wolves",
+        "name": "Hunting Wolves",
         "min": 0,
         "max": 6,
-        "default_weapon_ids": [
-          "teeth-and-claws-wolf-guard-headtakers"
-        ],
         "is_leader_model": false,
         "base_size_mm": {
           "shape": "round",
           "diameter": 40
-        }
+        },
+        "default_weapon_ids": [
+          "teeth-and-claws-wolf-guard-headtakers"
+        ]
       }
     ],
     "game_version": {
@@ -7794,24 +7833,48 @@
     "tiers": [
       {
         "models": [
-          { "name": "Wolf Guard Headtaker", "min": 3, "max": 3 }
+          {
+            "name": "Wolf Guard Headtaker",
+            "min": 3,
+            "max": 3
+          }
         ]
       },
       {
         "models": [
-          { "name": "Wolf Guard Headtaker", "min": 3, "max": 3 },
-          { "name": "Hunting Wolf", "min": 3, "max": 3 }
+          {
+            "name": "Wolf Guard Headtaker",
+            "min": 3,
+            "max": 3
+          },
+          {
+            "name": "Hunting Wolves",
+            "min": 3,
+            "max": 3
+          }
         ]
       },
       {
         "models": [
-          { "name": "Wolf Guard Headtaker", "min": 6, "max": 6 }
+          {
+            "name": "Wolf Guard Headtaker",
+            "min": 6,
+            "max": 6
+          }
         ]
       },
       {
         "models": [
-          { "name": "Wolf Guard Headtaker", "min": 6, "max": 6 },
-          { "name": "Hunting Wolf", "min": 6, "max": 6 }
+          {
+            "name": "Wolf Guard Headtaker",
+            "min": 6,
+            "max": 6
+          },
+          {
+            "name": "Hunting Wolves",
+            "min": 6,
+            "max": 6
+          }
         ]
       }
     ]
@@ -8600,7 +8663,8 @@
         "min": 0,
         "max": 1,
         "default_weapon_ids": [
-          "master-crafted-power-weapon-victrix-honour-guard"
+          "master-crafted-power-weapon-victrix-honour-guard",
+          "banner-of-macragge"
         ]
       }
     ],

@@ -36,7 +36,12 @@
  * @packageDocumentation
  */
 import type { FormatAdapter } from "./adapter.js";
-import type { ParsedRoster, ParsedUnit, ParsedWargear } from "./types.js";
+import type {
+  ParsedLeaderAttachment,
+  ParsedRoster,
+  ParsedUnit,
+  ParsedWargear,
+} from "./types.js";
 import {
   classifyWargearList,
   factionFromKeyword,
@@ -52,7 +57,7 @@ const WTC_HEADER_PREFIX = "+ FACTION KEYWORD:";
 interface WtcHeader {
   name: string;
   faction_raw_name: string | null;
-  detachment_raw_name: string | null;
+  detachment_raw_names: string[];
   force_disposition_raw_name: string | null;
   declared_limit: number | null;
   total_reported: number | null;
@@ -72,7 +77,7 @@ const HEADER_FIELDS = {
 function parseWtcHeader(text: string): { header: WtcHeader; bodyStart: number } | null {
   const lines = text.split(/\r?\n/);
   let faction_raw_name: string | null = null;
-  let detachment_raw_name: string | null = null;
+  const detachment_raw_names: string[] = [];
   let force_disposition_raw_name: string | null = null;
   let totalReported: number | null = null;
   let pointsLimit: number | null = null;
@@ -94,7 +99,8 @@ function parseWtcHeader(text: string): { header: WtcHeader; bodyStart: number } 
     }
     const detMatch = HEADER_FIELDS.detachment.exec(line);
     if (detMatch) {
-      detachment_raw_name = stripParenthetical(detMatch[1]);
+      const name = stripParenthetical(detMatch[1]);
+      if (name !== "—") detachment_raw_names.push(name);
       continue;
     }
     const dispMatch = HEADER_FIELDS.disposition.exec(line);
@@ -131,7 +137,7 @@ function parseWtcHeader(text: string): { header: WtcHeader; bodyStart: number } 
     header: {
       name: listName ?? "Imported roster",
       faction_raw_name,
-      detachment_raw_name,
+      detachment_raw_names,
       force_disposition_raw_name,
       declared_limit,
       total_reported: totalReported,
@@ -147,7 +153,9 @@ const UNIT_HEADER_COMPACT =
   /^(?:Char\d+:\s*)?(\d+)x\s+(.+?)\s*\(\s*(\d+)\s*pts?\s*\)\s*:\s*(.*)$/i;
 const UNIT_HEADER_FULL = /^(?:Char\d+:\s*)?(\d+)x\s+(.+?)\s*\(\s*(\d+)\s*pts?\s*\)\s*$/i;
 const ENHANCEMENT_LINE =
-  /^Enhancement:\s*(.+?)\s*\(\+\s*(\d+)\s*pts?\s*\)\s*$/i;
+  /^Enhancement:\s*(.+?)(?:\s*\(\+\s*(\d+)\s*pts?\s*\))?\s*$/i;
+const ATTACHMENT_LINE =
+  /^Attachment:\s*(leader|support)\s*->\s*(.+?)(\s+\[provisional\])?\s*$/i;
 const WITH_PREFIX = /^(\d+)\s+with\s+(.*)$/i;
 // Optional trailing `: <wargear>` — NewRecruit inlines a model group's loadout
 // after the model type (`• 1x Champion: Chainblades`, `• 5x Eightbound: 5 with
@@ -175,11 +183,18 @@ interface UnitBuilder {
   raw_name: string;
   is_character: boolean;
   is_warlord: boolean;
+  keyword_overrides: Set<string>;
   enhancement_raw_name: string | null;
   /** Total displayed pts from the header line; base computed once an enhancement is known. */
   displayed_pts: number | null;
-  enhancement_pts: number;
+  enhancement_pts: number | null;
+  leader_attachment: ParsedLeaderAttachment | null;
   model_count: number;
+  loadout_groups: {
+    model_name: string | null;
+    count: number;
+    wargear: ParsedWargear[];
+  }[];
   wargear: Map<string, number>;
 }
 
@@ -188,10 +203,13 @@ function newUnit(name: string, displayed_pts: number, leading_count: number, is_
     raw_name: name,
     is_character: is_character_prefix,
     is_warlord: false,
+    keyword_overrides: new Set(),
     enhancement_raw_name: null,
     displayed_pts,
-    enhancement_pts: 0,
+    enhancement_pts: null,
+    leader_attachment: null,
     model_count: leading_count > 0 ? leading_count : 1,
+    loadout_groups: [],
     wargear: new Map(),
   };
 }
@@ -202,22 +220,28 @@ function addWargear(unit: UnitBuilder, items: ParsedWargear[]): void {
   }
 }
 
-function applyWithGroup(unit: UnitBuilder, listText: string): void {
-  const { multiplier, list } = parseWithGroup(listText);
+function applyWithGroup(unit: UnitBuilder, listText: string, defaultMultiplier = 1): ParsedWargear[] {
+  const parsedGroup = parseWithGroup(listText);
+  const multiplier = WITH_PREFIX.test(listText) ? parsedGroup.multiplier : defaultMultiplier;
+  const list = parsedGroup.list;
   const tokens = splitWargearList(list);
   const cls = classifyWargearList(tokens);
   if (cls.is_warlord) unit.is_warlord = true;
   if (cls.is_character) unit.is_character = true;
+  for (const keyword of cls.keyword_overrides) unit.keyword_overrides.add(keyword);
   // wtc never inlines the enhancement points in the wargear list (that's the
   // simple format) but classifyWargearList silently absorbs it if it shows up;
   // wtc's enhancement is always parsed off the explicit "Enhancement:" line.
-  const scaled = cls.wargear.map((w) => ({ raw_name: w.raw_name, count: w.count * multiplier }));
-  addWargear(unit, scaled);
+  addWargear(
+    unit,
+    cls.wargear.map((w) => ({ raw_name: w.raw_name, count: w.count * multiplier })),
+  );
+  return cls.wargear;
 }
 
 function finishUnit(unit: UnitBuilder): ParsedUnit {
   const displayed = unit.displayed_pts;
-  const points = displayed === null ? null : displayed - unit.enhancement_pts;
+  const points = displayed === null ? null : displayed - (unit.enhancement_pts ?? 0);
   const wargear: ParsedWargear[] = [];
   for (const [raw_name, count] of unit.wargear) {
     wargear.push({ raw_name, count });
@@ -225,17 +249,25 @@ function finishUnit(unit: UnitBuilder): ParsedUnit {
   return {
     raw_name: unit.raw_name,
     is_character: unit.is_character,
+    ...(unit.keyword_overrides.size
+      ? { keyword_overrides: [...unit.keyword_overrides] }
+      : {}),
     model_count: unit.model_count,
     points,
     is_warlord: unit.is_warlord,
     enhancement_raw_name: unit.enhancement_raw_name,
-    enhancement_points: unit.enhancement_raw_name === null ? null : unit.enhancement_pts,
+    enhancement_points:
+      unit.enhancement_raw_name === null ? null : unit.enhancement_pts,
+    leader_attachment: unit.leader_attachment,
     wargear,
+    ...(unit.loadout_groups.length > 0
+      ? { loadout_groups: unit.loadout_groups }
+      : {}),
   };
 }
 
 /** Compute total_computed by walking every parsed unit cost line. */
-function computeTotal(units: ParsedUnit[], enhancementPtsByIndex: number[]): number {
+function computeTotal(units: ParsedUnit[], enhancementPtsByIndex: (number | null)[]): number {
   let total = 0;
   for (let i = 0; i < units.length; i += 1) {
     total += units[i].points ?? 0;
@@ -244,17 +276,17 @@ function computeTotal(units: ParsedUnit[], enhancementPtsByIndex: number[]): num
   return total;
 }
 
-function attachEnhancement(unit: UnitBuilder, raw_name: string, pts: number): void {
+function attachEnhancement(unit: UnitBuilder, raw_name: string, pts: number | null): void {
   unit.enhancement_raw_name = raw_name.trim();
   unit.enhancement_pts = pts;
 }
 
 // --- compact body parser ----------------------------------------------------
 
-function parseCompactBody(body: string): { units: ParsedUnit[]; enhancementPts: number[] } {
+function parseCompactBody(body: string): { units: ParsedUnit[]; enhancementPts: (number | null)[] } {
   const lines = body.split(/\r?\n/);
   const units: ParsedUnit[] = [];
-  const enhancementPts: number[] = [];
+  const enhancementPts: (number | null)[] = [];
   let current: UnitBuilder | null = null;
 
   const finalize = (): void => {
@@ -271,11 +303,37 @@ function parseCompactBody(body: string): { units: ParsedUnit[]; enhancementPts: 
 
     const enhMatch = ENHANCEMENT_LINE.exec(line);
     if (enhMatch && current) {
-      attachEnhancement(current, enhMatch[1], Number.parseInt(enhMatch[2], 10));
+      attachEnhancement(
+        current,
+        enhMatch[1],
+        enhMatch[2] ? Number.parseInt(enhMatch[2], 10) : null,
+      );
       // Emit immediately so subsequent unit lines start fresh.
       finalize();
       continue;
     }
+    const attachmentMatch = ATTACHMENT_LINE.exec(line);
+    if (attachmentMatch && current) {
+      current.leader_attachment = {
+        role: attachmentMatch[1].toLowerCase() as "leader" | "support",
+        bodyguard_raw_name: attachmentMatch[2],
+        provisional: attachmentMatch[3] !== undefined,
+      };
+      continue;
+    }
+    const breakdown = MODEL_BREAKDOWN.exec(raw);
+    if (breakdown && current) {
+      const count = Number.parseInt(breakdown[1], 10);
+      const groupWargear =
+        breakdown[3] === undefined ? [] : applyWithGroup(current, breakdown[3], count);
+      current.loadout_groups.push({
+        model_name: breakdown[2].trim(),
+        count,
+        wargear: groupWargear,
+      });
+      continue;
+    }
+
 
     const unitMatch = UNIT_HEADER_COMPACT.exec(line);
     if (unitMatch) {
@@ -296,12 +354,13 @@ function parseCompactBody(body: string): { units: ParsedUnit[]; enhancementPts: 
 
 // --- full body parser -------------------------------------------------------
 
-function parseFullBody(body: string): { units: ParsedUnit[]; enhancementPts: number[] } {
+function parseFullBody(body: string): { units: ParsedUnit[]; enhancementPts: (number | null)[] } {
   const lines = body.split(/\r?\n/);
   const units: ParsedUnit[] = [];
-  const enhancementPts: number[] = [];
+  const enhancementPts: (number | null)[] = [];
   let current: UnitBuilder | null = null;
   let breakdownModels = 0;
+  let pendingBreakdownGroup: UnitBuilder["loadout_groups"][number] | null = null;
 
   const finalize = (): void => {
     if (current) {
@@ -310,6 +369,7 @@ function parseFullBody(body: string): { units: ParsedUnit[]; enhancementPts: num
       enhancementPts.push(current.enhancement_pts);
       current = null;
       breakdownModels = 0;
+      pendingBreakdownGroup = null;
     }
   };
 
@@ -323,9 +383,23 @@ function parseFullBody(body: string): { units: ParsedUnit[]; enhancementPts: num
 
     const enhMatch = ENHANCEMENT_LINE.exec(line);
     if (enhMatch && current) {
-      attachEnhancement(current, enhMatch[1], Number.parseInt(enhMatch[2], 10));
+      attachEnhancement(
+        current,
+        enhMatch[1],
+        enhMatch[2] ? Number.parseInt(enhMatch[2], 10) : null,
+      );
       continue;
     }
+    const attachmentMatch = ATTACHMENT_LINE.exec(line);
+    if (attachmentMatch && current) {
+      current.leader_attachment = {
+        role: attachmentMatch[1].toLowerCase() as "leader" | "support",
+        bodyguard_raw_name: attachmentMatch[2],
+        provisional: attachmentMatch[3] !== undefined,
+      };
+      continue;
+    }
+
 
     const unitMatch = UNIT_HEADER_FULL.exec(line);
     if (unitMatch) {
@@ -355,15 +429,24 @@ function parseFullBody(body: string): { units: ParsedUnit[]; enhancementPts: num
 
     const breakdown = MODEL_BREAKDOWN.exec(raw);
     if (breakdown && current) {
-      breakdownModels += Number.parseInt(breakdown[1], 10);
-      // Inline loadout after the model type; `N with` continuation lines for
-      // the same group still arrive separately and are handled below.
-      if (breakdown[3] !== undefined) applyWithGroup(current, breakdown[3]);
+      const count = Number.parseInt(breakdown[1], 10);
+      breakdownModels += count;
+      pendingBreakdownGroup = {
+        model_name: breakdown[2].trim(),
+        count,
+        wargear:
+          breakdown[3] === undefined ? [] : applyWithGroup(current, breakdown[3], count),
+      };
+      current.loadout_groups.push(pendingBreakdownGroup);
       continue;
     }
 
     if (WITH_PREFIX.test(line) && current) {
-      applyWithGroup(current, line);
+      const groupWargear = applyWithGroup(current, line);
+      if (pendingBreakdownGroup && pendingBreakdownGroup.wargear.length === 0) {
+        pendingBreakdownGroup.wargear = groupWargear;
+      }
+      pendingBreakdownGroup = null;
       continue;
     }
   }
@@ -410,6 +493,13 @@ function isFullFormat(text: string): boolean {
 function hasBullets(text: string): boolean {
   return /^[\t ]*•/mu.test(text);
 }
+function hasCompactUnit(text: string): boolean {
+  return text.split(/\r?\n/).some((line) => UNIT_HEADER_COMPACT.test(line.trim()));
+}
+
+function isSerializedFullFormat(text: string): boolean {
+  return /^\+\s*LIST NAME:/im.test(text) && /^BATTLELINE\s*$/m.test(text);
+}
 
 function parseWith(text: string, format: "wtc-compact" | "wtc-full"): ParsedRoster {
   const parsed = parseWtcHeader(text);
@@ -425,7 +515,7 @@ function parseWith(text: string, format: "wtc-compact" | "wtc-full"): ParsedRost
     name: header.name,
     generated_by: null,
     faction_raw_name: header.faction_raw_name,
-    detachment_raw_names: header.detachment_raw_name ? [header.detachment_raw_name] : [],
+    detachment_raw_names: header.detachment_raw_names,
     force_disposition_raw_name: header.force_disposition_raw_name,
     battle_size_raw: header.battle_size_raw,
     declared_limit: header.declared_limit,
@@ -442,9 +532,7 @@ export const newRecruitWtcCompactAdapter: FormatAdapter = {
   matches(decoded: unknown): boolean {
     const text = isWtcText(decoded);
     if (text === null) return false;
-    // wtc-compact has no `N with` lines (that's wtc-full) and no `•` bullets
-    // (that's the GW app format) — excluding both keeps the matcher disjoint.
-    return !isFullFormat(text) && !hasBullets(text);
+    return !isFullFormat(text) && !isSerializedFullFormat(text) && hasCompactUnit(text);
   },
 
   parse(decoded: unknown): ParsedRoster {
@@ -460,7 +548,7 @@ export const newRecruitWtcFullAdapter: FormatAdapter = {
   matches(decoded: unknown): boolean {
     const text = isWtcText(decoded);
     if (text === null) return false;
-    return isFullFormat(text);
+    return isFullFormat(text) || isSerializedFullFormat(text);
   },
 
   parse(decoded: unknown): ParsedRoster {

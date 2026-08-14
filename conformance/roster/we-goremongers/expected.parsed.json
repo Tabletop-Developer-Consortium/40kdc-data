@@ -6,6 +6,7 @@
     "Berzerker Warband"
   ],
   "battle_size_raw": "Strike Force (2000 Point limit)",
+  "force_disposition_raw_name": null,
   "declared_limit": 2000,
   "total_reported": 75,
   "total_computed": 75,
@@ -13,11 +14,13 @@
     {
       "raw_name": "Goremongers",
       "is_character": false,
+      "keyword_overrides": [],
       "model_count": 8,
       "points": 75,
       "is_warlord": false,
       "enhancement_raw_name": null,
       "enhancement_points": null,
+      "leader_attachment": null,
       "wargear": [
         {
           "raw_name": "Autopistol",
@@ -34,6 +37,30 @@
         {
           "raw_name": "Blood harpoon",
           "count": 1
+        }
+      ],
+      "loadout_groups": [
+        {
+          "model_name": "Goremonger",
+          "count": 8,
+          "wargear": [
+            {
+              "raw_name": "Autopistol",
+              "count": 1
+            },
+            {
+              "raw_name": "Chainblade",
+              "count": 7
+            },
+            {
+              "raw_name": "Close combat weapon",
+              "count": 1
+            },
+            {
+              "raw_name": "Blood harpoon",
+              "count": 1
+            }
+          ]
         }
       ]
     }

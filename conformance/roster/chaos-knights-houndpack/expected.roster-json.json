@@ -17,7 +17,7 @@
     }
   ],
   "battle_size": "strike-force",
-  "force_disposition": null,
+  "force_disposition": "reconnaissance",
   "points": {
     "declared_limit": 2000,
     "detachment_cap": 3,
@@ -35,6 +35,9 @@
       "model_count": 1,
       "points": 150,
       "is_warlord": false,
+      "keyword_overrides": [
+        "Character"
+      ],
       "enhancement": {
         "id": "preyslayers-mantle-houndpack-lance",
         "raw_name": "Preyslayer's Mantle",
@@ -43,6 +46,15 @@
       },
       "enhancement_points": 15,
       "wargear": [
+        {
+          "ref": {
+            "id": "havoc-multi-launcher",
+            "raw_name": "Havoc multi-launcher",
+            "resolved": true,
+            "candidates": []
+          },
+          "count": 1
+        },
         {
           "ref": {
             "id": "reaper-chaintalon-war-dog-karnivore",
@@ -56,15 +68,6 @@
           "ref": {
             "id": "slaughterclaw-war-dog-karnivore",
             "raw_name": "Slaughterclaw",
-            "resolved": true,
-            "candidates": []
-          },
-          "count": 1
-        },
-        {
-          "ref": {
-            "id": "havoc-multi-launcher",
-            "raw_name": "Havoc multi-launcher",
             "resolved": true,
             "candidates": []
           },
@@ -88,6 +91,15 @@
       "wargear": [
         {
           "ref": {
+            "id": "havoc-multi-launcher",
+            "raw_name": "Havoc multi-launcher",
+            "resolved": true,
+            "candidates": []
+          },
+          "count": 1
+        },
+        {
+          "ref": {
             "id": "reaper-chaintalon-war-dog-karnivore",
             "raw_name": "Reaper chaintalon",
             "resolved": true,
@@ -99,15 +111,6 @@
           "ref": {
             "id": "slaughterclaw-war-dog-karnivore",
             "raw_name": "Slaughterclaw",
-            "resolved": true,
-            "candidates": []
-          },
-          "count": 1
-        },
-        {
-          "ref": {
-            "id": "havoc-multi-launcher",
-            "raw_name": "Havoc multi-launcher",
             "resolved": true,
             "candidates": []
           },
@@ -126,6 +129,9 @@
       "model_count": 1,
       "points": 130,
       "is_warlord": true,
+      "keyword_overrides": [
+        "Character"
+      ],
       "enhancement": null,
       "enhancement_points": null,
       "wargear": [
@@ -140,21 +146,21 @@
         },
         {
           "ref": {
-            "id": "war-dog-autocannon",
-            "raw_name": "War Dog autocannon",
-            "resolved": true,
-            "candidates": []
-          },
-          "count": 2
-        },
-        {
-          "ref": {
             "id": "diabolus-heavy-stubber",
             "raw_name": "Diabolus heavy stubber",
             "resolved": true,
             "candidates": []
           },
           "count": 1
+        },
+        {
+          "ref": {
+            "id": "war-dog-autocannon",
+            "raw_name": "War Dog autocannon",
+            "resolved": true,
+            "candidates": []
+          },
+          "count": 2
         }
       ],
       "leader_attachment": null
@@ -211,12 +217,6 @@
     "unresolved_units": 0,
     "resolved_weapons": 10,
     "unresolved_weapons": 0,
-    "warnings": [
-      {
-        "code": "multi-force",
-        "message": "Source list contains more than one faction; the primary faction was used for scoping.",
-        "raw_name": null
-      }
-    ]
+    "warnings": []
   }
 }

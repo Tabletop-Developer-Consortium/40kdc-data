@@ -15,7 +15,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Agents of the Imperium"
+      ]
+    ]
   },
   {
     "id": "blackweave-shroud-ordo-xenos-alien-hunters",
@@ -33,7 +38,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Agents of the Imperium"
+      ]
+    ]
   },
   {
     "id": "beacon-angelis-ordo-xenos-alien-hunters",
@@ -51,7 +61,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Watch Master"
+      ]
+    ]
   },
   {
     "id": "amulet-of-auto-chastisement-ordo-xenos-alien-hunters",
@@ -69,7 +84,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Watch Master"
+      ]
+    ]
   },
   {
     "id": "liber-heresius-ordo-hereticus-purgation-force",
@@ -87,7 +107,15 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Inquisitor"
+      ],
+      [
+        "Ministorum Priest"
+      ]
+    ]
   },
   {
     "id": "no-escape-aura-ordo-hereticus-purgation-force",
@@ -105,7 +133,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Inquisitor"
+      ]
+    ]
   },
   {
     "id": "witch-hunter-ordo-hereticus-purgation-force",
@@ -123,7 +156,15 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Inquisitor"
+      ],
+      [
+        "Ministorum Priest"
+      ]
+    ]
   },
   {
     "id": "ignis-judicium-ordo-hereticus-purgation-force",
@@ -141,7 +182,15 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Inquisitor"
+      ],
+      [
+        "Ministorum Priest"
+      ]
+    ]
   },
   {
     "id": "formidable-resolve-ordo-malleus-daemon-hunters",
@@ -159,7 +208,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Inquisitor"
+      ]
+    ]
   },
   {
     "id": "daemon-slayer-ordo-malleus-daemon-hunters",
@@ -177,7 +231,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Inquisitor"
+      ]
+    ]
   },
   {
     "id": "grimoire-of-true-names-aura-ordo-malleus-daemon-hunters",
@@ -195,7 +254,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Inquisitor"
+      ]
+    ]
   },
   {
     "id": "gift-of-the-prescient-ordo-malleus-daemon-hunters",
@@ -213,7 +277,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Inquisitor"
+      ]
+    ]
   },
   {
     "id": "digital-weapons-imperialis-fleet",
@@ -231,7 +300,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Agents of the Imperium"
+      ]
+    ]
   },
   {
     "id": "clandestine-operation-imperialis-fleet",
@@ -249,7 +323,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Agents of the Imperium"
+      ]
+    ]
   },
   {
     "id": "fleetmaster-imperialis-fleet",
@@ -267,7 +346,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Voidfarers"
+      ]
+    ]
   },
   {
     "id": "combat-landers-imperialis-fleet",
@@ -285,7 +369,12 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Voidfarers"
+      ]
+    ]
   },
   {
     "id": "killer-reflexes-inquisitors-hand",
@@ -304,6 +393,11 @@
     "keyword_restrictions": [
       "Eversor Assassin",
       "Inquisitor's Hand"
+    ],
+    "keyword_restriction_groups": [
+      [
+        "Inquisitor's Hand Eversor Assassin"
+      ]
     ]
   },
   {
@@ -323,6 +417,112 @@
     "keyword_restrictions": [
       "Inquisitor's Hand",
       "Ministorum Priest"
+    ],
+    "keyword_restriction_groups": [
+      [
+        "Inquisitor's Hand",
+        "Ministorum Priest"
+      ]
+    ]
+  },
+  {
+    "id": "intraneural-biotech-veiled-blade-elimination-force",
+    "name": "Intraneural Biotech",
+    "detachment_id": "veiled-blade-elimination-force",
+    "cost": 15,
+    "ability_id": null,
+    "is_unique": true,
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "points_provisional": false,
+    "upgrade_tag": false,
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Agents of the Imperium",
+        "DNU"
+      ]
+    ],
+    "keyword_restrictions": [
+      "Agents of the Imperium",
+      "DNU"
+    ]
+  },
+  {
+    "id": "decoy-targets-veiled-blade-elimination-force",
+    "name": "Decoy Targets",
+    "detachment_id": "veiled-blade-elimination-force",
+    "cost": 15,
+    "ability_id": null,
+    "is_unique": true,
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "points_provisional": false,
+    "upgrade_tag": false,
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Agents of the Imperium",
+        "DNU"
+      ]
+    ],
+    "keyword_restrictions": [
+      "Agents of the Imperium",
+      "DNU"
+    ]
+  },
+  {
+    "id": "esoteric-explosives-veiled-blade-elimination-force",
+    "name": "Esoteric Explosives",
+    "detachment_id": "veiled-blade-elimination-force",
+    "cost": 10,
+    "ability_id": null,
+    "is_unique": true,
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "points_provisional": false,
+    "upgrade_tag": false,
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Agents of the Imperium",
+        "DNU"
+      ]
+    ],
+    "keyword_restrictions": [
+      "Agents of the Imperium",
+      "DNU"
+    ]
+  },
+  {
+    "id": "micromelta-rounds-veiled-blade-elimination-force",
+    "name": "Micromelta Rounds",
+    "detachment_id": "veiled-blade-elimination-force",
+    "cost": 20,
+    "ability_id": null,
+    "is_unique": true,
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "points_provisional": false,
+    "upgrade_tag": false,
+    "max_targets": 1,
+    "keyword_restriction_groups": [
+      [
+        "Agents of the Imperium",
+        "DNU"
+      ]
+    ],
+    "keyword_restrictions": [
+      "Agents of the Imperium",
+      "DNU"
     ]
   }
 ]

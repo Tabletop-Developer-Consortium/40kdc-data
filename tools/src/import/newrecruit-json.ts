@@ -27,12 +27,19 @@
  * @packageDocumentation
  */
 import type { FormatAdapter } from "./adapter.js";
-import type { ParsedRoster, ParsedUnit, ParsedWargear } from "./types.js";
+import type {
+  ParsedLeaderAttachment,
+  ParsedRoster,
+  ParsedUnit,
+  ParsedWargear,
+} from "./types.js";
 
 const PTS_COST_NAME = "pts";
 const FACTION_CATEGORY = /^Faction:\s*(.+)$/;
 const POINTS_LIMIT = /(\d[\d,]*)\s*Point/i;
 const ENHANCEMENT_GROUP_PREFIX = "Enhancements";
+const ATTACHMENT_GROUP =
+  /^40kdc Attachment:(leader|support):(confirmed|provisional)$/;
 const CHARACTER_CATEGORIES = new Set(["Character", "Epic Hero"]);
 const WEAPON_CATEGORY_SUFFIX = " Weapon"; // "Ranged Weapon", "Melee Weapon", "Psychic Weapon"
 const NEWRECRUIT_XMLNS = "http://www.battlescribe.net/schema/rosterSchema";
@@ -42,6 +49,7 @@ const NEWRECRUIT_HOST_PREFIX = "https://newrecruit";
 
 interface RawCategory {
   name?: unknown;
+  id?: unknown;
 }
 interface RawCost {
   name?: unknown;
@@ -111,6 +119,14 @@ function isUnitSelection(sel: RawSelection): boolean {
 function isCharacter(sel: RawSelection): boolean {
   return categoryNames(sel).some((n) => CHARACTER_CATEGORIES.has(n));
 }
+function keywordOverrides(sel: RawSelection): string[] {
+  return asArray(sel.categories)
+    .map((category) => category as RawCategory)
+    .filter((category) => asString(category.id)?.startsWith("40kdc-keyword-"))
+    .map((category) => asString(category.name))
+    .filter((name): name is string => name !== null);
+}
+
 
 function isWeaponSelection(sel: RawSelection): boolean {
   return categoryNames(sel).some((n) => n.endsWith(WEAPON_CATEGORY_SUFFIX));
@@ -134,9 +150,19 @@ function parseUnit(unit: RawSelection): ParsedUnit {
   let enhancement_raw_name: string | null = null;
   let enhancement_points: number | null = null;
   let is_warlord = false;
+  let leader_attachment: ParsedLeaderAttachment | null = null;
 
   for (const node of childSelections(unit)) {
     walk(node, (s) => {
+      const attachment = ATTACHMENT_GROUP.exec(asString(s.group) ?? "");
+      if (attachment) {
+        leader_attachment = {
+          bodyguard_raw_name: selectionName(s),
+          role: attachment[1] as "leader" | "support",
+          provisional: attachment[2] === "provisional",
+        };
+        return;
+      }
       if (isEnhancementSelection(s)) {
         if (enhancement_raw_name === null) {
           enhancement_raw_name = selectionName(s);
@@ -153,16 +179,38 @@ function parseUnit(unit: RawSelection): ParsedUnit {
       }
     });
   }
+  const loadout_groups = childSelections(unit)
+    .filter((selection) => selectionType(selection) === "model")
+    .map((model) => {
+      const count = selectionCount(model);
+      const groupWargear: ParsedWargear[] = [];
+      walk(model, (selection) => {
+        if (!isWeaponSelection(selection)) return;
+        const total = selectionCount(selection);
+        groupWargear.push({
+          raw_name: selectionName(selection),
+          count: count > 0 && total % count === 0 ? total / count : total,
+        });
+      });
+      return {
+        model_name: selectionName(model),
+        count,
+        wargear: groupWargear,
+      };
+    });
 
   return {
     raw_name: selectionName(unit),
     is_character: isCharacter(unit),
+    keyword_overrides: keywordOverrides(unit),
     model_count: modelCount(unit),
     points: pointsOf(unit),
     is_warlord,
     enhancement_raw_name,
     enhancement_points,
+    leader_attachment,
     wargear,
+    ...(loadout_groups.length > 0 ? { loadout_groups } : {}),
   };
 }
 
@@ -283,11 +331,13 @@ export const newRecruitJsonAdapter: FormatAdapter = {
 
     const detachment_raw_names: string[] = [];
     let battle_size_raw: string | null = null;
+    let force_disposition_raw_name: string | null = null;
     const units: ParsedUnit[] = [];
     for (const force of forces) {
       const top = childSelections(force);
       detachment_raw_names.push(...configValues(top, "Detachment"));
       battle_size_raw ??= configValue(top, "Battle Size");
+      force_disposition_raw_name ??= configValue(top, "Force Disposition");
       for (const sel of top) {
         if (isUnitSelection(sel)) units.push(parseUnit(sel));
       }
@@ -316,6 +366,7 @@ export const newRecruitJsonAdapter: FormatAdapter = {
       faction_raw_name: primaryFaction,
       detachment_raw_names,
       battle_size_raw,
+      force_disposition_raw_name,
       declared_limit: parseLimit(battle_size_raw),
       total_reported,
       total_computed,

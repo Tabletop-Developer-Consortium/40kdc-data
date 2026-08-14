@@ -92,7 +92,8 @@
       "tempered-in-battle-aura-wrath-of-the-rock",
       "ancient-weapons-wrath-of-the-rock",
       "deathwing-assault-inner-circle-task-force",
-      "lord-of-the-ravenwing-wrath-of-the-rock"
+      "lord-of-the-ravenwing-wrath-of-the-rock",
+      "deathwing-assault-wrath-of-the-rock"
     ],
     "stratagem_ids": [
       "inescapable-justice-wrath-of-the-rock",
@@ -625,6 +626,20 @@
     "game_modes": [
       "combat-patrol"
     ],
+    "detachment_points": 1,
+    "force_dispositions": [
+      "take-and-hold"
+    ]
+  },
+  {
+    "id": "vengeful-hosts",
+    "name": "Vengeful Hosts",
+    "faction_id": "dark-angels",
+    "enhancement_ids": [],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
     "detachment_points": 1,
     "force_dispositions": [
       "take-and-hold"

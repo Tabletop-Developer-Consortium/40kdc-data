@@ -128,7 +128,7 @@ function maybeReady(store, row) {
   return store.db.prepare('SELECT * FROM tasks WHERE id=?').get(row.id)
 }
 
-export function issueReadyTask(store, { run_id, label, now = Date.now() }) {
+export function issueReadyTask(store, { run_id, label, now = Date.now(), input_node_ids = null }) {
   const run = runRow(store, run_id)
   if (run.state === 'planned' && !label.startsWith('prioritize:')) throw new Error('planned run permits only prioritize tasks')
   if (!['planned', 'active'].includes(run.state)) throw new Error(`run is not schedulable: ${run.state}`)
@@ -142,7 +142,10 @@ export function issueReadyTask(store, { run_id, label, now = Date.now() }) {
   const activeLease = store.db.prepare("SELECT id FROM leases WHERE run_id=? AND state IN ('allocated','active') AND json_extract(payload_json,'$.task_id')=?").get(run_id, id)
   if (activeAttempt || activeLease) return { issued: false, reason: 'task-attempt-active', task_id: id }
   const definition = taskPayload(task)
-  const explicitInputs = uniqueSorted(definition.payload?.input_node_ids || [], 'input_node_ids')
+  const explicitInputs = uniqueSorted(
+    input_node_ids === null ? definition.payload?.input_node_ids || [] : input_node_ids,
+    'input_node_ids',
+  )
   validateExplicitInputs(store, run_id, explicitInputs)
   const dependencies = dependencyRows(store, definition.depends_on || [])
   if (!dependencies.every(row => row.state === 'succeeded' && row.node_id && store.hasNode(row.node_id))) {

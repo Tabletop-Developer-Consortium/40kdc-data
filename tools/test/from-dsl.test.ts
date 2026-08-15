@@ -182,6 +182,38 @@ describe("effectToBuffs: nested relationship containers", () => {
       },
     ]);
   });
+
+  it("preserves a nested attack buff through an aura recipient wrapper", () => {
+    const result = effectToBuffs(
+      {
+        type: "aura",
+        target: "friendly-within-aura",
+        modifier: {
+          range: 6,
+          recipient_filter: { required_keywords: ["ALLY"] },
+          effect: {
+            type: "conditional",
+            condition: { type: "attack-is-type", parameters: { attack_type: "ranged" } },
+            effect: {
+              type: "re-roll",
+              target: "unit",
+              modifier: { roll: "hit", subset: "ones" },
+            },
+          },
+        },
+      },
+      unitRule,
+      ctx,
+    );
+
+    expect(result.applied).toHaveLength(1);
+    expect(result.applied[0].contribution).toEqual({
+      type: "reroll",
+      roll: "hit",
+      subset: "ones",
+    });
+    expect(result.unsupported).toEqual([]);
+  });
 });
 
 describe("effectToBuffs: named-region-state", () => {

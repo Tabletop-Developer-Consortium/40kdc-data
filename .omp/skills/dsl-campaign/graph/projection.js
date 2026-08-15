@@ -44,7 +44,7 @@ export function buildAbilityCatalog(repoRoot, repositoryVersionId) {
   const factions = new Map()
   const coreRoot = join(repoRoot, 'data', 'core')
   if (existsSync(coreRoot)) {
-    for (const entry of readdirSync(coreRoot, { withFileTypes: true }).filter(entry => entry.isDirectory() && !entry.name.startsWith('_')).sort((a, b) => a.name.localeCompare(b.name))) {
+    for (const entry of readdirSync(coreRoot, { withFileTypes: true }).filter(entry => entry.isDirectory() && (entry.name === '_core' || !entry.name.startsWith('_'))).sort((a, b) => a.name.localeCompare(b.name))) {
       for (const faction of jsonArray(join(coreRoot, entry.name, 'factions.json'))) {
         if (typeof faction?.id === 'string' && typeof faction?.name === 'string') factions.set(faction.id, faction.name)
       }
@@ -53,7 +53,7 @@ export function buildAbilityCatalog(repoRoot, repositoryVersionId) {
   const catalog = []
   const enrichmentRoot = join(repoRoot, 'data', 'enrichment')
   if (existsSync(enrichmentRoot)) {
-    for (const entry of readdirSync(enrichmentRoot, { withFileTypes: true }).filter(entry => entry.isDirectory() && !entry.name.startsWith('_')).sort((a, b) => a.name.localeCompare(b.name))) {
+    for (const entry of readdirSync(enrichmentRoot, { withFileTypes: true }).filter(entry => entry.isDirectory() && (entry.name === '_core' || !entry.name.startsWith('_'))).sort((a, b) => a.name.localeCompare(b.name))) {
       const factionId = entry.name
       for (const ability of jsonArray(join(enrichmentRoot, factionId, 'abilities.json'))) {
         if (typeof ability?.ability_id !== 'string' || typeof ability?.name !== 'string') continue
@@ -133,7 +133,10 @@ function projectionOwnershipRefs(store) {
     }
     for (const child of Object.values(value)) visit(child, nodeId)
   }
-  for (const row of store.db.prepare('SELECT node_id,payload_json FROM nodes ORDER BY node_id').all()) visit(JSON.parse(row.payload_json), row.node_id)
+  for (const row of store.db.prepare('SELECT node_id,kind,payload_json FROM nodes ORDER BY node_id').all()) {
+    if (row.kind === 'workflow-output') continue
+    visit(JSON.parse(row.payload_json), row.node_id)
+  }
   for (const row of store.db.prepare('SELECT id,node_id FROM ability_evidence WHERE node_id IS NOT NULL ORDER BY id').all()) {
     const ref = compositeRef(row.id)
     if (ref) ownership.push({ node_id: row.node_id, ...ref })
@@ -232,7 +235,8 @@ function familyJoinTargets(store) {
 export function rebuildNodeAbilityRefs(store) {
   const existing = store.db.prepare("SELECT node_id,faction_id,ability_id,distance FROM node_ability_refs WHERE source_kind='explicit-ownership' ORDER BY node_id,faction_id,ability_id").all()
   const refs = new Map()
-  for (const row of store.db.prepare('SELECT node_id,payload_json FROM nodes ORDER BY node_id').all()) {
+  for (const row of store.db.prepare('SELECT node_id,kind,payload_json FROM nodes ORDER BY node_id').all()) {
+    if (row.kind === 'workflow-output') continue
     for (const ref of directRefs(JSON.parse(row.payload_json))) addRef(refs, row.node_id, ref.faction_id, ref.ability_id, 'direct', 0)
   }
   for (const ref of projectionOwnershipRefs(store)) addRef(refs, ref.node_id, ref.faction_id, ref.ability_id, 'ownership', 0)

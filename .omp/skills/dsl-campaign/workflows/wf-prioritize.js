@@ -1,3 +1,4 @@
+import { canonicalJson, sha256 } from '../graph/canonical.js'
 import { GraphStore } from '../graph/store.js'
 import { wholeGraphPriorities } from '../graph/retrieval.js'
 
@@ -78,14 +79,56 @@ const INQUISITOR_OUT = {
 }
 
 phase('Scout')
-const scouts = (await parallel((args.scout_shapes || []).map(s => () =>
+const scoutPlans = (args.scout_shapes || [])
+  .map(shape => ({ shape, encoded: canonicalJson(shape) }))
+  .sort((left, right) => left.encoded.localeCompare(right.encoded))
+const scoutLabels = scoutPlans.map(({ encoded }, index) =>
+  `prioritize:scout:${String(index + 1).padStart(2, '0')}:${sha256(encoded).slice(0, 12)}`)
+const scouts = (await parallel(scoutPlans.map(({ shape }, index) => () =>
   graphAgent(PRE + `Scout the cross-faction family for this shape. estimated_family_size counts exact+near only ` +
-  `— stretches don't justify shapes. Input:\n` + JSON.stringify(s),
-  { agentType: 'swarmlord', phase: 'Scout', schema: SWARMLORD_OUT,
-    label: `scout:${s.shape.effect_type || s.shape.condition_type || s.shape.pattern}` })
+  `— stretches don't justify shapes. Input:\n` + JSON.stringify(shape),
+  {
+    agentType: 'swarmlord',
+    taskKind: 'prioritize-scout',
+    phase: 'Scout',
+    schema: SWARMLORD_OUT,
+    label: scoutLabels[index],
+    dependsOn: [],
+    taskPayload: { shape },
+  })
 ))).filter(Boolean)
+const scoutTargets = new Set(scouts.flatMap(output => (output.candidates || []).map(candidate =>
+  `${candidate.faction}/${candidate.ability_id}`)))
+const promptCandidates = scoutTargets.size
+  ? ranking.eligible.filter(candidate => scoutTargets.has(`${candidate.faction_id}/${candidate.ability_id}`))
+  : ranking.eligible.slice(0, 100)
+const promptExcluded = scoutTargets.size
+  ? ranking.excluded.filter(candidate => scoutTargets.has(`${candidate.faction_id}/${candidate.ability_id}`))
+  : []
+const compactRank = candidate => ({
+  faction_id: candidate.faction_id,
+  ability_id: candidate.ability_id,
+  bucket: candidate.bucket,
+  repeat_count: candidate.repeat_count,
+  certified_coverage_ratio: candidate.certified_coverage_ratio,
+  unsupported_shape_count: candidate.unsupported_shape_count,
+  exclusion_reason: candidate.exclusion_reason,
+})
+const promptRanking = {
+  eligible: promptCandidates.map(compactRank),
+  excluded: promptExcluded.map(compactRank),
+  totals: { eligible: ranking.eligible.length, excluded: ranking.excluded.length },
+  view: scoutTargets.size ? 'scout-family-members' : 'first-100-eligible',
+}
+
 
 phase('Curate')
+const curationInput = {
+  worklist_cap: CAP,
+  artifacts: args.artifacts,
+  excluded_claims: args.excluded_claims || [],
+  frozen_whole_graph_ranking: ranking,
+}
 const curation = await graphAgent(PRE + `Curate the next campaign. Pick ONE coherent worklist chunk (≤ ${CAP} abilities) from the ` +
 `sub-0.80-cosine corpus: per-faction worst tail, a swarmlord family (exact+near, family size ≥ 4), ` +
 `or an inbox schema-unblock. Do not re-propose anything in registry blocked_shapes (its reopen_when ` +
@@ -94,16 +137,21 @@ const curation = await graphAgent(PRE + `Curate the next campaign. Pick ONE cohe
 JSON.stringify({
   mode: 'curate',
   artifacts: {
-    roundtrip_report_path: args.artifacts.roundtrip_report_path,
-    sub080_summary: args.artifacts.sub080_summary,
-    loop_state_paths: args.artifacts.loop_state_paths,
-    registry_excerpt: args.artifacts.registry_excerpt,
+    ...args.artifacts,
     agent_outputs: scouts,
     excluded_claims: args.excluded_claims || [],
-    whole_graph_ranking: { eligible: ranking.eligible.slice(0, CAP * 4), excluded: ranking.excluded },
+    whole_graph_ranking: promptRanking,
   },
 }),
-{ agentType: 'inquisitor', phase: 'Curate', schema: INQUISITOR_OUT, label: 'curate' })
+{
+  agentType: 'inquisitor',
+  taskKind: 'prioritize-curate',
+  phase: 'Curate',
+  schema: INQUISITOR_OUT,
+  label: 'prioritize:curate',
+  dependsOn: scoutLabels,
+  taskPayload: curationInput,
+})
 if (!curation) throw new Error('inquisitor returned nothing — cannot pick a campaign')
 const excluded = new Set((args.excluded_claims || []).map(claim =>
   typeof claim === 'string' ? claim : `${claim.faction_id}/${claim.ability_id}`))

@@ -2645,26 +2645,54 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
+      "type": "aura",
+      "target": "friendly-within-aura",
       "modifier": {
-        "stat": "AP",
-        "operation": "add",
-        "value": -1
+        "range": 3,
+        "recipient_filter": {
+          "required_keywords": [
+            "Necrons",
+            "Battleline"
+          ]
+        },
+        "effect": {
+          "type": "sequence",
+          "steps": [
+            {
+              "type": "stat-modifier",
+              "target": "unit",
+              "modifier": {
+                "stat": "AP",
+                "operation": "improve",
+                "value": 1
+              }
+            },
+            {
+              "type": "attack-restriction",
+              "target": "unit",
+              "modifier": {
+                "restriction": "worsen-incoming-ap",
+                "value": 1
+              }
+            }
+          ]
+        }
       }
     },
     "scope": {
-      "range": "aura-6",
-      "duration": "permanent"
+      "range": "aura-custom",
+      "duration": "permanent",
+      "range_inches": 3
     },
     "unit_ids": [
       "illuminor-szeras"
     ],
     "ability_type": "unit",
-    "behavior": "passive",
+    "behavior": "aura",
     "applies_to": {
       "required_keywords": [
-        "Necrons"
+        "Necrons",
+        "Battleline"
       ]
     },
     "community_notes": "defensive ability (skipped for damage calc)"

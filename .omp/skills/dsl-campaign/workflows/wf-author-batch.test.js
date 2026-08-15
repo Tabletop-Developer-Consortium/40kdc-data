@@ -29,9 +29,12 @@ describe('dsl author batch workflow', () => {
     }
     const execution_envelopes = {}
     const calls = []
+    const taskLabelPrefix = 'retry-one'
     for (const label of [
-      'retrieve:ability-zero',
-      'assemble:ability-zero#1', 'refute:ability-zero#1v1', 'refute:ability-zero#1v2',
+      `${taskLabelPrefix}:retrieve:ability-zero`,
+      `${taskLabelPrefix}:assemble:ability-zero#1`,
+      `${taskLabelPrefix}:refute:ability-zero#1v1`,
+      `${taskLabelPrefix}:refute:ability-zero#1v2`,
     ]) execution_envelopes[label] = {
       run_id: 'run', task_id: `task:${label}`, attempt_id: `attempt:${label}`, lease_id: `lease:${label}`,
       lease_expires_at: '2099-01-01T00:00:00.000Z', input_node_ids: [], input_hash: 'd'.repeat(64), producer_contract_version: 2,
@@ -102,12 +105,13 @@ describe('dsl author batch workflow', () => {
     const persistRepresentationClaimCoverage = (store, input) => {
       for (const claim_occurrence_id of input.claim_occurrence_ids) store.appendEvent('representation-coverage-recorded', { ...input, claim_occurrence_id })
     }
-    const output = await loadWorkflow()({ batch_id: 'workflow-regression', abilities: [ability], graph_root, run_id: 'run', execution_envelopes }, agent, pipeline, parallel, () => {}, trustedAgent, FakeStore, () => claimSet, validateCandidateClaimCoverage, persistRepresentationClaimCoverage, () => 'hash', JSON.stringify)
+    const output = await loadWorkflow()({ batch_id: 'workflow-regression', task_label_prefix: taskLabelPrefix, abilities: [ability], graph_root, run_id: 'run', execution_envelopes }, agent, pipeline, parallel, () => {}, trustedAgent, FakeStore, () => claimSet, validateCandidateClaimCoverage, persistRepresentationClaimCoverage, () => 'hash', JSON.stringify)
     assert.equal(output.results.length, 1)
     assert.deepEqual(output.results[0].ability, ability)
     assert.equal(output.results[0].status, 'accepted')
     assert.equal(coverageEvents.length, 1)
     assert.equal(coverageEvents[0].payload.claim_occurrence_id, 'occurrence')
     assert.ok(calls.every(({ prompt }) => !prompt.includes('undefined')))
+    assert.ok(calls.every(({ options }) => options.label.startsWith(`${taskLabelPrefix}:`)))
   })
 })

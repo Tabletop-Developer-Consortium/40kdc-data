@@ -15,14 +15,14 @@ function loadWorkflow() {
     .replace(/import \{ join \} from 'node:path'\n/, '')
     .replace(/import \{\n[\s\S]*?\n\} from '\.\.\/graph\/formalization\.js'\n/, '')
     .replace(/import \{ MECHANIC_REGISTRY, mechanicClaimAdapter \} from '\.\.\/graph\/mechanic-claims\.js'\n/, '')
-    .replace(/import \{ failTask, ensureTask, issueReadyTask \} from '\.\.\/graph\/scheduler\.js'\n/, '')
+    .replace(/import \{ failTask, issueReadyTask \} from '\.\.\/graph\/scheduler\.js'\n/, '')
     .replace(/import \{ GraphStore \} from '\.\.\/graph\/store\.js'\n/, '')
     .replace(/import \{ createTrustedAgent \} from '\.\.\/graph\/workflow-runtime\.js'\n/, '')
     .replaceAll('export const ', 'const ')
   return new (Object.getPrototypeOf(async function () {}).constructor)(
     'args', 'agent', 'pipeline', 'parallel', 'log', 'readFileSync', 'join',
     'canonicalSourceText', 'resolveSourceBinding', 'persistSourceSnapshot', 'persistClaimExtraction', 'MECHANIC_REGISTRY', 'mechanicClaimAdapter',
-    'failTask', 'ensureTask', 'issueReadyTask', 'GraphStore', 'createTrustedAgent', source,
+    'failTask', 'issueReadyTask', 'GraphStore', 'createTrustedAgent', source,
   )
 }
 
@@ -78,8 +78,7 @@ function harness({ legacy = false } = {}) {
         persisted.push(value)
         return { extraction_id: 'extraction-id', claim_set_id: 'claim-set-id', certificate_node_id: 'certificate-node' }
       },
-      failTask: () => {}, ensureTask: () => {}, issueReadyTask: () => ({ issued: true, envelope: { input_node_ids: [] } }), GraphStore: Store,
-      createTrustedAgent: () => graphAgent,
+      failTask: () => {}, issueReadyTask: () => ({ issued: true, envelope: { input_node_ids: [] } }), GraphStore: Store, createTrustedAgent: () => graphAgent,
     },
   }
 }
@@ -90,8 +89,8 @@ async function run(value, overrides = {}) {
     { repo_root: '/repo', graph_root: '/graph', run_id: 'run', raw_store_root: '/raw', model_identities, abilities: [ability], ...overrides },
     () => { throw new Error('raw agent must be wrapped') },
     async (items, work) => Promise.all(items.map(work)), async tasks => Promise.all(tasks.map(task => task())), () => {},
-    deps.readFileSync, deps.join, deps.canonicalSourceText, deps.resolveSourceBinding, deps.persistSourceSnapshot, deps.persistClaimExtraction, MECHANIC_REGISTRY, {},
-    deps.failTask, deps.ensureTask, deps.issueReadyTask, deps.GraphStore, deps.createTrustedAgent,
+    deps.readFileSync, deps.join, deps.canonicalSourceText, deps.resolveSourceBinding, deps.persistSourceSnapshot, deps.persistClaimExtraction, MECHANIC_REGISTRY, mechanicClaimAdapter,
+    deps.failTask, deps.issueReadyTask, deps.GraphStore, deps.createTrustedAgent,
   )
 }
 
@@ -105,6 +104,13 @@ async function runRealPersistenceWorkflow() {
   const readiness = seed.createNode({ kind: 'decision', payload: {} })
   seed.appendEvent('run-created', { row: { run_id: 'run', campaign_id: 'run', state: 'planned', kind: 'graph-backed' }, repository_parent_node_id: repository.node_id, readiness_parent_node_id: readiness.node_id }, { aggregate_kind: 'run', aggregate_id: 'run', node_id: readiness.node_id })
   seed.appendEvent('run-started', { expected_state: 'planned' }, { aggregate_kind: 'run', aggregate_id: 'run' })
+  const sourceBinding = { store_key: 'fixture-faction/fixture-ability', byte_hash: 'b'.repeat(64) }
+  ensureTask(seed, {
+    run_id: 'run',
+    label: 'ability:fixture-faction/fixture-ability:initial:source-retrieval',
+    kind: 'source-retrieval',
+    payload: { faction_id: ability.faction_id, ability_id: ability.ability_id, generation: 'initial', source_binding: sourceBinding },
+  })
   seed.close()
   const trusted = () => async (_prompt, options) => {
     const store = new GraphStore(graph)
@@ -150,11 +156,16 @@ async function runRealPersistenceWorkflow() {
     { repo_root: root, graph_root: graph, run_id: 'run', raw_store_root: raw, model_identities, abilities: [ability] },
     () => {}, async (items, work) => Promise.all(items.map(work)), async tasks => Promise.all(tasks.map(task => task())), () => {},
     readFileSync, join, canonicalSourceText, resolveSourceBinding, persistSourceSnapshot, persistClaimExtraction, MECHANIC_REGISTRY, mechanicClaimAdapter,
-    () => {}, ensureTask, issueReadyTask, GraphStore, trusted,
+    () => {}, issueReadyTask, GraphStore, trusted,
   )
   const store = new GraphStore(graph)
   try {
-    return { output, assertion: JSON.parse(store.db.prepare("SELECT payload_json FROM nodes WHERE kind='claim-assertion'").get().payload_json), binding: JSON.parse(store.db.prepare("SELECT payload_json FROM nodes WHERE kind='claim-evidence-binding'").get().payload_json) }
+    return {
+      output,
+      assertion: JSON.parse(store.db.prepare("SELECT payload_json FROM nodes WHERE kind='claim-assertion'").get().payload_json),
+      binding: JSON.parse(store.db.prepare("SELECT payload_json FROM nodes WHERE kind='claim-evidence-binding'").get().payload_json),
+      sourceTask: JSON.parse(store.db.prepare('SELECT payload_json FROM tasks WHERE id=?').get('run:ability:fixture-faction/fixture-ability:initial:source-retrieval').payload_json).payload,
+    }
   } finally { store.close() }
 }
 
@@ -192,6 +203,15 @@ describe('dsl formalize batch workflow', () => {
     assert.equal(value.sourceSnapshots.length, 0)
   })
 
+  test('issues the planned source task without redefining its source binding payload', async () => {
+    const value = await runRealPersistenceWorkflow()
+    assert.deepEqual(value.sourceTask, {
+      faction_id: ability.faction_id,
+      ability_id: ability.ability_id,
+      generation: 'initial',
+      source_binding: { store_key: 'fixture-faction/fixture-ability', byte_hash: 'b'.repeat(64) },
+    })
+  })
   test('rejects malformed legacy claim_id extraction shape', async () => {
     const value = harness({ legacy: true })
     await assert.rejects(() => run(value), /claim_id is not allowed/)

@@ -994,17 +994,38 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "conditional",
-      "condition": {
-        "type": "charged-this-turn"
-      },
-      "effect": {
-        "type": "stat-modifier",
-        "target": "unit",
-        "modifier": {
-          "stat": "AP",
-          "operation": "add",
-          "value": -1
+      "type": "aura",
+      "target": "friendly-within-aura",
+      "modifier": {
+        "range": 6,
+        "recipient_filter": {
+          "required_keywords": [
+            "SLAANESH"
+          ]
+        },
+        "effect": {
+          "type": "conditional",
+          "condition": {
+            "type": "charged-this-turn"
+          },
+          "effect": {
+            "type": "conditional",
+            "condition": {
+              "type": "attack-is-type",
+              "parameters": {
+                "attack_type": "melee"
+              }
+            },
+            "effect": {
+              "type": "stat-modifier",
+              "target": "unit",
+              "modifier": {
+                "stat": "AP",
+                "operation": "improve",
+                "value": 1
+              }
+            }
+          }
         }
       }
     },

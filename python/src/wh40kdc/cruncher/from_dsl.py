@@ -133,6 +133,18 @@ def _walk(node: Any, source: BuffSource, opts: dict[str, Any], out: EffectTransl
     elif node_type == "select-units":
         # Targeting wrapper — the selected units receive the nested effect.
         _walk(node.get("effect"), source, opts, out)
+    elif node_type == "aura":
+        modifier = node.get("modifier")
+        effect = modifier.get("effect") if isinstance(modifier, dict) else None
+        if isinstance(effect, dict):
+            _walk(effect, source, opts, out)
+        else:
+            out["unsupported"].append(
+                {
+                    "reason": "aura without nested effect: not a combat buff",
+                    "effectFragment": node,
+                }
+            )
     elif node_type == "leader-model-ability-grant":
         out["unsupported"].append(
             {
@@ -1234,6 +1246,13 @@ def _evaluate_condition(condition: dict[str, Any], ctx: EngineContext) -> Any:
         if not isinstance(wanted, str):
             return "unknown"
         return ctx.get("phase") == wanted
+    if ctype == "attack-is-type":
+        attack_type = params.get("attack_type") if params else None
+        if attack_type == "melee":
+            return ctx.get("phase") == "fight"
+        if attack_type == "ranged":
+            return ctx.get("phase") == "shooting"
+        return "unknown"
     if ctype == "timing-is":
         wanted = params.get("timing") if params else None
         if not isinstance(wanted, str):

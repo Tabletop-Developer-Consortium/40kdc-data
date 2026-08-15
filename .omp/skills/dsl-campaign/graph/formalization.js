@@ -215,8 +215,10 @@ function resolveParents(assertions, localToOccurrence, acceptedByLocal = new Map
       if (edges.has(parent)) visit(parent)
       else if (!acceptedByLocal.has(parent)) throw new TypeError(`unknown derivation parent: ${parent}`)
     }
-    visiting.delete(label); visited.add(label)
+    visiting.delete(label)
+    visited.add(label)
   }
+  for (const label of edges.keys()) visit(label)
   return assertions.map(assertion => ({ ...assertion, derivation_parent_claim_occurrence_ids: (edges.get(assertion.extraction_local_id) ?? []).map(label => localToOccurrence.get(label) ?? acceptedByLocal.get(label)) }))
 }
 

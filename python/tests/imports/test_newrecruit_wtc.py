@@ -55,9 +55,7 @@ def test_header_without_disposition_is_explicit_null() -> None:
 
 def test_compact_dialect_shares_the_header_parse() -> None:
     compact = "\n".join(
-        line
-        for line in SORORITAS_LIST.splitlines()
-        if not line.startswith(("•", "    "))
+        line for line in SORORITAS_LIST.splitlines() if not line.startswith(("•", "    "))
     )
     assert newrecruit_wtc_compact_adapter.matches(compact) is True
     parsed = newrecruit_wtc_compact_adapter.parse(compact)
@@ -83,9 +81,7 @@ def test_unknown_disposition_warns_and_stays_null(dataset: Any) -> None:
 def test_wargear_item_resolves_via_the_wargear_fallback(dataset: Any) -> None:
     result = try_import_roster(SORORITAS_LIST, dataset)
     assert result["ok"] is True
-    squad = next(
-        u for u in result["roster"]["units"] if u["ref"]["id"] == "battle-sisters-squad"
-    )
+    squad = next(u for u in result["roster"]["units"] if u["ref"]["id"] == "battle-sisters-squad")
     simulacrum = next(
         w for w in squad["wargear"] if w["ref"]["raw_name"] == "Simulacrum Imperialis"
     )
@@ -96,9 +92,7 @@ def test_wargear_item_resolves_via_the_wargear_fallback(dataset: Any) -> None:
 def test_weapon_precedence_over_wargear_for_colliding_names(dataset: Any) -> None:
     result = try_import_roster(SORORITAS_LIST, dataset)
     assert result["ok"] is True
-    squad = next(
-        u for u in result["roster"]["units"] if u["ref"]["id"] == "battle-sisters-squad"
-    )
+    squad = next(u for u in result["roster"]["units"] if u["ref"]["id"] == "battle-sisters-squad")
     melta = next(w for w in squad["wargear"] if w["ref"]["raw_name"] == "Multi-melta")
     assert melta["ref"]["id"] is not None
     assert dataset.weapons.get_any(melta["ref"]["id"]) is not None
@@ -117,3 +111,37 @@ def test_full_body_keeps_single_line_characters() -> None:
     squad = parsed["units"][1]
     superior_loadout = {w["raw_name"] for w in squad["wargear"]}
     assert "Power weapon" in superior_loadout  # from the inline `• 1x Sister Superior: ...`
+
+
+def test_full_preserves_ordered_detachments_bare_enhancement_and_repeated_model_groups() -> None:
+    text = """+++++++++++++++++++++++++++++++++++++++++++++++
++ FACTION KEYWORD: Fabricated Faction
++ DETACHMENT: First Formation (2 Detachment Points)
++ DETACHMENT: Second Formation (1 Detachment Point)
++ TOTAL ARMY POINTS: 200pts
+++++++++++++++++++++++++++++++++++++++++++++++
+
+CHARACTERS
+Char1: 1x Fabricated Captain (80 pts)
+Enhancement: Bare Relic
+
+BATTLELINE
+9x Fabricated Squad (120 pts)
+• 6x Trooper
+    6 with Rifle
+• 1x Sergeant
+    1 with Rifle
+• 1x Specialist
+    1 with Rifle
+• 1x Specialist
+    1 with Rifle
+"""
+    parsed = newrecruit_wtc_full_adapter.parse(text)
+
+    assert parsed["detachment_raw_names"] == ["First Formation", "Second Formation"]
+    captain, squad = parsed["units"]
+    assert captain["enhancement_raw_name"] == "Bare Relic"
+    assert captain["enhancement_points"] is None
+    assert squad["model_count"] == 9
+    assert squad["wargear"] == [{"raw_name": "Rifle", "count": 9}]
+    assert [group["count"] for group in squad["loadout_groups"]] == [6, 1, 1, 1]

@@ -36,6 +36,8 @@ func inferBattleSizeRaw(limit any) any {
 
 var nxPrefixRe = regexp.MustCompile(`^(\d+)x\s+(.+)$`)
 var inlinePtsRe = regexp.MustCompile(`(?i)^(.+?)\s*\[\s*(\d+)\s*pts?\s*\]\s*$`)
+var inlineKeywordRe = regexp.MustCompile(`(?i)^40kdc Keywords?:\s*(.+)$`)
+var inlineEnhancementRe = regexp.MustCompile(`(?i)^Enhancement:\s*(.+)$`)
 
 const characterSuffix = " Character"
 const warlordMarker = "Warlord"
@@ -44,6 +46,7 @@ type wargearClass struct {
 	wargear            []any
 	isWarlord          bool
 	isCharacter        bool
+	keywordOverrides   []string
 	enhancementRawName any
 	enhancementPoints  any
 }
@@ -61,6 +64,11 @@ func classifyWargearList(tokens []string) wargearClass {
 		}
 		if strings.HasSuffix(token, characterSuffix) {
 			res.isCharacter = true
+			res.keywordOverrides = append(res.keywordOverrides, "Character")
+			continue
+		}
+		if m := inlineKeywordRe.FindStringSubmatch(token); m != nil {
+			res.keywordOverrides = append(res.keywordOverrides, strings.TrimSpace(m[1]))
 			continue
 		}
 		if m := inlinePtsRe.FindStringSubmatch(token); m != nil {
@@ -68,6 +76,13 @@ func classifyWargearList(tokens []string) wargearClass {
 				res.enhancementRawName = strings.TrimSpace(m[1])
 				n, _ := strconv.Atoi(m[2])
 				res.enhancementPoints = float64(n)
+			}
+			continue
+		}
+		if m := inlineEnhancementRe.FindStringSubmatch(token); m != nil {
+			if res.enhancementRawName == nil {
+				res.enhancementRawName = strings.TrimSpace(m[1])
+				res.enhancementPoints = nil
 			}
 			continue
 		}

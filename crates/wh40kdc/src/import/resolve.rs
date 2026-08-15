@@ -16,8 +16,8 @@
 use std::collections::{BTreeMap, HashMap, HashSet};
 
 use crate::data::{
-    check_unit_legality, group_loadout, loadout_models, loadout_tiers, normalize_name,
-    strip_leading_the, Dataset, ViolationCode,
+    check_unit_legality, complete_loadout, group_loadout, loadout_models, loadout_tiers,
+    normalize_name, strip_leading_the, Dataset, ViolationCode,
 };
 
 use super::types::{
@@ -164,13 +164,7 @@ fn battle_size_label(battle_size: Option<BattleSize>) -> &'static str {
 pub fn resolve(parsed: &ParsedRoster, ds: &Dataset, format: RosterFormat) -> Roster {
     let mut diag = DiagnosticsBuilder::default();
 
-    if parsed.multi_force {
-        diag.warn(
-            WarningCode::MultiForce,
-            "Source list contains more than one faction; the primary faction was used for scoping.",
-            None,
-        );
-    }
+    let _ = parsed.multi_force;
 
     // --- Faction (resolved first so other lookups can scope to it). ---------
     let mut faction_id: Option<String> = None;
@@ -235,7 +229,7 @@ pub fn resolve(parsed: &ParsedRoster, ds: &Dataset, format: RosterFormat) -> Ros
             dp_cost: None,
         });
     }
-    let detachment_ids: Vec<String> = detachments
+    let mut detachment_ids: Vec<String> = detachments
         .iter()
         .filter_map(|d| d.ref_.id.clone())
         .collect();
@@ -293,6 +287,92 @@ pub fn resolve(parsed: &ParsedRoster, ds: &Dataset, format: RosterFormat) -> Ros
         .iter()
         .map(|u| resolve_unit(u, faction_id.as_deref(), &detachment_ids, ds, &mut diag))
         .collect();
+    if faction_id.is_none() {
+        let inferred: HashSet<String> = units
+            .iter()
+            .filter_map(|unit| {
+                unit.ref_
+                    .id
+                    .as_deref()
+                    .and_then(|id| ds.units.get_any(id))
+                    .map(|unit| unit.faction_id.to_string())
+            })
+            .collect();
+        if inferred.len() == 1 {
+            faction_id = inferred.into_iter().next();
+        }
+    }
+
+    // Metadata-free sources can identify one detachment through enhancement
+    // ownership. Once that is known, infer a disposition only when every
+    // selected detachment grants the same sole disposition.
+    if detachments.is_empty() {
+        let inferred: HashSet<String> = units
+            .iter()
+            .filter_map(|unit| {
+                unit.enhancement
+                    .as_ref()
+                    .and_then(|enhancement| enhancement.id.as_deref())
+                    .and_then(|id| ds.enhancements.get(id))
+                    .map(|enhancement| enhancement.detachment_id.to_string())
+            })
+            .collect();
+        if inferred.len() == 1 {
+            let id = inferred
+                .into_iter()
+                .next()
+                .expect("one inferred detachment");
+            if let Some(detachment) = faction_id
+                .as_deref()
+                .and_then(|faction| ds.detachments.get_in_faction(&id, faction))
+                .or_else(|| ds.detachments.get_any(&id))
+            {
+                detachments.push(RosterDetachment {
+                    ref_: resolved(detachment.id.as_str(), detachment.name.as_str()),
+                    dp_cost: detachment.detachment_points.map(|cost| cost.get()),
+                });
+                detachment_ids.push(id);
+            }
+        }
+    }
+    if force_disposition.is_none()
+        && (matches!(parsed.force_disposition_raw_name, Some(None))
+            || (parsed.force_disposition_raw_name.is_none()
+                && !matches!(format, RosterFormat::Listforge | RosterFormat::RosterJson)))
+    {
+        let detachment_for = |id: &str| {
+            faction_id
+                .as_deref()
+                .and_then(|faction| ds.detachments.get_in_faction(id, faction))
+                .or_else(|| ds.detachments.get_any(id))
+        };
+        let disposition_ids: HashSet<String> = detachment_ids
+            .iter()
+            .flat_map(|id| {
+                detachment_for(id)
+                    .and_then(|detachment| detachment.force_dispositions.as_ref())
+                    .into_iter()
+                    .flatten()
+                    .map(|disposition| disposition.as_str().to_owned())
+            })
+            .collect();
+        let unique_per_detachment = !detachment_ids.is_empty()
+            && detachment_ids.iter().all(|id| {
+                detachment_for(id)
+                    .and_then(|detachment| detachment.force_dispositions.as_ref())
+                    .is_some_and(|dispositions| dispositions.len() == 1)
+            });
+        if unique_per_detachment && disposition_ids.len() == 1 {
+            force_disposition = disposition_ids.into_iter().next();
+        }
+    }
+
+    // Some GW exports omit Warlord while retaining explicit Character metadata.
+    if format == RosterFormat::Gw && !units.iter().any(|unit| unit.is_warlord) {
+        if let Some(index) = parsed.units.iter().position(|unit| unit.is_character) {
+            units[index].is_warlord = true;
+        }
+    }
 
     // --- Leader attachments (second pass: needs all resolved unit ids). -----
     apply_leader_attachments(
@@ -509,54 +589,98 @@ fn resolve_unit(
         }
     }
 
-    let wargear: Vec<RosterWargear> = wargear_lines
-        .iter()
-        .copied()
-        .map(|w| {
-            // Prefer the resolved unit's own weapon of this name — picks the right
-            // per-unit stat variant — falling back to the global lookup only when
-            // the unit is unresolved or fields no weapon of that name.
-            if let Some(id) = hit.and_then(|u| scoped_weapon_id(ds, u, &w.raw_name)) {
-                diag.resolved_weapons += 1;
-                return RosterWargear {
-                    ref_: resolved(id, &w.raw_name),
-                    count: w.count,
-                };
+    let mut wargear = Vec::new();
+    for w in wargear_lines.iter().copied() {
+        if let Some(ref_) = resolve_gear_ref(ds, hit, &w.raw_name) {
+            diag.resolved_weapons += 1;
+            wargear.push(RosterWargear {
+                ref_,
+                count: w.count,
+            });
+            continue;
+        }
+
+        let parts = split_gear_parts(&w.raw_name);
+        if parts.len() > 1 {
+            let refs: Vec<Option<ResolvedRef>> = parts
+                .iter()
+                .map(|part| resolve_gear_ref(ds, hit, part))
+                .collect();
+            if refs.iter().all(Option::is_some) {
+                diag.resolved_weapons += parts.len() as u64;
+                for (index, ref_) in refs.into_iter().flatten().enumerate() {
+                    wargear.push(RosterWargear {
+                        ref_,
+                        count: if index == 0 { w.count } else { 1 },
+                    });
+                }
+                continue;
             }
-            let hits = find_weapon_candidates(ds, &w.raw_name);
-            if let Some(first) = hits.first() {
-                diag.resolved_weapons += 1;
-                RosterWargear {
-                    ref_: resolved(first.id.as_str(), &w.raw_name),
-                    count: w.count,
-                }
-            } else if let Some(id) = resolve_wargear_item_id(ds, hit, &w.raw_name) {
-                diag.resolved_weapons += 1;
-                RosterWargear {
-                    ref_: resolved(id, &w.raw_name),
-                    count: w.count,
-                }
-            } else {
-                diag.unresolved_weapons += 1;
-                diag.warn(
-                    WarningCode::WeaponUnresolved,
-                    "Weapon name did not match any 40kdc weapon.",
-                    Some(&w.raw_name),
-                );
-                RosterWargear {
-                    ref_: unresolved(&w.raw_name, weapon_candidates(&hits)),
-                    count: w.count,
-                }
-            }
+        }
+
+        let hits = find_weapon_candidates(ds, &w.raw_name);
+        diag.unresolved_weapons += 1;
+        diag.warn(
+            WarningCode::WeaponUnresolved,
+            "Weapon name did not match any 40kdc weapon.",
+            Some(&w.raw_name),
+        );
+        wargear.push(RosterWargear {
+            ref_: unresolved(&w.raw_name, weapon_candidates(&hits)),
+            count: w.count,
+        });
+    }
+    // Preserve exact groups carried by a source format. Their totals are
+    // authoritative, including defaults absent from the flat aggregate.
+    let mut loadout_groups = parsed
+        .loadout_groups
+        .as_deref()
+        .map(|groups| resolve_explicit_loadout_groups(groups, &wargear, ds, hit));
+    if let Some(groups) = loadout_groups.as_ref() {
+        if groups
+            .iter()
+            .all(|group| group.wargear.iter().all(|item| item.ref_.id.is_some()))
+        {
+            reconcile_grouped_wargear(&mut wargear, groups, diag);
+        }
+    }
+    // No source groups: first prove the reported aggregate exact, then complete
+    // only omitted defaults when it cannot be partitioned. This order is the
+    // TS contract and prevents completion from replacing an already exact,
+    // equally-valid source partition.
+    if loadout_groups.is_none() {
+        loadout_groups = build_loadout_groups(hit, model_count, &wargear, ds);
+        if loadout_groups.is_none() {
+            loadout_groups = complete_implicit_defaults(hit, model_count, &mut wargear, ds, diag);
+        }
+    }
+
+    let mut keyword_overrides = Vec::new();
+    let mut seen_keyword_overrides = HashSet::new();
+    for keyword in parsed.keyword_overrides.as_deref().unwrap_or(&[]) {
+        if seen_keyword_overrides.insert(keyword.clone()) {
+            keyword_overrides.push(keyword.clone());
+        }
+    }
+    if parsed.is_character
+        && hit.is_some_and(|unit| {
+            !matches!(
+                unit.role,
+                Some(crate::generated::UnitRole::Character)
+                    | Some(crate::generated::UnitRole::EpicHero)
+            ) && !unit.keywords.as_ref().is_some_and(|keywords| {
+                keywords
+                    .0
+                    .iter()
+                    .any(|keyword| keyword.as_str() == "Character")
+            })
         })
-        .collect();
-
-    // Reconstruct the per-model-type loadout groups deterministically from the
-    // resolved unit, so a re-export reproduces the same grouped lines the exporter
-    // emits (round-trip) without the text parsers understanding model-name labels.
-    let loadout_groups = build_loadout_groups(hit, model_count, &wargear, ds);
-
-    // Loadout legality — the conservative checker over the fully-resolved counts.
+        && !keyword_overrides
+            .iter()
+            .any(|keyword| keyword == "Character")
+    {
+        keyword_overrides.push("Character".to_string());
+    }
     // Gated exactly like grouping (an unresolved unit has no datasheet; an
     // unresolved weapon means the counts under-report the list), plus two
     // import-specific reliability gates: the parsed model count must sit inside
@@ -617,7 +741,9 @@ fn resolve_unit(
 
     RosterUnit {
         ref_,
+
         model_count,
+        keyword_overrides,
         points: parsed.points,
         is_warlord: parsed.is_warlord,
         enhancement,
@@ -626,6 +752,227 @@ fn resolve_unit(
         loadout_groups,
         leader_attachment: None,
     }
+}
+/// Complete omitted implicit default weapons for aggregate-only source formats.
+///
+/// On a successful bounded completion, first source occurrences retain their raw
+/// references and order, aggregate counts are replaced, and missing defaults append.
+/// An impossible explicit combination leaves the aggregate untouched.
+fn complete_implicit_defaults(
+    hit: Option<&crate::Unit>,
+    model_count: u64,
+    wargear: &mut Vec<RosterWargear>,
+    ds: &Dataset,
+    diag: &mut DiagnosticsBuilder,
+) -> Option<Vec<RosterLoadoutGroup>> {
+    let unit = hit?;
+    if wargear.iter().any(|item| item.ref_.id.is_none()) {
+        return None;
+    }
+    let models = ds
+        .unit_compositions
+        .iter()
+        .find(|composition| {
+            composition.unit_id.as_str() == unit.id.as_str()
+                && composition.faction_id.as_str() == unit.faction_id.as_str()
+        })
+        .map(|composition| loadout_models(&composition.models));
+    let mut explicit_refs = HashMap::new();
+    let mut explicit_counts = BTreeMap::new();
+    for item in wargear.iter() {
+        let id = item.ref_.id.as_ref().expect("checked resolved aggregate");
+        explicit_refs
+            .entry(id.clone())
+            .or_insert_with(|| item.ref_.clone());
+        *explicit_counts.entry(id.clone()).or_insert(0) += item.count as i64;
+    }
+    let completed = complete_loadout(
+        unit,
+        model_count,
+        &ds.wargear_options_of(unit),
+        models.as_deref(),
+        &explicit_counts,
+    )?;
+    let ref_for_id = |id: &str| {
+        explicit_refs.get(id).cloned().unwrap_or_else(|| {
+            let name = ds
+                .weapons
+                .get_any(id)
+                .map(|weapon| weapon.name.to_string())
+                .or_else(|| ds.wargear.get(id).map(|item| item.name.to_string()))
+                .or_else(|| {
+                    ds.abilities
+                        .get_any(id)
+                        .map(|ability| ability.name.to_string())
+                })
+                .unwrap_or_else(|| id.to_owned());
+            resolved(id, &name)
+        })
+    };
+    let mut remaining: BTreeMap<String, RosterWargear> = completed
+        .counts
+        .iter()
+        .map(|(id, count)| {
+            (
+                id.clone(),
+                RosterWargear {
+                    ref_: ref_for_id(id),
+                    count: *count as u64,
+                },
+            )
+        })
+        .collect();
+    let mut seen = HashSet::new();
+    let mut rewritten = Vec::new();
+    for item in wargear.drain(..) {
+        let id = item.ref_.id.clone().expect("checked resolved aggregate");
+        if !seen.insert(id.clone()) {
+            continue;
+        }
+        if let Some(replacement) = remaining.remove(&id) {
+            rewritten.push(replacement);
+        }
+    }
+    let added = remaining
+        .keys()
+        .filter(|id| !explicit_refs.contains_key(*id))
+        .count() as u64;
+    rewritten.extend(remaining.into_values());
+    *wargear = rewritten;
+    diag.resolved_weapons += added;
+    completed.groups.map(|groups| {
+        groups
+            .into_iter()
+            .map(|group| RosterLoadoutGroup {
+                model_name: group.model_name,
+                count: group.count,
+                wargear: group
+                    .weapons
+                    .into_iter()
+                    .map(|weapon| RosterWargear {
+                        ref_: ref_for_id(&weapon.id),
+                        count: weapon.count,
+                    })
+                    .collect(),
+            })
+            .collect()
+    })
+}
+
+/// Resolve source-supplied group entries, preferring the aggregate's exact ref
+/// but resolving group-only implicit defaults through the same gear pipeline.
+fn resolve_explicit_loadout_groups(
+    groups: &[super::types::ParsedLoadoutGroup],
+    aggregate: &[RosterWargear],
+    ds: &Dataset,
+    hit: Option<&crate::Unit>,
+) -> Vec<RosterLoadoutGroup> {
+    groups
+        .iter()
+        .map(|group| RosterLoadoutGroup {
+            model_name: group.model_name.clone(),
+            count: group.count,
+            wargear: group
+                .wargear
+                .iter()
+                .flat_map(|item| {
+                    if let Some(candidate) = aggregate.iter().find(|candidate| {
+                        normalize_name(&candidate.ref_.raw_name) == normalize_name(&item.raw_name)
+                    }) {
+                        return vec![RosterWargear {
+                            ref_: candidate.ref_.clone(),
+                            count: item.count,
+                        }];
+                    }
+                    if let Some(ref_) = resolve_gear_ref(ds, hit, &item.raw_name) {
+                        return vec![RosterWargear {
+                            ref_,
+                            count: item.count,
+                        }];
+                    }
+                    let parts = split_gear_parts(&item.raw_name);
+                    if parts.len() > 1 {
+                        let refs: Vec<Option<ResolvedRef>> = parts
+                            .iter()
+                            .map(|part| resolve_gear_ref(ds, hit, part))
+                            .collect();
+                        if refs.iter().all(Option::is_some) {
+                            return refs
+                                .into_iter()
+                                .flatten()
+                                .map(|ref_| RosterWargear {
+                                    ref_,
+                                    count: item.count,
+                                })
+                                .collect();
+                        }
+                    }
+                    vec![RosterWargear {
+                        ref_: unresolved(&item.raw_name, Vec::new()),
+                        count: item.count,
+                    }]
+                })
+                .collect(),
+        })
+        .collect()
+}
+
+/// Replace aggregate counts with the exact totals implied by source groups while
+/// retaining aggregate order. Group-only items append in their first group order.
+fn reconcile_grouped_wargear(
+    aggregate: &mut Vec<RosterWargear>,
+    groups: &[RosterLoadoutGroup],
+    diag: &mut DiagnosticsBuilder,
+) {
+    let mut grouped: HashMap<String, RosterWargear> = HashMap::new();
+    let mut group_order = Vec::new();
+    for group in groups {
+        for item in &group.wargear {
+            let id = item.ref_.id.clone().expect("checked resolved group weapon");
+            let total = group.count * item.count;
+            if let Some(existing) = grouped.get_mut(&id) {
+                existing.count += total;
+            } else {
+                group_order.push(id.clone());
+                grouped.insert(
+                    id,
+                    RosterWargear {
+                        ref_: item.ref_.clone(),
+                        count: total,
+                    },
+                );
+            }
+        }
+    }
+    let original_ids: HashSet<String> = aggregate
+        .iter()
+        .filter_map(|item| item.ref_.id.clone())
+        .collect();
+    let mut seen = HashSet::new();
+    let mut reconciled = Vec::new();
+    for item in aggregate.drain(..) {
+        let Some(id) = item.ref_.id.clone() else {
+            reconciled.push(item);
+            continue;
+        };
+        if !seen.insert(id.clone()) {
+            continue;
+        }
+        if let Some(replacement) = grouped.remove(&id) {
+            reconciled.push(replacement);
+        } else {
+            reconciled.push(item);
+        }
+    }
+    for id in group_order {
+        if let Some(item) = grouped.remove(&id) {
+            if !original_ids.contains(&id) {
+                diag.resolved_weapons += 1;
+            }
+            reconciled.push(item);
+        }
+    }
+    *aggregate = reconciled;
 }
 
 /// Recompute a unit's [`RosterUnit::loadout_groups`] from its resolved wargear via
@@ -651,6 +998,9 @@ fn build_loadout_groups(
     let comp = ds.unit_compositions.iter().find(|c| {
         c.unit_id.as_str() == unit.id.as_str() && c.faction_id.as_str() == unit.faction_id.as_str()
     });
+    if model_count <= 1 {
+        return None;
+    }
     let models = comp.map(|c| loadout_models(&c.models));
     let groups = group_loadout(unit, model_count, &options, models.as_deref(), &counts)?;
     Some(
@@ -872,6 +1222,49 @@ fn weapon_candidates(records: &[&crate::Weapon]) -> Vec<Candidate> {
         .collect()
 }
 
+/// Split a generator's prose `and` join only after an unsplit lookup fails.
+/// Lowercasing preserves ASCII byte offsets, which is sufficient for this
+/// syntax marker while leaving the original Unicode names untouched.
+fn split_gear_parts(raw_name: &str) -> Vec<&str> {
+    let lower = raw_name.to_ascii_lowercase();
+    let mut parts = Vec::new();
+    let mut start = 0;
+    let mut search = 0;
+    while let Some(offset) = lower[search..].find(" and ") {
+        let index = search + offset;
+        let part = raw_name[start..index].trim();
+        if !part.is_empty() {
+            parts.push(part);
+        }
+        start = index + 5;
+        search = start;
+    }
+    let tail = raw_name[start..].trim();
+    if !tail.is_empty() {
+        parts.push(tail);
+    }
+    parts
+}
+
+/// The shared source-format gear resolver. Ordering matters: per-unit weapon
+/// variants, then global weapons, then non-weapon wargear, then unit abilities.
+fn resolve_gear_ref(
+    ds: &Dataset,
+    hit: Option<&crate::Unit>,
+    raw_name: &str,
+) -> Option<ResolvedRef> {
+    if let Some(id) = hit.and_then(|unit| scoped_weapon_id(ds, unit, raw_name)) {
+        return Some(resolved(id, raw_name));
+    }
+    if let Some(weapon) = find_weapon_candidates(ds, raw_name).first() {
+        return Some(resolved(weapon.id.as_str(), raw_name));
+    }
+    if let Some(id) = resolve_wargear_item_id(ds, hit, raw_name) {
+        return Some(resolved(id, raw_name));
+    }
+    resolve_unit_ability_id(ds, hit, raw_name).map(|id| resolved(id, raw_name))
+}
+
 /// Resolve a weapon raw name to candidate weapons, tolerating a leading "The "
 /// mismatch in either direction (NewRecruit "The Bloody Twins" ↔ data "Bloody
 /// Twins"; GW "Fire Axe" ↔ data "The Fire Axe"). Tries the name as given, then
@@ -993,4 +1386,38 @@ fn detachment_candidates(records: &[&crate::Detachment]) -> Vec<Candidate> {
             name: d.name.to_string(),
         })
         .collect()
+}
+
+/// Resolve a bare unit ability emitted in an equipment line. Like weapons,
+/// shared ids select the resolved unit's faction copy before the global core
+/// fallback.
+fn resolve_unit_ability_id<'a>(
+    ds: &'a Dataset,
+    hit: Option<&crate::Unit>,
+    raw_name: &str,
+) -> Option<&'a str> {
+    let unit = hit?;
+    let mut targets = vec![
+        normalize_name(raw_name),
+        normalize_name(&format!("The {raw_name}")),
+    ];
+    if let Some(stripped) = strip_leading_the(raw_name) {
+        targets.push(normalize_name(&stripped));
+    }
+    for id in &unit.ability_ids {
+        let Some(ability) = ds
+            .abilities
+            .get_in_faction(id.as_str(), unit.faction_id.as_str())
+            .or_else(|| ds.abilities.get_any(id.as_str()))
+        else {
+            continue;
+        };
+        if targets
+            .iter()
+            .any(|target| *target == normalize_name(&ability.name))
+        {
+            return Some(ability.ability_id.as_str());
+        }
+    }
+    None
 }

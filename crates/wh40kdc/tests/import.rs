@@ -399,10 +399,10 @@ fn retains_unresolved_unit_with_candidates_and_warning() {
 }
 
 #[test]
-fn flags_multi_force_lists_and_resolves_primary_faction() {
+fn resolves_primary_faction_without_warning_for_valid_multi_force_list() {
     let roster = import("gk-allied-multiforce.payload.json");
     assert_eq!(roster.faction_id.as_deref(), Some("grey-knights"));
-    assert!(roster
+    assert!(!roster
         .diagnostics
         .warnings
         .iter()

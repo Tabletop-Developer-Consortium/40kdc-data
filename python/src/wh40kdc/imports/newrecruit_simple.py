@@ -38,9 +38,7 @@ from wh40kdc.imports.newrecruit_text import (
 # Point brackets may carry comma-separated faction resources after the pts
 # figure (e.g. `[4485pts, 29Cabal Points]`); the tail is recognized and
 # discarded — only the pts figure is consumed.
-_FIRST_LINE = re.compile(
-    r"^(.+)\s-\s\[\s*(\d+)\s*pts?\s*(?:,[^\]]*)?\]\s*$", re.IGNORECASE
-)
+_FIRST_LINE = re.compile(r"^(.+)\s-\s\[\s*(\d+)\s*pts?\s*(?:,[^\]]*)?\]\s*$", re.IGNORECASE)
 _ROSTER_HEADER = re.compile(
     r"^#\s*\+\+\s*Army Roster\s*\+\+\s*\[\s*(\d+)\s*pts?\s*(?:,[^\]]*)?\]\s*$",
     re.IGNORECASE,
@@ -58,42 +56,77 @@ _BULLET = re.compile(
 )
 _SPLIT_LINES = re.compile(r"\r?\n")
 
+_UNIT_TOTAL_PREFIX = re.compile(r"^Unit total:\s*", re.IGNORECASE)
+_ATTACHMENT_TOKEN = re.compile(
+    r"^Attachment:\s*(leader|support)\s*->\s*(.+?)(\s+\[provisional\])?$",
+    re.IGNORECASE,
+)
+
 
 def _new_unit(name: str, displayed_pts: int | None) -> dict[str, Any]:
     return {
         "raw_name": name,
         "is_character": False,
         "is_warlord": False,
+        "keyword_overrides": [],
+        "seen_keyword_overrides": set(),
         "enhancement_raw_name": None,
-        "enhancement_pts": 0,
+        "enhancement_pts": None,
         "displayed_pts": displayed_pts,
+        "saw_bullet": False,
         "model_count": 1,
+        "leader_attachment": None,
         # Aggregated wargear, keyed by name (insertion-ordered). Counts sum
         # across `• Nx ModelType` breakdowns.
         "wargear": {},
+        "loadout_groups": [],
     }
 
 
-def _apply_tokens(unit: dict[str, Any], tokens_csv: str, multiplier: int = 1) -> None:
-    cls = classify_wargear_list(split_wargear_list(tokens_csv))
+def _apply_tokens(
+    unit: dict[str, Any], tokens_csv: str, multiplier: int = 1
+) -> list[dict[str, Any]]:
+    wargear_tokens: list[str] = []
+    for token in split_wargear_list(tokens_csv):
+        attachment = _ATTACHMENT_TOKEN.match(token)
+        if attachment:
+            unit["leader_attachment"] = {
+                "role": attachment.group(1).lower(),
+                "bodyguard_raw_name": attachment.group(2),
+                "provisional": attachment.group(3) is not None,
+            }
+        else:
+            wargear_tokens.append(token)
+
+    cls = classify_wargear_list(wargear_tokens)
     if cls["is_warlord"]:
         unit["is_warlord"] = True
     if cls["is_character"]:
         unit["is_character"] = True
+    for keyword in cls["keyword_overrides"]:
+        if keyword not in unit["seen_keyword_overrides"]:
+            unit["keyword_overrides"].append(keyword)
+            unit["seen_keyword_overrides"].add(keyword)
     if cls["enhancement_raw_name"] and unit["enhancement_raw_name"] is None:
         unit["enhancement_raw_name"] = cls["enhancement_raw_name"]
-        unit["enhancement_pts"] = cls["enhancement_points"] or 0
+        unit["enhancement_pts"] = cls["enhancement_points"]
     for w in cls["wargear"]:
         name = w["raw_name"]
         unit["wargear"][name] = unit["wargear"].get(name, 0) + w["count"] * multiplier
+    return cls["wargear"]
 
 
 def _finish_unit(unit: dict[str, Any]) -> dict[str, Any]:
     displayed = unit["displayed_pts"]
-    points = None if displayed is None else displayed - unit["enhancement_pts"]
+    points = (
+        None
+        if displayed is None
+        else displayed - (unit["enhancement_pts"] if unit["enhancement_pts"] is not None else 0)
+    )
     return {
         "raw_name": unit["raw_name"],
         "is_character": unit["is_character"],
+        **({"keyword_overrides": unit["keyword_overrides"]} if unit["keyword_overrides"] else {}),
         "model_count": unit["model_count"],
         "points": points,
         "is_warlord": unit["is_warlord"],
@@ -101,7 +134,9 @@ def _finish_unit(unit: dict[str, Any]) -> dict[str, Any]:
         "enhancement_points": (
             None if unit["enhancement_raw_name"] is None else unit["enhancement_pts"]
         ),
+        "leader_attachment": unit["leader_attachment"],
         "wargear": [{"raw_name": n, "count": c} for n, c in unit["wargear"].items()],
+        **({"loadout_groups": unit["loadout_groups"]} if unit["loadout_groups"] else {}),
     }
 
 
@@ -123,9 +158,7 @@ def _parse_first_line(line: str) -> dict[str, Any] | None:
 def _matches(decoded: Any) -> bool:
     if not isinstance(decoded, str):
         return False
-    first_non_blank = next(
-        (line for line in _SPLIT_LINES.split(decoded) if line.strip()), None
-    )
+    first_non_blank = next((line for line in _SPLIT_LINES.split(decoded) if line.strip()), None)
     if not first_non_blank:
         return False
     if not _FIRST_LINE.match(first_non_blank):
@@ -147,13 +180,14 @@ def _parse(decoded: Any) -> dict[str, Any]:
     faction_raw_name: str | None = None
     declared_limit: int | None = None
     total_reported: int | None = None
-    detachment_raw_name: str | None = None
+    detachment_raw_names: list[str] = []
     battle_size_raw: str | None = None
+    force_disposition_raw_name: str | None = None
     units: list[dict[str, Any]] = []
     current: dict[str, Any] | None = None
     multi_force = False
     section = "preamble"
-    enhancement_pts: list[int] = []
+    enhancement_pts: list[int | None] = []
 
     def finalize() -> None:
         nonlocal current
@@ -205,26 +239,49 @@ def _parse(decoded: Any) -> dict[str, Any]:
                     value = line[idx + 1 :].strip()
                     if key == "battle size":
                         battle_size_raw = value
+                    elif key == "list name":
+                        name = value
+                    elif key == "faction":
+                        faction_raw_name = value
+                    elif key == "force disposition":
+                        force_disposition_raw_name = value
                     elif key == "detachment":
                         # Parenthetical suffixes ("(3 Detachment Points)") are
-                        # presentation, not part of the detachment name — same
-                        # strip as the WTC header.
-                        detachment_raw_name = strip_parenthetical(value)
+                        # presentation, not part of the detachment name.
+                        detachment_raw_names.append(strip_parenthetical(value))
                 continue
 
         # Unit section. A bullet line extends the *current* unit.
         bullet_match = _BULLET.match(raw)
         if bullet_match and current is not None:
             count = int(bullet_match.group(1))
-            # Bullets may add to the unit's model count beyond the implicit 1
-            # we set when we created it from the unit header.
-            if not current["wargear"] and current["model_count"] == 1:
-                # First bullet: replace the implicit single-model assumption.
+            # The unit header has no model-count information. Replace its
+            # implicit single-model default once, then aggregate every later
+            # breakdown, irrespective of whether that breakdown has wargear.
+            if not current["saw_bullet"]:
                 current["model_count"] = count
+                current["saw_bullet"] = True
             else:
                 current["model_count"] += count
-            if bullet_match.group(4):
-                _apply_tokens(current, bullet_match.group(4), count)
+            # An explicitly empty `:` suffix is a meaningful exact group.
+            # Check syntactic presence rather than truthiness so empty groups
+            # survive export → import round-trips.
+            if bullet_match.group(4) is not None:
+                tokens = bullet_match.group(4)
+                unit_total = _UNIT_TOTAL_PREFIX.match(tokens) is not None
+                group_wargear = _apply_tokens(
+                    current,
+                    _UNIT_TOTAL_PREFIX.sub("", tokens),
+                    1 if unit_total else count,
+                )
+                if not unit_total:
+                    current["loadout_groups"].append(
+                        {
+                            "model_name": bullet_match.group(2).strip(),
+                            "count": count,
+                            "wargear": group_wargear,
+                        }
+                    )
             continue
 
         unit_match = _UNIT_LINE.match(line)
@@ -245,13 +302,15 @@ def _parse(decoded: Any) -> dict[str, Any]:
     total_computed = 0
     for i, u in enumerate(units):
         total_computed += u["points"] or 0
-        total_computed += enhancement_pts[i] if i < len(enhancement_pts) else 0
+        if i < len(enhancement_pts):
+            total_computed += enhancement_pts[i] or 0
 
     return {
         "name": name,
         "generated_by": None,
         "faction_raw_name": faction_raw_name,
-        "detachment_raw_names": [detachment_raw_name] if detachment_raw_name else [],
+        "detachment_raw_names": detachment_raw_names,
+        "force_disposition_raw_name": force_disposition_raw_name,
         "battle_size_raw": battle_size_raw,
         "declared_limit": declared_limit,
         "total_reported": total_reported,

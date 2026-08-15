@@ -5,6 +5,7 @@
     "detachment_id": "grand-coven",
     "cost": 20,
     "keyword_restrictions": [
+      "Psyker",
       "Thousand Sons"
     ],
     "ability_id": null,
@@ -15,13 +16,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Psyker",
-        "Thousand Sons"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "incandaeum-grand-coven",
@@ -29,7 +24,7 @@
     "detachment_id": "grand-coven",
     "cost": 15,
     "keyword_restrictions": [
-      "Thousand Sons"
+      "Exalted Sorcerer"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -39,12 +34,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Exalted Sorcerer"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "umbralefic-crystal-grand-coven",
@@ -62,12 +52,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Thousand Sons"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "eldritch-vortex-of-etaph-grand-coven",
@@ -85,12 +70,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Thousand Sons"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "arcane-might-hexwarp-thrallband",
@@ -108,12 +88,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Thousand Sons"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "empowered-manifestation-hexwarp-thrallband",
@@ -131,12 +106,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Thousand Sons"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "empyric-onslaught-hexwarp-thrallband",
@@ -154,12 +124,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Thousand Sons"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "noctilith-mantle-hexwarp-thrallband",
@@ -177,21 +142,13 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Thousand Sons"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "nethershriek-mind-eater-changehost-of-deceit",
     "name": "Nethershriek Mind-Eater",
     "detachment_id": "changehost-of-deceit",
     "cost": 10,
-    "keyword_restrictions": [
-      "Thousand Sons"
-    ],
     "ability_id": null,
     "is_unique": true,
     "game_version": {
@@ -216,6 +173,7 @@
     "detachment_id": "changehost-of-deceit",
     "cost": 20,
     "keyword_restrictions": [
+      "Infantry",
       "Thousand Sons"
     ],
     "ability_id": null,
@@ -226,22 +184,13 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Infantry",
-        "Thousand Sons"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "duplicitous-malediction-changehost-of-deceit",
     "name": "Duplicitous Malediction",
     "detachment_id": "changehost-of-deceit",
     "cost": 15,
-    "keyword_restrictions": [
-      "Thousand Sons"
-    ],
     "ability_id": null,
     "is_unique": true,
     "game_version": {
@@ -266,6 +215,7 @@
     "detachment_id": "changehost-of-deceit",
     "cost": 20,
     "keyword_restrictions": [
+      "Infantry",
       "Thousand Sons"
     ],
     "ability_id": null,
@@ -276,13 +226,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Infantry",
-        "Thousand Sons"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "warpmeld-dagger-warpmeld-pact",
@@ -290,7 +234,7 @@
     "detachment_id": "warpmeld-pact",
     "cost": 10,
     "keyword_restrictions": [
-      "Thousand Sons"
+      "Tzaangor Shaman"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -300,12 +244,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Tzaangor Shaman"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "diamond-of-distortion-warpmeld-pact",
@@ -313,7 +252,7 @@
     "detachment_id": "warpmeld-pact",
     "cost": 20,
     "keyword_restrictions": [
-      "Thousand Sons"
+      "Tzaangor Shaman"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -323,21 +262,13 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Tzaangor Shaman"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "bray-lord-warpmeld-pact",
     "name": "Bray Lord",
     "detachment_id": "warpmeld-pact",
     "cost": 15,
-    "keyword_restrictions": [
-      "Thousand Sons"
-    ],
     "ability_id": null,
     "is_unique": true,
     "game_version": {
@@ -365,7 +296,7 @@
     "detachment_id": "warpmeld-pact",
     "cost": 10,
     "keyword_restrictions": [
-      "Thousand Sons"
+      "Tzaangor Shaman"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -375,12 +306,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Tzaangor Shaman"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "risen-rubricae-rubricae-phalanx",
@@ -398,12 +324,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Thousand Sons"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "arcane-thralls-aura-rubricae-phalanx",
@@ -421,12 +342,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Thousand Sons"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "lord-of-the-rubricae-rubricae-phalanx",
@@ -444,12 +360,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Thousand Sons"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "stave-abominus-rubricae-phalanx",
@@ -457,6 +368,7 @@
     "detachment_id": "rubricae-phalanx",
     "cost": 20,
     "keyword_restrictions": [
+      "Infantry",
       "Thousand Sons"
     ],
     "ability_id": null,
@@ -467,13 +379,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Infantry",
-        "Thousand Sons"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "warp-syphon-warpforged-cabal",
@@ -491,12 +397,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Thousand Sons"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "perplexing-cloak-warpforged-cabal",
@@ -504,6 +405,7 @@
     "detachment_id": "warpforged-cabal",
     "cost": 20,
     "keyword_restrictions": [
+      "Infantry",
       "Thousand Sons"
     ],
     "ability_id": null,
@@ -514,13 +416,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Infantry",
-        "Thousand Sons"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "biomechanical-mutation-warpforged-cabal",
@@ -538,12 +434,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Thousand Sons"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "warp-cursed-runemaster-warpforged-cabal",
@@ -561,21 +452,13 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Thousand Sons"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "eruption-of-vitality-ritual-of-regeneration",
     "name": "Eruption of Vitality",
     "detachment_id": "ritual-of-regeneration",
     "cost": 35,
-    "keyword_restrictions": [
-      "Thousand Sons"
-    ],
     "ability_id": "eruption-of-vitality-ritual-of-regeneration",
     "is_unique": true,
     "game_version": {
@@ -603,9 +486,6 @@
     "name": "Curse of Life",
     "detachment_id": "ritual-of-regeneration",
     "cost": 20,
-    "keyword_restrictions": [
-      "Thousand Sons"
-    ],
     "ability_id": "curse-of-life-ritual-of-regeneration",
     "is_unique": true,
     "game_version": {
@@ -633,9 +513,6 @@
     "name": "Walking Rampart",
     "detachment_id": "sekhetar-cohort",
     "cost": 30,
-    "keyword_restrictions": [
-      "Thousand Sons"
-    ],
     "ability_id": "walking-rampart-sekhetar-cohort",
     "is_unique": true,
     "game_version": {
@@ -659,9 +536,6 @@
     "name": "Occulus Infernum",
     "detachment_id": "sekhetar-cohort",
     "cost": 20,
-    "keyword_restrictions": [
-      "Thousand Sons"
-    ],
     "ability_id": "occulus-infernum-sekhetar-cohort",
     "is_unique": true,
     "game_version": {
@@ -686,7 +560,8 @@
     "detachment_id": "servants-of-change",
     "cost": 15,
     "keyword_restrictions": [
-      "Thousand Sons"
+      "Thousand Sons",
+      "Tzaangor Shaman"
     ],
     "ability_id": "unravelled-fates-servants-of-change",
     "is_unique": true,
@@ -696,13 +571,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Thousand Sons",
-        "Tzaangor Shaman"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "thicket-of-bladed-bone-upgrade-servants-of-change",
@@ -710,7 +579,7 @@
     "detachment_id": "servants-of-change",
     "cost": 10,
     "keyword_restrictions": [
-      "Spawn"
+      "Chaos Spawn"
     ],
     "ability_id": "thicket-of-bladed-bone-servants-of-change",
     "is_unique": true,
@@ -720,12 +589,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": true,
-    "max_targets": 3,
-    "keyword_restriction_groups": [
-      [
-        "Chaos Spawn"
-      ]
-    ]
+    "max_targets": 3
   },
   {
     "id": "foresight-of-the-changer-prism-of-zadophon",
@@ -744,12 +608,6 @@
     "keyword_restrictions": [
       "Prism of Zadophon",
       "Tzaangor Shaman"
-    ],
-    "keyword_restriction_groups": [
-      [
-        "Prism of Zadophon",
-        "Tzaangor Shaman"
-      ]
     ]
   },
   {
@@ -769,12 +627,6 @@
     "keyword_restrictions": [
       "Daemon Prince",
       "Prism of Zadophon"
-    ],
-    "keyword_restriction_groups": [
-      [
-        "Daemon Prince",
-        "Prism of Zadophon"
-      ]
     ]
   }
 ]

@@ -148,9 +148,7 @@ class Dataset:
         )
 
         # Id-bearing collections without bespoke views (records returned as-is).
-        self.target_profiles = id_collection(
-            raw["target_profiles"], lambda p: p.get("faction_id")
-        )
+        self.target_profiles = id_collection(raw["target_profiles"], lambda p: p.get("faction_id"))
         # The generic Codex Space Marine detachments are replicated into every
         # Codex-compatible chapter/supplement view (shared id, distinct faction);
         # keep each faction's copy, collapse only within-faction dupes — mirroring
@@ -394,9 +392,7 @@ class Dataset:
         shared across factions reuses the same option ids for different swaps, so the
         lookup never unions across factions. Empty for a unit with no options.
         """
-        return self._wargear_options_by_unit.get(
-            f"{unit['faction_id']}::{unit['id']}", []
-        )
+        return self._wargear_options_by_unit.get(f"{unit['faction_id']}::{unit['id']}", [])
 
     def unit_composition_of(self, unit: dict[str, Any]) -> dict[str, Any] | None:
         """The unit-composition row for the given unit, faction-scoped.
@@ -409,8 +405,7 @@ class Dataset:
             (
                 c
                 for c in self.unit_compositions
-                if c.get("unit_id") == unit["id"]
-                and c.get("faction_id") == unit.get("faction_id")
+                if c.get("unit_id") == unit["id"] and c.get("faction_id") == unit.get("faction_id")
             ),
             None,
         )
@@ -491,9 +486,7 @@ class Dataset:
         penalties). ``weaponProfiles`` are ignored under target perspective."""
         return self._collect_buffs(input, context, "target")
 
-    def stackable_buffs_for(
-        self, input: dict[str, Any], context: dict[str, Any]
-    ) -> dict[str, Any]:
+    def stackable_buffs_for(self, input: dict[str, Any], context: dict[str, Any]) -> dict[str, Any]:
         """Enumerate every attacker-side buff a unit could stack in
         ``context`` as toggleable levers plus their activation groups.
 
@@ -581,9 +574,7 @@ class Dataset:
         unit = self.units.get_any(input.get("unitId") or "")
         return unit.raw.get("faction_id") if unit is not None else None
 
-    def _derived_context(
-        self, input: dict[str, Any], context: dict[str, Any]
-    ) -> dict[str, Any]:
+    def _derived_context(self, input: dict[str, Any], context: dict[str, Any]) -> dict[str, Any]:
         """Clone the caller's context, deriving ``attackerAttached`` from a
         non-empty ``attachedUnitIds`` when not explicitly set."""
         ctx = dict(context)

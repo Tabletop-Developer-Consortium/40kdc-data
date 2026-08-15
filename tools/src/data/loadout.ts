@@ -534,6 +534,17 @@ interface RowCandidate {
   key: string;
 }
 
+function candidateCanBeSelected(
+  candidate: RowCandidate,
+  upper: ReadonlyMap<string, number>,
+  optionCaps: readonly number[],
+): boolean {
+  for (const [id, per] of candidate.weapons) {
+    if (per > 0 && (upper.get(id) ?? 0) < per) return false;
+  }
+  return candidate.usedOptions.every((optionIndex) => optionCaps[optionIndex] >= 1);
+}
+
 /**
  * Enumerate every legal single-model loadout for one composition row: start from the
  * row's base defaults and apply any *compatible* subset of the options that scope to
@@ -573,7 +584,8 @@ function enumerateRowCandidates(
     for (const oi of applicable) {
       const option = options[oi];
       const replaces = option.replaces ?? [];
-      const uses = cur.used.filter((used) => used === oi).length;
+      let uses = 0;
+      for (const used of cur.used) if (used === oi) uses++;
       const perModelLimit =
         replaces.length === 0 ? option.model_constraint?.max_count ?? 1 : 1;
       if (uses >= perModelLimit) continue;
@@ -792,15 +804,7 @@ export function groupLoadout(
         // A candidate that cannot be selected even once can contribute only a
         // zero-count branch. Removing it preserves exact-cover solutions and
         // prevents addon-heavy units from recursing through dead states.
-        .filter(
-          (candidate) =>
-            [...candidate.weapons].every(
-              ([id, per]) => per <= 0 || (bag.get(id) ?? 0) >= per,
-            ) &&
-            candidate.usedOptions.every(
-              (optionIndex) => optionCaps[optionIndex] >= 1,
-            ),
-        )
+        .filter((candidate) => candidateCanBeSelected(candidate, bag, optionCaps))
         .sort(
           (a, b) =>
             a.key.localeCompare(b.key) ||
@@ -914,15 +918,7 @@ export function completeLoadout(
           fixedModels[index].name ?? null,
           effectiveOptions,
         )
-          .filter(
-            (candidate) =>
-              [...candidate.weapons].every(
-                ([id, per]) => per <= 0 || (upper.get(id) ?? 0) >= per,
-              ) &&
-              candidate.usedOptions.every(
-                (optionIndex) => optionCaps[optionIndex] >= 1,
-              ),
-          )
+          .filter((candidate) => candidateCanBeSelected(candidate, upper, optionCaps))
           .sort(
             (a, b) =>
               a.usedOptions.length - b.usedOptions.length ||

@@ -31,15 +31,23 @@ _CLS_FACTION = "Faction"
 _CLS_DETACHMENT = "Detachment"
 _CLS_UNIT = "Unit"
 _CLS_SQUAD = "Squad"  # alternative unit class some rulebooks use
+_CLS_MODEL = "Model"
 _CLS_WEAPON = "Weapon"
 _CLS_ENHANCEMENT = "Enhancement"
 _CLS_BATTLE_SIZE = "Battle Size"
+_CLS_FORCE_DISPOSITION = "Force Disposition"
 _CLS_TRAIT = "Trait"
+_CLS_ATTACHMENT = "Attachment"
+_CLS_KEYWORD_OVERRIDE = "40kdc Keyword"
 _DSG_WARLORD = "Warlord"
 _CHAR_CLASSIFICATIONS = frozenset(["Character", "Epic Hero"])
 
 _POINTS_STAT_KEYS = ("Points", "Pts")
 _POINTS_LIMIT = re.compile(r"(\d[\d,]*)\s*Point", re.IGNORECASE)
+_ATTACHMENT = re.compile(
+    r"^Attachment:\s*(leader|support)\s*->\s*(.+?)(\s+\[provisional\])?\s*$",
+    re.IGNORECASE,
+)
 
 # --- Structural views --------------------------------------------------------
 
@@ -54,6 +62,27 @@ def _as_object(value: Any) -> dict[str, Any] | None:
 
 def _as_string(value: Any) -> str | None:
     return value if isinstance(value, str) else None
+
+
+def _model_wargear_collector(
+    target: list[dict[str, Any]], model_count: int
+) -> Callable[[dict[str, Any]], None]:
+    def collect(asset: dict[str, Any]) -> None:
+        if not _is_weapon_asset(asset):
+            return
+        quantity = _quantity(asset)
+        target.append(
+            {
+                "raw_name": _display_name(asset),
+                "count": (
+                    quantity // model_count
+                    if model_count > 0 and quantity % model_count == 0
+                    else quantity
+                ),
+            }
+        )
+
+    return collect
 
 
 def _as_number(value: Any) -> float | None:
@@ -177,11 +206,11 @@ def _is_warlord_trait(asset: dict[str, Any]) -> bool:
 
 
 def _model_count(unit: dict[str, Any]) -> int:
-    """Sum nested unit-class asset quantities; fall back to the unit's own
+    """Sum explicit unit/model child quantities; fall back to the unit's own
     quantity for single-model entries."""
     nested = 0
     for child in _included(unit):
-        if _is_unit_asset(child):
+        if _is_unit_asset(child) or _class_of(child) == _CLS_MODEL:
             nested += _quantity(child)
     return nested if nested > 0 else _quantity(unit)
 
@@ -192,9 +221,20 @@ def _parse_unit(unit: dict[str, Any]) -> dict[str, Any]:
         "enhancement_raw_name": None,
         "enhancement_points": None,
         "is_warlord": False,
+        "leader_attachment": None,
     }
+    keyword_overrides: dict[str, None] = {}
 
     def visit(a: dict[str, Any]) -> None:
+        if _class_of(a) == _CLS_ATTACHMENT:
+            match = _ATTACHMENT.match(_display_name(a))
+            if match:
+                state["leader_attachment"] = {
+                    "role": match.group(1).lower(),
+                    "bodyguard_raw_name": match.group(2),
+                    "provisional": match.group(3) is not None,
+                }
+            return
         if _is_enhancement_asset(a):
             if state["enhancement_raw_name"] is None:
                 state["enhancement_raw_name"] = _display_name(a)
@@ -209,19 +249,42 @@ def _parse_unit(unit: dict[str, Any]) -> dict[str, Any]:
     def visit_trait(a: dict[str, Any]) -> None:
         if _is_warlord_trait(a):
             state["is_warlord"] = True
+        classification, designation = _split_item(a)
+        if classification == _CLS_KEYWORD_OVERRIDE:
+            keyword_overrides.setdefault(designation, None)
+        elif classification in _CHAR_CLASSIFICATIONS:
+            keyword_overrides.setdefault("Character", None)
 
     for t in _traits(unit):
         _walk(t, visit_trait)
+    loadout_groups = []
+    for child in _included(unit):
+        if _class_of(child) != _CLS_MODEL:
+            continue
+        model_wargear: list[dict[str, Any]] = []
+        model_count = _quantity(child)
+
+        _walk(child, _model_wargear_collector(model_wargear, model_count))
+        loadout_groups.append(
+            {
+                "model_name": _display_name(child),
+                "count": model_count,
+                "wargear": model_wargear,
+            }
+        )
 
     return {
         "raw_name": _display_name(unit),
         "is_character": _is_character_asset(unit),
+        **({"keyword_overrides": list(keyword_overrides)} if keyword_overrides else {}),
         "model_count": _model_count(unit),
         "points": _points_of(unit),
         "is_warlord": state["is_warlord"],
         "enhancement_raw_name": state["enhancement_raw_name"],
         "enhancement_points": state["enhancement_points"],
         "wargear": wargear,
+        "leader_attachment": state["leader_attachment"],
+        **({"loadout_groups": loadout_groups} if loadout_groups else {}),
     }
 
 
@@ -280,6 +343,7 @@ def _parse(decoded: Any) -> dict[str, Any]:
         "faction_raw_name": None,
         "detachment_raw_names": [],
         "battle_size_raw": None,
+        "force_disposition_raw_name": None,
     }
     factions: list[str] = []
 
@@ -296,6 +360,9 @@ def _parse(decoded: Any) -> dict[str, Any]:
         elif cls == _CLS_BATTLE_SIZE:
             if meta_state["battle_size_raw"] is None:
                 meta_state["battle_size_raw"] = _display_name(a)
+        elif cls == _CLS_FORCE_DISPOSITION:
+            if meta_state["force_disposition_raw_name"] is None:
+                meta_state["force_disposition_raw_name"] = _display_name(a)
 
     _walk(root, visit_meta)
 
@@ -347,6 +414,7 @@ def _parse(decoded: Any) -> dict[str, Any]:
         "generated_by": generated_by,
         "faction_raw_name": meta_state["faction_raw_name"],
         "detachment_raw_names": meta_state["detachment_raw_names"],
+        "force_disposition_raw_name": meta_state["force_disposition_raw_name"],
         "battle_size_raw": battle_size_raw,
         "declared_limit": _parse_limit(battle_size_raw),
         "total_reported": total_reported,

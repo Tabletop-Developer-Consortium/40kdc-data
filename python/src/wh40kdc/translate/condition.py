@@ -230,11 +230,11 @@ def describe_selection_eligibility(c: Condition) -> str:
         return "that is not Battle-shocked" if c.get("negated") else "that is Battle-shocked"
     phrase = describe_condition(c)
     if phrase.startswith("the unit is "):
-        return f"that is {phrase[len('the unit is '):]}"
+        return f"that is {phrase[len('the unit is ') :]}"
     if phrase.startswith("not the unit is "):
-        return f"that is not {phrase[len('not the unit is '):]}"
+        return f"that is not {phrase[len('not the unit is ') :]}"
     if phrase.startswith("the unit has "):
-        return f"with {phrase[len('the unit has '):]}"
+        return f"with {phrase[len('the unit has ') :]}"
     return f"if {phrase}"
 
 

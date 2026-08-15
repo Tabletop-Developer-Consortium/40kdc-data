@@ -140,9 +140,7 @@ def _round4(v: Vec2) -> Vec2:
     return {"x": _js_round(v["x"] * 1e4) / 1e4, "y": _js_round(v["y"] * 1e4) / 1e4}
 
 
-def resolve_layout(
-    layout: dict[str, Any], templates: list[dict[str, Any]]
-) -> list[dict[str, Any]]:
+def resolve_layout(layout: dict[str, Any], templates: list[dict[str, Any]]) -> list[dict[str, Any]]:
     """Resolve a layout to absolute board-space vertices per piece.
 
     ``templates`` is the catalog a piece's ``template`` references resolve
@@ -210,9 +208,7 @@ def resolve_layout(
             continue
 
         # Unparented area or feature: place directly in board space.
-        vertices = [
-            _round4(v) for v in _place_footprint(fp, piece["position"], rotation, mirror)
-        ]
+        vertices = [_round4(v) for v in _place_footprint(fp, piece["position"], rotation, mirror)]
         out.append(
             {
                 **resolved_id_name(piece),
@@ -230,7 +226,7 @@ def resolve_layout(
                 ft = by_id.get(feat["template"])
                 if ft is None:
                     raise TerrainResolveError(
-                        f'{where}: composed feature references unknown template '
+                        f"{where}: composed feature references unknown template "
                         f'"{feat["template"]}"'
                     )
                 area_local = _place_footprint(

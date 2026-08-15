@@ -26,6 +26,7 @@ from __future__ import annotations
 from wh40kdc.export.helpers import (
     Roster,
     RosterUnit,
+    attachment_token,
     displayed_unit_points,
     group_weapons_text,
     title_case_id,
@@ -44,17 +45,29 @@ def _battle_size_label(roster: Roster) -> str | None:
     return None
 
 
+def _unit_tokens(u: RosterUnit) -> list[str]:
+    parts: list[str] = []
+    attachment = attachment_token(u)
+    if attachment:
+        parts.append(attachment)
+    if u.get("enhancement"):
+        points = u.get("enhancement_points")
+        pts_tag = "" if points is None else f" [{points} pts]"
+        prefix = "Enhancement: " if points is None else ""
+        parts.append(f"{prefix}{u['enhancement']['raw_name']}{pts_tag}")
+    if u.get("is_warlord"):
+        parts.append("Warlord")
+    for keyword in u.get("keyword_overrides") or []:
+        parts.append(
+            "Detachment Character" if keyword == "Character" else f"40kdc Keyword: {keyword}"
+        )
+    return parts
+
+
 def _wargear_text(u: RosterUnit, per_model_divisor: int) -> str:
     """Build the wargear list inline. For homogeneous multi-model units,
     divides counts by model_count so the per-model render is clean."""
-    parts: list[str] = []
-    if u.get("enhancement"):
-        pts_tag = (
-            "" if u.get("enhancement_points") is None else f" [{u['enhancement_points']} pts]"
-        )
-        parts.append(f"{u['enhancement']['raw_name']}{pts_tag}")
-    if u.get("is_warlord"):
-        parts.append("Warlord")
+    parts = _unit_tokens(u)
     for w in u["wargear"]:
         c = w["count"] // per_model_divisor if per_model_divisor > 0 else w["count"]
         raw_name = w["ref"]["raw_name"]
@@ -62,28 +75,17 @@ def _wargear_text(u: RosterUnit, per_model_divisor: int) -> str:
     return ", ".join(parts)
 
 
-def _lead_tokens(u: RosterUnit) -> list[str]:
-    """Unit-level tokens that lead the first wargear line: enhancement then ``Warlord``."""
-    parts: list[str] = []
-    if u.get("enhancement"):
-        pts_tag = "" if u.get("enhancement_points") is None else f" [{u['enhancement_points']} pts]"
-        parts.append(f"{u['enhancement']['raw_name']}{pts_tag}")
-    if u.get("is_warlord"):
-        parts.append("Warlord")
-    return parts
-
-
 def _unit_text(u: RosterUnit) -> list[str]:
     pts = displayed_unit_points(u)
     pts_text = "" if pts is None else f"{pts} pts"
 
-    if u["model_count"] <= 1:
+    if u["model_count"] <= 1 and not u.get("loadout_groups"):
         return [f"{u['ref']['raw_name']} [{pts_text}]: {_wargear_text(u, 1)}"]
-    # Multi-model with an exact per-model breakdown: one bullet per model-type
-    # group, each named, with the enhancement/Warlord tokens leading the first.
+    # Preserve exact per-model groups for both single- and multi-model units,
+    # with enhancement/Warlord tokens leading the first group.
     groups = u.get("loadout_groups")
     if groups:
-        lead = _lead_tokens(u)
+        lead = _unit_tokens(u)
         lines = [f"{u['ref']['raw_name']} [{pts_text}]:"]
         for i, g in enumerate(groups):
             name = g["model_name"] or u["ref"]["raw_name"]
@@ -91,13 +93,15 @@ def _unit_text(u: RosterUnit) -> list[str]:
             tokens = [*(lead if i == 0 else []), *([weapons] if weapons else [])]
             lines.append(f"• {g['count']}x {name}: {', '.join(tokens)}")
         return lines
-    # No exact breakdown: homogeneous units divide cleanly; otherwise a single
-    # bullet with full counts (the legacy fallback, unit-named).
+    # No exact breakdown: homogeneous units divide cleanly. Heterogeneous
+    # aggregates use an explicit marker so re-import does not multiply
+    # already-squad-wide weapon counts.
     divisible = all(w["count"] % u["model_count"] == 0 for w in u["wargear"])
-    divisor = u["model_count"] if divisible else 1
+    loadout = _wargear_text(u, u["model_count"] if divisible else 1)
     return [
         f"{u['ref']['raw_name']} [{pts_text}]:",
-        f"• {u['model_count']}x {u['ref']['raw_name']}: {_wargear_text(u, divisor)}",
+        f"• {u['model_count']}x {u['ref']['raw_name']}: "
+        f"{loadout if divisible else f'Unit total: {loadout}'}",
     ]
 
 
@@ -105,9 +109,7 @@ def serialize_newrecruit_simple(roster: Roster) -> str:
     faction = title_case_id(roster.get("faction_id"))
     if faction is None:
         faction = "Unknown"
-    detachments = [
-        title_case_id(d["ref"]["id"]) or d["ref"]["raw_name"] for d in roster["detachments"]
-    ]
+    detachments = [d["ref"]["raw_name"] for d in roster["detachments"]]
     battle = _battle_size_label(roster)
     total = total_army_points(roster)
 
@@ -122,10 +124,14 @@ def serialize_newrecruit_simple(roster: Roster) -> str:
     lines.append("")
     lines.append(f"# ++ Army Roster ++ [{total} pts]")
     lines.append("## Configuration")
+    lines.append(f"List Name: {roster['name']}")
+    lines.append(f"Faction: {faction}")
     if battle:
         lines.append(f"Battle Size: {battle}")
     for detachment in detachments:
         lines.append(f"Detachment: {detachment}")
+    if roster.get("force_disposition") is not None:
+        lines.append(f"Force Disposition: {title_case_id(roster['force_disposition'])}")
     lines.append("")
 
     # The Roster doesn't tag allied vs. battleline per unit; emit one section.

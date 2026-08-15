@@ -65,5 +65,11 @@
     }
   },
   "required": ["id", "name", "detachment_id", "cost", "game_version"],
+  "allOf": [
+    {
+      "if": { "required": ["keyword_restrictions"] },
+      "then": { "not": { "required": ["keyword_restriction_groups"] } }
+    }
+  ],
   "additionalProperties": false
 }

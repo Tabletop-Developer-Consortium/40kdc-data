@@ -94,9 +94,7 @@ def score_cap(card: dict[str, Any], approach: str) -> float:
     (uncapped)."""
     if approach == "tactical":
         return TACTICAL_CARD_CAP
-    caps = [
-        a["vp_max"] for a in awards_for_approach(card, "fixed") if a.get("vp_max") is not None
-    ]
+    caps = [a["vp_max"] for a in awards_for_approach(card, "fixed") if a.get("vp_max") is not None]
     return max(caps) if caps else math.inf
 
 
@@ -155,9 +153,7 @@ def remove_score(pg: PlayerGame, index: int) -> PlayerGame:
     ]
     log = [e for idx, e in enumerate(pg["log"]) if idx != index]
     hand_ids = (
-        pg["handIds"]
-        if entry["cardId"] in pg["handIds"]
-        else [*pg["handIds"], entry["cardId"]]
+        pg["handIds"] if entry["cardId"] in pg["handIds"] else [*pg["handIds"], entry["cardId"]]
     )
     return {**pg, "rounds": rounds, "log": log, "handIds": hand_ids}
 
@@ -189,9 +185,7 @@ def set_primary(
     )
     clamped = max(0, min(vp, room))
     clamped = int(clamped) if clamped != math.inf else clamped
-    rounds = [
-        {**c, "primary": clamped} if idx == i else c for idx, c in enumerate(pg["rounds"])
-    ]
+    rounds = [{**c, "primary": clamped} if idx == i else c for idx, c in enumerate(pg["rounds"])]
     return {**pg, "rounds": rounds}
 
 

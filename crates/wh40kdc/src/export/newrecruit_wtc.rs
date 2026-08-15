@@ -22,36 +22,62 @@ use super::{ExportFormat, RosterSerializer};
 
 pub(super) const FENCE: &str = "+++++++++++++++++++++++++++++++++++++++++++++++";
 
+pub(super) fn keyword_tokens(unit: &RosterUnit) -> Vec<String> {
+    unit.keyword_overrides
+        .iter()
+        .map(|keyword| {
+            if keyword == "Character" {
+                "Detachment Character".to_string()
+            } else {
+                format!("40kdc Keyword: {keyword}")
+            }
+        })
+        .collect()
+}
+
+pub(super) fn attachment_token(unit: &RosterUnit) -> Option<String> {
+    let attachment = unit.leader_attachment.as_ref()?;
+    let role = match attachment.role {
+        crate::import::AttachmentRole::Leader => "leader",
+        crate::import::AttachmentRole::Support => "support",
+    };
+    Some(format!(
+        "Attachment: {role} -> {}{}",
+        attachment.bodyguard_ref.raw_name,
+        if attachment.provisional {
+            " [provisional]"
+        } else {
+            ""
+        }
+    ))
+}
+
 pub(super) fn wargear_list_text(unit: &RosterUnit, include_warlord_tag: bool) -> String {
     let mut parts: Vec<String> = Vec::with_capacity(unit.wargear.len() + 1);
     for w in &unit.wargear {
-        if w.count > 1 {
-            parts.push(format!("{}x {}", w.count, w.ref_.raw_name));
+        parts.push(if w.count > 1 {
+            format!("{}x {}", w.count, w.ref_.raw_name)
         } else {
-            parts.push(w.ref_.raw_name.clone());
-        }
+            w.ref_.raw_name.clone()
+        });
     }
     if include_warlord_tag && unit.is_warlord {
         parts.push("Warlord".to_string());
     }
+    parts.extend(keyword_tokens(unit));
     parts.join(", ")
 }
 
 fn header(roster: &Roster, units: &[RosterUnit], char_slots: &[Option<u32>]) -> String {
     let faction = title_case_id(roster.faction_id.as_deref()).unwrap_or_else(|| "Unknown".into());
-    let detachment: Option<String> = if roster.detachments.is_empty() {
-        None
+    let detachment_lines: Vec<String> = if roster.detachments.is_empty() {
+        vec!["+ DETACHMENT: —".to_string()]
     } else {
-        Some(
-            roster
-                .detachments
-                .iter()
-                .map(|d| {
-                    title_case_id(d.ref_.id.as_deref()).unwrap_or_else(|| d.ref_.raw_name.clone())
-                })
-                .collect::<Vec<_>>()
-                .join(", "),
-        )
+        roster
+            .detachments
+            .iter()
+            .map(|d| format!("+ DETACHMENT: {}", d.ref_.raw_name))
+            .collect()
     };
     let limit = roster
         .points
@@ -87,13 +113,12 @@ fn header(roster: &Roster, units: &[RosterUnit], char_slots: &[Option<u32>]) -> 
         None => "—".to_string(),
     };
 
-    let det_display = detachment.unwrap_or_else(|| "—".to_string());
     let mut lines = vec![
         FENCE.to_string(),
         format!("+ LIST NAME: {}", roster.name),
         format!("+ FACTION KEYWORD: {faction}"),
-        format!("+ DETACHMENT: {det_display}"),
     ];
+    lines.extend(detachment_lines);
     if let Some(disp) = title_case_id(roster.force_disposition.as_deref()) {
         lines.push(format!("+ FORCE DISPOSITION: {disp}"));
     }
@@ -132,12 +157,23 @@ pub(super) fn wtc_compact_body_lines(units: &[RosterUnit], slots: &[Option<u32>]
             Some(p) => format!("{p} pts"),
             None => String::new(),
         };
+        let exact_groups = exact_group_lines(u);
         lines.push(format!(
             "{prefix}{}x {} ({pts_text}): {}",
             u.model_count,
             u.ref_.raw_name,
-            wargear_list_text(u, true)
+            if exact_groups.is_some() {
+                String::new()
+            } else {
+                wargear_list_text(u, true)
+            }
         ));
+        if let Some(groups) = exact_groups {
+            lines.extend(groups);
+        }
+        if let Some(attachment) = attachment_token(u) {
+            lines.push(attachment);
+        }
         if let Some(enh) = &u.enhancement {
             let enh_text = match u.enhancement_points {
                 Some(p) => format!("Enhancement: {} (+{p} pts)", enh.raw_name),
@@ -192,9 +228,42 @@ fn multi_model_with_line(u: &RosterUnit) -> String {
         if u.is_warlord {
             per_model.push("Warlord".to_string());
         }
+        per_model.extend(keyword_tokens(u));
         return format!("{} with {}", u.model_count, per_model.join(", "));
     }
     format!("1 with {}", wargear_list_text(u, true))
+}
+
+fn exact_group_lines(u: &RosterUnit) -> Option<Vec<String>> {
+    let groups = u.loadout_groups.as_ref()?;
+    if groups.is_empty() || groups.iter().any(|group| group.model_name.is_none()) {
+        return None;
+    }
+    Some(
+        groups
+            .iter()
+            .enumerate()
+            .map(|(index, group)| {
+                let mut parts = Vec::new();
+                let weapons = group_weapons_text(&group.wargear);
+                if !weapons.is_empty() {
+                    parts.push(weapons);
+                }
+                if u.is_warlord && index == 0 {
+                    parts.push("Warlord".to_string());
+                }
+                if index == 0 {
+                    parts.extend(keyword_tokens(u));
+                }
+                format!(
+                    "• {}x {}: {}",
+                    group.count,
+                    group.model_name.as_deref().unwrap_or_default(),
+                    parts.join(", ")
+                )
+            })
+            .collect(),
+    )
 }
 
 /// The per-model `N with <loadout>` line(s) for a unit. A genuinely heterogeneous
@@ -202,6 +271,9 @@ fn multi_model_with_line(u: &RosterUnit) -> String {
 /// one line per loadout; everything else keeps the existing single-line form, so
 /// uniform units render byte-identically to before. Mirror of TS `wtcModelLines`.
 pub(super) fn wtc_model_lines(u: &RosterUnit) -> Vec<String> {
+    if let Some(groups) = exact_group_lines(u) {
+        return groups;
+    }
     if u.model_count > 1 {
         if let Some(coarse) = coarsened_loadout_groups(u) {
             if coarse.len() > 1 {
@@ -209,12 +281,24 @@ pub(super) fn wtc_model_lines(u: &RosterUnit) -> Vec<String> {
                     .iter()
                     .enumerate()
                     .map(|(i, (count, wargear))| {
-                        let tag = if u.is_warlord && i == 0 {
-                            ", Warlord"
-                        } else {
-                            ""
-                        };
-                        format!("{} with {}{}", count, group_weapons_text(wargear), tag)
+                        let mut tags = Vec::new();
+                        if u.is_warlord && i == 0 {
+                            tags.push("Warlord".to_string());
+                        }
+                        if i == 0 {
+                            tags.extend(keyword_tokens(u));
+                        }
+                        let weapons = group_weapons_text(wargear);
+                        format!(
+                            "{} with {}{}",
+                            count,
+                            weapons,
+                            if tags.is_empty() {
+                                String::new()
+                            } else {
+                                format!(", {}", tags.join(", "))
+                            }
+                        )
                     })
                     .collect();
             }
@@ -276,6 +360,9 @@ pub(super) fn full_body_lines(
 
         for line in model_lines(u) {
             lines.push(line);
+        }
+        if let Some(attachment) = attachment_token(u) {
+            lines.push(attachment);
         }
 
         if let Some(enh) = &u.enhancement {

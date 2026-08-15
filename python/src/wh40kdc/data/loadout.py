@@ -26,6 +26,15 @@ Unit = dict[str, Any]
 LoadoutModel = dict[str, Any]
 
 
+def _js_locale_key(value: str) -> tuple[int, ...]:
+    """The ordering domain here is canonical entity ids: lowercase ASCII letters,
+    digits, and hyphens. In that domain the repository's Node ``localeCompare``
+    ordering is ordinal, so this is the allocation-free equivalent for the solver's
+    multiset and candidate keys. Entity ids are schema-normalized before reaching
+    loadout solving."""
+    return tuple(ord(char) for char in value)
+
+
 def option_cap(
     option: WargearOption,
     model_count: int,
@@ -257,7 +266,11 @@ def _to_multiset(ids: list[str]) -> dict[str, int]:
 
 def _sorted_group_weapons(m: dict[str, int]) -> list[dict[str, Any]]:
     """Group weapons in a stable, language-agnostic order (by id) for cross-impl parity."""
-    return [{"id": id_, "count": c} for id_, c in sorted(m.items()) if c > 0]
+    return [
+        {"id": id_, "count": c}
+        for id_, c in sorted(m.items(), key=lambda item: _js_locale_key(item[0]))
+        if c > 0
+    ]
 
 
 def _option_bundles(option: WargearOption) -> list[list[str]]:
@@ -287,10 +300,12 @@ def _assign_row_counts(
             rows_with[id_] = rows_with.get(id_, 0) + 1
 
     def min_of(i: int) -> int:
-        return max(0, models[i].get("min") or 0)
+        value = models[i].get("min")
+        return max(0, value if value is not None else 0)
 
     def max_of(i: int) -> int:
-        return max(min_of(i), models[i].get("max") or min_of(i))
+        value = models[i].get("max")
+        return max(min_of(i), value if value is not None else min_of(i))
 
     out = [min_of(i) for i in range(len(models))]
     total = sum(out)
@@ -354,8 +369,11 @@ def _candidate_row_counts(
 ) -> list[list[int]]:
     """Return every bounded row allocation, with the historical heuristic first."""
     preferred = _assign_row_counts(models, model_count, counts)
-    mins = [max(0, model.get("min") or 0) for model in models]
-    maxs = [max(mins[i], model.get("max") or mins[i]) for i, model in enumerate(models)]
+    mins = [max(0, model["min"] if model.get("min") is not None else 0) for model in models]
+    maxs = [
+        max(mins[i], model["max"] if model.get("max") is not None else mins[i])
+        for i, model in enumerate(models)
+    ]
     suffix_min = [0] * (len(models) + 1)
     suffix_max = [0] * (len(models) + 1)
     for i in range(len(models) - 1, -1, -1):
@@ -392,7 +410,11 @@ def _candidate_row_counts(
 def _multiset_key(m: dict[str, int]) -> str:
     """A stable key for a weapon multiset: ``count:id`` parts in id order, joined by
     ``|``; zero/negative entries dropped. Mirror of the TS ``multisetKey``."""
-    return "|".join(f"{c}:{id_}" for id_, c in sorted(m.items()) if c > 0)
+    return "|".join(
+        f"{c}:{id_}"
+        for id_, c in sorted(m.items(), key=lambda item: _js_locale_key(item[0]))
+        if c > 0
+    )
 
 
 def _enumerate_row_candidates(
@@ -427,9 +449,14 @@ def _enumerate_row_candidates(
         head += 1
         result.append({"weapons": weapons, "used_options": used, "key": _multiset_key(weapons)})
         for oi in applicable:
-            if oi in used:
+            option = options[oi]
+            replaces = list(option.get("replaces") or [])
+            uses = used.count(oi)
+            constraint = option.get("model_constraint") or {}
+            max_count = constraint.get("max_count")
+            per_model_limit = (max_count if max_count is not None else 1) if not replaces else 1
+            if uses >= per_model_limit:
                 continue
-            replaces = list(options[oi].get("replaces") or [])
             if not all(weapons.get(id_, 0) >= 1 for id_ in replaces):
                 continue
             for bundle in _option_bundles(options[oi]):
@@ -450,46 +477,72 @@ def _enumerate_row_candidates(
     return result
 
 
+def _options_with_printed_unit_abilities(
+    unit: Unit, options: list[WargearOption], counts: dict[str, int]
+) -> list[WargearOption]:
+    reachable = {
+        id_
+        for option in options
+        for ids in (
+            option.get("replaces") or [],
+            option.get("replacement") or [],
+            *(option.get("replacement_choice") or []),
+        )
+        for id_ in ids
+    }
+    additions = [
+        {
+            "id": f"{unit['id']}-printed-ability-{id_}",
+            "unit_id": unit["id"],
+            "faction_id": unit.get("faction_id"),
+            "game_version": unit.get("game_version"),
+            "is_free": True,
+            "replacement": [id_],
+            "model_constraint": {"max_count": counts[id_]},
+        }
+        for id_ in (unit.get("ability_ids") or [])
+        if counts.get(id_, 0) > 0 and id_ not in reachable
+    ]
+    return list(options) if not additions else [*options, *additions]
+
+
 def _solve_assignment(
     rows: list[dict[str, Any]],
-    bag: dict[str, int],
+    lower: dict[str, int],
+    upper: dict[str, int],
     option_caps: list[int],
 ) -> list[dict[str, Any]] | None:
-    """A complete, deterministic exact-cover search: distribute each row's models
-    across its candidate loadouts so the chosen weapons sum to ``bag`` exactly without
-    exceeding any option's cap. Rows in order; within a row, candidates in their
-    pre-sorted order, trying the largest feasible count first; residual + usage prune
-    dead branches. Returns the first solution found (so identical inputs yield
-    identical groupings everywhere) as per-candidate picks, or ``None`` when no exact
-    partition exists. Mirror of the TS ``solveAssignment``."""
-    residual = dict(bag)
+    """Deterministically distribute row models within item lower and upper bounds."""
+    remaining_lower = dict(lower)
+    remaining_upper = dict(upper)
     usage = [0] * len(option_caps)
     picks: list[tuple[int, int, int]] = []
 
     def assign_row(ri: int) -> bool:
         if ri == len(rows):
-            return all(c == 0 for c in residual.values())
+            return all(count <= 0 for count in remaining_lower.values())
         return distribute(ri, 0, rows[ri]["count"])
 
     def distribute(ri: int, ci: int, left: int) -> bool:
         row = rows[ri]
-        cands = row["candidates"]
-        if ci == len(cands):
+        candidates = row["candidates"]
+        if ci == len(candidates):
             return left == 0 and assign_row(ri + 1)
-        cand = cands[ci]
-        weapons = cand["weapons"]
-        used = cand["used_options"]
+        candidate = candidates[ci]
         hi = left
-        for id_, per in weapons.items():
+        for id_, per in candidate["weapons"].items():
             if per > 0:
-                hi = min(hi, residual.get(id_, 0) // per)
-        for oi in used:
-            hi = min(hi, option_caps[oi] - usage[oi])
-        hi = max(0, hi)
-        for take in range(hi, -1, -1):
-            for id_, per in weapons.items():
-                residual[id_] = residual.get(id_, 0) - per * take
-            for oi in used:
+                hi = min(hi, remaining_upper.get(id_, 0) // per)
+        option_uses: dict[int, int] = {}
+        for oi in candidate["used_options"]:
+            option_uses[oi] = option_uses.get(oi, 0) + 1
+        for oi, per_model in option_uses.items():
+            hi = min(hi, (option_caps[oi] - usage[oi]) // per_model)
+        for take in range(max(0, hi), -1, -1):
+            for id_, per in candidate["weapons"].items():
+                remaining_lower[id_] = remaining_lower.get(id_, 0) - per * take
+                remaining_upper[id_] = remaining_upper.get(id_, 0) - per * take
+            for oi in candidate["used_options"]:
                 usage[oi] += take
             if take > 0:
                 picks.append((ri, ci, take))
@@ -497,10 +550,11 @@ def _solve_assignment(
                 return True
             if take > 0:
                 picks.pop()
-            for oi in used:
+            for oi in candidate["used_options"]:
                 usage[oi] -= take
-            for id_, per in weapons.items():
-                residual[id_] = residual.get(id_, 0) + per * take
+            for id_, per in candidate["weapons"].items():
+                remaining_lower[id_] = remaining_lower.get(id_, 0) + per * take
+                remaining_upper[id_] = remaining_upper.get(id_, 0) + per * take
         return False
 
     if not assign_row(0):
@@ -516,6 +570,131 @@ def _solve_assignment(
     ]
 
 
+def _groups_from_solution(solution: list[dict[str, Any]]) -> list[LoadoutGroup]:
+    by_group: dict[str, dict[str, Any]] = {}
+    for item in solution:
+        key = _multiset_key(item["weapons"])
+        group_key = f"{item['name'] or ''}##{key}"
+        current = by_group.get(group_key)
+        if current is not None:
+            current["count"] += item["count"]
+        else:
+            by_group[group_key] = {
+                "ri": item["ri"],
+                "name": item["name"],
+                "weapons": item["weapons"],
+                "count": item["count"],
+                "key": key,
+            }
+    live = [group for group in by_group.values() if group["count"] > 0]
+    live.sort(key=lambda group: (group["ri"], -group["count"], _js_locale_key(group["key"])))
+    return [
+        {
+            "model_name": group["name"],
+            "count": group["count"],
+            "weapons": _sorted_group_weapons(group["weapons"]),
+        }
+        for group in live
+    ]
+
+
+def complete_loadout(
+    unit: Unit,
+    model_count: int,
+    options: list[WargearOption],
+    models: list[LoadoutModel] | None,
+    explicit_counts: dict[str, int],
+) -> dict[str, Any] | None:
+    n = max(0, int(model_count))
+    if n == 0 or not _has_recorded_defaults(models):
+        return None
+    assert models is not None
+
+    strict_lower = {id_: count for id_, count in explicit_counts.items() if count > 0}
+    lower_variants = [strict_lower]
+    default_ids = {id_ for model in models for id_ in (model.get("default_weapon_ids") or [])}
+    repeated_co_items: set[str] = set()
+    for option in options:
+        occurrences: dict[str, int] = {}
+        for branch in option.get("replacement_choice") or []:
+            if len(branch) < 2:
+                continue
+            for id_ in dict.fromkeys(branch):
+                occurrences[id_] = occurrences.get(id_, 0) + 1
+        for id_, count in occurrences.items():
+            if count >= 2 and id_ not in default_ids:
+                repeated_co_items.add(id_)
+    relaxed_lower = dict(strict_lower)
+    for id_ in repeated_co_items:
+        relaxed_lower.pop(id_, None)
+    if len(relaxed_lower) != len(strict_lower):
+        lower_variants.append(relaxed_lower)
+
+    effective_options = _options_with_printed_unit_abilities(unit, options, explicit_counts)
+    for lower in lower_variants:
+        for row_counts in _candidate_row_counts(models, n, lower):
+            fixed_models = [
+                {**model, "min": row_counts[index], "max": row_counts[index]}
+                for index, model in enumerate(models)
+            ]
+            default_counts: dict[str, int] = {}
+            for index, model in enumerate(fixed_models):
+                count = row_counts[index]
+                if count <= 0:
+                    continue
+                for id_ in model.get("default_weapon_ids") or []:
+                    default_counts[id_] = default_counts.get(id_, 0) + count
+            upper = dict(default_counts)
+            for id_, explicit in explicit_counts.items():
+                upper[id_] = max(explicit, upper.get(id_, 0))
+
+            option_caps = [option_cap(option, n, fixed_models) for option in effective_options]
+            rows: list[dict[str, Any]] = []
+            for index, model in enumerate(fixed_models):
+                count = row_counts[index]
+                if count <= 0:
+                    continue
+                candidates = [
+                    candidate
+                    for candidate in _enumerate_row_candidates(
+                        _to_multiset(model.get("default_weapon_ids") or []),
+                        model.get("name"),
+                        effective_options,
+                    )
+                    if all(
+                        per <= 0 or upper.get(id_, 0) >= per
+                        for id_, per in candidate["weapons"].items()
+                    )
+                    and all(option_caps[oi] >= 1 for oi in candidate["used_options"])
+                ]
+                candidates.sort(
+                    key=lambda candidate: (
+                        len(candidate["used_options"]),
+                        _js_locale_key(candidate["key"]),
+                        _js_locale_key(",".join(map(str, candidate["used_options"]))),
+                    )
+                )
+                rows.append(
+                    {
+                        "name": model.get("name"),
+                        "count": count,
+                        "candidates": candidates,
+                    }
+                )
+            solution = _solve_assignment(rows, lower, upper, option_caps)
+            if solution is None:
+                continue
+            groups = _groups_from_solution(solution)
+            counts: dict[str, int] = {}
+            for group in groups:
+                for weapon in group["weapons"]:
+                    counts[weapon["id"]] = (
+                        counts.get(weapon["id"], 0) + weapon["count"] * group["count"]
+                    )
+            return {"counts": counts, "groups": groups if n > 1 else None}
+    return None
+
+
 def group_loadout(
     unit: Unit,
     model_count: int,
@@ -524,63 +703,57 @@ def group_loadout(
     counts: dict[str, int],
 ) -> list[LoadoutGroup] | None:
     """Prove and decompose a flat loadout across every feasible model allocation."""
-    if model_count <= 1 or not _has_recorded_defaults(models):
+    n = max(0, int(model_count))
+    if n <= 1 or not _has_recorded_defaults(models):
         return None
     assert models is not None
 
     bag = {id_: count for id_, count in counts.items() if count > 0}
-    for row_n in _candidate_row_counts(models, model_count, bag):
+    effective_options = _options_with_printed_unit_abilities(unit, options, bag)
+    for row_counts in _candidate_row_counts(models, n, bag):
         fixed_models = [
-            {**model, "min": row_n[i], "max": row_n[i]} for i, model in enumerate(models)
+            {**model, "min": row_counts[index], "max": row_counts[index]}
+            for index, model in enumerate(models)
         ]
-        option_caps = [option_cap(option, model_count, fixed_models) for option in options]
+        option_caps = [option_cap(option, n, fixed_models) for option in effective_options]
         rows: list[dict[str, Any]] = []
-        for i, model in enumerate(models):
-            count = row_n[i]
-            if count == 0:
+        for index, model in enumerate(models):
+            count = row_counts[index]
+            if count <= 0:
                 continue
-            base = _to_multiset(model.get("default_weapon_ids") or [])
-            candidates = _enumerate_row_candidates(base, model.get("name"), options)
+            candidates = [
+                candidate
+                for candidate in _enumerate_row_candidates(
+                    _to_multiset(model.get("default_weapon_ids") or []),
+                    model.get("name"),
+                    effective_options,
+                )
+                if all(
+                    per <= 0 or bag.get(id_, 0) >= per for id_, per in candidate["weapons"].items()
+                )
+                and all(option_caps[oi] >= 1 for oi in candidate["used_options"])
+            ]
             candidates.sort(
                 key=lambda candidate: (
-                    candidate["key"],
+                    _js_locale_key(candidate["key"]),
                     len(candidate["used_options"]),
-                    ",".join(str(index) for index in candidate["used_options"]),
+                    _js_locale_key(",".join(map(str, candidate["used_options"]))),
                 )
             )
-            rows.append({"name": model.get("name"), "count": count, "candidates": candidates})
+            rows.append(
+                {
+                    "name": model.get("name"),
+                    "count": count,
+                    "candidates": candidates,
+                }
+            )
 
-        solution = _solve_assignment(rows, bag, option_caps)
+        solution = _solve_assignment(rows, bag, bag, option_caps)
         if solution is None:
             continue
-
-        by_group: dict[str, dict[str, Any]] = {}
-        for item in solution:
-            key = _multiset_key(item["weapons"])
-            group_key = f"{item['name'] or ''}##{key}"
-            current = by_group.get(group_key)
-            if current is not None:
-                current["count"] += item["count"]
-            else:
-                by_group[group_key] = {
-                    "ri": item["ri"],
-                    "name": item["name"],
-                    "weapons": item["weapons"],
-                    "count": item["count"],
-                    "key": key,
-                }
-        live = [group for group in by_group.values() if group["count"] > 0]
-        live.sort(key=lambda group: (group["ri"], -group["count"], group["key"]))
-        if not live:
-            continue
-        return [
-            {
-                "model_name": group["name"],
-                "count": group["count"],
-                "weapons": _sorted_group_weapons(group["weapons"]),
-            }
-            for group in live
-        ]
+        groups = _groups_from_solution(solution)
+        if groups:
+            return groups
     return None
 
 

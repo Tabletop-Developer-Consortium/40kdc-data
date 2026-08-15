@@ -191,12 +191,16 @@ fn finish_unit(acc: UnitAcc) -> ParsedUnit {
     let mut model_count: u64 = 0;
     let mut is_warlord = false;
     let mut enhancement_raw_name: Option<String> = None;
+    let mut i = 0;
 
-    for (i, b) in acc.bullets.iter().enumerate() {
-        // Child bullet: a model group's weapon. ListForge child counts are
-        // squad-wide totals; a count-less child is a single item.
+    while i < acc.bullets.len() {
+        let b = &acc.bullets[i];
+
+        // A child not consumed by the model-group walk is malformed/orphaned
+        // input. Preserve the TS adapter's forgiving aggregate treatment.
         if b.indent > top_indent {
             add_wargear(&b.text, b.count.unwrap_or(1));
+            i += 1;
             continue;
         }
 
@@ -204,27 +208,36 @@ fn finish_unit(acc: UnitAcc) -> ParsedUnit {
         if b.count.is_none() {
             if b.text == WARLORD_MARKER {
                 is_warlord = true;
+                i += 1;
                 continue;
             }
             if let Some(rest) = b.text.strip_prefix(ENHANCEMENT_PREFIX) {
                 if enhancement_raw_name.is_none() {
                     enhancement_raw_name = Some(rest.trim().to_string());
                 }
+                i += 1;
                 continue;
             }
         }
 
-        // Top-level entry: a model group when it has child bullets beneath it,
-        // otherwise plain wargear. Either way a missing `Nx` count means 1.
-        let next_is_child = acc
-            .bullets
-            .get(i + 1)
-            .map(|n| n.indent > b.indent)
-            .unwrap_or(false);
-        if next_is_child {
+        // A top-level selection owns every following, more-indented selection
+        // through its next sibling. Consume that subtree here so nested weapon
+        // selections contribute once to the aggregate and are never revisited
+        // as sibling selections. ListForge's TypeScript adapter deliberately
+        // leaves model breakdown reconstruction to the resolver.
+        let child_end = acc.bullets[i + 1..]
+            .iter()
+            .position(|next| next.indent <= b.indent)
+            .map_or(acc.bullets.len(), |offset| i + 1 + offset);
+        if child_end > i + 1 {
             model_count += b.count.unwrap_or(1);
+            for child in &acc.bullets[i + 1..child_end] {
+                add_wargear(&child.text, child.count.unwrap_or(1));
+            }
+            i = child_end;
         } else {
             add_wargear(&b.text, b.count.unwrap_or(1));
+            i += 1;
         }
     }
 
@@ -236,6 +249,7 @@ fn finish_unit(acc: UnitAcc) -> ParsedUnit {
         raw_name: acc.raw_name,
         is_character: acc.is_character,
         model_count,
+        keyword_overrides: None,
         points: acc.displayed_pts,
         is_warlord,
         enhancement_raw_name,
@@ -243,6 +257,7 @@ fn finish_unit(acc: UnitAcc) -> ParsedUnit {
         // displayed points stay as-is and no enhancement points are claimed.
         enhancement_points: None,
         wargear,
+        loadout_groups: None,
         // Always present (inner `None` for an ordinary unit) so the serialized
         // key mirrors the TS adapter, which sets `leader_attachment` on every
         // unit. The `Attached Units:` section populates the inner `Some`.
@@ -585,9 +600,38 @@ Flesh Hounds (75 pts)
         let parsed = ListForgeTextAdapter.parse(&json!(SAMPLE)).unwrap();
         // 3-segment header: the disposition slot is present but null.
         assert_eq!(parsed.force_disposition_raw_name, Some(None));
+
         assert_eq!(
             parsed.detachment_raw_names,
             vec!["Daemonic Incursion".to_string()]
+        );
+    }
+    #[test]
+    fn consumes_nested_model_selections_once_without_making_accessories_model_gear() {
+        let parsed = ListForgeTextAdapter.parse(&json!(SAMPLE)).unwrap();
+        let bloodletters = parsed
+            .units
+            .iter()
+            .find(|u| u.raw_name == "Bloodletters")
+            .unwrap();
+
+        assert_eq!(bloodletters.loadout_groups, None);
+        assert_eq!(
+            bloodletters.wargear,
+            vec![
+                ParsedWargear {
+                    raw_name: "Hellblade".to_string(),
+                    count: 10,
+                },
+                ParsedWargear {
+                    raw_name: "Instrument of Chaos".to_string(),
+                    count: 1,
+                },
+                ParsedWargear {
+                    raw_name: "Daemonic Icon".to_string(),
+                    count: 1,
+                },
+            ]
         );
     }
 

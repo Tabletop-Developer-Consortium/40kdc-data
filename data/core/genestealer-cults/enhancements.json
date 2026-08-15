@@ -15,12 +15,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Genestealer Cults"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "a-chink-in-their-armour-host-of-ascension",
@@ -38,12 +33,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Genestealer Cults"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "our-time-is-nigh-host-of-ascension",
@@ -61,12 +51,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Genestealer Cults"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "assassination-edict-host-of-ascension",
@@ -84,21 +69,13 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Genestealer Cults"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "gene-sires-reliquant-xenocreed-congregation",
     "name": "Gene-sire’s Reliquant",
     "detachment_id": "xenocreed-congregation",
     "cost": 5,
-    "keyword_restrictions": [
-      "Genestealer Cults"
-    ],
     "ability_id": null,
     "is_unique": true,
     "game_version": {
@@ -125,9 +102,6 @@
     "name": "Denunciator of Tyrants",
     "detachment_id": "xenocreed-congregation",
     "cost": 25,
-    "keyword_restrictions": [
-      "Genestealer Cults"
-    ],
     "ability_id": null,
     "is_unique": true,
     "game_version": {
@@ -154,9 +128,6 @@
     "name": "Deeds that Speak to the Masses",
     "detachment_id": "xenocreed-congregation",
     "cost": 25,
-    "keyword_restrictions": [
-      "Genestealer Cults"
-    ],
     "ability_id": null,
     "is_unique": true,
     "game_version": {
@@ -183,9 +154,6 @@
     "name": "Incendiary Inspiration",
     "detachment_id": "xenocreed-congregation",
     "cost": 15,
-    "keyword_restrictions": [
-      "Genestealer Cults"
-    ],
     "ability_id": null,
     "is_unique": true,
     "game_version": {
@@ -212,9 +180,6 @@
     "name": "Predatory Instincts",
     "detachment_id": "biosanctic-broodsurge",
     "cost": 20,
-    "keyword_restrictions": [
-      "Genestealer Cults"
-    ],
     "ability_id": null,
     "is_unique": true,
     "game_version": {
@@ -241,9 +206,6 @@
     "name": "Biomorph Adaptation",
     "detachment_id": "biosanctic-broodsurge",
     "cost": 25,
-    "keyword_restrictions": [
-      "Genestealer Cults"
-    ],
     "ability_id": null,
     "is_unique": true,
     "game_version": {
@@ -267,9 +229,6 @@
     "name": "Mutagenic Regeneration",
     "detachment_id": "biosanctic-broodsurge",
     "cost": 10,
-    "keyword_restrictions": [
-      "Genestealer Cults"
-    ],
     "ability_id": null,
     "is_unique": true,
     "game_version": {
@@ -296,9 +255,6 @@
     "name": "Alien Majesty",
     "detachment_id": "biosanctic-broodsurge",
     "cost": 15,
-    "keyword_restrictions": [
-      "Genestealer Cults"
-    ],
     "ability_id": null,
     "is_unique": true,
     "game_version": {
@@ -326,7 +282,8 @@
     "detachment_id": "outlander-claw",
     "cost": 10,
     "keyword_restrictions": [
-      "Genestealer Cults"
+      "Genestealer Cults",
+      "Mounted"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -336,13 +293,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Genestealer Cults",
-        "Mounted"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "cartographic-data-leech-outlander-claw",
@@ -360,12 +311,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Genestealer Cults"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "starfall-shells-outlander-claw",
@@ -373,7 +319,8 @@
     "detachment_id": "outlander-claw",
     "cost": 10,
     "keyword_restrictions": [
-      "Genestealer Cults"
+      "Genestealer Cults",
+      "Mounted"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -383,13 +330,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Genestealer Cults",
-        "Mounted"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "assault-commando-outlander-claw",
@@ -407,12 +348,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Genestealer Cults"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "martial-espionage-brood-brothers-auxilia",
@@ -420,7 +356,8 @@
     "detachment_id": "brood-brothers-auxilia",
     "cost": 25,
     "keyword_restrictions": [
-      "Genestealer Cults"
+      "Genestealer Cults",
+      "Infantry"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -430,13 +367,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Genestealer Cults",
-        "Infantry"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "adaptive-reprisal-brood-brothers-auxilia",
@@ -444,7 +375,8 @@
     "detachment_id": "brood-brothers-auxilia",
     "cost": 15,
     "keyword_restrictions": [
-      "Genestealer Cults"
+      "Genestealer Cults",
+      "Infantry"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -454,13 +386,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Genestealer Cults",
-        "Infantry"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "the-hero-returned-brood-brothers-auxilia",
@@ -468,7 +394,8 @@
     "detachment_id": "brood-brothers-auxilia",
     "cost": 20,
     "keyword_restrictions": [
-      "Genestealer Cults"
+      "Genestealer Cults",
+      "Infantry"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -478,13 +405,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Genestealer Cults",
-        "Infantry"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "fire-point-commander-brood-brothers-auxilia",
@@ -492,7 +413,8 @@
     "detachment_id": "brood-brothers-auxilia",
     "cost": 10,
     "keyword_restrictions": [
-      "Genestealer Cults"
+      "Genestealer Cults",
+      "Infantry"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -502,13 +424,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Genestealer Cults",
-        "Infantry"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "synaptic-auger-final-day",
@@ -516,7 +432,7 @@
     "detachment_id": "final-day",
     "cost": 15,
     "keyword_restrictions": [
-      "Genestealer Cults"
+      "Tyranids"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -526,12 +442,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Tyranids"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "enraptured-damnation-final-day",
@@ -549,12 +460,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Genestealer Cults"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "vanguard-tyrant-final-day",
@@ -562,7 +468,7 @@
     "detachment_id": "final-day",
     "cost": 25,
     "keyword_restrictions": [
-      "Genestealer Cults"
+      "Winged Hive Tyrant"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -572,12 +478,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Winged Hive Tyrant"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "inhuman-integration-final-day",
@@ -595,21 +496,13 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Genestealer Cults"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "gene-tailored-toxins-heroes-of-the-uprising",
     "name": "Gene-tailored Toxins",
     "detachment_id": "heroes-of-the-uprising",
     "cost": 35,
-    "keyword_restrictions": [
-      "Genestealer Cults"
-    ],
     "ability_id": "gene-tailored-toxins-heroes-of-the-uprising",
     "is_unique": true,
     "game_version": {
@@ -635,9 +528,6 @@
     "name": "Contraband Munitions",
     "detachment_id": "heroes-of-the-uprising",
     "cost": 20,
-    "keyword_restrictions": [
-      "Genestealer Cults"
-    ],
     "ability_id": "contraband-munitions-heroes-of-the-uprising",
     "is_unique": true,
     "game_version": {
@@ -664,7 +554,8 @@
     "detachment_id": "purestrain-broodswarm",
     "cost": 30,
     "keyword_restrictions": [
-      "Genestealer Cults"
+      "Genestealer Cults",
+      "Purestrain Genestealers"
     ],
     "ability_id": "mark-of-the-star-children-purestrain-broodswarm",
     "is_unique": true,
@@ -674,13 +565,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": true,
-    "max_targets": 3,
-    "keyword_restriction_groups": [
-      [
-        "Genestealer Cults",
-        "Purestrain Genestealers"
-      ]
-    ]
+    "max_targets": 3
   },
   {
     "id": "talons-of-the-sire-purestrain-broodswarm",
@@ -688,7 +573,8 @@
     "detachment_id": "purestrain-broodswarm",
     "cost": 15,
     "keyword_restrictions": [
-      "Genestealer Cults"
+      "Genestealer Cults",
+      "Patriarch"
     ],
     "ability_id": "talons-of-the-sire-purestrain-broodswarm",
     "is_unique": true,
@@ -698,22 +584,13 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Genestealer Cults",
-        "Patriarch"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "inspired-to-greatness-xenocult-masses",
     "name": "Inspired to Greatness",
     "detachment_id": "xenocult-masses",
     "cost": 15,
-    "keyword_restrictions": [
-      "Genestealer Cults"
-    ],
     "ability_id": "inspired-to-greatness-xenocult-masses",
     "is_unique": true,
     "game_version": {
@@ -740,7 +617,8 @@
     "detachment_id": "xenocult-masses",
     "cost": 15,
     "keyword_restrictions": [
-      "Genestealer Cults"
+      "Genestealer Cults",
+      "Neophyte Hybrids"
     ],
     "ability_id": "devious-disguises-xenocult-masses",
     "is_unique": true,
@@ -750,13 +628,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": true,
-    "max_targets": 3,
-    "keyword_restriction_groups": [
-      [
-        "Genestealer Cults",
-        "Neophyte Hybrids"
-      ]
-    ]
+    "max_targets": 3
   },
   {
     "id": "heavy-munitions-claw-of-ascension",
@@ -773,15 +645,9 @@
     ],
     "points_provisional": false,
     "keyword_restrictions": [
-      "Achilles Ridgerunners",
-      "Claw of Ascension"
+      "Claw of Ascension Achilles Ridgerunner"
     ],
-    "upgrade_tag": true,
-    "keyword_restriction_groups": [
-      [
-        "Claw of Ascension Achilles Ridgerunner"
-      ]
-    ]
+    "upgrade_tag": true
   },
   {
     "id": "practiced-eye-claw-of-ascension",
@@ -800,12 +666,6 @@
     "keyword_restrictions": [
       "Claw of Ascension",
       "Jackal Alphus"
-    ],
-    "keyword_restriction_groups": [
-      [
-        "Claw of Ascension",
-        "Jackal Alphus"
-      ]
     ]
   }
 ]

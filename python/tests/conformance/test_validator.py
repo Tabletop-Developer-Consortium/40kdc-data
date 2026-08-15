@@ -38,12 +38,15 @@ def test_packaged_schema_tree_loads() -> None:
     packaged = Path(str(resources.files("wh40kdc").joinpath("schemas")))
     validator = SchemaValidator(packaged)
     assert validator.has_schema("https://40kdc.dev/schemas/core/unit.schema.json")
-    assert validator.errors_for(
-        "https://40kdc.dev/schemas/core/wargear.schema.json",
-        {
-            "id": "icon-of-khorne",
-            "name": "Icon of Khorne",
-            "category": "icon",
-            "game_version": {"edition": "10th", "dataslate": "2025-q3"},
-        },
-    ) == []
+    assert (
+        validator.errors_for(
+            "https://40kdc.dev/schemas/core/wargear.schema.json",
+            {
+                "id": "icon-of-khorne",
+                "name": "Icon of Khorne",
+                "category": "icon",
+                "game_version": {"edition": "10th", "dataslate": "2025-q3"},
+            },
+        )
+        == []
+    )

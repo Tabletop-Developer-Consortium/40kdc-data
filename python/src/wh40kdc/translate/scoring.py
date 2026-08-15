@@ -21,7 +21,7 @@ def _capitalize(s: str) -> str:
 
 
 def describe_trigger(t: dict[str, Any]) -> str:
-    """"End of your Command phase (round 2+)" and friends."""
+    """ "End of your Command phase (round 2+)" and friends."""
     player_turn = t.get("player_turn")
     if player_turn == "opponent-turn":
         turn = "the opponent's"
@@ -59,7 +59,7 @@ def describe_trigger(t: dict[str, Any]) -> str:
 
 
 def describe_award(a: dict[str, Any]) -> str:
-    """"End of your Command phase (round 2+): 3 VP per controlled objective when ..." """
+    """ "End of your Command phase (round 2+): 3 VP per controlled objective when ..." """
     trigger = describe_trigger(a["trigger"]) if a.get("trigger") else "Any time"
 
     if a.get("vp") is not None:

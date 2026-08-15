@@ -15,12 +15,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Emperor’s Children"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "intoxicating-musk-mercurial-host",
@@ -38,12 +33,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Emperor’s Children"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "tactical-perfection-mercurial-host",
@@ -61,12 +51,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Emperor’s Children"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "loathsome-dexterity-mercurial-host",
@@ -84,12 +69,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Emperor’s Children"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "faultless-opportunist-peerless-bladesmen",
@@ -107,12 +87,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Emperor’s Children"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "blinding-speed-peerless-bladesmen",
@@ -130,12 +105,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Emperor’s Children"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "distortion-peerless-bladesmen",
@@ -153,12 +123,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Emperor’s Children"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "rise-to-the-challenge-peerless-bladesmen",
@@ -166,7 +131,8 @@
     "detachment_id": "peerless-bladesmen",
     "cost": 30,
     "keyword_restrictions": [
-      "Emperor’s Children"
+      "Emperor’s Children",
+      "Infantry"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -176,13 +142,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Emperor’s Children",
-        "Infantry"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "sublime-prescience-rapid-evisceration",
@@ -190,7 +150,8 @@
     "detachment_id": "rapid-evisceration",
     "cost": 25,
     "keyword_restrictions": [
-      "Emperor’s Children"
+      "Emperor’s Children",
+      "Infantry"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -200,13 +161,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Emperor’s Children",
-        "Infantry"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "spearhead-striker-rapid-evisceration",
@@ -214,7 +169,8 @@
     "detachment_id": "rapid-evisceration",
     "cost": 20,
     "keyword_restrictions": [
-      "Emperor’s Children"
+      "Emperor’s Children",
+      "Infantry"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -224,13 +180,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Emperor’s Children",
-        "Infantry"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "accomplished-tactician-rapid-evisceration",
@@ -238,7 +188,8 @@
     "detachment_id": "rapid-evisceration",
     "cost": 35,
     "keyword_restrictions": [
-      "Emperor’s Children"
+      "Emperor’s Children",
+      "Infantry"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -248,13 +199,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Emperor’s Children",
-        "Infantry"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "heretek-adept-rapid-evisceration",
@@ -262,7 +207,8 @@
     "detachment_id": "rapid-evisceration",
     "cost": 35,
     "keyword_restrictions": [
-      "Emperor’s Children"
+      "Emperor’s Children",
+      "Infantry"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -272,13 +218,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Emperor’s Children",
-        "Infantry"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "empyric-suffusion-carnival-of-excess",
@@ -296,12 +236,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Emperor’s Children"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "dark-blessings-carnival-of-excess",
@@ -309,7 +244,8 @@
     "detachment_id": "carnival-of-excess",
     "cost": 10,
     "keyword_restrictions": [
-      "Emperor’s Children"
+      "Emperor’s Children",
+      "Infantry"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -319,13 +255,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Emperor’s Children",
-        "Infantry"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "possessed-blade-carnival-of-excess",
@@ -343,21 +273,13 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Emperor’s Children"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "warp-walker-carnival-of-excess",
     "name": "Warp Walker",
     "detachment_id": "carnival-of-excess",
     "cost": 30,
-    "keyword_restrictions": [
-      "Emperor’s Children"
-    ],
     "ability_id": null,
     "is_unique": true,
     "game_version": {
@@ -410,12 +332,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Emperor’s Children"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "pledge-of-mortal-pain-coterie-of-the-conceited",
@@ -433,12 +350,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Emperor’s Children"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "pledge-of-unholy-fortune-coterie-of-the-conceited",
@@ -456,12 +368,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Emperor’s Children"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "eager-to-prove-slaaneshs-chosen",
@@ -479,12 +386,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Emperor’s Children"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "repulsed-by-weakness-slaaneshs-chosen",
@@ -502,12 +404,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Emperor’s Children"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "proud-and-vainglorious-slaaneshs-chosen",
@@ -525,12 +422,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Emperor’s Children"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "slayer-of-champions-slaaneshs-chosen",
@@ -548,12 +440,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Emperor’s Children"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "tears-of-the-phoenix-court-of-the-phoenician",
@@ -571,12 +458,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Emperor’s Children"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "exalted-patron-court-of-the-phoenician",
@@ -584,7 +466,7 @@
     "detachment_id": "court-of-the-phoenician",
     "cost": 15,
     "keyword_restrictions": [
-      "Emperor’s Children"
+      "Lord Exultant"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -595,11 +477,6 @@
     "points_provisional": false,
     "upgrade_tag": false,
     "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Lord Exultant"
-      ]
-    ],
     "attachment_bodyguard_ids": [
       "flawless-blades"
     ]
@@ -620,12 +497,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Emperor’s Children"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "spiritsliver-court-of-the-phoenician",
@@ -633,6 +505,7 @@
     "detachment_id": "court-of-the-phoenician",
     "cost": 20,
     "keyword_restrictions": [
+      "Daemon Prince",
       "Emperor’s Children"
     ],
     "ability_id": null,
@@ -643,13 +516,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Daemon Prince",
-        "Emperor’s Children"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "cacophonic-accompaniment-elegant-brutes",
@@ -657,7 +524,8 @@
     "detachment_id": "elegant-brutes",
     "cost": 20,
     "keyword_restrictions": [
-      "Emperor's Children"
+      "Emperor’s Children",
+      "Lord Kakophonist"
     ],
     "ability_id": "cacophonic-accompaniment-elegant-brutes",
     "is_unique": true,
@@ -667,13 +535,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Emperor’s Children",
-        "Lord Kakophonist"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "frenzied-ferocity-upgrade-elegant-brutes",
@@ -681,7 +543,7 @@
     "detachment_id": "elegant-brutes",
     "cost": 15,
     "keyword_restrictions": [
-      "Emperor's Children",
+      "Emperor’s Children",
       "Terminator Squad"
     ],
     "ability_id": "frenzied-ferocity-elegant-brutes",
@@ -692,13 +554,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": true,
-    "max_targets": 3,
-    "keyword_restriction_groups": [
-      [
-        "Emperor’s Children",
-        "Terminator Squad"
-      ]
-    ]
+    "max_targets": 3
   },
   {
     "id": "euphoric-crown-frenzied-host",
@@ -706,7 +562,8 @@
     "detachment_id": "frenzied-host",
     "cost": 20,
     "keyword_restrictions": [
-      "Emperor's Children"
+      "Emperor’s Children",
+      "Lord Exultant"
     ],
     "ability_id": "euphoric-crown-frenzied-host",
     "is_unique": true,
@@ -716,13 +573,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Emperor’s Children",
-        "Lord Exultant"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "howling-plate-frenzied-host",
@@ -730,7 +581,8 @@
     "detachment_id": "frenzied-host",
     "cost": 20,
     "keyword_restrictions": [
-      "Emperor's Children"
+      "Emperor’s Children",
+      "Lord Exultant"
     ],
     "ability_id": "howling-plate-frenzied-host",
     "is_unique": true,
@@ -740,13 +592,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Emperor’s Children",
-        "Lord Exultant"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "eager-patrons-upgrade-spectacle-of-slaughter",
@@ -754,7 +600,7 @@
     "detachment_id": "spectacle-of-slaughter",
     "cost": 20,
     "keyword_restrictions": [
-      "Emperor's Children",
+      "Emperor’s Children",
       "Flawless Blades"
     ],
     "ability_id": "eager-patrons-spectacle-of-slaughter",
@@ -765,13 +611,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": true,
-    "max_targets": 3,
-    "keyword_restriction_groups": [
-      [
-        "Emperor’s Children",
-        "Flawless Blades"
-      ]
-    ]
+    "max_targets": 3
   },
   {
     "id": "beguiling-grotesquerie-upgrade-spectacle-of-slaughter",
@@ -779,7 +619,7 @@
     "detachment_id": "spectacle-of-slaughter",
     "cost": 15,
     "keyword_restrictions": [
-      "Emperor's Children",
+      "Emperor’s Children",
       "Flawless Blades"
     ],
     "ability_id": "beguiling-grotesquerie-spectacle-of-slaughter",
@@ -790,13 +630,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": true,
-    "max_targets": 3,
-    "keyword_restriction_groups": [
-      [
-        "Emperor’s Children",
-        "Flawless Blades"
-      ]
-    ]
+    "max_targets": 3
   },
   {
     "id": "invigorating-agonies-callous-blades",
@@ -815,12 +649,6 @@
     "keyword_restrictions": [
       "Callous Blades",
       "Lord Exultant"
-    ],
-    "keyword_restriction_groups": [
-      [
-        "Callous Blades",
-        "Lord Exultant"
-      ]
     ]
   },
   {
@@ -838,15 +666,9 @@
     ],
     "points_provisional": false,
     "keyword_restrictions": [
-      "Callous Blades",
-      "Infractors"
+      "Callous Blades Infractors"
     ],
-    "upgrade_tag": true,
-    "keyword_restriction_groups": [
-      [
-        "Callous Blades Infractors"
-      ]
-    ]
+    "upgrade_tag": true
   },
   {
     "id": "pledge-of-eternal-servitude-coterie-of-the-conceited",
@@ -862,11 +684,6 @@
     "points_provisional": false,
     "upgrade_tag": false,
     "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Emperor’s Children"
-      ]
-    ],
     "keyword_restrictions": [
       "Emperor’s Children"
     ]

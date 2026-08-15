@@ -41,6 +41,8 @@ def infer_battle_size_raw(limit: int | None) -> str | None:
 _NX_PREFIX = re.compile(r"^(\d+)x\s+(.+)$")
 _INLINE_PTS = re.compile(r"^(.+?)\s*\[\s*(\d+)\s*pts?\s*\]\s*$", re.IGNORECASE)
 _CHARACTER_SUFFIX = " Character"
+_INLINE_ENHANCEMENT = re.compile(r"^Enhancement:\s*(.+)$", re.IGNORECASE)
+_INLINE_KEYWORD = re.compile(r"^40kdc\s+keywords?:\s*(.+)$", re.IGNORECASE)
 _WARLORD_MARKER = "Warlord"
 
 
@@ -55,6 +57,8 @@ def classify_wargear_list(tokens: list[str]) -> dict[str, Any]:
     wargear: list[dict[str, Any]] = []
     is_warlord = False
     is_character = False
+    keyword_overrides: list[str] = []
+    seen_keyword_overrides: set[str] = set()
     enhancement_raw_name: str | None = None
     enhancement_points: int | None = None
 
@@ -68,6 +72,16 @@ def classify_wargear_list(tokens: list[str]) -> dict[str, Any]:
             continue
         if token.endswith(_CHARACTER_SUFFIX):
             is_character = True
+            if "Character" not in seen_keyword_overrides:
+                keyword_overrides.append("Character")
+                seen_keyword_overrides.add("Character")
+            continue
+        keyword = _INLINE_KEYWORD.match(token)
+        if keyword:
+            value = keyword.group(1).strip()
+            if value not in seen_keyword_overrides:
+                keyword_overrides.append(value)
+                seen_keyword_overrides.add(value)
             continue
 
         # Simple format inlines the enhancement as `Name [15 pts]`.
@@ -76,6 +90,12 @@ def classify_wargear_list(tokens: list[str]) -> dict[str, Any]:
             if enhancement_raw_name is None:
                 enhancement_raw_name = pts.group(1).strip()
                 enhancement_points = int(pts.group(2))
+            continue
+        enhancement = _INLINE_ENHANCEMENT.match(token)
+        if enhancement:
+            if enhancement_raw_name is None:
+                enhancement_raw_name = enhancement.group(1).strip()
+                enhancement_points = None
             continue
 
         nx = _NX_PREFIX.match(token)
@@ -89,6 +109,7 @@ def classify_wargear_list(tokens: list[str]) -> dict[str, Any]:
         "wargear": wargear,
         "is_warlord": is_warlord,
         "is_character": is_character,
+        "keyword_overrides": keyword_overrides,
         "enhancement_raw_name": enhancement_raw_name,
         "enhancement_points": enhancement_points,
     }

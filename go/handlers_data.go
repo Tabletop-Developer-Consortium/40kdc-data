@@ -91,6 +91,11 @@ func (s *RunnerState) handleCheckRosterLegality(args any) map[string]any {
 			isWarlord:  u["isWarlord"] == true,
 			counts:     map[string]int{},
 		}
+		for _, keywordAny := range getList(u, "keywordOverrides") {
+			if keyword, ok := keywordAny.(string); ok {
+				nu.keywordOverrides = append(nu.keywordOverrides, keyword)
+			}
+		}
 		if e, ok := u["enhancementId"].(string); ok {
 			nu.enhancementID = e
 		}

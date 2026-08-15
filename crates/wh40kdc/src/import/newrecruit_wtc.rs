@@ -14,6 +14,10 @@
 //!
 //! Rust mirror of `tools/src/import/newrecruit-wtc.ts`.
 
+use super::types::{
+    AttachmentRole, ParsedLeaderAttachment, ParsedLoadoutGroup, ParsedRoster, ParsedUnit,
+    ParsedWargear, RosterFormat,
+};
 use once_cell::sync::Lazy;
 use regex::Regex;
 use serde_json::Value;
@@ -23,7 +27,6 @@ use super::newrecruit_text::{
     classify_wargear_list, faction_from_keyword, infer_battle_size_raw, split_wargear_list,
     strip_parenthetical,
 };
-use super::types::{ParsedRoster, ParsedUnit, ParsedWargear, RosterFormat};
 
 const WTC_HEADER_PREFIX: &str = "+ FACTION KEYWORD:";
 
@@ -46,13 +49,19 @@ static RE_FENCE: Lazy<Regex> = Lazy::new(|| Regex::new(r"^\++\s*$").unwrap());
 // --- Body line regexes. -----------------------------------------------------
 
 static RE_UNIT_COMPACT: Lazy<Regex> = Lazy::new(|| {
-    Regex::new(r"(?i)^(?:Char\d+:\s*)?(\d+)x\s+(.+?)\s*\(\s*(\d+)\s*pts?\s*\)\s*:\s*(.*)$").unwrap()
+    Regex::new(r"(?im)^(?:Char\d+:\s*)?(\d+)x\s+(.+?)\s*\(\s*(\d+)\s*pts?\s*\)\s*:\s*(.*)$")
+        .unwrap()
 });
 static RE_UNIT_FULL: Lazy<Regex> = Lazy::new(|| {
     Regex::new(r"(?i)^(?:Char\d+:\s*)?(\d+)x\s+(.+?)\s*\(\s*(\d+)\s*pts?\s*\)\s*$").unwrap()
 });
-static RE_ENHANCEMENT_LINE: Lazy<Regex> =
-    Lazy::new(|| Regex::new(r"(?i)^Enhancement:\s*(.+?)\s*\(\+\s*(\d+)\s*pts?\s*\)\s*$").unwrap());
+static RE_ENHANCEMENT_LINE: Lazy<Regex> = Lazy::new(|| {
+    Regex::new(r"(?i)^Enhancement:\s*(.+?)(?:\s*\(\+\s*(\d+)\s*pts?\s*\))?\s*$").unwrap()
+});
+static RE_ATTACHMENT_LINE: Lazy<Regex> = Lazy::new(|| {
+    Regex::new(r"(?i)^Attachment:\s*(leader|support)\s*->\s*(.+?)(\s+\[provisional\])?\s*$")
+        .unwrap()
+});
 static RE_WITH_PREFIX: Lazy<Regex> =
     Lazy::new(|| Regex::new(r"(?i)^(\d+)\s+with\s+(.*)$").unwrap());
 // Optional trailing `: <wargear>` — NewRecruit inlines a model group's loadout
@@ -65,7 +74,8 @@ static RE_SECTION_HEADER: Lazy<Regex> = Lazy::new(|| Regex::new(r"^[A-Z][A-Z0-9 
 static RE_CHAR_PREFIX: Lazy<Regex> = Lazy::new(|| Regex::new(r"(?i)^Char\d+:").unwrap());
 static RE_FULL_FORMAT_MARKER: Lazy<Regex> =
     Lazy::new(|| Regex::new(r"(?m)^[\t ]*\d+\s+with\b").unwrap());
-static RE_BULLET_LINE: Lazy<Regex> = Lazy::new(|| Regex::new(r"(?m)^[\t ]*•").unwrap());
+static RE_SERIALIZED_FULL: Lazy<Regex> =
+    Lazy::new(|| Regex::new(r"(?im)^\+\s*LIST NAME:.*\n(?:.*\n)*?^BATTLELINE\s*$").unwrap());
 static RE_ALLIED_HEADER: Lazy<Regex> = Lazy::new(|| Regex::new(r"(?im)^ALLIED UNITS\s*$").unwrap());
 
 // --- Header parse ----------------------------------------------------------
@@ -73,7 +83,7 @@ static RE_ALLIED_HEADER: Lazy<Regex> = Lazy::new(|| Regex::new(r"(?im)^ALLIED UN
 struct WtcHeader {
     name: String,
     faction_raw_name: Option<String>,
-    detachment_raw_name: Option<String>,
+    detachment_raw_names: Vec<String>,
     force_disposition_raw_name: Option<String>,
     declared_limit: Option<u64>,
     total_reported: Option<u64>,
@@ -84,7 +94,7 @@ fn parse_wtc_header(text: &str) -> Option<(WtcHeader, usize)> {
     let lines: Vec<&str> = text.split('\n').map(|l| l.trim_end_matches('\r')).collect();
 
     let mut faction_raw_name: Option<String> = None;
-    let mut detachment_raw_name: Option<String> = None;
+    let mut detachment_raw_names: Vec<String> = Vec::new();
     let mut force_disposition_raw_name: Option<String> = None;
     let mut total_reported: Option<u64> = None;
     let mut points_limit: Option<u64> = None;
@@ -111,7 +121,10 @@ fn parse_wtc_header(text: &str) -> Option<(WtcHeader, usize)> {
             continue;
         }
         if let Some(c) = RE_DETACHMENT.captures(line) {
-            detachment_raw_name = Some(strip_parenthetical(&c[1]).to_string());
+            let name = strip_parenthetical(&c[1]);
+            if name != "—" {
+                detachment_raw_names.push(name.to_string());
+            }
             continue;
         }
         if let Some(c) = RE_FORCE_DISPOSITION.captures(line) {
@@ -147,7 +160,7 @@ fn parse_wtc_header(text: &str) -> Option<(WtcHeader, usize)> {
         WtcHeader {
             name: list_name.unwrap_or_else(|| "Imported roster".to_string()),
             faction_raw_name,
-            detachment_raw_name,
+            detachment_raw_names,
             force_disposition_raw_name,
             declared_limit,
             total_reported,
@@ -163,14 +176,14 @@ struct UnitBuilder {
     raw_name: String,
     is_character: bool,
     is_warlord: bool,
+    keyword_overrides: Vec<String>,
     enhancement_raw_name: Option<String>,
     displayed_pts: Option<u64>,
-    enhancement_pts: u64,
+    enhancement_pts: Option<u64>,
+    leader_attachment: Option<ParsedLeaderAttachment>,
     model_count: u64,
-    /// Wargear insertion order is preserved (matches the TS Map iteration
-    /// order); we use `Vec<(name, count)>` + linear lookup since the lists
-    /// are tiny (≤ ~12 entries per unit).
     wargear: Vec<(String, u64)>,
+    loadout_groups: Vec<ParsedLoadoutGroup>,
 }
 
 impl UnitBuilder {
@@ -179,11 +192,14 @@ impl UnitBuilder {
             raw_name: name,
             is_character,
             is_warlord: false,
+            keyword_overrides: Vec::new(),
             enhancement_raw_name: None,
             displayed_pts: Some(displayed_pts),
-            enhancement_pts: 0,
+            enhancement_pts: None,
+            leader_attachment: None,
             model_count: if leading_count > 0 { leading_count } else { 1 },
             wargear: Vec::new(),
+            loadout_groups: Vec::new(),
         }
     }
 
@@ -197,36 +213,36 @@ impl UnitBuilder {
         }
     }
 
-    fn finish(self) -> (ParsedUnit, u64) {
-        let displayed = self.displayed_pts;
-        let points = displayed.map(|p| p.saturating_sub(self.enhancement_pts));
-        let wargear: Vec<ParsedWargear> = self
+    fn finish(self) -> (ParsedUnit, Option<u64>) {
+        let points = self
+            .displayed_pts
+            .map(|p| p.saturating_sub(self.enhancement_pts.unwrap_or(0)));
+        let wargear = self
             .wargear
             .into_iter()
             .map(|(raw_name, count)| ParsedWargear { raw_name, count })
             .collect();
-        let enhancement_points = if self.enhancement_raw_name.is_some() {
-            Some(self.enhancement_pts)
-        } else {
-            None
-        };
+        let enhancement_points = self.enhancement_raw_name.as_ref().and(self.enhancement_pts);
         (
             ParsedUnit {
                 raw_name: self.raw_name,
                 is_character: self.is_character,
+                keyword_overrides: (!self.keyword_overrides.is_empty())
+                    .then_some(self.keyword_overrides),
                 model_count: self.model_count,
                 points,
                 is_warlord: self.is_warlord,
                 enhancement_raw_name: self.enhancement_raw_name,
                 enhancement_points,
                 wargear,
-                leader_attachment: None,
+                loadout_groups: (!self.loadout_groups.is_empty()).then_some(self.loadout_groups),
+                leader_attachment: Some(self.leader_attachment),
             },
             self.enhancement_pts,
         )
     }
 
-    fn attach_enhancement(&mut self, raw_name: &str, pts: u64) {
+    fn attach_enhancement(&mut self, raw_name: &str, pts: Option<u64>) {
         self.enhancement_raw_name = Some(raw_name.trim().to_string());
         self.enhancement_pts = pts;
     }
@@ -242,51 +258,84 @@ fn parse_with_group(text: &str) -> (u64, &str) {
         (1, text)
     }
 }
-
-fn apply_with_group(unit: &mut UnitBuilder, list_text: &str) {
-    let (multiplier, list) = parse_with_group(list_text);
-    let tokens: Vec<&str> = split_wargear_list(list);
-    let cls = classify_wargear_list(&tokens);
+fn apply_with_group(
+    unit: &mut UnitBuilder,
+    list_text: &str,
+    default_multiplier: u64,
+) -> Vec<ParsedWargear> {
+    let (parsed_multiplier, list) = parse_with_group(list_text);
+    let multiplier = if RE_WITH_PREFIX.is_match(list_text) {
+        parsed_multiplier
+    } else {
+        default_multiplier
+    };
+    let tokens = split_wargear_list(list);
+    let mut normal_tokens = Vec::with_capacity(tokens.len());
+    for token in tokens {
+        let token = token.trim();
+        let keyword = token
+            .strip_prefix("40kdc Keyword:")
+            .or_else(|| token.strip_prefix("40kdc Keywords:"))
+            .map(str::trim);
+        if let Some(keyword) = keyword {
+            if !keyword.is_empty() && !unit.keyword_overrides.iter().any(|entry| entry == keyword) {
+                unit.keyword_overrides.push(keyword.to_string());
+            }
+        } else {
+            if token.ends_with(" Character")
+                && !unit
+                    .keyword_overrides
+                    .iter()
+                    .any(|entry| entry == "Character")
+            {
+                unit.keyword_overrides.push("Character".to_string());
+            }
+            normal_tokens.push(token);
+        }
+    }
+    let cls = classify_wargear_list(&normal_tokens);
     if cls.is_warlord {
         unit.is_warlord = true;
     }
     if cls.is_character {
         unit.is_character = true;
     }
-    let scaled: Vec<ParsedWargear> = cls
-        .wargear
-        .into_iter()
-        .map(|w| ParsedWargear {
-            raw_name: w.raw_name,
-            count: w.count * multiplier,
-        })
-        .collect();
-    unit.add_wargear(scaled);
+    let wargear = cls.wargear;
+    unit.add_wargear(
+        wargear
+            .iter()
+            .cloned()
+            .map(|mut item| {
+                item.count *= multiplier;
+                item
+            })
+            .collect(),
+    );
+    wargear
 }
 
-fn compute_total(units: &[ParsedUnit], enhancement_pts: &[u64]) -> u64 {
+fn compute_total(units: &[ParsedUnit], enhancement_pts: &[Option<u64>]) -> u64 {
     let mut total = 0u64;
     for (i, u) in units.iter().enumerate() {
         total += u.points.unwrap_or(0);
-        total += enhancement_pts.get(i).copied().unwrap_or(0);
+        total += enhancement_pts.get(i).copied().flatten().unwrap_or(0);
     }
     total
 }
 
 // --- compact body ----------------------------------------------------------
 
-fn parse_compact_body(body: &str) -> (Vec<ParsedUnit>, Vec<u64>) {
-    let mut units: Vec<ParsedUnit> = Vec::new();
-    let mut enhancement_pts: Vec<u64> = Vec::new();
+fn parse_compact_body(body: &str) -> (Vec<ParsedUnit>, Vec<Option<u64>>) {
+    let mut units = Vec::new();
+    let mut enhancement_pts = Vec::new();
     let mut current: Option<UnitBuilder> = None;
-
     let finalize = |current: &mut Option<UnitBuilder>,
                     units: &mut Vec<ParsedUnit>,
-                    enhancement_pts: &mut Vec<u64>| {
-        if let Some(b) = current.take() {
-            let (u, pts) = b.finish();
-            units.push(u);
-            enhancement_pts.push(pts);
+                    enhancement_pts: &mut Vec<Option<u64>>| {
+        if let Some(builder) = current.take() {
+            let (unit, points) = builder.finish();
+            units.push(unit);
+            enhancement_pts.push(points);
         }
     };
 
@@ -295,57 +344,97 @@ fn parse_compact_body(body: &str) -> (Vec<ParsedUnit>, Vec<u64>) {
         if line.is_empty() || line.starts_with('+') {
             continue;
         }
-
         if let Some(c) = RE_ENHANCEMENT_LINE.captures(line) {
-            if let Some(b) = current.as_mut() {
-                let pts: u64 = c[2].parse().unwrap_or(0);
-                b.attach_enhancement(&c[1], pts);
+            if let Some(builder) = current.as_mut() {
+                builder.attach_enhancement(&c[1], c.get(2).and_then(|m| m.as_str().parse().ok()));
                 finalize(&mut current, &mut units, &mut enhancement_pts);
             }
             continue;
         }
-
-        if let Some(c) = RE_UNIT_COMPACT.captures(line) {
-            finalize(&mut current, &mut units, &mut enhancement_pts);
-            let leading_count: u64 = c[1].parse().unwrap_or(1);
-            let name = c[2].trim().to_string();
-            let pts: u64 = c[3].parse().unwrap_or(0);
-            let is_character_prefix = RE_CHAR_PREFIX.is_match(line);
-            let mut builder = UnitBuilder::new(name, pts, leading_count, is_character_prefix);
-            apply_with_group(&mut builder, &c[4]);
-            current = Some(builder);
+        if let Some(c) = RE_ATTACHMENT_LINE.captures(line) {
+            if let Some(builder) = current.as_mut() {
+                builder.leader_attachment = Some(ParsedLeaderAttachment {
+                    role: if c[1].eq_ignore_ascii_case("leader") {
+                        AttachmentRole::Leader
+                    } else {
+                        AttachmentRole::Support
+                    },
+                    bodyguard_raw_name: c[2].to_string(),
+                    provisional: c.get(3).is_some(),
+                });
+            }
             continue;
         }
+        if let Some(c) = RE_MODEL_BREAKDOWN.captures(raw) {
+            if let Some(builder) = current.as_mut() {
+                let count = c[1].parse().unwrap_or(1);
+                let wargear = c
+                    .get(3)
+                    .map(|m| apply_with_group(builder, m.as_str(), count))
+                    .unwrap_or_default();
+                builder.loadout_groups.push(ParsedLoadoutGroup {
+                    model_name: Some(c[2].trim().to_string()),
+                    count,
+                    wargear,
+                });
+            }
+            continue;
+        }
+        if let Some(c) = RE_UNIT_COMPACT.captures(line) {
+            finalize(&mut current, &mut units, &mut enhancement_pts);
+            let mut builder = UnitBuilder::new(
+                c[2].trim().to_string(),
+                c[3].parse().unwrap_or(0),
+                c[1].parse().unwrap_or(1),
+                RE_CHAR_PREFIX.is_match(line),
+            );
+            apply_with_group(&mut builder, &c[4], 1);
+            current = Some(builder);
+        }
     }
-
     finalize(&mut current, &mut units, &mut enhancement_pts);
     (units, enhancement_pts)
 }
 
 // --- full body -------------------------------------------------------------
 
-fn parse_full_body(body: &str) -> (Vec<ParsedUnit>, Vec<u64>) {
-    let mut units: Vec<ParsedUnit> = Vec::new();
-    let mut enhancement_pts: Vec<u64> = Vec::new();
+fn parse_full_body(body: &str) -> (Vec<ParsedUnit>, Vec<Option<u64>>) {
+    let mut units = Vec::new();
+    let mut enhancement_pts = Vec::new();
     let mut current: Option<UnitBuilder> = None;
-    let mut breakdown_models: u64 = 0;
+    let mut breakdown_models = 0;
+    let mut pending: Option<(String, u64, u64)> = None;
 
-    fn finalize(
-        current: &mut Option<UnitBuilder>,
-        breakdown_models: &mut u64,
-        units: &mut Vec<ParsedUnit>,
-        enhancement_pts: &mut Vec<u64>,
-    ) {
-        if let Some(mut b) = current.take() {
-            if *breakdown_models > 0 {
-                b.model_count = *breakdown_models;
+    let flush_pending = |current: &mut Option<UnitBuilder>,
+                         pending: &mut Option<(String, u64, u64)>| {
+        if let Some((model_name, count, assigned)) = pending.take() {
+            if count > assigned {
+                if let Some(builder) = current.as_mut() {
+                    builder.loadout_groups.push(ParsedLoadoutGroup {
+                        model_name: Some(model_name),
+                        count: count - assigned,
+                        wargear: Vec::new(),
+                    });
+                }
             }
-            let (u, pts) = b.finish();
-            units.push(u);
-            enhancement_pts.push(pts);
+        }
+    };
+    let finalize = |current: &mut Option<UnitBuilder>,
+                    breakdown_models: &mut u64,
+                    pending: &mut Option<(String, u64, u64)>,
+                    units: &mut Vec<ParsedUnit>,
+                    enhancement_pts: &mut Vec<Option<u64>>| {
+        flush_pending(current, pending);
+        if let Some(mut builder) = current.take() {
+            if *breakdown_models > 0 {
+                builder.model_count = *breakdown_models;
+            }
+            let (unit, points) = builder.finish();
+            units.push(unit);
+            enhancement_pts.push(points);
             *breakdown_models = 0;
         }
-    }
+    };
 
     for raw in body.split('\n') {
         let line = raw.trim();
@@ -356,83 +445,110 @@ fn parse_full_body(body: &str) -> (Vec<ParsedUnit>, Vec<u64>) {
             finalize(
                 &mut current,
                 &mut breakdown_models,
+                &mut pending,
                 &mut units,
                 &mut enhancement_pts,
             );
             continue;
         }
-
         if let Some(c) = RE_ENHANCEMENT_LINE.captures(line) {
-            if let Some(b) = current.as_mut() {
-                let pts: u64 = c[2].parse().unwrap_or(0);
-                b.attach_enhancement(&c[1], pts);
+            if let Some(builder) = current.as_mut() {
+                builder.attach_enhancement(&c[1], c.get(2).and_then(|m| m.as_str().parse().ok()));
             }
             continue;
         }
-
+        if let Some(c) = RE_ATTACHMENT_LINE.captures(line) {
+            if let Some(builder) = current.as_mut() {
+                builder.leader_attachment = Some(ParsedLeaderAttachment {
+                    role: if c[1].eq_ignore_ascii_case("leader") {
+                        AttachmentRole::Leader
+                    } else {
+                        AttachmentRole::Support
+                    },
+                    bodyguard_raw_name: c[2].to_string(),
+                    provisional: c.get(3).is_some(),
+                });
+            }
+            continue;
+        }
         if let Some(c) = RE_UNIT_FULL.captures(line) {
             finalize(
                 &mut current,
                 &mut breakdown_models,
+                &mut pending,
                 &mut units,
                 &mut enhancement_pts,
             );
-            let leading_count: u64 = c[1].parse().unwrap_or(1);
-            let name = c[2].trim().to_string();
-            let pts: u64 = c[3].parse().unwrap_or(0);
-            let is_character_prefix = RE_CHAR_PREFIX.is_match(line);
             current = Some(UnitBuilder::new(
-                name,
-                pts,
-                leading_count,
-                is_character_prefix,
+                c[2].trim().to_string(),
+                c[3].parse().unwrap_or(0),
+                c[1].parse().unwrap_or(1),
+                RE_CHAR_PREFIX.is_match(line),
             ));
             continue;
         }
-
-        // Single-model units (characters, vehicles) appear compact-style even
-        // in full exports: `[CharN: ]Nx <Unit> (P pts): <wargear>` on one
-        // line. Without this branch they fall through every matcher and vanish.
         if let Some(c) = RE_UNIT_COMPACT.captures(line) {
             finalize(
                 &mut current,
                 &mut breakdown_models,
+                &mut pending,
                 &mut units,
                 &mut enhancement_pts,
             );
-            let leading_count: u64 = c[1].parse().unwrap_or(1);
-            let name = c[2].trim().to_string();
-            let pts: u64 = c[3].parse().unwrap_or(0);
-            let is_character_prefix = RE_CHAR_PREFIX.is_match(line);
-            let mut b = UnitBuilder::new(name, pts, leading_count, is_character_prefix);
-            apply_with_group(&mut b, &c[4]);
-            current = Some(b);
+            let mut builder = UnitBuilder::new(
+                c[2].trim().to_string(),
+                c[3].parse().unwrap_or(0),
+                c[1].parse().unwrap_or(1),
+                RE_CHAR_PREFIX.is_match(line),
+            );
+            apply_with_group(&mut builder, &c[4], 1);
+            current = Some(builder);
             continue;
         }
-
         if let Some(c) = RE_MODEL_BREAKDOWN.captures(raw) {
-            if let Some(b) = current.as_mut() {
-                breakdown_models += c[1].parse::<u64>().unwrap_or(0);
-                // Inline loadout after the model type; `N with` continuation
-                // lines for the same group still arrive separately below.
+            flush_pending(&mut current, &mut pending);
+            if let Some(builder) = current.as_mut() {
+                let count = c[1].parse().unwrap_or(0);
+                breakdown_models += count;
+                let model_name = c[2].trim().to_string();
+                pending = Some((model_name.clone(), count, 0));
                 if let Some(inline) = c.get(3) {
-                    apply_with_group(b, inline.as_str());
+                    let wargear = apply_with_group(builder, inline.as_str(), count);
+                    let (multiplier, _) = parse_with_group(inline.as_str());
+                    let group_count = if RE_WITH_PREFIX.is_match(inline.as_str()) {
+                        multiplier
+                    } else {
+                        count
+                    };
+                    builder.loadout_groups.push(ParsedLoadoutGroup {
+                        model_name: Some(model_name),
+                        count: group_count,
+                        wargear,
+                    });
+                    pending.as_mut().expect("set above").2 = group_count;
                 }
             }
             continue;
         }
-
         if RE_WITH_PREFIX.is_match(line) {
-            if let Some(b) = current.as_mut() {
-                apply_with_group(b, line);
+            if let Some(builder) = current.as_mut() {
+                let wargear = apply_with_group(builder, line, 1);
+                if let Some((model_name, _, assigned)) = pending.as_mut() {
+                    let (count, _) = parse_with_group(line);
+                    builder.loadout_groups.push(ParsedLoadoutGroup {
+                        model_name: Some(model_name.clone()),
+                        count,
+                        wargear,
+                    });
+                    *assigned += count;
+                }
             }
-            continue;
         }
     }
-
     finalize(
         &mut current,
         &mut breakdown_models,
+        &mut pending,
         &mut units,
         &mut enhancement_pts,
     );
@@ -442,11 +558,7 @@ fn parse_full_body(body: &str) -> (Vec<ParsedUnit>, Vec<u64>) {
 // --- adapters --------------------------------------------------------------
 
 fn detect_multi_force(text: &str, full: bool) -> bool {
-    if full {
-        RE_ALLIED_HEADER.is_match(text)
-    } else {
-        false
-    }
+    full && RE_ALLIED_HEADER.is_match(text)
 }
 
 fn is_wtc_text(decoded: &Value) -> Option<&str> {
@@ -462,11 +574,12 @@ fn is_full_format(text: &str) -> bool {
     RE_FULL_FORMAT_MARKER.is_match(text)
 }
 
-/// `•`-prefixed body lines. wtc-full uses them for per-model breakdowns; the GW
-/// app format uses them for every wargear entry. wtc-compact never emits them,
-/// so it's the one matcher that must exclude them to stay disjoint from GW.
-fn has_bullets(text: &str) -> bool {
-    RE_BULLET_LINE.is_match(text)
+fn is_serialized_full_format(text: &str) -> bool {
+    RE_SERIALIZED_FULL.is_match(text)
+}
+
+fn has_compact_unit(text: &str) -> bool {
+    RE_UNIT_COMPACT.is_match(text)
 }
 
 fn parse_with(text: &str, full: bool, format_id: &str) -> Result<ParsedRoster, ParseError> {
@@ -492,11 +605,9 @@ fn parse_with(text: &str, full: bool, format_id: &str) -> Result<ParsedRoster, P
         name: header.name,
         generated_by: None,
         faction_raw_name: header.faction_raw_name,
-        detachment_raw_names: header.detachment_raw_name.into_iter().collect(),
+        detachment_raw_names: header.detachment_raw_names,
         battle_size_raw: header.battle_size_raw,
         force_disposition: None,
-        // Explicit tri-state `Some(...)`: the WTC header disposition serializes
-        // as a value or an explicit `null`, matching the TS adapter.
         force_disposition_raw_name: Some(header.force_disposition_raw_name),
         declared_limit: header.declared_limit,
         total_reported: header.total_reported,
@@ -514,10 +625,10 @@ impl FormatAdapter for NewRecruitWtcCompactAdapter {
     }
 
     fn detect(&self, decoded: &Value) -> bool {
-        // wtc-compact has no `N with` lines (that's wtc-full) and no `•`
-        // bullets (that's the GW app format) — excluding both keeps it disjoint.
         match is_wtc_text(decoded) {
-            Some(t) => !is_full_format(t) && !has_bullets(t),
+            Some(text) => {
+                !is_full_format(text) && !is_serialized_full_format(text) && has_compact_unit(text)
+            }
             None => false,
         }
     }
@@ -538,7 +649,7 @@ impl FormatAdapter for NewRecruitWtcFullAdapter {
 
     fn detect(&self, decoded: &Value) -> bool {
         match is_wtc_text(decoded) {
-            Some(t) => is_full_format(t),
+            Some(text) => is_full_format(text) || is_serialized_full_format(text),
             None => false,
         }
     }

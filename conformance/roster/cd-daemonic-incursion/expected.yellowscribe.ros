@@ -169,7 +169,22 @@ Enemy units within 6" get -1 to their Objective Control characteristic.</charact
           <selections>
             <selection id="unit1-m0" name="Great Unclean One" type="model" number="1">
               <selections>
-                <selection id="unit1-m0-w0" name="Bileblade" type="upgrade" number="1">
+                <selection id="unit1-m0-w0" name="Putrid vomit" type="upgrade" number="1">
+                  <profiles>
+                    <profile name="Putrid vomit" typeName="Ranged Weapons">
+                      <characteristics>
+                        <characteristic name="Range">12"</characteristic>
+                        <characteristic name="A">D6+3</characteristic>
+                        <characteristic name="BS">N/A</characteristic>
+                        <characteristic name="S">5</characteristic>
+                        <characteristic name="AP">-2</characteristic>
+                        <characteristic name="D">1</characteristic>
+                        <characteristic name="Keywords">Ignores Cover, Torrent</characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+                <selection id="unit1-m0-w1" name="Bileblade" type="upgrade" number="1">
                   <profiles>
                     <profile name="Bileblade" typeName="Melee Weapons">
                       <characteristics>
@@ -184,7 +199,7 @@ Enemy units within 6" get -1 to their Objective Control characteristic.</charact
                     </profile>
                   </profiles>
                 </selection>
-                <selection id="unit1-m0-w1" name="Bilesword" type="upgrade" number="1">
+                <selection id="unit1-m0-w2" name="Bilesword" type="upgrade" number="1">
                   <profiles>
                     <profile name="Sweep" typeName="Melee Weapons">
                       <characteristics>
@@ -206,21 +221,6 @@ Enemy units within 6" get -1 to their Objective Control characteristic.</charact
                         <characteristic name="AP">-2</characteristic>
                         <characteristic name="D">D6+1</characteristic>
                         <characteristic name="Keywords">Lethal Hits</characteristic>
-                      </characteristics>
-                    </profile>
-                  </profiles>
-                </selection>
-                <selection id="unit1-m0-w2" name="Putrid vomit" type="upgrade" number="1">
-                  <profiles>
-                    <profile name="Putrid vomit" typeName="Ranged Weapons">
-                      <characteristics>
-                        <characteristic name="Range">12"</characteristic>
-                        <characteristic name="A">D6+3</characteristic>
-                        <characteristic name="BS">N/A</characteristic>
-                        <characteristic name="S">5</characteristic>
-                        <characteristic name="AP">-2</characteristic>
-                        <characteristic name="D">1</characteristic>
-                        <characteristic name="Keywords">Ignores Cover, Torrent</characteristic>
                       </characteristics>
                     </profile>
                   </profiles>

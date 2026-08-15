@@ -88,17 +88,13 @@ def candidate_affordability(spec: dict[str, Any], dataset: Dataset) -> list[dict
 
     override = spec.get("points_limit_override")
     limit = (
-        override
-        if override is not None
-        else points_limit_for_battle_size(spec.get("battle_size"))
+        override if override is not None else points_limit_for_battle_size(spec.get("battle_size"))
     )
     remaining = math.inf if limit is None else limit - spent
 
     candidate_ids = spec.get("candidate_unit_ids")
     if candidate_ids is None:
-        candidate_ids = (
-            [v.id for v in dataset.units.by_faction(faction_id)] if faction_id else []
-        )
+        candidate_ids = [v.id for v in dataset.units.by_faction(faction_id)] if faction_id else []
 
     out: list[dict[str, Any]] = []
     for unit_id in candidate_ids:

@@ -423,9 +423,9 @@
             <category name="Battle Sisters Squad"/>
           </categories>
           <selections>
-            <selection id="unit4-m0" name="Battle Sister" type="model" number="9">
+            <selection id="unit4-m0" name="Battle Sister" type="model" number="6">
               <selections>
-                <selection id="unit4-m0-w0" name="Bolt pistol" type="upgrade" number="9">
+                <selection id="unit4-m0-w0" name="Bolt pistol" type="upgrade" number="6">
                   <profiles>
                     <profile name="Bolt pistol" typeName="Ranged Weapons">
                       <characteristics>
@@ -440,7 +440,7 @@
                     </profile>
                   </profiles>
                 </selection>
-                <selection id="unit4-m0-w1" name="Boltgun" type="upgrade" number="9">
+                <selection id="unit4-m0-w1" name="Boltgun" type="upgrade" number="6">
                   <profiles>
                     <profile name="Boltgun" typeName="Ranged Weapons">
                       <characteristics>
@@ -455,7 +455,7 @@
                     </profile>
                   </profiles>
                 </selection>
-                <selection id="unit4-m0-w2" name="Close combat weapon" type="upgrade" number="9">
+                <selection id="unit4-m0-w2" name="Close combat weapon" type="upgrade" number="6">
                   <profiles>
                     <profile name="Close combat weapon" typeName="Melee Weapons">
                       <characteristics>
@@ -472,9 +472,9 @@
                 </selection>
               </selections>
             </selection>
-            <selection id="unit4-m1" name="Sister Superior" type="model" number="1">
+            <selection id="unit4-m1" name="Battle Sister" type="model" number="1">
               <selections>
-                <selection id="unit4-m1-w0" name="Bolt pistol" type="upgrade" number="1">
+                <selection id="unit4-m1-w1" name="Bolt pistol" type="upgrade" number="1">
                   <profiles>
                     <profile name="Bolt pistol" typeName="Ranged Weapons">
                       <characteristics>
@@ -489,7 +489,22 @@
                     </profile>
                   </profiles>
                 </selection>
-                <selection id="unit4-m1-w1" name="Close combat weapon" type="upgrade" number="1">
+                <selection id="unit4-m1-w2" name="Boltgun" type="upgrade" number="1">
+                  <profiles>
+                    <profile name="Boltgun" typeName="Ranged Weapons">
+                      <characteristics>
+                        <characteristic name="Range">24"</characteristic>
+                        <characteristic name="A">1</characteristic>
+                        <characteristic name="BS">3+</characteristic>
+                        <characteristic name="S">4</characteristic>
+                        <characteristic name="AP">0</characteristic>
+                        <characteristic name="D">1</characteristic>
+                        <characteristic name="Keywords">Rapid Fire 1</characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+                <selection id="unit4-m1-w3" name="Close combat weapon" type="upgrade" number="1">
                   <profiles>
                     <profile name="Close combat weapon" typeName="Melee Weapons">
                       <characteristics>
@@ -504,7 +519,139 @@
                     </profile>
                   </profiles>
                 </selection>
-                <selection id="unit4-m1-w2" name="Power weapon" type="upgrade" number="1">
+              </selections>
+            </selection>
+            <selection id="unit4-m2" name="Battle Sister" type="model" number="1">
+              <selections>
+                <selection id="unit4-m2-w0" name="Bolt pistol" type="upgrade" number="1">
+                  <profiles>
+                    <profile name="Bolt pistol" typeName="Ranged Weapons">
+                      <characteristics>
+                        <characteristic name="Range">12"</characteristic>
+                        <characteristic name="A">1</characteristic>
+                        <characteristic name="BS">3+</characteristic>
+                        <characteristic name="S">4</characteristic>
+                        <characteristic name="AP">0</characteristic>
+                        <characteristic name="D">1</characteristic>
+                        <characteristic name="Keywords">Pistol</characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+                <selection id="unit4-m2-w1" name="Close combat weapon" type="upgrade" number="1">
+                  <profiles>
+                    <profile name="Close combat weapon" typeName="Melee Weapons">
+                      <characteristics>
+                        <characteristic name="Range">Melee</characteristic>
+                        <characteristic name="A">1</characteristic>
+                        <characteristic name="WS">4+</characteristic>
+                        <characteristic name="S">3</characteristic>
+                        <characteristic name="AP">0</characteristic>
+                        <characteristic name="D">1</characteristic>
+                        <characteristic name="Keywords"></characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+                <selection id="unit4-m2-w2" name="Multi-melta" type="upgrade" number="1">
+                  <profiles>
+                    <profile name="Multi-melta" typeName="Ranged Weapons">
+                      <characteristics>
+                        <characteristic name="Range">18"</characteristic>
+                        <characteristic name="A">2</characteristic>
+                        <characteristic name="BS">4+</characteristic>
+                        <characteristic name="S">9</characteristic>
+                        <characteristic name="AP">-4</characteristic>
+                        <characteristic name="D">D6</characteristic>
+                        <characteristic name="Keywords">Heavy, Melta 2</characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+              </selections>
+            </selection>
+            <selection id="unit4-m3" name="Battle Sister" type="model" number="1">
+              <selections>
+                <selection id="unit4-m3-w0" name="Bolt pistol" type="upgrade" number="1">
+                  <profiles>
+                    <profile name="Bolt pistol" typeName="Ranged Weapons">
+                      <characteristics>
+                        <characteristic name="Range">12"</characteristic>
+                        <characteristic name="A">1</characteristic>
+                        <characteristic name="BS">3+</characteristic>
+                        <characteristic name="S">4</characteristic>
+                        <characteristic name="AP">0</characteristic>
+                        <characteristic name="D">1</characteristic>
+                        <characteristic name="Keywords">Pistol</characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+                <selection id="unit4-m3-w1" name="Close combat weapon" type="upgrade" number="1">
+                  <profiles>
+                    <profile name="Close combat weapon" typeName="Melee Weapons">
+                      <characteristics>
+                        <characteristic name="Range">Melee</characteristic>
+                        <characteristic name="A">1</characteristic>
+                        <characteristic name="WS">4+</characteristic>
+                        <characteristic name="S">3</characteristic>
+                        <characteristic name="AP">0</characteristic>
+                        <characteristic name="D">1</characteristic>
+                        <characteristic name="Keywords"></characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+                <selection id="unit4-m3-w2" name="Meltagun" type="upgrade" number="1">
+                  <profiles>
+                    <profile name="Meltagun" typeName="Ranged Weapons">
+                      <characteristics>
+                        <characteristic name="Range">12"</characteristic>
+                        <characteristic name="A">1</characteristic>
+                        <characteristic name="BS">3+</characteristic>
+                        <characteristic name="S">9</characteristic>
+                        <characteristic name="AP">-4</characteristic>
+                        <characteristic name="D">D6</characteristic>
+                        <characteristic name="Keywords">Melta 2</characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+              </selections>
+            </selection>
+            <selection id="unit4-m4" name="Sister Superior" type="model" number="1">
+              <selections>
+                <selection id="unit4-m4-w0" name="Bolt pistol" type="upgrade" number="1">
+                  <profiles>
+                    <profile name="Bolt pistol" typeName="Ranged Weapons">
+                      <characteristics>
+                        <characteristic name="Range">12"</characteristic>
+                        <characteristic name="A">1</characteristic>
+                        <characteristic name="BS">3+</characteristic>
+                        <characteristic name="S">4</characteristic>
+                        <characteristic name="AP">0</characteristic>
+                        <characteristic name="D">1</characteristic>
+                        <characteristic name="Keywords">Pistol</characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+                <selection id="unit4-m4-w1" name="Close combat weapon" type="upgrade" number="1">
+                  <profiles>
+                    <profile name="Close combat weapon" typeName="Melee Weapons">
+                      <characteristics>
+                        <characteristic name="Range">Melee</characteristic>
+                        <characteristic name="A">1</characteristic>
+                        <characteristic name="WS">4+</characteristic>
+                        <characteristic name="S">3</characteristic>
+                        <characteristic name="AP">0</characteristic>
+                        <characteristic name="D">1</characteristic>
+                        <characteristic name="Keywords"></characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+                <selection id="unit4-m4-w2" name="Power weapon" type="upgrade" number="1">
                   <profiles>
                     <profile name="Power weapon" typeName="Melee Weapons">
                       <characteristics>
@@ -519,7 +666,7 @@
                     </profile>
                   </profiles>
                 </selection>
-                <selection id="unit4-m1-w3" name="Boltgun" type="upgrade" number="1">
+                <selection id="unit4-m4-w3" name="Boltgun" type="upgrade" number="1">
                   <profiles>
                     <profile name="Boltgun" typeName="Ranged Weapons">
                       <characteristics>

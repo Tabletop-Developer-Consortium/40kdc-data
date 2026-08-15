@@ -1,5 +1,5 @@
 import { mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
-import { dirname, relative, resolve } from "node:path";
+import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { checkRoster, Dataset, resolveRosterUnit } from "./data/index.js";
@@ -8,13 +8,7 @@ import { normalizeName } from "./data/normalize.js";
 import { EXPORT_FORMATS, exportRoster } from "./export/index.js";
 import type { ExportFormat } from "./export/index.js";
 import { tryImportRoster } from "./import/index.js";
-import type {
-  ResolvedRef,
-  Roster,
-  RosterFormat,
-  RosterUnit,
-  Warning,
-} from "./import/types.js";
+import type { ResolvedRef, Roster, RosterFormat, RosterUnit } from "./import/types.js";
 
 export type FailureOwner =
   | "stale source snapshot"
@@ -35,14 +29,39 @@ export type GroupingOutcome =
 export interface AuditFailure {
   owner: FailureOwner;
   kind: string;
-  detail: string;
   format?: ExportFormat;
 }
 
 export interface UnresolvedRef {
   kind: "faction" | "detachment" | "unit" | "enhancement" | "wargear" | "bodyguard";
-  raw_name: string;
   unit_index?: number;
+}
+
+export interface AuditWarning {
+  code: string;
+}
+
+export interface AuditViolation {
+  code: string;
+  id: string;
+}
+
+export interface AuditArmyViolation extends AuditViolation {
+  unit_index: number | null;
+  severity: "error" | "warn";
+}
+
+export interface AuditUnitLegality {
+  unit_index: number;
+  unit_id: string;
+  violations: AuditViolation[];
+}
+
+export interface RoundtripDifference {
+  path: string;
+  kind: "value-mismatch" | "type-mismatch" | "array-length";
+  expected_count?: number;
+  actual_count?: number;
 }
 
 export interface RoundtripResult {
@@ -50,18 +69,18 @@ export interface RoundtripResult {
   importable: boolean;
   deterministic: boolean;
   selected_adapter: RosterFormat | null;
-  differences: string[];
-  error: string | null;
+  differences: RoundtripDifference[];
+  error: "import-failed" | "export-failed" | null;
 }
 
 export interface WtcAuditRow {
-  file: string;
+  ordinal: number;
   selected_adapter: RosterFormat | null;
   parse_error: string | null;
-  parse_warnings: Warning[];
+  parse_warnings: AuditWarning[];
   unresolved_refs: UnresolvedRef[];
-  army_legality: RosterLegality["army"];
-  unit_legality: RosterLegality["units"];
+  army_legality: AuditArmyViolation[];
+  unit_legality: AuditUnitLegality[];
   grouping: { unit_index: number; unit_id: string | null; outcome: GroupingOutcome }[];
   roundtrips: RoundtripResult[];
   failures: AuditFailure[];
@@ -69,7 +88,6 @@ export interface WtcAuditRow {
 
 export interface WtcAuditReport {
   generated_from: "tools/src/audit-wtc.ts";
-  corpus_root: string;
   summary: {
     files: number;
     parsed: number;
@@ -86,6 +104,7 @@ export interface WtcAuditReport {
   rows: WtcAuditRow[];
 }
 
+
 const IMPORTABLE_EXPORTS: Record<ExportFormat, boolean> = {
   "newrecruit-json": true,
   "newrecruit-wtc-compact": true,
@@ -101,7 +120,7 @@ const IMPORTABLE_EXPORTS: Record<ExportFormat, boolean> = {
 function textFiles(root: string): string[] {
   const out: string[] = [];
   const visit = (dir: string): void => {
-    for (const entry of readdirSync(dir, { withFileTypes: true })) {
+    for (const entry of readdirSync(dir, { withFileTypes: true }).sort((a, b) => a.name.localeCompare(b.name))) {
       const path = resolve(dir, entry.name);
       if (entry.isDirectory()) visit(path);
       else if (entry.isFile() && entry.name.endsWith(".txt")) out.push(path);
@@ -126,12 +145,12 @@ function classifyGrouping(unit: RosterUnit, roster: Roster, ds: Dataset): Groupi
 
 function unresolvedRef(kind: UnresolvedRef["kind"], ref: ResolvedRef, unitIndex?: number): UnresolvedRef[] {
   if (ref.id !== null) return [];
-  return [{ kind, raw_name: ref.raw_name, ...(unitIndex === undefined ? {} : { unit_index: unitIndex }) }];
+  return [{ kind, ...(unitIndex === undefined ? {} : { unit_index: unitIndex }) }];
 }
 
 function collectUnresolved(roster: Roster): UnresolvedRef[] {
   const out: UnresolvedRef[] = [];
-  if (roster.faction_id === null) out.push({ kind: "faction", raw_name: "(unresolved faction)" });
+  if (roster.faction_id === null) out.push({ kind: "faction" });
   for (const detachment of roster.detachments) out.push(...unresolvedRef("detachment", detachment.ref));
   roster.units.forEach((unit, unitIndex) => {
     out.push(...unresolvedRef("unit", unit.ref, unitIndex));
@@ -211,6 +230,7 @@ function semanticRoster(roster: Roster): unknown {
     faction_id: roster.faction_id,
     detachments: roster.detachments.map((d) => ({
       id: d.ref.id,
+      raw_name: d.ref.raw_name,
       dp_cost: d.dp_cost,
     })),
     battle_size: semanticBattleSize(roster),
@@ -252,15 +272,24 @@ function semanticRoster(roster: Roster): unknown {
   };
 }
 
-function diffValues(expected: unknown, actual: unknown, path = "$"): string[] {
+export function diffValues(
+  expected: unknown,
+  actual: unknown,
+  path = "$",
+): RoundtripDifference[] {
   if (Object.is(expected, actual)) return [];
   if (Array.isArray(expected) || Array.isArray(actual)) {
     if (!Array.isArray(expected) || !Array.isArray(actual)) {
-      return [`${path}: expected ${JSON.stringify(expected)}, got ${JSON.stringify(actual)}`];
+      return [{ path, kind: "type-mismatch" }];
     }
-    const out: string[] = [];
+    const out: RoundtripDifference[] = [];
     if (expected.length !== actual.length) {
-      out.push(`${path}.length: expected ${expected.length}, got ${actual.length}`);
+      out.push({
+        path: `${path}.length`,
+        kind: "array-length",
+        expected_count: expected.length,
+        actual_count: actual.length,
+      });
     }
     for (let i = 0; i < Math.min(expected.length, actual.length); i += 1) {
       out.push(...diffValues(expected[i], actual[i], `${path}[${i}]`));
@@ -273,7 +302,7 @@ function diffValues(expected: unknown, actual: unknown, path = "$"): string[] {
     const keys = [...new Set([...Object.keys(left), ...Object.keys(right)])].sort();
     return keys.flatMap((key) => diffValues(left[key], right[key], `${path}.${key}`));
   }
-  return [`${path}: expected ${JSON.stringify(expected)}, got ${JSON.stringify(actual)}`];
+  return [{ path, kind: "value-mismatch" }];
 }
 
 function auditRoundtrips(roster: Roster, ds: Dataset): RoundtripResult[] {
@@ -301,7 +330,7 @@ function auditRoundtrips(roster: Roster, ds: Dataset): RoundtripResult[] {
           deterministic,
           selected_adapter: null,
           differences: [],
-          error: `${imported.reason}: ${imported.message}`,
+          error: "import-failed",
         };
       }
       return {
@@ -312,50 +341,68 @@ function auditRoundtrips(roster: Roster, ds: Dataset): RoundtripResult[] {
         differences: diffValues(expected, semanticRoster(imported.roster)),
         error: null,
       };
-    } catch (error) {
+    } catch {
       return {
         format: id,
         importable,
         deterministic: false,
         selected_adapter: null,
         differences: [],
-        error: (error as Error).message,
+        error: "export-failed",
       };
     }
   });
 }
 
-function ownerForWarning(warning: Warning): FailureOwner {
+function ownerForWarning(warning: { code: string }): FailureOwner {
   if (warning.code === "loadout-illegal") return "legality/loadout algorithm";
   return "source-format parsing/resolution";
 }
 
-function rowForFile(file: string, corpusRoot: string, ds: Dataset): WtcAuditRow {
+function sanitizeLegality(legality: RosterLegality): Pick<WtcAuditRow, "army_legality" | "unit_legality"> {
+  return {
+    army_legality: legality.army.map((violation) => ({
+      code: violation.code,
+      id: violation.id,
+      unit_index: violation.unitIndex,
+      severity: violation.severity,
+    })),
+    unit_legality: legality.units.map((unit) => ({
+      unit_index: unit.unitIndex,
+      unit_id: unit.unitId,
+      violations: unit.violations.map((violation) => ({
+        code: violation.code,
+        id: violation.id,
+      })),
+    })),
+  };
+}
+
+function rowForFile(file: string, ordinal: number, ds: Dataset): WtcAuditRow {
   const text = readFileSync(file, "utf8");
   const imported = tryImportRoster(text, { dataset: ds });
   const base = {
-    file: relative(corpusRoot, file),
-    parse_warnings: [] as Warning[],
+    ordinal,
+    parse_warnings: [] as AuditWarning[],
     unresolved_refs: [] as UnresolvedRef[],
-    army_legality: [] as RosterLegality["army"],
-    unit_legality: [] as RosterLegality["units"],
+    army_legality: [] as AuditArmyViolation[],
+    unit_legality: [] as AuditUnitLegality[],
     grouping: [] as WtcAuditRow["grouping"],
     roundtrips: [] as RoundtripResult[],
     failures: [] as AuditFailure[],
   };
   if (!imported.ok) {
-    const detail = `${imported.reason}: ${imported.message}`;
     return {
       ...base,
       selected_adapter: null,
-      parse_error: detail,
-      failures: [{ owner: "source-format parsing/resolution", kind: "parse", detail }],
+      parse_error: imported.reason,
+      failures: [{ owner: "source-format parsing/resolution", kind: `parse:${imported.reason}` }],
     };
   }
 
   const roster = imported.roster;
   const unresolved = collectUnresolved(roster);
-  const legality = checkRoster(roster, ds);
+  const legality = sanitizeLegality(checkRoster(roster, ds));
   const grouping = roster.units.map((unit, unitIndex) => ({
     unit_index: unitIndex,
     unit_id: unit.ref.id,
@@ -369,29 +416,25 @@ function rowForFile(file: string, corpusRoot: string, ds: Dataset): WtcAuditRow 
     failures.push({
       owner: ownerForWarning(warning),
       kind: `warning:${warning.code}`,
-      detail: warning.message,
     });
   }
   for (const ref of unresolved) {
     failures.push({
       owner: "source-format parsing/resolution",
       kind: `unresolved:${ref.kind}`,
-      detail: `${ref.raw_name}${ref.unit_index === undefined ? "" : ` at unit ${ref.unit_index}`}`,
     });
   }
-  for (const violation of legality.army.filter((v) => v.severity === "error")) {
+  for (const violation of legality.army_legality.filter((v) => v.severity === "error")) {
     failures.push({
       owner: "legality/loadout algorithm",
       kind: `army:${violation.code}`,
-      detail: violation.message,
     });
   }
-  for (const unit of legality.units) {
+  for (const unit of legality.unit_legality) {
     for (const violation of unit.violations) {
       failures.push({
         owner: "legality/loadout algorithm",
         kind: `unit:${violation.code}`,
-        detail: `${unit.unitId}: ${violation.message}`,
       });
     }
   }
@@ -399,7 +442,6 @@ function rowForFile(file: string, corpusRoot: string, ds: Dataset): WtcAuditRow 
     failures.push({
       owner: "legality/loadout algorithm",
       kind: "solver-null",
-      detail: `unit ${group.unit_index} (${group.unit_id ?? "unresolved"})`,
     });
   }
   for (const result of roundtrips) {
@@ -407,7 +449,6 @@ function rowForFile(file: string, corpusRoot: string, ds: Dataset): WtcAuditRow 
       failures.push({
         owner: "serialization loss",
         kind: "nondeterministic-export",
-        detail: result.error ?? "successive serializations differ",
         format: result.format,
       });
     }
@@ -415,7 +456,6 @@ function rowForFile(file: string, corpusRoot: string, ds: Dataset): WtcAuditRow 
       failures.push({
         owner: "serialization loss",
         kind: "roundtrip-import",
-        detail: result.error,
         format: result.format,
       });
     }
@@ -423,7 +463,6 @@ function rowForFile(file: string, corpusRoot: string, ds: Dataset): WtcAuditRow 
       failures.push({
         owner: "serialization loss",
         kind: "roundtrip-semantic-difference",
-        detail: result.differences.join("; "),
         format: result.format,
       });
     }
@@ -433,10 +472,9 @@ function rowForFile(file: string, corpusRoot: string, ds: Dataset): WtcAuditRow 
     ...base,
     selected_adapter: imported.format,
     parse_error: null,
-    parse_warnings: roster.diagnostics.warnings,
+    parse_warnings: roster.diagnostics.warnings.map((warning) => ({ code: warning.code })),
     unresolved_refs: unresolved,
-    army_legality: legality.army,
-    unit_legality: legality.units,
+    ...legality,
     grouping,
     roundtrips,
     failures,
@@ -445,14 +483,12 @@ function rowForFile(file: string, corpusRoot: string, ds: Dataset): WtcAuditRow 
 
 export function auditWtcCorpus(corpusRoot: string): WtcAuditReport {
   const root = resolve(corpusRoot);
-  const listRoot = resolve(root, "lists");
-  const files = textFiles(listRoot);
+  const files = textFiles(resolve(root, "lists"));
   const ds = Dataset.embedded();
-  const rows = files.map((file) => rowForFile(file, root, ds));
+  const rows = files.map((file, ordinal) => rowForFile(file, ordinal, ds));
   const parsedRows = rows.filter((row) => row.parse_error === null);
   return {
     generated_from: "tools/src/audit-wtc.ts",
-    corpus_root: root,
     summary: {
       files: rows.length,
       parsed: parsedRows.length,

@@ -12,7 +12,10 @@ from typing import Any
 
 import pytest
 
+from wh40kdc.data.bundle import empty_raw_data
+from wh40kdc.data.dataset import Dataset
 from wh40kdc.data.loadout import check_unit_legality
+from wh40kdc.data.roster import validate_roster_core
 
 from ..conftest import load_corpus_json
 
@@ -52,3 +55,91 @@ def run_case(ds: Any, args: dict[str, Any]) -> list[str]:
 @pytest.mark.parametrize("case", _cases(), ids=lambda c: c["name"])
 def test_roster_legality_case(dataset: Any, case: dict[str, Any]) -> None:
     assert run_case(dataset, case["args"]) == case["expected"]
+
+
+def test_conditional_and_name_keywords_satisfy_enhancement_eligibility() -> None:
+    raw = empty_raw_data()
+    raw["factions"] = [{"id": "fabricated", "name": "Fabricated", "keywords": []}]
+    raw["detachments"] = [
+        {"id": "fabricated-detachment", "name": "Formation", "faction_id": "fabricated"}
+    ]
+    raw["units"] = [
+        {
+            "id": "named-bearer",
+            "name": "Named Bearer",
+            "faction_id": "fabricated",
+            "role": "character",
+            "conditional_keywords": [
+                {"keyword": "Granted", "required_detachment_id": "fabricated-detachment"}
+            ],
+        }
+    ]
+    raw["enhancements"] = [
+        {
+            "id": "named-relic",
+            "name": "Named Relic",
+            "detachment_id": "fabricated-detachment",
+            "keyword_restriction_groups": [["Granted"], ["Named Bearer"]],
+        }
+    ]
+    result = validate_roster_core(
+        {
+            "faction_id": "fabricated",
+            "detachment_ids": ["fabricated-detachment"],
+            "units": [
+                {
+                    "unit_id": "named-bearer",
+                    "model_count": 1,
+                    "is_warlord": True,
+                    "enhancement_id": "named-relic",
+                    "counts": {},
+                }
+            ],
+        },
+        Dataset(raw),
+    )
+    assert "enhancement-keyword-mismatch" not in [v["code"] for v in result["army"]]
+
+
+def test_enhancement_grants_an_additional_legal_bodyguard() -> None:
+    raw = empty_raw_data()
+    raw["factions"] = [{"id": "fabricated", "name": "Fabricated", "keywords": []}]
+    raw["detachments"] = [
+        {"id": "fabricated-detachment", "name": "Formation", "faction_id": "fabricated"}
+    ]
+    raw["units"] = [
+        {"id": "leader", "name": "Leader", "faction_id": "fabricated", "role": "character"},
+        {"id": "granted-bodyguard", "name": "Granted Bodyguard", "faction_id": "fabricated"},
+    ]
+    raw["enhancements"] = [
+        {
+            "id": "attachment-relic",
+            "name": "Attachment Relic",
+            "detachment_id": "fabricated-detachment",
+            "attachment_bodyguard_ids": ["granted-bodyguard"],
+        }
+    ]
+    result = validate_roster_core(
+        {
+            "faction_id": "fabricated",
+            "detachment_ids": ["fabricated-detachment"],
+            "units": [
+                {
+                    "unit_id": "leader",
+                    "model_count": 1,
+                    "is_warlord": True,
+                    "enhancement_id": "attachment-relic",
+                    "leader_bodyguard_id": "granted-bodyguard",
+                    "counts": {},
+                },
+                {
+                    "unit_id": "granted-bodyguard",
+                    "model_count": 1,
+                    "is_warlord": False,
+                    "counts": {},
+                },
+            ],
+        },
+        Dataset(raw),
+    )
+    assert "leader-attachment-illegal" not in [v["code"] for v in result["army"]]

@@ -34,8 +34,8 @@ use serde_json::Value;
 
 use super::adapter::{FormatAdapter, ParseError};
 use super::types::{
-    BattleSize, ParsedLeaderAttachment, ParsedRoster, ParsedUnit, ParsedWargear, Roster,
-    RosterFormat,
+    BattleSize, ParsedLeaderAttachment, ParsedLoadoutGroup, ParsedRoster, ParsedUnit,
+    ParsedWargear, Roster, RosterFormat,
 };
 
 pub struct RosterJsonAdapter;
@@ -84,6 +84,8 @@ fn lower(roster: &Roster) -> ParsedRoster {
             raw_name: u.ref_.raw_name.clone(),
             // Keeps the inference gate for units without an explicit attachment.
             is_character: u.leader_attachment.is_some(),
+            keyword_overrides: (!u.keyword_overrides.is_empty())
+                .then(|| u.keyword_overrides.clone()),
             model_count: u.model_count,
             points: u.points,
             is_warlord: u.is_warlord,
@@ -97,6 +99,23 @@ fn lower(roster: &Roster) -> ParsedRoster {
                     count: w.count,
                 })
                 .collect(),
+            loadout_groups: u.loadout_groups.as_ref().map(|groups| {
+                groups
+                    .iter()
+                    .map(|group| ParsedLoadoutGroup {
+                        model_name: group.model_name.clone(),
+                        count: group.count,
+                        wargear: group
+                            .wargear
+                            .iter()
+                            .map(|w| ParsedWargear {
+                                raw_name: w.ref_.raw_name.clone(),
+                                count: w.count,
+                            })
+                            .collect(),
+                    })
+                    .collect()
+            }),
             // Carry an explicit attachment verbatim so resolve reconstructs it
             // exactly (lossless round-trip) rather than re-inferring — which
             // would drop a leader-role attachment entirely. See module docs.

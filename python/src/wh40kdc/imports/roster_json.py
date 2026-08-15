@@ -59,8 +59,7 @@ def _lower_unit(u: dict[str, Any]) -> dict[str, Any]:
     la = u.get("leader_attachment")
     parsed: dict[str, Any] = {
         "raw_name": u["ref"]["raw_name"],
-        # Keeps the inference gate for units without an explicit attachment.
-        "is_character": la is not None,
+        "is_character": la is not None or "Character" in (u.get("keyword_overrides") or []),
         "model_count": u["model_count"],
         "points": u["points"],
         "is_warlord": u["is_warlord"],
@@ -68,6 +67,20 @@ def _lower_unit(u: dict[str, Any]) -> dict[str, Any]:
         "enhancement_points": u["enhancement_points"],
         "wargear": [{"raw_name": w["ref"]["raw_name"], "count": w["count"]} for w in u["wargear"]],
     }
+    if u.get("keyword_overrides"):
+        parsed["keyword_overrides"] = u["keyword_overrides"]
+    if u.get("loadout_groups"):
+        parsed["loadout_groups"] = [
+            {
+                "model_name": group.get("model_name"),
+                "count": group["count"],
+                "wargear": [
+                    {"raw_name": item["ref"]["raw_name"], "count": item["count"]}
+                    for item in group["wargear"]
+                ],
+            }
+            for group in u["loadout_groups"]
+        ]
     # Carry an explicit attachment verbatim (key elided when absent, matching
     # every other adapter, which never sets it).
     if la is not None:

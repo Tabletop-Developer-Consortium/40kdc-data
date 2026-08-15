@@ -33,6 +33,19 @@ func nrUnitSelection(idx int, u map[string]any, faction *omap) *omap {
 	if u["is_warlord"] == true {
 		inner = append(inner, newOmap().set("id", "u"+itoa(idx)+"-warlord").set("name", "Warlord").set("type", "upgrade").set("number", float64(1)))
 	}
+	if attachment, ok := u["leader_attachment"].(map[string]any); ok {
+		provisional := "confirmed"
+		if attachment["provisional"] == true {
+			provisional = "provisional"
+		}
+		bodyguard, _ := attachment["bodyguard_ref"].(map[string]any)
+		inner = append(inner, newOmap().
+			set("id", "u"+itoa(idx)+"-attachment").
+			set("name", getStr(bodyguard, "raw_name")).
+			set("type", "upgrade").
+			set("number", float64(1)).
+			set("group", "40kdc Attachment:"+getStr(attachment, "role")+":"+provisional))
+	}
 	if enh, ok := u["enhancement"].(map[string]any); ok {
 		eo := newOmap().set("id", "u"+itoa(idx)+"-enh").set("name", enh["raw_name"]).set("type", "upgrade").set("number", float64(1)).set("group", "Enhancements")
 		if u["enhancement_points"] != nil {
@@ -44,11 +57,37 @@ func nrUnitSelection(idx int, u map[string]any, faction *omap) *omap {
 	for wi, wAny := range unitWargear(u) {
 		wargearSels = append(wargearSels, nrWargearSelection(wi, wAny.(map[string]any)))
 	}
+	modelSelections := []any{}
+	if groups := getList(u, "loadout_groups"); len(groups) > 0 {
+		for gi, gAny := range groups {
+			g := gAny.(map[string]any)
+			selections := []any{}
+			for wi, wAny := range getList(g, "wargear") {
+				w := wAny.(map[string]any)
+				copy := make(map[string]any, len(w)+1)
+				for k, v := range w {
+					copy[k] = v
+				}
+				copy["count"] = asInt(w["count"]) * asInt(g["count"])
+				selections = append(selections, nrWargearSelection(wi, copy))
+			}
+			name := getStr(g, "model_name")
+			if name == "" {
+				name = getStr(refOf(u), "raw_name")
+			}
+			modelSelections = append(modelSelections, newOmap().set("id", "u"+itoa(idx)+"-model-"+itoa(gi)).set("name", name).set("type", "model").set("number", g["count"]).set("selections", selections))
+		}
+	} else {
+		modelSelections = append(modelSelections, newOmap().set("id", "u"+itoa(idx)+"-model").set("name", refRawName(u)).set("type", "model").set("number", u["model_count"]).set("selections", wargearSels))
+	}
 	ownCategories := []any{}
 	if faction != nil {
-		ownCategories = []any{faction}
+		ownCategories = append(ownCategories, faction)
 	}
-	if asInt(u["model_count"]) <= 1 {
+	for ki, keyword := range getList(u, "keyword_overrides") {
+		ownCategories = append(ownCategories, newOmap().set("id", "40kdc-keyword-"+itoa(ki)).set("name", keyword).set("primary", false))
+	}
+	if asInt(u["model_count"]) <= 1 && len(getList(u, "loadout_groups")) == 0 {
 		sel := newOmap().set("id", "u-"+itoa(idx)).set("name", refRawName(u)).set("type", "model").set("number", float64(1)).set("categories", ownCategories)
 		if u["points"] != nil {
 			sel.set("costs", []any{newOmap().set("name", "pts").set("typeId", ptsTypeID).set("value", u["points"])})
@@ -60,8 +99,7 @@ func nrUnitSelection(idx int, u map[string]any, faction *omap) *omap {
 	if u["points"] != nil {
 		sel.set("costs", []any{newOmap().set("name", "pts").set("typeId", ptsTypeID).set("value", u["points"])})
 	}
-	model := newOmap().set("id", "u"+itoa(idx)+"-model").set("name", refRawName(u)).set("type", "model").set("number", u["model_count"]).set("selections", wargearSels)
-	sel.set("selections", append(append([]any{}, inner...), model))
+	sel.set("selections", append(inner, modelSelections...))
 	return sel
 }
 
@@ -82,11 +120,10 @@ func serializeNewrecruitJSON(roster map[string]any) string {
 	}
 	for _, dAny := range getList(roster, "detachments") {
 		d := dAny.(map[string]any)
-		display := titleCaseIDOr(refOf(d)["id"], "")
-		if display == "" {
-			display = getStr(refOf(d), "raw_name")
-		}
-		config = append(config, nrConfigSelection("Detachment", display, "detachment"))
+		config = append(config, nrConfigSelection("Detachment", getStr(refOf(d), "raw_name"), "detachment"))
+	}
+	if disposition, ok := roster["force_disposition"].(string); ok && disposition != "" {
+		config = append(config, nrConfigSelection("Force Disposition", titleCaseIDOr(disposition, ""), "force-disposition"))
 	}
 	selections := append([]any{}, config...)
 	for i, uAny := range getList(roster, "units") {
@@ -110,6 +147,31 @@ func serializeNewrecruitJSON(roster map[string]any) string {
 
 const wtcFence = "+++++++++++++++++++++++++++++++++++++++++++++++"
 
+func keywordTokens(unit map[string]any) []string {
+	tokens := []string{}
+	for _, keyword := range getList(unit, "keyword_overrides") {
+		name, _ := keyword.(string)
+		if name == "Character" {
+			tokens = append(tokens, "Detachment Character")
+		} else {
+			tokens = append(tokens, "40kdc Keyword: "+name)
+		}
+	}
+	return tokens
+}
+func attachmentToken(u map[string]any) string {
+	attachment, ok := u["leader_attachment"].(map[string]any)
+	if !ok {
+		return ""
+	}
+	provisional := ""
+	if attachment["provisional"] == true {
+		provisional = " [provisional]"
+	}
+	bodyguard, _ := attachment["bodyguard_ref"].(map[string]any)
+	return "Attachment: " + getStr(attachment, "role") + " -> " + getStr(bodyguard, "raw_name") + provisional
+}
+
 func wtcWargearListText(unit map[string]any, includeWarlordTag bool) string {
 	var parts []string
 	for _, wAny := range unitWargear(unit) {
@@ -124,24 +186,18 @@ func wtcWargearListText(unit map[string]any, includeWarlordTag bool) string {
 	if includeWarlordTag && unit["is_warlord"] == true {
 		parts = append(parts, "Warlord")
 	}
-	return strings.Join(parts, ", ")
+	return strings.Join(append(parts, keywordTokens(unit)...), ", ")
 }
 
 func wtcHeaderText(roster map[string]any, units []any, slots []int) string {
 	faction := titleCaseIDOr(roster["faction_id"], "Unknown")
 	detachments := getList(roster, "detachments")
-	detachment := "—"
+	detachmentLines := []string{"+ DETACHMENT: —"}
 	if len(detachments) > 0 {
-		var ds []string
+		detachmentLines = nil
 		for _, dAny := range detachments {
-			d := dAny.(map[string]any)
-			disp := titleCaseIDOr(refOf(d)["id"], "")
-			if disp == "" {
-				disp = getStr(refOf(d), "raw_name")
-			}
-			ds = append(ds, disp)
+			detachmentLines = append(detachmentLines, "+ DETACHMENT: "+getStr(refOf(dAny.(map[string]any)), "raw_name"))
 		}
-		detachment = strings.Join(ds, ", ")
 	}
 	pts, _ := roster["points"].(map[string]any)
 	limit := pts["declared_limit"]
@@ -172,8 +228,8 @@ func wtcHeaderText(roster map[string]any, units []any, slots []int) string {
 		wtcFence,
 		"+ LIST NAME: " + getStr(roster, "name"),
 		"+ FACTION KEYWORD: " + faction,
-		"+ DETACHMENT: " + detachment,
 	}
+	lines = append(lines, detachmentLines...)
 	if disp, ok := roster["force_disposition"].(string); ok && disp != "" {
 		lines = append(lines, "+ FORCE DISPOSITION: "+titleCaseIDOr(disp, ""))
 	}
@@ -197,6 +253,38 @@ func wtcEnhancementLine(u map[string]any) string {
 	return "Enhancement: " + getStr(enh, "raw_name") + " (+" + numStr(u["enhancement_points"]) + " pts)"
 }
 
+func exactGroupLines(u map[string]any) []string {
+	groups := getList(u, "loadout_groups")
+	if len(groups) == 0 {
+		return nil
+	}
+	for _, gAny := range groups {
+		if _, ok := gAny.(map[string]any)["model_name"].(string); !ok {
+			return nil
+		}
+	}
+	lines := make([]string, 0, len(groups))
+	for i, gAny := range groups {
+		g := gAny.(map[string]any)
+		contents := groupWeaponsText(getList(g, "wargear"))
+		tags := []string{}
+		if u["is_warlord"] == true && i == 0 {
+			tags = append(tags, "Warlord")
+		}
+		if i == 0 {
+			tags = append(tags, keywordTokens(u)...)
+		}
+		if len(tags) > 0 {
+			if contents != "" {
+				contents += ", "
+			}
+			contents += strings.Join(tags, ", ")
+		}
+		lines = append(lines, "• "+itoa(asInt(g["count"]))+"x "+getStr(g, "model_name")+": "+contents)
+	}
+	return lines
+}
+
 // wtcCompactBodyLines is the compact body — one line per unit, wargear inline —
 // that follows the summary header. Returned as the lines after the header (the
 // leading "" separator included) so any header variant (WTC or ATC 2026) can
@@ -213,7 +301,18 @@ func wtcCompactBodyLines(units []any, slots []int) []string {
 		if pts := displayedUnitPoints(u); pts != nil {
 			ptsText = numStr(pts) + " pts"
 		}
-		lines = append(lines, prefix+numStr(u["model_count"])+"x "+getStr(refOf(u), "raw_name")+" ("+ptsText+"): "+wtcWargearListText(u, true))
+		exact := exactGroupLines(u)
+		wargear := wtcWargearListText(u, true)
+		if exact != nil {
+			wargear = ""
+		}
+		lines = append(lines, prefix+numStr(u["model_count"])+"x "+getStr(refOf(u), "raw_name")+" ("+ptsText+"): "+wargear)
+		if exact != nil {
+			lines = append(lines, exact...)
+		}
+		if attachment := attachmentToken(u); attachment != "" {
+			lines = append(lines, attachment)
+		}
 		if _, ok := u["enhancement"].(map[string]any); ok {
 			lines = append(lines, wtcEnhancementLine(u))
 		}
@@ -252,30 +351,24 @@ func multiModelWithLine(u map[string]any) string {
 		if u["is_warlord"] == true {
 			perModel = append(perModel, "Warlord")
 		}
+		perModel = append(perModel, keywordTokens(u)...)
 		return itoa(modelCount) + " with " + strings.Join(perModel, ", ")
 	}
 	return "1 with " + wtcWargearListText(u, true)
 }
 
-// groupWeaponsText renders a loadout group's per-model weapons, sorted by display
-// name, with Nx for counts >1. Mirror of the TS groupWeaponsText.
+// groupWeaponsText renders a loadout group's per-model weapons in source order,
+// with Nx for counts >1. Mirror of the TS groupWeaponsText.
 func groupWeaponsText(wargear []any) string {
-	type wn struct {
-		name  string
-		count int
-	}
-	items := make([]wn, 0, len(wargear))
+	parts := make([]string, 0, len(wargear))
 	for _, wAny := range wargear {
 		w := wAny.(map[string]any)
-		items = append(items, wn{getStr(refOf(w), "raw_name"), asInt(w["count"])})
-	}
-	sort.Slice(items, func(i, j int) bool { return items[i].name < items[j].name })
-	parts := make([]string, 0, len(items))
-	for _, it := range items {
-		if it.count > 1 {
-			parts = append(parts, itoa(it.count)+"x "+it.name)
+		count := asInt(w["count"])
+		name := getStr(refOf(w), "raw_name")
+		if count > 1 {
+			parts = append(parts, itoa(count)+"x "+name)
 		} else {
-			parts = append(parts, it.name)
+			parts = append(parts, name)
 		}
 	}
 	return strings.Join(parts, ", ")
@@ -321,16 +414,26 @@ func coarsenedLoadoutGroups(u map[string]any) []map[string]any {
 // per-model loadout) emits one line per loadout; everything else keeps the
 // existing single-line form. Mirror of the TS wtcModelLines.
 func wtcModelLines(u map[string]any) []string {
+	if exact := exactGroupLines(u); exact != nil {
+		return exact
+	}
 	if asInt(u["model_count"]) > 1 {
 		coarse := coarsenedLoadoutGroups(u)
 		if len(coarse) > 1 {
 			lines := make([]string, 0, len(coarse))
 			for i, c := range coarse {
-				tag := ""
+				tags := []string{}
 				if u["is_warlord"] == true && i == 0 {
-					tag = ", Warlord"
+					tags = append(tags, "Warlord")
 				}
-				lines = append(lines, itoa(asInt(c["count"]))+" with "+groupWeaponsText(c["wargear"].([]any))+tag)
+				if i == 0 {
+					tags = append(tags, keywordTokens(u)...)
+				}
+				line := itoa(asInt(c["count"])) + " with " + groupWeaponsText(c["wargear"].([]any))
+				if len(tags) > 0 {
+					line += ", " + strings.Join(tags, ", ")
+				}
+				lines = append(lines, line)
 			}
 			return lines
 		}
@@ -357,6 +460,9 @@ func fullBodyLines(units []any, slots []int, modelLines func(map[string]any) []s
 		}
 		lines = append(lines, prefix+numStr(u["model_count"])+"x "+getStr(refOf(u), "raw_name")+" ("+ptsText+")")
 		lines = append(lines, modelLines(u)...)
+		if attachment := attachmentToken(u); attachment != "" {
+			lines = append(lines, attachment)
+		}
 		if _, ok := u["enhancement"].(map[string]any); ok {
 			lines = append(lines, wtcEnhancementLine(u))
 		}
@@ -365,19 +471,12 @@ func fullBodyLines(units []any, slots []int, modelLines func(map[string]any) []s
 	return lines
 }
 
-// wtcFullBodyLines is the full WTC body: fullBodyLines with WTC per-model rendering.
-func wtcFullBodyLines(units []any, slots []int) []string {
-	return fullBodyLines(units, slots, wtcModelLines)
-}
-
 func serializeWtcFull(roster map[string]any) string {
 	units := getList(roster, "units")
 	slots := charSlotAssignment(units)
-	lines := append([]string{wtcHeaderText(roster, units, slots)}, wtcFullBodyLines(units, slots)...)
+	lines := append([]string{wtcHeaderText(roster, units, slots)}, fullBodyLines(units, slots, wtcModelLines)...)
 	return strings.Join(lines, "\n")
 }
-
-// --- ATC 2026 (export-only: ATC header + reused WTC body) ---
 
 const atcDash = "—"
 
@@ -542,23 +641,31 @@ func serializeAtc2026Full(roster map[string]any) string {
 
 // --- newrecruit-simple ---
 
-func simpleWargearText(u map[string]any, perModelDivisor int) string {
+func simpleLeadTokens(u map[string]any) []string {
 	var parts []string
+	if attachment := attachmentToken(u); attachment != "" {
+		parts = append(parts, attachment)
+	}
 	if enh, ok := u["enhancement"].(map[string]any); ok {
-		ptsTag := ""
-		if u["enhancement_points"] != nil {
-			ptsTag = " [" + numStr(u["enhancement_points"]) + " pts]"
+		if u["enhancement_points"] == nil {
+			parts = append(parts, "Enhancement: "+getStr(enh, "raw_name"))
+		} else {
+			parts = append(parts, getStr(enh, "raw_name")+" ["+numStr(u["enhancement_points"])+" pts]")
 		}
-		parts = append(parts, getStr(enh, "raw_name")+ptsTag)
 	}
 	if u["is_warlord"] == true {
 		parts = append(parts, "Warlord")
 	}
+	return append(parts, keywordTokens(u)...)
+}
+
+func simpleWargearText(u map[string]any, perModelDivisor int) string {
+	parts := simpleLeadTokens(u)
 	for _, wAny := range unitWargear(u) {
 		w := wAny.(map[string]any)
 		c := asInt(w["count"])
 		if perModelDivisor > 0 {
-			c = asInt(w["count"]) / perModelDivisor
+			c /= perModelDivisor
 		}
 		raw := getStr(refOf(w), "raw_name")
 		if c > 1 {
@@ -569,45 +676,25 @@ func simpleWargearText(u map[string]any, perModelDivisor int) string {
 	}
 	return strings.Join(parts, ", ")
 }
-
-// simpleLeadTokens are the unit-level tokens leading the first wargear line:
-// the enhancement then "Warlord".
-func simpleLeadTokens(u map[string]any) []string {
-	var parts []string
-	if enh, ok := u["enhancement"].(map[string]any); ok {
-		ptsTag := ""
-		if u["enhancement_points"] != nil {
-			ptsTag = " [" + numStr(u["enhancement_points"]) + " pts]"
-		}
-		parts = append(parts, getStr(enh, "raw_name")+ptsTag)
-	}
-	if u["is_warlord"] == true {
-		parts = append(parts, "Warlord")
-	}
-	return parts
-}
-
 func simpleUnitText(u map[string]any) []string {
 	ptsText := ""
 	if pts := displayedUnitPoints(u); pts != nil {
 		ptsText = numStr(pts) + " pts"
 	}
 	name := getStr(refOf(u), "raw_name")
-	if asInt(u["model_count"]) <= 1 {
+	if asInt(u["model_count"]) <= 1 && len(getList(u, "loadout_groups")) == 0 {
 		return []string{name + " [" + ptsText + "]: " + simpleWargearText(u, 1)}
 	}
-	// Multi-model with an exact per-model breakdown: one bullet per model-type
-	// group, each named, with the enhancement/Warlord tokens leading the first.
 	if groups := getList(u, "loadout_groups"); len(groups) > 0 {
 		lead := simpleLeadTokens(u)
 		lines := []string{name + " [" + ptsText + "]:"}
 		for i, gAny := range groups {
 			g := gAny.(map[string]any)
-			gName := name
-			if mn, ok := g["model_name"].(string); ok && mn != "" {
-				gName = mn
+			gName := getStr(g, "model_name")
+			if gName == "" {
+				gName = name
 			}
-			var tokens []string
+			tokens := []string{}
 			if i == 0 {
 				tokens = append(tokens, lead...)
 			}
@@ -626,44 +713,40 @@ func simpleUnitText(u map[string]any) []string {
 			break
 		}
 	}
-	divisor := 1
+	loadout := simpleWargearText(u, 1)
 	if divisible {
-		divisor = mc
+		loadout = simpleWargearText(u, mc)
+	} else {
+		loadout = "Unit total: " + loadout
 	}
-	return []string{
-		name + " [" + ptsText + "]:",
-		"• " + itoa(mc) + "x " + name + ": " + simpleWargearText(u, divisor),
-	}
+	return []string{name + " [" + ptsText + "]:", "• " + itoa(mc) + "x " + name + ": " + loadout}
 }
 
 func serializeNewrecruitSimple(roster map[string]any) string {
 	faction := titleCaseIDOr(roster["faction_id"], "Unknown")
-	var detachments []string
-	for _, dAny := range getList(roster, "detachments") {
-		d := dAny.(map[string]any)
-		disp := titleCaseIDOr(refOf(d)["id"], "")
-		if disp == "" {
-			disp = getStr(refOf(d), "raw_name")
-		}
-		detachments = append(detachments, disp)
-	}
 	battle := battleSizeLabel(roster)
 	total := totalArmyPoints(roster)
 	pts, _ := roster["points"].(map[string]any)
-	var limit any = pts["declared_limit"]
+	limit := pts["declared_limit"]
 	if limit == nil {
 		limit = total
 	}
-	var lines []string
-	lines = append(lines, faction+" - "+getStr(roster, "name")+" - ["+numStr(limit)+" pts]")
-	lines = append(lines, "")
-	lines = append(lines, "# ++ Army Roster ++ ["+numStr(total)+" pts]")
-	lines = append(lines, "## Configuration")
+	lines := []string{
+		faction + " - " + getStr(roster, "name") + " - [" + numStr(limit) + " pts]",
+		"",
+		"# ++ Army Roster ++ [" + numStr(total) + " pts]",
+		"## Configuration",
+		"List Name: " + getStr(roster, "name"),
+		"Faction: " + faction,
+	}
 	if battle != nil {
 		lines = append(lines, "Battle Size: "+battle.(string))
 	}
-	for _, d := range detachments {
-		lines = append(lines, "Detachment: "+d)
+	for _, dAny := range getList(roster, "detachments") {
+		lines = append(lines, "Detachment: "+getStr(refOf(dAny.(map[string]any)), "raw_name"))
+	}
+	if disposition, ok := roster["force_disposition"].(string); ok && disposition != "" {
+		lines = append(lines, "Force Disposition: "+titleCaseIDOr(disposition, ""))
 	}
 	lines = append(lines, "")
 	sectionTotal := 0.0
@@ -682,18 +765,26 @@ func serializeNewrecruitSimple(roster map[string]any) string {
 
 func rzKey(cls, dsg string) string { return cls + "§" + dsg }
 
+const (
+	rzForceDisposition = "Force Disposition"
+	rzAttachment       = "Attachment"
+	rzCharacter        = "Character"
+	rzKeywordOverride  = "40kdc Keyword"
+	rzModel            = "Model"
+)
+
 func serializeRosterizer(roster map[string]any) string {
 	included := []any{}
 	if f := titleCaseID(roster["faction_id"]); f != nil {
 		included = append(included, newOmap().set("item", rzKey(clsFaction, f.(string))).set("name", f).set("quantity", float64(1)))
 	}
 	for _, dAny := range getList(roster, "detachments") {
-		d := dAny.(map[string]any)
-		disp := titleCaseIDOr(refOf(d)["id"], "")
-		if disp == "" {
-			disp = getStr(refOf(d), "raw_name")
-		}
-		included = append(included, newOmap().set("item", rzKey(clsDetachment, disp)).set("name", disp).set("quantity", float64(1)))
+		raw := getStr(refOf(dAny.(map[string]any)), "raw_name")
+		included = append(included, newOmap().set("item", rzKey(clsDetachment, raw)).set("name", raw).set("quantity", float64(1)))
+	}
+	if disposition, ok := roster["force_disposition"].(string); ok && disposition != "" {
+		display := titleCaseIDOr(disposition, "")
+		included = append(included, newOmap().set("item", rzKey(rzForceDisposition, display)).set("name", display).set("quantity", float64(1)))
 	}
 	if bs := rzBattleSizeAsset(roster); bs != nil {
 		included = append(included, bs)
@@ -711,9 +802,11 @@ func serializeRosterizer(roster map[string]any) string {
 	envelope := newOmap().set("slug", "").set("key", "").set("visible", "hidden").set("locked", false).set("rulebook", rulebook).set("snapshot", snapshot)
 	return prettyJSON(envelope)
 }
-
 func rzUnitAsset(u map[string]any) *omap {
 	included := []any{}
+	if attachment := attachmentToken(u); attachment != "" {
+		included = append(included, newOmap().set("item", rzKey(rzAttachment, attachment)).set("name", attachment).set("quantity", float64(1)))
+	}
 	if enh, ok := u["enhancement"].(map[string]any); ok {
 		ea := newOmap().set("item", rzKey(clsEnhancement, getStr(enh, "raw_name"))).set("name", enh["raw_name"]).set("quantity", float64(1))
 		if u["enhancement_points"] != nil {
@@ -721,13 +814,37 @@ func rzUnitAsset(u map[string]any) *omap {
 		}
 		included = append(included, ea)
 	}
-	for _, wAny := range unitWargear(u) {
-		w := wAny.(map[string]any)
-		included = append(included, newOmap().set("item", rzKey(clsWeapon, getStr(refOf(w), "raw_name"))).set("name", refRawName(w)).set("quantity", w["count"]))
+	if groups := getList(u, "loadout_groups"); len(groups) > 0 {
+		for _, gAny := range groups {
+			g := gAny.(map[string]any)
+			name := getStr(g, "model_name")
+			if name == "" {
+				name = getStr(refOf(u), "raw_name")
+			}
+			weapons := []any{}
+			for _, wAny := range getList(g, "wargear") {
+				w := wAny.(map[string]any)
+				weapons = append(weapons, newOmap().set("item", rzKey(clsWeapon, getStr(refOf(w), "raw_name"))).set("name", refRawName(w)).set("quantity", asInt(w["count"])*asInt(g["count"])))
+			}
+			included = append(included, newOmap().set("item", rzKey(rzModel, name)).set("name", name).set("quantity", g["count"]).set("assets", newOmap().set("included", weapons)))
+		}
+	} else {
+		for _, wAny := range unitWargear(u) {
+			w := wAny.(map[string]any)
+			included = append(included, newOmap().set("item", rzKey(clsWeapon, getStr(refOf(w), "raw_name"))).set("name", refRawName(w)).set("quantity", w["count"]))
+		}
 	}
 	traits := []any{}
 	if u["is_warlord"] == true {
 		traits = append(traits, newOmap().set("item", rzKey(clsTrait, dsgWarlord)).set("name", dsgWarlord).set("quantity", float64(1)))
+	}
+	for _, keyword := range getList(u, "keyword_overrides") {
+		name, _ := keyword.(string)
+		cls, display := rzKeywordOverride, name
+		if name == "Character" {
+			cls, display = rzCharacter, "Detachment Character"
+		}
+		traits = append(traits, newOmap().set("item", rzKey(cls, display)).set("name", display).set("quantity", float64(1)))
 	}
 	asset := newOmap().set("item", rzKey(clsUnit, getStr(refOf(u), "raw_name"))).set("name", refRawName(u)).set("quantity", u["model_count"])
 	if u["points"] != nil {
@@ -753,4 +870,108 @@ func rzBattleSizeAsset(roster map[string]any) *omap {
 	}
 	l := label.(string)
 	return newOmap().set("item", rzKey(clsBattleSize, l)).set("name", l).set("quantity", float64(1))
+}
+
+// --- roster-json (canonical, rebuilt in resolve()'s key order) ---
+
+func serializeRosterJSON(roster map[string]any) string {
+	return prettyJSON(rosterToOmap(roster))
+}
+
+func refToOmap(ref map[string]any) *omap {
+	cands := []any{}
+	for _, cAny := range getList(ref, "candidates") {
+		c := cAny.(map[string]any)
+		co := newOmap().set("id", c["id"])
+		if _, has := c["name"]; has {
+			co.set("name", c["name"])
+		}
+		cands = append(cands, co)
+	}
+	return newOmap().set("id", ref["id"]).set("raw_name", ref["raw_name"]).set("resolved", ref["resolved"]).set("candidates", cands)
+}
+
+func unitToOmap(u map[string]any) *omap {
+	wargear := []any{}
+	for _, wAny := range unitWargear(u) {
+		w := wAny.(map[string]any)
+		wargear = append(wargear, newOmap().set("ref", refToOmap(refOf(w))).set("count", w["count"]))
+	}
+	o := newOmap().
+		set("ref", refToOmap(refOf(u))).
+		set("model_count", u["model_count"]).
+		set("points", u["points"]).
+		set("is_warlord", u["is_warlord"])
+	if keywords, exists := u["keyword_overrides"]; exists {
+		o.set("keyword_overrides", keywords)
+	}
+	if enh, ok := u["enhancement"].(map[string]any); ok {
+		o.set("enhancement", refToOmap(enh))
+	} else {
+		o.set("enhancement", nil)
+	}
+	o.set("enhancement_points", u["enhancement_points"]).set("wargear", wargear)
+	if lgList := getList(u, "loadout_groups"); len(lgList) > 0 {
+		groups := []any{}
+		for _, gAny := range lgList {
+			g := gAny.(map[string]any)
+			gw := []any{}
+			for _, wAny := range getList(g, "wargear") {
+				w := wAny.(map[string]any)
+				gw = append(gw, newOmap().set("ref", refToOmap(refOf(w))).set("count", w["count"]))
+			}
+			groups = append(groups, newOmap().set("model_name", g["model_name"]).set("count", g["count"]).set("wargear", gw))
+		}
+		o.set("loadout_groups", groups)
+	}
+	if la, ok := u["leader_attachment"].(map[string]any); ok {
+		o.set("leader_attachment", newOmap().
+			set("bodyguard_ref", refToOmap(la["bodyguard_ref"].(map[string]any))).
+			set("role", la["role"]).
+			set("provisional", la["provisional"]))
+	} else {
+		o.set("leader_attachment", nil)
+	}
+	return o
+}
+
+func rosterToOmap(r map[string]any) *omap {
+	src, _ := r["source"].(map[string]any)
+	detachments := []any{}
+	for _, dAny := range getList(r, "detachments") {
+		d := dAny.(map[string]any)
+		detachments = append(detachments, newOmap().set("ref", refToOmap(refOf(d))).set("dp_cost", d["dp_cost"]))
+	}
+	units := []any{}
+	for _, uAny := range getList(r, "units") {
+		units = append(units, unitToOmap(uAny.(map[string]any)))
+	}
+	pts, _ := r["points"].(map[string]any)
+	gv, _ := r["game_version"].(map[string]any)
+	diag, _ := r["diagnostics"].(map[string]any)
+	warnings := []any{}
+	for _, wAny := range getList(diag, "warnings") {
+		w := wAny.(map[string]any)
+		warnings = append(warnings, newOmap().set("code", w["code"]).set("message", w["message"]).set("raw_name", w["raw_name"]))
+	}
+	return newOmap().
+		set("name", r["name"]).
+		set("source", newOmap().set("format", src["format"]).set("generated_by", src["generated_by"])).
+		set("faction_id", r["faction_id"]).
+		set("detachments", detachments).
+		set("battle_size", r["battle_size"]).
+		set("force_disposition", r["force_disposition"]).
+		set("points", newOmap().
+			set("declared_limit", pts["declared_limit"]).
+			set("detachment_cap", pts["detachment_cap"]).
+			set("total_reported", pts["total_reported"]).
+			set("total_computed", pts["total_computed"])).
+		set("units", units).
+		set("game_version", newOmap().set("edition", gv["edition"]).set("dataslate", gv["dataslate"])).
+		set("diagnostics", newOmap().
+			set("resolved_units", diag["resolved_units"]).
+			set("unresolved_units", diag["unresolved_units"]).
+			set("resolved_weapons", diag["resolved_weapons"]).
+			set("unresolved_weapons", diag["unresolved_weapons"]).
+			set("warnings", warnings))
 }

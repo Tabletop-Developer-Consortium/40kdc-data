@@ -15,12 +15,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Leagues of Votann"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "dead-reckoning-needgaard-oathband",
@@ -38,12 +33,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Leagues of Votann"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "iron-ambassador-needgaard-oathband",
@@ -61,12 +51,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Leagues of Votann"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "ancestral-crest-needgaard-oathband",
@@ -84,12 +69,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Leagues of Votann"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "bastion-shield-hearthband",
@@ -107,12 +87,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Leagues of Votann"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "quake-multigenerator-hearthband",
@@ -120,6 +95,7 @@
     "detachment_id": "hearthband",
     "cost": 15,
     "keyword_restrictions": [
+      "Kâhl",
       "Leagues of Votann"
     ],
     "ability_id": null,
@@ -130,13 +106,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Kâhl",
-        "Leagues of Votann"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "ironskein-hearthband",
@@ -154,12 +124,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Leagues of Votann"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "high-kahl-hearthband",
@@ -167,6 +132,7 @@
     "detachment_id": "hearthband",
     "cost": 30,
     "keyword_restrictions": [
+      "Kâhl",
       "Leagues of Votann"
     ],
     "ability_id": null,
@@ -177,13 +143,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Kâhl",
-        "Leagues of Votann"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "eye-for-weakness-persecution-prospect",
@@ -201,12 +161,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Leagues of Votann"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "writ-of-acquisition-persecution-prospect",
@@ -224,12 +179,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Leagues of Votann"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "surgical-saboteur-persecution-prospect",
@@ -247,12 +197,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Leagues of Votann"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "nomad-strategist-persecution-prospect",
@@ -270,12 +215,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Leagues of Votann"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "delvewerke-navigator-delve-assault-shift",
@@ -293,12 +233,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Leagues of Votann"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "multiwave-system-jammer-delve-assault-shift",
@@ -316,12 +251,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Leagues of Votann"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "quake-supervisor-delve-assault-shift",
@@ -339,12 +269,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Leagues of Votann"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "piledriver-delve-assault-shift",
@@ -362,12 +287,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Leagues of Votann"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "tactical-alchemy-brandfast-oathband",
@@ -375,7 +295,7 @@
     "detachment_id": "brandfast-oathband",
     "cost": 10,
     "keyword_restrictions": [
-      "Leagues of Votann"
+      "Kâhl"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -385,12 +305,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Kâhl"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "trivarg-cyber-implant-brandfast-oathband",
@@ -408,12 +323,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Leagues of Votann"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "precursive-judgement-brandfast-oathband",
@@ -421,7 +331,7 @@
     "detachment_id": "brandfast-oathband",
     "cost": 15,
     "keyword_restrictions": [
-      "Leagues of Votann"
+      "Kâhl"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -431,12 +341,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Kâhl"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "signature-restoration-brandfast-oathband",
@@ -444,7 +349,7 @@
     "detachment_id": "brandfast-oathband",
     "cost": 5,
     "keyword_restrictions": [
-      "Leagues of Votann"
+      "Brôkhyr"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -454,12 +359,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Brôkhyr"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "farstryder-node-hearthfyre-arsenal",
@@ -484,9 +384,6 @@
     "name": "Calculated Tenacity",
     "detachment_id": "hearthfyre-arsenal",
     "cost": 15,
-    "keyword_restrictions": [
-      "Leagues of Votann"
-    ],
     "ability_id": null,
     "is_unique": true,
     "game_version": {
@@ -511,7 +408,7 @@
     "detachment_id": "hearthfyre-arsenal",
     "cost": 10,
     "keyword_restrictions": [
-      "Leagues of Votann"
+      "Memnyr Strategist"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -521,12 +418,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Memnyr Strategist"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "graviton-vault-hearthfyre-arsenal",
@@ -534,7 +426,7 @@
     "detachment_id": "hearthfyre-arsenal",
     "cost": 5,
     "keyword_restrictions": [
-      "Leagues of Votann"
+      "Brôkhyr"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -544,12 +436,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Brôkhyr"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "mercenary-prospector-mercenary-oathband",
@@ -557,7 +444,7 @@
     "detachment_id": "mercenary-oathband",
     "cost": 20,
     "keyword_restrictions": [
-      "Leagues of Votann"
+      "Kâhl"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -567,12 +454,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Kâhl"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "metaphysical-brokerage-mercenary-oathband",
@@ -580,7 +462,7 @@
     "detachment_id": "mercenary-oathband",
     "cost": 20,
     "keyword_restrictions": [
-      "Leagues of Votann"
+      "Memnyr Strategist"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -590,12 +472,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Memnyr Strategist"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "etacarn-sb9-targeting-implant-mercenary-oathband",
@@ -613,12 +490,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Leagues of Votann"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "asset-manipulator-mercenary-oathband",
@@ -636,12 +508,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Leagues of Votann"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "saturation-rounds-upgrade-armoured-trailblazers",
@@ -649,7 +516,8 @@
     "detachment_id": "armoured-trailblazers",
     "cost": 15,
     "keyword_restrictions": [
-      "Leagues of Votann"
+      "Leagues of Votann",
+      "Sagitaur"
     ],
     "ability_id": "saturation-rounds-armoured-trailblazers",
     "is_unique": true,
@@ -659,13 +527,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": true,
-    "max_targets": 3,
-    "keyword_restriction_groups": [
-      [
-        "Leagues of Votann",
-        "Sagitaur"
-      ]
-    ]
+    "max_targets": 3
   },
   {
     "id": "optimised-attack-lines-upgrade-armoured-trailblazers",
@@ -673,7 +535,8 @@
     "detachment_id": "armoured-trailblazers",
     "cost": 15,
     "keyword_restrictions": [
-      "Leagues of Votann"
+      "Leagues of Votann",
+      "Sagitaur"
     ],
     "ability_id": "optimised-attack-lines-armoured-trailblazers",
     "is_unique": true,
@@ -683,13 +546,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": true,
-    "max_targets": 3,
-    "keyword_restriction_groups": [
-      [
-        "Leagues of Votann",
-        "Sagitaur"
-      ]
-    ]
+    "max_targets": 3
   },
   {
     "id": "pan-spectral-lockons-upgrade-farseekers",
@@ -697,7 +554,7 @@
     "detachment_id": "farseekers",
     "cost": 10,
     "keyword_restrictions": [
-      "Leagues of Votann"
+      "Pioneers"
     ],
     "ability_id": "pan-spectral-lockons-farseekers",
     "is_unique": true,
@@ -707,12 +564,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": true,
-    "max_targets": 3,
-    "keyword_restriction_groups": [
-      [
-        "Pioneers"
-      ]
-    ]
+    "max_targets": 3
   },
   {
     "id": "ironskein-hearthguard-covenant",
@@ -720,7 +572,7 @@
     "detachment_id": "hearthguard-covenant",
     "cost": 10,
     "keyword_restrictions": [
-      "Leagues of Votann"
+      "Kâhl"
     ],
     "ability_id": "ironskein-hearthguard-covenant",
     "is_unique": true,
@@ -730,12 +582,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Kâhl"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "brokhyr-barrage-bane-slayers-bulwark",
@@ -752,15 +599,9 @@
     ],
     "points_provisional": false,
     "keyword_restrictions": [
-      "Bane-Slayer's Bulwark",
-      "Thunderkyn"
+      "Bane Slayer's Bulwark Brokhyr Thunderkyn"
     ],
-    "upgrade_tag": true,
-    "keyword_restriction_groups": [
-      [
-        "Bane Slayer's Bulwark Brokhyr Thunderkyn"
-      ]
-    ]
+    "upgrade_tag": true
   },
   {
     "id": "indomitable-exemplar-bane-slayers-bulwark",
@@ -779,12 +620,6 @@
     "keyword_restrictions": [
       "Bane-Slayer's Bulwark",
       "Einhyr Champion"
-    ],
-    "keyword_restriction_groups": [
-      [
-        "Bane-Slayer's Bulwark",
-        "Einhyr Champion"
-      ]
     ]
   },
   {
@@ -801,11 +636,6 @@
     "points_provisional": false,
     "upgrade_tag": true,
     "max_targets": 3,
-    "keyword_restriction_groups": [
-      [
-        "Yaegirs"
-      ]
-    ],
     "keyword_restrictions": [
       "Yaegirs"
     ]
@@ -847,11 +677,6 @@
     "points_provisional": false,
     "upgrade_tag": false,
     "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Kâhl"
-      ]
-    ],
     "keyword_restrictions": [
       "Kâhl"
     ]

@@ -41,44 +41,54 @@ fn battle_size_label(roster: &Roster) -> Option<String> {
 /// Build the wargear list inline. For homogeneous multi-model units,
 /// divides counts by `per_model_divisor` so the per-model render is clean.
 fn wargear_text(u: &RosterUnit, per_model_divisor: u64) -> String {
-    let mut parts: Vec<String> = Vec::new();
-    if let Some(enh) = &u.enhancement {
-        let pts_tag = match u.enhancement_points {
-            Some(p) => format!(" [{p} pts]"),
-            None => String::new(),
-        };
-        parts.push(format!("{}{pts_tag}", enh.raw_name));
-    }
-    if u.is_warlord {
-        parts.push("Warlord".to_string());
-    }
+    let mut parts = lead_tokens(u);
     for w in &u.wargear {
-        let c = if per_model_divisor > 0 {
+        let count = if per_model_divisor > 0 {
             w.count / per_model_divisor
         } else {
             w.count
         };
-        if c > 1 {
-            parts.push(format!("{c}x {}", w.ref_.raw_name));
+        parts.push(if count > 1 {
+            format!("{count}x {}", w.ref_.raw_name)
         } else {
-            parts.push(w.ref_.raw_name.clone());
-        }
+            w.ref_.raw_name.clone()
+        });
     }
     parts.join(", ")
 }
 
-/// Unit-level tokens that lead the first wargear line: the enhancement then `Warlord`.
 fn lead_tokens(u: &RosterUnit) -> Vec<String> {
-    let mut parts: Vec<String> = Vec::new();
-    if let Some(enh) = &u.enhancement {
-        let pts_tag = match u.enhancement_points {
-            Some(p) => format!(" [{p} pts]"),
-            None => String::new(),
+    let mut parts = Vec::new();
+    if let Some(attachment) = &u.leader_attachment {
+        let provisional = if attachment.provisional {
+            " [provisional]"
+        } else {
+            ""
         };
-        parts.push(format!("{}{pts_tag}", enh.raw_name));
+        parts.push(format!(
+            "Attachment: {} -> {}{provisional}",
+            match attachment.role {
+                crate::import::AttachmentRole::Leader => "leader",
+                crate::import::AttachmentRole::Support => "support",
+            },
+            attachment.bodyguard_ref.raw_name
+        ));
+    }
+    if let Some(enhancement) = &u.enhancement {
+        parts.push(match u.enhancement_points {
+            Some(points) => format!("{} [{points} pts]", enhancement.raw_name),
+            None => format!("Enhancement: {}", enhancement.raw_name),
+        });
     }
     if u.is_warlord {
         parts.push("Warlord".to_string());
+    }
+    for keyword in &u.keyword_overrides {
+        parts.push(if keyword == "Character" {
+            "Detachment Character".to_string()
+        } else {
+            format!("40kdc Keyword: {keyword}")
+        });
     }
     parts
 }
@@ -90,52 +100,55 @@ fn unit_text(u: &RosterUnit) -> Vec<String> {
         None => String::new(),
     };
 
-    if u.model_count <= 1 {
+    if u.model_count <= 1 && u.loadout_groups.as_ref().map_or(true, Vec::is_empty) {
         return vec![format!(
             "{} [{pts_text}]: {}",
             u.ref_.raw_name,
             wargear_text(u, 1)
         )];
     }
-    // Multi-model with an exact per-model breakdown: one bullet per model-type group,
-    // each named, with the enhancement/Warlord tokens leading the first group.
-    if let Some(groups) = u.loadout_groups.as_ref() {
-        if !groups.is_empty() {
-            let lead = lead_tokens(u);
-            let mut lines = vec![format!("{} [{pts_text}]:", u.ref_.raw_name)];
-            for (i, g) in groups.iter().enumerate() {
-                let name = g.model_name.as_deref().unwrap_or(&u.ref_.raw_name);
-                let weapons = group_weapons_text(&g.wargear);
-                let mut tokens: Vec<String> = Vec::new();
-                if i == 0 {
-                    tokens.extend(lead.iter().cloned());
-                }
-                if !weapons.is_empty() {
-                    tokens.push(weapons);
-                }
-                lines.push(format!("• {}x {}: {}", g.count, name, tokens.join(", ")));
-            }
-            return lines;
-        }
-    }
-    // No exact breakdown: homogeneous units divide cleanly; otherwise a single bullet
-    // with the full counts (the legacy fallback, unit-named).
-    let divisor = if u
-        .wargear
-        .iter()
-        .all(|w| u.model_count > 0 && w.count % u.model_count == 0)
+    if let Some(groups) = u
+        .loadout_groups
+        .as_ref()
+        .filter(|groups| !groups.is_empty())
     {
-        u.model_count
-    } else {
-        1
-    };
+        let lead = lead_tokens(u);
+        let mut lines = vec![format!("{} [{pts_text}]:", u.ref_.raw_name)];
+        for (index, group) in groups.iter().enumerate() {
+            let name = group.model_name.as_deref().unwrap_or(&u.ref_.raw_name);
+            let mut tokens = Vec::new();
+            if index == 0 {
+                tokens.extend(lead.iter().cloned());
+            }
+            let weapons = group_weapons_text(&group.wargear);
+            if !weapons.is_empty() {
+                tokens.push(weapons);
+            }
+            lines.push(format!(
+                "• {}x {}: {}",
+                group.count,
+                name,
+                tokens.join(", ")
+            ));
+        }
+        return lines;
+    }
+    let divisible = u.model_count > 0
+        && u.wargear
+            .iter()
+            .all(|wargear| wargear.count % u.model_count == 0);
+    let loadout = wargear_text(u, if divisible { u.model_count } else { 1 });
     vec![
         format!("{} [{pts_text}]:", u.ref_.raw_name),
         format!(
             "• {}x {}: {}",
             u.model_count,
             u.ref_.raw_name,
-            wargear_text(u, divisor)
+            if divisible {
+                loadout
+            } else {
+                format!("Unit total: {loadout}")
+            }
         ),
     ]
 }
@@ -159,13 +172,19 @@ impl RosterSerializer for NewRecruitSimpleSerializer {
         lines.push(String::new());
         lines.push(format!("# ++ Army Roster ++ [{total} pts]"));
         lines.push("## Configuration".to_string());
+        lines.push(format!("List Name: {}", roster.name));
+        lines.push(format!("Faction: {faction}"));
         if let Some(b) = battle {
             lines.push(format!("Battle Size: {b}"));
         }
         for d in &roster.detachments {
-            let display =
-                title_case_id(d.ref_.id.as_deref()).unwrap_or_else(|| d.ref_.raw_name.clone());
-            lines.push(format!("Detachment: {display}"));
+            lines.push(format!("Detachment: {}", d.ref_.raw_name));
+        }
+        if let Some(disposition) = roster.force_disposition.as_deref() {
+            lines.push(format!(
+                "Force Disposition: {}",
+                title_case_id(Some(disposition)).unwrap_or_else(|| disposition.to_string())
+            ));
         }
         lines.push(String::new());
 

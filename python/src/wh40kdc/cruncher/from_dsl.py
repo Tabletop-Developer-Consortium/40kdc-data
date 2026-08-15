@@ -164,8 +164,7 @@ def _walk(node: Any, source: BuffSource, opts: dict[str, Any], out: EffectTransl
             out["unsupported"].append(
                 {
                     "reason": (
-                        "designate-target debuff on the marked unit: "
-                        "not a buff on the bearer"
+                        "designate-target debuff on the marked unit: not a buff on the bearer"
                     ),
                     "effectFragment": node,
                 }
@@ -248,8 +247,7 @@ def _translate_reroll(
         out["unsupported"].append(
             {
                 "reason": (
-                    f're-roll: narrows by "{narrowed}" which the cruncher '
-                    "can't resolve here"
+                    f're-roll: narrows by "{narrowed}" which the cruncher can\'t resolve here'
                 ),
                 "effectFragment": node,
             }
@@ -293,8 +291,7 @@ def _translate_roll_modifier(
         out["unsupported"].append(
             {
                 "reason": (
-                    f'roll-modifier: narrows by "{narrowed}" which the cruncher '
-                    "can't resolve here"
+                    f'roll-modifier: narrows by "{narrowed}" which the cruncher can\'t resolve here'
                 ),
                 "effectFragment": node,
             }
@@ -305,8 +302,7 @@ def _translate_roll_modifier(
         out["unsupported"].append(
             {
                 "reason": (
-                    f'roll-modifier: operation "{_js_str(modifier.get("operation"))}" '
-                    "not supported"
+                    f'roll-modifier: operation "{_js_str(modifier.get("operation"))}" not supported'
                 ),
                 "effectFragment": node,
             }
@@ -332,12 +328,16 @@ def _translate_roll_modifier(
                 return
         else:
             return
-    contribution_type = {
-        "hit": "hit-mod",
-        "wound": "wound-mod",
-        "save": "save-mod",
-        "damage": "damage-mod",
-    }.get(roll) if isinstance(roll, str) else None
+    contribution_type = (
+        {
+            "hit": "hit-mod",
+            "wound": "wound-mod",
+            "save": "save-mod",
+            "damage": "damage-mod",
+        }.get(roll)
+        if isinstance(roll, str)
+        else None
+    )
     if contribution_type is None:
         out["unsupported"].append(
             {
@@ -365,8 +365,7 @@ def _translate_stat_modifier(
         out["unsupported"].append(
             {
                 "reason": (
-                    f'stat-modifier: narrows by "{narrowed}" which the cruncher '
-                    "can't resolve here"
+                    f'stat-modifier: narrows by "{narrowed}" which the cruncher can\'t resolve here'
                 ),
                 "effectFragment": node,
             }
@@ -394,8 +393,7 @@ def _translate_stat_modifier(
         out["unsupported"].append(
             {
                 "reason": (
-                    f'stat-modifier: operation "{_js_str(modifier.get("operation"))}" '
-                    "not supported"
+                    f'stat-modifier: operation "{_js_str(modifier.get("operation"))}" not supported'
                 ),
                 "effectFragment": node,
             }
@@ -977,9 +975,7 @@ def _condition_mentions_timing(condition: dict[str, Any]) -> bool:
     if condition.get("type") == "timing-is":
         return True
     if isinstance(condition.get("operator"), str) and isinstance(condition.get("operands"), list):
-        return any(
-            _is_object(o) and _condition_mentions_timing(o) for o in condition["operands"]
-        )
+        return any(_is_object(o) and _condition_mentions_timing(o) for o in condition["operands"])
     return False
 
 
@@ -1134,9 +1130,7 @@ def _keyword_label(ref: dict[str, Any]) -> str:
         is_num = isinstance(th, (int, float)) and not isinstance(th, bool)
         suffix = f" {_num_str(th)}+" if is_num else ""
         return f"Anti-{params['target_keyword']}{suffix}"
-    base = " ".join(
-        w[0].upper() + w[1:] if w else w for w in ref.get("keyword_id", "").split("-")
-    )
+    base = " ".join(w[0].upper() + w[1:] if w else w for w in ref.get("keyword_id", "").split("-"))
     value = params.get("value")
     if isinstance(value, (int, float)) and not isinstance(value, bool):
         return f"{base} {_num_str(value)}"

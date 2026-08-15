@@ -27,11 +27,20 @@ type lftBulletEntry struct {
 	text   string
 }
 
+type lftHeader struct {
+	name               string
+	factionRawName     string
+	detachmentRawNames []string
+	dispositionRawName any
+	totalReported      float64
+}
+
 type lftUnit struct {
-	rawName      string
-	displayedPts any
-	isCharacter  bool
-	bullets      []lftBulletEntry
+	rawName          string
+	displayedPts     any
+	isCharacter      bool
+	bullets          []lftBulletEntry
+	leaderAttachment any
 }
 
 func isListforgeText(decoded any) (string, bool) {
@@ -56,7 +65,17 @@ func isListforgeText(decoded any) (string, bool) {
 	return s, true
 }
 
-func lftParseFirstLine(line string) map[string]any {
+func lftSplitDetachments(segment string) []string {
+	var detachments []string
+	for _, name := range strings.Split(segment, ",") {
+		if name = strings.TrimSpace(name); name != "" {
+			detachments = append(detachments, name)
+		}
+	}
+	return detachments
+}
+
+func lftParseFirstLine(line string) *lftHeader {
 	m := lftFirstLine.FindStringSubmatch(strings.TrimSpace(line))
 	if m == nil {
 		return nil
@@ -66,12 +85,16 @@ func lftParseFirstLine(line string) map[string]any {
 		return nil
 	}
 	n, _ := strconv.Atoi(m[2])
-	return map[string]any{
-		"name":                strings.Join(parts[:len(parts)-2], " - "),
-		"faction_raw_name":    parts[len(parts)-2],
-		"detachment_raw_name": parts[len(parts)-1],
-		"total_reported":      float64(n),
+	header := &lftHeader{
+		name:               parts[0],
+		factionRawName:     parts[1],
+		detachmentRawNames: lftSplitDetachments(parts[len(parts)-1]),
+		totalReported:      float64(n),
 	}
+	if len(parts) >= 4 {
+		header.dispositionRawName = parts[len(parts)-2]
+	}
+	return header
 }
 
 func finishLftUnit(acc *lftUnit) map[string]any {
@@ -131,7 +154,7 @@ func finishLftUnit(acc *lftUnit) map[string]any {
 	if modelCount == 0 {
 		modelCount = 1
 	}
-	return map[string]any{
+	result := map[string]any{
 		"raw_name":             acc.rawName,
 		"is_character":         acc.isCharacter,
 		"model_count":          float64(modelCount),
@@ -141,6 +164,10 @@ func finishLftUnit(acc *lftUnit) map[string]any {
 		"enhancement_points":   nil,
 		"wargear":              wargear.pairs(),
 	}
+	if acc.leaderAttachment != nil {
+		result["leader_attachment"] = acc.leaderAttachment
+	}
+	return result
 }
 
 var listforgeTextAdapter = formatAdapter{
@@ -155,10 +182,13 @@ var listforgeTextAdapter = formatAdapter{
 			return nil, errors.New("listforge-text: input is not a ListForge text export")
 		}
 		lines := splitLines(text)
-		var header map[string]any
+		var header *lftHeader
 		var units []map[string]any
 		var current *lftUnit
 		sectionIsCharacter := false
+		inAttachedSection := false
+		var pendingBodyguardName any
+		groupMemberIndex := 0
 		finalize := func() {
 			if current != nil {
 				units = append(units, finishLftUnit(current))
@@ -192,13 +222,41 @@ var listforgeTextAdapter = formatAdapter{
 			}
 			if lftSectionHeader.MatchString(line) {
 				finalize()
-				sectionIsCharacter = characterSections[strings.ToLower(strings.TrimSpace(line[:len(line)-1]))]
+				sectionKey := strings.ToLower(strings.TrimSpace(line[:len(line)-1]))
+				sectionIsCharacter = characterSections[sectionKey]
+				inAttachedSection = sectionKey == "attached units"
+				pendingBodyguardName = nil
+				groupMemberIndex = 0
 				continue
 			}
 			if m := lftUnitHeader.FindStringSubmatch(line); m != nil {
+				rawName := strings.TrimSpace(m[1])
+				if inAttachedSection && strings.Contains(rawName, " + ") {
+					finalize()
+					pendingBodyguardName = strings.TrimSpace(rawName[strings.Index(rawName, " + ")+3:])
+					groupMemberIndex = 0
+					continue
+				}
 				finalize()
 				pts, _ := strconv.Atoi(m[2])
-				current = &lftUnit{rawName: strings.TrimSpace(m[1]), displayedPts: float64(pts), isCharacter: sectionIsCharacter}
+				isAttachedLeader := inAttachedSection && pendingBodyguardName != nil && groupMemberIndex == 0
+				current = &lftUnit{
+					rawName: rawName, displayedPts: float64(pts),
+					isCharacter: inAttachedSection && isAttachedLeader || !inAttachedSection && sectionIsCharacter,
+					leaderAttachment: func() any {
+						if !isAttachedLeader {
+							return nil
+						}
+						return map[string]any{
+							"bodyguard_raw_name": pendingBodyguardName,
+							"role":               "leader",
+							"provisional":        false,
+						}
+					}(),
+				}
+				if inAttachedSection {
+					groupMemberIndex++
+				}
 			}
 		}
 		finalize()
@@ -211,22 +269,19 @@ var listforgeTextAdapter = formatAdapter{
 				totalComputed += p
 			}
 		}
-		declaredLimit := header["total_reported"]
-		det := []any{}
-		if s, ok := header["detachment_raw_name"].(string); ok && s != "" {
-			det = []any{s}
-		}
+		declaredLimit := header.totalReported
 		return map[string]any{
-			"name":                 header["name"],
-			"generated_by":         "List Forge",
-			"faction_raw_name":     header["faction_raw_name"],
-			"detachment_raw_names": det,
-			"battle_size_raw":      inferBattleSizeRaw(declaredLimit),
-			"declared_limit":       declaredLimit,
-			"total_reported":       header["total_reported"],
-			"total_computed":       totalComputed,
-			"units":                mapsToAny(units),
-			"multi_force":          false,
+			"name":                       header.name,
+			"generated_by":               "List Forge",
+			"faction_raw_name":           header.factionRawName,
+			"detachment_raw_names":       strSliceToAny(header.detachmentRawNames),
+			"force_disposition_raw_name": header.dispositionRawName,
+			"battle_size_raw":            inferBattleSizeRaw(declaredLimit),
+			"declared_limit":             declaredLimit,
+			"total_reported":             header.totalReported,
+			"total_computed":             totalComputed,
+			"units":                      mapsToAny(units),
+			"multi_force":                false,
 		}, nil
 	},
 }

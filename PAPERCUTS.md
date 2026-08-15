@@ -90,3 +90,7 @@ Vitest in this repo does not accept Jest's --runInBand flag; the build passed bu
 ## 2026-08-13T16:24:37Z — openai-codex/gpt-5.6-sol
 
 The Justfile verify-regen-stable recipe emits literal $$(mktemp) into bash and fails with a syntax error before checking artifacts, so it cannot serve as the documented pre-commit drift gate.
+
+## 2026-08-15T03:32:57Z — openai-codex/gpt-5.6-sol
+
+just preflight invokes bare python3 for editable install, so Homebrew Python aborts under PEP 668 even when the repository .venv is already prepared; callers must prepend .venv/bin to PATH.

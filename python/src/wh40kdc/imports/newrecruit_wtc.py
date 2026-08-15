@@ -47,6 +47,10 @@ _HEADER_POINTS_LIMIT = re.compile(r"^\+\s*POINTS LIMIT:\s*(\d+)\s*pts?\s*$", re.
 _HEADER_LIST_NAME = re.compile(r"^\+\s*LIST NAME:\s*(.+?)\s*$", re.IGNORECASE)
 
 _FENCE = re.compile(r"^\++\s*$")
+_ATTACHMENT_LINE = re.compile(
+    r"^Attachment:\s*(leader|support)\s*->\s*(.+?)(\s+\[provisional\])?\s*$",
+    re.IGNORECASE,
+)
 _SPLIT_LINES = re.compile(r"\r?\n")
 
 
@@ -54,7 +58,7 @@ def _parse_wtc_header(text: str) -> tuple[dict[str, Any], int] | None:
     """Parse the leading ``++++ ... ++++`` block. None if no header found."""
     lines = _SPLIT_LINES.split(text)
     faction_raw_name: str | None = None
-    detachment_raw_name: str | None = None
+    detachment_raw_names: list[str] = []
     force_disposition_raw_name: str | None = None
     total_reported: int | None = None
     points_limit: int | None = None
@@ -79,7 +83,9 @@ def _parse_wtc_header(text: str) -> tuple[dict[str, Any], int] | None:
             continue
         m = _HEADER_DETACHMENT.match(line)
         if m:
-            detachment_raw_name = strip_parenthetical(m.group(1))
+            name = strip_parenthetical(m.group(1))
+            if name != "—":
+                detachment_raw_names.append(name)
             continue
         m = _HEADER_FORCE_DISPOSITION.match(line)
         if m:
@@ -108,7 +114,7 @@ def _parse_wtc_header(text: str) -> tuple[dict[str, Any], int] | None:
     header = {
         "name": list_name if list_name is not None else "Imported roster",
         "faction_raw_name": faction_raw_name,
-        "detachment_raw_name": detachment_raw_name,
+        "detachment_raw_names": detachment_raw_names,
         "force_disposition_raw_name": force_disposition_raw_name,
         "declared_limit": declared_limit,
         "total_reported": total_reported,
@@ -126,7 +132,7 @@ _UNIT_HEADER_FULL = re.compile(
     r"^(?:Char\d+:\s*)?(\d+)x\s+(.+?)\s*\(\s*(\d+)\s*pts?\s*\)\s*$", re.IGNORECASE
 )
 _ENHANCEMENT_LINE = re.compile(
-    r"^Enhancement:\s*(.+?)\s*\(\+\s*(\d+)\s*pts?\s*\)\s*$", re.IGNORECASE
+    r"^Enhancement:\s*(.+?)(?:\s*\(\+\s*(\d+)\s*pts?\s*\))?\s*$", re.IGNORECASE
 )
 _WITH_PREFIX = re.compile(r"^(\d+)\s+with\s+(.*)$", re.IGNORECASE)
 # Optional trailing ``: <wargear>`` — NewRecruit inlines a model group's
@@ -156,11 +162,14 @@ def _new_unit(
         "raw_name": name,
         "is_character": is_character_prefix,
         "is_warlord": False,
+        "keyword_overrides": {},
         "enhancement_raw_name": None,
+        "leader_attachment": None,
         # Total displayed pts from the header line; base computed once an
         # enhancement is known.
         "displayed_pts": displayed_pts,
-        "enhancement_pts": 0,
+        "enhancement_pts": None,
+        "loadout_groups": [],
         "model_count": leading_count if leading_count > 0 else 1,
         "wargear": {},  # name → count, insertion-ordered
     }
@@ -172,28 +181,44 @@ def _add_wargear(unit: dict[str, Any], items: list[dict[str, Any]]) -> None:
         unit["wargear"][name] = unit["wargear"].get(name, 0) + item["count"]
 
 
-def _apply_with_group(unit: dict[str, Any], list_text: str) -> None:
+def _add_keyword_overrides(unit: dict[str, Any], keywords: list[str]) -> None:
+    for keyword in keywords:
+        unit["keyword_overrides"].setdefault(keyword, None)
+
+
+def _apply_with_group(
+    unit: dict[str, Any], list_text: str, default_multiplier: int = 1
+) -> list[dict[str, Any]]:
     multiplier, wargear_list = _parse_with_group(list_text)
+    if not _WITH_PREFIX.match(list_text):
+        multiplier = default_multiplier
     cls = classify_wargear_list(split_wargear_list(wargear_list))
     if cls["is_warlord"]:
         unit["is_warlord"] = True
     if cls["is_character"]:
         unit["is_character"] = True
+    _add_keyword_overrides(unit, cls["keyword_overrides"])
     # wtc never inlines the enhancement points in the wargear list (that's
     # the simple format); wtc's enhancement is always parsed off the explicit
     # "Enhancement:" line.
-    scaled = [
-        {"raw_name": w["raw_name"], "count": w["count"] * multiplier} for w in cls["wargear"]
-    ]
-    _add_wargear(unit, scaled)
+    _add_wargear(
+        unit,
+        [{"raw_name": w["raw_name"], "count": w["count"] * multiplier} for w in cls["wargear"]],
+    )
+    return cls["wargear"]
 
 
 def _finish_unit(unit: dict[str, Any]) -> dict[str, Any]:
     displayed = unit["displayed_pts"]
-    points = None if displayed is None else displayed - unit["enhancement_pts"]
+    points = None if displayed is None else displayed - (unit["enhancement_pts"] or 0)
     return {
         "raw_name": unit["raw_name"],
         "is_character": unit["is_character"],
+        **(
+            {"keyword_overrides": list(unit["keyword_overrides"])}
+            if unit["keyword_overrides"]
+            else {}
+        ),
         "model_count": unit["model_count"],
         "points": points,
         "is_warlord": unit["is_warlord"],
@@ -202,19 +227,21 @@ def _finish_unit(unit: dict[str, Any]) -> dict[str, Any]:
             None if unit["enhancement_raw_name"] is None else unit["enhancement_pts"]
         ),
         "wargear": [{"raw_name": n, "count": c} for n, c in unit["wargear"].items()],
+        **({"loadout_groups": unit["loadout_groups"]} if unit["loadout_groups"] else {}),
+        "leader_attachment": unit["leader_attachment"],
     }
 
 
-def _compute_total(units: list[dict[str, Any]], enhancement_pts: list[int]) -> int:
+def _compute_total(units: list[dict[str, Any]], enhancement_pts: list[int | None]) -> int:
     """Compute total_computed by walking every parsed unit cost line."""
     total = 0
     for i, u in enumerate(units):
         total += u["points"] or 0
-        total += enhancement_pts[i] if i < len(enhancement_pts) else 0
+        total += enhancement_pts[i] or 0 if i < len(enhancement_pts) else 0
     return total
 
 
-def _attach_enhancement(unit: dict[str, Any], raw_name: str, pts: int) -> None:
+def _attach_enhancement(unit: dict[str, Any], raw_name: str, pts: int | None) -> None:
     unit["enhancement_raw_name"] = raw_name.strip()
     unit["enhancement_pts"] = pts
 
@@ -222,10 +249,10 @@ def _attach_enhancement(unit: dict[str, Any], raw_name: str, pts: int) -> None:
 # --- compact body parser -----------------------------------------------------
 
 
-def _parse_compact_body(body: str) -> tuple[list[dict[str, Any]], list[int]]:
+def _parse_compact_body(body: str) -> tuple[list[dict[str, Any]], list[int | None]]:
     lines = _SPLIT_LINES.split(body)
     units: list[dict[str, Any]] = []
-    enhancement_pts: list[int] = []
+    enhancement_pts: list[int | None] = []
     current: dict[str, Any] | None = None
 
     def finalize() -> None:
@@ -237,14 +264,49 @@ def _parse_compact_body(body: str) -> tuple[list[dict[str, Any]], list[int]]:
 
     for raw in lines:
         line = raw.strip()
+        attachment = _ATTACHMENT_LINE.match(line)
+        if attachment and current is not None:
+            current["leader_attachment"] = {
+                "role": attachment.group(1).lower(),
+                "bodyguard_raw_name": attachment.group(2).strip(),
+                "provisional": attachment.group(3) is not None,
+            }
+            continue
         if not line or _HEADER_LINE.match(line) or _FENCE.match(line):
             continue
 
         enh = _ENHANCEMENT_LINE.match(line)
         if enh and current is not None:
-            _attach_enhancement(current, enh.group(1), int(enh.group(2)))
-            # Emit immediately so subsequent unit lines start fresh.
+            _attach_enhancement(current, enh.group(1), int(enh.group(2)) if enh.group(2) else None)
             finalize()
+            continue
+        breakdown = _MODEL_BREAKDOWN.match(raw)
+        if breakdown and current is not None:
+            count = int(breakdown.group(1))
+            cls = classify_wargear_list(
+                split_wargear_list(_parse_with_group(breakdown.group(3))[1])
+                if breakdown.group(3) is not None
+                else []
+            )
+            group_wargear = cls["wargear"]
+            if cls["is_warlord"]:
+                current["is_warlord"] = True
+            if cls["is_character"]:
+                current["is_character"] = True
+            _add_keyword_overrides(current, cls["keyword_overrides"])
+            if breakdown.group(3) is not None:
+                multiplier, _ = _parse_with_group(breakdown.group(3))
+                multiplier = multiplier if _WITH_PREFIX.match(breakdown.group(3)) else count
+                _add_wargear(
+                    current,
+                    [
+                        {"raw_name": item["raw_name"], "count": item["count"] * multiplier}
+                        for item in group_wargear
+                    ],
+                )
+            current["loadout_groups"].append(
+                {"model_name": breakdown.group(2).strip(), "count": count, "wargear": group_wargear}
+            )
             continue
 
         unit_match = _UNIT_HEADER_COMPACT.match(line)
@@ -265,16 +327,33 @@ def _parse_compact_body(body: str) -> tuple[list[dict[str, Any]], list[int]]:
 # --- full body parser --------------------------------------------------------
 
 
-def _parse_full_body(body: str) -> tuple[list[dict[str, Any]], list[int]]:
+def _parse_full_body(body: str) -> tuple[list[dict[str, Any]], list[int | None]]:
     lines = _SPLIT_LINES.split(body)
     units: list[dict[str, Any]] = []
-    enhancement_pts: list[int] = []
+    enhancement_pts: list[int | None] = []
     current: dict[str, Any] | None = None
     breakdown_models = 0
+    pending_breakdown: dict[str, Any] | None = None
+
+    def flush_pending_breakdown() -> None:
+        nonlocal pending_breakdown
+        if current is None or pending_breakdown is None:
+            return
+        remaining = pending_breakdown["count"] - pending_breakdown["assigned_count"]
+        if remaining > 0:
+            current["loadout_groups"].append(
+                {
+                    "model_name": pending_breakdown["model_name"],
+                    "count": remaining,
+                    "wargear": [],
+                }
+            )
+        pending_breakdown = None
 
     def finalize() -> None:
         nonlocal current, breakdown_models
         if current is not None:
+            flush_pending_breakdown()
             if breakdown_models > 0:
                 current["model_count"] = breakdown_models
             units.append(_finish_unit(current))
@@ -292,9 +371,17 @@ def _parse_full_body(body: str) -> tuple[list[dict[str, Any]], list[int]]:
 
         enh = _ENHANCEMENT_LINE.match(line)
         if enh and current is not None:
-            _attach_enhancement(current, enh.group(1), int(enh.group(2)))
+            _attach_enhancement(current, enh.group(1), int(enh.group(2)) if enh.group(2) else None)
             continue
 
+        attachment = _ATTACHMENT_LINE.match(line)
+        if attachment and current is not None:
+            current["leader_attachment"] = {
+                "role": attachment.group(1).lower(),
+                "bodyguard_raw_name": attachment.group(2).strip(),
+                "provisional": attachment.group(3) is not None,
+            }
+            continue
         unit_match = _UNIT_HEADER_FULL.match(line)
         if unit_match:
             finalize()
@@ -321,15 +408,37 @@ def _parse_full_body(body: str) -> tuple[list[dict[str, Any]], list[int]]:
 
         breakdown = _MODEL_BREAKDOWN.match(raw)
         if breakdown and current is not None:
-            breakdown_models += int(breakdown.group(1))
-            # Inline loadout after the model type; ``N with`` continuation
-            # lines for the same group still arrive separately below.
+            flush_pending_breakdown()
+            count = int(breakdown.group(1))
+            breakdown_models += count
+            model_name = breakdown.group(2).strip()
+            pending_breakdown = {
+                "model_name": model_name,
+                "count": count,
+                "assigned_count": 0,
+            }
             if breakdown.group(3) is not None:
-                _apply_with_group(current, breakdown.group(3))
+                group_wargear = _apply_with_group(current, breakdown.group(3), count)
+                multiplier, _ = _parse_with_group(breakdown.group(3))
+                group_count = multiplier if _WITH_PREFIX.match(breakdown.group(3)) else count
+                current["loadout_groups"].append(
+                    {"model_name": model_name, "count": group_count, "wargear": group_wargear}
+                )
+                pending_breakdown["assigned_count"] = group_count
             continue
 
         if _WITH_PREFIX.match(line) and current is not None:
-            _apply_with_group(current, line)
+            group_wargear = _apply_with_group(current, line)
+            if pending_breakdown is not None:
+                multiplier, _ = _parse_with_group(line)
+                current["loadout_groups"].append(
+                    {
+                        "model_name": pending_breakdown["model_name"],
+                        "count": multiplier,
+                        "wargear": group_wargear,
+                    }
+                )
+                pending_breakdown["assigned_count"] += multiplier
             continue
 
     finalize()
@@ -363,20 +472,20 @@ def _is_wtc_text(decoded: Any) -> str | None:
 
 
 _FULL_FORMAT_RE = re.compile(r"^[\t ]*\d+\s+with\b", re.MULTILINE)
-_BULLETS_RE = re.compile(r"^[\t ]*•", re.MULTILINE)
+_SERIALIZED_FULL_RE = re.compile(r"^\+\s*LIST NAME:", re.IGNORECASE | re.MULTILINE)
+_BATTLELINE_RE = re.compile(r"^BATTLELINE\s*$", re.MULTILINE)
 
 
 def _is_full_format(text: str) -> bool:
-    """wtc-full has a line starting with ``N with `` at the start of a body
-    line (compact only puts ``N with`` after ``:`` on the unit-header line)."""
     return _FULL_FORMAT_RE.search(text) is not None
 
 
-def _has_bullets(text: str) -> bool:
-    """``•``-prefixed body lines. wtc-full uses them for per-model breakdowns;
-    the GW app format uses them for every wargear entry. wtc-compact never
-    emits them, so its matcher excludes them to stay disjoint from GW."""
-    return _BULLETS_RE.search(text) is not None
+def _is_serialized_full_format(text: str) -> bool:
+    return _SERIALIZED_FULL_RE.search(text) is not None and _BATTLELINE_RE.search(text) is not None
+
+
+def _has_compact_unit(text: str) -> bool:
+    return any(_UNIT_HEADER_COMPACT.match(line.strip()) for line in _SPLIT_LINES.split(text))
 
 
 def _parse_with_format(text: str, format: str) -> dict[str, Any]:
@@ -393,9 +502,7 @@ def _parse_with_format(text: str, format: str) -> dict[str, Any]:
         "name": header["name"],
         "generated_by": None,
         "faction_raw_name": header["faction_raw_name"],
-        "detachment_raw_names": (
-            [header["detachment_raw_name"]] if header["detachment_raw_name"] else []
-        ),
+        "detachment_raw_names": header["detachment_raw_names"],
         "force_disposition_raw_name": header["force_disposition_raw_name"],
         "battle_size_raw": header["battle_size_raw"],
         "declared_limit": header["declared_limit"],
@@ -410,9 +517,11 @@ def _matches_compact(decoded: Any) -> bool:
     text = _is_wtc_text(decoded)
     if text is None:
         return False
-    # wtc-compact has no `N with` lines (that's wtc-full) and no `•` bullets
-    # (that's the GW app format) — excluding both keeps the matcher disjoint.
-    return not _is_full_format(text) and not _has_bullets(text)
+    return (
+        not _is_full_format(text)
+        and not _is_serialized_full_format(text)
+        and _has_compact_unit(text)
+    )
 
 
 def _parse_compact(decoded: Any) -> dict[str, Any]:
@@ -426,7 +535,7 @@ def _matches_full(decoded: Any) -> bool:
     text = _is_wtc_text(decoded)
     if text is None:
         return False
-    return _is_full_format(text)
+    return _is_full_format(text) or _is_serialized_full_format(text)
 
 
 def _parse_full(decoded: Any) -> dict[str, Any]:

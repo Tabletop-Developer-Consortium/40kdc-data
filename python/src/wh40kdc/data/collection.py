@@ -210,9 +210,7 @@ class Collection(Generic[T, V]):
             return []
         name_of = self._name_of
         return [
-            self._wrap(item)
-            for item in self._items
-            if key in normalize_name(name_of(item) or "")
+            self._wrap(item) for item in self._items if key in normalize_name(name_of(item) or "")
         ]
 
     def by_faction(self, faction_id: str) -> list[V]:

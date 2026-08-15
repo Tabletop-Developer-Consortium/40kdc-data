@@ -451,7 +451,7 @@
       "forceDisposition": "priority-assets",
       "detachments": [
         {
-          "id": "devotees-of-destruction"
+          "id": "nightmare-hunt"
         },
         {
           "id": "murdertalon-raiders"
@@ -469,7 +469,8 @@
       ]
     },
     "expected": [
-      "army|error|detachment-tag-conflict:nightmare"
+      "army|error|detachment-tag-conflict:nightmare",
+      "army|warn|disposition-invalid:priority-assets"
     ]
   },
   {

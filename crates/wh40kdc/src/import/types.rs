@@ -154,6 +154,9 @@ pub struct RosterUnit {
     /// Base unit cost (without the enhancement).
     pub points: Option<u64>,
     pub is_warlord: bool,
+    /// Source-granted keywords which are not intrinsic to the datasheet.
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub keyword_overrides: Vec<String>,
     pub enhancement: Option<ResolvedRef>,
     /// Points cost of the enhancement when the source reported one; `None`
     /// otherwise. Lets a Roster round-trip cleanly through formats that print
@@ -329,12 +332,25 @@ pub struct ParsedWargear {
     pub count: u64,
 }
 
+/// An exact per-model loadout group carried by a source format before ids are
+/// resolved. Counts in `wargear` are per model.
+#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
+pub struct ParsedLoadoutGroup {
+    pub model_name: Option<String>,
+    pub count: u64,
+    pub wargear: Vec<ParsedWargear>,
+}
+
 /// A unit selection before id resolution.
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
 pub struct ParsedUnit {
     pub raw_name: String,
     /// True when the source classifies this as a character/leader-capable model.
     pub is_character: bool,
+    /// Optional source-granted keywords. `Some([])` preserves sources that
+    /// explicitly serialize an empty override list.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub keyword_overrides: Option<Vec<String>>,
     pub model_count: u64,
     /// Base unit cost (without the enhancement).
     pub points: Option<u64>,
@@ -344,6 +360,10 @@ pub struct ParsedUnit {
     /// otherwise.
     pub enhancement_points: Option<u64>,
     pub wargear: Vec<ParsedWargear>,
+    /// Exact per-model loadout groups supplied by the source. When absent,
+    /// resolution reconstructs groups from the aggregate counts.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub loadout_groups: Option<Vec<ParsedLoadoutGroup>>,
     /// Explicit leader→bodyguard attachment, when the source encoded one.
     ///
     /// Three serialized states, matching the TS `leader_attachment?` optional

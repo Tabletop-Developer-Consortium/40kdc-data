@@ -77,12 +77,11 @@ pub fn char_slot_assignment(units: &[RosterUnit]) -> Vec<Option<u32>> {
     result
 }
 
-/// Render a loadout group's per-model weapons, sorted by display name, with `Nx`
+/// Render a loadout group's per-model weapons in their source order, with `Nx`
 /// for counts >1. Mirror of the TS `groupWeaponsText`.
 pub fn group_weapons_text(wargear: &[RosterWargear]) -> String {
-    let mut ws: Vec<&RosterWargear> = wargear.iter().collect();
-    ws.sort_by(|a, b| a.ref_.raw_name.cmp(&b.ref_.raw_name));
-    ws.iter()
+    wargear
+        .iter()
         .map(|w| {
             if w.count > 1 {
                 format!("{}x {}", w.count, w.ref_.raw_name)

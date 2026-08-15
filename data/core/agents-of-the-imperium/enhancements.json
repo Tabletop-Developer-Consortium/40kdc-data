@@ -15,12 +15,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Agents of the Imperium"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "blackweave-shroud-ordo-xenos-alien-hunters",
@@ -38,12 +33,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Agents of the Imperium"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "beacon-angelis-ordo-xenos-alien-hunters",
@@ -51,7 +41,7 @@
     "detachment_id": "ordo-xenos-alien-hunters",
     "cost": 30,
     "keyword_restrictions": [
-      "Agents of the Imperium"
+      "Watch Master"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -61,12 +51,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Watch Master"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "amulet-of-auto-chastisement-ordo-xenos-alien-hunters",
@@ -74,7 +59,7 @@
     "detachment_id": "ordo-xenos-alien-hunters",
     "cost": 25,
     "keyword_restrictions": [
-      "Agents of the Imperium"
+      "Watch Master"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -84,21 +69,13 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Watch Master"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "liber-heresius-ordo-hereticus-purgation-force",
     "name": "Liber Heresius",
     "detachment_id": "ordo-hereticus-purgation-force",
     "cost": 10,
-    "keyword_restrictions": [
-      "Agents of the Imperium"
-    ],
     "ability_id": null,
     "is_unique": true,
     "game_version": {
@@ -123,7 +100,7 @@
     "detachment_id": "ordo-hereticus-purgation-force",
     "cost": 25,
     "keyword_restrictions": [
-      "Agents of the Imperium"
+      "Inquisitor"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -133,21 +110,13 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Inquisitor"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "witch-hunter-ordo-hereticus-purgation-force",
     "name": "Witch Hunter",
     "detachment_id": "ordo-hereticus-purgation-force",
     "cost": 15,
-    "keyword_restrictions": [
-      "Agents of the Imperium"
-    ],
     "ability_id": null,
     "is_unique": true,
     "game_version": {
@@ -171,9 +140,6 @@
     "name": "Ignis Judicium",
     "detachment_id": "ordo-hereticus-purgation-force",
     "cost": 10,
-    "keyword_restrictions": [
-      "Agents of the Imperium"
-    ],
     "ability_id": null,
     "is_unique": true,
     "game_version": {
@@ -198,7 +164,7 @@
     "detachment_id": "ordo-malleus-daemon-hunters",
     "cost": 5,
     "keyword_restrictions": [
-      "Agents of the Imperium"
+      "Inquisitor"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -208,12 +174,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Inquisitor"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "daemon-slayer-ordo-malleus-daemon-hunters",
@@ -221,7 +182,7 @@
     "detachment_id": "ordo-malleus-daemon-hunters",
     "cost": 10,
     "keyword_restrictions": [
-      "Agents of the Imperium"
+      "Inquisitor"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -231,12 +192,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Inquisitor"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "grimoire-of-true-names-aura-ordo-malleus-daemon-hunters",
@@ -244,7 +200,7 @@
     "detachment_id": "ordo-malleus-daemon-hunters",
     "cost": 10,
     "keyword_restrictions": [
-      "Agents of the Imperium"
+      "Inquisitor"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -254,12 +210,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Inquisitor"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "gift-of-the-prescient-ordo-malleus-daemon-hunters",
@@ -267,7 +218,7 @@
     "detachment_id": "ordo-malleus-daemon-hunters",
     "cost": 20,
     "keyword_restrictions": [
-      "Agents of the Imperium"
+      "Inquisitor"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -277,12 +228,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Inquisitor"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "digital-weapons-imperialis-fleet",
@@ -300,12 +246,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Agents of the Imperium"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "clandestine-operation-imperialis-fleet",
@@ -323,12 +264,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Agents of the Imperium"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "fleetmaster-imperialis-fleet",
@@ -336,7 +272,7 @@
     "detachment_id": "imperialis-fleet",
     "cost": 20,
     "keyword_restrictions": [
-      "Agents of the Imperium"
+      "Voidfarers"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -346,12 +282,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Voidfarers"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "combat-landers-imperialis-fleet",
@@ -359,7 +290,7 @@
     "detachment_id": "imperialis-fleet",
     "cost": 10,
     "keyword_restrictions": [
-      "Agents of the Imperium"
+      "Voidfarers"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -369,12 +300,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Voidfarers"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "killer-reflexes-inquisitors-hand",
@@ -391,13 +317,7 @@
     ],
     "points_provisional": false,
     "keyword_restrictions": [
-      "Eversor Assassin",
-      "Inquisitor's Hand"
-    ],
-    "keyword_restriction_groups": [
-      [
-        "Inquisitor's Hand Eversor Assassin"
-      ]
+      "Inquisitor's Hand Eversor Assassin"
     ]
   },
   {
@@ -417,12 +337,6 @@
     "keyword_restrictions": [
       "Inquisitor's Hand",
       "Ministorum Priest"
-    ],
-    "keyword_restriction_groups": [
-      [
-        "Inquisitor's Hand",
-        "Ministorum Priest"
-      ]
     ]
   },
   {
@@ -439,12 +353,6 @@
     "points_provisional": false,
     "upgrade_tag": false,
     "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Agents of the Imperium",
-        "DNU"
-      ]
-    ],
     "keyword_restrictions": [
       "Agents of the Imperium",
       "DNU"
@@ -464,12 +372,6 @@
     "points_provisional": false,
     "upgrade_tag": false,
     "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Agents of the Imperium",
-        "DNU"
-      ]
-    ],
     "keyword_restrictions": [
       "Agents of the Imperium",
       "DNU"
@@ -489,12 +391,6 @@
     "points_provisional": false,
     "upgrade_tag": false,
     "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Agents of the Imperium",
-        "DNU"
-      ]
-    ],
     "keyword_restrictions": [
       "Agents of the Imperium",
       "DNU"
@@ -514,12 +410,6 @@
     "points_provisional": false,
     "upgrade_tag": false,
     "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Agents of the Imperium",
-        "DNU"
-      ]
-    ],
     "keyword_restrictions": [
       "Agents of the Imperium",
       "DNU"

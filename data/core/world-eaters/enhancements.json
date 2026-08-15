@@ -15,12 +15,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "World Eaters"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "helm-of-brazen-ire-berzerker-warband",
@@ -38,12 +33,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "World Eaters"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "favoured-of-khorne-berzerker-warband",
@@ -61,12 +51,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "World Eaters"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "battle-lust-berzerker-warband",
@@ -84,12 +69,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "World Eaters"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "archslaughterer-vessels-of-wrath",
@@ -107,12 +87,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "World Eaters"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "gateways-to-glory-vessels-of-wrath",
@@ -120,6 +95,7 @@
     "detachment_id": "vessels-of-wrath",
     "cost": 10,
     "keyword_restrictions": [
+      "Daemon Prince",
       "World Eaters"
     ],
     "ability_id": "gateways-to-glory-vessels-of-wrath",
@@ -130,13 +106,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Daemon Prince",
-        "World Eaters"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "chosen-of-the-blood-god-cult-of-blood",
@@ -144,6 +114,7 @@
     "detachment_id": "cult-of-blood",
     "cost": 15,
     "keyword_restrictions": [
+      "Monster",
       "World Eaters"
     ],
     "ability_id": "chosen-of-the-blood-god-cult-of-blood",
@@ -154,13 +125,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Monster",
-        "World Eaters"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "butcher-lord-cult-of-blood",
@@ -168,6 +133,7 @@
     "detachment_id": "cult-of-blood",
     "cost": 10,
     "keyword_restrictions": [
+      "Infantry",
       "World Eaters"
     ],
     "ability_id": "butcher-lord-cult-of-blood",
@@ -179,12 +145,6 @@
     "points_provisional": false,
     "upgrade_tag": false,
     "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Infantry",
-        "World Eaters"
-      ]
-    ],
     "attachment_bodyguard_ids": [
       "goremongers",
       "jakhals"
@@ -196,6 +156,7 @@
     "detachment_id": "cult-of-blood",
     "cost": 25,
     "keyword_restrictions": [
+      "Monster",
       "World Eaters"
     ],
     "ability_id": "brazen-form-cult-of-blood",
@@ -206,13 +167,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Monster",
-        "World Eaters"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "strategic-slaughter-cult-of-blood",
@@ -230,12 +185,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "World Eaters"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "icon-of-war-khorne-daemonkin",
@@ -253,21 +203,13 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "World Eaters"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "blood-forged-armour-khorne-daemonkin",
     "name": "Blood-Forged Armour",
     "detachment_id": "khorne-daemonkin",
     "cost": 20,
-    "keyword_restrictions": [
-      "World Eaters"
-    ],
     "ability_id": "blood-forged-armour-khorne-daemonkin",
     "is_unique": true,
     "game_version": {
@@ -292,7 +234,7 @@
     "detachment_id": "khorne-daemonkin",
     "cost": 15,
     "keyword_restrictions": [
-      "World Eaters"
+      "Lord on Juggernaut"
     ],
     "ability_id": "disciple-of-khorne-khorne-daemonkin",
     "is_unique": true,
@@ -303,11 +245,6 @@
     "points_provisional": false,
     "upgrade_tag": false,
     "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Lord on Juggernaut"
-      ]
-    ],
     "attachment_bodyguard_ids": [
       "bloodcrushers",
       "flesh-hounds"
@@ -329,12 +266,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "World Eaters"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "malicious-vigour-possessed-slaughterband",
@@ -342,7 +274,7 @@
     "detachment_id": "possessed-slaughterband",
     "cost": 30,
     "keyword_restrictions": [
-      "World Eaters"
+      "Slaughterbound"
     ],
     "ability_id": "malicious-vigour-possessed-slaughterband",
     "is_unique": true,
@@ -352,12 +284,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Slaughterbound"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "killing-clarity-possessed-slaughterband",
@@ -365,6 +292,7 @@
     "detachment_id": "possessed-slaughterband",
     "cost": 15,
     "keyword_restrictions": [
+      "Daemon",
       "World Eaters"
     ],
     "ability_id": "killing-clarity-possessed-slaughterband",
@@ -375,13 +303,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Daemon",
-        "World Eaters"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "frenzied-focus-possessed-slaughterband",
@@ -389,6 +311,7 @@
     "detachment_id": "possessed-slaughterband",
     "cost": 20,
     "keyword_restrictions": [
+      "Daemon",
       "World Eaters"
     ],
     "ability_id": "frenzied-focus-possessed-slaughterband",
@@ -399,13 +322,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Daemon",
-        "World Eaters"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "violent-demise-possessed-slaughterband",
@@ -413,6 +330,7 @@
     "detachment_id": "possessed-slaughterband",
     "cost": 10,
     "keyword_restrictions": [
+      "Daemon",
       "World Eaters"
     ],
     "ability_id": "violent-demise-possessed-slaughterband",
@@ -423,13 +341,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Daemon",
-        "World Eaters"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "murderous-onslaught-goretrack-onslaught",
@@ -447,12 +359,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "World Eaters"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "aggressive-deployment-goretrack-onslaught",
@@ -470,12 +377,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "World Eaters"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "unleash-hell-goretrack-onslaught",
@@ -493,12 +395,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "World Eaters"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "infernal-infusion-goretrack-onslaught",
@@ -516,12 +413,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "World Eaters"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "talons-of-butchery-upgrade-brazen-engines",
@@ -529,7 +421,8 @@
     "detachment_id": "brazen-engines",
     "cost": 20,
     "keyword_restrictions": [
-      "Maulerfiend"
+      "Maulerfiend",
+      "World Eaters"
     ],
     "ability_id": "talons-of-butchery-brazen-engines",
     "is_unique": true,
@@ -539,13 +432,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": true,
-    "max_targets": 3,
-    "keyword_restriction_groups": [
-      [
-        "Maulerfiend",
-        "World Eaters"
-      ]
-    ]
+    "max_targets": 3
   },
   {
     "id": "murder-forged-entity-upgrade-brazen-engines",
@@ -553,7 +440,8 @@
     "detachment_id": "brazen-engines",
     "cost": 15,
     "keyword_restrictions": [
-      "Vehicle"
+      "Vehicle",
+      "World Eaters"
     ],
     "ability_id": "murder-forged-entity-brazen-engines",
     "is_unique": true,
@@ -563,13 +451,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": true,
-    "max_targets": 3,
-    "keyword_restriction_groups": [
-      [
-        "Vehicle",
-        "World Eaters"
-      ]
-    ]
+    "max_targets": 3
   },
   {
     "id": "sanctified-in-slaughter-upgrade-butchers-of-khorne",
@@ -587,12 +469,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": true,
-    "max_targets": 3,
-    "keyword_restriction_groups": [
-      [
-        "Terminator Squad"
-      ]
-    ]
+    "max_targets": 3
   },
   {
     "id": "gore-stained-veterans-upgrade-butchers-of-khorne",
@@ -610,12 +487,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": true,
-    "max_targets": 3,
-    "keyword_restriction_groups": [
-      [
-        "Terminator Squad"
-      ]
-    ]
+    "max_targets": 3
   },
   {
     "id": "bane-of-the-craven-frenzied-reavers",
@@ -632,13 +504,7 @@
     ],
     "points_provisional": false,
     "keyword_restrictions": [
-      "Frenzied Reavers",
-      "Master of Executions"
-    ],
-    "keyword_restriction_groups": [
-      [
-        "Frenzied Reavers Master of Executions"
-      ]
+      "Frenzied Reavers Master of Executions"
     ]
   },
   {
@@ -658,12 +524,6 @@
     "keyword_restrictions": [
       "Daemon Prince",
       "Frenzied Reavers"
-    ],
-    "keyword_restriction_groups": [
-      [
-        "Daemon Prince",
-        "Frenzied Reavers"
-      ]
     ]
   }
 ]

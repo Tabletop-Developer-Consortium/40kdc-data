@@ -54,12 +54,43 @@ def _wargear_selection(idx: int, w: dict[str, Any]) -> dict[str, Any]:
     }
 
 
-def _unit_selection(
-    idx: int, u: RosterUnit, faction: dict[str, Any] | None
+def _group_model_selection(
+    unit_index: int, group_index: int, unit: RosterUnit, group: dict[str, Any]
 ) -> dict[str, Any]:
+    model_name = group.get("model_name")
+    if model_name is None:
+        model_name = unit["ref"]["raw_name"]
+    return {
+        "id": f"u{unit_index}-model-{group_index}",
+        "name": model_name,
+        "type": "model",
+        "number": group["count"],
+        "selections": [
+            _wargear_selection(
+                item_index,
+                {**item, "count": item["count"] * group["count"]},
+            )
+            for item_index, item in enumerate(group["wargear"])
+        ],
+    }
+
+
+def _unit_selection(idx: int, u: RosterUnit, faction: dict[str, Any] | None) -> dict[str, Any]:
     inner: list[dict[str, Any]] = []
     if u.get("is_warlord"):
         inner.append({"id": f"u{idx}-warlord", "name": "Warlord", "type": "upgrade", "number": 1})
+    if u.get("leader_attachment"):
+        attachment = u["leader_attachment"]
+        status = "provisional" if attachment["provisional"] else "confirmed"
+        inner.append(
+            {
+                "id": f"u{idx}-attachment",
+                "name": attachment["bodyguard_ref"]["raw_name"],
+                "type": "upgrade",
+                "number": 1,
+                "group": f"40kdc Attachment:{attachment['role']}:{status}",
+            }
+        )
     if u.get("enhancement"):
         enh: dict[str, Any] = {
             "id": f"u{idx}-enh",
@@ -75,11 +106,31 @@ def _unit_selection(
         inner.append(enh)
 
     wargear_selections = [_wargear_selection(wi, w) for wi, w in enumerate(u["wargear"])]
-    own_categories = [faction] if faction else []
-
-    sel: dict[str, Any]
-    if u["model_count"] <= 1:
-        sel = {
+    groups = u.get("loadout_groups") or []
+    if groups:
+        model_selections = [
+            _group_model_selection(idx, group_index, u, group)
+            for group_index, group in enumerate(groups)
+        ]
+    else:
+        model_selections = [
+            {
+                "id": f"u{idx}-model",
+                "name": u["ref"]["raw_name"],
+                "type": "model",
+                "number": u["model_count"],
+                "selections": wargear_selections,
+            }
+        ]
+    own_categories = [
+        *([faction] if faction else []),
+        *[
+            {"id": f"40kdc-keyword-{index}", "name": keyword, "primary": False}
+            for index, keyword in enumerate(u.get("keyword_overrides") or [])
+        ],
+    ]
+    if u["model_count"] <= 1 and not groups:
+        sel: dict[str, Any] = {
             "id": f"u-{idx}",
             "name": u["ref"]["raw_name"],
             "type": "model",
@@ -90,9 +141,6 @@ def _unit_selection(
             sel["costs"] = [{"name": "pts", "typeId": _PTS_TYPE_ID, "value": u["points"]}]
         sel["selections"] = [*inner, *wargear_selections]
         return sel
-
-    # Multi-model: wrap in a `type: "unit"` with a nested `type: "model"` that
-    # carries the model count and the (collapsed, per-unit) wargear.
     sel = {
         "id": f"u-{idx}",
         "name": u["ref"]["raw_name"],
@@ -102,16 +150,7 @@ def _unit_selection(
     }
     if u["points"] is not None:
         sel["costs"] = [{"name": "pts", "typeId": _PTS_TYPE_ID, "value": u["points"]}]
-    sel["selections"] = [
-        *inner,
-        {
-            "id": f"u{idx}-model",
-            "name": u["ref"]["raw_name"],
-            "type": "model",
-            "number": u["model_count"],
-            "selections": wargear_selections,
-        },
-    ]
+    sel["selections"] = [*inner, *model_selections]
     return sel
 
 
@@ -155,8 +194,16 @@ def serialize_newrecruit_json(roster: Roster) -> str:
     if battle_size:
         config.append(_config_selection("Battle Size", battle_size, "battle-size"))
     for d in roster["detachments"]:
-        display = title_case_id(d["ref"]["id"]) or d["ref"]["raw_name"]
-        config.append(_config_selection("Detachment", display, "detachment"))
+        config.append(_config_selection("Detachment", d["ref"]["raw_name"], "detachment"))
+    force_disposition = roster.get("force_disposition")
+    if force_disposition is not None:
+        config.append(
+            _config_selection(
+                "Force Disposition",
+                title_case_id(force_disposition) or force_disposition,
+                "force-disposition",
+            )
+        )
 
     force = {
         "id": "force-1",

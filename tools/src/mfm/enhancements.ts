@@ -58,18 +58,17 @@ export interface DirEnhResult {
   // WS1a field-accuracy reconcile (upgrade_tag / max_targets / keywords).
   upgradeChanged: { id: string; from: boolean; to: boolean }[];
   maxTargetsChanged: { id: string; from: number; to: number }[];
-  // Keyword fields are FILL-ONLY: written only when the repo authored nothing, so a
-  // finer authored restriction (a unit keyword the dump's army-level group omits) is
-  // never destroyed. A populated authored value that disagrees is surfaced, not written.
-  exclusionFilled: { id: string; to: string[] }[];
-  exclusionReview: { id: string; authored: string[]; derived: string[] }[];
-  restrictionsFilled: { id: string; to: string[] }[];
+  /** Source-owned exclusions that were replaced or cleared. */
+  exclusionChanged: { id: string; from: string[] | null; to: string[] | null }[];
+  /** Source-owned eligibility representation that was replaced or cleared. */
+  eligibilityChanged: {
+    id: string;
+    from: { keyword_restrictions: string[] | null; keyword_restriction_groups: string[][] | null };
+    to: { keyword_restrictions: string[] | null; keyword_restriction_groups: string[][] | null };
+  }[];
   attachmentBodyguardsChanged: { id: string; from: string[] | null; to: string[] | null }[];
-  restrictionGroupsChanged: { id: string; from: string[][] | null; to: string[][] | null }[];
-  /** Populated authored restrictions that differ from the dump (kept, review). `reason`
-   *  is "multi-group-or" (flat list can't hold the OR) or "differs" (authored is finer). */
-  restrictionsReview: { id: string; authored: string[] | null; derived: string[]; reason: string }[];
-  /** Dump keyword ids that did not resolve to a repo label (skipped, not written). */
+  /** Dump keyword ids that did not resolve to a repo label (the eligibility source
+   *  cannot be represented safely, so it is left untouched). */
   unresolvedKeywords: { id: string; ids: string[] }[];
 }
 
@@ -150,7 +149,72 @@ function sameGroups(
   return sameLabels(canonical(a), canonical(b));
 }
 
+/** The core schema deliberately has one eligibility representation at a time. */
+function eligibilityShape(fields: EnhFields): {
+  keyword_restrictions: string[] | null;
+  keyword_restriction_groups: string[][] | null;
+} {
+  const groups = fields.keyword_restriction_groups ?? [];
+  if (groups.length === 1) {
+    return { keyword_restrictions: groups[0], keyword_restriction_groups: null };
+  }
+  if (groups.length > 1) {
+    return { keyword_restrictions: null, keyword_restriction_groups: groups };
+  }
+  return { keyword_restrictions: null, keyword_restriction_groups: null };
+}
+
 /** Structured enhancement fields the dump can supply beyond cost. */
+
+export interface EnhancementEligibilityRecord {
+  keyword_restrictions?: string[] | null;
+  keyword_restriction_groups?: string[][] | null;
+  exclusion_keywords?: string[] | null;
+}
+
+export interface EligibilityReconcileResult {
+  eligibility?: {
+    from: { keyword_restrictions: string[] | null; keyword_restriction_groups: string[][] | null };
+    to: { keyword_restrictions: string[] | null; keyword_restriction_groups: string[][] | null };
+  };
+  exclusions?: { from: string[] | null; to: string[] | null };
+}
+
+/** Reconcile the source-owned eligibility fields without ever retaining both forms. */
+export function reconcileEnhancementEligibility(
+  record: EnhancementEligibilityRecord,
+  fields: EnhFields,
+): EligibilityReconcileResult {
+  const result: EligibilityReconcileResult = {};
+  if (fields.unresolvedKeywordIds.length > 0) return result;
+
+  const from = {
+    keyword_restrictions: record.keyword_restrictions ?? null,
+    keyword_restriction_groups: record.keyword_restriction_groups ?? null,
+  };
+  const to = eligibilityShape(fields);
+  if (
+    !sameLabels(from.keyword_restrictions, to.keyword_restrictions) ||
+    !sameGroups(from.keyword_restriction_groups, to.keyword_restriction_groups) ||
+    (to.keyword_restrictions === null && record.keyword_restrictions !== undefined) ||
+    (to.keyword_restriction_groups === null && record.keyword_restriction_groups !== undefined)
+  ) {
+    result.eligibility = { from, to };
+    if (to.keyword_restrictions === null) delete record.keyword_restrictions;
+    else record.keyword_restrictions = to.keyword_restrictions;
+    if (to.keyword_restriction_groups === null) delete record.keyword_restriction_groups;
+    else record.keyword_restriction_groups = to.keyword_restriction_groups;
+  }
+
+  const exclusionFrom = record.exclusion_keywords ?? null;
+  if (!sameLabels(exclusionFrom, fields.exclusion_keywords) ||
+    (fields.exclusion_keywords === null && record.exclusion_keywords !== undefined)) {
+    result.exclusions = { from: exclusionFrom, to: fields.exclusion_keywords };
+    if (fields.exclusion_keywords === null) delete record.exclusion_keywords;
+    else record.exclusion_keywords = fields.exclusion_keywords;
+  }
+  return result;
+}
 export interface EnhFields {
   upgrade_tag: boolean;
   max_targets: number;
@@ -181,8 +245,8 @@ export interface EnhFields {
  * Required-keyword groups model "bearer must have keyword(s)". Every non-empty
  * source group becomes one conjunction in `keyword_restriction_groups`, including
  * a datasheet name when the group is datasheet-scoped. The groups are alternatives
- * (OR). The legacy flat union remains available for compatibility with authored
- * records, but cannot faithfully encode divergent alternatives.
+ * (OR). The committed record uses the legacy flat field for one conjunction
+ * and the grouped field for alternatives; the two forms are mutually exclusive.
  */
 export function buildEnhFieldCanon(dump: MfmDump): Map<string, EnhFields> {
   const detName = dump.byId("detachment");
@@ -440,11 +504,8 @@ export function runEnhancements(
       unmatchedRepo: [],
       upgradeChanged: [],
       maxTargetsChanged: [],
-      exclusionFilled: [],
-      exclusionReview: [],
-      restrictionsFilled: [],
-      restrictionsReview: [],
-      restrictionGroupsChanged: [],
+      exclusionChanged: [],
+      eligibilityChanged: [],
       attachmentBodyguardsChanged: [],
       unresolvedKeywords: [],
     };
@@ -488,18 +549,12 @@ export function runEnhancements(
           res.maxTargetsChanged.push({ id: e.id, from: e.max_targets ?? 1, to: f.max_targets });
           e.max_targets = f.max_targets;
         }
-        const groupsAuthored = e.keyword_restriction_groups ?? null;
-        if (
-          f.unresolvedKeywordIds.length === 0 &&
-          !sameGroups(groupsAuthored, f.keyword_restriction_groups)
-        ) {
-          res.restrictionGroupsChanged.push({
-            id: e.id,
-            from: groupsAuthored,
-            to: f.keyword_restriction_groups,
-          });
-          if (f.keyword_restriction_groups === null) delete e.keyword_restriction_groups;
-          else e.keyword_restriction_groups = f.keyword_restriction_groups;
+        const changes = reconcileEnhancementEligibility(e, f);
+        if (changes.eligibility) {
+          res.eligibilityChanged.push({ id: e.id, ...changes.eligibility });
+        }
+        if (changes.exclusions) {
+          res.exclusionChanged.push({ id: e.id, ...changes.exclusions });
         }
         const attachmentAuthored = e.attachment_bodyguard_ids ?? null;
         if (!sameLabels(attachmentAuthored, f.attachment_bodyguard_ids)) {
@@ -511,33 +566,9 @@ export function runEnhancements(
           if (f.attachment_bodyguard_ids === null) delete e.attachment_bodyguard_ids;
           else e.attachment_bodyguard_ids = f.attachment_bodyguard_ids;
         }
-        // surface a populated disagreement rather than clobber an authored exclusion.
-        const exclAuthored = e.exclusion_keywords ?? [];
-        if (f.exclusion_keywords !== null) {
-          if (exclAuthored.length === 0) {
-            res.exclusionFilled.push({ id: e.id, to: f.exclusion_keywords });
-            e.exclusion_keywords = f.exclusion_keywords;
-          } else if (!sameLabels(exclAuthored, f.exclusion_keywords)) {
-            res.exclusionReview.push({ id: e.id, authored: exclAuthored, derived: f.exclusion_keywords });
-          }
+        if (f.unresolvedKeywordIds.length) {
+          res.unresolvedKeywords.push({ id: e.id, ids: f.unresolvedKeywordIds });
         }
-        // Preserve the legacy flat AND field for consumers that do not yet know the
-        // OR groups. Never flatten several alternatives into one impossible AND.
-        const restrAuthored = e.keyword_restrictions ?? [];
-        if (f.keyword_restrictions !== null && !f.keywordRestrictionsAmbiguous) {
-          if (restrAuthored.length === 0) {
-            res.restrictionsFilled.push({ id: e.id, to: f.keyword_restrictions });
-            e.keyword_restrictions = f.keyword_restrictions;
-          } else if (!sameLabels(restrAuthored, f.keyword_restrictions)) {
-            res.restrictionsReview.push({
-              id: e.id,
-              authored: restrAuthored,
-              derived: f.keyword_restrictions,
-              reason: "differs",
-            });
-          }
-        }
-        if (f.unresolvedKeywordIds.length) res.unresolvedKeywords.push({ id: e.id, ids: f.unresolvedKeywordIds });
       }
     }
     staged.push({ path: p, value: enhs });
@@ -626,13 +657,13 @@ export function runEnhancements(
       upgrade_tag: fields.upgrade_tag,
       max_targets: fields.max_targets,
     };
-    if (fields.keyword_restriction_groups) {
-      record.keyword_restriction_groups = fields.keyword_restriction_groups;
-      if (!fields.keywordRestrictionsAmbiguous && fields.keyword_restrictions) {
-        record.keyword_restrictions = fields.keyword_restrictions;
-      }
+    const eligibility = eligibilityShape(fields);
+    if (eligibility.keyword_restrictions) {
+      record.keyword_restrictions = eligibility.keyword_restrictions;
     }
-    if (fields.exclusion_keywords) record.exclusion_keywords = fields.exclusion_keywords;
+    if (eligibility.keyword_restriction_groups) {
+      record.keyword_restriction_groups = eligibility.keyword_restriction_groups;
+    }
     if (fields.attachment_bodyguard_ids) {
       record.attachment_bodyguard_ids = fields.attachment_bodyguard_ids;
     }
@@ -676,18 +707,19 @@ export function buildEnhReport(report: EnhReport, write: boolean): string {
   L.push("");
   L.push("Reconciles source-owned fields and seeds source-complete matched-play");
   L.push("enhancements whose detachment already exists. `keyword_restriction_groups`");
-  L.push("preserves exact OR-of-AND eligibility. `exclusion_keywords` and the legacy");
-  L.push("flat `keyword_restrictions` remain fill-only. Prose is never read or written.");
+  L.push("preserves exact OR-of-AND eligibility. Eligibility and exclusions are");
+  L.push("authoritative when all source keywords resolve: they replace stale core");
+  L.push("values and absent source relations clear them. Prose is never read or written.");
   L.push("");
-  L.push("| Dir | Matched | Cost | upgrade | max_tgt | groups | excl-fill | excl-rev | restr-fill | restr-rev | Repo-only |");
-  L.push("|---|--:|--:|--:|--:|--:|--:|--:|--:|--:|--:|");
+  L.push("| Dir | Matched | Cost | upgrade | max_tgt | eligibility | exclusions | Repo-only |");
+  L.push("|---|--:|--:|--:|--:|--:|--:|--:|");
   for (const d of dirs.filter((d) => d.matched || d.unmatchedRepo.length)) {
     L.push(
-      `| ${d.dir} | ${d.matched} | ${d.costChanged.length} | ${d.upgradeChanged.length} | ${d.maxTargetsChanged.length} | ${d.restrictionGroupsChanged.length} | ${d.exclusionFilled.length} | ${d.exclusionReview.length} | ${d.restrictionsFilled.length} | ${d.restrictionsReview.length} | ${d.unmatchedRepo.length} |`
+      `| ${d.dir} | ${d.matched} | ${d.costChanged.length} | ${d.upgradeChanged.length} | ${d.maxTargetsChanged.length} | ${d.eligibilityChanged.length} | ${d.exclusionChanged.length} | ${d.unmatchedRepo.length} |`
     );
   }
   L.push(
-    `| **TOTAL** | **${sum((d) => d.matched)}** | **${sum((d) => d.costChanged.length)}** | **${sum((d) => d.upgradeChanged.length)}** | **${sum((d) => d.maxTargetsChanged.length)}** | **${sum((d) => d.restrictionGroupsChanged.length)}** | **${sum((d) => d.exclusionFilled.length)}** | **${sum((d) => d.exclusionReview.length)}** | **${sum((d) => d.restrictionsFilled.length)}** | **${sum((d) => d.restrictionsReview.length)}** | **${sum((d) => d.unmatchedRepo.length)}** |`
+    `| **TOTAL** | **${sum((d) => d.matched)}** | **${sum((d) => d.costChanged.length)}** | **${sum((d) => d.upgradeChanged.length)}** | **${sum((d) => d.maxTargetsChanged.length)}** | **${sum((d) => d.eligibilityChanged.length)}** | **${sum((d) => d.exclusionChanged.length)}** | **${sum((d) => d.unmatchedRepo.length)}** |`
   );
   L.push("");
   for (const d of dirs) {
@@ -695,11 +727,8 @@ export function buildEnhReport(report: EnhReport, write: boolean): string {
       d.costChanged.length ||
       d.upgradeChanged.length ||
       d.maxTargetsChanged.length ||
-      d.restrictionGroupsChanged.length ||
-      d.exclusionFilled.length ||
-      d.exclusionReview.length ||
-      d.restrictionsFilled.length ||
-      d.restrictionsReview.length ||
+      d.eligibilityChanged.length ||
+      d.exclusionChanged.length ||
       d.unresolvedKeywords.length ||
       d.unmatchedRepo.length;
     if (!hasDetail) continue;
@@ -716,30 +745,16 @@ export function buildEnhReport(report: EnhReport, write: boolean): string {
       L.push("", "**max_targets changes:**");
       d.maxTargetsChanged.forEach((c) => L.push(`- ${c.id}: ${c.from} → ${c.to}`));
     }
-    if (d.restrictionGroupsChanged.length) {
-      L.push("", "**keyword_restriction_groups changes:**");
-      d.restrictionGroupsChanged.forEach((c) =>
+    if (d.eligibilityChanged.length) {
+      L.push("", "**Eligibility changes:**");
+      d.eligibilityChanged.forEach((c) =>
         L.push(`- ${c.id}: ${JSON.stringify(c.from)} → ${JSON.stringify(c.to)}`),
       );
     }
-    if (d.exclusionFilled.length) {
-      L.push("", "**exclusion_keywords filled:**");
-      d.exclusionFilled.forEach((c) => L.push(`- ${c.id}: [${c.to.join(", ")}]`));
-    }
-    if (d.restrictionsFilled.length) {
-      L.push("", "**keyword_restrictions filled:**");
-      d.restrictionsFilled.forEach((c) => L.push(`- ${c.id}: [${c.to.join(", ")}]`));
-    }
-    if (d.exclusionReview.length) {
-      L.push("", "**exclusion_keywords — authored differs from dump (kept, REVIEW):**");
-      d.exclusionReview.forEach((c) =>
-        L.push(`- ${c.id}: authored [${c.authored.join(", ")}] vs dump [${c.derived.join(", ")}]`),
-      );
-    }
-    if (d.restrictionsReview.length) {
-      L.push("", "**keyword_restrictions — authored kept, REVIEW:**");
-      d.restrictionsReview.forEach((c) =>
-        L.push(`- ${c.id} (${c.reason}): authored [${(c.authored ?? []).join(", ")}] vs dump-union [${c.derived.join(", ")}]`),
+    if (d.exclusionChanged.length) {
+      L.push("", "**exclusion_keywords changes:**");
+      d.exclusionChanged.forEach((c) =>
+        L.push(`- ${c.id}: ${JSON.stringify(c.from)} → ${JSON.stringify(c.to)}`),
       );
     }
     if (d.unresolvedKeywords.length) {

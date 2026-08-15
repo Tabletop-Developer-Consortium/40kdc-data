@@ -88,8 +88,8 @@
       "wargear": [
         {
           "ref": {
-            "id": "fragstorm-grenade-launcher",
-            "raw_name": "Fragstorm grenade launcher",
+            "id": "heavy-psycannon",
+            "raw_name": "Heavy psycannon",
             "resolved": true,
             "candidates": []
           },
@@ -97,8 +97,8 @@
         },
         {
           "ref": {
-            "id": "heavy-psycannon",
-            "raw_name": "Heavy psycannon",
+            "id": "fragstorm-grenade-launcher",
+            "raw_name": "Fragstorm grenade launcher",
             "resolved": true,
             "candidates": []
           },
@@ -131,15 +131,6 @@
       "wargear": [
         {
           "ref": {
-            "id": "nemesis-force-weapon-purifier-squad",
-            "raw_name": "Nemesis force weapon",
-            "resolved": true,
-            "candidates": []
-          },
-          "count": 10
-        },
-        {
-          "ref": {
             "id": "purifying-flame",
             "raw_name": "Purifying Flame",
             "resolved": true,
@@ -151,6 +142,15 @@
           "ref": {
             "id": "storm-bolter",
             "raw_name": "Storm bolter",
+            "resolved": true,
+            "candidates": []
+          },
+          "count": 10
+        },
+        {
+          "ref": {
+            "id": "nemesis-force-weapon-purifier-squad",
+            "raw_name": "Nemesis force weapon",
             "resolved": true,
             "candidates": []
           },

@@ -158,15 +158,15 @@
             "selections": [
               {
                 "id": "u1-model-0",
-                "name": "Chaos Terminator",
+                "name": "World Eaters Terminator Champion",
                 "type": "model",
-                "number": 10,
+                "number": 1,
                 "selections": [
                   {
                     "id": "w-0",
                     "name": "Chainfist",
                     "type": "upgrade",
-                    "number": 20,
+                    "number": 1,
                     "categories": [
                       {
                         "name": "Ranged Weapon",
@@ -178,7 +178,27 @@
                     "id": "w-1",
                     "name": "Combi-weapon",
                     "type": "upgrade",
-                    "number": 60,
+                    "number": 1,
+                    "categories": [
+                      {
+                        "name": "Ranged Weapon",
+                        "primary": false
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "u1-model-1",
+                "name": "World Eaters Terminator",
+                "type": "model",
+                "number": 4,
+                "selections": [
+                  {
+                    "id": "w-0",
+                    "name": "Combi-weapon",
+                    "type": "upgrade",
+                    "number": 4,
                     "categories": [
                       {
                         "name": "Ranged Weapon",
@@ -187,22 +207,50 @@
                     ]
                   },
                   {
-                    "id": "w-2",
+                    "id": "w-1",
                     "name": "Power fist",
                     "type": "upgrade",
-                    "number": 60,
+                    "number": 4,
                     "categories": [
                       {
                         "name": "Ranged Weapon",
                         "primary": false
                       }
                     ]
-                  },
+                  }
+                ]
+              },
+              {
+                "id": "u1-model-2",
+                "name": "World Eaters Terminator",
+                "type": "model",
+                "number": 2,
+                "selections": [
                   {
-                    "id": "w-3",
+                    "id": "w-0",
                     "name": "Paired accursed weapons",
                     "type": "upgrade",
-                    "number": 20,
+                    "number": 2,
+                    "categories": [
+                      {
+                        "name": "Ranged Weapon",
+                        "primary": false
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "u1-model-3",
+                "name": "World Eaters Terminator",
+                "type": "model",
+                "number": 2,
+                "selections": [
+                  {
+                    "id": "w-0",
+                    "name": "Power fist",
+                    "type": "upgrade",
+                    "number": 2,
                     "categories": [
                       {
                         "name": "Ranged Weapon",
@@ -211,10 +259,42 @@
                     ]
                   },
                   {
-                    "id": "w-4",
+                    "id": "w-1",
                     "name": "Reaper autocannon",
                     "type": "upgrade",
-                    "number": 20,
+                    "number": 2,
+                    "categories": [
+                      {
+                        "name": "Ranged Weapon",
+                        "primary": false
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "u1-model-4",
+                "name": "World Eaters Terminator",
+                "type": "model",
+                "number": 1,
+                "selections": [
+                  {
+                    "id": "w-0",
+                    "name": "Chainfist",
+                    "type": "upgrade",
+                    "number": 1,
+                    "categories": [
+                      {
+                        "name": "Ranged Weapon",
+                        "primary": false
+                      }
+                    ]
+                  },
+                  {
+                    "id": "w-1",
+                    "name": "Combi-weapon",
+                    "type": "upgrade",
+                    "number": 1,
                     "categories": [
                       {
                         "name": "Ranged Weapon",
@@ -247,15 +327,15 @@
             "selections": [
               {
                 "id": "u2-model-0",
-                "name": "Chaos Terminator",
+                "name": "World Eaters Terminator Champion",
                 "type": "model",
-                "number": 5,
+                "number": 1,
                 "selections": [
                   {
                     "id": "w-0",
                     "name": "Chainfist",
                     "type": "upgrade",
-                    "number": 5,
+                    "number": 1,
                     "categories": [
                       {
                         "name": "Ranged Weapon",
@@ -267,7 +347,27 @@
                     "id": "w-1",
                     "name": "Combi-weapon",
                     "type": "upgrade",
-                    "number": 15,
+                    "number": 1,
+                    "categories": [
+                      {
+                        "name": "Ranged Weapon",
+                        "primary": false
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "u2-model-1",
+                "name": "World Eaters Terminator",
+                "type": "model",
+                "number": 2,
+                "selections": [
+                  {
+                    "id": "w-0",
+                    "name": "Combi-weapon",
+                    "type": "upgrade",
+                    "number": 2,
                     "categories": [
                       {
                         "name": "Ranged Weapon",
@@ -276,22 +376,50 @@
                     ]
                   },
                   {
-                    "id": "w-2",
+                    "id": "w-1",
                     "name": "Power fist",
                     "type": "upgrade",
-                    "number": 15,
+                    "number": 2,
                     "categories": [
                       {
                         "name": "Ranged Weapon",
                         "primary": false
                       }
                     ]
-                  },
+                  }
+                ]
+              },
+              {
+                "id": "u2-model-2",
+                "name": "World Eaters Terminator",
+                "type": "model",
+                "number": 1,
+                "selections": [
                   {
-                    "id": "w-3",
+                    "id": "w-0",
                     "name": "Paired accursed weapons",
                     "type": "upgrade",
-                    "number": 5,
+                    "number": 1,
+                    "categories": [
+                      {
+                        "name": "Ranged Weapon",
+                        "primary": false
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "u2-model-3",
+                "name": "World Eaters Terminator",
+                "type": "model",
+                "number": 1,
+                "selections": [
+                  {
+                    "id": "w-0",
+                    "name": "Power fist",
+                    "type": "upgrade",
+                    "number": 1,
                     "categories": [
                       {
                         "name": "Ranged Weapon",
@@ -300,10 +428,10 @@
                     ]
                   },
                   {
-                    "id": "w-4",
+                    "id": "w-1",
                     "name": "Reaper autocannon",
                     "type": "upgrade",
-                    "number": 5,
+                    "number": 1,
                     "categories": [
                       {
                         "name": "Ranged Weapon",

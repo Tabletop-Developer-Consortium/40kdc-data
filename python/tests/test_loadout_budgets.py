@@ -19,12 +19,18 @@ _UNIT = {
 }
 _OPTS = [
     {
-        "id": "o1", "unit_id": "u", "replaces": ["gun-a"],
-        "replacement": ["sword"], "model_constraint": {"any_number": True},
+        "id": "o1",
+        "unit_id": "u",
+        "replaces": ["gun-a"],
+        "replacement": ["sword"],
+        "model_constraint": {"any_number": True},
     },
     {
-        "id": "o2", "unit_id": "u", "replaces": ["gun-b"],
-        "replacement": ["sword"], "model_constraint": {"any_number": True},
+        "id": "o2",
+        "unit_id": "u",
+        "replaces": ["gun-b"],
+        "replacement": ["sword"],
+        "model_constraint": {"any_number": True},
     },
 ]
 
@@ -49,12 +55,18 @@ def test_shared_budget_left_to_validate() -> None:
     }
     opts = [
         {
-            "id": "o1", "unit_id": "u", "replaces": ["gun-a"],
-            "replacement": ["sword"], "model_constraint": {"any_number": True},
+            "id": "o1",
+            "unit_id": "u",
+            "replaces": ["gun-a"],
+            "replacement": ["sword"],
+            "model_constraint": {"any_number": True},
         },
         {
-            "id": "o2", "unit_id": "u", "replaces": ["gun-b"],
-            "replacement": ["spear"], "model_constraint": {"any_number": True},
+            "id": "o2",
+            "unit_id": "u",
+            "replaces": ["gun-b"],
+            "replacement": ["spear"],
+            "model_constraint": {"any_number": True},
         },
     ]
     bounds = weapon_bounds(shared, 1, opts)

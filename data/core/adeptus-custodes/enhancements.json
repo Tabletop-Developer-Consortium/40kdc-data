@@ -15,12 +15,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Adeptus Custodes"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "gift-of-terran-artifice-talons-of-the-emperor",
@@ -38,12 +33,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Adeptus Custodes"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "champion-of-the-imperium-talons-of-the-emperor",
@@ -61,12 +51,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Adeptus Custodes"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "aegis-projector-talons-of-the-emperor",
@@ -84,12 +69,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Adeptus Custodes"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "from-the-hall-of-armouries-shield-host",
@@ -97,7 +77,7 @@
     "detachment_id": "shield-host",
     "cost": 20,
     "keyword_restrictions": [
-      "Adeptus Custodes"
+      "Shield-Captain"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -107,12 +87,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Shield-Captain"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "castellans-mark-shield-host",
@@ -120,7 +95,7 @@
     "detachment_id": "shield-host",
     "cost": 20,
     "keyword_restrictions": [
-      "Adeptus Custodes"
+      "Shield-Captain"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -130,21 +105,13 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Shield-Captain"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "auric-mantle-shield-host",
     "name": "Auric Mantle",
     "detachment_id": "shield-host",
     "cost": 15,
-    "keyword_restrictions": [
-      "Adeptus Custodes"
-    ],
     "ability_id": null,
     "is_unique": true,
     "game_version": {
@@ -168,9 +135,6 @@
     "name": "Panoptispex",
     "detachment_id": "shield-host",
     "cost": 5,
-    "keyword_restrictions": [
-      "Adeptus Custodes"
-    ],
     "ability_id": null,
     "is_unique": true,
     "game_version": {
@@ -195,7 +159,7 @@
     "detachment_id": "null-maiden-vigil",
     "cost": 5,
     "keyword_restrictions": [
-      "Adeptus Custodes"
+      "Anathema Psykana"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -205,12 +169,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Anathema Psykana"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "enhanced-voidsheen-cloak-null-maiden-vigil",
@@ -218,7 +177,7 @@
     "detachment_id": "null-maiden-vigil",
     "cost": 10,
     "keyword_restrictions": [
-      "Adeptus Custodes"
+      "Anathema Psykana"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -228,12 +187,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Anathema Psykana"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "huntress-eye-null-maiden-vigil",
@@ -241,7 +195,7 @@
     "detachment_id": "null-maiden-vigil",
     "cost": 15,
     "keyword_restrictions": [
-      "Adeptus Custodes"
+      "Anathema Psykana"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -251,12 +205,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Anathema Psykana"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "oblivion-knight-null-maiden-vigil",
@@ -264,7 +213,7 @@
     "detachment_id": "null-maiden-vigil",
     "cost": 25,
     "keyword_restrictions": [
-      "Adeptus Custodes"
+      "Anathema Psykana"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -274,12 +223,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Anathema Psykana"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "blade-imperator-auric-champions",
@@ -297,12 +241,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Adeptus Custodes"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "inspirational-exemplar-auric-champions",
@@ -320,12 +259,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Adeptus Custodes"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "veiled-blade-auric-champions",
@@ -343,12 +277,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Adeptus Custodes"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "martial-philosopher-auric-champions",
@@ -366,12 +295,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Adeptus Custodes"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "adamantine-talisman-solar-spearhead",
@@ -389,12 +313,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Adeptus Custodes"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "augury-uplink-solar-spearhead",
@@ -412,12 +331,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Adeptus Custodes"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "honoured-fallen-aura-solar-spearhead",
@@ -425,7 +339,8 @@
     "detachment_id": "solar-spearhead",
     "cost": 15,
     "keyword_restrictions": [
-      "Adeptus Custodes"
+      "Adeptus Custodes",
+      "Vehicle"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -435,22 +350,13 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Adeptus Custodes",
-        "Vehicle"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "veteran-of-the-kataphraktoi-solar-spearhead",
     "name": "Veteran of the Kataphraktoi",
     "detachment_id": "solar-spearhead",
     "cost": 10,
-    "keyword_restrictions": [
-      "Adeptus Custodes"
-    ],
     "ability_id": null,
     "is_unique": true,
     "game_version": {
@@ -477,7 +383,8 @@
     "detachment_id": "lions-of-the-emperor",
     "cost": 25,
     "keyword_restrictions": [
-      "Adeptus Custodes"
+      "Adeptus Custodes",
+      "Infantry"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -487,13 +394,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Adeptus Custodes",
-        "Infantry"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "praesidius-lions-of-the-emperor",
@@ -511,12 +412,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Adeptus Custodes"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "fierce-conqueror-lions-of-the-emperor",
@@ -524,7 +420,7 @@
     "detachment_id": "lions-of-the-emperor",
     "cost": 15,
     "keyword_restrictions": [
-      "Adeptus Custodes"
+      "Shield-Captain"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -534,12 +430,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Shield-Captain"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "admonimortis-lions-of-the-emperor",
@@ -547,7 +438,7 @@
     "detachment_id": "lions-of-the-emperor",
     "cost": 30,
     "keyword_restrictions": [
-      "Adeptus Custodes"
+      "Shield-Captain"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -557,12 +448,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Shield-Captain"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "interred-expertise-upgrade-might-of-the-moritoi",
@@ -581,13 +467,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": true,
-    "max_targets": 3,
-    "keyword_restriction_groups": [
-      [
-        "Adeptus Custodes",
-        "Walker"
-      ]
-    ]
+    "max_targets": 3
   },
   {
     "id": "auramite-sarcophagus-upgrade-might-of-the-moritoi",
@@ -606,13 +486,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": true,
-    "max_targets": 3,
-    "keyword_restriction_groups": [
-      [
-        "Adeptus Custodes",
-        "Walker"
-      ]
-    ]
+    "max_targets": 3
   },
   {
     "id": "encircling-hunter-silent-hunters",
@@ -630,12 +504,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Anathema Psykana"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "psyk-out-grenades-upgrade-silent-hunters",
@@ -653,12 +522,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": true,
-    "max_targets": 3,
-    "keyword_restriction_groups": [
-      [
-        "Anathema Psykana"
-      ]
-    ]
+    "max_targets": 3
   },
   {
     "id": "mnemo-locked-shrine-cipher-tharanatoi-hammerblow",
@@ -677,13 +541,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Adeptus Custodes",
-        "Terminator"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "efficient-aggression-tharanatoi-hammerblow",
@@ -702,13 +560,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Adeptus Custodes",
-        "Terminator"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "comrades-in-wrath-tristraens-gilded-blades",
@@ -728,13 +580,7 @@
       "Adeptus Custodes",
       "Gilded Blades Allarus Custodians"
     ],
-    "upgrade_tag": true,
-    "keyword_restriction_groups": [
-      [
-        "Adeptus Custodes",
-        "Gilded Blades Allarus Custodians"
-      ]
-    ]
+    "upgrade_tag": true
   },
   {
     "id": "shattering-charge-tristraens-gilded-blades",
@@ -751,14 +597,8 @@
     ],
     "points_provisional": false,
     "keyword_restrictions": [
-      "Blade Champion",
-      "Tristraen's Gilded Blades"
-    ],
-    "keyword_restriction_groups": [
-      [
-        "Adeptus Custodes",
-        "Tristraen of the Gilded Blades"
-      ]
+      "Adeptus Custodes",
+      "Tristraen of the Gilded Blades"
     ]
   }
 ]

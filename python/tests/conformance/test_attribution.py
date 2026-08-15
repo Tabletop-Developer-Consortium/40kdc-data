@@ -23,9 +23,7 @@ def _cases() -> list[dict[str, Any]]:
 
 @pytest.mark.parametrize("case", _cases(), ids=lambda c: c["name"][:50])
 def test_attribution_case(dataset: Any, case: dict[str, Any]) -> None:
-    cruncher_case = json.loads(
-        (_CRUNCHER_DIR / case["cruncher_case"]).read_text(encoding="utf-8")
-    )
+    cruncher_case = json.loads((_CRUNCHER_DIR / case["cruncher_case"]).read_text(encoding="utf-8"))
     stages = attribute_stages(build_engine_input(dataset, cruncher_case), dataset)
     expected = case["expected"]
     assert len(stages) == len(expected)

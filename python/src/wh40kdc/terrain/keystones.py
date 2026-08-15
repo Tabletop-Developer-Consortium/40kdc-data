@@ -46,16 +46,14 @@ def _ref_coordinate(rp: dict[str, Any], k: dict[str, Any], where: str) -> float:
         vertices = rp["vertices"]
         if not (0 <= index < len(vertices)):
             raise TerrainKeystoneError(
-                f"{where}: keystone vertex index {index} out of range "
-                f"({len(vertices)} vertices)"
+                f"{where}: keystone vertex index {index} out of range ({len(vertices)} vertices)"
             )
         return vertices[index][axis]
     side = ref["side"]
     side_axis = "x" if side in ("min-x", "max-x") else "y"
     if side_axis != axis:
         raise TerrainKeystoneError(
-            f'{where}: face "{side}" cannot be measured from the {k["edge"]} edge '
-            "(axis mismatch)"
+            f'{where}: face "{side}" cannot be measured from the {k["edge"]} edge (axis mismatch)'
         )
     vals = [v[axis] for v in rp["vertices"]]
     return min(vals) if side.startswith("min") else max(vals)

@@ -22,7 +22,8 @@ var fenceRe = regexp.MustCompile(`^\++\s*$`)
 
 var unitHeaderCompact = regexp.MustCompile(`(?i)^(?:Char\d+:\s*)?(\d+)x\s+(.+?)\s*\(\s*(\d+)\s*pts?\s*\)\s*:\s*(.*)$`)
 var unitHeaderFull = regexp.MustCompile(`(?i)^(?:Char\d+:\s*)?(\d+)x\s+(.+?)\s*\(\s*(\d+)\s*pts?\s*\)\s*$`)
-var enhancementLineRe = regexp.MustCompile(`(?i)^Enhancement:\s*(.+?)\s*\(\+\s*(\d+)\s*pts?\s*\)\s*$`)
+var enhancementLineRe = regexp.MustCompile(`(?i)^Enhancement:\s*(.+?)(?:\s*\(\+\s*(\d+)\s*pts?\s*\))?\s*$`)
+var attachmentLineRe = regexp.MustCompile(`(?i)^Attachment:\s*(leader|support)\s*->\s*(.+?)(\s+\[provisional\])?\s*$`)
 var withPrefixRe = regexp.MustCompile(`(?i)^(\d+)\s+with\s+(.*)$`)
 
 // Optional trailing `: <wargear>` — NewRecruit inlines a model group's loadout
@@ -36,7 +37,7 @@ var charPrefixRe = regexp.MustCompile(`(?i)^Char\d+:`)
 type wtcHeader struct {
 	name                    string
 	factionRawName          any
-	detachmentRawName       any
+	detachmentRawNames      []any
 	forceDispositionRawName any
 	declaredLimit           any
 	totalReported           any
@@ -45,7 +46,8 @@ type wtcHeader struct {
 
 func parseWtcHeader(text string) (*wtcHeader, int, bool) {
 	lines := splitLines(text)
-	var factionRaw, detachmentRaw, forceDispositionRaw, totalReported, pointsLimit, listName any
+	var factionRaw, forceDispositionRaw, totalReported, pointsLimit, listName any
+	detachmentRawNames := []any{}
 	fenceIndices := []int{}
 	for i, line := range lines {
 		if len(fenceIndices) >= 2 {
@@ -66,7 +68,10 @@ func parseWtcHeader(text string) (*wtcHeader, int, bool) {
 			continue
 		}
 		if m := wtcHeaderDetachment.FindStringSubmatch(line); m != nil {
-			detachmentRaw = stripParenthetical(m[1])
+			name := stripParenthetical(m[1])
+			if name != "—" {
+				detachmentRawNames = append(detachmentRawNames, name)
+			}
 			continue
 		}
 		if m := wtcHeaderForceDisposition.FindStringSubmatch(line); m != nil {
@@ -103,21 +108,30 @@ func parseWtcHeader(text string) (*wtcHeader, int, bool) {
 		name = s
 	}
 	return &wtcHeader{
-		name: name, factionRawName: factionRaw, detachmentRawName: detachmentRaw,
+		name: name, factionRawName: factionRaw, detachmentRawNames: detachmentRawNames,
 		forceDispositionRawName: forceDispositionRaw,
 		declaredLimit:           declaredLimit, totalReported: totalReported,
 		battleSizeRaw: inferBattleSizeRaw(declaredLimit),
 	}, bodyStart, true
 }
 
+type wtcLoadoutGroup struct {
+	modelName string
+	count     int
+	wargear   []any
+}
+
 type wtcUnit struct {
 	rawName            string
 	isCharacter        bool
 	isWarlord          bool
+	keywordOverrides   []string
 	enhancementRawName any
 	displayedPts       any
-	enhancementPts     int
+	enhancementPts     any
+	leaderAttachment   any
 	modelCount         int
+	loadoutGroups      []wtcLoadoutGroup
 	wargear            *orderedCounter
 }
 
@@ -126,10 +140,13 @@ func newWtcUnit(name string, displayedPts int, leadingCount int, isCharPrefix bo
 	if mc <= 0 {
 		mc = 1
 	}
-	return &wtcUnit{rawName: name, isCharacter: isCharPrefix, displayedPts: float64(displayedPts), modelCount: mc, wargear: newOrderedCounter()}
+	return &wtcUnit{
+		rawName: name, isCharacter: isCharPrefix, displayedPts: float64(displayedPts),
+		modelCount: mc, wargear: newOrderedCounter(),
+	}
 }
 
-func parseWithGroup(text string) (int, string) {
+func parseWithGroup(text string, defaultMultiplier int) (int, string) {
 	if m := withPrefixRe.FindStringSubmatch(text); m != nil {
 		n, _ := strconv.Atoi(m[1])
 		if n <= 0 {
@@ -137,11 +154,11 @@ func parseWithGroup(text string) (int, string) {
 		}
 		return n, m[2]
 	}
-	return 1, text
+	return defaultMultiplier, text
 }
 
-func applyWithGroup(unit *wtcUnit, listText string) {
-	multiplier, wargearList := parseWithGroup(listText)
+func applyWithGroup(unit *wtcUnit, listText string, defaultMultiplier int) []any {
+	multiplier, wargearList := parseWithGroup(listText, defaultMultiplier)
 	cls := classifyWargearList(splitWargearList(wargearList))
 	if cls.isWarlord {
 		unit.isWarlord = true
@@ -149,22 +166,24 @@ func applyWithGroup(unit *wtcUnit, listText string) {
 	if cls.isCharacter {
 		unit.isCharacter = true
 	}
+	unit.keywordOverrides = append(unit.keywordOverrides, cls.keywordOverrides...)
 	for _, wAny := range cls.wargear {
 		w := wAny.(map[string]any)
 		unit.wargear.add(getStr(w, "raw_name"), asInt(w["count"])*multiplier)
 	}
+	return cls.wargear
 }
 
 func finishWtcUnit(unit *wtcUnit) map[string]any {
 	var points any
 	if unit.displayedPts != nil {
-		points = float64(asInt(unit.displayedPts) - unit.enhancementPts)
+		points = float64(asInt(unit.displayedPts) - asInt(unit.enhancementPts))
 	}
 	var enhPts any
 	if unit.enhancementRawName != nil {
-		enhPts = float64(unit.enhancementPts)
+		enhPts = unit.enhancementPts
 	}
-	return map[string]any{
+	result := map[string]any{
 		"raw_name":             unit.rawName,
 		"is_character":         unit.isCharacter,
 		"model_count":          float64(unit.modelCount),
@@ -174,25 +193,45 @@ func finishWtcUnit(unit *wtcUnit) map[string]any {
 		"enhancement_points":   enhPts,
 		"wargear":              unit.wargear.pairs(),
 	}
+	if len(unit.keywordOverrides) > 0 {
+		overrides := make([]any, len(unit.keywordOverrides))
+		for i, keyword := range unit.keywordOverrides {
+			overrides[i] = keyword
+		}
+		result["keyword_overrides"] = overrides
+	}
+	if unit.leaderAttachment != nil {
+		result["leader_attachment"] = unit.leaderAttachment
+	}
+	if len(unit.loadoutGroups) > 0 {
+		groups := make([]any, 0, len(unit.loadoutGroups))
+		for _, group := range unit.loadoutGroups {
+			groups = append(groups, map[string]any{
+				"model_name": group.modelName, "count": float64(group.count), "wargear": group.wargear,
+			})
+		}
+		result["loadout_groups"] = groups
+	}
+	return result
 }
 
-func computeWtcTotal(units []map[string]any, enhPts []int) float64 {
+func computeWtcTotal(units []map[string]any, enhPts []any) float64 {
 	total := 0.0
 	for i, u := range units {
 		if p, ok := u["points"].(float64); ok {
 			total += p
 		}
-		if i < len(enhPts) {
-			total += float64(enhPts[i])
+		if i < len(enhPts) && enhPts[i] != nil {
+			total += asFloat(enhPts[i])
 		}
 	}
 	return total
 }
 
-func parseCompactBody(body string) ([]map[string]any, []int) {
+func parseCompactBody(body string) ([]map[string]any, []any) {
 	lines := splitLines(body)
 	var units []map[string]any
-	var enhPts []int
+	var enhPts []any
 	var current *wtcUnit
 	finalize := func() {
 		if current != nil {
@@ -208,8 +247,28 @@ func parseCompactBody(body string) ([]map[string]any, []int) {
 		}
 		if enh := enhancementLineRe.FindStringSubmatch(line); enh != nil && current != nil {
 			current.enhancementRawName = strings.TrimSpace(enh[1])
-			current.enhancementPts, _ = strconv.Atoi(enh[2])
+			if enh[2] != "" {
+				pts, _ := strconv.Atoi(enh[2])
+				current.enhancementPts = float64(pts)
+			}
 			finalize()
+			continue
+		}
+		if attachment := attachmentLineRe.FindStringSubmatch(line); attachment != nil && current != nil {
+			current.leaderAttachment = map[string]any{
+				"role": strings.ToLower(attachment[1]), "bodyguard_raw_name": attachment[2], "provisional": attachment[3] != "",
+			}
+			continue
+		}
+		if bd := modelBreakdownRe.FindStringSubmatch(raw); bd != nil && current != nil {
+			count, _ := strconv.Atoi(bd[1])
+			groupWargear := []any{}
+			if bd[3] != "" {
+				groupWargear = applyWithGroup(current, bd[3], count)
+			}
+			current.loadoutGroups = append(current.loadoutGroups, wtcLoadoutGroup{
+				modelName: strings.TrimSpace(bd[2]), count: count, wargear: groupWargear,
+			})
 			continue
 		}
 		if m := unitHeaderCompact.FindStringSubmatch(line); m != nil {
@@ -217,7 +276,7 @@ func parseCompactBody(body string) ([]map[string]any, []int) {
 			leadingCount, _ := strconv.Atoi(m[1])
 			pts, _ := strconv.Atoi(m[3])
 			current = newWtcUnit(strings.TrimSpace(m[2]), pts, leadingCount, charPrefixRe.MatchString(line))
-			applyWithGroup(current, m[4])
+			applyWithGroup(current, m[4], 1)
 			continue
 		}
 	}
@@ -225,14 +284,32 @@ func parseCompactBody(body string) ([]map[string]any, []int) {
 	return units, enhPts
 }
 
-func parseFullBody(body string) ([]map[string]any, []int) {
+func parseFullBody(body string) ([]map[string]any, []any) {
 	lines := splitLines(body)
 	var units []map[string]any
-	var enhPts []int
+	var enhPts []any
 	var current *wtcUnit
 	breakdownModels := 0
+	type pendingBreakdown struct {
+		modelName     string
+		count         int
+		assignedCount int
+	}
+	var pending *pendingBreakdown
+	flushPendingBreakdown := func() {
+		if current == nil || pending == nil {
+			return
+		}
+		if remaining := pending.count - pending.assignedCount; remaining > 0 {
+			current.loadoutGroups = append(current.loadoutGroups, wtcLoadoutGroup{
+				modelName: pending.modelName, count: remaining, wargear: []any{},
+			})
+		}
+		pending = nil
+	}
 	finalize := func() {
 		if current != nil {
+			flushPendingBreakdown()
 			if breakdownModels > 0 {
 				current.modelCount = breakdownModels
 			}
@@ -253,7 +330,16 @@ func parseFullBody(body string) ([]map[string]any, []int) {
 		}
 		if enh := enhancementLineRe.FindStringSubmatch(line); enh != nil && current != nil {
 			current.enhancementRawName = strings.TrimSpace(enh[1])
-			current.enhancementPts, _ = strconv.Atoi(enh[2])
+			if enh[2] != "" {
+				pts, _ := strconv.Atoi(enh[2])
+				current.enhancementPts = float64(pts)
+			}
+			continue
+		}
+		if attachment := attachmentLineRe.FindStringSubmatch(line); attachment != nil && current != nil {
+			current.leaderAttachment = map[string]any{
+				"role": strings.ToLower(attachment[1]), "bodyguard_raw_name": attachment[2], "provisional": attachment[3] != "",
+			}
 			continue
 		}
 		if m := unitHeaderFull.FindStringSubmatch(line); m != nil {
@@ -271,21 +357,34 @@ func parseFullBody(body string) ([]map[string]any, []int) {
 			leadingCount, _ := strconv.Atoi(m[1])
 			pts, _ := strconv.Atoi(m[3])
 			current = newWtcUnit(strings.TrimSpace(m[2]), pts, leadingCount, charPrefixRe.MatchString(line))
-			applyWithGroup(current, m[4])
+			applyWithGroup(current, m[4], 1)
 			continue
 		}
 		if bd := modelBreakdownRe.FindStringSubmatch(raw); bd != nil && current != nil {
+			flushPendingBreakdown()
 			n, _ := strconv.Atoi(bd[1])
 			breakdownModels += n
-			// Inline loadout after the model type; `N with` continuation
-			// lines for the same group still arrive separately below.
+			modelName := strings.TrimSpace(bd[2])
+			pending = &pendingBreakdown{modelName: modelName, count: n}
 			if bd[3] != "" {
-				applyWithGroup(current, bd[3])
+				groupWargear := applyWithGroup(current, bd[3], n)
+				multiplier, _ := parseWithGroup(bd[3], n)
+				current.loadoutGroups = append(current.loadoutGroups, wtcLoadoutGroup{
+					modelName: modelName, count: multiplier, wargear: groupWargear,
+				})
+				pending.assignedCount = multiplier
 			}
 			continue
 		}
 		if withPrefixRe.MatchString(line) && current != nil {
-			applyWithGroup(current, line)
+			groupWargear := applyWithGroup(current, line, 1)
+			if pending != nil {
+				multiplier, _ := parseWithGroup(line, 1)
+				current.loadoutGroups = append(current.loadoutGroups, wtcLoadoutGroup{
+					modelName: pending.modelName, count: multiplier, wargear: groupWargear,
+				})
+				pending.assignedCount += multiplier
+			}
 			continue
 		}
 	}
@@ -315,6 +414,8 @@ func isWtcText(decoded any) (string, bool) {
 
 var fullFormatRe = regexp.MustCompile(`(?m)^[\t ]*\d+\s+with\b`)
 var bulletsRe = regexp.MustCompile(`(?m)^[\t ]*•`)
+var serializedFullFormatRe = regexp.MustCompile(`(?im)^\+\s*LIST NAME:.*$`)
+var battlelineHeaderRe = regexp.MustCompile(`(?m)^BATTLELINE\s*$`)
 
 func isFullFormat(text string) bool { return fullFormatRe.MatchString(text) }
 func hasBullets(text string) bool   { return bulletsRe.MatchString(text) }
@@ -327,21 +428,17 @@ func parseWtcWithFormat(text, format string) (map[string]any, error) {
 	bodyLines := splitLines(text)[bodyStart:]
 	body := strings.Join(bodyLines, "\n")
 	var units []map[string]any
-	var enhPts []int
+	var enhPts []any
 	if format == "wtc-full" {
 		units, enhPts = parseFullBody(body)
 	} else {
 		units, enhPts = parseCompactBody(body)
 	}
-	det := []any{}
-	if s, ok := header.detachmentRawName.(string); ok && s != "" {
-		det = []any{s}
-	}
 	return map[string]any{
 		"name":                       header.name,
 		"generated_by":               nil,
 		"faction_raw_name":           header.factionRawName,
-		"detachment_raw_names":       det,
+		"detachment_raw_names":       header.detachmentRawNames,
 		"force_disposition_raw_name": header.forceDispositionRawName,
 		"battle_size_raw":            header.battleSizeRaw,
 		"declared_limit":             header.declaredLimit,
@@ -360,6 +457,15 @@ func mapsToAny(units []map[string]any) []any {
 	return out
 }
 
+func firstCompactUnitLine(text string) string {
+	for _, line := range splitLines(text) {
+		if unitHeaderCompact.MatchString(strings.TrimSpace(line)) {
+			return strings.TrimSpace(line)
+		}
+	}
+	return ""
+}
+
 var newrecruitWtcCompactAdapter = formatAdapter{
 	id: "newrecruit-wtc-compact",
 	matches: func(decoded any) bool {
@@ -367,7 +473,7 @@ var newrecruitWtcCompactAdapter = formatAdapter{
 		if !ok {
 			return false
 		}
-		return !isFullFormat(text) && !hasBullets(text)
+		return !isFullFormat(text) && !(serializedFullFormatRe.MatchString(text) && battlelineHeaderRe.MatchString(text)) && unitHeaderCompact.MatchString(firstCompactUnitLine(text))
 	},
 	parse: func(decoded any) (map[string]any, error) {
 		text, ok := isWtcText(decoded)
@@ -385,7 +491,7 @@ var newrecruitWtcFullAdapter = formatAdapter{
 		if !ok {
 			return false
 		}
-		return isFullFormat(text)
+		return isFullFormat(text) || (serializedFullFormatRe.MatchString(text) && battlelineHeaderRe.MatchString(text))
 	},
 	parse: func(decoded any) (map[string]any, error) {
 		text, ok := isWtcText(decoded)

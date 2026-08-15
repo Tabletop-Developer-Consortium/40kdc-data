@@ -3711,7 +3711,7 @@ export interface UnitCompositionRow {
   /**
    * Specifies the points cost for this composition.
    */
-  points: null | number;
+  points: number;
   /**
    * Optionally links the composition to a keyword used for reference grouping.
    */

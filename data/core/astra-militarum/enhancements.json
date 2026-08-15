@@ -5,7 +5,7 @@
     "detachment_id": "combined-arms",
     "cost": 10,
     "keyword_restrictions": [
-      "Astra Militarum"
+      "Officer"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -15,12 +15,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Officer"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "bombast-class-vox-array-bridgehead-strike",
@@ -28,7 +23,9 @@
     "detachment_id": "bridgehead-strike",
     "cost": 15,
     "keyword_restrictions": [
-      "Astra Militarum"
+      "Astra Militarum",
+      "Militarum Tempestus",
+      "Officer"
     ],
     "ability_id": "bombast-class-vox-array-bridgehead-strike",
     "is_unique": true,
@@ -38,14 +35,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Astra Militarum",
-        "Militarum Tempestus",
-        "Officer"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "drill-commander-combined-arms",
@@ -53,7 +43,7 @@
     "detachment_id": "combined-arms",
     "cost": 20,
     "keyword_restrictions": [
-      "Astra Militarum"
+      "Officer"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -63,12 +53,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Officer"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "priority-drop-beacon-bridgehead-strike",
@@ -76,7 +61,9 @@
     "detachment_id": "bridgehead-strike",
     "cost": 25,
     "keyword_restrictions": [
-      "Astra Militarum"
+      "Astra Militarum",
+      "Militarum Tempestus",
+      "Officer"
     ],
     "ability_id": "priority-drop-beacon-bridgehead-strike",
     "is_unique": true,
@@ -86,14 +73,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Astra Militarum",
-        "Militarum Tempestus",
-        "Officer"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "grand-strategist-combined-arms",
@@ -101,7 +81,7 @@
     "detachment_id": "combined-arms",
     "cost": 15,
     "keyword_restrictions": [
-      "Astra Militarum"
+      "Officer"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -111,12 +91,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Officer"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "reactive-command-combined-arms",
@@ -124,7 +99,7 @@
     "detachment_id": "combined-arms",
     "cost": 15,
     "keyword_restrictions": [
-      "Astra Militarum"
+      "Officer"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -134,12 +109,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Officer"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "eager-advance-siege-regiment",
@@ -147,7 +117,8 @@
     "detachment_id": "siege-regiment",
     "cost": 20,
     "keyword_restrictions": [
-      "Astra Militarum"
+      "Infantry",
+      "Officer"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -157,13 +128,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Infantry",
-        "Officer"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "flash-grenades-siege-regiment",
@@ -171,7 +136,8 @@
     "detachment_id": "siege-regiment",
     "cost": 20,
     "keyword_restrictions": [
-      "Astra Militarum"
+      "Infantry",
+      "Officer"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -181,13 +147,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Infantry",
-        "Officer"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "legacy-sidearm-siege-regiment",
@@ -195,7 +155,8 @@
     "detachment_id": "siege-regiment",
     "cost": 10,
     "keyword_restrictions": [
-      "Astra Militarum"
+      "Infantry",
+      "Officer"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -205,13 +166,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Infantry",
-        "Officer"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "stalwarts-honours-siege-regiment",
@@ -219,7 +174,7 @@
     "detachment_id": "siege-regiment",
     "cost": 15,
     "keyword_restrictions": [
-      "Astra Militarum"
+      "Officer"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -229,12 +184,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Officer"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "bold-leadership-mechanised-assault",
@@ -242,7 +192,8 @@
     "detachment_id": "mechanised-assault",
     "cost": 25,
     "keyword_restrictions": [
-      "Astra Militarum"
+      "Infantry",
+      "Officer"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -252,13 +203,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Infantry",
-        "Officer"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "sacred-unguents-mechanised-assault",
@@ -266,7 +211,8 @@
     "detachment_id": "mechanised-assault",
     "cost": 10,
     "keyword_restrictions": [
-      "Astra Militarum"
+      "Astra Militarum",
+      "Tech-Priest Enginseer"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -276,13 +222,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Astra Militarum",
-        "Tech-Priest Enginseer"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "smoke-grenades-mechanised-assault",
@@ -290,7 +230,8 @@
     "detachment_id": "mechanised-assault",
     "cost": 10,
     "keyword_restrictions": [
-      "Astra Militarum"
+      "Infantry",
+      "Officer"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -300,13 +241,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Infantry",
-        "Officer"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "vanguard-honours-mechanised-assault",
@@ -314,7 +249,8 @@
     "detachment_id": "mechanised-assault",
     "cost": 15,
     "keyword_restrictions": [
-      "Astra Militarum"
+      "Infantry",
+      "Officer"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -324,13 +260,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Infantry",
-        "Officer"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "calm-under-fire-hammer-of-the-emperor",
@@ -338,7 +268,8 @@
     "detachment_id": "hammer-of-the-emperor",
     "cost": 15,
     "keyword_restrictions": [
-      "Astra Militarum"
+      "Officer",
+      "Vehicle"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -348,13 +279,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Officer",
-        "Vehicle"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "indomitable-steed-hammer-of-the-emperor",
@@ -362,7 +287,8 @@
     "detachment_id": "hammer-of-the-emperor",
     "cost": 15,
     "keyword_restrictions": [
-      "Astra Militarum"
+      "Officer",
+      "Vehicle"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -372,13 +298,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Officer",
-        "Vehicle"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "regimental-banner-hammer-of-the-emperor",
@@ -386,7 +306,8 @@
     "detachment_id": "hammer-of-the-emperor",
     "cost": 20,
     "keyword_restrictions": [
-      "Astra Militarum"
+      "Officer",
+      "Vehicle"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -396,13 +317,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Officer",
-        "Vehicle"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "veteran-crew-hammer-of-the-emperor",
@@ -410,7 +325,8 @@
     "detachment_id": "hammer-of-the-emperor",
     "cost": 20,
     "keyword_restrictions": [
-      "Astra Militarum"
+      "Officer",
+      "Vehicle"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -420,13 +336,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Officer",
-        "Vehicle"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "guerrilla-honours-recon-element",
@@ -434,7 +344,8 @@
     "detachment_id": "recon-element",
     "cost": 25,
     "keyword_restrictions": [
-      "Astra Militarum"
+      "Infantry",
+      "Officer"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -444,13 +355,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Infantry",
-        "Officer"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "scare-gas-grenades-recon-element",
@@ -458,7 +363,8 @@
     "detachment_id": "recon-element",
     "cost": 5,
     "keyword_restrictions": [
-      "Astra Militarum"
+      "Astra Militarum",
+      "Infantry"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -468,13 +374,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Astra Militarum",
-        "Infantry"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "survival-gear-recon-element",
@@ -482,7 +382,8 @@
     "detachment_id": "recon-element",
     "cost": 5,
     "keyword_restrictions": [
-      "Astra Militarum"
+      "Astra Militarum",
+      "Infantry"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -492,13 +393,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Astra Militarum",
-        "Infantry"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "tripwires-recon-element",
@@ -506,7 +401,8 @@
     "detachment_id": "recon-element",
     "cost": 20,
     "keyword_restrictions": [
-      "Astra Militarum"
+      "Astra Militarum",
+      "Infantry"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -516,13 +412,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Astra Militarum",
-        "Infantry"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "abhuman-detail-grizzled-company",
@@ -530,7 +420,7 @@
     "detachment_id": "grizzled-company",
     "cost": 20,
     "keyword_restrictions": [
-      "Astra Militarum"
+      "Commissar"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -541,11 +431,6 @@
     "points_provisional": false,
     "upgrade_tag": false,
     "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Commissar"
-      ]
-    ],
     "attachment_bodyguard_ids": [
       "bullgryn-squad",
       "ogryn-squad"
@@ -557,7 +442,8 @@
     "detachment_id": "grizzled-company",
     "cost": 20,
     "keyword_restrictions": [
-      "Astra Militarum"
+      "Astra Militarum",
+      "Officer"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -567,13 +453,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Astra Militarum",
-        "Officer"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "spec-ops-veteran-grizzled-company",
@@ -581,7 +461,9 @@
     "detachment_id": "grizzled-company",
     "cost": 15,
     "keyword_restrictions": [
-      "Astra Militarum"
+      "Astra Militarum",
+      "Infantry",
+      "Officer"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -591,14 +473,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Astra Militarum",
-        "Infantry",
-        "Officer"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "laud-hailer-grizzled-company",
@@ -606,7 +481,8 @@
     "detachment_id": "grizzled-company",
     "cost": 10,
     "keyword_restrictions": [
-      "Astra Militarum"
+      "Astra Militarum",
+      "Officer"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -616,13 +492,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Astra Militarum",
-        "Officer"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "sharp-eyes-light-fingers-abhuman-auxiliaries",
@@ -648,7 +518,7 @@
     "detachment_id": "abhuman-auxiliaries",
     "cost": 10,
     "keyword_restrictions": [
-      "Astra Militarum"
+      "Commissar"
     ],
     "ability_id": "exemplar-of-duty-abhuman-auxiliaries",
     "is_unique": true,
@@ -659,11 +529,6 @@
     "points_provisional": false,
     "upgrade_tag": true,
     "max_targets": 3,
-    "keyword_restriction_groups": [
-      [
-        "Commissar"
-      ]
-    ],
     "attachment_bodyguard_ids": [
       "bullgryn-squad",
       "ogryn-squad"
@@ -675,7 +540,8 @@
     "detachment_id": "designation-force",
     "cost": 10,
     "keyword_restrictions": [
-      "Astra Militarum"
+      "Astra Militarum",
+      "Scout Sentinels"
     ],
     "ability_id": "long-range-scout-designation-force",
     "is_unique": true,
@@ -685,13 +551,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": true,
-    "max_targets": 3,
-    "keyword_restriction_groups": [
-      [
-        "Astra Militarum",
-        "Scout Sentinels"
-      ]
-    ]
+    "max_targets": 3
   },
   {
     "id": "recon-star-upgrade-designation-force",
@@ -699,7 +559,9 @@
     "detachment_id": "designation-force",
     "cost": 10,
     "keyword_restrictions": [
-      "Astra Militarum"
+      "Astra Militarum",
+      "Infantry",
+      "Platoon"
     ],
     "ability_id": "recon-star-designation-force",
     "is_unique": true,
@@ -709,14 +571,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": true,
-    "max_targets": 3,
-    "keyword_restriction_groups": [
-      [
-        "Astra Militarum",
-        "Infantry",
-        "Platoon"
-      ]
-    ]
+    "max_targets": 3
   },
   {
     "id": "battalion-commander-steel-hammer",
@@ -724,7 +579,8 @@
     "detachment_id": "steel-hammer",
     "cost": 30,
     "keyword_restrictions": [
-      "Astra Militarum"
+      "Astra Militarum",
+      "Titanic"
     ],
     "ability_id": "battalion-commander-steel-hammer",
     "is_unique": true,
@@ -734,13 +590,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Astra Militarum",
-        "Titanic"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "titan-killer-steel-hammer",
@@ -748,7 +598,8 @@
     "detachment_id": "steel-hammer",
     "cost": 20,
     "keyword_restrictions": [
-      "Astra Militarum"
+      "Astra Militarum",
+      "Titanic"
     ],
     "ability_id": "titan-killer-steel-hammer",
     "is_unique": true,
@@ -758,13 +609,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Astra Militarum",
-        "Titanic"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "engine-speaker-steel-hammer",
@@ -772,7 +617,8 @@
     "detachment_id": "steel-hammer",
     "cost": 15,
     "keyword_restrictions": [
-      "Astra Militarum"
+      "Astra Militarum",
+      "Tech-Priest Enginseer"
     ],
     "ability_id": "engine-speaker-steel-hammer",
     "is_unique": true,
@@ -782,13 +628,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Astra Militarum",
-        "Tech-Priest Enginseer"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "assault-hatches-steel-hammer",
@@ -796,7 +636,9 @@
     "detachment_id": "steel-hammer",
     "cost": 25,
     "keyword_restrictions": [
-      "Astra Militarum"
+      "Astra Militarum",
+      "Titanic",
+      "Transport"
     ],
     "ability_id": "assault-hatches-steel-hammer",
     "is_unique": true,
@@ -806,14 +648,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Astra Militarum",
-        "Titanic",
-        "Transport"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "exemplary-officer-armoured-infantry",
@@ -821,7 +656,8 @@
     "detachment_id": "armoured-infantry",
     "cost": 20,
     "keyword_restrictions": [
-      "Astra Militarum"
+      "Infantry",
+      "Officer"
     ],
     "ability_id": "exemplary-officer-armoured-infantry",
     "is_unique": true,
@@ -831,13 +667,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Infantry",
-        "Officer"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "master-manoeuvrist-armoured-infantry",
@@ -845,7 +675,8 @@
     "detachment_id": "armoured-infantry",
     "cost": 15,
     "keyword_restrictions": [
-      "Astra Militarum"
+      "Infantry",
+      "Officer"
     ],
     "ability_id": "master-manoeuvrist-armoured-infantry",
     "is_unique": true,
@@ -855,13 +686,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Infantry",
-        "Officer"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "omnissian-unguents-aura-armoured-infantry",
@@ -869,7 +694,8 @@
     "detachment_id": "armoured-infantry",
     "cost": 35,
     "keyword_restrictions": [
-      "Astra Militarum"
+      "Astra Militarum",
+      "Tech-Priest Enginseer"
     ],
     "ability_id": "omnissian-unguents-armoured-infantry",
     "is_unique": true,
@@ -879,13 +705,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Astra Militarum",
-        "Tech-Priest Enginseer"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "grand-strategist-armoured-infantry",
@@ -893,7 +713,7 @@
     "detachment_id": "armoured-infantry",
     "cost": 25,
     "keyword_restrictions": [
-      "Astra Militarum"
+      "Officer"
     ],
     "ability_id": "grand-strategist-armoured-infantry",
     "is_unique": true,
@@ -903,12 +723,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Officer"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "call-up-the-reserves-draydens-lance",
@@ -927,12 +742,6 @@
     "keyword_restrictions": [
       "Drayden's Lance",
       "Officer"
-    ],
-    "keyword_restriction_groups": [
-      [
-        "Drayden's Lance",
-        "Officer"
-      ]
     ]
   },
   {
@@ -950,15 +759,9 @@
     ],
     "points_provisional": false,
     "keyword_restrictions": [
-      "Drayden's Lance",
-      "Kasrkin"
+      "Drayden's Lance Kasrkin"
     ],
-    "upgrade_tag": true,
-    "keyword_restriction_groups": [
-      [
-        "Drayden's Lance Kasrkin"
-      ]
-    ]
+    "upgrade_tag": true
   },
   {
     "id": "sharp-eyes-upgrade-abhuman-auxiliaries",
@@ -974,12 +777,6 @@
     "points_provisional": false,
     "upgrade_tag": true,
     "max_targets": 3,
-    "keyword_restriction_groups": [
-      [
-        "Astra Militarum",
-        "Ratlings"
-      ]
-    ],
     "keyword_restrictions": [
       "Astra Militarum",
       "Ratlings"

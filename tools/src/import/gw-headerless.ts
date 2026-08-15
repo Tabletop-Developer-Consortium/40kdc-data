@@ -700,7 +700,7 @@ export const gwHeaderlessAdapter: FormatAdapter = {
           ...parts
             .map((part) =>
               part.replace(
-                /\s*\(\s*\d+\s+(?:Detachment Points?|DP|PD)\s*\)\s*$/i,
+                /\s*\(\s*\d*\s*(?:Detachment Points?|Detachementpoints?|DP|PD)\s*\)\s*$/i,
                 "",
               ),
             )
@@ -768,7 +768,10 @@ export const gwHeaderlessAdapter: FormatAdapter = {
           }
           if (/^det(?:a|at)chments?$/.test(key)) {
             detachment_raw_names.push(
-              value.replace(/\s*\(\d+\s+(?:Detachment Points?|PD)\)\s*$/i, ""),
+              value.replace(
+                /\s*\(\s*\d*\s*(?:Detachment Points?|Detachementpoints?|DP|PD)\s*\)\s*$/i,
+                "",
+              ),
             );
             consumed_title = true;
             continue;

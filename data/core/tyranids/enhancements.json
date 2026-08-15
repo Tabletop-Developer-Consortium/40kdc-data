@@ -15,12 +15,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Tyranids"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "perfectly-adapted-invasion-fleet",
@@ -38,12 +33,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Tyranids"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "synaptic-lynchpin-invasion-fleet",
@@ -79,12 +69,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Tyranids"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "ominous-presence-crusher-stampede",
@@ -92,6 +77,7 @@
     "detachment_id": "crusher-stampede",
     "cost": 15,
     "keyword_restrictions": [
+      "Monster",
       "Tyranids"
     ],
     "ability_id": null,
@@ -102,13 +88,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Monster",
-        "Tyranids"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "enraged-reserves-crusher-stampede",
@@ -116,6 +96,7 @@
     "detachment_id": "crusher-stampede",
     "cost": 20,
     "keyword_restrictions": [
+      "Monster",
       "Tyranids"
     ],
     "ability_id": null,
@@ -126,13 +107,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Monster",
-        "Tyranids"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "null-nodules-crusher-stampede",
@@ -140,6 +115,7 @@
     "detachment_id": "crusher-stampede",
     "cost": 10,
     "keyword_restrictions": [
+      "Monster",
       "Tyranids"
     ],
     "ability_id": null,
@@ -150,13 +126,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Monster",
-        "Tyranids"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "monstrous-nemesis-crusher-stampede",
@@ -164,6 +134,7 @@
     "detachment_id": "crusher-stampede",
     "cost": 25,
     "keyword_restrictions": [
+      "Monster",
       "Tyranids"
     ],
     "ability_id": null,
@@ -174,13 +145,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Monster",
-        "Tyranids"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "relentless-hunger-unending-swarm",
@@ -198,12 +163,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Tyranids"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "naturalised-camouflage-unending-swarm",
@@ -221,12 +181,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Tyranids"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "piercing-talons-unending-swarm",
@@ -244,12 +199,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Tyranids"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "adrenalised-onslaught-unending-swarm",
@@ -267,12 +217,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Tyranids"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "regenerating-monstrosity-assimilation-swarm",
@@ -293,11 +238,6 @@
     "max_targets": 1,
     "exclusion_keywords": [
       "Monster"
-    ],
-    "keyword_restriction_groups": [
-      [
-        "Tyranids"
-      ]
     ]
   },
   {
@@ -316,12 +256,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Tyranids"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "biophagic-flow-aura-assimilation-swarm",
@@ -339,12 +274,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Tyranids"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "parasitic-biomorphology-assimilation-swarm",
@@ -362,12 +292,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Tyranids"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "hunting-grounds-vanguard-onslaught",
@@ -385,12 +310,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Tyranids"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "chameleonic-vanguard-onslaught",
@@ -398,7 +318,7 @@
     "detachment_id": "vanguard-onslaught",
     "cost": 15,
     "keyword_restrictions": [
-      "Tyranids"
+      "Vanguard Invader"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -408,12 +328,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Vanguard Invader"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "stalker-vanguard-onslaught",
@@ -421,7 +336,7 @@
     "detachment_id": "vanguard-onslaught",
     "cost": 10,
     "keyword_restrictions": [
-      "Tyranids"
+      "Vanguard Invader"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -431,12 +346,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Vanguard Invader"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "neuronode-vanguard-onslaught",
@@ -454,12 +364,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Tyranids"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "power-of-the-hive-mind-synaptic-nexus",
@@ -467,6 +372,7 @@
     "detachment_id": "synaptic-nexus",
     "cost": 10,
     "keyword_restrictions": [
+      "Psyker",
       "Tyranids"
     ],
     "ability_id": null,
@@ -477,13 +383,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Psyker",
-        "Tyranids"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "psychostatic-disruption-synaptic-nexus",
@@ -491,6 +391,7 @@
     "detachment_id": "synaptic-nexus",
     "cost": 30,
     "keyword_restrictions": [
+      "Synapse",
       "Tyranids"
     ],
     "ability_id": null,
@@ -501,13 +402,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Synapse",
-        "Tyranids"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "synaptic-control-synaptic-nexus",
@@ -515,6 +410,7 @@
     "detachment_id": "synaptic-nexus",
     "cost": 20,
     "keyword_restrictions": [
+      "Synapse",
       "Tyranids"
     ],
     "ability_id": null,
@@ -525,13 +421,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Synapse",
-        "Tyranids"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "the-dirgeheart-of-kharis-aura-synaptic-nexus",
@@ -539,6 +429,7 @@
     "detachment_id": "synaptic-nexus",
     "cost": 15,
     "keyword_restrictions": [
+      "Synapse",
       "Tyranids"
     ],
     "ability_id": null,
@@ -549,13 +440,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Synapse",
-        "Tyranids"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "synaptic-tyrant-warrior-bioform-onslaught",
@@ -580,9 +465,6 @@
     "name": "Ocular Adaptation",
     "detachment_id": "warrior-bioform-onslaught",
     "cost": 20,
-    "keyword_restrictions": [
-      "Tyranids"
-    ],
     "ability_id": null,
     "is_unique": true,
     "game_version": {
@@ -626,9 +508,6 @@
     "name": "Elevated Might",
     "detachment_id": "warrior-bioform-onslaught",
     "cost": 30,
-    "keyword_restrictions": [
-      "Tyranids"
-    ],
     "ability_id": null,
     "is_unique": true,
     "game_version": {
@@ -665,12 +544,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Tyranids"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "tremor-senses-subterranean-assault",
@@ -688,12 +562,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Tyranids"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "vanguard-intellect-subterranean-assault",
@@ -711,12 +580,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Tyranids"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "trygon-prime-subterranean-assault",
@@ -724,7 +588,7 @@
     "detachment_id": "subterranean-assault",
     "cost": 20,
     "keyword_restrictions": [
-      "Tyranids"
+      "Trygon"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -734,21 +598,13 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Trygon"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "encircling-horrors-upgrade-ambush-predators",
     "name": "Encircling Horrors (Upgrade)",
     "detachment_id": "ambush-predators",
     "cost": 20,
-    "keyword_restrictions": [
-      "Tyranids"
-    ],
     "ability_id": "encircling-horrors-ambush-predators",
     "is_unique": true,
     "game_version": {
@@ -779,7 +635,8 @@
     "detachment_id": "ambush-predators",
     "cost": 15,
     "keyword_restrictions": [
-      "Tyranids"
+      "Tyranids",
+      "Von Ryan’s Leapers"
     ],
     "ability_id": "cryptophotaic-camouflage-ambush-predators",
     "is_unique": true,
@@ -789,13 +646,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": true,
-    "max_targets": 3,
-    "keyword_restriction_groups": [
-      [
-        "Tyranids",
-        "Von Ryan’s Leapers"
-      ]
-    ]
+    "max_targets": 3
   },
   {
     "id": "destabilising-predation-upgrade-talons-of-the-norn-queen",
@@ -803,6 +654,7 @@
     "detachment_id": "talons-of-the-norn-queen",
     "cost": 20,
     "keyword_restrictions": [
+      "Norn Emissary",
       "Tyranids"
     ],
     "ability_id": "destabilising-predation-talons-of-the-norn-queen",
@@ -813,13 +665,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": true,
-    "max_targets": 3,
-    "keyword_restriction_groups": [
-      [
-        "Norn Emissary",
-        "Tyranids"
-      ]
-    ]
+    "max_targets": 3
   },
   {
     "id": "synaptoprescience-upgrade-talons-of-the-norn-queen",
@@ -827,6 +673,7 @@
     "detachment_id": "talons-of-the-norn-queen",
     "cost": 25,
     "keyword_restrictions": [
+      "Norn Assimilator",
       "Tyranids"
     ],
     "ability_id": "synaptoprescience-talons-of-the-norn-queen",
@@ -837,13 +684,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": true,
-    "max_targets": 3,
-    "keyword_restriction_groups": [
-      [
-        "Norn Assimilator",
-        "Tyranids"
-      ]
-    ]
+    "max_targets": 3
   },
   {
     "id": "adapted-organism-the-vardenghast-swarm",
@@ -862,12 +703,6 @@
     "keyword_restrictions": [
       "Vardenghast Swarm",
       "Winged Tyranid Prime"
-    ],
-    "keyword_restriction_groups": [
-      [
-        "Vardenghast Swarm",
-        "Winged Tyranid Prime"
-      ]
     ]
   },
   {
@@ -885,15 +720,9 @@
     ],
     "points_provisional": false,
     "keyword_restrictions": [
-      "Psychophage",
-      "Vardenghast Swarm"
+      "Vardenghast Swarm Psychophage"
     ],
-    "upgrade_tag": true,
-    "keyword_restriction_groups": [
-      [
-        "Vardenghast Swarm Psychophage"
-      ]
-    ]
+    "upgrade_tag": true
   },
   {
     "id": "synaptic-linchpin-invasion-fleet",
@@ -909,11 +738,6 @@
     "points_provisional": false,
     "upgrade_tag": false,
     "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Tyranids"
-      ]
-    ],
     "keyword_restrictions": [
       "Tyranids"
     ]

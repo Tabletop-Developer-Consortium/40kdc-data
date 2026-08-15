@@ -11,19 +11,24 @@ import (
 // Rosterizer roster JSON adapter. Go mirror of python .../imports/rosterizer.py.
 
 const (
-	clsFaction     = "Faction"
-	clsDetachment  = "Detachment"
-	clsUnit        = "Unit"
-	clsSquad       = "Squad"
-	clsWeapon      = "Weapon"
-	clsEnhancement = "Enhancement"
-	clsBattleSize  = "Battle Size"
-	clsTrait       = "Trait"
-	dsgWarlord     = "Warlord"
+	clsFaction          = "Faction"
+	clsDetachment       = "Detachment"
+	clsUnit             = "Unit"
+	clsSquad            = "Squad"
+	clsModel            = "Model"
+	clsWeapon           = "Weapon"
+	clsEnhancement      = "Enhancement"
+	clsBattleSize       = "Battle Size"
+	clsTrait            = "Trait"
+	clsForceDisposition = "Force Disposition"
+	clsAttachment       = "Attachment"
+	clsKeywordOverride  = "40kdc Keyword"
+	dsgWarlord          = "Warlord"
 )
 
 var rzCharClassifications = map[string]bool{"Character": true, "Epic Hero": true}
 var rzLeadingNumberRe = regexp.MustCompile(`^\s*[+-]?(\d+\.?\d*|\.\d+)([eE][+-]?\d+)?`)
+var rzAttachmentRe = regexp.MustCompile(`(?i)^Attachment:\s*(leader|support)\s*->\s*(.+?)(\s+\[provisional\])?\s*$`)
 
 func rzObj(v any) map[string]any {
 	if m, ok := v.(map[string]any); ok {
@@ -179,7 +184,7 @@ func rzIsWarlordTrait(asset map[string]any) bool {
 func rzModelCount(unit map[string]any) int {
 	nested := 0
 	for _, child := range rzIncluded(unit) {
-		if rzIsUnit(child) {
+		if rzIsUnit(child) || rzClassOf(child) == clsModel {
 			nested += rzQuantity(child)
 		}
 	}
@@ -193,7 +198,26 @@ func rzParseUnit(unit map[string]any) map[string]any {
 	wargear := []any{}
 	var enhancementRawName, enhancementPoints any
 	isWarlord := false
+	var leaderAttachment map[string]any
+	keywordOverrides := []any{}
+	seenKeywordOverrides := map[string]bool{}
+	addKeywordOverride := func(keyword string) {
+		if keyword != "" && !seenKeywordOverrides[keyword] {
+			seenKeywordOverrides[keyword] = true
+			keywordOverrides = append(keywordOverrides, keyword)
+		}
+	}
 	visit := func(a map[string]any) {
+		if rzClassOf(a) == clsAttachment {
+			if match := rzAttachmentRe.FindStringSubmatch(rzDisplayName(a)); match != nil {
+				leaderAttachment = map[string]any{
+					"role":               strings.ToLower(match[1]),
+					"bodyguard_raw_name": match[2],
+					"provisional":        match[3] != "",
+				}
+			}
+			return
+		}
 		if rzIsEnhancement(a) {
 			if enhancementRawName == nil {
 				enhancementRawName = rzDisplayName(a)
@@ -208,14 +232,44 @@ func rzParseUnit(unit map[string]any) map[string]any {
 	for _, child := range rzIncluded(unit) {
 		rzWalk(child, visit)
 	}
+	loadoutGroups := []any{}
+	for _, model := range rzIncluded(unit) {
+		if rzClassOf(model) != clsModel {
+			continue
+		}
+		count := rzQuantity(model)
+		groupWargear := []any{}
+		rzWalk(model, func(asset map[string]any) {
+			if !rzIsWeapon(asset) {
+				return
+			}
+			total := rzQuantity(asset)
+			perModel := total
+			if count > 0 && total%count == 0 {
+				perModel = total / count
+			}
+			groupWargear = append(groupWargear, map[string]any{"raw_name": rzDisplayName(asset), "count": float64(perModel)})
+		})
+		loadoutGroups = append(loadoutGroups, map[string]any{
+			"model_name": rzDisplayName(model),
+			"count":      float64(count),
+			"wargear":    groupWargear,
+		})
+	}
 	for _, t := range rzTraits(unit) {
 		rzWalk(t, func(a map[string]any) {
 			if rzIsWarlordTrait(a) {
 				isWarlord = true
 			}
+			classification, designation := rzSplitItem(a)
+			if classification == clsKeywordOverride {
+				addKeywordOverride(designation)
+			} else if rzCharClassifications[classification] {
+				addKeywordOverride("Character")
+			}
 		})
 	}
-	return map[string]any{
+	result := map[string]any{
 		"raw_name":             rzDisplayName(unit),
 		"is_character":         rzIsCharacter(unit),
 		"model_count":          float64(rzModelCount(unit)),
@@ -224,7 +278,15 @@ func rzParseUnit(unit map[string]any) map[string]any {
 		"enhancement_raw_name": enhancementRawName,
 		"enhancement_points":   enhancementPoints,
 		"wargear":              wargear,
+		"leader_attachment":    leaderAttachment,
 	}
+	if len(keywordOverrides) > 0 {
+		result["keyword_overrides"] = keywordOverrides
+	}
+	if len(loadoutGroups) > 0 {
+		result["loadout_groups"] = loadoutGroups
+	}
+	return result
 }
 
 func rzSnapshotOf(env map[string]any) map[string]any {
@@ -263,7 +325,7 @@ var rosterizerAdapter = formatAdapter{
 		if root == nil {
 			return nil, errors.New("rosterizer: envelope has no snapshot or history.present.roster")
 		}
-		var factionRaw, battleSizeRaw any
+		var factionRaw, battleSizeRaw, forceDispositionRaw any
 		detachmentRawNames := []any{}
 		var factions []string
 		seenFaction := map[string]bool{}
@@ -283,6 +345,10 @@ var rosterizerAdapter = formatAdapter{
 			case clsBattleSize:
 				if battleSizeRaw == nil {
 					battleSizeRaw = rzDisplayName(a)
+				}
+			case clsForceDisposition:
+				if forceDispositionRaw == nil {
+					forceDispositionRaw = rzDisplayName(a)
 				}
 			}
 		})
@@ -343,16 +409,17 @@ var rosterizerAdapter = formatAdapter{
 			}
 		}
 		return map[string]any{
-			"name":                 name,
-			"generated_by":         generatedBy,
-			"faction_raw_name":     factionRaw,
-			"detachment_raw_names": detachmentRawNames,
-			"battle_size_raw":      battleSizeRaw,
-			"declared_limit":       parseLimit(battleSizeRaw),
-			"total_reported":       totalReported,
-			"total_computed":       totalComputed,
-			"units":                mapsToAny(units),
-			"multi_force":          len(factions) > 1,
+			"name":                       name,
+			"generated_by":               generatedBy,
+			"faction_raw_name":           factionRaw,
+			"detachment_raw_names":       detachmentRawNames,
+			"battle_size_raw":            battleSizeRaw,
+			"force_disposition_raw_name": forceDispositionRaw,
+			"declared_limit":             parseLimit(battleSizeRaw),
+			"total_reported":             totalReported,
+			"total_computed":             totalComputed,
+			"units":                      mapsToAny(units),
+			"multi_force":                len(factions) > 1,
 		}, nil
 	},
 }

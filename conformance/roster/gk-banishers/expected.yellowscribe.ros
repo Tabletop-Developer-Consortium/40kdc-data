@@ -157,22 +157,7 @@
           <selections>
             <selection id="unit1-m0" name="Grand Master in Nemesis Dreadknight" type="model" number="1">
               <selections>
-                <selection id="unit1-m0-w0" name="Fragstorm grenade launcher" type="upgrade" number="1">
-                  <profiles>
-                    <profile name="Fragstorm grenade launcher" typeName="Ranged Weapons">
-                      <characteristics>
-                        <characteristic name="Range">18"</characteristic>
-                        <characteristic name="A">D6</characteristic>
-                        <characteristic name="BS">3+</characteristic>
-                        <characteristic name="S">4</characteristic>
-                        <characteristic name="AP">0</characteristic>
-                        <characteristic name="D">1</characteristic>
-                        <characteristic name="Keywords">Blast</characteristic>
-                      </characteristics>
-                    </profile>
-                  </profiles>
-                </selection>
-                <selection id="unit1-m0-w1" name="Heavy psycannon" type="upgrade" number="1">
+                <selection id="unit1-m0-w0" name="Heavy psycannon" type="upgrade" number="1">
                   <profiles>
                     <profile name="Heavy psycannon" typeName="Ranged Weapons">
                       <characteristics>
@@ -183,6 +168,21 @@
                         <characteristic name="AP">-2</characteristic>
                         <characteristic name="D">3</characteristic>
                         <characteristic name="Keywords">Ignores Cover, Psychic</characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+                <selection id="unit1-m0-w1" name="Fragstorm grenade launcher" type="upgrade" number="1">
+                  <profiles>
+                    <profile name="Fragstorm grenade launcher" typeName="Ranged Weapons">
+                      <characteristics>
+                        <characteristic name="Range">18"</characteristic>
+                        <characteristic name="A">D6</characteristic>
+                        <characteristic name="BS">3+</characteristic>
+                        <characteristic name="S">4</characteristic>
+                        <characteristic name="AP">0</characteristic>
+                        <characteristic name="D">1</characteristic>
+                        <characteristic name="Keywords">Blast</characteristic>
                       </characteristics>
                     </profile>
                   </profiles>

@@ -69,16 +69,41 @@ func rosterJSONLowerUnit(uAny any) map[string]any {
 		enhancementRawName = enh["raw_name"]
 	}
 
+	keywordOverrides := getList(u, "keyword_overrides")
+	isCharacter := hasLA
+	for _, keyword := range keywordOverrides {
+		if keyword == "Character" {
+			isCharacter = true
+			break
+		}
+	}
 	parsed := map[string]any{
-		"raw_name": ref["raw_name"],
-		// Keeps the inference gate for units without an explicit attachment.
-		"is_character":         hasLA,
+		"raw_name":             ref["raw_name"],
+		"is_character":         isCharacter,
+		"keyword_overrides":    keywordOverrides,
 		"model_count":          u["model_count"],
 		"points":               u["points"],
 		"is_warlord":           u["is_warlord"],
 		"enhancement_raw_name": enhancementRawName,
 		"enhancement_points":   u["enhancement_points"],
 		"wargear":              wargear,
+	}
+	if groups := getList(u, "loadout_groups"); len(groups) > 0 {
+		lowered := make([]any, 0, len(groups))
+		for _, groupAny := range groups {
+			group := groupAny.(map[string]any)
+			groupWargear := []any{}
+			for _, itemAny := range getList(group, "wargear") {
+				item := itemAny.(map[string]any)
+				groupWargear = append(groupWargear, map[string]any{
+					"raw_name": refOf(item)["raw_name"], "count": item["count"],
+				})
+			}
+			lowered = append(lowered, map[string]any{
+				"model_name": group["model_name"], "count": group["count"], "wargear": groupWargear,
+			})
+		}
+		parsed["loadout_groups"] = lowered
 	}
 	// Carry an explicit attachment verbatim (key elided when absent, matching
 	// every other adapter, which never sets it).

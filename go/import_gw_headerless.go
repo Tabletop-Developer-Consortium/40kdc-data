@@ -45,9 +45,11 @@ var gwhAttachment = regexp.MustCompile(`(?i)^(attached\s+as|leader|leading)\s*:\
 
 // `(Character)` inside an attachment role.
 var gwhCharacterRole = regexp.MustCompile(`(?i)\(\s*Character\s*\)`)
+var gwhCharacterAnnotation = regexp.MustCompile(`(?i)^(?:.+\s+keywords?\s*:\s*character|subterranean\s+assault\s+character)$`)
+var gwhKeywordAnnotation = regexp.MustCompile(`(?i)^(?:40kdc\s+)?(?:detachment\s+)?keywords?\s*:\s*(.+)$`)
 
 var gwhBulletAnywhere = regexp.MustCompile(`(?m)^[\t ]*[•◦]`)
-var gwhDetachmentPtsSuffix = regexp.MustCompile(`(?i)\s*\(\d+\s+Detachment Points?\)\s*$`)
+var gwhDetachmentPtsSuffix = regexp.MustCompile(`(?i)\s*\(\s*\d*\s*(?:Detachment Points?|Detachementpoints?|DP|PD)\s*\)\s*$`)
 
 // A line of only `+` characters — the BCP summary block's fence.
 var gwhPlusFence = regexp.MustCompile(`^\++$`)
@@ -123,7 +125,7 @@ func gwhHeaderlessText(decoded any) (string, bool) {
 	if !gwhBulletAnywhere.MatchString(text) {
 		return "", false // need a bullet
 	}
-	if strings.Contains(text, gwFactionKeywordPrefix) {
+	if strings.Contains(text, gwFactionKeywordPrefix) && !gwEmbeddedAppBattleSize.MatchString(text) {
 		return "", false // framed GW → gwAdapter
 	}
 	if gwWithLine.MatchString(text) {
@@ -181,6 +183,8 @@ type gwhBullet struct {
 	isAttachment bool
 	// setsCharacter: an `Attached as: … (Character)` annotation flags the unit.
 	setsCharacter bool
+	// keywordOverride is an explicitly selected/granted keyword annotation.
+	keywordOverride any
 }
 
 type gwhUnit struct {
@@ -204,6 +208,13 @@ func gwhParseBullet(indent int, body string, bulleted bool) gwhBullet {
 			isAttachment: true,
 			setsCharacter: strings.EqualFold(strings.Join(strings.Fields(m[1]), " "), "attached as") &&
 				gwhCharacterRole.MatchString(m[2]),
+		}
+	}
+
+	if gwhCharacterAnnotation.MatchString(strings.TrimSpace(body)) {
+		return gwhBullet{
+			indent: indent, count: nil, colonWargear: nil, isAnnotation: true,
+			bulleted: bulleted, setsCharacter: true, keywordOverride: "Character",
 		}
 	}
 
@@ -248,6 +259,14 @@ func gwhParseBullet(indent int, body string, bulleted bool) gwhBullet {
 		}
 	}
 
+	if m := gwhKeywordAnnotation.FindStringSubmatch(rest); m != nil {
+		keyword := strings.TrimSpace(m[1])
+		return gwhBullet{
+			indent: indent, count: nil, colonWargear: nil, isAnnotation: true,
+			bulleted: bulleted, setsCharacter: strings.EqualFold(keyword, "Character"),
+			keywordOverride: keyword,
+		}
+	}
 	// `ModelType: w1, w2` — a model bullet with inline wargear.
 	if idx := strings.Index(rest, ":"); idx >= 0 {
 		wargear := strings.TrimSpace(rest[idx+1:])
@@ -291,7 +310,7 @@ func finishGwhUnit(acc *gwhUnit) map[string]any {
 	modelIndent := 0
 	haveModelIndent := false
 	for _, b := range acc.bullets {
-		if b.bulleted && !b.isAttachment && !b.hasEnhancement && b.colonWargear == nil {
+		if b.bulleted && !b.isAttachment && !b.hasEnhancement && !b.setsCharacter && b.name != warlordMarker && b.colonWargear == nil {
 			if !haveModelIndent || b.indent < modelIndent {
 				modelIndent = b.indent
 				haveModelIndent = true
@@ -308,6 +327,8 @@ func finishGwhUnit(acc *gwhUnit) map[string]any {
 			b.colonWargear == nil &&
 			!b.hasEnhancement &&
 			!b.isAttachment &&
+			!b.setsCharacter &&
+			b.name != warlordMarker &&
 			b.indent == modelIndent &&
 			next != nil &&
 			next.bulleted &&
@@ -319,9 +340,13 @@ func finishGwhUnit(acc *gwhUnit) map[string]any {
 	isWarlord := false
 	isCharacter := acc.isCharacterSection
 	var enhancementRawName, enhancementPoints any
+	keywordOverrides := []string{}
 
 	for i := range acc.bullets {
 		b := acc.bullets[i]
+		if keyword, ok := b.keywordOverride.(string); ok && keyword != "" {
+			keywordOverrides = append(keywordOverrides, keyword)
+		}
 
 		// `Attached as: …` carries no model or gear; a `(Character)` role flags
 		// the unit. Skip before model detection.
@@ -365,8 +390,11 @@ func finishGwhUnit(acc *gwhUnit) map[string]any {
 			continue
 		}
 
-		// Annotation (no count): Warlord / Character flags, else bare wargear.
 		if b.isAnnotation {
+			if b.setsCharacter {
+				isCharacter = true
+				continue
+			}
 			var leftover []string
 			for _, tok := range strings.Split(b.name, ",") {
 				token := strings.TrimSpace(tok)
@@ -411,7 +439,7 @@ func finishGwhUnit(acc *gwhUnit) map[string]any {
 		}
 	}
 
-	return map[string]any{
+	result := map[string]any{
 		"raw_name":             acc.rawName,
 		"is_character":         isCharacter,
 		"model_count":          float64(modelCount),
@@ -421,6 +449,10 @@ func finishGwhUnit(acc *gwhUnit) map[string]any {
 		"enhancement_points":   enhancementPoints,
 		"wargear":              wargear.pairs(),
 	}
+	if len(keywordOverrides) > 0 {
+		result["keyword_overrides"] = strSliceToAny(keywordOverrides)
+	}
+	return result
 }
 
 var gwHeaderlessAdapter = formatAdapter{

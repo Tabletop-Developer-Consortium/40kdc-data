@@ -56,9 +56,10 @@ mod roster_json;
 mod rosterizer;
 
 pub use types::{
-    AttachmentRole, BattleSize, Candidate, Diagnostics, GameVersionRef, ParsedRoster, ParsedUnit,
-    ParsedWargear, ResolvedRef, Roster, RosterFormat, RosterLeaderAttachment, RosterLoadoutGroup,
-    RosterPoints, RosterSource, RosterUnit, RosterWargear, Warning, WarningCode,
+    AttachmentRole, BattleSize, Candidate, Diagnostics, GameVersionRef, ParsedLoadoutGroup,
+    ParsedRoster, ParsedUnit, ParsedWargear, ResolvedRef, Roster, RosterFormat,
+    RosterLeaderAttachment, RosterLoadoutGroup, RosterPoints, RosterSource, RosterUnit,
+    RosterWargear, Warning, WarningCode,
 };
 
 #[cfg(feature = "import")]

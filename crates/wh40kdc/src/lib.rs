@@ -92,10 +92,11 @@ pub use data::{
 // the importer's Roster/BattleSize types).
 #[cfg(feature = "import")]
 pub use data::{
-    candidate_affordability, check_roster, detachment_cap_for_battle_size,
-    points_limit_for_battle_size, validate_roster_core, AffordabilitySpec, AffordabilityUnit,
-    CandidateCost, NormRoster, NormUnit, RosterLegality, RosterViolation, RosterViolationCode,
-    Severity as RosterSeverity, UnitLegality,
+    candidate_affordability, check_roster, complete_loadout, detachment_cap_for_battle_size,
+    points_limit_for_battle_size, validate_roster_core,
+    validate_roster_core_with_keyword_overrides, AffordabilitySpec, AffordabilityUnit,
+    CandidateCost, CompletedLoadout, NormRoster, NormUnit, RosterLegality, RosterViolation,
+    RosterViolationCode, Severity as RosterSeverity, UnitLegality,
 };
 
 /// Army-list importer: ListForge share payload + NewRecruit (JSON / wtc /

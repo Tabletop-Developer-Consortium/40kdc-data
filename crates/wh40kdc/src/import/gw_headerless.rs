@@ -60,11 +60,16 @@ const ALLIED_SECTION: &str = "ALLIED UNITS";
 const CHARACTER_SUFFIX: &str = " Character";
 const WARLORD_MARKER: &str = "Warlord";
 
-/// Title / unit header: `Name (N pts|Points)` with an optional trailing comment
-/// (the GW export sometimes appends TO notes). Points may carry thousands
-/// commas. Case-insensitive `pts`/`points`.
-static RE_PTS_LINE: Lazy<Regex> =
-    Lazy::new(|| Regex::new(r"(?i)^(.+?)\s*\(\s*([\d,]+)\s*(?:pts?|points?)\s*\).*$").unwrap());
+/// Title / unit header: `Name (N pts|Points)` with localized thousands
+/// separators used by event exports.
+static RE_PTS_LINE: Lazy<Regex> = Lazy::new(|| {
+    Regex::new(r"(?i)^(.+?)\s*\(\s*([\d,.'’\u{00a0}\u{202f} ]+)\s*(?:pts?|points?)\s*\).*$")
+        .unwrap()
+});
+/// A title-less total line used by event submissions.
+static RE_BARE_POINTS_LINE: Lazy<Regex> = Lazy::new(|| {
+    Regex::new(r"(?i)^\(?\s*([\d,.'’\u{00a0}\u{202f} ]+)\s*(?:pts?|points?)\s*\)?$").unwrap()
+});
 /// `## Section [ (N pts) ]` markdown header.
 static RE_MD_SECTION: Lazy<Regex> = Lazy::new(|| Regex::new(r"^#{1,6}\s*(.+?)\s*$").unwrap());
 /// ALL-CAPS role section (`CHARACTERS`, `OTHER DATASHEETS`, …).
@@ -72,38 +77,88 @@ static RE_CAPS_SECTION: Lazy<Regex> = Lazy::new(|| Regex::new(r"^[A-Z][A-Z0-9 \-
 /// `Title:` colon section (`Epic Hero:`, `Battleline:`).
 static RE_COLON_SECTION: Lazy<Regex> =
     Lazy::new(|| Regex::new(r"^([A-Za-z][\w /&-]*):\s*$").unwrap());
-/// Bullet line: leading indent, a `•` or `◦` marker, then the body.
-static RE_BULLET: Lazy<Regex> = Lazy::new(|| Regex::new(r"^([\t ]*)[•◦]\s*(.+?)\s*$").unwrap());
-static RE_NX_PREFIX: Lazy<Regex> = Lazy::new(|| Regex::new(r"(?i)^(\d+)x\s+(.+)$").unwrap());
-/// Inline enhancement annotation: `Name (+N pts)`.
-static RE_ENHANCEMENT_ANNOT: Lazy<Regex> =
-    Lazy::new(|| Regex::new(r"(?i)^(.+?)\s*\(\+\s*(\d+)\s*pts?\s*\)\s*$").unwrap());
-/// `Enhancements: X` / `E: X` enhancement bullet.
-static RE_ENHANCEMENT_LABEL: Lazy<Regex> =
-    Lazy::new(|| Regex::new(r"(?i)^(?:e|enh|enhancement|enhancements)\s*:\s*(.+)$").unwrap());
+/// Bullet line: leading indent, a `•`, `◦`, or `*` marker, then the body.
+static RE_BULLET: Lazy<Regex> =
+    Lazy::new(|| Regex::new(r"^([\t \u{00a0}]*)([•◦*])\s*(.+?)\s*$").unwrap());
+static RE_NX_PREFIX: Lazy<Regex> = Lazy::new(|| Regex::new(r"(?i)^(\d+)[x×]\s+(.+)$").unwrap());
+static RE_MODEL_WITH_WARGEAR: Lazy<Regex> =
+    Lazy::new(|| Regex::new(r"(?i)^(\d+)(?:[x×]\s+|\s+)(.+?)\s+with\s+(.+)$").unwrap());
+/// Inline enhancement annotation: `Name (+N pts)` or `Name [+N points]`.
+static RE_ENHANCEMENT_ANNOT: Lazy<Regex> = Lazy::new(|| {
+    Regex::new(
+        r"(?i)^(.+?)\s*(?:\(\+\s*(\d+)\s*pts?\s*\)|\[\+\s*(\d+)\s*(?:pts?|points?)\s*\])\s*$",
+    )
+    .unwrap()
+});
+/// `Enhancements: X` / `E: X`, including localized labels.
+static RE_ENHANCEMENT_LABEL: Lazy<Regex> = Lazy::new(|| {
+    Regex::new(r"(?i)^(?:e|enh|enhancement|enhancements|verbesserung|verbesserungen)\s*:\s*(.+)$")
+        .unwrap()
+});
 /// Attachment relationship annotations emitted by GW-family exports.
 static RE_ATTACHMENT: Lazy<Regex> =
     Lazy::new(|| Regex::new(r"(?i)^(attached\s+as|leader|leading)\s*:\s*(.+)$").unwrap());
 /// `(Character)` inside an attachment role.
 static RE_CHARACTER_ROLE: Lazy<Regex> =
     Lazy::new(|| Regex::new(r"(?i)\(\s*Character\s*\)").unwrap());
+/// Detachment keyword annotations which promote the selected bearer to Character.
+static RE_CHARACTER_ANNOTATION: Lazy<Regex> = Lazy::new(|| {
+    Regex::new(r"(?i)^(?:.+\s+keywords?\s*:\s*character|subterranean\s+assault\s+character)$")
+        .unwrap()
+});
+static RE_COLON_ANNOTATION: Lazy<Regex> = Lazy::new(|| {
+    Regex::new(r"(?i)^(?:.+\s+keywords?|mark of chaos|daemonic allegiance)\s*:").unwrap()
+});
+static RE_KEYWORD_ANNOTATION: Lazy<Regex> =
+    Lazy::new(|| Regex::new(r"(?i)^This Datasheet also has the (.+?) keyword$").unwrap());
 static RE_WITH_LINE: Lazy<Regex> = Lazy::new(|| Regex::new(r"(?m)^[\t ]*\d+\s+with\b").unwrap());
-static RE_BULLET_ANYWHERE: Lazy<Regex> = Lazy::new(|| Regex::new(r"(?m)^[\t ]*[•◦]").unwrap());
-static RE_DETACHMENT_POINTS_SUFFIX: Lazy<Regex> =
-    Lazy::new(|| Regex::new(r"(?i)\s*\(\d+\s+Detachment Points?\)\s*$").unwrap());
+static RE_BULLET_ANYWHERE: Lazy<Regex> =
+    Lazy::new(|| Regex::new(r"(?m)^[\t \u{00a0}]*[•◦*]").unwrap());
+static RE_DETACHMENT_POINTS_SUFFIX: Lazy<Regex> = Lazy::new(|| {
+    Regex::new(r"(?i)\s*\(\s*\d*\s*(?:Detachment Points?|Detachementpoints?|DP|PD)\s*\)\s*$")
+        .unwrap()
+});
+static RE_LISTFORGE_FIRST_LINE: Lazy<Regex> = Lazy::new(|| {
+    Regex::new(r"(?i)^(.+)\s\(\s*[\d,.'’\u{00a0}\u{202f} ]+\s*Points?\s*\)\s*$").unwrap()
+});
 
-/// Drop the GW app's "(N Detachment Points)" cost suffix from a detachment
-/// preamble line — presentation, not part of the name.
+/// Battle-size labels that look like unit headers (`Strike Force (2,000 Points)`)
+/// but are army metadata, not datasheets.
+const BATTLE_SIZE_NAMES: &[&str] = &[
+    "combat patrol",
+    "incursion",
+    "strike force",
+    "onslaught",
+    "strikeforce",
+];
+const FORCE_DISPOSITION_NAMES: &[&str] = &[
+    "disruption",
+    "priority assets",
+    "purge the foe",
+    "reconnaissance",
+    "recon",
+    "take and hold",
+];
+const GENERIC_FACTION_BREADCRUMBS: &[&str] = &["chaos", "imperium", "space marines", "xenos"];
+
+fn parse_pts(raw: &str) -> Option<u64> {
+    let digits: String = raw.chars().filter(char::is_ascii_digit).collect();
+    (!digits.is_empty()).then(|| digits.parse().ok()).flatten()
+}
+
 fn strip_detachment_points_suffix(line: &str) -> String {
     RE_DETACHMENT_POINTS_SUFFIX.replace(line, "").to_string()
 }
 
-/// Battle-size labels that look like unit headers (`Strike Force (2,000 Points)`)
-/// but are army metadata, not datasheets.
-const BATTLE_SIZE_NAMES: &[&str] = &["combat patrol", "incursion", "strike force", "onslaught"];
-
-fn parse_pts(raw: &str) -> Option<u64> {
-    raw.replace(',', "").parse().ok()
+fn is_attached_as(raw: &str) -> bool {
+    let mut words = raw.split_whitespace();
+    words
+        .next()
+        .is_some_and(|word| word.eq_ignore_ascii_case("attached"))
+        && words
+            .next()
+            .is_some_and(|word| word.eq_ignore_ascii_case("as"))
+        && words.next().is_none()
 }
 
 /// BCP prepends a `++…++`-fenced summary block (`Player Name:` / `Factions
@@ -114,67 +169,127 @@ fn parse_pts(raw: &str) -> Option<u64> {
 /// pair wraps a BCP marker is removed, so a framed GW export's own `+ …` fence
 /// is left intact. Mirror of the TS `stripBcpSummary`.
 fn strip_bcp_summary(text: &str) -> &str {
-    let is_fence = |l: &str| !l.is_empty() && l.chars().all(|c| c == '+');
-    let is_marker = |l: &str| {
-        let t = l.trim_start();
-        ["Player Name", "Team Name", "Factions Used", "Army Points"]
-            .iter()
-            .any(|k| {
-                t.strip_prefix(k)
-                    .is_some_and(|rest| rest.trim_start().starts_with(':'))
-            })
+    let mut offset = 0;
+    let mut lines = text.split_inclusive('\n');
+    let Some(first) = lines.next() else {
+        return text;
     };
-    let mut offset = 0usize;
-    let mut fence_seen = false;
+    if !first.trim().chars().all(|c| c == '+') {
+        return text;
+    }
+    offset += first.len();
     let mut marker_seen = false;
-    for line in text.split_inclusive('\n') {
-        let bare = line.trim_end_matches(['\n', '\r']);
-        if !fence_seen {
-            if bare.trim().is_empty() {
-                offset += line.len();
+    for line in lines {
+        offset += line.len();
+        let bare = line.trim();
+        if !bare.is_empty() && bare.chars().all(|c| c == '+') {
+            return marker_seen.then_some(&text[offset..]).unwrap_or(text);
+        }
+        let bare = bare.trim_start_matches('+').trim_start();
+        marker_seen |= ["Player Name", "Team Name", "Factions Used", "Army Points"]
+            .iter()
+            .any(|key| {
+                bare.strip_prefix(key)
+                    .is_some_and(|rest| rest.trim_start().starts_with(':'))
+            });
+    }
+    text
+}
+
+/// Recover logical lines after event tooling flattened bullets, metadata, or
+/// repeated `Nx` entries onto a single physical line.
+fn expand_dense_lines(text: &str) -> Vec<String> {
+    let mut out = Vec::new();
+    let attached = Regex::new(r"(?i)^(Attached Units)\s+(Attached Unit\s+\d+)$").unwrap();
+    let metadata = Regex::new(r"(?i)^(.+?\(\s*\d+\s+Detachment Points?\s*\))\s+(Disruption|Priority Assets|Purge the Foe|Reconnaissance|Take and Hold)\s+((?:Combat Patrol|Incursion|Strike Force|Onslaught)\s*\(.+\))$").unwrap();
+    for raw in text.lines() {
+        let mut parts = Vec::new();
+        let mut start = 0;
+        let chars: Vec<(usize, char)> = raw.char_indices().collect();
+        for (index, &(byte, marker)) in chars.iter().enumerate() {
+            if !matches!(marker, '•' | '◦' | '*') || index == 0 {
                 continue;
             }
-            if !is_fence(bare.trim()) {
-                return text; // first non-blank line is not a fence
+            if raw[start..byte].trim().is_empty() {
+                continue;
             }
-            fence_seen = true;
-            offset += line.len();
-            continue;
+            let before = chars[index - 1].1;
+            if before.is_whitespace() {
+                parts.push(&raw[start..byte]);
+                start = byte;
+            }
         }
-        offset += line.len();
-        if is_fence(bare.trim()) {
-            // Closing fence: strip only when the block carried a BCP marker.
-            return if marker_seen { &text[offset..] } else { text };
-        }
-        if is_marker(bare) {
-            marker_seen = true;
+        parts.push(&raw[start..]);
+        for part in parts {
+            let trimmed = part.trim();
+            if let Some(c) = attached.captures(trimmed) {
+                out.extend([c[1].to_string(), c[2].to_string()]);
+                continue;
+            }
+            if let Some(c) = metadata.captures(trimmed) {
+                out.extend([c[1].to_string(), c[2].to_string(), c[3].to_string()]);
+                continue;
+            }
+            let mut count_start = 0;
+            let bytes = part.as_bytes();
+            for index in 1..bytes.len() {
+                if !bytes[index - 1].is_ascii_whitespace() || !bytes[index].is_ascii_digit() {
+                    continue;
+                }
+                let prefix = part[count_start..index].trim();
+                if prefix.is_empty() || prefix.chars().all(|ch| matches!(ch, '•' | '◦' | '*')) {
+                    continue;
+                }
+                let suffix = &part[index..];
+                if Regex::new(r"^\d+[x×]\s").unwrap().is_match(suffix) {
+                    out.push(part[count_start..index].to_string());
+                    count_start = index;
+                }
+            }
+            out.push(part[count_start..].to_string());
         }
     }
-    text // no closing fence
+    out
 }
 
 /// Accept bullet-bearing plain text that no framed adapter claims.
 fn headerless_text(decoded: &Value) -> Option<&str> {
-    let s = strip_bcp_summary(decoded.as_str()?);
-    if !RE_BULLET_ANYWHERE.is_match(s) {
-        return None; // need at least one bullet to be this family
+    let raw = decoded.as_str()?;
+    let s = strip_bcp_summary(raw);
+    let embedded_battle_size = raw.lines().any(|line| {
+        RE_PTS_LINE
+            .captures(line.trim())
+            .is_some_and(|c| is_battle_size(c[1].trim()))
+    });
+    if raw.contains("+ FACTION KEYWORD:")
+        && raw.contains("+ NUMBER OF UNITS:")
+        && !embedded_battle_size
+    {
+        return None;
     }
-    if s.contains("+ FACTION KEYWORD:") {
-        return None; // framed GW export → GwAdapter
+    if !RE_BULLET_ANYWHERE.is_match(s)
+        || (s.contains("+ FACTION KEYWORD:") && !embedded_battle_size)
+        || RE_WITH_LINE.is_match(s)
+    {
+        return None;
     }
-    if RE_WITH_LINE.is_match(s) {
-        return None; // WTC-full
+    let lines: Vec<&str> = s.lines().collect();
+    let first = lines.iter().find(|line| !line.trim().is_empty())?.trim();
+    if RE_LISTFORGE_FIRST_LINE
+        .captures(first)
+        .is_some_and(|c| c[1].split(" - ").count() >= 3)
+    {
+        return None;
     }
-    // NewRecruit `# ++ Army Roster ++` → NewRecruitSimpleAdapter.
-    if s.lines().any(|l| {
-        let t = l.trim();
-        t.starts_with("# ++") && t.contains("Army Roster")
+    if lines.iter().any(|line| {
+        let line = line.trim();
+        line.starts_with("# ++") && line.contains("Army Roster")
     }) {
         return None;
     }
-    // Require a `Name (N pts|Points)` line somewhere — the unit/title signature.
-    s.lines()
-        .any(|l| RE_PTS_LINE.is_match(l.trim()))
+    lines
+        .iter()
+        .any(|line| RE_PTS_LINE.is_match(line.trim()))
         .then_some(s)
 }
 
@@ -182,24 +297,12 @@ fn headerless_text(decoded: &Value) -> Option<&str> {
 struct Bullet {
     indent: usize,
     count: Option<u64>,
-    /// Model/wargear name (after any `Nx` and before any `: wargear`).
     name: String,
-    /// Comma-separated wargear listed after a `:` on a model bullet.
     colon_wargear: Option<String>,
-    /// True for `Warlord` / `… Character` / `Enhancements:` / `Attached as:`
-    /// annotations.
     is_annotation: bool,
     enhancement: Option<(String, Option<u64>)>,
-    /// True when the source line carried a `•`/`◦` marker; false for the GW
-    /// app's unbulleted continuation wargear lines. Model detection keys on
-    /// this: a model is an entry followed by a *deeper bulleted* line, so a lone
-    /// bulleted weapon with plain continuations (Fire Prism) is not mistaken for
-    /// a model.
     bulleted: bool,
-    /// True for an `Attached as: …` v2.0.5 annotation — never a model or
-    /// wargear, even though it sits (bulleted) shallower than the models.
     is_attachment: bool,
-    /// An `Attached as: … (Character)` annotation flags the unit as a character.
     sets_character: bool,
 }
 
@@ -211,17 +314,9 @@ struct UnitAcc {
 }
 
 fn parse_bullet(indent: usize, body: &str, bulleted: bool) -> Bullet {
-    // Attachment relationship metadata is never a model or wargear. Catch it
-    // before the generic colon split: otherwise `Leader: Character Name`
-    // becomes an inline model and inflates the bodyguard's model count by one.
-    if let Some(c) = RE_ATTACHMENT.captures(body) {
-        let mut label_words = c[1].split_whitespace();
-        let sets_character = matches!(
-            (label_words.next(), label_words.next(), label_words.next()),
-            (Some(first), Some(second), None)
-                if first.eq_ignore_ascii_case("attached")
-                    && second.eq_ignore_ascii_case("as")
-        ) && RE_CHARACTER_ROLE.is_match(&c[2]);
+    let plain = body.trim();
+    if let Some(c) = RE_ATTACHMENT.captures(plain) {
+        let sets_character = is_attached_as(&c[1]) && RE_CHARACTER_ROLE.is_match(&c[2]);
         return Bullet {
             indent,
             count: None,
@@ -234,9 +329,20 @@ fn parse_bullet(indent: usize, body: &str, bulleted: bool) -> Bullet {
             sets_character,
         };
     }
-
-    // Enhancement label first — `Enhancements: X` must not read as a model.
-    if let Some(c) = RE_ENHANCEMENT_LABEL.captures(body) {
+    if RE_CHARACTER_ANNOTATION.is_match(plain) {
+        return Bullet {
+            indent,
+            count: None,
+            name: String::new(),
+            colon_wargear: None,
+            is_annotation: true,
+            enhancement: None,
+            bulleted,
+            is_attachment: false,
+            sets_character: true,
+        };
+    }
+    if let Some(c) = RE_ENHANCEMENT_LABEL.captures(plain) {
         return Bullet {
             indent,
             count: None,
@@ -249,28 +355,73 @@ fn parse_bullet(indent: usize, body: &str, bulleted: bool) -> Bullet {
             sets_character: false,
         };
     }
-
-    let (count, rest) = match RE_NX_PREFIX.captures(body) {
-        Some(nx) => (nx[1].parse::<u64>().ok(), nx[2].trim().to_string()),
-        None => (None, body.trim().to_string()),
+    let (mut count, mut rest) = match RE_NX_PREFIX.captures(plain) {
+        Some(nx) => (nx[1].parse().ok(), nx[2].trim().to_string()),
+        None => (None, plain.to_string()),
     };
-
-    // `Name (+N pts)` enhancement annotation.
     if let Some(c) = RE_ENHANCEMENT_ANNOT.captures(&rest) {
+        let points = c
+            .get(2)
+            .or_else(|| c.get(3))
+            .and_then(|m| m.as_str().parse().ok());
         return Bullet {
             indent,
             count,
             name: rest.clone(),
             colon_wargear: None,
             is_annotation: true,
-            enhancement: Some((c[1].trim().to_string(), c[2].parse().ok())),
+            enhancement: Some((c[1].trim().to_string(), points)),
             bulleted,
             is_attachment: false,
             sets_character: false,
         };
     }
-
-    // `ModelType: w1, w2` — a model bullet with inline wargear.
+    if let Some(c) = RE_MODEL_WITH_WARGEAR.captures(&rest) {
+        return Bullet {
+            indent,
+            count: c[1].parse().ok(),
+            name: c[2].trim().to_string(),
+            colon_wargear: Some(c[3].trim().to_string()),
+            is_annotation: false,
+            enhancement: None,
+            bulleted,
+            is_attachment: false,
+            sets_character: false,
+        };
+    }
+    if count.is_none() {
+        if let Some(c) = Regex::new(r"^(\d+)\s+(.+)$").unwrap().captures(&rest) {
+            count = c[1].parse().ok();
+            rest = c[2].trim().to_string();
+        }
+    }
+    let sets_character = RE_CHARACTER_ANNOTATION.is_match(&rest);
+    if sets_character || RE_KEYWORD_ANNOTATION.is_match(&rest) {
+        return Bullet {
+            indent,
+            count: None,
+            name: String::new(),
+            colon_wargear: None,
+            is_annotation: true,
+            enhancement: None,
+            bulleted,
+            is_attachment: false,
+            sets_character,
+        };
+    }
+    if RE_COLON_ANNOTATION.is_match(&rest) {
+        return Bullet {
+            indent,
+            count: None,
+            name: String::new(),
+            colon_wargear: None,
+            is_annotation: true,
+            enhancement: None,
+            bulleted,
+            is_attachment: false,
+            sets_character: false,
+        };
+    }
     if let Some(idx) = rest.find(':') {
         let (model, wargear) = rest.split_at(idx);
         let wargear = wargear[1..].trim();
@@ -286,8 +437,6 @@ fn parse_bullet(indent: usize, body: &str, bulleted: bool) -> Bullet {
             sets_character: false,
         };
     }
-
-    // Bare token: annotation iff it has no count (Warlord / Character / wargear).
     Bullet {
         indent,
         count,
@@ -392,6 +541,9 @@ fn finish_unit(acc: UnitAcc) -> ParsedUnit {
 
         // Annotation (no count): Warlord / Character flags, else bare wargear.
         if b.is_annotation {
+            if b.sets_character {
+                is_character = true;
+            }
             let mut leftover: Vec<&str> = Vec::new();
             for token in b.name.split(',').map(str::trim).filter(|t| !t.is_empty()) {
                 if token == WARLORD_MARKER {
@@ -425,12 +577,15 @@ fn finish_unit(acc: UnitAcc) -> ParsedUnit {
     ParsedUnit {
         raw_name: acc.raw_name,
         is_character,
+        keyword_overrides: (is_character && !acc.is_character_section)
+            .then(|| vec!["Character".to_string()]),
         model_count,
         points,
         is_warlord,
         enhancement_raw_name,
         enhancement_points,
         wargear,
+        loadout_groups: None,
         leader_attachment: None,
     }
 }
@@ -459,26 +614,25 @@ impl FormatAdapter for GwHeaderlessAdapter {
 
         let mut name = String::from("Imported roster");
         let mut declared_limit: Option<u64> = None;
+        let mut total_reported: Option<u64> = None;
         let mut battle_size_raw: Option<String> = None;
+        let mut force_disposition_raw_name: Option<String> = None;
         let mut units: Vec<ParsedUnit> = Vec::new();
         let mut current: Option<UnitAcc> = None;
         let mut section: Option<String> = None;
         let mut allied = 0u64;
         let mut consumed_title = false;
-        // The GW app export lists faction then detachment as bare lines between
-        // the title and the first section (`World Eaters` / `Berzerker Warband`).
-        // Capture the first two so `resolve` can scope to them; later bare lines
-        // (stray notes) are ignored.
+        let mut preamble_open = true;
+        let mut preamble_lines: Vec<String> = Vec::new();
         let mut faction_raw_name: Option<String> = None;
         let mut detachment_raw_names: Vec<String> = Vec::new();
-
         let flush = |current: &mut Option<UnitAcc>, units: &mut Vec<ParsedUnit>| {
             if let Some(u) = current.take() {
                 units.push(finish_unit(u));
             }
         };
 
-        for raw in text.split('\n') {
+        for raw in expand_dense_lines(text) {
             let raw = raw.trim_end_matches('\r');
             let line = raw.trim();
             if line.is_empty() {
@@ -488,7 +642,9 @@ impl FormatAdapter for GwHeaderlessAdapter {
             // Bullets attach to the open unit.
             if let Some(c) = RE_BULLET.captures(raw) {
                 if let Some(unit) = current.as_mut() {
-                    unit.bullets.push(parse_bullet(c[1].len(), &c[2], true));
+                    let marker_depth = (c[2].as_bytes() == "◦".as_bytes()) as usize;
+                    unit.bullets
+                        .push(parse_bullet(c[1].len() + marker_depth, &c[3], true));
                 }
                 continue;
             }
@@ -496,6 +652,61 @@ impl FormatAdapter for GwHeaderlessAdapter {
             // GW export footer.
             if line.starts_with("Exported with") {
                 continue;
+            }
+            if preamble_open && current.is_none() && units.is_empty() {
+                if let Some(c) = Regex::new(r"^([^:]{1,32}):\s*(.+)$")
+                    .unwrap()
+                    .captures(line)
+                {
+                    let key = c[1].trim().to_ascii_lowercase();
+                    let value = c[2].trim();
+                    match key.as_str() {
+                        "player" | "team" => continue,
+                        "list name" => {
+                            name = value.to_string();
+                            consumed_title = true;
+                            continue;
+                        }
+                        "faction" | "factions" | "faction keyword" => {
+                            faction_raw_name = Some(value.to_string());
+                            consumed_title = true;
+                            continue;
+                        }
+                        "battle size" => {
+                            battle_size_raw = Some(value.to_string());
+                            declared_limit =
+                                RE_PTS_LINE.captures(value).and_then(|p| parse_pts(&p[2]));
+                            consumed_title = true;
+                            continue;
+                        }
+                        _ if key.starts_with("detachment") => {
+                            detachment_raw_names.push(strip_detachment_points_suffix(value));
+                            consumed_title = true;
+                            continue;
+                        }
+                        _ if key.starts_with("force disposition") => {
+                            force_disposition_raw_name = Some(
+                                value
+                                    .replace(|ch: char| ch == '\r', "")
+                                    .split(',')
+                                    .next()
+                                    .unwrap_or(value)
+                                    .trim()
+                                    .trim_end_matches("(selected)")
+                                    .trim()
+                                    .to_string(),
+                            );
+                            consumed_title = true;
+                            continue;
+                        }
+                        _ => {}
+                    }
+                }
+                if let Some(c) = RE_BARE_POINTS_LINE.captures(line) {
+                    total_reported.get_or_insert_with(|| parse_pts(&c[1]).unwrap_or(0));
+                    consumed_title = true;
+                    continue;
+                }
             }
 
             // The GW app bullets only the first wargear line under a model and
@@ -513,14 +724,15 @@ impl FormatAdapter for GwHeaderlessAdapter {
                 }
             }
 
-            // `## Section` markdown header (strip an optional `(N pts)` tail).
             if let Some(c) = RE_MD_SECTION.captures(line) {
+                preamble_open = false;
                 flush(&mut current, &mut units);
-                let heading = RE_PTS_LINE
-                    .captures(&c[1])
-                    .map(|p| p[1].trim().to_string())
-                    .unwrap_or_else(|| c[1].trim().to_string());
-                section = Some(heading);
+                section = Some(
+                    RE_PTS_LINE
+                        .captures(&c[1])
+                        .map(|points| points[1].trim().to_string())
+                        .unwrap_or_else(|| c[1].trim().to_string()),
+                );
                 continue;
             }
 
@@ -528,35 +740,31 @@ impl FormatAdapter for GwHeaderlessAdapter {
             if let Some(c) = RE_PTS_LINE.captures(line) {
                 let header_name = c[1].trim().to_string();
                 let pts = parse_pts(&c[2]);
+                // Battle-size metadata may occur anywhere in the ordered
+                // preamble; it is never a roster title or datasheet.
+                if is_battle_size(&header_name) {
+                    battle_size_raw = Some(line.to_string());
+                    declared_limit = pts;
+                    continue;
+                }
                 if !consumed_title && current.is_none() && units.is_empty() {
                     consumed_title = true;
                     name = header_name;
-                    declared_limit = pts;
+                    total_reported = pts;
                     continue;
                 }
-                // Some event exports prepend participant/team/faction lines
-                // without a fence. Recover their actual high-point roster title
-                // instead of emitting it as a phantom unit.
                 if declared_limit.is_none()
                     && current.is_none()
                     && units.is_empty()
-                    && detachment_raw_names.len() == 1
                     && pts.unwrap_or(0) >= 1000
                 {
                     name = header_name;
-                    declared_limit = pts;
-                    faction_raw_name = detachment_raw_names.pop();
+                    total_reported = pts;
+                    let retained = preamble_lines.len().saturating_sub(1);
+                    preamble_lines.drain(..retained);
                     continue;
                 }
-                // Battle-size metadata (`Strike Force (2,000 Points)`).
-                if is_battle_size(&header_name) {
-                    battle_size_raw = Some(line.to_string());
-                    if declared_limit.is_none() {
-                        declared_limit = pts;
-                    }
-                    continue;
-                }
-                // A real unit header.
+                preamble_open = false;
                 flush(&mut current, &mut units);
                 let in_chars = section
                     .as_deref()
@@ -574,31 +782,45 @@ impl FormatAdapter for GwHeaderlessAdapter {
                 continue;
             }
 
-            // Section headers without points (ALL-CAPS role, `Title:` colon).
             if RE_CAPS_SECTION.is_match(line) || RE_COLON_SECTION.is_match(line) {
+                preamble_open = false;
                 flush(&mut current, &mut units);
-                let heading = line.trim_end_matches(':').trim().to_string();
-                section = Some(heading);
+                section = Some(line.trim_end_matches(':').trim().to_string());
                 continue;
             }
 
-            // Anything else (faction/detachment preamble, stray notes).
             if !consumed_title && current.is_none() && units.is_empty() {
-                // Very first content line with no `(N pts)` title → use as name.
                 consumed_title = true;
                 name = line.to_string();
-            } else if current.is_none() && units.is_empty() {
-                // Preamble after the title, before the first unit: faction then
-                // detachment. Names are resolved (and warned on miss) downstream.
-                // The GW app (v2.0.4+) suffixes the detachment line with its cost
-                // — "Awakened Dynasty (3 Detachment Points)" — which is
-                // presentation, not part of the name; strip it so resolution
-                // sees the bare name.
-                if faction_raw_name.is_none() {
-                    faction_raw_name = Some(line.to_string());
-                } else if detachment_raw_names.is_empty() {
-                    detachment_raw_names.push(strip_detachment_points_suffix(line));
-                }
+            } else if preamble_open && current.is_none() && units.is_empty() {
+                preamble_lines.push(line.to_string());
+            }
+        }
+        if faction_raw_name.is_none() && !preamble_lines.is_empty() {
+            let mut parts = preamble_lines;
+            if let Some(index) = parts.iter().position(|part| {
+                FORCE_DISPOSITION_NAMES
+                    .iter()
+                    .any(|name| part.eq_ignore_ascii_case(name))
+            }) {
+                force_disposition_raw_name = Some(parts.remove(index));
+            }
+            faction_raw_name = Some(parts.remove(0));
+            if faction_raw_name.as_ref().is_some_and(|name| {
+                GENERIC_FACTION_BREADCRUMBS
+                    .iter()
+                    .any(|breadcrumb| name.eq_ignore_ascii_case(breadcrumb))
+            }) && !parts.is_empty()
+            {
+                faction_raw_name = Some(parts.remove(0));
+            }
+            if detachment_raw_names.is_empty() {
+                detachment_raw_names.extend(
+                    parts
+                        .into_iter()
+                        .map(|part| strip_detachment_points_suffix(&part))
+                        .filter(|part| !part.is_empty()),
+                );
             }
         }
         flush(&mut current, &mut units);
@@ -607,9 +829,10 @@ impl FormatAdapter for GwHeaderlessAdapter {
             .iter()
             .map(|u| u.points.unwrap_or(0) + u.enhancement_points.unwrap_or(0))
             .sum();
+        let effective_limit = declared_limit.or(total_reported);
 
         if battle_size_raw.is_none() {
-            battle_size_raw = infer_battle_size_raw(declared_limit);
+            battle_size_raw = infer_battle_size_raw(effective_limit);
         }
 
         Ok(ParsedRoster {
@@ -619,9 +842,9 @@ impl FormatAdapter for GwHeaderlessAdapter {
             detachment_raw_names,
             battle_size_raw,
             force_disposition: None,
-            force_disposition_raw_name: None,
-            declared_limit,
-            total_reported: None,
+            force_disposition_raw_name: Some(force_disposition_raw_name),
+            declared_limit: effective_limit,
+            total_reported,
             total_computed,
             units,
             multi_force: allied > 0,
@@ -674,8 +897,9 @@ Intercessor Squad (200 pts)
   • Intercessor Sergeant: Bolt rifle
 ";
 
-    // NewRecruit text dialect: `Title:` sections, deeper-`•` children.
-    const NR_TEXT: &str = "all gas no breaks - Chaos Daemons - Daemonic Incursion (1995 Points)
+    // NewRecruit body dialect with a bare title: `Title:` sections and
+    // deeper-`•` children. ListForge's three-segment first line is excluded.
+    const NR_TEXT: &str = "Daemon Incursion (1995 Points)
 
 Character:
 Bloodmaster (65 pts)
@@ -690,11 +914,19 @@ Bloodletters (110 pts)
     • 9x Hellblade
 ";
 
+    const LISTFORGE_TEXT: &str =
+        "all gas no breaks - Chaos Daemons - Daemonic Incursion (1995 Points)
+Character:
+Bloodmaster (65 pts)
+  • Blade of blood
+";
+
     #[test]
     fn detects_only_headerless_bullet_text() {
         assert!(GwHeaderlessAdapter.detect(&json!(GW_APP)));
         assert!(GwHeaderlessAdapter.detect(&json!(MD_FIXTURE)));
         assert!(GwHeaderlessAdapter.detect(&json!(NR_TEXT)));
+        assert!(!GwHeaderlessAdapter.detect(&json!(LISTFORGE_TEXT)));
         // Framed GW export belongs to GwAdapter.
         assert!(!GwHeaderlessAdapter.detect(&json!("+ FACTION KEYWORD: X\n\nU (1 pts)\n• 1x W\n")));
         // No bullets → not this family.

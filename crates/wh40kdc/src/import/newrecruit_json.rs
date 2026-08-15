@@ -18,10 +18,14 @@
 use serde_json::Value;
 
 use super::adapter::{FormatAdapter, ParseError};
-use super::types::{ParsedRoster, ParsedUnit, ParsedWargear, RosterFormat};
+use super::types::{
+    AttachmentRole, ParsedLeaderAttachment, ParsedLoadoutGroup, ParsedRoster, ParsedUnit,
+    ParsedWargear, RosterFormat,
+};
 
 const PTS_COST_NAME: &str = "pts";
 const ENHANCEMENT_GROUP_PREFIX: &str = "Enhancements";
+const ATTACHMENT_GROUP_PREFIX: &str = "40kdc Attachment:";
 const CHARACTER_CATEGORIES: [&str; 2] = ["Character", "Epic Hero"];
 const WEAPON_CATEGORY_SUFFIX: &str = " Weapon";
 const NEWRECRUIT_XMLNS: &str = "http://www.battlescribe.net/schema/rosterSchema";
@@ -89,6 +93,41 @@ fn is_character(sel: &Value) -> bool {
         .any(|n| CHARACTER_CATEGORIES.contains(n))
 }
 
+fn keyword_overrides(sel: &Value) -> Vec<String> {
+    as_array(&sel["categories"])
+        .iter()
+        .filter(|category| {
+            as_string(&category["id"]).is_some_and(|id| id.starts_with("40kdc-keyword-"))
+        })
+        .filter_map(|category| as_string(&category["name"]))
+        .map(str::to_string)
+        .collect()
+}
+
+fn attachment_of(sel: &Value) -> Option<ParsedLeaderAttachment> {
+    let group = as_string(&sel["group"])?;
+    let suffix = group.strip_prefix(ATTACHMENT_GROUP_PREFIX)?;
+    let mut parts = suffix.split(':');
+    let role = match parts.next()? {
+        "leader" => AttachmentRole::Leader,
+        "support" => AttachmentRole::Support,
+        _ => return None,
+    };
+    let provisional = match parts.next()? {
+        "confirmed" => false,
+        "provisional" => true,
+        _ => return None,
+    };
+    if parts.next().is_some() {
+        return None;
+    }
+    Some(ParsedLeaderAttachment {
+        bodyguard_raw_name: selection_name(sel).to_string(),
+        role,
+        provisional,
+    })
+}
+
 fn is_weapon_selection(sel: &Value) -> bool {
     category_names(sel)
         .iter()
@@ -117,10 +156,15 @@ fn parse_unit(unit: &Value) -> ParsedUnit {
     let mut wargear: Vec<ParsedWargear> = Vec::new();
     let mut enhancement_raw_name: Option<String> = None;
     let mut enhancement_points: Option<u64> = None;
+    let mut leader_attachment: Option<ParsedLeaderAttachment> = None;
     let mut is_warlord = false;
 
     for node in child_selections(unit) {
         walk(node, &mut |s| {
+            if let Some(attachment) = attachment_of(s) {
+                leader_attachment = Some(attachment);
+                return;
+            }
             if is_enhancement_selection(s) {
                 if enhancement_raw_name.is_none() {
                     enhancement_raw_name = Some(selection_name(s).to_string());
@@ -141,19 +185,56 @@ fn parse_unit(unit: &Value) -> ParsedUnit {
         });
     }
 
+    // Model selections retain an exact per-model breakdown. Only preserve a
+    // group when every nested weapon total divides across its models; otherwise
+    // resolving the aggregate is the only faithful representation.
+    let loadout_groups: Vec<ParsedLoadoutGroup> = child_selections(unit)
+        .iter()
+        .filter(|model| selection_type(model) == "model")
+        .filter_map(|model| {
+            let count = selection_count(model);
+            let mut totals = Vec::new();
+            walk(model, &mut |selection| {
+                if is_weapon_selection(selection) {
+                    totals.push(ParsedWargear {
+                        raw_name: selection_name(selection).to_string(),
+                        count: selection_count(selection),
+                    });
+                }
+            });
+            if count == 0 || totals.iter().any(|item| item.count % count != 0) {
+                return None;
+            }
+            Some(ParsedLoadoutGroup {
+                model_name: Some(selection_name(model).to_string()),
+                count,
+                wargear: totals
+                    .into_iter()
+                    .map(|item| ParsedWargear {
+                        raw_name: item.raw_name,
+                        count: item.count / count,
+                    })
+                    .collect(),
+            })
+        })
+        .collect();
+
+    let loadout_groups = (!loadout_groups.is_empty()).then_some(loadout_groups);
+
     ParsedUnit {
         raw_name: selection_name(unit).to_string(),
         is_character: is_character(unit),
+        keyword_overrides: Some(keyword_overrides(unit)),
         model_count: model_count(unit),
         points: points_of(unit),
         is_warlord,
         enhancement_raw_name,
         enhancement_points,
         wargear,
-        leader_attachment: None,
+        loadout_groups,
+        leader_attachment: Some(leader_attachment),
     }
 }
-
 fn config_value(selections: &[Value], config_name: &str) -> Option<String> {
     let node = selections
         .iter()
@@ -284,12 +365,16 @@ impl FormatAdapter for NewRecruitJsonAdapter {
 
         let mut detachment_raw_names: Vec<String> = Vec::new();
         let mut battle_size_raw: Option<String> = None;
+        let mut force_disposition_raw_name: Option<String> = None;
         let mut units: Vec<ParsedUnit> = Vec::new();
         for force in forces {
             let top = child_selections(force);
             detachment_raw_names.extend(config_values(top, "Detachment"));
             if battle_size_raw.is_none() {
                 battle_size_raw = config_value(top, "Battle Size");
+            }
+            if force_disposition_raw_name.is_none() {
+                force_disposition_raw_name = config_value(top, "Force Disposition");
             }
             for sel in top {
                 if is_unit_selection(sel) {
@@ -330,7 +415,7 @@ impl FormatAdapter for NewRecruitJsonAdapter {
             detachment_raw_names,
             battle_size_raw: battle_size_raw.clone(),
             force_disposition: None,
-            force_disposition_raw_name: None,
+            force_disposition_raw_name: Some(force_disposition_raw_name),
             declared_limit: parse_limit(battle_size_raw.as_deref()),
             total_reported,
             total_computed,

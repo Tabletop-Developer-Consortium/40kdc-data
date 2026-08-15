@@ -68,6 +68,7 @@ const EMBEDDED_APP_BATTLE_SIZE =
   /^\s*(?:Combat Patrol|Incursion|Strike Force|Onslaught)\s*\(\s*[\d.,]+\s*Points?\s*\)\s*$/im;
 const WTC_COMPACT_UNIT =
   /^(?:Char\d+:\s*)?\d+x\s+.+?\(\s*\d+\s*pts?\s*\)\s*:/im;
+const SERIALIZED_WTC = /^\+\s*LIST NAME:/im;
 
 const ALLIED_SECTION = "ALLIED UNITS";
 const CHARACTERS_SECTION = "CHARACTERS";
@@ -82,6 +83,7 @@ function isGwText(decoded: unknown): string | null {
   if (!BULLET.test(decoded)) return null;
   if (WITH_LINE.test(decoded)) return null; // that's wtc-full
   if (WTC_COMPACT_UNIT.test(decoded)) return null;
+  if (SERIALIZED_WTC.test(decoded)) return null;
   // BCP sometimes wraps a complete modern GW app export in the older `+`
   // summary fence. The body then carries its own faction/detachment/battle-size
   // preamble and belongs to gw-headerless, which strips the wrapper before

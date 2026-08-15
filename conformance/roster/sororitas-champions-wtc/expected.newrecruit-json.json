@@ -353,13 +353,13 @@
                 "id": "u4-model-0",
                 "name": "Battle Sister",
                 "type": "model",
-                "number": 9,
+                "number": 6,
                 "selections": [
                   {
                     "id": "w-0",
                     "name": "Bolt pistol",
                     "type": "upgrade",
-                    "number": 9,
+                    "number": 6,
                     "categories": [
                       {
                         "name": "Ranged Weapon",
@@ -371,7 +371,7 @@
                     "id": "w-1",
                     "name": "Boltgun",
                     "type": "upgrade",
-                    "number": 9,
+                    "number": 6,
                     "categories": [
                       {
                         "name": "Ranged Weapon",
@@ -383,7 +383,7 @@
                     "id": "w-2",
                     "name": "Close combat weapon",
                     "type": "upgrade",
-                    "number": 9,
+                    "number": 6,
                     "categories": [
                       {
                         "name": "Ranged Weapon",
@@ -395,6 +395,150 @@
               },
               {
                 "id": "u4-model-1",
+                "name": "Battle Sister",
+                "type": "model",
+                "number": 1,
+                "selections": [
+                  {
+                    "id": "w-0",
+                    "name": "Simulacrum Imperialis",
+                    "type": "upgrade",
+                    "number": 1,
+                    "categories": [
+                      {
+                        "name": "Ranged Weapon",
+                        "primary": false
+                      }
+                    ]
+                  },
+                  {
+                    "id": "w-1",
+                    "name": "Bolt pistol",
+                    "type": "upgrade",
+                    "number": 1,
+                    "categories": [
+                      {
+                        "name": "Ranged Weapon",
+                        "primary": false
+                      }
+                    ]
+                  },
+                  {
+                    "id": "w-2",
+                    "name": "Boltgun",
+                    "type": "upgrade",
+                    "number": 1,
+                    "categories": [
+                      {
+                        "name": "Ranged Weapon",
+                        "primary": false
+                      }
+                    ]
+                  },
+                  {
+                    "id": "w-3",
+                    "name": "Close combat weapon",
+                    "type": "upgrade",
+                    "number": 1,
+                    "categories": [
+                      {
+                        "name": "Ranged Weapon",
+                        "primary": false
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "u4-model-2",
+                "name": "Battle Sister",
+                "type": "model",
+                "number": 1,
+                "selections": [
+                  {
+                    "id": "w-0",
+                    "name": "Bolt pistol",
+                    "type": "upgrade",
+                    "number": 1,
+                    "categories": [
+                      {
+                        "name": "Ranged Weapon",
+                        "primary": false
+                      }
+                    ]
+                  },
+                  {
+                    "id": "w-1",
+                    "name": "Close combat weapon",
+                    "type": "upgrade",
+                    "number": 1,
+                    "categories": [
+                      {
+                        "name": "Ranged Weapon",
+                        "primary": false
+                      }
+                    ]
+                  },
+                  {
+                    "id": "w-2",
+                    "name": "Multi-melta",
+                    "type": "upgrade",
+                    "number": 1,
+                    "categories": [
+                      {
+                        "name": "Ranged Weapon",
+                        "primary": false
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "u4-model-3",
+                "name": "Battle Sister",
+                "type": "model",
+                "number": 1,
+                "selections": [
+                  {
+                    "id": "w-0",
+                    "name": "Bolt pistol",
+                    "type": "upgrade",
+                    "number": 1,
+                    "categories": [
+                      {
+                        "name": "Ranged Weapon",
+                        "primary": false
+                      }
+                    ]
+                  },
+                  {
+                    "id": "w-1",
+                    "name": "Close combat weapon",
+                    "type": "upgrade",
+                    "number": 1,
+                    "categories": [
+                      {
+                        "name": "Ranged Weapon",
+                        "primary": false
+                      }
+                    ]
+                  },
+                  {
+                    "id": "w-2",
+                    "name": "Meltagun",
+                    "type": "upgrade",
+                    "number": 1,
+                    "categories": [
+                      {
+                        "name": "Ranged Weapon",
+                        "primary": false
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "u4-model-4",
                 "name": "Sister Superior",
                 "type": "model",
                 "number": 1,

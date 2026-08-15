@@ -130,9 +130,9 @@ def resolve_buffs(buffs: list[Buff], ctx: EngineContext) -> ResolvedModifiers:
             if cur is None:
                 out["rerolls"][c["roll"]] = {"subset": incoming, "dominantSource": source}
             else:
-                incoming_stronger = (
-                    incoming == "all-failures" and cur["subset"] == "ones"
-                ) or (incoming == cur["subset"] and _rank(source) < _rank(cur["dominantSource"]))
+                incoming_stronger = (incoming == "all-failures" and cur["subset"] == "ones") or (
+                    incoming == cur["subset"] and _rank(source) < _rank(cur["dominantSource"])
+                )
                 if incoming_stronger:
                     out["rerolls"][c["roll"]] = {"subset": incoming, "dominantSource": source}
         elif ctype == "extra-keyword":

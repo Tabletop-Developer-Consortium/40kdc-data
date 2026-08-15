@@ -7,10 +7,9 @@
 //! No `text`/`description`/`rules` ever appear — they aren't stored on the
 //! Roster and emitting them could leak prose.
 //!
-//! Faction and detachment display names come from
-//! [`title_case_id`](super::helpers::title_case_id) — the Roster doesn't carry
-//! the source's raw faction name, so we reconstruct it from the kebab-case
-//! id. Same lossy hop as the NewRecruit JSON serializer.
+//! Faction display names come from
+//! [`title_case_id`](super::helpers::title_case_id); detachment display names
+//! come from their resolved references.
 //!
 //! Rust mirror of `tools/src/export/rosterizer.ts`.
 
@@ -25,10 +24,15 @@ const CLS_ROSTER: &str = "Roster";
 const CLS_FACTION: &str = "Faction";
 const CLS_DETACHMENT: &str = "Detachment";
 const CLS_UNIT: &str = "Unit";
+const CLS_MODEL: &str = "Model";
 const CLS_WEAPON: &str = "Weapon";
 const CLS_ENHANCEMENT: &str = "Enhancement";
 const CLS_BATTLE_SIZE: &str = "Battle Size";
 const CLS_TRAIT: &str = "Trait";
+const CLS_FORCE_DISPOSITION: &str = "Force Disposition";
+const CLS_ATTACHMENT: &str = "Attachment";
+const CLS_CHARACTER: &str = "Character";
+const CLS_KEYWORD_OVERRIDE: &str = "40kdc Keyword";
 const DSG_WARLORD: &str = "Warlord";
 const ITEM_SEPARATOR: char = '§';
 
@@ -129,21 +133,107 @@ fn warlord_trait_asset() -> Asset {
         assets: None,
     }
 }
+fn attachment_asset(u: &RosterUnit) -> Option<Asset> {
+    let attachment = u.leader_attachment.as_ref()?;
+    let role = match attachment.role {
+        crate::import::AttachmentRole::Leader => "leader",
+        crate::import::AttachmentRole::Support => "support",
+    };
+    let provisional = if attachment.provisional {
+        " [provisional]"
+    } else {
+        ""
+    };
+    let display = format!(
+        "Attachment: {role} -> {}{provisional}",
+        attachment.bodyguard_ref.raw_name
+    );
+    Some(Asset {
+        item: item_key(CLS_ATTACHMENT, &display),
+        name: Some(display),
+        quantity: Some(1),
+        stats: None,
+        assets: None,
+    })
+}
+
+fn keyword_trait_asset(keyword: &str) -> Asset {
+    let (classification, designation) = if keyword == "Character" {
+        (CLS_CHARACTER, "Detachment Character")
+    } else {
+        (CLS_KEYWORD_OVERRIDE, keyword)
+    };
+    Asset {
+        item: item_key(classification, designation),
+        name: Some(designation.to_string()),
+        quantity: Some(1),
+        stats: None,
+        assets: None,
+    }
+}
+
+fn loadout_group_assets(u: &RosterUnit) -> Option<Vec<Asset>> {
+    let groups = u
+        .loadout_groups
+        .as_ref()
+        .filter(|groups| !groups.is_empty())?;
+    Some(
+        groups
+            .iter()
+            .map(|group| {
+                let name = group
+                    .model_name
+                    .as_deref()
+                    .unwrap_or(&u.ref_.raw_name)
+                    .to_string();
+                Asset {
+                    item: item_key(CLS_MODEL, &name),
+                    name: Some(name),
+                    quantity: Some(group.count),
+                    stats: None,
+                    assets: Some(AssetChildren {
+                        included: Some(
+                            group
+                                .wargear
+                                .iter()
+                                .map(|item| {
+                                    let mut total = item.clone();
+                                    total.count *= group.count;
+                                    wargear_asset(&total)
+                                })
+                                .collect(),
+                        ),
+                        traits: None,
+                    }),
+                }
+            })
+            .collect(),
+    )
+}
 
 fn unit_asset(u: &RosterUnit) -> Asset {
     let mut included: Vec<Asset> = Vec::new();
+    if let Some(attachment) = attachment_asset(u) {
+        included.push(attachment);
+    }
     if let Some(enh) = enhancement_asset(u) {
         included.push(enh);
     }
-    for w in &u.wargear {
-        included.push(wargear_asset(w));
+    if let Some(groups) = loadout_group_assets(u) {
+        included.extend(groups);
+    } else {
+        included.extend(u.wargear.iter().map(wargear_asset));
     }
 
     let mut traits_vec: Vec<Asset> = Vec::new();
     if u.is_warlord {
         traits_vec.push(warlord_trait_asset());
     }
-
+    traits_vec.extend(
+        u.keyword_overrides
+            .iter()
+            .map(|keyword| keyword_trait_asset(keyword)),
+    );
     let assets = if included.is_empty() && traits_vec.is_empty() {
         None
     } else {
@@ -186,8 +276,7 @@ fn detachment_assets(roster: &Roster) -> Vec<Asset> {
         .detachments
         .iter()
         .map(|d| {
-            let display =
-                title_case_id(d.ref_.id.as_deref()).unwrap_or_else(|| d.ref_.raw_name.clone());
+            let display = d.ref_.raw_name.clone();
             Asset {
                 item: item_key(CLS_DETACHMENT, &display),
                 name: Some(display),
@@ -219,6 +308,17 @@ fn battle_size_asset(roster: &Roster) -> Option<Asset> {
     })
 }
 
+fn force_disposition_asset(roster: &Roster) -> Option<Asset> {
+    let display = title_case_id(roster.force_disposition.as_deref())?;
+    Some(Asset {
+        item: item_key(CLS_FORCE_DISPOSITION, &display),
+        name: Some(display),
+        quantity: Some(1),
+        stats: None,
+        assets: None,
+    })
+}
+
 pub struct RosterizerSerializer;
 
 impl RosterSerializer for RosterizerSerializer {
@@ -232,6 +332,9 @@ impl RosterSerializer for RosterizerSerializer {
             included.push(f);
         }
         included.extend(detachment_assets(roster));
+        if let Some(disposition) = force_disposition_asset(roster) {
+            included.push(disposition);
+        }
         if let Some(b) = battle_size_asset(roster) {
             included.push(b);
         }

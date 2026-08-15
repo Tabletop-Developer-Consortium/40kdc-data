@@ -50,7 +50,9 @@ def _parse(decoded: Any) -> dict[str, Any]:
             battle_size_raw = config_value(top, "Battle Size")
         for sel in top:
             if is_unit_selection(sel):
-                units.append(parse_unit(sel))
+                unit = parse_unit(sel)
+                unit.pop("loadout_groups", None)
+                units.append(unit)
 
     forces = roster.get("forces") or []
     factions = collect_factions(forces)

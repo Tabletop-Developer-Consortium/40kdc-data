@@ -160,11 +160,13 @@ fn parse_unit(unit: &Value) -> ParsedUnit {
         raw_name: selection_name(unit).to_string(),
         is_character: is_character(unit),
         model_count: model_count(unit),
+        keyword_overrides: None,
         points: points_of(unit),
         is_warlord,
         enhancement_raw_name,
         enhancement_points,
         wargear,
+        loadout_groups: None,
         leader_attachment: None,
     }
 }

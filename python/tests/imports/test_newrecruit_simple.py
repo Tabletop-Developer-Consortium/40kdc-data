@@ -70,3 +70,36 @@ def test_unit_line_directly_after_configuration_ends_that_section() -> None:
     gear = {w["raw_name"]: w["count"] for w in parsed["units"][0]["wargear"]}
     assert gear["Shield Drone"] == 2
     assert gear["Heavy rail rifle"] == 1
+
+
+def test_preserves_attachment_unit_total_null_enhancement_and_empty_groups() -> None:
+    text = (
+        "Imperium - Fabricated Guard - Example - [200pts]\n\n"
+        "# ++ Army Roster ++ [200pts]\n"
+        "## Characters\n"
+        "Guide [80pts]: Fabricated Character, Attachment: leader -> "
+        "Fabricated Squad [provisional], Enhancement: Bare Relic\n"
+        "## Battleline\n"
+        "Fabricated Squad [120pts]:\n"
+        "• 6x Trooper: Rifle\n"
+        "• 1x Sergeant:\n"
+        "• 2x Specialist: Unit total: 2x Rifle\n"
+    )
+    parsed = newrecruit_simple_adapter.parse(text)
+
+    guide, squad = parsed["units"]
+    assert guide["is_character"] is True
+    assert guide["leader_attachment"] == {
+        "role": "leader",
+        "bodyguard_raw_name": "Fabricated Squad",
+        "provisional": True,
+    }
+    assert guide["enhancement_raw_name"] == "Bare Relic"
+    assert guide["enhancement_points"] is None
+    assert parsed["total_computed"] == 200
+    assert squad["model_count"] == 9
+    assert squad["wargear"] == [{"raw_name": "Rifle", "count": 8}]
+    assert squad["loadout_groups"] == [
+        {"model_name": "Trooper", "count": 6, "wargear": [{"raw_name": "Rifle", "count": 1}]},
+        {"model_name": "Sergeant", "count": 1, "wargear": []},
+    ]

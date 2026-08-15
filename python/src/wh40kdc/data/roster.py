@@ -46,8 +46,29 @@ ROSTER_VIOLATION_CODES = (
 )
 
 
-def _keyword_set(unit: dict[str, Any]) -> set[str]:
-    return set(unit.get("keywords") or []) | set(unit.get("faction_keywords") or [])
+def _keyword_set(
+    unit: dict[str, Any],
+    army_keywords: list[str],
+    army_keyword_set: set[str],
+    detachment_ids: list[str],
+    keyword_overrides: list[str] | None = None,
+) -> set[str]:
+    """Return the roster-contextual keyword set used by construction checks."""
+    owned = set(unit.get("keywords") or []) | set(unit.get("faction_keywords") or [])
+    owned.add(unit.get("name"))
+    faction_keywords = unit.get("faction_keywords") or []
+    if army_keyword_set and all(keyword in army_keyword_set for keyword in faction_keywords):
+        owned.update(army_keywords)
+    for grant in unit.get("conditional_keywords") or []:
+        required_detachment_id = grant.get("required_detachment_id")
+        if required_detachment_id and required_detachment_id not in detachment_ids:
+            continue
+        required_faction_keyword = grant.get("required_faction_keyword")
+        if required_faction_keyword and required_faction_keyword not in army_keyword_set:
+            continue
+        owned.add(grant["keyword"])
+    owned.update(keyword_overrides or [])
+    return owned
 
 
 def _is_character(unit: dict[str, Any]) -> bool:
@@ -115,13 +136,6 @@ def validate_roster_core(spec: dict[str, Any], dataset: Dataset) -> dict[str, An
             army_keywords = list(army_faction.raw.get("keywords") or [])
     army_keyword_set = set(army_keywords)
 
-    def owned_keywords(unit: dict[str, Any]) -> set[str]:
-        owned = _keyword_set(unit)
-        faction_kws = unit.get("faction_keywords") or []
-        if army_keyword_set and all(k in army_keyword_set for k in faction_kws):
-            owned |= army_keyword_set
-        return owned
-
     views = [resolve_unit(u.get("unit_id") or "") for u in spec_units]
 
     # --- Per-unit loadout (reuse the tier/bounds checker). --------------------
@@ -177,14 +191,25 @@ def validate_roster_core(spec: dict[str, Any], dataset: Dataset) -> dict[str, An
                 f"{enh['id']} is not from a detachment in this roster",
                 idx,
             )
-        if not _is_character(view.raw) and enh.get("upgrade_tag") is not True:
+        overrides = su.get("keyword_overrides") or []
+        if (
+            not _is_character(view.raw)
+            and "Character" not in overrides
+            and enh.get("upgrade_tag") is not True
+        ):
             err(
                 "enhancement-on-non-character",
                 enh["id"],
                 f"{enh['id']} can only be taken by a Character",
                 idx,
             )
-        kws = owned_keywords(view.raw)
+        kws = _keyword_set(
+            view.raw,
+            army_keywords,
+            army_keyword_set,
+            detachment_ids,
+            overrides,
+        )
         groups = enh.get("keyword_restriction_groups")
         eligible = (
             any(all(keyword in kws for keyword in group) for group in groups)
@@ -223,15 +248,22 @@ def validate_roster_core(spec: dict[str, Any], dataset: Dataset) -> dict[str, An
             continue
         leader_bodyguard_id = su.get("leader_bodyguard_id")
         if leader_bodyguard_id:
-            eligible = [v.id for v in dataset.bodyguards_attachable_from(view.id)]
-            if leader_bodyguard_id not in eligible:
+            eligible_bodyguards = {v.id for v in dataset.bodyguards_attachable_from(view.id)}
+            enhancement = (
+                dataset.enhancements.get(su["enhancement_id"]) if su.get("enhancement_id") else None
+            )
+            if enhancement is not None:
+                eligible_bodyguards.update(enhancement.get("attachment_bodyguard_ids") or [])
+            if leader_bodyguard_id not in eligible_bodyguards:
                 err(
                     "leader-attachment-illegal",
                     view.id,
                     f"{view.id} cannot attach to {leader_bodyguard_id}",
                     idx,
                 )
-        elif view.raw.get("attachment_role") == "support":
+        elif view.raw.get("attachment_role") == "support" and (
+            _is_character(view.raw) or "Character" in (su.get("keyword_overrides") or [])
+        ):
             err(
                 "leader-must-attach",
                 view.id,
@@ -281,12 +313,8 @@ def validate_roster_core(spec: dict[str, Any], dataset: Dataset) -> dict[str, An
     if force_disposition is None:
         push("warn", "disposition-not-picked", "roster", "no Force Disposition selected")
     else:
-        recorded = [
-            d for d in detachments if d.get("force_dispositions") is not None
-        ]
-        if recorded and not any(
-            force_disposition in d["force_dispositions"] for d in recorded
-        ):
+        recorded = [d for d in detachments if d.get("force_dispositions") is not None]
+        if recorded and not any(force_disposition in d["force_dispositions"] for d in recorded):
             push(
                 "warn",
                 "disposition-invalid",
@@ -308,11 +336,17 @@ def validate_roster_core(spec: dict[str, Any], dataset: Dataset) -> dict[str, An
         restrictions = d.get("restrictions")
         if not restrictions:
             continue
-        for idx, _su in enumerate(spec_units):
+        for idx, su in enumerate(spec_units):
             view = views[idx]
             if view is None:
                 continue
-            kws = owned_keywords(view.raw)
+            kws = _keyword_set(
+                view.raw,
+                army_keywords,
+                army_keyword_set,
+                detachment_ids,
+                su.get("keyword_overrides") or [],
+            )
             if any(k not in kws for k in (restrictions.get("required_keywords") or [])):
                 err(
                     "detachment-restriction-required",
@@ -364,7 +398,17 @@ def validate_roster_core(spec: dict[str, Any], dataset: Dataset) -> dict[str, An
     for d in detachments:
         for um in d.get("unit_minimums") or []:
             count = sum(
-                1 for v in views if v is not None and um["keyword"] in owned_keywords(v.raw)
+                1
+                for idx, view in enumerate(views)
+                if view is not None
+                and um["keyword"]
+                in _keyword_set(
+                    view.raw,
+                    army_keywords,
+                    army_keyword_set,
+                    detachment_ids,
+                    spec_units[idx].get("keyword_overrides") or [],
+                )
             )
             if count < um["min"]:
                 err(
@@ -391,9 +435,7 @@ def check_roster(roster: dict[str, Any], dataset: Dataset) -> dict[str, Any]:
             counts[wid] = counts.get(wid, 0) + w.get("count", 0)
         leader_attachment = u.get("leader_attachment")
         leader_bodyguard_id = (
-            leader_attachment.get("bodyguard_ref", {}).get("id")
-            if leader_attachment
-            else None
+            leader_attachment.get("bodyguard_ref", {}).get("id") if leader_attachment else None
         )
         enhancement = u.get("enhancement")
         units.append(
@@ -403,6 +445,7 @@ def check_roster(roster: dict[str, Any], dataset: Dataset) -> dict[str, Any]:
                 "is_warlord": u.get("is_warlord") is True,
                 "enhancement_id": enhancement.get("id") if enhancement else None,
                 "leader_bodyguard_id": leader_bodyguard_id,
+                "keyword_overrides": u.get("keyword_overrides") or [],
                 "counts": counts,
             }
         )

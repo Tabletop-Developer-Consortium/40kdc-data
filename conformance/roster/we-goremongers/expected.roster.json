@@ -54,7 +54,7 @@
             "resolved": true,
             "candidates": []
           },
-          "count": 56
+          "count": 7
         },
         {
           "ref": {
@@ -72,13 +72,13 @@
             "resolved": true,
             "candidates": []
           },
-          "count": 8
+          "count": 1
         }
       ],
       "loadout_groups": [
         {
-          "model_name": "Goremonger",
-          "count": 8,
+          "model_name": "Blood Herald",
+          "count": 1,
           "wargear": [
             {
               "ref": {
@@ -96,7 +96,7 @@
                 "resolved": true,
                 "candidates": []
               },
-              "count": 7
+              "count": 1
             },
             {
               "ref": {
@@ -106,11 +106,68 @@
                 "candidates": []
               },
               "count": 1
+            }
+          ]
+        },
+        {
+          "model_name": "Goremongers",
+          "count": 6,
+          "wargear": [
+            {
+              "ref": {
+                "id": "autopistol",
+                "raw_name": "Autopistol",
+                "resolved": true,
+                "candidates": []
+              },
+              "count": 1
+            },
+            {
+              "ref": {
+                "id": "chainblade-goremongers",
+                "raw_name": "Chainblade",
+                "resolved": true,
+                "candidates": []
+              },
+              "count": 1
+            },
+            {
+              "ref": {
+                "id": "close-combat-weapon-goremongers",
+                "raw_name": "Close combat weapon",
+                "resolved": true,
+                "candidates": []
+              },
+              "count": 1
+            }
+          ]
+        },
+        {
+          "model_name": "Goremongers",
+          "count": 1,
+          "wargear": [
+            {
+              "ref": {
+                "id": "autopistol",
+                "raw_name": "Autopistol",
+                "resolved": true,
+                "candidates": []
+              },
+              "count": 1
             },
             {
               "ref": {
                 "id": "blood-harpoon",
                 "raw_name": "Blood harpoon",
+                "resolved": true,
+                "candidates": []
+              },
+              "count": 1
+            },
+            {
+              "ref": {
+                "id": "close-combat-weapon-goremongers",
+                "raw_name": "Close combat weapon",
                 "resolved": true,
                 "candidates": []
               },
@@ -131,12 +188,6 @@
     "unresolved_units": 0,
     "resolved_weapons": 4,
     "unresolved_weapons": 0,
-    "warnings": [
-      {
-        "code": "loadout-illegal",
-        "message": "Loadout is not buildable from the datasheet's wargear options: exceeds-max:blood-harpoon, exceeds-max:chainblade-goremongers",
-        "raw_name": "Goremongers"
-      }
-    ]
+    "warnings": []
   }
 }

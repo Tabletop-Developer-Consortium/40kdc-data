@@ -360,16 +360,39 @@ function parseFullBody(body: string): { units: ParsedUnit[]; enhancementPts: (nu
   const enhancementPts: (number | null)[] = [];
   let current: UnitBuilder | null = null;
   let breakdownModels = 0;
-  let pendingBreakdownGroup: UnitBuilder["loadout_groups"][number] | null = null;
+  let pendingBreakdown:
+    | {
+        model_name: string;
+        count: number;
+        assigned_count: number;
+      }
+    | null = null;
+
+  // A full-format model bullet introduces a parent model type; every following
+  // `N with` line is a separate exact subgroup of that parent. Delay an empty
+  // fallback until its context closes, so repeated continuations do not get
+  // collapsed onto the parent group's displayed count.
+  const flushPendingBreakdown = (): void => {
+    if (!current || !pendingBreakdown) return;
+    const remaining = pendingBreakdown.count - pendingBreakdown.assigned_count;
+    if (remaining > 0) {
+      current.loadout_groups.push({
+        model_name: pendingBreakdown.model_name,
+        count: remaining,
+        wargear: [],
+      });
+    }
+    pendingBreakdown = null;
+  };
 
   const finalize = (): void => {
     if (current) {
+      flushPendingBreakdown();
       if (breakdownModels > 0) current.model_count = breakdownModels;
       units.push(finishUnit(current));
       enhancementPts.push(current.enhancement_pts);
       current = null;
       breakdownModels = 0;
-      pendingBreakdownGroup = null;
     }
   };
 
@@ -429,24 +452,32 @@ function parseFullBody(body: string): { units: ParsedUnit[]; enhancementPts: (nu
 
     const breakdown = MODEL_BREAKDOWN.exec(raw);
     if (breakdown && current) {
+      flushPendingBreakdown();
       const count = Number.parseInt(breakdown[1], 10);
       breakdownModels += count;
-      pendingBreakdownGroup = {
-        model_name: breakdown[2].trim(),
-        count,
-        wargear:
-          breakdown[3] === undefined ? [] : applyWithGroup(current, breakdown[3], count),
-      };
-      current.loadout_groups.push(pendingBreakdownGroup);
+      const model_name = breakdown[2].trim();
+      pendingBreakdown = { model_name, count, assigned_count: 0 };
+      if (breakdown[3] !== undefined) {
+        const groupWargear = applyWithGroup(current, breakdown[3], count);
+        const { multiplier } = parseWithGroup(breakdown[3]);
+        const groupCount = WITH_PREFIX.test(breakdown[3]) ? multiplier : count;
+        current.loadout_groups.push({ model_name, count: groupCount, wargear: groupWargear });
+        pendingBreakdown.assigned_count = groupCount;
+      }
       continue;
     }
 
     if (WITH_PREFIX.test(line) && current) {
       const groupWargear = applyWithGroup(current, line);
-      if (pendingBreakdownGroup && pendingBreakdownGroup.wargear.length === 0) {
-        pendingBreakdownGroup.wargear = groupWargear;
+      if (pendingBreakdown) {
+        const { multiplier } = parseWithGroup(line);
+        current.loadout_groups.push({
+          model_name: pendingBreakdown.model_name,
+          count: multiplier,
+          wargear: groupWargear,
+        });
+        pendingBreakdown.assigned_count += multiplier;
       }
-      pendingBreakdownGroup = null;
       continue;
     }
   }

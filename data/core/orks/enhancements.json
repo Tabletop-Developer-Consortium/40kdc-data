@@ -15,12 +15,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Orks"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "headwoppas-killchoppa-war-horde",
@@ -38,12 +33,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Orks"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "kunnin-but-brutal-war-horde",
@@ -61,12 +51,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Orks"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "supa-cybork-body-war-horde",
@@ -84,12 +69,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Orks"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "glory-hog-da-big-hunt",
@@ -97,7 +77,7 @@
     "detachment_id": "da-big-hunt",
     "cost": 30,
     "keyword_restrictions": [
-      "Orks"
+      "Beastboss on Squigosaur"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -107,12 +87,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Beastboss on Squigosaur"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "skrag-every-stash-da-big-hunt",
@@ -120,7 +95,7 @@
     "detachment_id": "da-big-hunt",
     "cost": 25,
     "keyword_restrictions": [
-      "Orks"
+      "Beast Snagga"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -130,12 +105,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Beast Snagga"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "proper-killy-da-big-hunt",
@@ -143,7 +113,7 @@
     "detachment_id": "da-big-hunt",
     "cost": 15,
     "keyword_restrictions": [
-      "Orks"
+      "Beast Snagga"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -153,12 +123,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Beast Snagga"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "surly-as-a-squiggoth-da-big-hunt",
@@ -166,7 +131,7 @@
     "detachment_id": "da-big-hunt",
     "cost": 20,
     "keyword_restrictions": [
-      "Orks"
+      "Beastboss on Squigosaur"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -176,12 +141,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Beastboss on Squigosaur"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "wazblasta-kult-of-speed",
@@ -189,7 +149,7 @@
     "detachment_id": "kult-of-speed",
     "cost": 10,
     "keyword_restrictions": [
-      "Orks"
+      "Deffkilla Wartrike"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -199,12 +159,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Deffkilla Wartrike"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "fasta-than-yooz-kult-of-speed",
@@ -212,6 +167,7 @@
     "detachment_id": "kult-of-speed",
     "cost": 35,
     "keyword_restrictions": [
+      "Infantry",
       "Orks"
     ],
     "ability_id": null,
@@ -222,13 +178,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Infantry",
-        "Orks"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "squig-hide-tyres-kult-of-speed",
@@ -236,7 +186,7 @@
     "detachment_id": "kult-of-speed",
     "cost": 15,
     "keyword_restrictions": [
-      "Orks"
+      "Deffkilla Wartrike"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -246,12 +196,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Deffkilla Wartrike"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "speed-makes-right-kult-of-speed",
@@ -269,12 +214,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Orks"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "smoky-gubbinz-dread-mob",
@@ -282,7 +222,7 @@
     "detachment_id": "dread-mob",
     "cost": 15,
     "keyword_restrictions": [
-      "Orks"
+      "Mek"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -292,12 +232,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Mek"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "supa-glowy-fing-dread-mob",
@@ -305,7 +240,7 @@
     "detachment_id": "dread-mob",
     "cost": 20,
     "keyword_restrictions": [
-      "Orks"
+      "Mek"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -315,12 +250,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Mek"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "press-it-fasta-dread-mob",
@@ -328,7 +258,7 @@
     "detachment_id": "dread-mob",
     "cost": 35,
     "keyword_restrictions": [
-      "Orks"
+      "Mek"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -338,12 +268,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Mek"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "gitfinder-gogglez-dread-mob",
@@ -351,7 +276,7 @@
     "detachment_id": "dread-mob",
     "cost": 10,
     "keyword_restrictions": [
-      "Orks"
+      "Mek"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -361,12 +286,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Mek"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "ferocious-show-off-green-tide",
@@ -374,6 +294,7 @@
     "detachment_id": "green-tide",
     "cost": 10,
     "keyword_restrictions": [
+      "Infantry",
       "Orks"
     ],
     "ability_id": null,
@@ -384,13 +305,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Infantry",
-        "Orks"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "brutal-but-kunnin-green-tide",
@@ -398,6 +313,7 @@
     "detachment_id": "green-tide",
     "cost": 25,
     "keyword_restrictions": [
+      "Infantry",
       "Orks"
     ],
     "ability_id": null,
@@ -408,13 +324,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Infantry",
-        "Orks"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "bloodthirsty-belligerence-green-tide",
@@ -422,6 +332,7 @@
     "detachment_id": "green-tide",
     "cost": 15,
     "keyword_restrictions": [
+      "Infantry",
       "Orks"
     ],
     "ability_id": null,
@@ -432,13 +343,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Infantry",
-        "Orks"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "raucous-warcaller-green-tide",
@@ -446,6 +351,7 @@
     "detachment_id": "green-tide",
     "cost": 20,
     "keyword_restrictions": [
+      "Infantry",
       "Orks"
     ],
     "ability_id": null,
@@ -456,13 +362,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Infantry",
-        "Orks"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "tellyporta-bully-boyz",
@@ -470,7 +370,7 @@
     "detachment_id": "bully-boyz",
     "cost": 25,
     "keyword_restrictions": [
-      "Orks"
+      "Warboss in Mega Armour"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -480,12 +380,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Warboss in Mega Armour"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "big-gob-bully-boyz",
@@ -493,7 +388,8 @@
     "detachment_id": "bully-boyz",
     "cost": 20,
     "keyword_restrictions": [
-      "Orks"
+      "Infantry",
+      "Warboss"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -503,13 +399,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Infantry",
-        "Warboss"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "da-biggest-boss-bully-boyz",
@@ -517,7 +407,8 @@
     "detachment_id": "bully-boyz",
     "cost": 15,
     "keyword_restrictions": [
-      "Orks"
+      "Infantry",
+      "Warboss"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -527,13 +418,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Infantry",
-        "Warboss"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "eadstompa-bully-boyz",
@@ -541,7 +426,8 @@
     "detachment_id": "bully-boyz",
     "cost": 10,
     "keyword_restrictions": [
-      "Orks"
+      "Infantry",
+      "Warboss"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -551,13 +437,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Infantry",
-        "Warboss"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "skwad-leader-taktikal-brigade",
@@ -611,12 +491,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Orks"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "gob-boomer-taktikal-brigade",
@@ -642,6 +517,7 @@
     "detachment_id": "more-dakka",
     "cost": 15,
     "keyword_restrictions": [
+      "Infantry",
       "Orks"
     ],
     "ability_id": null,
@@ -652,13 +528,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Infantry",
-        "Orks"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "dead-shiny-shootas-upgrade-more-dakka",
@@ -666,6 +536,7 @@
     "detachment_id": "more-dakka",
     "cost": 15,
     "keyword_restrictions": [
+      "Infantry",
       "Orks"
     ],
     "ability_id": null,
@@ -676,13 +547,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": true,
-    "max_targets": 3,
-    "keyword_restriction_groups": [
-      [
-        "Infantry",
-        "Orks"
-      ]
-    ]
+    "max_targets": 3
   },
   {
     "id": "targetin-squigs-more-dakka",
@@ -726,7 +591,7 @@
     "detachment_id": "freebooter-krew",
     "cost": 10,
     "keyword_restrictions": [
-      "Orks"
+      "Warboss"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -736,12 +601,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Warboss"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "git-spotter-squig-freebooter-krew",
@@ -759,21 +619,13 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Orks"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "bionik-workshop-freebooter-krew",
     "name": "Bionik Workshop",
     "detachment_id": "freebooter-krew",
     "cost": 15,
-    "keyword_restrictions": [
-      "Orks"
-    ],
     "ability_id": null,
     "is_unique": true,
     "game_version": {
@@ -808,12 +660,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Orks"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "boarding-ramps-upgrade-rollin-deff",
@@ -821,7 +668,7 @@
     "detachment_id": "rollin-deff",
     "cost": 10,
     "keyword_restrictions": [
-      "Orks"
+      "Wagon"
     ],
     "ability_id": "boarding-ramps-rollin-deff",
     "is_unique": true,
@@ -831,12 +678,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": true,
-    "max_targets": 3,
-    "keyword_restriction_groups": [
-      [
-        "Wagon"
-      ]
-    ]
+    "max_targets": 3
   },
   {
     "id": "targetin-gizmos-upgrade-rollin-deff",
@@ -844,7 +686,7 @@
     "detachment_id": "rollin-deff",
     "cost": 15,
     "keyword_restrictions": [
-      "Orks"
+      "Wagon"
     ],
     "ability_id": "targetin-gizmos-rollin-deff",
     "is_unique": true,
@@ -854,12 +696,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": true,
-    "max_targets": 3,
-    "keyword_restriction_groups": [
-      [
-        "Wagon"
-      ]
-    ]
+    "max_targets": 3
   },
   {
     "id": "dead-shiny-shootas-rollin-deff",
@@ -903,6 +740,7 @@
     "detachment_id": "blitz-brigade",
     "cost": 10,
     "keyword_restrictions": [
+      "Infantry",
       "Orks"
     ],
     "ability_id": "runnin-boots-blitz-brigade",
@@ -913,13 +751,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Infantry",
-        "Orks"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "blitzkaptin-blitz-brigade",
@@ -937,12 +769,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Orks"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "supercharged-squig-oil-blitz-brigade",
@@ -950,7 +777,7 @@
     "detachment_id": "blitz-brigade",
     "cost": 10,
     "keyword_restrictions": [
-      "Orks"
+      "Mek"
     ],
     "ability_id": "supercharged-squig-oil-blitz-brigade",
     "is_unique": true,
@@ -960,12 +787,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Mek"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "tuff-git-blitz-brigade",
@@ -973,6 +795,7 @@
     "detachment_id": "blitz-brigade",
     "cost": 5,
     "keyword_restrictions": [
+      "Infantry",
       "Orks"
     ],
     "ability_id": "tuff-git-blitz-brigade",
@@ -983,13 +806,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Infantry",
-        "Orks"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "rallying-war-cry-ardmob",
@@ -1006,14 +823,8 @@
     ],
     "points_provisional": false,
     "keyword_restrictions": [
-      "'Ardmob",
-      "Warboss"
-    ],
-    "keyword_restriction_groups": [
-      [
-        "’Ardmob Warboss",
-        "Orks"
-      ]
+      "’Ardmob Warboss",
+      "Orks"
     ]
   },
   {
@@ -1030,12 +841,6 @@
     "points_provisional": false,
     "upgrade_tag": false,
     "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Infantry",
-        "Warboss"
-      ]
-    ],
     "keyword_restrictions": [
       "Infantry",
       "Warboss"
@@ -1061,11 +866,6 @@
     "points_provisional": false,
     "upgrade_tag": false,
     "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Mek"
-      ]
-    ],
     "keyword_restrictions": [
       "Mek"
     ]
@@ -1084,11 +884,6 @@
     "points_provisional": false,
     "upgrade_tag": false,
     "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Deffkilla Wartrike"
-      ]
-    ],
     "keyword_restrictions": [
       "Deffkilla Wartrike"
     ]
@@ -1107,11 +902,6 @@
     "points_provisional": false,
     "upgrade_tag": false,
     "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Big Mek"
-      ]
-    ],
     "keyword_restrictions": [
       "Big Mek"
     ]
@@ -1130,11 +920,6 @@
     "points_provisional": false,
     "upgrade_tag": false,
     "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Deffkilla Wartrike"
-      ]
-    ],
     "keyword_restrictions": [
       "Deffkilla Wartrike"
     ]

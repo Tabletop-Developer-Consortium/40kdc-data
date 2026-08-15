@@ -34,6 +34,7 @@ ENHANCEMENT_GROUP_PREFIX = "Enhancements"
 CHARACTER_CATEGORIES = frozenset(["Character", "Epic Hero"])
 WEAPON_CATEGORY_SUFFIX = " Weapon"  # "Ranged Weapon", "Melee Weapon", "Psychic Weapon"
 NEWRECRUIT_XMLNS = "http://www.battlescribe.net/schema/rosterSchema"
+ATTACHMENT_GROUP = re.compile(r"^40kdc Attachment:(leader|support):(confirmed|provisional)$")
 NEWRECRUIT_HOST_PREFIX = "https://newrecruit"
 
 
@@ -106,6 +107,27 @@ def is_character(sel: Any) -> bool:
     return any(n in CHARACTER_CATEGORIES for n in category_names(sel))
 
 
+def keyword_overrides(sel: Any) -> list[str]:
+    """Explicit source keywords emitted by 40kdc's round-trip serializers."""
+    return [
+        name
+        for category in as_array(_field(sel, "categories"))
+        if isinstance(category, dict)
+        and (as_string(category.get("id")) or "").startswith("40kdc-keyword-")
+        and (name := as_string(category.get("name"))) is not None
+    ]
+
+
+def _weapon_collector(target: list[dict[str, Any]]) -> Callable[[Any], None]:
+    def collect(selection: Any) -> None:
+        if is_weapon_selection(selection):
+            target.append(
+                {"raw_name": selection_name(selection), "count": selection_count(selection)}
+            )
+
+    return collect
+
+
 def is_weapon_selection(sel: Any) -> bool:
     return any(n.endswith(WEAPON_CATEGORY_SUFFIX) for n in category_names(sel))
 
@@ -135,9 +157,18 @@ def parse_unit(unit: Any) -> dict[str, Any]:
         "enhancement_raw_name": None,
         "enhancement_points": None,
         "is_warlord": False,
+        "leader_attachment": None,
     }
 
     def visit(s: Any) -> None:
+        attachment = ATTACHMENT_GROUP.match(as_string(_field(s, "group")) or "")
+        if attachment:
+            state["leader_attachment"] = {
+                "bodyguard_raw_name": selection_name(s),
+                "role": attachment.group(1),
+                "provisional": attachment.group(2) == "provisional",
+            }
+            return
         if is_enhancement_selection(s):
             if state["enhancement_raw_name"] is None:
                 state["enhancement_raw_name"] = selection_name(s)
@@ -152,7 +183,29 @@ def parse_unit(unit: Any) -> dict[str, Any]:
     for node in child_selections(unit):
         walk(node, visit)
 
-    return {
+    loadout_groups: list[dict[str, Any]] = []
+    for model in child_selections(unit):
+        if selection_type(model) != "model":
+            continue
+        count = selection_count(model)
+        totals: list[dict[str, Any]] = []
+
+        walk(model, _weapon_collector(totals))
+        if count > 0 and all(item["count"] % count == 0 for item in totals):
+            loadout_groups.append(
+                {
+                    "model_name": selection_name(model),
+                    "count": count,
+                    "wargear": [
+                        {"raw_name": item["raw_name"], "count": item["count"] // count}
+                        for item in totals
+                    ],
+                }
+            )
+
+    overrides = keyword_overrides(unit)
+
+    parsed = {
         "raw_name": selection_name(unit),
         "is_character": is_character(unit),
         "model_count": model_count(unit),
@@ -161,7 +214,11 @@ def parse_unit(unit: Any) -> dict[str, Any]:
         "enhancement_raw_name": state["enhancement_raw_name"],
         "enhancement_points": state["enhancement_points"],
         "wargear": wargear,
+        **({"keyword_overrides": overrides} if overrides else {}),
+        **({"leader_attachment": state["leader_attachment"]} if state["leader_attachment"] else {}),
+        **({"loadout_groups": loadout_groups} if loadout_groups else {}),
     }
+    return parsed
 
 
 def config_value(selections: list[Any], config_name: str) -> str | None:

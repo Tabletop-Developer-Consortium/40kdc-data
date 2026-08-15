@@ -9,9 +9,8 @@
  * `processed`, or `bareResourceKey` ever appear — they aren't stored in the
  * Roster and emitting them could leak prose.
  *
- * Faction and detachment display names come from {@link titleCaseId} — the
- * Roster doesn't carry the source's raw faction name, so we reconstruct it
- * from the kebab-case id. Same lossy hop as the NewRecruit JSON serializer.
+ * Faction display names come from {@link titleCaseId}; detachment display
+ * names come from their resolved references.
  *
  * @packageDocumentation
  */

@@ -19,13 +19,76 @@ import re
 from typing import Any
 
 from wh40kdc.data.dataset import Dataset
-from wh40kdc.data.loadout import check_unit_legality, group_loadout
+from wh40kdc.data.loadout import check_unit_legality, complete_loadout, group_loadout
 from wh40kdc.data.normalize import normalize_name, strip_leading_the
 
 #: The dataset edition/dataslate stamped onto an imported roster.
 ROSTER_GAME_VERSION = {"edition": "11th", "dataslate": "pre-launch-provisional"}
 
 _MAX_CANDIDATES = 5
+_SOURCE_NAME_ALIASES = {
+    "exo armour grenade launcher": "Exoarmour grenade launcher",
+    "kombi rokkit": "Kombi-weapon",
+    "kombi shoota": "Kombi-weapon",
+    "leaders bio weapons": "Leader’s cult weapons",
+    "pan spectral scanner": "Panspectral Scanner",
+    "squig bomb": "Bomb Squig",
+}
+_FACTION_NAME_ALIASES = {
+    "imperial guard": "Astra Militarum",
+    "league of votann": "Leagues of Votann",
+}
+_DETACHMENT_SOURCE_ALIASES = {
+    "hearthband covenant": "Hearthguard Covenant",
+    "lord of the forge": "Lords of the Forge",
+    "radzone": "Rad-Zone Corps",
+}
+
+
+def _faction_name_candidates(raw_name: str) -> list[str]:
+    candidates = [raw_name.strip()]
+    if aka := re.search(r"\baka\b\s+(.+)$", raw_name, flags=re.IGNORECASE):
+        candidates.insert(0, aka.group(1).strip())
+    if first := re.split(r"\s+and\s+", raw_name, flags=re.IGNORECASE)[0].strip():
+        if first != raw_name.strip():
+            candidates.append(first)
+    if alias := _FACTION_NAME_ALIASES.get(normalize_name(raw_name)):
+        candidates.insert(0, alias)
+    return list(dict.fromkeys(candidate for candidate in candidates if candidate))
+
+
+def _normalize_detachment_source_name(raw_name: str) -> str:
+    normalized = re.sub(
+        r"\s*\(\s*\d*\s*(?:detachment points?|detachementpoints?|dp|pd)\s*\)",
+        "",
+        re.sub(r"[‐‑‒–—]", "-", raw_name.replace("\u00a0", " ").replace("\u202f", " ")),
+        flags=re.IGNORECASE,
+    ).strip()
+    return _DETACHMENT_SOURCE_ALIASES.get(normalize_name(normalized), normalized)
+
+
+def _normalized_source_punctuation(raw_name: str) -> str:
+    return re.sub(
+        r"\bautocanon\b",
+        "autocannon",
+        re.sub(r"\s*&\s*", " and ", re.sub(r"[‐‑‒–—]", "-", raw_name)),
+        flags=re.IGNORECASE,
+    )
+
+
+def _source_name_variants(raw_name: str) -> list[str]:
+    normalized = _normalized_source_punctuation(raw_name)
+    alias = _SOURCE_NAME_ALIASES.get(normalize_name(normalized))
+    return list(dict.fromkeys([raw_name, normalized, *([alias] if alias else [])]))
+
+
+def _lookup_name_keys(raw_name: str) -> set[str]:
+    keys: set[str] = set()
+    for variant in _source_name_variants(raw_name):
+        keys.update((normalize_name(variant), normalize_name(f"The {variant}")))
+        if stripped := strip_leading_the(variant):
+            keys.add(normalize_name(stripped))
+    return keys
 
 
 class _DiagnosticsBuilder:
@@ -80,87 +143,93 @@ def _to_candidates(records: list[Any]) -> list[dict[str, str]]:
 
 
 def _find_weapon_candidates(ds: Dataset, raw_name: str) -> list[Any]:
-    """Resolve a weapon raw name to candidate weapons, tolerating a leading
-    "The " mismatch in either direction (NewRecruit "The Bloody Twins" ↔ data
-    "Bloody Twins"; GW "Fire Axe" ↔ data "The Fire Axe").
-
-    Tries the name as given, then the "The"-stripped form, then the
-    "The"-prefixed form, returning the first non-empty match set. Mirror of the
-    TS ``findWeaponCandidates``.
-    """
-    direct = ds.weapons.find_all(raw_name)
-    if direct:
-        return direct
-    stripped = strip_leading_the(raw_name)
-    if stripped:
-        hits = ds.weapons.find_all(stripped)
-        if hits:
+    for variant in _source_name_variants(raw_name):
+        if hits := ds.weapons.find_all(variant):
             return hits
-    return ds.weapons.find_all(f"The {raw_name}")
+        if (stripped := strip_leading_the(variant)) and (hits := ds.weapons.find_all(stripped)):
+            return hits
+        if hits := ds.weapons.find_all(f"The {variant}"):
+            return hits
+    return []
+
+
+def _unit_wargear_ids(ds: Dataset, hit: Any) -> list[str]:
+    ids = list(hit.raw.get("weapon_ids") or [])
+    for option in ds.wargear_options_of(hit.raw):
+        ids.extend(option.get("replaces") or [])
+        ids.extend(option.get("replacement") or [])
+        for choice in option.get("replacement_choice") or []:
+            ids.extend(choice)
+    return list(dict.fromkeys(ids))
 
 
 def _scoped_weapon_id(ds: Dataset, hit: Any, raw_name: str) -> str | None:
-    """Resolve a weapon raw name to one of the RESOLVED unit's own weapon ids —
-    its ``weapon_ids`` plus ids reachable through its wargear options — so a name
-    match picks the per-unit stat variant the unit actually fields. Matches by
-    ``normalize_name`` with the same leading-"The" tolerance as
-    ``_find_weapon_candidates``; returns ``None`` when the unit fields no weapon
-    of that name (the caller falls back to the global lookup). Mirror of the TS
-    ``scopedWeaponId``.
-    """
-    ids: list[str] = list(hit.raw.get("weapon_ids") or [])
-    for opt in ds.wargear_options_of(hit.raw):
-        ids += opt.get("replaces") or []
-        ids += opt.get("replacement") or []
-        for group in opt.get("replacement_choice") or []:
-            ids += group
-    targets = {normalize_name(raw_name), normalize_name(f"The {raw_name}")}
-    stripped = strip_leading_the(raw_name)
-    if stripped:
-        targets.add(normalize_name(stripped))
+    ids = _unit_wargear_ids(ds, hit)
     faction_id = hit.raw.get("faction_id", "")
+    direct_targets = {
+        normalize_name(name) for name in (raw_name, _normalized_source_punctuation(raw_name))
+    }
     for wid in ids:
-        w = ds.weapons.get_in_faction(wid, faction_id) or ds.weapons.get_any(wid)
-        if w is not None and normalize_name(w.name) in targets:
-            return w.id
-    return None
+        weapon = ds.weapons.get_in_faction(wid, faction_id) or ds.weapons.get_any(wid)
+        if weapon and any(
+            normalize_name(name) in direct_targets
+            for name in (weapon.name, _normalized_source_punctuation(weapon.name))
+        ):
+            return weapon.id
+    targets = _lookup_name_keys(raw_name)
+    singular_targets = {_singular(name) for name in _source_name_variants(raw_name)}
+    singular_matches: list[str] = []
+    for wid in ids:
+        weapon = ds.weapons.get_in_faction(wid, faction_id) or ds.weapons.get_any(wid)
+        if weapon is None:
+            continue
+        variants = _source_name_variants(weapon.name)
+        if any(normalize_name(name) in targets for name in variants):
+            return weapon.id
+        if any(_singular(name) in singular_targets for name in variants):
+            singular_matches.append(weapon.id)
+    return singular_matches[0] if len(singular_matches) == 1 else None
 
 
 def _resolve_wargear_item_id(ds: Dataset, hit: Any, raw_name: str) -> str | None:
-    """Fallback for wargear ITEMS (Simulacrum Imperialis, Daemonic Icon, …) — raw
-    names that are not weapons but do exist in the wargear collection. Runs only
-    after BOTH weapon lookups miss, so a wargear item whose name collides with a
-    weapon ("multi-melta", "power weapon") keeps resolving to the weapon exactly
-    as before. Scoped-first: ids reachable through the resolved unit's wargear
-    options, then the global collection (wargear is replicated-identical across
-    factions, so a global first-match is safe). Same ``normalize_name`` +
-    leading-"The" tolerance as the weapon lookups. Mirror of the TS
-    ``resolveWargearItemId``.
-    """
-    stripped = strip_leading_the(raw_name)
+    targets = _lookup_name_keys(raw_name)
+    singular_targets = {_singular(name) for name in _source_name_variants(raw_name)}
     if hit is not None:
-        ids: list[str] = []
-        for opt in ds.wargear_options_of(hit.raw):
-            ids += opt.get("replaces") or []
-            ids += opt.get("replacement") or []
-            for group in opt.get("replacement_choice") or []:
-                ids += group
-        targets = {normalize_name(raw_name), normalize_name(f"The {raw_name}")}
-        if stripped:
-            targets.add(normalize_name(stripped))
-        for wid in ids:
+        singular_matches: list[str] = []
+        for wid in _unit_wargear_ids(ds, hit):
             item = ds.wargear.get_any(wid)
-            if item is not None and normalize_name(item["name"]) in targets:
+            if item is None:
+                continue
+            variants = _source_name_variants(item["name"])
+            if any(normalize_name(name) in targets for name in variants):
                 return str(item["id"])
-    direct = ds.wargear.find(raw_name)
-    if direct is not None:
-        return str(direct["id"])
-    if stripped:
-        stripped_hit = ds.wargear.find(stripped)
-        if stripped_hit is not None:
-            return str(stripped_hit["id"])
-    the_hit = ds.wargear.find(f"The {raw_name}")
-    return str(the_hit["id"]) if the_hit is not None else None
+            if any(_singular(name) in singular_targets for name in variants):
+                singular_matches.append(str(item["id"]))
+        if len(singular_matches) == 1:
+            return singular_matches[0]
+    for variant in _source_name_variants(raw_name):
+        if item := ds.wargear.find(variant):
+            return str(item["id"])
+        if (stripped := strip_leading_the(variant)) and (item := ds.wargear.find(stripped)):
+            return str(item["id"])
+        if item := ds.wargear.find(f"The {variant}"):
+            return str(item["id"])
+    return None
+
+
+def _resolve_unit_ability_id(ds: Dataset, hit: Any, raw_name: str) -> str | None:
+    if hit is None:
+        return None
+    targets = _lookup_name_keys(raw_name)
+    for ability_id in hit.raw.get("ability_ids") or []:
+        ability = ds.abilities.get_in_faction(
+            ability_id, hit.raw.get("faction_id", "")
+        ) or ds.abilities.get_any(ability_id)
+        if ability and any(
+            normalize_name(name) in targets for name in _source_name_variants(ability.name)
+        ):
+            return ability.id
+    return None
 
 
 def _map_battle_size(raw: str | None) -> str | None:
@@ -187,17 +256,14 @@ def _detachment_cap(battle_size: str | None) -> int | None:
 def resolve(parsed: dict[str, Any], ds: Dataset, format: str = "listforge") -> dict[str, Any]:
     diag = _DiagnosticsBuilder()
 
-    if parsed["multi_force"]:
-        diag.warn(
-            "multi-force",
-            "Source list contains more than one faction; the primary faction was used "
-            "for scoping.",
-        )
-
     # --- Faction (resolved first so other lookups can scope to it). ----------
     faction_id: str | None = None
     if parsed["faction_raw_name"]:
-        hit = ds.factions.find(parsed["faction_raw_name"])
+        hit = None
+        for candidate in _faction_name_candidates(parsed["faction_raw_name"]):
+            hit = ds.factions.find(candidate)
+            if hit is not None:
+                break
         if hit:
             faction_id = hit.id
         else:
@@ -207,12 +273,33 @@ def resolve(parsed: dict[str, Any], ds: Dataset, format: str = "listforge") -> d
                 parsed["faction_raw_name"],
             )
 
-    # --- Detachments (each scoped to faction, then global fallback). ---------
+    if faction_id is None:
+        counts: dict[str, int] = {}
+        for unit in parsed["units"]:
+            key = normalize_name(unit["raw_name"])
+            exact_factions = {
+                candidate.raw.get("faction_id")
+                for candidate_name in _unit_lookup_candidates(unit["raw_name"], None, ds)
+                for candidate in ds.units.find_all(candidate_name)
+                if normalize_name(candidate.name) == key
+                or any(
+                    normalize_name(alias) == key for alias in (candidate.raw.get("aliases") or [])
+                )
+            }
+            if len(exact_factions) == 1:
+                inferred = next(iter(exact_factions))
+                if inferred:
+                    counts[inferred] = counts.get(inferred, 0) + 1
+        ranked = sorted(counts.items(), key=lambda item: item[1], reverse=True)
+        if ranked and (len(ranked) == 1 or ranked[0][1] > ranked[1][1]):
+            faction_id = ranked[0][0]
+
     # 11e lists may field several detachments under a detachment-point cap; the
     # list preserves source order. ``dp_cost`` is looked up from the resolved
     # detachment entity (no source format reports it).
     def resolve_detachment(raw_name: str) -> dict[str, Any] | None:
-        key = normalize_name(raw_name)
+        lookup_name = _normalize_detachment_source_name(raw_name)
+        key = normalize_name(lookup_name)
         scoped = None
         if faction_id:
             scoped = next(
@@ -223,7 +310,7 @@ def resolve(parsed: dict[str, Any], ds: Dataset, format: str = "listforge") -> d
                 ),
                 None,
             )
-        hit = scoped if scoped is not None else ds.detachments.find(raw_name)
+        hit = scoped if scoped is not None else ds.detachments.find(lookup_name)
         if hit is None:
             return None
         return {"ref": _resolved(hit["id"], raw_name), "dp_cost": hit.get("detachment_points")}
@@ -240,7 +327,13 @@ def resolve(parsed: dict[str, Any], ds: Dataset, format: str = "listforge") -> d
         # RESOLVE-TIME fallback, taken only when the whole name fails and every
         # part resolves — "Legends of Saga and Song" is a real single-detachment
         # name a lexical split would corrupt.
-        parts = [p.strip() for p in re.split(r"\s+and\s+|\s*,\s*", raw_name) if p.strip()]
+        parts = [
+            _normalize_detachment_source_name(
+                part.replace("and ", "", 1) if part.lower().startswith("and ") else part
+            )
+            for part in re.split(r"\s+(?:and|\+)\s+|\s*,\s*", raw_name, flags=re.IGNORECASE)
+            if part.strip()
+        ]
         if len(parts) > 1:
             split = [resolve_detachment(p) for p in parts]
             if all(d is not None for d in split):
@@ -265,14 +358,20 @@ def resolve(parsed: dict[str, Any], ds: Dataset, format: str = "listforge") -> d
     # dataset.
     force_disposition = parsed.get("force_disposition")
     if not force_disposition and parsed.get("force_disposition_raw_name"):
-        hit = ds.force_dispositions.find(parsed["force_disposition_raw_name"])
+        raw_disposition_name = parsed["force_disposition_raw_name"]
+        disposition_name = (
+            "Reconnaissance"
+            if normalize_name(raw_disposition_name) == "recon"
+            else raw_disposition_name
+        )
+        hit = ds.force_dispositions.find(disposition_name)
         if hit is not None:
             force_disposition = hit["id"]
         else:
             diag.warn(
                 "disposition-unresolved",
                 "Force Disposition name did not match any 40kdc disposition.",
-                parsed["force_disposition_raw_name"],
+                raw_disposition_name,
             )
 
     # --- Battle size. ---------------------------------------------------------
@@ -302,13 +401,67 @@ def resolve(parsed: dict[str, Any], ds: Dataset, format: str = "listforge") -> d
     # --- Units (and their enhancements / wargear). ----------------------------
     units = [_resolve_unit(u, faction_id, detachment_ids, ds, diag) for u in parsed["units"]]
 
+    # Metadata-less exports can identify their detachment unambiguously through
+    # enhancement ownership; its sole Force Disposition is then likewise known.
+    def detachment_by_id(id_: str) -> Any | None:
+        return (
+            ds.detachments.get_in_faction(id_, faction_id)
+            if faction_id
+            else ds.detachments.get_any(id_)
+        ) or ds.detachments.get_any(id_)
+
+    if not detachments:
+        inferred = {
+            enhancement.get("detachment_id")
+            for unit in units
+            if (enhancement_id := (unit.get("enhancement") or {}).get("id"))
+            and (enhancement := ds.enhancements.get_any(enhancement_id)) is not None
+            and enhancement.get("detachment_id")
+        }
+        if len(inferred) == 1:
+            detachment_id = next(iter(inferred))
+            detachment = detachment_by_id(detachment_id)
+            if detachment is not None:
+                detachments.append(
+                    {
+                        "ref": _resolved(detachment["id"], detachment["name"]),
+                        "dp_cost": detachment.get("detachment_points"),
+                    }
+                )
+                detachment_ids.append(detachment["id"])
+    if (
+        force_disposition is None
+        and "force_disposition_raw_name" in parsed
+        and parsed["force_disposition_raw_name"] is None
+        and detachment_ids
+    ):
+        disposition_ids = {
+            disposition
+            for id_ in detachment_ids
+            for disposition in (detachment_by_id(id_) or {}).get("force_dispositions", [])
+        }
+        if len(disposition_ids) == 1 and all(
+            len((detachment_by_id(id_) or {}).get("force_dispositions", [])) == 1
+            for id_ in detachment_ids
+        ):
+            force_disposition = next(iter(disposition_ids))
+
+    if format == "gw" and not any(unit["is_warlord"] for unit in units):
+        first_character = next(
+            (index for index, unit in enumerate(parsed["units"]) if unit.get("is_character")),
+            None,
+        )
+        if first_character is not None:
+            units[first_character]["is_warlord"] = True
+
     # --- Leader attachments (second pass: needs all resolved unit ids). -------
     _apply_leader_attachments(parsed["units"], units, ds, faction_id, diag)
 
     # --- Points reconciliation (reported vs computed kept distinct). ----------
-    if parsed["total_reported"] is not None and parsed["total_reported"] != parsed[
-        "total_computed"
-    ]:
+    if (
+        parsed["total_reported"] is not None
+        and parsed["total_reported"] != parsed["total_computed"]
+    ):
         diag.warn(
             "points-mismatch",
             f"Source-reported total ({parsed['total_reported']}) differs from the sum "
@@ -354,6 +507,12 @@ def _unit_lookup_candidates(raw_name: str, faction_id: str | None, ds: Dataset) 
     over all shared Chaos chassis × every faction, not per-unit data.
     """
     candidates = [raw_name]
+    delimited = re.split(r"\s+--?\s+", raw_name)[-1].strip()
+    if delimited and delimited != raw_name:
+        candidates.append(delimited)
+    without_nickname = re.sub(r'\s+(?:["“][^"”]+["”]|\'[^\']+\')\s*$', "", raw_name)
+    if without_nickname != raw_name:
+        candidates.append(without_nickname)
     faction = ds.factions.get(faction_id) if faction_id else None
     faction_name = faction.name if faction is not None else None
     if faction_name:
@@ -460,59 +619,276 @@ def _resolve_unit(
     model_count = parsed["model_count"]
     wargear_lines = parsed["wargear"]
     if hit is not None:
-        model_names = {_singular(hit.name)}
-        for alias in hit.raw.get("aliases") or []:
-            model_names.add(_singular(alias))
-        for m in (ds.unit_composition_of(hit.raw) or {}).get("models") or []:
-            if m.get("name"):
-                model_names.add(_singular(m["name"]))
-        model_lines = [w for w in parsed["wargear"] if _singular(w["raw_name"]) in model_names]
-        model_sum = sum(w["count"] for w in model_lines)
+        composition = ds.unit_composition_of(hit.raw) or {}
+        rows = composition.get("models") or []
+        unit_model_names = {
+            _singular(hit.name),
+            *(_singular(alias) for alias in hit.raw.get("aliases") or []),
+        }
+        composition_model_names = {
+            _singular(name)
+            for row in rows
+            for name in (row.get("name"), row.get("profile_name"))
+            if name
+        }
+
+        def model_line_keys(raw_name: str) -> set[str]:
+            variants = [raw_name, *re.split(r"\s+--?\s+", raw_name)]
+            if with_base := re.split(r"\s+with\s+", raw_name, flags=re.IGNORECASE)[0].strip():
+                variants.append(with_base)
+            without_role = re.sub(r"\s+character$", "", raw_name, flags=re.IGNORECASE)
+            if without_role != raw_name:
+                variants.append(without_role)
+            without_nickname = re.sub(r'\s+(?:["“][^"”]+["”]?|\'[^\']+\'?)\s*$', "", raw_name)
+            if without_nickname != raw_name:
+                variants.append(without_nickname)
+            return {
+                _singular(variant) for name in variants for variant in _source_name_variants(name)
+            }
+
+        def matches_model_name(raw_name: str, model_name: str) -> bool:
+            return any(
+                key == model_name or (" with " not in model_name and model_name.endswith(f" {key}"))
+                for key in model_line_keys(raw_name)
+            )
+
+        def is_model_line(raw_name: str) -> bool:
+            keys = model_line_keys(raw_name)
+            if keys & (unit_model_names | composition_model_names):
+                return True
+            return sum(matches_model_name(raw_name, name) for name in composition_model_names) == 1
+
+        model_lines = [item for item in parsed["wargear"] if is_model_line(item["raw_name"])]
+        model_sum = sum(item["count"] for item in model_lines)
         if model_sum > 0:
             wargear_lines = [
-                w for w in parsed["wargear"] if _singular(w["raw_name"]) not in model_names
+                item for item in parsed["wargear"] if not is_model_line(item["raw_name"])
             ]
-            # When the reclassified lines cover EVERY composition row name, they
-            # fully enumerate the unit and the parser's count was its synthetic 1
-            # fallback — the sum stands alone. Any uncovered row means the parser
-            # genuinely counted those models (a colon-dialect line) and the flat
-            # lines are the REST of the squad — the counts add. Mirror of TS.
-            rows = (ds.unit_composition_of(hit.raw) or {}).get("models") or []
-            line_names = {_singular(w["raw_name"]) for w in model_lines}
-            covered = all(
-                not m.get("name") or _singular(m["name"]) in line_names for m in rows
+            parsed_count_valid = any(
+                sum(model.get("min") or 0 for model in tier.get("models") or [])
+                <= parsed["model_count"]
+                <= sum(model.get("max") or 0 for model in tier.get("models") or [])
+                for tier in composition.get("tiers") or []
+            ) or (
+                not composition.get("tiers")
+                and rows
+                and sum(model.get("min") or 0 for model in rows)
+                <= parsed["model_count"]
+                <= sum(model.get("max") or 0 for model in rows)
             )
-            model_count = model_sum if covered else model_count + model_sum
+            model_sum_matches_points = parsed["points"] is not None and any(
+                tier.get("cost") == parsed["points"]
+                and tier.get("models", 0)
+                <= model_sum
+                <= (
+                    tier["models_max"]
+                    if tier.get("models_max") is not None
+                    else tier.get("models", 0)
+                )
+                for tier in hit.raw.get("points") or []
+            )
+            covered = not rows or all(
+                (row.get("min") or 0) <= 0
+                or (not row.get("name") and not row.get("profile_name"))
+                or any(
+                    (
+                        row.get("name")
+                        and matches_model_name(line["raw_name"], _singular(row["name"]))
+                    )
+                    or (
+                        row.get("profile_name")
+                        and matches_model_name(line["raw_name"], _singular(row["profile_name"]))
+                    )
+                    for line in model_lines
+                )
+                for row in rows
+            )
+            model_count = (
+                model_sum
+                if model_sum_matches_points or covered
+                else parsed["model_count"]
+                if parsed_count_valid
+                else parsed["model_count"] + model_sum
+            )
 
-    wargear = []
-    for w in wargear_lines:
-        # Prefer the resolved unit's own weapon of this name — picks the right
-        # per-unit stat variant — falling back to the global lookup only when the
-        # unit is unresolved or fields no weapon of that name.
-        scoped_id = _scoped_weapon_id(ds, hit, w["raw_name"]) if hit is not None else None
-        if scoped_id:
+    def resolve_gear_ref(raw_name: str) -> dict[str, Any] | None:
+        if hit is not None and (scoped_id := _scoped_weapon_id(ds, hit, raw_name)):
+            return _resolved(scoped_id, raw_name)
+        if hits := _find_weapon_candidates(ds, raw_name):
+            return _resolved(hits[0].id, raw_name)
+        if item_id := _resolve_wargear_item_id(ds, hit, raw_name):
+            return _resolved(item_id, raw_name)
+        if ability_id := _resolve_unit_ability_id(ds, hit, raw_name):
+            return _resolved(ability_id, raw_name)
+        return None
+
+    wargear: list[dict[str, Any]] = []
+    for line in wargear_lines:
+        direct = resolve_gear_ref(line["raw_name"])
+        if direct is not None:
             diag.resolved_weapons += 1
-            wargear.append({"ref": _resolved(scoped_id, w["raw_name"]), "count": w["count"]})
+            wargear.append({"ref": direct, "count": line["count"]})
             continue
-        hits = _find_weapon_candidates(ds, w["raw_name"])
-        if hits:
-            diag.resolved_weapons += 1
-            wargear.append({"ref": _resolved(hits[0].id, w["raw_name"]), "count": w["count"]})
+        parts = [
+            part.strip() for part in re.split(r"\s+and\s+", line["raw_name"], flags=re.IGNORECASE)
+        ]
+        part_refs = [resolve_gear_ref(part) for part in parts]
+        if len(parts) > 1 and all(part_refs):
+            diag.resolved_weapons += len(part_refs)
+            wargear.extend(
+                {"ref": part_ref, "count": line["count"] if index == 0 else 1}
+                for index, part_ref in enumerate(part_refs)
+            )
             continue
-        wargear_item_id = _resolve_wargear_item_id(ds, hit, w["raw_name"])
-        if wargear_item_id:
-            diag.resolved_weapons += 1
-            wargear.append({"ref": _resolved(wargear_item_id, w["raw_name"]), "count": w["count"]})
-        else:
-            diag.unresolved_weapons += 1
-            diag.warn(
-                "weapon-unresolved",
-                "Weapon name did not match any 40kdc weapon.",
-                w["raw_name"],
+        diag.unresolved_weapons += 1
+        diag.warn(
+            "weapon-unresolved", "Weapon name did not match any 40kdc weapon.", line["raw_name"]
+        )
+        wargear.append(
+            {
+                "ref": _unresolved(
+                    line["raw_name"], _to_candidates(_find_weapon_candidates(ds, line["raw_name"]))
+                ),
+                "count": line["count"],
+            }
+        )
+
+    loadout_groups: list[dict[str, Any]] | None
+    explicit_groups = parsed.get("loadout_groups")
+    if explicit_groups is not None:
+
+        def explicit_group_refs(raw_name: str, count: int) -> list[dict[str, Any]]:
+            direct = next(
+                (
+                    item["ref"]
+                    for item in wargear
+                    if normalize_name(item["ref"]["raw_name"]) == normalize_name(raw_name)
+                ),
+                None,
             )
-            wargear.append(
-                {"ref": _unresolved(w["raw_name"], _to_candidates(hits)), "count": w["count"]}
+            if direct is not None:
+                return [{"ref": direct, "count": count}]
+            if ref := resolve_gear_ref(raw_name):
+                return [{"ref": ref, "count": count}]
+            parts = [part.strip() for part in re.split(r"\s+and\s+", raw_name, flags=re.IGNORECASE)]
+            refs = [resolve_gear_ref(part) for part in parts]
+            if len(parts) > 1 and all(refs):
+                return [{"ref": ref, "count": count} for ref in refs]
+            return [{"ref": _unresolved(raw_name), "count": count}]
+
+        loadout_groups = [
+            {
+                "model_name": group["model_name"],
+                "count": group["count"],
+                "wargear": [
+                    resolved_item
+                    for item in group["wargear"]
+                    for resolved_item in explicit_group_refs(item["raw_name"], item["count"])
+                ],
+            }
+            for group in explicit_groups
+        ]
+        if all(
+            item["ref"]["id"] is not None for group in loadout_groups for item in group["wargear"]
+        ):
+            original_ids = {item["ref"]["id"] for item in wargear}
+            grouped: dict[str, dict[str, Any]] = {}
+            for group in loadout_groups:
+                for item in group["wargear"]:
+                    id_ = item["ref"]["id"]
+                    if id_ not in grouped:
+                        grouped[id_] = {"ref": item["ref"], "count": 0}
+                    grouped[id_]["count"] += group["count"] * item["count"]
+            remaining = dict(grouped)
+            seen: set[str] = set()
+            ordered: list[dict[str, Any]] = []
+            for item in wargear:
+                id_ = item["ref"]["id"]
+                if id_ in seen:
+                    continue
+                seen.add(id_)
+                ordered.append(remaining.pop(id_, item))
+            diag.resolved_weapons += sum(id_ not in original_ids for id_ in remaining)
+            wargear = [*ordered, *remaining.values()]
+    else:
+        loadout_groups = _build_loadout_groups(hit, model_count, wargear, ds)
+        if (
+            loadout_groups is None
+            and hit is not None
+            and all(item["ref"]["id"] is not None for item in wargear)
+        ):
+            explicit_refs = {item["ref"]["id"]: item["ref"] for item in wargear}
+            explicit_counts: dict[str, int] = {}
+            for item in wargear:
+                id_ = item["ref"]["id"]
+                explicit_counts[id_] = explicit_counts.get(id_, 0) + item["count"]
+            completed = complete_loadout(
+                hit.raw,
+                model_count,
+                ds.wargear_options_of(hit.raw),
+                (ds.unit_composition_of(hit.raw) or {}).get("models"),
+                explicit_counts,
             )
+            if completed is not None:
+
+                def ref_for_id(id_: str) -> dict[str, Any]:
+                    if existing := explicit_refs.get(id_):
+                        return existing
+                    entity = (
+                        next((weapon for weapon in hit.weapons if weapon.id == id_), None)
+                        or ds.wargear.get_any(id_)
+                        or ds.abilities.get_any(id_)
+                    )
+                    if entity is None:
+                        name = id_
+                    elif isinstance(entity, dict):
+                        name = entity.get("name", id_)
+                    else:
+                        name = entity.name
+                    return _resolved(id_, name)
+
+                remaining = {
+                    id_: {"ref": ref_for_id(id_), "count": count}
+                    for id_, count in completed["counts"].items()
+                }
+                completed_seen: set[str] = set()
+                ordered = []
+                for item in wargear:
+                    id_ = item["ref"]["id"]
+                    if id_ in completed_seen:
+                        continue
+                    completed_seen.add(id_)
+                    if replacement := remaining.pop(id_, None):
+                        ordered.append({**item, "count": replacement["count"]})
+                diag.resolved_weapons += sum(id_ not in explicit_refs for id_ in remaining)
+                wargear = [*ordered, *remaining.values()]
+                loadout_groups = (
+                    [
+                        {
+                            "model_name": group["model_name"],
+                            "count": group["count"],
+                            "wargear": [
+                                {"ref": ref_for_id(item["id"]), "count": item["count"]}
+                                for item in group["weapons"]
+                            ],
+                        }
+                        for group in completed["groups"]
+                    ]
+                    if completed["groups"] is not None
+                    else None
+                )
+
+    keyword_overrides = list(dict.fromkeys(parsed.get("keyword_overrides") or []))
+    if (
+        parsed.get("is_character")
+        and hit is not None
+        and not (
+            hit.raw.get("role") in ("character", "epic-hero")
+            or "Character" in (hit.raw.get("keywords") or [])
+        )
+        and "Character" not in keyword_overrides
+    ):
+        keyword_overrides.append("Character")
 
     result: dict[str, Any] = {
         "ref": ref,
@@ -520,14 +896,10 @@ def _resolve_unit(
         "points": parsed["points"],
         "is_warlord": parsed["is_warlord"],
         "enhancement": enhancement,
+        **({"keyword_overrides": list(keyword_overrides)} if keyword_overrides else {}),
         "enhancement_points": enhancement_points,
         "wargear": wargear,
     }
-    # Reconstruct the per-model-type loadout groups deterministically from the
-    # resolved unit, so a re-export reproduces the same grouped lines the exporter
-    # emits (round-trip), without the text parsers understanding model-name labels.
-    # Omitted (key absent) when it can't decompose exactly, to match the other impls.
-    loadout_groups = _build_loadout_groups(hit, model_count, wargear, ds)
     if loadout_groups is not None:
         result["loadout_groups"] = loadout_groups
     result["leader_attachment"] = None
@@ -666,9 +1038,7 @@ def _apply_leader_attachments(
         if explicit is None:
             continue
         key = normalize_name(explicit["bodyguard_raw_name"])
-        bodyguard = next(
-            (u for u in units if normalize_name(u["ref"]["raw_name"]) == key), None
-        )
+        bodyguard = next((u for u in units if normalize_name(u["ref"]["raw_name"]) == key), None)
         if bodyguard is None:
             continue
         bodyguard_ref = (

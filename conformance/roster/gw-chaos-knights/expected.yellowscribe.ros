@@ -251,22 +251,7 @@
                     </profile>
                   </profiles>
                 </selection>
-                <selection id="unit2-m0-w1" name="Diabolus heavy stubber" type="upgrade" number="1">
-                  <profiles>
-                    <profile name="Diabolus heavy stubber" typeName="Ranged Weapons">
-                      <characteristics>
-                        <characteristic name="Range">36"</characteristic>
-                        <characteristic name="A">3</characteristic>
-                        <characteristic name="BS">3+</characteristic>
-                        <characteristic name="S">5</characteristic>
-                        <characteristic name="AP">0</characteristic>
-                        <characteristic name="D">1</characteristic>
-                        <characteristic name="Keywords">Rapid Fire 3</characteristic>
-                      </characteristics>
-                    </profile>
-                  </profiles>
-                </selection>
-                <selection id="unit2-m0-w2" name="War Dog autocannon" type="upgrade" number="2">
+                <selection id="unit2-m0-w1" name="War Dog autocannon" type="upgrade" number="2">
                   <profiles>
                     <profile name="War Dog autocannon" typeName="Ranged Weapons">
                       <characteristics>
@@ -277,6 +262,21 @@
                         <characteristic name="AP">-1</characteristic>
                         <characteristic name="D">3</characteristic>
                         <characteristic name="Keywords"></characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+                <selection id="unit2-m0-w2" name="Diabolus heavy stubber" type="upgrade" number="1">
+                  <profiles>
+                    <profile name="Diabolus heavy stubber" typeName="Ranged Weapons">
+                      <characteristics>
+                        <characteristic name="Range">36"</characteristic>
+                        <characteristic name="A">3</characteristic>
+                        <characteristic name="BS">3+</characteristic>
+                        <characteristic name="S">5</characteristic>
+                        <characteristic name="AP">0</characteristic>
+                        <characteristic name="D">1</characteristic>
+                        <characteristic name="Keywords">Rapid Fire 3</characteristic>
                       </characteristics>
                     </profile>
                   </profiles>
@@ -335,22 +335,7 @@
                     </profile>
                   </profiles>
                 </selection>
-                <selection id="unit3-m0-w1" name="Diabolus heavy stubber" type="upgrade" number="1">
-                  <profiles>
-                    <profile name="Diabolus heavy stubber" typeName="Ranged Weapons">
-                      <characteristics>
-                        <characteristic name="Range">36"</characteristic>
-                        <characteristic name="A">3</characteristic>
-                        <characteristic name="BS">3+</characteristic>
-                        <characteristic name="S">5</characteristic>
-                        <characteristic name="AP">0</characteristic>
-                        <characteristic name="D">1</characteristic>
-                        <characteristic name="Keywords">Rapid Fire 3</characteristic>
-                      </characteristics>
-                    </profile>
-                  </profiles>
-                </selection>
-                <selection id="unit3-m0-w2" name="War Dog autocannon" type="upgrade" number="2">
+                <selection id="unit3-m0-w1" name="War Dog autocannon" type="upgrade" number="2">
                   <profiles>
                     <profile name="War Dog autocannon" typeName="Ranged Weapons">
                       <characteristics>
@@ -361,6 +346,21 @@
                         <characteristic name="AP">-1</characteristic>
                         <characteristic name="D">3</characteristic>
                         <characteristic name="Keywords"></characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+                <selection id="unit3-m0-w2" name="Diabolus heavy stubber" type="upgrade" number="1">
+                  <profiles>
+                    <profile name="Diabolus heavy stubber" typeName="Ranged Weapons">
+                      <characteristics>
+                        <characteristic name="Range">36"</characteristic>
+                        <characteristic name="A">3</characteristic>
+                        <characteristic name="BS">3+</characteristic>
+                        <characteristic name="S">5</characteristic>
+                        <characteristic name="AP">0</characteristic>
+                        <characteristic name="D">1</characteristic>
+                        <characteristic name="Keywords">Rapid Fire 3</characteristic>
                       </characteristics>
                     </profile>
                   </profiles>
@@ -404,22 +404,7 @@
           <selections>
             <selection id="unit4-m0" name="War Dog Karnivore" type="model" number="1">
               <selections>
-                <selection id="unit4-m0-w0" name="Havoc multi-launcher" type="upgrade" number="1">
-                  <profiles>
-                    <profile name="Havoc multi-launcher" typeName="Ranged Weapons">
-                      <characteristics>
-                        <characteristic name="Range">48"</characteristic>
-                        <characteristic name="A">D6</characteristic>
-                        <characteristic name="BS">3+</characteristic>
-                        <characteristic name="S">5</characteristic>
-                        <characteristic name="AP">0</characteristic>
-                        <characteristic name="D">1</characteristic>
-                        <characteristic name="Keywords">Blast, Indirect Fire</characteristic>
-                      </characteristics>
-                    </profile>
-                  </profiles>
-                </selection>
-                <selection id="unit4-m0-w1" name="Reaper chaintalon" type="upgrade" number="1">
+                <selection id="unit4-m0-w0" name="Reaper chaintalon" type="upgrade" number="1">
                   <profiles>
                     <profile name="Reaper chaintalon" typeName="Melee Weapons">
                       <characteristics>
@@ -434,7 +419,7 @@
                     </profile>
                   </profiles>
                 </selection>
-                <selection id="unit4-m0-w2" name="Slaughterclaw" type="upgrade" number="1">
+                <selection id="unit4-m0-w1" name="Slaughterclaw" type="upgrade" number="1">
                   <profiles>
                     <profile name="Slaughterclaw" typeName="Melee Weapons">
                       <characteristics>
@@ -445,6 +430,21 @@
                         <characteristic name="AP">-3</characteristic>
                         <characteristic name="D">D6+2</characteristic>
                         <characteristic name="Keywords">Sustained Hits 1</characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+                <selection id="unit4-m0-w2" name="Havoc multi-launcher" type="upgrade" number="1">
+                  <profiles>
+                    <profile name="Havoc multi-launcher" typeName="Ranged Weapons">
+                      <characteristics>
+                        <characteristic name="Range">48"</characteristic>
+                        <characteristic name="A">D6</characteristic>
+                        <characteristic name="BS">3+</characteristic>
+                        <characteristic name="S">5</characteristic>
+                        <characteristic name="AP">0</characteristic>
+                        <characteristic name="D">1</characteristic>
+                        <characteristic name="Keywords">Blast, Indirect Fire</characteristic>
                       </characteristics>
                     </profile>
                   </profiles>
@@ -488,22 +488,7 @@
           <selections>
             <selection id="unit5-m0" name="War Dog Karnivore" type="model" number="1">
               <selections>
-                <selection id="unit5-m0-w0" name="Havoc multi-launcher" type="upgrade" number="1">
-                  <profiles>
-                    <profile name="Havoc multi-launcher" typeName="Ranged Weapons">
-                      <characteristics>
-                        <characteristic name="Range">48"</characteristic>
-                        <characteristic name="A">D6</characteristic>
-                        <characteristic name="BS">3+</characteristic>
-                        <characteristic name="S">5</characteristic>
-                        <characteristic name="AP">0</characteristic>
-                        <characteristic name="D">1</characteristic>
-                        <characteristic name="Keywords">Blast, Indirect Fire</characteristic>
-                      </characteristics>
-                    </profile>
-                  </profiles>
-                </selection>
-                <selection id="unit5-m0-w1" name="Reaper chaintalon" type="upgrade" number="1">
+                <selection id="unit5-m0-w0" name="Reaper chaintalon" type="upgrade" number="1">
                   <profiles>
                     <profile name="Reaper chaintalon" typeName="Melee Weapons">
                       <characteristics>
@@ -518,7 +503,7 @@
                     </profile>
                   </profiles>
                 </selection>
-                <selection id="unit5-m0-w2" name="Slaughterclaw" type="upgrade" number="1">
+                <selection id="unit5-m0-w1" name="Slaughterclaw" type="upgrade" number="1">
                   <profiles>
                     <profile name="Slaughterclaw" typeName="Melee Weapons">
                       <characteristics>
@@ -529,6 +514,21 @@
                         <characteristic name="AP">-3</characteristic>
                         <characteristic name="D">D6+2</characteristic>
                         <characteristic name="Keywords">Sustained Hits 1</characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+                <selection id="unit5-m0-w2" name="Havoc multi-launcher" type="upgrade" number="1">
+                  <profiles>
+                    <profile name="Havoc multi-launcher" typeName="Ranged Weapons">
+                      <characteristics>
+                        <characteristic name="Range">48"</characteristic>
+                        <characteristic name="A">D6</characteristic>
+                        <characteristic name="BS">3+</characteristic>
+                        <characteristic name="S">5</characteristic>
+                        <characteristic name="AP">0</characteristic>
+                        <characteristic name="D">1</characteristic>
+                        <characteristic name="Keywords">Blast, Indirect Fire</characteristic>
                       </characteristics>
                     </profile>
                   </profiles>
@@ -572,22 +572,7 @@
           <selections>
             <selection id="unit6-m0" name="War Dog Karnivore" type="model" number="1">
               <selections>
-                <selection id="unit6-m0-w0" name="Havoc multi-launcher" type="upgrade" number="1">
-                  <profiles>
-                    <profile name="Havoc multi-launcher" typeName="Ranged Weapons">
-                      <characteristics>
-                        <characteristic name="Range">48"</characteristic>
-                        <characteristic name="A">D6</characteristic>
-                        <characteristic name="BS">3+</characteristic>
-                        <characteristic name="S">5</characteristic>
-                        <characteristic name="AP">0</characteristic>
-                        <characteristic name="D">1</characteristic>
-                        <characteristic name="Keywords">Blast, Indirect Fire</characteristic>
-                      </characteristics>
-                    </profile>
-                  </profiles>
-                </selection>
-                <selection id="unit6-m0-w1" name="Reaper chaintalon" type="upgrade" number="1">
+                <selection id="unit6-m0-w0" name="Reaper chaintalon" type="upgrade" number="1">
                   <profiles>
                     <profile name="Reaper chaintalon" typeName="Melee Weapons">
                       <characteristics>
@@ -602,7 +587,7 @@
                     </profile>
                   </profiles>
                 </selection>
-                <selection id="unit6-m0-w2" name="Slaughterclaw" type="upgrade" number="1">
+                <selection id="unit6-m0-w1" name="Slaughterclaw" type="upgrade" number="1">
                   <profiles>
                     <profile name="Slaughterclaw" typeName="Melee Weapons">
                       <characteristics>
@@ -613,6 +598,21 @@
                         <characteristic name="AP">-3</characteristic>
                         <characteristic name="D">D6+2</characteristic>
                         <characteristic name="Keywords">Sustained Hits 1</characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+                <selection id="unit6-m0-w2" name="Havoc multi-launcher" type="upgrade" number="1">
+                  <profiles>
+                    <profile name="Havoc multi-launcher" typeName="Ranged Weapons">
+                      <characteristics>
+                        <characteristic name="Range">48"</characteristic>
+                        <characteristic name="A">D6</characteristic>
+                        <characteristic name="BS">3+</characteristic>
+                        <characteristic name="S">5</characteristic>
+                        <characteristic name="AP">0</characteristic>
+                        <characteristic name="D">1</characteristic>
+                        <characteristic name="Keywords">Blast, Indirect Fire</characteristic>
                       </characteristics>
                     </profile>
                   </profiles>
@@ -656,22 +656,7 @@
           <selections>
             <selection id="unit7-m0" name="War Dog Karnivore" type="model" number="1">
               <selections>
-                <selection id="unit7-m0-w0" name="Havoc multi-launcher" type="upgrade" number="1">
-                  <profiles>
-                    <profile name="Havoc multi-launcher" typeName="Ranged Weapons">
-                      <characteristics>
-                        <characteristic name="Range">48"</characteristic>
-                        <characteristic name="A">D6</characteristic>
-                        <characteristic name="BS">3+</characteristic>
-                        <characteristic name="S">5</characteristic>
-                        <characteristic name="AP">0</characteristic>
-                        <characteristic name="D">1</characteristic>
-                        <characteristic name="Keywords">Blast, Indirect Fire</characteristic>
-                      </characteristics>
-                    </profile>
-                  </profiles>
-                </selection>
-                <selection id="unit7-m0-w1" name="Reaper chaintalon" type="upgrade" number="1">
+                <selection id="unit7-m0-w0" name="Reaper chaintalon" type="upgrade" number="1">
                   <profiles>
                     <profile name="Reaper chaintalon" typeName="Melee Weapons">
                       <characteristics>
@@ -686,7 +671,7 @@
                     </profile>
                   </profiles>
                 </selection>
-                <selection id="unit7-m0-w2" name="Slaughterclaw" type="upgrade" number="1">
+                <selection id="unit7-m0-w1" name="Slaughterclaw" type="upgrade" number="1">
                   <profiles>
                     <profile name="Slaughterclaw" typeName="Melee Weapons">
                       <characteristics>
@@ -697,6 +682,21 @@
                         <characteristic name="AP">-3</characteristic>
                         <characteristic name="D">D6+2</characteristic>
                         <characteristic name="Keywords">Sustained Hits 1</characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+                <selection id="unit7-m0-w2" name="Havoc multi-launcher" type="upgrade" number="1">
+                  <profiles>
+                    <profile name="Havoc multi-launcher" typeName="Ranged Weapons">
+                      <characteristics>
+                        <characteristic name="Range">48"</characteristic>
+                        <characteristic name="A">D6</characteristic>
+                        <characteristic name="BS">3+</characteristic>
+                        <characteristic name="S">5</characteristic>
+                        <characteristic name="AP">0</characteristic>
+                        <characteristic name="D">1</characteristic>
+                        <characteristic name="Keywords">Blast, Indirect Fire</characteristic>
                       </characteristics>
                     </profile>
                   </profiles>
@@ -745,22 +745,7 @@
           <selections>
             <selection id="unit8-m0" name="War Dog Stalker" type="model" number="1">
               <selections>
-                <selection id="unit8-m0-w0" name="Daemonbreath spear" type="upgrade" number="1">
-                  <profiles>
-                    <profile name="Daemonbreath spear" typeName="Ranged Weapons">
-                      <characteristics>
-                        <characteristic name="Range">18"</characteristic>
-                        <characteristic name="A">2</characteristic>
-                        <characteristic name="BS">3+</characteristic>
-                        <characteristic name="S">12</characteristic>
-                        <characteristic name="AP">-4</characteristic>
-                        <characteristic name="D">D6</characteristic>
-                        <characteristic name="Keywords">Melta 4</characteristic>
-                      </characteristics>
-                    </profile>
-                  </profiles>
-                </selection>
-                <selection id="unit8-m0-w1" name="Havoc multi-launcher" type="upgrade" number="1">
+                <selection id="unit8-m0-w0" name="Havoc multi-launcher" type="upgrade" number="1">
                   <profiles>
                     <profile name="Havoc multi-launcher" typeName="Ranged Weapons">
                       <characteristics>
@@ -771,6 +756,21 @@
                         <characteristic name="AP">0</characteristic>
                         <characteristic name="D">1</characteristic>
                         <characteristic name="Keywords">Blast, Indirect Fire</characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+                <selection id="unit8-m0-w1" name="Daemonbreath spear" type="upgrade" number="1">
+                  <profiles>
+                    <profile name="Daemonbreath spear" typeName="Ranged Weapons">
+                      <characteristics>
+                        <characteristic name="Range">18"</characteristic>
+                        <characteristic name="A">2</characteristic>
+                        <characteristic name="BS">3+</characteristic>
+                        <characteristic name="S">12</characteristic>
+                        <characteristic name="AP">-4</characteristic>
+                        <characteristic name="D">D6</characteristic>
+                        <characteristic name="Keywords">Melta 4</characteristic>
                       </characteristics>
                     </profile>
                   </profiles>
@@ -834,22 +834,7 @@
           <selections>
             <selection id="unit9-m0" name="War Dog Stalker" type="model" number="1">
               <selections>
-                <selection id="unit9-m0-w0" name="Daemonbreath spear" type="upgrade" number="1">
-                  <profiles>
-                    <profile name="Daemonbreath spear" typeName="Ranged Weapons">
-                      <characteristics>
-                        <characteristic name="Range">18"</characteristic>
-                        <characteristic name="A">2</characteristic>
-                        <characteristic name="BS">3+</characteristic>
-                        <characteristic name="S">12</characteristic>
-                        <characteristic name="AP">-4</characteristic>
-                        <characteristic name="D">D6</characteristic>
-                        <characteristic name="Keywords">Melta 4</characteristic>
-                      </characteristics>
-                    </profile>
-                  </profiles>
-                </selection>
-                <selection id="unit9-m0-w1" name="Havoc multi-launcher" type="upgrade" number="1">
+                <selection id="unit9-m0-w0" name="Havoc multi-launcher" type="upgrade" number="1">
                   <profiles>
                     <profile name="Havoc multi-launcher" typeName="Ranged Weapons">
                       <characteristics>
@@ -860,6 +845,21 @@
                         <characteristic name="AP">0</characteristic>
                         <characteristic name="D">1</characteristic>
                         <characteristic name="Keywords">Blast, Indirect Fire</characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+                <selection id="unit9-m0-w1" name="Daemonbreath spear" type="upgrade" number="1">
+                  <profiles>
+                    <profile name="Daemonbreath spear" typeName="Ranged Weapons">
+                      <characteristics>
+                        <characteristic name="Range">18"</characteristic>
+                        <characteristic name="A">2</characteristic>
+                        <characteristic name="BS">3+</characteristic>
+                        <characteristic name="S">12</characteristic>
+                        <characteristic name="AP">-4</characteristic>
+                        <characteristic name="D">D6</characteristic>
+                        <characteristic name="Keywords">Melta 4</characteristic>
                       </characteristics>
                     </profile>
                   </profiles>
@@ -923,22 +923,7 @@
           <selections>
             <selection id="unit10-m0" name="War Dog Stalker" type="model" number="1">
               <selections>
-                <selection id="unit10-m0-w0" name="Daemonbreath spear" type="upgrade" number="1">
-                  <profiles>
-                    <profile name="Daemonbreath spear" typeName="Ranged Weapons">
-                      <characteristics>
-                        <characteristic name="Range">18"</characteristic>
-                        <characteristic name="A">2</characteristic>
-                        <characteristic name="BS">3+</characteristic>
-                        <characteristic name="S">12</characteristic>
-                        <characteristic name="AP">-4</characteristic>
-                        <characteristic name="D">D6</characteristic>
-                        <characteristic name="Keywords">Melta 4</characteristic>
-                      </characteristics>
-                    </profile>
-                  </profiles>
-                </selection>
-                <selection id="unit10-m0-w1" name="Havoc multi-launcher" type="upgrade" number="1">
+                <selection id="unit10-m0-w0" name="Havoc multi-launcher" type="upgrade" number="1">
                   <profiles>
                     <profile name="Havoc multi-launcher" typeName="Ranged Weapons">
                       <characteristics>
@@ -949,6 +934,21 @@
                         <characteristic name="AP">0</characteristic>
                         <characteristic name="D">1</characteristic>
                         <characteristic name="Keywords">Blast, Indirect Fire</characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+                <selection id="unit10-m0-w1" name="Daemonbreath spear" type="upgrade" number="1">
+                  <profiles>
+                    <profile name="Daemonbreath spear" typeName="Ranged Weapons">
+                      <characteristics>
+                        <characteristic name="Range">18"</characteristic>
+                        <characteristic name="A">2</characteristic>
+                        <characteristic name="BS">3+</characteristic>
+                        <characteristic name="S">12</characteristic>
+                        <characteristic name="AP">-4</characteristic>
+                        <characteristic name="D">D6</characteristic>
+                        <characteristic name="Keywords">Melta 4</characteristic>
                       </characteristics>
                     </profile>
                   </profiles>
@@ -1012,22 +1012,7 @@
           <selections>
             <selection id="unit11-m0" name="War Dog Stalker" type="model" number="1">
               <selections>
-                <selection id="unit11-m0-w0" name="Daemonbreath spear" type="upgrade" number="1">
-                  <profiles>
-                    <profile name="Daemonbreath spear" typeName="Ranged Weapons">
-                      <characteristics>
-                        <characteristic name="Range">18"</characteristic>
-                        <characteristic name="A">2</characteristic>
-                        <characteristic name="BS">3+</characteristic>
-                        <characteristic name="S">12</characteristic>
-                        <characteristic name="AP">-4</characteristic>
-                        <characteristic name="D">D6</characteristic>
-                        <characteristic name="Keywords">Melta 4</characteristic>
-                      </characteristics>
-                    </profile>
-                  </profiles>
-                </selection>
-                <selection id="unit11-m0-w1" name="Havoc multi-launcher" type="upgrade" number="1">
+                <selection id="unit11-m0-w0" name="Havoc multi-launcher" type="upgrade" number="1">
                   <profiles>
                     <profile name="Havoc multi-launcher" typeName="Ranged Weapons">
                       <characteristics>
@@ -1038,6 +1023,21 @@
                         <characteristic name="AP">0</characteristic>
                         <characteristic name="D">1</characteristic>
                         <characteristic name="Keywords">Blast, Indirect Fire</characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+                <selection id="unit11-m0-w1" name="Daemonbreath spear" type="upgrade" number="1">
+                  <profiles>
+                    <profile name="Daemonbreath spear" typeName="Ranged Weapons">
+                      <characteristics>
+                        <characteristic name="Range">18"</characteristic>
+                        <characteristic name="A">2</characteristic>
+                        <characteristic name="BS">3+</characteristic>
+                        <characteristic name="S">12</characteristic>
+                        <characteristic name="AP">-4</characteristic>
+                        <characteristic name="D">D6</characteristic>
+                        <characteristic name="Keywords">Melta 4</characteristic>
                       </characteristics>
                     </profile>
                   </profiles>
@@ -1101,22 +1101,7 @@
           <selections>
             <selection id="unit12-m0" name="War Dog Stalker" type="model" number="1">
               <selections>
-                <selection id="unit12-m0-w0" name="Daemonbreath spear" type="upgrade" number="1">
-                  <profiles>
-                    <profile name="Daemonbreath spear" typeName="Ranged Weapons">
-                      <characteristics>
-                        <characteristic name="Range">18"</characteristic>
-                        <characteristic name="A">2</characteristic>
-                        <characteristic name="BS">3+</characteristic>
-                        <characteristic name="S">12</characteristic>
-                        <characteristic name="AP">-4</characteristic>
-                        <characteristic name="D">D6</characteristic>
-                        <characteristic name="Keywords">Melta 4</characteristic>
-                      </characteristics>
-                    </profile>
-                  </profiles>
-                </selection>
-                <selection id="unit12-m0-w1" name="Havoc multi-launcher" type="upgrade" number="1">
+                <selection id="unit12-m0-w0" name="Havoc multi-launcher" type="upgrade" number="1">
                   <profiles>
                     <profile name="Havoc multi-launcher" typeName="Ranged Weapons">
                       <characteristics>
@@ -1127,6 +1112,21 @@
                         <characteristic name="AP">0</characteristic>
                         <characteristic name="D">1</characteristic>
                         <characteristic name="Keywords">Blast, Indirect Fire</characteristic>
+                      </characteristics>
+                    </profile>
+                  </profiles>
+                </selection>
+                <selection id="unit12-m0-w1" name="Daemonbreath spear" type="upgrade" number="1">
+                  <profiles>
+                    <profile name="Daemonbreath spear" typeName="Ranged Weapons">
+                      <characteristics>
+                        <characteristic name="Range">18"</characteristic>
+                        <characteristic name="A">2</characteristic>
+                        <characteristic name="BS">3+</characteristic>
+                        <characteristic name="S">12</characteristic>
+                        <characteristic name="AP">-4</characteristic>
+                        <characteristic name="D">D6</characteristic>
+                        <characteristic name="Keywords">Melta 4</characteristic>
                       </characteristics>
                     </profile>
                   </profiles>

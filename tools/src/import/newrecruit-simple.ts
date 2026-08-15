@@ -55,6 +55,8 @@ interface UnitBuilder {
   enhancement_raw_name: string | null;
   enhancement_pts: number | null;
   displayed_pts: number | null;
+  /** Whether any `• Nx ModelType` breakdown has supplied the unit count. */
+  saw_bullet: boolean;
   model_count: number;
   leader_attachment: ParsedLeaderAttachment | null;
   loadout_groups: {
@@ -75,6 +77,7 @@ function newUnit(name: string, displayed_pts: number | null): UnitBuilder {
     enhancement_raw_name: null,
     enhancement_pts: null,
     displayed_pts,
+    saw_bullet: false,
     model_count: 1,
     leader_attachment: null,
     loadout_groups: [],
@@ -266,15 +269,19 @@ export const newRecruitSimpleAdapter: FormatAdapter = {
       const bulletMatch = BULLET.exec(raw);
       if (bulletMatch && current) {
         const count = Number.parseInt(bulletMatch[1], 10);
-        // Bullets may add to the unit's model count beyond the implicit 1 we
-        // set when we created it from the unit header.
-        if (current.wargear.size === 0 && current.model_count === 1) {
-          // First bullet: replace the implicit single-model assumption.
+        // The unit header has no model-count information. Replace its implicit
+        // single-model default once, then aggregate every later breakdown,
+        // irrespective of whether that breakdown has wargear.
+        if (!current.saw_bullet) {
           current.model_count = count;
+          current.saw_bullet = true;
         } else {
           current.model_count += count;
         }
-        if (bulletMatch[4]) {
+        // An explicitly empty `:` suffix is a meaningful exact group. Check
+        // for syntactic presence rather than its truthiness so empty groups
+        // survive export → import round-trips.
+        if (bulletMatch[4] !== undefined) {
           const unitTotal = UNIT_TOTAL_PREFIX.test(bulletMatch[4]);
           const groupWargear = applyTokens(
             current,

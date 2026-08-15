@@ -47,11 +47,23 @@ def total_army_points(roster: Roster) -> int:
     return total
 
 
+def attachment_token(u: RosterUnit) -> str | None:
+    """Render lossless attachment metadata accepted by paired importers."""
+    attachment = u.get("leader_attachment")
+    if not attachment:
+        return None
+    provisional = " [provisional]" if attachment.get("provisional") else ""
+    return (
+        f"Attachment: {attachment['role']} -> "
+        f"{attachment['bodyguard_ref']['raw_name']}{provisional}"
+    )
+
+
 def group_weapons_text(wargear: list[dict[str, Any]]) -> str:
-    """Render a loadout group's per-model weapons, sorted by display name, with
-    ``Nx`` for counts >1. Mirror of the TS ``groupWeaponsText``."""
+    """Render a loadout group's per-model weapons in source order, with ``Nx``
+    for counts >1. Mirror of the TS ``groupWeaponsText``."""
     parts = []
-    for w in sorted(wargear, key=lambda x: x["ref"]["raw_name"]):
+    for w in wargear:
         name = w["ref"]["raw_name"]
         parts.append(f"{w['count']}x {name}" if w["count"] > 1 else name)
     return ", ".join(parts)

@@ -38,6 +38,7 @@ pub struct ClassifiedTokens {
     pub wargear: Vec<ParsedWargear>,
     pub is_warlord: bool,
     pub is_character: bool,
+    pub keyword_overrides: Vec<String>,
     /// Enhancement raw name, when one was inlined in the wargear list
     /// (simple format).
     pub enhancement_raw_name: Option<String>,
@@ -47,6 +48,8 @@ pub struct ClassifiedTokens {
 
 const CHARACTER_SUFFIX: &str = " Character";
 const WARLORD_MARKER: &str = "Warlord";
+const INLINE_ENHANCEMENT_PREFIX: &str = "Enhancement:";
+const INLINE_KEYWORD_PREFIX: &str = "40kdc Keyword";
 
 /// Match leading `Nx ` on a token, returning `(count, rest)` when present.
 fn match_nx_prefix(token: &str) -> Option<(u64, &str)> {
@@ -116,6 +119,35 @@ pub fn classify_wargear_list(tokens: &[&str]) -> ClassifiedTokens {
         }
         if token.ends_with(CHARACTER_SUFFIX) {
             out.is_character = true;
+            if !out
+                .keyword_overrides
+                .iter()
+                .any(|keyword| keyword == "Character")
+            {
+                out.keyword_overrides.push("Character".to_string());
+            }
+            continue;
+        }
+        let keyword_suffix = token
+            .get(..INLINE_KEYWORD_PREFIX.len())
+            .filter(|prefix| prefix.eq_ignore_ascii_case(INLINE_KEYWORD_PREFIX))
+            .map(|_| &token[INLINE_KEYWORD_PREFIX.len()..]);
+        if let Some(keyword) = keyword_suffix
+            .and_then(|suffix| {
+                suffix
+                    .strip_prefix("s:")
+                    .or_else(|| suffix.strip_prefix(':'))
+            })
+            .map(str::trim)
+            .filter(|keyword| !keyword.is_empty())
+        {
+            if !out
+                .keyword_overrides
+                .iter()
+                .any(|existing| existing == keyword)
+            {
+                out.keyword_overrides.push(keyword.to_string());
+            }
             continue;
         }
 
@@ -123,6 +155,16 @@ pub fn classify_wargear_list(tokens: &[&str]) -> ClassifiedTokens {
             if out.enhancement_raw_name.is_none() {
                 out.enhancement_raw_name = Some(name.to_string());
                 out.enhancement_points = Some(pts);
+            }
+            continue;
+        }
+        if let Some(name) = token
+            .strip_prefix(INLINE_ENHANCEMENT_PREFIX)
+            .map(str::trim)
+            .filter(|name| !name.is_empty())
+        {
+            if out.enhancement_raw_name.is_none() {
+                out.enhancement_raw_name = Some(name.to_string());
             }
             continue;
         }

@@ -12,9 +12,7 @@ from wh40kdc.data.normalize import normalize_name
 from ..conftest import CORPUS
 
 _CASES_PATH = CORPUS / "normalize.json"
-_CASES = (
-    json.loads(Path(_CASES_PATH).read_text(encoding="utf-8")) if _CASES_PATH.exists() else []
-)
+_CASES = json.loads(Path(_CASES_PATH).read_text(encoding="utf-8")) if _CASES_PATH.exists() else []
 
 
 @pytest.mark.skipif(not _CASES, reason="conformance corpus not available")

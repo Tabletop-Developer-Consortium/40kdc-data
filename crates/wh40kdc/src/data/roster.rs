@@ -131,66 +131,90 @@ pub struct NormRoster {
     pub units: Vec<NormUnit>,
 }
 
-/// Union of a unit's `keywords` and `faction_keywords` as a string set.
-fn keyword_set(view: &Unit) -> HashSet<String> {
+/// The complete roster-legality keyword set for a unit: its `keywords`,
+/// `faction_keywords`, and display name; eligible army-faction keywords;
+/// conditionally granted keywords; then source-format overrides.
+fn roster_keyword_set(
+    view: &Unit,
+    army_keywords: &HashSet<String>,
+    detachment_ids: &[String],
+    overrides: &[String],
+) -> HashSet<String> {
     let mut out = HashSet::new();
     if let Some(kws) = &view.keywords {
-        for k in &kws.0 {
-            out.insert(k.as_str().to_string());
-        }
+        out.extend(kws.0.iter().map(|keyword| keyword.as_str().to_string()));
     }
     if let Some(kws) = &view.faction_keywords {
-        for k in &kws.0 {
-            out.insert(k.as_str().to_string());
-        }
+        out.extend(kws.0.iter().map(|keyword| keyword.as_str().to_string()));
     }
-    out
-}
+    out.insert(view.name.as_str().to_string());
 
-/// A unit's full keyword ownership: `keyword_set` plus the army faction's
-/// keywords ([Imperium, Adeptus Astartes, Blood Angels] for a chapter) — the
-/// <CHAPTER>-style keyword that chapter-shared datasheet records can't carry.
-/// Granted with the same subset rule that scopes a chapter's unit pool, so
-/// allied units never gain them.
-fn owned_keywords(view: &Unit, army_keywords: &HashSet<String>) -> HashSet<String> {
-    let mut out = keyword_set(view);
-    if army_keywords.is_empty() {
-        return out;
-    }
     let in_pool = view
         .faction_keywords
         .as_ref()
-        .map(|kws| kws.0.iter().all(|k| army_keywords.contains(k.as_str())))
+        .map(|kws| {
+            kws.0
+                .iter()
+                .all(|keyword| army_keywords.contains(keyword.as_str()))
+        })
         .unwrap_or(true);
-    if in_pool {
-        for k in army_keywords {
-            out.insert(k.clone());
-        }
+    if !army_keywords.is_empty() && in_pool {
+        out.extend(army_keywords.iter().cloned());
     }
+
+    for grant in &view.conditional_keywords {
+        if grant.required_detachment_id.as_ref().is_some_and(|id| {
+            !detachment_ids
+                .iter()
+                .any(|selected| selected == id.as_str())
+        }) || grant
+            .required_faction_keyword
+            .as_ref()
+            .is_some_and(|keyword| !army_keywords.contains(keyword.as_str()))
+        {
+            continue;
+        }
+        out.insert(grant.keyword.as_str().to_string());
+    }
+    out.extend(overrides.iter().cloned());
     out
 }
 
-/// Whether a unit counts as a Character for enhancement eligibility.
-fn is_character(view: &Unit) -> bool {
+/// Whether a unit counts as a Character for enhancement and support-attachment
+/// eligibility. Source-format Character annotations are passed as overrides.
+fn is_character(view: &Unit, overrides: &[String]) -> bool {
     matches!(
         view.role,
         Some(UnitRole::Character) | Some(UnitRole::EpicHero)
     ) || view
         .keywords
         .as_ref()
-        .map(|k| k.0.iter().any(|kw| kw.as_str() == "Character"))
+        .map(|keywords| {
+            keywords
+                .0
+                .iter()
+                .any(|keyword| keyword.as_str() == "Character")
+        })
         .unwrap_or(false)
+        || overrides.iter().any(|keyword| keyword == "Character")
 }
 
-/// The shared roster-legality core. Runs the per-unit loadout check on every
-/// resolved unit, then the nine army-construction dimensions. `unit_index` on a
-/// unit-scoped violation indexes `spec.units` (= the roster's unit order).
-/// Mirror of TS `validateRosterCore`.
+/// Compatibility entry point for normalised callers without source-format
+/// keyword annotations.
 pub fn validate_roster_core(spec: &NormRoster, dataset: &Dataset) -> RosterLegality {
+    validate_roster_core_with_keyword_overrides(spec, dataset, &[])
+}
+
+/// Context-aware roster validation. `keyword_overrides` is ordered in parallel
+/// with `spec.units`; missing trailing entries have no overrides.
+pub fn validate_roster_core_with_keyword_overrides(
+    spec: &NormRoster,
+    dataset: &Dataset,
+    keyword_overrides: &[Vec<String>],
+) -> RosterLegality {
     let mut army: Vec<RosterViolation> = Vec::new();
     let faction = spec.faction_id.as_deref();
-    // The army faction's keyword list, granted to its whole unit pool (see
-    // `owned_keywords`).
+    // `roster_keyword_set` grants them to eligible units.
     let army_keywords: HashSet<String> = faction
         .and_then(|f| dataset.factions.get(f))
         .and_then(|fac| fac.keywords.as_ref())
@@ -263,6 +287,7 @@ pub fn validate_roster_core(spec: &NormRoster, dataset: &Dataset) -> RosterLegal
         let Some(enh_id) = &su.enhancement_id else {
             continue;
         };
+        let overrides = keyword_overrides.get(idx).map(Vec::as_slice).unwrap_or(&[]);
         *enh_uses.entry(enh_id.clone()).or_insert(0) += 1;
         let (Some(enh), Some(view)) = (dataset.enhancements.get(enh_id), views[idx]) else {
             continue;
@@ -283,7 +308,7 @@ pub fn validate_roster_core(spec: &NormRoster, dataset: &Dataset) -> RosterLegal
                 severity: Severity::Error,
             });
         }
-        if !is_character(view) && !enh.upgrade_tag {
+        if !is_character(view, overrides) && !enh.upgrade_tag {
             army.push(RosterViolation {
                 code: RosterViolationCode::EnhancementOnNonCharacter,
                 id: enh.id.as_str().to_string(),
@@ -292,7 +317,7 @@ pub fn validate_roster_core(spec: &NormRoster, dataset: &Dataset) -> RosterLegal
                 severity: Severity::Error,
             });
         }
-        let kws = owned_keywords(view, &army_keywords);
+        let kws = roster_keyword_set(view, &army_keywords, &spec.detachment_ids, overrides);
         let eligible = if let Some(groups) = &enh.keyword_restriction_groups {
             groups
                 .iter()
@@ -351,13 +376,28 @@ pub fn validate_roster_core(spec: &NormRoster, dataset: &Dataset) -> RosterLegal
     // --- Leader attachment. ----------------------------------------------------
     for (idx, su) in spec.units.iter().enumerate() {
         let Some(view) = views[idx] else { continue };
+        let overrides = keyword_overrides.get(idx).map(Vec::as_slice).unwrap_or(&[]);
         if let Some(bodyguard_id) = &su.leader_bodyguard_id {
-            let eligible: Vec<String> = dataset
+            let mut eligible: HashSet<String> = dataset
                 .bodyguards_attachable_from(view.id.as_str())
                 .into_iter()
-                .map(|v| v.id.as_str().to_string())
+                .map(|candidate| candidate.id.as_str().to_string())
                 .collect();
-            if !eligible.iter().any(|e| e == bodyguard_id) {
+            if let Some(enhancement) = su
+                .enhancement_id
+                .as_deref()
+                .and_then(|id| dataset.enhancements.get(id))
+            {
+                eligible.extend(
+                    enhancement
+                        .attachment_bodyguard_ids
+                        .as_deref()
+                        .unwrap_or(&[])
+                        .iter()
+                        .map(|id| id.as_str().to_string()),
+                );
+            }
+            if !eligible.contains(bodyguard_id) {
                 army.push(RosterViolation {
                     code: RosterViolationCode::LeaderAttachmentIllegal,
                     id: view.id.as_str().to_string(),
@@ -366,7 +406,9 @@ pub fn validate_roster_core(spec: &NormRoster, dataset: &Dataset) -> RosterLegal
                     severity: Severity::Error,
                 });
             }
-        } else if view.attachment_role == Some(crate::generated::UnitAttachmentRole::Support) {
+        } else if view.attachment_role == Some(crate::generated::UnitAttachmentRole::Support)
+            && is_character(view, overrides)
+        {
             army.push(RosterViolation {
                 code: RosterViolationCode::LeaderMustAttach,
                 id: view.id.as_str().to_string(),
@@ -489,7 +531,8 @@ pub fn validate_roster_core(spec: &NormRoster, dataset: &Dataset) -> RosterLegal
         let Some(r) = &d.restrictions else { continue };
         for (idx, _su) in spec.units.iter().enumerate() {
             let Some(view) = views[idx] else { continue };
-            let kws = owned_keywords(view, &army_keywords);
+            let overrides = keyword_overrides.get(idx).map(Vec::as_slice).unwrap_or(&[]);
+            let kws = roster_keyword_set(view, &army_keywords, &spec.detachment_ids, overrides);
             if let Some(req) = &r.required_keywords {
                 if req.0.iter().any(|k| !kws.contains(k.as_str())) {
                     army.push(RosterViolation {
@@ -584,9 +627,21 @@ pub fn validate_roster_core(spec: &NormRoster, dataset: &Dataset) -> RosterLegal
             let keyword = um.keyword.as_str();
             let count = views
                 .iter()
-                .filter(|v| {
-                    v.map(|view| owned_keywords(view, &army_keywords).contains(keyword))
-                        .unwrap_or(false)
+                .enumerate()
+                .filter(|(idx, view)| {
+                    view.map(|view| {
+                        roster_keyword_set(
+                            view,
+                            &army_keywords,
+                            &spec.detachment_ids,
+                            keyword_overrides
+                                .get(*idx)
+                                .map(Vec::as_slice)
+                                .unwrap_or(&[]),
+                        )
+                        .contains(keyword)
+                    })
+                    .unwrap_or(false)
                 })
                 .count() as u64;
             if count < um.min.get() {
@@ -644,6 +699,11 @@ pub fn check_roster(roster: &Roster, dataset: &Dataset) -> RosterLegality {
             }
         })
         .collect();
+    let keyword_overrides = roster
+        .units
+        .iter()
+        .map(|unit| unit.keyword_overrides.clone())
+        .collect::<Vec<_>>();
     let spec = NormRoster {
         faction_id: roster.faction_id.clone(),
         battle_size: roster.battle_size,
@@ -655,5 +715,5 @@ pub fn check_roster(roster: &Roster, dataset: &Dataset) -> RosterLegality {
             .collect(),
         units,
     };
-    validate_roster_core(&spec, dataset)
+    validate_roster_core_with_keyword_overrides(&spec, dataset, &keyword_overrides)
 }

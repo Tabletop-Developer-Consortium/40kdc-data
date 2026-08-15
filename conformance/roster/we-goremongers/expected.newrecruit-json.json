@@ -99,15 +99,15 @@
             "selections": [
               {
                 "id": "u0-model-0",
-                "name": "Goremonger",
+                "name": "Blood Herald",
                 "type": "model",
-                "number": 8,
+                "number": 1,
                 "selections": [
                   {
                     "id": "w-0",
                     "name": "Autopistol",
                     "type": "upgrade",
-                    "number": 8,
+                    "number": 1,
                     "categories": [
                       {
                         "name": "Ranged Weapon",
@@ -119,7 +119,7 @@
                     "id": "w-1",
                     "name": "Chainblade",
                     "type": "upgrade",
-                    "number": 56,
+                    "number": 1,
                     "categories": [
                       {
                         "name": "Ranged Weapon",
@@ -131,7 +131,27 @@
                     "id": "w-2",
                     "name": "Close combat weapon",
                     "type": "upgrade",
-                    "number": 8,
+                    "number": 1,
+                    "categories": [
+                      {
+                        "name": "Ranged Weapon",
+                        "primary": false
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "u0-model-1",
+                "name": "Goremongers",
+                "type": "model",
+                "number": 6,
+                "selections": [
+                  {
+                    "id": "w-0",
+                    "name": "Autopistol",
+                    "type": "upgrade",
+                    "number": 6,
                     "categories": [
                       {
                         "name": "Ranged Weapon",
@@ -140,10 +160,66 @@
                     ]
                   },
                   {
-                    "id": "w-3",
+                    "id": "w-1",
+                    "name": "Chainblade",
+                    "type": "upgrade",
+                    "number": 6,
+                    "categories": [
+                      {
+                        "name": "Ranged Weapon",
+                        "primary": false
+                      }
+                    ]
+                  },
+                  {
+                    "id": "w-2",
+                    "name": "Close combat weapon",
+                    "type": "upgrade",
+                    "number": 6,
+                    "categories": [
+                      {
+                        "name": "Ranged Weapon",
+                        "primary": false
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "u0-model-2",
+                "name": "Goremongers",
+                "type": "model",
+                "number": 1,
+                "selections": [
+                  {
+                    "id": "w-0",
+                    "name": "Autopistol",
+                    "type": "upgrade",
+                    "number": 1,
+                    "categories": [
+                      {
+                        "name": "Ranged Weapon",
+                        "primary": false
+                      }
+                    ]
+                  },
+                  {
+                    "id": "w-1",
                     "name": "Blood harpoon",
                     "type": "upgrade",
-                    "number": 8,
+                    "number": 1,
+                    "categories": [
+                      {
+                        "name": "Ranged Weapon",
+                        "primary": false
+                      }
+                    ]
+                  },
+                  {
+                    "id": "w-2",
+                    "name": "Close combat weapon",
+                    "type": "upgrade",
+                    "number": 1,
                     "categories": [
                       {
                         "name": "Ranged Weapon",

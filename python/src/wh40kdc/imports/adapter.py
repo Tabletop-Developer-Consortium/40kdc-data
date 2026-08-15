@@ -34,6 +34,4 @@ def select_adapter(decoded: Any, adapters: list[FormatAdapter]) -> FormatAdapter
         if adapter.matches(decoded):
             return adapter
     tried = ", ".join(a.id for a in adapters) or "none"
-    raise ValueError(
-        f"no registered import adapter recognises this payload (tried: {tried})"
-    )
+    raise ValueError(f"no registered import adapter recognises this payload (tried: {tried})")

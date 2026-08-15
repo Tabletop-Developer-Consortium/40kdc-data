@@ -20,6 +20,7 @@ var factionCategoryRe = regexp.MustCompile(`^Faction:\s*(.+)$`)
 var pointsLimitRe = regexp.MustCompile(`(?i)(\d[\d,]*)\s*Point`)
 
 var characterCategories = map[string]bool{"Character": true, "Epic Hero": true}
+var attachmentGroupRe = regexp.MustCompile(`^40kdc Attachment:(leader|support):(confirmed|provisional)$`)
 
 func bsField(sel any, key string) any {
 	if m, ok := sel.(map[string]any); ok {
@@ -71,6 +72,19 @@ func categoryNames(sel any) []string {
 	for _, cAny := range asArrayOf(bsField(sel, "categories")) {
 		if c, ok := cAny.(map[string]any); ok {
 			if name, ok := c["name"].(string); ok {
+				out = append(out, name)
+			}
+		}
+	}
+	return out
+}
+func keywordOverrides(sel any) []any {
+	var out []any
+	for _, categoryAny := range asArrayOf(bsField(sel, "categories")) {
+		category, _ := asMap(categoryAny)
+		id := getStr(category, "id")
+		if strings.HasPrefix(id, "40kdc-keyword-") {
+			if name := getStr(category, "name"); name != "" {
 				out = append(out, name)
 			}
 		}
@@ -141,9 +155,16 @@ func bsParseUnit(unit any) map[string]any {
 	wargear := []any{}
 	var enhancementRawName any
 	var enhancementPoints any
+	var leaderAttachment any
 	isWarlord := false
-
 	visit := func(s any) {
+		group, _ := bsField(s, "group").(string)
+		if attachment := attachmentGroupRe.FindStringSubmatch(group); attachment != nil {
+			leaderAttachment = map[string]any{
+				"bodyguard_raw_name": selectionName(s), "role": attachment[1], "provisional": attachment[2] == "provisional",
+			}
+			return
+		}
 		if isEnhancementSelection(s) {
 			if enhancementRawName == nil {
 				enhancementRawName = selectionName(s)
@@ -156,15 +177,56 @@ func bsParseUnit(unit any) map[string]any {
 			return
 		}
 		if isWeaponSelection(s) {
-			wargear = append(wargear, map[string]any{"raw_name": selectionName(s), "count": float64(selectionCount(s))})
+			wargear = append(wargear, map[string]any{
+				"raw_name": selectionName(s), "count": float64(selectionCount(s)),
+			})
 		}
 	}
 	for _, node := range childSelections(unit) {
 		bsWalk(node, visit)
 	}
-	return map[string]any{
+	loadoutGroups := []any{}
+	for _, model := range childSelections(unit) {
+		if selectionType(model) != "model" {
+			continue
+		}
+		count := selectionCount(model)
+		totals := []any{}
+		bsWalk(model, func(selection any) {
+			if isWeaponSelection(selection) {
+				totals = append(totals, map[string]any{
+					"raw_name": selectionName(selection), "count": float64(selectionCount(selection)),
+				})
+			}
+		})
+		if count <= 0 {
+			continue
+		}
+		divisible := true
+		for _, totalAny := range totals {
+			if asInt(totalAny.(map[string]any)["count"])%count != 0 {
+				divisible = false
+				break
+			}
+		}
+		if !divisible {
+			continue
+		}
+		perModel := make([]any, 0, len(totals))
+		for _, totalAny := range totals {
+			total := totalAny.(map[string]any)
+			perModel = append(perModel, map[string]any{
+				"raw_name": total["raw_name"], "count": float64(asInt(total["count"]) / count),
+			})
+		}
+		loadoutGroups = append(loadoutGroups, map[string]any{
+			"model_name": selectionName(model), "count": float64(count), "wargear": perModel,
+		})
+	}
+	result := map[string]any{
 		"raw_name":             selectionName(unit),
 		"is_character":         isCharacterSel(unit),
+		"keyword_overrides":    keywordOverrides(unit),
 		"model_count":          float64(bsModelCount(unit)),
 		"points":               pointsOf(unit),
 		"is_warlord":           isWarlord,
@@ -172,6 +234,13 @@ func bsParseUnit(unit any) map[string]any {
 		"enhancement_points":   enhancementPoints,
 		"wargear":              wargear,
 	}
+	if leaderAttachment != nil {
+		result["leader_attachment"] = leaderAttachment
+	}
+	if len(loadoutGroups) > 0 {
+		result["loadout_groups"] = loadoutGroups
+	}
+	return result
 }
 
 func bsConfigValue(selections []any, configName string) any {

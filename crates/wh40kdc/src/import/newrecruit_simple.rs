@@ -27,7 +27,7 @@ use serde_json::Value;
 
 use super::adapter::{FormatAdapter, ParseError};
 use super::newrecruit_text::{classify_wargear_list, split_wargear_list, strip_parenthetical};
-use super::types::{ParsedRoster, ParsedUnit, ParsedWargear, RosterFormat};
+use super::types::{ParsedLoadoutGroup, ParsedRoster, ParsedUnit, ParsedWargear, RosterFormat};
 
 // Point brackets may carry comma-separated faction resources after the pts
 // figure (e.g. `[4485pts, 29Cabal Points]`); the `(?:,[^\]]*)?` tail is
@@ -54,17 +54,26 @@ static RE_BULLET: Lazy<Regex> = Lazy::new(|| {
     )
     .unwrap()
 });
+static RE_ATTACHMENT_TOKEN: Lazy<Regex> = Lazy::new(|| {
+    Regex::new(r"(?i)^Attachment:\s*(leader|support)\s*->\s*(.+?)(\s+\[provisional\])?$").unwrap()
+});
+static RE_UNIT_TOTAL_PREFIX: Lazy<Regex> =
+    Lazy::new(|| Regex::new(r"(?i)^Unit total:\s*").unwrap());
 
 #[derive(Default)]
 struct UnitBuilder {
     raw_name: String,
     is_character: bool,
     is_warlord: bool,
+    keyword_overrides: Vec<String>,
     enhancement_raw_name: Option<String>,
-    enhancement_pts: u64,
+    enhancement_pts: Option<u64>,
     displayed_pts: Option<u64>,
     model_count: u64,
     wargear: Vec<(String, u64)>,
+    saw_bullet: bool,
+    leader_attachment: Option<super::types::ParsedLeaderAttachment>,
+    loadout_groups: Vec<ParsedLoadoutGroup>,
 }
 
 impl UnitBuilder {
@@ -87,41 +96,64 @@ impl UnitBuilder {
         }
     }
 
-    fn apply_tokens(&mut self, tokens_csv: &str, multiplier: u64) {
-        let tokens: Vec<&str> = split_wargear_list(tokens_csv);
-        let cls = classify_wargear_list(&tokens);
+    fn apply_tokens(&mut self, tokens_csv: &str, multiplier: u64) -> Vec<ParsedWargear> {
+        let mut wargear_tokens = Vec::new();
+        for token in split_wargear_list(tokens_csv) {
+            if let Some(c) = RE_ATTACHMENT_TOKEN.captures(token) {
+                let role = match &c[1].to_ascii_lowercase()[..] {
+                    "leader" => super::types::AttachmentRole::Leader,
+                    _ => super::types::AttachmentRole::Support,
+                };
+                self.leader_attachment = Some(super::types::ParsedLeaderAttachment {
+                    role,
+                    bodyguard_raw_name: c[2].trim().to_string(),
+                    provisional: c.get(3).is_some(),
+                });
+            } else {
+                wargear_tokens.push(token);
+            }
+        }
+        let cls = classify_wargear_list(&wargear_tokens);
         if cls.is_warlord {
             self.is_warlord = true;
         }
         if cls.is_character {
             self.is_character = true;
         }
+        for keyword in cls.keyword_overrides {
+            if !self
+                .keyword_overrides
+                .iter()
+                .any(|existing| existing == &keyword)
+            {
+                self.keyword_overrides.push(keyword);
+            }
+        }
         if let Some(name) = cls.enhancement_raw_name {
             if self.enhancement_raw_name.is_none() {
                 self.enhancement_raw_name = Some(name);
-                self.enhancement_pts = cls.enhancement_points.unwrap_or(0);
+                self.enhancement_pts = cls.enhancement_points;
             }
         }
-        let scaled: Vec<ParsedWargear> = cls
-            .wargear
-            .into_iter()
-            .map(|w| ParsedWargear {
-                raw_name: w.raw_name,
-                count: w.count * multiplier,
-            })
-            .collect();
-        self.add_wargear(scaled);
+        let wargear = cls.wargear;
+        self.add_wargear(
+            wargear
+                .iter()
+                .cloned()
+                .map(|mut item| {
+                    item.count *= multiplier;
+                    item
+                })
+                .collect(),
+        );
+        wargear
     }
 
-    fn finish(self) -> (ParsedUnit, u64) {
+    fn finish(self) -> (ParsedUnit, Option<u64>) {
         let points = self
             .displayed_pts
-            .map(|p| p.saturating_sub(self.enhancement_pts));
-        let enhancement_points = if self.enhancement_raw_name.is_some() {
-            Some(self.enhancement_pts)
-        } else {
-            None
-        };
+            .map(|p| p.saturating_sub(self.enhancement_pts.unwrap_or(0)));
+        let enhancement_points = self.enhancement_raw_name.as_ref().and(self.enhancement_pts);
         let wargear: Vec<ParsedWargear> = self
             .wargear
             .into_iter()
@@ -132,12 +164,15 @@ impl UnitBuilder {
                 raw_name: self.raw_name,
                 is_character: self.is_character,
                 model_count: self.model_count,
+                keyword_overrides: (!self.keyword_overrides.is_empty())
+                    .then_some(self.keyword_overrides),
                 points,
                 is_warlord: self.is_warlord,
                 enhancement_raw_name: self.enhancement_raw_name,
                 enhancement_points,
                 wargear,
-                leader_attachment: None,
+                loadout_groups: (!self.loadout_groups.is_empty()).then_some(self.loadout_groups),
+                leader_attachment: Some(self.leader_attachment),
             },
             self.enhancement_pts,
         )
@@ -213,24 +248,25 @@ impl FormatAdapter for NewRecruitSimpleAdapter {
             .ok_or_else(|| ParseError("newrecruit-simple: input is not a string".into()))?;
 
         let mut name = String::from("Imported roster");
-        let mut faction_raw_name: Option<String> = None;
-        let mut declared_limit: Option<u64> = None;
-        let mut total_reported: Option<u64> = None;
-        let mut detachment_raw_name: Option<String> = None;
-        let mut battle_size_raw: Option<String> = None;
-        let mut units: Vec<ParsedUnit> = Vec::new();
-        let mut enhancement_pts: Vec<u64> = Vec::new();
-        let mut current: Option<UnitBuilder> = None;
+        let mut faction_raw_name = None;
+        let mut declared_limit = None;
+        let mut total_reported = None;
+        let mut detachment_raw_names = Vec::new();
+        let mut battle_size_raw = None;
+        let mut force_disposition_raw_name = None;
+        let mut units = Vec::new();
+        let mut enhancement_pts = Vec::new();
+        let mut current = None;
         let mut multi_force = false;
         let mut section = Section::Preamble;
 
         let finalize = |current: &mut Option<UnitBuilder>,
                         units: &mut Vec<ParsedUnit>,
-                        enhancement_pts: &mut Vec<u64>| {
-            if let Some(b) = current.take() {
-                let (u, pts) = b.finish();
-                enhancement_pts.push(pts);
-                units.push(u);
+                        enhancement_pts: &mut Vec<Option<u64>>| {
+            if let Some(builder) = current.take() {
+                let (unit, points) = builder.finish();
+                enhancement_pts.push(points);
+                units.push(unit);
             }
         };
 
@@ -240,7 +276,6 @@ impl FormatAdapter for NewRecruitSimpleAdapter {
             if line.is_empty() {
                 continue;
             }
-
             if section == Section::Preamble && name == "Imported roster" {
                 if let Some(first) = parse_first_line(line) {
                     name = first.name;
@@ -249,98 +284,100 @@ impl FormatAdapter for NewRecruitSimpleAdapter {
                     continue;
                 }
             }
-
-            if let Some(c) = RE_ROSTER_HEADER.captures(line) {
-                total_reported = c[1].parse().ok();
+            if let Some(captures) = RE_ROSTER_HEADER.captures(line) {
+                total_reported = captures[1].parse().ok();
                 continue;
             }
-
-            if let Some(c) = RE_SECTION_HEADER.captures(line) {
+            if let Some(captures) = RE_SECTION_HEADER.captures(line) {
                 finalize(&mut current, &mut units, &mut enhancement_pts);
-                let heading = c[1].trim().to_ascii_lowercase();
+                let heading = captures[1].trim().to_ascii_lowercase();
                 if heading == "configuration" {
                     section = Section::Configuration;
                 } else {
                     section = Section::Units;
-                    if heading.contains("allied") {
-                        multi_force = true;
-                    }
+                    multi_force |= heading.contains("allied");
                 }
                 continue;
             }
-
             if section == Section::Configuration {
-                // Some exports list units directly after Configuration with no
-                // units section heading; a `Name [N pts]` line ends the
-                // configuration block and is processed as a unit below.
                 if RE_UNIT_LINE.is_match(line) {
                     section = Section::Units;
                 } else {
-                    if let Some(idx) = line.find(':') {
-                        if idx > 0 {
-                            let key = line[..idx].trim().to_ascii_lowercase();
-                            let value = line[idx + 1..].trim();
-                            if key == "battle size" {
-                                battle_size_raw = Some(value.to_string());
-                            } else if key == "detachment" {
-                                // Parenthetical suffixes ("(3 Detachment Points)")
-                                // are presentation, not part of the name — same
-                                // strip as the WTC header.
-                                detachment_raw_name = Some(strip_parenthetical(value).to_string());
+                    if let Some(index) = line.find(':').filter(|index| *index > 0) {
+                        let key = line[..index].trim().to_ascii_lowercase();
+                        let value = line[index + 1..].trim();
+                        match key.as_str() {
+                            "battle size" => battle_size_raw = Some(value.to_string()),
+                            "list name" => name = value.to_string(),
+                            "faction" => faction_raw_name = Some(value.to_string()),
+                            "force disposition" => {
+                                force_disposition_raw_name = Some(value.to_string())
                             }
+                            "detachment" => {
+                                detachment_raw_names.push(strip_parenthetical(value).to_string())
+                            }
+                            _ => {}
                         }
                     }
                     continue;
                 }
             }
-
-            // Unit section.
-            if let Some(c) = RE_BULLET.captures(raw) {
-                if let Some(b) = current.as_mut() {
-                    let count: u64 = c[1].parse().unwrap_or(0);
-                    if b.wargear.is_empty() && b.model_count == 1 {
-                        b.model_count = count;
+            if let Some(captures) = RE_BULLET.captures(raw) {
+                if let Some(builder) = current.as_mut() {
+                    let count = captures[1].parse().unwrap_or(0);
+                    if !builder.saw_bullet {
+                        builder.model_count = count;
+                        builder.saw_bullet = true;
                     } else {
-                        b.model_count += count;
+                        builder.model_count += count;
                     }
-                    if let Some(m) = c.get(4) {
-                        b.apply_tokens(m.as_str(), count);
+                    if let Some(wargear_text) = captures.get(4) {
+                        let text = wargear_text.as_str();
+                        let unit_total = RE_UNIT_TOTAL_PREFIX.is_match(text);
+                        let group_wargear = builder.apply_tokens(
+                            RE_UNIT_TOTAL_PREFIX.replace(text, "").as_ref(),
+                            if unit_total { 1 } else { count },
+                        );
+                        if !unit_total {
+                            builder.loadout_groups.push(ParsedLoadoutGroup {
+                                model_name: Some(captures[2].trim().to_string()),
+                                count,
+                                wargear: group_wargear,
+                            });
+                        }
                     }
                     continue;
                 }
             }
-
-            if let Some(c) = RE_UNIT_LINE.captures(line) {
+            if let Some(captures) = RE_UNIT_LINE.captures(line) {
                 finalize(&mut current, &mut units, &mut enhancement_pts);
-                let unit_name = c[1].trim().to_string();
-                let pts: u64 = c[2].parse().unwrap_or(0);
-                let mut builder = UnitBuilder::new(unit_name, Some(pts));
-                if let Some(inline) = c.get(3) {
-                    let inline = inline.as_str().trim();
+                let mut builder =
+                    UnitBuilder::new(captures[1].trim().to_string(), captures[2].parse().ok());
+                if let Some(inline) = captures.get(3).map(|value| value.as_str().trim()) {
                     if !inline.is_empty() {
                         builder.apply_tokens(inline, 1);
                     }
                 }
                 current = Some(builder);
-                continue;
             }
         }
         finalize(&mut current, &mut units, &mut enhancement_pts);
 
-        let mut total_computed: u64 = 0;
-        for (i, u) in units.iter().enumerate() {
-            total_computed += u.points.unwrap_or(0);
-            total_computed += enhancement_pts.get(i).copied().unwrap_or(0);
-        }
-
+        let total_computed =
+            units
+                .iter()
+                .zip(enhancement_pts)
+                .fold(0, |total, (unit, enhancement)| {
+                    total + unit.points.unwrap_or(0) + enhancement.unwrap_or(0)
+                });
         Ok(ParsedRoster {
             name,
             generated_by: None,
             faction_raw_name,
-            detachment_raw_names: detachment_raw_name.into_iter().collect(),
+            detachment_raw_names,
             battle_size_raw,
             force_disposition: None,
-            force_disposition_raw_name: None,
+            force_disposition_raw_name: Some(force_disposition_raw_name),
             declared_limit,
             total_reported,
             total_computed,

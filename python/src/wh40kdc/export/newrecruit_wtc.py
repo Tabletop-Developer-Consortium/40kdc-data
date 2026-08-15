@@ -23,6 +23,7 @@ from collections.abc import Callable
 from wh40kdc.export.helpers import (
     Roster,
     RosterUnit,
+    attachment_token,
     char_slot_assignment,
     coarsened_loadout_groups,
     displayed_unit_points,
@@ -34,6 +35,13 @@ from wh40kdc.export.helpers import (
 _FENCE = "+++++++++++++++++++++++++++++++++++++++++++++++"
 
 
+def _keyword_tokens(unit: RosterUnit) -> list[str]:
+    return [
+        "Detachment Character" if keyword == "Character" else f"40kdc Keyword: {keyword}"
+        for keyword in unit.get("keyword_overrides") or []
+    ]
+
+
 def _wargear_list_text(unit: RosterUnit, include_warlord_tag: bool) -> str:
     parts: list[str] = []
     for w in unit["wargear"]:
@@ -41,6 +49,7 @@ def _wargear_list_text(unit: RosterUnit, include_warlord_tag: bool) -> str:
         parts.append(f"{w['count']}x {raw_name}" if w["count"] > 1 else raw_name)
     if include_warlord_tag and unit.get("is_warlord"):
         parts.append("Warlord")
+    parts.extend(_keyword_tokens(unit))
     return ", ".join(parts)
 
 
@@ -48,12 +57,9 @@ def _header(roster: Roster, units: list[RosterUnit], char_slots: list[int | None
     faction = title_case_id(roster.get("faction_id"))
     if faction is None:
         faction = "Unknown"
-    detachments = roster["detachments"]
-    detachment = (
-        ", ".join(title_case_id(d["ref"]["id"]) or d["ref"]["raw_name"] for d in detachments)
-        if detachments
-        else None
-    )
+    detachment_lines = [f"+ DETACHMENT: {d['ref']['raw_name']}" for d in roster["detachments"]] or [
+        "+ DETACHMENT: —"
+    ]
     points = roster["points"]
     limit = points.get("declared_limit")
     if limit is None:
@@ -80,7 +86,7 @@ def _header(roster: Roster, units: list[RosterUnit], char_slots: list[int | None
         _FENCE,
         f"+ LIST NAME: {roster['name']}",
         f"+ FACTION KEYWORD: {faction}",
-        f"+ DETACHMENT: {detachment if detachment is not None else '—'}",
+        *detachment_lines,
     ]
     disposition = title_case_id(roster.get("force_disposition"))
     if disposition is not None:
@@ -113,12 +119,34 @@ def wtc_compact_body_lines(units: list[RosterUnit], slots: list[int | None]) -> 
         prefix = f"Char{slots[i]}: " if slots[i] is not None else ""
         pts = displayed_unit_points(u)
         pts_text = "" if pts is None else f"{pts} pts"
+        exact_groups = _exact_group_lines(u)
         lines.append(
             f"{prefix}{u['model_count']}x {u['ref']['raw_name']} ({pts_text}): "
-            f"{_wargear_list_text(u, True)}"
+            f"{'' if exact_groups else _wargear_list_text(u, True)}"
         )
+        if exact_groups:
+            lines.extend(exact_groups)
+        attachment = attachment_token(u)
+        if attachment:
+            lines.append(attachment)
         if u.get("enhancement"):
             lines.append(_enhancement_line(u))
+    return lines
+
+
+def _exact_group_lines(unit: RosterUnit) -> list[str] | None:
+    groups = unit.get("loadout_groups")
+    if not groups or any(g.get("model_name") is None for g in groups):
+        return None
+    lines: list[str] = []
+    for i, group in enumerate(groups):
+        tags = [
+            *(["Warlord"] if unit.get("is_warlord") and i == 0 else []),
+            *(_keyword_tokens(unit) if i == 0 else []),
+        ]
+        weapons = group_weapons_text(group["wargear"])
+        contents = ", ".join(part for part in [weapons, *tags] if part)
+        lines.append(f"• {group['count']}x {group['model_name']}: {contents}")
     return lines
 
 
@@ -144,6 +172,7 @@ def _multi_model_with_line(u: RosterUnit) -> str:
         per_model = [s for s in per_model if s != ""]
         if u.get("is_warlord"):
             per_model.append("Warlord")
+        per_model.extend(_keyword_tokens(u))
         return f"{model_count} with {', '.join(per_model)}"
     return f"1 with {_wargear_list_text(u, True)}"
 
@@ -154,13 +183,20 @@ def wtc_model_lines(u: RosterUnit) -> list[str]:
     loadout) emits one line per loadout; everything else keeps the existing
     single-line form, so uniform units render byte-identically to before. Mirror of
     the TS ``wtcModelLines``."""
+    exact_groups = _exact_group_lines(u)
+    if exact_groups:
+        return exact_groups
     if u["model_count"] > 1:
         coarse = coarsened_loadout_groups(u)
         if coarse and len(coarse) > 1:
             lines = []
             for i, c in enumerate(coarse):
-                tag = ", Warlord" if u.get("is_warlord") and i == 0 else ""
-                lines.append(f"{c['count']} with {group_weapons_text(c['wargear'])}{tag}")
+                tags = [
+                    *(["Warlord"] if u.get("is_warlord") and i == 0 else []),
+                    *(_keyword_tokens(u) if i == 0 else []),
+                ]
+                suffix = f", {', '.join(tags)}" if tags else ""
+                lines.append(f"{c['count']} with {group_weapons_text(c['wargear'])}{suffix}")
             return lines
         return [_multi_model_with_line(u)]
     return [f"1 with {_wargear_list_text(u, True)}"]
@@ -169,7 +205,8 @@ def wtc_model_lines(u: RosterUnit) -> list[str]:
 def full_body_lines(
     units: list[RosterUnit],
     slots: list[int | None],
-    model_lines: Callable[[RosterUnit], list[str]] = wtc_model_lines,
+    faction_id: str | None,
+    model_lines: Callable[[RosterUnit], list[str]],
 ) -> list[str]:
     """The shared full-body scaffold: the ``BATTLELINE`` section, ``CharN:``
     prefixes, the unit header line, the per-model lines (supplied by ``model_lines``
@@ -178,6 +215,7 @@ def full_body_lines(
 
     The Roster doesn't tag allied units per-unit (the multi-force fact is a
     diagnostic warning), so this collapses to one BATTLELINE section."""
+    del faction_id
     lines = ["", "BATTLELINE", ""]
     for i, u in enumerate(units):
         prefix = f"Char{slots[i]}: " if slots[i] is not None else ""
@@ -185,18 +223,28 @@ def full_body_lines(
         pts_text = "" if pts is None else f"{pts} pts"
         lines.append(f"{prefix}{u['model_count']}x {u['ref']['raw_name']} ({pts_text})")
         lines.extend(model_lines(u))
+        attachment = attachment_token(u)
+        if attachment:
+            lines.append(attachment)
         if u.get("enhancement"):
             lines.append(_enhancement_line(u))
         lines.append("")
     return lines
 
 
-def wtc_full_body_lines(units: list[RosterUnit], slots: list[int | None]) -> list[str]:
+def wtc_full_body_lines(
+    units: list[RosterUnit], slots: list[int | None], faction_id: str | None
+) -> list[str]:
     """The full WTC body: :func:`full_body_lines` with the WTC per-model rendering."""
-    return full_body_lines(units, slots, wtc_model_lines)
+    return full_body_lines(units, slots, faction_id, wtc_model_lines)
 
 
 def serialize_newrecruit_wtc_full(roster: Roster) -> str:
     units = roster["units"]
     slots = char_slot_assignment(units)
-    return "\n".join([_header(roster, units, slots), *wtc_full_body_lines(units, slots)])
+    return "\n".join(
+        [
+            _header(roster, units, slots),
+            *wtc_full_body_lines(units, slots, roster.get("faction_id")),
+        ]
+    )

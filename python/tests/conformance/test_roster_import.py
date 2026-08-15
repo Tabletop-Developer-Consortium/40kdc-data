@@ -17,7 +17,11 @@ from typing import Any
 
 import pytest
 
+from wh40kdc.data.bundle import empty_raw_data
+from wh40kdc.data.dataset import Dataset
 from wh40kdc.imports import ADAPTERS, import_roster, select_adapter, try_import_roster
+from wh40kdc.imports.resolve import resolve
+from wh40kdc.imports.rosterizer import rosterizer_adapter
 
 from ..conftest import CORPUS
 
@@ -41,6 +45,8 @@ def _is_canonical(inputs: list[str], filename: str) -> bool:
     if filename == "input.newrecruit-wtc-full.txt":
         return "input.newrecruit-json.json" not in inputs
     return filename in _CANONICAL_SEEDS
+
+
 _NEWRECRUIT_INPUT = re.compile(r"^input\.(newrecruit-[a-z-]+)\.[a-z]+$")
 
 
@@ -155,3 +161,137 @@ def test_adapter_disjointness(dataset: Any) -> None:
             decoded = _decoded_input(case_dir, filename)
             matched = [a.id for a in ADAPTERS if a.matches(decoded)]
             assert len(matched) == 1, f"{case} {filename}: matched {matched}"
+
+
+def test_rosterizer_parses_attachment_keywords_and_per_model_counts() -> None:
+    payload = {
+        "rulebook": {"name": "Fabricated Rulebook"},
+        "snapshot": {
+            "item": "Roster§Fabricated Roster",
+            "assets": {
+                "included": [
+                    {"item": "Faction§Fabricated Faction"},
+                    {
+                        "item": "Unit§Guide",
+                        "quantity": 1,
+                        "assets": {
+                            "included": [
+                                {
+                                    "item": (
+                                        "Attachment§Attachment: leader -> Fabricated Squad "
+                                        "[provisional]"
+                                    )
+                                },
+                                {"item": "Weapon§Tool", "quantity": 1},
+                            ],
+                            "traits": [{"item": "40kdc Keyword§Character"}],
+                        },
+                    },
+                    {
+                        "item": "Unit§Fabricated Squad",
+                        "quantity": 1,
+                        "assets": {
+                            "included": [
+                                {
+                                    "item": "Model§Trooper",
+                                    "quantity": 6,
+                                    "assets": {
+                                        "included": [{"item": "Weapon§Rifle", "quantity": 6}]
+                                    },
+                                },
+                                {
+                                    "item": "Model§Sergeant",
+                                    "quantity": 1,
+                                    "assets": {
+                                        "included": [{"item": "Weapon§Sidearm", "quantity": 1}]
+                                    },
+                                },
+                            ]
+                        },
+                    },
+                ]
+            },
+        },
+    }
+    parsed = rosterizer_adapter.parse(payload)
+    guide, squad = parsed["units"]
+
+    assert guide["is_character"] is True
+    assert guide["keyword_overrides"] == ["Character"]
+    assert guide["leader_attachment"] == {
+        "role": "leader",
+        "bodyguard_raw_name": "Fabricated Squad",
+        "provisional": True,
+    }
+    assert squad["model_count"] == 7
+    assert squad["loadout_groups"] == [
+        {"model_name": "Trooper", "count": 6, "wargear": [{"raw_name": "Rifle", "count": 1}]},
+        {"model_name": "Sergeant", "count": 1, "wargear": [{"raw_name": "Sidearm", "count": 1}]},
+    ]
+
+
+def test_resolver_handles_source_aliases_profile_names_abilities_and_all_parts() -> None:
+    raw = empty_raw_data()
+    raw["factions"] = [{"id": "fabricated", "name": "Fabricated Faction"}]
+    raw["units"] = [
+        {
+            "id": "fabricated-squad",
+            "name": "Fabricated Squad",
+            "faction_id": "fabricated",
+            "weapon_ids": ["kombi-weapon"],
+            "ability_ids": ["special-ritual"],
+        }
+    ]
+    raw["weapons"] = [
+        {
+            "id": "kombi-weapon",
+            "name": "Kombi-weapon",
+            "faction_id": "fabricated",
+            "profiles": [],
+        }
+    ]
+    raw["abilities"] = [
+        {"ability_id": "special-ritual", "name": "Special Ritual", "faction_id": "fabricated"}
+    ]
+    raw["unit_compositions"] = [
+        {
+            "unit_id": "fabricated-squad",
+            "faction_id": "fabricated",
+            "models": [{"profile_name": "Runner Profile", "min": 2, "max": 2}],
+        }
+    ]
+    parsed = {
+        "name": "Fabricated roster",
+        "generated_by": None,
+        "faction_raw_name": "Fabricated Faction",
+        "detachment_raw_names": [],
+        "force_disposition_raw_name": None,
+        "battle_size_raw": None,
+        "declared_limit": None,
+        "total_reported": 0,
+        "total_computed": 0,
+        "units": [
+            {
+                "raw_name": "Fabricated Squad",
+                "is_character": False,
+                "model_count": 1,
+                "points": 0,
+                "is_warlord": False,
+                "enhancement_raw_name": None,
+                "enhancement_points": None,
+                "wargear": [
+                    {"raw_name": "Runner Profile", "count": 2},
+                    {"raw_name": "Kombi rokkit and Special Ritual", "count": 2},
+                ],
+                "leader_attachment": None,
+            }
+        ],
+    }
+
+    roster = resolve(parsed, Dataset(raw))
+    unit = roster["units"][0]
+    assert unit["model_count"] == 2
+    assert [(item["ref"]["id"], item["count"]) for item in unit["wargear"]] == [
+        ("kombi-weapon", 2),
+        ("special-ritual", 1),
+    ]

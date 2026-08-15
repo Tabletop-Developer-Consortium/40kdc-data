@@ -20,13 +20,16 @@ func bsParse(decoded any, primaryFromCatalogue bool) (map[string]any, error) {
 		return nil, errors.New("payload has no roster.forces array")
 	}
 	var detachmentRawNames []string
-	var battleSizeRaw any
+	var battleSizeRaw, forceDispositionRaw any
 	units := []any{}
 	for _, force := range asArrayOf(roster["forces"]) {
 		top := childSelections(force)
 		detachmentRawNames = append(detachmentRawNames, bsConfigValues(top, "Detachment")...)
 		if battleSizeRaw == nil {
 			battleSizeRaw = bsConfigValue(top, "Battle Size")
+		}
+		if primaryFromCatalogue && forceDispositionRaw == nil {
+			forceDispositionRaw = bsConfigValue(top, "Force Disposition")
 		}
 		for _, sel := range top {
 			if isUnitSelection(sel) {
@@ -61,7 +64,7 @@ func bsParse(decoded any, primaryFromCatalogue bool) (map[string]any, error) {
 	if detachmentRawNames == nil {
 		detachmentRawNames = []string{}
 	}
-	return map[string]any{
+	result := map[string]any{
 		"name":                 name,
 		"generated_by":         generatedBy,
 		"faction_raw_name":     factionRaw,
@@ -72,7 +75,11 @@ func bsParse(decoded any, primaryFromCatalogue bool) (map[string]any, error) {
 		"total_computed":       totalComputedOf(roster),
 		"units":                units,
 		"multi_force":          len(factions) > 1,
-	}, nil
+	}
+	if primaryFromCatalogue {
+		result["force_disposition_raw_name"] = forceDispositionRaw
+	}
+	return result, nil
 }
 
 func primaryFactionFromCatalogue(forces []any) any {

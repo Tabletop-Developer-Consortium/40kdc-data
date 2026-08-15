@@ -24,7 +24,7 @@
 use serde_json::Value;
 
 use super::adapter::{FormatAdapter, ParseError};
-use super::types::{ParsedRoster, ParsedUnit, ParsedWargear, RosterFormat};
+use super::types::{ParsedLoadoutGroup, ParsedRoster, ParsedUnit, ParsedWargear, RosterFormat};
 
 // --- 40K rulebook Classification§Designation conventions. -----------------
 
@@ -35,6 +35,7 @@ const CLS_SQUAD: &str = "Squad";
 const CLS_WEAPON: &str = "Weapon";
 const CLS_ENHANCEMENT: &str = "Enhancement";
 const CLS_BATTLE_SIZE: &str = "Battle Size";
+const CLS_FORCE_DISPOSITION: &str = "Force Disposition";
 const CLS_TRAIT: &str = "Trait";
 const DSG_WARLORD: &str = "Warlord";
 const CHAR_CLASSIFICATIONS: [&str; 2] = ["Character", "Epic Hero"];
@@ -188,6 +189,36 @@ fn model_count(unit: &Value) -> u64 {
     }
 }
 
+fn model_groups(unit: &Value) -> Option<Vec<ParsedLoadoutGroup>> {
+    let mut groups = Vec::new();
+    for child in included(unit) {
+        if split_item(child).0 != "Model" {
+            continue;
+        }
+        let count = quantity(child);
+        let mut wargear = Vec::new();
+        walk(child, &mut |asset| {
+            if is_weapon_asset(asset) {
+                let quantity = quantity(asset);
+                wargear.push(ParsedWargear {
+                    raw_name: display_name(asset),
+                    count: if count > 0 && quantity % count == 0 {
+                        quantity / count
+                    } else {
+                        quantity
+                    },
+                });
+            }
+        });
+        groups.push(ParsedLoadoutGroup {
+            model_name: Some(display_name(child)),
+            count,
+            wargear,
+        });
+    }
+    (!groups.is_empty()).then_some(groups)
+}
+
 fn parse_unit(unit: &Value) -> ParsedUnit {
     let mut wargear: Vec<ParsedWargear> = Vec::new();
     let mut enhancement_raw_name: Option<String> = None;
@@ -222,12 +253,14 @@ fn parse_unit(unit: &Value) -> ParsedUnit {
     ParsedUnit {
         raw_name: display_name(unit),
         is_character: is_character_asset(unit),
+        keyword_overrides: None,
         model_count: model_count(unit),
         points: points_of(unit),
         is_warlord,
         enhancement_raw_name,
         enhancement_points,
         wargear,
+        loadout_groups: model_groups(unit),
         leader_attachment: None,
     }
 }
@@ -336,6 +369,7 @@ impl FormatAdapter for RosterizerAdapter {
         let mut faction_raw_name: Option<String> = None;
         let mut detachment_raw_names: Vec<String> = Vec::new();
         let mut battle_size_raw: Option<String> = None;
+        let mut force_disposition_raw_name: Option<String> = None;
         let mut factions: Vec<String> = Vec::new();
         walk(root, &mut |a| {
             let cls = class_of(a);
@@ -349,6 +383,10 @@ impl FormatAdapter for RosterizerAdapter {
                 }
             } else if cls == CLS_DETACHMENT {
                 detachment_raw_names.push(display_name(a));
+            } else if cls == CLS_FORCE_DISPOSITION {
+                if force_disposition_raw_name.is_none() {
+                    force_disposition_raw_name = Some(display_name(a));
+                }
             } else if cls == CLS_BATTLE_SIZE {
                 if battle_size_raw.is_none() {
                     battle_size_raw = Some(display_name(a));
@@ -389,7 +427,7 @@ impl FormatAdapter for RosterizerAdapter {
             detachment_raw_names,
             battle_size_raw: battle_size_raw.clone(),
             force_disposition: None,
-            force_disposition_raw_name: None,
+            force_disposition_raw_name: Some(force_disposition_raw_name),
             declared_limit: parse_limit(battle_size_raw.as_deref()),
             total_reported,
             total_computed,

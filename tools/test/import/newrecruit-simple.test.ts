@@ -152,4 +152,58 @@ Broadside Battlesuits [90pts]:
     expect(gear["Shield Drone"]).toBe(2);
     expect(gear["Heavy rail rifle"]).toBe(1);
   });
+
+  it("preserves explicit empty breakdown groups while retaining aggregate Unit total wargear", () => {
+    const roster = `Fabricated - Test Faction - Empty Groups - [100 pts]
+
+## Battleline [100 pts]
+Empty First [10 pts]:
+• 1x First Body: 
+• 2x Second Body: Fabricated tool
+Empty Middle [10 pts]:
+• 1x First Body: Fabricated tool
+• 2x Middle Body: 
+• 1x Last Body: Fabricated tool
+All Empty [10 pts]:
+• 1x First Body: 
+• 2x Second Body: 
+Unit Total [10 pts]:
+• 3x Aggregate Body: Unit total: Squad-wide fabricated tool
+`;
+
+    const parsed = newRecruitSimpleAdapter.parse(roster);
+    const [emptyFirst, emptyMiddle, allEmpty, unitTotal] = parsed.units;
+
+    expect(emptyFirst.model_count).toBe(3);
+    expect(emptyFirst.loadout_groups).toEqual([
+      { model_name: "First Body", count: 1, wargear: [] },
+      {
+        model_name: "Second Body",
+        count: 2,
+        wargear: [{ raw_name: "Fabricated tool", count: 1 }],
+      },
+    ]);
+    expect(emptyFirst.wargear).toEqual([{ raw_name: "Fabricated tool", count: 2 }]);
+
+    expect(emptyMiddle.model_count).toBe(4);
+    expect(emptyMiddle.loadout_groups?.map((group) => group.wargear)).toEqual([
+      [{ raw_name: "Fabricated tool", count: 1 }],
+      [],
+      [{ raw_name: "Fabricated tool", count: 1 }],
+    ]);
+    expect(emptyMiddle.wargear).toEqual([{ raw_name: "Fabricated tool", count: 2 }]);
+
+    expect(allEmpty.model_count).toBe(3);
+    expect(allEmpty.loadout_groups).toEqual([
+      { model_name: "First Body", count: 1, wargear: [] },
+      { model_name: "Second Body", count: 2, wargear: [] },
+    ]);
+    expect(allEmpty.wargear).toEqual([]);
+
+    expect(unitTotal.model_count).toBe(3);
+    expect(unitTotal.loadout_groups).toBeUndefined();
+    expect(unitTotal.wargear).toEqual([
+      { raw_name: "Squad-wide fabricated tool", count: 1 },
+    ]);
+  });
 });

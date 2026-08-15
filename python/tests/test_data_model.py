@@ -14,9 +14,7 @@ import pytest
 
 
 def test_deduplicates_abilities_by_faction_and_id(dataset: Any) -> None:
-    keys = [
-        f"{a.raw.get('faction_id') or ''}::{a.id}" for a in dataset.abilities.all
-    ]
+    keys = [f"{a.raw.get('faction_id') or ''}::{a.id}" for a in dataset.abilities.all]
     assert len(set(keys)) == len(keys)
     idols = [a for a in dataset.abilities.all if a.id == "idol-of-blessed-blood"]
     assert len(idols) == 2, "both factions' idol-of-blessed-blood copies survive dedupe"
@@ -29,9 +27,7 @@ def test_resolves_shared_ability_id_to_units_own_factions_copy(dataset: Any) -> 
     for faction in ("world-eaters", "chaos-space-marines"):
         unit = dataset.units.get_in_faction("khorne-lord-of-skulls", faction)
         assert unit is not None
-        idol = next(
-            (a for a in unit.abilities if a.id == "idol-of-blessed-blood"), None
-        )
+        idol = next((a for a in unit.abilities if a.id == "idol-of-blessed-blood"), None)
         assert idol is not None, f"idol-of-blessed-blood on {faction} lord of skulls"
         assert idol.raw.get("faction_id") == faction
 

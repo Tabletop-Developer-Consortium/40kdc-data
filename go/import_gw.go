@@ -11,6 +11,7 @@ import (
 
 var gwHeaderFaction = regexp.MustCompile(`(?i)^\+\s*FACTION KEYWORD:\s*(.+?)\s*$`)
 var gwHeaderDetachment = regexp.MustCompile(`(?i)^\+\s*DETACHMENT:\s*(.+?)\s*$`)
+var gwHeaderForceDisposition = regexp.MustCompile(`(?i)^\+\s*(?:FORCE DISPOSITION|DISPO):\s*(.+?)\s*$`)
 var gwHeaderTotalPoints = regexp.MustCompile(`(?i)^\+\s*TOTAL ARMY POINTS:\s*(\d+)\s*pts?\s*$`)
 var gwSectionHeader = regexp.MustCompile(`^[A-Z][A-Z0-9 \-/&]+$`)
 var gwUnitHeader = regexp.MustCompile(`(?i)^(.+?)\s*\(\s*(\d+)\s*pts?\s*\)\s*$`)
@@ -19,6 +20,9 @@ var gwNxPrefix = regexp.MustCompile(`^(\d+)x\s+(.+)$`)
 var gwEnhancementAnnot = regexp.MustCompile(`(?i)^(.+?)\s*\(\+\s*(\d+)\s*pts?\s*\)\s*$`)
 var gwWithLine = regexp.MustCompile(`(?m)^[\t ]*\d+\s+with\b`)
 var gwBullet = regexp.MustCompile(`(?m)^[\t ]*•`)
+var gwSerializedWtc = regexp.MustCompile(`(?im)^\+\s*LIST NAME:`)
+var gwWtcCompactUnit = regexp.MustCompile(`(?im)^(?:Char\d+:\s*)?\d+x\s+.+?\(\s*\d+\s*pts?\s*\)\s*:`)
+var gwEmbeddedAppBattleSize = regexp.MustCompile(`(?im)^\s*(?:Combat Patrol|Incursion|Strike Force|Onslaught)\s*\(\s*[\d.,]+\s*Points?\s*\)\s*$`)
 
 const gwFactionKeywordPrefix = "+ FACTION KEYWORD:"
 const gwAlliedSection = "ALLIED UNITS"
@@ -42,14 +46,14 @@ func isGwText(decoded any) (string, bool) {
 	if !gwBullet.MatchString(s) {
 		return "", false
 	}
-	if gwWithLine.MatchString(s) {
+	if gwWithLine.MatchString(s) || gwWtcCompactUnit.MatchString(s) || gwSerializedWtc.MatchString(s) || gwEmbeddedAppBattleSize.MatchString(s) {
 		return "", false
 	}
 	return s, true
 }
 
 func gwParseHeader(lines []string) (map[string]any, int, bool) {
-	var factionRaw, detachmentRaw, totalReported any
+	var factionRaw, detachmentRaw, forceDispositionRaw, totalReported any
 	fenceIndices := []int{}
 	for i, line := range lines {
 		if len(fenceIndices) >= 2 {
@@ -73,6 +77,10 @@ func gwParseHeader(lines []string) (map[string]any, int, bool) {
 			detachmentRaw = stripParenthetical(m[1])
 			continue
 		}
+		if m := gwHeaderForceDisposition.FindStringSubmatch(line); m != nil {
+			forceDispositionRaw = m[1]
+			continue
+		}
 		if m := gwHeaderTotalPoints.FindStringSubmatch(line); m != nil {
 			n, _ := strconv.Atoi(m[1])
 			totalReported = float64(n)
@@ -87,12 +95,13 @@ func gwParseHeader(lines []string) (map[string]any, int, bool) {
 	}
 	declaredLimit := totalReported
 	return map[string]any{
-		"name":                "Imported roster",
-		"faction_raw_name":    factionRaw,
-		"detachment_raw_name": detachmentRaw,
-		"total_reported":      totalReported,
-		"declared_limit":      declaredLimit,
-		"battle_size_raw":     inferBattleSizeRaw(declaredLimit),
+		"name":                       "Imported roster",
+		"faction_raw_name":           factionRaw,
+		"detachment_raw_name":        detachmentRaw,
+		"force_disposition_raw_name": forceDispositionRaw,
+		"total_reported":             totalReported,
+		"declared_limit":             declaredLimit,
+		"battle_size_raw":            inferBattleSizeRaw(declaredLimit),
 	}, bodyStart, true
 }
 
@@ -260,16 +269,17 @@ var gwAdapter = formatAdapter{
 			det = []any{s}
 		}
 		return map[string]any{
-			"name":                 header["name"],
-			"generated_by":         nil,
-			"faction_raw_name":     header["faction_raw_name"],
-			"detachment_raw_names": det,
-			"battle_size_raw":      header["battle_size_raw"],
-			"declared_limit":       header["declared_limit"],
-			"total_reported":       header["total_reported"],
-			"total_computed":       totalComputed,
-			"units":                mapsToAny(units),
-			"multi_force":          alliedUnits > 0,
+			"name":                       header["name"],
+			"generated_by":               nil,
+			"faction_raw_name":           header["faction_raw_name"],
+			"detachment_raw_names":       det,
+			"force_disposition_raw_name": header["force_disposition_raw_name"],
+			"battle_size_raw":            header["battle_size_raw"],
+			"declared_limit":             header["declared_limit"],
+			"total_reported":             header["total_reported"],
+			"total_computed":             totalComputed,
+			"units":                      mapsToAny(units),
+			"multi_force":                alliedUnits > 0,
 		}, nil
 	},
 }

@@ -61,14 +61,20 @@ def _parse(decoded: Any) -> dict[str, Any]:
 
     detachment_raw_names: list[str] = []
     battle_size_raw: str | None = None
+    force_disposition_raw_name: str | None = None
     units: list[dict[str, Any]] = []
     for _force, top in iter_force_tops(roster):
         detachment_raw_names.extend(config_values(top, "Detachment"))
         if battle_size_raw is None:
             battle_size_raw = config_value(top, "Battle Size")
+        if force_disposition_raw_name is None:
+            force_disposition_raw_name = config_value(top, "Force Disposition")
         for sel in top:
             if is_unit_selection(sel):
-                units.append(parse_unit(sel))
+                unit = parse_unit(sel)
+                unit.setdefault("keyword_overrides", [])
+                unit.setdefault("leader_attachment", None)
+                units.append(unit)
 
     forces = roster.get("forces") or []
     factions = collect_factions(forces)
@@ -88,6 +94,7 @@ def _parse(decoded: Any) -> dict[str, Any]:
         "generated_by": generated_by,
         "faction_raw_name": primary_faction,
         "detachment_raw_names": detachment_raw_names,
+        "force_disposition_raw_name": force_disposition_raw_name,
         "battle_size_raw": battle_size_raw,
         "declared_limit": parse_limit(battle_size_raw),
         "total_reported": total_reported,

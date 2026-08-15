@@ -230,6 +230,18 @@ func detachmentCap(battleSize any) any {
 	return nil
 }
 
+func lookupDetachment(ds *Dataset, detachmentID, factionID string) map[string]any {
+	if factionID != "" {
+		if detachment, ok := ds.Detachments.GetInFaction(detachmentID, factionID); ok {
+			return detachment.(map[string]any)
+		}
+	}
+	if detachment, ok := ds.Detachments.GetAny(detachmentID); ok {
+		return detachment.(map[string]any)
+	}
+	return nil
+}
+
 func resolveRoster(parsed map[string]any, ds *Dataset, format string) map[string]any {
 	diag := &diagBuilder{}
 	if parsed["multi_force"] == true {
@@ -244,8 +256,52 @@ func resolveRoster(parsed map[string]any, ds *Dataset, format string) map[string
 			diag.warn("faction-unresolved", "Faction name did not match any 40kdc faction.", fr)
 		}
 	}
+	if factionID == nil && getStr(parsed, "faction_raw_name") == "" {
+		// Metadata-free exports can still identify their army from unit names, but
+		// only let an exact faction-unique name contribute. A shared unit name
+		// (including aliases) is deliberately ignored, and a tied total remains
+		// unresolved.
+		counts := map[string]int{}
+		for _, parsedUnitAny := range getList(parsed, "units") {
+			rawName := getStr(parsedUnitAny.(map[string]any), "raw_name")
+			key := NormalizeName(rawName)
+			exactFactions := map[string]struct{}{}
+			for _, candidate := range ds.Units.FindAll(rawName) {
+				exact := NormalizeName(candidate.Name()) == key
+				if !exact {
+					for _, alias := range getStrList(candidate.Raw, "aliases") {
+						if NormalizeName(alias) == key {
+							exact = true
+							break
+						}
+					}
+				}
+				if exact {
+					if candidateFactionID := getStr(candidate.Raw, "faction_id"); candidateFactionID != "" {
+						exactFactions[candidateFactionID] = struct{}{}
+					}
+				}
+			}
+			if len(exactFactions) == 1 {
+				for inferredFactionID := range exactFactions {
+					counts[inferredFactionID]++
+				}
+			}
+		}
+		leaderID, leaderCount := "", 0
+		tied := false
+		for candidateFactionID, count := range counts {
+			if count > leaderCount {
+				leaderID, leaderCount, tied = candidateFactionID, count, false
+			} else if count == leaderCount {
+				tied = true
+			}
+		}
+		if leaderID != "" && !tied {
+			factionID = leaderID
+		}
+	}
 	factionIDStr, _ := factionID.(string)
-
 	resolveDetachment := func(rawName string) map[string]any {
 		key := NormalizeName(rawName)
 		var scoped map[string]any
@@ -325,7 +381,11 @@ func resolveRoster(parsed map[string]any, ds *Dataset, format string) map[string
 	forceDisposition := parsed["force_disposition"]
 	if forceDisposition == nil {
 		if raw, ok := parsed["force_disposition_raw_name"].(string); ok && raw != "" {
-			if hit, ok := ds.ForceDispositions.Find(raw); ok {
+			name := raw
+			if NormalizeName(name) == "recon" {
+				name = "Reconnaissance"
+			}
+			if hit, ok := ds.ForceDispositions.Find(name); ok {
 				forceDisposition = hit.(map[string]any)["id"]
 			} else {
 				diag.warn("disposition-unresolved", "Force Disposition name did not match any 40kdc disposition.", raw)
@@ -361,6 +421,65 @@ func resolveRoster(parsed map[string]any, ds *Dataset, format string) map[string
 	for _, puAny := range parsedUnits {
 		pu := puAny.(map[string]any)
 		units = append(units, resolveUnit(pu, factionIDStr, detachmentIDs, ds, diag))
+	}
+
+	if len(detachments) == 0 {
+		inferred := map[string]bool{}
+		for _, unitAny := range units {
+			unit, _ := asMap(unitAny)
+			enh, _ := asMap(unit["enhancement"])
+			if enhancementID, ok := enh["id"].(string); ok && enhancementID != "" {
+				if enhancementAny, ok := ds.Enhancements.GetAny(enhancementID); ok {
+					if detachmentID := getStr(enhancementAny.(map[string]any), "detachment_id"); detachmentID != "" {
+						inferred[detachmentID] = true
+					}
+				}
+			}
+		}
+		if len(inferred) == 1 {
+			for detachmentID := range inferred {
+				if detachment := lookupDetachment(ds, detachmentID, factionIDStr); detachment != nil {
+					detachments = append(detachments, map[string]any{
+						"ref": refResolved(detachmentID, getStr(detachment, "name")), "dp_cost": detachmentPointsOrNil(detachment),
+					})
+					detachmentIDs = append(detachmentIDs, detachmentID)
+				}
+			}
+		}
+	}
+	_, dispositionWasSpecified := parsed["force_disposition_raw_name"]
+	if forceDisposition == nil && dispositionWasSpecified && parsed["force_disposition_raw_name"] == nil && len(detachmentIDs) > 0 {
+		candidate := ""
+		unambiguous := true
+		for _, detachmentID := range detachmentIDs {
+			detachment := lookupDetachment(ds, detachmentID, factionIDStr)
+			dispositions := getStrList(detachment, "force_dispositions")
+			if len(dispositions) != 1 || (candidate != "" && candidate != dispositions[0]) {
+				unambiguous = false
+				break
+			}
+			candidate = dispositions[0]
+		}
+		if unambiguous && candidate != "" {
+			forceDisposition = candidate
+		}
+	}
+	if format == "gw" {
+		hasWarlord := false
+		for _, unitAny := range units {
+			if unitAny.(map[string]any)["is_warlord"] == true {
+				hasWarlord = true
+				break
+			}
+		}
+		if !hasWarlord {
+			for i, parsedUnitAny := range parsedUnits {
+				if parsedUnitAny.(map[string]any)["is_character"] == true {
+					units[i].(map[string]any)["is_warlord"] = true
+					break
+				}
+			}
+		}
 	}
 	applyLeaderAttachments(parsedUnits, units, ds, factionIDStr, diag)
 
@@ -602,6 +721,233 @@ func resolveUnit(parsed map[string]any, factionID string, detachmentIDs []string
 		}
 	}
 
+	var loadoutGroups []any
+	// Some selection-tree formats expose model groups containing only explicitly
+	// printed gear. Preserve fully enumerated source groups, but let the normal
+	// completion path reconstruct groups when legal implicit defaults are absent.
+	// A failed completion deliberately leaves the source groups intact: it must not
+	// turn an impossible optional combination into an invented legal loadout.
+	useParsedGroups := parsed["loadout_groups"] != nil
+	if useParsedGroups && hit != nil {
+		explicitCounts := map[string]int{}
+		allResolved := true
+		for _, itemAny := range wargear {
+			item, _ := asMap(itemAny)
+			id, ok := refOf(item)["id"].(string)
+			if !ok || id == "" {
+				allResolved = false
+				break
+			}
+			explicitCounts[id] += asInt(item["count"])
+		}
+		if allResolved {
+			models, _ := ds.unitCompositionOf(hit.Raw)
+			if completed := completeLoadout(hit.Raw, modelCount, ds.wargearOptionsOf(hit.Raw), models, explicitCounts); completed != nil {
+				if len(completed.counts) != len(explicitCounts) {
+					useParsedGroups = false
+				} else {
+					for id, count := range completed.counts {
+						if explicitCounts[id] != count {
+							useParsedGroups = false
+							break
+						}
+					}
+				}
+			}
+		}
+	}
+
+	if parsedGroups, hasGroups := parsed["loadout_groups"]; hasGroups && parsedGroups != nil && useParsedGroups {
+		for _, groupAny := range getList(parsed, "loadout_groups") {
+			group, _ := asMap(groupAny)
+			groupWargear := []any{}
+			for _, itemAny := range getList(group, "wargear") {
+				item, _ := asMap(itemAny)
+				raw := getStr(item, "raw_name")
+				var resolved map[string]any
+				for _, aggregateAny := range wargear {
+					aggregate, _ := asMap(aggregateAny)
+					if NormalizeName(getStr(refOf(aggregate), "raw_name")) == NormalizeName(raw) {
+						resolved = refOf(aggregate)
+						break
+					}
+				}
+				if resolved == nil && hit != nil {
+					if id, ok := scopedWeaponID(ds, hit, raw); ok {
+						resolved = refResolved(id, raw)
+					}
+				}
+				if resolved == nil {
+					if hits := findWeaponCandidates(ds, raw); len(hits) > 0 {
+						resolved = refResolved(hits[0].ID(), raw)
+					} else if id, ok := resolveWargearItemID(ds, hit, raw); ok {
+						resolved = refResolved(id, raw)
+					} else {
+						resolved = refUnresolved(raw, []any{})
+					}
+				}
+				groupWargear = append(groupWargear, map[string]any{"ref": resolved, "count": item["count"]})
+			}
+			loadoutGroups = append(loadoutGroups, map[string]any{
+				"model_name": group["model_name"], "count": group["count"], "wargear": groupWargear,
+			})
+		}
+		allResolved := true
+		originalIDs := map[string]bool{}
+		for _, itemAny := range wargear {
+			originalIDs[getStr(refOf(itemAny.(map[string]any)), "id")] = true
+		}
+		grouped := map[string]map[string]any{}
+		for _, groupAny := range loadoutGroups {
+			group, _ := asMap(groupAny)
+			for _, itemAny := range getList(group, "wargear") {
+				item, _ := asMap(itemAny)
+				ref := refOf(item)
+				id, ok := ref["id"].(string)
+				if !ok || id == "" {
+					allResolved = false
+					break
+				}
+				if existing, found := grouped[id]; found {
+					existing["count"] = asInt(existing["count"]) + asInt(group["count"])*asInt(item["count"])
+				} else {
+					grouped[id] = map[string]any{"ref": ref, "count": asInt(group["count"]) * asInt(item["count"])}
+				}
+			}
+		}
+		if allResolved {
+			remaining := grouped
+			seen := map[string]bool{}
+			reconciled := []any{}
+			for _, itemAny := range wargear {
+				item, _ := asMap(itemAny)
+				id, _ := refOf(item)["id"].(string)
+				if seen[id] {
+					continue
+				}
+				seen[id] = true
+				if replacement, ok := remaining[id]; ok {
+					reconciled = append(reconciled, replacement)
+					delete(remaining, id)
+				} else {
+					reconciled = append(reconciled, item)
+				}
+			}
+			for id := range remaining {
+				if !originalIDs[id] {
+					diag.resolvedWeapons++
+				}
+			}
+			for _, groupAny := range loadoutGroups {
+				for _, itemAny := range getList(groupAny.(map[string]any), "wargear") {
+					item, _ := asMap(itemAny)
+					id, _ := refOf(item)["id"].(string)
+					if replacement, ok := remaining[id]; ok {
+						reconciled = append(reconciled, replacement)
+						delete(remaining, id)
+					}
+				}
+			}
+
+			wargear = reconciled
+		}
+	} else {
+		if lg := buildLoadoutGroups(hit, modelCount, wargear, ds); lg != nil {
+			loadoutGroups = lg
+		}
+		if loadoutGroups == nil && hit != nil {
+			explicitRefs := map[string]map[string]any{}
+			explicitCounts := map[string]int{}
+			allResolved := true
+			for _, itemAny := range wargear {
+				item, _ := asMap(itemAny)
+				ref := refOf(item)
+				id, ok := ref["id"].(string)
+				if !ok || id == "" {
+					allResolved = false
+					break
+				}
+				explicitRefs[id] = ref
+				explicitCounts[id] += asInt(item["count"])
+			}
+			if allResolved {
+				models, _ := ds.unitCompositionOf(hit.Raw)
+				if completed := completeLoadout(hit.Raw, modelCount, ds.wargearOptionsOf(hit.Raw), models, explicitCounts); completed != nil {
+					refForID := func(id string) map[string]any {
+						if ref := explicitRefs[id]; ref != nil {
+							return ref
+						}
+						for _, weapon := range hit.Weapons() {
+							if weapon.ID() == id {
+								return refResolved(id, weapon.Name())
+							}
+						}
+						if item, ok := ds.Wargear.Get(id); ok {
+							return refResolved(id, getStr(item.(map[string]any), "name"))
+						}
+						for _, ability := range hit.Abilities() {
+							if ability.ID() == id {
+								return refResolved(id, ability.Name())
+							}
+						}
+						return refResolved(id, id)
+					}
+					remaining := map[string]any{}
+					remainingOrder := []string{}
+					seenRemaining := map[string]bool{}
+					for _, id := range completed.order {
+						remainingOrder = append(remainingOrder, id)
+						seenRemaining[id] = true
+					}
+					for id, count := range completed.counts {
+						remaining[id] = map[string]any{"ref": refForID(id), "count": count}
+						if !seenRemaining[id] {
+							remainingOrder = append(remainingOrder, id)
+							seenRemaining[id] = true
+						}
+					}
+					reconciled := []any{}
+					seen := map[string]bool{}
+					for _, itemAny := range wargear {
+						item, _ := asMap(itemAny)
+						id := getStr(refOf(item), "id")
+						if seen[id] {
+							continue
+						}
+						seen[id] = true
+						if replacement, ok := remaining[id]; ok {
+							reconciled = append(reconciled, replacement)
+							delete(remaining, id)
+						}
+					}
+					for _, id := range remainingOrder {
+						replacement, ok := remaining[id]
+						if !ok {
+							continue
+						}
+						if explicitRefs[id] == nil {
+							diag.resolvedWeapons++
+						}
+						reconciled = append(reconciled, replacement)
+					}
+					wargear = reconciled
+					if completed.groups != nil {
+						loadoutGroups = []any{}
+						for _, groupAny := range completed.groups {
+							group, _ := asMap(groupAny)
+							groupWargear := []any{}
+							for _, weaponAny := range getList(group, "weapons") {
+								weapon, _ := asMap(weaponAny)
+								groupWargear = append(groupWargear, map[string]any{"ref": refForID(getStr(weapon, "id")), "count": weapon["count"]})
+							}
+							loadoutGroups = append(loadoutGroups, map[string]any{"model_name": group["model_name"], "count": group["count"], "wargear": groupWargear})
+						}
+					}
+				}
+			}
+		}
+	}
+
 	result := map[string]any{
 		"ref":                ref,
 		"model_count":        modelCount,
@@ -612,12 +958,26 @@ func resolveUnit(parsed map[string]any, factionID string, detachmentIDs []string
 		"wargear":            wargear,
 		"leader_attachment":  nil,
 	}
-	// Reconstruct the per-model-type loadout groups deterministically from the
-	// resolved unit, so a re-export reproduces the same grouped lines the exporter
-	// emits (round-trip), without the text parsers understanding model-name labels.
-	// Omitted (key absent) when it can't decompose exactly, to match the other impls.
-	if lg := buildLoadoutGroups(hit, modelCount, wargear, ds); lg != nil {
-		result["loadout_groups"] = lg
+	if len(loadoutGroups) > 0 {
+		result["loadout_groups"] = loadoutGroups
+	}
+	keywordOverrides := []any{}
+	seenKeywordOverrides := map[string]bool{}
+	for _, override := range getList(parsed, "keyword_overrides") {
+		keyword, ok := override.(string)
+		if !ok || seenKeywordOverrides[keyword] {
+			continue
+		}
+		seenKeywordOverrides[keyword] = true
+		keywordOverrides = append(keywordOverrides, keyword)
+	}
+	if parsed["is_character"] == true && hit != nil &&
+		getStr(hit.Raw, "role") != "character" && getStr(hit.Raw, "role") != "epic-hero" &&
+		!contains(getStrList(hit.Raw, "keywords"), "Character") && !seenKeywordOverrides["Character"] {
+		keywordOverrides = append(keywordOverrides, "Character")
+	}
+	if len(keywordOverrides) > 0 {
+		result["keyword_overrides"] = keywordOverrides
 	}
 
 	// Loadout legality — the conservative checker over the fully-resolved counts.

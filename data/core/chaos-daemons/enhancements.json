@@ -5,7 +5,8 @@
     "detachment_id": "daemonic-incursion",
     "cost": 20,
     "keyword_restrictions": [
-      "Chaos Daemons"
+      "Khorne",
+      "Legiones Daemonica"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -15,13 +16,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Khorne",
-        "Legiones Daemonica"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "the-everstave-daemonic-incursion",
@@ -29,7 +24,8 @@
     "detachment_id": "daemonic-incursion",
     "cost": 25,
     "keyword_restrictions": [
-      "Chaos Daemons"
+      "Legiones Daemonica",
+      "Tzeentch"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -39,13 +35,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Legiones Daemonica",
-        "Tzeentch"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "the-endless-gift-daemonic-incursion",
@@ -53,7 +43,8 @@
     "detachment_id": "daemonic-incursion",
     "cost": 30,
     "keyword_restrictions": [
-      "Chaos Daemons"
+      "Legiones Daemonica",
+      "Nurgle"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -63,13 +54,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Legiones Daemonica",
-        "Nurgle"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "soulstealer-daemonic-incursion",
@@ -77,7 +62,8 @@
     "detachment_id": "daemonic-incursion",
     "cost": 15,
     "keyword_restrictions": [
-      "Chaos Daemons"
+      "Legiones Daemonica",
+      "Slaanesh"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -87,13 +73,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Legiones Daemonica",
-        "Slaanesh"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "slaughterthirst-aura-blood-legion",
@@ -101,7 +81,8 @@
     "detachment_id": "blood-legion",
     "cost": 25,
     "keyword_restrictions": [
-      "Chaos Daemons"
+      "Khorne",
+      "Legiones Daemonica"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -111,13 +92,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Khorne",
-        "Legiones Daemonica"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "furys-cage-blood-legion",
@@ -125,7 +100,9 @@
     "detachment_id": "blood-legion",
     "cost": 20,
     "keyword_restrictions": [
-      "Chaos Daemons"
+      "Khorne",
+      "Legiones Daemonica",
+      "Monster"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -135,14 +112,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Khorne",
-        "Legiones Daemonica",
-        "Monster"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "brazenmaw-blood-legion",
@@ -150,7 +120,8 @@
     "detachment_id": "blood-legion",
     "cost": 15,
     "keyword_restrictions": [
-      "Chaos Daemons"
+      "Khorne",
+      "Legiones Daemonica"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -160,13 +131,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Khorne",
-        "Legiones Daemonica"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "gateway-unto-damnation-blood-legion",
@@ -174,7 +139,9 @@
     "detachment_id": "blood-legion",
     "cost": 10,
     "keyword_restrictions": [
-      "Chaos Daemons"
+      "Khorne",
+      "Legiones Daemonica",
+      "Monster"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -184,14 +151,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Khorne",
-        "Legiones Daemonica",
-        "Monster"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "inescapable-eye-scintillating-legion",
@@ -199,7 +159,8 @@
     "detachment_id": "scintillating-legion",
     "cost": 15,
     "keyword_restrictions": [
-      "Chaos Daemons"
+      "Legiones Daemonica",
+      "Tzeentch"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -209,13 +170,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Legiones Daemonica",
-        "Tzeentch"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "infernal-puppeteer-scintillating-legion",
@@ -223,7 +178,9 @@
     "detachment_id": "scintillating-legion",
     "cost": 20,
     "keyword_restrictions": [
-      "Chaos Daemons"
+      "Legiones Daemonica",
+      "Monster",
+      "Tzeentch"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -233,14 +190,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Legiones Daemonica",
-        "Monster",
-        "Tzeentch"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "neverblade-scintillating-legion",
@@ -248,7 +198,9 @@
     "detachment_id": "scintillating-legion",
     "cost": 25,
     "keyword_restrictions": [
-      "Chaos Daemons"
+      "Legiones Daemonica",
+      "Monster",
+      "Tzeentch"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -258,14 +210,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Legiones Daemonica",
-        "Monster",
-        "Tzeentch"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "improbable-shield-aura-scintillating-legion",
@@ -273,7 +218,8 @@
     "detachment_id": "scintillating-legion",
     "cost": 30,
     "keyword_restrictions": [
-      "Chaos Daemons"
+      "Legiones Daemonica",
+      "Tzeentch"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -283,13 +229,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Legiones Daemonica",
-        "Tzeentch"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "cankerblight-aura-plague-legion",
@@ -297,7 +237,8 @@
     "detachment_id": "plague-legion",
     "cost": 15,
     "keyword_restrictions": [
-      "Chaos Daemons"
+      "Legiones Daemonica",
+      "Nurgle"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -307,13 +248,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Legiones Daemonica",
-        "Nurgle"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "maggot-maws-plague-legion",
@@ -321,7 +256,8 @@
     "detachment_id": "plague-legion",
     "cost": 15,
     "keyword_restrictions": [
-      "Chaos Daemons"
+      "Legiones Daemonica",
+      "Nurgle"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -331,13 +267,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Legiones Daemonica",
-        "Nurgle"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "droning-shroud-aura-plague-legion",
@@ -345,7 +275,9 @@
     "detachment_id": "plague-legion",
     "cost": 35,
     "keyword_restrictions": [
-      "Chaos Daemons"
+      "Legiones Daemonica",
+      "Monster",
+      "Nurgle"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -355,14 +287,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Legiones Daemonica",
-        "Monster",
-        "Nurgle"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "font-of-spores-aura-plague-legion",
@@ -370,7 +295,9 @@
     "detachment_id": "plague-legion",
     "cost": 20,
     "keyword_restrictions": [
-      "Chaos Daemons"
+      "Legiones Daemonica",
+      "Monster",
+      "Nurgle"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -380,14 +307,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Legiones Daemonica",
-        "Monster",
-        "Nurgle"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "false-majesty-aura-legion-of-excess",
@@ -395,7 +315,8 @@
     "detachment_id": "legion-of-excess",
     "cost": 30,
     "keyword_restrictions": [
-      "Chaos Daemons"
+      "Legiones Daemonica",
+      "Slaanesh"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -405,13 +326,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Legiones Daemonica",
-        "Slaanesh"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "dreaming-crown-aura-legion-of-excess",
@@ -419,7 +334,8 @@
     "detachment_id": "legion-of-excess",
     "cost": 30,
     "keyword_restrictions": [
-      "Chaos Daemons"
+      "Legiones Daemonica",
+      "Slaanesh"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -429,13 +345,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Legiones Daemonica",
-        "Slaanesh"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "avatar-of-perfection-legion-of-excess",
@@ -443,7 +353,9 @@
     "detachment_id": "legion-of-excess",
     "cost": 15,
     "keyword_restrictions": [
-      "Chaos Daemons"
+      "Legiones Daemonica",
+      "Monster",
+      "Slaanesh"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -453,14 +365,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Legiones Daemonica",
-        "Monster",
-        "Slaanesh"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "soul-glutton-legion-of-excess",
@@ -468,7 +373,9 @@
     "detachment_id": "legion-of-excess",
     "cost": 10,
     "keyword_restrictions": [
-      "Chaos Daemons"
+      "Legiones Daemonica",
+      "Monster",
+      "Slaanesh"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -478,14 +385,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Legiones Daemonica",
-        "Monster",
-        "Slaanesh"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "leaping-shadows-shadow-legion",
@@ -493,7 +393,7 @@
     "detachment_id": "shadow-legion",
     "cost": 25,
     "keyword_restrictions": [
-      "Chaos Daemons"
+      "Shadow Legion"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -503,12 +403,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Shadow Legion"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "mantle-of-gloom-aura-shadow-legion",
@@ -516,7 +411,7 @@
     "detachment_id": "shadow-legion",
     "cost": 20,
     "keyword_restrictions": [
-      "Chaos Daemons"
+      "Shadow Legion"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -526,12 +421,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Shadow Legion"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "fade-to-darkness-shadow-legion",
@@ -539,7 +429,7 @@
     "detachment_id": "shadow-legion",
     "cost": 30,
     "keyword_restrictions": [
-      "Chaos Daemons"
+      "Shadow Legion"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -549,12 +439,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Shadow Legion"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "malice-made-manifest-shadow-legion",
@@ -562,7 +447,7 @@
     "detachment_id": "shadow-legion",
     "cost": 25,
     "keyword_restrictions": [
-      "Chaos Daemons"
+      "Shadow Legion"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -572,12 +457,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Shadow Legion"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "apocalyptic-steeds-upgrade-cavalcade-of-chaos",
@@ -596,13 +476,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": true,
-    "max_targets": 3,
-    "keyword_restriction_groups": [
-      [
-        "Legiones Daemonica",
-        "Mounted"
-      ]
-    ]
+    "max_targets": 3
   },
   {
     "id": "soul-shattering-charge-upgrade-cavalcade-of-chaos",
@@ -621,13 +495,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": true,
-    "max_targets": 3,
-    "keyword_restriction_groups": [
-      [
-        "Legiones Daemonica",
-        "Mounted"
-      ]
-    ]
+    "max_targets": 3
   },
   {
     "id": "swollen-with-power-upgrade-lords-of-the-warp",
@@ -635,8 +503,8 @@
     "detachment_id": "lords-of-the-warp",
     "cost": 10,
     "keyword_restrictions": [
-      "Legiones Daemonica",
-      "Character"
+      "Character",
+      "Legiones Daemonica"
     ],
     "ability_id": "swollen-with-power-lords-of-the-warp",
     "is_unique": true,
@@ -649,12 +517,6 @@
     "max_targets": 3,
     "exclusion_keywords": [
       "Monster"
-    ],
-    "keyword_restriction_groups": [
-      [
-        "Character",
-        "Legiones Daemonica"
-      ]
     ]
   },
   {
@@ -663,8 +525,8 @@
     "detachment_id": "warptide",
     "cost": 15,
     "keyword_restrictions": [
-      "Legiones Daemonica",
-      "Battleline"
+      "Battleline",
+      "Legiones Daemonica"
     ],
     "ability_id": "bane-forged-weapons-warptide",
     "is_unique": true,
@@ -674,13 +536,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": true,
-    "max_targets": 3,
-    "keyword_restriction_groups": [
-      [
-        "Battleline",
-        "Legiones Daemonica"
-      ]
-    ]
+    "max_targets": 3
   },
   {
     "id": "soul-hungry-slaughterers-upgrade-warptide",
@@ -688,8 +544,8 @@
     "detachment_id": "warptide",
     "cost": 10,
     "keyword_restrictions": [
-      "Legiones Daemonica",
-      "Battleline"
+      "Battleline",
+      "Legiones Daemonica"
     ],
     "ability_id": "soul-hungry-slaughterers-warptide",
     "is_unique": true,
@@ -699,12 +555,6 @@
     },
     "points_provisional": false,
     "upgrade_tag": true,
-    "max_targets": 3,
-    "keyword_restriction_groups": [
-      [
-        "Battleline",
-        "Legiones Daemonica"
-      ]
-    ]
+    "max_targets": 3
   }
 ]

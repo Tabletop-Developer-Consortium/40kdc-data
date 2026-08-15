@@ -50,6 +50,7 @@ _ENHANCEMENT_ANNOT = re.compile(r"^(.+?)\s*\(\+\s*(\d+)\s*pts?\s*\)\s*$", re.IGN
 _WITH_LINE = re.compile(r"^[\t ]*\d+\s+with\b", re.MULTILINE)
 _BULLET = re.compile(r"^[\t ]*•", re.MULTILINE)
 _SPLIT_LINES = re.compile(r"\r?\n")
+_SERIALIZED_WTC = re.compile(r"^\+\s*LIST NAME:", re.IGNORECASE | re.MULTILINE)
 
 _ALLIED_SECTION = "ALLIED UNITS"
 _CHARACTERS_SECTION = "CHARACTERS"
@@ -58,8 +59,7 @@ _WARLORD_MARKER = "Warlord"
 
 
 def _is_gw_text(decoded: Any) -> str | None:
-    """Accept the input only when it carries the FACTION KEYWORD summary
-    header, has ``•`` bullets, and lacks the WTC ``N with`` body lines."""
+    """Accept framed GW text, excluding WTC's competing body formats."""
     if not isinstance(decoded, str):
         return None
     if _FACTION_KEYWORD_PREFIX not in decoded:
@@ -67,6 +67,8 @@ def _is_gw_text(decoded: Any) -> str | None:
     if _BULLET.search(decoded) is None:
         return None
     if _WITH_LINE.search(decoded) is not None:  # that's wtc-full
+        return None
+    if _SERIALIZED_WTC.search(decoded) is not None:
         return None
     return decoded
 
@@ -284,6 +286,7 @@ def _parse(decoded: Any) -> dict[str, Any]:
         "detachment_raw_names": (
             [header["detachment_raw_name"]] if header["detachment_raw_name"] else []
         ),
+        "force_disposition_raw_name": None,
         "battle_size_raw": header["battle_size_raw"],
         "declared_limit": header["declared_limit"],
         "total_reported": header["total_reported"],

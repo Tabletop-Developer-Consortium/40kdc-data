@@ -181,22 +181,22 @@ function parseUnit(unit: RawSelection): ParsedUnit {
   }
   const loadout_groups = childSelections(unit)
     .filter((selection) => selectionType(selection) === "model")
-    .map((model) => {
+    .flatMap((model) => {
       const count = selectionCount(model);
-      const groupWargear: ParsedWargear[] = [];
+      const totals: ParsedWargear[] = [];
       walk(model, (selection) => {
         if (!isWeaponSelection(selection)) return;
-        const total = selectionCount(selection);
-        groupWargear.push({
+        totals.push({
           raw_name: selectionName(selection),
-          count: count > 0 && total % count === 0 ? total / count : total,
+          count: selectionCount(selection),
         });
       });
-      return {
+      if (count <= 0 || totals.some((item) => item.count % count !== 0)) return [];
+      return [{
         model_name: selectionName(model),
         count,
-        wargear: groupWargear,
-      };
+        wargear: totals.map((item) => ({ ...item, count: item.count / count })),
+      }];
     });
 
   return {

@@ -236,7 +236,7 @@
             "resolved": true,
             "candidates": []
           },
-          "count": 10
+          "count": 8
         },
         {
           "ref": {
@@ -246,15 +246,6 @@
             "candidates": []
           },
           "count": 10
-        },
-        {
-          "ref": {
-            "id": "power-weapon-battle-sisters-squad",
-            "raw_name": "Power weapon",
-            "resolved": true,
-            "candidates": []
-          },
-          "count": 1
         },
         {
           "ref": {
@@ -282,12 +273,21 @@
             "candidates": []
           },
           "count": 1
+        },
+        {
+          "ref": {
+            "id": "power-weapon-battle-sisters-squad",
+            "raw_name": "Power weapon",
+            "resolved": true,
+            "candidates": []
+          },
+          "count": 1
         }
       ],
       "loadout_groups": [
         {
           "model_name": "Battle Sister",
-          "count": 9,
+          "count": 6,
           "wargear": [
             {
               "ref": {
@@ -311,6 +311,114 @@
               "ref": {
                 "id": "close-combat-weapon-battle-sisters-squad",
                 "raw_name": "Close combat weapon",
+                "resolved": true,
+                "candidates": []
+              },
+              "count": 1
+            }
+          ]
+        },
+        {
+          "model_name": "Battle Sister",
+          "count": 1,
+          "wargear": [
+            {
+              "ref": {
+                "id": "simulacrum-imperialis",
+                "raw_name": "Simulacrum Imperialis",
+                "resolved": true,
+                "candidates": []
+              },
+              "count": 1
+            },
+            {
+              "ref": {
+                "id": "bolt-pistol",
+                "raw_name": "Bolt pistol",
+                "resolved": true,
+                "candidates": []
+              },
+              "count": 1
+            },
+            {
+              "ref": {
+                "id": "boltgun",
+                "raw_name": "Boltgun",
+                "resolved": true,
+                "candidates": []
+              },
+              "count": 1
+            },
+            {
+              "ref": {
+                "id": "close-combat-weapon-battle-sisters-squad",
+                "raw_name": "Close combat weapon",
+                "resolved": true,
+                "candidates": []
+              },
+              "count": 1
+            }
+          ]
+        },
+        {
+          "model_name": "Battle Sister",
+          "count": 1,
+          "wargear": [
+            {
+              "ref": {
+                "id": "bolt-pistol",
+                "raw_name": "Bolt pistol",
+                "resolved": true,
+                "candidates": []
+              },
+              "count": 1
+            },
+            {
+              "ref": {
+                "id": "close-combat-weapon-battle-sisters-squad",
+                "raw_name": "Close combat weapon",
+                "resolved": true,
+                "candidates": []
+              },
+              "count": 1
+            },
+            {
+              "ref": {
+                "id": "multi-melta",
+                "raw_name": "Multi-melta",
+                "resolved": true,
+                "candidates": []
+              },
+              "count": 1
+            }
+          ]
+        },
+        {
+          "model_name": "Battle Sister",
+          "count": 1,
+          "wargear": [
+            {
+              "ref": {
+                "id": "bolt-pistol",
+                "raw_name": "Bolt pistol",
+                "resolved": true,
+                "candidates": []
+              },
+              "count": 1
+            },
+            {
+              "ref": {
+                "id": "close-combat-weapon-battle-sisters-squad",
+                "raw_name": "Close combat weapon",
+                "resolved": true,
+                "candidates": []
+              },
+              "count": 1
+            },
+            {
+              "ref": {
+                "id": "meltagun-battle-sisters-squad",
+                "raw_name": "Meltagun",
                 "resolved": true,
                 "candidates": []
               },

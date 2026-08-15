@@ -5,7 +5,7 @@
     "detachment_id": "veterans-of-the-long-war",
     "cost": 15,
     "keyword_restrictions": [
-      "Chaos Space Marines"
+      "Chaos Lord"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -15,12 +15,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Chaos Lord"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "talisman-of-burning-blood-pactbound-zealots",
@@ -28,7 +23,8 @@
     "detachment_id": "pactbound-zealots",
     "cost": 15,
     "keyword_restrictions": [
-      "Chaos Space Marines"
+      "Heretic Astartes",
+      "Khorne"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -38,13 +34,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Heretic Astartes",
-        "Khorne"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "eye-of-tzeentch-pactbound-zealots",
@@ -52,7 +42,8 @@
     "detachment_id": "pactbound-zealots",
     "cost": 15,
     "keyword_restrictions": [
-      "Chaos Space Marines"
+      "Heretic Astartes",
+      "Tzeentch"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -62,13 +53,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Heretic Astartes",
-        "Tzeentch"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "eager-for-vengeance-veterans-of-the-long-war",
@@ -76,7 +61,7 @@
     "detachment_id": "veterans-of-the-long-war",
     "cost": 20,
     "keyword_restrictions": [
-      "Chaos Space Marines"
+      "Heretic Astartes"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -89,11 +74,6 @@
     "max_targets": 1,
     "exclusion_keywords": [
       "Damned"
-    ],
-    "keyword_restriction_groups": [
-      [
-        "Heretic Astartes"
-      ]
     ]
   },
   {
@@ -102,7 +82,7 @@
     "detachment_id": "veterans-of-the-long-war",
     "cost": 15,
     "keyword_restrictions": [
-      "Chaos Space Marines"
+      "Heretic Astartes"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -115,11 +95,6 @@
     "max_targets": 1,
     "exclusion_keywords": [
       "Damned"
-    ],
-    "keyword_restriction_groups": [
-      [
-        "Heretic Astartes"
-      ]
     ]
   },
   {
@@ -128,7 +103,8 @@
     "detachment_id": "pactbound-zealots",
     "cost": 15,
     "keyword_restrictions": [
-      "Chaos Space Marines"
+      "Heretic Astartes",
+      "Nurgle"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -138,13 +114,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Heretic Astartes",
-        "Nurgle"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "mark-of-legend-veterans-of-the-long-war",
@@ -152,7 +122,7 @@
     "detachment_id": "veterans-of-the-long-war",
     "cost": 10,
     "keyword_restrictions": [
-      "Chaos Space Marines"
+      "Heretic Astartes"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -165,11 +135,6 @@
     "max_targets": 1,
     "exclusion_keywords": [
       "Damned"
-    ],
-    "keyword_restriction_groups": [
-      [
-        "Heretic Astartes"
-      ]
     ]
   },
   {
@@ -178,7 +143,8 @@
     "detachment_id": "pactbound-zealots",
     "cost": 15,
     "keyword_restrictions": [
-      "Chaos Space Marines"
+      "Heretic Astartes",
+      "Slaanesh"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -188,13 +154,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Heretic Astartes",
-        "Slaanesh"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "falsehood-deceptors",
@@ -202,7 +162,7 @@
     "detachment_id": "deceptors",
     "cost": 10,
     "keyword_restrictions": [
-      "Chaos Space Marines"
+      "Chaos Lord"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -216,11 +176,6 @@
     "exclusion_keywords": [
       "Jump Pack",
       "Terminator"
-    ],
-    "keyword_restriction_groups": [
-      [
-        "Chaos Lord"
-      ]
     ]
   },
   {
@@ -229,7 +184,8 @@
     "detachment_id": "deceptors",
     "cost": 10,
     "keyword_restrictions": [
-      "Chaos Space Marines"
+      "Heretic Astartes",
+      "Infantry"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -239,13 +195,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Heretic Astartes",
-        "Infantry"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "shroud-of-obfuscation-deceptors",
@@ -253,7 +203,8 @@
     "detachment_id": "deceptors",
     "cost": 15,
     "keyword_restrictions": [
-      "Chaos Space Marines"
+      "Heretic Astartes",
+      "Infantry"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -263,13 +214,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Heretic Astartes",
-        "Infantry"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "soul-link-deceptors",
@@ -277,7 +222,8 @@
     "detachment_id": "deceptors",
     "cost": 5,
     "keyword_restrictions": [
-      "Chaos Space Marines"
+      "Heretic Astartes",
+      "Infantry"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -287,13 +233,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Heretic Astartes",
-        "Infantry"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "despots-claim-renegade-raiders",
@@ -301,7 +241,7 @@
     "detachment_id": "renegade-raiders",
     "cost": 15,
     "keyword_restrictions": [
-      "Chaos Space Marines"
+      "Heretic Astartes"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -311,12 +251,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Heretic Astartes"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "dread-reaver-renegade-raiders",
@@ -324,7 +259,7 @@
     "detachment_id": "renegade-raiders",
     "cost": 15,
     "keyword_restrictions": [
-      "Chaos Space Marines"
+      "Heretic Astartes"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -334,12 +269,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Heretic Astartes"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "mark-of-the-hound-renegade-raiders",
@@ -347,7 +277,7 @@
     "detachment_id": "renegade-raiders",
     "cost": 25,
     "keyword_restrictions": [
-      "Chaos Space Marines"
+      "Heretic Astartes"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -357,12 +287,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Heretic Astartes"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "tyrants-lash-renegade-raiders",
@@ -370,7 +295,7 @@
     "detachment_id": "renegade-raiders",
     "cost": 20,
     "keyword_restrictions": [
-      "Chaos Space Marines"
+      "Heretic Astartes"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -380,12 +305,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Heretic Astartes"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "nights-shroud-dread-talons",
@@ -393,7 +313,7 @@
     "detachment_id": "dread-talons",
     "cost": 10,
     "keyword_restrictions": [
-      "Chaos Space Marines"
+      "Chaos Lord"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -406,11 +326,6 @@
     "max_targets": 1,
     "exclusion_keywords": [
       "Terminator"
-    ],
-    "keyword_restriction_groups": [
-      [
-        "Chaos Lord"
-      ]
     ]
   },
   {
@@ -419,7 +334,7 @@
     "detachment_id": "dread-talons",
     "cost": 10,
     "keyword_restrictions": [
-      "Chaos Space Marines"
+      "Heretic Astartes"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -429,12 +344,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Heretic Astartes"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "warp-fuelled-thrusters-dread-talons",
@@ -442,7 +352,8 @@
     "detachment_id": "dread-talons",
     "cost": 20,
     "keyword_restrictions": [
-      "Chaos Space Marines"
+      "Chaos Lord",
+      "Jump Pack"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -452,13 +363,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Chaos Lord",
-        "Jump Pack"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "eater-of-dread-dread-talons",
@@ -466,7 +371,7 @@
     "detachment_id": "dread-talons",
     "cost": 15,
     "keyword_restrictions": [
-      "Chaos Space Marines"
+      "Heretic Astartes"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -476,12 +381,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Heretic Astartes"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "bastion-plate-fellhammer-siege-host",
@@ -489,7 +389,7 @@
     "detachment_id": "fellhammer-siege-host",
     "cost": 10,
     "keyword_restrictions": [
-      "Chaos Space Marines"
+      "Chaos Lord"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -502,11 +402,6 @@
     "max_targets": 1,
     "exclusion_keywords": [
       "Jump Pack"
-    ],
-    "keyword_restriction_groups": [
-      [
-        "Chaos Lord"
-      ]
     ]
   },
   {
@@ -515,7 +410,7 @@
     "detachment_id": "fellhammer-siege-host",
     "cost": 20,
     "keyword_restrictions": [
-      "Chaos Space Marines"
+      "Heretic Astartes"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -525,12 +420,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Heretic Astartes"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "ironbound-enmity-fellhammer-siege-host",
@@ -538,7 +428,7 @@
     "detachment_id": "fellhammer-siege-host",
     "cost": 15,
     "keyword_restrictions": [
-      "Chaos Space Marines"
+      "Heretic Astartes"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -548,12 +438,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Heretic Astartes"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "iron-artifice-fellhammer-siege-host",
@@ -561,7 +446,8 @@
     "detachment_id": "fellhammer-siege-host",
     "cost": 10,
     "keyword_restrictions": [
-      "Chaos Space Marines"
+      "Heretic Astartes",
+      "Infantry"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -571,22 +457,13 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Heretic Astartes",
-        "Infantry"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "cultists-brand-chaos-cult",
     "name": "Cultist’s Brand",
     "detachment_id": "chaos-cult",
     "cost": 30,
-    "keyword_restrictions": [
-      "Chaos Space Marines"
-    ],
     "ability_id": null,
     "is_unique": true,
     "game_version": {
@@ -611,7 +488,7 @@
     "detachment_id": "chaos-cult",
     "cost": 20,
     "keyword_restrictions": [
-      "Chaos Space Marines"
+      "Dark Apostle"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -621,21 +498,13 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Dark Apostle"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "incendiary-goad-chaos-cult",
     "name": "Incendiary Goad",
     "detachment_id": "chaos-cult",
     "cost": 25,
-    "keyword_restrictions": [
-      "Chaos Space Marines"
-    ],
     "ability_id": null,
     "is_unique": true,
     "game_version": {
@@ -659,9 +528,6 @@
     "name": "Warped Foresight",
     "detachment_id": "chaos-cult",
     "cost": 10,
-    "keyword_restrictions": [
-      "Chaos Space Marines"
-    ],
     "ability_id": null,
     "is_unique": true,
     "game_version": {
@@ -686,7 +552,7 @@
     "detachment_id": "soulforged-warpack",
     "cost": 15,
     "keyword_restrictions": [
-      "Chaos Space Marines"
+      "Warpsmith"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -696,12 +562,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Warpsmith"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "tempting-addendum-soulforged-warpack",
@@ -709,7 +570,7 @@
     "detachment_id": "soulforged-warpack",
     "cost": 40,
     "keyword_restrictions": [
-      "Chaos Space Marines"
+      "Heretic Astartes"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -719,12 +580,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Heretic Astartes"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "forges-blessing-soulforged-warpack",
@@ -732,7 +588,7 @@
     "detachment_id": "soulforged-warpack",
     "cost": 20,
     "keyword_restrictions": [
-      "Chaos Space Marines"
+      "Heretic Astartes"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -742,12 +598,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Heretic Astartes"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "soul-harvester-soulforged-warpack",
@@ -755,7 +606,7 @@
     "detachment_id": "soulforged-warpack",
     "cost": 15,
     "keyword_restrictions": [
-      "Chaos Space Marines"
+      "Heretic Astartes"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -765,12 +616,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Heretic Astartes"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "surgical-precision-creations-of-bile",
@@ -778,7 +624,7 @@
     "detachment_id": "creations-of-bile",
     "cost": 10,
     "keyword_restrictions": [
-      "Chaos Space Marines"
+      "Heretic Astartes"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -791,11 +637,6 @@
     "max_targets": 1,
     "exclusion_keywords": [
       "Damned"
-    ],
-    "keyword_restriction_groups": [
-      [
-        "Heretic Astartes"
-      ]
     ]
   },
   {
@@ -804,7 +645,7 @@
     "detachment_id": "creations-of-bile",
     "cost": 15,
     "keyword_restrictions": [
-      "Chaos Space Marines"
+      "Chaos Lord"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -814,12 +655,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Chaos Lord"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "helm-of-all-seeing-creations-of-bile",
@@ -827,7 +663,8 @@
     "detachment_id": "creations-of-bile",
     "cost": 25,
     "keyword_restrictions": [
-      "Chaos Space Marines"
+      "Heretic Astartes",
+      "Infantry"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -840,12 +677,6 @@
     "max_targets": 1,
     "exclusion_keywords": [
       "Damned"
-    ],
-    "keyword_restriction_groups": [
-      [
-        "Heretic Astartes",
-        "Infantry"
-      ]
     ]
   },
   {
@@ -854,7 +685,8 @@
     "detachment_id": "creations-of-bile",
     "cost": 35,
     "keyword_restrictions": [
-      "Chaos Space Marines"
+      "Heretic Astartes",
+      "Infantry"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -867,12 +699,6 @@
     "max_targets": 1,
     "exclusion_keywords": [
       "Damned"
-    ],
-    "keyword_restriction_groups": [
-      [
-        "Heretic Astartes",
-        "Infantry"
-      ]
     ]
   },
   {
@@ -881,7 +707,7 @@
     "detachment_id": "cabal-of-chaos",
     "cost": 10,
     "keyword_restrictions": [
-      "Chaos Space Marines"
+      "Heretic Astartes"
     ],
     "ability_id": "touched-by-the-warp-cabal-of-chaos",
     "is_unique": true,
@@ -894,11 +720,6 @@
     "max_targets": 1,
     "exclusion_keywords": [
       "Khorne"
-    ],
-    "keyword_restriction_groups": [
-      [
-        "Heretic Astartes"
-      ]
     ]
   },
   {
@@ -907,7 +728,7 @@
     "detachment_id": "nightmare-hunt",
     "cost": 25,
     "keyword_restrictions": [
-      "Chaos Space Marines"
+      "Chaos Lord"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -917,12 +738,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Chaos Lord"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "warp-fuelled-thrusters-nightmare-hunt",
@@ -930,7 +746,8 @@
     "detachment_id": "nightmare-hunt",
     "cost": 20,
     "keyword_restrictions": [
-      "Chaos Space Marines"
+      "Chaos Lord",
+      "Jump Pack"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -940,13 +757,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Chaos Lord",
-        "Jump Pack"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "terrorglut-parasite-nightmare-hunt",
@@ -954,7 +765,7 @@
     "detachment_id": "nightmare-hunt",
     "cost": 20,
     "keyword_restrictions": [
-      "Chaos Space Marines"
+      "Heretic Astartes"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -964,12 +775,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Heretic Astartes"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "sorrowscent-vulture-nightmare-hunt",
@@ -977,7 +783,8 @@
     "detachment_id": "nightmare-hunt",
     "cost": 35,
     "keyword_restrictions": [
-      "Chaos Space Marines"
+      "Chaos Lord",
+      "Jump Pack"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -988,12 +795,6 @@
     "points_provisional": false,
     "upgrade_tag": false,
     "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Chaos Lord",
-        "Jump Pack"
-      ]
-    ],
     "attachment_bodyguard_ids": [
       "warp-talons"
     ]
@@ -1004,7 +805,7 @@
     "detachment_id": "hurons-marauders",
     "cost": 25,
     "keyword_restrictions": [
-      "Chaos Space Marines"
+      "Heretic Astartes"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -1017,11 +818,6 @@
     "max_targets": 1,
     "exclusion_keywords": [
       "Damned"
-    ],
-    "keyword_restriction_groups": [
-      [
-        "Heretic Astartes"
-      ]
     ]
   },
   {
@@ -1030,7 +826,7 @@
     "detachment_id": "hurons-marauders",
     "cost": 20,
     "keyword_restrictions": [
-      "Chaos Space Marines"
+      "Heretic Astartes"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -1043,11 +839,6 @@
     "max_targets": 1,
     "exclusion_keywords": [
       "Damned"
-    ],
-    "keyword_restriction_groups": [
-      [
-        "Heretic Astartes"
-      ]
     ]
   },
   {
@@ -1056,7 +847,7 @@
     "detachment_id": "hurons-marauders",
     "cost": 25,
     "keyword_restrictions": [
-      "Chaos Space Marines"
+      "Heretic Astartes"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -1069,11 +860,6 @@
     "max_targets": 1,
     "exclusion_keywords": [
       "Damned"
-    ],
-    "keyword_restriction_groups": [
-      [
-        "Heretic Astartes"
-      ]
     ]
   },
   {
@@ -1082,7 +868,7 @@
     "detachment_id": "hurons-marauders",
     "cost": 30,
     "keyword_restrictions": [
-      "Chaos Space Marines"
+      "Heretic Astartes"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -1092,12 +878,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Heretic Astartes"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "weaponised-hatred-renegade-warband",
@@ -1105,7 +886,7 @@
     "detachment_id": "renegade-warband",
     "cost": 35,
     "keyword_restrictions": [
-      "Chaos Space Marines"
+      "Heretic Astartes"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -1115,12 +896,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Heretic Astartes"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "eyes-of-the-hunter-renegade-warband",
@@ -1128,7 +904,7 @@
     "detachment_id": "renegade-warband",
     "cost": 15,
     "keyword_restrictions": [
-      "Chaos Space Marines"
+      "Heretic Astartes"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -1138,12 +914,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Heretic Astartes"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "fratricidal-trophies-renegade-warband",
@@ -1151,7 +922,8 @@
     "detachment_id": "renegade-warband",
     "cost": 5,
     "keyword_restrictions": [
-      "Chaos Space Marines"
+      "Heretic Astartes",
+      "Terminator"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -1161,13 +933,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Heretic Astartes",
-        "Terminator"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "empyric-symbiote-renegade-warband",
@@ -1175,7 +941,7 @@
     "detachment_id": "renegade-warband",
     "cost": 15,
     "keyword_restrictions": [
-      "Chaos Space Marines"
+      "Heretic Astartes"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -1185,12 +951,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Heretic Astartes"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "conduit-of-chaos-cabal-of-chaos",
@@ -1198,8 +959,8 @@
     "detachment_id": "cabal-of-chaos",
     "cost": 20,
     "keyword_restrictions": [
-      "Heretic Astartes",
-      "Daemon"
+      "Daemon",
+      "Heretic Astartes"
     ],
     "ability_id": "conduit-of-chaos-cabal-of-chaos",
     "is_unique": true,
@@ -1212,12 +973,6 @@
     "max_targets": 1,
     "exclusion_keywords": [
       "Khorne"
-    ],
-    "keyword_restriction_groups": [
-      [
-        "Daemon",
-        "Heretic Astartes"
-      ]
     ]
   },
   {
@@ -1236,12 +991,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Warpsmith"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "eye-of-oblivion-devotees-of-destruction",
@@ -1259,12 +1009,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Warpsmith"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "shadowcowl-talisman-murdertalon-raiders",
@@ -1272,7 +1017,8 @@
     "detachment_id": "murdertalon-raiders",
     "cost": 20,
     "keyword_restrictions": [
-      "Chaos Lord with Jump Pack"
+      "Chaos Lord with Jump Pack",
+      "Heretic Astartes"
     ],
     "ability_id": "shadowcowl-talisman-murdertalon-raiders",
     "is_unique": true,
@@ -1282,13 +1028,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Chaos Lord with Jump Pack",
-        "Heretic Astartes"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "pact-of-cursed-pinions-murdertalon-raiders",
@@ -1296,7 +1036,8 @@
     "detachment_id": "murdertalon-raiders",
     "cost": 20,
     "keyword_restrictions": [
-      "Chaos Lord with Jump Pack"
+      "Chaos Lord with Jump Pack",
+      "Heretic Astartes"
     ],
     "ability_id": "pact-of-cursed-pinions-murdertalon-raiders",
     "is_unique": true,
@@ -1307,12 +1048,6 @@
     "points_provisional": false,
     "upgrade_tag": false,
     "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Chaos Lord with Jump Pack",
-        "Heretic Astartes"
-      ]
-    ],
     "attachment_bodyguard_ids": [
       "warp-talons"
     ]
@@ -1336,11 +1071,6 @@
     "max_targets": 1,
     "exclusion_keywords": [
       "Damned"
-    ],
-    "keyword_restriction_groups": [
-      [
-        "Heretic Astartes"
-      ]
     ]
   },
   {
@@ -1359,12 +1089,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Heretic Astartes"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "akshurs-binding-runes-warpstrike-champions",
@@ -1382,12 +1107,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Heretic Astartes"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "tzagulla-warpstrike-champions",
@@ -1405,12 +1125,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Heretic Astartes"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "wyredjinn-cult-of-the-arkifane",
@@ -1431,11 +1146,6 @@
     "max_targets": 1,
     "exclusion_keywords": [
       "Damned"
-    ],
-    "keyword_restriction_groups": [
-      [
-        "Heretic Astartes"
-      ]
     ]
   },
   {
@@ -1457,11 +1167,6 @@
     "max_targets": 1,
     "exclusion_keywords": [
       "Damned"
-    ],
-    "keyword_restriction_groups": [
-      [
-        "Heretic Astartes"
-      ]
     ]
   },
   {
@@ -1483,11 +1188,6 @@
     "max_targets": 1,
     "exclusion_keywords": [
       "Damned"
-    ],
-    "keyword_restriction_groups": [
-      [
-        "Heretic Astartes"
-      ]
     ]
   },
   {
@@ -1506,12 +1206,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Warpsmith"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "infernal-infusion-zarkans-daemonkin",
@@ -1530,12 +1225,6 @@
     "keyword_restrictions": [
       "Master of Possession",
       "Zarkan's Daemonkin"
-    ],
-    "keyword_restriction_groups": [
-      [
-        "Master of Possession",
-        "Zarkan's Daemonkin"
-      ]
     ]
   },
   {
@@ -1553,14 +1242,8 @@
     ],
     "points_provisional": false,
     "keyword_restrictions": [
-      "Possessed",
-      "Zarkan's Daemonkin"
+      "Zarkan's Daemonkin Possessed"
     ],
-    "upgrade_tag": true,
-    "keyword_restriction_groups": [
-      [
-        "Zarkan's Daemonkin Possessed"
-      ]
-    ]
+    "upgrade_tag": true
   }
 ]

@@ -87,8 +87,7 @@ class TestMatches:
         # A GW export's first non-blank line is the `++++` fence.
         assert (
             listforge_text_adapter.matches(
-                "++++\n+ FACTION KEYWORD: Chaos - Chaos Knights\n++++\n"
-                "Unit (5 pts)\n• 1x Gun"
+                "++++\n+ FACTION KEYWORD: Chaos - Chaos Knights\n++++\nUnit (5 pts)\n• 1x Gun"
             )
             is False
         )
@@ -97,8 +96,7 @@ class TestMatches:
         no_bullets = "name - Faction - Detachment (1000 Points)\nUnit (50 pts)"
         assert listforge_text_adapter.matches(no_bullets) is False
         with_lines = (
-            "name - Faction - Detachment (1000 Points)\n"
-            "Unit (50 pts)\n  • Gun\n1 with Sword"
+            "name - Faction - Detachment (1000 Points)\nUnit (50 pts)\n  • Gun\n1 with Sword"
         )
         assert listforge_text_adapter.matches(with_lines) is False
 

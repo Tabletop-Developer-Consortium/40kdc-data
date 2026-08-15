@@ -18,11 +18,6 @@
     "max_targets": 1,
     "exclusion_keywords": [
       "Shaper"
-    ],
-    "keyword_restriction_groups": [
-      [
-        "T’au Empire"
-      ]
     ]
   },
   {
@@ -41,12 +36,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "T’au Empire"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "solid-image-projection-unit-kauyon",
@@ -64,12 +54,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "T’au Empire"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "through-unity-devastation-kauyon",
@@ -90,11 +75,6 @@
     "max_targets": 1,
     "exclusion_keywords": [
       "Shaper"
-    ],
-    "keyword_restriction_groups": [
-      [
-        "T’au Empire"
-      ]
     ]
   },
   {
@@ -116,11 +96,6 @@
     "max_targets": 1,
     "exclusion_keywords": [
       "Shaper"
-    ],
-    "keyword_restriction_groups": [
-      [
-        "T’au Empire"
-      ]
     ]
   },
   {
@@ -139,12 +114,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "T’au Empire"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "strategic-conqueror-montka",
@@ -162,12 +132,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "T’au Empire"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "coordinated-exploitation-montka",
@@ -188,11 +153,6 @@
     "max_targets": 1,
     "exclusion_keywords": [
       "Shaper"
-    ],
-    "keyword_restriction_groups": [
-      [
-        "T’au Empire"
-      ]
     ]
   },
   {
@@ -201,6 +161,7 @@
     "detachment_id": "retaliation-cadre",
     "cost": 15,
     "keyword_restrictions": [
+      "Battlesuit",
       "T’au Empire"
     ],
     "ability_id": null,
@@ -211,13 +172,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Battlesuit",
-        "T’au Empire"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "starflare-ignition-system-retaliation-cadre",
@@ -225,6 +180,7 @@
     "detachment_id": "retaliation-cadre",
     "cost": 20,
     "keyword_restrictions": [
+      "Battlesuit",
       "T’au Empire"
     ],
     "ability_id": null,
@@ -235,13 +191,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Battlesuit",
-        "T’au Empire"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "internal-grenade-racks-retaliation-cadre",
@@ -249,6 +199,7 @@
     "detachment_id": "retaliation-cadre",
     "cost": 20,
     "keyword_restrictions": [
+      "Battlesuit",
       "T’au Empire"
     ],
     "ability_id": null,
@@ -259,13 +210,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Battlesuit",
-        "T’au Empire"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "prototype-weapon-system-retaliation-cadre",
@@ -273,6 +218,7 @@
     "detachment_id": "retaliation-cadre",
     "cost": 15,
     "keyword_restrictions": [
+      "Battlesuit",
       "T’au Empire"
     ],
     "ability_id": null,
@@ -283,13 +229,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Battlesuit",
-        "T’au Empire"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "kroothawk-flock-kroot-hunting-pack",
@@ -297,7 +237,7 @@
     "detachment_id": "kroot-hunting-pack",
     "cost": 10,
     "keyword_restrictions": [
-      "T’au Empire"
+      "Kroot"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -307,12 +247,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Kroot"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "nomadic-hunter-kroot-hunting-pack",
@@ -320,7 +255,7 @@
     "detachment_id": "kroot-hunting-pack",
     "cost": 20,
     "keyword_restrictions": [
-      "T’au Empire"
+      "Trail Shaper"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -330,12 +265,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Trail Shaper"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "root-carved-weapons-kroot-hunting-pack",
@@ -343,7 +273,7 @@
     "detachment_id": "kroot-hunting-pack",
     "cost": 10,
     "keyword_restrictions": [
-      "T’au Empire"
+      "War Shaper"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -353,12 +283,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "War Shaper"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "borthrod-gland-kroot-hunting-pack",
@@ -366,7 +291,7 @@
     "detachment_id": "kroot-hunting-pack",
     "cost": 15,
     "keyword_restrictions": [
-      "T’au Empire"
+      "Flesh Shaper"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -376,12 +301,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Flesh Shaper"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "student-of-kauyon-auxiliary-cadre",
@@ -389,7 +309,8 @@
     "detachment_id": "auxiliary-cadre",
     "cost": 20,
     "keyword_restrictions": [
-      "T’au Empire"
+      "Kroot",
+      "Shaper"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -399,13 +320,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Kroot",
-        "Shaper"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "admired-leader-auxiliary-cadre",
@@ -426,11 +341,6 @@
     "max_targets": 1,
     "exclusion_keywords": [
       "Kroot"
-    ],
-    "keyword_restriction_groups": [
-      [
-        "T’au Empire"
-      ]
     ]
   },
   {
@@ -475,7 +385,7 @@
     "detachment_id": "experimental-prototype-cadre",
     "cost": 15,
     "keyword_restrictions": [
-      "T’au Empire"
+      "Battlesuit"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -485,12 +395,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Battlesuit"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "thermoneutronic-projector-experimental-prototype-cadre",
@@ -498,7 +403,7 @@
     "detachment_id": "experimental-prototype-cadre",
     "cost": 15,
     "keyword_restrictions": [
-      "T’au Empire"
+      "Battlesuit"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -508,12 +413,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Battlesuit"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "plasma-accelerator-rifle-experimental-prototype-cadre",
@@ -521,7 +421,7 @@
     "detachment_id": "experimental-prototype-cadre",
     "cost": 20,
     "keyword_restrictions": [
-      "T’au Empire"
+      "Battlesuit"
     ],
     "ability_id": null,
     "is_unique": true,
@@ -531,12 +431,7 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1,
-    "keyword_restriction_groups": [
-      [
-        "Battlesuit"
-      ]
-    ]
+    "max_targets": 1
   },
   {
     "id": "fusion-blades-experimental-prototype-cadre",
@@ -562,6 +457,7 @@
     "detachment_id": "advanced-acquisition-cadre",
     "cost": 15,
     "keyword_restrictions": [
+      "Stealth Battlesuits",
       "T’au Empire"
     ],
     "ability_id": "negation-emitters-advanced-acquisition-cadre",
@@ -572,22 +468,13 @@
     },
     "points_provisional": false,
     "upgrade_tag": true,
-    "max_targets": 3,
-    "keyword_restriction_groups": [
-      [
-        "Stealth Battlesuits",
-        "T’au Empire"
-      ]
-    ]
+    "max_targets": 3
   },
   {
     "id": "unmasking-suite-upgrade-advanced-acquisition-cadre",
     "name": "Unmasking Suite (Upgrade)",
     "detachment_id": "advanced-acquisition-cadre",
     "cost": 15,
-    "keyword_restrictions": [
-      "T’au Empire"
-    ],
     "ability_id": "unmasking-suite-advanced-acquisition-cadre",
     "is_unique": true,
     "game_version": {
@@ -624,13 +511,7 @@
     ],
     "points_provisional": false,
     "keyword_restrictions": [
-      "Commander in Enforcer Battlesuit",
-      "Sudden Dawn Cadre"
-    ],
-    "keyword_restriction_groups": [
-      [
-        "Commander Cloudspear"
-      ]
+      "Commander Cloudspear"
     ]
   },
   {
@@ -648,14 +529,8 @@
     ],
     "points_provisional": false,
     "keyword_restrictions": [
-      "Devilfish",
-      "Sudden Dawn Cadre"
+      "Sudden Dawn Cadre Devilfish"
     ],
-    "upgrade_tag": true,
-    "keyword_restriction_groups": [
-      [
-        "Sudden Dawn Cadre Devilfish"
-      ]
-    ]
+    "upgrade_tag": true
   }
 ]

@@ -287,6 +287,91 @@ describe("newRecruitWtcFullAdapter with mixed compact-style lines", () => {
   });
 });
 
+describe("newRecruitWtcFullAdapter repeated model continuations", () => {
+  const parsed = newRecruitWtcFullAdapter.parse(`+++++++++++++++++++++++++++++++++++++++++++++++
++ FACTION KEYWORD: Practice - Sample Faction
++ DETACHMENT: Sample Detachment
++ TOTAL ARMY POINTS: 100pts
++ NUMBER OF UNITS: 3
++++++++++++++++++++++++++++++++++++++++++++++++
+
+10x Repetition Squad (100 pts)
+• 9x Repetition Model
+    6 with Practice carbine
+    1 with Practice beacon, Practice carbine
+    1 with Practice launcher
+    1 with Practice blade
+• 1x Officer Model: Practice carbine
+
+3x Fallback Squad (0 pts)
+• 3x Fallback Model
+    2 with Practice kit
+
+3x Inline Squad (0 pts)
+• 2x Inline Model: 2 with Inline kit
+• 1x Empty Model
+`);
+
+  it("keeps every repeated continuation as an exact parent-model group", () => {
+    const repetition = parsed.units[0];
+    expect(repetition.loadout_groups).toEqual([
+      {
+        model_name: "Repetition Model",
+        count: 6,
+        wargear: [{ raw_name: "Practice carbine", count: 1 }],
+      },
+      {
+        model_name: "Repetition Model",
+        count: 1,
+        wargear: [
+          { raw_name: "Practice beacon", count: 1 },
+          { raw_name: "Practice carbine", count: 1 },
+        ],
+      },
+      {
+        model_name: "Repetition Model",
+        count: 1,
+        wargear: [{ raw_name: "Practice launcher", count: 1 }],
+      },
+      {
+        model_name: "Repetition Model",
+        count: 1,
+        wargear: [{ raw_name: "Practice blade", count: 1 }],
+      },
+      {
+        model_name: "Officer Model",
+        count: 1,
+        wargear: [{ raw_name: "Practice carbine", count: 1 }],
+      },
+    ]);
+    expect(repetition.wargear).toEqual([
+      { raw_name: "Practice carbine", count: 8 },
+      { raw_name: "Practice beacon", count: 1 },
+      { raw_name: "Practice launcher", count: 1 },
+      { raw_name: "Practice blade", count: 1 },
+    ]);
+  });
+
+  it("preserves unassigned parent models as one empty fallback group", () => {
+    expect(parsed.units[1].loadout_groups).toEqual([
+      {
+        model_name: "Fallback Model",
+        count: 2,
+        wargear: [{ raw_name: "Practice kit", count: 1 }],
+      },
+      { model_name: "Fallback Model", count: 1, wargear: [] },
+    ]);
+    expect(parsed.units[2].loadout_groups).toEqual([
+      {
+        model_name: "Inline Model",
+        count: 2,
+        wargear: [{ raw_name: "Inline kit", count: 1 }],
+      },
+      { model_name: "Empty Model", count: 1, wargear: [] },
+    ]);
+  });
+});
+
 // End-to-end resolution of the WTC-only header/body features: the
 // `+ FORCE DISPOSITION:` header (new in the 11e WTC template) and wargear
 // ITEMS (non-weapon entries like the Simulacrum Imperialis) that must resolve

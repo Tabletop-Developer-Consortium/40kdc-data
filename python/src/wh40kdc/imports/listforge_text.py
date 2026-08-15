@@ -85,9 +85,7 @@ def _is_listforge_text(decoded: Any) -> str | None:
     no WTC ``N with`` lines."""
     if not isinstance(decoded, str):
         return None
-    first_non_blank = next(
-        (line for line in _SPLIT_LINES.split(decoded) if line.strip()), None
-    )
+    first_non_blank = next((line for line in _SPLIT_LINES.split(decoded) if line.strip()), None)
     if not first_non_blank:
         return None
     first = _FIRST_LINE.match(first_non_blank.strip())

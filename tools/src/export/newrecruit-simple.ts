@@ -44,24 +44,7 @@ function battleSizeLabel(roster: Roster): string | null {
 /** Build the wargear list inline. For homogeneous multi-model units, divides
  * counts by model_count so the per-model render is clean. */
 function wargearText(u: RosterUnit, perModelDivisor: number): string {
-  const parts: string[] = [];
-  const attachment = attachmentToken(u);
-  if (attachment) parts.push(attachment);
-  if (u.enhancement) {
-    parts.push(
-      u.enhancement_points === null
-        ? `Enhancement: ${u.enhancement.raw_name}`
-        : `${u.enhancement.raw_name} [${u.enhancement_points} pts]`,
-    );
-  }
-  if (u.is_warlord) parts.push("Warlord");
-  for (const keyword of u.keyword_overrides ?? []) {
-    parts.push(
-      keyword === "Character"
-        ? "Detachment Character"
-        : `40kdc Keyword: ${keyword}`,
-    );
-  }
+  const parts = leadTokens(u);
   for (const w of u.wargear) {
     const c = perModelDivisor > 0 ? w.count / perModelDivisor : w.count;
     parts.push(c > 1 ? `${c}x ${w.ref.raw_name}` : w.ref.raw_name);
@@ -69,7 +52,7 @@ function wargearText(u: RosterUnit, perModelDivisor: number): string {
   return parts.join(", ");
 }
 
-/** Unit-level tokens that lead the first wargear line: the enhancement then `Warlord`. */
+/** Unit-level tokens that lead the first wargear line. */
 function leadTokens(u: RosterUnit): string[] {
   const parts: string[] = [];
   const attachment = attachmentToken(u);

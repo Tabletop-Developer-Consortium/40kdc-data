@@ -383,8 +383,7 @@ export function resolve(
   // A metadata-less source can still identify its detachment unambiguously through
   // enhancement ownership. Resolve those units globally first, then recover the
   // one shared detachment and its sole legal Force Disposition.
-  const enhancementById = (id: string) =>
-    faction_id ? ds.enhancements.getInFaction(id, faction_id) : ds.enhancements.getAny(id);
+  const enhancementById = (id: string) => ds.enhancements.getAny(id);
   const detachmentById = (id: string) =>
     faction_id ? ds.detachments.getInFaction(id, faction_id) : ds.detachments.getAny(id);
 
@@ -895,11 +894,19 @@ function resolveUnit(
         );
       }
     }
-    for (const item of wargear) {
-      if (!grouped.has(item.ref.id!)) grouped.set(item.ref.id!, item);
-    }
-    diag.resolved_weapons += [...grouped.keys()].filter((id) => !originalIds.has(id)).length;
-    wargear = [...grouped.values()];
+    const remaining = new Map(grouped);
+    const seen = new Set<string>();
+    wargear = wargear.flatMap((item) => {
+      const id = item.ref.id!;
+      if (seen.has(id)) return [];
+      seen.add(id);
+      const replacement = remaining.get(id);
+      if (!replacement) return [item];
+      remaining.delete(id);
+      return [replacement];
+    });
+    diag.resolved_weapons += [...remaining.keys()].filter((id) => !originalIds.has(id)).length;
+    wargear.push(...remaining.values());
   }
   if (!loadout_groups && hit && wargear.every((item) => item.ref.id !== null)) {
     const explicitRefs = new Map(wargear.map((item) => [item.ref.id!, item.ref]));
@@ -928,13 +935,24 @@ function resolveUnit(
           id;
         return resolved(id, name);
       };
-      diag.resolved_weapons += [...completed.counts.keys()].filter(
-        (id) => !explicitRefs.has(id),
-      ).length;
-      wargear = [...completed.counts].map(([id, count]) => ({
-        ref: refForId(id),
-        count,
-      }));
+      const remaining = new Map(
+        [...completed.counts].map(([id, count]) => [
+          id,
+          { ref: refForId(id), count } satisfies RosterWargear,
+        ]),
+      );
+      const seen = new Set<string>();
+      wargear = wargear.flatMap((item) => {
+        const id = item.ref.id!;
+        if (seen.has(id)) return [];
+        seen.add(id);
+        const replacement = remaining.get(id);
+        if (!replacement) return [];
+        remaining.delete(id);
+        return [{ ...item, count: replacement.count }];
+      });
+      diag.resolved_weapons += [...remaining.keys()].filter((id) => !explicitRefs.has(id)).length;
+      wargear.push(...remaining.values());
       loadout_groups =
         completed.groups?.map((group) => ({
           model_name: group.model_name,
@@ -945,25 +963,6 @@ function resolveUnit(
           })),
         })) ?? undefined;
     }
-  }
-  if (loadout_groups && loadout_groups.length > 0) {
-    const firstGroupPosition = new Map<string, number>();
-    for (const group of loadout_groups) {
-      for (const item of group.wargear) {
-        const key = item.ref.id ?? item.ref.raw_name;
-        if (!firstGroupPosition.has(key)) {
-          firstGroupPosition.set(key, firstGroupPosition.size);
-        }
-      }
-    }
-    wargear = [...wargear].sort((left, right) => {
-      const leftKey = left.ref.id ?? left.ref.raw_name;
-      const rightKey = right.ref.id ?? right.ref.raw_name;
-      return (
-        (firstGroupPosition.get(leftKey) ?? Number.MAX_SAFE_INTEGER) -
-        (firstGroupPosition.get(rightKey) ?? Number.MAX_SAFE_INTEGER)
-      );
-    });
   }
 
   // Loadout legality — the conservative checker over the fully-resolved counts.

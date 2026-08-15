@@ -53,30 +53,73 @@
           "assets": {
             "included": [
               {
-                "item": "Model§Goremonger",
-                "name": "Goremonger",
-                "quantity": 8,
+                "item": "Model§Blood Herald",
+                "name": "Blood Herald",
+                "quantity": 1,
                 "assets": {
                   "included": [
                     {
                       "item": "Weapon§Autopistol",
                       "name": "Autopistol",
-                      "quantity": 8
+                      "quantity": 1
                     },
                     {
                       "item": "Weapon§Chainblade",
                       "name": "Chainblade",
-                      "quantity": 56
+                      "quantity": 1
                     },
                     {
                       "item": "Weapon§Close combat weapon",
                       "name": "Close combat weapon",
-                      "quantity": 8
+                      "quantity": 1
+                    }
+                  ]
+                }
+              },
+              {
+                "item": "Model§Goremongers",
+                "name": "Goremongers",
+                "quantity": 6,
+                "assets": {
+                  "included": [
+                    {
+                      "item": "Weapon§Autopistol",
+                      "name": "Autopistol",
+                      "quantity": 6
+                    },
+                    {
+                      "item": "Weapon§Chainblade",
+                      "name": "Chainblade",
+                      "quantity": 6
+                    },
+                    {
+                      "item": "Weapon§Close combat weapon",
+                      "name": "Close combat weapon",
+                      "quantity": 6
+                    }
+                  ]
+                }
+              },
+              {
+                "item": "Model§Goremongers",
+                "name": "Goremongers",
+                "quantity": 1,
+                "assets": {
+                  "included": [
+                    {
+                      "item": "Weapon§Autopistol",
+                      "name": "Autopistol",
+                      "quantity": 1
                     },
                     {
                       "item": "Weapon§Blood harpoon",
                       "name": "Blood harpoon",
-                      "quantity": 8
+                      "quantity": 1
+                    },
+                    {
+                      "item": "Weapon§Close combat weapon",
+                      "name": "Close combat weapon",
+                      "quantity": 1
                     }
                   ]
                 }

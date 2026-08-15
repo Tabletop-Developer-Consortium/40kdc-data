@@ -7,5 +7,14 @@
     "upgrade_tag": true,
     "max_targets": 0,
     "game_version": { "edition": "11th", "dataslate": "pre-launch-provisional" }
+  },
+  {
+    "id": "bad-eligibility-shapes",
+    "name": "Bad Eligibility Shapes",
+    "detachment_id": "test-detachment",
+    "cost": 10,
+    "keyword_restrictions": ["Character"],
+    "keyword_restriction_groups": [["Character"], ["Infantry"]],
+    "game_version": { "edition": "11th", "dataslate": "launch" }
   }
 ]

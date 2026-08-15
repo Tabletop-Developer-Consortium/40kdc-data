@@ -38,9 +38,10 @@ pub mod roster;
 pub use collection::Collection;
 pub use dataset::{Dataset, RawData, ReactiveTrigger};
 pub use loadout::{
-    base_loadout, check_unit_legality, clamp_weapon_count, group_loadout, loadout_models,
-    loadout_tiers, maximal_loadout, option_cap, validate_loadout, Loadout, LoadoutGroup,
-    LoadoutGroupWeapon, LoadoutModel, LoadoutTier, Violation, ViolationCode, WeaponBound,
+    base_loadout, check_unit_legality, clamp_weapon_count, complete_loadout, group_loadout,
+    loadout_models, loadout_tiers, maximal_loadout, option_cap, validate_loadout, CompletedLoadout,
+    Loadout, LoadoutGroup, LoadoutGroupWeapon, LoadoutModel, LoadoutTier, Violation, ViolationCode,
+    WeaponBound,
 };
 pub use normalize::{normalize_name, strip_leading_the};
 pub use pricing::{base_unit_points, points_tier_missing};
@@ -53,6 +54,6 @@ pub use affordability::{
 pub use battle_sizes::{detachment_cap_for_battle_size, points_limit_for_battle_size};
 #[cfg(feature = "import")]
 pub use roster::{
-    check_roster, validate_roster_core, NormRoster, NormUnit, RosterLegality, RosterViolation,
-    RosterViolationCode, Severity, UnitLegality,
+    check_roster, validate_roster_core, validate_roster_core_with_keyword_overrides, NormRoster,
+    NormUnit, RosterLegality, RosterViolation, RosterViolationCode, Severity, UnitLegality,
 };

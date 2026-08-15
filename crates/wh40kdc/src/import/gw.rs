@@ -54,6 +54,7 @@ static RE_ENHANCEMENT_ANNOT: Lazy<Regex> =
     Lazy::new(|| Regex::new(r"(?i)^(.+?)\s*\(\+\s*(\d+)\s*pts?\s*\)\s*$").unwrap());
 static RE_WITH_LINE: Lazy<Regex> = Lazy::new(|| Regex::new(r"(?m)^[\t ]*\d+\s+with\b").unwrap());
 static RE_BULLET_ANYWHERE: Lazy<Regex> = Lazy::new(|| Regex::new(r"(?m)^[\t ]*•").unwrap());
+static RE_SERIALIZED_WTC: Lazy<Regex> = Lazy::new(|| Regex::new(r"(?im)^\+\s*LIST NAME:").unwrap());
 
 /// Accept the input only when it carries the FACTION KEYWORD summary header,
 /// has `•` bullets, and lacks the WTC `N with` body lines.
@@ -67,6 +68,9 @@ fn is_gw_text(decoded: &Value) -> Option<&str> {
     }
     if RE_WITH_LINE.is_match(s) {
         return None; // that's wtc-full
+    }
+    if RE_SERIALIZED_WTC.is_match(s) {
+        return None; // serialized WTC must be claimed by its own adapter
     }
     Some(s)
 }
@@ -232,12 +236,14 @@ fn finish_unit(acc: UnitAcc) -> ParsedUnit {
     ParsedUnit {
         raw_name: acc.raw_name,
         is_character,
+        keyword_overrides: None,
         model_count,
         points,
         is_warlord,
         enhancement_raw_name,
         enhancement_points,
         wargear,
+        loadout_groups: None,
         leader_attachment: None,
     }
 }
@@ -353,7 +359,7 @@ impl FormatAdapter for GwAdapter {
             detachment_raw_names: header.detachment_raw_name.into_iter().collect(),
             battle_size_raw: header.battle_size_raw,
             force_disposition: None,
-            force_disposition_raw_name: None,
+            force_disposition_raw_name: Some(None),
             declared_limit: header.declared_limit,
             total_reported: header.total_reported,
             total_computed,

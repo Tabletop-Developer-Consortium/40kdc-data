@@ -22,6 +22,7 @@ from typing import Any
 from wh40kdc.export.helpers import (
     Roster,
     RosterUnit,
+    attachment_token,
     pretty_json,
     title_case_id,
     total_army_points,
@@ -33,10 +34,15 @@ _CLS_ROSTER = "Roster"
 _CLS_FACTION = "Faction"
 _CLS_DETACHMENT = "Detachment"
 _CLS_UNIT = "Unit"
+_CLS_MODEL = "Model"
 _CLS_WEAPON = "Weapon"
 _CLS_ENHANCEMENT = "Enhancement"
 _CLS_BATTLE_SIZE = "Battle Size"
 _CLS_TRAIT = "Trait"
+_CLS_FORCE_DISPOSITION = "Force Disposition"
+_CLS_ATTACHMENT = "Attachment"
+_CLS_CHARACTER = "Character"
+_CLS_KEYWORD_OVERRIDE = "40kdc Keyword"
 _DSG_WARLORD = "Warlord"
 
 _RULEBOOK = {
@@ -73,17 +79,76 @@ def _enhancement_asset(u: RosterUnit) -> dict[str, Any] | None:
     return asset
 
 
+def _warlord_trait_asset() -> dict[str, Any]:
+    return {"item": _key(_CLS_TRAIT, _DSG_WARLORD), "name": _DSG_WARLORD, "quantity": 1}
+
+
+def _attachment_asset(u: RosterUnit) -> dict[str, Any] | None:
+    display = attachment_token(u)
+    if display is None:
+        return None
+    return {"item": _key(_CLS_ATTACHMENT, display), "name": display, "quantity": 1}
+
+
+def _keyword_trait_asset(keyword: str) -> dict[str, Any]:
+    if keyword == "Character":
+        return {
+            "item": _key(_CLS_CHARACTER, "Detachment Character"),
+            "name": "Detachment Character",
+            "quantity": 1,
+        }
+    return {
+        "item": _key(_CLS_KEYWORD_OVERRIDE, keyword),
+        "name": keyword,
+        "quantity": 1,
+    }
+
+
+def _loadout_group_assets(u: RosterUnit) -> list[dict[str, Any]] | None:
+    groups = u.get("loadout_groups")
+    if not groups:
+        return None
+    return [
+        {
+            "item": _key(
+                _CLS_MODEL,
+                group["model_name"]
+                if group.get("model_name") is not None
+                else u["ref"]["raw_name"],
+            ),
+            "name": group["model_name"]
+            if group.get("model_name") is not None
+            else u["ref"]["raw_name"],
+            "quantity": group["count"],
+            "assets": {
+                "included": [
+                    _wargear_asset({**item, "count": item["count"] * group["count"]})
+                    for item in group["wargear"]
+                ]
+            },
+        }
+        for group in groups
+    ]
+
+
 def _unit_asset(u: RosterUnit) -> dict[str, Any]:
     included: list[dict[str, Any]] = []
-    enh = _enhancement_asset(u)
-    if enh is not None:
-        included.append(enh)
-    for w in u["wargear"]:
-        included.append(_wargear_asset(w))
+    attachment = _attachment_asset(u)
+    enhancement = _enhancement_asset(u)
+    if attachment is not None:
+        included.append(attachment)
+    if enhancement is not None:
+        included.append(enhancement)
+    loadout_groups = _loadout_group_assets(u)
+    if loadout_groups:
+        included.extend(loadout_groups)
+    else:
+        included.extend(_wargear_asset(w) for w in u["wargear"])
 
     traits: list[dict[str, Any]] = []
     if u.get("is_warlord"):
-        traits.append({"item": _key(_CLS_TRAIT, _DSG_WARLORD), "name": _DSG_WARLORD, "quantity": 1})
+        traits.append(_warlord_trait_asset())
+    traits.extend(_keyword_trait_asset(keyword) for keyword in u.get("keyword_overrides") or [])
 
     asset: dict[str, Any] = {
         "item": _key(_CLS_UNIT, u["ref"]["raw_name"]),
@@ -126,10 +191,14 @@ def serialize_rosterizer(roster: Roster) -> str:
     if faction:
         included.append(faction)
     for d in roster["detachments"]:
-        display = title_case_id(d["ref"]["id"]) or d["ref"]["raw_name"]
-        asset = _named_asset(_CLS_DETACHMENT, display)
+        asset = _named_asset(_CLS_DETACHMENT, d["ref"]["raw_name"])
         if asset:
             included.append(asset)
+    force_disposition = _named_asset(
+        _CLS_FORCE_DISPOSITION, title_case_id(roster.get("force_disposition"))
+    )
+    if force_disposition:
+        included.append(force_disposition)
     battle_size = _battle_size_asset(roster)
     if battle_size:
         included.append(battle_size)

@@ -4,6 +4,7 @@ import {
   buildEnhCanon,
   buildEnhFieldCanon,
   combatPatrolEnhIds,
+  reconcileEnhancementEligibility,
   runEnhancements,
 } from "../src/mfm/enhancements.js";
 
@@ -151,6 +152,61 @@ describe("buildEnhFieldCanon", () => {
     expect(multi.keywordRestrictionsAmbiguous).toBe(true);
     expect(multi.keyword_restrictions).toEqual(["Exorcist", "Infantry"]);
     expect(multi.keyword_restriction_groups).toEqual([["Infantry"], ["Exorcist"]]);
+  });
+});
+
+describe("authoritative enhancement eligibility", () => {
+  it("replaces contradictory stale fields with the single source group", () => {
+    const fields = buildEnhFieldCanon(fieldsDump()).get("plain-relic-chorus-of-condemnation")!;
+    const record = {
+      id: "stale",
+      name: "Fabricated Relic",
+      cost: 10,
+      keyword_restrictions: ["Stale"],
+      keyword_restriction_groups: [["Contradictory"]],
+      exclusion_keywords: ["Stale"],
+    };
+
+    const result = reconcileEnhancementEligibility(record, fields);
+
+    expect(result.eligibility?.to).toEqual({
+      keyword_restrictions: ["Adepta Sororitas"],
+      keyword_restriction_groups: null,
+    });
+    expect(result.exclusions?.to).toEqual(["Infantry"]);
+    expect(record).toMatchObject({
+      keyword_restrictions: ["Adepta Sororitas"],
+      exclusion_keywords: ["Infantry"],
+    });
+    expect(record).not.toHaveProperty("keyword_restriction_groups");
+  });
+
+  it("uses groups only for divergent source alternatives and clears both when absent", () => {
+    const multi = buildEnhFieldCanon(fieldsDump()).get("split-relic-chorus-of-condemnation")!;
+    const record = {
+      id: "stale",
+      name: "Fabricated Relic",
+      cost: 10,
+      keyword_restrictions: ["Stale"],
+      keyword_restriction_groups: [["Also stale"]],
+      exclusion_keywords: ["Stale"],
+    };
+
+    reconcileEnhancementEligibility(record, multi);
+    expect(record).toMatchObject({
+      keyword_restriction_groups: [["Infantry"], ["Exorcist"]],
+    });
+    expect(record).not.toHaveProperty("keyword_restrictions");
+
+    reconcileEnhancementEligibility(record, {
+      ...multi,
+      exclusion_keywords: null,
+      keyword_restrictions: null,
+      keyword_restriction_groups: null,
+    });
+    expect(record).not.toHaveProperty("keyword_restrictions");
+    expect(record).not.toHaveProperty("keyword_restriction_groups");
+    expect(record).not.toHaveProperty("exclusion_keywords");
   });
 });
 

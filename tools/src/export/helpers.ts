@@ -70,10 +70,9 @@ export function charSlotAssignment(units: readonly RosterUnit[]): (number | null
   return result;
 }
 
-/** Render a loadout group's per-model weapons, sorted by display name, with `Nx` for counts >1. */
+/** Render a loadout group's per-model weapons in their source order, with `Nx` for counts >1. */
 export function groupWeaponsText(wargear: readonly RosterWargear[]): string {
-  return [...wargear]
-    .sort((a, b) => a.ref.raw_name.localeCompare(b.ref.raw_name))
+  return wargear
     .map((w) => (w.count > 1 ? `${w.count}x ${w.ref.raw_name}` : w.ref.raw_name))
     .join(", ");
 }

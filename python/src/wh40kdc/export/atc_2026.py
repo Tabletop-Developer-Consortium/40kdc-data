@@ -51,14 +51,20 @@ def _atc_model_lines(u: RosterUnit) -> list[str]:
 
 
 def _header(roster: Roster, units: list[RosterUnit], char_slots: list[int | None]) -> str:
-    faction = title_case_id(roster.get("faction_id")) or "Unknown"
-    disposition = title_case_id(roster.get("force_disposition")) or _DASH
+    faction = title_case_id(roster.get("faction_id"))
+    if faction is None:
+        faction = "Unknown"
+    disposition = title_case_id(roster.get("force_disposition"))
+    if disposition is None:
+        disposition = _DASH
     detachments = roster["detachments"]
-    detachment = (
-        ", ".join(title_case_id(d["ref"]["id"]) or d["ref"]["raw_name"] for d in detachments)
-        if detachments
-        else _DASH
-    )
+    detachment_names: list[str] = []
+    for detachment_ref in (d["ref"] for d in detachments):
+        display_name = title_case_id(detachment_ref.get("id"))
+        detachment_names.append(
+            detachment_ref["raw_name"] if display_name is None else display_name
+        )
+    detachment = ", ".join(detachment_names) if detachments else _DASH
     total = roster["points"].get("total_reported")
     if total is None:
         total = total_army_points(roster)
@@ -134,5 +140,8 @@ def serialize_atc_2026_full(roster: Roster) -> str:
     units = roster["units"]
     slots = char_slot_assignment(units)
     return "\n".join(
-        [_header(roster, units, slots), *full_body_lines(units, slots, _atc_model_lines)]
+        [
+            _header(roster, units, slots),
+            *full_body_lines(units, slots, roster.get("faction_id"), _atc_model_lines),
+        ]
     )

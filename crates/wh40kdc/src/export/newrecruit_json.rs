@@ -26,9 +26,12 @@ use super::{ExportFormat, RosterSerializer};
 const PTS_TYPE_ID: &str = "pts-type";
 const NEWRECRUIT_XMLNS: &str = "http://www.battlescribe.net/schema/rosterSchema";
 const NEWRECRUIT_GENERATED_BY: &str = "https://newrecruit.eu";
+const ATTACHMENT_GROUP_PREFIX: &str = "40kdc Attachment";
 
-#[derive(Serialize)]
+#[derive(Clone, Serialize)]
 struct Category {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    id: Option<String>,
     name: String,
     primary: bool,
 }
@@ -49,7 +52,7 @@ struct Selection {
     kind: &'static str,
     number: u64,
     #[serde(skip_serializing_if = "Option::is_none")]
-    group: Option<&'static str>,
+    group: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     categories: Option<Vec<Category>>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -88,6 +91,7 @@ struct Payload {
 fn faction_category(roster: &Roster) -> Option<Category> {
     let display = title_case_id(roster.faction_id.as_deref())?;
     Some(Category {
+        id: None,
         name: format!("Faction: {display}"),
         primary: false,
     })
@@ -105,6 +109,7 @@ fn wargear_selection(idx: usize, w: &RosterWargear) -> Selection {
         // we don't have to track ranged-vs-melee separation the Roster
         // doesn't model.
         categories: Some(vec![Category {
+            id: None,
             name: "Ranged Weapon".to_string(),
             primary: false,
         }]),
@@ -114,7 +119,7 @@ fn wargear_selection(idx: usize, w: &RosterWargear) -> Selection {
 }
 
 fn unit_selection(idx: usize, u: &RosterUnit, faction: Option<&Category>) -> Selection {
-    let mut inner: Vec<Selection> = Vec::new();
+    let mut inner = Vec::new();
     if u.is_warlord {
         inner.push(Selection {
             id: format!("u{idx}-warlord"),
@@ -127,22 +132,44 @@ fn unit_selection(idx: usize, u: &RosterUnit, faction: Option<&Category>) -> Sel
             selections: None,
         });
     }
-    if let Some(enh) = &u.enhancement {
-        let costs = u.enhancement_points.map(|p| {
-            vec![Cost {
-                name: "pts",
-                type_id: PTS_TYPE_ID,
-                value: p,
-            }]
+    if let Some(attachment) = &u.leader_attachment {
+        inner.push(Selection {
+            id: format!("u{idx}-attachment"),
+            name: attachment.bodyguard_ref.raw_name.clone(),
+            kind: "upgrade",
+            number: 1,
+            group: Some(format!(
+                "{ATTACHMENT_GROUP_PREFIX}:{}:{}",
+                match attachment.role {
+                    crate::import::AttachmentRole::Leader => "leader",
+                    crate::import::AttachmentRole::Support => "support",
+                },
+                if attachment.provisional {
+                    "provisional"
+                } else {
+                    "confirmed"
+                }
+            )),
+            categories: None,
+            costs: None,
+            selections: None,
         });
+    }
+    if let Some(enh) = &u.enhancement {
         inner.push(Selection {
             id: format!("u{idx}-enh"),
             name: enh.raw_name.clone(),
             kind: "upgrade",
             number: 1,
-            group: Some("Enhancements"),
+            group: Some("Enhancements".to_string()),
             categories: None,
-            costs,
+            costs: u.enhancement_points.map(|value| {
+                vec![Cost {
+                    name: "pts",
+                    type_id: PTS_TYPE_ID,
+                    value,
+                }]
+            }),
             selections: None,
         });
     }
@@ -153,42 +180,61 @@ fn unit_selection(idx: usize, u: &RosterUnit, faction: Option<&Category>) -> Sel
         .enumerate()
         .map(|(wi, w)| wargear_selection(wi, w))
         .collect();
-
-    // TS emits `categories: []` when no faction resolved (never omits the key
-    // on a unit selection) — mirror that, or the no-faction goldens diverge.
-    let own_categories = Some(
-        faction
-            .map(|f| {
-                vec![Category {
-                    name: f.name.clone(),
-                    primary: f.primary,
-                }]
-            })
-            .unwrap_or_default(),
+    let mut own_categories = faction.cloned().into_iter().collect::<Vec<_>>();
+    own_categories.extend(
+        u.keyword_overrides
+            .iter()
+            .enumerate()
+            .map(|(index, keyword)| Category {
+                id: Some(format!("40kdc-keyword-{index}")),
+                name: keyword.clone(),
+                primary: false,
+            }),
     );
-    let unit_costs = u.points.map(|p| {
+    let own_categories = Some(own_categories);
+    let unit_costs = u.points.map(|value| {
         vec![Cost {
             name: "pts",
             type_id: PTS_TYPE_ID,
-            value: p,
+            value,
         }]
     });
 
-    if u.model_count <= 1 {
-        let mut selections = inner;
-        selections.extend(wargear_selections);
-        Selection {
-            id: format!("u-{idx}"),
-            name: u.ref_.raw_name.clone(),
-            kind: "model",
-            number: 1,
-            group: None,
-            categories: own_categories,
-            costs: unit_costs,
-            selections: Some(selections),
-        }
+    let model_selections = if let Some(groups) = u
+        .loadout_groups
+        .as_ref()
+        .filter(|groups| !groups.is_empty())
+    {
+        groups
+            .iter()
+            .enumerate()
+            .map(|(group_index, group)| Selection {
+                id: format!("u{idx}-model-{group_index}"),
+                name: group
+                    .model_name
+                    .clone()
+                    .unwrap_or_else(|| u.ref_.raw_name.clone()),
+                kind: "model",
+                number: group.count,
+                group: None,
+                categories: None,
+                costs: None,
+                selections: Some(
+                    group
+                        .wargear
+                        .iter()
+                        .enumerate()
+                        .map(|(item_index, item)| {
+                            let mut total = item.clone();
+                            total.count *= group.count;
+                            wargear_selection(item_index, &total)
+                        })
+                        .collect(),
+                ),
+            })
+            .collect()
     } else {
-        let model_child = Selection {
+        vec![Selection {
             id: format!("u{idx}-model"),
             name: u.ref_.raw_name.clone(),
             kind: "model",
@@ -197,19 +243,40 @@ fn unit_selection(idx: usize, u: &RosterUnit, faction: Option<&Category>) -> Sel
             categories: None,
             costs: None,
             selections: Some(wargear_selections),
-        };
+        }]
+    };
+
+    if u.model_count <= 1 && u.loadout_groups.as_ref().map_or(true, Vec::is_empty) {
         let mut selections = inner;
-        selections.push(model_child);
-        Selection {
+        selections.extend(
+            model_selections
+                .into_iter()
+                .next()
+                .and_then(|model| model.selections)
+                .unwrap_or_default(),
+        );
+        return Selection {
             id: format!("u-{idx}"),
             name: u.ref_.raw_name.clone(),
-            kind: "unit",
+            kind: "model",
             number: 1,
             group: None,
             categories: own_categories,
             costs: unit_costs,
             selections: Some(selections),
-        }
+        };
+    }
+
+    inner.extend(model_selections);
+    Selection {
+        id: format!("u-{idx}"),
+        name: u.ref_.raw_name.clone(),
+        kind: "unit",
+        number: 1,
+        group: None,
+        categories: own_categories,
+        costs: unit_costs,
+        selections: Some(inner),
     }
 }
 
@@ -221,6 +288,7 @@ fn config_selection(name: &'static str, value: String, idx: &'static str) -> Sel
         number: 1,
         group: None,
         categories: Some(vec![Category {
+            id: None,
             name: "Configuration".to_string(),
             primary: true,
         }]),
@@ -269,9 +337,18 @@ impl RosterSerializer for NewRecruitJsonSerializer {
             config.push(config_selection("Battle Size", b, "battle-size"));
         }
         for d in &roster.detachments {
-            let display =
-                title_case_id(d.ref_.id.as_deref()).unwrap_or_else(|| d.ref_.raw_name.clone());
-            config.push(config_selection("Detachment", display, "detachment"));
+            config.push(config_selection(
+                "Detachment",
+                d.ref_.raw_name.clone(),
+                "detachment",
+            ));
+        }
+        if let Some(disposition) = title_case_id(roster.force_disposition.as_deref()) {
+            config.push(config_selection(
+                "Force Disposition",
+                disposition,
+                "force-disposition",
+            ));
         }
 
         let mut force_selections: Vec<Selection> = config;

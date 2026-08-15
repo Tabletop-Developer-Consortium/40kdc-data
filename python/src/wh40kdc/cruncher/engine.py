@@ -264,9 +264,7 @@ def crunch(input: EngineInput, dataset: Dataset | None = None) -> EngineOutput:
     base_d = eval_stat_value(stats.get("D"))
     melta = _find_keyword(resolved, "melta")
     melta_bonus = (
-        eval_stat_value((melta.get("parameters") or {}).get("value"))
-        if melta and half_range
-        else 0
+        eval_stat_value((melta.get("parameters") or {}).get("value")) if melta and half_range else 0
     )
     before_reduction = max(0, base_d + melta_bonus + resolved["damageMod"]["value"])
     damage_reduction = resolved["damageReduction"]["value"]

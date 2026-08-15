@@ -120,6 +120,48 @@ describe("export → import round-trips", () => {
     },
   );
 
+  it("preserves fabricated empty exact loadout groups through newrecruit-simple", () => {
+    const grouped = structuredClone(seed);
+    const [emptyFirst, emptyMiddle, allEmpty] = grouped.units;
+    if (!emptyFirst || !emptyMiddle || !allEmpty) {
+      throw new Error("fixture needs three units");
+    }
+
+    const firstWeapon = structuredClone(emptyFirst.wargear[0]);
+    const middleWeapon = structuredClone(emptyMiddle.wargear[0]);
+    if (!firstWeapon || !middleWeapon) {
+      throw new Error("fixture units need wargear");
+    }
+    firstWeapon.count = 1;
+    middleWeapon.count = 1;
+
+    emptyFirst.model_count = 3;
+    emptyFirst.wargear = [{ ...firstWeapon, count: 2 }];
+    emptyFirst.loadout_groups = [
+      { model_name: "Fabricated Empty First", count: 1, wargear: [] },
+      { model_name: "Fabricated Equipped Second", count: 2, wargear: [firstWeapon] },
+    ];
+
+    emptyMiddle.model_count = 3;
+    emptyMiddle.wargear = [{ ...middleWeapon, count: 2 }];
+    emptyMiddle.loadout_groups = [
+      { model_name: "Fabricated Equipped First", count: 1, wargear: [middleWeapon] },
+      { model_name: "Fabricated Empty Middle", count: 1, wargear: [] },
+      { model_name: "Fabricated Equipped Last", count: 1, wargear: [middleWeapon] },
+    ];
+
+    allEmpty.model_count = 3;
+    allEmpty.wargear = [];
+    allEmpty.loadout_groups = [
+      { model_name: "Fabricated Empty First", count: 1, wargear: [] },
+      { model_name: "Fabricated Empty Last", count: 2, wargear: [] },
+    ];
+
+    const out = exportRoster(grouped, "newrecruit-simple", ds);
+    const reparsed = importRoster(out, { dataset: ds });
+    expect(stable(reparsed)).toEqual(stable(grouped));
+  });
+
   it("never emits prose in any text format", () => {
     for (const format of formats) {
       const out = exportRoster(seed, format);

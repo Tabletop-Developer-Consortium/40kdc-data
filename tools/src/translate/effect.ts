@@ -1146,20 +1146,22 @@ function auraClause(e: Effect, m: Record<string, unknown>, ctx: Ctx): string {
   const who = e.target === "friendly-within-aura" ? "each friendly unit" : "each enemy unit";
   const recipient =
     m.recipient_filter != null ? keywordFilterClause(m.recipient_filter, who) : who;
-  const within = rangeText != null ? `${recipient} within ${rangeText}` : recipient;
   const filtered = m.emitter_filter != null || m.recipient_filter != null;
-  const effectText =
-    m.effect != null
-      ? filtered
-        ? `, and each such unit ${describeEffectInline(m.effect as Effect, { ...ctx }).replace(/^the unit\b\s*/, "")}`
-        : ` ${describeEffectInline(m.effect as Effect, { ...ctx })}`
-      : filtered
-        ? ", and each such unit is affected"
-        : " is affected";
-  if (m.emitter_filter != null) {
-    const emitter = keywordFilterClause(m.emitter_filter, "this model");
-    return `${emitter} projects an aura to ${within}${effectText}`;
+  if (filtered) {
+    const within = rangeText != null ? `${recipient} within ${rangeText} of this model` : recipient;
+    const effectText =
+      m.effect != null
+        ? `for ${within}, ${describeEffectInline(m.effect as Effect, { ...ctx })}`
+        : `${within} is affected`;
+    if (m.emitter_filter != null) {
+      const emitter = keywordFilterClause(m.emitter_filter, "this model");
+      return `${emitter} projects an aura; ${effectText}`;
+    }
+    return effectText;
   }
+  const within = rangeText != null ? `${recipient} within ${rangeText}` : recipient;
+  const effectText =
+    m.effect != null ? ` ${describeEffectInline(m.effect as Effect, { ...ctx })}` : " is affected";
   return `${within}${effectText}`;
 }
 

@@ -1352,18 +1352,26 @@ def _aura_clause(e: Effect, m: dict[str, Any], ctx: Ctx) -> str:
         range_text = None
     who = "each friendly unit" if e.get("target") == "friendly-within-aura" else "each enemy unit"
     recipient = _keyword_filter_clause(m.get("recipient_filter"), who)
-    within = f"{recipient} within {range_text}" if range_text is not None else recipient
     filtered = m.get("emitter_filter") is not None or m.get("recipient_filter") is not None
+    if filtered:
+        within = (
+            f"{recipient} within {range_text} of this model"
+            if range_text is not None
+            else recipient
+        )
+        effect_text = (
+            f"for {within}, {describe_effect_inline(m['effect'], dict(ctx))}"
+            if m.get("effect") is not None
+            else f"{within} is affected"
+        )
+        if m.get("emitter_filter") is not None:
+            emitter = _keyword_filter_clause(m["emitter_filter"], "this model")
+            return f"{emitter} projects an aura; {effect_text}"
+        return effect_text
+    within = f"{recipient} within {range_text}" if range_text is not None else recipient
     if m.get("effect") is not None:
-        nested = describe_effect_inline(m["effect"], dict(ctx))
-        nested_subject = re.sub(r"^the unit\b\s*", "", nested)
-        effect_text = f", and each such unit {nested_subject}" if filtered else f" {nested}"
-    else:
-        effect_text = ", and each such unit is affected" if filtered else " is affected"
-    if m.get("emitter_filter") is not None:
-        emitter = _keyword_filter_clause(m["emitter_filter"], "this model")
-        return f"{emitter} projects an aura to {within}{effect_text}"
-    return f"{within}{effect_text}"
+        return f"{within} {describe_effect_inline(m['effect'], dict(ctx))}"
+    return f"{within} is affected"
 
 
 def describe_effect_inline(e: Effect, ctx: Ctx | None = None) -> str:

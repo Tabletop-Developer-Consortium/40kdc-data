@@ -121,6 +121,9 @@ function certifyCandidateCoverage(graphRoot, ability, expectedPlan, candidate) {
 const authorPlans = new Map(args.abilities.map(ability => [`${ability.faction_id}/${ability.ability_id}`, loadAuthorPlan(args.graph_root, ability)]))
 const NEW_SHAPES = args.new_shapes || []
 const graphAgent = createTrustedAgent({ driverArgs: args, invokeAgent: agent })
+const TASK_LABEL_PREFIX = typeof args.task_label_prefix === 'string' && args.task_label_prefix
+  ? `${args.task_label_prefix}:`
+  : ''
 // Pin every agent to the loop workspace: subagents inherit the DRIVER session's cwd,
 // which may be a different checkout of this repo (a parallel session's working copy).
 const PRE = args.repo_root
@@ -181,7 +184,7 @@ const results = await pipeline(
     ability: a,
     retrieval: await graphAgent(PRE + `Look up this ability's raw prose and committed DSL. Input:\n` +
     JSON.stringify({ query: { ability_id: a.ability_id, faction_id: a.faction_id } }),
-    { agentType: 'data-enginseer', phase: 'Retrieve', schema: ENGINSEER_OUT, label: `retrieve:${a.ability_id}`, graphEphemeralKeys: ['raw_text', 'original_rule'] }),
+    { agentType: 'data-enginseer', phase: 'Retrieve', schema: ENGINSEER_OUT, label: `${TASK_LABEL_PREFIX}retrieve:${a.ability_id}`, graphEphemeralKeys: ['raw_text', 'original_rule'] }),
   }),
 
   async retrieved => {
@@ -249,7 +252,7 @@ const results = await pipeline(
       `The source prose remains authoritative; every covered occurrence must be represented exactly once, no foreign occurrence may be represented, ` +
       `and blocked or unmatched occurrences must not be silently invented. If the schema cannot express an accepted claim honestly, return resisted_schema. ` +
       `Input:\n${JSON.stringify(assembleInput)}${revision}`,
-      { agentType: 'arch-magos', phase: 'Assemble', schema: ARCHMAGOS_OUT, label: `assemble:${a.ability_id}#${attempts}` })
+      { agentType: 'arch-magos', phase: 'Assemble', schema: ARCHMAGOS_OUT, label: `${TASK_LABEL_PREFIX}assemble:${a.ability_id}#${attempts}` })
       if (!candidate) return { ability: a, status: 'agent-error', candidate: null, verdicts, thread, attempts }
       if (candidate.resisted_schema)
         return { ability: a, status: 'needs-schema', candidate, verdicts, thread, attempts }
@@ -271,7 +274,7 @@ const results = await pipeline(
         `refuted:true requires a CONCRETE constructed game state. A clause declared in approx_notes is not a divergence; ` +
         `an undeclared gap is. Name affected_claim_occurrence_ids when the divergence can be associated with an accepted claim. ` +
         `Input:\n${refuteInput}`,
-        { agentType: 'eversor', phase: 'Refute', schema: EVERSOR_OUT, label: `refute:${a.ability_id}#${attempts}v${i + 1}` })
+        { agentType: 'eversor', phase: 'Refute', schema: EVERSOR_OUT, label: `${TASK_LABEL_PREFIX}refute:${a.ability_id}#${attempts}v${i + 1}` })
       ))).filter(Boolean)
 
       thread.push({

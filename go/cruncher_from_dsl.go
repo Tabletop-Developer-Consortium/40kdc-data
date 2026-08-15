@@ -97,6 +97,14 @@ func dslWalk(node any, source map[string]any, opts dslOpts, out *effectTranslati
 	case "select-units":
 		// Targeting wrapper — the selected units receive the nested effect.
 		dslWalk(n["effect"], source, opts, out)
+	case "aura":
+		modifier, _ := getMap(n, "modifier")
+		effect, ok := getMap(modifier, "effect")
+		if ok && effect != nil {
+			dslWalk(effect, source, opts, out)
+		} else {
+			out.unsupported = append(out.unsupported, unsup("aura without nested effect: not a combat buff", n))
+		}
 	case "leader-model-ability-grant":
 		out.unsupported = append(out.unsupported, unsup("leader-model-ability-grant: attached leader beneficiary is not resolved by the buff engine", n))
 	case "persistent-designation":
@@ -1026,6 +1034,18 @@ func evaluateCondition(condition, ctx map[string]any) any {
 			return nil
 		}
 		return ctx["phase"] == wanted
+	case "attack-is-type":
+		attackType, ok := params["attack_type"].(string)
+		if !ok {
+			return nil
+		}
+		if attackType == "melee" {
+			return ctx["phase"] == "fight"
+		}
+		if attackType == "ranged" {
+			return ctx["phase"] == "shooting"
+		}
+		return nil
 	case "timing-is":
 		wanted, ok := params["timing"].(string)
 		if !ok {

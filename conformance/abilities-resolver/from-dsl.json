@@ -73,6 +73,22 @@
           }
         ]
       }
+    },
+    {
+      "_comment": "An aura wrapper is a recipient relationship; its nested combat effect remains a usable buff.",
+      "abilityId": "hero-of-the-empire-aura",
+      "source": {
+        "kind": "ability",
+        "abilityId": "hero-of-the-empire-aura",
+        "abilityKind": "unit"
+      },
+      "context": { "phase": "shooting" },
+      "expected": {
+        "applied": [
+          { "type": "reroll", "roll": "hit", "subset": "ones" }
+        ],
+        "unsupportedReasons": []
+      }
     }
   ]
 }

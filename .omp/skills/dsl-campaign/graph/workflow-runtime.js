@@ -106,9 +106,14 @@ export function createTrustedAgent({
         label,
         kind: taskKind || agentOptions.agentType || 'agent',
         depends_on: dependencyTaskIds(driverArgs.run_id, dependsOn),
-        payload: { ...taskPayload, input_node_ids: inputNodeIds },
+        payload: taskPayload,
       })
-      const issued = issueReadyTask(store, { run_id: driverArgs.run_id, label, now: now() })
+      const issued = issueReadyTask(store, {
+        run_id: driverArgs.run_id,
+        label,
+        now: now(),
+        input_node_ids: inputNodeIds,
+      })
       if (!issued.issued) throw new Error(issued.reason)
       envelope = issued.envelope
       executionIdentity = authoritative

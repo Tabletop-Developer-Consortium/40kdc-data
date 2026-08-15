@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
-import { chooseConstructionPlan, normalizeMechanicSignature, rankMechanicCandidates, retrieveEvidence, validateCandidateClaimCoverage, validateCoveredClaimOccurrenceIds } from './retrieval.js'
+import { chooseConstructionPlan, normalizeMechanicSignature, persistRepresentationClaimCoverage, rankMechanicCandidates, retrieveEvidence, validateCandidateClaimCoverage, validateCoveredClaimOccurrenceIds } from './retrieval.js'
+import { assertAllowedNode } from './schema.js'
 
 const signature = { actor: 'bearer', affected_entity: 'enemy unit', event: 'attack', producer_ports: ['source'], consumer_ports: ['target'], polarity: 'positive', quantifier: 'each', timing: 'during attack', duration: 'instant', scope: 'visible', ordering: 'before roll', restrictions: ['ranged'], exclusions: [] }
 const claimSetId = 's'.repeat(64)
@@ -45,6 +46,21 @@ test('construction plan records occurrence ownership, substitutions, and seams',
   assert.equal(plan.substitutions.length, 1)
   assert.equal(plan.composition_seams.length, 1)
   assert.equal(plan.rejected_conflicts.length, 1)
+  assert.doesNotThrow(() => assertAllowedNode('construction-plan', plan))
+})
+
+test('representation coverage records projection events', () => {
+  const events = []
+  const store = { appendEvent: (eventType, payload, metadata) => events.push({ eventType, payload, metadata }) }
+  persistRepresentationClaimCoverage(store, {
+    representation_node_id: 'representation',
+    claim_set_id: 'claim-set',
+    construction_plan_node_id: 'plan',
+    claim_occurrence_ids: ['occurrence'],
+  })
+  assert.equal(events.length, 1)
+  assert.equal(events[0].eventType, 'representation-coverage-recorded')
+  assert.equal(events[0].metadata.aggregate_kind, 'projection')
 })
 test('construction plans reject missing or wrong-obligation authorization', () => {
   const input = { faction_id: 'fixture', ability_id: 'ability', claim_set_id: claimSetId, source_claims: [{ claim_occurrence_id: 'c1' }], matches: [] }

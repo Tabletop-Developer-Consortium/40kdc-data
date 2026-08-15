@@ -36,9 +36,9 @@
     {
       "faction": "adeptus-custodes",
       "total": 90,
-      "offensive": 21,
-      "defensive": 12,
-      "inert": 61,
+      "offensive": 22,
+      "defensive": 13,
+      "inert": 60,
       "stub": 3,
       "stubStructural": 0,
       "gwTextLeak": 0,
@@ -92,7 +92,7 @@
       "faction": "chaos-daemons",
       "total": 157,
       "offensive": 39,
-      "defensive": 14,
+      "defensive": 15,
       "inert": 110,
       "stub": 7,
       "stubStructural": 0,
@@ -207,7 +207,7 @@
       "stub": 2,
       "stubStructural": 1,
       "gwTextLeak": 0,
-      "defensiveSkipped": 1
+      "defensiveSkipped": 0
     },
     {
       "faction": "orks",
@@ -267,13 +267,13 @@
   ],
   "totals": {
     "total": 3123,
-    "offensive": 768,
-    "defensive": 263,
-    "inert": 2177,
+    "offensive": 769,
+    "defensive": 265,
+    "inert": 2176,
     "stub": 117,
     "stubStructural": 38,
     "gwTextLeak": 0,
-    "defensiveSkipped": 57
+    "defensiveSkipped": 56
   },
   "unsupportedReasons": [
     {
@@ -298,7 +298,7 @@
     },
     {
       "reason": "effect type \"attack-restriction\" is not modelled by the buff layer",
-      "count": 62
+      "count": 63
     },
     {
       "reason": "effect type \"resurrection\" is not modelled by the buff layer",
@@ -330,7 +330,7 @@
     },
     {
       "reason": "effect type \"rule-state\" is not modelled by the buff layer",
-      "count": 32
+      "count": 33
     },
     {
       "reason": "stat-modifier: operation \"set\" not supported",
@@ -437,10 +437,6 @@
       "count": 6
     },
     {
-      "reason": "effect type \"aura\" is not modelled by the buff layer",
-      "count": 6
-    },
-    {
       "reason": "re-roll on \"advance\" (subset …) is outside the damage path",
       "count": 6
     },
@@ -454,6 +450,10 @@
     },
     {
       "reason": "effect type \"charge-roll-modifier\" is not modelled by the buff layer",
+      "count": 5
+    },
+    {
+      "reason": "stat-modifier on \"Ld\" is outside the damage path",
       "count": 5
     },
     {
@@ -485,10 +485,6 @@
       "count": 4
     },
     {
-      "reason": "stat-modifier on \"Ld\" is outside the damage path",
-      "count": 4
-    },
-    {
       "reason": "effect type \"terrain-area-tag\" is not modelled by the buff layer",
       "count": 4
     },
@@ -502,10 +498,6 @@
     },
     {
       "reason": "effect type \"shoot-on-death\" is not modelled by the buff layer",
-      "count": 3
-    },
-    {
-      "reason": "conditional: cannot evaluate condition \"attack-is-type\" against current context",
       "count": 3
     },
     {
@@ -581,6 +573,10 @@
       "count": 2
     },
     {
+      "reason": "aura without nested effect: not a combat buff",
+      "count": 2
+    },
+    {
       "reason": "stat-modifier: narrows by \"weapon_name\" which the cruncher can't resolve here",
       "count": 2
     },
@@ -594,6 +590,10 @@
     },
     {
       "reason": "roll-modifier: narrows by \"weapon_keyword\" which the cruncher can't resolve here",
+      "count": 1
+    },
+    {
+      "reason": "conditional: cannot evaluate condition \"attack-is-type\" against current context",
       "count": 1
     },
     {
@@ -6232,9 +6232,9 @@
       "name": "Revered Companions",
       "shape": "sequence",
       "stub": false,
-      "offensive": false,
-      "defensive": false,
-      "gap": "effect type \"aura\" is not modelled by the buff layer"
+      "offensive": true,
+      "defensive": true,
+      "gap": null
     },
     {
       "faction": "adeptus-mechanicus",
@@ -9594,7 +9594,7 @@
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "conditional: cannot evaluate condition \"attack-is-type\" against current context"
+      "gap": "effect type \"rule-state\" is not modelled by the buff layer"
     },
     {
       "faction": "agents-of-the-imperium",
@@ -10224,7 +10224,7 @@
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"aura\" is not modelled by the buff layer"
+      "gap": "stat-modifier on \"Ld\" is outside the damage path"
     },
     {
       "faction": "agents-of-the-imperium",
@@ -13230,10 +13230,10 @@
       "faction": "chaos-daemons",
       "ability_id": "daemon-lord-of-khorne-aura",
       "name": "Daemon Lord of Khorne (Aura)",
-      "shape": "conditional",
+      "shape": "aura",
       "stub": false,
       "offensive": true,
-      "defensive": false,
+      "defensive": true,
       "gap": null
     },
     {
@@ -14270,7 +14270,7 @@
       "faction": "chaos-knights",
       "ability_id": "taskmaster-aura",
       "name": "Taskmaster (Aura)",
-      "shape": "conditional",
+      "shape": "aura",
       "stub": false,
       "offensive": true,
       "defensive": false,
@@ -17624,7 +17624,7 @@
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"aura\" is not modelled by the buff layer"
+      "gap": "aura without nested effect: not a combat buff"
     },
     {
       "faction": "death-guard",
@@ -20080,7 +20080,7 @@
       "faction": "emperors-children",
       "ability_id": "excessive-vigour-aura",
       "name": "Excessive Vigour (Aura)",
-      "shape": "conditional",
+      "shape": "aura",
       "stub": false,
       "offensive": true,
       "defensive": false,
@@ -24460,11 +24460,11 @@
       "faction": "necrons",
       "ability_id": "mechanical-augmentation-aura",
       "name": "Mechanical Augmentation (Aura)",
-      "shape": "stat-modifier",
+      "shape": "aura",
       "stub": false,
       "offensive": true,
       "defensive": false,
-      "gap": null
+      "gap": "effect type \"attack-restriction\" is not modelled by the buff layer"
     },
     {
       "faction": "necrons",
@@ -25214,7 +25214,7 @@
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"aura\" is not modelled by the buff layer"
+      "gap": null
     },
     {
       "faction": "necrons",
@@ -27490,7 +27490,7 @@
       "faction": "tau-empire",
       "ability_id": "hero-of-the-empire-aura",
       "name": "Hero of the Empire (Aura)",
-      "shape": "conditional",
+      "shape": "aura",
       "stub": false,
       "offensive": true,
       "defensive": false,
@@ -28104,7 +28104,7 @@
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "conditional: cannot evaluate condition \"attack-is-type\" against current context"
+      "gap": null
     },
     {
       "faction": "tau-empire",
@@ -28244,7 +28244,7 @@
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"aura\" is not modelled by the buff layer"
+      "gap": null
     },
     {
       "faction": "thousand-sons",
@@ -30934,7 +30934,7 @@
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "conditional: cannot evaluate condition \"undefined\" against current context"
+      "gap": "conditional: cannot evaluate condition \"unit-within-range-of\" against current context"
     },
     {
       "faction": "world-eaters",
@@ -31294,7 +31294,7 @@
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"aura\" is not modelled by the buff layer"
+      "gap": "aura without nested effect: not a combat buff"
     },
     {
       "faction": "world-eaters",

@@ -203,6 +203,18 @@ function walk(
       // Targeting wrapper — the selected units receive the nested effect.
       walk(currentNode.effect, source, opts, out);
       return;
+    case "aura": {
+      const modifier = isObject(currentNode.modifier) ? currentNode.modifier : undefined;
+      if (modifier && isObject(modifier.effect)) {
+        walk(modifier.effect, source, opts, out);
+      } else {
+        out.unsupported.push({
+          reason: "aura without nested effect: not a combat buff",
+          effectFragment: currentNode,
+        });
+      }
+      return;
+    }
     case "leader-model-ability-grant":
       out.unsupported.push({
         reason: "leader-model-ability-grant: attached leader beneficiary is not resolved by the buff engine",
@@ -1266,6 +1278,12 @@ function evaluateCondition(
       const wanted = (condition.parameters as Record<string, unknown> | undefined)?.phase;
       if (typeof wanted !== "string") return "unknown";
       return ctx.phase === wanted;
+    }
+    case "attack-is-type": {
+      const attackType = (condition.parameters as Record<string, unknown> | undefined)?.attack_type;
+      if (attackType === "melee") return ctx.phase === "fight";
+      if (attackType === "ranged") return ctx.phase === "shooting";
+      return "unknown";
     }
     case "timing-is": {
       const wanted = (condition.parameters as Record<string, unknown> | undefined)?.timing;

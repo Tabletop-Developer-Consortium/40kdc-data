@@ -1600,33 +1600,33 @@ fn aura_clause(e: &AuraEffect, ctx: &Ctx) -> String {
         Some(filter) => keyword_filter_clause(filter, who),
         None => who.to_string(),
     };
+    let filtered = m.emitter_filter.is_some() || m.recipient_filter.is_some();
+    if filtered {
+        let within = match &range_text {
+            Some(rt) => format!("{recipient} within {rt} of this model"),
+            None => recipient,
+        };
+        let effect_text = match &m.effect {
+            Some(inner) => format!("for {within}, {}", inline(inner, ctx)),
+            None => format!("{within} is affected"),
+        };
+        return match &m.emitter_filter {
+            Some(filter) => format!(
+                "{} projects an aura; {effect_text}",
+                keyword_filter_clause(filter, "this model")
+            ),
+            None => effect_text,
+        };
+    }
     let within = match &range_text {
         Some(rt) => format!("{recipient} within {rt}"),
         None => recipient,
     };
-    let filtered = m.emitter_filter.is_some() || m.recipient_filter.is_some();
     let effect_text = match &m.effect {
-        Some(inner) if filtered => {
-            let nested = inline(inner, ctx);
-            format!(
-                ", and each such unit {}",
-                nested
-                    .strip_prefix("the unit")
-                    .unwrap_or(&nested)
-                    .trim_start()
-            )
-        }
         Some(inner) => format!(" {}", inline(inner, ctx)),
-        None if filtered => ", and each such unit is affected".to_string(),
         None => " is affected".to_string(),
     };
-    match &m.emitter_filter {
-        Some(filter) => format!(
-            "{} projects an aura to {within}{effect_text}",
-            keyword_filter_clause(filter, "this model")
-        ),
-        None => format!("{within}{effect_text}"),
-    }
+    format!("{within}{effect_text}")
 }
 
 /// Resurrection `placement` modifier → a "where it is set up" clause.

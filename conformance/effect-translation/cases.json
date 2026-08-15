@@ -6266,7 +6266,48 @@
     }
   },
   {
-    "caseId": "daemonic-allegiance#175",
+    "caseId": "daemon-lord-of-khorne-aura#175",
+    "effect": {
+      "type": "aura",
+      "target": "friendly-within-aura",
+      "modifier": {
+        "range": 6,
+        "recipient_filter": {
+          "required_keywords": [
+            "KHORNE",
+            "LEGIONES DAEMONICA"
+          ]
+        },
+        "effect": {
+          "type": "conditional",
+          "condition": {
+            "type": "attack-is-type",
+            "parameters": {
+              "attack_type": "melee"
+            }
+          },
+          "effect": {
+            "type": "roll-modifier",
+            "target": "attacker",
+            "modifier": {
+              "roll": "hit",
+              "operation": "add",
+              "value": 1
+            }
+          }
+        }
+      }
+    },
+    "scope": {
+      "range": "aura-6",
+      "duration": "permanent"
+    },
+    "expected": {
+      "text": "For each friendly unit with KHORNE and LEGIONES DAEMONICA within 6\" of this model, while making melee attacks, the attacking unit gets +1 to Hit rolls."
+    }
+  },
+  {
+    "caseId": "daemonic-allegiance#176",
     "effect": {
       "type": "stance-select",
       "mode": "consumable",
@@ -6372,7 +6413,7 @@
     }
   },
   {
-    "caseId": "daemonic-empowerment#176",
+    "caseId": "daemonic-empowerment#177",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -6404,7 +6445,7 @@
     }
   },
   {
-    "caseId": "daemonic-fury-khorne-daemonkin#177",
+    "caseId": "daemonic-fury-khorne-daemonkin#178",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -6480,7 +6521,7 @@
     }
   },
   {
-    "caseId": "daemonic-patrons#178",
+    "caseId": "daemonic-patrons#179",
     "effect": {
       "type": "sequence",
       "steps": [
@@ -6542,7 +6583,7 @@
     }
   },
   {
-    "caseId": "damaged-1-6-wounds-remaining#179",
+    "caseId": "damaged-1-6-wounds-remaining#180",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -6567,7 +6608,7 @@
     }
   },
   {
-    "caseId": "dark-angels-bodyguard#180",
+    "caseId": "dark-angels-bodyguard#181",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -6598,7 +6639,7 @@
     }
   },
   {
-    "caseId": "dark-pacts#181",
+    "caseId": "dark-pacts#182",
     "effect": {
       "type": "risk-reward",
       "reward": {
@@ -6657,7 +6698,7 @@
     }
   },
   {
-    "caseId": "dauntless-defenders#182",
+    "caseId": "dauntless-defenders#183",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -6697,7 +6738,7 @@
     }
   },
   {
-    "caseId": "dead-shot#183",
+    "caseId": "dead-shot#184",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -6725,7 +6766,7 @@
     }
   },
   {
-    "caseId": "deadly-vectors#184",
+    "caseId": "deadly-vectors#185",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -6809,7 +6850,7 @@
     }
   },
   {
-    "caseId": "death-approaches#185",
+    "caseId": "death-approaches#186",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -6844,7 +6885,7 @@
     }
   },
   {
-    "caseId": "death-befitting-an-officer#186",
+    "caseId": "death-befitting-an-officer#187",
     "effect": {
       "type": "dice-gated",
       "dice": "D6",
@@ -6865,7 +6906,7 @@
     }
   },
   {
-    "caseId": "death-korps-medi-pack#187",
+    "caseId": "death-korps-medi-pack#188",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -6889,7 +6930,7 @@
     }
   },
   {
-    "caseId": "decoy-targets#188",
+    "caseId": "decoy-targets#189",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -6952,7 +6993,7 @@
     }
   },
   {
-    "caseId": "denuncia-oratory#189",
+    "caseId": "denuncia-oratory#190",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -6979,7 +7020,7 @@
     }
   },
   {
-    "caseId": "devastating-assault#190",
+    "caseId": "devastating-assault#191",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -7007,7 +7048,7 @@
     }
   },
   {
-    "caseId": "devastating-drift-rollin-deff#191",
+    "caseId": "devastating-drift-rollin-deff#192",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -7033,7 +7074,7 @@
     }
   },
   {
-    "caseId": "direct-the-slaughter#192",
+    "caseId": "direct-the-slaughter#193",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -7071,7 +7112,7 @@
     }
   },
   {
-    "caseId": "disciple-of-khorne-khorne-daemonkin#193",
+    "caseId": "disciple-of-khorne-khorne-daemonkin#194",
     "effect": {
       "type": "sequence",
       "steps": [
@@ -7121,7 +7162,7 @@
     }
   },
   {
-    "caseId": "disdain-for-the-weak-traitoris-lance#194",
+    "caseId": "disdain-for-the-weak-traitoris-lance#195",
     "effect": {
       "type": "sequence",
       "steps": [
@@ -7159,7 +7200,7 @@
     }
   },
   {
-    "caseId": "dividends-of-agony-tools-of-torment#195",
+    "caseId": "dividends-of-agony-tools-of-torment#196",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -7211,7 +7252,7 @@
     }
   },
   {
-    "caseId": "doctrina-imperatives#196",
+    "caseId": "doctrina-imperatives#197",
     "effect": {
       "type": "stance-select",
       "mode": "re-selectable",
@@ -7342,7 +7383,7 @@
     }
   },
   {
-    "caseId": "eager-for-the-fight#197",
+    "caseId": "eager-for-the-fight#198",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -7380,7 +7421,7 @@
     }
   },
   {
-    "caseId": "eager-to-kill#198",
+    "caseId": "eager-to-kill#199",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -7413,7 +7454,7 @@
     }
   },
   {
-    "caseId": "earthshaker-rounds#199",
+    "caseId": "earthshaker-rounds#200",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -7477,7 +7518,7 @@
     }
   },
   {
-    "caseId": "efficient-aggression-tharanatoi-hammerblow#200",
+    "caseId": "efficient-aggression-tharanatoi-hammerblow#201",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -7507,7 +7548,7 @@
     }
   },
   {
-    "caseId": "eldritch-suppression-path-of-the-outcast#201",
+    "caseId": "eldritch-suppression-path-of-the-outcast#202",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -7569,7 +7610,7 @@
     }
   },
   {
-    "caseId": "empowered-manifestation-hexwarp-thrallband#202",
+    "caseId": "empowered-manifestation-hexwarp-thrallband#203",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -7607,7 +7648,7 @@
     }
   },
   {
-    "caseId": "enfeebling-miasma#203",
+    "caseId": "enfeebling-miasma#204",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -7677,7 +7718,7 @@
     }
   },
   {
-    "caseId": "engrammatic-logic#204",
+    "caseId": "engrammatic-logic#205",
     "effect": {
       "type": "select-units",
       "selector": {
@@ -7711,7 +7752,7 @@
     }
   },
   {
-    "caseId": "enraged-abjuration#205",
+    "caseId": "enraged-abjuration#206",
     "effect": {
       "type": "sequence",
       "steps": [
@@ -7746,7 +7787,53 @@
     }
   },
   {
-    "caseId": "experimental-augmentations#206",
+    "caseId": "excessive-vigour-aura#207",
+    "effect": {
+      "type": "aura",
+      "target": "friendly-within-aura",
+      "modifier": {
+        "range": 6,
+        "recipient_filter": {
+          "required_keywords": [
+            "SLAANESH"
+          ]
+        },
+        "effect": {
+          "type": "conditional",
+          "condition": {
+            "type": "charged-this-turn"
+          },
+          "effect": {
+            "type": "conditional",
+            "condition": {
+              "type": "attack-is-type",
+              "parameters": {
+                "attack_type": "melee"
+              }
+            },
+            "effect": {
+              "type": "stat-modifier",
+              "target": "unit",
+              "modifier": {
+                "stat": "AP",
+                "operation": "improve",
+                "value": 1
+              }
+            }
+          }
+        }
+      }
+    },
+    "scope": {
+      "range": "aura-6",
+      "duration": "permanent"
+    },
+    "expected": {
+      "text": "For each friendly unit with SLAANESH within 6\" of this model, if the unit charged this turn, while making melee attacks, add 1 to the unit's Armour Penetration characteristic."
+    }
+  },
+  {
+    "caseId": "experimental-augmentations#208",
     "effect": {
       "type": "stance-select",
       "mode": "consumable",
@@ -7838,7 +7925,7 @@
     }
   },
   {
-    "caseId": "explosive-blight#207",
+    "caseId": "explosive-blight#209",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -7924,7 +8011,7 @@
     }
   },
   {
-    "caseId": "faithful-fortitude-sacred-champions#208",
+    "caseId": "faithful-fortitude-sacred-champions#210",
     "effect": {
       "type": "feel-no-pain",
       "target": "unit",
@@ -7947,7 +8034,7 @@
     }
   },
   {
-    "caseId": "fates-in-flux#209",
+    "caseId": "fates-in-flux#211",
     "effect": {
       "type": "replace-roll-from-pool",
       "target": "unit",
@@ -7976,7 +8063,7 @@
     }
   },
   {
-    "caseId": "fear-incarnate-aura#210",
+    "caseId": "fear-incarnate-aura#212",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -7999,7 +8086,7 @@
     }
   },
   {
-    "caseId": "feral-arrogance-helhunt-lance#211",
+    "caseId": "feral-arrogance-helhunt-lance#213",
     "effect": {
       "type": "feel-no-pain",
       "target": "unit",
@@ -8017,7 +8104,7 @@
     }
   },
   {
-    "caseId": "fervent-purgation#212",
+    "caseId": "fervent-purgation#214",
     "effect": {
       "type": "sequence",
       "steps": [
@@ -8059,7 +8146,7 @@
     }
   },
   {
-    "caseId": "final-duty#213",
+    "caseId": "final-duty#215",
     "effect": {
       "type": "shoot-on-death",
       "target": "self",
@@ -8074,7 +8161,7 @@
     }
   },
   {
-    "caseId": "first-prince-of-chaos#214",
+    "caseId": "first-prince-of-chaos#216",
     "effect": {
       "type": "sequence",
       "steps": [
@@ -8247,7 +8334,7 @@
     }
   },
   {
-    "caseId": "flawless-construction-might-of-the-moritoi#215",
+    "caseId": "flawless-construction-might-of-the-moritoi#217",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -8281,7 +8368,7 @@
     }
   },
   {
-    "caseId": "flow-of-magic#216",
+    "caseId": "flow-of-magic#218",
     "effect": {
       "type": "named-region-state",
       "target": "all-friendly",
@@ -8452,7 +8539,7 @@
     }
   },
   {
-    "caseId": "flush-the-quarry-helhunt-lance#217",
+    "caseId": "flush-the-quarry-helhunt-lance#219",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -8508,7 +8595,7 @@
     }
   },
   {
-    "caseId": "fog-of-dreams-psychic#218",
+    "caseId": "fog-of-dreams-psychic#220",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -8533,7 +8620,7 @@
     }
   },
   {
-    "caseId": "for-the-chapter#219",
+    "caseId": "for-the-chapter#221",
     "effect": {
       "type": "shoot-on-death",
       "target": "self",
@@ -8548,7 +8635,7 @@
     }
   },
   {
-    "caseId": "formless-horror#220",
+    "caseId": "formless-horror#222",
     "effect": {
       "type": "sequence",
       "steps": [
@@ -8585,7 +8672,7 @@
     }
   },
   {
-    "caseId": "frantic-focus#221",
+    "caseId": "frantic-focus#223",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -8619,7 +8706,7 @@
     }
   },
   {
-    "caseId": "frenzon#222",
+    "caseId": "frenzon#224",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -8643,7 +8730,7 @@
     }
   },
   {
-    "caseId": "fury-unleashed-goretrack-onslaught#223",
+    "caseId": "fury-unleashed-goretrack-onslaught#225",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -8696,7 +8783,7 @@
     }
   },
   {
-    "caseId": "gateways-to-glory-vessels-of-wrath#224",
+    "caseId": "gateways-to-glory-vessels-of-wrath#226",
     "effect": {
       "type": "sequence",
       "steps": [
@@ -8732,7 +8819,7 @@
     }
   },
   {
-    "caseId": "gift-of-poxes#225",
+    "caseId": "gift-of-poxes#227",
     "effect": {
       "type": "aura",
       "target": "enemy-within-aura",
@@ -8750,7 +8837,7 @@
     }
   },
   {
-    "caseId": "gnarlskin-experimentor-tools-of-torment#226",
+    "caseId": "gnarlskin-experimentor-tools-of-torment#228",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -8780,7 +8867,7 @@
     }
   },
   {
-    "caseId": "guile-of-the-wolf-aura#227",
+    "caseId": "guile-of-the-wolf-aura#229",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -8808,7 +8895,7 @@
     }
   },
   {
-    "caseId": "hagiomnifex-sanctified-orators#228",
+    "caseId": "hagiomnifex-sanctified-orators#230",
     "effect": {
       "type": "choice",
       "choice_label": "hagiomnifex-sermon",
@@ -8877,7 +8964,7 @@
     }
   },
   {
-    "caseId": "hallowed-ground#229",
+    "caseId": "hallowed-ground#231",
     "effect": {
       "type": "sequence",
       "steps": [
@@ -8998,7 +9085,7 @@
     }
   },
   {
-    "caseId": "haloed-in-soulfire-psychic#230",
+    "caseId": "haloed-in-soulfire-psychic#232",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -9023,7 +9110,7 @@
     }
   },
   {
-    "caseId": "harbingers-of-dread#231",
+    "caseId": "harbingers-of-dread#233",
     "effect": {
       "type": "sequence",
       "steps": [
@@ -9111,7 +9198,7 @@
     }
   },
   {
-    "caseId": "headlong-destruction#232",
+    "caseId": "headlong-destruction#234",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -9139,7 +9226,7 @@
     }
   },
   {
-    "caseId": "hover#233",
+    "caseId": "hover#235",
     "effect": {
       "type": "unit-keyword",
       "target": "self",
@@ -9156,7 +9243,7 @@
     }
   },
   {
-    "caseId": "icon-of-khorne#234",
+    "caseId": "icon-of-khorne#236",
     "effect": {
       "type": "sequence",
       "steps": [
@@ -9198,7 +9285,7 @@
     }
   },
   {
-    "caseId": "idol-of-blessed-blood#235",
+    "caseId": "idol-of-blessed-blood#237",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -9226,197 +9313,7 @@
     }
   },
   {
-    "caseId": "idols-of-khorne#236",
-    "effect": {
-      "type": "conditional",
-      "condition": {
-        "operator": "and",
-        "operands": [
-          {
-            "type": "timing-is",
-            "parameters": {
-              "timing": "start-of-command-phase"
-            }
-          },
-          {
-            "operator": "or",
-            "operands": [
-              {
-                "type": "unit-has-keyword",
-                "parameters": {
-                  "keyword": "TITANIC"
-                }
-              },
-              {
-                "type": "unit-has-keyword",
-                "parameters": {
-                  "keyword": "MONSTER"
-                }
-              }
-            ]
-          }
-        ]
-      },
-      "effect": {
-        "type": "choice",
-        "choice_label": "Idols of Khorne",
-        "options": [
-          {
-            "type": "aura",
-            "target": "friendly-within-aura",
-            "modifier": {
-              "range": 6,
-              "effect": {
-                "type": "conditional",
-                "condition": {
-                  "operator": "or",
-                  "operands": [
-                    {
-                      "type": "unit-has-keyword",
-                      "parameters": {
-                        "keyword": "JAKHALS"
-                      }
-                    },
-                    {
-                      "type": "unit-has-keyword",
-                      "parameters": {
-                        "keyword": "GOREMONGERS"
-                      }
-                    }
-                  ]
-                },
-                "effect": {
-                  "type": "sequence",
-                  "steps": [
-                    {
-                      "type": "roll-modifier",
-                      "target": "unit",
-                      "modifier": {
-                        "roll": "hit",
-                        "operation": "add",
-                        "value": 1
-                      }
-                    },
-                    {
-                      "type": "roll-modifier",
-                      "target": "unit",
-                      "modifier": {
-                        "roll": "wound",
-                        "operation": "add",
-                        "value": 1
-                      }
-                    }
-                  ]
-                }
-              }
-            }
-          },
-          {
-            "type": "aura",
-            "target": "friendly-within-aura",
-            "modifier": {
-              "range": 6,
-              "effect": {
-                "type": "conditional",
-                "condition": {
-                  "operator": "or",
-                  "operands": [
-                    {
-                      "type": "unit-has-keyword",
-                      "parameters": {
-                        "keyword": "JAKHALS"
-                      }
-                    },
-                    {
-                      "type": "unit-has-keyword",
-                      "parameters": {
-                        "keyword": "GOREMONGERS"
-                      }
-                    }
-                  ]
-                },
-                "effect": {
-                  "type": "sequence",
-                  "steps": [
-                    {
-                      "type": "stat-modifier",
-                      "target": "unit",
-                      "modifier": {
-                        "stat": "M",
-                        "operation": "add",
-                        "value": 1
-                      }
-                    },
-                    {
-                      "type": "roll-modifier",
-                      "target": "unit",
-                      "modifier": {
-                        "roll": "advance",
-                        "operation": "add",
-                        "value": 1
-                      }
-                    },
-                    {
-                      "type": "roll-modifier",
-                      "target": "unit",
-                      "modifier": {
-                        "roll": "charge",
-                        "operation": "add",
-                        "value": 1
-                      }
-                    }
-                  ]
-                }
-              }
-            }
-          },
-          {
-            "type": "aura",
-            "target": "friendly-within-aura",
-            "modifier": {
-              "range": 6,
-              "effect": {
-                "type": "conditional",
-                "condition": {
-                  "operator": "or",
-                  "operands": [
-                    {
-                      "type": "unit-has-keyword",
-                      "parameters": {
-                        "keyword": "JAKHALS"
-                      }
-                    },
-                    {
-                      "type": "unit-has-keyword",
-                      "parameters": {
-                        "keyword": "GOREMONGERS"
-                      }
-                    }
-                  ]
-                },
-                "effect": {
-                  "type": "invulnerable-save",
-                  "target": "unit",
-                  "modifier": {
-                    "invuln_sv": 4
-                  }
-                }
-              }
-            }
-          }
-        ]
-      }
-    },
-    "scope": {
-      "range": "aura-6",
-      "duration": "until-next-command-phase"
-    },
-    "expected": {
-      "text": "At the start of the Command phase, if the unit has the TITANIC keyword or if the unit has the MONSTER keyword, until your next Command phase:\n  Select one of the following (Idols of Khorne):\n    - Each friendly unit within 6\" if the unit has the JAKHALS keyword or if the unit has the GOREMONGERS keyword, the unit gets +1 to Hit rolls; the unit gets +1 to Wound rolls.\n    - Each friendly unit within 6\" if the unit has the JAKHALS keyword or if the unit has the GOREMONGERS keyword, add 1 to the unit's Move characteristic; the unit gets +1 to Advance rolls; the unit gets +1 to Charge rolls.\n    - Each friendly unit within 6\" if the unit has the JAKHALS keyword or if the unit has the GOREMONGERS keyword, the unit has a 4+ invulnerable save."
-    }
-  },
-  {
-    "caseId": "illusions-of-tzeentch-psychic#237",
+    "caseId": "illusions-of-tzeentch-psychic#238",
     "effect": {
       "type": "conditional",
       "condition": {
@@ -9438,41 +9335,6 @@
     },
     "expected": {
       "text": "While this model leads a unit, for the rest of the battle, the unit can only be selected as the target of ranged attacks if the attacking unit is within 18\"."
-    }
-  },
-  {
-    "caseId": "immaterial-flare-aura#238",
-    "effect": {
-      "type": "aura",
-      "target": "friendly-within-aura",
-      "modifier": {
-        "range": 6,
-        "effect": {
-          "type": "conditional",
-          "condition": {
-            "type": "unit-has-keyword",
-            "parameters": {
-              "keyword": "PSYKER"
-            }
-          },
-          "effect": {
-            "type": "roll-modifier",
-            "target": "unit",
-            "modifier": {
-              "roll": "psychic-test",
-              "operation": "add",
-              "value": 1
-            }
-          }
-        }
-      }
-    },
-    "scope": {
-      "range": "aura-6",
-      "duration": "permanent"
-    },
-    "expected": {
-      "text": "Each friendly unit within 6\" if the unit has the PSYKER keyword, the unit gets +1 to Psychic Test rolls."
     }
   },
   {
@@ -15626,6 +15488,41 @@
     },
     "expected": {
       "text": "When the unit moves through terrain, this model's weapons gain [STEALTH]."
+    }
+  },
+  {
+    "caseId": "aura-role-filtered-effect#382",
+    "effect": {
+      "type": "aura",
+      "target": "friendly-within-aura",
+      "modifier": {
+        "range": 6,
+        "emitter_filter": {
+          "required_keywords": [
+            "EMITTER"
+          ]
+        },
+        "recipient_filter": {
+          "required_keywords": [
+            "ALLY"
+          ]
+        },
+        "effect": {
+          "type": "re-roll",
+          "target": "unit",
+          "modifier": {
+            "roll": "hit",
+            "subset": "ones"
+          }
+        }
+      }
+    },
+    "scope": {
+      "range": "self",
+      "duration": "permanent"
+    },
+    "expected": {
+      "text": "This model with EMITTER projects an aura; for each friendly unit with ALLY within 6\" of this model, you can re-roll a Hit roll of 1."
     }
   }
 ]

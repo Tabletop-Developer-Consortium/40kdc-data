@@ -338,7 +338,7 @@ export const NODE_SCHEMAS = new Map([
   ['source-formalization-certificate', ['faction_id', 'ability_id', 'status', 'fingerprints', 'claims']],
   ['candidate-certificate', ['faction_id', 'ability_id', 'status', 'fingerprints', 'checks']],
   ['certified-ability-evidence', ['faction_id', 'ability_id', 'status', 'reusable_fragment_ids', 'family_instance_ids', 'fingerprints']],
-  ['construction-plan', ['faction_id', 'ability_id', 'claim_set_id', 'selected_evidence_node_ids', 'covered_claim_occurrence_ids', 'unmatched_claim_occurrence_ids', 'state', 'blocking_unresolved_keys', 'substitutions', 'composition_seams', 'required_checks']],
+  ['construction-plan', ['faction_id', 'ability_id', 'claim_set_id', 'selected_evidence_node_ids', 'covered_claim_occurrence_ids', 'unmatched_claim_occurrence_ids', 'state', 'blocking_unresolved_keys', 'rejected_conflicts', 'substitutions', 'composition_seams', 'required_checks']],
   ['workflow-output', ['output_kind', 'envelope', 'result', 'execution_identity']],
   ['invalid-output', ['run_id', 'task_id', 'classification', 'reason', 'output_hash']],
   ['intake-outcome', ['faction_id', 'ability_id', 'outcome', 'reason', 'fingerprints']],

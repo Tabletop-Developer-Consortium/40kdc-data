@@ -1580,31 +1580,38 @@ func auraClause(e, m map[string]any, ctx map[string]any) string {
 		who = "each friendly unit"
 	}
 	recipient := keywordFilterClause(m["recipient_filter"], who)
+	filtered := m["emitter_filter"] != nil || m["recipient_filter"] != nil
+	if filtered {
+		within := recipient
+		if hasRange {
+			within += " within " + rangeText + " of this model"
+		}
+		effectText := within + " is affected"
+		if inner, ok := getMap(m, "effect"); ok && inner != nil {
+			ctxCopy := map[string]any{}
+			for k, val := range ctx {
+				ctxCopy[k] = val
+			}
+			effectText = "for " + within + ", " + describeEffectInline(inner, ctxCopy)
+		}
+		if m["emitter_filter"] != nil {
+			emitter := keywordFilterClause(m["emitter_filter"], "this model")
+			return emitter + " projects an aura; " + effectText
+		}
+		return effectText
+	}
 	within := recipient
 	if hasRange {
-		within = recipient + " within " + rangeText
+		within += " within " + rangeText
 	}
-	filtered := m["emitter_filter"] != nil || m["recipient_filter"] != nil
-	effectText := " is affected"
 	if inner, ok := getMap(m, "effect"); ok && inner != nil {
 		ctxCopy := map[string]any{}
 		for k, val := range ctx {
 			ctxCopy[k] = val
 		}
-		nested := describeEffectInline(inner, ctxCopy)
-		if filtered {
-			nested = strings.TrimPrefix(nested, "the unit")
-			effectText = ", and each such unit " + strings.TrimSpace(nested)
-		} else {
-			effectText = " " + nested
-		}
-	} else if filtered {
-		effectText = ", and each such unit is affected"
+		return within + " " + describeEffectInline(inner, ctxCopy)
 	}
-	if m["emitter_filter"] != nil {
-		return keywordFilterClause(m["emitter_filter"], "this model") + " projects an aura to " + within + effectText
-	}
-	return within + effectText
+	return within + " is affected"
 }
 
 // describeEffectInline wraps the leaf/container switch to weave on any `scaling` block.

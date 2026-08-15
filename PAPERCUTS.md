@@ -62,3 +62,27 @@ The extant claim importer timed out after an hour because every nested event reb
 ## 2026-08-14T18:57:39Z — gpt-5.6-sol
 
 Live schema-five claim migration with candidate import exceeded the one-hour command timeout; candidate persistence is too slow for the 40k corpus and needs batching or indexing before retry.
+
+## 2026-08-15T18:31:17Z — gpt-5.6-sol
+
+The OMP Eval JavaScript runtime could not import the campaign GraphStore because Bun cannot resolve Node 22's node:sqlite module, so graph-backed workflow helpers cannot run directly in Eval despite the workflow scripts being JavaScript.
+
+## 2026-08-15T19:25:38Z — gpt-5.6-sol
+
+The installed jq-compatible CLI rejects the standard input_filename filter, so multi-file JSON diagnostics cannot label source files as expected; this forced a separate file-enumeration step.
+
+## 2026-08-15T22:20:19Z — gpt-5.6-sol
+
+The graph-backed verification workflow serializes a long skitarius gate before six review agents; the 30-minute subagent cap terminated the driver and subsequent agent calls hit the usage limit, leaving later request files unresolved. Long mechanical gates should run outside the model call or in a separately resumable wave.
+
+## 2026-08-15T22:46:32Z — gpt-5.6-sol
+
+tooling/parity/differ.py prefers an existing stale target/release runner over a freshly rebuilt target/debug runner, producing false cross-port divergences and an old version report. The CLI should detect freshness/version or prefer an explicitly rebuilt debug binary during local iteration.
+
+## 2026-08-15T22:58:52Z — openai-codex/gpt-5.6-sol
+
+Fresh Go runner build from the repository root failed because the Go module lives under go/. Use 'go -C go build' for parity runner rebuilds.
+
+## 2026-08-15T23:01:09Z — openai-codex/gpt-5.6-sol
+
+The Bun-backed JS eval cannot import the graph runtime because it depends on Node's built-in node:sqlite module. Campaign lifecycle repairs therefore require a temporary Node script or a graph CLI command.

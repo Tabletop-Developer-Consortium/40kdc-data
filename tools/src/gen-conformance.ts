@@ -1933,6 +1933,23 @@ function genEffectTranslation(): void {
     };
     cases.push(entry);
   }
+  const filteredAuraEffect: Effect = {
+    type: "aura",
+    target: "friendly-within-aura",
+    modifier: {
+      range: 6,
+      emitter_filter: { required_keywords: ["EMITTER"] },
+      recipient_filter: { required_keywords: ["ALLY"] },
+      effect: { type: "re-roll", target: "unit", modifier: { roll: "hit", subset: "ones" } },
+    },
+  };
+  const filteredAuraScope = { range: "self", duration: "permanent" };
+  cases.push({
+    caseId: `aura-role-filtered-effect#${cases.length}`,
+    effect: filteredAuraEffect,
+    scope: filteredAuraScope,
+    expected: { text: describeAbility({ effect: filteredAuraEffect, scope: filteredAuraScope }) },
+  });
   writeJson(join(CONFORMANCE, "effect-translation", "cases.json"), cases);
   console.log(`effect-translation/cases.json: ${cases.length} cases (${seen.size} node types)`);
 }

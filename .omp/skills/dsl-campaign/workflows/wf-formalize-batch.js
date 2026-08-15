@@ -7,7 +7,7 @@ import {
   resolveSourceBinding,
 } from '../graph/formalization.js'
 import { MECHANIC_REGISTRY, mechanicClaimAdapter } from '../graph/mechanic-claims.js'
-import { failTask, ensureTask, issueReadyTask } from '../graph/scheduler.js'
+import { failTask, issueReadyTask } from '../graph/scheduler.js'
 import { GraphStore } from '../graph/store.js'
 import { createTrustedAgent } from '../graph/workflow-runtime.js'
 
@@ -127,8 +127,7 @@ function entryFor(factionId, abilityId) {
   return rows.find(row => (row.ability_id ?? row.id) === abilityId) || null
 }
 
-function issueSourceEnvelope(store, { run_id, label, payload }) {
-  ensureTask(store, { run_id, label, kind: 'source-retrieval', depends_on: [], payload })
+function issueSourceEnvelope(store, { run_id, label }) {
   const issued = issueReadyTask(store, { run_id, label, now: Date.now() })
   if (!issued.issued) throw new Error(issued.reason)
   return issued.envelope
@@ -144,7 +143,7 @@ const results = await pipeline(args.abilities, async ability => {
   try {
     // The durable source task must exist even when the raw-store lookup itself fails.
     const sourceEnvelope = issueSourceEnvelope(sourceStore, {
-      run_id: args.run_id, label: sourceLabel, payload: common,
+      run_id: args.run_id, label: sourceLabel,
     })
     let entry
     let sourceText

@@ -112,7 +112,7 @@ export function persistRepresentationClaimCoverage(store, {
         }],
       },
     }, {
-      aggregate_kind: 'representation-coverage',
+      aggregate_kind: 'projection',
       aggregate_id: `${representation_node_id}:${claim_occurrence_id}`,
       node_id: representation_node_id,
     })
@@ -204,7 +204,7 @@ export function chooseConstructionPlan({ faction_id, ability_id, claim_set_id, s
   const best = plans[0]
   const unmatched = [...new Set([...best.unmatched, ...(blocking.length ? claimOccurrenceIds : [])])]
   return {
-    faction_id, ability_id, claim_set_id, source_claims,
+    faction_id, ability_id, claim_set_id,
     selected_evidence_node_ids: best.selected.map(match => match.evidence_node_id),
     covered_claim_occurrence_ids: best.covered,
     unmatched_claim_occurrence_ids: unmatched,

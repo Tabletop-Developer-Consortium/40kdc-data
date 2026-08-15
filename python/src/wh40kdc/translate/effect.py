@@ -1414,7 +1414,8 @@ def _aura_clause(e: Effect, m: dict[str, Any], ctx: Ctx) -> str:
     within = f"{recipient} within {range_text}" if range_text is not None else recipient
     filtered = m.get("emitter_filter") is not None or m.get("recipient_filter") is not None
     if m.get("effect") is not None:
-        inner_ctx = {**ctx, "selected_unit": True} if m.get("eligible") is not None else dict(ctx)
+        use_selected = m.get("eligible") is not None or filtered
+        inner_ctx = {**ctx, "selected_unit": True} if use_selected else dict(ctx)
         nested = describe_effect_inline(m["effect"], inner_ctx)
         nested_subject = re.sub(r"^the unit\b\s*", "", nested)
         effect_text = f", and each such unit {nested_subject}" if filtered else f" {nested}"

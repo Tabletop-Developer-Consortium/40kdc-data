@@ -86,3 +86,7 @@ Fresh Go runner build from the repository root failed because the Go module live
 ## 2026-08-15T23:01:09Z — openai-codex/gpt-5.6-sol
 
 The Bun-backed JS eval cannot import the graph runtime because it depends on Node's built-in node:sqlite module. Campaign lifecycle repairs therefore require a temporary Node script or a graph CLI command.
+
+## 2026-08-15T23:12:11Z — openai-codex/gpt-5.6-sol
+
+gh pr create in the jj workspace failed because the workspace has no .git directory. Pass --repo explicitly when opening PRs from /Users/will.mitchell/40kdc-dsl.

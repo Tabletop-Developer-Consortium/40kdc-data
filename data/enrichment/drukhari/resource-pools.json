@@ -1,0 +1,42 @@
+[
+  {
+    "id": "pain-token-pool",
+    "name": "Pain Token Pool",
+    "faction_id": "drukhari",
+    "pool_type": "counter",
+    "generation": [
+      {
+        "condition": {
+          "type": "timing-is",
+          "parameters": {
+            "timing": "start-of-command-phase"
+          }
+        },
+        "amount": 1
+      },
+      {
+        "condition": {
+          "type": "timing-is",
+          "parameters": {
+            "timing": "enemy-unit-destroyed"
+          }
+        },
+        "amount": 1
+      },
+      {
+        "condition": {
+          "type": "timing-is",
+          "parameters": {
+            "timing": "enemy-unit-fails-battle-shock"
+          }
+        },
+        "amount": 1
+      }
+    ],
+    "max_size": null,
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "pre-launch-provisional"
+    }
+  }
+]

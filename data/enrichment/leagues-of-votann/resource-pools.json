@@ -1,0 +1,54 @@
+[
+  {
+    "id": "yp-pool",
+    "name": "Yield Point Pool",
+    "faction_id": "leagues-of-votann",
+    "pool_type": "counter",
+    "generation": [
+      {
+        "condition": {
+          "type": "controls-objective",
+          "parameters": {
+            "count_min": 1,
+            "scope": "your-territory"
+          }
+        },
+        "amount": 1
+      },
+      {
+        "condition": {
+          "type": "controls-objective",
+          "parameters": {
+            "count_min": 1,
+            "exclude": "home"
+          }
+        },
+        "amount": 1
+      },
+      {
+        "condition": {
+          "type": "controls-objective",
+          "parameters": {
+            "count_min": 2,
+            "exclude": "home"
+          }
+        },
+        "amount": 1
+      },
+      {
+        "condition": {
+          "type": "objective-majority",
+          "parameters": {
+            "relative_to": "opponent"
+          }
+        },
+        "amount": 1
+      }
+    ],
+    "max_size": null,
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "pre-launch-provisional"
+    }
+  }
+]

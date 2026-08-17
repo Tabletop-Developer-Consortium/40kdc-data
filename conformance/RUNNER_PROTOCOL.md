@@ -274,8 +274,9 @@ Replays `ops` over a fresh `PlayerGame` and returns its state plus derived
 totals: `{"rounds":[{"primary":<int>,"secondary":<int>}, …5],"handIds":[<string>,
 …],"log":[{"cardId":<string>,"round":<int>,"vp":<int>}, …],"primary":<int>,
 "secondary":<int>,"total":<int>}`. Op kinds: `draw` (`cardId`); `score-secondary`
-(`cardId`, `round`, `asserted`) banks `min(turn, cap)`, logs it, discards from
-hand; `score-primary` (`cardId`, `round`, `asserted`, `roundCap?`, `gameCap?`)
+(`cardId`, `round`, `asserted`, `roundCap?`, `gameCap?`) banks `min(turn, cap)`,
+clamped by the optional per-round and per-game secondary ceilings, logs it,
+discards from hand; `score-primary` (`cardId`, `round`, `asserted`, `roundCap?`, `gameCap?`)
 stores the round's raw `scoreTurn` through the cap clamp; `set-primary` (`round`,
 `vp`, `roundCap?`, `gameCap?`) clamps `vp` to the round cap **and** the remaining
 per-game room; `remove-score` (`index`) reverses a logged scoring. `total` is

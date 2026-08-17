@@ -1448,7 +1448,8 @@ fn handle_score_state(state: &mut RunnerState, args: &Value) -> Value {
                     };
                 if kind == "score-secondary" {
                     let vp = score_secondary_event(&asserted, card, pg.approach);
-                    pg = score_secondary(&pg, round, cid, vp);
+                    let (rc, gc) = optional_caps(op);
+                    pg = score_secondary(&pg, round, cid, vp, rc, gc);
                 } else {
                     // The app path: compute the round's raw total, then clamp on store.
                     let (rc, gc) = optional_caps(op);

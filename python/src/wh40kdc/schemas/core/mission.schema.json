@@ -29,6 +29,18 @@
       "default": 15,
       "description": "Maximum primary VP scorable in a single battle round. 11e default is 15."
     },
+    "secondary_vp_per_game_cap": {
+      "type": "integer",
+      "minimum": 0,
+      "default": 45,
+      "description": "Maximum secondary VP scorable across the whole game. 11e default is 45."
+    },
+    "secondary_vp_per_round_cap": {
+      "type": "integer",
+      "minimum": 0,
+      "default": 15,
+      "description": "Maximum secondary VP scorable in a single battle round. 11e default is 15."
+    },
     "deployment_pattern_ids": {
       "type": "array",
       "uniqueItems": true,

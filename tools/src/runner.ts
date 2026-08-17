@@ -978,7 +978,7 @@ function handleScoreEvent(state: RunnerState, args: unknown): RunnerResponse {
 
 type ScoreStateOp =
   | { kind: "draw"; cardId?: unknown }
-  | { kind: "score-secondary"; cardId?: unknown; round?: unknown; asserted?: unknown }
+  | { kind: "score-secondary"; cardId?: unknown; round?: unknown; asserted?: unknown; roundCap?: unknown; gameCap?: unknown }
   | { kind: "score-primary"; cardId?: unknown; round?: unknown; asserted?: unknown; roundCap?: unknown; gameCap?: unknown }
   | { kind: "set-primary"; round?: unknown; vp?: unknown; roundCap?: unknown; gameCap?: unknown }
   | { kind: "remove-score"; index?: unknown };
@@ -1019,7 +1019,7 @@ function handleScoreState(state: RunnerState, args: unknown): RunnerResponse {
         const resolved = resolveAsserted(card, raw.asserted);
         if (!resolved.ok) return resolved.response;
         const vp = scoreSecondaryEvent(resolved.value, card, pg.approach);
-        pg = scoreSecondary(pg, raw.round, raw.cardId, vp);
+        pg = scoreSecondary(pg, raw.round, raw.cardId, vp, optionalCaps(raw));
         break;
       }
       case "score-primary": {

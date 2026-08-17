@@ -222,6 +222,68 @@
       ],
       "reason": "The mission source is filled from the owning mission-pack display name, reached via primary_mission.missionPackId."
     },
+    "/secondary_vp_per_game_cap": {
+      "provenance": "joined",
+      "coverage": "implemented",
+      "sources": [
+        "data.primary_mission.missionPackId",
+        "data.mission_pack.secondaryMissionScoreGameLimit"
+      ],
+      "joins": [
+        {
+          "relation": "primary_mission.missionPackId",
+          "direction": "parent",
+          "purpose": "general"
+        }
+      ],
+      "transforms": [
+        {
+          "symbol": "tools/src/mfm/missions.ts#reconcileMissionEntities",
+          "operation": "Confirm the per-game secondary VP cap against the owning pack's secondaryMissionScoreGameLimit; a disagreement is surfaced for review."
+        }
+      ],
+      "filters": [
+        "All 25 generic primary missions belong to the one matched-play pack (Chapter Approved 2026-2027), so the pack-global cap projects uniformly per mission."
+      ],
+      "precedence": [
+        "The authored value is confirmed against the pack; a mismatch is surfaced, never silently rewritten."
+      ],
+      "consumers": [
+        "tools/src/mfm/missions.ts#reconcileMissionEntities"
+      ],
+      "reason": "The per-game secondary VP cap is confirmed from the owning mission-pack's secondaryMissionScoreGameLimit (single matched-play pack, so pack-global equals per-mission)."
+    },
+    "/secondary_vp_per_round_cap": {
+      "provenance": "joined",
+      "coverage": "implemented",
+      "sources": [
+        "data.primary_mission.missionPackId",
+        "data.mission_pack.secondaryMissionScoreBattleRoundLimit"
+      ],
+      "joins": [
+        {
+          "relation": "primary_mission.missionPackId",
+          "direction": "parent",
+          "purpose": "general"
+        }
+      ],
+      "transforms": [
+        {
+          "symbol": "tools/src/mfm/missions.ts#reconcileMissionEntities",
+          "operation": "Confirm the per-round secondary VP cap against the owning pack's secondaryMissionScoreBattleRoundLimit; a disagreement is surfaced for review."
+        }
+      ],
+      "filters": [
+        "All 25 generic primary missions belong to the one matched-play pack (Chapter Approved 2026-2027), so the pack-global cap projects uniformly per mission."
+      ],
+      "precedence": [
+        "The authored value is confirmed against the pack; a mismatch is surfaced, never silently rewritten."
+      ],
+      "consumers": [
+        "tools/src/mfm/missions.ts#reconcileMissionEntities"
+      ],
+      "reason": "The per-round secondary VP cap is confirmed from the owning mission-pack's secondaryMissionScoreBattleRoundLimit (single matched-play pack, so pack-global equals per-mission)."
+    },
     "/vp_per_game_cap": {
       "provenance": "joined",
       "coverage": "implemented",

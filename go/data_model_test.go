@@ -264,3 +264,101 @@ func TestModelScopeGateIsAttackerSideTooAndSparesUnitScopedGrants(t *testing.T) 
 		t.Errorf("surgical-precision keywords = %v, want [lethal-hits]", got)
 	}
 }
+
+// The QOL accessors on UnitView/WeaponView read the same fields the raw record
+// carries; mirror of the TS views-profile tests.
+func TestUnitAndWeaponViewAccessors(t *testing.T) {
+	ds := EmbeddedDataset()
+	unit, ok := ds.Units.GetInFaction("aggressor-squad", "adeptus-astartes")
+	if !ok {
+		t.Fatal("aggressor-squad missing from adeptus-astartes")
+	}
+	if got := unit.FactionID(); got != "adeptus-astartes" {
+		t.Errorf("FactionID() = %q, want adeptus-astartes", got)
+	}
+	// role is optional in the schema — the getter mirrors the raw field ("" when absent).
+	if unit.Role() != getStr(unit.Raw, "role") {
+		t.Errorf("Role() = %q, want the raw role", unit.Role())
+	}
+	if len(unit.Keywords()) == 0 {
+		t.Error("Keywords() is empty")
+	}
+	if len(unit.FactionKeywords()) == 0 {
+		t.Error("FactionKeywords() is empty")
+	}
+	if unit.ModelCount() == nil {
+		t.Error("ModelCount() is nil")
+	}
+	if len(unit.Points()) == 0 {
+		t.Error("Points() is empty")
+	}
+	if len(unit.Profiles()) != unit.ProfileCount() || unit.ProfileCount() == 0 {
+		t.Errorf("Profiles()=%d ProfileCount()=%d, want equal and non-zero",
+			len(unit.Profiles()), unit.ProfileCount())
+	}
+
+	weapon, ok := ds.Weapons.GetAny("bolt-rifle")
+	if !ok {
+		t.Fatal("bolt-rifle not resolvable")
+	}
+	if weapon.Type() == "" {
+		t.Error("Type() is empty")
+	}
+	if len(weapon.Profiles()) != weapon.ProfileCount() || weapon.ProfileCount() == 0 {
+		t.Errorf("Profiles()=%d ProfileCount()=%d, want equal and non-zero",
+			len(weapon.Profiles()), weapon.ProfileCount())
+	}
+	first, ok := weapon.profileAt(0)
+	if !ok {
+		t.Fatal("profileAt(0) missing")
+	}
+	if len(weapon.Profiles()) > 0 && weapon.Profiles()[0]["stats"] == nil && first["stats"] != nil {
+		t.Error("Profiles()[0] does not match profileAt(0)")
+	}
+}
+
+// recordSecondary clamps by the round's remaining room and the game-wide
+// secondary total; with no caps it stays unbounded (historical behavior).
+func TestRecordSecondaryCaps(t *testing.T) {
+	rc, gc := 15, 45
+	pg := recordSecondary(emptyPlayerGame("fixed"), 1, 99, &rc, &gc)
+	if got := playerSecondary(pg); got != 15 {
+		t.Errorf("round-capped secondary = %d, want 15", got)
+	}
+	// A second scoring in the same round has no room left.
+	pg = recordSecondary(pg, 1, 5, &rc, &gc)
+	if got := playerSecondary(pg); got != 15 {
+		t.Errorf("secondary after a full round = %d, want 15", got)
+	}
+	// Later rounds are bounded by the game cap net of the other rounds.
+	pg = recordSecondary(pg, 2, 99, &rc, &gc)
+	pg = recordSecondary(pg, 3, 99, &rc, &gc)
+	pg = recordSecondary(pg, 4, 99, &rc, &gc)
+	if got := playerSecondary(pg); got != 45 {
+		t.Errorf("game-capped secondary = %d, want 45", got)
+	}
+
+	uncapped := recordSecondary(emptyPlayerGame("fixed"), 1, 99, nil, nil)
+	if got := playerSecondary(uncapped); got != 99 {
+		t.Errorf("uncapped secondary = %d, want 99", got)
+	}
+}
+
+// scoreSecondary logs the clamped amount, not the asserted one, so remove-score
+// undoes exactly what was banked.
+func TestScoreSecondaryLogsClampedVP(t *testing.T) {
+	rc, gc := 15, 45
+	pg := addToHand(emptyPlayerGame("fixed"), "assassination")
+	pg = scoreSecondary(pg, 1, "assassination", 99, &rc, &gc)
+	logList := getList(pg, "log")
+	if len(logList) != 1 {
+		t.Fatalf("log entries = %d, want 1", len(logList))
+	}
+	entry, _ := asMap(logList[0])
+	if got := asInt(entry["vp"]); got != 15 {
+		t.Errorf("logged vp = %d, want 15 (clamped)", got)
+	}
+	if got := playerSecondary(removeScore(pg, 0)); got != 0 {
+		t.Errorf("secondary after remove-score = %d, want 0", got)
+	}
+}

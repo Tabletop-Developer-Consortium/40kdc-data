@@ -172,11 +172,27 @@ function roundIndex(round: number): number {
   return Math.max(0, Math.min(ROUNDS - 1, Math.trunc(round) - 1));
 }
 
-/** Add secondary VP to a battle round (1-based). Pure — returns new state. */
-export function recordSecondary(pg: PlayerGame, round: number, vp: number): PlayerGame {
+/**
+ * Add secondary VP to a battle round (1-based). Pure — returns new state.
+ *
+ * `caps` mirrors {@link setPrimary}: `roundCap` (`mission.secondary_vp_per_round_cap`)
+ * bounds the round's cumulative secondary, `gameCap`
+ * (`mission.secondary_vp_per_game_cap`) the game-wide secondary total.
+ */
+export function recordSecondary(
+  pg: PlayerGame,
+  round: number,
+  vp: number,
+  caps: { roundCap?: number; gameCap?: number } = {},
+): PlayerGame {
   const i = roundIndex(round);
+  const added = Math.max(0, vp);
+  const others = pg.rounds.reduce((s, c, idx) => (idx === i ? s : s + c.secondary), 0);
+  const gameRoom = Math.max(0, (caps.gameCap ?? Infinity) - others);
+  const roundRoom = Math.max(0, (caps.roundCap ?? Infinity) - pg.rounds[i].secondary);
+  const clamped = Math.min(added, roundRoom, gameRoom);
   const rounds = pg.rounds.map((c, idx) =>
-    idx === i ? { ...c, secondary: c.secondary + Math.max(0, vp) } : c,
+    idx === i ? { ...c, secondary: c.secondary + clamped } : c,
   );
   return { ...pg, rounds };
 }
@@ -191,12 +207,14 @@ export function scoreSecondary(
   round: number,
   cardId: string,
   vp: number,
+  caps: { roundCap?: number; gameCap?: number } = {},
 ): PlayerGame {
   const banked = Math.max(0, vp);
-  const recorded = recordSecondary(pg, round, banked);
+  const recorded = recordSecondary(pg, round, banked, caps);
+  const actuallyBanked = recorded.rounds[roundIndex(round)].secondary - pg.rounds[roundIndex(round)].secondary;
   return {
     ...removeFromHand(recorded, cardId),
-    log: [...pg.log, { cardId, round, vp: banked }],
+    log: [...pg.log, { cardId, round, vp: actuallyBanked }],
   };
 }
 

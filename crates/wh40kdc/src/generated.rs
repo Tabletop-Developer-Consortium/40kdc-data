@@ -8945,6 +8945,18 @@ for LeaderModelAbilityGrantEffectLeaderFilterKeywordsItem {
 ///      "maxLength": 128,
 ///      "minLength": 1
 ///    },
+///    "secondary_vp_per_game_cap": {
+///      "description": "Maximum secondary VP scorable across the whole game. 11e default is 45.",
+///      "default": 45,
+///      "type": "integer",
+///      "minimum": 0.0
+///    },
+///    "secondary_vp_per_round_cap": {
+///      "description": "Maximum secondary VP scorable in a single battle round. 11e default is 15.",
+///      "default": 15,
+///      "type": "integer",
+///      "minimum": 0.0
+///    },
 ///    "source": {
 ///      "description": "Mission pack or source the mission originates from.",
 ///      "type": "string",
@@ -8980,6 +8992,12 @@ pub struct Mission {
     pub game_version: GameVersionRef,
     pub id: EntityId,
     pub name: MissionName,
+    ///Maximum secondary VP scorable across the whole game. 11e default is 45.
+    #[serde(default = "defaults::default_u64::<u64, 45>")]
+    pub secondary_vp_per_game_cap: u64,
+    ///Maximum secondary VP scorable in a single battle round. 11e default is 15.
+    #[serde(default = "defaults::default_u64::<u64, 15>")]
+    pub secondary_vp_per_round_cap: u64,
     ///Mission pack or source the mission originates from.
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub source: ::std::option::Option<MissionSource>,

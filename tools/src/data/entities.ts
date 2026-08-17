@@ -41,6 +41,39 @@ export class UnitView {
     return this.raw.name;
   }
 
+  get factionId(): string {
+    return this.raw.faction_id;
+  }
+
+  get role(): Unit["role"] {
+    return this.raw.role;
+  }
+
+  get keywords(): readonly string[] {
+    return this.raw.keywords ?? [];
+  }
+
+  get factionKeywords(): readonly string[] {
+    return this.raw.faction_keywords ?? [];
+  }
+
+  get modelCount(): Unit["model_count"] {
+    return this.raw.model_count;
+  }
+
+  get points(): Unit["points"] {
+    return this.raw.points;
+  }
+
+  /** All stat profiles for this unit (at least one is always present). */
+  get profiles(): readonly Unit["profiles"][number][] {
+    return this.raw.profiles;
+  }
+
+  get profileCount(): number {
+    return this.raw.profiles.length;
+  }
+
   /** The unit's faction, or `undefined` if its `faction_id` is unknown. */
   get faction(): FactionView | undefined {
     return this.ds.factions.get(this.raw.faction_id);
@@ -228,6 +261,19 @@ export class WeaponView {
 
   get name(): string {
     return this.raw.name;
+  }
+
+  get type(): string {
+    return this.raw.type;
+  }
+
+  /** All stat profiles for this weapon (at least one is always present). */
+  get profiles(): readonly Weapon["profiles"][number][] {
+    return this.raw.profiles;
+  }
+
+  get profileCount(): number {
+    return this.raw.profiles.length;
   }
 
   /** Units that list this weapon in their `weapon_ids`. */

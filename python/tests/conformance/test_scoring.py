@@ -85,7 +85,13 @@ def run_scoring_case(ds: Any, case: dict[str, Any]) -> Any:
                 assert card is not None
                 resolved = _resolve_asserted(card, state_op.get("asserted") or [])
                 vp = score_secondary_event(resolved, card, pg["approach"])
-                pg = score_secondary(pg, state_op["round"], state_op["cardId"], vp)
+                pg = score_secondary(
+                    pg,
+                    state_op["round"],
+                    state_op["cardId"],
+                    vp,
+                    _optional_caps(state_op),
+                )
             elif kind == "score-primary":
                 card = ds.mission_cards.get(state_op["cardId"])
                 assert card is not None

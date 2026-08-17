@@ -17,6 +17,34 @@ type UnitView struct {
 func (u *UnitView) ID() string   { return getStr(u.Raw, "id") }
 func (u *UnitView) Name() string { return getStr(u.Raw, "name") }
 
+func (u *UnitView) FactionID() string { return getStr(u.Raw, "faction_id") }
+
+func (u *UnitView) Role() string { return getStr(u.Raw, "role") }
+
+func (u *UnitView) Keywords() []string { return getStrList(u.Raw, "keywords") }
+
+func (u *UnitView) FactionKeywords() []string { return getStrList(u.Raw, "faction_keywords") }
+
+func (u *UnitView) ModelCount() map[string]any {
+	m, _ := getMap(u.Raw, "model_count")
+	return m
+}
+
+func (u *UnitView) Points() []any { return getList(u.Raw, "points") }
+
+func (u *UnitView) Profiles() []map[string]any {
+	list := getList(u.Raw, "profiles")
+	out := make([]map[string]any, 0, len(list))
+	for _, v := range list {
+		if m, ok := asMap(v); ok {
+			out = append(out, m)
+		}
+	}
+	return out
+}
+
+func (u *UnitView) ProfileCount() int { return len(getList(u.Raw, "profiles")) }
+
 func (u *UnitView) Faction() (*FactionView, bool) {
 	return u.ds.Factions.Get(getStr(u.Raw, "faction_id"))
 }
@@ -83,6 +111,21 @@ type WeaponView struct {
 
 func (w *WeaponView) ID() string   { return getStr(w.Raw, "id") }
 func (w *WeaponView) Name() string { return getStr(w.Raw, "name") }
+
+func (w *WeaponView) Type() string { return getStr(w.Raw, "type") }
+
+func (w *WeaponView) Profiles() []map[string]any {
+	list := getList(w.Raw, "profiles")
+	out := make([]map[string]any, 0, len(list))
+	for _, v := range list {
+		if m, ok := asMap(v); ok {
+			out = append(out, m)
+		}
+	}
+	return out
+}
+
+func (w *WeaponView) ProfileCount() int { return len(getList(w.Raw, "profiles")) }
 
 func (w *WeaponView) Units() []*UnitView {
 	return w.ds.unitsWithWeapon(getStr(w.Raw, "id"))

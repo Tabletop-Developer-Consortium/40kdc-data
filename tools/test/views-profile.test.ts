@@ -61,6 +61,18 @@ describe("WeaponView profile accessors", () => {
     expect(() => bolt.profileAt(99)).toThrow(/profileAt\(99\)/);
   });
 
+  it("profiles returns the full array and profileCount matches", () => {
+    const bolt = ds.weapons.getAny("bolt-rifle")!;
+    expect(bolt.profiles.length).toBeGreaterThanOrEqual(1);
+    expect(bolt.profileCount).toBe(bolt.profiles.length);
+    expect(bolt.profiles[0]).toEqual(bolt.profileAt(0));
+  });
+
+  it("type is a string", () => {
+    const bolt = ds.weapons.getAny("bolt-rifle")!;
+    expect(typeof bolt.type).toBe("string");
+  });
+
   it("keywordsAt(0) resolves each reference against the catalog", () => {
     const bolt = ds.weapons.getAny("bolt-rifle")!;
     const kws = bolt.keywordsAt(0);
@@ -82,14 +94,49 @@ describe("WeaponView profile accessors", () => {
   });
 });
 
-describe("UnitView.profileAt", () => {
-  it("returns the unit's stat profile by index", () => {
-    // Pick any unit with at least one profile — units always have ≥1.
+describe("UnitView profile accessors", () => {
+  it("profileAt returns the unit's stat profile by index", () => {
     const someUnit = ds.units.all[0];
     const profile = someUnit.profileAt(0);
     expect(profile.T).toBeGreaterThan(0);
     expect(profile.W).toBeGreaterThan(0);
     expect(profile.Sv).toBeGreaterThan(0);
+  });
+
+  it("profiles returns the full array and profileCount matches", () => {
+    const someUnit = ds.units.all[0];
+    expect(someUnit.profiles.length).toBeGreaterThanOrEqual(1);
+    expect(someUnit.profileCount).toBe(someUnit.profiles.length);
+    expect(someUnit.profiles[0]).toEqual(someUnit.profileAt(0));
+  });
+
+  it("profileAt with out-of-range index throws", () => {
+    const someUnit = ds.units.all[0];
+    expect(() => someUnit.profileAt(99)).toThrow(/profileAt\(99\)/);
+  });
+});
+
+describe("UnitView convenience getters", () => {
+  it("factionId is a non-empty string", () => {
+    const someUnit = ds.units.all[0];
+    expect(someUnit.factionId).toBeTruthy();
+    expect(typeof someUnit.factionId).toBe("string");
+  });
+
+  it("keywords is an array", () => {
+    const someUnit = ds.units.all[0];
+    expect(Array.isArray(someUnit.keywords)).toBe(true);
+  });
+
+  it("factionKeywords is an array", () => {
+    const someUnit = ds.units.all[0];
+    expect(Array.isArray(someUnit.factionKeywords)).toBe(true);
+  });
+
+  it("role is a string when present", () => {
+    const withRole = ds.units.all.find((u) => u.role != null);
+    expect(withRole).toBeDefined();
+    expect(typeof withRole!.role).toBe("string");
   });
 });
 

@@ -130,7 +130,8 @@ func (s *RunnerState) handleScoreState(args any) map[string]any {
 				return errR
 			}
 			vp := scoreSecondaryEvent(resolved, card, approach)
-			pg = scoreSecondary(pg, asInt(raw["round"]), cardID, vp)
+			rc, gc := optionalCaps(raw)
+			pg = scoreSecondary(pg, asInt(raw["round"]), cardID, vp, rc, gc)
 		case "score-primary":
 			cardID, ok := raw["cardId"].(string)
 			if !ok || !isNumber(raw["round"]) {

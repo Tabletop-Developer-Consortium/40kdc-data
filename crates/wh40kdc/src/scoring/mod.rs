@@ -222,23 +222,59 @@ fn round_index(round: u64) -> usize {
 }
 
 /// Add secondary VP to a battle round (1-based). Pure — returns new state.
-pub fn record_secondary(pg: &PlayerGame, round: u64, vp: u64) -> PlayerGame {
+///
+/// `round_cap` bounds the round's secondary total and `game_cap` the secondary
+/// game total — the latter computed against the *other* rounds, so no sequence
+/// of scorings can push the secondary game total past it. `None` for either
+/// means uncapped. The added amount is clamped to whatever room is left, so a
+/// scoring that overshoots banks only the remainder.
+pub fn record_secondary(
+    pg: &PlayerGame,
+    round: u64,
+    vp: u64,
+    round_cap: Option<u64>,
+    game_cap: Option<u64>,
+) -> PlayerGame {
     let i = round_index(round);
+    let others: u64 = pg
+        .rounds
+        .iter()
+        .enumerate()
+        .filter(|(idx, _)| *idx != i)
+        .map(|(_, c)| c.secondary)
+        .sum();
+    let game_room = game_cap
+        .map(|g| g.saturating_sub(others))
+        .unwrap_or(u64::MAX);
+    let round_room = round_cap
+        .map(|r| r.saturating_sub(pg.rounds[i].secondary))
+        .unwrap_or(u64::MAX);
+    let clamped = vp.min(round_room).min(game_room);
     let mut next = pg.clone();
-    next.rounds[i].secondary += vp;
+    next.rounds[i].secondary += clamped;
     next
 }
 
 /// Score a held secondary: add its VP to the round, append it to the log, and
 /// discard it from hand. Pure. The caller computes `vp` via
 /// [`score_secondary_event`].
-pub fn score_secondary(pg: &PlayerGame, round: u64, card_id: &str, vp: u64) -> PlayerGame {
-    let mut next = record_secondary(pg, round, vp);
+pub fn score_secondary(
+    pg: &PlayerGame,
+    round: u64,
+    card_id: &str,
+    vp: u64,
+    round_cap: Option<u64>,
+    game_cap: Option<u64>,
+) -> PlayerGame {
+    let i = round_index(round);
+    let before = pg.rounds[i].secondary;
+    let mut next = record_secondary(pg, round, vp, round_cap, game_cap);
+    let actually_banked = next.rounds[i].secondary - before;
     next.hand_ids.retain(|id| id != card_id);
     next.log.push(ScoreEntry {
         card_id: card_id.to_string(),
         round,
-        vp,
+        vp: actually_banked,
     });
     next
 }
@@ -489,7 +525,7 @@ mod tests {
     #[test]
     fn score_secondary_logs_and_discards_and_remove_undoes() {
         let mut pg = add_to_hand(&empty_player_game(ScoringMode::Tactical), "centre-ground");
-        pg = score_secondary(&pg, 1, "centre-ground", 5);
+        pg = score_secondary(&pg, 1, "centre-ground", 5, None, None);
         assert_eq!(pg.rounds[0].secondary, 5);
         assert!(pg.hand_ids.is_empty());
         assert_eq!(pg.log.len(), 1);
@@ -514,11 +550,42 @@ mod tests {
     }
 
     #[test]
+    fn secondary_caps_clamp_round_and_game_totals() {
+        let pg = empty_player_game(ScoringMode::Tactical);
+
+        // Round cap clamps the round's cumulative secondary, not each scoring.
+        let mut capped = record_secondary(&pg, 1, 6, Some(10), None);
+        capped = record_secondary(&capped, 1, 6, Some(10), None);
+        assert_eq!(capped.rounds[0].secondary, 10);
+
+        // Game cap is computed against the *other* rounds.
+        let mut game = record_secondary(&pg, 1, 20, None, Some(30));
+        game = record_secondary(&game, 2, 20, None, Some(30));
+        assert_eq!(game.rounds[0].secondary, 20);
+        assert_eq!(game.rounds[1].secondary, 10);
+
+        // No caps means uncapped.
+        let free = record_secondary(&pg, 1, 99, None, None);
+        assert_eq!(free.rounds[0].secondary, 99);
+    }
+
+    #[test]
+    fn score_secondary_logs_the_clamped_amount() {
+        let pg = add_to_hand(&empty_player_game(ScoringMode::Tactical), "centre-ground");
+        let scored = score_secondary(&pg, 1, "centre-ground", 8, Some(5), None);
+        assert_eq!(scored.rounds[0].secondary, 5);
+        // The log records what was actually banked, so remove_score fully undoes it.
+        assert_eq!(scored.log[0].vp, 5);
+        let undone = remove_score(&scored, 0);
+        assert_eq!(undone.rounds[0].secondary, 0);
+    }
+
+    #[test]
     fn player_game_round_trips_through_json() {
         let mut pg = empty_player_game(ScoringMode::Tactical);
         pg = set_primary(&pg, 1, 8, Some(15), Some(45));
         pg = add_to_hand(&pg, "centre-ground");
-        pg = record_secondary(&pg, 1, 5);
+        pg = record_secondary(&pg, 1, 5, None, None);
         let json = serde_json::to_string(&pg).unwrap();
         let back: PlayerGame = serde_json::from_str(&json).unwrap();
         assert_eq!(back, pg);

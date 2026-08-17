@@ -308,6 +308,8 @@ interface MissionPackFacts {
   source: string;
   roundCap: number;
   gameCap: number;
+  secondaryRoundCap: number;
+  secondaryGameCap: number;
 }
 
 /** Repo mission id → its pack's source name + primary-VP caps (generic primaries only). */
@@ -331,6 +333,8 @@ export function missionEntityCanon(dump: MfmDump): Map<string, MissionPackFacts>
       source,
       roundCap: pack.primaryMissionScoreBattleRoundLimit,
       gameCap: pack.primaryMissionScoreGameLimit,
+      secondaryRoundCap: pack.secondaryMissionScoreBattleRoundLimit,
+      secondaryGameCap: pack.secondaryMissionScoreGameLimit,
     });
   }
   return out;
@@ -380,6 +384,8 @@ export function reconcileMissionEntities(dump: MfmDump): MissionEntityReport {
     for (const [field, dumpVal] of [
       ["vp_per_round_cap", facts.roundCap],
       ["vp_per_game_cap", facts.gameCap],
+      ["secondary_vp_per_round_cap", facts.secondaryRoundCap],
+      ["secondary_vp_per_game_cap", facts.secondaryGameCap],
     ] as const) {
       const authored = m[field] as number | undefined;
       if (authored === dumpVal) report.capConfirmed++;

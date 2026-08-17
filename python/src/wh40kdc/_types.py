@@ -364,6 +364,8 @@ class Mission(TypedDict):
     description: NotRequired[str]
     vp_per_game_cap: NotRequired[int]
     vp_per_round_cap: NotRequired[int]
+    secondary_vp_per_game_cap: NotRequired[int]
+    secondary_vp_per_round_cap: NotRequired[int]
     deployment_pattern_ids: NotRequired[list[EntityId]]
     game_version: GameVersionRef
 

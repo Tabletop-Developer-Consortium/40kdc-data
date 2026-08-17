@@ -32,7 +32,7 @@ export {
 } from "./entities.js";
 export { normalizeName, stripLeadingThe } from "./normalize.js";
 export { isMeleeProfile } from "./weapon-profile.js";
-export type { WeaponProfile } from "./weapon-profile.js";
+export type { UnitProfile, WeaponProfile } from "./weapon-profile.js";
 export { emptyRawData } from "./types.js";
 export type { RawData } from "./types.js";
 

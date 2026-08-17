@@ -1000,6 +1000,14 @@ export interface Mission {
    */
   vp_per_round_cap?: number;
   /**
+   * Maximum secondary VP scorable across the whole game. 11e default is 45.
+   */
+  secondary_vp_per_game_cap?: number;
+  /**
+   * Maximum secondary VP scorable in a single battle round. 11e default is 15.
+   */
+  secondary_vp_per_round_cap?: number;
+  /**
    * Ids of the deployment-pattern entities (maps) this mission can be played on. Empty until the per-mission maps are confirmed.
    */
   deployment_pattern_ids?: EntityId[];

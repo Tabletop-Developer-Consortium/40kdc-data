@@ -197,7 +197,7 @@ describe.skipIf(!fs.existsSync(DEFAULT_DUMP_PATH))("mission-entity reconcile ove
     expect(report.matched).toBe(25);
     expect(report.sourceFilled).toEqual([]); // already applied
     expect(report.sourceReview).toEqual([]);
-    expect(report.capConfirmed).toBe(50); // 25 missions × 2 caps
+    expect(report.capConfirmed).toBe(100); // 25 missions × 4 caps
     expect(report.capReview).toEqual([]);
     expect(report.staged).toEqual([]);
   });

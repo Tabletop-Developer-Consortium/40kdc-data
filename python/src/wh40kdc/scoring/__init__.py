@@ -118,24 +118,43 @@ def _round_index(round: int) -> int:
     return max(0, min(ROUNDS - 1, math.trunc(round) - 1))
 
 
-def record_secondary(pg: PlayerGame, round: int, vp: int) -> PlayerGame:
-    """Add secondary VP to a battle round (1-based). Pure — returns new state."""
+def record_secondary(
+    pg: PlayerGame,
+    round: int,
+    vp: int,
+    caps: dict[str, Any] | None = None,
+) -> PlayerGame:
+    """Add secondary VP to a battle round (1-based). Pure — returns new state.
+
+    ``caps`` mirrors :func:`set_primary`: ``roundCap`` bounds the round's
+    cumulative secondary, ``gameCap`` the game-wide secondary total.
+    """
     i = _round_index(round)
+    added = max(0, vp)
+    caps = caps or {}
+    others = sum(c["secondary"] for idx, c in enumerate(pg["rounds"]) if idx != i)
+    game_room = max(0, (caps.get("gameCap") or math.inf) - others)
+    round_room = max(0, (caps.get("roundCap") or math.inf) - pg["rounds"][i]["secondary"])
+    clamped = min(added, round_room, game_room)
     rounds = [
-        {**c, "secondary": c["secondary"] + max(0, vp)} if idx == i else c
+        {**c, "secondary": c["secondary"] + clamped} if idx == i else c
         for idx, c in enumerate(pg["rounds"])
     ]
     return {**pg, "rounds": rounds}
 
 
-def score_secondary(pg: PlayerGame, round: int, card_id: str, vp: int) -> PlayerGame:
+def score_secondary(
+    pg: PlayerGame, round: int, card_id: str, vp: int, caps: dict[str, Any] | None = None
+) -> PlayerGame:
     """Score a held secondary: add its VP to the round, append it to the log,
     and discard it from hand. Pure."""
     banked = max(0, vp)
-    recorded = record_secondary(pg, round, banked)
+    recorded = record_secondary(pg, round, banked, caps)
+    i = _round_index(round)
+    actually_banked = recorded["rounds"][i]["secondary"] - pg["rounds"][i]["secondary"]
     return {
         **remove_from_hand(recorded, card_id),
-        "log": [*pg["log"], {"cardId": card_id, "round": round, "vp": banked}],
+        "log": [*pg["log"], {"cardId": card_id, "round": round, "vp": actually_banked}],
     }
 
 

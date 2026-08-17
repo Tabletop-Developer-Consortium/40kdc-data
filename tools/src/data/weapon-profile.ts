@@ -15,7 +15,10 @@
  *
  * @packageDocumentation
  */
-import type { Weapon } from "../generated.js";
+import type { Unit, Weapon } from "../generated.js";
+
+/** One stat profile of a unit. */
+export type UnitProfile = Unit["profiles"][number];
 
 /** One stat profile of a weapon. */
 export type WeaponProfile = Weapon["profiles"][number];

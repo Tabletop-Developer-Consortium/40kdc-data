@@ -115,22 +115,49 @@ func roundIndex(round int) int {
 	return maxInt(0, minInt(scoringRounds-1, round-1))
 }
 
-func recordSecondary(pg map[string]any, round, vp int) map[string]any {
+// recordSecondary adds secondary VP to a battle round (1-based), returning new
+// state. The caps mirror setPrimary: roundCap bounds the round's cumulative
+// secondary, gameCap the game-wide secondary total. A nil cap is unbounded.
+func recordSecondary(pg map[string]any, round, vp int, roundCap, gameCap *int) map[string]any {
 	i := roundIndex(round)
+	added := float64(maxInt(0, vp))
+	others := 0
+	for idx, cAny := range getList(pg, "rounds") {
+		if idx != i {
+			c, _ := asMap(cAny)
+			others += asInt(c["secondary"])
+		}
+	}
+	rc := math.Inf(1)
+	if roundCap != nil {
+		rc = float64(*roundCap)
+	}
+	gc := math.Inf(1)
+	if gameCap != nil {
+		gc = float64(*gameCap)
+	}
 	rounds := cloneRounds(pg)
 	c, _ := asMap(rounds[i])
-	c["secondary"] = float64(asInt(c["secondary"]) + maxInt(0, vp))
+	current := asInt(c["secondary"])
+	roundRoom := math.Max(0, rc-float64(current))
+	gameRoom := math.Max(0, gc-float64(others))
+	clamped := math.Min(added, math.Min(roundRoom, gameRoom))
+	c["secondary"] = float64(current) + clamped
 	out := cloneMap(pg)
 	out["rounds"] = rounds
 	return out
 }
 
-func scoreSecondary(pg map[string]any, round int, cardID string, vp int) map[string]any {
+func scoreSecondary(pg map[string]any, round int, cardID string, vp int, roundCap, gameCap *int) map[string]any {
 	banked := maxInt(0, vp)
-	recorded := recordSecondary(pg, round, banked)
+	recorded := recordSecondary(pg, round, banked, roundCap, gameCap)
+	i := roundIndex(round)
+	before, _ := asMap(getList(pg, "rounds")[i])
+	after, _ := asMap(getList(recorded, "rounds")[i])
+	actuallyBanked := asInt(after["secondary"]) - asInt(before["secondary"])
 	out := removeFromHand(recorded, cardID)
 	log := append(cloneList(getList(pg, "log")), map[string]any{
-		"cardId": cardID, "round": float64(round), "vp": float64(banked),
+		"cardId": cardID, "round": float64(round), "vp": float64(actuallyBanked),
 	})
 	out["log"] = log
 	return out

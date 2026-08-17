@@ -2835,5 +2835,215 @@
     "ability_type": "unit",
     "behavior": "passive",
     "community_notes": "In the Shooting phase, each time this model makes a ranged attack that targets a unit within range of an objective marker, that attack has the [IGNORES COVER] ability."
+  },
+  {
+    "ability_id": "code-chivalric",
+    "name": "Code Chivalric",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "pre-launch-provisional"
+    },
+    "version": "2025-q3",
+    "faction_id": "imperial-knights",
+    "ability_type": "faction",
+    "behavior": "passive",
+    "effect": {
+      "type": "sequence",
+      "steps": [
+        {
+          "type": "choice",
+          "choice_label": "Select Deed",
+          "options": [
+            {
+              "type": "sequence",
+              "steps": [
+                {
+                  "type": "choice",
+                  "choice_label": "Quality: Martial Valour",
+                  "options": [
+                    {
+                      "type": "re-roll",
+                      "target": "unit",
+                      "modifier": {
+                        "roll": "hit",
+                        "subset": "ones",
+                        "attack_type": "ranged"
+                      }
+                    },
+                    {
+                      "type": "re-roll",
+                      "target": "unit",
+                      "modifier": {
+                        "roll": "hit",
+                        "subset": "ones",
+                        "attack_type": "melee"
+                      }
+                    },
+                    {
+                      "type": "re-roll",
+                      "target": "unit",
+                      "modifier": {
+                        "roll": "wound",
+                        "subset": "ones",
+                        "attack_type": "ranged"
+                      }
+                    },
+                    {
+                      "type": "re-roll",
+                      "target": "unit",
+                      "modifier": {
+                        "roll": "wound",
+                        "subset": "ones",
+                        "attack_type": "melee"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "conditional",
+                  "condition": {
+                    "type": "unit-has-keyword",
+                    "parameters": {
+                      "keyword": "CHARACTER"
+                    }
+                  },
+                  "effect": {
+                    "type": "sequence",
+                    "steps": [
+                      {
+                        "type": "conditional",
+                        "condition": {
+                          "type": "destroyed-by-attack-type"
+                        },
+                        "effect": {
+                          "type": "ability-grant",
+                          "target": "all-friendly",
+                          "modifier": {
+                            "grant_type": "oath-fulfilled"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "type": "sequence",
+              "steps": [
+                {
+                  "type": "choice",
+                  "choice_label": "Quality: Eager for Challenge",
+                  "options": [
+                    {
+                      "type": "stat-modifier",
+                      "target": "unit",
+                      "modifier": {
+                        "stat": "M",
+                        "operation": "add",
+                        "value": 2
+                      }
+                    },
+                    {
+                      "type": "roll-modifier",
+                      "target": "unit",
+                      "modifier": {
+                        "roll": "advance",
+                        "operation": "add",
+                        "value": 1
+                      }
+                    },
+                    {
+                      "type": "roll-modifier",
+                      "target": "unit",
+                      "modifier": {
+                        "roll": "charge",
+                        "operation": "add",
+                        "value": 1
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "conditional",
+                  "condition": {
+                    "type": "objective-majority",
+                    "parameters": {
+                      "relative_to": "opponent"
+                    }
+                  },
+                  "effect": {
+                    "type": "ability-grant",
+                    "target": "all-friendly",
+                    "modifier": {
+                      "grant_type": "oath-fulfilled"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "type": "sequence",
+              "steps": [
+                {
+                  "type": "choice",
+                  "choice_label": "Quality: Legacy Unsullied",
+                  "options": [
+                    {
+                      "type": "stat-modifier",
+                      "target": "unit",
+                      "modifier": {
+                        "stat": "OC",
+                        "operation": "add",
+                        "value": 2
+                      }
+                    },
+                    {
+                      "type": "stat-modifier",
+                      "target": "unit",
+                      "modifier": {
+                        "stat": "Ld",
+                        "operation": "add",
+                        "value": 1
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "conditional",
+                  "condition": {
+                    "type": "units-destroyed-comparison",
+                    "parameters": {
+                      "subject": {
+                        "side": "enemy",
+                        "window": "this-turn"
+                      },
+                      "comparator": "greater-or-equal",
+                      "reference": {
+                        "side": "self",
+                        "value": 0
+                      }
+                    }
+                  },
+                  "effect": {
+                    "type": "ability-grant",
+                    "target": "all-friendly",
+                    "modifier": {
+                      "grant_type": "oath-fulfilled"
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "scope": {
+      "range": "army",
+      "duration": "permanent"
+    },
+    "community_notes": "Code Chivalric represents the mandatory Oath system for Imperial Knights armies. Players select (or randomly roll) one Deed and one Quality at the start of the battle. The Deed's condition must be met for the Oath to be fulfilled and grant Command Points. This DSL approximation models the three Quality bonuses and the three Deed conditions; random selection is represented as choice options. The CP grant mechanic (2/3 CP when fulfilled) is represented as an oath-fulfilled ability-grant placeholder."
   }
 ]

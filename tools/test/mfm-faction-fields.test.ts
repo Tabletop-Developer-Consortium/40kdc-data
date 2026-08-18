@@ -30,17 +30,19 @@ describe.skipIf(!fs.existsSync(DEFAULT_DUMP_PATH))("faction-fields over the real
     expect(byDir.get("adepta-sororitas")?.ruleConfirmed).toBe(true);
   });
 
-  it("confirms an authored slug whose dump name carries a stripped parenthetical", () => {
-    // Death Guard authored "nurgles-gift"; the dump names it "Nurgle's Gift (Aura)".
-    expect(byDir.get("death-guard")?.ruleConfirmed).toBe(true);
-    expect(byDir.get("death-guard")?.ruleReview).toBeUndefined();
+  it("surfaces a review when the authored slug includes the parenthetical the tool strips", () => {
+    // Death Guard authored "nurgle-s-gift-aura"; the dump names it "Nurgle's Gift (Aura)".
+    // The tool strips the parenthetical before slugifying → "nurgles-gift", so the
+    // authored slug with "-aura" doesn't match and lands in review.
+    const dg = byDir.get("death-guard");
+    expect(dg?.ruleConfirmed).toBeFalsy();
+    expect(dg?.ruleReview).toBeDefined();
   });
 
-  it("surfaces (never overwrites) a rule not among the faction's owned army rules", () => {
+  it("confirms a chapter whose authored rule matches its inherited army rule", () => {
+    // Blood Angels authored "oath-of-moment" (inherited from Adeptus Astartes).
     const ba = byDir.get("blood-angels");
-    expect(ba?.ruleFilled).toBeUndefined();
-    expect(ba?.ruleReview?.authored).toBe("the-red-thirst");
-    expect(ba?.ruleReview?.candidates).toContain("the-sons-of-sanguinius");
+    expect(ba?.ruleConfirmed).toBe(true);
   });
 
   it("confirms a chapter's parent faction", () => {

@@ -921,6 +921,20 @@
         "keyword_restrictions": {
           "$ref": "#/$defs/keyword-list"
         },
+        "keyword_restriction_groups": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "$ref": "#/$defs/keyword"
+            }
+          },
+          "description": "Alternative bearer eligibility groups. Every keyword in one group is required (AND), while satisfying any group is sufficient (OR). When present, this supersedes the legacy flat `keyword_restrictions` field."
+        },
         "exclusion_keywords": {
           "oneOf": [
             {
@@ -930,6 +944,15 @@
               "type": "null"
             }
           ]
+        },
+        "attachment_bodyguard_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/entity-id"
+          },
+          "minItems": 1,
+          "uniqueItems": true,
+          "description": "Additional bodyguard units the bearer may attach to because it carries this enhancement."
         },
         "ability_id": {
           "oneOf": [
@@ -1268,6 +1291,18 @@
           "minimum": 0,
           "default": 15,
           "description": "Maximum primary VP scorable in a single battle round. 11e default is 15."
+        },
+        "secondary_vp_per_game_cap": {
+          "type": "integer",
+          "minimum": 0,
+          "default": 45,
+          "description": "Maximum secondary VP scorable across the whole game. 11e default is 45."
+        },
+        "secondary_vp_per_round_cap": {
+          "type": "integer",
+          "minimum": 0,
+          "default": 15,
+          "description": "Maximum secondary VP scorable in a single battle round. 11e default is 15."
         },
         "deployment_pattern_ids": {
           "type": "array",
@@ -2646,6 +2681,42 @@
         },
         "faction_keywords": {
           "$ref": "#/$defs/keyword-list"
+        },
+        "conditional_keywords": {
+          "type": "array",
+          "description": "Keywords granted to this unit only when roster construction satisfies the source condition. Conditions are conjunctive within an entry; entries are independent grants.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "keyword": {
+                "$ref": "#/$defs/keyword"
+              },
+              "required_detachment_id": {
+                "oneOf": [
+                  {
+                    "$ref": "#/$defs/entity-id"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "required_faction_keyword": {
+                "oneOf": [
+                  {
+                    "$ref": "#/$defs/keyword"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "keyword"
+            ],
+            "additionalProperties": false
+          }
         },
         "excluded_faction_keywords": {
           "description": "Faction keywords whose armies are barred from taking this otherwise-generic unit. Used where the game removes a generic unit from a specific sub-faction without printing a replacement (e.g. Black Templars cannot field Librarians; Deathwatch cannot field the generic Tactical Squad). An army may take this unit only if none of its faction keywords appear here. Absent/empty = available to every keyword-eligible army. Distinct from `faction_keywords`, which is the positive access list; this is the negative one for the rare exclusions a flat shared pool cannot otherwise express.",
@@ -5449,6 +5520,7 @@
             "battle-round",
             "battle",
             "until-next-command-phase",
+            "until-next-battle-round",
             "one-use",
             "permanent"
           ]

@@ -178,10 +178,10 @@
     },
     {
       "faction": "imperial-knights",
-      "total": 76,
+      "total": 77,
       "offensive": 29,
       "defensive": 6,
-      "inert": 43,
+      "inert": 44,
       "stub": 5,
       "stubStructural": 0,
       "gwTextLeak": 0,
@@ -223,9 +223,9 @@
     {
       "faction": "tau-empire",
       "total": 129,
-      "offensive": 31,
+      "offensive": 29,
       "defensive": 6,
-      "inert": 94,
+      "inert": 96,
       "stub": 3,
       "stubStructural": 0,
       "gwTextLeak": 0,
@@ -266,10 +266,10 @@
     }
   ],
   "totals": {
-    "total": 3123,
-    "offensive": 768,
+    "total": 3124,
+    "offensive": 766,
     "defensive": 263,
-    "inert": 2177,
+    "inert": 2180,
     "stub": 117,
     "stubStructural": 38,
     "gwTextLeak": 0,
@@ -278,7 +278,7 @@
   "unsupportedReasons": [
     {
       "reason": "effect type \"ability-grant\" is not modelled by the buff layer",
-      "count": 456
+      "count": 455
     },
     {
       "reason": "effect type \"movement-modifier\" is not modelled by the buff layer",
@@ -290,15 +290,15 @@
     },
     {
       "reason": "conditional: cannot evaluate condition \"undefined\" against current context",
-      "count": 103
+      "count": 105
     },
     {
       "reason": "effect type \"leadership-modifier\" is not modelled by the buff layer",
-      "count": 85
+      "count": 84
     },
     {
       "reason": "effect type \"attack-restriction\" is not modelled by the buff layer",
-      "count": 62
+      "count": 59
     },
     {
       "reason": "effect type \"resurrection\" is not modelled by the buff layer",
@@ -333,12 +333,12 @@
       "count": 32
     },
     {
-      "reason": "stat-modifier: operation \"set\" not supported",
+      "reason": "effect type \"disembark-after-move\" is not modelled by the buff layer",
       "count": 31
     },
     {
-      "reason": "effect type \"disembark-after-move\" is not modelled by the buff layer",
-      "count": 31
+      "reason": "stat-modifier: operation \"set\" not supported",
+      "count": 30
     },
     {
       "reason": "effect type \"fallback-and-act\" is not modelled by the buff layer",
@@ -357,12 +357,12 @@
       "count": 22
     },
     {
-      "reason": "stat-modifier: operation \"undefined\" not supported",
+      "reason": "effect type \"targeting-permission\" is not modelled by the buff layer",
       "count": 22
     },
     {
-      "reason": "effect type \"targeting-permission\" is not modelled by the buff layer",
-      "count": 19
+      "reason": "stat-modifier: operation \"undefined\" not supported",
+      "count": 22
     },
     {
       "reason": "roll-modifier: operation \"set\" not supported",
@@ -370,7 +370,7 @@
     },
     {
       "reason": "conditional: cannot evaluate condition \"unit-below-starting-strength\" against current context",
-      "count": 14
+      "count": 15
     },
     {
       "reason": "designate-target debuff on the marked unit: not a buff on the bearer",
@@ -421,10 +421,6 @@
       "count": 8
     },
     {
-      "reason": "roll-modifier: operation \"crit-on\" not supported",
-      "count": 7
-    },
-    {
       "reason": "stat-modifier AP on the attacker: defender-side AP reduction is not modelled by the buff layer",
       "count": 7
     },
@@ -446,6 +442,10 @@
     },
     {
       "reason": "effect type \"unit-tag\" is not modelled by the buff layer",
+      "count": 5
+    },
+    {
+      "reason": "roll-modifier: operation \"crit-on\" not supported",
       "count": 5
     },
     {
@@ -493,10 +493,6 @@
       "count": 4
     },
     {
-      "reason": "stat-modifier on \"WS\" is outside the damage path",
-      "count": 4
-    },
-    {
       "reason": "effect type \"resource-gain\" is not modelled by the buff layer",
       "count": 3
     },
@@ -525,7 +521,15 @@
       "count": 3
     },
     {
+      "reason": "stat-modifier on \"WS\" is outside the damage path",
+      "count": 3
+    },
+    {
       "reason": "conditional: cannot evaluate condition \"within-range-of-objective\" against current context",
+      "count": 3
+    },
+    {
+      "reason": "roll-modifier: operation \"undefined\" not supported",
       "count": 3
     },
     {
@@ -645,6 +649,10 @@
       "count": 1
     },
     {
+      "reason": "effect type \"stratagem-targeting-permission\" is not modelled by the buff layer",
+      "count": 1
+    },
+    {
       "reason": "roll-modifier on \"reanimation-protocols\" is outside the damage path",
       "count": 1
     },
@@ -674,10 +682,6 @@
     },
     {
       "reason": "re-roll on \"blessings-of-khorne\" (subset …) is outside the damage path",
-      "count": 1
-    },
-    {
-      "reason": "roll-modifier: operation \"undefined\" not supported",
       "count": 1
     },
     {
@@ -2090,11 +2094,11 @@
       "faction": "adeptus-astartes",
       "ability_id": "black-rage",
       "name": "Black Rage",
-      "shape": "conditional",
+      "shape": "sequence",
       "stub": false,
       "offensive": true,
       "defensive": false,
-      "gap": null
+      "gap": "conditional: cannot evaluate condition \"undefined\" against current context"
     },
     {
       "faction": "adeptus-astartes",
@@ -3534,7 +3538,7 @@
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"attack-restriction\" is not modelled by the buff layer"
+      "gap": "effect type \"targeting-permission\" is not modelled by the buff layer"
     },
     {
       "faction": "adeptus-astartes",
@@ -4194,7 +4198,7 @@
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"attack-restriction\" is not modelled by the buff layer"
+      "gap": "effect type \"targeting-permission\" is not modelled by the buff layer"
     },
     {
       "faction": "adeptus-astartes",
@@ -17634,7 +17638,7 @@
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"attack-restriction\" is not modelled by the buff layer"
+      "gap": "effect type \"targeting-permission\" is not modelled by the buff layer"
     },
     {
       "faction": "death-guard",
@@ -22917,6 +22921,16 @@
       "gap": "conditional: cannot evaluate condition \"within-range-of-objective\" against current context"
     },
     {
+      "faction": "imperial-knights",
+      "ability_id": "code-chivalric",
+      "name": "Code Chivalric",
+      "shape": "sequence",
+      "stub": false,
+      "offensive": false,
+      "defensive": false,
+      "gap": null
+    },
+    {
       "faction": "leagues-of-votann",
       "ability_id": "leader",
       "name": "Leader",
@@ -23714,7 +23728,7 @@
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"leadership-modifier\" is not modelled by the buff layer"
+      "gap": null
     },
     {
       "faction": "necrons",
@@ -23794,7 +23808,7 @@
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "stat-modifier on \"WS\" is outside the damage path"
+      "gap": null
     },
     {
       "faction": "necrons",
@@ -24070,7 +24084,7 @@
       "faction": "necrons",
       "ability_id": "whirling-onslaught",
       "name": "Whirling Onslaught",
-      "shape": "conditional",
+      "shape": "sequence",
       "stub": false,
       "offensive": true,
       "defensive": false,
@@ -24384,7 +24398,7 @@
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "roll-modifier: operation \"crit-on\" not supported"
+      "gap": "roll-modifier: operation \"undefined\" not supported"
     },
     {
       "faction": "necrons",
@@ -24564,7 +24578,7 @@
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "roll-modifier: operation \"crit-on\" not supported"
+      "gap": "roll-modifier: operation \"undefined\" not supported"
     },
     {
       "faction": "necrons",
@@ -24670,7 +24684,7 @@
       "faction": "necrons",
       "ability_id": "triarch-abilities",
       "name": "Triarch Abilities",
-      "shape": "conditional",
+      "shape": "stance-select",
       "stub": false,
       "offensive": false,
       "defensive": false,
@@ -24884,7 +24898,7 @@
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"ability-grant\" is not modelled by the buff layer"
+      "gap": "effect type \"stratagem-targeting-permission\" is not modelled by the buff layer"
     },
     {
       "faction": "necrons",
@@ -24910,11 +24924,11 @@
       "faction": "necrons",
       "ability_id": "reanimation-protocols",
       "name": "Reanimation Protocols",
-      "shape": "stat-modifier",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "stat-modifier: operation \"set\" not supported"
+      "gap": null
     },
     {
       "faction": "necrons",
@@ -26922,9 +26936,9 @@
       "name": "Fireknife",
       "shape": "conditional",
       "stub": false,
-      "offensive": false,
+      "offensive": true,
       "defensive": false,
-      "gap": null
+      "gap": "conditional: cannot evaluate condition \"unit-below-starting-strength\" against current context"
     },
     {
       "faction": "tau-empire",
@@ -27022,7 +27036,7 @@
       "name": "Forward Observers",
       "shape": "conditional",
       "stub": false,
-      "offensive": true,
+      "offensive": false,
       "defensive": false,
       "gap": null
     },
@@ -27162,9 +27176,9 @@
       "name": "Exemplars of Mont’ka",
       "shape": "conditional",
       "stub": false,
-      "offensive": true,
+      "offensive": false,
       "defensive": false,
-      "gap": null
+      "gap": "conditional: cannot evaluate condition \"undefined\" against current context"
     },
     {
       "faction": "tau-empire",
@@ -27752,7 +27766,7 @@
       "name": "Sunforge",
       "shape": "conditional",
       "stub": false,
-      "offensive": true,
+      "offensive": false,
       "defensive": false,
       "gap": null
     },

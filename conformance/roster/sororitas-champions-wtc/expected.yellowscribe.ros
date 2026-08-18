@@ -109,7 +109,7 @@
             </profile>
             <profile name="Stanchion of Holy Martyrs" typeName="Abilities">
               <characteristics>
-                <characteristic name="Description">While this model is leading a unit, modify the unit's Save characteristic to 2.</characteristic>
+                <characteristic name="Description">After being attached to a unit, modify the unit's Save characteristic to 2.</characteristic>
               </characteristics>
             </profile>
           </profiles>
@@ -192,7 +192,7 @@
             </profile>
             <profile name="Abbess Sanctorum" typeName="Abilities">
               <characteristics>
-                <characteristic name="Description">While this model is leading a unit:
+                <characteristic name="Description">After being attached to a unit:
   -&gt; You can re-roll the Hit roll.
   -&gt; You can re-roll the Wound roll.</characteristic>
               </characteristics>
@@ -321,7 +321,7 @@
             </profile>
             <profile name="Fury of the Righteous" typeName="Abilities">
               <characteristics>
-                <characteristic name="Description">While this model is leading a unit, the unit's weapons gain [LETHAL HITS].</characteristic>
+                <characteristic name="Description">After being attached to a unit, the unit's weapons gain [LETHAL HITS].</characteristic>
               </characteristics>
             </profile>
             <profile name="Leader" typeName="Abilities">
@@ -704,7 +704,7 @@
             </profile>
             <profile name="Sworn Protectors" typeName="Abilities">
               <characteristics>
-                <characteristic name="Description">While this model is leading a unit, the attacking unit gets -1 to Wound rolls.</characteristic>
+                <characteristic name="Description">After being attached to a unit, the attacking unit gets -1 to Wound rolls.</characteristic>
               </characteristics>
             </profile>
           </profiles>

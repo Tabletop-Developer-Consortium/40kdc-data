@@ -5188,6 +5188,15 @@ impl ::std::convert::From<ResourceActionMenuEffect> for EffectNode {
 ///        }
 ///      ]
 ///    },
+///    "attachment_bodyguard_ids": {
+///      "description": "Additional bodyguard units the bearer may attach to because it carries this enhancement.",
+///      "type": "array",
+///      "items": {
+///        "$ref": "#/$defs/entity-id"
+///      },
+///      "minItems": 1,
+///      "uniqueItems": true
+///    },
 ///    "cost": {
 ///      "type": "integer",
 ///      "minimum": 0.0
@@ -5218,6 +5227,20 @@ impl ::std::convert::From<ResourceActionMenuEffect> for EffectNode {
 ///    "is_unique": {
 ///      "default": true,
 ///      "type": "boolean"
+///    },
+///    "keyword_restriction_groups": {
+///      "description": "Alternative bearer eligibility groups. Every keyword in one group is required (AND), while satisfying any group is sufficient (OR). When present, this supersedes the legacy flat `keyword_restrictions` field.",
+///      "type": "array",
+///      "items": {
+///        "type": "array",
+///        "items": {
+///          "$ref": "#/$defs/keyword"
+///        },
+///        "minItems": 1,
+///        "uniqueItems": true
+///      },
+///      "minItems": 1,
+///      "uniqueItems": true
 ///    },
 ///    "keyword_restrictions": {
 ///      "$ref": "#/$defs/keyword-list"
@@ -5253,6 +5276,9 @@ impl ::std::convert::From<ResourceActionMenuEffect> for EffectNode {
 pub struct Enhancement {
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub ability_id: ::std::option::Option<EntityId>,
+    ///Additional bodyguard units the bearer may attach to because it carries this enhancement.
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub attachment_bodyguard_ids: ::std::option::Option<Vec<EntityId>>,
     pub cost: u64,
     pub detachment_id: EntityId,
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
@@ -5264,6 +5290,9 @@ pub struct Enhancement {
     pub id: EntityId,
     #[serde(default = "defaults::default_bool::<true>")]
     pub is_unique: bool,
+    ///Alternative bearer eligibility groups. Every keyword in one group is required (AND), while satisfying any group is sufficient (OR). When present, this supersedes the legacy flat `keyword_restrictions` field.
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub keyword_restriction_groups: ::std::option::Option<Vec<Vec<Keyword>>>,
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub keyword_restrictions: ::std::option::Option<KeywordList>,
     ///Number of units this enhancement may be applied to. Only meaningful when `upgrade_tag` is true; defaults to 1.
@@ -8417,6 +8446,18 @@ for LeaderModelAbilityGrantEffectLeaderFilterKeywordsItem {
 ///      "maxLength": 128,
 ///      "minLength": 1
 ///    },
+///    "secondary_vp_per_game_cap": {
+///      "description": "Maximum secondary VP scorable across the whole game. 11e default is 45.",
+///      "default": 45,
+///      "type": "integer",
+///      "minimum": 0.0
+///    },
+///    "secondary_vp_per_round_cap": {
+///      "description": "Maximum secondary VP scorable in a single battle round. 11e default is 15.",
+///      "default": 15,
+///      "type": "integer",
+///      "minimum": 0.0
+///    },
 ///    "source": {
 ///      "description": "Mission pack or source the mission originates from.",
 ///      "type": "string",
@@ -8452,6 +8493,12 @@ pub struct Mission {
     pub game_version: GameVersionRef,
     pub id: EntityId,
     pub name: MissionName,
+    ///Maximum secondary VP scorable across the whole game. 11e default is 45.
+    #[serde(default = "defaults::default_u64::<u64, 45>")]
+    pub secondary_vp_per_game_cap: u64,
+    ///Maximum secondary VP scorable in a single battle round. 11e default is 15.
+    #[serde(default = "defaults::default_u64::<u64, 15>")]
+    pub secondary_vp_per_round_cap: u64,
     ///Mission pack or source the mission originates from.
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub source: ::std::option::Option<MissionSource>,
@@ -16374,6 +16421,7 @@ impl ::std::default::Default for ScalingRound {
 ///        "battle-round",
 ///        "battle",
 ///        "until-next-command-phase",
+///        "until-next-battle-round",
 ///        "one-use",
 ///        "permanent"
 ///      ]
@@ -16421,6 +16469,7 @@ pub struct Scope {
 ///    "battle-round",
 ///    "battle",
 ///    "until-next-command-phase",
+///    "until-next-battle-round",
 ///    "one-use",
 ///    "permanent"
 ///  ]
@@ -16450,6 +16499,8 @@ pub enum ScopeDuration {
     Battle,
     #[serde(rename = "until-next-command-phase")]
     UntilNextCommandPhase,
+    #[serde(rename = "until-next-battle-round")]
+    UntilNextBattleRound,
     #[serde(rename = "one-use")]
     OneUse,
     #[serde(rename = "permanent")]
@@ -16463,6 +16514,7 @@ impl ::std::fmt::Display for ScopeDuration {
             Self::BattleRound => f.write_str("battle-round"),
             Self::Battle => f.write_str("battle"),
             Self::UntilNextCommandPhase => f.write_str("until-next-command-phase"),
+            Self::UntilNextBattleRound => f.write_str("until-next-battle-round"),
             Self::OneUse => f.write_str("one-use"),
             Self::Permanent => f.write_str("permanent"),
         }
@@ -16479,6 +16531,7 @@ impl ::std::str::FromStr for ScopeDuration {
             "battle-round" => Ok(Self::BattleRound),
             "battle" => Ok(Self::Battle),
             "until-next-command-phase" => Ok(Self::UntilNextCommandPhase),
+            "until-next-battle-round" => Ok(Self::UntilNextBattleRound),
             "one-use" => Ok(Self::OneUse),
             "permanent" => Ok(Self::Permanent),
             _ => Err("invalid value".into()),
@@ -22656,6 +22709,42 @@ impl ::std::convert::TryFrom<::std::string::String> for TriggerSubject {
 ///        }
 ///      ]
 ///    },
+///    "conditional_keywords": {
+///      "description": "Keywords granted to this unit only when roster construction satisfies the source condition. Conditions are conjunctive within an entry; entries are independent grants.",
+///      "type": "array",
+///      "items": {
+///        "type": "object",
+///        "required": [
+///          "keyword"
+///        ],
+///        "properties": {
+///          "keyword": {
+///            "$ref": "#/$defs/keyword"
+///          },
+///          "required_detachment_id": {
+///            "oneOf": [
+///              {
+///                "$ref": "#/$defs/entity-id"
+///              },
+///              {
+///                "type": "null"
+///              }
+///            ]
+///          },
+///          "required_faction_keyword": {
+///            "oneOf": [
+///              {
+///                "$ref": "#/$defs/keyword"
+///              },
+///              {
+///                "type": "null"
+///              }
+///            ]
+///          }
+///        },
+///        "additionalProperties": false
+///      }
+///    },
 ///    "excluded_faction_keywords": {
 ///      "description": "Faction keywords whose armies are barred from taking this otherwise-generic unit. Used where the game removes a generic unit from a specific sub-faction without printing a replacement (e.g. Black Templars cannot field Librarians; Deathwatch cannot field the generic Tactical Squad). An army may take this unit only if none of its faction keywords appear here. Absent/empty = available to every keyword-eligible army. Distinct from `faction_keywords`, which is the positive access list; this is the negative one for the rare exclusions a flat shared pool cannot otherwise express.",
 ///      "oneOf": [
@@ -22983,6 +23072,9 @@ pub struct Unit {
     ///The unit's representative base (the most-numerous model's base). Mixed-model units carry the full per-model breakdown in unit-composition; this top-level value is a convenience for consumers that need a single base.
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub base_size_mm: ::std::option::Option<BaseSize>,
+    ///Keywords granted to this unit only when roster construction satisfies the source condition. Conditions are conjunctive within an entry; entries are independent grants.
+    #[serde(default, skip_serializing_if = "::std::vec::Vec::is_empty")]
+    pub conditional_keywords: ::std::vec::Vec<UnitConditionalKeywordsItem>,
     ///Faction keywords whose armies are barred from taking this otherwise-generic unit. Used where the game removes a generic unit from a specific sub-faction without printing a replacement (e.g. Black Templars cannot field Librarians; Deathwatch cannot field the generic Tactical Squad). An army may take this unit only if none of its faction keywords appear here. Absent/empty = available to every keyword-eligible army. Distinct from `faction_keywords`, which is the positive access list; this is the negative one for the rare exclusions a flat shared pool cannot otherwise express.
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub excluded_faction_keywords: ::std::option::Option<KeywordList>,
@@ -23779,6 +23871,54 @@ impl<'de> ::serde::Deserialize<'de> for UnitCompositionTiersItemModelsItemName {
                 <D::Error as ::serde::de::Error>::custom(e.to_string())
             })
     }
+}
+///`UnitConditionalKeywordsItem`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "object",
+///  "required": [
+///    "keyword"
+///  ],
+///  "properties": {
+///    "keyword": {
+///      "$ref": "#/$defs/keyword"
+///    },
+///    "required_detachment_id": {
+///      "oneOf": [
+///        {
+///          "$ref": "#/$defs/entity-id"
+///        },
+///        {
+///          "type": "null"
+///        }
+///      ]
+///    },
+///    "required_faction_keyword": {
+///      "oneOf": [
+///        {
+///          "$ref": "#/$defs/keyword"
+///        },
+///        {
+///          "type": "null"
+///        }
+///      ]
+///    }
+///  },
+///  "additionalProperties": false
+///}
+/// ```
+/// </details>
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
+#[serde(deny_unknown_fields)]
+pub struct UnitConditionalKeywordsItem {
+    pub keyword: Keyword,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub required_detachment_id: ::std::option::Option<EntityId>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub required_faction_keyword: ::std::option::Option<Keyword>,
 }
 ///Catalog entry for a universal unit ability (a 'Core ability' in the rulebook: Deep Strike, Scouts X", Feel No Pain X+, Deadly Demise X, etc.). These are the unit-side counterpart of weapon-keyword.schema.json — community-authored mechanic labels, not reproduced rules text. A unit references a parameterised instance from its `ability_ids` (e.g. `scouts-6`); this catalog records the value-agnostic definition keyed by base id (e.g. `scouts`). The optional `effect` describes the mechanic in the Ability DSL; null when the behaviour is modelled per-faction in enrichment data rather than here.
 ///

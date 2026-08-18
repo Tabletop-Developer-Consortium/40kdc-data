@@ -811,7 +811,19 @@ export interface Enhancement {
    */
   max_targets?: number;
   keyword_restrictions?: KeywordList;
+  /**
+   * Alternative bearer eligibility groups. Every keyword in one group is required (AND), while satisfying any group is sufficient (OR). When present, this supersedes the legacy flat `keyword_restrictions` field.
+   *
+   * @minItems 1
+   */
+  keyword_restriction_groups?: [[Keyword, ...Keyword[]], ...[Keyword, ...Keyword[]][]];
   exclusion_keywords?: KeywordList | null;
+  /**
+   * Additional bodyguard units the bearer may attach to because it carries this enhancement.
+   *
+   * @minItems 1
+   */
+  attachment_bodyguard_ids?: [EntityId, ...EntityId[]];
   ability_id?: EntityId | null;
   is_unique?: boolean;
   game_version: GameVersionReference;
@@ -982,6 +994,14 @@ export interface Mission {
    * Maximum primary VP scorable in a single battle round. 11e default is 15.
    */
   vp_per_round_cap?: number;
+  /**
+   * Maximum secondary VP scorable across the whole game. 11e default is 45.
+   */
+  secondary_vp_per_game_cap?: number;
+  /**
+   * Maximum secondary VP scorable in a single battle round. 11e default is 15.
+   */
+  secondary_vp_per_round_cap?: number;
   /**
    * Ids of the deployment-pattern entities (maps) this mission can be played on. Empty until the per-mission maps are confirmed.
    */
@@ -2338,6 +2358,14 @@ export interface Unit {
   keywords?: KeywordList;
   faction_keywords?: KeywordList;
   /**
+   * Keywords granted to this unit only when roster construction satisfies the source condition. Conditions are conjunctive within an entry; entries are independent grants.
+   */
+  conditional_keywords?: {
+    keyword: Keyword;
+    required_detachment_id?: EntityId | null;
+    required_faction_keyword?: Keyword | null;
+  }[];
+  /**
    * Faction keywords whose armies are barred from taking this otherwise-generic unit. Used where the game removes a generic unit from a specific sub-faction without printing a replacement (e.g. Black Templars cannot field Librarians; Deathwatch cannot field the generic Tactical Squad). An army may take this unit only if none of its faction keywords appear here. Absent/empty = available to every keyword-eligible army. Distinct from `faction_keywords`, which is the positive access list; this is the negative one for the rare exclusions a flat shared pool cannot otherwise express.
    */
   excluded_faction_keywords?: KeywordList | null;
@@ -2650,7 +2678,15 @@ export interface AbilityScope {
     | "any-visible"
     | "any-on-battlefield"
     | "terrain-within-range";
-  duration: "phase" | "turn" | "battle-round" | "battle" | "until-next-command-phase" | "one-use" | "permanent";
+  duration:
+    | "phase"
+    | "turn"
+    | "battle-round"
+    | "battle"
+    | "until-next-command-phase"
+    | "until-next-battle-round"
+    | "one-use"
+    | "permanent";
   range_inches?: number;
   [k: string]: unknown;
 }

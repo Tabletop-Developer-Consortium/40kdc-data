@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict'
-import { copyFileSync, mkdtempSync, mkdirSync, writeFileSync } from 'node:fs'
+import { copyFileSync, existsSync, mkdtempSync, mkdirSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join, resolve } from 'node:path'
 import test from 'node:test'
@@ -12,7 +12,9 @@ import { GraphStore } from './store.js'
 import { repositoryVersionPayload } from './versions.js'
 
 const repoRoot = resolve('.')
-const manifest = JSON.parse(await (await import('node:fs/promises')).readFile('_private/loop-state/claim-graph-intake-c004-c006-c008.json', 'utf8'))
+const INTAKE_PATH = '_private/loop-state/claim-graph-intake-c004-c006-c008.json'
+const hasIntakeManifest = existsSync(INTAKE_PATH)
+const manifest = hasIntakeManifest ? JSON.parse(await (await import('node:fs/promises')).readFile(INTAKE_PATH, 'utf8')) : null
 
 function completeFixture() {
   const temp = mkdtempSync(join(tmpdir(), 'graph-e2e-'))
@@ -54,7 +56,7 @@ function prepareFixtureCampaign(store, registryPath, campaignId) {
   return result
 }
 
-test('fabricated full path reaches readiness and protects active claims', () => {
+test('fabricated full path reaches readiness and protects active claims', { skip: !hasIntakeManifest && 'intake manifest not present' }, () => {
   const { store, registryPath } = completeFixture()
   const gate = readiness(store, { repoRoot, registryPath })
   assert.equal(gate.ready, true, gate.errors.join('; '))
@@ -78,7 +80,7 @@ test('fabricated full path reaches readiness and protects active claims', () => 
   store.close()
 })
 
-test('campaign IDs advance after completed graph runs', () => {
+test('campaign IDs advance after completed graph runs', { skip: !hasIntakeManifest && 'intake manifest not present' }, () => {
   const { store } = completeFixture()
   const campaignId = nextCampaignId(store)
   const next = `c${(BigInt(campaignId.slice(1)) + 1n).toString().padStart(3, '0')}`
@@ -91,7 +93,7 @@ test('campaign IDs advance after completed graph runs', () => {
   store.close()
 })
 
-test('readiness lists every referenced ability missing repository metadata', () => {
+test('readiness lists every referenced ability missing repository metadata', { skip: !hasIntakeManifest && 'intake manifest not present' }, () => {
   const { store, registryPath } = completeFixture()
   const referenced = store.db.prepare('SELECT faction_id,ability_id FROM node_ability_refs ORDER BY faction_id,ability_id LIMIT 1').get()
   store.db.prepare('DELETE FROM ability_catalog WHERE faction_id=? AND ability_id=?').run(referenced.faction_id, referenced.ability_id)
@@ -102,7 +104,7 @@ test('readiness lists every referenced ability missing repository metadata', () 
   store.close()
 })
 
-test('non-dry start claims worklist and creates mandatory task DAG atomically', () => {
+test('non-dry start claims worklist and creates mandatory task DAG atomically', { skip: !hasIntakeManifest && 'intake manifest not present' }, () => {
   const { store, registryPath } = completeFixture()
   const worklist = [{ faction_id: 'fixture-faction', ability_id: 'fixture-ability' }]
   const campaignId = nextCampaignId(store)
@@ -114,7 +116,7 @@ test('non-dry start claims worklist and creates mandatory task DAG atomically', 
   store.close()
 })
 
-test('active lease excludes a start-campaign task after its claim is released', () => {
+test('active lease excludes a start-campaign task after its claim is released', { skip: !hasIntakeManifest && 'intake manifest not present' }, () => {
   const { store, registryPath } = completeFixture()
   const worklist = [{ faction_id: 'fixture-faction', ability_id: 'fixture-ability' }]
   const campaignId = nextCampaignId(store)

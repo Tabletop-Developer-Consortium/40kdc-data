@@ -22,8 +22,13 @@
     ]
   },
   "migrations": [{ "tag": "v1", "new_sqlite_classes": ["DocRoom", "SyncRegistry"] }],
-  // This worker holds NO secrets: the only auth material is the Ed25519
-  // PUBLIC key below. Patron-gated routes 501 until it is set.
+  // The only auth material in `vars` is the Ed25519 PUBLIC key below; patron-
+  // gated routes 501 until it is set. One optional SECRET exists and is
+  // deliberately not declared here:
+  //   DISCORD_WEBHOOK_URL — channel webhook for the SyncRegistry at-capacity
+  //   alert. Set it with `npx wrangler secret put DISCORD_WEBHOOK_URL --config
+  //   workers/sync/wrangler.jsonc`. Absent, sendDiscordAlert() no-ops, which is
+  //   the expected state in local dev and in forks.
   "vars": {
     // Raw Ed25519 public key(s) from keys.alpacasoft.dev (base64url, comma-
     // separated for rotation), per `GET keys.alpacasoft.dev/auth/public-key`.

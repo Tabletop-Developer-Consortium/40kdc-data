@@ -210,6 +210,11 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+    # Exposed so notify-discord can report which registries actually took a
+    # new version (the check step self-gates, so a green job is not a publish).
+    outputs:
+      published: ${{ steps.check.outputs.publish }}
+      version: ${{ steps.ver.outputs.version }}
     steps:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@stable
@@ -260,6 +265,11 @@ jobs:
     permissions:
       contents: write
       id-token: write
+    # Exposed so notify-discord can report which registries actually took a
+    # new version (the check step self-gates, so a green job is not a publish).
+    outputs:
+      published: ${{ steps.check.outputs.publish }}
+      version: ${{ steps.ver.outputs.version }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -314,6 +324,11 @@ jobs:
     permissions:
       contents: write
       id-token: write
+    # Exposed so notify-discord can report which registries actually took a
+    # new version (the check step self-gates, so a green job is not a publish).
+    outputs:
+      published: ${{ steps.check.outputs.publish }}
+      version: ${{ steps.ver.outputs.version }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -364,6 +379,11 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+    # Exposed so notify-discord can report which registries actually took a
+    # new version (the check step self-gates, so a green job is not a publish).
+    outputs:
+      published: ${{ steps.check.outputs.publish }}
+      version: ${{ steps.ver.outputs.version }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-go@v5
@@ -414,3 +434,157 @@ jobs:
           fi
           GOPROXY=https://proxy.golang.org GO111MODULE=on \
             go list -m "github.com/wn-mitch/40kdc-data/go@v${{ steps.ver.outputs.version }}" || true
+
+  notify-discord:
+    # Single consolidated release announcement for a version bump. The four
+    # publish jobs each self-gate on their registry, so "job succeeded" is not
+    # the same as "something published" — this job reads their `published`
+    # outputs and stays silent on the (common) main push that bumped nothing.
+    # `always()` so a *failed* registry publish is announced too: a silent
+    # failure is exactly the state this job exists to end.
+    #
+    # Requires the DISCORD_WEBHOOK_URL repo secret (a Discord channel webhook,
+    # Server Settings → Integrations → Webhooks). Absent, the job no-ops so
+    # forks stay green.
+    needs: [publish-crate, publish-npm, publish-pypi, publish-go]
+    if: always() && github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - name: Announce release to Discord
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          CRATE_RESULT: ${{ needs.publish-crate.result }}
+          CRATE_PUBLISHED: ${{ needs.publish-crate.outputs.published }}
+          CRATE_VERSION: ${{ needs.publish-crate.outputs.version }}
+          NPM_RESULT: ${{ needs.publish-npm.result }}
+          NPM_PUBLISHED: ${{ needs.publish-npm.outputs.published }}
+          NPM_VERSION: ${{ needs.publish-npm.outputs.version }}
+          PYPI_RESULT: ${{ needs.publish-pypi.result }}
+          PYPI_PUBLISHED: ${{ needs.publish-pypi.outputs.published }}
+          PYPI_VERSION: ${{ needs.publish-pypi.outputs.version }}
+          GO_RESULT: ${{ needs.publish-go.result }}
+          GO_PUBLISHED: ${{ needs.publish-go.outputs.published }}
+          GO_VERSION: ${{ needs.publish-go.outputs.version }}
+          REPO_URL: ${{ github.server_url }}/${{ github.repository }}
+          COMMIT_SHA: ${{ github.sha }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          set -euo pipefail
+
+          if [ -z "${DISCORD_WEBHOOK_URL:-}" ]; then
+            echo "::notice::DISCORD_WEBHOOK_URL is not set — skipping the release announcement."
+            exit 0
+          fi
+
+          # Only a publish job that RAN and failed counts as a failure worth
+          # announcing. 'skipped'/'cancelled' means an upstream gate job broke —
+          # that is a red main build, already reported by this workflow, and not
+          # a release event; announcing it would ping the channel on every
+          # failing push.
+          failed=false
+          for r in "$CRATE_RESULT" "$NPM_RESULT" "$PYPI_RESULT" "$GO_RESULT"; do
+            if [ "$r" = "failure" ]; then failed=true; fi
+          done
+
+          published_any=false
+          for p in "$CRATE_PUBLISHED" "$NPM_PUBLISHED" "$PYPI_PUBLISHED" "$GO_PUBLISHED"; do
+            if [ "$p" = "true" ]; then published_any=true; fi
+          done
+
+          if [ "$published_any" = false ] && [ "$failed" = false ]; then
+            echo "::notice::No registry took a new version on this push — nothing to announce."
+            exit 0
+          fi
+
+          # The four version files move in lockstep (enforced by the `validate`
+          # job), so any non-empty one is *the* version. A failing job can leave
+          # its output empty, hence the first-non-empty scan.
+          version=""
+          for v in "$NPM_VERSION" "$CRATE_VERSION" "$PYPI_VERSION" "$GO_VERSION"; do
+            if [ -n "$v" ]; then version="$v"; break; fi
+          done
+          [ -n "$version" ] || version="unknown"
+
+          # published -> ✅, self-gated no-op -> ➖ (already on the registry),
+          # ran and failed -> ❌, never ran -> ⏭.
+          status_icon() {
+            case "$1:$2" in
+              success:true)  printf '✅' ;;
+              success:*)     printf '➖' ;;
+              failure:*)     printf '❌' ;;
+              *)             printf '⏭' ;;
+            esac
+          }
+
+          line() { # <icon> <label> <text> <url>
+            printf '%s **%s** — [%s](%s)' "$1" "$2" "$3" "$4"
+          }
+
+          npm_line=$(line "$(status_icon "$NPM_RESULT" "$NPM_PUBLISHED")" npm \
+            "@alpaca-software/40kdc-data v$version" \
+            "https://www.npmjs.com/package/@alpaca-software/40kdc-data/v/$version")
+          crate_line=$(line "$(status_icon "$CRATE_RESULT" "$CRATE_PUBLISHED")" crates.io \
+            "wh40kdc v$version" "https://crates.io/crates/wh40kdc/$version")
+          pypi_line=$(line "$(status_icon "$PYPI_RESULT" "$PYPI_PUBLISHED")" PyPI \
+            "wh40kdc v$version" "https://pypi.org/project/wh40kdc/$version/")
+          go_line=$(line "$(status_icon "$GO_RESULT" "$GO_PUBLISHED")" Go \
+            "github.com/wn-mitch/40kdc-data/go v$version" \
+            "https://pkg.go.dev/github.com/wn-mitch/40kdc-data/go@v$version")
+
+          if [ "$failed" = true ]; then
+            title="40kdc-data v$version — release incomplete"
+            colour=15548997   # 0xED4245 red
+            footer_note=" · ❌ see the run log"
+          else
+            title="40kdc-data v$version"
+            colour=5763719    # 0x57F287 green
+            footer_note=""
+          fi
+
+          spec_version=$(cat conformance/SPEC_VERSION)
+
+          description=$(printf '%s\n%s\n%s\n%s' \
+            "$npm_line" "$crate_line" "$pypi_line" "$go_line")
+
+          # jq -n --arg keeps every interpolated value out of the JSON grammar;
+          # a heredoc here would break on any quote or newline in a version.
+          jq -n \
+            --arg title "$title" \
+            --arg url "$REPO_URL/commit/$COMMIT_SHA" \
+            --arg description "$description" \
+            --arg footer "SPEC_VERSION $spec_version · commit ${COMMIT_SHA:0:7}$footer_note" \
+            --argjson colour "$colour" \
+            '{
+               username: "40kdc",
+               embeds: [{
+                 title: $title,
+                 url: $url,
+                 description: $description,
+                 color: $colour,
+                 footer: { text: $footer }
+               }]
+             }' > payload.json
+
+          # Discord answers a webhook POST with 204 No Content, so the status
+          # code is the only success signal — a bare `curl` would swallow a
+          # revoked webhook (401/404) or a malformed body (400) as success.
+          code=$(curl -sS -o response.txt -w '%{http_code}' \
+            -X POST -H 'Content-Type: application/json' \
+            --data @payload.json "$DISCORD_WEBHOOK_URL")
+
+          if [ "$code" != "204" ] && [ "$code" != "200" ]; then
+            echo "Discord webhook POST failed with HTTP $code:" >&2
+            cat response.txt >&2
+            exit 1
+          fi
+          echo "Announced 40kdc-data v$version to Discord (HTTP $code)."
+
+          # Surface the underlying publish failure as this job's result too, so
+          # the run is red and not merely annotated.
+          if [ "$failed" = true ]; then
+            echo "::error::A publish job did not succeed — see $RUN_URL"
+            exit 1
+          fi

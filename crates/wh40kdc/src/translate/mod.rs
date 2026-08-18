@@ -369,7 +369,7 @@ pub(super) fn describe_node(n: &ConditionNode) -> String {
     }
 }
 
-fn region_membership_phrase(p: &Map<String, Value>, negated: bool) -> String {
+pub(crate) fn region_membership_phrase(p: &Map<String, Value>, negated: bool) -> String {
     let raw = p
         .get("region_id")
         .or_else(|| po(p, "state_ref").and_then(|r| r.get("region_id")))

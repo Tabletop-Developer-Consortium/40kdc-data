@@ -60,7 +60,6 @@ const TIMING_ALIASES: Record<string, string> = {
   "model-destroyed": "on-model-destroyed",
   "on-destroyed": "on-unit-destroyed",
   "before-this-model-removed": "before-bearer-removed",
-  "command-phase": "start-of-command-phase",
   "reinforcements-step": "reinforcements",
   setup: "unit-set-up",
   "set-up-this-turn": "unit-set-up",
@@ -81,7 +80,9 @@ const TIMING_ONLY_PHRASES: Record<string, string> = {
   "first-this-battle": "the first time this battle",
   "first-time-this-phase": "the first time this phase",
   "in-reserves": "while it is in Reserves",
+  "command-phase": "during the Command phase",
   "shooting-phase": "in the Shooting phase",
+  "start-of-shooting-phase": "at the start of your Shooting phase",
   "start-of-fight-phase": "at the start of the Fight phase",
   "first-movement-phase": "in your first Movement phase",
   "start-of-first-battle-round": "at the start of the first battle round",
@@ -115,6 +116,13 @@ export function negatedTiming(timing: unknown): string {
 /** `2` + `objective` → `2+ objectives`. Nouns here are all regular plurals. */
 function count(n: unknown, noun: string): string {
   return `${str(n)}+ ${noun}s`;
+}
+
+/** Oxford-free disjunction list ("a", "a or b", "a, b or c"). */
+function orList(items: string[]): string {
+  if (items.length <= 1) return items[0] ?? "";
+  if (items.length === 2) return `${items[0]} or ${items[1]}`;
+  return `${items.slice(0, -1).join(", ")} or ${items[items.length - 1]}`;
 }
 
 /**
@@ -209,6 +217,20 @@ function regionMembershipPhrase(p: Record<string, unknown>, negated = false): st
   return `${negated ? "not " : ""}${subject} is ${relationPhrase} ${region}`;
 }
 
+/**
+ * Render a condition as a predicate on an already-named candidate unit. This
+ * keeps selection eligibility distinct from an ability's trigger condition.
+ */
+export function describeSelectionEligibility(c: Condition): string {
+  if (c.type === "is-battle-shocked" && !c.operator)
+    return c.negated ? "that is not Battle-shocked" : "that is Battle-shocked";
+  const phrase = describeCondition(c);
+  if (phrase.startsWith("the unit is ")) return `that is ${phrase.slice("the unit is ".length)}`;
+  if (phrase.startsWith("not the unit is ")) return `that is not ${phrase.slice("not the unit is ".length)}`;
+  if (phrase.startsWith("the unit has ")) return `with ${phrase.slice("the unit has ".length)}`;
+  return `if ${phrase}`;
+}
+
 export function describeCondition(c: Condition): string {
   // Compound nodes first — join the operands with lowercase connectives so the
   // result reads naturally inside a "... when X and Y" clause.
@@ -216,6 +238,9 @@ export function describeCondition(c: Condition): string {
     return c.operands.map(describeCondition).join(" and ");
   }
   if (c.operator === "or" && c.operands) {
+    const keywordOperands = c.operands.every((o) => !o.negated && o.type === "unit-has-keyword");
+    if (keywordOperands)
+      return `the unit has the ${orList(c.operands.map((o) => str((o.parameters ?? {}).keyword)))} keywords`;
     return c.operands.map(describeCondition).join(" or ");
   }
   if (c.operator === "not" && c.operands) {
@@ -228,7 +253,9 @@ export function describeCondition(c: Condition): string {
   switch (c.type) {
     // ── Ability-DSL conditions (ported from commands/translate.ts) ──────────
     case "phase-is":
-      return `${negate}during the ${str(p.phase)} phase`;
+      return str(p.phase) === "command" || str(p.phase) === "command-phase"
+        ? `${negate}during the Command phase`
+        : `${negate}during the ${str(p.phase)} phase`;
     case "timing-is":
       return c.negated ? negatedTiming(p.timing) : describeTiming(p.timing);
     case "player-turn-is": {
@@ -258,7 +285,7 @@ export function describeCondition(c: Condition): string {
     case "model-is-leader":
       return `${negate}the model is leading a unit`;
     case "is-attached":
-      return `${negate}attached to a ${p.keyword ? `${str(p.keyword)} ` : ""}unit`;
+      return `${negate}the model is leading a ${p.keyword ? `${str(p.keyword)} ` : ""}unit`;
     case "attack-is-type":
       if (p.comparison === "strength-greater-than-toughness")
         return `${negate}when this attack's Strength is greater than the target's Toughness`;
@@ -452,10 +479,10 @@ export function describeCondition(c: Condition): string {
       if (p.in_enemy_dz) s += " in the enemy deployment zone";
       return s;
     }
-    case "terrain-area-control":
-      return `${negate}you control a terrain area with ${str(p.min_models ?? 1)}+ models`;
     case "region-membership":
       return regionMembershipPhrase(p, Boolean(c.negated));
+    case "terrain-area-control":
+      return `${negate}you control a terrain area with ${str(p.min_models ?? 1)}+ models`;
     case "territory-control": {
       let s = `${negate}you control ${dekebab(str(p.territory_ref ?? "your-territory"))}`;
       if (p.enemy_units_max != null) s += ` with at most ${str(p.enemy_units_max)} enemy units`;

@@ -638,14 +638,14 @@ func describeCondition(c map[string]any) string {
 			s += " in the enemy deployment zone"
 		}
 		return s
+	case "region-membership":
+		return regionMembershipPhrase(p, c["negated"] == true)
 	case "terrain-area-control":
 		n := "1"
 		if p["min_models"] != nil {
 			n = cstr(p["min_models"])
 		}
 		return negate + "you control a terrain area with " + n + "+ models"
-	case "region-membership":
-		return regionMembershipPhrase(p, c["negated"] == true)
 	case "territory-control":
 		ref := "your-territory"
 		if p["territory_ref"] != nil {

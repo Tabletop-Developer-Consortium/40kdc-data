@@ -597,6 +597,12 @@ fn condition_lead_in(n: &ConditionNode) -> String {
                     SimpleConditionType::TimingIs => {
                         negated_timing(nstr(&s.parameters, "timing").unwrap_or("?"))
                     }
+                    SimpleConditionType::RegionMembership => {
+                        format!(
+                            "unless {}",
+                            super::region_membership_phrase(&s.parameters, false)
+                        )
+                    }
                     _ => format!("if {}", describe_node(n)),
                 };
             }
@@ -610,6 +616,9 @@ fn condition_lead_in(n: &ConditionNode) -> String {
                         None => String::new(),
                     };
                     format!("after being attached to a {kw}unit")
+                }
+                T::RegionMembership => {
+                    format!("when {}", super::region_membership_phrase(p, false))
                 }
                 T::TimingIs => describe_timing(nstr(p, "timing").unwrap_or("?")),
                 T::PlayerTurnIs => match nstr(p, "turn") {
@@ -724,12 +733,296 @@ fn condition_lead_in(n: &ConditionNode) -> String {
     }
 }
 
-/// Per-slug GW-prose for `attack-restriction` (reads `restriction` or `restriction_type`).
-/// `rule-state`: a named rule switched on/off for the subject. The faction-rule
-/// + suppressed path reproduces the legacy `forgo-faction-rule` wording verbatim;
-/// core-rule slugs get natural action/benefit phrasing; keyword/ability kinds fall
-/// back to a regular gains/loses-the-X clause. Pinned across the four ports by
-/// the conformance corpus.
+fn named_region_title(v: Option<&Value>) -> String {
+    title_case(&v.map(jval).unwrap_or_else(|| "?".to_string()))
+}
+
+fn named_region_relation(v: Option<&Value>) -> String {
+    match v.map(jval).as_deref() {
+        Some("wholly-within") => "wholly within".to_string(),
+        Some(value) => dekebab(value),
+        None => "?".to_string(),
+    }
+}
+
+fn named_region_keywords(v: Option<&Value>) -> String {
+    v.and_then(Value::as_array)
+        .map(|values| values.iter().map(jval).collect::<Vec<_>>().join(" or "))
+        .unwrap_or_else(|| "?".to_string())
+}
+
+fn named_region_prefix(m: &Map<String, Value>) -> String {
+    let region_ref = m.get("region_ref").and_then(Value::as_object);
+    let region = named_region_title(region_ref.and_then(|r| r.get("region_id")));
+    let producer = m.get("producer").and_then(Value::as_object);
+    let mut sentences = Vec::new();
+    if let Some(entries) = producer
+        .and_then(|p| p.get("baseline"))
+        .and_then(Value::as_array)
+    {
+        for entry in entries {
+            let zone = entry
+                .as_object()
+                .and_then(|e| e.get("zone"))
+                .map(jval)
+                .unwrap_or_else(|| "?".to_string());
+            if zone == "own-deployment-zone" {
+                sentences.push(format!("Your deployment zone is always within {region}."));
+            } else if zone != "?" {
+                sentences.push(format!("{} is always within {region}.", title_case(&zone)));
+            }
+        }
+    }
+    let mut has_phase_extension = false;
+    if let Some(entries) = producer
+        .and_then(|p| p.get("phase_extensions"))
+        .and_then(Value::as_array)
+    {
+        for entry in entries {
+            let zone = entry
+                .as_object()
+                .and_then(|e| e.get("zone"))
+                .map(jval)
+                .unwrap_or_else(|| "?".to_string());
+            match zone.as_str() {
+                "no-mans-land" => {
+                    sentences.push(format!(
+                        "At the start of each phase, No Man's Land is within {region} until the end of that phase if you control at least half of its objective markers."
+                    ));
+                    has_phase_extension = true;
+                }
+                "opponent-deployment-zone" => {
+                    if has_phase_extension {
+                        sentences.push(
+                            "The same applies separately to your opponent's deployment zone."
+                                .to_string(),
+                        );
+                    } else {
+                        sentences.push(format!(
+                            "At the start of each phase, your opponent's deployment zone is within {region} until the end of that phase if you control at least half of its objective markers."
+                        ));
+                    }
+                    has_phase_extension = true;
+                }
+                "?" => {}
+                _ => {
+                    let label = title_case(&zone);
+                    sentences.push(format!(
+                        "At the start of each phase, {label} is within {region} until the end of that phase if you control at least half of its objective markers."
+                    ));
+                    has_phase_extension = true;
+                }
+            }
+        }
+    }
+    let mut source_parts = Vec::new();
+    if let Some(additions) = producer
+        .and_then(|p| p.get("additive_extensions"))
+        .and_then(Value::as_array)
+    {
+        for entry in additions {
+            let addition = entry.as_object();
+            let predicate = addition
+                .and_then(|e| e.get("source_gate"))
+                .and_then(Value::as_object)
+                .and_then(|g| g.get("unit_predicate"))
+                .and_then(Value::as_object);
+            let Some(predicate) = predicate else {
+                continue;
+            };
+            let faction = named_region_title(predicate.get("faction"));
+            let keywords = named_region_keywords(predicate.get("keywords"));
+            let radius = addition
+                .and_then(|e| e.get("radius_inches"))
+                .filter(|v| !v.is_null())
+                .map(|v| format!(" within {}\"", jval(v)))
+                .unwrap_or_default();
+            let rendered = format!("{faction} units with {keywords}{radius}");
+            if !source_parts.iter().any(|part| part == &rendered) {
+                source_parts.push(rendered);
+            }
+        }
+    }
+    if !source_parts.is_empty() {
+        sentences.push(format!(
+            "Selected objective markers extend {region} around {}.",
+            source_parts.join(" or ")
+        ));
+    }
+    sentences.join(" ")
+}
+
+fn named_region_subject(m: &Map<String, Value>) -> String {
+    let gate = m
+        .get("consumer")
+        .and_then(Value::as_object)
+        .and_then(|c| c.get("beneficiary_gate"))
+        .and_then(Value::as_object);
+    let faction = gate
+        .and_then(|g| g.get("faction"))
+        .map(|v| title_case(&jval(v)))
+        .unwrap_or_default();
+    let faction_part = if faction.is_empty() {
+        " from your army".to_string()
+    } else {
+        format!(" from your {faction} army")
+    };
+    format!(
+        "Models in {} units{faction_part}",
+        named_region_keywords(gate.and_then(|g| g.get("keywords")))
+    )
+}
+
+fn named_region_effect(branch: &Map<String, Value>, qualified: bool, ctx: &Ctx) -> String {
+    let effect_value = branch.get("effect");
+    let effect_map = effect_value.and_then(Value::as_object);
+    let modifier = effect_map
+        .and_then(|effect| effect.get("modifier"))
+        .and_then(Value::as_object);
+    let roll = roll_name(modifier.and_then(|m| m.get("roll")).unwrap_or(&Value::Null));
+    let mut text = match effect_map
+        .and_then(|effect| effect.get("type"))
+        .map(jval)
+        .as_deref()
+    {
+        Some("re-roll") => {
+            if modifier
+                .and_then(|m| m.get("result_scope"))
+                .map(jval)
+                .as_deref()
+                == Some("any-result")
+            {
+                format!("can re-roll the {roll} roll")
+            } else if modifier.and_then(|m| m.get("subset")).map(jval).as_deref() == Some("ones") {
+                format!("can re-roll {roll} rolls of 1")
+            } else {
+                format!("can re-roll {roll} rolls")
+            }
+        }
+        Some("roll-modifier") if modifier.and_then(|m| m.get("value")).is_some() => {
+            format!("gets {} to {roll}", signed(modifier.unwrap_or(&Map::new())))
+        }
+        _ => effect_value
+            .cloned()
+            .and_then(|value| serde_json::from_value::<EffectNode>(value).ok())
+            .map(|effect| inline(&effect, ctx))
+            .unwrap_or_else(|| "?".to_string()),
+    };
+    if let Some(keyword) = modifier.and_then(|m| m.get("weapon_keyword")) {
+        text.push_str(&format!(
+            " for {}{} attacks",
+            if qualified { "those " } else { "" },
+            jval(keyword)
+        ));
+    }
+    text
+}
+
+fn named_region_branch(
+    m: &Map<String, Value>,
+    whole_unit: bool,
+    qualified: bool,
+    conditional: bool,
+    ctx: &Ctx,
+) -> String {
+    let branch = m
+        .get("consumer")
+        .and_then(Value::as_object)
+        .and_then(|c| {
+            c.get(if qualified {
+                "qualified_branch"
+            } else {
+                "default_branch"
+            })
+        })
+        .and_then(Value::as_object);
+    let Some(branch) = branch else {
+        return "?".to_string();
+    };
+    let effect = named_region_effect(branch, qualified, ctx);
+    if conditional {
+        return format!("{} {effect}", named_region_subject(m));
+    }
+    if !qualified {
+        return format!("{} {effect}.", named_region_subject(m));
+    }
+    let consumer = m.get("consumer").and_then(Value::as_object);
+    let membership = consumer
+        .and_then(|c| c.get("membership"))
+        .and_then(Value::as_object);
+    let relation = named_region_relation(membership.and_then(|m| m.get("relation")));
+    let region = named_region_title(
+        m.get("region_ref")
+            .and_then(Value::as_object)
+            .and_then(|r| r.get("region_id")),
+    );
+    let subject = if whole_unit {
+        format!("If such a unit is {relation} {region}, those models")
+    } else {
+        format!("If such a model is {relation} {region}, it")
+    };
+    format!("{subject} {effect} instead")
+}
+
+fn describe_named_region_state(m: &Map<String, Value>, ctx: &Ctx) -> String {
+    let whole_unit = m
+        .get("consumer")
+        .and_then(Value::as_object)
+        .and_then(|c| c.get("membership"))
+        .and_then(Value::as_object)
+        .and_then(|membership| membership.get("unit_scope"))
+        .map(jval)
+        .as_deref()
+        == Some("whole-unit");
+    format!(
+        "{} {} {}",
+        named_region_prefix(m),
+        named_region_branch(m, whole_unit, false, false, ctx),
+        named_region_branch(m, whole_unit, true, false, ctx)
+    )
+}
+
+fn describe_named_region_conditional(
+    m: &Map<String, Value>,
+    condition: &ConditionNode,
+    ctx: &Ctx,
+) -> String {
+    let predicate = match condition {
+        ConditionNode::SimpleCondition(s) if s.type_ == SimpleConditionType::RegionMembership => {
+            super::region_membership_phrase(&s.parameters, false)
+        }
+        _ => super::describe_node(condition),
+    };
+    let negated = matches!(
+        condition,
+        ConditionNode::SimpleCondition(s)
+            if s.type_ == SimpleConditionType::RegionMembership && s.negated
+    );
+    let whole_unit = m
+        .get("consumer")
+        .and_then(Value::as_object)
+        .and_then(|c| c.get("membership"))
+        .and_then(Value::as_object)
+        .and_then(|membership| membership.get("unit_scope"))
+        .map(jval)
+        .as_deref()
+        == Some("whole-unit");
+    let default = named_region_branch(m, whole_unit, false, true, ctx);
+    let qualified = named_region_branch(m, whole_unit, true, true, ctx);
+    if negated {
+        format!(
+            "{} Unless {predicate}, {default}. If {predicate}, {qualified}.",
+            named_region_prefix(m)
+        )
+    } else {
+        format!(
+            "{} When {predicate}, {qualified}. Otherwise, {default}.",
+            named_region_prefix(m)
+        )
+    }
+}
+
+/// `rule-state`: a named rule switched on/off for the subject.
 fn describe_rule_state(m: &Map<String, Value>, subj: &str) -> String {
     let direction = jv(m, "direction");
     let kind = jv(m, "rule_kind");
@@ -1268,6 +1561,12 @@ fn describe_single(e: &SingleEffect, ctx: &Ctx) -> String {
             }
         }
         T::ReRoll => {
+            if nstr(m, "result_scope") == Some("any-result") {
+                return format!(
+                    "you can re-roll either a successful or failed {} result",
+                    roll_name(m.get("roll").unwrap_or(&Value::Null))
+                );
+            }
             let which = if nstr(m, "roll") == Some("any") {
                 if nstr(m, "subset") == Some("ones") {
                     "any roll of 1".to_string()
@@ -1587,6 +1886,7 @@ fn describe_single(e: &SingleEffect, ctx: &Ctx) -> String {
             let noun = if count == "1" { "model" } else { "models" };
             format!("destroy {count} {noun} in {subj}")
         }
+        T::NamedRegionState => describe_named_region_state(m, ctx),
         T::RuleState => describe_rule_state(m, &subj),
         T::PoolAddDie => {
             let pool = m
@@ -2330,11 +2630,6 @@ fn describe_menu_inline(e: &ResourceActionMenuEffect, ctx: &Ctx) -> String {
     )
 }
 
-/// Single-clause translation for leaf effects (lowercase-initial, no period).
-pub fn describe_effect_inline(e: &EffectNode) -> String {
-    inline(e, &Ctx::default())
-}
-
 /// `for every 5 enemy models within 6"` — the trailing scaling clause woven
 /// onto a single effect whose `modifier.value` scales. Mirrors `scalingClause`.
 fn scaling_clause(s: &Scaling) -> String {
@@ -2365,6 +2660,11 @@ fn inline(e: &EffectNode, ctx: &Ctx) -> String {
             None => describe_single(s, ctx),
         },
         EffectNode::ConditionalEffect(c) => {
+            if let EffectNode::SingleEffect(s) = c.effect.as_ref() {
+                if s.type_ == SingleEffectType::NamedRegionState {
+                    return describe_named_region_conditional(&s.modifier, &c.condition.0, ctx);
+                }
+            }
             format!(
                 "{}, {}",
                 condition_lead_in(&c.condition.0),
@@ -2590,6 +2890,11 @@ fn is_container(e: &EffectNode) -> bool {
     )
 }
 
+/// Single-clause translation for leaf effects (lowercase-initial, no period).
+pub fn describe_effect_inline(e: &EffectNode) -> String {
+    inline(e, &Ctx::default())
+}
+
 /// Block translation of a container effect tree (multi-line, two-space indentation).
 pub fn describe_effect(e: &EffectNode) -> String {
     block(e, 0, &Ctx::default())
@@ -2602,6 +2907,19 @@ fn block(e: &EffectNode, depth: usize, ctx: &Ctx) -> String {
     match e {
         EffectNode::ConditionalEffect(c) => {
             let inner = &*c.effect;
+            if let EffectNode::SingleEffect(s) = inner {
+                if s.type_ == SingleEffectType::NamedRegionState {
+                    let text = capitalize(&describe_named_region_conditional(
+                        &s.modifier,
+                        &c.condition.0,
+                        ctx,
+                    ));
+                    if text.ends_with('.') {
+                        return format!("{indent}{arrow}{text}");
+                    }
+                    return format!("{indent}{arrow}{text}.");
+                }
+            }
             if is_container(inner) {
                 format!(
                     "{indent}{}:\n{}",
@@ -3030,6 +3348,11 @@ fn render_top_level(
     match e {
         EffectNode::ConditionalEffect(c) => {
             let inner = &*c.effect;
+            if let EffectNode::SingleEffect(s) = inner {
+                if s.type_ == SingleEffectType::NamedRegionState {
+                    return describe_named_region_conditional(&s.modifier, &c.condition.0, &ctx);
+                }
+            }
             // B1: drop the condition lead-in when it merely restates a trigger's
             // timing (trigger start-of-phase + condition timing-is start-of-phase).
             let cond_timing = timing_of_condition(&c.condition.0);

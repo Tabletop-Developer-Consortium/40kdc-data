@@ -1263,6 +1263,123 @@ function genEffectTranslation(): void {
       expected: { text: describeAbility({ effect: fc.effect as Effect, scope: fc.scope }) },
     });
   }
+  // Pin the named-region-state family with fabricated fixtures only. The four
+  // cases cover the complete and source-gated producer semantics, both
+  // membership scopes, container rendering, and positive/negated conditions.
+  const namedRegionFixture = (
+    unitScope: "model" | "whole-unit",
+    relation: string,
+    mode: "complete" | "extension",
+    sourceGated: boolean,
+    defaultEffect: Record<string, unknown> = { type: "re-roll", target: "attacker", modifier: { roll: "hit", subset: "ones" } },
+    qualifiedEffect: Record<string, unknown> = { type: "re-roll", target: "attacker", modifier: { roll: "hit", result_scope: "any-result" } },
+    defaultOptional = true,
+    qualifiedOptional = true,
+    duplicateSource = false,
+  ): Record<string, unknown> => {
+    const regionRef = { region_id: "fixture-region", owner_faction: "fixture-faction" };
+    const producer = {
+      region_ref: regionRef,
+      mode,
+      parent_ref: mode === "extension" ? regionRef : null,
+      baseline: mode === "complete" ? [{ kind: "fixed-zone", zone: "own-deployment-zone", activation: { event: "always-active" }, expiry: { event: "never" } }] : [],
+      phase_extensions: mode === "complete" ? [
+        { kind: "objective-majority-zone", zone: "no-mans-land", control_gate: { marker_scope: "markers-in-zone", controlled_by: "owner-army", threshold: { comparison: "at-least", fraction: 0.5 } }, activation: { event: "phase-start", evaluation: "snapshot-once", canonical_condition_ids: ["timing-is", "objective-majority"] }, expiry: { event: "phase-end" } },
+        { kind: "objective-majority-zone", zone: "opponent-deployment-zone", control_gate: { marker_scope: "markers-in-zone", controlled_by: "owner-army", threshold: { comparison: "at-least", fraction: 0.5 } }, activation: { event: "phase-start", evaluation: "snapshot-once", canonical_condition_ids: ["timing-is", "objective-majority"] }, expiry: { event: "phase-end" } },
+      ] : [],
+      additive_extensions: sourceGated
+        ? [
+            { kind: "source-radius", source_gate: { gate_ref: "fixture-source-gate", owner: "owner-army", unit_predicate: { faction: "fixture-faction", keywords: ["SOURCE-KEYWORD"] } }, radius_inches: 6 },
+            ...(duplicateSource
+              ? [{ kind: "source-radius", source_gate: { gate_ref: "fixture-source-gate", owner: "owner-army", unit_predicate: { faction: "fixture-faction", keywords: ["SOURCE-KEYWORD"] } }, radius_inches: 6 }]
+              : []),
+          ]
+        : [],
+    };
+    const membership = { unit_scope: unitScope, relation };
+    const branch = (effect: Record<string, unknown>, optional = true) => ({
+      source: { role: "eligible-source", gate_ref: "beneficiary_gate" },
+      beneficiary: { role: "eligible-beneficiary", gate_ref: "beneficiary_gate" },
+      target: "attacker",
+      timing: { event: "each-attack" },
+      duration: "attack-resolution",
+      effect,
+      optional,
+    });
+    return {
+      type: "named-region-state",
+      target: "all-friendly",
+      modifier: {
+        region_ref: regionRef,
+        producer,
+        consumer: {
+          state_ref: regionRef,
+          beneficiary_gate: { owner: "owner-army", faction: "fixture-faction", operator: "or", keywords: ["BENEFICIARY-KEYWORD"] },
+          membership,
+          qualified_condition: { type: "and", operands: [{ type: "beneficiary-gate-ref", ref: "beneficiary_gate" }, { type: "region-membership", state_ref: regionRef, ...membership, canonical_condition_ids: ["terrain-area-control"] }] },
+          default_branch: branch(defaultEffect, defaultOptional),
+          qualified_branch: branch(qualifiedEffect, qualifiedOptional),
+        },
+        branch_precedence: "qualified-replaces-default",
+      },
+    };
+  };
+  const FORCED_NAMED_REGION_CASES: { id: string; effect: Record<string, unknown>; scope: Record<string, unknown> }[] = [
+    { id: "named-region-state-model-inline", effect: namedRegionFixture("model", "within", "complete", false), scope: { range: "any-on-battlefield", duration: "permanent" } },
+    { id: "named-region-state-whole-container", effect: { type: "sequence", steps: [namedRegionFixture("whole-unit", "wholly-within", "complete", true)] }, scope: { range: "any-on-battlefield", duration: "permanent" } },
+    { id: "named-region-state-condition-lead-in", effect: { type: "conditional", condition: { type: "region-membership", parameters: { unit_scope: "whole-unit", relation: "wholly-within", region_id: "fixture-region" } }, effect: namedRegionFixture("whole-unit", "wholly-within", "extension", true) }, scope: { range: "any-on-battlefield", duration: "permanent" } },
+    { id: "named-region-state-negated", effect: { type: "conditional", condition: { type: "region-membership", negated: true, parameters: { unit_scope: "model", relation: "within", region_id: "fixture-region" } }, effect: namedRegionFixture("model", "within", "complete", true) }, scope: { range: "any-on-battlefield", duration: "permanent" } },
+    {
+      id: "named-region-state-default-wound-reroll",
+      effect: namedRegionFixture(
+        "model",
+        "within",
+        "complete",
+        false,
+        { type: "re-roll", target: "attacker", modifier: { roll: "wound", subset: "ones" } },
+        undefined,
+        false,
+      ),
+      scope: { range: "any-on-battlefield", duration: "permanent" },
+    },
+    {
+      id: "named-region-state-qualified-plus-one-wound",
+      effect: namedRegionFixture(
+        "model",
+        "within",
+        "complete",
+        false,
+        undefined,
+        { type: "roll-modifier", target: "attacker", modifier: { operation: "add", value: 1, roll: "wound" } },
+      ),
+      scope: { range: "any-on-battlefield", duration: "permanent" },
+    },
+    {
+      id: "named-region-state-qualified-wound-reroll",
+      effect: namedRegionFixture(
+        "whole-unit",
+        "wholly-within",
+        "complete",
+        false,
+        undefined,
+        { type: "re-roll", target: "attacker", modifier: { roll: "wound", subset: "ones" } },
+      ),
+      scope: { range: "any-on-battlefield", duration: "permanent" },
+    },
+    {
+      id: "named-region-state-duplicate-source-predicates",
+      effect: namedRegionFixture("model", "within", "complete", true, undefined, undefined, true, true, true),
+      scope: { range: "any-on-battlefield", duration: "permanent" },
+    },
+  ];
+  for (const fc of FORCED_NAMED_REGION_CASES) {
+    cases.push({
+      caseId: `${fc.id}#${cases.length}`,
+      effect: fc.effect,
+      scope: fc.scope,
+      expected: { text: describeAbility({ effect: fc.effect as Effect, scope: fc.scope }) },
+    });
+  }
   // Batch A (describer-only gaps): pin the new condition lead-ins
   // (engagement-state / disposition-matches / fights-first), the `scaling`
   // trailing clause, and the inline dice-pool requirement label cross-impl.

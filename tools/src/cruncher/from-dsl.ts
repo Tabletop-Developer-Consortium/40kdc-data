@@ -7,9 +7,9 @@
  * cruncher's expected-value engine reads (rerolls, die-roll modifiers, S/A/T
  * stat shifts, FNP, granted weapon keywords, cover) and reports everything
  * else — choice nodes (player decisions), dice-gated effects (stochastic),
- * defender-side bs-modifier, attack-restrictions, unsupported ability grants,
- * mortal wound triggers — as `unsupported` so the SPA can surface "this
- * ability has effects we can't auto-apply" rather than silently dropping them.
+ * defender-side bs-modifier, attack-restrictions, ability grants, mortal
+ * wound triggers — as `unsupported` so the SPA can surface "this ability has
+ * effects we can't auto-apply" rather than silently dropping them.
  *
  * The walker classifies an effect's `target` against the attacker
  * perspective: `self`, `bearer`, `unit`, `attached-unit`, `attacker`, and
@@ -17,11 +17,6 @@
  * `enemy-within-aura`, and `all-enemy` are dropped without being marked
  * unsupported — those are defender-side mods and would surface from the
  * target's perspective (M3 work), not the attacker's.
- *
- * The one exception is core rule 19.04: `self`/`bearer` name a single *model*,
- * so when such an effect is pooled in from another member of a combined unit
- * (`source.abilityKind === "attached"`) it stays on that model and is reported
- * as `unsupported` rather than buffing the whole unit.
  *
  * @packageDocumentation
  */
@@ -111,41 +106,6 @@ const SELF_TARGETS = new Set([
   "all-friendly",
 ]);
 
-/**
- * The subset of {@link SELF_TARGETS} that names a single *model* — the ability's
- * bearer — rather than its unit. Core rule 19.04: a rule affecting one specified
- * model applies only to that model, even while it is part of an attached unit.
- * So when such an effect arrives from an attached member (a leader pooled onto
- * its bodyguard, or vice-versa), it is not a buff on the combined unit — see
- * {@link isModelScopedFromAttachedMember}.
- */
-const MODEL_TARGETS = new Set(["self", "bearer"]);
-
-/** Diagnostic emitted for a model-scoped effect pooled in from an attached member. */
-const MODEL_SCOPED_REASON =
-  "model-scoped effect from an attached model: applies to that model only (core rule 19.04)";
-
-/**
- * Is this node a model-scoped effect reaching the buffed unit from *another*
- * member of the combined unit? Those are the ones core rule 19.04 keeps on their
- * own model: an attached Librarian's personal 4+ invulnerable save is not a 4+
- * invulnerable save for the ten Intercessors it joined.
- *
- * Keyed on the buff *source*, not on the DSL condition: the leak is not limited
- * to abilities gated on `is-attached` (an Archon's Shadowfield says only "the
- * bearer"), and the resolver already tags pooled member abilities as
- * `abilityKind: "attached"`. An ability read as the chosen unit's own
- * (`abilityKind: "unit"`) is unaffected, so crunching the leader itself still
- * sees its personal buffs.
- */
-function isModelScopedFromAttachedMember(
-  node: Record<string, unknown>,
-  source: BuffSource,
-): boolean {
-  if (source.kind !== "ability" || source.abilityKind !== "attached") return false;
-  return typeof node.target === "string" && MODEL_TARGETS.has(node.target);
-}
-
 /** Aliases the DSL uses when a node specifically calls out "the attacker". */
 const ATTACKER_TARGET = "attacker";
 /** Aliases the DSL uses when a node specifically calls out "the defender". */
@@ -173,8 +133,6 @@ type WalkOpts = {
   perspective: TranslationPerspective;
   /** Owning ability id — seeds the stable ids of activatable levers. */
   abilityId: string;
-  /** Target inherited by targetless beneficiary-bound leaves. */
-  defaultTarget?: string;
 };
 
 function walk(
@@ -184,102 +142,88 @@ function walk(
   out: EffectTranslation,
 ): void {
   if (!isObject(node)) return;
-  const currentNode: Record<string, unknown> =
-    opts.defaultTarget !== undefined && node.target === undefined
-      ? { ...node, target: opts.defaultTarget }
-      : node;
-  // Core rule 19.04 gate, applied before any leaf translation and under both
-  // perspectives. Container nodes cannot carry a self/bearer target, so this
-  // cannot swallow a subtree containing unit-scoped effects.
-  if (isModelScopedFromAttachedMember(currentNode, source)) {
-    out.unsupported.push({ reason: MODEL_SCOPED_REASON, effectFragment: currentNode });
-    return;
-  }
-  const type = currentNode.type;
+  const type = node.type;
   switch (type) {
     case "re-roll":
-      translateReroll(currentNode, source, opts, out);
+      translateReroll(node, source, opts, out);
       return;
     case "roll-modifier":
-      translateRollModifier(currentNode, source, opts, out);
+      translateRollModifier(node, source, opts, out);
       return;
     case "stat-modifier":
-      translateStatModifier(currentNode, source, opts, out);
+      translateStatModifier(node, source, opts, out);
       return;
     case "feel-no-pain":
-      translateFeelNoPain(currentNode, source, opts, out);
+      translateFeelNoPain(node, source, opts, out);
       return;
     case "keyword-grant":
-      translateKeywordGrant(currentNode, source, opts, out);
+      translateKeywordGrant(node, source, opts, out);
       return;
     case "bs-modifier":
-      translateBsModifier(currentNode, source, opts, out);
+      translateBsModifier(node, source, opts, out);
       return;
     case "damage-reduction":
-      translateDamageReduction(currentNode, source, opts, out);
+      translateDamageReduction(node, source, opts, out);
       return;
     case "invulnerable-save":
-      translateInvulnerableSave(currentNode, source, opts, out);
+      translateInvulnerableSave(node, source, opts, out);
       return;
     case "named-region-state":
-      translateNamedRegionState(currentNode, source, opts, out);
+      translateNamedRegionState(node, source, opts, out);
       return;
     case "conditional":
-      translateConditional(currentNode, source, opts, out);
+      translateConditional(node, source, opts, out);
       return;
     case "sequence":
-      for (const step of (currentNode.steps as unknown[]) ?? []) walk(step, source, opts, out);
+      for (const step of (node.steps as unknown[]) ?? []) walk(step, source, opts, out);
       return;
     case "choice":
-      enumerateChoice(currentNode, source, opts, out);
+      // Player decision — each branch becomes an opt-in lever (pick one).
+      enumerateChoice(node, source, opts, out);
       return;
     case "dice-gated":
+      // Probabilistic; the buff layer is deterministic.
       out.unsupported.push({
         reason: "dice-gated effect: stochastic; not expressible as a buff",
-        effectFragment: currentNode,
+        effectFragment: node,
       });
       return;
     case "dice-pool-allocation":
-      enumerateDicePool(currentNode, source, opts, out);
+      // Player spends dice on options at runtime — each buff-bearing option
+      // becomes an opt-in lever, grouped under the pool's activation cap.
+      enumerateDicePool(node, source, opts, out);
       return;
     case "select-units":
-      walk(currentNode.effect, source, opts, out);
-      return;
-    case "leader-model-ability-grant":
-      out.unsupported.push({
-        reason: "leader-model-ability-grant: attached leader beneficiary is not resolved by the buff engine",
-        effectFragment: currentNode,
-      });
-      return;
-    case "persistent-designation":
-      out.unsupported.push({
-        reason: "persistent-designation: retained selection state is not resolved by the buff engine",
-        effectFragment: currentNode,
-      });
+      // Targeting wrapper — the selected units receive the nested effect.
+      walk(node.effect, source, opts, out);
       return;
     case "designate-target": {
-      const applies = isObject(currentNode.applies) ? currentNode.applies : {};
+      // Mark an enemy unit; when `to: attackers-of-target` the nested effect is
+      // a buff every friendly attack against that unit receives (Oath of Moment).
+      // A `to: target` debuff lands on the enemy, not the bearer, so it is not a
+      // buff in this perspective.
+      const applies = isObject(node.applies) ? node.applies : {};
       if (applies.to === "attackers-of-target") {
         walk(applies.effect, source, opts, out);
       } else {
         out.unsupported.push({
           reason: "designate-target debuff on the marked unit: not a buff on the bearer",
-          effectFragment: currentNode,
+          effectFragment: node,
         });
       }
       return;
     }
     case "risk-reward":
-      walk(currentNode.reward, source, opts, out);
+      // The reward is the buff; the risk (self-damage on a failed test) is not.
+      walk(node.reward, source, opts, out);
       return;
     case "stance-select":
-      enumerateNamedOptions(currentNode, source, opts, out, `${opts.abilityId}?stance`, 1);
+      // Pick-one modal buff — each option is an opt-in lever (pick one).
+      enumerateNamedOptions(node, source, opts, out, `${opts.abilityId}?stance`, 1);
       return;
     case "issue-orders":
-      enumerateNamedOptions(currentNode, source, opts, out, `${opts.abilityId}?order`, 1);
-      return;
-    case "resource-action-menu":
-      enumerateMenuActions(currentNode, source, opts, out);
+      // Officer issues one Order from the menu — each is an opt-in lever.
+      enumerateNamedOptions(node, source, opts, out, `${opts.abilityId}?order`, 1);
       return;
     case "resource-action-menu":
       // Each action is an INDEPENDENT reactive lever, not a pick-one group:
@@ -290,10 +234,14 @@ function walk(
       enumerateMenuActions(node, source, opts, out);
       return;
     default:
+      // Unknown effect — record it. Covers ability-grant, deep-strike,
+      // mortal-wounds, cp-gain, movement-modifier, etc.; the buff layer
+      // doesn't model these as deterministic mods to a single shot.
       out.unsupported.push({
         reason: `effect type "${String(type)}" is not modelled by the buff layer`,
-        effectFragment: currentNode,
+        effectFragment: node,
       });
+      return;
   }
 }
 
@@ -819,12 +767,16 @@ function translateBsModifier(
   out.applied.push({ source, contribution: { type: "hit-mod", value } });
 }
 
+
 function translateNamedRegionState(
   node: Record<string, unknown>,
   source: BuffSource,
   opts: WalkOpts,
   out: EffectTranslation,
 ): void {
+  // The cruncher has no region-membership state. It can still recover the
+  // unconditional branch when the beneficiary keyword gate matches, but must
+  // never apply the qualified replacement on top of it.
   if (opts.perspective !== "attacker") return;
   const modifier = isObject(node.modifier) ? node.modifier : {};
   const consumer = isObject(modifier.consumer) ? modifier.consumer : {};
@@ -869,7 +821,6 @@ function translateNamedRegionState(
     });
   }
 }
-
 function translateConditional(
   node: Record<string, unknown>,
   source: BuffSource,

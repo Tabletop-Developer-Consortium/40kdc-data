@@ -905,6 +905,16 @@ func conditionLeadIn(c map[string]any) string {
 	if c["negated"] == true && c["type"] == "timing-is" {
 		return negatedTiming(p["timing"])
 	}
+	if c["type"] == "region-membership" {
+		prefix := "when "
+		if c["negated"] == true {
+			prefix = "unless "
+		}
+		return prefix + describeCondition(map[string]any{
+			"type":       "region-membership",
+			"parameters": p,
+		})
+	}
 	if c["negated"] == true {
 		return "if " + describeCondition(c)
 	}
@@ -1032,11 +1042,194 @@ func conditionLeadIn(c map[string]any) string {
 	return "if " + describeCondition(c)
 }
 
-// describeRuleState renders a `rule-state` effect: a named rule switched on/off
-// for the subject. The faction-rule + suppressed path reproduces the legacy
-// `forgo-faction-rule` wording verbatim; core-rule slugs get natural
-// action/benefit phrasing; keyword/ability kinds fall back to a regular
-// gains/loses-the-X clause. Pinned across the four ports by conformance.
+func namedRegionTitle(v any) string {
+	return titleCase(cstr(v))
+}
+
+func namedRegionRelation(v any) string {
+	if v == "wholly-within" {
+		return "wholly within"
+	}
+	return dekebab(cstr(v))
+}
+
+func namedRegionKeywords(v any) string {
+	values, ok := asList(v)
+	if !ok {
+		return "?"
+	}
+	parts := make([]string, len(values))
+	for i, value := range values {
+		parts[i] = ejstr(value)
+	}
+	return strings.Join(parts, " or ")
+}
+
+func namedRegionPrefix(m map[string]any) string {
+	ref, _ := asMap(m["region_ref"])
+	region := namedRegionTitle(ref["region_id"])
+	producer, _ := asMap(m["producer"])
+	sentences := []string{}
+	if entries, ok := asList(producer["baseline"]); ok {
+		for _, raw := range entries {
+			entry, _ := asMap(raw)
+			zone := ejstr(entry["zone"])
+			switch zone {
+			case "own-deployment-zone":
+				sentences = append(sentences, "Your deployment zone is always within "+region+".")
+			case "?":
+			default:
+				sentences = append(sentences, namedRegionTitle(zone)+" is always within "+region+".")
+			}
+		}
+	}
+	hasPhaseExtension := false
+	if entries, ok := asList(producer["phase_extensions"]); ok {
+		for _, raw := range entries {
+			entry, _ := asMap(raw)
+			zone := ejstr(entry["zone"])
+			switch zone {
+			case "no-mans-land":
+				sentences = append(sentences, "At the start of each phase, No Man's Land is within "+region+" until the end of that phase if you control at least half of its objective markers.")
+				hasPhaseExtension = true
+			case "opponent-deployment-zone":
+				if hasPhaseExtension {
+					sentences = append(sentences, "The same applies separately to your opponent's deployment zone.")
+				} else {
+					sentences = append(sentences, "At the start of each phase, your opponent's deployment zone is within "+region+" until the end of that phase if you control at least half of its objective markers.")
+				}
+				hasPhaseExtension = true
+			case "?":
+			default:
+				label := namedRegionTitle(zone)
+				sentences = append(sentences, "At the start of each phase, "+label+" is within "+region+" until the end of that phase if you control at least half of its objective markers.")
+				hasPhaseExtension = true
+			}
+		}
+	}
+	sourceParts := []string{}
+	seenSourceParts := map[string]struct{}{}
+	if entries, ok := asList(producer["additive_extensions"]); ok {
+		for _, raw := range entries {
+			addition, _ := asMap(raw)
+			gate, _ := asMap(addition["source_gate"])
+			predicate, _ := asMap(gate["unit_predicate"])
+			if len(predicate) == 0 {
+				continue
+			}
+			faction := namedRegionTitle(predicate["faction"])
+			keywords := namedRegionKeywords(predicate["keywords"])
+			radius := ""
+			if addition["radius_inches"] != nil {
+				radius = ` within ` + ejstr(addition["radius_inches"]) + `"`
+			}
+			rendered := faction + " units with " + keywords + radius
+			if _, duplicate := seenSourceParts[rendered]; duplicate {
+				continue
+			}
+			seenSourceParts[rendered] = struct{}{}
+			sourceParts = append(sourceParts, rendered)
+		}
+	}
+	if len(sourceParts) > 0 {
+		sentences = append(sentences, "Selected objective markers extend "+region+" around "+strings.Join(sourceParts, " or ")+".")
+	}
+	return strings.Join(sentences, " ")
+}
+
+func namedRegionSubject(m map[string]any) string {
+	consumer, _ := asMap(m["consumer"])
+	gate, _ := asMap(consumer["beneficiary_gate"])
+	faction := ""
+	if gate["faction"] != nil {
+		faction = namedRegionTitle(gate["faction"])
+	}
+	factionPart := " from your army"
+	if faction != "" {
+		factionPart = " from your " + faction + " army"
+	}
+	return "Models in " + namedRegionKeywords(gate["keywords"]) + " units" + factionPart
+}
+
+func namedRegionBranchEffect(branch map[string]any, qualified bool, ctx map[string]any) string {
+	effect, _ := asMap(branch["effect"])
+	modifier, _ := asMap(effect["modifier"])
+	roll := rollName(modifier["roll"])
+	text := ""
+	switch getStr(effect, "type") {
+	case "re-roll":
+		if modifier["result_scope"] == "any-result" {
+			text = "can re-roll the " + roll + " roll"
+		} else if modifier["subset"] == "ones" {
+			text = "can re-roll " + roll + " rolls of 1"
+		} else {
+			text = "can re-roll " + roll + " rolls"
+		}
+	case "roll-modifier":
+		if modifier["value"] != nil {
+			text = "gets " + esigned(modifier["operation"], modifier["value"]) + " to " + roll
+		}
+	}
+	if text == "" {
+		text = describeEffectInline(effect, ctx)
+	}
+	if modifier["weapon_keyword"] != nil {
+		prefix := ""
+		if qualified {
+			prefix = "those "
+		}
+		text += " for " + prefix + ejstr(modifier["weapon_keyword"]) + " attacks"
+	}
+	return text
+}
+
+func namedRegionBranch(m map[string]any, wholeUnit, qualified, conditional bool, ctx map[string]any) string {
+	consumer, _ := asMap(m["consumer"])
+	key := "default_branch"
+	if qualified {
+		key = "qualified_branch"
+	}
+	branch, _ := asMap(consumer[key])
+	effect := namedRegionBranchEffect(branch, qualified, ctx)
+	if conditional {
+		return namedRegionSubject(m) + " " + effect
+	}
+	if !qualified {
+		return namedRegionSubject(m) + " " + effect + "."
+	}
+	membership, _ := asMap(consumer["membership"])
+	ref, _ := asMap(m["region_ref"])
+	region := namedRegionTitle(ref["region_id"])
+	relation := namedRegionRelation(membership["relation"])
+	subject := "If such a model is " + relation + " " + region + ", it"
+	if wholeUnit {
+		subject = "If such a unit is " + relation + " " + region + ", those models"
+	}
+	return subject + " " + effect + " instead"
+}
+
+func describeNamedRegionState(m map[string]any, ctx map[string]any) string {
+	consumer, _ := asMap(m["consumer"])
+	membership, _ := asMap(consumer["membership"])
+	wholeUnit := membership["unit_scope"] == "whole-unit"
+	return namedRegionPrefix(m) + " " + namedRegionBranch(m, wholeUnit, false, false, ctx) + " " + namedRegionBranch(m, wholeUnit, true, false, ctx)
+}
+
+func describeNamedRegionConditional(m map[string]any, condition map[string]any, ctx map[string]any) string {
+	consumer, _ := asMap(m["consumer"])
+	membership, _ := asMap(consumer["membership"])
+	wholeUnit := membership["unit_scope"] == "whole-unit"
+	positive := map[string]any{"type": "region-membership", "parameters": condition["parameters"]}
+	predicate := describeCondition(positive)
+	defaultText := namedRegionBranch(m, wholeUnit, false, true, ctx)
+	qualifiedText := namedRegionBranch(m, wholeUnit, true, true, ctx)
+	if condition["negated"] == true {
+		return namedRegionPrefix(m) + " Unless " + predicate + ", " + defaultText + ". If " + predicate + ", " + qualifiedText + "."
+	}
+	return namedRegionPrefix(m) + " When " + predicate + ", " + qualifiedText + ". Otherwise, " + defaultText + "."
+}
+
+// `rule-state`: a named rule switched on/off for the subject.
 func describeRuleState(m map[string]any, subj string) string {
 	direction := ejstr(m["direction"])
 	kind := ejstr(m["rule_kind"])
@@ -1572,6 +1765,9 @@ func describeEffectInlineBase(e map[string]any, ctx map[string]any) string {
 		}
 		return subj + " " + ev(subj, "gets") + " " + esigned(m["operation"], m["value"]) + " to " + roll + " rolls" + ctxNote
 	case "re-roll":
+		if m["result_scope"] == "any-result" {
+			return "you can re-roll either a successful or failed " + rollName(m["roll"]) + " result"
+		}
 		var which string
 		if ejstr(m["roll"]) == "any" {
 			which = "any roll"
@@ -1794,6 +1990,8 @@ func describeEffectInlineBase(e map[string]any, ctx map[string]any) string {
 			noun = "model"
 		}
 		return "destroy " + count + " " + noun + " in " + subj
+	case "named-region-state":
+		return describeNamedRegionState(m, ctx)
 	case "rule-state":
 		return describeRuleState(m, subj)
 	case "pool-add-die":
@@ -2194,6 +2392,10 @@ func describeEffectInlineBase(e map[string]any, ctx map[string]any) string {
 	case "conditional":
 		cond, _ := getMap(e, "condition")
 		inner, _ := getMap(e, "effect")
+		if inner != nil && getStr(inner, "type") == "named-region-state" {
+			modifier, _ := asMap(inner["modifier"])
+			return describeNamedRegionConditional(modifier, cond, ctx)
+		}
 		return conditionLeadIn(cond) + ", " + describeEffectInline(inner, ctx)
 	case "sequence":
 		steps := getList(e, "steps")
@@ -2495,6 +2697,14 @@ func describeEffect(e map[string]any, depth int, ctx map[string]any) string {
 	case "conditional":
 		inner, _ := getMap(e, "effect")
 		cond, _ := getMap(e, "condition")
+		if inner != nil && getStr(inner, "type") == "named-region-state" {
+			modifier, _ := asMap(inner["modifier"])
+			text := capitalize(describeNamedRegionConditional(modifier, cond, ctx))
+			if strings.HasSuffix(text, ".") {
+				return indent + arrow + text
+			}
+			return indent + arrow + text + "."
+		}
 		if inner != nil && containerTypes[getStr(inner, "type")] {
 			return indent + capitalize(conditionLeadIn(cond)) + ":\n" + describeEffect(inner, depth+1, ctx)
 		}
@@ -2938,6 +3148,10 @@ func renderTopLevel(e map[string]any, scope map[string]any, usage map[string]any
 	if e["type"] == "conditional" {
 		inner, _ := getMap(e, "effect")
 		cond, _ := getMap(e, "condition")
+		if inner != nil && getStr(inner, "type") == "named-region-state" {
+			modifier, _ := asMap(inner["modifier"])
+			return describeNamedRegionConditional(modifier, cond, ctx)
+		}
 		// B1: drop the condition lead-in when it merely restates a trigger's timing
 		// (e.g. trigger start-of-phase + condition timing-is start-of-phase).
 		leadIn := conditionLeadIn(cond)

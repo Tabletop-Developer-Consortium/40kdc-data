@@ -108,6 +108,8 @@ def _walk(node: Any, source: BuffSource, opts: dict[str, Any], out: EffectTransl
         _translate_damage_reduction(node, source, opts, out)
     elif node_type == "invulnerable-save":
         _translate_invulnerable_save(node, source, opts, out)
+    elif node_type == "named-region-state":
+        _translate_named_region_state(node, source, opts, out)
     elif node_type == "conditional":
         _translate_conditional(node, source, opts, out)
     elif node_type == "sequence":
@@ -732,6 +734,85 @@ def _translate_bs_modifier(
     if value is None:
         return
     out["applied"].append({"source": source, "contribution": {"type": "hit-mod", "value": value}})
+
+
+def _translate_named_region_state(
+    node: dict[str, Any], source: BuffSource, opts: dict[str, Any], out: EffectTranslation
+) -> None:
+    """Recover a named region's default attacker branch when its gate matches."""
+    if opts["perspective"] != "attacker":
+        return
+    modifier_raw = node.get("modifier")
+    modifier: dict[str, Any] = {}
+    if _is_object(modifier_raw):
+        modifier = modifier_raw
+    consumer_raw = modifier.get("consumer")
+    consumer: dict[str, Any] = {}
+    if _is_object(consumer_raw):
+        consumer = consumer_raw
+    gate_raw = consumer.get("beneficiary_gate")
+    gate: dict[str, Any] = {}
+    if _is_object(gate_raw):
+        gate = gate_raw
+    raw_keywords = gate.get("keywords")
+    keywords = (
+        [keyword for keyword in raw_keywords if isinstance(keyword, str)]
+        if isinstance(raw_keywords, list)
+        else []
+    )
+    operator = gate.get("operator")
+    attacker_keywords = opts["context"].get("attackerKeywords")
+    if (
+        not gate
+        or not keywords
+        or operator not in ("and", "or")
+        or not isinstance(attacker_keywords, list)
+    ):
+        out["unsupported"].append(
+            {
+                "reason": (
+                    "named-region-state beneficiary gate cannot be evaluated "
+                    "against current attacker keywords"
+                ),
+                "effectFragment": node,
+            }
+        )
+        return
+    current = {keyword.lower() for keyword in attacker_keywords if isinstance(keyword, str)}
+    eligible = (
+        all(keyword.lower() in current for keyword in keywords)
+        if operator == "and"
+        else any(keyword.lower() in current for keyword in keywords)
+    )
+    if not eligible:
+        return
+    default_branch_raw = consumer.get("default_branch")
+    default_branch: dict[str, Any] | None = (
+        default_branch_raw if _is_object(default_branch_raw) else None
+    )
+    if default_branch is None:
+        out["unsupported"].append(
+            {
+                "reason": "named-region-state default branch is missing",
+                "effectFragment": node,
+            }
+        )
+        return
+    _walk(default_branch.get("effect"), source, opts, out)
+    qualified_branch_raw = consumer.get("qualified_branch")
+    qualified_branch = (
+        qualified_branch_raw if _is_object(qualified_branch_raw) else None
+    )
+    if qualified_branch is not None:
+        out["unsupported"].append(
+            {
+                "reason": (
+                    "named-region-state qualified branch: region membership is unavailable "
+                    "in EngineContext; qualified replacement is unsupported"
+                ),
+                "effectFragment": qualified_branch,
+            }
+        )
 
 
 def _translate_conditional(

@@ -65,9 +65,10 @@ and your `parameter_deltas` feed back into the shape design. You never write rep
 ## Inputs (prompt contract)
 `{proposed_shape: {name, kind, parameters[], schema_sketch?}, seed_ability_id, faction_id?,
 exclude_factions?, shape_charter?}` — `shape_charter.exact_family` is frozen. You still
-spawn swarmlord to discover the broader corpus, but judge only the charter's exact members
-for acceptance; all later discoveries go to `deferred_candidates` and cannot broaden the
-family unless inquisitor explicitly reopens the charter.
+spawn swarmlord to discover the broader corpus, but `coverage` MUST contain exactly one
+entry for every frozen exact-family member and no entries outside it. Put every later
+discovery in `deferred_candidates`, including near or needs-parameter candidates;
+only inquisitor may explicitly reopen the charter.
 
 
 ## Output (JSON contract)
@@ -95,6 +96,9 @@ family unless inquisitor explicitly reopens the charter.
 - `faithful_family_size` counts `fit:faithful` + `needs-param` (where the delta is
   a clean minimal extension), `exact`+`near` only — `would-flatten` and `stretch`
   count ZERO. This is the honest reach, not the raw sweep count.
+- Under a frozen charter, `faithful_family_size` is computed only from the exact
+  `coverage` mirror above. Broader swarmlord candidates remain evidence and follow-ups,
+  never coverage rows or acceptance headcount.
 - Finalization is a tool contract, not prose: your final action MUST be the harness
   `yield` tool with exactly one JSON object matching the frontmatter `output` schema.
   Do not end the turn with markdown, a code block, or plain JSON text; call `yield`.

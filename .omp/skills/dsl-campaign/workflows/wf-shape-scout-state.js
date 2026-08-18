@@ -66,16 +66,40 @@ export function mergeDeferredCandidates(charter, discoveries = []) {
   }
   return deferred
 }
+export function psykerSeverityFindings(psykerRead) {
+  return (psykerRead?.findings || [])
+    .filter(finding => Number(finding?.severity) === 3)
+    .map((finding, index) => ({
+      key: `psyker:severity-3:${index + 1}`,
+      state: 'open',
+      axis: 'fidelity',
+      severity: 3,
+      situation: [finding.phrase, finding.issue].filter(Boolean).join(' — '),
+      required_change: finding.issue || 'Remove the severity-3 render ambiguity.',
+      blocker_evidence: {
+        concrete_slice_divergence: true,
+        frozen_exact_member: true,
+        not_honestly_composable_or_separate: true,
+        resolved_or_out_of_scope: false,
+      },
+    }))
+}
 
-export function prototypeAgentInput({ proposed_shape, shape_charter, deferred_family, lone_spear }) {
+
+export function prototypeAgentInput({ proposed_shape, shape_charter, deferred_family, lone_spear, workspace = null }) {
   return {
-    prototype: { proposed_shape, shape_charter, worktree_mode: 'isolated-non-applied' },
+    prototype: {
+      proposed_shape,
+      shape_charter,
+      worktree_mode: workspace ? 'jj-isolated-non-applied' : 'isolated-non-applied',
+      ...(workspace ? { workspace } : {}),
+    },
     context: { deferred_family, lone_spear },
   }
 }
 
-export function prototypeAgentOptions() {
-  return { isolated: true, apply: false, merge: false }
+export function prototypeAgentOptions(workspace = null) {
+  return workspace ? { isolated: false } : { isolated: true, apply: false, merge: false }
 }
 
 export function assertShapeIdentity(previous_shape, candidate) {
@@ -224,9 +248,12 @@ export function classifyBlocker(finding) {
   } }
 }
 
-export function prototypeGateDecision(report, candidate) {
+export function prototypeGateDecision(report, candidate, expectedWorkspace = null) {
   const prototype = report?.prototype
   if (!prototype || prototype.applied_to_parent !== false) return { passes: false, reason: 'prototype-parent-contamination' }
+  if (expectedWorkspace && prototype.worktree !== expectedWorkspace) {
+    return { passes: false, reason: 'prototype-workspace-drift' }
+  }
   if (!deepEqual(prototype.proposed_shape, candidate)) return { passes: false, reason: 'prototype-candidate-drift' }
   if (!hasConcreteEvidence(prototype.worktree) || !hasConcreteEvidence(prototype.positive_probe) ||
     !hasConcreteEvidence(prototype.negative_probe) || !hasConcreteEvidence(prototype.render_evidence)) {

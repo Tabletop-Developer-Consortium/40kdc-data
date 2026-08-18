@@ -6,7 +6,7 @@ tools: Read, Grep, Glob, Bash
 spawns: data-enginseer, target-dummy, chronomancer, vox-hound
 output:
   type: object
-  required: [seed_ability_id, mechanic, decomposition, retrieval, proposed_shape, nearest_existing_shapes, self_grade]
+  required: [seed_ability_id, mechanic, decomposition, retrieval, proposed_shape, revision, nearest_existing_shapes, self_grade]
   properties:
     seed_ability_id: { type: string }
     mechanic: { type: string }
@@ -141,6 +141,9 @@ invented stand-in for those proof fields.
   "revision": null,
   "self_grade": { "verdict": "new-shape", "confidence": 0.8, "concerns": [] }
 ```
+- `revision` is a REQUIRED top-level sibling of `proposed_shape`: `null` on round
+  one, then a non-empty machine-applicable `changes` array on every later round.
+  Never nest `revision` inside the candidate.
 - `decomposition.{who,when,what}` and `retrieval` MUST be the ACTUAL spawned
   outputs (they are the proof you did the grounding). Empty/omitted = the workflow
   fails you.

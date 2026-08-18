@@ -106,6 +106,8 @@ func dslWalk(node any, source map[string]any, opts dslOpts, out *effectTranslati
 		translateDamageReduction(n, source, opts, out)
 	case "invulnerable-save":
 		translateInvulnerableSave(n, source, opts, out)
+	case "named-region-state":
+		translateNamedRegionState(n, source, opts, out)
 	case "conditional":
 		translateConditional(n, source, opts, out)
 	case "sequence":
@@ -534,6 +536,60 @@ func translateBsModifier(node, source map[string]any, opts dslOpts, out *effectT
 	out.applied = append(out.applied, map[string]any{"source": source, "contribution": map[string]any{"type": "hit-mod", "value": value}})
 }
 
+func translateNamedRegionState(node, source map[string]any, opts dslOpts, out *effectTranslation) {
+	if opts.perspective != "attacker" {
+		return
+	}
+	modifier, _ := getMap(node, "modifier")
+	consumer, _ := getMap(modifier, "consumer")
+	gate, _ := getMap(consumer, "beneficiary_gate")
+	rawKeywords, _ := asList(gate["keywords"])
+	keywords := make([]string, 0, len(rawKeywords))
+	for _, raw := range rawKeywords {
+		if keyword, ok := raw.(string); ok {
+			keywords = append(keywords, keyword)
+		}
+	}
+	operator, _ := gate["operator"].(string)
+	attackerKeywords, hasKeywords := asList(opts.context["attackerKeywords"])
+	if len(gate) == 0 || len(keywords) == 0 || (operator != "and" && operator != "or") || !hasKeywords {
+		out.unsupported = append(out.unsupported, unsup("named-region-state beneficiary gate cannot be evaluated against current attacker keywords", node))
+		return
+	}
+	current := map[string]bool{}
+	for _, raw := range attackerKeywords {
+		if keyword, ok := raw.(string); ok {
+			current[strings.ToLower(keyword)] = true
+		}
+	}
+	eligible := operator == "and"
+	for _, keyword := range keywords {
+		match := current[strings.ToLower(keyword)]
+		if operator == "and" && !match {
+			eligible = false
+			break
+		}
+		if operator == "or" && match {
+			eligible = true
+			break
+		}
+	}
+	if !eligible {
+		return
+	}
+	defaultBranch, ok := getMap(consumer, "default_branch")
+	if !ok {
+		out.unsupported = append(out.unsupported, unsup("named-region-state default branch is missing", node))
+		return
+	}
+	dslWalk(defaultBranch["effect"], source, opts, out)
+	if qualifiedBranch, ok := getMap(consumer, "qualified_branch"); ok {
+		out.unsupported = append(out.unsupported, unsup(
+			"named-region-state qualified branch: region membership is unavailable in EngineContext; qualified replacement is unsupported",
+			qualifiedBranch,
+		))
+	}
+}
 func translateConditional(node, source map[string]any, opts dslOpts, out *effectTranslation) {
 	condition, ok := getMap(node, "condition")
 	if !ok {

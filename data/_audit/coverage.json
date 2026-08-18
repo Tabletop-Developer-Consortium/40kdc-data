@@ -238,7 +238,7 @@
       "defensive": 9,
       "inert": 94,
       "stub": 12,
-      "stubStructural": 7,
+      "stubStructural": 6,
       "gwTextLeak": 0,
       "defensiveSkipped": 2
     },
@@ -271,7 +271,7 @@
     "defensive": 266,
     "inert": 2174,
     "stub": 117,
-    "stubStructural": 39,
+    "stubStructural": 38,
     "gwTextLeak": 0,
     "defensiveSkipped": 57
   },
@@ -457,10 +457,6 @@
       "count": 5
     },
     {
-      "reason": "effect type \"terrain-area-tag\" is not modelled by the buff layer",
-      "count": 5
-    },
-    {
       "reason": "effect type \"auto-result\" is not modelled by the buff layer",
       "count": 5
     },
@@ -493,11 +489,11 @@
       "count": 4
     },
     {
-      "reason": "stat-modifier on \"WS\" is outside the damage path",
+      "reason": "effect type \"terrain-area-tag\" is not modelled by the buff layer",
       "count": 4
     },
     {
-      "reason": "conditional: cannot evaluate condition \"terrain-area-control\" against current context",
+      "reason": "stat-modifier on \"WS\" is outside the damage path",
       "count": 4
     },
     {
@@ -530,6 +526,10 @@
     },
     {
       "reason": "conditional: cannot evaluate condition \"within-range-of-objective\" against current context",
+      "count": 3
+    },
+    {
+      "reason": "conditional: cannot evaluate condition \"terrain-area-control\" against current context",
       "count": 3
     },
     {
@@ -654,10 +654,6 @@
     },
     {
       "reason": "stat-modifier on \"BS\" is outside the damage path",
-      "count": 1
-    },
-    {
-      "reason": "re-roll: narrows by \"weapon_keyword\" which the cruncher can't resolve here",
       "count": 1
     },
     {
@@ -25230,7 +25226,7 @@
       "faction": "necrons",
       "ability_id": "power-matrix",
       "name": "Power Matrix",
-      "shape": "conditional",
+      "shape": "named-region-state",
       "stub": false,
       "offensive": false,
       "defensive": false,
@@ -29270,11 +29266,11 @@
       "faction": "thousand-sons",
       "ability_id": "flow-of-magic",
       "name": "Flow of Magic",
-      "shape": "sequence",
-      "stub": true,
+      "shape": "named-region-state",
+      "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"terrain-area-tag\" is not modelled by the buff layer"
+      "gap": null
     },
     {
       "faction": "thousand-sons",

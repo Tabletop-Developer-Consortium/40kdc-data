@@ -9,6 +9,7 @@ import {
   mergeDeferredCandidates,
   normalizeFindingLedger,
   prototypeAgentInput,
+  psykerSeverityFindings,
   prototypeAgentOptions,
   prototypeGateDecision,
   resolveFindingLedger,
@@ -36,6 +37,7 @@ export const meta = {
 //   seed: { ability_id, faction_id, raw_text?, resisted_schema? },  // the needs-schema ability
 //   family_threshold?: 4,      // faithful family bar (exact+near, flatten-excluded) — the shape gate
 //   max_rounds?: 3,            // cyclical review rounds before forcing terminal
+//   prototype_workspaces?: string[], // driver-created jj workspaces for pure-JJ checkouts
 // }
 // Returns { seed, shape_charter, status, terminal, shape_package, rounds } where status ∈
 //   shipped-ready | existing-fits | rejected-sprawl | rejected-singleton | not-converged | no-prose
@@ -54,6 +56,11 @@ if (typeof args === 'string') args = JSON.parse(args)
 if (!args || !args.seed || !args.seed.ability_id) throw new Error('args.seed.ability_id required')
 const THRESHOLD = Math.max(args.family_threshold || 4, 4)
 const MAX_ROUNDS = Math.min(Math.max(args.max_rounds || 3, 1), 3)
+if (args.prototype_workspaces && (!Array.isArray(args.prototype_workspaces) ||
+  args.prototype_workspaces.length < MAX_ROUNDS ||
+  args.prototype_workspaces.some(workspace => typeof workspace !== 'string' || !workspace.startsWith('/')))) {
+  throw new Error(`prototype_workspaces requires ${MAX_ROUNDS} absolute jj workspace paths`)
+}
 // Pin every agent to the loop workspace (subagents inherit the DRIVER cwd, which may be another checkout).
 const PRE = args.repo_root
   ? `Repo root: ${args.repo_root} — cd there first; run every command and resolve every ` +
@@ -100,7 +107,7 @@ const PROTOTYPE_OUT = {
 }
 const FLESH_OUT = {
   type: 'object',
-  required: ['seed_ability_id', 'mechanic', 'decomposition', 'retrieval', 'proposed_shape', 'nearest_existing_shapes', 'self_grade'],
+  required: ['seed_ability_id', 'mechanic', 'decomposition', 'retrieval', 'proposed_shape', 'revision', 'nearest_existing_shapes', 'self_grade'],
   properties: {
     seed_ability_id: { type: 'string' }, mechanic: { type: 'string' },
     decomposition: { type: 'object', required: ['who', 'when', 'what'],
@@ -205,7 +212,7 @@ const WAR_OUT = {
         axis: { enum: ['sprawl', 'flattening', 'fidelity', 'parity', 'family'] }, severity: { type: 'integer', minimum: 1, maximum: 3 }, situation: { type: 'string' }, required_change: { type: 'string' },
         blocker_evidence: { type: 'object', required: ['concrete_slice_divergence', 'frozen_exact_member', 'not_honestly_composable_or_separate', 'resolved_or_out_of_scope'], properties: { concrete_slice_divergence: { type: 'boolean' }, frozen_exact_member: { type: 'boolean' }, not_honestly_composable_or_separate: { type: 'boolean' }, resolved_or_out_of_scope: { type: 'boolean' } } } } } },
     verdict: { enum: ['accept', 'revise', 'reject-as-sprawl', 'reject-as-singleton'] },
-    shape_package: { oneOf: [{ type: 'null' }, SHAPE_PACKAGE_OUT] }, confidence: { type: 'number' },
+    shape_package: { ...SHAPE_PACKAGE_OUT, type: ['object', 'null'] }, confidence: { type: 'number' },
   },
 }
 
@@ -292,9 +299,10 @@ helpers and copy their outputs verbatim. Input:\n` + JSON.stringify({
 
   phase(`Broaden (round ${rn})`)
   const lone = await agent(
-    PRE + `Judge coverage only against the frozen exact family. Discoveries outside it are deferred_candidates,
-never acceptance-family additions. Count a shared ability id once even when multiple faction copies remain as
-evidence. Do not mutate the charter or inflate the family. Input:\n` +
+    PRE + `The coverage array MUST contain exactly one entry for every frozen exact-family member and no other
+ability. Put every discovery outside that frozen family in deferred_candidates, even when it is near or needs a
+parameter. Count a shared ability id once while retaining cross-faction copies as evidence. Do not mutate the
+charter or inflate acceptance. Input:\n` +
     JSON.stringify({ proposed_shape: flesh.proposed_shape, seed_ability_id: args.seed.ability_id,
       faction_id: args.seed.faction_id, shape_charter, previous_shape }),
     { agentType: 'kroot-lone-spear', phase: 'Broaden', schema: LONESPEAR_OUT, label: `spear:${args.seed.ability_id}#${rn}` }
@@ -306,21 +314,30 @@ evidence. Do not mutate the charter or inflate the family. Input:\n` +
   if (exactFamilySize < THRESHOLD) { status = 'rejected-singleton'; rounds.push({ round: rn, flesh, lone, finding_ledger, verdict: status }); break }
 
   phase(`Prototype (round ${rn})`)
+  const prototypeWorkspace = args.prototype_workspaces ? args.prototype_workspaces[round] : null
+  const prototypePRE = prototypeWorkspace
+    ? `Prototype workspace: ${prototypeWorkspace}. Every Read/Grep/Glob/Edit/Write path MUST be an absolute path ` +
+      `under that exact workspace, and every Bash call MUST set cwd to that exact workspace or a descendant. ` +
+      `Never use a relative file-tool path: the agent session itself remains rooted in the parent checkout. ` +
+      `Pass the same absolute workspace path and path rule to every child spawn. Never read, edit, generate into, ` +
+      `or run a command in the parent checkout ${args.repo_root}. `
+    : PRE
   const prototype = await agent(
-    PRE + `Implement a disposable minimal vertical prototype of this proposed shape in an ISOLATED, NON-APPLIED
-worktree. Do not edit the parent checkout or data. Implement the actual schema branch, necessary generated/TS
-surface, one describer path, and fabricated positive/negative probes. In that SAME worktree SPAWN skitarius to run
-the targeted compiler/schema/render gates. Return concrete commands/results and diagnostics; applied_to_parent MUST
-be false. Input:\n` + JSON.stringify(prototypeAgentInput({
+    prototypePRE + `Implement a disposable minimal vertical prototype of this proposed shape in an ISOLATED,
+NON-APPLIED worktree. Do not edit the parent checkout or data. Implement the actual schema branch, necessary
+generated/TS surface, one describer path, and fabricated positive/negative probes. In that SAME worktree SPAWN
+skitarius to run the targeted compiler/schema/render gates. Return concrete commands/results and diagnostics;
+applied_to_parent MUST be false. Input:\n` + JSON.stringify(prototypeAgentInput({
       proposed_shape: flesh.proposed_shape,
       shape_charter,
       deferred_family,
       lone_spear: lone,
+      workspace: prototypeWorkspace,
     })),
     { agentType: 'warpsmith', phase: 'Prototype', schema: PROTOTYPE_OUT, label: `prototype:${args.seed.ability_id}#${rn}`,
-      ...prototypeAgentOptions() }
+      ...prototypeAgentOptions(prototypeWorkspace) }
   )
-  const prototypeDecision = prototypeGateDecision(prototype, flesh.proposed_shape)
+  const prototypeDecision = prototypeGateDecision(prototype, flesh.proposed_shape, prototypeWorkspace)
   if (!prototypeDecision.passes) {
     const prototypeFinding = {
       key: `prototype:${rn}`,
@@ -351,6 +368,11 @@ are binding repair input; do not solve charter non-goals. Spawn psyker. Input:\n
     { path: 'psyker_read', msg: 'trail-shaper must spawn psyker' },
     { path: 'render_rules', msg: 'no render rules specified' },
   ])
+  finding_ledger = normalizeFindingLedger(
+    finding_ledger,
+    psykerSeverityFindings(trail.psyker_read),
+    shape_charter,
+  )
 
   phase(`War (round ${rn})`)
   const war = await agent(

@@ -35,6 +35,12 @@ of one converged campaign is `_private/loop-state/{roundtrip,inbox}-world-eaters
   ANY source edit before parity checks — stale runners give phantom verdicts.
 - `jj st` clean apart from `_private/` (reconcile, never clobber, if not); `jj new` before
   any work; never touch other workspaces' commits (`<name>@`); never move `main`.
+- Prototype isolation is backend-explicit. In a colocated Git/JJ checkout, omit
+  `prototype_workspaces` and the task runtime creates disposable isolation. In a pure-JJ
+  secondary workspace, the driver MUST create one dedicated `jj workspace` per possible
+  review round outside the repo, pass their absolute paths as `prototype_workspaces`, and
+  verify both those workspaces and the parent checkout after the scout. Never disable
+  isolation or reuse one prototype workspace across rounds.
 
 ## Non-negotiables (pinned decisions)
 
@@ -105,11 +111,13 @@ stretch/flattened/outside members count zero. Kroot leads spawn leaf helpers onl
   `rounds-exhausted-unresolved-slice-tradeoff` (maintainer decision required) or the
   conservative `rounds-exhausted-conservative-defer`.
 - **Prototype before acceptance:** each candidate receives a disposable, isolated,
-  non-applied warpsmith vertical slice through `prototype.worktree_mode:
-  "isolated-non-applied"` before trail/war acceptance. Warpsmith spawns skitarius in that
-  worktree for non-empty compiler/schema/positive-negative/render evidence, echoing the
-  exact candidate it probed; prototype diagnostics remain repair input and never land
-  in the campaign checkout.
+  non-applied warpsmith vertical slice. Colocated checkouts use runtime
+  `prototype.worktree_mode:"isolated-non-applied"`; pure-JJ secondary workspaces use a
+  driver-created, round-specific `prototype.worktree_mode:"jj-isolated-non-applied"`.
+  Warpsmith spawns skitarius in that same worktree for non-empty
+  compiler/schema/positive-negative/render evidence and echoes the exact candidate and
+  expected workspace it probed. Prototype diagnostics remain repair input and never
+  land in the campaign checkout.
 - **Closed blockers:** blocker closure derives only from evidence-gated ledger state,
   never a self-reported boolean. Supersession requires a real replacement finding.
   War-shaper may accept only after every finding is terminal, two distinct scoped
@@ -186,6 +194,8 @@ resisted mechanic is a FAMILY (≥ ~4 abilities, exact+near) or a singleton:
     repo_root: "/Users/will.mitchell/40kdc-dsl",
     seed: { ability_id, faction_id, raw_text, resisted_schema }, family_threshold: 4 } })
   ```
+  In a pure-JJ secondary workspace, include `prototype_workspaces` with one absolute,
+  driver-created workspace path per possible round.
   The shape-scout runs inquisitor charter → flesh-shaper → lone-spear →
   isolated warpsmith+skitarius prototype → trail-shaper → war-shaper; each lead
   spawns its own declared helpers. It returns `status`:

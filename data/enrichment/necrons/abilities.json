@@ -5837,60 +5837,170 @@
     "ability_type": "detachment",
     "behavior": "passive",
     "effect": {
-      "type": "conditional",
-      "condition": {
-        "operator": "or",
-        "operands": [
-          {
-            "type": "unit-has-keyword",
-            "parameters": {
-              "keyword": "CRYPTEK"
-            }
+      "type": "named-region-state",
+      "target": "all-friendly",
+      "modifier": {
+        "region_ref": {
+          "region_id": "power-matrix",
+          "owner_faction": "necrons"
+        },
+        "producer": {
+          "region_ref": {
+            "region_id": "power-matrix",
+            "owner_faction": "necrons"
           },
-          {
-            "type": "unit-has-keyword",
-            "parameters": {
-              "keyword": "CANOPTEK"
+          "mode": "complete",
+          "parent_ref": null,
+          "baseline": [
+            {
+              "kind": "fixed-zone",
+              "zone": "own-deployment-zone",
+              "activation": {
+                "event": "always-active"
+              },
+              "expiry": {
+                "event": "never"
+              }
             }
-          }
-        ]
-      },
-      "effect": {
-        "type": "sequence",
-        "steps": [
-          {
-            "type": "re-roll",
-            "target": "attacker",
-            "modifier": {
-              "roll": "hit",
-              "subset": "ones"
-            }
-          },
-          {
-            "type": "conditional",
-            "condition": {
-              "type": "terrain-area-control",
-              "parameters": {
-                "area": "power-matrix"
+          ],
+          "phase_extensions": [
+            {
+              "kind": "objective-majority-zone",
+              "zone": "no-mans-land",
+              "control_gate": {
+                "marker_scope": "markers-in-zone",
+                "controlled_by": "owner-army",
+                "threshold": {
+                  "comparison": "at-least",
+                  "fraction": 0.5
+                }
+              },
+              "activation": {
+                "event": "phase-start",
+                "evaluation": "snapshot-once",
+                "canonical_condition_ids": [
+                  "timing-is",
+                  "objective-majority"
+                ]
+              },
+              "expiry": {
+                "event": "phase-end"
               }
             },
+            {
+              "kind": "objective-majority-zone",
+              "zone": "opponent-deployment-zone",
+              "control_gate": {
+                "marker_scope": "markers-in-zone",
+                "controlled_by": "owner-army",
+                "threshold": {
+                  "comparison": "at-least",
+                  "fraction": 0.5
+                }
+              },
+              "activation": {
+                "event": "phase-start",
+                "evaluation": "snapshot-once",
+                "canonical_condition_ids": [
+                  "timing-is",
+                  "objective-majority"
+                ]
+              },
+              "expiry": {
+                "event": "phase-end"
+              }
+            }
+          ],
+          "additive_extensions": []
+        },
+        "consumer": {
+          "state_ref": {
+            "region_id": "power-matrix",
+            "owner_faction": "necrons"
+          },
+          "beneficiary_gate": {
+            "owner": "owner-army",
+            "faction": "necrons",
+            "operator": "or",
+            "keywords": [
+              "CRYPTEK",
+              "CANOPTEK"
+            ]
+          },
+          "membership": {
+            "unit_scope": "whole-unit",
+            "relation": "wholly-within"
+          },
+          "qualified_condition": {
+            "type": "region-membership",
+            "state_ref": {
+              "region_id": "power-matrix",
+              "owner_faction": "necrons"
+            },
+            "unit_scope": "whole-unit",
+            "relation": "wholly-within",
+            "canonical_condition_ids": [
+              "terrain-area-control"
+            ]
+          },
+          "default_branch": {
+            "source": {
+              "role": "eligible-source",
+              "gate_ref": "beneficiary_gate"
+            },
+            "beneficiary": {
+              "role": "eligible-beneficiary",
+              "gate_ref": "beneficiary_gate"
+            },
+            "target": "attacker",
+            "timing": {
+              "event": "each-attack"
+            },
+            "duration": "attack-resolution",
             "effect": {
               "type": "re-roll",
               "target": "attacker",
               "modifier": {
                 "roll": "hit",
-                "subset": "all-failures"
+                "subset": "ones"
               }
-            }
+            },
+            "optional": true
+          },
+          "qualified_branch": {
+            "source": {
+              "role": "eligible-source",
+              "gate_ref": "beneficiary_gate"
+            },
+            "beneficiary": {
+              "role": "eligible-beneficiary",
+              "gate_ref": "beneficiary_gate"
+            },
+            "target": "attacker",
+            "timing": {
+              "event": "each-attack"
+            },
+            "duration": "attack-resolution",
+            "effect": {
+              "type": "re-roll",
+              "target": "attacker",
+              "modifier": {
+                "roll": "hit",
+                "result_scope": "any-result"
+              }
+            },
+            "optional": true
           }
-        ]
+        },
+        "branch_precedence": "qualified-replaces-default"
       }
     },
     "scope": {
       "range": "any-on-battlefield",
-      "duration": "battle"
+      "duration": "permanent"
     },
-    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
+    "applies_to": null,
+    "community_notes": "The named region permanently starts as the army's deployment zone, with each other zone added for a phase only after the army controls at least half of that zone's objective markers at phase start. Eligible CRYPTEK and CANOPTEK units re-roll Hit rolls of 1, or re-roll the Hit roll instead while wholly within the region."
   },
   {
     "ability_id": "command-protocols",

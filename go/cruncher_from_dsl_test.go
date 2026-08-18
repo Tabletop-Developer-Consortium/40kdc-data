@@ -118,3 +118,63 @@ func TestNamedRegionWeaponKeywordNarrowingIsUnsupported(t *testing.T) {
 		t.Fatalf("unsupported = %#v", out.unsupported)
 	}
 }
+
+func TestLeaderModelAbilityGrantRequiresResolvedBeneficiary(t *testing.T) {
+	effect := map[string]any{
+		"type": "leader-model-ability-grant",
+		"grant": map[string]any{
+			"effect": map[string]any{
+				"type":     "feel-no-pain",
+				"modifier": map[string]any{"threshold": 4.0},
+			},
+		},
+	}
+	out := effectToBuffs(
+		effect,
+		namedRegionSource(),
+		map[string]any{"phase": "shooting"},
+		"target",
+	)
+	if len(out.applied) != 0 {
+		t.Fatalf("applied = %#v", out.applied)
+	}
+	if len(out.unsupported) != 1 {
+		t.Fatalf("unsupported = %#v", out.unsupported)
+	}
+	reason := out.unsupported[0].(map[string]any)["reason"]
+	if reason != "leader-model-ability-grant: attached leader beneficiary is not resolved by the buff engine" {
+		t.Fatalf("reason = %#v", reason)
+	}
+}
+
+func TestPersistentDesignationRequiresRetainedSelectionState(t *testing.T) {
+	effect := map[string]any{
+		"type": "persistent-designation",
+		"consumer": map[string]any{
+			"effect": map[string]any{
+				"type":   "re-roll",
+				"target": "bearer",
+				"modifier": map[string]any{
+					"roll":   "hit",
+					"subset": "all-failures",
+				},
+			},
+		},
+	}
+	out := effectToBuffs(
+		effect,
+		namedRegionSource(),
+		map[string]any{"phase": "shooting"},
+		"attacker",
+	)
+	if len(out.applied) != 0 {
+		t.Fatalf("applied = %#v", out.applied)
+	}
+	if len(out.unsupported) != 1 {
+		t.Fatalf("unsupported = %#v", out.unsupported)
+	}
+	reason := out.unsupported[0].(map[string]any)["reason"]
+	if reason != "persistent-designation: retained selection state is not resolved by the buff engine" {
+		t.Fatalf("reason = %#v", reason)
+	}
+}

@@ -17,16 +17,6 @@ var selfTargets = map[string]bool{
 	"self": true, "bearer": true, "unit": true, "attached-unit": true,
 	"friendly-within-aura": true, "all-friendly": true,
 }
-
-// modelTargets is the subset of selfTargets naming a single *model* (the bearer)
-// rather than its unit. Core rule 19.04: a rule affecting one specified model
-// applies only to that model, even while it is part of an attached unit.
-var modelTargets = map[string]bool{"self": true, "bearer": true}
-
-// modelScopedReason is the diagnostic for a model-scoped effect pooled in from an
-// attached member.
-const modelScopedReason = "model-scoped effect from an attached model: applies to that model only (core rule 19.04)"
-
 var defenderTargets = map[string]bool{
 	"defender": true, "enemy-within-aura": true, "all-enemy": true,
 }
@@ -58,36 +48,20 @@ func effectToBuffs(effect any, source map[string]any, context map[string]any, pe
 	dslWalk(effect, source, opts, out)
 	return out
 }
-
-// isModelScopedFromAttachedMember reports whether this node is a model-scoped
-// effect reaching the buffed unit from *another* member of the combined unit.
-// Core rule 19.04 keeps those on their own model: an attached Librarian's
-// personal 4+ invulnerable save is not a 4+ invulnerable save for the ten
-// Intercessors it joined.
-//
-// Keyed on the buff source, not on the DSL condition — the leak is not limited to
-// abilities gated on is-attached (an Archon's Shadowfield says only "the bearer"),
-// and the resolver already tags pooled member abilities as abilityKind "attached".
-// An ability read as the chosen unit's own (abilityKind "unit") is unaffected.
-func isModelScopedFromAttachedMember(node map[string]any, source map[string]any) bool {
-	if getStr(source, "kind") != "ability" || getStr(source, "abilityKind") != "attached" {
-		return false
-	}
-	return modelTargets[getStr(node, "target")]
-}
-
 func dslWalk(node any, source map[string]any, opts dslOpts, out *effectTranslation) {
 	n, ok := asMap(node)
 	if !ok {
 		return
 	}
-	// Core rule 19.04 gate, applied before any leaf translation and under both
-	// perspectives. Safe at this level because no container node (sequence,
-	// conditional, choice, …) carries a self/bearer target — only leaves do — so
-	// this can never swallow a subtree holding unit-scoped effects too.
-	if isModelScopedFromAttachedMember(n, source) {
-		out.unsupported = append(out.unsupported, unsup(modelScopedReason, n))
-		return
+	if opts.defaultTarget != "" {
+		if _, present := n["target"]; !present {
+			decorated := make(map[string]any, len(n)+1)
+			for key, value := range n {
+				decorated[key] = value
+			}
+			decorated["target"] = opts.defaultTarget
+			n = decorated
+		}
 	}
 	switch getStr(n, "type") {
 	case "re-roll":

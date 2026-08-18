@@ -14,17 +14,21 @@ use super::{
 };
 use crate::generated::{
     Ability, AbilityAppliesTo, AbilityTrigger, AbilityUsage, AbilityUsageFrequency, AuraEffect,
-    AuraEffectModifierRange, AuraEffectTarget, CompoundConditionOperator, ConditionNode,
-    DesignateTargetEffectAppliesTo, DesignateTargetEffectSelectScope, DiceGatedEffect,
-    DiceGatedEffectComparison, DiceGatedEffectThreshold, DicePoolAllocationEffect,
-    DiceRequirementSpec, EffectNode, MovementModifierEffect, ResourceActionMenuEffect,
-    ResourceActionMenuEffectActionsItem, ResourceActionMenuEffectActionsItemDuration,
-    ResourceActionMenuEffectActionsItemWhen, ResourceActionMenuEffectSharedUsage,
-    ResourceActionMenuTrigger, ResourceActionMenuTriggerMoveTypesItem,
-    ResourceActionMenuTriggerProximityOf, ResourceActionMenuTriggerSubject, Scaling, ScalingOf,
-    ScalingRound, Scope, ScopeRange, SelectUnitsEffectSelector, SelectUnitsEffectSelectorOwner,
-    SimpleConditionType, SingleEffect, SingleEffectType, StanceSelectEffectMode, Trigger,
-    TriggerMoveTypesItem, TriggerProximityOf, TriggerSubject,
+    AuraEffectModifierRange, AuraEffectTarget, BeneficiaryBoundEffectNode,
+    CompoundConditionOperator, ConditionNode, DesignateTargetEffectAppliesTo,
+    DesignateTargetEffectSelectScope, DiceGatedEffect, DiceGatedEffectComparison,
+    DiceGatedEffectThreshold, DicePoolAllocationEffect, DiceRequirementSpec, EffectNode,
+    KeywordFilter, LeaderModelAbilityGrantEffect, LeaderModelAbilityGrantEffectBeneficiary,
+    MovementModifierEffect, PersistentDesignationEffect,
+    PersistentDesignationEffectConsumerRelation, PersistentDesignationEffectSelectScope,
+    ResourceActionMenuEffect, ResourceActionMenuEffectActionsItem,
+    ResourceActionMenuEffectActionsItemDuration, ResourceActionMenuEffectActionsItemWhen,
+    ResourceActionMenuEffectSharedUsage, ResourceActionMenuTrigger,
+    ResourceActionMenuTriggerMoveTypesItem, ResourceActionMenuTriggerProximityOf,
+    ResourceActionMenuTriggerSubject, Scaling, ScalingOf, ScalingRound, Scope, ScopeRange,
+    SelectUnitsEffectSelector, SelectUnitsEffectSelectorEngagementRelation,
+    SelectUnitsEffectSelectorOwner, SimpleConditionType, SingleEffect, SingleEffectType,
+    StanceSelectEffectMode, Trigger, TriggerMoveTypesItem, TriggerProximityOf, TriggerSubject,
 };
 
 /// Rendering context threaded from the ability (scope info the leaf needs).
@@ -134,6 +138,148 @@ fn designation_label(designation: &str) -> String {
     } else {
         format!(" (your {label} target)")
     }
+}
+
+fn persistent_designation_name(
+    designation: &str,
+    scope: PersistentDesignationEffectSelectScope,
+) -> String {
+    let label = title_case(designation);
+    if scope == PersistentDesignationEffectSelectScope::ObjectiveMarker {
+        if label.ends_with(" Marker") {
+            format!("your {label}")
+        } else {
+            format!("your {label} Marker")
+        }
+    } else if label == "Target" || label.ends_with(" Target") {
+        format!("your {label}")
+    } else {
+        format!("your {label} target")
+    }
+}
+
+fn persistent_designation_label(
+    designation: &str,
+    scope: PersistentDesignationEffectSelectScope,
+) -> String {
+    format!(" ({})", persistent_designation_name(designation, scope))
+}
+
+fn persistent_designation_supported(p: &PersistentDesignationEffect) -> bool {
+    matches!(
+        (p.select.scope, p.consumer.relation),
+        (
+            PersistentDesignationEffectSelectScope::EnemyUnit,
+            PersistentDesignationEffectConsumerRelation::AttacksSelectedUnit
+        ) | (
+            PersistentDesignationEffectSelectScope::ObjectiveMarker,
+            PersistentDesignationEffectConsumerRelation::WithinSelectedMarker
+        )
+    )
+}
+
+fn persistent_designation_lead(p: &PersistentDesignationEffect) -> String {
+    let scope_noun = match p.select.scope {
+        PersistentDesignationEffectSelectScope::EnemyUnit => "enemy unit",
+        PersistentDesignationEffectSelectScope::ObjectiveMarker => "objective marker",
+    };
+    let label = persistent_designation_label(p.designation.as_str(), p.select.scope);
+    format!(
+        "{}, select one {scope_noun}{label}.",
+        describe_timing(&p.select.timing)
+    )
+}
+
+fn persistent_designation_when(p: &PersistentDesignationEffect) -> String {
+    let name = persistent_designation_name(p.designation.as_str(), p.select.scope);
+    let relation = match p.consumer.relation {
+        PersistentDesignationEffectConsumerRelation::WithinSelectedMarker => {
+            format!("while this model is within range of {name}")
+        }
+        PersistentDesignationEffectConsumerRelation::AttacksSelectedUnit => {
+            "each time this model makes an attack against it".to_string()
+        }
+    };
+    let duration = p.duration.to_string();
+    let (_, trail) = duration_clauses(&duration);
+    if trail.is_empty() {
+        relation
+    } else {
+        format!("{}, {relation}", capitalize(&trail))
+    }
+}
+
+fn beneficiary_bound_inline(effect: &BeneficiaryBoundEffectNode, ctx: &Ctx) -> String {
+    let mut object = Map::new();
+    object.insert(
+        "type".to_string(),
+        Value::String(effect.type_.as_str().to_string()),
+    );
+    object.insert("target".to_string(), Value::String("self".to_string()));
+    object.insert(
+        "modifier".to_string(),
+        Value::Object(effect.modifier.clone()),
+    );
+    if let Some(scaling) = &effect.scaling {
+        if let Ok(value) = serde_json::to_value(scaling) {
+            object.insert("scaling".to_string(), value);
+        }
+    }
+    match serde_json::from_value::<EffectNode>(Value::Object(object)) {
+        Ok(node) => inline(&node, ctx).replacen("this model", "that leader model", 1),
+        Err(_) => format!("[{}]", effect.type_.as_str()),
+    }
+}
+
+fn leader_model_ability_grant_clause(p: &LeaderModelAbilityGrantEffect, ctx: &Ctx) -> String {
+    let (identity, keywords) = match &p.leader_filter {
+        Some(filter) => (
+            filter
+                .identity
+                .as_ref()
+                .map(|identity| format!(" identified as {}", title_case(identity.as_str())))
+                .unwrap_or_default(),
+            filter
+                .keywords
+                .iter()
+                .map(|keyword| bracket_keyword(&Value::String(keyword.as_str().to_string())))
+                .collect::<Vec<_>>()
+                .join(" and "),
+        ),
+        None => (String::new(), String::new()),
+    };
+    let role = match p.beneficiary {
+        LeaderModelAbilityGrantEffectBeneficiary::AttachedCharacterLeader => {
+            "the attached CHARACTER leader model"
+        }
+        LeaderModelAbilityGrantEffectBeneficiary::LeadingLeaderModel => "the attached leader model",
+    };
+    let leader = format!(
+        "{role}{identity}{}",
+        if keywords.is_empty() {
+            String::new()
+        } else {
+            format!(" with {keywords}")
+        }
+    );
+    let unit_keywords = p
+        .attached_unit_filter
+        .as_ref()
+        .map(|filters| {
+            filters
+                .iter()
+                .map(|keyword| bracket_keyword(&Value::String(keyword.as_str().to_string())))
+                .collect::<Vec<_>>()
+                .join(" and ")
+        })
+        .unwrap_or_default();
+    let source = if unit_keywords.is_empty() {
+        "the bearer unit".to_string()
+    } else {
+        format!("the bearer unit with {unit_keywords}")
+    };
+    let nested = beneficiary_bound_inline(&p.grant.effect, ctx);
+    format!("while {leader} leads {source}, {nested}")
 }
 
 /// kebab/space → Title Case (`deep-strike` → `Deep Strike`, small words stay lowercase mid-phrase).
@@ -1394,6 +1540,34 @@ fn movement_clause(m: &Map<String, Value>, subj: &str) -> String {
 }
 
 /// Generic aura `modifier` → one lowercase-initial clause. Mirrors `auraClause`.
+fn keyword_filter_clause(filter: &KeywordFilter, noun: &str) -> String {
+    let required = filter
+        .required_keywords
+        .iter()
+        .map(|k| k.as_str())
+        .collect::<Vec<_>>()
+        .join(" and ");
+    let excluded = filter
+        .excluded_keywords
+        .iter()
+        .map(|k| k.as_str())
+        .collect::<Vec<_>>()
+        .join(" or ");
+    format!(
+        "{noun}{}{}",
+        if required.is_empty() {
+            String::new()
+        } else {
+            format!(" with {required}")
+        },
+        if excluded.is_empty() {
+            String::new()
+        } else {
+            format!(" without {excluded}")
+        }
+    )
+}
+
 fn aura_clause(e: &AuraEffect, ctx: &Ctx) -> String {
     let m = &e.modifier;
     // Range-extension of a named aura (e.g. Gift of Poxes: contagion +3").
@@ -1422,13 +1596,36 @@ fn aura_clause(e: &AuraEffect, ctx: &Ctx) -> String {
     } else {
         "each enemy unit"
     };
-    let within = match &range_text {
-        Some(rt) => format!("{who} within {rt}"),
+    let recipient = match &m.recipient_filter {
+        Some(filter) => keyword_filter_clause(filter, who),
         None => who.to_string(),
     };
-    match &m.effect {
-        Some(inner) => format!("{within} {}", inline(inner, ctx)),
-        None => format!("{within} is affected"),
+    let within = match &range_text {
+        Some(rt) => format!("{recipient} within {rt}"),
+        None => recipient,
+    };
+    let filtered = m.emitter_filter.is_some() || m.recipient_filter.is_some();
+    let effect_text = match &m.effect {
+        Some(inner) if filtered => {
+            let nested = inline(inner, ctx);
+            format!(
+                ", and each such unit {}",
+                nested
+                    .strip_prefix("the unit")
+                    .unwrap_or(&nested)
+                    .trim_start()
+            )
+        }
+        Some(inner) => format!(" {}", inline(inner, ctx)),
+        None if filtered => ", and each such unit is affected".to_string(),
+        None => " is affected".to_string(),
+    };
+    match &m.emitter_filter {
+        Some(filter) => format!(
+            "{} projects an aura to {within}{effect_text}",
+            keyword_filter_clause(filter, "this model")
+        ),
+        None => format!("{within}{effect_text}"),
     }
 }
 
@@ -1517,13 +1714,14 @@ fn describe_single(e: &SingleEffect, ctx: &Ctx) -> String {
             )
         }
         T::RollModifier => {
+            let roll_value = first(m, &["roll", "test"]).unwrap_or(&Value::Null);
             let ctx_note = if truthy(m, "context") {
                 format!(" ({})", jv(m, "context"))
             } else {
                 String::new()
             };
             if notnull(m, "critical_on") {
-                let crit = if nstr(m, "roll") == Some("wound") {
+                let crit = if jval(roll_value) == "wound" {
                     "Critical Wounds"
                 } else {
                     "Critical Hits"
@@ -1531,14 +1729,14 @@ fn describe_single(e: &SingleEffect, ctx: &Ctx) -> String {
                 return format!(
                     "{subj} {} {crit} on {} rolls of {}+",
                     agree(&subj, "scores"),
-                    roll_name(m.get("roll").unwrap_or(&Value::Null)),
+                    roll_name(roll_value),
                     jv(m, "critical_on")
                 );
             }
             if nstr(m, "operation") == Some("set") {
                 return format!(
                     "{subj} can change {} rolls to a {}",
-                    roll_name(m.get("roll").unwrap_or(&Value::Null)),
+                    roll_name(roll_value),
                     jv(m, "value")
                 );
             }
@@ -1546,17 +1744,14 @@ fn describe_single(e: &SingleEffect, ctx: &Ctx) -> String {
                 format!(
                     "{} {}{ctx_note}",
                     dekebab(&jv(m, "operation")),
-                    of_or_possessive(
-                        &subj,
-                        &format!("{} rolls", roll_name(m.get("roll").unwrap_or(&Value::Null)))
-                    )
+                    of_or_possessive(&subj, &format!("{} rolls", roll_name(roll_value)))
                 )
             } else {
                 format!(
                     "{subj} {} {} to {} rolls{ctx_note}",
                     agree(&subj, "gets"),
                     signed(m),
-                    roll_name(m.get("roll").unwrap_or(&Value::Null))
+                    roll_name(roll_value)
                 )
             }
         }
@@ -2267,6 +2462,12 @@ fn describe_single(e: &SingleEffect, ctx: &Ctx) -> String {
                 format!("{subj} {} control of objective markers even after no models remain in range, until the enemy retakes them (sticky objectives)", agree(&subj, "retains"))
             } else if nstr(m, "operation") == Some("halve") {
                 format!("halve the Objective Control characteristic of {subj}")
+            } else if nstr(m, "operation") == Some("set") {
+                format!(
+                    "{} is set to {}",
+                    of_or_possessive(&subj, "Objective Control characteristic"),
+                    jv(m, "value")
+                )
             } else if notnull(m, "operation") {
                 format!(
                     "{subj} {} {} to {} Objective Control characteristic",
@@ -2699,11 +2900,19 @@ fn inline(e: &EffectNode, ctx: &Ctx) -> String {
             d.pool.die,
             dice_pool_options_inline(d, ctx)
         ),
-        EffectNode::SelectUnitsEffect(s) => format!(
-            "select {}: {}",
-            select_units_subject(&s.selector),
-            inline(&s.effect, ctx)
-        ),
+        EffectNode::SelectUnitsEffect(s) => select_units_inline(&s.selector, &s.effect, ctx),
+        EffectNode::LeaderModelAbilityGrantEffect(p) => leader_model_ability_grant_clause(p, ctx),
+        EffectNode::PersistentDesignationEffect(p) => {
+            if !persistent_designation_supported(p) {
+                return "[persistent-designation]".to_string();
+            }
+            format!(
+                "{} {}, {}",
+                persistent_designation_lead(p),
+                persistent_designation_when(p),
+                inline(&p.consumer.effect, ctx)
+            )
+        }
         EffectNode::DesignateTargetEffect(d) => {
             let scope_noun = match d.select.scope {
                 DesignateTargetEffectSelectScope::FriendlyUnit => "friendly",
@@ -2783,6 +2992,7 @@ fn movement_modifier_map(mm: &MovementModifierEffect) -> Map<String, Value> {
 }
 
 /// "up to 3 friendly Orks Vehicle units" — the `select-units` selector phrase.
+/// Render count and bearer-relative candidate gates for `select-units`.
 fn select_units_subject(sel: &SelectUnitsEffectSelector) -> String {
     let kw = sel
         .keywords
@@ -2794,17 +3004,75 @@ fn select_units_subject(sel: &SelectUnitsEffectSelector) -> String {
         SelectUnitsEffectSelectorOwner::Friendly => "friendly",
         SelectUnitsEffectSelectorOwner::Enemy => "enemy",
     };
-    let noun = if sel.max_count.get() == 1 {
-        "unit"
-    } else {
-        "units"
+    let max = sel.max_count.get();
+    let (count, bounded) = match sel.min_count {
+        None => (format!("up to {max}"), false),
+        Some(min) if min.get() == max => (format!("exactly {max}"), false),
+        Some(min) => (format!("from {} through {max}", min.get()), true),
     };
+    let noun = if max == 1 { "unit" } else { "units" };
     let kw = if kw.is_empty() {
         String::new()
     } else {
         format!(" {kw}")
     };
-    format!("up to {} {owner}{kw} {noun}", sel.max_count)
+    let mut gates = Vec::new();
+    if let Some(range) = sel.range_inches {
+        gates.push(format!(
+            "within {} inches of the bearer",
+            jval(&Value::from(range))
+        ));
+    }
+    if sel.visibility_required == Some(true) {
+        gates.push("visible to the bearer".to_string());
+    }
+    let inclusive = if bounded { ", inclusive" } else { "" };
+    let suffix = if gates.is_empty() {
+        inclusive.to_string()
+    } else if bounded {
+        format!("{inclusive}, {}", gates.join(" "))
+    } else {
+        format!(" {}", gates.join(" "))
+    };
+    format!("{count} {owner}{kw} {noun}{suffix}")
+}
+
+fn select_units_engagement(sel: &SelectUnitsEffectSelector) -> &'static str {
+    match sel.engagement_relation {
+        Some(SelectUnitsEffectSelectorEngagementRelation::EngagedWithBearer) => {
+            "For each selected unit, it must be engaged with the bearer."
+        }
+        Some(SelectUnitsEffectSelectorEngagementRelation::NotEngagedWithBearer) => {
+            "For each selected unit, it must not be engaged with the bearer."
+        }
+        _ => "",
+    }
+}
+
+fn selected_recipient(mut text: String, sel: &SelectUnitsEffectSelector) -> String {
+    let recipient = if sel.max_count.get() > 1 {
+        "each selected unit"
+    } else {
+        "the selected unit"
+    };
+    text = text.replace("The unit's", "Each selected unit's");
+    text = text.replace("the unit's", &format!("{recipient}'s"));
+    text = text.replace("The unit", "Each selected unit");
+    text.replace("the unit", recipient)
+}
+
+fn select_units_inline(sel: &SelectUnitsEffectSelector, effect: &EffectNode, ctx: &Ctx) -> String {
+    let nested = selected_recipient(inline(effect, ctx), sel);
+    let engagement = select_units_engagement(sel);
+    if engagement.is_empty() {
+        format!("select {}: {nested}", select_units_subject(sel))
+    } else {
+        format!(
+            "select {}. {engagement} {}",
+            select_units_subject(sel),
+            capitalize(&nested)
+        )
+    }
 }
 
 fn dice_gated_inline(d: &DiceGatedEffect, ctx: &Ctx) -> String {
@@ -2883,6 +3151,8 @@ fn is_container(e: &EffectNode) -> bool {
             | EffectNode::DicePoolAllocationEffect(_)
             | EffectNode::SelectUnitsEffect(_)
             | EffectNode::DesignateTargetEffect(_)
+            | EffectNode::PersistentDesignationEffect(_)
+            | EffectNode::LeaderModelAbilityGrantEffect(_)
             | EffectNode::StanceSelectEffect(_)
             | EffectNode::RiskRewardEffect(_)
             | EffectNode::IssueOrdersEffect(_)
@@ -2988,11 +3258,51 @@ fn block(e: &EffectNode, depth: usize, ctx: &Ctx) -> String {
         }
         EffectNode::SelectUnitsEffect(s) => {
             let inner = &*s.effect;
+            let engagement = select_units_engagement(&s.selector);
             let lead = format!("Select {}", select_units_subject(&s.selector));
-            if is_container(inner) {
-                format!("{indent}{arrow}{lead}:\n{}", block(inner, depth + 1, ctx))
+            let header = if engagement.is_empty() {
+                format!("{indent}{arrow}{lead}")
             } else {
-                format!("{indent}{arrow}{lead}: {}.", inline(inner, ctx))
+                format!("{indent}{arrow}{lead}. {engagement}")
+            };
+            if is_container(inner) {
+                if s.selector.max_count.get() > 1 {
+                    format!(
+                        "{header}:\n{indent}  -> For each selected unit:\n{}",
+                        block(inner, depth + 2, ctx)
+                    )
+                } else {
+                    format!("{header}:\n{}", block(inner, depth + 1, ctx))
+                }
+            } else {
+                let nested = selected_recipient(inline(inner, ctx), &s.selector);
+                if engagement.is_empty() {
+                    format!("{header}: {nested}.")
+                } else {
+                    format!("{header} {}.", capitalize(&nested))
+                }
+            }
+        }
+        EffectNode::LeaderModelAbilityGrantEffect(p) => {
+            format!(
+                "{indent}{arrow}{}.",
+                capitalize(&leader_model_ability_grant_clause(p, ctx))
+            )
+        }
+        EffectNode::PersistentDesignationEffect(p) => {
+            if !persistent_designation_supported(p) {
+                return format!("{indent}{arrow}[persistent-designation].");
+            }
+            let inner = &*p.consumer.effect;
+            let head = format!(
+                "{indent}{arrow}{} {}",
+                capitalize(&persistent_designation_lead(p)),
+                persistent_designation_when(p)
+            );
+            if is_container(inner) {
+                format!("{head}:\n{}", block(inner, depth + 1, ctx))
+            } else {
+                format!("{head}, {}.", inline(inner, ctx))
             }
         }
         EffectNode::DesignateTargetEffect(d) => {
@@ -3374,8 +3684,11 @@ fn render_top_level(
         _ if is_container(e) => {
             // A designate-target carrying its own `duration` renders that duration
             // itself — repeating the scope duration in the head would double it.
-            let own_duration =
-                matches!(e, EffectNode::DesignateTargetEffect(d) if d.duration.is_some());
+            let own_duration = match e {
+                EffectNode::DesignateTargetEffect(d) => d.duration.is_some(),
+                EffectNode::PersistentDesignationEffect(_) => true,
+                _ => false,
+            };
             let blk = block(e, 0, &ctx);
             let dur = if !lead.is_empty() {
                 lead

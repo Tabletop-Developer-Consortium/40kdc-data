@@ -7,9 +7,9 @@
  * cruncher's expected-value engine reads (rerolls, die-roll modifiers, S/A/T
  * stat shifts, FNP, granted weapon keywords, cover) and reports everything
  * else — choice nodes (player decisions), dice-gated effects (stochastic),
- * defender-side bs-modifier, attack-restrictions, ability grants, mortal
- * wound triggers — as `unsupported` so the SPA can surface "this ability has
- * effects we can't auto-apply" rather than silently dropping them.
+ * defender-side bs-modifier, attack-restrictions, unsupported ability grants,
+ * mortal wound triggers — as `unsupported` so the SPA can surface "this
+ * ability has effects we can't auto-apply" rather than silently dropping them.
  *
  * The walker classifies an effect's `target` against the attacker
  * perspective: `self`, `bearer`, `unit`, `attached-unit`, `attacker`, and
@@ -133,6 +133,8 @@ type WalkOpts = {
   perspective: TranslationPerspective;
   /** Owning ability id — seeds the stable ids of activatable levers. */
   abilityId: string;
+  /** Target inherited by targetless beneficiary-bound leaves. */
+  defaultTarget?: string;
 };
 
 function walk(
@@ -142,88 +144,104 @@ function walk(
   out: EffectTranslation,
 ): void {
   if (!isObject(node)) return;
-  const type = node.type;
+  const currentNode: Record<string, unknown> =
+    opts.defaultTarget !== undefined && node.target === undefined
+      ? { ...node, target: opts.defaultTarget }
+      : node;
+  const type = currentNode.type;
   switch (type) {
     case "re-roll":
-      translateReroll(node, source, opts, out);
+      translateReroll(currentNode, source, opts, out);
       return;
     case "roll-modifier":
-      translateRollModifier(node, source, opts, out);
+      translateRollModifier(currentNode, source, opts, out);
       return;
     case "stat-modifier":
-      translateStatModifier(node, source, opts, out);
+      translateStatModifier(currentNode, source, opts, out);
       return;
     case "feel-no-pain":
-      translateFeelNoPain(node, source, opts, out);
+      translateFeelNoPain(currentNode, source, opts, out);
       return;
     case "keyword-grant":
-      translateKeywordGrant(node, source, opts, out);
+      translateKeywordGrant(currentNode, source, opts, out);
       return;
     case "bs-modifier":
-      translateBsModifier(node, source, opts, out);
+      translateBsModifier(currentNode, source, opts, out);
       return;
     case "damage-reduction":
-      translateDamageReduction(node, source, opts, out);
+      translateDamageReduction(currentNode, source, opts, out);
       return;
     case "invulnerable-save":
-      translateInvulnerableSave(node, source, opts, out);
+      translateInvulnerableSave(currentNode, source, opts, out);
       return;
     case "named-region-state":
-      translateNamedRegionState(node, source, opts, out);
+      translateNamedRegionState(currentNode, source, opts, out);
       return;
     case "conditional":
-      translateConditional(node, source, opts, out);
+      translateConditional(currentNode, source, opts, out);
       return;
     case "sequence":
-      for (const step of (node.steps as unknown[]) ?? []) walk(step, source, opts, out);
+      for (const step of (currentNode.steps as unknown[]) ?? []) walk(step, source, opts, out);
       return;
     case "choice":
       // Player decision — each branch becomes an opt-in lever (pick one).
-      enumerateChoice(node, source, opts, out);
+      enumerateChoice(currentNode, source, opts, out);
       return;
     case "dice-gated":
       // Probabilistic; the buff layer is deterministic.
       out.unsupported.push({
         reason: "dice-gated effect: stochastic; not expressible as a buff",
-        effectFragment: node,
+        effectFragment: currentNode,
       });
       return;
     case "dice-pool-allocation":
       // Player spends dice on options at runtime — each buff-bearing option
       // becomes an opt-in lever, grouped under the pool's activation cap.
-      enumerateDicePool(node, source, opts, out);
+      enumerateDicePool(currentNode, source, opts, out);
       return;
     case "select-units":
       // Targeting wrapper — the selected units receive the nested effect.
-      walk(node.effect, source, opts, out);
+      walk(currentNode.effect, source, opts, out);
+      return;
+    case "leader-model-ability-grant":
+      out.unsupported.push({
+        reason: "leader-model-ability-grant: attached leader beneficiary is not resolved by the buff engine",
+        effectFragment: currentNode,
+      });
+      return;
+    case "persistent-designation":
+      out.unsupported.push({
+        reason: "persistent-designation: retained selection state is not resolved by the buff engine",
+        effectFragment: currentNode,
+      });
       return;
     case "designate-target": {
       // Mark an enemy unit; when `to: attackers-of-target` the nested effect is
       // a buff every friendly attack against that unit receives (Oath of Moment).
       // A `to: target` debuff lands on the enemy, not the bearer, so it is not a
       // buff in this perspective.
-      const applies = isObject(node.applies) ? node.applies : {};
+      const applies = isObject(currentNode.applies) ? currentNode.applies : {};
       if (applies.to === "attackers-of-target") {
         walk(applies.effect, source, opts, out);
       } else {
         out.unsupported.push({
           reason: "designate-target debuff on the marked unit: not a buff on the bearer",
-          effectFragment: node,
+          effectFragment: currentNode,
         });
       }
       return;
     }
     case "risk-reward":
       // The reward is the buff; the risk (self-damage on a failed test) is not.
-      walk(node.reward, source, opts, out);
+      walk(currentNode.reward, source, opts, out);
       return;
     case "stance-select":
       // Pick-one modal buff — each option is an opt-in lever (pick one).
-      enumerateNamedOptions(node, source, opts, out, `${opts.abilityId}?stance`, 1);
+      enumerateNamedOptions(currentNode, source, opts, out, `${opts.abilityId}?stance`, 1);
       return;
     case "issue-orders":
       // Officer issues one Order from the menu — each is an opt-in lever.
-      enumerateNamedOptions(node, source, opts, out, `${opts.abilityId}?order`, 1);
+      enumerateNamedOptions(currentNode, source, opts, out, `${opts.abilityId}?order`, 1);
       return;
     case "resource-action-menu":
       // Each action is an INDEPENDENT reactive lever, not a pick-one group:
@@ -231,7 +249,7 @@ function walk(
       // the same action by different units — see `usage.repeatable_if_different_unit`)
       // can fire in the same phase, so no shared `group`/`maxActivations` cap
       // is attached here.
-      enumerateMenuActions(node, source, opts, out);
+      enumerateMenuActions(currentNode, source, opts, out);
       return;
     default:
       // Unknown effect — record it. Covers ability-grant, deep-strike,
@@ -239,7 +257,7 @@ function walk(
       // doesn't model these as deterministic mods to a single shot.
       out.unsupported.push({
         reason: `effect type "${String(type)}" is not modelled by the buff layer`,
-        effectFragment: node,
+        effectFragment: currentNode,
       });
       return;
   }

@@ -28,14 +28,6 @@ EffectTranslation = dict[str, Any]
 _SELF_TARGETS = frozenset(
     ["self", "bearer", "unit", "attached-unit", "friendly-within-aura", "all-friendly"]
 )
-#: The subset of :data:`_SELF_TARGETS` naming a single *model* (the bearer) rather
-#: than its unit. Core rule 19.04: a rule affecting one specified model applies
-#: only to that model, even while it is part of an attached unit.
-_MODEL_TARGETS = frozenset(["self", "bearer"])
-#: Diagnostic emitted for a model-scoped effect pooled in from an attached member.
-_MODEL_SCOPED_REASON = (
-    "model-scoped effect from an attached model: applies to that model only (core rule 19.04)"
-)
 _ATTACKER_TARGET = "attacker"
 _DEFENDER_TARGETS = frozenset(["defender", "enemy-within-aura", "all-enemy"])
 
@@ -62,32 +54,8 @@ def _is_object(value: Any) -> TypeGuard[dict[str, Any]]:
     return isinstance(value, dict)
 
 
-def _is_model_scoped_from_attached_member(node: dict[str, Any], source: BuffSource) -> bool:
-    """Is this node a model-scoped effect reaching the buffed unit from *another*
-    member of the combined unit? Core rule 19.04 keeps those on their own model:
-    an attached Librarian's personal 4+ invulnerable save is not a 4+ invulnerable
-    save for the ten Intercessors it joined.
-
-    Keyed on the buff *source*, not on the DSL condition — the leak is not limited
-    to abilities gated on ``is-attached`` (an Archon's Shadowfield says only "the
-    bearer"), and the resolver already tags pooled member abilities as
-    ``abilityKind: "attached"``. An ability read as the chosen unit's own
-    (``abilityKind: "unit"``) is unaffected."""
-    if source.get("kind") != "ability" or source.get("abilityKind") != "attached":
-        return False
-    target = node.get("target")
-    return isinstance(target, str) and target in _MODEL_TARGETS
-
-
 def _walk(node: Any, source: BuffSource, opts: dict[str, Any], out: EffectTranslation) -> None:
     if not _is_object(node):
-        return
-    # Core rule 19.04 gate, applied before any leaf translation and under both
-    # perspectives. Safe at this level because no container node (`sequence`,
-    # `conditional`, `choice`, …) carries a `self`/`bearer` target — only leaves
-    # do — so this can never swallow a subtree holding unit-scoped effects too.
-    if _is_model_scoped_from_attached_member(node, source):
-        out["unsupported"].append({"reason": _MODEL_SCOPED_REASON, "effectFragment": node})
         return
     if opts.get("defaultTarget") is not None and "target" not in node:
         node = {**node, "target": opts["defaultTarget"]}

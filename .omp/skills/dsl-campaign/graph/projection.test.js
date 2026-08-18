@@ -105,23 +105,34 @@ test('registry projection adds graph-only campaigns and preserves existing human
   store.db.prepare('INSERT INTO claims(faction_id,ability_id,run_id,state,claimed_sequence) VALUES (?,?,?,?,?)')
     .run('fabricated-faction', 'alpha', 'c010', 'released', 1)
   store.db.prepare('INSERT INTO checks(id,run_id,state,payload_json) VALUES (?,?,?,?)')
-    .run('terminal', 'c010', 'passed', JSON.stringify({ baseline_mean: 0.6, terminal_mean: 0.7 }))
+    .run('terminal', 'c010', 'passed', JSON.stringify({
+      baseline_mean: 0.6,
+      terminal_mean: 0.7,
+      bookmark: 'task/c010',
+      pr: 'https://example.test/pull/10',
+    }))
 
   const projection = registryProjection(store, {
-    campaigns: [{
-      id: 'c009',
-      kind: 'shape-led',
-      target: 'existing-target',
-      bookmark: 'task/bookmark',
-      status: 'open',
-      pr: null,
-      worklist_size: 3,
-      mean_before: 0.5,
-      mean_after: null,
-      started: '2026-08-01',
-      finished: null,
-      notes: 'Human-authored note.',
-    }],
+    campaigns: [
+      {
+        id: 'c009',
+        kind: 'shape-led',
+        target: 'existing-target',
+        bookmark: 'task/bookmark',
+        status: 'open',
+        pr: null,
+        worklist_size: 3,
+        mean_before: 0.5,
+        mean_after: null,
+        started: '2026-08-01',
+        finished: null,
+        notes: 'Human-authored note.',
+      },
+      {
+        id: 'c010',
+        notes: 'Generated compatibility projection: active in the Mechanic Evidence Graph.',
+      },
+    ],
   })
   const existing = projection.campaigns.find(campaign => campaign.id === 'c009')
   const added = projection.campaigns.find(campaign => campaign.id === 'c010')
@@ -131,9 +142,9 @@ test('registry projection adds graph-only campaigns and preserves existing human
     id: 'c010',
     kind: 'graph-backed',
     target: 'curated',
-    bookmark: null,
+    bookmark: 'task/c010',
     status: 'converged',
-    pr: null,
+    pr: 'https://example.test/pull/10',
     worklist_size: 1,
     mean_before: 0.6,
     mean_after: 0.7,

@@ -3581,6 +3581,12 @@
           "$ref": "#/$defs/aura-effect"
         },
         {
+          "$ref": "#/$defs/leader-model-ability-grant-effect"
+        },
+        {
+          "$ref": "#/$defs/persistent-designation-effect"
+        },
+        {
           "$ref": "#/$defs/designate-target-effect"
         },
         {
@@ -4476,7 +4482,7 @@
     },
     "select-units-effect": {
       "type": "object",
-      "$comment": "Targeting wrapper: choose up to `selector.max_count` units matching `selector.keywords` of the named `owner`, then apply the nested `effect` to each. Models 'select up to N <keyword> units and do X' (redeploy, army-wide one-off buffs) that bare ability-grant labels previously flattened.",
+      "$comment": "Targeting wrapper: choose up to `selector.max_count` units, or a bounded exact/inclusive count when `selector.min_count` is present, matching `selector.keywords` of the named `owner`; apply the nested `effect` to each selected unit. Optional range, visibility, and engagement gates are bearer-relative candidate predicates evaluated before the nested effect.",
       "properties": {
         "type": {
           "const": "select-units"
@@ -4484,7 +4490,12 @@
         "selector": {
           "type": "object",
           "additionalProperties": false,
+          "description": "Legacy selectors omit min_count and retain up-to semantics. Bounded authoring requires min_count, max_count, and owner, with min_count <= max_count.",
           "properties": {
+            "min_count": {
+              "type": "integer",
+              "minimum": 1
+            },
             "max_count": {
               "type": "integer",
               "minimum": 1
@@ -4501,6 +4512,24 @@
                 "friendly",
                 "enemy"
               ]
+            },
+            "range_inches": {
+              "type": "number",
+              "minimum": 0,
+              "description": "Distance from bearer to each selected unit."
+            },
+            "visibility_required": {
+              "type": "boolean",
+              "description": "When true, each selected candidate must be visible to the bearer."
+            },
+            "engagement_relation": {
+              "type": "string",
+              "enum": [
+                "any",
+                "engaged-with-bearer",
+                "not-engaged-with-bearer"
+              ],
+              "description": "Candidate engagement relation to the bearer; evaluated independently of range_inches."
             }
           },
           "required": [
@@ -4653,6 +4682,32 @@
         "modifier"
       ]
     },
+    "keyword-filter": {
+      "type": "object",
+      "description": "Independent keyword predicate for the aura emitter or each aura recipient. Required keywords all match; excluded keywords none match.",
+      "additionalProperties": false,
+      "properties": {
+        "required_keywords": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1
+        },
+        "excluded_keywords": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1
+        }
+      },
+      "required": [
+        "required_keywords"
+      ]
+    },
     "aura-effect": {
       "type": "object",
       "additionalProperties": false,
@@ -4688,6 +4743,12 @@
                 }
               ]
             },
+            "emitter_filter": {
+              "$ref": "#/$defs/keyword-filter"
+            },
+            "recipient_filter": {
+              "$ref": "#/$defs/keyword-filter"
+            },
             "range_bonus": {
               "type": "integer"
             },
@@ -4704,6 +4765,112 @@
         "type",
         "target",
         "modifier"
+      ]
+    },
+    "beneficiary-bound-effect-node": {
+      "type": "object",
+      "description": "Targetless effect dispatched to a relation-resolved beneficiary model; bearer and unit targets are intentionally not representable.",
+      "properties": {
+        "type": {
+          "type": "string",
+          "minLength": 1
+        },
+        "modifier": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "scaling": {
+          "$ref": "#/$defs/scaling"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    "leader-model-ability-grant-effect": {
+      "type": "object",
+      "description": "Resolve the attached qualifying leader model and dispatch a targetless effect to that model while it leads the bearer unit.",
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "leader-model-ability-grant"
+        },
+        "source": {
+          "const": "bearer-unit"
+        },
+        "beneficiary": {
+          "type": "string",
+          "enum": [
+            "leading-leader-model",
+            "attached-character-leader"
+          ]
+        },
+        "leader_filter": {
+          "type": "object",
+          "properties": {
+            "identity": {
+              "type": "string",
+              "minLength": 1
+            },
+            "keywords": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "minItems": 1
+            }
+          },
+          "minProperties": 1,
+          "additionalProperties": false
+        },
+        "attached_unit_filter": {
+          "oneOf": [
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "minItems": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "duration": {
+          "const": "while-leading"
+        },
+        "grant": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "recipient": {
+              "const": "beneficiary"
+            },
+            "effect": {
+              "$ref": "#/$defs/beneficiary-bound-effect-node"
+            }
+          },
+          "required": [
+            "recipient",
+            "effect"
+          ]
+        },
+        "recipient_binding": {
+          "const": "beneficiary-only"
+        }
+      },
+      "required": [
+        "type",
+        "source",
+        "beneficiary",
+        "attached_unit_filter",
+        "duration",
+        "grant",
+        "recipient_binding"
       ]
     },
     "designate-target-effect": {
@@ -4777,6 +4944,98 @@
         "designation",
         "select",
         "applies"
+      ]
+    },
+    "persistent-designation-effect": {
+      "type": "object",
+      "additionalProperties": false,
+      "$comment": "Retain one selected enemy unit or objective marker, then resolve a bearer-only consumer relation against that exact reference for the declared duration. The seed policy is one-time selection at the start of the first battle round.",
+      "properties": {
+        "type": {
+          "const": "persistent-designation"
+        },
+        "designation": {
+          "type": "string",
+          "minLength": 1
+        },
+        "select": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "scope": {
+              "type": "string",
+              "enum": [
+                "enemy-unit",
+                "objective-marker"
+              ]
+            },
+            "count": {
+              "type": "integer",
+              "const": 1
+            },
+            "timing": {
+              "type": "string",
+              "minLength": 1
+            },
+            "selection_policy": {
+              "type": "string",
+              "enum": [
+                "one-time"
+              ]
+            }
+          },
+          "required": [
+            "scope",
+            "timing",
+            "selection_policy"
+          ]
+        },
+        "consumer": {
+          "type": "object",
+          "additionalProperties": false,
+          "description": "The retained reference is consumed by the bearer model only; the renderer names both the bearer recipient and the exact selected-reference relation.",
+          "properties": {
+            "relation": {
+              "type": "string",
+              "enum": [
+                "attacks-selected-unit",
+                "within-selected-marker"
+              ],
+              "description": "Resolve this relation from the bearer to its retained enemy unit or marker; do not substitute a generic target or nearby-object predicate."
+            },
+            "beneficiary": {
+              "type": "string",
+              "const": "bearer",
+              "description": "For the seed, beneficiary bearer resolves to this model; the selected unit or marker is never the effect recipient."
+            },
+            "effect": {
+              "$ref": "#/$defs/effect-node",
+              "description": "Nested effects target the bearer. Objective Control operation set is an assignment and renders as setting the characteristic to the value, not as a signed delta."
+            }
+          },
+          "required": [
+            "relation",
+            "beneficiary",
+            "effect"
+          ]
+        },
+        "duration": {
+          "type": "string",
+          "enum": [
+            "phase",
+            "turn",
+            "battle-round",
+            "battle",
+            "until-next-command-phase"
+          ]
+        }
+      },
+      "required": [
+        "type",
+        "designation",
+        "select",
+        "consumer",
+        "duration"
       ]
     },
     "stance-select-effect": {

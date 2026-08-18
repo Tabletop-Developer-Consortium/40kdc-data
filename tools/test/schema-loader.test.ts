@@ -273,4 +273,49 @@ describe("schema-loader", () => {
       }),
     ).toBe(false);
   });
+  it("restricts persistent designations to the renderer-supported seed contract", () => {
+    const validate = createValidator().getSchema(
+      "https://40kdc.dev/schemas/enrichment/ability-dsl/effect.schema.json",
+    );
+    expect(validate).toBeDefined();
+    const valid = {
+      type: "persistent-designation",
+      designation: "fixture-target",
+      select: {
+        scope: "enemy-unit",
+        timing: "start-of-first-battle-round",
+        selection_policy: "one-time",
+      },
+      consumer: {
+        relation: "attacks-selected-unit",
+        beneficiary: "bearer",
+        effect: {
+          type: "re-roll",
+          target: "bearer",
+          modifier: { roll: "hit", subset: "all-failures" },
+        },
+      },
+      duration: "battle",
+    };
+    expect(validate!(valid)).toBe(true);
+    expect(
+      validate!({
+        ...valid,
+        consumer: { ...valid.consumer, beneficiary: "friendly-attackers" },
+      }),
+    ).toBe(false);
+    expect(
+      validate!({
+        ...valid,
+        consumer: { ...valid.consumer, relation: "within-selected-marker" },
+      }),
+    ).toBe(false);
+    expect(
+      validate!({
+        ...valid,
+        select: { ...valid.select, scope: "objective-marker" },
+        consumer: { ...valid.consumer, relation: "within-selected-marker" },
+      }),
+    ).toBe(true);
+  });
 });

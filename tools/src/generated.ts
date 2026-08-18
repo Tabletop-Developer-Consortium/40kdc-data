@@ -288,6 +288,8 @@ export type AbilityEffect =
   | SelectUnitsEffect
   | MovementModifierEffect
   | AuraEffect
+  | LeaderModelAbilityGrantEffect
+  | PersistentDesignationEffect
   | DesignateTargetEffect
   | StanceSelectEffect
   | RiskRewardEffect
@@ -385,6 +387,8 @@ export type EffectNode =
   | SelectUnitsEffect
   | MovementModifierEffect
   | AuraEffect
+  | LeaderModelAbilityGrantEffect
+  | PersistentDesignationEffect
   | DesignateTargetEffect
   | StanceSelectEffect
   | RiskRewardEffect
@@ -437,6 +441,8 @@ export type AbilityEffect1 =
   | SelectUnitsEffect
   | MovementModifierEffect
   | AuraEffect
+  | LeaderModelAbilityGrantEffect
+  | PersistentDesignationEffect
   | DesignateTargetEffect
   | StanceSelectEffect
   | RiskRewardEffect
@@ -492,6 +498,8 @@ export type AbilityEffect2 =
   | SelectUnitsEffect
   | MovementModifierEffect
   | AuraEffect
+  | LeaderModelAbilityGrantEffect
+  | PersistentDesignationEffect
   | DesignateTargetEffect
   | StanceSelectEffect
   | RiskRewardEffect
@@ -1382,10 +1390,26 @@ export interface DiceRequirement {
  */
 export interface SelectUnitsEffect {
   type: "select-units";
+  /**
+   * Legacy selectors omit min_count and retain up-to semantics. Bounded authoring requires min_count, max_count, and owner, with min_count <= max_count.
+   */
   selector: {
+    min_count?: number;
     max_count: number;
     keywords?: string[];
     owner: "friendly" | "enemy";
+    /**
+     * Distance from bearer to each selected unit.
+     */
+    range_inches?: number;
+    /**
+     * When true, each selected candidate must be visible to the bearer.
+     */
+    visibility_required?: boolean;
+    /**
+     * Candidate engagement relation to the bearer; evaluated independently of range_inches.
+     */
+    engagement_relation?: "any" | "engaged-with-bearer" | "not-engaged-with-bearer";
   };
   effect: EffectNode;
   [k: string]: unknown;
@@ -1455,10 +1479,114 @@ export interface AuraEffect {
   target: "enemy-within-aura" | "friendly-within-aura";
   modifier: {
     range?: number | [number, ...number[]];
+    emitter_filter?: KeywordFilter;
+    recipient_filter?: KeywordFilter;
     range_bonus?: number;
     of?: string;
     effect?: EffectNode;
   };
+}
+/**
+ * Independent keyword predicate for the aura emitter or each aura recipient. Required keywords all match; excluded keywords none match.
+ *
+ * This interface was referenced by `0KdcBundledSchemas`'s JSON-Schema
+ * via the `definition` "keyword-filter".
+ */
+export interface KeywordFilter {
+  /**
+   * @minItems 1
+   */
+  required_keywords: [string, ...string[]];
+  /**
+   * @minItems 1
+   */
+  excluded_keywords?: [string, ...string[]];
+}
+/**
+ * Resolve the attached qualifying leader model and dispatch a targetless effect to that model while it leads the bearer unit.
+ *
+ * This interface was referenced by `0KdcBundledSchemas`'s JSON-Schema
+ * via the `definition` "leader-model-ability-grant-effect".
+ */
+export interface LeaderModelAbilityGrantEffect {
+  type: "leader-model-ability-grant";
+  source: "bearer-unit";
+  beneficiary: "leading-leader-model" | "attached-character-leader";
+  leader_filter?: {
+    identity?: string;
+    /**
+     * @minItems 1
+     */
+    keywords?: [string, ...string[]];
+  };
+  attached_unit_filter: [string, ...string[]] | null;
+  duration: "while-leading";
+  grant: {
+    recipient: "beneficiary";
+    effect: BeneficiaryBoundEffectNode;
+  };
+  recipient_binding: "beneficiary-only";
+}
+/**
+ * Targetless effect dispatched to a relation-resolved beneficiary model; bearer and unit targets are intentionally not representable.
+ *
+ * This interface was referenced by `0KdcBundledSchemas`'s JSON-Schema
+ * via the `definition` "beneficiary-bound-effect-node".
+ */
+export interface BeneficiaryBoundEffectNode {
+  type: string;
+  modifier?: {
+    [k: string]: unknown;
+  };
+  scaling?: Scaling;
+}
+/**
+ * This interface was referenced by `0KdcBundledSchemas`'s JSON-Schema
+ * via the `definition` "persistent-designation-effect".
+ */
+export interface PersistentDesignationEffect {
+  type: "persistent-designation";
+  designation: string;
+  select: {
+    scope: "enemy-unit" | "objective-marker";
+    count?: 1;
+    timing: string;
+    selection_policy: "one-time";
+  };
+  /**
+   * The retained reference is consumed by the bearer model only; the renderer names both the bearer recipient and the exact selected-reference relation.
+   */
+  consumer: {
+    /**
+     * Resolve this relation from the bearer to its retained enemy unit or marker; do not substitute a generic target or nearby-object predicate.
+     */
+    relation: "attacks-selected-unit" | "within-selected-marker";
+    /**
+     * For the seed, beneficiary bearer resolves to this model; the selected unit or marker is never the effect recipient.
+     */
+    beneficiary: "bearer";
+    /**
+     * Nested effects target the bearer. Objective Control operation set is an assignment and renders as setting the characteristic to the value, not as a signed delta.
+     */
+    effect:
+      | SingleEffect
+      | ChoiceEffect
+      | SequenceEffect
+      | DiceGatedEffect
+      | ConditionalEffect
+      | DicePoolAllocationEffect
+      | SelectUnitsEffect
+      | MovementModifierEffect
+      | AuraEffect
+      | LeaderModelAbilityGrantEffect
+      | PersistentDesignationEffect
+      | DesignateTargetEffect
+      | StanceSelectEffect
+      | RiskRewardEffect
+      | IssueOrdersEffect
+      | ResourceActionMenuEffect;
+  };
+  duration: "phase" | "turn" | "battle-round" | "battle" | "until-next-command-phase";
 }
 /**
  * This interface was referenced by `0KdcBundledSchemas`'s JSON-Schema

@@ -1018,9 +1018,15 @@ class Pool(TypedDict):
 
 
 class Selector(TypedDict):
+    min_count: NotRequired[int]
     max_count: int
     keywords: NotRequired[list[str]]
     owner: Literal["friendly", "enemy"]
+    range_inches: NotRequired[float]
+    visibility_required: NotRequired[bool]
+    engagement_relation: NotRequired[
+        Literal["any", "engaged-with-bearer", "not-engaged-with-bearer"]
+    ]
 
 
 class Marker(TypedDict):
@@ -1030,13 +1036,61 @@ class Marker(TypedDict):
     max_units: NotRequired[int]
 
 
+RequiredKeyword: TypeAlias = str
+
+
+ExcludedKeyword: TypeAlias = str
+
+
+class KeywordFilter(TypedDict):
+    required_keywords: list[RequiredKeyword]
+    excluded_keywords: NotRequired[list[ExcludedKeyword]]
+
+
 RangeItem: TypeAlias = int
+
+
+class BeneficiaryBoundEffectNode(TypedDict):
+    type: str
+    modifier: NotRequired[dict[str, Any]]
+    scaling: NotRequired[Scaling]
+
+
+class LeaderFilter(TypedDict):
+    identity: NotRequired[str]
+    keywords: NotRequired[list[Keyword2]]
+
+
+AttachedUnitFilterItem: TypeAlias = str
+
+
+class Grant(TypedDict):
+    recipient: Literal["beneficiary"]
+    effect: BeneficiaryBoundEffectNode
+
+
+class LeaderModelAbilityGrantEffect(TypedDict):
+    type: Literal["leader-model-ability-grant"]
+    source: Literal["bearer-unit"]
+    beneficiary: Literal["leading-leader-model", "attached-character-leader"]
+    leader_filter: NotRequired[LeaderFilter]
+    attached_unit_filter: list[AttachedUnitFilterItem] | None
+    duration: Literal["while-leading"]
+    grant: Grant
+    recipient_binding: Literal["beneficiary-only"]
 
 
 class Select(TypedDict):
     scope: Literal["enemy-unit", "friendly-unit"]
     count: NotRequired[int]
     timing: NotRequired[str]
+
+
+class Select1(TypedDict):
+    scope: Literal["enemy-unit", "objective-marker"]
+    count: NotRequired[Literal[1]]
+    timing: str
+    selection_policy: Literal["one-time"]
 
 
 class Eligible(TypedDict):
@@ -1237,6 +1291,8 @@ EffectNode: TypeAlias = Union[
     "SelectUnitsEffect",
     "MovementModifierEffect",
     "AuraEffect",
+    LeaderModelAbilityGrantEffect,
+    "PersistentDesignationEffect",
     "DesignateTargetEffect",
     "StanceSelectEffect",
     "RiskRewardEffect",
@@ -1388,6 +1444,8 @@ class MovementModifierEffect(TypedDict):
 
 class Modifier1(TypedDict):
     range: NotRequired[int | list[RangeItem]]
+    emitter_filter: NotRequired[KeywordFilter]
+    recipient_filter: NotRequired[KeywordFilter]
     range_bonus: NotRequired[int]
     of: NotRequired[str]
     effect: NotRequired[EffectNode]
@@ -1412,6 +1470,20 @@ class DesignateTargetEffect(TypedDict):
     duration: NotRequired[
         Literal["phase", "turn", "battle-round", "battle", "until-next-command-phase"]
     ]
+
+
+class Consumer(TypedDict):
+    relation: Literal["attacks-selected-unit", "within-selected-marker"]
+    beneficiary: Literal["bearer"]
+    effect: EffectNode
+
+
+class PersistentDesignationEffect(TypedDict):
+    type: Literal["persistent-designation"]
+    designation: str
+    select: Select1
+    consumer: Consumer
+    duration: Literal["phase", "turn", "battle-round", "battle", "until-next-command-phase"]
 
 
 class Option1(TypedDict):

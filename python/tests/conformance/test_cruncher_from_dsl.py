@@ -92,3 +92,50 @@ def test_named_region_weapon_keyword_narrowing_is_not_applied_broadly() -> None:
         "weapon_keyword\" which the cruncher can't resolve here" in item["reason"]
         for item in result["unsupported"]
     )
+
+
+def test_leader_model_ability_grant_requires_resolved_beneficiary() -> None:
+    effect = {
+        "type": "leader-model-ability-grant",
+        "grant": {"effect": {"type": "feel-no-pain", "modifier": {"threshold": 4}}},
+    }
+    result = effect_to_buffs(
+        effect,
+        _source(),
+        {"phase": "shooting"},
+        "target",
+    )
+    assert result["applied"] == []
+    assert result["unsupported"] == [
+        {
+            "reason": (
+                "leader-model-ability-grant: attached leader beneficiary "
+                "is not resolved by the buff engine"
+            ),
+            "effectFragment": effect,
+        }
+    ]
+
+
+def test_persistent_designation_requires_retained_selection_state() -> None:
+    effect = {
+        "type": "persistent-designation",
+        "consumer": {
+            "effect": {
+                "type": "re-roll",
+                "target": "bearer",
+                "modifier": {"roll": "hit", "subset": "all-failures"},
+            }
+        },
+    }
+    result = effect_to_buffs(effect, _source(), {"phase": "shooting"})
+    assert result["applied"] == []
+    assert result["unsupported"] == [
+        {
+            "reason": (
+                "persistent-designation: retained selection state "
+                "is not resolved by the buff engine"
+            ),
+            "effectFragment": effect,
+        }
+    ]

@@ -144,6 +144,46 @@ describe("effectToBuffs: leaves", () => {
   });
 });
 
+describe("effectToBuffs: nested relationship containers", () => {
+  it("does not apply a leader-model grant without resolving its attached beneficiary", () => {
+    const effect = {
+      type: "leader-model-ability-grant",
+      grant: {
+        effect: { type: "feel-no-pain", modifier: { threshold: 4 } },
+      },
+    };
+    const result = effectToBuffs(effect, unitRule, ctx, "target");
+    expect(result.applied).toEqual([]);
+    expect(result.unsupported).toEqual([
+      {
+        reason: "leader-model-ability-grant: attached leader beneficiary is not resolved by the buff engine",
+        effectFragment: effect,
+      },
+    ]);
+  });
+
+  it("does not apply a persistent designation without its retained selection state", () => {
+    const effect = {
+      type: "persistent-designation",
+      consumer: {
+        effect: {
+          type: "re-roll",
+          target: "bearer",
+          modifier: { roll: "hit", subset: "all-failures" },
+        },
+      },
+    };
+    const result = effectToBuffs(effect, unitRule, ctx);
+    expect(result.applied).toEqual([]);
+    expect(result.unsupported).toEqual([
+      {
+        reason: "persistent-designation: retained selection state is not resolved by the buff engine",
+        effectFragment: effect,
+      },
+    ]);
+  });
+});
+
 describe("effectToBuffs: named-region-state", () => {
   const namedRegion = (keywords: string[], operator: "and" | "or" = "or", defaultEffect: Record<string, unknown> = {
     type: "re-roll",

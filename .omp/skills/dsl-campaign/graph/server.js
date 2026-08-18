@@ -1,6 +1,6 @@
 import http from 'node:http'
 import { pathToFileURL } from 'node:url'
-import { GraphQueryError, globalGraphSnapshot, globalGraphUpdates } from './retrieval.js'
+import { GraphQueryError, graphRevision, graphSubscriptionRevision, globalGraphSnapshot, globalGraphUpdates } from './retrieval.js'
 import { GraphStore } from './store.js'
 
 const HOST = '127.0.0.1'
@@ -29,9 +29,55 @@ function graphQuery(url, includeSince = false) {
   return query
 }
 
+
 function campaignList(store) {
-  return store.db.prepare('SELECT run_id,campaign_id,state,kind,target,started,finished FROM runs ORDER BY campaign_id').all()
-    .map(row => ({ ...row }))
+  const rows = store.db.prepare(`
+    WITH state_counts AS (
+      SELECT run_id, 'task' AS category, state, COUNT(*) AS total FROM tasks GROUP BY run_id, state
+      UNION ALL
+      SELECT run_id, 'claim' AS category, state, COUNT(*) AS total FROM claims GROUP BY run_id, state
+      UNION ALL
+      SELECT run_id, 'finding' AS category, state, COUNT(*) AS total FROM findings GROUP BY run_id, state
+      UNION ALL
+      SELECT run_id, 'check' AS category, state, COUNT(*) AS total FROM checks GROUP BY run_id, state
+    )
+    SELECT runs.run_id, runs.campaign_id, runs.state, runs.kind, runs.target, runs.started, runs.finished,
+      state_counts.category, state_counts.state AS item_state, state_counts.total
+    FROM runs
+    LEFT JOIN state_counts ON state_counts.run_id = runs.run_id
+    ORDER BY CASE WHEN runs.state = 'active' THEN 0 ELSE 1 END,
+      runs.started DESC, runs.campaign_id ASC
+  `).all()
+  const campaigns = new Map()
+  for (const row of rows) {
+    let campaign = campaigns.get(row.run_id)
+    if (!campaign) {
+      campaign = {
+        run_id: row.run_id,
+        campaign_id: row.campaign_id,
+        state: row.state,
+        kind: row.kind,
+        target: row.target,
+        started: row.started,
+        finished: row.finished,
+        task_states: {},
+        task_total: 0,
+        claim_states: {},
+        claim_total: 0,
+        finding_states: {},
+        finding_total: 0,
+        check_states: {},
+        check_total: 0,
+      }
+      campaigns.set(row.run_id, campaign)
+    }
+    if (!row.category) continue
+    const states = campaign[`${row.category}_states`]
+    const total = Number(row.total)
+    states[row.item_state] = total
+    campaign[`${row.category}_total`] += total
+  }
+  return [...campaigns.values()]
 }
 
 export function createMechanicGraphServer({
@@ -54,15 +100,19 @@ export function createMechanicGraphServer({
       }
       if (request.method === 'GET' && url.pathname === '/api/v1/graph/stream') {
         const query = graphQuery(url)
-        globalGraphSnapshot(store, { ...query, limit: 2 })
+        const revision = graphSubscriptionRevision(store, query)
+        const sequence = store.sequence()
         response.writeHead(200, {
           'Content-Type': 'text/event-stream',
           'Cache-Control': 'no-cache, no-transform',
           Connection: 'keep-alive',
         })
-        response.write(': connected\n\n')
-        const stream = { response, query, sequence: store.sequence() }
+        const stream = { response, query, sequence, revision }
         streams.add(stream)
+        response.write(`id: ${sequence}\ndata: ${JSON.stringify({
+          graph_revision: revision,
+          affected_ability_ids: [],
+        })}\n\n`)
         response.on('close', () => streams.delete(stream))
         return
       }
@@ -77,15 +127,17 @@ export function createMechanicGraphServer({
   })
   const watcher = setInterval(() => {
     const sequence = store.sequence()
+    const revision = graphRevision(store)
     for (const stream of streams) {
-      if (sequence <= stream.sequence) continue
+      if (sequence === stream.sequence && revision === stream.revision) continue
       try {
         const update = globalGraphUpdates(store, { ...stream.query, since: stream.sequence, limit: 250 })
-        stream.sequence = update.through
         stream.response.write(`id: ${update.through}\ndata: ${JSON.stringify({
           graph_revision: update.graph_revision,
           affected_ability_ids: update.affected_ability_ids,
         })}\n\n`)
+        stream.sequence = update.through
+        stream.revision = update.graph_revision
       } catch (error) {
         stream.response.write(`event: error\ndata: ${JSON.stringify({ code: error.code || 'stream-error' })}\n\n`)
       }

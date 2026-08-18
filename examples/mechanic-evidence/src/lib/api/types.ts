@@ -28,7 +28,26 @@ export interface CampaignSummary {
   updatedAt: string;
 }
 
-export interface GraphNodeSummary {
+export interface CampaignProgress {
+  runId: string;
+  campaignId: string;
+  state: string;
+  kind: string | null;
+  target: string | null;
+  started: string | null;
+  finished: string | null;
+  taskStates: Record<string, number>;
+  taskTotal: number;
+  claimStates: Record<string, number>;
+  claimTotal: number;
+  findingStates: Record<string, number>;
+  findingTotal: number;
+  checkStates: Record<string, number>;
+  checkTotal: number;
+}
+
+
+export interface GraphNodeSummary extends WorkflowProvenance {
   nodeId: string;
   campaignId: string;
   kind: string;
@@ -36,6 +55,18 @@ export interface GraphNodeSummary {
   summary: BrowserSafeText | null;
   state: string | null;
   validity: string | null;
+}
+
+export interface WorkflowProvenance {
+  outputKind?: string | null;
+  taskId?: string | null;
+  attemptId?: string | null;
+  workflowStage?: string | null;
+  workflowTask?: string | null;
+  workflowRound?: string | null;
+  workflowLane?: string | null;
+  attemptNumber?: number | null;
+  lineageDistance?: number | null;
 }
 
 export interface GraphEdge {
@@ -170,6 +201,18 @@ export interface AbilityReference {
   distance: number;
 }
 
+export interface ProjectionNodeMetadata extends Record<string, unknown> {
+  output_kind?: string;
+  task_id?: string;
+  attempt_id?: string;
+  workflow_stage?: string;
+  workflow_task?: string;
+  workflow_round?: string;
+  workflow_lane?: string;
+  attempt_number?: number;
+  lineage_distance?: number;
+}
+
 export interface ProjectionNode {
   id: string;
   kind: string;
@@ -177,7 +220,7 @@ export interface ProjectionNode {
   scope: "global" | "ability" | "family";
   ability_refs: AbilityReference[];
   campaign_refs: string[];
-  metadata: Record<string, unknown>;
+  metadata: ProjectionNodeMetadata;
 }
 
 export interface ProjectionEdge {
@@ -221,6 +264,7 @@ export interface GraphInvalidation {
 }
 
 export interface MechanicGraphClient {
+  getCampaignProgress(signal?: AbortSignal): Promise<CampaignProgress[]>;
   getGraphSnapshot(query: GraphSnapshotQuery, signal?: AbortSignal): Promise<GlobalGraphSnapshot>;
   getGraphUpdates(
     query: Omit<GraphSnapshotQuery, "after" | "depth">,
@@ -253,6 +297,9 @@ export const KNOWN_NODE_KINDS = [
   "check_result",
   "prototype_patch",
   "certificate",
+  "workflow_output",
+  "ability",
+  "mechanic_evidence_root",
 ] as const;
 
 export const KNOWN_EDGE_KINDS = [
@@ -262,6 +309,8 @@ export const KNOWN_EDGE_KINDS = [
   "derived_from",
   "satisfies",
   "certified_by",
+  "evidence",
+  "contains",
 ] as const;
 
 export function knownNodeKind(kind: string): boolean {

@@ -48,6 +48,7 @@ export const MECHANIC_CHILD_DESCRIPTORS = Object.freeze([
   { container_type: 'resource-action-menu', path: 'actions/*/effect', child_kind: 'effect', role: 'members', ordered: false },
   { container_type: 'resource-action-menu', path: 'actions/*/when', child_kind: 'trigger', role: 'trigger', ordered: false },
   { container_type: 'resource-action-menu', path: 'actions/*/eligibility/requires/*', child_kind: 'condition', role: 'condition', ordered: false },
+  { container_type: 'for-each-unit', path: 'effect', child_kind: 'effect', role: 'members', ordered: true },
   { container_type: 'named-region-state', path: 'modifier/consumer/qualified_condition', child_kind: 'condition', role: 'condition', ordered: true },
   { container_type: 'named-region-state', path: 'modifier/consumer/default_branch/effect', child_kind: 'effect', role: 'default-branch', ordered: true },
   { container_type: 'named-region-state', path: 'modifier/consumer/qualified_branch/effect', child_kind: 'effect', role: 'qualified-branch', ordered: true },

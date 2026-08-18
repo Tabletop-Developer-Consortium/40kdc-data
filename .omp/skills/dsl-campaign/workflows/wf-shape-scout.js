@@ -1,5 +1,3 @@
-import { createTrustedAgent } from '../graph/workflow-runtime.js'
-
 import {
   assertCharterFamily,
   assertScopedRefutations,
@@ -11,7 +9,6 @@ import {
   mergeDeferredCandidates,
   normalizeFindingLedger,
   prototypeAgentInput,
-  psykerSeverityFindings,
   prototypeAgentOptions,
   prototypeGateDecision,
   resolveFindingLedger,
@@ -39,7 +36,6 @@ export const meta = {
 //   seed: { ability_id, faction_id, raw_text?, resisted_schema? },  // the needs-schema ability
 //   family_threshold?: 4,      // faithful family bar (exact+near, flatten-excluded) — the shape gate
 //   max_rounds?: 3,            // cyclical review rounds before forcing terminal
-//   prototype_workspaces?: string[], // driver-created jj workspaces for pure-JJ checkouts
 // }
 // Returns { seed, shape_charter, status, terminal, shape_package, rounds } where status ∈
 //   shipped-ready | existing-fits | rejected-sprawl | rejected-singleton | not-converged | no-prose
@@ -58,12 +54,6 @@ if (typeof args === 'string') args = JSON.parse(args)
 if (!args || !args.seed || !args.seed.ability_id) throw new Error('args.seed.ability_id required')
 const THRESHOLD = Math.max(args.family_threshold || 4, 4)
 const MAX_ROUNDS = Math.min(Math.max(args.max_rounds || 3, 1), 3)
-if (args.prototype_workspaces && (!Array.isArray(args.prototype_workspaces) ||
-  args.prototype_workspaces.length < MAX_ROUNDS ||
-  args.prototype_workspaces.some(workspace => typeof workspace !== 'string' || !workspace.startsWith('/')))) {
-  throw new Error(`prototype_workspaces requires ${MAX_ROUNDS} absolute jj workspace paths`)
-}
-const graphAgent = createTrustedAgent({ driverArgs: args, invokeAgent: agent })
 // Pin every agent to the loop workspace (subagents inherit the DRIVER cwd, which may be another checkout).
 const PRE = args.repo_root
   ? `Repo root: ${args.repo_root} — cd there first; run every command and resolve every ` +
@@ -110,7 +100,7 @@ const PROTOTYPE_OUT = {
 }
 const FLESH_OUT = {
   type: 'object',
-  required: ['seed_ability_id', 'mechanic', 'decomposition', 'retrieval', 'proposed_shape', 'revision', 'nearest_existing_shapes', 'self_grade'],
+  required: ['seed_ability_id', 'mechanic', 'decomposition', 'retrieval', 'proposed_shape', 'nearest_existing_shapes', 'self_grade'],
   properties: {
     seed_ability_id: { type: 'string' }, mechanic: { type: 'string' },
     decomposition: { type: 'object', required: ['who', 'when', 'what'],
@@ -215,7 +205,7 @@ const WAR_OUT = {
         axis: { enum: ['sprawl', 'flattening', 'fidelity', 'parity', 'family'] }, severity: { type: 'integer', minimum: 1, maximum: 3 }, situation: { type: 'string' }, required_change: { type: 'string' },
         blocker_evidence: { type: 'object', required: ['concrete_slice_divergence', 'frozen_exact_member', 'not_honestly_composable_or_separate', 'resolved_or_out_of_scope'], properties: { concrete_slice_divergence: { type: 'boolean' }, frozen_exact_member: { type: 'boolean' }, not_honestly_composable_or_separate: { type: 'boolean' }, resolved_or_out_of_scope: { type: 'boolean' } } } } } },
     verdict: { enum: ['accept', 'revise', 'reject-as-sprawl', 'reject-as-singleton'] },
-    shape_package: { ...SHAPE_PACKAGE_OUT, type: ['object', 'null'] }, confidence: { type: 'number' },
+    shape_package: { oneOf: [{ type: 'null' }, SHAPE_PACKAGE_OUT] }, confidence: { type: 'number' },
   },
 }
 
@@ -235,22 +225,26 @@ function assertSpawned(agentLabel, obj, checks) {
 }
 
 phase('Seed')
-const retrieval = await graphAgent(PRE + `Look up this resisted ability's raw prose and committed DSL. Input:\n` +
-JSON.stringify({ query: { ability_id: args.seed.ability_id, faction_id: args.seed.faction_id } }),
-{ agentType: 'data-enginseer', phase: 'Seed', schema: ENGINSEER_OUT, label: `seed:${args.seed.ability_id}`, graphEphemeralKeys: ['raw_text', 'original_rule'] })
+const retrieval = await agent(
+  PRE + `Look up this resisted ability's raw prose and committed DSL. Input:\n` +
+  JSON.stringify({ query: { ability_id: args.seed.ability_id, faction_id: args.seed.faction_id } }),
+  { agentType: 'data-enginseer', phase: 'Seed', schema: ENGINSEER_OUT, label: `seed:${args.seed.ability_id}` }
+)
 const seedMatches = (retrieval && retrieval.matches) || []
 const match = seedMatches.find(m => m.faction === args.seed.faction_id) || seedMatches[0] || null
 const raw_text = args.seed.raw_text || (match && match.raw_text) || null
 if (!raw_text) return { seed: args.seed, status: 'no-prose', shape_package: null, rounds: [] }
 
 phase('Charter')
-const charterDraft = await graphAgent(PRE + `Act as the authoritative shape-scout charterer. Freeze the smallest exact mechanic family before design.
+const charterDraft = await agent(
+  PRE + `Act as the authoritative shape-scout charterer. Freeze the smallest exact mechanic family before design.
 The family threshold remains ${THRESHOLD} unique ability ids; retain cross-faction copies as evidence but count a
 shared ability id once. Include only exact/near candidates honestly sharing this mechanic slice. State required
 semantics, explicit non-goals/orthogonal gaps, deferred candidates, fabricated acceptance fixtures, and the rule
 that only an explicit inquisitor reopening may change this exact family. Never include raw prose. Input:\n` +
-JSON.stringify({ mode: 'charter', seed: args.seed, raw_text, resisted_schema: args.seed.resisted_schema || null, retrieval, family_threshold: THRESHOLD }),
-{ agentType: 'inquisitor', phase: 'Charter', schema: CHARTER_OUT, label: `charter:${args.seed.ability_id}` })
+  JSON.stringify({ mode: 'charter', seed: args.seed, raw_text, resisted_schema: args.seed.resisted_schema || null, retrieval, family_threshold: THRESHOLD }),
+  { agentType: 'inquisitor', phase: 'Charter', schema: CHARTER_OUT, label: `charter:${args.seed.ability_id}` }
+)
 const shape_charter = freezeShapeCharter({ seed: args.seed, mechanic_slice: charterDraft.mechanic_slice,
   family: charterDraft.exact_family, required_semantics: charterDraft.required_semantics, non_goals: charterDraft.non_goals,
   deferred_candidates: charterDraft.deferred_candidates, acceptance_fixtures: charterDraft.acceptance_fixtures,
@@ -267,13 +261,15 @@ let shape_package = null
 for (let round = 0; round < MAX_ROUNDS; round++) {
   const rn = round + 1
   phase(`Shape (round ${rn})`)
-  const flesh = await graphAgent(PRE + `Design the chartered mechanic slice only. On round one propose the smallest honest shape; on later rounds
-  REVISE previous_shape rather than resynthesizing it: retain its name/kind and report explicit changes. Every open
-  ledger finding must be addressed; orthogonal gaps remain deferred separate primitives. Spawn the required grounding
-  helpers and copy their outputs verbatim. Input:\n` + JSON.stringify({
-    seed_ability_id: args.seed.ability_id, faction_id: args.seed.faction_id, raw_text,
-    resisted_schema: args.seed.resisted_schema || null, retrieval, shape_charter, previous_shape, finding_ledger }),
-  { agentType: 'kroot-flesh-shaper', phase: 'Shape', schema: FLESH_OUT, label: `flesh:${args.seed.ability_id}#${rn}` })
+  const flesh = await agent(
+    PRE + `Design the chartered mechanic slice only. On round one propose the smallest honest shape; on later rounds
+REVISE previous_shape rather than resynthesizing it: retain its name/kind and report explicit changes. Every open
+ledger finding must be addressed; orthogonal gaps remain deferred separate primitives. Spawn the required grounding
+helpers and copy their outputs verbatim. Input:\n` + JSON.stringify({
+      seed_ability_id: args.seed.ability_id, faction_id: args.seed.faction_id, raw_text,
+      resisted_schema: args.seed.resisted_schema || null, retrieval, shape_charter, previous_shape, finding_ledger }),
+    { agentType: 'kroot-flesh-shaper', phase: 'Shape', schema: FLESH_OUT, label: `flesh:${args.seed.ability_id}#${rn}` }
+  )
   assertSpawned('kroot-flesh-shaper', flesh, [
     { path: 'decomposition.what', msg: 'flesh-shaper must spawn the decomposers' },
     { path: 'retrieval', msg: 'flesh-shaper must spawn data-enginseer' },
@@ -295,13 +291,14 @@ for (let round = 0; round < MAX_ROUNDS; round++) {
   previous_shape = flesh.proposed_shape
 
   phase(`Broaden (round ${rn})`)
-  const lone = await graphAgent(PRE + `The coverage array MUST contain exactly one entry for every frozen exact-family member and no other
-  ability. Put every discovery outside that frozen family in deferred_candidates, even when it is near or needs a
-  parameter. Count a shared ability id once while retaining cross-faction copies as evidence. Do not mutate the
-  charter or inflate acceptance. Input:\n` +
-  JSON.stringify({ proposed_shape: flesh.proposed_shape, seed_ability_id: args.seed.ability_id,
-    faction_id: args.seed.faction_id, shape_charter, previous_shape }),
-  { agentType: 'kroot-lone-spear', phase: 'Broaden', schema: LONESPEAR_OUT, label: `spear:${args.seed.ability_id}#${rn}` })
+  const lone = await agent(
+    PRE + `Judge coverage only against the frozen exact family. Discoveries outside it are deferred_candidates,
+never acceptance-family additions. Count a shared ability id once even when multiple faction copies remain as
+evidence. Do not mutate the charter or inflate the family. Input:\n` +
+    JSON.stringify({ proposed_shape: flesh.proposed_shape, seed_ability_id: args.seed.ability_id,
+      faction_id: args.seed.faction_id, shape_charter, previous_shape }),
+    { agentType: 'kroot-lone-spear', phase: 'Broaden', schema: LONESPEAR_OUT, label: `spear:${args.seed.ability_id}#${rn}` }
+  )
   assertSpawned('kroot-lone-spear', lone, [{ path: 'swarmlord_sweep', msg: 'lone-spear must spawn swarmlord' }])
   const deferred_family = mergeDeferredCandidates(shape_charter, lone.deferred_candidates)
   const exactFamilySize = assertCharterFamily(shape_charter, lone.coverage)
@@ -309,28 +306,21 @@ for (let round = 0; round < MAX_ROUNDS; round++) {
   if (exactFamilySize < THRESHOLD) { status = 'rejected-singleton'; rounds.push({ round: rn, flesh, lone, finding_ledger, verdict: status }); break }
 
   phase(`Prototype (round ${rn})`)
-  const prototypeWorkspace = args.prototype_workspaces ? args.prototype_workspaces[round] : null
-  const prototypePRE = prototypeWorkspace
-    ? `Prototype workspace: ${prototypeWorkspace}. Every Read/Grep/Glob/Edit/Write path MUST be an absolute path ` +
-      `under that exact workspace, and every Bash call MUST set cwd to that exact workspace or a descendant. ` +
-      `Never use a relative file-tool path: the agent session itself remains rooted in the parent checkout. ` +
-      `Pass the same absolute workspace path and path rule to every child spawn. Never read, edit, generate into, ` +
-      `or run a command in the parent checkout ${args.repo_root}. `
-    : PRE
-  const prototype = await graphAgent(prototypePRE + `Implement a disposable minimal vertical prototype of this proposed shape in an ISOLATED,
-  NON-APPLIED worktree. Do not edit the parent checkout or data. Implement the actual schema branch, necessary
-  generated/TS surface, one describer path, and fabricated positive/negative probes. In that SAME worktree SPAWN
-  skitarius to run the targeted compiler/schema/render gates. Return concrete commands/results and diagnostics;
-  applied_to_parent MUST be false. Input:\n` + JSON.stringify(prototypeAgentInput({
-    proposed_shape: flesh.proposed_shape,
-    shape_charter,
-    deferred_family,
-    lone_spear: lone,
-    workspace: prototypeWorkspace,
-  })),
-  { agentType: 'warpsmith', phase: 'Prototype', schema: PROTOTYPE_OUT, label: `prototype:${args.seed.ability_id}#${rn}`,
-    ...prototypeAgentOptions(prototypeWorkspace) })
-  const prototypeDecision = prototypeGateDecision(prototype, flesh.proposed_shape, prototypeWorkspace)
+  const prototype = await agent(
+    PRE + `Implement a disposable minimal vertical prototype of this proposed shape in an ISOLATED, NON-APPLIED
+worktree. Do not edit the parent checkout or data. Implement the actual schema branch, necessary generated/TS
+surface, one describer path, and fabricated positive/negative probes. In that SAME worktree SPAWN skitarius to run
+the targeted compiler/schema/render gates. Return concrete commands/results and diagnostics; applied_to_parent MUST
+be false. Input:\n` + JSON.stringify(prototypeAgentInput({
+      proposed_shape: flesh.proposed_shape,
+      shape_charter,
+      deferred_family,
+      lone_spear: lone,
+    })),
+    { agentType: 'warpsmith', phase: 'Prototype', schema: PROTOTYPE_OUT, label: `prototype:${args.seed.ability_id}#${rn}`,
+      ...prototypeAgentOptions() }
+  )
+  const prototypeDecision = prototypeGateDecision(prototype, flesh.proposed_shape)
   if (!prototypeDecision.passes) {
     const prototypeFinding = {
       key: `prototype:${rn}`,
@@ -350,30 +340,29 @@ for (let round = 0; round < MAX_ROUNDS; round++) {
   }
 
   phase(`Trail (round ${rn})`)
-  const trail = await graphAgent(PRE + `Spec the describer for the chartered mechanic slice across all applicable forms. Prototype diagnostics
-  are binding repair input; do not solve charter non-goals. Spawn psyker. Input:\n` +
-  JSON.stringify({ proposed_shape: flesh.proposed_shape, shape_charter, prototype,
-    lone_spear: { parameter_deltas: lone.parameter_deltas || [], coverage: lone.coverage || [] } }),
-  { agentType: 'kroot-trail-shaper', phase: 'Trail', schema: TRAIL_OUT, label: `trail:${args.seed.ability_id}#${rn}` })
+  const trail = await agent(
+    PRE + `Spec the describer for the chartered mechanic slice across all applicable forms. Prototype diagnostics
+are binding repair input; do not solve charter non-goals. Spawn psyker. Input:\n` +
+    JSON.stringify({ proposed_shape: flesh.proposed_shape, shape_charter, prototype,
+      lone_spear: { parameter_deltas: lone.parameter_deltas || [], coverage: lone.coverage || [] } }),
+    { agentType: 'kroot-trail-shaper', phase: 'Trail', schema: TRAIL_OUT, label: `trail:${args.seed.ability_id}#${rn}` }
+  )
   assertSpawned('kroot-trail-shaper', trail, [
     { path: 'psyker_read', msg: 'trail-shaper must spawn psyker' },
     { path: 'render_rules', msg: 'no render rules specified' },
   ])
-  finding_ledger = normalizeFindingLedger(
-    finding_ledger,
-    psykerSeverityFindings(trail.psyker_read),
-    shape_charter,
-  )
 
   phase(`War (round ${rn})`)
-  const war = await graphAgent(PRE + `Adversarially review the frozen charter mechanic slice on all four axes. A blocker requires a
-  concrete in-slice divergence on a frozen exact member that is not honestly composable/separate. Closure derives
-  only from an evidence-gated terminal ledger state; blocker_evidence.resolved_or_out_of_scope cannot close an open
-  finding. Accept only when every finding is terminal. Preserve all four booleans, distinct eversor voter/task ids,
-  and distinct frozen sample ability ids. Orthogonal gaps are deferred, not failures of this shape. Prototype
-  evidence is mandatory review input. Input:\n` +
-  JSON.stringify({ flesh, lone_spear: lone, trail, prototype, shape_charter, finding_ledger, family_threshold: THRESHOLD }),
-  { agentType: 'kroot-war-shaper', phase: 'War', schema: WAR_OUT, label: `war:${args.seed.ability_id}#${rn}` })
+  const war = await agent(
+    PRE + `Adversarially review the frozen charter mechanic slice on all four axes. A blocker requires a
+concrete in-slice divergence on a frozen exact member that is not honestly composable/separate. Closure derives
+only from an evidence-gated terminal ledger state; blocker_evidence.resolved_or_out_of_scope cannot close an open
+finding. Accept only when every finding is terminal. Preserve all four booleans, distinct eversor voter/task ids,
+and distinct frozen sample ability ids. Orthogonal gaps are deferred, not failures of this shape. Prototype
+evidence is mandatory review input. Input:\n` +
+    JSON.stringify({ flesh, lone_spear: lone, trail, prototype, shape_charter, finding_ledger, family_threshold: THRESHOLD }),
+    { agentType: 'kroot-war-shaper', phase: 'War', schema: WAR_OUT, label: `war:${args.seed.ability_id}#${rn}` }
+  )
   assertSpawned('kroot-war-shaper', war, [
     { path: 'eversor_refutations', msg: 'war-shaper must spawn eversor against sample members' },
     { path: 'swarmlord_recheck', msg: 'war-shaper must spawn swarmlord for an independent recheck' },

@@ -90,8 +90,31 @@ clean stop, never dressed as convergence): IP breach, gate failure surviving 2 r
 blocking escalation.
 
 Shape-scout (`wf-shape-scout.js`): ≤ 3 cyclical review rounds per shape, then forced
-terminal; the family bar is lone-spear `faithful_family_size` ≥ 4 (exact+near,
-flatten-excluded); kroot leads spawn leaf helpers only (spawn tree depth ≤ 2).
+terminal; the family bar counts unique canonical mechanics (`ability_id`) in the frozen
+exact family with `fit:faithful|needs-param` and `match_strength:exact|near`.
+Cross-faction copies remain mandatory evidence but do not add headcount;
+stretch/flattened/outside members count zero. Kroot leads spawn leaf helpers only
+(spawn tree depth ≤ 2).
+- **Frozen shape charter:** before cycle one, inquisitor freezes `shape_charter` with
+  the mechanic slice, exact acceptance family, required semantics, non-goals, deferred
+  candidates, fabricated acceptance fixtures, and explicit reopening rules. Collections
+  and members are deep-frozen; ordinary rounds may not change acceptance. Existing
+  deferred candidates merge with later discoveries as follow-ups. Every revision carries
+  `previous_shape` plus a finding ledger (`open|resolved|out-of-scope|superseded`) and
+  must retain the shape name/kind. Exhaustion returns either
+  `rounds-exhausted-unresolved-slice-tradeoff` (maintainer decision required) or the
+  conservative `rounds-exhausted-conservative-defer`.
+- **Prototype before acceptance:** each candidate receives a disposable, isolated,
+  non-applied warpsmith vertical slice through `prototype.worktree_mode:
+  "isolated-non-applied"` before trail/war acceptance. Warpsmith spawns skitarius in that
+  worktree for non-empty compiler/schema/positive-negative/render evidence, echoing the
+  exact candidate it probed; prototype diagnostics remain repair input and never land
+  in the campaign checkout.
+- **Closed blockers:** blocker closure derives only from evidence-gated ledger state,
+  never a self-reported boolean. Supersession requires a real replacement finding.
+  War-shaper may accept only after every finding is terminal, two distinct scoped
+  eversors pass on distinct frozen mechanics, and the final package exactly matches
+  the revised candidate, trail artifact, and prototype evidence.
 
 ## Procedure
 
@@ -163,9 +186,12 @@ resisted mechanic is a FAMILY (≥ ~4 abilities, exact+near) or a singleton:
     repo_root: "/Users/will.mitchell/40kdc-dsl",
     seed: { ability_id, faction_id, raw_text, resisted_schema }, family_threshold: 4 } })
   ```
-  The kroot suite (flesh-shaper → lone-spear → trail-shaper → war-shaper, each spawning
-  its OWN helpers) returns `status`:
-  - `shipped-ready` (war-shaper `accept` ∧ `faithful_family_size ≥ threshold`) →
+  The shape-scout runs inquisitor charter → flesh-shaper → lone-spear →
+  isolated warpsmith+skitarius prototype → trail-shaper → war-shaper; each lead
+  spawns its own declared helpers. It returns `status`:
+  - `shipped-ready` (war-shaper `accept` ∧ unique canonical exact/near mechanic count
+    ≥ threshold ∧ every ledger finding terminal ∧ immutable-charter checks pass ∧
+    isolated prototype skitarius evidence passes ∧ final package artifacts match) →
     **auto-apply**: hand `shape_package` to warpsmith (`implement`) to land the schema
     oneOf branch + all four describer ports + conformance cases + SPEC bump + version
     lockstep, then re-author the seed AND every `faithful_family` member onto the new

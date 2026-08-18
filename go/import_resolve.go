@@ -244,9 +244,7 @@ func lookupDetachment(ds *Dataset, detachmentID, factionID string) map[string]an
 
 func resolveRoster(parsed map[string]any, ds *Dataset, format string) map[string]any {
 	diag := &diagBuilder{}
-	if parsed["multi_force"] == true {
-		diag.warn("multi-force", "Source list contains more than one faction; the primary faction was used for scoping.", nil)
-	}
+	_ = parsed["multi_force"]
 
 	var factionID any
 	if fr, ok := parsed["faction_raw_name"].(string); ok && fr != "" {

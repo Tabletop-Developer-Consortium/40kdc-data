@@ -1749,6 +1749,29 @@ impl ::std::default::Default for ArmyCompositionPredicateUnitFilter {
 ///        "effect": {
 ///          "$ref": "#/$defs/effect-node"
 ///        },
+///        "eligible": {
+///          "type": "object",
+///          "minProperties": 1,
+///          "properties": {
+///            "excluded_keywords": {
+///              "type": "array",
+///              "items": {
+///                "type": "string",
+///                "minLength": 1
+///              },
+///              "minItems": 1
+///            },
+///            "required_keywords": {
+///              "type": "array",
+///              "items": {
+///                "type": "string",
+///                "minLength": 1
+///              },
+///              "minItems": 1
+///            }
+///          },
+///          "additionalProperties": false
+///        },
 ///        "emitter_filter": {
 ///          "$ref": "#/$defs/keyword-filter"
 ///        },
@@ -1815,6 +1838,29 @@ pub struct AuraEffect {
 ///    "effect": {
 ///      "$ref": "#/$defs/effect-node"
 ///    },
+///    "eligible": {
+///      "type": "object",
+///      "minProperties": 1,
+///      "properties": {
+///        "excluded_keywords": {
+///          "type": "array",
+///          "items": {
+///            "type": "string",
+///            "minLength": 1
+///          },
+///          "minItems": 1
+///        },
+///        "required_keywords": {
+///          "type": "array",
+///          "items": {
+///            "type": "string",
+///            "minLength": 1
+///          },
+///          "minItems": 1
+///        }
+///      },
+///      "additionalProperties": false
+///    },
 ///    "emitter_filter": {
 ///      "$ref": "#/$defs/keyword-filter"
 ///    },
@@ -1854,6 +1900,8 @@ pub struct AuraEffectModifier {
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub effect: ::std::option::Option<::std::boxed::Box<EffectNode>>,
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub eligible: ::std::option::Option<AuraEffectModifierEligible>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub emitter_filter: ::std::option::Option<KeywordFilter>,
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub of: ::std::option::Option<::std::string::String>,
@@ -1868,12 +1916,213 @@ impl ::std::default::Default for AuraEffectModifier {
     fn default() -> Self {
         Self {
             effect: Default::default(),
+            eligible: Default::default(),
             emitter_filter: Default::default(),
             of: Default::default(),
             range: Default::default(),
             range_bonus: Default::default(),
             recipient_filter: Default::default(),
         }
+    }
+}
+///`AuraEffectModifierEligible`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "object",
+///  "minProperties": 1,
+///  "properties": {
+///    "excluded_keywords": {
+///      "type": "array",
+///      "items": {
+///        "type": "string",
+///        "minLength": 1
+///      },
+///      "minItems": 1
+///    },
+///    "required_keywords": {
+///      "type": "array",
+///      "items": {
+///        "type": "string",
+///        "minLength": 1
+///      },
+///      "minItems": 1
+///    }
+///  },
+///  "additionalProperties": false
+///}
+/// ```
+/// </details>
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
+#[serde(deny_unknown_fields)]
+pub struct AuraEffectModifierEligible {
+    #[serde(default, skip_serializing_if = "::std::vec::Vec::is_empty")]
+    pub excluded_keywords: ::std::vec::Vec<
+        AuraEffectModifierEligibleExcludedKeywordsItem,
+    >,
+    #[serde(default, skip_serializing_if = "::std::vec::Vec::is_empty")]
+    pub required_keywords: ::std::vec::Vec<
+        AuraEffectModifierEligibleRequiredKeywordsItem,
+    >,
+}
+impl ::std::default::Default for AuraEffectModifierEligible {
+    fn default() -> Self {
+        Self {
+            excluded_keywords: Default::default(),
+            required_keywords: Default::default(),
+        }
+    }
+}
+///`AuraEffectModifierEligibleExcludedKeywordsItem`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "string",
+///  "minLength": 1
+///}
+/// ```
+/// </details>
+#[derive(::serde::Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+#[serde(transparent)]
+pub struct AuraEffectModifierEligibleExcludedKeywordsItem(::std::string::String);
+impl ::std::ops::Deref for AuraEffectModifierEligibleExcludedKeywordsItem {
+    type Target = ::std::string::String;
+    fn deref(&self) -> &::std::string::String {
+        &self.0
+    }
+}
+impl ::std::convert::From<AuraEffectModifierEligibleExcludedKeywordsItem>
+for ::std::string::String {
+    fn from(value: AuraEffectModifierEligibleExcludedKeywordsItem) -> Self {
+        value.0
+    }
+}
+impl ::std::str::FromStr for AuraEffectModifierEligibleExcludedKeywordsItem {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        if value.chars().count() < 1usize {
+            return Err("shorter than 1 characters".into());
+        }
+        Ok(Self(value.to_string()))
+    }
+}
+impl ::std::convert::TryFrom<&str> for AuraEffectModifierEligibleExcludedKeywordsItem {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+for AuraEffectModifierEligibleExcludedKeywordsItem {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+for AuraEffectModifierEligibleExcludedKeywordsItem {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl<'de> ::serde::Deserialize<'de> for AuraEffectModifierEligibleExcludedKeywordsItem {
+    fn deserialize<D>(deserializer: D) -> ::std::result::Result<Self, D::Error>
+    where
+        D: ::serde::Deserializer<'de>,
+    {
+        ::std::string::String::deserialize(deserializer)?
+            .parse()
+            .map_err(|e: self::error::ConversionError| {
+                <D::Error as ::serde::de::Error>::custom(e.to_string())
+            })
+    }
+}
+///`AuraEffectModifierEligibleRequiredKeywordsItem`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "string",
+///  "minLength": 1
+///}
+/// ```
+/// </details>
+#[derive(::serde::Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+#[serde(transparent)]
+pub struct AuraEffectModifierEligibleRequiredKeywordsItem(::std::string::String);
+impl ::std::ops::Deref for AuraEffectModifierEligibleRequiredKeywordsItem {
+    type Target = ::std::string::String;
+    fn deref(&self) -> &::std::string::String {
+        &self.0
+    }
+}
+impl ::std::convert::From<AuraEffectModifierEligibleRequiredKeywordsItem>
+for ::std::string::String {
+    fn from(value: AuraEffectModifierEligibleRequiredKeywordsItem) -> Self {
+        value.0
+    }
+}
+impl ::std::str::FromStr for AuraEffectModifierEligibleRequiredKeywordsItem {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        if value.chars().count() < 1usize {
+            return Err("shorter than 1 characters".into());
+        }
+        Ok(Self(value.to_string()))
+    }
+}
+impl ::std::convert::TryFrom<&str> for AuraEffectModifierEligibleRequiredKeywordsItem {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+for AuraEffectModifierEligibleRequiredKeywordsItem {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+for AuraEffectModifierEligibleRequiredKeywordsItem {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl<'de> ::serde::Deserialize<'de> for AuraEffectModifierEligibleRequiredKeywordsItem {
+    fn deserialize<D>(deserializer: D) -> ::std::result::Result<Self, D::Error>
+    where
+        D: ::serde::Deserializer<'de>,
+    {
+        ::std::string::String::deserialize(deserializer)?
+            .parse()
+            .map_err(|e: self::error::ConversionError| {
+                <D::Error as ::serde::de::Error>::custom(e.to_string())
+            })
     }
 }
 ///`AuraEffectModifierRange`
@@ -2427,6 +2676,10 @@ impl<'de> ::serde::Deserialize<'de> for BeneficiaryBoundEffectNodeType {
 ///    "choice_label": {
 ///      "type": "string"
 ///    },
+///    "choice_prompt": {
+///      "type": "string",
+///      "minLength": 1
+///    },
 ///    "options": {
 ///      "type": "array",
 ///      "items": {
@@ -2445,9 +2698,83 @@ impl<'de> ::serde::Deserialize<'de> for BeneficiaryBoundEffectNodeType {
 pub struct ChoiceEffect {
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub choice_label: ::std::option::Option<::std::string::String>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub choice_prompt: ::std::option::Option<ChoiceEffectChoicePrompt>,
     pub options: ::std::vec::Vec<EffectNode>,
     #[serde(rename = "type")]
     pub type_: ::serde_json::Value,
+}
+///`ChoiceEffectChoicePrompt`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "string",
+///  "minLength": 1
+///}
+/// ```
+/// </details>
+#[derive(::serde::Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+#[serde(transparent)]
+pub struct ChoiceEffectChoicePrompt(::std::string::String);
+impl ::std::ops::Deref for ChoiceEffectChoicePrompt {
+    type Target = ::std::string::String;
+    fn deref(&self) -> &::std::string::String {
+        &self.0
+    }
+}
+impl ::std::convert::From<ChoiceEffectChoicePrompt> for ::std::string::String {
+    fn from(value: ChoiceEffectChoicePrompt) -> Self {
+        value.0
+    }
+}
+impl ::std::str::FromStr for ChoiceEffectChoicePrompt {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        if value.chars().count() < 1usize {
+            return Err("shorter than 1 characters".into());
+        }
+        Ok(Self(value.to_string()))
+    }
+}
+impl ::std::convert::TryFrom<&str> for ChoiceEffectChoicePrompt {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for ChoiceEffectChoicePrompt {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for ChoiceEffectChoicePrompt {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl<'de> ::serde::Deserialize<'de> for ChoiceEffectChoicePrompt {
+    fn deserialize<D>(deserializer: D) -> ::std::result::Result<Self, D::Error>
+    where
+        D: ::serde::Deserializer<'de>,
+    {
+        ::std::string::String::deserialize(deserializer)?
+            .parse()
+            .map_err(|e: self::error::ConversionError| {
+                <D::Error as ::serde::de::Error>::custom(e.to_string())
+            })
+    }
 }
 ///A feature placed on an area template, positioned in the area's centroid-local frame (y-down inches). When the area is placed, rotated, or mirrored, its composed features are carried along.
 ///
@@ -5013,6 +5340,9 @@ impl ::std::convert::From<EffectNode> for Effect {
 ///      "$ref": "#/$defs/single-effect"
 ///    },
 ///    {
+///      "$ref": "#/$defs/stance-select-effect"
+///    },
+///    {
 ///      "$ref": "#/$defs/choice-effect"
 ///    },
 ///    {
@@ -5031,22 +5361,16 @@ impl ::std::convert::From<EffectNode> for Effect {
 ///      "$ref": "#/$defs/select-units-effect"
 ///    },
 ///    {
+///      "$ref": "#/$defs/for-each-unit-effect"
+///    },
+///    {
 ///      "$ref": "#/$defs/movement-modifier-effect"
 ///    },
 ///    {
 ///      "$ref": "#/$defs/aura-effect"
 ///    },
 ///    {
-///      "$ref": "#/$defs/leader-model-ability-grant-effect"
-///    },
-///    {
-///      "$ref": "#/$defs/persistent-designation-effect"
-///    },
-///    {
 ///      "$ref": "#/$defs/designate-target-effect"
-///    },
-///    {
-///      "$ref": "#/$defs/stance-select-effect"
 ///    },
 ///    {
 ///      "$ref": "#/$defs/risk-reward-effect"
@@ -5056,6 +5380,12 @@ impl ::std::convert::From<EffectNode> for Effect {
 ///    },
 ///    {
 ///      "$ref": "#/$defs/resource-action-menu-effect"
+///    },
+///    {
+///      "$ref": "#/$defs/leader-model-ability-grant-effect"
+///    },
+///    {
+///      "$ref": "#/$defs/persistent-designation-effect"
 ///    }
 ///  ]
 ///}
@@ -5065,25 +5395,31 @@ impl ::std::convert::From<EffectNode> for Effect {
 #[serde(untagged)]
 pub enum EffectNode {
     SingleEffect(SingleEffect),
+    StanceSelectEffect(StanceSelectEffect),
     ChoiceEffect(ChoiceEffect),
     SequenceEffect(SequenceEffect),
     DiceGatedEffect(DiceGatedEffect),
     ConditionalEffect(ConditionalEffect),
     DicePoolAllocationEffect(DicePoolAllocationEffect),
     SelectUnitsEffect(SelectUnitsEffect),
+    ForEachUnitEffect(ForEachUnitEffect),
     MovementModifierEffect(MovementModifierEffect),
     AuraEffect(AuraEffect),
-    LeaderModelAbilityGrantEffect(LeaderModelAbilityGrantEffect),
-    PersistentDesignationEffect(PersistentDesignationEffect),
     DesignateTargetEffect(DesignateTargetEffect),
-    StanceSelectEffect(StanceSelectEffect),
     RiskRewardEffect(RiskRewardEffect),
     IssueOrdersEffect(IssueOrdersEffect),
     ResourceActionMenuEffect(ResourceActionMenuEffect),
+    LeaderModelAbilityGrantEffect(LeaderModelAbilityGrantEffect),
+    PersistentDesignationEffect(PersistentDesignationEffect),
 }
 impl ::std::convert::From<SingleEffect> for EffectNode {
     fn from(value: SingleEffect) -> Self {
         Self::SingleEffect(value)
+    }
+}
+impl ::std::convert::From<StanceSelectEffect> for EffectNode {
+    fn from(value: StanceSelectEffect) -> Self {
+        Self::StanceSelectEffect(value)
     }
 }
 impl ::std::convert::From<ChoiceEffect> for EffectNode {
@@ -5116,6 +5452,11 @@ impl ::std::convert::From<SelectUnitsEffect> for EffectNode {
         Self::SelectUnitsEffect(value)
     }
 }
+impl ::std::convert::From<ForEachUnitEffect> for EffectNode {
+    fn from(value: ForEachUnitEffect) -> Self {
+        Self::ForEachUnitEffect(value)
+    }
+}
 impl ::std::convert::From<MovementModifierEffect> for EffectNode {
     fn from(value: MovementModifierEffect) -> Self {
         Self::MovementModifierEffect(value)
@@ -5126,24 +5467,9 @@ impl ::std::convert::From<AuraEffect> for EffectNode {
         Self::AuraEffect(value)
     }
 }
-impl ::std::convert::From<LeaderModelAbilityGrantEffect> for EffectNode {
-    fn from(value: LeaderModelAbilityGrantEffect) -> Self {
-        Self::LeaderModelAbilityGrantEffect(value)
-    }
-}
-impl ::std::convert::From<PersistentDesignationEffect> for EffectNode {
-    fn from(value: PersistentDesignationEffect) -> Self {
-        Self::PersistentDesignationEffect(value)
-    }
-}
 impl ::std::convert::From<DesignateTargetEffect> for EffectNode {
     fn from(value: DesignateTargetEffect) -> Self {
         Self::DesignateTargetEffect(value)
-    }
-}
-impl ::std::convert::From<StanceSelectEffect> for EffectNode {
-    fn from(value: StanceSelectEffect) -> Self {
-        Self::StanceSelectEffect(value)
     }
 }
 impl ::std::convert::From<RiskRewardEffect> for EffectNode {
@@ -5159,6 +5485,16 @@ impl ::std::convert::From<IssueOrdersEffect> for EffectNode {
 impl ::std::convert::From<ResourceActionMenuEffect> for EffectNode {
     fn from(value: ResourceActionMenuEffect) -> Self {
         Self::ResourceActionMenuEffect(value)
+    }
+}
+impl ::std::convert::From<LeaderModelAbilityGrantEffect> for EffectNode {
+    fn from(value: LeaderModelAbilityGrantEffect) -> Self {
+        Self::LeaderModelAbilityGrantEffect(value)
+    }
+}
+impl ::std::convert::From<PersistentDesignationEffect> for EffectNode {
+    fn from(value: PersistentDesignationEffect) -> Self {
+        Self::PersistentDesignationEffect(value)
     }
 }
 ///A purchasable upgrade for a character unit, provided by a detachment.
@@ -5809,6 +6145,169 @@ pub enum Footprint {
     RightTriangle { height: f64, width: f64 },
     #[serde(rename = "polygon")]
     Polygon { points: ::std::vec::Vec<Vec2> },
+}
+///`ForEachUnitEffect`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "object",
+///  "required": [
+///    "effect",
+///    "selector",
+///    "type"
+///  ],
+///  "properties": {
+///    "effect": {
+///      "$ref": "#/$defs/effect-node"
+///    },
+///    "selector": {
+///      "type": "object",
+///      "required": [
+///        "owner"
+///      ],
+///      "properties": {
+///        "owner": {
+///          "type": "string",
+///          "enum": [
+///            "friendly",
+///            "enemy"
+///          ]
+///        },
+///        "within_inches": {
+///          "type": "number",
+///          "exclusiveMinimum": 0.0
+///        }
+///      },
+///      "additionalProperties": false
+///    },
+///    "type": {
+///      "const": "for-each-unit"
+///    }
+///  },
+///  "additionalProperties": false,
+///  "$comment": "Resolve `effect` independently once for every matching unit, binding that unit as its target. `selector` has no count because it selects every eligible unit."
+///}
+/// ```
+/// </details>
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
+#[serde(deny_unknown_fields)]
+pub struct ForEachUnitEffect {
+    pub effect: ::std::boxed::Box<EffectNode>,
+    pub selector: ForEachUnitEffectSelector,
+    #[serde(rename = "type")]
+    pub type_: ::serde_json::Value,
+}
+///`ForEachUnitEffectSelector`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "object",
+///  "required": [
+///    "owner"
+///  ],
+///  "properties": {
+///    "owner": {
+///      "type": "string",
+///      "enum": [
+///        "friendly",
+///        "enemy"
+///      ]
+///    },
+///    "within_inches": {
+///      "type": "number",
+///      "exclusiveMinimum": 0.0
+///    }
+///  },
+///  "additionalProperties": false
+///}
+/// ```
+/// </details>
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
+#[serde(deny_unknown_fields)]
+pub struct ForEachUnitEffectSelector {
+    pub owner: ForEachUnitEffectSelectorOwner,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub within_inches: ::std::option::Option<f64>,
+}
+///`ForEachUnitEffectSelectorOwner`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "string",
+///  "enum": [
+///    "friendly",
+///    "enemy"
+///  ]
+///}
+/// ```
+/// </details>
+#[derive(
+    ::serde::Deserialize,
+    ::serde::Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd
+)]
+pub enum ForEachUnitEffectSelectorOwner {
+    #[serde(rename = "friendly")]
+    Friendly,
+    #[serde(rename = "enemy")]
+    Enemy,
+}
+impl ::std::fmt::Display for ForEachUnitEffectSelectorOwner {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::Friendly => f.write_str("friendly"),
+            Self::Enemy => f.write_str("enemy"),
+        }
+    }
+}
+impl ::std::str::FromStr for ForEachUnitEffectSelectorOwner {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "friendly" => Ok(Self::Friendly),
+            "enemy" => Ok(Self::Enemy),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for ForEachUnitEffectSelectorOwner {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for ForEachUnitEffectSelectorOwner {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for ForEachUnitEffectSelectorOwner {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
 }
 ///A 11e strategic-intent tag granted by detachments. Players compare dispositions at game start to determine the shared mission; asymmetric primary objectives result.
 ///
@@ -18589,11 +19088,39 @@ impl ::std::convert::TryFrom<::std::string::String> for SecondaryCardWhenDrawnOp
 ///    "selector": {
 ///      "description": "Legacy selectors omit min_count and retain up-to semantics. Bounded authoring requires min_count, max_count, and owner, with min_count <= max_count.",
 ///      "type": "object",
+///      "oneOf": [
+///        {
+///          "not": {
+///            "required": [
+///              "max_count"
+///            ]
+///          },
+///          "required": [
+///            "count"
+///          ]
+///        },
+///        {
+///          "not": {
+///            "required": [
+///              "count"
+///            ]
+///          },
+///          "required": [
+///            "max_count"
+///          ]
+///        }
+///      ],
 ///      "required": [
-///        "max_count",
 ///        "owner"
 ///      ],
 ///      "properties": {
+///        "count": {
+///          "type": "integer",
+///          "minimum": 1.0
+///        },
+///        "eligibility": {
+///          "$ref": "#/$defs/condition"
+///        },
 ///        "engagement_relation": {
 ///          "description": "Candidate engagement relation to the bearer; evaluated independently of range_inches.",
 ///          "type": "string",
@@ -18632,6 +19159,10 @@ impl ::std::convert::TryFrom<::std::string::String> for SecondaryCardWhenDrawnOp
 ///        "visibility_required": {
 ///          "description": "When true, each selected candidate must be visible to the bearer.",
 ///          "type": "boolean"
+///        },
+///        "within_inches": {
+///          "type": "number",
+///          "exclusiveMinimum": 0.0
 ///        }
 ///      },
 ///      "additionalProperties": false
@@ -18659,11 +19190,39 @@ pub struct SelectUnitsEffect {
 ///{
 ///  "description": "Legacy selectors omit min_count and retain up-to semantics. Bounded authoring requires min_count, max_count, and owner, with min_count <= max_count.",
 ///  "type": "object",
+///  "oneOf": [
+///    {
+///      "not": {
+///        "required": [
+///          "max_count"
+///        ]
+///      },
+///      "required": [
+///        "count"
+///      ]
+///    },
+///    {
+///      "not": {
+///        "required": [
+///          "count"
+///        ]
+///      },
+///      "required": [
+///        "max_count"
+///      ]
+///    }
+///  ],
 ///  "required": [
-///    "max_count",
 ///    "owner"
 ///  ],
 ///  "properties": {
+///    "count": {
+///      "type": "integer",
+///      "minimum": 1.0
+///    },
+///    "eligibility": {
+///      "$ref": "#/$defs/condition"
+///    },
 ///    "engagement_relation": {
 ///      "description": "Candidate engagement relation to the bearer; evaluated independently of range_inches.",
 ///      "type": "string",
@@ -18702,6 +19261,10 @@ pub struct SelectUnitsEffect {
 ///    "visibility_required": {
 ///      "description": "When true, each selected candidate must be visible to the bearer.",
 ///      "type": "boolean"
+///    },
+///    "within_inches": {
+///      "type": "number",
+///      "exclusiveMinimum": 0.0
 ///    }
 ///  },
 ///  "additionalProperties": false
@@ -18709,25 +19272,54 @@ pub struct SelectUnitsEffect {
 /// ```
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
-#[serde(deny_unknown_fields)]
-pub struct SelectUnitsEffectSelector {
-    ///Candidate engagement relation to the bearer; evaluated independently of range_inches.
-    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
-    pub engagement_relation: ::std::option::Option<
-        SelectUnitsEffectSelectorEngagementRelation,
-    >,
-    #[serde(default, skip_serializing_if = "::std::vec::Vec::is_empty")]
-    pub keywords: ::std::vec::Vec<::std::string::String>,
-    pub max_count: ::std::num::NonZeroU64,
-    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
-    pub min_count: ::std::option::Option<::std::num::NonZeroU64>,
-    pub owner: SelectUnitsEffectSelectorOwner,
-    ///Distance from bearer to each selected unit.
-    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
-    pub range_inches: ::std::option::Option<f64>,
-    ///When true, each selected candidate must be visible to the bearer.
-    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
-    pub visibility_required: ::std::option::Option<bool>,
+#[serde(untagged, deny_unknown_fields)]
+pub enum SelectUnitsEffectSelector {
+    Variant0 {
+        count: ::std::num::NonZeroU64,
+        #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+        eligibility: ::std::option::Option<Condition>,
+        ///Candidate engagement relation to the bearer; evaluated independently of range_inches.
+        #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+        engagement_relation: ::std::option::Option<
+            SelectUnitsEffectSelectorVariant0EngagementRelation,
+        >,
+        #[serde(default, skip_serializing_if = "::std::vec::Vec::is_empty")]
+        keywords: ::std::vec::Vec<::std::string::String>,
+        #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+        min_count: ::std::option::Option<::std::num::NonZeroU64>,
+        owner: SelectUnitsEffectSelectorVariant0Owner,
+        ///Distance from bearer to each selected unit.
+        #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+        range_inches: ::std::option::Option<f64>,
+        ///When true, each selected candidate must be visible to the bearer.
+        #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+        visibility_required: ::std::option::Option<bool>,
+        #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+        within_inches: ::std::option::Option<f64>,
+    },
+    Variant1 {
+        #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+        eligibility: ::std::option::Option<Condition>,
+        ///Candidate engagement relation to the bearer; evaluated independently of range_inches.
+        #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+        engagement_relation: ::std::option::Option<
+            SelectUnitsEffectSelectorVariant1EngagementRelation,
+        >,
+        #[serde(default, skip_serializing_if = "::std::vec::Vec::is_empty")]
+        keywords: ::std::vec::Vec<::std::string::String>,
+        max_count: ::std::num::NonZeroU64,
+        #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+        min_count: ::std::option::Option<::std::num::NonZeroU64>,
+        owner: SelectUnitsEffectSelectorVariant1Owner,
+        ///Distance from bearer to each selected unit.
+        #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+        range_inches: ::std::option::Option<f64>,
+        ///When true, each selected candidate must be visible to the bearer.
+        #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+        visibility_required: ::std::option::Option<bool>,
+        #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+        within_inches: ::std::option::Option<f64>,
+    },
 }
 ///Candidate engagement relation to the bearer; evaluated independently of range_inches.
 ///
@@ -18757,7 +19349,7 @@ pub struct SelectUnitsEffectSelector {
     PartialEq,
     PartialOrd
 )]
-pub enum SelectUnitsEffectSelectorEngagementRelation {
+pub enum SelectUnitsEffectSelectorVariant0EngagementRelation {
     #[serde(rename = "any")]
     Any,
     #[serde(rename = "engaged-with-bearer")]
@@ -18765,7 +19357,7 @@ pub enum SelectUnitsEffectSelectorEngagementRelation {
     #[serde(rename = "not-engaged-with-bearer")]
     NotEngagedWithBearer,
 }
-impl ::std::fmt::Display for SelectUnitsEffectSelectorEngagementRelation {
+impl ::std::fmt::Display for SelectUnitsEffectSelectorVariant0EngagementRelation {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
             Self::Any => f.write_str("any"),
@@ -18774,7 +19366,7 @@ impl ::std::fmt::Display for SelectUnitsEffectSelectorEngagementRelation {
         }
     }
 }
-impl ::std::str::FromStr for SelectUnitsEffectSelectorEngagementRelation {
+impl ::std::str::FromStr for SelectUnitsEffectSelectorVariant0EngagementRelation {
     type Err = self::error::ConversionError;
     fn from_str(
         value: &str,
@@ -18787,7 +19379,8 @@ impl ::std::str::FromStr for SelectUnitsEffectSelectorEngagementRelation {
         }
     }
 }
-impl ::std::convert::TryFrom<&str> for SelectUnitsEffectSelectorEngagementRelation {
+impl ::std::convert::TryFrom<&str>
+for SelectUnitsEffectSelectorVariant0EngagementRelation {
     type Error = self::error::ConversionError;
     fn try_from(
         value: &str,
@@ -18796,7 +19389,7 @@ impl ::std::convert::TryFrom<&str> for SelectUnitsEffectSelectorEngagementRelati
     }
 }
 impl ::std::convert::TryFrom<&::std::string::String>
-for SelectUnitsEffectSelectorEngagementRelation {
+for SelectUnitsEffectSelectorVariant0EngagementRelation {
     type Error = self::error::ConversionError;
     fn try_from(
         value: &::std::string::String,
@@ -18805,7 +19398,7 @@ for SelectUnitsEffectSelectorEngagementRelation {
     }
 }
 impl ::std::convert::TryFrom<::std::string::String>
-for SelectUnitsEffectSelectorEngagementRelation {
+for SelectUnitsEffectSelectorVariant0EngagementRelation {
     type Error = self::error::ConversionError;
     fn try_from(
         value: ::std::string::String,
@@ -18813,7 +19406,7 @@ for SelectUnitsEffectSelectorEngagementRelation {
         value.parse()
     }
 }
-///`SelectUnitsEffectSelectorOwner`
+///`SelectUnitsEffectSelectorVariant0Owner`
 ///
 /// <details><summary>JSON schema</summary>
 ///
@@ -18839,13 +19432,13 @@ for SelectUnitsEffectSelectorEngagementRelation {
     PartialEq,
     PartialOrd
 )]
-pub enum SelectUnitsEffectSelectorOwner {
+pub enum SelectUnitsEffectSelectorVariant0Owner {
     #[serde(rename = "friendly")]
     Friendly,
     #[serde(rename = "enemy")]
     Enemy,
 }
-impl ::std::fmt::Display for SelectUnitsEffectSelectorOwner {
+impl ::std::fmt::Display for SelectUnitsEffectSelectorVariant0Owner {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
             Self::Friendly => f.write_str("friendly"),
@@ -18853,7 +19446,7 @@ impl ::std::fmt::Display for SelectUnitsEffectSelectorOwner {
         }
     }
 }
-impl ::std::str::FromStr for SelectUnitsEffectSelectorOwner {
+impl ::std::str::FromStr for SelectUnitsEffectSelectorVariant0Owner {
     type Err = self::error::ConversionError;
     fn from_str(
         value: &str,
@@ -18865,7 +19458,7 @@ impl ::std::str::FromStr for SelectUnitsEffectSelectorOwner {
         }
     }
 }
-impl ::std::convert::TryFrom<&str> for SelectUnitsEffectSelectorOwner {
+impl ::std::convert::TryFrom<&str> for SelectUnitsEffectSelectorVariant0Owner {
     type Error = self::error::ConversionError;
     fn try_from(
         value: &str,
@@ -18873,7 +19466,8 @@ impl ::std::convert::TryFrom<&str> for SelectUnitsEffectSelectorOwner {
         value.parse()
     }
 }
-impl ::std::convert::TryFrom<&::std::string::String> for SelectUnitsEffectSelectorOwner {
+impl ::std::convert::TryFrom<&::std::string::String>
+for SelectUnitsEffectSelectorVariant0Owner {
     type Error = self::error::ConversionError;
     fn try_from(
         value: &::std::string::String,
@@ -18881,7 +19475,171 @@ impl ::std::convert::TryFrom<&::std::string::String> for SelectUnitsEffectSelect
         value.parse()
     }
 }
-impl ::std::convert::TryFrom<::std::string::String> for SelectUnitsEffectSelectorOwner {
+impl ::std::convert::TryFrom<::std::string::String>
+for SelectUnitsEffectSelectorVariant0Owner {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+///Candidate engagement relation to the bearer; evaluated independently of range_inches.
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "description": "Candidate engagement relation to the bearer; evaluated independently of range_inches.",
+///  "type": "string",
+///  "enum": [
+///    "any",
+///    "engaged-with-bearer",
+///    "not-engaged-with-bearer"
+///  ]
+///}
+/// ```
+/// </details>
+#[derive(
+    ::serde::Deserialize,
+    ::serde::Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd
+)]
+pub enum SelectUnitsEffectSelectorVariant1EngagementRelation {
+    #[serde(rename = "any")]
+    Any,
+    #[serde(rename = "engaged-with-bearer")]
+    EngagedWithBearer,
+    #[serde(rename = "not-engaged-with-bearer")]
+    NotEngagedWithBearer,
+}
+impl ::std::fmt::Display for SelectUnitsEffectSelectorVariant1EngagementRelation {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::Any => f.write_str("any"),
+            Self::EngagedWithBearer => f.write_str("engaged-with-bearer"),
+            Self::NotEngagedWithBearer => f.write_str("not-engaged-with-bearer"),
+        }
+    }
+}
+impl ::std::str::FromStr for SelectUnitsEffectSelectorVariant1EngagementRelation {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "any" => Ok(Self::Any),
+            "engaged-with-bearer" => Ok(Self::EngagedWithBearer),
+            "not-engaged-with-bearer" => Ok(Self::NotEngagedWithBearer),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str>
+for SelectUnitsEffectSelectorVariant1EngagementRelation {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+for SelectUnitsEffectSelectorVariant1EngagementRelation {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+for SelectUnitsEffectSelectorVariant1EngagementRelation {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+///`SelectUnitsEffectSelectorVariant1Owner`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "string",
+///  "enum": [
+///    "friendly",
+///    "enemy"
+///  ]
+///}
+/// ```
+/// </details>
+#[derive(
+    ::serde::Deserialize,
+    ::serde::Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd
+)]
+pub enum SelectUnitsEffectSelectorVariant1Owner {
+    #[serde(rename = "friendly")]
+    Friendly,
+    #[serde(rename = "enemy")]
+    Enemy,
+}
+impl ::std::fmt::Display for SelectUnitsEffectSelectorVariant1Owner {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::Friendly => f.write_str("friendly"),
+            Self::Enemy => f.write_str("enemy"),
+        }
+    }
+}
+impl ::std::str::FromStr for SelectUnitsEffectSelectorVariant1Owner {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "friendly" => Ok(Self::Friendly),
+            "enemy" => Ok(Self::Enemy),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for SelectUnitsEffectSelectorVariant1Owner {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+for SelectUnitsEffectSelectorVariant1Owner {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+for SelectUnitsEffectSelectorVariant1Owner {
     type Error = self::error::ConversionError;
     fn try_from(
         value: ::std::string::String,
@@ -19427,6 +20185,18 @@ impl ::std::convert::TryFrom<::std::string::String> for SimpleConditionType {
 ///      "$comment": "`disembark-after-move`: a Transport modifies disembarkation. `after` is the move that enables it (`normal-move` | `advance` | `deployment` | `before-move`); `can_charge` is whether the disembarked unit may then declare a charge; `requires_keyword` gates it on a keyword (e.g. Deep Strike for Aerial Assault); `counts_as_normal_move` marks the disembarked unit as having made a Normal move (Assault Vehicle). An absent modifier renders the bare 'after it has moved' form. `mandatory` marks a Reserves-transport whose cargo MUST disembark on arrival (Drop Pod); `min_enemy_distance` is the inches the disembarking units must be set up away from all enemy models. For `after: deployment` the charge tail renders only when `can_charge` is explicit (a deployment-step disembark has no charge window)."
 ///    },
 ///    {
+///      "$comment": "`recovery-pool`: recover a unit's wounds using the closed dice expression, first healing wounded models and then returning destroyed models at one wound. With `target: all-friendly`, `per_target_unit: true` rolls and allocates an independent pool for every eligible friendly unit."
+///    },
+///    {
+///      "$comment": "`stratagem-targeting-permission`: an attached unit can be selected as a Stratagem target despite the named exception."
+///    },
+///    {
+///      "$comment": "`bind_count_as` binds a dice-valued mortal-wound count for a following local consumer."
+///    },
+///    {
+///      "$comment": "`count_from` consumes a preceding local bound count for a wounds-form resurrection."
+///    },
+///    {
 ///      "$comment": "`unit-attachment`: this unit can join another friendly unit during the Declare Battle Formations step, becoming part of that Bodyguard unit. `led_by` (optional) is the keyword the joined unit must be led by; `mandatory` (optional) marks the attachment as forced (the unit must be attached to a Leader or it counts as destroyed)."
 ///    },
 ///    {
@@ -19464,58 +20234,60 @@ impl ::std::convert::TryFrom<::std::string::String> for SimpleConditionType {
 ///    "type": {
 ///      "type": "string",
 ///      "enum": [
-///        "stat-modifier",
-///        "roll-modifier",
-///        "re-roll",
-///        "mortal-wounds",
-///        "feel-no-pain",
-///        "invulnerable-save",
-///        "ward",
-///        "keyword-grant",
-///        "unit-keyword",
+///        "ability-grant",
+///        "attack-restriction",
+///        "auto-result",
+///        "battle-shock-test",
+///        "bs-modifier",
+///        "charge-roll-modifier",
+///        "cp-gain",
+///        "cp-on-destroy",
+///        "cp-refund",
+///        "damage-reduction",
 ///        "deep-strike",
+///        "disembark",
+///        "disembark-after-move",
+///        "engagement-passthrough",
 ///        "fallback-and-act",
+///        "feel-no-pain",
+///        "fight-eligibility-extension",
 ///        "fight-first",
 ///        "fight-last",
-///        "shoot-on-death",
 ///        "fight-on-death",
-///        "objective-control-modifier",
+///        "firing-deck",
+///        "flyover",
+///        "invulnerable-save",
+///        "keyword-grant",
 ///        "leadership-modifier",
-///        "damage-reduction",
-///        "attack-restriction",
-///        "ability-grant",
-///        "cp-gain",
-///        "cp-refund",
 ///        "model-destruction",
-///        "resurrection",
+///        "modifier-immunity",
+///        "mortal-wounds",
+///        "named-region-state",
+///        "objective-control-modifier",
+///        "objective-tag",
+///        "pool-add-die",
+///        "re-roll",
+///        "recovery-pool",
+///        "remove-battle-shock",
+///        "replace-roll-from-pool",
+///        "resource-clear",
 ///        "resource-gain",
 ///        "resource-spend",
-///        "charge-roll-modifier",
-///        "terrain-area-tag",
-///        "objective-tag",
-///        "unit-tag",
-///        "bs-modifier",
-///        "engagement-passthrough",
-///        "strategic-reserves-arrival",
-///        "remove-battle-shock",
-///        "unit-keyword-grant",
-///        "auto-result",
-///        "firing-deck",
-///        "disembark-after-move",
-///        "disembark",
+///        "resurrection",
+///        "roll-modifier",
 ///        "rule-state",
-///        "pool-add-die",
-///        "replace-roll-from-pool",
-///        "flyover",
-///        "cp-on-destroy",
-///        "battle-shock-test",
-///        "modifier-immunity",
+///        "shoot-on-death",
+///        "stat-modifier",
 ///        "stratagem-cost-modifier",
+///        "stratagem-targeting-permission",
+///        "strategic-reserves-arrival",
 ///        "targeting-permission",
+///        "terrain-area-tag",
 ///        "unit-attachment",
-///        "fight-eligibility-extension",
-///        "resource-clear",
-///        "named-region-state"
+///        "unit-keyword",
+///        "unit-keyword-grant",
+///        "unit-tag",
+///        "ward"
 ///      ]
 ///    }
 ///  },
@@ -19662,58 +20434,60 @@ impl ::std::convert::TryFrom<::std::string::String> for SingleEffectTarget {
 ///{
 ///  "type": "string",
 ///  "enum": [
-///    "stat-modifier",
-///    "roll-modifier",
-///    "re-roll",
-///    "mortal-wounds",
-///    "feel-no-pain",
-///    "invulnerable-save",
-///    "ward",
-///    "keyword-grant",
-///    "unit-keyword",
+///    "ability-grant",
+///    "attack-restriction",
+///    "auto-result",
+///    "battle-shock-test",
+///    "bs-modifier",
+///    "charge-roll-modifier",
+///    "cp-gain",
+///    "cp-on-destroy",
+///    "cp-refund",
+///    "damage-reduction",
 ///    "deep-strike",
+///    "disembark",
+///    "disembark-after-move",
+///    "engagement-passthrough",
 ///    "fallback-and-act",
+///    "feel-no-pain",
+///    "fight-eligibility-extension",
 ///    "fight-first",
 ///    "fight-last",
-///    "shoot-on-death",
 ///    "fight-on-death",
-///    "objective-control-modifier",
+///    "firing-deck",
+///    "flyover",
+///    "invulnerable-save",
+///    "keyword-grant",
 ///    "leadership-modifier",
-///    "damage-reduction",
-///    "attack-restriction",
-///    "ability-grant",
-///    "cp-gain",
-///    "cp-refund",
 ///    "model-destruction",
-///    "resurrection",
+///    "modifier-immunity",
+///    "mortal-wounds",
+///    "named-region-state",
+///    "objective-control-modifier",
+///    "objective-tag",
+///    "pool-add-die",
+///    "re-roll",
+///    "recovery-pool",
+///    "remove-battle-shock",
+///    "replace-roll-from-pool",
+///    "resource-clear",
 ///    "resource-gain",
 ///    "resource-spend",
-///    "charge-roll-modifier",
-///    "terrain-area-tag",
-///    "objective-tag",
-///    "unit-tag",
-///    "bs-modifier",
-///    "engagement-passthrough",
-///    "strategic-reserves-arrival",
-///    "remove-battle-shock",
-///    "unit-keyword-grant",
-///    "auto-result",
-///    "firing-deck",
-///    "disembark-after-move",
-///    "disembark",
+///    "resurrection",
+///    "roll-modifier",
 ///    "rule-state",
-///    "pool-add-die",
-///    "replace-roll-from-pool",
-///    "flyover",
-///    "cp-on-destroy",
-///    "battle-shock-test",
-///    "modifier-immunity",
+///    "shoot-on-death",
+///    "stat-modifier",
 ///    "stratagem-cost-modifier",
+///    "stratagem-targeting-permission",
+///    "strategic-reserves-arrival",
 ///    "targeting-permission",
+///    "terrain-area-tag",
 ///    "unit-attachment",
-///    "fight-eligibility-extension",
-///    "resource-clear",
-///    "named-region-state"
+///    "unit-keyword",
+///    "unit-keyword-grant",
+///    "unit-tag",
+///    "ward"
 ///  ]
 ///}
 /// ```
@@ -19731,166 +20505,174 @@ impl ::std::convert::TryFrom<::std::string::String> for SingleEffectTarget {
     PartialOrd
 )]
 pub enum SingleEffectType {
-    #[serde(rename = "stat-modifier")]
-    StatModifier,
-    #[serde(rename = "roll-modifier")]
-    RollModifier,
-    #[serde(rename = "re-roll")]
-    ReRoll,
-    #[serde(rename = "mortal-wounds")]
-    MortalWounds,
-    #[serde(rename = "feel-no-pain")]
-    FeelNoPain,
-    #[serde(rename = "invulnerable-save")]
-    InvulnerableSave,
-    #[serde(rename = "ward")]
-    Ward,
-    #[serde(rename = "keyword-grant")]
-    KeywordGrant,
-    #[serde(rename = "unit-keyword")]
-    UnitKeyword,
+    #[serde(rename = "ability-grant")]
+    AbilityGrant,
+    #[serde(rename = "attack-restriction")]
+    AttackRestriction,
+    #[serde(rename = "auto-result")]
+    AutoResult,
+    #[serde(rename = "battle-shock-test")]
+    BattleShockTest,
+    #[serde(rename = "bs-modifier")]
+    BsModifier,
+    #[serde(rename = "charge-roll-modifier")]
+    ChargeRollModifier,
+    #[serde(rename = "cp-gain")]
+    CpGain,
+    #[serde(rename = "cp-on-destroy")]
+    CpOnDestroy,
+    #[serde(rename = "cp-refund")]
+    CpRefund,
+    #[serde(rename = "damage-reduction")]
+    DamageReduction,
     #[serde(rename = "deep-strike")]
     DeepStrike,
+    #[serde(rename = "disembark")]
+    Disembark,
+    #[serde(rename = "disembark-after-move")]
+    DisembarkAfterMove,
+    #[serde(rename = "engagement-passthrough")]
+    EngagementPassthrough,
     #[serde(rename = "fallback-and-act")]
     FallbackAndAct,
+    #[serde(rename = "feel-no-pain")]
+    FeelNoPain,
+    #[serde(rename = "fight-eligibility-extension")]
+    FightEligibilityExtension,
     #[serde(rename = "fight-first")]
     FightFirst,
     #[serde(rename = "fight-last")]
     FightLast,
-    #[serde(rename = "shoot-on-death")]
-    ShootOnDeath,
     #[serde(rename = "fight-on-death")]
     FightOnDeath,
-    #[serde(rename = "objective-control-modifier")]
-    ObjectiveControlModifier,
+    #[serde(rename = "firing-deck")]
+    FiringDeck,
+    #[serde(rename = "flyover")]
+    Flyover,
+    #[serde(rename = "invulnerable-save")]
+    InvulnerableSave,
+    #[serde(rename = "keyword-grant")]
+    KeywordGrant,
     #[serde(rename = "leadership-modifier")]
     LeadershipModifier,
-    #[serde(rename = "damage-reduction")]
-    DamageReduction,
-    #[serde(rename = "attack-restriction")]
-    AttackRestriction,
-    #[serde(rename = "ability-grant")]
-    AbilityGrant,
-    #[serde(rename = "cp-gain")]
-    CpGain,
-    #[serde(rename = "cp-refund")]
-    CpRefund,
     #[serde(rename = "model-destruction")]
     ModelDestruction,
-    #[serde(rename = "resurrection")]
-    Resurrection,
+    #[serde(rename = "modifier-immunity")]
+    ModifierImmunity,
+    #[serde(rename = "mortal-wounds")]
+    MortalWounds,
+    #[serde(rename = "named-region-state")]
+    NamedRegionState,
+    #[serde(rename = "objective-control-modifier")]
+    ObjectiveControlModifier,
+    #[serde(rename = "objective-tag")]
+    ObjectiveTag,
+    #[serde(rename = "pool-add-die")]
+    PoolAddDie,
+    #[serde(rename = "re-roll")]
+    ReRoll,
+    #[serde(rename = "recovery-pool")]
+    RecoveryPool,
+    #[serde(rename = "remove-battle-shock")]
+    RemoveBattleShock,
+    #[serde(rename = "replace-roll-from-pool")]
+    ReplaceRollFromPool,
+    #[serde(rename = "resource-clear")]
+    ResourceClear,
     #[serde(rename = "resource-gain")]
     ResourceGain,
     #[serde(rename = "resource-spend")]
     ResourceSpend,
-    #[serde(rename = "charge-roll-modifier")]
-    ChargeRollModifier,
-    #[serde(rename = "terrain-area-tag")]
-    TerrainAreaTag,
-    #[serde(rename = "objective-tag")]
-    ObjectiveTag,
-    #[serde(rename = "unit-tag")]
-    UnitTag,
-    #[serde(rename = "bs-modifier")]
-    BsModifier,
-    #[serde(rename = "engagement-passthrough")]
-    EngagementPassthrough,
-    #[serde(rename = "strategic-reserves-arrival")]
-    StrategicReservesArrival,
-    #[serde(rename = "remove-battle-shock")]
-    RemoveBattleShock,
-    #[serde(rename = "unit-keyword-grant")]
-    UnitKeywordGrant,
-    #[serde(rename = "auto-result")]
-    AutoResult,
-    #[serde(rename = "firing-deck")]
-    FiringDeck,
-    #[serde(rename = "disembark-after-move")]
-    DisembarkAfterMove,
-    #[serde(rename = "disembark")]
-    Disembark,
+    #[serde(rename = "resurrection")]
+    Resurrection,
+    #[serde(rename = "roll-modifier")]
+    RollModifier,
     #[serde(rename = "rule-state")]
     RuleState,
-    #[serde(rename = "pool-add-die")]
-    PoolAddDie,
-    #[serde(rename = "replace-roll-from-pool")]
-    ReplaceRollFromPool,
-    #[serde(rename = "flyover")]
-    Flyover,
-    #[serde(rename = "cp-on-destroy")]
-    CpOnDestroy,
-    #[serde(rename = "battle-shock-test")]
-    BattleShockTest,
-    #[serde(rename = "modifier-immunity")]
-    ModifierImmunity,
+    #[serde(rename = "shoot-on-death")]
+    ShootOnDeath,
+    #[serde(rename = "stat-modifier")]
+    StatModifier,
     #[serde(rename = "stratagem-cost-modifier")]
     StratagemCostModifier,
+    #[serde(rename = "stratagem-targeting-permission")]
+    StratagemTargetingPermission,
+    #[serde(rename = "strategic-reserves-arrival")]
+    StrategicReservesArrival,
     #[serde(rename = "targeting-permission")]
     TargetingPermission,
+    #[serde(rename = "terrain-area-tag")]
+    TerrainAreaTag,
     #[serde(rename = "unit-attachment")]
     UnitAttachment,
-    #[serde(rename = "fight-eligibility-extension")]
-    FightEligibilityExtension,
-    #[serde(rename = "resource-clear")]
-    ResourceClear,
-    #[serde(rename = "named-region-state")]
-    NamedRegionState,
+    #[serde(rename = "unit-keyword")]
+    UnitKeyword,
+    #[serde(rename = "unit-keyword-grant")]
+    UnitKeywordGrant,
+    #[serde(rename = "unit-tag")]
+    UnitTag,
+    #[serde(rename = "ward")]
+    Ward,
 }
 impl ::std::fmt::Display for SingleEffectType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
         match *self {
-            Self::StatModifier => f.write_str("stat-modifier"),
-            Self::RollModifier => f.write_str("roll-modifier"),
-            Self::ReRoll => f.write_str("re-roll"),
-            Self::MortalWounds => f.write_str("mortal-wounds"),
-            Self::FeelNoPain => f.write_str("feel-no-pain"),
-            Self::InvulnerableSave => f.write_str("invulnerable-save"),
-            Self::Ward => f.write_str("ward"),
-            Self::KeywordGrant => f.write_str("keyword-grant"),
-            Self::UnitKeyword => f.write_str("unit-keyword"),
+            Self::AbilityGrant => f.write_str("ability-grant"),
+            Self::AttackRestriction => f.write_str("attack-restriction"),
+            Self::AutoResult => f.write_str("auto-result"),
+            Self::BattleShockTest => f.write_str("battle-shock-test"),
+            Self::BsModifier => f.write_str("bs-modifier"),
+            Self::ChargeRollModifier => f.write_str("charge-roll-modifier"),
+            Self::CpGain => f.write_str("cp-gain"),
+            Self::CpOnDestroy => f.write_str("cp-on-destroy"),
+            Self::CpRefund => f.write_str("cp-refund"),
+            Self::DamageReduction => f.write_str("damage-reduction"),
             Self::DeepStrike => f.write_str("deep-strike"),
+            Self::Disembark => f.write_str("disembark"),
+            Self::DisembarkAfterMove => f.write_str("disembark-after-move"),
+            Self::EngagementPassthrough => f.write_str("engagement-passthrough"),
             Self::FallbackAndAct => f.write_str("fallback-and-act"),
+            Self::FeelNoPain => f.write_str("feel-no-pain"),
+            Self::FightEligibilityExtension => f.write_str("fight-eligibility-extension"),
             Self::FightFirst => f.write_str("fight-first"),
             Self::FightLast => f.write_str("fight-last"),
-            Self::ShootOnDeath => f.write_str("shoot-on-death"),
             Self::FightOnDeath => f.write_str("fight-on-death"),
-            Self::ObjectiveControlModifier => f.write_str("objective-control-modifier"),
+            Self::FiringDeck => f.write_str("firing-deck"),
+            Self::Flyover => f.write_str("flyover"),
+            Self::InvulnerableSave => f.write_str("invulnerable-save"),
+            Self::KeywordGrant => f.write_str("keyword-grant"),
             Self::LeadershipModifier => f.write_str("leadership-modifier"),
-            Self::DamageReduction => f.write_str("damage-reduction"),
-            Self::AttackRestriction => f.write_str("attack-restriction"),
-            Self::AbilityGrant => f.write_str("ability-grant"),
-            Self::CpGain => f.write_str("cp-gain"),
-            Self::CpRefund => f.write_str("cp-refund"),
             Self::ModelDestruction => f.write_str("model-destruction"),
-            Self::Resurrection => f.write_str("resurrection"),
+            Self::ModifierImmunity => f.write_str("modifier-immunity"),
+            Self::MortalWounds => f.write_str("mortal-wounds"),
+            Self::NamedRegionState => f.write_str("named-region-state"),
+            Self::ObjectiveControlModifier => f.write_str("objective-control-modifier"),
+            Self::ObjectiveTag => f.write_str("objective-tag"),
+            Self::PoolAddDie => f.write_str("pool-add-die"),
+            Self::ReRoll => f.write_str("re-roll"),
+            Self::RecoveryPool => f.write_str("recovery-pool"),
+            Self::RemoveBattleShock => f.write_str("remove-battle-shock"),
+            Self::ReplaceRollFromPool => f.write_str("replace-roll-from-pool"),
+            Self::ResourceClear => f.write_str("resource-clear"),
             Self::ResourceGain => f.write_str("resource-gain"),
             Self::ResourceSpend => f.write_str("resource-spend"),
-            Self::ChargeRollModifier => f.write_str("charge-roll-modifier"),
-            Self::TerrainAreaTag => f.write_str("terrain-area-tag"),
-            Self::ObjectiveTag => f.write_str("objective-tag"),
-            Self::UnitTag => f.write_str("unit-tag"),
-            Self::BsModifier => f.write_str("bs-modifier"),
-            Self::EngagementPassthrough => f.write_str("engagement-passthrough"),
-            Self::StrategicReservesArrival => f.write_str("strategic-reserves-arrival"),
-            Self::RemoveBattleShock => f.write_str("remove-battle-shock"),
-            Self::UnitKeywordGrant => f.write_str("unit-keyword-grant"),
-            Self::AutoResult => f.write_str("auto-result"),
-            Self::FiringDeck => f.write_str("firing-deck"),
-            Self::DisembarkAfterMove => f.write_str("disembark-after-move"),
-            Self::Disembark => f.write_str("disembark"),
+            Self::Resurrection => f.write_str("resurrection"),
+            Self::RollModifier => f.write_str("roll-modifier"),
             Self::RuleState => f.write_str("rule-state"),
-            Self::PoolAddDie => f.write_str("pool-add-die"),
-            Self::ReplaceRollFromPool => f.write_str("replace-roll-from-pool"),
-            Self::Flyover => f.write_str("flyover"),
-            Self::CpOnDestroy => f.write_str("cp-on-destroy"),
-            Self::BattleShockTest => f.write_str("battle-shock-test"),
-            Self::ModifierImmunity => f.write_str("modifier-immunity"),
+            Self::ShootOnDeath => f.write_str("shoot-on-death"),
+            Self::StatModifier => f.write_str("stat-modifier"),
             Self::StratagemCostModifier => f.write_str("stratagem-cost-modifier"),
+            Self::StratagemTargetingPermission => {
+                f.write_str("stratagem-targeting-permission")
+            }
+            Self::StrategicReservesArrival => f.write_str("strategic-reserves-arrival"),
             Self::TargetingPermission => f.write_str("targeting-permission"),
+            Self::TerrainAreaTag => f.write_str("terrain-area-tag"),
             Self::UnitAttachment => f.write_str("unit-attachment"),
-            Self::FightEligibilityExtension => f.write_str("fight-eligibility-extension"),
-            Self::ResourceClear => f.write_str("resource-clear"),
-            Self::NamedRegionState => f.write_str("named-region-state"),
+            Self::UnitKeyword => f.write_str("unit-keyword"),
+            Self::UnitKeywordGrant => f.write_str("unit-keyword-grant"),
+            Self::UnitTag => f.write_str("unit-tag"),
+            Self::Ward => f.write_str("ward"),
         }
     }
 }
@@ -19900,58 +20682,60 @@ impl ::std::str::FromStr for SingleEffectType {
         value: &str,
     ) -> ::std::result::Result<Self, self::error::ConversionError> {
         match value {
-            "stat-modifier" => Ok(Self::StatModifier),
-            "roll-modifier" => Ok(Self::RollModifier),
-            "re-roll" => Ok(Self::ReRoll),
-            "mortal-wounds" => Ok(Self::MortalWounds),
-            "feel-no-pain" => Ok(Self::FeelNoPain),
-            "invulnerable-save" => Ok(Self::InvulnerableSave),
-            "ward" => Ok(Self::Ward),
-            "keyword-grant" => Ok(Self::KeywordGrant),
-            "unit-keyword" => Ok(Self::UnitKeyword),
+            "ability-grant" => Ok(Self::AbilityGrant),
+            "attack-restriction" => Ok(Self::AttackRestriction),
+            "auto-result" => Ok(Self::AutoResult),
+            "battle-shock-test" => Ok(Self::BattleShockTest),
+            "bs-modifier" => Ok(Self::BsModifier),
+            "charge-roll-modifier" => Ok(Self::ChargeRollModifier),
+            "cp-gain" => Ok(Self::CpGain),
+            "cp-on-destroy" => Ok(Self::CpOnDestroy),
+            "cp-refund" => Ok(Self::CpRefund),
+            "damage-reduction" => Ok(Self::DamageReduction),
             "deep-strike" => Ok(Self::DeepStrike),
+            "disembark" => Ok(Self::Disembark),
+            "disembark-after-move" => Ok(Self::DisembarkAfterMove),
+            "engagement-passthrough" => Ok(Self::EngagementPassthrough),
             "fallback-and-act" => Ok(Self::FallbackAndAct),
+            "feel-no-pain" => Ok(Self::FeelNoPain),
+            "fight-eligibility-extension" => Ok(Self::FightEligibilityExtension),
             "fight-first" => Ok(Self::FightFirst),
             "fight-last" => Ok(Self::FightLast),
-            "shoot-on-death" => Ok(Self::ShootOnDeath),
             "fight-on-death" => Ok(Self::FightOnDeath),
-            "objective-control-modifier" => Ok(Self::ObjectiveControlModifier),
+            "firing-deck" => Ok(Self::FiringDeck),
+            "flyover" => Ok(Self::Flyover),
+            "invulnerable-save" => Ok(Self::InvulnerableSave),
+            "keyword-grant" => Ok(Self::KeywordGrant),
             "leadership-modifier" => Ok(Self::LeadershipModifier),
-            "damage-reduction" => Ok(Self::DamageReduction),
-            "attack-restriction" => Ok(Self::AttackRestriction),
-            "ability-grant" => Ok(Self::AbilityGrant),
-            "cp-gain" => Ok(Self::CpGain),
-            "cp-refund" => Ok(Self::CpRefund),
             "model-destruction" => Ok(Self::ModelDestruction),
-            "resurrection" => Ok(Self::Resurrection),
+            "modifier-immunity" => Ok(Self::ModifierImmunity),
+            "mortal-wounds" => Ok(Self::MortalWounds),
+            "named-region-state" => Ok(Self::NamedRegionState),
+            "objective-control-modifier" => Ok(Self::ObjectiveControlModifier),
+            "objective-tag" => Ok(Self::ObjectiveTag),
+            "pool-add-die" => Ok(Self::PoolAddDie),
+            "re-roll" => Ok(Self::ReRoll),
+            "recovery-pool" => Ok(Self::RecoveryPool),
+            "remove-battle-shock" => Ok(Self::RemoveBattleShock),
+            "replace-roll-from-pool" => Ok(Self::ReplaceRollFromPool),
+            "resource-clear" => Ok(Self::ResourceClear),
             "resource-gain" => Ok(Self::ResourceGain),
             "resource-spend" => Ok(Self::ResourceSpend),
-            "charge-roll-modifier" => Ok(Self::ChargeRollModifier),
-            "terrain-area-tag" => Ok(Self::TerrainAreaTag),
-            "objective-tag" => Ok(Self::ObjectiveTag),
-            "unit-tag" => Ok(Self::UnitTag),
-            "bs-modifier" => Ok(Self::BsModifier),
-            "engagement-passthrough" => Ok(Self::EngagementPassthrough),
-            "strategic-reserves-arrival" => Ok(Self::StrategicReservesArrival),
-            "remove-battle-shock" => Ok(Self::RemoveBattleShock),
-            "unit-keyword-grant" => Ok(Self::UnitKeywordGrant),
-            "auto-result" => Ok(Self::AutoResult),
-            "firing-deck" => Ok(Self::FiringDeck),
-            "disembark-after-move" => Ok(Self::DisembarkAfterMove),
-            "disembark" => Ok(Self::Disembark),
+            "resurrection" => Ok(Self::Resurrection),
+            "roll-modifier" => Ok(Self::RollModifier),
             "rule-state" => Ok(Self::RuleState),
-            "pool-add-die" => Ok(Self::PoolAddDie),
-            "replace-roll-from-pool" => Ok(Self::ReplaceRollFromPool),
-            "flyover" => Ok(Self::Flyover),
-            "cp-on-destroy" => Ok(Self::CpOnDestroy),
-            "battle-shock-test" => Ok(Self::BattleShockTest),
-            "modifier-immunity" => Ok(Self::ModifierImmunity),
+            "shoot-on-death" => Ok(Self::ShootOnDeath),
+            "stat-modifier" => Ok(Self::StatModifier),
             "stratagem-cost-modifier" => Ok(Self::StratagemCostModifier),
+            "stratagem-targeting-permission" => Ok(Self::StratagemTargetingPermission),
+            "strategic-reserves-arrival" => Ok(Self::StrategicReservesArrival),
             "targeting-permission" => Ok(Self::TargetingPermission),
+            "terrain-area-tag" => Ok(Self::TerrainAreaTag),
             "unit-attachment" => Ok(Self::UnitAttachment),
-            "fight-eligibility-extension" => Ok(Self::FightEligibilityExtension),
-            "resource-clear" => Ok(Self::ResourceClear),
-            "named-region-state" => Ok(Self::NamedRegionState),
+            "unit-keyword" => Ok(Self::UnitKeyword),
+            "unit-keyword-grant" => Ok(Self::UnitKeywordGrant),
+            "unit-tag" => Ok(Self::UnitTag),
+            "ward" => Ok(Self::Ward),
             _ => Err("invalid value".into()),
         }
     }

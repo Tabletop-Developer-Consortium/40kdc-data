@@ -280,21 +280,22 @@ export type AbilityCondition1 = SimpleCondition | CompoundCondition;
  */
 export type AbilityEffect =
   | SingleEffect
+  | StanceSelectEffect
   | ChoiceEffect
   | SequenceEffect
   | DiceGatedEffect
   | ConditionalEffect
   | DicePoolAllocationEffect
   | SelectUnitsEffect
+  | ForEachUnitEffect
   | MovementModifierEffect
   | AuraEffect
-  | LeaderModelAbilityGrantEffect
-  | PersistentDesignationEffect
   | DesignateTargetEffect
-  | StanceSelectEffect
   | RiskRewardEffect
   | IssueOrdersEffect
-  | ResourceActionMenuEffect;
+  | ResourceActionMenuEffect
+  | LeaderModelAbilityGrantEffect
+  | PersistentDesignationEffect;
 /**
  * This interface was referenced by `0KdcBundledSchemas`'s JSON-Schema
  * via the `definition` "single-effect".
@@ -303,58 +304,60 @@ export type SingleEffect = {
   [k: string]: unknown;
 } & {
   type:
-    | "stat-modifier"
-    | "roll-modifier"
-    | "re-roll"
-    | "mortal-wounds"
-    | "feel-no-pain"
-    | "invulnerable-save"
-    | "ward"
-    | "keyword-grant"
-    | "unit-keyword"
+    | "ability-grant"
+    | "attack-restriction"
+    | "auto-result"
+    | "battle-shock-test"
+    | "bs-modifier"
+    | "charge-roll-modifier"
+    | "cp-gain"
+    | "cp-on-destroy"
+    | "cp-refund"
+    | "damage-reduction"
     | "deep-strike"
+    | "disembark"
+    | "disembark-after-move"
+    | "engagement-passthrough"
     | "fallback-and-act"
+    | "feel-no-pain"
+    | "fight-eligibility-extension"
     | "fight-first"
     | "fight-last"
-    | "shoot-on-death"
     | "fight-on-death"
-    | "objective-control-modifier"
+    | "firing-deck"
+    | "flyover"
+    | "invulnerable-save"
+    | "keyword-grant"
     | "leadership-modifier"
-    | "damage-reduction"
-    | "attack-restriction"
-    | "ability-grant"
-    | "cp-gain"
-    | "cp-refund"
     | "model-destruction"
-    | "resurrection"
+    | "modifier-immunity"
+    | "mortal-wounds"
+    | "named-region-state"
+    | "objective-control-modifier"
+    | "objective-tag"
+    | "pool-add-die"
+    | "re-roll"
+    | "recovery-pool"
+    | "remove-battle-shock"
+    | "replace-roll-from-pool"
+    | "resource-clear"
     | "resource-gain"
     | "resource-spend"
-    | "charge-roll-modifier"
-    | "terrain-area-tag"
-    | "objective-tag"
-    | "unit-tag"
-    | "bs-modifier"
-    | "engagement-passthrough"
-    | "strategic-reserves-arrival"
-    | "remove-battle-shock"
-    | "unit-keyword-grant"
-    | "auto-result"
-    | "firing-deck"
-    | "disembark-after-move"
-    | "disembark"
+    | "resurrection"
+    | "roll-modifier"
     | "rule-state"
-    | "pool-add-die"
-    | "replace-roll-from-pool"
-    | "flyover"
-    | "cp-on-destroy"
-    | "battle-shock-test"
-    | "modifier-immunity"
+    | "shoot-on-death"
+    | "stat-modifier"
     | "stratagem-cost-modifier"
+    | "stratagem-targeting-permission"
+    | "strategic-reserves-arrival"
     | "targeting-permission"
+    | "terrain-area-tag"
     | "unit-attachment"
-    | "fight-eligibility-extension"
-    | "resource-clear"
-    | "named-region-state";
+    | "unit-keyword"
+    | "unit-keyword-grant"
+    | "unit-tag"
+    | "ward";
   target:
     | "self"
     | "bearer"
@@ -379,21 +382,22 @@ export type SingleEffect = {
  */
 export type EffectNode =
   | SingleEffect
+  | StanceSelectEffect
   | ChoiceEffect
   | SequenceEffect
   | DiceGatedEffect
   | ConditionalEffect
   | DicePoolAllocationEffect
   | SelectUnitsEffect
+  | ForEachUnitEffect
   | MovementModifierEffect
   | AuraEffect
-  | LeaderModelAbilityGrantEffect
-  | PersistentDesignationEffect
   | DesignateTargetEffect
-  | StanceSelectEffect
   | RiskRewardEffect
   | IssueOrdersEffect
-  | ResourceActionMenuEffect;
+  | ResourceActionMenuEffect
+  | LeaderModelAbilityGrantEffect
+  | PersistentDesignationEffect;
 export type AbilityCondition2 = SimpleCondition | CompoundCondition;
 /**
  * This interface was referenced by `0KdcBundledSchemas`'s JSON-Schema
@@ -433,21 +437,22 @@ export type GameModes3 = [GameModeId, ...GameModeId[]];
 export type GameModes4 = [GameModeId, ...GameModeId[]];
 export type AbilityEffect1 =
   | SingleEffect
+  | StanceSelectEffect
   | ChoiceEffect
   | SequenceEffect
   | DiceGatedEffect
   | ConditionalEffect
   | DicePoolAllocationEffect
   | SelectUnitsEffect
+  | ForEachUnitEffect
   | MovementModifierEffect
   | AuraEffect
-  | LeaderModelAbilityGrantEffect
-  | PersistentDesignationEffect
   | DesignateTargetEffect
-  | StanceSelectEffect
   | RiskRewardEffect
   | IssueOrdersEffect
-  | ResourceActionMenuEffect;
+  | ResourceActionMenuEffect
+  | LeaderModelAbilityGrantEffect
+  | PersistentDesignationEffect;
 /**
  * Game modes this unit is legal or authored for; absent implies matched-play.
  *
@@ -490,21 +495,22 @@ export type RuleStateCoreRuleSlug =
  */
 export type AbilityEffect2 =
   | SingleEffect
+  | StanceSelectEffect
   | ChoiceEffect
   | SequenceEffect
   | DiceGatedEffect
   | ConditionalEffect
   | DicePoolAllocationEffect
   | SelectUnitsEffect
+  | ForEachUnitEffect
   | MovementModifierEffect
   | AuraEffect
-  | LeaderModelAbilityGrantEffect
-  | PersistentDesignationEffect
   | DesignateTargetEffect
-  | StanceSelectEffect
   | RiskRewardEffect
   | IssueOrdersEffect
-  | ResourceActionMenuEffect;
+  | ResourceActionMenuEffect
+  | LeaderModelAbilityGrantEffect
+  | PersistentDesignationEffect;
 
 /**
  * Auto-generated by tools/src/bundle-schemas.ts. Single self-contained schema for Rust codegen — do not edit by hand.
@@ -1313,6 +1319,33 @@ export interface Scaling {
 }
 /**
  * This interface was referenced by `0KdcBundledSchemas`'s JSON-Schema
+ * via the `definition` "stance-select-effect".
+ */
+export interface StanceSelectEffect {
+  type: "stance-select";
+  mode: "re-selectable" | "consumable";
+  scope?: "army" | "unit";
+  select?: string;
+  /**
+   * @minItems 2
+   */
+  options: [
+    {
+      name: string;
+      effect: EffectNode;
+    },
+    {
+      name: string;
+      effect: EffectNode;
+    },
+    ...{
+      name: string;
+      effect: EffectNode;
+    }[]
+  ];
+}
+/**
+ * This interface was referenced by `0KdcBundledSchemas`'s JSON-Schema
  * via the `definition` "choice-effect".
  */
 export interface ChoiceEffect {
@@ -1322,6 +1355,7 @@ export interface ChoiceEffect {
    */
   options: [EffectNode, EffectNode, ...EffectNode[]];
   choice_label?: string;
+  choice_prompt?: string;
   [k: string]: unknown;
 }
 /**
@@ -1414,25 +1448,22 @@ export interface SelectUnitsEffect {
    * Legacy selectors omit min_count and retain up-to semantics. Bounded authoring requires min_count, max_count, and owner, with min_count <= max_count.
    */
   selector: {
-    min_count?: number;
-    max_count: number;
-    keywords?: string[];
-    owner: "friendly" | "enemy";
-    /**
-     * Distance from bearer to each selected unit.
-     */
-    range_inches?: number;
-    /**
-     * When true, each selected candidate must be visible to the bearer.
-     */
-    visibility_required?: boolean;
-    /**
-     * Candidate engagement relation to the bearer; evaluated independently of range_inches.
-     */
-    engagement_relation?: "any" | "engaged-with-bearer" | "not-engaged-with-bearer";
+    [k: string]: unknown;
   };
   effect: EffectNode;
   [k: string]: unknown;
+}
+/**
+ * This interface was referenced by `0KdcBundledSchemas`'s JSON-Schema
+ * via the `definition` "for-each-unit-effect".
+ */
+export interface ForEachUnitEffect {
+  type: "for-each-unit";
+  selector: {
+    owner: "friendly" | "enemy";
+    within_inches?: number;
+  };
+  effect: EffectNode;
 }
 /**
  * This interface was referenced by `0KdcBundledSchemas`'s JSON-Schema
@@ -1499,11 +1530,21 @@ export interface AuraEffect {
   target: "enemy-within-aura" | "friendly-within-aura";
   modifier: {
     range?: number | [number, ...number[]];
-    emitter_filter?: KeywordFilter;
-    recipient_filter?: KeywordFilter;
     range_bonus?: number;
     of?: string;
     effect?: EffectNode;
+    eligible?: {
+      /**
+       * @minItems 1
+       */
+      required_keywords?: [string, ...string[]];
+      /**
+       * @minItems 1
+       */
+      excluded_keywords?: [string, ...string[]];
+    };
+    emitter_filter?: KeywordFilter;
+    recipient_filter?: KeywordFilter;
   };
 }
 /**
@@ -1523,92 +1564,6 @@ export interface KeywordFilter {
   excluded_keywords?: [string, ...string[]];
 }
 /**
- * Resolve the attached qualifying leader model and dispatch a targetless effect to that model while it leads the bearer unit.
- *
- * This interface was referenced by `0KdcBundledSchemas`'s JSON-Schema
- * via the `definition` "leader-model-ability-grant-effect".
- */
-export interface LeaderModelAbilityGrantEffect {
-  type: "leader-model-ability-grant";
-  source: "bearer-unit";
-  beneficiary: "leading-leader-model" | "attached-character-leader";
-  leader_filter?: {
-    identity?: string;
-    /**
-     * @minItems 1
-     */
-    keywords?: [string, ...string[]];
-  };
-  attached_unit_filter: [string, ...string[]] | null;
-  duration: "while-leading";
-  grant: {
-    recipient: "beneficiary";
-    effect: BeneficiaryBoundEffectNode;
-  };
-  recipient_binding: "beneficiary-only";
-}
-/**
- * Targetless effect dispatched to a relation-resolved beneficiary model; bearer and unit targets are intentionally not representable.
- *
- * This interface was referenced by `0KdcBundledSchemas`'s JSON-Schema
- * via the `definition` "beneficiary-bound-effect-node".
- */
-export interface BeneficiaryBoundEffectNode {
-  type: string;
-  modifier?: {
-    [k: string]: unknown;
-  };
-  scaling?: Scaling;
-}
-/**
- * This interface was referenced by `0KdcBundledSchemas`'s JSON-Schema
- * via the `definition` "persistent-designation-effect".
- */
-export interface PersistentDesignationEffect {
-  type: "persistent-designation";
-  designation: string;
-  select: {
-    scope: "enemy-unit" | "objective-marker";
-    count?: 1;
-    timing: string;
-    selection_policy: "one-time";
-  };
-  /**
-   * The retained reference is consumed by the bearer model only; the renderer names both the bearer recipient and the exact selected-reference relation.
-   */
-  consumer: {
-    /**
-     * Resolve this relation from the bearer to its retained enemy unit or marker; do not substitute a generic target or nearby-object predicate.
-     */
-    relation: "attacks-selected-unit" | "within-selected-marker";
-    /**
-     * For the seed, beneficiary bearer resolves to this model; the selected unit or marker is never the effect recipient.
-     */
-    beneficiary: "bearer";
-    /**
-     * Nested effects target the bearer. Objective Control operation set is an assignment and renders as setting the characteristic to the value, not as a signed delta.
-     */
-    effect:
-      | SingleEffect
-      | ChoiceEffect
-      | SequenceEffect
-      | DiceGatedEffect
-      | ConditionalEffect
-      | DicePoolAllocationEffect
-      | SelectUnitsEffect
-      | MovementModifierEffect
-      | AuraEffect
-      | LeaderModelAbilityGrantEffect
-      | PersistentDesignationEffect
-      | DesignateTargetEffect
-      | StanceSelectEffect
-      | RiskRewardEffect
-      | IssueOrdersEffect
-      | ResourceActionMenuEffect;
-  };
-  duration: "phase" | "turn" | "battle-round" | "battle" | "until-next-command-phase";
-}
-/**
  * This interface was referenced by `0KdcBundledSchemas`'s JSON-Schema
  * via the `definition` "designate-target-effect".
  */
@@ -1625,33 +1580,6 @@ export interface DesignateTargetEffect {
     effect: EffectNode;
   };
   duration?: "phase" | "turn" | "battle-round" | "battle" | "until-next-command-phase";
-}
-/**
- * This interface was referenced by `0KdcBundledSchemas`'s JSON-Schema
- * via the `definition` "stance-select-effect".
- */
-export interface StanceSelectEffect {
-  type: "stance-select";
-  mode: "re-selectable" | "consumable";
-  scope?: "army" | "unit";
-  select?: string;
-  /**
-   * @minItems 2
-   */
-  options: [
-    {
-      name: string;
-      effect: EffectNode;
-    },
-    {
-      name: string;
-      effect: EffectNode;
-    },
-    ...{
-      name: string;
-      effect: EffectNode;
-    }[]
-  ];
 }
 /**
  * This interface was referenced by `0KdcBundledSchemas`'s JSON-Schema
@@ -1790,6 +1718,93 @@ export interface ResourceActionMenuTrigger {
   };
   window?: string;
   binds_event_variable?: string;
+}
+/**
+ * Resolve the attached qualifying leader model and dispatch a targetless effect to that model while it leads the bearer unit.
+ *
+ * This interface was referenced by `0KdcBundledSchemas`'s JSON-Schema
+ * via the `definition` "leader-model-ability-grant-effect".
+ */
+export interface LeaderModelAbilityGrantEffect {
+  type: "leader-model-ability-grant";
+  source: "bearer-unit";
+  beneficiary: "leading-leader-model" | "attached-character-leader";
+  leader_filter?: {
+    identity?: string;
+    /**
+     * @minItems 1
+     */
+    keywords?: [string, ...string[]];
+  };
+  attached_unit_filter: [string, ...string[]] | null;
+  duration: "while-leading";
+  grant: {
+    recipient: "beneficiary";
+    effect: BeneficiaryBoundEffectNode;
+  };
+  recipient_binding: "beneficiary-only";
+}
+/**
+ * Targetless effect dispatched to a relation-resolved beneficiary model; bearer and unit targets are intentionally not representable.
+ *
+ * This interface was referenced by `0KdcBundledSchemas`'s JSON-Schema
+ * via the `definition` "beneficiary-bound-effect-node".
+ */
+export interface BeneficiaryBoundEffectNode {
+  type: string;
+  modifier?: {
+    [k: string]: unknown;
+  };
+  scaling?: Scaling;
+}
+/**
+ * This interface was referenced by `0KdcBundledSchemas`'s JSON-Schema
+ * via the `definition` "persistent-designation-effect".
+ */
+export interface PersistentDesignationEffect {
+  type: "persistent-designation";
+  designation: string;
+  select: {
+    scope: "enemy-unit" | "objective-marker";
+    count?: 1;
+    timing: string;
+    selection_policy: "one-time";
+  };
+  /**
+   * The retained reference is consumed by the bearer model only; the renderer names both the bearer recipient and the exact selected-reference relation.
+   */
+  consumer: {
+    /**
+     * Resolve this relation from the bearer to its retained enemy unit or marker; do not substitute a generic target or nearby-object predicate.
+     */
+    relation: "attacks-selected-unit" | "within-selected-marker";
+    /**
+     * For the seed, beneficiary bearer resolves to this model; the selected unit or marker is never the effect recipient.
+     */
+    beneficiary: "bearer";
+    /**
+     * Nested effects target the bearer. Objective Control operation set is an assignment and renders as setting the characteristic to the value, not as a signed delta.
+     */
+    effect:
+      | SingleEffect
+      | StanceSelectEffect
+      | ChoiceEffect
+      | SequenceEffect
+      | DiceGatedEffect
+      | ConditionalEffect
+      | DicePoolAllocationEffect
+      | SelectUnitsEffect
+      | ForEachUnitEffect
+      | MovementModifierEffect
+      | AuraEffect
+      | DesignateTargetEffect
+      | RiskRewardEffect
+      | IssueOrdersEffect
+      | ResourceActionMenuEffect
+      | LeaderModelAbilityGrantEffect
+      | PersistentDesignationEffect;
+  };
+  duration: "phase" | "turn" | "battle-round" | "battle" | "until-next-command-phase";
 }
 /**
  * A CP-costed ability usable during specific game phases.

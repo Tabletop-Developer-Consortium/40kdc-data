@@ -48,7 +48,7 @@
     }
   },
   {
-    "id": "grand-master-in-nemesis-dreadknight-wgo-mfm-1",
+    "id": "grand-master-in-nemesis-dreadknight-wgo-bsd-1",
     "unit_id": "grand-master-in-nemesis-dreadknight",
     "faction_id": "grey-knights",
     "game_version": {
@@ -56,80 +56,26 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replacement_choice": [
-      [
-        "heavy-psycannon",
-        "heavy-incinerator"
-      ],
-      [
-        "heavy-psycannon",
-        "sublimator"
-      ],
-      [
-        "sublimator",
-        "heavy-incinerator"
-      ],
-      [
-        "gatling-psilencer",
-        "heavy-psycannon"
-      ],
-      [
-        "heavy-incinerator",
-        "gatling-psilencer"
-      ],
-      [
-        "sublimator"
-      ],
-      [
-        "heavy-psycannon"
-      ],
-      [
-        "gatling-psilencer"
-      ],
-      [
-        "sublimator",
-        "gatling-psilencer"
-      ],
-      [
-        "heavy-incinerator"
-      ]
-    ],
-    "model_constraint": {
-      "any_number": true
-    }
-  },
-  {
-    "id": "grand-master-in-nemesis-dreadknight-wgo-mfm-2",
-    "unit_id": "grand-master-in-nemesis-dreadknight",
-    "faction_id": "grey-knights",
-    "game_version": {
-      "edition": "11th",
-      "dataslate": "launch"
-    },
-    "is_free": true,
-    "replaces": [
-      "dreadfists"
-    ],
     "replacement_choice": [
       [
         "nemesis-daemon-greathammer"
       ],
       [
-        "nemesis-mace"
+        "nemesis-flail"
       ],
       [
         "nemesis-greatsword"
       ],
       [
-        "nemesis-flail"
+        "nemesis-mace"
       ]
     ],
-    "model_constraint": {
-      "any_number": true
-    }
+    "replaces": [
+      "dreadfists"
+    ]
   },
   {
-    "id": "grand-master-in-nemesis-dreadknight-wgo-mfm-3",
+    "id": "grand-master-in-nemesis-dreadknight-wgo-bsd-2",
     "unit_id": "grand-master-in-nemesis-dreadknight",
     "faction_id": "grey-knights",
     "game_version": {
@@ -137,12 +83,39 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replacement": [
-      "fragstorm-grenade-launcher"
+    "replacement_choice": [
+      [
+        "gatling-psilencer"
+      ],
+      [
+        "heavy-incinerator"
+      ],
+      [
+        "heavy-psycannon"
+      ],
+      [
+        "sublimator"
+      ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 2
     }
+  },
+  {
+    "id": "grand-master-in-nemesis-dreadknight-wgo-bsd-3",
+    "unit_id": "grand-master-in-nemesis-dreadknight",
+    "faction_id": "grey-knights",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_free": true,
+    "model_constraint": {
+      "max_count": 1
+    },
+    "replacement": [
+      "fragstorm-grenade-launcher"
+    ]
   },
   {
     "id": "land-raider-crusader-wgo-mfm-1",
@@ -515,7 +488,7 @@
     }
   },
   {
-    "id": "strike-squad-wgo-mfm-1",
+    "id": "strike-squad-wgo-bsd-1",
     "unit_id": "strike-squad",
     "faction_id": "grey-knights",
     "game_version": {
@@ -523,27 +496,26 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "storm-bolter",
-      "nemesis-force-weapon-strike-squad"
-    ],
     "replacement_choice": [
       [
-        "incinerator",
-        "close-combat-weapon"
+        "close-combat-weapon",
+        "incinerator"
+      ],
+      [
+        "close-combat-weapon",
+        "psilencer-strike-squad"
       ],
       [
         "close-combat-weapon",
         "psycannon-strike-squad"
-      ],
-      [
-        "psilencer-strike-squad",
-        "close-combat-weapon"
       ]
     ],
+    "replaces": [
+      "nemesis-force-weapon-strike-squad",
+      "storm-bolter"
+    ],
     "model_constraint": {
-      "model_name": "Grey Knight",
-      "any_number": true
+      "max_count": 1
     }
   },
   {

@@ -68,7 +68,7 @@
     }
   },
   {
-    "id": "inquisitorial-chimera-wgo-mfm-1",
+    "id": "inquisitorial-chimera-wgo-bsd-1",
     "unit_id": "inquisitorial-chimera",
     "faction_id": "agents-of-the-imperium",
     "game_version": {
@@ -76,15 +76,15 @@
       "dataslate": "launch"
     },
     "is_free": true,
+    "replaces": [
+      "heavy-bolter"
+    ],
     "replacement": [
-      "hunter-killer-missile"
-    ],
-    "model_constraint": {
-      "any_number": true
-    }
+      "heavy-flamer"
+    ]
   },
   {
-    "id": "inquisitorial-chimera-wgo-mfm-2",
+    "id": "inquisitorial-chimera-wgo-bsd-2",
     "unit_id": "inquisitorial-chimera",
     "faction_id": "agents-of-the-imperium",
     "game_version": {
@@ -94,116 +94,52 @@
     "is_free": true,
     "replacement_choice": [
       [
-        "heavy-stubber"
-      ],
-      [
-        "storm-bolter"
-      ]
-    ],
-    "model_constraint": {
-      "any_number": true
-    }
-  },
-  {
-    "id": "inquisitorial-chimera-wgo-mfm-3",
-    "unit_id": "inquisitorial-chimera",
-    "faction_id": "agents-of-the-imperium",
-    "game_version": {
-      "edition": "11th",
-      "dataslate": "launch"
-    },
-    "is_free": true,
-    "replaces": [
-      "multi-laser",
-      "heavy-bolter"
-    ],
-    "replacement_choice": [
-      [
-        "storm-bolter",
-        "heavy-flamer",
-        "heavy-flamer"
-      ],
-      [
-        "heavy-flamer",
-        "heavy-flamer",
-        "heavy-stubber"
-      ],
-      [
-        "heavy-flamer",
-        "heavy-flamer"
-      ],
-      [
-        "storm-bolter"
-      ]
-    ],
-    "model_constraint": {
-      "any_number": true
-    }
-  },
-  {
-    "id": "inquisitorial-chimera-wgo-mfm-4",
-    "unit_id": "inquisitorial-chimera",
-    "faction_id": "agents-of-the-imperium",
-    "game_version": {
-      "edition": "11th",
-      "dataslate": "launch"
-    },
-    "is_free": true,
-    "replaces": [
-      "heavy-bolter"
-    ],
-    "replacement_choice": [
-      [
-        "heavy-stubber",
-        "heavy-flamer"
+        "heavy-bolter"
       ],
       [
         "heavy-flamer"
       ]
     ],
-    "model_constraint": {
-      "any_number": true
-    }
-  },
-  {
-    "id": "inquisitorial-chimera-wgo-mfm-5",
-    "unit_id": "inquisitorial-chimera",
-    "faction_id": "agents-of-the-imperium",
-    "game_version": {
-      "edition": "11th",
-      "dataslate": "launch"
-    },
-    "is_free": true,
     "replaces": [
       "multi-laser"
-    ],
+    ]
+  },
+  {
+    "id": "inquisitorial-chimera-wgo-bsd-3",
+    "unit_id": "inquisitorial-chimera",
+    "faction_id": "agents-of-the-imperium",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_free": true,
     "replacement_choice": [
       [
-        "heavy-stubber",
-        "heavy-flamer"
-      ],
-      [
-        "heavy-bolter"
-      ],
-      [
-        "storm-bolter",
-        "heavy-flamer"
-      ],
-      [
-        "storm-bolter",
-        "heavy-bolter"
-      ],
-      [
-        "heavy-flamer"
-      ],
-      [
-        "heavy-bolter",
         "heavy-stubber"
+      ],
+      [
+        "storm-bolter"
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
+  },
+  {
+    "id": "inquisitorial-chimera-wgo-bsd-4",
+    "unit_id": "inquisitorial-chimera",
+    "faction_id": "agents-of-the-imperium",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_free": true,
+    "model_constraint": {
+      "max_count": 1
+    },
+    "replacement": [
+      "hunter-killer-missile"
+    ]
   },
   {
     "id": "sisters-of-battle-immolator-wgo-mfm-1",

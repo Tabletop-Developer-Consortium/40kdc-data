@@ -19,7 +19,7 @@
     }
   },
   {
-    "id": "onager-dunecrawler-wgo-mfm-1",
+    "id": "onager-dunecrawler-wgo-bsd-1",
     "unit_id": "onager-dunecrawler",
     "faction_id": "adeptus-mechanicus",
     "game_version": {
@@ -27,58 +27,25 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replacement": [
-      "broad-spectrum-data-tether"
-    ],
-    "model_constraint": {
-      "any_number": true
-    }
-  },
-  {
-    "id": "onager-dunecrawler-wgo-mfm-2",
-    "unit_id": "onager-dunecrawler",
-    "faction_id": "adeptus-mechanicus",
-    "game_version": {
-      "edition": "11th",
-      "dataslate": "launch"
-    },
-    "is_free": true,
-    "replaces": [
-      "eradication-beamer"
-    ],
     "replacement_choice": [
-      [
-        "neutron-laser",
-        "cognis-heavy-stubber",
-        "cognis-heavy-stubber"
-      ],
-      [
-        "cognis-heavy-stubber",
-        "twin-onager-heavy-phosphor-blaster"
-      ],
       [
         "cognis-heavy-stubber",
         "neutron-laser"
       ],
       [
-        "twin-onager-heavy-phosphor-blaster"
-      ],
-      [
-        "icarus-array",
         "daedalus-missile-launcher",
-        "cognis-heavy-stubber"
+        "icarus-array"
       ],
       [
-        "icarus-array",
-        "daedalus-missile-launcher"
+        "twin-onager-heavy-phosphor-blaster"
       ]
     ],
-    "model_constraint": {
-      "any_number": true
-    }
+    "replaces": [
+      "eradication-beamer"
+    ]
   },
   {
-    "id": "onager-dunecrawler-wgo-mfm-3",
+    "id": "onager-dunecrawler-wgo-bsd-2",
     "unit_id": "onager-dunecrawler",
     "faction_id": "adeptus-mechanicus",
     "game_version": {
@@ -86,12 +53,28 @@
       "dataslate": "launch"
     },
     "is_free": true,
+    "model_constraint": {
+      "max_count": 1
+    },
+    "replacement": [
+      "broad-spectrum-data-tether"
+    ]
+  },
+  {
+    "id": "onager-dunecrawler-wgo-bsd-3",
+    "unit_id": "onager-dunecrawler",
+    "faction_id": "adeptus-mechanicus",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_free": true,
+    "model_constraint": {
+      "max_count": 1
+    },
     "replacement": [
       "cognis-heavy-stubber"
-    ],
-    "model_constraint": {
-      "any_number": true
-    }
+    ]
   },
   {
     "id": "kataphron-destroyers-wgo-mfm-1",

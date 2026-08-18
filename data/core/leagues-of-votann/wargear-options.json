@@ -315,7 +315,7 @@
     }
   },
   {
-    "id": "hernkyn-yaegirs-wgo-mfm-1",
+    "id": "hernkyn-yaegirs-wgo-bsd-1",
     "unit_id": "hernkyn-yaegirs",
     "faction_id": "leagues-of-votann",
     "game_version": {
@@ -326,25 +326,58 @@
     "replaces": [
       "bolt-shotgun"
     ],
-    "replacement_choice": [
-      [
-        "magna-coil-rifle"
-      ],
-      [
-        "apm-launcher"
-      ],
-      [
-        "plasma-knife",
-        "bolt-revolver"
-      ]
+    "model_constraint": {
+      "max_count": 1
+    },
+    "replacement": [
+      "apm-launcher"
+    ]
+  },
+  {
+    "id": "hernkyn-yaegirs-wgo-bsd-2",
+    "unit_id": "hernkyn-yaegirs",
+    "faction_id": "leagues-of-votann",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_free": true,
+    "replaces": [
+      "bolt-shotgun"
     ],
     "model_constraint": {
-      "model_name": "Hernkyn Yaegir",
-      "any_number": true
+      "max_count": 1
+    },
+    "replacement": [
+      "magna-coil-rifle"
+    ]
+  },
+  {
+    "id": "hernkyn-yaegirs-wgo-bsd-3",
+    "unit_id": "hernkyn-yaegirs",
+    "faction_id": "leagues-of-votann",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_free": true,
+    "replacement_choice": [
+      [
+        "bolt-revolver"
+      ],
+      [
+        "plasma-knife"
+      ]
+    ],
+    "replaces": [
+      "bolt-shotgun"
+    ],
+    "model_constraint": {
+      "max_count": 9
     }
   },
   {
-    "id": "hernkyn-yaegirs-wgo-mfm-2",
+    "id": "hernkyn-yaegirs-wgo-bsd-4",
     "unit_id": "hernkyn-yaegirs",
     "faction_id": "leagues-of-votann",
     "game_version": {
@@ -354,15 +387,15 @@
     "is_free": true,
     "replaces": [
       "bolt-shotgun"
-    ],
-    "replacement": [
-      "bolt-revolver",
-      "plasma-knife"
     ],
     "model_constraint": {
       "model_name": "Yaegir Theyn",
       "any_number": true
-    }
+    },
+    "replacement": [
+      "bolt-revolver",
+      "plasma-knife"
+    ]
   },
   {
     "id": "einhyr-champion-wgo-mfm-1",

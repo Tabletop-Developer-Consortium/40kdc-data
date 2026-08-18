@@ -73,7 +73,7 @@
     }
   },
   {
-    "id": "mortifiers-wgo-mfm-1",
+    "id": "mortifiers-wgo-bsd-1",
     "unit_id": "mortifiers",
     "faction_id": "adepta-sororitas",
     "game_version": {
@@ -81,77 +81,64 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replacement": [
-      "anchorite-sarcophagus"
+    "replacement_choice": [
+      [
+        "penitent-buzz-blade",
+        "penitent-flail"
+      ],
+      [
+        "twin-penitent-flails"
+      ]
     ],
-    "model_constraint": {
-      "any_number": true
-    }
-  },
-  {
-    "id": "mortifiers-wgo-mfm-2",
-    "unit_id": "mortifiers",
-    "faction_id": "adepta-sororitas",
-    "game_version": {
-      "edition": "11th",
-      "dataslate": "launch"
-    },
-    "is_free": true,
     "replaces": [
       "twin-penitent-buzz-blades"
     ],
+    "model_constraint": {
+      "any_number": true
+    }
+  },
+  {
+    "id": "mortifiers-wgo-bsd-2",
+    "unit_id": "mortifiers",
+    "faction_id": "adepta-sororitas",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_free": true,
     "replacement_choice": [
       [
-        "twin-penitent-flails"
+        "heavy-bolter",
+        "mortifier-flamer"
       ],
       [
-        "penitent-flail",
-        "penitent-buzz-blade"
+        "mortifier-flamer",
+        "mortifier-flamer"
       ]
     ],
-    "model_constraint": {
-      "any_number": true
-    }
-  },
-  {
-    "id": "mortifiers-wgo-mfm-3",
-    "unit_id": "mortifiers",
-    "faction_id": "adepta-sororitas",
-    "game_version": {
-      "edition": "11th",
-      "dataslate": "launch"
-    },
-    "is_free": true,
-    "replaces": [
-      "heavy-bolter"
-    ],
-    "replacement": [
-      "mortifier-flamer"
-    ],
-    "model_constraint": {
-      "any_number": true
-    }
-  },
-  {
-    "id": "mortifiers-wgo-mfm-4",
-    "unit_id": "mortifiers",
-    "faction_id": "adepta-sororitas",
-    "game_version": {
-      "edition": "11th",
-      "dataslate": "launch"
-    },
-    "is_free": true,
     "replaces": [
       "heavy-bolter",
       "heavy-bolter"
     ],
-    "replacement": [
-      "mortifier-flamer",
-      "mortifier-flamer"
-    ],
     "model_constraint": {
       "any_number": true
     }
+  },
+  {
+    "id": "mortifiers-wgo-bsd-3",
+    "unit_id": "mortifiers",
+    "faction_id": "adepta-sororitas",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_free": true,
+    "model_constraint": {
+      "max_count": 1
+    },
+    "replacement": [
+      "anchorite-sarcophagus"
+    ]
   },
   {
     "id": "canoness-with-jump-pack-wgo-mfm-1",
@@ -354,7 +341,7 @@
     }
   },
   {
-    "id": "seraphim-squad-wgo-mfm-1",
+    "id": "seraphim-squad-wgo-bsd-1",
     "unit_id": "seraphim-squad",
     "faction_id": "adepta-sororitas",
     "game_version": {
@@ -362,47 +349,31 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "bolt-pistol",
-      "bolt-pistol"
-    ],
     "replacement_choice": [
       [
-        "ministorum-hand-flamer",
-        "ministorum-hand-flamer"
+        "bolt-pistol",
+        "chainsword"
       ],
       [
-        "inferno-pistol",
-        "inferno-pistol"
-      ]
-    ],
-    "model_constraint": {
-      "model_name": "Seraphim",
-      "any_number": true
-    }
-  },
-  {
-    "id": "seraphim-squad-wgo-mfm-2",
-    "unit_id": "seraphim-squad",
-    "faction_id": "adepta-sororitas",
-    "game_version": {
-      "edition": "11th",
-      "dataslate": "launch"
-    },
-    "is_free": true,
-    "replaces": [
-      "bolt-pistol",
-      "bolt-pistol"
-    ],
-    "replacement_choice": [
+        "bolt-pistol",
+        "plasma-pistol"
+      ],
+      [
+        "bolt-pistol",
+        "power-weapon-seraphim-squad"
+      ],
       [
         "chainsword",
         "plasma-pistol"
       ],
       [
-        "power-weapon-seraphim-squad",
-        "plasma-pistol"
+        "plasma-pistol",
+        "power-weapon-seraphim-squad"
       ]
+    ],
+    "replaces": [
+      "bolt-pistol",
+      "bolt-pistol"
     ],
     "model_constraint": {
       "model_name": "Seraphim Superior",
@@ -410,7 +381,7 @@
     }
   },
   {
-    "id": "seraphim-squad-wgo-mfm-3",
+    "id": "seraphim-squad-wgo-bsd-2",
     "unit_id": "seraphim-squad",
     "faction_id": "adepta-sororitas",
     "game_version": {
@@ -418,23 +389,22 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "bolt-pistol"
-    ],
     "replacement_choice": [
       [
-        "plasma-pistol"
+        "inferno-pistol",
+        "inferno-pistol"
       ],
       [
-        "chainsword"
-      ],
-      [
-        "power-weapon-seraphim-squad"
+        "ministorum-hand-flamer",
+        "ministorum-hand-flamer"
       ]
     ],
+    "replaces": [
+      "bolt-pistol",
+      "bolt-pistol"
+    ],
     "model_constraint": {
-      "model_name": "Seraphim Superior",
-      "any_number": true
+      "max_count": 2
     }
   },
   {
@@ -1184,7 +1154,7 @@
     }
   },
   {
-    "id": "canoness-wgo-mfm-1",
+    "id": "canoness-wgo-bsd-1",
     "unit_id": "canoness",
     "faction_id": "adepta-sororitas",
     "game_version": {
@@ -1192,129 +1162,6 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "bolt-pistol-canoness"
-    ],
-    "replacement_choice": [
-      [
-        "null-rod",
-        "condemnor-boltgun-canoness"
-      ],
-      [
-        "plasma-pistol-canoness"
-      ],
-      [
-        "inferno-pistol-canoness"
-      ],
-      [
-        "plasma-pistol-canoness",
-        "null-rod"
-      ],
-      [
-        "condemnor-boltgun-canoness",
-        "brazier-of-holy-fire"
-      ],
-      [
-        "null-rod",
-        "inferno-pistol-canoness"
-      ],
-      [
-        "inferno-pistol-canoness",
-        "brazier-of-holy-fire"
-      ],
-      [
-        "condemnor-boltgun-canoness"
-      ],
-      [
-        "brazier-of-holy-fire",
-        "plasma-pistol-canoness"
-      ]
-    ],
-    "model_constraint": {
-      "any_number": true
-    }
-  },
-  {
-    "id": "canoness-wgo-mfm-2",
-    "unit_id": "canoness",
-    "faction_id": "adepta-sororitas",
-    "game_version": {
-      "edition": "11th",
-      "dataslate": "launch"
-    },
-    "is_free": true,
-    "replaces": [
-      "bolt-pistol-canoness",
-      "hallowed-chainsword"
-    ],
-    "replacement_choice": [
-      [
-        "inferno-pistol-canoness",
-        "power-weapon"
-      ],
-      [
-        "power-weapon",
-        "condemnor-boltgun-canoness"
-      ],
-      [
-        "plasma-pistol-canoness",
-        "power-weapon"
-      ],
-      [
-        "blessed-blade",
-        "inferno-pistol-canoness"
-      ],
-      [
-        "blessed-blade",
-        "plasma-pistol-canoness"
-      ],
-      [
-        "blessed-blade",
-        "condemnor-boltgun-canoness"
-      ],
-      [
-        "plasma-pistol-canoness",
-        "power-weapon",
-        "rod-of-office"
-      ]
-    ],
-    "model_constraint": {
-      "any_number": true
-    }
-  },
-  {
-    "id": "canoness-wgo-mfm-3",
-    "unit_id": "canoness",
-    "faction_id": "adepta-sororitas",
-    "game_version": {
-      "edition": "11th",
-      "dataslate": "launch"
-    },
-    "is_free": true,
-    "replacement_choice": [
-      [
-        "null-rod"
-      ],
-      [
-        "brazier-of-holy-fire"
-      ]
-    ],
-    "model_constraint": {
-      "any_number": true
-    }
-  },
-  {
-    "id": "canoness-wgo-mfm-4",
-    "unit_id": "canoness",
-    "faction_id": "adepta-sororitas",
-    "game_version": {
-      "edition": "11th",
-      "dataslate": "launch"
-    },
-    "is_free": true,
-    "replaces": [
-      "hallowed-chainsword"
-    ],
     "replacement_choice": [
       [
         "blessed-blade"
@@ -1323,8 +1170,56 @@
         "power-weapon"
       ]
     ],
+    "replaces": [
+      "hallowed-chainsword"
+    ]
+  },
+  {
+    "id": "canoness-wgo-bsd-2",
+    "unit_id": "canoness",
+    "faction_id": "adepta-sororitas",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_free": true,
+    "replacement_choice": [
+      [
+        "condemnor-boltgun-canoness"
+      ],
+      [
+        "inferno-pistol-canoness"
+      ],
+      [
+        "plasma-pistol-canoness"
+      ]
+    ],
+    "replaces": [
+      "bolt-pistol-canoness"
+    ]
+  },
+  {
+    "id": "canoness-wgo-bsd-3",
+    "unit_id": "canoness",
+    "faction_id": "adepta-sororitas",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_free": true,
+    "replacement_choice": [
+      [
+        "brazier-of-holy-fire"
+      ],
+      [
+        "null-rod"
+      ],
+      [
+        "rod-of-office"
+      ]
+    ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   }
 ]

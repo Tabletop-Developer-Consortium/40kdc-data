@@ -478,7 +478,7 @@
     }
   },
   {
-    "id": "kommandos-wgo-mfm-1",
+    "id": "kommandos-wgo-bsd-1",
     "unit_id": "kommandos",
     "faction_id": "orks",
     "game_version": {
@@ -487,33 +487,19 @@
     },
     "is_free": true,
     "replaces": [
-      "slugga",
-      "choppa"
-    ],
-    "replacement_choice": [
-      [
-        "kustom-shoota",
-        "close-combat-weapon"
-      ],
-      [
-        "rokkit-launcha-kommandos",
-        "close-combat-weapon"
-      ],
-      [
-        "breacha-ram"
-      ],
-      [
-        "close-combat-weapon",
-        "burna"
-      ]
+      "choppa",
+      "slugga"
     ],
     "model_constraint": {
-      "model_name": "Kommando",
-      "any_number": true
-    }
+      "max_count": 2
+    },
+    "replacement": [
+      "close-combat-weapon",
+      "kustom-shoota"
+    ]
   },
   {
-    "id": "kommandos-wgo-mfm-2",
+    "id": "kommandos-wgo-bsd-2",
     "unit_id": "kommandos",
     "faction_id": "orks",
     "game_version": {
@@ -554,15 +540,77 @@
     },
     "is_free": true,
     "replaces": [
-      "choppa"
+      "choppa",
+      "slugga"
     ],
+    "model_constraint": {
+      "max_count": 1
+    },
+    "replacement": [
+      "breacha-ram"
+    ]
+  },
+  {
+    "id": "kommandos-wgo-bsd-3",
+    "unit_id": "kommandos",
+    "faction_id": "orks",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_free": true,
+    "replaces": [
+      "choppa",
+      "slugga"
+    ],
+    "model_constraint": {
+      "max_count": 1
+    },
+    "replacement": [
+      "burna",
+      "close-combat-weapon"
+    ]
+  },
+  {
+    "id": "kommandos-wgo-bsd-4",
+    "unit_id": "kommandos",
+    "faction_id": "orks",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_free": true,
+    "replaces": [
+      "choppa",
+      "slugga"
+    ],
+    "model_constraint": {
+      "max_count": 1
+    },
+    "replacement": [
+      "close-combat-weapon",
+      "rokkit-launcha-kommandos"
+    ]
+  },
+  {
+    "id": "kommandos-wgo-bsd-5",
+    "unit_id": "kommandos",
+    "faction_id": "orks",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_free": true,
     "replacement_choice": [
       [
-        "power-klaw"
+        "big-choppa-kommandos"
       ],
       [
-        "big-choppa-kommandos"
+        "power-klaw"
       ]
+    ],
+    "replaces": [
+      "choppa"
     ],
     "model_constraint": {
       "model_name": "Boss Nob",
@@ -1085,7 +1133,7 @@
     }
   },
   {
-    "id": "meganobz-wgo-mfm-1",
+    "id": "meganobz-wgo-bsd-1",
     "unit_id": "meganobz",
     "faction_id": "orks",
     "game_version": {
@@ -1096,20 +1144,15 @@
     "replaces": [
       "kustom-shoota"
     ],
-    "replacement_choice": [
-      [
-        "kombi-weapon"
-      ],
-      [
-        "killsaw-meganobz"
-      ]
-    ],
     "model_constraint": {
-      "any_number": true
-    }
+      "max_count": 6
+    },
+    "replacement": [
+      "kombi-weapon"
+    ]
   },
   {
-    "id": "meganobz-wgo-mfm-2",
+    "id": "meganobz-wgo-bsd-2",
     "unit_id": "meganobz",
     "faction_id": "orks",
     "game_version": {
@@ -1121,21 +1164,16 @@
       "kustom-shoota",
       "power-klaw"
     ],
-    "replacement_choice": [
-      [
-        "twin-killsaw"
-      ],
-      [
-        "killsaw-meganobz",
-        "kombi-weapon"
-      ]
-    ],
     "model_constraint": {
-      "any_number": true
-    }
+      "max_count": 6
+    },
+    "replacement": [
+      "killsaw-meganobz",
+      "kombi-weapon"
+    ]
   },
   {
-    "id": "meganobz-wgo-mfm-3",
+    "id": "meganobz-wgo-bsd-3",
     "unit_id": "meganobz",
     "faction_id": "orks",
     "game_version": {
@@ -1146,12 +1184,51 @@
     "replaces": [
       "power-klaw"
     ],
+    "model_constraint": {
+      "max_count": 6
+    },
     "replacement": [
       "killsaw-meganobz"
+    ]
+  },
+  {
+    "id": "meganobz-wgo-bsd-4",
+    "unit_id": "meganobz",
+    "faction_id": "orks",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_free": true,
+    "replaces": [
+      "kustom-shoota"
     ],
     "model_constraint": {
-      "any_number": true
-    }
+      "max_count": 6
+    },
+    "replacement": [
+      "killsaw-meganobz"
+    ]
+  },
+  {
+    "id": "meganobz-wgo-bsd-5",
+    "unit_id": "meganobz",
+    "faction_id": "orks",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_free": true,
+    "replaces": [
+      "kustom-shoota",
+      "power-klaw"
+    ],
+    "model_constraint": {
+      "max_count": 6
+    },
+    "replacement": [
+      "twin-killsaw"
+    ]
   },
   {
     "id": "gargantuan-squiggoth-wgo-mfm-1",

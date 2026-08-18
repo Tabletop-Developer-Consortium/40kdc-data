@@ -485,7 +485,7 @@
     }
   },
   {
-    "id": "helbrute-wgo-mfm-1",
+    "id": "helbrute-wgo-bsd-1",
     "unit_id": "helbrute",
     "faction_id": "world-eaters",
     "game_version": {
@@ -493,239 +493,60 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "multi-melta"
-    ],
     "replacement_choice": [
       [
-        "twin-autocannon"
-      ],
-      [
+        "combi-bolter",
         "helbrute-fist"
       ],
       [
-        "twin-heavy-bolter"
+        "heavy-flamer",
+        "helbrute-fist"
       ],
       [
-        "helbrute-fist",
-        "heavy-flamer"
+        "helbrute-hammer"
       ],
       [
-        "plasma-cannon"
-      ],
-      [
-        "twin-lascannon"
-      ],
-      [
-        "helbrute-fist",
-        "combi-bolter"
+        "power-scourge"
       ]
     ],
-    "model_constraint": {
-      "any_number": true
-    }
-  },
-  {
-    "id": "helbrute-wgo-mfm-2",
-    "unit_id": "helbrute",
-    "faction_id": "world-eaters",
-    "game_version": {
-      "edition": "11th",
-      "dataslate": "launch"
-    },
-    "is_free": true,
-    "replaces": [
-      "missile-launcher",
-      "multi-melta"
-    ],
-    "replacement_choice": [
-      [
-        "helbrute-fist",
-        "combi-bolter",
-        "twin-heavy-bolter"
-      ],
-      [
-        "helbrute-fist",
-        "twin-lascannon"
-      ],
-      [
-        "power-scourge",
-        "plasma-cannon"
-      ],
-      [
-        "twin-heavy-bolter",
-        "helbrute-hammer"
-      ],
-      [
-        "helbrute-fist",
-        "twin-heavy-bolter"
-      ],
-      [
-        "twin-autocannon",
-        "helbrute-fist",
-        "combi-bolter"
-      ],
-      [
-        "helbrute-fist",
-        "power-scourge"
-      ],
-      [
-        "helbrute-hammer",
-        "helbrute-fist",
-        "combi-bolter"
-      ],
-      [
-        "helbrute-fist",
-        "heavy-flamer",
-        "power-scourge"
-      ],
-      [
-        "heavy-flamer",
-        "heavy-flamer",
-        "helbrute-fist",
-        "helbrute-fist"
-      ],
-      [
-        "twin-autocannon",
-        "helbrute-fist"
-      ],
-      [
-        "combi-bolter",
-        "combi-bolter",
-        "helbrute-fist",
-        "helbrute-fist"
-      ],
-      [
-        "helbrute-fist",
-        "plasma-cannon"
-      ],
-      [
-        "power-scourge",
-        "twin-autocannon"
-      ],
-      [
-        "plasma-cannon",
-        "helbrute-fist",
-        "combi-bolter"
-      ],
-      [
-        "helbrute-hammer",
-        "twin-autocannon"
-      ],
-      [
-        "combi-bolter",
-        "helbrute-fist",
-        "twin-lascannon"
-      ],
-      [
-        "helbrute-fist",
-        "helbrute-fist",
-        "heavy-flamer"
-      ],
-      [
-        "helbrute-fist",
-        "helbrute-fist",
-        "combi-bolter"
-      ],
-      [
-        "twin-lascannon",
-        "helbrute-hammer"
-      ],
-      [
-        "heavy-flamer",
-        "helbrute-fist",
-        "helbrute-fist",
-        "combi-bolter"
-      ],
-      [
-        "helbrute-hammer",
-        "heavy-flamer",
-        "helbrute-fist"
-      ],
-      [
-        "combi-bolter",
-        "power-scourge",
-        "helbrute-fist"
-      ],
-      [
-        "twin-heavy-bolter",
-        "heavy-flamer",
-        "helbrute-fist"
-      ],
-      [
-        "helbrute-fist",
-        "helbrute-hammer"
-      ],
-      [
-        "heavy-flamer",
-        "helbrute-fist",
-        "plasma-cannon"
-      ],
-      [
-        "heavy-flamer",
-        "twin-autocannon",
-        "helbrute-fist"
-      ],
-      [
-        "helbrute-fist",
-        "twin-lascannon",
-        "heavy-flamer"
-      ],
-      [
-        "power-scourge",
-        "twin-heavy-bolter"
-      ],
-      [
-        "plasma-cannon",
-        "helbrute-hammer"
-      ],
-      [
-        "twin-lascannon",
-        "power-scourge"
-      ],
-      [
-        "helbrute-fist",
-        "helbrute-fist"
-      ]
-    ],
-    "model_constraint": {
-      "any_number": true
-    }
-  },
-  {
-    "id": "helbrute-wgo-mfm-3",
-    "unit_id": "helbrute",
-    "faction_id": "world-eaters",
-    "game_version": {
-      "edition": "11th",
-      "dataslate": "launch"
-    },
-    "is_free": true,
     "replaces": [
       "missile-launcher"
-    ],
+    ]
+  },
+  {
+    "id": "helbrute-wgo-bsd-2",
+    "unit_id": "helbrute",
+    "faction_id": "world-eaters",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_free": true,
     "replacement_choice": [
       [
-        "power-scourge"
-      ],
-      [
+        "combi-bolter",
         "helbrute-fist"
-      ],
-      [
-        "helbrute-fist",
-        "combi-bolter"
       ],
       [
         "heavy-flamer",
         "helbrute-fist"
       ],
       [
-        "helbrute-hammer"
+        "plasma-cannon"
+      ],
+      [
+        "twin-autocannon"
+      ],
+      [
+        "twin-heavy-bolter"
+      ],
+      [
+        "twin-lascannon"
       ]
     ],
-    "model_constraint": {
-      "any_number": true
-    }
+    "replaces": [
+      "multi-melta"
+    ]
   },
   {
     "id": "chaos-predator-destructor-wgo-mfm-1",

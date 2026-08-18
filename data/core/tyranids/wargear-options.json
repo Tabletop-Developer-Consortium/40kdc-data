@@ -291,7 +291,7 @@
     }
   },
   {
-    "id": "carnifexes-wgo-mfm-1",
+    "id": "carnifexes-wgo-bsd-1",
     "unit_id": "carnifexes",
     "faction_id": "tyranids",
     "game_version": {
@@ -299,141 +299,33 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replacement": [
-      "spine-banks"
-    ],
-    "model_constraint": {
-      "any_number": true
-    }
-  },
-  {
-    "id": "carnifexes-wgo-mfm-2",
-    "unit_id": "carnifexes",
-    "faction_id": "tyranids",
-    "game_version": {
-      "edition": "11th",
-      "dataslate": "launch"
-    },
-    "is_free": true,
-    "replacement": [
-      "bio-plasma"
-    ],
-    "model_constraint": {
-      "any_number": true
-    }
-  },
-  {
-    "id": "carnifexes-wgo-mfm-3",
-    "unit_id": "carnifexes",
-    "faction_id": "tyranids",
-    "game_version": {
-      "edition": "11th",
-      "dataslate": "launch"
-    },
-    "is_free": true,
-    "replaces": [
-      "carnifex-extra-scything-talons"
-    ],
     "replacement_choice": [
       [
-        "stranglethorn-cannon-carnifexes"
-      ],
-      [
         "carnifex-crushing-claws"
-      ],
-      [
-        "devourers-with-brainleech-worms"
       ],
       [
         "deathspitters-with-slimer-maggots"
       ],
       [
-        "heavy-venom-cannon-carnifexes"
+        "devourers-with-brainleech-worms"
       ]
     ],
-    "model_constraint": {
-      "any_number": true
-    }
-  },
-  {
-    "id": "carnifexes-wgo-mfm-4",
-    "unit_id": "carnifexes",
-    "faction_id": "tyranids",
-    "game_version": {
-      "edition": "11th",
-      "dataslate": "launch"
-    },
-    "is_free": true,
-    "replaces": [
-      "carnifex-scything-talons",
-      "carnifex-extra-scything-talons"
-    ],
-    "replacement_choice": [
-      [
-        "stranglethorn-cannon-carnifexes",
-        "deathspitters-with-slimer-maggots"
-      ],
-      [
-        "deathspitters-with-slimer-maggots",
-        "carnifex-crushing-claws"
-      ],
-      [
-        "deathspitters-with-slimer-maggots",
-        "deathspitters-with-slimer-maggots"
-      ],
-      [
-        "devourers-with-brainleech-worms",
-        "stranglethorn-cannon-carnifexes"
-      ],
-      [
-        "heavy-venom-cannon-carnifexes",
-        "devourers-with-brainleech-worms"
-      ],
-      [
-        "heavy-venom-cannon-carnifexes",
-        "carnifex-crushing-claws"
-      ],
-      [
-        "carnifex-crushing-claws",
-        "devourers-with-brainleech-worms"
-      ],
-      [
-        "devourers-with-brainleech-worms",
-        "devourers-with-brainleech-worms"
-      ],
-      [
-        "carnifex-crushing-claws",
-        "carnifex-crushing-claws"
-      ],
-      [
-        "devourers-with-brainleech-worms",
-        "deathspitters-with-slimer-maggots"
-      ],
-      [
-        "deathspitters-with-slimer-maggots",
-        "heavy-venom-cannon-carnifexes"
-      ],
-      [
-        "stranglethorn-cannon-carnifexes",
-        "carnifex-crushing-claws"
-      ]
-    ],
-    "model_constraint": {
-      "any_number": true
-    }
-  },
-  {
-    "id": "carnifexes-wgo-mfm-5",
-    "unit_id": "carnifexes",
-    "faction_id": "tyranids",
-    "game_version": {
-      "edition": "11th",
-      "dataslate": "launch"
-    },
-    "is_free": true,
     "replaces": [
       "carnifex-scything-talons"
     ],
+    "model_constraint": {
+      "any_number": true
+    }
+  },
+  {
+    "id": "carnifexes-wgo-bsd-2",
+    "unit_id": "carnifexes",
+    "faction_id": "tyranids",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_free": true,
     "replacement_choice": [
       [
         "carnifex-crushing-claws"
@@ -443,11 +335,52 @@
       ],
       [
         "devourers-with-brainleech-worms"
+      ],
+      [
+        "heavy-venom-cannon-carnifexes"
+      ],
+      [
+        "stranglethorn-cannon-carnifexes"
       ]
+    ],
+    "replaces": [
+      "carnifex-extra-scything-talons"
     ],
     "model_constraint": {
       "any_number": true
     }
+  },
+  {
+    "id": "carnifexes-wgo-bsd-3",
+    "unit_id": "carnifexes",
+    "faction_id": "tyranids",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_free": true,
+    "model_constraint": {
+      "any_number": true
+    },
+    "replacement": [
+      "bio-plasma"
+    ]
+  },
+  {
+    "id": "carnifexes-wgo-bsd-4",
+    "unit_id": "carnifexes",
+    "faction_id": "tyranids",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_free": true,
+    "model_constraint": {
+      "any_number": true
+    },
+    "replacement": [
+      "spine-banks"
+    ]
   },
   {
     "id": "hive-tyrant-wgo-mfm-1",

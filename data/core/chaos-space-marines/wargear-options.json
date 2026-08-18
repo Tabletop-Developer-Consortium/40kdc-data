@@ -1340,37 +1340,7 @@
     }
   },
   {
-    "id": "chaos-lord-in-terminator-armour-wgo-mfm-1",
-    "unit_id": "chaos-lord-in-terminator-armour",
-    "faction_id": "chaos-space-marines",
-    "game_version": {
-      "edition": "11th",
-      "dataslate": "launch"
-    },
-    "is_free": true,
-    "replaces": [
-      "combi-bolter-chaos-lord-in-terminator-armour",
-      "exalted-weapon"
-    ],
-    "replacement_choice": [
-      [
-        "combi-weapon-chaos-lord-in-terminator-armour",
-        "chainfist-chaos-lord-in-terminator-armour"
-      ],
-      [
-        "paired-accursed-weapons-chaos-lord-in-terminator-armour"
-      ],
-      [
-        "power-fist-chaos-lord-in-terminator-armour",
-        "combi-weapon-chaos-lord-in-terminator-armour"
-      ]
-    ],
-    "model_constraint": {
-      "any_number": true
-    }
-  },
-  {
-    "id": "chaos-lord-in-terminator-armour-wgo-mfm-2",
+    "id": "chaos-lord-in-terminator-armour-wgo-bsd-1",
     "unit_id": "chaos-lord-in-terminator-armour",
     "faction_id": "chaos-space-marines",
     "game_version": {
@@ -1383,13 +1353,10 @@
     ],
     "replacement": [
       "combi-weapon-chaos-lord-in-terminator-armour"
-    ],
-    "model_constraint": {
-      "any_number": true
-    }
+    ]
   },
   {
-    "id": "chaos-lord-in-terminator-armour-wgo-mfm-3",
+    "id": "chaos-lord-in-terminator-armour-wgo-bsd-2",
     "unit_id": "chaos-lord-in-terminator-armour",
     "faction_id": "chaos-space-marines",
     "game_version": {
@@ -1397,20 +1364,20 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "exalted-weapon"
-    ],
     "replacement_choice": [
       [
         "chainfist-chaos-lord-in-terminator-armour"
       ],
       [
+        "paired-accursed-weapons-chaos-lord-in-terminator-armour"
+      ],
+      [
         "power-fist-chaos-lord-in-terminator-armour"
       ]
     ],
-    "model_constraint": {
-      "any_number": true
-    }
+    "replaces": [
+      "exalted-weapon"
+    ]
   },
   {
     "id": "red-corsairs-raiders-wgo-mfm-1",
@@ -1473,7 +1440,7 @@
     }
   },
   {
-    "id": "helbrute-wgo-mfm-1",
+    "id": "helbrute-wgo-bsd-1",
     "unit_id": "helbrute",
     "faction_id": "chaos-space-marines",
     "game_version": {
@@ -1481,242 +1448,63 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "multi-melta"
-    ],
     "replacement_choice": [
       [
-        "helbrute-fist"
-      ],
-      [
-        "twin-autocannon"
-      ],
-      [
-        "twin-heavy-bolter"
-      ],
-      [
         "combi-bolter",
         "helbrute-fist"
-      ],
-      [
-        "twin-lascannon"
       ],
       [
         "heavy-flamer",
         "helbrute-fist"
       ],
       [
-        "helbrute-plasma-cannon"
+        "helbrute-hammer"
+      ],
+      [
+        "power-scourge"
       ]
     ],
-    "model_constraint": {
-      "any_number": true
-    }
-  },
-  {
-    "id": "helbrute-wgo-mfm-2",
-    "unit_id": "helbrute",
-    "faction_id": "chaos-space-marines",
-    "game_version": {
-      "edition": "11th",
-      "dataslate": "launch"
-    },
-    "is_free": true,
-    "replaces": [
-      "missile-launcher-helbrute",
-      "multi-melta"
-    ],
-    "replacement_choice": [
-      [
-        "helbrute-fist",
-        "heavy-flamer",
-        "helbrute-hammer"
-      ],
-      [
-        "heavy-flamer",
-        "helbrute-fist",
-        "helbrute-fist",
-        "combi-bolter"
-      ],
-      [
-        "helbrute-fist",
-        "helbrute-fist"
-      ],
-      [
-        "helbrute-hammer",
-        "helbrute-fist"
-      ],
-      [
-        "helbrute-hammer",
-        "combi-bolter",
-        "helbrute-fist"
-      ],
-      [
-        "twin-heavy-bolter",
-        "helbrute-fist"
-      ],
-      [
-        "helbrute-plasma-cannon",
-        "helbrute-hammer"
-      ],
-      [
-        "power-scourge",
-        "twin-lascannon"
-      ],
-      [
-        "helbrute-fist",
-        "helbrute-fist",
-        "heavy-flamer",
-        "heavy-flamer"
-      ],
-      [
-        "twin-autocannon",
-        "helbrute-hammer"
-      ],
-      [
-        "heavy-flamer",
-        "helbrute-fist",
-        "helbrute-fist"
-      ],
-      [
-        "twin-heavy-bolter",
-        "combi-bolter",
-        "helbrute-fist"
-      ],
-      [
-        "heavy-flamer",
-        "helbrute-fist",
-        "twin-heavy-bolter"
-      ],
-      [
-        "combi-bolter",
-        "combi-bolter",
-        "helbrute-fist",
-        "helbrute-fist"
-      ],
-      [
-        "helbrute-fist",
-        "helbrute-plasma-cannon",
-        "combi-bolter"
-      ],
-      [
-        "helbrute-fist",
-        "heavy-flamer",
-        "helbrute-plasma-cannon"
-      ],
-      [
-        "helbrute-fist",
-        "power-scourge",
-        "combi-bolter"
-      ],
-      [
-        "helbrute-fist",
-        "twin-lascannon"
-      ],
-      [
-        "helbrute-fist",
-        "combi-bolter",
-        "twin-lascannon"
-      ],
-      [
-        "helbrute-fist",
-        "power-scourge"
-      ],
-      [
-        "twin-autocannon",
-        "power-scourge"
-      ],
-      [
-        "twin-autocannon",
-        "heavy-flamer",
-        "helbrute-fist"
-      ],
-      [
-        "helbrute-fist",
-        "helbrute-plasma-cannon"
-      ],
-      [
-        "helbrute-hammer",
-        "twin-heavy-bolter"
-      ],
-      [
-        "power-scourge",
-        "helbrute-plasma-cannon"
-      ],
-      [
-        "twin-lascannon",
-        "heavy-flamer",
-        "helbrute-fist"
-      ],
-      [
-        "twin-lascannon",
-        "helbrute-hammer"
-      ],
-      [
-        "helbrute-fist",
-        "helbrute-fist",
-        "combi-bolter"
-      ],
-      [
-        "helbrute-fist",
-        "twin-autocannon"
-      ],
-      [
-        "heavy-flamer",
-        "helbrute-fist",
-        "power-scourge"
-      ],
-      [
-        "twin-autocannon",
-        "helbrute-fist",
-        "combi-bolter"
-      ],
-      [
-        "power-scourge",
-        "twin-heavy-bolter"
-      ]
-    ],
-    "model_constraint": {
-      "any_number": true
-    }
-  },
-  {
-    "id": "helbrute-wgo-mfm-3",
-    "unit_id": "helbrute",
-    "faction_id": "chaos-space-marines",
-    "game_version": {
-      "edition": "11th",
-      "dataslate": "launch"
-    },
-    "is_free": true,
     "replaces": [
       "missile-launcher-helbrute"
-    ],
+    ]
+  },
+  {
+    "id": "helbrute-wgo-bsd-2",
+    "unit_id": "helbrute",
+    "faction_id": "chaos-space-marines",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_free": true,
     "replacement_choice": [
       [
-        "helbrute-fist",
-        "combi-bolter"
-      ],
-      [
-        "helbrute-fist",
-        "heavy-flamer"
-      ],
-      [
-        "helbrute-hammer"
-      ],
-      [
+        "combi-bolter",
         "helbrute-fist"
       ],
       [
-        "power-scourge"
+        "heavy-flamer",
+        "helbrute-fist"
+      ],
+      [
+        "helbrute-plasma-cannon"
+      ],
+      [
+        "twin-autocannon"
+      ],
+      [
+        "twin-heavy-bolter"
+      ],
+      [
+        "twin-lascannon"
       ]
     ],
-    "model_constraint": {
-      "any_number": true
-    }
+    "replaces": [
+      "multi-melta"
+    ]
   },
   {
-    "id": "chaos-lord-with-jump-pack-wgo-mfm-1",
+    "id": "chaos-lord-with-jump-pack-wgo-bsd-1",
     "unit_id": "chaos-lord-with-jump-pack",
     "faction_id": "chaos-space-marines",
     "game_version": {
@@ -1724,25 +1512,20 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "bolt-pistol-chaos-lord-with-jump-pack",
-      "accursed-weapon-chaos-lord-with-jump-pack"
-    ],
     "replacement_choice": [
       [
-        "twin-lightning-claws"
+        "power-fist-chaos-lord-with-jump-pack"
       ],
       [
-        "plasma-pistol-chaos-lord-with-jump-pack",
-        "power-fist-chaos-lord-with-jump-pack"
+        "twin-lightning-claws"
       ]
     ],
-    "model_constraint": {
-      "any_number": true
-    }
+    "replaces": [
+      "accursed-weapon-chaos-lord-with-jump-pack"
+    ]
   },
   {
-    "id": "chaos-lord-with-jump-pack-wgo-mfm-2",
+    "id": "chaos-lord-with-jump-pack-wgo-bsd-2",
     "unit_id": "chaos-lord-with-jump-pack",
     "faction_id": "chaos-space-marines",
     "game_version": {
@@ -1755,29 +1538,7 @@
     ],
     "replacement": [
       "plasma-pistol-chaos-lord-with-jump-pack"
-    ],
-    "model_constraint": {
-      "any_number": true
-    }
-  },
-  {
-    "id": "chaos-lord-with-jump-pack-wgo-mfm-3",
-    "unit_id": "chaos-lord-with-jump-pack",
-    "faction_id": "chaos-space-marines",
-    "game_version": {
-      "edition": "11th",
-      "dataslate": "launch"
-    },
-    "is_free": true,
-    "replaces": [
-      "accursed-weapon-chaos-lord-with-jump-pack"
-    ],
-    "replacement": [
-      "power-fist-chaos-lord-with-jump-pack"
-    ],
-    "model_constraint": {
-      "any_number": true
-    }
+    ]
   },
   {
     "id": "cultist-mob-wgo-mfm-1",
@@ -2038,7 +1799,7 @@
     }
   },
   {
-    "id": "chaos-rhino-wgo-mfm-1",
+    "id": "chaos-rhino-wgo-bsd-1",
     "unit_id": "chaos-rhino",
     "faction_id": "chaos-space-marines",
     "game_version": {
@@ -2046,24 +1807,20 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "combi-bolter"
-    ],
     "replacement_choice": [
       [
-        "havoc-launcher"
+        "combi-bolter"
       ],
       [
-        "combi-weapon",
-        "havoc-launcher"
+        "combi-weapon"
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
-    "id": "chaos-rhino-wgo-mfm-2",
+    "id": "chaos-rhino-wgo-bsd-2",
     "unit_id": "chaos-rhino",
     "faction_id": "chaos-space-marines",
     "game_version": {
@@ -2071,28 +1828,12 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replacement_choice": [
-      [
-        "combi-weapon"
-      ],
-      [
-        "havoc-launcher"
-      ],
-      [
-        "havoc-launcher",
-        "combi-bolter"
-      ],
-      [
-        "combi-bolter"
-      ],
-      [
-        "havoc-launcher",
-        "combi-weapon"
-      ]
-    ],
     "model_constraint": {
-      "any_number": true
-    }
+      "max_count": 1
+    },
+    "replacement": [
+      "havoc-launcher"
+    ]
   },
   {
     "id": "legionaries-wgo-mfm-1",

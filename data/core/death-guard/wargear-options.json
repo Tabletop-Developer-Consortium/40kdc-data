@@ -735,7 +735,7 @@
     }
   },
   {
-    "id": "chaos-rhino-wgo-mfm-1",
+    "id": "chaos-rhino-wgo-bsd-1",
     "unit_id": "chaos-rhino",
     "faction_id": "death-guard",
     "game_version": {
@@ -749,25 +749,14 @@
       ],
       [
         "combi-weapon"
-      ],
-      [
-        "havoc-launcher"
-      ],
-      [
-        "combi-weapon",
-        "havoc-launcher"
-      ],
-      [
-        "combi-bolter",
-        "havoc-launcher"
       ]
     ],
     "model_constraint": {
-      "any_number": true
+      "max_count": 1
     }
   },
   {
-    "id": "chaos-rhino-wgo-mfm-2",
+    "id": "chaos-rhino-wgo-bsd-2",
     "unit_id": "chaos-rhino",
     "faction_id": "death-guard",
     "game_version": {
@@ -775,21 +764,28 @@
       "dataslate": "launch"
     },
     "is_free": true,
-    "replaces": [
-      "combi-bolter"
-    ],
-    "replacement_choice": [
-      [
-        "havoc-launcher"
-      ],
-      [
-        "havoc-launcher",
-        "combi-weapon"
-      ]
-    ],
     "model_constraint": {
-      "any_number": true
-    }
+      "max_count": 1
+    },
+    "replacement": [
+      "combi-bolter"
+    ]
+  },
+  {
+    "id": "chaos-rhino-wgo-bsd-3",
+    "unit_id": "chaos-rhino",
+    "faction_id": "death-guard",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_free": true,
+    "model_constraint": {
+      "max_count": 1
+    },
+    "replacement": [
+      "havoc-launcher"
+    ]
   },
   {
     "id": "chaos-land-raider-wgo-mfm-1",

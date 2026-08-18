@@ -65,7 +65,7 @@
     }
   },
   {
-    "id": "neophyte-hybrids-wgo-mfm-1",
+    "id": "neophyte-hybrids-wgo-bsd-1",
     "unit_id": "neophyte-hybrids",
     "faction_id": "genestealer-cults",
     "game_version": {
@@ -73,16 +73,15 @@
       "dataslate": "launch"
     },
     "is_free": true,
+    "model_constraint": {
+      "max_count": 1
+    },
     "replacement": [
       "cult-icon"
-    ],
-    "model_constraint": {
-      "model_name": "Neophyte Hybrid",
-      "any_number": true
-    }
+    ]
   },
   {
-    "id": "neophyte-hybrids-wgo-mfm-2",
+    "id": "neophyte-hybrids-wgo-bsd-2",
     "unit_id": "neophyte-hybrids",
     "faction_id": "genestealer-cults",
     "game_version": {
@@ -93,33 +92,15 @@
     "replaces": [
       "hybrid-firearm"
     ],
-    "replacement_choice": [
-      [
-        "seismic-cannon"
-      ],
-      [
-        "mining-laser-neophyte-hybrids"
-      ],
-      [
-        "heavy-stubber-neophyte-hybrids"
-      ],
-      [
-        "grenade-launcher"
-      ],
-      [
-        "flamer"
-      ],
-      [
-        "webber"
-      ]
-    ],
     "model_constraint": {
-      "model_name": "Neophyte Hybrid",
-      "any_number": true
-    }
+      "per_n_models": 10
+    },
+    "replacement": [
+      "mining-laser-neophyte-hybrids"
+    ]
   },
   {
-    "id": "neophyte-hybrids-wgo-mfm-3",
+    "id": "neophyte-hybrids-wgo-bsd-3",
     "unit_id": "neophyte-hybrids",
     "faction_id": "genestealer-cults",
     "game_version": {
@@ -128,18 +109,113 @@
     },
     "is_free": true,
     "replaces": [
-      "hybrid-firearm",
-      "close-combat-weapon-neophyte-hybrids"
+      "hybrid-firearm"
     ],
+    "model_constraint": {
+      "per_n_models": 10
+    },
+    "replacement": [
+      "seismic-cannon"
+    ]
+  },
+  {
+    "id": "neophyte-hybrids-wgo-bsd-4",
+    "unit_id": "neophyte-hybrids",
+    "faction_id": "genestealer-cults",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_free": true,
+    "replaces": [
+      "hybrid-firearm"
+    ],
+    "model_constraint": {
+      "per_n_models": 10
+    },
+    "replacement": [
+      "heavy-stubber-neophyte-hybrids"
+    ]
+  },
+  {
+    "id": "neophyte-hybrids-wgo-bsd-5",
+    "unit_id": "neophyte-hybrids",
+    "faction_id": "genestealer-cults",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_free": true,
+    "replaces": [
+      "hybrid-firearm"
+    ],
+    "model_constraint": {
+      "per_n_models": 10
+    },
+    "replacement": [
+      "webber"
+    ]
+  },
+  {
+    "id": "neophyte-hybrids-wgo-bsd-6",
+    "unit_id": "neophyte-hybrids",
+    "faction_id": "genestealer-cults",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_free": true,
+    "replaces": [
+      "hybrid-firearm"
+    ],
+    "model_constraint": {
+      "per_n_models": 10
+    },
+    "replacement": [
+      "flamer"
+    ]
+  },
+  {
+    "id": "neophyte-hybrids-wgo-bsd-7",
+    "unit_id": "neophyte-hybrids",
+    "faction_id": "genestealer-cults",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_free": true,
+    "replaces": [
+      "hybrid-firearm"
+    ],
+    "model_constraint": {
+      "per_n_models": 10
+    },
+    "replacement": [
+      "grenade-launcher"
+    ]
+  },
+  {
+    "id": "neophyte-hybrids-wgo-bsd-8",
+    "unit_id": "neophyte-hybrids",
+    "faction_id": "genestealer-cults",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    },
+    "is_free": true,
     "replacement_choice": [
       [
-        "power-weapon",
-        "anointed-pistol"
+        "anointed-pistol",
+        "chainsword"
       ],
       [
-        "chainsword",
-        "anointed-pistol"
+        "anointed-pistol",
+        "power-weapon"
       ]
+    ],
+    "replaces": [
+      "close-combat-weapon-neophyte-hybrids",
+      "hybrid-firearm"
     ],
     "model_constraint": {
       "model_name": "Neophyte Leader",

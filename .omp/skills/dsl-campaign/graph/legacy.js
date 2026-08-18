@@ -63,14 +63,18 @@ export function bootstrapRegistry(store, { repoRoot, registryPath }) {
     legacy_observations: legacyRows,
     claims: [],
   }
+  const runIds = new Set(rows.runs.map(r => r.run_id))
   for (const [key, row] of Object.entries(registry.ability_ledger || {})) {
     if (row.campaign !== 'c005') continue
+    if (!runIds.has('legacy-c005')) continue
     const [faction_id, ability_id] = key.split('/')
     rows.claims.push({ faction_id, ability_id, run_id: 'legacy-c005', state: 'active', claimed_sequence: sequence })
   }
-  for (const key of C009) {
-    const [faction_id, ability_id] = key.split('/')
-    rows.claims.push({ faction_id, ability_id, run_id: 'legacy-c009', state: 'active', claimed_sequence: sequence })
+  if (runIds.has('legacy-c009')) {
+    for (const key of C009) {
+      const [faction_id, ability_id] = key.split('/')
+      rows.claims.push({ faction_id, ability_id, run_id: 'legacy-c009', state: 'active', claimed_sequence: sequence })
+    }
   }
   store.appendEvent('registry-bootstrapped', {
     source_hash: sourceHash,

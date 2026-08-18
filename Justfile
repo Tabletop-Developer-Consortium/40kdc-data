@@ -47,7 +47,7 @@ regen:
     cd python && python3 -m pip install -e ".[dev]" --quiet
     python3 python/codegen/gen_typeddicts.py
     bash go/codegen/sync.sh
-    cd tools && npm run codegen:data && npx tsc && npm run gen:conformance
+    cd tools && npm run build && npm run gen:conformance
 
 # Apply Rust + Go formatting (CI checks these; applying keeps a re-run clean).
 fmt:
@@ -58,31 +58,12 @@ fmt:
 # Drift gate: committed generated artifacts must equal what regen just produced.
 verify-clean:
     @echo "▸ checking generated artifacts match regen output (CI drift gate)"
-    @if jj root >/dev/null 2>&1; then \
-        drift=$(jj diff --name-only -r @ -- {{ARTIFACTS}}); \
-      elif git rev-parse --is-inside-work-tree >/dev/null 2>&1; then \
-        drift=$(git diff --name-only -- {{ARTIFACTS}}); \
-      else \
-        echo "✗ neither a git worktree nor a jj workspace; cannot verify generated drift." >&2; \
-        exit 1; \
-      fi; \
-      if [ -n "$drift" ]; then \
+    @if [[ -n "$(jj diff --summary -- {{ARTIFACTS}})" ]]; then \
+        jj diff --summary -- {{ARTIFACTS}} >&2; \
         echo "✗ generated artifacts drifted — regen changed them; commit the result (CI fails on this same diff)." >&2; \
-        printf '%s\n' "$drift" >&2; \
         exit 1; \
     fi
     @echo "  artifacts up to date."
-
-# Pre-commit drift gate: intended uncommitted generated outputs are the baseline.
-# Snapshot their bytes, regenerate, and require byte-for-byte stability.
-verify-regen-stable:
-    @before=$(mktemp); after=$(mktemp); trap 'rm -f "$before" "$after"' EXIT; \
-      find {{ARTIFACTS}} -type f -print0 2>/dev/null | sort -z | xargs -0 sha256sum >"$before"; \
-      just regen; \
-      find {{ARTIFACTS}} -type f -print0 2>/dev/null | sort -z | xargs -0 sha256sum >"$after"; \
-      if ! cmp -s "$before" "$after"; then \
-        echo "✗ regeneration changed the pre-gate generated snapshot." >&2; diff -u "$before" "$after" >&2 || true; exit 1; \
-      fi
 
 # All four language suites + conformance.
 test-all: test-dsl-campaign test-ts test-rust test-python test-go conformance
@@ -95,7 +76,7 @@ test-dsl-campaign:
 # TS: build + unit tests + data validation.
 test-ts:
     @echo "▸ TS: build + unit tests + data validation"
-    cd tools && npm run codegen:data && npx tsc && npm test && npm run validate
+    cd tools && npm run build && npm test && npm run validate
 
 # Rust: fmt-check + build + test.
 test-rust:
@@ -152,3 +133,17 @@ mfm-bsdata bsdata ref:
 # then curate mfm-gaps.json for any newly-authored data (see test/mfm-completeness.test.ts).
 mfm-golden:
     cd tools && npm run mfm:golden
+
+# Local-only Mechanic Evidence Graph API over the private graph store.
+mechanic-evidence-api:
+    node .omp/skills/dsl-campaign/graph/server.js
+
+# Run the Mechanic Evidence Graph API and SPA together; Ctrl-C stops both.
+mechanic-evidence:
+    @node .omp/skills/dsl-campaign/graph/server.js & api_pid=$!; \
+     cleanup() { kill "$api_pid" 2>/dev/null || true; wait "$api_pid" 2>/dev/null || true; }; \
+     trap cleanup EXIT; \
+     trap 'exit 130' INT TERM; \
+     sleep 0.2; \
+     if ! kill -0 "$api_pid" 2>/dev/null; then wait "$api_pid"; exit $?; fi; \
+     npm run dev --workspace @40kdc/mechanic-evidence

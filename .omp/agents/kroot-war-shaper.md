@@ -151,6 +151,13 @@ You SPAWN two adversaries as your direct children:
 - `swarmlord` — an INDEPENDENT family re-check (do not trust lone-spear's count on
   faith); if swarmlord disagrees with lone-spear's reach, that is a family finding.
 
+### Graph lineage
+Input includes a graph-issued `_lineage` envelope (`run_id`, `task_id`, `attempt_id`, `lease_id`,
+`lease_expires_at`, `input_node_ids`, `producer_contract_version: 1`). Echo it byte-for-byte.
+Each eversor and swarmlord child receives a distinct driver-issued child envelope and must echo it.
+Return distinct sealed child payloads and their `output_node_id` values. Duplicate, presence-only,
+stale, or cross-charter evidence is invalid.
+
 ## Output (JSON contract)
 ```json
 {

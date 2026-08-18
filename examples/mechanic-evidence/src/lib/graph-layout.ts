@@ -6,8 +6,8 @@ export interface GraphPosition {
   y: number;
 }
 
-export const NODE_WIDTH = 232;
-export const NODE_HEIGHT = 104;
+export const NODE_WIDTH = 216;
+export const NODE_HEIGHT = 82;
 const RANK_GAP = 104;
 const NODE_GAP = 36;
 const X_STEP = NODE_WIDTH + RANK_GAP;

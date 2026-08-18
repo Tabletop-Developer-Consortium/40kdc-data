@@ -3,23 +3,15 @@
   import type { EvidenceNodeData } from "./graph-presentation.js";
 
   let { data }: { data: EvidenceNodeData } = $props();
-  const shortId = $derived(data.node.nodeId.slice(0, 12));
+  const shortId = $derived(
+    data.node.nodeId.length > 18
+      ? `${data.node.nodeId.slice(0, 10)}…${data.node.nodeId.slice(-5)}`
+      : data.node.nodeId,
+  );
   const state = $derived(data.node.state ?? data.node.validity ?? "recorded");
-  const ports = [0, 1, 2] as const;
 </script>
 
-{#each ports as port}
-  <Handle
-    id={`target-${port}`}
-    type="target"
-    position={Position.Left}
-    isConnectable={false}
-    aria-hidden="true"
-    role="presentation"
-    class="evidence-handle"
-    style={`top: ${25 + port * 25}%`}
-  />
-{/each}
+<Handle type="target" position={Position.Left} isConnectable={false} class="evidence-handle" />
 <article
   class:node-selected={data.selected}
   class:node-related={data.related}
@@ -34,28 +26,17 @@
     <span class="kind">{data.kindLabel}</span>
     <span class="state">{state}</span>
   </header>
-  <strong title={data.displayLabel}>{data.displayLabel}</strong>
-  {#if data.provenanceSummary}
-    <span class="provenance" title={data.provenanceSummary}>{data.provenanceSummary}</span>
+  <strong title={data.node.nodeId}>{shortId}</strong>
+  <span class="label">{data.node.label.value}</span>
+  {#if data.node.summary}
+    <p>{data.node.summary.value}</p>
   {/if}
-  <code title={data.node.nodeId}>{shortId}</code>
 </article>
-{#each ports as port}
-  <Handle
-    id={`source-${port}`}
-    type="source"
-    position={Position.Right}
-    isConnectable={false}
-    aria-hidden="true"
-    role="presentation"
-    class="evidence-handle"
-    style={`top: ${25 + port * 25}%`}
-  />
-{/each}
+<Handle type="source" position={Position.Right} isConnectable={false} class="evidence-handle" />
 
 <style>
   :global(.svelte-flow__node-evidence) {
-    width: 232px;
+    width: 216px;
     border-radius: var(--radius-md);
     background: transparent;
   }
@@ -74,7 +55,7 @@
   }
 
   .evidence-node {
-    min-height: 104px;
+    min-height: 82px;
     overflow: hidden;
     border: 1px solid var(--border-strong);
     border-radius: var(--radius-md);
@@ -100,7 +81,7 @@
   .state {
     overflow: hidden;
     font-family: var(--font-mono);
-    font-size: 11px;
+    font-size: 9px;
     letter-spacing: var(--tracking-wide);
     text-overflow: ellipsis;
     text-transform: uppercase;
@@ -116,33 +97,39 @@
   }
 
   strong,
-  .provenance,
-  code {
+  .label,
+  p {
     display: block;
-    overflow: hidden;
     margin-inline: var(--space-2);
+  }
+
+  strong {
+    margin-top: 7px;
+    color: var(--text);
+    font-family: var(--font-mono);
+    font-size: var(--text-2xs);
+    font-weight: 500;
+  }
+
+  .label {
+    overflow: hidden;
+    margin-top: 2px;
+    color: var(--muted);
+    font-size: var(--text-xs);
     text-overflow: ellipsis;
     white-space: nowrap;
   }
 
-  strong {
-    margin-top: 9px;
-    color: var(--text);
-    font-size: var(--text-sm);
-    font-weight: 650;
-  }
-
-  .provenance {
-    margin-top: 4px;
-    color: var(--muted);
-    font: 10px/1.35 var(--font-mono);
-  }
-
-  code {
-    margin-block: 5px 9px;
+  p {
+    display: -webkit-box;
+    overflow: hidden;
+    margin-block: 4px 7px;
     color: var(--dim);
-    font: 9px/1.25 var(--font-mono);
-    letter-spacing: .04em;
+    font-size: 10px;
+    line-height: 1.25;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
   }
 
   .node-selected {

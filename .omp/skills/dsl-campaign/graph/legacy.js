@@ -73,7 +73,7 @@ function observation(store, campaignId, observation_type, status, summary, artif
   return node
 }
 
-export function recoverLegacy(store, { repoRoot, loopStateRoot = join(repoRoot, '_private/loop-state'), campaigns = ['c007', 'c008', 'c009'] }) {
+export function recoverLegacy(store, { repoRoot, campaigns = ['c007', 'c008', 'c009'] }) {
   const marker = `legacy_recovery_${campaigns.join('_')}`
   if (store.db.prepare('SELECT value FROM meta WHERE key=?').get(marker)) return { idempotent: true, node_ids: [] }
   for (const id of campaigns) {
@@ -84,8 +84,8 @@ export function recoverLegacy(store, { repoRoot, loopStateRoot = join(repoRoot, 
     const compatibleState = run.state === expected.status || (expected.status === 'open' && run.state === 'active') || projectedC009
     if (!compatibleState) throw new Error(`${id} status mismatch: expected ${expected.status}, got ${run.state}`)
   }
-  const regionPath = join(loopStateRoot, 'roundtrip-necrons-power-matrix.md')
-  const visibilityPath = join(loopStateRoot, 'roundtrip-c009-shapes.md')
+  const regionPath = join(repoRoot, '_private/loop-state/roundtrip-necrons-power-matrix.md')
+  const visibilityPath = join(repoRoot, '_private/loop-state/roundtrip-c009-shapes.md')
   const artifacts = { region: artifactHash(regionPath), visibility: artifactHash(visibilityPath) }
   const nodes = []
   if (campaigns.includes('c007')) {

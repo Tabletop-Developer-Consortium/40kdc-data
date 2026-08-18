@@ -113,8 +113,8 @@
       value={store.graphScope}
       onchange={(event) => void store.setGraphScope(event.currentTarget.value as GraphScope)}
     >
-      <option value="trace">Focused trace</option>
-      <option value="overview">Whole campaign overview</option>
+      <option value="critical-path">Critical path</option>
+      <option value="campaign">Whole campaign</option>
     </select>
   </section>
 
@@ -160,7 +160,7 @@
   {/each}
 
   <div class="rail-actions">
-    <button type="button" onclick={() => store.requestFit()}>Fit current view</button>
+    <button type="button" onclick={() => store.requestFit()}>Fit critical path</button>
     <button type="button" onclick={() => store.resetLayout()}>Reset layout</button>
     <button type="button" disabled={!hasFilters} onclick={() => store.resetFilters()}>Reset filters</button>
   </div>

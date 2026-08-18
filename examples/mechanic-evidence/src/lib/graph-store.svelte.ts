@@ -1,10 +1,8 @@
 import { MechanicGraphApiError } from "./api/client.js";
 import type {
-  CampaignProgress,
   CampaignSummary,
   FormalizationSummary,
   GlobalGraphSnapshot,
-  GraphSnapshotQuery,
   GraphEdge,
   GraphEvent,
   GraphNodeSummary,
@@ -13,12 +11,11 @@ import type {
   ProjectionEdge,
   ProjectionNode,
   ReviewItem,
-  WorkflowProvenance,
 } from "./api/types.js";
 import { layoutInitial, type GraphPosition } from "./graph-layout.js";
 
 export type ConnectionState = "loading" | "live" | "stale" | "error";
-export type GraphScope = "trace" | "overview";
+export type GraphScope = "critical-path" | "campaign";
 export type DockTab = "events" | "review" | "formalization";
 export type MobileTab = "graph" | "inspector" | "activity";
 
@@ -40,11 +37,6 @@ export interface ReviewDraft {
   error: string | null;
 }
 
-export interface GraphRelationship {
-  edge: GraphEdge;
-  node: ProjectionNode;
-}
-
 const DEFAULT_FILTERS: GraphFilters = {
   search: "",
   nodeKinds: [],
@@ -62,7 +54,6 @@ const EMPTY_FORMALIZATION: FormalizationSummary = {
   sourceExtraction: 0,
 };
 const BRANCH_KINDS = /(^|[-_])(run|check|finding)([-_]|$)/;
-const TRACE_SUCCESSOR_LIMIT = 12;
 const MAX_RENDERED_NODES = 400;
 
 function messageFor(error: unknown): string {
@@ -74,34 +65,17 @@ function graphNode(node: ProjectionNode): GraphNodeSummary {
   const statuses = Array.isArray(node.metadata.statuses)
     ? node.metadata.statuses.filter((value): value is string => typeof value === "string")
     : [];
-  const provenance: WorkflowProvenance = {
-    outputKind: typeof node.metadata.output_kind === "string" ? node.metadata.output_kind : null,
-    taskId: typeof node.metadata.task_id === "string" ? node.metadata.task_id : null,
-    attemptId: typeof node.metadata.attempt_id === "string" ? node.metadata.attempt_id : null,
-    workflowStage: typeof node.metadata.workflow_stage === "string" ? node.metadata.workflow_stage : null,
-    workflowTask: typeof node.metadata.workflow_task === "string" ? node.metadata.workflow_task : null,
-    workflowRound: typeof node.metadata.workflow_round === "string" ? node.metadata.workflow_round : null,
-    workflowLane: typeof node.metadata.workflow_lane === "string" ? node.metadata.workflow_lane : null,
-    attemptNumber: typeof node.metadata.attempt_number === "number" ? node.metadata.attempt_number : null,
-    lineageDistance: typeof node.metadata.lineage_distance === "number" ? node.metadata.lineage_distance : null,
-  };
-  const workflowSummary = [
-    provenance.workflowTask,
-    provenance.workflowLane,
-    provenance.attemptNumber === null ? null : `attempt ${provenance.attemptNumber}`,
-  ].filter(Boolean).join(" · ");
   return {
     nodeId: node.id,
     campaignId: node.campaign_refs.join(",") || "global",
     kind: node.kind.replaceAll("-", "_"),
     label: { value: node.label, classification: "identifier" },
     summary: {
-      value: workflowSummary || `${node.scope} · ${node.ability_refs.length} ability reference${node.ability_refs.length === 1 ? "" : "s"}`,
+      value: `${node.scope} · ${node.ability_refs.length} ability reference${node.ability_refs.length === 1 ? "" : "s"}`,
       classification: "status",
     },
     state: statuses[0] ?? null,
     validity: node.metadata.metadata_status === "missing" ? "missing-metadata" : null,
-    ...provenance,
   };
 }
 
@@ -129,11 +103,6 @@ export class GraphStore {
   checksum = $state("");
   connection = $state<ConnectionState>("loading");
   diagnostic = $state<string | null>(null);
-  campaignProgress = $state<CampaignProgress[]>([]);
-  selectedCampaignProgressId = $state<string | null>(null);
-  campaignProgressStatus = $state<"loading" | "ready" | "error">("loading");
-  activeCampaignGraphId = $state<string | null>(null);
-  campaignProgressDiagnostic = $state<string | null>(null);
   hasProjection = $state(false);
   quarantined = $state(false);
 
@@ -149,20 +118,16 @@ export class GraphStore {
   nextCursor = $state<string | null>(null);
   truncated = $state(false);
   loadingMore = $state(false);
-  graphSearch = $state("");
-  graphSearchResults = $state<ProjectionNode[]>([]);
-  projectionNodeCount = $state(0);
 
   selectedNodeId = $state<string | null>(null);
   selectedEdgeId = $state<string | null>(null);
-  traceAnchorId = $state<string | null>(null);
   selectedEventSequence = $state<number | null>(null);
   selectedReviewId = $state<string | null>(null);
   nodeDetail = $state<NodeDetail | null>(null);
   nodeDetailLoading = $state(false);
   nodeDetailError = $state<string | null>(null);
   filters = $state<GraphFilters>({ ...DEFAULT_FILTERS });
-  graphScope = $state<GraphScope>("trace");
+  graphScope = $state<GraphScope>("critical-path");
   viewport = $state({ x: 0, y: 0, zoom: 1 });
   inspectorWidth = $state(380);
   dockHeight = $state(36);
@@ -175,11 +140,9 @@ export class GraphStore {
   fitRequest = $state(0);
 
   private abortController: AbortController | null = null;
-  private campaignProgressAbortController: AbortController | null = null;
   private closeStream: (() => void) | null = null;
   private generation = 0;
   private stopped = true;
-  private campaignProgressGeneration = 0;
   private filterTimer: number | null = null;
   private projectionNodes = new Map<string, ProjectionNode>();
   private projectionEdges = new Map<string, ProjectionEdge>();
@@ -195,93 +158,12 @@ export class GraphStore {
     return this.reviews.find((review) => review.reviewId === this.selectedReviewId) ?? null;
   }
 
-  get selectedCampaignProgress(): CampaignProgress | null {
-    return this.campaignProgress.find((campaign) => campaign.campaignId === this.selectedCampaignProgressId) ?? null;
-  }
-
   get selectedEdge(): GraphEdge | null {
     return this.selectedEdgeId ? this.edges.get(this.selectedEdgeId) ?? null : null;
   }
 
   get selectedNode(): ProjectionNode | null {
     return this.selectedNodeId ? this.projectionNodes.get(this.selectedNodeId) ?? null : null;
-  }
-
-  get selectedEdgeSource(): ProjectionNode | null {
-    return this.selectedEdge ? this.projectionNodes.get(this.selectedEdge.sourceNodeId) ?? null : null;
-  }
-
-  get selectedEdgeTarget(): ProjectionNode | null {
-    return this.selectedEdge ? this.projectionNodes.get(this.selectedEdge.targetNodeId) ?? null : null;
-  }
-
-  get selectedEdgeOtherInputCount(): number {
-    if (!this.selectedEdge) return 0;
-    return [...this.projectionEdges.values()].filter(
-      (edge) => edge.target === this.selectedEdge!.targetNodeId && edge.id !== this.selectedEdge!.edgeId,
-    ).length;
-  }
-
-  get incomingRelationships(): GraphRelationship[] {
-    if (!this.selectedNodeId) return [];
-    return [...this.projectionEdges.values()]
-      .filter((edge) => edge.target === this.selectedNodeId)
-      .sort((left, right) => left.id.localeCompare(right.id))
-      .flatMap((edge) => {
-        const node = this.projectionNodes.get(edge.source);
-        return node ? [{ edge: graphEdge(edge), node }] : [];
-      });
-  }
-
-  get outgoingRelationships(): GraphRelationship[] {
-    if (!this.selectedNodeId) return [];
-    return [...this.projectionEdges.values()]
-      .filter((edge) => edge.source === this.selectedNodeId)
-      .sort((left, right) => left.id.localeCompare(right.id))
-      .flatMap((edge) => {
-        const node = this.projectionNodes.get(edge.target);
-        return node ? [{ edge: graphEdge(edge), node }] : [];
-      });
-  }
-
-
-  get traceBreadcrumbs(): ProjectionNode[] {
-    const root = [...this.projectionNodes.values()].find((node) => node.kind === "mechanic-evidence-root");
-    const targetId = this.traceAnchorId;
-    if (!root || !targetId) return [];
-    if (root.id === targetId) return [root];
-    const outgoing = new Map<string, ProjectionEdge[]>();
-    for (const edge of [...this.projectionEdges.values()].sort((left, right) => left.id.localeCompare(right.id))) {
-      const values = outgoing.get(edge.source) ?? [];
-      values.push(edge);
-      outgoing.set(edge.source, values);
-    }
-    const previous = new Map<string, string>();
-    const visited = new Set([root.id]);
-    const queue = [root.id];
-    while (queue.length > 0 && !visited.has(targetId)) {
-      const nodeId = queue.shift()!;
-      for (const edge of outgoing.get(nodeId) ?? []) {
-        if (visited.has(edge.target)) continue;
-        visited.add(edge.target);
-        previous.set(edge.target, nodeId);
-        queue.push(edge.target);
-      }
-    }
-    if (!visited.has(targetId)) return [this.projectionNodes.get(targetId)].filter((node): node is ProjectionNode => Boolean(node));
-    const ids = [targetId];
-    while (ids[0] !== root.id) ids.unshift(previous.get(ids[0])!);
-    return ids.map((id) => this.projectionNodes.get(id)).filter((node): node is ProjectionNode => Boolean(node));
-  }
-
-
-  get traceSuccessorCount(): number {
-    if (!this.traceAnchorId) return 0;
-    return [...this.projectionEdges.values()].filter((edge) => edge.source === this.traceAnchorId).length;
-  }
-
-  get traceHiddenSuccessorCount(): number {
-    return Math.max(0, this.traceSuccessorCount - TRACE_SUCCESSOR_LIMIT);
   }
 
   get filteredAbilities(): ProjectionNode[] {
@@ -314,16 +196,14 @@ export class GraphStore {
     this.stopped = false;
     this.connection = "loading";
     this.diagnostic = null;
-    this.resetPagination();
     const generation = ++this.generation;
     this.abortController = new AbortController();
-    void this.loadCampaignProgress();
     try {
       const snapshot = await this.client.getGraphSnapshot({ mode: "index", limit: 100 }, this.abortController.signal);
       if (this.stopped || generation !== this.generation) return;
       this.activateIndex(snapshot, false);
       this.connection = "live";
-      this.openGraphStream({ mode: "index" }, "Graph changed. Refresh the index to continue.");
+      this.openIndexStream();
     } catch (error) {
       if (this.ignoreAbort(error, generation)) return;
       this.connection = "error";
@@ -333,10 +213,8 @@ export class GraphStore {
   stop(): void {
     this.stopped = true;
     this.generation += 1;
-    this.campaignProgressAbortController?.abort();
-    this.campaignProgressAbortController = null;
-    this.campaignProgressGeneration += 1;
     this.abortController?.abort();
+    this.abortController = null;
     this.closeStream?.();
     this.closeStream = null;
     clearTimeout(this.filterTimer ?? undefined);
@@ -345,27 +223,6 @@ export class GraphStore {
   setSearch(value: string): void {
     this.search = value;
     this.scheduleFilters();
-  }
-
-  setGraphSearch(value: string): void {
-    this.graphSearch = value;
-    const query = value.trim().toLowerCase();
-    this.graphSearchResults = query
-      ? [...this.projectionNodes.values()]
-          .filter((node) => node.kind !== "mechanic-evidence-root")
-          .filter((node) => [
-            node.label,
-            node.id,
-            node.kind,
-            node.metadata.output_kind,
-            node.metadata.workflow_stage,
-            node.metadata.workflow_task,
-            node.metadata.workflow_lane,
-            node.metadata.task_id,
-          ].some((candidate) => typeof candidate === "string" && candidate.toLowerCase().includes(query)))
-          .sort((left, right) => left.label.localeCompare(right.label) || left.id.localeCompare(right.id))
-          .slice(0, 24)
-      : [];
   }
 
   setFactionFilter(value: string): void {
@@ -411,11 +268,6 @@ export class GraphStore {
     const factionId = String(ability.metadata.faction_id ?? "");
     const abilityId = String(ability.metadata.ability_id ?? "");
     if (!factionId || !abilityId) return;
-    this.graphScope = "trace";
-    this.graphSearch = "";
-    this.graphSearchResults = [];
-    this.traceAnchorId = null;
-    this.selectedEdgeId = null;
     this.selectedAbility = ability;
     this.selectedNodeId = null;
     this.selectedProjectionNode = null;
@@ -427,17 +279,15 @@ export class GraphStore {
     this.abortController = new AbortController();
     this.connection = "loading";
     this.diagnostic = null;
-    this.clearRenderedProjection();
-    this.resetPagination();
+    this.nodes = new Map();
+    this.edges = new Map();
+    this.positions = new Map();
     try {
       const snapshot = await this.client.getGraphSnapshot({ mode: "ability", faction_id: factionId, ability_id: abilityId, limit: 150, depth: 4 }, this.abortController.signal);
       if (this.stopped || generation !== this.generation) return;
       this.activateAbility(snapshot, false);
       this.connection = "live";
-      this.openGraphStream(
-        { mode: "ability", faction_id: factionId, ability_id: abilityId },
-        "Selected evidence changed. Retry to load the current revision.",
-      );
+      this.openAbilityStream(factionId, abilityId);
     } catch (error) {
       if (this.ignoreAbort(error, generation)) return;
       this.handleFetchError(error);
@@ -445,26 +295,17 @@ export class GraphStore {
   }
 
   async loadMoreEvidence(): Promise<void> {
-    if ((!this.selectedAbility && !this.activeCampaignGraphId) || !this.nextCursor || this.loadingMore) return;
-    const query: GraphSnapshotQuery = this.selectedAbility
-      ? {
-          mode: "ability",
-          faction_id: String(this.selectedAbility.metadata.faction_id),
-          ability_id: String(this.selectedAbility.metadata.ability_id),
-          limit: 150,
-          depth: 4,
-          after: this.nextCursor,
-        }
-      : { mode: "campaign", campaign_id: this.activeCampaignGraphId!, limit: 400, depth: 4, after: this.nextCursor };
+    if (!this.selectedAbility || !this.nextCursor || this.loadingMore) return;
+    const factionId = String(this.selectedAbility.metadata.faction_id);
+    const abilityId = String(this.selectedAbility.metadata.ability_id);
     this.loadingMore = true;
     const generation = ++this.generation;
     this.abortController?.abort();
     this.abortController = new AbortController();
     try {
-      const snapshot = await this.client.getGraphSnapshot(query, this.abortController.signal);
+      const snapshot = await this.client.getGraphSnapshot({ mode: "ability", faction_id: factionId, ability_id: abilityId, limit: 150, depth: 4, after: this.nextCursor }, this.abortController.signal);
       if (this.stopped || generation !== this.generation) return;
-      if (this.selectedAbility) this.activateAbility(snapshot, true);
-      else this.activateCampaign(snapshot, true);
+      this.activateAbility(snapshot, true);
       this.connection = "live";
     } catch (error) {
       if (this.ignoreAbort(error, generation)) return;
@@ -490,15 +331,8 @@ export class GraphStore {
   }
 
   async retry(): Promise<void> {
-    if (this.selectedAbility) {
-      void this.loadCampaignProgress();
-      await this.selectAbility(this.selectedAbility);
-    } else if (this.activeCampaignGraphId) {
-      void this.loadCampaignProgress();
-      await this.selectCampaign(this.activeCampaignGraphId);
-    } else {
-      await this.start();
-    }
+    if (this.selectedAbility) await this.selectAbility(this.selectedAbility);
+    else await this.start();
   }
 
   async refreshContext(): Promise<void> { await this.retry(); }
@@ -520,40 +354,13 @@ export class GraphStore {
     for (const node of snapshot.nodes) nodes.set(node.id, node);
     for (const edge of snapshot.edges) edges.set(edge.id, edge);
     this.projectionNodes = new Map([...nodes].slice(0, MAX_RENDERED_NODES));
-    this.projectionNodeCount = this.projectionNodes.size;
     const allowed = new Set(this.projectionNodes.keys());
     this.projectionEdges = new Map([...edges].filter(([, edge]) => allowed.has(edge.source) && allowed.has(edge.target)));
     this.checksum = snapshot.graph_revision;
     this.nextCursor = snapshot.page.next_cursor;
     this.truncated = snapshot.page.truncated || nodes.size > MAX_RENDERED_NODES;
-    if (!append) {
-      this.traceAnchorId = snapshot.root;
-      this.selectedNodeId = snapshot.root;
-      this.selectedProjectionNode = this.projectionNodes.get(snapshot.root) ?? null;
-    }
     this.hasProjection = true;
     this.applyVisibleProjection();
-  }
-
-  private activateCampaign(snapshot: GlobalGraphSnapshot, append: boolean): void {
-    const abilities = snapshot.nodes.filter((node) => node.kind === "ability");
-    const merged = append ? new Map(this.abilityIndex.map((node) => [node.id, node])) : new Map<string, ProjectionNode>();
-    for (const ability of abilities) merged.set(ability.id, ability);
-    this.abilityIndex = [...merged.values()];
-    this.activateAbility(snapshot, append);
-  }
-
-  private clearRenderedProjection(): void {
-    this.nodes = new Map();
-    this.edges = new Map();
-    this.positions = new Map();
-    this.projectionNodeCount = 0;
-  }
-
-  private resetPagination(): void {
-    this.nextCursor = null;
-    this.truncated = false;
-    this.loadingMore = false;
   }
 
   private applyVisibleProjection(): void {
@@ -564,84 +371,52 @@ export class GraphStore {
       this.positions = new Map();
       return;
     }
-    const visible = new Set<string>();
-    if (this.graphScope === "overview") {
-      for (const nodeId of this.projectionNodes.keys()) visible.add(nodeId);
-    } else {
-      const anchorId = this.traceAnchorId && this.projectionNodes.has(this.traceAnchorId)
-        ? this.traceAnchorId
-        : root.id;
-      this.traceAnchorId = anchorId;
-      const incoming = new Map<string, ProjectionEdge[]>();
-      const outgoing = new Map<string, ProjectionEdge[]>();
-      for (const edge of [...this.projectionEdges.values()].sort((left, right) => left.id.localeCompare(right.id))) {
-        const parents = incoming.get(edge.target) ?? [];
-        parents.push(edge);
-        incoming.set(edge.target, parents);
-        const children = outgoing.get(edge.source) ?? [];
-        children.push(edge);
-        outgoing.set(edge.source, children);
-      }
-      const ancestors = [anchorId];
-      while (ancestors.length > 0 && visible.size < MAX_RENDERED_NODES) {
-        const nodeId = ancestors.shift()!;
-        if (visible.has(nodeId)) continue;
-        visible.add(nodeId);
-        for (const edge of incoming.get(nodeId) ?? []) ancestors.push(edge.source);
-      }
-      for (const edge of (outgoing.get(anchorId) ?? []).slice(0, TRACE_SUCCESSOR_LIMIT)) {
-        visible.add(edge.target);
-      }
-      visible.add(root.id);
+    const outgoing = new Map<string, ProjectionEdge[]>();
+    for (const edge of this.projectionEdges.values()) {
+      const values = outgoing.get(edge.source) ?? [];
+      values.push(edge);
+      outgoing.set(edge.source, values);
     }
-    const nodes = [...visible]
-      .map((id) => this.projectionNodes.get(id))
-      .filter((node): node is ProjectionNode => Boolean(node));
-    const edges = [...this.projectionEdges.values()].filter(
-      (edge) => visible.has(edge.source) && visible.has(edge.target),
-    );
+    const visible = new Set<string>();
+    const queue = [root.id];
+    while (queue.length && visible.size < MAX_RENDERED_NODES) {
+      const nodeId = queue.shift()!;
+      if (visible.has(nodeId)) continue;
+      visible.add(nodeId);
+      const node = this.projectionNodes.get(nodeId);
+      if (node && this.isBranch(node) && !this.expandedBranches.has(nodeId)) continue;
+      for (const edge of outgoing.get(nodeId) ?? []) queue.push(edge.target);
+    }
+    const nodes = [...visible].map((id) => this.projectionNodes.get(id)).filter((node): node is ProjectionNode => Boolean(node));
+    const edges = [...this.projectionEdges.values()].filter((edge) => visible.has(edge.source) && visible.has(edge.target));
     this.nodes = new Map(nodes.map((node) => [node.id, graphNode(node)]));
     this.edges = new Map(edges.map((edge) => [edge.id, graphEdge(edge)]));
     this.positions = layoutInitial(this.nodes.values(), this.edges.values());
     this.fitRequest += 1;
   }
 
-  private openGraphStream(
-    query: Omit<GraphSnapshotQuery, "after" | "limit" | "depth">,
-    staleDiagnostic: string,
-  ): void {
+  private openIndexStream(): void {
     this.closeStream?.();
-    this.closeStream = this.client.openGraphStream(query, (notice) => {
+    this.closeStream = this.client.openGraphStream({ mode: "index" }, (notice) => {
       if (notice.graph_revision !== this.checksum) {
         this.connection = "stale";
-        this.diagnostic = staleDiagnostic;
+        this.diagnostic = "Graph changed. Refresh the index to continue.";
       }
     }, () => {
       if (!this.stopped) this.connection = this.hasProjection ? "stale" : "error";
     });
   }
 
-  private async loadCampaignProgress(): Promise<void> {
-    this.campaignProgressAbortController?.abort();
-    const controller = new AbortController();
-    this.campaignProgressAbortController = controller;
-    const generation = ++this.campaignProgressGeneration;
-    this.campaignProgressStatus = "loading";
-    this.campaignProgressDiagnostic = null;
-    try {
-      const campaigns = await this.client.getCampaignProgress(controller.signal);
-      if (this.stopped || generation !== this.campaignProgressGeneration) return;
-      const selectedId = this.selectedCampaignProgressId;
-      this.campaignProgress = campaigns;
-      this.selectedCampaignProgressId = campaigns.some((campaign) => campaign.campaignId === selectedId)
-        ? selectedId
-        : campaigns[0]?.campaignId ?? null;
-      this.campaignProgressStatus = "ready";
-    } catch (error) {
-      if (this.stopped || generation !== this.campaignProgressGeneration || (error instanceof DOMException && error.name === "AbortError")) return;
-      this.campaignProgressStatus = "error";
-      this.campaignProgressDiagnostic = messageFor(error);
-    }
+  private openAbilityStream(factionId: string, abilityId: string): void {
+    this.closeStream?.();
+    this.closeStream = this.client.openGraphStream({ mode: "ability", faction_id: factionId, ability_id: abilityId }, (notice) => {
+      if (notice.graph_revision !== this.checksum) {
+        this.connection = "stale";
+        this.diagnostic = "Selected evidence changed. Retry to load the current revision.";
+      }
+    }, () => {
+      if (!this.stopped) this.connection = this.hasProjection ? "stale" : "error";
+    });
   }
 
   private ignoreAbort(error: unknown, generation: number): boolean {
@@ -654,53 +429,13 @@ export class GraphStore {
   }
 
   selectNode(nodeId: string): void {
-    const node = this.projectionNodes.get(nodeId);
-    if (!node) return;
-    if (
-      this.selectedNodeId === nodeId &&
-      this.selectedEdgeId === null &&
-      this.traceAnchorId === nodeId
-    ) {
-      return;
-    }
     this.selectedNodeId = nodeId;
     this.selectedEdgeId = null;
-    this.traceAnchorId = nodeId;
-    this.selectedProjectionNode = node;
-    if (this.graphScope === "trace") this.applyVisibleProjection();
+    this.selectedProjectionNode = this.projectionNodes.get(nodeId) ?? null;
   }
-
-  selectEdge(edgeId: string): void {
-    const edge = this.projectionEdges.get(edgeId);
-    if (!edge) return;
-    if (
-      this.selectedEdgeId === edgeId &&
-      this.selectedNodeId === null &&
-      this.traceAnchorId === edge.target
-    ) {
-      return;
-    }
-    this.selectedEdgeId = edgeId;
-    this.selectedNodeId = null;
-    this.traceAnchorId = edge.target;
-    this.selectedProjectionNode = null;
-    if (this.graphScope === "trace") this.applyVisibleProjection();
-  }
-
-  focusTraceNode(nodeId: string): void {
-    if (!this.projectionNodes.has(nodeId)) return;
-    this.graphScope = "trace";
-    this.graphSearch = "";
-    this.graphSearchResults = [];
-    this.selectNode(nodeId);
-    this.centerNode(nodeId);
-  }
-  setViewportWidth(width: number): void {
-    const nextWidth = Math.round(width);
-    if (!Number.isFinite(nextWidth) || nextWidth === this.viewportWidth) return;
-    this.viewportWidth = nextWidth;
-    if (this.hasProjection) this.fitRequest += 1;
-  }
+  selectEdge(edgeId: string): void { this.selectedEdgeId = edgeId; this.selectedNodeId = null; }
+  setViewport(value: { x: number; y: number; zoom: number }): void { this.viewport = value; }
+  setViewportWidth(width: number): void { this.viewportWidth = width; }
   setFilters(filters: GraphFilters): void { this.filters = filters; }
   resetFilters(): void { this.filters = { ...DEFAULT_FILTERS }; }
   resetLayout(): void { this.positions = layoutInitial(this.nodes.values(), this.edges.values()); this.fitRequest += 1; }
@@ -709,68 +444,8 @@ export class GraphStore {
   toggleDock(): void { this.dockHeight = this.dockHeight === 36 ? 260 : 36; }
   expandDock(): void { if (this.dockHeight === 36) this.dockHeight = 260; }
   setInspectorWidth(width: number): void { this.inspectorWidth = Math.max(300, Math.min(620, width)); }
-  async selectCampaign(campaignId: string): Promise<void> {
-    if (!this.campaignProgress.some((campaign) => campaign.campaignId === campaignId)) return;
-    this.selectedCampaignProgressId = campaignId;
-    this.graphScope = "trace";
-    this.graphSearch = "";
-    this.graphSearchResults = [];
-    this.traceAnchorId = null;
-    this.selectedEdgeId = null;
-    this.activeCampaignGraphId = campaignId;
-    this.selectedAbility = null;
-    this.selectedNodeId = null;
-    this.selectedProjectionNode = null;
-    this.expandedBranches = new Set();
-    this.closeStream?.();
-    this.closeStream = null;
-    this.abortController?.abort();
-    const generation = ++this.generation;
-    this.abortController = new AbortController();
-    this.connection = "loading";
-    this.diagnostic = null;
-    this.clearRenderedProjection();
-    this.resetPagination();
-    try {
-      const snapshot = await this.client.getGraphSnapshot(
-        { mode: "campaign", campaign_id: campaignId, limit: 400, depth: 4 },
-        this.abortController.signal,
-      );
-      if (this.stopped || generation !== this.generation) return;
-      this.activateCampaign(snapshot, false);
-      this.connection = "live";
-      this.openGraphStream(
-        { mode: "campaign", campaign_id: campaignId },
-        "Campaign evidence changed. Retry to load the current revision.",
-      );
-    } catch (error) {
-      if (this.ignoreAbort(error, generation)) return;
-      this.handleFetchError(error);
-    }
-  }
-
-  async showGlobalGraph(): Promise<void> {
-    this.graphScope = "trace";
-    this.activeCampaignGraphId = null;
-    this.selectedAbility = null;
-    this.selectedNodeId = null;
-    this.selectedProjectionNode = null;
-    this.projectionNodes = new Map();
-    this.projectionEdges = new Map();
-    this.clearRenderedProjection();
-    await this.start();
-  }
-
-  selectCampaignProgress(campaignId: string): void {
-    if (this.campaignProgress.some((campaign) => campaign.campaignId === campaignId)) {
-      this.selectedCampaignProgressId = campaignId;
-    }
-  }
-  setGraphScope(scope: GraphScope): void {
-    if (scope === this.graphScope) return;
-    this.graphScope = scope;
-    this.applyVisibleProjection();
-  }
+  async selectCampaign(_campaignId: string): Promise<void> {}
+  async setGraphScope(scope: GraphScope): Promise<void> { this.graphScope = scope; }
   canSubmitReview(_review: ReviewItem): boolean { return false; }
   updateDraft(reviewId: string, patch: Partial<ReviewDraft>): void {
     const current = this.reviewDrafts[reviewId] ?? { optionId: "", rationale: "", submitting: false, awaitingDecisionNodeId: null, acceptedSequence: null, error: null };

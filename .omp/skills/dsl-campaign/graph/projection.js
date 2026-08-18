@@ -241,8 +241,6 @@ function runScoreSummary(store, runId) {
       if (Number.isFinite(payload.terminal_mean)) summary.mean_after = payload.terminal_mean
       else if (Number.isFinite(payload.updated_mean)) summary.mean_after = payload.updated_mean
     }
-    if (summary.bookmark == null && typeof payload.bookmark === 'string') summary.bookmark = payload.bookmark
-    if (summary.pr == null && typeof payload.pr === 'string') summary.pr = payload.pr
   }
   return summary
 }
@@ -256,9 +254,9 @@ function projectCampaign(store, run, current = null) {
     id: run.campaign_id,
     kind: current?.kind ?? run.kind,
     target: current?.target ?? run.target,
-    bookmark: scores.bookmark ?? current?.bookmark ?? null,
+    bookmark: current?.bookmark ?? null,
     status: projectedCampaignStatus(run.state, current?.status),
-    pr: scores.pr ?? current?.pr ?? null,
+    pr: current?.pr ?? null,
     worklist_size: current?.worklist_size ?? worklistSize,
     mean_before: current?.mean_before ?? scores.mean_before ?? null,
     mean_after: current?.mean_after ?? scores.mean_after ?? null,
@@ -266,9 +264,7 @@ function projectCampaign(store, run, current = null) {
     finished: run.finished ?? current?.finished ?? null,
     notes: superseded
       ? 'Generated compatibility projection: superseded in the Mechanic Evidence Graph; legacy branches remain discovery-only and authorize no reuse.'
-      : current?.notes && !current.notes.startsWith('Generated compatibility projection:')
-        ? current.notes
-        : `Generated compatibility projection: ${run.state} in the Mechanic Evidence Graph.`,
+      : current?.notes ?? `Generated compatibility projection: ${run.state} in the Mechanic Evidence Graph.`,
   }
 }
 

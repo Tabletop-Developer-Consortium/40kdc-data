@@ -1,3 +1,5 @@
+import { createTrustedAgent } from '../graph/workflow-runtime.js'
+
 export const meta = {
   name: 'dsl-author-batch',
   description: 'Decompose → assemble → refute one batch of abilities (read-only agents; no repo writes)',
@@ -26,7 +28,19 @@ export const meta = {
 if (typeof args === 'string') args = JSON.parse(args)
 if (!args || !Array.isArray(args.abilities)) throw new Error('args.abilities required')
 if (args.abilities.length > 8) throw new Error(`batch too large: ${args.abilities.length} > 8 (grain is 5–6)`)
+for (const ability of args.abilities) {
+  for (const field of ['source_formalization_certificate_node_id', 'construction_plan_node_id']) {
+    if (typeof ability[field] !== 'string' || !/^[a-f0-9]{64}$/.test(ability[field]))
+      throw new Error(`${ability.faction_id}/${ability.ability_id}: ${field} required`)
+  }
+  if (!Array.isArray(ability.selected_evidence_node_ids) ||
+      ability.selected_evidence_node_ids.some(id => !/^[a-f0-9]{64}$/.test(id)))
+    throw new Error(`${ability.faction_id}/${ability.ability_id}: selected_evidence_node_ids required`)
+  if (!Array.isArray(ability.unmatched_claim_ids))
+    throw new Error(`${ability.faction_id}/${ability.ability_id}: unmatched_claim_ids required`)
+}
 const NEW_SHAPES = args.new_shapes || []
+const graphAgent = createTrustedAgent({ driverArgs: args, invokeAgent: agent })
 // Pin every agent to the loop workspace: subagents inherit the DRIVER session's cwd,
 // which may be a different checkout of this repo (a parallel session's working copy).
 const PRE = args.repo_root
@@ -115,11 +129,9 @@ const results = await pipeline(
 
   async a => ({
     ability: a,
-    retrieval: await agent(
-      PRE + `Look up this ability's raw prose and committed DSL. Input:\n` +
-      JSON.stringify({ query: { ability_id: a.ability_id, faction_id: a.faction_id } }),
-      { agentType: 'data-enginseer', phase: 'Retrieve', schema: ENGINSEER_OUT, label: `retrieve:${a.ability_id}` }
-    ),
+    retrieval: await graphAgent(PRE + `Look up this ability's raw prose and committed DSL. Input:\n` +
+    JSON.stringify({ query: { ability_id: a.ability_id, faction_id: a.faction_id } }),
+    { agentType: 'data-enginseer', phase: 'Retrieve', schema: ENGINSEER_OUT, label: `retrieve:${a.ability_id}`, graphEphemeralKeys: ['raw_text', 'original_rule'] }),
   }),
 
   async retrieved => {
@@ -138,11 +150,11 @@ const results = await pipeline(
     }
     const dec = JSON.stringify(baseInput)
     const [who, when, what] = await parallel([
-      () => agent(PRE + `Decompose WHO for this ability. Input:\n${dec}`,
+      () => graphAgent(PRE + `Decompose WHO for this ability. Input:\n${dec}`,
         { agentType: 'target-dummy', phase: 'Decompose', schema: WHO_OUT, label: `who:${a.ability_id}` }),
-      () => agent(PRE + `Decompose WHEN for this ability. Input:\n${dec}`,
+      () => graphAgent(PRE + `Decompose WHEN for this ability. Input:\n${dec}`,
         { agentType: 'chronomancer', phase: 'Decompose', schema: WHEN_OUT, label: `when:${a.ability_id}` }),
-      () => agent(PRE + `Decompose WHAT for this ability. Input:\n${dec}`,
+      () => graphAgent(PRE + `Decompose WHAT for this ability. Input:\n${dec}`,
         { agentType: 'vox-hound', phase: 'Decompose', schema: WHAT_OUT, label: `what:${a.ability_id}` }),
     ])
 
@@ -152,13 +164,11 @@ const results = await pipeline(
     // result feeds the assembler as `lookups`.
     const deferred = [who, when, what].flatMap(d => (d && d.lookups_needed) || [])
     const lookups = deferred.length
-      ? await agent(
-          PRE + `Resolve these cross-references the decomposers deferred (other abilities, ` +
-          `keyword meanings, sibling encodings). Input:\n` +
-          JSON.stringify({ query: { mechanic: deferred.join(' ; '), faction_id: a.faction_id },
-            deferred, context_ability_id: a.ability_id }),
-          { agentType: 'data-enginseer', phase: 'Retrieve', schema: ENGINSEER_OUT, label: `lookups:${a.ability_id}` }
-        )
+      ? await graphAgent(PRE + `Resolve these cross-references the decomposers deferred (other abilities, ` +
+      `keyword meanings, sibling encodings). Input:\n` +
+      JSON.stringify({ query: { mechanic: deferred.join(' ; '), faction_id: a.faction_id },
+        deferred, context_ability_id: a.ability_id }),
+      { agentType: 'data-enginseer', phase: 'Retrieve', schema: ENGINSEER_OUT, label: `lookups:${a.ability_id}` })
       : null
 
     let candidate = null
@@ -183,12 +193,10 @@ const results = await pipeline(
           `drop a clause to dodge one, and never reintroduce a divergence an earlier round already resolved:\n` +
           JSON.stringify(thread.map(t => ({ round: t.attempt, refuted: t.refuted, divergences: t.divergences })))
         : ''
-      candidate = await agent(
-        PRE + `Assemble the DSL entry. The prose is authoritative over every decomposer block; ` +
-        `placeholder lies are banned — if the schema cannot express the mechanic honestly, return resisted_schema. ` +
-        `Input:\n${JSON.stringify(assembleInput)}${revision}`,
-        { agentType: 'arch-magos', phase: 'Assemble', schema: ARCHMAGOS_OUT, label: `assemble:${a.ability_id}#${attempts}` }
-      )
+      candidate = await graphAgent(PRE + `Assemble the DSL entry. The prose is authoritative over every decomposer block; ` +
+      `placeholder lies are banned — if the schema cannot express the mechanic honestly, return resisted_schema. ` +
+      `Input:\n${JSON.stringify(assembleInput)}${revision}`,
+      { agentType: 'arch-magos', phase: 'Assemble', schema: ARCHMAGOS_OUT, label: `assemble:${a.ability_id}#${attempts}` })
       if (!candidate) return { ability: a, status: 'agent-error', candidate: null, verdicts, thread, decomposition: { who, when, what }, attempts }
       if (candidate.resisted_schema)
         return { ability: a, status: 'needs-schema', candidate, verdicts, thread, decomposition: { who, when, what }, attempts }
@@ -205,13 +213,11 @@ const results = await pipeline(
         approx_notes: candidate.approx_notes || [],
       })
       verdicts = (await parallel(Array.from({ length: n }, (_, i) => () =>
-        agent(
-          PRE + `You are refuter ${i + 1} of ${n}; work independently — do not assume the encoding is right. ` +
-          `Derive expected behavior from the PROSE ONLY (never from the DSL's own vocabulary or describer render). ` +
-          `refuted:true requires a CONCRETE constructed game state. A clause declared in approx_notes is not a divergence; ` +
-          `an undeclared gap is. Input:\n${refuteInput}`,
-          { agentType: 'eversor', phase: 'Refute', schema: EVERSOR_OUT, label: `refute:${a.ability_id}#${attempts}v${i + 1}` }
-        )
+        graphAgent(PRE + `You are refuter ${i + 1} of ${n}; work independently — do not assume the encoding is right. ` +
+        `Derive expected behavior from the PROSE ONLY (never from the DSL's own vocabulary or describer render). ` +
+        `refuted:true requires a CONCRETE constructed game state. A clause declared in approx_notes is not a divergence; ` +
+        `an undeclared gap is. Input:\n${refuteInput}`,
+        { agentType: 'eversor', phase: 'Refute', schema: EVERSOR_OUT, label: `refute:${a.ability_id}#${attempts}v${i + 1}` })
       ))).filter(Boolean)
 
       // Record this round in the thread BEFORE deciding — the whole history survives to loop-state.

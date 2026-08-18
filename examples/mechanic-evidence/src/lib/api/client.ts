@@ -1,7 +1,6 @@
 import type {
   AuthorizedSourceExcerpt,
   BrowserSafeText,
-  CampaignProgress,
   CampaignSummary,
   CommitNotice,
   DecisionReceipt,
@@ -163,57 +162,6 @@ function safeText(value: unknown, at: string): BrowserSafeText {
   return {
     value: string(record.value, `${at}.value`),
     classification: classification as BrowserSafeText["classification"],
-  };
-}
-
-function stateCounts(value: unknown, at: string): Record<string, number> {
-  const record = object(value, at);
-  return Object.fromEntries(
-    Object.entries(record).map(([state, count]) => [state, integer(count, `${at}.${state}`)]),
-  );
-}
-
-function assertStateTotal(states: Record<string, number>, total: number, at: string): void {
-  const stateTotal = Object.values(states).reduce((sum, count) => sum + count, 0);
-  if (stateTotal !== total) {
-    throw new UnsafeProjectionError(`${at}: state counts do not match total`);
-  }
-}
-
-
-function campaignProgress(value: unknown, at = "campaignProgress"): CampaignProgress {
-  const record = object(value, at);
-  const taskStates = stateCounts(field(record, "taskStates", "task_states"), `${at}.taskStates`);
-  const taskTotal = integer(field(record, "taskTotal", "task_total"), `${at}.taskTotal`);
-  assertStateTotal(taskStates, taskTotal, `${at}.tasks`);
-  const claimStates = stateCounts(field(record, "claimStates", "claim_states"), `${at}.claimStates`);
-  const claimTotal = integer(field(record, "claimTotal", "claim_total"), `${at}.claimTotal`);
-  assertStateTotal(claimStates, claimTotal, `${at}.claims`);
-  const findingStates = stateCounts(
-    field(record, "findingStates", "finding_states"),
-    `${at}.findingStates`,
-  );
-  const findingTotal = integer(field(record, "findingTotal", "finding_total"), `${at}.findingTotal`);
-  assertStateTotal(findingStates, findingTotal, `${at}.findings`);
-  const checkStates = stateCounts(field(record, "checkStates", "check_states"), `${at}.checkStates`);
-  const checkTotal = integer(field(record, "checkTotal", "check_total"), `${at}.checkTotal`);
-  assertStateTotal(checkStates, checkTotal, `${at}.checks`);
-  return {
-    runId: string(field(record, "runId", "run_id"), `${at}.runId`),
-    campaignId: string(field(record, "campaignId", "campaign_id"), `${at}.campaignId`),
-    state: string(record.state, `${at}.state`),
-    kind: nullableString(record.kind, `${at}.kind`),
-    target: nullableString(record.target, `${at}.target`),
-    started: nullableString(record.started, `${at}.started`),
-    finished: nullableString(record.finished, `${at}.finished`),
-    taskStates,
-    taskTotal,
-    claimStates,
-    claimTotal,
-    findingStates,
-    findingTotal,
-    checkStates,
-    checkTotal,
   };
 }
 
@@ -427,13 +375,6 @@ function formalization(value: unknown, at: string): FormalizationSummary {
 export function decodeCampaigns(value: unknown): CampaignSummary[] {
   assertBrowserSafePayload(value);
   return array(value, "campaigns").map((entry, index) => campaign(entry, `campaigns[${index}]`));
-}
-
-export function decodeCampaignProgress(value: unknown): CampaignProgress[] {
-  assertBrowserSafePayload(value);
-  return array(value, "campaignProgress").map((entry, index) =>
-    campaignProgress(entry, `campaignProgress[${index}]`),
-  );
 }
 
 export function decodeSnapshot(value: unknown): GraphSnapshot {
@@ -668,9 +609,6 @@ export function createMechanicGraphClient(
   }
 
   return {
-    async getCampaignProgress(signal) {
-      return decodeCampaignProgress(await request("/campaigns", { signal }));
-    },
     async getGraphSnapshot(query, signal) {
       return decodeGlobalGraphSnapshot(
         await request(`/graph/snapshot?${graphQuery(query)}`, { signal }),

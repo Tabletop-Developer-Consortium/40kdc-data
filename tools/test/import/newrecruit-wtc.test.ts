@@ -132,6 +132,69 @@ describe("newRecruitWtcCompactAdapter", () => {
   });
 });
 
+describe("newRecruitWtcCompactAdapter — Leading/Attached to attachment prose", () => {
+  // The plain-text NewRecruit copy export (newrecruit.eu) states leader
+  // attachment in prose on either end of the link, not via the WTC-serialized
+  // `Attachment: leader -> X` line: `Leading <bodyguard>` on the character's
+  // own block, and/or `  Attached to <character>` (indented, no bullet) on
+  // the bodyguard's own block.
+  const SAMPLE = `+++++++++++++++++++++++++++++++++++++++++++++++
++ FACTION KEYWORD: Chaos - Chaos Knights
++ DETACHMENT: Houndpack Lance (Marked Prey)
++ TOTAL ARMY POINTS: 2000pts
++++++++++++++++++++++++++++++++++++++++++++++++
+
+Char1: 1x War Dog Karnivore (165 pts): Houndpack Lance Character, Reaper chaintalon, Slaughterclaw, Havoc multi-launcher
+Leading Nurglings
+
+3x Nurglings (40 pts): 3 with Diseased claws and teeth
+  Attached to War Dog Karnivore
+`;
+
+  const parsed = newRecruitWtcCompactAdapter.parse(SAMPLE);
+
+  it("sets leader_attachment on the character from a 'Leading X' line", () => {
+    const karnivore = parsed.units.find((u) => u.raw_name === "War Dog Karnivore")!;
+    expect(karnivore.leader_attachment).toEqual({
+      role: "leader",
+      bodyguard_raw_name: "Nurglings",
+      provisional: false,
+    });
+  });
+
+  it("does not duplicate or overwrite the attachment when 'Attached to' echoes the same pair", () => {
+    // Only one signal should win — the explicit 'Leading' line found first.
+    const karnivore = parsed.units.find((u) => u.raw_name === "War Dog Karnivore")!;
+    expect(karnivore.leader_attachment?.bodyguard_raw_name).toBe("Nurglings");
+  });
+
+  it("does not set leader_attachment on the bodyguard unit itself", () => {
+    const nurglings = parsed.units.find((u) => u.raw_name === "Nurglings")!;
+    expect(nurglings.leader_attachment).toBeNull();
+  });
+
+  it("falls back to 'Attached to' alone (defaulting to leader role) when no 'Leading' line is present", () => {
+    const attachedToOnly = `+++++++++++++++++++++++++++++++++++++++++++++++
++ FACTION KEYWORD: Chaos - Chaos Knights
++ DETACHMENT: Houndpack Lance (Marked Prey)
++ TOTAL ARMY POINTS: 2000pts
++++++++++++++++++++++++++++++++++++++++++++++++
+
+Char1: 1x War Dog Karnivore (165 pts): Houndpack Lance Character, Reaper chaintalon, Slaughterclaw, Havoc multi-launcher
+
+3x Nurglings (40 pts): 3 with Diseased claws and teeth
+  Attached to War Dog Karnivore
+`;
+    const p = newRecruitWtcCompactAdapter.parse(attachedToOnly);
+    const karnivore = p.units.find((u) => u.raw_name === "War Dog Karnivore")!;
+    expect(karnivore.leader_attachment).toEqual({
+      role: "leader",
+      bodyguard_raw_name: "Nurglings",
+      provisional: false,
+    });
+  });
+});
+
 describe("newRecruitWtcFullAdapter", () => {
   it("matches full text only and disambiguates from compact", () => {
     expect(newRecruitWtcFullAdapter.matches(FULL_SAMPLE)).toBe(true);
@@ -440,5 +503,44 @@ Char1: 1x Palatine (50 pts): Palatine blade, Plasma pistol, Warlord
       expect(melta.ref.id).not.toBeNull();
       expect(ds.weapons.getAny(melta.ref.id!)).toBeTruthy();
     }
+  });
+});
+
+describe("newRecruitWtcFullAdapter — Leading/Attached to attachment prose", () => {
+  // Same prose-based attachment signal as the compact-parser test above, but
+  // in the full-body (section-header) dialect — exercises the second copy of
+  // the LEADING_LINE/ATTACHED_TO_LINE handling in parseFullBody.
+  const SAMPLE = `+++++++++++++++++++++++++++++++++++++++++++++++
++ FACTION KEYWORD: Chaos - Chaos Knights
++ DETACHMENT: Houndpack Lance (Marked Prey)
++ TOTAL ARMY POINTS: 2000pts
++++++++++++++++++++++++++++++++++++++++++++++++
+
+BATTLELINE
+
+Char1: 1x War Dog Karnivore (165 pts)
+1 with Reaper chaintalon, Slaughterclaw, Havoc multi-launcher, Houndpack Lance Character
+Leading Nurglings
+
+3x Nurglings (40 pts)
+• 3x Nurgling Swarm
+    3 with Diseased claws and teeth
+  Attached to War Dog Karnivore
+`;
+
+  const parsed = newRecruitWtcFullAdapter.parse(SAMPLE);
+
+  it("sets leader_attachment on the character from a 'Leading X' line", () => {
+    const karnivore = parsed.units.find((u) => u.raw_name === "War Dog Karnivore")!;
+    expect(karnivore.leader_attachment).toEqual({
+      role: "leader",
+      bodyguard_raw_name: "Nurglings",
+      provisional: false,
+    });
+  });
+
+  it("does not set leader_attachment on the bodyguard unit itself", () => {
+    const nurglings = parsed.units.find((u) => u.raw_name === "Nurglings")!;
+    expect(nurglings.leader_attachment).toBeNull();
   });
 });

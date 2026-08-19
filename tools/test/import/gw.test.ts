@@ -288,3 +288,134 @@ Jain Zar (100 pts)
     expect(names).not.toContain("strike");
   });
 });
+
+describe("gwAdapter — Attached Units preamble", () => {
+  // GW app export groups a Leader/Support character with its bodyguard unit
+  // under "Attached Units" > "Attached Unit N" before the ALL-CAPS role
+  // sections begin, marking each entry's role via "• Attached as: Leader
+  // (Character)" / "• Attached as: Bodyguard". This block previously carried
+  // no attachment signal at all (silently dropped, matched as two standalone
+  // units).
+  const SAMPLE = `+++++++++++++++++++++++++++++++++++++++++++++++
++ FACTION KEYWORD: Chaos - Chaos Knights
++ DETACHMENT: Houndpack Lance (Marked Prey)
++ TOTAL ARMY POINTS: 2000pts
++++++++++++++++++++++++++++++++++++++++++++++++
+
+Attached Units
+Attached Unit 1
+
+War Dog Karnivore (165 pts)
+• Attached as: Leader (Character)
+• 1x Reaper chaintalon
+• 1x Slaughterclaw
+• 1x Havoc multi-launcher
+
+Nurglings (40 pts)
+• Attached as: Bodyguard
+• 3x Nurgling Swarm
+    • 3x Diseased claws and teeth
+
+BATTLELINE
+
+War Dog Brigand (140 pts)
+• 1x Armoured feet
+• 1x Avenger chaincannon
+`;
+
+  const parsed = gwAdapter.parse(SAMPLE);
+
+  it("sets leader_attachment on the character (Leader role) pointing at its bodyguard", () => {
+    const karnivore = parsed.units.find((u) => u.raw_name === "War Dog Karnivore")!;
+    expect(karnivore.leader_attachment).toEqual({
+      role: "leader",
+      bodyguard_raw_name: "Nurglings",
+      provisional: false,
+    });
+  });
+
+  it("flags the attached character as is_character even without a trailing 'Character' token", () => {
+    const karnivore = parsed.units.find((u) => u.raw_name === "War Dog Karnivore")!;
+    expect(karnivore.is_character).toBe(true);
+  });
+
+  it("does not set leader_attachment on the bodyguard unit itself", () => {
+    const nurglings = parsed.units.find((u) => u.raw_name === "Nurglings")!;
+    expect(nurglings.leader_attachment).toBeUndefined();
+  });
+
+  it("does not misparse 'Attached as: Bodyguard' as wargear or an annotation", () => {
+    const nurglings = parsed.units.find((u) => u.raw_name === "Nurglings")!;
+    const wargearNames = nurglings.wargear.map((w) => w.raw_name);
+    expect(wargearNames).not.toContain("Attached as: Bodyguard");
+    expect(nurglings.model_count).toBe(3);
+  });
+
+  it("still parses units outside the Attached Units preamble normally", () => {
+    const brigand = parsed.units.find((u) => u.raw_name === "War Dog Brigand")!;
+    expect(brigand.leader_attachment).toBeUndefined();
+    expect(brigand.points).toBe(140);
+  });
+
+  it("keeps every unit — 3 total (2 attached + 1 battleline)", () => {
+    expect(parsed.units).toHaveLength(3);
+  });
+
+  it("resolves end-to-end via tryImportRoster with the bodyguard_ref matched", () => {
+    const result = tryImportRoster(SAMPLE);
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    const karnivore = result.roster.units.find((u) => u.ref.raw_name === "War Dog Karnivore")!;
+    expect(karnivore.leader_attachment).not.toBeNull();
+    expect(karnivore.leader_attachment?.role).toBe("leader");
+    expect(karnivore.leader_attachment?.bodyguard_ref.raw_name).toBe("Nurglings");
+    expect(karnivore.leader_attachment?.bodyguard_ref.resolved).toBe(true);
+  });
+
+  it("resolves an Attached Unit group with a Support-role character", () => {
+    const supportSample = SAMPLE.replace(
+      "• Attached as: Leader (Character)",
+      "• Attached as: Support (Character)",
+    );
+    const p = gwAdapter.parse(supportSample);
+    const karnivore = p.units.find((u) => u.raw_name === "War Dog Karnivore")!;
+    expect(karnivore.leader_attachment?.role).toBe("support");
+  });
+
+  it("does not pair across two separate Attached Unit blocks", () => {
+    const twoBlocks = `+++++++++++++++++++++++++++++++++++++++++++++++
++ FACTION KEYWORD: Chaos - Chaos Knights
++ DETACHMENT: Houndpack Lance (Marked Prey)
++ TOTAL ARMY POINTS: 2000pts
++++++++++++++++++++++++++++++++++++++++++++++++
+
+Attached Units
+Attached Unit 1
+
+War Dog Karnivore (165 pts)
+• Attached as: Leader (Character)
+• 1x Reaper chaintalon
+
+Nurglings (40 pts)
+• Attached as: Bodyguard
+• 3x Nurgling Swarm
+    • 3x Diseased claws and teeth
+
+Attached Unit 2
+
+War Dog Executioner (130 pts)
+• Attached as: Leader (Character)
+• 1x Armoured feet
+
+Beasts of Nurgle (140 pts)
+• Attached as: Bodyguard
+• 3x Beast of Nurgle
+    • 3x Fleshy Claws
+`;
+    const p = gwAdapter.parse(twoBlocks);
+    const karnivore = p.units.find((u) => u.raw_name === "War Dog Karnivore")!;
+    const executioner = p.units.find((u) => u.raw_name === "War Dog Executioner")!;
+    expect(karnivore.leader_attachment?.bodyguard_raw_name).toBe("Nurglings");
+    expect(executioner.leader_attachment?.bodyguard_raw_name).toBe("Beasts of Nurgle");
+  });
+});

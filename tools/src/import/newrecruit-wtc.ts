@@ -156,6 +156,14 @@ const ENHANCEMENT_LINE =
   /^Enhancement:\s*(.+?)(?:\s*\(\+\s*(\d+)\s*pts?\s*\))?\s*$/i;
 const ATTACHMENT_LINE =
   /^Attachment:\s*(leader|support)\s*->\s*(.+?)(\s+\[provisional\])?\s*$/i;
+// The plain-text NewRecruit copy export (as opposed to the WTC-serialized
+// `Attachment: leader -> X` line above) states the same pairing in prose on
+// either end of the link: `Leading <bodyguard>` on the character's own block,
+// or `  Attached to <character>` (indented, no bullet) on the bodyguard's
+// block. Both are explicit — not inferred — so they're handled the same way
+// as `ATTACHMENT_LINE`, not routed through resolve()'s support-only fallback.
+const LEADING_LINE = /^Leading\s+(.+?)\s*$/i;
+const ATTACHED_TO_LINE = /^Attached to\s+(.+?)\s*$/i;
 const WITH_PREFIX = /^(\d+)\s+with\s+(.*)$/i;
 // Optional trailing `: <wargear>` — NewRecruit inlines a model group's loadout
 // after the model type (`• 1x Champion: Chainblades`, `• 5x Eightbound: 5 with
@@ -281,6 +289,32 @@ function attachEnhancement(unit: UnitBuilder, raw_name: string, pts: number | nu
   unit.enhancement_pts = pts;
 }
 
+/**
+ * Resolve `Attached to <character>` refs collected while parsing (see
+ * `pendingAttachedTo` in each body parser) against the fully-parsed unit
+ * list. Only fills a gap left by an absent `Leading`/`Attachment:` line on
+ * the character's own block — that signal already carries an explicit role
+ * (leader/support) and takes precedence. `Attached to` alone doesn't state a
+ * role, so it defaults to "leader" (the overwhelmingly common case; a
+ * support character that *only* the bodyguard-side text names would be
+ * mislabeled, a known best-effort limitation).
+ */
+function applyPendingAttachedTo(
+  units: ParsedUnit[],
+  pendingAttachedTo: { bodyguardRawName: string; characterRawName: string }[],
+): void {
+  for (const pending of pendingAttachedTo) {
+    const character = units.find((u) => u.raw_name === pending.characterRawName);
+    if (character && !character.leader_attachment) {
+      character.leader_attachment = {
+        role: "leader",
+        bodyguard_raw_name: pending.bodyguardRawName,
+        provisional: false,
+      };
+    }
+  }
+}
+
 // --- compact body parser ----------------------------------------------------
 
 function parseCompactBody(body: string): { units: ParsedUnit[]; enhancementPts: (number | null)[] } {
@@ -288,6 +322,12 @@ function parseCompactBody(body: string): { units: ParsedUnit[]; enhancementPts: 
   const units: ParsedUnit[] = [];
   const enhancementPts: (number | null)[] = [];
   let current: UnitBuilder | null = null;
+  // `Attached to <character>` names the character from the bodyguard's own
+  // block, so it can't be resolved to `current.leader_attachment` inline (the
+  // character unit may not exist yet). Deferred to a post-pass once every
+  // unit has been parsed. Only fills a gap left by an absent `Leading` line —
+  // see the post-pass below.
+  const pendingAttachedTo: { bodyguardRawName: string; characterRawName: string }[] = [];
 
   const finalize = (): void => {
     if (current) {
@@ -321,6 +361,20 @@ function parseCompactBody(body: string): { units: ParsedUnit[]; enhancementPts: 
       };
       continue;
     }
+    const leadingMatch = LEADING_LINE.exec(line);
+    if (leadingMatch && current) {
+      current.leader_attachment = {
+        role: "leader",
+        bodyguard_raw_name: leadingMatch[1],
+        provisional: false,
+      };
+      continue;
+    }
+    const attachedToMatch = ATTACHED_TO_LINE.exec(line);
+    if (attachedToMatch && current) {
+      pendingAttachedTo.push({ bodyguardRawName: current.raw_name, characterRawName: attachedToMatch[1] });
+      continue;
+    }
     const breakdown = MODEL_BREAKDOWN.exec(raw);
     if (breakdown && current) {
       const count = Number.parseInt(breakdown[1], 10);
@@ -349,6 +403,7 @@ function parseCompactBody(body: string): { units: ParsedUnit[]; enhancementPts: 
   }
 
   finalize();
+  applyPendingAttachedTo(units, pendingAttachedTo);
   return { units, enhancementPts };
 }
 
@@ -367,6 +422,8 @@ function parseFullBody(body: string): { units: ParsedUnit[]; enhancementPts: (nu
         assigned_count: number;
       }
     | null = null;
+  // See `parseCompactBody`'s identical field for the rationale.
+  const pendingAttachedTo: { bodyguardRawName: string; characterRawName: string }[] = [];
 
   // A full-format model bullet introduces a parent model type; every following
   // `N with` line is a separate exact subgroup of that parent. Delay an empty
@@ -420,6 +477,20 @@ function parseFullBody(body: string): { units: ParsedUnit[]; enhancementPts: (nu
         bodyguard_raw_name: attachmentMatch[2],
         provisional: attachmentMatch[3] !== undefined,
       };
+      continue;
+    }
+    const leadingMatch = LEADING_LINE.exec(line);
+    if (leadingMatch && current) {
+      current.leader_attachment = {
+        role: "leader",
+        bodyguard_raw_name: leadingMatch[1],
+        provisional: false,
+      };
+      continue;
+    }
+    const attachedToMatch = ATTACHED_TO_LINE.exec(line);
+    if (attachedToMatch && current) {
+      pendingAttachedTo.push({ bodyguardRawName: current.raw_name, characterRawName: attachedToMatch[1] });
       continue;
     }
 
@@ -483,6 +554,7 @@ function parseFullBody(body: string): { units: ParsedUnit[]; enhancementPts: (nu
   }
 
   finalize();
+  applyPendingAttachedTo(units, pendingAttachedTo);
   return { units, enhancementPts };
 }
 

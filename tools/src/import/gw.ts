@@ -62,6 +62,13 @@ const UNIT_HEADER = /^(.+?)\s*\(\s*(\d+)\s*(?:pts?|points?)\s*\)\s*$/i;
 const BULLET_LINE = /^(\s*)([•◦])\s*(.+?)\s*$/u;
 const NX_PREFIX = /^(\d+)x\s+(.+)$/;
 const ENHANCEMENT_ANNOT = /^(.+?)\s*\(\+\s*(\d+)\s*pts?\s*\)\s*$/i;
+// The "Attached Units" preamble groups a Leader/Support character with its
+// bodyguard unit under `Attached Unit N` before the ALL-CAPS role sections
+// begin. `Attached Unit N` itself carries no case-sensitivity signal (mixed
+// case, so it never collides with SECTION_HEADER) and no `(N pts)` suffix (so
+// it never collides with UNIT_HEADER either) — it's purely a pairing fence.
+const ATTACHED_UNIT_HEADER = /^Attached Unit\s+\d+\s*$/i;
+const ATTACHED_AS_BULLET = /^Attached as:\s*(Leader|Support|Bodyguard)\b/i;
 const WITH_LINE = /^[\t ]*\d+\s+with\b/m;
 const BULLET = /^[\t ]*•/mu;
 const EMBEDDED_APP_BATTLE_SIZE =
@@ -172,7 +179,7 @@ interface UnitAcc {
   bullets: Bullet[];
 }
 
-function finishUnit(acc: UnitAcc): ParsedUnit {
+function finishUnit(acc: UnitAcc): { unit: ParsedUnit; attachedRole: "leader" | "support" | "bodyguard" | null } {
   const topIndent = acc.bullets.length
     ? Math.min(...acc.bullets.map((b) => b.indent))
     : 0;
@@ -183,6 +190,7 @@ function finishUnit(acc: UnitAcc): ParsedUnit {
   let is_character = acc.section === CHARACTERS_SECTION;
   let enhancement_raw_name: string | null = null;
   let enhancement_points: number | null = null;
+  let attachedRole: "leader" | "support" | "bodyguard" | null = null;
 
   const addWargear = (raw_name: string, count: number): void => {
     wargear.set(raw_name, (wargear.get(raw_name) ?? 0) + count);
@@ -198,7 +206,8 @@ function finishUnit(acc: UnitAcc): ParsedUnit {
       continue;
     }
 
-    // Top-level annotation (no `Nx` count): enhancement / character / warlord.
+    // Top-level annotation (no `Nx` count): enhancement / character / warlord /
+    // attached-as (Leader/Support/Bodyguard, from the "Attached Units" preamble).
     if (b.count === null) {
       const enh = ENHANCEMENT_ANNOT.exec(b.text);
       if (enh) {
@@ -206,6 +215,12 @@ function finishUnit(acc: UnitAcc): ParsedUnit {
           enhancement_raw_name = enh[1].trim();
           enhancement_points = Number.parseInt(enh[2], 10);
         }
+        continue;
+      }
+      const attachedAs = ATTACHED_AS_BULLET.exec(b.text);
+      if (attachedAs) {
+        attachedRole = attachedAs[1].toLowerCase() as "leader" | "support" | "bodyguard";
+        if (attachedRole !== "bodyguard") is_character = true;
         continue;
       }
       for (const token of b.text.split(",").map((s) => s.trim()).filter(Boolean)) {
@@ -240,14 +255,17 @@ function finishUnit(acc: UnitAcc): ParsedUnit {
   for (const [raw_name, count] of wargear) wargearList.push({ raw_name, count });
 
   return {
-    raw_name: acc.raw_name,
-    is_character,
-    model_count,
-    points,
-    is_warlord,
-    enhancement_raw_name,
-    enhancement_points,
-    wargear: wargearList,
+    unit: {
+      raw_name: acc.raw_name,
+      is_character,
+      model_count,
+      points,
+      is_warlord,
+      enhancement_raw_name,
+      enhancement_points,
+      wargear: wargearList,
+    },
+    attachedRole,
   };
 }
 
@@ -260,9 +278,31 @@ function parseBody(lines: string[], bodyStart: number): {
   let section: string | null = null;
   let alliedUnits = 0;
 
+  // Units finished while inside an "Attached Unit N" fence, pending pairing
+  // once both the character (Leader/Support role) and its Bodyguard have
+  // been seen. Resolved — and cleared — whenever the fence closes (a new
+  // `Attached Unit N` marker, a real section header, or end of input).
+  let attachedGroupBuffer: { unit: ParsedUnit; role: "leader" | "support" | "bodyguard" }[] = [];
+
+  const resolveAttachedGroup = (): void => {
+    if (attachedGroupBuffer.length === 0) return;
+    const character = attachedGroupBuffer.find((e) => e.role === "leader" || e.role === "support");
+    const bodyguard = attachedGroupBuffer.find((e) => e.role === "bodyguard");
+    if (character && bodyguard) {
+      character.unit.leader_attachment = {
+        bodyguard_raw_name: bodyguard.unit.raw_name,
+        role: character.role as "leader" | "support",
+        provisional: false,
+      };
+    }
+    attachedGroupBuffer = [];
+  };
+
   const finalize = (): void => {
     if (current) {
-      units.push(finishUnit(current));
+      const { unit, attachedRole } = finishUnit(current);
+      if (attachedRole) attachedGroupBuffer.push({ unit, role: attachedRole });
+      units.push(unit);
       current = null;
     }
   };
@@ -271,6 +311,12 @@ function parseBody(lines: string[], bodyStart: number): {
     const raw = lines[i];
     const line = raw.trim();
     if (!line || FENCE.test(line) || HEADER_LINE.test(line)) continue;
+
+    if (ATTACHED_UNIT_HEADER.test(line)) {
+      finalize();
+      resolveAttachedGroup();
+      continue;
+    }
 
     const bulletMatch = BULLET_LINE.exec(raw);
     if (bulletMatch) {
@@ -317,11 +363,13 @@ function parseBody(lines: string[], bodyStart: number): {
 
     if (SECTION_HEADER.test(line)) {
       finalize();
+      resolveAttachedGroup();
       section = line;
     }
   }
 
   finalize();
+  resolveAttachedGroup();
   return { units, multi_force: alliedUnits > 0 };
 }
 

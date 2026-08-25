@@ -12523,6 +12523,29 @@
     }
   },
   {
+    "id": "master-crafted-power-weapon-vanguard-veteran-squad-with-jump-packs",
+    "name": "Master-crafted power weapon",
+    "type": "melee",
+    "profiles": [
+      {
+        "name": "Master-crafted power weapon",
+        "range": "Melee",
+        "stats": {
+          "A": 3,
+          "S": 5,
+          "AP": -2,
+          "D": 2,
+          "WS": 3
+        },
+        "keywords": []
+      }
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
     "id": "master-crafted-power-weapon-victrix-honour-guard",
     "name": "Master-crafted power weapon",
     "type": "melee",

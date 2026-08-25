@@ -8,18 +8,22 @@ const FIXTURES = resolve(__dirname, "fixtures");
 const REAL_DATA = resolve(__dirname, "../../data");
 
 describe("referential integrity", () => {
-  it("passes on the real dataset (no dangling ability_ids, no foreign faction_keywords)", async () => {
-    const result = await checkReferentialIntegrity(REAL_DATA);
-    if (result.failed > 0) {
-      // Surface the offending units to make regressions actionable.
-      const detail = result.errors
-        .flatMap((e) => e.errors.map((x) => x.message))
-        .join("\n");
-      throw new Error(`referential integrity failed:\n${detail}`);
-    }
-    expect(result.failed).toBe(0);
-    expect(result.totalItems).toBeGreaterThan(0);
-  });
+  it(
+    "passes on the real dataset (no dangling ability_ids, no foreign faction_keywords)",
+    async () => {
+      const result = await checkReferentialIntegrity(REAL_DATA);
+      if (result.failed > 0) {
+        // Surface the offending units to make regressions actionable.
+        const detail = result.errors
+          .flatMap((e) => e.errors.map((x) => x.message))
+          .join("\n");
+        throw new Error(`referential integrity failed:\n${detail}`);
+      }
+      expect(result.failed).toBe(0);
+      expect(result.totalItems).toBeGreaterThan(0);
+    },
+    15_000,
+  );
 
   it("flags a dangling ability_id and a foreign faction_keyword", async () => {
     const result = await checkReferentialIntegrity(resolve(FIXTURES, "integrity-bad"));

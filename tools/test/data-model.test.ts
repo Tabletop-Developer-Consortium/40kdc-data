@@ -396,6 +396,40 @@ describe("reverse links", () => {
   });
 });
 
+describe("unit-scoped weapon profiles", () => {
+  it("links Vanguard Veterans to their distinct master-crafted power weapon", () => {
+    const id = "master-crafted-power-weapon-vanguard-veteran-squad-with-jump-packs";
+    const unit = units.getInFaction(
+      "vanguard-veteran-squad-with-jump-packs",
+      "adeptus-astartes",
+    );
+
+    expect(unit).toBeDefined();
+    expect(unit!.raw.weapon_ids).toContain(id);
+    expect(unit!.raw.weapon_ids).not.toContain("master-crafted-power-weapon");
+    const option = unit!.wargearOptions.find(
+      (entry) => entry.id === "vanguard-veteran-squad-with-jump-packs-wgo-mfm-2",
+    );
+    expect(option).toBeDefined();
+    expect(option!.replacement_choice).toEqual([
+      [id, "plasma-pistol-vanguard-veteran-squad-with-jump-packs"],
+      [id, "heavy-bolt-pistol"],
+    ]);
+
+    const scoped = unit!.weapons.find((weapon) => weapon.id === id);
+    expect(scoped?.profiles).toHaveLength(1);
+    expect(scoped?.profiles[0]).toMatchObject({
+      stats: { A: 3, S: 5, AP: -2, D: 2, WS: 3 },
+      keywords: [],
+    });
+
+    expect(weapons.getInFaction("master-crafted-power-weapon", "adeptus-astartes")?.profiles[0]).toMatchObject({
+      stats: { A: 7, WS: 2 },
+      keywords: [{ keyword_id: "lethal-hits" }],
+    });
+  });
+});
+
 describe("leadersAttachableTo", () => {
   it("lists leaders whose attachment data covers the body unit, sorted by name", () => {
     const leaders = dataset.leadersAttachableTo("battle-sisters-squad");

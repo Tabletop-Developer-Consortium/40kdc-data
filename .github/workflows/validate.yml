@@ -255,10 +255,9 @@ jobs:
     # until tools/package.json's version is bumped. The published payload
     # (dist + embedded data + schemas) is built by the package's `prepack` step.
     #
-    # Requires the NPM_REGISTRY_TOKEN repo secret to be an npm *automation*
-    # token (these bypass 2FA — interactive OTP is impossible in CI), and the
-    # alpaca-software org's publish setting must permit tokens. Provenance is
-    # attached via OIDC, which needs `id-token: write` and a public repo.
+    # Publishes through npm trusted publishing. GitHub OIDC requires
+    # `id-token: write` and the npm package's trusted-publisher entry to match
+    # this repository and workflow.
     needs: [validate, rust, python, go, conformance]
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
@@ -292,8 +291,8 @@ jobs:
       - name: Publish to npm
         if: steps.check.outputs.publish == 'true'
         run: cd tools && npm publish --provenance --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_REGISTRY_TOKEN }}
+        # npm exchanges this job's GitHub OIDC token for short-lived publish
+        # credentials; do not override it with a registry token.
       - name: Tag and create GitHub release
         if: steps.check.outputs.publish == 'true'
         env:

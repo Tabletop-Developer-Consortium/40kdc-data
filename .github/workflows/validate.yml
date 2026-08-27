@@ -271,10 +271,13 @@ jobs:
       version: ${{ steps.ver.outputs.version }}
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      # Trusted publishing requires npm 11.5.1+; Node 24 provides a current
+      # npm CLI while avoiding a long-lived registry token.
+      - uses: actions/setup-node@v6
         with:
-          node-version: 22
+          node-version: 24
           registry-url: https://registry.npmjs.org
+          package-manager-cache: false
       - run: cd tools && npm ci
       - name: Read package version
         id: ver

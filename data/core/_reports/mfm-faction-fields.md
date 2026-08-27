@@ -1,4 +1,4 @@
-# MFM faction fields — DRY RUN
+# MFM faction fields — APPLIED
 
 Fill-only reconcile of `faction_rule_id` (single owned army rule), `parent_faction_id`
 (dump faction hierarchy), and `aliases` (localized common name, additive). Authored

@@ -7,16 +7,16 @@ Only those two fields change; `game_version` is left for a later confirm pass.
 |---|--:|--:|--:|--:|
 | adepta-sororitas | 9 | 0 | 0 | 0 |
 | adeptus-astartes | 17 | 0 | 0 | 0 |
-| adeptus-custodes | 10 | 1 | 2 | 0 |
+| adeptus-custodes | 10 | 0 | 0 | 0 |
 | adeptus-mechanicus | 11 | 0 | 0 | 0 |
-| aeldari | 16 | 0 | 1 | 0 |
+| aeldari | 16 | 0 | 0 | 0 |
 | agents-of-the-imperium | 6 | 0 | 0 | 0 |
-| astra-militarum | 12 | 1 | 0 | 0 |
+| astra-militarum | 12 | 0 | 0 | 0 |
 | black-templars | 23 | 0 | 0 | 0 |
 | blood-angels | 25 | 0 | 0 | 0 |
-| chaos-daemons | 9 | 0 | 1 | 0 |
+| chaos-daemons | 9 | 0 | 0 | 0 |
 | chaos-knights | 8 | 0 | 0 | 0 |
-| chaos-space-marines | 18 | 0 | 1 | 0 |
+| chaos-space-marines | 18 | 0 | 0 | 0 |
 | crimson-fists | 15 | 0 | 0 | 0 |
 | dark-angels | 25 | 0 | 0 | 0 |
 | death-guard | 10 | 0 | 0 | 0 |
@@ -40,36 +40,7 @@ Only those two fields change; `game_version` is left for a later confirm pass.
 | ultramarines | 18 | 0 | 0 | 0 |
 | white-scars | 17 | 0 | 0 | 0 |
 | world-eaters | 9 | 0 | 0 | 0 |
-| **TOTAL** | **477** | **2** | **5** | **7** |
-
-## adeptus-custodes
-
-**Detachment-point changes** (old → new):
-- lions-of-the-emperor: 2 → 3
-
-**Disposition changes** (old → new):
-- lions-of-the-emperor: [disruption] → [take-and-hold]
-- tharanatoi-hammerblow: [priority-assets] → [disruption]
-
-## aeldari
-
-**Disposition changes** (old → new):
-- aspect-host: [disruption] → [priority-assets]
-
-## astra-militarum
-
-**Detachment-point changes** (old → new):
-- recon-element: 3 → 2
-
-## chaos-daemons
-
-**Disposition changes** (old → new):
-- daemonic-incursion: [disruption] → [take-and-hold]
-
-## chaos-space-marines
-
-**Disposition changes** (old → new):
-- hurons-marauders: [disruption] → [purge-the-foe]
+| **TOTAL** | **477** | **0** | **0** | **7** |
 
 ## orks
 
@@ -84,13 +55,10 @@ Only those two fields change; `game_version` is left for a later confirm pass.
 
 ## New detachments in dump (no repo entity — author in a follow-up)
 
+- ardmob
 - equatorial-hordes
 - freebooter-krew
 - more-dakka
 - rollin-deff
 - speedwaaagh
-
-## Combat-Patrol detachments held back (1 — pass --include-combat-patrol to author)
-
-- ardmob
 

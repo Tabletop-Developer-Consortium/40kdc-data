@@ -17,10 +17,10 @@ authored separately and is untouched.
 | black-templars | 7 | 0 | 7 | 0 | 7 | 0 | 0 | 0 | 7 |
 | blood-angels | 9 | 0 | 9 | 0 | 9 | 0 | 0 | 0 | 9 |
 | chaos-daemons | 9 | 0 | 9 | 0 | 9 | 0 | 9 | 0 | 0 |
-| chaos-knights | 8 | 2 | 6 | 0 | 8 | 0 | 8 | 0 | 0 |
+| chaos-knights | 8 | 0 | 8 | 0 | 8 | 0 | 8 | 0 | 0 |
 | chaos-space-marines | 18 | 0 | 18 | 0 | 18 | 0 | 16 | 1 | 1 |
 | dark-angels | 9 | 0 | 9 | 0 | 9 | 0 | 0 | 0 | 9 |
-| death-guard | 10 | 4 | 6 | 0 | 10 | 0 | 9 | 0 | 1 |
+| death-guard | 10 | 0 | 10 | 0 | 10 | 0 | 9 | 0 | 1 |
 | deathwatch | 1 | 0 | 1 | 0 | 1 | 0 | 0 | 0 | 1 |
 | drukhari | 10 | 0 | 10 | 0 | 10 | 0 | 9 | 0 | 1 |
 | emperors-children | 11 | 0 | 11 | 0 | 11 | 0 | 10 | 0 | 1 |
@@ -41,7 +41,7 @@ authored separately and is untouched.
 | ultramarines | 2 | 0 | 2 | 0 | 2 | 0 | 0 | 0 | 2 |
 | white-scars | 1 | 0 | 1 | 0 | 1 | 0 | 0 | 0 | 1 |
 | world-eaters | 9 | 0 | 9 | 0 | 9 | 0 | 8 | 0 | 1 |
-| **TOTAL** | **286** | **6** | **280** | **0** | **286** | **0** | **215** | **9** | **62** |
+| **TOTAL** | **286** | **0** | **286** | **0** | **286** | **0** | **215** | **9** | **62** |
 
 ## adepta-sororitas
 - detachment_rule_ids UNAUTHORED sanctuary-guardians: dump rule(s) [blessed-believers] have no authored ability yet
@@ -87,10 +87,6 @@ authored separately and is untouched.
 - detachment_rule_ids UNAUTHORED liberator-assault-group: dump rule(s) [red-thirst] have no authored ability yet
 - detachment_rule_ids UNAUTHORED sanguinary-spearhead: dump rule(s) [rapid-manoeuvres] have no authored ability yet
 
-## chaos-knights
-- tags changed houndpack-lance: [war-dogs] -> []
-- tags changed hunting-warpack: [war-dogs] -> []
-
 ## chaos-space-marines
 - detachment_rule_ids REVIEW murdertalon-raiders: authored [prey-on-the-weak-raiders] vs dump [prey-on-the-weak]
 - detachment_rule_ids UNAUTHORED zarkans-daemonkin: dump rule(s) [abject-fear] have no authored ability yet
@@ -107,10 +103,6 @@ authored separately and is untouched.
 - detachment_rule_ids UNAUTHORED the-vengeful-brethren: dump rule(s) [honoured-knights] have no authored ability yet
 
 ## death-guard
-- tags changed flyblown-host: [flyblown] -> []
-- tags changed champions-of-contagion: [flyblown] -> []
-- tags changed mortarions-hammer: [engines] -> []
-- tags changed contagion-engines: [engines] -> []
 - detachment_rule_ids UNAUTHORED maggot-lords: dump rule(s) [creeping-rot] have no authored ability yet
 
 ## deathwatch

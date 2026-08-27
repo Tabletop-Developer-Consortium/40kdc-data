@@ -10,7 +10,7 @@ eligibility merged by `leader_id` (existing records preserved where the dump is 
 | adeptus-astartes | 69 | 0 | 69 | 0 | 0 |
 | adeptus-custodes | 8 | 0 | 8 | 0 | 0 |
 | adeptus-mechanicus | 6 | 0 | 6 | 0 | 0 |
-| aeldari | 24 | 3 | 24 | 0 | 0 |
+| aeldari | 24 | 0 | 24 | 0 | 0 |
 | agents-of-the-imperium | 9 | 0 | 9 | 0 | 0 |
 | astra-militarum | 14 | 0 | 14 | 0 | 0 |
 | chaos-daemons | 18 | 0 | 18 | 0 | 0 |
@@ -27,12 +27,5 @@ eligibility merged by `leader_id` (existing records preserved where the dump is 
 | thousand-sons | 7 | 0 | 7 | 0 | 0 |
 | tyranids | 8 | 0 | 8 | 0 | 0 |
 | world-eaters | 5 | 0 | 5 | 0 | 0 |
-| **TOTAL** | **288** | **3** | **288** | **0** | **0** |
-
-## aeldari
-
-**attachment_role changes (old → new):**
-- `the-visarch`: leader → support
-- `warlock-conclave`: leader → support
-- `warlock-skyrunners`: leader → support
+| **TOTAL** | **288** | **0** | **288** | **0** | **0** |
 

@@ -21,11 +21,11 @@ values and absent source relations clear them. Prose is never read or written.
 | chaos-knights | 28 | 0 | 0 | 0 | 0 | 0 | 0 |
 | chaos-space-marines | 64 | 0 | 0 | 0 | 0 | 0 | 0 |
 | crimson-fists | 56 | 0 | 0 | 0 | 0 | 0 | 0 |
-| dark-angels | 84 | 1 | 0 | 0 | 0 | 0 | 0 |
+| dark-angels | 84 | 0 | 0 | 0 | 0 | 0 | 0 |
 | death-guard | 32 | 0 | 0 | 0 | 0 | 0 | 0 |
 | deathwatch | 60 | 0 | 0 | 0 | 0 | 0 | 0 |
 | drukhari | 32 | 0 | 0 | 0 | 0 | 0 | 0 |
-| emperors-children | 36 | 2 | 0 | 0 | 0 | 0 | 1 |
+| emperors-children | 36 | 0 | 0 | 0 | 0 | 0 | 1 |
 | genestealer-cults | 32 | 0 | 0 | 0 | 0 | 0 | 0 |
 | grey-knights | 32 | 0 | 0 | 0 | 0 | 0 | 1 |
 | imperial-fists | 60 | 0 | 0 | 0 | 0 | 0 | 0 |
@@ -33,17 +33,17 @@ values and absent source relations clear them. Prose is never read or written.
 | iron-hands | 60 | 0 | 0 | 0 | 0 | 0 | 0 |
 | leagues-of-votann | 36 | 0 | 0 | 0 | 0 | 0 | 1 |
 | necrons | 44 | 0 | 0 | 0 | 0 | 0 | 2 |
-| orks | 30 | 0 | 0 | 0 | 0 | 1 | 30 |
+| orks | 30 | 0 | 0 | 0 | 0 | 0 | 30 |
 | raven-guard | 59 | 0 | 0 | 0 | 0 | 0 | 1 |
 | salamanders | 57 | 0 | 0 | 0 | 0 | 0 | 0 |
 | space-wolves | 80 | 0 | 0 | 0 | 0 | 0 | 1 |
-| tau-empire | 25 | 1 | 0 | 0 | 0 | 0 | 3 |
-| thousand-sons | 32 | 1 | 0 | 0 | 0 | 0 | 0 |
-| tyranids | 36 | 1 | 0 | 0 | 0 | 0 | 3 |
+| tau-empire | 25 | 0 | 0 | 0 | 0 | 0 | 3 |
+| thousand-sons | 32 | 0 | 0 | 0 | 0 | 0 | 0 |
+| tyranids | 36 | 0 | 0 | 0 | 0 | 0 | 3 |
 | ultramarines | 64 | 0 | 0 | 0 | 0 | 0 | 0 |
 | white-scars | 60 | 0 | 0 | 0 | 0 | 0 | 0 |
 | world-eaters | 28 | 0 | 0 | 0 | 0 | 0 | 0 |
-| **TOTAL** | **1613** | **6** | **0** | **0** | **0** | **1** | **50** |
+| **TOTAL** | **1613** | **0** | **0** | **0** | **0** | **0** | **50** |
 
 ## aeldari
 
@@ -62,16 +62,7 @@ values and absent source relations clear them. Prose is never read or written.
 **Repo enhancements absent from dump** (left as-is):
 - oathbound-examplar-companions-of-vehemence
 
-## dark-angels
-
-**Cost changes** (old → new):
-- recon-hunter-company-of-hunters: 20 → 30
-
 ## emperors-children
-
-**Cost changes** (old → new):
-- possessed-blade-carnival-of-excess: 25 → 35
-- warp-walker-carnival-of-excess: 30 → 35
 
 **Repo enhancements absent from dump** (left as-is):
 - pledge-to-eternal-servitude-coterie-of-the-conceited
@@ -99,9 +90,6 @@ values and absent source relations clear them. Prose is never read or written.
 - mortality-shroud-aura-the-phaerons-armoury
 
 ## orks
-
-**exclusion_keywords changes:**
-- slippery-git-taktikal-brigade: null → ["Mega Armour"]
 
 **Repo enhancements absent from dump** (left as-is):
 - dreadherder-dread-mob
@@ -147,30 +135,19 @@ values and absent source relations clear them. Prose is never read or written.
 
 ## tau-empire
 
-**Cost changes** (old → new):
-- strike-swiftly-montka: 35 → 45
-
 **Repo enhancements absent from dump** (left as-is):
 - fanatical-convert-auxiliary-cadre
 - transponder-lock-module-auxiliary-cadre
 - fusion-blades-experimental-prototype-cadre
 
-## thousand-sons
-
-**Cost changes** (old → new):
-- umbralefic-crystal-grand-coven: 20 → 30
-
 ## tyranids
-
-**Cost changes** (old → new):
-- synaptoprescience-upgrade-talons-of-the-norn-queen: 25 → 30
 
 **Repo enhancements absent from dump** (left as-is):
 - synaptic-lynchpin-invasion-fleet
 - synaptic-tyrant-warrior-bioform-onslaught
 - sensory-assimilation-warrior-bioform-onslaught
 
-## Enhancement seeds skipped (14)
+## Enhancement seeds skipped (16)
 
 - bionik-workshop-freebooter-krew: detachment freebooter-krew has no repo entity
 - boarding-ramps-upgrade-rollin-deff: detachment rollin-deff has no repo entity
@@ -178,10 +155,12 @@ values and absent source relations clear them. Prose is never read or written.
 - da-kaptin-freebooter-krew: detachment freebooter-krew has no repo entity
 - dakkamek-speedwaaagh: detachment speedwaaagh has no repo entity
 - dead-shiny-shootas-upgrade-more-dakka: detachment more-dakka has no repo entity
+- extra-platin-ardmob: matched-play enhancement has no points cost
 - git-spotter-squig-freebooter-krew: detachment freebooter-krew has no repo entity
 - kunnin-hunta-equatorial-hordes: detachment equatorial-hordes has no repo entity
 - kustom-shokk-box-speedwaaagh: detachment speedwaaagh has no repo entity
 - master-meknologist-speedwaaagh: detachment speedwaaagh has no repo entity
+- rallying-war-cry-ardmob: matched-play enhancement has no points cost
 - razgits-magik-map-freebooter-krew: detachment freebooter-krew has no repo entity
 - supa-burny-fuel-speedwaaagh: detachment speedwaaagh has no repo entity
 - targetin-gizmos-upgrade-rollin-deff: detachment rollin-deff has no repo entity
@@ -195,17 +174,14 @@ values and absent source relations clear them. Prose is never read or written.
 - da-kaptin-freebooter-krew
 - dakkamek-speedwaaagh
 - dead-shiny-shootas-upgrade-more-dakka
+- extra-platin-ardmob
 - git-spotter-squig-freebooter-krew
 - kunnin-hunta-equatorial-hordes
 - kustom-shokk-box-speedwaaagh
 - master-meknologist-speedwaaagh
+- rallying-war-cry-ardmob
 - razgits-magik-map-freebooter-krew
 - supa-burny-fuel-speedwaaagh
 - targetin-gizmos-upgrade-rollin-deff
 - unkillable-scourge-equatorial-hordes
-
-## Combat-Patrol enhancements held back (2 — pass --include-combat-patrol to author)
-
-- extra-platin-ardmob
-- rallying-war-cry-ardmob
 

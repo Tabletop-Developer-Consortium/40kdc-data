@@ -678,7 +678,7 @@ jobs:
             --rawfile diff "$diff_file" \
             '{
               model: $model,
-              max_output_tokens: 700,
+              max_output_tokens: 2000,
               store: false,
               input: [
                 {

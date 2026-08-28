@@ -1,6 +1,20 @@
 name: Validate Data
 
-on: [push, pull_request]
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      send_developer_changelog_test:
+        description: Send a developer-changelog test to Discord.
+        required: false
+        default: false
+        type: boolean
+      test_release_version:
+        description: Published npm release version to summarize for the test.
+        required: false
+        default: "1.3.2"
+        type: string
 
 jobs:
   validate:
@@ -448,9 +462,13 @@ jobs:
     # Requires the DISCORD_WEBHOOK_URL repo secret (a Discord channel webhook,
     # Server Settings → Integrations → Webhooks) and OPENAI_API_KEY for the
     # developer changelog. Without the webhook, both messages no-op so forks stay
-    # green; a missing OpenAI key on a real release fails loudly.
+    # green; a missing OpenAI key on a real release or explicit test fails loudly.
     needs: [publish-crate, publish-npm, publish-pypi, publish-go]
-    if: always() && github.event_name == 'push' && github.ref == 'refs/heads/main'
+    if: >-
+      always() && (
+        (github.event_name == 'push' && github.ref == 'refs/heads/main') ||
+        (github.event_name == 'workflow_dispatch' && inputs.send_developer_changelog_test)
+      )
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -598,7 +616,8 @@ jobs:
           needs.publish-crate.outputs.published == 'true' ||
           needs.publish-npm.outputs.published == 'true' ||
           needs.publish-pypi.outputs.published == 'true' ||
-          needs.publish-go.outputs.published == 'true'
+          needs.publish-go.outputs.published == 'true' ||
+          (github.event_name == 'workflow_dispatch' && inputs.send_developer_changelog_test)
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
@@ -607,7 +626,7 @@ jobs:
           NPM_VERSION: ${{ needs.publish-npm.outputs.version }}
           PYPI_VERSION: ${{ needs.publish-pypi.outputs.version }}
           GO_VERSION: ${{ needs.publish-go.outputs.version }}
-          BEFORE_SHA: ${{ github.event.before }}
+          TEST_RELEASE_VERSION: ${{ inputs.test_release_version }}
           COMMIT_SHA: ${{ github.sha }}
           REPO_URL: ${{ github.server_url }}/${{ github.repository }}
         run: |
@@ -626,14 +645,24 @@ jobs:
           for v in "$NPM_VERSION" "$CRATE_VERSION" "$PYPI_VERSION" "$GO_VERSION"; do
             if [ -n "$v" ]; then version="$v"; break; fi
           done
-          [ -n "$version" ] || version="unknown"
-
-          empty_tree=$(git hash-object -t tree /dev/null)
-          diff_base="$BEFORE_SHA"
-          if [ "$diff_base" = "0000000000000000000000000000000000000000" ]; then
-            diff_base="$empty_tree"
+          if [ -z "$version" ]; then
+            version="${TEST_RELEASE_VERSION:-}"
           fi
-          git diff --no-ext-diff --unified=0 "$diff_base" "$COMMIT_SHA" -- > release.diff
+          [ -n "$version" ] || {
+            echo "::error::No published or requested release version is available."
+            exit 1
+          }
+
+          release_commit="$COMMIT_SHA"
+          if [ -n "${TEST_RELEASE_VERSION:-}" ]; then
+            release_commit=$(git rev-parse "npm-v$version^{commit}")
+          fi
+          if previous_tag=$(git describe --tags --match 'npm-v*' --abbrev=0 "$release_commit^"); then
+            diff_base="$previous_tag"
+          else
+            diff_base=$(git hash-object -t tree /dev/null)
+          fi
+          git diff --no-ext-diff --unified=0 "$diff_base" "$release_commit" -- > release.diff
 
           diff_file=release.diff
           max_diff_bytes=60000
@@ -681,9 +710,9 @@ jobs:
 
           jq -n \
             --arg title "Developer changelog — 40kdc-data v$version" \
-            --arg url "$REPO_URL/commit/$COMMIT_SHA" \
+            --arg url "$REPO_URL/commit/$release_commit" \
             --arg description "$changelog" \
-            --arg footer "AI-generated from ${BEFORE_SHA:0:7}..${COMMIT_SHA:0:7}" \
+            --arg footer "AI-generated from $diff_base..${release_commit:0:7}" \
             --argjson colour 5793266 \
             '{
               username: "40kdc",

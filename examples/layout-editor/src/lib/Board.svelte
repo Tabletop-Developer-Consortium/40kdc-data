@@ -26,7 +26,7 @@
     type ReferenceFit,
   } from "./model.js";
   import type { ResolvedPiece } from "@alpaca-software/40kdc-data";
-  import { facingAngle } from "../../../_shared/layout-geometry.js";
+  import { facingAngle, formatKeystoneDistance } from "../../../_shared/layout-geometry.js";
 
   interface Props {
     layout: EditLayout;
@@ -286,7 +286,7 @@
         from,
         to: t,
         labelAt: labelAnchor(from, t),
-        text: d.distance != null ? `${Math.round(d.distance * 100) / 100}″` : "?",
+        text: d.distance != null ? formatKeystoneDistance(d.distance, p.rotation_degrees) : "?",
         invalid: d.distance == null,
         // Face the piece's player when the toggle is on and an overlay divider
         // exists; 0 keeps today's upright labels.

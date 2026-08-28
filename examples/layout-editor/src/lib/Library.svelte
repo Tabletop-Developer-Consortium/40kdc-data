@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { SvelteMap } from "svelte/reactivity";
   import {
     DISPOSITIONS,
     dispositionLabel,
@@ -6,6 +7,7 @@
     canonicalMatchupId,
     libraryIndex,
     layoutWarningsFor,
+    type LayoutWarning,
     type LibraryEntry,
   } from "./model.js";
   import LayoutThumb from "./LayoutThumb.svelte";
@@ -42,6 +44,63 @@
   // memoized in the model) and keeps the grid honest if the dataset ever reloads.
   const index = $derived(open ? libraryIndex() : null);
 
+  const warningResults = new SvelteMap<string, LayoutWarning[]>();
+  let warningScanDone = $state(0);
+  let warningScanTotal = $state(0);
+
+  // Collision checks over detailed Battlemaster outlines are exact but costly.
+  // Let the dialog paint first, then scan one layout per idle callback so opening
+  // the library never becomes one multi-second main-thread task.
+  $effect(() => {
+    const current = index;
+    if (!open || !current) return;
+
+    const ids = new Set<string>();
+    for (const cell of current.cells.values()) {
+      for (const claimants of cell.byVariant.values()) {
+        for (const entry of claimants) ids.add(entry.id);
+      }
+      for (const entry of cell.unnumbered) ids.add(entry.id);
+    }
+    for (const entry of current.unassigned) ids.add(entry.id);
+    const remaining = [...ids].filter((id) => !warningResults.has(id));
+    warningScanTotal = ids.size;
+    warningScanDone = ids.size - remaining.length;
+    let cancelled = false;
+    let idleId: number | undefined;
+    let timeoutId: number | undefined;
+    let frameId: number | undefined;
+
+    function schedule(): void {
+      if (typeof window.requestIdleCallback === "function") {
+        idleId = window.requestIdleCallback(scan, { timeout: 250 });
+      } else {
+        // Safari has no requestIdleCallback. Cross a frame boundary before
+        // queuing each scan so the dialog and later progress updates paint.
+        frameId = window.requestAnimationFrame(() => {
+          frameId = undefined;
+          timeoutId = window.setTimeout(scan, 0);
+        });
+      }
+    }
+    function scan(): void {
+      if (cancelled) return;
+      const id = remaining.shift();
+      if (!id) return;
+      warningResults.set(id, layoutWarningsFor(id));
+      warningScanDone += 1;
+      if (remaining.length > 0) schedule();
+    }
+    schedule();
+
+    return () => {
+      cancelled = true;
+      if (idleId !== undefined) window.cancelIdleCallback(idleId);
+      if (frameId !== undefined) window.cancelAnimationFrame(frameId);
+      if (timeoutId !== undefined) window.clearTimeout(timeoutId);
+    };
+  });
+
   /** The 15 unordered pairing cells, upper-triangle order. */
   const pairs = DISPOSITIONS.flatMap((a, i) =>
     DISPOSITIONS.slice(i).map((b) => ({
@@ -69,14 +128,16 @@
     index ? [...index.cells.values()].reduce((n, c) => n + c.byVariant.size, 0) : 0,
   );
 
-  /** Whether a library layout has any "needs review" warning (memoized in the model). */
+  /** Whether a scanned library layout has any "needs review" warning. */
   function needsReview(id: string): boolean {
-    return layoutWarningsFor(id).length > 0;
+    return (warningResults.get(id)?.length ?? 0) > 0;
   }
-  /** Multi-line tooltip listing a layout's warnings. */
+  /** Multi-line tooltip listing a scanned layout's warnings. */
   function reviewTitle(id: string): string {
-    const w = layoutWarningsFor(id);
-    return w.length ? `${w.length} to review:\n${w.map((x) => `• ${x.message}`).join("\n")}` : "";
+    const warnings = warningResults.get(id) ?? [];
+    return warnings.length
+      ? `${warnings.length} to review:\n${warnings.map((warning) => `• ${warning.message}`).join("\n")}`
+      : "";
   }
   /** Count of distinct layouts in the grid that need review (for the header). */
   const flaggedCount = $derived.by(() => {
@@ -117,7 +178,9 @@
     <header>
       <h2>Layout Library</h2>
       <span class="coverage">{filled} / 45 slots</span>
-      {#if flaggedCount > 0}
+      {#if warningScanDone < warningScanTotal}
+        <span class="review-count">Checking layouts {warningScanDone}/{warningScanTotal}</span>
+      {:else if flaggedCount > 0}
         <span class="review-count" title="Layouts with overlapping pieces or off-grid keystones">
           ⚠ {flaggedCount} to review
         </span>

@@ -36,6 +36,7 @@ import type {
   TerrainTemplate,
   TerrainLayout,
 } from "@alpaca-software/40kdc-data";
+import { isCardinalRotation } from "../../../_shared/layout-geometry.js";
 // Type-only circular dependency (sets.ts imports Mirror/FeatureSeat back): erased
 // at compile, so sets.ts stays a pure declarative data module with no runtime cycle.
 import type { TerrainSetDef, SetFeatureDef } from "./sets.js";
@@ -50,7 +51,10 @@ export const DEFAULT_BOARD: BoardDims = { width: 60, height: 44 };
 /** Back-compat alias: the standard board, used as the fallback everywhere a
  *  layout-specific board isn't threaded (twin defaults, thumbnails). */
 export const BOARD = DEFAULT_BOARD;
-export const BOARD_CENTER = { x: BOARD.width / 2, y: BOARD.height / 2 } as const;
+export const BOARD_CENTER = {
+  x: BOARD.width / 2,
+  y: BOARD.height / 2,
+} as const;
 /** The active board for a layout (its override, or the 60×44 standard). */
 export function boardOf(layout: EditLayout): BoardDims {
   return layout.board ?? DEFAULT_BOARD;
@@ -169,24 +173,36 @@ export const ds = Dataset.embedded();
 export const CATALOG: TerrainTemplate[] = ds.terrainTemplates.all
   .slice()
   .sort((a, b) =>
-    a.kind === b.kind ? a.name.localeCompare(b.name) : a.kind === "area" ? -1 : 1,
+    a.kind === b.kind
+      ? a.name.localeCompare(b.name)
+      : a.kind === "area"
+        ? -1
+        : 1,
   );
 const catalogById = new Map(CATALOG.map((template) => [template.id, template]));
 
 /** Add or refresh source-projected templates for this browser session. */
 export function registerTerrainTemplates(templates: TerrainTemplate[]): void {
   for (const template of templates) {
-    const existing = CATALOG.findIndex((candidate) => candidate.id === template.id);
+    const existing = CATALOG.findIndex(
+      (candidate) => candidate.id === template.id,
+    );
     if (existing === -1) CATALOG.push(template);
     else CATALOG[existing] = template;
     catalogById.set(template.id, template);
   }
   CATALOG.sort((a, b) =>
-    a.kind === b.kind ? a.name.localeCompare(b.name) : a.kind === "area" ? -1 : 1,
+    a.kind === b.kind
+      ? a.name.localeCompare(b.name)
+      : a.kind === "area"
+        ? -1
+        : 1,
   );
 }
 
-export function templateById(id: string | undefined): TerrainTemplate | undefined {
+export function templateById(
+  id: string | undefined,
+): TerrainTemplate | undefined {
   return id ? catalogById.get(id) : undefined;
 }
 
@@ -201,11 +217,18 @@ function isOverhangFeature(templateId: string | undefined): boolean {
   const t = templateById(templateId) as
     | (TerrainTemplate & { ground_accessible?: boolean; upper_floor?: unknown })
     | undefined;
-  return !!t && t.kind === "feature" && t.ground_accessible === false && t.upper_floor != null;
+  return (
+    !!t &&
+    t.kind === "feature" &&
+    t.ground_accessible === false &&
+    t.upper_floor != null
+  );
 }
 
 /** The footprint a piece resolves against (inline wins over template). */
-export function footprintOf(piece: EditPiece): TerrainTemplate["footprint"] | undefined {
+export function footprintOf(
+  piece: EditPiece,
+): TerrainTemplate["footprint"] | undefined {
   return piece.footprint ?? templateById(piece.template)?.footprint;
 }
 
@@ -218,7 +241,10 @@ export function resolve(layout: EditLayout): ResolvedPiece[] {
 }
 
 /** The board-space vertices of one piece (for hit-testing / selection outline). */
-export function verticesOf(layout: EditLayout, pieceId: string): ResolvedVec2[] {
+export function verticesOf(
+  layout: EditLayout,
+  pieceId: string,
+): ResolvedVec2[] {
   return resolve(layout).find((p) => p.id === pieceId)?.vertices ?? [];
 }
 
@@ -257,11 +283,17 @@ export function orientedFootprint(
   if (area) {
     const centroid = applyAreaFrame(piece.position, area);
     const verticesBoard = offsets.map((o) =>
-      applyAreaFrame({ x: piece.position.x + o.x, y: piece.position.y + o.y }, area),
+      applyAreaFrame(
+        { x: piece.position.x + o.x, y: piece.position.y + o.y },
+        area,
+      ),
     );
     return {
       centroid,
-      offsets: verticesBoard.map((v) => ({ x: v.x - centroid.x, y: v.y - centroid.y })),
+      offsets: verticesBoard.map((v) => ({
+        x: v.x - centroid.x,
+        y: v.y - centroid.y,
+      })),
       verticesBoard,
     };
   }
@@ -269,14 +301,27 @@ export function orientedFootprint(
   return {
     centroid,
     offsets,
-    verticesBoard: offsets.map((o) => ({ x: centroid.x + o.x, y: centroid.y + o.y })),
+    verticesBoard: offsets.map((o) => ({
+      x: centroid.x + o.x,
+      y: centroid.y + o.y,
+    })),
   };
 }
 
-export function bbox(verts: Vec2[]): { minX: number; maxX: number; minY: number; maxY: number } {
+export function bbox(verts: Vec2[]): {
+  minX: number;
+  maxX: number;
+  minY: number;
+  maxY: number;
+} {
   const xs = verts.map((v) => v.x);
   const ys = verts.map((v) => v.y);
-  return { minX: Math.min(...xs), maxX: Math.max(...xs), minY: Math.min(...ys), maxY: Math.max(...ys) };
+  return {
+    minX: Math.min(...xs),
+    maxX: Math.max(...xs),
+    minY: Math.min(...ys),
+    maxY: Math.max(...ys),
+  };
 }
 
 /**
@@ -287,7 +332,9 @@ export function bbox(verts: Vec2[]): { minX: number; maxX: number; minY: number;
  * 25 vertices → `{0,13,14,15}`). Footprints with ≤4 vertices are all corners.
  * Vertex order matches {@link footprintVertices}.
  */
-export function cardinalCornerIndices(fp: TerrainTemplate["footprint"]): number[] {
+export function cardinalCornerIndices(
+  fp: TerrainTemplate["footprint"],
+): number[] {
   const verts = footprintVertices(fp as never) as Vec2[];
   if (verts.length <= 4) return verts.map((_, i) => i);
   const b = bbox(verts);
@@ -332,7 +379,11 @@ export interface LocalRect {
 }
 
 /** Which corner of an area's plate a feature seats into (AREA-LOCAL, y-down). */
-export type PlateCorner = "top-left" | "top-right" | "bottom-right" | "bottom-left";
+export type PlateCorner =
+  | "top-left"
+  | "top-right"
+  | "bottom-right"
+  | "bottom-left";
 export const PLATE_CORNERS: readonly PlateCorner[] = [
   "top-left",
   "top-right",
@@ -371,7 +422,7 @@ export function plateRect(fp: TerrainTemplate["footprint"]): LocalRect {
 
 /** The inset a seat applies (defaulting to Battlemaster's 0.5″ on both axes). */
 const seatInset = (seat: FeatureSeat): Vec2 =>
-  seat.kind === "corner" ? seat.inset ?? DEFAULT_SEAT_INSET : { x: 0, y: 0 };
+  seat.kind === "corner" ? (seat.inset ?? DEFAULT_SEAT_INSET) : { x: 0, y: 0 };
 
 /**
  * The area-local centroid that seats a feature's oriented bounding box into `seat`
@@ -395,7 +446,9 @@ export function seatPositionInPlate(
   seat: FeatureSeat,
 ): Vec2 {
   const pr = plateRect(areaFp);
-  const fb = bbox(orientedOffsets(featureFp as never, rotation, mirror) as Vec2[]);
+  const fb = bbox(
+    orientedOffsets(featureFp as never, rotation, mirror) as Vec2[],
+  );
   if (seat.kind === "centred") {
     return {
       x: (pr.minX + pr.maxX) / 2 - (fb.minX + fb.maxX) / 2,
@@ -505,10 +558,16 @@ function decomposeOrient(m: Mat2): { rotation: number; mirror: Mirror } {
   const det = m.a * m.d - m.c * m.b;
   const clean = (deg: number): number => norm360(Math.round(deg * 1e4) / 1e4);
   if (det >= 0) {
-    return { rotation: clean((Math.atan2(m.b, m.a) * 180) / Math.PI), mirror: "none" };
+    return {
+      rotation: clean((Math.atan2(m.b, m.a) * 180) / Math.PI),
+      mirror: "none",
+    };
   }
   // reflection = rotate(θ) · mirror-horizontal ⇒ col0 = (−cosθ, −sinθ).
-  return { rotation: clean((Math.atan2(-m.b, -m.a) * 180) / Math.PI), mirror: "horizontal" };
+  return {
+    rotation: clean((Math.atan2(-m.b, -m.a) * 180) / Math.PI),
+    mirror: "horizontal",
+  };
 }
 
 // ── parent-area composition (a feature anchored to an area) ───────────────────
@@ -538,17 +597,23 @@ function inverseAreaFrame(board: Vec2, area: EditPiece): Vec2 {
  */
 const round4 = (n: number): number => Math.round(n * 1e4) / 1e4;
 function clampToBoard(p: Vec2, board: BoardDims = DEFAULT_BOARD): Vec2 {
-  const c = (n: number, hi: number): number => Math.max(0, Math.min(hi, round4(n)));
+  const c = (n: number, hi: number): number =>
+    Math.max(0, Math.min(hi, round4(n)));
   return { x: c(p.x, board.width), y: c(p.y, board.height) };
 }
 /** The area a feature is parented to, if any (and still present). */
-function parentAreaOf(layout: EditLayout, piece: EditPiece): EditPiece | undefined {
+function parentAreaOf(
+  layout: EditLayout,
+  piece: EditPiece,
+): EditPiece | undefined {
   return piece.parent_area_id ? byId(layout, piece.parent_area_id) : undefined;
 }
 /** A piece's board-space centroid (composing through its parent area if parented). */
 export function boardCentroid(layout: EditLayout, piece: EditPiece): Vec2 {
   const area = parentAreaOf(layout, piece);
-  return area ? applyAreaFrame(piece.position, area) : { x: piece.position.x, y: piece.position.y };
+  return area
+    ? applyAreaFrame(piece.position, area)
+    : { x: piece.position.x, y: piece.position.y };
 }
 /** The features parented to `areaId` (empty for a piece that has none). */
 function childFeaturesOf(layout: EditLayout, areaId: string): EditPiece[] {
@@ -561,17 +626,28 @@ function childFeaturesOf(layout: EditLayout, areaId: string): EditPiece[] {
  * re-centred on the GROUND centroid, so we offset its vertices from the ground
  * local centroid and apply the same mirror→rotate→translate the resolver uses.
  */
-export function upperFloorBoardVerts(piece: EditPiece, layout?: EditLayout): Vec2[] | null {
+export function upperFloorBoardVerts(
+  piece: EditPiece,
+  layout?: EditLayout,
+): Vec2[] | null {
   const tpl = templateById(piece.template);
-  const uf = (tpl as { upper_floor?: { footprint: TerrainTemplate["footprint"] } } | undefined)
-    ?.upper_floor;
+  const uf = (
+    tpl as
+      | { upper_floor?: { footprint: TerrainTemplate["footprint"] } }
+      | undefined
+  )?.upper_floor;
   const ground = footprintOf(piece);
   if (!uf || !ground) return null;
-  const gc = polygonCentroid(footprintVertices(ground as never) as Vec2[]) as Vec2;
+  const gc = polygonCentroid(
+    footprintVertices(ground as never) as Vec2[],
+  ) as Vec2;
   const local = footprintVertices(uf.footprint as never) as Vec2[];
   const area = layout ? parentAreaOf(layout, piece) : undefined;
   return local.map((v) => {
-    const t = rotateCw(mirrorVec({ x: v.x - gc.x, y: v.y - gc.y }, piece.mirror), piece.rotation_degrees);
+    const t = rotateCw(
+      mirrorVec({ x: v.x - gc.x, y: v.y - gc.y }, piece.mirror),
+      piece.rotation_degrees,
+    );
     // `position + t` is the platform vertex in the piece's own frame; for a
     // parented feature that frame is area-local, so push it through the area.
     const framed = { x: piece.position.x + t.x, y: piece.position.y + t.y };
@@ -581,7 +657,9 @@ export function upperFloorBoardVerts(piece: EditPiece, layout?: EditLayout): Vec
 
 /** True when a template's ground footprint can't hold models (gantry/catwalk/generator). */
 export function isGroundBlocked(piece: EditPiece): boolean {
-  const tpl = templateById(piece.template) as { ground_accessible?: boolean } | undefined;
+  const tpl = templateById(piece.template) as
+    | { ground_accessible?: boolean }
+    | undefined;
   return tpl?.ground_accessible === false;
 }
 
@@ -589,8 +667,9 @@ export function isGroundBlocked(piece: EditPiece): boolean {
 export function upperFloorOf(
   template: TerrainTemplate,
 ): TerrainTemplate["footprint"] | undefined {
-  return (template as { upper_floor?: { footprint: TerrainTemplate["footprint"] } }).upper_floor
-    ?.footprint;
+  return (
+    template as { upper_floor?: { footprint: TerrainTemplate["footprint"] } }
+  ).upper_floor?.footprint;
 }
 
 // ── deployment zones (drawn under the terrain to author against a card) ───────
@@ -617,14 +696,25 @@ function shapeToPoints(
       { x: pos.x, y: pos.y + h },
     ];
   }
-  return (shape.points ?? []).map((pt) => ({ x: pos.x + pt.x, y: pos.y + pt.y }));
+  return (shape.points ?? []).map((pt) => ({
+    x: pos.x + pt.x,
+    y: pos.y + pt.y,
+  }));
 }
 
 /** The deployment zones of a pattern, as absolute board-space polygons. */
 export function deploymentZones(patternId: string | null): DeployZone[] {
   if (!patternId) return [];
   const p = ds.deploymentPatterns.get(patternId) as
-    | { zones?: { player: string; name?: string; color?: string; shape: never; position: Vec2 }[] }
+    | {
+        zones?: {
+          player: string;
+          name?: string;
+          color?: string;
+          shape: never;
+          position: Vec2;
+        }[];
+      }
     | undefined;
   if (!p?.zones) return [];
   return p.zones.map((z) => ({
@@ -677,15 +767,23 @@ const polyMean = (pts: Vec2[]): Vec2 => ({
  * the centre of every uncovered run flanked by *different* players. Returns the
  * (normally two) divider endpoints.
  */
-function perimeterGapMidpoints(def: Vec2[], atk: Vec2[], board: BoardDims = DEFAULT_BOARD): Vec2[] {
+function perimeterGapMidpoints(
+  def: Vec2[],
+  atk: Vec2[],
+  board: BoardDims = DEFAULT_BOARD,
+): Vec2[] {
   const { width: W, height: H } = board;
   const STEP = 0.25;
   const EPS = 0.1;
   const samples: { p: Vec2; inward: Vec2 }[] = [];
-  for (let x = 0; x < W; x += STEP) samples.push({ p: { x, y: 0 }, inward: { x: 0, y: 1 } });
-  for (let y = 0; y < H; y += STEP) samples.push({ p: { x: W, y }, inward: { x: -1, y: 0 } });
-  for (let x = W; x > 0; x -= STEP) samples.push({ p: { x, y: H }, inward: { x: 0, y: -1 } });
-  for (let y = H; y > 0; y -= STEP) samples.push({ p: { x: 0, y }, inward: { x: 1, y: 0 } });
+  for (let x = 0; x < W; x += STEP)
+    samples.push({ p: { x, y: 0 }, inward: { x: 0, y: 1 } });
+  for (let y = 0; y < H; y += STEP)
+    samples.push({ p: { x: W, y }, inward: { x: -1, y: 0 } });
+  for (let x = W; x > 0; x -= STEP)
+    samples.push({ p: { x, y: H }, inward: { x: 0, y: -1 } });
+  for (let y = H; y > 0; y -= STEP)
+    samples.push({ p: { x: 0, y }, inward: { x: 1, y: 0 } });
 
   const cls = samples.map((s) => {
     const q = { x: s.p.x + s.inward.x * EPS, y: s.p.y + s.inward.y * EPS };
@@ -723,7 +821,15 @@ function perimeterGapMidpoints(def: Vec2[], atk: Vec2[], board: BoardDims = DEFA
  */
 function deploymentTerritories(patternId: string): DeployZone[] {
   const p = ds.deploymentPatterns.get(patternId) as
-    | { territories?: { player: string; name?: string; color?: string; shape: never; position: Vec2 }[] }
+    | {
+        territories?: {
+          player: string;
+          name?: string;
+          color?: string;
+          shape: never;
+          position: Vec2;
+        }[];
+      }
     | undefined;
   if (!p?.territories) return [];
   return p.territories.map((z) => ({
@@ -768,8 +874,16 @@ export function territoryDivider(
       const atkColor = atkT.color ?? "#ef4444";
       const badges: TerritoryBadge[] = [];
       for (const e of [from, to]) {
-        badges.push({ at: { x: e.x + defDir.x * OFF, y: e.y + defDir.y * OFF }, player: "D", color: defColor });
-        badges.push({ at: { x: e.x + atkDir.x * OFF, y: e.y + atkDir.y * OFF }, player: "A", color: atkColor });
+        badges.push({
+          at: { x: e.x + defDir.x * OFF, y: e.y + defDir.y * OFF },
+          player: "D",
+          color: defColor,
+        });
+        badges.push({
+          at: { x: e.x + atkDir.x * OFF, y: e.y + atkDir.y * OFF },
+          player: "A",
+          color: atkColor,
+        });
       }
       return { from, to, badges };
     }
@@ -797,37 +911,59 @@ export function territoryDivider(
   const atkColor = atk.color ?? "#ef4444";
   const badges: TerritoryBadge[] = [];
   for (const e of [from, to]) {
-    badges.push({ at: { x: e.x + defDir.x * OFF, y: e.y + defDir.y * OFF }, player: "D", color: defColor });
-    badges.push({ at: { x: e.x + atkDir.x * OFF, y: e.y + atkDir.y * OFF }, player: "A", color: atkColor });
+    badges.push({
+      at: { x: e.x + defDir.x * OFF, y: e.y + defDir.y * OFF },
+      player: "D",
+      color: defColor,
+    });
+    badges.push({
+      at: { x: e.x + atkDir.x * OFF, y: e.y + atkDir.y * OFF },
+      player: "A",
+      color: atkColor,
+    });
   }
   return { from, to, badges };
 }
 
 /** Patterns available for the deployment overlay dropdown. */
-export const DEPLOYMENT_PATTERNS: { id: string; name: string }[] = ds.deploymentPatterns.all
-  .map((p) => ({ id: p.id, name: p.name }))
-  .sort((a, b) => a.name.localeCompare(b.name));
+export const DEPLOYMENT_PATTERNS: { id: string; name: string }[] =
+  ds.deploymentPatterns.all
+    .map((p) => ({ id: p.id, name: p.name }))
+    .sort((a, b) => a.name.localeCompare(b.name));
 
 /** A sensible default deployment overlay for a known layout id (best-effort name match). */
 export function defaultDeploymentFor(layoutId: string): string | null {
   const ids = new Set(DEPLOYMENT_PATTERNS.map((p) => p.id));
-  if (layoutId.includes("crucible") && ids.has("crucible-of-battle")) return "crucible-of-battle";
-  if (layoutId.includes("hammer") && ids.has("hammer-and-anvil")) return "hammer-and-anvil";
-  if (layoutId.includes("search") && ids.has("search-and-destroy")) return "search-and-destroy";
-  if (layoutId.includes("sweeping") && ids.has("sweeping-engagement")) return "sweeping-engagement";
-  if (layoutId.includes("colosseum") && ids.has("kotc-colosseum")) return "kotc-colosseum";
+  if (layoutId.includes("crucible") && ids.has("crucible-of-battle"))
+    return "crucible-of-battle";
+  if (layoutId.includes("hammer") && ids.has("hammer-and-anvil"))
+    return "hammer-and-anvil";
+  if (layoutId.includes("search") && ids.has("search-and-destroy"))
+    return "search-and-destroy";
+  if (layoutId.includes("sweeping") && ids.has("sweeping-engagement"))
+    return "sweeping-engagement";
+  if (layoutId.includes("colosseum") && ids.has("kotc-colosseum"))
+    return "kotc-colosseum";
   return null;
 }
 
 /** Mission-matchup pairings for the layout's "card" dropdown, e.g. "Take and Hold vs Purge the Foe". */
 const titleize = (id: string): string =>
   id.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
-export const MISSION_MATCHUPS: { id: string; label: string }[] = ds.missionMatchups.all
-  .map((m) => {
-    const mm = m as { id: string; disposition: string; opponent_disposition: string };
-    return { id: mm.id, label: `${titleize(mm.disposition)} vs ${titleize(mm.opponent_disposition)}` };
-  })
-  .sort((a, b) => a.label.localeCompare(b.label));
+export const MISSION_MATCHUPS: { id: string; label: string }[] =
+  ds.missionMatchups.all
+    .map((m) => {
+      const mm = m as {
+        id: string;
+        disposition: string;
+        opponent_disposition: string;
+      };
+      return {
+        id: mm.id,
+        label: `${titleize(mm.disposition)} vs ${titleize(mm.opponent_disposition)}`,
+      };
+    })
+    .sort((a, b) => a.label.localeCompare(b.label));
 
 // ── layout library (matchup × variant coverage grid) ──────────────────────────
 
@@ -842,14 +978,18 @@ export const DISPOSITIONS = [
 
 export const dispositionLabel = titleize;
 
-const DISPOSITION_INDEX = new Map<string, number>(DISPOSITIONS.map((d, i) => [d, i]));
+const DISPOSITION_INDEX = new Map<string, number>(
+  DISPOSITIONS.map((d, i) => [d, i]),
+);
 
 interface MatchupRecord {
   id: string;
   disposition: string;
   opponent_disposition: string;
 }
-const MATCHUPS: MatchupRecord[] = ds.missionMatchups.all.map((m) => m as MatchupRecord);
+const MATCHUPS: MatchupRecord[] = ds.missionMatchups.all.map(
+  (m) => m as MatchupRecord,
+);
 const MATCHUP_BY_ID = new Map(MATCHUPS.map((m) => [m.id, m]));
 
 /** Printed Event Companion ordering, deliberately distinct from the library grid ordering. */
@@ -872,9 +1012,18 @@ const eventCompanionDispositionIndex = (disposition: string): number =>
 export function eventCompanionPage(
   layout: Pick<EditLayout, "mission_matchup_id" | "variant">,
 ): number | null {
-  const matchup = layout.mission_matchup_id ? MATCHUP_BY_ID.get(layout.mission_matchup_id) : undefined;
+  const matchup = layout.mission_matchup_id
+    ? MATCHUP_BY_ID.get(layout.mission_matchup_id)
+    : undefined;
   const variant = layout.variant;
-  if (!matchup || typeof variant !== "number" || !Number.isInteger(variant) || variant < 1 || variant > 3) return null;
+  if (
+    !matchup ||
+    typeof variant !== "number" ||
+    !Number.isInteger(variant) ||
+    variant < 1 ||
+    variant > 3
+  )
+    return null;
 
   const a = eventCompanionDispositionIndex(matchup.disposition);
   const b = eventCompanionDispositionIndex(matchup.opponent_disposition);
@@ -936,16 +1085,32 @@ export function referenceImageBox(
   const dy = -(fit.offsetX ?? 0);
 
   const r = (n: number): number => Math.round(n * 1e4) / 1e4;
-  const parts = [`translate(${r(dx)} ${r(dy)})`, `rotate(${turns * 90} ${cx} ${cy})`];
+  const parts = [
+    `translate(${r(dx)} ${r(dy)})`,
+    `rotate(${turns * 90} ${cx} ${cy})`,
+  ];
   if (scale !== 1) {
-    parts.push(`translate(${cx} ${cy})`, `scale(${r(scale)})`, `translate(${-cx} ${-cy})`);
+    parts.push(
+      `translate(${cx} ${cy})`,
+      `scale(${r(scale)})`,
+      `translate(${-cx} ${-cy})`,
+    );
   }
-  return { x: cx - width / 2, y: cy - height / 2, width, height, transform: parts.join(" ") };
+  return {
+    x: cx - width / 2,
+    y: cy - height / 2,
+    width,
+    height,
+    transform: parts.join(" "),
+  };
 }
 
 /** Unordered-pair key for a matchup grid cell: the two dispositions in DISPOSITIONS order. */
 export function pairKey(a: string, b: string): string {
-  const [lo, hi] = (DISPOSITION_INDEX.get(a) ?? 99) <= (DISPOSITION_INDEX.get(b) ?? 99) ? [a, b] : [b, a];
+  const [lo, hi] =
+    (DISPOSITION_INDEX.get(a) ?? 99) <= (DISPOSITION_INDEX.get(b) ?? 99)
+      ? [a, b]
+      : [b, a];
   return `${lo}|${hi}`;
 }
 
@@ -955,7 +1120,9 @@ export function pairKey(a: string, b: string): string {
  */
 export function canonicalMatchupId(a: string, b: string): string | undefined {
   const [lo, hi] = pairKey(a, b).split("|");
-  return MATCHUPS.find((m) => m.disposition === lo && m.opponent_disposition === hi)?.id;
+  return MATCHUPS.find(
+    (m) => m.disposition === lo && m.opponent_disposition === hi,
+  )?.id;
 }
 
 /** One embedded layout's library card. */
@@ -1000,7 +1167,10 @@ export function libraryIndex(): LibraryIndex {
       continue;
     }
     const key = pairKey(m.disposition, m.opponent_disposition);
-    const cell: LibraryCell = cells.get(key) ?? { byVariant: new Map(), unnumbered: [] };
+    const cell: LibraryCell = cells.get(key) ?? {
+      byVariant: new Map(),
+      unnumbered: [],
+    };
     cells.set(key, cell);
     if (entry.variant && entry.variant >= 1) {
       const claimants = cell.byVariant.get(entry.variant) ?? [];
@@ -1010,7 +1180,8 @@ export function libraryIndex(): LibraryIndex {
       cell.unnumbered.push(entry);
     }
   }
-  const byName = (a: LibraryEntry, b: LibraryEntry): number => a.name.localeCompare(b.name);
+  const byName = (a: LibraryEntry, b: LibraryEntry): number =>
+    a.name.localeCompare(b.name);
   for (const cell of cells.values()) cell.unnumbered.sort(byName);
   unassigned.sort(byName);
   return { cells, unassigned };
@@ -1075,7 +1246,9 @@ export function worklistSourceId(layout: EditLayout): string | null {
 }
 
 /** Group a layout's areas into `areaTemplate + sorted child templates` signatures. */
-function inventorySignatures(pieces: EditPiece[]): Map<string, { areaTemplate: string; children: string[] }> {
+function inventorySignatures(
+  pieces: EditPiece[],
+): Map<string, { areaTemplate: string; children: string[] }> {
   const out = new Map<string, { areaTemplate: string; children: string[] }>();
   for (const p of pieces) {
     if (p.piece_type !== "area" || !p.template) continue;
@@ -1098,15 +1271,23 @@ const signatureKey = (areaTemplate: string, children: string[]): string =>
  * rather than imported: `model.ts` only imports `sets.ts` as *types*, and a
  * runtime import would close a real module cycle.
  */
-export function worklistFor(layout: EditLayout, sets: TerrainSetDef[] = []): Worklist {
+export function worklistFor(
+  layout: EditLayout,
+  sets: TerrainSetDef[] = [],
+): Worklist {
   const sourceId = worklistSourceId(layout);
   const source = sourceId
     ? (ds.terrainLayouts.get(sourceId) as unknown as EditLayout | undefined)
     : undefined;
   if (!source) return { sourceId: null, rows: [], expected: 0, placed: 0 };
 
-  const tally = (pieces: EditPiece[]): Map<string, { areaTemplate: string; children: string[]; n: number }> => {
-    const m = new Map<string, { areaTemplate: string; children: string[]; n: number }>();
+  const tally = (
+    pieces: EditPiece[],
+  ): Map<string, { areaTemplate: string; children: string[]; n: number }> => {
+    const m = new Map<
+      string,
+      { areaTemplate: string; children: string[]; n: number }
+    >();
     for (const sig of inventorySignatures(pieces).values()) {
       const key = signatureKey(sig.areaTemplate, sig.children);
       const hit = m.get(key);
@@ -1130,7 +1311,12 @@ export function worklistFor(layout: EditLayout, sets: TerrainSetDef[] = []): Wor
       for (const t of w.children) {
         const hit = seats.get(t);
         if (hit) hit.count++;
-        else seats.set(t, { template: t, name: templateById(t)?.name ?? t, count: 1 });
+        else
+          seats.set(t, {
+            template: t,
+            name: templateById(t)?.name ?? t,
+            count: 1,
+          });
       }
       return {
         key,
@@ -1142,7 +1328,10 @@ export function worklistFor(layout: EditLayout, sets: TerrainSetDef[] = []): Wor
         placed: have.get(key)?.n ?? 0,
       };
     })
-    .sort((a, b) => a.areaName.localeCompare(b.areaName) || a.key.localeCompare(b.key));
+    .sort(
+      (a, b) =>
+        a.areaName.localeCompare(b.areaName) || a.key.localeCompare(b.key),
+    );
 
   return {
     sourceId,
@@ -1161,7 +1350,9 @@ const thumbCache = new Map<string, ResolvedPiece[]>();
 /** The board extents of an embedded layout (its override, or the 60×44 standard). */
 export function boardForEmbedded(id: string): BoardDims {
   const raw = ds.terrainLayouts.get(id) as TerrainLayout | undefined;
-  return raw?.board ? { width: raw.board.width, height: raw.board.height } : DEFAULT_BOARD;
+  return raw?.board
+    ? { width: raw.board.width, height: raw.board.height }
+    : DEFAULT_BOARD;
 }
 
 export function resolveEmbedded(id: string): ResolvedPiece[] {
@@ -1206,8 +1397,14 @@ export function twinPosition(p: Vec2, board: BoardDims = DEFAULT_BOARD): Vec2 {
 export function twinRotation(deg: number): number {
   return norm360(deg + 180);
 }
-export function isBoardCentre(p: Vec2, board: BoardDims = DEFAULT_BOARD): boolean {
-  return Math.abs(p.x - board.width / 2) < 0.3 && Math.abs(p.y - board.height / 2) < 0.3;
+export function isBoardCentre(
+  p: Vec2,
+  board: BoardDims = DEFAULT_BOARD,
+): boolean {
+  return (
+    Math.abs(p.x - board.width / 2) < 0.3 &&
+    Math.abs(p.y - board.height / 2) < 0.3
+  );
 }
 
 const byId = (layout: EditLayout, id: string): EditPiece | undefined =>
@@ -1233,7 +1430,11 @@ function freshId(prefix: string, layout?: EditLayout): string {
   }
 }
 
-function makePiece(template: TerrainTemplate, position: Vec2, layout?: EditLayout): EditPiece {
+function makePiece(
+  template: TerrainTemplate,
+  position: Vec2,
+  layout?: EditLayout,
+): EditPiece {
   return {
     id: freshId(template.id, layout),
     name: template.name,
@@ -1285,7 +1486,12 @@ export function addTemplate(
 export function resolveSetFeature(
   areaFp: TerrainTemplate["footprint"],
   def: SetFeatureDef,
-): { template: TerrainTemplate; position: Vec2; rotation: number; mirror: Mirror } | null {
+): {
+  template: TerrainTemplate;
+  position: Vec2;
+  rotation: number;
+  mirror: Mirror;
+} | null {
   const template = templateById(def.template);
   if (!template) return null;
   const rotation = norm360(def.rotation);
@@ -1294,7 +1500,13 @@ export function resolveSetFeature(
     template,
     rotation,
     mirror,
-    position: seatPositionInPlate(areaFp, template.footprint, rotation, mirror, def.seat),
+    position: seatPositionInPlate(
+      areaFp,
+      template.footprint,
+      rotation,
+      mirror,
+      def.seat,
+    ),
   };
 }
 
@@ -1336,13 +1548,21 @@ export function addSet(
   for (const f of set.features) {
     const r = resolveSetFeature(areaTmpl.footprint, f);
     if (!r) continue;
-    const feat = makePiece(r.template, { x: r.position.x, y: r.position.y }, layout);
+    const feat = makePiece(
+      r.template,
+      { x: r.position.x, y: r.position.y },
+      layout,
+    );
     feat.rotation_degrees = r.rotation;
     feat.mirror = r.mirror;
     feat.parent_area_id = area.id;
     layout.pieces.push(feat);
     if (areaTwin) {
-      const featTwin = makePiece(r.template, { x: r.position.x, y: r.position.y }, layout);
+      const featTwin = makePiece(
+        r.template,
+        { x: r.position.x, y: r.position.y },
+        layout,
+      );
       featTwin.rotation_degrees = feat.rotation_degrees;
       featTwin.mirror = feat.mirror;
       featTwin.parent_area_id = areaTwin.id;
@@ -1362,7 +1582,10 @@ export function addSet(
  * regardless of the global symmetry toggle. Returns null — stamping nothing —
  * when the layout already has a centre objective.
  */
-export function addCenterRuin(layout: EditLayout, rotated = false): EditPiece | null {
+export function addCenterRuin(
+  layout: EditLayout,
+  rotated = false,
+): EditPiece | null {
   if (layout.pieces.some((p) => p.objective_role === "center")) return null;
   const tmpl = templateById("area-trapezoid");
   if (!tmpl) return null;
@@ -1393,7 +1616,11 @@ export function addCenterRuin(layout: EditLayout, rotated = false): EditPiece | 
  * rotation about centre maps area→twin and leaves the local coordinate fixed).
  * Unparented pieces keep the board-mirror twin convention.
  */
-export function movePiece(layout: EditLayout, id: string, position: Vec2): void {
+export function movePiece(
+  layout: EditLayout,
+  id: string,
+  position: Vec2,
+): void {
   const p = byId(layout, id);
   if (!p) return;
   // Clamp the board centroid to the table so no piece (or runaway edit) can leave
@@ -1435,22 +1662,38 @@ export function orientPiece(
   // orientation BEFORE the frame changes; afterwards re-express both halves of
   // the child's local pose against the new frame. (For a parented *feature* the
   // child list is empty, so it orients exactly as before.)
-  const pinned: { child: EditPiece; area: EditPiece; board: Vec2; oldAreaLin: Mat2 }[] = [];
+  const pinned: {
+    child: EditPiece;
+    area: EditPiece;
+    board: Vec2;
+    oldAreaLin: Mat2;
+  }[] = [];
   const snapshot = (area: EditPiece): void => {
-    const oldAreaLin = orientMatrix(area.rotation_degrees ?? 0, area.mirror ?? "none");
+    const oldAreaLin = orientMatrix(
+      area.rotation_degrees ?? 0,
+      area.mirror ?? "none",
+    );
     for (const c of childFeaturesOf(layout, area.id)) {
-      pinned.push({ child: c, area, board: boardCentroid(layout, c), oldAreaLin });
+      pinned.push({
+        child: c,
+        area,
+        board: boardCentroid(layout, c),
+        oldAreaLin,
+      });
     }
   };
   snapshot(p);
   if (t && t.id !== p.id) snapshot(t);
 
-  if (patch.rotation_degrees !== undefined) p.rotation_degrees = norm360(patch.rotation_degrees);
+  if (patch.rotation_degrees !== undefined)
+    p.rotation_degrees = norm360(patch.rotation_degrees);
   if (patch.mirror !== undefined) p.mirror = patch.mirror;
   if (t && t.id !== p.id) {
     const parented = !!parentAreaOf(layout, p);
     if (patch.rotation_degrees !== undefined) {
-      t.rotation_degrees = parented ? p.rotation_degrees : twinRotation(patch.rotation_degrees);
+      t.rotation_degrees = parented
+        ? p.rotation_degrees
+        : twinRotation(patch.rotation_degrees);
     }
     if (patch.mirror !== undefined) t.mirror = patch.mirror;
   }
@@ -1458,8 +1701,14 @@ export function orientPiece(
   for (const { child, area, board, oldAreaLin } of pinned) {
     // newChildLin = newArea⁻¹ · oldArea · oldChild — the child orientation that,
     // composed through the area's NEW frame, reproduces its old board orientation.
-    const newAreaLin = orientMatrix(area.rotation_degrees ?? 0, area.mirror ?? "none");
-    const childLin = orientMatrix(child.rotation_degrees ?? 0, child.mirror ?? "none");
+    const newAreaLin = orientMatrix(
+      area.rotation_degrees ?? 0,
+      area.mirror ?? "none",
+    );
+    const childLin = orientMatrix(
+      child.rotation_degrees ?? 0,
+      child.mirror ?? "none",
+    );
     const { rotation, mirror } = decomposeOrient(
       mat2Mul(mat2Mul(mat2Transpose(newAreaLin), oldAreaLin), childLin),
     );
@@ -1476,7 +1725,11 @@ export function orientPiece(
  * local placement; if the area has no twin the feature/twin pairing is dropped so
  * the board-mirror and parent conventions never fight.
  */
-export function setParentArea(layout: EditLayout, id: string, parentId: string | undefined): void {
+export function setParentArea(
+  layout: EditLayout,
+  id: string,
+  parentId: string | undefined,
+): void {
   const p = byId(layout, id);
   if (!p) return;
   const next = parentId || undefined;
@@ -1489,7 +1742,9 @@ export function setParentArea(layout: EditLayout, id: string, parentId: string |
     p.position = inverseAreaFrame(board, parent);
     const t = twinOf(layout, p);
     if (t) {
-      const areaTwin = parent.twin_id ? byId(layout, parent.twin_id) : undefined;
+      const areaTwin = parent.twin_id
+        ? byId(layout, parent.twin_id)
+        : undefined;
       if (areaTwin && areaTwin.id !== parent.id) {
         t.parent_area_id = areaTwin.id;
         t.position = { x: p.position.x, y: p.position.y };
@@ -1530,7 +1785,9 @@ export function snapToAreaCenter(layout: EditLayout, id: string): void {
   const featureFp = footprintOf(p);
   p.position =
     areaFp && featureFp
-      ? seatPositionInPlate(areaFp, featureFp, p.rotation_degrees, p.mirror, { kind: "centred" })
+      ? seatPositionInPlate(areaFp, featureFp, p.rotation_degrees, p.mirror, {
+          kind: "centred",
+        })
       : { x: 0, y: 0 };
   const t = twinOf(layout, p);
   if (t) t.position = { x: p.position.x, y: p.position.y };
@@ -1566,12 +1823,25 @@ export function seatFeatureInAreaCorner(
   if (!areaFp || !featureFp) return;
   const at =
     corner ??
-    nearestPlateSeat(areaFp, featureFp, p.rotation_degrees, p.mirror, p.position, inset);
-  p.position = seatPositionInPlate(areaFp, featureFp, p.rotation_degrees, p.mirror, {
-    kind: "corner",
-    corner: at,
-    inset,
-  });
+    nearestPlateSeat(
+      areaFp,
+      featureFp,
+      p.rotation_degrees,
+      p.mirror,
+      p.position,
+      inset,
+    );
+  p.position = seatPositionInPlate(
+    areaFp,
+    featureFp,
+    p.rotation_degrees,
+    p.mirror,
+    {
+      kind: "corner",
+      corner: at,
+      inset,
+    },
+  );
   const t = twinOf(layout, p);
   if (t) t.position = { x: p.position.x, y: p.position.y };
 }
@@ -1632,7 +1902,8 @@ export function reanchorToNearestArea(layout: EditLayout, id: string): void {
       nearest = a;
     }
   }
-  if (nearest && nearest.id !== p.parent_area_id) setParentArea(layout, id, nearest.id);
+  if (nearest && nearest.id !== p.parent_area_id)
+    setParentArea(layout, id, nearest.id);
 }
 
 /** Re-anchor every feature to the area it sits on (whole-layout repair sweep). */
@@ -1643,7 +1914,11 @@ export function reanchorAllFeatures(layout: EditLayout): void {
 }
 
 /** Set a piece's link group, mirroring the same value onto its twin. */
-export function setLinkGroup(layout: EditLayout, id: string, group: string | undefined): void {
+export function setLinkGroup(
+  layout: EditLayout,
+  id: string,
+  group: string | undefined,
+): void {
   const p = byId(layout, id);
   if (!p) return;
   p.link_group = group || undefined;
@@ -1681,13 +1956,29 @@ export function keystoneValid(piece: EditPiece, k: EditKeystone): boolean {
   }
   const fp = footprintOf(piece);
   if (!fp) return false;
-  return k.ref.index >= 0 && k.ref.index < footprintVertices(fp as never).length;
+  return (
+    k.ref.index >= 0 && k.ref.index < footprintVertices(fp as never).length
+  );
 }
 
 const flipEdge = (e: EditKeystone["edge"]): EditKeystone["edge"] =>
-  e === "left" ? "right" : e === "right" ? "left" : e === "top" ? "bottom" : "top";
-const flipSide = (s: "min-x" | "max-x" | "min-y" | "max-y"): "min-x" | "max-x" | "min-y" | "max-y" =>
-  s === "min-x" ? "max-x" : s === "max-x" ? "min-x" : s === "min-y" ? "max-y" : "min-y";
+  e === "left"
+    ? "right"
+    : e === "right"
+      ? "left"
+      : e === "top"
+        ? "bottom"
+        : "top";
+const flipSide = (
+  s: "min-x" | "max-x" | "min-y" | "max-y",
+): "min-x" | "max-x" | "min-y" | "max-y" =>
+  s === "min-x"
+    ? "max-x"
+    : s === "max-x"
+      ? "min-x"
+      : s === "min-y"
+        ? "max-y"
+        : "min-y";
 
 /** How close (inches) the point-reflected vertex must land to a twin vertex. */
 const MIRROR_VERT_EPS = 0.25;
@@ -1709,7 +2000,8 @@ export function mirrorKeystone(
   k: EditKeystone,
 ): EditKeystone | null {
   const edge = flipEdge(k.edge);
-  if (k.ref.kind === "face") return { edge, ref: { kind: "face", side: flipSide(k.ref.side) } };
+  if (k.ref.kind === "face")
+    return { edge, ref: { kind: "face", side: flipSide(k.ref.side) } };
   const pf = orientedFootprint(primary, layout);
   const tf = orientedFootprint(twin, layout);
   const anchor = pf?.verticesBoard[k.ref.index];
@@ -1730,10 +2022,16 @@ export function mirrorKeystone(
 }
 
 const hasKeystone = (p: EditPiece, k: EditKeystone): boolean =>
-  (p.keystones ?? []).some((e) => e.edge === k.edge && sameSolverRef(e.ref, k.ref));
+  (p.keystones ?? []).some(
+    (e) => e.edge === k.edge && sameSolverRef(e.ref, k.ref),
+  );
 
 /** Pin a keystone on a piece (no-op for an exact duplicate), mirroring it onto the twin. */
-export function addKeystone(layout: EditLayout, id: string, k: EditKeystone): void {
+export function addKeystone(
+  layout: EditLayout,
+  id: string,
+  k: EditKeystone,
+): void {
   const p = byId(layout, id);
   if (!p) return;
   if (!hasKeystone(p, k)) p.keystones = [...(p.keystones ?? []), k];
@@ -1744,7 +2042,11 @@ export function addKeystone(layout: EditLayout, id: string, k: EditKeystone): vo
 }
 
 /** Remove the piece's keystone at `index`, and its mirror from the twin. */
-export function removeKeystone(layout: EditLayout, id: string, index: number): void {
+export function removeKeystone(
+  layout: EditLayout,
+  id: string,
+  index: number,
+): void {
   const p = byId(layout, id);
   const k = p?.keystones?.[index];
   if (!p || !k) return;
@@ -1755,7 +2057,9 @@ export function removeKeystone(layout: EditLayout, id: string, index: number): v
   const next = p.keystones!.filter((_, i) => i !== index);
   p.keystones = next.length > 0 ? next : undefined;
   if (t && mk) {
-    const tNext = (t.keystones ?? []).filter((e) => !(e.edge === mk.edge && sameSolverRef(e.ref, mk.ref)));
+    const tNext = (t.keystones ?? []).filter(
+      (e) => !(e.edge === mk.edge && sameSolverRef(e.ref, mk.ref)),
+    );
     t.keystones = tNext.length > 0 ? tNext : undefined;
   }
 }
@@ -1808,7 +2112,10 @@ export function keystoneDisplays(layout: EditLayout): KeystoneDisplay[] {
     const valid: EditKeystone[] = [];
     for (const [i, k] of (p.keystones ?? []).entries()) {
       const ok = keystoneValid(p, k);
-      order.push({ display: { pieceId: p.id, index: i, keystone: k, distance: null }, valid: ok });
+      order.push({
+        display: { pieceId: p.id, index: i, keystone: k, distance: null },
+        valid: ok,
+      });
       if (ok) valid.push(k);
     }
     return { ...p, keystones: valid };
@@ -1816,7 +2123,9 @@ export function keystoneDisplays(layout: EditLayout): KeystoneDisplay[] {
   let measured: number[] = [];
   try {
     measured = keystoneMeasurements(
-      { ...layout, pieces } as unknown as Parameters<typeof keystoneMeasurements>[0],
+      { ...layout, pieces } as unknown as Parameters<
+        typeof keystoneMeasurements
+      >[0],
       CATALOG as unknown as Parameters<typeof keystoneMeasurements>[1],
       boardOf(layout),
     ).map((m) => m.distance);
@@ -1863,7 +2172,8 @@ export const KEYSTONE_INCREMENT = 0.25;
 const edgeAxis = (e: EditKeystone["edge"]): "x" | "y" =>
   e === "left" || e === "right" ? "x" : "y";
 /** Whether an edge is the near one (distance reads the coordinate directly). */
-const edgeIsNear = (e: EditKeystone["edge"]): boolean => e === "left" || e === "top";
+const edgeIsNear = (e: EditKeystone["edge"]): boolean =>
+  e === "left" || e === "top";
 
 /** The one x-axis and one y-axis keystone that arm a piece for grid snapping. */
 export interface SnapAnchor {
@@ -1899,7 +2209,11 @@ export function measureLine(
 ): number | null {
   const fp = footprintOf(piece);
   if (!fp || !keystoneValid(piece, k)) return null;
-  const offsets = orientedOffsets(fp as never, piece.rotation_degrees, piece.mirror) as Vec2[];
+  const offsets = orientedOffsets(
+    fp as never,
+    piece.rotation_degrees,
+    piece.mirror,
+  ) as Vec2[];
   const axis = edgeAxis(k.edge);
   let off: number;
   if (k.ref.kind === "vertex") {
@@ -1908,7 +2222,10 @@ export function measureLine(
     off = axis === "x" ? v.x : v.y;
   } else {
     const vals = offsets.map((o) => (axis === "x" ? o.x : o.y));
-    off = k.ref.side === "min-x" || k.ref.side === "min-y" ? Math.min(...vals) : Math.max(...vals);
+    off =
+      k.ref.side === "min-x" || k.ref.side === "min-y"
+        ? Math.min(...vals)
+        : Math.max(...vals);
   }
   const coord = (axis === "x" ? at.x : at.y) + off;
   const extent = axis === "x" ? board.width : board.height;
@@ -1999,7 +2316,10 @@ export interface CornerCandidate {
  * space. Confirmed against the corpus — all 1150 authored vertex keystones point
  * at a cardinal corner, never at a die-cut nub.
  */
-export function cornerCandidates(piece: EditPiece, layout: EditLayout): CornerCandidate[] {
+export function cornerCandidates(
+  piece: EditPiece,
+  layout: EditLayout,
+): CornerCandidate[] {
   const fp = footprintOf(piece);
   const of = orientedFootprint(piece, layout);
   if (!fp || !of) return [];
@@ -2077,7 +2397,11 @@ export function keystonesForCorner(
  * 3+ keystones rather than destroying a hand-authored triangulation set, and on a
  * piece whose vertex doesn't resolve.
  */
-export function setCornerAnchor(layout: EditLayout, id: string, index: number): boolean {
+export function setCornerAnchor(
+  layout: EditLayout,
+  id: string,
+  index: number,
+): boolean {
   const p = byId(layout, id);
   if (!p) return false;
   if ((p.keystones ?? []).length >= 3) return false;
@@ -2085,20 +2409,28 @@ export function setCornerAnchor(layout: EditLayout, id: string, index: number): 
   if (!next) return false;
   // Remove from the end so earlier indices stay valid; each removal also strips
   // the twin's mirror.
-  for (let i = (p.keystones ?? []).length - 1; i >= 0; i--) removeKeystone(layout, id, i);
+  for (let i = (p.keystones ?? []).length - 1; i >= 0; i--)
+    removeKeystone(layout, id, i);
   for (const k of next) addKeystone(layout, id, k);
   return true;
 }
 
 /** A keystone edge named in CARD directions (the board is displayed rotated 90°). */
-export function cardEdgeName(e: EditKeystone["edge"]): "left" | "right" | "top" | "bottom" {
-  return e === "bottom" ? "left" : e === "top" ? "right" : e === "left" ? "top" : "bottom";
+export function cardEdgeName(
+  e: EditKeystone["edge"],
+): "left" | "right" | "top" | "bottom" {
+  return e === "bottom"
+    ? "left"
+    : e === "top"
+      ? "right"
+      : e === "left"
+        ? "top"
+        : "bottom";
 }
 
 /** Whether a rotation is one of the four axis-aligned quarter turns. */
 export function isAxisAligned(deg: number, tol = 0.01): boolean {
-  const r = norm360(deg);
-  return [0, 90, 180, 270].some((q) => Math.abs(r - q) < tol || Math.abs(r - q - 360) < tol);
+  return isCardinalRotation(deg, tol);
 }
 
 /** A pre-filled solver form: two lines for an axis-aligned piece, three for a
@@ -2136,14 +2468,24 @@ export function suggestSolverSeed(
   const seedCorner =
     anchor?.x.ref.kind === "vertex"
       ? anchor.x.ref.index
-      : (pickCornerByDirection(candidates, at, candidates[0].at, { deadZone: 0 }) ??
-        candidates[0].index);
-  const seedAt = candidates.find((c) => c.index === seedCorner)?.at ?? candidates[0].at;
+      : (pickCornerByDirection(candidates, at, candidates[0].at, {
+          deadZone: 0,
+        }) ?? candidates[0].index);
+  const seedAt =
+    candidates.find((c) => c.index === seedCorner)?.at ?? candidates[0].at;
   const edges = nearestEdgesFor(seedAt, board);
   const two = anchor
     ? [
-        { edge: anchor.x.edge, ref: anchor.x.ref, distance: dist(anchor.x.edge, anchor.x.ref) },
-        { edge: anchor.y.edge, ref: anchor.y.ref, distance: dist(anchor.y.edge, anchor.y.ref) },
+        {
+          edge: anchor.x.edge,
+          ref: anchor.x.ref,
+          distance: dist(anchor.x.edge, anchor.x.ref),
+        },
+        {
+          edge: anchor.y.edge,
+          ref: anchor.y.ref,
+          distance: dist(anchor.y.edge, anchor.y.ref),
+        },
       ]
     : [
         {
@@ -2164,27 +2506,47 @@ export function suggestSolverSeed(
   const ys = candidates.map((c) => c.at.y);
   const spreadX = Math.max(...xs) - Math.min(...xs);
   const useX = spreadX >= Math.max(...ys) - Math.min(...ys);
-  const along = [...candidates].sort((a, b) => (useX ? a.at.x - b.at.x : a.at.y - b.at.y));
+  const along = [...candidates].sort((a, b) =>
+    useX ? a.at.x - b.at.x : a.at.y - b.at.y,
+  );
   const pairEdge = useX ? edges.x : edges.y;
   const otherEdge = useX ? edges.y : edges.x;
   const lo = along[0];
   const hi = along[along.length - 1];
   // The extreme corner on the OTHER axis, excluding the two already used.
-  const rest = candidates.filter((c) => c.index !== lo.index && c.index !== hi.index);
+  const rest = candidates.filter(
+    (c) => c.index !== lo.index && c.index !== hi.index,
+  );
   const third =
     rest.sort((a, b) =>
       otherEdge === "left" || otherEdge === "top"
-        ? (useX ? a.at.y - b.at.y : a.at.x - b.at.x)
-        : (useX ? b.at.y - a.at.y : b.at.x - a.at.x),
+        ? useX
+          ? a.at.y - b.at.y
+          : a.at.x - b.at.x
+        : useX
+          ? b.at.y - a.at.y
+          : b.at.x - a.at.x,
     )[0] ?? hi;
 
   return {
     axisAligned: isAxisAligned(piece.rotation_degrees),
     two,
     three: [
-      { edge: pairEdge, vertex: lo.index, distance: dist(pairEdge, { kind: "vertex", index: lo.index }) },
-      { edge: pairEdge, vertex: hi.index, distance: dist(pairEdge, { kind: "vertex", index: hi.index }) },
-      { edge: otherEdge, vertex: third.index, distance: dist(otherEdge, { kind: "vertex", index: third.index }) },
+      {
+        edge: pairEdge,
+        vertex: lo.index,
+        distance: dist(pairEdge, { kind: "vertex", index: lo.index }),
+      },
+      {
+        edge: pairEdge,
+        vertex: hi.index,
+        distance: dist(pairEdge, { kind: "vertex", index: hi.index }),
+      },
+      {
+        edge: otherEdge,
+        vertex: third.index,
+        distance: dist(otherEdge, { kind: "vertex", index: third.index }),
+      },
     ],
   };
 }
@@ -2239,7 +2601,12 @@ function signedArea(poly: Vec2[]): number {
 function bboxOverlap(a: Vec2[], b: Vec2[]): boolean {
   const ba = bbox(a);
   const bb = bbox(b);
-  return ba.minX <= bb.maxX && bb.minX <= ba.maxX && ba.minY <= bb.maxY && bb.minY <= ba.maxY;
+  return (
+    ba.minX <= bb.maxX &&
+    bb.minX <= ba.maxX &&
+    ba.minY <= bb.maxY &&
+    bb.minY <= ba.maxY
+  );
 }
 
 /** Barycentric-sign point-in-triangle (boundary counts as inside). */
@@ -2293,7 +2660,8 @@ function triangulate(poly: Vec2[]): [Vec2, Vec2, Vec2][] {
     }
     if (!clipped) break; // no ear found (self-intersecting / degenerate): bail
   }
-  if (idx.length === 3) tris.push([verts[idx[0]], verts[idx[1]], verts[idx[2]]]);
+  if (idx.length === 3)
+    tris.push([verts[idx[0]], verts[idx[1]], verts[idx[2]]]);
   return tris;
 }
 
@@ -2304,7 +2672,10 @@ function lineIntersect(s: Vec2, e: Vec2, a: Vec2, b: Vec2): Vec2 {
   const n1 = a.x * b.y - a.y * b.x;
   const n2 = s.x * e.y - s.y * e.x;
   const denom = dc.x * dp.y - dc.y * dp.x;
-  return { x: (n1 * dp.x - n2 * dc.x) / denom, y: (n1 * dp.y - n2 * dc.y) / denom };
+  return {
+    x: (n1 * dp.x - n2 * dc.x) / denom,
+    y: (n1 * dp.y - n2 * dc.y) / denom,
+  };
 }
 
 /** Clip convex polygon `subject` by convex polygon `clip` (both CCW) — Sutherland–Hodgman. */
@@ -2333,11 +2704,13 @@ function clipConvex(subject: Vec2[], clip: Vec2[]): Vec2[] {
   return output;
 }
 
-/** Exact overlap area of two (possibly concave) polygons, via triangulation + clipping. */
-function polygonOverlapArea(a: Vec2[], b: Vec2[]): number {
+type Triangle = [Vec2, Vec2, Vec2];
+
+/** Exact overlap area of two triangulated polygons. */
+function triangulatedOverlapArea(a: Triangle[], b: Triangle[]): number {
   let area = 0;
-  for (const t1 of triangulate(a)) {
-    for (const t2 of triangulate(b)) {
+  for (const t1 of a) {
+    for (const t2 of b) {
       const clipped = clipConvex(t1.slice(), t2);
       if (clipped.length >= 3) area += Math.abs(signedArea(clipped));
     }
@@ -2371,8 +2744,11 @@ function collisionWarnings(layout: EditLayout): LayoutWarning[] {
   // Walk the resolver's emission contract (mirrored from keystones.ts): one slot
   // per layout piece, plus a templated unparented piece's composed features after.
   const linkByPieceId = new Map<string, string>();
-  for (const p of pieces) if (p.id && p.link_group) linkByPieceId.set(p.id, p.link_group);
-  const governingArea: (string | null)[] = new Array(resolved.length).fill(null);
+  for (const p of pieces)
+    if (p.id && p.link_group) linkByPieceId.set(p.id, p.link_group);
+  const governingArea: (string | null)[] = new Array(resolved.length).fill(
+    null,
+  );
   // Elevated walkways (catwalk/gantry) overhang the areas below them, so their
   // plan-view footprint legitimately spills onto ground pieces — they never
   // collide-warn. Marked by an elevated-only template: `ground_accessible: false`
@@ -2387,8 +2763,11 @@ function collisionWarnings(layout: EditLayout): LayoutWarning[] {
       governingArea[self] = p.parent_area_id;
     } else {
       governingArea[self] = p.id ?? `#${self}`;
-      const fcount = p.template ? templateById(p.template)?.features?.length ?? 0 : 0;
-      for (let f = 1; f <= fcount; f++) governingArea[self + f] = p.id ?? `#${self}`;
+      const fcount = p.template
+        ? (templateById(p.template)?.features?.length ?? 0)
+        : 0;
+      for (let f = 1; f <= fcount; f++)
+        governingArea[self + f] = p.id ?? `#${self}`;
     }
   }
   // Pieces sharing a group key never collide-warn against each other.
@@ -2398,6 +2777,12 @@ function collisionWarnings(layout: EditLayout): LayoutWarning[] {
     return link ? `lg:${link}` : `a:${aid ?? i}`;
   };
 
+  // A detailed Battlemaster outline can contain hundreds of vertices.
+  // Triangulate each resolved piece at most once even when it overlaps several
+  // candidates; the old per-pair work made opening the 46-layout library block
+  // the main thread for seconds.
+  const triangleCache: (Triangle[] | undefined)[] = new Array(resolved.length);
+
   const out: LayoutWarning[] = [];
   for (let a = 0; a < resolved.length; a++) {
     for (let b = a + 1; b < resolved.length; b++) {
@@ -2406,7 +2791,9 @@ function collisionWarnings(layout: EditLayout): LayoutWarning[] {
       const pa = resolved[a];
       const pb = resolved[b];
       if (!bboxOverlap(pa.vertices, pb.vertices)) continue;
-      const overlap = polygonOverlapArea(pa.vertices, pb.vertices);
+      const trianglesA = (triangleCache[a] ??= triangulate(pa.vertices));
+      const trianglesB = (triangleCache[b] ??= triangulate(pb.vertices));
+      const overlap = triangulatedOverlapArea(trianglesA, trianglesB);
       if (overlap > COLLISION_MIN_AREA) {
         out.push({
           kind: "collision",
@@ -2422,8 +2809,15 @@ function collisionWarnings(layout: EditLayout): LayoutWarning[] {
 /** Non-round keystone warnings: every derived distance that isn't a clean ¼″ mark. */
 function keystoneRoundnessWarnings(layout: EditLayout): LayoutWarning[] {
   const out: LayoutWarning[] = [];
+  const pieces = new Map(layout.pieces.map((piece) => [piece.id, piece]));
   for (const d of keystoneDisplays(layout)) {
-    if (d.distance == null || isRoundKeystone(d.distance)) continue;
+    const piece = pieces.get(d.pieceId);
+    if (
+      d.distance == null ||
+      isRoundKeystone(d.distance) ||
+      (piece && isAxisAligned(piece.rotation_degrees ?? 0))
+    )
+      continue;
     const target = nearestIncrement(d.distance);
     out.push({
       kind: "keystone-not-round",
@@ -2441,13 +2835,17 @@ function keystoneRoundnessWarnings(layout: EditLayout): LayoutWarning[] {
  * board highlight). Pure and cheap; components call it in a `$derived`.
  */
 export function layoutWarnings(layout: EditLayout): LayoutWarning[] {
-  const raw = [...collisionWarnings(layout), ...keystoneRoundnessWarnings(layout)];
+  const raw = [
+    ...collisionWarnings(layout),
+    ...keystoneRoundnessWarnings(layout),
+  ];
   const byMessage = new Map<string, LayoutWarning>();
   for (const w of raw) {
     const key = `${w.kind}|${w.message}`;
     const seen = byMessage.get(key);
     if (seen) {
-      for (const id of w.pieceIds) if (!seen.pieceIds.includes(id)) seen.pieceIds.push(id);
+      for (const id of w.pieceIds)
+        if (!seen.pieceIds.includes(id)) seen.pieceIds.push(id);
     } else {
       byMessage.set(key, { ...w, pieceIds: [...w.pieceIds] });
     }
@@ -2461,7 +2859,9 @@ const warningCache = new Map<string, LayoutWarning[]>();
 export function layoutWarningsFor(layoutId: string): LayoutWarning[] {
   const hit = warningCache.get(layoutId);
   if (hit) return hit;
-  const raw = ds.terrainLayouts.get(layoutId) as unknown as EditLayout | undefined;
+  const raw = ds.terrainLayouts.get(layoutId) as unknown as
+    | EditLayout
+    | undefined;
   const warnings = raw ? layoutWarnings(raw) : [];
   warningCache.set(layoutId, warnings);
   return warnings;
@@ -2489,7 +2889,11 @@ function objectiveUnion(layout: EditLayout, p: EditPiece): EditPiece[] {
  * "slotted like puzzle pieces", so the union reads as a single objective. A role
  * implies `is_objective`; clearing it drops the flag.
  */
-export function setObjectiveRole(layout: EditLayout, id: string, role: ObjectiveRole | undefined): void {
+export function setObjectiveRole(
+  layout: EditLayout,
+  id: string,
+  role: ObjectiveRole | undefined,
+): void {
   const p = byId(layout, id);
   if (!p) return;
   for (const m of objectiveUnion(layout, p)) {
@@ -2499,15 +2903,15 @@ export function setObjectiveRole(layout: EditLayout, id: string, role: Objective
 }
 
 export interface ObjectiveMarker {
-  /** Board-space centre of the objective (the union's centroid). */
+  /** Board-space centre of the objective. */
   at: Vec2;
   role?: ObjectiveRole;
 }
 
 /**
  * One marker per objective: pieces flagged `is_objective` grouped by link_group
- * (unlinked pieces stand alone), placed at the union's board centroid. Lets the
- * board draw a single marker for a puzzle-piece union.
+ * (unlinked pieces stand alone). Authored marker positions take precedence;
+ * otherwise the marker falls back to the terrain union's board centroid.
  */
 export function objectiveMarkers(layout: EditLayout): ObjectiveMarker[] {
   const groups = new Map<string, EditPiece[]>();
@@ -2518,12 +2922,21 @@ export function objectiveMarkers(layout: EditLayout): ObjectiveMarker[] {
   }
   const out: ObjectiveMarker[] = [];
   for (const members of groups.values()) {
-    const cs = members.map((m) => boardCentroid(layout, m));
+    const authored = members
+      .map((member) => member.objective?.position)
+      .filter((position): position is Vec2 => position !== undefined);
+    const anchors =
+      authored.length > 0
+        ? authored
+        : members.map((member) => boardCentroid(layout, member));
     const at = {
-      x: cs.reduce((s, c) => s + c.x, 0) / cs.length,
-      y: cs.reduce((s, c) => s + c.y, 0) / cs.length,
+      x: anchors.reduce((sum, anchor) => sum + anchor.x, 0) / anchors.length,
+      y: anchors.reduce((sum, anchor) => sum + anchor.y, 0) / anchors.length,
     };
-    out.push({ at, role: members.find((m) => m.objective_role)?.objective_role });
+    out.push({
+      at,
+      role: members.find((m) => m.objective_role)?.objective_role,
+    });
   }
   return out;
 }
@@ -2552,11 +2965,15 @@ export function deletePiece(layout: EditLayout, id: string): void {
  * the +180 convention on the first orientation edit (cleaning up the scaffold).
  * A piece sitting on the board centre is self-symmetric and stays unpaired.
  */
-export function autoPairTwins(pieces: EditPiece[], board: BoardDims = DEFAULT_BOARD): void {
+export function autoPairTwins(
+  pieces: EditPiece[],
+  board: BoardDims = DEFAULT_BOARD,
+): void {
   const POS_TOL = 0.75;
   // Pass 1: board-space pieces (areas + unparented features) by point reflection.
   for (const p of pieces) {
-    if (p.twin_id || p.parent_area_id || isBoardCentre(p.position, board)) continue;
+    if (p.twin_id || p.parent_area_id || isBoardCentre(p.position, board))
+      continue;
     const want = twinPosition(p.position, board);
     const match = pieces.find(
       (q) =>
@@ -2584,7 +3001,8 @@ export function autoPairTwins(pieces: EditPiece[], board: BoardDims = DEFAULT_BO
         !q.twin_id &&
         q.parent_area_id === parentTwinId &&
         q.template === p.template &&
-        Math.hypot(q.position.x - p.position.x, q.position.y - p.position.y) <= POS_TOL,
+        Math.hypot(q.position.x - p.position.x, q.position.y - p.position.y) <=
+          POS_TOL,
     );
     if (match) {
       p.twin_id = match.id;
@@ -2603,7 +3021,6 @@ export function repairTwins(layout: EditLayout): void {
 export function unpairTwins(layout: EditLayout): void {
   for (const p of layout.pieces) p.twin_id = undefined;
 }
-
 
 /** A blank layout. */
 export function blankLayout(): EditLayout {
@@ -2635,13 +3052,17 @@ export function renameLayout(layout: EditLayout, name: string): void {
 }
 
 /** Deep-clone a canonical layout into the editable model. */
-export function loadTerrainLayout(raw: TerrainLayout, symmetric = true): EditLayout {
+export function loadTerrainLayout(
+  raw: TerrainLayout,
+  symmetric = true,
+): EditLayout {
   counter = 0;
   const pieces: EditPiece[] = (raw.pieces ?? []).map((p, i) => ({
     id: p.id ?? `piece-${i + 1}`,
     name: p.name,
     piece_type: (p.piece_type ?? "area") as "area" | "feature",
-    terrain: "terrain" in p && typeof p.terrain === "boolean" ? p.terrain : undefined,
+    terrain:
+      "terrain" in p && typeof p.terrain === "boolean" ? p.terrain : undefined,
     template: p.template,
     footprint: p.footprint,
     position: { x: p.position.x, y: p.position.y },
@@ -2656,7 +3077,9 @@ export function loadTerrainLayout(raw: TerrainLayout, symmetric = true): EditLay
     objective: p.objective,
     keystones: p.keystones as EditKeystone[] | undefined,
   }));
-  const board = raw.board ? { width: raw.board.width, height: raw.board.height } : undefined;
+  const board = raw.board
+    ? { width: raw.board.width, height: raw.board.height }
+    : undefined;
   if (symmetric) autoPairTwins(pieces, board ?? DEFAULT_BOARD);
   return {
     id: raw.id,
@@ -2672,7 +3095,10 @@ export function loadTerrainLayout(raw: TerrainLayout, symmetric = true): EditLay
 }
 
 /** Load an embedded layout into the editable model. */
-export function loadEmbedded(id: string, symmetric = true): EditLayout | undefined {
+export function loadEmbedded(
+  id: string,
+  symmetric = true,
+): EditLayout | undefined {
   const raw = ds.terrainLayouts.get(id) as TerrainLayout | undefined;
   return raw ? loadTerrainLayout(raw, symmetric) : undefined;
 }
@@ -2687,10 +3113,16 @@ export function toCanonicalJson(layout: EditLayout): unknown {
       name: layout.name,
       ...(layout.source ? { source: layout.source } : {}),
       ...(layout.description ? { description: layout.description } : {}),
-      ...(layout.mission_matchup_id ? { mission_matchup_id: layout.mission_matchup_id } : {}),
+      ...(layout.mission_matchup_id
+        ? { mission_matchup_id: layout.mission_matchup_id }
+        : {}),
       ...(layout.variant ? { variant: layout.variant } : {}),
-      ...(layout.deployment_pattern_id ? { deployment_pattern_id: layout.deployment_pattern_id } : {}),
-      ...(layout.board && (layout.board.width !== DEFAULT_BOARD.width || layout.board.height !== DEFAULT_BOARD.height)
+      ...(layout.deployment_pattern_id
+        ? { deployment_pattern_id: layout.deployment_pattern_id }
+        : {}),
+      ...(layout.board &&
+      (layout.board.width !== DEFAULT_BOARD.width ||
+        layout.board.height !== DEFAULT_BOARD.height)
         ? { board: { width: layout.board.width, height: layout.board.height } }
         : {}),
       pieces: layout.pieces.map((p) => ({
@@ -2701,7 +3133,9 @@ export function toCanonicalJson(layout: EditLayout): unknown {
         ...(p.template ? { template: p.template } : {}),
         ...(p.footprint ? { footprint: p.footprint } : {}),
         position: { x: round(p.position.x), y: round(p.position.y) },
-        ...(p.rotation_degrees ? { rotation_degrees: round(p.rotation_degrees) } : {}),
+        ...(p.rotation_degrees
+          ? { rotation_degrees: round(p.rotation_degrees) }
+          : {}),
         ...(p.mirror !== "none" ? { mirror: p.mirror } : {}),
         ...(p.parent_area_id ? { parent_area_id: p.parent_area_id } : {}),
         ...(p.floor ? { floor: p.floor } : {}),

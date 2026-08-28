@@ -8,7 +8,6 @@ import type {
   ComposedFeature,
   Footprint,
   LayoutPiece,
-  ResolvedPiece,
   Mirror,
   TerrainLayout,
   TerrainTemplate,
@@ -299,8 +298,9 @@ function integer(value: unknown, where: string): number {
   return n;
 }
 
-function optionalString(value: unknown): string | null {
-  return typeof value === "string" && value.length > 0 ? value : null;
+function optionalString(value: unknown, where: string): string | null {
+  if (value === undefined || value === null || value === "") return null;
+  return string(value, where);
 }
 
 function tupleValue(tuple: unknown, index: number): unknown {
@@ -637,49 +637,6 @@ function distanceOutside(point: Vec2, polygon: Vec2[]): number {
   return best <= 0.05 ? 0 : best;
 }
 
-function assignObjectivesToAreas(
-  objectivePositions: Vec2[],
-  areas: ResolvedPiece[],
-): number[] {
-  if (areas.length < objectivePositions.length) {
-    fail(
-      `cannot assign ${objectivePositions.length} objectives to ${areas.length} terrain areas`,
-    );
-  }
-
-  type Assignment = { cost: number; areaIndices: number[] };
-  let states = new Map<bigint, Assignment>([
-    [0n, { cost: 0, areaIndices: [] }],
-  ]);
-  for (const position of objectivePositions) {
-    const next = new Map<bigint, Assignment>();
-    for (const [used, assignment] of states) {
-      for (let areaIndex = 0; areaIndex < areas.length; areaIndex += 1) {
-        const bit = 1n << BigInt(areaIndex);
-        if ((used & bit) !== 0n) continue;
-        const mask = used | bit;
-        const candidate: Assignment = {
-          cost:
-            assignment.cost +
-            distanceOutside(position, areas[areaIndex]!.vertices),
-          areaIndices: [...assignment.areaIndices, areaIndex],
-        };
-        const incumbent = next.get(mask);
-        if (!incumbent || candidate.cost < incumbent.cost - 1e-9) {
-          next.set(mask, candidate);
-        }
-      }
-    }
-    states = next;
-  }
-
-  let best: Assignment | undefined;
-  for (const assignment of states.values()) {
-    if (!best || assignment.cost < best.cost - 1e-9) best = assignment;
-  }
-  if (!best) fail("objective assignment produced no candidates");
-  return best.areaIndices;
-}
 
 function chooseFootprint(
   catalog: RawTemplateCatalog,
@@ -1016,8 +973,10 @@ function decodeTemplateCatalog(rawValue: unknown): RawTemplateCatalog {
         height: number(tuple[2], `templateCatalog.t[${index}][2]`),
         parts: placed,
         sizeClass: string(tuple[4], `templateCatalog.t[${index}][4]`),
-        style: optionalString(tuple[5]) ?? "",
-        label: optionalString(tuple[6]) ?? "",
+        style:
+          optionalString(tuple[5], `templateCatalog.t[${index}][5]`) ?? "",
+        label:
+          optionalString(tuple[6], `templateCatalog.t[${index}][6]`) ?? "",
       };
     },
   );
@@ -1098,7 +1057,10 @@ function decodeLayouts(
             instance[4],
             `${battlemasterId}.payload.i[${index}][4]`,
           ),
-          objectiveCode: optionalString(instance[5]),
+          objectiveCode: optionalString(
+            instance[5],
+            `${battlemasterId}.payload.i[${index}][5]`,
+          ),
         };
       },
     );
@@ -1639,6 +1601,7 @@ export async function projectBattlemaster(
 
 const BM_API_BASE = "https://battlemaster.online/v1/public/data";
 const DEFAULT_OWNER = "superwutz";
+const BM_TTS_API_BASE = "https://battlemaster.online/v1/public/tts";
 
 interface BmApiVec2 {
   x: number;
@@ -1678,21 +1641,15 @@ interface BmApiTerrain {
   parts: BmApiPart[];
 }
 
-interface BmApiObjective {
-  index: number;
+interface BmApiObjectiveHost {
   center: BmApiVec2;
-  diameterMm: number | null;
+  rotationDegrees: number;
+  objectiveCode: string | null;
 }
 
-interface BmApiDeploymentZone {
-  role: "attacker" | "defender";
-  points: BmApiVec2[];
-}
 
 interface BmApiDeployment {
   deploymentKey: number;
-  objectives: BmApiObjective[];
-  zones: BmApiDeploymentZone[];
 }
 
 interface BmApiLayoutMeta {
@@ -1713,6 +1670,11 @@ interface BmApiLayoutDetail {
   units: { linear: string; origin: string; yAxis: string };
   terrain: BmApiTerrain[];
   deployment: BmApiDeployment;
+}
+
+interface BmApiProjectionSource {
+  detail: BmApiLayoutDetail;
+  objectiveHosts: BmApiObjectiveHost[];
 }
 
 interface BmApiCatalog {
@@ -1755,6 +1717,132 @@ async function fetchLayoutDetail(
       `BM API layout detail for ${owner}/${slug} returned HTTP ${res.status}`,
     );
   return (await res.json()) as BmApiLayoutDetail;
+}
+
+async function fetchObjectiveHosts(
+  fetchImpl: typeof globalThis.fetch,
+  owner: string,
+  meta: BmApiLayoutMeta,
+): Promise<BmApiObjectiveHost[]> {
+  const slot = meta.chapterApprovedSlot;
+  if (!slot) fail(`${meta.slug}: missing Chapter Approved slot`);
+  const query = new URLSearchParams({
+    owner,
+    archetypeA: slot.archetypeA,
+    archetypeB: slot.archetypeB,
+    slot: String(slot.slotIndex),
+    text: "0",
+  });
+  const url = `${BM_TTS_API_BASE}/chapter-approved-layout-lite?${query}`;
+  const res = await fetchImpl(url);
+  if (!res.ok)
+    fail(
+      `BM API lite layout for ${owner}/${meta.slug} returned HTTP ${res.status}`,
+    );
+  const body = record(await res.json(), `${meta.slug}.lite`);
+  expectString(
+    body.format,
+    "battlemaster.tts.chapter-approved-layout-lite",
+    `${meta.slug}.lite.format`,
+  );
+  expectInteger(body.version, 1, `${meta.slug}.lite.version`);
+  const layout = record(body.layout, `${meta.slug}.lite.layout`);
+  expectString(layout.name, meta.name, `${meta.slug}.lite.layout.name`);
+  expectString(
+    layout.ownerUsername,
+    owner,
+    `${meta.slug}.lite.layout.ownerUsername`,
+  );
+  const responseSlot = record(
+    layout.chapterApprovedSlot,
+    `${meta.slug}.lite.layout.chapterApprovedSlot`,
+  );
+  expectString(
+    responseSlot.archetypeA,
+    slot.archetypeA,
+    `${meta.slug}.lite.layout.chapterApprovedSlot.archetypeA`,
+  );
+  expectString(
+    responseSlot.archetypeB,
+    slot.archetypeB,
+    `${meta.slug}.lite.layout.chapterApprovedSlot.archetypeB`,
+  );
+  expectInteger(
+    responseSlot.slotIndex,
+    slot.slotIndex,
+    `${meta.slug}.lite.layout.chapterApprovedSlot.slotIndex`,
+  );
+  const deploymentKey = meta.chapterApprovedDeploymentKey;
+  if (deploymentKey === undefined) {
+    fail(`${meta.slug}: missing Chapter Approved deployment key`);
+  }
+  expectInteger(
+    layout.chapterApprovedDeploymentKey,
+    deploymentKey,
+    `${meta.slug}.lite.layout.chapterApprovedDeploymentKey`,
+  );
+  const payload = record(body.litePayload, `${meta.slug}.lite.litePayload`);
+  expectInteger(payload.v, 1, `${meta.slug}.lite.litePayload.v`);
+  expectString(payload.k, "bml", `${meta.slug}.lite.litePayload.k`);
+  expectString(payload.b, "sf60x44", `${meta.slug}.lite.litePayload.b`);
+  expectString(payload.a, "c", `${meta.slug}.lite.litePayload.a`);
+  expectString(
+    payload.id,
+    string(layout.id, `${meta.slug}.lite.layout.id`),
+    `${meta.slug}.lite.litePayload.id`,
+  );
+  const source = tupleArray(
+    payload.s,
+    `${meta.slug}.lite.litePayload.s`,
+  );
+  expectString(
+    source[0],
+    slot.archetypeA,
+    `${meta.slug}.lite.litePayload.s[0]`,
+  );
+  expectString(
+    source[1],
+    slot.archetypeB,
+    `${meta.slug}.lite.litePayload.s[1]`,
+  );
+  expectInteger(
+    source[2],
+    slot.slotIndex,
+    `${meta.slug}.lite.litePayload.s[2]`,
+  );
+  expectInteger(
+    source[3],
+    deploymentKey,
+    `${meta.slug}.lite.litePayload.s[3]`,
+  );
+  return tupleArray(payload.i, `${meta.slug}.lite.litePayload.i`).map(
+    (instanceValue, index) => {
+      const instance = tupleArray(
+        instanceValue,
+        `${meta.slug}.lite.litePayload.i[${index}]`,
+      );
+      return {
+        center: {
+          x: number(
+            instance[1],
+            `${meta.slug}.lite.litePayload.i[${index}][1]`,
+          ),
+          y: number(
+            instance[2],
+            `${meta.slug}.lite.litePayload.i[${index}][2]`,
+          ),
+        },
+        rotationDegrees: number(
+          instance[3],
+          `${meta.slug}.lite.litePayload.i[${index}][3]`,
+        ),
+        objectiveCode: optionalString(
+          instance[5],
+          `${meta.slug}.lite.litePayload.i[${index}][5]`,
+        ),
+      };
+    },
+  );
 }
 
 // ---------------------------------------------------------------------------
@@ -1868,7 +1956,7 @@ function apiWallsToYDown(walls: BmApiWall[], footprintHeight: number): Wall[] {
 }
 
 function projectFromRestApi(
-  details: BmApiLayoutDetail[],
+  sources: BmApiProjectionSource[],
   canonicalTemplates: TerrainTemplate[],
 ): ProjectedGeometry {
   const canonicalById = new Map(canonicalTemplates.map((t) => [t.id, t]));
@@ -1881,18 +1969,46 @@ function projectFromRestApi(
   const variants = new Map<string, CompositeVariant>();
   const layouts: ProjectedLayout[] = [];
 
-  for (const detail of details) {
+  for (const { detail, objectiveHosts } of sources) {
     const meta = detail.layout;
     const depKey =
       meta.chapterApprovedDeploymentKey ?? detail.deployment.deploymentKey;
     const deployment = DEPLOYMENT_KEY_TO_PATTERN[depKey];
     if (!deployment) fail(`${meta.slug}: unknown deployment key ${depKey}`);
+    if (objectiveHosts.length !== detail.terrain.length) {
+      fail(
+        `${meta.slug}: lite payload has ${objectiveHosts.length} instances, ` +
+          `REST detail has ${detail.terrain.length} terrain areas`,
+      );
+    }
 
     const pieces: ProjectedPiece[] = [];
 
     for (let ti = 0; ti < detail.terrain.length; ti++) {
       const terrain = detail.terrain[ti]!;
       const fp = terrain.footprint;
+      const objectiveHost = objectiveHosts[ti]!;
+      const footprintCenterOffset = rotateCcwYUp(
+        { x: fp.widthIn / 2, y: fp.heightIn / 2 },
+        fp.rotationDeg,
+      );
+      const footprintCenter = {
+        x: fp.origin.x + footprintCenterOffset.x,
+        y: fp.origin.y + footprintCenterOffset.y,
+      };
+      const centerError = Math.hypot(
+        footprintCenter.x - objectiveHost.center.x,
+        footprintCenter.y - objectiveHost.center.y,
+      );
+      if (
+        centerError > ERROR_TOLERANCE ||
+        norm360(fp.rotationDeg) !== norm360(objectiveHost.rotationDegrees)
+      ) {
+        fail(
+          `${meta.slug}/terrain[${ti}]: lite instance pose does not match ` +
+            `the REST terrain footprint`,
+        );
+      }
       const sc = sizeClassFromDims(fp.widthIn, fp.heightIn);
       if (!sc)
         fail(
@@ -2079,6 +2195,29 @@ function projectFromRestApi(
       };
       if (areaRotation !== 0) piece.rotation_degrees = areaRotation;
       pieces.push(piece);
+
+      if (objectiveHost.objectiveCode) {
+        const role = OBJECTIVE_CODE_TO_ROLE[objectiveHost.objectiveCode];
+        if (!role) {
+          fail(
+            `${meta.slug}/${id}: unknown objective code ${objectiveHost.objectiveCode}`,
+          );
+        }
+        piece.objective_role = role;
+        piece.is_objective = true;
+        piece.objective = {
+          position: toBoardFrame(
+            objectiveHost.center.x,
+            objectiveHost.center.y,
+          ),
+        };
+        if (
+          objectiveHost.objectiveCode === "c1" ||
+          objectiveHost.objectiveCode === "c2"
+        ) {
+          piece.link_group = "objective-center";
+        }
+      }
     }
 
     const resolutionTemplates = [
@@ -2090,92 +2229,20 @@ function projectFromRestApi(
       { id: bmLayoutId(meta), name: meta.name, pieces },
       resolutionTemplates,
     ).filter((piece) => piece.piece_type === "area");
-    const pieceById = new Map(
-      pieces.filter((piece) => piece.id).map((piece) => [piece.id!, piece]),
-    );
 
-    const objectivePositions = detail.deployment.objectives.map((objective) =>
-      toBoardFrame(objective.center.x, objective.center.y),
-    );
-    const primaryAreaIndices = assignObjectivesToAreas(
-      objectivePositions,
-      resolvedAreas,
-    );
-    const primaryAreaIndexSet = new Set(primaryAreaIndices);
-
-    for (
-      let objectiveIndex = 0;
-      objectiveIndex < detail.deployment.objectives.length;
-      objectiveIndex += 1
-    ) {
-      const objective = detail.deployment.objectives[objectiveIndex]!;
-      const position = objectivePositions[objectiveIndex]!;
-      const primaryAreaIndex = primaryAreaIndices[objectiveIndex]!;
-      const areaIndices = [primaryAreaIndex];
-      const isCenter =
-        Math.hypot(objective.center.x, objective.center.y) <= 0.05;
-      if (isCenter) {
-        let secondaryAreaIndex: number | undefined;
-        let secondaryDistance = Infinity;
-        for (
-          let areaIndex = 0;
-          areaIndex < resolvedAreas.length;
-          areaIndex += 1
-        ) {
-          if (
-            areaIndex === primaryAreaIndex ||
-            primaryAreaIndexSet.has(areaIndex)
-          ) {
-            continue;
-          }
-          const distance = distanceOutside(
-            position,
-            resolvedAreas[areaIndex]!.vertices,
-          );
-          if (distance < secondaryDistance) {
-            secondaryAreaIndex = areaIndex;
-            secondaryDistance = distance;
-          }
-        }
-        if (secondaryAreaIndex === undefined) {
-          fail(`${meta.slug}: center objective has no second terrain area`);
-        }
-        areaIndices.push(secondaryAreaIndex);
+    for (const piece of pieces.filter((candidate) => candidate.is_objective)) {
+      const area = resolvedAreas.find((candidate) => candidate.id === piece.id);
+      if (!area) fail(`${meta.slug}: objective area ${piece.id} is missing`);
+      const position = piece.objective?.position;
+      if (!position) {
+        fail(`${meta.slug}: objective area ${piece.id} has no marker position`);
       }
-      const areaIds = areaIndices
-        .map((areaIndex) => resolvedAreas[areaIndex]!.id)
-        .filter((id): id is string => id !== null);
-      if (areaIds.length === 0) {
-        fail(`${meta.slug}: objective ${objective.index} has no terrain area`);
-      }
-      const isHome =
-        !isCenter &&
-        detail.deployment.zones.some(
-          (zone) => distanceOutside(objective.center, zone.points) === 0,
+      const outsideDistance = distanceOutside(position, area.vertices);
+      if (outsideDistance > 0) {
+        fail(
+          `${meta.slug}: objective marker for ${piece.id} is ` +
+            `${outsideDistance.toFixed(3)} inches outside its terrain area`,
         );
-      const role: "home" | "expansion" | "center" = isCenter
-        ? "center"
-        : isHome
-          ? "home"
-          : "expansion";
-      const linkGroup =
-        areaIds.length > 1 ? `objective-${objective.index}` : undefined;
-
-      for (const areaId of areaIds) {
-        const piece = pieceById.get(areaId);
-        if (!piece)
-          fail(`${meta.slug}: resolved objective area ${areaId} is missing`);
-        if (piece.is_objective) {
-          fail(
-            `${meta.slug}: terrain area ${areaId} contains multiple objectives`,
-          );
-        }
-        piece.is_objective = true;
-        piece.objective_role = role;
-        piece.objective = {
-          position: { x: round6(position.x), y: round6(position.y) },
-        };
-        if (linkGroup) piece.link_group = linkGroup;
       }
     }
 
@@ -2216,16 +2283,20 @@ export async function projectBattlemasterRestApi(
   const catalog = await fetchLayoutCatalog(fetchImpl, owner);
   console.error(`Fetching ${catalog.length} layout details from BM API...`);
 
-  const details: BmApiLayoutDetail[] = [];
+  const sources: BmApiProjectionSource[] = [];
   for (const meta of catalog) {
-    details.push(await fetchLayoutDetail(fetchImpl, owner, meta.slug));
+    const [detail, objectiveHosts] = await Promise.all([
+      fetchLayoutDetail(fetchImpl, owner, meta.slug),
+      fetchObjectiveHosts(fetchImpl, owner, meta),
+    ]);
+    sources.push({ detail, objectiveHosts });
   }
 
   const canonicalTemplates = readJsonArray<TerrainTemplate>(
     resolve(CORE_DIR, "terrain-templates.json"),
   ).filter((template) => !hasBattlemasterSource(template));
 
-  const geometry = projectFromRestApi(details, canonicalTemplates);
+  const geometry = projectFromRestApi(sources, canonicalTemplates);
   const resolvedPieces = geometry.layouts.reduce((acc, l) => {
     const resolved = resolveLayout(l, geometry.templates);
     return acc + resolved.length;

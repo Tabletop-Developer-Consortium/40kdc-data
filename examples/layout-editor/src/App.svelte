@@ -112,6 +112,8 @@
   let referenceOpacity = $state(0.45);
   // Session-only fade for the authored terrain overlay while tracing a reference map.
   let terrainOpacity = $state(1);
+  // Keep the imported Battlemaster geometry visible without obscuring the editable map.
+  let battlemasterOverlayOpacity = $state(0.6);
   type BattlemasterProjectionSource =
     | {
       kind: "rest-api";
@@ -697,6 +699,20 @@
               <option value={projected.id}>{projected.name}</option>
             {/each}
           </select>
+          {#if selectedBattlemasterLayout}
+            <label class="battlemaster-opacity">
+              Overlay
+              <input
+                type="range"
+                min="0"
+                max="1"
+                step="0.05"
+                aria-label="Battlemaster overlay opacity"
+                bind:value={battlemasterOverlayOpacity}
+              />
+              <output>{Math.round(battlemasterOverlayOpacity * 100)}%</output>
+            </label>
+          {/if}
           <span class="battlemaster-note">
             {#if battlemasterError}
               <span class="battlemaster-error" role="status">{battlemasterError}</span>
@@ -716,43 +732,38 @@
         onimage={(image) => (referenceImage = image)}
       />
       <div class="board-stage">
+        <Board
+          bind:this={boardRef}
+          {layout}
+          {resolved}
+          {selectedId}
+          {selectedPiece}
+          solver={solverViz}
+          {zones}
+          {divider}
+          {markers}
+          {showKeystones}
+          {keystoneFacing}
+          {warnPieceIds}
+          {referenceImage}
+          {referenceOpacity}
+          {referenceFit}
+          {terrainOpacity}
+          snap={{ enabled: snapEnabled, step: snapStep }}
+          {clockPiece}
+          clockCandidate={clockPick?.candidate ?? null}
+          onselect={(id) => (selectedId = id)}
+          {onmove}
+          {onorient}
+          onclockhover={onClockHover}
+          onclockcommit={onClockCommit}
+          onclockcancel={() => (clockPick = null)}
+        />
         {#if battlemasterProjection && selectedBattlemasterLayout}
           <ProjectedBattlemasterBoard
             layout={selectedBattlemasterLayout}
-              templates={battlemasterProjection.terrain_templates}
-              {referenceImage}
-              {referenceOpacity}
-              {referenceFit}
-              {terrainOpacity}
-            />
-
-        {:else}
-          <Board
-            bind:this={boardRef}
-            {layout}
-            {resolved}
-            {selectedId}
-            {selectedPiece}
-            solver={solverViz}
-            {zones}
-            {divider}
-            {markers}
-            {showKeystones}
-            {keystoneFacing}
-            {warnPieceIds}
-            {referenceImage}
-            {referenceOpacity}
-            {referenceFit}
-            {terrainOpacity}
-            snap={{ enabled: snapEnabled, step: snapStep }}
-            {clockPiece}
-            clockCandidate={clockPick?.candidate ?? null}
-            onselect={(id) => (selectedId = id)}
-            {onmove}
-            {onorient}
-            onclockhover={onClockHover}
-            onclockcommit={onClockCommit}
-            onclockcancel={() => (clockPick = null)}
+            templates={battlemasterProjection.terrain_templates}
+            opacity={battlemasterOverlayOpacity}
           />
         {/if}
       </div>
@@ -761,7 +772,7 @@
           Pick the keystone corner — point at it and click · <kbd>Esc</kbd> for the keystone method
         {:else}
           {#if battlemasterProjection && battlemasterSelectedId}
-            16 composed areas · read-only Battlemaster projection · load the map PDF above
+            {layout.pieces.length} editable pieces · Battlemaster comparison overlay · adjust its opacity above
           {:else}
             {layout.pieces.length} pieces · drag to move · rotate/flip handles on the selected piece
             {#if symmetric}· edits mirror across the centre{/if}
@@ -938,7 +949,8 @@
     background: var(--accent-fill);
   }
   .battlemaster-import button:focus-visible,
-  .battlemaster-import select:focus-visible {
+  .battlemaster-import select:focus-visible,
+  .battlemaster-import input:focus-visible {
     outline: 2px solid var(--accent);
     outline-offset: 1px;
   }
@@ -946,6 +958,21 @@
   .battlemaster-import select:disabled {
     cursor: not-allowed;
     opacity: 0.55;
+  }
+  .battlemaster-opacity {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    white-space: nowrap;
+  }
+  .battlemaster-opacity input {
+    width: 6rem;
+    accent-color: var(--accent);
+  }
+  .battlemaster-opacity output {
+    min-width: 2.5rem;
+    color: var(--text);
+    font-variant-numeric: tabular-nums;
   }
   .battlemaster-note {
     flex: 1 1 20rem;

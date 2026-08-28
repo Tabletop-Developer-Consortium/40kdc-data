@@ -47,7 +47,7 @@ export interface DiagramGuide {
   from: Vec2;
   to: Vec2;
   mid: Vec2;
-  /** Display distance, rounded to 2 dp. */
+  /** Display distance: cardinal pieces use ¼″ increments; other rotations use 2 dp. */
   text: string;
   /**
    * Label rotation (degrees, display frame, about the label anchor): turns the
@@ -93,10 +93,17 @@ function shapeToPoints(shape: RawShape, pos: Vec2): Vec2[] {
       { x: pos.x, y: pos.y + h },
     ];
   }
-  return (shape.points ?? []).map((pt) => ({ x: pos.x + pt.x, y: pos.y + pt.y }));
+  return (shape.points ?? []).map((pt) => ({
+    x: pos.x + pt.x,
+    y: pos.y + pt.y,
+  }));
 }
 
-function regions(ds: Dataset, patternId: string | undefined, key: "zones" | "territories"): DiagramZone[] {
+function regions(
+  ds: Dataset,
+  patternId: string | undefined,
+  key: "zones" | "territories",
+): DiagramZone[] {
   if (!patternId) return [];
   const p = ds.deploymentPatterns.get(patternId) as
     | { zones?: RawRegion[]; territories?: RawRegion[] }
@@ -118,7 +125,10 @@ const polyMean = (pts: Vec2[]): Vec2 => ({
  * vertices the defender and attacker polygons share are the line's endpoints,
  * each end badged D/A on its own side. Null when territories are absent.
  */
-function territoryDivider(ds: Dataset, patternId: string | undefined): DiagramDivider | null {
+function territoryDivider(
+  ds: Dataset,
+  patternId: string | undefined,
+): DiagramDivider | null {
   const territories = regions(ds, patternId, "territories");
   const defT = territories.find((z) => z.player === "defender");
   const atkT = territories.find((z) => z.player === "attacker");
@@ -140,8 +150,16 @@ function territoryDivider(ds: Dataset, patternId: string | undefined): DiagramDi
   const atkDir = { x: -defDir.x, y: -defDir.y };
   const OFF = 3;
   const badges = [from, to].flatMap((e) => [
-    { at: { x: e.x + defDir.x * OFF, y: e.y + defDir.y * OFF }, player: "D", color: defT.color ?? "#3b82f6" },
-    { at: { x: e.x + atkDir.x * OFF, y: e.y + atkDir.y * OFF }, player: "A", color: atkT.color ?? "#ef4444" },
+    {
+      at: { x: e.x + defDir.x * OFF, y: e.y + defDir.y * OFF },
+      player: "D",
+      color: defT.color ?? "#3b82f6",
+    },
+    {
+      at: { x: e.x + atkDir.x * OFF, y: e.y + atkDir.y * OFF },
+      player: "A",
+      color: atkT.color ?? "#ef4444",
+    },
   ]);
   return { from, to, badges };
 }
@@ -174,9 +192,16 @@ function objectiveMarkers(layout: TerrainLayout): DiagramMarker[] {
  * resolver's emission contract (one entry per explicit piece, an unparented
  * templated area followed by its template's composed features).
  */
-function resolvedByPieceIndex(ds: Dataset, layout: TerrainLayout, resolved: ResolvedPiece[]): Map<number, ResolvedPiece> {
+function resolvedByPieceIndex(
+  ds: Dataset,
+  layout: TerrainLayout,
+  resolved: ResolvedPiece[],
+): Map<number, ResolvedPiece> {
   const featureCount = new Map(
-    ds.terrainTemplates.all.map((t) => [t.id, (t as { features?: unknown[] }).features?.length ?? 0]),
+    ds.terrainTemplates.all.map((t) => [
+      t.id,
+      (t as { features?: unknown[] }).features?.length ?? 0,
+    ]),
   );
   const out = new Map<number, ResolvedPiece>();
   let cursor = 0;
@@ -184,12 +209,33 @@ function resolvedByPieceIndex(ds: Dataset, layout: TerrainLayout, resolved: Reso
     const rp = resolved[cursor];
     if (rp) out.set(i, rp);
     cursor += 1;
-    if (!p.parent_area_id && p.template) cursor += featureCount.get(p.template) ?? 0;
+    if (!p.parent_area_id && p.template)
+      cursor += featureCount.get(p.template) ?? 0;
   });
   return out;
 }
 
-const round2 = (n: number): string => String(Math.round(n * 100) / 100);
+/** Whether a piece rotation is aligned to a board axis. */
+export function isCardinalRotation(
+  degrees: number | undefined,
+  tolerance = 0.01,
+): boolean {
+  const rotation = (((degrees ?? 0) % 360) + 360) % 360;
+  return [0, 90, 180, 270].some((cardinal) => {
+    const delta = Math.abs(rotation - cardinal);
+    return Math.min(delta, 360 - delta) < tolerance;
+  });
+}
+
+/** Format a printed keystone distance without changing its source geometry. */
+export function formatKeystoneDistance(
+  distance: number,
+  rotationDegrees?: number,
+): string {
+  const increment = isCardinalRotation(rotationDegrees) ? 0.25 : 0.01;
+  const rounded = Math.round(distance / increment) * increment;
+  return `${Object.is(rounded, -0) ? 0 : rounded}″`;
+}
 
 /** Stable, unique Svelte key for a resolved piece within one diagram. */
 export function pieceRenderKey(piece: ResolvedPiece, index: number): string {
@@ -210,7 +256,10 @@ const toDisplay = (b: Vec2): Vec2 => ({ x: BOARD.height - b.y, y: b.x });
  * labels to match the diagonal. Returns exactly 0, ±90, or 180; 0 when the
  * divider is degenerate.
  */
-export function facingAngle(divider: { from: Vec2; to: Vec2 }, centroidBoard: Vec2): number {
+export function facingAngle(
+  divider: { from: Vec2; to: Vec2 },
+  centroidBoard: Vec2,
+): number {
   const a = toDisplay(divider.from);
   const b = toDisplay(divider.to);
   const u = { x: b.x - a.x, y: b.y - a.y };
@@ -240,7 +289,9 @@ export function diagramModel(
   try {
     measurements = keystoneMeasurements(
       layout as Parameters<typeof keystoneMeasurements>[0],
-      ds.terrainTemplates.all as unknown as Parameters<typeof keystoneMeasurements>[1],
+      ds.terrainTemplates.all as unknown as Parameters<
+        typeof keystoneMeasurements
+      >[1],
       layout.board,
     );
   } catch {
@@ -265,8 +316,14 @@ export function diagramModel(
       const ys = rp.vertices.map((v) => v.y);
       const min = m.ref.side.startsWith("min");
       to = onX
-        ? { x: min ? Math.min(...xs) : Math.max(...xs), y: (Math.min(...ys) + Math.max(...ys)) / 2 }
-        : { x: (Math.min(...xs) + Math.max(...xs)) / 2, y: min ? Math.min(...ys) : Math.max(...ys) };
+        ? {
+            x: min ? Math.min(...xs) : Math.max(...xs),
+            y: (Math.min(...ys) + Math.max(...ys)) / 2,
+          }
+        : {
+            x: (Math.min(...xs) + Math.max(...xs)) / 2,
+            y: min ? Math.min(...ys) : Math.max(...ys),
+          };
     }
     const from: Vec2 =
       m.edge === "left"
@@ -280,9 +337,14 @@ export function diagramModel(
       from,
       to,
       mid: { x: (from.x + to.x) / 2, y: (from.y + to.y) / 2 },
-      text: `${round2(m.distance)}″`,
+      text: formatKeystoneDistance(
+        m.distance,
+        layout.pieces?.[m.piece_index]?.rotation_degrees,
+      ),
       facingAngle:
-        opts?.playerFacing && divider ? facingAngle(divider, polyMean(rp.vertices)) : 0,
+        opts?.playerFacing && divider
+          ? facingAngle(divider, polyMean(rp.vertices))
+          : 0,
     });
   }
 
@@ -296,8 +358,11 @@ export function diagramModel(
       continue;
     }
     if (!piece.template) continue;
-    const tpl = ds.terrainTemplates.get(piece.template) as { terrain_category?: string } | undefined;
-    if (tpl?.terrain_category) pieceCategories.set(piece.id, tpl.terrain_category);
+    const tpl = ds.terrainTemplates.get(piece.template) as
+      | { terrain_category?: string }
+      | undefined;
+    if (tpl?.terrain_category)
+      pieceCategories.set(piece.id, tpl.terrain_category);
   }
 
   return {

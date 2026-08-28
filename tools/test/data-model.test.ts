@@ -77,6 +77,30 @@ describe("terrain (embedded catalog + layout resolution)", () => {
     }
   });
 
+  it("places Take vs Recon objectives on their marked terrain areas", () => {
+    const layout = dataset.terrainLayouts.get("bm-take-vs-recon-01")!;
+    const markers = Object.fromEntries(
+      layout.pieces
+        .filter((piece) => piece.is_objective)
+        .map((piece) => [
+          piece.id,
+          {
+            role: piece.objective_role,
+            position: piece.objective?.position,
+          },
+        ]),
+    );
+
+    expect(markers).toEqual({
+      "area-02": { role: "center", position: { x: 29.9985, y: 21.0015 } },
+      "area-03": { role: "home", position: { x: 51.4985, y: 12.7515 } },
+      "area-06": { role: "center", position: { x: 30.0015, y: 22.9985 } },
+      "area-07": { role: "home", position: { x: 8.5015, y: 31.2485 } },
+      "area-11": { role: "expansion", position: { x: 16.5015, y: 9.7515 } },
+      "area-12": { role: "expansion", position: { x: 43.4985, y: 34.2485 } },
+    });
+  });
+
 
   it("resolveTerrain produces on-board polygons (mirror of Rust resolve_terrain)", () => {
     const layout = dataset.terrainLayouts.get("bm-take-vs-take-01")!;

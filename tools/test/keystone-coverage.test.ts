@@ -8,9 +8,13 @@ import {
   type TerrainLayout,
   type TerrainTemplate,
 } from "../src/terrain/resolve.js";
-import { BOARD_INCHES, keystoneMeasurements } from "../src/terrain/keystones.js";
+import {
+  BOARD_INCHES,
+  keystoneMeasurements,
+} from "../src/terrain/keystones.js";
 import {
   authorKeystones,
+  cardinalCornerIndices,
   isAxisAligned,
   keystonePairingViolations,
 } from "../src/derive-keystones.js";
@@ -34,7 +38,9 @@ describe("Battlemaster layout keystone coverage", () => {
     for (const layout of bmLayouts) {
       for (const piece of layout.pieces ?? []) {
         const anchors = new Set(
-          (piece.keystones ?? []).map((k) => (k.ref.kind === "vertex" ? k.ref.index : -1)),
+          (piece.keystones ?? []).map((k) =>
+            k.ref.kind === "vertex" ? k.ref.index : -1,
+          ),
         );
         if (isAxisAligned(piece)) {
           expect(piece.keystones, `${layout.id}/${piece.id}`).toHaveLength(2);
@@ -45,6 +51,68 @@ describe("Battlemaster layout keystone coverage", () => {
         }
       }
     }
+  });
+
+  it("recognizes every detailed Battlemaster plate family independently", () => {
+    const families = [
+      ["bm-composite-bigrect-", [0, 182, 183, 184]],
+      ["bm-composite-longline", [0, 173, 174, 256]],
+      ["bm-composite-shortline-", [0, 82, 83, 165]],
+      ["bm-composite-smallrect-", [0, 92, 93, 94]],
+      ["bm-composite-triangle-ab-", [61, 62, 63, 345]],
+    ] as const;
+    for (const [prefix, expected] of families) {
+      const matching = templates.filter((template) =>
+        template.id.startsWith(prefix),
+      );
+      expect(matching.length, prefix).toBeGreaterThan(0);
+      for (const template of matching) {
+        expect(
+          new Set(cardinalCornerIndices(template.footprint, template.id)),
+          template.id,
+        ).toEqual(new Set(expected));
+      }
+    }
+  });
+
+  it("anchors structural plate corners rather than decorative nubs", () => {
+    const byTemplate = new Map(
+      templates.map((template) => [template.id, template]),
+    );
+    for (const layout of bmLayouts) {
+      for (const piece of layout.pieces ?? []) {
+        const footprint =
+          piece.footprint ??
+          (piece.template
+            ? byTemplate.get(piece.template)?.footprint
+            : undefined);
+        expect(footprint, `${layout.id}/${piece.id} footprint`).toBeDefined();
+        const corners = new Set(
+          cardinalCornerIndices(footprint!, piece.template),
+        );
+        for (const keystone of piece.keystones ?? []) {
+          if (keystone.ref.kind !== "vertex") continue;
+          expect(
+            corners.has(keystone.ref.index),
+            `${layout.id}/${piece.id} vertex ${keystone.ref.index}`,
+          ).toBe(true);
+        }
+      }
+    }
+  });
+
+  it("pins Take vs Take 01 area 14 to structural vertex 83", () => {
+    const layout = bmLayouts.find(
+      (candidate) => candidate.id === "bm-take-vs-take-01",
+    )!;
+    const piece = layout.pieces?.find(
+      (candidate) => candidate.id === "area-14",
+    )!;
+    expect(
+      piece.keystones?.map((keystone) =>
+        keystone.ref.kind === "vertex" ? keystone.ref.index : -1,
+      ),
+    ).toEqual([83, 83]);
   });
 
   it("derives an on-board distance for every keystone", () => {
@@ -60,8 +128,14 @@ describe("Battlemaster layout keystone coverage", () => {
           m.edge === "left" || m.edge === "right"
             ? BOARD_INCHES.width
             : BOARD_INCHES.height;
-        expect(m.distance, `${layout.id}/${m.piece_id}/${m.edge}`).toBeGreaterThanOrEqual(0);
-        expect(m.distance, `${layout.id}/${m.piece_id}/${m.edge}`).toBeLessThanOrEqual(extent);
+        expect(
+          m.distance,
+          `${layout.id}/${m.piece_id}/${m.edge}`,
+        ).toBeGreaterThanOrEqual(0);
+        expect(
+          m.distance,
+          `${layout.id}/${m.piece_id}/${m.edge}`,
+        ).toBeLessThanOrEqual(extent);
       }
     }
   });
@@ -83,10 +157,17 @@ describe("Battlemaster layout keystone coverage", () => {
           if (k.ref.kind !== "vertex") continue;
           byAnchor.set(k.ref.index, [...(byAnchor.get(k.ref.index) ?? []), k]);
         }
-        const aEntry = [...byAnchor.entries()].find(([, ks]) => ks.length === 2);
-        const bEntry = [...byAnchor.entries()].find(([, ks]) => ks.length === 1);
+        const aEntry = [...byAnchor.entries()].find(
+          ([, ks]) => ks.length === 2,
+        );
+        const bEntry = [...byAnchor.entries()].find(
+          ([, ks]) => ks.length === 1,
+        );
         expect(aEntry, `${layout.id}/${piece.id} corner anchor`).toBeDefined();
-        expect(bEntry, `${layout.id}/${piece.id} rotation anchor`).toBeDefined();
+        expect(
+          bEntry,
+          `${layout.id}/${piece.id} rotation anchor`,
+        ).toBeDefined();
         const a = rp.vertices[aEntry![0]]!;
         const b = rp.vertices[bEntry![0]]!;
         // Rotating about A swings B perpendicular to A→B, so the single

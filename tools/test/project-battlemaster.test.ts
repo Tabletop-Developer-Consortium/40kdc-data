@@ -232,11 +232,36 @@ describe("Battlemaster read-only projector", () => {
         zones: [],
       },
     };
-    const fetch = vi.fn(async (input: string | URL | Request) => {
+    const lite = {
+      format: "battlemaster.tts.chapter-approved-layout-lite",
+      version: 1,
+      layout: {
+        id: "terrain-test",
+        name: meta.name,
+        ownerUsername: "test-owner",
+        chapterApprovedSlot: meta.chapterApprovedSlot,
+        chapterApprovedDeploymentKey: 6,
+      },
+      litePayload: {
+        v: 1,
+        k: "bml",
+        b: "sf60x44",
+        a: "c",
+        id: "terrain-test",
+        s: ["take-and-hold", "take-and-hold", 1, 6],
+        i: [[0, 3.0015, 2.0015, 0, 0, "n"]],
+      },
+    };
+    const fetch = vi.fn(async function fetchFixture(
+      input: string | URL | Request,
+    ): Promise<Response> {
       const url = String(input);
-      const body = url.includes("/layouts/test-owner/")
-        ? detail
-        : { layouts: [meta], totalCount: 1 };
+      let body: unknown = { layouts: [meta], totalCount: 1 };
+      if (url.includes("/chapter-approved-layout-lite")) {
+        body = lite;
+      } else if (url.includes("/layouts/test-owner/")) {
+        body = detail;
+      }
       return new Response(JSON.stringify(body), {
         status: 200,
         headers: { "content-type": "application/json" },
@@ -248,7 +273,7 @@ describe("Battlemaster read-only projector", () => {
       fetch,
     });
 
-    expect(fetch).toHaveBeenCalledTimes(2);
+    expect(fetch).toHaveBeenCalledTimes(3);
     expect(projection.source).toMatchObject({
       kind: "rest-api",
       owner: "test-owner",
@@ -314,10 +339,21 @@ describe("Battlemaster read-only projector", () => {
         expect.objectContaining({
           is_objective: true,
           objective_role: "expansion",
-          objective: { position: { x: 30, y: 21 } },
+          objective: { position: { x: 33.0015, y: 19.9985 } },
         }),
       ],
     });
+
+    lite.litePayload.i[0]![5] = 7;
+    await expect(
+      projectBattlemasterRestApi({ owner: "test-owner", fetch }),
+    ).rejects.toThrow("litePayload.i[0][5]: expected a non-empty string");
+
+    lite.litePayload.i[0]![5] = "n";
+    lite.litePayload.i[0]![1] = 4;
+    await expect(
+      projectBattlemasterRestApi({ owner: "test-owner", fetch }),
+    ).rejects.toThrow("lite instance pose does not match the REST terrain footprint");
   });
 
   it("replaces all projected layouts while preserving unrelated terrain", () => {

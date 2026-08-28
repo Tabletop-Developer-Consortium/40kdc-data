@@ -1,5 +1,8 @@
 import { describe, it, expect } from "vitest";
-import type { TerrainLayout, TerrainTemplate } from "@alpaca-software/40kdc-data";
+import type {
+  TerrainLayout,
+  TerrainTemplate,
+} from "@alpaca-software/40kdc-data";
 import {
   layoutWarnings,
   isRoundKeystone,
@@ -8,6 +11,7 @@ import {
   orientPiece,
   verticesOf,
   boardCentroid,
+  objectiveMarkers,
   cardinalCornerIndices,
   reanchorToNearestArea,
   reanchorAllFeatures,
@@ -60,13 +64,21 @@ describe("isRoundKeystone", () => {
 describe("collision warnings", () => {
   it("does not flag edge-abutting areas", () => {
     // Two 10×10 areas sharing the x=10 edge: centroids at (5,5) and (15,5).
-    const l = layout([rect("a", 10, 10, { x: 5, y: 5 }), rect("b", 10, 10, { x: 15, y: 5 })]);
-    expect(layoutWarnings(l).filter((w) => w.kind === "collision")).toHaveLength(0);
+    const l = layout([
+      rect("a", 10, 10, { x: 5, y: 5 }),
+      rect("b", 10, 10, { x: 15, y: 5 }),
+    ]);
+    expect(
+      layoutWarnings(l).filter((w) => w.kind === "collision"),
+    ).toHaveLength(0);
   });
 
   it("flags two overlapping areas", () => {
     // Second area shifted so it overlaps the first by a 3×10 strip.
-    const l = layout([rect("a", 10, 10, { x: 5, y: 5 }), rect("b", 10, 10, { x: 12, y: 5 })]);
+    const l = layout([
+      rect("a", 10, 10, { x: 5, y: 5 }),
+      rect("b", 10, 10, { x: 12, y: 5 }),
+    ]);
     const cols = layoutWarnings(l).filter((w) => w.kind === "collision");
     expect(cols).toHaveLength(1);
     expect(cols[0].pieceIds).toEqual(expect.arrayContaining(["a", "b"]));
@@ -77,8 +89,18 @@ describe("collision warnings", () => {
     // Feature parented to area "a", centred on it (local origin = area centroid):
     // it overlaps the area, but they are one family, so no warning.
     const area = rect("a", 20, 20, { x: 30, y: 22 });
-    const feat = rect("f", 4, 4, { x: 0, y: 0 }, { piece_type: "feature", parent_area_id: "a" });
-    expect(layoutWarnings(layout([area, feat])).filter((w) => w.kind === "collision")).toHaveLength(0);
+    const feat = rect(
+      "f",
+      4,
+      4,
+      { x: 0, y: 0 },
+      { piece_type: "feature", parent_area_id: "a" },
+    );
+    expect(
+      layoutWarnings(layout([area, feat])).filter(
+        (w) => w.kind === "collision",
+      ),
+    ).toHaveLength(0);
   });
 
   it("does not flag a feature spanning onto a linked (same link_group) area", () => {
@@ -88,8 +110,16 @@ describe("collision warnings", () => {
     const a = rect("a", 10, 10, { x: 6, y: 6 }, { link_group: "Center" });
     const b = rect("b", 10, 10, { x: 15, y: 6 }, { link_group: "Center" });
     // a's centroid (6,6); local (5,0) → board (11,6), straddling a and b.
-    const f = rect("f", 4, 4, { x: 5, y: 0 }, { piece_type: "feature", parent_area_id: "a" });
-    expect(layoutWarnings(layout([a, b, f])).filter((w) => w.kind === "collision")).toHaveLength(0);
+    const f = rect(
+      "f",
+      4,
+      4,
+      { x: 5, y: 0 },
+      { piece_type: "feature", parent_area_id: "a" },
+    );
+    expect(
+      layoutWarnings(layout([a, b, f])).filter((w) => w.kind === "collision"),
+    ).toHaveLength(0);
   });
 
   it("flags a feature that overlaps a different (non-parent) area", () => {
@@ -98,31 +128,59 @@ describe("collision warnings", () => {
     const a = rect("a", 10, 10, { x: 6, y: 6 });
     const b = rect("b", 10, 10, { x: 30, y: 6 });
     // a's centroid is (6,6); local (24,0) → board (30,6), centred on b.
-    const f = rect("f", 4, 4, { x: 24, y: 0 }, { piece_type: "feature", parent_area_id: "a" });
-    const cols = layoutWarnings(layout([a, b, f])).filter((w) => w.kind === "collision");
+    const f = rect(
+      "f",
+      4,
+      4,
+      { x: 24, y: 0 },
+      { piece_type: "feature", parent_area_id: "a" },
+    );
+    const cols = layoutWarnings(layout([a, b, f])).filter(
+      (w) => w.kind === "collision",
+    );
     expect(cols.length).toBeGreaterThanOrEqual(1);
-    expect(cols.some((w) => w.pieceIds.includes("f") && w.pieceIds.includes("b"))).toBe(true);
+    expect(
+      cols.some((w) => w.pieceIds.includes("f") && w.pieceIds.includes("b")),
+    ).toBe(true);
   });
 });
 
 describe("keystone-not-round warnings", () => {
-  function withLeftKeystone(minX: number): EditLayout {
+  function withLeftKeystone(minX: number, rotationDegrees = 0): EditLayout {
     // Rectangle width 8 → min-x = position.x - 4. Left-edge keystone reads min-x.
-    const p = rect("k", 8, 8, { x: minX + 4, y: 10 }, {
-      keystones: [{ edge: "left", ref: { kind: "face", side: "min-x" } }],
-    });
+    const p = rect(
+      "k",
+      8,
+      8,
+      { x: minX + 4, y: 10 },
+      {
+        keystones: [{ edge: "left", ref: { kind: "face", side: "min-x" } }],
+        rotation_degrees: rotationDegrees,
+      },
+    );
     return layout([p]);
   }
 
   it("does not flag a clean 16.25″ keystone", () => {
-    const ks = layoutWarnings(withLeftKeystone(16.25)).filter((w) => w.kind === "keystone-not-round");
+    const ks = layoutWarnings(withLeftKeystone(16.25)).filter(
+      (w) => w.kind === "keystone-not-round",
+    );
     expect(ks).toHaveLength(0);
   });
 
-  it("flags an off-grid 15.92″ keystone", () => {
-    const ks = layoutWarnings(withLeftKeystone(15.92)).filter((w) => w.kind === "keystone-not-round");
+  it("does not flag an off-grid value on a cardinally aligned piece", () => {
+    const ks = layoutWarnings(withLeftKeystone(15.92)).filter(
+      (w) => w.kind === "keystone-not-round",
+    );
+    expect(ks).toHaveLength(0);
+  });
+
+  it("flags an off-grid value on a rotated piece", () => {
+    const ks = layoutWarnings(withLeftKeystone(15.92, 37)).filter(
+      (w) => w.kind === "keystone-not-round",
+    );
     expect(ks).toHaveLength(1);
-    expect(ks[0].message).toContain("15.92");
+    expect(ks[0].message).toContain("nearest ¼″");
     expect(ks[0].pieceIds).toEqual(["k"]);
   });
 });
@@ -133,9 +191,15 @@ describe("keystoneDisplays honours the layout board", () => {
   // 21″ (44−23) instead of its true 13″ (36−23).
   function bottomFaceKeystoneAtY23(): EditPiece {
     // Rectangle height 8, centroid at y=19 → max-y face at board y=23.
-    return rect("k", 8, 8, { x: 10, y: 19 }, {
-      keystones: [{ edge: "bottom", ref: { kind: "face", side: "max-y" } }],
-    });
+    return rect(
+      "k",
+      8,
+      8,
+      { x: 10, y: 19 },
+      {
+        keystones: [{ edge: "bottom", ref: { kind: "face", side: "max-y" } }],
+      },
+    );
   }
 
   it("measures against the layout's board, not the 60×44 default", () => {
@@ -145,25 +209,122 @@ describe("keystoneDisplays honours the layout board", () => {
       board: { width: 36, height: 36 },
       pieces: [bottomFaceKeystoneAtY23()],
     };
-    expect(keystoneDisplays(on36).find((d) => d.pieceId === "k")?.distance).toBe(13);
+    expect(
+      keystoneDisplays(on36).find((d) => d.pieceId === "k")?.distance,
+    ).toBe(13);
   });
 
   it("falls back to the 60×44 default when the layout has no board override", () => {
-    const onDefault: EditLayout = { id: "t", name: "T", pieces: [bottomFaceKeystoneAtY23()] };
-    expect(keystoneDisplays(onDefault).find((d) => d.pieceId === "k")?.distance).toBe(21);
+    const onDefault: EditLayout = {
+      id: "t",
+      name: "T",
+      pieces: [bottomFaceKeystoneAtY23()],
+    };
+    expect(
+      keystoneDisplays(onDefault).find((d) => d.pieceId === "k")?.distance,
+    ).toBe(21);
+  });
+});
+
+describe("objectiveMarkers", () => {
+  it("uses an authored marker position instead of the host terrain centroid", () => {
+    const host = rect(
+      "objective-host",
+      6,
+      4,
+      { x: 10, y: 12 },
+      {
+        is_objective: true,
+        objective_role: "expansion",
+        objective: { position: { x: 16.5, y: 9.75 } },
+      },
+    );
+
+    expect(objectiveMarkers(layout([host]))).toEqual([
+      { at: { x: 16.5, y: 9.75 }, role: "expansion" },
+    ]);
+  });
+
+  it("averages authored positions for a linked objective", () => {
+    const first = rect(
+      "center-a",
+      6,
+      4,
+      { x: 10, y: 12 },
+      {
+        link_group: "center",
+        is_objective: true,
+        objective_role: "center",
+        objective: { position: { x: 29.9985, y: 21.0015 } },
+      },
+    );
+    const second = rect(
+      "center-b",
+      6,
+      4,
+      { x: 40, y: 32 },
+      {
+        link_group: "center",
+        is_objective: true,
+        objective_role: "center",
+        objective: { position: { x: 30.0015, y: 22.9985 } },
+      },
+    );
+
+    expect(objectiveMarkers(layout([first, second]))).toEqual([
+      { at: { x: 30, y: 22 }, role: "center" },
+    ]);
+  });
+
+  it("does not mix an authored linked position with a terrain-centroid fallback", () => {
+    const authored = rect(
+      "center-a",
+      6,
+      4,
+      { x: 10, y: 12 },
+      {
+        link_group: "center",
+        is_objective: true,
+        objective_role: "center",
+        objective: { position: { x: 30, y: 22 } },
+      },
+    );
+    const fallback = rect(
+      "center-b",
+      6,
+      4,
+      { x: 40, y: 32 },
+      {
+        link_group: "center",
+        is_objective: true,
+        objective_role: "center",
+      },
+    );
+
+    expect(objectiveMarkers(layout([authored, fallback]))).toEqual([
+      { at: { x: 30, y: 22 }, role: "center" },
+    ]);
   });
 });
 
 describe("empty-area (terrain:false) round-trips through canonical JSON", () => {
   it("emits terrain:false for an empty area and omits it for a terrain area", () => {
-    const emptyObj = rect("obj-west", 6, 6, { x: 5.5, y: 18 }, {
-      terrain: false,
-      is_objective: true,
-      objective_role: "expansion",
-      objective: { control_range_inches: 3 },
-    });
+    const emptyObj = rect(
+      "obj-west",
+      6,
+      6,
+      { x: 5.5, y: 18 },
+      {
+        terrain: false,
+        is_objective: true,
+        objective_role: "expansion",
+        objective: { control_range_inches: 3 },
+      },
+    );
     const terrainArea = rect("cover", 6, 6, { x: 12, y: 12 });
-    const json = toCanonicalJson(layout([emptyObj, terrainArea])) as [{ pieces: Record<string, unknown>[] }];
+    const json = toCanonicalJson(layout([emptyObj, terrainArea])) as [
+      { pieces: Record<string, unknown>[] },
+    ];
     const [obj, cover] = json[0].pieces;
     expect(obj.terrain).toBe(false);
     expect("terrain" in cover).toBe(false); // terrain area: default true, key omitted
@@ -172,13 +333,17 @@ describe("empty-area (terrain:false) round-trips through canonical JSON", () => 
 
 describe("cardinalCornerIndices", () => {
   it("returns every vertex of a 4-corner rectangle", () => {
-    expect(cardinalCornerIndices({ type: "rectangle", width: 6, height: 4 })).toEqual([0, 1, 2, 3]);
+    expect(
+      cardinalCornerIndices({ type: "rectangle", width: 6, height: 4 }),
+    ).toEqual([0, 1, 2, 3]);
   });
 
   it("collapses the nubbed area-medium footprint to its 4 cardinal corners", () => {
     const fp = templateById("area-medium")?.footprint;
     expect(fp).toBeTruthy();
-    expect(new Set(cardinalCornerIndices(fp!))).toEqual(new Set([0, 13, 14, 15]));
+    expect(new Set(cardinalCornerIndices(fp!))).toEqual(
+      new Set([0, 13, 14, 15]),
+    );
   });
 });
 
@@ -187,16 +352,25 @@ describe("orientPiece pins child features in place", () => {
     // A 20×20 area with an L-ish feature offset to one corner (rotated + off-centre
     // so a naive centroid-only pin would still spin or flip it).
     const area = rect("a", 20, 20, { x: 30, y: 22 });
-    const feat = rect("f", 4, 6, { x: 5, y: -3 }, {
-      piece_type: "feature",
-      parent_area_id: "a",
-      rotation_degrees: 90,
-      ...patch,
-    });
+    const feat = rect(
+      "f",
+      4,
+      6,
+      { x: 5, y: -3 },
+      {
+        piece_type: "feature",
+        parent_area_id: "a",
+        rotation_degrees: 90,
+        ...patch,
+      },
+    );
     return layout([area, feat]);
   }
 
-  function expectFeatureUnmoved(before: EditLayout, run: (l: EditLayout) => void): void {
+  function expectFeatureUnmoved(
+    before: EditLayout,
+    run: (l: EditLayout) => void,
+  ): void {
     const l = areaWithFeature();
     const v0 = verticesOf(before, "f");
     run(l);
@@ -209,21 +383,31 @@ describe("orientPiece pins child features in place", () => {
   }
 
   it("flipping the area leaves the feature's board vertices unchanged", () => {
-    expectFeatureUnmoved(areaWithFeature(), (l) => orientPiece(l, "a", { mirror: "horizontal" }));
+    expectFeatureUnmoved(areaWithFeature(), (l) =>
+      orientPiece(l, "a", { mirror: "horizontal" }),
+    );
   });
 
   it("rotating the area 90° leaves the feature's board vertices unchanged", () => {
-    expectFeatureUnmoved(areaWithFeature(), (l) => orientPiece(l, "a", { rotation_degrees: 90 }));
+    expectFeatureUnmoved(areaWithFeature(), (l) =>
+      orientPiece(l, "a", { rotation_degrees: 90 }),
+    );
   });
 
   it("does not fling a far-anchored feature off-table when its area is mirrored", () => {
     // Reproduce the "corner-short on the mirror-twin area" bug: a feature anchored
     // with a large area-local offset. A mirror must not translate it at all.
     const area = rect("a", 6, 4, { x: 49, y: 31 }, { rotation_degrees: 270 });
-    const feat = rect("f", 2, 3, { x: 15.93, y: -38.52 }, {
-      piece_type: "feature",
-      parent_area_id: "a",
-    });
+    const feat = rect(
+      "f",
+      2,
+      3,
+      { x: 15.93, y: -38.52 },
+      {
+        piece_type: "feature",
+        parent_area_id: "a",
+      },
+    );
     const l = layout([area, feat]);
     const before = boardCentroid(l, feat);
     orientPiece(l, "a", { mirror: "horizontal" });
@@ -239,7 +423,13 @@ describe("reanchorToNearestArea", () => {
     // offset lands it on top of "b" (the swapped-parent bug).
     const a = rect("a", 10, 10, { x: 6, y: 6 });
     const b = rect("b", 10, 10, { x: 30, y: 6 });
-    const f = rect("f", 4, 4, { x: 24, y: 0 }, { piece_type: "feature", parent_area_id: "a" });
+    const f = rect(
+      "f",
+      4,
+      4,
+      { x: 24, y: 0 },
+      { piece_type: "feature", parent_area_id: "a" },
+    );
     const l = layout([a, b, f]);
     const before = boardCentroid(l, f);
     reanchorToNearestArea(l, "f");
@@ -252,7 +442,13 @@ describe("reanchorToNearestArea", () => {
 
   it("is a no-op for a feature already on its nearest area", () => {
     const a = rect("a", 10, 10, { x: 6, y: 6 });
-    const f = rect("f", 4, 4, { x: 0, y: 0 }, { piece_type: "feature", parent_area_id: "a" });
+    const f = rect(
+      "f",
+      4,
+      4,
+      { x: 0, y: 0 },
+      { piece_type: "feature", parent_area_id: "a" },
+    );
     const l = layout([a, f]);
     reanchorAllFeatures(l);
     expect(l.pieces.find((p) => p.id === "f")!.parent_area_id).toBe("a");
@@ -311,9 +507,15 @@ describe("referenceImageBox", () => {
   });
 
   it("normalises the turn count, including negatives", () => {
-    expect(referenceImageBox(board, { quarterTurns: -1 }).transform).toContain("rotate(270");
-    expect(referenceImageBox(board, { quarterTurns: 5 }).transform).toContain("rotate(90");
-    expect(referenceImageBox(board, { quarterTurns: 4 }).transform).toContain("rotate(0");
+    expect(referenceImageBox(board, { quarterTurns: -1 }).transform).toContain(
+      "rotate(270",
+    );
+    expect(referenceImageBox(board, { quarterTurns: 5 }).transform).toContain(
+      "rotate(90",
+    );
+    expect(referenceImageBox(board, { quarterTurns: 4 }).transform).toContain(
+      "rotate(0",
+    );
   });
 
   it("maps a screen-space nudge onto the board's rotated axes", () => {
@@ -321,25 +523,40 @@ describe("referenceImageBox", () => {
     // nudge of screen-right must translate board -y, and screen-down must translate +x.
     // Passing the numbers through unswapped would move the image at right angles to the
     // control the user pressed.
-    expect(referenceImageBox(board, { offsetX: 3 }).transform).toContain("translate(0 -3)");
-    expect(referenceImageBox(board, { offsetY: 2 }).transform).toContain("translate(2 0)");
-    expect(referenceImageBox(board, { offsetX: 3, offsetY: 2 }).transform).toContain("translate(2 -3)");
+    expect(referenceImageBox(board, { offsetX: 3 }).transform).toContain(
+      "translate(0 -3)",
+    );
+    expect(referenceImageBox(board, { offsetY: 2 }).transform).toContain(
+      "translate(2 0)",
+    );
+    expect(
+      referenceImageBox(board, { offsetX: 3, offsetY: 2 }).transform,
+    ).toContain("translate(2 -3)");
   });
 
   it("scales about the board centre, and omits the scale entirely at 1", () => {
-    expect(referenceImageBox(board, { scale: 1 }).transform).not.toContain("scale(");
+    expect(referenceImageBox(board, { scale: 1 }).transform).not.toContain(
+      "scale(",
+    );
     const zoomed = referenceImageBox(board, { scale: 1.25 }).transform;
     expect(zoomed).toContain("translate(30 22) scale(1.25) translate(-30 -22)");
   });
 
   it("ignores a non-positive scale rather than collapsing the image", () => {
     for (const scale of [0, -2, Number.NaN]) {
-      expect(referenceImageBox(board, { scale }).transform).not.toContain("scale(");
+      expect(referenceImageBox(board, { scale }).transform).not.toContain(
+        "scale(",
+      );
     }
   });
 
   it("applies the nudge outermost so it stays screen-aligned under turn and zoom", () => {
-    const t = referenceImageBox(board, { quarterTurns: 1, offsetX: 4, offsetY: -1, scale: 2 }).transform;
+    const t = referenceImageBox(board, {
+      quarterTurns: 1,
+      offsetX: 4,
+      offsetY: -1,
+      scale: 2,
+    }).transform;
     expect(t.indexOf("translate(-1 -4)")).toBe(0);
     expect(t.indexOf("rotate(90")).toBeGreaterThan(0);
     expect(t.indexOf("scale(2)")).toBeGreaterThan(t.indexOf("rotate(90"));
@@ -393,6 +610,9 @@ describe("source-projected layouts", () => {
       source: "battlemaster-tts-cache",
       pieces: [{ id: "area-01", rotation_degrees: 0, mirror: "none" }],
     });
-    expect(resolve(editable).map((piece) => piece.piece_type)).toEqual(["area", "feature"]);
+    expect(resolve(editable).map((piece) => piece.piece_type)).toEqual([
+      "area",
+      "feature",
+    ]);
   });
 });

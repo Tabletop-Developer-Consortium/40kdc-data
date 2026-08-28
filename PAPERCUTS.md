@@ -146,3 +146,15 @@ The raw-text store's verification script writes a 4.9 MiB unignored dist/bundle-
 ## 2026-08-21T16:57:34Z — gpt-5.6-sol
 
 gh cannot infer a repository from a colocated jj workspace that lacks a .git directory; raw-store PR commands must pass the explicit -R repository.
+
+## 2026-08-28T15:11:14Z — openai-codex/gpt-5.6-sol
+
+A live Battlemaster re-projection strips committed keystones, but the documented derive-keystones --rederive follow-up now fails on a 0.5-inch pairing difference in bm-disrupt-vs-disrupt-01, preventing the projected data from being restored.
+
+## 2026-08-28T16:19:22Z — openai-codex
+
+The layout-editor workspace has no local Prettier binary, so its ordinary npx prettier command fails; formatting must be invoked through the root tools workspace.
+
+## 2026-08-28T16:29:49Z — openai-codex
+
+The layout-editor production build emitted its bundle-size table but then hung until the 10-minute command timeout while a persistent Vite dev server was running; the same build normally exits in seconds.

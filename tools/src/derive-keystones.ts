@@ -45,8 +45,11 @@ import { readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import {
+  footprintVertices,
   resolveLayout,
+  type Footprint,
   type Keystone,
+  type LayoutPiece,
   type ResolvedPiece,
   type TerrainLayout,
   type TerrainTemplate,
@@ -70,9 +73,137 @@ function centroid(rp: ResolvedPiece): { x: number; y: number } {
   return { x: x / rp.vertices.length, y: y / rp.vertices.length };
 }
 
+type Point = { x: number; y: number };
+
+function battlemasterPlateCorners(templateId: string): Point[] | null {
+  if (templateId.startsWith("bm-composite-bigrect-")) {
+    return [
+      { x: 0, y: 0 },
+      { x: 11.5, y: 0 },
+      { x: 11.5, y: 7 },
+      { x: 0, y: 7 },
+    ];
+  }
+  if (templateId.startsWith("bm-composite-longline")) {
+    return [
+      { x: 0, y: 0 },
+      { x: 10, y: 0 },
+      { x: 10, y: 2.5 },
+      { x: 0, y: 2.5 },
+    ];
+  }
+  if (templateId.startsWith("bm-composite-shortline-")) {
+    return [
+      { x: 0, y: 0 },
+      { x: 6, y: 0 },
+      { x: 6, y: 2 },
+      { x: 0, y: 2 },
+    ];
+  }
+  if (templateId.startsWith("bm-composite-smallrect-")) {
+    return [
+      { x: 0, y: 0 },
+      { x: 6, y: 0 },
+      { x: 6, y: 4 },
+      { x: 0, y: 4 },
+    ];
+  }
+  if (templateId.startsWith("bm-composite-triangle-ab-")) {
+    return templateId.includes("-flip-")
+      ? [
+          { x: 0, y: 0 },
+          { x: 0, y: 8 },
+          { x: 11.5, y: 8 },
+          { x: 11.5, y: 6 },
+        ]
+      : [
+          { x: 11.5, y: 0 },
+          { x: 11.5, y: 8 },
+          { x: 0, y: 8 },
+          { x: 0, y: 6 },
+        ];
+  }
+  return null;
+}
+
+function nearestVertexIndices(vertices: Point[], targets: Point[]): number[] {
+  const indices: number[] = [];
+  for (const target of targets) {
+    let bestIndex = 0;
+    let bestDistance = Infinity;
+    for (let index = 0; index < vertices.length; index += 1) {
+      const vertex = vertices[index]!;
+      const distance = Math.hypot(vertex.x - target.x, vertex.y - target.y);
+      if (distance < bestDistance) {
+        bestDistance = distance;
+        bestIndex = index;
+      }
+    }
+    if (!indices.includes(bestIndex)) indices.push(bestIndex);
+  }
+  return indices;
+}
+
+/**
+ * Footprint vertices that represent the printed plate's structural corners.
+ * Detailed Battlemaster outlines contain outward nubs, so their known plate
+ * dimensions define the targets. Other polygons fall back to bounding-box
+ * corners.
+ */
+export function cardinalCornerIndices(
+  footprint: Footprint,
+  templateId?: string,
+): number[] {
+  const vertices = footprintVertices(footprint);
+  if (vertices.length <= 4) return vertices.map((_, index) => index);
+
+  const plateCorners = templateId ? battlemasterPlateCorners(templateId) : null;
+  if (plateCorners) return nearestVertexIndices(vertices, plateCorners);
+
+  let minX = Infinity;
+  let maxX = -Infinity;
+  let minY = Infinity;
+  let maxY = -Infinity;
+  for (const vertex of vertices) {
+    minX = Math.min(minX, vertex.x);
+    maxX = Math.max(maxX, vertex.x);
+    minY = Math.min(minY, vertex.y);
+    maxY = Math.max(maxY, vertex.y);
+  }
+  return nearestVertexIndices(vertices, [
+    { x: minX, y: minY },
+    { x: maxX, y: minY },
+    { x: maxX, y: maxY },
+    { x: minX, y: maxY },
+  ]);
+}
+
+function pieceFootprint(
+  piece: LayoutPiece,
+  templates: Map<string, TerrainTemplate>,
+): Footprint {
+  if (piece.footprint) return piece.footprint;
+  const template = piece.template ? templates.get(piece.template) : undefined;
+  if (!template) {
+    throw new Error(
+      `${piece.id ?? "piece"}: no footprint for keystone derivation`,
+    );
+  }
+  return template.footprint;
+}
+
+function templatesById(
+  templates: TerrainTemplate[],
+): Map<string, TerrainTemplate> {
+  return new Map(templates.map((template) => [template.id, template]));
+}
+
 /** The two keystones for one anchor vertex: measured to its nearest
  * horizontal and vertical board edges (KOTC ordering). */
-function keystonesForVertex(v: { x: number; y: number }, index: number): Keystone[] {
+function keystonesForVertex(
+  v: { x: number; y: number },
+  index: number,
+): Keystone[] {
   return [
     {
       edge: v.y < BOARD_INCHES.height / 2 ? "top" : "bottom",
@@ -92,35 +223,39 @@ export function isAxisAligned(piece: { rotation_degrees?: number }): boolean {
   return ((r % 90) + 90) % 90 === 0;
 }
 
-/** The keystones for a placed piece: vertex A nearest the piece's nearest
- * board corner (pins a point) with two edge measurements — plus, for oblique
- * pieces only, one more at vertex B, farthest from A (pins the rotation). */
-function deriveForPiece(rp: ResolvedPiece, axisAligned: boolean): Keystone[] {
+/** The keystones for a placed piece: structural vertex A nearest the piece's
+ * nearest board corner (pins a point) with two edge measurements — plus, for
+ * oblique pieces only, one more at structural vertex B, farthest from A. */
+function deriveForPiece(
+  rp: ResolvedPiece,
+  axisAligned: boolean,
+  cornerIndices: number[],
+): Keystone[] {
   const c = centroid(rp);
   const corner = {
     x: c.x < BOARD_INCHES.width / 2 ? 0 : BOARD_INCHES.width,
     y: c.y < BOARD_INCHES.height / 2 ? 0 : BOARD_INCHES.height,
   };
-  let aIndex = 0;
+  let aIndex = cornerIndices[0]!;
   let best = Infinity;
-  for (let i = 0; i < rp.vertices.length; i++) {
-    const v = rp.vertices[i]!;
-    const d = (v.x - corner.x) ** 2 + (v.y - corner.y) ** 2;
-    if (d < best - 1e-9) {
-      best = d;
-      aIndex = i;
+  for (const index of cornerIndices) {
+    const vertex = rp.vertices[index]!;
+    const distance = (vertex.x - corner.x) ** 2 + (vertex.y - corner.y) ** 2;
+    if (distance < best - 1e-9) {
+      best = distance;
+      aIndex = index;
     }
   }
   const a = rp.vertices[aIndex]!;
   if (axisAligned) return keystonesForVertex(a, aIndex);
   let bIndex = aIndex;
   let farthest = -Infinity;
-  for (let i = 0; i < rp.vertices.length; i++) {
-    const v = rp.vertices[i]!;
-    const d = (v.x - a.x) ** 2 + (v.y - a.y) ** 2;
-    if (d > farthest + 1e-9) {
-      farthest = d;
-      bIndex = i;
+  for (const index of cornerIndices) {
+    const vertex = rp.vertices[index]!;
+    const distance = (vertex.x - a.x) ** 2 + (vertex.y - a.y) ** 2;
+    if (distance > farthest + 1e-9) {
+      farthest = distance;
+      bIndex = index;
     }
   }
   const b = rp.vertices[bIndex]!;
@@ -150,13 +285,16 @@ function explicitResolved(
   templates: TerrainTemplate[],
 ): ResolvedPiece[] {
   const resolved = resolveLayout(layout, templates);
-  const byTemplate = new Map(templates.map((t) => [t.id, t] as const));
+  const byTemplate = templatesById(templates);
   const pieces = layout.pieces ?? [];
   const out: ResolvedPiece[] = [];
   let cursor = 0;
   for (const piece of pieces) {
     const rp = resolved[cursor];
-    if (!rp) throw new Error(`${layout.id}: resolved emission shorter than layout.pieces`);
+    if (!rp)
+      throw new Error(
+        `${layout.id}: resolved emission shorter than layout.pieces`,
+      );
     out.push(rp);
     cursor += 1;
     if (!piece.parent_area_id && piece.template) {
@@ -167,7 +305,13 @@ function explicitResolved(
 }
 
 const flipEdge = (e: Keystone["edge"]): Keystone["edge"] =>
-  e === "left" ? "right" : e === "right" ? "left" : e === "top" ? "bottom" : "top";
+  e === "left"
+    ? "right"
+    : e === "right"
+      ? "left"
+      : e === "top"
+        ? "bottom"
+        : "top";
 
 /** A keystone point-reflected onto the twin piece: flipped board edge, anchor
  * vertex resolved geometrically (the reflection must land within 0.25″ of a
@@ -195,6 +339,37 @@ function mirrorOntoTwin(
   return { edge: flipEdge(k.edge), ref: { kind: "vertex", index: bestIndex } };
 }
 
+/**
+ * Remove generated Battlemaster keystones that reference decorative outline
+ * vertices. The normal authoring pass then replaces only those bad anchors.
+ */
+export function clearNonCardinalKeystones(
+  layouts: TerrainLayout[],
+  templates: TerrainTemplate[],
+): number {
+  const byTemplate = templatesById(templates);
+  let piecesCleared = 0;
+  for (const layout of layouts) {
+    if (!layout.id.startsWith("bm-")) continue;
+    for (const piece of layout.pieces ?? []) {
+      const corners = new Set(
+        cardinalCornerIndices(
+          pieceFootprint(piece, byTemplate),
+          piece.template,
+        ),
+      );
+      const hasNonCardinalAnchor = (piece.keystones ?? []).some(
+        (keystone) =>
+          keystone.ref.kind === "vertex" && !corners.has(keystone.ref.index),
+      );
+      if (!hasNonCardinalAnchor) continue;
+      delete piece.keystones;
+      piecesCleared += 1;
+    }
+  }
+  return piecesCleared;
+}
+
 /** Author keystones in place for every bare terrain piece of the `bm-*`
  * layouts. Each 180°-twin pair is derived ONCE and mirrored onto the twin, so
  * both halves of a card carry point-reflected keystones by construction (the
@@ -203,6 +378,7 @@ export function authorKeystones(
   layouts: TerrainLayout[],
   templates: TerrainTemplate[],
 ): number {
+  const byTemplate = templatesById(templates);
   let piecesAuthored = 0;
   for (const layout of layouts) {
     if (!layout.id.startsWith("bm-")) continue;
@@ -233,7 +409,15 @@ export function authorKeystones(
     for (let i = 0; i < pieces.length; i++) {
       const piece = pieces[i]!;
       if (piece.keystones && piece.keystones.length > 0) continue;
-      const derived = deriveForPiece(resolved[i]!, isAxisAligned(piece));
+      const corners = cardinalCornerIndices(
+        pieceFootprint(piece, byTemplate),
+        piece.template,
+      );
+      const derived = deriveForPiece(
+        resolved[i]!,
+        isAxisAligned(piece),
+        corners,
+      );
       piece.keystones = derived;
       piecesAuthored += 1;
 
@@ -241,7 +425,9 @@ export function authorKeystones(
       if (j === undefined || j === i) continue;
       const twinPiece = pieces[j]!;
       if (twinPiece.keystones && twinPiece.keystones.length > 0) continue;
-      const mirrored = derived.map((k) => mirrorOntoTwin(k, resolved[i]!, resolved[j]!));
+      const mirrored = derived.map((k) =>
+        mirrorOntoTwin(k, resolved[i]!, resolved[j]!),
+      );
       if (mirrored.every((k): k is Keystone => k !== null)) {
         twinPiece.keystones = mirrored;
         piecesAuthored += 1;
@@ -276,7 +462,10 @@ export function keystonePairingViolations(
     const terrainIdx = pieces.map((_, i) => i);
     for (const i of terrainIdx) {
       const c = centroid(resolved[i]!);
-      const reflected = { x: BOARD_INCHES.width - c.x, y: BOARD_INCHES.height - c.y };
+      const reflected = {
+        x: BOARD_INCHES.width - c.x,
+        y: BOARD_INCHES.height - c.y,
+      };
       const twin = terrainIdx.find((j) => {
         const cj = centroid(resolved[j]!);
         return (
@@ -285,7 +474,9 @@ export function keystonePairingViolations(
         );
       });
       if (twin === undefined) {
-        violations.push(`${layout.id}: piece ${pieces[i]!.id ?? i} has no 180° twin`);
+        violations.push(
+          `${layout.id}: piece ${pieces[i]!.id ?? i} has no 180° twin`,
+        );
         continue;
       }
       // The twin's keystones anchor the reflected vertex to the opposite
@@ -314,18 +505,29 @@ export function keystonePairingViolations(
 
 function main(): void {
   const write = process.argv.includes("--write");
-  const layouts = JSON.parse(readFileSync(LAYOUTS_PATH, "utf8")) as TerrainLayout[];
-  const templates = JSON.parse(readFileSync(TEMPLATES_PATH, "utf8")) as TerrainTemplate[];
+  const layouts = JSON.parse(
+    readFileSync(LAYOUTS_PATH, "utf8"),
+  ) as TerrainLayout[];
+  const templates = JSON.parse(
+    readFileSync(TEMPLATES_PATH, "utf8"),
+  ) as TerrainTemplate[];
 
+  let piecesCleared = 0;
   if (process.argv.includes("--rederive")) {
     for (const layout of layouts) {
       if (!layout.id.startsWith("bm-")) continue;
-      for (const piece of layout.pieces ?? []) delete piece.keystones;
+      for (const piece of layout.pieces ?? []) {
+        if (piece.keystones) piecesCleared += 1;
+        delete piece.keystones;
+      }
     }
+  } else {
+    piecesCleared = clearNonCardinalKeystones(layouts, templates);
   }
   const piecesAuthored = authorKeystones(layouts, templates);
   const violations = keystonePairingViolations(layouts, templates);
 
+  console.log(`pieces cleared: ${piecesCleared}`);
   console.log(`pieces authored: ${piecesAuthored}`);
   if (violations.length > 0) {
     console.error(`\n${violations.length} pairing violations:`);
@@ -341,6 +543,10 @@ function main(): void {
   }
 }
 
-if (process.argv[1] && import.meta.url === new URL(`file://${process.argv[1].replace(/\\/g, "/")}`).href) {
+if (
+  process.argv[1] &&
+  import.meta.url ===
+    new URL(`file://${process.argv[1].replace(/\\/g, "/")}`).href
+) {
   main();
 }

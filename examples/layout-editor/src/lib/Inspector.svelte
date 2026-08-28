@@ -20,6 +20,7 @@
     type SolverSeed,
     type ObjectiveRole,
   } from "./model.js";
+  import { formatKeystoneDistance } from "../../../_shared/layout-geometry.js";
 
   interface Props {
     piece: EditPiece | null;
@@ -924,7 +925,7 @@
                 {fromBoardEdge(k.keystone.edge)} → {refLabel(k.keystone.ref)}
               </span>
               {#if k.distance != null}
-                <span class="ks-dist">{Math.round(k.distance * 100) / 100}″</span>
+                <span class="ks-dist">{formatKeystoneDistance(k.distance, piece.rotation_degrees)}</span>
               {:else}
                 <span class="ks-dist invalid" title="The referenced feature no longer exists on this footprint (re-authored template?). Remove and re-pin.">unmeasurable</span>
               {/if}

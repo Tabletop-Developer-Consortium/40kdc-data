@@ -7,7 +7,10 @@
  *
  * Twins are not stored — they are recovered the way the editor's
  * `autoPairTwins` does: same template, unparented, centroid within 0.75″ of
- * the point reflection through the board centre. The mirrored keystone flips
+ * the point reflection through the board centre — plus a geometric fallback
+ * for twins that use a mirrored template VARIANT (the Battlemaster "-flip"/
+ * "-updown" composites) instead of the same template id: the placed footprint
+ * must be the point reflection of the candidate's, vertex for vertex. The mirrored keystone flips
  * its board edge (left↔right, top↔bottom); a face ref flips its side, and a
  * vertex ref is resolved GEOMETRICALLY — reflect the source vertex through
  * the centre and take the twin's nearest vertex. Index arithmetic is not
@@ -62,6 +65,24 @@ const sameRef = (a: Keystone["ref"], b: Keystone["ref"]): boolean =>
       : false;
 const hasKeystone = (p: LayoutPiece, k: Keystone): boolean =>
   (p.keystones ?? []).some((e) => e.edge === k.edge && sameRef(e.ref, k.ref));
+
+/** Whether `q`'s placed footprint is `p`'s point reflection through the board
+ * centre, vertex for vertex (within {@link VERT_EPS}). Recovers twins that use
+ * a mirrored template variant instead of sharing `p`'s template id. */
+function reflectedCongruent(
+  p: LayoutPiece,
+  q: LayoutPiece,
+  templates: Map<string, TerrainTemplate>,
+  board: { width: number; height: number },
+): boolean {
+  const pv = boardVertices(p, templates);
+  const qv = boardVertices(q, templates);
+  if (!pv || !qv || pv.length !== qv.length) return false;
+  return pv.every((v) => {
+    const r = { x: board.width - v.x, y: board.height - v.y };
+    return qv.some((w) => Math.hypot(w.x - r.x, w.y - r.y) <= VERT_EPS);
+  });
+}
 
 /** Board-space vertices of an UNPARENTED piece (centroid + oriented offsets). */
 function boardVertices(p: LayoutPiece, templates: Map<string, TerrainTemplate>): Vec2[] | null {
@@ -140,7 +161,8 @@ export function pairKeystones(
     // board (e.g. the 36×36 KOTC colosseum), not the 60×44 default — otherwise
     // a non-standard board reflects every piece into empty space and nothing pairs.
     const board = (layout as { board?: { width: number; height: number } }).board ?? BOARD;
-    // Twin pairing pass (unparented, off-centre, same template, reflected centroid).
+    // Twin pairing pass (unparented, off-centre, reflected centroid, same
+    // template — or a mirrored template variant with congruent geometry).
     const twin = new Map<LayoutPiece, LayoutPiece>();
     for (const p of pieces) {
       if (twin.has(p) || p.parent_area_id) continue;
@@ -154,8 +176,8 @@ export function pairKeystones(
           q !== p &&
           !twin.has(q) &&
           !q.parent_area_id &&
-          q.template === p.template &&
-          Math.hypot(q.position.x - want.x, q.position.y - want.y) <= POS_TOL,
+          Math.hypot(q.position.x - want.x, q.position.y - want.y) <= POS_TOL &&
+          (q.template === p.template || reflectedCongruent(p, q, byId, board)),
       );
       if (match) {
         twin.set(p, match);

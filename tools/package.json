@@ -97,7 +97,8 @@
     "prepack": "npm run build && npm run copy:schemas",
     "pretest": "npm run codegen:data",
     "test": "vitest run",
-    "demo:rube-goldberg": "tsx src/rube-goldberg.ts"
+    "demo:rube-goldberg": "tsx src/rube-goldberg.ts",
+    "derive:keystones": "tsx src/derive-keystones.ts"
   },
   "dependencies": {
     "ajv": "^8.17.0",

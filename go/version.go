@@ -5,4 +5,4 @@ package wh40kdc
 
 // Version is the package version, kept in lockstep with tools/package.json,
 // crates/wh40kdc/Cargo.toml, and python .../_version.py (CI fails on drift).
-const Version = "1.3.1"
+const Version = "1.3.2"

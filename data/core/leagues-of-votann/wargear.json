@@ -5,7 +5,17 @@
     "game_version": {
       "edition": "10th",
       "dataslate": "2025-q3"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "3e828a03-5cad-42d0-b529-d1ac1e551753"
+      },
+      {
+        "namespace": "mfm",
+        "id": "8f2926c4-dbed-4488-8da1-8ea590acf469"
+      }
+    ]
   },
   {
     "id": "teleport-crest",
@@ -13,7 +23,21 @@
     "game_version": {
       "edition": "10th",
       "dataslate": "2025-q3"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "6ed75f65-8944-4116-a103-4c6e5ae5e068"
+      },
+      {
+        "namespace": "mfm",
+        "id": "6f7e40a4-2f84-495d-8a2c-c756c603b08e"
+      },
+      {
+        "namespace": "mfm",
+        "id": "ea178566-f956-496f-ae25-27f82360b663"
+      }
+    ]
   },
   {
     "id": "weavefield-crest",
@@ -21,7 +45,17 @@
     "game_version": {
       "edition": "10th",
       "dataslate": "2025-q3"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "94bb2d5a-b2ef-4286-869d-71867445cca2"
+      },
+      {
+        "namespace": "mfm",
+        "id": "c2bf69d8-7326-4933-84ae-58539abb44df"
+      }
+    ]
   },
   {
     "id": "smoke-launcher",
@@ -29,7 +63,13 @@
     "game_version": {
       "edition": "10th",
       "dataslate": "2025-q3"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "e8a7d080-698c-40a8-ae09-8be318dd6859"
+      }
+    ]
   },
   {
     "id": "pan-spectral-scanner",
@@ -45,7 +85,13 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "launch"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "74c5cbce-6f88-4d0f-bde3-ec851f02a4e1"
+      }
+    ]
   },
   {
     "id": "rollbar-searchlight",
@@ -53,7 +99,13 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "launch"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "0ef22491-bc8c-459f-9208-08d361f2da73"
+      }
+    ]
   },
   {
     "id": "multiwave-comms-array",
@@ -61,7 +113,13 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "launch"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "9633f4f9-42ce-4547-a885-ccba9c4ce220"
+      }
+    ]
   },
   {
     "id": "preymark-crest",
@@ -69,6 +127,12 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "launch"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "1204f755-51f8-4f35-8126-4da29de988c1"
+      }
+    ]
   }
 ]

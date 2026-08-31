@@ -22,6 +22,14 @@ via the `definition` "stratagem".
 Defined in: [generated.ts:883](https://github.com/wn-mitch/40kdc-data/blob/0b6959256a79cf859a201d8971874d4a811c6024/tools/src/generated.ts#L883)
 
 ***
+### external\_refs?
+
+> `optional` **external\_refs?**: [`ExternalReferenceList`](../type-aliases/ExternalReferenceList.md)
+
+Defined in: [generated.ts:2003](https://github.com/wn-mitch/40kdc-data/blob/c9c88e6391023daf41c88513e9ecb21950c56b1c/tools/src/generated.ts#L2003)
+
+***
+
 
 ### name
 

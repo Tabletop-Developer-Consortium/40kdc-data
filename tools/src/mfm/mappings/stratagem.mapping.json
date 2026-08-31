@@ -2,9 +2,7 @@
   "$schema": "../mfm-source-map.schema.json",
   "entity_schema": "schemas/core/stratagem.schema.json",
   "mapping_version": 1,
-  "root_tables": [
-    "stratagem"
-  ],
+  "root_tables": ["stratagem"],
   "fields": {
     "/ability_id": {
       "provenance": "repo-authored",
@@ -20,9 +18,7 @@
     "/category": {
       "provenance": "derived",
       "coverage": "implemented",
-      "sources": [
-        "data.stratagem.detachmentId"
-      ],
+      "sources": ["data.stratagem.detachmentId"],
       "joins": [],
       "transforms": [
         {
@@ -45,9 +41,7 @@
     "/cp_cost": {
       "provenance": "direct",
       "coverage": "implemented",
-      "sources": [
-        "data.stratagem.cpCost"
-      ],
+      "sources": ["data.stratagem.cpCost"],
       "joins": [],
       "transforms": [
         {
@@ -87,15 +81,88 @@
           "operation": "Use the applicable detachment's English name only while deriving the stratagem repository id."
         }
       ],
-      "filters": [
-        "Core stratagem rows have a null detachmentId."
-      ],
+      "filters": ["Core stratagem rows have a null detachmentId."],
       "precedence": [],
       "consumers": [
         "tools/src/mfm/stratagems.ts#stratagemRepoId",
         "tools/src/mfm/stratagems.ts#stratagemInventory"
       ],
       "reason": "The current traversal uses the MFM detachment only for identity and inventory routing; it does not resolve or write the repository detachment reference."
+    },
+    "/external_refs": {
+      "provenance": "derived",
+      "coverage": "implemented",
+      "sources": ["data.stratagem.id"],
+      "joins": [],
+      "transforms": [
+        {
+          "symbol": "tools/src/mfm/external-refs.ts#runMfmExternalRefs",
+          "operation": "Preserve every canonical stratagem identity under the mfm namespace."
+        }
+      ],
+      "filters": [
+        "Canonical core or detachment-scoped stratagem identity must resolve exactly."
+      ],
+      "precedence": [
+        "Additive: retain exact references from every other namespace."
+      ],
+      "consumers": [
+        "tools/src/mfm/external-refs.ts#runMfmExternalRefs",
+        "tools/src/mfm/seed-stratagems.ts#seedStratagems"
+      ],
+      "reason": "External source identities are additive interoperability metadata."
+    },
+    "/external_refs/*": {
+      "provenance": "derived",
+      "coverage": "implemented",
+      "sources": ["data.stratagem.id"],
+      "joins": [],
+      "transforms": [
+        {
+          "symbol": "tools/src/mfm/external-refs.ts#runMfmExternalRefs",
+          "operation": "Create one unique namespace/id pair."
+        }
+      ],
+      "filters": ["Only exact canonical stratagem matches."],
+      "precedence": ["Additive; exact duplicate pairs are ignored."],
+      "consumers": [
+        "tools/src/mfm/external-refs.ts#runMfmExternalRefs",
+        "tools/src/mfm/seed-stratagems.ts#seedStratagems"
+      ],
+      "reason": "Each item preserves one exact external identity."
+    },
+    "/external_refs/*/id": {
+      "provenance": "direct",
+      "coverage": "implemented",
+      "sources": ["data.stratagem.id"],
+      "joins": [],
+      "transforms": [],
+      "filters": ["Only exact canonical stratagem matches."],
+      "precedence": [],
+      "consumers": [
+        "tools/src/mfm/external-refs.ts#runMfmExternalRefs",
+        "tools/src/mfm/seed-stratagems.ts#seedStratagems"
+      ],
+      "reason": "The external id is the MFM stratagem primary key."
+    },
+    "/external_refs/*/namespace": {
+      "provenance": "derived",
+      "coverage": "implemented",
+      "sources": ["data.stratagem.id"],
+      "joins": [],
+      "transforms": [
+        {
+          "symbol": "tools/src/mfm/external-refs.ts#runMfmExternalRefs",
+          "operation": "Label the source identity with the constant mfm namespace."
+        }
+      ],
+      "filters": [],
+      "precedence": [],
+      "consumers": [
+        "tools/src/mfm/external-refs.ts#runMfmExternalRefs",
+        "tools/src/mfm/seed-stratagems.ts#seedStratagems"
+      ],
+      "reason": "The namespace distinguishes MFM ids from other source identities."
     },
     "/game_modes": {
       "provenance": "derived",
@@ -229,26 +296,18 @@
     "/name": {
       "provenance": "direct",
       "coverage": "partial",
-      "sources": [
-        "data.stratagem.localisations.*.name"
-      ],
+      "sources": ["data.stratagem.localisations.*.name"],
       "joins": [],
       "transforms": [],
-      "filters": [
-        "Current matching reads the English localized name."
-      ],
+      "filters": ["Current matching reads the English localized name."],
       "precedence": [],
-      "consumers": [
-        "tools/src/mfm/stratagems.ts#stratagemRepoId"
-      ],
+      "consumers": ["tools/src/mfm/stratagems.ts#stratagemRepoId"],
       "reason": "The MFM name is used to match existing entities, but current reconciliation does not overwrite authored entity names."
     },
     "/phases": {
       "provenance": "unresolved-candidate",
       "coverage": "unimplemented",
-      "sources": [
-        "data.stratagem_phase.phase"
-      ],
+      "sources": ["data.stratagem_phase.phase"],
       "joins": [
         {
           "relation": "stratagem_phase.stratagemId",
@@ -257,9 +316,7 @@
         }
       ],
       "transforms": [],
-      "filters": [
-        "Phase rows must belong to the current stratagem."
-      ],
+      "filters": ["Phase rows must belong to the current stratagem."],
       "precedence": [],
       "consumers": [],
       "reason": "REJECTED source: stratagem_phase is a buggy denormalized index whose rows routinely contradict the card's own whenRules (Insane Bravery 'Command phase' tagged chargePhase, Holy Avarice 'Your Shooting phase' tagged commandPhase, Scriptural Prognosis 'opponent's Shooting phase or the Fight phase' tagged all five). Writing from it would regress authored phases, so authored phases win and stratagems.ts derives phases from whenRules prose for review only."
@@ -267,9 +324,7 @@
     "/phases/*": {
       "provenance": "unresolved-candidate",
       "coverage": "unimplemented",
-      "sources": [
-        "data.stratagem_phase.phase"
-      ],
+      "sources": ["data.stratagem_phase.phase"],
       "joins": [
         {
           "relation": "stratagem_phase.stratagemId",
@@ -278,9 +333,7 @@
         }
       ],
       "transforms": [],
-      "filters": [
-        "Phase rows must belong to the current stratagem."
-      ],
+      "filters": ["Phase rows must belong to the current stratagem."],
       "precedence": [],
       "consumers": [],
       "reason": "REJECTED source: see /phases — stratagem_phase disagrees with the card whenRules too often to write; authored phases win, prose parse is review-only."
@@ -288,9 +341,7 @@
     "/player_turn": {
       "provenance": "direct",
       "coverage": "implemented",
-      "sources": [
-        "data.stratagem.key"
-      ],
+      "sources": ["data.stratagem.key"],
       "joins": [],
       "transforms": [
         {
@@ -436,9 +487,7 @@
     "/type": {
       "provenance": "direct",
       "coverage": "implemented",
-      "sources": [
-        "data.stratagem.category"
-      ],
+      "sources": ["data.stratagem.category"],
       "joins": [],
       "transforms": [
         {

@@ -71,6 +71,20 @@
         "item_id": "ectoplasma-cannon",
         "cost": 5
       }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "81e1-b212-69c1-308f"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "d654c6b1-4542-5b8d-ae19-ce281858841d"
+      },
+      {
+        "namespace": "mfm",
+        "id": "ad0e6fb7-73e8-454a-9817-84a4876e9115"
+      }
     ]
   },
   {
@@ -132,7 +146,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "3449-7dac-6ac8-5d51"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "6334b90e-7d61-5f7d-9f8c-9c09f49ee9de"
+      },
+      {
+        "namespace": "mfm",
+        "id": "579377ed-babf-41a9-b9dc-3ed4283d8289"
+      }
+    ]
   },
   {
     "id": "master-of-executions",
@@ -191,7 +219,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "1b56-682c-ac33-bc5f"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "7bc729b3-54e2-59cb-8080-daaab3ddbbca"
+      },
+      {
+        "namespace": "mfm",
+        "id": "71ef53cd-b064-4a91-8672-57a93db2d3e4"
+      }
+    ]
   },
   {
     "id": "khorne-berzerkers",
@@ -267,6 +309,20 @@
         "count": 1,
         "per_models": 0
       }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "f909-00c7-8ba4-018a"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "c7cdcaef-03ab-5051-ac97-17286d4bcb34"
+      },
+      {
+        "namespace": "mfm",
+        "id": "7d446c07-a5da-4b6c-a157-5db93f88f2b2"
+      }
     ]
   },
   {
@@ -335,6 +391,20 @@
         "keyword": "Battleline",
         "required_detachment_id": "cult-of-blood"
       }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "6f81-4538-a414-251e"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "d03e0726-20ac-5498-99ac-6732e375a337"
+      },
+      {
+        "namespace": "mfm",
+        "id": "27ce35ae-c7ef-4215-8ea5-20975ed47f29"
+      }
     ]
   },
   {
@@ -395,7 +465,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "ec72-f024-4283-0558"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "cf56a11c-7b1d-5f58-aa07-b2f04fec0047"
+      },
+      {
+        "namespace": "mfm",
+        "id": "b97d5637-e1f7-4f4a-b31c-f4537750073f"
+      }
+    ]
   },
   {
     "id": "daemon-prince-of-khorne-with-wings",
@@ -455,7 +539,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "0294-61a4-c6ed-b2e8"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "4ec9c6b3-1c3c-52df-b49d-1f2b5ce598fb"
+      },
+      {
+        "namespace": "mfm",
+        "id": "3e0254cb-fec8-4c3c-89d5-6c4aeac5feb8"
+      }
+    ]
   },
   {
     "id": "chaos-land-raider",
@@ -526,7 +624,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "4251-bd4f-f7ac-9487"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "5f021401-11a5-573d-b8e4-43e911156975"
+      },
+      {
+        "namespace": "mfm",
+        "id": "e8a85ae9-21df-40e5-b829-18c68384c153"
+      }
+    ]
   },
   {
     "id": "maulerfiend",
@@ -593,7 +705,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "a619-8a52-be03-3bd5"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "90f24438-6cf8-523c-969d-a952f329016a"
+      },
+      {
+        "namespace": "mfm",
+        "id": "a50d6156-46da-49ca-bb61-d4dbe18bb929"
+      }
+    ]
   },
   {
     "id": "defiler",
@@ -676,6 +802,20 @@
         "item_id": "heavy-reaper-autocannon",
         "cost": 15
       }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "ea51-5575-9e74-9346"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "fa9a5ed6-8820-5755-9090-c577692e8e2e"
+      },
+      {
+        "namespace": "mfm",
+        "id": "de43f6ce-ef32-4a4e-8919-8ac5cc292ba0"
+      }
     ]
   },
   {
@@ -735,7 +875,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "de2e-8fae-9d22-24a4"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "c2cc1787-cd42-5d41-bc82-bcdcd6c3b61f"
+      },
+      {
+        "namespace": "mfm",
+        "id": "02321c24-3ae1-43d6-9367-747e965cf078"
+      }
+    ]
   },
   {
     "id": "daemon-prince-of-khorne",
@@ -794,7 +948,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "40c5-9ebd-6d42-2855"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "e59ecd83-ddbf-50ae-80f7-38d62e62496b"
+      },
+      {
+        "namespace": "mfm",
+        "id": "fa3cdedd-19b5-45c3-b909-510083e17952"
+      }
+    ]
   },
   {
     "id": "eightbound",
@@ -871,7 +1039,25 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "7e60-1733-57d1-71f3"
+      },
+      {
+        "namespace": "bsdata",
+        "id": "9435-1f44-7e5b-d510"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "cfa88513-93d0-5a70-b068-6059ecc48138"
+      },
+      {
+        "namespace": "mfm",
+        "id": "9fc32622-b586-430c-ab13-87d7b2a1c0f4"
+      }
+    ]
   },
   {
     "id": "slaughterbound",
@@ -932,7 +1118,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "71c9-b10b-b55f-483e"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "b57a335d-822d-5efc-8d3b-179d2ed1c0e7"
+      },
+      {
+        "namespace": "mfm",
+        "id": "76253664-130d-4da2-9676-f51b7f1d4fb3"
+      }
+    ]
   },
   {
     "id": "exalted-eightbound",
@@ -1009,7 +1209,25 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "8719-8732-d0be-c527"
+      },
+      {
+        "namespace": "bsdata",
+        "id": "9932-3d2b-1e47-d53b"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "d9e28d2d-c9cf-57ee-8343-7dc622678ab4"
+      },
+      {
+        "namespace": "mfm",
+        "id": "e63ea988-7157-44de-88b4-5995d0fad43b"
+      }
+    ]
   },
   {
     "id": "lord-invocatus",
@@ -1072,7 +1290,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "3b15-b424-2059-71fa"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "bfeb3ccf-b548-5794-91ea-ef93e2b96063"
+      },
+      {
+        "namespace": "mfm",
+        "id": "d2f7b46b-4b90-44e4-bbe8-486f3dc2297e"
+      }
+    ]
   },
   {
     "id": "chaos-rhino",
@@ -1144,7 +1376,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "e849-ce40-ee43-7623"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "95ddee3b-53cb-5683-9b41-4fc6eb6fc61c"
+      },
+      {
+        "namespace": "mfm",
+        "id": "556ff0b6-fd5e-4888-9b93-a5b5f730a2b2"
+      }
+    ]
   },
   {
     "id": "helbrute",
@@ -1210,7 +1456,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "273a-db24-3f7c-b977"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "0b020c25-102b-5feb-93f5-5eda796bd1d5"
+      },
+      {
+        "namespace": "mfm",
+        "id": "324075e0-5b62-4972-9eef-0864ddc5e414"
+      }
+    ]
   },
   {
     "id": "chaos-predator-destructor",
@@ -1278,7 +1538,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "04a0-269e-3bab-2c61"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "998a9530-9e8f-594a-9f8d-02a2031d54aa"
+      },
+      {
+        "namespace": "mfm",
+        "id": "6578cc75-7682-4b14-834c-2a470bb0856a"
+      }
+    ]
   },
   {
     "id": "angron",
@@ -1340,7 +1614,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "f4b8-1179-de57-4d69"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "39a6eb68-07ea-563e-a629-bd72b89b4dc7"
+      },
+      {
+        "namespace": "mfm",
+        "id": "1c2f7059-455d-4e9c-a5c8-b92e74c6b26f"
+      }
+    ]
   },
   {
     "id": "chaos-predator-annihilator",
@@ -1408,7 +1696,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "497c-f787-5a7e-1020"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "3773dc53-7315-5caf-9abd-01d88825732c"
+      },
+      {
+        "namespace": "mfm",
+        "id": "4b7265a1-c96f-437b-aac5-c5249660614a"
+      }
+    ]
   },
   {
     "id": "chaos-terminators",
@@ -1522,6 +1824,20 @@
         "count": 1,
         "per_models": 5
       }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "45f6-8429-a1d9-2a51"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "ad5f64b2-6e98-5d14-beae-ed083a8b13ab"
+      },
+      {
+        "namespace": "mfm",
+        "id": "c53f92f6-5c8a-4d3d-a4e9-25d4a4bb48e1"
+      }
     ]
   },
   {
@@ -1592,7 +1908,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "836c-f65b-6bcb-9663"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "c3574459-2662-52cd-92f5-6f71cf90aadb"
+      },
+      {
+        "namespace": "mfm",
+        "id": "d5a8c445-3a9f-469d-b309-451e5f146db2"
+      }
+    ]
   },
   {
     "id": "chaos-spawn",
@@ -1648,7 +1978,25 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "a1f0-3ef8-0f56-b54c"
+      },
+      {
+        "namespace": "bsdata",
+        "id": "edde-57bf-bccc-d8b2"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "bafeb65b-91d6-5b9d-b071-115160122588"
+      },
+      {
+        "namespace": "mfm",
+        "id": "6757c8ab-06a5-487d-80af-aad8cf771972"
+      }
+    ]
   },
   {
     "id": "goremongers",
@@ -1711,6 +2059,20 @@
         "keyword": "Battleline",
         "required_detachment_id": "cult-of-blood"
       }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "b399-9b66-e550-8050"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "8efd3989-5b98-5710-91a6-35d6bc3825b8"
+      },
+      {
+        "namespace": "mfm",
+        "id": "5cf17176-dbff-4926-bd5d-ebf58f898fd2"
+      }
     ]
   },
   {
@@ -1757,7 +2119,13 @@
       "combat-patrol"
     ],
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "23c25ac0-a399-48f5-8d99-ce63494ca4c5"
+      }
+    ]
   },
   {
     "id": "frenzied-reavers-khorne-berzerkers",
@@ -1809,7 +2177,13 @@
     "base_size_mm": {
       "shape": "round",
       "diameter": 32
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "bc450c4e-6c0b-4aa4-91c0-e68c2eab9bf5"
+      }
+    ]
   },
   {
     "id": "frenzied-reavers-master-of-executions",
@@ -1860,7 +2234,13 @@
     "base_size_mm": {
       "shape": "round",
       "diameter": 40
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "0744f145-8b84-4c78-b4fe-b2bd2d26be1f"
+      }
+    ]
   },
   {
     "id": "vorrakh-lord-of-the-frenzied-reavers",
@@ -1913,6 +2293,12 @@
     "base_size_mm": {
       "shape": "round",
       "diameter": 60
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "c1293a75-ad62-442b-b6ea-d9303fdf2e52"
+      }
+    ]
   }
 ]

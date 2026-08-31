@@ -19,6 +19,7 @@
 //! unlike TS it stores owned records and hands back borrows (`&T`) rather than
 //! lazily-wrapped view objects.
 
+use crate::generated::ExternalReference;
 use std::collections::HashMap;
 
 use super::normalize::normalize_name;
@@ -37,6 +38,8 @@ pub struct Collection<T> {
     /// Per-faction id index: faction_id → (id → item index). Lets an id shared
     /// across factions resolve to a specific faction's copy (see `get_in_faction`).
     by_faction_id: HashMap<String, HashMap<String, usize>>,
+    /// Exact external source identity → every matching item index.
+    by_external_ref: HashMap<String, Vec<usize>>,
     /// Normalized name per item (parallel to `items`), for the substring fallback.
     norm_names: Vec<Option<String>>,
     /// Ids registered under >1 faction; populated by
@@ -145,6 +148,7 @@ impl<T> Collection<T> {
             by_norm,
             by_faction,
             by_faction_id,
+            by_external_ref: HashMap::new(),
             norm_names,
             ambiguous_ids: None,
             id_aliases: None,
@@ -193,6 +197,21 @@ impl<T> Collection<T> {
         self
     }
 
+    /// Build the many-to-many external-source identity index.
+    pub fn with_external_refs(mut self, refs_of: impl Fn(&T) -> &[ExternalReference]) -> Self {
+        for (index, item) in self.items.iter().enumerate() {
+            for reference in refs_of(item) {
+                let key = format!(
+                    "{}\0{}",
+                    reference.namespace.as_str(),
+                    reference.id.as_str()
+                );
+                self.by_external_ref.entry(key).or_default().push(index);
+            }
+        }
+        self
+    }
+
     /// Item index for an id: exact `by_id`, falling back through the
     /// [`id_aliases`](Self::with_id_aliases) map (one hop) on a miss.
     fn raw_index(&self, id: &str) -> Option<usize> {
@@ -218,6 +237,17 @@ impl<T> Collection<T> {
     /// Whether the collection holds no records.
     pub fn is_empty(&self) -> bool {
         self.items.is_empty()
+    }
+
+    /// Return every record carrying the exact external source identity.
+    ///
+    /// External mappings are many-to-many, so this always returns a collection.
+    pub fn by_external_ref(&self, namespace: &str, id: &str) -> Vec<&T> {
+        let key = format!("{namespace}\0{id}");
+        self.by_external_ref
+            .get(&key)
+            .map(|indices| indices.iter().map(|&index| &self.items[index]).collect())
+            .unwrap_or_default()
     }
 
     /// Look up by exact id.

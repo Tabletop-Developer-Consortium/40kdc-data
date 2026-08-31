@@ -2,16 +2,12 @@
   "$schema": "../mfm-source-map.schema.json",
   "entity_schema": "schemas/core/faction.schema.json",
   "mapping_version": 1,
-  "root_tables": [
-    "faction_keyword"
-  ],
+  "root_tables": ["faction_keyword"],
   "fields": {
     "/aliases": {
       "provenance": "derived",
       "coverage": "partial",
-      "sources": [
-        "data.faction_keyword.localisations.*.commonName"
-      ],
+      "sources": ["data.faction_keyword.localisations.*.commonName"],
       "joins": [],
       "transforms": [
         {
@@ -23,17 +19,13 @@
         "Additive-only: appends the common name; never removes an authored alias."
       ],
       "precedence": [],
-      "consumers": [
-        "tools/src/mfm/faction-fields.ts#runFactionFields"
-      ],
+      "consumers": ["tools/src/mfm/faction-fields.ts#runFactionFields"],
       "reason": "The dump's localized common name (e.g. \"Space Marines\") is an interoperability alias; runFactionFields appends it additively."
     },
     "/aliases/*": {
       "provenance": "derived",
       "coverage": "partial",
-      "sources": [
-        "data.faction_keyword.localisations.*.commonName"
-      ],
+      "sources": ["data.faction_keyword.localisations.*.commonName"],
       "joins": [],
       "transforms": [
         {
@@ -45,10 +37,71 @@
         "Additive-only: appends the common name; never removes an authored alias."
       ],
       "precedence": [],
-      "consumers": [
-        "tools/src/mfm/faction-fields.ts#runFactionFields"
-      ],
+      "consumers": ["tools/src/mfm/faction-fields.ts#runFactionFields"],
       "reason": "The dump's localized common name (e.g. \"Space Marines\") is an interoperability alias; runFactionFields appends it additively."
+    },
+    "/external_refs": {
+      "provenance": "derived",
+      "coverage": "implemented",
+      "sources": ["data.faction_keyword.id"],
+      "joins": [],
+      "transforms": [
+        {
+          "symbol": "tools/src/mfm/external-refs.ts#runMfmExternalRefs",
+          "operation": "Preserve the matched source row identity under the mfm namespace."
+        }
+      ],
+      "filters": [
+        "Only the unambiguous home faction keyword whose slug equals the repository faction id."
+      ],
+      "precedence": [
+        "Additive: retain exact references from every other namespace."
+      ],
+      "consumers": ["tools/src/mfm/external-refs.ts#runMfmExternalRefs"],
+      "reason": "External source identities are additive interoperability metadata."
+    },
+    "/external_refs/*": {
+      "provenance": "derived",
+      "coverage": "implemented",
+      "sources": ["data.faction_keyword.id"],
+      "joins": [],
+      "transforms": [
+        {
+          "symbol": "tools/src/mfm/external-refs.ts#runMfmExternalRefs",
+          "operation": "Create one unique namespace/id pair."
+        }
+      ],
+      "filters": ["Only the unambiguous home faction keyword."],
+      "precedence": ["Additive; exact duplicate pairs are ignored."],
+      "consumers": ["tools/src/mfm/external-refs.ts#runMfmExternalRefs"],
+      "reason": "Each item preserves one exact external identity."
+    },
+    "/external_refs/*/id": {
+      "provenance": "direct",
+      "coverage": "implemented",
+      "sources": ["data.faction_keyword.id"],
+      "joins": [],
+      "transforms": [],
+      "filters": ["Only the matched home faction keyword."],
+      "precedence": [],
+      "consumers": ["tools/src/mfm/external-refs.ts#runMfmExternalRefs"],
+      "reason": "The external id is the MFM faction_keyword primary key."
+    },
+    "/external_refs/*/namespace": {
+      "provenance": "derived",
+      "coverage": "implemented",
+      "sources": ["data.faction_keyword.id"],
+      "joins": [],
+      "transforms": [
+        {
+          "symbol": "tools/src/mfm/external-refs.ts#runMfmExternalRefs",
+          "operation": "Label the source identity with the constant mfm namespace."
+        }
+      ],
+      "filters": [],
+      "precedence": [],
+      "consumers": ["tools/src/mfm/external-refs.ts#runMfmExternalRefs"],
+      "reason": "The namespace distinguishes MFM ids from other source identities."
     },
     "/faction_rule_id": {
       "provenance": "joined",
@@ -81,9 +134,7 @@
         "Fill-only: filled when the faction owns exactly one army rule and none is authored; confirmed when the authored slug matches any owned rule; a mismatch or an ambiguous multi-rule faction is surfaced for review, never overwritten (the dump cannot pick THE faction-wide rule among several)."
       ],
       "precedence": [],
-      "consumers": [
-        "tools/src/mfm/faction-fields.ts#runFactionFields"
-      ],
+      "consumers": ["tools/src/mfm/faction-fields.ts#runFactionFields"],
       "reason": "The owned army rules give candidate faction_rule_id slugs; runFactionFields fills an unambiguous single one and confirms or preserves authored curated slugs."
     },
     "/game_version": {
@@ -122,9 +173,7 @@
     "/id": {
       "provenance": "derived",
       "coverage": "partial",
-      "sources": [
-        "data.faction_keyword.localisations.*.name"
-      ],
+      "sources": ["data.faction_keyword.localisations.*.name"],
       "joins": [],
       "transforms": [
         {
@@ -185,14 +234,10 @@
     "/name": {
       "provenance": "direct",
       "coverage": "partial",
-      "sources": [
-        "data.faction_keyword.localisations.*.name"
-      ],
+      "sources": ["data.faction_keyword.localisations.*.name"],
       "joins": [],
       "transforms": [],
-      "filters": [
-        "Current routing reads the English localized name."
-      ],
+      "filters": ["Current routing reads the English localized name."],
       "precedence": [],
       "consumers": [
         "tools/src/mfm/faction-map.ts#repoDirForFactionName",
@@ -224,9 +269,7 @@
         "Fill-only: filled when the dump names a parent keyword resolving to a repo faction and none is authored; confirmed on match; a disagreement is surfaced for review, never overwritten."
       ],
       "precedence": [],
-      "consumers": [
-        "tools/src/mfm/faction-fields.ts#runFactionFields"
-      ],
+      "consumers": ["tools/src/mfm/faction-fields.ts#runFactionFields"],
       "reason": "The verified hierarchy relation names a parent keyword; runFactionFields resolves it to the repo parent faction id and fills/confirms parent_faction_id."
     }
   },

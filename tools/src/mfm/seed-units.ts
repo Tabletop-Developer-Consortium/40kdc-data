@@ -24,17 +24,29 @@ import * as fs from "fs";
 import * as path from "path";
 import { nameToId } from "../converters/id-generator.js";
 import { FACTION_HOME_KEYWORD } from "../integrity.js";
-import { MfmDump, type DatasheetRow,
-type PublicationRow,
-type FactionKeywordRow,
-type MiniatureRow,
-type MiniatureKeywordRow,
-type DatasheetFactionKeywordRow,
-type UnitCompositionRow,
-type UnitCompositionMiniatureRow, } from "./loader.js";
+import {
+  MfmDump,
+  type DatasheetRow,
+  type PublicationRow,
+  type FactionKeywordRow,
+  type MiniatureRow,
+  type MiniatureKeywordRow,
+  type DatasheetFactionKeywordRow,
+  type UnitCompositionRow,
+  type UnitCompositionMiniatureRow,
+} from "./loader.js";
 import { CORE_DIR, readJsonArray } from "./repo-files.js";
-import { repoDirForFactionName, repoDirs, SHARED_ROSTERS } from "./faction-map.js";
-import { deriveDatasheet, cleanTier, type Tier, type AlliedTier } from "./points.js";
+import {
+  repoDirForFactionName,
+  repoDirs,
+  SHARED_ROSTERS,
+} from "./faction-map.js";
+import {
+  deriveDatasheet,
+  cleanTier,
+  type Tier,
+  type AlliedTier,
+} from "./points.js";
 import type { StagedWrite } from "./apply.js";
 import { type GoldenMode, isCombatPatrolPublication } from "./game-mode.js";
 
@@ -55,6 +67,7 @@ interface Profile {
 }
 interface SeedUnit {
   id: string;
+  external_refs: { namespace: string; id: string }[];
   name: string;
   faction_id: string;
   role?: string;
@@ -84,7 +97,9 @@ class SeedSkip extends Error {}
  * the schema's integer fields, so it raises SeedSkip rather than emit garbage.
  */
 function statInt(raw: string | undefined, field: string, name: string): number {
-  const s = String(raw ?? "").trim().replace(/["+]$/, "");
+  const s = String(raw ?? "")
+    .trim()
+    .replace(/["+]$/, "");
   if (!/^\d+$/.test(s)) {
     throw new SeedSkip(`${name}: non-numeric ${field} "${raw ?? ""}"`);
   }
@@ -97,8 +112,14 @@ function statInt(raw: string | undefined, field: string, name: string): number {
  * profile. Profiles are deduped on the full stat tuple and ordered by the
  * miniature `displayOrder`.
  */
-function buildProfiles(dump: MfmDump, datasheetId: string, unitName: string): Profile[] {
-  const minis = (dump.groupBy("miniature", "datasheetId").get(datasheetId) ?? [])
+function buildProfiles(
+  dump: MfmDump,
+  datasheetId: string,
+  unitName: string,
+): Profile[] {
+  const minis = (
+    dump.groupBy("miniature", "datasheetId").get(datasheetId) ?? []
+  )
     .slice()
     .sort((a, b) => a.displayOrder - b.displayOrder);
   const visible = minis.filter((m) => !m.statlineHidden);
@@ -115,9 +136,19 @@ function buildProfiles(dump: MfmDump, datasheetId: string, unitName: string): Pr
     const key = `${M}:${T}:${W}:${Sv}:${Ld}:${OC}`;
     if (seen.has(key)) continue;
     seen.add(key);
-    profiles.push({ name: dump.enName(m) ?? unitName, M, T, W, Sv, invuln_sv: null, Ld, OC });
+    profiles.push({
+      name: dump.enName(m) ?? unitName,
+      M,
+      T,
+      W,
+      Sv,
+      invuln_sv: null,
+      Ld,
+      OC,
+    });
   }
-  if (!profiles.length) throw new SeedSkip(`${unitName}: no visible statline in dump`);
+  if (!profiles.length)
+    throw new SeedSkip(`${unitName}: no visible statline in dump`);
   return profiles;
 }
 
@@ -131,7 +162,9 @@ const NON_GAME_KEYWORDS = new Set(["Frame"]);
 
 /** Union of keyword names across the datasheet's miniatures, deduped, in display order. */
 function buildKeywords(dump: MfmDump, datasheetId: string): string[] {
-  const minis = (dump.groupBy("miniature", "datasheetId").get(datasheetId) ?? [])
+  const minis = (
+    dump.groupBy("miniature", "datasheetId").get(datasheetId) ?? []
+  )
     .slice()
     .sort((a, b) => a.displayOrder - b.displayOrder);
   const mkByMini = dump.groupBy("miniature_keyword", "miniatureId");
@@ -139,7 +172,9 @@ function buildKeywords(dump: MfmDump, datasheetId: string): string[] {
   const out: string[] = [];
   const seen = new Set<string>();
   for (const m of minis) {
-    const mks = (mkByMini.get(m.id!) ?? []).slice().sort((a, b) => a.displayOrder - b.displayOrder);
+    const mks = (mkByMini.get(m.id!) ?? [])
+      .slice()
+      .sort((a, b) => a.displayOrder - b.displayOrder);
     for (const mk of mks) {
       const nm = dump.enName(kwById.get(mk.keywordId));
       if (!nm || seen.has(nm) || NON_GAME_KEYWORDS.has(nm)) continue;
@@ -156,11 +191,16 @@ function buildKeywords(dump: MfmDump, datasheetId: string): string[] {
  * datasheets carry contaminant multi-legion lines), so we emit only `[home]`.
  * Every other faction takes the dump's list, deduped in display order.
  */
-function buildFactionKeywords(dump: MfmDump, datasheetId: string, dir: string): string[] {
+function buildFactionKeywords(
+  dump: MfmDump,
+  datasheetId: string,
+  dir: string,
+): string[] {
   const home = FACTION_HOME_KEYWORD[dir];
   if (home) return [home];
   const rows = (
-    dump.groupBy("datasheet_faction_keyword", "datasheetId").get(datasheetId) ?? []
+    dump.groupBy("datasheet_faction_keyword", "datasheetId").get(datasheetId) ??
+    []
   )
     .slice()
     .sort((a, b) => a.displayOrder - b.displayOrder);
@@ -193,9 +233,16 @@ function deriveRole(keywords: string[]): string | undefined {
  * overcount the max; the composition-tiers subcommand re-syncs it precisely
  * later — here we only need a schema-valid (≥1, max≥min) placeholder.
  */
-function buildModelCount(dump: MfmDump, datasheetId: string): { min: number; max: number } {
-  const comps = dump.groupBy("unit_composition", "datasheetId").get(datasheetId) ?? [];
-  const miniByComp = dump.groupBy("unit_composition_miniature", "unitCompositionId");
+function buildModelCount(
+  dump: MfmDump,
+  datasheetId: string,
+): { min: number; max: number } {
+  const comps =
+    dump.groupBy("unit_composition", "datasheetId").get(datasheetId) ?? [];
+  const miniByComp = dump.groupBy(
+    "unit_composition_miniature",
+    "unitCompositionId",
+  );
   let min = Infinity;
   let max = 0;
   for (const c of comps) {
@@ -211,7 +258,11 @@ function buildModelCount(dump: MfmDump, datasheetId: string): { min: number; max
 }
 
 /** Assemble one skeleton unit from a dump datasheet. Throws SeedSkip on unusable data. */
-export function buildSeedUnit(dump: MfmDump, ds: DatasheetRow, dir: string): SeedUnit {
+export function buildSeedUnit(
+  dump: MfmDump,
+  ds: DatasheetRow,
+  dir: string,
+): SeedUnit {
   const name = dump.enName(ds);
   if (!name) throw new SeedSkip(`<${ds.id}>: datasheet has no English name`);
   let id: string;
@@ -237,13 +288,15 @@ export function buildSeedUnit(dump: MfmDump, ds: DatasheetRow, dir: string): See
   const { native, allied, ambiguous } = deriveDatasheet(dump, ds.id!);
   const priced = native.length > 0 && !ambiguous;
   const points = priced ? native.map(cleanTier) : undefined;
-  const allied_points = priced && allied.length ? allied.map(cleanTier) : undefined;
+  const allied_points =
+    priced && allied.length ? allied.map(cleanTier) : undefined;
 
   // Emit fields in the repo's established key order (see data/core/*/units.json).
   // weapon_ids / ability_ids / base_size_mm stay absent — loadout authoring (wargear)
   // and ability authoring fill those in follow-ups.
   const unit: SeedUnit = {
     id,
+    external_refs: [{ namespace: "mfm", id: ds.id! }],
     name,
     faction_id: dir,
     ...(role ? { role } : {}),
@@ -303,7 +356,10 @@ export function effectiveDir(dir: string): string | null {
   return null;
 }
 
-export function runSeedUnits(dump: MfmDump, opts: SeedUnitsOptions = {}): SeedUnitsReport {
+export function runSeedUnits(
+  dump: MfmDump,
+  opts: SeedUnitsOptions = {},
+): SeedUnitsReport {
   const { onlyDir, includeCombatPatrol = false } = opts;
   const allDirs = repoDirs();
   const pub = dump.byId("publication");
@@ -315,7 +371,9 @@ export function runSeedUnits(dump: MfmDump, opts: SeedUnitsOptions = {}): SeedUn
   for (const ds of dump.table("datasheet")) {
     if (ds.isLegends) continue;
     const fkId = pub.get(ds.publicationId)?.factionKeywordId ?? null;
-    const dir = repoDirForFactionName(fkId ? dump.enName(fkName.get(fkId)) : undefined);
+    const dir = repoDirForFactionName(
+      fkId ? dump.enName(fkName.get(fkId)) : undefined,
+    );
     if (!dir || !allDirs.has(dir)) continue;
     (byDir.get(dir) ?? byDir.set(dir, []).get(dir)!).push(ds);
   }
@@ -352,13 +410,18 @@ export function runSeedUnits(dump: MfmDump, opts: SeedUnitsOptions = {}): SeedUn
 
     // Shared-roster exclusion: a datasheet whose slug already lives in a parent
     // roster dir is a republished duplicate, not a new unit (coverage's "shared-skip").
-    const sharedIds = new Set((SHARED_ROSTERS[dir] ?? []).flatMap((p) => [...idsFor(p)]));
+    const sharedIds = new Set(
+      (SHARED_ROSTERS[dir] ?? []).flatMap((p) => [...idsFor(p)]),
+    );
     const effIds = idsFor(effDir);
 
     // Dedupe candidate datasheets by slug, preferring a non-Combat-Patrol row and
     // then the lowest displayOrder, so a slug with both CP and matched-play rows
     // seeds from the matched-play statline.
-    const bySlug = new Map<string, { ds: DatasheetRow; name: string; cp: boolean }>();
+    const bySlug = new Map<
+      string,
+      { ds: DatasheetRow; name: string; cp: boolean }
+    >();
     for (const ds of byDir.get(dir) ?? []) {
       const name = dump.enName(ds);
       if (!name) continue;
@@ -380,15 +443,25 @@ export function runSeedUnits(dump: MfmDump, opts: SeedUnitsOptions = {}): SeedUn
       }
     }
 
-    const res: DirSeedResult = { dir, created: [], cpExcluded: [], skipped: [] };
+    const res: DirSeedResult = {
+      dir,
+      created: [],
+      cpExcluded: [],
+      skipped: [],
+    };
     if (effDir !== dir) res.routedTo = effDir;
     const arr = loadEff(effDir);
 
-    for (const [id, { ds, name, cp }] of [...bySlug].sort((a, b) => a[0].localeCompare(b[0]))) {
+    for (const [id, { ds, name, cp }] of [...bySlug].sort((a, b) =>
+      a[0].localeCompare(b[0]),
+    )) {
       // A slug already created this run (e.g. two chapters routing the same id to a
       // parent) is caught by effIds, which we keep updated as we append.
       if (effIds.has(id)) {
-        res.skipped.push({ name, reason: `slug "${id}" already filed in ${effDir}` });
+        res.skipped.push({
+          name,
+          reason: `slug "${id}" already filed in ${effDir}`,
+        });
         continue;
       }
       // Combat-Patrol-only units are held back unless explicitly requested.
@@ -402,22 +475,29 @@ export function runSeedUnits(dump: MfmDump, opts: SeedUnitsOptions = {}): SeedUn
         effIds.add(id);
         res.created.push({ id, name, combatPatrolOnly: cp });
       } catch (e) {
-        if (e instanceof SeedSkip) res.skipped.push({ name, reason: e.message });
+        if (e instanceof SeedSkip)
+          res.skipped.push({ name, reason: e.message });
         else throw e;
       }
     }
 
-    if (res.created.length || res.cpExcluded.length || res.skipped.length) results.push(res);
+    if (res.created.length || res.cpExcluded.length || res.skipped.length)
+      results.push(res);
   }
 
   const staged: StagedWrite[] = [...filesByEffDir.entries()]
-    .filter(([dir]) => results.some((r) => (r.routedTo ?? r.dir) === dir && r.created.length))
+    .filter(([dir]) =>
+      results.some((r) => (r.routedTo ?? r.dir) === dir && r.created.length),
+    )
     .map(([dir, value]) => ({ path: unitsPath(dir), value }));
 
   return { dirs: results, staged };
 }
 
-export function buildSeedUnitsReport(report: SeedUnitsReport, write: boolean): string {
+export function buildSeedUnitsReport(
+  report: SeedUnitsReport,
+  write: boolean,
+): string {
   const { dirs } = report;
   const created = dirs.reduce((a, d) => a + d.created.length, 0);
   const skipped = dirs.reduce((a, d) => a + d.skipped.length, 0);
@@ -426,14 +506,20 @@ export function buildSeedUnitsReport(report: SeedUnitsReport, write: boolean): s
   L.push(`# MFM seed-units — ${write ? "APPLIED" : "DRY RUN"}`);
   L.push("");
   L.push("Skeleton units created for dump datasheets that had no repo entity.");
-  L.push("Points/wargear/composition/abilities are left empty for the enrichment passes.");
-  L.push("Shared-roster children (SM chapters) file into their parent dir, shown as `→`.");
+  L.push(
+    "Points/wargear/composition/abilities are left empty for the enrichment passes.",
+  );
+  L.push(
+    "Shared-roster children (SM chapters) file into their parent dir, shown as `→`.",
+  );
   L.push(
     "Combat-Patrol-only units (from `Combat Patrol: X` publications) are held back " +
       "by default; pass `--include-combat-patrol` to seed them too.",
   );
   L.push("");
-  L.push(`**Created: ${created}** | **CP-only excluded: ${cpExcluded}** | **Skipped: ${skipped}**`);
+  L.push(
+    `**Created: ${created}** | **CP-only excluded: ${cpExcluded}** | **Skipped: ${skipped}**`,
+  );
   L.push("");
   L.push("| Source dir | → Filed in | Created | CP-only excluded | Skipped |");
   L.push("|---|---|--:|--:|--:|");
@@ -442,17 +528,23 @@ export function buildSeedUnitsReport(report: SeedUnitsReport, write: boolean): s
       `| ${d.dir} | ${d.routedTo ?? d.dir} | ${d.created.length} | ${d.cpExcluded.length} | ${d.skipped.length} |`,
     );
   }
-  L.push(`| **TOTAL** | | **${created}** | **${cpExcluded}** | **${skipped}** |`);
+  L.push(
+    `| **TOTAL** | | **${created}** | **${cpExcluded}** | **${skipped}** |`,
+  );
   L.push("");
   for (const d of dirs) {
-    if (!d.created.length && !d.cpExcluded.length && !d.skipped.length) continue;
+    if (!d.created.length && !d.cpExcluded.length && !d.skipped.length)
+      continue;
     L.push(`## ${d.dir}${d.routedTo ? ` → ${d.routedTo}` : ""}`);
     if (d.created.length) {
       L.push("", "**Created:**");
       d.created.forEach((c) => L.push(`- ${c.id} (${c.name})`));
     }
     if (d.cpExcluded.length) {
-      L.push("", "**Combat-Patrol-only — held back (pass `--include-combat-patrol` to seed):**");
+      L.push(
+        "",
+        "**Combat-Patrol-only — held back (pass `--include-combat-patrol` to seed):**",
+      );
       d.cpExcluded.forEach((c) => L.push(`- ${c.id} (${c.name})`));
     }
     if (d.skipped.length) {

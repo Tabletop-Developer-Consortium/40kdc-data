@@ -83,6 +83,7 @@ class Dataset:
         self.units: Collection[dict[str, Any], UnitView] = Collection(
             raw["units"],
             id_of=lambda u: u["id"],
+            external_refs_of=lambda u: u.get("external_refs"),
             # The same unit id is shared across factions (e.g.
             # ministorum-priest); keep each faction's copy, collapse only true
             # within-faction duplicates.
@@ -100,6 +101,7 @@ class Dataset:
         self.weapons: Collection[dict[str, Any], WeaponView] = Collection(
             raw["weapons"],
             id_of=lambda w: w["id"],
+            external_refs_of=lambda w: w.get("external_refs"),
             name_of=lambda w: w.get("name"),
             # A bare weapon id is shared across factions with divergent stats; key
             # on (faction_id, id) so every faction's copy is kept and a unit
@@ -123,6 +125,7 @@ class Dataset:
         self.factions: Collection[dict[str, Any], FactionView] = Collection(
             raw["factions"],
             id_of=lambda f: f["id"],
+            external_refs_of=lambda f: f.get("external_refs"),
             name_of=lambda f: f.get("name"),
             id_aliases=embedded_registry_aliases(),
             wrap=lambda f: FactionView(f, self),
@@ -156,6 +159,7 @@ class Dataset:
         self.detachments = Collection(
             raw["detachments"],
             id_of=lambda d: d["id"],
+            external_refs_of=lambda d: d.get("external_refs"),
             name_of=lambda d: d.get("name"),
             dedupe_key_of=lambda d: f"{d['faction_id']}::{d['id']}",
             faction_of=lambda d: d.get("faction_id"),

@@ -59,7 +59,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "d54e-1007-26b5-6a79"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "a4830798-deae-5bf2-9f49-4b5e5e5bd4bb"
+      },
+      {
+        "namespace": "mfm",
+        "id": "1d50b887-a966-44f7-8fa6-343a34623946"
+      }
+    ]
   },
   {
     "id": "onager-dunecrawler",
@@ -122,7 +136,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "ea05-4db7-9ee6-7a87"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "99cde65d-31e7-523a-9791-8fe0f1e1c965"
+      },
+      {
+        "namespace": "mfm",
+        "id": "ce2c65d6-c12d-4b5a-b68d-7c6679b35754"
+      }
+    ]
   },
   {
     "id": "kataphron-destroyers",
@@ -184,7 +212,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "7bee-a476-2167-76e7"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "c1893b52-e426-59c4-aa4d-0a03e4b329ad"
+      },
+      {
+        "namespace": "mfm",
+        "id": "3edc45db-6303-48d4-839a-3729dbd84973"
+      }
+    ]
   },
   {
     "id": "cybernetica-datasmith",
@@ -242,7 +284,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "support"
+    "attachment_role": "support",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "d59d-ef1-9ef8-4f44"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "53661916-dc81-5293-919b-5c31b0bf7e36"
+      },
+      {
+        "namespace": "mfm",
+        "id": "7be71a56-0557-4e9d-ab04-097c9ee62787"
+      }
+    ]
   },
   {
     "id": "ironstrider-ballistarii",
@@ -338,6 +394,20 @@
         "item_id": "twin-cognis-lascannon",
         "cost": 10
       }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "7efb-de37-79c4-cccb"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "1ac9768e-3ffe-539f-900d-1f33f9087eb2"
+      },
+      {
+        "namespace": "mfm",
+        "id": "2780cb4a-9e4c-4cbd-95b3-fa491ec7e8cf"
+      }
     ]
   },
   {
@@ -398,7 +468,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "2d9b-610a-dc4d-15ae"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "6357b805-e2e2-5503-a6e9-bd1730c06c0a"
+      },
+      {
+        "namespace": "mfm",
+        "id": "61a7fa52-9a8c-46f5-ac02-4b09e72aa08e"
+      }
+    ]
   },
   {
     "id": "sydonian-dragoons-with-radium-jezzails",
@@ -466,7 +550,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "d99a-6563-8c08-23c"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "71c110d8-4942-5243-8af1-e38c2c223f3c"
+      },
+      {
+        "namespace": "mfm",
+        "id": "3ca2d35a-9d7f-4f74-8add-10a265678c51"
+      }
+    ]
   },
   {
     "id": "belisarius-cawl",
@@ -529,7 +627,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "1f1e-2989-4762-cf88"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "3f62892a-43a7-59c6-89b7-405b1e72cbd6"
+      },
+      {
+        "namespace": "mfm",
+        "id": "2debf769-e52c-4c00-8445-6685ddcb9c32"
+      }
+    ]
   },
   {
     "id": "servitor-battleclade",
@@ -624,6 +736,20 @@
         "count": 1,
         "per_models": 0
       }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "a523-606f-b05c-851e"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "510467a8-cb57-520e-8ba7-b06240c4e335"
+      },
+      {
+        "namespace": "mfm",
+        "id": "c558c594-c3c5-478a-9a56-d15c78220092"
+      }
     ]
   },
   {
@@ -683,7 +809,25 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "6b7d-a39e-1175-d7a3"
+      },
+      {
+        "namespace": "bsdata",
+        "id": "841-f339-8086-efe2"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "506d5dc5-87de-50ca-92f2-0163df454999"
+      },
+      {
+        "namespace": "mfm",
+        "id": "ec688ddf-d430-46cd-a4e6-f77dfb512a90"
+      }
+    ]
   },
   {
     "id": "skorpius-disintegrator",
@@ -747,6 +891,20 @@
         "item_id": "ferrumite-cannon",
         "cost": 10
       }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "3fcc-b6a1-399b-1a29"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "140f2de9-984b-5fa2-9c66-4cd4fde3c1be"
+      },
+      {
+        "namespace": "mfm",
+        "id": "0c78ee28-1756-497c-8df3-2df48502e73c"
+      }
     ]
   },
   {
@@ -809,7 +967,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "52e7-9347-3f16-9eec"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "3ba9b06e-5e57-5837-afeb-2ca376cac250"
+      },
+      {
+        "namespace": "mfm",
+        "id": "b7a31553-3069-465c-892f-1ac3130e83e4"
+      }
+    ]
   },
   {
     "id": "sicarian-infiltrators",
@@ -890,7 +1062,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "9b4-26b2-9e6d-a62d"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "3b98c029-9ae1-54d3-a3c4-f008382cca2b"
+      },
+      {
+        "namespace": "mfm",
+        "id": "e1e32ad8-da2b-43c2-879e-bdac1e52ed47"
+      }
+    ]
   },
   {
     "id": "archaeopter-transvector",
@@ -956,7 +1142,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "295-769-8893-2bb0"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "b8f2f15a-f7ca-5d18-a8fd-9532d26292c7"
+      },
+      {
+        "namespace": "mfm",
+        "id": "cb273cac-9b1e-4e77-8dac-23e765760dcd"
+      }
+    ]
   },
   {
     "id": "skitarii-vanguard",
@@ -1049,6 +1249,20 @@
         "count": 1,
         "per_models": 0
       }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "ba33-c21-bddc-ab0"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "545bfcca-d944-54d6-b612-1fbf1e59eee9"
+      },
+      {
+        "namespace": "mfm",
+        "id": "5053fab3-493e-4cbc-9589-383fbd0039a8"
+      }
     ]
   },
   {
@@ -1111,7 +1325,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "6424-ed86-9e15-3e14"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "7b01a309-8efb-5e63-a20f-8346eadbe4de"
+      },
+      {
+        "namespace": "mfm",
+        "id": "fe438409-025b-4b70-9c8e-f61549a6a49a"
+      }
+    ]
   },
   {
     "id": "pteraxii-skystalkers",
@@ -1193,7 +1421,25 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "7865-a605-b723-6d77"
+      },
+      {
+        "namespace": "bsdata",
+        "id": "b31e-5003-5b63-a305"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "b745d158-f5fd-54c0-8564-e1a67b432621"
+      },
+      {
+        "namespace": "mfm",
+        "id": "cee59798-9f17-4f35-b39f-84f4a7d5d595"
+      }
+    ]
   },
   {
     "id": "kataphron-breachers",
@@ -1254,7 +1500,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "a46f-848-b87d-4484"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "8277da97-bfc9-5597-99dc-cbed85744e0e"
+      },
+      {
+        "namespace": "mfm",
+        "id": "001d9c8f-33d4-4bef-97ff-41aa463785a2"
+      }
+    ]
   },
   {
     "id": "sicarian-ruststalkers",
@@ -1332,7 +1592,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "8863-9784-8377-aa7a"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "ed740a5b-3573-596f-845e-81c03469e598"
+      },
+      {
+        "namespace": "mfm",
+        "id": "5be940e4-ac29-4591-9069-f0a510f4949c"
+      }
+    ]
   },
   {
     "id": "technoarcheologist",
@@ -1391,7 +1665,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "support"
+    "attachment_role": "support",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "fa82-61cc-aa85-e94c"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "0f22e6a2-5162-5a89-847d-54d8b9a931f1"
+      },
+      {
+        "namespace": "mfm",
+        "id": "a6a330f1-9cd6-44db-8299-c7feefa9d515"
+      }
+    ]
   },
   {
     "id": "corpuscarii-electro-priests",
@@ -1450,7 +1738,25 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "879f-86c3-7e40-20f3"
+      },
+      {
+        "namespace": "bsdata",
+        "id": "fd5a-f7a3-833c-85b"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "1f97afa8-52da-56be-aa49-a7e840221490"
+      },
+      {
+        "namespace": "mfm",
+        "id": "736e0b95-dff7-4615-ae92-7d8f6375c564"
+      }
+    ]
   },
   {
     "id": "serberys-raiders",
@@ -1520,6 +1826,20 @@
         "count": 1,
         "per_models": 0
       }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "5797-adb8-930-e832"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "70269b85-1b31-543f-8c14-697547dafe48"
+      },
+      {
+        "namespace": "mfm",
+        "id": "428c2950-a5ef-4c7d-a902-04014972ae54"
+      }
     ]
   },
   {
@@ -1587,7 +1907,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "3053-c0c1-aedd-b211"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "ee471b60-aaa6-5d0b-9ec7-5f3e64970805"
+      },
+      {
+        "namespace": "mfm",
+        "id": "595b49e9-d185-48b3-b37b-ed45b90c4a17"
+      }
+    ]
   },
   {
     "id": "serberys-sulphurhounds",
@@ -1650,7 +1984,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "e775-4fe1-832b-95ca"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "766d924f-db7c-5ccf-866d-5ed47c6bdfbe"
+      },
+      {
+        "namespace": "mfm",
+        "id": "d8899a9f-2767-44ac-a36e-00bb518f83bf"
+      }
+    ]
   },
   {
     "id": "tech-priest-enginseer",
@@ -1711,7 +2059,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "c0e0-4d86-96d2-ec86"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "abef589f-3101-5e59-97f0-5750fd04cdbf"
+      },
+      {
+        "namespace": "mfm",
+        "id": "4c2996da-2e1d-45c5-8420-16338a2e08d9"
+      }
+    ]
   },
   {
     "id": "skitarii-marshal",
@@ -1769,7 +2131,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "support"
+    "attachment_role": "support",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "b897-e4c6-fcb6-6538"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "5a618444-fd19-5bba-b585-7d8618bdb84e"
+      },
+      {
+        "namespace": "mfm",
+        "id": "95d5d1b4-5de8-4324-80dc-c4acb4889f44"
+      }
+    ]
   },
   {
     "id": "skorpius-dunerider",
@@ -1842,7 +2218,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "2b9c-3982-701d-f8fd"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "dc18d2fa-e4ee-5be2-97a7-c62d66da93aa"
+      },
+      {
+        "namespace": "mfm",
+        "id": "843f8c40-d93f-4b22-afa3-81aa97cf6d48"
+      }
+    ]
   },
   {
     "id": "kastelan-robots",
@@ -1925,7 +2315,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "bd6c-8683-8bc4-962d"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "11fd9afc-58f4-5280-94a2-7f30776436af"
+      },
+      {
+        "namespace": "mfm",
+        "id": "68f7581c-3e7e-422b-b478-2e9ff15f24f6"
+      }
+    ]
   },
   {
     "id": "pteraxii-sterylizors",
@@ -2006,7 +2410,25 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "03d8-6f44-ad40-26be"
+      },
+      {
+        "namespace": "bsdata",
+        "id": "958-a256-360-8620"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "c2cae0ff-1d6d-54ad-8f3f-f2b1b18f5450"
+      },
+      {
+        "namespace": "mfm",
+        "id": "3fe70398-33eb-4238-adba-5a81af31bbfd"
+      }
+    ]
   },
   {
     "id": "archaeopter-fusilave",
@@ -2063,7 +2485,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "7662-5fde-16f1-5267"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "91f25fb4-4f2b-56e8-a5ef-911b61833a59"
+      },
+      {
+        "namespace": "mfm",
+        "id": "6f208b5a-78ff-48d0-9f9e-324cfbc80e9d"
+      }
+    ]
   },
   {
     "id": "skitarii-rangers",
@@ -2155,6 +2591,20 @@
         "count": 1,
         "per_models": 0
       }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "de59-f65c-181a-8509"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "dce7d828-db1b-5c95-9190-0fe0b05960bc"
+      },
+      {
+        "namespace": "mfm",
+        "id": "fa873856-0bc3-4a7d-940d-21341c5fdde5"
+      }
     ]
   },
   {
@@ -2216,7 +2666,21 @@
     "base_size_mm": {
       "shape": "round",
       "diameter": 32
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "52d3-71a9-f755-d6aa"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "2e85b2e4-4fb7-5b2b-a4f8-fe8732d8ff4c"
+      },
+      {
+        "namespace": "mfm",
+        "id": "ff48d13a-5ef5-4ef4-83b3-d0afd8899290"
+      }
+    ]
   },
   {
     "id": "hastarii-fusiliers",
@@ -2277,7 +2741,21 @@
     "base_size_mm": {
       "shape": "round",
       "diameter": 32
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "d653-1ac3-d944-224f"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "43301a74-3a97-55ae-bcff-861093de41bd"
+      },
+      {
+        "namespace": "mfm",
+        "id": "aacdff0d-7c5b-4dea-b4cb-9e06aed7db4e"
+      }
+    ]
   },
   {
     "id": "thulia-ghuld",
@@ -2331,7 +2809,21 @@
     "base_size_mm": {
       "shape": "round",
       "diameter": 80
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "7135-8430-eb02-ded4"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "53926941-bb95-588f-b8a9-197b2836ac93"
+      },
+      {
+        "namespace": "mfm",
+        "id": "681fcb1a-b0aa-4344-8353-ca1050efdcba"
+      }
+    ]
   },
   {
     "id": "manipulus-skand",
@@ -2384,7 +2876,13 @@
     "base_size_mm": {
       "shape": "round",
       "diameter": 50
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "955658b5-7c00-4211-9ad0-6e72b6a11e22"
+      }
+    ]
   },
   {
     "id": "purge-corps-pteraxii-sterylizors",
@@ -2435,7 +2933,13 @@
     "base_size_mm": {
       "shape": "round",
       "diameter": 40
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "422b0112-6e9c-4c5e-89d3-44ea20069526"
+      }
+    ]
   },
   {
     "id": "purge-corps-serberys-sulphurhounds",
@@ -2494,6 +2998,12 @@
     ],
     "weapon_ids": [
       "phosphor-pistol"
+    ],
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "130bfd98-5479-49af-838a-c002f683a987"
+      }
     ]
   },
   {
@@ -2545,6 +3055,12 @@
     "base_size_mm": {
       "shape": "round",
       "diameter": 25
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "1636b130-f460-4931-816f-b74be978ed85"
+      }
+    ]
   }
 ]

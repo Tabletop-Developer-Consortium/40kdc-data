@@ -21,7 +21,13 @@
     "game_version": {
       "edition": "10th",
       "dataslate": "2025-q3"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "89ef95a3-482f-4e6e-ab2a-92b88687d1c8"
+      }
+    ]
   },
   {
     "id": "grenade-launcher",
@@ -38,7 +44,13 @@
       "edition": "10th",
       "dataslate": "2025-q3"
     },
-    "category": "icon"
+    "category": "icon",
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "7f01bd2c-668f-4252-98ff-4bbea2b70125"
+      }
+    ]
   },
   {
     "id": "twin-inferno-heavy-bolter",
@@ -94,7 +106,13 @@
     "game_version": {
       "edition": "10th",
       "dataslate": "2025-q3"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "cddccdf8-164b-4a11-aa55-e39e8d7befe3"
+      }
+    ]
   },
   {
     "id": "warp-stalker",
@@ -174,6 +192,12 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "launch"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "23d79c01-40d5-4613-8a6d-b43d3d49fed9"
+      }
+    ]
   }
 ]

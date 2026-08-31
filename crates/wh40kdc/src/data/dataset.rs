@@ -223,6 +223,12 @@ impl Dataset {
             // keep each faction's copy, collapse only true within-faction dupes.
             |u| format!("{}::{}", u.faction_id.as_str(), u.id.as_str()),
         )
+        .with_external_refs(|u| {
+            u.external_refs
+                .as_ref()
+                .map(|refs| refs.as_slice())
+                .unwrap_or(&[])
+        })
         // Per-faction copies genuinely diverge (points, keywords, profiles), so
         // a faction-less get() of a shared id is a bug — mirror of the TS guard.
         .with_unscoped_guard("unit");
@@ -243,6 +249,12 @@ impl Dataset {
                 )
             },
         )
+        .with_external_refs(|w| {
+            w.external_refs
+                .as_ref()
+                .map(|refs| refs.as_slice())
+                .unwrap_or(&[])
+        })
         // Per-faction copies diverge (stats), so a faction-less get() of a
         // shared id is a bug — catalog/import callsites that genuinely lack
         // faction context opt out via get_any.
@@ -264,6 +276,12 @@ impl Dataset {
             |_| None,
             |f| f.id.to_string(),
         )
+        .with_external_refs(|f| {
+            f.external_refs
+                .as_ref()
+                .map(|refs| refs.as_slice())
+                .unwrap_or(&[])
+        })
         .with_id_aliases(crate::share::embedded_registry().aliases.clone());
         // An ability_id is shared across factions (each faction's enrichment
         // authors its own copy of e.g. "deadly-demise-d3", and the copies
@@ -305,6 +323,12 @@ impl Dataset {
             // faction); keep each faction's copy, collapse only within-faction dupes.
             |d| format!("{}::{}", d.faction_id.as_str(), d.id.as_str()),
         )
+        .with_external_refs(|d| {
+            d.external_refs
+                .as_ref()
+                .map(|refs| refs.as_slice())
+                .unwrap_or(&[])
+        })
         .with_id_aliases(crate::share::embedded_registry().aliases.clone())
         // Shared detachments diverge per chapter (detachment_rule_id,
         // stratagem_ids, enhancement_ids, detachment_points) — same guard as units.
@@ -318,12 +342,24 @@ impl Dataset {
             raw.enhancements,
             |e| e.id.to_string(),
             |e| Some(e.name.as_str()),
-        );
+        )
+        .with_external_refs(|e| {
+            e.external_refs
+                .as_ref()
+                .map(|refs| refs.as_slice())
+                .unwrap_or(&[])
+        });
         let stratagems = id_name_collection(
             raw.stratagems,
             |s| s.id.to_string(),
             |s| Some(s.name.as_str()),
-        );
+        )
+        .with_external_refs(|s| {
+            s.external_refs
+                .as_ref()
+                .map(|refs| refs.as_slice())
+                .unwrap_or(&[])
+        });
         // Option ids are unique only within a faction — a chassis shared across
         // factions (e.g. `chaos-terminators`) reuses ids like
         // `chaos-terminators-wgo-mfm-4` for different swaps. Dedupe on the full
@@ -344,7 +380,13 @@ impl Dataset {
             },
         );
         let wargear =
-            id_name_collection(raw.wargear, |w| w.id.to_string(), |w| Some(w.name.as_str()));
+            id_name_collection(raw.wargear, |w| w.id.to_string(), |w| Some(w.name.as_str()))
+                .with_external_refs(|w| {
+                    w.external_refs
+                        .as_ref()
+                        .map(|refs| refs.as_slice())
+                        .unwrap_or(&[])
+                });
         let missions = id_name_collection(
             raw.missions,
             |m| m.id.to_string(),

@@ -21,6 +21,7 @@ export interface WeaponProfile {
 
 export interface WeaponRecord {
   id: string;
+  external_refs: { namespace: string; id: string }[];
   name: string;
   type: "ranged" | "melee";
   profiles: WeaponProfile[];
@@ -29,6 +30,7 @@ export interface WeaponRecord {
 
 export interface WargearRecord {
   id: string;
+  external_refs: { namespace: string; id: string }[];
   name: string;
   game_version: GameVersion;
   category?: string;
@@ -56,24 +58,31 @@ function mapWeaponKeyword(
       .map((target) => ({
         keyword_id: "anti",
         parameters: {
-          target_keyword: target.replace(/\b\w/g, (character) => character.toUpperCase()),
+          target_keyword: target.replace(/\b\w/g, (character) =>
+            character.toUpperCase(),
+          ),
           threshold,
         },
       }));
   }
 
-  const valued = name.match(/^([A-Za-z\- ]+?)\s+(\d+|D\d+(?:\+\d+)?|\d*[dD]\d+(?:\+\d+)?)$/);
+  const valued = name.match(
+    /^([A-Za-z\- ]+?)\s+(\d+|D\d+(?:\+\d+)?|\d*[dD]\d+(?:\+\d+)?)$/,
+  );
   if (valued) {
     const base = valued[1].trim().toLowerCase();
     const rawValue = valued[2];
-    const value: number | string = /^\d+$/.test(rawValue) ? Number(rawValue) : rawValue.toUpperCase();
+    const value: number | string = /^\d+$/.test(rawValue)
+      ? Number(rawValue)
+      : rawValue.toUpperCase();
     const byBase: Record<string, string> = {
       melta: "melta",
       "rapid fire": "rapid-fire",
       "sustained hits": "sustained-hits",
       cleave: "cleave",
     };
-    if (byBase[base]) return [{ keyword_id: byBase[base], parameters: { value } }];
+    if (byBase[base])
+      return [{ keyword_id: byBase[base], parameters: { value } }];
     if (base === "blast") return [{ keyword_id: "blast" }];
   }
 
@@ -114,7 +123,11 @@ function mapWeaponKeyword(
     sustained: "sustained-hits",
   };
   const id = flat[lower];
-  if (!id || ["anti", "melta", "cleave", "rapid-fire", "sustained-hits"].includes(id)) return null;
+  if (
+    !id ||
+    ["anti", "melta", "cleave", "rapid-fire", "sustained-hits"].includes(id)
+  )
+    return null;
   return [{ keyword_id: id }];
 }
 
@@ -140,24 +153,39 @@ function parseArmourPenetration(value: string | null | undefined): number {
   return Number.isFinite(numeric) ? numeric : 0;
 }
 
-function parseRange(value: string | null | undefined, type: string): number | "Melee" {
+function parseRange(
+  value: string | null | undefined,
+  type: string,
+): number | "Melee" {
   if (type === "melee") return "Melee";
   const normalized = (value ?? "").trim();
   if (/melee/i.test(normalized)) return "Melee";
   const numeric = Number.parseInt(normalized.replace(/["”]/g, ""), 10);
-  if (!Number.isFinite(numeric)) throw new Error(`unparseable range "${value}"`);
+  if (!Number.isFinite(numeric))
+    throw new Error(`unparseable range "${value}"`);
   return numeric;
 }
 
 /** Build a repo weapon record from one dump wargear item and its profiles. */
-export function mintWeapon(ctx: MintContext, item: WargearItemRow, id: string, name: string): WeaponRecord {
+export function mintWeapon(
+  ctx: MintContext,
+  item: WargearItemRow,
+  id: string,
+  name: string,
+): WeaponRecord {
   const { dump } = ctx;
-  const profiles = (dump.groupBy("wargear_item_profile", "wargearItemId").get(item.id!) ?? [])
+  const profiles = (
+    dump.groupBy("wargear_item_profile", "wargearItemId").get(item.id!) ?? []
+  )
     .slice()
     .sort((left, right) => left.displayOrder - right.displayOrder);
-  if (profiles.length === 0) throw new Error(`weapon "${name}" has no profile rows in the dump`);
+  if (profiles.length === 0)
+    throw new Error(`weapon "${name}" has no profile rows in the dump`);
 
-  const abilitiesByProfile = dump.groupBy("wargear_item_profile_wargear_ability", "wargearItemProfileId");
+  const abilitiesByProfile = dump.groupBy(
+    "wargear_item_profile_wargear_ability",
+    "wargearItemProfileId",
+  );
   const abilitiesById = dump.byId("wargear_ability");
   const built: WeaponProfile[] = profiles.map((profile) => {
     const ranged = profile.type !== "melee";
@@ -176,13 +204,18 @@ export function mintWeapon(ctx: MintContext, item: WargearItemRow, id: string, n
       if (!abilityName) continue;
       const mapped = mapWeaponKeyword(abilityName);
       if (!mapped) {
-        ctx.warnings.push(`weapon "${name}": unmapped keyword "${abilityName}" (skipped)`);
+        ctx.warnings.push(
+          `weapon "${name}": unmapped keyword "${abilityName}" (skipped)`,
+        );
         continue;
       }
       keywords.push(...mapped);
     }
 
-    const profileName = profiles.length > 1 ? dump.enName(profile) ?? profile.localisations?.en?.name ?? name : name;
+    const profileName =
+      profiles.length > 1
+        ? (dump.enName(profile) ?? profile.localisations?.en?.name ?? name)
+        : name;
     return {
       name: profileName,
       range: parseRange(profile.range, profile.type),
@@ -193,6 +226,7 @@ export function mintWeapon(ctx: MintContext, item: WargearItemRow, id: string, n
 
   return {
     id,
+    external_refs: [{ namespace: "mfm", id: item.id! }],
     name,
     type: profiles[0].type === "melee" ? "melee" : "ranged",
     profiles: built,
@@ -201,6 +235,16 @@ export function mintWeapon(ctx: MintContext, item: WargearItemRow, id: string, n
 }
 
 /** Build a repo record for selectable non-weapon equipment. */
-export function mintWargear(ctx: MintContext, item: WargearItemRow, id: string, name: string): WargearRecord {
-  return { id, name, game_version: ctx.gv };
+export function mintWargear(
+  ctx: MintContext,
+  item: WargearItemRow,
+  id: string,
+  name: string,
+): WargearRecord {
+  return {
+    id,
+    external_refs: [{ namespace: "mfm", id: item.id! }],
+    name,
+    game_version: ctx.gv,
+  };
 }

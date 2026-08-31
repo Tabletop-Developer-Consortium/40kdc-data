@@ -6,7 +6,13 @@
       "edition": "10th",
       "dataslate": "2025-q3"
     },
-    "category": "icon"
+    "category": "icon",
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "7f01bd2c-668f-4252-98ff-4bbea2b70125"
+      }
+    ]
   },
   {
     "id": "helbrute-plasma-cannon",
@@ -71,6 +77,12 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "launch"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "5028ed26-8ff1-4fc8-b844-168659f516ac"
+      }
+    ]
   }
 ]

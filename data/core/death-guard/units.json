@@ -56,7 +56,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "c5a7-5f07-2b1a-8f98"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "9fa7d463-6690-5d76-912b-0dd99eef99c2"
+      },
+      {
+        "namespace": "mfm",
+        "id": "65658ea8-cbea-4658-836e-9ba1d5da7bfe"
+      }
+    ]
   },
   {
     "id": "defiler",
@@ -140,6 +154,20 @@
         "item_id": "heavy-reaper-autocannon",
         "cost": 15
       }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "bc88-0833-743e-0146"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "fa9a5ed6-8820-5755-9090-c577692e8e2e"
+      },
+      {
+        "namespace": "mfm",
+        "id": "03871b0c-5667-4340-9cc9-16c4194cc949"
+      }
     ]
   },
   {
@@ -200,7 +228,25 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "1d85-475f-5ab-9823"
+      },
+      {
+        "namespace": "bsdata",
+        "id": "d994-7d76-c9da-baeb"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "bafeb65b-91d6-5b9d-b071-115160122588"
+      },
+      {
+        "namespace": "mfm",
+        "id": "b7686d41-813b-41c4-9a74-3e8dc6d7530b"
+      }
+    ]
   },
   {
     "id": "tallyman",
@@ -258,7 +304,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "506c-16a8-68f7-c08a"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "e364784e-08a1-55cc-bf39-18df5f3efca2"
+      },
+      {
+        "namespace": "mfm",
+        "id": "6a538e94-abd0-45cd-b5c0-7ecda81ac921"
+      }
+    ]
   },
   {
     "id": "poxwalkers",
@@ -323,6 +383,20 @@
         "keyword": "Battleline",
         "required_detachment_id": "shamblerot-vectorium"
       }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "7c30-1e92-2faa-eb03"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "1494009a-18dc-5ebb-9d53-263e2f975278"
+      },
+      {
+        "namespace": "mfm",
+        "id": "e23978ef-8174-45cc-8fb1-16808d72e642"
+      }
     ]
   },
   {
@@ -383,7 +457,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "8700-3d3-efbb-ef8d"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "698c4ab7-52ba-5652-a76f-1a8b7aeef5ac"
+      },
+      {
+        "namespace": "mfm",
+        "id": "2e1a8594-627e-4437-8b9b-913bbeabe9de"
+      }
+    ]
   },
   {
     "id": "chaos-predator-annihilator",
@@ -454,7 +542,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "9b58-210d-c12f-4d46"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "3773dc53-7315-5caf-9abd-01d88825732c"
+      },
+      {
+        "namespace": "mfm",
+        "id": "2f3b67cf-0d0c-43e9-9d5e-9ceef3a72300"
+      }
+    ]
   },
   {
     "id": "chaos-predator-destructor",
@@ -525,7 +627,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "ab4e-466d-e9e8-89d5"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "998a9530-9e8f-594a-9f8d-02a2031d54aa"
+      },
+      {
+        "namespace": "mfm",
+        "id": "4376de7d-424a-4426-817a-df295f6eb083"
+      }
+    ]
   },
   {
     "id": "foetid-bloat-drone-with-heavy-blight-launcher",
@@ -595,6 +711,20 @@
         "keyword": "Contagion Engines",
         "required_detachment_id": "contagion-engines"
       }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "d055-25eb-eb2b-7f6a"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "5b458db9-a29a-5760-a5b7-b0991b06ad99"
+      },
+      {
+        "namespace": "mfm",
+        "id": "10507096-5876-4b0a-ae71-9548a05e9c8f"
+      }
     ]
   },
   {
@@ -662,7 +792,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "e58b-507a-937f-7abf"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "191a9eb3-9820-5145-b378-2fc699702fce"
+      },
+      {
+        "namespace": "mfm",
+        "id": "cc8d6d3d-26c8-4584-bf8f-fc98aa8929dd"
+      }
+    ]
   },
   {
     "id": "biologus-putrifier",
@@ -723,7 +867,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "690b-a189-5935-f32e"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "951a1b17-e101-525a-abef-b5ccb761c0f4"
+      },
+      {
+        "namespace": "mfm",
+        "id": "e810771e-fed9-4dd5-a3d7-8759e798e9ae"
+      }
+    ]
   },
   {
     "id": "plague-marines",
@@ -817,6 +975,20 @@
         "count": 2,
         "per_models": 10
       }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "8467-b3a2-2597-de0d"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "27c961bb-dde0-57b3-abca-1e9823dfa9c9"
+      },
+      {
+        "namespace": "mfm",
+        "id": "7deaf954-52cc-4aa0-ac42-a0ef8e80caba"
+      }
     ]
   },
   {
@@ -875,7 +1047,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "9a82-ea13-3511-6c08"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "3ccbc88a-f41b-56bc-a482-6accee485958"
+      },
+      {
+        "namespace": "mfm",
+        "id": "3de61a27-e8e8-430e-81f7-15137de0915e"
+      }
+    ]
   },
   {
     "id": "daemon-prince-of-nurgle",
@@ -934,7 +1120,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "4cb3-e6b6-4e82-23bf"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "814f691e-647e-5d9e-b0cb-970365def914"
+      },
+      {
+        "namespace": "mfm",
+        "id": "8ef06222-d40a-43bc-86bc-2be236788185"
+      }
+    ]
   },
   {
     "id": "deathshroud-terminators",
@@ -1012,7 +1212,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "83e8-ebb7-785a-2115"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "eb5e8c1b-7044-5a1c-9fa7-6acc0917b4c8"
+      },
+      {
+        "namespace": "mfm",
+        "id": "2f6e1cf5-9c8c-4fc1-aa97-3480a84edb1c"
+      }
+    ]
   },
   {
     "id": "lord-of-virulence",
@@ -1072,7 +1286,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "c15c-2b5a-dcab-7627"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "7e1487a4-3432-5db1-b36e-7a1877263a57"
+      },
+      {
+        "namespace": "mfm",
+        "id": "d94ce75d-0c47-4860-ad25-3c34d21d679d"
+      }
+    ]
   },
   {
     "id": "foetid-bloat-drone",
@@ -1143,6 +1371,20 @@
         "keyword": "Contagion Engines",
         "required_detachment_id": "contagion-engines"
       }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "26d5-ec73-3517-f3f"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "7ff0a385-997d-578b-bbd1-25d6ca6b0bdd"
+      },
+      {
+        "namespace": "mfm",
+        "id": "fca25525-c8dc-4ae0-b1b3-83d44b824eb1"
+      }
     ]
   },
   {
@@ -1201,7 +1443,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "1ffc-27de-8aea-e7bb"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "d1cbfd48-6aed-5140-ad04-6f047ad5565e"
+      },
+      {
+        "namespace": "mfm",
+        "id": "64036e46-a6bf-4cc0-80c6-daa795cc4922"
+      }
+    ]
   },
   {
     "id": "daemon-prince-of-nurgle-with-wings",
@@ -1261,7 +1517,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "f4d7-244d-16c4-f2f3"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "cc710f20-32d9-53e9-bfe3-0f33a01d92c2"
+      },
+      {
+        "namespace": "mfm",
+        "id": "28b9e7b9-6f46-47e2-bf98-a8f90e8fef07"
+      }
+    ]
   },
   {
     "id": "miasmic-malignifier",
@@ -1316,7 +1586,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "55c7-e5b8-9737-f58e"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "f8f8d778-fea0-5af6-be79-9d3c09870662"
+      },
+      {
+        "namespace": "mfm",
+        "id": "2c11b110-75f4-42b8-8360-86ddacebd4ca"
+      }
+    ]
   },
   {
     "id": "helbrute",
@@ -1392,6 +1676,20 @@
         "keyword": "Contagion Engines",
         "required_detachment_id": "contagion-engines"
       }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "2a2b-643e-860e-b524"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "0b020c25-102b-5feb-93f5-5eda796bd1d5"
+      },
+      {
+        "namespace": "mfm",
+        "id": "2a02787d-3f2f-4733-a1a9-f2e12455fcd7"
+      }
     ]
   },
   {
@@ -1458,6 +1756,16 @@
       {
         "keyword": "Contagion Engines",
         "required_detachment_id": "contagion-engines"
+      }
+    ],
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "b8be53ee-dc97-54c2-a384-c109c3ac807e"
+      },
+      {
+        "namespace": "mfm",
+        "id": "659ccf4f-90e3-4807-a3d8-eefcf1178845"
       }
     ]
   },
@@ -1526,7 +1834,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "f5ac-4f37-fe7b-36b6"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "53013666-f538-593a-b245-e9af5213228c"
+      },
+      {
+        "namespace": "mfm",
+        "id": "5f92201a-435a-4bd5-a446-26b1ac50b094"
+      }
+    ]
   },
   {
     "id": "malignant-plaguecaster",
@@ -1586,7 +1908,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "9900-77d7-10e3-5c91"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "bcf0fc13-638a-51d7-b0b6-630b22f34cba"
+      },
+      {
+        "namespace": "mfm",
+        "id": "d85b03bf-d4a0-4e38-a5eb-280e328859f7"
+      }
+    ]
   },
   {
     "id": "chaos-rhino",
@@ -1662,7 +1998,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "b899-92e2-693a-975f"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "95ddee3b-53cb-5683-9b41-4fc6eb6fc61c"
+      },
+      {
+        "namespace": "mfm",
+        "id": "e796b42f-64bb-472a-86bb-1e1d695e3f1b"
+      }
+    ]
   },
   {
     "id": "chaos-land-raider",
@@ -1733,7 +2083,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "89d-b0c0-6e19-f017"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "5f021401-11a5-573d-b8e4-43e911156975"
+      },
+      {
+        "namespace": "mfm",
+        "id": "243030cc-0b9f-4ee0-8f24-6b17bf390bcd"
+      }
+    ]
   },
   {
     "id": "foul-blightspawn",
@@ -1792,7 +2156,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "c88f-d4dc-84b3-1b31"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "d5fb5b79-6dc0-5394-ab44-31363d11a8fd"
+      },
+      {
+        "namespace": "mfm",
+        "id": "c284cf93-28c3-4061-9cc8-c350ba96e2ed"
+      }
+    ]
   },
   {
     "id": "icon-bearer",
@@ -1851,7 +2229,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "3e5b-23db-4ccd-ea97"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "674c339b-1e91-5956-b8d2-8ff431b4cf34"
+      },
+      {
+        "namespace": "mfm",
+        "id": "e58a3ca1-f91f-46c8-b029-69dfc57b5cbe"
+      }
+    ]
   },
   {
     "id": "typhus",
@@ -1912,7 +2304,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "e6a4-7055-fd23-5123"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "0108df02-9869-5b94-9596-80f0fe42b689"
+      },
+      {
+        "namespace": "mfm",
+        "id": "9d90f004-df9f-43e1-877e-433bfecd9ce7"
+      }
+    ]
   },
   {
     "id": "blightlord-terminators",
@@ -1992,6 +2398,20 @@
         "count": 3,
         "per_models": 5
       }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "5b4e-dcf1-5c6f-4d35"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "03151889-d649-524b-a300-a012a530cb1e"
+      },
+      {
+        "namespace": "mfm",
+        "id": "9dbca5b4-4910-4f02-ac5e-f6a70cf8cfaa"
+      }
     ]
   },
   {
@@ -2041,7 +2461,13 @@
       "combat-patrol"
     ],
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "039e5e50-ab01-4e20-b8ec-32fc3c30986c"
+      }
+    ]
   },
   {
     "id": "maggot-lords-deathshroud-terminators",
@@ -2091,7 +2517,13 @@
     "base_size_mm": {
       "shape": "round",
       "diameter": 40
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "2baa84cf-c81a-4340-960e-43a0e27ae66a"
+      }
+    ]
   },
   {
     "id": "maggot-lords-plague-marines",
@@ -2143,7 +2575,13 @@
     "base_size_mm": {
       "shape": "round",
       "diameter": 32
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "b6b073ee-aff6-4990-9e82-11040c226908"
+      }
+    ]
   },
   {
     "id": "septimol-fulg-maggot-lords-tallyman",
@@ -2195,7 +2633,13 @@
     "base_size_mm": {
       "shape": "round",
       "diameter": 40
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "4128b241-1357-4f94-bfce-a32583ce6f53"
+      }
+    ]
   },
   {
     "id": "sholgor-the-putrid",
@@ -2248,6 +2692,12 @@
     "base_size_mm": {
       "shape": "round",
       "diameter": 50
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "0037a838-5993-4cfe-8d14-064f0bb4d9e0"
+      }
+    ]
   }
 ]

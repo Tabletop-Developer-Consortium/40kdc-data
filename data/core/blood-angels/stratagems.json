@@ -16,7 +16,17 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "65a548e0-4ef5-598d-a88d-d5f57a15e918"
+      },
+      {
+        "namespace": "mfm",
+        "id": "479f9124-f497-49ba-aa57-b5bd6dced46f"
+      }
+    ]
   },
   {
     "id": "a-grim-warning-rage-cursed-onslaught",
@@ -39,7 +49,17 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
-    "type": "battle-tactic"
+    "type": "battle-tactic",
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "86102807-9dec-56f5-9e70-d362e164edab"
+      },
+      {
+        "namespace": "mfm",
+        "id": "38a95bf4-ad08-445c-99ce-d98624c5faa9"
+      }
+    ]
   },
   {
     "id": "adaptive-operations-subversion-assets",
@@ -57,7 +77,13 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "a0720d22-addd-498f-afc8-f31e333747fe"
+      }
+    ]
   },
   {
     "id": "adaptive-strategy-gladius-task-force",
@@ -76,7 +102,17 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "eea7b98b-1c9a-56f0-9604-0d9be4239ecc"
+      },
+      {
+        "namespace": "mfm",
+        "id": "65f32f5f-2ce7-4cba-b5df-587638af8528"
+      }
+    ]
   },
   {
     "id": "advanced-deployment-armoured-speartip",
@@ -95,7 +131,17 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "10c0efdf-381f-55b1-bf91-7a73cbc497cf"
+      },
+      {
+        "namespace": "mfm",
+        "id": "bf423f02-f60e-4422-adac-7da5f00bc5c1"
+      }
+    ]
   },
   {
     "id": "aggressive-onslaught-liberator-assault-group",
@@ -114,7 +160,17 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "203216fc-b98e-50d2-a09c-8eadf98723b4"
+      },
+      {
+        "namespace": "mfm",
+        "id": "45e44522-21b7-48c1-805a-acdf897702d7"
+      }
+    ]
   },
   {
     "id": "ancient-fury-ironstorm-spearhead",
@@ -133,7 +189,17 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "435e27df-2365-501e-892f-e9f31eb8f0f6"
+      },
+      {
+        "namespace": "mfm",
+        "id": "07c5c566-9c8f-4037-85e0-02be57f30805"
+      }
+    ]
   },
   {
     "id": "angelic-grace-liberator-assault-group",
@@ -156,7 +222,17 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "b8bef002-424d-5221-a20b-88bd98fb0b06"
+      },
+      {
+        "namespace": "mfm",
+        "id": "663734f3-8762-43d4-a2c7-556b3572b180"
+      }
+    ]
   },
   {
     "id": "angelic-terror-sanguinary-spearhead",
@@ -174,7 +250,13 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "56f6e20f-1e18-4a11-a70b-cf22ef273161"
+      }
+    ]
   },
   {
     "id": "angels-defiant-bastion-task-force",
@@ -194,11 +276,21 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "c4ab6182-b39c-5380-9898-850c9929d390"
+      },
+      {
+        "namespace": "mfm",
+        "id": "8aa79799-c501-4907-858c-63559c810778"
+      }
+    ]
   },
   {
     "id": "angels-sacrifice-the-angelic-host",
-    "name": "ANGEL\u2019S SACRIFICE",
+    "name": "ANGEL’S SACRIFICE",
     "category": "detachment",
     "type": "battle-tactic",
     "detachment_id": "the-angelic-host",
@@ -213,7 +305,17 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "7fd1f2ad-b481-5872-a8d1-0ac5111c87b7"
+      },
+      {
+        "namespace": "mfm",
+        "id": "b000b7d9-8601-4b62-85fc-6f4f4853f077"
+      }
+    ]
   },
   {
     "id": "anti-grav-surge-fulguris-task-force",
@@ -231,7 +333,13 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "b82cb0a7-9708-4fdb-863e-2bb41d4f6dee"
+      }
+    ]
   },
   {
     "id": "armour-of-contempt-angelic-inheritors",
@@ -251,7 +359,17 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "1e21c885-2bf2-56a3-9088-17477f475788"
+      },
+      {
+        "namespace": "mfm",
+        "id": "a9d59b50-f9f7-4c58-a3da-af7dd999b2d8"
+      }
+    ]
   },
   {
     "id": "armour-of-contempt-rage-cursed-onslaught",
@@ -271,7 +389,17 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "1e21c885-2bf2-56a3-9088-17477f475788"
+      },
+      {
+        "namespace": "mfm",
+        "id": "6491816c-ce51-4be9-98c8-87349939b151"
+      }
+    ]
   },
   {
     "id": "armour-of-contempt-the-angelic-host",
@@ -291,7 +419,17 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "1e21c885-2bf2-56a3-9088-17477f475788"
+      },
+      {
+        "namespace": "mfm",
+        "id": "e8bee420-42a8-4bce-bed1-8211c139eb57"
+      }
+    ]
   },
   {
     "id": "armour-of-contempt-the-lost-brethren",
@@ -311,7 +449,17 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "1e21c885-2bf2-56a3-9088-17477f475788"
+      },
+      {
+        "namespace": "mfm",
+        "id": "6075a7c6-7b0c-4766-990c-0150ee871400"
+      }
+    ]
   },
   {
     "id": "augmented-targeting-ceramite-sentinels",
@@ -330,11 +478,21 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "ef62e7de-effe-5757-a209-c40257f3cc2d"
+      },
+      {
+        "namespace": "mfm",
+        "id": "b9894e70-4267-4344-aeb6-038746a63de3"
+      }
+    ]
   },
   {
     "id": "aura-of-the-angels-grace-legacy-of-grace",
-    "name": "Aura of the Angel\u2019s Grace",
+    "name": "Aura of the Angel’s Grace",
     "category": "detachment",
     "detachment_id": "legacy-of-grace",
     "cp_cost": 1,
@@ -348,7 +506,13 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "46af9b19-fd40-4316-9634-48c0ef54b629"
+      }
+    ]
   },
   {
     "id": "battle-drill-recall-anvil-siege-force",
@@ -367,7 +531,17 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "0956be9e-3703-5d4f-b475-848a255c3c6b"
+      },
+      {
+        "namespace": "mfm",
+        "id": "c4be5f8e-562c-4805-bc00-aad3fa8e99f8"
+      }
+    ]
   },
   {
     "id": "blind-screen-orbital-assault-force",
@@ -386,7 +560,17 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "617477b7-c99e-5aaa-a816-dbe44bb70d8d"
+      },
+      {
+        "namespace": "mfm",
+        "id": "dd818b80-27a5-4b4d-b0ed-ac7e5b769bfe"
+      }
+    ]
   },
   {
     "id": "blinding-blurs-of-vengeance-encarmine-speartip",
@@ -404,7 +588,13 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "f58294ba-6002-4a97-8be1-5b311bda04c3"
+      }
+    ]
   },
   {
     "id": "blitzing-fusillade-stormlance-task-force",
@@ -423,7 +613,17 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "5aa970cb-09ae-5364-9a48-497a1bcded6e"
+      },
+      {
+        "namespace": "mfm",
+        "id": "8fd86a3f-9b2e-42c2-a4c9-55e9bbc2ab4d"
+      }
+    ]
   },
   {
     "id": "burning-vengeance-firestorm-assault-force",
@@ -442,7 +642,17 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "a8fa56c0-90fe-5cef-930f-7ef50a1a38d4"
+      },
+      {
+        "namespace": "mfm",
+        "id": "cb6f4527-0f7d-40a8-93ae-fc3151d69d23"
+      }
+    ]
   },
   {
     "id": "calculated-feint-vanguard-spearhead",
@@ -461,7 +671,17 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "cd241c6c-741c-5c48-9cf5-0f70ca97ab91"
+      },
+      {
+        "namespace": "mfm",
+        "id": "f8956478-ef64-4e96-ba30-4d8f5467509f"
+      }
+    ]
   },
   {
     "id": "ceramite-sledgehammer-armoured-speartip",
@@ -480,7 +700,17 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "9321327d-b714-5d8e-869a-2532ee21ae95"
+      },
+      {
+        "namespace": "mfm",
+        "id": "14145498-0d5f-409f-926a-023ee8b5d26b"
+      }
+    ]
   },
   {
     "id": "cloaked-position-subversion-assets",
@@ -498,7 +728,13 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "962dc773-9882-46b4-9737-2b92b361e495"
+      }
+    ]
   },
   {
     "id": "codex-discipline-bastion-task-force",
@@ -518,7 +754,17 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "de855f72-0f25-500d-8852-d8f7cee8bdc7"
+      },
+      {
+        "namespace": "mfm",
+        "id": "b79464c8-d554-4720-9b75-7d48ad1454d6"
+      }
+    ]
   },
   {
     "id": "crucible-of-battle-firestorm-assault-force",
@@ -538,7 +784,17 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "d80bd2c6-f71c-551e-bef2-761a604fd681"
+      },
+      {
+        "namespace": "mfm",
+        "id": "acb62a30-656d-4994-ac0b-2f1f29f41d43"
+      }
+    ]
   },
   {
     "id": "data-link-augury-fulguris-task-force",
@@ -556,7 +812,13 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "d6f4436d-bf82-446b-a11b-780296eab536"
+      }
+    ]
   },
   {
     "id": "dauntless-bravery-sanguinary-spearhead",
@@ -575,7 +837,13 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "90cbb284-cd76-4dc6-a001-1ce0bed18370"
+      }
+    ]
   },
   {
     "id": "death-begets-vengeance-wrath-of-the-doomed",
@@ -597,7 +865,13 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "62f2e688-a9c4-400d-9751-e45da107149f"
+      }
+    ]
   },
   {
     "id": "death-from-the-skies-the-angelic-host",
@@ -616,7 +890,17 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "1aaab940-968e-5372-8f6a-3d8b1561116d"
+      },
+      {
+        "namespace": "mfm",
+        "id": "8ff58d90-cf3a-4e59-9240-78dd78538df0"
+      }
+    ]
   },
   {
     "id": "deathless-duty-rage-cursed-onslaught",
@@ -635,7 +919,17 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
-    "type": "strategic-ploy"
+    "type": "strategic-ploy",
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "c5d63cdb-0422-54e1-88e1-fc973f8748a3"
+      },
+      {
+        "namespace": "mfm",
+        "id": "d0dce784-e9e0-457c-ba72-6017ca826710"
+      }
+    ]
   },
   {
     "id": "descent-of-angels-the-angelic-host",
@@ -654,7 +948,17 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "463b61ad-8842-5d2b-a35b-e1bbe74720ce"
+      },
+      {
+        "namespace": "mfm",
+        "id": "68327eeb-efac-4668-9e28-54ffc5740a11"
+      }
+    ]
   },
   {
     "id": "duty-and-honour-1st-company-task-force",
@@ -673,7 +977,17 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "79d2fb98-a89c-50db-aba0-d537ecbe2668"
+      },
+      {
+        "namespace": "mfm",
+        "id": "64923c21-5845-4888-9aa9-9038bdce515a"
+      }
+    ]
   },
   {
     "id": "evasive-repositioning-ceramite-sentinels",
@@ -692,7 +1006,17 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "3e683601-4cbc-51c1-9e3a-91ba6f003d7e"
+      },
+      {
+        "namespace": "mfm",
+        "id": "5c0b9aab-254c-47c3-b554-523d54f159dd"
+      }
+    ]
   },
   {
     "id": "final-retribution-the-lost-brethren",
@@ -711,7 +1035,17 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "d1007334-2f00-5bc8-8406-958340e20d76"
+      },
+      {
+        "namespace": "mfm",
+        "id": "583589ac-9db2-45f0-a961-7dd4606ab4fe"
+      }
+    ]
   },
   {
     "id": "focused-fury-angelic-inheritors",
@@ -730,7 +1064,17 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "1c8679c8-2059-58c4-9333-8aa54898a952"
+      },
+      {
+        "namespace": "mfm",
+        "id": "709d83a3-6a9d-4e15-bb91-522145490141"
+      }
+    ]
   },
   {
     "id": "full-throttle-stormlance-task-force",
@@ -749,7 +1093,17 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "4d17fdb4-3603-50a0-8b0d-36946f151c9c"
+      },
+      {
+        "namespace": "mfm",
+        "id": "b1a41a8f-ad96-4a14-9794-5549fef75ede"
+      }
+    ]
   },
   {
     "id": "furious-onslaught-the-lost-brethren",
@@ -768,7 +1122,17 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "e7b8912a-2be7-51d8-8884-00ebe35249e4"
+      },
+      {
+        "namespace": "mfm",
+        "id": "71586ec8-63d4-4105-8f62-f58125e071eb"
+      }
+    ]
   },
   {
     "id": "glorious-sacrifice-the-lost-brethren",
@@ -791,7 +1155,17 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "f6e7f0cf-f90d-5101-bdde-de2b050ddd9e"
+      },
+      {
+        "namespace": "mfm",
+        "id": "23555952-703c-4b5c-9f4a-14d52987bad7"
+      }
+    ]
   },
   {
     "id": "guerrilla-tactics-vanguard-spearhead",
@@ -810,7 +1184,17 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "ad60ab93-7e62-58b6-8564-9911fb8e8259"
+      },
+      {
+        "namespace": "mfm",
+        "id": "ddb58103-adaa-4b54-8cdb-05ef2c2dcd2e"
+      }
+    ]
   },
   {
     "id": "guided-disruption-bastion-task-force",
@@ -830,7 +1214,17 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "dba8b7ff-16fb-5647-90a1-17e0efe4019a"
+      },
+      {
+        "namespace": "mfm",
+        "id": "7c0da99f-c645-4b51-b145-5b9cf61f5a5d"
+      }
+    ]
   },
   {
     "id": "hail-of-vengeance-anvil-siege-force",
@@ -849,7 +1243,17 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "4c72cec8-7f4a-5f0a-9a51-e4e2d0c72946"
+      },
+      {
+        "namespace": "mfm",
+        "id": "a8a38f4c-44fd-4620-84d5-221c143fdbce"
+      }
+    ]
   },
   {
     "id": "heresy-undone-bastion-task-force",
@@ -869,7 +1273,17 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "f1fb2c85-a8f0-5572-9055-bc17a4769bed"
+      },
+      {
+        "namespace": "mfm",
+        "id": "b167e9a1-e72e-49a4-9131-1feb084ad7bd"
+      }
+    ]
   },
   {
     "id": "heroes-of-the-chapter-1st-company-task-force",
@@ -889,7 +1303,17 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "729ef6aa-2fca-54fb-afb3-e93ffe60f191"
+      },
+      {
+        "namespace": "mfm",
+        "id": "06423f32-dc7b-43d8-8feb-65f462b5c8b6"
+      }
+    ]
   },
   {
     "id": "honour-the-chapter-gladius-task-force",
@@ -908,7 +1332,17 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "2f3c5b71-5d8f-569d-a491-1fc4e6b54da2"
+      },
+      {
+        "namespace": "mfm",
+        "id": "c055b116-504d-418e-9e52-0951913d32e5"
+      }
+    ]
   },
   {
     "id": "immolation-protocols-firestorm-assault-force",
@@ -927,7 +1361,17 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "96554bc2-6477-5d3b-9545-6b783cdbd1a5"
+      },
+      {
+        "namespace": "mfm",
+        "id": "a3195f2f-f195-4286-bc99-09ae17814e5e"
+      }
+    ]
   },
   {
     "id": "in-the-shadow-of-great-wings-angelic-inheritors",
@@ -946,7 +1390,17 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "018bfafe-aecd-5774-8ead-986c6b131e8c"
+      },
+      {
+        "namespace": "mfm",
+        "id": "378369c6-657e-4f09-93c0-4a75ec4da1c8"
+      }
+    ]
   },
   {
     "id": "inexorable-valour-encarmine-speartip",
@@ -964,7 +1418,13 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "142290bd-f703-4eac-adf8-f5b01e98637e"
+      }
+    ]
   },
   {
     "id": "insensate-rampage-rage-cursed-onslaught",
@@ -984,7 +1444,17 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
-    "type": "strategic-ploy"
+    "type": "strategic-ploy",
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "2beefe49-3242-51f5-9968-843c70771df7"
+      },
+      {
+        "namespace": "mfm",
+        "id": "4ac4d016-f523-4d6c-822b-8e258841b256"
+      }
+    ]
   },
   {
     "id": "instant-of-grace-angelic-inheritors",
@@ -1003,7 +1473,17 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "d2fb1445-6de6-597d-97cc-4e6b18ed48fe"
+      },
+      {
+        "namespace": "mfm",
+        "id": "811ce264-ec5d-4c48-89b3-eb7f67e542e0"
+      }
+    ]
   },
   {
     "id": "judgement-of-the-golden-host-encarmine-speartip",
@@ -1021,7 +1501,13 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "dc7bd23f-33be-44ed-8eeb-d5deade87520"
+      }
+    ]
   },
   {
     "id": "kill-shot-headhunter-task-force",
@@ -1040,7 +1526,17 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "feefb28e-f890-50bd-a090-5182073ba954"
+      },
+      {
+        "namespace": "mfm",
+        "id": "e18e9e2e-166f-4b09-aa71-a939be148dbc"
+      }
+    ]
   },
   {
     "id": "legendary-fortitude-1st-company-task-force",
@@ -1059,7 +1555,17 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "74ccf9ee-19f6-5f31-a924-465b1ebe339a"
+      },
+      {
+        "namespace": "mfm",
+        "id": "6525f05c-d6ef-435d-b59b-83c9b1ee4c0c"
+      }
+    ]
   },
   {
     "id": "light-of-vengeance-bastion-task-force",
@@ -1079,7 +1585,17 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "51d8cbdf-1242-5277-af09-c21211a56446"
+      },
+      {
+        "namespace": "mfm",
+        "id": "88477031-d757-4918-82f9-a7c3e949008b"
+      }
+    ]
   },
   {
     "id": "limb-from-limb-rage-cursed-onslaught",
@@ -1098,7 +1614,17 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
-    "type": "battle-tactic"
+    "type": "battle-tactic",
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "bc46fd97-272d-579f-a577-97f5225d61b6"
+      },
+      {
+        "namespace": "mfm",
+        "id": "a41a6832-7298-48b5-9b52-59bf2b316cbf"
+      }
+    ]
   },
   {
     "id": "lost-to-rage-the-lost-brethren",
@@ -1117,7 +1643,17 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "5f114c1a-8f4f-5037-95b4-416a19a07717"
+      },
+      {
+        "namespace": "mfm",
+        "id": "6d7ee226-7f8f-4418-8088-487743940269"
+      }
+    ]
   },
   {
     "id": "machine-vengeance-headhunter-task-force",
@@ -1136,7 +1672,17 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "8eba2155-e07d-5cad-9118-5f430ce0b131"
+      },
+      {
+        "namespace": "mfm",
+        "id": "0c9c11fb-4109-4334-ae01-5f5f5b7445bc"
+      }
+    ]
   },
   {
     "id": "machine-wrath-armoured-speartip",
@@ -1159,7 +1705,17 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "6d2bc68f-80c4-5aa2-93f9-294c9f971a09"
+      },
+      {
+        "namespace": "mfm",
+        "id": "d0f7ea35-148a-4868-897d-cbbc200d815a"
+      }
+    ]
   },
   {
     "id": "martial-examplars-the-angelic-host",
@@ -1178,7 +1734,17 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "7d3930de-e077-5756-a514-d4ea0a1fbeb1"
+      },
+      {
+        "namespace": "mfm",
+        "id": "88d26402-f1f0-4c30-a590-c4e962ded68b"
+      }
+    ]
   },
   {
     "id": "martial-paragon-legacy-of-grace",
@@ -1197,7 +1763,13 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "7a9d61a8-cbcc-4597-a82f-c532ca6059ea"
+      }
+    ]
   },
   {
     "id": "mercy-is-weakness-ironstorm-spearhead",
@@ -1217,7 +1789,17 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "71304e7e-b51b-5921-8df4-5c05e2289d73"
+      },
+      {
+        "namespace": "mfm",
+        "id": "a6c31db3-14f8-4d8a-a25f-46fc6428ada8"
+      }
+    ]
   },
   {
     "id": "no-barrier-to-retribution-wrath-of-the-doomed",
@@ -1235,7 +1817,13 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "0d0cbbdd-13eb-457e-858b-26d9d8de11ac"
+      }
+    ]
   },
   {
     "id": "no-threat-too-great-anvil-siege-force",
@@ -1254,7 +1842,17 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "25049782-0c7e-5431-8451-b05f50720df2"
+      },
+      {
+        "namespace": "mfm",
+        "id": "d5a92214-c343-4bfb-879e-9f067f42503e"
+      }
+    ]
   },
   {
     "id": "not-one-backwards-step-anvil-siege-force",
@@ -1273,7 +1871,17 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "a2031a3f-656a-51f2-b19f-36b235af15a2"
+      },
+      {
+        "namespace": "mfm",
+        "id": "785677c5-013d-4173-8c1b-e81b052065f2"
+      }
+    ]
   },
   {
     "id": "only-in-death-does-duty-end-gladius-task-force",
@@ -1292,7 +1900,17 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "d868ba13-85f4-562e-b2a0-54dc41bdf567"
+      },
+      {
+        "namespace": "mfm",
+        "id": "be905c00-8306-4b94-b024-daa173af45e3"
+      }
+    ]
   },
   {
     "id": "onslaught-of-fire-firestorm-assault-force",
@@ -1311,7 +1929,17 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "1e391691-fa5a-5252-b1fc-71a4b2b295d6"
+      },
+      {
+        "namespace": "mfm",
+        "id": "6602438d-0065-4144-8df2-00a495e664e2"
+      }
+    ]
   },
   {
     "id": "onward-for-the-emperor-orbital-assault-force",
@@ -1330,7 +1958,17 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "dc5a55f1-095c-578c-b712-8e07a87e6658"
+      },
+      {
+        "namespace": "mfm",
+        "id": "5ebe01fd-a152-4b94-bf5d-236b6403faae"
+      }
+    ]
   },
   {
     "id": "orbital-teleportarium-1st-company-task-force",
@@ -1349,7 +1987,17 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "8f5c7757-de23-54a1-b84f-d34321fc50d5"
+      },
+      {
+        "namespace": "mfm",
+        "id": "5589b725-ecd7-41f0-b459-0bbed900ffef"
+      }
+    ]
   },
   {
     "id": "power-of-the-machine-spirit-ironstorm-spearhead",
@@ -1368,7 +2016,17 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "850ae394-79db-5848-a1e2-b77da931ac57"
+      },
+      {
+        "namespace": "mfm",
+        "id": "de1df29b-b5b9-43ea-88a8-6d5099f8750f"
+      }
+    ]
   },
   {
     "id": "priority-strike-ceramite-sentinels",
@@ -1388,7 +2046,17 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "508f5e34-d195-5f5a-b643-fc48ab427b9e"
+      },
+      {
+        "namespace": "mfm",
+        "id": "234149a5-d3b8-4204-ad8e-15e797077811"
+      }
+    ]
   },
   {
     "id": "purgation-doctrine-armoured-speartip",
@@ -1407,11 +2075,21 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "b705c3a6-c4fa-5091-9de9-722017b66160"
+      },
+      {
+        "namespace": "mfm",
+        "id": "2915804d-209d-48e9-95e1-8a1ca387ad8c"
+      }
+    ]
   },
   {
     "id": "rage-fuelled-response-wrath-of-the-doomed",
-    "name": "Rage\u2011fuelled Response",
+    "name": "Rage‑fuelled Response",
     "category": "detachment",
     "detachment_id": "wrath-of-the-doomed",
     "cp_cost": 1,
@@ -1425,7 +2103,13 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "0e2f4eed-43d2-4faa-92bf-1189db648672"
+      }
+    ]
   },
   {
     "id": "rapid-embarkation-firestorm-assault-force",
@@ -1444,7 +2128,17 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "06d29cd0-f571-5fe4-a2bf-117f1b127269"
+      },
+      {
+        "namespace": "mfm",
+        "id": "b33f5dad-69d9-4e9d-a3e1-8f8fcb4057d5"
+      }
+    ]
   },
   {
     "id": "rapid-gunnery-headhunter-task-force",
@@ -1463,7 +2157,17 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "bb86253b-5d65-5875-9fdf-300ad2849abb"
+      },
+      {
+        "namespace": "mfm",
+        "id": "edf27bd5-ca47-48f0-b6f8-afcbb323b67b"
+      }
+    ]
   },
   {
     "id": "reactive-evasion-fulguris-task-force",
@@ -1481,7 +2185,13 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "1c250b90-5d7e-46fa-8fb3-6b521b17608c"
+      }
+    ]
   },
   {
     "id": "reactive-repositioning-headhunter-task-force",
@@ -1500,7 +2210,17 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "f114cd52-57fb-5b57-aa01-89b63d2e27b3"
+      },
+      {
+        "namespace": "mfm",
+        "id": "37ae8e5f-b8e5-4566-af22-d370a1a2806c"
+      }
+    ]
   },
   {
     "id": "red-rampage-liberator-assault-group",
@@ -1519,7 +2239,17 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "6d108872-73bf-557f-a7a6-1b86cc0f5968"
+      },
+      {
+        "namespace": "mfm",
+        "id": "68e640c9-6866-44ec-83ff-079063373952"
+      }
+    ]
   },
   {
     "id": "red-wrath-rage-cursed-onslaught",
@@ -1538,7 +2268,17 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
-    "type": "strategic-ploy"
+    "type": "strategic-ploy",
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "c86f6d79-6371-5768-9f1f-75992c96d114"
+      },
+      {
+        "namespace": "mfm",
+        "id": "87c3069d-e815-49ec-b1d9-e93bf0b8fb08"
+      }
+    ]
   },
   {
     "id": "relentless-assault-liberator-assault-group",
@@ -1557,7 +2297,17 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "07f47a6c-4f59-50c0-9272-5761449fc0f1"
+      },
+      {
+        "namespace": "mfm",
+        "id": "6663814e-b757-4632-aec4-727055914da9"
+      }
+    ]
   },
   {
     "id": "ride-hard-ride-fast-stormlance-task-force",
@@ -1576,7 +2326,17 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "d8355b0a-4d68-5c34-a53b-40ec26b4ee12"
+      },
+      {
+        "namespace": "mfm",
+        "id": "8e81e95a-22ff-4aa2-aa33-754b64fbb814"
+      }
+    ]
   },
   {
     "id": "rigid-discipline-anvil-siege-force",
@@ -1595,7 +2355,17 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "5373aa5b-0d13-5875-9e4c-1f5bb4d9d564"
+      },
+      {
+        "namespace": "mfm",
+        "id": "d3f3fd1c-68e2-4fe0-b199-391011b22105"
+      }
+    ]
   },
   {
     "id": "savage-echoes-liberator-assault-group",
@@ -1614,7 +2384,17 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "ad745804-ad3d-5a75-8dac-822d75f5cdcf"
+      },
+      {
+        "namespace": "mfm",
+        "id": "90ceb16d-6855-4536-8a4a-d48f177c1ec1"
+      }
+    ]
   },
   {
     "id": "shock-assault-stormlance-task-force",
@@ -1633,7 +2413,17 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "e711c85d-b513-5c0a-8991-c19185e64446"
+      },
+      {
+        "namespace": "mfm",
+        "id": "dd4d6731-dd3d-4b45-9721-add5b7ac613d"
+      }
+    ]
   },
   {
     "id": "shock-bombardment-bastion-task-force",
@@ -1653,7 +2443,17 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "d7e93a69-7aa0-5698-aac3-9240bc485c5a"
+      },
+      {
+        "namespace": "mfm",
+        "id": "ef39d403-61d0-486b-b172-85cb9555fa79"
+      }
+    ]
   },
   {
     "id": "shock-onslaught-orbital-assault-force",
@@ -1672,7 +2472,17 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "b9ba61fd-a001-59f1-bc12-a37d56a4b07d"
+      },
+      {
+        "namespace": "mfm",
+        "id": "4138f4fd-20d9-4e5f-97e5-c065bb12adae"
+      }
+    ]
   },
   {
     "id": "show-no-mercy-sanguinary-spearhead",
@@ -1690,11 +2500,17 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "9dee0d08-c36f-421b-b630-43bd9bb19e0d"
+      }
+    ]
   },
   {
     "id": "soul-darkened-fury-legacy-of-grace",
-    "name": "Soul\u2011darkened Fury",
+    "name": "Soul‑darkened Fury",
     "category": "detachment",
     "detachment_id": "legacy-of-grace",
     "cp_cost": 1,
@@ -1708,7 +2524,13 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "6c39c011-e246-49d2-8ee5-075ec7a7a184"
+      }
+    ]
   },
   {
     "id": "squad-tactics-gladius-task-force",
@@ -1727,7 +2549,17 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "0ed92b3d-7a77-5ee9-aeed-d700db56f205"
+      },
+      {
+        "namespace": "mfm",
+        "id": "14c98a7e-0020-4269-a679-99d1e40d4e4c"
+      }
+    ]
   },
   {
     "id": "stand-to-the-end-ceramite-sentinels",
@@ -1746,7 +2578,17 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "492ecb32-eb82-54d8-a722-810a79c41a9f"
+      },
+      {
+        "namespace": "mfm",
+        "id": "127b27ae-4656-4840-9362-e82c0d1dd235"
+      }
+    ]
   },
   {
     "id": "storm-of-fire-gladius-task-force",
@@ -1765,7 +2607,17 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "d4ab0b0e-95b1-5fed-bd14-278e01cc830e"
+      },
+      {
+        "namespace": "mfm",
+        "id": "07ce705a-e059-48a8-8dec-1d83b27162f0"
+      }
+    ]
   },
   {
     "id": "strike-from-the-shadows-vanguard-spearhead",
@@ -1784,7 +2636,17 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "5329de94-4f1d-5f76-aabb-68678bc7bcd3"
+      },
+      {
+        "namespace": "mfm",
+        "id": "2c55924e-6941-4332-bd1a-aa474581fad2"
+      }
+    ]
   },
   {
     "id": "strike-now-for-glory-angelic-inheritors",
@@ -1803,7 +2665,17 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "7f00af52-f5d0-5dcc-b6f7-91a559b7d64c"
+      },
+      {
+        "namespace": "mfm",
+        "id": "d894d116-f328-4734-b401-ba909226f87b"
+      }
+    ]
   },
   {
     "id": "suppression-strafing-orbital-assault-force",
@@ -1822,7 +2694,17 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "aaf64120-041b-5f87-a689-127e28f8e443"
+      },
+      {
+        "namespace": "mfm",
+        "id": "a0a9cd06-14de-4c8f-ab3f-8a44f65a47cf"
+      }
+    ]
   },
   {
     "id": "surgical-strikes-vanguard-spearhead",
@@ -1841,7 +2723,17 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "f1b77f01-d907-5919-be0f-88c957c59f96"
+      },
+      {
+        "namespace": "mfm",
+        "id": "715656ae-384c-4b07-a709-b5519e16f0e6"
+      }
+    ]
   },
   {
     "id": "tactical-decapitation-orbital-assault-force",
@@ -1861,7 +2753,17 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "e4d4c5d1-80bb-536a-8f5e-d05e781c21ad"
+      },
+      {
+        "namespace": "mfm",
+        "id": "7cac734b-0aa3-4cc8-a869-0c52cddac5b5"
+      }
+    ]
   },
   {
     "id": "target-weak-point-headhunter-task-force",
@@ -1880,7 +2782,17 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "a85caffe-73ff-5a76-ab78-8f4c97cdf430"
+      },
+      {
+        "namespace": "mfm",
+        "id": "02c615e1-a6c1-4a12-ab10-334cdd64dc94"
+      }
+    ]
   },
   {
     "id": "terrifying-proficiency-1st-company-task-force",
@@ -1899,7 +2811,17 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "2e51067c-68ad-59db-8ac4-faf0349af630"
+      },
+      {
+        "namespace": "mfm",
+        "id": "33129f94-2402-4249-8849-f07538730ed4"
+      }
+    ]
   },
   {
     "id": "unbowed-conviction-ironstorm-spearhead",
@@ -1918,7 +2840,17 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "0b9d44f1-9e81-56a6-a442-403b4c72c379"
+      },
+      {
+        "namespace": "mfm",
+        "id": "a282b244-52c2-468c-8b2d-7887009a1228"
+      }
+    ]
   },
   {
     "id": "unbridled-ardour-the-angelic-host",
@@ -1941,7 +2873,17 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "5f6b0b33-00ce-5f08-9595-8c0180c85f85"
+      },
+      {
+        "namespace": "mfm",
+        "id": "e71f074c-6560-452c-8fd6-1bb74bb5b3b7"
+      }
+    ]
   },
   {
     "id": "unto-the-burning-skies-angelic-inheritors",
@@ -1960,7 +2902,17 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "79ec4d96-3a47-543a-9867-ce9470a0bee8"
+      },
+      {
+        "namespace": "mfm",
+        "id": "b68b56cc-dbf9-42f6-aee8-83104cb3f9d4"
+      }
+    ]
   },
   {
     "id": "unyielding-might-ceramite-sentinels",
@@ -1979,7 +2931,17 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "67d19ce5-ed17-5428-bdef-c30a71f3d55e"
+      },
+      {
+        "namespace": "mfm",
+        "id": "20843126-7ad3-4368-bdba-6fc715bafabb"
+      }
+    ]
   },
   {
     "id": "vengeful-animus-ironstorm-spearhead",
@@ -2002,7 +2964,17 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "41ce377b-6798-52cb-895b-0d06e895068b"
+      },
+      {
+        "namespace": "mfm",
+        "id": "95d70201-f7be-4981-b611-375aeca3f4ab"
+      }
+    ]
   },
   {
     "id": "wind-swift-evasion-stormlance-task-force",
@@ -2021,7 +2993,17 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "c3d09b49-2ce9-5936-990e-987d6dce1a37"
+      },
+      {
+        "namespace": "mfm",
+        "id": "97f24038-3b98-4140-8b29-3167c7dfd01a"
+      }
+    ]
   },
   {
     "id": "wrathful-rampage-the-lost-brethren",
@@ -2040,6 +3022,16 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "92015e13-936d-50c9-89a9-9cb5045085ee"
+      },
+      {
+        "namespace": "mfm",
+        "id": "65ee2af5-99c9-4220-b07c-e4564aecd4c3"
+      }
+    ]
   }
 ]

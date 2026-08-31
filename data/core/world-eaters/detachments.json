@@ -25,6 +25,12 @@
     "detachment_points": 3,
     "force_dispositions": [
       "purge-the-foe"
+    ],
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "0a5d7ebb-ce39-4751-a90c-889883517b66"
+      }
     ]
   },
   {
@@ -53,6 +59,12 @@
     "detachment_points": 2,
     "force_dispositions": [
       "purge-the-foe"
+    ],
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "11575a4f-0e5c-46e2-9085-392f11226cab"
+      }
     ]
   },
   {
@@ -76,6 +88,12 @@
     "detachment_points": 1,
     "force_dispositions": [
       "priority-assets"
+    ],
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "e8136aea-8e9c-470a-aa7b-a33dfa33c9ea"
+      }
     ]
   },
   {
@@ -104,6 +122,12 @@
     "detachment_points": 2,
     "force_dispositions": [
       "reconnaissance"
+    ],
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "960c7ecf-3cc0-4d10-8d0c-5839273ea651"
+      }
     ]
   },
   {
@@ -132,6 +156,12 @@
     "detachment_points": 2,
     "force_dispositions": [
       "priority-assets"
+    ],
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "ae5e755c-230d-46a9-ad1a-d3afaf3633ca"
+      }
     ]
   },
   {
@@ -161,7 +191,13 @@
     "force_dispositions": [
       "take-and-hold"
     ],
-    "tags": []
+    "tags": [],
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "b21e5072-38d5-42b5-9143-9aabcbf499d8"
+      }
+    ]
   },
   {
     "id": "brazen-engines",
@@ -185,7 +221,13 @@
     "force_dispositions": [
       "disruption"
     ],
-    "tags": []
+    "tags": [],
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "b316e2f6-0b93-4805-9b5e-38f050875ad3"
+      }
+    ]
   },
   {
     "id": "butchers-of-khorne",
@@ -208,6 +250,12 @@
     "detachment_points": 1,
     "force_dispositions": [
       "take-and-hold"
+    ],
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "16d7618b-880a-4f47-97e2-385df44bc860"
+      }
     ]
   },
   {
@@ -228,6 +276,12 @@
     "detachment_points": 1,
     "force_dispositions": [
       "purge-the-foe"
+    ],
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "b05a886f-004a-4c1d-87a5-30d92a81a35d"
+      }
     ]
   }
 ]

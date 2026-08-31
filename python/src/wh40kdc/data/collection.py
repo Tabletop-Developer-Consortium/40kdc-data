@@ -45,6 +45,7 @@ class Collection(Generic[T, V]):
         name_of: Callable[[T], str | None] | None = None,
         aliases_of: Callable[[T], list[str] | None] | None = None,
         faction_of: Callable[[T], str | None] | None = None,
+        external_refs_of: Callable[[T], list[Mapping[str, str]] | None] | None = None,
         guard_unscoped: bool = False,
         entity_label: str = "entity",
         id_aliases: Mapping[str, str] | None = None,
@@ -60,6 +61,7 @@ class Collection(Generic[T, V]):
         self._by_id: dict[str, T] = {}
         self._by_norm: dict[str, list[T]] = {}
         self._by_faction_id: dict[str, list[T]] = {}
+        self._by_external_ref: dict[tuple[str, str], list[T]] = {}
         # Ids registered under >1 faction; only populated when guarding.
         self._ambiguous_ids: set[str] | None = set() if guard_unscoped else None
         self._entity_label = entity_label
@@ -93,6 +95,12 @@ class Collection(Generic[T, V]):
                 if alias_key == "" or alias_key == name_key:
                     continue
                 self._by_norm.setdefault(alias_key, []).append(item)
+
+            for ref in (external_refs_of(item) if external_refs_of else None) or []:
+                namespace = ref.get("namespace")
+                external_id = ref.get("id")
+                if namespace and external_id:
+                    self._by_external_ref.setdefault((namespace, external_id), []).append(item)
 
             faction = faction_of(item) if faction_of else None
             if faction:
@@ -178,6 +186,13 @@ class Collection(Generic[T, V]):
         """Whether a record with this exact id (or a renamed alias of it) exists."""
         return self._raw_by_id(id) is not None
 
+    def by_external_ref(self, namespace: str, id: str) -> list[V]:
+        """Return every record carrying an exact external source identity.
+
+        External mappings are many-to-many, so this always returns a list.
+        """
+        return [self._wrap(item) for item in self._by_external_ref.get((namespace, id), [])]
+
     def find(self, query: str) -> V | None:
         """Find one record by id or name.
 
@@ -245,6 +260,7 @@ def id_collection(
         id_of=lambda i: i["id"],
         name_of=lambda i: i.get("name"),
         faction_of=faction_of,
+        external_refs_of=lambda i: i.get("external_refs"),
         wrap=lambda i: i,
         id_aliases=id_aliases,
     )

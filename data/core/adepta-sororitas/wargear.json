@@ -29,7 +29,13 @@
     "game_version": {
       "edition": "10th",
       "dataslate": "2025-q3"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "39197f69-843b-4723-b6d6-69a3d43ae15e"
+      }
+    ]
   },
   {
     "id": "ancients-banner",
@@ -38,7 +44,13 @@
       "edition": "10th",
       "dataslate": "2025-q3"
     },
-    "category": "standard"
+    "category": "standard",
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "314a4643-59ab-4fd8-a1a8-d05172bb2070"
+      }
+    ]
   },
   {
     "id": "null-rod",
@@ -46,7 +58,13 @@
     "game_version": {
       "edition": "10th",
       "dataslate": "2025-q3"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "c1a366d8-b7f6-485e-99ac-6a52311d640c"
+      }
+    ]
   },
   {
     "id": "sacred-banner",
@@ -55,7 +73,13 @@
       "edition": "10th",
       "dataslate": "2025-q3"
     },
-    "category": "standard"
+    "category": "standard",
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "689f116f-9d44-4ee4-95cc-3c32ac68a1d0"
+      }
+    ]
   },
   {
     "id": "anchorite-sarcophagus",
@@ -63,7 +87,13 @@
     "game_version": {
       "edition": "10th",
       "dataslate": "2025-q3"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "fb07a984-f0d8-42d6-b044-08298622c911"
+      }
+    ]
   },
   {
     "id": "simulacrum-imperialis",
@@ -71,7 +101,21 @@
     "game_version": {
       "edition": "10th",
       "dataslate": "2025-q3"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "34c3c209-6c20-4bfd-941b-5cf6224c3011"
+      },
+      {
+        "namespace": "mfm",
+        "id": "71cb8c3f-a928-4586-8d1f-5d3a52146dd8"
+      },
+      {
+        "namespace": "mfm",
+        "id": "dc05597d-b7aa-4dd2-9f74-88aa1f5e5d0f"
+      }
+    ]
   },
   {
     "id": "denuncia-oratory",
@@ -79,7 +123,13 @@
     "game_version": {
       "edition": "10th",
       "dataslate": "2025-q3"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "5564a284-0e81-4537-a11d-85d8539c7f18"
+      }
+    ]
   },
   {
     "id": "rod-of-office",
@@ -87,7 +137,13 @@
     "game_version": {
       "edition": "10th",
       "dataslate": "2025-q3"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "e53fd2b5-3c21-4452-80c2-4f6a71ed547f"
+      }
+    ]
   },
   {
     "id": "salvationist-medikit",
@@ -95,6 +151,12 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "launch"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "b0c5864c-a235-476f-8196-133c6e07e5d5"
+      }
+    ]
   }
 ]

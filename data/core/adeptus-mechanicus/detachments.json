@@ -25,6 +25,12 @@
     "detachment_points": 3,
     "force_dispositions": [
       "priority-assets"
+    ],
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "1f88f9ac-0833-4f98-8c7c-81d0fe96b6c1"
+      }
     ]
   },
   {
@@ -53,6 +59,12 @@
     "detachment_points": 2,
     "force_dispositions": [
       "take-and-hold"
+    ],
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "8affc9e3-5c18-407d-9221-78bb107b7bd5"
+      }
     ]
   },
   {
@@ -81,6 +93,12 @@
     "detachment_points": 2,
     "force_dispositions": [
       "reconnaissance"
+    ],
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "a3be11dc-9a25-4d6b-90a2-1828e6d2d10b"
+      }
     ]
   },
   {
@@ -112,6 +130,12 @@
     ],
     "tags": [
       "data-psalm"
+    ],
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "a6cedc66-4c91-4957-b8c3-fa1b30fd8f5a"
+      }
     ]
   },
   {
@@ -140,6 +164,12 @@
     "detachment_points": 2,
     "force_dispositions": [
       "priority-assets"
+    ],
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "cdf5ae0a-7913-4ebc-b7c8-949f48e869f8"
+      }
     ]
   },
   {
@@ -168,6 +198,12 @@
     "detachment_points": 2,
     "force_dispositions": [
       "take-and-hold"
+    ],
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "e00b5962-4b5a-4857-bb5d-d1372e762d2f"
+      }
     ]
   },
   {
@@ -191,6 +227,12 @@
     "detachment_points": 1,
     "force_dispositions": [
       "reconnaissance"
+    ],
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "b8fe0260-4813-45c4-996b-1622ae022223"
+      }
     ]
   },
   {
@@ -215,7 +257,13 @@
     "force_dispositions": [
       "priority-assets"
     ],
-    "tags": []
+    "tags": [],
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "8a1e297b-d845-493b-9371-1e245b85b98a"
+      }
+    ]
   },
   {
     "id": "luminen-auto-choir",
@@ -241,6 +289,12 @@
     ],
     "tags": [
       "data-psalm"
+    ],
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "40fdf203-095d-45f2-9678-3a0e7c30346d"
+      }
     ]
   },
   {
@@ -269,6 +323,12 @@
     "detachment_points": 3,
     "force_dispositions": [
       "purge-the-foe"
+    ],
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "ef26ded5-b525-47c9-8329-deaab91c2c74"
+      }
     ]
   },
   {
@@ -289,6 +349,12 @@
     "detachment_points": 1,
     "force_dispositions": [
       "purge-the-foe"
+    ],
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "13aa8e3b-3095-4a81-9597-c186a14a2318"
+      }
     ]
   }
 ]

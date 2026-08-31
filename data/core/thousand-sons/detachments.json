@@ -25,6 +25,12 @@
     "detachment_points": 2,
     "force_dispositions": [
       "reconnaissance"
+    ],
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "6bc12e9e-73c2-46aa-8876-1bf10e95677a"
+      }
     ]
   },
   {
@@ -53,6 +59,12 @@
     "detachment_points": 2,
     "force_dispositions": [
       "priority-assets"
+    ],
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "baf498d8-40c2-4536-869c-0432cf6ec054"
+      }
     ]
   },
   {
@@ -81,6 +93,12 @@
     "detachment_points": 3,
     "force_dispositions": [
       "take-and-hold"
+    ],
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "c4040e42-40b2-4df2-ba73-83a17dfe3e72"
+      }
     ]
   },
   {
@@ -109,6 +127,12 @@
     "detachment_points": 3,
     "force_dispositions": [
       "priority-assets"
+    ],
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "d7f54185-ca1d-4300-981d-84a28641ce14"
+      }
     ]
   },
   {
@@ -140,6 +164,12 @@
     ],
     "tags": [
       "mutant"
+    ],
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "d8a383c5-a6a0-445a-b1ad-5a4858bc6265"
+      }
     ]
   },
   {
@@ -168,6 +198,12 @@
     "detachment_points": 3,
     "force_dispositions": [
       "take-and-hold"
+    ],
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "da4b1448-5954-4083-a820-bc98d08b6672"
+      }
     ]
   },
   {
@@ -191,6 +227,12 @@
     "detachment_points": 1,
     "force_dispositions": [
       "take-and-hold"
+    ],
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "8703803f-2be2-4862-8622-c729c12babca"
+      }
     ]
   },
   {
@@ -215,7 +257,13 @@
     "force_dispositions": [
       "disruption"
     ],
-    "tags": []
+    "tags": [],
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "9b8af121-ddff-4e4e-9928-37050a67b0a8"
+      }
+    ]
   },
   {
     "id": "servants-of-change",
@@ -249,6 +297,12 @@
           "Tzaangors"
         ]
       }
+    ],
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "6bfd15ec-5723-410f-853c-092d82919512"
+      }
     ]
   },
   {
@@ -269,6 +323,12 @@
     "detachment_points": 1,
     "force_dispositions": [
       "take-and-hold"
+    ],
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "7f2a8706-db85-4fe3-837b-f8e95980f4a7"
+      }
     ]
   }
 ]

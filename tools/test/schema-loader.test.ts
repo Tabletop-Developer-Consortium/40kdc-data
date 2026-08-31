@@ -10,51 +10,109 @@ describe("schema-loader", () => {
   it("finds all expected schema $id values", () => {
     const ids = listSchemaIds();
     expect(ids).toContain("https://40kdc.dev/schemas/defs/common.schema.json");
-    expect(ids).toContain("https://40kdc.dev/schemas/defs/game-version-ref.schema.json");
+    expect(ids).toContain(
+      "https://40kdc.dev/schemas/defs/game-version-ref.schema.json",
+    );
     expect(ids).toContain("https://40kdc.dev/schemas/core/faction.schema.json");
     expect(ids).toContain("https://40kdc.dev/schemas/core/unit.schema.json");
-    expect(ids).toContain("https://40kdc.dev/schemas/core/target-profile.schema.json");
+    expect(ids).toContain(
+      "https://40kdc.dev/schemas/core/target-profile.schema.json",
+    );
     expect(ids).toContain("https://40kdc.dev/schemas/core/weapon.schema.json");
-    expect(ids).toContain("https://40kdc.dev/schemas/core/weapon-keyword.schema.json");
-    expect(ids).toContain("https://40kdc.dev/schemas/core/unit-keyword.schema.json");
-    expect(ids).toContain("https://40kdc.dev/schemas/core/game-version.schema.json");
-    expect(ids).toContain("https://40kdc.dev/schemas/core/detachment.schema.json");
-    expect(ids).toContain("https://40kdc.dev/schemas/core/allied-rule.schema.json");
-    expect(ids).toContain("https://40kdc.dev/schemas/core/enhancement.schema.json");
-    expect(ids).toContain("https://40kdc.dev/schemas/core/stratagem.schema.json");
-    expect(ids).toContain("https://40kdc.dev/schemas/core/wargear-option.schema.json");
+    expect(ids).toContain(
+      "https://40kdc.dev/schemas/core/weapon-keyword.schema.json",
+    );
+    expect(ids).toContain(
+      "https://40kdc.dev/schemas/core/unit-keyword.schema.json",
+    );
+    expect(ids).toContain(
+      "https://40kdc.dev/schemas/core/game-version.schema.json",
+    );
+    expect(ids).toContain(
+      "https://40kdc.dev/schemas/core/detachment.schema.json",
+    );
+    expect(ids).toContain(
+      "https://40kdc.dev/schemas/core/allied-rule.schema.json",
+    );
+    expect(ids).toContain(
+      "https://40kdc.dev/schemas/core/enhancement.schema.json",
+    );
+    expect(ids).toContain(
+      "https://40kdc.dev/schemas/core/stratagem.schema.json",
+    );
+    expect(ids).toContain(
+      "https://40kdc.dev/schemas/core/wargear-option.schema.json",
+    );
     expect(ids).toContain("https://40kdc.dev/schemas/core/wargear.schema.json");
-    expect(ids).toContain("https://40kdc.dev/schemas/core/leader-attachment.schema.json");
-    expect(ids).toContain("https://40kdc.dev/schemas/core/unit-composition.schema.json");
+    expect(ids).toContain(
+      "https://40kdc.dev/schemas/core/leader-attachment.schema.json",
+    );
+    expect(ids).toContain(
+      "https://40kdc.dev/schemas/core/unit-composition.schema.json",
+    );
     expect(ids).toContain("https://40kdc.dev/schemas/core/roster.schema.json");
-    expect(ids).toContain("https://40kdc.dev/schemas/core/force-disposition.schema.json");
-    expect(ids).toContain("https://40kdc.dev/schemas/core/game-mode.schema.json");
-    expect(ids).toContain("https://40kdc.dev/schemas/core/deployment-pattern.schema.json");
+    expect(ids).toContain(
+      "https://40kdc.dev/schemas/core/force-disposition.schema.json",
+    );
+    expect(ids).toContain(
+      "https://40kdc.dev/schemas/core/game-mode.schema.json",
+    );
+    expect(ids).toContain(
+      "https://40kdc.dev/schemas/core/deployment-pattern.schema.json",
+    );
     expect(ids).toContain("https://40kdc.dev/schemas/core/mission.schema.json");
-    expect(ids).toContain("https://40kdc.dev/schemas/core/mission-matchup.schema.json");
-    expect(ids).toContain("https://40kdc.dev/schemas/core/secondary-card.schema.json");
-    expect(ids).toContain("https://40kdc.dev/schemas/core/terrain-template.schema.json");
-    expect(ids).toContain("https://40kdc.dev/schemas/core/terrain-layout.schema.json");
-    expect(ids).toContain("https://40kdc.dev/schemas/core/hull-shape.schema.json");
-    expect(ids).toContain("https://40kdc.dev/schemas/enrichment/phase-mapping.schema.json");
-    expect(ids).toContain("https://40kdc.dev/schemas/enrichment/interaction-flag.schema.json");
-    expect(ids).toContain("https://40kdc.dev/schemas/enrichment/ability-dsl/ability.schema.json");
-    expect(ids).toContain("https://40kdc.dev/schemas/enrichment/ability-dsl/condition.schema.json");
-    expect(ids).toContain("https://40kdc.dev/schemas/enrichment/ability-dsl/effect.schema.json");
-    expect(ids).toContain("https://40kdc.dev/schemas/enrichment/ability-dsl/scope.schema.json");
-    expect(ids).toContain("https://40kdc.dev/schemas/enrichment/resource-pool.schema.json");
+    expect(ids).toContain(
+      "https://40kdc.dev/schemas/core/mission-matchup.schema.json",
+    );
+    expect(ids).toContain(
+      "https://40kdc.dev/schemas/core/secondary-card.schema.json",
+    );
+    expect(ids).toContain(
+      "https://40kdc.dev/schemas/core/terrain-template.schema.json",
+    );
+    expect(ids).toContain(
+      "https://40kdc.dev/schemas/core/terrain-layout.schema.json",
+    );
+    expect(ids).toContain(
+      "https://40kdc.dev/schemas/core/hull-shape.schema.json",
+    );
+    expect(ids).toContain(
+      "https://40kdc.dev/schemas/enrichment/phase-mapping.schema.json",
+    );
+    expect(ids).toContain(
+      "https://40kdc.dev/schemas/enrichment/interaction-flag.schema.json",
+    );
+    expect(ids).toContain(
+      "https://40kdc.dev/schemas/enrichment/ability-dsl/ability.schema.json",
+    );
+    expect(ids).toContain(
+      "https://40kdc.dev/schemas/enrichment/ability-dsl/condition.schema.json",
+    );
+    expect(ids).toContain(
+      "https://40kdc.dev/schemas/enrichment/ability-dsl/effect.schema.json",
+    );
+    expect(ids).toContain(
+      "https://40kdc.dev/schemas/enrichment/ability-dsl/scope.schema.json",
+    );
+    expect(ids).toContain(
+      "https://40kdc.dev/schemas/enrichment/resource-pool.schema.json",
+    );
   });
 
   it("can retrieve a schema by $id for validation", () => {
     const ajv = createValidator();
-    const validate = ajv.getSchema("https://40kdc.dev/schemas/core/faction.schema.json");
+    const validate = ajv.getSchema(
+      "https://40kdc.dev/schemas/core/faction.schema.json",
+    );
     expect(validate).toBeDefined();
     expect(typeof validate).toBe("function");
   });
 
   it("resolves $ref across schema files", () => {
     const ajv = createValidator();
-    const validate = ajv.getSchema("https://40kdc.dev/schemas/core/faction.schema.json");
+    const validate = ajv.getSchema(
+      "https://40kdc.dev/schemas/core/faction.schema.json",
+    );
     expect(validate).toBeDefined();
 
     // A valid faction should pass
@@ -72,6 +130,53 @@ describe("schema-loader", () => {
       game_version: { edition: "10th", dataslate: "2025-q3" },
     });
     expect(invalid).toBe(false);
+  });
+
+  it("validates open, locally unique external references", () => {
+    const ajv = createValidator();
+    const validate = ajv.getSchema(
+      "https://40kdc.dev/schemas/core/faction.schema.json",
+    );
+    expect(validate).toBeDefined();
+    const faction = {
+      id: "test-faction",
+      name: "Test Faction",
+      game_version: { edition: "11th", dataslate: "test" },
+    };
+    const refs = [
+      { namespace: "future-source", id: "record-1" },
+      { namespace: "future-source", id: "record-2" },
+    ];
+
+    expect(validate!({ ...faction, external_refs: refs })).toBe(true);
+    expect(
+      validate!({
+        ...faction,
+        external_refs: [refs[0], refs[0]],
+      }),
+    ).toBe(false);
+    expect(
+      validate!({
+        ...faction,
+        external_refs: [{ namespace: "", id: "record-1" }],
+      }),
+    ).toBe(false);
+    expect(
+      validate!({
+        ...faction,
+        external_refs: [{ namespace: "future-source", id: "" }],
+      }),
+    ).toBe(false);
+
+    // Cross-entity fan-out is valid: uniqueness is intentionally local.
+    expect(validate!({ ...faction, external_refs: [refs[0]] })).toBe(true);
+    expect(
+      validate!({
+        ...faction,
+        id: "second-faction",
+        external_refs: [refs[0]],
+      }),
+    ).toBe(true);
   });
 
   it("accepts the was-hit-by-attack condition and still rejects unknown types", () => {
@@ -96,7 +201,9 @@ describe("schema-loader", () => {
 
   it("gates the optional game_modes field to the game-mode enum (absent implies matched-play)", () => {
     const ajv = createValidator();
-    const validate = ajv.getSchema("https://40kdc.dev/schemas/core/detachment.schema.json");
+    const validate = ajv.getSchema(
+      "https://40kdc.dev/schemas/core/detachment.schema.json",
+    );
     expect(validate).toBeDefined();
 
     const base = {
@@ -114,12 +221,16 @@ describe("schema-loader", () => {
     expect(validate!({ ...base, game_modes: ["not-a-mode"] })).toBe(false);
     // The array must be non-empty and its members unique.
     expect(validate!({ ...base, game_modes: [] })).toBe(false);
-    expect(validate!({ ...base, game_modes: ["combat-patrol", "combat-patrol"] })).toBe(false);
+    expect(
+      validate!({ ...base, game_modes: ["combat-patrol", "combat-patrol"] }),
+    ).toBe(false);
   });
 
   it("rejects empty required-any keyword restrictions", () => {
     const ajv = createValidator();
-    const validate = ajv.getSchema("https://40kdc.dev/schemas/core/weapon.schema.json");
+    const validate = ajv.getSchema(
+      "https://40kdc.dev/schemas/core/weapon.schema.json",
+    );
     expect(validate).toBeDefined();
     const profile = {
       name: "Test profile",
@@ -133,43 +244,87 @@ describe("schema-loader", () => {
       game_version: { edition: "11th", dataslate: "test" },
     };
     expect(validate!(weapon)).toBe(true);
-    expect(validate!({
-      ...weapon,
-      profiles: [{
-        ...profile,
-        target_restrictions: { required_keywords_any: [] },
-      }],
-    })).toBe(false);
-    expect(validate!({
-      ...weapon,
-      profiles: [{
-        ...profile,
-        keywords: [{
-          keyword_id: "lethal-hits",
-          parameters: { required_target_keywords_any: [] },
-        }],
-      }],
-    })).toBe(false);
+    expect(
+      validate!({
+        ...weapon,
+        profiles: [
+          {
+            ...profile,
+            target_restrictions: { required_keywords_any: [] },
+          },
+        ],
+      }),
+    ).toBe(false);
+    expect(
+      validate!({
+        ...weapon,
+        profiles: [
+          {
+            ...profile,
+            keywords: [
+              {
+                keyword_id: "lethal-hits",
+                parameters: { required_target_keywords_any: [] },
+              },
+            ],
+          },
+        ],
+      }),
+    ).toBe(false);
   });
 
   it("validates closed dice-table effects", () => {
     const ajv = createValidator();
-    const validate = ajv.getSchema("https://40kdc.dev/schemas/enrichment/ability-dsl/effect.schema.json");
+    const validate = ajv.getSchema(
+      "https://40kdc.dev/schemas/enrichment/ability-dsl/effect.schema.json",
+    );
     expect(validate).toBeDefined();
     const outcomes = [
-      { results: [1, 2, 3], effect: { type: "mortal-wounds", target: "target", modifier: { count: "D3" } } },
-      { results: [4, 5], effect: { type: "mortal-wounds", target: "target", modifier: { count: 3 } } },
-      { results: [6], effect: { type: "mortal-wounds", target: "target", modifier: { count: "D3+3" } } },
+      {
+        results: [1, 2, 3],
+        effect: {
+          type: "mortal-wounds",
+          target: "target",
+          modifier: { count: "D3" },
+        },
+      },
+      {
+        results: [4, 5],
+        effect: {
+          type: "mortal-wounds",
+          target: "target",
+          modifier: { count: 3 },
+        },
+      },
+      {
+        results: [6],
+        effect: {
+          type: "mortal-wounds",
+          target: "target",
+          modifier: { count: "D3+3" },
+        },
+      },
     ];
     expect(validate!({ type: "dice-table", dice: "D6", outcomes })).toBe(true);
     expect(validate!({ type: "dice-table", dice: "D8", outcomes })).toBe(false);
-    expect(validate!({ type: "dice-table", dice: "D6", outcomes: [{ results: [1] }, outcomes[1]] })).toBe(false);
+    expect(
+      validate!({
+        type: "dice-table",
+        dice: "D6",
+        outcomes: [{ results: [1] }, outcomes[1]],
+      }),
+    ).toBe(false);
   });
   it("rejects named-region lifecycle, control, and precedence drift", () => {
     const ajv = createValidator();
-    const validate = ajv.getSchema("https://40kdc.dev/schemas/enrichment/ability-dsl/effect.schema.json");
+    const validate = ajv.getSchema(
+      "https://40kdc.dev/schemas/enrichment/ability-dsl/effect.schema.json",
+    );
     expect(validate).toBeDefined();
-    const regionRef = { region_id: "fixture-region", owner_faction: "fixture-faction" };
+    const regionRef = {
+      region_id: "fixture-region",
+      owner_faction: "fixture-faction",
+    };
     const producer = {
       region_ref: regionRef,
       mode: "complete",
@@ -218,7 +373,10 @@ describe("schema-loader", () => {
     };
     const branch = (effect: Record<string, unknown>) => ({
       source: { role: "eligible-source", gate_ref: "beneficiary_gate" },
-      beneficiary: { role: "eligible-beneficiary", gate_ref: "beneficiary_gate" },
+      beneficiary: {
+        role: "eligible-beneficiary",
+        gate_ref: "beneficiary_gate",
+      },
       target: "attacker",
       timing: { event: "each-attack" },
       duration: "attack-resolution",
@@ -233,11 +391,27 @@ describe("schema-loader", () => {
         producer,
         consumer: {
           state_ref: regionRef,
-          beneficiary_gate: { owner: "owner-army", faction: "fixture-faction", operator: "or", keywords: ["FIXTURE"] },
+          beneficiary_gate: {
+            owner: "owner-army",
+            faction: "fixture-faction",
+            operator: "or",
+            keywords: ["FIXTURE"],
+          },
           membership: { unit_scope: "model", relation: "within" },
-          qualified_condition: { type: "region-membership", parameters: { unit_scope: "model", relation: "within" } },
-          default_branch: branch({ type: "re-roll", target: "attacker", modifier: { roll: "hit", subset: "ones" } }),
-          qualified_branch: branch({ type: "roll-modifier", target: "attacker", modifier: { operation: "add", value: 1, roll: "wound" } }),
+          qualified_condition: {
+            type: "region-membership",
+            parameters: { unit_scope: "model", relation: "within" },
+          },
+          default_branch: branch({
+            type: "re-roll",
+            target: "attacker",
+            modifier: { roll: "hit", subset: "ones" },
+          }),
+          qualified_branch: branch({
+            type: "roll-modifier",
+            target: "attacker",
+            modifier: { operation: "add", value: 1, roll: "wound" },
+          }),
         },
         branch_precedence: "qualified-replaces-default",
       },
@@ -250,7 +424,10 @@ describe("schema-loader", () => {
           ...valid.modifier,
           producer: {
             ...producer,
-            phase_extensions: [producer.phase_extensions[0], producer.phase_extensions[0]],
+            phase_extensions: [
+              producer.phase_extensions[0],
+              producer.phase_extensions[0],
+            ],
           },
         },
       }),
@@ -263,7 +440,10 @@ describe("schema-loader", () => {
           producer: {
             ...producer,
             phase_extensions: [
-              { ...producer.phase_extensions[0], zone: "opponent-deployment-zone" },
+              {
+                ...producer.phase_extensions[0],
+                zone: "opponent-deployment-zone",
+              },
               producer.phase_extensions[1],
             ],
           },
@@ -285,7 +465,10 @@ describe("schema-loader", () => {
     expect(
       validate!({
         ...valid,
-        modifier: { ...valid.modifier, branch_precedence: "qualified-adds-to-default" },
+        modifier: {
+          ...valid.modifier,
+          branch_precedence: "qualified-adds-to-default",
+        },
       }),
     ).toBe(false);
     expect(
@@ -295,7 +478,9 @@ describe("schema-loader", () => {
           ...valid.modifier,
           producer: {
             ...producer,
-            baseline: [{ ...producer.baseline[0], activation: { event: "phase-start" } }],
+            baseline: [
+              { ...producer.baseline[0], activation: { event: "phase-start" } },
+            ],
           },
         },
       }),
@@ -448,9 +633,14 @@ describe("schema-loader", () => {
     };
 
     expect(validate!(valid)).toBe(true);
-    expect(validate!({ ...valid, modifier: { rules_bundle: true } })).toBe(false);
-    expect(validate!({ ...valid, modifier: { ability_id: "Not An Entity", rules_bundle: true } })).toBe(
+    expect(validate!({ ...valid, modifier: { rules_bundle: true } })).toBe(
       false,
     );
+    expect(
+      validate!({
+        ...valid,
+        modifier: { ability_id: "Not An Entity", rules_bundle: true },
+      }),
+    ).toBe(false);
   });
 });

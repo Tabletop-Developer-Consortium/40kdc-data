@@ -20,15 +20,17 @@
  */
 import * as path from "path";
 import { nameToId, detachmentScopedId } from "../converters/id-generator.js";
-import { MfmDump, type DetachmentRow,
-type EnhancementRow,
-type DetachmentForceDispositionRow, } from "./loader.js";
+import {
+  MfmDump,
+  type DetachmentRow,
+  type EnhancementRow,
+  type DetachmentForceDispositionRow,
+} from "./loader.js";
 import { readJsonArray, CORE_DIR } from "./repo-files.js";
 import { repoDirForFactionName, repoDirs } from "./faction-map.js";
 import { buildCanon, dispositionIdMap } from "./dispositions.js";
 import type { StagedWrite } from "./apply.js";
 import { acceptedGapIds } from "./accepted-gaps.js";
-
 
 const CONFIRMED = { edition: "11th", dataslate: "launch" } as const;
 /** Combat-Patrol-only entities carry this so the golden files them on the
@@ -37,6 +39,7 @@ const COMBAT_PATROL_ONLY: readonly string[] = ["combat-patrol"];
 
 interface SeedDetachment {
   id: string;
+  external_refs: { namespace: string; id: string }[];
   name: string;
   faction_id: string;
   enhancement_ids: string[];
@@ -48,6 +51,7 @@ interface SeedDetachment {
 
 interface SeedEnhancement {
   id: string;
+  external_refs: { namespace: string; id: string }[];
   name: string;
   detachment_id: string;
   cost: number;
@@ -89,11 +93,10 @@ function enhancementsPath(dir: string): string {
   return path.join(CORE_DIR, dir, "enhancements.json");
 }
 
-
-
 /** One dump CP detachment resolved to its dir + derived skeleton facts. */
 export interface CandidateDet {
   dir: string;
+  source_id: string;
   id: string;
   name: string;
   dp: number;
@@ -119,7 +122,10 @@ export function collectSeedDetachments(dump: MfmDump): CandidateDet[] {
   const enhByDet = new Map<string, EnhancementRow[]>();
   for (const e of dump.table("enhancement")) {
     if (!e.isCombatPatrol) continue;
-    (enhByDet.get(e.detachmentId) ?? enhByDet.set(e.detachmentId, []).get(e.detachmentId)!).push(e);
+    (
+      enhByDet.get(e.detachmentId) ??
+      enhByDet.set(e.detachmentId, []).get(e.detachmentId)!
+    ).push(e);
   }
 
   const out: CandidateDet[] = [];
@@ -129,38 +135,54 @@ export function collectSeedDetachments(dump: MfmDump): CandidateDet[] {
     if (!name) throw new Error(`detachment <${det.id}> has no English name`);
     const id = nameToId(name);
     const applicableDirs = new Set<string>();
-    for (const edge of dump.children("detachment_faction_keyword.detachmentId", det.id)) {
-      const label = dump.enName(dump.byId("faction_keyword").get(edge.factionKeywordId));
+    for (const edge of dump.children(
+      "detachment_faction_keyword.detachmentId",
+      det.id,
+    )) {
+      const label = dump.enName(
+        dump.byId("faction_keyword").get(edge.factionKeywordId),
+      );
       const dir = repoDirForFactionName(label);
       if (dir && knownDirs.has(dir)) applicableDirs.add(dir);
     }
     if (applicableDirs.size === 0) {
       const fkId = dump.factionKeywordOfDetachment(det.id);
-      const fkName = fkId ? dump.enName(dump.byId("faction_keyword").get(fkId)) : undefined;
+      const fkName = fkId
+        ? dump.enName(dump.byId("faction_keyword").get(fkId))
+        : undefined;
       const ownedDir = repoDirForFactionName(fkName);
       if (ownedDir && knownDirs.has(ownedDir)) applicableDirs.add(ownedDir);
     }
     if (applicableDirs.size === 0) {
       if (det.isCombatPatrol) {
-        throw new Error(`Combat Patrol detachment "${name}" has no supported faction directory`);
+        throw new Error(
+          `Combat Patrol detachment "${name}" has no supported faction directory`,
+        );
       }
       continue;
     }
 
     const dispUuid = detDisp.get(det.id)?.[0]?.forceDispositionId;
     const disposition = dispUuid ? dispOf.get(dispUuid) : undefined;
-    if (!disposition) throw new Error(`detachment "${name}" has no force disposition in the dump`);
+    if (!disposition)
+      throw new Error(
+        `detachment "${name}" has no force disposition in the dump`,
+      );
 
     const enhancements: SeedEnhancement[] = [];
     for (const e of enhByDet.get(det.id) ?? []) {
       const en = dump.enName(e);
-      if (!en) throw new Error(`CP enhancement <${e.id}> of "${name}" has no English name`);
+      if (!en)
+        throw new Error(
+          `CP enhancement <${e.id}> of "${name}" has no English name`,
+        );
       // Seed the RAW GW name + id (keep any trailing " (Upgrade)"/" (Aura)" tag) —
       // the import-correct canon, matching the golden (enhIdsByDir) and buildEnhCanon.
       const enhId = detachmentScopedId(en, name);
       enhancements.push({
         id: enhId,
         name: en,
+        external_refs: [{ namespace: "mfm", id: e.id! }],
         detachment_id: id,
         cost: 0,
         is_unique: true,
@@ -171,11 +193,15 @@ export function collectSeedDetachments(dump: MfmDump): CandidateDet[] {
     }
     enhancements.sort((a, b) => a.id.localeCompare(b.id));
     for (const dir of [...applicableDirs].sort()) {
-      const dp = overrideBySlugDir.get(`${id}@@${dir}`) ?? det.detachmentPointsCost;
+      const dp =
+        overrideBySlugDir.get(`${id}@@${dir}`) ?? det.detachmentPointsCost;
       if (dp == null) {
-        throw new Error(`detachment "${name}" has no detachment_points for ${dir}`);
+        throw new Error(
+          `detachment "${name}" has no detachment_points for ${dir}`,
+        );
       }
       out.push({
+        source_id: det.id,
         dir,
         id,
         name,
@@ -201,12 +227,14 @@ export function runSeedDetachments(
   const enhsByDir = new Map<string, IdRecord[]>();
   const loadDets = (dir: string): IdRecord[] => {
     let a = detsByDir.get(dir);
-    if (!a) detsByDir.set(dir, (a = readJsonArray<IdRecord>(detachmentsPath(dir))));
+    if (!a)
+      detsByDir.set(dir, (a = readJsonArray<IdRecord>(detachmentsPath(dir))));
     return a;
   };
   const loadEnhs = (dir: string): IdRecord[] => {
     let a = enhsByDir.get(dir);
-    if (!a) enhsByDir.set(dir, (a = readJsonArray<IdRecord>(enhancementsPath(dir))));
+    if (!a)
+      enhsByDir.set(dir, (a = readJsonArray<IdRecord>(enhancementsPath(dir))));
     return a;
   };
 
@@ -216,7 +244,13 @@ export function runSeedDetachments(
     if (!r) {
       resultByDir.set(
         dir,
-        (r = { dir, createdDetachments: [], createdEnhancements: [], cpExcluded: [], skipped: [] }),
+        (r = {
+          dir,
+          createdDetachments: [],
+          createdEnhancements: [],
+          cpExcluded: [],
+          skipped: [],
+        }),
       );
     }
     return r;
@@ -225,8 +259,9 @@ export function runSeedDetachments(
   const touchedEnhs = new Set<string>();
   const acceptedDetachmentsByDir = new Map<string, ReadonlySet<string>>();
 
-
-  for (const c of candidates.sort((a, b) => a.dir.localeCompare(b.dir) || a.id.localeCompare(b.id))) {
+  for (const c of candidates.sort(
+    (a, b) => a.dir.localeCompare(b.dir) || a.id.localeCompare(b.id),
+  )) {
     if (onlyDir && c.dir !== onlyDir) continue;
     const res = result(c.dir);
     let acceptedDetachments = acceptedDetachmentsByDir.get(c.dir);
@@ -235,7 +270,10 @@ export function runSeedDetachments(
       acceptedDetachmentsByDir.set(c.dir, acceptedDetachments);
     }
     if (acceptedDetachments.has(c.id)) {
-      res.skipped.push({ id: c.id, reason: `detachment "${c.id}" is an accepted MFM gap in ${c.dir}` });
+      res.skipped.push({
+        id: c.id,
+        reason: `detachment "${c.id}" is an accepted MFM gap in ${c.dir}`,
+      });
       continue;
     }
 
@@ -243,7 +281,10 @@ export function runSeedDetachments(
 
     // Existing rows are enriched by subsequent ordered passes.
     if (dets.some((d) => d.id === c.id)) {
-      res.skipped.push({ id: c.id, reason: `detachment "${c.id}" already in ${c.dir}` });
+      res.skipped.push({
+        id: c.id,
+        reason: `detachment "${c.id}" already in ${c.dir}`,
+      });
       continue;
     }
     if (c.combatPatrol && !includeCombatPatrol) {
@@ -257,7 +298,10 @@ export function runSeedDetachments(
     for (const enh of c.enhancements) {
       enhancementIds.push(enh.id);
       if (enhIds.has(enh.id)) {
-        res.skipped.push({ id: enh.id, reason: `enhancement "${enh.id}" already in ${c.dir}` });
+        res.skipped.push({
+          id: enh.id,
+          reason: `enhancement "${enh.id}" already in ${c.dir}`,
+        });
         continue;
       }
       enhs.push(enh as unknown as IdRecord);
@@ -268,6 +312,7 @@ export function runSeedDetachments(
 
     const detachment: SeedDetachment = {
       id: c.id,
+      external_refs: [{ namespace: "mfm", id: c.source_id }],
       name: c.name,
       faction_id: c.dir,
       enhancement_ids: enhancementIds,
@@ -282,28 +327,41 @@ export function runSeedDetachments(
   }
 
   const staged: StagedWrite[] = [];
-  for (const dir of [...touchedDets].sort()) staged.push({ path: detachmentsPath(dir), value: detsByDir.get(dir) });
-  for (const dir of [...touchedEnhs].sort()) staged.push({ path: enhancementsPath(dir), value: enhsByDir.get(dir) });
+  for (const dir of [...touchedDets].sort())
+    staged.push({ path: detachmentsPath(dir), value: detsByDir.get(dir) });
+  for (const dir of [...touchedEnhs].sort())
+    staged.push({ path: enhancementsPath(dir), value: enhsByDir.get(dir) });
 
-  return { dirs: [...resultByDir.values()].sort((a, b) => a.dir.localeCompare(b.dir)), staged };
+  return {
+    dirs: [...resultByDir.values()].sort((a, b) => a.dir.localeCompare(b.dir)),
+    staged,
+  };
 }
 
-export function buildSeedDetachmentsReport(report: SeedDetachmentsReport, write: boolean): string {
+export function buildSeedDetachmentsReport(
+  report: SeedDetachmentsReport,
+  write: boolean,
+): string {
   const { dirs } = report;
   const L: string[] = [];
   L.push(`# MFM seed-detachments — ${write ? "APPLIED" : "DRY RUN"}`);
   L.push("");
-  L.push("Source-backed matched-play detachment skeletons are created by default.");
+  L.push(
+    "Source-backed matched-play detachment skeletons are created by default.",
+  );
   L.push("Combat Patrol parents and their cost-0 enhancements remain opt-in.");
   L.push("");
-  L.push("| Dir | Detachments created | Enhancements created | Held back (CP) | Skipped (exist) |");
+  L.push(
+    "| Dir | Detachments created | Enhancements created | Held back (CP) | Skipped (exist) |",
+  );
   L.push("| --- | --- | --- | --- | --- |");
   for (const d of dirs) {
     L.push(
       `| ${d.dir} | ${d.createdDetachments.length} | ${d.createdEnhancements.length} | ${d.cpExcluded.length} | ${d.skipped.length} |`,
     );
   }
-  const sum = (f: (d: DirSeedDetResult) => number): number => dirs.reduce((a, d) => a + f(d), 0);
+  const sum = (f: (d: DirSeedDetResult) => number): number =>
+    dirs.reduce((a, d) => a + f(d), 0);
   L.push("");
   L.push(
     `Total: ${sum((d) => d.createdDetachments.length)} detachment(s), ` +
@@ -314,8 +372,10 @@ export function buildSeedDetachmentsReport(report: SeedDetachmentsReport, write:
   for (const d of dirs) {
     if (!d.createdDetachments.length && !d.cpExcluded.length) continue;
     L.push(`## ${d.dir}`);
-    for (const c of d.createdDetachments) L.push(`- created detachment \`${c.id}\` (${c.name})`);
-    for (const c of d.createdEnhancements) L.push(`  - enhancement \`${c.id}\` (${c.name})`);
+    for (const c of d.createdDetachments)
+      L.push(`- created detachment \`${c.id}\` (${c.name})`);
+    for (const c of d.createdEnhancements)
+      L.push(`  - enhancement \`${c.id}\` (${c.name})`);
     for (const c of d.cpExcluded) L.push(`- held back \`${c.id}\` (${c.name})`);
     L.push("");
   }

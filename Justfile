@@ -22,7 +22,7 @@ set shell := ["bash", "-uc"]
 ARTIFACTS := "tools/src/generated.ts \
 crates/wh40kdc/schemas/bundled.schema.json crates/wh40kdc/src/generated.rs crates/wh40kdc/src/data/bundle.generated.json \
 python/src/wh40kdc/_bundle.json python/src/wh40kdc/_spec.py python/src/wh40kdc/_types.py python/src/wh40kdc/schemas \
-go/bundle.json go/share_registry.json go/schemas go/spec.go \
+go/bundle.json go/share_registry.json go/schemas go/spec.go data/_audit/external-refs.json \
 conformance"
 
 # List recipes.
@@ -47,6 +47,7 @@ regen:
     python3 python/codegen/gen_typeddicts.py
     bash go/codegen/sync.sh
     cd tools && npm run codegen:data && npx tsc && npm run gen:conformance
+    cd tools && npm run audit:external-refs
 
 # Apply Rust + Go formatting (CI checks these; applying keeps a re-run clean).
 fmt:

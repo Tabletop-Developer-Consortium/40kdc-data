@@ -6,6 +6,9 @@
   "type": "object",
   "properties": {
     "id": { "$ref": "../defs/common.schema.json#/$defs/entity-id" },
+    "external_refs": {
+      "$ref": "../defs/common.schema.json#/$defs/external-reference-list"
+    },
     "name": { "type": "string", "minLength": 1, "maxLength": 128 },
     "aliases": {
       "type": "array",
@@ -15,14 +18,18 @@
     "faction_id": { "$ref": "../defs/common.schema.json#/$defs/entity-id" },
     "role": {
       "type": "string",
-      "enum": ["character", "battleline", "dedicated-transport", "fortification", "allied", "epic-hero"],
+      "enum": [
+        "character",
+        "battleline",
+        "dedicated-transport",
+        "fortification",
+        "allied",
+        "epic-hero"
+      ],
       "description": "Battlefield role from the datasheet header. Unit types (Infantry, Vehicle, etc.) belong in keywords."
     },
     "attachment_role": {
-      "oneOf": [
-        { "enum": ["leader", "support"] },
-        { "type": "null" }
-      ],
+      "oneOf": [{ "enum": ["leader", "support"] }, { "type": "null" }],
       "description": "Character attachment role (11e). 'support' implies the unit is only legal when attached to a host unit (cannot be taken solo); 'leader' is valid as a standalone list entry. null/absent for non-attaching units."
     },
     "profiles": {
@@ -30,7 +37,10 @@
       "items": {
         "type": "object",
         "properties": {
-          "name": { "type": "string", "description": "Profile name (e.g., 'Wounded' for degrading)" },
+          "name": {
+            "type": "string",
+            "description": "Profile name (e.g., 'Wounded' for degrading)"
+          },
           "M": { "$ref": "../defs/common.schema.json#/$defs/stat-value" },
           "T": { "type": "integer", "minimum": 1 },
           "W": { "type": "integer", "minimum": 1 },
@@ -84,10 +94,7 @@
             "description": "11e per-army-ordinal pricing: the first army-copy count (1-based) this tier's cost applies to. Absent (together with unit_count_max) means the cost applies to every copy — the common case. Present only for datasheets the MFM prices by how many you have taken (e.g. 'your 1st-2nd units cost X, your 3rd+ unit costs Y')."
           },
           "unit_count_max": {
-            "oneOf": [
-              { "type": "integer", "minimum": 1 },
-              { "type": "null" }
-            ],
+            "oneOf": [{ "type": "integer", "minimum": 1 }, { "type": "null" }],
             "description": "Inclusive upper army-copy count for this tier's band, or null for an open-ended top band ('3rd+ unit'). Absent when unit_count_min is absent."
           }
         },
@@ -142,7 +149,9 @@
       }
     },
     "keywords": { "$ref": "../defs/common.schema.json#/$defs/keyword-list" },
-    "faction_keywords": { "$ref": "../defs/common.schema.json#/$defs/keyword-list" },
+    "faction_keywords": {
+      "$ref": "../defs/common.schema.json#/$defs/keyword-list"
+    },
     "conditional_keywords": {
       "type": "array",
       "description": "Keywords granted to this unit only when roster construction satisfies the source condition. Conditions are conjunctive within an entry; entries are independent grants.",

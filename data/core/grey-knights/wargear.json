@@ -37,7 +37,13 @@
     "game_version": {
       "edition": "10th",
       "dataslate": "2025-q3"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "39197f69-843b-4723-b6d6-69a3d43ae15e"
+      }
+    ]
   },
   {
     "id": "ancients-banner",
@@ -46,7 +52,13 @@
       "edition": "10th",
       "dataslate": "2025-q3"
     },
-    "category": "standard"
+    "category": "standard",
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "314a4643-59ab-4fd8-a1a8-d05172bb2070"
+      }
+    ]
   },
   {
     "id": "thunderhawk-cluster-bombs",
@@ -54,6 +66,12 @@
     "game_version": {
       "edition": "10th",
       "dataslate": "2025-q3"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "cddccdf8-164b-4a11-aa55-e39e8d7befe3"
+      }
+    ]
   }
 ]

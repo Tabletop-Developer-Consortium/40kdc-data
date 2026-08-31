@@ -41,17 +41,17 @@ import {
 } from "./gear-projection.js";
 import { wargearItemsForDatasheet } from "./wargear.js";
 import { nameToId } from "../converters/id-generator.js";
+import { addExternalRef } from "../external-refs.js";
 import { repoDirs } from "./faction-map.js";
 import type { StagedWrite } from "./apply.js";
 
-
-
-interface CoreWeapon {
+export interface CoreWeapon {
   id: string;
   name: string;
   type: string;
   profiles: WeaponProfile[];
   game_version?: GameVersion;
+  external_refs?: WeaponRecord["external_refs"];
   [k: string]: unknown;
 }
 interface WargearBudget {
@@ -83,15 +83,17 @@ interface OptionRow {
   [k: string]: unknown;
 }
 
-
-
 // ── fingerprinting (name-independent: stats + keywords + range, order-free) ──
 
 function keywordFp(kws: WeaponProfile["keywords"]): string {
   return JSON.stringify(
     [...(kws ?? [])]
       .map((k) => ({ k: k.keyword_id, p: k.parameters ?? null }))
-      .sort((a, b) => `${a.k}${JSON.stringify(a.p)}`.localeCompare(`${b.k}${JSON.stringify(b.p)}`)),
+      .sort((a, b) =>
+        `${a.k}${JSON.stringify(a.p)}`.localeCompare(
+          `${b.k}${JSON.stringify(b.p)}`,
+        ),
+      ),
   );
 }
 
@@ -113,23 +115,67 @@ function profileFp(p: WeaponProfile): string {
 /** Order-independent fingerprint of a weapon's whole profile set. Excludes
  * profile NAMES (cosmetic; the divergence that creates variants is in stats and
  * keywords), so dump-minted and repo-stored weapons compare cleanly. */
-function weaponFp(profiles: WeaponProfile[]): string {
+export function weaponFp(profiles: WeaponProfile[]): string {
   return JSON.stringify([...profiles].map(profileFp).sort());
+}
+
+/**
+ * Resolve one structurally owned MFM wargear item to the exact canonical weapon
+ * selected for its datasheet. Existing per-unit variants take precedence over
+ * the bare id and must match the source profile fingerprint.
+ */
+export function resolveMfmWeaponEntityId(
+  dump: MfmDump,
+  item: Parameters<typeof mintWeapon>[1],
+  unitId: string,
+  weapons: readonly CoreWeapon[],
+  gameVersion: GameVersion,
+): string | null {
+  const name = dump.enName(item);
+  if (!name) return null;
+  let baseId: string;
+  try {
+    baseId = nameToId(name);
+  } catch {
+    return null;
+  }
+  const variantId = `${baseId}-${unitId}`;
+  const candidate =
+    weapons.find((weapon) => weapon.id === variantId) ??
+    weapons.find((weapon) => weapon.id === baseId);
+  if (!candidate) return null;
+  try {
+    const minted = mintWeapon(
+      { dump, gv: gameVersion, warnings: [] },
+      item,
+      baseId,
+      name,
+    );
+    return weaponFp(candidate.profiles) === weaponFp(minted.profiles)
+      ? candidate.id
+      : null;
+  } catch {
+    return null;
+  }
 }
 
 // ── dump loadout walk: the weapon wargear_items a datasheet actually fields ──
 
-
 // ── reference rewiring ──
 
-const remap = (ids: string[] | undefined, m: Map<string, string>): string[] | undefined =>
-  ids?.map((id) => m.get(id) ?? id);
+const remap = (
+  ids: string[] | undefined,
+  m: Map<string, string>,
+): string[] | undefined => ids?.map((id) => m.get(id) ?? id);
 
 function rewireUnit(u: UnitRow, m: Map<string, string>): UnitRow {
   const out: UnitRow = { ...u };
   if (u.weapon_ids) out.weapon_ids = remap(u.weapon_ids, m);
   if (u.wargear_budgets)
-    out.wargear_budgets = u.wargear_budgets.map((b) => ({ ...b, items: remap(b.items, m) ?? b.items }));
+    out.wargear_budgets = u.wargear_budgets.map((b) => ({
+      ...b,
+      items: remap(b.items, m) ?? b.items,
+    }));
   return out;
 }
 
@@ -149,7 +195,8 @@ function rewireOption(o: OptionRow, m: Map<string, string>): OptionRow {
   const out: OptionRow = { ...o };
   if (o.replaces) out.replaces = remap(o.replaces, m);
   if (o.replacement) out.replacement = remap(o.replacement, m);
-  if (o.replacement_choice) out.replacement_choice = o.replacement_choice.map((g) => remap(g, m) ?? g);
+  if (o.replacement_choice)
+    out.replacement_choice = o.replacement_choice.map((g) => remap(g, m) ?? g);
   return out;
 }
 
@@ -169,7 +216,10 @@ export interface WeaponVariantsReport {
 }
 
 /** Build the variant-split projection for one or every faction dir. */
-export function runWeaponVariants(dump: MfmDump, onlyDir?: string): WeaponVariantsReport {
+export function runWeaponVariants(
+  dump: MfmDump,
+  onlyDir?: string,
+): WeaponVariantsReport {
   const dirs = [...repoDirs()].filter((d) => !onlyDir || d === onlyDir).sort();
   const staged: StagedWrite[] = [];
   const reportDirs: DirVariantResult[] = [];
@@ -188,7 +238,8 @@ export function runWeaponVariants(dump: MfmDump, onlyDir?: string): WeaponVarian
 
     // Conflicting ids: an id whose entries do not all share one fingerprint.
     const entriesById = new Map<string, CoreWeapon[]>();
-    for (const w of weapons) (entriesById.get(w.id) ?? entriesById.set(w.id, []).get(w.id)!).push(w);
+    for (const w of weapons)
+      (entriesById.get(w.id) ?? entriesById.set(w.id, []).get(w.id)!).push(w);
     const conflicting = new Set<string>();
     const bareFp = new Map<string, string>();
     const repoEntryByFp = new Map<string, Map<string, CoreWeapon>>();
@@ -205,24 +256,42 @@ export function runWeaponVariants(dump: MfmDump, onlyDir?: string): WeaponVarian
       repoEntryByFp.set(id, byFp);
     }
 
-    const hasDuplicateIds = [...entriesById.values()].some((es) => es.length > 1);
+    const hasDuplicateIds = [...entriesById.values()].some(
+      (es) => es.length > 1,
+    );
     if (conflicting.size === 0 && !hasDuplicateIds) {
-      reportDirs.push({ dir, conflictingIds: 0, variantsAdded: 0, unitsRewired: 0, duplicatesDropped: 0, warnings: [] });
+      reportDirs.push({
+        dir,
+        conflictingIds: 0,
+        variantsAdded: 0,
+        unitsRewired: 0,
+        duplicatesDropped: 0,
+        warnings: [],
+      });
       continue;
     }
 
     // Index options by unit so a unit's conflicting references are complete.
     const optsByUnit = new Map<string, OptionRow[]>();
-    for (const o of options) (optsByUnit.get(o.unit_id) ?? optsByUnit.set(o.unit_id, []).get(o.unit_id)!).push(o);
+    for (const o of options)
+      (
+        optsByUnit.get(o.unit_id) ??
+        optsByUnit.set(o.unit_id, []).get(o.unit_id)!
+      ).push(o);
 
     const refsOf = (u: UnitRow): Set<string> => {
       const refs = new Set<string>();
-      for (const id of u.weapon_ids ?? []) if (conflicting.has(id)) refs.add(id);
-      for (const b of u.wargear_budgets ?? []) for (const id of b.items) if (conflicting.has(id)) refs.add(id);
+      for (const id of u.weapon_ids ?? [])
+        if (conflicting.has(id)) refs.add(id);
+      for (const b of u.wargear_budgets ?? [])
+        for (const id of b.items) if (conflicting.has(id)) refs.add(id);
       for (const o of optsByUnit.get(u.id) ?? []) {
-        for (const id of o.replaces ?? []) if (conflicting.has(id)) refs.add(id);
-        for (const id of o.replacement ?? []) if (conflicting.has(id)) refs.add(id);
-        for (const g of o.replacement_choice ?? []) for (const id of g) if (conflicting.has(id)) refs.add(id);
+        for (const id of o.replaces ?? [])
+          if (conflicting.has(id)) refs.add(id);
+        for (const id of o.replacement ?? [])
+          if (conflicting.has(id)) refs.add(id);
+        for (const g of o.replacement_choice ?? [])
+          for (const id of g) if (conflicting.has(id)) refs.add(id);
       }
       return refs;
     };
@@ -236,10 +305,15 @@ export function runWeaponVariants(dump: MfmDump, onlyDir?: string): WeaponVarian
       if (refs.size === 0) continue;
       const ds = findDatasheet(dump, unit.id, dir);
       if (!ds) {
-        warnings.push(`${unit.id}: no unambiguous dump datasheet — left on bare for [${[...refs].sort().join(", ")}]`);
+        warnings.push(
+          `${unit.id}: no unambiguous dump datasheet — left on bare for [${[...refs].sort().join(", ")}]`,
+        );
         continue;
       }
-      const gv: GameVersion = unit.game_version ?? { edition: "11th", dataslate: "launch" };
+      const gv: GameVersion = unit.game_version ?? {
+        edition: "11th",
+        dataslate: "launch",
+      };
       const ctx = { dump, gv, warnings: [] as string[] };
 
       // baseId -> (fingerprint -> minted record) for this datasheet's weapons.
@@ -260,21 +334,30 @@ export function runWeaponVariants(dump: MfmDump, onlyDir?: string): WeaponVarian
         try {
           minted = mintWeapon(ctx, wi, baseId, name);
         } catch (e) {
-          warnings.push(`${unit.id}: could not mint "${name}": ${(e as Error).message}`);
+          warnings.push(
+            `${unit.id}: could not mint "${name}": ${(e as Error).message}`,
+          );
           continue;
         }
         const fp = weaponFp(minted.profiles);
-        (byBase.get(baseId) ?? byBase.set(baseId, new Map()).get(baseId)!).set(fp, minted);
+        (byBase.get(baseId) ?? byBase.set(baseId, new Map()).get(baseId)!).set(
+          fp,
+          minted,
+        );
       }
 
       for (const baseId of [...refs].sort()) {
         const byFp = byBase.get(baseId);
         if (!byFp || byFp.size === 0) {
-          warnings.push(`${unit.id}: no dump weapon for "${baseId}" — left on bare`);
+          warnings.push(
+            `${unit.id}: no dump weapon for "${baseId}" — left on bare`,
+          );
           continue;
         }
         if (byFp.size > 1) {
-          warnings.push(`${unit.id}: "${baseId}" maps to ${byFp.size} differing dump items — left on bare (author by hand)`);
+          warnings.push(
+            `${unit.id}: "${baseId}" maps to ${byFp.size} differing dump items — left on bare (author by hand)`,
+          );
           continue;
         }
         const [fp, minted] = [...byFp][0];
@@ -283,15 +366,27 @@ export function runWeaponVariants(dump: MfmDump, onlyDir?: string): WeaponVarian
         const repoEntry = repoEntryByFp.get(baseId)!.get(fp);
         const src = repoEntry ?? minted;
         if (!repoEntry)
-          warnings.push(`${unit.id}: "${baseId}" dump stats match no existing repo entry — minted variant "${variantId}" from the dump`);
-        variantEntries.set(variantId, {
+          warnings.push(
+            `${unit.id}: "${baseId}" dump stats match no existing repo entry — minted variant "${variantId}" from the dump`,
+          );
+        const variant: CoreWeapon = {
           ...(src as CoreWeapon),
           id: variantId,
           // Preserve repo format; normalize keyword-less profiles to an empty array.
-          profiles: src.profiles.map((p) => ({ ...p, keywords: p.keywords ?? [] })),
+          profiles: src.profiles.map((p) => ({
+            ...p,
+            keywords: p.keywords ?? [],
+          })),
           game_version: (src as CoreWeapon).game_version ?? gv,
-        });
-        (assignments.get(unit.id) ?? assignments.set(unit.id, new Map()).get(unit.id)!).set(baseId, variantId);
+        };
+        for (const ref of minted.external_refs) {
+          addExternalRef(variant, ref.namespace, ref.id);
+        }
+        variantEntries.set(variantId, variant);
+        (
+          assignments.get(unit.id) ??
+          assignments.set(unit.id, new Map()).get(unit.id)!
+        ).set(baseId, variantId);
       }
     }
 
@@ -310,7 +405,10 @@ export function runWeaponVariants(dump: MfmDump, onlyDir?: string): WeaponVarian
       seen.add(w.id);
       newWeapons.push(w);
     }
-    for (const v of [...variantEntries.values()].sort((a, b) => a.id.localeCompare(b.id))) newWeapons.push(v);
+    for (const v of [...variantEntries.values()].sort((a, b) =>
+      a.id.localeCompare(b.id),
+    ))
+      newWeapons.push(v);
 
     // Rewire references for every assigned unit.
     const newUnits = units.map((u) => {
@@ -326,11 +424,15 @@ export function runWeaponVariants(dump: MfmDump, onlyDir?: string): WeaponVarian
       return m ? rewireOption(o, m) : o;
     });
 
-    if (variantEntries.size > 0 || duplicatesDropped > 0) staged.push({ path: wpnPath, value: newWeapons });
+    if (variantEntries.size > 0 || duplicatesDropped > 0)
+      staged.push({ path: wpnPath, value: newWeapons });
     if (assignments.size > 0) {
-      if (JSON.stringify(newUnits) !== JSON.stringify(units)) staged.push({ path: unitsPath, value: newUnits });
-      if (JSON.stringify(newComps) !== JSON.stringify(comps)) staged.push({ path: compsPath, value: newComps });
-      if (JSON.stringify(newOptions) !== JSON.stringify(options)) staged.push({ path: optsPath, value: newOptions });
+      if (JSON.stringify(newUnits) !== JSON.stringify(units))
+        staged.push({ path: unitsPath, value: newUnits });
+      if (JSON.stringify(newComps) !== JSON.stringify(comps))
+        staged.push({ path: compsPath, value: newComps });
+      if (JSON.stringify(newOptions) !== JSON.stringify(options))
+        staged.push({ path: optsPath, value: newOptions });
     }
 
     reportDirs.push({
@@ -347,9 +449,13 @@ export function runWeaponVariants(dump: MfmDump, onlyDir?: string): WeaponVarian
 }
 
 /** Render the dry-run/applied report as markdown. */
-export function buildWeaponVariantsReport(report: WeaponVariantsReport, write: boolean): string {
+export function buildWeaponVariantsReport(
+  report: WeaponVariantsReport,
+  write: boolean,
+): string {
   const { dirs } = report;
-  const sum = (f: (d: DirVariantResult) => number) => dirs.reduce((a, d) => a + f(d), 0);
+  const sum = (f: (d: DirVariantResult) => number) =>
+    dirs.reduce((a, d) => a + f(d), 0);
   const L: string[] = [];
   L.push(`# Weapon-variant split ${write ? "(applied)" : "(dry run)"}`);
   L.push("");
@@ -360,11 +466,15 @@ export function buildWeaponVariantsReport(report: WeaponVariantsReport, write: b
       `${sum((d) => d.duplicatesDropped)} duplicate bare entr(y/ies) dropped.`,
   );
   L.push("");
-  L.push("| faction | conflicting | variants | units rewired | dupes dropped | warnings |");
+  L.push(
+    "| faction | conflicting | variants | units rewired | dupes dropped | warnings |",
+  );
   L.push("| --- | --: | --: | --: | --: | --: |");
   for (const d of dirs) {
     if (d.conflictingIds === 0 && d.variantsAdded === 0) continue;
-    L.push(`| ${d.dir} | ${d.conflictingIds} | ${d.variantsAdded} | ${d.unitsRewired} | ${d.duplicatesDropped} | ${d.warnings.length} |`);
+    L.push(
+      `| ${d.dir} | ${d.conflictingIds} | ${d.variantsAdded} | ${d.unitsRewired} | ${d.duplicatesDropped} | ${d.warnings.length} |`,
+    );
   }
   const warned = dirs.filter((d) => d.warnings.length > 0);
   if (warned.length) {

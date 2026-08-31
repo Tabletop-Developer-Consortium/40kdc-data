@@ -46,6 +46,13 @@ export type StatValue = number | string;
  */
 export type ContributorRef = string;
 /**
+ * Known external source identities. More than one id per namespace and cross-entity fan-out are valid.
+ *
+ * This interface was referenced by `0KdcBundledSchemas`'s JSON-Schema
+ * via the `definition` "external-reference-list".
+ */
+export type ExternalReferenceList = ExternalReference[];
+/**
  * The five official game phases. Unchanged between 10th and 11th edition — 11e reorders Pile In timing within the Fight phase but adds no top-level phase.
  *
  * This interface was referenced by `0KdcBundledSchemas`'s JSON-Schema
@@ -572,6 +579,22 @@ export interface KdcBundledSchemas {
   [k: string]: unknown;
 }
 /**
+ * A stable identifier assigned to the same entity by an external data source.
+ *
+ * This interface was referenced by `0KdcBundledSchemas`'s JSON-Schema
+ * via the `definition` "external-reference".
+ */
+export interface ExternalReference {
+  /**
+   * Open source namespace, such as 'mfm', 'bsdata', or 'game-datacards'.
+   */
+  namespace: string;
+  /**
+   * Identifier exactly as assigned by the external source.
+   */
+  id: string;
+}
+/**
  * A 2D point in board inches. Origin at a board corner; JSON uses y-down (downstream renderers may flip to y-up).
  *
  * This interface was referenced by `0KdcBundledSchemas`'s JSON-Schema
@@ -822,6 +845,7 @@ export interface UnitMinimum {
  */
 export interface Detachment {
   id: EntityId;
+  external_refs?: ExternalReferenceList;
   name: string;
   faction_id: EntityId;
   /**
@@ -870,6 +894,7 @@ export interface Detachment {
  */
 export interface Enhancement {
   id: EntityId;
+  external_refs?: ExternalReferenceList;
   name: string;
   detachment_id: EntityId;
   cost: number;
@@ -912,6 +937,7 @@ export interface Enhancement {
  */
 export interface Faction {
   id: EntityId;
+  external_refs?: ExternalReferenceList;
   name: string;
   parent_faction_id?: EntityId | null;
   game_version: GameVersionReference;
@@ -1974,6 +2000,7 @@ export interface PersistentDesignationEffect {
  */
 export interface Stratagem {
   id: EntityId;
+  external_refs?: ExternalReferenceList;
   name: string;
   /**
    * Whether this is a universal core stratagem or tied to a specific detachment
@@ -2430,6 +2457,7 @@ export interface UnitKeyword {
  */
 export interface Unit {
   id: EntityId;
+  external_refs?: ExternalReferenceList;
   name: string;
   /**
    * Alternate names this unit is known by (e.g. spelling variants in other tools' roster exports). Consulted by name lookup so an import matches despite a spelling difference; never displayed.
@@ -2649,6 +2677,7 @@ export interface WargearOption {
  */
 export interface Wargear {
   id: EntityId;
+  external_refs?: ExternalReferenceList;
   name: string;
   category?: string | null;
   game_version: GameVersionReference;
@@ -2690,6 +2719,7 @@ export interface WeaponKeyword {
  */
 export interface Weapon {
   id: EntityId;
+  external_refs?: ExternalReferenceList;
   name: string;
   type: "ranged" | "melee";
   /**

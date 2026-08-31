@@ -5,7 +5,13 @@
     "game_version": {
       "edition": "10th",
       "dataslate": "2025-q3"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "68be430c-4aab-441a-8c68-6e0cf3c0424d"
+      }
+    ]
   },
   {
     "id": "command-rod",
@@ -13,7 +19,13 @@
     "game_version": {
       "edition": "10th",
       "dataslate": "2025-q3"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "a43490ff-20ec-4169-a6f5-c4df0106f19a"
+      }
+    ]
   },
   {
     "id": "demolition-gear",
@@ -21,7 +33,13 @@
     "game_version": {
       "edition": "10th",
       "dataslate": "2025-q3"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "bfac6bb6-bcd7-42ef-a2fa-a13960d7f9cf"
+      }
+    ]
   },
   {
     "id": "brute-shield",
@@ -29,7 +47,13 @@
     "game_version": {
       "edition": "10th",
       "dataslate": "2025-q3"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "150b107a-a9ed-4c7e-b696-45ec389a0bdf"
+      }
+    ]
   },
   {
     "id": "slabshield",
@@ -37,7 +61,17 @@
     "game_version": {
       "edition": "10th",
       "dataslate": "2025-q3"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "0538f546-232d-4070-9200-e13f335f1c33"
+      },
+      {
+        "namespace": "mfm",
+        "id": "6fa6c35b-da60-40aa-8bfe-2f213147c014"
+      }
+    ]
   },
   {
     "id": "regimental-standard",
@@ -46,7 +80,13 @@
       "edition": "10th",
       "dataslate": "2025-q3"
     },
-    "category": "standard"
+    "category": "standard",
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "bd18f68e-60d7-4e24-aba4-9b56dd43c8aa"
+      }
+    ]
   },
   {
     "id": "vox-caster",
@@ -54,7 +94,13 @@
     "game_version": {
       "edition": "10th",
       "dataslate": "2025-q3"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "fe0bcc66-1a2f-4ab3-8eb3-ea429e3f2d00"
+      }
+    ]
   },
   {
     "id": "ratling-battlemutt",
@@ -62,7 +108,13 @@
     "game_version": {
       "edition": "10th",
       "dataslate": "2025-q3"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "2ed95431-ef55-48db-8e8b-d100d3a3b193"
+      }
+    ]
   },
   {
     "id": "medi-pack",
@@ -70,7 +122,17 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "launch"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "77111ca2-4ef4-4674-b172-58211dcf6952"
+      },
+      {
+        "namespace": "mfm",
+        "id": "8b67ff71-14f7-4c45-82ac-a401fe9375eb"
+      }
+    ]
   },
   {
     "id": "death-korps-medi-pack",
@@ -78,7 +140,13 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "launch"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "0381c354-7671-406a-885a-c9b2ad32403b"
+      }
+    ]
   },
   {
     "id": "melta-mine",
@@ -86,7 +154,13 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "launch"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "637ff365-6b4a-467f-8d20-cae7a178889e"
+      }
+    ]
   },
   {
     "id": "aquiline-prow",
@@ -94,7 +168,13 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "launch"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "e9b63fe6-aeaf-4f06-80a0-57bd0718b395"
+      }
+    ]
   },
   {
     "id": "vox-relay-beacon",
@@ -102,7 +182,13 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "launch"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "1cde1e91-1a31-417c-bda6-ca1c8a270cac"
+      }
+    ]
   },
   {
     "id": "remote-mine",
@@ -110,7 +196,13 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "launch"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "e509c0a5-6da1-4912-9ddb-de7f12f328e1"
+      }
+    ]
   },
   {
     "id": "servo-scribes",
@@ -118,7 +210,13 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "launch"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "be1820fa-9b07-48bc-8f4e-1e544206dae6"
+      }
+    ]
   },
   {
     "id": "alchemyk-counteragents",
@@ -126,6 +224,12 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "launch"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "264530a8-a2ae-4fe3-8776-022de8bbddf7"
+      }
+    ]
   }
 ]

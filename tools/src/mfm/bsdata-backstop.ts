@@ -12,9 +12,14 @@ import { Command } from "commander";
 import { loadDump, type MfmDump } from "./loader.js";
 import { REPO_ROOT } from "./repo-files.js";
 
-export type BsdataProfileType = "unit" | "ranged-weapon" | "melee-weapon" | "transport";
+export type BsdataProfileType =
+  | "unit"
+  | "ranged-weapon"
+  | "melee-weapon"
+  | "transport";
 
-const SAFE_SCALAR = /^(?:-?\d+(?:\.\d+)?(?:\+|")?|(?:\d+)?D(?:3|6)(?:[+-]\d+)?|Melee|N\/?A|-)$/i;
+const SAFE_SCALAR =
+  /^(?:-?\d+(?:\.\d+)?(?:\+|")?|(?:\d+)?D(?:3|6)(?:[+-]\d+)?|Melee|N\/?A|-)$/i;
 const ALLOWED_PROFILE_TYPES: ReadonlyMap<string, BsdataProfileType> = new Map([
   ["unit", "unit"],
   ["ranged weapons", "ranged-weapon"],
@@ -202,7 +207,11 @@ function text(value: unknown): string | undefined {
 
 function safeLabel(value: unknown): string | undefined {
   const candidate = text(value);
-  if (!candidate || candidate.length > 128 || /(?:https?:\/\/|www\.|[\r\n])/i.test(candidate)) {
+  if (
+    !candidate ||
+    candidate.length > 128 ||
+    /(?:https?:\/\/|www\.|[\r\n])/i.test(candidate)
+  ) {
     return undefined;
   }
   return candidate;
@@ -241,7 +250,9 @@ function parseJsonRoot(file: string, content: string): Record<string, unknown> {
 
 function readDocuments(tree: RevisionTree, commit: string): SourceDocument[] {
   const documents: SourceDocument[] = [];
-  for (const file of [...tree.listFiles(commit)].filter((item) => item.endsWith(".json")).sort()) {
+  for (const file of [...tree.listFiles(commit)]
+    .filter((item) => item.endsWith(".json"))
+    .sort()) {
     const parsed = parseJsonRoot(file, tree.readFile(commit, file));
     const gameSystem = parsed.gameSystem;
     const catalogue = parsed.catalogue;
@@ -249,7 +260,10 @@ function readDocuments(tree: RevisionTree, commit: string): SourceDocument[] {
       throw new Error(`Expected exactly one BSData root in ${file}`);
     }
     const kind = isRecord(gameSystem) ? "game-system" : "catalogue";
-    const root = (isRecord(gameSystem) ? gameSystem : catalogue) as Record<string, unknown>;
+    const root = (isRecord(gameSystem) ? gameSystem : catalogue) as Record<
+      string,
+      unknown
+    >;
     const id = text(root.id);
     if (!id) throw new Error(`Missing BSData root id in ${file}`);
     const imports =
@@ -279,15 +293,19 @@ function profileContract(gameSystem: SourceDocument): ProfileContract {
     profileTypes.set(id, allowed);
     for (const characteristic of records(profileType.characteristicTypes)) {
       const characteristicId = text(characteristic.id);
-      const characteristicName = normalizeLabel(text(characteristic.name) ?? "");
+      const characteristicName = normalizeLabel(
+        text(characteristic.name) ?? "",
+      );
       const canonical = ALLOWED_CHARACTERISTICS.get(characteristicName);
-      if (characteristicId && canonical) characteristics.set(characteristicId, canonical);
+      if (characteristicId && canonical)
+        characteristics.set(characteristicId, canonical);
     }
   }
   const pointsCostTypeIds = new Set<string>();
   for (const costType of records(gameSystem.root.costTypes)) {
     const id = text(costType.id);
-    if (id && normalizeLabel(text(costType.name) ?? "") === "pts") pointsCostTypeIds.add(id);
+    if (id && normalizeLabel(text(costType.name) ?? "") === "pts")
+      pointsCostTypeIds.add(id);
   }
   return { profileTypes, characteristics, pointsCostTypeIds };
 }
@@ -302,12 +320,18 @@ function extractProfiles(
   const result: BsdataProfileFact[] = [];
   for (const [profileIndex, profile] of records(node.profiles).entries()) {
     const profileTypeId = text(profile.typeId);
-    const profileType = profileTypeId ? contract.profileTypes.get(profileTypeId) : undefined;
+    const profileType = profileTypeId
+      ? contract.profileTypes.get(profileTypeId)
+      : undefined;
     if (!profileType) continue;
     const characteristics: Record<string, number | string> = {};
-    for (const [characteristicIndex, characteristic] of records(profile.characteristics).entries()) {
+    for (const [characteristicIndex, characteristic] of records(
+      profile.characteristics,
+    ).entries()) {
       const characteristicId = text(characteristic.typeId);
-      const canonical = characteristicId ? contract.characteristics.get(characteristicId) : undefined;
+      const canonical = characteristicId
+        ? contract.characteristics.get(characteristicId)
+        : undefined;
       if (!canonical) continue;
       const value = safeScalar(characteristic.$text);
       if (value === undefined) {
@@ -339,15 +363,23 @@ function extractProfiles(
   return result;
 }
 
-function extractPoints(node: Record<string, unknown>, contract: ProfileContract): number | undefined {
+function extractPoints(
+  node: Record<string, unknown>,
+  contract: ProfileContract,
+): number | undefined {
   const values = records(node.costs)
     .filter((cost) => {
       const typeId = text(cost.typeId);
       return typeId !== undefined && contract.pointsCostTypeIds.has(typeId);
     })
     .map((cost) => cost.value)
-    .filter((value): value is number => typeof value === "number" && Number.isFinite(value));
-  return values.length ? values.reduce((sum, value) => sum + value, 0) : undefined;
+    .filter(
+      (value): value is number =>
+        typeof value === "number" && Number.isFinite(value),
+    );
+  return values.length
+    ? values.reduce((sum, value) => sum + value, 0)
+    : undefined;
 }
 
 function walkDocument(
@@ -355,17 +387,31 @@ function walkDocument(
   contract: ProfileContract,
   parserWarnings: BsdataWarning[],
   heuristicWarnings: BsdataWarning[],
-): { facts: BsdataEntryFact[]; nodes: NodeReference[]; links: LinkReference[] } {
+): {
+  facts: BsdataEntryFact[];
+  nodes: NodeReference[];
+  links: LinkReference[];
+} {
   const facts: BsdataEntryFact[] = [];
   const nodes: NodeReference[] = [];
   const links: LinkReference[] = [];
-  const rootPointer = source.kind === "game-system" ? "/gameSystem" : "/catalogue";
+  const rootPointer =
+    source.kind === "game-system" ? "/gameSystem" : "/catalogue";
   const entryKeys = ["selectionEntries", "sharedSelectionEntries"] as const;
-  const groupKeys = ["selectionEntryGroups", "sharedSelectionEntryGroups"] as const;
+  const groupKeys = [
+    "selectionEntryGroups",
+    "sharedSelectionEntryGroups",
+  ] as const;
 
-  const recordFact = (node: Record<string, unknown>, pointer: string, id: string): void => {
+  const recordFact = (
+    node: Record<string, unknown>,
+    pointer: string,
+    id: string,
+  ): void => {
     const categoryHints: string[] = [];
-    for (const [categoryIndex, category] of records(node.categoryLinks).entries()) {
+    for (const [categoryIndex, category] of records(
+      node.categoryLinks,
+    ).entries()) {
       const label = safeLabel(category.name);
       if (label) categoryHints.push(label);
       else if (text(category.name)) {
@@ -378,10 +424,21 @@ function walkDocument(
       }
     }
     categoryHints.sort((left, right) => left.localeCompare(right));
-    const profiles = extractProfiles(node, pointer, contract, parserWarnings, source.file);
+    const profiles = extractProfiles(
+      node,
+      pointer,
+      contract,
+      parserWarnings,
+      source.file,
+    );
     const name = safeLabel(node.name);
     if (text(node.name) && !name) {
-      parserWarnings.push({ kind: "rejected-entry-name", source_file: source.file, pointer, id });
+      parserWarnings.push({
+        kind: "rejected-entry-name",
+        source_file: source.file,
+        pointer,
+        id,
+      });
     }
     const points = extractPoints(node, contract);
     const fact: BsdataEntryFact = {
@@ -397,14 +454,31 @@ function walkDocument(
     };
     facts.push(fact);
     if (fact.hidden) {
-      heuristicWarnings.push({ kind: "hidden-entry", source_file: source.file, pointer, id });
+      heuristicWarnings.push({
+        kind: "hidden-entry",
+        source_file: source.file,
+        pointer,
+        id,
+      });
     }
-    if ([fact.name, ...categoryHints].some((value) => normalizeLabel(value).includes("crusade"))) {
-      heuristicWarnings.push({ kind: "crusade-entry", source_file: source.file, pointer, id });
+    if (
+      [fact.name, ...categoryHints].some((value) =>
+        normalizeLabel(value).includes("crusade"),
+      )
+    ) {
+      heuristicWarnings.push({
+        kind: "crusade-entry",
+        source_file: source.file,
+        pointer,
+        id,
+      });
     }
   };
 
-  const visitContainer = (container: Record<string, unknown>, pointer: string): void => {
+  const visitContainer = (
+    container: Record<string, unknown>,
+    pointer: string,
+  ): void => {
     for (const key of entryKeys) {
       for (const [index, node] of records(container[key]).entries()) {
         visitNode(node, `${pointer}/${key}/${index}`);
@@ -423,7 +497,11 @@ function walkDocument(
         links.push({ source, pointer: linkPointer, id, targetId });
         recordFact(link, linkPointer, id);
       } else {
-        parserWarnings.push({ kind: "malformed-entry-link", source_file: source.file, pointer: linkPointer });
+        parserWarnings.push({
+          kind: "malformed-entry-link",
+          source_file: source.file,
+          pointer: linkPointer,
+        });
       }
       visitContainer(link, linkPointer);
     }
@@ -432,7 +510,11 @@ function walkDocument(
   const visitNode = (node: Record<string, unknown>, pointer: string): void => {
     const id = text(node.id);
     if (!id) {
-      parserWarnings.push({ kind: "entry-without-id", source_file: source.file, pointer });
+      parserWarnings.push({
+        kind: "entry-without-id",
+        source_file: source.file,
+        pointer,
+      });
       visitContainer(node, pointer);
       return;
     }
@@ -451,14 +533,21 @@ function warningSort(left: BsdataWarning, right: BsdataWarning): number {
 
 function parseRevision(tree: RevisionTree, commit: string): ParsedRevision {
   const documents = readDocuments(tree, commit);
-  const gameSystems = documents.filter((document) => document.kind === "game-system");
-  if (gameSystems.length !== 1) throw new Error(`Expected one BSData game system, found ${gameSystems.length}`);
+  const gameSystems = documents.filter(
+    (document) => document.kind === "game-system",
+  );
+  if (gameSystems.length !== 1)
+    throw new Error(
+      `Expected one BSData game system, found ${gameSystems.length}`,
+    );
   const gameSystem = gameSystems[0];
   for (const document of documents) {
     if (document.kind !== "catalogue") continue;
     const gameSystemId = text(document.root.gameSystemId);
     if (gameSystemId !== gameSystem.id) {
-      throw new Error(`Catalogue ${document.file} targets an unexpected game system`);
+      throw new Error(
+        `Catalogue ${document.file} targets an unexpected game system`,
+      );
     }
   }
 
@@ -469,7 +558,12 @@ function parseRevision(tree: RevisionTree, commit: string): ParsedRevision {
   const nodes: NodeReference[] = [];
   const links: LinkReference[] = [];
   for (const document of documents) {
-    const walked = walkDocument(document, contract, parserWarnings, heuristicWarnings);
+    const walked = walkDocument(
+      document,
+      contract,
+      parserWarnings,
+      heuristicWarnings,
+    );
     facts.push(...walked.facts);
     nodes.push(...walked.nodes);
     links.push(...walked.links);
@@ -488,15 +582,27 @@ function parseRevision(tree: RevisionTree, commit: string): ParsedRevision {
       kind: "duplicate-entry-id",
       id,
       evidence: duplicates
-        .map((item) => ({ source_file: item.source.file, pointer: item.pointer, id }))
-        .sort((left, right) => `${left.source_file}${left.pointer}`.localeCompare(`${right.source_file}${right.pointer}`)),
+        .map((item) => ({
+          source_file: item.source.file,
+          pointer: item.pointer,
+          id,
+        }))
+        .sort((left, right) =>
+          `${left.source_file}${left.pointer}`.localeCompare(
+            `${right.source_file}${right.pointer}`,
+          ),
+        ),
     });
   }
 
   return {
     documents,
     gameSystem,
-    facts: facts.sort((left, right) => `${left.source_file}${left.pointer}`.localeCompare(`${right.source_file}${right.pointer}`)),
+    facts: facts.sort((left, right) =>
+      `${left.source_file}${left.pointer}`.localeCompare(
+        `${right.source_file}${right.pointer}`,
+      ),
+    ),
     nodes,
     links,
     parserWarnings: parserWarnings.sort(warningSort),
@@ -512,15 +618,23 @@ function importPath(
 ): BsdataResolutionHop[] | undefined {
   if (source.file === target.file) return [];
   if (target.file === gameSystem.file) {
-    return [{
-      kind: "game-system",
-      source_file: source.file,
-      pointer: source.kind === "game-system" ? "/gameSystem" : "/catalogue/gameSystemId",
-      target_file: gameSystem.file,
-      target_id: gameSystem.id,
-    }];
+    return [
+      {
+        kind: "game-system",
+        source_file: source.file,
+        pointer:
+          source.kind === "game-system"
+            ? "/gameSystem"
+            : "/catalogue/gameSystemId",
+        target_file: gameSystem.file,
+        target_id: gameSystem.id,
+      },
+    ];
   }
-  const queue: Array<{ document: SourceDocument; chain: BsdataResolutionHop[] }> = [{ document: source, chain: [] }];
+  const queue: Array<{
+    document: SourceDocument;
+    chain: BsdataResolutionHop[];
+  }> = [{ document: source, chain: [] }];
   const visited = new Set([source.file]);
   while (queue.length) {
     const current = queue.shift()!;
@@ -553,7 +667,9 @@ function resolveLinks(parsed: ParsedRevision): BsdataLinkResolution[] {
     group.push(document);
     documentsById.set(document.id, group);
   }
-  for (const source of parsed.documents.filter((document) => document.kind === "catalogue")) {
+  for (const source of parsed.documents.filter(
+    (document) => document.kind === "catalogue",
+  )) {
     for (const imported of source.imports) {
       const candidates = documentsById.get(imported.targetId) ?? [];
       if (candidates.length === 0) {
@@ -583,11 +699,26 @@ function resolveLinks(parsed: ParsedRevision): BsdataLinkResolution[] {
   const result: BsdataLinkResolution[] = [];
   for (const link of parsed.links) {
     const candidates = (nodesById.get(link.targetId) ?? [])
-      .map((target) => ({ target, chain: importPath(link.source, target.source, documentsById, parsed.gameSystem) }))
-      .filter((item): item is { target: NodeReference; chain: BsdataResolutionHop[] } => item.chain !== undefined);
+      .map((target) => ({
+        target,
+        chain: importPath(
+          link.source,
+          target.source,
+          documentsById,
+          parsed.gameSystem,
+        ),
+      }))
+      .filter(
+        (
+          item,
+        ): item is { target: NodeReference; chain: BsdataResolutionHop[] } =>
+          item.chain !== undefined,
+      );
     if (candidates.length !== 1) {
       parsed.parserWarnings.push({
-        kind: candidates.length ? "ambiguous-entry-link" : "unresolved-entry-link",
+        kind: candidates.length
+          ? "ambiguous-entry-link"
+          : "unresolved-entry-link",
         source_file: link.source.file,
         pointer: link.pointer,
         id: link.id,
@@ -617,16 +748,25 @@ function resolveLinks(parsed: ParsedRevision): BsdataLinkResolution[] {
     });
   }
   parsed.parserWarnings.sort(warningSort);
-  return result.sort((left, right) => `${left.source_file}${left.pointer}`.localeCompare(`${right.source_file}${right.pointer}`));
+  return result.sort((left, right) =>
+    `${left.source_file}${left.pointer}`.localeCompare(
+      `${right.source_file}${right.pointer}`,
+    ),
+  );
 }
 
 function associateLinkFacts(
   facts: readonly BsdataEntryFact[],
   links: readonly BsdataLinkResolution[],
 ): BsdataEntryFact[] {
-  const byLocation = new Map(facts.map((fact) => [`${fact.source_file}\0${fact.pointer}`, fact]));
+  const byLocation = new Map(
+    facts.map((fact) => [`${fact.source_file}\0${fact.pointer}`, fact]),
+  );
   const resolvedByLink = new Map(
-    links.map((link) => [`${link.source_file}\0${link.pointer}`, byLocation.get(`${link.target_file}\0${link.target_pointer}`)]),
+    links.map((link) => [
+      `${link.source_file}\0${link.pointer}`,
+      byLocation.get(`${link.target_file}\0${link.target_pointer}`),
+    ]),
   );
   return facts.map((fact) => {
     const target = resolvedByLink.get(`${fact.source_file}\0${fact.pointer}`);
@@ -634,24 +774,50 @@ function associateLinkFacts(
     return {
       ...fact,
       name: target.name,
-      ...(fact.entry_type ? {} : target.entry_type ? { entry_type: target.entry_type } : {}),
-      category_hints: [...new Set([...fact.category_hints, ...target.category_hints])].sort((left, right) =>
-        left.localeCompare(right),
-      ),
+      ...(fact.entry_type
+        ? {}
+        : target.entry_type
+          ? { entry_type: target.entry_type }
+          : {}),
+      category_hints: [
+        ...new Set([...fact.category_hints, ...target.category_hints]),
+      ].sort((left, right) => left.localeCompare(right)),
     };
   });
 }
 
-function normalizedNames(facts: readonly BsdataEntryFact[], kind: "unit" | "weapon" | "wargear"): Map<string, string> {
+export function classifyBsdataFact(
+  fact: BsdataEntryFact,
+): "unit" | "weapon" | "wargear" | null {
+  const profileTypes = new Set(fact.profiles.map((profile) => profile.type));
+  const normalizedType = normalizeLabel(fact.entry_type ?? "");
+  const categories = fact.category_hints.map(normalizeLabel);
+  if (
+    profileTypes.has("unit") ||
+    normalizedType === "unit" ||
+    normalizedType === "model"
+  ) {
+    return "unit";
+  }
+  if (profileTypes.has("ranged-weapon") || profileTypes.has("melee-weapon"))
+    return "weapon";
+  if (
+    categories.some(
+      (value) => value.includes("wargear") || value.includes("equipment"),
+    )
+  ) {
+    return "wargear";
+  }
+  return null;
+}
+
+function normalizedNames(
+  facts: readonly BsdataEntryFact[],
+  kind: "unit" | "weapon" | "wargear",
+): Map<string, string> {
   const result = new Map<string, string>();
   for (const fact of facts) {
-    const profileTypes = new Set(fact.profiles.map((profile) => profile.type));
-    const normalizedType = normalizeLabel(fact.entry_type ?? "");
-    const categories = fact.category_hints.map(normalizeLabel);
-    const isUnit = profileTypes.has("unit") || normalizedType === "unit" || normalizedType === "model";
-    const isWeapon = profileTypes.has("ranged-weapon") || profileTypes.has("melee-weapon");
-    const isWargear = !isWeapon && categories.some((value) => value.includes("wargear") || value.includes("equipment"));
-    if ((kind === "unit" && isUnit) || (kind === "weapon" && isWeapon) || (kind === "wargear" && isWargear)) {
+    if (classifyBsdataFact(fact) === kind) {
       result.set(normalizeLabel(fact.name), fact.name);
     }
   }
@@ -669,7 +835,10 @@ function mfmComparisonFacts(dump: MfmDump): MfmComparisonFacts {
   for (const row of dump.table("wargear_item")) {
     const name = dump.enName(row);
     if (!name) continue;
-    (row.wargearType === "weapon" ? weapons : wargear).set(normalizeLabel(name), name);
+    (row.wargearType === "weapon" ? weapons : wargear).set(
+      normalizeLabel(name),
+      name,
+    );
   }
   const points = new Map<string, number[]>();
   const datasheets = dump.byId("datasheet");
@@ -681,10 +850,14 @@ function mfmComparisonFacts(dump: MfmDump): MfmComparisonFacts {
     values.push(row.stepPoints);
     points.set(key, values);
   }
-  for (const values of points.values()) values.sort((left, right) => left - right);
+  for (const values of points.values())
+    values.sort((left, right) => left - right);
 
   const profiles = new Map<string, Readonly<Record<string, string>>[]>();
-  const addProfile = (name: string, profile: Readonly<Record<string, string>>): void => {
+  const addProfile = (
+    name: string,
+    profile: Readonly<Record<string, string>>,
+  ): void => {
     const key = normalizeLabel(name);
     const values = profiles.get(key) ?? [];
     values.push(profile);
@@ -735,7 +908,10 @@ function onlyIn(
     .sort((a, b) => a.key.localeCompare(b.key));
 }
 
-function compareToMfm(facts: readonly BsdataEntryFact[], dump: MfmDump | undefined): MechanicalDifference[] {
+function compareToMfm(
+  facts: readonly BsdataEntryFact[],
+  dump: MfmDump | undefined,
+): MechanicalDifference[] {
   if (!dump) return [];
   const mfm = mfmComparisonFacts(dump);
   const bsUnits = normalizedNames(facts, "unit");
@@ -751,7 +927,10 @@ function compareToMfm(facts: readonly BsdataEntryFact[], dump: MfmDump | undefin
   ];
 
   const bsPoints = new Map<string, number[]>();
-  const bsProfiles = new Map<string, Readonly<Record<string, number | string>>[]>();
+  const bsProfiles = new Map<
+    string,
+    Readonly<Record<string, number | string>>[]
+  >();
   const bsHints = new Set<string>();
   for (const fact of facts) {
     const key = normalizeLabel(fact.name);
@@ -768,17 +947,25 @@ function compareToMfm(facts: readonly BsdataEntryFact[], dump: MfmDump | undefin
     }
     for (const hint of fact.category_hints) bsHints.add(normalizeLabel(hint));
   }
-  for (const values of bsPoints.values()) values.sort((left, right) => left - right);
+  for (const values of bsPoints.values())
+    values.sort((left, right) => left - right);
   for (const [key, mfmValues] of mfm.points) {
     const bsValues = bsPoints.get(key);
     if (bsValues && JSON.stringify(mfmValues) !== JSON.stringify(bsValues)) {
-      differences.push({ kind: "points-mismatch", key, mfm: mfmValues, bsdata: bsValues });
+      differences.push({
+        kind: "points-mismatch",
+        key,
+        mfm: mfmValues,
+        bsdata: bsValues,
+      });
     }
   }
   for (const [key, mfmProfiles] of mfm.profiles) {
     const matchingBsProfiles = bsProfiles.get(key);
     if (!matchingBsProfiles) continue;
-    const characteristics = new Set(mfmProfiles.flatMap((profile) => Object.keys(profile)));
+    const characteristics = new Set(
+      mfmProfiles.flatMap((profile) => Object.keys(profile)),
+    );
     for (const characteristic of [...characteristics].sort()) {
       const mfmValues = mfmProfiles
         .map((profile) => profile[characteristic])
@@ -793,7 +980,8 @@ function compareToMfm(facts: readonly BsdataEntryFact[], dump: MfmDump | undefin
       const normalizedBsValues = bsValues.map(normalizeLabel);
       if (
         bsValues.length &&
-        JSON.stringify(normalizedMfmValues) !== JSON.stringify(normalizedBsValues)
+        JSON.stringify(normalizedMfmValues) !==
+          JSON.stringify(normalizedBsValues)
       ) {
         differences.push({
           kind: "profile-characteristic-mismatch",
@@ -805,12 +993,17 @@ function compareToMfm(facts: readonly BsdataEntryFact[], dump: MfmDump | undefin
     }
   }
   for (const hint of [...mfm.keywordHints].sort()) {
-    if (!bsHints.has(hint)) differences.push({ kind: "keyword-hint-only-in-mfm", key: hint });
+    if (!bsHints.has(hint))
+      differences.push({ kind: "keyword-hint-only-in-mfm", key: hint });
   }
-  return differences.sort((left, right) => `${left.kind}/${left.key}`.localeCompare(`${right.kind}/${right.key}`));
+  return differences.sort((left, right) =>
+    `${left.kind}/${left.key}`.localeCompare(`${right.kind}/${right.key}`),
+  );
 }
 
-function heuristicClassificationWarnings(facts: readonly BsdataEntryFact[]): BsdataWarning[] {
+function heuristicClassificationWarnings(
+  facts: readonly BsdataEntryFact[],
+): BsdataWarning[] {
   const result: BsdataWarning[] = [];
   for (const fact of facts) {
     const labels = [fact.name, ...fact.category_hints].map(normalizeLabel);
@@ -833,7 +1026,12 @@ function sourceComparisonWarnings(
   facts: readonly BsdataEntryFact[],
   dump: MfmDump | undefined,
 ): BsdataWarning[] {
-  const result: BsdataWarning[] = [{ kind: "snapshot-skew-review", id: dump ? String(dump.version ?? "unknown") : "unknown" }];
+  const result: BsdataWarning[] = [
+    {
+      kind: "snapshot-skew-review",
+      id: dump ? String(dump.version ?? "unknown") : "unknown",
+    },
+  ];
   if (!dump) return result;
   const mfm = mfmComparisonFacts(dump);
   const names = new Map([...mfm.units, ...mfm.weapons, ...mfm.wargear]);
@@ -858,7 +1056,10 @@ export function analyzeBsdataRevision(
   dump?: MfmDump,
 ): BsdataBackstopReport {
   const commit = tree.resolveRevision(sourceRef);
-  if (!/^[0-9a-f]{40}$/.test(commit)) throw new Error(`Revision did not resolve to one full commit: ${sourceRef}`);
+  if (!/^[0-9a-f]{40}$/.test(commit))
+    throw new Error(
+      `Revision did not resolve to one full commit: ${sourceRef}`,
+    );
   const parsed = parseRevision(tree, commit);
   const links = resolveLinks(parsed);
   const facts = associateLinkFacts(parsed.facts, links);
@@ -868,7 +1069,10 @@ export function analyzeBsdataRevision(
     ...heuristicClassificationWarnings(facts),
     ...sourceComparisonWarnings(facts, dump),
   ].sort(warningSort);
-  const profileCount = facts.reduce((count, fact) => count + fact.profiles.length, 0);
+  const profileCount = facts.reduce(
+    (count, fact) => count + fact.profiles.length,
+    0,
+  );
   return {
     schema_version: 1,
     source: {
@@ -926,20 +1130,37 @@ export class JjRevisionTree implements RevisionTree {
   }
 
   resolveRevision(ref: string): string {
-    const output = this.jj(["log", "-r", this.revision(ref), "--no-graph", "-T", 'commit_id ++ "\\n"']);
+    const output = this.jj([
+      "log",
+      "-r",
+      this.revision(ref),
+      "--no-graph",
+      "-T",
+      'commit_id ++ "\\n"',
+    ]);
     const commits = output.split(/\r?\n/).filter(Boolean);
     if (commits.length !== 1 || !/^[0-9a-f]{40}$/.test(commits[0])) {
-      throw new Error(`BSData source ref must resolve to exactly one commit: ${ref}`);
+      throw new Error(
+        `BSData source ref must resolve to exactly one commit: ${ref}`,
+      );
     }
     return commits[0];
   }
 
   listFiles(commit: string): readonly string[] {
-    return this.jj(["file", "list", "-r", this.revision(commit)]).split(/\r?\n/).filter(Boolean);
+    return this.jj(["file", "list", "-r", this.revision(commit)])
+      .split(/\r?\n/)
+      .filter(Boolean);
   }
 
   readFile(commit: string, file: string): string {
-    return this.jj(["file", "show", "-r", this.revision(commit), JSON.stringify(file)]);
+    return this.jj([
+      "file",
+      "show",
+      "-r",
+      this.revision(commit),
+      JSON.stringify(file),
+    ]);
   }
 }
 
@@ -954,7 +1175,8 @@ function realpathAllowingMissing(target: string): string {
   const suffix: string[] = [];
   while (!existsSync(existing)) {
     const parent = path.dirname(existing);
-    if (parent === existing) throw new Error(`No existing ancestor for path: ${target}`);
+    if (parent === existing)
+      throw new Error(`No existing ancestor for path: ${target}`);
     suffix.unshift(path.basename(existing));
     existing = parent;
   }
@@ -963,13 +1185,17 @@ function realpathAllowingMissing(target: string): string {
 
 /** Resolve an output path through symlinks and require it to stay under `_private`. */
 export function resolvePrivateOutputPath(output: string): string {
-  const requested = path.isAbsolute(output) ? path.normalize(output) : path.resolve(REPO_ROOT, output);
+  const requested = path.isAbsolute(output)
+    ? path.normalize(output)
+    : path.resolve(REPO_ROOT, output);
   const resolved = realpathAllowingMissing(requested);
   const privateRoot = realpathAllowingMissing(path.join(REPO_ROOT, "_private"));
   const relative = path.relative(privateRoot, resolved);
   if (!relative || relative.startsWith("..") || path.isAbsolute(relative)) {
     if (!relative) return resolved;
-    throw new Error("BSData report output must remain under the repository _private directory");
+    throw new Error(
+      "BSData report output must remain under the repository _private directory",
+    );
   }
   return resolved;
 }
@@ -983,13 +1209,23 @@ export interface BsdataCliOptions {
 export function parseBsdataCli(argv: readonly string[]): BsdataCliOptions {
   const command = new Command()
     .name("mfm:bsdata")
-    .description("Compare a pinned BSData revision to the authoritative MFM snapshot")
+    .description(
+      "Compare a pinned BSData revision to the authoritative MFM snapshot",
+    )
     .requiredOption("--bsdata <checkout-directory>")
     .requiredOption("--source-ref <revision>")
-    .option("--output <path>", "private JSON report path", "_private/mfm/bsdata-backstop.json")
+    .option(
+      "--output <path>",
+      "private JSON report path",
+      "_private/mfm/bsdata-backstop.json",
+    )
     .exitOverride();
   command.parse(argv, { from: "user" });
-  const options = command.opts<{ bsdata: string; sourceRef: string; output: string }>();
+  const options = command.opts<{
+    bsdata: string;
+    sourceRef: string;
+    output: string;
+  }>();
   return options;
 }
 
@@ -997,7 +1233,11 @@ export function runBsdataCli(argv: readonly string[]): void {
   const options = parseBsdataCli(argv);
   const checkout = realpathSync(path.resolve(process.cwd(), options.bsdata));
   const output = resolvePrivateOutputPath(options.output);
-  const report = analyzeBsdataRevision(new JjRevisionTree(checkout), options.sourceRef, loadDump());
+  const report = analyzeBsdataRevision(
+    new JjRevisionTree(checkout),
+    options.sourceRef,
+    loadDump(),
+  );
   mkdirSync(path.dirname(output), { recursive: true });
   writeFileSync(output, `${JSON.stringify(report, null, 2)}\n`);
   console.log(
@@ -1006,7 +1246,10 @@ export function runBsdataCli(argv: readonly string[]): void {
   );
 }
 
-if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+if (
+  process.argv[1] &&
+  import.meta.url === pathToFileURL(process.argv[1]).href
+) {
   try {
     runBsdataCli(process.argv.slice(2));
   } catch (error) {

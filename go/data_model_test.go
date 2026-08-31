@@ -1,6 +1,9 @@
 package wh40kdc
 
-import "testing"
+import (
+	"reflect"
+	"testing"
+)
 
 // A shared ability_id keeps one copy per faction (the copies legitimately
 // diverge); only true within-faction duplicates collapse. Mirror of the
@@ -19,8 +22,54 @@ func TestDeduplicatesAbilitiesByFactionAndID(t *testing.T) {
 			idols++
 		}
 	}
+
 	if idols != 2 {
 		t.Fatalf("idol-of-blessed-blood copies = %d, want 2 (both factions survive dedupe)", idols)
+	}
+}
+func TestByExternalRefReturnsEveryExactMatch(t *testing.T) {
+	items := []any{
+		map[string]any{
+			"id": "first",
+			"external_refs": []any{
+				map[string]any{"namespace": "source", "id": "shared"},
+				map[string]any{"namespace": "source", "id": "alternate"},
+			},
+		},
+		map[string]any{
+			"id": "second",
+			"external_refs": []any{
+				map[string]any{"namespace": "source", "id": "shared"},
+			},
+		},
+	}
+	collection := newCollection(items, func(item any) map[string]any {
+		return item.(map[string]any)
+	}, collectionOpts{
+		idOf: func(item any) string { return getStr(item.(map[string]any), "id") },
+	})
+	ids := func(namespace, id string) []string {
+		matches := collection.ByExternalRef(namespace, id)
+		result := make([]string, len(matches))
+		for index, match := range matches {
+			result[index] = getStr(match, "id")
+		}
+		return result
+	}
+
+	for _, test := range []struct {
+		namespace string
+		id        string
+		want      []string
+	}{
+		{"source", "shared", []string{"first", "second"}},
+		{"source", "alternate", []string{"first"}},
+		{"Source", "shared", []string{}},
+		{"source", "Shared", []string{}},
+	} {
+		if got := ids(test.namespace, test.id); !reflect.DeepEqual(got, test.want) {
+			t.Fatalf("ByExternalRef(%q, %q) = %v, want %v", test.namespace, test.id, got, test.want)
+		}
 	}
 }
 

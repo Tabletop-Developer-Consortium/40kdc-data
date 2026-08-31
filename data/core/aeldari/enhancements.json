@@ -16,7 +16,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "9593a9fc-9b36-51b2-95ed-a94ddfd4028e"
+      },
+      {
+        "namespace": "mfm",
+        "id": "fb8a0e05-6f2c-49f6-aa41-963dfe850ef3"
+      }
+    ]
   },
   {
     "id": "phoenix-gem-warhost",
@@ -34,7 +44,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "1b9e8b71-6ea3-5a53-b1b3-9edcca7880c8"
+      },
+      {
+        "namespace": "mfm",
+        "id": "d9b0f7e9-a70c-42d2-9c5a-177bdef1b3ba"
+      }
+    ]
   },
   {
     "id": "mirage-field-windrider-host",
@@ -53,7 +73,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "2c2535ad-a9ad-59af-8529-edc796947653"
+      },
+      {
+        "namespace": "mfm",
+        "id": "c73157aa-c3a9-4b4b-a079-fa4317388710"
+      }
+    ]
   },
   {
     "id": "seersight-strike-windrider-host",
@@ -73,7 +103,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "481d5b74-2b7c-5076-a49a-ab5a9954843c"
+      },
+      {
+        "namespace": "mfm",
+        "id": "16d5e738-7ef2-4b1c-8ab2-0d06387fe9c8"
+      }
+    ]
   },
   {
     "id": "echoes-of-ulthanesh-windrider-host",
@@ -92,7 +132,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "c8a27a24-79f7-57b9-8304-91aeb91601ff"
+      },
+      {
+        "namespace": "mfm",
+        "id": "ac56444c-3a73-4bc2-840f-bf2bc77224cd"
+      }
+    ]
   },
   {
     "id": "guiding-presence-armoured-warhost",
@@ -111,7 +161,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "c1e8b97b-a246-525f-8cb2-12a267ad05cc"
+      },
+      {
+        "namespace": "mfm",
+        "id": "ee7b206e-5fe4-4050-8d7b-9e5f569adc9f"
+      }
+    ]
   },
   {
     "id": "light-of-clarity-spirit-conclave",
@@ -129,7 +189,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "8e03ae19-8acc-5b38-bdd5-7506d94ded11"
+      },
+      {
+        "namespace": "mfm",
+        "id": "518aa1c5-0552-4956-a26e-1f1b0ef0735d"
+      }
+    ]
   },
   {
     "id": "stave-of-kurnos-spirit-conclave",
@@ -147,7 +217,13 @@
     },
     "points_provisional": true,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "167889f0-4c0b-5a70-852a-77a740c76901"
+      }
+    ]
   },
   {
     "id": "harmonisation-matrix-armoured-warhost",
@@ -165,7 +241,13 @@
     },
     "points_provisional": true,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "5119ef50-6cb8-5260-bd3d-4d068693295d"
+      }
+    ]
   },
   {
     "id": "rune-of-mists-spirit-conclave",
@@ -183,7 +265,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "9c71b3a2-c767-5694-b958-df9fe496a5bb"
+      },
+      {
+        "namespace": "mfm",
+        "id": "a22be813-ff64-4ee5-9f34-63af27d95c0f"
+      }
+    ]
   },
   {
     "id": "spirit-stone-of-raelyth-armoured-warhost",
@@ -202,7 +294,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "a4eb62e4-dc85-5aca-aaa7-5ba2601ef021"
+      },
+      {
+        "namespace": "mfm",
+        "id": "c6afafd7-2084-43da-af98-5ea9d98ed9f3"
+      }
+    ]
   },
   {
     "id": "guileful-strategist-armoured-warhost",
@@ -220,7 +322,13 @@
     },
     "points_provisional": true,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "a83825b9-100a-5b0e-991a-7d3d8ce08ff3"
+      }
+    ]
   },
   {
     "id": "higher-duty-spirit-conclave",
@@ -238,7 +346,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "29d3f534-e610-59b5-9cfd-b2a2c0af0c02"
+      },
+      {
+        "namespace": "mfm",
+        "id": "2eaf00bc-71f8-4f67-826a-25be5f237381"
+      }
+    ]
   },
   {
     "id": "cegorachs-coil-ghosts-of-the-webway",
@@ -256,7 +374,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "c33d3763-7eb2-5e6a-8cd9-975cf4d8222a"
+      },
+      {
+        "namespace": "mfm",
+        "id": "9a257477-1660-4fad-a6dd-87d8d883f102"
+      }
+    ]
   },
   {
     "id": "mask-of-secrets-ghosts-of-the-webway",
@@ -274,7 +402,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "acdf1c28-dc0a-56bb-889b-dc44e5529de1"
+      },
+      {
+        "namespace": "mfm",
+        "id": "1350fccf-0b94-40fb-a7eb-35f5f21a88ec"
+      }
+    ]
   },
   {
     "id": "murders-jest-ghosts-of-the-webway",
@@ -292,7 +430,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "53463295-fc9f-5515-98ae-d45f8ec0430b"
+      },
+      {
+        "namespace": "mfm",
+        "id": "3a24874a-1649-4168-a7d3-e10d6a6ad595"
+      }
+    ]
   },
   {
     "id": "mistweave-ghosts-of-the-webway",
@@ -310,7 +458,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "36161231-f974-52d7-958f-f61bd902282b"
+      },
+      {
+        "namespace": "mfm",
+        "id": "67e3f31f-1ec0-4ad5-b92e-c5e9d7ce7146"
+      }
+    ]
   },
   {
     "id": "timeless-strategist-warhost",
@@ -328,7 +486,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "cc704896-fc90-52fb-a477-98111b32a101"
+      },
+      {
+        "namespace": "mfm",
+        "id": "dc2d066c-2c3b-4d13-8251-71b0f38a46ef"
+      }
+    ]
   },
   {
     "id": "gift-of-foresight-warhost",
@@ -346,7 +514,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "4b0d81cd-5507-5f07-bb4b-5eb74b25a561"
+      },
+      {
+        "namespace": "mfm",
+        "id": "a7b9fda2-ee8a-4a67-9273-c78b672faf83"
+      }
+    ]
   },
   {
     "id": "psychic-destroyer-warhost",
@@ -365,7 +543,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "1fd65654-3c4f-59f6-b938-f4bac3fae45c"
+      },
+      {
+        "namespace": "mfm",
+        "id": "7c7a454e-4548-414f-9cf1-5faf80dddd9d"
+      }
+    ]
   },
   {
     "id": "craftworlds-champion-guardian-battlehost",
@@ -383,7 +571,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "62d45d18-cef2-5cf9-a11d-983142ff5ad3"
+      },
+      {
+        "namespace": "mfm",
+        "id": "0ab6c77a-f7e0-4175-a08a-d7ac02cee847"
+      }
+    ]
   },
   {
     "id": "ethereal-pathway-guardian-battlehost",
@@ -401,7 +599,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "c9ec1d00-556d-5e07-9094-6c3fa10758f7"
+      },
+      {
+        "namespace": "mfm",
+        "id": "b9241196-72d9-4b64-94f2-7e485bf0a84b"
+      }
+    ]
   },
   {
     "id": "protector-of-the-paths-guardian-battlehost",
@@ -419,7 +627,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "e9ecb615-80ca-5b4d-aa94-0cfeef6c5901"
+      },
+      {
+        "namespace": "mfm",
+        "id": "f0cce164-4c78-40a7-8b37-448cd4dc2d0c"
+      }
+    ]
   },
   {
     "id": "breath-of-vaul-guardian-battlehost",
@@ -437,7 +655,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "99bb3d3d-2c17-5d00-a8c5-8d4a3fdcc122"
+      },
+      {
+        "namespace": "mfm",
+        "id": "a6dc92ee-14cc-409a-adb4-12aeb3178bce"
+      }
+    ]
   },
   {
     "id": "gaze-of-ynnead-devoted-of-ynnead",
@@ -455,7 +683,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "cceb01eb-b2c1-5e12-b53d-350f5d3a018c"
+      },
+      {
+        "namespace": "mfm",
+        "id": "26849fdc-c5cb-4c85-b018-9a4be81c4266"
+      }
+    ]
   },
   {
     "id": "storm-of-whispers-devoted-of-ynnead",
@@ -473,7 +711,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "eec7d709-19b7-5022-9711-a835040a342d"
+      },
+      {
+        "namespace": "mfm",
+        "id": "988e0966-960b-4c51-9589-fd0e01942b13"
+      }
+    ]
   },
   {
     "id": "borrowed-vigour-devoted-of-ynnead",
@@ -491,7 +739,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "2ea7a1c6-b217-5df8-9607-4024de471fcd"
+      },
+      {
+        "namespace": "mfm",
+        "id": "4c728b85-8794-4043-9890-15c62ee1ee74"
+      }
+    ]
   },
   {
     "id": "morbid-might-devoted-of-ynnead",
@@ -509,7 +767,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "b430ada6-7f3f-5007-be6d-aa5ab6ad3cfd"
+      },
+      {
+        "namespace": "mfm",
+        "id": "4400e72b-4375-4bce-b0ec-68b7d2011328"
+      }
+    ]
   },
   {
     "id": "lucid-eye-seer-council",
@@ -528,7 +796,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "6d0c88de-3e85-5bf7-9c60-92c868401395"
+      },
+      {
+        "namespace": "mfm",
+        "id": "2829e959-9dd5-485b-ad55-9b162e11d54f"
+      }
+    ]
   },
   {
     "id": "runes-of-warding-seer-council",
@@ -547,7 +825,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "0db73998-e51a-5e05-9836-03cba2b46ce6"
+      },
+      {
+        "namespace": "mfm",
+        "id": "c2eaaffb-4410-4c56-ba4c-f24c5b725653"
+      }
+    ]
   },
   {
     "id": "stone-of-eldritch-fury-seer-council",
@@ -566,7 +854,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "a5e7d246-0c33-52d4-ae98-877e8403d30e"
+      },
+      {
+        "namespace": "mfm",
+        "id": "d4232944-2e90-4b98-8350-2fedc2258f40"
+      }
+    ]
   },
   {
     "id": "torc-of-morai-heg-seer-council",
@@ -585,7 +883,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "f336ed87-795c-5958-b45a-6021986607f2"
+      },
+      {
+        "namespace": "mfm",
+        "id": "aed77636-0e18-4093-a0b3-778692d22602"
+      }
+    ]
   },
   {
     "id": "aspect-of-murder-aspect-host",
@@ -608,6 +916,16 @@
       [
         "Autarch Wayleaper"
       ]
+    ],
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "98de73dc-cb6f-5640-8e82-5bc7d2d4a5df"
+      },
+      {
+        "namespace": "mfm",
+        "id": "af33d000-b02d-40ef-9c11-0e0e92432740"
+      }
     ]
   },
   {
@@ -631,6 +949,16 @@
       [
         "Autarch"
       ]
+    ],
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "5e69cd67-37e9-5cb0-a6f5-4c72965467b6"
+      },
+      {
+        "namespace": "mfm",
+        "id": "1ae1869b-921c-48fa-9c64-69dd2b1da1b0"
+      }
     ]
   },
   {
@@ -654,6 +982,16 @@
       [
         "Autarch"
       ]
+    ],
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "825e3da1-88fa-5bb3-ba40-a480ef6f7454"
+      },
+      {
+        "namespace": "mfm",
+        "id": "94c1a89a-9440-4408-86ab-de0674cc8068"
+      }
     ]
   },
   {
@@ -677,6 +1015,16 @@
       [
         "Autarch"
       ]
+    ],
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "aefc4a79-6fff-599f-8cbb-14a89ac845e5"
+      },
+      {
+        "namespace": "mfm",
+        "id": "8d9c8be4-f9d6-4cf2-bdf9-1b50f5e73c04"
+      }
     ]
   },
   {
@@ -698,6 +1046,16 @@
     "max_targets": 1,
     "exclusion_keywords": [
       "Solitaire"
+    ],
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "57697090-fab2-5cd3-b349-27ff2a6f795a"
+      },
+      {
+        "namespace": "mfm",
+        "id": "39ac87c1-1d96-4aaf-909b-6addb2fa6cad"
+      }
     ]
   },
   {
@@ -716,7 +1074,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "d9f30c0d-d34e-51e1-a48a-660269f16338"
+      },
+      {
+        "namespace": "mfm",
+        "id": "964c822b-33e6-412a-8ebd-fa8d57373161"
+      }
+    ]
   },
   {
     "id": "fanged-leer-serpents-brood",
@@ -734,7 +1102,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "4daa4f28-00ff-5975-9407-f3502f23afd8"
+      },
+      {
+        "namespace": "mfm",
+        "id": "aadd7a8b-5a65-42f3-81fc-ec7af02d3685"
+      }
+    ]
   },
   {
     "id": "shedskin-raiment-serpents-brood",
@@ -752,7 +1130,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "a9969ade-b77f-5fe4-9e29-0ba7383d47d3"
+      },
+      {
+        "namespace": "mfm",
+        "id": "f76c75df-3d07-400d-9d6e-95dd4fea6446"
+      }
+    ]
   },
   {
     "id": "pirate-prince-eldritch-raiders",
@@ -770,7 +1158,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "36873415-b7ff-52c5-a4ce-889cdf8c9d63"
+      },
+      {
+        "namespace": "mfm",
+        "id": "df9c2882-bb85-422e-a0b9-bc4073a61dca"
+      }
+    ]
   },
   {
     "id": "alacritous-assault-eldritch-raiders",
@@ -788,7 +1186,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "fc3ef2e0-44d1-58ad-b0c7-b47830cb4778"
+      },
+      {
+        "namespace": "mfm",
+        "id": "00eb75e2-21f5-445c-8fd4-431a1133ceb6"
+      }
+    ]
   },
   {
     "id": "exotic-munitions-eldritch-raiders",
@@ -806,7 +1214,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "776109a0-95ee-5c9b-97d0-2c721957a6db"
+      },
+      {
+        "namespace": "mfm",
+        "id": "4ac38d29-d3a8-4299-b36d-adce59b94bb7"
+      }
+    ]
   },
   {
     "id": "adrenal-infusions-eldritch-raiders",
@@ -825,7 +1243,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "c20351ee-69da-5836-9e27-82203daba636"
+      },
+      {
+        "namespace": "mfm",
+        "id": "077c4e3a-5f38-4e34-99c5-afaee553a5ee"
+      }
+    ]
   },
   {
     "id": "infamy-aura-corsair-coterie",
@@ -843,7 +1271,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "8267f019-bfd4-57c7-83aa-adcf8a8753cb"
+      },
+      {
+        "namespace": "mfm",
+        "id": "558885b8-e1fc-4c9e-8100-f7402cbda111"
+      }
+    ]
   },
   {
     "id": "webway-pathstone-corsair-coterie",
@@ -861,7 +1299,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "1f67f34c-083b-51fe-b8a2-a078b9b9bca3"
+      },
+      {
+        "namespace": "mfm",
+        "id": "867996f1-aa68-4a1d-a57c-bc2ee1e0e36d"
+      }
+    ]
   },
   {
     "id": "archraider-corsair-coterie",
@@ -880,7 +1328,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "299ed59c-451b-57ec-9517-9579aa162279"
+      },
+      {
+        "namespace": "mfm",
+        "id": "ba1c51ea-71ba-47bc-8e62-298f4ad9f391"
+      }
+    ]
   },
   {
     "id": "voidstone-corsair-coterie",
@@ -899,7 +1357,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "68dc5624-afac-505d-bf00-c4a2e0a15a51"
+      },
+      {
+        "namespace": "mfm",
+        "id": "1b083a45-8703-43da-8966-0c3340d8c4e2"
+      }
+    ]
   },
   {
     "id": "a-foot-in-the-future-fateful-performance",
@@ -918,7 +1386,13 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "0a7de918-b766-40e7-b070-5b35c1bedad5"
+      }
+    ]
   },
   {
     "id": "mistweave-fateful-performance",
@@ -937,7 +1411,13 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "0b334c87-9ac3-471d-9708-20ecb762b900"
+      }
+    ]
   },
   {
     "id": "camouflaged-snipers-upgrade-path-of-the-outcast",
@@ -956,7 +1436,13 @@
     },
     "points_provisional": false,
     "upgrade_tag": true,
-    "max_targets": 3
+    "max_targets": 3,
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "654f52bb-4966-4254-bdd1-242d120c8f03"
+      }
+    ]
   },
   {
     "id": "shadowfall-masks-upgrade-twilight-flickers",
@@ -975,7 +1461,13 @@
     },
     "points_provisional": false,
     "upgrade_tag": true,
-    "max_targets": 3
+    "max_targets": 3,
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "627a96a6-71e7-4eb1-81ef-83be078a8900"
+      }
+    ]
   },
   {
     "id": "prelude-performer-twilight-flickers",
@@ -993,7 +1485,13 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "be347cc7-e483-497b-a475-0d5d3be07a32"
+      }
+    ]
   },
   {
     "id": "guided-jump-kygharils-protectors",
@@ -1012,7 +1510,13 @@
     "keyword_restrictions": [
       "Kygharil's Protectors Warp Spiders"
     ],
-    "upgrade_tag": true
+    "upgrade_tag": true,
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "9f284647-768c-470b-a84e-42450935b075"
+      }
+    ]
   },
   {
     "id": "seers-hand-kygharils-protectors",
@@ -1030,6 +1534,12 @@
     "points_provisional": false,
     "keyword_restrictions": [
       "Spiritseer Kygharil"
+    ],
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "38c84028-2718-4537-bf80-3808d06997bd"
+      }
     ]
   },
   {
@@ -1048,6 +1558,12 @@
     "max_targets": 1,
     "keyword_restrictions": [
       "Spiritseer"
+    ],
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "282aca3c-3003-4f0c-beaa-48e503c7cea5"
+      }
     ]
   },
   {
@@ -1073,6 +1589,12 @@
         "Asuryani",
         "Shroud Runners"
       ]
+    ],
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "95508954-f634-4150-9300-b76953d3217f"
+      }
     ]
   }
 ]

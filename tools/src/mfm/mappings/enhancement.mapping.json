@@ -2,9 +2,7 @@
   "$schema": "../mfm-source-map.schema.json",
   "entity_schema": "schemas/core/enhancement.schema.json",
   "mapping_version": 1,
-  "root_tables": [
-    "enhancement"
-  ],
+  "root_tables": ["enhancement"],
   "fields": {
     "/ability_id": {
       "provenance": "unresolved-candidate",
@@ -42,9 +40,7 @@
       "precedence": [
         "Resolved MFM bodyguards replace the field on matched entities and populate newly seeded matched-play entities."
       ],
-      "consumers": [
-        "tools/src/mfm/enhancements.ts#runEnhancements"
-      ],
+      "consumers": ["tools/src/mfm/enhancements.ts#runEnhancements"],
       "reason": "Some enhancements grant their bearer attachment targets beyond the datasheet's ordinary leader or support eligibility."
     },
     "/attachment_bodyguard_ids/*": {
@@ -63,17 +59,13 @@
       ],
       "filters": [],
       "precedence": [],
-      "consumers": [
-        "tools/src/mfm/enhancements.ts#runEnhancements"
-      ],
+      "consumers": ["tools/src/mfm/enhancements.ts#runEnhancements"],
       "reason": "Each source relation contributes one additional legal bodyguard unit id."
     },
     "/cost": {
       "provenance": "direct",
       "coverage": "partial",
-      "sources": [
-        "data.enhancement.basePointsCost"
-      ],
+      "sources": ["data.enhancement.basePointsCost"],
       "joins": [],
       "transforms": [],
       "filters": [
@@ -82,9 +74,7 @@
       "precedence": [
         "A non-null basePointsCost replaces the matched entity cost; a null source preserves the authored cost."
       ],
-      "consumers": [
-        "tools/src/mfm/enhancements.ts#runEnhancements"
-      ],
+      "consumers": ["tools/src/mfm/enhancements.ts#runEnhancements"],
       "reason": "The reconciliation pass applies non-null MFM costs only to existing entities whose derived ids match."
     },
     "/detachment_id": {
@@ -140,9 +130,7 @@
         "Fill-only: written when the repo authored no exclusion; a populated disagreement is surfaced for review, not overwritten."
       ],
       "precedence": [],
-      "consumers": [
-        "tools/src/mfm/enhancements.ts#runEnhancements"
-      ],
+      "consumers": ["tools/src/mfm/enhancements.ts#runEnhancements"],
       "reason": "Excluded-keyword edges resolve to repo labels and fill an empty exclusion_keywords; authored values are preserved."
     },
     "/exclusion_keywords/*": {
@@ -164,17 +152,92 @@
         "Fill-only: written when the repo authored no exclusion; a populated disagreement is surfaced for review, not overwritten."
       ],
       "precedence": [],
-      "consumers": [
-        "tools/src/mfm/enhancements.ts#runEnhancements"
-      ],
+      "consumers": ["tools/src/mfm/enhancements.ts#runEnhancements"],
       "reason": "Each excluded-keyword edge resolves to one repository keyword label."
+    },
+    "/external_refs": {
+      "provenance": "derived",
+      "coverage": "implemented",
+      "sources": ["data.enhancement.id"],
+      "joins": [],
+      "transforms": [
+        {
+          "symbol": "tools/src/mfm/external-refs.ts#runMfmExternalRefs",
+          "operation": "Preserve every detachment-scoped enhancement identity under the mfm namespace."
+        }
+      ],
+      "filters": [
+        "Canonical enhancement and parent-detachment identities must resolve exactly."
+      ],
+      "precedence": [
+        "Additive: retain exact references from every other namespace."
+      ],
+      "consumers": [
+        "tools/src/mfm/external-refs.ts#runMfmExternalRefs",
+        "tools/src/mfm/enhancements.ts#runEnhancements",
+        "tools/src/mfm/seed-detachments.ts#runSeedDetachments"
+      ],
+      "reason": "External source identities are additive interoperability metadata."
+    },
+    "/external_refs/*": {
+      "provenance": "derived",
+      "coverage": "implemented",
+      "sources": ["data.enhancement.id"],
+      "joins": [],
+      "transforms": [
+        {
+          "symbol": "tools/src/mfm/external-refs.ts#runMfmExternalRefs",
+          "operation": "Create one unique namespace/id pair."
+        }
+      ],
+      "filters": ["Only exact detachment-scoped enhancement matches."],
+      "precedence": ["Additive; exact duplicate pairs are ignored."],
+      "consumers": [
+        "tools/src/mfm/external-refs.ts#runMfmExternalRefs",
+        "tools/src/mfm/enhancements.ts#runEnhancements",
+        "tools/src/mfm/seed-detachments.ts#runSeedDetachments"
+      ],
+      "reason": "Each item preserves one exact external identity."
+    },
+    "/external_refs/*/id": {
+      "provenance": "direct",
+      "coverage": "implemented",
+      "sources": ["data.enhancement.id"],
+      "joins": [],
+      "transforms": [],
+      "filters": ["Only exact detachment-scoped enhancement matches."],
+      "precedence": [],
+      "consumers": [
+        "tools/src/mfm/external-refs.ts#runMfmExternalRefs",
+        "tools/src/mfm/enhancements.ts#runEnhancements",
+        "tools/src/mfm/seed-detachments.ts#runSeedDetachments"
+      ],
+      "reason": "The external id is the MFM enhancement primary key."
+    },
+    "/external_refs/*/namespace": {
+      "provenance": "derived",
+      "coverage": "implemented",
+      "sources": ["data.enhancement.id"],
+      "joins": [],
+      "transforms": [
+        {
+          "symbol": "tools/src/mfm/external-refs.ts#runMfmExternalRefs",
+          "operation": "Label the source identity with the constant mfm namespace."
+        }
+      ],
+      "filters": [],
+      "precedence": [],
+      "consumers": [
+        "tools/src/mfm/external-refs.ts#runMfmExternalRefs",
+        "tools/src/mfm/enhancements.ts#runEnhancements",
+        "tools/src/mfm/seed-detachments.ts#runSeedDetachments"
+      ],
+      "reason": "The namespace distinguishes MFM ids from other source identities."
     },
     "/game_modes": {
       "provenance": "derived",
       "coverage": "partial",
-      "sources": [
-        "data.enhancement.isCombatPatrol"
-      ],
+      "sources": ["data.enhancement.isCombatPatrol"],
       "joins": [],
       "transforms": [
         {
@@ -197,9 +260,7 @@
     "/game_modes/*": {
       "provenance": "derived",
       "coverage": "partial",
-      "sources": [
-        "data.enhancement.isCombatPatrol"
-      ],
+      "sources": ["data.enhancement.isCombatPatrol"],
       "joins": [],
       "transforms": [
         {
@@ -222,9 +283,7 @@
     "/game_version": {
       "provenance": "derived",
       "coverage": "partial",
-      "sources": [
-        "data.enhancement.basePointsCost"
-      ],
+      "sources": ["data.enhancement.basePointsCost"],
       "joins": [],
       "transforms": [
         {
@@ -238,17 +297,13 @@
       "precedence": [
         "The reconciliation pass sets both game-version members to its confirmed launch constants."
       ],
-      "consumers": [
-        "tools/src/mfm/enhancements.ts#runEnhancements"
-      ],
+      "consumers": ["tools/src/mfm/enhancements.ts#runEnhancements"],
       "reason": "The game-version value is a repository confirmation stamp triggered by a matched MFM row, not a conversion of dump version metadata."
     },
     "/game_version/dataslate": {
       "provenance": "derived",
       "coverage": "partial",
-      "sources": [
-        "data.enhancement.basePointsCost"
-      ],
+      "sources": ["data.enhancement.basePointsCost"],
       "joins": [],
       "transforms": [
         {
@@ -262,17 +317,13 @@
       "precedence": [
         "The reconciliation pass replaces the existing dataslate with its confirmed launch constant."
       ],
-      "consumers": [
-        "tools/src/mfm/enhancements.ts#runEnhancements"
-      ],
+      "consumers": ["tools/src/mfm/enhancements.ts#runEnhancements"],
       "reason": "This is repository confirmation metadata, not an implicit translation of the dump snapshot version."
     },
     "/game_version/edition": {
       "provenance": "derived",
       "coverage": "partial",
-      "sources": [
-        "data.enhancement.basePointsCost"
-      ],
+      "sources": ["data.enhancement.basePointsCost"],
       "joins": [],
       "transforms": [
         {
@@ -286,9 +337,7 @@
       "precedence": [
         "The reconciliation pass replaces the existing edition with its confirmed constant."
       ],
-      "consumers": [
-        "tools/src/mfm/enhancements.ts#runEnhancements"
-      ],
+      "consumers": ["tools/src/mfm/enhancements.ts#runEnhancements"],
       "reason": "This is repository confirmation metadata, not an implicit translation of the dump snapshot version."
     },
     "/id": {
@@ -367,17 +416,13 @@
       "precedence": [
         "Resolved MFM groups replace the field on matched entities and populate newly seeded matched-play entities."
       ],
-      "consumers": [
-        "tools/src/mfm/enhancements.ts#runEnhancements"
-      ],
+      "consumers": ["tools/src/mfm/enhancements.ts#runEnhancements"],
       "reason": "The nested field exactly represents the source model: AND within a required-keyword group and OR across groups."
     },
     "/keyword_restriction_groups/*": {
       "provenance": "derived",
       "coverage": "implemented",
-      "sources": [
-        "data.enhancement_required_keyword_group.id"
-      ],
+      "sources": ["data.enhancement_required_keyword_group.id"],
       "joins": [],
       "transforms": [
         {
@@ -385,13 +430,9 @@
           "operation": "Emit one nested list for each distinct non-empty source group."
         }
       ],
-      "filters": [
-        "Empty and duplicate source groups are omitted."
-      ],
+      "filters": ["Empty and duplicate source groups are omitted."],
       "precedence": [],
-      "consumers": [
-        "tools/src/mfm/enhancements.ts#runEnhancements"
-      ],
+      "consumers": ["tools/src/mfm/enhancements.ts#runEnhancements"],
       "reason": "Each nested list is one alternative bearer-eligibility conjunction."
     },
     "/keyword_restriction_groups/*/*": {
@@ -416,9 +457,7 @@
         "Do not emit any group when one of its source ids is unresolved."
       ],
       "precedence": [],
-      "consumers": [
-        "tools/src/mfm/enhancements.ts#runEnhancements"
-      ],
+      "consumers": ["tools/src/mfm/enhancements.ts#runEnhancements"],
       "reason": "Every member of one nested list is required together for that eligibility alternative."
     },
     "/keyword_restrictions": {
@@ -448,9 +487,7 @@
         "Fill-only: written when the repo authored none and exactly one source eligibility group exists; divergent alternatives are represented only by keyword_restriction_groups."
       ],
       "precedence": [],
-      "consumers": [
-        "tools/src/mfm/enhancements.ts#runEnhancements"
-      ],
+      "consumers": ["tools/src/mfm/enhancements.ts#runEnhancements"],
       "reason": "The flat field remains a backward-compatible single-group representation; the nested field is authoritative."
     },
     "/keyword_restrictions/*": {
@@ -475,34 +512,26 @@
         "Fill-only member of the legacy flat field; emitted only for a single source eligibility group."
       ],
       "precedence": [],
-      "consumers": [
-        "tools/src/mfm/enhancements.ts#runEnhancements"
-      ],
+      "consumers": ["tools/src/mfm/enhancements.ts#runEnhancements"],
       "reason": "Each member is required together in the one group representable by the legacy flat field."
     },
     "/max_targets": {
       "provenance": "direct",
       "coverage": "implemented",
-      "sources": [
-        "data.enhancement.limit"
-      ],
+      "sources": ["data.enhancement.limit"],
       "joins": [],
       "transforms": [],
       "filters": [],
       "precedence": [
         "The dump copy limit is authoritative and overwrites the authored value."
       ],
-      "consumers": [
-        "tools/src/mfm/enhancements.ts#runEnhancements"
-      ],
+      "consumers": ["tools/src/mfm/enhancements.ts#runEnhancements"],
       "reason": "MFM limit is the number of copies an enhancement may be taken; runEnhancements overwrites max_targets from it."
     },
     "/name": {
       "provenance": "direct",
       "coverage": "implemented",
-      "sources": [
-        "data.enhancement.localisations.*.name"
-      ],
+      "sources": ["data.enhancement.localisations.*.name"],
       "joins": [],
       "transforms": [
         {
@@ -523,9 +552,7 @@
     "/points_provisional": {
       "provenance": "derived",
       "coverage": "partial",
-      "sources": [
-        "data.enhancement.basePointsCost"
-      ],
+      "sources": ["data.enhancement.basePointsCost"],
       "joins": [],
       "transforms": [
         {
@@ -539,17 +566,13 @@
       "precedence": [
         "The reconciliation pass sets points_provisional to false after any matched row, including null Combat Patrol cost rows."
       ],
-      "consumers": [
-        "tools/src/mfm/enhancements.ts#runEnhancements"
-      ],
+      "consumers": ["tools/src/mfm/enhancements.ts#runEnhancements"],
       "reason": "The flag is repository confirmation state derived from a matching MFM enhancement, not a dump column."
     },
     "/upgrade_tag": {
       "provenance": "derived",
       "coverage": "implemented",
-      "sources": [
-        "data.enhancement.enhancementType"
-      ],
+      "sources": ["data.enhancement.enhancementType"],
       "joins": [],
       "transforms": [
         {
@@ -561,9 +584,7 @@
       "precedence": [
         "The GW enhancement classification is authoritative and overwrites the authored flag."
       ],
-      "consumers": [
-        "tools/src/mfm/enhancements.ts#runEnhancements"
-      ],
+      "consumers": ["tools/src/mfm/enhancements.ts#runEnhancements"],
       "reason": "The 11e upgrade class is exactly the dump's \"upgrade\" enhancementType; runEnhancements overwrites the authored flag from it."
     }
   },

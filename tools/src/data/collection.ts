@@ -22,6 +22,7 @@
  *
  * @packageDocumentation
  */
+import { externalRefKey } from "../external-refs.js";
 import { normalizeName } from "./normalize.js";
 
 /**
@@ -64,6 +65,10 @@ export interface CollectionConfig<T, V> {
    * `aliases`.
    */
   idAliases?: Readonly<Record<string, string>>;
+  /** Stable source identities indexed by {@link Collection.byExternalRef}. */
+  externalRefsOf?: (
+    item: T,
+  ) => readonly { namespace: string; id: string }[] | null | undefined;
   /** Owning faction id, if applicable — drives {@link Collection.byFaction}. */
   factionOf?: (item: T) => string | null | undefined;
   /**
@@ -97,6 +102,7 @@ export class Collection<T, V> implements Iterable<V> {
   private readonly byId = new Map<string, T>();
   private readonly byNorm = new Map<string, T[]>();
   private readonly byFactionId = new Map<string, T[]>();
+  private readonly byExternalRefKey = new Map<string, T[]>();
   private readonly idOf: (item: T) => string;
   private readonly nameOf?: (item: T) => string | undefined;
   private readonly idAliases?: Readonly<Record<string, string>>;
@@ -115,7 +121,9 @@ export class Collection<T, V> implements Iterable<V> {
     const dedupeKeyOf = cfg.dedupeKeyOf ?? cfg.idOf;
     const seen = new Set<string>();
     // id -> distinct faction ids it appears under (only tracked when guarding).
-    const idFactions = cfg.guardUnscoped ? new Map<string, Set<string>>() : undefined;
+    const idFactions = cfg.guardUnscoped
+      ? new Map<string, Set<string>>()
+      : undefined;
     for (const item of cfg.items) {
       const dedupeKey = dedupeKeyOf(item);
       if (seen.has(dedupeKey)) continue; // first-wins dedup
@@ -133,8 +141,15 @@ export class Collection<T, V> implements Iterable<V> {
       // so an alias can never displace the canonical owner of a normalized key.
       for (const alias of cfg.aliasesOf?.(item) ?? []) {
         const aliasKey = normalizeName(alias);
-        if (aliasKey === "" || aliasKey === (name ? normalizeName(name) : undefined)) continue;
+        if (
+          aliasKey === "" ||
+          aliasKey === (name ? normalizeName(name) : undefined)
+        )
+          continue;
         push(this.byNorm, aliasKey, item);
+      }
+      for (const ref of cfg.externalRefsOf?.(item) ?? []) {
+        push(this.byExternalRefKey, externalRefKey(ref.namespace, ref.id), item);
       }
 
       const faction = cfg.factionOf?.(item);
@@ -217,7 +232,7 @@ export class Collection<T, V> implements Iterable<V> {
    */
   getInFaction(id: string, factionId: string): V | undefined {
     // Resolve a renamed id to its current form before scoping to the faction.
-    const resolvedId = this.byId.has(id) ? id : this.idAliases?.[id] ?? id;
+    const resolvedId = this.byId.has(id) ? id : (this.idAliases?.[id] ?? id);
     const list = this.byFactionId.get(factionId);
     const item = list?.find((i) => this.idOf(i) === resolvedId);
     return item ? this.wrapFn(item) : undefined;
@@ -226,6 +241,17 @@ export class Collection<T, V> implements Iterable<V> {
   /** Whether a record with this exact id (or a renamed alias of it) exists. */
   has(id: string): boolean {
     return this.rawById(id) !== undefined;
+  }
+
+  /**
+   * Return every canonical record carrying an exact external source identity.
+   * External mappings are many-to-many: several records may share one source
+   * identity, and one record may carry several ids from the same namespace.
+   */
+  byExternalRef(namespace: string, id: string): V[] {
+    return (this.byExternalRefKey.get(externalRefKey(namespace, id)) ?? []).map(
+      (item) => this.wrapFn(item),
+    );
   }
 
   /**

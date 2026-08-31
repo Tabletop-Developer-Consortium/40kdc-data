@@ -64,7 +64,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "e7d8-1c73-7d03-8b62"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "20c06da2-729f-52ce-8989-b2b98ea909b3"
+      },
+      {
+        "namespace": "mfm",
+        "id": "9648d234-c523-4d9d-baa4-84b921ca2add"
+      }
+    ]
   },
   {
     "id": "contemptor-achillus-dreadnought",
@@ -128,7 +142,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "db3b-02cd-87a2-3b52"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "3b049bfc-9a92-5d0a-825f-de4c6c6e1fa9"
+      },
+      {
+        "namespace": "mfm",
+        "id": "4031c312-82d0-4f15-b41b-addf144d3035"
+      }
+    ]
   },
   {
     "id": "contemptor-galatus-dreadnought",
@@ -189,7 +217,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "4988-d93e-5034-2b3c"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "807361fc-19a7-5ef8-baf7-4c9c9367f2bf"
+      },
+      {
+        "namespace": "mfm",
+        "id": "cb56eefe-2137-4e94-9f5b-5285b522d8dd"
+      }
+    ]
   },
   {
     "id": "venerable-contemptor-dreadnought",
@@ -253,7 +295,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "188b-e48b-29f-1456"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "cf2b9789-37cf-5eaf-bd1f-6b126b5173b2"
+      },
+      {
+        "namespace": "mfm",
+        "id": "69d0337d-97aa-427f-843f-f39dc8aa2954"
+      }
+    ]
   },
   {
     "id": "blade-champion",
@@ -318,7 +374,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "48b7-e713-d5b1-f11c"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "e3d44ca2-252c-517f-8702-19e20f311930"
+      },
+      {
+        "namespace": "mfm",
+        "id": "4b224ff9-7cb1-40c7-a759-d586c85b7595"
+      }
+    ]
   },
   {
     "id": "caladius-grav-tank",
@@ -388,6 +458,20 @@
       {
         "item_id": "twin-arachnus-heavy-blaze-cannon",
         "cost": 15
+      }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "3ee2-62a9-af84-1a90"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "67a406c1-4870-58e0-a260-38b87888d4a1"
+      },
+      {
+        "namespace": "mfm",
+        "id": "48964ec8-ee6d-4489-a687-704e4afe0a8a"
       }
     ]
   },
@@ -503,6 +587,20 @@
         "count": 2,
         "per_models": 0
       }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "c8a6-a4c5-703e-b717"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "1d52b4a3-4514-5a3e-adab-3594c2a60fa0"
+      },
+      {
+        "namespace": "mfm",
+        "id": "3a9e87a1-8a5f-4042-bbc5-191daf658762"
+      }
     ]
   },
   {
@@ -564,7 +662,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "58fa-4a25-a5af-1144"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "e9125c0a-5c67-588b-bdb5-bb08e977f9b5"
+      },
+      {
+        "namespace": "mfm",
+        "id": "e6b0ca7e-f600-4910-a873-d1f087cc89ad"
+      }
+    ]
   },
   {
     "id": "vigilators",
@@ -630,7 +742,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "dd2d-568a-9c56-1b6e"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "a625fffb-42af-51c1-99a0-20a2f699b2fa"
+      },
+      {
+        "namespace": "mfm",
+        "id": "c290fd99-6b93-4c94-a9a7-5f28aec0c8d2"
+      }
+    ]
   },
   {
     "id": "sagittarum-custodians",
@@ -685,7 +811,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "6f9f-e6aa-ba13-aab1"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "6faae4f4-5ef4-5bba-9bd3-17a82eb610f9"
+      },
+      {
+        "namespace": "mfm",
+        "id": "e2076df2-2db5-4a75-b6fe-62bdcba57587"
+      }
+    ]
   },
   {
     "id": "witchseekers",
@@ -752,7 +892,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "503b-f7be-eeeb-9e31"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "9232d973-cdd6-519b-a8da-4c68e578ca7f"
+      },
+      {
+        "namespace": "mfm",
+        "id": "dbfc8b44-9b6f-4244-a206-a8d0d54effce"
+      }
+    ]
   },
   {
     "id": "ares-gunship",
@@ -817,7 +971,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "9335-74d9-ad68-3ff7"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "b8ed7302-d7b0-5075-bfde-8077f6e2f414"
+      },
+      {
+        "namespace": "mfm",
+        "id": "7320d30a-1c65-46df-86bf-ba946d99c370"
+      }
+    ]
   },
   {
     "id": "custodian-guard",
@@ -905,6 +1073,20 @@
         "count": 2,
         "per_models": 0
       }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "91b3-2e1c-e642-d213"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "923d8a4f-3a80-5328-bd04-8d3bcee4d6e2"
+      },
+      {
+        "namespace": "mfm",
+        "id": "76d3028d-0e37-4349-828b-2f1394158c9b"
+      }
     ]
   },
   {
@@ -975,7 +1157,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "9c1a-7efd-ed36-440e"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "335a4762-5e7e-5012-9ff2-9d53d3f8a66d"
+      },
+      {
+        "namespace": "mfm",
+        "id": "63d685f3-93f9-48a3-abeb-790758eef16c"
+      }
+    ]
   },
   {
     "id": "knight-centura",
@@ -1037,7 +1233,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "7099-71b-56e8-7191"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "cd641b7e-b287-5d63-85ef-4e991dd25cfd"
+      },
+      {
+        "namespace": "mfm",
+        "id": "36049330-7004-46c8-8eed-8c800b2cdf95"
+      }
+    ]
   },
   {
     "id": "anathema-psykana-rhino",
@@ -1108,7 +1318,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "d7cb-7d30-715b-50d2"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "2e5ba22b-8a92-5e30-aa84-5610a5081445"
+      },
+      {
+        "namespace": "mfm",
+        "id": "6b53c94b-7a62-4b9e-8ff8-5b8b6deb12a3"
+      }
+    ]
   },
   {
     "id": "aleya",
@@ -1168,7 +1392,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "9e42-7207-9c30-6122"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "2973a1e7-49ab-5c6f-a61f-0abefe87bfe5"
+      },
+      {
+        "namespace": "mfm",
+        "id": "bf3e8f52-2e65-4ad8-9131-72184cf9548b"
+      }
+    ]
   },
   {
     "id": "agamatus-custodians",
@@ -1231,7 +1469,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "00ab-41c4-cf52-4ad2"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "d711fcf3-cd9c-56e2-936f-3e7d7ce404f1"
+      },
+      {
+        "namespace": "mfm",
+        "id": "5ba22e74-9fdb-485a-9a6f-a0b4be8c83b6"
+      }
+    ]
   },
   {
     "id": "venerable-land-raider",
@@ -1300,7 +1552,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "76be-3bcb-cf4-bcbd"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "bf47a8d1-d746-5e58-a1f7-46863e3c0f38"
+      },
+      {
+        "namespace": "mfm",
+        "id": "9ad38e41-8435-45c5-8bca-4baaa19fa084"
+      }
+    ]
   },
   {
     "id": "custodian-wardens",
@@ -1383,6 +1649,20 @@
         "count": 1,
         "per_models": 0
       }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "9610-b148-8433-93b8"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "84afd6cb-2f70-5b2d-87ee-e5c581b96817"
+      },
+      {
+        "namespace": "mfm",
+        "id": "7f7c2b49-b51c-48ce-aef9-26b1aed37b13"
+      }
     ]
   },
   {
@@ -1438,7 +1718,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "06df-2fb2-8dfa-2fce"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "5d5d209e-d797-5a54-b0c4-2ce818faa24b"
+      },
+      {
+        "namespace": "mfm",
+        "id": "b2ed74f8-9a09-4a8b-bff0-8626279f255d"
+      }
+    ]
   },
   {
     "id": "vertus-praetors",
@@ -1513,7 +1807,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "918b-c9ed-7af7-74df"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "e3558fff-5623-5899-8bb0-e6a2aa3881cd"
+      },
+      {
+        "namespace": "mfm",
+        "id": "a4b9670e-d176-4df7-a9c5-53c2ea3a31ab"
+      }
+    ]
   },
   {
     "id": "valerian",
@@ -1573,7 +1881,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "8103-2e01-5d6a-b761"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "12edb3d1-de71-5dce-8515-c95f86fa9b05"
+      },
+      {
+        "namespace": "mfm",
+        "id": "bac43b52-54eb-41b0-bff0-3b4c6bab9cfc"
+      }
+    ]
   },
   {
     "id": "venatari-custodians",
@@ -1659,6 +1981,20 @@
         "item_id": "venatari-lance",
         "cost": 5
       }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "201e-e502-a8d1-3974"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "d9fb2942-b113-5191-8a92-f7b99cce3504"
+      },
+      {
+        "namespace": "mfm",
+        "id": "f648099f-c41d-4a3c-87c5-3254694e69cc"
+      }
     ]
   },
   {
@@ -1718,7 +2054,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "6319-eeba-b717-bd86"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "6dc40aca-5350-5393-b026-5fb29533920f"
+      },
+      {
+        "namespace": "mfm",
+        "id": "d57478e4-2c7b-42ad-9b58-20c9bd32de4f"
+      }
+    ]
   },
   {
     "id": "aquilon-custodians",
@@ -1781,7 +2131,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "03bc-0141-b967-40e0"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "fd3600e1-2b97-5ed3-9d4f-d943b864caf1"
+      },
+      {
+        "namespace": "mfm",
+        "id": "9d794b20-4afb-4e62-a229-1cd248101930"
+      }
+    ]
   },
   {
     "id": "custodian-guard-with-adrasite-and-pyrithite-spears",
@@ -1842,7 +2206,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "af0f-5212-907e-7125"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "1f8acce4-6284-5da7-bdae-85ba7d424c25"
+      },
+      {
+        "namespace": "mfm",
+        "id": "6e20e60e-55d3-479f-98b0-196957b8291e"
+      }
+    ]
   },
   {
     "id": "coronus-grav-carrier",
@@ -1910,7 +2288,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "f35e-ef9c-9ef4-77e1"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "f0b82110-5f91-5f45-9280-d686ae2823cd"
+      },
+      {
+        "namespace": "mfm",
+        "id": "93ef1198-87f0-452f-b0ed-55cfb91d6fce"
+      }
+    ]
   },
   {
     "id": "prosecutors",
@@ -1982,6 +2374,20 @@
         "keyword": "Battleline",
         "required_detachment_id": "null-maiden-vigil"
       }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "3ec3-a4df-fdbf-5507"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "c88e2168-63a7-58d4-92f7-599f8240099a"
+      },
+      {
+        "namespace": "mfm",
+        "id": "48c832ac-9b76-465e-b845-f9ea1e58159a"
+      }
     ]
   },
   {
@@ -2041,7 +2447,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "b61c-b815-65c0-b1cc"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "0371022a-b06a-508a-bd11-0c8b08fc8ab4"
+      },
+      {
+        "namespace": "mfm",
+        "id": "ee075c03-bc58-414d-8124-32feba88554b"
+      }
+    ]
   },
   {
     "id": "trajann-valoris",
@@ -2102,7 +2522,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "7d7c-c212-47a3-38e4"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "8d484fc2-0de6-5a20-b6fb-888f23a18b3f"
+      },
+      {
+        "namespace": "mfm",
+        "id": "3eede144-e2a5-4806-8f4c-0716c5803a55"
+      }
+    ]
   },
   {
     "id": "gilded-blades-allarus-custodians",
@@ -2151,7 +2585,13 @@
     "base_size_mm": {
       "shape": "round",
       "diameter": 40
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "6b79f067-c2ba-4e3e-bd59-d2e056ef2383"
+      }
+    ]
   },
   {
     "id": "gilded-blades-custodian-guard",
@@ -2201,7 +2641,13 @@
     "base_size_mm": {
       "shape": "round",
       "diameter": 40
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "d4518eaf-6d8c-440c-9361-175d65cc18d5"
+      }
+    ]
   },
   {
     "id": "gilded-blades-custodian-wardens",
@@ -2249,7 +2695,13 @@
     "base_size_mm": {
       "shape": "round",
       "diameter": 40
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "8b6cd456-d2ad-4522-9f03-2bd1696f4b31"
+      }
+    ]
   },
   {
     "id": "tristraen-of-the-gilded-blades",
@@ -2300,6 +2752,12 @@
     "base_size_mm": {
       "shape": "round",
       "diameter": 40
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "7938debf-5a7f-4aaa-8364-5a507b382091"
+      }
+    ]
   }
 ]

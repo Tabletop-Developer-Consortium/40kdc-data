@@ -5,7 +5,13 @@
     "game_version": {
       "edition": "10th",
       "dataslate": "2025-q3"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "13df0ce0-d27d-4004-a370-1611de3526db"
+      }
+    ]
   },
   {
     "id": "sybarite-weapon",
@@ -22,7 +28,13 @@
       "edition": "10th",
       "dataslate": "2025-q3"
     },
-    "category": "icon"
+    "category": "icon",
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "49a47f0e-f2f3-49f4-9089-b4c164174287"
+      }
+    ]
   },
   {
     "id": "phantasm-grenade-launcher",
@@ -30,7 +42,21 @@
     "game_version": {
       "edition": "10th",
       "dataslate": "2025-q3"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "69fe633d-fa89-4a70-9de3-9bfccbf68a09"
+      },
+      {
+        "namespace": "mfm",
+        "id": "79bfd4a0-3952-454b-95db-bee1f1f23580"
+      },
+      {
+        "namespace": "mfm",
+        "id": "a27f1572-67ff-4f06-89a5-0c3147bdb33b"
+      }
+    ]
   },
   {
     "id": "incubi-shrine-token",
@@ -39,7 +65,13 @@
       "edition": "10th",
       "dataslate": "2025-q3"
     },
-    "category": "token"
+    "category": "token",
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "7a5cde45-5a87-4a49-a0d3-8e035b99c93e"
+      }
+    ]
   },
   {
     "id": "cluster-caltrops",
@@ -47,7 +79,13 @@
     "game_version": {
       "edition": "10th",
       "dataslate": "2025-q3"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "4c13862a-8646-4675-8660-92e80d1ed9b6"
+      }
+    ]
   },
   {
     "id": "grav-talon",
@@ -55,7 +93,17 @@
     "game_version": {
       "edition": "10th",
       "dataslate": "2025-q3"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "6d7b527c-2b1a-44b6-b72a-e035011627a4"
+      },
+      {
+        "namespace": "mfm",
+        "id": "f4d519e6-ad5f-48f7-9e96-c9b8168322c2"
+      }
+    ]
   },
   {
     "id": "stimm-needler",
@@ -63,7 +111,13 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "launch"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "c867b290-f746-47f5-998b-788c25e7406e"
+      }
+    ]
   },
   {
     "id": "shadowfield",
@@ -71,6 +125,12 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "launch"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "d60de8f2-5774-4d65-965d-ff4072102b76"
+      }
+    ]
   }
 ]
